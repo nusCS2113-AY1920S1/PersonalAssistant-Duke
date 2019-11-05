@@ -19,6 +19,11 @@ public class StorageManager {
     private Wallet wallet = new Wallet();
     private TaskList taskList = new TaskList();
 
+    /**
+     * Constructor for the StorageManager Object.
+     * @param taskPath String detailing the filepath to the stored Task Data
+     * @param walletPath String detailing the filepath to the stored Wallet Data
+     */
     public StorageManager(String taskPath, String walletPath) {
         this.initializationStatus = "";
         this.initializationStatus += this.loadTasks(taskPath);
@@ -63,6 +68,12 @@ public class StorageManager {
         }
     }
 
+    /**
+     * Returns a TaskList of Task by a specific date.
+     * @param date LocalDate to be found
+     * @return TaskList containing all the Tasks matching date
+     * @throws DukeException Error when trying to access Tasks at the given date.
+     */
     public TaskList getTasksByDate(LocalDate date) throws DukeException {
         TaskList filteredTaskList = new TaskList();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
@@ -108,6 +119,12 @@ public class StorageManager {
         }
     }
 
+    /**
+     * Accessor method to ReceiptTracker's getReceiptByTag() method.
+     * @param tag String to be found in tag
+     * @return ReceiptTracker containing all the Receipts with tag
+     * @throws DukeException Error when trying to obtain all receipts with the tag
+     */
     public ReceiptTracker getReceiptsByTag(String tag) throws DukeException {
         try {
             return this.wallet.getReceipts().getReceiptsByTag(tag);
@@ -186,24 +203,27 @@ public class StorageManager {
         }
     }
 
+    /**
+     * Accessor Method to ReceiptTracker's getPrintableReceipts() method.
+     * @return String detailing all the Receipts to be printed to the User
+     */
     public String getPrintableReceipts() {
         return this.wallet.getReceipts().getPrintableReceipts();
     }
 
+    /**
+     * Accessor Method to TaskList's getPrintableTasks() method.
+     * @return String detailing all the Tasks to be printed to the User.
+     */
     public String getPrintableTasks() {
         return this.taskList.getPrintableTasks();
     }
 
-    public String getPrintableTaskByIndex(int index) throws DukeException {
-        try {
-            return getPrintableTaskByIndex(index);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("The TaskList does not contain that Task index.\n");
-        } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("TaskList does not contain that Task index.\n");
-        }
-    }
-
+    /**
+     * Accessor Method to Task's markDone Method.
+     * @param index int representing the index of the Task to mark done
+     * @throws DukeException Error when trying to Mark a Task as Done
+     */
     public void markTaskDoneByIndex(int index) throws DukeException {
         try {
             this.taskList.get(index).markDone();
@@ -212,6 +232,11 @@ public class StorageManager {
         }
     }
 
+    /**
+     * Loads all queued Tasks in particular indexed-Task.
+     * @param index int representing the index of the Task to load all the queuedTasks from
+     * @throws DukeException Error when trying to load queued Tasks.
+     */
     public void loadQueuedTasksByIndex(int index) throws DukeException {
         try {
             this.taskList.loadQueuedTasks(this.taskList.get(index));
@@ -220,6 +245,12 @@ public class StorageManager {
         }
     }
 
+    /**
+     * Creates a Task and adds it to the TaskList.
+     * @param taskType TaskType of the Task to be created.
+     * @param userInput String with all the Task details
+     * @throws DukeException Error when trying to add a task into the TaskList
+     */
     public void createTask(TaskType taskType, String userInput) throws DukeException {
         try {
             this.taskList.addTask(TaskList.createTask(taskType, userInput));
@@ -230,14 +261,34 @@ public class StorageManager {
         }
     }
 
+    /**
+     * Returns a String detailing the most recent Task appended to the TaskList.
+     * @return String detailing the most recently appended Task
+     */
     public String getPrintableLatestTask() {
         return this.taskList.getMostRecentTaskAdded().genTaskDesc();
     }
 
-    public void initializeQueueByIndex(int index) {
-        this.taskList.get(index).initializeQueue();
+    /**
+     * Initializes a queuedTask List of a Task given its index.
+     * @param index int representing the index of the Task in question
+     * @throws DukeException Error when trying to access a Task outside the Array Size
+     */
+    public void initializeQueueByIndex(int index) throws DukeException {
+        try {
+            this.taskList.get(index).initializeQueue();
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("No task found at Index: " + index + "\n");
+        }
     }
 
+    /**
+     * Creates and queues a Task to an existing Task given its index.
+     * @param index int representing the index of the Task to queue the other Task on
+     * @param commandType CommandType of the Task to be created
+     * @param taskStr String with all the details of the Task to be created.
+     * @throws DukeException Error when trying to queue a task
+     */
     public void queueTaskByIndex(int index, CommandType commandType, String taskStr) throws DukeException {
         try {
             Task task = TaskList.createTask(TaskType.valueOf(commandType.toString()), taskStr);

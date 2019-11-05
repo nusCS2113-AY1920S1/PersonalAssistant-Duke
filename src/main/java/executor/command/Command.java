@@ -12,6 +12,10 @@ public abstract class Command {
     protected String description = "NO DESCRIPTION";
 
     // Constructor
+
+    /**
+     * Base Constructor for all sub-classes to call super().
+     */
     public Command() {
         this.infoCapsule = new InfoCapsule();
         infoCapsule.setCodeError();

@@ -1,6 +1,7 @@
 package storage;
 
 import duke.exception.DukeException;
+import executor.command.CommandAddIncomeReceipt;
 import executor.command.CommandAddReceipt;
 import executor.command.CommandAddSpendingReceipt;
 import executor.command.CommandType;
@@ -59,7 +60,7 @@ public class StorageWallet {
                 if (loadedInput.equals("")) {
                     break;
                 }
-                wallet = parseAddReceiptFromStorageString(wallet, loadedInput);
+                parseAddReceiptFromStorageString(wallet, loadedInput);
             }
         } catch (Exception e) {
             throw new DukeException("No Previously Saved Wallet Data.");
@@ -71,19 +72,18 @@ public class StorageWallet {
      * Converts saved String in StorageWallet to actual Receipt object and saves in Wallet Object.
      * @param loadedInput The saved String to be converted
      */
-    private Wallet parseAddReceiptFromStorageString(Wallet wallet, String loadedInput) {
+    private void parseAddReceiptFromStorageString(Wallet wallet, String loadedInput) {
         CommandType commandtype = Parser.parseForCommandType(loadedInput);
         Receipt r = null;
         if (commandtype == CommandType.OUT) {
             CommandAddReceipt c = new CommandAddSpendingReceipt(loadedInput);
             r = new Receipt(c.getCash(), c.getDate(), c.getTags());
         } else if (commandtype == CommandType.IN) {
-            CommandAddReceipt c = new CommandAddSpendingReceipt(loadedInput);
+            CommandAddIncomeReceipt c = new CommandAddIncomeReceipt(loadedInput);
             r = new IncomeReceipt(c.getCash(), c.getDate(), c.getTags());
         }
         if (r != null) {
             wallet.addReceipt(r);
         }
-        return wallet;
     }
 }

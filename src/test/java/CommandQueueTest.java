@@ -1,8 +1,10 @@
+import duke.exception.DukeException;
 import executor.command.CommandQueue;
 import executor.task.Task;
 import executor.task.TaskList;
 import executor.task.TaskType;
 import org.junit.jupiter.api.Test;
+import storage.StorageManager;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -10,15 +12,21 @@ class CommandQueueTest {
 
     @Test
     void execute() {
-        TaskList taskList = new TaskList();
-        Task testTask = TaskList.createTask(TaskType.EVENT,"something/by somewhen");
-        taskList.addTask(testTask);
-        CommandQueue testCommand = new CommandQueue("Queue 1 EventIce Cream Party / Tomorrow");
-        testCommand.execute(taskList);
+        Task testTask = null;
+        try {
+            testTask = TaskList.createTask(TaskType.EVENT, "something/by somewhen");
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+        }
+        assert testTask != null;
+        StorageManager storageManager = new StorageManager();
+        storageManager.getTaskList().addTask(testTask);
+        CommandQueue testCommand = new CommandQueue("Queue 1 /task EventIce Cream Party / Tomorrow");
+        testCommand.execute(storageManager);
 
-        Task mainTask = taskList.getList().get(0);
+        Task mainTask = storageManager.getTaskList().get(0);
         assertEquals(true, mainTask.isQueuedTasks());
-        Task queuedTask = mainTask.getQueuedTasks().getList().get(0);
+        Task queuedTask = mainTask.getQueuedTasks().get(0);
         assertEquals(TaskType.EVENT, queuedTask.getTaskType());
         assertEquals("Ice Cream Party", queuedTask.getTaskName());
         assertEquals("", queuedTask.getDetailDesc());

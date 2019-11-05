@@ -117,7 +117,7 @@ public class ReceiptTrackerTest {
             assertEquals(40.0, tracker.getFolders().get("tagged").getTotalCashSpent());
             assertFalse(tracker.isRegisteredTag("Fire"));
         } catch (DukeException e) {
-            Ui.dukeSays(e.toString());
+            System.out.println(e.toString());
         }
 
         try {
@@ -127,13 +127,13 @@ public class ReceiptTrackerTest {
             assertFalse(tracker.isRegisteredTag("Fire"));
             assertEquals(0.0, tracker.getFolders().get("fire").getTotalCashSpent());
         } catch (DukeException e) {
-            Ui.dukeSays(e.toString());
+            System.out.println(e.toString());
         }
 
         try {
             tracker.addFolder("fire");
         } catch (DukeException e) {
-            Ui.dukeSays(e.toString());
+            System.out.println(e.toString());
         }
     }
 
@@ -146,7 +146,7 @@ public class ReceiptTrackerTest {
         try {
             tracker.addFolder("ice");
         } catch (DukeException e) {
-            Ui.dukeSays(e.toString());
+            System.out.println(e.toString());
         }
         assertEquals(-5.00, tracker.getCashSpentByTag("ice"));
         assertFalse(tracker.isRegisteredTag("loans"));

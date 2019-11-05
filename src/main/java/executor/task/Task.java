@@ -93,7 +93,6 @@ public abstract class Task {
 
     /**
      * Records the details from the user input into this Task object.
-     *
      * @param userInput The input taken from the user in CLI
      */
     public void recordTaskDetails(String userInput) {
