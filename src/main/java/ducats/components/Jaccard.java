@@ -21,7 +21,7 @@ public class Jaccard implements Serializable {
     public int union(List<String> list1, List<String> list2) {
         HashMap<String, Integer> mapLetterList1 = new HashMap<String, Integer>();
         for (String temp: list1) {
-            if (mapLetterList1.containsKey(list1)) {
+            if (mapLetterList1.containsKey(temp)) {
                 mapLetterList1.put(temp,mapLetterList1.get(temp) + 1);
             } else {
                 mapLetterList1.put(temp,1);
@@ -31,6 +31,7 @@ public class Jaccard implements Serializable {
         for (String temp: list2) {
             if (mapLetterList1.containsKey(temp)) {
                 if (mapLetterList1.get(temp) > 0) {
+                    //System.out.println(temp);
                     numCommon += 1;
                     mapLetterList1.put(temp,mapLetterList1.get(temp) - 1);
                 }
@@ -55,7 +56,8 @@ public class Jaccard implements Serializable {
 
         int intersection = union(word1List,word2List);;
         word1List1.addAll(word2List);
+
         int union = word1List1.size();
-        return intersection / (double)union;
+        return intersection / ((double)union - intersection);
     }
 }
