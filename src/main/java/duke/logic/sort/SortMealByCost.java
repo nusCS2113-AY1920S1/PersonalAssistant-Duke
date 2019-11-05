@@ -9,7 +9,7 @@ public class SortMealByCost implements Comparator<Meal> {
     @Override
     public int compare(Meal meal, Meal mealCompared) {
         BigDecimal mealCost = new BigDecimal(meal.getCostStr());
-        BigDecimal mealComparedCost = new BigDecimal(meal.getCostStr());
+        BigDecimal mealComparedCost = new BigDecimal(mealCompared.getCostStr());
         return mealCost.compareTo(mealComparedCost);
     }
 

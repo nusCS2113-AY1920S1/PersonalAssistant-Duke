@@ -1,48 +1,37 @@
 {
   "2019-11-06": [
     {
-      "description": "hashbrown",
-      "type": "B",
-      "mealType": "BREAKFAST",
-      "isDone": true,
-      "date": "2019-11-06",
-      "nutritionValue": {
-        "calorie": 500
-      },
-      "costStr": "0"
-    },
-    {
-      "description": "mash",
-      "type": "B",
-      "mealType": "BREAKFAST",
-      "isDone": true,
-      "date": "2019-11-06",
-      "nutritionValue": {
-        "calorie": 500
-      },
-      "costStr": "2.5"
-    },
-    {
-      "description": "icecream",
-      "type": "L",
-      "mealType": "LUNCH",
-      "isDone": true,
-      "date": "2019-11-06",
-      "nutritionValue": {
-        "calorie": 123
-      },
-      "costStr": "0"
-    },
-    {
-      "description": "steak",
+      "description": "dips",
       "type": "D",
       "mealType": "DINNER",
       "isDone": true,
       "date": "2019-11-06",
       "nutritionValue": {
-        "calorie": 234
+        "calorie": 100
       },
-      "costStr": "0"
+      "costStr": "0.5"
+    },
+    {
+      "description": "apple",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-06",
+      "nutritionValue": {
+        "calorie": 800
+      },
+      "costStr": "1.5"
+    },
+    {
+      "description": "porridge",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-06",
+      "nutritionValue": {
+        "calorie": 300
+      },
+      "costStr": "3.00"
     },
     {
       "description": "chocolate",

@@ -1,12 +1,12 @@
 {
   "weight": {
-    "2019-11-05": 75.0
+    "2019-11-06": 75.0
   },
   "height": 175,
   "age": 21,
   "gender": "MALE",
   "isSetup": true,
-  "name": "Ivan",
+  "name": "Ivan Andika",
   "activityLevel": 1,
   "factor": [
     1.2,

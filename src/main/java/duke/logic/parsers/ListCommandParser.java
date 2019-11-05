@@ -40,8 +40,7 @@ public class ListCommandParser implements ParserInterface<ListCommand> {
                 String sortArgStr = argumentInfoMap.get(details).trim();
                 if (sortArgStr.equals("cost")) {
                     return new ListCommand(localDate, sortArgStr);
-                }
-                else if (sortArgStr.equals("calorie")) {
+                } else if (sortArgStr.equals("calorie")) {
                     return new ListCommand(localDate, sortArgStr);
                 }
             }
