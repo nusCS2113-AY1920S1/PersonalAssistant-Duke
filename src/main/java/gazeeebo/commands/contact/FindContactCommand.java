@@ -12,9 +12,9 @@ public class FindContactCommand {
     /**
      * Finds the contact number with the contact name.
      *
-     * @param ui        deals with printing things to the user.
-     * @param contactList   map each name to its own phone number
-     * @param lineBreak String separator
+     * @param ui          deals with printing things to the user.
+     * @param contactList map each name to its own phone number
+     * @param lineBreak   String separator
      */
     public FindContactCommand(final Ui ui,
                               final Map<String, String> contactList,

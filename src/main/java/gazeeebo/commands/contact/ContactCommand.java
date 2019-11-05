@@ -1,17 +1,13 @@
-package gazeeebo.commands.Contact;
+package gazeeebo.commands.contact;
 
-import gazeeebo.storage.Storage;
-import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
+import gazeeebo.storage.Storage;
+import gazeeebo.tasks.Task;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Stack;
-import java.util.HashMap;
-import java.util.TreeMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Deals with the user input in the contacts page.
@@ -19,13 +15,14 @@ import java.util.Map;
 public class ContactCommand extends Command {
     private static final String LINEBREAK
             = "------------------------------------------\n";
+
     /**
      * This method is the list of all the
      * contact numbers and you got add/find/delete contacts.
      *
-     * @param list    list of all tasks
-     * @param ui      the object that deals with printing things to the user.
-     * @param storage the object that deals with storing data.
+     * @param list         list of all tasks
+     * @param ui           the object that deals with printing things to the user.
+     * @param storage      the object that deals with storing data.
      * @param commandStack
      * @throws IOException Catch error if the read file fails
      */
@@ -55,19 +52,19 @@ public class ContactCommand extends Command {
         ui.readCommand();
         while (!ui.fullCommand.equals("esc")) {
             if (ui.fullCommand.equals("add")) {
-                copyMap(contactList,oldcontacts);
-                new AddContactCommand(ui, contactList);
+                copyMap(contactList, oldcontacts);
+                new gazeeebo.commands.Contact.AddContactCommand(ui, contactList);
             } else if (ui.fullCommand.split(" ")[0].equals("find")) {
-                new FindContactCommand(ui, contactList, LINEBREAK);
+                new gazeeebo.commands.Contact.FindContactCommand(ui, contactList, LINEBREAK);
             } else if (ui.fullCommand.equals("list")) {
-                new ListContactCommand(contactList, LINEBREAK);
+                new gazeeebo.commands.Contact.ListContactCommand(contactList, LINEBREAK);
             } else if (ui.fullCommand.contains("delete")) {
-                copyMap(contactList,oldcontacts);
-                new DeleteContactCommand(ui, contactList);
+                copyMap(contactList, oldcontacts);
+                new gazeeebo.commands.Contact.DeleteContactCommand(ui, contactList);
             } else if (ui.fullCommand.equals("help")) {
                 System.out.println(helpContact);
-            } else if (ui.fullCommand.equals("undo")){
-                contactList = UndoContactCommand.Undo(contactList,oldcontacts,storage);
+            } else if (ui.fullCommand.equals("undo")) {
+                contactList = gazeeebo.commands.Contact.UndoContactCommand.Undo(contactList, oldcontacts, storage);
             } else {
                 System.out.println("Command not found:\n" + helpContact);
             }
@@ -97,7 +94,8 @@ public class ContactCommand extends Command {
 
     /**
      * Copy of old contacts
-     * @param contacts current contacts list
+     *
+     * @param contacts    current contacts list
      * @param oldcontacts
      */
     private void copyMap(Map<String, String> contacts, Stack<Map<String, String>> oldcontacts) {

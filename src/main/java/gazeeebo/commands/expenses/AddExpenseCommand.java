@@ -18,7 +18,7 @@ public class AddExpenseCommand {
      * @param ui       the object that deals with printing things to the user.
      * @param storage  the object that deals with storing data,
      *                 in this case storing data in the expenses map
-     * @param expenses the object that map each expenses to its date
+     * @param expenses the map that maps each expenses to its date
      * @throws IOException catch any error if read file fails
      */
     public AddExpenseCommand(final Ui ui,
@@ -39,14 +39,6 @@ public class AddExpenseCommand {
         System.out.println("Date of purchase:");
         ui.readCommand();
         String date = ui.fullCommand;
-
-//        System.out.println("Enter item, price ($xx) and date (yyyy-MM-dd)");
-//        ui.readCommand();
-//        String expenseInput = ui.fullCommand;
-//
-//        String item = expenseInput.split("$")[0];
-//       // String price = ex
-
 
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateOfPurchase = LocalDate.parse(date, fmt);

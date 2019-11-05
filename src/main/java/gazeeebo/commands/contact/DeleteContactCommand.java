@@ -12,7 +12,7 @@ public class DeleteContactCommand {
     /**
      * Deletes the contact from the contact list.
      *
-     * @param ui      deals with printing things to the user.
+     * @param ui          deals with printing things to the user.
      * @param contactList map each name to its own phone number
      */
     public DeleteContactCommand(final Ui ui,

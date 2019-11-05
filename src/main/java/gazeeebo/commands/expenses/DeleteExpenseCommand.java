@@ -14,18 +14,25 @@ public class DeleteExpenseCommand {
     /**
      * This method deletes the expense from the expense list and expenses map.
      *
-     * @param ui the object that deals with printing things to the user.
-     * @param storage the object that deals with storing data, in this case storing data in the expenses map
-     * @param expenses the object that map each expenses to its date
+     * @param ui       the object that deals with printing things to the user.
+     * @param storage  the object that deals with storing data,
+     *                 in this case storing data in the expenses map
+     * @param expenses the map that maps each expenses to its date
      * @throws IOException catch any error if read file fails
      */
-    public DeleteExpenseCommand(Ui ui, Storage storage, Map<LocalDate, ArrayList<String>> expenses) throws IOException {
+    public DeleteExpenseCommand(final Ui ui,
+                                final Storage storage,
+                                final Map<LocalDate, ArrayList<String>>
+                                        expenses)
+            throws IOException {
         ArrayList<String> expenseList = new ArrayList<>();
 
         /* Prints list of expenses*/
         for (LocalDate key : expenses.keySet()) {
             for (int i = 0; i < expenses.get(key).size(); i++) {
-                expenseList.add(expenses.get(key).get(i) + " | bought on " + key);
+                expenseList.add(expenses.get(key).get(i)
+                        + " | bought on "
+                        + key);
             }
         }
         for (int j = 0; j < expenseList.size(); j++) {
@@ -35,7 +42,7 @@ public class DeleteExpenseCommand {
         ui.readCommand();
         String expenseIndex = ui.fullCommand;
         int index = Integer.parseInt(expenseIndex) - 1;
-        System.out.println("Successfully deleted: " +  expenseList.get(index));
+        System.out.println("Successfully deleted: " + expenseList.get(index));
 
         String getKeyFromList = expenseList.get(index).split("on ")[1];
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -58,11 +65,15 @@ public class DeleteExpenseCommand {
         for (LocalDate key : expenses.keySet()) {
             if (expenses.get(key).size() > 1) {
                 for (int i = 0; i < expenses.get(key).size(); i++) {
-                    toStore = toStore.concat(key + "|" + expenses.get(key).get(i) + "\n");
+                    toStore = toStore.concat(key + "|"
+                            + expenses.get(key).get(i)
+                            + "\n");
                 }
             } else if (expenses.get(key).size() == 1) {
 
-                toStore = toStore.concat(key + "|" + expenses.get(key).get(0) + "\n");
+                toStore = toStore.concat(key + "|"
+                        + expenses.get(key).get(0)
+                        + "\n");
             }
         }
         storage.Storages_Expenses(toStore);

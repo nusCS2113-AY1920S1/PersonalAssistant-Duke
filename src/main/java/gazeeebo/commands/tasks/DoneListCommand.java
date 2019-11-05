@@ -14,23 +14,45 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class DoneListCommand extends Command {
+    /**
+     * This class shows the list done tasks
+     * that are completed when called.
+     *
+     * @param list          List of all tasks
+     * @param ui            the object that deals with
+     *                      printing things to the user
+     * @param storage       The object that deals with storing data
+     * @param commandStack
+     * @param deletedTask
+     * @param triviaManager
+     * @throws DukeException  Throws custom exception when
+     *                        format of done list command is wrong
+     * @throws ParseException Catch error if parsing of command fails
+     * @throws IOException    Catch error if the read file fails
+     */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException {
-        ArrayList<Task> DoneList = new ArrayList<>();
+    public void execute(final ArrayList<Task> list,
+                        final Ui ui, final Storage storage,
+                        final Stack<ArrayList<Task>> commandStack,
+                        final ArrayList<Task> deletedTask,
+                        final TriviaManager triviaManager)
+            throws DukeException, ParseException, IOException {
+        ArrayList<Task> doneList = new ArrayList<>();
         try {
             if (ui.fullCommand.equals("done")) {
                 throw new DukeException("Command for 'done' cannot be empty.");
             }
             for (Task task : list) {
-                if (task.isDone == true) {
-                    DoneList.add(task);
+                if (task.isDone) {
+                    doneList.add(task);
                 }
             }
 
             if (ui.fullCommand.equals("done list")) {
                 System.out.println("List of tasks that are done:");
-                for (int i = 0; i < DoneList.size(); i++) {
-                    System.out.println(i + 1 + "." + DoneList.get(i).listFormat());
+                for (int i = 0; i < doneList.size(); i++) {
+                    System.out.println(i + 1 + "."
+                            + doneList.get(i).listFormat());
                 }
             }
             StringBuilder sb = new StringBuilder();
@@ -38,14 +60,19 @@ public class DoneListCommand extends Command {
                 sb.append(list.get(i).toString() + "\n");
             }
             storage.writeToSaveFile(sb.toString());
-        }
-        catch (DukeException e) {
-        System.out.println(e.getMessage());
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
         }
     }
 
-        @Override
-        public boolean isExit () {
-            return false;
-        }
+    /**
+     * Program does not exit and continues running
+     * since command "bye" is not called.
+     *
+     * @return false
+     */
+    @Override
+    public boolean isExit() {
+        return false;
     }
+}

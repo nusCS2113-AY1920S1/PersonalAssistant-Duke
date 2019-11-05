@@ -2,7 +2,6 @@ package gazeeebo.commands.expenses;
 
 import gazeeebo.UI.Ui;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -15,12 +14,11 @@ public class FindExpenseCommand {
      * This method finds expenses bought on the same date.
      *
      * @param ui       the object that deals with printing things to the user.
-     * @param expenses the object that map each expenses to its date
-     * @throws IOException catch any error if read file fails
+     * @param expenses the map that maps each expenses to its date
      */
     public FindExpenseCommand(final Ui ui,
-                              final Map<LocalDate, ArrayList<String>> expenses)
-            throws IOException {
+                              final Map<LocalDate,
+                                      ArrayList<String>> expenses) {
         String date = ui.fullCommand.split(" ")[1];
 
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");

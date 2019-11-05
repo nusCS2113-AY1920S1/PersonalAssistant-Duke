@@ -20,16 +20,16 @@ public class UndoneCommand extends Command {
             if (ui.fullCommand.equals("undone")) {
                 throw new DukeException("The undo task number cannot be empty.");
             } else if (ui.fullCommand.contains("undone")) {
-                if(numberCheck < 0) {
+                if (numberCheck < 0) {
                     throw new DukeException("Task number cannot be negative.");
-                } else if(numberCheck >  list.size()-1) {
+                } else if (numberCheck > list.size() - 1) {
                     throw new DukeException("Task number does not exist.");
                 }
 
-                    // int numberCheck = Integer.parseInt(ui.fullCommand.substring(6).trim()) - 1;
-                    if (list.get(numberCheck).isDone == true) {
-                        list.get(numberCheck).isDone = false;
-                    }
+                // int numberCheck = Integer.parseInt(ui.fullCommand.substring(6).trim()) - 1;
+                if (list.get(numberCheck).isDone == true) {
+                    list.get(numberCheck).isDone = false;
+                }
 
                 System.out.println("Nice! I've marked this task as undone: ");
                 System.out.println(list.get(numberCheck).listFormat());
@@ -44,6 +44,13 @@ public class UndoneCommand extends Command {
             System.out.println(e.getMessage());
         }
     }
+
+    /**
+     * Program does not exit and continues running
+     * since command "bye" is not called.
+     *
+     * @return false
+     */
     @Override
     public boolean isExit() {
         return false;

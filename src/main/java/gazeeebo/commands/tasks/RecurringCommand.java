@@ -4,6 +4,7 @@ import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Event;
 import gazeeebo.tasks.Task;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,10 +20,10 @@ public class RecurringCommand {
      * base on the key word weekly/monthly/yearly
      * respectively when the task is marked as done[D].
      *
-     * @param list             task lists
-     * @param numbercheck      the index of the list
+     * @param list            task lists
+     * @param numbercheck     the index of the list
      * @param listDescription description of the index of the list
-     * @param storage          the object that deals with storing data.
+     * @param storage         the object that deals with storing data.
      * @throws IOException
      */
 

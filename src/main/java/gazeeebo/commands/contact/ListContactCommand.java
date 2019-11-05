@@ -12,9 +12,9 @@ public class ListContactCommand {
     /**
      * List out all the phone numbers.
      *
-     * @param contactList   to Map each name to its phone number.
-     * @param lineBreak to print out a
-     *                  separator to separate each line in the list.
+     * @param contactList to Map each name to its phone number.
+     * @param lineBreak   to print out a
+     *                    separator to separate each line in the list.
      */
     public ListContactCommand(final Map<String, String> contactList,
                               final String lineBreak) {

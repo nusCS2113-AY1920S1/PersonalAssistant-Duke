@@ -1,4 +1,5 @@
 //@@author jessteoxizhi
+
 package gazeeebo.commands.places;
 
 import gazeeebo.storage.Storage;
@@ -9,7 +10,7 @@ import java.util.Map;
 
 public class AddPlacesCommand {
     /**
-     * This method allows add a new place
+     * This method allows add a new place.
      *
      * @param ui      the object that deals with printing things to the user.
      * @param storage the object that deals with storing data.
@@ -18,20 +19,19 @@ public class AddPlacesCommand {
      */
     public AddPlacesCommand(Ui ui, Storage storage, Map<String, String> places) {
         try {
-            System.out.println("Input in this format: Room,Location");
-            ui.readCommand();
-            String[] split_info = ui.fullCommand.split(",");
-            String name = split_info[0];
-            String number = split_info[1];
+            String[] parseInput = ui.fullCommand.split("-");
+            String[] splitInfo = parseInput[1].split(",");
+            String name = splitInfo[0];
+            String number = splitInfo[1];
             places.put(name, number);
-            System.out.println("Successfully added :" + ui.fullCommand);
+            System.out.println("Successfully added :" + parseInput[1]);
             String toStore = "";
             for (String key : places.keySet()) {
                 toStore = toStore.concat(key + "|" + places.get(key) + "\n");
             }
             storage.storagesPlaces(toStore);
-        } catch (IOException|ArrayIndexOutOfBoundsException e) {
-           System.out.println("Please Input in the correct format");
+        } catch (IOException | ArrayIndexOutOfBoundsException e) {
+            System.out.println("Please Input in the correct format");
         }
     }
 }

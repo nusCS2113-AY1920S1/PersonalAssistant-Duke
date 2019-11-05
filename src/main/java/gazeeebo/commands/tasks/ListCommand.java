@@ -5,21 +5,47 @@ import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.storage.Storage;
-import gazeeebo.exception.DukeException;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
 public class ListCommand extends Command {
+    /**
+     * This class displays the list of tasks when called.
+     *
+     * @param list          Task list
+     * @param ui            The object that deals with
+     *                      printing things to the user.
+     * @param storage       The object that deals with
+     *                      storing data to the Save.txt file.
+     * @param commandStack
+     * @param deletedTask
+     * @param triviaManager
+     * @throws ParseException Catch error if parsing of command fails
+     * @throws IOException    Catch error if the read file fails
+     */
     @Override
-    public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<ArrayList<Task>> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException {
+    public void execute(final ArrayList<Task> list,
+                        final Ui ui, final Storage storage,
+                        final Stack<ArrayList<Task>> commandStack,
+                        final ArrayList<Task> deletedTask,
+                        final TriviaManager triviaManager)
+            throws ParseException, IOException {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
             System.out.println(i + 1 + "." + list.get(i).listFormat());
         }
         ui.showProgessiveBar(list);
     }
+
+    /**
+     * Program does not exit and continues running
+     * since command "bye" is not called.
+     *
+     * @return false
+     */
     @Override
     public boolean isExit() {
         return false;
