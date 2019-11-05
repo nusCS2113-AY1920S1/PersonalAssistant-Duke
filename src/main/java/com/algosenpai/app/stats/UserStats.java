@@ -128,7 +128,7 @@ public class UserStats {
      * TODO.
      */
     public void updateChapter(int index, int totalAnswered, int correct) {
-        index --;
+        index--;
         chapterData.get(index).totalAnswered += totalAnswered;
         chapterData.get(index).correctAnswers += correct;
         chapterData.get(index).attempts++;
