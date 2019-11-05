@@ -156,9 +156,8 @@ public class GoalsList {
     /**
      * Checks if user attempts to change to an existing amount.
      *
-     * @param currentGoal Current Goal of the Goals user is attempting to change.
+     * @param currentGoal   Current Goal of the Goals user is attempting to change.
      * @param newGoalAmount New Goal Amount user intends to change.
-     *
      * @throws GoalsException If attempts to change to the same amount as current goal amount.
      */
     private void compareGoalAmount(Goals currentGoal, double newGoalAmount) throws GoalsException {
@@ -168,12 +167,12 @@ public class GoalsList {
                     + new DecimalFormat("0.00").format(newGoalAmount));
         }
     }
+
     /**
      * Checks if user attempts to change to an existing date.
      *
      * @param currentGoal Current Goal of the Goals user is attempting to change.
-     * @param date New Goal Date user intends to change.
-     *
+     * @param date        New Goal Date user intends to change.
      * @throws GoalsException If attempts to change to the same amount as current goal amount.
      */
     private void compareGoalDate(Goals currentGoal, Date date) throws GoalsException {
@@ -191,13 +190,14 @@ public class GoalsList {
             }
         }
     }
+
     /**
      * Checks if a goal exists when wanting to add a new goal.
      *
      * @param goalName refers to the about-to-add goal name.
      * @return True if it exists and False if it doesn't.
      */
-    private boolean goalExists (String goalName) {
+    private boolean goalExists(String goalName) {
         String capitalGoalName = goalName.toUpperCase();
         for (int i = ISZERO; i < goalList.size(); i++) {
             Goals currentGoal = goalList.get(i);
@@ -221,8 +221,8 @@ public class GoalsList {
      * @throws GoalsException If date is not in correct format, or changing to a name that already exists,
      *                        or no goal with the goalName.
      */
-    public void editGoals(String goalName, String amount, Date date, String newName, Bank savingAcc, boolean markDone, Ui ui)
-            throws GoalsException {
+    public void editGoals(String goalName, String amount, Date date, String newName, Bank savingAcc,
+                          boolean markDone, Ui ui) throws GoalsException {
         String capitalGoalName = goalName.toUpperCase();
         for (int i = ISZERO; i < goalList.size(); i++) {
             Goals currentGoal = goalList.get(i);
@@ -289,13 +289,17 @@ public class GoalsList {
         if (!goal.getSavingAccount().isBlank()) {
             goal.isDone(Double.parseDouble(goal.getRemainingAmount()));
         }
-        ui.printGoal(num, goal.getGoalsName(), "$" + new DecimalFormat("0.00").format(goal.getGoalsAmount()),
-                goal.getSavingAccount(), "$" + goal.getRemainingAmount(), goal.getGoalsDate(), goal.getStatus());
+        ui.printGoal(num, goal.getGoalsName(), "$"
+                        + new DecimalFormat("0.00").format(goal.getGoalsAmount()), goal.getSavingAccount(),
+                "$" + goal.getRemainingAmount(), goal.getGoalsDate(), goal.getStatus());
         if (!isMultiplePrinting) {
             ui.printGoalDivider();
         }
     }
 
+    /**
+     * Updates all goals in the list.
+     */
     public void updateGoals() {
         for (int i = 0; i < goalList.size(); i++) {
             goalList.get(i).isDone(Double.parseDouble(goalList.get(i).getRemainingAmount()));
@@ -352,7 +356,7 @@ public class GoalsList {
         decimalFormat.setRoundingMode(RoundingMode.DOWN);
         SimpleDateFormat exportDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         exportArrayList.add(new String[]{
-                "goalName", "amount", "date", "savingsAccountName", "doneStatus", "achieveStatus"});
+            "goalName", "amount", "date", "savingsAccountName", "doneStatus", "achieveStatus"});
         for (int i = 0; i < getGoalListSize(); i++) {
             String goalName = goalList.get(i).getGoalsName();
             double amount = goalList.get(i).getGoalsAmount();
@@ -367,7 +371,7 @@ public class GoalsList {
             boolean achievementStatus = goalList.get(i).getGoalAchievementStatus();
             String achievementStatusString = String.valueOf(achievementStatus);
             exportArrayList.add(new String[]{
-                    goalName, stringAmount, date, savingsAccountName, stringDoneStatus, achievementStatusString});
+                goalName, stringAmount, date, savingsAccountName, stringDoneStatus, achievementStatusString});
         }
         return exportArrayList;
     }
@@ -391,6 +395,13 @@ public class GoalsList {
         goalList.add(newGoal);
     }
 
+    /**
+     * Checks if goals can get achievement.
+     *
+     * @param i  index of goals.
+     * @param ui Required for Printing.
+     * @return Achievement object to create new achievement.
+     */
     public Achievement checkForAchievement(int i, Ui ui) {
         Goals checkAchievement = goalList.get(i);
         if (checkAchievement.getRawStatus() && checkAchievement.getGoalsDateInDateFormat().after(new Date())

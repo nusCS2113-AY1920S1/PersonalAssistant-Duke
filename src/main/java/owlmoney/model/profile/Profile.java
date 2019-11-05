@@ -1284,7 +1284,7 @@ public class Profile {
      * Adds user achievement when goal achieved before specified date.
      */
     public void profileAddAchievement() {
-        for(int i = 0; i < goalsList.getGoalListSize(); i++) {
+        for (int i = 0; i < goalsList.getGoalListSize(); i++) {
             Achievement achievement = goalsList.checkForAchievement(i, ui);
             if (achievement != null) {
                 achievementList.addAchievement(achievement, ui);

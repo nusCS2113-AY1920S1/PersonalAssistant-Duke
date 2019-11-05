@@ -30,7 +30,8 @@ public class EditGoalsCommand extends Command {
      * @param date    Initial amount of new goal object.
      * @param newName New name of the goal object
      */
-    public EditGoalsCommand(String name, String amount, Date date, String newName, String savingName, boolean markDone) {
+    public EditGoalsCommand(String name, String amount, Date date, String newName, String savingName,
+                            boolean markDone) {
         this.name = name;
         this.amount = amount;
         this.date = date;

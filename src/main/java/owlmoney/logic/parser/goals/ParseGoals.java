@@ -156,7 +156,7 @@ public abstract class ParseGoals {
     }
 
     void checkInt(String variable, String valueString) throws ParserException {
-        if(!RegexUtil.regexCheckExactNumFormat(valueString)) {
+        if (!RegexUtil.regexCheckExactNumFormat(valueString)) {
             throw new ParserException(variable + " can only be 1!");
         }
     }

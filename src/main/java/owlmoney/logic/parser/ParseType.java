@@ -6,7 +6,11 @@ import owlmoney.logic.command.bank.ListSavingsCommand;
 import owlmoney.logic.command.card.ListCardCommand;
 import owlmoney.logic.command.goals.ListAchievementCommand;
 import owlmoney.logic.command.goals.ListGoalsCommand;
-import owlmoney.logic.parser.bond.*;
+import owlmoney.logic.parser.bond.ParseAddBond;
+import owlmoney.logic.parser.bond.ParseBond;
+import owlmoney.logic.parser.bond.ParseDeleteBond;
+import owlmoney.logic.parser.bond.ParseEditBond;
+import owlmoney.logic.parser.bond.ParseListBond;
 import owlmoney.logic.parser.card.ParseAddCard;
 import owlmoney.logic.parser.card.ParseCard;
 import owlmoney.logic.parser.card.ParseDeleteCard;
@@ -32,8 +36,21 @@ import owlmoney.logic.parser.saving.ParseAddSaving;
 import owlmoney.logic.parser.saving.ParseDeleteSaving;
 import owlmoney.logic.parser.saving.ParseEditSaving;
 import owlmoney.logic.parser.saving.ParseSaving;
-import owlmoney.logic.parser.transaction.deposit.*;
-import owlmoney.logic.parser.transaction.expenditure.*;
+import owlmoney.logic.parser.transaction.deposit.ParseAddDeposit;
+import owlmoney.logic.parser.transaction.deposit.ParseDeleteDeposit;
+import owlmoney.logic.parser.transaction.deposit.ParseEditDeposit;
+import owlmoney.logic.parser.transaction.deposit.ParseDeposit;
+import owlmoney.logic.parser.transaction.deposit.ParseListDeposit;
+import owlmoney.logic.parser.transaction.expenditure.ParseRecurringExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseAddRecurringExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseDeleteRecurringExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseEditRecurringExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseListRecurringExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseAddExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseEditExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseDeleteExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseListExpenditure;
 import owlmoney.logic.parser.transfer.ParseTransfer;
 
 import java.util.Arrays;
@@ -59,7 +76,6 @@ class ParseType extends Parser {
     private static final String SAVING = "saving";
     private static final String INVESTMENT = "investment";
     private static final String BOND = "bonds";
-    private static final String GOALS = "goals";
     private static final String RECURRING = "recurring";
 
     /**
@@ -378,7 +394,7 @@ class ParseType extends Parser {
             }
             throw new ParserException("You entered an invalid type for cardbill");
         case "/achievement":
-            if("/list".equals(command)) {
+            if ("/list".equals(command)) {
                 return new ListAchievementCommand();
             }
             throw new ParserException("You entered an invalid type for achievements");
