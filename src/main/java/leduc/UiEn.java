@@ -329,4 +329,9 @@ public class UiEn extends Ui {
                     "\n\t\t\t edit the period of an event task: 'edit INDEX /at DATE - DATE'");
         }
     }
+
+    @Override
+    public void terminateShortcut() {
+        System.out.println("The shortcut edit mode is being terminated earlier. All shortcut edited until now has been saved");
+    }
 }

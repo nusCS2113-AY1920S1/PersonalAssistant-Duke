@@ -315,4 +315,9 @@ public class UiFr extends Ui {
                     "\n\t\t\t éditer la période d'une tâche event: 'edit INDEX /at DATE - DATE'");
         }
     }
+
+    @Override
+    public void terminateShortcut() {
+        System.out.println("Le mode d'édition de shortcut a été terminé plus tôt. Tous les shortcut qui ont été édité ont été enregistré.");
+    }
 }

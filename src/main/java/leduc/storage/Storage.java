@@ -271,7 +271,7 @@ public class Storage {
         while(sc.hasNext()){
             String commandShortcut = sc.nextLine();
             String[] commandShortcutSplit = commandShortcut.split(":");
-            if(commandShortcut.length() == 2){
+            if(commandShortcutSplit.length == 2){
                 ShortcutCommand.setOneShortcut(commandShortcutSplit[0].trim(), commandShortcutSplit[1].trim());
             }
         }

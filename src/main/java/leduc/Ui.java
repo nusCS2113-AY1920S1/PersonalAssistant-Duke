@@ -5,6 +5,7 @@ import leduc.exception.FileException;
 import leduc.storage.Storage;
 import leduc.task.EventsTask;
 import leduc.task.HomeworkTask;
+import leduc.task.*;
 import leduc.task.Task;
 import leduc.task.TaskList;
 
@@ -291,4 +292,9 @@ public abstract class Ui {
      * display when the program ask the user to enter a year
      */
     public abstract void showEnterYearShow();
+
+    /**
+     * display when the edit shortcut mode terminate earlier
+     */
+    public abstract void terminateShortcut();
 }
