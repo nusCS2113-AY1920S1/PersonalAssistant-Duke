@@ -90,11 +90,21 @@ class BusStopTest {
 
     @Test
     void testFetch() throws QueryFailedException, FileLoadFailException {
-        BusStop v3 = new BusStop("45039", "", "", 0, 0);
         ModelStub model = new ModelStub();
+        BusStop v3 = new BusStop("45039", "", "", 0, 0);
         v3.fetchData(model);
 
         assertTrue(v1.equals(v3));
         assertFalse(v2.equals(v3));
+    }
+
+    @Test
+    void getDisplayInfo() throws FileLoadFailException, QueryFailedException {
+        ModelStub model = new ModelStub();
+        BusStop busStop = new BusStop("17009", "", "", 0, 0);
+        busStop.fetchData(model);
+
+        String expected = "Clementi Int\n" + "Clementi Ave 3\n" + "(1.31491572870629, 103.76412225438476)";
+        assertEquals(expected, busStop.getDisplayInfo());
     }
 }

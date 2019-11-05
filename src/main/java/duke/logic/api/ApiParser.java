@@ -131,6 +131,36 @@ public class ApiParser {
     }
 
     /**
+     * Generates an image from StaticMap API for RouteNodeShowCommand.
+     *
+     * @param route The Route that the RouteNode belongs to.
+     * @param node The RouteNode that is queried.
+     * @param indexNode The index of the RouteNode in the Route.
+     * @return image The image from StaticMap API.
+     * @throws ApiException If the API request fails.
+     */
+    public static Image generateRouteNodeShow(Route route, RouteNode node, int indexNode)
+            throws ApiException {
+        String param;
+        if (node instanceof BusStop) {
+            param = ((BusStop) node).getBusCode();
+        } else {
+            param = node.getAddress();
+        }
+
+        Venue query = getLocationSearch(param);
+        ArrayList<String> points = generateOtherPoints(route, node, indexNode);
+
+        String rgb = RED_VALUE_OTHER + "," + GREEN_VALUE_OTHER + "," + BLUE_VALUE_OTHER;
+
+        Image image = getStaticMap(ApiParser.generateStaticMapParams(DIMENSIONS, DIMENSIONS,
+                ZOOM_LEVEL, String.valueOf(query.getLatitude()), String.valueOf(query.getLongitude()), "",
+                generateLineParam(points, rgb), generatePointParam(route, node, null)));
+
+        return image;
+    }
+
+    /**
      * Generates an image from StaticMap API for RouteNodeNeighboursCommand.
      *
      * @param model The model object containing information about the user.
@@ -250,15 +280,17 @@ public class ApiParser {
      * @param query The RouteNode being shown.
      * @return result The point parameters.
      */
-    public static String generatePointParam(Route route, RouteNode query, ArrayList<Venue> nearbyNodes) {
+    public static String generatePointParam(Route route, RouteNode query, ArrayList<Venue> extraNodes) {
         StringBuilder result = new StringBuilder();
 
-        int index = 1;
-        for (Venue node : nearbyNodes) {
-            result.append(ApiParser.generateStaticMapPoint(String.valueOf(node.getLatitude()),
-                    String.valueOf(node.getLongitude()), RED_VALUE_NEIGHBOUR, GREEN_VALUE_NEIGHBOUR,
-                    BLUE_VALUE_NEIGHBOUR, String.valueOf(index))).append("|");
-            index++;
+        if (extraNodes != null) {
+            int index = 1;
+            for (Venue node : extraNodes) {
+                result.append(ApiParser.generateStaticMapPoint(String.valueOf(node.getLatitude()),
+                        String.valueOf(node.getLongitude()), RED_VALUE_NEIGHBOUR, GREEN_VALUE_NEIGHBOUR,
+                        BLUE_VALUE_NEIGHBOUR, String.valueOf(index))).append("|");
+                index++;
+            }
         }
 
         for (RouteNode node : route.getNodes()) {
@@ -277,6 +309,8 @@ public class ApiParser {
 
         return result.toString();
     }
+
+
 
     /**
      * Checks if a node is close enough to appear in the StaticMap image of the query.

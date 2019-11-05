@@ -17,6 +17,7 @@ import java.util.ArrayList;
  */
 public class RouteNodeNeighboursCommand extends Command {
     private static final String MESSAGE_SUCCESS = "Here are some Nodes that are close to this:\n";
+    private static final String MESSAGE_FAILURE = "I'm sorry, but it is out of bounds...\n";
     private int indexRoute;
     private int indexNode;
 
@@ -39,15 +40,19 @@ public class RouteNodeNeighboursCommand extends Command {
      */
     @Override
     public CommandResultImage execute(Model model) throws OutOfBoundsException {
-        Route route = model.getRoutes().get(indexRoute);
-        RouteNode node = model.getRoutes().get(indexRoute).getNode(indexNode);
-        ArrayList<Venue> result = ApiParser.getNeighbour(model, node);
-
         try {
-            Image image = ApiParser.generateStaticMapNeighbours(model, route, node, indexNode);
-            return new CommandResultImage(image, MESSAGE_SUCCESS, result);
-        } catch (ApiException | OutOfBoundsException e) {
-            return new CommandResultImage(null, MESSAGE_SUCCESS, result);
+            Route route = model.getRoutes().get(indexRoute);
+            RouteNode node = model.getRoutes().get(indexRoute).getNode(indexNode);
+            ArrayList<Venue> result = ApiParser.getNeighbour(model, node);
+
+            try {
+                Image image = ApiParser.generateStaticMapNeighbours(model, route, node, indexNode);
+                return new CommandResultImage(image, MESSAGE_SUCCESS, result);
+            } catch (ApiException e) {
+                return new CommandResultImage(null, MESSAGE_SUCCESS, result);
+            }
+        } catch (IndexOutOfBoundsException | OutOfBoundsException e) {
+            return new CommandResultImage(MESSAGE_FAILURE, null);
         }
     }
 }

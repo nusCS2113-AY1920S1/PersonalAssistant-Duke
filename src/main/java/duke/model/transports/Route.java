@@ -174,10 +174,6 @@ public class Route {
         return description;
     }
 
-    public void setNodes(ArrayList<RouteNode> nodes) {
-        this.nodes = nodes;
-    }
-
     public void setName(String name) {
         this.name = name;
     }

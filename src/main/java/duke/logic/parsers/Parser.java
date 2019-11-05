@@ -11,6 +11,7 @@ import duke.logic.commands.ListCommand;
 import duke.logic.commands.ListItineraryCommand;
 import duke.logic.commands.ProfileSetPreferenceCommand;
 import duke.logic.commands.ProfileShowCommand;
+import duke.logic.commands.RouteListAllCommand;
 import duke.logic.commands.RouteNodeNeighboursCommand;
 import duke.logic.commands.RouteNodeShowCommand;
 import duke.logic.commands.RouteShowCommand;
@@ -102,6 +103,8 @@ public class Parser {
             return new RouteNodeDeleteParser(getWord(input)).parse();
         case "routeList":
             return new RouteListParser(getWord(input)).parse();
+        case "routeListAll":
+            return new RouteListAllCommand();
         case "routeNodeList":
             return new RouteNodeListParser(getWord(input)).parse();
         case "routeGenerate":
