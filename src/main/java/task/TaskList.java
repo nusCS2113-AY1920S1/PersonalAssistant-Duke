@@ -65,13 +65,13 @@ public class TaskList implements Serializable, Cloneable {
                 String[] split = splitTasks[i].split(Parser.taskSeparator);
                 switch (split[0]) {
                 case "T":
-                    list.add(new Todo(split[1], split[2]));
+                    list.add(new Todo(split[1], split[2], split[3]));
                     break;
                 case "D":
-                    list.add(new Deadline(split[1], split[2], split[3]));
+                    list.add(new Deadline(split[1], split[2], split[3], split[4]));
                     break;
                 case "E":
-                    list.add(new Event(split[1], split[2], split[3]));
+                    list.add(new Event(split[1], split[2], split[3], split[4]));
                     break;
                 case "R":
                     list.add(new Recurring(split[1], split[2], split[3]));

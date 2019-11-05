@@ -208,17 +208,11 @@ public class Task implements Serializable {
 
     public void assignPriority(){
         Integer daysAway = (int)getDifferenceDays(this.dueDate);
-        if (daysAway <= 3){
-            this.taskPriority = 7;
-        }
-        else if(daysAway <= 5){
-            this.taskPriority = 5;
-        }
-        else if (daysAway <= 7){
-            this.taskPriority = 3;
+        if (daysAway < 0){
+            this.taskPriority = -1;
         }
         else{
-            this.taskPriority = 2;
+            this.taskPriority = 40 - (daysAway / 7);
         }
     }
 

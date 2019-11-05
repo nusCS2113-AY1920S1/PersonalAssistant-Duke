@@ -189,6 +189,7 @@ public class Storage {
                 } else if (list.get(i).getType().matches("R|A|W|F")) {
                     fileContent += " | " + list.get(i).getAfter();
                 }
+                fileContent += " | " + list.get(i).getTaskPriority();
                 bufferedWriter.write(fileContent);
                 bufferedWriter.newLine();
             }
