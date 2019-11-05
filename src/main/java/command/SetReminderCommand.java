@@ -21,7 +21,7 @@ public class SetReminderCommand extends Command {
     private static final int ASK_FOR_NEW_WORD = 2;
     private static final int ASK_FOR_REMINDER_DATE = 3;
 
-    protected static ArrayList<String> reminderWordList = new ArrayList<>();
+    protected static ArrayList<String> reminderWordList;
     protected String userResponse;
 
     /**
@@ -31,6 +31,9 @@ public class SetReminderCommand extends Command {
 
     public SetReminderCommand(int state) {
         reminderSetupState = state;
+        if (reminderSetupState == 1) {
+            reminderWordList = new ArrayList<>();
+        }
     }
 
     public SetReminderCommand(String userInput) {
