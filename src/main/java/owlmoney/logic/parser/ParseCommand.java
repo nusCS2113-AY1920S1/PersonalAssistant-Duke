@@ -1,13 +1,13 @@
 package owlmoney.logic.parser;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.ExitCommand;
 import owlmoney.logic.command.UpdateCommand;
 import owlmoney.logic.parser.exception.ParserException;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * Represents the first instance of parsing user input.
@@ -92,7 +92,7 @@ public class ParseCommand extends Parser {
             if (!data.isBlank()) {
                 throw new ParserException("/update cannot have trailing arguments");
             }
-            return new UpdateCommand();
+            return new UpdateCommand(true);
         default:
             throw new ParserException("You entered an invalid command");
         }

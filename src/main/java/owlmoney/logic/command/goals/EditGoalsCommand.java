@@ -20,6 +20,7 @@ public class EditGoalsCommand extends Command {
     private final Date date;
     private final String savingName;
     private Bank savingAccount;
+    private boolean markDone;
 
     /**
      * Creates an instance of EditGoalsCommand.
@@ -29,12 +30,14 @@ public class EditGoalsCommand extends Command {
      * @param date    Initial amount of new goal object.
      * @param newName New name of the goal object
      */
-    public EditGoalsCommand(String name, String amount, Date date, String newName, String savingName) {
+    public EditGoalsCommand(String name, String amount, Date date, String newName, String savingName,
+                            boolean markDone) {
         this.name = name;
         this.amount = amount;
         this.date = date;
         this.newName = newName;
         this.savingName = savingName;
+        this.markDone = markDone;
     }
 
     /**
@@ -50,7 +53,7 @@ public class EditGoalsCommand extends Command {
         if (!(savingName.isEmpty() || savingName.isBlank())) {
             savingAccount = profile.profileGetSavingAccount(savingName);
         }
-        profile.profileEditGoals(name, amount, date, newName, savingAccount, ui);
+        profile.profileEditGoals(name, amount, date, newName, savingAccount, markDone, ui);
         return this.isExit;
     }
 }
