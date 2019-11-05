@@ -17,6 +17,7 @@ public class Goals {
     private Date date;
     private Bank savingAccount = null;
     private boolean done = false;
+    private boolean isAchieved = false;
 
     /**
      * Creates an instance of Goals.
@@ -192,5 +193,21 @@ public class Goals {
 
     void setSavingAccount(Bank newSavingAcc) {
         this.savingAccount = newSavingAcc;
+    }
+
+    boolean getGoalAchievementStatus() {
+        return this.isAchieved;
+    }
+
+    public void achieveGoal() {
+        this.isAchieved = true;
+    }
+
+    double getSavingAmount() {
+        return this.savingAccount.getCurrentAmount();
+    }
+
+    public void markDone() {
+        done = true;
     }
 }

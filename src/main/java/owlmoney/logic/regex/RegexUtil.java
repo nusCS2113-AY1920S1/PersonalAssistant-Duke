@@ -171,4 +171,8 @@ public final class RegexUtil {
         return input.matches(dateRegex);
     }
 
+    public static boolean regexCheckExactNumFormat(String input) {
+        String intRegex = "1";
+        return input.matches(intRegex);
+    }
 }

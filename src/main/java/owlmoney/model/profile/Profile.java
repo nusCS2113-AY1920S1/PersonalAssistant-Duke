@@ -1,23 +1,17 @@
 package owlmoney.model.profile;
 
-import java.text.ParseException;
-import java.time.YearMonth;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-
-import owlmoney.model.bank.Investment;
-import owlmoney.model.bank.Saving;
-import owlmoney.model.card.exception.CardException;
 import owlmoney.model.bank.Bank;
 import owlmoney.model.bank.BankList;
+import owlmoney.model.bank.Investment;
+import owlmoney.model.bank.Saving;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.Bond;
 import owlmoney.model.bond.exception.BondException;
 import owlmoney.model.card.Card;
 import owlmoney.model.card.CardList;
+import owlmoney.model.card.exception.CardException;
+import owlmoney.model.goals.Achievement;
+import owlmoney.model.goals.AchievementList;
 import owlmoney.model.goals.Goals;
 import owlmoney.model.goals.GoalsList;
 import owlmoney.model.goals.exception.GoalsException;
@@ -29,6 +23,14 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.storage.Storage;
 import owlmoney.ui.Ui;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.YearMonth;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
 /**
  * Stores details of the user which includes bank accounts, cards, names.
  */
@@ -39,6 +41,7 @@ public class Profile {
     private GoalsList goalsList;
     private Storage storage;
     private Ui ui;
+    private AchievementList achievementList;
 
     private static final String BANK = "bank";
     private static final String SAVING = "saving";
@@ -75,6 +78,8 @@ public class Profile {
         this.cardList = new CardList(storage);
         this.goalsList = new GoalsList(storage);
         this.ui = ui;
+        this.achievementList = new AchievementList();
+
         try {
             loadBanksFromImportedData();
         } catch (BankException | ParseException exceptionMessage) {
@@ -512,9 +517,10 @@ public class Profile {
      * @param ui         required for printing.
      * @throws GoalsException If goal does not exists.
      */
-    public void profileEditGoals(String goalName, String amount, Date date, String newName, Bank savingName, Ui ui)
+    public void profileEditGoals(String goalName, String amount, Date date, String newName, Bank savingName,
+                                 boolean markDone, Ui ui)
             throws GoalsException {
-        goalsList.editGoals(goalName, amount, date, newName, savingName, ui);
+        goalsList.editGoals(goalName, amount, date, newName, savingName, markDone, ui);
     }
 
     /**
@@ -618,10 +624,14 @@ public class Profile {
      * @param ui Used for printing.
      * @throws BankException If cannot add income.
      */
-    public void profileUpdate(Ui ui) throws BankException {
+    public void profileUpdate(Ui ui, boolean manualCall) throws BankException {
         bankList.bankListUpdateRecurringTransactions(ui);
+        goalsList.updateGoals();
+        profileAddAchievement();
         //card update recurring
-        ui.printMessage("Profile has been updated");
+        if (manualCall) {
+            ui.printMessage("Profile has been updated");
+        }
     }
 
     /**
@@ -996,6 +1006,14 @@ public class Profile {
                     newGoal = new Goals(goalName,doubleAmount,dateInFormat,
                             bankList.bankListGetSavingAccount(savingsAccountName));
                 }
+                String doneStatus = importDataRow[4];
+                String achievementStatus = importDataRow[5];
+                if (doneStatus.equals("true")) {
+                    newGoal.markDone();
+                }
+                if (achievementStatus.equals("true")) {
+                    newGoal.achieveGoal();
+                }
                 profileImportNewGoals(newGoal);
             }
         }
@@ -1216,5 +1234,17 @@ public class Profile {
                     + " does not exist in savings account anymore! Could be due to savings account "
                     + "deleted the transactions because exceeded limit of 2000 transactions.");
         }
+    }
+
+    public void profileAddAchievement() {
+        for(int i = 0; i < goalsList.getGoalListSize(); i++) {
+            Achievement achievement = goalsList.checkForAchievement(i, ui);
+            if (achievement != null) {
+                achievementList.addAchievement(achievement, ui);
+            }
+        }
+    }
+    public void profileListAchievement(Ui ui) {
+        achievementList.listAchievements(ui);
     }
 }

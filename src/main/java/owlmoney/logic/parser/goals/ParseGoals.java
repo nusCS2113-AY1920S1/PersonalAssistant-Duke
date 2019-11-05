@@ -24,7 +24,7 @@ public abstract class ParseGoals {
     private String rawData;
 
     private static final String[] GOALS_KEYWORD = new String[]{"/name", "/amount", "/by",
-        "/newname", "/from", "/num", "/in"};
+        "/newname", "/from", "/num", "/in", "/mark"};
     private static final List<String> GOALS_KEYWORD_LISTS = Arrays.asList(GOALS_KEYWORD);
     static final String NAME = "/name";
     static final String AMOUNT = "/amount";
@@ -32,6 +32,7 @@ public abstract class ParseGoals {
     static final String NEW_NAME = "/newname";
     static final String FROM = "/from";
     static final String IN = "/in";
+    static final String MARKDONE = "/mark";
 
     /**
      * Creates an instance of any ParseGoals type object.
@@ -74,17 +75,19 @@ public abstract class ParseGoals {
      */
     public void fillHashTable() throws ParserException {
         goalsParameters.put(NAME,
-                parseRawData.extractParameter(rawData, NAME, GOALS_KEYWORD));
+                parseRawData.extractParameter(rawData, NAME, GOALS_KEYWORD).trim());
         goalsParameters.put(AMOUNT,
-                parseRawData.extractParameter(rawData, AMOUNT, GOALS_KEYWORD));
+                parseRawData.extractParameter(rawData, AMOUNT, GOALS_KEYWORD).trim());
         goalsParameters.put(BY,
-                parseRawData.extractParameter(rawData, BY, GOALS_KEYWORD));
+                parseRawData.extractParameter(rawData, BY, GOALS_KEYWORD).trim());
         goalsParameters.put(NEW_NAME,
-                parseRawData.extractParameter(rawData, NEW_NAME, GOALS_KEYWORD));
+                parseRawData.extractParameter(rawData, NEW_NAME, GOALS_KEYWORD).trim());
         goalsParameters.put(IN,
-                parseRawData.extractParameter(rawData, IN, GOALS_KEYWORD));
+                parseRawData.extractParameter(rawData, IN, GOALS_KEYWORD).trim());
         goalsParameters.put(FROM,
-                parseRawData.extractParameter(rawData, FROM, GOALS_KEYWORD));
+                parseRawData.extractParameter(rawData, FROM, GOALS_KEYWORD).trim());
+        goalsParameters.put(MARKDONE,
+                parseRawData.extractParameter(rawData, MARKDONE, GOALS_KEYWORD).trim());
     }
 
     /**
@@ -149,6 +152,12 @@ public abstract class ParseGoals {
     void checkDay(String variable, String valueString) throws ParserException {
         if (!RegexUtil.regexCheckDay(valueString)) {
             throw new ParserException(variable + " can only be a positive integer up to only 365 days!");
+        }
+    }
+
+    void checkInt(String variable, String valueString) throws ParserException {
+        if(!RegexUtil.regexCheckExactNumFormat(valueString)) {
+            throw new ParserException(variable + " can only be 1!");
         }
     }
 

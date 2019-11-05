@@ -50,7 +50,8 @@ abstract class Parser {
     String removeListFirstField(String input, String firstField) throws ParserException {
 
         if ("/savings".equals(firstField) || "/card".equals(firstField)
-                || "/investment".equals(firstField) || "/goals".equals(firstField)) {
+                || "/investment".equals(firstField) || "/goals".equals(firstField)
+                || "/achievement".equals(firstField)) {
             if (input.equals(firstField)) {
                 return "";
             } else {
