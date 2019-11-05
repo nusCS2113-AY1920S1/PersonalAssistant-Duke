@@ -38,6 +38,7 @@ import duke.logic.parsers.commandparsers.RouteNodeDeleteParser;
 import duke.logic.parsers.commandparsers.RouteNodeEditParser;
 import duke.logic.parsers.commandparsers.RouteNodeListParser;
 import duke.logic.parsers.commandparsers.StaticMapParser;
+import duke.logic.parsers.storageparsers.PlanningStorageParser;
 
 /**
  * Parser for commands entered by the user. It reads from standard input and returns Command objects.
@@ -114,7 +115,7 @@ public class Parser {
             return new RouteNodeNeighboursCommand(ParserUtil.getIntegerIndexInList(0, 2, getWord(input)),
                     ParserUtil.getIntegerIndexInList(1, 2, getWord(input)));
         case "addThisList":
-            return new AddSampleItineraryCommand();
+            return new AddSampleItineraryCommand(PlanningStorageParser.getNewAddListName(input));
         case "newItinerary":
             return new CreateNewItineraryParser(input).parse();
         case "listItinerary":

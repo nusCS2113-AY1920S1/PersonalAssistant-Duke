@@ -33,22 +33,6 @@ public class Itinerary extends AgendaList {
         this.name = name;
     }
 
-    public LocalDateTime getStartDate() {
-        return startDate;
-    }
-
-    public LocalDateTime getEndDate() {
-        return endDate;
-    }
-
-    public Venue getHotelLocation() {
-        return hotelLocation;
-    }
-
-    public String getName() {
-        return name;
-    }
-
     /**
      * Returns number of days of the trip based on entered start and end dates.
      *
@@ -133,6 +117,26 @@ public class Itinerary extends AgendaList {
         } catch (ApiException | ParseException e) {
             e.printStackTrace();
         }
-
     }
+
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public Venue getHotelLocation() {
+        return hotelLocation;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }

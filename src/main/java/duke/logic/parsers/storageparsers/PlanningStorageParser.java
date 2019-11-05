@@ -46,4 +46,19 @@ public class PlanningStorageParser {
         }
         return todoList;
     }
+
+    /**
+     * Returns the new name of a recently added recommendation.
+     *
+     * @return The new name of the recommendation.
+     */
+    public static String getNewAddListName(String line) {
+        String[] todoParts = line.split(" ");
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 1; i < todoParts.length; i++) {
+            stringBuilder.append(todoParts[i] + " ");
+        }
+        return stringBuilder.toString();
+    }
+
 }

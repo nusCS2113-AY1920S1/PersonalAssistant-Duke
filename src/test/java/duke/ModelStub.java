@@ -110,8 +110,9 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void confirmRecentItinerary() {
-        this.itineraryTable.put(recentItinerary.getName(), recentItinerary);
+    public void confirmRecentItinerary(String name) {
+        recentItinerary.setName(name);
+        this.itineraryTable.put(name, recentItinerary);
     }
 
     @Override

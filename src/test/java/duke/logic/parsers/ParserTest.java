@@ -55,7 +55,7 @@ class ParserTest {
         assertTrue(Parser.parseComplexCommand("search sentosa") instanceof LocationSearchCommand);
         assertTrue(Parser.parseComplexCommand("cancel") instanceof PromptCommand);
 
-        assertTrue(Parser.parseComplexCommand("addThisList") instanceof AddSampleItineraryCommand);
+        assertTrue(Parser.parseComplexCommand("addThisList SundayList") instanceof AddSampleItineraryCommand);
         assertTrue(Parser.parseComplexCommand("listItinerary") instanceof ListItineraryCommand);
         assertTrue(Parser.parseComplexCommand("recommend orchard "
                 + "between 23/04/19 and 25/04/19") instanceof RecommendationsCommand);

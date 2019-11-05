@@ -28,7 +28,7 @@ public class RecommendationParser extends CommandParser {
      * @throws ParseException If Itinerary object cannot be created.
      */
     private String[] createRecommendation() throws ParseException {
-        String[] itineraryDetails = input.substring("recommend".length()).strip().split("between| and");
+        String[] itineraryDetails = input.substring("recommend".length()).strip().split("between | and");
 
         if (itineraryDetails.length != THREE || itineraryDetails[ONE] == null || itineraryDetails[TWO] == null) {
             throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);

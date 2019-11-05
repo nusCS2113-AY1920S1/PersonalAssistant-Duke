@@ -90,7 +90,7 @@ public interface Model {
 
     void setNewItinerary(Itinerary itinerary) throws ParseException;
 
-    void confirmRecentItinerary();
+    void confirmRecentItinerary(String newName);
 
     /**
      * Returns profile of user.
