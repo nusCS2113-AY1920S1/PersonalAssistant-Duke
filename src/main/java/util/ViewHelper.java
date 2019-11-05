@@ -2,45 +2,44 @@ package util;
 
 import java.util.ArrayList;
 
+import static util.constant.ConstantHelper.*;
+
 public class ViewHelper {
 
-    private static final String BORDER_CORNER = "+";
-    private static final char HORI_BORDER_UNIT = '-';
-    private static final String VERTI_BORDER_UNIT = "|";
-    private static final int DEFAULT_HORI_BORDER_LENGTH = 70;
 
     /**
      * Returns a String array that contains input in table form.
      * @param toPrintAll ArrayList with each element fitting into one table, and each element consists of an
      *                   ArrayList of Strings containing the lines to be printed in a table
+     * @param tableWidth Desired width of the table.
      * @return A String array that contains input in table form.
      */
-    public String[] consolePrintTable(ArrayList<ArrayList<String>> toPrintAll) {
+    public String[] consolePrintTable(ArrayList<ArrayList<String>> toPrintAll, int tableWidth) {
         ArrayList<String> tableContent = new ArrayList<>();
         for (ArrayList<String> toPrint : toPrintAll) {
-            tableContent.add(consolePrintTableHoriBorder(DEFAULT_HORI_BORDER_LENGTH));
+            tableContent.add(consolePrintTableHoriBorder(tableWidth));
             boolean hasPrintedTableHeader = false;
             for (String s : toPrint) {
-                if (s.length() <= DEFAULT_HORI_BORDER_LENGTH) {
+                if (s.length() <= tableWidth) {
                     String line = VERTI_BORDER_UNIT + s
-                            + getRemainingSpaces(DEFAULT_HORI_BORDER_LENGTH - s.length())
+                            + getRemainingSpaces(tableWidth - s.length())
                             + VERTI_BORDER_UNIT;
                     tableContent.add(line);
                 } else {
                     String[] splitStrings = getArrayOfSplitStrings(s);
                     for (String s1 : splitStrings) {
                         String line = VERTI_BORDER_UNIT + s1
-                                + getRemainingSpaces(DEFAULT_HORI_BORDER_LENGTH - s1.length())
+                                + getRemainingSpaces(tableWidth - s1.length())
                                 + VERTI_BORDER_UNIT;
                         tableContent.add(line);
                     }
                 }
                 if (!hasPrintedTableHeader) {
-                    tableContent.add(consolePrintTableHoriBorder(DEFAULT_HORI_BORDER_LENGTH));
+                    tableContent.add(consolePrintTableHoriBorder(tableWidth));
                     hasPrintedTableHeader = true;
                 }
             }
-            tableContent.add(consolePrintTableHoriBorder(DEFAULT_HORI_BORDER_LENGTH));
+            tableContent.add(consolePrintTableHoriBorder(tableWidth));
         }
 
         return tableContent.toArray(new String[0]);

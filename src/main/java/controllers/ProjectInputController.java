@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
+
 public class ProjectInputController implements IController {
     private ProjectRepository projectRepository;
     private MemberFactory memberFactory;
@@ -127,13 +129,13 @@ public class ProjectInputController implements IController {
     private String[] projectViewSelf(Project projectToManage) {
         ArrayList<ArrayList<String>> responseModel = new ArrayList<>();
         responseModel.add(projectRepository.getProjectDetailsForTable(projectToManage));
-        return viewHelper.consolePrintTable(responseModel);
+        return viewHelper.consolePrintTable(responseModel, DEFAULT_HORI_BORDER_LENGTH);
     }
 
     private String[] projectHelp() {
         ArrayList<ArrayList<String>> toPrintAll = new ArrayList<>();
         toPrintAll.add(commandHelper.getCommandsForProject());
-        return viewHelper.consolePrintTable(toPrintAll);
+        return viewHelper.consolePrintTable(toPrintAll, DEFAULT_HORI_BORDER_LENGTH);
     }
 
     /**
@@ -269,7 +271,7 @@ public class ProjectInputController implements IController {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allMemberDetailsForTable.toString());
         ArrayList<ArrayList<String>> tablesToPrint = new ArrayList<>();
         tablesToPrint.add(allMemberDetailsForTable);
-        return viewHelper.consolePrintTable(tablesToPrint);
+        return viewHelper.consolePrintTable(tablesToPrint, DEFAULT_HORI_BORDER_LENGTH);
     }
 
     /**
@@ -510,7 +512,7 @@ public class ProjectInputController implements IController {
                 allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getName() + ":");
                 ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
                 tableToPrint.add(allTaskDetailsForTable);
-                return viewHelper.consolePrintTable(tableToPrint);
+                return viewHelper.consolePrintTable(tableToPrint, DEFAULT_HORI_BORDER_LENGTH);
             } else if (projectCommand.length() >= 11) {
                 String sortCriteria = projectCommand.substring(11);
                 HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
@@ -520,7 +522,7 @@ public class ProjectInputController implements IController {
                 ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
                 allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getName() + ":");
                 tableToPrint.add(allTaskDetailsForTable);
-                return viewHelper.consolePrintTable(tableToPrint);
+                return viewHelper.consolePrintTable(tableToPrint, DEFAULT_HORI_BORDER_LENGTH);
             }
         } catch (IndexOutOfBoundsException e) {
             ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectAssignTask] "
