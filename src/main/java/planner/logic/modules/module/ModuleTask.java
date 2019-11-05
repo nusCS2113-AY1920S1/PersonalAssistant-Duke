@@ -6,9 +6,11 @@ import planner.logic.exceptions.planner.ModBadGradeException;
 import planner.logic.exceptions.planner.ModBadSuException;
 import planner.logic.modules.legacy.task.TaskWithMultipleWeeklyPeriod;
 import planner.util.datetime.NattyWrapper;
+import planner.util.legacy.periods.TimePeriodWeekly;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class ModuleTask extends TaskWithMultipleWeeklyPeriod {
     private ModuleInfoDetailed moduleInfoDetailed;
@@ -93,6 +95,10 @@ public class ModuleTask extends TaskWithMultipleWeeklyPeriod {
                 return 9;
             case "F":
                 return 10;
+            case "S":
+                return 11;
+            case "U":
+                return 12;
             default:
                 return 20;
         }
@@ -100,7 +106,19 @@ public class ModuleTask extends TaskWithMultipleWeeklyPeriod {
 
     @Override
     public String toString() {
-        return super.toString() + " | " + moduleInfoDetailed.toString();
+        StringBuilder prefix = new StringBuilder(super.toString() + " | " + moduleInfoDetailed.toString() + " | ");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[HH:mm]");
+        if (this.getPeriods() != null) {
+            for (TimePeriodWeekly period: this.getPeriods()) {
+                prefix.append(period.getBeginTime().format(formatter))
+                        .append(" - ")
+                        .append(period.getEndTime()
+                                .format(formatter)).append(" on ")
+                        .append(period.getDayOfWeek())
+                        .append(", ");
+            }
+        }
+        return prefix.toString().substring(0, prefix.length() - 2);
     }
 
     @Override
