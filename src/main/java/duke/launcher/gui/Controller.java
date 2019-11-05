@@ -1,6 +1,6 @@
 package duke.launcher.gui;
 
-import duke.launcher.Duke;
+import duke.launcher.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,7 +46,7 @@ public final class Controller implements Initializable {
      * @param event Will get the active instance of the button.
      */
     public void viewMenu(final ActionEvent event) {
-        URL url = Duke.class.getClassLoader()
+        URL url = Main.class.getClassLoader()
             .getResource("view/menu.fxml");
         System.out.println(url);
         assert url != null;
@@ -60,7 +60,7 @@ public final class Controller implements Initializable {
      * @param event Will get the active instance of the button.
      */
     public void viewStudents(final ActionEvent event) {
-        URL url = Duke.class.getClassLoader()
+        URL url = Main.class.getClassLoader()
             .getResource("view/student.fxml");
         System.out.println(url);
         assert url != null;
@@ -73,7 +73,7 @@ public final class Controller implements Initializable {
      * @param event Will get the active instance of the button.
      */
     public void viewTraining(final ActionEvent event) {
-        URL url = Duke.class.getClassLoader()
+        URL url = Main.class.getClassLoader()
             .getResource("view/training.fxml");
         System.out.println(url);
         assert url != null;
@@ -86,7 +86,7 @@ public final class Controller implements Initializable {
      * @param event Will get the active instance of the button.
      */
     public void viewSchedule(final ActionEvent event) {
-        URL url = Duke.class.getClassLoader()
+        URL url = Main.class.getClassLoader()
             .getResource("view/schedule.fxml");
         System.out.println(url);
         assert url != null;
@@ -99,7 +99,7 @@ public final class Controller implements Initializable {
      * @param event Will get the active instance of the button.
      */
     public void viewDay(final ActionEvent event) {
-        URL url = Duke.class.getClassLoader()
+        URL url = Main.class.getClassLoader()
             .getResource("view/daily.fxml");
         System.out.println(url);
         assert url != null;

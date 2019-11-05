@@ -1,6 +1,6 @@
 package duke.launcher.gui;
 
-import duke.launcher.Duke;
+import duke.launcher.Main;
 import javafx.application.Application;
 
 /**
@@ -20,6 +20,6 @@ public final class Launcher {
      * @param args expects array of string objects
      */
     public static void main(final String[] args) {
-        Application.launch(Duke.class, args);
+        Application.launch(Main.class, args);
     }
 }
