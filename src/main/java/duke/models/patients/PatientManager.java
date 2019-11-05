@@ -27,10 +27,10 @@ public class PatientManager {
     }
 
     /**
-     * It checks whether a task exists.
+     * It checks whether a patient exists.
      *
-     * @param  id contains the id of the task.
-     * @return    true if the task exists, otherwise false.
+     * @param  id contains the id of the patient.
+     * @return    true if the patient exists, otherwise false.
      */
     public boolean doesExist(int id) {
         if (patientIdMap.containsKey(id)) {
