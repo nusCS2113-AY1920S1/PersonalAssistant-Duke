@@ -1996,7 +1996,7 @@ Expected: Updated years of the September SSB `bond` being displayed after being 
 
 === Adding a credit card
 
-. Adding a new `card`
+. Adding a new card
 
 .. Prerequisites: There are currently no `card` with the same name.
 
@@ -2031,6 +2031,23 @@ Expected: Updated name of the `card` being displayed after being edited.
 `/edit /card /name POBB Tomorrow Card /limit 10000` +
 Expected: Updated limit of the `card` being displayed after being edited.
 
+=== Deleting a credit card
+
+. Deleting a `card` that exist
+
+.. Prerequisites: The `card` to be deleted exist.
+
+.. Test case:
+`/delete /card /name POBB Tomorrow Card` +
+Expected: Deleted `card` details will be displayed after being deleted.
+
+. Deleting a `card` that do not exist
+
+.. Prerequisites: The `card` to be deleted does not exist.
+
+.. Test case:
+`/delete /card /name POBB Tomorrow Card` +
+Expected: Error saying `card` to be deleted does not exist.
 
 === Transferring fund
 
@@ -2052,9 +2069,7 @@ transfer.
 `/transfer /fund /from JunBank Savings Account /to POBB Savings Account /amount 500 /date 1/1/2019` +
 Expected: Error saying that sender account has insufficient fund to be transferred.
 
-
-
-=== Find `savings` account
+=== Finding savings accounts
 
 . Search for existing `savings` account
 
@@ -2072,8 +2087,7 @@ Expected: Found matching `savings` account and displays the results.
 `/find /savings /name Jun` +
 Expected: Error sayings that there is no `savings` account found.
 
-
-=== Find `investment` account
+=== Finding investment accounts
 
 . Search for existing `investment` account
 
@@ -2091,8 +2105,7 @@ Expected: Found matching `investment` account and displays the results.
 `/find /investment /name Vickers` +
 Expected: Error sayings that there is no `investment` account found.
 
-
-=== Find `card`
+=== Finding cards
 
 . Search for existing `card`
 
@@ -2110,7 +2123,7 @@ Expected: Found matching `card` and displays the results.
 `/find /card /name POBB` +
 Expected: Error sayings that there is no `card` found.
 
-=== Find `bond`
+=== Finding bonds
 
 . Search for existing `bond`
 
@@ -2128,7 +2141,7 @@ Expected: Found matching `bond` and displays the results.
 `/find /bonds /name SSB /from DBB Vickers Account` +
 Expected: Error sayings that there is no `bond` found.
 
-=== Find `bank` transaction
+=== Finding bank transactions
 
 . Search for existing transaction records based on description
 
@@ -2146,7 +2159,7 @@ Expected: Found matching `bank` transaction record and displays the results.
 `/find /banktransaction /name JunBank Savings Account /category food` +
 Expected: Found matching `bank` transaction record and displays the results.
 
-=== Find `card` transaction
+=== Finding card transactions
 
 . Search for existing transaction records based on description
 
@@ -2164,7 +2177,7 @@ Expected: Found matching `card` transaction record and displays the results.
 `/find /cardtransaction /name POBB Tomorrow Card /category food` +
 Expected: Found matching `card` transaction record and displays the results.
 
-=== Find recurring expenditure in `savings` account
+=== Finding recurring expenditure in savings account
 
 . Search for existing recurring expenditure based on description
 
