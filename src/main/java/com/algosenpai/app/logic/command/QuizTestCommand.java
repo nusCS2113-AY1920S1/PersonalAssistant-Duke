@@ -20,6 +20,8 @@ public class QuizTestCommand extends QuizCommand {
 
     int chapterNumber;
 
+    private UserStats userStats;
+
     /**
      * Create new command.
      * @param inputs input from user.
@@ -38,13 +40,14 @@ public class QuizTestCommand extends QuizCommand {
      */
     public QuizTestCommand(ArrayList<String> inputs, ArrayList<QuestionModel> quizList,
                            AtomicInteger questionNumber, AtomicBoolean isQuizMode, AtomicBoolean isNewQuiz,
-                           int chapterNumber) {
+                           int chapterNumber,UserStats userStats) {
         this(inputs);
         this.quizList = quizList;
         this.isQuizMode = isQuizMode;
         this.questionNumber = questionNumber;
         this.isNewQuiz = isNewQuiz;
         this.chapterNumber = chapterNumber;
+        this.userStats = userStats;
     }
 
 
@@ -70,17 +73,12 @@ public class QuizTestCommand extends QuizCommand {
                     String userAnswer = extractUserAnswerFromInput();
                     currQuestionDisplayed.setUserAnswer(userAnswer);
                 }
+
                 return quizList.get(questionNumber.get()).getQuestion()
                         + "\n Your answer: "
                         + quizList.get(questionNumber.get()).getUserAnswer();
             } else {
-                // Updating all the user stats one shot in here
-                //UserStats userStats = UserStats.parseString(Storage.loadData("UserData.txt"));
-                //userStats.updateChapter(chapterNumber,10,userQuizScore);
-                //userStats.setUserExp(userStats.getUserExp() + userQuizScore);
-                //userStats.setUserLevel(userStats.getUserExp() / 20);
-                //userStats.saveUserStats("UserData.txt");
-                // End of updating
+
                 reset();
                 return calculateScore();
             }
@@ -110,6 +108,19 @@ public class QuizTestCommand extends QuizCommand {
                 userQuizScore++;
             }
         }
+
+        // Updating all the user stats one shot in here
+        userStats.updateChapter(chapterNumber,10,userQuizScore);
+        userStats.setUserExp(userStats.getUserExp() + userQuizScore);
+        // Update level, each level is double of previous, so we use log base 2.
+        if (userStats.getUserExp() == 0) {
+            userStats.setUserLevel(0);
+        } else {
+            userStats.setUserLevel((int)(Math.log(userStats.getUserExp() / 10.0) / Math.log(2) + 1));
+        }
+        userStats.saveUserStats("UserData.txt");
+        // End of updating
+
         return "You got " + userQuizScore + "/10 questions correct!\n"
                 + "You have gained " + userQuizScore + " EXP points!";
     }

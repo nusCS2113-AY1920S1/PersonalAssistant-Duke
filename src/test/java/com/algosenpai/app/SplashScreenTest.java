@@ -12,7 +12,7 @@ import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.TextMatchers;
 
-public class SceneControllerTest extends ApplicationTest {
+public class SplashScreenTest extends ApplicationTest {
 
     @Override
     public void start(Stage stage) throws Exception {

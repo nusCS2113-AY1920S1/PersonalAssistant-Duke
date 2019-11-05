@@ -2,7 +2,10 @@
 
 package com.algosenpai.app.logic.command;
 
+import com.algosenpai.app.logic.constant.Commands;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class InvalidCommand extends Command {
 
@@ -16,80 +19,97 @@ public class InvalidCommand extends Command {
 
     @Override
     public String execute() {
-        return "Invalid Command!";
-
-        /*String input = new String();
+        String input = "";
         for (String i : inputs) {
-            input += i;
-        }
-        return "Sorry please input a valid command." + compare(input);*/
-    }
-
-
-    // /**
-    //* Choose command that is closest to the input by user.
-    //* @param input command entered by user.
-    //* @return the closest command.
-    //*/
-    /*
-    public static String compare(String input) {
-        String str = new String();
-        double num = -1.000;
-        String[] strings = new String[20];
-        DecimalFormat df = new DecimalFormat("#.###");
-        String[] names = Commands.getNames();
-        int count = 0;
-
-        for (String s: names) {
-            double temp = ((double) countPairs(input, input.length(), s, s.length()) / (double) s.length());
-            df.format(temp);
-            if (temp > 0.500 && temp > num) {
-                for (String ss : strings) {
-                    ss = "";
-                }
-                count = 0;
-                strings[count] = str;
-            } else if (temp > 0.500 && temp == num) {
-                strings[count++] = s;
-                count++;
+            if (!Commands.isInteger(i)) {
+                input += i;
             }
         }
-        if (!strings[0].isEmpty()) {
-            return "Did you mean..." + strings;
-        } else {
-            return " To view the list of commands, enter `menu`.";
-        }
-    }*/
-
-    ///**
-    //* To compare the number of characters that the invalid command entered by user has with each valid command.
-    //* @param unknownCommand input by user
-    //* @param l1 length of the command inputted by user
-    //* @param knownCommand one of the valid command
-    //* @param l2 length of valid command
-    //* @return number of similar characters
-    //*/
-
-    /*public static int countPairs(String unknownCommand, int l1, String knownCommand, int l2) {
-
-       int []freq1 = new int[26];
-       int []freq2 = new int[26];
-       Arrays.fill(freq1, 0);
-       Arrays.fill(freq2, 0);
-
-       int count = 0;
-
-       for (int i = 0; i < l1; i++) {
-           freq1[unknownCommand.charAt(i) - 'a']++;
-       }
-       for (int i = 0; i < l2; i++) {
-           freq2[knownCommand.charAt(i) - 'a']++;
-       }
-       for (int i = 0; i < 26; i++) {
-           count += (Math.min(freq1[i], freq2[i]));
-       }
-
-       return count;
+        return "Sorry please input a valid command. Did you mean... " + compare(input);
     }
-    */
+
+    /**
+     * Returns the closest possible word(s) to the invalid command entered by user.
+     * @param input invalid command that the user entered
+     * @return possible command(s) that the user might have meant
+     */
+
+    private static String compare(String input) {
+        int num = 100;
+        List<String> name = Commands.getNames();
+        ArrayList<String> strings = new ArrayList<>();
+
+        for (String s: name) {
+            int temp = editDist(input, s, input.length(), s.length());
+            if (temp < num) {
+                num = temp;
+                if (!strings.isEmpty()) {
+                    clear(strings);
+                }
+                strings.add(s);
+            } else if (temp == num) {
+                strings.add(s);
+            }
+        }
+        return strings.toString();
+    }
+
+    /**
+     * Returns the edit distance from one word to another, which in other words,
+     * means how many steps of the 3 operations (insert, remove and replace)
+     * are needed to change one word to another.
+     * @param input invalid command that the user entered
+     * @param known one of the list of commands
+     * @param x length of input
+     * @param y length of known
+     * @return minimum steps to convert input to known
+     */
+
+    private static int editDist(String input, String known, int x, int y) {
+        if (x == 0) {
+            return y;
+        }
+
+        if (y == 0) {
+            return x;
+        }
+
+        if (input.charAt(x - 1) == known.charAt(y - 1)) {
+            return editDist(input, known, x - 1, y - 1);
+        }
+
+        return 1 + minimum(editDist(input, known, x, y - 1), editDist(input, known, x - 1, y),
+        editDist(input, known, x - 1, y - 1));
+    }
+
+    /**
+     * Returns the minimum of the three operations.
+     * @param a inserting
+     * @param b removing
+     * @param c replacing
+     * @return the minimum of the three operations
+     */
+
+    private static int minimum(int a, int b, int c) {
+        if (a <= b && a <= c) {
+            return a;
+        } else if (b <= a && b <= c) {
+            return b;
+        } else {
+            return c;
+        }
+    }
+
+    /**
+     * Clears an arraylist.
+     * @param list input arraylist
+     * @return arraylist that has been cleared
+     */
+
+    private static ArrayList<String> clear(ArrayList<String> list) {
+        while (!list.isEmpty()) {
+            list.remove(0);
+        }
+        return list;
+    }
 }

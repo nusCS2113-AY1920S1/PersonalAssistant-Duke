@@ -34,7 +34,7 @@ public class SetupCommand extends Command {
     @Override
     public String execute() {
         if (inputs.size() < 3) {
-            UserStats previousStats = stats.parseString(Storage.loadData("UserData.txt"));
+            UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
             if (previousStats.getUsername().equals("Default")) {
                 return "Hmm.. seems like you have no previous data... \n"
                     + "Could you type out the command in the correct format of 'hello NAME GENDER (boy/girl)' please";
