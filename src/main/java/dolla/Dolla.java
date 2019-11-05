@@ -18,7 +18,6 @@ public class Dolla {
 
     private static final String COMMAND_BYE = "bye";
     private DollaData dollaData = new DollaData();
-    protected static TagList tagList = new TagList(); //todo: change
 
     /**
      * Creates an instance of Dolla using a data loaded from /data/dolla.txt

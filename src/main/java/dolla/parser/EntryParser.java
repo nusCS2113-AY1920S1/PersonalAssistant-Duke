@@ -30,7 +30,7 @@ public class EntryParser extends Parser {
             if (verifyAddCommand()) {
                 Tag t = new Tag();
                 Entry entry = new Entry(inputArray[1], stringToDouble(inputArray[2]), description, date);
-                t.handleTag(inputLine, inputArray, entry);
+                t.handleTag(entry);
                 return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
                         description, date);
             } else {
