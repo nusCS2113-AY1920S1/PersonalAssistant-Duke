@@ -23,9 +23,13 @@ public class MainParser {
             case "done/d":
                 return new DoneParse(fullCommand).parse();
 
-            case "recur/e":
+            case "recur/weekly":
+            case "recur/biweekly":
+            case "recur/rmweekly":
+            case "recur/rmbiweekly":
                 return new RecurParse(fullCommand).parse();
 
+            case "remind/check":
             case "remind/set":
             case "remind/rm":
                 return new RemindParse(fullCommand).parse();
@@ -38,20 +42,25 @@ public class MainParser {
             case "help":
                 return new HelpCommand();
 
-            case "list":
+//            case "list":
             case "done":
-                return  null;
+                return new DoneParse(fullCommand).parse();
 
             case "find":
                 return new FindFreeTimesParse(fullCommand).parse();
-            case "show previous":
-                return new ShowPreviousCommand(fullCommand);
+
+            case "show/previous":
+                return new ShowPreviousParse(fullCommand).parse();
+            
             case "retrieve/ft":
                 return new RetrieveFreeTimesParse(fullCommand).parse();
-            case "retrieve previous":
+
+            case "retrieve/previous":
                 return new RetrievePreviousCommand(fullCommand);
+
             case "Week":
-                return new WeekParse(fullCommand).parse();//WeekCommand(fullCommand);
+                return new WeekParse(fullCommand).parse();
+
             case "bye":
                 return new ByeCommand();
 

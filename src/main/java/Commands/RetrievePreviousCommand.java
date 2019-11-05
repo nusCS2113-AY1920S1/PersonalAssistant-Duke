@@ -1,8 +1,7 @@
 package Commands;
 
-import Commons.LookupTable;
 import Commons.Storage;
-import Commons.Ui;
+import Commons.UserInteraction;
 import DukeExceptions.DukeInvalidCommandException;
 import Tasks.TaskList;
 
@@ -29,7 +28,7 @@ public class RetrievePreviousCommand extends Command{
      * @throws DukeInvalidCommandException on emtpy list and invalid index input
      */
     @Override
-    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeInvalidCommandException {
+    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws DukeInvalidCommandException {
         fullCommand = fullCommand.replace("retrieve/previous", "");
         fullCommand = fullCommand.trim();
 

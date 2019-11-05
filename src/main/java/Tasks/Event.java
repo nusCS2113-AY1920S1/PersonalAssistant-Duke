@@ -30,7 +30,7 @@ public class Event extends Assignment{
 
     @Override
     public String toString() {
-        return super.getModCode() + " " + "[E]" + super.toString() + "(at: " + by + " time: " + start + " to " + end + ")";
+        return super.getModCode() + " " + "[E]" + super.toString() + "(at: " + by + " time: " + start + " to: " + end + ")";
     }
 
     @Override

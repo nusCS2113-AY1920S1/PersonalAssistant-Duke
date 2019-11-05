@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DateFormat;
@@ -29,7 +30,7 @@ public class Storage {
     private String filePathEvent;
     private String filePathDeadline;
     private Reminder reminder;
-    private static final Logger LOGGER = Logger.getLogger(Storage.class.getName());
+    private final Logger LOGGER = DukeLogger.getLogger(Storage.class);
     private HashMap<String, HashMap<String, ArrayList<Assignment>>> map;
     private HashMap<Date, Assignment> reminderMap;
 
@@ -63,9 +64,9 @@ public class Storage {
     public void updateEventList(TaskList list) {
         PrintWriter outputStream = null;
         try {
-            outputStream = new PrintWriter(filePathEvent);
-        } catch (FileNotFoundException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
+            outputStream = new PrintWriter(filePathEvent, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            LOGGER.severe("event.txt file not found" + e.getMessage());
         }
         map = list.getMap();
         Set<String> allMods = map.keySet();
@@ -81,14 +82,15 @@ public class Storage {
         outputStream.close();
     }
 
-    public void readEventList(TaskList list) {
+    public void readEventList(TaskList list) throws DukeIOException {
         ArrayList<String> temp = null;
         try {
             File eventFile = new File(filePathEvent);
             eventFile.createNewFile();
             temp = new ArrayList<>(Files.readAllLines(Paths.get(filePathEvent)));
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
+            LOGGER.severe("There is no event.txt to read from" + e.getMessage());
+            throw new DukeIOException("There is no event.txt file to read from. Please create one.");
         }
         for (String string : temp) {
             if (string.isEmpty()) {
@@ -102,8 +104,9 @@ public class Storage {
     public void updateDeadlineList(TaskList list) {
         PrintWriter outputStream = null;
         try {
-            outputStream = new PrintWriter(filePathDeadline);
-        } catch (FileNotFoundException e) {
+            outputStream = new PrintWriter(filePathDeadline, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            LOGGER.severe("deadline.txt not found" + e.getMessage());
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
         map = list.getMap();
@@ -127,7 +130,7 @@ public class Storage {
             deadlineFile.createNewFile();
             temp = new ArrayList<>(Files.readAllLines(Paths.get(filePathDeadline)));
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
+            LOGGER.severe("There is no deadline.txt to read from" + e.getMessage());
             throw new DukeIOException("There is no deadline.txt file to read from. Please create one.");
         }
         for (String string : temp) {
@@ -139,7 +142,7 @@ public class Storage {
                 try {
                     date = dateFormat.parse(task.getRemindTime());
                 } catch (ParseException e) {
-                    LOGGER.log(Level.SEVERE, e.toString(), e);
+                    LOGGER.severe("Reminder time is wrongly recorded" + e.getMessage());
                 }
                 reminderMap.put(date, task);
             }
@@ -150,7 +153,7 @@ public class Storage {
         return this.reminderMap;
     }
 
-    private static Assignment stringToTask(String string) {
+    private Assignment stringToTask(String string) {
         Assignment line = null;
         try {
             if (string.contains("[D]")) {
@@ -170,8 +173,8 @@ public class Storage {
                 DateFormat format = new SimpleDateFormat("E dd/MM/yyyy");
                 SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
                 String dateFromData = string.substring(string.indexOf("at:") + 4, string.indexOf("time:")).trim();
-                String startTimeFromData = string.substring(string.indexOf("time:") + 6, string.indexOf("to"));
-                String endTimeFromData = string.substring(string.indexOf("to") + 3, string.indexOf(')')).trim();
+                String startTimeFromData = string.substring(string.indexOf("time:") + 6, string.indexOf("to:"));
+                String endTimeFromData = string.substring(string.indexOf("to:") + 3, string.indexOf(')')).trim();
                 Date startTime = timeFormat.parse(startTimeFromData);
                 Date endTime = timeFormat.parse(endTimeFromData);
                 Date date = format.parse(dateFromData);
@@ -189,7 +192,7 @@ public class Storage {
                 line.setReminder(true);
             }
         } catch (ParseException | StringIndexOutOfBoundsException | NullPointerException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
+            LOGGER.severe("Unable to parse data from event.txt or deadline.txt" + e.getMessage());
         }
         return line;
     }
@@ -198,7 +201,7 @@ public class Storage {
      * Starts the thread on existing reminders set from deadline.txt
      * @throws DukeInvalidDateTimeException On setReminderThread invalid date parameter
      */
-    public void setReminderOnStart() throws Exception {
+    public void setReminderOnStart() throws DukeInvalidDateTimeException {
         Set<Date> dateKey = reminderMap.keySet();
         for(Date date : dateKey) {
             Date remindDate = new Date();
@@ -209,11 +212,14 @@ public class Storage {
             try {
                 remindDate = dateFormat.parse(remindTime);
             } catch (ParseException e) {
-                LOGGER.log(Level.SEVERE, e.toString(), e);
+                LOGGER.severe("Reminder date is wrong in deadline.txt. Unable to parse" + e.getMessage());
             }
             if(remindDate.after(currentDate)) {
                 reminder.setReminderThread(remindDate, task);
             }
+        }
+        if (!reminderMap.isEmpty()) {
+            reminder.reminderOnStartAlert();
         }
     }
 }

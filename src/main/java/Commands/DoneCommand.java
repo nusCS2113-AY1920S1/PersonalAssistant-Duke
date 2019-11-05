@@ -1,11 +1,13 @@
 package Commands;
 
 import DukeExceptions.DukeException;
-import Commons.LookupTable;
 import Commons.Storage;
-import Commons.Ui;
+import Commons.UserInteraction;
 import Tasks.Assignment;
 import Tasks.TaskList;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -26,6 +28,23 @@ public class DoneCommand extends Command {
         this.list = list;
     }
 
+    private boolean isInsideMapRemove (HashMap<String, HashMap<String, ArrayList<Assignment>>> map, Assignment task) throws DukeException {
+        String modCode = task.getModCode();
+        String dateOfTask = task.getDate();
+        if (!map.containsKey(modCode)) {
+            throw new DukeException("Sorry, you have no such mod task to be mark done");
+        } else if (!map.get(modCode).containsKey(dateOfTask)) {
+            throw new DukeException("Sorry, you have no such date of the mod task to be mark done");
+        } else {
+            for (Assignment taskInList : map.get(modCode).get(dateOfTask)) {
+                if (taskInList.getDateTime().equals(task.getDateTime())) {
+                    return true;
+                }
+            }
+            throw new DukeException("Sorry, you have no timing of the mod task to be mark done");
+        }
+    }
+
     /**
      * Executes the mark as done of a task inside the TaskList object with the given index.
      * @param events The TaskList object for events
@@ -36,19 +55,20 @@ public class DoneCommand extends Command {
      * @throws DukeException On ArrayList out of bound error
      */
     @Override
-    public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException {
-        try{
-            if (list.equals("event")) {
-                events.updateTask(task);
-                storage.updateEventList(events);
-            } else if (list.equals("deadline")) {
-                deadlines.updateTask(task);
-                storage.updateDeadlineList(deadlines);
-            }
-            task.setDone(true);
-            return ui.showDone(task);
-        } catch(ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but we cannot find the input task  :-(\n");
+    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws DukeException {
+        HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap = events.getMap();
+        HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();
+
+        if (list.equals("event")) {
+            isInsideMapRemove(eventMap, task);
+            events.updateTask(task);
+            storage.updateEventList(events);
+        } else if (list.equals("deadline")) {
+            isInsideMapRemove(deadlineMap, task);
+            deadlines.updateTask(task);
+            storage.updateDeadlineList(deadlines);
         }
+        task.setDone(true);
+        return ui.showDone(task);
     }
 }

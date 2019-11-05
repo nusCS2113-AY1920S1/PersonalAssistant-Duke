@@ -1,11 +1,9 @@
 package Commands;
 
-import Commons.LookupTable;
+import Commons.DukeLogger;
 import Commons.Storage;
-import Commons.Ui;
+import Commons.UserInteraction;
 import Tasks.TaskList;
-import UserInterface.AlertBox;
-import javafx.scene.control.Alert;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,28 +16,8 @@ import java.util.logging.Logger;
  * Represents the command to display a guide to all commands
  */
 public class HelpCommand extends Command{
-    private static final Logger LOGGER = Logger.getLogger(LookupTable.class.getName());
-    private static String out;
-
-    public HelpCommand(){
-         String help = new String();
-        try {
-            String line;
-            InputStream is = this.getClass().getClassLoader().getResourceAsStream("documents/Help.txt");
-            InputStreamReader isr = new InputStreamReader(is);
-            BufferedReader reader = new BufferedReader(isr);
-            while ((line = reader.readLine()) != null) {
-                help += line + "\n";
-            }
-            reader.close();
-            isr.close();
-            is.close();
-            this.out = help;
-        } catch (
-                IOException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-        }
-    }
+    private final Logger LOGGER = DukeLogger.getLogger(HelpCommand.class);
+    private static  String help = new String();
     /**
      * Executes the displaying of guide to all commands
      * @param events The TaskList object for events
@@ -49,9 +27,21 @@ public class HelpCommand extends Command{
      * @return This returns the method in the Ui object which returns the string to display delete task message
      */
     @Override
-    public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
-
-        return ui.showHelp(out);
-
+    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) {
+        try {
+        String line;
+        InputStream is = this.getClass().getClassLoader().getResourceAsStream("documents/Help.txt");
+        InputStreamReader isr = new InputStreamReader(is);
+        BufferedReader reader = new BufferedReader(isr);
+        while ((line = reader.readLine()) != null) {
+         help += line + "\n";
+        }
+        reader.close();
+        isr.close();
+        is.close();
+    } catch (IOException e) {
+        LOGGER.severe("Help.txt cannot be found" + e.getMessage());
+    }
+        return ui.showHelp(help);
     }
 }

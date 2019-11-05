@@ -1,9 +1,9 @@
 plugins {
-    id 'java'
+
     id 'application'
     id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '5.1.0'
-    id 'org.openjfx.javafxplugin' version '0.0.7'
+
 }
 
 checkstyle {
@@ -12,7 +12,7 @@ checkstyle {
 
 shadowJar {
     archiveBaseName = ""
-    archiveVersion = "v1.3"
+    archiveVersion = "v1.3.1"
     archiveClassifier = null
     archiveAppendix = null
 }
@@ -29,10 +29,18 @@ application {
     mainClassName = "Launcher"
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDirs = ['src/main/java/resources']
+        }
+    }
+}
+
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.0'
-    String javaFxVersion = '11'
+    String javaFxVersion = '11.0.1'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
@@ -52,12 +60,8 @@ test {
     useJUnitPlatform()
 }
 
-javafx {
-    version = "11.0.2"
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
-}
+
 
 run {
     standardInput = System.in
 }
-
