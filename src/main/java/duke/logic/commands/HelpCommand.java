@@ -1,49 +1,32 @@
 package duke.logic.commands;
 
+import duke.commons.exceptions.HelpFailException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
+
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * Shows the help message.
  */
 public class HelpCommand extends Command {
+    private static final String HELP_URL = "https://github.com/AY1920S1-CS2113T-W13-3/main/blob/master/docs/UserGuide.adoc";
     private static final String MESSAGE_HELP = "Here is the list of commands:\n"
-            + "Add Event:\n"
             + "    Event: event <venue> between <time> and <time>\n"
-            + "\n"
-            + "Delete Event:\n"
             + "    Event: delete <index> \n"
-            + "\n"
-            + "Mark Event as done:\n"
             + "    Event: done <index> \n"
-            + "\n"
-            + "Listing:\n"
             + "    List events: list\n"
             + "    Showing a Profile: profileShow\n"
             + "    Showing bus stop: busStop <bus stop code>\n"
-            + "    e.g. busStop 17009\n"
             + "    Showing a bus route: busRoute <bus number>\n"
-            + "    e.g. busRoute 96\n"
-            + "\n"
-            + "Querying\n"
             + "    Search locations: search <venue>\n"
             + "    Map of locations: map <venue>\n"
             + "    Find event in events: find <keyword>\n"
+            + "    For more commands, please visit our Github website.\n"
             + "\n"
-            + "Route\n"
-            + "    routeAdd NAME\n"
-            + "    routeNodeAdd INDEXROUTE INDEXNODE at LOCATION by CONSTRAINT\n"
-            + "    routeGenerate STARTLOCATION to ENDLOCATION by CONSTRAINT\n"
-            + "    routeList INDEX_ROUTE\n"
-            + "    routeNodeList INDEX_ROUTE INDEX_NODE\n"
-            + "    routeShow INDEX_ROUTE\n"
-            + "    routeNodeShow INDEX_ROUTE INDEX_NODE\n"
-            + "    routeNodeNearby INDEX_ROUTE INDEX_NODE\n"
-            + "    routeDelete INDEX_ROUTE\n"
-            + "    routeNodeDelete INDEX_ROUTE INDEX_NODE\n"
-            + "\n"
-            + "For more info, visit this link:\n"
-            + "https://github.com/AY1920S1-CS2113T-W13-3/main/blob/master/docs/UserGuide.adoc\n"
             ;
 
     /**
@@ -52,7 +35,13 @@ public class HelpCommand extends Command {
      * @param model The model object containing event list.
      */
     @Override
-    public CommandResultText execute(Model model) {
+    public CommandResultText execute(Model model) throws HelpFailException {
+        try {
+            Desktop desktop = Desktop.getDesktop();
+            desktop.browse(new URI(HELP_URL));
+        } catch (URISyntaxException | IOException e) {
+            throw new HelpFailException();
+        }
         return new CommandResultText(MESSAGE_HELP);
     }
 }
