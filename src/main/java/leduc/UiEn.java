@@ -224,22 +224,22 @@ public class UiEn extends Ui {
 
     @Override
     public void showEnterDayShow() {
-        super.display("please enter the day as DD/MM/YYYY");
+        System.out.println("You have enter the show day mode. Please enter the day as : DD/MM/YYYY");
     }
 
     @Override
     public void showEnterDayOfWeekShow() {
-        super.display("please enter the day of the week as monday, tuesday, wednesday, thursday, friday, saturday, sunday");
+        System.out.println("You have enter the show day of week mode. Please enter the day of the week as : monday, tuesday, wednesday, thursday, friday, saturday, sunday");
     }
 
     @Override
     public void showEnterMonthShow() {
-        super.display("please enter the month as MM/YYYY");
+        System.out.println("You have enter the show month mode. Please enter the month as : MM/YYYY");
     }
 
     @Override
     public void showEnterYearShow() {
-        super.display("please enter the year as YYYY");
+        System.out.println("You have enter the show year mode. Please enter the year as : YYYY");
     }
 
     @Override
@@ -334,5 +334,15 @@ public class UiEn extends Ui {
         else if (e instanceof UserAnswerException){
             System.out.println("\t UserAnswerException:\n\t\t ☹ OOPS!!! Please answer correctly the question.");
         }
+    }
+
+    @Override
+    public void terminateShortcut() {
+        System.out.println("The shortcut edit mode is being terminated earlier. All shortcut edited until now has been saved");
+    }
+
+    @Override
+    public void showErrorLanguage() {
+        System.out.println("The language that you have chosen is currently not available");
     }
 }
