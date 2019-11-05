@@ -139,6 +139,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
         return receiptByYear;
     }
 
+
     // -- Boolean Functions
     /**
      * Checks if a tag has been registered previously.
