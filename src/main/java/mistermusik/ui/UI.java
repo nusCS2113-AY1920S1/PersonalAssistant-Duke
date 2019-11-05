@@ -54,8 +54,9 @@ public class UI {
         System.out.println("4.  \"check\"           -- Print the next 3 free days.");
         System.out.println("5.  \"find <keyword>\"  -- Search for a specific event using keywords.");
         System.out.println("6.  \"view dd-MM-yyyy\" -- Print the event list for a particular date.");
-        System.out.println("7.  \"budget MM-yyyy OR budget set <new budget>\"  -- View monthly cost of concerts or set new budget");
-        System.out.println("8.  \"bye\"             -- Exit the program.");
+        System.out.println("7.  \"budget MM-yyyy\"  -- View monthly cost of concerts");
+        System.out.println("8.  \"budget set <new budget>\"  -- Set new monthly budget");
+        System.out.println("9.  \"bye\"             -- Exit the program.");
         System.out.println("-----More Commands-----");
         System.out.println("1.  \"help calendar\"   -- To see commands about calendar.");
         System.out.println("2.  \"help event\"      -- To see commands about how to add or delete event.");
