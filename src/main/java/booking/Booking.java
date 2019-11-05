@@ -48,7 +48,8 @@ public class Booking {
      * @param atEnd end date and time
      * @param status request status
      */
-    public Booking(String username, String roomcode, String description, String atStart, String atEnd, String status) {
+    public Booking(String username, String roomcode, String description, String atStart, String atEnd, String status,
+                   String approvedBy) {
         this.venue = roomcode;
         this.description = description;
         Date storedStart = new Date(Long.parseLong(atStart));
@@ -58,7 +59,7 @@ public class Booking {
         this.timeEnd = storedEnd.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
         this.name = username;
         this.status = status;
-        this.approvedBy = null;
+        this.approvedBy = approvedBy;
     }
 
     /**
@@ -82,7 +83,7 @@ public class Booking {
         Date storeTimeEnd = Date.from(timeEndInstant);
         return this.name + " | " + this.venue + " | " + this.description + " | "
                 + storeTimeStart.getTime() + " | "
-                + storeTimeEnd.getTime() + " | " + this.status + "\n";
+                + storeTimeEnd.getTime() + " | " + this.status + " | " + this.approvedBy + "\n";
     }
 
     public LocalDateTime getDateTimeStart() {
