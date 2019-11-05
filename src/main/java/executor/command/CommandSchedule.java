@@ -8,6 +8,7 @@ import ui.Wallet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class CommandSchedule extends Command {
@@ -45,11 +46,11 @@ public class CommandSchedule extends Command {
     }
 
     private void printSchedule(String dateInput, TaskList taskList) throws ParseException {
-        Date date = new Date();
+        LocalDate date = LocalDate.now();
         //insert code to convert string to date type
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        Date userDate = format.parse(dateInput);
-        userDate.setTime(0);
+        String dateStr_3="28/09/16";
+        DateTimeFormatter formatter_3 = DateTimeFormatter.ofPattern("dd/MM/yy");
+        LocalDate userDate = LocalDate.parse(dateInput,formatter_3);
         for (int index = 0; index < taskList.getSize(); ++index) {
             try {
                 LocalDate taskDate = taskList.getList().get(index).getDate();//creates of copy of datetime in the task

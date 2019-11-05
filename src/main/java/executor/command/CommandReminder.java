@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class CommandReminder extends Command {
     //private String[] reminders;
-    protected LocalDate currentDate;
+    private LocalDate currentDate;
 
     /**
      * Constructor for CommandReminder subCommand Class.
