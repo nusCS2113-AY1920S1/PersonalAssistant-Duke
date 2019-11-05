@@ -22,10 +22,10 @@ import ducats.commands.RedoCommand;
 import ducats.commands.SwapBarCommand;
 import ducats.commands.UndoCommand;
 import ducats.commands.ViewCommand;
+import ducats.commands.ListGroupCommand;
 import ducats.components.SongList;
 import ducats.components.UndoRedoStack;
 
-import java.nio.file.Paths;
 
 public class Ducats {
     /**
@@ -93,7 +93,8 @@ public class Ducats {
                         || c instanceof OverlayBarSong
                         || c instanceof OpenCommand
                         || c instanceof AsciiCommand
-                        || c instanceof OverlayGroupGroup) {
+                        || c instanceof OverlayGroupGroup
+                        || c instanceof ListGroupCommand) {
                     output = c.execute(songs, ui, storage);
                     if (!(c instanceof HelpCommand
                         || c instanceof ViewCommand
