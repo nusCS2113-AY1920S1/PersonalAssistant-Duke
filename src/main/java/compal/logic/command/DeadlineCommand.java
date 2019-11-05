@@ -41,7 +41,7 @@ public class DeadlineCommand extends Command {
 
     private static final String MESSAGE_SUCCESSFULLY_ADDED = "\nThe following deadline were added: \n";
     private static final String MESSAGE_REPEATED_DEADLINE = "\nLooks like you already added the task before! \n"
-            + "Use the edit command on the task ID given below to edit it!";
+            + "Use the edit command on the task ID given below!";
     private String description;
     private ArrayList<String> startDateList;
     private Task.Priority priority;
@@ -83,7 +83,7 @@ public class DeadlineCommand extends Command {
                     if (task.getSymbol().equals("D")
                             && task.getStringMainDate().equals(startDateString)
                             && task.getStringEndTime().equals(endTime)
-                            && task.getDescription().equals(description)) {
+                            && task.getDescription().equalsIgnoreCase(description)) {
                         finalList.append(MESSAGE_REPEATED_DEADLINE.concat(task.toString() + "\n"));
                         doesNotExist = false;
                         break;
