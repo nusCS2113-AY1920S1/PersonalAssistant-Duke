@@ -20,7 +20,13 @@ public class EventCommand extends Command {
     private static final String EVENT = "gazeeebo.tasks.Event";
 
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException {
+    public void execute(final ArrayList<Task> list, final Ui ui,
+                        final Storage storage,
+                        final Stack<ArrayList<Task>> commandStack,
+                        final ArrayList<Task> deletedTask,
+                        final TriviaManager triviaManager)
+            throws DukeException,
+            ParseException, IOException {
         String description;
         try {
             if (ui.fullCommand.length() == 5) {

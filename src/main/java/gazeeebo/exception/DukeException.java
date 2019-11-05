@@ -1,8 +1,9 @@
+
 package gazeeebo.exception;
 
 
 public class DukeException extends Exception {
-    public DukeException(String errorMessage){
+    public DukeException(final String errorMessage) {
         super(errorMessage);
     }
 }

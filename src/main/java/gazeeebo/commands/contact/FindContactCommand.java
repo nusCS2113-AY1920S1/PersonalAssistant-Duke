@@ -1,3 +1,4 @@
+
 package gazeeebo.commands.contact;
 
 import gazeeebo.UI.Ui;
@@ -9,6 +10,11 @@ import java.util.Map;
  * Finds a contact frm contact list.
  */
 public class FindContactCommand {
+    /**
+     * space between first
+     * alphabelt to first vertical line separator.
+     */
+    private static final int SPACE_NUMBER = 30;
 
     /**
      * Finds the contact number with the contact name.
@@ -22,7 +28,7 @@ public class FindContactCommand {
                               final String lineBreak) {
         try {
             String nameToFind = "";
-            String toPrint = "";
+            StringBuilder toPrint = new StringBuilder();
             boolean isExist = false;
             if (ui.fullCommand.split(" ").length == 1) {
                 System.out.println("What is the name you want to find?");
@@ -30,8 +36,8 @@ public class FindContactCommand {
                 nameToFind = ui.fullCommand;
             } else if (ui.fullCommand.split(" ").length == 2) {
                 for (int i = 1; i < ui.fullCommand.split(" ").length; i++) {
-                    nameToFind
-                            = nameToFind.concat(ui.fullCommand.split(" ")[i] + " ");
+                    nameToFind = nameToFind.
+                            concat(ui.fullCommand.split(" ")[i] + " ");
                 }
                 nameToFind = nameToFind.trim();
             } else {
@@ -40,12 +46,13 @@ public class FindContactCommand {
             for (String keys : contactList.keySet()) {
                 if (keys.contains(nameToFind)) {
                     isExist = true;
-                    toPrint += keys;
-                    int l = 30 - keys.length();
+                    toPrint.append(keys);
+                    int l = SPACE_NUMBER - keys.length();
                     for (int i = 0; i < l; i++) {
-                        toPrint += " ";
+                        toPrint.append(" ");
                     }
-                    toPrint += "| " + contactList.get(keys) + "\n" + lineBreak;
+                    toPrint.append("| ").append(contactList.get(keys)).
+                            append("\n").append(lineBreak);
                 }
             }
             if (!isExist) {

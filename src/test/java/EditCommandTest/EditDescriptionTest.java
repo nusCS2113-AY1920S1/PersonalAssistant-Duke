@@ -46,6 +46,7 @@ public class EditDescriptionTest {
                         + "\n\tTo:   [T][ND] tutorial assignment\n",
                 output.toString());
     }
+
     @Test
     void testEditDeadlineDescription() throws IOException {
         Deadline testd = new Deadline("tutorial homework", "2019-12-12 10:10:10");
@@ -59,6 +60,7 @@ public class EditDescriptionTest {
                         + "\n\tTo:   [D][ND] tutorial assignment(by:12 Dec 2019 10:10:10)\n",
                 output.toString());
     }
+
     @Test
     void testEditEventDescription() throws IOException {
         Event testE = new Event("Career Talk", "2019-12-12 10:10:10-11:11:11");
@@ -72,6 +74,7 @@ public class EditDescriptionTest {
                         + "\n\tTo:   [E][ND]Career GE Talk(at:12 Dec 2019 10:10:10-11:11:11)\n",
                 output.toString());
     }
+
     @Test
     void testEditDoAfterDescription() throws IOException {
         DoAfter testd = new DoAfter("brush teeth", "brush teeth", "sleep");
@@ -85,6 +88,7 @@ public class EditDescriptionTest {
                         + "\n\tTo:   [DA][ND] bathe(/after:brush teeth)\n",
                 output.toString());
     }
+
     @Test
     void testEditFixDurationDescription() throws IOException {
         FixedDuration testF = new FixedDuration("tutorial homework", "2 hours");
@@ -98,6 +102,7 @@ public class EditDescriptionTest {
                         + "\n\tTo:   [FD][ND] tutorial assignment(requires:2 hours)\n",
                 output.toString());
     }
+
     @Test
     void testEditTimeBoundDescription() throws IOException {
         Timebound testT = new Timebound("tutorial homework", "2019-10-10 and 2019-11-10");
