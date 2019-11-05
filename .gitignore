@@ -14,7 +14,6 @@ src/main/resources/docs/
 bin/
 
 # Generated Data File
-data/baking.json
 
 # Log file
 BakingHome.log.0
