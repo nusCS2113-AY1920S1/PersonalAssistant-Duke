@@ -11,6 +11,7 @@ public class QuizCommand extends Command {
      */
     public QuizCommand(ArrayList<String> inputs) {
         super(inputs);
+
     }
 
     @Override
