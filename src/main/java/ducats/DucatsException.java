@@ -35,6 +35,10 @@ public class DucatsException extends Exception {
         this.type = type;
     }
 
+    public String getType() {
+        return this.type;
+    }
+
     /**
      * Returns the message associated with the type of ducats.DukeException that has occurred.
      *
@@ -57,22 +61,6 @@ public class DucatsException extends Exception {
                     + " command cannot be empty.";
         } else if (!type.equals("other")) {
             switch (type) {
-            case "todo": {
-                message = "OOPS!!! I'm sorry, but I don't know what that means :-(";
-                break;
-            }
-            case "event": {
-                if (!input.contains("/at")) {
-                    message = "OOPS!!! ducats.tasks.Event is missing a location.";
-                }
-                break;
-            }
-            case "deadline": {
-                if (!input.contains("/by")) {
-                    message = "OOPS!!! ducats.tasks.Deadline is missing a deadline.";
-                }
-                break;
-            }
             case "doafter": {
                 if (!input.contains("/after")) {
                     message = "OOPS!!! ducats.tasks.DoAfter is missing a task it is supposed to be done after.";
@@ -83,6 +71,10 @@ public class DucatsException extends Exception {
             }
             case "new": {
                 message = "OOPS!!! ducats.components.Song cannot be created due to invalid input format.";
+                break;
+            }
+            case "song name": {
+                message = "OOPS!!! ducats.components.Song cannot be created as that song name is already in use.";
                 break;
             }
             case "view": {
