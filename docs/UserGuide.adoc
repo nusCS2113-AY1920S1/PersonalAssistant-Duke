@@ -120,6 +120,8 @@ e.g. try typing *`/help` (Not available in v1.3)* and pressing kbd:[Enter] will 
 
 .  Refer to, <<Features>> for details of each command.
 
+.  Refer to, <<FAQ>> for a list of common questions that have been answered.
+
 [[Features]]
 == Features
 In this section, the expected command format will be introduced, and you can expect to learn the various
@@ -567,6 +569,15 @@ There can only be a maximum of *3* investment accounts.
 Adds an investment account named `DBB Vickers Account` which has an initial amount
 of $`10000` inside that you can start investing with.
 
+.Successful addition of investment account after using `/add /investment`
+ifdef::env-github[]
+image::InvestmentAdd.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::InvestmentAdd.png[width="970"]
+endif::[]
+
 ===== Editing investment bank account `/edit /investment`
 
 Changes made to your investment account? Here is how you can do it!
@@ -585,6 +596,15 @@ At least one of `/newname`, `/amount` must be used.
 * `/edit /investment /name DBB Vickers Account /newname OBOB Securities Account`
 
 Edits the name of the account from `DBB Vickers Account` to `OBOB Securities Account`.
+
+.Successful edition of investment account after using `/edit /investment`
+ifdef::env-github[]
+image::InvestmentEdit.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::InvestmentEdit.png[width="970"]
+endif::[]
 
 * `/edit /investment /name DBB Vickers Account /amount 50000`
 
@@ -613,6 +633,15 @@ All transactions (e.g. bonds) related to the investment bank account will be del
 
 Deletes an investment account named `DBB Vickers Account`.
 
+.Successful deletion of investment account after using `/delete /investment`
+ifdef::env-github[]
+image::InvestmentDelete.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::InvestmentDelete.png[width="970"]
+endif::[]
+
 ===== Adding investment bonds `/add /bonds`
 Signed up for a bond? Finding it difficult to keep up with the interest?
 No worries! *OwlMoney* allows efficient tracking of your semi-annual coupon interest!
@@ -626,6 +655,8 @@ No worries! *OwlMoney* allows efficient tracking of your semi-annual coupon inte
 An investment account needs to be created first to add bonds.
 
 Bonds can only be added to investment accounts.
+
+There can only be a maximum of *20* investment bonds per investment account.
 ====
 
 *Example*
@@ -634,6 +665,15 @@ Bonds can only be added to investment accounts.
 
 Adds a bond named `June SSB` charged to `DBB Vickers Account` at $`1000` with an interest rate of `1.92`% bought on
 `1/1/2019` for `1` year(s).
+
+.Successful addition of investment bond after using `/add /bonds`
+ifdef::env-github[]
+image::BondAdd.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::BondAdd.png[width="970"]
+endif::[]
 
 ===== Editing Bond details `/edit /bonds`
 Change in your investment details? Edit them here!
@@ -660,6 +700,15 @@ credited will not be edited.
 
 Edits the bond named `June SSB` charged to `DBB Vickers Account` with a new interest rate of `1.98`%.
 
+.Successful edition of investment bond after using `/edit /bonds`
+ifdef::env-github[]
+image::BondEdit.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::BondEdit.png[width="970"]
+endif::[]
+
 ===== Deleting bonds `/delete /bonds`
 Sold your bonds? Delete it from *OwlMoney*!
 
@@ -671,6 +720,15 @@ Sold your bonds? Delete it from *OwlMoney*!
 * `/delete /bonds /from DBB Vickers Account /name June SSB`
 
 Deletes the bond named `June SSB` charged to `DBB Vickers Account`.
+
+.Successful deletion of investment bond after using `/edit /bonds`
+ifdef::env-github[]
+image::BondDelete.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::BondDelete.png[width="970"]
+endif::[]
 
 // end::investment_management[]
 
@@ -1738,6 +1796,11 @@ function optimally if malformed inputs are loaded in from corrupted save files.
 *A*: The data of the files are clearly labelled with column names in the `.csv` files and you can easily make sense of
 it! As long as you follow the constraints set out for each `PARAMETER` as mentioned in all previous sections, you
 should be fine!
+
+*Q*: Does *OwlMoney* support other languages or locales? +
+*A*: *OwlMoney* currently *DOES NOT* support other languages or locales other than english. If your *system language
+is not english*, please change it before launching *OwlMoney* as we will not guarantee the smooth performance of
+*OwlMoney* in other environments.
 
 == Command Summary
 This section provides a quick reference for all commands available in *OwlMoney*.
