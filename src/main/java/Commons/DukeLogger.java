@@ -20,10 +20,7 @@ public class DukeLogger {
     private static ConsoleHandler consoleHandler;
 
     /**
-     * Initializes with a custom log level (specified in the {@code config} object)
-     * Loggers obtained *AFTER* this initialization will have their logging level changed<br>
-     * Logging levels for existing loggers will only be updated if the logger with the same name
-     * is requested again from the LogsCenter.
+     * Initializes with a custom log level.
      */
     public static void initialise() {
         logger.info("currentLogLevel: " + currentLogLevel);
