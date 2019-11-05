@@ -1,9 +1,19 @@
-Directly modifies the value of a property of a stock.
+Directly modifies the value of a property of an item, item type or person.
 
-edit:       edit stock (<Stock Type>| <Stock Code> | <Quantity> | <Description> ) <New Value>
+edit:       edit stock <Stock Code> <Stock Property> <New Value>
+            edit stocktype <Stock Type> <New Value>
+            *edit loan??
+            *edit person <Matric No.> <Person Property> <New Value>
 
-<Stock Type>        The category name of the stock
 <Stock Code>        The model number of the existing stock
-<Quantity>          The number of stock in the inventory
-<Description>       The description of the stock
+<Stock Property>    The attribute of the stock. This includes 'stocktype', 'stockcode', 'quantity' or 'description'
+<Stock Type>        The category name of the stock
+*<Matric No.>        The matriculation number of the person/student
+*<Person Property>   The attribute of the person. This includes 'name' or 'matric'
+<Quantity>          The number of that stock in the inventory
+<Description>       A short description of the stock
 <New Value>         The value of the property mentioned will be replaced by this new value
+
+E.g. edit stock R500 quantity 100
+E.g. edit stocktype resistant resistor
+*E.g. edit person A012345 name Alex

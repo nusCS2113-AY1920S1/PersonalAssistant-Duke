@@ -1,0 +1,3 @@
+Exits EggVentory and bids user goodbye.
+
+bye:        bye

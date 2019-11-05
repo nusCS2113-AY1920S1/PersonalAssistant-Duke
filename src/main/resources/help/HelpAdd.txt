@@ -1,8 +1,8 @@
-Add new items or item types into the database.
+Add new items, item types or people into the database.
 
-add:    add stock <Stock Type> <Stock Code> <Quantity> <Description>
-        add stocktype <Stock Type>
-        add person <Matric No.> <Name>
+add:        add stocktype <Stock Type>
+            add stock <Stock Type> <Stock Code> <Quantity> <Description>
+            add person <Matric No.> <Name>
 
 <Stock Type>        The category name of the stock
 <Stock Code>        The model number of the new stock
@@ -13,7 +13,7 @@ add:    add stock <Stock Type> <Stock Code> <Quantity> <Description>
 <Matric No.>        The matriculation number of the person/student
 <Name>              The name of the person/student
 
+E.g. add stocktype resistor
 E.g. add stock resistor 12345 50 100ohm
 E.g. add stock resistor 23456 70 800ohm
-E.g. add stocktype resistor
 E.g. add person A0123456Z John Doe

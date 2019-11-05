@@ -52,7 +52,7 @@ public class HelpCommand extends Command {
                 output = getStringFromFile("/help/Help.txt");
                 System.out.println(output);
             } catch (IOException e) {
-                output = "Error in reading help.txt";
+                output = "Error in reading Help.txt";
             }
         } else {
             switch (this.options) {
@@ -60,21 +60,28 @@ public class HelpCommand extends Command {
                 try {
                     output = getStringFromFile("/help/HelpAdd.txt");
                 } catch (IOException e) {
-                    output = "Error in reading Helpadd.txt";
+                    output = "Error in reading HelpAdd.txt";
                 }
                 break;
             case "edit":
                 try {
                     output = getStringFromFile("/help/HelpEdit.txt");
                 } catch (IOException e) {
-                    output = "Error in reading Helpedit.txt";
+                    output = "Error in reading HelpEdit.txt";
                 }
                 break;
             case "delete":
                 try {
                     output = getStringFromFile("/help/HelpDelete.txt");
                 } catch (IOException e) {
-                    output = "Error in reading Helpdelete.txt";
+                    output = "Error in reading HelpDelete.txt";
+                }
+                break;
+            case "bye":
+                try {
+                    output = getStringFromFile("/help/HelpBye.txt");
+                } catch (IOException e) {
+                    output = "Error in reading HelpBye.txt";
                 }
                 break;
             default:

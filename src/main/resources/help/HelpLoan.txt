@@ -1,1 +1,11 @@
-helploan
+Keep a record of items and the person who loaned those items in the inventory.
+
+loan:       loan add <Matric No.> <Stock Code> <Quantity>
+            *?loan add template <Matric No.> <Template name>
+
+<Matric No.>        The matriculation number of the person/student
+<Stock Code>        The model number of the existing stock
+<Quantity>          The number of that stock in the inventory
+
+E.g. loan add A0123456Z R500 50
+*?E.g. loan add template A0123456Z CG2271LoanTemplate

@@ -1,9 +1,12 @@
-Deletes existing item or item type in the database.
+Deletes existing item, item type or person in the database.
 
 delete:     delete stock <Stock Code>
             delete stocktype <Stock Type>
+            *delete loan?
+            *delete person <Matric No.>
 
 <Stock Code>        The model number of the existing stock
 <Stock Type>        The category name of the stock
+*<Matric No.>        The matriculation number of the person/student
 
-You can find out existing stock code and stock type by using 'list'
+You can find out existing stock code, stock type and person by using 'list'

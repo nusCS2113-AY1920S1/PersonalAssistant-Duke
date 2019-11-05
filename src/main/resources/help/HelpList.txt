@@ -1,1 +1,11 @@
-helplist
+List out the inventory and the output is printed in a pretty GUI table.
+Commands are self-explanatory.
+
+list:       list stock
+            list stocktype all
+            list stocktype <Stock Type>
+            list person
+            *list loan
+            *list template
+
+<Stock Type>        The category name of the stock

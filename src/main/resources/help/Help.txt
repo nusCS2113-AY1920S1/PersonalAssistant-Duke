@@ -1,6 +1,6 @@
 This displays the lists of commands that are defined.
 Type 'help <name>' to find out more about the command <name>. This only works for add, delete and edit.
-A star (*) next to the name means that the command is not enabled.
+A star (*) next to the command means that the command is not enabled.
 
 add
     add stock <Stock Type> <Stock Code> <Quantity> <Description>
@@ -10,20 +10,22 @@ add
 delete
     delete stock <Stock Code>
     delete stocktype <Stock Type>
-    delete template <Template Name>
-    delete person <Matric No.>
+    *delete template <Template Name>
+    *delete person <Matric No.>
 
 edit
-    edit stock <Property> <New Value>
-    edit person <Property> <New Value>
+    edit stock <Stock Property> <New Value>
+    edit stocktype <Stock Type> <New Value>
+    *edit person <Matric No.> <Person Property> <New Value>
 
-*list
+list
     list stock
     list stocktype all
     list stocktype <Stock Type>
-    list loan
-    list template
-    list lost
+    list person
+    *list loan
+    *list template
+    *list lost
 
 *find
     find stock <Query>
@@ -43,3 +45,5 @@ edit
     undo
 *redo
     redo
+bye
+    bye
