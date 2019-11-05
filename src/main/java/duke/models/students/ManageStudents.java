@@ -73,14 +73,13 @@ public class ManageStudents implements IStudentList {
             + "Now you have " + getStudentListSize() + " students.");
     }
 
-
+    /**
+     * To get the student index.
+     * @param i index of the student.
+     * @return student index.
+     */
     @Override
-    public ArrayList<String> getAllStudent() {
-        return null;
-    }
-
-    @Override
-    public Student getStudent(int i) {
+    public Student getStudent(final int i) {
         return this.studentList.get(i - 1);
     }
 

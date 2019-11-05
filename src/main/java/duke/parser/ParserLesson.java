@@ -9,6 +9,7 @@ import duke.data.Storage;
 import duke.models.Lesson;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Scanner;
 
@@ -81,7 +82,7 @@ public class ParserLesson {
      * @throws ParseException        if user input is not in the correct format
      */
 
-    public ParserLesson() throws FileNotFoundException, ParseException {
+    public ParserLesson() throws IOException, ParseException {
         cliView = new CliView();
         lessonStorage = new Storage(
             ".\\src\\main\\java\\duke\\data\\lessons.txt");

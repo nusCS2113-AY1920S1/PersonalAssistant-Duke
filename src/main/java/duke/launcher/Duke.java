@@ -62,7 +62,7 @@ public class Duke extends Application {
      * @throws FileNotFoundException if storage or schedule files are not found
      * @throws ParseException        if unable to load schedule
      */
-    public Duke() throws FileNotFoundException {
+    public Duke() throws IOException {
         cliView = new CliView();
         storage = new Storage(".\\src\\main\\java\\duke\\data\\duke.txt");
         tasks = new TaskList();

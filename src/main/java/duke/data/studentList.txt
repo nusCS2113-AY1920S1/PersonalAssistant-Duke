@@ -1,12 +1,3 @@
-Name: danish
-Age: 22
-Address: woodlands
-
-Name: kh
-Age: 26
-Address: boon lay
-
-Name: danial eddie
-Age: 23
-Address: admiralty
-
+danish,    22,    nus
+kh,   25,   bl
+danial, 23, ntu
