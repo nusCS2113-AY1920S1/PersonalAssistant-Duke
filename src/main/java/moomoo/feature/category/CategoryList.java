@@ -40,7 +40,8 @@ public class CategoryList {
                 return iterCategory;
             }
         }
-        throw new MooMooException("Sorry I could not find a category named " + value);
+        return null;
+
     }
 
     public Category get(int i) throws IndexOutOfBoundsException {
@@ -93,7 +94,12 @@ public class CategoryList {
      * @return total expenditure of the category from specified month and year
      */
     private double getCategoryTotal(String categoryName, int month, int year) throws MooMooException {
-        return get(categoryName).getTotal(month, year);
+        Category newCategory = get(categoryName);
+        if (newCategory != null) {
+            return newCategory.getTotal(month, year);
+        } else {
+            throw new MooMooException("Sorry I could not find a category named " + categoryName);
+        }
     }
 
     public double getCategoryTotal(String categoryName, int month) throws MooMooException {
