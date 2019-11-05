@@ -42,14 +42,23 @@ public class MemberList implements IMemberList {
         String name = memberDetails[0];
         String phone = memberDetails[1];
         String email = memberDetails[2];
-        
-        if (!validityHelper.phoneChecker(phone) && !"--".equals(phone)){
-            return "Phone number is not a valid phone number! Please make sure the phone number "
+
+        boolean invalidEmailFlag = !validityHelper.emailChecker(email) && !"--".equals(email);
+        boolean invalidPhoneFlag = !validityHelper.phoneChecker(phone) && !"--".equals(phone);
+        String error = "";
+        if (invalidPhoneFlag){
+            error += "Phone number is not a valid phone number! Please make sure the phone number "
                     + "only has digits and a length of no more than 8 digits.";
         }
-        if (!validityHelper.emailChecker(email) && !"--".equals(email)) {
-            return "Email address is not a valid email address! Please adhere to standard "
-                    + "email address formats, such as archduke@emailprovider.com";
+        
+        if (invalidEmailFlag) {
+            String newLine = (!"".equals(error)) ? "\n\t" : "";
+            error += (newLine + "Email address is not a valid email address! Please adhere to standard "
+                    + "email address formats, such as archduke@emailprovider.com");
+        }
+
+        if (!"".equals(error)) {
+            return error;
         }
 
         for (Member currentMember : memberList) {
