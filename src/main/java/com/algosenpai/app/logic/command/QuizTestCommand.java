@@ -53,41 +53,42 @@ public class QuizTestCommand extends QuizCommand {
 
     @Override
     public String execute() {
-        if (quizList.size() == 0) {
-            return "You need to select a chapter first: select <chapter name>";
-        } else {
-            isNewQuiz.set(false);
-            isQuizMode.set(true);
-            questionNumber.incrementAndGet();
-
-            if (questionNumber.get() < 10) {
-
-                //add the userinput that has been parsed as his answer.
-                if (inputs.size() > 1) {
-                    //to end the quiz in the quizmode
-                    if (inputs.get(1).equals("end")) {
-                        isQuizMode.set(false);
-                        return calculateScore();
-                    }
-                    QuestionModel currQuestionDisplayed = quizList.get(questionNumber.get() - 1);
-                    String userAnswer = extractUserAnswerFromInput();
-                    currQuestionDisplayed.setUserAnswer(userAnswer);
+        int shownIndex = questionNumber.incrementAndGet();
+        int ourIndex = shownIndex - 1;
+        if (shownIndex == 1) {
+            return (shownIndex) +  ".\t" + quizList.get(ourIndex).getQuestion()
+                    + "\n Your answer: ";
+        } else if (shownIndex <= 10) {
+            //add the userinput that has been parsed as his answer.
+            if (inputs.size() > 0) {
+                //to end the quiz in the quizmode
+                if (inputs.get(0).equals("end")) {
+                    isQuizMode.set(false);
+                    return calculateScore();
                 }
-
-                return quizList.get(questionNumber.get()).getQuestion()
-                        + "\n Your answer: "
-                        + quizList.get(questionNumber.get()).getUserAnswer();
-            } else {
-
-                reset();
-                return calculateScore();
+                String userAnswer = extractUserAnswerFromInput();
+                //Sets the answer to the previous question.
+                quizList.get(ourIndex - 1).setUserAnswer(userAnswer);
             }
+            return (shownIndex) +  ".\t" + quizList.get(ourIndex).getQuestion()
+                    + "\n Your answer: ";
+        } else {
+            String userAnswer = extractUserAnswerFromInput();
+            //Sets the answer to the previous question.
+            quizList.get(ourIndex - 1).setUserAnswer(userAnswer);
+            reset();
+            return calculateScore();
         }
     }
 
+    /**
+     * Parses the user input into a string format.
+     * @return The string containing the user's answer.
+     */
     private String extractUserAnswerFromInput() {
         StringBuilder answer = new StringBuilder();
-        for (int i = 1; i < inputs.size() - 1; i++) {
+        System.out.println("Here");
+        for (int i = 0; i < inputs.size() - 1; i++) {
             answer.append(inputs.get(i)).append(" ");
         }
         answer.append(inputs.get(inputs.size() - 1));
@@ -96,7 +97,7 @@ public class QuizTestCommand extends QuizCommand {
 
 
     private void reset() {
-        questionNumber.set(-1);
+        questionNumber.set(0);
         isQuizMode.set(false);
         isNewQuiz.set(true);
     }

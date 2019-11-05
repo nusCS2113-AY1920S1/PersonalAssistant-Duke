@@ -37,10 +37,14 @@ public class Logic {
 
     //All variables for the quiz function
     private AtomicInteger chapterNumber = new AtomicInteger(-1);
+    //Check if currently in quiz mode.
     private AtomicBoolean isQuizMode = new AtomicBoolean(false);
+    //Checks if it is a new quiz.
     private AtomicBoolean isNewQuiz = new AtomicBoolean(true);
+    //The arraylist containing the questions.
     private ArrayList<QuestionModel> quizList = new ArrayList<>();
-    private AtomicInteger questionNumber = new AtomicInteger(-1);
+    //The current question number.
+    private AtomicInteger questionNumber = new AtomicInteger(0);
     private int prevResult = -1;
 
     // VariabReview features;
@@ -64,72 +68,79 @@ public class Logic {
     public Command executeCommand(String input) {
         ArrayList<String> inputs = Parser.parseInput(input);
         historyList.add(input);
-
-        if (isQuizMode.get() || inputs.get(0).equals("quiz")) {
-            return getQuizCommand(inputs);
-        }
-
-        switch (inputs.get(0)) {
-        case "hello":
-            return new SetupCommand(inputs, userStats);
-        case "help":
-            return new HelpCommand(inputs, userStats);
-        case "menu":
-            return new MenuCommand(inputs);
-        case "select":
-            return new SelectCommand(inputs, chapterNumber, userStats);
-        case "result":
-            return new ResultCommand(inputs, prevResult);
-        case "history":
-            return new HistoryCommand(inputs, historyList);
-        case "undo":
-            return new UndoCommand(inputs);
-        case "clear":
-            return new ClearCommand(inputs);
-        case "reset":
-            // TODO SHANTANU
-            return null;
-        case "save":
-            // TODO SHANTANU
-            return new SaveCommand(inputs, userStats);
-        case "exit":
+        String userInput = inputs.get(0);
+        //If the user quits, it has the highest priority and he can quit from any case.
+        if (userInput.equals("bye")) {
             return new ByeCommand(inputs);
-        case "print":
-            return getPrintCommand(inputs);
-        case "archive":
-            return new ArchiveCommand(inputs, quizList, archiveList);
-        case "review":
-            return new ReviewCommand(inputs, quizList);
-        case "volume":
-            return new VolumeCommand(inputs);
-        default:
-            return new InvalidCommand(inputs);
+        }
+        //Next priority is the quiz. When it is under quiz mode, no other commands can happen.
+        if (isQuizMode.get()) {
+            //If it is a new quiz
+            if (isNewQuiz.get() && userInput.equals("quiz")) {
+                return setupNewQuiz(inputs);
+            } else if (isNewQuiz.get() && userInput.equals("select")) {
+                return new SelectCommand(inputs, chapterNumber, userStats, isQuizMode);
+            } else {
+                return determineQuizAction(inputs);
+            }
+        } else {
+            switch (userInput) {
+            case "hello":
+                return new SetupCommand(inputs, userStats);
+            case "help":
+                return new HelpCommand(inputs, userStats);
+            case "menu":
+                return new MenuCommand(inputs);
+            case "select":
+                return new SelectCommand(inputs, chapterNumber, userStats, isQuizMode);
+            case "result":
+                return new ResultCommand(inputs, prevResult);
+            case "history":
+                return new HistoryCommand(inputs, historyList);
+            case "undo":
+                return new UndoCommand(inputs);
+            case "clear":
+                return new ClearCommand(inputs);
+            case "reset":
+                // TODO SHANTANU
+                return null;
+            case "save":
+                // TODO SHANTANU
+                return new SaveCommand(inputs, userStats);
+            case "exit":
+                return new ByeCommand(inputs);
+            case "print":
+                return getPrintCommand(inputs);
+            case "archive":
+                return new ArchiveCommand(inputs, quizList, archiveList);
+            case "review":
+                return new ReviewCommand(inputs, quizList);
+            case "volume":
+                return new VolumeCommand(inputs);
+            default:
+                return new InvalidCommand(inputs);
+            }
         }
     }
 
-    /**
-     * Executes the Quiz commands during the quiz.
-     * @param inputs user input.
-     * @return the Quiz command object to be executed.
-     */
-    private Command getQuizCommand(ArrayList<String> inputs) {
-        if (!isNewQuiz.get()) {
-            if (inputs.get(0).equals("quiz")) {
-                if (inputs.size() < 2) {
-                    return new QuizCommand(inputs);
-                } else if (inputs.get(1).equals("next") || inputs.get(1).equals("back")) {
-                    return new QuizNextCommand(inputs, quizList, questionNumber);
-                } else {
-                    return new QuizTestCommand(
-                            inputs, quizList, questionNumber, isQuizMode, isNewQuiz, chapterNumber.get(),userStats);
-                }
-            } else {
-                return new QuizCommand(inputs);
-            }
+    private Command determineQuizAction(ArrayList<String> inputs) {
+        //if users do not enter anything.
+        if (inputs.size() < 1) {
+            return new QuizCommand(inputs);
+        } else if (inputs.get(0).equals("next") || inputs.get(0).equals("back")) {
+            return new QuizNextCommand(inputs, quizList, questionNumber);
+        } else {
+            return new QuizTestCommand(
+                    inputs, quizList, questionNumber, isQuizMode, isNewQuiz, chapterNumber.get(),userStats);
         }
+    }
+
+    private Command setupNewQuiz(ArrayList<String> inputs) {
         quizList = quizMaker.generateQuiz(chapterNumber.get(), quizList);
-        return new
-                QuizTestCommand(inputs, quizList, questionNumber, isQuizMode, isNewQuiz,chapterNumber.get(),userStats);
+        isNewQuiz.set(false);
+        isQuizMode.set(true);
+        return new QuizTestCommand(inputs, quizList, questionNumber, isQuizMode,
+                isNewQuiz, chapterNumber.get(), userStats);
     }
 
     /**
