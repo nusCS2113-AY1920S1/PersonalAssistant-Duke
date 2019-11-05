@@ -5,6 +5,7 @@
 :repoURL: https://github.com/AY1920S1-CS2113T-W17-3/main
 :prURL: {repoURL}/pull
 :forumURL: https://github.com/AY1920S1-CS2113T-W17-3/forum/issues
+:budgeterURL: https://github.com/AY1920S1-CS2113T-W17-3/main
 :experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -13,6 +14,334 @@ ifdef::env-github[]
 endif::[]
 
 
-== PROJECT: OwlMoney
+== 1. Overview
+This portfolio documents my contributions towards *OwlMoney* for the module CS2113T Software Engineering &
+Object-Oriented Programming. It aims to demonstrate the theoretical and practical knowledge I have gained in this module
+ over the semester.
 
-Hello there I am Zheng Wei.
+== 2. Project: OwlMoney
+*OwlMoney* is an application designed to assist undergraduates and fresh graduates to track and manage their finances
+conveniently and effectively - all in one place. *OwlMoney* provides a Command Line Interface (CLI) for the user to
+interact with. The commands used to interact with *OwlMoney* are designed to be simple and intuitive. Rest assured, you
+will be able to use *OwlMoney* with ease, even if you are unfamiliar with CLI.
+
+The following 3 symbols will be used throughout the documentation which you may wish to pay attention to as it may
+contain important details:
+
+[NOTE]
+====
+This symbol denotes information that you might want to read as it might contain some important information.
+====
+[TIP]
+====
+This symbol denotes a tip that you may find useful when using our application, but it is up to you to decide.
+====
+[WARNING]
+====
+This symbol denotes a warning message which you need to be careful of when using our application. You are strongly
+advised to read the content within this block.
+====
+
+== 3. Summary of contributions
+Below are my contributions in terms of feature enhancements, project management, and documentation:
+
+=== 3.1 Features enhancement
+
+==== 3.1.1 Enhancement added: *Card* feature
+* *What it does*: Allows the users to maintain a list of credit cards that they own.
+
+* *Justification*: The *Card* feature work together with the *Card Expenditure* feature and provides the user the
+capability of tracking their expenses for each credit card that they own. As such, provides the user with a convenient
+way to review their credit card expenses.
+
+* *Highlights*: This enhancement involves adding several new commands to *OwlMoney*. As such it requires an
+understanding of the underlying architecture and the components `logic`, `model` and `storage`.
+
+==== 3.1.2 Enhancement added: *Find* feature
+* *What it does*: Allows the user to search for specific information such as transaction records, bank account and more.
+
+* *Justification*: It can be messy and tedious for the user to track and manage their finances after using *OwlMoney*
+for some time. This is because the user might have thousand of transactions record stored within *OwlMoney*. With the
+ *Find* feature, it allows the user to search and view specific transaction records with ease.
+
+* *Highlights*: For this enhancement to be implemented, it depends on other features such
+ as *Card*, *Bank*, and *Transaction*. Therefore, the implementation of *Find* feature was challenging as it requires an
+ in-depth analysis and understanding of other features.
+
+=== 3.1.3 Enhancement added: *Transfer* feature
+* *What it does*: Allows the users to transfer funds from one bank account to another account.
+
+* *Justification*:  It provides the user with great flexibility to transfer funds from one bank account to another bank
+account. This helps to simulate a realistic flow of funds between different accounts such as transferring money from
+saving account to investment account to invest.
+
+* *Highlights*: For this enhancement to be implemented, it depends on other features such
+ as *Bank* and *Transaction*. Therefore, the implementation of *Transfer* feature was challenging as it requires an
+ in-depth analysis and understanding of other features.
+
+=== 3.1.4 Enhancement added: *Display* feature
+* *What it does*: Allows the users to list their financial information in a neat and tidy table format.
+
+* *Justification*: By listing the financial information such as transaction records or bank account details in a table
+ format, it allows the user to review the information with ease. Hence, making our application user-friendly for the
+ user.
+
+* *Highlights*: For this enhancement to be implemented, it depends on all other features such
+ as *Bank*, *Transaction*, and *Goal*. Therefore, the implementation of *Display* feature was challenging as it requires
+ an in-depth analysis and understanding of other features.
+
+== 3.2 Code contributions
+The lines of codes (LOC) contributed by me for *OwlMoney* can be viewed
+link:++https://nuscs2113-ay1920s1.github.io/dashboard/#search=mong&sort=groupTitle&sortWithin=title&since=2019-09-21
+&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=false++[here].
+
+== 3.3 Other contributions
+
+=== 3.3.1 Project Management:
+* Organised and Coordinated Team Meeting
+* Managed issue tracker and merging of pull requests (PRs)
+
+=== 3.3.2 Documentation:
+* User Guide (UG)
+** Contributed and wrote command syntax and explanation for
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/UserGuide.adoc#Features[Features],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/UserGuide.adoc#utility-commands[Utility Commands],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/UserGuide.adoc#command-summary[Command Summary].
+
+* Developer Guide (DG)
+** Drew
+link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#implementation++[Sequence
+Diagram]
+and
+link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#Design++[Class
+Diagram].
+** Wrote explanation for
+link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#implementation++[Sequence
+Diagram]
+and
+link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#Design++[Class
+Diagram].
+** Wrote
+link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#user-stories++[User
+Stories]
+and
+link:++https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc#use-cases++[Use Cases].
+** Vetted and resolved Developer Guide Error (Issue number
+link:++https://github.com/AY1920S1-CS2113T-W17-3/main/issues/159++[#159],
+link:++https://github.com/AY1920S1-CS2113T-W17-3/main/issues/160++[#160],
+link:++https://github.com/AY1920S1-CS2113T-W17-3/main/issues/161++[#161],
+)
+
+== 3.4 Community
+* Reviewed Pull Requests (with non-trivial review comments):
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/pull/66[#66],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/pull/71[#71],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/pull/77[#77],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/pull/85[#85],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/pull/92[#92],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/pull/94[#94],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/pull/105[#105],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/pull/108[#108],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/pull/122[#122],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/pull/125[#125],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/pull/127[#127],
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/pull/134[#134].
+
+== 4. Contributions to the User Guide
+
+The following sections below showcase extracts of my contributions to the User Guide and my ability to write
+documentation targeting end-users with little or no technical knowledge. In this section, it will only
+showcase the *Find* feature due to the page limit restriction. You can find more information about other features
+implemented by me
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/UserGuide.adoc[here].
+
+=== 4.1 Finding Command: `/find`
+This command allows the user to find different kind of information which will be demonstrated below:
+
+==== 4.1.1 Finding savings account details `/find /savings`
+
+Scenario: Let's say that you can only recall part of your savings account's name and would like to find out the
+details of the savings account. Don't worry *OwlMoney* allows you to find it with ease.
+
+Command Example: `/find /savings /name Jun`
+
+The command example allows the user to find and list all savings account that matches the keyword "Jun". This can
+be seen from Figure 2 below.
+
+.Find Investment Account
+image::FindSavingAccountCommand.png[caption="Figure 2: "]
+
+[NOTE]
+====
+Keyword use for the search is case-insensitive, providing users greater flexibility during the search.
+====
+
+==== 4.1.2 Finding investment account details `/find /investment`
+
+Scenario: Let's say that you can only recall part of your investment account's name and would like to find out the
+details of the investment account. Don't worry *OwlMoney* allows you to find it with ease.
+
+Command Example: `/find /savings /name Vickers`
+
+The command example allows the user to find and list all investment account that matches the keyword "Vickers".
+This can be seen from Figure 3 below.
+
+.Find Investment Account
+image::FindInvestmentAccountCommand.png[caption="Figure 3: "]
+
+[NOTE]
+====
+Keyword use for the search is case-insensitive, providing users greater flexibility during the search.
+====
+
+==== 4.1.3 Finding card details `/find /card`
+
+Scenario: Let's say that you can only recall part of your card's name and would like to find out the
+details of the card. Don't worry *OwlMoney* allows you to find it with ease.
+
+Command Example: `/find /card /name POBB`
+
+The command example allows the user to find and list all card that matches with the keyword "POBB". This can
+be seen from Figure 4 below.
+
+.Find Card
+image::FindCardCommand.png[caption="Figure 4: "]
+
+[NOTE]
+====
+Keyword use for the search is case-insensitive, providing users greater flexibility during the search.
+====
+
+==== 4.1.3 Finding bond details `/find /bonds`
+
+Scenario: Let's say that you can only recall part of your bond's name and would like to find out the
+details of the bond. Don't worry *OwlMoney* allows you to find it with ease.
+
+Command Example: `/find /bonds /name SSB /from DBB Vickers Account`
+
+The command example allows the user to find and list all bonds within DBB Vicker Account that matches the
+keyword "SSB". This can be seen from Figure 5 below.
+
+.Find Bonds
+image::FindBondCommand.png[caption="Figure 5: "]
+
+[NOTE]
+====
+Keyword use for the search is case-insensitive, providing users greater flexibility during the search.
+====
+
+==== 4.1.3 Finding bank transaction `/find /banktransaction`
+
+Scenario: Let's say that you have thousands of bank transaction records and you want to find the
+details of a specific bank transaction's records. Don't worry *OwlMoney* allows you to find it with ease.
+
+Command Example: `/find /banktransaction /name JunBank Savings Account /desc bubble tea /from 1/1/2019 /to 7/1/2019
+/category food`
+
+The command example allows the user to find and list all savings account that matches the keyword "DBB". This can
+be seen from Figure 6 below.
+
+.Find Bank Transaction
+image::FindBankTransactionCommand.png[caption="Figure 6: "]
+
+[NOTE]
+====
+Keyword use for description and category is case-insensitive, providing users greater flexibility during the
+search.
+
+The date range for /from and /to is inclusive of the date specified.
+
+The search will list transaction records that match with either one of the parameters; description, category or date
+range.
+====
+
+==== 4.1.3 Finding card transaction `/find /cardtransaction`
+
+Scenario: Let's say that you have thousands of card transaction records and you want to find the
+details of a specific card transaction's records. Don't worry *OwlMoney* allows you to find it with ease.
+
+Command Example: `/find /cardtransaction /name POBB Tomorrow Card /desc bubble tea /from 1/1/2019 /to 7/1/2019 /category
+food`
+
+The command example allows the user to find and list all savings account that matches the keyword "DBB". This can
+be seen from Figure 7 below.
+
+.Find Card Transaction
+image::FindCardTransactionCommand.png[caption="Figure 7: "]
+
+[NOTE]
+====
+Keyword use for description and category is case-insensitive, providing users greater flexibility during the
+search.
+
+The date range for /from and /to is inclusive of the date specified.
+
+The search will list transaction records that match with either one of the parameters; description, category or date
+range.
+====
+
+
+== 5. Contributions to the Developer Guide
+
+The following sections below showcase extracts of my contributions to the Developer Guide and my ability to write
+documentation targeting end-users with little or no technical knowledge. In this section, it will only
+showcase the *Find* feature due to the page limit restriction. You can find more information about other features
+implemented by me
+link:https://github.com/AY1920S1-CS2113T-W17-3/main/blob/master/docs/DeveloperGuide.adoc[here].
+
+=== 5.1 Design for Find Feature
+
+.Find Command Class Diagram
+image::classdiagram.png[caption="Figure 8: "]
+
+The `logic.command.find` package consist of `Find` classes with the ability to find any:
+
+* Bank account
+* Cards
+* Bonds
+* Card transaction
+* Bank transaction
+
+`Main` will call the specific `Find` command class that will construct the *required parameters* before calling the
+`Profile` class in `Model` to *execute*.
+
+=== 5.2 Implementation for Find feature
+The following section describes the specific implementation for the *finding of savings account* and how data flows
+across
+various objects and methods to obtain a successful execution. In this section, we will be showcasing the data flow of
+finding a savings account.
+
+.Sequence Diagram for finding savings account
+image::sequencediagram.png[caption="Figure 9: "]
+
+[NOTE]
+The sequence diagram presented above is assumed to be a valid command which will produce a successful result.
+
+The above sequence diagram depicts the interaction between the `Logic`, `Model` and `Ui` component for running
+`FindBankOrCardCommand`.
+
+The `FindBankOrCardCommand` requires *2* inputs:
+
+* Savings Account's name that acts as a keyword for the search.
+* Type of item to be searched (e.g. cards, savings or investment account)
+
+When the user executes the `FindBankOrCardCommand`, the following steps are taken by the application:
+
+. When the `FindBankOrCardCommand` is executed, it will invoke `findBankOrCard`.
+. Once invoked, `findBankOrCard` will perform the following checks:
+
+* Check the type of items to be searched is either card, savings or investment account.
+
+[start=3]
+. After passing the above checks, `findBankOrCard` will invoke `findBankAccount`.
+. Within the invocation of `findBankAccount`, it will perform the following checks:
+
+* Check for matching savings account's name with the keyword among all savings account stored in the ArrayList.
+* Check whether the savings account that matches the keyword is indeed a savings account.
+
+[NOTE]
+`findBankAccount` will throw an error if all bank accounts within the application fail the above checks.
+
+[start=5]
+. Once the search has been completed, the details of the all matching savings account will be displayed to inform the
+user of the *successful* matches.

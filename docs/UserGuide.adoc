@@ -1004,8 +1004,14 @@ Take note that there is a maximum of *30* character limit.
 ===== Adding financial goals `/add /goals`
 
 Have a financial goal that you wish to achieve? We can certainly help you with that!
-Regardless whether it's a short-term goal _like saving for a holiday_ or a long-term goal
-_like saving for your wedding or retirement_, we've got you covered!
+Regardless whether it's a short-term goal [.small]_like saving for a holiday_ or a long-term goal
+[.small]_like saving for your wedding or retirement_, we've got you covered!
+
+|===
+|Earn an achievement when you reach your goal before your stipulated deadline and unlocked a new achievement!
+
+*View your achievements* using the command `/list /achievement`
+|===
 
 *Command Syntax*
 
@@ -1046,15 +1052,17 @@ Made changes to one of your goals? Amend it easily with our `edit` feature!
 
 *Command Syntax*
 
-`/edit /goals /name GOAL_NAME [/newname GOAL_NAME] [/amount AMOUNT] [/in DAYS] [/by DATE] [/from ACCOUNT_NAME]`
+`/edit /goals /name GOAL_NAME [/newname GOAL_NAME] [/amount AMOUNT] [/in DAYS] [/by DATE] [/from ACCOUNT_NAME] [/mark 1]`
 
 [WARNING]
 ====
-At least one of `/newname`, `/amount`, `/in`, `/by` or `/from` must be used.
+At least one of `/newname`, `/amount`, `/in`, `/by`, `/from`, `/mark` must be used.
 
 `/in` and `/by` cannot be used together at the same time
 
 `ACCOUNT_NAME` can only be names of existing savings bank accounts and not investment accounts or credit cards.
+
+`/mark` is used to manually mark *un-tracked* goals status and cannot contain trailing arguments!
 ====
 
 *Example*
@@ -1074,6 +1082,9 @@ Edits the goal of `BTO at Punggol Downpayment` to a new date of `11/11/2021`.
 * `/edit /goals /name BTO at Punggol Downpayment /from POBB Savings Account`
 
 Edits the savings account tied to `BTO at Punggol Downpayment` to `POBB Savings Account`.
+
+* `/edit /goals /name SAVE $100 /mark 1`
+Marks un-tracked goals as done.
 
 [TIP]
 ====
@@ -1477,6 +1488,8 @@ Take note that there is a maximum of *30* character limit.
 |======
 
 *Command Syntax*
+
+`/list /achievement`
 
 `/list /savings`
 
@@ -1914,7 +1927,8 @@ AMOUNT] [/date DATE]`
 
 | *Editing financial goals*
 | Edit the financial goal's details based on the new details given.
-| `/edit /goals /name GOAL_NAME [/newname GOAL_NAME] [/amount AMOUNT] [/in DAYS] [/by DATE] [/from ACCOUNT_NAME]`
+| `/edit /goals /name GOAL_NAME [/newname GOAL_NAME] [/amount AMOUNT] [/in DAYS] [/by DATE] [/from ACCOUNT_NAME]
+[/mark 1]`
 | `/edit /goals /name BTO at Punggol Downpayment /newname BTO at Tampines Downpayment`
 
 | *Deleting financial goals*
@@ -1957,6 +1971,8 @@ AMOUNT] [/date DATE]`
 
 `/list /goals`
 
+`/list /achievement`
+
 | `/list /savings`
 
 `/list /investment`
@@ -1964,6 +1980,8 @@ AMOUNT] [/date DATE]`
 `/list /card`
 
 `/list /goals`
+
+`/list /achievement`
 
 
 | *Listing specific details of cards, accounts, bonds etc.*

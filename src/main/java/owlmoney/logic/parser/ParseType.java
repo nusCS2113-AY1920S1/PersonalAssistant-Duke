@@ -1,17 +1,11 @@
 package owlmoney.logic.parser;
 
-import java.util.Arrays;
-import java.util.List;
-
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.bank.ListInvestmentCommand;
 import owlmoney.logic.command.bank.ListSavingsCommand;
-import owlmoney.logic.command.goals.ListGoalsCommand;
-import owlmoney.logic.parser.cardbill.ParseAddCardBill;
-import owlmoney.logic.parser.cardbill.ParseCardBill;
-import owlmoney.logic.parser.cardbill.ParseDeleteCardBill;
-import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.command.card.ListCardCommand;
+import owlmoney.logic.command.goals.ListAchievementCommand;
+import owlmoney.logic.command.goals.ListGoalsCommand;
 import owlmoney.logic.parser.bond.ParseAddBond;
 import owlmoney.logic.parser.bond.ParseBond;
 import owlmoney.logic.parser.bond.ParseDeleteBond;
@@ -21,6 +15,10 @@ import owlmoney.logic.parser.card.ParseAddCard;
 import owlmoney.logic.parser.card.ParseCard;
 import owlmoney.logic.parser.card.ParseDeleteCard;
 import owlmoney.logic.parser.card.ParseEditCard;
+import owlmoney.logic.parser.cardbill.ParseAddCardBill;
+import owlmoney.logic.parser.cardbill.ParseCardBill;
+import owlmoney.logic.parser.cardbill.ParseDeleteCardBill;
+import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.parser.find.ParseFindBankOrCard;
 import owlmoney.logic.parser.find.ParseFindBond;
 import owlmoney.logic.parser.find.ParseFindRecurring;
@@ -40,20 +38,23 @@ import owlmoney.logic.parser.saving.ParseEditSaving;
 import owlmoney.logic.parser.saving.ParseSaving;
 import owlmoney.logic.parser.transaction.deposit.ParseAddDeposit;
 import owlmoney.logic.parser.transaction.deposit.ParseDeleteDeposit;
-import owlmoney.logic.parser.transaction.deposit.ParseDeposit;
 import owlmoney.logic.parser.transaction.deposit.ParseEditDeposit;
+import owlmoney.logic.parser.transaction.deposit.ParseDeposit;
 import owlmoney.logic.parser.transaction.deposit.ParseListDeposit;
-import owlmoney.logic.parser.transaction.expenditure.ParseAddExpenditure;
-import owlmoney.logic.parser.transaction.expenditure.ParseAddRecurringExpenditure;
-import owlmoney.logic.parser.transaction.expenditure.ParseDeleteExpenditure;
-import owlmoney.logic.parser.transaction.expenditure.ParseDeleteRecurringExpenditure;
-import owlmoney.logic.parser.transaction.expenditure.ParseEditExpenditure;
-import owlmoney.logic.parser.transaction.expenditure.ParseEditRecurringExpenditure;
-import owlmoney.logic.parser.transaction.expenditure.ParseExpenditure;
-import owlmoney.logic.parser.transaction.expenditure.ParseListExpenditure;
-import owlmoney.logic.parser.transaction.expenditure.ParseListRecurringExpenditure;
 import owlmoney.logic.parser.transaction.expenditure.ParseRecurringExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseAddRecurringExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseDeleteRecurringExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseEditRecurringExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseListRecurringExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseAddExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseEditExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseDeleteExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseListExpenditure;
 import owlmoney.logic.parser.transfer.ParseTransfer;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Represents the second layer of parsing for secondary category of command.
@@ -66,7 +67,8 @@ class ParseType extends Parser {
      */
     private static final String[] TYPE_KEYWORDS = new String[] {
         "/savings", "/investment", "/cardexpenditure", "/bankexpenditure", "/goals", "/card",
-        "/recurbankexp", "/bonds", "/profile", "/deposit", "/fund", "/banktransaction", "/cardtransaction", "/cardbill"
+        "/recurbankexp", "/bonds", "/profile", "/deposit", "/fund", "/banktransaction", "/cardtransaction", "/cardbill",
+        "/achievement"
     };
     private static final List<String> TYPE_KEYWORD_LISTS = Arrays.asList(TYPE_KEYWORDS);
     private static final String BANK = "bank";
@@ -74,7 +76,6 @@ class ParseType extends Parser {
     private static final String SAVING = "saving";
     private static final String INVESTMENT = "investment";
     private static final String BOND = "bonds";
-    private static final String GOALS = "goals";
     private static final String RECURRING = "recurring";
 
     /**
@@ -392,6 +393,11 @@ class ParseType extends Parser {
                 return parseDeleteCardBill.getCommand();
             }
             throw new ParserException("You entered an invalid type for cardbill");
+        case "/achievement":
+            if ("/list".equals(command)) {
+                return new ListAchievementCommand();
+            }
+            throw new ParserException("You entered an invalid type for achievements");
         default:
             throw new ParserException("You entered an invalid type");
         }

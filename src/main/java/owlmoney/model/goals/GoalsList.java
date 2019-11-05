@@ -130,22 +130,62 @@ public class GoalsList {
     }
 
     /**
-     * Compares if the current goal name is the same as the new intended goal name.
+     * Compares if the current goal name is the same as the new intended goal name and if there is already a goal that
+     * exists.
      *
      * @param currentGoal Current Goal Name of the Goal.
-     * @param newGoalName  New Goal Name that user intends to change.
+     * @param newGoalName New Goal Name that user intends to change.
      * @throws GoalsException If there's a goal of the same name.
      */
     private void compareGoals(Goals currentGoal, String newGoalName) throws GoalsException {
         String currentGoalName = currentGoal.getGoalsName();
         String capitalCurrentGoalName = currentGoalName.toUpperCase();
+        if (currentGoalName.equals(newGoalName) || capitalCurrentGoalName.equals(newGoalName.toUpperCase())) {
+            throw new GoalsException("Cannot change to a same name as your current goal" + currentGoalName);
+        }
         for (int i = ISZERO; i < goalList.size(); i++) {
             Goals checkGoal = goalList.get(i);
             String checkGoalName = checkGoal.getGoalsName();
             String capitalCheckGoalName = checkGoalName.toUpperCase();
-            if (capitalCheckGoalName.equals(capitalCurrentGoalName) && !checkGoal.equals(currentGoal)) {
+            if (capitalCheckGoalName.equals(capitalCurrentGoalName) && checkGoalName.equals(currentGoalName)) {
                 throw new GoalsException("There is already a goal with the same name: " + newGoalName);
             }
+        }
+    }
+
+    /**
+     * Checks if user attempts to change to an existing amount.
+     *
+     * @param currentGoal   Current Goal of the Goals user is attempting to change.
+     * @param newGoalAmount New Goal Amount user intends to change.
+     * @throws GoalsException If attempts to change to the same amount as current goal amount.
+     */
+    private void compareGoalAmount(Goals currentGoal, double newGoalAmount) throws GoalsException {
+        double checkGoalAmount = currentGoal.getGoalsAmount();
+        if (checkGoalAmount == newGoalAmount) {
+            throw new GoalsException("Your previous goal amount was already $"
+                    + new DecimalFormat("0.00").format(newGoalAmount));
+        }
+    }
+
+    /**
+     * Checks if user attempts to change to an existing date.
+     *
+     * @param currentGoal Current Goal of the Goals user is attempting to change.
+     * @param date        New Goal Date user intends to change.
+     * @throws GoalsException If attempts to change to the same amount as current goal amount.
+     */
+    private void compareGoalDate(Goals currentGoal, Date date) throws GoalsException {
+        Date checkGoalDate = currentGoal.getGoalsDateInDateFormat();
+        if (checkGoalDate.equals(date)) {
+            throw new GoalsException("Your previous goal target was already " + date);
+        }
+    }
+
+    private void compareGoalSavingAcc(Goals currentGoal, Bank savingAcc) throws GoalsException {
+        if (!currentGoal.getSavingAccount().equals("-NOT TIED-")
+                && currentGoal.getSavingAccount().equals(savingAcc.getAccountName())) {
+            throw new GoalsException("Your previous linked saving account was already " + savingAcc.getAccountName());
         }
     }
 
@@ -179,11 +219,15 @@ public class GoalsList {
      * @throws GoalsException If date is not in correct format, or changing to a name that already exists,
      *                        or no goal with the goalName.
      */
-    public void editGoals(String goalName, String amount, Date date, String newName, Bank savingAcc, Ui ui)
-            throws GoalsException {
+    public void editGoals(String goalName, String amount, Date date, String newName, Bank savingAcc,
+                          boolean markDone, Ui ui) throws GoalsException {
         String capitalGoalName = goalName.toUpperCase();
         for (int i = ISZERO; i < goalList.size(); i++) {
             Goals currentGoal = goalList.get(i);
+            if (currentGoal.getRawStatus()) {
+                throw new GoalsException("Sorry, you cannot edit a goal that's already achieved! "
+                        + "Try creating a new goal instead!");
+            }
             String currentGoalName = currentGoal.getGoalsName();
             String capitalCurrentGoalName = currentGoalName.toUpperCase();
             if (capitalGoalName.equals(capitalCurrentGoalName)) {
@@ -192,18 +236,30 @@ public class GoalsList {
                     currentGoal.setGoalsName(newName);
                 }
                 if (!(amount.isBlank() || amount.isEmpty())) {
+                    compareGoalAmount(currentGoal, Double.parseDouble(amount));
                     currentGoal.setGoalsAmount(Double.parseDouble(amount));
                 }
                 if (date != null) {
+                    compareGoalDate(currentGoal, date);
                     currentGoal.setGoalsDate(date);
                 }
                 if (savingAcc != null) {
+                    compareGoalSavingAcc(currentGoal, savingAcc);
                     if (savingAcc.getCurrentAmount() < currentGoal.getGoalsAmount()) {
                         currentGoal.setSavingAccount(savingAcc);
                     } else {
                         throw new GoalsException("You cannot add a goal that is already achieved!");
                     }
-
+                }
+                if (markDone) {
+                    if (currentGoal.getRawStatus()) {
+                        throw new GoalsException("Cannot change status of a goal that is already achieved!");
+                    }
+                    if (currentGoal.getSavingAccount().equals("-NOT TIED-")) {
+                        currentGoal.markDone();
+                    } else {
+                        throw new GoalsException("You cannot mark a goal that is linked to a saving account!");
+                    }
                 }
                 try {
                     exportGoalList();
@@ -235,10 +291,20 @@ public class GoalsList {
         if (!goal.getSavingAccount().isBlank()) {
             goal.isDone(Double.parseDouble(goal.getRemainingAmount()));
         }
-        ui.printGoal(num, goal.getGoalsName(), "$" + new DecimalFormat("0.00").format(goal.getGoalsAmount()),
-                goal.getSavingAccount(), "$" + goal.getRemainingAmount(), goal.getGoalsDate(), goal.getStatus());
+        ui.printGoal(num, goal.getGoalsName(), "$"
+                        + new DecimalFormat("0.00").format(goal.getGoalsAmount()), goal.getSavingAccount(),
+                "$" + goal.getRemainingAmount(), goal.getGoalsDate(), goal.getStatus());
         if (!isMultiplePrinting) {
             ui.printGoalDivider();
+        }
+    }
+
+    /**
+     * Updates all goals in the list.
+     */
+    public void updateGoals() {
+        for (int i = 0; i < goalList.size(); i++) {
+            goalList.get(i).isDone(Double.parseDouble(goalList.get(i).getRemainingAmount()));
         }
     }
 
@@ -277,7 +343,7 @@ public class GoalsList {
      *
      * @return size of goalList.
      */
-    int getGoalListSize() {
+    public int getGoalListSize() {
         return goalList.size();
     }
 
@@ -291,7 +357,8 @@ public class GoalsList {
         DecimalFormat decimalFormat = new DecimalFormat(".00");
         decimalFormat.setRoundingMode(RoundingMode.DOWN);
         SimpleDateFormat exportDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        exportArrayList.add(new String[]{"goalName", "amount", "date", "savingsAccountName", "doneStatus"});
+        exportArrayList.add(new String[]{
+            "goalName", "amount", "date", "savingsAccountName", "doneStatus", "achieveStatus"});
         for (int i = 0; i < getGoalListSize(); i++) {
             String goalName = goalList.get(i).getGoalsName();
             double amount = goalList.get(i).getGoalsAmount();
@@ -303,7 +370,10 @@ public class GoalsList {
             }
             boolean doneStatus = goalList.get(i).getRawStatus();
             String stringDoneStatus = String.valueOf(doneStatus);
-            exportArrayList.add(new String[]{goalName, stringAmount, date, savingsAccountName, stringDoneStatus});
+            boolean achievementStatus = goalList.get(i).getGoalAchievementStatus();
+            String achievementStatusString = String.valueOf(achievementStatus);
+            exportArrayList.add(new String[]{
+                goalName, stringAmount, date, savingsAccountName, stringDoneStatus, achievementStatusString});
         }
         return exportArrayList;
     }
@@ -325,5 +395,50 @@ public class GoalsList {
      */
     public void goalListImportNewGoal(Goals newGoal) {
         goalList.add(newGoal);
+    }
+
+    /**
+     * Checks if goals can get achievement.
+     *
+     * @param i  index of goals.
+     * @param ui Required for Printing.
+     * @return Achievement object to create new achievement.
+     */
+    public Achievement checkForAchievement(int i, Ui ui) {
+        Goals checkAchievement = goalList.get(i);
+        if (checkAchievement.getRawStatus() && checkAchievement.getGoalsDateInDateFormat().after(new Date())
+                && !checkAchievement.getGoalAchievementStatus()) {
+            Achievement unlocked = new Achievement(checkAchievement.getGoalsName(), checkAchievement.getGoalsAmount(),
+                    "[GOALS]", checkAchievement.getGoalsDate());
+            checkAchievement.achieveGoal();
+            try {
+                exportGoalList();
+            } catch (IOException e) {
+                ui.printError("Error trying to save your goals to disk. Your data is"
+                        + " at risk, but we will try again, feel free to continue using the program.");
+            }
+            return unlocked;
+        }
+        try {
+            exportGoalList();
+        } catch (IOException e) {
+            ui.printError("Error trying to save your goals to disk. Your data is"
+                    + " at risk, but we will try again, feel free to continue using the program.");
+        }
+        return null;
+    }
+
+    /**
+     * Check goals that is due in 10 days.
+     *
+     * @return Goal due in 10 days.
+     */
+    public Goals reminderForGoals() {
+        for (int i = 0; i < goalList.size(); i++) {
+            if (goalList.get(i).convertDateToDays() <= 10) {
+                return goalList.get(i);
+            }
+        }
+        return null;
     }
 }

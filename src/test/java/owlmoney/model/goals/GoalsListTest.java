@@ -109,4 +109,73 @@ public class GoalsListTest {
                 "Expected to deleteFromGoalsList to throw, but didn't");
         assertEquals("There are no goals with the name: test3", thrown.toString());
     }
+
+    @Test
+    void goalsListDeleteGoals_deleteOneGoal_success() throws GoalsException {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        GoalsList testList = new GoalsList(new Storage("data/"));
+        Ui testUi = new Ui();
+        Goals newGoals = new Goals("test", 100, new Date("10/10/2020"));
+
+        try {
+            testList.addToGoals(newGoals, testUi);
+            assertEquals(1, testList.getGoalListSize());
+            outContent.reset();
+            testList.deleteFromGoalList("test", testUi);
+            String expectedOutput = "Details of the goal being removed:"
+                    + NEWLINE + "Item No.   To Accomplish                  Amount to save       Saving Account"
+                    + "       Save another         To be achieved by    Goal Achieved        "
+                    + NEWLINE + "-----------------------------------------------------------------------------"
+                    + "--------------------------------------------------------------"
+                    + NEWLINE + "1          test                           $100.00              -NOT TIED-    "
+                    + "       $100.00              10 October 2020      N                    " + NEWLINE + "----"
+                    + "-----------------------------------------------------------------------------------------"
+                    + "----------------------------------------------" + NEWLINE;
+            assertEquals(expectedOutput, outContent.toString());
+            System.out.println(expectedOutput);
+            System.out.println(outContent.toString());
+        } catch (GoalsException err) {
+            System.out.println("Expects success but error was thrown");
+        }
+    }
+
+    @Test
+    void goalsListListGoal_goalListNotEmpty_listGoals() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        GoalsList testGoals = new GoalsList(new Storage("data/"));
+        Goals newGoals = new Goals("test", 100, new Date("10/10/2020"));
+        Ui testUi = new Ui();
+
+        try {
+            testGoals.addToGoals(newGoals, testUi);
+            outContent.reset();
+            testGoals.listGoals(testUi);
+        } catch (GoalsException err) {
+            System.out.println("Expect success but error was thrown");
+        }
+        String expectedOutput = "Item No.   To Accomplish                  Amount to save       Saving Account"
+                + "       Save another         To be achieved by    Goal Achieved        "
+                + NEWLINE + "-----------------------------------------------------------------------------"
+                + "--------------------------------------------------------------"
+                + NEWLINE + "1          test                           $100.00              -NOT TIED-    "
+                + "       $100.00              10 October 2020      N                    " + NEWLINE + "----"
+                + "-----------------------------------------------------------------------------------------"
+                +
+                "----------------------------------------------" + NEWLINE;
+        assertEquals(1,testGoals.getGoalListSize());
+        assertEquals(expectedOutput,outContent.toString());
+    }
+
+    @Test
+    void goalsListListGoal_goalListEmpty_throwException() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        GoalsList testGoals = new GoalsList(new Storage("data/"));
+        Ui testUi = new Ui();
+        testGoals.listGoals(testUi);
+        assertEquals("OOPS!!! There are no goals set" + NEWLINE, outContent.toString());
+    }
+
 }

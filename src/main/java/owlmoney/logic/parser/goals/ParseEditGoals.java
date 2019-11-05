@@ -13,6 +13,7 @@ import java.util.Iterator;
 public class ParseEditGoals extends ParseGoals {
 
     private Date by;
+    private boolean markDone;
 
     /**
      * Creates an instance of ParseEditGoals class.
@@ -34,6 +35,7 @@ public class ParseEditGoals extends ParseGoals {
     public void checkParameter() throws ParserException {
         Iterator<String> goalIterator = goalsParameters.keySet().iterator();
         int changeCounter = 0;
+        int markDoneCounter = 0;
         while (goalIterator.hasNext()) {
             String key = goalIterator.next();
             String value = goalsParameters.get(key);
@@ -63,8 +65,17 @@ public class ParseEditGoals extends ParseGoals {
                 by = convertDaysToDate(Integer.parseInt(value));
                 changeCounter++;
             }
+            if (MARKDONE.equals(key) && !(value.isEmpty() || value.isBlank())) {
+                checkInt(MARKDONE, value);
+                markDone = true;
+                markDoneCounter++;
+            }
         }
-        if (changeCounter == 0) {
+        if (changeCounter != 0 && markDoneCounter != 0) {
+            throw new ParserException("Cannot /mark and edit parameters of your goals!");
+        }
+
+        if (changeCounter == 0 && markDoneCounter == 0) {
             throw new ParserException("Edit should have at least 1 differing parameter to change.");
         }
     }
@@ -78,7 +89,7 @@ public class ParseEditGoals extends ParseGoals {
     public Command getCommand() {
         EditGoalsCommand newEditGoalsCommand = new EditGoalsCommand(goalsParameters.get(NAME),
                 goalsParameters.get(AMOUNT),
-                by, goalsParameters.get(NEW_NAME), goalsParameters.get(FROM));
+                by, goalsParameters.get(NEW_NAME), goalsParameters.get(FROM), markDone);
         return newEditGoalsCommand;
     }
 }
