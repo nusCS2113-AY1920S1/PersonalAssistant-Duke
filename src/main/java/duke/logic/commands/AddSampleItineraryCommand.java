@@ -10,6 +10,11 @@ import duke.model.planning.Itinerary;
  * Adds the given recommended list to users itineraries.
  */
 public class AddSampleItineraryCommand extends Command {
+    private String newName;
+
+    public AddSampleItineraryCommand(String word) {
+        newName = word;
+    }
 
     /**
      * Executes this command on the given task list and user interface.
@@ -22,7 +27,7 @@ public class AddSampleItineraryCommand extends Command {
     public CommandResultText execute(Model model) throws FileNotSavedException, NoRecentItineraryException {
         // Add to the list of Itineraries
         Itinerary itinerary = model.getRecentItinerary();
-        model.confirmRecentItinerary();
+        model.confirmRecentItinerary(newName);
         model.save();
         return new CommandResultText("Successfully added this itinerary: " + "\n"
                 + itinerary.printItinerary());

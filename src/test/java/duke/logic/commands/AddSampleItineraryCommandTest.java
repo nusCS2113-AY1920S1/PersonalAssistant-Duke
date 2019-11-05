@@ -22,7 +22,7 @@ class AddSampleItineraryCommandTest {
 
         recommendationsCommand.execute(model);
 
-        AddSampleItineraryCommand addSampleItineraryCommand = new AddSampleItineraryCommand();
+        AddSampleItineraryCommand addSampleItineraryCommand = new AddSampleItineraryCommand("New List");
 
         addSampleItineraryCommand.execute(model);
 
