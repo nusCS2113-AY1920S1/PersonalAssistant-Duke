@@ -34,7 +34,7 @@ public class StorageTest {
     public void load_emptyFile_exceptionThrown() {
         try {
             Storage storage = new Storage(blankTestFilePath);
-            assertEquals(storage.load(), new Store());
+            assertTrue(getStoreToString(storage.load()).equals(""));
 
         } catch (DuchessException | ClassCastException e) {
             assertEquals(e.getMessage(), unreadableFileMessage);
@@ -48,7 +48,7 @@ public class StorageTest {
             Store store = storage.load();
 
             assertNotEquals(store, null);
-            assertNotEquals(store, new Store());
+            assertTrue(!getStoreToString(store).equals(""));
         } catch (DuchessException | ClassCastException e) {
             assertEquals(e.getMessage(), unreadableFileMessage);
         }
