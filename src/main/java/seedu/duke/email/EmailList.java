@@ -1,6 +1,6 @@
 package seedu.duke.email;
 
-import seedu.duke.CommandParseHelper;
+import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.email.entity.Email;
 
 import java.io.IOException;

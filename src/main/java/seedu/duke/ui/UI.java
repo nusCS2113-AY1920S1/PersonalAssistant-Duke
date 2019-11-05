@@ -2,27 +2,18 @@ package seedu.duke.ui;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import seedu.duke.CommandParseHelper;
+import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.Duke;
+import seedu.duke.common.logger.LogsCenter;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
-import seedu.duke.common.storage.Storage;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.ArrayList;
-
 import java.util.logging.Logger;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.SimpleFormatter;
+
 
 public class UI {
-    private static Logger logger = Logger.getLogger("ui");
+    private static Logger logger = LogsCenter.getLogger(UI.class);
 
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_BLACK = "\u001B[30m";
@@ -70,37 +61,6 @@ public class UI {
         helloMsg += "What can I do for you?";
         showMessage(helloMsg);
         mainWindow.setInputPrefix();
-        setupLogger();
-    }
-
-    /**
-     * Sets up logger with fileHandler to write log data to external text file.
-     */
-    public void setupLogger() {
-        Path logPath = Storage.prepareLogFolderPath();
-        File logDir = new File(logPath.toString());
-        if (!(logDir.exists())) {
-            logDir.mkdir();
-        }
-
-        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
-        Date date = new Date();
-        String dateStr = dateFormat.format(date);
-        String fileName = logPath + File.separator +  "log" + dateStr +  ".txt";
-
-        FileHandler fh = null;
-        try {
-            fh = new FileHandler(fileName);
-            fh.setFormatter(new SimpleFormatter());
-            fh.setLevel(Level.ALL);
-            logger.addHandler(fh);
-        } catch (IOException e) {
-            e.printStackTrace();
-            logger.log(Level.SEVERE, e.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.log(Level.SEVERE, e.toString());
-        }
     }
 
     public void setKeyBinding(Scene scene) {
@@ -116,12 +76,12 @@ public class UI {
         try {
             setInput(input);
             Command command = CommandParseHelper.parseCommand(input);
-            logger.log(Level.INFO, "[User Input] " + input);
-            logger.log(Level.INFO, "[Command] " + command.toString());
+            logger.info("[User Input] " + input);
+            logger.info("[Command] " + command.toString());
             command.execute(Model.getInstance());
-        } catch (Exception e) {
+        } catch (CommandParseHelper.CommandParseException e) {
             e.printStackTrace();
-            logger.log(Level.SEVERE, e.toString());
+            logger.severe("[CommandParserHelperError] " + e.toString());
         }
     }
 
@@ -137,7 +97,7 @@ public class UI {
     public void showMessage(String msg) {
         System.out.println(msg);
         showGui(msg);
-        logger.log(Level.INFO, "[Message] " + msg);
+        logger.info("[Message] " + msg);
     }
 
     /**
@@ -151,7 +111,7 @@ public class UI {
         System.out.println(msg);
         System.out.println("------------------------------" + System.lineSeparator());
         showGui(msg);
-        logger.log(Level.INFO, "[Response] " + msg);
+        logger.info("[Response] " + msg);
     }
 
     /**
@@ -163,7 +123,7 @@ public class UI {
         String errorMsg = ANSI_RED + msg + ANSI_RESET;
         System.out.println(errorMsg);
         showGui(msg);
-        logger.log(Level.SEVERE, "[Error] " + errorMsg);
+        logger.severe("[Error] " + errorMsg);
     }
 
     /**
@@ -176,7 +136,7 @@ public class UI {
         if (debug) {
             System.out.println(debugMsg);
         }
-        logger.log(Level.FINE, "[Debug] " + msg);
+        logger.fine("[Debug] " + msg);
         //showGui(debugMsg);
     }
 

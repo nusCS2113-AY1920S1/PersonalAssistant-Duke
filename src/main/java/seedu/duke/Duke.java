@@ -8,12 +8,15 @@ import seedu.duke.common.network.Http;
 import seedu.duke.common.network.SimpleServer;
 import seedu.duke.ui.UI;
 
+import java.util.logging.Logger;
+import seedu.duke.common.logger.LogsCenter;
 
 /**
  * The main class of the program, which provides the entry point.
  */
 public class Duke {
     private static Duke duke;
+    private static final Logger logger = LogsCenter.getLogger(Main.class);
 
     private Duke() {
         run();
@@ -35,7 +38,11 @@ public class Duke {
      * Exits the entire program.
      */
     public void exit() {
+        logger.info("=============================[ Exiting Email Manager "
+                + "]===========================");
+        logger.info("Stopping Server");
         SimpleServer.stopServer();
+        logger.info("Saving Model");
         Model.getInstance().saveModel();
         PauseTransition delay = new PauseTransition(Duration.seconds(1));
         delay.setOnFinished(event -> Platform.exit());
@@ -46,8 +53,11 @@ public class Duke {
      * Main function of the GUI program.
      */
     private void run() {
+        logger.info("initializing UI");
         UI.getInstance().initUi();
+        logger.info("initializing Model");
         Model.getInstance().initModel();
+        logger.info("Starting server to fetch emails");
         Http.startAuthProcess();
     }
 }

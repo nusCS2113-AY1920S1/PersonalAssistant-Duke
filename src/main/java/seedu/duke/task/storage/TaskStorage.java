@@ -1,6 +1,6 @@
 package seedu.duke.task.storage;
 
-import seedu.duke.CommandParseHelper;
+import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
 import seedu.duke.common.storage.Storage;
@@ -10,14 +10,10 @@ import seedu.duke.task.command.TaskReminderCommand;
 import seedu.duke.task.entity.Task;
 import seedu.duke.ui.UI;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Interacts with the file storing the task information.

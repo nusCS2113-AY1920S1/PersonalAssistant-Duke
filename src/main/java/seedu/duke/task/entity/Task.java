@@ -1,6 +1,6 @@
 package seedu.duke.task.entity;
 
-import seedu.duke.CommandParseHelper;
+import seedu.duke.common.parser.CommandParseHelper;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,7 +18,7 @@ public class Task {
      * The enumeration of priority level.
      */
     public enum Priority {
-        HIGH, MED, LOW
+        HIGH, MEDIUM, MED, LOW
     }
 
     /**
