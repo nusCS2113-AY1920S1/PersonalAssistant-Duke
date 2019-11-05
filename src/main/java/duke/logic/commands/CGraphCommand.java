@@ -71,12 +71,12 @@ public class CGraphCommand extends Command {
                 }
             }
         } else if (this.type.equals("wallet")) {
-            HashMap<String, ArrayList<Transaction>> transactions = wallet.getTransactions().getTransactionList();
+            HashMap<LocalDate , ArrayList<Transaction>> transactions = wallet.getTransactions().getTransactionList();
             for (LocalDate dateItr = firstDay; dateItr.isBefore(lastDay); dateItr = dateItr.plusDays(1)) {
                 String currentDate = dateItr.format(dateFormat);
                 int totalSpent = 0;
-                if (transactions.containsKey(currentDate)) {
-                    ArrayList<Transaction> transactionOnTheDay = transactions.get(currentDate);
+                if (transactions.containsKey(dateItr)) {
+                    ArrayList<Transaction> transactionOnTheDay = transactions.get(dateItr);
                     for (int j = 0; j < transactionOnTheDay.size(); j += 1) {
                         if (transactionOnTheDay.get(j).getType().equals("PAY")) {
                             totalSpent += transactionOnTheDay.get(j).getTransactionAmount().intValue();

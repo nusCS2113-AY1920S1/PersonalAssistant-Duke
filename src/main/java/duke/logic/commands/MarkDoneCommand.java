@@ -68,7 +68,7 @@ public class MarkDoneCommand extends Command {
         } else {
             Meal currentMeal = meals.markDone(currentDate, index);
             String foodCostStr = currentMeal.getCostStr();
-            Payment payment = new Payment(foodCostStr, currentMeal.getDate().format(dateFormat));
+            Payment payment = new Payment(foodCostStr, currentMeal.getDate());
             try {
                 storage.updateFile(meals);
                 wallet.addPaymentTransaction(payment);

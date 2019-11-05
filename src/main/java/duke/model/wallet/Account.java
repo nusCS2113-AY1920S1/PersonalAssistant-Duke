@@ -41,7 +41,7 @@ public class Account {
             this.amount = amount.subtract(withdrawal);
             //System.out.println(withdrawal + " " + currency.getCurrencyCode() + " withdrawn from your account");
         } else {
-            System.out.println("      Balance insufficient for a " + withdrawal
+            System.out.println("     Balance insufficient for a " + withdrawal
                     + currency.getCurrencyCode() + " withdrawal");
         }
     }

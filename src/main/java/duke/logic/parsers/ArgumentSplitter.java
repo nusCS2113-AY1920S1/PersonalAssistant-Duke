@@ -42,6 +42,7 @@ public class ArgumentSplitter {
         if (splitStrings.length < 2) {
             return new String[] {splitStrings[0], ""};
         }
+        splitStrings[1] = splitStrings[1].trim();
         return new String[] {splitStrings[0], splitStrings[1]};
     }
 

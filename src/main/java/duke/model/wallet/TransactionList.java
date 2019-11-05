@@ -1,5 +1,6 @@
 package duke.model.wallet;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -8,48 +9,45 @@ import static duke.commons.constants.DateConstants.DATE_FORMAT;
 
 public class TransactionList {
     private Calendar calendarDate;
-    private String currentDate;
-    private HashMap<String, ArrayList<Transaction>> transactionTracker = new HashMap<>();
+    private HashMap<LocalDate, ArrayList<Transaction>> transactionTracker = new HashMap<>();
 
     public TransactionList() {
-        calendarDate = Calendar.getInstance();
-        currentDate = DATE_FORMAT.format(calendarDate.getTime());
     }
 
-    public Transaction deleteTransaction(String date, int index) {
+    public Transaction deleteTransaction(LocalDate date, int index) {
         Transaction deletedTransaction = this.transactionTracker.get(date).get(index - 1);
         this.transactionTracker.get(date).remove(index - 1);
         return deletedTransaction;
     }
 
-    public void deleteAllTransactionOnDate(String dateStr) {
-        if (transactionTracker.containsKey(dateStr)) {
-            this.transactionTracker.get(dateStr).clear();
+    public void deleteAllTransactionOnDate(LocalDate date) {
+        if (transactionTracker.containsKey(date)) {
+            this.transactionTracker.get(date).clear();
         }
     }
 
     public void addTransaction(Transaction transaction) {
-        String dateStr = transaction.getDate();
-        if (!transactionTracker.containsKey(dateStr)) {
-            transactionTracker.put(dateStr, new ArrayList<>());
+        LocalDate date = transaction.getDate();
+        if (!transactionTracker.containsKey(date)) {
+            transactionTracker.put(date, new ArrayList<>());
         }
-        transactionTracker.get(dateStr).add(transaction);
+        transactionTracker.get(date).add(transaction);
     }
 
-    public ArrayList<Transaction> getTransactionList(String dateStr) {
-        if (transactionTracker.containsKey(dateStr)) {
-            return transactionTracker.get(dateStr);
+    public ArrayList<Transaction> getTransactionList(LocalDate date) {
+        if (transactionTracker.containsKey(date)) {
+            return transactionTracker.get(date);
         } else {
-            transactionTracker.put(dateStr, new ArrayList<>());
-            return transactionTracker.get(dateStr);
+            transactionTracker.put(date, new ArrayList<>());
+            return transactionTracker.get(date);
         }
     }
 
-    public HashMap<String, ArrayList<Transaction>> getTransactionList() {
+    public HashMap<LocalDate , ArrayList<Transaction>> getTransactionList() {
         return this.transactionTracker;
     }
 
-    public HashMap<String, ArrayList<Transaction>> getTransactionTracker() {
+    public HashMap<LocalDate , ArrayList<Transaction>> getTransactionTracker() {
         return transactionTracker;
     }
 

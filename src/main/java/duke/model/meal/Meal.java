@@ -125,7 +125,7 @@ public class Meal {
         for (String i : nutritionValue.keySet()) {
             temp += i + ":" + nutritionValue.get(i) + " ";
         }
-        temp += "Cost: " + costStr;
+        temp += "cost: " + costStr;
         return "[" + this.type + "]" + this.getStatusIcon() + " " + this.description + " | " + temp;
     }
 
