@@ -11,6 +11,6 @@ public class NullResultException extends DukeException {
      * Constructs the Exception.
      */
     public NullResultException() {
-        super(Messages.ERROR_NULL_RESULT);
+        super(Messages.ERROR_RESULT_NOT_FOUND);
     }
 }

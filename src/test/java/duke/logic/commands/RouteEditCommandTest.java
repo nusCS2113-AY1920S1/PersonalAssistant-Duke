@@ -2,7 +2,7 @@ package duke.logic.commands;
 
 import duke.ModelStub;
 import duke.commons.exceptions.DukeException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.commons.exceptions.UnknownFieldException;
 import duke.logic.parsers.Parser;
 import duke.model.Model;
@@ -30,7 +30,7 @@ class RouteEditCommandTest {
         //negative test for editing non-existant route
         RouteEditCommand routeEditCommand2 =
                 (RouteEditCommand) Parser.parseComplexCommand("routeEdit 2 name 2113T");
-        assertThrows(QueryOutOfBoundsException.class, () -> {
+        assertThrows(OutOfBoundsException.class, () -> {
             routeEditCommand2.execute(model);
         });
 

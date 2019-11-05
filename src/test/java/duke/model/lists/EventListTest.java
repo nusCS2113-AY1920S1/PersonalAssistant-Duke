@@ -1,7 +1,8 @@
 package duke.model.lists;
 
-import duke.commons.exceptions.DukeDuplicateTaskException;
+import duke.commons.exceptions.DuplicateTaskException;
 import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.logic.parsers.ParserTimeUtil;
 import duke.model.Event;
 
@@ -26,7 +27,7 @@ class EventListTest {
         LocalDateTime endDate = ParserTimeUtil.parseStringToDate("06/06/18");
         Event event = new Event("Pulau Ubin", startDate, endDate);
         events.add(event);
-        assertThrows(DukeDuplicateTaskException.class, () -> events.add(event));
+        assertThrows(DuplicateTaskException.class, () -> events.add(event));
     }
 
     @Test
@@ -205,7 +206,7 @@ class EventListTest {
         EventList eventList = new EventList();
         eventList.setEvents(events);
         events.add(event2);
-        assertThrows(DukeDuplicateTaskException.class, () -> eventList.setEvents(events));
+        assertThrows(DuplicateTaskException.class, () -> eventList.setEvents(events));
     }
 
     @Test
@@ -230,7 +231,7 @@ class EventListTest {
         assertFalse(events.contains(event1));
         events.remove(0);
         assertFalse(events.contains(event2));
-        assertThrows(IndexOutOfBoundsException.class, () -> events.remove(-1));
-        assertThrows(IndexOutOfBoundsException.class, () -> events.remove(2));
+        assertThrows(OutOfBoundsException.class, () -> events.remove(-1));
+        assertThrows(OutOfBoundsException.class, () -> events.remove(2));
     }
 }

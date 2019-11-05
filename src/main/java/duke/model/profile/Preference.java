@@ -1,6 +1,6 @@
 package duke.model.profile;
 
-import duke.commons.exceptions.CategoryNotFoundException;
+import duke.commons.exceptions.NoSuchCategoryException;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,7 @@ public class Preference {
      * @param category category of preference to set
      * @param setting setting which user wish to set the preference to
      */
-    public void setPreference(String category, Boolean setting) throws CategoryNotFoundException {
+    public void setPreference(String category, Boolean setting) throws NoSuchCategoryException {
         switch (category) {
         case "sports":
             sports = setting;
@@ -41,7 +41,7 @@ public class Preference {
             lifestyle = setting;
             break;
         default:
-            throw new CategoryNotFoundException();
+            throw new NoSuchCategoryException();
         }
     }
 

@@ -3,10 +3,8 @@ package duke.model.planning;
 import duke.commons.Messages;
 import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.ParseException;
-import duke.commons.exceptions.StartEndDateBeforeNowException;
-import duke.commons.exceptions.StartEndDateDiscordException;
 import duke.logic.api.ApiParser;
-import duke.logic.parsers.ParserStorageUtil;
+import duke.logic.parsers.storageparsers.PlanningStorageParser;
 import duke.model.lists.AgendaList;
 import duke.model.locations.Venue;
 
@@ -68,7 +66,7 @@ public class Itinerary extends AgendaList {
      *
      * @return The String which lists the itinerary in full
      */
-    public String printItinerary() throws StartEndDateBeforeNowException, StartEndDateDiscordException {
+    public String printItinerary() {
 
         int days = getNumberOfDays();
 
@@ -108,7 +106,7 @@ public class Itinerary extends AgendaList {
                     venueList.add(ApiParser.getLocationSearch(itineraryDetails[i++]));
                     StringBuilder todos = new StringBuilder();
                     if (i == itineraryDetails.length - 1 || itineraryDetails[i].matches("-?\\d+")) {
-                        throw new ParseException(Messages.ITINERARY_EMPTY_TODOLIST);
+                        throw new ParseException(Messages.ERROR_ITINERARY_EMPTY_TODOLIST);
                     }
                     todos.append(itineraryDetails[++i]).append("|");
                     i++;
@@ -119,7 +117,7 @@ public class Itinerary extends AgendaList {
                             break;
                         }
                     }
-                    todoList = ParserStorageUtil.getTodoListFromStorage(todos.toString());
+                    todoList = PlanningStorageParser.getTodoListFromStorage(todos.toString());
                     if (i >= itineraryDetails.length) {
                         break;
                     }
@@ -129,9 +127,9 @@ public class Itinerary extends AgendaList {
                 this.setTasks(agendaList);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ParseException(Messages.ITINERARY_FAIL_CREATION);
+            throw new ParseException(Messages.ERROR_ITINERARY_FAIL_CREATION);
         } catch (NumberFormatException e) {
-            throw new ParseException(Messages.ITINERARY_INCORRECT_COMMAND);
+            throw new ParseException(Messages.ERROR_ITINERARY_INCORRECT_COMMAND);
         } catch (ApiException | ParseException e) {
             e.printStackTrace();
         }

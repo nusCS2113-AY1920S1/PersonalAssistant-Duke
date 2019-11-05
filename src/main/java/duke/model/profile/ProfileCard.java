@@ -1,6 +1,6 @@
 package duke.model.profile;
 
-import duke.commons.exceptions.CategoryNotFoundException;
+import duke.commons.exceptions.NoSuchCategoryException;
 import duke.model.planning.Itinerary;
 
 import java.time.LocalDateTime;
@@ -21,7 +21,7 @@ public class ProfileCard {
         this.preference = preference;
     }
 
-    public void setPreference(String category, Boolean setting) throws CategoryNotFoundException {
+    public void setPreference(String category, Boolean setting) throws NoSuchCategoryException {
         preference.setPreference(category, setting);
     }
 

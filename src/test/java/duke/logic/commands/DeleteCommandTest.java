@@ -2,7 +2,7 @@ package duke.logic.commands;
 
 import duke.ModelStub;
 import duke.commons.exceptions.DukeException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.model.Event;
 
 import org.junit.jupiter.api.Test;
@@ -22,14 +22,14 @@ class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(0);
         deleteCommand.execute(model);
         assertFalse(model.getEvents().contains(event));
-        assertThrows(QueryOutOfBoundsException.class, () -> deleteCommand.execute(model));
+        assertThrows(OutOfBoundsException.class, () -> deleteCommand.execute(model));
         DeleteCommand d2 = new DeleteCommand(99999);
-        assertThrows(QueryOutOfBoundsException.class, () -> d2.execute(model));
+        assertThrows(OutOfBoundsException.class, () -> d2.execute(model));
         DeleteCommand d3 = new DeleteCommand(-1);
-        assertThrows(QueryOutOfBoundsException.class, () -> d3.execute(model));
+        assertThrows(OutOfBoundsException.class, () -> d3.execute(model));
         DeleteCommand d4 = new DeleteCommand(-2);
-        assertThrows(QueryOutOfBoundsException.class, () -> d4.execute(model));
+        assertThrows(OutOfBoundsException.class, () -> d4.execute(model));
         DeleteCommand d5 = new DeleteCommand(1);
-        assertThrows(QueryOutOfBoundsException.class, () -> d5.execute(model));
+        assertThrows(OutOfBoundsException.class, () -> d5.execute(model));
     }
 }

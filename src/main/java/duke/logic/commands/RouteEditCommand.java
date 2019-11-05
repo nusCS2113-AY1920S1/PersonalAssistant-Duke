@@ -1,8 +1,7 @@
 package duke.logic.commands;
 
-import duke.commons.exceptions.CorruptedFileException;
 import duke.commons.exceptions.FileNotSavedException;
-import duke.commons.exceptions.QueryOutOfBoundsException;
+import duke.commons.exceptions.OutOfBoundsException;
 import duke.commons.exceptions.UnknownFieldException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
@@ -35,14 +34,13 @@ public class RouteEditCommand extends Command {
      *
      * @param model The model object containing information about the user.
      * @return The CommandResultText.
-     * @throws CorruptedFileException If the file is corrupted.
      * @throws FileNotSavedException If the file is not saved.
      * @throws UnknownFieldException If the queried field is not valid.
-     * @throws QueryOutOfBoundsException If the query is out of bounds.
+     * @throws OutOfBoundsException If the query is out of bounds.
      */
     @Override
-    public CommandResultText execute(Model model) throws CorruptedFileException, FileNotSavedException,
-            UnknownFieldException, QueryOutOfBoundsException {
+    public CommandResultText execute(Model model) throws FileNotSavedException,
+            UnknownFieldException, OutOfBoundsException {
         try {
             Route route = model.getRoutes().get(index);
             switch (field.toLowerCase()) {
@@ -59,7 +57,7 @@ public class RouteEditCommand extends Command {
             model.save();
             return new CommandResultText(MESSAGE_SUCCESS);
         } catch (IndexOutOfBoundsException e) {
-            throw new QueryOutOfBoundsException();
+            throw new OutOfBoundsException();
         }
     }
 }
