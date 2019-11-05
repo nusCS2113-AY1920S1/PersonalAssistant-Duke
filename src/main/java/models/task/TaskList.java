@@ -244,15 +244,15 @@ public class TaskList {
         //combining success messages and error messages into one array
         if (successMessages.size() == 1) {
             successMessages.remove(0);
+            if (errorMessages.size() > 1) {
+                successMessages.addAll(errorMessages);
+            }
         } else {
-            successMessages.add("");
+            if (errorMessages.size() > 1) {
+                successMessages.add("");
+                successMessages.addAll(errorMessages);
+            }
         }
-        if (errorMessages.size() == 1) {
-            successMessages.add("There were no errors!");
-        } else {
-            successMessages.addAll(errorMessages);
-        }
-
         return successMessages.toArray(new String[0]);
     }
 
