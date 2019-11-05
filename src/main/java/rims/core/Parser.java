@@ -175,6 +175,15 @@ public class Parser {
         } else if (words[0].equals("calendar") && words.length == 1 || words[0].equals("c")) {
             CalendarCommand.printCal(resources, ui);
             c =new ListCommand();
+
+
+        } else if (words[0].equals("+") && words.length == 1 || words[0].equals("c")) {
+            CalendarCommand.increaseSize(resources, ui);
+            c =new ListCommand();
+    } else if (words[0].equals("-") && words.length == 1 || words[0].equals("c")) {
+        CalendarCommand.decreaseSize(resources, ui);
+        c =new ListCommand();
+
          //@@author hin1
         } else if (words[0].equals("add") || words[0].equals("a")) {
             if (words[1].equals("/item")) {
