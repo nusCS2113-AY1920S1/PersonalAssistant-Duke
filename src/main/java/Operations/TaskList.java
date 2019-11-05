@@ -74,6 +74,19 @@ public class TaskList {
         if( tasks.size() != 0 ){
             int listCount = 1;
             for (Task output : tasks) {
+
+                if( !output.getDone() ) {
+                    Priority priority = output.getPriority();
+                    String priorityLVL;
+                    if (priority.equals(Priority.low)) {
+                        priorityLVL = " *";
+                    } else if(priority.equals(Priority.medium)) {
+                        priorityLVL = " **";
+                    } else {
+                        priorityLVL = " ***";
+                    }
+                    System.out.println("\t" + listCount + ". " + output.toString() + priorityLVL);
+
                 if(new Date().after(output.getDate())) {
                     output.setOverdue(true);
                 }
