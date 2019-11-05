@@ -6,6 +6,7 @@ import exceptions.FarmioException;
 import exceptions.FarmioFatalException;
 import frontend.Simulation;
 import frontend.Ui;
+import frontend.UiManager;
 
 import java.io.IOException;
 import java.util.EnumSet;
@@ -27,7 +28,7 @@ public class Farmio {
     public Farmio() {
         storage = new StorageManager();
         farmer = new Farmer();
-        ui = new Ui();
+        ui = new UiManager();
         simulation = new Simulation(this);
         stage = Stage.WELCOME;
         isExit = false;

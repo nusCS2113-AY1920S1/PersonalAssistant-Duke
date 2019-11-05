@@ -5,7 +5,6 @@ import exceptions.FarmioFatalException;
 import farmio.Farmio;
 import frontend.Ui;
 import usercode.tasks.Task;
-import farmio.Storage;
 import farmio.Farmer;
 
 public class CommandTaskEdit extends CommandChangeTask {
@@ -25,7 +24,6 @@ public class CommandTaskEdit extends CommandChangeTask {
      */
     @Override
     public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
-        Storage storage = farmio.getStorage();
         Farmer farmer = farmio.getFarmer();
         if (taskID < 1 || taskID > farmer.getTasks().size()) {
             throw new FarmioException("Invalid Task ID!");

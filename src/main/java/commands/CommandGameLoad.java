@@ -29,9 +29,7 @@ public class CommandGameLoad extends Command {
         } catch (FarmioException e) {
             if (farmio.getStage() == Farmio.Stage.MENU_START || farmio.getStage() == Farmio.Stage.WELCOME) {
                 farmio.getSimulation().simulate("GameNew", 0, true);
-                ui.showWarning(e.getMessage());
-                ui.typeWriter("Starting a new game.", true);
-                farmio.getSimulation().simulate("GameNew", 0, true);
+                ui.showWarning(e.getMessage() + ". Starting a new game.");
                 ui.typeWriter("New Game Created!", false);
                 ui.typeWriter("Enter your name:", false);
                 farmio.setStage(Farmio.Stage.NAME_ADD);

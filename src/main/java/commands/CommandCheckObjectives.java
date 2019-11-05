@@ -3,7 +3,6 @@ package commands;
 import exceptions.FarmioFatalException;
 import farmio.Farmio;
 import farmio.Level;
-
 import java.util.List;
 
 public class CommandCheckObjectives extends Command {

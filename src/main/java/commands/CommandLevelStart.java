@@ -2,7 +2,6 @@ package commands;
 
 import exceptions.FarmioFatalException;
 import farmio.Farmio;
-import frontend.AsciiColours;
 import frontend.Ui;
 import farmio.Storage;
 import farmio.Farmer;

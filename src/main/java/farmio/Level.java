@@ -132,42 +132,6 @@ public class Level {
     }
 
     /**
-     * Checks for incomplete objectives and returns feedback on objectives.
-     * @param farmer Farmer object
-     * @return Feedback on incomplete objectives
-     */
-    private String checkIncompleteObjectives(Farmer farmer) {
-        //todo -Level-dependant objective checker
-        String output = "";
-        int seeds = farmer.wheatFarm.getSeeds();
-        int wheat = farmer.wheatFarm.getWheat();
-        int grain = farmer.wheatFarm.getGrain();
-
-        if (seeds != endSeeds) {
-            int balancedWheatSeed = endSeeds - seeds;
-            output += " Seeds left :"  + balancedWheatSeed;
-        } else {
-            output += " Seeds Completed";
-        }
-
-        if (wheat != endWheat) {
-            int balancedWheatGreen = endWheat - wheat;
-            output += " | Wheat left :"  + balancedWheatGreen;
-        } else {
-            output += " | Wheat Completed";
-        }
-
-        if (grain != endGrain) {
-            int balancedWheatRipe = endGrain - grain;
-            output += " | Grain left :" + balancedWheatRipe;
-        } else {
-            output += " | Grain Completed";
-        }
-
-        return output;
-    }
-
-    /**
      * Splits string by | to List of Strings.
      * @param modelAnswer String to be split
      * @return List of Strings
@@ -206,19 +170,6 @@ public class Level {
         }
         return splitTaskList;
     }
-
-    /* //todo - possible refactor/ creation of levelParsed Class
-    //need to refactor to a levelParser class
-    public String levelParser(List<String> userTaskList, String modelAnswer){
-        //separate user list into arraylist , separate model ans into subsections
-        List<String> modelTaskList = convertStringToList(modelAnswer);
-        List<String> modifieduserTaskList = convertTaskListFormat(userTaskList);
-        //compare the two given
-        //i need to print out what it looks like on the
-       return "model ans";
-    }
-    */
-
 
     /**
      * Returns the feedback based off the different permutations of tasks when the level failes.
@@ -306,7 +257,6 @@ public class Level {
             if (detailedFeedbackProvided) {
                 //add enter and day end
                 feedback += "detailed feedback : -- \n";
-                feedback += checkIncompleteObjectives(farmer);
             }
             output.add("Press [ENTER] to continue the game or [RESET] to restart the level");
             return output;
