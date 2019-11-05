@@ -1,14 +1,9 @@
 package models.task;
 
-import models.member.ListOfMembersAssignedToTask;
-import models.member.Member;
-import util.date.DateTimeHelper;
-
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Objects;
+import util.date.DateTimeHelper;
 
 public class Task implements ITask {
     private String taskName;
@@ -16,7 +11,6 @@ public class Task implements ITask {
     private Date dueDate;
     private int taskCredit;
     private TaskState taskState;
-    private ListOfMembersAssignedToTask listOfMembersAssignedToTask;
     private ArrayList<String> taskRequirements;
     private DateTimeHelper dateTimeHelper;
 
@@ -28,9 +22,7 @@ public class Task implements ITask {
             return false;
         } else {
             Task other = (Task) obj;
-            return this.taskName.equals(other.taskName)
-                && this.taskPriority == other.taskPriority
-                && this.taskCredit == other.taskCredit;
+            return this.taskName.equals(other.taskName);
         }
     }
 
@@ -56,7 +48,6 @@ public class Task implements ITask {
         this.dueDate = dueDate;
         this.taskCredit = taskCredit;
         this.taskState = taskState;
-        this.listOfMembersAssignedToTask = new ListOfMembersAssignedToTask();
         this.taskRequirements = taskRequirements;
         this.dateTimeHelper = new DateTimeHelper();
     }
@@ -100,22 +91,6 @@ public class Task implements ITask {
         return this.taskCredit;
     }
 
-    public ListOfMembersAssignedToTask getAssignedMembers() {
-        return listOfMembersAssignedToTask;
-    }
-
-    public HashSet<Integer> getAssignedIndexes() {
-        return this.listOfMembersAssignedToTask.getAssignedMembersIndexNumbers();
-    }
-
-    public void assignMember(Member member) {
-        this.listOfMembersAssignedToTask.addMember(member);
-    }
-
-    public void removeMember(Member memberToRemove) {
-        this.listOfMembersAssignedToTask.removeMember(memberToRemove);
-    }
-
     /**
      * Adds index labels to task requirements for clearer viewing.
      * @return ArrayList of String of task requirements with labelled indexes.
@@ -144,15 +119,11 @@ public class Task implements ITask {
     }
 
     /**
-     * Converts String input into Date object to be set as the new dueDate.
-     * @param newDueDateString String form of the new dueDate to be set.
+     * Set input Date object as the new dueDate.
+     * @param newDueDate Date object of the new dueDate to be set.
      */
-    public void setDueDate(String newDueDateString) {
-        try {
-            this.dueDate = dateTimeHelper.formatDate(newDueDateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+    public void setDueDate(Date newDueDate) {
+        this.dueDate = newDueDate;
     }
 
     /**
@@ -168,8 +139,7 @@ public class Task implements ITask {
      * @param newTaskStateString String form of new task state.
      */
     public void setTaskState(String newTaskStateString) {
-        String newTaskStateLowerCase = newTaskStateString.toLowerCase();
-        switch (newTaskStateLowerCase) {
+        switch (newTaskStateString) {
         case "done":
             this.taskState = TaskState.DONE;
             break;

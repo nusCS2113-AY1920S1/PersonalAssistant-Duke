@@ -1,14 +1,15 @@
 package models.project;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import models.member.IMember;
 import models.member.Member;
 import models.member.MemberList;
 import models.reminder.Reminder;
 import models.reminder.ReminderList;
+import models.task.ITask;
 import models.task.Task;
 import models.task.TaskList;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Project implements IProject {
     private String name;
@@ -103,25 +104,13 @@ public class Project implements IProject {
     }
 
     @Override
-    public void editTask(int taskIndexNumber, String updatedTaskDetails) {
-        this.taskList.editTask(taskIndexNumber, updatedTaskDetails);
+    public String[] editTask(int taskIndexNumber, String updatedTaskDetails) {
+        return this.taskList.editTask(taskIndexNumber, updatedTaskDetails);
     }
 
     @Override
-    public void editTaskRequirements(int taskIndexNumber, String updatedTaskRequirements) {
-        this.taskList.editTaskRequirements(taskIndexNumber, updatedTaskRequirements);
-    }
-
-    @Override
-    public ArrayList<String> getAssignedTaskList() {
-        ArrayList<String> assignedTaskListString = new ArrayList<>();
-        for (HashMap.Entry<Task, ArrayList<Member>> task: taskAndListOfMembersAssigned.entrySet()) {
-            assignedTaskListString.add(task.getKey().getTaskName() + " is assigned to: ");
-            for (Member member: task.getValue()) {
-                assignedTaskListString.add(member.getName());
-            }
-        }
-        return assignedTaskListString;
+    public String[] editTaskRequirements(int taskIndexNumber, String updatedTaskRequirements) {
+        return this.taskList.editTaskRequirements(taskIndexNumber, updatedTaskRequirements);
     }
 
     /**
@@ -202,4 +191,19 @@ public class Project implements IProject {
         this.reminderList.addReminderList(reminder);
     }
 
+    public String getTaskIndexName(Integer index) {
+        return getTask(index).getTaskName();
+    }
+
+    public boolean memberExists(IMember newMember) {
+        return this.memberList.contains(newMember);
+    }
+
+    public Member getMember(int indexNumber) {
+        return (Member) this.memberList.getMember(indexNumber);
+    }
+
+    public boolean taskExists(ITask task) {
+        return this.taskList.contains((Task) task);
+    }
 }

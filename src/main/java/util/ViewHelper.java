@@ -7,7 +7,7 @@ public class ViewHelper {
     private static final String BORDER_CORNER = "+";
     private static final char HORI_BORDER_UNIT = '-';
     private static final String VERTI_BORDER_UNIT = "|";
-    private static final int DEFAULT_HORI_BORDER_LENGTH = 60;
+    private static final int DEFAULT_HORI_BORDER_LENGTH = 70;
 
     /**
      * Returns a String array that contains input in table form.
@@ -53,7 +53,7 @@ public class ViewHelper {
      * @param toPrint String to be printed in table form.
      * @return array of Strings to be printed line by line to fit the table width requirement.
      */
-    private String[] getArrayOfSplitStrings(String toPrint) {
+    public String[] getArrayOfSplitStrings(String toPrint) {
         ArrayList<String> splitStrings = new ArrayList<>();
         int indexOfStringSplitStart = 0;
         int indexOfStringSplitEnd = DEFAULT_HORI_BORDER_LENGTH;
@@ -97,7 +97,7 @@ public class ViewHelper {
      * @param numOfRemainingSpaces number of spaces needed.
      * @return String containing indicated number of spaces.
      */
-    private String getRemainingSpaces(int numOfRemainingSpaces) {
+    public String getRemainingSpaces(int numOfRemainingSpaces) {
         if (numOfRemainingSpaces == 0) {
             return "";
         } else {
@@ -114,7 +114,7 @@ public class ViewHelper {
      * @param borderLength Length of border excluding corners.
      * @return A String containing an indented horizontal border of a defined length with border corners.
      */
-    private String consolePrintTableHoriBorder(int borderLength) {
+    public String consolePrintTableHoriBorder(int borderLength) {
         char[] border = new char[borderLength];
         for (int i = 0; i < borderLength; i++) {
             border[i] = HORI_BORDER_UNIT;

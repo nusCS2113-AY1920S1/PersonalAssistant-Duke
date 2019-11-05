@@ -69,6 +69,8 @@ public class ParserHelperTest {
         assertEquals(0, parsedCommands.get(0).size());
         assertEquals(1, parsedCommands.get(1).size());
         assertEquals(1, parsedCommands.get(2).size());
+        assertEquals("Could not recognise task abc, please ensure it is an integer.",
+            parserHelper.getErrorMessages().get(0));
 
         command = "-i 1 -to ";
         parsedCommands = parserHelper.parseAssignmentParams(command, project);
@@ -79,6 +81,14 @@ public class ParserHelperTest {
         parsedCommands = parserHelper.parseAssignmentParams(command, project);
         assertEquals(0, parsedCommands.get(0).size());
         assertEquals(0, parsedCommands.get(1).size());
+        assertEquals(0, parsedCommands.get(2).size());
+        assertEquals("Task with index 5 does not exist.", parserHelper.getErrorMessages().get(0));
+
+        command = "-i";
+        parsedCommands = parserHelper.parseAssignmentParams(command, project);
+        assertEquals(0, parsedCommands.get(0).size());
+        assertEquals(0, parsedCommands.get(1).size());
+        assertEquals(0, parsedCommands.get(2).size());
 
     }
 

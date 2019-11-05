@@ -2,16 +2,15 @@ package models.project;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import models.member.IMemberList;
 import models.member.Member;
-import models.member.MemberList;
 import models.task.Task;
 import models.task.TaskList;
 
 public interface IProject {
-    // TODO Add attributes such as Members, Tasks, Name
     String getName();
 
-    MemberList getMembers();
+    IMemberList getMembers();
 
     TaskList getTasks();
 
@@ -33,11 +32,9 @@ public interface IProject {
 
     Task getTask(int taskIndex);
 
-    void editTask(int taskIndexNumber, String updatedTaskDetails);
+    String[] editTask(int taskIndexNumber, String updatedTaskDetails);
 
-    void editTaskRequirements(int taskIndexNumber, String updatedTaskRequirements);
-
-    ArrayList<String> getAssignedTaskList();
+    String[] editTaskRequirements(int taskIndexNumber, String updatedTaskRequirements);
 
     ArrayList<String> getCredits();
 
@@ -50,6 +47,4 @@ public interface IProject {
     HashMap<Member, ArrayList<Task>> getMembersIndividualTaskList();
 
     HashMap<Task, ArrayList<Member>> getTasksAndAssignedMembers();
-
-
 }

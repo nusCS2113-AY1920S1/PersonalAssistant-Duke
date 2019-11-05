@@ -23,7 +23,6 @@ public class MemberList implements IMemberList {
      * Adds a new member to the member list of this project.
      * @param newMember A new member to be added to the project.
      */
-    @Override
     public void addMember(Member newMember) {
         newMember.setIndexNumber(this.memberList.size() + 1);
         this.memberList.add(newMember);
@@ -56,16 +55,7 @@ public class MemberList implements IMemberList {
      * Shifts the index numbers of all members up if required.
      * @param toBeRemoved The Member that needs to be removed
      */
-    @Override
     public void removeMember(Member toBeRemoved) {
-        /*
-            Implement methods to ensure that task assignments are updated,
-            credits are redistributed, etc.
-            1) Scroll through all tasks of this member. Remove them from the ListOfMemebersAssignedToTask.
-            2) Recalculate the credits for other members in the task.
-            3) Change task state if necessary (if only 1 member was DOING, now it is OPEN)
-            4) Update index number of other members if necessary.
-         */
         if (toBeRemoved.getIndexNumber() < memberList.size()) { //if need to reassign index numbers after removal
             this.memberList.remove(toBeRemoved);
             for (int i = 1; i <= memberList.size(); i++) {
@@ -80,7 +70,6 @@ public class MemberList implements IMemberList {
      * Returns an ArrayList with String descriptions of members details.
      * @return An ArrayList with String descriptions of members details.
      */
-    @Override
     public ArrayList<String> getAllMemberDetails() {
         ArrayList<String> memberDetails = new ArrayList<>();
         for (Member member : this.memberList) {
@@ -110,9 +99,17 @@ public class MemberList implements IMemberList {
         return memberDetailsForTable;
     }
 
-    @Override
-    public Member getMember(int i) {
-        return this.memberList.get(i - 1);
+    /**
+     * Method returns a IMember.
+     * @param i : Member index.
+     * @return : IMember. Will return a NullMember if index doesn't exist
+     */
+    public IMember getMember(int i) {
+        try {
+            return this.memberList.get(i - 1);
+        } catch (IndexOutOfBoundsException err) {
+            return new NullMember("Requested member index is out of bounds! Please check again.");
+        }
     }
 
     /**
@@ -123,4 +120,11 @@ public class MemberList implements IMemberList {
         return memberList.size();
     }
 
+    public boolean contains(IMember newMember) {
+        return this.memberList.contains(newMember);
+    }
+
+    public int getIndexOfMember(IMember member) {
+        return this.memberList.indexOf(member);
+    }
 }

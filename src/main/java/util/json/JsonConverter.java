@@ -6,12 +6,11 @@ import com.google.gson.reflect.TypeToken;
 import controllers.ConsoleInputController;
 import exceptions.DukeException;
 import models.project.Project;
-import util.log.DukeLogger;
-
+import util.log.ArchDukeLogger;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -24,18 +23,19 @@ public class JsonConverter {
      */
     public void saveProject(Project project) {
         Gson gson = new GsonBuilder()
+                .enableComplexMapKeySerialization()
                 .setPrettyPrinting()
                 .create();
         try {
-            DukeLogger.logDebug(JsonConverter.class, "Saving to file.");
+            ArchDukeLogger.logDebug(JsonConverter.class.getName(), "Saving to file.");
             FileWriter fileWriter = new FileWriter(userDirectory + "/"
                                                     + project.getName() + ".json");
             gson.toJson(project, fileWriter);
             fileWriter.flush();
             fileWriter.close();
-            DukeLogger.logDebug(JsonConverter.class, "File saved.");
+            ArchDukeLogger.logDebug(JsonConverter.class.getName(), "File saved.");
         } catch (IOException err) {
-            DukeLogger.logError(JsonConverter.class, "Save file is not found or not created");
+            ArchDukeLogger.logError(JsonConverter.class.getName(), "Save file is not found or not created");
         }
     }
 
@@ -62,12 +62,12 @@ public class JsonConverter {
         File[] allProjectJson = directory.listFiles((file, name) -> name.endsWith(".json"));
         for (File projectJson : allProjectJson) {
             try (FileReader fileReader = new FileReader(projectJson)) {
-                DukeLogger.logDebug(ConsoleInputController.class, "Loading saved file.");
+                ArchDukeLogger.logDebug(ConsoleInputController.class.getName(), "Loading saved file.");
                 Project newProject = gson.fromJson(fileReader, new TypeToken<Project>(){}.getType());
                 allProjects.add(newProject);
-                DukeLogger.logDebug(ConsoleInputController.class, "Saved file loaded.");
+                ArchDukeLogger.logDebug(ConsoleInputController.class.getName(), "Saved file loaded.");
             } catch (IOException err) {
-                DukeLogger.logError(ConsoleInputController.class, "Saved file not loaded");
+                ArchDukeLogger.logError(ConsoleInputController.class.getName(), "Saved file not loaded");
                 return allProjects;
             }
         }

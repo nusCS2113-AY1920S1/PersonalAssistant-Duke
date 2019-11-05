@@ -63,6 +63,7 @@ public class ParserHelper {
      *         credit in index 3, task state in index 4.
      */
     public ArrayList<String> parseTaskDetails(String input) {
+        errorMessages.clear();
         ArrayList<String> newTask = new ArrayList<>();
 
         String newTaskName = "--";
@@ -72,30 +73,45 @@ public class ParserHelper {
         String newTaskState = "NONE";
 
         String [] newTaskDetails = input.split("-");
-        ArrayList<String> newTaskDetailsA  =  new ArrayList<>(Arrays.asList(newTaskDetails));
-        newTaskDetailsA.remove(0);
-        for (String s : newTaskDetailsA) {
-            switch (s.charAt(0)) {
-            case 't':
-                newTaskName = s.substring(1).trim();
-                break;
-            case 'p':
-                newTaskPriority = s.substring(1).trim();
-                break;
-            case 'd':
-                newTaskDate = s.substring(1).trim();
-                break;
-            case 'c':
-                newTaskCredit = s.substring(1).trim();
-                break;
-            case 's':
-                newTaskState = s.substring(1).trim();
-                break;
-            default:
-                break;
+        if (newTaskDetails.length == 0) {
+            errorMessages.add("Please input a complete flag! Examples for valid flags include '-t', '-p', '-d', "
+                    + "'-c' and '-s'. Refer to the user guide for more help!");
+        } else {
+            ArrayList<String> newTaskDetailsA = new ArrayList<>(Arrays.asList(newTaskDetails));
+            newTaskDetailsA.remove(0);
+            for (String s : newTaskDetailsA) {
+                String trimmedString = s.trim();
+                if (trimmedString.length() < 2) {
+                    if ("t".equals(trimmedString) || "p".equals(trimmedString) || "d".equals(trimmedString)
+                            || "c".equals(trimmedString) || "s".equals(trimmedString)) {
+                        errorMessages.add("'-" + trimmedString + "' is an empty flag!");
+                    } else {
+                        errorMessages.add("'An invalid flag is used here: -" + trimmedString);
+                    }
+                    continue;
+                }
+                switch (trimmedString.substring(0, 2)) {
+                case "t ":
+                    newTaskName = trimmedString.substring(2);
+                    break;
+                case "p ":
+                    newTaskPriority = trimmedString.substring(2);
+                    break;
+                case "d ":
+                    newTaskDate = trimmedString.substring(2);
+                    break;
+                case "c ":
+                    newTaskCredit = trimmedString.substring(2);
+                    break;
+                case "s ":
+                    newTaskState = trimmedString.substring(2);
+                    break;
+                default:
+                    errorMessages.add("An invalid flag is used here: -" + trimmedString);
+                    break;
+                }
             }
         }
-
         newTask.add(newTaskName);
         newTask.add(newTaskPriority);
         newTask.add(newTaskDate);
@@ -138,32 +154,59 @@ public class ParserHelper {
     /**
      * Parses string input to extract task requirements to be added and indexes of task requirements to be removed.
      * @param input Contains the new task requirements and indexes of task requirements to be removed.
-     * @return An ArrayList consisting of indexes to be removed in index 0, and subsequent elements containing
-     *         new task requirements
+     * @return An ArrayList consisting of indexes to be removed in index 0, new task requirements and error messages
      */
     public ArrayList<String> parseTaskRequirementDetails(String input) {
         ArrayList<String> taskRequirementDetails = new ArrayList<>();
 
-        String taskReqIndexesToBeRemoved = "--";
+        ArrayList<String> taskReqIndexesToBeRemoved = new ArrayList<>();
         ArrayList<String> taskRequirementsToBeAdded = new ArrayList<>();
+        errorMessages.clear();
 
         String[] newTaskRequirementsArray = input.split("-");
-        ArrayList<String> newTaskRequirementsArrayList = new ArrayList<>(Arrays.asList(newTaskRequirementsArray));
-        newTaskRequirementsArrayList.remove(0);
-        for (String s : newTaskRequirementsArrayList) {
-            switch (s.substring(0, 2)) {
-            case "rm":
-                taskReqIndexesToBeRemoved = s.substring(3);
-                break;
-            case "r ":
-                taskRequirementsToBeAdded.add(s.substring(2));
-                break;
-            default:
-                break;
+        if (newTaskRequirementsArray.length == 0) {
+            errorMessages.add("Please input a complete flag! Examples for valid flags include '-r' and '-rm'."
+                    + " Refer to the user guide for more help!");
+        } else {
+            ArrayList<String> newTaskRequirementsArrayList = new ArrayList<>(Arrays.asList(newTaskRequirementsArray));
+            newTaskRequirementsArrayList.remove(0);
+            for (String s : newTaskRequirementsArrayList) {
+                String trimmedString = s.trim();
+                if (trimmedString.length() <= 2) {
+                    if ("r".equals(trimmedString) || "rm".equals(trimmedString)) {
+                        errorMessages.add("There is an empty flag '-" + trimmedString + "'");
+                    } else {
+                        errorMessages.add("'-" + trimmedString + "' is an invalid flag");
+                    }
+                    continue;
+                }
+
+                switch (trimmedString.split(" ")[0]) {
+                case "rm":
+                    String[] splitTrimmedString = trimmedString.substring(3).split(" ");
+                    taskReqIndexesToBeRemoved.addAll(Arrays.asList(splitTrimmedString));
+                    break;
+                case "r":
+                    taskRequirementsToBeAdded.add(trimmedString.substring(2));
+                    break;
+                default:
+                    errorMessages.add("Invalid flag is used in this entry: -" + trimmedString);
+                    break;
+                }
             }
         }
 
-        taskRequirementDetails.add(taskReqIndexesToBeRemoved);
+        if (taskReqIndexesToBeRemoved.size() == 0) {
+            taskRequirementDetails.add("--");
+        } else {
+            StringBuilder taskReqIndexesToBeRemovedString = new StringBuilder();
+            for (String s1 : taskReqIndexesToBeRemoved) {
+                taskReqIndexesToBeRemovedString.append(s1);
+                taskReqIndexesToBeRemovedString.append(" ");
+            }
+            taskRequirementDetails.add(taskReqIndexesToBeRemovedString.toString().trim());
+        }
+
         taskRequirementDetails.addAll(taskRequirementsToBeAdded);
         return taskRequirementDetails;
     }
@@ -336,7 +379,7 @@ public class ParserHelper {
             if (unassignees.contains(index)) {
                 repeated.add(index);
                 errorMessages.add("Cannot assign and unassign task to member " + index + " ("
-                    + project.getMembers().getMember(index).getName() + ") at the same time");
+                    + project.getMember(index).getName() + ") at the same time");
 
             }
         }

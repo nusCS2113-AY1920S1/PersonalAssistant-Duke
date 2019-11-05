@@ -1,11 +1,14 @@
 package controllers;
 
 import java.util.ArrayList;
+
+import models.member.IMember;
 import models.project.Project;
 import models.member.Member;
 import models.task.Task;
 import util.ParserHelper;
 
+//@@author sinteary
 public class AssignmentController {
     private ArrayList<String> errorMessages;
     private ArrayList<String> successMessages;
@@ -31,15 +34,31 @@ public class AssignmentController {
      * @param input The input from the user.
      */
     public void assignAndUnassign(String input) {
+        if (input.length() < 12) {
+            errorMessages.add("Insufficient parameters!"
+                + "Indicate the tasks and members whom you wish to assign or remove!");
+            errorMessages.add("Format is \"assign task -i TASK_INDEX -to [MEMBER_INDEX] -rm [MEMBER_INDEX]\"");
+            errorMessages.add("You must either assign a task to someone, or remove, or both!");
+            return;
+        }
+        input = input.substring(12); //remove the "assign task " portion
         ArrayList<ArrayList<Integer>> assignmentParams = parserHelper.parseAssignmentParams(input, project);
+        errorMessages.addAll(parserHelper.getErrorMessages());
         ArrayList<Integer> validTaskIndexes = assignmentParams.get(0);
         ArrayList<Integer> validAssignees = assignmentParams.get(1);
         ArrayList<Integer> validUnassignees = assignmentParams.get(2);
 
+        if (validTaskIndexes.size() == 0) {
+            errorMessages.add("No valid task numbers detected. Cannot assign any tasks.");
+            errorMessages.add("Please input valid task numbers in this format: -i TASK_INDEX");
+            return;
+        }
+
         if (validAssignees.size() == 0 && validUnassignees.size() == 0) {
-            errorMessages.add("Insufficient parameters! Indicate the member whom you wish to assign or remove!");
-            errorMessages.add("Format is \"assign task -i TASK_INDEX -to [MEMBER_INDEX] -rm [MEMBER_INDEX]");
+            errorMessages.add("Insufficient parameters! Indicate the members whom you wish to assign or remove!");
+            errorMessages.add("Format is \"assign task -i TASK_INDEX -to [MEMBER_INDEX] -rm [MEMBER_INDEX]\"");
             errorMessages.add("You must either assign a task to someone, or remove, or both!");
+            return;
         }
 
         Project project = this.project;
@@ -49,13 +68,13 @@ public class AssignmentController {
 
             //assigning tasks
             for (Integer assigneeIndex : validAssignees) {
-                Member member = project.getMembers().getMember(assigneeIndex);
-                if (project.containsAssignment(task, member)) {
+                IMember member = project.getMembers().getMember(assigneeIndex);
+                if (project.containsAssignment(task, (Member)member)) {
                     successMessages.add("Task has already been assigned to member "
                         + assigneeIndex + " ("
                         + member.getName() + ").");
                 } else {
-                    project.createAssignment(task, member);
+                    project.createAssignment(task, (Member)member);
                     successMessages.add("Assigned to member "
                         + assigneeIndex + " ("
                         + member.getName() + ").");
@@ -63,13 +82,13 @@ public class AssignmentController {
             }
             //unassigning tasks
             for (Integer unassigneeIndex : validUnassignees) {
-                Member member = project.getMembers().getMember(unassigneeIndex);
-                if (!project.containsAssignment(task, member)) {
+                IMember member = project.getMembers().getMember(unassigneeIndex);
+                if (!project.containsAssignment(task, (Member)member)) {
                     successMessages.add("Task cannot be unassigned from member "
                         + unassigneeIndex + " (" + member.getName() + ") as it was "
                         + "not assigned in the first place!");
                 } else {
-                    project.removeAssignment(member, task);
+                    project.removeAssignment((Member)member, task);
                     successMessages.add("Unassigned task from member " + unassigneeIndex
                         + " (" + member.getName() + ").");
                 }
@@ -92,5 +111,4 @@ public class AssignmentController {
     public ArrayList<String> getSuccessMessages() {
         return successMessages;
     }
-
 }

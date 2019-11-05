@@ -3,14 +3,13 @@ package views;
 import controllers.ConsoleInputController;
 import controllers.ProjectInputController;
 import repositories.ProjectRepository;
-import util.log.DukeLogger;
+import util.log.ArchDukeLogger;
 
 import java.util.Scanner;
 
-public class CLIView {
-    private static final String HORILINE = "\t____________________________________________________________";
-    private static final String INDENTATION = "\t";
+import static util.constant.ConstantHelper.*;
 
+public class CLIView {
     private ConsoleInputController consoleInputController;
     private ProjectRepository projectRepository;
 
@@ -23,22 +22,26 @@ public class CLIView {
      * Method to call when View model is started.
      */
     public void start() {
-        DukeLogger.logInfo(CLIView.class, "ArchDuke have started.");
+        ArchDukeLogger.logInfo(CLIView.class.getName(), "ArchDuke have started.");
         Scanner sc = new Scanner(System.in);
         boolean isDukeRunning = true;
-        consolePrint("Hello! I'm Duke", "What can I do for you?");
-        //noinspection InfiniteLoopStatement
+        consolePrint(HELLO_MESSAGE);
         while (isDukeRunning) {
             String commandInput = sc.nextLine();
+            ArchDukeLogger.logInfo(CLIView.class.getName(), "User input: " + commandInput);
             String[] outputMessage = consoleInputController.onCommandReceived(commandInput);
+
             if (outputMessage[0].matches("Now managing.*")) {
                 consolePrint(outputMessage);
 
                 ProjectInputController projectInputController = new ProjectInputController(projectRepository);
                 String projectNumber = consoleInputController.getManagingProjectIndex();
+                outputMessage = projectInputController.onCommandReceived(projectNumber);
+                consolePrint(outputMessage);
 
                 while (projectInputController.getIsManagingAProject()) {
-                    String[] projectOutputMessage = projectInputController.onCommandReceived(projectNumber);
+                    commandInput = sc.nextLine();
+                    String[] projectOutputMessage = projectInputController.manageProject(commandInput);
                     consolePrint(projectOutputMessage);
                     if (projectOutputMessage[0].matches("Bye.*")) {
                         isDukeRunning = false;
@@ -47,6 +50,7 @@ public class CLIView {
                 }
             } else if (outputMessage[0].matches("Bye.*")) {
                 isDukeRunning = false;
+                consolePrint(outputMessage);
             } else {
                 consolePrint(outputMessage);
             }

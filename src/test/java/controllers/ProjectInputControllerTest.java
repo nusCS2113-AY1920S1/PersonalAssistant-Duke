@@ -33,7 +33,7 @@ class ProjectInputControllerTest {
     }
 
     @Test
-    void testProjectAddMember() {
+    void testProjectAddMember_valid() {
         Project project = new Project("Infinity_Gauntlet");
         String simulatedUserInput = "add member -n Jerry Zhang -i 9123456 -e jerryzhang@gmail.com";
         projectInputController.projectAddMember(project,simulatedUserInput);
@@ -46,7 +46,34 @@ class ProjectInputControllerTest {
     }
 
     @Test
-    void testProjectEditMember() {
+    void testProjectAddMember_duplicateMembers() {
+        Project project = new Project("Infinity_Gauntlet");
+        simulatedUserInput = "add member -n Cynthia";
+        projectInputController.projectAddMember(project, simulatedUserInput);
+        assertEquals(1, project.getNumOfMembers());
+        assertEquals("Cynthia", project.getMember(1).getName());
+        simulatedUserInput = "add member -n Cynthia -p 98765432";
+        String[] projectOutput = projectInputController.projectAddMember(project, simulatedUserInput);
+        assertEquals(1, project.getNumOfMembers());
+        assertEquals("The member you have tried to add already exists!", projectOutput[0]);
+    }
+
+    @Test
+    void testProjectAddMember_noName() {
+        Project project = new Project("Infinity_Gauntlet");
+        simulatedUserInput = "add member";
+        String[] projectOutput = projectInputController.projectAddMember(project, simulatedUserInput);
+        assertEquals("Add member command minimum usage must be \"add member -n NAME\"!",
+            projectOutput[0]);
+        simulatedUserInput = "add member -n";
+        projectOutput = projectInputController.projectAddMember(project, simulatedUserInput);
+        assertEquals("Name cannot be empty! Please follow the add command format in user guide!"
+            + " \"add member -n NAME\" is the minimum requirement for add member command", projectOutput[0]);
+    }
+
+
+    @Test
+    void testProjectEditMember_valid() {
         Project project = new Project("Infinity_Gauntlet");
         simulatedUserInput = "add member -n Jerry Zhang -i 9123456 -e jerryzhang@gmail.com";
         projectInputController.projectAddMember(project, simulatedUserInput);
@@ -89,19 +116,42 @@ class ProjectInputControllerTest {
     }
 
     @Test
-    void testProjectDeleteMember() {
+    void testProjectDeleteMember_valid() {
         Project project = new Project("Infinity_Gauntlet");
         simulatedUserInput = "add member -n Jerry Zhang -i 9123456 -e jerryzhang@gmail.com";
         projectInputController.projectAddMember(project, simulatedUserInput);
-
+        assertEquals(1, project.getNumOfMembers());
         simulatedUserInput = "delete member 1";
         projectInputController.projectDeleteMember(project, simulatedUserInput);
-        actualOutput = "";
-        for (String message : project.getMembers().getAllMemberDetails().toArray(new String[0])) {
-            actualOutput += message;
-        }
-        expectedOutput = "";
-        assertEquals(expectedOutput,actualOutput);
+        assertEquals(0, project.getNumOfMembers());
+
+        //delete multiple
+        simulatedUserInput = "add member -n Cynthia";
+        projectInputController.projectAddMember(project, simulatedUserInput);
+        simulatedUserInput = "add member -n Sean";
+        projectInputController.projectAddMember(project, simulatedUserInput);
+        simulatedUserInput = "add member -n Abhishek";
+        projectInputController.projectAddMember(project, simulatedUserInput);
+        assertEquals(3, project.getNumOfMembers());
+        simulatedUserInput = "delete member 1 3";
+        projectInputController.projectDeleteMember(project, simulatedUserInput);
+        assertEquals(1, project.getNumOfMembers());
+        assertEquals("Sean", project.getMember(1).getName());
+    }
+
+    @Test
+    void testProjectDeleteMember_invalid() {
+        Project project = new Project("Infinity_Gauntlet");
+        simulatedUserInput = "add member -n Jerry Zhang -i 9123456 -e jerryzhang@gmail.com";
+        projectInputController.projectAddMember(project, simulatedUserInput);
+        assertEquals(1, project.getNumOfMembers());
+        simulatedUserInput = "delete member";
+        String[] output = projectInputController.projectDeleteMember(project, simulatedUserInput);
+        assertEquals("Can't delete members: No member index numbers detected!", output[0]);
+        simulatedUserInput = "delete member abc";
+        output = projectInputController.projectDeleteMember(project, simulatedUserInput);
+        assertEquals("Could not recognise member abc, please ensure it is an integer.", output[0]);
+        assertEquals("No valid member indexes. Cannot delete members.", output[1]);
     }
 
     @Test
@@ -116,7 +166,7 @@ class ProjectInputControllerTest {
         simulatedUserInput = "add member -n Sean";
         projectInputController.projectAddMember(project, simulatedUserInput);
 
-        simulatedUserInput = "add task -t task1 -p 10 -c 10 -s todo";
+        simulatedUserInput = "add task -t task1 -p 1 -c 10 -s todo";
         projectInputController.projectAddTask(project, simulatedUserInput);
 
         simulatedUserInput = "add task -t task2 -p 5 -c 10 -s doing";
@@ -144,7 +194,7 @@ class ProjectInputControllerTest {
     }
 
     @Test
-    void testProjectAddTask() {
+    void testProjectAddTask_valid() {
         try {
             Project project = new Project("Infinity_Gauntlet");
             dueDate = dateTimeHelper.formatDate("21/09/2019");
@@ -152,15 +202,15 @@ class ProjectInputControllerTest {
                     + "-r do something -r do another thing";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
-            simulatedUserInput = "add task -t Documentation for product -p 2 -c 40 "
+            simulatedUserInput = "add task -t Documentation for product 1 -p 2 -c 40 "
                     + "-s done -r do something -r do another thing";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
-            simulatedUserInput = "add task  -p 2 -t Documentation for product -c 40 -r do something "
+            simulatedUserInput = "add task  -p 2 -t Documentation for product 2 -c 40 -r do something "
                     + "-r do another thing";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
-            simulatedUserInput = "add task -t Documentation for product -p 2 -c 40";
+            simulatedUserInput = "add task -t Documentation for product 3 -p 2 -c 40";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
             simulatedUserInput = "add task -s doing -t Documentation for CS2113 -c 40 -d 21/09/2019 -p 2";
@@ -174,9 +224,9 @@ class ProjectInputControllerTest {
             expectedOutput = "1. Documentation for product | Priority: 2 | Due: 21 Sep 2019"
                     + dateTimeHelper.getDifferenceDays(dueDate)
                     + " | Credit: 40 | State: TODO"
-                    + "2. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: DONE"
-                    + "3. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN"
-                    + "4. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN"
+                    + "2. Documentation for product 1 | Priority: 2 | Due: -- | Credit: 40 | State: DONE"
+                    + "3. Documentation for product 2 | Priority: 2 | Due: -- | Credit: 40 | State: OPEN"
+                    + "4. Documentation for product 3 | Priority: 2 | Due: -- | Credit: 40 | State: OPEN"
                     + "5. Documentation for CS2113 | Priority: 2 | Due: 21 Sep 2019"
                     + dateTimeHelper.getDifferenceDays(dueDate)
                     + " | Credit: 40 | State: DOING";
@@ -247,6 +297,7 @@ class ProjectInputControllerTest {
             assertEquals(expectedOutput,actualOutput);
 
             simulatedUserInput = "edit task 1 -c 70 -s doing -p 6 -d 12/12/2020 -t End Game";
+            //6 is an invalid value for task priority, so priority remains as 2 after this command
             dueDate = dateTimeHelper.formatDate("12/12/2020");
             projectInputController.projectEditTask(project,simulatedUserInput);
             actualOutput = "";
@@ -254,7 +305,7 @@ class ProjectInputControllerTest {
                     project.getTasksAndAssignedMembers()).toArray(new String[0])) {
                 actualOutput += message;
             }
-            expectedOutput = "1. End Game | Priority: 6 | Due: 12 Dec 2020"
+            expectedOutput = "1. End Game | Priority: 2 | Due: 12 Dec 2020"
                     + dateTimeHelper.getDifferenceDays(dueDate)
                     + " | Credit: 70 | State: DOING";
             assertEquals(expectedOutput,actualOutput);
@@ -268,7 +319,7 @@ class ProjectInputControllerTest {
     void testProjectViewTask() {
         try {
             Project project = new Project("Infinity_Gauntlet");
-            simulatedUserInput = "add task -t task1 -p 10 -c 10 -s todo -d 12/12/2021";
+            simulatedUserInput = "add task -t task1 -p 5 -c 10 -s todo -d 12/12/2021";
             projectInputController.projectAddTask(project, simulatedUserInput);
             simulatedUserInput = "add task -t task2 -p 5 -c 100 -s doing";
             projectInputController.projectAddTask(project, simulatedUserInput);
@@ -290,7 +341,7 @@ class ProjectInputControllerTest {
                     project.getTasksAndAssignedMembers()).toArray(new String[0])) {
                 actualOutput += message;
             }
-            expectedOutput = "1. task1 | Priority: 10 | Due: 12 Dec 2021"
+            expectedOutput = "1. task1 | Priority: 5 | Due: 12 Dec 2021"
                     + dateTimeHelper.getDifferenceDays(dueDate1)
                     + " | Credit: 10 | State: TODO"
                     + "2. task2 | Priority: 5 | Due: -- | Credit: 100 | State: DOING"
@@ -304,7 +355,7 @@ class ProjectInputControllerTest {
                     project.getTasksAndAssignedMembers(), "/PRIORITY").toArray(new String[0])) {
                 actualOutput += message;
             }
-            expectedOutput = "1. task1 | Priority: 10 | Due: 12 Dec 2021"
+            expectedOutput = "1. task1 | Priority: 5 | Due: 12 Dec 2021"
                     + dateTimeHelper.getDifferenceDays(dueDate1)
                     + " | Credit: 10 | State: TODO"
                     + "2. task2 | Priority: 5 | Due: -- | Credit: 100 | State: DOING"
@@ -318,7 +369,7 @@ class ProjectInputControllerTest {
                     project.getTasksAndAssignedMembers(), "/NAME").toArray(new String[0])) {
                 actualOutput += message;
             }
-            expectedOutput = "1. task1 | Priority: 10 | Due: 12 Dec 2021"
+            expectedOutput = "1. task1 | Priority: 5 | Due: 12 Dec 2021"
                     + dateTimeHelper.getDifferenceDays(dueDate1)
                     + " | Credit: 10 | State: TODO"
                     + "2. task2 | Priority: 5 | Due: -- | Credit: 100 | State: DOING"
@@ -335,7 +386,7 @@ class ProjectInputControllerTest {
             expectedOutput = "1. task3 | Priority: 1 | Due: 01 Jan 2020"
                     + dateTimeHelper.getDifferenceDays(dueDate2)
                     + " | Credit: 50 | State: DONE"
-                    + "2. task1 | Priority: 10 | Due: 12 Dec 2021"
+                    + "2. task1 | Priority: 5 | Due: 12 Dec 2021"
                     + dateTimeHelper.getDifferenceDays(dueDate1)
                     + " | Credit: 10 | State: TODO";
             assertEquals(expectedOutput, actualOutput);
@@ -349,7 +400,7 @@ class ProjectInputControllerTest {
                     + "2. task3 | Priority: 1 | Due: 01 Jan 2020"
                     + dateTimeHelper.getDifferenceDays(dueDate2)
                     + " | Credit: 50 | State: DONE"
-                    + "3. task1 | Priority: 10 | Due: 12 Dec 2021"
+                    + "3. task1 | Priority: 5 | Due: 12 Dec 2021"
                     + dateTimeHelper.getDifferenceDays(dueDate1)
                     + " | Credit: 10 | State: TODO";
             assertEquals(expectedOutput, actualOutput);
@@ -359,7 +410,7 @@ class ProjectInputControllerTest {
                     project.getTasksAndAssignedMembers(), "/WHO-Dillen").toArray(new String[0])) {
                 actualOutput += message;
             }
-            expectedOutput = "1. task1 | Priority: 10 | Due: 12 Dec 2021"
+            expectedOutput = "1. task1 | Priority: 5 | Due: 12 Dec 2021"
                     + dateTimeHelper.getDifferenceDays(dueDate1)
                     + " | Credit: 10 | State: TODO"
                     + "2. task2 | Priority: 5 | Due: -- | Credit: 100 | State: DOING";
@@ -425,7 +476,7 @@ class ProjectInputControllerTest {
     }
 
     @Test
-    void testProjectAssignTask() {
+    void testProjectAssignTask_valid() {
         Project project = new Project("Infinity_Gauntlet");
         simulatedUserInput = "add task -t Documentation for product -p 2 -d 21/09/2019 -c 40 -s todo "
                 + "-r do something -r do another thing";
@@ -435,13 +486,14 @@ class ProjectInputControllerTest {
         simulatedUserInput = "add member -n Dillen -i 911 -e dillen@hotmail.com";
         projectInputController.projectAddMember(project, simulatedUserInput);
         simulatedUserInput = "assign task -i 1 -to 1 2";
-        projectInputController.projectAssignTask(project, simulatedUserInput);
-        actualOutput = "";
-        for (String message : project.getAssignedTaskList().toArray(new String[0])) {
-            actualOutput += message;
-        }
-        expectedOutput = "Documentation for product is assigned to: Jerry ZhangDillen";
-        assertEquals(expectedOutput, actualOutput);
+        String[] output = projectInputController.projectAssignTask(project, simulatedUserInput);
+        assertEquals("For task 1 (Documentation for product):", output[0]);
+        assertEquals("Assigned to member 1 (Jerry Zhang).", output[1]);
+        assertEquals("Assigned to member 2 (Dillen).", output[2]);
+        simulatedUserInput = "assign task -i 1 -rm 1";
+        output = projectInputController.projectAssignTask(project, simulatedUserInput);
+        assertEquals("For task 1 (Documentation for product):", output[0]);
+        assertEquals("Unassigned task from member 1 (Jerry Zhang).", output[1]);
     }
 
     @Test
@@ -467,16 +519,21 @@ class ProjectInputControllerTest {
         Project project = new Project("New project");
         simulatedUserInput = "view assignments";
         String[] output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        assertEquals(3, output.length);
         assertEquals("Please input the parameters to view assignments:", output[0]);
         simulatedUserInput = "view assignments -";
         output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        assertEquals(3, output.length);
         assertEquals("Please input the parameters to view assignments:", output[0]);
         simulatedUserInput = "view assignments atm";
         output = projectInputController.projectViewAssignments(project, simulatedUserInput);
-        assertEquals(1, output.length);
-        assertEquals("Could not understand your command! Please use -m for member, -t for task",
+        assertEquals("Could not understand your command! Please use:",
             output[0]);
+        //no members
+        simulatedUserInput = "view assignments -m all";
+        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
+        assertEquals("No members in project yet.", output[0]);
+        //no tasks
+        simulatedUserInput = "view assignments -t all";
+        output = projectInputController.projectViewAssignments(project, simulatedUserInput);
+        assertEquals("No tasks in project yet.", output[0]);
     }
 }

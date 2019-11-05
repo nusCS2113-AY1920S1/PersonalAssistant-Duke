@@ -1,11 +1,7 @@
 package models.task;
 
-import models.member.ListOfMembersAssignedToTask;
-import models.member.Member;
-
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 
 public class NullTask implements ITask {
     @Override
@@ -39,30 +35,6 @@ public class NullTask implements ITask {
     }
 
     @Override
-    public ListOfMembersAssignedToTask getAssignedMembers() {
-        return null;
-    }
-
-    @Override
-    public HashSet<Integer> getAssignedIndexes() {
-        return null;
-    }
-
-    @Override
-    public void assignMember(Member member) {
-        /**
-         * Empty method
-         */
-    }
-
-    @Override
-    public void removeMember(Member memberToRemove) {
-        /**
-         * Empty method
-         */
-    }
-
-    @Override
     public ArrayList<String> getTaskRequirements() {
         return null;
     }
@@ -87,7 +59,7 @@ public class NullTask implements ITask {
     }
 
     @Override
-    public void setDueDate(String newDueDateString) {
+    public void setDueDate(Date newDueDate) {
         /**
          * Empty method
          */

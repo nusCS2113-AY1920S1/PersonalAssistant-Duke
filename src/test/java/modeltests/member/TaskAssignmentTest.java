@@ -68,8 +68,6 @@ class TaskAssignmentTest {
         assertTrue(project.containsAssignment(task, member1));
         assertTrue(project.containsAssignment(task, member2));
         assertTrue(project.containsAssignment(task, member3));
-        assertEquals("[Test task is assigned to: , Tom, Dick, Harry]",
-            project.getAssignedTaskList().toString());
 
     }
 
