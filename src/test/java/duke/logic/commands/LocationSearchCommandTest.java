@@ -1,7 +1,6 @@
 package duke.logic.commands;
 
 import duke.ModelStub;
-import duke.commons.exceptions.ApiException;
 import duke.commons.exceptions.DukeException;
 import duke.logic.parsers.Parser;
 import duke.model.Model;
@@ -9,13 +8,14 @@ import duke.model.Model;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class LocationSearchCommandTest {
     private static final String SENTOSA_MESSAGE
             = "These are the coordinates of your search:\n"
             + "SENTOSA\n"
             + "1.2498144130047 103.82948052356899";
+
+    private static final String TIMEOUT_MESSAGE = "Sorry, but the search has timed out due to connection issues.";
 
     @Test
     void execute() throws DukeException {
@@ -26,15 +26,14 @@ class LocationSearchCommandTest {
                 (LocationSearchCommand) Parser.parseComplexCommand("search sentosa");
         assertEquals(SENTOSA_MESSAGE, locationSearchCommand1.execute(model).getMessage());
 
-        //negative test where the api returns no result
-        assertThrows(ApiException.class, () -> {
-            Parser.parseComplexCommand("search invalid-location").execute(model);
-        });
+        //not a valid location, will timeout
+        LocationSearchCommand locationSearchCommand2 =
+                (LocationSearchCommand) Parser.parseComplexCommand("search invalid-location");
+        assertEquals(TIMEOUT_MESSAGE, locationSearchCommand2.execute(model).getMessage());
 
-        //negative test where the request times out
-        assertThrows(ApiException.class, () -> {
-            Parser.parseComplexCommand("search #").execute(model);
-        });
-
+        //random nonsense query, will timeout
+        LocationSearchCommand locationSearchCommand3 =
+                (LocationSearchCommand) Parser.parseComplexCommand("search #");
+        assertEquals(TIMEOUT_MESSAGE, locationSearchCommand3.execute(model).getMessage());
     }
 }

@@ -28,6 +28,18 @@ public class TrainStation extends RouteNode {
     }
 
     /**
+     * Alternative constructor which automatically uses fetchData().
+     *
+     * @param trainStationName The bus code.
+     * @param model The model object containing information about the user.
+     */
+    public TrainStation(String trainStationName, Model model) {
+        super(Constraint.valueOf("MRT"), "", "", 0, 0);
+        this.setAddress(trainStationName);
+        fetchData(model);
+    }
+
+    /**
      * Sets the trainCodes from an ArrayList of Strings.
      *
      * @param trainCodes The ArrayList of Strings.

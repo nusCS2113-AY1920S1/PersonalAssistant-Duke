@@ -48,11 +48,9 @@ public class RouteNodeShowCommand extends Command {
      * @param model The model object containing information about the user.
      * @return The CommandResultRouteMap.
      * @throws OutOfBoundsException If the query is out of bounds.
-     * @throws ApiException If the api call fails.
      */
     @Override
-    public CommandResultImage execute(Model model) throws OutOfBoundsException,
-            ApiException {
+    public CommandResultImage execute(Model model) throws OutOfBoundsException {
         try {
             Route route = model.getRoutes().get(indexRoute);
             RouteNode node = model.getRoutes().get(indexRoute).getNode(indexNode);
@@ -64,15 +62,18 @@ public class RouteNodeShowCommand extends Command {
             } else {
                 param = node.getAddress();
             }
+            try {
+                Venue query = ApiParser.getLocationSearch(param);
+                ArrayList<String> points = generateOtherPoints(route, node, indexNode);
 
-            Venue query = ApiParser.getLocationSearch(param);
-            ArrayList<String> points = generateOtherPoints(route, node, indexNode);
+                Image image = ApiParser.getStaticMap(ApiParser.generateStaticMapParams(DIMENSIONS, DIMENSIONS,
+                        ZOOM_LEVEL, String.valueOf(query.getLatitude()), String.valueOf(query.getLongitude()), "",
+                        generateLineParam(points, rgb), generatePointParam(route, node)));
 
-            Image image = ApiParser.getStaticMap(ApiParser.generateStaticMapParams(DIMENSIONS, DIMENSIONS, ZOOM_LEVEL,
-                    String.valueOf(query.getLatitude()), String.valueOf(query.getLongitude()), "",
-                    generateLineParam(points, rgb), generatePointParam(route, node)));
-
-            return new CommandResultImage(Messages.PROMPT_ROUTE_SELECTOR_DISPLAY + node.getDisplayInfo(), image);
+                return new CommandResultImage(Messages.PROMPT_ROUTE_SELECTOR_DISPLAY + node.getDisplayInfo(), image);
+            } catch (ApiException e) {
+                return new CommandResultImage(Messages.PROMPT_ROUTE_SELECTOR_DISPLAY + node.getDisplayInfo(), null);
+            }
         } catch (IndexOutOfBoundsException e) {
             throw new OutOfBoundsException();
         }
@@ -119,21 +120,21 @@ public class RouteNodeShowCommand extends Command {
      * @return result The point parameters.
      */
     private String generatePointParam(Route route, RouteNode query) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (RouteNode node: route.getNodes()) {
             if (!node.equals(query) && isWithinDistance(node, query)) {
-                result += ApiParser.generateStaticMapPoint(String.valueOf(node.getLatitude()),
+                result.append(ApiParser.generateStaticMapPoint(String.valueOf(node.getLatitude()),
                         String.valueOf(node.getLongitude()), RED_VALUE_OTHER, GREEN_VALUE_OTHER, BLUE_VALUE_OTHER,
-                        node.getAddress()) + "|";
+                        node.getAddress())).append("|");
             } else {
-                result += ApiParser.generateStaticMapPoint(String.valueOf(node.getLatitude()),
+                result.append(ApiParser.generateStaticMapPoint(String.valueOf(node.getLatitude()),
                         String.valueOf(node.getLongitude()), RED_VALUE_QUERY, GREEN_VALUE_QUERY, BLUE_VALUE_QUERY,
-                        node.getAddress()) + "|";
+                        node.getAddress())).append("|");
             }
         }
-        result = result.substring(0, result.length() - 1);
+        result = new StringBuilder(result.substring(0, result.length() - 1));
 
-        return result;
+        return result.toString();
     }
 
     /**

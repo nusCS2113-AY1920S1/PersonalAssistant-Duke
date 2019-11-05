@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class CommandResultImage extends CommandResult implements Imageable {
     private String message;
-    private Image image;
+    private Image image = null;
 
     /**
      * Constructs a basic CommandResultImage object.
@@ -21,7 +21,9 @@ public class CommandResultImage extends CommandResult implements Imageable {
      */
     public CommandResultImage(String message, Image image) {
         this.message = message;
-        this.image = image;
+        if (image != null) {
+            this.image = image;
+        }
     }
 
     /**

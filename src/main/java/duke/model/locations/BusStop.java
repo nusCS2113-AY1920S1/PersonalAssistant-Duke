@@ -30,6 +30,18 @@ public class BusStop extends RouteNode {
     }
 
     /**
+     * Alternative constructor which automatically uses fetchData().
+     *
+     * @param busCode The bus code.
+     * @param model The model object containing information about the user.
+     */
+    public BusStop(String busCode, Model model) throws QueryFailedException {
+        super(Constraint.valueOf("BUS"), "", "", 0, 0);
+        this.busCode = busCode;
+        fetchData(model);
+    }
+
+    /**
      * Gets the Set of bus services of the bus stop in String.
      *
      * @return buses The Set of bus services in String.

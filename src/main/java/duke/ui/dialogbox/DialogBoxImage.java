@@ -24,7 +24,7 @@ public class DialogBoxImage extends UiPart<HBox> {
     @FXML
     private Label dialog;
     @FXML
-    private HBox dialogBox;
+    private HBox dialogBoxImage;
     @FXML
     private Circle circle;
     @FXML
@@ -53,7 +53,12 @@ public class DialogBoxImage extends UiPart<HBox> {
      * @param image The image to display
      */
     private void setPictureView(Image image) {
-        imageBox.setImage(image);
+        if (image != null) {
+            imageBox.setImage(image);
+        }  else {
+            imageBox.setFitHeight(0);
+            dialogBoxImage.setMaxHeight(80);
+        }
     }
 
     /**
