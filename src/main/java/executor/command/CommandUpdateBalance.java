@@ -19,7 +19,8 @@ public class CommandUpdateBalance extends Command {
         this.userInput = userInput;
         this.commandType = CommandType.SETBALANCE;
         this.newBalance = extractAmount();
-        this.description = "Updates current balance to new balance in the wallet";
+        this.description = "Updates current balance to new balance in the wallet \n"
+                + "FORMAT :  ";
     }
 
     @Override

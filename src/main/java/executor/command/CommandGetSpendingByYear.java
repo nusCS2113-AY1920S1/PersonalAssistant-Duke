@@ -16,8 +16,8 @@ public class CommandGetSpendingByYear extends Command {
     public CommandGetSpendingByYear(String userInput) {
         this.commandType = CommandType.EXPENDEDYEAR;
         this.userInput = userInput;
-        this.description = "Provides the user the total expenditure for the year stated. "
-                + "Format : expendedyear <year>";
+        this.description = "Provides the user the total expenditure for the year stated. \n"
+                + "FORMAT : expendedyear <year>";
     }
 
     @Override

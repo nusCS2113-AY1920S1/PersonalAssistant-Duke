@@ -21,7 +21,8 @@ public class CommandSchedule extends Command {
     public CommandSchedule(String userInput) {
         this.userInput = userInput;
         this.commandType = CommandType.VIEWSCHEDULE;
-        this.description = "Prints the schedule for the input date";
+        this.description = "Prints the schedule for the input date \n"
+                + "FORMAT :  ";
     }
 
     @Override
