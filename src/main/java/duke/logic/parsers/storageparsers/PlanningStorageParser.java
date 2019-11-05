@@ -56,7 +56,11 @@ public class PlanningStorageParser {
         String[] todoParts = line.split(" ");
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 1; i < todoParts.length; i++) {
-            stringBuilder.append(todoParts[i] + " ");
+            if (i == todoParts.length - 1) {
+                stringBuilder.append(todoParts[i]);
+            } else {
+                stringBuilder.append(todoParts[i]).append(" ");
+            }
         }
         return stringBuilder.toString();
     }
