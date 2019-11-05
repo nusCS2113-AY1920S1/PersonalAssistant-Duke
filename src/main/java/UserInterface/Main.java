@@ -1,6 +1,9 @@
 package UserInterface;
 import Commons.Duke;
 import java.io.IOException;
+import java.util.logging.Logger;
+
+import Commons.DukeLogger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,7 +15,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
     private Duke duke = new Duke();
-
+    private final Logger logger = DukeLogger.getLogger(Main.class);
 
     /**
      * This method sets the platform of the GUI
@@ -20,6 +23,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage stage) {
+        DukeLogger.initialise();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             BorderPane ap = fxmlLoader.load();
@@ -32,7 +36,7 @@ public class Main extends Application {
             stage.setTitle("BetterDuke");
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.severe("MainWindow.fxml cannot be found." + e.getMessage());
         }
     }
 }

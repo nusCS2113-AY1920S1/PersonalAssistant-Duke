@@ -13,7 +13,7 @@ import java.util.Date;
  * Represents the user interface which displays the messages to
  * respond to the user based on the user's input.
  */
-public class Ui {
+public class UserInteraction {
     private static final String NO_FIELD = "void";
     private final String byeMessage = "Bye. Hope to see you again soon!\n";
 
@@ -97,6 +97,19 @@ public class Ui {
                 "retrieve/ft 'x', where 'x' is a digit between 1- 5";
     }
 
+    public String showListOfReminder(ArrayList<String> remindList) {
+        if (remindList.isEmpty()) {
+            return "There are no reminders set.";
+        }
+        String remindMessage = "Here is the list of reminders set:";
+        for (String string : remindList) {
+            remindMessage = remindMessage + "\n\n";
+            Integer index = remindList.indexOf(string);
+            remindMessage = remindMessage + (index + 1) + ". " + string;
+        }
+        return remindMessage;
+    }
+
     /**
      * Displays the show reminder message when user sets a reminder for a task.
      */
@@ -108,7 +121,7 @@ public class Ui {
      * Displays the show cancel reminder message when user sets a reminder for a task.
      */
     public String showCancelReminder(Assignment task, String time) {
-        return "Reminder has been removed for " + task.getModCode() + " " + task.getDescription() + "at: " + time;
+        return "Reminder has been removed for " + task.getModCode() + " " + task.getDescription() + "on: " + time;
     }
 
     /**

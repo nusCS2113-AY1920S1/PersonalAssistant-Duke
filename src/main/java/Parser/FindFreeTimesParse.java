@@ -2,14 +2,17 @@ package Parser;
 
 import Commands.Command;
 import Commands.FindFreeTimesCommand;
+import Commons.DukeLogger;
 import DukeExceptions.DukeInvalidFormatException;
 
 import java.text.ParseException;
+import java.util.logging.Logger;
 
 /**
  * This class parses the full command that calls for FindFreeTimesParse.
  */
 public class FindFreeTimesParse extends Parse {
+    private final Logger LOGGER = DukeLogger.getLogger(FindFreeTimesParse.class);
     private String fullCommand;
     private final String invalidInput = "Invalid input. Please enter the command as follows. \n" +
             "Find 'x' hours , where 'x' is a digit between 1 - 16";
@@ -32,7 +35,7 @@ public class FindFreeTimesParse extends Parse {
         else if (fullCommand.contains("hour")) fullCommand = fullCommand.replaceFirst("hour", "");
         else throw new DukeInvalidFormatException(invalidInput);
         fullCommand = fullCommand.trim();
-        if(fullCommand.isEmpty()){
+        if (fullCommand.isEmpty()) {
             throw new DukeInvalidFormatException(invalidInput);
         } else {
             try {
@@ -40,6 +43,7 @@ public class FindFreeTimesParse extends Parse {
                 if (duration >= 1 && duration <= 16) return new FindFreeTimesCommand(duration);
                 else throw new DukeInvalidFormatException(invalidDuration);
             } catch (NumberFormatException e) {
+                LOGGER.info("Unable to parse string to integer" + e.getMessage());
                 throw new DukeInvalidFormatException(invalidDuration);
             }
         }
