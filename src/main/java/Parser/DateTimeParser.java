@@ -29,7 +29,7 @@ public class DateTimeParser {
      */
     public static String[] EventParse(String input) throws ParseException {
 
-        // date from time /to time
+        // date /from time /to time
         dateTimeStringSplit = input.trim().split("/from");
         //dateTimeStringSplit[0] is "date" or "week X day", dateTimeStringSplit[1] is "time /to time"
         String weekDate = "";
@@ -85,21 +85,22 @@ public class DateTimeParser {
         dateStringSplit = dateTimeStringSplit[0].split("/to"); //dateStringSplit[0] = startDate (2/2/2019 or week X day)
         String[] startDateStringSplit = dateStringSplit[0].trim().split(" "); //startDateStringSplit[0] = week
         String startWeekDate = startDateStringSplit[0].trim();
-        if (startWeekDate.equalsIgnoreCase("reading") || startWeekDate.equalsIgnoreCase("exam")
+        /* if (startWeekDate.equalsIgnoreCase("reading") || startWeekDate.equalsIgnoreCase("exam")
                 || startWeekDate.equalsIgnoreCase("week") || startWeekDate.equalsIgnoreCase("recess")) {
             startWeekDate = lookupTable.getValue(dateStringSplit[0].trim());
         } else {
             startWeekDate = dateStringSplit[0].trim();
-        }
+        } */
+        startWeekDate = WeekFormatParse.acadWeekToString(startWeekDate, dateStringSplit[0].trim());
         String[] endDateStringSplit = dateStringSplit[1].trim().split(" ");
         String endWeekDate = endDateStringSplit[0].trim();
-        if (endWeekDate.equalsIgnoreCase("reading") || endWeekDate.equalsIgnoreCase("exam")
+        /* if (endWeekDate.equalsIgnoreCase("reading") || endWeekDate.equalsIgnoreCase("exam")
                 || endWeekDate.equalsIgnoreCase("week") || endWeekDate.equalsIgnoreCase("recess")) {
             endWeekDate = lookupTable.getValue(dateStringSplit[1].trim());
         } else {
             endWeekDate = dateStringSplit[1].trim();
-        }
-
+        } */
+        endWeekDate = WeekFormatParse.acadWeekToString(endWeekDate, dateStringSplit[1].trim());
         Date startDate = eventDateInputFormat.parse(startWeekDate);
         Date endDate = eventDateInputFormat.parse(endWeekDate);
         String startDateString = dateOutputFormat.format(startDate);
