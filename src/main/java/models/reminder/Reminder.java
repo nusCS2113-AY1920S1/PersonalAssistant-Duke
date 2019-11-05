@@ -7,7 +7,13 @@ public class Reminder implements IReminder {
     private String reminderRemarks;
     private Date reminderDate;
 
-    public Reminder(String reminderName, String reminderRemarks,Date reminderDate) {
+    /**
+     * Class representing a reminder in the project.
+     * @param reminderName The name of the reminder.
+     * @param reminderRemarks Additional information about the reminder. [Optional]
+     * @param reminderDate The date that the reminder is due. [Optional]
+     */
+    public Reminder(String reminderName, String reminderRemarks, Date reminderDate) {
         this.reminderName = reminderName;
         this.reminderRemarks = reminderRemarks;
         this.reminderDate = reminderDate;
