@@ -262,13 +262,13 @@
                                             </AnchorPane>
                                         </content>
                                     </Tab>
-                              <Tab text="UpcomingTasks">
+                              <Tab onSelectionChanged="#showUpcomingTasks" text="UpcomingTasks">
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
                                           <Accordion maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0">
                                             <panes>
-                                              <TitledPane fx:id="firstTitlePane" animated="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0" text="untitled 1">
+                                              <TitledPane fx:id="firstTitledPane" animated="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0" text="untitled 1">
                                                 <content>
                                                   <AnchorPane fx:id="firstUpcomingTaskContainer" minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="285.0">
                                                          <children>
@@ -277,7 +277,7 @@
                                                       </AnchorPane>
                                                 </content>
                                               </TitledPane>
-                                                <TitledPane fx:id="secondTitlePane" animated="false" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0" text="untitled 1">
+                                                <TitledPane fx:id="secondTitledPane" animated="false" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0" text="untitled 1">
                                                    <content>
                                                       <AnchorPane fx:id="secondUpcomingTaskContainer" minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="285.0">
                                                          <children>
@@ -286,7 +286,7 @@
                                                       </AnchorPane>
                                                    </content>
                                                 </TitledPane>
-                                                <TitledPane fx:id="thirdTitlePane" animated="false" layoutX="10.0" layoutY="37.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0" text="untitled 1">
+                                                <TitledPane fx:id="thirdTitledPane" animated="false" layoutX="10.0" layoutY="37.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0" text="untitled 1">
                                                    <content>
                                                       <AnchorPane fx:id="thirdUpcomingTaskContainer" minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="285.0">
                                                          <children>
@@ -295,7 +295,7 @@
                                                       </AnchorPane>
                                                    </content>
                                                 </TitledPane>
-                                                <TitledPane fx:id="fourthTitlePane" animated="false" layoutX="10.0" layoutY="673.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0" text="untitled 1">
+                                                <TitledPane fx:id="fourthTitledPane" animated="false" layoutX="10.0" layoutY="673.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0" text="untitled 1">
                                                    <content>
                                                       <AnchorPane fx:id="fourthUpcomingTaskContainer" minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="285.0">
                                                          <children>
@@ -304,7 +304,7 @@
                                                       </AnchorPane>
                                                    </content>
                                                 </TitledPane>
-                                                <TitledPane fx:id="fifthTitlePane" animated="false" layoutX="10.0" layoutY="673.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0" text="untitled 1">
+                                                <TitledPane fx:id="fifthTitledPane" animated="false" layoutX="10.0" layoutY="673.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0" text="untitled 1">
                                                    <content>
                                                       <AnchorPane fx:id="fifthUpcomingTaskContainer" minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="285.0">
                                                          <children>
@@ -313,7 +313,7 @@
                                                       </AnchorPane>
                                                    </content>
                                                 </TitledPane>
-                                                <TitledPane fx:id="sixthTitlePane" animated="false" layoutX="10.0" layoutY="673.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0" text="untitled 1">
+                                                <TitledPane fx:id="sixthTitledPane" animated="false" layoutX="10.0" layoutY="673.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0" text="untitled 1">
                                                    <content>
                                                       <AnchorPane fx:id="sixthUpcomingTaskContainer" minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="285.0">
                                                          <children>
@@ -322,7 +322,7 @@
                                                       </AnchorPane>
                                                    </content>
                                                 </TitledPane>
-                                                <TitledPane fx:id="seventhTitlePane" animated="false" layoutX="10.0" layoutY="673.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0" text="untitled 1">
+                                                <TitledPane fx:id="seventhTitledPane" animated="false" layoutX="10.0" layoutY="673.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="690.0" prefWidth="275.0" text="untitled 1">
                                                    <content>
                                                       <AnchorPane fx:id="seventhUpcomingTaskContainer" minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="285.0">
                                                          <children>

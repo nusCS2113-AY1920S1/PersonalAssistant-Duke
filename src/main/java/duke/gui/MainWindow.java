@@ -220,7 +220,6 @@ public class MainWindow extends UiPart<Stage> {
         TextFields.bindAutoCompletion(userInput, possibleWords);
         //@@lmtaek
         showHelpGuide();
-        showUpcomingTasks();
         // @@author
     }
 
@@ -669,7 +668,7 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    public void showUpcomingTasks() {
+    public void showUpcomingTasks() throws DukeException {
         VBox[] upcomingTaskContainers = {firstDayBox, secondDayBox, thirdDayBox, fourthDayBox,
                 fifthDayBox, sixthDayBox, seventhDayBox };
         TitledPane[] titledPanes = {firstTitledPane, secondTitledPane, thirdTitledPane, fourthTitledPane,
@@ -677,14 +676,21 @@ public class MainWindow extends UiPart<Stage> {
         ArrayList<UpcomingTasks> upcomingTasks =
                 new UpcomingTasksCommand(LocalDateTime.now(), false).getUpcomingTaskLists();
 
+        for (int i = 0; i < 7; i++) {
+            upcomingTasks.add(new UpcomingTasks(LocalDateTime.now().plusDays(i),
+                    duke.getAssignedTaskManager(), duke.getTaskManager(),
+                    duke.getPatientManager()));
+        }
+
         for (int i = 0; i < upcomingTaskContainers.length; i++) {
             titledPanes[i].setText(upcomingTasks.get(i).getFormattedDate());
-            ArrayList<UpcomingTaskBox> tasksForDate
-                    = UpcomingTaskBox.createUpcomingTaskBox(upcomingTasks.get(i).getTaskAndInfo());
-
-            for (UpcomingTaskBox taskInfoForDate : tasksForDate) {
-                upcomingTaskContainers[i].getChildren().addAll(taskInfoForDate);
-            }
+//            ArrayList<UpcomingTasksBox> taskBoxesForDate
+//                    = UpcomingTasksBox.createUpcomingTasksBoxesForDate(upcomingTasks.get(i).getTaskAndInfo());
+//
+//            for (UpcomingTasksBox taskInfoForDate : taskBoxesForDate) {
+//                upcomingTaskContainers[i].getChildren().addAll(taskInfoForDate);
+//                titledPanes[i].setContent(upcomingTaskContainers[i]);
+//            }
         }
         }
 
