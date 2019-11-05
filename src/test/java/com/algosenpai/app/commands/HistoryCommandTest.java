@@ -81,7 +81,8 @@ public class HistoryCommandTest extends ApplicationTest {
     @Test
     void testHistoryWithLimits() throws IOException {
         clickOn("#userInput").write("select sorting").clickOn("#sendButton");
-        clickOn("#userInput").write("quiz").clickOn("#sendButton");\UserStats stats = new UserStats("./UserData.txt");
+        clickOn("#userInput").write("quiz").clickOn("#sendButton");
+        UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
         Command command = logic.executeCommand("history 5");
         String actualText = command.execute();
