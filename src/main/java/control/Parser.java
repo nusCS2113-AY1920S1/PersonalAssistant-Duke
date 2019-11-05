@@ -1,6 +1,28 @@
 package control;
 
-import command.*;
+import command.AddBookingCommand;
+import command.AddInventoryCommand;
+import command.AddRoomCommand;
+import command.AddUserCommand;
+import command.ApproveCommand;
+import command.ByeCommand;
+import command.Command;
+import command.CreateAccountCommand;
+import command.DeleteBookingCommand;
+import command.DeleteRoomCommand;
+import command.EditBookingCommand;
+import command.FindBookingCommand;
+import command.FindBookingIndexCommand;
+import command.HelpCommand;
+import command.ListBookingDailyCommand;
+import command.ListBookingMonthCommand;
+import command.ListBookingYearCommand;
+import command.ListCommand;
+import command.ListRoomCommand;
+import command.LoginCommand;
+import command.LogoutCommand;
+import command.RejectCommand;
+import command.RemoveUserCommand;
 import exception.DukeException;
 import storage.Constants;
 import java.io.IOException;
@@ -25,8 +47,6 @@ public class Parser {
             return new LoginCommand(input, splitStr);
         case "logout":
             return new LogoutCommand();
-        case "create":
-            return new CreateAccountCommand(input, splitStr);
         case "add":
             return new AddBookingCommand(input, splitStr);
         case "addroom":
@@ -43,9 +63,9 @@ public class Parser {
             return new RejectCommand(input, splitStr);
         case "delete":
             return new DeleteBookingCommand(input, splitStr);
-        case "findindex" :
+        case "findindex":
             return new FindBookingIndexCommand(input, splitStr);
-        case "find" :
+        case "find":
             return new FindBookingCommand(input, splitStr);
         case "listday":
             return new ListBookingDailyCommand(input, splitStr);
@@ -58,10 +78,11 @@ public class Parser {
         case "addinventory":
             return new AddInventoryCommand(input, splitStr);
         case "adduser":
-                return new AddUserCommand(input, splitStr);
+            return new AddUserCommand(input, splitStr);
         case "rmuser":
-                return new RemoveUserCommand(input, splitStr);
-
+            return new RemoveUserCommand(input, splitStr);
+        case "help":
+            return new HelpCommand();
         default:
             throw new DukeException(Constants.UNHAPPY + " OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

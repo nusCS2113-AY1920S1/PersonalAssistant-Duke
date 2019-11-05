@@ -21,6 +21,12 @@ public class ListBookingYearCommand extends Command {
 
     private LocalDate dateStart;
 
+    /**
+     *
+     * @param input
+     * @param splitStr
+     * @throws DukeException
+     */
     public ListBookingYearCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length <= 1) {
             throw new DukeException("☹ OOPS!!! Please create your booking with the following format: "

@@ -93,7 +93,8 @@ public class Duke {
         try {
             ui.setOutput("");
             Command c = Parser.parse(input);
-            c.execute(userList, inventory, roomList, bookingList, ui, userStorage, inventoryStorage, bookingStorage, roomStorage);
+            c.execute(userList, inventory, roomList, bookingList, ui,
+                    userStorage, inventoryStorage, bookingStorage, roomStorage);
             System.out.println(ui.getOutput());
             return ui.getOutput();
         } catch (DukeException | IOException | ParseException e) {

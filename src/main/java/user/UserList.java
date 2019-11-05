@@ -7,9 +7,14 @@ public class UserList extends ArrayList<User> {
     private boolean loginStatus = false;
     private String currentUser;
 
+    /**
+     *
+     * @param loader
+     */
     public UserList(ArrayList<String> loader) {
-        for (String line : loader)
+        for (String line : loader) {
             this.add(new User(line));
+        }
         loginStatus = false;
         currentUser = null;
     }
