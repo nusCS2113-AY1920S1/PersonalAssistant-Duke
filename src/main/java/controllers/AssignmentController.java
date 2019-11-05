@@ -83,18 +83,25 @@ public class AssignmentController {
      * @param task Task to be assigned to members.
      */
     private void assign(ArrayList<Integer> validAssignees, Task task) {
+        /*
+        Isolated the output here into its own separate ArrayList rather than adding directly
+        to successMessages. successMessages can, maybe, be an ArrayList<ArrayList<String>>
+        to facilitate UI printing in boxes, but for now the functionality is the same.
+        */
+        ArrayList<String> assignMessages = new ArrayList<>();
         for (Integer assigneeIndex : validAssignees) {
             IMember member = project.getMembers().getMember(assigneeIndex);
             if (project.containsAssignment(task, (Member)member)) {
-                successMessages.add("Task has already been assigned to member "
+                assignMessages.add("Task has already been assigned to member "
                     + assigneeIndex + " ("
                     + member.getName() + ").");
             } else {
                 project.createAssignment(task, (Member)member);
-                successMessages.add("Assigned to member "
+                assignMessages.add("Assigned to member "
                     + assigneeIndex + " ("
                     + member.getName() + ").");
             }
+            successMessages.addAll(assignMessages);
         }
     }
 
@@ -105,17 +112,19 @@ public class AssignmentController {
      * @param task Task to be unassigned.
      */
     private void unassign(ArrayList<Integer> validUnassignees, Task task) {
+        ArrayList<String> unassignMessages = new ArrayList<>();
         for (Integer unassigneeIndex : validUnassignees) {
             IMember member = project.getMembers().getMember(unassigneeIndex);
             if (!project.containsAssignment(task, (Member)member)) {
-                successMessages.add("Task cannot be unassigned from member "
+                unassignMessages.add("Task cannot be unassigned from member "
                     + unassigneeIndex + " (" + member.getName() + ") as it was "
                     + "not assigned in the first place!");
             } else {
                 project.removeAssignment((Member)member, task);
-                successMessages.add("Unassigned task from member " + unassigneeIndex
+                unassignMessages.add("Unassigned task from member " + unassigneeIndex
                     + " (" + member.getName() + ").");
             }
+            successMessages.addAll(unassignMessages);
         }
     }
 
