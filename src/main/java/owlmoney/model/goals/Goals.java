@@ -66,7 +66,7 @@ public class Goals {
      *
      * @return name of the Goal.
      */
-    String getGoalsName() {
+    public String getGoalsName() {
         return this.name;
     }
 
@@ -75,7 +75,7 @@ public class Goals {
      *
      * @return amount of the Goal.
      */
-    double getGoalsAmount() {
+    public double getGoalsAmount() {
         return this.amount;
     }
 
@@ -84,7 +84,7 @@ public class Goals {
      *
      * @return date of the Goal.
      */
-    String getGoalsDate() {
+    public String getGoalsDate() {
         DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         return temp.format(this.date);
     }
@@ -116,7 +116,7 @@ public class Goals {
      *
      * @return remaining amount left to reaching goal.
      */
-    String getRemainingAmount() {
+    public String getRemainingAmount() {
         if (savingAccount == null) {
             return new DecimalFormat("0.00").format(getGoalsAmount());
         } else {

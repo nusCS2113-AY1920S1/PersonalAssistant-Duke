@@ -225,8 +225,8 @@ public class GoalsList {
         for (int i = ISZERO; i < goalList.size(); i++) {
             Goals currentGoal = goalList.get(i);
             if (currentGoal.getRawStatus()) {
-                throw new GoalsException("Sorry, you cannot edit a goal that's already achieved! " +
-                        "Try creating a new goal instead!");
+                throw new GoalsException("Sorry, you cannot edit a goal that's already achieved! "
+                        + "Try creating a new goal instead!");
             }
             String currentGoalName = currentGoal.getGoalsName();
             String capitalCurrentGoalName = currentGoalName.toUpperCase();
@@ -428,5 +428,17 @@ public class GoalsList {
         return null;
     }
 
-
+    /**
+     * Check goals that is due in 10 days.
+     *
+     * @return Goal due in 10 days.
+     */
+    public Goals reminderForGoals() {
+        for (int i = 0; i < goalList.size(); i++) {
+            if (goalList.get(i).convertDateToDays() <= 10) {
+                return goalList.get(i);
+            }
+        }
+        return null;
+    }
 }

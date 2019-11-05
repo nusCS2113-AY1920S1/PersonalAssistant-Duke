@@ -88,6 +88,7 @@ class Main {
                 ui.printError("Error updating outdated recurring transactions");
             }
             ui.greet(profile.profileGetUsername());
+            profile.profileReminderForGoals();
         } catch (IOException exceptionMessage) {
             ui.printError("Unable to import profile files, starting fresh");
             ui.firstTimeRun();

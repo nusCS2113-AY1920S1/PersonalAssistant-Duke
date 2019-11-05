@@ -1404,4 +1404,14 @@ public class Profile {
     private void profileImportNewPaidCardTransaction(String cardName, Transaction newExpenditure) {
         cardList.cardListImportNewPaidCardExpenditure(cardName, newExpenditure);
     }
+
+    /**
+     * Prints reminder for goals that is due in 10 days.
+     */
+    public void profileReminderForGoals() {
+        Goals goals = goalsList.reminderForGoals();
+        ui.printMessage("\nREMINDER ON YOUR GOALS: ");
+        ui.printMessage(goals.getGoalsName() + " is due in " + goals.convertDateToDays() + " days. \nYou still "
+                + "have a remaining of $" + goals.getRemainingAmount() + " to reach your goal!");
+    }
 }
