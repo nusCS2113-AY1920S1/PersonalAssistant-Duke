@@ -46,6 +46,8 @@ image::Ui.png[width="790"]
 - WELCOME: the welcome message
 - INDEX is the index of the task (goes from 1 to the number of tasks). You can find the index of the task by showing all the task with the command list of by searching the task with the command find.
 - KEYWORD: the keyword to find a task.
+- SORTTYPE: date, description, priority, type or done
+
 
 ====
 
@@ -288,15 +290,19 @@ SORTTYPE is either date, description, priority
 
 Be careful:
 
-* Sorting "by date" will sort tasks in chronological order
-* Sorting "by description" will sort the descriptions in alphabetical order
-* Sorting "by priority" will sort tasks in ascending urgency
+* Sorting by date will sort tasks in chronological order
+* Sorting by description will sort the descriptions in alphabetical order
+* Sorting by priority will sort tasks in ascending urgency
+* Sorting by type will sort tasks depending on its task type ( event, homework, todo)
+* Sorting by done will sort tasks depending on it the task is done or not
 
 Examples:
 
 * `sort date`
 * `sort priority`
 * `sort description`
+* `sort type`
+* `sort done`
 
 === Prioritize:  `prioritize`
 

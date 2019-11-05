@@ -335,12 +335,14 @@ However, these two commands are obviously easy to combine into one command.
 
 === Sort the task list
 
-Sort all task by date/description/priority: `sort SORTTYPE`
-SORTTYPE is either date, description, priority
+Sort all task by date/description/priority/type of task/ done or not: `sort SORTTYPE`
+SORTTYPE is either date, description, priority, type, done
 
-* Sorting "by date" will sort tasks in chronological order
-* Sorting "by description" will sort the descriptions in alphabetical order
-* Sorting "by priority" will sort tasks in ascending urgency
+* Sorting by date will sort tasks in chronological order
+* Sorting by description will sort the descriptions in alphabetical order
+* Sorting by priority will sort tasks in ascending urgency
+* Sorting by type will sort tasks depending on its task type ( event, homework, todo)
+* Sorting by done will sort tasks depending on it the task is done or not.
 
 To implement the sort command, the comparing static method of Comparator interface introduced in Java 8 is used.
 So, here the sort key are the desciption or the priority of the task.

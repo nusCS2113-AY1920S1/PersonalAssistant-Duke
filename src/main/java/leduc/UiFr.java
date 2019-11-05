@@ -129,7 +129,7 @@ public class UiFr extends Ui {
         System.out.println("\t Tous les paramètres vont être écrits en MAJUSCULE");
         System.out.println("\t Les paramètres sont :");
         System.out.println("\t DESCRIPTION : la description d'une tâche");
-        System.out.println("\t SORTTYPE : la date ou description");
+        System.out.println("\t SORTTYPE :  date, description, priority, type ou done");
         System.out.println("\t DATE : la date d'une tâche");
         System.out.println("\t INDEX : L'index d'une tâche (va de 1 à ...)");
         System.out.println("\t KEYWORD : mot-clé pour trouver une tâche");
@@ -148,7 +148,7 @@ public class UiFr extends Ui {
         System.out.println("\t find KEYWORD : trouve une tâche avec un mot-clé");
         System.out.println("\t snooze INDEX : snooze une tâche d'index INDEX");
         System.out.println("\t postpone INDEX /by DATE : reporté une tâche homework");
-        System.out.println("\t sort SORTTYPE : range les tâches par date/description");
+        System.out.println("\t sort SORTTYPE : range les tâches par date/description/priority/type/done");
         System.out.println("\t reschedule INDEX /at DATE - DATE : replanifié une tâche event");
         System.out.println("\t remind : Rappelle les trois premières tâches");
         System.out.println("\t setwelcome WELCOME : personnalise le message de bienvenue");
