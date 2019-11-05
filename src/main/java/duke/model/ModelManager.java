@@ -1,8 +1,8 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
-import duke.logic.command.exceptions.CommandException;
 import duke.logic.command.order.SortOrderCommand;
+import duke.logic.command.product.SortProductCommand;
 import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
@@ -237,6 +237,13 @@ public class ModelManager implements Model {
     public boolean hasProduct(Product product) {
         requireNonNull(product);
         return bakingHome.getProductList().contains(product);
+    }
+
+    @Override
+    public void sortProducts(SortProductCommand.Category category, boolean isReversed) {
+        requireNonNull(category);
+
+        bakingHome.sortProducts(category, isReversed);
     }
 
     /**
