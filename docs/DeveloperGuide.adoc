@@ -824,8 +824,7 @@ transaction records.
 |24|* *|existing user|edit recurring expenditure|amend the recurring expenses when it increases or decreases
 |25|* *|user with income|edit recurring income|I can remove or change it accordingly
 |26|* *|existing user|be reminded when my payment is due|pay on time without penalties
-|27|* *|organised user|export to view my expenditures statement|review my monthly, quarterly and yearly expenses with
-ease
+|27|* *|organised user|export to view my expenditures statement|review my expenditure records with ease
 |28|* *|achievement oriented user|gain achievements when I achieve system pre-defined goals|be motivated to pursue
 my financial goal
 |29|* *|achievement oriented user|view different types of achievements|view my achievement that has been attained or
@@ -843,6 +842,8 @@ investment or saving account for ease in tracking different expenditure
 |38|* *|existing user|search for specific bank account, credit card or bonds|search and view the details of the
 specific bank account, credit card or bonds with ease.
 |39|* *|organised user|view my financial details in a user friendly format|so that I can review my expenses with ease.
+|40|* *|existing user|search for specific recurring expenditure|search and view the details of the
+specific recurring expenditure.
 |===
 
 
@@ -1551,17 +1552,17 @@ Use case ends.
 
 
 *Actor: Organized user* +
-[[UC-27]] *Use case: UC27 - Export expenditures statement as HTML* +
+[[UC-27]] *Use case: UC27 - Export expenditures statement as CSV* +
 *Preconditions:*
 
 * *User has a profile created*
 
 *Main success scenario:*
 
-. User chooses to export expenditure statement.
-. System requests for which month expenditure statement to be exported.
-. User specifies the months.
-. System exports the specified expenditure statement as HTML.
+. User chooses to make changes to expenditures.
+. System requests for which expenditure to modify.
+. User specifies the details of the expenditure and the details to modify.
+. System exports the expenditure details as CSV.
 +
 Use case ends.
 
@@ -1836,11 +1837,30 @@ Use case ends.
 +
 Use case ends.
 
+*Actor: Existing user* +
+[[UC-40]] *Use case: UC40 - Search for specific recurring expenditure* +
+*Preconditions:*
 
+* *User has a profile created*
+* *User has added a savings account to the profile*
+* *User has added recurring expenditure to the savings account*
 
+*Main success scenario:*
 
+. User choose to search for specific recurring expenditure.
+. System requests for the keyword to be used for searching.
+. User specifies the keyword to be used for searching.
+. System displays information found from the search.
++
+Use case ends.
 
-
+*Extensions*
+[none]
+* 3a. System detects invalid keyword to be used for searching.
+** 3a1. System requests for the correct keyword to be used for searching.
+** 3a2. User re-enters the keyword to be used for searching.
+** Steps 3a1-3a2 are repeated until the keyword to be used for searching is entered correctly.
+** Use case resumes from step 4.
 
 
 

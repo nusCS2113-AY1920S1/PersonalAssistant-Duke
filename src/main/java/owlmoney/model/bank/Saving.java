@@ -386,11 +386,9 @@ public class Saving extends Bank {
      * Prepares the recurring transaction list for exporting.
      *
      * @return properly formatted recurring transaction list in Arraylist that contains array of strings.
-     * @throws BankException if the bank account does not support this feature.
-     * @throws IOException   if there are errors exporting the file.
      */
     @Override
-    ArrayList<String[]> prepareExportRecurringTransactionList() throws BankException, IOException {
+    ArrayList<String[]> prepareExportRecurringTransactionList() {
         ArrayList<String[]> exportArrayList = new ArrayList<>();
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
         decimalFormat.setRoundingMode(RoundingMode.DOWN);
@@ -414,11 +412,10 @@ public class Saving extends Bank {
      * Exports the recurring transaction list.
      *
      * @param prependFileName the index of the bankAccount in the bankList.
-     * @throws BankException if the bank account does not support this feature.
      * @throws IOException   if there are errors exporting the file.
      */
     @Override
-    void exportBankRecurringTransactionList(String prependFileName) throws BankException, IOException {
+    void exportBankRecurringTransactionList(String prependFileName) throws IOException {
         ArrayList<String[]> inputData = prepareExportRecurringTransactionList();
         try {
             storage.writeFile(inputData, prependFileName + SAVING_RECURRING_TRANSACTION_LIST_FILE_NAME);
@@ -442,7 +439,7 @@ public class Saving extends Bank {
         if (expenditure.getAmount() > this.getCurrentAmount()) {
             throw new BankException("Bank account cannot have a negative amount");
         } else {
-            transactions.importExpenditureToList(expenditure, bankType);
+            transactions.importExpenditureToList(expenditure);
         }
     }
 
@@ -568,5 +565,18 @@ public class Saving extends Bank {
             }
         }
         return -1;
+    }
+
+    /**
+     * Finds the recurring expenditure that matches with the keywords specified by the user
+     * for savings account.
+     *
+     * @param description The description keyword to match against.
+     * @param category    The category keyword to match against.
+     * @param ui          The object required for printing.
+     */
+    @Override
+    public void findRecurringExpenditure(String description, String category, Ui ui) {
+        recurringExpenditures.findMatchingRecurringExpenditure(description, category, ui);
     }
 }

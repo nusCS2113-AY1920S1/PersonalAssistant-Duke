@@ -387,7 +387,7 @@ public class GoalsList {
      *
      * @param newGoal an instance of the goal to be imported.
      */
-    public void bankListImportNewGoal(Goals newGoal) {
+    public void goalListImportNewGoal(Goals newGoal) {
         goalList.add(newGoal);
     }
 

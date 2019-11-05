@@ -28,6 +28,8 @@ class CardListTest {
     void cardListAddCard_addOneCard_printCardDetails() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
+        Storage testStorage = new Storage("data/");
+        testStorage.createDirectoryIfNotExist("data/");
         CardList cardListTemp = new CardList(storage);
         Card newCard = new Card("Test Card", 1000, 1.5);
         Ui uiTest = new Ui();
@@ -75,6 +77,8 @@ class CardListTest {
     void cardListEditCard_editCardThatExist_printCardDetails() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
+        Storage testStorage = new Storage("data/");
+        testStorage.createDirectoryIfNotExist("data/");
         CardList cardListTemp = new CardList(storage);
         Card newCard = new Card("Test Card", 1000, 1.5);
         Ui uiTest = new Ui();
@@ -154,6 +158,8 @@ class CardListTest {
     void cardListEditCard_editCardLimitWithUnpaidExpenditure_throwsException() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
+        Storage testStorage = new Storage("data/");
+        testStorage.createDirectoryIfNotExist("data/");
         CardList cardListTemp = new CardList(storage);
         Ui uiTest = new Ui();
         Date newDate = new Date();
@@ -217,6 +223,8 @@ class CardListTest {
     void cardListEditCard_editCardNameOnlyWithoutClash_printDetails() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
+        Storage testStorage = new Storage("data/");
+        testStorage.createDirectoryIfNotExist("data/");
         CardList cardListTemp = new CardList(storage);
         Ui uiTest = new Ui();
         Card newCard = new Card("Test Card", 1000, 1.5);
@@ -248,6 +256,8 @@ class CardListTest {
     void cardListEditCard_editCardRebateOnly_printDetails() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
+        Storage testStorage = new Storage("data/");
+        testStorage.createDirectoryIfNotExist("data/");
         CardList cardListTemp = new CardList(storage);
         Ui uiTest = new Ui();
         Card newCard = new Card("Test Card", 1000, 1.5);
@@ -278,6 +288,8 @@ class CardListTest {
     void cardListDeleteCard_deleteCardThatExist_printDeleteCardDetails() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
+        Storage testStorage = new Storage("data/");
+        testStorage.createDirectoryIfNotExist("data/");
         CardList cardListTemp = new CardList(storage);
         Card cardToBeDeleted = new Card("Test Card", 1000, 1.5);
         Ui uiTest = new Ui();
