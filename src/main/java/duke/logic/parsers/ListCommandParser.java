@@ -4,6 +4,7 @@ import duke.logic.commands.ListCommand;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
 
 /**
  * Parser class to handle a list command.
@@ -17,15 +18,32 @@ public class ListCommandParser implements ParserInterface<ListCommand> {
      */
     @Override
     public ListCommand parse(String userInputStr) {
-        if (!userInputStr.isBlank()) {
-            try {
-                LocalDate date = LocalDate.parse(userInputStr,dateFormat);
-                return new ListCommand(date);
-            } catch (DateTimeParseException e) {
-                return new ListCommand(false, "Unable to parse \"" + userInputStr + "\" as a date.");
-            }
-        } else {
+        HashMap<String, String> argumentInfoMap;
+        LocalDate localDate = LocalDate.now();
+
+        if (userInputStr.isBlank()) {
             return new ListCommand();
         }
+        argumentInfoMap = ArgumentSplitter.splitForwardSlashArguments(userInputStr);
+        for (String details : argumentInfoMap.keySet()) {
+            if (details.equals("date")) {
+                String dateArgStr = "";
+                try {
+                    dateArgStr = argumentInfoMap.get(details);
+                    localDate = LocalDate.parse(dateArgStr, dateFormat);
+                } catch (DateTimeParseException e) {
+                    return new ListCommand(false, "Unable to parse \"" + userInputStr + "\" as a date.");
+                }
+            }
+            if (details.equals("sort")) {
+                String sortArgStr = argumentInfoMap.get(details).trim();
+                if (sortArgStr.equals("cost")) {
+                    return new ListCommand(localDate, sortArgStr);
+                } else if (sortArgStr.equals("calorie")) {
+                    return new ListCommand(localDate, sortArgStr);
+                }
+            }
+        }
+        return new ListCommand();
     }
 }
