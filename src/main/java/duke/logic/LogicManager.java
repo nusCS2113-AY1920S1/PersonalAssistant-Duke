@@ -50,11 +50,10 @@ public class LogicManager extends Logic {
             try {
                 c = Parser.parseComplexCommand(userInput);
                 conversationManager.clearContext();
+            } catch (ChronologyAfterPresentException | ChronologyBeforePresentException
+                    | ChronologyInconsistentException e) {
+                throw e;
             } catch (ParseException e) {
-                if (e instanceof ChronologyAfterPresentException || e instanceof ChronologyBeforePresentException
-                        || e instanceof ChronologyInconsistentException) {
-                    throw e;
-                }
                 c = getCommandFromConversationManager(userInput);
             }
         }
