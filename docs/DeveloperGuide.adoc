@@ -2110,7 +2110,7 @@ transferred from unpaid to paid.
 .. Test case:
 `/delete /cardbill /card POBB Tomorrow Card /date 10/2019 /bank JunBank Savings Account` +
 Expected: `Card bill` expenditure and deposit in `savings` account will be deleted. When listing `card`
-expenditures with `/list /cardexpenditure /from POBB Tomorrow Card`, expenditures for that particular month 
+expenditures with `/list /cardexpenditure /from POBB Tomorrow Card`, expenditures for that particular month
 will be transferred from paid to unpaid.
 
 === Transferring fund
