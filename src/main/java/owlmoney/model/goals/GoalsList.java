@@ -154,7 +154,9 @@ public class GoalsList {
         if (!currentGoal.getSavingAccount().equals("-NOT TIED-")
                 && currentGoal.getSavingAccount().equals(savingAcc.getAccountName())) {
             return true;
-        } else return false;
+        } else {
+            return false;
+        }
     }
 
     /**
