@@ -1,6 +1,7 @@
 package duke.logic.parsers.commandparser;
 
 import duke.commons.Messages;
+import duke.commons.exceptions.BirthdayError;
 import duke.commons.exceptions.ParseException;
 import duke.logic.commands.ProfileAddCommand;
 import duke.logic.commands.Command;
@@ -21,7 +22,7 @@ public class ProfileAddParser extends CommandParser {
      * Parses user input into name and birthday.
      * @param input The User input
      */
-    public ProfileAddParser(String input) throws ParseException {
+    public ProfileAddParser(String input) throws ParseException, BirthdayError {
         String[] token = input.split(" ");
         this.name = "";
         for (int i = 0; i < token.length - 1; i++) {
@@ -29,7 +30,7 @@ public class ProfileAddParser extends CommandParser {
         }
         this.birthday = ParserTimeUtil.parseStringToDate(token[token.length - 1]);
         if (Period.between(this.birthday.toLocalDate(), LocalDateTime.now().toLocalDate()).getYears() < 0) {
-            throw new ParseException(Messages.PROFILE_BIRTHDAY_IN_FUTURE);
+            throw new BirthdayError();
         }
     }
 

@@ -1,6 +1,7 @@
 package duke.logic.parsers;
 
 import duke.commons.Messages;
+import duke.commons.exceptions.BirthdayError;
 import duke.commons.exceptions.ParseException;
 import duke.commons.exceptions.StartEndDateBeforeNowException;
 import duke.commons.exceptions.StartEndDateDiscordException;
@@ -53,7 +54,7 @@ public class Parser {
      * @throws ParseException If userInput is undefined.
      */
     public static Command parseComplexCommand(String input) throws ParseException, StartEndDateDiscordException,
-            StartEndDateBeforeNowException {
+            StartEndDateBeforeNowException, BirthdayError {
         String commandWord = getCommandWord(input);
 
         switch (commandWord) {
