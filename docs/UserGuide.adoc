@@ -2025,7 +2025,7 @@ user*
 specified by the user*
 | List the recurring expenditure records within a specified savings account that matches with the keyword specified.
 | `/find /recurbankexp /name ACCOUNT_NAME [/desc DESCRIPTION] [/category CATEGORY]`
-| * `/find /recurbankexp /name JunBank Savings Account /desc bubble tea /category food`
+| `/find /recurbankexp /name JunBank Savings Account /desc bubble tea /category food`
 
 | *Transferring funds between bank accounts*
 | Transfer funds from one account to another account based on the amount specified by the user.
