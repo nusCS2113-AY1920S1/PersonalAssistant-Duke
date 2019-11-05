@@ -80,6 +80,7 @@ public class EventCommand extends Command {
                 if (priority < 0 || priority > 9) {
                     throw new PrioritizeLimitException();
                 }
+                tasks.verifyConflictDate(date1, date2);
                 newTask = new EventsTask(description, date1, date2, priority);
             }
             tasks.add(newTask);

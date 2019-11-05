@@ -99,6 +99,9 @@ public class TaskList {
                 else if(date1.getDate().isBefore(((EventsTask)t).getDateFirst().getDate()) && date2.getDate().isAfter(((EventsTask)t).getDateSecond().getDate())){
                     conflictTasks.add(t);
                 }
+                else if(date1.getDate().equals(((EventsTask)t).getDateFirst().getDate()) || date1.getDate().equals(((EventsTask)t).getDateSecond().getDate()) ||  date2.getDate().equals(((EventsTask)t).getDateSecond().getDate()) || date2.getDate().equals(((EventsTask)t).getDateFirst().getDate())){
+                    conflictTasks.add(t);
+                }
             }
         }
         if(!conflictTasks.isEmpty()){
