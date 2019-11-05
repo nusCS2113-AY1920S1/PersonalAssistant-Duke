@@ -150,4 +150,8 @@ public class Budgeting {
     public int getCostForMonth(String monthAndYear) throws NullPointerException {
         return monthlyCosts.get(monthAndYear).getTotalCost();
     }
+
+    public int getBudget() {
+        return this.budget;
+    }
 }
