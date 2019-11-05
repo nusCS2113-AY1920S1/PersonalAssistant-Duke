@@ -376,7 +376,7 @@ public class ProjectInputController implements IController {
             projectToManage.removeTask(index);
         }
         if (!validTaskIndexes.isEmpty()) {
-            outputMessages.add("\t * Take note that index numbers of other tasks may have changed after deleting!");
+            outputMessages.add("Take note that index numbers of other tasks may have changed after deleting!");
         }
         return outputMessages.toArray(new String[0]);
     }
