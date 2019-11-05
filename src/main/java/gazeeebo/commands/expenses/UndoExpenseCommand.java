@@ -15,7 +15,7 @@ import java.util.Stack;
  * @return
  * @throws IOException
  */
-public class UndoExpensesCommand {
+public class UndoExpenseCommand {
     static Map<LocalDate, ArrayList<String>> undoExpenses(
             Map<LocalDate, ArrayList<String>> expenses,
             final Stack<Map<LocalDate,

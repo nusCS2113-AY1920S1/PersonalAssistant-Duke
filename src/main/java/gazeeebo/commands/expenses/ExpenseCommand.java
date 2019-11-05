@@ -79,7 +79,7 @@ public class ExpenseCommand extends Command {
             } else if (ui.fullCommand.equals("list")) {
                 new ExpenseListCommand(ui, expenses);
             } else if (ui.fullCommand.equals("undo")) {
-                expenses = UndoExpensesCommand.undoExpenses(expenses,
+                expenses = UndoExpenseCommand.undoExpenses(expenses,
                         oldExpenses, storage);
             } else if (ui.fullCommand.equals("esc")) {
                 isExitExpenses = true;
