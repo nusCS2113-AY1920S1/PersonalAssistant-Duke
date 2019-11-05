@@ -30,6 +30,7 @@ public class WordGetter implements Serializable {
                 commandName = temp;
             }
         }
+        System.out.println(commandName);
         return commandName;
     }
 }
