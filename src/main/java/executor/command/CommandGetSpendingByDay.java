@@ -27,7 +27,7 @@ public class CommandGetSpendingByDay extends Command {
         String currDate = LocalDate.now().toString();
         receiptsInDay = wallet.getReceipts().findReceiptsByDate(currDate);
         Double totalMoney = receiptsInDay.getTotalCashSpent();
-        Ui.dukeSays("The total amount of money spent today is $" + totalMoney);
+        Ui.dukeSays("The total amount of money spent today" + "(" + currDate + ") " + "is $" + totalMoney);
     }
 
     @Override
