@@ -15,7 +15,7 @@ public class AddTaskCommand implements Command {
     private Task newStandardTask;
 
     /**
-     * It receive the task description from parser.
+     * The constructor for the AddTaskCommand.
      *
      * @param taskDescription contains the description of the task to be added.
      */
