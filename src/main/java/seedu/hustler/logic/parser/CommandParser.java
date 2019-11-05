@@ -30,63 +30,64 @@ public class CommandParser extends Parser {
      */
     public Command parse(String rawInput) {
         String[] userInput = rawInput.split(" ", 2);
+        String command = userInput[0].toLowerCase();
 
-        if (userInput[0].equals("/find")) {
+        if (command.equals("/find")) {
             return new FindCommand(userInput);
-        } else if (userInput[0].equals("/delete")) {
+        } else if (command.equals("/delete")) {
             CommandLog.recordCommand(rawInput);
             return new DeleteCommand(userInput);
-        } else if (userInput[0].equals("/redo")) {
+        } else if (command.equals("/redo")) {
             return new RedoCommand(userInput);
-        } else if (userInput[0].equals("/list")) {
+        } else if (command.equals("/list")) {
             return new ListCommand(userInput);
-        } else if (userInput[0].equals("/remind")) {
+        } else if (command.equals("/remind")) {
             return new RemindCommand(userInput);
-        } else if (userInput[0].equals("/done")) {
+        } else if (command.equals("/done")) {
             CommandLog.recordCommand(rawInput);
             return new DoneCommand(userInput);
-        } else if (userInput[0].equals("/snooze")) {
+        } else if (command.equals("/snooze")) {
             CommandLog.recordCommand(rawInput);
             return new SnoozeCommand(userInput);
-        } else if (userInput[0].equals("/avatar")) {
+        } else if (command.equals("/avatar")) {
             return new CheckAvatarCommand(userInput);
-        } else if (userInput[0].equals("/setname")) {
+        } else if (command.equals("/setname")) {
             CommandLog.recordCommand(rawInput);
             return new SetNameCommand(userInput);
-        } else if (userInput[0].equals("/achievement")) {
+        } else if (command.equals("/achievements")) {
             return new AchievementCommand(userInput);
-        } else if (userInput[0].equals("/add")) {
+        } else if (command.equals("/add")) {
             CommandLog.recordCommand(rawInput);
             return new AddCommand(userInput);
-        } else if (userInput[0].equals("/timer")) {
+        } else if (command.equals("/timer")) {
             return new TimerCommand(userInput);
-        } else if (userInput[0].equals("/undo")) {
+        } else if (command.equals("/undo")) {
             return new UndoCommand(userInput);
-        } else if (userInput[0].equals("/pausetimer")) {
+        } else if (command.equals("/pausetimer")) {
             return new PauseTimerCommand();
-        } else if (userInput[0].equals("/resumetimer")) {
+        } else if (command.equals("/resumetimer")) {
             return new ResumeTimerCommand();
-        } else if (userInput[0].equals("/stoptimer")) {
+        } else if (command.equals("/stoptimer")) {
             return new StopTimerCommand();
-        } else if (userInput[0].equals("/showtimer")) {
+        } else if (command.equals("/showtimer")) {
             return new ShowTimerCommand();
-        } else if (userInput[0].equals("/shop")) {
+        } else if (command.equals("/shop")) {
             return new ShopListCommand(userInput);
-        } else if (userInput[0].equals("/inventory")) {
+        } else if (command.equals("/inventory")) {
             return new InventoryCommand(userInput);
-        } else if (userInput[0].equals("/equip")) {
+        } else if (command.equals("/equip")) {
             return new EquipCommand(userInput);
-        } else if (userInput[0].equals("/buy")) {
+        } else if (command.equals("/buy")) {
             return new BuyCommand(userInput);
-        } else if (userInput[0].equals("/remove"))  {
+        } else if (command.equals("/remove"))  {
             return new RemoveEntry(userInput);
-        } else if (userInput[0].equals("/update")) {
+        } else if (command.equals("/update")) {
             return new UpdateEntry(userInput);
-        } else if (userInput[0].equals("/addFromList")) {
+        } else if (command.equals("/addfromlist")) {
             return new AddEntry(userInput);
-        } else if (userInput[0].equals("/sort")) {
+        } else if (command.equals("/sort")) {
             return new SortCommand(userInput);
-        } else if (userInput[0].equals("/bye")) {
+        } else if (command.equals("/bye")) {
             return new ByeCommand(userInput);
         } else {
             return new InvalidCommand();

@@ -30,7 +30,10 @@ public class DetectAnomalies {
                 return true;
             }
 
-            if (list.get(i).getDateTime() != null && taskDateTime.isEqual(list.get(i).getDateTime())) {
+            if (taskDateTime == null || list.get(i).getDateTime() == null) {
+                continue;
+            }
+            if (taskDateTime.isEqual(list.get(i).getDateTime())) {
                 return true;
             }
         }

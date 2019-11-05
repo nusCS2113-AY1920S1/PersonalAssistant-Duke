@@ -2,6 +2,7 @@ package seedu.hustler.logic.parser.anomaly;
 
 import seedu.hustler.schedule.RecommendedSchedule;
 import seedu.hustler.logic.CommandLineException;
+import seedu.hustler.Hustler;
 
 public class UpdateEntryAnomaly extends DetectAnomaly {
 
@@ -12,11 +13,17 @@ public class UpdateEntryAnomaly extends DetectAnomaly {
      * @throws CommandLineException for anomalies detected
      */
     public void detect(String[] userInput) throws CommandLineException {
-        String[] numbers = userInput[1].split(" ");
-        if (numbers.length != 2) {
-            throw new CommandLineException("Please follow the format: /update <index> <H:M:S>");
-        }
         try {
+            if (!Hustler.timermanager.isRunning()) {
+                throw new CommandLineException("Please start the time completion mode using the /timer command.");
+            }
+            if (userInput.length == 1) {
+                throw new CommandLineException("Please follow the format: /update <index> <H:M:S>");
+            }
+            String[] numbers = userInput[1].split(" ");
+            if (numbers.length != 2) {
+                throw new CommandLineException("Please follow the format: /update <index> <H:M:S>");
+            }
             int index = -1;
             index = Integer.parseInt(numbers[0]);
             index--;

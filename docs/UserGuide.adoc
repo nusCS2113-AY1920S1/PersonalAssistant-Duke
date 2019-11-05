@@ -13,218 +13,708 @@ This user guide aims to help you learn your way around our app, making the learn
   4. Run command ./gradlew run (for Windows) or gradlew run (for Mac).
   5. Some example commands you can try:
 
-* *`list`* : lists all tasks
-* **`deadline assignment /by 9/9/2019`** : adds a deadline type task with description `assignment` to the task list.
-* **`delete`**`1` : deletes the 1st task in the current list
-* *`bye`* : exits the app
+* *`/list`* : lists all tasks
+* **`/add assignment /by 9/9/2019 2359`** : adds a deadline type task with description `assignment` to the task list.
+* **`/delete`**`1` : deletes the 1st task in the current list
+* *`/bye`* : exits the app
  
-== 3A. Features 
-*Command Format*
+== 3. Task Management Features
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `todo DESCRIPTION`,
-  `DESCRIPTION` is a parameter which can be used as `todo read book`.
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
 
-=== 3A.1 Adding a task : `todo/deadline/event/doafter/range`
-Adds a todo/deadline/event/doafter/range to the tasklist.
+Using Hustler, you can easily and effectively manage your tasks, deadlines and personal projections. This section aims to introduce the various important features of Hustler. However, before we do that there are some command formats that will be used from here on out. They are:
 
-Format: `todo DESCRIPTION`  
-        `deadline DESCRIPTION /by dd/mm/yyyy hhmm`  
-        `event DESCRIPTION /at dd/mm/yyyy hhmm`  
-        `doafter DESCRIPTION /after TASK`
-        `range DESCRIPTION /in d/M/uuuu HHmm and d/M/uuuu HHmm`
-        
-  - `DESCRIPTION` is the description of the task.
-  - `dd/mm/yyyy hhmm` is the day/month/year and time(24hrs) of the task e.g. `9/9/2019 1200`
-  - `TASK` is a task that has been previously added, seeing that a DoAfter task can only be added after an existing task before it has been defined.
-  - `d/M/uuuu HHmm` indicates the dates and times that a range task has to be done within.
+
+*Command Formats*
+
+[NOTE]
+====
+`/add` +
+A grey highlight refers to a command keyword that will be taken from the command line, at textbox at the bottom of the GUI.
+====
+
+[NOTE]
+====
+<task description> +
+Texts enclosed by angular brackets are fields that have to be replaced with the user input. For example, <task description> can be “read a book”, while <time> can be “1200”.
+====
   
-Examples:
+[NOTE]
+====
+*/add <task description> /at <date> <time>* +
+Texts written in bold are full command line inputs that trigger an action based on the command keyword specified.
+====
 
-* `todo read book`
-* `deadline homework /by 8/8/2019 2359`
-* `event team meeting /at 20/8/2019 1500`
-* `doafter return book /after read book`
-* `range attend workshop /in 21/09/2019 1600 and 21/09/2019 1800`
+[NOTE]
+====
+“GUI Reference” +
+Words enclosed by a pair of double quotes refer to words seen on the GUI.
+====
 
-=== 3A.2 Deleting a task : `delete`
-Deletes the specified task from the task list. +
-Format: `delete INDEX`
+=== 3.1 Adding a task: `/add`
 
-****
-* Deletes the task at the specified `INDEX`.
-* The index refers to the index shown in the displayed task list.
-* The index must be a positive integer 1, 2, 3, ...
-****
+Since Hustler is a productivity checker, the first thing you would want to do is to add your tasks for the next few days. In order to do so, you must issue commands in the command line at the bottom.
 
-Examples:
+IMPORTANT: Though Hustler v1.4 features a GUI, most of the user input is taken from the command line at the bottom. Hence, you need to know the command syntax to provide an input.
 
- * `list` +
-   `delete 2` +
-   Deletes the 2nd task in the task list.
+
+The syntax for adding a task to the list is as follows:
+
+TIP: */add <task description>*
+
+On issuing this command in the command-lie text box at the bottom, a task will be added to the list.
+
+IMPORTANT: Hustler has several task types. It also has a difficulty level for each task. By default, if you issue the above command, Hustler sets the task to type ToDo and the difficulty to medium. 
+
+=== 3.1.1	Adding commands of different types
+
+Apart from have simple ToDo commands, you will most likely have time constraints. Hustler allows you to add Deadlines and Events and make them recurrent so they repeat themselves every set time periods. The difficulty of the task can also be added. All of this can be done with a simple addition to the syntax.
+
+// tag::base-alt[]
+[width="90"]
+|===
+
+| S/N | Command | Elaboration
+
+| 1. | */add <task description>* | Todo task, with default difficulty set to medium.
+
+| 2. | */add <task description> /by <date> <time>* | Deadline task. Date format is DD/MM/YY and time format is HHmm. Where D stands for day, M stands for month, Y stands for year, H stands for hour in 24-hour format and m stands for minutes. Uses the `/by` keyword.
+
+| 3. | */add <task description> /at <date> <time>* | Event task. The date time format is the same as the one for deadline. Uses the `/at` keyword.
+
+| 4. | */add <task description> /by <date> <time> /every <frequency>* | Recurring Deadline where the format of <frequency> is <number> followed by minutes/hours/days/weeks/months. Uses the `/every` keyword.
+
+| 5. | */add <task description> /at <date> <time> /every <frequency>* | Recurring Event where the formatting is the same as that of recurrent deadline. Uses the `/every` keyword.
+
+| 6. | */add <task description> /tag <one-word tag>* | Tags the task with a one-word tag. It can be any word consisting of alphanumeric letters.
+
+| 7. | */add <task description> /d <L/M/H>* | States the difficulty of the task where <E/M/H> can be either replaced with H which stands for high, M which stands for medium and E which stands for easy. Uses the `/d` keyword.
+
+|===
+// end::base-alt[]
+
+
+IMPORTANT: The tagging and difficulty settings are optional and can be appended to every other types of task given. 
+
+IMPORTANT: By making these changes to the syntax of the command additions can be made to the task type.
+
+While using keywords, the order in which the keywords are issued is important. First the `/at` or `/by` keywords are to be added followed by `/every` if the task is recurring. 
+
+Some trivial examples can be seen below:
+
+*	 */add read book* (ToDo)
+*	 */add Homework /by 8/8/2019 2359* (Deadline)
+*	 */add Lab report /by 13/8/2019 1700 /every 1 weeks* (Recurring Deadline)
+*	 */add Team meeting /at 10/8/2019 1500* (Event)
+*  */add Family dinner /at 15/8/2019 1800 /every 2 weeks* (Recurring Event)
+
+=== 3.2 Deleting a task: `/delete`
+
+Sometimes you might want to delete a task because you no longer have to perform it. In order to do so, a `/delete` command can be issued in the command line.
+
+The syntax for adding a task to the list is as follows:
+
+TIP: */delete <index>*
+
+Executing a `/delete` command:
+----
+1. Look at the index of the command you want to delete.
+2. Type in the above command.
+3. Press Enter.
+----
+
+The command will disappear from the list and the index gets readjusted. In addition, you can also mass delete tasks. Below are the two additional ways on how to mass delete tasks.
+
+TIP: */delete all*
+
+This command clears your task list.
+
+TIP:	*/delete done*
+
+This command deletes all tasks that have been marked as completed.
+
+=== 3.3	Marking tasks as done: `/done`
+
+If you ended up completing the task, you might want to mark the task as done. Issue the `/done` command to do so.
+
+The syntax of the command is as follows:
+
+TIP: */done <index>*
+
+Executing a `/done` command:
+----
+1.	Look at the index of the command you want to mark.
+2.	Type in the above command.
+3.	Press Enter.
+----
+
+A confirmation message pops up to confirm the change.
+
+
+IMPORTANT: Although the task has been marked done, it is not deleted from the list. If you wish for it to disappear then delete the task using the /delete command as stated above.  
   
-=== 3A.3 Finding tasks : `find`
+=== 3.4 Sort: `/sort`
 
-Finds tasks whose description contains the given keyword. + 
-Format: `find KEYWORD`
+There are 3 ways in which tasks can be sorted, in the normal order based on the time it was added, chronological order based on time and a prioritize order that prioritizes tasks based on the amount of time available with respect to the current time and the difficulty of the task.
 
-****
-* The search is case sensitive. e.g. `Book` will not match `book`
-* Only the description is searched.
-* Only full words will be matched e.g. `books` will not match `book`
-****
+The syntax of the command is as follows:
 
-Examples:
+TIP: */sort <sort type>*
 
-* `find book` +  
-  Returns any task with the descriptions containing the keyword.
+Listed below are the sort types available.
 
-=== 3A.4 Marking a task as done : `done`
-
-Marks a task in the task list as done. DoAfter tasks can only be marked as done when the task before it has been marked as done. +
-Format: `done INDEX`
-
-****
-  * Marks the task as done at the specified `INDEX`
-  * The index refers to the index shown in the displayed task list.
-****
-
-Examples:
-
-  * `done 1` +  
-  Marks the 1st task in the task list as done.
-
-=== 3A.5 Listing all the tasks : `list`
-
-Shows a list of all the tasks in the task list. + 
-Format: `list`
-
-=== 3A.6 Snoozing a task : `snooze`
-
-Provides a way to easily snooze/postpone/reschedule a task. +
-Format: `snooze INDEX` +
-        `NUMBER min/hour/day/week/month` OR `dd/mm/yyyy hhmm`
-        
-****
-* Snoozes the task as done at the specified `INDEX`
-* The index refers to the index shown in the displayed task list.
-* `NUMBER` refers to the quantity of the `min/hour/day/week/month`
-* `dd/mm/yyyy hhmm` is the day/month/year and time(24hrs) of the task e.g. `9/9/2019 1200`
-****
-
-Examples:
-
-  * `snooze 1` +  
-    `1 week` +
-    Snoozes the 1st task in the task list by 1 week.
-    
-  * `snooze 2` +
-    `9/9/2019 1200` +
-    Reschedules the 2nd task in the task list to the input date (9/9/2019 1200).
-  
-=== 3A.7 Reminders : `remind`
-
-Reminds the user when there is only one day left for tasks/events. Reminders also show up at the start of the program without any need to input command if there is only one day left for tasks/events. +
-Format: `remind`
-
-=== 3A.8 Viewing my Schedule : `show`
-
-Prints the schedule for a user defined date. +
-Format: `show DATE`
-
-****
-* Shows the tasks in the schedule for the specified `DATE`
-* The `DATE` should be in dd/MM/yyyy format.
-****
-
-Examples:
-
-****
-* `show 30/10/2019` +
-   Shows all task scheduled for 30/10/2019.
-****
-
-=== 3A.9 Exiting the program : `bye`
-
-Exits the program. +
-Format: `bye`
-
-=== 3A.10 Saving the data
-
-Save the tasks in the hard disk automatically whenever the task list changes.
-There is no need to save manually.
-
-=== 3B. Future Features to Implement +
-These are the features that are discussed to bw implemented in the coming future. Note that these
-are just tentative and subject to changes
-
-=== 3B.1 Mode Select : `[directional] buttons`
-
-Changes the mode such as 'main', 'stopwatch', 'spend points' such that each mode takes in specified
-command line prompts.
-
-=== 3B.2 Points System +
-Contains functions to purchase items off the 'point shop'
-
-****
-* Every completed tasks on time or countdown timer that runs it's full course will have points added
-into the user's database
-* These points  can be used to purchase comestic value of the application.
-****
-
-Examples:
-****
-* `buy hat 3` +
-User will purchase index 3 (1 index) of the hat off the shop.
-****
-
-=== 3B.3 Hero System +
-Contains functions related to the user's hero.
-
-****
-* Hero will be a personalized avatar that the user can customize based off their producitivity
-* The longer they play, the more personalized and "stronger" the hero can look.
-****
-
-Examples:
-****
-* `play run` +
-User's hero run animation will be played on the screen.
-****
+*	`/normal` sorts the tasks based on when the user input the tasks.
+*	`/datetime` sorts the tasks based on the date and time of the tasks.
+*	`/priority` sorts the tasks based on amount of time available and difficulty.
 
 
-=== 3B.4 Stopwatch : `countdown` +
+Examples Scenario:
 
-Starts a exitable countdown. +
-Format: `countdown TIMEINMINUTES`
+Let’s say you want to focus on the most upcoming tasks and want to know which tasks are nearest to the current date. Instead of having to scroll and view each task in the task list to determine which is the earliest task, you can easily view the tasks in chronological order by the /sort command you have entered.
 
-****
-* User earns points based off how long the countdown was given.
-****
+Executing the `/sort` command:
+----
+1.	Type /sort datetime into the command box and press the Enter button on your keyboard to execute it.
+2.	The result box will display the message “Task list has been successfully sorted!”.
+3.	The newly sorted task list will be displayed on the screen. You can now view the tasks in chronological order.
+----
 
-Examples:
+=== 3.5 Finding tasks: `/find`
 
-****
-* `countdown 60` +
-   Start a countdown for 60 minutes.
-****
+When dealing with multiple tasks, it is hard to find older ones even if you sort it in a particular way. To find tasks, you can use the `/find` command:
 
-== 4. FAQ
+The syntax of the command is as follows:
 
-*Q*: Where do I install Java 11 from? +  
-*A*: Java 11 can be downloaded from the Oracle website. https://www.oracle.com/technetwork/java/javase/downloads/index.html
+TIP: */find <keyword>*
 
-== 5. Command Summary
+The command takes in your input <keyword> which Is present in the task you want to find. Currently, this feature is able to find tagged words, dates, time and words in the task description.
 
-* *Add*: `todo DESCRIPTION` `deadline DESCRIPTION /by dd/mmm/yyyy hhmm` `event DESCRIPTION /at dd/mm/yyyy hhmm` `doafter DESCRIPTION /after TASK`  `range DESCRIPTION /at d/M/uuuu HHmm and d/M/uuuu HHmm` +
-  e.g. `todo read book` `deadline homework /by 8/8/2019 2359` `event team meeting /at 20/8/2019 1500` `doafter return book /after read book` `range workshop /in 22/09/2019 1900 and 22/09/2019 2100`
-* *Delete*: `delete INDEX`  +  
-  e.g. `delete 3`
-* *Find*: `find KEYWORD` +
-  e.g. `find book`
-* *Done*: `done INDEX` +
-  e.g. `done 2`
-* *List*: `list`
-* *Snooze*: `snooze`
-* *Remind*: `remind`
-* *Show*: `show`
-* *Bye*: `bye`
+Example Scenario:
+
+Suppose it is the date 31/10/2019, and you remember there is an assignment due tomorrow but not sure what. Here are the steps to find out what do you have due tomorrow.
+
+Executing the `/find` command:
+----
+1.	Type /find <date>. For this example, we have to type /find 01/11/2019 as shown and hit the Enter button on your computer.
+2.	The list of things that is due on 1st November 2019 will be shown on the screen.
+----
+
+IMPORTANT: Note that the parser is only able to recognize dates in DD/MM/YYYY format, and inputting /find 1/11/2019 instead will not yield the correct result.
+
+There are couple of things to take note with the current /find function:
+
+*	It is only able to recognize dates in DD/MM/YYYY format
+*	It is only able to recognize time in 24-hour clock HHMM format
+*	It will only find exact word-for-word for tags
+*	It can find tasks that partly consists of the keyword of the task description (querying for “proj” will yield the same result as above.
+
+=== 3.6 Task Completion
+
+Hustlers main feature in boosting productivity is in its task completion mode which can be summarized under the /timer command.
+
+IMPORTANT: Note that you can also manually complete task by typing /done <index> as shown above. However, we encourage you to use the recommended schedule with the timer integrated in order to complete the tasks.
+
+=== 3.6.1 Timer feature: `/timer`
+
+After collecting all the tasks you have added, you can use Hustler to help you decide which tasks to finish first. To begin, tell Hustler the number of hours you have available to work with. This can be done with the help of the `/timer command`.
+
+The syntax of the command is as follows:
+
+TIP: */timer <hours> <minutes> <seconds>*
+
+This command starts a countdown with the stipulated duration.
+
+After a timer has been started, these related commands can be executed as well. The syntax of these commands are as follows:
+
+TIP: */pausetimer*
+
+This command pauses a running timer.
+
+TIP: */resumetimer*
+
+This command resumes a paused timer.
+
+TIP: */stoptimer*
+
+This prematurely ends a running timer.
+
+=== 3.6.2 Recommended schedule
+
+After supplying the amount of time available to work on tasks using the `/timer` command, a recommended schedule pops up. This recommended schedule is a list of incomplete tasks that Hustler recommends you work on.
+
+Hustler keeps track of the amount of time remaining for a task, the amount of time you have spent on the task and the difficulty of the task to make recommendations. You can edit this schedule to your liking before sitting down and setting yourself up for work. In order to explain the next few commands the following list of tasks in the “Tasks” section will be considered as shown.
+
+[NOTE]
+====
+1. Watch CS3243 Lecture.
+2. Read a Book.
+3. Work on Hustler.
+4. Create Notes for CS2101
+====
+
+=== 3.6.2.1 Adding tasks to the schedule using the `/addfromlist` command
+
+The recommended schedule that pops up after using the `/timer command` sometimes might not be to your liking. Sometimes you might feel like working on more tasks. As such, you can add tasks from the “Tasks” section to the schedule using the `/addfromlist` command.
+
+The syntax of the command is as follows:
+
+TIP: */addfromlist <index in “Task” section>*
+
+The task that you referred to from the “Task” section pops up in the schedule and the time allotted to each task is updated.
+
+Executing the `/timer` command:
+----
+1. Type "/timer 5 0 0" and press enter.
+2. A timer set for five hours begins.
+3. Hustler is specified that you have 5 hours available for work and the following recommended schedule is shown on the list of tasks specified.
+4. Now if you want to add “4. create notes for 2101” to the recommended schedule, the following command can be run: /addfromlist 4
+5. This adds the task to the schedule.
+----
+
+=== 3.6.2.1 Removing tasks from the schedule using the /remove command
+
+In case you do not feel like working on a task, you can remove it from the recommended schedule.
+
+The syntax of the command is as follows:
+
+TIP: */remove <index>*
+
+The task at the supplied index will then be removed and the updated schedule will be shown.
+
+Executing the `/remove` command:
+----
+1. If you want to remove task at index 4 from Figure 3, type /remove 4 and hit enter.
+2. The 4th task will be removed from this schedule.
+----
+
+=== 3.6.2.3 Update the time allotted to a command using the /update command
+
+You might be in a situation in which you need to change the amount of time that has been allotted to a task. In order to do so, the /update command is used.
+
+The syntax of the command is as follows:
+
+TIP: */update <index> <duration H:M:S>*
+
+On running this command the time allotted to task at index specified is changed to a duration in the format <hours:minutes:seconds>. 
+
+Executing the `/update` command:
+----
+1. In order to change the time allotted to 3 in Figure 4 from 1 hour 40 minutes to 1 hour the following command can be run.
+2. Type /update 3 1:0:0 and hit enter.
+3. As a result, the time changes.
+----
+
+IMPORTANT: For the recommendation engine to work properly, please update the tasks and the time spent on them before stopping the timer. The amount of time spent on the tasks get stored in history to help in making future recommendations.
+
+=== 3.7 Undo a previous command
+
+There will be instances where you have deleted a task on accident. Fortunately, Hustler is able to handle such situations as you can trace back your wrong commands.
+
+=== 3.7.1 Undoing a previous command with `/undo`
+
+The `/undo` command allows the user to undo any number of the most recent commands. This command restores HUSTLER back to the state it was in before those undone commands were executed.
+
+The syntax of the command is as follows:
+
+TIP: */undo <optional number (of commands to undo)>*
+
+Example Scenario:
+
+Let’s say that you have been entering new tasks into HUSTLER, and you have accidentally deleted an important task (“Family reunion dinner at 6pm on Thursday”) from your list! Instead of trawling through old text messages in a desperate attempt to recall important information associated with the deleted task and then re-entering said information all over again, you can easily restore all the deleted task and all its details by undoing the `/delete` command you have just entered.
+
+Executing the `/undo` command:
+----
+1.	Type /undo into the command box, and press Enter to execute it.
+2. The text box will display the message “These commands have been undone:” followed by the list of commands that were undone as a result.
+3. And you can see the deleted task (“Family reunion dinner at 6pm on Thursday”) is visible in the list once again.
+----
+
+==== 3.7.2 Redoing an undone command with `/redo`
+
+This command re-executes the series of commands that were undone by the latest `/undo` command, thereby reversing it.
+
+The syntax of the command is as follows:
+
+TIP: */redo*
+
+Example Scenario:
+
+Let’s say you have executed the /delete command to delete the “Family reunion dinner at 6pm on Thursday” task from your list of tasks. You may undo this action and restore the deleted task by executing the `/undo` command. (See Undoing a previous command.)
+
+Then, if you decide that you want the task to remain deleted after all, you may very quickly and easily execute the `/redo` command to reverse the `/undo` command that you had just executed.
+
+Executing the `/redo` command:
+----
+1. Type /redo into the command box, and press Enter to execute it.
+2. The result box will display the message “All previously undone commands have been redone!”
+3. And the task, “Family reunion dinner at 6pm on Thursday”, is again gone from the list.
+----
+
+=== 3.8 Snoozing of tasks
+
+This command allows the user to postpone the deadlines of tasks with deadlines.
+
+The syntax of the command is as follows:
+
+TIP: */snooze <index> <integer> <unit>*
+
+This command postpones the deadline by a set unit of time, such as 5 days, 3 hours etc...
+
+TIP: */snooze <index> <date> <time>*
+
+This command postpones the deadline to a fixed date and time, such as 24/12/2019 1700.
+
+[NOTE]
+====
+This command snoozes a task in the task list.
+
+*	<index> refers to the index shown in the displayed task list.
+*	<date> must follow the format dd/MM/yyyy.
+*	<time> must be in 24hrs format HHmm.
+*	<unit> is the duration in minutes, hours, days, weeks or months
+====
+
+Example Scenario:
+
+Let’s say that a team meeting has been rescheduled to a day later to the original date and time. Instead of having to delete the task and re-entering the task’s information all over again, you can easily change the date and time of the task by the snooze command you have just entered.
+
+Eecuting the `/snooze` command:
+----
+1.	Type /list into the command box and press the Enter to execute it.
+2.	The result box will display a list of all the tasks with their respective index. 
+3.	Type /snooze <index> <integer> <unit>, whereby <index> is the index of the task to be snoozed, <integer> is the number of <unit> you want to snooze. Available <unit> are minutes, hours, days, weeks or months.
+4.	The screen will display the snoozed task’s information with the new date and time.
+----
+
+=== 3.9 Bye
+
+TIP: */bye*
+
+This command causes the program to exit.
+
+=== 4. Your Personal Experience
+
+Hustler not only helps you manage and complete tasks in a productive environment but also has a bunch of personalization features that separate you from the rest based on your productivity.
+
+=== 4.1 Achievements
+
+Hustler provides incentive to be more productive by giving you achievements. There is a list of achievements for you to unlock and their requirements for unlocking. The achievement section can be seen by clicking on the “Achievements” in the navigation bar or alternatively, by entering the `/achievements` command in the command line at the bottom. On achieving an accomplishment, you generate points which is an in-app currency whose use will be explained in the shop section. 
+
+=== 4.1.1 Showing locked achievements and unlocked achievements command
+
+This command `/achievement` shows the list of achievements that the user have unlocked and did not unlock.
+
+Unlocking achievements commands: `/add`, `/done`
+
+To unlock achievements, the users have to use Hustler actively. This can be achieve by frequently logging tasks using Hustler as well as keep track of the number of tasks they have completed. 
+
+When the user logs up to 5 tasks into Hustler using the `/add` command, the condition for “Busybee” is met and the user unlocks achievement “Busybee” with “Bronze” achievement level.
+
+To attain BusyBee Bronze level: 
+----
+1.	Type /add <description of task> 5 times. This will log 5 tasks into Hustler. 
+2.	The main panel will display the message “Congratulations, you have unlocked this achievement! Busybee Bronze”. 
+3.	Type /achievement to see the updated achievement list. The points have been updated and Busybee bronze level have been unlocked.
+4.	User can unlock silver by adding 10 tasks and points by adding 15 tasks.
+5.	In order to unlock Completionist, users have to complete n* 5 tasks to unlock “Completionist”. Users have to type in command /done in order to mark a task as done.
+6.	As for “Dedicated to the art” achievement, user have to login for n* 5 consecutive days. If the user logins within a day, the number of consecutive logins will not be counted. Similarly, if the user logins 2 days later when he/she last login, consecutive login will not be counted and will reset to 0. Users have to login n* 5 days to unlock “Dedicated to the art”.
+----
+
+IMPORTANT: n is an integer from 1 to 3.
+
+=== 4.2 Avatar
+
+Hustler has an RPG like gaming concept to motivate and entertain you. You have an avatar, which is your in-game character that has its own level and stats, namely, Damage, Defence, Speed and Endurance. 
+
+
+=== 4.2.1 Avatar statistics
+
+The stats correlate directly with your avatar’s level and the items that you have purchased which can be seen in the Shop section. Your avatar grows stronger as you complete more tasks. (tip: you’ll level up the first time after 5 completions!)
+
+Here is how you view the avatar statistics:
+
+TIP: */avatar*
+
+This command will cause Avatar details to pop up on screen.
+
+=== 4.2.2 Changing the Avatar’s name
+
+TIP: */setname <name>*
+
+This command customizes the user’s experience by allow them to change the name of the avatar.
+
+By default, the avatar’s name will be “Avatar”. However, if you feel connected with the avatar and would wish to have a sense of “owning” the avatar, here is how to do it:
+
+Executing the `/setname` command:
+----
+1.	Type /setname <name> into the command box, and hit Enter to execute it. For example, I would like to set my name to “Nystera”.
+2.	The result box will display the success message to informs the user that it is completed.
+3.	Typing /avatar now will reflect the name change.
+----
+
+IMPORTANT: If that the user made an invalid input, (such as by typing /setname with no name to be changed) Hustler will catch the exception and informs the user that the name change is invalid.
+
+=== 4.2.3 Inventory
+
+All of the items you have purchased are reflected in your inventory. Here is an example on how to view the items you have bought so far:
+
+Executing the `/inventory` command:
+----
+1.	Type /inventory in the command line and hit enter
+2.	You can now take a look at your current inventory
+----
+
+=== 4.2.4 Equipment
+
+TP: */equip <index>*
+
+This command allows the user to wield stronger equipment as they earn more points to purchase them.
+
+Example Scenario:
+
+You have always been saving up points to purchase the Moonlight Sword (upgrading from a normal Broadsword). Here are the steps on how to wield your newly purchased weapo.
+
+Executing the `/equip` command:
+----
+1.	Type /inventory and hit enter to execute the command.
+2.	You can now take a look at the list of items you have currently purchased.
+3.	Type /equip <index> to wield the item on that index. For this example, you want to wield your newest addition to the list, the Moonlight Sword. Type /equip 2, which will allow the following prompt will show up:
+4.	You can verify that you’ve equipped the Moonlight Sword which increased your Avatar’s stats by typing the command /avatar.
+----
+
+=== 4.3 Points system
+
+Finishing achievements not only gives you the satisfaction you deserve, but also in-app currency in the form of points. Each achievement gives you points depending on the achievement level.
+
+=== 4.3.1 Shop
+
+From the points generated on finishing an achievement, you can buy items for the avatar from the “Shop” section.
+
+Example Scenario:
+
+You just unlocked an achievement, and have enough points to purchase a new item for your avatar to wield. Here are the steps on how to purchase an item in the shop assuming you have enough points.
+
+Executing the `/buy` command:
+----
+1.	Type /shop to show the list of items available, you will also be shown your total accumulated points:
+2.	Looking at the shop, purchase the desired item by typing /buy <index>. Assuming you would like to purchase the Chainmail, type /buy 6 and hit enter.
+3.	If you have enough points, the successful purchase text will be shown on the UI.
+4.	You can now check your inventory by typing /inventory which will reflect your recent purchase.
+----
+
+That brings us to the end of the feature list of v1.4. However, there are a lot of features planned for v2.0.
+
+
+
+
+
+
+
+
+
+
+
+=== 5. Plans for Hustler v2.0
+
+Hustler v2.0 will be the biggest increment to Hustler till date and will include a big upgrade to not only aspects like GUI but also personalized features.
+
+=== 5.1 Arena
+
+In order to bring your avatar to the test, a simulated fighting game will be released in the form of the arena. In this section, you will be pitted against multiple computer NPC which will have their own stats to battle against. As you defeat each enemy, you will progress to the subsequent stages with get progressively harder.
+
+Below is a mock-up example of how the arena system is envisioned:
+---
+1.	User inputs /arena. This will pop up the arena page where the user will be shown the current level they are in, and the next monster’s statistics.
+2.	On the same page, if they would like to battle with the said monster, user inputs /battle. The winner will automatically be determined by creating an algorithm consisting of their stats to see which one is superior.
+3.	In order to make the game more interesting by having the user anticipate the winner, Hustler will not immediately print the outcome of the match, but instead prints the intermediate stages of what is happening. (e.g “Avatar has used his Broadsword to inflict 3 damage on the Monster! The monster has 7 life left”)
+4.	If the avatar wins the match, they will obtain more points, which can be used to spend it on strengthening the avatar.
+---
+
+[NOTE]
+====
+*The main goal is for the users to feel the satisfaction on their productivity and hard work, not on the mini game within Hustler itself.* As such, the arena feature will be restricted in order for the user not to focus on the game. We plan on only allowing three battles a day by the user, regardless of the outcome of the match.
+====
+
+=== 5.2	Health
+
+Hustler believes that productivity is not just about tasks but also health. As such, in v2.0 Hustler will send notifications to you to perform exercise for an hour at a time during the day it feels you have overworked yourself. A timer will pop up and Hustler will provide a list of simple workouts or suggestions. This can also be accessed using the /exercise command in the command line.
+Hustler will also keep track of your sleep cycle. It will prompt you to input your sleep schedule last night and will generate statistics from there.
+
+The health component of the app will also have additional achievements to unlock and XP to level up your avatar. Statistics will be drawn from your health profile.
+
+=== 5.3	Enhanced GUI
+
+By v2.0, Hustler will be a GUI only application and hence you will not have to worry about command syntax amongst others. The GUI will be comprehensible and easy to use, with a better task addition, search and management system.
+
+=== 5.4	Revamped Shop and Achievements
+
+Hustler will feature an upgraded achievements page with more exciting achievements for you to work towards in addition to earning more points. The shop will also include many more items which provide a huge component to your avatar profile. This will greater increase your incentive to be productive.
+
+=== 5.5	Settings
+
+The new Hustler will also allow you to customize various aspects like colour and theme and will allow you to make your Hustler look different from someone else’s Hustler.
+
+We are very receptive to feedback and we look forward to continuously satisfy your needs as we develop further.
+
+=== 7. FAQ
+
+Q: Where can I install Java 11 from?
+A: Java 11 can be downloaded from the oracle website. https://www.oracle.com/technetwork/java/javase/downloads/index.html
+
+Q: What if I want to request for changes to improve the app?
+A: Kindly contact any of us in the team on our github page: https://github.com/AY1920S1- CS2113T-T09-1/main
+
+Q: Will this be ported over to the IOS / Android?
+A: We do not have a definitive answer yet, but we will take a closer look into scaling up this project once this app garners enough attention.
+
+Q: Are you earning anything from this app?
+A: We do not earn anything from making this as we simply want to contribute back     
+
+=== 7. Command Summary
+
+Adding tasks:
+
+*	`/add` <task description> (Todo)
+** Possible input: */add read book*
+
+*	`/add` <task description> /by <date> <time> /d <difficulty> /tag <tag name> (Deadline)
+** Possible input: */add do homework /by 1/11/2019 2359 /d H /tag impossible!*
+
+*	`/add` <task description> /at <date> <time> /tag <tag name> (Event)
+** Possible input: */add go on date /at 12/12/2019 1700 /tag girlfriend!*
+
+Deleting tasks:
+
+*	`/delete` <index>
+** Possible input: */delete 2*
+
+*	`/delete` all (clears the entire task list)
+*	`/delete` done (clears all completed tasks from the list)
+
+Finding tasks:
+
+*	`/find` <keyword> (queries the task list for any task containing the given word; can be in the task description, tags, time or date)
+**	Possible input: */find important*
+
+Completing tasks:
+
+*	`/done` <index> (marks task as done in the given index)
+**	Possible input: */done 1*
+
+List:
+
+*	`/list` (shows a list of all the tasks in the task list)
+
+Snooze:
+
+* `/snooze` <index> <integer> <unit>
+**	Possible input: */snooze 3 1 5 days*
+
+*	`/snooze` <index> <date> <time> 
+**	Possible input: */snooze 12/10/2019 2359*
+
+Sorting:
+
+*	`/sort normal`
+
+*	`/sort datetime`
+
+*	`/sort priority`
+
+Timer:
+
+*	`/timer` <duration H M S>
+
+**	Possible input: */timer 1 0 0*
+
+Task completion:
+
+*	`/addfromlist` <index>
+
+**	Possible input: */addfromlist 3*
+
+*	`/remove` <index>
+
+**	Possible input: */remove 1*
+
+*	`/update` <index> <duration H:M:S>
+
+**	Possible input: */update 3 1:0:0*
+
+Undo and Redo:
+
+•	`/undo`
+
+•	`/redo`
+
+Achievements:
+
+•	`/achievement`
+
+Avatar:
+
+*	`/avatar`
+
+*	`/setname` <name>
+**	Possible input: */setname Bobby*
+
+*	`/inventory`
+
+*	`/equip` <index>
+**	Possible input: */equip 2*
+
+Shop:
+
+*	`/shop`
+
+*	`/buy` <index>
+**	Possible input: */buy 1*
+
+=== 9. Glossary
+
+// tag::base-alt[]
+[width="90"]
+|===
+
+| Term | Description
+
+| Command keyword | The keyword to trigger an action. It is usually the first word input and starts off with a “/” before writing the keyword.
+
+| Avatar | Avatar	An icon or figure representing the User in Hustler.
+
+| Attack Damage | Attack damage is the attacking stat that determines the amount of physical damage dealt by basic attacks.
+
+| Defence | A stat that determines the chance to block an enemy attack.
+
+| Speed | A stat that determines if the User gets to start his attack first.
+
+| Endurance | Endurance is the stat that determines if the User’s avatar can still battle. If it goes to 0, the User loses.
+
+| Points | Points is Hustler’s in-game currency which allows users to purchase assets in the in-game shop.
+
+| Arena | Arena is the stage that the Users’ avatars are fought in the battle simulation.
+
+| NPC | Non-player character
+
+| GUI | Graphical user interface (GUI) a form of user interface that allows users to interact with Hustler through graphical icons and visual indicators.
+
+| Command Line | Command line is an interface for typing commands directly to a computer's operating system.
+
+| RPG | Role-Playing Game
+
+| ToDo | ToDo is a type of task that only includes the description of the task.
+
+| Deadline | Deadline is a type of task that includes the latest date and time the task should be completed by.
+
+| Event | Event is a type of task that is planned beforehand and occurs at a specific date and time.
+
+| XP | XP is the experience points of the user’s avatar.
+
+|===
+// end::base-alt[]

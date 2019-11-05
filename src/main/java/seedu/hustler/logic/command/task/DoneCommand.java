@@ -40,15 +40,15 @@ public class DoneCommand extends Command {
         Ui ui = new Ui();
         try {
             anomaly.detect(userInput);
-            int oldLevel = Hustler.avatar.getLevelInt();
             int taskIndex = Integer.parseInt(userInput[1]) - 1;
             Hustler.list.doTask(taskIndex);
-            Scheduler.remove(Hustler.list.get(taskIndex));
-            if (Hustler.avatar.gainXp().getLevel() > oldLevel) {
+            Hustler.avatar.gainXp();
+            if (Hustler.avatar.canLevel()) {
+                Hustler.avatar.levelUp();
                 ui.showCongrats(Hustler.avatar);
             }
-            AvatarStorage.save(Hustler.avatar);
-        } catch (CommandLineException | IOException e) {
+            Scheduler.remove(Hustler.list.get(taskIndex));
+        } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
         }
     }

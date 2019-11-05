@@ -85,20 +85,6 @@ public class Ui {
     }
 
     /**
-     * A hello message when hustler is ran.
-     */
-    public void showOpeningString() {
-        String logo = " _   _   _    _     _____  ______   _       ___      ___\n"
-                + "|  | |  | | |  |  |  / ____/ |__   __|  | |     |  __|  / __  \\\n"
-                + "|  |_| | | |  |  |   |  \\___      |  |    | |      | |__  | |__/ /\n"
-                + "|  _  | | |   |  |   \\____ \\     |  |    | |     |  __|  |  _  /\n"
-                + "|  | | | |  \\_/ |    ___/  |     |  |    | |___ |  |__  | / \\ \\\n"
-                + "|_| |_|  \\___/  /_____/      |_|     |____||____| |_|  \\_\\\n";
-
-        System.out.println("Hello from\n" + logo);
-    }
-
-    /**
      * Prints a message if list is empty.
      */
     public void showListEmpty() {
@@ -317,7 +303,7 @@ public class Ui {
      * @param achievement newly unlocked achievement
      */
     public void showAchievementUnlocked(Achievements achievement) {
-        System.out.println("Congratulations, you have unlocked this achievement!" + achievement.toString());
+        System.out.println("Congratulations, you have unlocked this achievement!\n" + achievement.toString());
     }
 
     /**
@@ -326,7 +312,7 @@ public class Ui {
      * @param achievementList list of achievements
      */
     public void showAchievementList(ArrayList<Achievements> achievementList) {
-        System.out.println("\uD83D\uDD13 ACHIEVEMENTS UNLOCKED \uD83D\uDD13");
+        System.out.println("********* UNLOCKED ACHIEVEMENTS *********");
         if (!achievementList.isEmpty()) {
             int l = 0;
             for (int i = 0; i < achievementList.size(); i++) {
@@ -336,7 +322,7 @@ public class Ui {
                     System.out.println(achievementList.get(i));
                 }
             }
-            System.out.println("\uD83D\uDD12 LOCKED ACHIEVEMENTS \uD83D\uDD12");
+            System.out.println("\n********* LOCKED ACHIEVEMENTS *********");
             int j = 0;
             for (int i = 0; i < achievementList.size(); i++) {
                 if (achievementList.get(i).checkLock()) {
@@ -345,7 +331,7 @@ public class Ui {
                     System.out.println(achievementList.get(i));
                 }
             }
-            System.out.println("Total Points = " + totalPoints + " \uD83D\uDCB0");
+            System.out.println("\nTotal Points = " + totalPoints);
         }
     }
 }

@@ -38,17 +38,16 @@ public class UpdateEntry extends Command {
         Ui ui = new Ui();
         try {
             anomaly.detect(this.userInput);
+            String[] numbers = userInput[1].split(" ");
+            int index = Integer.parseInt(numbers[0]);
+            int time = this.parseDuration(numbers[1]); 
+            index--;
+            RecommendedSchedule.updateAllocTime(index, time);
+            RecommendedSchedule.displayRecommendedSchedule();
         } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
             return;
         }
-        String[] numbers = userInput[1].split(" ");
-        int index = Integer.parseInt(numbers[0]);
-        int time = this.parseDuration(numbers[1]); 
-        index--;
-
-        RecommendedSchedule.updateAllocTime(index, time);
-        RecommendedSchedule.displayRecommendedSchedule();
     }
 
     /**

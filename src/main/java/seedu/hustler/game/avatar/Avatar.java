@@ -6,7 +6,8 @@ import seedu.hustler.game.shop.items.weapons.Weapon;
 import java.util.Optional;
 
 /**
- * A class for the avatar in Hustler.
+ * The avatar which contains information and statistics which is dependent
+ * on the productivity of the user.
  */
 public class Avatar implements Convertible {
 
@@ -26,12 +27,12 @@ public class Avatar implements Convertible {
     private Stats stats;
 
     /**
-     * The equipped weapon of the avatar.
+     * The equipped weapon of the avatar, if any.
      */
     private Optional<Weapon> weapon;
 
     /**
-     * The equipped armor of the avatar.
+     * The equipped armor of the avatar, if any.
      */
     private Optional<Armor> armor;
 
@@ -47,11 +48,12 @@ public class Avatar implements Convertible {
     }
 
     /**
-     * Initializing name, level and stat with specific
-     * values.
-     *
-     * @param level object to initialize level with
-     * @param stats object to initialize stats with
+     * Constructs the avatar instance with the name, level and stat with the equipment
+     * of the avatar, if any.
+     * @param level the level of the avatar.
+     * @param stats the statistics of the avatar.
+     * @param weapon the weapon equipped by the avatar, if any.
+     * @param armor the armor equipped by the avatar, if any.
      */
     public Avatar(String name, Level level, Stats stats, Optional<Weapon> weapon, Optional<Armor> armor) {
         this.name = name;
@@ -79,20 +81,19 @@ public class Avatar implements Convertible {
     }
 
     /**
-     * Increases avatar xp by 1. Avatar levels up and increases
-     * its stats if the xp gained levels it up.
-     *
-     * @return the level of the avatar.
+     * Increases avatar xp by 1.
+     * @return the updated avatar.
      */
-    public Level gainXp() {
+    public Avatar gainXp() {
         this.level = level.increaseXp();
-        if (this.level.canLevel()) {
-            this.level = level.levelUp();
-            this.stats = stats.upStats(this.level.getLevel());
-        }
-        return this.level;
+        return this;
     }
 
+    /**
+     * Equips the shop item to the User's avatar.
+     * @param equipment the equipment to be equipped.
+     * @return the avatar with the updated items.
+     */
     public Avatar equip(ShopItem equipment) {
         if (equipment.getType().equals("Weapon")) {
             this.weapon = Optional.of((Weapon) equipment);
@@ -102,8 +103,22 @@ public class Avatar implements Convertible {
         return this;
     }
 
-    public int getLevelInt() {
-        return this.level.getLevel();
+    /**
+     * Checks if the avatar can level up.
+     * @return true if avatar can level up; false if otherwise.
+     */
+    public Boolean canLevel() {
+        return this.level.canLevel();
+    }
+
+    /**
+     * Completes the levelling up by increasing the level and stats of the avatar.
+     * @return the new updated avatar.
+     */
+    public Avatar levelUp() {
+        this.level.upLevel();
+        this.stats.upStats(this.level.getLevel());
+        return this;
     }
 
     @Override

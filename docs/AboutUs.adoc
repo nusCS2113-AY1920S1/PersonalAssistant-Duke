@@ -1,7 +1,7 @@
 = About Us
 :site-section: AboutUs
 :relfileprefix: team/
-:imagesDir: images
+:imagesDir: images-about-us
 :stylesDir: stylesheets
 
 PersonalAssistant - Duke was developed by the https://se-edu.github.io/docs/Team.html[Beastie bois] team. +

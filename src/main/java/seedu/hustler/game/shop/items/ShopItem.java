@@ -4,6 +4,7 @@ package seedu.hustler.game.shop.items;
  * The class in which every item will inherit from.
  */
 public abstract class ShopItem implements Purchasable {
+
     /**
      * The cost of the shop item.
      */
@@ -11,7 +12,9 @@ public abstract class ShopItem implements Purchasable {
     /**
      * Boolean if the shop item has been purchased.
      */
+
     protected Boolean isPurchased;
+
     /**
      * The type in string, of each item.
      */

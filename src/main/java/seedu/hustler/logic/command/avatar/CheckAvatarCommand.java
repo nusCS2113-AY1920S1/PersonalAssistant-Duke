@@ -11,12 +11,19 @@ import seedu.hustler.ui.Ui;
 public class CheckAvatarCommand extends Command {
 
     /**
-     * The user input.
+     * The given user input.
      */
     private String[] userInput;
 
+    /**
+     * The anomaly class to check if the given command is valid.
+     */
     private OneWordAnomaly anomaly = new OneWordAnomaly();
 
+    /**
+     * Constructs a new check avatar command with the given user input.
+     * @param userInput the user input made in the command line.
+     */
     public CheckAvatarCommand(String[] userInput) {
         this.userInput = userInput;
     }

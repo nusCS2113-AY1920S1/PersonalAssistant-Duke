@@ -4,6 +4,7 @@ package seedu.hustler.game.shop.items.armors;
  * The cheapest armor in the shop.
  */
 public class LeatherArmor extends Armor {
+
     /**
      * The defence increment of the leather armor.
      */

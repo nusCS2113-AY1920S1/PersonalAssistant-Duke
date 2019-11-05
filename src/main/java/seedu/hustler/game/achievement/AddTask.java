@@ -67,10 +67,53 @@ public class AddTask extends Achievements {
      */
     public AddTask(String achievementLevel) {
         this.description = "Busybee";
-        this.information = "Added 10 tasks, 100 tasks, and 1000 tasks for Bronze, Silver and Gold consecutively.";
+        switch(achievementLevel) {
+            case "Bronze": {
+                this.information = "(User adds 5 tasks)";
+            } break;
+            case "Silver": {
+                this.information = "(User adds 10 tasks)";
+            } break;
+            case "Gold" : {
+                this.information = "(User adds 15 tasks)";
+            } break;
+        }
         this.achievementLevel = achievementLevel;
         this.points = 0;
         this.locked = true;
+    }
+
+    private String progress() {
+        double nextLevel = numberOfTasks;
+        double goal;
+        double percentage = 0;
+
+        switch(achievementLevel) {
+            case "Bronze": {
+                if(numberOfTasks >= 5) {
+                    nextLevel = 5;
+                }
+                goal = 5;
+                percentage = nextLevel/goal * 100;
+            } break;
+            case "Silver": {
+                if(numberOfTasks >= 10) {
+                    nextLevel = 10;
+
+                }
+                goal = 10;
+                percentage = nextLevel/goal * 100;
+            } break;
+            case "Gold": {
+                if(numberOfTasks >= 15) {
+                    nextLevel = 15;
+                }
+                goal = 15;
+                percentage = nextLevel/goal * 100;
+
+            } break;
+        }
+        return " Progress: [" + (int)percentage + "%]";
     }
 
     /**
@@ -193,7 +236,7 @@ public class AddTask extends Achievements {
      */
     @Override
     public String toString() {
-        return super.toString() + " " + points + " " + description + " " + achievementLevel;
+        return super.toString() + " " + points + " " + description + " " + achievementLevel + " " + this.information + progress();
     }
 
     /**

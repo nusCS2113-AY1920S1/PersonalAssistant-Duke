@@ -8,6 +8,7 @@ import static seedu.hustler.game.achievement.AddTask.addAchievementLevel;
 import static seedu.hustler.game.achievement.AddTask.addPoints;
 import static seedu.hustler.game.achievement.ConsecutiveLogin.*;
 import static seedu.hustler.game.achievement.DoneTask.doneAchievementLevel;
+import static seedu.hustler.game.achievement.DoneTask.donePoints;
 
 /**
  * Deals with addition of achievements and unlocking of achievements.
@@ -88,7 +89,7 @@ public class AchievementList {
         for(int i = 0; i < achievementList.size(); i += 1) {
             if (achievementList.get(i).getDescription().equals("Completionist") && achievementList.get(i).getAchievementLevel().equals(doneAchievementLevel) && achievementList.get(i).checkLock()) {
                 achievementList.get(i).setLock(false);
-                achievementList.get(i).setPoints(addPoints);
+                achievementList.get(i).setPoints(donePoints);
                 ui.showAchievementUnlocked(this.achievementList.get(i));
             }
         }
