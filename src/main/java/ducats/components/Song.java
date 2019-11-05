@@ -15,11 +15,12 @@ public class Song implements Serializable {
     private ArrayList<String> songChart;
 
     //@@author rohan-av
+
     /**
      * Constructor for Song object, taking in a name, key and tempo.
      *
-     * @param name the name of the Song
-     * @param key the key the Song is to be composed in
+     * @param name  the name of the Song
+     * @param key   the key the Song is to be composed in
      * @param tempo the tempo at which the Song is to be played
      */
     public Song(String name, String key, int tempo) {
@@ -52,13 +53,14 @@ public class Song implements Serializable {
     }
 
     //@@author
+
     /**
      * Creates a grouping of Bar objects to be easily copied and inserted for repetitions
      * in music.
      *
-     * @param name the name of the Group (e.g. Verse, Chorus, Pre-Chorus)
+     * @param name       the name of the Group (e.g. Verse, Chorus, Pre-Chorus)
      * @param startingId ID of the Bar to start copying from
-     * @param endingId ID of the Bar to end the copying
+     * @param endingId   ID of the Bar to end the copying
      */
     public void createGroup(String name, int startingId, int endingId) {
         ArrayList<Bar> groupedBars = new ArrayList<>();
@@ -79,17 +81,19 @@ public class Song implements Serializable {
 
     /**
      * Updates the Song with the new list of Bar objects.
+     *
      * @param newBars the list of new Bar objects for the Song
      */
     public void updateBars(ArrayList<Bar> newBars) {
         this.bars = newBars;
-        for (Bar bar: newBars) {
+        for (Bar bar : newBars) {
             updateSongChart(bar);
         }
     }
 
     /**
      * Updates the SongChart, the string representation of the Song.
+     *
      * @param bar the new Bar to be added to the Song
      */
     private void updateSongChart(Bar bar) {
@@ -98,33 +102,34 @@ public class Song implements Serializable {
 
     /**
      * Returns a String representation of the Song for the user to view.
+     *
      * @return a String representation of the Song to be viewed by the user
      */
     public String showSongChart() {
 
         StringBuilder formattedChart1 = new StringBuilder();
-        for (String chordString: songChart) {
+        for (String chordString : songChart) {
             formattedChart1.append(chordString).append(" ");
         }
         //System.out.println(formattedChart1.toString());
         //System.out.println(this.getBars().get(0).getChords().get(0).getNotes().get(0).getPitch());
         //return formattedChart1.toString();
 
-        ArrayList<Bar> barList  = this.getBars();
+        ArrayList<Bar> barList = this.getBars();
         Iterator<Bar> iterator1 = barList.iterator();
         StringBuilder formattedChart = new StringBuilder();
         int i = 0;
         //System.out.println(bars.get(0).getChords().get(0).getNotes().get(0).getPitch());
         while (iterator1.hasNext()) {
             Bar barToAnalyse = iterator1.next();
-            ArrayList<Chord> chordToAnalyse  =  barToAnalyse.getChords();
+            ArrayList<Chord> chordToAnalyse = barToAnalyse.getChords();
             Iterator<Chord> iterator = chordToAnalyse.iterator();
             //System.out.println(chordToAnalyse.size());
             int j = 0;
             while (iterator.hasNext() && j < chordToAnalyse.size() / 2) {
                 formattedChart.append("{");
                 Chord tempChordToAnalyse = iterator.next();
-                ArrayList<Note> notesAnalyse  =  tempChordToAnalyse.getNotes();
+                ArrayList<Note> notesAnalyse = tempChordToAnalyse.getNotes();
                 //System.out.print(notesAnalyse.size());
                 Iterator<Note> iterator2 = notesAnalyse.iterator();
                 while (iterator2.hasNext()) {
@@ -145,9 +150,16 @@ public class Song implements Serializable {
     }
 
     //@@author Samuel787
-    public Group findGroup(String name){
-        for(Group group : this.groups){
-            if(group.getName().equals(name)){
+
+    /**
+     * Finds a Group by name that belongs to this song and returns that Group class.
+     *
+     * @param name name of the group to be found
+     * @return returns the group with the name or returns null if none of the group has the same name
+     */
+    public Group findGroup(String name) {
+        for (Group group : this.groups) {
+            if (group.getName().equals(name)) {
                 return group;
             }
         }
@@ -155,6 +167,7 @@ public class Song implements Serializable {
     }
 
     //@@author rohan-av
+
     /**
      * Returns a String representation of the Song to be used for persistent storage.
      *
@@ -168,7 +181,7 @@ public class Song implements Serializable {
                 .append(" ")
                 .append(tempo)
                 .append(" ");
-        for (Bar bar: bars) {
+        for (Bar bar : bars) {
             result.append(bar.toString()).append(" ");
         }
         return result.toString();

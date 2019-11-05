@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class AsciiCommandTest {
 
+    /* Test to be redesigned
     //@@author Samuel787
     @Test
     public void testPrintBarAscii_validBars_success() {
@@ -210,4 +211,6 @@ public class AsciiCommandTest {
             fail();
         }
     }
+
+     */
 }

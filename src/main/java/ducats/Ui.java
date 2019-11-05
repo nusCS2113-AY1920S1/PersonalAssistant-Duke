@@ -185,18 +185,27 @@ public class Ui {
         return wrap(result);
     }
 
-    public String formatListGroups(SongList songList){
+    //@@author Samuel787
+    /**
+     * Returns a String formatted for display that shows all the groups available
+     * in the current song.
+     *
+     * @param songList list of songs from storage
+     * @return the formatted String to be displayed
+     */
+    public String formatListGroups(SongList songList) {
         int songIndex = songList.getActiveIndex();
         ArrayList<Group> groups = songList.getSongIndex(songIndex).getGroups();
         String result = "Here are the groups available: \n";
         int groupCount = 1;
-        for(Group group : groups){
-            result += groupCount + ". "+group.getName()+"\n";
+        for (Group group : groups) {
+            result += groupCount + ". " + group.getName() + "\n";
             groupCount++;
         }
         return result;
     }
 
+    //@@author
     /**
      * Returns a String formatted for display that the wrong command was type and telling them
      * the command was autocorrected.

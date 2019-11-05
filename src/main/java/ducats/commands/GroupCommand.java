@@ -72,15 +72,16 @@ public class GroupCommand extends Command<SongList> {
         }
     }
 
-    private boolean groupNameExists(SongList songList, String newGroupName){
+    private boolean groupNameExists(SongList songList, String newGroupName) {
         ArrayList<Group> groups = songList.getSongIndex(songList.getActiveIndex()).getGroups();
-        for(Group group : groups){
-            if(group.getName().equals(newGroupName)){
+        for (Group group : groups) {
+            if (group.getName().equals(newGroupName)) {
                 return true;
             }
         }
         return false;
     }
+
     /**
      * Returns a boolean value representing whether the program will terminate or not, used in
      * duke.Duke to reassign a boolean variable checked at each iteration of a while loop.
@@ -109,6 +110,7 @@ public class GroupCommand extends Command<SongList> {
     }
 
     //@@author rohan-av
+
     /**
      * Returns an integer corresponding to the duration, tempo and time signature if the command starts a metronome.
      * Else, returns an array containing -1.

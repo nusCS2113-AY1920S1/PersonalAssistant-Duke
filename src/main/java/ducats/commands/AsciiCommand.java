@@ -70,7 +70,7 @@ public class AsciiCommand extends Command<SongList> {
                     //wrap the group as a song
                     Song groupSong = new Song("temp", "aminor", 120);
                     ArrayList<Bar> bars = group.getBars();
-                    for(Bar bar : bars){
+                    for (Bar bar : bars) {
                         groupSong.addBar(bar);
                     }
                     result = printSongAscii(groupSong);
@@ -148,79 +148,82 @@ public class AsciiCommand extends Command<SongList> {
         return printSongAscii(tempSong);
     }
 
-    public static String wrapContent(String str){
+
+    private static String wrapContent(String str) {
         String[] strings = str.split("\n");
         ArrayList<ArrayList<String>> rows = new ArrayList<>();
-        for(int i = 0; i < strings.length; i++){
+        for (int i = 0; i < strings.length; i++) {
             rows.add(new ArrayList<>());
         }
-        for(int i = 0; i < strings.length; i++){
+        for (int i = 0; i < strings.length; i++) {
             strings[i] = strings[i].substring(4);
-            for(int j = 0; j < strings[i].length(); j++){
-                if(j % 72 == 0){
-                    if(j+72 < strings[i].length()){
-                        rows.get(i).add(strings[i].substring(j, j+72));
-                    }
-                    else {
+            for (int j = 0; j < strings[i].length(); j++) {
+                if (j % 72 == 0) {
+                    if (j + 72 < strings[i].length()) {
+                        rows.get(i).add(strings[i].substring(j, j + 72));
+                    } else {
                         rows.get(i).add(strings[i].substring(j));
                     }
                 }
             }
-       }
+        }
 
         StringBuilder result = new StringBuilder();
         int count = rows.get(0).size();
-        for(int i = 0; i < count; i++){
-            for(int j = 0; j < 15; j ++){
-                switch (j){
-                    case 0:
-                        result.append("UC: ");
-                        break;
-                    case 1:
-                        result.append("UB: ");
-                        break;
-                    case 2:
-                        result.append("UA: ");
-                        break;
-                    case 3:
-                        result.append("UG: ");
-                        break;
-                    case 4:
-                        result.append("UF: ");
-                        break;
-                    case 5:
-                        result.append("UE: ");
-                        break;
-                    case 6:
-                        result.append("UD: ");
-                        break;
-                    case 7:
-                        result.append("MC: ");
-                        break;
-                    case 8:
-                        result.append("LB: ");
-                        break;
-                    case 9:
-                        result.append("LA: ");
-                        break;
-                    case 10:
-                        result.append("LG: ");
-                        break;
-                    case 11:
-                        result.append("LF: ");
-                        break;
-                    case 12:
-                        result.append("LE: ");
-                        break;
-                    case 13:
-                        result.append("LD: ");
-                        break;
-                    case 14:
-                        result.append("LC: ");
-                        break;
+        for (int i = 0; i < count; i++) {
+            for (int j = 0; j < 15; j++) {
+                switch (j) {
+                case 0:
+                    result.append("UC: ");
+                    break;
+                case 1:
+                    result.append("UB: ");
+                    break;
+                case 2:
+                    result.append("UA: ");
+                    break;
+                case 3:
+                    result.append("UG: ");
+                    break;
+                case 4:
+                    result.append("UF: ");
+                    break;
+                case 5:
+                    result.append("UE: ");
+                    break;
+                case 6:
+                    result.append("UD: ");
+                    break;
+                case 7:
+                    result.append("MC: ");
+                    break;
+                case 8:
+                    result.append("LB: ");
+                    break;
+                case 9:
+                    result.append("LA: ");
+                    break;
+                case 10:
+                    result.append("LG: ");
+                    break;
+                case 11:
+                    result.append("LF: ");
+                    break;
+                case 12:
+                    result.append("LE: ");
+                    break;
+                case 13:
+                    result.append("LD: ");
+                    break;
+                case 14:
+                    result.append("LC: ");
+                    break;
+                default:
+                    break;
                 }
+
                 result.append(rows.get(j).get(i) + "\n");
-                if(j==14){
+                if (j == 14) {
                     result.append("\n");
                 }
             }
