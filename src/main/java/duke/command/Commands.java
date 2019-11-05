@@ -1,6 +1,6 @@
 package duke.command;
 
-// TODO: Write different commands for different contexts
+// TODO: Write different commands for different contexts?
 
 import duke.command.home.HomeDischargeCommand;
 import duke.command.home.HomeFindCommand;

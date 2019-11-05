@@ -13,17 +13,18 @@ import java.util.Map;
  */
 public abstract class ArgCommand extends Command {
 
-    // TODO: reduce coupling; refactor ArgCommand to have an interactive builder mode?
     private String arg; //argument supplied to the command
     private HashMap<String, String> switchVals; //hashmap of switch parameters
+    private final ArgSpec spec;
 
-    public ArgCommand() {
+    public ArgCommand(ArgSpec spec) {
          arg = null;
          switchVals = new HashMap<String, String>();
+         this.spec = spec;
     }
 
-    public ArgCommand(String arg, String[] switchNames, String[] switchVals) throws DukeException {
-        this();
+    public ArgCommand(ArgSpec spec, String arg, String[] switchNames, String[] switchVals) throws DukeException {
+        this(spec);
         initArg(arg);
         if (switchNames.length != switchVals.length) {
             throw new DukeException("You gave me " + switchNames.length + " switch names, but "
@@ -34,11 +35,24 @@ public abstract class ArgCommand extends Command {
         }
     }
 
+    /**
+     * Executes this command, with the behaviour being defined by its ArgSpec object.
+     * @param core The DukeCore object for this command to operate on.
+     * @throws DukeException If an exceptional condition is encountered during execution of the command.
+     */
     @Override
     public void execute(DukeCore core) throws DukeException {
-        // do any necessary pre-processing
+        spec.execute(core);
     }
 
+    /**
+     * Initialises a particular switch to a particular value, if allowed.
+     * @param switchName The name of the switch to be initialised.
+     * @param value The value to initialise it to.
+     * @throws DukeHelpException If the switch is already initialised, if {@code switchName} is null, if the switch
+     * should not have an argument but {@code value} is not null, or if the switch should have an argument but
+     * {@code value} is null.
+     */
     protected void initSwitchVal(String switchName, String value) throws DukeHelpException {
         Switch newSwitch = getSwitchMap().get(switchName);
         if (getSwitchVals().containsKey(switchName)) {
@@ -67,6 +81,12 @@ public abstract class ArgCommand extends Command {
         return switchVals.containsKey(switchName);
     }
 
+    /**
+     * Initialises the command's argument to a particular value, if allowed.
+     * @param arg The value to initialise the command's argument to.
+     * @throws DukeHelpException If the argument is already initialised, if the command should not have an argument but
+     * {@code value} is not null, or if the command should have an argument but {@code value} is null.
+     */
     protected void initArg(String arg) throws DukeHelpException {
         ArgLevel cmdArgLevel = getCmdArgLevel();
         if (cmdArgLevel == ArgLevel.REQUIRED && arg == null) {
@@ -85,20 +105,16 @@ public abstract class ArgCommand extends Command {
         return arg;
     }
 
-    protected abstract ArgSpec getSpec();
-
-    // I hate Java
-
     protected ArgLevel getCmdArgLevel() {
-        return getSpec().getCmdArgLevel();
+        return spec.getCmdArgLevel();
     }
 
     protected Map<String, Switch> getSwitchMap() {
-        return getSpec().getSwitchMap();
+        return spec.getSwitchMap();
     }
 
     protected Map<String, String> getSwitchAliases() {
-        return getSpec().getSwitchAliases();
+        return spec.getSwitchAliases();
     }
 
     protected Map<String, String> getSwitchVals() {
