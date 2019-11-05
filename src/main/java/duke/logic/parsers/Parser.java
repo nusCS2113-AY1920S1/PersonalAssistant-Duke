@@ -16,7 +16,7 @@ import duke.logic.commands.RouteNodeShowCommand;
 import duke.logic.commands.RouteShowCommand;
 import duke.logic.commands.ShowItineraryCommand;
 import duke.logic.commands.ViewScheduleCommand;
-import duke.logic.parsers.commandparser.PromptParser;
+import duke.logic.parsers.commandparsers.PromptParser;
 import duke.logic.parsers.commandparsers.AddEventParser;
 import duke.logic.parsers.commandparsers.CreateNewItineraryParser;
 import duke.logic.parsers.commandparsers.DeleteParser;
