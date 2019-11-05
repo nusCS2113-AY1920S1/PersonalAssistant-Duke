@@ -6,9 +6,13 @@ public interface IReminder {
 
     void setReminderName(String reminderName);
 
+    void setReminderRemarks(String reminderRemarks);
+
     void setReminderDate(Date reminderDate);
 
     String getReminderName();
+
+    String getReminderRemarks();
 
     Date getReminderDate();
 }
