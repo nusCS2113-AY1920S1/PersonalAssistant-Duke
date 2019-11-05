@@ -63,6 +63,10 @@ public class Task {
         isDone = true;
     }
 
+    public void markAsUndone() {
+        isDone = false;
+    }
+
     public String getDescription() {
         return description;
     }

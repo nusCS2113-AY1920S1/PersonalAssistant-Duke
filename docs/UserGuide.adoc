@@ -124,6 +124,18 @@ e.g `done 1 3 5 7`
 * The index must be a positive integer 1, 2, 3, …​
 ****
 
+==== Mark Task as incomplete : `undone`
+
+Marks the specified task from the task list as undone. +
+`done [INDEX] ...` +
+e.g `undone 1` +
+e.g `undone 1 3 5 7`
+
+****
+* The index refers to the index number shown in the displayed schedule list.
+* The index must be a positive integer 1, 2, 3, …​
+****
+
 ==== Deleting a task : `delete`
 
 Deletes the specified task from the schedule list. +
@@ -246,9 +258,10 @@ A: Copy and replace the /data folder to the other Team Manager
 * Listing for members: `list members (todonum/progress)`
 * View Schedule: `schedule {team/member} {all/todo} ([MEMBER_NAME])`
 * Find Task by Name: `find [KEYWORD]`
-* Mark Task as Complete: `done INDEX ...`
-* Linking task to a member: `link INDEX ... /to [MEMBER_NAME] ...`
-* Unlinking task from a member: `unlink INDEX ... /from [MEMBER_NAME] ...`
+* Mark Task as Complete: `done [INDEX] ...`
+* Mark Task as Incomplete: `undone [INDEX] ...`
+* Linking task to a member: `link [INDEX] ... /to [MEMBER_NAME] ...`
+* Unlinking task from a member: `unlink [INDEX] ... /from [MEMBER_NAME] ...`
 * Editing task or member details: `edit {task/member} {{time/des}/{bio/email/phone}} INDEX /to [change content]
 * Setting a reminder: `reminder INDEX BEFORE_INT{m/d/h}`
 * Exiting the program: `bye`
