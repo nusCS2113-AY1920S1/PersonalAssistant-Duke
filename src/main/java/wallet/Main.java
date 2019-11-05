@@ -35,10 +35,14 @@ public class Main {
         LogicManager.getReminder().autoRemindStart();
         while (!isExit) {
             String fullCommand = ui.readLine();
+
+            //@@author Xdecosee
             if(fullCommand.equals("help")){
                ui.showHelp(LogicManager.getHelpList());
                continue;
             }
+            //@@author
+            
             //ui.printLine();
             isExit = logicManager.execute(fullCommand);
             //ui.printLine();
