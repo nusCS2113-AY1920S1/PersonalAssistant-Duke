@@ -6,8 +6,6 @@ import moomoo.task.category.Expenditure;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
@@ -54,13 +52,10 @@ public class Storage {
      * @return ArrayList object consisting of the categories read from the file.
      * @throws MooMooException Thrown when the file does not exist
      */
-    public CategoryList loadExpenditure() throws MooMooException {
+    public CategoryList loadExpenditure(Ui ui) throws MooMooException {
         CategoryList categoryList = new CategoryList();
         try {
-            File myNewFile = new File(expenditureFilePath);
-            if (myNewFile.createNewFile()) {
-                return populateDefaultCategories(categoryList);
-            } else {
+            if (Files.isRegularFile(Paths.get(this.expenditureFilePath))) {
                 List<String> input = Files.readAllLines(Paths.get(this.expenditureFilePath));
                 for (String s : input) {
                     String[] entry = s.split(" \\| ");
@@ -77,6 +72,11 @@ public class Storage {
                     }
                 }
                 return categoryList;
+            } else {
+                ui.setOutput("Category/Expenditure File not found. New file will be created");
+                ui.showResponse();
+                createFileAndDirectory(this.expenditureFilePath);
+                return populateDefaultCategories(categoryList);
             }
         } catch (IOException e) {
             throw new MooMooException("Unable to read file. Please retry again.");
@@ -103,7 +103,7 @@ public class Storage {
     }
 
     /**
-     * Loads in budgetFile not found. New file will be created from an existing file into a created HashMap object.
+     * Loads in budget list from file or creates one if doesn't exist.
      * @return HashMap object consisting of the categories and corresponding budget read from file.
      */
     public HashMap<String, Double> loadBudget(ArrayList<Category> catList, Ui ui) {
@@ -112,12 +112,17 @@ public class Storage {
                 HashMap<String, Double> loadedBudgets = new HashMap<>();
                 List<String> readInput = Files.readAllLines(Paths.get(this.budgetFilePath));
                 String category = "";
-                double budget = 0;
+                double budget;
 
                 for (int i = 0; i < readInput.size(); ++i) {
                     if (i % 2 == 1) {
                         if (!"".equals(category)) {
-                            budget = Double.parseDouble(readInput.get(i));
+                            try {
+                                budget = Double.parseDouble(readInput.get(i));
+                            } catch (NumberFormatException e) {
+                                ui.setOutput("Budget file corrupted, please delete it. Your data will be reset.");
+                                return null;
+                            }
                             loadedBudgets.put(category, budget);
                         }
                         category = "";
@@ -130,9 +135,10 @@ public class Storage {
                 return loadedBudgets;
             } else {
                 ui.setOutput("Budget File not found. New file will be created");
+                createFileAndDirectory(this.budgetFilePath);
                 return null;
             }
-        } catch (IOException e) {
+        } catch (IOException | MooMooException e) {
             ui.setOutput("Unable to write to file. Please retry again.");
         }
         return null;
@@ -253,9 +259,9 @@ public class Storage {
     public void saveBudgetToFile(Budget budget) throws MooMooException {
         createFileAndDirectory(this.budgetFilePath);
         String toSave = "";
-        Iterator budgetIterator = budget.getBudget().entrySet().iterator();
+        Iterator<Map.Entry<String, Double>> budgetIterator = budget.getBudget().entrySet().iterator();
         while (budgetIterator.hasNext()) {
-            Map.Entry mapElement = (Map.Entry)budgetIterator.next();
+            Map.Entry<String, Double> mapElement = budgetIterator.next();
             toSave += mapElement.getKey() + "\n" + mapElement.getValue() + "\n";
         }
         try {
@@ -272,10 +278,10 @@ public class Storage {
         createFileAndDirectory(this.scheduleFilePath);
 
         String list = "Schedule: \n";
-        Iterator scheduleIterator = calendar.calendar.entrySet().iterator();
+        Iterator<Map.Entry<String, ArrayList<String>>> scheduleIterator = calendar.calendar.entrySet().iterator();
         while (scheduleIterator.hasNext()) {
-            Map.Entry element = (Map.Entry)scheduleIterator.next();
-            for (String c : (ArrayList<String>)element.getValue()) {
+            Map.Entry<String, ArrayList<String>> element = scheduleIterator.next();
+            for (String c : element.getValue()) {
                 list += "d/" + element.getKey() + " n/" + c + "\n";
             }
         }

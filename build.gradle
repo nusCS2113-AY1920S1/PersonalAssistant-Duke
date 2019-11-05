@@ -39,3 +39,9 @@ shadowJar {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
 }
+
+gradle.projectsEvaluated {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:unchecked"
+    }
+}

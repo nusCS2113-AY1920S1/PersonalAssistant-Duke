@@ -46,6 +46,11 @@ public class SetBudgetCommand extends Command {
                     outputValue += "Please set your budget for " + categoryName + " to a value more than 0\n";
                     continue;
                 }
+                if (budget.getBudgetFromCategory(categoryName) != 0) {
+                    outputValue += "Please edit your budget for " + categoryName + " using budget edit.\n";
+                    continue;
+                }
+
                 isUpdated = true;
                 budget.addNewBudget(categoryName, categoryBudget);
                 int blank = 22 - categoryName.length();

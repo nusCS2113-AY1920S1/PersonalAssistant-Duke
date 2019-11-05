@@ -44,10 +44,6 @@ public class Budget {
         return returnVal;
     }
 
-    public String toStringCategory(String category) {
-        return "Your budget for " + category + " is: $" + df.format(this.categoryBudgets.get(category)) + "\n";
-    }
-
     /**
      * Returns budget from corresponding category.
      *
@@ -77,14 +73,6 @@ public class Budget {
 
     public HashMap<String, Double> getBudget() {
         return this.categoryBudgets;
-    }
-
-    public int getBudgetSize() {
-        return this.categoryBudgets.size();
-    }
-
-    public double getTotalBudget() {
-        return this.totalBudget;
     }
 
 }
