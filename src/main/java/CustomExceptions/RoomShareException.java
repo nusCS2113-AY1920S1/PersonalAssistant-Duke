@@ -31,6 +31,7 @@ public class RoomShareException extends Exception {
     public static final String LOAD_ERROR_MESSAGE = "\terror in loading file: will be initialising empty list instead!\n";
     public static final String INVALID_DATE_MESSAGE = "\tThe date you've input is before the current date!\n";
     public static final String INVALID_LEAVE_DATE_MESSAGE = "\t Your 'to' date cannot be before your 'from' date!\n";
+    public static final String WRONG_DATE_FORMAT_TEXT = "\tYou've entered invalid date or time\n";
 
 
     private String message;
@@ -140,6 +141,10 @@ public class RoomShareException extends Exception {
 
         case invalidDateRange:
             message = INVALID_LEAVE_DATE_MESSAGE;
+            break;
+
+        case wrongDateFormat:
+            message = WRONG_DATE_FORMAT_TEXT;
             break;
 
         default:

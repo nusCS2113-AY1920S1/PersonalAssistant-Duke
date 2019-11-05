@@ -151,8 +151,6 @@ public class RoomShare {
                 ui.startUp();
                 boolean success = true;
                 try {
-                    taskList.list();
-                    ui.priorityInstruction();
                     taskList.setPriority(parser.getPriority());
                     storage.writeFile(TaskList.currentList(), "data.txt");
                 } catch (RoomShareException e) {
@@ -179,7 +177,6 @@ public class RoomShare {
                         if( !(CheckAnomaly.checkDuplicate((taskCreator.create(input)))) ) {
                             taskList.add(taskCreator.create(input));
                             ui.showAdd();
-                            storage.writeFile(TaskList.currentList(), "data.txt");
                         } else {
                             throw new RoomShareException(ExceptionType.duplicateTask);
                         }
@@ -188,6 +185,7 @@ public class RoomShare {
                     }
                 } catch (RoomShareException e) {
                     ui.showError(e);
+                } finally {
                     storage.writeFile(TaskList.currentList(), "data.txt");
                 }
                 listRoutine.list();

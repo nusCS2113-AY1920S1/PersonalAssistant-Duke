@@ -121,9 +121,8 @@ public class TaskCreator {
                         throw new RoomShareException(ExceptionType.invalidDateError);
                     }
                     dates.add(date);
-                } catch (RoomShareException e) {
-                    System.out.println(DATE_FORMAT_ERROR);
-                    dates.add(currentDate);
+                } catch (ArrayIndexOutOfBoundsException a) {
+                    throw new RoomShareException(ExceptionType.invalidDateError);
                 }
             } else {
                 String fromInput = dateArray[1].trim();
@@ -153,6 +152,7 @@ public class TaskCreator {
                     // date of the leave
                     throw new RoomShareException(ExceptionType.invalidDateRange);
                 }
+                dates.add(parser.formatDate(toInput));
             }
         } else
             throw new RoomShareException(ExceptionType.emptyDate);
@@ -391,23 +391,19 @@ public class TaskCreator {
             System.out.println(UPDATED_DESCRIPTION_ERROR);
         }
 
-        try {
-            if (input.contains("&")) {
-                ArrayList<Date> dates = this.extractDate(input);
-                if (oldTask instanceof Leave && dates.size() == 2) {
-                    Leave oldLeave = (Leave) oldTask;
-                    Date start = dates.get(0);
-                    Date end = dates.get(1);
-                    oldLeave.setDate(start);
-                    oldLeave.setStartDate(start);
-                    oldLeave.setEndDate(end);
-                } else {
-                    Date date = dates.get(0);
-                    oldTask.setDate(date);
-                }
+        if (input.contains("&")) {
+            ArrayList<Date> dates = this.extractDate(input);
+            if (oldTask instanceof Leave && dates.size() == 2) {
+                Leave oldLeave = (Leave) oldTask;
+                Date start = dates.get(0);
+                Date end = dates.get(1);
+                oldLeave.setDate(start);
+                oldLeave.setStartDate(start);
+                oldLeave.setEndDate(end);
+            } else {
+                Date date = dates.get(0);
+                oldTask.setDate(date);
             }
-        } catch (RoomShareException e) {
-            System.out.println(UPDATED_DATE_ERROR);
         }
 
         if (input.contains("*")) {
