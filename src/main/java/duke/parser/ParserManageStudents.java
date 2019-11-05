@@ -94,14 +94,15 @@ public final class ParserManageStudents implements IParser {
 
         case "edit":
             System.out.print("What do you want to edit for ");
-            students.getStudentName(Integer.parseInt(word[1]));
+            students.getStudent(Integer.parseInt(word[1]));
             System.out.println("?");
             // editStudentDetails(detail)
             break;
 
-        case "select":
-            System.out.print("You have selected: ");
-            students.getStudentName(Integer.parseInt(word[1]));
+        case "view":
+            System.out.print("Viewing " + students.getStudentName(Integer.parseInt(word[1])) + " details:\n");
+            students.getStudent(Integer.parseInt(word[1]));
+//            students.getStudentName(Integer.parseInt(word[1]));
             break;
 
         case "progress":
