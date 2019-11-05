@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * All commands related to students will be managed by this class
  * @author danisheddie
  */
-public class ManageStudents implements IStudentList {
+public class StudentList implements IStudentList {
     /**
      * An array list for the list of students.
      */
@@ -18,7 +18,7 @@ public class ManageStudents implements IStudentList {
     /**
      * Constructor of Manage Students to initialise ManageStudent class.
      */
-    public ManageStudents() {
+    public StudentList() {
         studentList = new ArrayList<>();
     }
 

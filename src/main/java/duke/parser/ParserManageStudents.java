@@ -1,7 +1,7 @@
 package duke.parser;
 
 import duke.data.StudentStorage;
-import duke.models.students.ManageStudents;
+import duke.models.students.StudentList;
 import duke.models.students.Student;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public final class ParserManageStudents implements IParser {
     /**
      * Declaring Manage Students Object.
      */
-    private ManageStudents students;
+    private StudentList students;
     /**
      * The scanner object to take input.
      */
@@ -32,7 +32,7 @@ public final class ParserManageStudents implements IParser {
      * Constructor for Manage Students Parser.
      */
     ParserManageStudents() {
-        students = new ManageStudents();
+        students = new StudentList();
         sc = new Scanner(System.in);
         save = new StudentStorage(students.getStudentList());
         StudentStorage read = new StudentStorage(students.getStudentList());
