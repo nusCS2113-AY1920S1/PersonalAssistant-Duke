@@ -13,29 +13,27 @@ import java.util.Map;
  * and add the command name and format into nameToSyntax HashMap.
  */
 public abstract class CommandSyntaxMessage {
-    private static String listSyntax = "list\n";
-    private static String newSyntax = "new s/SONG_NAME [key:s/KEY](C) [time:n/TIME_SIG](4/4) [tempo:n/TEMPO](120)\n";
-    private static String openSyntax = "open s/SONG_NAME\n";
-    private static String viewSyntax = "view [n/BAR_NO](last bar - 1)\n";
-    private static String addSyntax = "add s/NOTE\n";
-    private static String addbarSyntax = "addbar s/NOTES [bar:n/BAR_NO_TO_ADD_AFTER](last bar)\n";
-    private static String asciiSyntax = "ascii song song_name\n";
-    // TODO: add overlay syntax
-    private static String overlaySyntax = "To be implemented in version 2.0\n";
-    private static String copySyntax = "copy start_num end_num\nFormat: copy start_num end_num insert_num\n";
-    private static String groupSyntax = "group start_num end_num verse_name\n";
-    private static String list_groupSyntax = "list_group\nFormat: list_group -starting_substring\n";
-    private static String playSyntax = "play [n/STARTING_BAR_NO n/ENDING_BAR_NO]\n"
+    private static final String listSyntax = "list\n";
+    private static final String newSyntax = "new s/SONG_NAME [key:s/KEY](C) [time:n/TIME_SIG](4/4) [tempo:n/TEMPO](120)\n";
+    private static final String openSyntax = "open s/SONG_NAME\n";
+    private static final String viewSyntax = "view [n/BAR_NO](last bar - 1)\n";
+    private static final String addSyntax = "add s/NOTE\n";
+    private static final String addbarSyntax = "addbar s/NOTES [bar:n/BAR_NO_TO_ADD_AFTER](last bar)\n";
+    private static final String asciiSyntax = "ascii song song_name\n";
+    private static final String overlaySyntax = "To be implemented in version 2.0\n";
+    private static final String copySyntax = "copy start_num end_num\nFormat: copy start_num end_num insert_num\n";
+    private static final String groupSyntax = "group start_num end_num verse_name\n";
+    private static final String list_groupSyntax = "list_group\nFormat: list_group -starting_substring\n";
+    private static final String playSyntax = "play [n/STARTING_BAR_NO n/ENDING_BAR_NO]\n"
             + "Format: play s/SONG_NAME  (when no song has been opened)\n";
-    private static String metronomeSyntax = "metronome n/DURATION_IN_NO_OF_BARS n/TEMP0 s/TIME_SIG\n";
-    // TODO: add close, clear, delete, exit syntax
-    private static String closeSyntax = "To be implemented in version 2.0\n";
-    private static String clearSyntax = "To be implemented in version 2.0\n";
-    private static String deleteSyntax = "To be implemented in version 2.0\n";
-    private static String exitSyntax = "To be implemented in version 2.0\n";
-    private static String startHelpMessage = "Here are the commands in Ducats.\n";
-    private static String endInstructionMessage =
-            "Alternatively, you can use help [command] to see format for specific command.\n";
+    private static final String metronomeSyntax = "metronome n/DURATION_IN_NO_OF_BARS n/TEMP0 s/TIME_SIG\n";
+    private static final String closeSyntax = "To be implemented in version 2.0\n";
+    private static final String clearSyntax = "To be implemented in version 2.0\n";
+    private static final String deleteSyntax = "To be implemented in version 2.0\n";
+    private static final String exitSyntax = "To be implemented in version 2.0\n";
+    private static final String startHelpMessage = "Here are the commands in Ducats.\n";
+    private static final String endInstructionMessage =
+            "Alternatively, you can use help [command] to see format for a specific command.\n";
 
     private static Map<String, String> nameToSyntax = new HashMap<String, String>() {
         {
@@ -82,9 +80,7 @@ public abstract class CommandSyntaxMessage {
      */
     public static String getMessage(String helpMessage) throws DucatsException {
         if (nameToSyntax.containsKey(helpMessage)) {
-            StringBuilder output = new StringBuilder();
-            output.append(helpMessage + "\nFormat: " + nameToSyntax.get(helpMessage));
-            return output.toString();
+            return helpMessage + "\nFormat: " + nameToSyntax.get(helpMessage);
         } else {
             throw new DucatsException("", "Other");
         }
