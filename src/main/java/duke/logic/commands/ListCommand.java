@@ -2,6 +2,7 @@ package duke.logic.commands;
 
 import duke.logic.sort.SortMealByCalorie;
 import duke.logic.sort.SortMealByCost;
+import duke.logic.sort.SortMealByDefault;
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
 import duke.model.user.User;
@@ -41,6 +42,11 @@ public class ListCommand extends Command {
         }
     }
 
+    public ListCommand(LocalDate date, String sortBy) {
+        this(date);
+        this.sortBy = sortBy;
+    }
+
     public ListCommand(boolean flag, String messageStr) {
         this.isFail = flag;
         this.errorStr = messageStr;
@@ -64,15 +70,19 @@ public class ListCommand extends Command {
         ui.showLine();
         ui.showCalorie(user);
         ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);
-        if (sortBy.equals("default")) {
-
-        } else if (sortBy.equals("calorie")) {
-            currentMeals.sort(new SortMealByCalorie());
-        } else if (sortBy.equals("cost")) {
-            currentMeals.sort(new SortMealByCost());
-        }
         if (!meals.checkDate(currentDate)) {
             ui.showMessage("There isn't any food on " + currentDate.format(dateFormat));
+        }
+        switch (sortBy) {
+            case "default":
+                currentMeals.sort(new SortMealByDefault());
+                break;
+            case "calorie":
+                currentMeals.sort(new SortMealByCalorie());
+                break;
+            case "cost":
+                currentMeals.sort(new SortMealByCost());
+                break;
         }
         ui.showMealList(currentMeals);
         ui.showCaloriesLeft(currentMeals, user, currentDate);
