@@ -22,7 +22,6 @@ import dolla.ui.Ui;
 //@@author Weng-Kexin
 public class LimitParser extends Parser {
 
-
     protected LimitParser(String inputLine) {
         super(inputLine);
         this.mode = MODE_LIMIT;
@@ -39,7 +38,7 @@ public class LimitParser extends Parser {
                 String durationStr = inputArray[3];
                 Limit limit = new Limit(typeStr, amountInt, durationStr);
                 Tag t = new Tag();
-                t.handleTag(inputLine, inputArray, limit);
+                t.handleTag(limit);
                 return new AddLimitCommand(typeStr, amountInt, durationStr);
             } else {
                 LimitUi.invalidSetCommandPrinter();

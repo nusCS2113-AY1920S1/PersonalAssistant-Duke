@@ -2,18 +2,15 @@ package dolla;
 
 import dolla.parser.Parser;
 import dolla.task.Record;
-import dolla.ui.Ui;
 
 import static dolla.parser.ParserStringList.COMPONENT_TAG;
 
-/**
- * This class handles tag related methods.
- */
 //@@author Weng-Kexin
 public class Tag {
 
     private String tagName;
     private String[] inputArray = Parser.getInputArray();
+    private String inputLine = Parser.getInputLine();
 
     /**
      * Instantiates a new Tag.
@@ -26,9 +23,18 @@ public class Tag {
         return tagName;
     }
 
+    @Override
     public String toString() {
         if (hasTag()) {
-            return "[Tag: " + getTagName() + ']';
+            return " [Tag: " + getTagName() + ']';
+        } else {
+            return "";
+        }
+    }
+
+    public String toFormatSave() {
+        if (hasTag()) {
+            return " | " + getTagName();
         } else {
             return "";
         }
@@ -45,19 +51,19 @@ public class Tag {
         return hasTag;
     }
 
-    private void extractTagName(String inputLine) {
+    private void extractTagName() {
         String[] tagArray = inputLine.split(COMPONENT_TAG);
         tagName = tagArray[1].trim();
+        System.out.println(tagName);
     }
 
     /**
      * Method handles input to check for tag and store it.
      */
-    public void handleTag(String inputLine, String[] inputArray, Record record) { //todo: change to inside parser
+    public void handleTag(Record record) {
         if (hasTag()) {
-            extractTagName(inputLine);
-            Dolla.tagList.addTag(tagName, record); //todo: find out how to store
-            Ui.printAddedTagMsg(tagName);
+            extractTagName();
+            record.setTagName(tagName);
         }
     }
 }

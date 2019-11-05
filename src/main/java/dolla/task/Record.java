@@ -17,6 +17,7 @@ public abstract class Record {
     protected String recordType;
     protected ArrayList<String> nameList;
     protected int people;
+    protected String tagName;
 
     protected static final String RECORD_ENTRY = "entry";
     protected static final String RECORD_LIMIT = "limit";
@@ -60,6 +61,12 @@ public abstract class Record {
         return amount;
     }
 
+    /*
+    public String getTagName() {
+        return tagName;
+    }
+     */
+
     public void setDescription(String s) {
         description = s;
     }
@@ -74,6 +81,10 @@ public abstract class Record {
 
     public void setDate(LocalDate ld) {
         date = ld;
+    }
+
+    public void setTagName(String inputTag) {
+        tagName = inputTag;
     }
 
     public ArrayList<String> getNameList() {

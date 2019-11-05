@@ -27,14 +27,13 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     protected String mode;
     protected LocalDate date;
     protected String description;
-    protected String inputLine;
+    protected static String inputLine;
     protected String type;
     protected double amount;
     protected static String[] inputArray;
     protected String commandToRun;
     protected static final String SPACE = " ";
     protected int modifyRecordNum;
-
 
     /**
      * Creates an instance of a parser.
@@ -47,6 +46,10 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     }
 
     public abstract Command parseInput();
+
+    public static String getInputLine() {
+        return inputLine;
+    }
 
     public static String[] getInputArray() {
         return inputArray;
@@ -451,5 +454,4 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         }
         return isValid;
     }
-
 }
