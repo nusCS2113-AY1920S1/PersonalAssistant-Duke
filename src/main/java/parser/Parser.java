@@ -70,7 +70,7 @@ public class Parser {
                             + "Type \"help\" for a full list of available commands");
                 }
             }
-        } else if (command.matches("todo|deadline|event|done|delete|find|select|recurring|after|within|fixed"
+        } else if (command.matches("todo|deadline|event|done|delete|find|select"
                 + "|snooze|schedule|add|remove|swap|sort|detail|compare")) {
             if (!temp.hasNextLine() && command.matches("detail")) {
                 throw new DukeException("You can try \" detail come \" to show information on Computer Engineering!");
@@ -88,7 +88,7 @@ public class Parser {
                 throw new DukeException("OOPS!!! The description of a " + command + " cannot be empty.");
             } else {
                 //add new tasks
-                if (command.matches("todo|deadline|event|recurring|after|within|fixed|add")) {
+                if (command.matches("todo|deadline|event|add")) {
                     return new AddCommand(command, input);
                 } else if (command.matches("done|delete|select|snooze|remove")) {
                     return new ModCommand(command, input);
