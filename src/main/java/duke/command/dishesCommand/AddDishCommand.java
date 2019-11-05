@@ -1,57 +1,51 @@
 package duke.command.dishesCommand;
 
-import duke.command.ingredientCommand.AddCommand;
-import duke.dish.DishList;
+import duke.command.Command;
 import duke.dish.Dish;
-import duke.command.Cmd;
+import duke.dish.DishList;
 import duke.exception.DukeException;
-import duke.storage.Storage;
+import duke.ingredient.IngredientsList;
+import duke.order.OrderList;
+import duke.storage.FridgeStorage;
+import duke.storage.OrderStorage;
 import duke.ui.Ui;
 
-public class AddDishCommand extends AddCommand<Dish> {
+public class AddDishCommand extends Command {
 
     private Dish dish;
-    private int amount;
-    private int Nb;
 
-
-    public AddDishCommand(Dish dish, int amount) {
-        super(dish);
+    //constructor
+    public AddDishCommand(Dish dish) {
         this.dish = dish;
-        this.amount = amount;
     }
 
-    public void execute(DishList dishList, Ui ui, Storage storage) throws DukeException {
+    @Override
+    public void execute(IngredientsList il, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
         boolean flag = true;
         try {
-            if(dishList.size() == 0) {
+            if(dishList.size() == 0) { //if the list is empty, immediately add dish in it
                 dishList.addEntry(dish);
-                dishList.getEntry(0).setNumberOfOrders(amount);
-                ui.showAddedDishes(dish.getDishname(), amount);
+                ui.showAddedDishes(dish.getDishname());
+                //storage.update();
             }
             else {
-                for( int i = 0; i < dishList.size(); i++) {
+                for( int i = 0; i < dishList.size(); i++) { //check for duplicates in list
                     if(dishList.getEntry(i).getDishname().equals(dish.getDishname())){
-                        Nb = i;
                         flag = false; //dish already exist in list
                         break;
                     }
                 }
-                if(flag) {
+                if(flag) { //if there are no duplicates
                     dishList.addEntry(dish); // add dish into list found in dishes class
-                    dishList.getEntry(dishList.size() - 1).setNumberOfOrders(amount);
-                    ui.showAddedDishes(dish.getDishname(), dishList.getEntry(dishList.size() - 1).getTotalNumberOfOrders());
+                    ui.showAddedDishes(dish.getDishname());
+                    //storage.update();
                 }
-                else {
-                    dishList.getEntry(Nb).setNumberOfOrders(amount);
-                    System.out.println("\t your updated orders:\n\t "
-                            + dish.getDishname() + "\t amount: " +
-                            String.valueOf(dishList.getEntry(Nb).getTotalNumberOfOrders()));
+                else { //if there are duplicates
+                    System.out.println("\t dish already exist in list");
                 }
             }
         } catch (Exception e) {
             throw new DukeException("unable to add dish");
         }
     }
-
 }

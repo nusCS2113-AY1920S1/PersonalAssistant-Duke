@@ -89,6 +89,7 @@ public abstract class GenericList<T> {
         return null;
     }
 
+
     public void sort(Comparator comparator) {
         genList.sort(comparator);
     }
@@ -96,5 +97,4 @@ public abstract class GenericList<T> {
     public void clearList() {
         genList.clear();
     }
-
 }

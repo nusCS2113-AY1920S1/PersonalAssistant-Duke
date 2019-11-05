@@ -1,8 +1,12 @@
 T|1|read book
-D|1|return book|09/09/09 2359
-T|1|beef 16/10/2019
+T|0|beef 16/10/2019
 T|0|test 09/09/09
 T|1|test1 16/10/2019 
 T|0|read books
 T|0|sleep
-T|0|homeworrk 12/12/2019
+<<<<<<< HEAD
+T|0|sleep
+milk|2|null
+=======
+>>>>>>> upstream/master
+T|0|beef 24/10/2019

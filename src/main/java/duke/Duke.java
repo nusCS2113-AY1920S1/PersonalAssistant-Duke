@@ -1,74 +1,64 @@
 package duke;
 
-import duke.command.Cmd;
+import duke.command.Command;
+import duke.command.ViewTodoListCommand;
 import duke.command.ingredientCommand.ExitCommand;
 import duke.command.ingredientCommand.RemoveAllExpired;
-import duke.dish.Dish;
 import duke.dish.DishList;
 import duke.exception.DukeException;
 import duke.fridge.Fridge;
-import duke.ingredient.Ingredient;
-import duke.order.Order;
 import duke.order.OrderList;
 import duke.parser.Parser;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
-import duke.storage.Storage;
-import duke.task.TaskList;
 import duke.ui.Ui;
-
-import java.io.IOException;
 
 /**
  * MAIN CLASS DUKE, start from main function.
  */
 public class Duke {
 
-    // private Storage taskStorage;
     private FridgeStorage fridgeStorage;
-    private Storage orderStorage;
-    private TaskList tasks;
+    private OrderStorage orderStorage;
     private Ui ui;
     private DishList dish;
     private OrderList order;
     private Fridge fridge;
 
+    private final String fridgeFilePath = "data/fridge.txt";
+    private final String orderFilePath = "data/order.txt";
+
     public enum Type {
         INGREDIENT, DISH, ORDER
     }
+
     /**
      * The constructor method for Duke.
-     *
-     * @param filePath used to specify the location of the file in the hard disc.
      */
-    public Duke(String filePath) {
-        String fridgeFilePath = "data/fridge.txt";
-        String orderFilePath = "data/order.txt";
+    public Duke() {
         dish = new DishList();
         order = new OrderList();
         fridge = new Fridge();
         ui = new Ui();
-        //taskStorage = new TaskStorage(filePath);
-        fridgeStorage = new FridgeStorage(fridgeFilePath);
-        orderStorage = new OrderStorage(orderFilePath);
         try {
-            //tasks = new TaskList(taskStorage.load().getAllEntries());
+            fridgeStorage = new FridgeStorage(fridgeFilePath);
+            orderStorage = new OrderStorage(orderFilePath);
             fridge = new Fridge(fridgeStorage);
+            order = new OrderList(orderStorage.getEntries().getAllEntries());
         } catch (DukeException e) {
             ui.showLoadingError();
-            // System.out.println(e);
             e.printStackTrace();
-            tasks = new TaskList();
         }
     }
-
 
     /**
      * The execution core of the Duke class.
      */
     public void run() {
         String fullCommand;
+        //ui.clearScreen();
         ui.showWelcome();
+
         if (fridge.hasExpiredIngredients()) {
             ui.showHasExpiring();
             fullCommand = ui.readCommand();
@@ -77,52 +67,56 @@ public class Duke {
                 ui.show(fridge.getExpiredIngredients().toString());
             }
         }
-        //ui.showOptions();
+
         ui.showLine();
         boolean isExit = false;
-        boolean back = false;
+
         while (!isExit) {
             try {
+                ui.chefDrawing();
                 ui.showOptions();
                 ui.showLine();
                 fullCommand = ui.readCommand();
+                //ui.clearScreen();
                 ui.showLine();
-                back = false;
                 switch (fullCommand) {
                     case "options": {
                         ui.showOptions();
                         break;
                     }
                     case "q": {
-                        Cmd command = new ExitCommand();
-                        command.execute(null, ui, null);
+                        Command command = new ExitCommand();
+                        command.execute(null, dish, order, ui, fridgeStorage, orderStorage);
+                        isExit = command.isExit();
+                        break;
+                    }
+                    case "t": {
+                        Command command = new ViewTodoListCommand();
+                        command.execute(null, dish, order, ui, fridgeStorage, orderStorage);
                         isExit = command.isExit();
                         break;
                     }
                     case "a": {
-                        Cmd<Ingredient> command = new RemoveAllExpired(fridge);
-                        command.execute(fridge.getAllIngredients(), ui, fridgeStorage);
+                        Command command = new RemoveAllExpired(fridge);
+                        command.execute(null, dish, order, ui, fridgeStorage, orderStorage);
                         isExit = command.isExit();
                         break;
                     }
                     case "b": {
                         // ui.showIngredientsInFridge(fridge.getAllIngredients());
                         ui.showIngredientTask();
-
                         while (true) {
                             try {
                                 fullCommand = ui.readCommand();
+                                //ui.clearScreen();
                                 if (fullCommand.trim().equals("back")) {
                                     break;
                                 }
                                 if (fullCommand.trim().equals("q")) {
-
-                                    Cmd command = new ExitCommand();
-                                    command.execute(null, ui, null);
+                                    Command command = new ExitCommand();
+                                    command.execute(null, dish, order, ui, fridgeStorage, orderStorage);
                                     isExit = command.isExit();
                                     break;
-
-
                                 }
                                 if (fullCommand.trim().equals("show")) {
                                     ui.showIngredientsInFridge(fridge.getAllIngredients());
@@ -132,9 +126,8 @@ public class Duke {
                                     ui.showIngredientTemplate();
                                     continue;
                                 }
-
-                                Cmd<Ingredient> command = Parser.parse(fullCommand, Type.INGREDIENT);
-                                command.execute(fridge.getAllIngredients(), ui, fridgeStorage);
+                                Command command = Parser.parse(fullCommand, Type.INGREDIENT);
+                                command.execute(null, dish, order, ui, fridgeStorage, orderStorage);
                             } catch (DukeException e) {
                                 System.out.println(e.getLocalizedMessage());
                                 // e.printStackTrace();
@@ -143,26 +136,62 @@ public class Duke {
                         break;
                     }
                     case "c": {
-                        ui.showIngredientTask();
-                        fullCommand = ui.readCommand();
-                        Cmd<Order> command = Parser.parse(fullCommand, Type.ORDER);
-                        command.execute(order, ui, orderStorage);
+                        System.out.println("\t Managing order now\n\t You can type 'template' to retrieve command format");
+                        ui.showLine();
+                        while (true) {
+                            try {
+                                fullCommand = ui.readCommand();
+                                //ui.clearScreen();
+                                if (fullCommand.trim().equals("back")) { break; }
+                                if (fullCommand.trim().equals("q")) {
+                                    Command command = new ExitCommand();
+                                    command.execute(null, dish, order, ui, fridgeStorage, orderStorage);
+                                    isExit = command.isExit();
+                                    break;
+                                }
+                                if (fullCommand.trim().equals("template")) {
+                                    ui.showOrderTemplate();
+                                    continue;
+                                }
+                                Command command = Parser.parse(fullCommand, Type.ORDER);
+                                command.execute(null, dish, order, ui, fridgeStorage, orderStorage);
+                            } catch (DukeException e) {
+                                System.out.println(e.getLocalizedMessage());
+                            }
+                        }
                         break;
                     }
                     case "d": {
-                        ui.showIngredientTask();
-                        fullCommand = ui.readCommand();
-                        Cmd<Dish> command = Parser.parse(fullCommand, Type.DISH);
-                        command.execute(dish, ui, orderStorage);
+                        while(true) {
+                            try {
+                                ui.showDishTemplate();
+                                fullCommand = ui.readCommand();
+                                //ui.clearScreen();
+                                if(fullCommand.trim().equals("q")) {
+                                    Command command = new ExitCommand();
+                                    command.execute(null, dish, order, ui, fridgeStorage, orderStorage);
+                                    isExit = command.isExit();
+                                    break;
+                                }
+                                if(fullCommand.trim().equals("back")) {
+                                    break;
+                                }
+                                if(fullCommand.trim().equals("template")) {
+                                    //ui.clearScreen();
+                                    continue;
+                                }
+                                Command command = Parser.parse(fullCommand, Type.DISH);
+                                command.execute(null, dish, order, ui, fridgeStorage, orderStorage);
+                            } catch (DukeException e) {
+                                System.out.println(e.getLocalizedMessage());
+                            }
+                        }
                         break;
                     }
                     default:
                         throw new DukeException("wrong input");
-
-
                 }
-
-            } catch (DukeException | IOException e) {
+            } catch (DukeException e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();
@@ -174,6 +203,6 @@ public class Duke {
      * =============== MAIN FUNCTION ===============.
      */
     public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+        new Duke().run();
     }
 }

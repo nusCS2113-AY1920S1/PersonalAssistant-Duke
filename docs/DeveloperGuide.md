@@ -13,6 +13,13 @@
    7. Exception Component
    8. Recipebook Component
    9. RecipeCommand Component
+   10. Order Component
+   11. OrderCommand Component
+   12. Fridge Component
+   13. GenericList
+   14. Ingredient
+   15. ingredientCommand Component
+   16. Statistics
 
 3. Implementation
 
@@ -46,18 +53,25 @@
 
 #### 2.1  Architecture
 
-![architecture]( https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/architectureV1.1.png )
+![architecture]( https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/archh.png )
 
 `main` has 1 class called `Duke`. It is responsible for,
 
 - at app launch: Loads all the data in storage into the application, initialize the  components, reads the commands and executes them correctly.
 - at shut down: shuts down all component and exits the application
 
-The Application consist of 6 other components 
+The Application consist of 11 other components 
 
 - `command`: executes the command that is read from the user
-
-- `exception`: handle error messages 
+- `dishesCommand`
+  - `orderCommand`
+  - `ingredientCommand`
+- `exception`: handle error messages
+- `dish`: contains the dishlist as well the the dish class 
+- `fridge`: contains 
+- `ingredient`: contains ingredient list 
+- `list`: a class which contains a generic list. this list is used by various other classes
+- `order`:  
 - `parser`: determine the next course of action from the user command
 - `storage`: Reads, writes data from and to the hard disk
 - `task`: stores a list of deadline/event/todo that needs to be done
@@ -98,21 +112,39 @@ The Ui will reply to the User with the following messages:
 The Ui class consists of methods that outputs messages to the user as a response when the user enters a certain command
 
 - reads and return s user input using `scanner.nextLine()`
-- outputs messages to the user as a response such as `showAddCommand`, `showRemoveCommand`, etc
+- outputs messages to the user as a response such as `AddDishCommand ` `DeleteDishCommand`, etc
 
 #### 2.3 Command Component
 
 API: `Command.java`
 
-The Command class is used as an abstract class for other classes, its method `execute` is also declared as an abstract method that is used by the following classes 
+In the project, it has three types of commands: Ingredient Command, Dishes Command, Order Command. The three types of commands are packaged separately.
 
-- DoneCommand
-- ExitCommand
-- FindCommand
-- ListCommand
-- RemindCommand
-- Snooze
-- ViewCommand
+The Command class is used as an abstract class for other classes, its method `execute` is also declared as an abstract method. that is used by the following classes 
+
+- DishCommand
+  - AddDishCommand
+  - DeleteDishCommand
+  - ListDishCommand
+  - InitCommand
+  - AddIngredient
+- OrderCommand
+  - AddOrderCommand
+  - AlterOrderCommand
+  - DeleteOrderCommand
+  - DoneOrderCommand
+  - ListOrderCommand
+- IngredientCommand
+  - AddCommand
+  - DeleteCommand
+  - DoneCommand
+  - ExitCommand
+  - FindIngredientCommand
+  - FindToday
+  - ListCommand
+  - RemoveAllExpired
+  - UseCommand
+  - ViewCommand
 
 each of the above class has its own implementation of the `execute` method
 
@@ -120,14 +152,19 @@ each of the above class has its own implementation of the `execute` method
 
 API: `Parser.java`
 
+makes sense of the data that is read by the user from the Duke Class. 
 
+this component gets the command from the user through the Duke Class. This component will then make sense of the command by splitting the command into different parts as well as determining the command type.
 
+depending on the content of the splitted value and command type, Parser class will execute different commands.
 #### 2.5 Storage Component
 
 API: `Storage.java` 
+
+
 This component  stores entries in a certain format, tasks, ingredients that are already in the Fridge, and anything else that needs to be saved on the hard disk.
 
-It is modeled as an abstract class,  with `TaskStorage.java` and `FridgeStorage.java` both inheriting from it. It allows data (tasks in the list, ingredients in the fridge, recipes in the recipeBook...) to be saved and remembered by our program.  
+It is modelled as an abstract class,  with `TaskStorage.java` and `FridgeStorage.java` both inheriting from it. It allows data (tasks in the list, ingredients in the fridge, recipes in the recipe Book...) to be saved and remembered by our program.  
 
 An example for the format of saving for tasks is :
 
@@ -140,7 +177,9 @@ where the first column is denotes the type of task, T for todo, D for deadline, 
 
 The program can `load` or `generate` an entry from the storage and also `changeContent` and `addInFile`
 
-![Storage](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/StorageUML.png)
+
+![Storage](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/StorageUML1.png)
+
 
 #### 2.6 Task Component
 
@@ -154,98 +193,266 @@ API: `DukeException.java`
 
 #### 2.8 Dishes Component
 
-The Recipebook contains 2 classes, Dishes Class and DishList Class. The Dishes Class 
+The Recipebook contains 2 classes, Dishes Class and DishList Class
 
-![Dishes](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/dishes%20diagram.png)
+![dishes](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/dishes.PNG)
 
 **<u>Dishes Class</u>**
 
-| Attributes                   | Description                                     |
-| ---------------------------- | ----------------------------------------------- |
-| dishName: String             | name of the dish                                |
-| total: int                   | the total number of orders for that dish        |
-| rating: float                | the overall rating for that dish                |
-| ingredientList: List<String> | a list of ingredients associated with that dish |
+This class holds the name of the dish as well the ingredients that are associated to that specific dish. 
 
-
+| Attributes                       | Description                                     |
+| -------------------------------- | ----------------------------------------------- |
+| dishName: String                 | name of the dish                                |
+| numberOfOrders: int              | the total number of orders for that dish        |
+| rating: float                    | the overall rating for that dish                |
+| ingredientList: `IngredientList` | a list of ingredients associated with that dish |
 
 | Constructor    | Description                              |
 | -------------- | ---------------------------------------- |
 | Dishes(String) | assigns the name of the dish with String |
 
-
-
-| Methods                       | Description                                                  |
-| ----------------------------- | ------------------------------------------------------------ |
-| getTotalNumberOfOrders(): int | returns `total` which is an int                              |
-| setNumberofOrders(int): void  | takes in an `int` and increment `total` number of orders     |
-| clearOrders(): void           | clears the ingredient list                                   |
-| getDishName(): String         | returns the name of the dish                                 |
-| setRating(int): void          | takes in an `int` and sets the new overall rating of the dish |
-| getRating(): float            | returns the rating of that dish                              |
-| addIngredients(String): void  | takes a string and adds into ingredientlist                  |
-
+| Methods                      | Description                                                  |
+| ---------------------------- | ------------------------------------------------------------ |
+| clearOrders(): void          | clears the ingredient list                                   |
+| getDishName(): String        | returns the name of the dish                                 |
+| addIngredients(String): void | takes a string and adds into ingredientlist                  |
+| toString(): String           | it returns a String of all the ingredients that the dish contains |
 **<u>DishList Class</u>**
+
+this class inherits the GenericList class  which takes in a List of Dish. this class holds all the dishes that is stored in the csv file thus this acts as a menu for the chef
+
+| Constructor          | Description                                |
+| -------------------- | ------------------------------------------ |
+| DishList(List<Dish>) | assigns a list of dishes to dishList       |
+| DishList()           | assigns an empty ArrayList<>() to dishList |
+
+
+
+#### 2.9 dishesCommand Component
+
+The dishesCommand component  enables the chef to modify the dishList which acts as a menu or recipebook. this component inherits from other classes. 
+
+- addDishCommand and addIngredient inherits from AddCommand class which inherits from the Cmd class
+- deleteDishCommand inherits from the DeleteCommand which inherits from the Cmd class
+- ListDishCommand and InitCommand inherits from the Cmd class
+
+this component allows the chef to add dishes to the current menu, remove it and also to see the menu in the form of a list. this component also allows the chef to initialize his menu which deletes all entries in the dishList. the chef is also able to add ingredients to a specific dish in the dishList. 
+
+- **<u>AddDishCommand</u>**
+  
+  user enters the command `addish chicken rice /num 2` which denotes adding the dish called chicken rice into the dishList. the program will enter the AddDishCommand class and executes the method below.
+  
+  ```java
+              if(dishList.size() == 0) {
+                  dishList.addEntry(dish);
+                  dishList.getEntry(0).setNumberOfOrders(amount);
+                  ui.showAddedDishes(dish.getDishname(), amount);
+              }
+  ```
+  
+  
+  
+  If the dishList is empty(size of dishList is 0), immediately add the dish into the dishList. however, if the dishList is not empty, the program will need to go through the entire dishList to check if the dish has already been added. this is done so that there are no duplicate dishes.
+  
+  
+  
+  once the dish is added to the dishList, the method will use the Ui class with method call ui.showAddedDishes() as a reply to the user that the dish has been successfully added into the list.
+  
+  
+  
+- **<u>AddIngredient</u>**
+
+- **<u>DeleteDishCommand</u>**
+
+- **<u>InitCommand</u>**
+
+- **<u>ListDishCommand</u>**
+
+![dishesCommand](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/dishesCommand.PNG)
+
+**<u>future additions</u>**
+
+#### 2.10 Order Component
+API: `Order.java`, `OrderList.java`
+
+The Order component contains 2 classes, Order Class and OrderList Class. The chef can add new orders and update his "todo list" today. When an order comes, the program calculates dishes amount for each type of dishes. It then access the recipebook which contains every dishes in the menu including the recipe (the amount of consisting ingredients) so as to get the total amount of the ingredients needed to finish this order. It checks with the storage of those ingredients in the fridge and returns the information that if ingredients are enough.
+
+Besides, in current stage, we assume that the dishes in chef's todo list should be finished by the end of "today". At the beginning of every day, the todo list will be initialized. However, the order supports pre-order, allowing the order date is not today. That is, the initialization of chef's todo list might not be empty.
+
+
+**<u>Order Class</u>**
+
+| Attributes                                          | Description                                                  |
+| --------------------------------------------------- | ------------------------------------------------------------ |
+| content: Map<Dishes, Integer>                       | the content of the order, specifying ordered dishes and amount |
+| isDone: boolean                                     | the status of the order: *true* if done, *false* otherwise   |
+| date: Date                                          | the serving date of the order (not the date when the order was created) |
+
+
+
+| Constructor   | Description                                                  |
+| ------------- | ------------------------------------------------------------ |
+| Order()       | By default, the order is not done; the serving date is today. |
+| Order(String) | Assigns the serving date of the order with String. Call if it is a pre-order. |
+
+
+
+| Methods                                | Description                                                  |
+| -------------------------------------- | ------------------------------------------------------------ |
+| getDate(): Date                        | returns the serving  `date` of the order                     |
+| setDate(String): void                  | takes in a `String` and alter the serving `date`  of the order |
+| isToday(): boolean                     | returns a `boolean` indicating whether the serving date is today or not |
+| isDone(): boolean                      | returns a `boolean` indicating whether the order is finished or not |
+| markAsDone(): void                     | mark the order as finished                                   |
+| getStatusIcon(): String                | takes in an `int` and sets the new overall rating of the dish |
+| getOrderContent(): Map<Dishes, Integer> | returns the order content as `Map`                           |
+| toString(): String                     | returns description of the order as `String`                 |
+| printInFile(): String                  | returns description of the order that used to store in the txt file |
+| hasDishes(Dishes): boolean             | returns a `boolean` indicating whether the order has the dishes or not |
+| getDishesAmount(Dishes): int           | returns the amount of the query dishes in the order          |
+| addDish(Dishes): void                  | add one more the dishes to the undone order                  |
+| addDish(Dishes, int): void             | add the dishes to the undone order with adding amount        |
+
+**<u>OrderList Class</u>**
 
 | Atrributes             | Description |
 | ---------------------- | ----------- |
-| dishList: List<dishes> |             |
+| orderList: List<Order> |             |
 
 
 
-| Constructor | Description                                       |
-| ----------- | ------------------------------------------------- |
-| DishList()  | initalize the empty dishLIst as a new ArrayList<> |
+| Constructor            | Description                                        |
+| ---------------------- | -------------------------------------------------- |
+| OrderList()            | initalize the empty orderLIst as a new ArrayList<> |
+| OrderList(List<Order>) | Assign a list of orders to the orderList           |
 
 
 
-| Methods                  | Description |
-| ------------------------ | ----------- |
-| addDishes(Dishes): void  |             |
-| deleteDish(int): void    |             |
-| getDish(int): Dishes     |             |
-| getSize(): int           |             |
-| clearList(): void        |             |
-| toString(Dishes): String |             |
+| Methods                              | Description                                                  |
+| ------------------------------------ | ------------------------------------------------------------ |
+| size(): int                          | returns the number of orders in the orderList                |
+| markOrderDone(int): void             | mark a order as completed                                    |
+| getOrder(int): Order                 | return the order at the position indexed by number           |
+| getAllUndoneOrders(): List<Order>    | return all undone orders in the orderList                    |
+| getTodayOrders(): List<Order>        | return all today's orders in the orderList                   |
+| getTodayUndoneOrders(): List<Order>  | return all today's orders which is undone in the orderList   |
+| findOrderByDate(String): List<Order> | returns a list of orders on that date                        |
+| findOrderByDishes(Dish): List<Order> | returns a list of orders that contains that dishes           |
+| changeOrderDate(int, String): void   | alter the serving date of the order in the orderList         |
+| getDishesTodayAmount(Dishes): int    | return required amount of the dishes that needed to be done before the end of today |
+| addOrderDish(int, Dishes): void      | add dishes to the order in the orderList                     |
+| addOrderDish(int, Dishes, int): void | add dishes with amount to the order in the orderList         |
+| findDishesAmont(int, Dishes): int    | find dishes amount in the order among the orderList          |
 
+#### 
 
+#### 2.11 Order Command Component
+API: `AddOrderCommand.java`, `AlterDateCommand.java`, `DeleteOrderCommand.java`, `DoneOrderCommand.java`, `ListOrderCommand.java`
 
-#### 2.9 RecipeCommand Component
+The Order Command classes inherits from the `Command` class. They overwrite the abstract method `execute` of the `Command` class. The Order Command classes includes:
 
-The RecipeCommand class is used as an abstract class for other classes, its method `execute` is also declared as an abstract method that is used by the following classes
+- AddOrderCommand: This command will add order to the orderlist and update the chef's todo list. The order can be loaded manually by command. The order can also be read from the file when initializing -- which is the case of the pre-order.
+- AlterDateCommand: This command will change the serving date of the order. If it changed to the date of today, then chef's todo list should be updated. If it changed to the date before today, then the change is considered invalid.
+- DeleteOrderCommand: This command is used for cancelled orders. It also synchronizes with chef's todo list.
+- DoneOrderCommand: This command is used for changing the status of the order to be finished. The done dishes in the order can be removed from the chef's todo list. 
+- ListOrderCommand: The command is to list all orders or is to list orders after filtering. The filter feature can be date, dishes, order status.
 
-- AddDishCommand
-- AddIngredient
-- DeleteDishCommand
-- InitCommand
-- ListDishCommand
-
-![DishesCommand](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/dishesCommand%20diagram.png)
-
-#### 2.10 Fridge Component
+#### 2.12 Fridge Component
 API: `Fridge.java`
 
 The Fridge class allows access and modification of the `Ingredient`s used by the chef. By keeping track of the Ingredients' expiry date, it allows the user to know which products have expired, and remove them. It allows for less ingredient waste, as it can return the most recently expiring ingredients, so that they can be used first. 
 
-![Fridge](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/fridgeUML.png)
+![Fridge](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/fridgeUML1.png)
 
-#### 2.11 GenericList
+#### 2.13 GenericList
+API: `GenericList.java`
 
 This abstract class allows for creation of different types of lists, and basic list entry manipulations. It is extended by multiple classes, including `IngredientsList.java`, `TaksList.java`, `OrderList.java` and `DishList.java`. All of these classes inherit the basic methods from the Generic List and extend it with their specific methods, eg.  `allUndoneOrders()` from`OrderList.java`, or `changeAmount()` from `IngredientsList.java`. A UML Class Diagram is shown below.
 
-![GenericList](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/GenericListUML.png)
+![GenericList](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/GenericListUML1.png)
+
+#### 2.14 Ingredient Component
+
+The Recipebook contains 2 classes, Ingredient and IngredientsList. 
+
+//!add diagram of the Ingredient component.
+
+**<u>Ingredient Class</u>**
+
+| Attributes           | Description                            |
+| -------------------- | -------------------------------------- |
+| name: String         | Name of the ingredient                 |
+| amount: int          | Total amount of the ingredient         |
+| expiryDate: Date     | Expiry date of the given ingredient    |
+| dateAsString: String | A string to store the date as a string |
+
+
+
+
+
+##### <u>Ingredient Class</u>
+
+| Constructor                       | Description                                               |
+| --------------------------------- | --------------------------------------------------------- |
+| Ingredient(String, Integer, Date) | Gives the name , amount and expiry date of the ingredient |
+
+
+
+| Methods                             | Description                                                  |
+| ----------------------------------- | ------------------------------------------------------------ |
+| Ingredient(String, Integer, String) | Converts the Date into String                                |
+| getAmount(): int                    | Returns amount of ingredient                                 |
+| getName(): String                   | Returns name of the Ingredient                               |
+| changeDate(Date): void              | Changes the expiry date of the ingredient                    |
+| setName(String): void               | Sets the name of the ingredient                              |
+| changeAmount(Integer): void         | Changes the amount of the ingredient                         |
+| getExpiryDate(): Date               | Returns the expiry date of the ingredient                    |
+| equals(Object): Boolean             | Returns true or false when comparing 2 objects<br />True: Object names are identical<br />False: Otherwise |
+| isExpired(): Date                   | Returns the expiry date                                      |
+| equalsCompletely(Object): Boolean   | Returns true or false when comparing 2 objects<br />True: Objects have same name and expiry date<br />False: Otherwise |
+
+**<u>IngredientsList Class</u>**
+
+A child class of Ingredients and inherits(extends) the attributes and methods of the Ingredients class.
+
+| Constructor                                       | Description                                               |
+| ------------------------------------------------- | --------------------------------------------------------- |
+| IngredientsList(List<Ingredient> ingredientsList) | Initializes the IngredientsList as a new List<Ingredient> |
+
+
+
+| Methods                                                      | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| changeIngredientsDate(int, Date): void                       | Changes the date of the Ingredient using an Index number     |
+| changeName(int, String): void                                | Changes the name of the ingredient using an Index number     |
+| changeAmount(int, String): void                              | Changes the amount of the ingredient using an index number   |
+| addEntry(Ingredient Object): void                            | Adds a new Ingredient of Ingredients attributes into the Ingredient List |
+| hasEnough(Ingredient Object): Boolean                        | Returns true or false when comparing 2 Objects.<br />True: We have enough of the required Ingredient<br />False: Otherwise |
+| getEntry(Ingredient Object): Ingredient Object               | Looks for the queried ingredient and returns it              |
+| getNonExpiredEntry(Ingredient ingredient): Ingredient Object | Looks for the queried Ingredient in the list that is not expired and returns it |
+| sortByExpiryDate(): Ingredient Object                        | Sorts the Ingredient lists accordingly by a descending amount |
+| removeEntry(Ingredient Object):  Boolean                     | Looks for the queried Ingredient in the list and remove the amount that we want to use.<br />True:  Enough amount of the queried ingredient<br />False: Not enough amount  of the queriedingredient |
+
+#### 2.15 ingredientCommand Component
+
+API: `AddCommand.java`, `DeleteCommand.java`, `FindToday.java`, `ListCommand.java`, `RemoveAllExpired.java,FindIngredientCommand.java, UseCommand.java,`
+
+The ingredientCommand classes inherits from the `Command` class. They overwrite the abstract method `execute` of the class `Cmd`. The ingredientCommand classes includes:
+
+- AddCommand: This command adds an entry of an ingredient to the IngredientsList. The IngredientsList can also be read from the file when initializing.
+- DeteleCommand: This command deletes an entry of an ingredient from the IngredientsList. 
+- FindToday: This command is used to look for expired ingredients on the date itself.
+- ListCommand: This command is used to show the chef's entire IngredientsList.
+- RemoveAllExpired: The command is used to remove all expired ingredients from the IngredientsList
+- FindIngredientCommand: This command is used to find all ingredients with the queried keyword entered by the chef.
+- UseCommand: This command is used to delete the specified amount off an ingredient when it is used. Otherwise, if there is not enough of the required amount entered by the chef, the program will prompt it to the chef.
 
 ### 3. Implementation
 
-
-
 ### 4. Documentation
 
-
-
 ### 5. Testing
-
-
 
 ### 6. Dev Ops 
 
@@ -423,7 +630,6 @@ Target user profile: Restaurant Chef
 3. should be reliable in displaying accurate and correct data 
 4. should be easy to use for users with basic knowledge of command line interface
 5. should be able to handle large amounts of data without displaying any slowdown in application performance 
-6. 
 
 
 

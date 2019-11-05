@@ -1,19 +1,19 @@
 package duke.command.ingredientCommand;
 
-import duke.command.Cmd;
+import duke.command.Command;
+import duke.dish.DishList;
 import duke.exception.DukeException;
-import duke.list.GenericList;
-import duke.storage.Storage;
-import duke.task.Task;
-import duke.task.TaskList;
+import duke.ingredient.Ingredient;
+import duke.ingredient.IngredientsList;
+import duke.order.OrderList;
+import duke.storage.FridgeStorage;
+import duke.storage.OrderStorage;
 import duke.ui.Ui;
 
 import java.io.IOException;
 
-/**
- * Represents a specific {@link Cmd} used to delete a {@link Task} from the {@link TaskList}.
- */
-public class DeleteCommand<T> extends Cmd<T> {
+public class DeleteCommand extends Command {
+
     private int taskNb;
 
     public DeleteCommand(int taskNb) {
@@ -21,18 +21,17 @@ public class DeleteCommand<T> extends Cmd<T> {
     }
 
     @Override
-    public void execute(GenericList<T> taskList, Ui ui, Storage storage) throws DukeException {
-        if (taskNb <= taskList.size() && taskNb > 0) {
-            T removed = taskList.removeEntry(taskNb - 1);
-
+    public void execute(IngredientsList ingredientsList, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+        if (taskNb <= ingredientsList.size() && taskNb > 0) {
+            Ingredient removed = ingredientsList.removeEntry(taskNb - 1);
             try {
-                storage.removeFromFile(taskNb - 1);
+                fs.removeFromFile(taskNb - 1);
             } catch (IOException e) {
-                throw new DukeException("Error while deleting the task from the hard disc");
+                throw new DukeException("Error while deleting the ingredient from the hard disc");
             }
-            ui.showRemovedTask(removed.toString(), taskList.size());
+            ui.showRemovedIngredient(removed.toString(), ingredientsList.size());
         } else {
-            throw new DukeException("Enter a valid task number after delete, between 1 and " + taskList.size());
+            throw new DukeException("Enter a valid ingredient index number after delete, between 1 and " + ingredientsList.size());
         }
     }
 }

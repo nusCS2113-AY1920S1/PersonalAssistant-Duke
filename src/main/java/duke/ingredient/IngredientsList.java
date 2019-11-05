@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 public class IngredientsList extends GenericList<Ingredient> {
+
     public IngredientsList(List<Ingredient> ingredientsList) {
         super(ingredientsList);
         sortByExpiryDate();
@@ -19,7 +20,6 @@ public class IngredientsList extends GenericList<Ingredient> {
 
     public void changeIngredientsDate(int Nb, Date date) throws DukeException {
         genList.get(Nb).changeDate(date);
-
     }
 
     @Override
@@ -34,17 +34,19 @@ public class IngredientsList extends GenericList<Ingredient> {
 
     public boolean hasEnough(Ingredient ingredient) {
         int currAmount = 0;
-        for (Ingredient ing : getAllEntries()) {
-            if (ing.equals(ingredient)&&!ing.isExpired())
-                currAmount += ing.getAmount();
+        for (Ingredient ing : getAllEntries()) {        //for all ingredients,
+            if (ing.equals(ingredient)&&!ing.isExpired())           //if they are the ingredient we want, and it has not expired,
+                currAmount += ing.getAmount();          //adds into count
         }
-        return ingredient.getAmount() <= currAmount;
+        return ingredient.getAmount() <= currAmount;        //if needed amount is less than or equal to amount we have, means we have enough
         // return getAllEntries().contains(ingredient);
     }
+
 
     public void changeName(int Nb, String name) {
         genList.get(Nb).setName(name);
     }
+
 
     public void changeAmount(int Nb, Integer amount) {
         genList.get(Nb).changeAmount(amount);
@@ -107,4 +109,3 @@ public class IngredientsList extends GenericList<Ingredient> {
         return true;
     }
 }
-

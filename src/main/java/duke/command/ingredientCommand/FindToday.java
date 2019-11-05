@@ -1,43 +1,44 @@
 package duke.command.ingredientCommand;
 
-import duke.command.Cmd;
-import duke.list.GenericList;
-import duke.storage.Storage;
-import duke.task.Task;
-import duke.task.TaskList;
+import duke.command.Command;
+import duke.dish.DishList;
+import duke.ingredient.Ingredient;
+import duke.ingredient.IngredientsList;
+import duke.order.OrderList;
+import duke.storage.FridgeStorage;
+import duke.storage.OrderStorage;
 import duke.ui.Ui;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
-public class FindToday extends Cmd<Task> {
-    private Date today = new Date();
-    private String pattern = "dd/MM/yyyy";
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-    private String TodayDate = simpleDateFormat.format(today);
+public class FindToday extends Command {
 
-    @Override
-    public boolean isExit() {
-        return false;
+    private SimpleDateFormat simpleDateFormat;
+
+    public FindToday(){
+        simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
     }
 
-    public void execute(GenericList<Task> taskList, Ui ui, Storage storage) {
+    @Override
+    public void execute(IngredientsList il, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) {
         int i = 1;
         StringBuilder sb = new StringBuilder();
-
-        for (Task task : taskList.getAllEntries()) {
-            if (task.getDescription().contains(TodayDate)) {
-                sb.append("\t ").append(i++).append(".").append(task.toString());
+        for (Ingredient ingredient : il.getAllEntries())
+        {     //for every ingredient, scan through the ingredient list
+            i += 1;
+            if (ingredient.isExpiredToday(simpleDateFormat.format(ingredient.getExpiryDate())))
+            {
+                sb.append("\t ").append(i-1).append(". ").append(il.getEntry(ingredient).toStringNoWarning()).append(".");
                 sb.append(System.lineSeparator());
             }
         }
         if (sb.length() == 0) {
-            System.out.println("No ingredients for today!");
+            System.out.println("No expired ingredients for today!");
         } else {
-            System.out.println("\t Here are the ingredients for today");
+            System.out.println("\t Here are the expired ingredients for today");
+            ui.showTask(sb.toString());
         }
-        sb.setLength(sb.length() - 1);// to remove the last new line
-        System.out.println(sb.toString());
+
     }
 }
 

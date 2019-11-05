@@ -4,15 +4,14 @@ import duke.exception.DukeException;
 import duke.parser.Convert;
 import duke.storage.Printable;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Ingredient implements Printable {
-    private Integer Nb;
     private String name;
     private int amount;
     private Date expiryDate;
     private String dateAsString;
-
 
     public Ingredient(String name, Integer amount, Date expiryDate) throws DukeException       //beef 200 19/07/2019
     {
@@ -28,6 +27,9 @@ public class Ingredient implements Printable {
         dateAsString = expiryDate;
     }
 
+    public Date getDate() {
+        return expiryDate;
+    }
     public int getAmount() {
         return amount;
     }
@@ -75,6 +77,15 @@ public class Ingredient implements Printable {
         return !expiryDate.after(new Date());
     }
 
+    public boolean isExpiredToday(String DateInQuestion){
+
+        Date today = new Date();
+        String pattern = "dd/MM/yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String TodayDate = simpleDateFormat.format(today);
+        return ((DateInQuestion).equals(TodayDate));
+    }
+
     public boolean equalsCompletely(Ingredient other) {
         return this.equals(other) && this.getExpiryDate().equals(other.getExpiryDate());
     }
@@ -82,7 +93,6 @@ public class Ingredient implements Printable {
     public String printInFile() {
         return this.getName() + "|" + this.getAmount() + "|" + dateAsString;
     }
-    //private String pattern = "dd/MM/yyyy";
-    //private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-    //private String TodayDate = simpleDateFormat.format(today);
+
+
 }
