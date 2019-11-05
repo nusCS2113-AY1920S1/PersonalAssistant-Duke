@@ -172,12 +172,12 @@ e.g `delete member 1`
 ==== Assigning a task to a member: `link`
 `link [TASK_INDEX] ... /to [MEMBER_NAME] ...` +
 e.g `link 1 /to Alice` +
-e.g `link 2 3 /to Alice Bob` +
+e.g `link 2 3 /to Alice, Bob` +
 
 ==== Canceling the assignment of a task from a member: `unlink`
 `unlink [TASK_INDEX] ... /from [MEMBER_NAME] ...` +
 e.g `unlink 1 /from Alice` +
-e.g `unlink 2 3 /from Alice Bob` +
+e.g `unlink 2 3 /from Alice, Bob` +
 
 ==== Editing the profile of member: `edit`
 `edit member {bio/email/phone} MEMBER_INDEX /to [change content]`
