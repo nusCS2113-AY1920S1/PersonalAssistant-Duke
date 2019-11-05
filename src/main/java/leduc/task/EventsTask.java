@@ -8,7 +8,7 @@ import leduc.exception.DateComparisonEventException;
  * Represents a Event Task.
  */
 public class EventsTask extends Task {
-    private String tag; // [E]
+    private String tag = "[E]";
     private Date dateFirst;
     private Date dateSecond;
 
@@ -21,7 +21,6 @@ public class EventsTask extends Task {
      */
     public EventsTask(String task, Date dateFirst, Date dateSecond) {
         super(task);
-        this.tag = "[E]";
         this.dateFirst = dateFirst;
         this.dateSecond = dateSecond;
     }
@@ -49,7 +48,6 @@ public class EventsTask extends Task {
      */
     public EventsTask(String task, String mark, Date dateFirst, Date dateSecond) {
         super(task,mark);
-        this.tag = "[E]";
         this.dateFirst = dateFirst;
         this.dateSecond =dateSecond;
     }
@@ -67,7 +65,6 @@ public class EventsTask extends Task {
      */
     public EventsTask(String task, String mark, Date dateFirst, Date dateSecond, int priority) {
         super(task,mark,priority);
-        this.tag = "[E]";
         this.dateFirst = dateFirst;
         this.dateSecond =dateSecond;
     }

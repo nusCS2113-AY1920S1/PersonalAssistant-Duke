@@ -62,6 +62,12 @@ public class SortCommand extends Command {
         else if (sort.equals("description")){
             tasks.getList().sort(Comparator.comparing(Task::getTask));
         }
+        else if (sort.equals("type")){
+            tasks.getList().sort(Comparator.comparing(Task::getTag));
+        }
+        else if (sort.equals("done")){
+            tasks.getList().sort(Comparator.comparing(Task::getMark));
+        }
         else{
             throw new MeaninglessException();
         }
