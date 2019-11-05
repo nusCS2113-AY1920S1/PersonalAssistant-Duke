@@ -30,6 +30,7 @@ public interface ParserStringList {
     String DEBT_COMMAND_LIST = "debts";
     String BILL_COMMAND_BILL = "bill";
     String BILL_COMMAND_LIST = "bills";
+    String BILL_COMMAND_PAID = "paid";
 
     //Commands specific to shortcut
     String SHORTCUT_COMMAND_CREATE = "cs";

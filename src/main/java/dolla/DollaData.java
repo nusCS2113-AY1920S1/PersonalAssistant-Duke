@@ -16,6 +16,7 @@ import static dolla.storage.Storage.getEntriesFromSave;
 import static dolla.storage.Storage.getLimitsFromSave;
 import static dolla.storage.Storage.getBillsFromSave;
 import static dolla.storage.Storage.getShortcutsFromSave;
+import static dolla.storage.StorageStringList.BILL;
 
 public class DollaData implements ModeStringList {
 
@@ -127,6 +128,10 @@ public class DollaData implements ModeStringList {
         billList.add(newRecord);
     }
 
+    public void addNewBillToRecordList(Record newRecord) {
+        billList.add(newRecord);
+    }
+
     /**
      * Remove from record list.
      *
@@ -142,6 +147,8 @@ public class DollaData implements ModeStringList {
             limitList.removeFromList(index);
         } else if (mode.equals(MODE_SHORTCUT)) {
             shortcutList.removeFromList(index);
+        } else if (mode.equals(BILL)) {
+            billList.removeFromList(index);
         }
     }
 
@@ -222,6 +229,8 @@ public class DollaData implements ModeStringList {
             break;
         case MODE_SHORTCUT:
             this.shortcutList.setRecordList(recordList);
+        case BILL:
+            this.billList.setRecordList(recordList);
             break;
         default:
             break;

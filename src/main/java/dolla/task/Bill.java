@@ -76,4 +76,17 @@ public class Bill extends Record {
         }
         return nameStore;
     }
+
+    @Override
+    public ArrayList<String> getNameList() {
+        return nameList;
+    }
+
+    public int getPeople() {
+        return people;
+    }
+
+    public double getBillAmount() {
+        return amount;
+    }
 }

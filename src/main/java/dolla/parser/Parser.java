@@ -2,6 +2,7 @@ package dolla.parser;
 
 import dolla.ModeStringList;
 import dolla.Time;
+import dolla.task.RecordList;
 import dolla.ui.EntryUi;
 import dolla.ui.LimitUi;
 import dolla.ui.Ui;
@@ -388,6 +389,25 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      */
     protected Boolean verifyDebtSearchComponent(String s) {
         return s.equals(SEARCH_DESCRIPTION) || s.equals(SEARCH_DATE) || s.equals(SEARCH_NAME);
+    }
+
+    //@@author tatayu
+    /**
+     * Check if the number is valid.
+     * @param s the input.
+     * @param recordList the list that records all the bill.
+     * @return true if it is a valid number.
+     */
+    protected Boolean verifyPaidCommand(String s, RecordList recordList) {
+        try {
+            Integer.parseInt(s);
+            if (Integer.parseInt(s) < recordList.size()) {
+                return true;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     /**
