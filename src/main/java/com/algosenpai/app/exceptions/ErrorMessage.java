@@ -1,6 +1,6 @@
 package com.algosenpai.app.exceptions;
 
-public class ErrorMessages {
+public class ErrorMessage {
     public static final String INVALID_MENU_INPUT = "OOPS!!! Error occurred. Please enter the command which you'd "
                                                     + "like to view in the following format: menu print\n"
                                                     + "Otherwise, enter `menu` to view "

@@ -11,13 +11,13 @@ public class HistoryExceptions extends SenpaiExceptions {
 
     /**
      * To check if the user entered more than one arguments behind the `history` command.
-     * @param historyList list of past commands user entered.
+     * @param inputs history command that user entered
      * @throws HistoryExceptions informs the user that input is invalid
      */
 
-    public static void checkInput(ArrayList<String> historyList) throws HistoryExceptions {
-        if (historyList.size() != 2) {
-            throw new HistoryExceptions(ErrorMessages.INVALID_HISTORY_INPUT);
+    public static void checkInput(ArrayList<String> inputs) throws HistoryExceptions {
+        if (inputs.size() != 2) {
+            throw new HistoryExceptions(ErrorMessage.INVALID_HISTORY_INPUT);
         }
     }
 
@@ -30,11 +30,11 @@ public class HistoryExceptions extends SenpaiExceptions {
 
     public static void checkArgument(ArrayList<String> historyList, String arg) throws HistoryExceptions {
         if (!Parser.isInteger(arg)) {
-            throw new HistoryExceptions(ErrorMessages.INVALID_TYPE_OF_ARGUMENT);
+            throw new HistoryExceptions(ErrorMessage.INVALID_TYPE_OF_ARGUMENT);
         } else {
             int num = Integer.parseInt(arg);
             if (num > historyList.size() || num < 1) {
-                throw new HistoryExceptions(ErrorMessages.INVALID_SIZE_OF_ARGUMENT);
+                throw new HistoryExceptions(ErrorMessage.INVALID_SIZE_OF_ARGUMENT);
             }
         }
     }
