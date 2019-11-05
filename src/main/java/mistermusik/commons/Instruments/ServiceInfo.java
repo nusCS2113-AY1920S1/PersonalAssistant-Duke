@@ -1,4 +1,4 @@
-package mistermusik.storage.Instruments;
+package mistermusik.commons.Instruments;
 import mistermusik.commons.events.formatting.EventDate;
 
 public class ServiceInfo {

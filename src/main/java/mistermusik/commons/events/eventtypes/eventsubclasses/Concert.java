@@ -4,6 +4,7 @@ import mistermusik.commons.events.eventtypes.Event;
 
 public class Concert extends Event {
     private int cost;
+
     /**
      * creates new lesson class with boolean to read from file
      */
@@ -20,7 +21,7 @@ public class Concert extends Event {
         this.cost = cost;
     }
 
-    public int getCost(){
+    public int getCost() {
         return this.cost;
     }
 
@@ -29,5 +30,12 @@ public class Concert extends Event {
         return getDoneSymbol() + getType() + "/" + getDescription() + "/" +
                 getStartDate().getUserInputDateString() + "/" + getEndDate().getUserInputDateString() + "/" +
                 this.cost;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + getDoneSymbol() + "][" + getType() + "] " +
+                getDescription() + " START: " + startEventDate.getFormattedDateString() +
+                " END: " + endEventDate.getFormattedDateString() + " COST: " + this.cost;
     }
 }

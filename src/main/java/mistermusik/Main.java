@@ -3,7 +3,7 @@ package mistermusik;
 
 import mistermusik.commons.events.formatting.EventDate;
 import mistermusik.logic.EventList;
-import mistermusik.storage.Instruments.InstrumentList;
+import mistermusik.commons.Instruments.InstrumentList;
 import mistermusik.storage.Storage;
 import mistermusik.logic.Command;
 import mistermusik.ui.Parser;

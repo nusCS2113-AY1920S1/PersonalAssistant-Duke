@@ -12,7 +12,7 @@ import mistermusik.ui.CalendarView;
 import mistermusik.commons.events.formatting.DateStringValidator;
 import mistermusik.commons.events.formatting.EventDate;
 import mistermusik.storage.*;
-import mistermusik.storage.Instruments.InstrumentList;
+import mistermusik.commons.Instruments.InstrumentList;
 import mistermusik.commons.budgeting.CostExceedsBudgetException;
 import mistermusik.commons.Goal;
 import mistermusik.ui.UI;
@@ -149,7 +149,7 @@ public class Command {
                 break;
 
             case "budget":
-                showBudget(events, ui);
+                showOrSetBudget(events, ui);
                 break;
 
             case "goal":
@@ -177,7 +177,7 @@ public class Command {
             events.sortList();
             storage.saveToFile(events, ui);
         }
-        if (!(command.equals("calendar"))) {
+        if ((command.equals("calendar"))) {
             printCalendar(events, ui, calendarStartDate);
         }
     }
@@ -312,19 +312,27 @@ public class Command {
     /**
      * passes budget to UI for printing to output
      */
-    private void showBudget(EventList events, UI ui) {
+    private void showOrSetBudget(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.budgetCommandWrongFormat();
-//            logger.log(Level.WARNING, "The description of showBudget is empty");
-        } else {
+            //            logger.log(Level.WARNING, "The description of showOrSetBudget is empty");
+        } else if (continuation.substring(0,3).equals("set")) { //set new budget
+            // budget set <new budget>
+            try {
+                int newBudget = Integer.parseInt(continuation.substring(4));
+                events.getBudgeting().setBudget(newBudget);
+                UI.budgetSet(newBudget);
+            } catch (NumberFormatException e) {
+                ui.notAnInteger();
+            }
+        } else { //show budget for given month
             String monthAndYear = continuation;
             try {
                 int cost = events.getBudgeting().getCostForMonth(monthAndYear);
                 UI.printCostForMonth(monthAndYear, cost);
-                //NEED TO PRINT COST HERE!
             } catch (NullPointerException e) {
                 UI.printNoCostsForThatMonth();
-//                logger.log(Level.WARNING, e.getMessage(), e);
+                //logger.log(Level.WARNING, e.getMessage(), e);
             }
         }
     }
@@ -591,7 +599,7 @@ public class Command {
     private void goalsManagement(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.goalCommandWrongFormat();
-//            logger.log(Level.INFO, "The description of goalManagement is empty");
+            //            logger.log(Level.INFO, "The description of goalManagement is empty");
             return;
         }
         try {

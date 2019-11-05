@@ -16,8 +16,8 @@ public abstract class Event implements Comparable<Event> {
     private static Logger logger = Logger.getLogger("Event");
     protected String description;
     protected boolean isDone;
-    private EventDate startEventDate;
-    private EventDate endEventDate;
+    public EventDate startEventDate;
+    public EventDate endEventDate;
     private char eventType;
     protected ArrayList<Goal> goalsList;
     protected ArrayList<Contact> contactList;

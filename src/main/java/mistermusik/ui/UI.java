@@ -17,19 +17,6 @@ public class UI {
     private static String lineSeparation = "____________________________________________________________\n";
 
     /**
-     * Comparator function codes
-     */
-    private static final int EQUAL = 0;
-    private static final int GREATER_THAN = 1;
-    private static final int SMALLER_THAN = 2;
-
-    /**
-     * Filter type codes
-     */
-    private static final int DATE = 0;
-    private static final int TYPE = 1;
-
-    /**
      * prints welcome message and instructions for use.
      */
     public void welcome() {
@@ -67,8 +54,9 @@ public class UI {
         System.out.println("4.  \"check\"           -- Print the next 3 free days.");
         System.out.println("5.  \"find <keyword>\"  -- Search for a specific event using keywords.");
         System.out.println("6.  \"view dd-MM-yyyy\" -- Print the event list for a particular date.");
-        System.out.println("7.  \"budget MM-yyyy\"  -- View monthly cost of concerts.");
-        System.out.println("8.  \"bye\"             -- Exit the program.");
+        System.out.println("7.  \"budget MM-yyyy\"  -- View monthly cost of concerts");
+        System.out.println("8.  \"budget set <new budget>\"  -- Set new monthly budget");
+        System.out.println("9.  \"bye\"             -- Exit the program.");
         System.out.println("-----More Commands-----");
         System.out.println("1.  \"help calendar\"   -- To see commands about calendar.");
         System.out.println("2.  \"help event\"      -- To see commands about how to add or delete event.");
@@ -379,11 +367,11 @@ public class UI {
     }
 
     /**
-     * prints message when event index from input is not an integer
+     * prints message when expected number from input is not an integer
      */
     public void notAnInteger() {
         System.out.print(lineSeparation);
-        System.out.println("That is not a valid integer! Please enter the index of the event you intend to alter.");
+        System.out.println("That is not a valid integer! Please check the value you entered!");
         System.out.print(lineSeparation);
     }
 
@@ -597,5 +585,11 @@ public class UI {
     	System.out.println("Done before for the following instrument: ");
     	System.out.println(instrumentIndexAndName);
     	System.out.println(lineSeparation);
+    }
+
+    public static void budgetSet(int newBudget) {
+        System.out.print(lineSeparation);
+        System.out.println("Success! Your new monthly budget is $" + newBudget);
+        System.out.print(lineSeparation);
     }
 }
