@@ -223,6 +223,18 @@ public class Ui extends AnchorPane {
         System.exit(0);
     }
 
+    public void indent() {
+        System.out.print("    ");
+    }
+
+    public void setOutput(String text) {
+        output = text;
+    }
+
+    public String getOutput() {
+        return output;
+    }
+
     public void showHelp() {
         setOutput("Here are the available commands:\n" +
                 "--------------\n" +
@@ -244,17 +256,5 @@ public class Ui extends AnchorPane {
                 "Add room: addroom [roomcode] /date [DD/MM/YYYY] [HHMM] /to [HHMM]\n" +
                 "List room: listroom\n" +
                 "Delete room: deleteroom [index]\n");
-    }
-
-    public void indent() {
-        System.out.print("    ");
-    }
-
-    public void setOutput(String text) {
-        output = text;
-    }
-
-    public String getOutput() {
-        return output;
     }
 }
