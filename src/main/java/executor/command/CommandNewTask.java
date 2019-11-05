@@ -20,7 +20,8 @@ public class CommandNewTask extends Command {
         this.userInput = userInput;
         this.commandType = CommandType.TASK;
         this.taskType = extractTaskType();
-        this.description = "Adds user entry to the list";
+        this.description = "Adds user entry to the list \n"
+                + "FORMAT :  ";
     }
 
     @Override

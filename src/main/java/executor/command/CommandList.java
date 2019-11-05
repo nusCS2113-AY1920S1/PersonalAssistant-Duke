@@ -13,7 +13,8 @@ public class CommandList extends Command {
      */
     public CommandList(String userInput) {
         this.userInput = userInput;
-        this.description = "Lists all tasks and receipts added by user";
+        this.description = "Lists all tasks and receipts added by user"
+                + "FORMAT :  \n";
         this.commandType = CommandType.LIST;
     }
 

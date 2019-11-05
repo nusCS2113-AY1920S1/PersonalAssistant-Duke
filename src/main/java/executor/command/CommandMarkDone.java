@@ -16,7 +16,8 @@ public class CommandMarkDone extends Command {
      */
     public CommandMarkDone(String userInput) {
         this.userInput = userInput;
-        this.description = "Marks a certain task as done";
+        this.description = "Marks a certain task as done \n"
+                + "FORMAT :  ";
         this.commandType = CommandType.DONE;
 
     }
