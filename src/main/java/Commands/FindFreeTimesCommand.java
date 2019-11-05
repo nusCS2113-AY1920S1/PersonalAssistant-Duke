@@ -387,40 +387,49 @@ public class FindFreeTimesCommand extends Command {
      */
     private void setOutput(){
         compiledFreeTimes.clear();
+        Comparator<Pair<Long,Pair<String,String>>> startTimeComparator = Comparator.comparing(Pair<Long,Pair<String,String>>:: getKey);
+        ArrayList<Pair<Long, Pair<String,String>>> sortVar = new ArrayList<>();
         for (int i = 0; i < freeTimeData.size(); i++) {
             String compiledFreeTimeToShow;
             String compiledFreeTimeCommand;
             compiledFreeTimeToShow = dateTimeFormat12.format(freeTimeData.get(i).getKey()) + " until " + timeFormat12.format(freeTimeData.get(i).getValue());
-            message += (i+1) + ". " + compiledFreeTimeToShow + "\n";
+            //message += (i+1) + ". " + compiledFreeTimeToShow + "\n"; //Unsorted output method
             String dateTime = dateTimeFormat24.format(freeTimeData.get(i).getKey());
             String[] spiltDateTime = dateTime.split(" ", 3);
             compiledFreeTimeCommand =  "/at " + spiltDateTime[1]+ " /from " + spiltDateTime[2] + " /to "+ timeFormat24.format(freeTimeData.get(i).getValue());
-            compiledFreeTimes.add(new Pair<>(compiledFreeTimeToShow, compiledFreeTimeCommand));
+            //compiledFreeTimes.add(new Pair<>(compiledFreeTimeToShow, compiledFreeTimeCommand));
+
+            //TODO: Sorted output method 1 using Pair<Long, Pair<String, String> > complicated to trace (10 lines)
+            Long sortVar1 = (freeTimeData.get(i).getKey()).getTime();
+            Pair<String, String> sortVar2 = new Pair<String, String>(compiledFreeTimeToShow, compiledFreeTimeCommand);
+            sortVar.add(new Pair<>(sortVar1,sortVar2));
         }
-        //for(Pair<String, String> t: compiledFreeTimes) System.out.println(t.getKey() + "\n" + t.getValue());
-        //TODO: sort date to output
-//        Comparator<Pair<String,String>> sortByDay = (a, b) -> {
-//            String strA = a.getKey().split("until")[0].trim();
-//            String strB = b.getKey().split("until")[0].trim();
-//            Date dateA = null;
-//            Date dateB = null;
-//            try {
-//                dateA = dateTimeFormat12.parse(strA);
-//                dateB = dateTimeFormat12.parse(strB);
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-////            Long longA = dateA.getTime();
-////            Long longB = dateB.getTime();
-////            if (longA < longB) return -1;
-////            else if(longA > longB) return 1;
-////            else return 0;
-//            if(dateA.before(dateB)) return -1;
-//            else if(dateA.after(dateB)) return 1;
-//            else return dateA.compareTo(dateB);
-//        };
-//        compiledFreeTimes.sort(sortByDay);
-        //Collections.sort(compiledFreeTimes, sortByDay);
+        sortVar.sort(startTimeComparator);
+
+        for(Integer i = 0; i < 5; i++){
+            compiledFreeTimes.add(sortVar.get(i).getValue());
+            message += ((i+1) +". " + sortVar.get(i).getValue().getKey()) + "\n";
+        }
+
+        //TODO: Sorted output method 2 using comparator by data but takes extra step backwards requires date parsing (15lines)
+        /*
+        Comparator<Pair<String,String>> sortByDay = (a, b) -> {
+            String strA = a.getKey().split("until")[0].trim();
+            String strB = b.getKey().split("until")[0].trim();
+            Date dateA = null;
+            Date dateB = null;
+            try {
+                dateA = dateTimeFormat12.parse(strA);
+                dateB = dateTimeFormat12.parse(strB);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if(dateA.before(dateB)) return -1;
+            else if(dateA.after(dateB)) return 1;
+            else return dateA.compareTo(dateB);
+        };
+        compiledFreeTimes.sort(sortByDay);
+        for(Integer i = 0; i < 5; i++) message += ((i+1) +". " + compiledFreeTimes.get(i).getKey()) + "\n";*/
     }
 
     public static ArrayList<Pair<String, String>> getCompiledFreeTimesList() {
