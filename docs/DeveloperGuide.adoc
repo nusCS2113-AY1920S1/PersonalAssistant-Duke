@@ -2069,7 +2069,7 @@ be above `card` limit.
 `/add /cardexpenditure /from POBB Tomorrow Card /amount 1200 /date 02/11/2019 /desc Fried Rice` +
 Expected: `Card expenditure` failed to be added because amount has exceeded monthly `card` limit.
 
-=== List card expenditures
+=== Listing card expenditures
 
 . Listing `card expenditure` from a `card`.
 
