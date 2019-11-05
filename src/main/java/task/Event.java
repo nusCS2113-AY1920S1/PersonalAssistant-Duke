@@ -20,6 +20,9 @@ public class Event extends Task {
         if (split.length < 2) {
             throw new DukeException("Please use /at to indicate date");
         }
+        else if (split.length > 2) {
+            throw new DukeException("Too many /at in String");
+        }
         else if (split[1].contains("/priority")){
             String[] splitPriority = split[1].split(Parser.priority);
             if (splitPriority.length < 2){
@@ -32,7 +35,7 @@ public class Event extends Task {
             this.description = split[0];
             this.readDate(splitPriority[0]);
             this.userDefinedPriority = splitPriority[1].toLowerCase();
-            this.assignPriority();
+            this.calculatePriorityScore();
         }
 
         else {
@@ -40,11 +43,8 @@ public class Event extends Task {
             this.description = split[0];
             this.readDate(Arrays.copyOfRange(split, 1, split.length));
             this.userDefinedPriority = "low";
-            this.assignPriority();
+            this.calculatePriorityScore();
         }
-        /*        else if (split.length > 2) {
-            throw new DukeException("Too many /at in String");
-        }*/
     }
 
     /**

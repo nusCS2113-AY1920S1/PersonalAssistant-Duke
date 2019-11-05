@@ -5,7 +5,6 @@ import parser.Parser;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -418,7 +417,7 @@ public class TaskList implements Serializable, Cloneable {
         Collections.sort(this.list, new Comparator<Task>() {
             @Override
             public int compare(Task o1, Task o2) {
-                return (o2.taskPriority - o1.taskPriority);
+                return (o2.overallPriorityScore - o1.overallPriorityScore);
 //                return o1.getDescription().compareTo(o2.getDescription());
             }
         });
