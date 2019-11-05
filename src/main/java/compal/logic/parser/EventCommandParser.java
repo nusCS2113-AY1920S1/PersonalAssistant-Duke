@@ -14,12 +14,12 @@ import java.util.ArrayList;
 public class EventCommandParser implements CommandParser {
     @Override
     public Command parseCommand(String restOfInput) throws ParserException {
-        String description = getTokenDescription(restOfInput);
-        ArrayList<String> startDateList = getTokenDate(restOfInput);
-        Task.Priority priority = getTokenPriority(restOfInput);
-        String startTime = getTokenStartTime(restOfInput);
-        String endTime = getTokenEndTime(restOfInput);
-        int interval = getTokenInterval(restOfInput);
+        final String description = getTokenDescription(restOfInput);
+        final ArrayList<String> startDateList = getTokenDate(restOfInput);
+        final Task.Priority priority = getTokenPriority(restOfInput);
+        final String startTime = getTokenStartTime(restOfInput);
+        final String endTime = getTokenEndTime(restOfInput);
+        final int interval = getTokenInterval(restOfInput);
         String finalDate;
         if (hasToken(restOfInput, TOKEN_FINAL_DATE)) {
             finalDate = getTokenFinalDate(restOfInput);
@@ -28,6 +28,7 @@ public class EventCommandParser implements CommandParser {
             finalDate = startDateList.get(lastStartDateIndex);
         }
         isFinalDateAfterStartDate(startDateList.get(INDEX_ZERO), finalDate);
+        isValidInterval(interval);
         return new EventCommand(description, startDateList, priority, startTime, endTime, finalDate, interval);
     }
 }

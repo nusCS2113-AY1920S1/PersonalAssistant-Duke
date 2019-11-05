@@ -14,9 +14,13 @@ import java.util.logging.Logger;
  */
 public class ListCommand extends Command {
     public static final String MESSAGE_USAGE = "list\n\t"
-        + "Format: list\n\t"
-        + "e.g. \"list \\type deadline\"\n\n"
-        + "This command will list all the deadline stored in COMPal.";
+        + "Format: list [/type deadline|event]\n\n\t"
+        + "Note: content in \"[]\": optional\n\t"
+        + "content separated by \"|\": must choose exactly one from them\n\n"
+        + "This command will list all the deadline stored in COMPal.\n"
+        + "Examples:\n\t"
+        + "list /type deadline\n\t\t"
+        + "list all tasks with type deadline";
 
     private static final String LIST_PREFIX = "Here are the tasks in your list sorted by chronological order: \n";
     public static final String LIST_EMPTY = "Looks like your list is empty!\nStart adding in your task "
