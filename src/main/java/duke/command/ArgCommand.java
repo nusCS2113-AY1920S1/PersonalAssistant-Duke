@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * Abstract class for commands that involve an argument.
  */
-public abstract class ArgCommand extends Command {
+public class ArgCommand extends Command {
 
     private String arg; //argument supplied to the command
     private HashMap<String, String> switchVals; //hashmap of switch parameters
@@ -42,7 +42,7 @@ public abstract class ArgCommand extends Command {
      */
     @Override
     public void execute(DukeCore core) throws DukeException {
-        spec.execute(core);
+        spec.execute(core, this);
     }
 
     /**
@@ -73,11 +73,11 @@ public abstract class ArgCommand extends Command {
         switchVals.put(switchName, value);
     }
 
-    protected String getSwitchVal(String switchName) {
+    public String getSwitchVal(String switchName) {
         return switchVals.get(switchName);
     }
 
-    protected boolean isSwitchSet(String switchName) {
+    public boolean isSwitchSet(String switchName) {
         return switchVals.containsKey(switchName);
     }
 
@@ -101,7 +101,7 @@ public abstract class ArgCommand extends Command {
         this.arg = arg;
     }
 
-    protected String getArg() {
+    public String getArg() {
         return arg;
     }
 
@@ -127,7 +127,7 @@ public abstract class ArgCommand extends Command {
      * @return The Integer that the string represents, or -1 if it is null.
      * @throws NumberFormatException If the string is not a valid representation of an integer.
      */
-    protected Integer switchToInt(String switchName) throws DukeHelpException {
+    public Integer switchToInt(String switchName) throws DukeHelpException {
         String str = this.getSwitchVal(switchName);
         if (str == null) {
             return -1;
@@ -149,7 +149,7 @@ public abstract class ArgCommand extends Command {
      * Sets the arguments for optional switches that require String-type arguments to the empty String.
      * NOTE: Switches with ArgLevel.OPTIONAL are ignored by this method.
      */
-    protected void nullToEmptyString() throws DukeException {
+    public void nullToEmptyString() throws DukeException {
         for (Map.Entry<String, Switch> entry : getSwitchMap().entrySet()) {
             String switchName = entry.getKey();
             Switch switchSpec = entry.getValue();
@@ -208,5 +208,9 @@ public abstract class ArgCommand extends Command {
 
     public boolean hasSwitch(String switchName) {
         return getSwitchMap().containsKey(switchName);
+    }
+
+    public boolean hasNoSwitches() {
+        return getSwitchMap().size() == 0;
     }
 }

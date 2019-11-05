@@ -2,7 +2,7 @@ package duke.command.patient;
 
 import duke.DukeCore;
 import duke.command.Command;
-import duke.command.home.HomeReportCommand;
+import duke.command.home.HomeReportSpec;
 import duke.data.DukeObject;
 import duke.data.Patient;
 import duke.exception.DukeException;
@@ -15,7 +15,7 @@ public class PatientReportCommand extends Command {
     @Override
     public void execute(DukeCore core) throws DukeException {
         DukeObject patient = core.uiContext.getObject();
-        HomeReportCommand.createReport((Patient) patient, header, explanation, null);
+        HomeReportSpec.createReport((Patient) patient, header, explanation, null);
         core.updateUi("Patient report created for " + patient.getName());
     }
 }

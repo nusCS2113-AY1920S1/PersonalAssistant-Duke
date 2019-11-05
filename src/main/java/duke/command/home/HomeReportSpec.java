@@ -2,7 +2,9 @@ package duke.command.home;
 
 import duke.DukeCore;
 import duke.command.ArgCommand;
+import duke.command.ArgLevel;
 import duke.command.ArgSpec;
+import duke.command.Switch;
 import duke.data.Patient;
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
@@ -11,24 +13,33 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class HomeReportCommand extends ArgCommand {
+public class HomeReportSpec extends ArgSpec {
 
-    @Override
-    protected ArgSpec getSpec() {
-        return HomeDischargeAndReportSpec.getSpec();
+    private static final HomeReportSpec spec = new HomeReportSpec();
+
+    public static HomeReportSpec getSpec() {
+        return spec;
+    }
+
+    private HomeReportSpec() {
+        cmdArgLevel = ArgLevel.OPTIONAL;
+        initSwitches(
+                new Switch("bed", String.class, true, ArgLevel.REQUIRED, "b"),
+                new Switch("summary", String.class, true, ArgLevel.OPTIONAL, "sum")
+        );
     }
 
     @Override
-    public void execute(DukeCore core) throws DukeException {
+    public void execute(DukeCore core, ArgCommand cmd) throws DukeException {
         String header = "PATIENT REPORT";
         String explanation = "This report shows all the data that was stored about a patient at the time the report was"
                 + " created.";
 
-        if (core.patientMap.getPatient(getSwitchVal("bed")) != null) {
-            createReport(core.patientMap.getPatient(getSwitchVal("bed")), header, explanation,
-                    getSwitchVal("summary"));
+        if (core.patientMap.getPatient(cmd.getSwitchVal("bed")) != null) {
+            createReport(core.patientMap.getPatient(cmd.getSwitchVal("bed")), header, explanation,
+                    cmd.getSwitchVal("summary"));
             core.updateUi("Patient report created for "
-                    + core.patientMap.getPatient(getSwitchVal("bed")).getName());
+                    + core.patientMap.getPatient(cmd.getSwitchVal("bed")).getName());
         }
     }
 

@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.DukeCore;
+import duke.exception.DukeException;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -30,7 +31,7 @@ public abstract class ArgSpec {
         return switchAliases;
     }
 
-    public abstract void execute(DukeCore core);
+    public abstract void execute(DukeCore core, ArgCommand cmd) throws DukeException;
 
     protected void initSwitches(Switch... switches) {
         Map<String, Switch> tempSwitchMap = new HashMap<String, Switch>();

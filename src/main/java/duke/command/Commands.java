@@ -2,12 +2,12 @@ package duke.command;
 
 // TODO: Write different commands for different contexts?
 
-import duke.command.home.HomeDischargeCommand;
-import duke.command.home.HomeFindCommand;
-import duke.command.home.HomeHistoryCommand;
-import duke.command.home.HomeNewCommand;
-import duke.command.home.HomeOpenCommand;
-import duke.command.home.HomeReportCommand;
+import duke.command.home.HomeDischargeSpec;
+import duke.command.home.HomeFindSpec;
+import duke.command.home.HomeHistorySpec;
+import duke.command.home.HomeNewSpec;
+import duke.command.home.HomeOpenSpec;
+import duke.command.home.HomeReportSpec;
 import duke.command.impression.ImpressionDeleteCommand;
 import duke.command.impression.ImpressionEditCommand;
 import duke.command.impression.ImpressionFindCommand;
@@ -56,17 +56,17 @@ public class Commands {
         case HOME:
             switch (cmdStr) {
             case "find":
-                return new HomeFindCommand();
+                return new ArgCommand(HomeFindSpec.getSpec());
             case "new":
-                return new HomeNewCommand();
+                return new ArgCommand(HomeNewSpec.getSpec());
             case "open":
-                return new HomeOpenCommand();
+                return new ArgCommand(HomeOpenSpec.getSpec());
             case "report":
-                return new HomeReportCommand();
+                return new ArgCommand(HomeReportSpec.getSpec());
             case "discharge":
-                return new HomeDischargeCommand();
+                return new ArgCommand(HomeDischargeSpec.getSpec());
             case "history":
-                return new HomeHistoryCommand();
+                return new ArgCommand(HomeHistorySpec.getSpec());
             default:
                 return null;
             }

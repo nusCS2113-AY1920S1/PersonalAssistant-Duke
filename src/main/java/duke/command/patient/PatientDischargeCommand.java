@@ -3,7 +3,7 @@ package duke.command.patient;
 import duke.DukeCore;
 import duke.command.ArgCommand;
 import duke.command.ArgSpec;
-import duke.command.home.HomeReportCommand;
+import duke.command.home.HomeReportSpec;
 import duke.data.Patient;
 import duke.exception.DukeException;
 import duke.ui.context.Context;
@@ -23,7 +23,7 @@ public class PatientDischargeCommand extends ArgCommand {
     public void execute(DukeCore core) throws DukeException {
         Patient patient = (Patient) core.uiContext.getObject();
 
-        HomeReportCommand.createReport(patient, header, explanation, getSwitchVal("summary"));
+        HomeReportSpec.createReport(patient, header, explanation, getSwitchVal("summary"));
         core.patientMap.deletePatient(patient.getBedNo());
         core.uiContext.setContext(Context.HOME, null);
         core.writeJsonFile();
