@@ -40,12 +40,12 @@ public class CommandSchedule extends Command {
                     + dateInput
                     + ":\n");
             for (int index = 0; index < taskList.getSize(); ++index) {
-                String taskDate = taskList.getList().get(index).getDate().format(formatter);//creates of copy of datetime in the task
+                String taskDate = taskList.getList().get(index).getDate().format(formatter);
                 if (taskDate.equals(userDate.format(formatter))) {
                     taskList.printTaskByIndex(index);
                 }
             }
-        } catch(Exception e){
+        } catch (Exception e) {
             Ui.dukeSays("Please kindly type help to see the format for using Command Schedule");
         }
     }

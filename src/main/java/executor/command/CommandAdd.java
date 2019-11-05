@@ -2,6 +2,7 @@ package executor.command;
 
 import executor.task.TaskList;
 import interpreter.Parser;
+import ui.Ui;
 import ui.Wallet;
 
 public class CommandAdd extends Command {
@@ -18,7 +19,7 @@ public class CommandAdd extends Command {
      */
     public CommandAdd(String userInput) {
         this.userInput = userInput;
-        this.description = "Adds two double values. Format: add <number> // <number>";
+        this.description = "Adds two double values. Format: add <num1> / <num2>";
         this.commandType = CommandType.ADD;
     }
 
@@ -31,10 +32,25 @@ public class CommandAdd extends Command {
 
     @Override
     public void execute(Wallet wallet) {
-        this.entryOne = Double.parseDouble(Parser.parseForPrimaryInput(this.commandType, userInput));
-        this.entryTwo = Double.parseDouble(Parser.parseForFlag("", userInput));
-        double sum = entryOne + entryTwo;
-        System.out.println(sum);
-    }
+        String stringOne = Parser.parseForPrimaryInput(this.commandType, userInput);
+        String stringTwo = Parser.parseForFlag("", userInput);
+        try {
+            this.entryOne = Double.parseDouble(stringOne);
+        } catch (NumberFormatException e) {
+            Ui.dukeSays("Invalid input please enter in this format: add <num1> / <num2>");
+            return;
+        }
+        try {
+            this.entryTwo = Double.parseDouble(stringTwo);
+        } catch (NumberFormatException e) {
+            Ui.dukeSays("Invalid input please enter the second number. Format: add <num1> / <num2>");
+            return;
+        } catch (NullPointerException e) {
+            Ui.dukeSays("Enter forward slash and second number. Format: add <num1> / <num2>");
+            return;
+        }
+        double result = entryOne + entryTwo;
+        System.out.println(result);
 
+    }
 }
