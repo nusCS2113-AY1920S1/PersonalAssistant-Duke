@@ -8,6 +8,7 @@ import duke.exception.DukeException;
 import duke.ui.context.Context;
 
 public class HomeNewCommand extends ArgCommand {
+
     @Override
     protected ArgSpec getSpec() {
         return HomeNewSpec.getSpec();

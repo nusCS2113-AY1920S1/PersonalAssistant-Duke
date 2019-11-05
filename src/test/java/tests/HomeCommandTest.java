@@ -24,11 +24,10 @@ public class HomeCommandTest extends CommandTest {
      */
     @Test
     public void homeNewCommand_allSwitches_correctPatientCreated() {
-        ArgCommand newPatientCmd = new HomeNewCommand();
-        String[] switchNames = {"name", "bed", "allergies", "height", "weight", "age", "number", "address", "history"};
+        String[] switchNames = {"name", "bed", "allergies", "height", "wejght", "age", "number", "address", "history"};
         String[] switchVals = {"testCPatient", "C1", "test allergies", "123", "456", "100", "6582447", "test address",
             "test history"};
-        setupCommand(newPatientCmd, null, switchNames, switchVals);
+        ArgCommand newPatientCmd = new HomeNewCommand(null, switchNames, switchVals);
         Patient patient = new Patient("testCPatient", "C1", "test allergies", 123,
                 456, 100, 6582447, "test address", "test history");
         try {
@@ -44,13 +43,12 @@ public class HomeCommandTest extends CommandTest {
      */
     @Test
     public void homeReportCommandTest() {
-        ArgCommand newReportCmd = new HomeReportCommand();
         String[] switchNames = {"bed", "summary"};
         String[] switchVals = {"testC1", "This as a test report that is used to test the report command from the"
                 + " home context"};
         core.patientMap.addPatient(new Patient("testCPatient", "testC1", "test allergies",
                 123, 456, 100, 6582447, "test address", "test history"));
-        setupCommand(newReportCmd,"", switchNames, switchVals); //TODO change the way it is implemented
+        ArgCommand newReportCmd = new HomeReportCommand("", switchNames, switchVals);
         try {
             newReportCmd.execute(core);
             String expected = "PATIENT REPORT\n\nThis report shows all the data that was stored about a patient at "

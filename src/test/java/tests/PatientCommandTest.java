@@ -31,10 +31,9 @@ public class PatientCommandTest extends CommandTest {
 
     @Test
     public void patientNewCommand_allSwitches_correctImpressionCreated() {
-        ArgCommand newImpCmd = new PatientNewCommand();
         String[] switchNames = {"name", "description"};
         String[] switchVals = {"test", "test description"};
-        setupCommand(newImpCmd, null, switchNames, switchVals);
+        ArgCommand newImpCmd = new PatientNewCommand(null, switchNames, switchVals);
         Impression imp = new Impression("test", "test description", patient);
         try {
             newImpCmd.execute(core);
