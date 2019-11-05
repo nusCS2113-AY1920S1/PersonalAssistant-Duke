@@ -358,7 +358,7 @@ public class TaskCommandParseHelper {
      */
     public static boolean validPriority(String input) {
         for (Task.Priority priority : Task.Priority.values()) {
-            if (priority.name().equals(input)) {
+            if (priority.name().equals(input) && input != "NULL") {
                 return true;
             }
         }
@@ -380,7 +380,7 @@ public class TaskCommandParseHelper {
         } else if (level.LOW.name().equals(input)) {
             return level.LOW;
         } else {
-            return null;
+            return level.NULL;
         }
     }
 
@@ -435,7 +435,7 @@ public class TaskCommandParseHelper {
                                                      ArrayList<String> tags, String priority,
                                                      ArrayList<String> links) {
         if ("".equals(priority)) {
-            return constructByType(input, doAfter, time, tags, null, links);
+            return constructByType(input, doAfter, time, tags, Task.Priority.NULL, links);
         } else if (validPriority(priority)) {
             Task.Priority level = getPriorityLevel(priority);
             return constructByType(input, doAfter, time, tags, level, links);

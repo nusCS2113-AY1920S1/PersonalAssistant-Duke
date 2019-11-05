@@ -5,9 +5,10 @@ import seedu.duke.task.command.TaskParseNaturalDateHelper;
 import seedu.duke.task.entity.Deadline;
 import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
-import seedu.duke.ui.UI;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * TaskList class is the special type of ArrayList that contains Task and has some special functions used to
@@ -287,5 +288,14 @@ public class TaskList extends ArrayList<Task> {
 
     private String constructClearListMessage() {
         return "Task List has been cleared";
+    }
+
+    public void sortListByPriority(TaskList taskList) {
+        Collections.sort(taskList, new Comparator<Task>() {
+            @Override
+            public int compare(Task task1, Task task2) {
+                return task1.getPriority().compareTo(task2.getPriority());
+            }
+        });
     }
 }
