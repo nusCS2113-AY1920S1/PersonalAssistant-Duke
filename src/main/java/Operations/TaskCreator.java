@@ -112,8 +112,8 @@ public class TaskCreator {
         Date currentDate = new Date();
         if (count > 0) {
             if (count <= 2) {
-                String dateInput = dateArray[1].trim();
                 try {
+                    String dateInput = dateArray[1].trim();
                     Date date = parser.formatDate(dateInput);
                     if (currentDate.compareTo(date) > 0) {
                         // the input date is before the current date
@@ -123,6 +123,8 @@ public class TaskCreator {
                 } catch (RoomShareException e) {
                     System.out.println(DATE_FORMAT_ERROR);
                     dates.add(currentDate);
+                } catch (ArrayIndexOutOfBoundsException a) {
+                    throw new RoomShareException(ExceptionType.invalidDateError);
                 }
             } else {
                 String fromInput = dateArray[1].trim();
@@ -316,6 +318,10 @@ public class TaskCreator {
             assignment.setPriority(priority);
             assignment.setAssignee(assignee);
             assignment.setRecurrenceSchedule(recurrence);
+            if(remind) {
+                TaskReminder taskReminder = new TaskReminder(description, duration);
+                taskReminder.start();
+            }
             return assignment;
         } else if (type.equals("leave")) {
             String user;
