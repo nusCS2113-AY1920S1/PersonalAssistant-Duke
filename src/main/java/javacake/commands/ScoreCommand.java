@@ -2,15 +2,19 @@ package javacake.commands;
 
 import javacake.Logic;
 import javacake.exceptions.CakeException;
+import javacake.quiz.QuestionList;
+import javacake.storage.Profile;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 
 public class ScoreCommand extends Command {
-    //3 different grades: BAD, OKAY, GOOD
-    private int questionGrades = 3;
+    //3 different levels: EZ, MED, HARD
+    private int questionDifficulties = 3;
+    //Number of questions per level
+    private int questionSize = QuestionList.MAX_QUESTIONS;
     //4 different quizzes
     private int questionTypes = 4;
-    private int totalQuestionQuantum = questionGrades * questionTypes;
+    private int totalQuestionQuantum = questionDifficulties * questionTypes * questionSize;
 
     /**
      * Constructor for ScoreCommand.
@@ -31,30 +35,39 @@ public class ScoreCommand extends Command {
      */
     @Override
     public String execute(Logic logic, Ui ui, StorageManager storageManager) {
-        return Ui.getQuizResults(storageManager.profile.getTotalProgress());
+        return getQuizResults(storageManager.profile);
 
     }
 
     /**
      * Method to get quiz score.
-     * @param progress the user's overall quiz score
+     * @param profile the user's profile
      * @return String with quiz score message
      */
-    private String getQuizResults(int progress) {
+
+    private String getQuizResults(Profile profile) {
         StringBuilder str = new StringBuilder();
         str.append("Here's your quiz progress so far :D\n");
-        for (int i = 0; i < totalQuestionQuantum; ++i) {
-            if (i < progress) {
-                str.append("#");
-            } else {
-                str.append("-");
+        str.append("(");
+        for (int i = 0; i < questionTypes; ++i) {
+            str.append(" ");
+            for (int j = 0; j < questionDifficulties; ++j) {
+                for (int k = 0; k < questionSize; ++k) {
+                    if (k < profile.getIndividualContentMarks((i * questionDifficulties) + j)) {
+                        str.append("#");
+                    } else {
+                        str.append("-");
+                    }
+                }
+                str.append(" ");
+            }
+            if (i != questionTypes - 1) {
+                str.append("|");
             }
         }
-        progress = progress * 100 / totalQuestionQuantum;
-        if (progress == 99) {
-            progress = 100;
-        }
-        str.append(" ").append(progress).append("%").append("\n");
+        str.append(") ");
+        int progress = (int) ((double) profile.getTotalProgress() / totalQuestionQuantum * 100);
+        str.append(progress).append("%");
         return str.toString();
     }
 }

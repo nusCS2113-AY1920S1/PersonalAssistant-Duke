@@ -75,7 +75,7 @@ public class JavaCake {
      * CLI method to overwrite username if initially default
      * and print the required welcome messages.
      */
-    private void initialiseWelcomeCliMode() {
+    private void initialiseWelcomeCliMode() throws CakeException {
         ui.showMessage(Ui.showWelcomeMsgPhaseA(isFirstTimeUser));
         if (isFirstTimeUser) {
             userName = ui.readCommand();
@@ -92,7 +92,7 @@ public class JavaCake {
                 logger.log(Level.WARNING, "Profile overwrite failed.");
             }
         }
-        ui.showMessage(Ui.showWelcomeMsgPhaseB(isFirstTimeUser, userName, userProgress));
+        ui.showMessage(Ui.showWelcomeMsgPhaseB(isFirstTimeUser, userName, storageManager));
     }
 
     /**
@@ -114,7 +114,11 @@ public class JavaCake {
      */
     private void runAsCli() {
         boolean isExit = false;
-        initialiseWelcomeCliMode();
+        try {
+            initialiseWelcomeCliMode();
+        } catch (CakeException e) {
+            e.printStackTrace();
+        }
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();

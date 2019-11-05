@@ -54,7 +54,7 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.setPrefWidth(675);
+        //this.setPrefWidth(675);
         setStyleLoop();
 
         displayText = text;
@@ -62,6 +62,8 @@ public class DialogBox extends HBox {
         dialog.setText(displayText.substring(0, 1));
         setScrollText();
         displayPicture.setImage(img);
+        displayPicture.setFitHeight(69);
+        displayPicture.setFitWidth(69);
     }
 
     /**
@@ -77,8 +79,8 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.setPrefWidth(282);
-        dialog.setPrefWidth(280);
+        //this.setPrefWidth(282);
+        //dialog.setPrefWidth(280);
         setStyleLoop();
 
         displayText = text;
@@ -185,7 +187,9 @@ public class DialogBox extends HBox {
      * @return a DialogBox containing text
      */
     public static DialogBox getTaskDialog(String text) {
-        return new DialogBox(text);
+        var db = new DialogBox(text);
+        db.flip();
+        return db;
     }
 
 }

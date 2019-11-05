@@ -3,11 +3,16 @@ package javacake.ui;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.Observable;
+import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -17,8 +22,11 @@ import java.util.List;
 
 public class AvatarScreen extends VBox {
     @FXML
+    private GridPane gridAvatar;
+    @FXML
     private ImageView avatarImage;
 
+    private boolean isAvatarSwitched = false;
 
     public enum AvatarMode {
         HAPPY, EXTHAPPY, SAD, POUT
@@ -69,10 +77,12 @@ public class AvatarScreen extends VBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        avatarImage.fitHeightProperty().bind(gridAvatar.heightProperty());
+        //avatarImage.setPreserveRatio(true);
+
         initialiseList();
         avatarMode = type;
         setStyleLoop();
-
     }
 
     /**
@@ -116,4 +126,5 @@ public class AvatarScreen extends VBox {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
+
 }
