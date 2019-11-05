@@ -9,6 +9,7 @@ public class Receipt {
     private LocalDate date;
     private ArrayList<String> tags;
 
+
     /**
      * Complete Constructor for Receipt Object.
      * @param cashSpent Double to be set as cashSpent property of Receipt Object
@@ -68,6 +69,15 @@ public class Receipt {
         return this.getTags().contains(tag);
     }
 
+    /**
+     * Checks if a date equals to the date property of Receipt Object.
+     * @param date String to be checked
+     * @return true if date equals tot the one in the Receipt Object, false otherwise.
+     */
+    public boolean equalsDate(String date) {
+        return this.getDate().equals(LocalDate.parse(date));
+    }
+
     // -- Setters & Getters
 
     /**
@@ -101,6 +111,8 @@ public class Receipt {
     public ArrayList<String> getTags() {
         return tags;
     }
+
+
 
     /**
      * Setter for date property.

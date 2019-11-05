@@ -22,11 +22,11 @@ public enum CommandType {
     TODO(CommandNewTask.class),
     RECUR(CommandNewTask.class),
     FDURATION(CommandNewTask.class),
-    TAGLIST(CommandListTag.class),
+    TAGLIST(CommandTagList.class),
     EXPENDEDMONTH(CommandGetSpendingByMonth.class),
     EXPENDEDYEAR(CommandGetSpendingByYear.class),
     CONVERT(CommandConvert.class),
-    LISTMY(CommandListMonYear.class),
+    DATELIST(CommandDateList.class),
     ERROR(CommandError.class),
     WEATHER(CommandWeather.class);
 

@@ -92,6 +92,22 @@ public class ReceiptTracker extends ArrayList<Receipt> {
     }
 
     /**
+     * Find all receipts that corresponds to the specific date.
+     * @param date Specific String to be filtered with
+     * @return ArrayList containing all the Receipts with the specific date
+     */
+    public ReceiptTracker findReceiptsByDate(String date) {
+        ReceiptTracker dateReceipts = new ReceiptTracker();
+        for (Receipt receipt : this) {
+            if (receipt.equalsDate(date)) {
+                dateReceipts.addReceipt(receipt);
+            }
+        }
+        return dateReceipts;
+    }
+
+
+    /**
      * Finds all the receipts that corresponds to that month and year.
      * @param month is the month given by the user
      * @param year is the year given by the user
