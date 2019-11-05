@@ -43,7 +43,7 @@ repositories {
 
 application {
     // Change this to your main class.
-    mainClassName = "WordUp"
+    mainClassName = "Launcher"
 }
 
 javafx {
