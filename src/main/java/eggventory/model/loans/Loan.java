@@ -1,5 +1,6 @@
 package eggventory.model.loans;
 
+import eggventory.model.PersonList;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -97,6 +98,20 @@ public class Loan {
         return data;
     }
 
+    /**
+     * Gets all data of this loan as an arraylist.
+     * @return The array list of all data in this loan.
+     */
+    public ArrayList<String> getDataAsArray() {
+        ArrayList<String> dataArray = new ArrayList<>();
+
+        dataArray.add(matricNo);
+        dataArray.add(PersonList.getName(matricNo));
+        dataArray.add(stockCode);
+        dataArray.add(Integer.toString(quantity));
+
+        return dataArray;
+    }
     //@@author
 
 

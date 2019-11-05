@@ -198,6 +198,25 @@ public final class LoanList {
     }
 
     /**
+     * Returns all loan data as a TableStruct.
+     * @return The TableStruct of all data.
+     */
+    public static TableStruct getAllLoansStruct() {
+        TableStruct dataTable = new TableStruct("Loan list");
+        dataTable.setTableColumns("Matric No.", "Name", "StockCode", "Quantity");
+
+        ArrayList<ArrayList<String>> dataArray = new ArrayList<>();
+        for (Loan loan : loansList) {
+            dataArray.add(loan.getDataAsArray());
+        }
+
+        dataTable.setTableData(dataArray);
+
+        return dataTable;
+
+    }
+
+    /**
      * Returns all of a person's loans as a TableStruct.
      * @param matricNo Matriculation number of person to output.
      */
