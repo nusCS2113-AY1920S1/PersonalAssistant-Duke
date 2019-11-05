@@ -40,12 +40,14 @@ public class FindBookingCommand extends Command {
                         Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage)
             throws DukeException, IOException, ParseException {
         boolean found = false;
-        for(int i = 0; i < bookingList.size(); i++) {
+        for (int i = 0; i < bookingList.size(); i++) {
             if (bookingList.get(i).getDescription().contains(textToFind)) {
                 found = true;
                 ui.addToOutput(i + 1 + ". " + bookingList.get(i).toString());
             }
         }
-        if (!found) ui.addToOutput("No items match your search!");
+        if (!found) {
+            ui.addToOutput("No items match your search!");
+        }
     }
 }
