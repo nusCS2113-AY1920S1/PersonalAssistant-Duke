@@ -1,16 +1,12 @@
 package rims.core;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
-
 import rims.command.*;
 import rims.exception.RimsException;
-import rims.core.Ui;
-import rims.core.ResourceList;
 import rims.resource.Resource;
 import rims.resource.Reservation;
 import rims.resource.ReservationList;
@@ -305,4 +301,6 @@ public class Parser {
         }
         return c;
     }
-}
+
+
+        }

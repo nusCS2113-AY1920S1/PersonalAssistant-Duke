@@ -26,10 +26,10 @@ RIMS (Resource and Inventory Management System) is a *command-line* logistic man
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `RIMS.jar` link:{repoURL}[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Copy the file to the folder you want to use as the home folder for RIMS.
+.  Double-click the file to start the app. The console should appear in a few seconds.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`list`* and pressing kbd:[Enter] will show you a list of all the rooms and items with their status (booked/reserved/available).
+e.g. typing *`list`* and pressing kbd:[Enter] will show you a list of all the rooms and items with their statuses (booked/reserved/available).
 .  Some example commands you can try:
 
 * *`list`* : lists all items/rooms and their status (booked/reserved/available)
@@ -37,7 +37,6 @@ e.g. typing *`list`* and pressing kbd:[Enter] will show you a list of all the ro
 
 .  Refer to <<Features, Features>> for details of each command.
 
-[[Features]]
 == Features
 
 ====
