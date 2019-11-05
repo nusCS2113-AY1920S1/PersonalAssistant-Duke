@@ -111,4 +111,25 @@ public abstract class ArgCommand extends Command {
             }
         }
     }
+
+    public boolean equals(ArgCommand other) {
+        if (getClass() != other.getClass()) {
+            return false;
+        }
+
+        if (!CommandUtils.equalsIfNotBothNull(arg, other.arg)) {
+            return false;
+        }
+
+        Map<String, String> thisSwitchVals = getSwitchVals();
+        Map<String, String> otherSwitchVals = other.getSwitchVals();
+        for (String switchName : getSwitchMap().keySet()) {
+            if (!CommandUtils.equalsIfNotBothNull(thisSwitchVals.get(switchName), otherSwitchVals.get(switchName))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }
