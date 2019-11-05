@@ -160,17 +160,17 @@ public class ImportCommand extends Command {
                 taskEndTime, taskEndDate, interval);
             finalList += deadline.commandExecute(taskList).feedbackToUser + "\n";
 
-            /*if (hasReminder) {
+            if (hasReminder) {
                 for (Task t : taskList.getArrList()) {
                     if (t.getSymbol().equals("D")
                         && t.getDescription().equals(taskDesc)
                         && t.getStringEndTime().equals(taskEndTime)
                         && t.getStringMainDate().equals(taskEndDate)) {
-                        new SetReminderCommand(t.getId(), "y").commandExecute(taskList);
+                        t.setHasReminder(true);
                         break;
                     }
                 }
-            }*/
+            }
 
         } else {
             int interval = 7;
@@ -178,9 +178,10 @@ public class ImportCommand extends Command {
             startDateList.add(taskStartDate);
             EventCommand event = new EventCommand(taskDesc, startDateList, taskPriority, taskStartTime,
                 taskEndTime, taskEndDate, interval);
+
             finalList += event.commandExecute(taskList).feedbackToUser + "\n";
 
-            /*if (hasReminder) {
+            if (hasReminder) {
                 for (Task t : taskList.getArrList()) {
                     if (t.getSymbol().equals("E")
                         && t.getDescription().equals(taskDesc)
@@ -188,11 +189,11 @@ public class ImportCommand extends Command {
                         && t.getStringEndTime().equals(taskEndTime)
                         && t.getStringMainDate().equals(taskStartDate)
                         && t.getStringTrailingDate().equals(taskEndDate)) {
-                        new SetReminderCommand(t.getId(), "y").commandExecute(taskList);
+                        t.setHasReminder(true);
                         break;
                     }
                 }
-            }*/
+            }
         }
     }
 
