@@ -12,8 +12,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
 import room.Room;
 import room.RoomList;
+import user.UserList;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -36,6 +38,8 @@ public class Ui extends AnchorPane {
     private Button sendButton;
     @FXML
     private AnchorPane flexiblePane;
+    @FXML
+    private Label userLabel;
 
     private String output;
     private Duke duke;
@@ -52,6 +56,7 @@ public class Ui extends AnchorPane {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(showWelcome(), dukeImage)
         );
+        userLabel.setText("Not Logged In");
     }
 
     public void setDuke(Duke d) {
@@ -88,7 +93,6 @@ public class Ui extends AnchorPane {
             BookingList bookingList1 = duke.getBookingList();
             showListDay(bookingList1, splitStr[1]);
             break;
-
         case "listyear":
             listContainer.getChildren().clear();
             BookingList bookingList2 = duke.getBookingList();
@@ -98,6 +102,15 @@ public class Ui extends AnchorPane {
             listContainer.getChildren().clear();
             BookingList bookingList3 = duke.getBookingList();
             showListMonth(bookingList3, splitStr[1]);
+            break;
+        case "login":
+        case "logout":
+            UserList userList = duke.getUserList();
+            if (userList.getLoginStatus() == true) {
+                userLabel.setText(userList.getCurrentUser());
+            } else {
+                userLabel.setText("Not Logged In");
+            }
             break;
         }
     }
@@ -114,24 +127,22 @@ public class Ui extends AnchorPane {
 
     private void showList(BookingList bookingList) throws DukeException {
         addToList(new ListBox("S/N", "Name", "Venue", "Date", "From",
-                "To", "Status", "Purpose"));
+                "To", "Status", "Purpose", "Approved/ Rejected By:"));
         Integer index = 1;
         for (Booking i : bookingList) {
-            addToList(new ListBox(index.toString(), i.getName(), i.getVenue(), i.getDateStart().toString(),
-                    i.getTimeStart().toString(), i.getTimeEnd().toString(), i.getStatus(), i.getDescription()));
+            addToList(customListBox(i, index));
             index++;
         }
     }
     private void showListDay (BookingList bookingList, String date) throws DukeException {
         addToList(new ListBox("S/N", "Name", "Venue", "Date", "From",
-                "To", "Status", "Purpose"));
+                "To", "Status", "Purpose", "Approved/ Rejected By:"));
         Integer index = 1;
         DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate dateStart = LocalDate.parse(date, formatterStart);
         for (Booking i : bookingList) {
             if (i.getDateStart() == dateStart) {
-                addToList(new ListBox(index.toString(), i.getName(), i.getVenue(), i.getDateStart().toString(),
-                        i.getTimeStart().toString(), i.getTimeEnd().toString(), i.getStatus(), i.getDescription()));
+                addToList(customListBox(i, index));
                 index++;
             }
         }
@@ -139,33 +150,29 @@ public class Ui extends AnchorPane {
 
     private void showListYear (BookingList bookingList, String date) throws DukeException {
         addToList(new ListBox("S/N", "Name", "Venue", "Date", "From",
-                "To", "Status", "Purpose"));
+                "To", "Status", "Purpose", "Approved/ Rejected By"));
         Integer index = 1;
         DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate dateStart = LocalDate.parse(date, formatterStart);
         for (Booking i : bookingList) {
             if (i.getStartYear() == dateStart.getYear()) {
-                addToList(new ListBox(index.toString(), i.getName(), i.getVenue(), i.getDateStart().toString(),
-                        i.getTimeStart().toString(), i.getTimeEnd().toString(), i.getStatus(), i.getDescription()));
+                addToList(customListBox(i, index));
                 index++;
             }
         }
     }
 
     private void showListMonth (BookingList bookingList, String month) throws DukeException {
-        addToList(new ListBox("S/N", "Name", "Venue", "Date", "From",
-                "To", "Status", "Purpose"));
+        addToList(defaultListBox());
         Integer index = 1;
         int intMonth = Integer.parseInt(month.substring(10));
         for (Booking i : bookingList) {
             if (i.getStartMonth() == intMonth) {
-                addToList(new ListBox(index.toString(), i.getName(), i.getVenue(), i.getDateStart().toString(),
-                        i.getTimeStart().toString(), i.getTimeEnd().toString(), i.getStatus(), i.getDescription()));
+                addToList(customListBox(i, index));
                 index++;
             }
         }
     }
-
 
     private void addToList(ListBox listBox) {
         listContainer.getChildren().addAll(listBox);
@@ -233,6 +240,17 @@ public class Ui extends AnchorPane {
 
     public String getOutput() {
         return output;
+    }
+
+    private ListBox defaultListBox() throws DukeException {
+        return new ListBox("S/N", "Name", "Venue", "Date", "From",
+                "To", "Status", "Purpose", "Approved/ Rejected By");
+    }
+
+    private ListBox customListBox(Booking booking, Integer index) throws DukeException {
+        return new ListBox(index.toString(), booking.getName(), booking.getVenue(), booking.getDateStart().toString(),
+                booking.getTimeStart().toString(), booking.getTimeEnd().toString(), booking.getStatus(),
+                booking.getDescription(), booking.getApprovedBy());
     }
 
     public void showHelp() {

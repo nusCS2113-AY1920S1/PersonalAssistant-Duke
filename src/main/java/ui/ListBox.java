@@ -1,5 +1,6 @@
 package ui;
 
+import booking.Booking;
 import exception.DukeException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +26,8 @@ public class ListBox extends HBox {
     private Label statusLabel;
     @FXML
     private Label descriptionLabel;
+    @FXML
+    private Label approverLabel;
 
     /**
      * Container for booking info.
@@ -37,7 +40,8 @@ public class ListBox extends HBox {
      * @param status approve/reject status
      */
     public ListBox(String index, String name, String venue, String date,
-                   String timeStart, String timeEnd, String status, String purpose) throws DukeException {
+                   String timeStart, String timeEnd, String status, String purpose,
+                   String approver) throws DukeException {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Ui.class.getResource("/view/ListBox.fxml"));
             fxmlLoader.setController(this);
@@ -54,5 +58,6 @@ public class ListBox extends HBox {
         timeEndLabel.setText(timeEnd);
         statusLabel.setText(status);
         descriptionLabel.setText(purpose);
+        approverLabel.setText(approver);
     }
 }
