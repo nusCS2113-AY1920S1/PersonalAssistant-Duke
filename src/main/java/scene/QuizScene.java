@@ -22,17 +22,19 @@ public class QuizScene extends NewScene {
     private Integer countQuiz;
     private Integer wrongQuiz;
     private ArrayList<String> quizArray;
-
+    private ArrayList<String> duplicateQuestion;
     /**
      * Instantiates a QuizScene.
      * @param storage object required to create quiz scene
      */
+
     public QuizScene(Ui ui, Bank bank, Storage storage, Stage window) {
         super(ui, bank, storage, ui.quizGreet(), window);
         setupHandleInput();
-        this.countQuiz = 0;
+        this.countQuiz = 1;
         this.wrongQuiz = 0;
         this.quizArray = new ArrayList<>();
+        this.duplicateQuestion = new ArrayList<>();
     }
 
     @Override
@@ -50,7 +52,11 @@ public class QuizScene extends NewScene {
             throw new ChangeSceneException();
         } else if (!startQuiz && userInput.equals("start")) {
             this.generateQuiz();
+            countQuiz = 1;
+            wrongQuiz = 0;
+            duplicateQuestion.clear();
             startQuiz = true;
+            duplicateQuestion.add(quizCommand.question + ": " + quizCommand.answer);
             return ui.quizDisplay(quizCommand.question, quizCommand.options, quizCommand.optionSequence);
         } else {
             if (!startQuiz) {
@@ -69,9 +75,15 @@ public class QuizScene extends NewScene {
                         quizArray.add(quizCommand.question + ": " + quizCommand.answer);
                         wrongQuiz += 1;
                     }
-
-                    if (countQuiz < 5) {
-                        this.generateQuiz();
+                    //System.out.println(duplicateQuestion);
+                    if (countQuiz < 4) {
+                        while (true) {
+                            if (!isDuplicate(this.generateQuiz())) {
+                                break;
+                            }
+                        }
+                        countQuiz += 1;
+                        duplicateQuestion.add(quizCommand.question + ": " + quizCommand.answer);
                         return s + "\n"
                                 + ui.quizDisplay(quizCommand.question, quizCommand.options, quizCommand.optionSequence);
                     } else {
@@ -79,7 +91,6 @@ public class QuizScene extends NewScene {
                         return s + "\n"
                                 + ui.quizIncorrect(wrongQuiz, countQuiz, quizArray);
                     }
-
 
                 } catch (NumberFormatException e) {
 
@@ -90,11 +101,10 @@ public class QuizScene extends NewScene {
         }
     }
 
-    private void generateQuiz() throws WordBankNotEnoughForQuizException {
+    private String generateQuiz() throws WordBankNotEnoughForQuizException {
         quizCommand = new QuizCommand();
-        this.countQuiz += 1;
         //quizCommand.generateQuiz(wordBank);
-        quizCommand.generateQuiz(bank.getWordBankObject());
+        return quizCommand.generateQuiz(bank.getWordBankObject());
     }
 
     @Override
@@ -118,5 +128,14 @@ public class QuizScene extends NewScene {
         if (e instanceof ChangeSceneException) {
             window.setScene(new MainScene(ui, bank, storage, window).getScene());
         }
+    }
+
+    private boolean isDuplicate(String str) {
+        for (int i = 0; i < duplicateQuestion.size(); i++) {
+            if (duplicateQuestion.get(i).equals(str)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
