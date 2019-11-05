@@ -27,18 +27,18 @@ public class CommandGetSpendingByYear extends Command {
     public void execute(Wallet wallet) {
         ReceiptTracker receiptsInYear = new ReceiptTracker();
         String yearStr = Parser.parseForPrimaryInput(CommandType.EXPENDEDYEAR, userInput);
-
-        if (yearStr.isEmpty()) {
-            Ui.dukeSays("No year input detected. FORMAT : expendedyear 2019");
-            return;
-        }
-
-        if (yearStr.length() != 4) {
-            Ui.dukeSays("Year input contains extra number of variables. FORMAT : expendedyear 2019");
-            return;
-        }
-
         try {
+            if (yearStr.isEmpty()) {
+                Ui.dukeSays("No year input detected. FORMAT : expendedyear 2019");
+                return;
+            }
+
+            if (yearStr.length() != 4) {
+                Ui.dukeSays("Year input contains extra number of variables. FORMAT : expendedyear 2019");
+                return;
+            }
+
+
             int year = Integer.parseInt(yearStr);
 
             if (year > Year.now().getValue()) {
