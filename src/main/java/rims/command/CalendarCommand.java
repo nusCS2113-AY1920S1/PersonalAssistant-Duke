@@ -70,7 +70,7 @@ public abstract class CalendarCommand extends Command {
 
     // todo: check and align days of the week / offset from first box (mon)
     // todo: add in items and reservation status
-    // todo: add "..." for when cell cannot display all rows
+    // todo: add "X more..." for when cell cannot display all rows
     // todo: highlight box of today's date
     // todo: make calendar size dynamic - dependant on size of window
     // todo: make dates overflow from previous months
@@ -80,7 +80,7 @@ public abstract class CalendarCommand extends Command {
     // todo: change month function
 
     public static void printCal(ResourceList resources, Ui ui) throws ParseException, RimsException {
-        //getData(resources,ui);
+        getData(resources,ui);
         printTopCells();
         for (int row = 2; row < CalHeight; row++) {
             printMidCells(row);
