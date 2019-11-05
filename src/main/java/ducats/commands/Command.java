@@ -39,6 +39,19 @@ public abstract class Command<T> {
      */
     public abstract String execute(T object, Ui ui, Storage storage) throws DucatsException;
 
+    /**
+     * Used for undo command and redo command only.
+     * This method passes in a UndoRedoStack object which stores all the version of the SongList object
+     *
+     * @param songs the SongList object that is passed in as a version
+     * @param ui the Ui object responsible for the reading of user input
+     *           and the display of the responses
+     * @param storage the Storage object used to read and manipulate the .txt file
+     * @param undoRedoStack the UndoRedoStack object that stores different versions of
+     *                      the SongList object
+     * @return the formatted String to be displayed
+     * @throws DucatsException in the case of either parsing or IO errors
+     */
     public String execute(SongList songs, Ui ui, Storage storage, UndoRedoStack undoRedoStack) throws DucatsException {
         return null;
     }
