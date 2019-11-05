@@ -77,7 +77,6 @@ public class InvalidCommand extends Command {
         if (input.charAt(x - 1) == known.charAt(y - 1)) {
             return editDist(input, known, x - 1, y - 1);
         }
-
         return 1 + minimum(editDist(input, known, x, y - 1), editDist(input, known, x - 1, y),
         editDist(input, known, x - 1, y - 1));
     }

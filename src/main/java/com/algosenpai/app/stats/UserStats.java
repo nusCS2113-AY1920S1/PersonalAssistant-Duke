@@ -30,8 +30,8 @@ public class UserStats {
     private String userDataFilePath;
     private String userName;
     private String gender;
-    private String level;
-    private String expLevel;
+    private int level;
+    private int expLevel;
 
     // Array of chapter stats
     private ArrayList<ChapterStat> chapterData;
@@ -58,8 +58,8 @@ public class UserStats {
         if (!file.isFile()) {
             this.userName = "Default";
             this.gender = "???";
-            this.level = "1";
-            this.expLevel = "0";
+            this.level = 1;
+            this.expLevel = 0;
             chapterData.add(new ChapterStat("Sorting",1,0,0,0,0,0,""));
             chapterData.add(new ChapterStat("Linked List",2,0,0,0,0,0,""));
             chapterData.add(new ChapterStat("Bitmask",3,0,0,0,0,0,""));
@@ -71,8 +71,8 @@ public class UserStats {
             String [] tokens = fileContents.split("\n",8);
             this.userName = tokens[2];
             this.gender = tokens[3];
-            this.level = tokens[4];
-            this.expLevel = tokens[5];
+            this.level = Integer.parseInt(tokens[4]);
+            this.expLevel = Integer.parseInt(tokens[5]);
 
             // No chapters in the list, so exit early, otherwise will cause parsing error.
             if (tokens.length > 7) {
@@ -88,7 +88,7 @@ public class UserStats {
     /**
      * Constructor. Needs no explanation.
      */
-    public UserStats(String username, String gender, String level, String expLevel,
+    public UserStats(String username, String gender, int level, int expLevel,
                      ArrayList<ChapterStat> chapterData) {
         this.userName = username;
         this.gender = gender;
@@ -223,19 +223,19 @@ public class UserStats {
     }
 
     public int getUserLevel() {
-        return Integer.parseInt(this.level);
+        return this.level;
     }
 
     public void setUserLevel(int level) {
-        this.level = Integer.toString(level);
+        this.level = level;
     }
 
     public int getUserExp() {
-        return Integer.parseInt(this.expLevel);
+        return this.expLevel;
     }
 
     public void setUserExp(int expLevel) {
-        this.expLevel = Integer.toString(expLevel);
+        this.expLevel = expLevel;
     }
 
     /**
@@ -267,41 +267,49 @@ public class UserStats {
 
     /**
      * Given the string representation, it returns the UserStats object.
-     * TODO Handle invalid string.
      * @param string The string version of the UserStats (obtained by calling toString()).
      * @return The UserStats object.
      */
     public static UserStats parseString(String string) {
-        // Get the first 6 lines. 6th line contains the chapterData.
-        String [] tokens = string.split("\n",8);
-        String userName = tokens[2];
-        String gender = tokens[3];
-        String level = tokens[4];
-        String expLevel = tokens[5];
+        try {
 
-        // No chapters in the list, so exit early, otherwise will cause parsing error.
-        if (tokens.length < 8) {
-            return new UserStats(userName, gender, level, expLevel, new ArrayList<>());
+            // Get the first 6 lines. 6th line contains the chapterData.
+            String [] tokens = string.split("\n",8);
+            String userName = tokens[2];
+            String gender = tokens[3];
+            int level = Integer.parseInt(tokens[4]);
+            int expLevel = Integer.parseInt(tokens[5]);
+
+            // No chapters in the list, so exit early, otherwise will cause parsing error.
+            if (tokens.length < 8) {
+                return new UserStats(userName, gender, level, expLevel, new ArrayList<>());
+            }
+            // Each chapter's data is separated by 2 newlines, so split like this to get the chapterData
+            String[] chapterDataTokens = tokens[7].split("\n\n");
+            ArrayList<ChapterStat> chapterStats = new ArrayList<>();
+            for (String chapterString: chapterDataTokens) {
+                chapterStats.add(ChapterStat.parseString(chapterString));
+            }
+            return new UserStats(userName, gender, level, expLevel, chapterStats);
+        } catch (Exception e) {
+            e.printStackTrace();
+            UserStats u = getDefaultUserStats();
+            u.setUsername("UserStats parsing error, please do not edit data files");
+            return u;
         }
-        // Each chapter's data is separated by 2 newlines, so split like this to get the chapterData
-        String[] chapterDataTokens = tokens[7].split("\n\n");
-        ArrayList<ChapterStat> chapterStats = new ArrayList<>();
-        for (String chapterString: chapterDataTokens) {
-            chapterStats.add(ChapterStat.parseString(chapterString));
-        }
-        return new UserStats(userName, gender, level, expLevel, chapterStats);
+
     }
 
     /**
      * Get the default UserStats (if the user launches the game for the first time).
      * @return The UserStats object.
      */
-    public static UserStats getDefaultUserStats(String username, String gender) {
+    public static UserStats getDefaultUserStats() {
         ArrayList<ChapterStat> chapters = new ArrayList<>();
         chapters.add(new ChapterStat("Sorting",1,0,0,0,0,0,""));
         chapters.add(new ChapterStat("Linked List",2,0,0,0,0,0,""));
         chapters.add(new ChapterStat("Bitmask",3,0,0,0,0,0,""));
-        return new UserStats(username, gender, "1", "0", chapters);
+        return new UserStats("Default", "????", 1, 0, chapters);
     }
 
     /**

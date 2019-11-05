@@ -10,6 +10,7 @@ import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.logic.parser.Parser;
 import com.algosenpai.app.ui.controller.AnimationTimerController;
 import com.algosenpai.app.ui.components.DialogBox;
+import com.algosenpai.app.utility.AutoCompleteHelper;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -21,6 +22,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -62,6 +64,11 @@ public class Ui extends AnchorPane {
     private int userExp = 0;
     private int idleMinutesMax = 180;
     private int userLevel = 1;
+
+    private boolean keyPressed = false;
+    // How many inputs in the past the user wants to access
+    private int inputHistoryOffset = 0;
+
     private static final String GREETING_MESSAGE = "Welcome to AlgoSenpai Adventures!"
                                                    + " Type 'hello' followed by your name and gender"
                                                    + " (boy/girl) to start!\n \n"
@@ -77,6 +84,7 @@ public class Ui extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream(DEFAULT_PROFILE_PICTURE_PATH));
     private Image senpaiImage = new Image(this.getClass().getResourceAsStream(SENPAI_PROFILE_PICTURE_PATH));
 
+    
     /**
      * Renders the nodes on the GUI.
      */
@@ -87,6 +95,13 @@ public class Ui extends AnchorPane {
         handle();
         userPic.setImage(userImage);
         userInput.setPromptText("Enter a command (Enter \"menu\" to see a list of commands");
+        userInput.setOnKeyPressed(keyEvent -> {
+            if (!keyPressed) {
+                handleKeyPress(keyEvent.getCode());
+                keyPressed = true;
+            }
+        });
+        userInput.setOnKeyReleased(keyEvent -> keyPressed = false);
         levelProgress.setProgress(0);
         playerLevel.setText("You are Level 1");
         handle();
@@ -102,6 +117,7 @@ public class Ui extends AnchorPane {
      */
     @FXML
     private void handleUserInput() throws IOException {
+
         resetIdle();
         String input = userInput.getText();
         Command commandGenerated = logic.executeCommand(input);
@@ -125,6 +141,36 @@ public class Ui extends AnchorPane {
         } else {
             printToGui(input, response, userImage, senpaiImage);
         }
+    }
+
+    @FXML
+    private void handleKeyPress(KeyCode k) {
+        // Get the previous and next commands from the historyList inside logic.
+        if (k == KeyCode.UP) {
+            userInput.setText(logic.getPreviousCommand());
+            // Puts the cursor to the front of the text, overriding the default behaviour of arrow keys.
+            userInput.positionCaret(userInput.getText().length());
+        } else if (k == KeyCode.DOWN) {
+            userInput.setText(logic.getNextCommand());
+            userInput.positionCaret(userInput.getText().length());
+        } else if (k == KeyCode.TAB) {
+            // Replace text with autocomplete best match.
+            // If no match is found, text is unchanged.
+            userInput.setText(AutoCompleteHelper.autoCompleteCommand(userInput.getText()));
+            // Bring focus back to textfield to prevent the default behaviour of tab.
+            userInput.requestFocus();
+
+            // Un select the text (selected by default).
+            userInput.deselect();
+            // Puts the cursor to the front of the text.
+            userInput.positionCaret(userInput.getText().length());
+
+
+        }
+
+
+
+
     }
 
     /**
