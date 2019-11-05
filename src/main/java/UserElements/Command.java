@@ -490,6 +490,10 @@ public class Command {
             Event newToDo = new ToDo(entryForToDo.getDescription(), entryForToDo.getDate());
             events.addNewTodo(newToDo);
             ui.eventAdded(newToDo, events.getNumEvents());
+            Calendar currentDate = Calendar.getInstance();
+            if (newToDo.getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) < 0) {
+                ui.printEnteredEventOver();
+            }
         } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | ParseException e) {
             ui.newEntryFormatWrong();
         }
