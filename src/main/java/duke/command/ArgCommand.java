@@ -13,12 +13,20 @@ import java.util.Map;
  */
 public abstract class ArgCommand extends Command {
 
-    // TODO: create <Command Type>Spec singletons that are each attached to individual Command types
-    // Use internal protected classes to specify the properties of switches: optional or not, whether it takes
-    // an argument, and whether it is an integer or a string
-
+    // TODO: reduce coupling; refactor ArgCommand to have an interactive builder mode?
     private String arg = null; //argument supplied to the command
     private HashMap<String, String> switchVals = new HashMap<String, String>(); //hashmap of switch parameters
+
+    public ArgCommand(String arg, String[] switchNames, String[] switchVals) throws DukeException {
+        setArg(arg);
+        if (switchNames.length != switchVals.length) {
+            throw new DukeException("You gave me " + switchNames.length + " switch names, but "
+                    + switchVals.length + " switch values!");
+        }
+        for (int i = 0; i < switchNames.length; ++i) {
+            setSwitchVal(switchNames[i], switchVals[i]);
+        }
+    }
 
     @Override
     public void execute(DukeCore core) throws DukeException {
@@ -29,7 +37,19 @@ public abstract class ArgCommand extends Command {
         this.switchVals.putAll(switchVals);
     }
 
-    protected void setSwitchVal(String switchName, String value) {
+    protected void setSwitchVal(String switchName, String value) throws DukeException {
+        Switch newSwitch = getSwitchMap().get(switchName);
+        if (newSwitch == null) {
+            throw new DukeException("I don't know what the '" + switchName + "' switch is!");
+        }
+
+        if (newSwitch.argLevel == ArgLevel.NONE && value != null) {
+            throw new DukeException("The '" + switchName + "' switch should not have an argument!");
+        }
+
+        if (newSwitch.argLevel == ArgLevel.REQUIRED && value == null) {
+            throw new DukeException("The '" + switchName + "' switch should have an argument!");
+        }
         switchVals.put(switchName, value);
     }
 
@@ -41,7 +61,17 @@ public abstract class ArgCommand extends Command {
         return switchVals.containsKey(switchName);
     }
 
-    protected void setArg(String arg) {
+    protected void setArg(String arg) throws DukeException {
+        ArgLevel cmdArgLevel = getCmdArgLevel();
+        if (cmdArgLevel == ArgLevel.REQUIRED) {
+            if (arg == null) {
+                throw new DukeException("This command requires an argument!");
+            }
+        } else if (cmdArgLevel == ArgLevel.NONE) {
+            if (arg != null) {
+                throw new DukeException("This command should not have an argument!");
+            }
+        }
         this.arg = arg;
     }
 
@@ -101,7 +131,7 @@ public abstract class ArgCommand extends Command {
      * Sets the arguments for optional switches that require String-type arguments to the empty String.
      * NOTE: Switches with ArgLevel.OPTIONAL are ignored by this method.
      */
-    protected void nullToEmptyString() {
+    protected void nullToEmptyString() throws DukeException {
         for (Map.Entry<String, Switch> entry : getSwitchMap().entrySet()) {
             String switchName = entry.getKey();
             Switch switchSpec = entry.getValue();
