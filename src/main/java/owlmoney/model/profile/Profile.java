@@ -63,6 +63,7 @@ public class Profile {
     private static final String CARD_PAID_TRANSACTION_LIST_FILE_NAME = "_card_paid_transactionList.csv";
     private static final String CARD_UNPAID_TRANSACTION_LIST_FILE_NAME = "_card_unpaid_transactionList.csv";
     private static final String PROFILE_FILE_NAME = "profile.csv";
+    private static final String PROFILE_ACHIEVEMENT_LIST_FILE_NAME = "profile_achievementlist.csv";
     private static final String HAS_SPENT = "true";
     private static final String NOT_SPENT = "false";
     private static final String BLANK = "";
@@ -82,7 +83,7 @@ public class Profile {
         this.cardList = new CardList(storage);
         this.goalsList = new GoalsList(storage);
         this.ui = ui;
-        this.achievementList = new AchievementList();
+        this.achievementList = new AchievementList(storage);
 
         try {
             loadBanksFromImportedData();
@@ -114,6 +115,11 @@ public class Profile {
         } catch (IllegalArgumentException | IndexOutOfBoundsException | NullPointerException
                 | ParseException exceptionMessage) {
             ui.printError("Error importing cards from persistent storage.");
+        }
+        try {
+            loadAchievementFromImportedData();
+        } catch (IllegalArgumentException | NullPointerException | ParseException | GoalsException exceptionMessage) {
+            ui.printError("Error importing goals from persistent storage.");
         }
     }
 
@@ -1073,6 +1079,40 @@ public class Profile {
     }
 
     /**
+     * Add achievements from imported data.
+     *
+     * @throws GoalsException if there are errors importing data.
+     * @throws ParseException if there are errors parsing date.
+     */
+    private void loadAchievementFromImportedData() throws ParseException, GoalsException {
+        if (storage.isFileExist(PROFILE_ACHIEVEMENT_LIST_FILE_NAME)) {
+            List<String[]> importData = importListDataFromStorage(PROFILE_ACHIEVEMENT_LIST_FILE_NAME,ui);
+            for (String[] importDataRow : importData) {
+                Achievement newAchievement;
+                String achievementName = importDataRow[0];
+                String amount = importDataRow[1];
+                String category = importDataRow[2];
+                String date = importDataRow[3];
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date dateInFormat = dateFormat.parse(date);
+                double doubleAmount = Double.parseDouble(amount);
+                newAchievement = new Achievement(achievementName, doubleAmount, category, dateInFormat);
+
+                profileImportNewAchievement(newAchievement);
+            }
+        }
+    }
+
+    /**
+     * Imports one instance of achievement.
+     *
+     * @param newAchievement an instance of achievement object.
+     */
+    private void profileImportNewAchievement(Achievement newAchievement) {
+        achievementList.achievementListImportNewAchievement(newAchievement);
+    }
+
+    /**
      * Throws exception if credit card does not exist.
      *
      * @param card  The credit card to be checked if exist.
@@ -1410,8 +1450,10 @@ public class Profile {
      */
     public void profileReminderForGoals() {
         Goals goals = goalsList.reminderForGoals();
-        ui.printMessage("\nREMINDER ON YOUR GOALS: ");
-        ui.printMessage(goals.getGoalsName() + " is due in " + goals.convertDateToDays() + " days. \nYou still "
-                + "have a remaining of $" + goals.getRemainingAmount() + " to reach your goal!");
+        if (goals != null) {
+            ui.printMessage("\nREMINDER ON YOUR GOALS: ");
+            ui.printMessage(goals.getGoalsName() + " is due in " + goals.convertDateToDays() + " days. \nYou still "
+                    + "have a remaining of $" + goals.getRemainingAmount() + " to reach your goal!");
+        }
     }
 }
