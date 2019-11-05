@@ -56,9 +56,4 @@ public abstract class DukeDataCommand extends ArgCommand {
             }
         }
     }
-
-
-    protected List<String> getForbiddenSwitches(String dataType) {
-        return forbiddenSwitchesMap.get(dataType);
-    }
 }

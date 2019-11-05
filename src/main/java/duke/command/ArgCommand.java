@@ -43,18 +43,18 @@ public abstract class ArgCommand extends Command {
         this.switchVals.putAll(switchVals);
     }
 
-    protected void setSwitchVal(String switchName, String value) throws DukeException {
+    protected void setSwitchVal(String switchName, String value) throws DukeHelpException {
         Switch newSwitch = getSwitchMap().get(switchName);
         if (newSwitch == null) {
-            throw new DukeException("I don't know what the '" + switchName + "' switch is!");
+            throw new DukeHelpException("I don't know what the '" + switchName + "' switch is!", this);
         }
 
         if (newSwitch.argLevel == ArgLevel.NONE && value != null) {
-            throw new DukeException("The '" + switchName + "' switch should not have an argument!");
+            throw new DukeHelpException("The '" + switchName + "' switch should not have an argument!", this);
         }
 
         if (newSwitch.argLevel == ArgLevel.REQUIRED && value == null) {
-            throw new DukeException("The '" + switchName + "' switch should have an argument!");
+            throw new DukeHelpException("The '" + switchName + "' switch should have an argument!", this);
         }
         switchVals.put(switchName, value);
     }
@@ -67,15 +67,15 @@ public abstract class ArgCommand extends Command {
         return switchVals.containsKey(switchName);
     }
 
-    protected void setArg(String arg) throws DukeException {
+    protected void setArg(String arg) throws DukeHelpException {
         ArgLevel cmdArgLevel = getCmdArgLevel();
         if (cmdArgLevel == ArgLevel.REQUIRED) {
             if (arg == null) {
-                throw new DukeException("This command requires an argument!");
+                throw new DukeHelpException("This command requires an argument!", this);
             }
         } else if (cmdArgLevel == ArgLevel.NONE) {
             if (arg != null) {
-                throw new DukeException("This command should not have an argument!");
+                throw new DukeHelpException("This command should not have an argument!", this);
             }
         }
         this.arg = arg;

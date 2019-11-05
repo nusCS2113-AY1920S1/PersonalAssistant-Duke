@@ -176,14 +176,18 @@ public class ArgParser {
         }
     }
 
-    private void writeElement() {
+    private void writeElement() throws DukeHelpException {
         assert (currSwitchName != null || currCommand.getArg() == null);
         // if ambiguous whether argument is for command or switch, favour switch
-        if (currSwitchName != null) {
-            switchVals.put(currSwitchName, elementBuilder.toString());
-            currSwitchName = null;
-        } else { //currCommand.arg == null
-            currCommand.setArg(elementBuilder.toString());
+        try {
+            if (currSwitchName != null) {
+                currCommand.setSwitchVal(currSwitchName, elementBuilder.toString());
+                currSwitchName = null;
+            } else { //currCommand.arg == null
+                currCommand.setArg(elementBuilder.toString());
+            }
+        } catch (DukeException excp) {
+            throw new DukeHelpException(excp.getMessage(), currCommand);
         }
         elementBuilder.setLength(0); //clear elementBuilder
         state = ParseState.EMPTY;
