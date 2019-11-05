@@ -24,7 +24,7 @@ class Deadline extends Task {
         }
         if (this.detailDesc.equals("by")) {
             try {
-                LocalDateTime dateTime = LocalDateTime.parse(this.taskDetails, DateTimeFormatter.ofPattern("dd-mm-yy HH:mm"));
+                LocalDateTime dateTime = LocalDateTime.parse(this.taskDetails, DateTimeFormatter.ofPattern("dd/MM/yy HH:mm"));
                 LocalDate localDate = dateTime.toLocalDate();
                 LocalTime localTime = dateTime.toLocalTime();
                 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yy");
@@ -33,11 +33,13 @@ class Deadline extends Task {
                 this.setTime(localTime);
                 System.out.println("Date Interpreted: "
                         + getDate().format(dateFormatter)
+                        + " "
                         +getTime().format(timeFormatter));
             } catch (Exception e) {
                 this.setDate(LocalDate.now());
                 this.setTime(LocalTime.now());
-                System.out.println("Invalid Input. Unable to interpret Datetime (use: dd-mm-yy HH:mm)");
+                System.out.println("Invalid Input. Unable to interpret Datetime (use: dd/MM/yy HH:mm) \n"
+                        + "So we have assigned this task to be deadline of today \n");
             }
         }
     }

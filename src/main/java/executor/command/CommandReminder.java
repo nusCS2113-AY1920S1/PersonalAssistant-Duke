@@ -40,7 +40,8 @@ public class CommandReminder extends Command {
                     }
                 }
             } catch (Exception e) {
-            Ui.dukeSays("Please enter the correct format for reminder available if you"
+            Ui.dukeSays("Either there are no tasks for today OR \n"
+                    + "Please enter the correct format for reminder available if you"
                     + "type help on the CLI ! \n");
         }
     }

@@ -40,7 +40,7 @@ public class ToDo extends Task {
             } catch (Exception e) {
                 this.dateFrom = LocalDate.now();
                 this.dateTo = LocalDate.now();
-                System.out.println("Invalid Input. Unable to interpret Datetime (use: dd-mm-yy)");
+                System.out.println("Invalid Input. Unable to interpret Datetime (use: dd/MM/yy)");
             }
         }
     }
