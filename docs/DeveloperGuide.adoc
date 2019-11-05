@@ -2015,7 +2015,7 @@ Expected: Error saying that there is already an existing card with the same name
 
 === Editing a credit card
 
-. Editing the name of a `card`
+. Editing the name of the `card`
 
 .. Prerequisites: There is an existing `card` to be edited.
 
@@ -2053,7 +2053,7 @@ Expected: Error saying `card` to be deleted does not exist.
 
 . Transferring fund between `bank` account (sufficient fund for transfer)
 
-.. Prerequisites: There are at least two existing `bank` accounts with sufficient fund in the sender account for
+.. Prerequisites: There are at least two existing `bank` accounts, and the sender account have sufficient fund for the
 transfer.
 
 .. Test case:
@@ -2062,8 +2062,8 @@ Expected: Fund successfully transfer between the `bank` account with the transac
 
 . Transferring fund between `bank` account (insufficient fund for transfer)
 
-.. Prerequisites: There are at least two existing `bank` accounts with insufficient fund in the sender account for
-transfer.
+.. Prerequisites: There are at least two existing `bank` accounts, and the sender account do not have sufficient fund
+for the transfer.
 
 .. Test case:
 `/transfer /fund /from JunBank Savings Account /to POBB Savings Account /amount 500 /date 1/1/2019` +
@@ -2081,7 +2081,7 @@ Expected: Found matching `savings` account and displays the results.
 
 . Searching for non-existing `savings` account
 
-.. Prerequisites: There are currently no `savings` accounts.
+.. Prerequisites: There are currently no existing `savings` accounts.
 
 .. Test case:
 `/find /savings /name Jun` +
@@ -2097,9 +2097,9 @@ Expected: Error sayings that there is no `savings` account found.
 `/find /investment /name Vickers` +
 Expected: Found matching `investment` account and displays the results.
 
-. Searching for non-existing `savings` account
+. Searching for non-existing `investment` account
 
-.. Prerequisites: There are currently no `investment` accounts.
+.. Prerequisites: There are currently no existing `investment` accounts.
 
 .. Test case:
 `/find /investment /name Vickers` +
@@ -2117,7 +2117,7 @@ Expected: Found matching `card` and displays the results.
 
 . Searching for non-existing `card`
 
-.. Prerequisites: There are currently no `card`.
+.. Prerequisites: There are currently no existing `card`.
 
 .. Test case:
 `/find /card /name POBB` +
@@ -2127,7 +2127,7 @@ Expected: Error sayings that there is no `card` found.
 
 . Searching for existing `bond`
 
-.. Prerequisites: There are at least one existing `bond`.
+.. Prerequisites: There are at least one existing `bond` within the `investment` account.
 
 .. Test case:
 `/find /bonds /name SSB /from DBB Vickers Account` +
@@ -2135,7 +2135,7 @@ Expected: Found matching `bond` and displays the results.
 
 . Searching for non-existing `bond`
 
-.. Prerequisites: There are currently no `bond` .
+.. Prerequisites: There are currently no `bond` within the `investment` account.
 
 .. Test case:
 `/find /bonds /name SSB /from DBB Vickers Account` +
