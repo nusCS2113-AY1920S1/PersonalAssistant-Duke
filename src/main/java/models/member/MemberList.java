@@ -50,7 +50,7 @@ public class MemberList implements IMemberList {
             error += "Phone number is not a valid phone number! Please make sure the phone number "
                     + "only has digits and a length of no more than 8 digits.";
         }
-        
+
         if (invalidEmailFlag) {
             String newLine = (!"".equals(error)) ? "\n\t" : "";
             error += (newLine + "Email address is not a valid email address! Please adhere to standard "

@@ -31,9 +31,21 @@ public class MemberFactory implements IArchDukeFactory<IMember> {
         String email = memberDetails[2];
         int index = Integer.parseInt(memberDetails[3]);
         String role = memberDetails[4];
-        if (!validityHelper.emailChecker(email) && !"--".equals(email)) {
-            return new NullMember("Email address is not a valid email address! Please adhere to standard "
-                                + "email address formats, such as archduke@emailprovider.com");
+//        boolean invalidEmailFlag = !validityHelper.emailChecker(email) && !"--".equals(email);
+//        boolean invalidPhoneFlag = !validityHelper.phoneChecker(phone) && !"--".equals(phone);
+//        String error = "";
+//        if (invalidPhoneFlag){
+//            error += "Phone number is not a valid phone number! Please make sure the phone number "
+//                    + "only has digits and a length of no more than 8 digits.";
+//        }
+//        if (invalidEmailFlag) {
+//            String newLine = (!"".equals(error)) ? "\n\t" : "";
+//            error += (newLine + "Email address is not a valid email address! Please adhere to standard "
+//                    + "email address formats, such as archduke@emailprovider.com");
+//        }
+        String errorMessage = validityHelper.emailPhoneErrorMessage(email, phone);
+        if (!"".equals(errorMessage)) {
+            return new NullMember(errorMessage);
         } else if (!isNameCreated) {
             return new NullMember("Name cannot be empty! Please follow the add command format in user "
                                   + "guide! \"add member -n NAME\" is the minimum requirement for add member command");

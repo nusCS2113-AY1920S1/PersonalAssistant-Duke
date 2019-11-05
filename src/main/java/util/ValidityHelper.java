@@ -20,4 +20,19 @@ public class ValidityHelper {
         }
         return true;
     }
+    public String emailPhoneErrorMessage(String email, String phone) {
+        boolean invalidEmailFlag = !emailChecker(email) && !"--".equals(email);
+        boolean invalidPhoneFlag = !phoneChecker(phone) && !"--".equals(phone);
+        String errorMessage = "";
+        if (invalidPhoneFlag){
+            errorMessage += "Phone number is not a valid phone number! Please make sure the phone number "
+                    + "only has digits and a length of no more than 8 digits.";
+        }
+        if (invalidEmailFlag) {
+            String newLine = (!"".equals(errorMessage)) ? "\n\t" : "";
+            errorMessage += (newLine + "Email address is not a valid email address! Please adhere to standard "
+                    + "email address formats, such as archduke@emailprovider.com");
+        }
+        return errorMessage;
+    }
 }
