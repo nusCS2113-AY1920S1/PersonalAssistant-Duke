@@ -3,7 +3,8 @@ package ShowPreviousTest;
 import Commands.Command;
 import Commands.ShowPreviousCommand;
 import Commons.LookupTable;
-import Commons.Ui;
+import Commons.UserInteraction;
+import Commons.UserInteraction;
 import StubClasses.StorageStub;
 import Tasks.TaskList;
 import org.junit.jupiter.api.BeforeAll;
@@ -21,11 +22,10 @@ public class ShowPreviousCommandTest {
     private static String userInputWithInvalidNumber;
     private static ArrayList<String> userInputList = new ArrayList<>();
     private static int sizeOfList;
-    private LookupTable lookupTable = new LookupTable();
     private TaskList events = new TaskList();
     private TaskList deadlines = new TaskList();
     private StorageStub storageStub = new StorageStub();
-    private Ui ui = new Ui();
+    private UserInteraction ui = new UserInteraction();
 
 
     @BeforeAll
@@ -46,7 +46,7 @@ public class ShowPreviousCommandTest {
         String expected = "There are only " + sizeOfList + " previous commands. Please enter a valid number less than or equal to " + sizeOfList + ".";
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
