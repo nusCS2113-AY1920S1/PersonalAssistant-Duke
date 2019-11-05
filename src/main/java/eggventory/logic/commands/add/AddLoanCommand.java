@@ -21,18 +21,25 @@ public class AddLoanCommand extends Command {
      * @param matricNo the matric number of the person making the loan.
      * @param quantity the quantity loaned.
      */
-    public AddLoanCommand(CommandType type, String stockCode, String matricNo, int quantity) {
+    public AddLoanCommand(CommandType type, String matricNo, String stockCode, int quantity) {
         super(type);
         this.stockCode = stockCode;
         this.matricNo = matricNo;
         this.quantity = quantity;
     }
 
-    private boolean sufficientStock() {
-        if (quantity - LoanList.getStockLoanedQuantity(stockCode) < 0) {
+    private boolean stockExists() {
+        if (LoanList.getStockLoanedQuantity(stockCode) == -1) {
             return false;
         }
 
+        return true;
+    }
+
+    private boolean sufficientStock() {
+        if (LoanList.getStockLoanedQuantity(stockCode) - quantity < 0) {
+            return false;
+        }
         return true;
     }
 
@@ -45,15 +52,17 @@ public class AddLoanCommand extends Command {
      */
     public String execute(StockList list, Ui ui, Storage storage) {
         String output = "";
-        if (sufficientStock()) {
+        if (!stockExists()) {
+            output += "OOPS that stock does not exist!";
+        } else if (!sufficientStock()) {
+            output = ("OOPS there is insufficient stock to loan out!");
+        } else {
             LoanList.addLoan(stockCode, matricNo, quantity);
             output = (String.format("Nice, I have added this loan for you: \n"
                     + "Stock: %s | Person: %s | Quantity: %d", stockCode, matricNo, quantity));
-
-            ui.print(output);
-        } else {
-            output = ("OOPS there is insufficient stock to loan out!");
         }
+
+        ui.print(output);
 
         return output;
     }

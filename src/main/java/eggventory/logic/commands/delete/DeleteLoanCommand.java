@@ -25,7 +25,7 @@ public class DeleteLoanCommand extends Command {
         super(type);
         this.stockCode = stockCode;
         this.matricNo = matricNo;
-        this.quantity = LoanList.getLoanQuantity(stockCode, matricNo);
+        this.quantity = LoanList.getPersonLoanQuantity(stockCode, matricNo);
     }
 
     @Override

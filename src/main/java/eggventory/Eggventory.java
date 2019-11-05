@@ -3,6 +3,7 @@ package eggventory;
 import eggventory.logic.commands.Command;
 import eggventory.commons.enums.CommandType;
 import eggventory.logic.parsers.Parser;
+import eggventory.model.LoanList;
 import eggventory.model.PersonList;
 import eggventory.model.StockList;
 import eggventory.storage.Storage;
@@ -21,6 +22,7 @@ public class Eggventory {
     private static Parser parser;
     private static Ui ui;
     private static StockList stockList;
+    private static LoanList loanList;
     private static PersonList personList;
     //private static LoanList loanList;
 
@@ -37,7 +39,7 @@ public class Eggventory {
         storage = new Storage(stockFilePath, stockTypesFilePath);
         parser = new Parser();
         stockList = storage.load();
-        //loanList = new LoanList();
+        loanList = new LoanList();
         personList = new PersonList();
 
         /*

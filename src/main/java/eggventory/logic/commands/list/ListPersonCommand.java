@@ -9,6 +9,7 @@ import eggventory.ui.Ui;
 
 //@@author Deculsion
 public class ListPersonCommand extends Command {
+
     public ListPersonCommand(CommandType type) {
         super(type);
     }

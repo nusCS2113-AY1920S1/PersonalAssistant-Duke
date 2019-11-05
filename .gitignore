@@ -16,3 +16,4 @@ bin/
 #data files for storing and loading
 data/saved_stocks.csv
 data/saved_stocktypes.csv
+/data/

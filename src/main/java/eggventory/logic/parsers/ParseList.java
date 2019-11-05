@@ -4,6 +4,7 @@ import eggventory.commons.exceptions.InsufficientInfoException;
 import eggventory.logic.commands.Command;
 import eggventory.logic.commands.CommandDictionary;
 import eggventory.logic.commands.list.ListPersonCommand;
+import eggventory.logic.commands.list.ListPersonLoansCommand;
 import eggventory.logic.commands.list.ListStockCommand;
 import eggventory.logic.commands.list.ListStockTypeCommand;
 import eggventory.commons.enums.CommandType;
@@ -30,12 +31,14 @@ public class ParseList {
 
     private Command processListPerson(String input) throws BadInputException {
         String[] inputArr = input.split(" +");
-        if (inputArr.length > 1) {
+        switch (inputArr.length) {
+        case 1:
+            return new ListPersonCommand(CommandType.LIST);
+        case 2:
+            return new ListPersonLoansCommand(CommandType.LIST, inputArr[1]);
+        default:
             throw new BadInputException(CommandDictionary.getCommandUsage("list person"));
         }
-
-        return new ListPersonCommand(CommandType.LIST);
-
     }
 
     /**
