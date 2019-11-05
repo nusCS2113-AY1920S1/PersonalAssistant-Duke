@@ -5,10 +5,7 @@ package wallet.logic.parser;
 import com.opencsv.CSVReader;
 import wallet.logic.command.ImportCommand;
 import wallet.model.contact.Contact;
-import wallet.model.port.ImportList;
-import wallet.model.record.Category;
-import wallet.model.record.Expense;
-import wallet.model.record.Loan;
+import wallet.model.record.*;
 
 import java.io.File;
 import java.io.FileReader;
@@ -41,16 +38,18 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         if ("loan".equals(arguments[0])) {
             ArrayList<Loan> data = parseLoans(arguments[1]);
             if (data != null) {
-                ImportList importList = new ImportList(data, null);
-                return new ImportCommand(importList, arguments[0]);
+                LoanList newList = new LoanList();
+                newList.setLoanList(data);
+                return new ImportCommand(newList, arguments[0]);
             } else {
                 return null;
             }
         } else if ("expense".equals(arguments[0])) {
             ArrayList<Expense> data = parseExpenses(arguments[1]);
             if (data != null) {
-                ImportList importList = new ImportList(null, data);
-                return new ImportCommand(importList, arguments[0]);
+                ExpenseList newList = new ExpenseList();
+                newList.setExpenseList(data);
+                return new ImportCommand(newList, arguments[0]);
             } else {
                 return null;
             }
@@ -70,7 +69,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         ArrayList<Loan> data = new ArrayList<>();
         try {
             File current = new File(ImportCommand.class.getProtectionDomain().getCodeSource().getLocation()
-                .toURI().getPath());
+                    .toURI().getPath());
             File csv = new File(current.getParentFile().getPath(), fileName);
             FileReader filereader = new FileReader(csv);
             CSVReader csvReader = new CSVReader(filereader);
@@ -157,7 +156,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         ArrayList<Expense> data = new ArrayList<>();
         try {
             File current = new File(ImportCommand.class.getProtectionDomain().getCodeSource().getLocation()
-                .toURI().getPath());
+                    .toURI().getPath());
             File csv = new File(current.getParentFile().getPath(), fileName);
             FileReader filereader = new FileReader(csv);
             CSVReader csvReader = new CSVReader(filereader);

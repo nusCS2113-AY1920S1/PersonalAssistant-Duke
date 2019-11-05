@@ -1,6 +1,5 @@
 package wallet.ui;
 
-import wallet.logic.LogicManager;
 import wallet.logic.command.ListCommand;
 import wallet.model.contact.Contact;
 import wallet.model.help.Help;
