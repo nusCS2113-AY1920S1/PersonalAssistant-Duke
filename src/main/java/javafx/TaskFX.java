@@ -16,12 +16,13 @@ public class TaskFX {
     private final SimpleStringProperty taskType = new SimpleStringProperty("");
     private final SimpleStringProperty description = new SimpleStringProperty("");
     private final SimpleStringProperty deadline = new SimpleStringProperty("");
+    private final SimpleStringProperty priority = new SimpleStringProperty("");
 
     /**
      * Empty constructor method.
      */
     public TaskFX() {
-        this("", "", "", "", "");
+        this("", "", "", "", "", "");
     }
 
     /**
@@ -34,12 +35,13 @@ public class TaskFX {
      * @param description The description of the task.
      * @param deadline The deadline of the task, if there is any.
      */
-    public TaskFX(String number, String isDone, String taskType, String description, String deadline) {
+    public TaskFX(String number, String isDone, String taskType, String description, String deadline, String priority) {
         setNumber(number);
         setIsDone(isDone);
         setTaskType(taskType);
         setDeadline(deadline);
         setDescription(description);
+        setPriority(priority);
     }
 
     /**
@@ -137,4 +139,21 @@ public class TaskFX {
         deadline.set(input);
     }
 
+
+    /**
+     * Returns the priority of this TaskFX object
+     * @return
+     */
+    public String getPriority() {
+        return priority.get();
+    }
+
+
+    /**
+     * Sets the priority of this TaskFX object
+     * @param priority
+     */
+    public void setPriority(String priority) {
+        this.priority.set(priority);
+    }
 }

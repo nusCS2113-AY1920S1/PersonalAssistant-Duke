@@ -42,7 +42,7 @@ public class Todo extends Task {
     public Todo(String bool, String description, String priority) {
         super(description);
         this.isDone = (1 == Integer.parseInt(bool));
-        this.overallPriorityScore = Integer.parseInt(priority);
+        this.userDefinedPriority = (priority);
     }
 
     /**
