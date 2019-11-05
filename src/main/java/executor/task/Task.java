@@ -3,6 +3,8 @@ package executor.task;
 import interpreter.Parser;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 public abstract class Task {
@@ -13,6 +15,7 @@ public abstract class Task {
     protected Boolean isDone = false;
     private TaskList queuedTasks = null;
     protected LocalDate date = null;
+    protected LocalTime time = null;
 
     /**
      * Constructor for the 'Task' Class.
@@ -232,5 +235,13 @@ public abstract class Task {
      */
     public LocalDate getDate() {
         return this.date;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 }

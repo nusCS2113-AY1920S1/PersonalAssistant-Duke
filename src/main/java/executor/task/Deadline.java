@@ -1,9 +1,11 @@
 package executor.task;
 
 import duke.exception.DukeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 class Deadline extends Task {
 
@@ -14,25 +16,32 @@ class Deadline extends Task {
         this.recordTaskDetails(name);
         try {
             this.parseDateTime();
-            // New stuff
-            // getDate time is his inbuilt method
-        } catch  (DukeException invalidInput) {
+        } catch (DukeException invalidInput) {
             invalidInput.printStackTrace();
         }
     }
 
     private void parseDateTime() throws DukeException {
-        SimpleDateFormat formatx = new SimpleDateFormat("dd/MM/yyyy HHmm");
+
         if (this.detailDesc == null) {
             return;
         }
         if (this.detailDesc.equals("by")) {
             try {
-                this.setDate(formatx.parse(this.taskDetails));
-                System.out.println("Date Interpreted: " + formatx.format(this.getDate()));
+                LocalDateTime dateTime = LocalDateTime.parse(this.taskDetails, DateTimeFormatter.ofPattern("dd-mm-yy HH:mm"));
+                LocalDate localDate = dateTime.toLocalDate();
+                LocalTime localTime = dateTime.toLocalTime();
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+                this.setDate(localDate);
+                this.setTime(localTime);
+                System.out.println("Date Interpreted: "
+                        + getDate().format(dateFormatter)
+                        +getTime().format(timeFormatter));
             } catch (Exception e) {
-                this.setDate(new Date());
-                throw new DukeException("Invalid Input. Unable to interpret Datetime (use: dd/mm/yyyy HHmm)");
+                this.setDate(LocalDate.now());
+                this.setTime(LocalTime.now());
+                throw new DukeException("Invalid Input. Unable to interpret Datetime (use: dd/mm/yyyy HH:mm)");
             }
         }
     }
