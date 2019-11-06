@@ -30,9 +30,11 @@ public class EventList {
     private ArrayList<Event> eventArrayList;
 
     /**
-     * Comparator function codes
+     * compare_func codes
      */
-    private static final int GREATER_THAN = 1;
+    static final int EQUAL = 0;
+    static final int GREATER_THAN = 1;
+    static final int SMALLER_THAN = 2;
 
     /**
      * Filter type codes
@@ -309,12 +311,13 @@ public class EventList {
     /**
      * @return String containing the filtered list of events, each separated by a newline.
      */
-    private String filteredList(Predicate<Object> predicate) {
+    private String filteredListTwoPredicates(Predicate<Object> predicate1, Predicate<Object> predicate2) {
         String filteredEvents = "";
         int j;
         for (int i = 0; i < eventArrayList.size(); ++i) {
             if (eventArrayList.get(i) == null) continue;
-            else if (!predicate.check(eventArrayList.get(i).getStartDate())) continue;
+            else if (!predicate1.check(eventArrayList.get(i).getStartDate()) 
+            		|| !predicate2.check(eventArrayList.get(i).getStartDate())) continue;
             j = i + 1;
             filteredEvents += j + ". " + this.getEvent(i).toString() + "\n";
         }
@@ -326,13 +329,16 @@ public class EventList {
      */
     public String getReminder(int days) {
         Date systemDateAndTime = new Date();
-        EventDate limit = new EventDate(systemDateAndTime);
-        limit.addDaysAndSetMidnight(days);
-        String reminderDeadline = limit.getEventJavaDate().toString();
-        Predicate<Object> objectPredicate = new Predicate<>(limit, GREATER_THAN);
+        EventDate lowerLimit = new EventDate(systemDateAndTime);
+        EventDate upperLimit = new EventDate(systemDateAndTime);
+        lowerLimit.addDaysAndSetMidnight(-1);
+        upperLimit.addDaysAndSetMidnight(days);
+        String reminderDeadline = upperLimit.getEventJavaDate().toString();
+        Predicate<Object> lowerPredicate = new Predicate<>(lowerLimit, SMALLER_THAN);
+        Predicate<Object> upperPredicate = new Predicate<>(upperLimit, GREATER_THAN);
         return "The time now is " + systemDateAndTime + ".\n" +
                 "Here is a list of events you need to complete in the next " + days + " days (by " +
-                reminderDeadline + "):\n" + filteredList(objectPredicate);
+                reminderDeadline + "):\n" + filteredListTwoPredicates(lowerPredicate, upperPredicate);
     }
 
     //@@author
