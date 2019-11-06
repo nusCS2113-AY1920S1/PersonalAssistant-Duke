@@ -414,4 +414,30 @@ public class TaskList {
      */
     public static SortType getSortType() { return sortType; }
 
+    /**
+     * lists out all the tasks associated with a certain assignee
+     * will include tasks that are tagged "everyone", since everyone includes the assignee
+     * @param user assignee to the tasks
+     */
+    public int[] listTagged(String user) {
+        int listCount = 1;
+        int doneCount  = 0;
+        for (Task output : tasks) {
+            if (output.getAssignee().equals(user) || output.getAssignee().equals("everyone")) {
+                if (output.getDone()) {
+                    doneCount += 1;
+                }
+                System.out.println("\t" + listCount + ". " + output.toString());
+                if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
+                    ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
+                    for (String subtask : subTasks) {
+                        System.out.println("\t" + "\t" + "- " + subtask);
+                    }
+                }
+            }
+            listCount += 1;
+        }
+        int[] done = {listCount - 1, doneCount};
+        return done;
+    }
 }

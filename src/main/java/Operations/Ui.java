@@ -325,4 +325,10 @@ public class Ui {
         System.out.println("\teg. reschedule 1 &20/11/2019 10:00&");
         System.out.println("This will reschedule task 1 in the overdue task list to have a deadline of 20th Nov 2019 at 10am");
     }
+    public void showTagged(String user) {
+        System.out.println("These are the tasks assigned to " + user + ":");
+    }
+    public void showTaggedPercentage(String user) {
+        System.out.println("The completion status for" + user + " is:");
+    }
 }
