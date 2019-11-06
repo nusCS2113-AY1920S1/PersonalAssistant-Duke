@@ -138,7 +138,7 @@ public class ProjectInputController implements IController {
     }
 
     private String[] projectViewCalender(Project projectToManage) {
-        HashMap<String, Integer> currentMonthTasks = projectRepository.getAllTasksInCurrentMonth(projectToManage);
+        HashMap<Integer, Integer> currentMonthTasks = projectRepository.getAllTasksInCurrentMonth(projectToManage);
         return viewHelper.consolePrintCalender(currentMonthTasks);
     }
 

@@ -156,7 +156,7 @@ public class ProjectRepository implements IRepository<Project> {
         return responseModel;
     }
 
-    public HashMap<String, Integer> getAllTasksInCurrentMonth(Project project) {
+    public HashMap<Integer, Integer> getAllTasksInCurrentMonth(Project project) {
         return project.getTasks().getTasksWithinCurrentMonth();
     }
 }

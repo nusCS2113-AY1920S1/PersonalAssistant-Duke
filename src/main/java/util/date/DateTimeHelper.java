@@ -106,7 +106,7 @@ public class DateTimeHelper {
     public String getMonthFromDateObject(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        return Integer.toString(cal.get(Calendar.MONTH));
+        return Integer.toString(cal.get(Calendar.MONTH) + 1);
     }
 
     /**

@@ -208,11 +208,12 @@ public class ViewHelper {
     //@@author Lucria
     /**
      * Method that returns an array of strings representing a calender for printing to the console line.
-     * @param currentMonthTasks : All tasks that has a deadline in the current month.
+     * @param currentMonthTasks : All dates in the current month and the number of tasks that are due then
      * @return : Returns an array of strings for View layer to print to the console line.
      */
-    public String[] consolePrintCalender(HashMap<String, Integer> currentMonthTasks) {
-        StringBuilder oneLine = new StringBuilder();
+    public String[] consolePrintCalender(HashMap<Integer, Integer> currentMonthTasks) {
+        StringBuilder dateLine = new StringBuilder();
+        StringBuilder taskLine = new StringBuilder();
         ArrayList<String> consoleCalender = new ArrayList<>();
         DateTimeHelper dateTimeHelper = new DateTimeHelper();
         consoleCalender.add("    Today's date is " + dateTimeHelper.getCurrentDate() + " "
@@ -220,23 +221,40 @@ public class ViewHelper {
         consoleCalender.add("        U        M        T        W        R        F        S");
         int emptySpaces = dateTimeHelper.getDayAtStartOfMonth();
         for (int i = 1; i < emptySpaces; i++) {
-            oneLine.append(SPACING).append("  ");
+            dateLine.append(SPACING).append("  ");
+            taskLine.append(SPACING).append("  ");
         }
 
         int [] daysPerMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
         for (int i = 1; i <= daysPerMonth[Integer.parseInt(dateTimeHelper.getCurrentMonth()) - 1]; i++) {
-            if (oneLine.length() == 63) {
-                consoleCalender.add(oneLine.toString());
-                oneLine.setLength(0);
+            if (dateLine.length() == 63) {
+                consoleCalender.add(dateLine.toString());
+                consoleCalender.add(taskLine.toString());
+                dateLine.setLength(0);
+                taskLine.setLength(0);
             }
             if (i / 10 == 0) {
-                oneLine.append(SPACING).append(" ").append(i);
+                dateLine.append(SPACING).append(" ").append(i);
             } else {
-                oneLine.append(SPACING).append(i);
+                dateLine.append(SPACING).append(i);
+            }
+            if (currentMonthTasks.get(i) != null) {
+                if (i / 10 == 0) {
+                    taskLine.append(SPACING).append(" ");
+                    taskLine.append("X".repeat(Math.max(0, currentMonthTasks.get(i))));
+                } else {
+                    taskLine.append(SPACING);
+                    taskLine.append("X".repeat(Math.max(0, currentMonthTasks.get(i))));
+                }
+            } else {
+                if (i / 10 == 0) {
+                    taskLine.append(SPACING).append("  ");
+                } else {
+                    taskLine.append(SPACING).append(" ");
+                }
             }
         }
-        consoleCalender.add(oneLine.toString());
-
+        consoleCalender.add(dateLine.toString());
         ArrayList<ArrayList<String>> responseModel = new ArrayList<>();
         responseModel.add(consoleCalender);
         return consolePrintTable(responseModel, DEFAULT_HORI_BORDER_LENGTH);
