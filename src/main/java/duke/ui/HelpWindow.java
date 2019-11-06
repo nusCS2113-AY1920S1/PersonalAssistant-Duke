@@ -37,10 +37,7 @@ public class HelpWindow extends AnchorPane {
         cbCommands.getItems().addAll(
                 "todo",
                 "deadline",
-                "event",
-                "fixedduration",
-                "repeat",
-                "doafter"
+                "fixedduration"
         );
 
         /**
@@ -55,19 +52,8 @@ public class HelpWindow extends AnchorPane {
                 } else if (cbCommands.getSelectionModel().getSelectedItem().equals("deadline")) {
                     getDescription.setText(cbCommands.getValue() + " <task description> /by <date and time>");
                     getDescription.getScene().getWindow();
-                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("event")) {
-                    getDescription.setText(cbCommands.getValue() + " <task description> /at <date and time>");
-                    getDescription.getScene().getWindow();
                 } else if (cbCommands.getSelectionModel().getSelectedItem().equals("fixedduration")) {
                     getDescription.setText(cbCommands.getValue() + " <task description> /for <duration> <unit>");
-                    getDescription.getScene().getWindow();
-                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("repeat")) {
-                    getDescription.setText(cbCommands.getValue()
-                            + " <task> /from <date and time> /for <duration> <day/week/month>");
-                    getDescription.getScene().getWindow();
-                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("doafter")) {
-                    getDescription.setText(cbCommands.getValue()
-                            + " <task description> /after <existing task description>");
                     getDescription.getScene().getWindow();
                 }
             }
