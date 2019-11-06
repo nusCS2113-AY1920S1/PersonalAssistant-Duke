@@ -70,7 +70,7 @@ public class Event extends Task implements Serializable, Comparable<Event> {
         }
         String dateString = "(at: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + "-"
                 + this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
-        if(!location.isBlank()) {
+        if (!location.isBlank()) {
             dateString = dateString + "\n" + location;
         }
         if (!comment.isBlank()) {
