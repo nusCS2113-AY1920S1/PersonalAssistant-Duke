@@ -5,11 +5,15 @@ import util.log.ArchDukeLogger;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 //@@author DKenobi
 public class DateTimeHelper {
+    private Calendar calender = Calendar.getInstance(TimeZone.getTimeZone("GMT + 8:00"));
+
     /**
      * This method takes in the date in String and return is as a Date object.
      * @param date String of the date
@@ -56,5 +60,36 @@ public class DateTimeHelper {
         } else {
             return " (Overdue: " + totalDays + " Days)";
         }
+    }
+
+    //@@author Lucria
+    public String getCurrentYear() {
+        return Integer.toString(this.calender.get(Calendar.YEAR));
+    }
+
+    public String getCurrentMonth() {
+        return Integer.toString(this.calender.get(Calendar.MONTH) + 1);
+    }
+
+    public String getCurrentDate() {
+        return Integer.toString(this.calender.get(Calendar.DAY_OF_MONTH) + 1);
+    }
+
+    public int getDayAtStartOfMonth() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        return cal.get(Calendar.DAY_OF_WEEK);
+    }
+
+    public String getMonthFromDateObject(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return Integer.toString(cal.get(Calendar.MONTH));
+    }
+
+    public String getDayFromDateObject(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return Integer.toString(cal.get(Calendar.DAY_OF_MONTH));
     }
 }

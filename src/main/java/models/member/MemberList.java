@@ -139,5 +139,4 @@ public class MemberList implements IMemberList {
     public boolean contains(IMember newMember) {
         return this.memberList.contains(newMember);
     }
-
 }

@@ -110,7 +110,7 @@ public class TaskList {
         return this.taskList.get(taskIndex - 1);
     }
 
-
+    //@@author seanlimhx
     /**
      * Edits details of a task excluding task requirements.
      * @param taskIndexNumber Index of task to be edited
@@ -365,5 +365,18 @@ public class TaskList {
         String percentageNotDone = Integer.toString((int)((creditsTodo + creditsOpen) / totalCredits * 100));
         progressDetails.add("Not Done: " + percentageNotDone + "%");
         return progressDetails.toArray(new String[0]);
+    }
+
+    public HashMap<String, String> getTasksWithinCurrentMonth() {
+        HashMap<String, String> allTasksWithinCurrentMonth = new HashMap<>();
+        String currentMonth = dateTimeHelper.getCurrentMonth();
+        for (Task task : this.taskList) {
+            Date taskDate = task.getDueDate();
+            if (dateTimeHelper.getMonthFromDateObject(taskDate).equals(currentMonth)) {
+                String dayOfTaskDueDate = dateTimeHelper.getDayFromDateObject(taskDate);
+                allTasksWithinCurrentMonth.put(task.getTaskName(), dayOfTaskDueDate);
+            }
+        }
+        return allTasksWithinCurrentMonth;
     }
 }

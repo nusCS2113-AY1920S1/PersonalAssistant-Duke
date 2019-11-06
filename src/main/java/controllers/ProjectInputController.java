@@ -118,6 +118,8 @@ public class ProjectInputController implements IController {
             responseToView = projectViewReminder(this.projectToManage);
         } else if (projectFullCommand.matches("view")) {
             responseToView = projectViewSelf(this.projectToManage);
+        } else if (projectFullCommand.matches("agenda")) {
+            responseToView = projectViewCalender(this.projectToManage);
         } else if (projectFullCommand.matches("help")) {
             responseToView = projectHelp();
         } else if (projectFullCommand.matches("bye")) {
@@ -127,6 +129,11 @@ public class ProjectInputController implements IController {
         }
         jsonConverter.saveProject(this.projectToManage);
         return responseToView;
+    }
+
+    private String[] projectViewCalender(Project projectToManage) {
+        HashMap<String, String> currentMonthTasks = projectRepository.getAllTasksInCurrentMonth(projectToManage);
+        return viewHelper.consolePrintCalender(currentMonthTasks);
     }
 
     private String[] projectViewSelf(Project projectToManage) {

@@ -8,6 +8,7 @@ import util.json.JsonConverter;
 import util.log.ArchDukeLogger;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 //@@author Lucria
 public class ProjectRepository implements IRepository<Project> {
@@ -153,5 +154,9 @@ public class ProjectRepository implements IRepository<Project> {
             }
         }
         return responseModel;
+    }
+
+    public HashMap<String, String> getAllTasksInCurrentMonth(Project project) {
+        return project.getTasks().getTasksWithinCurrentMonth();
     }
 }

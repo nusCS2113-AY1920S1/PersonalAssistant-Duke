@@ -1,13 +1,15 @@
 package util.uiformatter;
 
+import util.date.DateTimeHelper;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 
-import static util.constant.ConstantHelper.HORI_BORDER_UNIT;
-import static util.constant.ConstantHelper.BORDER_CORNER;
-import static util.constant.ConstantHelper.VERTI_BORDER_UNIT;
+import static util.constant.ConstantHelper.*;
 
+//@@author seanlimhx
 public class ViewHelper {
 
     /**
@@ -201,5 +203,36 @@ public class ViewHelper {
         }
         String borderString = new String(border);
         return BORDER_CORNER + borderString + BORDER_CORNER;
+    }
+
+    //@@author Lucria
+
+    public String[] consolePrintCalender(HashMap<String,String> currentMonthTasks) {
+        StringBuilder oneLine = new StringBuilder();
+        ArrayList<String> consoleCalender = new ArrayList<>();
+        ArrayList<ArrayList<String>> responseModel = new ArrayList<>();
+        int [] daysPerMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        DateTimeHelper dateTimeHelper = new DateTimeHelper();
+        consoleCalender.add("    Today's date is " + dateTimeHelper.getCurrentDate() +" " + dateTimeHelper.getCurrentMonth() + " " + dateTimeHelper.getCurrentYear());
+        consoleCalender.add("        U        M        T        W        R        F        S");
+        int emptySpaces = dateTimeHelper.getDayAtStartOfMonth();
+        for (int i = 1; i < emptySpaces; i++) {
+            oneLine.append(SPACING).append("  ");
+        }
+        for (int i = 1; i <= daysPerMonth[Integer.parseInt(dateTimeHelper.getCurrentMonth()) - 1]; i++) {
+            if (oneLine.length() == 63) {
+                consoleCalender.add(oneLine.toString());
+                oneLine.setLength(0);
+            }
+            if (i / 10 == 0) {
+                oneLine.append(SPACING).append(" ").append(i);
+            } else {
+                oneLine.append(SPACING).append(i);
+            }
+        }
+        consoleCalender.add(oneLine.toString());
+
+        responseModel.add(consoleCalender);
+        return consolePrintTable(responseModel, DEFAULT_HORI_BORDER_LENGTH);
     }
 }
