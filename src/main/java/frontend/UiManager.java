@@ -168,7 +168,16 @@ public class UiManager implements Ui {
         int frameId = 0;
         int lastFrameId = level.getNarratives().size() - 1;
         for (String narrative: level.getNarratives()) {
-            String userInput = getInput();
+            String userInput;
+            userInput = getInput();
+            while (!userInput.equals("") && !userInput.toLowerCase().equals("skip")) {
+                simulation.simulate();
+                showWarning("Invalid Command for story mode!");
+                show("Story mode only accepts [skip] to skip the story or pressing [ENTER] to continue with the "
+                        + "narrative.\nIf you wish to use other commands, enter [skip] followed by entering the "
+                        + "command of your choice.");
+                userInput = getInput();
+            }
             if (userInput.toLowerCase().equals("skip") || frameId == lastFrameId) {
                 break;
             }
