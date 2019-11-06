@@ -21,6 +21,9 @@ public class OrderDescriptor {
     private Order.Status status;
     private Double total;
 
+    /**
+     * Creates an {@code OrderDescriptor}.
+     */
     public OrderDescriptor() {
     }
 
@@ -96,6 +99,19 @@ public class OrderDescriptor {
     }
 
     @Override
+    public String toString() {
+        return "OrderDescriptor{"
+            + "customerName='" + customerName + '\''
+            + ", customerContact='" + customerContact + '\''
+            + ", deliveryDate=" + deliveryDate
+            + ", items=" + items
+            + ", remarks='" + remarks + '\''
+            + ", status=" + status
+            + ", total=" + total
+            + '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -105,12 +121,12 @@ public class OrderDescriptor {
         }
         OrderDescriptor that = (OrderDescriptor) o;
         return Objects.equals(customerName, that.customerName)
-                && Objects.equals(customerContact, that.customerContact)
-                && Objects.equals(deliveryDate, that.deliveryDate)
-                && Objects.equals(items, that.items)
-                && Objects.equals(remarks, that.remarks)
-                && status == that.status
-                && total.equals(that.total);
+            && Objects.equals(customerContact, that.customerContact)
+            && Objects.equals(deliveryDate, that.deliveryDate)
+            && Objects.equals(items, that.items)
+            && Objects.equals(remarks, that.remarks)
+            && status == that.status
+            && Objects.equals(total, that.total);
     }
 
     @Override

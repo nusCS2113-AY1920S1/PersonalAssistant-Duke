@@ -21,29 +21,32 @@ import static duke.commons.util.CollectionUtil.requireAllNonNull;
  * Represents an order in order list.
  */
 public class Order {
-
     //Identity field
-    private final long id;
+    private final OrderId id;
+    private final Remark remarks;
 
     //Data fields
     private final Date creationDate;
     private final Customer customer;
     private final Date deliveryDate;
     private final Set<Item<Product>> items;
-    private final String remarks;
+    private final TotalPrice total;
     private final Status status;
-    private final double total;
     private BooleanProperty isIngredientEnough = new SimpleBooleanProperty();
 
     /**
      * Creates an order.
      * Every field must be present and not null.
      */
-    public Order(Customer customer, Date deliveryDate, Status status,
-                 String remarks, Set<Item<Product>> items, double total) {
+    public Order(Customer customer,
+                 Date deliveryDate,
+                 Status status,
+                 Remark remarks,
+                 Set<Item<Product>> items,
+                 TotalPrice total) {
         requireAllNonNull(customer, deliveryDate, status, remarks, items, total);
 
-        this.id = generateId();
+        this.id = OrderId.getOrderId();
         this.creationDate = generateCreationDate();
 
         this.customer = customer;
@@ -58,9 +61,14 @@ public class Order {
      * Creates an order.
      * Every field must be present and not null.
      */
-    public Order(Customer customer, Date deliveryDate, Status status,
-                 String remarks, Set<Item<Product>> items, double total,
-                 Long id, Date creationDate) {
+    public Order(Customer customer,
+                 Date deliveryDate,
+                 Status status,
+                 Remark remarks,
+                 Set<Item<Product>> items,
+                 TotalPrice total,
+                 OrderId id,
+                 Date creationDate) {
         requireAllNonNull(customer, deliveryDate, status, remarks, items, total, id);
 
         this.id = id;
@@ -76,6 +84,10 @@ public class Order {
         this.isIngredientEnough = new SimpleBooleanProperty();
     }
 
+    public OrderId getId() {
+        return id;
+    }
+
     /**
      * Makes the order's {@code isIngredientEnough} property changes dynamically with the change of {@code inventory}.
      */
@@ -84,21 +96,12 @@ public class Order {
         inventory.addListener((ListChangeListener<Item<Ingredient>>) c -> updateIsIngredientEnough(inventory));
     }
 
-    /**
-     * Status of an order.
-     */
-    public enum Status {
-        ACTIVE,
-        COMPLETED,
-        CANCELED
-    }
-
     public Customer getCustomer() {
         return customer;
     }
 
-    public long getId() {
-        return id;
+    public Remark getRemarks() {
+        return remarks;
     }
 
     public Date getCreationDate() {
@@ -113,16 +116,21 @@ public class Order {
         return Collections.unmodifiableSet(items);
     }
 
-    public String getRemarks() {
-        return remarks;
+    public TotalPrice getTotal() {
+        return total;
     }
 
     public Status getStatus() {
         return status;
     }
 
-    public double getTotal() {
-        return total;
+    /**
+     * Status of an order.
+     */
+    public enum Status {
+        ACTIVE,
+        COMPLETED,
+        CANCELED
     }
 
     public boolean isIsIngredientEnough() {

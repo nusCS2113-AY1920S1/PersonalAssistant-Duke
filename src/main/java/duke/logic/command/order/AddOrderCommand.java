@@ -10,6 +10,8 @@ import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 import duke.model.order.Customer;
 import duke.model.order.Order;
+import duke.model.order.Remark;
+import duke.model.order.TotalPrice;
 import duke.model.product.Product;
 import javafx.collections.ObservableList;
 
@@ -17,6 +19,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -100,9 +103,9 @@ public class AddOrderCommand extends OrderCommand {
             ),
             descriptor.getDeliveryDate().orElse(getDefaultDeliveryDate()),
             descriptor.getStatus().orElse(DEFAULT_STATUS),
-            descriptor.getRemarks().orElse(DEFAULT_REMARKS),
+            new Remark(descriptor.getRemarks().orElse(DEFAULT_REMARKS)),
             productItems,
-            total
+            new TotalPrice(total)
         );
         order.listenToInventory(inventoryList);
         return order;
@@ -129,4 +132,24 @@ public class AddOrderCommand extends OrderCommand {
         return Calendar.getInstance().getTime();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        AddOrderCommand command = (AddOrderCommand) o;
+        return Objects.equals(addOrderDescriptor, command.addOrderDescriptor);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(addOrderDescriptor);
+    }
+
+    public OrderDescriptor getAddOrderDescriptor() {
+        return addOrderDescriptor;
+    }
 }

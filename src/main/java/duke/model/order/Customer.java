@@ -2,15 +2,16 @@ package duke.model.order;
 
 import java.util.Objects;
 
-import static duke.commons.util.AppUtil.checkEmpty;
+import static duke.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a customer of an order.
+ * Guarantees: immutable; is valid as declared in {@link #isValidCustomer(String, String)}
  */
 public class Customer {
-    private static final String MESSAGE_CONSTRAINTS = "Customer name and contact can take any values, "
-            + "and should not be blank";
+    private static final String MESSAGE_CONSTRAINTS
+        = "Customer name/contact should be non-blank and less than 20 characters.";
 
     //Identity field
     public final String name;
@@ -19,17 +20,23 @@ public class Customer {
     public final String contact;
 
     /**
-     * Every field must be present and not null.
+     * Creates a {@code Customer}.
+     * @param name a valid name.
+     * @param contact a valid contact.
      */
     public Customer(String name, String contact) {
         requireNonNull(name);
         requireNonNull(contact);
 
-        checkEmpty(name, MESSAGE_CONSTRAINTS);
-        checkEmpty(contact, MESSAGE_CONSTRAINTS);
+        checkArgument(isValidCustomer(name, contact), MESSAGE_CONSTRAINTS);
 
         this.name = name;
         this.contact = contact;
+    }
+
+    public static boolean isValidCustomer(String name, String contact) {
+        return !name.isBlank() && !contact.isBlank()
+            && name.length() <= 20 && contact.length() <= 20;
     }
 
     @Override

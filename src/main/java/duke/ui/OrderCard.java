@@ -58,14 +58,14 @@ public class OrderCard extends UiPart<AnchorPane> {
         super(FXML);
 
         //Fill order details
-        id.setText(Long.toString(order.getId()));
+        id.setText(Long.toString(order.getId().value));
         creationDate.setText(order.getCreationDate().toString());
         index.setText(displayedIndex + ".");
         deadline.setText(TimeParser.convertDateToString(order.getDeliveryDate()));
         name.setText(order.getCustomer().name);
         contact.setText(order.getCustomer().contact);
-        remarks.setText(order.getRemarks());
-        total.setText(Double.toString(order.getTotal()));
+        remarks.setText(order.getRemarks().value);
+        total.setText(Double.toString(order.getTotal().value));
 
         status.setText(order.getStatus().toString().toLowerCase());
         status.getStyleClass().clear();
@@ -79,9 +79,8 @@ public class OrderCard extends UiPart<AnchorPane> {
 
         //Setup listener to update inventory status
         updateInventoryStatus(order.isIsIngredientEnough(), order.getStatus());
-        order.isIngredientEnoughProperty().addListener(((observable, oldValue, newValue) -> {
-            updateInventoryStatus(newValue, order.getStatus());
-        }));
+        order.isIngredientEnoughProperty().addListener((observable, oldValue, newValue)
+            -> updateInventoryStatus(newValue, order.getStatus()));
 
         //Clock to update deadline
         initializeClock(order);

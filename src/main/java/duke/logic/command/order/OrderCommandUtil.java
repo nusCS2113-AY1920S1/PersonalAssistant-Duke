@@ -6,6 +6,8 @@ import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 import duke.model.order.Customer;
 import duke.model.order.Order;
+import duke.model.order.Remark;
+import duke.model.order.TotalPrice;
 import duke.model.product.Product;
 import javafx.collections.ObservableList;
 import org.ocpsoft.prettytime.shade.org.apache.commons.lang.StringUtils;
@@ -73,10 +75,11 @@ class OrderCommandUtil {
             newItems = original.getItems();
         }
 
-        String newRemarks = orderDescriptor.getRemarks().orElse(original.getRemarks());
+        String newRemarks = orderDescriptor.getRemarks().orElse(original.getRemarks().value);
         Order.Status newStatus = orderDescriptor.getStatus().orElse(original.getStatus());
-        double newTotal = orderDescriptor.getTotal().orElse(original.getTotal());
-        Order order = new Order(newCustomer, newDate, newStatus, newRemarks, newItems, newTotal);
+        double newTotal = orderDescriptor.getTotal().orElse(original.getTotal().value);
+        Order order = new Order(newCustomer, newDate, newStatus,
+            new Remark(newRemarks), newItems, new TotalPrice(newTotal));
         order.listenToInventory(inventoryList);
         return order;
     }
