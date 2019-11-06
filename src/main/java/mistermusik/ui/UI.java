@@ -131,11 +131,11 @@ public class UI {
 
     public void printChangeHelp() {
         System.out.print(lineSeparation);
-        System.out.println("\"1.  done <event index>\"                  \n\t-- " +
+        System.out.println("1.  \"done <event index>\"                  \n\t-- " +
                 "Mark a Todo task as completed. Do not work for non-Todo event.");
-        System.out.println("\"2.  reschedule <event index> dd-MM-yyyy\" \n\t-- " +
+        System.out.println("2.  \"reschedule <event index> dd-MM-yyyy\" \n\t-- " +
                 "Reschedule the date and time of an event.");
-        System.out.println("\"3.  edit <event index> /<description>\"   \n\t-- Edit the description of an event.");
+        System.out.println("3.  \"edit <event index> /<description>\"   \n\t-- Edit the description of an event.");
         System.out.print(lineSeparation);
     }
 
