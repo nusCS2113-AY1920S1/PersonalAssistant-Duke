@@ -67,7 +67,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String output = "";
-        output = "[D]" + this.getStatus() + " (by: " + formatDate() + ")";
+        output = "[D]" + this.getStatus() + " (by: " + formatDate() + ")" + overdueString();
         if (this.doAfterDescription != null && !this.doAfterDescription.equals("")) {
             output += System.lineSeparator() + "\tAfter which: " + doAfterDescription;
         }
@@ -115,6 +115,16 @@ public class Deadline extends Task {
         return format.format(this.time);
     }
 
+    private String overdueString() {
+        if (isOverdue()) {
+            return "(Overdue)";
+        }
+        return "";
+    }
+
+    private boolean isOverdue() {
+        return this.time.compareTo(LocalDateTime.now()) < 0;
+    }
     /**
      * Calculates whether the time set for the deadline is near enough.
      *

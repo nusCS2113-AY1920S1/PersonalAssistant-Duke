@@ -31,6 +31,7 @@ import java.util.regex.Pattern;
 
 import static seedu.duke.common.parser.CommandParseHelper.extractTags;
 import static seedu.duke.common.parser.CommandParseHelper.extractTime;
+import static seedu.duke.common.parser.CommandParseHelper.isNumberTooLarge;
 
 public class TaskCommandParseHelper {
     private static UI ui = UI.getInstance();
@@ -90,7 +91,8 @@ public class TaskCommandParseHelper {
     private static Command parseDoneCommand(String input) {
         Matcher doneCommandMatcher = prepareCommandMatcher(input, "^done\\s+(?<index>\\d+)\\s*$");
         if (!doneCommandMatcher.matches()) {
-            return new InvalidCommand("Please enter a valid index of task after \'done\'");
+            return new InvalidCommand("Please enter a valid index (positive integer equal or less than the "
+                    + "number of tasks) of task after \'done\'");
         }
         try {
             int index = parseTaskIndex(doneCommandMatcher.group("index"));
@@ -103,7 +105,8 @@ public class TaskCommandParseHelper {
     private static Command parseDeleteCommand(String input) {
         Matcher deleteCommandMatcher = prepareCommandMatcher(input, "^delete\\s+(?<index>\\d+)\\s*$");
         if (!deleteCommandMatcher.matches()) {
-            return new InvalidCommand("Please enter a valid index of task after \'delete\'");
+            return new InvalidCommand("Please enter a valid index (positive integer equal or less than the "
+                    + "number of tasks) of task after \'delete\'");
         } else {
             try {
                 int index = parseTaskIndex(deleteCommandMatcher.group("index"));
@@ -115,13 +118,13 @@ public class TaskCommandParseHelper {
     }
 
     private static int parseTaskIndex(String input) throws TaskParseException {
-        String strippedInput = input.strip().replaceAll("^0+", "");
-        if (strippedInput.length() >= 6) {
+        if (isNumberTooLarge(input)) {
             throw new TaskParseException("Invalid index. Index should be integer of range 1 ~ 99999.");
         }
-        int index = Integer.parseInt(strippedInput) - 1;
+        int index = Integer.parseInt(input) - 1;
         if (index < 0 || index >= Model.getInstance().getTaskListLength()) {
-            throw new TaskParseException("Index out of bounds. ");
+            throw new TaskParseException("Index " + (index + 1) + " out of bounds of 1 to "
+                    + Model.getInstance().getTaskListLength());
         }
         return index;
     }
@@ -144,25 +147,30 @@ public class TaskCommandParseHelper {
         }
         try {
             int dayLimit = extractDayLimit(reminderCommandMatcher);
-            if (dayLimit < 0) {
-                showError("Reminder day limit cannot be negative. Default is used.");
-                return new TaskReminderCommand();
-            } else {
-                return new TaskReminderCommand(dayLimit);
-            }
+            return new TaskReminderCommand(dayLimit);
         } catch (NumberFormatException e) {
             showError("Reminder day limit in wrong format. Default is used.");
+            return new TaskReminderCommand();
+        } catch (TaskParseException e) {
+            showError(e.getMessage());
             return new TaskReminderCommand();
         }
     }
 
-    private static int extractDayLimit(Matcher reminderCommandMatcher) throws NumberFormatException {
-        int dayLimit = -1;
+    private static int extractDayLimit(Matcher reminderCommandMatcher) throws NumberFormatException, TaskParseException {
+        int dayLimit;
         String dayLimitString = reminderCommandMatcher.group("dayLimit");
+        if (dayLimitString == null) {
+            throw new TaskParseException("Day limit not specified. Default is used.");
+        }
         if (dayLimitString.length() > 6) {
-            showError("Reminder day limit too large. Default is used.");
+            throw new TaskParseException("Reminder day limit only accept positive integer from 1 to 99999. "
+                    + "Default is used.");
         } else {
             dayLimit = Integer.parseInt(dayLimitString);
+        }
+        if (dayLimit <= 0) {
+            throw new TaskParseException("Reminder day limit must be positive. Default is used.");
         }
         return dayLimit;
     }
@@ -186,7 +194,8 @@ public class TaskCommandParseHelper {
     private static Command parseDoAfterCommand(String input, ArrayList<Command.Option> optionList) {
         Matcher doAfterCommandMatcher = prepareCommandMatcher(input, "^do[a|A]fter\\s+(?<index>[\\d]+)\\s*$");
         if (!doAfterCommandMatcher.matches()) {
-            return new InvalidCommand("Please enter doAfter command in the correct format with index and description"
+            return new InvalidCommand("Please enter doAfter command in the correct format with index "
+                    + "(positive integer equal or less than the number of tasks) and description"
                     + " in -msg option");
         }
         String description = extractMsg(optionList);
@@ -215,8 +224,8 @@ public class TaskCommandParseHelper {
     private static Command parsePriorityCommand(String input, ArrayList<Command.Option> optionList) {
         Matcher priorityCommandMatcher = prepareCommandMatcher(input, "^set\\s+(?<index>[\\d]+)\\s*$");
         if (!priorityCommandMatcher.matches()) {
-            return new InvalidCommand("Please enter task index after 'set' and priority level "
-                    + "after '-priority' option");
+            return new InvalidCommand("Please enter task index (positive integer equal or less than the "
+                    + "number of tasks) after 'set' and priority level after '-priority' option");
         }
         try {
             String priority = extractPriority(optionList);
@@ -232,26 +241,32 @@ public class TaskCommandParseHelper {
         } catch (TaskParseException e) {
             return new InvalidCommand(e.getMessage());
         } catch (NumberFormatException e) {
-            return new InvalidCommand("Please enter a valid task index after \'set\'");
+            return new InvalidCommand("Please enter a valid task index (positive integer equal or less "
+                    + "then the number of tasks) after \'set\'");
         }
     }
 
     private static Command parseSnoozeCommand(String input, ArrayList<Command.Option> optionList) {
         Matcher snoozeCommandMatcher = prepareCommandMatcher(input, "^snooze\\s+(?<index>[\\d]+)\\s*$");
         if (!snoozeCommandMatcher.matches()) {
-            return new InvalidCommand("Please enter task index after 'snooze' and duration to "
-                    + "snooze after \'-by\' ");
+            return new InvalidCommand("Please enter a valid task index (positive integer equal or less "
+                    + "then the number of tasks) after \'snooze\' and duration to snooze after \'-by\' ");
         }
+        int index = -1;
         try {
-            String snooze = extractSnooze(optionList);
-            if (snooze.equals("")) {
-                snooze = "3";
-            }
-            int index = parseTaskIndex(snoozeCommandMatcher.group("index"));
-            int duration = Integer.parseInt(snooze);
-            return new TaskSnoozeCommand(index, duration);
+            index = parseTaskIndex(snoozeCommandMatcher.group("index"));
         } catch (TaskParseException e) {
             return new InvalidCommand(e.getMessage());
+        }
+        try {
+            int snoozeDuration = extractSnooze(optionList);
+            return new TaskSnoozeCommand(index, snoozeDuration);
+        } catch (TaskParseException e) {
+            UI.getInstance().showMessage(e.getMessage());
+            return new TaskSnoozeCommand(index, 3);
+        } catch (NumberFormatException e) {
+            return new InvalidCommand("Please enter a valid number of days for snooze (positive integer "
+                    + "from 1 to 99999)");
         }
     }
 
@@ -270,8 +285,8 @@ public class TaskCommandParseHelper {
             addTagsToUpdateCommand(optionList, attributes, descriptions);
             return new TaskUpdateCommand(index, descriptions, attributes);
         } catch (NumberFormatException e) {
-            return new InvalidCommand("Please enter correct task index: " + editMatcher.group(
-                    "index"));
+            return new InvalidCommand("Please enter a valid task index (positive integer equal or less "
+                    + "than the number of tasks)");
         } catch (CommandParseHelper.CommandParseException e) {
             return new InvalidCommand("Index out of bound");
         }
@@ -365,13 +380,21 @@ public class TaskCommandParseHelper {
         return false;
     }
 
-    private static String extractSnooze(ArrayList<Command.Option> optionList) {
-        String snooze = "";
+    private static int extractSnooze(ArrayList<Command.Option> optionList) throws TaskParseException {
+        String snoozeString = "";
         for (Command.Option option : optionList) {
-            if (option.getKey().equals("by") && snooze.equals("")) {
-                snooze = option.getValue();
+            if (option.getKey().equals("by") && snoozeString.equals("")) {
+                snoozeString = option.getValue();
             }
         }
+        if (snoozeString == "") {
+            throw new TaskParseException("Number of days snoozed not specified. Default is used.");
+        }
+        if (isNumberTooLarge(snoozeString)) {
+            throw new TaskParseException("Number of days snoozed should be integer of range 1 ~ 99999. "
+                    + "Default is used.");
+        }
+        int snooze = Integer.parseInt(snoozeString);
         return snooze;
     }
 
@@ -403,10 +426,11 @@ public class TaskCommandParseHelper {
      * @param optionList contains all options specified in input command
      * @return time in LocalDateTime format
      */
-    public static LocalDateTime parseTaskTime(ArrayList<Command.Option> optionList) {
+    public static LocalDateTime parseTaskTime(ArrayList<Command.Option> optionList) throws TaskParseException {
         try {
             String timeString = extractTime(optionList);
-            return TaskParseNaturalDateHelper.getDate(timeString);
+            LocalDateTime dateTime = TaskParseNaturalDateHelper.getDate(timeString);
+            return dateTime;
         } catch (CommandParseHelper.CommandParseException e) {
             return null;
         }
@@ -459,7 +483,8 @@ public class TaskCommandParseHelper {
             return new InvalidCommand("Please enter a name after \'deadline\'");
         }
         if (time == null) {
-            return new InvalidCommand("Please enter a time of correct format after \'-time\'");
+            return new InvalidCommand("Please enter a time of correct format (dd/mm/yyyy HHMM) after "
+                    + "\'-time\'");
         }
         String name = deadlineMatcher.group("name");
         return new TaskAddCommand(Task.TaskType.DEADLINE, name, time, doAfter, tags, priority, links);
@@ -473,7 +498,8 @@ public class TaskCommandParseHelper {
             return new InvalidCommand("Please enter a name after \'event\'");
         }
         if (time == null) {
-            return new InvalidCommand("Please enter a time of correct format after \'-time\'");
+            return new InvalidCommand("Please enter a time of correct format (dd/mm/yyyy HHMM) after "
+                    + "\'-time\'");
         }
         String name = eventMatcher.group("name");
         return new TaskAddCommand(Task.TaskType.EVENT, name, time, doAfter, tags, priority, links);
@@ -482,7 +508,8 @@ public class TaskCommandParseHelper {
     private static Command parseLinkCommand(String input, ArrayList<Command.Option> optionList) {
         Matcher linkCommandMatcher = prepareCommandMatcher(input, "^link(?:\\s+(?<index>[\\d]*)\\s*)?");
         if (!linkCommandMatcher.matches()) {
-            showError("Please enter a task index and at least one email index");
+            showError("Please enter a valid task index (positive integer equal or less then the number of "
+                    + "tasks) and at least one email index");
             return new InvalidCommand();
         }
         try {

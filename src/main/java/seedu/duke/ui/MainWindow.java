@@ -59,7 +59,7 @@ public class MainWindow extends AnchorPane {
     private UserInputHandler userInputHandler;
     private boolean isShowingEmail = false;
     private boolean isUpKey;
-    private int inputListIndex;
+    private int inputListIndex = 0;
     private ArrayList<String> inputList = new ArrayList<>();
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/winner.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/robot.png"));
@@ -124,19 +124,16 @@ public class MainWindow extends AnchorPane {
      *
      * @param msg     main message to be displayed
      * @param input   the user input triggered this display
-     * @param command the command executed to produce this message
      */
-    public void showGuiMessage(String msg, String input, String command) {
+    public void showGuiMessage(String msg, String input) {
         if (input.length() <= 0) {
             dialogContainer.getChildren().addAll(
-                    DialogBox.getDukeDialog(command + System.lineSeparator() + System.lineSeparator() + msg,
-                            dukeImage)
+                    DialogBox.getDukeDialog(msg, dukeImage)
             );
         } else {
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDukeDialog(command + System.lineSeparator() + System.lineSeparator() + msg,
-                            dukeImage)
+                    DialogBox.getDukeDialog(msg, dukeImage)
             );
         }
     }
@@ -223,7 +220,7 @@ public class MainWindow extends AnchorPane {
     private void updateInputList(String input) {
         String stripedInput = input.split(" ", 2)[1];
         if (inputList.contains(stripedInput)) {
-            inputListIndex = inputList.indexOf(stripedInput);
+            inputListIndex = inputList.indexOf(stripedInput) + 1;
         } else {
             inputList.add(stripedInput);
             inputListIndex = inputList.size();
@@ -248,16 +245,11 @@ public class MainWindow extends AnchorPane {
     private String navigateInputList() {
         String prevInput = "";
         if (isUpKey) {
-            if (inputListIndex < 1) {
-                inputListIndex = inputList.size();
-            }
-            inputListIndex--;
+            inputListIndex = (inputListIndex - 1) % inputList.size();
+            inputListIndex = inputListIndex < 0 ? inputListIndex + inputList.size() : inputListIndex;
             prevInput = inputList.get(inputListIndex);
         } else {
-            if (inputListIndex > inputList.size() - 2) {
-                inputListIndex = -1;
-            }
-            inputListIndex++;
+            inputListIndex = (inputListIndex + 1) % inputList.size();
             prevInput = inputList.get(inputListIndex);
         }
         return prevInput;
