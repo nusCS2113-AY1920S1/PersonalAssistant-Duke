@@ -98,7 +98,7 @@ public class StorageManager {
     public void writeThreshold(int updateThreshold) {
         try {
             BufferedWriter out = new BufferedWriter(new FileWriter(PATH_THRESHOLD));
-            out.write(updateThreshold);
+            out.write(String.valueOf(updateThreshold));
             out.close();
         } catch (IOException e) {
             System.out.println(e + ", thus please try inputting other things.");
