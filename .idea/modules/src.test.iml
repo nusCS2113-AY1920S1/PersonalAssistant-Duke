@@ -3,10 +3,13 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../src/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/../../src/test/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../src/test/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.5.0" level="project" />
+    <orderEntry type="module" module-name="main.main" scope="TEST" />
   </component>
 </module>

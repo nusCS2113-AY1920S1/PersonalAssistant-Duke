@@ -23,6 +23,7 @@ public class IfTask extends Task {
             if (condition.check(farmio)) {
                 action.execute(farmio.getUi(), farmio.getStorage(), farmio.getFarmer(), farmio.getSimulation());
             } else {
+                farmio.getSimulation().simulate();
                 farmio.getUi().show("Condition not fulfilled, not executing task!");
                 farmio.getUi().sleep(1000);
             }

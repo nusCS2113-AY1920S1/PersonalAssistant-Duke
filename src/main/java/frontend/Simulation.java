@@ -61,8 +61,14 @@ public class Simulation {
      */
     public void simulate(String framePath, int startFrame, int endFrame, boolean isFullscreen)
             throws FarmioFatalException {
-        for (int i =  startFrame; i <= endFrame; i++) {
-            simulate(framePath, i, isFullscreen);
+        if (startFrame <= endFrame) {
+            for (int i = startFrame; i <= endFrame; i++) {
+                simulate(framePath, i, isFullscreen);
+            }
+        } else {
+            for (int i = startFrame; i >= endFrame; i--) {
+                simulate(framePath, i, isFullscreen);
+            }
         }
     }
 
@@ -92,27 +98,7 @@ public class Simulation {
      * @throws FarmioFatalException if any file cannot be found.
      */
     public void simulate(String framePath, int startFrame, int endFrame) throws FarmioFatalException {
-        for (int i =  startFrame; i <= endFrame; i++) {
-            simulate(framePath, i);
-        }
-    }
-
-    public void simulateBack(String framePath, int startFrame, int endFrame) throws FarmioFatalException {
-        for (int i =  startFrame; i >= endFrame; i--) {
-            simulate(framePath, i);
-        }
-    }
-
-    /**
-     * Shows a frame with a delay as specified.
-     * @param delay in milliseconds for program to sleep after frame is shown.
-     * @param framePath the directory of where the file is found.
-     * @param frameId the frame number to be shown.
-     * @throws FarmioFatalException if the file cannot be found.
-     */
-    public void simulate(int delay, String framePath, int frameId) throws FarmioFatalException {
-        simulate(framePath, frameId);
-        ui.sleep(delay);
+        simulate(framePath, startFrame, endFrame, false);
     }
 
     /**
