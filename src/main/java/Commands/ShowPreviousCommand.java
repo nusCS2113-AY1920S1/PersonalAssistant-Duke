@@ -1,9 +1,8 @@
 package Commands;
 
 import Commons.Duke;
-import Commons.LookupTable;
 import Commons.Storage;
-import Commons.Ui;
+import Commons.UserInteraction;
 import DukeExceptions.DukeInvalidCommandException;
 import Tasks.TaskList;
 import java.util.ArrayList;
@@ -51,7 +50,7 @@ public class ShowPreviousCommand extends Command{
      * @throws Exception
      */
     @Override
-    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeInvalidCommandException {
+    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws DukeInvalidCommandException {
 
         boolean isNumber = true;
         int number = 0;
@@ -76,7 +75,7 @@ public class ShowPreviousCommand extends Command{
         int sizeOfPreviousList = sizeOfUpdatedList - 1;
 
         if (sizeOfPreviousList < number) {
-            throw new DukeInvalidCommandException("There are only " + sizeOfPreviousList + " of previous commands." +
+            throw new DukeInvalidCommandException("There are only " + sizeOfPreviousList + " previous commands. " +
                     "Please enter a valid number less than or equal to " + sizeOfPreviousList + " .");
         }
 

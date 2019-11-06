@@ -2,8 +2,8 @@ package Parser;
 
 import Commands.Command;
 import Commands.ShowWorkloadCommand;
+import Commons.DukeLogger;
 import DukeExceptions.DukeInvalidFormatException;
-import Commons.Parser;
 import Commons.LookupTable;
 
 import java.text.SimpleDateFormat;
@@ -15,10 +15,8 @@ import java.util.logging.Logger;
  * This class parses the full command that calls for WorkloadParse.
  */
 public class WorkloadParse extends Parse{
-
     private static String fullCommand;
-    private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
-    private static LookupTable LT = new LookupTable();
+    private final Logger LOGGER = DukeLogger.getLogger(WorkloadParse.class);
 
     /**
      * Creates a WorkloadParse object.
@@ -42,6 +40,7 @@ public class WorkloadParse extends Parse{
             String nextWeekDate = formatter.format(nextWeek);
             return new ShowWorkloadCommand(nextWeekDate);
         } catch (ArrayIndexOutOfBoundsException e) {
+            LOGGER.info("Invalid show workload format" + e.getMessage());
             throw new DukeInvalidFormatException("OOPS!!! Please enter show workload as follows:\n" +
                     "/show workload");
         }

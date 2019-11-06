@@ -7,13 +7,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class WeekFormatParse {
-    private static LookupTable LT = new LookupTable();
+    private static LookupTable lookupTable = LookupTable.getInstance();
 
     public static String acadWeekToString (String weekDate, String date) {
         if (weekDate.equalsIgnoreCase("reading") || weekDate.equalsIgnoreCase("exam")
                 || weekDate.equalsIgnoreCase("week") || weekDate.equalsIgnoreCase("recess")) {
 
-            weekDate = LT.getValue(date) + " ";
+            weekDate = lookupTable.getValue(date) + " ";
         } else {
             weekDate = date;
         }
