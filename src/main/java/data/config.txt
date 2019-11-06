@@ -1,3 +1,4 @@
+lang:en
 bye:bye
 list:list
 help:help
@@ -15,3 +16,5 @@ remind:remind
 sort:sort
 setwelcome:setwelcome
 prioritize:prioritize
+unfinished:unfinished
+language:language

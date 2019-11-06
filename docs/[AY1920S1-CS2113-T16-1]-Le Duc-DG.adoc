@@ -359,13 +359,13 @@ The Remind feature is done by the RemindCommand. Along with all of the other imp
 * *Sequence Diagram of the Remind Feature:*
 
 image::RemindSequenceDiagram.png[width="790"]
-There are 2 cases:
+There are 3 cases:
 
 * TaskList contains a mix of all objects
 * TaskList contains only Todo objects
 * TaskList contains no objects
 
-Both cases are handled separately, as they must be ordered differently.
+All cases are handled separately, as the tasks must be ordered differently.
 
 ==== TaskList contains only homework/Event objects
 
@@ -403,3 +403,6 @@ remind
 * Sorting the TaskList in place was considered, but it reduced cohesion of the design.
 * It was considered to only remind the user of tasks that are coming up in the next week,
 but that would limit its potential utility
+
+
+---

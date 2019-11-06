@@ -1,5 +1,7 @@
 package leduc.command;
 
+import leduc.UiEn;
+import leduc.UiFr;
 import leduc.exception.EmptyArgumentException;
 import leduc.storage.Storage;
 import leduc.Ui;
@@ -83,6 +85,8 @@ public class FindCommand extends Command {
      */
 
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyArgumentException {
+        UiEn uien = new UiEn();
+        UiFr uifr = new UiFr();
         String userSubstring;
         if(callByShortcut){
             userSubstring = user.substring(FindCommand.findShortcut.length());
@@ -116,9 +120,12 @@ public class FindCommand extends Command {
         }
         if (result.isEmpty()) {
             ui.showFindNotMatching();
+
         } else {
             ui.showFindMatching(result);
         }
+
+
     }
     /**
      * getter because the shortcut is private

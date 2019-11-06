@@ -110,20 +110,51 @@ Example:
 Be careful : when creating an event, two dates can’t clash
 
 
-=== Find the task by keyword : `find`
+=== Find the task by relevancy : `find`
 
-To find a task by keyword : `find KEYWORD`
+To find a task by character relevancy : `find QUERY`
 
-The find command allows the user to search for tasks by keyword.
-The command will return a list of tasks, ordered by ascending relevancy.
+The find command allows the user to search for tasks via character matching (NOT keyword matching).
+The command will return tasks ordered by ascending relevancy.
+
 Typos in the user query will not affect performance.
 
 Examples:
 
-* `find book`
-* `find buy book`
+*Partial word query*
 
+```
+find sci
+        ---------------------------------------------------------------------------------
+         Here are the most relevant tasks in your list:
+         7. [H][✓] science by: 05/05/2005 05:05 [Priority: 2]
+         8. [H][✗] test by: 01/01/2001 01:01 [Priority: 5]
+         6. [H][✓] homeworktest by: 04/04/2004 04:04 [Priority: 5]
 
+        ---------------------------------------------------------------------------------
+
+```
+*Typo in Query*
+
+```
+find homewqeuktest
+        ---------------------------------------------------------------------------------
+         Here are the most relevant tasks in your list:
+         6. [H][✓] homeworktest by: 04/04/2004 04:04 [Priority: 5]
+         5. [H][✗] math by: 11/11/2011 01:01 [Priority: 5]
+         7. [H][✓] science by: 05/05/2005 05:05 [Priority: 2]
+         8. [H][✗] test by: 01/01/2001 01:01 [Priority: 5]
+
+        ---------------------------------------------------------------------------------
+
+```
+*If all tasks have no matching characters with query*
+```find zx
+        ---------------------------------------------------------------------------------
+         There is no matching tasks in your list
+        ---------------------------------------------------------------------------------
+
+```
 === Delete a task : `delete`
 
 To delete a task : `delete INDEX`
@@ -185,6 +216,13 @@ Reminds the user of the 3 most upcoming tasks : `remind`
 Example:
 
 * `remind`
+```
+remind
+         1. [H][✗] test by: 01/01/2001 01:01 [Priority: 5]
+         4. [H][✗] math by: 11/11/2011 01:01 [Priority: 5]
+         5. [E][✗] e at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
+
+```
 
 === Edit a task : `edit`
 
@@ -259,28 +297,74 @@ Example :
 
 Display statistics : `stats`
 
+Display statistics about your tasklist.
+
+Enter command `stats` to view general statistics,
+`stats -p` to view detailed priority statistics,
+or `stats -c` to view detailed completion statistics.
+
 Example:
 
 * `stats`
 
-Output:
 
-Here are some statistics about your task list:
+General Statistics Example:
+```
+stats
+        ---------------------------------------------------------------------------------
+Here are some general statistics about your task list:
+Number of tasks: 8.0
+Number of Todo's : 3
+Number of Events: 1
+Number of Homeworks: 4
+Number of Uncompleted Tasks: 5
+Number of Completed Tasks: 3
+Percent Complete: 37.5%
+        ---------------------------------------------------------------------------------
 
-Number of tasks: 13.0
+```
+* `stats -c`
 
-Number of Todo's : 6.0
 
-Number of Events: 2.0
+Completion Statistics Example
+```
+stats -c
+        ---------------------------------------------------------------------------------
+Here are some completion statistics about your task list:
+----COMPLETION COUNTS----
+Number of incomplete Homeworks remaining: 2
+Number of incomplete Todos remaining: 2
+Number of incomplete Events  remaining: 1
+----COMPLETION PERCENTAGES----
+Percent of incomplete Homework: 50.0%
+Percent of incomplete Todo: 66.66666666666666%
+Percent of incomplete Events: 100.0%
+        ---------------------------------------------------------------------------------
 
-Number of homeworks: 5.0
+```
+* `stats -p`
 
-Number of Uncompleted Tasks: 13.0
 
-Number of Completed Tasks: 0.0
+Priority Statistics Example:
+```
+stats -p
+        ---------------------------------------------------------------------------------
+Here are some priority statistics about your task list:
+----PRIORITY COUNTS----
+Number of tasks with priority 5: 7
+Number of tasks with priority 4: 0
+Number of tasks with priority 3: 0
+Number of tasks with priority 2: 1
+Number of tasks with priority 1: 0
+----PRIORITY PERCENTAGES----
+Percent of tasks with priority 5: 87.5%
+Percent of tasks with priority 4: 0.0%
+Percent of tasks with priority 3: 0.0%
+Percent of tasks with priority 2: 12.5%
+Percent of tasks with priority 1: 0.0%
+        ---------------------------------------------------------------------------------
 
-Percent Complete: 0.0%
-
+```
 
 === Sort by: `sort`
 
@@ -439,8 +523,8 @@ Find and display all unfinished tasks : `unfinished`
 
 Example:
 
- * `unfinished`
- * Output:
+* `unfinished`
+* Output:
 
  Here are the unfinished tasks in your list:
          1. [T][✗] td1 [Priority: 5]
