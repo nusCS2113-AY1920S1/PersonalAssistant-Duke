@@ -434,9 +434,7 @@ public class MainWindow extends GridPane {
             }
 
             TaskBox wrappedTask = TaskBox.getTaskBox(description, "", dates);
-            if (!task.getDone()) {
-                tasksList.getChildren().add(wrappedTask);
-            }
+            tasksList.getChildren().add(wrappedTask);
         }
     }
 
