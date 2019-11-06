@@ -23,7 +23,8 @@ public class DateTimeParser {
             localDateTime = LocalDateTime.parse(timeBeforeFormat, parser);
             return localDateTime;
         } catch (DateTimeParseException error) {
-            throw new DukeException("Invalid format. Please Enter Date and Time in the format of dd/MM/yyyy HHmm");
+            throw new DukeException(DateTimeParser.class,
+                    "Invalid format. Please Enter Date and Time in the format of dd/MM/yyyy HHmm");
         }
     }
 

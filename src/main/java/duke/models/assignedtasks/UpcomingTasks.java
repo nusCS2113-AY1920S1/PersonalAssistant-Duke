@@ -53,7 +53,7 @@ public class UpcomingTasks {
                     tasks.add(task);
                 }
             } else {
-                throw new DukeException("Unable to determine upcoming tasks for "
+                throw new DukeException(UpcomingTasks.class, "Unable to determine upcoming tasks for "
                         + getFormattedDate() + ".");
             }
         }

@@ -28,11 +28,12 @@ public class AssignedTaskWithPeriod extends AssignedTask {
             setStartDate(DateTimeParser.convertToLocalDateTime(stime));
             setEndDate(DateTimeParser.convertToLocalDateTime(etime));
         } catch (DukeException e) {
-            throw new DukeException("The date time format is wrong!");
+            throw new DukeException(AssignedTaskWithPeriod.class, "The date time format is wrong!");
         }
 
         if (getEndDate().isBefore(getStartDate())) {
-            throw new DukeException("You can't assign the end time earlier than the start time!");
+            throw new DukeException(AssignedTaskWithPeriod.class,
+                    "You can't assign the end time earlier than the start time!");
         }
     }
 
@@ -58,11 +59,12 @@ public class AssignedTaskWithPeriod extends AssignedTask {
             setStartDate(DateTimeParser.convertToLocalDateTime(stime));
             setEndDate(DateTimeParser.convertToLocalDateTime(etime));
         } catch (DukeException e) {
-            throw new DukeException("The date time format is wrong!");
+            throw new DukeException(AssignedTaskWithPeriod.class, "The date time format is wrong!");
         }
 
         if (getEndDate().isBefore(getStartDate())) {
-            throw new DukeException("You can't assign the end time earlier than the start time!");
+            throw new DukeException(AssignedTaskWithPeriod.class,
+                    "You can't assign the end time earlier than the start time!");
         }
 
     }
@@ -92,11 +94,12 @@ public class AssignedTaskWithPeriod extends AssignedTask {
             setStartDate(DateTimeParser.convertToLocalDateTime(stime));
             setEndDate(DateTimeParser.convertToLocalDateTime(etime));
         } catch (DukeException e) {
-            throw new DukeException("The date time format is wrong!");
+            throw new DukeException(AssignedTaskWithPeriod.class, "The date time format is wrong!");
         }
 
         if (getEndDate().isBefore(getStartDate())) {
-            throw new DukeException("You can't assign the end time earlier than the start time!");
+            throw new DukeException(AssignedTaskWithPeriod.class,
+                    "You can't assign the end time earlier than the start time!");
         }
     }
 

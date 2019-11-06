@@ -33,13 +33,13 @@ public class FindAssignedTaskCommand implements Command {
         super();
         try {
             if (cmd.charAt(0) != '#') {
-                throw new DukeException("Invalid format. Please follow: "
+                throw new DukeException(FindAssignedTaskCommand.class, "Invalid format. Please follow: "
                         + "find assigned tasks : #<patientID>");
             }
             patientId = Integer.parseInt(cmd.substring(1));
 
         } catch (DukeException e) {
-            throw new DukeException("Warning " + e.getMessage());
+            throw new DukeException(FindAssignedTaskCommand.class, "Warning " + e.getMessage());
         }
     }
 
@@ -69,7 +69,7 @@ public class FindAssignedTaskCommand implements Command {
             }
             dukeUi.patientTaskFound(patient, patientTask, newTask);
         } catch (DukeException e) {
-            throw new DukeException("Warning " + e.getMessage());
+            throw new DukeException(FindAssignedTaskCommand.class, "Warning " + e.getMessage());
         }
     }
 

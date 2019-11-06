@@ -58,7 +58,7 @@ public class CommandManager {
             try {
                 return new AddPatientCommand(parser.parseUserInput());
             } catch (Exception e) {
-                throw new DukeException("Please follow the  "
+                throw new DukeException(CommandManager.class, "Please follow the  "
                         + "`add patient :<patient name> :<NRIC> :<patient room> :<patient_remark>` "
                         + "format.");
             }
@@ -66,13 +66,14 @@ public class CommandManager {
             try {
                 return new AddTaskCommand(parser.parseUserInput()[0]);
             } catch (Exception e) {
-                throw new DukeException("Please follow the `add task :<task description>` format.");
+                throw new DukeException(CommandManager.class,
+                        "Please follow the `add task :<task description>` format.");
             }
         case "assign deadline task":
             try {
                 return new AssignDeadlineTaskCommand(parser.parseUserInput());
             } catch (Exception e) {
-                throw new DukeException("Please follow the "
+                throw new DukeException(CommandManager.class, "Please follow the "
                         + "`assign deadline task :#<patient id> :#<task id> "
                         + ":<dd/MM/YYYY HHmm>` format.");
             }
@@ -80,7 +81,7 @@ public class CommandManager {
             try {
                 return new AssignPeriodTaskCommand(parser.parseUserInput());
             } catch (Exception e) {
-                throw new DukeException("Please follow the "
+                throw new DukeException(CommandManager.class, "Please follow the "
                         + "`assign event task :#<patient id> :#<task ID> "
                         + ":<dd/MM/YYYY HHmm> to <dd/MM/YYYY HHmm>` format.");
             }
@@ -92,7 +93,7 @@ public class CommandManager {
             try {
                 return new DeleteAssignedTaskCommand(parser.parseUserInput()[0]);
             } catch (Exception e) {
-                throw new DukeException("Please follow the `delete assigned task :#<patient id>"
+                throw new DukeException(CommandManager.class, "Please follow the `delete assigned task :#<patient id>"
                         + " :#<task id>` or "
                         + " `delete patient task :%<unique assigned task id>` format.");
             }
@@ -100,45 +101,47 @@ public class CommandManager {
             try {
                 return new DeletePatientCommand(parser.parseUserInput()[0]);
             } catch (Exception e) {
-                throw new DukeException("Please follow the `delete patient :#<patient id>` format");
+                throw new DukeException(CommandManager.class,
+                        "Please follow the `delete patient :#<patient id>` format");
             }
         case "delete task":
             try {
                 return new DeleteTaskCommand(parser.parseUserInput()[0]);
             } catch (Exception e) {
-                throw new DukeException("Please follow the `delete task :#<task id>` format");
+                throw new DukeException(CommandManager.class, "Please follow the `delete task :#<task id>` format");
             }
         case "find patient":
             try {
                 return new FindPatientCommand(parser.parseUserInput()[0]);
             } catch (Exception e) {
-                throw new DukeException("Please use the `find patient :#<patient id>` format.");
+                throw new DukeException(CommandManager.class, "Please use the `find patient :#<patient id>` format.");
             }
         case "find task":
             try {
                 return new FindTaskCommand(parser.parseUserInput()[0]);
             } catch (Exception e) {
-                throw new DukeException("Please use the `find task :#<task id>` format.");
+                throw new DukeException(CommandManager.class, "Please use the `find task :#<task id>` format.");
             }
         case "find assigned tasks":
             try {
                 return new FindAssignedTaskCommand(parser.parseUserInput()[0]);
             } catch (Exception e) {
-                throw new DukeException("Please use the `find assigned tasks "
+                throw new DukeException(CommandManager.class, "Please use the `find assigned tasks "
                         + ":#<patient id>` format.");
             }
         case "update patient":
             try {
                 return new UpdatePatientCommand(parser.parseUserInput());
             } catch (Exception e) {
-                throw new DukeException("Please use the `update patient :<patient name> or #<patient id>"
+                throw new DukeException(CommandManager.class,
+                        "Please use the `update patient :<patient name> or #<patient id>"
                         + ":<name/NRIC/room/remark> :<updated info>` format.");
             }
         case "update task":
             try {
                 return new UpdateTaskCommand(parser.parseUserInput());
             } catch (Exception e) {
-                throw new DukeException("Please use the `update task :#<task id>"
+                throw new DukeException(CommandManager.class, "Please use the `update task :#<task id>"
                         + " :<updated description>` format.");
             }
         case "show upcoming tasks":
@@ -154,7 +157,7 @@ public class CommandManager {
         case "piechart":
             return new PieChartCommand();
         default:
-            throw new DukeException("Could not understand user input.");
+            throw new DukeException(CommandManager.class, "Could not understand user input.");
         }
     }
 }

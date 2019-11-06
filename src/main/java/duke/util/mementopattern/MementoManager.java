@@ -40,7 +40,7 @@ public class MementoManager {
         if (!mementos.isEmpty()) {
             return mementos.pollLast();
         } else {
-            throw new DukeException("There are no more steps to undo!");
+            throw new DukeException(MementoManager.class, "There are no more steps to undo!");
         }
     }
 

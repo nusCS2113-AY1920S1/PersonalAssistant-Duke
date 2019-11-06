@@ -20,7 +20,7 @@ public class Parser {
         try {
             parsedInput = userInput.split(":");
         } catch (Exception e) {
-            throw new DukeException("Could not parse user input!");
+            throw new DukeException(Parser.class, "Could not parse user input!");
         }
     }
 
