@@ -70,7 +70,7 @@ public class UiEn extends Ui {
     @Override
     public void showPrioritize(Task task) {
         super.display("\t Got it. I've set the priority of this task:\n\t   "
-                + task.toString()+ " to " + task.getPriority());
+                + task.toString());
     }
     @Override
     public void showReschedule(EventsTask rescheduleTask) {
@@ -139,7 +139,7 @@ public class UiEn extends Ui {
         System.out.println("\t All parameters will be written in UPPER_CASE");
         System.out.println("\t Parameters are :");
         System.out.println("\t DESCRIPTION : the description of a task");
-        System.out.println("\t SORTTYPE : the date or description");
+        System.out.println("\t SORTTYPE : date, description, priority, type or done");
         System.out.println("\t DATE : the date of a task");
         System.out.println("\t INDEX : the index of the task (goes from 1 to ...)");
         System.out.println("\t KEYWORD : the keyword to find a task");
@@ -158,7 +158,7 @@ public class UiEn extends Ui {
         System.out.println("\t find KEYWORD : find the task with a keyword");
         System.out.println("\t snooze INDEX : snooze a task of index INDEX");
         System.out.println("\t postpone INDEX /by DATE : postpone a deadline task");
-        System.out.println("\t sort SORTTYPE : Sort all task by date/description");
+        System.out.println("\t sort SORTTYPE : Sort all task by date/description/priority/type/done or not");
         System.out.println("\t reschedule INDEX /at DATE - DATE : reschedule an event task");
         System.out.println("\t remind : remind the first three task");
         System.out.println("\t setwelcome WELCOME : customize the welcome message");
@@ -224,22 +224,22 @@ public class UiEn extends Ui {
 
     @Override
     public void showEnterDayShow() {
-        super.display("please enter the day as DD/MM/YYYY");
+        System.out.println("You have enter the show day mode. Please enter the day as : DD/MM/YYYY");
     }
 
     @Override
     public void showEnterDayOfWeekShow() {
-        super.display("please enter the day of the week as monday, tuesday, wednesday, thursday, friday, saturday, sunday");
+        System.out.println("You have enter the show day of week mode. Please enter the day of the week as : monday, tuesday, wednesday, thursday, friday, saturday, sunday");
     }
 
     @Override
     public void showEnterMonthShow() {
-        super.display("please enter the month as MM/YYYY");
+        System.out.println("You have enter the show month mode. Please enter the month as : MM/YYYY");
     }
 
     @Override
     public void showEnterYearShow() {
-        super.display("please enter the year as YYYY");
+        System.out.println("You have enter the show year mode. Please enter the year as : YYYY");
     }
 
     @Override
@@ -320,6 +320,9 @@ public class UiEn extends Ui {
         else if(e instanceof WrongParameterException){
             System.out.println("\t WrongParameterException:\n\t\t ☹ OOPS!!! The parameters are wrong");
         }
+        else if (e instanceof EventDateException){
+            System.out.println("\t EventDateException:\n\t\t ☹ OOPS!!! The start date should be before the end date for an event task");
+        }
         else if(e instanceof EditFormatException){
             System.out.println("\t EditFormatException:\n\t\t ☹ OOPS!!! Please respect the edit command format" +
                      "\n\t\t For multi-step command : 'edit' and then follow the instructions" +
@@ -328,5 +331,18 @@ public class UiEn extends Ui {
                     "\n\t\t\t edit the date of an homework task: 'edit INDEX /by DATE'"+
                     "\n\t\t\t edit the period of an event task: 'edit INDEX /at DATE - DATE'");
         }
+        else if (e instanceof UserAnswerException){
+            System.out.println("\t UserAnswerException:\n\t\t ☹ OOPS!!! Please answer correctly the question.");
+        }
+    }
+
+    @Override
+    public void terminateShortcut() {
+        System.out.println("The shortcut edit mode is being terminated earlier. All shortcut edited until now has been saved");
+    }
+
+    @Override
+    public void showErrorLanguage() {
+        System.out.println("The language that you have chosen is currently not available");
     }
 }

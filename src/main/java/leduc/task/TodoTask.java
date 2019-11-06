@@ -6,7 +6,7 @@ package leduc.task;
  * Represents a Todo leduc.task.Task.
  */
 public class TodoTask extends Task {
-    private String tag; // [T]
+    private String tag = "[T]";
 
     /**
      * Constructor of leduc.task.TodoTask. The task is not done by default.
@@ -15,7 +15,6 @@ public class TodoTask extends Task {
      */
     public TodoTask(String task){
         super(task);
-        this.tag ="[T]";
     }
 
     /**
@@ -36,7 +35,6 @@ public class TodoTask extends Task {
      */
     public TodoTask(String task, String mark){
         super(task,mark);
-        this.tag ="[T]";
     }
 
 
@@ -48,7 +46,6 @@ public class TodoTask extends Task {
      */
     public TodoTask(String task, String mark, int priority){
         super(task,mark,priority);
-        this.tag ="[T]";
     }
 
     /**

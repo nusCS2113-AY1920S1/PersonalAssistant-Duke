@@ -6,7 +6,7 @@ import leduc.exception.PostponeHomeworkException;
  * Represents a homework Task.
  */
 public class HomeworkTask extends Task {
-    private String tag; // [H]
+    private String tag ="[H]" ;
     private Date deadlines;
 
     /**
@@ -17,7 +17,6 @@ public class HomeworkTask extends Task {
      */
     public HomeworkTask(String task, Date deadlines){
         super(task);
-        this.tag ="[H]";
         this.deadlines = deadlines;
     }
 
@@ -41,7 +40,6 @@ public class HomeworkTask extends Task {
      */
     public HomeworkTask(String task, String mark, Date deadlines){
         super(task,mark);
-        this.tag ="[H]";
         this.deadlines = deadlines;
     }
 
@@ -55,7 +53,6 @@ public class HomeworkTask extends Task {
      */
     public HomeworkTask(String task, String mark, Date deadlines, int priority){
         super(task,mark,priority);
-        this.tag ="[H]";
         this.deadlines = deadlines;
     }
 

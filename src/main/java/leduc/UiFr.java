@@ -66,7 +66,7 @@ public class UiFr extends Ui {
     @Override
     public void showPrioritize(Task task) {
         super.display("\t Compris. La priorité de cette tâche a été assignée:\n\t   "
-                + task.toString()+ " à " + task.getPriority());
+                + task.toString());
     }
     @Override
     public void showReschedule(EventsTask rescheduleTask) {
@@ -129,7 +129,7 @@ public class UiFr extends Ui {
         System.out.println("\t Tous les paramètres vont être écrits en MAJUSCULE");
         System.out.println("\t Les paramètres sont :");
         System.out.println("\t DESCRIPTION : la description d'une tâche");
-        System.out.println("\t SORTTYPE : la date ou description");
+        System.out.println("\t SORTTYPE :  date, description, priority, type ou done");
         System.out.println("\t DATE : la date d'une tâche");
         System.out.println("\t INDEX : L'index d'une tâche (va de 1 à ...)");
         System.out.println("\t KEYWORD : mot-clé pour trouver une tâche");
@@ -148,7 +148,7 @@ public class UiFr extends Ui {
         System.out.println("\t find KEYWORD : trouve une tâche avec un mot-clé");
         System.out.println("\t snooze INDEX : snooze une tâche d'index INDEX");
         System.out.println("\t postpone INDEX /by DATE : reporté une tâche homework");
-        System.out.println("\t sort SORTTYPE : range les tâches par date/description");
+        System.out.println("\t sort SORTTYPE : range les tâches par date/description/priority/type/done");
         System.out.println("\t reschedule INDEX /at DATE - DATE : replanifié une tâche event");
         System.out.println("\t remind : Rappelle les trois premières tâches");
         System.out.println("\t setwelcome WELCOME : personnalise le message de bienvenue");
@@ -212,22 +212,22 @@ public class UiFr extends Ui {
 
     @Override
     public void showEnterDayShow() {
-        super.display("Veuillez entrer la date comme DD/MM/YYYY");
+        System.out.print("Vous êtes entré dans le mode show date. Veuillez entrer la date comme DD/MM/YYYY");
     }
 
     @Override
     public void showEnterDayOfWeekShow() {
-        super.display("Veuillez entrer le jour de la semaine comme monday, tuesday, wednesday, thursday, friday, saturday, sunday");
+        System.out.print("Vous êtes entré dans le mode show jour de la semaine. Veuillez entrer le jour de la semaine comme monday, tuesday, wednesday, thursday, friday, saturday, sunday");
     }
 
     @Override
     public void showEnterMonthShow() {
-        super.display("Veuilez entrer le mois comme MM/YYYY");
+        System.out.print("Vous êtes entré dans le mode show mois. Veuilez entrer le mois comme MM/YYYY");
     }
 
     @Override
     public void showEnterYearShow() {
-        super.display("Veuillez entrer l'année comme YYYY");
+        System.out.print("Vous êtes entré dans le mode show année. Veuillez entrer l'année comme YYYY");
     }
     @Override
     public void showNotCompleteList(ArrayList<Task> notCompleteTasks, TaskList tasks) {
@@ -306,6 +306,9 @@ public class UiFr extends Ui {
         else if(e instanceof WrongParameterException){
             System.out.println("\t WrongParameterException:\n\t\t ☹ OOPS!!! Les paramètres sont faux");
         }
+        else if (e instanceof EventDateException){
+            System.out.println("\t EventDateException:\n\t\t ☹ OOPS!!! La date de départ ne doit pas être postérieur à la date de fin pour une tâche event");
+        }
         else if(e instanceof EditFormatException){
             System.out.println("\t EditFormatException:\n\t\t ☹ OOPS!!! Veuillez respecter le format de la command edit" +
                     "\n\t\t Command interactive : 'edit' puis suivez les instructions" +
@@ -314,5 +317,17 @@ public class UiFr extends Ui {
                     "\n\t\t\t éditer la date d'une tache homework : 'edit INDEX /by DATE'"+
                     "\n\t\t\t éditer la période d'une tâche event: 'edit INDEX /at DATE - DATE'");
         }
+        else if (e instanceof UserAnswerException){
+            System.out.println("\t UserAnswerException:\n\t\t ☹ OOPS!!! Veuillez répondre correctement à la question.");
+        }
+    }
+
+    @Override
+    public void terminateShortcut() {
+        System.out.println("Le mode d'édition de shortcut a été terminé plus tôt. Tous les shortcut qui ont été édité ont été enregistré.");
+    }
+    @Override
+    public void showErrorLanguage() {
+        System.out.println("La langue que vous aviez sélectionné est actuellement indisponible");
     }
 }
