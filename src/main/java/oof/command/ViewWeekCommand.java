@@ -66,7 +66,7 @@ public class ViewWeekCommand extends Command {
         Calendar calendar = Calendar.getInstance();
         try {
             this.day = Integer.parseInt(argumentArray[INDEX_DAY]);
-            this.month = Integer.parseInt(argumentArray[INDEX_MONTH]) - 1;
+            this.month = Integer.parseInt(argumentArray[INDEX_MONTH]) - OFFSET;
             this.year = Integer.parseInt(argumentArray[INDEX_YEAR]);
             calendar.set(year, month, day);
             this.week = calendar.get(Calendar.WEEK_OF_YEAR);
@@ -106,6 +106,9 @@ public class ViewWeekCommand extends Command {
         Calendar calendar = Calendar.getInstance();
         Date date = getStartDate(this.day, this.month, this.year);
         calendar.setTime(date);
+        day = calendar.get(Calendar.DATE);
+        month = calendar.get(Calendar.MONTH);
+        year = calendar.get(Calendar.YEAR);
         for (Task task : taskList.getTaskList()) {
             if (task instanceof Todo) {
                 addToDoTask(task, calendar);
@@ -228,7 +231,7 @@ public class ViewWeekCommand extends Command {
      * Adds lesson to the calendar.
      *
      * @param queryDate Day of the month.
-     * @param module Instance of Module containing Lesson data
+     * @param module    Instance of Module containing Lesson data
      */
     private void addLesson(LocalDate queryDate, Module module) {
         for (Lesson lesson : module.getLessons()) {
@@ -273,7 +276,7 @@ public class ViewWeekCommand extends Command {
      * Finds the task with the longest description and time.
      *
      * @param calendarTasks Tasks to be printed for the week.
-     * @return Return the size of the task with the longest description and time.
+     * @return Size of the task with the longest description and time.
      */
     private int getLargestColSize(ArrayList<ArrayList<String[]>> calendarTasks) {
         int maximum = LEAST_POSSIBLE_COL_SIZE;
@@ -300,7 +303,7 @@ public class ViewWeekCommand extends Command {
     private Date getStartDate(int day, int month, int year) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
-        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - OFFSET;
         calendar.add(Calendar.DATE, -dayOfWeek);
         return calendar.getTime();
     }
@@ -314,7 +317,7 @@ public class ViewWeekCommand extends Command {
     private boolean dateMatches(String[] dateSplit) {
         Calendar calendar = Calendar.getInstance();
         int day = Integer.parseInt(dateSplit[INDEX_DATE]);
-        int month = Integer.parseInt(dateSplit[INDEX_MONTH]) - 1;
+        int month = Integer.parseInt(dateSplit[INDEX_MONTH]) - OFFSET;
         int year = Integer.parseInt(dateSplit[INDEX_YEAR]);
         Date date = getStartDate(day, month, year);
         calendar.setTime(date);
