@@ -490,6 +490,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void createBudgetWindow() {
         BudgetList budgetList = duke.getBudgetList();
+        float currBudget = budgetList.getBudget();
         String budgetDesc = budgetList.getStringList();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/BudgetWindow.fxml"));
@@ -498,7 +499,7 @@ public class MainWindow extends AnchorPane {
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setAlwaysOnTop(true);
-            fxmlLoader.<BudgetWindow>getController().setBudgetWindow(budgetDesc);
+            fxmlLoader.<BudgetWindow>getController().setBudgetWindow(budgetDesc, currBudget);
             stage.show();
         } catch (IOException e) {
             logr.log(Level.SEVERE, "Unable to load budget window", e);
