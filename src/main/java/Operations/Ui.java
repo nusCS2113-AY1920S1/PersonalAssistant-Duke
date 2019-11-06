@@ -287,4 +287,8 @@ public class Ui {
             System.out.println("Deadline");
         }
     }
+
+    public void showRestoreList() {
+        System.out.println("This are the items in your restore list");
+    }
 }
