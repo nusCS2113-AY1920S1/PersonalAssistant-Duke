@@ -55,7 +55,7 @@ public class Parser {
         case ("delete"): return new DeleteCommand(inputCommand);
         case ("snooze"): return new EditCommand(inputCommand);
         case ("change"):
-            MainWindow.isChanged = true;
+            //MainWindow.isChanged = true;
             return new ChangeColorCommand();
         default:
             throw new CakeException("OOPS!!! I'm sorry, but I don't know what that means.");

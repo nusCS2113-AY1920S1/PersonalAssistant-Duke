@@ -148,7 +148,7 @@ public class MainWindow extends GridPane {
                 AvatarScreen.avatarMode = AvatarScreen.AvatarMode.HAPPY;
                 if (input.equals("exit")) {
                     handleExit();
-                } if (isQuiz) {
+                } else if (isQuiz) {
                     handleOtherProcesses();
                 } else if (input.equals("listnote")) {
                     handleListNote();
@@ -216,11 +216,13 @@ public class MainWindow extends GridPane {
         if (isFirstQuiz()) {
             JavaCake.logger.log(Level.INFO, "First Quiz Incoming!");
         } else if (isQuiz) {
+            System.out.println("QUIZ MODE");
             handleQuiz();
         } else if (isDeadlineRelated()) {
             //handles "deadline" and "reminder"
             JavaCake.logger.log(Level.INFO, "deadline setting");
         } else if (isColorRelated()) {
+            System.out.println("COLOR MODE");
             JavaCake.logger.log(Level.INFO, "colormode setting");
         } else if (isFirstQuiz()) {
             JavaCake.logger.log(Level.INFO, "First Quiz Incoming!");
