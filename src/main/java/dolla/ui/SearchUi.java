@@ -1,7 +1,7 @@
 package dolla.ui;
 
 import dolla.Time;
-import dolla.task.RecordList;
+import dolla.model.RecordList;
 
 //@@author tatayu
 public class SearchUi extends Ui {

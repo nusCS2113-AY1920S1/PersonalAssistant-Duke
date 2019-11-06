@@ -1,7 +1,7 @@
 package dolla.command;
 
-import dolla.DollaData;
-import dolla.task.Bill;
+import dolla.model.DollaData;
+import dolla.model.Bill;
 import dolla.ui.DebtUi;
 
 import java.util.ArrayList;

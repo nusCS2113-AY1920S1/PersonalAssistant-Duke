@@ -1,6 +1,6 @@
 package dolla.ui;
 
-import dolla.task.Record;
+import dolla.model.Record;
 
 //@@author omupenguin
 public class ModifyUi extends Ui {

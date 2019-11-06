@@ -1,6 +1,6 @@
 package dolla.command;
 
-import dolla.DollaData;
+import dolla.model.DollaData;
 import dolla.ui.Ui;
 
 public class SwitchModeCommand extends Command {

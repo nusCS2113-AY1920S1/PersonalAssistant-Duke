@@ -1,7 +1,7 @@
 package dolla.command;
 
-import dolla.DollaData;
-import dolla.task.RecordList;
+import dolla.model.DollaData;
+import dolla.model.RecordList;
 import dolla.ui.ListUi;
 import dolla.ui.SearchUi;
 

@@ -1,9 +1,9 @@
 package dolla.command;
 
-import dolla.DollaData;
+import dolla.model.DollaData;
 import dolla.ui.ListUi;
 import dolla.ui.ModifyUi;
-import dolla.task.RecordList;
+import dolla.model.RecordList;
 
 //@@author omupenguin
 /**

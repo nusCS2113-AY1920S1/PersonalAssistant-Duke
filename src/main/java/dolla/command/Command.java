@@ -1,8 +1,7 @@
 package dolla.command;
 
-import dolla.DollaData;
+import dolla.model.DollaData;
 import dolla.ModeStringList;
-import dolla.parser.Parser;
 import dolla.ui.Ui;
 
 /**

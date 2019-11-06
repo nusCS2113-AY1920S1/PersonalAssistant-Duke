@@ -1,10 +1,10 @@
 package dolla.command.modify;
 
-import dolla.DollaData;
+import dolla.model.DollaData;
 import dolla.command.Command;
-import dolla.task.Limit;
-import dolla.task.LimitList;
-import dolla.task.Record;
+import dolla.model.Limit;
+import dolla.model.LimitList;
+import dolla.model.Record;
 import dolla.ui.LimitUi;
 import dolla.ui.ModifyUi;
 

@@ -1,12 +1,13 @@
-package dolla;
+package dolla.model;
 
-import dolla.task.DebtList;
-import dolla.task.EntryList;
-import dolla.task.LimitList;
-import dolla.task.Record;
-import dolla.task.RecordList;
-import dolla.task.BillList;
-import dolla.task.ShortcutList;
+import dolla.ModeStringList;
+import dolla.model.DebtList;
+import dolla.model.EntryList;
+import dolla.model.LimitList;
+import dolla.model.Record;
+import dolla.model.RecordList;
+import dolla.model.BillList;
+import dolla.model.ShortcutList;
 
 
 import java.util.ArrayList;

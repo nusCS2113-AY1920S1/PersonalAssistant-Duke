@@ -1,6 +1,6 @@
 package dolla.storage;
 
-import dolla.task.Record;
+import dolla.model.Record;
 import dolla.ui.StorageUi;
 
 import java.io.FileWriter;

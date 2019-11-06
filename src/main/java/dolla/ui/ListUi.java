@@ -1,6 +1,6 @@
 package dolla.ui;
 
-import dolla.task.RecordList;
+import dolla.model.RecordList;
 
 //@@author omupenguin
 public class ListUi extends Ui {

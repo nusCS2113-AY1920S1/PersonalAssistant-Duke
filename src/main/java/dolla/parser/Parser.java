@@ -2,7 +2,7 @@ package dolla.parser;
 
 import dolla.ModeStringList;
 import dolla.Time;
-import dolla.task.RecordList;
+import dolla.model.RecordList;
 import dolla.ui.EntryUi;
 import dolla.ui.LimitUi;
 import dolla.ui.Ui;

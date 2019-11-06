@@ -1,9 +1,9 @@
 package dolla.command.modify;
 
-import dolla.DollaData;
+import dolla.model.DollaData;
 import dolla.command.Command;
-import dolla.task.Entry;
-import dolla.task.Record;
+import dolla.model.Entry;
+import dolla.model.Record;
 import dolla.ui.ModifyUi;
 
 import java.time.LocalDate;

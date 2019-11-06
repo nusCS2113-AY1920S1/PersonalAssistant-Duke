@@ -1,14 +1,14 @@
 package dolla.command;
 
-import dolla.DollaData;
+import dolla.model.DollaData;
 import dolla.Time;
 import dolla.command.action.state.EntryState;
 import dolla.command.action.Redo;
 import dolla.command.action.state.UndoStateList;
-import dolla.task.EntryList;
-import dolla.task.Record;
+import dolla.model.EntryList;
+import dolla.model.Record;
 import dolla.ui.Ui;
-import dolla.task.Entry;
+import dolla.model.Entry;
 
 import java.time.LocalDate;
 

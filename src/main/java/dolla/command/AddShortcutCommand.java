@@ -1,8 +1,8 @@
 package dolla.command;
 
-import dolla.DollaData;
-import dolla.task.Record;
-import dolla.task.Shortcut;
+import dolla.model.DollaData;
+import dolla.model.Record;
+import dolla.model.Shortcut;
 import dolla.ui.Ui;
 
 import java.util.ArrayList;

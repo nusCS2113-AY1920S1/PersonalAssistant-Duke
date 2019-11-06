@@ -2,14 +2,14 @@ package dolla.storage;
 
 import dolla.Time;
 import dolla.parser.MainParser;
-import dolla.task.Debt;
-import dolla.task.Entry;
-import dolla.task.Limit;
-import dolla.task.Record;
-import dolla.task.Bill;
+import dolla.model.Debt;
+import dolla.model.Entry;
+import dolla.model.Limit;
+import dolla.model.Record;
+import dolla.model.Bill;
 import dolla.ui.StorageUi;
 import dolla.ui.Ui;
-import dolla.task.Shortcut;
+import dolla.model.Shortcut;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

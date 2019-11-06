@@ -1,7 +1,6 @@
 package dolla.ui;
 
-import dolla.task.RecordList;
-import dolla.task.Debt;
+import dolla.model.RecordList;
 
 import java.util.ArrayList;
 

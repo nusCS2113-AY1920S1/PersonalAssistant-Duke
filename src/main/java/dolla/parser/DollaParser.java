@@ -8,8 +8,8 @@ import dolla.command.AddEntryCommand;
 import dolla.command.AddLimitCommand;
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
-import dolla.task.Debt;
-import dolla.task.Entry;
+import dolla.model.Debt;
+import dolla.model.Entry;
 import dolla.ui.LimitUi;
 
 import java.time.LocalDate;

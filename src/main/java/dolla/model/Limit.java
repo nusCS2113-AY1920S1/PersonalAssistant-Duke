@@ -1,4 +1,4 @@
-package dolla.task;
+package dolla.model;
 
 /**
  * Limit is a class that stores all limit related methods (savings and budgets).
