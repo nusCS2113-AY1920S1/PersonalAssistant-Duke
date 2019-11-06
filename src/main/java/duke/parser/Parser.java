@@ -5,7 +5,7 @@ import duke.data.Storage;
 import duke.models.Reminder;
 import duke.models.Schedule;
 import duke.task.TaskList;
-import duke.models.students.ManageStudents;
+import duke.models.students.StudentList;
 import duke.models.MyClass;
 import duke.models.MyPlan;
 
@@ -83,7 +83,7 @@ public class Parser {
     public void parseInput(final String io,
                            final TaskList tasks,
                            final Storage storage,
-                           final ManageStudents students,
+                           final StudentList students,
                            final Schedule schedule,
                            final MyPlan plan)
         throws FileNotFoundException, ParseException {

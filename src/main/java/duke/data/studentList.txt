@@ -1,3 +1,5 @@
-danish,    22,    nus
-kh,   25,   bl
-danial, 23, ntu
+danish,22,woodlands
+danial,23,ntu
+keehui,25,boon lay
+faiz,22,bedok
+arif,22,toa payoh

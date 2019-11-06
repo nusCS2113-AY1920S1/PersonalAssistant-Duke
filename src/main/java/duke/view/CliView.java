@@ -65,11 +65,13 @@ public class CliView {
      * Displays main menu on command line.
      */
     public void showMainMenu() {
+        printLine();
         System.out.println("SPORTS MANAGER\n"
             + "1. View Training Schedule\n"
             + "2. Manage Students\n"
             + "3. Training Circuits\n"
             + "4. Exit");
+        printLine();
     }
 
     /**
@@ -117,13 +119,33 @@ public class CliView {
      */
     public void manageStudentsHeading() {
         System.out.flush();
+        printLine();
         System.out.println("MANAGE STUDENTS:\n"
             + "1. Student List - (Cmd: list)\n"
             + "2. Add student - (Cmd: add) \n"
-            + "3. Delete Student -"
-            + "(Cmd: delete [index of student in the list])\n"
+            + "3. Delete Student - "
+            + "(Cmd: delete [student index])\n"
             + "4. Find Student - "
-            + "(Cmd: find [name])");
+            + "(Cmd: find [name])\n"
+            + "5. View student details - (Cmd: view [student index])\n"
+            + "6. Student progress - (Cmd: progress)");
+        printLine();
+    }
+
+    /**
+     * This function prints the student's progress heading.
+     */
+    public void studentProgressHeading() {
+        printLine();
+        System.out.println("STUDENT PROGRESS:\n"
+            + "1. Student List - (Cmd: list)\n"
+            + "2. Add progress - (Cmd: add [student index]) \n"
+            + "3. Delete progress - "
+            + "(Cmd: delete [student index] [progress index])\n"
+            + "4. View Student Progress - (Cmd: View [student index])\n"
+            + "5. Exit Page - (Cmd - back)");
+        printLine();
+
     }
 
     /**
@@ -259,6 +281,14 @@ public class CliView {
     public void showCorrectFormat() {
         System.out.println(
             "Please enter the details in the correct format.");
+    }
+
+    /**
+     * Prints message asking for correct format.
+     */
+    public void showCorrectCommand() {
+        System.out.println(
+                "Please enter the correct command.");
     }
 
     /**
