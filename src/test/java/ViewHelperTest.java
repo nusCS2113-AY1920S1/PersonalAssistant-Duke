@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
 
 public class ViewHelperTest {
     private ViewHelper viewHelper;
@@ -34,7 +35,7 @@ public class ViewHelperTest {
         sampleTableContent.add("");
         ArrayList<ArrayList<String>> input = new ArrayList<>();
         input.add(sampleTableContent);
-        String[] actualOutput = viewHelper.consolePrintTable(input);
+        String[] actualOutput = viewHelper.consolePrintTable(input, DEFAULT_HORI_BORDER_LENGTH);
         String[] expectedOutput = new String[] {
             "+----------------------------------------------------------------------+",
             "|Project Header                                                        |",
@@ -69,7 +70,7 @@ public class ViewHelperTest {
                 + " alonglonglongemailaddress@gmail.com | Role: member)";
         String[] expectedOutput = new String[] {" 1. A very very very long name (Phone: 12345678901234567890 | Email: ",
             "alonglonglongemailaddress@gmail.com | Role: member)"};
-        String[] actualOutput = viewHelper.getArrayOfSplitStrings(input);
+        String[] actualOutput = viewHelper.getArrayOfSplitStrings(input, DEFAULT_HORI_BORDER_LENGTH);
         assertArrayEquals(expectedOutput, actualOutput);
 
         String input2 = " 3. aVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameWi"
@@ -77,7 +78,7 @@ public class ViewHelperTest {
         String[] expectedOutput2 = new String[] {" 3. ",
             "aVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameWithoutSpace ",
             "(Phone: -- | Email: -- | Role: member)"};
-        String[] actualOutput2 = viewHelper.getArrayOfSplitStrings(input2);
+        String[] actualOutput2 = viewHelper.getArrayOfSplitStrings(input2, DEFAULT_HORI_BORDER_LENGTH);
         assertArrayEquals(expectedOutput2, actualOutput2);
 
         String input3 = " 4. A very very very very very very very very very very     "
@@ -87,7 +88,7 @@ public class ViewHelperTest {
             " 4. A very very very very very very very very very very     very very ",
             "very very very very very very very very very very very long text ",
             "(Phone: -- | Email: -- | Role: member)"};
-        String[] actualOutput3 = viewHelper.getArrayOfSplitStrings(input3);
+        String[] actualOutput3 = viewHelper.getArrayOfSplitStrings(input3, DEFAULT_HORI_BORDER_LENGTH);
         assertArrayEquals(expectedOutput3, actualOutput3);
     }
 
