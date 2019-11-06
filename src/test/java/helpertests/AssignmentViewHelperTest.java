@@ -1,17 +1,17 @@
 package helpertests;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import util.AssignmentViewHelper;
-import java.util.ArrayList;
-import java.util.Arrays;
-import models.project.Project;
 import models.member.Member;
+import models.project.Project;
 import models.task.Task;
 import models.task.TaskState;
 import org.junit.jupiter.api.Test;
+import util.uiformatter.AssignmentViewHelper;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AssignmentViewHelperTest {
     private final Project project;

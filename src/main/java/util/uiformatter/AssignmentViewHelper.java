@@ -1,4 +1,4 @@
-package util;
+package util.uiformatter;
 
 import models.member.IMember;
 import models.project.Project;

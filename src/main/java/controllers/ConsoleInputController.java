@@ -1,8 +1,8 @@
 package controllers;
 
 import repositories.ProjectRepository;
-import util.CommandHelper;
-import util.ViewHelper;
+import util.uiformatter.CommandHelper;
+import util.uiformatter.ViewHelper;
 import util.log.ArchDukeLogger;
 
 import java.util.ArrayList;
@@ -163,7 +163,7 @@ public class ConsoleInputController implements IController {
     /**
      * Method to be called when user says bye to exit the program.
      */
-    public String[] end() {
+    private String[] end() {
         ArchDukeLogger.logInfo(ConsoleInputController.class.getName(), "ArchDuke have stopped.");
         return new String[] { "Bye. Hope to see you again soon!" };
     }

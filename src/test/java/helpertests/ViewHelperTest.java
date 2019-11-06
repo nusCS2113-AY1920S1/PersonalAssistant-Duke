@@ -1,7 +1,7 @@
 package helpertests;
 
 import org.junit.jupiter.api.Test;
-import util.ViewHelper;
+import util.uiformatter.ViewHelper;
 
 import java.util.ArrayList;
 
@@ -9,11 +9,11 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH_70_FOR_TEST;
 
-public class ViewHelperTest {
+class ViewHelperTest {
     private ViewHelper viewHelper;
 
     //@@author seanlimhx
-    public ViewHelperTest() {
+    ViewHelperTest() {
         this.viewHelper = new ViewHelper();
     }
 
