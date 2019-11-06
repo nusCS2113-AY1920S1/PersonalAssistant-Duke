@@ -4,7 +4,7 @@ import duke.data.ScheduleStorage;
 import duke.parser.ParserCommand;
 import duke.data.Storage;
 import duke.models.Schedule;
-import duke.models.students.ManageStudents;
+import duke.models.students.StudentList;
 import duke.models.MyPlan;
 import duke.task.TaskList;
 import duke.view.CliView;
@@ -39,7 +39,7 @@ public class Main extends Application {
     /**
      * Students object that manages students in classes.
      */
-    private ManageStudents students;
+    private StudentList students;
     /**
      * schedule manages all the tasks in the month/week/day.
      */
@@ -67,7 +67,7 @@ public class Main extends Application {
         cliView = new CliView();
         storage = new Storage(".\\src\\main\\java\\duke\\data\\duke.txt");
         tasks = new TaskList();
-        students = new ManageStudents();
+        students = new StudentList();
         plan = new MyPlan(new Storage(
             ".\\src\\main\\java\\duke\\data\\plan.txt").loadPlans());
     }

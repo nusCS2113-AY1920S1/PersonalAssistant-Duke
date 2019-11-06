@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * All commands related to students will be managed by this class
  * @author danisheddie
  */
-public class ManageStudents implements IStudentList {
+public class StudentList implements IStudentList {
     /**
      * An array list for the list of students.
      */
@@ -18,7 +18,7 @@ public class ManageStudents implements IStudentList {
     /**
      * Constructor of Manage Students to initialise ManageStudent class.
      */
-    public ManageStudents() {
+    public StudentList() {
         studentList = new ArrayList<>();
     }
 
@@ -55,9 +55,10 @@ public class ManageStudents implements IStudentList {
      * Method to return the name of the student at the particular index.
      *
      * @param index of the student in the list.
+     * @return name of student.
      */
-    public final void getStudentName(final int index) {
-        System.out.println(studentList.get(index - 1).getName());
+    public String getStudentName(final int index) {
+        return studentList.get(index - 1).getName();
     }
 
     /**
@@ -76,11 +77,10 @@ public class ManageStudents implements IStudentList {
     /**
      * To get the student index.
      * @param i index of the student.
-     * @return student index.
      */
     @Override
-    public Student getStudent(final int i) {
-        return this.studentList.get(i - 1);
+    public final void getStudent(final int i) {
+        System.out.println(studentList.get(i - 1).toString());
     }
 
     /**

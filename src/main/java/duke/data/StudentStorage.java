@@ -23,7 +23,8 @@ public class StudentStorage {
      */
     public void updateStudentList(final ArrayList<Student> student) {
         try {
-            FileWriter fileWriter = new FileWriter(".\\src\\main\\java\\duke\\data\\studentList.txt");
+            FileWriter fileWriter =
+                    new FileWriter(".\\src\\main\\java\\duke\\data\\studentList.txt");
             for (Student x : student) {
                 fileWriter.write(x.getFormat() + "\n");
             }

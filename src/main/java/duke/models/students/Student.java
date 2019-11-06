@@ -111,7 +111,7 @@ public class Student implements IStudent {
      * @return student list.
      */
     public String getFormat() {
-        return getName() + ", " + getAge() + ", " + getAddress();
+        return getName() + "," + getAge() + "," + getAddress();
     }
 
 
