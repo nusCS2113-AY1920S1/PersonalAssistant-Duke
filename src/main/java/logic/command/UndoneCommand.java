@@ -5,10 +5,10 @@ import model.Task;
 import model.TasksManager;
 import common.DukeException;
 
-public class DoneCommand extends Command {
+public class UndoneCommand extends Command {
     int[] indexes;
 
-    public DoneCommand(int[] indexes) {
+    public UndoneCommand(int[] indexes) {
         this.indexes = indexes;
     }
 
@@ -20,11 +20,11 @@ public class DoneCommand extends Command {
         String output = "";
         for (int i = 0; i < indexes.length; i++) {
             Task task = tasksManager.getTaskById(indexes[i]);
-            if (task.isDone()) {
-                output += "Task " + task.getName() + " has already been done.\n";
+            if (!task.isDone()) {
+                output += "Task " + task.getName() + " is undone originally.\n";
             } else {
-                task.markAsDone();
-                output += "Noted, marked task " + task.getName() + " as done.\n";
+                task.markAsUndone();
+                output += "Noted, marked task " + task.getName() + " as undone.\n";
             }
         }
         model.save();
