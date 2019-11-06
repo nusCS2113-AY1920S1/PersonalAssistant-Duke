@@ -1,5 +1,6 @@
 package moomoo.task;
 
+import moomoo.command.DetectOsCommand;
 import moomoo.task.category.CategoryList;
 
 public class MainDisplay {
@@ -26,11 +27,15 @@ public class MainDisplay {
     private static final String YEAR_LEFT = "|Year: ";
     private static final String BUDGET_LEFT = "|Budget: ";
     private static final String SAVINGS_LEFT = "|Savings: ";
-    private static final String COLUMN_TITLES = " <" + ANSI_BLUE + "Categories" + ANSI_RESET
+    private static DetectOsCommand getOS = new DetectOsCommand();
+    private static String os = getOS.osName;
+    private static final String COLUMN_TITLES_COLOUR = " <" + ANSI_BLUE + "Categories" + ANSI_RESET
             + "> |                         " + "       <" + ANSI_CYAN + "Amount" + ANSI_RESET + ">                    "
             + "               |   <" + ANSI_PURPLE + "Budget" + ANSI_RESET + ">  |  <"
             + ANSI_YELLOW + "Savings" + ANSI_RESET + ">  |\n";
-
+    private static final String COLUMN_TITLES = " <Categories > |                         "
+            + "       <Amount>                    "
+            + "               |   <Budget>  |  <Savings>  |\n";
     public MainDisplay() {
 
     }
@@ -103,7 +108,11 @@ public class MainDisplay {
         for (int i = 0; i <= 11 - monthsInYear[month - 1].length(); i++) {
             blankSpace += " ";
         }
-        output += MONTH_LEFT + monthsInYear[month - 1] + blankSpace + "|" + COLUMN_TITLES;
+        if (!os.contains("win")) { //check OS version to print colour
+            output += MONTH_LEFT + monthsInYear[month - 1] + blankSpace + "|" + COLUMN_TITLES_COLOUR;
+        } else {
+            output += MONTH_LEFT + monthsInYear[month - 1] + blankSpace + "|" + COLUMN_TITLES;
+        }
         blankSpace = "";
         output += YEAR_LEFT + year + "         |" + TOP_BORDERRIGHT;
 

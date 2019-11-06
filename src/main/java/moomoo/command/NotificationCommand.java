@@ -7,6 +7,7 @@ import moomoo.task.MooMooException;
 import moomoo.task.ScheduleList;
 import moomoo.task.Storage;
 import moomoo.task.Ui;
+import moomoo.command.DetectOsCommand;
 
 public class NotificationCommand extends Command {
     private String cat;
@@ -50,9 +51,18 @@ public class NotificationCommand extends Command {
         for (int i = 0; i < blank; i++) {
             blank2 += " ";
         }
-        String colour = ANSI_RED;
-        if (alert.length() < 1) {
-            colour = ANSI_GREEN;
+
+        DetectOsCommand getOS = new DetectOsCommand();
+        String osName = getOS.osName;
+        String colour = "";
+        String reset = "";
+        if (!osName.contains("win")) {
+            if (alert.length() < 1) {
+                colour = ANSI_GREEN;
+            } else {
+                colour = ANSI_RED;
+            }
+            reset = ANSI_RESET;
         }
         String cow = colour
                 + "                     .-------------------------------------------------.\n"
@@ -62,7 +72,7 @@ public class NotificationCommand extends Command {
                 + " `~~` d\\ /b `~~`     | |_|  |_|\\___/ \\___/                             |\n"
                 + "     |     |         | " + alert + blankSpace + "|\n"
                 + "     (6___6)         | " + "Budget remaining : " + balance + blank2 + "|\n"
-                + "      `---`          .-------------------------------------------------." + ANSI_RESET;
+                + "      `---`          .-------------------------------------------------." + reset;
 
         ui.setOutput(cow);
     }
