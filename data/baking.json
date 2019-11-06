@@ -36,6 +36,13 @@
       "ingredientItems": [],
       "ingredientCost": 0.0,
       "retailPrice": 0.0,
+      "status": "ARCHIVE"
+    },
+    {
+      "productName": "123",
+      "ingredientItems": [],
+      "ingredientCost": 0.0,
+      "retailPrice": 0.0,
       "status": "ACTIVE"
     }
   ],
