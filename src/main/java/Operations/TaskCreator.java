@@ -112,10 +112,11 @@ public class TaskCreator {
         Date currentDate = new Date();
         if (count > 0) {
             if (count <= 2) {
+                String dateInput = dateArray[1].trim();
+                Date date;
                 try {
-                    String dateInput = dateArray[1].trim();
-                    Date date = parser.formatDate(dateInput);
-                    if (currentDate.compareTo(date) > 0) {
+                    date = parser.formatDate(dateInput);
+                    if (date.before(currentDate)) {
                         // the input date is before the current date
                         throw new RoomShareException(ExceptionType.invalidDateError);
                     }
@@ -127,19 +128,29 @@ public class TaskCreator {
                 String fromInput = dateArray[1].trim();
                 String toInput = dateArray[2].trim();
                 Date from = new Date();
+                Date to = new Date();
 
-                from = parser.formatDate(fromInput);
-                if (currentDate.compareTo(from) > 0) {
+                try {
+                    from = parser.formatDate(fromInput);
+                    dates.add(from);
+                } catch (RoomShareException e) {
+                    System.out.println(STARTING_DATE_FORMAT_ERROR);
+                    dates.add(currentDate);
+                }
+                try {
+                    to = parser.formatDate(toInput);
+                    dates.add(to);
+                } catch (RoomShareException e) {
+                    System.out.println(ENDING_DATE_FORMAT_ERROR);
+                }
+                if (from.before(currentDate)) {
                     // input date is before the current date
                     throw new RoomShareException(ExceptionType.invalidDateError);
                 }
-                dates.add(from);
-
-                Date to = parser.formatDate(toInput);
-                if (currentDate.compareTo(to) > 0 || from.compareTo(to) > 0) {
+                if (to.before(from)) {
                     // the date is before the current date or is before the starting
                     // date of the leave
-                    throw new RoomShareException(ExceptionType.invalidDateError);
+                    throw new RoomShareException(ExceptionType.invalidDateRange);
                 }
                 dates.add(parser.formatDate(toInput));
             }
@@ -281,6 +292,7 @@ public class TaskCreator {
         Date date = new Date();
         Date from = new Date();
         Date to = new Date();
+
         if (dates.size() == 1) {
             date = dates.get(0);
         } else {
@@ -311,7 +323,11 @@ public class TaskCreator {
                 TaskReminder taskReminder = new TaskReminder(description, duration);
                 taskReminder.start();
             }
-            return assignment;
+            if (!CheckAnomaly.checkDuplicate(assignment)) {
+                return assignment;
+            } else {
+                throw new RoomShareException(ExceptionType.duplicateTask);
+            }
         } else if (type.equals("leave")) {
             String user;
             String[] leaveUserArray = input.split("@");
@@ -322,7 +338,11 @@ public class TaskCreator {
             Leave leave = new Leave(description, user, from, to);
             leave.setPriority(priority);
             leave.setRecurrenceSchedule(recurrence);
-            return leave;
+            if (!CheckAnomaly.checkDuplicate(leave)) {
+                return leave;
+            } else {
+                throw new RoomShareException(ExceptionType.duplicateTask);
+            }
         } else if (type.equals("meeting")) {
             if (remind) {
                 if (unit.equals(TimeUnit.unDefined)) {
@@ -333,7 +353,15 @@ public class TaskCreator {
                     meeting.setRecurrenceSchedule(recurrence);
                     TaskReminder taskReminder = new TaskReminder(description, duration);
                     taskReminder.start();
-                    return meeting;
+                    if (!CheckAnomaly.checkTask(meeting)) {
+                        if (!CheckAnomaly.checkDuplicate(meeting)) {
+                            return meeting;
+                        } else {
+                            throw new RoomShareException(ExceptionType.duplicateTask);
+                        }
+                    } else {
+                        throw new RoomShareException(ExceptionType.timeClash);
+                    }
                 } else {
                     Meeting meeting = new Meeting(description, date, duration, unit);
                     meeting.setPriority(priority);
@@ -341,7 +369,15 @@ public class TaskCreator {
                     meeting.setRecurrenceSchedule(recurrence);
                     TaskReminder taskReminder = new TaskReminder(description, duration);
                     taskReminder.start();
-                    return meeting;
+                    if (!CheckAnomaly.checkTask(meeting)) {
+                        if (!CheckAnomaly.checkDuplicate(meeting)) {
+                            return meeting;
+                        } else {
+                            throw new RoomShareException(ExceptionType.duplicateTask);
+                        }
+                    } else {
+                        throw new RoomShareException(ExceptionType.timeClash);
+                    }
                 }
             } else {
                 if (unit.equals(TimeUnit.unDefined)) {
@@ -350,13 +386,29 @@ public class TaskCreator {
                     meeting.setPriority(priority);
                     meeting.setAssignee(assignee);
                     meeting.setRecurrenceSchedule(recurrence);
-                    return meeting;
+                    if (!CheckAnomaly.checkTask(meeting)) {
+                        if (!CheckAnomaly.checkDuplicate(meeting)) {
+                            return meeting;
+                        } else {
+                            throw new RoomShareException(ExceptionType.duplicateTask);
+                        }
+                    } else {
+                        throw new RoomShareException(ExceptionType.timeClash);
+                    }
                 } else {
                     Meeting meeting = new Meeting(description, date, duration, unit);
                     meeting.setPriority(priority);
                     meeting.setAssignee(assignee);
                     meeting.setRecurrenceSchedule(recurrence);
-                    return meeting;
+                    if (!CheckAnomaly.checkTask(meeting)) {
+                        if (!CheckAnomaly.checkDuplicate(meeting)) {
+                            return meeting;
+                        } else {
+                            throw new RoomShareException(ExceptionType.duplicateTask);
+                        }
+                    } else {
+                        throw new RoomShareException(ExceptionType.timeClash);
+                    }
                 }
             }
         } else {
@@ -420,6 +472,27 @@ public class TaskCreator {
         if (input.contains("%")) {
             RecurrenceScheduleType recurrence = this.extractRecurrence(input);
             oldTask.setRecurrenceSchedule(recurrence);
+        }
+    }
+
+    /**
+     * Updates the date of the overdue task
+     *
+     * @param input user's input of the date
+     * @param overdueTask the task which date needs to be updated
+     */
+    public void rescheduleTask(String input, Task overdueTask) throws RoomShareException {
+        ArrayList<Date> dates = this.extractDate(input);
+        if (overdueTask instanceof Leave && dates.size() == 2) {
+            Leave oldLeave = (Leave) overdueTask;
+            Date start = dates.get(0);
+            Date end = dates.get(1);
+            oldLeave.setDate(start);
+            oldLeave.setStartDate(start);
+            oldLeave.setEndDate(end);
+        } else {
+            Date date = dates.get(0);
+            overdueTask.setDate(date);
         }
     }
 }

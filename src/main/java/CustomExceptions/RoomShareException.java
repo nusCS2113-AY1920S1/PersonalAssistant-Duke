@@ -31,6 +31,8 @@ public class RoomShareException extends Exception {
     public static final String LOAD_ERROR_MESSAGE = "\terror in loading file: will be initialising empty list instead!\n";
     public static final String INVALID_DATE_MESSAGE = "\tThe date you've input is before the current date!\n";
     public static final String WRONG_DATE_FORMAT_TEXT = "\tYou've entered invalid date or time\n";
+    public static final String EMPTY_INDEX = "\tPlease enter a valid index within the range of the list! Eg. restore 1\n";
+    private static final String INVALID_LEAVE_DATE_MESSAGE = "\tPlease check your dates for your leave!\n";
 
 
     private String message;
@@ -138,8 +140,16 @@ public class RoomShareException extends Exception {
             message = INVALID_DATE_MESSAGE;
             break;
 
+        case invalidDateRange:
+            message = INVALID_LEAVE_DATE_MESSAGE;
+            break;
+
         case wrongDateFormat:
             message = WRONG_DATE_FORMAT_TEXT;
+            break;
+
+        case emptyIndex:
+            message = EMPTY_INDEX;
             break;
 
         default:

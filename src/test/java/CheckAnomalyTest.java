@@ -50,4 +50,5 @@ public class CheckAnomalyTest {
 
     @Test
     public void noClash() { assertEquals(false, new CheckAnomaly().checkTask(meeting5)); }
+
 }

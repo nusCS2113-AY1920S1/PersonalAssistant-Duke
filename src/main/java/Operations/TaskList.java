@@ -18,6 +18,7 @@ import java.util.Date;
 public class TaskList {
     private static ArrayList<Task> tasks;
     private static SortType sortType = SortType.priority;
+    public ArrayList<Task> overdueList = new ArrayList<>();
 
     /**
      * Constructor for the TaskList class.
@@ -73,8 +74,15 @@ public class TaskList {
         sortTasks();
         if (tasks.size() != 0) {
             int listCount = 1;
-            for (Task output : tasks) {
+            for(int i=0; i<tasks.size(); i++) {
+                if (new Date().after(tasks.get(i).getDate())) {
+                    tasks.get(i).setOverdue(true);
+                    this.overdueList.add(tasks.get(i));
+                    tasks.remove(i);
+                }
+            }
 
+            for (Task output : tasks) {
                 if (!output.getDone()) {
                     Priority priority = output.getPriority();
                     String priorityLVL;
@@ -85,13 +93,9 @@ public class TaskList {
                     } else {
                         priorityLVL = " ***";
                     }
-                    System.out.println("\t" + listCount + ". " + output.toString() + priorityLVL);
-
-                    if (new Date().after(output.getDate())) {
-                        output.setOverdue(true);
-                    }
+                  
                     if (!output.getDone() && !output.getOverdue()) {
-                        System.out.println("\t" + listCount + ". " + output.toString());
+                        System.out.println("\t" + listCount + ". " + output.toString() + priorityLVL);
                         if (output instanceof Assignment && !(((Assignment) output).getSubTasks() == null)) {
                             ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
                             for (String subtask : subTasks) {
@@ -121,38 +125,35 @@ public class TaskList {
                     System.out.println("\t" + listCount + ". " + output.toString());
                     if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
                         ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
-                        for(String subtask : subTasks) {
+                        for (String subtask : subTasks) {
                             System.out.println("\t" + "\t" + "- " + subtask);
                         }
                     }
-                    listCount += 1;
                 }
+                listCount += 1;
             }
         } else {
             throw new RoomShareException(ExceptionType.emptyList);
         }
     }
 
-    public void showOverdue() throws RoomShareException {
-        sortTasks();
-        System.out.println("Overdue Tasks:");
+    /**
+     * Adds the overdue tasks that a currently in the task list to another task list
+     * which contains stores tasks that are overdue.
+     * @return ArrayList of tasks containing tasks that are overdue.
+     * @throws RoomShareException when the list is empty.
+     */
+    public ArrayList<Task> getOverdueList() throws RoomShareException {
         if( tasks.size() != 0 ){
-            int listCount = 1;
             for (Task output : tasks) {
-                if( output.getOverdue() ) {
-                    System.out.println("\t" + listCount + ". " + output.toString());
-                    if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
-                        ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
-                        for(String subtask : subTasks) {
-                            System.out.println("\t" + "\t" + "- " + subtask);
-                        }
-                    }
-                    listCount += 1;
+                if(new Date().after(output.getDate())) {
+                    this.overdueList.add(output);
                 }
             }
         } else {
             throw new RoomShareException(ExceptionType.emptyList);
         }
+        return this.overdueList;
     }
 
     /**

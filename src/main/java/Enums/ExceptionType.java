@@ -30,5 +30,7 @@ public enum ExceptionType {
     loadError,
 
     invalidInputString,
+    invalidDateRange,
+    emptyIndex,
     invalidDateError
     }

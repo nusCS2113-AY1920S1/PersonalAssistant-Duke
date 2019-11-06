@@ -16,7 +16,7 @@ public class RoomShare {
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
-    private TaskList doneTaskList;
+    private OverdueList overdueList;
     private Parser parser;
     private RecurHandler recurHandler;
     private TempDeleteList tempDeleteList;
@@ -37,12 +37,20 @@ public class RoomShare {
         taskCreator = new TaskCreator();
         ArrayList<Task> tempStorage = new ArrayList<>();
         tempDeleteList = new TempDeleteList(tempStorage);
+
         try {
             taskList = new TaskList(storage.loadFile("data.txt"));
         } catch (RoomShareException e) {
             ui.showError(e);
             ArrayList<Task> emptyList = new ArrayList<>();
             taskList = new TaskList(emptyList);
+        }
+        try {
+            overdueList = new OverdueList(storage.loadFile("overdue.txt"));
+        } catch (RoomShareException e) {
+            ui.showError(e);
+            ArrayList<Task> emptyList = new ArrayList<>();
+            overdueList = new OverdueList(emptyList);
         }
         listRoutine = new ListRoutine(taskList);
         recurHandler = new RecurHandler(taskList);
@@ -126,10 +134,13 @@ public class RoomShare {
             case restore:
                 Ui.clearScreen();
                 ui.startUp();
+                ui.showRestoreList();
                 try {
                     String input = parser.getCommandLine();
+                    tempDeleteList.list();
                     int restoreIndex = parser.getIndex(input);
                     tempDeleteList.restore(restoreIndex, taskList);
+
                     storage.writeFile(TaskList.currentList(), "data.txt");
                 } catch (RoomShareException e) {
                     storage.writeFile(TaskList.currentList(), "data.txt");
@@ -173,16 +184,8 @@ public class RoomShare {
                 ui.startUp();
                 try {
                     String input = parser.getCommandLine();
-                    if(!(CheckAnomaly.checkTask((taskCreator.create(input))))) {
-                        if( !(CheckAnomaly.checkDuplicate((taskCreator.create(input)))) ) {
-                            taskList.add(taskCreator.create(input));
-                            ui.showAdd();
-                        } else {
-                            throw new RoomShareException(ExceptionType.duplicateTask);
-                        }
-                    } else {
-                        throw new RoomShareException(ExceptionType.timeClash);
-                    }
+                    taskList.add(taskCreator.create(input));
+                    ui.showAdd();
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 } finally {
@@ -309,12 +312,42 @@ public class RoomShare {
             case overdue:
                 Ui.clearScreen();
                 ui.startUp();
-                listRoutine.list();
+                ArrayList<Task> overdueAL;
                 try {
-                    taskList.showOverdue();
+                    overdueAL = taskList.getOverdueList();
+                    overdueList = new OverdueList(overdueAL);
+                    storage.writeFile(overdueAL, "overdue.txt");
+                } catch (RoomShareException e) {
+                    ui.showError(e);
+                    ArrayList<Task> emptyList = new ArrayList<>();
+                    overdueList = new OverdueList(emptyList);
+                }
+                ui.showOverdueList();
+                try {
+                    overdueList.list();
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
+                listRoutine.list();
+                break;
+
+            case reschedule:
+                Ui.clearScreen();
+                ui.startUp();
+                try {
+                    overdueList.list();
+                    String input = parser.getCommandLine();
+                    int index = parser.getIndex(input);
+                    Task oldTask = overdueList.get(index);
+                    taskCreator.rescheduleTask(input,oldTask);
+                    overdueList.reschedule(index, taskList);
+                    ui.showUpdated(index+1);
+                    storage.writeFile(TaskList.currentList(), "data.txt");
+                } catch (RoomShareException e) {
+                    ui.showError(e);
+                    storage.writeFile(TaskList.currentList(), "data.txt");
+                }
+                listRoutine.list();
                 break;
 
             default:
