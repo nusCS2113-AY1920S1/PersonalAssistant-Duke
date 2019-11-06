@@ -40,7 +40,7 @@ public class LogicManager {
     private static ArrayList<String> commandHistory;
     private static WalletList walletList;
     private int state = 0;
-    private static ArrayList<Help> helpList;
+    private ArrayList<Help> helpList;
 
     /**
      * Constructs a LogicManager object.
