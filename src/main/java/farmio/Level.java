@@ -5,8 +5,8 @@ import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 import java.util.Arrays;
 
 public class Level {
@@ -29,8 +29,8 @@ public class Level {
 
     /**
      * Intitalises variables based off values obtain form the JSON File.
-     * @param object JSON Object.
-     * @param name player name.
+     * @param object JSON Object to be parsed.
+     * @param name player's name
      */
     public Level(JSONObject object, String name) {
         JSONArray array = (JSONArray) object.get("narratives");

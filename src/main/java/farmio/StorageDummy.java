@@ -6,7 +6,7 @@ import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 
-public class StorageDummy implements Storage{
+public class StorageDummy implements Storage {
 
     @Override
     public boolean getSaveExist() {
@@ -34,7 +34,8 @@ public class StorageDummy implements Storage{
     }
 
     @Override
-    public ArrayList<String> loadFrame(String path, int frameId, int frameWidth, int frameHeight) throws FarmioFatalException {
+    public ArrayList<String> loadFrame(String path, int frameId, int frameWidth, int frameHeight)
+            throws FarmioFatalException {
         return null;
     }
 

@@ -1,7 +1,5 @@
 package places;
 
-import org.json.simple.JSONObject;
-
 public class Market {
     public static final int PRICE_OF_SEED = 10;
     public static final int PRICE_OF_WHEAT = 15;

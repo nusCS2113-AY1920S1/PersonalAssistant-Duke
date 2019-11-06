@@ -7,21 +7,29 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.*;
+import java.io.InputStream;
+import java.io.Reader;
+import java.io.FileReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.logging.Level;
-import java.util.logging.*;
+import java.util.logging.Logger;
 
 public class StorageManager implements Storage {
 
-    private String GAME_FILENAME = "save.json";
+    private static final String GAME_FILENAME = "save.json";
     private JSONObject jsonFarmer;
-    private final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Storage constructor to initialise storage object.
      */
-    public StorageManager() {
+    StorageManager() {
         jsonFarmer = null;
     }
 
@@ -47,13 +55,13 @@ public class StorageManager implements Storage {
             throw new FarmioException("Game save corrupted!");
         }
         double level;
-        try{
+        try {
             level = (Double) jsonFarmer.get("level");
-        }catch(Exception e){
+        } catch (Exception e) {
             LOGGER.log(Level.WARNING, "Failed level double check. " + e.toString());
             throw new FarmioException("Game level is corrupted!");
         }
-        if(!getLevelExist(level)){
+        if (!getLevelExist(level)) {
             LOGGER.log(Level.INFO, "Detected invalid level: " + level);
             throw new FarmioException("Game level is corrupted!");
         }
@@ -90,7 +98,7 @@ public class StorageManager implements Storage {
 
     @Override
     public String storeFarmerPartial(Farmer farmer) {
-        if(jsonFarmer == null){
+        if (jsonFarmer == null) {
             return null;
         }
         FileWriter file;
@@ -106,14 +114,17 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public ArrayList<String> loadFrame(String path, int frameId, int frameWidth, int frameHeight) throws FarmioFatalException {
+    public ArrayList<String> loadFrame(String path, int frameId, int frameWidth, int frameHeight)
+            throws FarmioFatalException {
         path = "asciiArt/" + path + "/frame" + frameId + ".txt";
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(getResourceStream(path)));
         String line;
         ArrayList<String> frame = new ArrayList<>();
         while (true) {
             try {
-                if ((line = bufferedReader.readLine()) == null) break;
+                if ((line = bufferedReader.readLine()) == null) {
+                    break;
+                }
             } catch (IOException e) {
                 LOGGER.log(Level.WARNING, e.toString());
                 throw new FarmioFatalException(formatFatalMessage(path));
@@ -123,25 +134,22 @@ public class StorageManager implements Storage {
             } else {
                 line = String.format("%" + frameWidth + "s", "");
             }
-            frame.add(
-                    "|" +
-                            AsciiColours.BACKGROUND_WHITE +
-                            AsciiColours.BLACK +
-                            line +
-                            AsciiColours.SANE +
-                            "|"
+            frame.add("|"
+                    + AsciiColours.BACKGROUND_WHITE
+                    + AsciiColours.BLACK
+                    + line
+                    + AsciiColours.SANE
+                    + "|"
             );
         }
         if (frame.size() < frameHeight) {
             for (int i = frame.size(); i < frameHeight; i++) {
-                frame.add(
-                        "|" +
-                                AsciiColours.BACKGROUND_WHITE +
-                                AsciiColours.BLACK +
-                                String.format("%" + frameWidth + "s", "") +
-                                AsciiColours.SANE +
-                                "|"
-                );
+                frame.add("|"
+                        + AsciiColours.BACKGROUND_WHITE
+                        + AsciiColours.BLACK
+                        + String.format("%" + frameWidth + "s", "")
+                        + AsciiColours.SANE
+                        + "|");
             }
         }
         return frame;
@@ -160,13 +168,14 @@ public class StorageManager implements Storage {
     }
 
 
-    private boolean getLevelExist(double level){
+    private boolean getLevelExist(double level) {
         String path = "levels/" + level + ".json";
         return getResourceStream(path) != null;
     }
 
     /**
      * Locate path in resouces folder and return stream to be processed.
+     *
      * @param path Path of interest in resouce folder.
      * @return InputStream to be process using InputStreamReader.
      */
@@ -176,6 +185,7 @@ public class StorageManager implements Storage {
 
     /**
      * Format fatal message to be displayed in ui.
+     *
      * @param path Path that caused a FarmioFatalException.
      * @return Formatted error message to be displayed.
      */
