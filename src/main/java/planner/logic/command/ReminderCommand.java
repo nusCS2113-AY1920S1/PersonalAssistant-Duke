@@ -1,3 +1,5 @@
+//@@author kyawtsan99
+
 package planner.logic.command;
 
 import planner.logic.modules.cca.CcaList;
@@ -9,6 +11,7 @@ import planner.util.legacy.reminder.ThirtyMinReminder;
 import planner.util.legacy.reminder.OneHourReminder;
 import planner.util.legacy.reminder.TwevleHourReminder;
 import planner.util.legacy.reminder.OneDayReminder;
+import planner.util.legacy.reminder.Reminder;
 
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTasksList;
@@ -17,14 +20,15 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 
 public class ReminderCommand extends ModuleCommand {
-    public ReminderCommand(Arguments args) {
-        super(args);
-    }
-
     private ThirtyMinReminder thirtyMinReminder;
     private OneHourReminder oneHourReminder;
     private TwevleHourReminder twevleHourReminder;
     private OneDayReminder oneDayReminder;
+    private Reminder reminder;
+
+    public ReminderCommand(Arguments args) {
+        super(args);
+    }
 
     @Override
     public void execute(HashMap<String, ModuleInfoDetailed> detailedMap,
@@ -41,23 +45,23 @@ public class ReminderCommand extends ModuleCommand {
             }
 
             case ("one") : {
-                thirtyMinReminder.execute(LocalDateTime.now());
+                thirtyMinReminder.run();
                 break;
             }
 
             case ("two") : {
-                oneHourReminder.execute(LocalDateTime.now());
+                oneHourReminder.run();
                 break;
             }
 
             case ("three") : {
-                twevleHourReminder.execute(LocalDateTime.now());
+                twevleHourReminder.run();
                 break;
             }
 
             case "four" :
             default: {
-                oneDayReminder.execute(LocalDateTime.now());
+                oneDayReminder.run();
                 break;
             }
         }

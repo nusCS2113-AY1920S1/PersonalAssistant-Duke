@@ -17,10 +17,11 @@ public class ModuleInfoDetailed {
     private String department = "";
     private String faculty = "";
     private String preclusion = "";
-    private String prerequisites = "";
+    private String prerequisite = "";
     private Attributes attributes = new Attributes();
     private String grade = "";
     private ExamInfo[] semesterData = new ExamInfo[0];
+    private String[] semester = {""};
     private ArrayList<String> validGrades = new ArrayList<String>(Arrays.asList("A+", "A", "A-", "B+", "B",
         "B-", "C+", "C", "D+", "D", "F", "S", "U"));
 
@@ -58,7 +59,7 @@ public class ModuleInfoDetailed {
     }
 
     public String getPrerequisites() {
-        return  prerequisites;
+        return prerequisite;
     }
 
     public Attributes getAttributes() {
@@ -67,6 +68,10 @@ public class ModuleInfoDetailed {
 
     public ExamInfo[] getSemesterData() {
         return semesterData;
+    }
+
+    public String[] getSemester() {
+        return semester;
     }
 
     public String getGrade() {

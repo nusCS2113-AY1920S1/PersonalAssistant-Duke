@@ -121,7 +121,7 @@ Commands are the main classes with which we execute our features. All of the spe
 The execute method takes in the detailed map of modules drawn from the NUSMODS API Json file, module task list, cca list, planner UI, storage, and the jsonWrapper parser. Each execute method is overriden in the specific Command classes to do what the feature requires of the class.
 
 The `ModuleCommand` class also receives arguments based on the arguments passed by the `Parser` class, which is our main parser for the program, detailed above in <<Parser>>. 
-
++
 These arguments change how some of the classes function as well, using a switch case system to sort through the different argument types received. These will changes will be explained further under the Implementation section here <<Implementation>>.
 
 image::Command.png[]
@@ -390,7 +390,8 @@ The `show` feature is opearted by the `ShowCommand` class, which is called by th
 
 Since `ShowCommand` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `show` command. +
 
-The parameter `TYPE` can take five forms according to the user input: + 
+The parameter `TYPE` can take five forms according to the user input: +
+
 ****
 * `show cca`
 * `show core`
@@ -426,12 +427,13 @@ If the arguement read for `toShow` is "ue", an iterator loops through the array 
 
 * Case 5: `show module` +
 If the arguement read for `toShow` is "module", an iterator loops through the array list of `ModuleTask`. It then prints out the entire list of modules being added.
-****
 
 Below is a Sequence Diagram showing how `ShowCommand` works. +
 ShowCommand inherits the attributes and methods from the ModuleCommand, which is shown by the 1.1 arg arrow connecting ShowCommand and ModuleCommand. The ModuleCommand calls itself as it uses its own attributes method as shown by 1.1.1 args. The ShowCommand also calls certain methods of PlannerUi as shown by the arrows from 1.2 to 1.11 args. This is because the ShowCommand uses the methods in PlannerUi such as the `listCcaMsg` and `coreModReport`.
 
 image::ShowCommandSequenceDiagram.png[width="600"]
+
+****
 
 === JsonWrapper
 
@@ -513,11 +515,13 @@ image::CcaClassDiagram2.png[]
 
 // end::Cca[]
 
-[[Documentation]] 
+[[Documentation]]
+
 == Documentation
 We utilise AsciiDoc as the default to write our documentation, as the layout is more flexible and aesthetically pleasing to view compared to other alternatives such as MarkDown. Additionally our preferred IDE IntelliJ has AsciiDoc support, and is thus easier for us to code and preview changes in.
 
-[[Testing]] 
+[[Testing]]
+
 == Testing
 === Overview
 We used JUnit to code our test cases, and Jacoco to monitor the test coverage of our project. 
@@ -735,6 +739,7 @@ eg. `check MC 1-1` will check for MCs taken in Year 1 Semester 1
 
 [appendix]
 == Glossary
+
 * *API* : Application Programming Interface
 * *CEG* : Computer Engineering
 * *NUSMODS* : NUSMODS is an external library where consolidated module data from NUS is collected
