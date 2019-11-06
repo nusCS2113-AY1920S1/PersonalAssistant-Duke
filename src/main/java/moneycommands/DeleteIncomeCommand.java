@@ -48,7 +48,7 @@ public class DeleteIncomeCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException {
-        if (serialNo > account.getIncomeListTotal().size()) {
+        if (serialNo > account.getIncomeListTotal().size() || serialNo <= 0) {
             throw new DukeException("The serial number of the income is Out Of Bounds!");
         }
         Income deletedEntryInc = account.getIncomeListTotal().get(serialNo - 1);

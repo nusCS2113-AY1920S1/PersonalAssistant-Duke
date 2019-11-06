@@ -47,7 +47,7 @@ public class DeleteExpenditureCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException {
-        if (serialNo > account.getExpListTotal().size()) {
+        if (serialNo > account.getExpListTotal().size() || serialNo <= 0) {
             throw new DukeException("The serial number of the expenditure is Out Of Bounds!");
         }
         Expenditure deletedEntryExp = account.getExpListTotal().get(serialNo - 1);
