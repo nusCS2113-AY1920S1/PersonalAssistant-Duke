@@ -25,15 +25,12 @@ public class HelpCommand extends Command {
     public static final String CMD_DELETE = "delete";
     public static final String CMD_EVENT = "event";
     public static final String CMD_DEADLINE = "deadline";
-    public static final String CMD_RECUR_TASK = "recurtask";
     public static final String CMD_VIEW = "view";
     public static final String CMD_FIND = "find";
     public static final String CMD_SET_REMINDER = "set-reminder";
     public static final String CMD_VIEW_REMINDER = "view-reminder";
-    public static final String CMD_LECT = "lect";
-    public static final String CMD_TUT = "tut";
-    public static final String CMD_SECT = "sect";
-    public static final String CMD_LAB = "lab";
+    public static final String CMD_IMPORT = "import";
+    public static final String CMD_EXPORT = "export";
     public static final String CMD_HELP = "help";
     public static final String CMD_FIND_FREE_SLOT = "findfreeslot";
     public static final String CMD_EDIT = "edit";
@@ -43,9 +40,11 @@ public class HelpCommand extends Command {
             + "delete: delete one task\n\t"
             + "edit: edit one task\n\t"
             + "event: add event type tasks\n\t"
+            + "export: export your own timetable\n\t"
             + "find: search for tasks containing key word\n\t"
             + "findfreeslot: find a free slot with existing timetable\n\t"
             + "help: learn how to use all commands\n\t"
+            + "import: import your own timetable\n\t"
             + "list: list all the task stored in COMPal\n\t"
             + "set-reminder: set reminder for a task\n\t"
             + "view: get the daily/weekly/monthly view of timetable\n\t"
@@ -57,21 +56,25 @@ public class HelpCommand extends Command {
     public static final String WRONG_COMMAND = "Sorry, the description of the command is incorrect\n"
             + "please check the following again:\n\n";
 
+    private String type;
     private String command;
 
     private static final Logger logger = LogUtils.getLogger(HelpCommand.class);
 
-    public HelpCommand(String command) {
-        this.command = command;
+    public HelpCommand(String restOfInput) {
+        this.type = restOfInput.split("_", 2)[0];
+        this.command = restOfInput.split("_", 2)[1];
     }
 
     @Override
     public CommandResult commandExecute(TaskList task) throws CommandException {
         logger.info("Executing help command");
-        if ("".equals(command))  {
+        if (!"help".equals(type))  {
             return new CommandResult(HELP_STRING, false);
         } else {
             switch (command) {
+            case "":
+                return new CommandResult(HELP_STRING, false);
             case CMD_EXIT:
                 return new CommandResult(ByeCommand.MESSAGE_USAGE, false);
             case CMD_VIEW:
@@ -98,6 +101,10 @@ public class HelpCommand extends Command {
                 return new CommandResult(ListCommand.MESSAGE_USAGE, false);
             case CMD_DELETE:
                 return new CommandResult(DeleteCommand.MESSAGE_USAGE, false);
+            case CMD_IMPORT:
+                return new CommandResult(ImportCommand.MESSAGE_USAGE, false);
+            case CMD_EXPORT:
+                return new CommandResult(ExportCommand.MESSAGE_USAGE, false);
             default:
                 return new
                         CommandResult(WRONG_COMMAND + HelpCommand.MESSAGE_USAGE, false);

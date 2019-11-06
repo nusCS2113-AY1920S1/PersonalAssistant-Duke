@@ -15,9 +15,9 @@ In addition, **COMPal** offers you the ***freedom to prioritise certain tasks***
 
 ## Useful Links
 It can be hard to navigate round new software, but we're happy to help:
-* [User Guide](docs/UserGuide.md), for a guiding hand to show you the ropes
+* [User Guide](docs/[AY1920S1-CS2113T-W17-1]-COMPal-UG.pdf), for a guiding hand to show you the ropes
 * [Developer Guide](docs/[AY1920S1-CS2113T-W17-1]-COMPal-DG.pdf), to take a look backstage
-* [About Us](docs/[AY1920S1-CS2113T-W17-1]-COMPal-UG.pdf), to know more about the team pulling the strings
+* [About Us](docs/AboutUs.md), to know more about the team pulling the strings
 
 ## Contributors
 **COMPal** is developed and maintained by a dedicated team of student developers. From our unique standpoint as both ***user*** and ***developer***, we strive to provide practical features that answer the needs of our target audience.
@@ -36,6 +36,7 @@ Personal Assistant originally created by the [SE-EDU](https://github.com/se-edu)
 * Libraries used: 
     * [JUnit 5](https://github.com/junit-team/junit5), to develop unit tests that were crucial to ensuring a smooth-running application 
     * [JavaFX](https://gluonhq.com/products/javafx/), to render a pleasant user interface
+    * [ical4j](https://github.com/ical4j/ical4j), to read and write iCalendar data streams
     
 ## Contact Us
 * Notice any bugs? Report it via our [issue tracker](https://github.com/AY1920S1-CS2113T-W17-1/main/issues) and 

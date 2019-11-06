@@ -329,16 +329,26 @@ public abstract class Task implements Serializable {
         if (getStringStartTime().equals("-")) {
             strCase = 1;
         }
+        if (!getStringTrailingDate().equals("-") && !getStringMainDate().equals(getStringTrailingDate())) {
+            strCase = 2;
+        }
 
         switch (strCase) {
         case 1:
-            return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
-                + " \nTask ID:" + getId()
+            return "\n" + " \nTask ID:" + getId() + "\n"
+                + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
                 + " \nDate: " + getStringMainDate() + " \nEnd Time: " + getStringEndTime()
                 + " \nPriority: " + getPriority() + "\n***************";
+        case 2:
+            return "\n" + " \nTask ID:" + getId() + "\n"
+                + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                + " \nStart Date: " + getStringMainDate() + " \nStart Time: " + getStringStartTime()
+                + "\nEnd Date: " + getStringTrailingDate()
+                + " \nEnd Time: " + getStringEndTime() + " \nPriority: " + getPriority()
+                + "\n***************";
         default:
-            return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
-                + " \nTask ID:" + getId()
+            return "\n" + " \nTask ID:" + getId() + "\n"
+                + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
                 + " \nDate: " + getStringMainDate() + " \nStart Time: " + getStringStartTime()
                 + " \nEnd Time: " + getStringEndTime() + " \nPriority: " + getPriority()
                 + "\n***************";

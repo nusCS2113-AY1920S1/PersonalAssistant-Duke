@@ -2,7 +2,6 @@ package compal.logic.command;
 
 import compal.commons.CompalUtils;
 import compal.commons.LogUtils;
-import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.Deadline;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
@@ -13,6 +12,7 @@ import java.util.logging.Logger;
 
 //@@author LTPZ
 //@@author yueyeah
+
 /**
  * Add a deadline type task.
  */
@@ -22,6 +22,7 @@ public class DeadlineCommand extends Command {
             + "Format: deadline <description> /date <dd/mm/yyyy>... /end <hhhh> [/interval <num>] "
             + "[/priority <low|medium|high>] [/final-date <dd/mm/yyyy>]\n\n\t"
             + "Note: content in \"[]\": optional\n\t"
+            + "You can switch the order of any two blocks (a block starts with \"/\" and ends by the next block)\n\t"
             + "content in \"<>\": need to be fulfilled by the user\n\t"
             + "content separated by \"|\": must choose exactly one from them\n\t"
             + "\"...\" means you can add multiple. e.g. dd/mm/yyyy... means you can add 01/01/2019 02/01/2019\n\t"
@@ -37,7 +38,10 @@ public class DeadlineCommand extends Command {
             + "add a task which ends on 01/01/2019 23:59pm and repeat daily until 10/01/2019\n\t"
             + "deadline cs2106as /date 01/01/2019 /end 1000 /priority high\n\t\t"
             + "dd a task which ends at 01/01/2019 10:00am with priority high";
-    private static final String MESSAGE_GREETING = "The following tasks were added: \n";
+
+    private static final String MESSAGE_SUCCESSFULLY_ADDED = "\nThe following deadline were added: \n";
+    private static final String MESSAGE_REPEATED_DEADLINE = "\nLooks like you already added the task before! \n"
+            + "Use the edit command on the task ID given below!";
     private String description;
     private ArrayList<String> startDateList;
     private Task.Priority priority;
@@ -68,18 +72,34 @@ public class DeadlineCommand extends Command {
     @Override
     public CommandResult commandExecute(TaskList taskList) {
         logger.info("Executing deadline command");
-        String finalList = MESSAGE_GREETING;
         Date finalDate = CompalUtils.stringToDate(finalDateString);
+        StringBuilder finalList = new StringBuilder();
         for (String startDateString : startDateList) {
             Date startDate = CompalUtils.stringToDate(startDateString);
             while (!startDate.after(finalDate)) {
                 startDateString = CompalUtils.dateToString(startDate);
-                Deadline indivDeadline = new Deadline(description, priority, startDateString, endTime);
-                taskList.addTask(indivDeadline);
-                finalList += indivDeadline.toString();
+                boolean doesNotExist = true;
+                for (Task task : taskList.getArrList()) {
+                    if (task.getSymbol().equals("D")
+                            && task.getStringMainDate().equals(startDateString)
+                            && task.getStringEndTime().equals(endTime)
+                            && task.getDescription().equalsIgnoreCase(description)) {
+                        finalList.append(MESSAGE_REPEATED_DEADLINE.concat(task.toString() + "\n"));
+                        doesNotExist = false;
+                        break;
+                    }
+                }
+
+                if (doesNotExist) {
+                    Deadline indivDeadline = new Deadline(description, priority, startDateString, endTime);
+                    taskList.addTask(indivDeadline);
+                    finalList.append(MESSAGE_SUCCESSFULLY_ADDED.concat(indivDeadline.toString() + "\n"));
+                }
+
                 startDate = CompalUtils.incrementDateByDays(startDate, interval);
             }
         }
-        return new CommandResult(finalList, true);
+
+        return new CommandResult(finalList.toString(), true);
     }
 }

@@ -8,22 +8,24 @@ import compal.logic.parser.exceptions.ParserException;
 import java.util.logging.Logger;
 
 public class ImportCommandParser implements CommandParser {
+    public static final String MESSAGE_INVALID_PARAM = "Looks like there's an invalid parameter inserted!\n"
+        + "This is how you use the import command:\n\n" + ImportCommand.MESSAGE_USAGE;
     private static final Logger logger = LogUtils.getLogger(ImportCommandParser.class);
 
     @Override
     public Command parseCommand(String restOfInput) throws ParserException {
         logger.info("Attempting to parse Import command");
 
-        String defaultFile = "COMPalCalender";
-        if (restOfInput.isEmpty()) {
-            logger.info("Successfully parse import command");
-            return new ImportCommand(defaultFile);
-        } else {
-            String fileName = getFileName(restOfInput);
-            logger.info("Successfully parse import command");
-            return new ImportCommand(fileName);
-        }
-    }
+        String[] args = restOfInput.split(" ");
 
+        if (args.length > 2) {
+            throw new ParserException(MESSAGE_INVALID_PARAM);
+        }
+
+        String fileName = getFileName(restOfInput);
+
+        logger.info("Successfully parse import command");
+        return new ImportCommand(fileName);
+    }
 
 }

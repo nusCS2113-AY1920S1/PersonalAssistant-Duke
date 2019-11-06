@@ -114,7 +114,7 @@ class ViewCommandTest {
             + months[givenMonth] + " " + givenYear + " :\n");
 
         for (int i = 1; i <= days; i++) {
-            if (i < 9) {
+            if (i <= 9) {
                 monthlyTask.append(displayDayView("0" + i + "/" + givenMonth + "/" + givenYear, currList, type));
             } else {
                 monthlyTask.append(displayDayView(i + "/" + givenMonth + "/" + givenYear, currList, type));
@@ -163,12 +163,8 @@ class ViewCommandTest {
 
             if (t.getStringMainDate().equals(dateInput)) {
                 allTask.append(getAsStringView(t, dateInput));
-            }
-
-            if (!t.getStringTrailingDate().equals("-")) {
-                if (t.getStringTrailingDate().equals(dateInput)) {
-                    allTask.append(getAsStringView(t, dateInput));
-                }
+            } else if (!t.getStringTrailingDate().equals("-") && t.getStringTrailingDate().equals(dateInput)) {
+                allTask.append(getAsStringView(t, dateInput));
             }
         }
 
@@ -218,7 +214,6 @@ class ViewCommandTest {
                 startTime = t.getStringStartTime();
                 endTime = t.getStringEndTime();
             } else {
-                System.out.println("LOOKING AT" + dateInput);
                 startTime = "0000";
                 endTime = t.getStringEndTime();
                 System.out.println(startTime);

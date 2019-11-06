@@ -15,6 +15,7 @@ public class EditCommand extends Command {
             + "[/description <description>][/date <dd/mm/yyyy>][/start <hhhh>][/end <hhhh>]"
             + "[/priority <high|medium|low>]\n\n\t"
             + "Note: content in \"[]\": optional\n\t"
+            + "You can switch the order of any two blocks (a block starts with \"/\" and ends by the next block)\n\t"
             + "content in \"<>\": need to be fulfilled by the user\n\t"
             + "content separated by \"|\": must choose exactly one from them\n\t"
             + "dd/mm/yyyy is the date format. e.g. 01/01/2000\n\t"
