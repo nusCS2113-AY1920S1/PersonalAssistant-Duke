@@ -549,7 +549,7 @@ public class ProjectInputController implements IController {
             return parserHelper.getErrorMessages().toArray(new String[0]);
         }
         return AssignmentViewHelper.getMemberOutput(validMembers,
-            projectToManage).toArray(new String[0]);
+            projectToManage);
     }
 
     /**
@@ -567,7 +567,7 @@ public class ProjectInputController implements IController {
             return parserHelper.getErrorMessages().toArray(new String[0]);
         }
         return AssignmentViewHelper.getTaskOutput(validTasks,
-            projectToManage).toArray(new String[0]);
+            projectToManage);
     }
     //@@author
 

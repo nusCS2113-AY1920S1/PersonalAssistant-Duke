@@ -8,68 +8,79 @@ import models.task.Task;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
+
 //@@author sinteary
 public class AssignmentViewHelper {
+    private static ViewHelper viewHelper = new ViewHelper();
     /**
      * Returns output to show viewer the task assignments of members.
      * @param membersToView List of valid member index numbers.
      * @param project THe project being managed.
-     * @return An ArrayList containing information requested by the user.
+     * @return An array containing information requested by the user.
      */
-    public static ArrayList<String> getMemberOutput(ArrayList<Integer> membersToView,
+    public static String[] getMemberOutput(ArrayList<Integer> membersToView,
         Project project) {
-        ArrayList<String> outputToPrint = new ArrayList<>();
+        ArrayList<ArrayList<String>> totalOutputToPrint = new ArrayList<>();
+
         HashMap<Member, ArrayList<Task>> memberAndIndividualTasks = project.getMembersIndividualTaskList();
         if (memberAndIndividualTasks.keySet().isEmpty()) {
+            ArrayList<String> outputToPrint = new ArrayList<>();
             outputToPrint.add("No members in project yet.");
             outputToPrint.add("Please add members and assign them tasks before using this command!");
-            return outputToPrint;
+            return outputToPrint.toArray(new String[0]);
         }
-        outputToPrint.add("Here are each member's tasks:");
         for (Integer index : membersToView) {
+            ArrayList<String> outputToPrint = new ArrayList<>();
             IMember member = project.getMembers().getMember(index);
-            outputToPrint.add("Tasks assigned to " + member.getName());
+            outputToPrint.add(member.getName());
             if (memberAndIndividualTasks.get(member).size() == 0) {
                 outputToPrint.add("No tasks assigned yet.");
             } else {
                 int currentNumber = 1;
                 for (Task task : memberAndIndividualTasks.get(member)) {
-                    outputToPrint.add(currentNumber + ". " + task.getDetails());
+                    outputToPrint.add(currentNumber + ". " + task.getDetailsForAssignmentTable());
                     currentNumber++;
                 }
             }
+            totalOutputToPrint.add(outputToPrint);
         }
-        return outputToPrint;
+        return viewHelper.consolePrintMultipleTables(totalOutputToPrint, DEFAULT_HORI_BORDER_LENGTH, 2,
+                "Here are each member's tasks:");
     }
 
     /**
      * Returns output to show viewer the task assignments of members.
      * @param tasksToView List of valid task index numbers.
      * @param project Project to be managed.
-     * @return An ArrayList containing information requested by the user.
+     * @return An Array containing information requested by the user.
      */
-    public static ArrayList<String> getTaskOutput(ArrayList<Integer> tasksToView, Project project) {
-        ArrayList<String> outputToPrint = new ArrayList<>();
+    public static String[] getTaskOutput(ArrayList<Integer> tasksToView, Project project) {
+
         HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = project.getTasksAndAssignedMembers();
         if (tasksAndAssignedMembers.keySet().isEmpty()) {
+            ArrayList<String> outputToPrint = new ArrayList<>();
             outputToPrint.add("No tasks in project yet.");
             outputToPrint.add("Please add tasks and assign them to members before using this command!");
+            return outputToPrint.toArray(new String[0]);
         }
-        outputToPrint.add("Here are the members assigned to each task:");
+        ArrayList<ArrayList<String>> totalOutputToPrint = new ArrayList<>();
         for (Integer index : tasksToView) {
             Task task = project.getTask(index);
-            outputToPrint.add(task.getDetails());
+            ArrayList<String> outputToPrint = new ArrayList<>();
+            outputToPrint.add(task.getDetailsForAssignmentTable());
             if (tasksAndAssignedMembers.get(task).size() == 0) {
                 outputToPrint.add("No members assigned yet.");
             } else {
                 int currentNumber = 1;
-                outputToPrint.add("Members assigned to task " + index + " (" + task.getDetails() + ")");
                 for (Member member : tasksAndAssignedMembers.get(task)) {
                     outputToPrint.add(currentNumber + ". " + member.getName());
                     currentNumber++;
                 }
             }
+            totalOutputToPrint.add(outputToPrint);
         }
-        return outputToPrint;
+        return viewHelper.consolePrintMultipleTables(totalOutputToPrint, DEFAULT_HORI_BORDER_LENGTH, 2,
+                "Here are the members assigned to each task:");
     }
 }

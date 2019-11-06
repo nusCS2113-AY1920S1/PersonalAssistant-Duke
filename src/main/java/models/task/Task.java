@@ -79,6 +79,12 @@ public class Task implements ITask {
         }
     }
 
+    public String getDetailsForAssignmentTable() {
+        return this.taskName + " (P: " + this.taskPriority + ", D: "
+                + dateTimeHelper.formatDateForDisplay(this.dueDate) + ", C: " + this.taskCredit + ", S: "
+                + this.taskState + ")";
+    }
+
     public Date getDueDate() {
         return this.dueDate;
     }
