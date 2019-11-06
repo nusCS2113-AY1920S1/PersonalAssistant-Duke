@@ -13,12 +13,21 @@ class ParserTest {
     private final Parser parser = new Parser();
 
     @Test
-    void parse() {
+    public void parse_parses() {
         parser.setParserState(new ParserStateStub());
         assertThrows(
             DuchessException.class,
             () -> parser.parse("will throw exception"),
             "Stub test");
+    }
+
+    @Test
+    public void continueParsing_parses() {
+        parser.setParserState(new ParserStateStub());
+        assertThrows(
+            DuchessException.class,
+            () -> parser.continueParsing(Util.parameterizeWithoutCommand("test command")),
+            "Stub test 2");
     }
 
     private class ParserStateStub extends ParserState {
@@ -29,7 +38,7 @@ class ParserTest {
 
         @Override
         public Command continueParsing(Map<String, String> parameters) throws DuchessException {
-            throw new DuchessException("Stub test");
+            throw new DuchessException("Stub test 2");
         }
     }
 }
