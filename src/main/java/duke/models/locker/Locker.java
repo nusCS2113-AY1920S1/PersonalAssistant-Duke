@@ -9,6 +9,7 @@ import duke.models.tag.Tag;
 
 
 import java.util.Objects;
+import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 
@@ -17,6 +18,7 @@ public class Locker {
     private Address address;
     private Zone zone;
     private Tag tag;
+    private Usage usage;
 
     /**
      * Locker stores all the information regarding the status of the locker.
@@ -28,7 +30,7 @@ public class Locker {
      */
 
     public Locker(SerialNumber serialNumber, Address address, Zone zone,
-                  Tag tag) {
+                  Tag tag,Usage usage) {
         requireNonNull(serialNumber);
         requireNonNull(address);
         requireNonNull(zone);
@@ -37,6 +39,7 @@ public class Locker {
         this.address = address;
         this.zone = zone;
         this.tag = tag;
+        this.usage = usage;
     }
 
     public Locker() {
@@ -163,6 +166,16 @@ public class Locker {
         this.zone = zone;
     }
 
+    @JsonGetter("Usage")
+    public Optional<Usage> getUsage() {
+        return Optional.ofNullable(usage);
+    }
+
+    @JsonSetter("Usage")
+    public void setUsage(Usage usage) {
+        this.usage = usage;
+    }
+
     /* We need to override function equals() and hashCode() in order to account
        for user defined checks for equality while using streams
      */
@@ -180,7 +193,8 @@ public class Locker {
         return otherLocker.getSerialNumber().equals(this.getSerialNumber())
                 && otherLocker.getAddress().equals(this.getAddress())
                 && otherLocker.getZone().equals(this.getZone())
-                && otherLocker.getTag().equals(this.getTag());//handles checks for equality
+                && otherLocker.getTag().equals(this.getTag())
+                && otherLocker.getUsage().equals(this.getUsage());//handles checks for equality
     }
 
     @Override

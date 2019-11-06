@@ -46,7 +46,7 @@ public class AddLockerCommandParser {
                 mapTokensToArguments.getValue(TOKEN_ADDRESS).get());
         Zone zone = ParserCheck.parseZone(mapTokensToArguments.getValue(TOKEN_ZONE).get());
         Tag tag = new Tag(Tag.NOT_IN_USE);
-        Locker locker = new Locker(serialNumber, address, zone, tag);
+        Locker locker = new Locker(serialNumber, address, zone, tag,null);
         return new AddLockerCommand(locker);
     }
 

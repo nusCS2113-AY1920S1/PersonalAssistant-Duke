@@ -54,7 +54,6 @@ public class FileHandling {
             write.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
             throw new DukeException(" Error occurred while writing data to the file");
         }
     }

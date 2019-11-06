@@ -4,6 +4,7 @@ import duke.exceptions.DukeException;
 import duke.logic.commands.AssignLockerCommand;
 import duke.logic.commands.Command;
 import duke.models.locker.LockerDate;
+import duke.models.locker.Usage;
 import duke.models.locker.Zone;
 import duke.models.student.Email;
 import duke.models.student.Major;
@@ -62,7 +63,8 @@ public class AssignLockerCommandParser {
                 TOKEN_PREFERENCES).get());
         ParserCheck.parseDifferenceBetweenStartAndEndDate(startDate,endDate);
         Student student = new Student(name,matricNumber,email,major);
-        return new AssignLockerCommand(student,startDate,endDate,getPreferences);
+        Usage usage = new Usage(student,startDate,endDate);
+        return new AssignLockerCommand(usage,getPreferences);
     }
 
     private static boolean checkAllTokensPresent(

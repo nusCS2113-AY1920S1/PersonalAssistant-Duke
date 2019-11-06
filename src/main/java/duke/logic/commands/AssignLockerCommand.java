@@ -2,7 +2,7 @@ package duke.logic.commands;
 
 import duke.exceptions.DukeException;
 import duke.models.LockerList;
-import duke.models.locker.InUseLocker;
+import duke.models.locker.Usage;
 import duke.models.locker.Locker;
 import duke.models.locker.LockerDate;
 import duke.models.locker.Zone;
@@ -18,28 +18,19 @@ import static java.util.Objects.requireNonNull;
 
 public class AssignLockerCommand extends Command {
 
-    private final Student student;
-    private final LockerDate startDate;
-    private final LockerDate endDate;
+    private final Usage usage;
     private final List<Zone> preferences;
     public static final int FIRST_FREE_LOCKER = 0;
 
     /**
      * This constructor instantiates all the fields necessary for assigning a locker to a student.
-     * @param student stores the information ond details of the student
-     * @param startDate stores the starting date of the subscription
-     * @param endDate stores the ending date of the subscription
+     * @param usage stores all the information required for locker subscription
      * @param preferences  stores the preferences as a list of zones for the student
      */
-    public AssignLockerCommand(Student student, LockerDate startDate,
-                               LockerDate endDate, List<Zone> preferences) {
-        requireNonNull(student);
-        requireNonNull(startDate);
-        requireNonNull(endDate);
+    public AssignLockerCommand(Usage usage,List<Zone> preferences) {
+        requireNonNull(usage);
         requireNonNull(preferences);
-        this.student = student;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.usage = usage;
         this.preferences = preferences;
     }
 
@@ -57,17 +48,15 @@ public class AssignLockerCommand extends Command {
 
         Locker freeLocker = getFreeLocker(lockerList,ui);
         int storeIndex = lockerList.getIndexOfLocker(freeLocker);
-        freeLocker.setStatusAsInUse();
         Locker lockerAssignedToStudent = getLockerToAssign(freeLocker);
 
         lockerList.addLockerInPosition(lockerAssignedToStudent,storeIndex);
         return storeIndex;
     }
 
-    private Locker getLockerToAssign(Locker freeLocker) {
-        return new InUseLocker(freeLocker.getSerialNumber(),
-                freeLocker.getAddress(),freeLocker.getZone(),freeLocker.getTag(),
-                student, startDate, endDate);
+    private Locker getLockerToAssign(Locker freeLocker) throws DukeException {
+        return new Locker(freeLocker.getSerialNumber(),freeLocker.getAddress(),
+                freeLocker.getZone(),new Tag(Tag.IN_USE),usage);
     }
 
     private Predicate<Locker> findLockerBasedOnPreferences(Zone zone) throws DukeException {

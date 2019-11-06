@@ -5,7 +5,7 @@ import duke.exceptions.DukeException;
 import duke.models.LockerList;
 
 import duke.models.locker.Address;
-import duke.models.locker.InUseLocker;
+import duke.models.locker.Usage;
 import duke.models.locker.Locker;
 import duke.models.locker.SerialNumber;
 import duke.models.locker.Zone;
@@ -15,7 +15,6 @@ import duke.ui.Ui;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 import static java.util.Objects.requireNonNull;
 
@@ -36,7 +35,7 @@ public class EditLockerCommand extends Command {
             + " is terminated.";
 
     /**
-     * This contructor instantiates the editLockerCommand object.
+     * This constructor instantiates the editLockerCommand object.
      * @param serialNumber stores the serial number of the locker to be edited.
      * @param editLocker stores the contents that are to be edited.
      */
@@ -66,9 +65,6 @@ public class EditLockerCommand extends Command {
             throw new DukeException(EDIT_LOCKER_ERROR);
         }
 
-        if (isOfTypeInUseLocker(lockerToEdit) && isOfTypeInUseLocker(editedLocker)) {
-            editedLocker = getEditedLockerInUse(editedLocker);
-        }
 
         if (isOfTypeInUseLocker(lockerToEdit) && !isOfTypeInUseLocker(editedLocker)) {
             assignNewLocker(lockerToEdit, lockerList, ui);
@@ -77,27 +73,18 @@ public class EditLockerCommand extends Command {
         return editedLocker;
     }
 
-    private Locker getEditedLockerInUse(Locker editedLocker) {
-        assert editedLocker instanceof InUseLocker;
-        return new InUseLocker(editedLocker.getSerialNumber(),
-                editedLocker.getAddress(),editedLocker.getZone(),editedLocker.getTag(),
-                ((InUseLocker) editedLocker).getStudent(),((InUseLocker) (editedLocker)).getStartDate(),
-                ((InUseLocker) editedLocker).getEndDate());
-    }
 
     private void assignNewLocker(Locker lockerToEdit, LockerList lockerList, Ui ui) throws DukeException {
-        assert lockerToEdit instanceof InUseLocker;
-        InUseLocker inUseLocker = ((InUseLocker) lockerToEdit);
+        assert lockerToEdit.getUsage().isPresent();
         List<Locker> getFreeLockers = CommandCheck.findLockersInAnyZone(lockerList);
         if (getFreeLockers.size() == 0) {
             ui.showNoAvailableLockers();
         } else {
-            Locker freeLocker = getFreeLockers.get(0);
+            Locker freeLocker = getFreeLockers.get(GET_FIRST_INDEX);
             freeLocker.setStatusAsInUse();
+            freeLocker.setUsage(lockerToEdit.getUsage().get());
             int storeIndex = lockerList.getIndexOfLocker(freeLocker);
-            lockerList.addLockerInPosition(new InUseLocker(freeLocker.getSerialNumber(),
-                    freeLocker.getAddress(),freeLocker.getZone(),freeLocker.getTag(),
-                    inUseLocker.getStudent(),inUseLocker.getStartDate(),inUseLocker.getEndDate()),
+            lockerList.addLockerInPosition(freeLocker,
                     storeIndex);
             ui.printSuccessfulAllocation(lockerList.getLocker(storeIndex).toString());
         }
@@ -128,8 +115,9 @@ public class EditLockerCommand extends Command {
         Address editedAddress = editLocker.getAddress().orElse(lockerToEdit.getAddress());
         Zone editedZone = editLocker.getZone().orElse(lockerToEdit.getZone());
         Tag editedTag = editLocker.getCondition().orElse(lockerToEdit.getTag());
+        Usage usage = lockerToEdit.getUsage().orElse(null);
 
-        return new Locker(editedSerialNumber,editedAddress,editedZone,editedTag);
+        return new Locker(editedSerialNumber,editedAddress,editedZone,editedTag,usage);
     }
 
     private boolean isOfTypeInUseLocker(Locker locker) throws DukeException {
