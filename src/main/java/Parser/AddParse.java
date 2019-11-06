@@ -82,7 +82,8 @@ public class AddParse extends Parse {
             } catch (ParseException | ArrayIndexOutOfBoundsException e ) {
                 LOGGER.info("Invalid format for adding event" + e.getMessage());
                 throw new DukeInvalidFormatException("OOPS!!! Please enter event as follows:\n" +
-                        "add/e modCode name_of_event /at dd/MM/yyyy from HHmm to HHmm\n" +
+                        "add/e modCode name_of_event /at dd/MM/yyyy /from HHmm /to HHmm\n" +
+                        "or add/e modCode name_of_event /at week x day /from HHmm /to HHmm\n " +
                         "For example: add/e CS1231 project meeting /at 1/1/2020 /from 1500 /to 1700");
             }
         }else {

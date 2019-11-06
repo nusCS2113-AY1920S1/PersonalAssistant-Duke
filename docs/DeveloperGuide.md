@@ -14,6 +14,7 @@ BetterDuke and some of its key features._
 
 
 
+
 # Prepared by:
  Lionel Lim,
  Darren Ong,
@@ -255,24 +256,11 @@ Step 1: Input Command in the Command textbox and press submit
 Step 2:System will display response with keyword “cs2113” in the response box
 
 ##### 3.1.4 Design Considerations
-<table>
- <tr>
-  <th>Aspect</th>
-  <th>Alternative 1(Current Choice)</th>
-  <th>Alternative 2</th>
- </tr>
- <tr>
-  <td> 1)Function to use for search
-  function</td>
-  <td>Search using Java contains to match substring of task<br />
-    Pros: Efficient, results can be retrieved in O (1) time<br />  
-    Cons: May return inconsequential results<br />   
-   (filter 1 may return cs2101, 123, task1)</td>
-  <td>Search using Java regex to match specific word<br />  
-   Pros: Results returned are more specific, only words are returned<br />
-   Cons: Inefficient, especially if there are many tasks, O(n) time</td>
- </tr> 
-</table>
+
+| Aspect                                             | Alternative 1 (Current Choice)                                                                                                                                                                      | Alternative 2                                                                                                                                                                         |
+|----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1)Function to use for search function              | Search using Java contains to match substring of task   Pros: Efficient, results can be retrieved in O (1) time   Cons: May return inconsequential results (filter 1 may return cs2101, 123, task1) | Search using Java regex to match specific word   Pros: Results returned are more specific, only words are returned   Cons: Inefficient, especially if there are many tasks, O(n) time |
+| 2)Data structure to support the undo/redo commands | Search by arrayList   Pros: Easy to implement   Cons: Inefficient, especially if there are many tasks, O(n) time                                                                                    | Search by HashMap   Pros: Efficient, results can be retrieved in O(1) time   Cons: Searching by Key may not return all instances of keyword   Difficult and tedious to map by keyword |
 
   #### 3.1.5 Future Optimisations/ Version 2.
     ● Implementing filter feature using multiple keywords
