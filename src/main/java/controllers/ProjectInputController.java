@@ -707,7 +707,7 @@ public class ProjectInputController implements IController {
                 if (!newReminderDetails.get(1).matches("--")) {
                     projectToManage.getReminder(index).setReminderRemarks(newReminderDetails.get(1));
                 }
-                if (!(newReminderDetails.get(2) == null)) {
+                if (newReminderDetails.get(2) != null) {
                     projectToManage.getReminder(index)
                             .setReminderDate(dateTimeHelper.formatDate(newReminderDetails.get(2)));
                 }
