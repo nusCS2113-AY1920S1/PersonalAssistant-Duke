@@ -2,6 +2,7 @@ package dolla;
 
 import dolla.command.Command;
 import dolla.parser.MainParser;
+import dolla.parser.ParserStringList;
 import dolla.storage.StorageRead;
 
 import java.util.Scanner;
@@ -14,26 +15,17 @@ import java.util.Scanner;
  * @version 1.0
  * @since   2019-07-26
  */
-public class Dolla {
+public class Dolla implements ModeStringList, ParserStringList {
 
-    private static final String COMMAND_BYE = "bye";
-    private static final String COMMAND_DEBT = "debt";
     private DollaData dollaData = new DollaData();
 
-    /**
-     * Creates an instance of Dolla using a data loaded from /data/dolla.txt
-     */
     private Dolla() {
-        StorageRead.load(); //TODO: add load for tag also (for now it can add to tagList but cant store to harddrive)
+        StorageRead.load();
     }
 
-    /**
-     * Runs the main program of duke.Dolla
-     * @throws Exception when exceptional condition happens
-     */
     private void run() throws Exception {
         boolean isExit = false;
-        Reminder reminder = new Reminder(COMMAND_DEBT);
+        Reminder reminder = new Reminder(MODE_DEBT);
         reminder.showReminder(dollaData);
         Scanner input = new Scanner(System.in); // TODO: Add to Ui or MainParser instead?
         while (!isExit) {
