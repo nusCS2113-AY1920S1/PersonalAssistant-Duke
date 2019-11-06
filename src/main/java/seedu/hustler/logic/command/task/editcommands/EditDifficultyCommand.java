@@ -14,31 +14,31 @@ import java.io.IOException;
 /**
  * Command to do task in list.
  */
-public class EditDescriptionCommand extends Edit {
+public class EditDifficultyCommand extends Edit {
     /**
      * Detects anomalies for input.
      **/
     /* private DoneAnomaly anomaly = new DoneAnomaly(); */
 
     /**
-     * Description to be edited.
+     * The difficulty to be set.
      */
-    private String description;
+    private String difficulty;
 
     /**
     * Initializes task to be edited.
     *
     * @param userInput input that contains task id to do
     */
-    public EditDescriptionCommand(Task task, String description) {
+    public EditDifficultyCommand(Task task, String difficulty) {
         super(task);
-        this.description = description;
+        this.difficulty = difficulty;
     }
 
     /**
      * Does task at index taskIndex inside.
      */
     public void execute() {
-        this.task.setDescription(this.description); 
+        this.task.setDifficulty(this.difficulty); 
     }
 }
