@@ -1,5 +1,8 @@
 package duke.model.product;
 
+import duke.commons.util.TestUtil;
+import duke.logic.message.ProductMessageUtils;
+
 import java.util.Objects;
 
 import static duke.commons.util.AppUtil.checkEmpty;
@@ -16,10 +19,6 @@ public class Product {
         ARCHIVE
     }
 
-
-    public static final String MESSAGE_CONSTRAINTS = "Product name can take any values, "
-            + "and should not be blank";
-
     private String productName;
     private IngredientItemList ingredients;
     private Double ingredientCost;
@@ -27,86 +26,28 @@ public class Product {
     private Status status;
 
 
-    public Product() {
+    /** Constructor for ProductParserUtil*/
+    public Product(String productName) {
+        this.productName = productName;
         this.ingredients = new IngredientItemList();
         this.ingredientCost = DEFAULT_INGREDIENT_COST;
         this.retailPrice = DEFAULT_RETAIL_PRICE;
         this.status = DEFAULT_STATUS;
     }
 
-    /** Constructor for Order parser.util*/
-    public Product(String productName) {
-        this.productName = productName;
-    }
-
     /**
-     * Creates a Product.
-     */
-    public Product(String productName, String retailPrice, String ingredientCost) {
-        requireAllNonNull(productName);
-        checkEmpty(productName, MESSAGE_CONSTRAINTS);
-
-        try {
-            this.productName = productName;
-            this.ingredients = new IngredientItemList();
-            this.ingredientCost = Double.parseDouble(ingredientCost);
-            this.retailPrice = Double.parseDouble(retailPrice);
-            this.status = Status.ACTIVE;
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Creates a Product.
-     */
-    public Product(String productName, String retailPrice, String ingredientCost, IngredientItemList ingredientItemList) {
-        requireAllNonNull(productName);
-        checkEmpty(productName, MESSAGE_CONSTRAINTS);
-
-        try {
-            this.productName = productName;
-            this.ingredientCost = Double.parseDouble(ingredientCost);
-            this.retailPrice = Double.parseDouble(retailPrice);
-            this.status = Status.ACTIVE;
-            this.ingredients = ingredientItemList;
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Creates a Product.
+     * Creates a Product with all field given.
+     * This is only allowed in creating product for EditProductCommand as it provides status in the arguments.
      */
     public Product(String productName, Double retailPrice, Double ingredientCost,
                    IngredientItemList ingredientItemList, Product.Status status) {
         requireAllNonNull(productName);
-        checkEmpty(productName, MESSAGE_CONSTRAINTS);
-
-        try {
-            this.productName = productName;
-            this.ingredientCost = ingredientCost;
-            this.retailPrice = retailPrice;
-            this.status = status;
-            this.ingredients = ingredientItemList;
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /** Constructor for edit comProduct */
-    public Product(String productName, Double retailPrice, Double ingredientCost, Product.Status status) {
-        requireAllNonNull(productName);
-        checkEmpty(productName, MESSAGE_CONSTRAINTS);
-
-        try {
-            this.productName = productName;
-            this.ingredientCost = ingredientCost;
-            this.retailPrice = retailPrice;
-            this.status = status;
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
+        checkEmpty(productName, ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME);
+        this.productName = productName;
+        this.ingredientCost = ingredientCost;
+        this.retailPrice = retailPrice;
+        this.status = status;
+        this.ingredients = ingredientItemList;
     }
 
     public void setProductName(String productName) {
@@ -125,8 +66,12 @@ public class Product {
         this.ingredientCost = ingredientCost;
     }
 
-    public double getRetailPrice() {
+    public Double getRetailPrice() {
         return retailPrice;
+    }
+
+    public Double getProfit() {
+        return retailPrice - ingredientCost;
     }
 
     public void setRetailPrice(double retailPrice) {
@@ -149,25 +94,27 @@ public class Product {
         this.ingredients = ingredients;
     }
 
-    /*
-        public List<Ingredient> getIngredients() {
-            return this.ingredients;
-        }
-
-        /*
-            public List<Ingredient> getIngredients() {
-                return this.ingredients;
-            }
-
-            public void setIngredients(List<Ingredient> ingredients) {
-                this.ingredients = ingredients;
-            }
-        */
     @Override
     public String toString() {
-        return productName + ": " + retailPrice + "$" + ingredients.toString();
+        return "{" +
+                "Product Name: " + productName + "," + System.lineSeparator() +
+                "Retail Price: $" + retailPrice  + "," + System.lineSeparator() +
+                "Cost: $" + ingredientCost + "," + System.lineSeparator() +
+                "Ingredients: " + ingredients.toString() + System.lineSeparator() +
+                "Status: " + status +
+                "}";
     }
 
+    /**
+     * Checks if two products have the same information for all fields
+     * using toString() function which prints out all fields.
+     * @param p another product
+     * @return true if the provided product has the same information for all fields
+     */
+    public boolean hasSameInfo(Product p) {
+        TestUtil.printToFile(toString() + System.lineSeparator() +"/////////////////////" + System.lineSeparator() + p.toString());
+        return toString().equals(p.toString());
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -184,6 +131,5 @@ public class Product {
     public int hashCode() {
         return Objects.hash(productName);
     }
-
 }
 

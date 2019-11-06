@@ -81,7 +81,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
-
+        logger.info("Initializing MainWindow");
         this.primaryStage = primaryStage;
         this.logic = logic;
 
@@ -113,6 +113,7 @@ public class MainWindow extends UiPart<Stage> {
         shoppingPage = new ShoppingPage(logic.getFilteredShoppingList());
         setAllPageAnchor(orderPage.getRoot(), productPage.getRoot(), salePage.getRoot(),
                 inventoryPage.getRoot(), shoppingPage.getRoot());
+        logger.fine("All pages filled in MainWindow");
     }
 
     void show() {

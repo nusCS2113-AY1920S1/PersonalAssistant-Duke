@@ -1,10 +1,13 @@
 package duke.logic.parser.product;
 
+import duke.commons.core.LogsCenter;
 import duke.logic.command.product.ProductDescriptor;
 import duke.logic.message.ProductMessageUtils;
 import duke.logic.parser.commons.ArgumentMultimap;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.product.Product;
+
+import java.util.logging.Logger;
 
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST;
@@ -14,12 +17,16 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_STATUS;
 
 public class ProductParserUtil {
 
+    private static final Logger logger = LogsCenter.getLogger(ProductParserUtil.class);
+
+
     public static ProductDescriptor createProductDescriptor(ArgumentMultimap map) {
         ProductDescriptor productDescriptor = new ProductDescriptor();
 
         if (map.getValue(PREFIX_PRODUCT_NAME).isPresent()) {
             String name = map.getValue(PREFIX_PRODUCT_NAME).get();
             if (name.isBlank() || name.isEmpty()) {
+                logger.info(ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME);
                 throw new ParseException(ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME);
             }
             productDescriptor.setProductName(name);

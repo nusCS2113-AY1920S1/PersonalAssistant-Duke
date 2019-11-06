@@ -2,6 +2,7 @@ package duke.model;
 
 import duke.commons.core.index.Index;
 import duke.logic.command.order.SortOrderCommand;
+import duke.logic.command.product.SortProductCommand;
 import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
@@ -160,6 +161,11 @@ public interface Model {
      * Returns true if an product has the same name as {@code product} exists in product list.
      */
     boolean hasProduct(Product product);
+
+    /**
+     * Sorts products of given {@code scope} by the given {@code category}.
+     */
+    void sortProducts(SortProductCommand.Category category, boolean isReverse);
 
     /**
      * Returns an unmodifiable view of the filtered product list.

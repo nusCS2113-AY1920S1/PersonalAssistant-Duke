@@ -18,8 +18,8 @@ import java.util.Set;
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
 class OrderCommandUtil {
-    private static final String MESSAGE_ITEM_NOT_FOUND = "[%s] is not an existing product. "
-            + "Add it to Product List first? ";
+    private static final String MESSAGE_ITEM_NOT_FOUND = "[%s] is not found in the filtered product list. "
+        + "Add it to Product List first or change Product List's viewing scope first?";
 
     /**
      * Returns a set of product items from product names.

@@ -2,6 +2,7 @@ package duke.model;
 
 import duke.commons.core.index.Index;
 import duke.logic.command.order.SortOrderCommand;
+import duke.logic.command.product.SortProductCommand;
 import duke.model.commons.Item;
 import duke.model.commons.Quantity;
 import duke.model.inventory.Ingredient;
@@ -12,6 +13,7 @@ import duke.model.sale.Sale;
 import duke.model.shortcut.Shortcut;
 import javafx.collections.ObservableList;
 
+import java.util.Comparator;
 import java.util.List;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
@@ -42,7 +44,7 @@ public class BakingHome implements ReadOnlyBakingHome {
     }
 
     /**
-     * Creates BakingHome fro {@code toBeCopied}.
+     * Creates BakingHome for {@code toBeCopied}.
      */
     public BakingHome(ReadOnlyBakingHome toBeCopied) {
         this();
@@ -202,12 +204,44 @@ public class BakingHome implements ReadOnlyBakingHome {
 
     public void setProduct(Product originalProduct, Product editedProduct) {
         requireNonNull(editedProduct);
-
         products.set(originalProduct, editedProduct);
     }
 
+    /**
+     * Replaces the contents of the product list with {@code products}.
+     */
     public void setProducts(List<Product> products) {
         this.products.setAll(products);
+    }
+
+    /**
+     * Sorts products.
+     * @param category sorting category
+     * @param isReversed true if sorted in decreasing order
+     */
+    public void sortProducts(SortProductCommand.Category category, boolean isReversed) {
+        switch (category) {
+        case NAME:
+            products.sort((Comparator<Product>) (o1, o2) -> o2.getProductName().compareTo(o1.getProductName()),
+                    isReversed);
+            break;
+        case COST:
+            products.sort((Comparator<Product>) (o1, o2) -> o2.getIngredientCost().compareTo(o1.getIngredientCost()),
+                    isReversed);
+            break;
+        case PRICE:
+            products.sort((Comparator<Product>) (o1, o2) -> o2.getRetailPrice().compareTo(o1.getRetailPrice()),
+                    isReversed);
+            break;
+        case PROFIT:
+            products.sort((Comparator<Product>) (o1, o2) -> o2.getProfit().compareTo(o1.getProfit()),
+                    isReversed);
+            break;
+        default:
+            break;
+        }
+
+
     }
 
     @Override

@@ -22,14 +22,14 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "baking"
-    archiveVersion = "debug"
+    archiveBaseName = "BakingHome"
+    archiveVersion = "v1.3.1"
     archiveClassifier = null
     archiveAppendix = null
 }
 
 dependencies {
-    String javaFxVersion = '11'
+    String javaFxVersion = '11.0.1'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
@@ -45,15 +45,12 @@ dependencies {
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
 
-    compile 'com.jfoenix:jfoenix:9.0.8' // Java 9
-    compile (
-            [group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.4.1'],
-            [group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.4.1'],
-            [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.4.1'],
-            [group: 'org.ocpsoft.prettytime', name: 'prettytime', version: '4.0.1.Final'],
-            [group: 'org.ocpsoft.prettytime', name: 'prettytime-nlp', version: '4.0.2.Final'],
-    )
-
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.4.1'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.4.1'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.4.1'
+    implementation group: 'org.ocpsoft.prettytime', name: 'prettytime', version: '4.0.1.Final'
+    implementation group: 'org.ocpsoft.prettytime', name: 'prettytime-nlp', version: '4.0.2.Final'
+    implementation group: 'com.jfoenix', name: 'jfoenix', version: '9.0.8'
 }
 
 test {

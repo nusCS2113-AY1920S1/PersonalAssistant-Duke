@@ -119,7 +119,7 @@ public class AutoCompleter {
 
         List<String> suggestions = new ArrayList<>();
         Optional<Class<? extends Command>> matchedCommandClass = getMatchedCommandClass(userInput);
-        matchedCommandClass.ifPresent(aClass -> suggestions.addAll(generateParameterSuggestions(currentWord, aClass)));
+        matchedCommandClass.ifPresent(matchedClass -> suggestions.addAll(generateParameterSuggestions(currentWord, matchedClass)));
 
         suggestions.addAll(generateCommandWordSuggestions(currentWord));
 
@@ -145,7 +145,7 @@ public class AutoCompleter {
      * @throws ParseException if duplicate classes are added.
      */
     public void addCommandClass(Class<? extends Command> commandClass) throws ParseException {
-        assert (commandClass != null);
+        requireNonNull(commandClass);
 
         if (commandClasses.contains(commandClass)) {
             logger.warning(String.format("Could not add duplicate %s to AutoCompleter", commandClass.toString()));
@@ -162,6 +162,46 @@ public class AutoCompleter {
     public void clearCommandClasses() {
         this.commandClasses.clear();
     }
+
+    /**
+     * Returns a list of suggested commands based on the incomplete {@code toComplete}.
+     */
+    private List<String> generateCommandWordSuggestions(String toComplete) {
+        requireNonNull(toComplete);
+
+        List<String> suggestions = new ArrayList<>();
+        for (Class<? extends Command> commandClass : commandClasses) {
+            getCommandWord(commandClass).ifPresent(commandWordString -> {
+                if (commandWordString.startsWith(toComplete)
+                    && !commandWordString.equals(toComplete)) {
+                    suggestions.add(commandWordString);
+                }
+            });
+        }
+        return suggestions;
+    }
+
+    /**
+     * Returns a list of suggested argument names based on the incomplete {@code toComplete}.
+     */
+    private List<String> generateParameterSuggestions(String toComplete, Class<? extends Command> commandClass) {
+        List<String> suggestions = new ArrayList<>();
+
+        getCommandParameters(commandClass).ifPresent(
+            prefixes -> suggestions.addAll(Arrays.stream(prefixes)
+                .map(Prefix::getPrefix)
+                .filter(prefixString -> prefixString.startsWith(toComplete)
+                    && !prefixString.equals(toComplete))
+                .collect(Collectors.toList())
+            )
+        );
+
+        return suggestions;
+    }
+
+    /*============== String parsing utilities ================
+      Used to parse the user input string and caret position.
+     */
 
     /**
      * Returns the starting index of the word at {@code caretPosition} in {@code commandText}.
@@ -196,43 +236,7 @@ public class AutoCompleter {
 
     private String getCurrentWord(String commandText, int caretPosition) {
         return commandText.substring(getSelectionStart(commandText, caretPosition),
-                getSelectionEnd(commandText, caretPosition) + 1);
-    }
-
-    /**
-     * Returns a list of suggested commands based on the incomplete {@code toComplete}.
-     */
-    private List<String> generateCommandWordSuggestions(String toComplete) {
-        assert (toComplete != null);
-
-        List<String> suggestions = new ArrayList<>();
-        for (Class<? extends Command> commandClass : commandClasses) {
-            getCommandWord(commandClass).ifPresent(commandWordString -> {
-                if (commandWordString.startsWith(toComplete)
-                        && !commandWordString.equals(toComplete)) {
-                    suggestions.add(commandWordString);
-                }
-            });
-        }
-        return suggestions;
-    }
-
-    /**
-     * Returns a list of suggested argument names based on the incomplete {@code toComplete}.
-     */
-    private List<String> generateParameterSuggestions(String toComplete, Class<? extends Command> commandClass) {
-        List<String> suggestions = new ArrayList<>();
-
-        getCommandParameters(commandClass).ifPresent(
-            prefixes -> suggestions.addAll(Arrays.stream(prefixes)
-                    .map(Prefix::getPrefix)
-                    .filter(prefixString -> prefixString.startsWith(toComplete)
-                        && !prefixString.equals(toComplete))
-                    .collect(Collectors.toList())
-                )
-        );
-
-        return suggestions;
+            getSelectionEnd(commandText, caretPosition) + 1);
     }
 
     /**
@@ -248,6 +252,10 @@ public class AutoCompleter {
     private int getNewCaretPosition(int oldPosition, String oldWord, String newWord) {
         return oldPosition - oldWord.length() + newWord.length();
     }
+
+    /*=============== Field utilities ================
+      Used to retrieve field values from command classes using Reflection API.
+     */
 
     private String getCommandIndicator(Class<? extends Command> commandClass) {
         try {
@@ -274,6 +282,7 @@ public class AutoCompleter {
             return Optional.empty();
         }
     }
+
 
     /**
      * Returns the longest matched command class if found a match; otherwise returns {@code Optional.empty}.

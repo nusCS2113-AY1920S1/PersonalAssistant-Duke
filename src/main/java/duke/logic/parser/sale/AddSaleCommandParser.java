@@ -17,13 +17,15 @@ import static duke.logic.parser.sale.SaleParserUtil.createDescriptor;
  * A parser that parses {@code AddSaleCommand}.
  */
 public class AddSaleCommandParser implements Parser<AddSaleCommand> {
+    @Override
     public AddSaleCommand parse(String args) throws ParseException {
-        ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
-                PREFIX_SALE_DESCRIPTION,
-                PREFIX_SALE_VALUE,
-                PREFIX_SALE_IS_SPEND,
-                PREFIX_SALE_DATE,
-                PREFIX_SALE_REMARKS
+        ArgumentMultimap map = ArgumentTokenizer.tokenize(
+            args,
+            PREFIX_SALE_DESCRIPTION,
+            PREFIX_SALE_VALUE,
+            PREFIX_SALE_IS_SPEND,
+            PREFIX_SALE_DATE,
+            PREFIX_SALE_REMARKS
         );
 
         return new AddSaleCommand(createDescriptor(map));

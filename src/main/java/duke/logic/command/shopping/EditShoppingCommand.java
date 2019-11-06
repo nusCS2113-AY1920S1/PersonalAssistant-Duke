@@ -9,6 +9,7 @@ import duke.logic.parser.commons.CliSyntax;
 import duke.logic.parser.commons.Prefix;
 import duke.model.Model;
 import duke.model.commons.Item;
+import duke.model.exceptions.DuplicateEntityException;
 import duke.model.inventory.Ingredient;
 
 import java.util.List;
@@ -53,7 +54,12 @@ public class EditShoppingCommand extends ShoppingCommand {
         Item<Ingredient> toEdit = lastShownList.get(index.getZeroBased());
 
         Item<Ingredient> edited = ShoppingCommandUtil.createNewIngredient(toEdit, shoppingDescriptor);
-
+        try {
+            model.setShoppingList(toEdit, edited);
+        } catch (DuplicateEntityException e) {
+            throw new CommandException(String.format(ShoppingMessageUtils.MESSAGE_DUPLICATE_SHOPPING,
+                    edited.getItem().getName()));
+        }
         model.setShoppingList(toEdit, edited);
         model.commit(ShoppingMessageUtils.MESSAGE_COMMIT_EDIT_SHOPPING);
 

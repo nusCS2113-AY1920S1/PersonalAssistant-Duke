@@ -3,8 +3,6 @@ package duke.logic.parser.product;
 import duke.model.product.IngredientItemList;
 import org.junit.jupiter.api.Test;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

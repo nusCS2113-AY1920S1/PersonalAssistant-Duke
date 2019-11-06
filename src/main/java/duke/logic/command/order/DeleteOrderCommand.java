@@ -46,6 +46,7 @@ public class DeleteOrderCommand extends OrderCommand {
             }
             toDelete.add(model.getFilteredOrderList().get(index.getZeroBased()));
         }
+
         for (Order order : toDelete) {
             model.deleteOrder(order);
         }
