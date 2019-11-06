@@ -35,7 +35,7 @@ public class BubbleSortPassesQuestionTest {
                 + "Please provide your answer in comma-separated format. e.g. x, y, z, ...\n\n";
         question += "for (int i = 0; i < passes; i++) {\n" + "   for (int j = 0; j < arr.size - 1 - i; j ++) {\n"
                 + "       if (arr[j] > arr[j + 1]) {\n" + "            swap (arr[j], arr[j+1]);\n" + "       }\n"
-                + "   }\n" + "}\n\n";
+                + "   }\n" + "}\n";
         QuestionModel questionModel = new BubbleSortPassesQuestion(5,array, 1).execute();
         assertEquals(questionModel.getQuestion(), question);
         String myCorrectAnswer = "4, 3, 2, 1, 5";

@@ -2,7 +2,7 @@ package com.algosenpai.app.logic;
 
 import com.algosenpai.app.logic.chapters.QuizGenerator;
 import com.algosenpai.app.logic.command.ArchiveCommand;
-import com.algosenpai.app.logic.command.VolumeCommand;
+import com.algosenpai.app.logic.command.BlockedCommand;
 import com.algosenpai.app.logic.command.ByeCommand;
 import com.algosenpai.app.logic.command.ClearCommand;
 import com.algosenpai.app.logic.command.Command;
@@ -14,20 +14,23 @@ import com.algosenpai.app.logic.command.PrintArchiveCommand;
 import com.algosenpai.app.logic.command.PrintCommand;
 import com.algosenpai.app.logic.command.PrintQuizCommand;
 import com.algosenpai.app.logic.command.PrintUserCommand;
+import com.algosenpai.app.logic.command.QuizCommand;
 import com.algosenpai.app.logic.command.QuizNextCommand;
 import com.algosenpai.app.logic.command.QuizTestCommand;
-import com.algosenpai.app.logic.command.QuizCommand;
 import com.algosenpai.app.logic.command.ResultCommand;
 import com.algosenpai.app.logic.command.ReviewCommand;
 import com.algosenpai.app.logic.command.SaveCommand;
 import com.algosenpai.app.logic.command.SelectCommand;
 import com.algosenpai.app.logic.command.SetupCommand;
 import com.algosenpai.app.logic.command.UndoCommand;
+import com.algosenpai.app.logic.command.VolumeCommand;
+import com.algosenpai.app.logic.constant.CommandsEnum;
 import com.algosenpai.app.logic.models.QuestionModel;
 import com.algosenpai.app.logic.parser.Parser;
 import com.algosenpai.app.stats.UserStats;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -50,6 +53,7 @@ public class Logic {
     // VariabReview features;
     private ArrayList<QuestionModel> archiveList = new ArrayList<>();
 
+    private HashSet<String> quizBlockedCommands = new HashSet<>(CommandsEnum.getNames());
     // History features;
     private ArrayList<String> historyList = new ArrayList<>();
     // Used to get the past commands, using arrow keys. Stores the number of elements from the back of historyList
@@ -71,7 +75,6 @@ public class Logic {
     public Command executeCommand(String input) {
         // reset the offset whenever the user executes a command
         historyListOffset = 0;
-
         ArrayList<String> inputs = Parser.parseInput(input);
         historyList.add(input);
         String userInput = inputs.get(0);
@@ -86,6 +89,8 @@ public class Logic {
                 return setupNewQuiz(inputs);
             } else if (isNewQuiz.get() && userInput.equals("select")) {
                 return new SelectCommand(inputs, chapterNumber, userStats, isQuizMode);
+            } else if (quizBlockedCommands.contains(userInput)) {
+                return new BlockedCommand(inputs);
             } else {
                 return determineQuizAction(inputs);
             }

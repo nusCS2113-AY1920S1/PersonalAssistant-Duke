@@ -27,7 +27,7 @@ public class PseudoCodeQuestion extends Question {
     public void questionFormatter() {
         question = "In the pseudocode program below, list is an initially empty Singly Linked List.\n"
                 + "The function populateList() adds the integers " + array + " to the tail of the list sequentially.\n"
-                + "What is the output of the program?\n";
+                + "What is the output of the program?";
     }
 
     /**
@@ -39,48 +39,48 @@ public class PseudoCodeQuestion extends Question {
      */
     private static String calculateSum(ArrayList<Integer> array, ArrayList<String> pseudoCode) {
         rtlm = new ReviewTracingListModel();
-        rtlm.addReviewTracingModel("This is the linked list.");
-        rtlm.addReviewTracingModel(array.toString());
+        rtlm.addReviewStep("This is the linked list.");
+        rtlm.addReviewStep(array.toString());
         int sum = 0;
         int index = 0;
-        rtlm.addReviewTracingModel("We start with sum = " + sum + ", and index = " + index + ".");
+        rtlm.addReviewStep("We start with sum = " + sum + ", and index = " + index + ".");
         for (String i : pseudoCode) {
             switch (i) {
             case "n = n.next;":
-                rtlm.addReviewTracingModel("Consider step : " + i);
+                rtlm.addReviewStep("Consider step : " + i);
                 index++;
-                rtlm.addReviewTracingModel("Increment index to " + index + ".");
+                rtlm.addReviewStep("Increment index to " + index + ".");
                 break;
             case "sum += list.tail.value;":
-                rtlm.addReviewTracingModel("Consider step : " + i);
+                rtlm.addReviewStep("Consider step : " + i);
                 sum += array.get(array.size() - 1);
-                rtlm.addReviewTracingModel("New sum = " + sum + ".");
+                rtlm.addReviewStep("New sum = " + sum + ".");
                 break;
             case "sum += list.head.value;":
-                rtlm.addReviewTracingModel("Consider step : " + i);
+                rtlm.addReviewStep("Consider step : " + i);
                 sum += array.get(0);
-                rtlm.addReviewTracingModel("New sum = " + sum + ".");
+                rtlm.addReviewStep("New sum = " + sum + ".");
                 break;
             case "n = list.head;":
-                rtlm.addReviewTracingModel("Consider step : " + i);
+                rtlm.addReviewStep("Consider step : " + i);
                 index = 0;
-                rtlm.addReviewTracingModel("Set index to " + index + ".");
+                rtlm.addReviewStep("Set index to " + index + ".");
                 break;
             case "sum += n.value;":
-                rtlm.addReviewTracingModel("Consider step : " + i);
+                rtlm.addReviewStep("Consider step : " + i);
                 sum += array.get(index);
-                rtlm.addReviewTracingModel("New sum = " + sum + "after adding " + array.get(index) + ".");
+                rtlm.addReviewStep("New sum = " + sum + "after adding " + array.get(index) + ".");
                 break;
             case "sum += n.next.value;":
-                rtlm.addReviewTracingModel("Consider step : " + i);
+                rtlm.addReviewStep("Consider step : " + i);
                 sum += array.get(index + 1);
-                rtlm.addReviewTracingModel("New sum = " + sum + "after adding " + array.get(index + 1) + ".");
+                rtlm.addReviewStep("New sum = " + sum + "after adding " + array.get(index + 1) + ".");
                 break;
             default:
                 break;
             }
         }
-        rtlm.addReviewTracingModel("Final value is " + sum + ".");
+        rtlm.addReviewStep("Final value is " + sum + ".");
         return String.valueOf(sum);
     }
 

@@ -24,18 +24,18 @@ public class SingleInsertLinkedListQuestion extends Question {
         LinkedList<Integer> ll = createList(listSize);
         question += printList(ll);
         rtlm = new ReviewTracingListModel();
-        rtlm.addReviewTracingModel("This is the current list.");
-        rtlm.addReviewTracingModel(printList(ll));
-        rtlm.addReviewTracingModel("Since the position at which to append is " + positionToAdd + ".");
+        rtlm.addReviewStep("This is the current list.");
+        rtlm.addReviewStep(printList(ll));
+        rtlm.addReviewStep("Since the position at which to append is " + positionToAdd + ".");
         if (positionToAdd.equals("head")) {
             ll.addFirst(valueToAdd);
         } else {
             ll.addLast(valueToAdd);
         }
-        rtlm.addReviewTracingModel("This is the new linked list.");
+        rtlm.addReviewStep("This is the new linked list.");
         answer = ll.toString();
         answer = answer.substring(1,answer.length() - 1);
-        rtlm.addReviewTracingModel(printList(ll));
+        rtlm.addReviewStep(printList(ll));
     }
 
     @Override
@@ -75,7 +75,6 @@ public class SingleInsertLinkedListQuestion extends Question {
                 linkedListString.append(" -> ");
             }
         }
-        linkedListString.append("\n");
         return linkedListString.toString();
     }
 

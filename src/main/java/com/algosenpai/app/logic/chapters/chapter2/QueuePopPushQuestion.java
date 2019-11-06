@@ -34,7 +34,7 @@ public class QueuePopPushQuestion extends Question {
     public void questionFormatter() {
         question = "A Queue of size " + queueSize
                 + " undergoes a series of operations as shown below.\n"
-                + "What would be the new value called upon queue.peek()?\n";
+                + "What would be the new value called upon queue.peek()?";
     }
 
     /**
@@ -121,23 +121,23 @@ public class QueuePopPushQuestion extends Question {
      */
     private static void changeQueue(ArrayList<String> instructions, LinkedList<Integer> queue) {
         rtlm = new ReviewTracingListModel();
-        rtlm.addReviewTracingModel("This is the current queue.");
-        rtlm.addReviewTracingModel(printQueue(queue));
+        rtlm.addReviewStep("This is the current queue.");
+        rtlm.addReviewStep(printQueue(queue));
         for (String cmd : instructions) {
-            rtlm.addReviewTracingModel("Consider step : " + cmd);
+            rtlm.addReviewStep("Consider step : " + cmd);
             if (cmd.contains("Pop")) {
-                rtlm.addReviewTracingModel("Removing this element : " + queue.pollLast() + ".");
+                rtlm.addReviewStep("Removing this element : " + queue.pollLast() + ".");
             } else {
                 String number = cmd.substring(5, cmd.length() - 2);
-                rtlm.addReviewTracingModel("Adding this number to the back : " + number + ".");
+                rtlm.addReviewStep("Adding this number to the back : " + number + ".");
                 int valuetoadd = Integer.parseInt(number);
                 queue.addFirst(valuetoadd);
             }
-            rtlm.addReviewTracingModel("This is the new queue.");
-            rtlm.addReviewTracingModel(printQueue(queue));
+            rtlm.addReviewStep("This is the new queue.");
+            rtlm.addReviewStep(printQueue(queue));
         }
-        rtlm.addReviewTracingModel("This is the final queue.");
-        rtlm.addReviewTracingModel(printQueue(queue));
+        rtlm.addReviewStep("This is the final queue.");
+        rtlm.addReviewStep(printQueue(queue));
     }
 
 }

@@ -64,6 +64,7 @@ public class QuizTestCommand extends QuizCommand {
                 //to end the quiz in the quizmode
                 if (inputs.get(0).equals("end")) {
                     isQuizMode.set(false);
+                    reset();
                     return calculateScore();
                 }
                 String userAnswer = extractUserAnswerFromInput();
@@ -87,14 +88,12 @@ public class QuizTestCommand extends QuizCommand {
      */
     private String extractUserAnswerFromInput() {
         StringBuilder answer = new StringBuilder();
-        System.out.println("Here");
         for (int i = 0; i < inputs.size() - 1; i++) {
             answer.append(inputs.get(i)).append(" ");
         }
         answer.append(inputs.get(inputs.size() - 1));
         return answer.toString();
     }
-
 
     private void reset() {
         questionNumber.set(0);
@@ -104,10 +103,15 @@ public class QuizTestCommand extends QuizCommand {
 
     private String calculateScore() {
         int userQuizScore = 0;
+        ArrayList<Integer> wrongQuestions = new ArrayList<>();
+        int counter = 1;
         for (QuestionModel question : quizList) {
             if (question.checkAnswer()) {
                 userQuizScore++;
+            } else {
+                wrongQuestions.add(counter);
             }
+            counter++;
         }
 
         // Updating all the user stats one shot in here
@@ -115,7 +119,7 @@ public class QuizTestCommand extends QuizCommand {
         userStats.setUserExp(userStats.getUserExp() + userQuizScore);
         // Update level, each level is double of previous, so we use log base 2.
         if (userStats.getUserExp() == 0) {
-            userStats.setUserLevel(0);
+            userStats.setUserLevel(1);
         } else {
             userStats.setUserLevel((int)(Math.log(userStats.getUserExp() / 10.0) / Math.log(2) + 1));
         }
@@ -123,6 +127,11 @@ public class QuizTestCommand extends QuizCommand {
         // End of updating
 
         return "You got " + userQuizScore + "/10 questions correct!\n"
-                + "You have gained " + userQuizScore + " EXP points!";
+                + "You have gained " + userQuizScore + " EXP points!\n"
+                + "Here are the questions you got wrong : " + wrongQuestions.toString() + ".\n"
+                + "* Type 'review x' where x is the question number to review the "
+                + "question and see where you went wrong.\n"
+                + "* Type 'select x' where x is a chapter to pick another chapter.\n"
+                + "* Type 'menu' to see other commands.";
     }
 }

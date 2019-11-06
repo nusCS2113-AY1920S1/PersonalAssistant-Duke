@@ -34,7 +34,7 @@ public class InsertionSortSwapQuestion extends Question {
                 + "Please provide your answer in comma-separated format. e.g. x, y, z, ...\n\n";
         question += "int i, key, j;\n" + "for (i = 1; i < n; i++) {\n" + "    key = arr[i];\n"
                 + "    j = i - 1;\n" + "    while (j >= 0 && arr[j] > key) {\n" + "        arr[j + 1] = arr[j];\n"
-                + "        j = j - 1;\n" + "    }\n" + "    arr[j + 1] = key;\n" + "} \n\n";
+                + "        j = j - 1;\n" + "    }\n" + "    arr[j + 1] = key;\n" + "}\n";
     }
 
     /**
@@ -60,39 +60,39 @@ public class InsertionSortSwapQuestion extends Question {
      */
     private static void insertionSort(ArrayList<Integer> arr, int swaps) {
         rtlm = new ReviewTracingListModel();
-        rtlm.addReviewTracingModel("This is the array at the start.");
-        rtlm.addReviewTracingModel(arr.toString());
+        rtlm.addReviewStep("This is the array at the start.");
+        rtlm.addReviewStep(arr.toString());
         int i;
         int key;
         int j;
         int counter = 0;
-        rtlm.addReviewTracingModel("Counter = " + counter + ".");
+        rtlm.addReviewStep("Counter = " + counter + ".");
         for (i = 1; i < arr.size(); i++) {
             key = arr.get(i);
-            rtlm.addReviewTracingModel("Pick " + key + ".");
+            rtlm.addReviewStep("Pick " + key + ".");
             j = i - 1;
-            rtlm.addReviewTracingModel("Traverse backwards");
+            rtlm.addReviewStep("Traverse backwards");
             while (j >= 0 && arr.get(j) > key) {
-                rtlm.addReviewTracingModel("Since " + arr.get(j) + " is more than " + key + ", swap.");
+                rtlm.addReviewStep("Since " + arr.get(j) + " is more than " + key + ", swap.");
                 arr.set(j + 1, arr.get(j));
                 j = j - 1;
                 counter++;
-                rtlm.addReviewTracingModel("Counter = " + counter + ".");
+                rtlm.addReviewStep("Counter = " + counter + ".");
                 if (counter == swaps) {
-                    rtlm.addReviewTracingModel("Since counter == swaps, stop.");
+                    rtlm.addReviewStep("Since counter == swaps, stop.");
                     break;
                 }
             }
             arr.set(j + 1, key);
             if (counter == swaps) {
-                rtlm.addReviewTracingModel("This is the final array.");
-                rtlm.addReviewTracingModel(arr.toString());
+                rtlm.addReviewStep("This is the final array.");
+                rtlm.addReviewStep(arr.toString());
                 return;
             }
             if (j == -1) {
-                rtlm.addReviewTracingModel("Since we have reached the front, check next.");
+                rtlm.addReviewStep("Since we have reached the front, check next.");
             } else {
-                rtlm.addReviewTracingModel("Since " + arr.get(j) + " is smaller than " + arr.get(i) + ", check next.");
+                rtlm.addReviewStep("Since " + arr.get(j) + " is smaller than " + arr.get(i) + ", check next.");
             }
         }
 
