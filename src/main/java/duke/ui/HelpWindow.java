@@ -37,10 +37,16 @@ public class HelpWindow extends AnchorPane {
         cbCommands.getItems().addAll(
                 "todo",
                 "deadline",
-                "event",
                 "fixedduration",
-                "repeat",
-                "doafter"
+                "budget",
+                "addcontact",
+                "listcontacts",
+                "deletecontact",
+                "findcontact",
+                "notes",
+                "filter",
+                "update",
+                "setpriority"
         );
 
         /**
@@ -55,19 +61,41 @@ public class HelpWindow extends AnchorPane {
                 } else if (cbCommands.getSelectionModel().getSelectedItem().equals("deadline")) {
                     getDescription.setText(cbCommands.getValue() + " <task description> /by <date and time>");
                     getDescription.getScene().getWindow();
-                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("event")) {
-                    getDescription.setText(cbCommands.getValue() + " <task description> /at <date and time>");
-                    getDescription.getScene().getWindow();
                 } else if (cbCommands.getSelectionModel().getSelectedItem().equals("fixedduration")) {
                     getDescription.setText(cbCommands.getValue() + " <task description> /for <duration> <unit>");
                     getDescription.getScene().getWindow();
-                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("repeat")) {
-                    getDescription.setText(cbCommands.getValue()
-                            + " <task> /from <date and time> /for <duration> <day/week/month>");
+                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("budget")) {
+                    getDescription.setText(cbCommands.getValue() + " add/minus <amount> <optional desc> \n"
+                            + cbCommands.getValue() + "<reset/new <amount> \n"
+                            + cbCommands.getValue() + "<view>");
                     getDescription.getScene().getWindow();
-                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("doafter")) {
-                    getDescription.setText(cbCommands.getValue()
-                            + " <task description> /after <existing task description>");
+                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("addcontact")) {
+                    getDescription.setText(cbCommands.getValue() + " <name> <number> <email> <office>");
+                    getDescription.getScene().getWindow();
+                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("listcontacts")) {
+                    getDescription.setText(cbCommands.getValue());
+                    getDescription.getScene().getWindow();
+                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("deletecontact")) {
+                    getDescription.setText(cbCommands.getValue() + " <index>");
+                    getDescription.getScene().getWindow();
+                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("findcontact")) {
+                    getDescription.setText(cbCommands.getValue() + " <keyword>");
+                    getDescription.getScene().getWindow();
+                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("notes")) {
+                    getDescription.setText(cbCommands.getValue() + " <index> /add <notes description> \n"
+                            + cbCommands.getValue() + " /delete \n"
+                            + cbCommands.getValue() + " /show");
+                    getDescription.getScene().getWindow();
+                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("filter")) {
+                    getDescription.setText(cbCommands.getValue() + " <task type>");
+                    getDescription.getScene().getWindow();
+                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("update")) {
+                    getDescription.setText(cbCommands.getValue() + " <index> /desc <description> \n"
+                            + cbCommands.getValue() + " <index> /date <date time> \n"
+                            + cbCommands.getValue() + " <index> /type <task type>");
+                    getDescription.getScene().getWindow();
+                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("setpriority")) {
+                    getDescription.setText(cbCommands.getValue() + " <task number> <priority>");
                     getDescription.getScene().getWindow();
                 }
             }
