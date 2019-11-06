@@ -13,10 +13,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -25,7 +22,17 @@ import static javafx.scene.input.KeyCode.R;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RetrieveRequestTest {
-
+    ArrayList<Integer> genrePreference = new ArrayList<>();
+    ArrayList<Integer> genreRestriction = new ArrayList<>();
+    ArrayList<String> playlist = new ArrayList<>();
+    boolean isAdultEnabled = false;
+    boolean sortByAlphaOrder = false;
+    boolean sortByRating = false;
+    boolean sortByReleaseDate = false;
+    boolean isMovie = true;
+    String searchEntryName = "";
+    String name = "";
+    int age = 0;
     private static final String TO_SPECIFY_RESULTS = "results";
     private static final String VALID_MOVIE_CERT_FILENAME1 = "/data/ValidMovieCertFile1";
     private static final String VALID_MOVIE_CERT_FILENAME2 = "/data/ValidMovieCertFile2";
@@ -211,7 +218,7 @@ public class RetrieveRequestTest {
     }
 
     @Test
-    public void sortByHighestRatingTest() {
+    public void sortByHighestRatingTest() throws Exceptions {
         ArrayList<MovieInfoObject> testArrayList = new ArrayList<>();
         testArrayList.addAll(testObjectsList);
         ArrayList<MovieInfoObject> expectedArrayList1 = new ArrayList<>();
@@ -220,28 +227,33 @@ public class RetrieveRequestTest {
         expectedArrayList1.addAll(expectedObjectsList);
         RetrieveRequest.finalSearchResults = testArrayList;
         RetrieveRequest.sortByHighestRating();
+        checkConditionTest();
         testArrayList = RetrieveRequest.finalSearchResults;
         assertEquals(expectedArrayList1, testArrayList);
     }
 
-    @Test
+
     public void checkConditionTest() throws Exceptions {
         String searchProfileData = getString(SEARCH_PROFILE_FILEPATH);
         JSONArray jsonArray = getValidData(searchProfileData);
+        JSONArray trueData = new JSONArray();
+        JSONArray falseData = new JSONArray();
         for (int i = 0; i < jsonArray.size(); i += 1) {
-            SearchProfile searchProfile = MovieHandler.getSearchProfile();
+            SearchProfile searchProfile = new SearchProfile(name, age, genrePreference, genreRestriction, isAdultEnabled,
+                    playlist, sortByAlphaOrder, sortByRating, sortByReleaseDate, searchEntryName, isMovie);
+            ;
             ArrayList<Integer> genrePref = new ArrayList<>();
             ArrayList<Integer> genreRestrict = new ArrayList<>();
             JSONObject jsonObject = (JSONObject) jsonArray.get(i);
             JSONArray jsonArray1 = (JSONArray) jsonObject.get("genreIdPreference");
             for (int j = 0; j < jsonArray1.size(); j += 1) {
-                long num = (long) jsonArray1.get(i);
+                long num = (long) jsonArray1.get(j);
                 int genreNo = Math.toIntExact(num);
                 genrePref.add(genreNo);
             }
             JSONArray jsonArray2 = (JSONArray) jsonObject.get("genreIdRestriction");
             for (int j = 0; j < jsonArray2.size(); j += 1) {
-                long num = (long) jsonArray2.get(i);
+                long num = (long) jsonArray2.get(j);
                 int genreNo = Math.toIntExact(num);
                 genreRestrict.add(genreNo);
             }
@@ -259,9 +271,33 @@ public class RetrieveRequestTest {
                 JSONArray jsonArray3 = getOffline(k);
                 for (int a = 1; a < jsonArray3.size(); a += 1) {
                     JSONObject jsonObject1 = (JSONObject) jsonArray3.get(a);
-                    assertTrue(RetrieveRequest.checkCondition(jsonObject1), "Test has failed");
+                    if (RetrieveRequest.checkCondition(jsonObject1)) {
+                        trueData.add(jsonObject1);
+                    } else {
+                        falseData.add(jsonObject1);
+                    }
+                    //assertFalse(RetrieveRequest.checkCondition(jsonObject1), "Test has failed");
                 }
             }
+        }
+        File fileToSaveJson = new File("/data/movieData/false.json");
+        //====================
+
+        //jsonArray2.addAll(casts)
+
+        //================
+        byte[] jsonArrayTrue = falseData.toString().getBytes();
+        BufferedOutputStream bos;
+        try {
+            bos = new BufferedOutputStream(new FileOutputStream(fileToSaveJson));
+            bos.write(jsonArrayTrue);
+            bos.flush();
+            bos.close();
+
+        } catch (IOException e4) {
+            // TODO Auto-generated catch block
+            e4.printStackTrace();
+
         }
     }
 
