@@ -16,7 +16,6 @@ public class StaticMapCommand extends Command {
     private static final String RED_VALUE = "255";
     private static final String GREEN_VALUE = "122";
     private static final String BLUE_VALUE = "0";
-
     private String param;
 
     /**
@@ -42,6 +41,7 @@ public class StaticMapCommand extends Command {
                 String.valueOf(query.getLatitude()), String.valueOf(query.getLongitude()), "", "",
                 ApiParser.generateStaticMapPoint(String.valueOf(query.getLatitude()),
                         String.valueOf(query.getLongitude()), RED_VALUE, GREEN_VALUE, BLUE_VALUE, param)));
+
         return new CommandResultImage("Showing map of " + param, image);
     }
 }
