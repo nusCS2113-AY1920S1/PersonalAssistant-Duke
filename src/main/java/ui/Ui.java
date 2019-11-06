@@ -410,6 +410,14 @@ public class Ui {
         }
     }
 
+    public void undoMessage(){
+        System.out.println("Got it! I have undone the previous command.");
+    }
+    public void redoMessage(){
+        System.out.println("Got it! I have redone the previous command.");
+    }
+
+
     /**
      * Prints out a help message with command formats.
      */

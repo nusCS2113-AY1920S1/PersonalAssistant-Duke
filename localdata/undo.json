@@ -22,5 +22,11 @@
     "budget": 0.0,
     "spending": 0.0,
     "projectname": "event"
+  },
+  "race": {
+    "managermap": {},
+    "budget": 0.0,
+    "spending": 0.0,
+    "projectname": "race"
   }
 }

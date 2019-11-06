@@ -23,6 +23,9 @@ import java.util.LinkedHashMap;
 public class Storage {
     private static String ProjectsFilePath = "localdata/Projects.json";
     private static String CommandListFilePath = "localdata/history.json";
+    private static String undoListFilePath = "localdata/undo.json";
+    private static String redoListFilePath = "localdata/redo.json";
+
 
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -39,7 +42,7 @@ public class Storage {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             }
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, false));
             for (String lineStr : toWriteStr.split("\n")) {
                 bufferedWriter.write(lineStr);
                 bufferedWriter.newLine();
@@ -47,6 +50,44 @@ public class Storage {
             bufferedWriter.close();
         } catch (IOException e) {
             throw new AlphaNUSException("Unable to write to file: " + ProjectsFilePath);
+        }
+    }
+
+    public void writeToUndoFile(LinkedHashMap<String, Project> projectmap) throws AlphaNUSException {
+        String toWriteStr = gson.toJson(projectmap);
+        try {
+            File file = new File(undoListFilePath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, false));
+            for (String lineStr : toWriteStr.split("\n")) {
+                bufferedWriter.write(lineStr);
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+        } catch (IOException e) {
+            throw new AlphaNUSException("Unable to write to file: " + undoListFilePath);
+        }
+    }
+
+    public void writeToRedoFile(LinkedHashMap<String, Project> projectmap) throws AlphaNUSException {
+        String toWriteStr = gson.toJson(projectmap);
+        try {
+            File file = new File(redoListFilePath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, false));
+            for (String lineStr : toWriteStr.split("\n")) {
+                bufferedWriter.write(lineStr);
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+        } catch (IOException e) {
+            throw new AlphaNUSException("Unable to write to file: " + redoListFilePath);
         }
     }
 
@@ -69,6 +110,33 @@ public class Storage {
         return projectmap;
     }
 
+    public LinkedHashMap<String, Project> readFromUndoFile() throws AlphaNUSException {
+        Type projectmaptype = new TypeToken<LinkedHashMap<String, Project>>(){}.getType();
+        LinkedHashMap<String, Project> projectmap;
+        try {
+            File file = new File(undoListFilePath);
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            projectmap = gson.fromJson(bufferedReader, projectmaptype);
+            bufferedReader.close();
+        } catch (Exception e) {
+            throw new AlphaNUSException("Unable to read file");
+        }
+        return projectmap;
+    }
+
+    public LinkedHashMap<String, Project> readFromRedoFile() throws AlphaNUSException {
+        Type projectmaptype = new TypeToken<LinkedHashMap<String, Project>>(){}.getType();
+        LinkedHashMap<String, Project> projectmap;
+        try {
+            File file = new File(redoListFilePath);
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            projectmap = gson.fromJson(bufferedReader, projectmaptype);
+            bufferedReader.close();
+        } catch (Exception e) {
+            throw new AlphaNUSException("Unable to read file");
+        }
+        return projectmap;
+    }
     /**
      * Saves the tasklist of the user as an ArrayList containing the task object.
      * @param str TODO

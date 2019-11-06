@@ -16,11 +16,7 @@ import ui.Ui;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Calendar;
+import java.util.*;
 
 public class Process {
     public SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
@@ -63,7 +59,7 @@ public class Process {
      * @param ui Ui that interacts with the user.
      * @return
      */
-    public void listProjects(Ui ui) {
+    public void listProjects(Ui ui) throws AlphaNUSException {
         ArrayList<Project> projectslist = projectmanager.listProjects();
         if (projectslist.isEmpty()) {
             ui.printNoProjectMessage();
@@ -79,7 +75,8 @@ public class Process {
      * @param ui    Ui that interacts with the user.
      * @return
      */
-    public void addProject(String input, Ui ui) {
+    public void addProject(String input, Ui ui, Storage storage) throws AlphaNUSException {
+        beforeAftercommand.beforedoCommand(storage);
         String[] split = input.split("pr/", 2);
         split = cleanStrStr(split);
         if (split.length != 2) {
@@ -101,8 +98,10 @@ public class Process {
         } //TODO refactor
 
         Project newProject = projectmanager.addProject(projectname);
+        storage.writeToProjectsFile(projectmanager.projectmap);
         int projectsize = projectmanager.projectmap.size();
         ui.printAddProject(newProject, projectsize);
+        beforeAftercommand.afterCommand(storage);
     }
 
     /**
@@ -111,7 +110,8 @@ public class Process {
      * @param input Input from the user.
      * @param ui    Ui that interacts with the user.
      */
-    public void deleteProject(String input, Ui ui) {
+    public void deleteProject(String input, Ui ui, Storage storage) throws AlphaNUSException {
+        beforeAftercommand.beforedoCommand(storage);
         String[] split = input.split("pr/", 2);
         split = cleanStrStr(split);
         if (split.length != 2) {
@@ -134,7 +134,9 @@ public class Process {
 
         Project deletedProject = projectmanager.deleteProject(projectname);
         int projectsize = projectmanager.projectmap.size();
+        storage.writeToProjectsFile(projectmanager.projectmap);
         ui.printDeleteProject(deletedProject, projectsize);
+        beforeAftercommand.afterCommand(storage);
     }
 
     /**
@@ -705,7 +707,8 @@ public class Process {
      * @param commandList ArrayList of commands.
      * @param storage     command.Storage that stores the input commands entered by the user.
      */
-    public void history(Ui ui, ArrayList<String> commandList, Storage storage) throws AlphaNUSException {
+    public void history(Ui ui, Storage storage) throws AlphaNUSException {
+        ArrayList<String> commandList = new ArrayList<String>();
         commandList = storage.readFromCommandsFile();
         ui.printArrayList(commandList);
     }
@@ -718,7 +721,8 @@ public class Process {
      * @param commandList ArrayList of commands.
      * @param storage     command.Storage that stores the input commands entered by the user.
      */
-    public void viewhistory(String input, Ui ui, ArrayList<String> commandList, Storage storage) throws ParseException, AlphaNUSException {
+    public void viewhistory(String input, Ui ui , Storage storage) throws ParseException, AlphaNUSException {
+        ArrayList<String> commandList = new ArrayList<String>();
         String[] splitspace = input.split(" ", 3);
         String[] splitslash = splitspace[2].split("/", 2);
         String[] splitdates = splitslash[1].split(" ", 3);
@@ -729,7 +733,7 @@ public class Process {
         Date dateSecond = sdf.parse(date2);
         commandList = storage.readFromCommandsFile();
         ArrayList<String> viewhistory = new ArrayList<String>();
-            for (int i = 0; i < commandList.size() - 1; i = i + 1) {
+            for (int i = 0; i < commandList.size(); i = i + 1) {
                 String token = null;
                 String token1 = null;
                 String[] splitDateCommand = commandList.get(i).split("~", 2);
@@ -751,4 +755,12 @@ public class Process {
             }
             ui.printArrayList(viewhistory);
         }
+    public void undo(Storage storage, Ui ui) throws AlphaNUSException {
+        storage.writeToProjectsFile(storage.readFromUndoFile());
+        ui.undoMessage();
     }
+    public void redo(Storage storage, Ui ui) throws AlphaNUSException {
+        storage.writeToProjectsFile(storage.readFromRedoFile());
+        ui.redoMessage();
+    }
+}

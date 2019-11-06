@@ -30,13 +30,13 @@ public class Parser {
      * @param tasklist Tasklist of the user.
      * @param ui Ui that interacts with the user.
      * @param storage command.Storage for the Tasklist.
-     * @param commandList List of input commands.
+     * @param list
      * @return Returns boolean variable to indicate when to stop parsing for input.
      * @throws AlphaNUSException if input is not valid.
      */
 
-    public static boolean parse(String input, TaskList tasklist, Ui ui, Fund fund, 
-        Storage storage, ArrayList<String> commandList) {
+    public static boolean parse(String input, TaskList tasklist, Ui ui, Fund fund,
+                                Storage storage, ArrayList<String> list) {
         try {
             if (instr.isBye(input)) {
                 System.out.println("Saving...");
@@ -44,18 +44,24 @@ public class Parser {
                 ui.byeMessage();
                 ui.getIn().close();
                 return true;
+            } else if (instr.isUndo(input)) {
+                process.commandHistory(input, ui, storage);
+                process.undo(storage, ui);
+            } else if (instr.isRedo(input)) {
+                process.commandHistory(input, ui, storage);
+                process.redo(storage, ui);
             } else if (instr.isViewhistory(input)) {
-                process.viewhistory(input, ui, commandList, storage);
+                process.viewhistory(input, ui, storage);
             } else if (instr.isHistory(input)) {
-                process.history(ui,commandList, storage);
+                process.history(ui,storage);
             } else if (instr.isListProjects(input)) {
                 process.listProjects(ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isAddProject(input)) {
                 process.commandHistory(input, ui, storage);
-                process.addProject(input, ui);
+                process.addProject(input, ui, storage);
             } else if (instr.isDeleteProject(input)) {
-                process.deleteProject(input, ui);
+                process.deleteProject(input, ui, storage);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isGoToProject(input)) {
                 process.goToProject(input, ui);
