@@ -1,1 +1,3 @@
-E | 0 | Kick a ball | 12-11-2019 1700
+D | 0 | kick a ball | 12-12-2019 1500 | low
+D | 0 | kick a ball | 12-12-2019 1500 | high
+T | 0 | kick a ball | low

@@ -1,11 +1,2 @@
-degree-Biomedical Engineering-0
-degree-Computer Engineering-1
-degree-Computer Engineering-2
-degree-Computer Engineering-3
-degree-Computer Engineering-4
-degree-Computer Engineering-5
-degree-Electrical Engineering-6
-degree-Mechanical Engineering-7
-degree-Computer Engineering-8
-degree-Mechanical Engineering-9
-degree-bme-10
+degree-Computer Engineering-0
+degree-Mechanical Engineering-1

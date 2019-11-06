@@ -41,7 +41,7 @@ public class PrintCommand extends Command {
      * @throws DukeException DukeException thrown when unable to execute
      */
     public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists, DegreeManager degreesManager) throws DukeException {
-        if(this.command.matches("list")) {
+        if(this.command.matches("tasks")) {
             tasks.print();
         }
         if(this.command.matches("choices")) {

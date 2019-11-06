@@ -15,12 +15,11 @@ import java.util.Scanner;
 public class UI {
     private Scanner sc;
     private String loadingError = "Formatting Issues Encountered. New Task List initialized";
-    private String line = "____________________________________________________________";
+    private String line = "_______________________________________________________________________________________"
+            + "_______";
     private String goodBye = "Bye. Hope to see you again soon!";
     private String closeSuccess = "File successfully saved!";
     private String closeFail = "File failed to save";
-    private String welcomeMessage = "Hello! I'm Duke\n"
-            + "What can I do for you?\n";
 
     public UI() {
     }
