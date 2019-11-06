@@ -354,9 +354,9 @@ public class UiFr extends Ui {
             System.out.println("\t UserAnswerException:\n\t\t ☹ OOPS!!! Veuillez répondre correctement à la question.");
         }
 
-        else if (e instanceof InvalidFlagException){
+        else if (e instanceof InvalidFlagException) {
             System.out.println("\t InvalidFlagException:\n\t\t ☹ OOPS!!! Drapeau invalide.");
-
+        }
         else if(e instanceof RecurrenceException){
             System.out.println("\t RecurrenceException:\n\t\t ☹ OOPS!!! Respectez le format pour la recurrence" +
                     "\n\t\t\t recu TYPEOFRECURRENCE NBRECURRENCE");
