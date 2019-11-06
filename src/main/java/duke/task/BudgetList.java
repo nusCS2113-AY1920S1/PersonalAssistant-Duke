@@ -1,10 +1,11 @@
 package duke.task;
 
+import duke.enums.Numbers;
+
 import java.util.ArrayList;
 
 //@@author maxxyx96
 public class BudgetList {
-    private static final int ZERO = 0;
     public static final String INITIAL_BUDGET = "0";
     private ArrayList<String> budgetList;
 
@@ -24,8 +25,8 @@ public class BudgetList {
      */
     public BudgetList(ArrayList<String> list) {
         budgetList = list;
-        if (getSize() < 1) {
-            resetBudget(0);
+        if (getSize() < Numbers.ONE.value) {
+            resetBudget(Numbers.ZERO.value);
         }
     }
 
@@ -39,7 +40,7 @@ public class BudgetList {
         try {
             return Float.parseFloat(input);
         } catch (Exception e) {
-            return 0;
+            return Numbers.ZERO.value;
         }
 
     }
@@ -51,9 +52,9 @@ public class BudgetList {
      * @param remark Some description.
      */
     public void addToBudget(String amount, String remark) {
-        float currentBudget = floatConverter(budgetList.get(ZERO)) + floatConverter(amount);
+        float currentBudget = floatConverter(budgetList.get(Numbers.ZERO.value)) + floatConverter(amount);
         budgetList.add(amount + " : " + remark);
-        budgetList.set(ZERO, Float.toString(currentBudget));
+        budgetList.set(Numbers.ZERO.value, Float.toString(currentBudget));
     }
 
     /**
@@ -62,7 +63,7 @@ public class BudgetList {
      * @return returns the budget that is stored in budgetList.
      */
     public float getBudget() {
-        return floatConverter(budgetList.get(ZERO));
+        return floatConverter(budgetList.get(Numbers.ZERO.value));
     }
 
     /**
@@ -74,7 +75,7 @@ public class BudgetList {
         String stringAmount = Float.toString(amount);
         budgetList.clear();
         budgetList.add(INITIAL_BUDGET);
-        budgetList.set(ZERO, stringAmount);
+        budgetList.set(Numbers.ZERO.value, stringAmount);
     }
 
     /**
@@ -101,16 +102,39 @@ public class BudgetList {
      * @return The list of budget.
      */
     public String getStringList() {
-        if (budgetList.size() < 1) {
+        if (budgetList.size() < Numbers.ONE.value) {
             return "     You have not made an entry yet.";
         } else {
             String listString = "     Here are your current expenses: \n";
-            for (int i = 1; i < budgetList.size(); i++) {
+            for (int i = Numbers.ONE.value; i < budgetList.size(); i++) {
                 listString += "     " + (i) + ") " + budgetList.get(i) + "\n";
             }
             return listString;
         }
 
+    }
+
+    /**
+     * Removes the stated index of budgetList from the list.
+     *
+     * @param index the index of the list to be removed.
+     */
+    public void removeEntryFromList(int index) {
+        budgetList.remove(index);
+    }
+
+    /**
+     * Undoes the last budget and update the budget value and the budget list.
+     *
+     * @param index The index of the budget to be undone.
+     */
+    public void undoLastBudget(int index) {
+        float budget = getBudget();
+        String undoBudget = budgetList.get(index);
+        undoBudget = undoBudget.split(":")[Numbers.ZERO.value];
+        budget -= Float.parseFloat(undoBudget);
+        removeEntryFromList(index);
+        budgetList.set(Numbers.ZERO.value, Float.toString(budget));
     }
 }
 //@@author

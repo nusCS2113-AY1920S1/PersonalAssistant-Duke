@@ -6,16 +6,15 @@ import duke.task.TaskList;
 import duke.task.Todo;
 import duke.ui.Ui;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
-import java.text.ParseException;
+import duke.dukeexception.DukeException;
 
 //@@author talesrune
 class FilterCommTest {
 
     @Test
-    void filterTest() throws ParseException {
+    void filterTest() throws DukeException {
         TaskList items = new TaskList();
         Task task = new Todo("walk");
         items.add(task);

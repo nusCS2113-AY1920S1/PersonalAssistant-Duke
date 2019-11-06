@@ -21,6 +21,7 @@ public class AddContactsCommand extends Command {
      * Creates a command with the specified contact.
      *
      * @param contactObj The contacts to be added.
+     * @param contactList The list of contacts.
      */
     public AddContactsCommand(Contacts contactObj, ContactList contactList) {
         this.contactObj = contactObj;

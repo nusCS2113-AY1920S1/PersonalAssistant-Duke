@@ -1,6 +1,7 @@
 package duke.task;
 
 import duke.command.AddCommand;
+import duke.enums.Numbers;
 import duke.task.TaskList;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -11,12 +12,9 @@ import javafx.util.Pair;
  * Represents a priority list that stores a list of priorities associated with each task.
  */
 public class PriorityList {
-    private static final int ZERO = 0;
-    private static final int ONE = 1;
-    private static final int FIVE = 5;
 
     private ArrayList<Integer> priorityList;
-    private int defultPriority = FIVE;
+    private int defultPriority = Numbers.FIVE.value;
 
     /**
      * Creates an empty priority list using an array list.
@@ -44,7 +42,7 @@ public class PriorityList {
      */
     public PriorityList setPriority(int taskNum, int priority) {
 
-        priorityList.set(taskNum - ONE, priority);
+        priorityList.set(taskNum - Numbers.ONE.value, priority);
 
         return new PriorityList(priorityList);
     }
@@ -70,7 +68,7 @@ public class PriorityList {
      */
     public PriorityList addMultiDefaultPriority(int numOfTimes) {
 
-        for (int i = ZERO; i < numOfTimes; i++) {
+        for (int i = Numbers.ZERO.value; i < numOfTimes; i++) {
             priorityList.add(defultPriority);
         }
 
@@ -135,13 +133,13 @@ public class PriorityList {
      */
     public static ArrayList<Pair> sortPriority(TaskList taskList, PriorityList priorities) {
         ArrayList<Pair> pairList = new ArrayList<>();
-        for (int i = ONE; i <= taskList.size(); i++) {
+        for (int i = Numbers.ONE.value; i <= taskList.size(); i++) {
             Pair<Integer, Task> pair = new Pair<>(priorities.getPriority(i), taskList.get(i - 1));
             pairList.add(pair);
         }
 
-        for (int i = ONE; i < taskList.size(); i++) {
-            for (int j = i; j > ZERO; j--) {
+        for (int i = Numbers.ONE.value; i < taskList.size(); i++) {
+            for (int j = i; j > Numbers.ZERO.value; j--) {
                 if (((int) pairList.get(j).getKey()) < (int) pairList.get(j).getKey()) {
                     Pair<Integer, String> temp = pairList.get(j);
                     pairList.set(j, pairList.get(j));
@@ -157,7 +155,7 @@ public class PriorityList {
     @Override
     public String toString() {
         String output = "";
-        for (int i = ZERO; i < priorityList.size(); i++) {
+        for (int i = Numbers.ZERO.value; i < priorityList.size(); i++) {
             output += priorityList.get(i) + " ";
         }
 

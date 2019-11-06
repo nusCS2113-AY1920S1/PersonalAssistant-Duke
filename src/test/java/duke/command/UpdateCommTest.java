@@ -9,13 +9,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
-import java.text.ParseException;
+import duke.dukeexception.DukeException;
 
 //@@author talesrune
 class UpdateCommTest {
 
     @Test
-    void updateTest() throws ParseException {
+    void updateTest() throws DukeException {
         TaskList items = new TaskList();
         Task task = new Todo("walk");
         items.add(task);
@@ -70,7 +70,7 @@ class UpdateCommTest {
     }
 
     @Test
-    public void updateTest_exceptionThrown() throws ParseException {
+    public void updateTest_exceptionThrown() throws DukeException {
         TaskList items = new TaskList();
         Task task = new Todo("walk");
         items.add(task);

@@ -30,6 +30,7 @@ DUKE Manager is for those who prefers an electronic handbook as compared to a ha
 DUKE Manager will be able to 
 - Handle various Task Inputs, 
 - Manage Tasks 
+- Show upcoming reminders due in 3 days at Home Page when program first boots up
 - Track Academic Expenses 
 - Manage and Track Academic Module 
 
@@ -47,13 +48,6 @@ In the future, our team envision DUKE Manager to be able to
 [[V1.4 Features]]
 
 === Priority-Related Task Inputs
-
-==== Creating a new "Event" task : `event`
-
-Creates a new task called "Event" in Duke Manager. +
-Format: `event <task description> /at <date and time>`
-
-* Date and time have to be inputted in this format `<d/MM/yyyy HHmm>`.
 
 ==== Creating a new "Deadline" task : `deadline`
 
@@ -82,16 +76,6 @@ Format: `repeat <task> /from <date and time> /for <duration> <day/week/month>`
 
 * Date and time must be input in this format <d/MM/yyyy HHmm>.
 * The duration refers to the length of time.
-
-==== Creating a new "Reminder" task : `reminder`
-
-Creates a new task called "Reminder" in Duke Manager. +
-Format: `remind <task number> /in <duration in days>`
-
-* Reminds the user of the task at the specified `<task number>`.
-* The task number refers to the index number shown in the displayed task list.
-* The index *must be in between 1 and the size of tasklist*. e.g. For a tasklist that contains 4 tasks, only numbers 1 to 4 are allowed.
-* The duration in days refers to the length of time in days.
 
 === Non-Priority-Related Task Inputs
 
@@ -190,6 +174,32 @@ Format: sortcontacts `<alpha/recent>`
 
 * Alpha will sort in alphabetical order and recent sort in terms of latest addition.
 
+=== Notes
+==== Notes in a task : `notes`
+Notes can be either added or updated to an existing task in the tasklist. They can also be removed from an existing task. Notes of an existing task can be shown in the tasklist.
+Format: `notes <task number> <type of notes> <(Optional) notes description>`
+
+* Adds/Updates/Deletes/Shows notes of the task at the specified `<task number>`.
+* The task number refers to the index number shown in the displayed task list.
+* The index *must be in between 1 and the size of tasklist.* e.g. For a tasklist that contains 4 tasks, only numbers 1 to 4 are allowed.
+* The type of notes refers to either `/add`, `/date`, or `/show`. 
+* `/add` represents adding/updating notes of the task.
+* `/delete` represents removing existing notes from the task.
+* `/show` represents showing the notes of the task.
+* The notes description is *only required when adding or updating notes*, not when deleting or showing notes.
+
+Examples:
+
+* `notes 1 /add read page 578`
+Adds/Updates notes of the first task in the tasklist.
+ 
+* `notes 3 /delete`
+Deletes notes of the third task in the tasklist.
+ 
+* `notes 2 /show`
+Shows notes of the second task to the user in the tasklist.
+
+
 === Generic Task Management
 
 ==== Listing all tasks : `list`
@@ -235,18 +245,19 @@ Deletes the 4th task in the results of the `find` command.
 
 ==== Updates an existing task in tasklist: `update`
 
-Updates the task, either task description or date and time in Duke Manager. +
+Updates the task, either task description, date and time, or type of task in Duke Manager.
 Format: `update <task number> <type of update> <description to be updated>`
 
 * Updates the task at the specified `<task number>`.
 * The task number refers to the index number shown in the displayed task list.
 * The index *must be in between 1 and the size of tasklist*. e.g. For a tasklist that contains 4 tasks, only numbers 1 to 4 are allowed.
-* The type of update refers to either `/desc` or `/date`.
+* The type of update refers to either `/desc`, `/date`, or `/type`.
 * `/desc` represents updating the task description.
 * `/date` represents updating the date and time of the task.
-* The description to be updated refers to either description of task, or date and time depending on `<type of update>`.
+* The description to be updated refers to either description of task, date and time, or type of task depending on `<type of update>`.
 * Date and time have to be inputted in this format `<d/MM/yyyy HHmm>`.
 * Returns an error if a task does not contain date and time when the user tries to update date and time of the particular task.
+* Returns an error if the task type is invalid.
 
 Examples:
 
@@ -254,6 +265,8 @@ Examples:
 Updates the 1st task description in the tasklist.
 * `update 5 /date 17/09/2019 1222` +
 Updates date and time of the 5th task in the tasklist.
+* `update 2 /type deadline`
+Updates type of the 2nd task to Deadline in the tasklist.
 
 ==== Detect duplicates in task list
 
@@ -267,7 +280,7 @@ There is no format and does not require any form of input to be executed. This f
 
 ==== Detecting anomalies in task list
 
-Detects tasks that clash with the same date and time when adding a new task in Duke Manager. 
+Detects tasks that clash with the same date and time when adding a new task, or updating an existing task in Duke Manager. 
 
 * Alerts user that an existing task has the same date and time.
 * Prompts the user to either pick a different date and time, or mark the existing task as done.
@@ -296,6 +309,36 @@ Format: `setpriority <task number> <priority>`
 ====  Browse the list of tasks and their priorities: `priority`
 Display the list of tasks and their priorities beside each task.
 Format: `priority`
+
+====  Find a list of tasks with a certain priority: `findpriority`
+Return a list of tasks that have a certain priority.
+Format: `findpriority <priority>`
+
+* The <priority> refers to the priority of the task: 1-HighPriority ~ 5-LowPriority.
+* The priority *must be between 1 and 5 both inclusive*. 
+* If no records are found, the user will be alerted.
+
+====  Find a list of tasks on a certain date: `finddate`
+Return a list of tasks due on a certain date.
+Format: `findpriority /on <date>`
+
+* The <date> is in the format <dd/MM/yyyy>.
+* If no records are found, the user will be alerted.
+
+ 
+==== Filters tasks that are of the same type in tasklist: `filter`
+Categorizes tasks in the task list based on the type of task.
+Format: `filter <type of task>`
+* The type must be in lowercase. e.g. `todo` is not `Todo`
+* Returns an error if the task type is invalid. 
+ 
+Examples:
+
+* `filter todo`
+Returns a list of Todo tasks.
+ 
+* `filter deadline`
+Returns a list of Deadline tasks.
 
 === Miscellenous Inputs 
 
@@ -379,5 +422,23 @@ eg. `addcontact Prof Tan, 91234567, tancc@nus.edu.sg, E1-08-11`
 eg. `deletecontact 1`
 * *FindContact* : `findcontact [KEYWORD]`
 eg. `findcontact Prof Tan`
-* *Set Priority* : `setpriority [TASK_NUMBER] [PRIORITY]` +
+* *Add/Update Notes* : `notes [INDEX] /add [NOTES DESCRIPTION]`
+e.g. `notes 1 /add read page 578`
+* *Delete Notes* : `notes [INDEX] /delete`
+e.g. `notes 1 /delete`
+* *Show Notes* : `notes [INDEX] /show`
+e.g. `notes 1 /show`
+* *Filter* : `filter [TASK TYPE]`
+e.g. `filter deadline`
+* *Update task description* : `update [INDEX] /desc [DESCRIPTION]`
+e.g. `update 1 /desc running`
+* *Update task date/time* : `update [INDEX] /date [DATE/TIME]`
+e.g. `update 1 /date 27/10/2019 2359`
+* *Update task type* : `update [INDEX] /type [TASK TYPE]`
+e.g. `update 1 /type todo`
+* *Set Priority* : `setpriority [TASK_NUMBER] [PRIORITY]` 
 e.g. `setpriority 1 5`
+* *Find tasks based on the priority* : `findpriority [PRIORITY]` 
+e.g. `findpriority 1`
+* *Find tasks on a date* : `findpriority /on [DATE]` 
+e.g. `finddate /on 01/12/2019`

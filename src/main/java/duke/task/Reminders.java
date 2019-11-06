@@ -21,6 +21,7 @@ public class Reminders implements Serializable {
      * Retrieves rem checks for tasks that are due soon.
      * @param remindDaysFrom gets the remind by that date time.
      * @param items The task list that contains a list of tasks.
+     * @return TaskList.
      */
     public TaskList getReminders(int remindDaysFrom, TaskList items) {
         LocalDateTime currentDateTime = LocalDateTime.now(); // gets the current date and time

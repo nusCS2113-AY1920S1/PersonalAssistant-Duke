@@ -1,0 +1,63 @@
+= Lim Ting Wei - Project Portfolio
+
+== PROJECT: Duke Manager 
+
+---
+
+== Overview
+
+DUKE Manager is an electronic handbook which is resulted from extending the project from DUKE in CS2113, using Java and Object Oriented Programming.
+
+DUKE Manager has a friendly Graphical User Interface (GUI) which helps to keep track of the user's tasks. Also, it has an option for users who prefer Command Line Interface style by using the text box.
+
+My role is to create a GUI to the DUKE Manager, as well as implementing some features like Update, Filter, DetectAnomalies, and Notes to improve the efficiency for the user. 
+
+== Summary of contributions
+
+* *Main Enhancement*: added the ability to update existing tasks.
+** What it does: This enhancement allows Duke Manager to be able to update either task description, date and time, or task's type to existing tasks. 
+** Justification: This feature improves the efficiency of DUKE manager as the user may want to update an existing task instead of deleting and then adding a new task. This saves time for the user, so that the user can manage the tasklist quickly and efficiently.
+** Highlights: The update command can be used for both existing and new types of task. However, the update command is only implemented for majority of the tasks. Some parts of a certain type of task are too narrow for them to be included in update command. For example, the user will not be able to update the duration and unit of FixedDuration.
+
+* *Minor Enhancements*: 
+
+** *Notes Feature*: added notes so that users will be able to add/update/delete/show notes of a task in DUKE Manager. 
+
+** *DetectAnomalies*: added code to detect tasks that clash with the same date and time when adding a new task, or updating an existing task in DUKE Manager.
+
+** *Filter*: added filter so that the users can filter out tasks in the task list based on the type of task.
+
+
+
+* *Code contributed*: [https://nuscs2113-ay1920s1.github.io/dashboard/#search=talesrune&sort=groupTitle&sortWithin=title&since=2019-09-21&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]]
+
+** *Update Related Code*: [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/command/UpdateCommand.java[Update Command]]
+
+** *Notes Related Code*:  [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/command/AddNotesCommand.java[Add Notes Command]][https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/command/DeleteNotesCommand.java[Delete Notes Command]][https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/command/ShowNotesCommand.java[Show Notes Command]]
+
+** *Filter Related Code*: [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/command/FilterCommand.java[Filter Command]]
+
+* *Other contributions*:
+
+** Project management: Managed releases mid-v1.1 - v1.3 (4 releases) on Github
+
+** Enhancements to existing features: Designed and created GUI from scratch.
+
+** Documentation: Helped out populating the user guide during its inital stage, implemented own features into both user guide and developer guide.
+
+** Tools:
+*** Integrated shadowJar, javadoc, JavaUI, JUnit, and Gradle into project.
+
+== Contributions to the User Guide
+Contributed the following sections of the [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/UserGuide.adoc[User Guide]]:
+
+*Update*
+
+*Notes*
+
+*Filter*
+
+*DetectAnomalies*
+
+== Contributions to the Developer Guide
+Contributed the following sections of the [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide]]:
