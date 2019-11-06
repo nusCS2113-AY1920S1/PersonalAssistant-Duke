@@ -13,6 +13,7 @@ import util.AssignmentViewHelper;
 import util.CommandHelper;
 import util.ParserHelper;
 import util.ViewHelper;
+import util.date.DateTimeHelper;
 import util.factories.MemberFactory;
 import util.factories.ReminderFactory;
 import util.factories.TaskFactory;
@@ -111,6 +112,8 @@ public class ProjectInputController implements IController {
             responseToView = projectAssignTask(this.projectToManage, projectFullCommand);
         } else if (projectFullCommand.matches("add reminder.*")) {
             responseToView = projectAddReminder(this.projectToManage,projectFullCommand);
+        } else if (projectFullCommand.matches("view reminders"))  {
+            responseToView = projectViewReminder(this.projectToManage);
         } else if (projectFullCommand.matches("view")) {
             responseToView = projectViewSelf(this.projectToManage);
         } else if (projectFullCommand.matches("help")) {
@@ -591,11 +594,11 @@ public class ProjectInputController implements IController {
 
 
     /**
-     * Add reminder to the default list list of tasks and the members assigned to them.
+     * Add reminder to the default list.
      * @param projectToManage The project to manage.
      * @param projectCommand The user input.
      */
-    private String [] projectAddReminder(Project projectToManage, String projectCommand) {
+    public String [] projectAddReminder(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(),
                 "[projectAddReminder] User input: '" + projectCommand + "'");
         try {
@@ -613,5 +616,30 @@ public class ProjectInputController implements IController {
                     + "Please enter your reminder date format correctly.");
             return new String[] {"Please enter your reminder date format correctly."};
         }
+    }
+
+    /**
+     * View reminder to the default list list of tasks and the members assigned to them.
+     * @param projectToManage The project to manage.
+     */
+    public String [] projectViewReminder(Project projectToManage) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectViewReminder]");
+        DateTimeHelper dateTimeHelper = new DateTimeHelper();
+        ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
+        ArrayList<String> allTaskDetailsForTable = new ArrayList<>();
+
+        int index = 1;
+        allTaskDetailsForTable.add(0, "Reminder of " + projectToManage.getName() + ":");
+        for (Reminder reminder: projectToManage.getReminderList()) {
+            allTaskDetailsForTable.add(index + ". " + reminder.getReminderName());
+            allTaskDetailsForTable.add("   - " + reminder.getReminderRemarks());
+            allTaskDetailsForTable.add("   - " + dateTimeHelper.formatDateForDisplay(reminder.getReminderDate())
+                    + dateTimeHelper.getDifferenceDays(reminder.getReminderDate()));
+            allTaskDetailsForTable.add(" ");
+            index++;
+        }
+
+        tableToPrint.add(allTaskDetailsForTable);
+        return viewHelper.consolePrintTable(tableToPrint);
     }
 }

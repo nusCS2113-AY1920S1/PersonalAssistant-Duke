@@ -133,6 +133,7 @@ public class ParserHelper {
     public ArrayList<String> parseReminderDetails(String[] input) {
         ArrayList<String> newReminderInfo = new ArrayList<>();
         String newReminderName = "--";
+        String newReminderRemarks = "--";
         String newReminderDate = null;
 
         ArrayList<String> newReminderInfoInput  =  new ArrayList<>(Arrays.asList(input));
@@ -141,6 +142,9 @@ public class ParserHelper {
             switch (s.charAt(0)) {
             case 'n':
                 newReminderName = s.substring(1).trim();
+                break;
+            case 'r':
+                newReminderRemarks = s.substring(1).trim();
                 break;
             case 'd':
                 newReminderDate = s.substring(1).trim();
@@ -151,6 +155,7 @@ public class ParserHelper {
         }
 
         newReminderInfo.add(newReminderName);
+        newReminderInfo.add(newReminderRemarks);
         newReminderInfo.add(newReminderDate);
         return newReminderInfo;
     }
