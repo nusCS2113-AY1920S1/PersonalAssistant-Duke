@@ -65,7 +65,6 @@ public class ProjectManager {
      */
     public ArrayList<Project> listProjects() throws AlphaNUSException {
         ArrayList<Project> projectslist = new ArrayList<>();
-        projectmap = storage.readFromProjectsFile();
         for (Project project: projectmap.values()) {
             projectslist.add(project);
         }

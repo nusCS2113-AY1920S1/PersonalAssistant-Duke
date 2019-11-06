@@ -76,7 +76,7 @@ public class Process {
      * @return
      */
     public void addProject(String input, Ui ui, Storage storage) throws AlphaNUSException {
-        beforeAftercommand.beforedoCommand(storage);
+        beforeAftercommand.beforedoCommand(storage, projectmanager);
         String[] split = input.split("pr/", 2);
         split = cleanStrStr(split);
         if (split.length != 2) {
@@ -96,12 +96,10 @@ public class Process {
             System.out.println("\t" + "Project already exists!");
             return;
         } //TODO refactor
-
         Project newProject = projectmanager.addProject(projectname);
-        storage.writeToProjectsFile(projectmanager.projectmap);
         int projectsize = projectmanager.projectmap.size();
         ui.printAddProject(newProject, projectsize);
-        beforeAftercommand.afterCommand(storage);
+        beforeAftercommand.afterCommand(storage, projectmanager);
     }
 
     /**
@@ -111,7 +109,7 @@ public class Process {
      * @param ui    Ui that interacts with the user.
      */
     public void deleteProject(String input, Ui ui, Storage storage) throws AlphaNUSException {
-        beforeAftercommand.beforedoCommand(storage);
+        beforeAftercommand.beforedoCommand(storage, projectmanager);
         String[] split = input.split("pr/", 2);
         split = cleanStrStr(split);
         if (split.length != 2) {
@@ -134,9 +132,8 @@ public class Process {
 
         Project deletedProject = projectmanager.deleteProject(projectname);
         int projectsize = projectmanager.projectmap.size();
-        storage.writeToProjectsFile(projectmanager.projectmap);
         ui.printDeleteProject(deletedProject, projectsize);
-        beforeAftercommand.afterCommand(storage);
+        beforeAftercommand.afterCommand(storage, projectmanager);
     }
 
     /**
@@ -573,7 +570,8 @@ public class Process {
      * @param input Input from the user.
      * @param ui    Ui that interacts with the user.
      */
-    public void deletePayment(String input, Ui ui) {
+    public void deletePayment(String input, Ui ui, Storage storage) throws AlphaNUSException {
+        beforeAftercommand.beforedoCommand(storage, projectmanager);
         HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
         String currentProjectName = projectmanager.currentProject.projectname;
         String[] arr = input.split("payment ", 2);
@@ -581,6 +579,7 @@ public class Process {
         split = cleanStrStr(split);
         Payments deleted = PaymentManager.deletePayments(split[1], split[2], managermap);
         ui.printDeletePaymentMessage(split[1], deleted, managermap.get(split[1]).payments.size(), currentProjectName);
+        beforeAftercommand.afterCommand(storage, projectmanager);
     }
 
     /**
@@ -590,8 +589,9 @@ public class Process {
      * @param input Input from the user.
      * @param ui    Ui that interacts with the user.
      */
-    public void addPayment(String input, Ui ui) {
+    public void addPayment(String input, Ui ui, Storage storage) {
         try {
+            beforeAftercommand.beforedoCommand(storage, projectmanager);
             HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
             String currentProjectName = projectmanager.currentProject.projectname;
             String[] splitspace = input.split("payment ", 2);
@@ -604,9 +604,10 @@ public class Process {
             Payments payment = PaymentManager.addPayments(payee, item, cost, invoice, managermap);
             int paymentsSize = managermap.get(payee).payments.size();
             ui.printAddPaymentMessage(splitpayments[1], payment, paymentsSize, currentProjectName);
+            beforeAftercommand.afterCommand(storage, projectmanager);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | AlphaNUSException e) {
             ui.exceptionMessage("     ☹ OOPS!!! There is no payee with that name yet, please add the payee first!");
         }
     }
@@ -618,8 +619,9 @@ public class Process {
      * @param input Input from the user.
      * @param ui    Ui that interacts with the user.
      */
-    public void addPayee(String input, Ui ui) {
+    public void addPayee(String input, Ui ui, Storage storage) {
         try {
+            beforeAftercommand.beforedoCommand(storage, projectmanager);
             HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
             String currentProjectName = projectmanager.currentProject.projectname;
             String[] splitspace = input.split("payee ", 2);
@@ -632,10 +634,13 @@ public class Process {
             Payee payee = PaymentManager.addPayee(payeename, email, matricNum, phoneNum, managermap);
             int payeesize = managermap.size();
             ui.printAddPayeeMessage(splitpayments[1], payee, payeesize, currentProjectName);
+            beforeAftercommand.afterCommand(storage, projectmanager);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException e) {
             ui.exceptionMessage("     ☹ OOPS!!! There is no payee with that name yet, please add the payee first!");
+        } catch (AlphaNUSException e) {
+            e.printStackTrace();
         }
     }
 
@@ -646,8 +651,9 @@ public class Process {
      * @param input Input from the user.
      * @param ui    Ui that interacts with the user.
      */
-    public void deletePayee(String input, Ui ui) {
+    public void deletePayee(String input, Ui ui, Storage storage) {
         try {
+            beforeAftercommand.beforedoCommand(storage, projectmanager);
             HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
             String currentProjectName = projectmanager.currentProject.projectname;
             String[] splitspace = input.split("payee ", 2);
@@ -657,9 +663,10 @@ public class Process {
             Payee payee = PaymentManager.deletePayee(payeename, managermap);
             int payeesize = managermap.size();
             ui.printdeletePayeeMessage(splitpayments[1], payee, payeesize, currentProjectName);
+            beforeAftercommand.afterCommand(storage, projectmanager);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | AlphaNUSException e) {
             ui.exceptionMessage("     ☹ OOPS!!! There is no payee with that name yet, please add the payee first!");
         }
     }
@@ -756,7 +763,7 @@ public class Process {
      * @param storage Storage that stores the project map.
      */
     public void undo(Storage storage, Ui ui) throws AlphaNUSException {
-        storage.writeToProjectsFile(storage.readFromUndoFile());
+        projectmanager.projectmap = storage.readFromUndoFile();
         ui.undoMessage();
     }
     /**
@@ -765,7 +772,7 @@ public class Process {
      * @param storage Storage that stores the project map.
      */
     public void redo(Storage storage, Ui ui) throws AlphaNUSException {
-        storage.writeToProjectsFile(storage.readFromRedoFile());
+        projectmanager.projectmap = storage.readFromRedoFile();
         ui.redoMessage();
     }
 }

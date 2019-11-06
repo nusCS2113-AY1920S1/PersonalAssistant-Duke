@@ -1,12 +1,14 @@
 {
-  "rag": {
-    "managermap": {},
-    "budget": 0.0,
-    "spending": 0.0,
-    "projectname": "rag"
-  },
   "flag": {
-    "managermap": {},
+    "managermap": {
+      "Shriya": {
+        "payee": "Shriya",
+        "email": "e0373902@u.nus.edu",
+        "matricNum": "A0194079R",
+        "phoneNum": "86790261",
+        "payments": []
+      }
+    },
     "budget": 0.0,
     "spending": 0.0,
     "projectname": "flag"
@@ -22,5 +24,17 @@
     "budget": 0.0,
     "spending": 0.0,
     "projectname": "event"
+  },
+  "rag": {
+    "managermap": {},
+    "budget": 0.0,
+    "spending": 0.0,
+    "projectname": "rag"
+  },
+  "race": {
+    "managermap": {},
+    "budget": 0.0,
+    "spending": 0.0,
+    "projectname": "race"
   }
 }
