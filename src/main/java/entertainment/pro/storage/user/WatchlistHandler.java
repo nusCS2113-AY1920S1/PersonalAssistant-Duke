@@ -10,12 +10,8 @@ import java.util.Comparator;
 import entertainment.pro.ui.MovieHandler;
 
 public class WatchlistHandler {
-    private static ArrayList<Tasks> watch;
+    private static ArrayList<Tasks> watch = new ArrayList<>();
     protected static String space =  "    ";
-
-    public WatchlistHandler() {
-        this.watch = new ArrayList<>();
-    }
 
     /**
      * adds a duke.task to the watchlist
@@ -142,6 +138,25 @@ public class WatchlistHandler {
         return names;
     }
 
+
+    /**
+     * return a list of possible hints from watchlist for autocomplete.
+     * @param keyword incomplete command of the user
+     * @return ArrayList list of movie titles currently in the watchlist that could potentially be
+     * what the user is trying to type.
+     *
+     */
+    public static ArrayList<String> getWatchListHints(String keyword) {
+        ArrayList<String> hints = new ArrayList<>();
+        for (Tasks i : watch) {
+            if (i.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                hints.add(i.getDescription());
+            }
+
+        }
+        return hints;
+    }
+
     /**
      * searches for a movie in the watchlist to mark as its corresponding task as done
      * @param movie: title of the movie to be searched
@@ -167,5 +182,35 @@ public class WatchlistHandler {
             index++;
         }
         return false;
+    }
+
+    /**
+     * check if the watchlist class contains a movie
+     * @param movie: name of the movie title to be searched
+     * @return a boolean representing if a movie is contained in the array list or not
+     */
+    public static boolean contains(String movie) {
+        for (Tasks i : watch) {
+            if (i.getDescription().equals(movie)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     *  gets the size of the watchlist
+     * @return an integer denoting the size of the watchlist
+     */
+    public static int getSize() {
+        return watch.size();
+    }
+
+    /**
+     * returns the watchlist for the user to view
+     * @return watchlist for the user to view
+     */
+    public static ArrayList<Tasks> getWatchlist() {
+        return watch;
     }
 }

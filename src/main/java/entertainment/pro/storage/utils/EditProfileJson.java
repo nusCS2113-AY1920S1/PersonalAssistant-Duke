@@ -30,7 +30,7 @@ public class EditProfileJson {
     };
 
     /**
-     * constructor for EditProfileJson.
+     * Constructor for EditProfileJson.
      */
     public EditProfileJson() throws IOException {
         file = new File("./userProfile.json");
@@ -46,9 +46,9 @@ public class EditProfileJson {
     }
 
     /**
-     * to load UserProfile object from userProfile.json.
+     * Responsible for loading UserProfile object from userProfile.json.
      */
-    public UserProfile load() throws IOException {
+    public static UserProfile load() throws IOException {
 //        InputStream inputStream = getClass().getResourceAsStream("./userProfile.json");
         InputStream inputStream = new FileInputStream("./userProfile.json");
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -76,7 +76,7 @@ public class EditProfileJson {
     }
 
 
-    private void parse(String userProfileString, UserProfile userProfile) {
+    private static void parse(String userProfileString, UserProfile userProfile) {
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = new JSONObject();
         try {

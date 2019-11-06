@@ -14,6 +14,7 @@ public class UserProfile {
     private boolean sortByHighestRating = false;
     private boolean sortByLatestRelease = false;
 
+
     public ArrayList<Integer> getGenreIdPreference() {
         return genreIdPreference;
     }

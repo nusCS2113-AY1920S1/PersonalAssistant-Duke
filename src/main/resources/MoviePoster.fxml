@@ -15,7 +15,7 @@
     <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="210.0" prefWidth="115.0" spacing="4.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
         <ImageView fx:id="moviePosterImageView" fitHeight="161.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
-        <Label fx:id="movieTitleLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="subtitle" text="Label" wrapText="true" VBox.vgrow="ALWAYS" />
+        <Label fx:id="movieTitleLabel" alignment="BASELINE_CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="subtitle" text="Label" wrapText="true" VBox.vgrow="ALWAYS" />
         <Label fx:id="movieNumberLabel" styleClass="subtitle" text="Label">
           <VBox.margin>
             <Insets top="2.0" />
