@@ -147,6 +147,14 @@ public class OrderModelStub implements Model {
         return FXCollections.observableList(new ArrayList<Product>());
     }
 
+    /**
+     * Returns an unmodifiable view of active product list.
+     */
+    @Override
+    public List<Product> getActiveProductList() {
+        return new ArrayList<>();
+    }
+
     @Override
     public void updateFilteredProductList(Predicate<Product> predicate) {
 

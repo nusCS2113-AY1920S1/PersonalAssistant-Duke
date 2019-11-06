@@ -240,8 +240,6 @@ public class BakingHome implements ReadOnlyBakingHome {
         default:
             break;
         }
-
-
     }
 
     @Override

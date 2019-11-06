@@ -4,7 +4,7 @@ import duke.commons.core.Message;
 import duke.logic.command.product.AddProductCommand;
 import duke.logic.command.product.DeleteProductCommand;
 import duke.logic.command.product.EditProductCommand;
-import duke.logic.command.product.ListProductCommand;
+import duke.logic.command.product.FilterProductCommand;
 import duke.logic.command.product.ProductCommand;
 import duke.logic.command.product.SearchProductCommand;
 import duke.logic.command.product.ShowProductCommand;
@@ -34,7 +34,7 @@ ProductCommandParser implements SubCommandParser<ProductCommand> {
             return new AddProductCommandParser().parse(args);
         case EditProductCommand.COMMAND_WORD:
             return new EditProductCommandParser().parse(args);
-        case ListProductCommand.COMMAND_WORD:
+        case FilterProductCommand.COMMAND_WORD:
             return new ListProductCommandParser().parse(args);
         case DeleteProductCommand.COMMAND_WORD:
             return new DeleteProductCommandParser().parse(args);

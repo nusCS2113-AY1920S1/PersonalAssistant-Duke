@@ -7,7 +7,7 @@ import duke.logic.parser.commons.CliSyntax;
 import duke.logic.parser.commons.Prefix;
 import duke.model.Model;
 
-public class ListProductCommand extends ProductCommand {
+public class FilterProductCommand extends ProductCommand {
 
     public enum Scope {
         ALL,
@@ -15,7 +15,7 @@ public class ListProductCommand extends ProductCommand {
         ARCHIVE
     }
 
-    public static final String COMMAND_WORD = "list";
+    public static final String COMMAND_WORD = "filter";
 
     private Scope scope;
     public static final String AUTO_COMPLETE_INDICATOR = ProductCommand.COMMAND_WORD + " " + COMMAND_WORD;
@@ -23,7 +23,7 @@ public class ListProductCommand extends ProductCommand {
         CliSyntax.PREFIX_PRODUCT_SCOPE
     };
 
-    public ListProductCommand(Scope scope) {
+    public FilterProductCommand(Scope scope) {
         this.scope = scope;
     }
 

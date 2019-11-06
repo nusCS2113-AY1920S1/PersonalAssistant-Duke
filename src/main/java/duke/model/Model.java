@@ -173,6 +173,11 @@ public interface Model {
     ObservableList<Product> getFilteredProductList();
 
     /**
+     * Returns an unmodifiable view of active product list.
+     */
+    List<Product> getActiveProductList();
+
+    /**
      * Updates the product list with the given predicate
      */
     void updateFilteredProductList(Predicate<Product> predicate);
