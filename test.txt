@@ -1,0 +1,11 @@
+{Product Name: Cheese cake,
+Retail Price: $5.9,
+Cost: $3.0,
+Ingredients: [Cream cheese,3.0]
+Status: ACTIVE}
+/////////////////////
+{Product Name: Cheese cake,
+Retail Price: $5.9,
+Cost: $3.0,
+Ingredients: [Cream cheese,3.0]
+Status: ACTIVE}
