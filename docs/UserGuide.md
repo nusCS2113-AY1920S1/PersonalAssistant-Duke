@@ -1,14 +1,26 @@
-# Restaurant Manager - User Guide
+# Chef Duke - User Guide
 
 1.  Introduction
 2. Quick Start
 3. Features
-   - Menu
-   - Adding Dish
-   - Adding Ingredient to Dish
-   - List all Dish
-   - Initialize Dish
-   - Removing Dish
+   - Main Menu
+   - Recipe Book Management
+     - Adding Dish
+     - Adding Ingredient to Dish
+     - List all Dish
+     - Initialize Dish
+     - Removing Dish
+   - Ingredient Management by Fridge Storage
+     - Add Ingredient
+     - Remove Ingredient
+     - Finding Ingredient
+     - Using an Ingredient
+     - Listing all Expired Ingredients Today
+     - Removing all Expired Ingredients 
+   - Order Management
+   - Todo List
+   - Statistics: Popularity of Dishes
+   - (the below related to tasks should be deleted)
    - Load and save tasks to hard disk
    - Identify dates and times
    - delete: Delete a task
@@ -16,6 +28,8 @@
    - Error Handling 
 4. Command Summary
 5.  FAQ
+
+
 
 ## 1. Introduction
 
@@ -47,31 +61,43 @@ Duke is targeted towards restaurant chefs who wants to be able to consolidate mo
 
 8. Refer to Section 4 for the full list of commands
 
+
+
 ## 3. Features
 
-**command format**
+**Command Format**
 
-- commands are in `UPPER_CASE` are to be provided by the user eg. `add/DESC`, `DESC` is a parameter which can be used as `add noodle`.
+- Command parameter in `UPPER_CASE` is needed to be specified by the user. E.g., `add DESC` can be specified as `add noodle`.
+- Command parameter followed by `-(...)` is to inform the user of the specifying format. E.g., `ORDER_DATE-(dd/mm/yyyy)` indicates only the format such as `31/12/2019` is accepted. 
+- Some command parameter is followed by `-(option: a (default) | b | c)`, indicating it has `a`, `b`, `c` three options, with the default set to `a`. E.g., for `-l LIST_TYPE-(option: all (default) | undone)`, the user can enter `-l` without further specification as it is equivalent to `-l all`, or specify as `-l undone`.
+- Command parameter can be optional. If it is wrapped by `[...]`, the specification can be dropped and the value is set as `NULL` or default. Otherwise, the parameter must be specified. E.g.,  `add [-d ORDER_DATE-(dd/mm/yyyy)] -n DISH1_NAME[*DISH_AMOUNT], DISH2_NAME[*DISH_AMOUNT]` supports command  `add chicken rice*1, cake*2, laksa`, where the order date is set to `date of today` if not specified, and the dish amount is set to `1` if not specified.
+
+
 
 ### 3.1 Main Menu
 
-the user is greeted depending on the time of day, `good morning` , `good evening` etc. Upon start up, if there are any expired ingredients in the fridge, the application will prompt the user to clear the expired ingredients. In the Main menu, the user is given various options to enter:
+The user is greeted depending on the time of day, `good morning` , `good evening` etc. Upon start up, if there are any expired ingredients in the fridge, the application will prompt the user to clear the expired ingredients. In the Main menu, the user is given various options to enter:
 
-- `q` , **exits** the application
 - `a`, remove the **expired** ingredients 
 - `b` , proceed to **fridge** commands
-- `c`, proceeds to **order** commands 
+- `c`, proceeds to **order** commands
 - `d`, proceeds to **dish** commands
+- `t`, view today's **todo** list
+- `q` , **exits** the application
 
-### 3.2 Adding Dish: `add`
 
-user needs to enter `d` in main menu first.
 
-To add a dish to the DishList, user needs to execute command below:
+### 3.2 Recipe Book Management
 
-Format: `add d/DESC`
+To begin with, the user needs to enter command `d` in main menu, so as to step into Recipe Book management menu. The below commands are all executed in the Recipe Book management menu. 
 
-if the dish already exist in the list, message is output:
+#### 3.2.1 Adding Dish: `add`
+
+To add a dish to the DishList, the user needs to execute command below:
+
+Format: `add DISH_NAME`
+
+If the dish already exist in the list, message is output:
 
 ```
          dish already exist in list
@@ -80,7 +106,7 @@ if the dish already exist in the list, message is output:
 Examples: 
 
 - `add chicken rice`
-- ``add tom yum noodles`
+- `add tom yum noodles`
 
 ```
          _________________________________________________________________________________________
@@ -91,13 +117,11 @@ Examples:
 
 
 
-### 3.3 Adding Ingredient to Dish: `ingredient`
+#### 3.2.2 Add Ingredient to Dish: `ingredient`
 
-user needs to enter `d` in main menu first.
+Executing this command associates an `Ingredient` to an existing `Dish`. The user needs to execute the following command with the below format:
 
-Executing this command associates an ingredient to a certain Dish. user needs to execute the command below:
-
-Format: `ingredient d/DESC n/AMOUNT i/INDEX`
+Format: `ingredient INGREDIENT_NAME INGREDIENT_AMOUNT DISH_INDEX`
 
 Examples:
 
@@ -113,15 +137,13 @@ Examples:
 
 
 
-### 3.4 List all Dishes: `list`
+#### 3.2.3 Listing all Dishes: `list`
 
-user needs to enter `d` in main menu first.
+The user needs to enter the command below:
 
-user needs to enter the command below:
+Format: `list`
 
-Format:`list`
-
-if there are no dishes in list, output message:
+If there are no dishes in list, the program will output the following message:
 
 ```
         OOPS!!! No Dishes yet!.
@@ -131,7 +153,7 @@ if there are no dishes in list, output message:
         'q' to exit
 ```
 
-if user enters a valid command,
+If user enters a valid command and the dish list is not empty, the result will be as follows.
 
 ```
    ____________________________
@@ -143,8 +165,6 @@ if user enters a valid command,
 4. | aglio olio    |           |
 ```
 
-
-
 ```
    _______________________________
    | Dish          | ingredient   |
@@ -155,48 +175,46 @@ if user enters a valid command,
 
 
 
+#### 3.2.4 Initializing the Dish List: `initialize`
 
-### 3.5 Initializing the Dish List:`initialize`
-
-user needs to enter `d` in main menu first.
+The user needs to enter the command below:
 
 user needs to enter the command below:
 
 Format: `initialize`
 
-user is then asked to confirm as this command deletes all the entries in the dish
+The user is then asked to confirm as this command deletes all the entries in the dish.
 
-if user enters yes,
+If user enters `y`,
 
 ```
          are you sure you want to clear list? (yes or no)
-yes
+y
          LIST IS CLEARED
 ```
 
-if user enters no,
+If user enters `n`,
 
 ```
          are you sure you want to clear list? (yes or no)
-no
+n
          LIST IS NOT CLEARED
 ```
 
 
-### 3.6 Removing Dish:`remove`
 
-user needs to enter `d` in main menu first.
+#### 3.2.5 Removing Dish: `remove`
 
-user needs to enter the command below:
+The user needs to enter the command below:
 
-Format: `remove i/INDEX`
+Format: `remove DISH_INDEX`
 
 Examples:
 
 - `remove 1`
 - `remove 2`
 
-if user enters an invalid index, a error message will appear
+If user enters an invalid index, an error message will appear.
 
 ```
         OOPS!!! dish does not exist.
@@ -207,7 +225,7 @@ if user enters an invalid index, a error message will appear
          _________________________________________________________________________________________
 ```
 
-if user enters a valid command,
+Otherwise, it will print out the information of the removed dishes.
 
 ```
          _________________________________________________________________________________________
@@ -216,13 +234,19 @@ if user enters a valid command,
          _________________________________________________________________________________________
 ```
 
-### 3.7 Adding Ingredient
 
-User needs to enter `b` in the menu first. To add an ingredient to the IngredientsList, user needs to execute command below:
 
-Format: `add ` `ingredient name` `ingredient amount` `ingredient expiry date`
+### 3.3 Ingredient Management by Fridge Storage
 
-if the ingredient already exist in the list, but **do not have the same expiry date**, another entry of the ingredient will be created in the ingredient list. **However**, if the ingredient also **have the same expiry date as the existing ingredient in the ingredient list**, the amount of the existing ingredient amount will be added on and no new entry will be created in the ingredient list.
+To begin with, the user needs to enter command `'a'- remove all expired` or `'b' - add/remove/use an ingredient` in the main menu. In mode `a`, all expired ingredients would be removed after execution of the command `a`. While the execution of command  `b`, directs the user into Ingredient management menu. The below commands, except for removing all expired, are all executed in the Ingredient management menu.
+
+#### 3.3.1 Adding Ingredient: `add`
+
+To add an ingredient to the IngredientsList, the user needs to execute command below:
+
+Format: `add `  `INGREDIENT_NAME` `INGREDIENT_AMOUNT` `INGREDIENT_EXPIRY_DATE-(dd/mm/yyyy)`
+
+If the ingredient already exist in the list, but **do not have the same expiry date**, another entry of the ingredient will be created in the ingredient list. **However**, if the ingredient also **have the same expiry date as the existing ingredient in the ingredient list**, the amount of the existing ingredient amount will be added on and no new entry will be created in the ingredient list.
 
 Examples: 
 
@@ -236,13 +260,15 @@ Examples:
          _________________________________________________________________________________________
 ```
 
-### 3.8 Removing Ingredient
 
-User needs to enter `b` in the menu first. To remove an ingredient from the IngredientsList, user needs to execute command below:
+
+#### 3.3.2 Removing Ingredient: `remove`
+
+To remove an ingredient from the IngredientsList, the user needs to execute command below:
 
 Format: `remove ` `ingredient index`
 
-if the ingredient index does not exist in the list, message is output:
+If the ingredient index does not exist in the list, message is output:
 
 ```
 	 ☹ OOPS!!! Enter a valid ingredient index number after delete, between 1 and 14.
@@ -252,7 +278,7 @@ if the ingredient index does not exist in the list, message is output:
 	'q' to exit
 ```
 
-this example was done when the size of the ingredient list is 14.
+This example was done when the size of the ingredient list is 14.
 
 Examples: 
 
@@ -267,13 +293,15 @@ Examples:
          _________________________________________________________________________________________
 ```
 
-### 3.9 Finding Ingredient
 
-User needs to enter `b` in the menu first. To find an ingredient from the IngredientsList, user needs to execute command below:
 
-Format: `find` `keyword`
+#### 3.3.3 Finding Ingredient: `find`
 
-if the ingredient index does not exist in the list, message is output:
+To find an ingredient from the IngredientsList, user needs to execute command below:
+
+Format: `find` `INGREDIENT_NAME`
+
+If the ingredient index does not exist in the list, message is output:
 
 ```
 	 No such ingredient found!
@@ -290,50 +318,15 @@ These are the ingredients you searched for!
 	 9. salt 60 21/07/2021
 ```
 
-### 3.10 Listing all expired ingredients on the date itself
 
-User needs to enter `b` in the menu first. To list all expired ingredient from the IngredientsList on the date itself, user needs to execute command below:
 
-Format: `listtoday`
+#### 3.3.4 Using an ingredient 
 
-if there are no expired ingredients for the date itself, message is output:
+To use an ingredient from the ingredient list, the user needs to execute command below:
 
-```
-	 No expired ingredients for today!
-```
+Format: `use`  `INGREDIENT_NAME` `INGREDIENT_AMOUNT` 
 
-Otherwise,
-
-```
-	 Here are the expired ingredients for today
-	 6. salt, amount is: 50 expired on 31st of October 2019.
-	 7. chilli, amount is: 60 expired on 31st of October 2019.
-```
-
-### 3.11 Removing all expired ingredients 
-
-User needs to enter `a` in the menu.
-
-if there are no expired ingredients for the date itself, message is output:
-
-```
-	 ☹ OOPS!!! Seems like you don't have any expired ingredients in the fridge!. 
-```
-
-Otherwise,
-
-```
-	Removed:  ingredients: 
-salt, amount is: 50 expired on 31st of October 2019
-```
-
-### 3.12 Using an ingredient 
-
-User needs to enter `b` in the menu first. To use an ingredient from the IngredientsList, user needs to execute command below:
-
-Format: `use` `ingredient name` `amount` 
-
-if there are not enough required ingredients, message is output:
+If there are not enough required ingredients, message is output:
 
 ```
 	 There is not a sufficient amount of rice that is not expired, maybe you could buy some first? 
@@ -352,7 +345,54 @@ Also, once amount reaches 0, the ingredient will be deleted off from the Ingredi
 
 
 
-### 3.13 Error Handling 
+#### 3.3.5 Listing all expired ingredients on the date itself: `list`
+
+To list all expired ingredient from the IngredientsList on the date itself, user needs to execute command below:
+
+Format: `listtoday`
+
+if there are no expired ingredients for the date itself, message is output:
+
+```
+	 No expired ingredients for today!
+```
+
+Otherwise,
+
+```
+	 Here are the expired ingredients for today
+	 6. salt, amount is: 50 expired on 31st of October 2019.
+	 7. chilli, amount is: 60 expired on 31st of October 2019.
+```
+
+
+
+#### 3.3.6 Removing all expired ingredients 
+
+*Note that*: this removing all expired command is executed by the user entering `a` in the **main menu**.
+
+If there are no expired ingredients for the date itself, message is output:
+
+```
+	 ☹ OOPS!!! Seems like you don't have any expired ingredients in the fridge!. 
+```
+
+Otherwise,
+
+```
+	Removed:  ingredients: 
+	salt, amount is: 50 expired on 31st of October 2019
+```
+
+### 
+
+### 3.4 Order Management
+
+3.4.1 
+
+
+
+### 3.5 Error Handling 
 
 handles unexpected commands from the user such as unknown/incomplete command. if user enters an invalid command, the application will output a message that corresponds to what the user entered wrongly.
 
@@ -367,94 +407,21 @@ outputs:
 
 ```
 
-### 3.14 stats: gives the statistics of the Dish
 
-### 3.15 order: creates a new order 
 
-### 3.16 preorder: 
+### 3.6 stats: gives the statistics of the Dish
 
-### 3.17 help: shows a list of commands to the user 
+### 3.7 order: creates a new order 
+
+### 3.8 preorder: 
+
+### 3.9 help: shows a list of commands to the user 
 
 things to include in version 2:
 
 ...
 
-### 3.2 fridge commands
 
-To be able to execute the fridge commands the user must choose, type `'a'- remove all expired` or `'b' - add/remove/use an ingredient` in the main menu.  
-
- while in mode `b`:
-
-by typing `template`, the user can see how to use which command
-
-by typing `show`, the user gets a list of all of the ingredients currently in the fridge, indexed and sorted by expiry date
-
-by typing `back`, he returns to the main menu
-
-#### 3.2.1 add an ingredient to the Fridge
-
-To add an ingredient to the Fridge, user needs to execute command below:
-
-Format: `add <Ingredient_name> <ingredient_amount> <expiry_date: DD/MM/YYYY>`
-
-Examples:
-
-- `add chicken 250 3/11/2019`
-
-- `add cheese 150 11/11/2019`
-
-  If the user adds an expired ingredient,eg. `add cheese 150 2/3/2019`  he is warned by ` WARNING! expired ingredient: cheese, amount is: 100 expired on 2nd of March 2019`
-
-#### 3.2.2 remove an ingredient from the fridge
-
-To remove an ingredient from the Fridge, user needs to execute command below:
-
-Format: `remove <Ingredient_index>`
-
-The ingredient index can be found by typing `show`, see details above.
-
-Examples:
-
-- `remove 2`
-
-  if user enters an invalid index, a similar error message will appear
-
-  ` ☹ OOPS!!! Enter a valid ingredient number after delete, between 1 and 5. 
-  	You can type: 
-  	'template' to see the format of the commands, 
-  	'back' to see all your options, 
-  	'q' to exit`
-
-  
-
-#### 3.2.3 use an ingredient from the fridge
-
-To use an ingredient from the Fridge, user needs to execute command below:
-
-Format: `use <Ingredient_name> <ingredient_amout_to_be_used>`
-
-Examples:
-
-- `use cheese 100`
-
-  The user must use the most recently expiring ingredients in order to prevent food waste.  
-
-### 3.3 remove all expired ingredients from the fridge
-
-From the main menu the user selects `a`, and it will remove all expired ingredients from the fridge.
-
-If there are no expired ingredients, he gets the following message:
-
-`☹ OOPS!!! Seems like you don't have any expired ingredients in the fridge!.` 
-
-When the user loads the program if there are any expired ingredients in the fridge, he is notified by: 
-
-`A gentle reminder you have some  expired ingredients in the fridge`
-	 `Would you like to see the list?`
-
-by typing `yes`, the list of expired ingredients is printed
-
-by typing anything else, the main menu appears where the user can select how he whishes to proceed.
 
 
 ## 4. Command Summary
