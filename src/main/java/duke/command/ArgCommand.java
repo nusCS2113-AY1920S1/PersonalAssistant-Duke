@@ -34,15 +34,20 @@ public class ArgCommand extends Command {
      * object, with the option to specify the argument and switch values, if allowed.
      * @param spec The ArgSpec object that specifies this command object's switches and functionality.
      * @param arg The argument to load for this command.
-     * @param switchValMap A map from the names of the switches to set to their values.
+     * @param switchNames The names of the switches to set.
+     * @param switchVals The values of the switches to set.
      * @throws DukeException If illegal values are supplied for the switches or arguments, or if the number of switch
      *      values is different from the number of switch names.
      */
-    public ArgCommand(ArgSpec spec, String arg, Map<String, String> switchValMap) throws DukeException {
+    public ArgCommand(ArgSpec spec, String arg, String[] switchNames, String[] switchVals) throws DukeException {
         this(spec);
         initArg(arg);
-        for (Map.Entry<String, String> switchMapEntry : switchValMap.entrySet()) {
-            initSwitchVal(switchMapEntry.getKey(), switchMapEntry.getValue());
+        if (switchNames.length != switchVals.length) {
+            throw new DukeException("You gave me " + switchNames.length + " switch names, but "
+                    + switchVals.length + " switch values!");
+        }
+        for (int i = 0; i < switchNames.length; ++i) {
+            initSwitchVal(switchNames[i], switchVals[i]);
         }
     }
 
