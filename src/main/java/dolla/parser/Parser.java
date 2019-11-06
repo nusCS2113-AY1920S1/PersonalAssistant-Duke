@@ -297,8 +297,8 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             String currStr = inputArray[i];
 
             if (isComponent(currStr)) {
-                String nextStr = inputArray[i + 1];
                 try {
+                    String nextStr = inputArray[i + 1];
                     switch (currStr) {
                     case COMPONENT_TYPE:
                         type = verifyAddType(nextStr);
@@ -318,6 +318,9 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                     default:
                         break;
                     }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    ModifyUi.printMissingComponentInfoError(currStr);
+                    return false;
                 } catch (Exception e) {
                     ModifyUi.printInvalidPartialModifyFormatError();
                     return false;

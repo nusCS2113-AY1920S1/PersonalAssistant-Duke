@@ -58,4 +58,10 @@ public class ModifyUi extends Ui {
         System.out.println("\t" + currRecord.getRecordDetail());
         System.out.println(line);
     }
+
+    public static void printMissingComponentInfoError(String component) {
+        System.out.println(line);
+        System.out.println("\tHey! You forgot to tell me what you want to modify " + component +  " to!");
+        System.out.println(line);
+    }
 }
