@@ -1,3 +1,13 @@
 Prof Yoo,91234123,s@gmail.com,E1
 RH,91998999,rh@u.nus.edu,no office
 Prof Tan,91234567,tancc@nus.edu.sg,E1-08-11
+Jungkook,+21 9872483748392,jk@kpop.com,Korea
+Arthur Tay,88309547,nil,Engine
+Ben (NUS),81273909,ben@u.nus.edu,nil
+nil,81667778,casey@u.nus.edu,nil
+Casey (NUS),nil,casey@u.nus.edu,nil
+Sebastian (NUS),nil,test@.com,nil
+Prof Tan,91234567,nil,E1-08-11
+Prof Tan,91234567,@,E1-08-11
+Dan,90298849,dan@gmail.com,nil
+Prof Tan,91234567,nil,E1-08-11

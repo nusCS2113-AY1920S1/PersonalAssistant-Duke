@@ -28,7 +28,6 @@ public class AddContactsCommand extends Command {
         this.contactList = contactList;
     }
 
-
     /**
      * Executes a command that adds the contact into contact list and outputs the result (GUI).
      *
