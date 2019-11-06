@@ -11,11 +11,11 @@ JavaCake is for those who prefer to use a desktop app for managing events preced
 == User Interface
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::docs/images/Ui.png[alignment="center"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::images/Ui.png[alignment="center"]
 endif::[]
 
 * This is a desktop Learning Java Tutorial application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
