@@ -292,5 +292,10 @@ public class Ui {
                 + "SGD withdrawal");
     }
 
+    public void showSuccess(String type, String value) {
+        showLine();
+        System.out.println(UI_PADDING + "Your " + type + " has been updated to " + value + ".");
+        showLine();
+    }
 
 }

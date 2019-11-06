@@ -1,13 +1,16 @@
 {
   "weight": {
-    "2019-11-05": 75.0
+    "2019-11-06": 103.0,
+    "2019-11-05": 75.0,
+    "2019-11-04": 100.0,
+    "2019-11-03": 111.0
   },
-  "height": 175,
-  "age": 21,
+  "height": 180,
+  "age": 22,
   "gender": "MALE",
   "isSetup": true,
-  "name": "Ivan",
-  "activityLevel": 1,
+  "name": "chi hen",
+  "activityLevel": 2,
   "factor": [
     1.2,
     1.375,

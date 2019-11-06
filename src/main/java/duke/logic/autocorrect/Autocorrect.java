@@ -12,7 +12,7 @@ public class Autocorrect {
     private HashMap<String,int[]> mapper = new HashMap();
     private ArrayList<String> words = new ArrayList();
     private int[] counter = new int[26];
-
+    private int nonAlphabet;
     public Autocorrect() {
     }
 
@@ -69,6 +69,7 @@ public class Autocorrect {
      * @param word word to be stored.
      */
     public void setWord(String word) {
+        this.nonAlphabet = 0;
         this.word = word;
         for (int i = 0; i < 26; i += 1) {
             counter[i] = 0;
@@ -76,6 +77,8 @@ public class Autocorrect {
         for (int i = 0; i < word.length(); i += 1) {
             if ((int)word.charAt(i) - 97 >= 0 && (int)word.charAt(i) - 97 < 26) {
                 counter[(int) word.charAt(i) - 97] += 1;
+            } else {
+                this.nonAlphabet += 2;
             }
         }
     }
@@ -86,24 +89,22 @@ public class Autocorrect {
      */
 
     public void execute() {
-        if (word.length() >= 3) {
-            int currentDistance = 3;
-            int distance = 0;
-            String likelyWord = word;
-            for (int i = 0; i < words.size(); i += 1) {
-                for (int j = 0; j < 26; j += 1) {
-                    distance += Math.abs(counter[j] - mapper.get(words.get(i))[j]);
-                }
-                if (distance < 3) {
-                    if (distance < currentDistance) {
-                        likelyWord = words.get(i);
-                        currentDistance = distance;
-                    }
-                }
-                distance = 0;
+        int currentDistance = 3;
+        int distance = 0 + this.nonAlphabet;
+        String likelyWord = word;
+        for (int i = 0; i < words.size(); i += 1) {
+            for (int j = 0; j < 26; j += 1) {
+                distance += Math.abs(counter[j] - mapper.get(words.get(i))[j]);
             }
-            this.word = likelyWord;
+            if (distance < 4) {
+                if (distance < currentDistance) {
+                    likelyWord = words.get(i);
+                    currentDistance = distance;
+                }
+            }
+            distance = 0;
         }
+        this.word = likelyWord;
     }
 
     public String getWord() {

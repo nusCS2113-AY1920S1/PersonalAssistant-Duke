@@ -13,6 +13,8 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+//@@author koushireo
+
 /**
  * CGraphCommand is a public class that inherits from abstract class Command.
  * It calculates the data desired by user and visualised it on Command Line.
@@ -52,6 +54,7 @@ public class CGraphCommand extends Command {
         //start of month :
         LocalDate firstDay = date.withDayOfMonth(1);
         LocalDate lastDay = date.with(TemporalAdjusters.lastDayOfMonth());
+        lastDay.plusDays(1);
         String[][] graph = new String[21][62];
         for (int i = 0; i < 21; i += 1) {
             for (int j = 0; j < 62; j += 1) {
@@ -107,14 +110,12 @@ public class CGraphCommand extends Command {
             }
         }
         int pos;
-        for (LocalDate dateItr = firstDay; dateItr.isBefore(lastDay); dateItr = dateItr.plusDays(1)) {
-            int i = dateItr.getDayOfMonth();
+        for (int i = 0; i < intHolder.size(); i += 1) {
             pos = (int)(((float)intHolder.get(i) / (float)highest) * 20);
             graph[20 - pos][i * 2] = "*";
         }
 
-        for (LocalDate dateItr = firstDay; dateItr.isBefore(lastDay); dateItr = dateItr.plusDays(1)) {
-            int i = dateItr.getDayOfMonth();
+        for (int i = 0; i < intHolder.size() - 1; i += 1) {
             pos = (int)(((float)((intHolder.get(i)
                     + intHolder.get(i + 1)) / 2) / (float)highest) * 20);
             graph[20 - pos][i * 2 + 1] = "*";

@@ -5,6 +5,8 @@ import duke.model.user.User;
 import duke.ui.InputHandler;
 import duke.ui.UserUi;
 
+//@@author koushireo
+
 /**
  * UserSetup is a public class that facilitates user profile creation.
  */
