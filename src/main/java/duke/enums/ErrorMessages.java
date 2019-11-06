@@ -6,10 +6,12 @@ public enum ErrorMessages {
     TASKNUM_IS_EMPTY("     (>_<) OOPS!!! The task number cannot be empty."),
     TASKTYPE_IS_EMPTY("     (>_<) OOPS!!! The task's type cannot be empty."),
     KEYWORD_IS_EMPTY("     (>_<) OOPS!!! The keyword cannot be empty."),
-    REPEAT_FORMAT("Format is in: repeat <task> /from <date time> /for <repeat times> <days/weeks>"),
     FIXEDDURATION_FORMAT("Format is in: fixedduration <task> /for <duration> <unit>"),
     PRIORITY_FORMAT("     (>_<) OOPS!!! Format is in: setpriority <taskNum> <Priority>"),
     CONTACT_FORMAT("Format is in: addcontact <name>, <contact>, <email>, <office>"),
+    CONTACT_INDEX("     (>_<) OOPS!!! The contact index cannot be empty."),
+    INVALID_EMAIL_ALERT("     Email needs to have '@'"),
+    NON_INTEGER_ALERT("     Input is not an integer value!"),
     UNKNOWN_COMMAND("     (>_<) OoPS!!! I'm sorry, but I don't know what that means :-(");
 
     public final String message;

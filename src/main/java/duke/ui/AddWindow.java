@@ -1,8 +1,10 @@
-package duke;
+package duke.ui;
 
 
+import duke.Duke;
 import duke.enums.Numbers;
 import duke.task.TaskList;
+import duke.ui.MainWindow;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
@@ -59,8 +61,7 @@ public class AddWindow extends AnchorPane {
         cbType.getItems().addAll(
                 "Todo",
                 "Deadline",
-                "Fixed Duration",
-                "Repeat"
+                "Fixed Duration"
         );
         TaskList items = d.getTaskList();
         for (int i = Numbers.ZERO.value; i < items.size(); i++) {
@@ -79,11 +80,6 @@ public class AddWindow extends AnchorPane {
         } else if (cbType.getSelectionModel().getSelectedItem().equals("Fixed Duration")) {
             mainWindow.handleUserEvent("fixedduration " + tfDesc.getText().trim() + " /for "
                     +  tfDuration.getText().trim() + " " +  tfUnit.getText().trim());
-        } else if (cbType.getSelectionModel().getSelectedItem().equals("Repeat")) {
-            mainWindow.handleUserEvent("repeat " + tfDesc.getText().trim()
-                    + " /from " +  tfDateTime.getText().trim() + " /for "
-                    +  tfDuration.getText().trim()
-                    + " " + tfUnit.getText().trim());
         }
         mainWindow.listViewRefresh();
         Stage stage = (Stage) btnAdd.getScene().getWindow();

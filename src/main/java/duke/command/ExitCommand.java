@@ -17,16 +17,6 @@ import java.io.IOException;
  */
 public class ExitCommand extends Command {
 
-    /**
-     * Executes a command using task list and outputs the result.
-     * (Not in use)
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user that it is executed successfully.
-     */
-    @Override
-    public void execute(TaskList items, Ui ui) {
-    }
 
     /**
      * Executes a command using task list and outputs the result (GUI).

@@ -1,15 +1,8 @@
--7576.89
-200.0 : Monthly allowance
--12.0 : Astons
--100.0 : Laptop
--45.0 : Concession
-10.0 : No Description
--4000.0 : School fees
--29.9 : Figurine
-1500.0 : scholarship
--2000.0 : new laptop
--1000.0 : new phone
--200.0 : textbooks
--2000.0 : bribe the police
-0.01 : some troll on dbs paylah
-100.0 :
+149.0
+-100.05 : Backpack for the new semester
+-299.0 : Hypebeast hoodie
+-12.0 : iSteaks
+150.0 : Sold hypebeast shoes
+-1000.0 : Bought escooter
+400.0 : Sold escooter because cant ride on pathway and play man yao
+10.05 : No Description

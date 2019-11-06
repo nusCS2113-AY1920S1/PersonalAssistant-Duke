@@ -6,7 +6,6 @@ import duke.task.TaskList;
 import duke.task.Todo;
 import duke.task.Deadline;
 import duke.task.Task;
-import duke.task.Repeat;
 import duke.task.FixedDuration;
 import duke.ui.Ui;
 
@@ -25,9 +24,7 @@ import java.util.logging.Logger;
  * Represents a storage to store the task list into a text file.
  */
 public class Storage {
-    protected String filePath = "";   //27-28, 40-47
-    String storageClassPath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
-
+    protected String filePath = System.getProperty("user.dir") + "/";   //27-28, 40-47
     private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
@@ -36,20 +33,6 @@ public class Storage {
      * @param filePath The location of the text file for tasks.
      */
     public Storage(String filePath) {
-        int numberofSlash;
-        storageClassPath = storageClassPath.replaceAll("%20", " ");
-        String[] pathSplitter = storageClassPath.split("/");
-        numberofSlash = pathSplitter.length - Numbers.ONE.value;
-        for (String directory: pathSplitter) {
-            if (numberofSlash == Numbers.ZERO.value) {
-                break;
-            } else if (!directory.isEmpty() && !directory.equals("build") && !directory.equals("out")) {
-                this.filePath += directory + "/";
-            } else if (directory.equals("build") || directory.equals("out")) {
-                break;
-            }
-            numberofSlash--;
-        }
         this.filePath += filePath;
     }
 
@@ -118,15 +101,6 @@ public class Storage {
                         t.setNotes(notesDesc);
                         items.add(t);
                     }
-                } else if (commandList[Numbers.ZERO.value].equals("R")) {
-                    if (taskDesc.isEmpty() || dateDesc.isEmpty()) {
-                        throw new DukeException("Error reading description or date/time, skipping to next line");
-                    } else {
-                        t = new Repeat(taskDesc, dateDesc);
-                        t.setStatusIcon(checked);
-                        t.setNotes(notesDesc);
-                        items.add(t);
-                    }
                 } else if (commandList[Numbers.ZERO.value].equals("F")) {
                     if (taskDesc.isEmpty() || durDesc.isEmpty()) {
                         throw new DukeException("Error reading fixed duration description,"
@@ -139,7 +113,7 @@ public class Storage {
                         items.add(t);
                     }
                 } else if (!commandList[Numbers.ZERO.value].isEmpty()) {
-                    throw new DukeException("Error reading whether if its T, D, R, or F skipping to next line");
+                    throw new DukeException("Error reading whether if its T, D, or F skipping to next line");
                 }
             } catch (Exception e) {
                 ui.showErrorMsg("     Error when reading current line, please fix the text file:");

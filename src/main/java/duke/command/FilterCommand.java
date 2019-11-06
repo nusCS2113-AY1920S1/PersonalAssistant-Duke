@@ -8,7 +8,6 @@ import duke.ui.Ui;
 import duke.task.Todo;
 import duke.task.Deadline;
 import duke.task.FixedDuration;
-import duke.task.Repeat;
 
 //@@author talesrune
 /**
@@ -26,16 +25,6 @@ public class FilterCommand extends Command {
         this.taskType = taskType;
     }
 
-    /**
-     * Executes a command that filters tasks in task list and outputs the result.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user the filtered tasks based on the task's type.
-     */
-    @Override
-    public void execute(TaskList items, Ui ui) {
-        ui.showFilter(items, taskType);
-    }
 
     /**
      * Executes a command that filters tasks in task list and updates the updated list.
@@ -54,9 +43,6 @@ public class FilterCommand extends Command {
             } else if (taskType.equals("deadline") && items.get(i) instanceof Deadline) {
                 filterList.add(items.get(i));
                 filterList.setFilterIndex(Numbers.TWO.value);
-            } else if (taskType.equals("repeat") && items.get(i) instanceof Repeat) {
-                filterList.add(items.get(i));
-                filterList.setFilterIndex(Numbers.THREE.value);
             } else if (taskType.equals("fixedduration") && items.get(i) instanceof FixedDuration) {
                 filterList.add(items.get(i));
                 filterList.setFilterIndex(Numbers.FOUR.value);

@@ -22,7 +22,7 @@
 
 <!-- @@author talesrune -->
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.ui.MainWindow">
    <children>
       <MenuBar layoutX="7.0" layoutY="2.0" prefHeight="25.0" prefWidth="437.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="348.0" AnchorPane.topAnchor="0.0">
         <menus>
