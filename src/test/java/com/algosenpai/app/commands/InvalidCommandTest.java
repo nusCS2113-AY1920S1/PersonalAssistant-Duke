@@ -24,11 +24,11 @@ import org.testfx.framework.junit5.ApplicationTest;
 
 import java.io.IOException;
 
-public class HistoryCommandTest extends ApplicationTest {
+public class InvalidCommandTest extends ApplicationTest {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(HistoryCommandTest.class.getResource("/view/MainWindow.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(UndoCommandTest.class.getResource("/view/MainWindow.fxml"));
         AnchorPane ap = fxmlLoader.load();
         Scene scene = new Scene(ap, 500, 650);
         stage.setScene(scene);
@@ -50,81 +50,62 @@ public class HistoryCommandTest extends ApplicationTest {
     }
 
     @Test
-    void testHistoryMousePress() {
-        clickOn("#userInput").write("history");
+    void testInvalidMousePress() {
+        clickOn("#userInput").write("me nu");
         clickOn("#sendButton");
         VBox container = find();
         DialogBox dialogBox = (DialogBox) container.getChildren().get(1);
         String actualText = dialogBox.getDialog().getText();
-        Assertions.assertEquals("history", actualText);
+        Assertions.assertEquals("me nu", actualText);
     }
 
     @Test
-    void testHistoryKeyPress() {
-        clickOn("#userInput").write("history").press(KeyCode.ENTER);
+    void testInvalidKeyPress() {
+        clickOn("#userInput").write("printt").press(KeyCode.ENTER);
         VBox container = find();
         DialogBox dialogBox = (DialogBox) container.getChildren().get(1);
         String actualText = dialogBox.getDialog().getText();
-        Assertions.assertEquals("history", actualText);
+        Assertions.assertEquals("printt", actualText);
     }
 
     @Test
-    void testHistoryWithSpace() {
-        clickOn("#userInput").write(" history ").clickOn("#sendButton");
-        VBox container = find();
-        DialogBox dialogBox = (DialogBox) container.getChildren().get(1);
-        String actualText = dialogBox.getDialog().getText();
-        Assertions.assertEquals(" history ", actualText);
-    }
-
-    @Test
-    void testHistoryWithLimits() throws IOException {
-        clickOn("#userInput").write("select sorting").clickOn("#sendButton");
-        clickOn("#userInput").write("quiz").clickOn("#sendButton");
+    void testInvalidMultipleSpaces() throws IOException {
         UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
-        Command command = logic.executeCommand("history 5");
+        Command command = logic.executeCommand("se le ct");
         String actualText = command.execute();
-        Assertions.assertEquals("OOPS!!! Error occurred. You don't have that many past commands!", actualText);
+        Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... select?", actualText);
     }
 
     @Test
-    void testHistoryMissingInput() throws IOException {
+    void testInvalidUnknownCharacterAbsentFromAllCommands() throws IOException {
         UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
-        Command command = logic.executeCommand("history");
+        Command command = logic.executeCommand("f");
         String actualText = command.execute();
-        Assertions.assertEquals("OOPS!!! Error occurred. Please key in the number of commands "
-                + "you'd like to view in the following format: e.g history 5", actualText);
+        Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
+                                          + "menu, quiz, undo, help, save, exit?", actualText);
     }
 
     @Test
-    void testHistoryWrongTypeInput() throws IOException {
+    void testInvalidWithMultipleMinEditDistance() throws IOException {
         UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
-        Command command = logic.executeCommand("history two");
+        Command command = logic.executeCommand("la");
         String actualText = command.execute();
-        Assertions.assertEquals("OOPS!!! Error occurred. "
-                                          + "Please key in a valid number of commands you'd like to view!", actualText);
+        Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
+                                          + "clear, help, save?", actualText);
     }
 
     @Test
-    void testHistoryInvalidInputSize() throws IOException {
+    void testInvalidWithMaximumEditDistance() throws IOException {
         UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
-        Command command = logic.executeCommand("history 2 3");
+        Command command = logic.executeCommand("fffgggjjjkkk");
         String actualText = command.execute();
-        Assertions.assertEquals("OOPS!!! Error occurred. Too many inputs entered!", actualText);
-    }
-
-    @Test
-    void testHistoryLowerBoundary() throws IOException {
-        UserStats stats = new UserStats("./UserData.txt");
-        Logic logic = new Logic(stats);
-        Command command = logic.executeCommand("history -1");
-        String actualText = command.execute();
-        Assertions.assertEquals("OOPS!!! Error occurred. "
-                                          + "Please key in a valid number of commands you'd like to view!", actualText);
+        Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
+                                          + "hello, menu, quiz, select, result, history, undo, clear, help "
+                                          + "volume, print, archive, save, reset, exit?", actualText);
     }
 
     <T extends Node> T find() {

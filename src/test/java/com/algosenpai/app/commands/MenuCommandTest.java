@@ -98,6 +98,17 @@ public class MenuCommandTest extends ApplicationTest {
                 + "menu <command>\n", actualText);
     }
 
+    @Test
+    void testMenuPrintCommandOutput() {
+        clickOn("#userInput").write("menu print").clickOn("#sendButton");
+        VBox container = find();
+        DialogBox dialogBox = (DialogBox) container.getChildren().get(2);
+        String actualText = dialogBox.getDialog().getText();
+        Assertions.assertEquals("print <archive | quiz | user> <filename>.pdf", actualText);
+    }
+
+
+
     <T extends Node> T find() {
         return lookup("#dialogContainer").query();
     }

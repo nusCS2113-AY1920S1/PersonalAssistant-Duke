@@ -16,8 +16,10 @@ public class HistoryExceptions extends SenpaiExceptions {
      */
 
     public static void checkInput(ArrayList<String> inputs) throws HistoryExceptions {
-        if (inputs.size() != 2) {
+        if (inputs.size() == 1) {
             throw new HistoryExceptions(ErrorMessage.INVALID_HISTORY_INPUT);
+        } else if (inputs.size() > 2) {
+            throw new HistoryExceptions(ErrorMessage.INVALID_TOO_MANY_INPUTS);
         }
     }
 
@@ -33,8 +35,10 @@ public class HistoryExceptions extends SenpaiExceptions {
             throw new HistoryExceptions(ErrorMessage.INVALID_TYPE_OF_ARGUMENT);
         } else {
             int num = Integer.parseInt(arg);
-            if (num > historyList.size() || num < 1) {
+            if (num > historyList.size()) {
                 throw new HistoryExceptions(ErrorMessage.INVALID_SIZE_OF_ARGUMENT);
+            } else if (num < 1) {
+                throw new HistoryExceptions(ErrorMessage.INVALID_NEGATIVE_ARGUMENT);
             }
         }
     }
