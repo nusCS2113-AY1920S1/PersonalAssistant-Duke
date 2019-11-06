@@ -19,8 +19,8 @@ public class PreferenceCommand extends CommandSuper {
     ArrayList<String> containsPossibleInputs = new ArrayList<>();
 
 
-    public PreferenceCommand(Controller uicontroller) {
-        super(COMMANDKEYS.preference, CommandStructure.cmdStructure.get(COMMANDKEYS.preference), uicontroller);
+    public PreferenceCommand(Controller uiController) {
+        super(COMMANDKEYS.preference, CommandStructure.cmdStructure.get(COMMANDKEYS.preference), uiController);
     }
 
     private void setContainsInputs() {

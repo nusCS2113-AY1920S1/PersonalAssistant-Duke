@@ -178,7 +178,7 @@ public class MovieHandler extends Controller implements RequestListener {
         genreListText.getChildren().clear();
         genreListText.getChildren().addAll(preferences, restrictions);
         genreListText.setLineSpacing(4);
-        updateSortInterface();
+        updateSortInterface(userProfile);
     }
 
 
@@ -760,6 +760,7 @@ public class MovieHandler extends Controller implements RequestListener {
 ////        pageTracker.setToPlaylistList();
 //        PlaylistUi playlistUi = new PlaylistUi(playlistName, playlists);
 //        mMoviesScrollPane.setContent(playlistUi.getPlaylistScrollPaneContent());
+        playlist = userProfile.getPlaylistNames();
         buildPlaylistVBox(playlists);
     }
 
@@ -1103,9 +1104,9 @@ public class MovieHandler extends Controller implements RequestListener {
     }
 
     /**
-     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     * to update the user's preferred sort label.
      */
-    public void updateSortInterface() {
+    private void updateSortInterface(UserProfile userProfile) {
         if (userProfile.isSortByAlphabetical()) {
             sortAlphaOrderLabel.setText("Y");
             sortLatestDateLabel.setText("N");
@@ -1130,10 +1131,16 @@ public class MovieHandler extends Controller implements RequestListener {
         playlistName = name;
     }
 
+    public String getPlaylistName() {
+        return playlistName;
+    }
+
     /**
      * to refresh the gui page so it reflects user's changes.
      */
     public void refresh() throws IOException {
+        userProfile = new EditProfileJson().load();
+        playlists = userProfile.getPlaylistNames();
         switch (pageTracker.getCurrentPage()) {
         case "playlistList":
             EditProfileJson editProfileJson = new EditProfileJson();

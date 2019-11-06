@@ -1,12 +1,9 @@
 package entertainment.pro.logic.parsers.commands;
 
 import entertainment.pro.commons.PromptMessages;
-import entertainment.pro.commons.exceptions.DateTimeParseExceptions;
 import entertainment.pro.commons.exceptions.Exceptions;
-import entertainment.pro.commons.exceptions.InvalidFormatCommandExceptions;
 import entertainment.pro.commons.exceptions.InvalidParameterException;
 import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
-import entertainment.pro.logic.parsers.CommandDebugger;
 import entertainment.pro.model.SearchProfile;
 import entertainment.pro.storage.utils.ProfileCommands;
 import entertainment.pro.ui.Controller;
@@ -14,7 +11,6 @@ import entertainment.pro.ui.MovieHandler;
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
-import org.json.simple.parser.ParseException;
 
 import java.util.ArrayList;
 import java.io.IOException;

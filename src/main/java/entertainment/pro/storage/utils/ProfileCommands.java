@@ -1,12 +1,6 @@
 package entertainment.pro.storage.utils;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import entertainment.pro.commons.exceptions.SetExceptions;
-import entertainment.pro.model.GenreId;
 import entertainment.pro.model.UserProfile;
-import entertainment.pro.ui.Controller;
-import entertainment.pro.ui.MovieHandler;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -14,7 +8,6 @@ import org.json.simple.JSONObject;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Set;
 import java.util.TreeMap;
 
 
@@ -149,7 +142,7 @@ public class ProfileCommands {
         editProfileJson.updateProfile(userProfile);
     }
 
-    private void clearSortPreference() {
+    private void clearSortPreference() throws IOException {
         setSort(false, false, false);
     }
 
@@ -168,7 +161,7 @@ public class ProfileCommands {
     }
 
 
-    private void getSortFromUserInput(int sortOption) {
+    private void getSortFromUserInput(int sortOption) throws IOException {
         if (sortOption == 1) {
             setSort(true, false, false);
         } else if (sortOption == 2) {
@@ -191,10 +184,11 @@ public class ProfileCommands {
      * @param isRatingsOrder  true when user have entered command to
      *                        sort results based on ratings and otherwise false.
      */
-    public void setSort(boolean isAlphaOrder, boolean isLatDatesOrder, boolean isRatingsOrder) {
+    public void setSort(boolean isAlphaOrder, boolean isLatDatesOrder, boolean isRatingsOrder) throws IOException {
         userProfile.setSortByAlphabetical(isAlphaOrder);
         userProfile.setSortByHighestRating(isRatingsOrder);
         userProfile.setSortByLatestRelease(isLatDatesOrder);
+        editProfileJson.updateProfile(userProfile);
     }
 
 
@@ -219,19 +213,8 @@ public class ProfileCommands {
     private void setGenrePreference(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
         ArrayList<Integer> genrePreferences = new ArrayList<>(10);
         for (String log : flagMap.get("-g")) {
-            try {
-                SetExceptions.checkValidGenre(log);
-            } catch (SetExceptions e) {
-                System.out.println(e);
-                continue;
-            }
-            try {
-                int id = findGenreID(log);
-                SetExceptions.checkForSetPreference(id, userProfile.getGenreIdRestriction());
-                genrePreferences.add(id);
-            } catch (SetExceptions e) {
-                System.out.println(e);
-            }
+            int id = findGenreID(log);
+            genrePreferences.add(id);
         }
         userProfile.setGenreIdPreference(genrePreferences);
         editProfileJson.updateProfile(userProfile);
@@ -243,17 +226,12 @@ public class ProfileCommands {
      * no = restrict adult content
      */
     private void setAdultPreference(String value) throws IOException {
-        try {
-            SetExceptions.checkForSetAdult(userProfile);
-            if (value.equals("yes")) {
-                userProfile.setAdult(true);
-            } else if (value.equals("no")) {
-                userProfile.setAdult(false);
-            }
-            editProfileJson.updateProfile(userProfile);
-        } catch (SetExceptions e) {
-            System.out.println(e);
+        if (value.equals("yes")) {
+            userProfile.setAdult(true);
+        } else if (value.equals("no")) {
+            userProfile.setAdult(false);
         }
+        editProfileJson.updateProfile(userProfile);
     }
 
     /**
@@ -262,30 +240,14 @@ public class ProfileCommands {
     private void setAll(TreeMap<String, ArrayList<String>> flagMap, String value) throws IOException {
         ArrayList<Integer> genrePreferences = new ArrayList<>(10);
         for (String log : flagMap.get("-g")) {
-            try {
-                SetExceptions.checkValidGenre(log);
-            } catch (SetExceptions e) {
-                System.out.println(e);
-                continue;
-            }
-            try {
-                int id = findGenreID(log);
-                SetExceptions.checkForSetPreference(id, userProfile.getGenreIdRestriction());
-                genrePreferences.add(id);
-            } catch (SetExceptions e) {
-                System.out.println(e);
-            }
+            int id = findGenreID(log);
+            genrePreferences.add(id);
         }
         userProfile.setGenreIdPreference(genrePreferences);
-        try {
-            SetExceptions.checkForSetAdult(userProfile);
-            if (value.equals("yes")) {
-                userProfile.setAdult(true);
-            } else if (value.equals("no")) {
-                userProfile.setAdult(false);
-            }
-        } catch (SetExceptions e) {
-            System.out.println(e);
+        if (value.equals("yes")) {
+            userProfile.setAdult(true);
+        } else if (value.equals("no")) {
+            userProfile.setAdult(false);
         }
         editProfileJson.updateProfile(userProfile);
     }
@@ -296,19 +258,8 @@ public class ProfileCommands {
     public void setRestriction(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
         ArrayList<Integer> genreRestrictions = new ArrayList<>(10);
         for (String log : flagMap.get("-g")) {
-            try {
-                SetExceptions.checkValidGenre(log);
-            } catch (SetExceptions e) {
-                System.out.println(e);
-                continue;
-            }
-            try {
-                int id = findGenreID(log);
-                SetExceptions.checkForSetRestriction(id, userProfile.getGenreIdPreference());
-                genreRestrictions.add(id);
-            } catch (SetExceptions e) {
-                System.out.println(e);
-            }
+            int id = findGenreID(log);
+            genreRestrictions.add(id);
         }
         userProfile.setGenreIdRestriction(genreRestrictions);
         editProfileJson.updateProfile(userProfile);
@@ -384,7 +335,6 @@ public class ProfileCommands {
      * to find genreId for corresponding genre name.
      */
     public static Integer findGenreID(String genreName) throws IOException {
-//        genreName = genreName.trim();
         InputStream inputStream = ProfileCommands.class.getResourceAsStream("/data/GenreId.json");
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -396,14 +346,6 @@ public class ProfileCommands {
         bufferedReader.close();
         inputStreamReader.close();
         inputStream.close();
-
-//        JSONParser parser = new JSONParser();
-//        JSONObject jsonObject = new JSONObject();
-//        try {
-//            jsonObject = (JSONObject) parser.parse(new FileReader("./GenreId.json"));
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
         return Integer.parseInt(parseToId(genreListString, genreName.trim()));
     }
 
@@ -419,14 +361,6 @@ public class ProfileCommands {
         bufferedReader.close();
         inputStreamReader.close();
         inputStream.close();
-
-//        JSONParser parser = new JSONParser();
-//        JSONObject jsonObject = new JSONObject();
-//        try {
-//            jsonObject = (JSONObject) parser.parse(new FileReader("./GenreId.json"));
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
         return parseToName(genreListString, Integer.toString(id));
     }
 
@@ -498,23 +432,6 @@ public class ProfileCommands {
 
     public void deletePlaylist(String listName) throws IOException {
         userProfile.deletePlaylist(listName);
-        editProfileJson.updateProfile(userProfile);
-    }
-
-    /**
-     * to rename playlist in userprofile.
-     */
-    public void renamePlaylist(String oldName, String newName) throws IOException {
-        ArrayList<String> playlistNames = userProfile.getPlaylistNames();
-        ArrayList<String> newPlaylistNames = new ArrayList<>();
-        for (String log : playlistNames) {
-            if (!log.equals(oldName)) {
-                newPlaylistNames.add(log);
-            } else {
-                newPlaylistNames.add(newName);
-            }
-        }
-        userProfile.setPlaylistNames(newPlaylistNames);
         editProfileJson.updateProfile(userProfile);
     }
 }

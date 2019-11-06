@@ -94,6 +94,11 @@ public class UserProfile {
         playlistNames.remove(listName);
     }
 
+    public void renamePlaylist(String oldName, String newName) {
+        playlistNames.remove((oldName));
+        playlistNames.add(newName);
+    }
+
     public String getUserName() {
         return userName;
     }
