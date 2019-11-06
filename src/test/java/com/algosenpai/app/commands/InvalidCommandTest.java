@@ -78,7 +78,8 @@ public class InvalidCommandTest extends ApplicationTest {
         String actualText = command.execute();
         if (previousStats.getUsername().equals("Default")) {
             Assertions.assertEquals("Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
-                    + "Can I have your name and gender in the format : 'hello NAME GENDER (boy/girl)' please.", actualText);
+                    + "Can I have your name and gender in the format : "
+                    + "'hello NAME GENDER (boy/girl)' please.", actualText);
         } else if (!previousStats.getUsername().equals("Default")) {
             Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. "
                     + "Did you mean... select?", actualText);
@@ -93,7 +94,8 @@ public class InvalidCommandTest extends ApplicationTest {
         String actualText = command.execute();
         if (previousStats.getUsername().equals("Default")) {
             Assertions.assertEquals("Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
-                    + "Can I have your name and gender in the format : 'hello NAME GENDER (boy/girl)' please.", actualText);
+                    + "Can I have your name and gender in the format : "
+                    + "'hello NAME GENDER (boy/girl)' please.", actualText);
         } else if (!previousStats.getUsername().equals("Default")) {
             Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
                     + "menu, quiz, undo, help, save, exit?", actualText);
@@ -108,7 +110,8 @@ public class InvalidCommandTest extends ApplicationTest {
         String actualText = command.execute();
         if (previousStats.getUsername().equals("Default")) {
             Assertions.assertEquals("Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
-                    + "Can I have your name and gender in the format : 'hello NAME GENDER (boy/girl)' please.", actualText);
+                    + "Can I have your name and gender in the format : "
+                    + "'hello NAME GENDER (boy/girl)' please.", actualText);
         } else if (!previousStats.getUsername().equals("Default")) {
             Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
                     + "clear, help, save?", actualText);
@@ -123,7 +126,8 @@ public class InvalidCommandTest extends ApplicationTest {
         String actualText = command.execute();
         if (previousStats.getUsername().equals("Default")) {
             Assertions.assertEquals("Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
-                    + "Can I have your name and gender in the format : 'hello NAME GENDER (boy/girl)' please.", actualText);
+                    + "Can I have your name and gender in the format : "
+                    + "'hello NAME GENDER (boy/girl)' please.", actualText);
         } else if (!previousStats.getUsername().equals("Default")) {
             Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
                     + "menu, quiz, select, result, review, reset, history, undo, clear, help, "
