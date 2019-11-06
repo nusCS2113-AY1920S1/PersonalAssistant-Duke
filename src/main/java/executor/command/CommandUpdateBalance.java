@@ -9,6 +9,7 @@ public class CommandUpdateBalance extends Command {
 
 
     private Double newBalance;
+
     /**
      * Constructor for the CommandUpdateBalance class.
      * @param userInput The user Input from the CLI
