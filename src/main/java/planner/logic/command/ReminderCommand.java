@@ -7,7 +7,7 @@ import planner.util.storage.Storage;
 
 import planner.util.legacy.reminder.ThirtyMinReminder;
 import planner.util.legacy.reminder.OneHourReminder;
-import planner.util.legacy.reminder.TwelveHourReminder;
+import planner.util.legacy.reminder.TwevleHourReminder;
 import planner.util.legacy.reminder.OneDayReminder;
 
 import planner.logic.modules.module.ModuleInfoDetailed;
@@ -23,7 +23,7 @@ public class ReminderCommand extends ModuleCommand {
 
     private ThirtyMinReminder thirtyMinReminder;
     private OneHourReminder oneHourReminder;
-    private TwelveHourReminder twevleHourReminder;
+    private TwevleHourReminder twevleHourReminder;
     private OneDayReminder oneDayReminder;
 
     @Override

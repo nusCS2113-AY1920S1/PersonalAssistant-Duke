@@ -12,28 +12,28 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TwelveHourReminder extends Reminder {
+public class TwevleHourReminder extends Reminder {
     private List<Task> tasks;
 
-    public TwelveHourReminder(List<Task> tasks, TimeInterval remindBefore, TimeInterval checkEvery)
+    public TwevleHourReminder(List<Task> tasks, TimeInterval remindBefore, TimeInterval checkEvery)
             throws ModTimeIntervalTooCloseException {
         super(remindBefore, checkEvery);
     }
 
-    public TwelveHourReminder(List<Task> tasks, int minutesBefore, int minutesEvery)
+    public TwevleHourReminder(List<Task> tasks, int minutesBefore, int minutesEvery)
             throws ModTimeIntervalTooCloseException {
         super(minutesBefore, minutesEvery);
     }
 
-    public TwelveHourReminder(List<Task> tasks, TimeInterval remindBefore) throws ModTimeIntervalTooCloseException {
+    public TwevleHourReminder(List<Task> tasks, TimeInterval remindBefore) throws ModTimeIntervalTooCloseException {
         super(remindBefore);
     }
 
-    public TwelveHourReminder(List<Task> tasks, int minutesBefore) throws ModTimeIntervalTooCloseException {
+    public TwevleHourReminder(List<Task> tasks, int minutesBefore) throws ModTimeIntervalTooCloseException {
         super(minutesBefore);
     }
 
-    public TwelveHourReminder(List<Task> tasks) throws ModTimeIntervalTooCloseException {
+    public TwevleHourReminder(List<Task> tasks) throws ModTimeIntervalTooCloseException {
         super();
     }
 
