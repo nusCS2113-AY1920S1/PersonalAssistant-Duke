@@ -24,12 +24,12 @@ public class Menu {
         else if(storage.getSaveExist()){ //load
             simulation.simulate("Menu", 3, true);
             ui.typeWriter("Enter the option of your choice\nFor example, if you want to create a new game," +
-                    " Enter [new game]", false);
+                    " Enter [New Game]", false);
         }
         else {
             simulation.simulate("Menu", 0, true); //only new and quit
             ui.typeWriter("Enter the option of your choice\nFor example, if you want to create a new game," +
-                    " Enter [new game]", false);
+                    " Enter [New Game]", false);
         }
 
     }
