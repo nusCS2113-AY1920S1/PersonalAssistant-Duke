@@ -17,15 +17,15 @@ import duke.command.impression.ImpressionPrimarySpec;
 import duke.command.impression.ImpressionPrioritySpec;
 import duke.command.impression.ImpressionResultSpec;
 import duke.command.impression.ImpressionStatusSpec;
-import duke.command.patient.PatientDeleteCommand;
-import duke.command.patient.PatientDischargeCommand;
-import duke.command.patient.PatientEditCommand;
-import duke.command.patient.PatientFindCommand;
-import duke.command.patient.PatientHistoryCommand;
-import duke.command.patient.PatientNewCommand;
-import duke.command.patient.PatientOpenCommand;
-import duke.command.patient.PatientPrimaryCommand;
-import duke.command.patient.PatientReportCommand;
+import duke.command.patient.PatientDeleteSpec;
+import duke.command.patient.PatientDischargeSpec;
+import duke.command.patient.PatientEditSpec;
+import duke.command.patient.PatientFindSpec;
+import duke.command.patient.PatientHistorySpec;
+import duke.command.patient.PatientNewSpec;
+import duke.command.patient.PatientOpenSpec;
+import duke.command.patient.PatientPrimarySpec;
+import duke.command.patient.PatientReportSpec;
 import duke.ui.context.Context;
 
 /**
@@ -73,23 +73,23 @@ public class Commands {
         case PATIENT:
             switch (cmdStr) {
             case "new":
-                return new PatientNewCommand();
+                return new ArgCommand(PatientNewSpec.getSpec());
             case "find":
-                return new PatientFindCommand();
+                return new ArgCommand(PatientFindSpec.getSpec());
             case "report":
-                return new PatientReportCommand();
+                return new Command(PatientReportSpec.getSpec());
             case "discharge":
-                return new PatientDischargeCommand();
+                return new ArgCommand(PatientDischargeSpec.getSpec());
             case "delete":
-                return new PatientDeleteCommand();
+                return new ArgCommand(PatientDeleteSpec.getSpec());
             case "primary":
-                return new PatientPrimaryCommand();
+                return new ArgCommand(PatientPrimarySpec.getSpec());
             case "edit":
-                return new PatientEditCommand();
+                return new ArgCommand(PatientEditSpec.getSpec());
             case "history":
-                return new PatientHistoryCommand();
+                return new ArgCommand(PatientHistorySpec.getSpec());
             case "open":
-                return new PatientOpenCommand();
+                return new ArgCommand(PatientOpenSpec.getSpec());
             default:
                 return null;
             }

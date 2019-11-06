@@ -66,6 +66,4 @@ public abstract class ArgSpec extends CommandSpec {
         switchMap = Collections.unmodifiableMap(tempSwitchMap);
         switchAliases = Collections.unmodifiableMap(tempSwitchAliases);
     }
-
-
 }
