@@ -1,4 +1,4 @@
-package dolla.action.state;
+package dolla.command.action.state;
 
 import dolla.ModeStringList;
 import dolla.ui.ActionUi;

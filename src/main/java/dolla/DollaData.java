@@ -6,6 +6,8 @@ import dolla.task.LimitList;
 import dolla.task.Record;
 import dolla.task.RecordList;
 import dolla.task.BillList;
+import dolla.task.ShortcutList;
+
 
 import java.util.ArrayList;
 
@@ -13,14 +15,16 @@ import static dolla.storage.Storage.getDebtsFromSave;
 import static dolla.storage.Storage.getEntriesFromSave;
 import static dolla.storage.Storage.getLimitsFromSave;
 import static dolla.storage.Storage.getBillsFromSave;
+import static dolla.storage.Storage.getShortcutsFromSave;
 import static dolla.storage.StorageStringList.BILL;
 
 public class DollaData implements ModeStringList {
 
     private String mode = MODE_DOLLA;
-    private EntryList entryList; // TODO: Find out alternatives to using a public variable
+    private EntryList entryList;
     private DebtList debtList;
     private LimitList limitList;
+    private ShortcutList shortcutList;
     private BillList billList;
 
     private String prevMode;
@@ -30,12 +34,11 @@ public class DollaData implements ModeStringList {
      * Creates an instance of DollaData to store and manipulate data.
      */
     public DollaData() {
-        //this.entryList = new EntryList(new ArrayList<Record>());
         this.entryList = new EntryList(getEntriesFromSave()); //Import from save file
-        this.limitList = new LimitList(getLimitsFromSave()); //Import from save file
-        this.debtList = new DebtList(getDebtsFromSave()); //Import from save file
-        this.billList = new BillList(getBillsFromSave()); //Import from save file
-
+        this.limitList = new LimitList(getLimitsFromSave());
+        this.debtList = new DebtList(getDebtsFromSave());
+        this.shortcutList = new ShortcutList(getShortcutsFromSave());
+        this.billList = new BillList(getBillsFromSave());
     }
 
     /**
@@ -52,6 +55,8 @@ public class DollaData implements ModeStringList {
             return debtList;
         case MODE_LIMIT:
             return limitList;
+        case MODE_SHORTCUT:
+            return shortcutList;
         default:
             return null; // placeholder so that Dolla can compile
         }
@@ -69,6 +74,8 @@ public class DollaData implements ModeStringList {
             return debtList.get();
         } else if (mode.equals(MODE_LIMIT)) {
             return limitList.get();
+        } else if (mode.equals(MODE_SHORTCUT)) {
+            return shortcutList.get();
         }
         return null;
     }
@@ -88,6 +95,8 @@ public class DollaData implements ModeStringList {
             return debtList.getFromList(index);
         case MODE_LIMIT:
             return limitList.getFromList(index);
+        case MODE_SHORTCUT:
+            return shortcutList.getFromList(index);
         default:
             return null; // placeholder so that Dolla can compile
         }
@@ -110,6 +119,8 @@ public class DollaData implements ModeStringList {
             debtList.add(newRecord);
         } else if (mode.equals(MODE_LIMIT)) {
             limitList.add(newRecord);
+        } else if (mode.equals(MODE_SHORTCUT)) {
+            shortcutList.add(newRecord);
         }
     }
 
@@ -134,6 +145,8 @@ public class DollaData implements ModeStringList {
             debtList.removeFromList(index);
         } else if (mode.equals(MODE_LIMIT)) {
             limitList.removeFromList(index);
+        } else if (mode.equals(MODE_SHORTCUT)) {
+            shortcutList.removeFromList(index);
         } else if (mode.equals(BILL)) {
             billList.removeFromList(index);
         }
@@ -213,6 +226,9 @@ public class DollaData implements ModeStringList {
             break;
         case MODE_LIMIT:
             this.limitList.setRecordList(recordList);
+            break;
+        case MODE_SHORTCUT:
+            this.shortcutList.setRecordList(recordList);
             break;
         case BILL:
             this.billList.setRecordList(recordList);
