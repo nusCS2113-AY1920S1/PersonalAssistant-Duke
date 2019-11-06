@@ -30,7 +30,7 @@ public class CommandWeather extends Command {
         this.userInput = userInput;
         this.commandType = CommandType.WEATHER;
         this.description = "Command that displays weather for now, tomorrow or later \n"
-                + "FORMAT : \n";
+                + "FORMAT : weather /until <period> \n";
     }
     
     @Override
