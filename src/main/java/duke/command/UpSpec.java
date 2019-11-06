@@ -11,7 +11,7 @@ public class UpSpec extends CommandSpec {
     }
 
     @Override
-    public void execute(DukeCore core) throws DukeException {
+    protected void execute(DukeCore core) throws DukeException {
         core.uiContext.moveUpOneContext();
     }
 }
