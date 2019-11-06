@@ -5,7 +5,11 @@ import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.Ui;
 import leduc.task.HomeworkTask;
+import leduc.task.Task;
 import leduc.task.TaskList;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 
 /**
@@ -39,8 +43,10 @@ public class HomeworkCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage)
             throws EmptyHomeworkDateException, EmptyHomeworkException, NonExistentDateException,
-            FileException, PrioritizeLimitException {
+            FileException, PrioritizeLimitException, RecurrenceException {
         String userSubstring;
+        int nbRecurrence = 0;
+        String typeOfRecurrence = "";
         if(callByShortcut){
             userSubstring = user.substring(HomeworkCommand.homeworkShortcut.length());
         }
@@ -56,9 +62,33 @@ public class HomeworkCommand extends Command {
         } else if (taskDescription.length == 1) { // no /by in input
             throw new EmptyHomeworkDateException();
         } else {
+            String homeworkString = "";
             String description = taskDescription[0].trim();
             String[] prioritySplit = taskDescription[1].trim().split("prio");
-            String homeworkString = prioritySplit[0].trim();
+            if(prioritySplit.length == 1){
+                String[] recurrenceSplit = prioritySplit[0].trim().split(("recu"));
+                homeworkString = recurrenceSplit[0].trim();
+                if(!(recurrenceSplit.length==1)){
+                    String[] recurrenceSplit2 = recurrenceSplit[1].trim().split(" ");
+                    if(recurrenceSplit2.length == 1){
+                        throw new RecurrenceException();
+                    }
+                    else {
+                        typeOfRecurrence = recurrenceSplit2[0].trim();
+                        if(!(typeOfRecurrence.equals("day") || typeOfRecurrence.equals("month") || typeOfRecurrence.equals("week"))){
+                            throw new RecurrenceException();
+                        }
+                        try{
+                            nbRecurrence = Integer.parseInt(recurrenceSplit2[1].trim());
+                        }catch (Exception e){
+                            throw new RecurrenceException();
+                        }
+                    }
+                }
+            }
+            else {
+                homeworkString = prioritySplit[0].trim();
+            }
             //date format used: dd/MM/yyyy HH:mm
             if (homeworkString.isBlank()) {
                 throw new EmptyHomeworkDateException();
@@ -71,8 +101,27 @@ public class HomeworkCommand extends Command {
                 }
                 else {
                     int priority = -1 ;
+                    String[] recurrenceSplit = prioritySplit[1].trim().split(("recu"));
+                    String priorityString = recurrenceSplit[0].trim();
+                    if(!(recurrenceSplit.length==1)){
+                        String[] recurrenceSplit2 = recurrenceSplit[1].trim().split(" ");
+                        if(recurrenceSplit2.length == 1){
+                            throw new RecurrenceException();
+                        }
+                        else {
+                            typeOfRecurrence = recurrenceSplit2[0].trim();
+                            if(!(typeOfRecurrence.equals("day") || typeOfRecurrence.equals("month") || typeOfRecurrence.equals("week"))){
+                                throw new RecurrenceException();
+                            }
+                            try{
+                                nbRecurrence = Integer.parseInt(recurrenceSplit2[1].trim());
+                            }catch (Exception e){
+                                throw new RecurrenceException();
+                            }
+                        }
+                    }
                     try{
-                        priority = Integer.parseInt(prioritySplit[1].trim());
+                        priority = Integer.parseInt(priorityString);
                     }
                     catch(Exception e){
                         throw new PrioritizeLimitException();
@@ -82,11 +131,57 @@ public class HomeworkCommand extends Command {
                     }
                     newTask = new HomeworkTask(description,d,priority);
                 }
-                tasks.add(newTask);
-                storage.save(tasks.getList());
-                ui.showTask(newTask, tasks.size());
+                if(nbRecurrence == 0){
+                    tasks.add(newTask);
+                    storage.save(tasks.getList());
+                    ui.showTask(newTask, tasks.size());
+                }
+                else {
+                    contructRecurrenceTask(newTask, nbRecurrence, typeOfRecurrence, tasks, storage, ui);
+                }
+
             }
         }
+    }
+
+    public void contructRecurrenceTask(HomeworkTask task, int nbRecurrence, String typeOfRecurrence, TaskList tasks, Storage storage, Ui ui) throws FileException {
+        ArrayList<Task> newTaskList = new ArrayList<>();
+        LocalDateTime initialDate = task.getDeadlines().getDate();
+        String description = task.getTask();
+        int priority = task.getPriority();
+        newTaskList.add(task);
+        tasks.add(task);
+        switch (typeOfRecurrence){
+            case "day":
+                for(int i = 1; i<= nbRecurrence; i++){
+                    HomeworkTask recurrentHomeworkTask = new HomeworkTask(description, new Date(initialDate.plusDays(i)), priority);
+                    newTaskList.add(recurrentHomeworkTask);
+                    tasks.add(recurrentHomeworkTask);
+                }
+                ui.showNotCompleteList(newTaskList, tasks);
+                break;
+            case "week":
+                for(int i = 1; i<= nbRecurrence; i++){
+                    HomeworkTask recurrentHomeworkTask = new HomeworkTask(description, new Date(initialDate.plusWeeks(i)), priority);
+                    newTaskList.add(recurrentHomeworkTask);
+                    tasks.add(recurrentHomeworkTask);
+                }
+                ui.showNotCompleteList(newTaskList, tasks);
+                break;
+            case "month":
+                for(int i = 1; i<= nbRecurrence; i++){
+                    HomeworkTask recurrentHomeworkTask = new HomeworkTask(description, new Date(initialDate.plusMinutes(i)), priority);
+                    newTaskList.add(recurrentHomeworkTask);
+                    tasks.add(recurrentHomeworkTask);
+                }
+                ui.showNotCompleteList(newTaskList, tasks);
+                break;
+            default:
+                tasks.add(task);
+                ui.showTask(task, tasks.size());
+                break;
+        }
+        storage.save(tasks.getList());
     }
 
     /**
