@@ -1,1 +1,20 @@
 PID,TID,DONE,RECURRENCE,DEADLINE,STARTTIME,ENDTIME,TASKTYPE,uuid
+4,8,false,false,,05/11/2019 1200,06/11/2019 1200,period,1
+1,1,false,false,,11/11/2019 0001,12/11/2019 2359,period,2
+3,6,false,false,,07/11/2019 1000,07/11/2019 2300,period,3
+4,2,false,false,06/11/2019 0200,,,deadline,4
+5,12,false,false,05/11/2019 0100,,,deadline,5
+3,2,false,false,,04/11/2019 2359,05/11/2019 0100,period,6
+4,5,false,false,07/11/2019 1300,,,deadline,8
+3,7,false,false,07/11/2019 0200,,,deadline,9
+3,10,false,false,10/11/2019 1200,,,deadline,11
+2,8,false,false,05/11/2019 2000,,,deadline,12
+2,11,false,false,,08/11/2019 1200,09/11/2019 0100,period,13
+2,1,false,false,10/11/2019 1300,,,deadline,14
+5,12,false,false,06/11/2019 1200,,,deadline,15
+1,11,false,false,06/11/2019 2359,,,deadline,16
+3,10,false,false,,06/11/2019 0100,08/11/2019 2300,period,17
+3,8,false,false,06/11/2019 1700,,,deadline,18
+5,5,false,false,06/11/2019 0500,,,deadline,19
+2,7,false,false,,06/11/2019 0100,07/11/2019 0100,period,20
+4,5,false,false,06/11/2019 1200,,,deadline,21

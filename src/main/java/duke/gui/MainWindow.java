@@ -1,8 +1,10 @@
 package duke.gui;
 
 import duke.Duke;
+import duke.commands.task.UpcomingTasksCommand;
 import duke.exceptions.DukeException;
 import duke.models.assignedtasks.AssignedTask;
+import duke.models.assignedtasks.UpcomingTasks;
 import duke.models.patients.Patient;
 import duke.models.tasks.Task;
 import javafx.beans.binding.Bindings;
@@ -23,6 +25,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
@@ -30,6 +33,7 @@ import javafx.stage.Stage;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -137,6 +141,51 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private ScrollPane helpGuideScrollPane;
 
+    @FXML
+    private VBox firstDayBox;
+    @FXML
+    private VBox secondDayBox;
+    @FXML
+    private VBox thirdDayBox;
+    @FXML
+    private VBox fourthDayBox;
+    @FXML
+    private VBox fifthDayBox;
+    @FXML
+    private VBox sixthDayBox;
+    @FXML
+    private VBox seventhDayBox;
+
+    @FXML
+    private TitledPane firstTitledPane;
+    @FXML
+    private TitledPane secondTitledPane;
+    @FXML
+    private TitledPane thirdTitledPane;
+    @FXML
+    private TitledPane fourthTitledPane;
+    @FXML
+    private TitledPane fifthTitledPane;
+    @FXML
+    private TitledPane sixthTitledPane;
+    @FXML
+    private TitledPane seventhTitledPane;
+
+    @FXML
+    private ScrollPane firstScroll;
+    @FXML
+    private ScrollPane secondScroll;
+    @FXML
+    private ScrollPane thirdScroll;
+    @FXML
+    private ScrollPane fourthScroll;
+    @FXML
+    private ScrollPane fifthScroll;
+    @FXML
+    private ScrollPane sixthScroll;
+    @FXML
+    private ScrollPane seventhScroll;
+
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/robot.png"));
@@ -186,8 +235,9 @@ public class MainWindow extends UiPart<Stage> {
                                   "find patient :", "find task :", "find assigned tasks", "update patient :",
                                   "update task :", "help", "piechart","bye", "undo", "help"};
         TextFields.bindAutoCompletion(userInput, possibleWords);
-        //@@author
+        //@@lmtaek
         showHelpGuide();
+        // @@author
     }
 
 
@@ -632,6 +682,42 @@ public class MainWindow extends UiPart<Stage> {
         for (HelpBox newHelpBox : HelpBox.getHelpGuide()) {
             helpGuideContainer.getChildren().addAll(newHelpBox);
             helpGuideScrollPane.setContent(helpGuideContainer);
+        }
+    }
+
+    /**
+     * Handler for Upcoming Tasks tab. Dynamically updates to display tasks assigned for day within upcoming week.
+     * @throws DukeException When Upcoming Tasks tab is unable to locate Upcoming Tasks to fill out respective fields.
+     */
+    public void showUpcomingTasks() throws DukeException {
+        VBox[] upcomingTaskContainers = {firstDayBox, secondDayBox, thirdDayBox, fourthDayBox,
+                                            fifthDayBox, sixthDayBox, seventhDayBox};
+        TitledPane[] titledPanes = {firstTitledPane, secondTitledPane, thirdTitledPane, fourthTitledPane,
+                                    fifthTitledPane, sixthTitledPane, seventhTitledPane};
+        ScrollPane[] scrollPanes = {firstScroll, secondScroll, thirdScroll, fourthScroll,
+                                    fifthScroll, sixthScroll, seventhScroll};
+        ArrayList<UpcomingTasks> upcomingTasks =
+                new UpcomingTasksCommand(LocalDateTime.now(), false).getUpcomingTaskLists();
+
+        for (int i = 0; i < 7; i++) {
+            upcomingTasks.add(new UpcomingTasks(LocalDateTime.now().plusDays(i),
+                    duke.getAssignedTaskManager(), duke.getTaskManager(),
+                    duke.getPatientManager()));
+        }
+
+        for (int i = 0; i < upcomingTaskContainers.length; i++) {
+            upcomingTaskContainers[i].getChildren().clear();
+            titledPanes[i].setText(upcomingTasks.get(i).getFormattedDate());
+            ArrayList<UpcomingTasksBox> taskBoxesForDate
+                    = UpcomingTasksBox.createUpcomingTasksBoxesForDate(upcomingTasks.get(i).getTaskAndInfo());
+
+            for (UpcomingTasksBox taskInfoForDate : taskBoxesForDate) {
+                upcomingTaskContainers[i].getChildren().addAll(taskInfoForDate);
+            }
+
+            scrollPanes[i].setContent(upcomingTaskContainers[i]);
+            titledPanes[i].setContent(scrollPanes[i]);
+
         }
     }
 

@@ -142,7 +142,7 @@ public class CommandManager {
                         + " :<updated description>` format.");
             }
         case "show upcoming tasks":
-            return new UpcomingTasksCommand(LocalDateTime.now());
+            return new UpcomingTasksCommand(LocalDateTime.now(), true);
         case "duke":
             return new DukeCommand();
         case "bye":
