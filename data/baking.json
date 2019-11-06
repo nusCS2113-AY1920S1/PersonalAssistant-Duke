@@ -1,0 +1,57 @@
+{
+  "orders" : [ ],
+  "products" : [ ],
+  "inventory" : [ {
+    "ingredient" : {
+      "name" : "Asd",
+      "unitPrice" : 0.0,
+      "remarks" : ""
+    },
+    "amount" : 5.0
+  }, {
+    "ingredient" : {
+      "name" : "Egg",
+      "unitPrice" : 0.0,
+      "remarks" : ""
+    },
+    "amount" : 3.0
+  }, {
+    "ingredient" : {
+      "name" : "Peas",
+      "unitPrice" : 0.5,
+      "remarks" : ""
+    },
+    "amount" : 34.0
+  }, {
+    "ingredient" : {
+      "name" : "Haha sdfsdvsdv",
+      "unitPrice" : 5.0,
+      "remarks" : ""
+    },
+    "amount" : 5.0
+  } ],
+  "shoppingList" : [ ],
+  "sales" : [ {
+    "id" : 1572548032585,
+    "description" : "Ingredients purchased.",
+    "value" : -57.0,
+    "isSpend" : true,
+    "saleDate" : "2019-10-31T18:53:52.585+0000",
+    "remarks" : "Ingredients are: -Egg -Peas -Haha sdfsdvsdv "
+  }, {
+    "id" : 1572548069896,
+    "description" : "Ingredients purchased.",
+    "value" : 0.0,
+    "isSpend" : true,
+    "saleDate" : "2019-10-31T18:54:29.885+0000",
+    "remarks" : "Ingredients are: -Haha sdfsdvsdv "
+  }, {
+    "id" : 1573014024974,
+    "description" : "Ingredients purchased.",
+    "value" : 0.0,
+    "isSpend" : true,
+    "saleDate" : "2019-11-06T04:20:24.966+0000",
+    "remarks" : "Ingredients are: -Egg "
+  } ],
+  "shortcuts" : [ ]
+}

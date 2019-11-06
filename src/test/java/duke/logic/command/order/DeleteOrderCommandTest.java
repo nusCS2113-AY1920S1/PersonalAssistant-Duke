@@ -7,11 +7,9 @@ public class DeleteOrderCommandTest {
 
     @Test
     public void deleteOrder_nullIndex_throwNullPointerException() {
-        Assertions.assertThrows(NullPointerException.class, () ->
-            {
+        Assertions.assertThrows(NullPointerException.class, () -> {
                 DeleteOrderCommand command = new DeleteOrderCommand(null);
-            }
-        );
+        });
     }
 
 }
