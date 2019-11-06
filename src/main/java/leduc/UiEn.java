@@ -39,7 +39,7 @@ public class UiEn extends Ui {
 
     @Override
     public void showFindMatching(String result) {
-        super.display("\t Here are the matching tasks in your list:\n" + result);
+        super.display("\t Here are the most relevant tasks in your list:\n" + result);
     }
 
     @Override
@@ -98,17 +98,49 @@ public class UiEn extends Ui {
     }
 
     @Override
-    public void showStats(double numTasks, double numTodos, double numEvents, double numHomework, double numIncomplete, double numComplete, float percentComplete) {
-        super.display("Here are some statistics about your task list: \n" +
+    public void showGeneralStats(double numTasks, double numTodos, double numEvents, double numHomework, double numIncomplete, double numComplete, double percentComplete) {
+        String message = "Here are some general statistics about your task list: \n" +
                 "Number of tasks: " + numTasks + "\n" +
                 "Number of Todo's : " + numTodos + "\n" +
                 "Number of Events: " + numEvents + "\n" +
                 "Number of Homeworks: " + numHomework + "\n" +
                 "Number of Uncompleted Tasks: " + numIncomplete + "\n" +
                 "Number of Completed Tasks: " + numComplete + "\n" +
-                "Percent Complete: " + percentComplete + "%");
-    }
+                "Percent Complete: " + percentComplete + "%";
 
+        super.display(message);
+    }
+    @Override
+    public void showPriorityStats(int numFivePrio, int numFourPrio, int numThreePrio, int numTwoPrio, int numOnePrio, double percentFivePrio, double percentFourPrio, double percentThreePrio, double percentTwoPrio, double percentOnePrio){
+        String message = "Here are some priority statistics about your task list: \n" +
+                "----PRIORITY COUNTS----" + "\n" +
+                "Number of tasks with priority 5: " + numFivePrio + "\n" +
+                "Number of tasks with priority 4: " + numFourPrio + "\n" +
+                "Number of tasks with priority 3: " + numThreePrio + "\n" +
+                "Number of tasks with priority 2: " + numTwoPrio + "\n" +
+                "Number of tasks with priority 1: " + numOnePrio + "\n" +
+                "----PRIORITY PERCENTAGES----" + "\n" +
+                "Percent of tasks with priority 5: " + percentFivePrio + "%" + "\n" +
+                "Percent of tasks with priority 4: " + percentFourPrio + "%" + "\n" +
+                "Percent of tasks with priority 3: " + percentThreePrio + "%" + "\n" +
+                "Percent of tasks with priority 2: " + percentTwoPrio + "%" + "\n" +
+                "Percent of tasks with priority 1: " + percentOnePrio + "%";
+        super.display(message);
+    }
+    @Override
+    public void showCompletionStats( int numIncompleteHomework, int numIncompleteTodo, int numIncompleteEvent,
+                                     double percentIncompleteHomework, double percentIncompleteTodo, double percentIncompleteEvent){
+        String message = "Here are some completion statistics about your task list: \n" +
+                "----COMPLETION COUNTS----" + "\n" +
+                "Number of incomplete Homeworks remaining: " + numIncompleteHomework + "\n" +
+                "Number of incomplete Todos remaining: " + numIncompleteTodo + "\n" +
+                "Number of incomplete Events  remaining: " + numIncompleteEvent + "\n" +
+                "----COMPLETION PERCENTAGES----" + "\n" +
+                "Percent of incomplete Homework: " + percentIncompleteHomework + "%" + "\n" +
+                "Percent of incomplete Todo: " + percentIncompleteTodo + "%" + "\n" +
+                "Percent of incomplete Events: " + percentIncompleteEvent + "%";
+        super.display(message);
+    }
     @Override
     public void showUnFinishedTasks(ArrayList<Task> unfinishedTasks) {
         //print the task so they have the same index
@@ -333,6 +365,9 @@ public class UiEn extends Ui {
         }
         else if (e instanceof UserAnswerException){
             System.out.println("\t UserAnswerException:\n\t\t ☹ OOPS!!! Please answer correctly the question.");
+        }
+        else if (e instanceof InvalidFlagException){
+            System.out.println("\t InvalidFlagException:\n\t\t ☹ Invalid Flag!");
         }
     }
 

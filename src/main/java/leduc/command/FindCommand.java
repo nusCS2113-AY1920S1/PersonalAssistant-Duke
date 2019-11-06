@@ -1,5 +1,7 @@
 package leduc.command;
 
+import leduc.UiEn;
+import leduc.UiFr;
 import leduc.exception.EmptyArgumentException;
 import leduc.storage.Storage;
 import leduc.Ui;
@@ -83,6 +85,8 @@ public class FindCommand extends Command {
      */
 
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyArgumentException {
+        UiEn uien = new UiEn();
+        UiFr uifr = new UiFr();
         String userSubstring;
         if(callByShortcut){
             userSubstring = user.substring(FindCommand.findShortcut.length());
@@ -114,10 +118,21 @@ public class FindCommand extends Command {
             }
 
         }
-        if (result.isEmpty()) {
-            ui.display("\t There is no matching tasks in your list");
-        } else {
-            ui.display("\t Here are the most relevant tasks in your list:\n" + result);
+        if(storage.getLanguage().equals("en")) {
+            if (result.isEmpty()) {
+                uien.showFindNotMatching();
+
+            } else {
+                uien.showFindMatching(result);
+            }
+        }
+        else if(storage.getLanguage().equals("fr")) {
+            if (result.isEmpty()) {
+                uifr.showFindNotMatching();
+
+            } else {
+                uifr.showFindMatching(result);
+            }
         }
     }
     /**

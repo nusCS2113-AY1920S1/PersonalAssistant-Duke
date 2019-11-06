@@ -130,7 +130,6 @@ public abstract class Ui {
      * Display this message when there is no matching for the find
      */
     public abstract void showFindNotMatching();
-
     /**
      * Display this message when there is no task to display
      */
@@ -172,7 +171,7 @@ public abstract class Ui {
     public abstract void showSort();
 
     /**
-     * Display this message when the user wants some statistics
+     * Display this message when the user wants some general statistics
      * @param numTasks number of tasks
      * @param numTodos number of todos
      * @param numEvents number of events
@@ -181,8 +180,43 @@ public abstract class Ui {
      * @param numComplete number of completed task
      * @param percentComplete percent complete
      */
-    public abstract void showStats(double numTasks, double numTodos, double numEvents, double numHomework,
-                                   double numIncomplete, double numComplete, float percentComplete);
+    public abstract void showGeneralStats(double numTasks, double numTodos, double numEvents, double numHomework,
+                                   double numIncomplete, double numComplete, double percentComplete);
+
+
+    /**
+     * Dispplays priority statistics
+     * @param numFivePrio = number of 5 priority tasks
+     * @param numFourPrio = number of 4 priority tasks
+     * @param numThreePrio = number of 3 priority tasks
+     * @param numTwoPrio = number of 2 priority tasks
+     * @param numOnePrio = number of 1 priority tasks
+     * @param percentFivePrio = % of 5 priority tasks
+     * @param percentFourPrio = % of 4 priority tasks
+     * @param percentThreePrio = % of 3 priority tasks
+     * @param percentTwoPrio = % of 2 priority tasks
+     * @param percentOnePrio = % of 1 priority tasks
+     */
+    public abstract void showPriorityStats(int numFivePrio, int numFourPrio,
+                                           int numThreePrio, int numTwoPrio, int numOnePrio, double percentFivePrio,
+                                           double percentFourPrio, double percentThreePrio, double percentTwoPrio,
+                                           double percentOnePrio);
+
+    /**
+     * Displays completion statistics
+     * @param numIncompleteHomework = number of incomplete homeworks
+     * @param numIncompleteTodo = number of incomplete Todo's
+     * @param numIncompleteEvent = number of incomplete events
+     * @param percentIncompleteHomework = % of incomplete homeworks
+     * @param percentIncompleteTodo = % of incomplete Todo's
+     * @param percentIncompleteEvent = % of incomplete Events
+     */
+    public abstract void showCompletionStats( int numIncompleteHomework,
+             int numIncompleteTodo,
+             int numIncompleteEvent,
+             double percentIncompleteHomework,
+             double percentIncompleteTodo,
+             double percentIncompleteEvent);
 
     /**
      * Display this message when a new language has been set for the program

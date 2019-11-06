@@ -1,4 +1,7 @@
 package leduc.command;
+import leduc.UiEn;
+import leduc.UiFr;
+import leduc.exception.DukeException;
 import leduc.exception.InvalidFlagException;
 import leduc.storage.Storage;
 import leduc.Ui;
@@ -127,7 +130,7 @@ public class StatsCommand extends Command {
                 "Number of Uncompleted Tasks: " + numIncomplete + "\n" +
                 "Number of Completed Tasks: " + numComplete + "\n" +
                 "Percent Complete: " + percentComplete + "%";
-        ui.display(message);
+        ui.showFindMatching(message);
     }
 
     /**
@@ -174,26 +177,56 @@ public class StatsCommand extends Command {
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      */
     public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidFlagException {
+        UiEn uien = new UiEn();
+        UiFr uifr = new UiFr();
         //get user flag
         String flag = String.join(" ", Arrays.copyOfRange(user.split(" "), 1, user.split( " ").length));
         analyzeTaskList(taskList);
         createPercentageMetrics();
         //display metrics
-        if(flag.equals("")) {
-            printGeneralStatistics(ui);
+            if(storage.getLanguage().equals("fr")) {
+                if (flag.equals("")) {
+                    uifr.showGeneralStats(numTasks, numTodos, numEvents, numHomework, numIncomplete, numComplete, percentComplete);
+                }
+                //display priority statistics
+                else if (flag.equals("-p")) {
+                    uifr.showPriorityStats(numFivePrio, numFourPrio,
+                            numThreePrio, numTwoPrio, numOnePrio, percentFivePrio,
+                            percentFourPrio, percentThreePrio, percentTwoPrio,
+                            percentOnePrio);
+                }
+                //display completion statistics
+                else if (flag.equals("-c")) {
+                    uifr.showCompletionStats(numIncompleteHomework, numIncompleteTodo, numIncompleteEvent,
+                            percentIncompleteHomework, percentIncompleteTodo, percentIncompleteEvent);
+                } else {
+                    Exception e = new InvalidFlagException();
+                    uifr.showError((DukeException) e);
+                }
         }
-        //display priority statistics
-        else if(flag.equals("-p")) {
-            printPriorityStatistics(ui);
+        else if(storage.getLanguage().equals("en")) {
+            if (flag.equals("")) {
+                uien.showGeneralStats(numTasks, numTodos, numEvents, numHomework, numIncomplete, numComplete, percentComplete);
+            }
+            //display priority statistics
+            else if (flag.equals("-p")) {
+                uien.showPriorityStats(numFivePrio, numFourPrio,
+                        numThreePrio, numTwoPrio, numOnePrio, percentFivePrio,
+                        percentFourPrio, percentThreePrio, percentTwoPrio,
+                        percentOnePrio);
+            }
+            //display completion statistics
+            else if (flag.equals("-c")) {
+                uien.showCompletionStats(numIncompleteHomework, numIncompleteTodo, numIncompleteEvent,
+                        percentIncompleteHomework, percentIncompleteTodo, percentIncompleteEvent);
+            } else {
+                Exception e = new InvalidFlagException();
+                uien.showError((DukeException) e);
+            }
         }
-        //display completion statistics
-        else if(flag.equals("-c")){
-            displayCompletionStatistics(ui);
-        }
-        else{
-            throw new InvalidFlagException();
-        }
+
     }
+
     /**
      * getter because the shortcut is private
      * @return the shortcut name

@@ -89,7 +89,7 @@ public class UiFr extends Ui {
         super.display("\t Voici la nouvelle liste de tâche dans l'ordre: ");
     }
     @Override
-    public void showStats(double numTasks, double numTodos, double numEvents, double numHomework, double numIncomplete, double numComplete, float percentComplete) {
+    public void showGeneralStats(double numTasks, double numTodos, double numEvents, double numHomework, double numIncomplete, double numComplete, double percentComplete) {
         super.display("Voici quelques statistiques à propos de votre liste de tâche: \n" +
                 "Nombre de tâche : " + numTasks + "\n" +
                 "Nombre de Todo : " + numTodos + "\n" +
@@ -98,6 +98,37 @@ public class UiFr extends Ui {
                 "Nombre de tâche inaccomplie: " + numIncomplete + "\n" +
                 "Nombre de tâche accomplie: " + numComplete + "\n" +
                 "Pourcentage accomplie: " + percentComplete + "%");
+    }
+    @Override
+    public void showPriorityStats(int numFivePrio, int numFourPrio, int numThreePrio, int numTwoPrio, int numOnePrio, double percentFivePrio, double percentFourPrio, double percentThreePrio, double percentTwoPrio, double percentOnePrio){
+        String message = "Voici quelques statistiques prioritaires sur votre liste de tâches: \n" +
+                "---- COMPTE DE PRIORITÉ----" + "\n" +
+                "Nombre de tâches avec priorité 5: " + numFivePrio + "\n" +
+                "Nombre de tâches avec priorité 4: " + numFourPrio + "\n" +
+                "Nombre de tâches avec priorité 3: " + numThreePrio + "\n" +
+                "Nombre de tâches avec priorité 2: " + numTwoPrio + "\n" +
+                "Nombre de tâches avec priorité 1: " + numOnePrio + "\n" +
+                "----POURCENTAGE DE PRIORITÉ----" + "\n" +
+                "Pourcentage de tâches de priorité 5: " + percentFivePrio + "%" + "\n" +
+                "Pourcentage de tâches de priorité 4: " + percentFourPrio + "%" + "\n" +
+                "Pourcentage de tâches de priorité 3: " + percentThreePrio + "%" + "\n" +
+                "Pourcentage de tâches de priorité 2: " + percentTwoPrio + "%" + "\n" +
+                "Pourcentage de tâches de priorité 1: " + percentOnePrio + "%";
+        super.display(message);
+    }
+    @Override
+    public void showCompletionStats( int numIncompleteHomework, int numIncompleteTodo, int numIncompleteEvent,
+                                     double percentIncompleteHomework, double percentIncompleteTodo, double percentIncompleteEvent){
+        String message = "Voici quelques statistiques d'achèvement de votre liste de tâches: \n" +
+                "----COMPLETION COMPTE----" + "\n" +
+                "Nombre de devoirs incomplets restants: " + numIncompleteHomework + "\n" +
+                "Number of incomplete Todos remaining: " + numIncompleteTodo + "\n" +
+                "Nombre de Todos incomplets restants: " + numIncompleteEvent + "\n" +
+                "-----POURCENTAGES DE FINITION----" + "\n" +
+                "Pourcentage de devoirs incomplets: " + percentIncompleteHomework + "%" + "\n" +
+                "Pourcentage de Todo incomplet: " + percentIncompleteTodo + "%" + "\n" +
+                "Pourcentage d'événements incomplets: " + percentIncompleteEvent + "%";
+        super.display(message);
     }
     @Override
     public void showUnFinishedTasks(ArrayList<Task> unfinishedTasks) {
@@ -319,6 +350,10 @@ public class UiFr extends Ui {
         }
         else if (e instanceof UserAnswerException){
             System.out.println("\t UserAnswerException:\n\t\t ☹ OOPS!!! Veuillez répondre correctement à la question.");
+        }
+        else if (e instanceof InvalidFlagException){
+            System.out.println("\t InvalidFlagException:\n\t\t ☹ OOPS!!! Drapeau invalide.");
+
         }
     }
 
