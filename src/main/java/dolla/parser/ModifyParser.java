@@ -34,7 +34,7 @@ public class ModifyParser extends Parser {
         switch (modeToModify) {
         case MODE_ENTRY:
             if (verifyAddCommand()) {
-                return new FullModifyEntryCommand(inputArray[1], stringToDouble(inputArray[2]), inputArray[3], date);
+                return new FullModifyEntryCommand(inputArray[1], amount, inputArray[3], date);
             } else {
                 return new ErrorCommand();
             }
@@ -60,9 +60,8 @@ public class ModifyParser extends Parser {
         case MODE_LIMIT:
             if (verifySetLimitCommand()) {
                 String typeStr = inputArray[1];
-                double amountInt = stringToDouble(inputArray[2]);
                 String durationStr = inputArray[3];
-                return new FullModifyLimitCommand(typeStr, amountInt, durationStr);
+                return new FullModifyLimitCommand(typeStr, this.amount, durationStr);
             } else {
                 LimitUi.invalidSetCommandPrinter();
                 return new ErrorCommand();

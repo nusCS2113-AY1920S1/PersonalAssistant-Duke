@@ -28,9 +28,9 @@ public class DollaParser extends Parser {
         if (commandToRun.equals(ENTRY_COMMAND_ADD)) {
             if (verifyAddCommand()) {
                 Tag tag = new Tag();
-                Entry entry = new Entry(inputArray[1], stringToDouble(inputArray[2]), description, date, EMPTY_STR);
+                Entry entry = new Entry(inputArray[1], amount, description, date, EMPTY_STR);
                 tag.handleTag(entry);
-                return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
+                return new AddEntryCommand(inputArray[1], amount,
                         description, date, tag.getTagName());
             } else {
                 return new ErrorCommand();
@@ -78,9 +78,8 @@ public class DollaParser extends Parser {
         } else if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_SET)) {
             if (verifySetLimitCommand()) {
                 String typeStr = inputArray[1];
-                double amountInt = stringToDouble(inputArray[2]);
                 String durationStr = inputArray[3];
-                return new AddLimitCommand(typeStr, amountInt, durationStr);
+                return new AddLimitCommand(typeStr, amount, durationStr);
             } else {
                 LimitUi.invalidSetCommandPrinter();
                 return new ErrorCommand();

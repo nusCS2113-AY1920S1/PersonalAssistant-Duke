@@ -29,9 +29,8 @@ public class LimitParser extends Parser {
         } else if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_SET)) {
             if (verifySetLimitCommand()) {
                 String typeStr = inputArray[1];
-                double amountInt = stringToDouble(inputArray[2]);
                 String durationStr = inputArray[3];
-                return new AddLimitCommand(typeStr, amountInt, durationStr);
+                return new AddLimitCommand(typeStr, amount, durationStr);
             } else {
                 LimitUi.invalidSetCommandPrinter();
                 return new ErrorCommand();
