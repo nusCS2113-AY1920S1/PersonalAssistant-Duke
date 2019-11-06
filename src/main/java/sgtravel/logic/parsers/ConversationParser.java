@@ -14,7 +14,6 @@ import sgtravel.logic.conversations.RouteGenerateConversation;
 import sgtravel.logic.conversations.RouteListConversation;
 import sgtravel.logic.conversations.RouteNodeAddConversation;
 import sgtravel.logic.conversations.RouteNodeDeleteConversation;
-import sgtravel.logic.conversations.RouteNodeEditConversation;
 import sgtravel.logic.conversations.RouteNodeListConversation;
 import sgtravel.logic.conversations.SearchConversation;
 import sgtravel.logic.conversations.SetupProfileConversation;

@@ -1,5 +1,6 @@
 package sgtravel.logic.commands;
 
+import org.apache.commons.lang3.ObjectUtils;
 import sgtravel.commons.Messages;
 import sgtravel.commons.enumerations.Constraint;
 import sgtravel.commons.exceptions.ApiException;
@@ -105,12 +106,6 @@ public class RouteGenerateCommand extends Command {
             throw new RouteGenerateFailException();
         }
 
-        for (RouteNode node : route.getNodes()) {
-            if (node instanceof TrainStation) {
-                node.setAddress(node.getDescription());
-            }
-        }
-
         model.getRoutes().add(route);
         model.save();
 
@@ -176,6 +171,10 @@ public class RouteGenerateCommand extends Command {
             description += node.getAddress() + "/";
             route.setDescription(description);
         } else {
+            if (node instanceof TrainStation) {
+                node.setAddress(node.getDescription());
+            }
+
             updateRouteNode(node, model);
             route.add(node);
         }

@@ -1,6 +1,5 @@
 package sgtravel;
 
-import org.assertj.core.data.Index;
 import sgtravel.commons.exceptions.FileLoadFailException;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.DuplicateRouteException;
