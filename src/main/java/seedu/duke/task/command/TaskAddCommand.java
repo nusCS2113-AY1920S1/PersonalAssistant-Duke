@@ -67,7 +67,6 @@ public class TaskAddCommand extends Command {
         }
         String clashMsg = findClash(taskList, task);
         taskList.add(task);
-        taskList.sortListByPriority(taskList);
         if (done) {
             task.markDone();
         }

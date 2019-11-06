@@ -169,8 +169,8 @@ public class Task {
     }
 
     /**
-     * The function checks whether this task, when converted to string, contains the keyword specified.
-     * Case ignored.
+     * The function checks whether this task, when converted to string, contains the keyword specified. Case
+     * ignored.
      *
      * @param keyword search target string
      * @return a flag whether the keyword is found in the task string
@@ -214,6 +214,10 @@ public class Task {
         this.tags = tags;
     }
 
+    public ArrayList<String> getTags() {
+        return tags;
+    }
+
     public void setDoAfterDescription(String description) {
         this.doAfterDescription = description;
     }
@@ -236,7 +240,7 @@ public class Task {
     }
 
     public Priority getPriority() {
-        return level;
+        return this.level;
     }
 
     /**
