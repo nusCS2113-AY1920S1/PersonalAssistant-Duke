@@ -116,15 +116,22 @@ public class UiTemporary {
             + ("1. Todo - todo<space>your task description eg. todo borrow books\n")
             + ("2. Deadline - deadline<space>your deadline description<space>/by<space> date-time\n")
             + ("3. Event - event<space>your event description<space>/at<space> date-time-date-time\n")
-            + ("4. To list out all your tasks simply enter list\n")
-            + ("5. Done - done<space> index of the task as listed\n")
-            + ("6. Find - find<space>any word in the task\n")
-            + ("7. Delete - delete<space> index of task as listed\n")
-            + ("8. Undo/Redo - undo or redo changes to your tasks\n")
-            + ("9. Theme - theme<space>dark or light\n")
-            + ("10. Store/Restore - store or restore<space> index of storage\n")
-            + ("11. To exit, enter bye\n\n")
-            + ("12. If still unclear, enter manual to see our user guide!");
+            + ("4. Assignments - assignment<space>/m<space>module code<space>/by<space>date-time")
+            + ("5. Lectures - lecture<space>/m<space>module code<space>/at<space>day of week<space>start_time-end_time\n")
+            + ("6. Tutorials - tutorial<space>/m<space>module code<space>/at<space>day of week<space>start_time-end_time\n")
+            + ("7. Exams - exam<space>/m<space>module code<space>/at<space>date-time-date-time\n")
+            + ("8. To list out all your tasks simply enter list\n")
+            + ("9. Done - done<space> index of the task as listed\n")
+            + ("10. Find - find<space>any word in the task\n")
+            + ("11. Delete - delete<space> index of task as listed\n")
+            + ("12. Search - search<space>duration of task in hours\n")
+            + ("13. Comment - comment<space>index of task as listed<space>your comment\n")
+            + ("14. Location - location<space>index of task as listed<space>your location")
+            + ("15. Undo/Redo - undo or redo changes to your tasks\n")
+            + ("16. Theme - theme<space>dark or light\n")
+            + ("17. Store/Restore - store or restore<space> index of storage\n")
+            + ("18. To exit, enter bye\n\n")
+            + ("19. If still unclear, enter manual to see our user guide!");
     }
 
     public static void printUnknownInput() {
