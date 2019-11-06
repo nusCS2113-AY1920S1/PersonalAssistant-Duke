@@ -107,8 +107,7 @@ public class TrackerCommand extends Command {
                 break;
 
             case STOP_COMMAND:
-                assert tracker != null;
-                if (isNotStarted(tracker)) {
+                if (tracker == null || tracker.isNotStarted()) {
                     throw new TrackerNotFoundException("Tracker for this Assignment has not started.");
                 } else {
                     if (!isValidDescription) {
@@ -123,8 +122,7 @@ public class TrackerCommand extends Command {
                 break;
 
             case PAUSE_COMMAND:
-                assert tracker != null;
-                if (isNotStarted(tracker)) {
+                if (tracker == null || tracker.isNotStarted()) {
                     throw new TrackerNotFoundException("Tracker for this Assignment has not started.");
                 } else {
                     if (!isValidDescription) {
@@ -285,16 +283,6 @@ public class TrackerCommand extends Command {
         Date startDate = tracker.getStartDate();
         totalTime += Integer.parseInt(tracker.getDateDiff(startDate));
         tracker.updateTracker(totalTime, now);
-    }
-
-    /**
-     * Check if tracker has been started.
-     *
-     * @param tracker   Tracker object.
-     * @return if Tracker object has a start date.
-     */
-    private boolean isNotStarted(Tracker tracker) {
-        return tracker.getStartDate() == null;
     }
 
     private Task findTask(int taskIndex, TaskList taskList) {

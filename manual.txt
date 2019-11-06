@@ -14,7 +14,7 @@ Event                       event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-Y
 
 Todo                        todo DESCRIPTION /on DD-MM-YYYY
 
-Recurring                   recurring INDEX NUMBER_OF_OCCURRENCES
+Recurring                   recurring INDEX NUMBER_OF_OCCURRENCES FREQUENCY
 
 List                        list
 
@@ -32,7 +32,7 @@ Summary                     summary
 
 Free                        free DD-MM-YYYY
 
-ViewWeek                    viewweek DD MM YYYY e.g. viewweek 30 10 2019
+ViewWeek                    viewweek DD MM YYYY
 
 Calendar                    calendar MM YYYY
 
