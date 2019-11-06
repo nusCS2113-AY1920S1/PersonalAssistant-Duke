@@ -37,10 +37,14 @@ public class GradeTest extends InputTest {
     private static PlannerUi modUi;
     private static HashMap<String, ModuleInfoDetailed> modDetailedMap;
     private transient ByteArrayOutputStream output;
-    private String expectedBye = "_______________________________\n" +
-        "Thanks for using ModPlanner!\n" +
-        "Your data will be stored in file shortly!\n" +
-        "_______________________________\n" +
+    private String expectedBye = "_______________________________\n"
+        +
+        "Thanks for using ModPlanner!\n"
+        +
+        "Your data will be stored in file shortly!\n"
+        +
+        "_______________________________\n"
+        +
         "_______________________________\n";
     final String[] hold = {""};
 
