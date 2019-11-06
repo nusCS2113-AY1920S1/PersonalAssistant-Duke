@@ -172,7 +172,7 @@ public class Parser {
             return "";
         }
         StringBuilder queuedTaskString = new StringBuilder();
-        for (Task queuedTask : task.getQueuedTasks().getList()) {
+        for (Task queuedTask : task.getQueuedTasks()) {
             queuedTaskString.append(PARSE_MARKER_TASK);
             queuedTaskString.append(encodeTask(queuedTask));
         }

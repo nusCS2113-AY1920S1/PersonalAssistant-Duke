@@ -1,9 +1,8 @@
 package executor.command;
 
-import executor.task.TaskList;
+import duke.exception.DukeException;
 import interpreter.Parser;
-import ui.Ui;
-import ui.Wallet;
+import storage.StorageManager;
 import java.text.DecimalFormat;
 
 public class CommandUpdateBalance extends Command {
@@ -13,35 +12,29 @@ public class CommandUpdateBalance extends Command {
      * @param userInput The user Input from the CLI
      */
     public CommandUpdateBalance(String userInput) {
+        super();
         this.userInput = userInput;
         this.commandType = CommandType.SETBALANCE;
-        this.description = "Updates current balance to new balance in the wallet "
-                + "FORMAT : setbalance $<amount>";
+        this.description = "Updates current balance to new balance in the wallet \n"
+                + "FORMAT :  ";
     }
 
     @Override
-    public void execute(TaskList taskList) {
-
-    }
-
-    @Override
-    public void execute(Wallet wallet) {
-
-        if(getExecutedCommands().contains(this.commandType.toString())){
-            Ui.dukeSays("SetBalance can only be executed once!");
-        } else {
-            DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-            Double userAmount = extractAmount();
-            if(userAmount != null) {
-                wallet.setBalance(userAmount);
-                Ui.dukeSays("Balance updated to: $" + decimalFormat.format(userAmount));
-                Ui.printSeparator();
-                getExecutedCommands().add(this.commandType.toString());
-            }
+    public void execute(StorageManager storageManager) {
+        try {
+            this.newBalance = extractAmount();
+        } catch (DukeException e) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr(e.getMessage());
+            return;
         }
+        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+        storageManager.setWalletBalance(this.newBalance);
+        this.infoCapsule.setCodeToast();
+        this.infoCapsule.setOutputStr("Balance updated to: $" + decimalFormat.format(this.newBalance) + "\n");
     }
 
-    private Double extractAmount() {
+    private Double extractAmount() throws DukeException {
         String incomeStr = Parser.parseForPrimaryInput(this.commandType, this.userInput);
         try {
             incomeStr = incomeStr.trim().replace("$", "");
@@ -51,9 +44,8 @@ public class CommandUpdateBalance extends Command {
             }
             return amount;
         } catch (Exception e) {
-            Ui.dukeSays("Please kindly follow the format : setbalance $<amount> \n"
+            throw new DukeException("Please kindly follow the format : setbalance $<amount> \n"
             + "Please enter an amount greater than or equal to zero in your wallet !\n");
-            return null;
         }
     }
 }

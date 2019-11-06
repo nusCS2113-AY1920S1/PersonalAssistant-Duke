@@ -93,7 +93,6 @@ public abstract class Task {
 
     /**
      * Records the details from the user input into this Task object.
-     *
      * @param userInput The input taken from the user in CLI
      */
     public void recordTaskDetails(String userInput) {
@@ -112,6 +111,16 @@ public abstract class Task {
                 this.taskDetails = splitDetails[1].trim();
             }
         }
+    }
+
+    /**
+     * Initializes the Queue if it hasn't been initialized.
+     */
+    public void initializeQueue() {
+        if (this.isQueuedTasks()) {
+            return;
+        }
+        this.setQueuedTasks(new TaskList());
     }
 
     // -- Boolean Checkers

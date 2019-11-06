@@ -1,5 +1,6 @@
 package storage;
 
+import duke.exception.DukeException;
 import executor.task.Task;
 import executor.task.TaskList;
 import interpreter.Parser;
@@ -28,7 +29,7 @@ public class StorageTask {
     public void saveData(TaskList taskList) {
         try {
             FileWriter writer = new FileWriter(this.filePath);
-            for (Task task : taskList.getList()) {
+            for (Task task : taskList) {
                 String strSave = Parser.encodeTask(task);
                 writer.write(strSave);
             }
@@ -43,23 +44,22 @@ public class StorageTask {
      *
      * @return TaskList class
      */
-    public TaskList loadData() {
+    public TaskList loadData() throws DukeException {
         TaskList taskList = new TaskList();
         try {
             File file = new File(this.filePath);
             Scanner scanner = new Scanner(file);
             Task newTask;
             while (scanner.hasNextLine()) {
-                try {
-                    String loadedInput = scanner.nextLine();
-                    newTask = loadTaskFromStorageString(loadedInput);
-                    taskList.addTask(newTask);
-                } catch (Exception e) {
-                    System.out.println(e);
+                String loadedInput = scanner.nextLine();
+                if (loadedInput.equals("")) {
+                    break;
                 }
+                newTask = loadTaskFromStorageString(loadedInput);
+                taskList.addTask(newTask);
             }
         } catch (Exception e) {
-            System.out.println("No Previously saved Data.");
+            throw new DukeException("No Previously Saved Tasks.\n");
         }
         return taskList;
     }
@@ -76,10 +76,18 @@ public class StorageTask {
         String[] taskStrings = Parser.parseStoredTask(loadedInput);
         for (String taskString : taskStrings) {
             if (newTask == null) {
-                newTask = TaskList.createTaskFromString(taskString);
+                try {
+                    newTask = TaskList.createTaskFromString(taskString);
+                } catch (DukeException e) {
+                    // Task cannot be created. Continue
+                }
             } else {
-                queuedTask = TaskList.createTaskFromString(taskString);
-                queuedTasks.getList().add(queuedTask);
+                try {
+                    queuedTask = TaskList.createTaskFromString(taskString);
+                } catch (DukeException e) {
+                // Task cannot be created. Continue
+                }
+                queuedTasks.add(queuedTask);
             }
         }
         if (queuedTask != null) {

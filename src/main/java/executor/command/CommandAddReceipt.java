@@ -39,7 +39,7 @@ public abstract class CommandAddReceipt extends Command {
         }
     }
 
-    String removeDollarSign(String input) {
+    private String removeDollarSign(String input) {
         return input.trim().replace("$", "");
     }
 

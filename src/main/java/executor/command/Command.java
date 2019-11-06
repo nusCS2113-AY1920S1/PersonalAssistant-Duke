@@ -1,12 +1,15 @@
 package executor.command;
 
 import executor.task.TaskList;
+import storage.StorageManager;
 import ui.Wallet;
+import utils.InfoCapsule;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Command {
+    protected InfoCapsule infoCapsule;
     private static List<String> executedCommands = new ArrayList<>();
     protected Boolean exitRequest = false;
     protected String userInput = null;
@@ -15,24 +18,29 @@ public abstract class Command {
 
 
     // Constructor
+
+    /**
+     * Base Constructor for all sub-classes to call super().
+     */
     public Command() {
+        this.infoCapsule = new InfoCapsule();
+        infoCapsule.setCodeError();
+        infoCapsule.setOutputStr("Command was not executed.\n");
     }
 
     /**
-     * Returns True if the command requests for the Ui to exit.
-     *
+     * Returns an InfoCapsule that details the Execution Info/Status of this Command.
      * @return Boolean
      */
-    public Boolean getExitRequest() {
-        return exitRequest;
+    public InfoCapsule getInfoCapsule() {
+        return this.infoCapsule;
     }
 
     /**
      * Executes a particular Command.
+     * @param storageManager StorageManager Object that holds all the Models of Duke
      */
-    public abstract void execute(TaskList taskList);
-
-    public abstract void execute(Wallet wallet);
+    public abstract void execute(StorageManager storageManager);
 
     public String getDescription() {
         return this.description;

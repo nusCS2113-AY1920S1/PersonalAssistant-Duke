@@ -1,10 +1,7 @@
 package executor.command;
 
-import executor.task.TaskList;
-import ui.ReceiptTracker;
-import ui.Ui;
-import ui.Wallet;
-
+import duke.exception.DukeException;
+import storage.StorageManager;
 import java.time.LocalDate;
 
 public class CommandGetSpendingByDay extends Command {
@@ -15,6 +12,7 @@ public class CommandGetSpendingByDay extends Command {
      * @param userInput is the input from the user
      */
     public CommandGetSpendingByDay(String userInput) {
+        super();
         this.commandType = CommandType.EXPENDEDDAY;
         this.userInput = userInput;
         this.description = "Provides the user the total expenditure for the day stated. "
@@ -22,18 +20,18 @@ public class CommandGetSpendingByDay extends Command {
     }
 
     @Override
-    public void execute(Wallet wallet) {
-        ReceiptTracker receiptsInDay = new ReceiptTracker();
+    public void execute(StorageManager storageManager) {
         String currDate = LocalDate.now().toString();
-        receiptsInDay = wallet.getReceipts().findReceiptsByDate(currDate);
-        Double totalMoney = receiptsInDay.getTotalCashSpent();
-        Ui.dukeSays("The total amount of money spent today" + "(" + currDate + ") " + "is $" + totalMoney);
+        Double totalMoney;
+        try {
+            totalMoney = storageManager.getReceiptsByDate(currDate).getTotalCashSpent();
+        } catch (DukeException e) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr(e.getMessage());
+            return;
+        }
+        this.infoCapsule.setCodeToast();
+        this.infoCapsule.setOutputStr("The total amount of money spent today"
+                + "(" + currDate + ") " + "is $" + totalMoney);
     }
-
-    @Override
-    public void execute(TaskList taskList) {
-
-    }
-
-
 }

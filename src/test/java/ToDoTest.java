@@ -3,6 +3,7 @@ import executor.task.ToDo;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -10,7 +11,7 @@ class ToDoTest {
 
     @Test
     void initialize() {
-        final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
         ToDo test = new ToDo("TodoSomething");
         assertEquals("Something", test.getTaskName(), "taskName interpretation error");
 
@@ -23,12 +24,12 @@ class ToDoTest {
         assertEquals("yolo", test.getTaskDetails(), "taskDetails interpretation error");
         assertEquals("by", test.getDetailDesc(), "detailDesc interpretation error");
 
-        test = new ToDo("todosurvive /between 19/09/1997 19/09/2019");
+        test = new ToDo("todosurvive /between 19/09/97 19/09/19");
         assertEquals("survive", test.getTaskName(), "taskName interpretation error");
-        assertEquals("19/09/1997 19/09/2019", test.getTaskDetails(), "taskDetails interpretation error");
+        assertEquals("19/09/97 19/09/19", test.getTaskDetails(), "taskDetails interpretation error");
         assertEquals("between", test.getDetailDesc(), "detailDesc interpretation error");
-        assertEquals("19/09/1997", dateFormat.format(test.getDateFrom()), "dateFrom interpretation error");
-        assertEquals("19/09/2019",  dateFormat.format(test.getDateTo()), "dateTo interpretation error");
+        assertEquals("19/09/97", test.getDateFrom().format(formatter), "dateFrom interpretation error");
+        assertEquals("19/09/19",  test.getDateTo().format(formatter), "dateTo interpretation error");
 
         test = new ToDo("todo SU /for weekly");
         assertEquals("SU", test.getTaskName(), "taskName interpretation error");

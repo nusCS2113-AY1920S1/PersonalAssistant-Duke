@@ -1,11 +1,8 @@
 package executor.command;
 
-import executor.task.Task;
-import executor.task.TaskList;
-import ui.Ui;
-import ui.Wallet;
+import duke.exception.DukeException;
+import storage.StorageManager;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class CommandReminder extends Command {
 
@@ -16,35 +13,27 @@ public class CommandReminder extends Command {
      * @param userInput The user input from the CLI
      */
     public CommandReminder(String userInput) {
+        super();
         this.userInput = userInput;
         this.commandType = CommandType.REMINDER;
         this.currentDate = LocalDate.now();
-        this.description = "Loops through list and checks if current date matches date linked with task and prints it \n"
+        this.description = "Loops through list and checks if current "
+                + "date matches date linked with task and prints it \n"
                 + "FORMAT :  reminder ";
 
     }
 
-
     @Override
-    public void execute(Wallet wallet) {
-
-    }
-
-    @Override
-    public void execute(TaskList taskList) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+    public void execute(StorageManager storageManager) {
+        String outputStr;
         try {
-            for (Task task : taskList.getList()) {
-                String dateOfTask = task.getDate().format(formatter);
-                if (dateOfTask.equals(this.currentDate.format(formatter))) {
-                        Ui.dukeSays(task.genTaskDesc());
-                        Ui.printSeparator();
-                    }
-                }
-            } catch (Exception e) {
-            Ui.dukeSays("Either there are no tasks for today OR \n"
-                    + "Please enter the correct format for reminder available if you"
-                    + "type help on the CLI ! \n");
+            outputStr = storageManager.getTasksByDate(LocalDate.now()).getPrintableTasks();
+        } catch (DukeException e) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr(e.getMessage());
+            return;
         }
+        this.infoCapsule.setCodeCli();
+        this.infoCapsule.setOutputStr(outputStr);
     }
 }

@@ -1,6 +1,7 @@
 import executor.command.Command;
 import executor.command.CommandDisplayExpenditure;
 import org.junit.jupiter.api.Test;
+import storage.StorageManager;
 import ui.Receipt;
 import ui.Wallet;
 
@@ -31,23 +32,5 @@ public class CommandDisplayExpenditureTest {
 
     @Test
     void execute() {
-        resetTextTracker();
-        assertEquals("", outContent.toString().trim());
-
-        resetTextTracker();
-        Command c = new CommandDisplayExpenditure("");
-        Wallet wallet = new Wallet();
-        c.execute(wallet);
-        assertEquals("Total Expenditure: $0.00", outContent.toString().trim());
-
-        resetTextTracker();
-        for (double x = 0.00; x < 11.0; ++x) {
-            Receipt receipt = new Receipt(x);
-            wallet.addReceipt(receipt);
-        }
-        c.execute(wallet);
-        assertEquals("Total Expenditure: $55.00", outContent.toString().trim());
-
-        endTextTracker();
     }
 }

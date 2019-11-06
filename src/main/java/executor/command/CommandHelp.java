@@ -1,11 +1,7 @@
 package executor.command;
 
-import executor.task.TaskList;
 import interpreter.Parser;
-import ui.Ui;
-import ui.Wallet;
-
-import java.security.spec.ECField;
+import storage.StorageManager;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -15,6 +11,7 @@ public class CommandHelp extends Command {
      * Constructor to provide the user with the details about the commands available.
      */
     public CommandHelp(String userInput) {
+        super();
         this.userInput = userInput;
         this.description = "Provides the user with all the available commands and descriptions.\n"
                 + "FORMAT : help";
@@ -22,7 +19,8 @@ public class CommandHelp extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList) {
+    public void execute(StorageManager storageManager) {
+        StringBuilder outputStr = new StringBuilder();
         String specificCommand = Parser.parseForPrimaryInput(CommandType.HELP, userInput).toUpperCase();
         Boolean flag = false;
 
@@ -36,7 +34,8 @@ public class CommandHelp extends Command {
                 }
             }
             if (flag == false) {
-                Ui.dukeSays("Command invalid. Enter 'help' to see all the available commands");
+                this.infoCapsule.setCodeError();
+                this.infoCapsule.setOutputStr("Command invalid. Enter 'help' to see all the available commands.\n");
                 return;
             }
         }
@@ -48,7 +47,7 @@ public class CommandHelp extends Command {
                 Command specific = Executor.createCommand(specificCommandType, "null");
                 String specificDesc = specific.getDescription();
                 String specificOut = s.toUpperCase() + " - " + specificDesc + "\n";
-                Ui.dukeSays(specificOut);
+                outputStr.append(specificOut).append("\n");
                 return;
             } else if (!s.equals("ERROR") && !s.equals("TASK") && !s.equals("BLANK")) {
                 CommandType commandType = CommandType.valueOf(s);
@@ -61,14 +60,9 @@ public class CommandHelp extends Command {
         }
 
         for (String a : helpSortByAlphabet) {
-            System.out.println(a);
+            outputStr.append(a).append("\n");
         }
-        Ui.printSeparator();
-
-
-    }
-
-    @Override
-    public void execute(Wallet wallet) {
+        this.infoCapsule.setCodeCli();
+        this.infoCapsule.setOutputStr(outputStr.toString());
     }
 }

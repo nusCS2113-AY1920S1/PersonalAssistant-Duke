@@ -30,7 +30,7 @@ public class ToDo extends Task {
         if (this.detailDesc.equals("between")) {
             try {
                 String[] dates = taskDetails.trim().split(" ");
-                setDateFrom(LocalDate.parse(dates[0] , formatter));
+                setDateFrom(LocalDate.parse(dates[0], formatter));
                 setDateTo(LocalDate.parse(dates[1], formatter));
                 this.setDate(getDateFrom());
                 System.out.println("Date Interpreted as: From "
