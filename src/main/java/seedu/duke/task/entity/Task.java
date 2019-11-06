@@ -62,11 +62,6 @@ public class Task {
     protected ArrayList<String> linkedEmails;
 
     /**
-     * The priority assigned to the task.
-     */
-    protected String priority;
-
-    /**
      * The level of priority.
      */
     protected Priority level;
@@ -81,7 +76,6 @@ public class Task {
         this.isDone = false;
         this.doAfterDescription = null;
         this.tags = new ArrayList<>();
-        this.priority = null;
         this.linkedEmails = new ArrayList<>();
         this.level = null;
     }
@@ -220,19 +214,6 @@ public class Task {
 
     public void setDoAfterDescription(String description) {
         this.doAfterDescription = description;
-    }
-
-    /**
-     * Set priority of task.
-     *
-     * @param priority priority level of task.
-     */
-    public void setPriorityTo(Priority priority) {
-        if (priority == Priority.NULL) {
-            this.priority = "";
-        } else {
-            this.priority = priority.name();
-        }
     }
 
     public void setPriorityLevelTo(Priority level) {

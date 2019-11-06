@@ -220,7 +220,7 @@ public class TaskList extends ArrayList<Task> {
     public String setPriority(int index, Task.Priority priority) throws CommandParseHelper.CommandParseException {
         validateIndex(index);
         Task task = this.get(index);
-        task.setPriorityTo(priority);
+        task.setPriorityLevelTo(priority);
         return constructSetPriorityMessage(priority, index + 1);
     }
 
