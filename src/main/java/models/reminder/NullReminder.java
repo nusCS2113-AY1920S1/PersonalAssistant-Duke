@@ -12,6 +12,13 @@ public class NullReminder implements IReminder {
     }
 
     @Override
+    public void setReminderRemarks(String reminderRemarks) {
+        /**
+         * Empty method
+         */
+    }
+
+    @Override
     public void setReminderDate(Date reminderDate) {
         /**
          * Empty method
@@ -20,6 +27,11 @@ public class NullReminder implements IReminder {
 
     @Override
     public String getReminderName() {
+        return null;
+    }
+
+    @Override
+    public String getReminderRemarks() {
         return null;
     }
 

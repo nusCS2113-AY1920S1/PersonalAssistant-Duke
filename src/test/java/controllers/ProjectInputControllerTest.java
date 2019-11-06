@@ -542,5 +542,14 @@ class ProjectInputControllerTest {
         assertEquals("StrongGuy", project.getMembers().getMember(3).getRole());
     }
 
+    @Test
+    void testAddReminder_correctInput() {
+        Project project = new Project("Infinity_Gauntlet");
+        simulatedUserInput = "add reminder -n Make new suit for the team -r may be try using pink -d 10/10/2019";
+        projectInputController.projectAddReminder(project,simulatedUserInput);
+        actualOutput = project.getReminderList().get(0).getReminderName();
+        expectedOutput = "Make new suit for the team";
+        assertEquals(expectedOutput,actualOutput);
+    }
 
 }

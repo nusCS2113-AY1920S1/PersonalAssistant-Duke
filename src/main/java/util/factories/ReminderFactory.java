@@ -33,11 +33,12 @@ public class ReminderFactory {
         String [] reminderDetails = input.split("-");
         ArrayList<String> newReminderDetails = parserHelper.parseReminderDetails(reminderDetails);
         String newReminderName = newReminderDetails.get(0);
+        String newReminderRemarks = newReminderDetails.get(1);
         Date newReminderDate = null;
-        if (newReminderDetails.get(1) != null) {
-            newReminderDate = dateTimeHelper.formatDate(newReminderDetails.get(1));
+        if (newReminderDetails.get(2) != null) {
+            newReminderDate = dateTimeHelper.formatDate(newReminderDetails.get(2));
         }
 
-        return new Reminder(newReminderName,newReminderDate);
+        return new Reminder(newReminderName, newReminderRemarks, newReminderDate);
     }
 }

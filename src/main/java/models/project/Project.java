@@ -194,6 +194,10 @@ public class Project implements IProject {
         this.reminderList.addReminderList(reminder);
     }
 
+    public ArrayList<Reminder> getReminderList() {
+        return reminderList.getReminderList();
+    }
+
     public String getTaskIndexName(Integer index) {
         return getTask(index).getTaskName();
     }
