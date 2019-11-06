@@ -70,7 +70,7 @@ public class Parser {
      */
     private static void helper(String input) throws CakeException {
         String[] commands = {"exit", "list", "back", "help", "score", "reset", "goto",
-            "overview", "deadline", "editnote", "createnote", "listnote", "deletenote"};
+            "overview", "deadline", "editnote", "createnote", "listnote", "deletenote", "change"};
 
         for (int i = 0; i < commands.length; i++) {
             boolean isTypo = false;

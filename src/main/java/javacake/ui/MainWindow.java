@@ -204,6 +204,8 @@ public class MainWindow extends GridPane {
         if (isDeadlineRelated()) {
             //handles "deadline" and "reminder"
             JavaCake.logger.log(Level.INFO, "deadline setting");
+        } else if (isColorRelated()) {
+            JavaCake.logger.log(Level.INFO, "colormode setting");
         } else if (isFirstQuiz()) {
             JavaCake.logger.log(Level.INFO, "First Quiz Incoming!");
         } else if (isFirstResetRequest()) {
@@ -492,6 +494,16 @@ public class MainWindow extends GridPane {
         timeline.play();
     }
 
+    private boolean isColorRelated() throws CakeException {
+        if (input.equals("change")) {
+            isChanged = true;
+            JavaCake.logger.log(Level.INFO, "is changing color!");
+            javaCake.storageManager.profile.writeColorConfig(!isLightMode);
+            return true;
+        }
+        return false;
+    }
+
     private boolean isDeadlineRelated() {
         if (input.length() >= 8 && input.substring(0, 8).equals("deadline")) {
             //response = JavaCake.getResponse(input);
@@ -627,20 +639,20 @@ public class MainWindow extends GridPane {
         //        list.add("WELL DONE!!!\nYou rekt that cake!\n");
         //        list.add("soooOOOOO CLOOSEEE!\nYou can do better next time!");
         //        list.add("Baaakaaa!\nYou obviously can do better than that...");
-        list.add("I LOVE BIG CAKES AND I CANNOT LIE!");
-        list.add("the cake...\n     is a LIE!");
-        list.add("Your momma so fat...\nshe segfaulted on JavaCake");
-        list.add("CAAAAAAAAAaaaaakkkke!");
-        list.add("Want to know a secret?\nYour waifu does not love you!");
-        list.add("I LOVE BIG CAKES\nAND I CANNOT LIE!");
-        list.add("the cake...\n     is a LIE!");
-        list.add("Your momma so fat...\nshe segfaulted on JavaCake");
-        list.add("CAAAAAAAAAaaaaakkkke!");
-        list.add("Want to know a secret?\nYour waifu does not love you!");
-        list.add("late as heck but...\nhappy halloween!!!");
-        list.add("like my hat?\nit ate my soul");
-        list.add("late as heck but...\nhappy halloween!!!");
-        list.add("like my hat?\nit ate my soul");
+//        list.add("I LOVE BIG CAKES AND I CANNOT LIE!");
+//        list.add("the cake...\n     is a LIE!");
+//        list.add("Your momma so fat...\nshe segfaulted on JavaCake");
+//        list.add("CAAAAAAAAAaaaaakkkke!");
+//        list.add("Want to know a secret?\nYour waifu does not love you!");
+//        list.add("I LOVE BIG CAKES\nAND I CANNOT LIE!");
+//        list.add("the cake...\n     is a LIE!");
+//        list.add("Your momma so fat...\nshe segfaulted on JavaCake");
+//        list.add("CAAAAAAAAAaaaaakkkke!");
+//        list.add("Want to know a secret?\nYour waifu does not love you!");
+//        list.add("late as heck but...\nhappy halloween!!!");
+//        list.add("like my hat?\nit ate my soul");
+//        list.add("late as heck but...\nhappy halloween!!!");
+//        list.add("like my hat?\nit ate my soul");
     }
 
     private static boolean isNumeric(String input) {
