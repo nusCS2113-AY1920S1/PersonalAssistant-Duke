@@ -55,7 +55,9 @@ public class Lesson {
         return day.toString();
     }
 
-    public String getDescription() { return moduleCode + " " + lessonName; }
+    public String getDescription() {
+        return moduleCode + " " + lessonName;
+    }
 
     /**
      * Converts a Lesson object to string format for storage.
