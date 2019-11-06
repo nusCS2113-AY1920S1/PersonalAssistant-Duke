@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static util.constant.ConstantHelper.*;
+import static util.constant.ConstantHelper.HORI_BORDER_UNIT;
+import static util.constant.ConstantHelper.BORDER_CORNER;
+import static util.constant.ConstantHelper.VERTI_BORDER_UNIT;
 
 public class ViewHelper {
 
