@@ -16,7 +16,7 @@ public abstract class Task implements Serializable {
     protected String description;
     protected LocalDateTime startDate = null;
     protected LocalDateTime endDate = null;
-    protected String location;
+    protected String location = "";
     protected Priority priority;
     protected Reminder reminder;
     protected String comment;
@@ -42,6 +42,7 @@ public abstract class Task implements Serializable {
         this.priority = Priority.MEDIUM;
         this.comment = "";
         this.modCode = "";
+        this.location = "";
     }
 
     /**
@@ -90,7 +91,10 @@ public abstract class Task implements Serializable {
     public String toString() {
         String message = getPriorityIcon() + "[" + getStatusIcon() + "] " + description;
         if (!comment.isBlank()) {
-            message = message + "  Note to self: " + comment;
+            message = message + "\nNote to self: " + comment;
+        }
+        if (!location.isBlank()) {
+            message = message + "\n" + location;
         }
         return message;
     }
