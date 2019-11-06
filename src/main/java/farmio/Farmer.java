@@ -2,6 +2,7 @@ package farmio;
 
 import exceptions.FarmioException;
 import exceptions.FarmioFatalException;
+import frontend.GameConsole;
 import places.ChickenFarm;
 import places.CowFarm;
 import places.WheatFarm;
@@ -69,6 +70,7 @@ public class Farmer {
             String savedName = (String) jsonObject.get(JSON_KEY_NAME);
             String loadName = savedName.toUpperCase();
             isValidName(loadName);
+            isValidTaskList(this.tasks);
             this.name = loadName;
         } catch (Exception e) {
             throw new FarmioException("Game save corrupted!");
@@ -98,6 +100,12 @@ public class Farmer {
         }
         if(hasError) {
             throw new FarmioException("Invalid Name!");
+        }
+    }
+
+    private void isValidTaskList(TaskList tasks) throws FarmioException {
+        if (tasks.size() > GameConsole.FRAME_SECTION_HEIGHT) {
+            throw new FarmioException("Too many tasks!");
         }
     }
 
