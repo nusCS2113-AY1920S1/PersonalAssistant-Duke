@@ -9,12 +9,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 //@@author Weng-Kexin
 public class LimitTest {
 
+    private Limit newBudget = createDailyBudget();
+
     private Limit createDailyBudget() {
         return new Limit(LIMIT_TYPE_B, 5, LIMIT_DURATION_D);
     }
-
-    private Limit newBudget = createDailyBudget();
-
+    
     @Test
     public void getDailyBudgetDetailTest() {
         assertEquals("[" + LIMIT_TYPE_B + "] [$5.0] [" + LIMIT_DURATION_D + "]", newBudget.getRecordDetail());
