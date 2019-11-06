@@ -63,8 +63,12 @@ public class GradeTest extends InputTest {
         assertEquals(2, 2);
     }
 
+
+    /**
+     * Test user input through CLi for grading valid grade.
+     */
     @Test
-    public void GradeTestUserInput() {
+    public void gradeTestUserInput() {
         final String moduleTest1 = "grade CS1010 A\n" + "bye";
         final String[] hold = {""};
         provideInput(moduleTest1);
@@ -107,7 +111,7 @@ public class GradeTest extends InputTest {
     }
 
     /*@Test
-    public void GradeTestDummyClass() throws ModException {
+    public void gradeTestDummyClass() throws ModException {
         ModuleInfoDetailed mod1 = modDetailedMap.get("CS1010");
         ModuleTask add1 = new ModuleTask("CS1010", mod1);
         modTasks.getTasks().add(add1);
