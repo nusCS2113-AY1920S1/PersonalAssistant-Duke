@@ -149,8 +149,10 @@ public class UiEn extends Ui {
         System.out.println("\t All blank space should be respected");
         System.out.println("\t Here are the list of all command:");
         System.out.println("\t todo DESCRIPTION prio INDEX: create a todo task ( prio index is optional) with priority index");
-        System.out.println("\t homework DESCRIPTION /by DATE prio INDEX: create a homework task ( prio index is optional) with priority index");
-        System.out.println("\t event DESCRIPTION /at DATE - DATE prio INDEX: create an event task ( prio index is optional) with priority index");
+        System.out.println("\t homework DESCRIPTION /by DATE prio INDEX recu DATEOPTION INDEX: create a homework task ( prio index is optional) with priority index" +
+                " (recu is optional) with a recurrence of DATEOPTION(day, week, month) and the number of recurrence of INDEX");
+        System.out.println("\t event DESCRIPTION /at DATE - DATE prio INDEX  recu DATEOPTION INDEX: create an event task ( prio index is optional) with priority index" +
+                " (recu is optional) with a recurrence of DATEOPTION(day, week, month) and the number of recurrence of INDEX");
         System.out.println("\t list : show all the tasks");
         System.out.println("\t bye : exit the application");
         System.out.println("\t done INDEX : mark as done the task of index INDEX");

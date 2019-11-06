@@ -138,9 +138,11 @@ public class UiFr extends Ui {
         System.out.println("\t Le format de date est DD/MM/YYYY HH:mm sauf pour show");
         System.out.println("\t Tous les espaces blancs doivent être respectés");
         System.out.println("\t Voici la liste de toutes les commandes:");
-        System.out.println("\t todo DESCRIPTION prio INDEX: crée une tâche Todo ( prio index est facultatif)avec une priorité index");
-        System.out.println("\t homework DESCRIPTION /by DATE: crée une tâche Homework ( prio index est facultatif)avec une priorité index");
-        System.out.println("\t event DESCRIPTION /at DATE - DATE prio INDEX: crée une tâche event ( prio index est facultatif)avec une priorité index");
+        System.out.println("\t todo DESCRIPTION prio INDEX : crée une tâche Todo ( prio index est facultatif)avec une priorité index");
+        System.out.println("\t homework DESCRIPTION /by DATE prio INDEX recu DATEOPTION INDEX: crée une tâche Homework ( prio index est facultatif)" +
+                "avec une priorité index (recu est facultatif) avec une récurrence de type DATEOPTION (day, week, month) et de nombre INDEX ");
+        System.out.println("\t event DESCRIPTION /at DATE - DATE prio INDEX recu DATEOPTION INDEX: crée une tâche event ( prio index est facultatif)avec une priorité index" +
+                " (recu est facultatif) avec une récurrence de type DATEOPTION (day, week, month) et de nombre INDEX ");
         System.out.println("\t list : affiche toutes les tâches");
         System.out.println("\t bye : quitte l'application");
         System.out.println("\t done INDEX : marque comme fait la tâche d'index INDEX");
@@ -321,7 +323,7 @@ public class UiFr extends Ui {
             System.out.println("\t UserAnswerException:\n\t\t ☹ OOPS!!! Veuillez répondre correctement à la question.");
         }
         else if(e instanceof RecurrenceException){
-            System.out.println("\t RecurrenceException:\n\t\t ☹ OOPS!!! Please respect the recurrence format" +
+            System.out.println("\t RecurrenceException:\n\t\t ☹ OOPS!!! Respectez le format pour la recurrence" +
                     "\n\t\t\t recu TYPEOFRECURRENCE NBRECURRENCE");
         }
     }
