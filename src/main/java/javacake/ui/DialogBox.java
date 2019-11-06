@@ -54,8 +54,9 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //this.setPrefWidth(675);
+        this.setPrefWidth(555);
         setStyleLoop();
+        //this.setMaxWidth(675);
 
         displayText = text;
         charList = displayText.toCharArray();
