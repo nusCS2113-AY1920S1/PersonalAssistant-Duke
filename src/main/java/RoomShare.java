@@ -359,7 +359,8 @@ public class RoomShare {
                 int[] doneArray = taskList.listTagged(input);
                 ui.showTaggedPercentage(input);
                 ProgressBar progressBar = new ProgressBar(doneArray[0], doneArray[1]);
-                progressBar.showBar();
+                ui.showBar(progressBar.showBar());
+                listRoutine.list();
                 break;
 
             default:

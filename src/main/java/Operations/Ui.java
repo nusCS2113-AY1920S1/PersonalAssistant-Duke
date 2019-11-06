@@ -329,6 +329,6 @@ public class Ui {
         System.out.println("These are the tasks assigned to " + user + ":");
     }
     public void showTaggedPercentage(String user) {
-        System.out.println("The completion status for" + user + " is:");
+        System.out.println("The completion status for '" + user + "' is:");
     }
 }

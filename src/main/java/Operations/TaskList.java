@@ -421,9 +421,11 @@ public class TaskList {
      */
     public int[] listTagged(String user) {
         int listCount = 1;
+        int belongCount = 0;
         int doneCount  = 0;
         for (Task output : tasks) {
             if (output.getAssignee().equals(user) || output.getAssignee().equals("everyone")) {
+                belongCount += 1;
                 if (output.getDone()) {
                     doneCount += 1;
                 }
@@ -437,7 +439,7 @@ public class TaskList {
             }
             listCount += 1;
         }
-        int[] done = {listCount - 1, doneCount};
+        int[] done = {belongCount, doneCount};
         return done;
     }
 }
