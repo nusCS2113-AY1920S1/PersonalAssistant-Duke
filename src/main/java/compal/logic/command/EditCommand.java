@@ -63,10 +63,14 @@ public class EditCommand extends Command {
     @Override
     public CommandResult commandExecute(TaskList taskList) throws CommandException {
         logger.info("Executing edit command");
-        Task toEdit = taskList.getTaskById(taskId);
-        if (toEdit == null) {
-            throw new CommandException(invalidTaskIdMsg);
+        Task toEdit;
+        try {
+           toEdit = taskList.getTaskById(taskId);
+        } catch (NullPointerException e) {
+                throw new CommandException(invalidTaskIdMsg);
         }
+
+
 
 
         if (description == null && date == null && startTime == null && endTime == null && priority == null) {
@@ -75,15 +79,12 @@ public class EditCommand extends Command {
 
 
         if (description != null) {
-            System.out.println("a");
             toEdit.setDescription(description);
         }
         if (date != null) {
-            System.out.println("b");
             toEdit.setMainDate(CompalUtils.dateToString(date));
         }
         if (startTime != null) { //dealine has no start time
-            System.out.println("c");
             if (!toEdit.getSymbol().equalsIgnoreCase("D")) {
                 toEdit.setStartTime(startTime);
             } else {
@@ -93,11 +94,9 @@ public class EditCommand extends Command {
         }
 
         if (endTime != null) {
-            System.out.println("d");
             toEdit.setEndTime(endTime);
         }
         if (priority != null) {
-            System.out.println("e");
             toEdit.setPriority(priority);
         }
 
