@@ -121,6 +121,10 @@ public class Storage {
 
     }
 
+    public static String returnDefaultFilePath() {
+        return defaultFilePath;
+    }
+
     /**
      * Method to hard reset profile.
      */

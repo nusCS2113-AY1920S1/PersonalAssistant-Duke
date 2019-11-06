@@ -34,7 +34,7 @@ public class ScoreCommand extends Command {
      * @return
      */
     @Override
-    public String execute(Logic logic, Ui ui, StorageManager storageManager) {
+    public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         return getQuizResults(storageManager.profile);
 
     }
@@ -45,29 +45,33 @@ public class ScoreCommand extends Command {
      * @return String with quiz score message
      */
 
-    private String getQuizResults(Profile profile) {
-        StringBuilder str = new StringBuilder();
-        str.append("Here's your quiz progress so far :D\n");
-        str.append("(");
-        for (int i = 0; i < questionTypes; ++i) {
-            str.append(" ");
-            for (int j = 0; j < questionDifficulties; ++j) {
-                for (int k = 0; k < questionSize; ++k) {
-                    if (k < profile.getIndividualContentMarks((i * questionDifficulties) + j)) {
-                        str.append("#");
-                    } else {
-                        str.append("-");
-                    }
-                }
+    private String getQuizResults(Profile profile) throws CakeException {
+        try {
+            StringBuilder str = new StringBuilder();
+            str.append("Here's your quiz progress so far :D\n");
+            str.append("(");
+            for (int i = 0; i < questionTypes; ++i) {
                 str.append(" ");
+                for (int j = 0; j < questionDifficulties; ++j) {
+                    for (int k = 0; k < questionSize; ++k) {
+                        if (k < profile.getIndividualContentMarks((i * questionDifficulties) + j)) {
+                            str.append("#");
+                        } else {
+                            str.append("-");
+                        }
+                    }
+                    str.append(" ");
+                }
+                if (i != questionTypes - 1) {
+                    str.append("|");
+                }
             }
-            if (i != questionTypes - 1) {
-                str.append("|");
-            }
+            str.append(") ");
+            int progress = (int) ((double) profile.getTotalProgress() / totalQuestionQuantum * 100);
+            str.append(progress).append("%");
+            return str.toString();
+        } catch (Exception e) {
+            throw new CakeException("Null pointer exception here");
         }
-        str.append(") ");
-        int progress = (int) ((double) profile.getTotalProgress() / totalQuestionQuantum * 100);
-        str.append(progress).append("%");
-        return str.toString();
     }
 }

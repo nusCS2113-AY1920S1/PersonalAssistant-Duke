@@ -14,7 +14,7 @@ public class CreateNoteCommand extends Command {
     private String defaultFileName = "Notes";
     private static String userGivenFileName = "Notes";
     private static int defaultFileNameCounter = 1;
-    private String defaultDirectoryPath = "data/notes/";
+    private static String defaultDirectoryPath = "data/notes/";
 
     private static final char[] ILLEGAL_CHARACTERS = { '/', '\n', '\r', '\t',
         '\0', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':', '.', ','};
@@ -26,8 +26,16 @@ public class CreateNoteCommand extends Command {
      */
     public CreateNoteCommand(String inputCommand) throws CakeException {
         type = CmdType.CREATENOTE;
-        Storage.generateFolder(new File("data/notes/"));
+        updateDefaultDirectoryPath();
+        //Storage.generateFolder(new File("data/notes/"));
         checksValidityOfCommand(inputCommand);
+    }
+
+    /**
+     * Updates default directory path according the storage.
+     */
+    private void updateDefaultDirectoryPath() {
+        defaultDirectoryPath = Storage.returnDefaultFilePath() + "/notes/";
     }
 
     /**
@@ -161,7 +169,7 @@ public class CreateNoteCommand extends Command {
         } else {
             File file = new File(newFilePath);
             createFile(file, formattedFileName);
-            return "File '" + formattedFileName + "'has been created successfully!\n";
+            return "File '" + formattedFileName + "' has been created successfully!\n";
         }
 
     }

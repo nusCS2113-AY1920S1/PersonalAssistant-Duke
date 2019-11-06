@@ -1,30 +1,95 @@
 import javacake.JavaCake;
-import javacake.Logic;
-import javacake.exceptions.CakeException;
-import javacake.storage.StorageManager;
-import javacake.ui.Ui;
-import org.junit.jupiter.api.Test;
-import org.junit.Rule;
-import org.junit.rules.TemporaryFolder;
+import org.apache.commons.io.FileUtils;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.AfterAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.io.IOException;
 
 public class CreateNoteTest {
 
-    private Ui ui;
-    private StorageManager sm;
-    private Logic logic = Logic.getInstance();
-    private JavaCake javaCake;
+    private static JavaCake javaCake;
 
-    @Rule
-    public TemporaryFolder folder = new TemporaryFolder();
+    @BeforeAll
+    static void init() {
+        try {
+            FileUtils.deleteDirectory(new File("testPath"));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        javaCake = new JavaCake("testPath");
+    }
+
+    /**
+     * Deletes test files.
+     */
+    @AfterAll
+    static void delete() {
+        try {
+            FileUtils.deleteDirectory(new File("testPath"));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     @Test
-    public void processCreateNoteCommandTest() {
+    void illegalCharacterTestInCreateNoteCommand() {
+        String actualOutput, expectedOutput;
+        actualOutput = javaCake.getResponse("createnote ../hi");
+        expectedOutput = "Invalid file name: Illegal character in file name detected!";
+        assertEquals(expectedOutput, actualOutput);
 
-        assertThrows(NullPointerException.class, () -> {
-            System.out.println(javaCake.getResponse("createnote ../hi"));
-        });
+        actualOutput = javaCake.getResponse("createnote hi,hello");
+        expectedOutput = "Invalid file name: Illegal character in file name detected!";
+        assertEquals(expectedOutput, actualOutput);
+
+        actualOutput = javaCake.getResponse("createnote >__<");
+        expectedOutput = "Invalid file name: Illegal character in file name detected!";
+        assertEquals(expectedOutput, actualOutput);
+
+        actualOutput = javaCake.getResponse("createnote txt.txt");
+        expectedOutput = "Invalid file name: Illegal character in file name detected!";
+        assertEquals(expectedOutput, actualOutput);
+
+        actualOutput = javaCake.getResponse("createnote txt/");
+        expectedOutput = "Invalid file name: Illegal character in file name detected!";
+        assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
+    void validTestCasesInCreateNoteCommand() {
+        String actualOutput, expectedOutput;
+        actualOutput = javaCake.getResponse("createnote");
+        expectedOutput = "File 'Notes.txt' has been created successfully!\n";
+        assertEquals(expectedOutput, actualOutput);
+
+        actualOutput = javaCake.getResponse("createnote ");
+        expectedOutput = "File 'Notes1.txt' has been created successfully!\n";
+        assertEquals(expectedOutput, actualOutput);
+
+        actualOutput = javaCake.getResponse("createnote @notes");
+        expectedOutput = "File '@notes.txt' has been created successfully!\n";
+        assertEquals(expectedOutput, actualOutput);
+
+        actualOutput = javaCake.getResponse("createnote ____");
+        expectedOutput = "File '____.txt' has been created successfully!\n";
+        assertEquals(expectedOutput, actualOutput);
+
+        actualOutput = javaCake.getResponse("createnote editnote");
+        expectedOutput = "File 'editnote.txt' has been created successfully!\n";
+        assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
+    void fileAlreadyExistNotificationInCreateNoteCommand() {
+        String actualOutput, expectedOutput;
+        actualOutput = javaCake.getResponse("createnote Notes");
+        expectedOutput = "File already exists, please type 'editnote Notes.txt' to edit the file instead";
+        assertEquals(expectedOutput, actualOutput);
 
     }
 
