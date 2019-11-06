@@ -44,7 +44,7 @@ public class DeleteGoalCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
-        if (serialNo > account.getShortTermGoals().size()) {
+        if (serialNo > account.getShortTermGoals().size() || serialNo <= 0) {
             throw new DukeException("The serial number of the task is Out Of Bounds!");
         }
         Goal deletedEntryG = account.getShortTermGoals().get(serialNo - 1);

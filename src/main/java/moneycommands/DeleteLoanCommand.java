@@ -50,7 +50,7 @@ public class DeleteLoanCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException {
-        if (serialNo > account.getLoans().size()) {
+        if (serialNo > account.getLoans().size() || serialNo <= 0) {
             throw new DukeException("The serial number of the loan is Out Of Bounds!");
         }
         Loan deletedEntryLoan = account.getLoans().get(serialNo - 1);
