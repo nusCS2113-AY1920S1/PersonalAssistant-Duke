@@ -111,6 +111,10 @@ public class Goals {
         }
     }
 
+    boolean savingAccNotTied() {
+        return savingAccount == null;
+    }
+
     /**
      * Gets the remaining amount to save to reach the Goal.
      *

@@ -1121,6 +1121,8 @@ At least one of `/newname`, `/amount`, `/in`, `/by`, `/from`, `/mark` must be us
 `ACCOUNT_NAME` can only be names of existing savings bank accounts and not investment accounts or credit cards.
 
 `/mark` is used to manually mark *un-tracked* goals status and cannot contain trailing arguments!
+
+Untie your currently linked goals with the same ACCOUNT_NAME `/from ACCOUNT_NAME`
 ====
 
 *Example*
@@ -1141,12 +1143,17 @@ Edits the goal of `BTO at Punggol Downpayment` to a new date of `11/11/2021`.
 
 Edits the savings account tied to `BTO at Punggol Downpayment` to `POBB Savings Account`.
 
+* `/edit /goals /name BTO at Punggol Downpayment /from POBB Savings Account`
+
+Change your current goal to an un-tracked goals.
+
 * `/edit /goals /name SAVE $100 /mark 1`
 Marks un-tracked goals as done.
 
 [TIP]
 ====
 You can also add a savings account if your existing goal has no account linked to it.
+
 ====
 
 ===== Deleting financial goals `/delete /goals`
