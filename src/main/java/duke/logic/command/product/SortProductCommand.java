@@ -1,6 +1,6 @@
 package duke.logic.command.product;
 
-import duke.logic.command.product.ListProductCommand.Scope;
+import duke.logic.command.product.FilterProductCommand.Scope;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.logic.parser.commons.CliSyntax;
@@ -45,7 +45,7 @@ public class SortProductCommand extends ProductCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        new ListProductCommand(scope).execute(model);
+        new FilterProductCommand(scope).execute(model);
         model.sortProducts(category, isReversed);
 
         return new CommandResult(String.format(MESSAGE_SORT_PRODUCT_SUCCESS, category),

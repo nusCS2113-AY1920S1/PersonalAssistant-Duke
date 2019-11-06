@@ -21,7 +21,7 @@ import duke.logic.command.order.ShowOrderCommand;
 import duke.logic.command.order.SortOrderCommand;
 import duke.logic.command.product.AddProductCommand;
 import duke.logic.command.product.EditProductCommand;
-import duke.logic.command.product.ListProductCommand;
+import duke.logic.command.product.FilterProductCommand;
 import duke.logic.command.product.ProductCommand;
 import duke.logic.command.product.SearchProductCommand;
 import duke.logic.command.product.ShowProductCommand;
@@ -161,7 +161,7 @@ public class LogicManager implements Logic {
         autoCompleter.addCommandClass(AddProductCommand.class);
         autoCompleter.addCommandClass(EditProductCommand.class);
         autoCompleter.addCommandClass(ShowProductCommand.class);
-        autoCompleter.addCommandClass(ListProductCommand.class);
+        autoCompleter.addCommandClass(FilterProductCommand.class);
         autoCompleter.addCommandClass(SearchProductCommand.class);
         autoCompleter.addCommandClass(SortProductCommand.class);
 
