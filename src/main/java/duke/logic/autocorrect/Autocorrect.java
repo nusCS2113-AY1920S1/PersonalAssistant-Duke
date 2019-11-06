@@ -13,6 +13,7 @@ public class Autocorrect {
     private ArrayList<String> words = new ArrayList();
     private int[] counter = new int[26];
     private int nonAlphabet;
+
     public Autocorrect() {
     }
 
