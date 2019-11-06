@@ -69,8 +69,8 @@ public abstract class ShopItem implements Purchasable {
      * @param other the other shop item to compare to.
      * @return the boolean value if they are equivalent; false if otherwise.
      */
-    public boolean isEquals(ShopItem other) {
-        return this.type.equals(other.type);
+    public Boolean isSameType(Purchasable other) {
+        return this.type.equals(other.getType());
     }
 
     @Override

@@ -1,6 +1,7 @@
 package seedu.hustler.game.shop;
 
 import seedu.hustler.game.achievement.Achievements;
+import seedu.hustler.game.shop.items.Purchasable;
 import seedu.hustler.game.shop.items.ShopItem;
 import seedu.hustler.game.shop.items.weapons.Broadsword;
 import seedu.hustler.game.shop.items.weapons.Mace;
@@ -19,21 +20,28 @@ public class ShopList {
     /**
      * The ArrayList of ShopItem to be purchased.
      */
-    private ArrayList<ShopItem> shopList;
+    private final ArrayList<Purchasable> shopList;
 
     /**
      * Constructs a ShopList and populate with every existing shopItem.
      */
     public ShopList() {
         this.shopList = new ArrayList<>();
-        populateShop();
+    }
+
+    /**
+     * Constructs a ShopList with the items in the given ShopList.
+     */
+    public ShopList(ShopList other) {
+        this.shopList = new ArrayList<>();
+        this.shopList.addAll(other.shopList);
     }
 
     /**
      * Gets the shop item list of the shop.
      * @return the array list containing all of the shop items.
      */
-    public ArrayList<ShopItem> getShopList() {
+    public ArrayList<Purchasable> getShopList() {
         return this.shopList;
     }
 
@@ -43,7 +51,7 @@ public class ShopList {
      * @param index the index of the item in the list.
      * @return the ShopItem that is purchased, if any.
      */
-    public Optional<ShopItem> buy(int index) {
+    public Optional<Purchasable> buy(int index) {
         if (!shopList.get(index).isPurchased()) {
             if (shopList.get(index).canPurchase(Achievements.totalPoints)) {
                 shopList.get(index).setPurchased(true);
@@ -88,9 +96,9 @@ public class ShopList {
      * Gets the array list of purchased shop items.
      * @return the array list of the shop items that has been purchased.
      */
-    public ArrayList<ShopItem> getPurchasedItems() {
-        ArrayList<ShopItem> itemsPurchased = new ArrayList<>();
-        for (ShopItem item : shopList) {
+    public ArrayList<Purchasable> getPurchasedItems() {
+        ArrayList<Purchasable> itemsPurchased = new ArrayList<>();
+        for (Purchasable item : shopList) {
             if (item.isPurchased()) {
                 itemsPurchased.add(item);
             }
@@ -98,11 +106,17 @@ public class ShopList {
         return itemsPurchased;
     }
 
+    public ShopList addItem(Purchasable item) {
+        ShopList newShop = new ShopList(this);
+        newShop.shopList.add(item);
+        return newShop;
+    }
+
     /**
      * Adds in every existing ShopItem in shop.
      * @return the newly populated ShopList.
      */
-    private ShopList populateShop() {
+    public ShopList populateShop() {
         shopList.add(new Broadsword());
         shopList.add(new Mace());
         shopList.add(new MoonlightSword());

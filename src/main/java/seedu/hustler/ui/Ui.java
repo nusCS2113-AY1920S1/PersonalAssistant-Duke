@@ -3,6 +3,7 @@ package seedu.hustler.ui;
 import seedu.hustler.Hustler;
 import seedu.hustler.game.achievement.Achievements;
 import seedu.hustler.game.avatar.Avatar;
+import seedu.hustler.game.shop.items.Purchasable;
 import seedu.hustler.game.shop.items.ShopItem;
 import seedu.hustler.task.Task;
 
@@ -223,7 +224,7 @@ public class Ui {
     /**
      * Displays the item that the Avatar recently equipped.
      */
-    public void showEquipped(ShopItem item) {
+    public void showEquipped(Purchasable item) {
         System.out.println(LINE);
         System.out.println("\tYou are equipped with " + item);
         System.out.println(LINE);
@@ -232,7 +233,7 @@ public class Ui {
     /**
      * Displays the list of all items in the inventory.
      */
-    public void listInventory(ArrayList<ShopItem> items) {
+    public void listInventory(ArrayList<Purchasable> items) {
         System.out.println("********** You currently have these items: **********");
         if (items.size() == 0) {
             System.out.println();
@@ -278,13 +279,13 @@ public class Ui {
      * Shows the list of items in the shop for purchase.
      * @param shopList the ArrayList of the items in the shop.
      */
-    public void showShopList(ArrayList<ShopItem> shopList) {
+    public void showShopList(ArrayList<Purchasable> shopList) {
         System.out.println("******************** Here are the items in the shop ********************");
         for (int i = 0; i < shopList.size(); i++) {
             /**
              * Divides the list to format the printing of different classes.
              */
-            if (i == 0 || !(shopList.get(i).isEquals(shopList.get(i - 1)))) {
+            if (i == 0 || !(shopList.get(i).isSameType(shopList.get(i - 1)))) {
                 System.out.println("\n\t\t\t\t======" + shopList.get(i).getType() + "=====");
             }
             System.out.print((i + 1) + ". ");

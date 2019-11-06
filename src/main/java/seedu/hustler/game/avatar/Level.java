@@ -8,12 +8,12 @@ public class Level implements Convertible {
     /**
      * Integer level of avatar.
      */
-    private int level;
+    private final int level;
 
     /**
      * Integer value of XP.
      */
-    private int xp;
+    private final int xp;
 
     /**
      * Constructs a default Level.
@@ -54,8 +54,7 @@ public class Level implements Convertible {
      * @return the current Level.
      */
     public Level increaseXp() {
-        this.xp++;
-        return this;
+        return new Level(this.level, this.xp + 1);
     }
 
     /**
@@ -63,8 +62,7 @@ public class Level implements Convertible {
      * @return the current level.
      */
     public Level upLevel() {
-        this.level++;
-        return this;
+        return new Level(this.level + 1, this.xp);
     }
 
     /**

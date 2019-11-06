@@ -29,7 +29,7 @@ public class LevelTest {
         Level levelTest = new Level();
 
         // Should increment the xp by 1.
-        levelTest.increaseXp();
+        levelTest = levelTest.increaseXp();
         assertEquals(levelTest.getXp(), 1);
     }
 
@@ -65,7 +65,7 @@ public class LevelTest {
         assertEquals(level1, level2);
 
         // Different values of different levels should return false.
-        level2 = new Level(1, 1);
+        level2 = level2.increaseXp();
         assertNotEquals(level1, level2);
     }
 

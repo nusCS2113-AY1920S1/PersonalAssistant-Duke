@@ -35,7 +35,7 @@ public class Hustler extends Application {
      * Bought items will be added to the storage and is not able for purchase
      * in the future.
      */
-    public static ShopList shopList = new ShopList();
+    public static ShopList shopList = new ShopList().populateShop();
 
 
     /**

@@ -1,5 +1,6 @@
 package seedu.hustler.game.avatar;
 
+import seedu.hustler.game.shop.items.Purchasable;
 import seedu.hustler.game.shop.items.ShopItem;
 import seedu.hustler.game.shop.items.armors.Armor;
 import seedu.hustler.game.shop.items.weapons.Weapon;
@@ -94,7 +95,7 @@ public class Avatar implements Convertible {
      * @param equipment the equipment to be equipped.
      * @return the avatar with the updated items.
      */
-    public Avatar equip(ShopItem equipment) {
+    public Avatar equip(Purchasable equipment) {
         if (equipment.getType().equals("Weapon")) {
             this.weapon = Optional.of((Weapon) equipment);
         } else if (equipment.getType().equals("Armor")) {
@@ -116,7 +117,7 @@ public class Avatar implements Convertible {
      * @return the new updated avatar.
      */
     public Avatar levelUp() {
-        this.level.upLevel();
+        this.level = this.level.upLevel();
         this.stats = this.stats.upStats(this.level.getLevel());
         return this;
     }
