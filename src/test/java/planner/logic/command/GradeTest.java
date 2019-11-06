@@ -48,6 +48,9 @@ public class GradeTest extends InputTest {
         "_______________________________\n";
     final String[] hold = {""};
 
+    /**
+     * Test initialization of ModPlan main classes
+     */
     public static void initialize() throws ModFailedJsonException {
         store = new Storage();
         modUi = new PlannerUi();
