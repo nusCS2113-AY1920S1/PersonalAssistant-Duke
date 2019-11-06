@@ -50,6 +50,8 @@ public class SetupCommand extends Command {
         } else {
             userName = inputs.get(1);
             gender = inputs.get(2);
+            level = 1;
+            expLevel = 0;
             if (gender.equals("boy") || gender.equals("girl")) {
                 stats.setUsername(userName);
                 stats.setGender(gender);

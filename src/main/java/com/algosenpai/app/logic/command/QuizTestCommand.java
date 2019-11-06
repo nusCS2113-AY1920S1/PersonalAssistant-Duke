@@ -89,7 +89,7 @@ public class QuizTestCommand extends QuizCommand {
     private String extractUserAnswerFromInput() {
         StringBuilder answer = new StringBuilder();
         for (int i = 0; i < inputs.size() - 1; i++) {
-            answer.append(inputs.get(i)).append(" ");
+            answer.append(inputs.get(i)).append(", ");
         }
         answer.append(inputs.get(inputs.size() - 1));
         return answer.toString();
@@ -116,13 +116,20 @@ public class QuizTestCommand extends QuizCommand {
 
         // Updating all the user stats one shot in here
         userStats.updateChapter(chapterNumber,10,userQuizScore);
-        userStats.setUserExp(userStats.getUserExp() + userQuizScore);
-        // Update level, each level is double of previous, so we use log base 2.
-        if (userStats.getUserExp() == 0) {
-            userStats.setUserLevel(1);
-        } else {
-            userStats.setUserLevel((int)(Math.log(userStats.getUserExp() / 10.0) / Math.log(2) + 1));
+        //This is the current user exp.
+        int newUserExp = userStats.getUserExp() + userQuizScore;
+        //This is the current user level
+        int newLevel = userStats.getUserLevel();
+        //This is the exp required to advance to next level.
+        int expToAdvance = 8 << (newLevel - 1);
+        //If the new user exp exceeds the max exp, then increment level.
+        if (newUserExp > expToAdvance) {
+            newUserExp -= expToAdvance;
+            newLevel++;
         }
+        //Set the values in userStats.
+        userStats.setUserExp(newUserExp);
+        userStats.setUserLevel(newLevel);
         userStats.saveUserStats("UserData.txt");
         // End of updating
 

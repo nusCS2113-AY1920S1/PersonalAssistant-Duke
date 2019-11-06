@@ -43,7 +43,7 @@ public class SingleInsertLinkedListQuestion extends Question {
         question = "Consider the Singly Linked List of size " + listSize + " below.\n"
                 + "It undergoes an insertion of value " + valueToAdd + " at the " + positionToAdd
                 + ".\nWhat would be the new sequence of integers?\n"
-                + "Please provide your answer in comma-separated format. e.g. x, y, z, ...\n";
+                + "Please provide your answer in space-separated format. e.g. x y z ...\n";
     }
 
     /**

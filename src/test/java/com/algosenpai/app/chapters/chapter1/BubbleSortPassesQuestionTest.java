@@ -32,7 +32,7 @@ public class BubbleSortPassesQuestionTest {
         String question = "An array of " + 5 + " elements underwent the following Bubble Sort Algorithm : "
                 + "[5, 4, 3, 2, 1]" + "\n";
         question += "What would be the new configuration of the elements after " + 1 + " passes?\n"
-                + "Please provide your answer in comma-separated format. e.g. x, y, z, ...\n\n";
+                + "Please provide your answer in space-separated format. e.g. x y z ...\n\n";
         question += "for (int i = 0; i < passes; i++) {\n" + "   for (int j = 0; j < arr.size - 1 - i; j ++) {\n"
                 + "       if (arr[j] > arr[j + 1]) {\n" + "            swap (arr[j], arr[j+1]);\n" + "       }\n"
                 + "   }\n" + "}\n";
