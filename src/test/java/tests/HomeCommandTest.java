@@ -31,7 +31,7 @@ public class HomeCommandTest extends CommandTest {
         try {
             ArgCommand newPatientCmd = new ArgCommand(HomeNewSpec.getSpec(), null, switchNames, switchVals);
             newPatientCmd.execute(core);
-            assertTrue(patient.equals(core.patientMap.getPatient("C1")));
+            assertTrue(patient.equals(core.patientList.getPatient("C1")));
         } catch (DukeException excp) {
             fail("Exception thrown when validly creating patient from command: " + excp.getMessage());
         }
@@ -45,7 +45,7 @@ public class HomeCommandTest extends CommandTest {
         String[] switchNames = {"bed", "summary"};
         String[] switchVals = {"testC1", "This as a test report that is used to test the report command from the"
                 + " home context"};
-        core.patientMap.addPatient(new Patient("testCPatient", "testC1", "test allergies",
+        core.patientList.addPatient(new Patient("testCPatient", "testC1", "test allergies",
                 123, 456, 100, 6582447, "test address", "test history"));
         try {
             ArgCommand newReportCmd = new ArgCommand(HomeReportSpec.getSpec(), "", switchNames, switchVals);

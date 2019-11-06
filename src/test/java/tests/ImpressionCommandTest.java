@@ -39,7 +39,7 @@ public class ImpressionCommandTest extends CommandTest {
         } catch (DukeException excp) {
             fail("Duplicate impression in patient, somehow.");
         }
-        core.patientMap.addPatient(patient);
+        core.patientList.addPatient(patient);
         core.uiContext.setContext(Context.IMPRESSION, impression);
     }
 

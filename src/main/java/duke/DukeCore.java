@@ -2,7 +2,7 @@ package duke;
 
 import duke.data.DukeObject;
 import duke.data.GsonStorage;
-import duke.data.PatientMap;
+import duke.data.PatientList;
 import duke.data.SearchResult;
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
@@ -28,7 +28,7 @@ public class DukeCore extends Application {
     public Ui ui;
     public UiContext uiContext;
     public GsonStorage storage;
-    public PatientMap patientMap;
+    public PatientList patientList;
 
     /**
      * Constructs a DukeCore object with the specified stdtestout.
@@ -39,7 +39,7 @@ public class DukeCore extends Application {
 
         try {
             storage = new GsonStorage(storagePath);
-            patientMap = new PatientMap(storage);
+            patientList = new PatientList(storage);
         } catch (DukeException e) {
             ui.showErrorDialogAndShutdown("Error encountered!", e);
         }
@@ -64,12 +64,12 @@ public class DukeCore extends Application {
     }
 
     /**
-     * Writes JSON file using patientMap HashMap.
+     * Writes JSON file using patientList HashMap.
      *
      * @throws DukeFatalException If the file writer cannot be setup.
      */
     public void writeJsonFile() throws DukeFatalException {
-        storage.writeJsonFile(patientMap.getPatientList());
+        storage.writeJsonFile(patientList.getPatientList());
     }
 
     /**

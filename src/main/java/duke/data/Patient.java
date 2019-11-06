@@ -410,4 +410,5 @@ public class Patient extends DukeObject {
     public ArrayList<Impression> getImpressions() {
         return impressions;
     }
+
 }

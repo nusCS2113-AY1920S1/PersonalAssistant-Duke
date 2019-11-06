@@ -33,7 +33,7 @@ public class HomeDischargeSpec extends ArgSpec {
         Patient patient = CommandUtils.findFromHome(core, bed, cmd.getArg());
 
         HomeReportSpec.createReport(patient, header, explanation, cmd.getSwitchVal("summary"));
-        core.patientMap.deletePatient(patient.getBedNo());
+        core.patientList.deletePatient(patient.getBedNo());
         core.writeJsonFile();
         core.updateUi(result);
     }

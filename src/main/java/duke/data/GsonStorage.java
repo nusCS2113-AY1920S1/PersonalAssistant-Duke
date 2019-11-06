@@ -139,12 +139,12 @@ public class GsonStorage {
     /**
      * Clears the json file and the paitent hash map. Used to reset the storage data.
      *
-     * @return an empty PatientMap object
+     * @return an empty PatientList object
      */
-    public PatientMap resetAllData() throws IOException {
+    public PatientList resetAllData() throws IOException {
         FileWriter fileWriter = new FileWriter(jsonFile);
         fileWriter.close();
-        return new PatientMap();
+        return new PatientList();
     }
 
     /**

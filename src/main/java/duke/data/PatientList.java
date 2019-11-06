@@ -6,18 +6,18 @@ import duke.exception.DukeResetException;
 
 import java.util.ArrayList;
 
-public class PatientMap {
+public class PatientList {
 
     private ArrayList<Patient> patientList;
 
     /**
-     * Creates a new PatientMap, loading data from the Storage object provided.
+     * Creates a new PatientList, loading data from the Storage object provided.
      *
      * @param storage The Storage object pointing to the TSV file containing the data to load.
      * @throws DukeResetException If file is corrupted or the data has been edited to be unreadable.
      * @throws DukeFatalException If unable to write data file.
      */
-    public PatientMap(GsonStorage storage) throws DukeFatalException {
+    public PatientList(GsonStorage storage) throws DukeFatalException {
         patientList = storage.loadPatients();
 
         for (Patient patient : patientList) {
@@ -39,7 +39,7 @@ public class PatientMap {
     /**
      * Creates a new, empty TaskList.
      */
-    public PatientMap() {
+    public PatientList() {
         patientList = new ArrayList<>();
     }
 
@@ -58,7 +58,7 @@ public class PatientMap {
     }
 
     /**
-     * Deletes a patient from the map.
+     * Deletes a patient from the list.
      *
      * @param keyIdentifier The argument given by the user to identify the patient to be deleted.
      * @return the patient object deleted
@@ -71,11 +71,10 @@ public class PatientMap {
             return deletedPatient;
         }
         throw new DukeException("The patient cannot be identified");
-
     }
 
     /**
-     * Gets a patient from the map.
+     * Gets a patient from the list.
      *
      * @param keyIdentifier The argument given by the user to identify the patient.
      * @return the patient object
@@ -125,14 +124,14 @@ public class PatientMap {
     }
 
     /**
-     * PatientMap of all patients whose allergies contain the searchTerm.
+     * PatientList of all patients whose allergies contain the searchTerm.
      *
      * @param searchTerm String to search if any patients are allergic.
-     * @return PatientMap of matching patients.
+     * @return PatientList of matching patients.
      */
-    public PatientMap findAllergies(String searchTerm) throws DukeException {
+    public PatientList findAllergies(String searchTerm) throws DukeException {
         int i = 1;
-        PatientMap filteredList = new PatientMap();
+        PatientList filteredList = new PatientList();
         for (Patient patient : patientList) {
             if (patient.isAllergic(searchTerm)) {
                 filteredList.addPatient(patient);
@@ -174,7 +173,7 @@ public class PatientMap {
     public String getPatientCountStr() {
         int patientCount = patientList.size();
         String patientCountStr = patientCount + ((patientCount == 1) ? " patient" : " patients");
-        return "Now you have " + patientCountStr + " in the map.";
+        return "Now you have " + patientCountStr + " in the list.";
     }
 
     public boolean patientExist(String keyIdentifier) {

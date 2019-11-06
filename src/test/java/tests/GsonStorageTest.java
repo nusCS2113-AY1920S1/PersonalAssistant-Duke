@@ -5,7 +5,7 @@ import duke.data.Investigation;
 import duke.data.Medicine;
 import duke.data.Observation;
 import duke.data.Patient;
-import duke.data.PatientMap;
+import duke.data.PatientList;
 import duke.data.Plan;
 import duke.data.Result;
 import duke.exception.DukeException;
@@ -168,15 +168,15 @@ public class GsonStorageTest extends CommandTest {
      */
     @Test
     public void loadPatientHashMapTest() throws DukeException, IOException {
-        core.patientMap = core.storage.resetAllData();
+        core.patientList = core.storage.resetAllData();
         FileWriter fileWriter = new FileWriter(testFilePath);
         fileWriter.write(expected);
         fileWriter.close();
-        core.patientMap = new PatientMap(core.storage);
-        assertTrue(identical(core.patientMap.getPatient("A100"), dummy1));
-        assertTrue(identical(core.patientMap.getPatient("A200"), dummy2));
-        assertTrue(identical(core.patientMap.getPatient("A300"), dummy3));
-        assertTrue(identical(core.patientMap.getPatient("C1"), createComplexPatient()));
+        core.patientList = new PatientList(core.storage);
+        assertTrue(identical(core.patientList.getPatient("A100"), dummy1));
+        assertTrue(identical(core.patientList.getPatient("A200"), dummy2));
+        assertTrue(identical(core.patientList.getPatient("A300"), dummy3));
+        assertTrue(identical(core.patientList.getPatient("C1"), createComplexPatient()));
     }
 
     /**
@@ -184,13 +184,13 @@ public class GsonStorageTest extends CommandTest {
      */
     @Test
     public void writeJsonFileTest() throws IOException, DukeException {
-        core.patientMap = core.storage.resetAllData();
-        core.patientMap = core.storage.resetAllData();
-        core.patientMap.addPatient(dummy1);
-        core.patientMap.addPatient(dummy2);
-        core.patientMap.addPatient(dummy3);
-        core.patientMap.addPatient(createComplexPatient());
-        core.storage.writeJsonFile(core.patientMap.getPatientHashMap());
+        core.patientList = core.storage.resetAllData();
+        core.patientList = core.storage.resetAllData();
+        core.patientList.addPatient(dummy1);
+        core.patientList.addPatient(dummy2);
+        core.patientList.addPatient(dummy3);
+        core.patientList.addPatient(createComplexPatient());
+        core.storage.writeJsonFile(core.patientList.getPatientHashMap());
         String json = Files.readString(Paths.get(testFilePath), StandardCharsets.US_ASCII);
         assertEquals(expected, json);
     }
@@ -201,14 +201,14 @@ public class GsonStorageTest extends CommandTest {
      */
     @Test
     public void identicalDummyPatient() throws IOException, DukeException {
-        core.patientMap = core.storage.resetAllData();
-        core.patientMap.addPatient(dummy1);
-        core.storage.writeJsonFile(core.patientMap.getPatientHashMap());
-        core.patientMap = new PatientMap(core.storage);
-        Patient dummyPatientRecreated = core.patientMap.getPatient(dummy1.getBedNo());
+        core.patientList = core.storage.resetAllData();
+        core.patientList.addPatient(dummy1);
+        core.storage.writeJsonFile(core.patientList.getPatientHashMap());
+        core.patientList = new PatientList(core.storage);
+        Patient dummyPatientRecreated = core.patientList.getPatient(dummy1.getBedNo());
         boolean equals = identical(dummy1, dummyPatientRecreated);
         assertTrue(equals);
-        core.patientMap = core.storage.resetAllData();
+        core.patientList = core.storage.resetAllData();
     }
 
     /**
@@ -217,12 +217,12 @@ public class GsonStorageTest extends CommandTest {
      */
     @Test
     public void identicalComplexPatient() throws IOException, DukeException {
-        core.patientMap = core.storage.resetAllData();
+        core.patientList = core.storage.resetAllData();
         Patient complexPatient = createComplexPatient();
-        core.patientMap.addPatient(complexPatient);
-        core.storage.writeJsonFile(core.patientMap.getPatientHashMap());
+        core.patientList.addPatient(complexPatient);
+        core.storage.writeJsonFile(core.patientList.getPatientHashMap());
         core.storage.loadPatientHashMap();
-        Patient complexPatientRecreated = core.patientMap.getPatient(complexPatient.getBedNo());
+        Patient complexPatientRecreated = core.patientList.getPatient(complexPatient.getBedNo());
         boolean equals = identical(complexPatient, complexPatientRecreated);
         assertTrue(equals);
     }

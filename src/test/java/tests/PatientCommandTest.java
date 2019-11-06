@@ -25,7 +25,7 @@ public class PatientCommandTest extends CommandTest {
     public void setupPatient() {
         patient = new Patient("name", "bedNo", "allergies", 0, 0,
                 0, 0, "", "");
-        core.patientMap.addPatient(patient);
+        core.patientList.addPatient(patient);
         core.uiContext.setContext(Context.PATIENT, patient);
     }
 
