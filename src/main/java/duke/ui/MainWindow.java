@@ -8,7 +8,12 @@ import duke.command.BackupCommand;
 import duke.command.FilterCommand;
 import duke.enums.Numbers;
 import duke.dukeexception.DukeException;
-import duke.task.*;
+import duke.task.TaskList;
+import duke.task.Task;
+import duke.task.BudgetList;
+import duke.task.Reminders;
+import duke.task.FilterList;
+import duke.task.ContactList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -506,9 +511,8 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void createContactsWindow() {
-        ContactList ContactList = duke.getContactList();
-       // float currBudget = budgetList.getBudget();
-        String contactDesc = ContactList.getContactList();
+        ContactList contactList = duke.getContactList();
+        String contactDesc = contactList.getContactList();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/ContactsWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
