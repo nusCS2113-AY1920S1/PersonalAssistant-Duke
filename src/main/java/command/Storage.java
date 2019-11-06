@@ -52,7 +52,11 @@ public class Storage {
             throw new AlphaNUSException("Unable to write to file: " + ProjectsFilePath);
         }
     }
-
+    /**
+     * Writes the projectmap, before the current command is executed, to local storage.
+     * @param projectmap LinkedHashMap of projects.
+     * @throws AlphaNUSException If the file cannot be written to.
+     */
     public void writeToUndoFile(LinkedHashMap<String, Project> projectmap) throws AlphaNUSException {
         String toWriteStr = gson.toJson(projectmap);
         try {
@@ -71,7 +75,11 @@ public class Storage {
             throw new AlphaNUSException("Unable to write to file: " + undoListFilePath);
         }
     }
-
+    /**
+     * Writes the projectmap, after current command is executed, to local storage.
+     * @param projectmap LinkedHashMap of projects.
+     * @throws AlphaNUSException If the file cannot be written to.
+     */
     public void writeToRedoFile(LinkedHashMap<String, Project> projectmap) throws AlphaNUSException {
         String toWriteStr = gson.toJson(projectmap);
         try {
@@ -110,6 +118,12 @@ public class Storage {
         return projectmap;
     }
 
+    /**
+     * Read HashMap of projects in the undo file from local storage and returns it.
+     * @return HashMap of Project objects stored in the undo file in local storage.
+     * @throws AlphaNUSException If the file cannot be read.
+     */
+
     public LinkedHashMap<String, Project> readFromUndoFile() throws AlphaNUSException {
         Type projectmaptype = new TypeToken<LinkedHashMap<String, Project>>(){}.getType();
         LinkedHashMap<String, Project> projectmap;
@@ -123,6 +137,12 @@ public class Storage {
         }
         return projectmap;
     }
+
+    /**
+     * Read HashMap of projects in the redo file from local storage and returns it.
+     * @return HashMap of Project objects stored in the redo file in local storage.
+     * @throws AlphaNUSException If the file cannot be read.
+     */
 
     public LinkedHashMap<String, Project> readFromRedoFile() throws AlphaNUSException {
         Type projectmaptype = new TypeToken<LinkedHashMap<String, Project>>(){}.getType();
@@ -140,12 +160,15 @@ public class Storage {
     /**
      * Saves the tasklist of the user as an ArrayList containing the task object.
      * @param str TODO
-     *
      */
     public static void remove(String str){
         //TODO
     }
-
+    /**
+     * Writes the input command entered by the user to the local storage.
+     * @param command input command entered by the user
+     * @throws AlphaNUSException If the file cannot be written to.
+     */
     public void writeToCommandsFile(String command) throws AlphaNUSException {
         String toWriteStr = gson.toJson(command);
         try {
@@ -162,6 +185,11 @@ public class Storage {
             throw new AlphaNUSException("Unable to write to file: " + CommandListFilePath);
         }
     }
+    /**
+     * Reads array list of input commands from local storage and returns it.
+     * @return ArrayList of input commands stored in local storage.
+     * @throws AlphaNUSException If the file cannot be read.
+     */
     public ArrayList<String> readFromCommandsFile() throws AlphaNUSException {
         //Type commandListtype = new TypeToken<ArrayList<String>>(){}.getType();
         String line = null;

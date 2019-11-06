@@ -684,11 +684,10 @@ public class Process {
     //===========================* Command History *================================
 
     /**
-     * processes the input command and stores it in a text file.
-     *
-     * @param input   Input from the user.
-     * @param ui      Ui that interacts with the user.
-     * @param storage command.Storage that stores the input commands entered by the user.
+     * processes the input command and stores it in a json file.
+     * @param input Input from the user.
+     * @param ui Ui that interacts with the user.
+     * @param storage Storage that stores the input commands entered by the user.
      */
 
     public void commandHistory(String input, Ui ui, Storage storage) throws AlphaNUSException {
@@ -701,25 +700,21 @@ public class Process {
     }
 
     /**
-     * TODO: Update this.
-     *
-     * @param ui          Ui that interacts with the user.
-     * @param commandList ArrayList of commands.
-     * @param storage     command.Storage that stores the input commands entered by the user.
+     * prints all the input commands stored in the json file.
+     * @param ui Ui that interacts with the user.
+     * @param storage Storage that stores the input commands entered by the user.
      */
     public void history(Ui ui, Storage storage) throws AlphaNUSException {
         ArrayList<String> commandList = new ArrayList<String>();
         commandList = storage.readFromCommandsFile();
-        ui.printArrayList(commandList);
+        ui.printHistoryList(commandList);
     }
 
     /**
-     * TODO: Update this.
-     *
-     * @param input       Input from the user.
-     * @param ui          Ui that interacts with the user.
-     * @param commandList ArrayList of commands.
-     * @param storage     command.Storage that stores the input commands entered by the user.
+     * prints the input commands within the period given by the user.
+     * @param input Input from the user.
+     * @param ui Ui that interacts with the user.
+     * @param storage Storage that stores the input commands entered by the user.
      */
     public void viewhistory(String input, Ui ui , Storage storage) throws ParseException, AlphaNUSException {
         ArrayList<String> commandList = new ArrayList<String>();
@@ -753,12 +748,22 @@ public class Process {
                     }
                 }
             }
-            ui.printArrayList(viewhistory);
+            ui.printviewHistoryList(viewhistory, date1, date2);
         }
+    /**
+     * undoes the previous command entered by the user.
+     * @param ui Ui that interacts with the user.
+     * @param storage Storage that stores the project map.
+     */
     public void undo(Storage storage, Ui ui) throws AlphaNUSException {
         storage.writeToProjectsFile(storage.readFromUndoFile());
         ui.undoMessage();
     }
+    /**
+     * redoes the previous command entered by the user.
+     * @param ui Ui that interacts with the user.
+     * @param storage Storage that stores the project map.
+     */
     public void redo(Storage storage, Ui ui) throws AlphaNUSException {
         storage.writeToProjectsFile(storage.readFromRedoFile());
         ui.redoMessage();

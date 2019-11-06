@@ -166,12 +166,23 @@ public class Ui {
      * prints the list of input commands entered by the user.
      * @param list1 list of input commands entered by the user.
      */
-    public void printArrayList(ArrayList<String> list1) {
+    public void printHistoryList(ArrayList<String> list1) {
+        System.out.println("Here is the history of your input commands:");
         for (int i = 0; i < list1.size(); i = i + 1) {
             System.out.println(list1.get(i));
         }
     }
 
+    /**
+     * prints the list of input commands entered by the user within the given period.
+     * @param list1 list of input commands entered by the user within the given period.
+     */
+    public void printviewHistoryList(ArrayList<String> list1, String date1, String date2) {
+        System.out.println("Here is the history of your input commands from " + date1 + " to " + date2 + ":");
+        for (int i = 0; i < list1.size(); i = i + 1) {
+            System.out.println(list1.get(i));
+        }
+    }
     /**
      * Prints dates from which history was cleared.
      * @param date1 from date to delete history.
@@ -396,11 +407,11 @@ public class Ui {
         System.out.print(fund.giveFund());
         System.out.print(line);
     }
-
     /**
      * Prints out the statement of accounts.
      * @param managermap managermap containing Payee and Payments information.
      */
+
     public void generateStatementofAccounts(HashMap<String, Payee> managermap) {
         System.out.print("Item\tExpense\n");
         for (Payee payee : managermap.values()) {
@@ -409,15 +420,18 @@ public class Ui {
             }
         }
     }
-
+    /**
+     * Prints message to indicate that the previous command has been undone.
+     */
     public void undoMessage(){
         System.out.println("Got it! I have undone the previous command.");
     }
+    /**
+     * Prints message to indicate that the previous command has been redone.
+     */
     public void redoMessage(){
         System.out.println("Got it! I have redone the previous command.");
     }
-
-
     /**
      * Prints out a help message with command formats.
      */
@@ -440,7 +454,6 @@ public class Ui {
         System.out.println("\t" + "Exit:                 " + commandFormat.exitFormat());
         System.out.print(line);
     }
-
     /**
      * Returns the scanned input.
      * @return Scanned input.
