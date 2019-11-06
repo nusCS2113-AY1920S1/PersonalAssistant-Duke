@@ -62,6 +62,18 @@ public class Help {
             case log:
                 ui.helpLog();
                 break;
+            case bye:
+                ui.helpBye();
+                break;
+            case completed:
+                ui.helpCompleted();
+                break;
+            case overdue:
+                ui.helpOverdue();
+                break;
+            case reschedule:
+                ui.helpReschedule();
+                break;
         }
     }
 

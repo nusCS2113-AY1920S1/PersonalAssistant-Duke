@@ -35,12 +35,13 @@ public class OverdueList {
      * @param index index of the task in the Overdued task list that is being rescheduled.
      * @throws RoomShareException if the index entered is not valid
      */
-    public void reschedule(int index) throws RoomShareException {
+    public void reschedule(int index, TaskList taskList) throws RoomShareException {
         if (index < 0 || index > Overdue.size() - 1) {
             System.out.println("This are your tasks in your Overdue list");
             list();
             throw new RoomShareException(ExceptionType.outOfBounds);
         } else {
+            taskList.add(Overdue.get(index));
             Overdue.get(index).setOverdue(false);
             this.Overdue.remove(index);
         }

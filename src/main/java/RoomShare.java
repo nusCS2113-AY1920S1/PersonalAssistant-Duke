@@ -37,7 +37,7 @@ public class RoomShare {
         taskCreator = new TaskCreator();
         ArrayList<Task> tempStorage = new ArrayList<>();
         tempDeleteList = new TempDeleteList(tempStorage);
-        ArrayList<Task> aloverdue = new ArrayList<>();
+
         try {
             taskList = new TaskList(storage.loadFile("data.txt"));
         } catch (RoomShareException e) {
@@ -46,8 +46,7 @@ public class RoomShare {
             taskList = new TaskList(emptyList);
         }
         try {
-            aloverdue = taskList.getOverdueList();
-            overdueList = new OverdueList(aloverdue);
+            overdueList = new OverdueList(storage.loadFile("overdue.txt"));
         } catch (RoomShareException e) {
             ui.showError(e);
             ArrayList<Task> emptyList = new ArrayList<>();
@@ -313,6 +312,16 @@ public class RoomShare {
             case overdue:
                 Ui.clearScreen();
                 ui.startUp();
+                ArrayList<Task> overdueAL;
+                try {
+                    overdueAL = taskList.getOverdueList();
+                    overdueList = new OverdueList(overdueAL);
+                    storage.writeFile(overdueAL, "overdue.txt");
+                } catch (RoomShareException e) {
+                    ui.showError(e);
+                    ArrayList<Task> emptyList = new ArrayList<>();
+                    overdueList = new OverdueList(emptyList);
+                }
                 ui.showOverdueList();
                 try {
                     overdueList.list();
@@ -331,7 +340,7 @@ public class RoomShare {
                     int index = parser.getIndex(input);
                     Task oldTask = overdueList.get(index);
                     taskCreator.rescheduleTask(input,oldTask);
-                    overdueList.reschedule(index);
+                    overdueList.reschedule(index, taskList);
                     ui.showUpdated(index+1);
                     storage.writeFile(TaskList.currentList(), "data.txt");
                 } catch (RoomShareException e) {
