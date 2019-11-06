@@ -223,33 +223,6 @@ public class Ui {
     }
 
     /**
-     * Prints a reminder regarding upcoming deadlines.
-     */
-    void printReminder() {
-        printLine();
-        System.out.println(" Reminder these tasks have upcoming deadlines:");
-    }
-
-    /**
-     * Prints a reminder that the user has no deadlines.
-     */
-    void printNoDeadlines() {
-        printLine();
-        System.out.println(" You have no upcoming deadlines :)");
-    }
-
-    /**
-     * Prints the details of an upcoming deadline.
-     *
-     * @param count Position of upcoming deadline in reminder list.
-     * @param task  Task object of upcoming deadline.
-     */
-    void printUpcomingDeadline(int count, Task task) {
-        System.out.println(" \t" + count + "." + task);
-    }
-
-
-    /**
      * Prints all tasks scheduled on the provided date.
      *
      * @param scheduledTasks List of all Tasks scheduled on the date provided.
@@ -666,73 +639,6 @@ public class Ui {
         System.out.println("There are no Tasks scheduled on " + date + ".");
     }
 
-
-    /**
-     * Prints the header for the user specified date to search for free time in.
-     *
-     * @param freeDate  The user specified date to search for free time.
-     * @param dayOfWeek The day of the week for the user specified date.
-     */
-    public void printFreeTimeHeader(String freeDate, String dayOfWeek) {
-        System.out.println("-----------------------------------------------------");
-        String dayWithDate = dayOfWeek + " " + freeDate;
-        int padSize = HEADER_WIDTH - dayWithDate.length();
-        int padStart = dayWithDate.length() + padSize / TEXT_CENTER;
-        dayWithDate = String.format("%" + padStart + "s", dayWithDate);
-        dayWithDate = String.format("%-" + HEADER_WIDTH + "s", dayWithDate);
-        System.out.println("| " + dayWithDate + " |");
-        System.out.println("-----------------------------------------------------");
-    }
-
-    /**
-     * Prints the free time slots in that day.
-     *
-     * @param timeSlotStart The start time of the time slot.
-     * @param timeSlotEnd   The end time of the time slot.
-     */
-    public void printFreeSlots(String timeSlotStart, String timeSlotEnd) {
-        System.out.print("| " + timeSlotStart + " - " + timeSlotEnd + " |");
-        System.out.println(centraliseDetails("free") + "|");
-        System.out.println("-----------------------------------------------------");
-    }
-
-    /**
-     * Prints the event details.
-     *
-     * @param timeSlotStart The start time of the time slot.
-     * @param timeSlotEnd   The end time of the time slot.
-     */
-    public void printBusySlots(String timeSlotStart, String timeSlotEnd) {
-        System.out.print("| " + timeSlotStart + " - " + timeSlotEnd + " |");
-        System.out.println(ANSI_BRIGHT_RED + centraliseDetails("BUSY") + ANSI_RESET + "|");
-        System.out.println("-----------------------------------------------------");
-    }
-
-    /**
-     * Prints deadlines to do as suggestions to the user.
-     *
-     * @param deadlineName The name of the deadline suggested.
-     */
-    public void printSuggestionDetails(ArrayList<String> deadlineName) {
-        System.out.println("You may plan to complete the following deadlines in your free time:");
-        for (int i = 1; i <= deadlineName.size(); i++) {
-            System.out.println(" \t" + i + ". " + deadlineName.get(i - 1));
-        }
-    }
-
-    /**
-     * Centralises the details to be printed.
-     *
-     * @param slotName Name of the slot being printed.
-     * @return A string that has been center justified.
-     */
-    private String centraliseDetails(String slotName) {
-        int padSize = TEXT_WIDTH - slotName.length();
-        int padStart = slotName.length() + padSize / TEXT_CENTER;
-        slotName = String.format("%" + padStart + "s", slotName);
-        return String.format("%-" + TEXT_WIDTH + "s", slotName);
-    }
-
     /**
      * Print when Start Tracker Command is completed.
      *
@@ -786,16 +692,6 @@ public class Ui {
         System.out.println("Module Code: " + moduleCode);
         System.out.println("It is currently " + tracker.getLastUpdated());
         System.out.println("Total time spent on " + taskDescription + ": " + tracker.getTimeTaken() + " minutes");
-    }
-
-    /**
-     * Prints the new threshold that the user wants.
-     *
-     * @param threshold The threshold for upcoming deadlines requested by the user.
-     */
-    public void printUpdatedThreshold(int threshold) {
-        printLine();
-        System.out.println(" You will now be reminded of deadlines in " + threshold + " hours.");
     }
 
     //@@author KahLokKee
@@ -1077,5 +973,109 @@ public class Ui {
     public void printCurrentlySelectedModule(Module module) {
         printLine();
         System.out.println(" Currently Selected: " + module.toString());
+    }
+
+    //@@author Kenlhc
+
+    /**
+     * Prints the new threshold that the user wants.
+     *
+     * @param threshold The threshold for upcoming deadlines requested by the user.
+     */
+    public void printUpdatedThreshold(int threshold) {
+        printLine();
+        System.out.println(" You will now be reminded of deadlines in " + threshold + " hours.");
+    }
+
+    /**
+     * Prints the header for the user specified date to search for free time in.
+     *
+     * @param freeDate  The user specified date to search for free time.
+     * @param dayOfWeek The day of the week for the user specified date.
+     */
+    public void printFreeTimeHeader(String freeDate, String dayOfWeek) {
+        System.out.println("-----------------------------------------------------");
+        String dayWithDate = dayOfWeek + " " + freeDate;
+        int padSize = HEADER_WIDTH - dayWithDate.length();
+        int padStart = dayWithDate.length() + padSize / TEXT_CENTER;
+        dayWithDate = String.format("%" + padStart + "s", dayWithDate);
+        dayWithDate = String.format("%-" + HEADER_WIDTH + "s", dayWithDate);
+        System.out.println("| " + dayWithDate + " |");
+        System.out.println("-----------------------------------------------------");
+    }
+
+    /**
+     * Prints the free time slots in that day.
+     *
+     * @param timeSlotStart The start time of the time slot.
+     * @param timeSlotEnd   The end time of the time slot.
+     */
+    public void printFreeSlots(String timeSlotStart, String timeSlotEnd) {
+        System.out.print("| " + timeSlotStart + " - " + timeSlotEnd + " |");
+        System.out.println(centraliseDetails("free") + "|");
+        System.out.println("-----------------------------------------------------");
+    }
+
+    /**
+     * Prints the event details.
+     *
+     * @param timeSlotStart The start time of the time slot.
+     * @param timeSlotEnd   The end time of the time slot.
+     */
+    public void printBusySlots(String timeSlotStart, String timeSlotEnd) {
+        System.out.print("| " + timeSlotStart + " - " + timeSlotEnd + " |");
+        System.out.println(ANSI_BRIGHT_RED + centraliseDetails("BUSY") + ANSI_RESET + "|");
+        System.out.println("-----------------------------------------------------");
+    }
+
+    /**
+     * Prints deadlines to do as suggestions to the user.
+     *
+     * @param deadlineName The name of the deadline suggested.
+     */
+    public void printSuggestionDetails(ArrayList<String> deadlineName) {
+        System.out.println("You may plan to complete the following deadlines in your free time:");
+        for (int i = 1; i <= deadlineName.size(); i++) {
+            System.out.println(" \t" + i + ". " + deadlineName.get(i - 1));
+        }
+    }
+
+    /**
+     * Centralises the details to be printed.
+     *
+     * @param slotName Name of the slot being printed.
+     * @return A string that has been center justified.
+     */
+    private String centraliseDetails(String slotName) {
+        int padSize = TEXT_WIDTH - slotName.length();
+        int padStart = slotName.length() + padSize / TEXT_CENTER;
+        slotName = String.format("%" + padStart + "s", slotName);
+        return String.format("%-" + TEXT_WIDTH + "s", slotName);
+    }
+
+    /**
+     * Prints a reminder regarding upcoming deadlines.
+     */
+    void printReminder() {
+        printLine();
+        System.out.println(" Reminder these tasks have upcoming deadlines:");
+    }
+
+    /**
+     * Prints a reminder that the user has no deadlines.
+     */
+    void printNoDeadlines() {
+        printLine();
+        System.out.println(" You have no upcoming deadlines :)");
+    }
+
+    /**
+     * Prints the details of an upcoming deadline.
+     *
+     * @param count Position of upcoming deadline in reminder list.
+     * @param task  Task object of upcoming deadline.
+     */
+    void printUpcomingDeadline(int count, Task task) {
+        System.out.println(" \t" + count + "." + task);
     }
 }
