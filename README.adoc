@@ -4,6 +4,12 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 https://travis-ci.org/se-edu/addressbook-level3[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]
 https://www.codacy.com/app/damith/addressbook-level3?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level3&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
 
+== Introduction
+
+JavaCake is for those who prefer to use a desktop app for managing events preceding a wedding. More importantly, JavaCake is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, JavaCake can get your wedding planning tasks done faster than traditional GUI apps.
+
+== User Interface
+
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
 endif::[]
@@ -14,19 +20,17 @@ endif::[]
 
 * This is a desktop Learning Java Tutorial application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*.
+* It has a multi-view system, where you can view the content, deadlines and list of notes simultaneously.
 * It has _waifus_
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
-* <<ContactUs#, Contact Us>>
 
 == Acknowledgements
 
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
-* Libraries used: https://openjfx.io/[JavaFX], https://github.com/junit-team/junit5[JUnit5]
+* Libraries used: https://openjfx.io/[JavaFX], https://github.com/junit-team/junit5[JUnit5], https://commons.apache.org/proper/commons-io/[CommonsIO]
