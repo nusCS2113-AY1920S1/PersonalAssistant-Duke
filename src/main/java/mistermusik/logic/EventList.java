@@ -310,30 +310,35 @@ public class EventList {
     /**
      * @return String containing the filtered list of events, each separated by a newline.
      */
-    private String filteredList(Predicate<Object> predicate) {
+    private String filteredList(Predicate<Object> predicateFront, Predicate<Object> predicateBack) {
         String filteredEvents = "";
         int j;
         for (int i = 0; i < eventArrayList.size(); ++i) {
             if (eventArrayList.get(i) == null) continue;
-            else if (!predicate.check(eventArrayList.get(i).getStartDate())) continue;
-            j = i + 1;
-            filteredEvents += j + ". " + this.getEvent(i).toString() + "\n";
+            else if (!predicateBack.check(eventArrayList.get(i).getStartDate())) continue;
+            if (!predicateFront.check(eventArrayList.get(i).getStartDate())) {
+                j = i + 1;
+                filteredEvents += j + ". " + this.getEvent(i).toString() + "\n";
+            }
         }
         return filteredEvents;
     }
 
     /**
-     * @return String containing events found in the next 3 days
+     * @return String containing events found in the next `days` days
      */
     public String getReminder(int days) {
         Date systemDateAndTime = new Date();
-        EventDate limit = new EventDate(systemDateAndTime);
-        limit.addDaysAndSetMidnight(days);
-        String reminderDeadline = limit.getEventJavaDate().toString();
-        Predicate<Object> objectPredicate = new Predicate<>(limit, GREATER_THAN);
+        EventDate frontLimit = new EventDate(systemDateAndTime);
+        EventDate backLimit = new EventDate(systemDateAndTime);
+        frontLimit.addDaysAndSetMidnight(0);
+        backLimit.addDaysAndSetMidnight(days);
+        String reminderDeadline = backLimit.getEventJavaDate().toString();
+        Predicate<Object> objectPredicateFront = new Predicate<>(frontLimit, GREATER_THAN);
+        Predicate<Object> objectPredicateBack = new Predicate<>(backLimit, GREATER_THAN);
         return "The time now is " + systemDateAndTime + ".\n" +
                 "Here is a list of events you need to complete in the next " + days + " days (by " +
-                reminderDeadline + "):\n" + filteredList(objectPredicate);
+                reminderDeadline + "):\n" + filteredList(objectPredicateFront, objectPredicateBack);
     }
 
     //@@author
