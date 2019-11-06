@@ -193,7 +193,7 @@ public class LogicManager {
      *
      * @return list of help sections.
      */
-    public static ArrayList<Help> getHelpList() {
+    public ArrayList<Help> getHelpList() {
         return helpList;
     }
 
