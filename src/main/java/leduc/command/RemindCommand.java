@@ -50,8 +50,9 @@ public class RemindCommand extends Command {
         if (sortedTasks.size() > 0) {
             int j = 0;
             for (int i = 0; i < sortedTasks.size(); i++) {//prints first 3 tasks in the sorted taskList
-                if ((j < 3) && (sortedTasks.get(i).getMark().equals("[✓]"))) {
+                if ((j < 3) && (sortedTasks.get(i).getMark().equals("[✗]"))) {
                     result += sortedTasks.displayOneElementList(i);
+                    j++;
                 }
             }
             System.out.println(result);

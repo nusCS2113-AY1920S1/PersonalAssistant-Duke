@@ -301,34 +301,4 @@ remind
 but that would limit its potential utility
 
 
-== Find
-To find a task by keyword : `find KEYWORD`
-
-The find command allows the user to search for tasks by keyword.
-The command will return a list of tasks, ordered by ascending relevancy.
-Typos in the user query will not affect performance.
-
-Backend uses a character comparison based algorithm called the "Sorensen-Dice" Fuzzy Matching algorithm. This algorithm generates "relevance scores" for each task in the tasklist. The tasklist is then filtered based on relevance scores, removing those with a score of 0.0. The filtered list is then displayed in order of relevance.
-Example queries:
-
-* `find book`
-* `find buy book`
-
-Sample Output:
-```
-find tesf
----------------------------------------------------------------------------------
-Here are the matching tasks in your list:
-8. [H][✗] test by: 01/01/2001 01:01 [Priority: 5]
-7. [H][✓] science by: 05/05/2005 05:05 [Priority: 2]
-1. [T][✗] td1 [Priority: 5]
-3. [T][✓] td3 [Priority: 5]
-4. [T][✗] td4 [Priority: 5]
-5. [H][✗] math by: 11/11/2011 01:01 [Priority: 5]
-6. [H][✓] homeworktest by: 04/04/2004 04:04 [Priority: 5]
-
-        ---------------------------------------------------------------------------------
-```
-* Note: The typo in the query "tesf" still returned the correct task as the most relevant match.
-
 ---

@@ -14,15 +14,25 @@ Le Duc is a task management product aiming to assist high school students manage
 ** What it does: Analyzes the user's tasklist, and will generate a reminder that highlights the top 3 upcoming tasks that are not yet complete.
 ** Justification: A user with a busy schedule could easily forget about a task that he/she must do. This feature will scan for upcoming tasks and remind the user of them, thus preventing the user from falling behind.
 ** Contributions: Search by day/week/month was implemented by Jérôme Huang
-* *Major Enhancement*: *Created an advanced search feature*
+* *Major Enhancement*: *Created an Advanced Search Feature*
 ** What it does: Uses an advanced string matching algorithm to search for tasks by descriptions, despite partial queries or query typos. Also allows the user to search for tasks by other metrics, such as completion, a date window, etc.
-** Justification : The user may accidentally make a typo in their query, or make broad queries (search for tasks with certain keywords). An advanced search feature allows for this flexibility.
+** Justification : The user may accidentally make a typo in their query, or make broad queries (search for tasks with certain keywords). An advanced search feature allows for relevant results to be displayed despite imperfect queries.
 
 * *Major Enhancement*: *Generate Statistics from the Tasklist*
-** What it does: Will analyze the tasklist and display interesting metrics to the user, such as % of tasks completed, the count of each type of task, etc. User can view detailed metrics regarding task priority/ completion via flags.
-** Justification: This feature will help the user to make future decisions. For example, in the case when a large percentage of tasks are not complete, he/she might refrain from taking on an additional workload.
+** What it does: Will analyze the tasklist and display interesting metrics to the user, such as % of tasks completed, the count of each type of task, etc. User can view up to 23 detailed metrics, grouped by flags
+** Justification: This feature will help the user to make future decisions. For example, in a case where a large percentage of tasks are not complete, he/she might refrain from taking on an additional workload. If the user has a large number of high priority tasks, the user could make the choice to finish those first, instead of completing tasks in chronological order.
 ** Highlights: This enhancement will allow for interesting insights to be generated from the users schedule, most of which are not necessarily intuitive to see without aggregating all historical tasks over time.
-* *Minor enhancement*: Created a homework task type..
+
+* *Major Enhancement*: *Set a Customized Welcome Message for Le Duc*
+** What it does: User can customize the message that gets displayed upon Le Duc startup.
+** Justification: The user may want to customize his/her software to distinguish it from that of other Le Duc users.
+
+* *Major Enhancement*: *Major Refactoring for New Task Types*
+** What it does: Modified most of the software to allow compatibility with the Homework task type
+** Justification: Le Duc is targeting High School students, thus a Homework task type is necessary for our users.
+
+
+* *Minor enhancement*: Code refactoring-offloaded some helper methods to a higher layer, to increase cohesion between the Command and Ui classes.
 
 * *Code contributed*: [https://nuscs2113-ay1920s1.github.io/dashboard/#search=rshah918&sort=groupTitle&sortWithin=title&since=2019-09-21&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=rshah918&tabRepo=AY1920S1-CS2113-T16-1%2Fmain%5Bmaster%5D[Project Code Dashboard]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/RemindCommand.java[Remind Command]] [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/FindCommand.java[Advanced Search Feature]] [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/SetWelcomeCommand.java[Set Welcome Message] [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/StatsCommand.java[Generate Statistics]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/HomeworkCommand.java[Create Homework Object]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/UnfinishedCommand.java[Display Unfinished Tasks]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/task/TaskList.java[Filter and Sort Tasklist]]
 
@@ -39,20 +49,53 @@ Le Duc is a task management product aiming to assist high school students manage
 *** Contributed to the Developer Guide
 
 == Contributions to the User Guide
-Overview: I added user descriptions for my implemented features, and did general formatting/grammar adjustments document wide.
+Overview: I added user descriptions for my implemented features, and did general formatting/grammar adjustments document wide. Our User Guide is https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/docs/%5BAY1920S1-CS2113-T16-1%5D-Le%20Duc-UG.pdf[here]
 
-=== Find the task by keyword : `find`
+=== Find the task by relevancy : `find`
 
-To find a task by keyword : `find KEYWORD`
+To find a task by character relevancy : `find QUERY`
 
-The find command allows the user to search for tasks by keyword.
-The command will return a list of tasks, ordered by ascending relevancy.
+The find command allows the user to search for tasks via character matching (NOT keyword matching).
+The command will return tasks ordered by ascending relevancy.
+
 Typos in the user query will not affect performance.
 
 Examples:
 
-* `find book`
-* `find buy book`
+*Partial word query*
+
+```
+find sci
+        ---------------------------------------------------------------------------------
+         Here are the most relevant tasks in your list:
+         7. [H][✓] science by: 05/05/2005 05:05 [Priority: 2]
+         8. [H][✗] test by: 01/01/2001 01:01 [Priority: 5]
+         6. [H][✓] homeworktest by: 04/04/2004 04:04 [Priority: 5]
+
+        ---------------------------------------------------------------------------------
+
+```
+*Typo in Query*
+
+```
+find homewqeuktest
+        ---------------------------------------------------------------------------------
+         Here are the most relevant tasks in your list:
+         6. [H][✓] homeworktest by: 04/04/2004 04:04 [Priority: 5]
+         5. [H][✗] math by: 11/11/2011 01:01 [Priority: 5]
+         7. [H][✓] science by: 05/05/2005 05:05 [Priority: 2]
+         8. [H][✗] test by: 01/01/2001 01:01 [Priority: 5]
+
+        ---------------------------------------------------------------------------------
+
+```
+*If all tasks have no matching characters with query*
+```find zx
+        ---------------------------------------------------------------------------------
+         There is no matching tasks in your list
+        ---------------------------------------------------------------------------------
+
+```
 
 === Customize the welcome message : `setwelcome`
 
@@ -71,36 +114,94 @@ Be careful:
 
 Display statistics : `stats`
 
+Display statistics about your tasklist.
+
+Enter command `stats` to view general statistics,
+`stats -p` to view detailed priority statistics,
+or `stats -c` to view detailed completion statistics.
+
 Example:
 
 * `stats`
 
-Output:
+
+General Statistics Example:
+```
+stats
+        ---------------------------------------------------------------------------------
+Here are some general statistics about your task list:
+Number of tasks: 8.0
+Number of Todo's : 3
+Number of Events: 1
+Number of Homeworks: 4
+Number of Uncompleted Tasks: 5
+Number of Completed Tasks: 3
+Percent Complete: 37.5%
+        ---------------------------------------------------------------------------------
 
 ```
-Here are some statistics about your task list:
+* `stats -c`
 
-Number of tasks: 13.0
 
-Number of Todo's : 6.0
+Completion Statistics Example
+```
+stats -c
+        ---------------------------------------------------------------------------------
+Here are some completion statistics about your task list:
+----COMPLETION COUNTS----
+Number of incomplete Homeworks remaining: 2
+Number of incomplete Todos remaining: 2
+Number of incomplete Events  remaining: 1
+----COMPLETION PERCENTAGES----
+Percent of incomplete Homework: 50.0%
+Percent of incomplete Todo: 66.66666666666666%
+Percent of incomplete Events: 100.0%
+        ---------------------------------------------------------------------------------
 
-Number of Events: 2.0
+```
+* `stats -p`
 
-Number of homeworks: 5.0
 
-Number of Uncompleted Tasks: 13.0
+Priority Statistics Example:
+```
+stats -p
+        ---------------------------------------------------------------------------------
+Here are some priority statistics about your task list:
+----PRIORITY COUNTS----
+Number of tasks with priority 5: 7
+Number of tasks with priority 4: 0
+Number of tasks with priority 3: 0
+Number of tasks with priority 2: 1
+Number of tasks with priority 1: 0
+----PRIORITY PERCENTAGES----
+Percent of tasks with priority 5: 87.5%
+Percent of tasks with priority 4: 0.0%
+Percent of tasks with priority 3: 0.0%
+Percent of tasks with priority 2: 12.5%
+Percent of tasks with priority 1: 0.0%
+        ---------------------------------------------------------------------------------
 
-Number of Completed Tasks: 0.0
+```
+=== Reminder for upcoming tasks : `remind`
 
-Percent Complete: 0.0%
+Reminds the user of the 3 most upcoming tasks : `remind`
+
+Example:
+
+* `remind`
+```
+remind
+         1. [H][✗] test by: 01/01/2001 01:01 [Priority: 5]
+         4. [H][✗] math by: 11/11/2011 01:01 [Priority: 5]
+         5. [E][✗] e at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
+
 ```
 
 == Contributions to the Developer Guide
 
-Overview: I have added the implementations of my features to the user guide : remind, statistics, and find. Our User Guide is https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/docs/%5BAY1920S1-CS2113-T16-1%5D-%5BLe%20Duc%5D-UG.adoc#faq[here].
+Overview: I have added the implementations of my features to the Developer Guide : remind, statistics, and find. Our Developer Guide is https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/docs/%5BAY1920S1-CS2113-T16-1%5D-Le%20Duc-DG.pdf[here].
 
 * *Implementation for remind:*
-
 
 Display the 3 most upcoming unfinished tasks : `remind`
 
@@ -158,38 +259,5 @@ remind
 * Sorting the TaskList in place was considered, but it reduced cohesion of the design.
 * It was considered to only remind the user of tasks that are coming up in the next week,
 but that would limit its potential utility
-
----
-
-
-* *Implementation for Find:*
-To find a task by keyword: `find KEYWORD`
-
-The find command allows the user to search for tasks by keyword.
-The command will return a list of tasks, ordered by ascending relevancy.
-Typos in the user query will not affect performance.
-
-Backend uses a character comparison based algorithm called the "Sorensen-Dice" Fuzzy Matching algorithm. This algorithm generates "relevance scores" for each task in the tasklist. The tasklist is then filtered based on relevance scores, removing those with a score of 0.0. The filtered list is then displayed in order of relevance.
-Example queries:
-
-* `find book`
-* `find buy book`
-
-Sample Output:
-```
-find tesf
----------------------------------------------------------------------------------
-Here are the matching tasks in your list:
-8. [H][✗] test by: 01/01/2001 01:01 [Priority: 5]
-7. [H][✓] science by: 05/05/2005 05:05 [Priority: 2]
-1. [T][✗] td1 [Priority: 5]
-3. [T][✓] td3 [Priority: 5]
-4. [T][✗] td4 [Priority: 5]
-5. [H][✗] math by: 11/11/2011 01:01 [Priority: 5]
-6. [H][✓] homeworktest by: 04/04/2004 04:04 [Priority: 5]
-
-        ---------------------------------------------------------------------------------
-```
-* Note: The typo in the query "tesf" still returned the correct task as the most relevant match.
 
 ---
