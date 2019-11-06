@@ -21,7 +21,7 @@ public class GazeeeboTest {
         Ui ui = new Ui();
         Storage storage = new Storage();
         TriviaManager triviaManager = new TriviaManager(storage);
-        Stack<String> commandStack = new Stack<>();
+        Stack<ArrayList<Task>> commandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<>();
         try {
             deadlineCommand.execute(tasks,ui,storage,commandStack,deletedTask,triviaManager);
@@ -42,7 +42,7 @@ public class GazeeeboTest {
         ArrayList<Task> tasks = new ArrayList<Task>();
         Ui ui = new Ui();
         try {
-            ui.UpcomingTask(tasks);
+            ui.upcomingTask(tasks);
         } catch (ParseException e) {
             assertEquals("Date Time has to be in YYYY-MM-DD HH:mm:ss format",e.getMessage());
         } catch (NullPointerException e) {

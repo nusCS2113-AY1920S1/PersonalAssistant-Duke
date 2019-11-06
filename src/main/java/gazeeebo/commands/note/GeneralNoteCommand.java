@@ -31,7 +31,7 @@ public class GeneralNoteCommand extends Command {
     private static final String COMMANDS = "commands";
     private static final String HELP = "help";
 
-    private void showListOfCommands() {
+    public static void showListOfCommands() {
         System.out.println("__________________________________________________________");
         System.out.println("1. View goal and list of modules: " + VIEW);
         System.out.println("2. Edit goal: " + EDIT_GOAL);
@@ -75,7 +75,19 @@ public class GeneralNoteCommand extends Command {
             }
             ui.readCommand();
         }
-        System.out.println("Going back to Main Menu.");
+        System.out.println("Go back to Main Menu...\n" +
+                "Content Page:\n" +
+                "------------------ \n" +
+                "1. help\n" +
+                "2. contacts\n" +
+                "3. expenses\n" +
+                "4. places\n" +
+                "5. tasks\n" +
+                "6. cap\n" +
+                "7. spec\n" +
+                "8. moduleplanner\n" +
+                "9. notes\n" +
+                "To exit: bye\n");
     }
 
     @Override

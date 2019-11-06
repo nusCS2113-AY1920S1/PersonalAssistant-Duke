@@ -79,7 +79,8 @@ public class ModuleCommand extends Command {
             module = findModule(ui.fullCommand);
         } catch (DukeException d) {
             ui.showErrorMessage(d);
-            System.out.println("Going back to notes page.");
+            System.out.println("Going back to notes page...");
+            GeneralNoteCommand.showListOfCommands();
             return;
         }
         System.out.println("What would you like to do?\n");
@@ -121,7 +122,8 @@ public class ModuleCommand extends Command {
             }
             ui.readCommand();
         }
-        System.out.println("Going back to notes page.");
+        System.out.println("Going back to notes page...\n");
+        GeneralNoteCommand.showListOfCommands();
     }
 
     @Override

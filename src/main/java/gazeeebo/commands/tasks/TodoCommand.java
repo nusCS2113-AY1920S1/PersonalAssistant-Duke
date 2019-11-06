@@ -9,6 +9,7 @@ import gazeeebo.UI.Ui;
 import gazeeebo.tasks.*;
 import gazeeebo.storage.Storage;
 import gazeeebo.exception.DukeException;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -24,25 +25,30 @@ public class TodoCommand extends Command {
                 throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
             } else {
                 description = ui.fullCommand.substring(5);
-                triviaManager.learnInput(ui.fullCommand,storage);
-        }
-        Todo to = new Todo(description);
-        list.add(to);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(to.listFormat());
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            sb.append(list.get(i).toString() + "\n");
-        }
-        storage.writeToSaveFile(sb.toString());
+                triviaManager.learnInput(ui.fullCommand, storage);
+            }
+            Todo to = new Todo(description);
+            list.add(to);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(to.listFormat());
+            System.out.println("Now you have " + list.size() + " tasks in the list.");
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < list.size(); i++) {
+                sb.append(list.get(i).toString() + "\n");
+            }
+            storage.writeToSaveFile(sb.toString());
         } catch (DukeException e) {
             System.out.println(e.getMessage());
             triviaManager.showPossibleInputs("todo");
             //triviaManager.showAllMap();
         }
     }
-
+    /**
+     * Program does not exit and continues running
+     * since command "bye" is not called.
+     *
+     * @return false
+     */
     @Override
     public boolean isExit() {
         return false;

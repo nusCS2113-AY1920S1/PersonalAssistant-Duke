@@ -1,4 +1,5 @@
 //@@author yueyuu
+
 package gazeeebo.commands.help;
 
 import gazeeebo.storage.Storage;
@@ -25,7 +26,7 @@ public class HelpCommand extends Command {
     private static final String TASKS_DONE = "tasks done";
 
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, IOException, NullPointerException {
         //gazeeebo.help COMMAND or just gazeeebo.help
         //description of a gazeeebo.help can be empty
         HelpText help = new HelpText();

@@ -1,12 +1,16 @@
 package gazeeebo.commands.tasks;
+
 import gazeeebo.commands.Command;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.storage.Storage;
 import gazeeebo.exception.DukeException;
+
 import java.io.IOException;
+
 import gazeeebo.tasks.*;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -30,7 +34,7 @@ public class TentativeEventCommand extends Command {
                     tentativetimes.add(ui.fullCommand);
                     ui.readCommand();
                 }
-                TentativeEvent newtentative = new TentativeEvent(description,tentativetimes);
+                TentativeEvent newtentative = new TentativeEvent(description, tentativetimes);
                 System.out.println("Got it. I've added this tentative event:");
                 System.out.println(newtentative.listFormat());
                 System.out.println("You could confirm one of the slots later.");
@@ -41,12 +45,17 @@ public class TentativeEventCommand extends Command {
                 }
                 storage.writeToSaveFile(sb.toString());
             }
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
     }
 
+    /**
+     * Program does not exit and continues running
+     * since command "bye" is not called.
+     *
+     * @return false
+     */
     @Override
     public boolean isExit() {
         return false;

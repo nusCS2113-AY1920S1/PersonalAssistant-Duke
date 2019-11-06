@@ -1,7 +1,6 @@
 //@@author yueyuu
 package gazeeebo.help;
 
-import java.util.Scanner;
 
 public class HelpText {
     public static final String commandSeparator = System.lineSeparator() +
