@@ -59,15 +59,17 @@ public class TodayTodoList {
 
     public String toString() {
         Date date = new Date();
-        String output="\t Today Task list ("+date+")";
-        int cnt=0;
+        String output = "\t Today Task list (" + date + ")";
+        int cnt = 0;
         for (Map.Entry<String, Integer> entry : tasks.entrySet()) {
             cnt++;
             String dishName = entry.getKey();
             int amount = entry.getValue();
-            output+="\n\t "+ cnt+". "+dishName+" (amount: "+amount+") ";
+            output += "\n\t " + cnt + ". " + dishName + " (amount: "+amount+") ";
+        }
+        if (cnt == 0) {
+            output += "\n\t None!";
         }
         return output;
     }
-
 }
