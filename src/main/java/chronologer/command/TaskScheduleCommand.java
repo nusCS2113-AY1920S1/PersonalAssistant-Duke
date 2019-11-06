@@ -91,13 +91,11 @@ public class TaskScheduleCommand extends Command {
         ArrayList<Task> list = tasks.getTasks();
 
         if (this.indexOfTask != null) {
-            if (this.indexOfTask >= list.size()) {
-                UiTemporary.printOutput(ChronologerException.invalidIndex());
-                throw new ChronologerException(ChronologerException.invalidIndex());
-            }
-
             try {
                 todo = (Todo) list.get(indexOfTask);
+            } catch (IndexOutOfBoundsException e) {
+                UiTemporary.printOutput(ChronologerException.invalidIndex());
+                throw new ChronologerException(ChronologerException.invalidIndex());
             } catch (ClassCastException e) {
                 UiTemporary.printOutput("Task selected is not a Todo with a duration");
                 throw new ChronologerException("Task selected is not a Todo with a duration");
@@ -108,13 +106,11 @@ public class TaskScheduleCommand extends Command {
         }
 
         if (this.indexOfDeadline != null) {
-            if (this.indexOfDeadline >= list.size()) {
-                UiTemporary.printOutput(ChronologerException.invalidIndex());
-                throw new ChronologerException(ChronologerException.invalidIndex());
-            }
-
             try {
                 deadline = (Deadline) list.get(indexOfDeadline);
+            } catch (IndexOutOfBoundsException e) {
+                UiTemporary.printOutput(ChronologerException.invalidIndex());
+                throw new ChronologerException(ChronologerException.invalidIndex());
             } catch (ClassCastException e) {
                 UiTemporary.printOutput("Task selected is not a Deadline");
                 throw new ChronologerException("Task selected is not a Deadline");

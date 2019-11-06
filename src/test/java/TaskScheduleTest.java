@@ -99,23 +99,27 @@ public class TaskScheduleTest {
     }
 
     @Test
-    public void testIndexException() {
-        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+    public void testIndexOutOfBoundException() {
+        Assertions.assertThrows(ChronologerException.class, () -> {
             Command test = new TaskScheduleCommand(-1, 0);
             test.execute(tasks, storage);
         });
-        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+        Assertions.assertThrows(ChronologerException.class, () -> {
             Command test = new TaskScheduleCommand(1, -1);
             test.execute(tasks, storage);
         });
-        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
-            Command test = new TaskScheduleCommand(100, 0);
+        Assertions.assertThrows(ChronologerException.class, () -> {
+            Command test = new TaskScheduleCommand(2, 0);
             test.execute(tasks, storage);
         });
-        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
-            Command test = new TaskScheduleCommand(1, 100);
+        Assertions.assertThrows(ChronologerException.class, () -> {
+            Command test = new TaskScheduleCommand(1, 2);
             test.execute(tasks, storage);
         });
+    }
+
+    @Test
+    public void testIndexException() {
         Assertions.assertThrows(ChronologerException.class, () -> {
             Command test = new TaskScheduleCommand(1, 1);
             test.execute(tasks, storage);
