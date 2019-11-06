@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class DeadlineCommandParser implements CommandParser {
     private static final Logger logger = LogUtils.getLogger(DeadlineCommand.class);
-    private static final ArrayList<String> key = new ArrayList<String>(Arrays.asList(TOKEN_END_TIME,
+    private static final ArrayList<String> key = new ArrayList<>(Arrays.asList(TOKEN_END_TIME,
             TOKEN_DATE, TOKEN_PRIORITY, TOKEN_FINAL_DATE, TOKEN_INTERVAL));
 
     @Override

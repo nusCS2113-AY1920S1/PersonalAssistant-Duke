@@ -5,7 +5,6 @@ import compal.logic.command.Command;
 import compal.model.tasks.Task;
 import compal.logic.parser.exceptions.ParserException;
 
-import javax.swing.text.html.parser.Parser;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -671,10 +670,8 @@ public interface CommandParser {
         Scanner scanner = new Scanner(restOfInput);
         while (scanner.hasNext()) {
             String param = scanner.next();
-            if (param.substring(0, 1).equals(TOKEN_SLASH)) {
-                if (!key.contains(param)) {
-                    throw new ParserException(MESSAGE_INVALID_PARAM);
-                }
+            if (param.substring(0, 1).equals(TOKEN_SLASH) && !key.contains(param)) {
+                throw new ParserException(MESSAGE_INVALID_PARAM);
             }
         }
     }
