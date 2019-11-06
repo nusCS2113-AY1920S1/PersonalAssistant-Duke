@@ -3,6 +3,7 @@ package chronologer;
 import chronologer.parser.DateTimeExtractor;
 import chronologer.task.Event;
 import chronologer.task.TaskList;
+import chronologer.ui.MessageBuilder;
 import chronologer.ui.UiTemporary;
 
 import java.time.LocalDateTime;
@@ -54,15 +55,12 @@ public final class TaskScheduler {
 
     private static void searchFreePeriodsInEventList(Long durationToSchedule, LocalDateTime deadlineDate,
                                                      ArrayList<Event> eventList) {
-        boolean isFreeBetweenEvents = false;
+        boolean isFreeBetweenEvents;
         Long duration;
-        LocalDateTime nextStartDate = eventList.get(0).getStartDate();
-        duration = ChronoUnit.HOURS.between(LocalDateTime.now(), nextStartDate);
-        if (durationToSchedule <= duration) {
-            isFreeBetweenEvents = true;
-            String formattedNextStartDate = nextStartDate.format(DateTimeExtractor.DATE_FORMATTER);
-            UiTemporary.loadMultiLineOutput(String.format(SCHEDULE_NOW_TILL_FORMAT, formattedNextStartDate));
-        }
+
+        MessageBuilder.initialiseMessage();
+        isFreeBetweenEvents = checkPeriodFromNowTillFirstEvent(durationToSchedule, eventList);
+        LocalDateTime nextStartDate;
 
         for (int i = 0; i < eventList.size(); i++) {
             LocalDateTime currentEndDate = eventList.get(i).getEndDate();
@@ -80,8 +78,8 @@ public final class TaskScheduler {
                 isFreeBetweenEvents = true;
                 String formattedCurrentEndDate = currentEndDate.format(DateTimeExtractor.DATE_FORMATTER);
                 String formattedNextStartDate = nextStartDate.format(DateTimeExtractor.DATE_FORMATTER);
-                UiTemporary.loadMultiLineOutput(String.format(SCHEDULE_FROM_TILL_FORMAT,
-                        formattedCurrentEndDate, formattedNextStartDate));
+                MessageBuilder.loadMessage(String.format(SCHEDULE_FROM_TILL_FORMAT, formattedCurrentEndDate,
+                        formattedNextStartDate));
             }
         }
 
@@ -90,6 +88,21 @@ public final class TaskScheduler {
             return;
         }
 
-        UiTemporary.printMultiLineOutput();
+        String output = MessageBuilder.getMessage();
+        UiTemporary.printOutput(output);
+    }
+
+    private static boolean checkPeriodFromNowTillFirstEvent(Long durationToSchedule, ArrayList<Event> eventList) {
+        boolean isFreeBetweenEvents = false;
+        Long duration;
+
+        LocalDateTime nextStartDate = eventList.get(0).getStartDate();
+        duration = ChronoUnit.HOURS.between(LocalDateTime.now(), nextStartDate);
+        if (durationToSchedule <= duration) {
+            isFreeBetweenEvents = true;
+            String formattedNextStartDate = nextStartDate.format(DateTimeExtractor.DATE_FORMATTER);
+            MessageBuilder.loadMessage(String.format(SCHEDULE_NOW_TILL_FORMAT, formattedNextStartDate));
+        }
+        return isFreeBetweenEvents;
     }
 }

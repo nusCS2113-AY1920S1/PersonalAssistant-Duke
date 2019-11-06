@@ -74,39 +74,11 @@ public class UiTemporary {
      * @param userOutput This string will be used to print the message between to
      *                   data.
      */
-
     public static void printOutput(String userOutput) {
         UiTemporary.userOutputForUI = userOutput + "\n";
         System.out.println(userOutputDash);
         System.out.println(userOutput);
         System.out.println(userOutputDash);
-    }
-
-    /**
-     * Loads the list of string to be printed with another line of string.
-     * @param userOutput is the additional line of string to load the current string with
-     */
-    public static void loadMultiLineOutput(String userOutput) {
-        multiLineList.add(userOutput);
-    }
-
-    /**
-     * Prints out the multi-lined string to the UI and clears the list of strings for any subsequent inputs.
-     */
-    public static void printMultiLineOutput() {
-        initialiseStringBuilder();
-        for (String output: multiLineList) {
-            multiLineOutput.append(output);
-        }
-        UiTemporary.userOutputForUI = multiLineOutput + "\n";
-        System.out.println(userOutputDash);
-        System.out.println(multiLineOutput);
-        System.out.println(userOutputDash);
-        multiLineList.clear();
-    }
-
-    private static void initialiseStringBuilder() {
-        multiLineOutput = new StringBuilder();
     }
 
     /**
