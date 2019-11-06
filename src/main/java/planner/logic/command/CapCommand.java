@@ -174,15 +174,13 @@ public class CapCommand extends ModuleCommand {
                 throw new ModNotFoundException();
             }
             double mcTemp = detailedMap.get(userInfo[0].toUpperCase()).getModuleCredit();
-            if (!detailedMap.get(userInfo[0].toUpperCase()).getAttributes().isSu()
-                || letterGradeToCap(userInfo[1].toUpperCase()) != 0.00) {
+            if (letterGradeToCap(userInfo[1].toUpperCase()) != 0.00) {
                 mcCount += mcTemp;
+                currentCap += (letterGradeToCap(userInfo[1].toUpperCase()) * mcTemp);
             }
             if (userInfo[1].isEmpty() || userInfo[1].isBlank()) {
                 throw new ModMissingArgumentException("Please input a letter grade for this module.");
             }
-
-            currentCap += (letterGradeToCap(userInfo[1].toUpperCase()) * mcTemp);
             userInput = scanner.nextLine();
         }
         if (currentCap == 0 && mcCount == 0) {
