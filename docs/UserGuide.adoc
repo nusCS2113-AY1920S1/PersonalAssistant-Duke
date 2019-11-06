@@ -144,19 +144,17 @@ Marks the 2nd event as done in SGTravel.
 === Editing places of visit: `edit`
 
 Panel will automatically select an intial location and the current location will be glowing green in color. +
-
-image::edit1.png[width="600" height="400"]
-
 Users will use `up, down, left, right or ESC and Enter` key to then select the place of visit they want to edit. +
 `Enter` selects and `ESC` deselects. +
 Once an event is selected (orange), simply type in the new `VENUE/DATE` into the CLI depending on what is currently highlighted. +
-
-image::edit2.png[width="600" height="400"]
 
 Examples:
 
 * `Orchard road` if updating the `VENUE`
 * `Mon` or `12/12/12` if updating a `DATE`
+
++
+image::Ui.png[width="600" height="400"]
 
 To save the edits, type `save` or `done` or `x`. +
 To discard the changes, type `close` or `end` or `X`.+
@@ -264,37 +262,47 @@ Format: `routeAdd NAME`
 
 ****
 * Creates a Route with the specified `NAME`.
+* Routes can contain different RouteNodes, which are points on the Route.
 ****
 
 Examples:
 
 * `routeAdd Day trip to Sentosa`
+* `routeAdd 2 Week staycation at Pulau Tekong`
 
 === Creating a new RouteNode: `routeNodeAdd`
 
-Adds a new Route to SGTravel. +
+Adds a new RouteNode to SGTravel. +
 Format: `routeNodeAdd INDEXROUTE INDEXNODE at LOCATION by CONSTRAINT`
 
 ****
 * Creates a RouteNode with the specified `LOCATION` at the Route with specified 'INDEXROUTE'.
+* RouteNodes can be either of these 3 types: BusStop, TrainStation, CustomNode.
+* RouteNodes are specific bus stops or mrt stations in a Route.
 * If `INDEXNODE` is not specified, the RouteNode is added to the end of the Route, else it is added to position `INDEXNODE`.
-* If `CONSTRAINT` is `bus`, the `LOCATION` must correspond to the bus stop's number.
-* If `CONSTRAINT` is `mrt` instead, the `LOCATION` must correspond to the name of the MRT station.
+* If `CONSTRAINT` is `bus`, the `LOCATION` must correspond to the bus stop's number. This creates a BusStop.
+* If `CONSTRAINT` is `mrt` instead, the `LOCATION` must correspond to the name of the MRT station, and is not case-sensitive. This creates a TrainStation.
+* If `CONSTRAINT` is `custom` instead, a CustomNode is created with the specified 'LOCATION'.
 ****
 
 Valid CONSTRAINT:
 
 * `bus`
 * `mrt`
+* `custom`
 
 Examples:
 
 * `routeNodeAdd 1 1 at 17009 by bus`
+* `routeNodeAdd 1 at 46431 by bus`
 * `routeNodeAdd 1 1 at ang mo kio by mrt`
+* `routeNodeAdd 1 at Bishan by mrt`
+* `routeNodeAdd 1 1 at jurong bird park by custom`
+* `routeNodeAdd 1 at Bishan Park by custom`
 
 === Automatically generating a Route: `routeGenerate`
 
-Automatically generates a new Route between 2 locations. +
+Automatically creates a new Route between 2 given locations with RouteNodes in it. +
 Format: `routeGenerate STARTLOCATION to ENDLOCATION by CONSTRAINT`
 
 ****
@@ -311,6 +319,15 @@ Examples:
 
 * `routeGenerate amk hub to clementi by bus`
 
+=== Listing the information of all the Routes: `routeListAll`
+
+Lists the information about each Route. +
+Format: `routeListAll`
+
+****
+* Information includes the name and description of all Routes.
+****
+
 === Listing the information of a Route: `routeList`
 
 Lists the information about a Route. +
@@ -318,11 +335,16 @@ Format: `routeList INDEX_ROUTE`
 
 ****
 * Lists the information of the Route at index `INDEX_ROUTE`.
+* Information includes the name, description and all RouteNodes in the Route.
 ****
 
 Examples:
 
 * `routeList 1`
+
+Examples:
+
+* `routeListAll`
 
 === Listing the information of a RouteNode: `routeNodeList`
 
@@ -331,26 +353,26 @@ Format: `routeNodeList INDEX_ROUTE INDEX_NODE`
 
 ****
 * Lists the information of the RouteNode at Route `INDEX_ROUTE` and index `INDEX_NODE`.
+* Information includes the name, description and coordinates of the RouteNode.
 ****
 
 Examples:
 
 * `routeNodeList 1 1`
+* `routeNodeList 3 2`
 
 === Showing the map image of a Route: `routeShow`
 
-Shows the map image of a Route. +
+Shows the Route on the Singapore map. +
 Format: `routeShow INDEX_ROUTE`
 
 ****
-* Shows the map of the Route at `INDEX_ROUTE`.
+* Shows the map of the Route at `INDEX_ROUTE` in the Singapore Map.
 ****
 
 Examples:
 
 * `routeShow 1`
-+
-image::Ui.png[width="600" height="400"]
 
 === Showing the information of a RouteNode with image: `routeNodeShow`
 
@@ -359,27 +381,48 @@ Format: `routeNodeShow INDEX_ROUTE INDEX_NODE`
 
 ****
 * Shows the information and map of the RouteNode at `INDEX_NODE` in Route at `INDEX_ROUTE`.
+* The RouteNode being shown is colored in green.
+* Nearby RouteNodes in the Route are also shown, and are colored in orange.
 ****
 
 Examples:
 
 * `routeNodeShow 1 1`
+* `routeNodeShow 4 8`
 
 === Showing the information of nearby RouteNodes with image: `routeNodeNearby`
 
-Shows information of nearby bus stops and MRT stations to a RouteNode. +
+Shows information of nearby bus stops and MRT stations to a RouteNode, in an image. +
 Format: `routeNodeNearby INDEX_ROUTE INDEX_NODE`
 
 ****
 * Shows the map of the RouteNode at `INDEX_NODE` in Route at `INDEX_ROUTE` and its nearby neighbours.
+* Nearby neighbours are colored in black.
 ****
-
 
 Examples:
 
 * `routeNodeNearby 1 1`
-+
-image::Ui.png[width="600" height="400"]
+* `routeNodeNearby 9 6`
+
+=== Editing a Route: `routeEdit`
+ 
+Edits a specific field in a Route. +
+Format: `routeEdit INDEX_ROUTE FIELD VALUE`
+
+****
+* Edits `FIELD` in the Route at `INDEX_ROUTE` and sets the new value to `VALUE`.
+****
+
+Valid FIELD:
+
+* `name`
+* `description`
+
+Examples:
+
+* `routeEdit 1 name Go to Sentosa for the beach`
+* `routeEdit 3 description stop at MBS for lunch`
 
 === Deleting a Route: `routeDelete`
 
@@ -392,11 +435,11 @@ Format: `routeDelete INDEX_ROUTE`
 
 Examples:
 
-* `routeDelete 1 1`
+* `routeDelete 1`
 
 === Deleting a RouteNode: `routeNodeDelete`
 
-Deletes a RouteNode. +
+Deletes a RouteNode at the specified indexes. +
 Format: `routeNodeDelete INDEX_ROUTE INDEX_NODE`
 
 ****
@@ -406,10 +449,11 @@ Format: `routeNodeDelete INDEX_ROUTE INDEX_NODE`
 Examples:
 
 * `routeNodeDelete 1 1`
+* `routeNodeDelete 3 10`
 
 === List nearby bus stops of destination: `busStop`
 
-SGTravel shows the information of current bus stop. +
+SGTravel shows the information of a bus stop. +
 Format: `busStop BUSCODE`
 
 Examples:
