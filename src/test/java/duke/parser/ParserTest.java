@@ -1,16 +1,16 @@
 package duke.parser;
 
-import duke.command.DoneCommand;
-import duke.command.FindCommand;
-import duke.command.AddCommand;
 import duke.command.DeleteCommand;
 import duke.command.Command;
 import duke.command.ListCommand;
-import duke.command.AddMultipleCommand;
-import duke.task.Deadline;
-import duke.task.Task;
+import duke.command.DoneCommand;
+import duke.command.FindCommand;
+import duke.command.AddCommand;
+
 import duke.task.TaskList;
 import duke.task.Todo;
+import duke.task.Deadline;
+import duke.task.Task;
 import duke.task.BudgetList;
 import duke.task.ContactList;
 import duke.ui.Ui;
@@ -48,8 +48,6 @@ class ParserTest {
         assertTrue(cmd instanceof ListCommand);
         cmd = Parser.parse("delete 1", items, budgetList, contactList);
         assertTrue(cmd instanceof DeleteCommand);
-        cmd = Parser.parse("repeat this /from 10/05/2019 1234 /for 3 days", items, budgetList, contactList);
-        assertTrue(cmd instanceof AddMultipleCommand);
     }
 
     @Test
@@ -78,7 +76,7 @@ class ParserTest {
         cmd = Parser.parse("deadline soccer /by 19/04/2019 2000", items, budgetList, contactList);
         assertTrue(cmd instanceof AddCommand);
         cmd = Parser.parse("done 1", items, budgetList, contactList);
-        cmd.execute(items, ui);
+        cmd.executeGui(items, ui);
         cmd = Parser.parse("deadline party /by 19/04/2019 1900", items, budgetList, contactList);
         assertTrue(cmd instanceof AddCommand);
     }

@@ -27,16 +27,6 @@ public class UndoBudgetCommand extends Command {
         this.budgetList = budgetList;
     }
 
-    /**
-     * Executes a command with task list and ui.
-     * (not used)
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui    To tell the user that it is executed successfully.
-     */
-    @Override
-    public void execute(TaskList items, Ui ui) {
-    }
 
     /**
      * Executes a command with task list and ui (GUI).

@@ -22,7 +22,7 @@
 
 <!-- @@author talesrune -->
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.ui.MainWindow">
    <children>
       <MenuBar layoutX="7.0" layoutY="2.0" prefHeight="25.0" prefWidth="437.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="348.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -38,7 +38,7 @@
           <Menu mnemonicParsing="false" text="View">
             <items>
               <MenuItem id="budgetMenu" fx:id="menuBudget" mnemonicParsing="false" onAction="#createBudgetWindow" text="Budget" />
-                  <MenuItem mnemonicParsing="false" text="Blank" />
+                  <MenuItem fx:id="menuContacts" mnemonicParsing="false" onAction="#createContactsWindow" text="Contacts" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -67,7 +67,6 @@
                         <Tab text="All" />
                       <Tab text="Todo" />
                       <Tab text="Deadline" />
-                        <Tab text="Repeat" />
                         <Tab text="FixedDuration" />
                     </tabs>
                      <opaqueInsets>

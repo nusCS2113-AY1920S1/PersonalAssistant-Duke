@@ -22,15 +22,6 @@ public class FindTasksByPriorityCommand extends Command {
         this.targetPriority = targetPriority;
     }
 
-    /**
-     * Executes a command with task list and ui.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user that it is executed successfully.
-     */
-    public void execute(TaskList items, Ui ui) {
-    }
-
 
     /**
      * Executes a command that locates matching tasks in task list and outputs the result.
@@ -52,10 +43,7 @@ public class FindTasksByPriorityCommand extends Command {
      * @return List of tasks.
      */
     @Override
-    // this method needs to be rewritten
     public String executeGui(TaskList items, Ui ui) {
-        // String str = Ui.showFindGui(items, targetPriority);
-        // return str;
         return "";
     }
 

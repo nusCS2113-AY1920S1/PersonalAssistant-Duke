@@ -1,17 +1,13 @@
-package duke;
+package duke.ui;
 
-import duke.ui.Ui;
-import javafx.application.Application;
+import duke.Duke;
+import duke.ui.MainWindow;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.TilePane;
-import javafx.stage.Stage;
 
 //@@author gervaiseang
 /**

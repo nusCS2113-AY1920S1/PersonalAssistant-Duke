@@ -17,17 +17,6 @@ public class HelpCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     /**
-     * Executes a command that adds the task into task list and outputs the result.
-     * (Not in use)
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user that it is added successfully.
-     */
-    @Override
-    public void execute(TaskList items, Ui ui) {
-    }
-
-    /**
      * Executes a command that adds the task into task list and outputs the result (GUI).
      *
      * @param items The task list that contains a list of tasks.

@@ -1,5 +1,7 @@
-package duke;
+package duke.ui;
 
+import duke.Duke;
+import duke.Main;
 import duke.command.Command;
 import duke.command.ExitCommand;
 import duke.command.BackupCommand;
@@ -7,11 +9,11 @@ import duke.command.FilterCommand;
 import duke.enums.Numbers;
 import duke.dukeexception.DukeException;
 import duke.task.TaskList;
-import duke.task.BudgetList;
-import duke.task.FilterList;
-import duke.task.Reminders;
 import duke.task.Task;
-import duke.ui.Ui;
+import duke.task.BudgetList;
+import duke.task.Reminders;
+import duke.task.FilterList;
+import duke.task.ContactList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -82,11 +84,14 @@ public class MainWindow extends AnchorPane {
 
 
     private Duke duke;
-    private Tooltip toolTip;
+    private Tooltip toolTip = new Tooltip();
+    private Reminders remind = new Reminders();
 
     private int refreshType = Numbers.ZERO.value;
     private static final int TIMER_DELAY = 500;
     private static final int VBOX_WIDTH = 200;
+    private static final double TOOLTIP_SHOWDELAY = 70.0;
+    private static final double TOOLTIP_SHOWDURATION = 0.001;
     private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/myUser.png"));
@@ -108,21 +113,19 @@ public class MainWindow extends AnchorPane {
         setVboxWidth(false);
         setButtonsVisibility(true);
         selectedTab =  tpTabs.getSelectionModel();
-        toolTip = new Tooltip();
-        toolTip.setText("");
+        //toolTip.setText("");
         listT.setTooltip(toolTip);
-        toolTip.setShowDelay(Duration.millis(70.0));
-        toolTip.setShowDuration(Duration.millis(0.001));
+        toolTip.setShowDelay(Duration.millis(TOOLTIP_SHOWDELAY));
+        toolTip.setShowDuration(Duration.millis(TOOLTIP_SHOWDURATION));
 
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(Ui.showWelcomeGui(), dukeImage)
         );
 
         TaskList items = duke.getTaskList();
-        Reminders remind = new Reminders();
         dialogContainer.getChildren().add(
                 //DialogBox.getDukeDialog("Upcoming Reminders: \n" + items.getList(), dukeImage)
-                DialogBox.getDukeDialog(remind.getReminders(3, items).getList(), dukeImage)
+                DialogBox.getDukeDialog(remind.getReminders(Numbers.THREE.value, items).getList(), dukeImage)
         );
     }
 
@@ -132,6 +135,10 @@ public class MainWindow extends AnchorPane {
             System.exit(Numbers.ZERO.value);
         }
     };
+
+    private Date createTimerDelay() {
+        return new Date(System.currentTimeMillis() + TIMER_DELAY);
+    }
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
@@ -152,7 +159,7 @@ public class MainWindow extends AnchorPane {
                 dialogContainer.getChildren().add(
                         DialogBox.getDukeDialog(response, dukeImage)
                 );
-                timer.schedule(exitDuke, new Date(System.currentTimeMillis() + TIMER_DELAY));
+                timer.schedule(exitDuke, createTimerDelay());
             }  else if (cmd instanceof BackupCommand) {
                 duke.saveState(cmd);
                 response = Ui.showBackupMessageGui();
@@ -292,8 +299,7 @@ public class MainWindow extends AnchorPane {
         cbtaskType.getItems().addAll(
                 "Todo",
                 "Deadline",
-                "Fixed Duration",
-                "Repeat"
+                "Fixed Duration"
         );
     }
 
@@ -314,8 +320,6 @@ public class MainWindow extends AnchorPane {
                 typeStr = "deadline";
             } else  if (cbtaskType.getSelectionModel().getSelectedItem().equals("Fixed Duration")) {
                 typeStr = "fixedduration";
-            } else  if (cbtaskType.getSelectionModel().getSelectedItem().equals("Repeat")) {
-                typeStr = "repeat";
             }
             handleUserEvent("update " + itemNumber + " /type " + typeStr);
         }
@@ -416,7 +420,7 @@ public class MainWindow extends AnchorPane {
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
-            timer.schedule(exitDuke, new Date(System.currentTimeMillis() + TIMER_DELAY));
+            timer.schedule(exitDuke, createTimerDelay());
         } catch (DukeException e) {
             response = Ui.showErrorMsgGui(e.getMessage());
             logr.log(Level.WARNING, response, e);
@@ -485,6 +489,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void createBudgetWindow() {
         BudgetList budgetList = duke.getBudgetList();
+        float currBudget = budgetList.getBudget();
         String budgetDesc = budgetList.getStringList();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/BudgetWindow.fxml"));
@@ -493,10 +498,32 @@ public class MainWindow extends AnchorPane {
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setAlwaysOnTop(true);
-            fxmlLoader.<BudgetWindow>getController().setBudgetWindow(budgetDesc);
+            fxmlLoader.<BudgetWindow>getController().setBudgetWindow(budgetDesc, currBudget);
             stage.show();
         } catch (IOException e) {
             logr.log(Level.SEVERE, "Unable to load budget window", e);
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Creates a budget window to allow the user to view contacts list via user friendly interface.
+     */
+    @FXML
+    public void createContactsWindow() {
+        ContactList contactList = duke.getContactList();
+        String contactDesc = contactList.getContactList();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/ContactsWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setAlwaysOnTop(true);
+            fxmlLoader.<ContactsWindow>getController().setContactsWindow(contactDesc);
+            stage.show();
+        } catch (IOException e) {
+            logr.log(Level.SEVERE, "Unable to load contacts window", e);
             e.printStackTrace();
         }
     }

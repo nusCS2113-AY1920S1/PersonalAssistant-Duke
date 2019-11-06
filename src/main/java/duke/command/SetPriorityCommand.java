@@ -26,15 +26,6 @@ public class SetPriorityCommand extends Command {
     }
 
     /**
-     * Executes a command that adds the task into task list and outputs the result.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user that it is added successfully.
-     */
-    public void execute(TaskList items, Ui ui) {
-    }
-
-    /**
      * Executes a command that adds the priority into priority list and outputs the result.
      *
      * @param items The task list that contains a list of tasks.

@@ -9,16 +9,16 @@
 
 <!-- @@author talesrune -->
 
-<AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.ui.BudgetWindow">
+<AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.ui.ContactsWindow">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="300.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="Budget List">
+            <Label text="Contacts List">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextArea fx:id="taBudgetList" editable="false" />
+            <TextArea fx:id="taContactsList" editable="false" />
          </children>
          <padding>
             <Insets top="20.0" />

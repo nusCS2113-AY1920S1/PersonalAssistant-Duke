@@ -1,4 +1,4 @@
-package duke;
+package duke.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -13,13 +13,15 @@ public class BudgetWindow extends AnchorPane {
     private TextArea taBudgetList;
 
     /**
-     * Setting up Add Notes Window Interface.
+     * Setting up Budget Window Interface.
      *
-     *
-     * @param budgetDesc The existing notes of the task.
+     * @param budgetDesc The budget details.
+     * @param currBudget The current budget.
      */
     @FXML
-    public void setBudgetWindow(String budgetDesc) {
+    public void setBudgetWindow(String budgetDesc, float currBudget) {
+        budgetDesc = "     Your current budget is : $" + currBudget + "\n" + budgetDesc;
         taBudgetList.setText(budgetDesc);
     }
 }
+//@@author

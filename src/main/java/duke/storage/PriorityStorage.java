@@ -16,8 +16,7 @@ import java.util.ArrayList;
  * Representing a class to store the list of priorities.
  */
 public class PriorityStorage {
-    protected String filePath = "";
-    String storageClassPath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+    protected String filePath = System.getProperty("user.dir") + "/";
 
     /**
      * Creates a storage with a specified filePath.
@@ -25,20 +24,6 @@ public class PriorityStorage {
      * @param filePath The location of the text file.
      */
     public PriorityStorage(String filePath) {
-        int numberofSlash;
-        storageClassPath = storageClassPath.replaceAll("%20", " ");
-        String[] pathSplitter = storageClassPath.split("/");
-        numberofSlash = pathSplitter.length - Numbers.ONE.value;
-        for (String directory: pathSplitter) {
-            if (numberofSlash == Numbers.ZERO.value) {
-                break;
-            } else if (!directory.isEmpty() && !directory.equals("build") && !directory.equals("out")) {
-                this.filePath += directory + "/";
-            } else if (directory.equals("build") || directory.equals("out")) {
-                break;
-            }
-            numberofSlash--;
-        }
         this.filePath += filePath;
     }
 

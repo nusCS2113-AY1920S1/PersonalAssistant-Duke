@@ -6,7 +6,6 @@ import duke.task.Todo;
 import duke.task.Deadline;
 import duke.task.ContactList;
 import duke.task.FixedDuration;
-import duke.task.Repeat;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.PriorityList;
@@ -419,6 +418,7 @@ public class Ui {
     public static String showFindGui(TaskList items, String keyword) {
         String str = "     Here are the matching tasks in your list:\n";
         int numFound = Numbers.ZERO.value;
+
         for (int i = Numbers.ZERO.value; i < items.size(); i++) {
             if (items.get(i).getDescription().contains(keyword)) {
                 str += "     " + (i + Numbers.ONE.value) + "." + items.get(i).toStringGui() + "\n";
@@ -447,9 +447,6 @@ public class Ui {
             } else if (taskType.equals("deadline") && items.get(i) instanceof Deadline) {
                 out.println("     " + (i + Numbers.ONE.value) + "." + items.get(i).toString());
                 numFound++;
-            } else if (taskType.equals("repeat") && items.get(i) instanceof Repeat) {
-                out.println("     " + (i + Numbers.ONE.value) + "." + items.get(i).toString());
-                numFound++;
             } else if (taskType.equals("fixedduration") && items.get(i) instanceof FixedDuration) {
                 out.println("     " + (i + Numbers.ONE.value) + "." + items.get(i).toString());
                 numFound++;
@@ -475,9 +472,6 @@ public class Ui {
                 str += "     " + (i + Numbers.ONE.value) + "." + items.get(i).toStringGui() + "\n";
                 numFound++;
             } else if (taskType.equals("deadline") && items.get(i) instanceof Deadline) {
-                str += "     " + (i + Numbers.ONE.value) + "." + items.get(i).toStringGui() + "\n";
-                numFound++;
-            } else if (taskType.equals("repeat") && items.get(i) instanceof Repeat) {
                 str += "     " + (i + Numbers.ONE.value) + "." + items.get(i).toStringGui() + "\n";
                 numFound++;
             } else if (taskType.equals("fixedduration") && items.get(i) instanceof FixedDuration) {
@@ -584,8 +578,7 @@ public class Ui {
      * @return String to be outputted to the user.
      */
     public String showDuplicateMsgGui() {
-        String str = "     The same task is already in the list!";
-        return str;
+        return "     The same task is already in the list!";
     }
 
     /**

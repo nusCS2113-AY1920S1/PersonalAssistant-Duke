@@ -19,15 +19,15 @@ class ListCommTest {
         Task task = new Todo("Hello");
         Task task2 = new Todo("world");
         Command cmd = new AddCommand(task);
-        cmd.execute(items, ui);
+        cmd.executeGui(items, ui);
         cmd = new AddCommand(task2);
-        cmd.execute(items, ui);
+        cmd.executeGui(items, ui);
         Task task3 = new Todo("!");
         cmd = new AddCommand(task3);
-        cmd.execute(items, ui);
+        cmd.executeGui(items, ui);
 
         cmd = new ListCommand();
-        cmd.execute(items, ui);
+        cmd.executeGui(items, ui);
 
         Task taskdummy = new Todo("dummy");
         assertEquals("     Here are the tasks in your list:\n"

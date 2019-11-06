@@ -1,2 +1,4 @@
 Prof Yoo,91234123,s@gmail.com,E1
 RH,91338999,rh@u.nus.edu,no office
+Prof Tan,91234567,tancc@nus.edu.sg,E1-08-11
+Alexa,91112223,,
