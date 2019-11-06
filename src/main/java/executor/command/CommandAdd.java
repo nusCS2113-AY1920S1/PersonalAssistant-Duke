@@ -47,9 +47,10 @@ public class CommandAdd extends Command {
         }
         double sum = entryOne + entryTwo;
         this.infoCapsule.setCodeToast();
-        this.infoCapsule.setOutputStr(entryOneStr
+        this.infoCapsule.setOutputStr(stringOne
                 + " + "
-                + entryTwoStr
+                + stringTwo
+                + "="
                 + sum
                 + "\n");
     }
