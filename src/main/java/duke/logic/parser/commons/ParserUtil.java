@@ -67,7 +67,7 @@ public class ParserUtil {
     }
 
     private static Set<Index> getIndicesInInterval(String interval) throws ParseException {
-        String[] startAndEndIndices = interval.split(SEPARATOR_INDEX_INTERVAL);
+        String[] startAndEndIndices = interval.split(SEPARATOR_INDEX_INTERVAL, -1);
         int start;
         int end;
         try {
@@ -90,7 +90,7 @@ public class ParserUtil {
     }
 
     private static Set<Index> getIndicesFromString(String string) throws ParseException {
-        String[] indexStrings = string.split(SEPARATOR_INDEX_MULTIPLE);
+        String[] indexStrings = string.split(SEPARATOR_INDEX_MULTIPLE, -1);
         Set<Index> result = new HashSet<>();
         for (String indexString : indexStrings) {
             try {

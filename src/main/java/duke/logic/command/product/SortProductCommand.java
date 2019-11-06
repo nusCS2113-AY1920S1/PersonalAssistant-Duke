@@ -11,24 +11,15 @@ import static duke.logic.message.ProductMessageUtils.MESSAGE_SORT_PRODUCT_SUCCES
 
 public class SortProductCommand extends ProductCommand {
 
-    public enum Category {
-        NAME,
-        COST,
-        PRICE,
-        PROFIT
-    }
-
     public static final String COMMAND_WORD = "sort";
-
     private Category category;
     private Scope scope;
     private boolean isReversed;
-
     public static final String AUTO_COMPLETE_INDICATOR = ProductCommand.COMMAND_WORD + " " + COMMAND_WORD;
     public static final Prefix[] AUTO_COMPLETE_PARAMETERS = {
-            CliSyntax.PREFIX_PRODUCT_SORT,
-            CliSyntax.PREFIX_PRODUCT_SCOPE,
-            CliSyntax.PREFIX_PRODUCT_SORT_REVERSE
+        CliSyntax.PREFIX_PRODUCT_SORT,
+        CliSyntax.PREFIX_PRODUCT_SCOPE,
+        CliSyntax.PREFIX_PRODUCT_SORT_REVERSE
     };
 
     /**
@@ -49,6 +40,13 @@ public class SortProductCommand extends ProductCommand {
         model.sortProducts(category, isReversed);
 
         return new CommandResult(String.format(MESSAGE_SORT_PRODUCT_SUCCESS, category),
-                CommandResult.DisplayedPage.PRODUCT);
+            CommandResult.DisplayedPage.PRODUCT);
+    }
+
+    public enum Category {
+        NAME,
+        COST,
+        PRICE,
+        PROFIT
     }
 }

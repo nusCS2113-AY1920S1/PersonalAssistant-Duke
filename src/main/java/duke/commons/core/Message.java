@@ -16,4 +16,6 @@ public class Message {
     public static final String MESSAGE_INVALID_CRITERIA = "This is not a valid sorting criteria.";
     public static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index does not exist.";
     public static final String MESSAGE_ORDER_ALREADY_COMPLETED = "Order at index [%d] has already been completed.";
+    public static final String MESSAGE_INVALID_PREFIX_VALUE = "[%s] is an invalid parameter value.";
+
 }

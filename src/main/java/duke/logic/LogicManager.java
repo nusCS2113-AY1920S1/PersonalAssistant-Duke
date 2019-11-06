@@ -38,6 +38,8 @@ import duke.logic.command.shopping.ClearShoppingCommand;
 import duke.logic.command.shopping.DeleteShoppingCommand;
 import duke.logic.command.shopping.EditShoppingCommand;
 import duke.logic.command.shopping.ShoppingCommand;
+import duke.logic.command.shortcut.ExecuteShortcutCommand;
+import duke.logic.command.shortcut.SetShortcutCommand;
 import duke.logic.parser.commons.AutoCompleter;
 import duke.logic.parser.commons.BakingHomeParser;
 import duke.logic.parser.exceptions.ParseException;
@@ -59,9 +61,8 @@ public class LogicManager implements Logic {
     private final BakingHomeParser bakingHomeParser;
     private final AutoCompleter autoCompleter;
 
-    private final Logger logger = LogsCenter.getLogger(getClass());
-
     private static LogicManager theLogicManager = null;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Creates a logic manager.
@@ -145,8 +146,8 @@ public class LogicManager implements Logic {
         autoCompleter.addCommandClass(ShowOrderCommand.class);
 
         //Shortcut commands
-        //autoCompleter.addCommandClass(SetShortcutCommand.class);
-        //autoCompleter.addCommandClass(ExecuteShortcutCommand.class);
+        autoCompleter.addCommandClass(SetShortcutCommand.class);
+        autoCompleter.addCommandClass(ExecuteShortcutCommand.class);
 
         //Sale commands
         autoCompleter.addCommandClass(SaleCommand.class);
@@ -184,5 +185,6 @@ public class LogicManager implements Logic {
 
         //Exit command
         autoCompleter.addCommandClass(ExitCommand.class);
+
     }
 }

@@ -49,7 +49,7 @@ public class AddProductCommand extends ProductCommand {
 
         if (model.hasProduct(toAdd)) {
             String info = String.format(ProductMessageUtils.MESSAGE_DUPLICATE_PRODUCT,
-                    toAdd.getProductName());
+                toAdd.getProductName());
             logger.info(info);
             throw new CommandException(info);
         }
