@@ -11,7 +11,9 @@ public class AddBookingTest2 {
         String description = " eat chicken";
         String dateTimeStart = "21/12/2021 1100";
         String timeEnd = "1500";
-        Booking newBooking = new Booking(user, room, description, dateTimeStart, timeEnd);
+        String status = "P";
+        String currentUser = "Bob";
+        Booking newBooking = new Booking(user, room, description, dateTimeStart, timeEnd, status, currentUser);
         assertEquals(newBooking.toString(), "Barry room4 21/12/2021 1100 to 1500 P");
     }
 }

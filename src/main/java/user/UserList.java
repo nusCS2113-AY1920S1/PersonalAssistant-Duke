@@ -8,8 +8,8 @@ public class UserList extends ArrayList<User> {
     private String currentUser;
 
     /**
-     *
-     * @param loader
+     * loading userlist from file.
+     * @param loader load line from file
      */
     public UserList(ArrayList<String> loader) {
         for (String line : loader) {
@@ -18,6 +18,7 @@ public class UserList extends ArrayList<User> {
         loginStatus = false;
         currentUser = null;
     }
+
 
     public UserList() {
         super();
@@ -42,7 +43,7 @@ public class UserList extends ArrayList<User> {
     }
 
     /**
-     *
+     * Remove user from userlist.
      * @param userList list of registered users
      * @param username input username to remove
      */

@@ -1,6 +1,7 @@
 
 package command;
 
+import booking.ApprovedList;
 import inventory.Inventory;
 import inventory.Item;
 
@@ -45,8 +46,10 @@ public class ApproveCommand extends Command {
     }
 
     @Override
-    public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage)
+    public void execute(UserList userList, Inventory inventory, RoomList roomList,
+                        BookingList bookingList, ApprovedList approvedList, Ui ui,
+                        Storage userStorage, Storage inventoryStorage,
+                        Storage bookingstorage, Storage roomstorage, Storage approvestorage)
             throws DukeException, IOException {
         if (index < 0 || index >= bookingList.size()) {
             throw new DukeException("OOPS!!! The index you have entered is out of bounds");
@@ -54,6 +57,7 @@ public class ApproveCommand extends Command {
         bookingList.get(index).approveStatus(userList.getCurrentUser());
         ui.addToOutput("This request has been approved");
         ui.addToOutput(bookingList.get(index).toString());
+        //bookingstorage.saveToFile(approvedList);
         bookingstorage.saveToFile(bookingList);
 
     }
