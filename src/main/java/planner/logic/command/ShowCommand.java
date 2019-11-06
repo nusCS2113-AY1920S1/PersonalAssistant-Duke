@@ -71,7 +71,7 @@ public class ShowCommand extends ModuleCommand {
                 plannerUi.listCcaMsg();
                 int count = 1;
                 for (Cca cca : ccas) {
-                    plannerUi.println(count++ + " " + cca);
+                    plannerUi.println(count++ + ". " + cca);
                 }
                 break;
             }
@@ -132,7 +132,7 @@ public class ShowCommand extends ModuleCommand {
                 int count = 1;
                 List<ModuleTask> hold = tasks.getTasks();
                 for (ModuleTask temp : hold) {
-                    System.out.print(count++ + " ");
+                    System.out.print(count++ + ". ");
                     plannerUi.showObject(temp);
                 }
                 break;
