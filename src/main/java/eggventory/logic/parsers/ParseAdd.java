@@ -7,9 +7,11 @@ import eggventory.logic.commands.add.AddLoanCommand;
 import eggventory.logic.commands.add.AddStockCommand;
 import eggventory.logic.commands.add.AddStockTypeCommand;
 import eggventory.logic.commands.add.AddTemplateCommand;
+import eggventory.logic.commands.add.AddLoanByTemplateCommand;
 import eggventory.commons.enums.CommandType;
 import eggventory.commons.exceptions.BadInputException;
 import eggventory.commons.exceptions.InsufficientInfoException;
+import eggventory.model.TemplateList;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
@@ -81,11 +83,19 @@ public class ParseAdd {
     }
 
     //@@author cyanoei
-    private Command processAddLoan(String input) throws BadInputException {
+    private Command processAddLoan(String input) throws BadInputException, InsufficientInfoException {
         String[] addInput = input.split(" +");
         if (Parser.isReserved(addInput[0])) {
             throw new BadInputException("'" + addInput[0] + "' is an invalid name as it is a keyword"
                     + " for an existing command.");
+        }
+
+        if (TemplateList.templateExists(addInput[1])) {
+            return new AddLoanByTemplateCommand(CommandType.ADD, addInput[0], addInput[1]);
+        }
+
+        if (!Parser.isCommandComplete(input, 2)) {
+            throw new InsufficientInfoException(CommandDictionary.getCommandUsage("add loan"));
         }
         return new AddLoanCommand(CommandType.ADD, addInput[0], addInput[1], Integer.parseInt(addInput[2]));
     }
@@ -122,7 +132,7 @@ public class ParseAdd {
             break;
 
         case "loan":
-            if (!Parser.isCommandComplete(inputString, 3)) {
+            if (!Parser.isCommandComplete(inputString, 2)) {
                 throw new InsufficientInfoException(CommandDictionary.getCommandUsage("add loan"));
             }
             addCommand = processAddLoan(addInput[1]);
@@ -148,10 +158,6 @@ public class ParseAdd {
         }
 
         return addCommand;
-
-    }
-
-    private void checkIfCommandComplete() {
 
     }
 

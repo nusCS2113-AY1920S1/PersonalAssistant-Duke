@@ -58,16 +58,23 @@ public final class LoanList {
      * Add multiple loans using a template.
      * @param matricNo Matriculation number of student to assign loans to.
      * @param template Name of the template.
+     * @return String of the loans added.
      */
-    public static void addLoan(String matricNo, String template) {
+    public static String addLoan(String matricNo, String template) {
         Loan[] loans = TemplateList.getTemplateLoans(template);
         if (loans == null) {
-            return;
+            return null;
         }
+
+        StringBuilder output = new StringBuilder(String.format(
+                "The following loans have been added to %s:", matricNo));
 
         for (Loan loan : loans) {
             addLoan(loan.getStockCode(), matricNo, loan.getQuantity());
+            output.append(String.format("%s: %d", loan.getStockCode(), loan.getQuantity()));
         }
+
+        return output.toString();
     }
 
     //@@author cyanoei
