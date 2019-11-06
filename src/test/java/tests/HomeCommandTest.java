@@ -45,9 +45,9 @@ public class HomeCommandTest extends CommandTest {
         String[] switchNames = {"bed", "summary"};
         String[] switchVals = {"testC1", "This as a test report that is used to test the report command from the"
                 + " home context"};
-        core.patientList.addPatient(new Patient("testCPatient", "testC1", "test allergies",
-                123, 456, 100, 6582447, "test address", "test history"));
         try {
+            core.patientList.addPatient(new Patient("testCPatient", "testC1", "test allergies",
+                    123, 456, 100, 6582447, "test address", "test history"));
             ArgCommand newReportCmd = new ArgCommand(HomeReportSpec.getSpec(), "", switchNames, switchVals);
             newReportCmd.execute(core);
             String expected = "PATIENT REPORT\n\nThis report shows all the data that was stored about a patient at "

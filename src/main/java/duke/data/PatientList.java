@@ -51,7 +51,7 @@ public class PatientList {
      */
     public Patient addPatient(Patient newPatient) throws DukeException {
         if (getPatient(newPatient.getBedNo()) != null){
-            throw new DukeException("This patients bed is occupied");
+            throw new DukeException("This patient's bed is occupied");
         }
         patientList.add(newPatient);
         return newPatient;

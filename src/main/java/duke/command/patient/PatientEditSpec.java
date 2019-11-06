@@ -72,7 +72,6 @@ public class PatientEditSpec extends ArgSpec {
             patient.setAllergies(append ? (patient.getAllergies() + ", " + allergies) : allergies);
         }
 
-        patient.updateAttributes();
         core.writeJsonFile();
         core.updateUi("Edited specified details of patient!");
     }

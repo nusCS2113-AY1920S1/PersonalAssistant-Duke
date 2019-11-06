@@ -190,7 +190,7 @@ public class GsonStorageTest extends CommandTest {
         core.patientList.addPatient(dummy2);
         core.patientList.addPatient(dummy3);
         core.patientList.addPatient(createComplexPatient());
-        core.storage.writeJsonFile(core.patientList.getPatientHashMap());
+        core.storage.writeJsonFile(core.patientList.getPatientList());
         String json = Files.readString(Paths.get(testFilePath), StandardCharsets.US_ASCII);
         assertEquals(expected, json);
     }
@@ -203,7 +203,7 @@ public class GsonStorageTest extends CommandTest {
     public void identicalDummyPatient() throws IOException, DukeException {
         core.patientList = core.storage.resetAllData();
         core.patientList.addPatient(dummy1);
-        core.storage.writeJsonFile(core.patientList.getPatientHashMap());
+        core.storage.writeJsonFile(core.patientList.getPatientList());
         core.patientList = new PatientList(core.storage);
         Patient dummyPatientRecreated = core.patientList.getPatient(dummy1.getBedNo());
         boolean equals = identical(dummy1, dummyPatientRecreated);
@@ -220,8 +220,8 @@ public class GsonStorageTest extends CommandTest {
         core.patientList = core.storage.resetAllData();
         Patient complexPatient = createComplexPatient();
         core.patientList.addPatient(complexPatient);
-        core.storage.writeJsonFile(core.patientList.getPatientHashMap());
-        core.storage.loadPatientHashMap();
+        core.storage.writeJsonFile(core.patientList.getPatientList());
+        core.storage.loadPatients();
         Patient complexPatientRecreated = core.patientList.getPatient(complexPatient.getBedNo());
         boolean equals = identical(complexPatient, complexPatientRecreated);
         assertTrue(equals);
