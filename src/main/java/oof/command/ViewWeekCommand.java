@@ -1,11 +1,17 @@
 package oof.command;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import oof.Ui;
+import oof.model.module.Lesson;
+import oof.model.module.Module;
+import oof.model.module.Semester;
 import oof.model.module.SemesterList;
 import oof.model.task.Deadline;
 import oof.model.task.Event;
@@ -25,11 +31,13 @@ public class ViewWeekCommand extends Command {
     private static final String TODO = "TODO";
     private static final String EVENT = "EVENT";
     private static final String DEADLINE = "DEADLINE";
+    private static final String LESSON = "LESSON";
     private int day;
     private int week;
     private int month;
     private int year;
     private int lastDate;
+    private YearMonth yearMonth;
     private static final int TIME = 0;
     private static final int DESCRIPTION = 1;
     private static final int DATE_FIRST = 0;
@@ -62,7 +70,7 @@ public class ViewWeekCommand extends Command {
             this.year = Integer.parseInt(argumentArray[INDEX_YEAR]);
             calendar.set(year, month, day);
             this.week = calendar.get(Calendar.WEEK_OF_YEAR);
-            YearMonth yearMonth = YearMonth.of(year, month + OFFSET);
+            this.yearMonth = YearMonth.of(year, month + OFFSET);
             this.lastDate = yearMonth.lengthOfMonth();
             if ((this.day < DATE_FIRST || this.day > lastDate)
                     || (this.month < MONTH_JANUARY || this.month > MONTH_DECEMBER)) {
@@ -71,7 +79,7 @@ public class ViewWeekCommand extends Command {
                 this.year = calendar.get(Calendar.YEAR);
                 calendar.set(year, month, day);
                 this.week = calendar.get(Calendar.WEEK_OF_YEAR);
-                yearMonth = YearMonth.of(year, month + OFFSET);
+                this.yearMonth = YearMonth.of(year, month + OFFSET);
                 this.lastDate = yearMonth.lengthOfMonth();
             }
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
@@ -80,7 +88,7 @@ public class ViewWeekCommand extends Command {
             this.year = calendar.get(Calendar.YEAR);
             calendar.set(year, month, day);
             this.week = calendar.get(Calendar.WEEK_OF_YEAR);
-            YearMonth yearMonth = YearMonth.of(year, month + OFFSET);
+            this.yearMonth = YearMonth.of(year, month + OFFSET);
             this.lastDate = yearMonth.lengthOfMonth();
         }
     }
@@ -106,6 +114,9 @@ public class ViewWeekCommand extends Command {
             } else if (task instanceof Event) {
                 addEventTask(task, calendar);
             }
+        }
+        for (Semester semester : semesterList.getSemesterList()) {
+            parseLessons(semester, calendar);
         }
         for (ArrayList<String[]> day : calendarTasks) {
             day.sort(new SortByTime());
@@ -169,6 +180,76 @@ public class ViewWeekCommand extends Command {
                     % lastDate;
             addEntry(EVENT, time, description, day);
         }
+    }
+
+    /**
+     * Parses the semester for lessons that occurs within the queried month.
+     *
+     * @param semester Instance of Semester that stores Module objects.
+     * @param calendar Instance of Calendar.
+     */
+    private void parseLessons(Semester semester, Calendar calendar) {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate startingDate = LocalDate.parse(semester.getStartDate(), format);
+        LocalDate endingDate = LocalDate.parse(semester.getEndDate(), format);
+        int startDay = calendar.get(Calendar.DATE);
+        for (int day = startDay; day < startDay + DAYS_IN_WEEK; day++) {
+            queryModules(semester, startingDate, endingDate, day);
+        }
+    }
+
+    /**
+     * Adds lessons of each module to the calendar if they fall within the queried month.
+     *
+     * @param semester  Instance of Semester containing Module data.
+     * @param startDate Start date of Semester.
+     * @param endDate   End date of Semester.
+     * @param day       Day of Month.
+     */
+    private void queryModules(Semester semester, LocalDate startDate, LocalDate endDate, int day) {
+        if (day > lastDate) {
+            day -= lastDate;
+            month++;
+            if (month > MONTH_DECEMBER + OFFSET) {
+                year++;
+                month = OFFSET;
+            }
+            yearMonth = YearMonth.of(year, month);
+        }
+        LocalDate queryDate = yearMonth.atDay(day);
+        if (isWithinRange(queryDate, startDate, endDate)) {
+            for (Module module : semester.getModules()) {
+                addLesson(queryDate, module);
+            }
+        }
+    }
+
+    /**
+     * Adds lesson to the calendar.
+     *
+     * @param queryDate Day of the month.
+     * @param module Instance of Module containing Lesson data
+     */
+    private void addLesson(LocalDate queryDate, Module module) {
+        for (Lesson lesson : module.getLessons()) {
+            DayOfWeek dayOfWeek = lesson.getDay();
+            if (queryDate.getDayOfWeek() == dayOfWeek) {
+                addEntry(LESSON, lesson.getStartTime(), lesson.getDescription(), dayOfWeek.getValue());
+            }
+        }
+    }
+
+    /**
+     * Checks if a date is within two dates.
+     *
+     * @param queryDate Date to be checked.
+     * @param startDate Starting Date used for checking.
+     * @param endDate   Ending Date used for checking.
+     * @return true if queried date is within start and end date.
+     */
+    private boolean isWithinRange(LocalDate queryDate, LocalDate startDate, LocalDate endDate) {
+        return queryDate.isAfter(startDate) && queryDate.isBefore(endDate) || queryDate.isEqual(startDate)
+                || queryDate.isEqual(endDate);
     }
 
     /**

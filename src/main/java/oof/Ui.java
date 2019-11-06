@@ -41,6 +41,7 @@ public class Ui {
     private static final int DESCRIPTION_SHORT_END = 17;
     private static final int DESCRIPTION_LONG_START = 0;
     private static final int DESCRIPTION_LONG_END = 23;
+    private static final int DATE = 11;
     private static final int TIME = 0;
     private static final int DESCRIPTION = 1;
     private static final int TYPE = 2;
@@ -347,9 +348,11 @@ public class Ui {
         String legend = "Legend: \n"
                 + ANSI_BG_BLACK + ANSI_BRIGHT_GREEN + "\tTodo\n"
                 + ANSI_BG_BLACK + ANSI_BRIGHT_RED + "\tDeadline\n"
-                + ANSI_BG_BLACK + ANSI_BRIGHT_CYAN + "\tEvent\n";
+                + ANSI_BG_BLACK + ANSI_BRIGHT_CYAN + "\tEvent\n"
+                + ANSI_RESET + "\tLesson\n";
         System.out.println(legend);
-        System.out.print(ANSI_RESET);
+        System.out.println("Note that assignments are considered as Deadline tasks.");
+        System.out.println("Note that assessments are considered as Event tasks.");
     }
 
     /**
@@ -459,7 +462,7 @@ public class Ui {
         if (!isEven(largestColSize)) {
             largestColSize++;
         }
-        for (int i = 0; i < largestColSize + DATE_SPACES - DESCRIPTION_SHORT_END; i++) {
+        for (int i = 0; i < largestColSize + DATE_SPACES - DATE; i++) {
             spaces += " ";
         }
         System.out.print(ANSI_RESET);
@@ -565,7 +568,10 @@ public class Ui {
         default:
             break;
         }
-        int length = newDetails.length() - ANSI_LENGTH;
+        int length = newDetails.length();
+        if (task[TYPE].equals(TODO) || task[TYPE].equals(DEADLINE) || task[TYPE].equals(EVENT)) {
+            length = newDetails.length() - ANSI_LENGTH;
+        }
         while (length < largestColSize + DATE_SPACES) {
             newDetails += " ";
             length++;
