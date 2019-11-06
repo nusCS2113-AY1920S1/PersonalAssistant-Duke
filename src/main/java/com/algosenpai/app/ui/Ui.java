@@ -94,7 +94,7 @@ public class Ui extends AnchorPane {
         dialogContainer.getChildren().add(DialogBox.getSenpaiDialog(GREETING_MESSAGE, senpaiImage));
         handle();
         userPic.setImage(userImage);
-        userInput.setPromptText("Enter a command (Enter \"menu\" to see a list of commands)");
+        userInput.setPromptText("Enter a command (Enter \"menu\" to see a list of commands");
         // Add a listener to monitor for Arrow keys and Tab.
         userInput.setOnKeyPressed(keyEvent -> {
             if (!keyPressed) {
