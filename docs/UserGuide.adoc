@@ -272,13 +272,13 @@ Examples:
 
 === Creating a new RouteNode: `routeNodeAdd`
 
-Adds a new RouteNode to SGTravel. +
+Adds a new RouteNode to an existing Route. +
 Format: `routeNodeAdd INDEXROUTE INDEXNODE at LOCATION by CONSTRAINT`
 
 ****
 * Creates a RouteNode with the specified `LOCATION` at the Route with specified 'INDEXROUTE'.
 * RouteNodes can be either of these 3 types: BusStop, TrainStation, CustomNode.
-* RouteNodes are specific bus stops or mrt stations in a Route.
+* RouteNodes are specific bus stops, mrt stations or locations in a Route.
 * If `INDEXNODE` is not specified, the RouteNode is added to the end of the Route, else it is added to position `INDEXNODE`.
 * If `CONSTRAINT` is `bus`, the `LOCATION` must correspond to the bus stop's number. This creates a BusStop.
 * If `CONSTRAINT` is `mrt` instead, the `LOCATION` must correspond to the name of the MRT station, and is not case-sensitive. This creates a TrainStation.
@@ -328,6 +328,10 @@ Format: `routeListAll`
 * Information includes the name and description of all Routes.
 ****
 
+Examples:
+
+* `routeListAll`
+
 === Listing the information of a Route: `routeList`
 
 Lists the information about a Route. +
@@ -341,10 +345,6 @@ Format: `routeList INDEX_ROUTE`
 Examples:
 
 * `routeList 1`
-
-Examples:
-
-* `routeListAll`
 
 === Listing the information of a RouteNode: `routeNodeList`
 
@@ -363,7 +363,7 @@ Examples:
 
 === Showing the map image of a Route: `routeShow`
 
-Shows the Route on the Singapore map. +
+Shows a Route on the Singapore map. +
 Format: `routeShow INDEX_ROUTE`
 
 ****
@@ -439,7 +439,7 @@ Examples:
 
 === Deleting a RouteNode: `routeNodeDelete`
 
-Deletes a RouteNode at the specified indexes. +
+Deletes a RouteNode in a Route. +
 Format: `routeNodeDelete INDEX_ROUTE INDEX_NODE`
 
 ****
