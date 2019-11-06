@@ -84,7 +84,7 @@ public class AddEventCommand extends Command {
      * @param startDateTime String containing event start date and time
      * @param endDateTime   String containing event end date and time
      * @return ArrayList containing events that clashes with event being added
-     * @throws OofException if start date is after end date or if timestamp is invalid.
+     * @throws CommandException if start date is after end date or if timestamp is invalid.
      */
     protected ArrayList<Event> checkClashes(TaskList taskList, String startDateTime, String endDateTime)
             throws CommandException {

@@ -32,15 +32,15 @@ public class Ui {
     private static final int WEEKS_IN_MONTH = 4;
     private static final int INDEX_SPACE = 0;
     private static final int INDEX_START_OF_ARRAY = 0;
-    private static final int TEXT_SIZE_SHORT = 13;
-    private static final int TEXT_SIZE_LONG = 19;
+    private static final int TEXT_SIZE_SHORT = 19;
+    private static final int TEXT_SIZE_LONG = 25;
     private static final int TEXT_WIDTH = 35;
     private static final int TEXT_CENTER = 2;
     private static final int HEADER_WIDTH = 49;
     private static final int DESCRIPTION_SHORT_START = 0;
-    private static final int DESCRIPTION_SHORT_END = 11;
+    private static final int DESCRIPTION_SHORT_END = 17;
     private static final int DESCRIPTION_LONG_START = 0;
-    private static final int DESCRIPTION_LONG_END = 17;
+    private static final int DESCRIPTION_LONG_END = 23;
     private static final int TIME = 0;
     private static final int DESCRIPTION = 1;
     private static final int TYPE = 2;
@@ -608,152 +608,55 @@ public class Ui {
             }
         }
     }
-    //@@author jasperosy
 
     /**
-     * Prints calendar.
+     * Print Tracker Diagram from TrackerList object.
      *
-     * @param yearMonth Object containing month and year information.
+     * @param moduleTrackerList ArrayList of Tracker objects.
      */
-    public void printCalendar(YearMonth yearMonth, ArrayList<ArrayList<String[]>> calendar) {
-        printCalendarLabel(yearMonth);
-        printCalendarHeader();
-        printCalendarBody(yearMonth, calendar);
-    }
-
-    /**
-     * Prints calendar label.
-     *
-     * @param yearMonth Object containing month and year information.
-     */
-    private void printCalendarLabel(YearMonth yearMonth) {
-        String[] months = {"", "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST",
-                "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
-        String month = months[yearMonth.getMonthValue()];
-        String year = Integer.toString(yearMonth.getYear());
-        System.out.println(month + " " + year);
-    }
-
-    /**
-     * Prints calendar header.
-     */
-    private void printCalendarHeader() {
-        System.out.println("-----------------------------------------------------------------------------------------"
-                + "------------------------------------------------------------------");
-        System.out.println("|         SUN         |         MON         |         TUE         |         WED         |"
-                + "         THU         |         FRI         |         SAT         |");
-        System.out.println("-----------------------------------------------------------------------------------------"
-                + "------------------------------------------------------------------");
-    }
-
-    /**
-     * Prints calendar body.
-     *
-     * @param yearMonth Object containing month and year information.
-     */
-    private void printCalendarBody(YearMonth yearMonth, ArrayList<ArrayList<String[]>> calendar) {
-        String[] date = {"  ", " 1", " 2", " 3", " 4", " 5", " 6", " 7",
-                " 8", " 9", "10", "11", "12", "13", "14", "15",
-                "16", "17", "18", "19", "20", "21", "22", "23",
-                "24", "25", "26", "27", "28", "29", "30", "31"};
-        ArrayList<String> calendarDates = new ArrayList<>();
-        for (int i = 1; i <= yearMonth.lengthOfMonth(); i++) {
-            calendarDates.add(date[i]);
+    public void printTrackerDiagram(ArrayList<Tracker> moduleTrackerList, long totalTimeTaken) {
+        printLine();
+        for (int i = 0; i < moduleTrackerList.size(); i++) {
+            Tracker moduleTracker = moduleTrackerList.get(i);
+            int timeTaken = (int) moduleTracker.getTimeTaken();
+            if (timeTaken < SEGMENT_SIZE) {
+                System.out.print("|\n| ");
+            } else {
+                int segmentedTimeTaken = timeTaken / SEGMENT_SIZE;
+                printTrackerDiagramBar(segmentedTimeTaken);
+            }
+            String moduleCode = moduleTracker.getModuleCode();
+            System.out.println("\t" + moduleCode + " -- " + timeTaken + " minutes");
         }
+        printLine();
+        System.out.println("Total Time: " + totalTimeTaken + " minutes");
+    }
 
-        DayOfWeek firstDayOfMonth = yearMonth.atDay(DAY_FIRST).getDayOfWeek();
-        if (firstDayOfMonth != DayOfWeek.SUNDAY) {
-            for (int dayCount = 0; dayCount < firstDayOfMonth.getValue(); dayCount++) {
-                calendarDates.add(INDEX_START_OF_ARRAY, date[INDEX_SPACE]);
+    /**
+     * Print a bar of Tracker Diagram according to number of 10 minute blocks.
+     *
+     * @param segmentedTimeTaken number of 10 minute blocks.
+     */
+    private void printTrackerDiagramBar(int segmentedTimeTaken) {
+        for (int i = 0; i < segmentedTimeTaken; i++) {
+            if (i == FIRST_VAR) {
+                System.out.println("| ");
+                System.out.print("| #");
+            } else {
+                System.out.print("#");
             }
         }
-
-        while (calendarDates.size() % DAYS_IN_WEEK != 0) {
-            calendarDates.add(date[INDEX_SPACE]);
-        }
-
-        int numberOfWeeks = (int) Math.ceil((double) calendarDates.size() / DAYS_IN_WEEK);
-        for (int week = 0; week < numberOfWeeks; week++) {
-            int dayIndex = week * DAYS_IN_WEEK;
-            System.out.print("|");
-            int calendarRows = WEEKS_IN_MONTH;
-            for (int day = 0; day < DAYS_IN_WEEK; day++) {
-                if (!calendarDates.get(dayIndex + day).equals("  ")) {
-                    int currentDay = Integer.parseInt(calendarDates.get(dayIndex + day).trim());
-                    if (calendar.get(currentDay).size() > calendarRows) {
-                        calendarRows = calendar.get(currentDay).size();
-                    }
-                }
-                System.out.print(" " + calendarDates.get(dayIndex + day) + "                  |");
-            }
-            System.out.println();
-            printCalendarDetails(calendar, calendarDates, dayIndex, calendarRows);
-            System.out.println("-------------------------------------------------------------------------------------"
-                    + "----------------------------------------------------------------------");
-        }
     }
 
     /**
-     * Prints calendar details.
+     * Prints message if there are no Tasks scheduled on a date.
      *
-     * @param calendar      ArrayList containing task information for current month.
-     * @param calendarDates ArrayList containing dates for current month.
-     * @param dayIndex      Offset for current day.
-     * @param calendarRows  Number of rows to be printed for current week.
+     * @param date Date where no task has been scheduled.
      */
-    private void printCalendarDetails(ArrayList<ArrayList<String[]>> calendar, ArrayList<String> calendarDates,
-                                      int dayIndex, int calendarRows) {
-        for (int row = 0; row < calendarRows; row++) {
-            System.out.print("|");
-            for (int day = 0; day < DAYS_IN_WEEK; day++) {
-                String dayString = calendarDates.get(dayIndex + day).trim();
-                if (dayString.equals("") || calendar.get(Integer.parseInt(dayString)).size() <= row) {
-                    System.out.print("                     |");
-                } else {
-                    int currentDay = Integer.parseInt(dayString);
-                    String taskTime = calendar.get(currentDay).get(row)[0];
-                    String taskName = calendar.get(currentDay).get(row)[1];
-                    if (taskTime.equals("")) {
-                        printTodo(taskName);
-                    } else {
-                        printDeadlineAndEvent(taskTime, taskName);
-                    }
-                }
-            }
-            System.out.println();
-        }
+    public void printNoTaskScheduled(String date) {
+        System.out.println("There are no Tasks scheduled on " + date + ".");
     }
 
-    /**
-     * Prints deadline and event details.
-     *
-     * @param taskTime Time of deadline or event.
-     * @param taskName Name of deadline or event.
-     */
-    private void printDeadlineAndEvent(String taskTime, String taskName) {
-        if (taskName.length() > TEXT_SIZE_SHORT) {
-            taskName = taskName.substring(DESCRIPTION_SHORT_START, DESCRIPTION_SHORT_END);
-            System.out.print(" " + taskTime + " " + taskName + ".. |");
-        } else {
-            taskName = String.format("%-" + TEXT_SIZE_SHORT + "s", taskName);
-            System.out.print(" " + taskTime + " " + taskName + " |");
-        }
-    }
-
-    /**
-     * Prints todo details.
-     *
-     * @param taskName Name of todo.
-     */
-    private void printTodo(String taskName) {
-        if (taskName.length() > TEXT_SIZE_LONG) {
-            taskName = taskName.substring(DESCRIPTION_LONG_START, DESCRIPTION_LONG_END);
-            System.out.print(" " + taskName + ".. |");
-        } else {
-            taskName = String.format("%-" + TEXT_SIZE_LONG + "s", taskName);
-            System.out.print(" " + taskName + " |");
-        }
-    }
 
     /**
      * Prints the header for the user specified date to search for free time in.
@@ -886,6 +789,157 @@ public class Ui {
         System.out.println(" You will now be reminded of deadlines in " + threshold + " hours.");
     }
 
+    //@@author KahLokKee
+
+    /**
+     * Prints calendar.
+     *
+     * @param yearMonth Object containing month and year information.
+     */
+    public void printCalendar(YearMonth yearMonth, ArrayList<ArrayList<String[]>> calendar) {
+        printCalendarLabel(yearMonth);
+        printCalendarHeader();
+        printCalendarBody(yearMonth, calendar);
+    }
+
+    /**
+     * Prints calendar label.
+     *
+     * @param yearMonth Object containing month and year information.
+     */
+    private void printCalendarLabel(YearMonth yearMonth) {
+        String[] months = {"", "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST",
+                "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
+        String month = months[yearMonth.getMonthValue()];
+        String year = Integer.toString(yearMonth.getYear());
+        System.out.println(month + " " + year);
+    }
+
+    /**
+     * Prints calendar header.
+     */
+    private void printCalendarHeader() {
+        System.out.println("-----------------------------------------------------------------------------------------"
+                + "------------------------------------------------------------------------------------------------"
+                + "------------");
+        System.out.println("|            SUN            |            MON            |            TUE            |"
+                + "            WED            |            THU            |            FRI            |"
+                + "            SAT            |");
+        System.out.println("-----------------------------------------------------------------------------------------"
+                + "------------------------------------------------------------------------------------------------"
+                + "------------");
+    }
+
+    /**
+     * Prints calendar body.
+     *
+     * @param yearMonth Object containing month and year information.
+     */
+    private void printCalendarBody(YearMonth yearMonth, ArrayList<ArrayList<String[]>> calendar) {
+        String[] date = {"  ", " 1", " 2", " 3", " 4", " 5", " 6", " 7",
+                " 8", " 9", "10", "11", "12", "13", "14", "15",
+                "16", "17", "18", "19", "20", "21", "22", "23",
+                "24", "25", "26", "27", "28", "29", "30", "31"};
+        ArrayList<String> calendarDates = new ArrayList<>();
+        for (int i = 1; i <= yearMonth.lengthOfMonth(); i++) {
+            calendarDates.add(date[i]);
+        }
+
+        DayOfWeek firstDayOfMonth = yearMonth.atDay(DAY_FIRST).getDayOfWeek();
+        if (firstDayOfMonth != DayOfWeek.SUNDAY) {
+            for (int dayCount = 0; dayCount < firstDayOfMonth.getValue(); dayCount++) {
+                calendarDates.add(INDEX_START_OF_ARRAY, date[INDEX_SPACE]);
+            }
+        }
+
+        while (calendarDates.size() % DAYS_IN_WEEK != 0) {
+            calendarDates.add(date[INDEX_SPACE]);
+        }
+
+        int numberOfWeeks = (int) Math.ceil((double) calendarDates.size() / DAYS_IN_WEEK);
+        for (int week = 0; week < numberOfWeeks; week++) {
+            int dayIndex = week * DAYS_IN_WEEK;
+            System.out.print("|");
+            int calendarRows = WEEKS_IN_MONTH;
+            for (int day = 0; day < DAYS_IN_WEEK; day++) {
+                if (!calendarDates.get(dayIndex + day).equals("  ")) {
+                    int currentDay = Integer.parseInt(calendarDates.get(dayIndex + day).trim());
+                    if (calendar.get(currentDay).size() > calendarRows) {
+                        calendarRows = calendar.get(currentDay).size();
+                    }
+                }
+                System.out.print(" " + calendarDates.get(dayIndex + day) + "                        |");
+            }
+            System.out.println();
+            printCalendarDetails(calendar, calendarDates, dayIndex, calendarRows);
+            System.out.println("-------------------------------------------------------------------------------------"
+                    + "--------------------------------------------------------------------------------------------"
+                    + "--------------------");
+        }
+    }
+
+    /**
+     * Prints calendar details.
+     *
+     * @param calendar      ArrayList containing task information for current month.
+     * @param calendarDates ArrayList containing dates for current month.
+     * @param dayIndex      Offset for current day.
+     * @param calendarRows  Number of rows to be printed for current week.
+     */
+    private void printCalendarDetails(ArrayList<ArrayList<String[]>> calendar, ArrayList<String> calendarDates,
+                                      int dayIndex, int calendarRows) {
+        for (int row = 0; row < calendarRows; row++) {
+            System.out.print("|");
+            for (int day = 0; day < DAYS_IN_WEEK; day++) {
+                String dayString = calendarDates.get(dayIndex + day).trim();
+                if (dayString.equals("") || calendar.get(Integer.parseInt(dayString)).size() <= row) {
+                    System.out.print("                           |");
+                } else {
+                    int currentDay = Integer.parseInt(dayString);
+                    String taskTime = calendar.get(currentDay).get(row)[0];
+                    String taskName = calendar.get(currentDay).get(row)[1];
+                    if (taskTime.equals("")) {
+                        printTodo(taskName);
+                    } else {
+                        printDeadlineAndEvent(taskTime, taskName);
+                    }
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    /**
+     * Prints deadline and event details.
+     *
+     * @param taskTime Time of deadline or event.
+     * @param taskName Name of deadline or event.
+     */
+    private void printDeadlineAndEvent(String taskTime, String taskName) {
+        if (taskName.length() > TEXT_SIZE_SHORT) {
+            taskName = taskName.substring(DESCRIPTION_SHORT_START, DESCRIPTION_SHORT_END);
+            System.out.print(" " + taskTime + " " + taskName + ".. |");
+        } else {
+            taskName = String.format("%-" + TEXT_SIZE_SHORT + "s", taskName);
+            System.out.print(" " + taskTime + " " + taskName + " |");
+        }
+    }
+
+    /**
+     * Prints todo details.
+     *
+     * @param taskName Name of todo.
+     */
+    private void printTodo(String taskName) {
+        if (taskName.length() > TEXT_SIZE_LONG) {
+            taskName = taskName.substring(DESCRIPTION_LONG_START, DESCRIPTION_LONG_END);
+            System.out.print(" " + taskName + ".. |");
+        } else {
+            taskName = String.format("%-" + TEXT_SIZE_LONG + "s", taskName);
+            System.out.print(" " + taskName + " |");
+        }
+    }
+
     /**
      * Prints list of semesters.
      *
@@ -1012,53 +1066,4 @@ public class Ui {
         printLine();
         System.out.println(" Currently Selected: " + module.toString());
     }
-
-    /**
-     * Print Tracker Diagram from TrackerList object.
-     *
-     * @param moduleTrackerList ArrayList of Tracker objects.
-     */
-    public void printTrackerDiagram(ArrayList<Tracker> moduleTrackerList, long totalTimeTaken) {
-        printLine();
-        for (int i = 0; i < moduleTrackerList.size(); i++) {
-            Tracker moduleTracker = moduleTrackerList.get(i);
-            int timeTaken = (int) moduleTracker.getTimeTaken();
-            if (timeTaken < SEGMENT_SIZE) {
-                System.out.print("|\n| ");
-            } else {
-                int segmentedTimeTaken = timeTaken / SEGMENT_SIZE;
-                printTrackerDiagramBar(segmentedTimeTaken);
-            }
-            String moduleCode = moduleTracker.getModuleCode();
-            System.out.println("\t" + moduleCode + " -- " + timeTaken + " minutes");
-        }
-        printLine();
-        System.out.println("Total Time: " + totalTimeTaken + " minutes");
-    }
-
-    /**
-     * Print a bar of Tracker Diagram according to number of 10 minute blocks.
-     *
-     * @param segmentedTimeTaken number of 10 minute blocks.
-     */
-    private void printTrackerDiagramBar(int segmentedTimeTaken) {
-        for (int i = 0; i < segmentedTimeTaken; i++) {
-            if (i == FIRST_VAR) {
-                System.out.println("| ");
-                System.out.print("| #");
-            } else {
-                System.out.print("#");
-            }
-        }
-    }
-
-    /**
-     * Prints message if there are no Tasks scheduled on a date.
-     *
-     * @param date Date where no task has been scheduled.
-     */
-    public void printNoTaskScheduled(String date) {
-        System.out.println("There are no Tasks scheduled on " + date + ".");
-    }
-
 }
