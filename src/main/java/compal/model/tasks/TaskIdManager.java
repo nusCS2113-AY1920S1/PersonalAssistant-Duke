@@ -1,7 +1,6 @@
 package compal.model.tasks;
 
 import compal.commons.LogUtils;
-import compal.logic.parser.EditCommandParser;
 
 import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;

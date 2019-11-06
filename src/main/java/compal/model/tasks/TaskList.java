@@ -2,7 +2,6 @@ package compal.model.tasks;
 
 
 import compal.commons.LogUtils;
-import compal.logic.parser.EditCommandParser;
 
 import java.util.ArrayList;
 import java.util.Date;
