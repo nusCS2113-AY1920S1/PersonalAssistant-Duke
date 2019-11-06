@@ -124,9 +124,9 @@ public class PatientMap {
     public ArrayList<Patient> findPatientsByName(String searchTerm) throws DukeException {
         String lowerSearchTerm = searchTerm.toLowerCase();
         ArrayList<Patient> resultList = new ArrayList<Patient>();
-        for (Map.Entry<String, Patient> patientEntry: patientObservableMap.entrySet()) {
-            if (patientEntry.getKey().toLowerCase().contains(lowerSearchTerm)) {
-                resultList.add(patientEntry.getValue());
+        for (Patient patient : patientObservableMap.values()) {
+            if (patient.getName().toLowerCase().contains(lowerSearchTerm)) {
+                resultList.add(patient);
             }
         }
         return resultList;
