@@ -2,8 +2,10 @@
 
 package planner.util.legacy.reminder;
 
+import java.sql.Time;
 import java.time.LocalDateTime;
 
+import com.google.gson.internal.bind.TimeTypeAdapter;
 import planner.logic.exceptions.legacy.ModTimeIntervalTooCloseException;
 import planner.util.legacy.periods.TimeInterval;
 
@@ -89,12 +91,15 @@ public abstract class Reminder {
     private void remind() {
         LocalDateTime targetTime = LocalDateTime.now();
         LocalDateTime now;
+        //TimeInterval timeIntervals;
         long sleepSeconds;
         while (!this.kill) {
             now = LocalDateTime.now();
             if (now.isAfter(targetTime)) {
                 targetTime = now.plus(this.checkEvery);
                 this.execute(now);
+                // timeIntervals = TimeInterval.ofMinutes(timeInterval);
+                TimeInterval.ofMinutes(12);
             }
             sleepSeconds = Math.max(TimeInterval.between(LocalDateTime.now(), targetTime)
                     .toDuration().getSeconds() - 1, 0);
@@ -107,6 +112,7 @@ public abstract class Reminder {
             }
         }
     }
+
 
     abstract void execute(LocalDateTime now);
 }
