@@ -11,6 +11,7 @@ import java.util.HashMap;
 public class Meal {
     protected String description;
     protected String type = "";
+    protected MealType mealType;
     protected boolean isDone;
     protected LocalDate date;
     protected HashMap<String, Integer> nutritionValue = new HashMap<String, Integer>();
@@ -115,6 +116,14 @@ public class Meal {
         this.nutritionValue.put(keyStr, value);
     }
 
+    public int getCalorieValue() {
+        return this.nutritionValue.get("calorie");
+    }
+
+    public MealType getMealType() {
+        return this.mealType;
+    }
+
     /**
      * This function overrides the toString() function in the object class.
      * @return the status icon and the description of the task
@@ -128,5 +137,6 @@ public class Meal {
         temp += "cost: " + costStr;
         return "[" + this.type + "]" + this.getStatusIcon() + " " + this.description + " | " + temp;
     }
+
 
 }

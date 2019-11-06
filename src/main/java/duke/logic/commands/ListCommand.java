@@ -1,5 +1,8 @@
 package duke.logic.commands;
 
+import duke.logic.sort.SortMealByCalorie;
+import duke.logic.sort.SortMealByCost;
+import duke.logic.sort.SortMealByDefault;
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
 import duke.model.user.User;
@@ -9,12 +12,14 @@ import duke.storage.Storage;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * ListCommand is a public class that inherits from abstract class Command.
  * It displays all the meals in a relevant day in a list to the user
  */
 public class ListCommand extends Command {
+    String sortBy = "default";
 
     /**
      * Constructor for ListCommand.
@@ -36,6 +41,11 @@ public class ListCommand extends Command {
                         + currentDate.format(dateFormat) + " instead.");
             }
         }
+    }
+
+    public ListCommand(LocalDate date, String sortBy) {
+        this(date);
+        this.sortBy = sortBy;
     }
 
     public ListCommand(boolean flag, String messageStr) {
@@ -64,7 +74,16 @@ public class ListCommand extends Command {
         if (!meals.checkDate(currentDate)) {
             ui.showMessage("There isn't any food on " + currentDate.format(dateFormat));
         }
-
+        switch (sortBy) {
+            case "calorie":
+                currentMeals.sort(new SortMealByCalorie());
+                break;
+            case "cost":
+                currentMeals.sort(new SortMealByCost());
+                break;
+            default:
+                currentMeals.sort(new SortMealByDefault());
+        }
         ui.showMealList(currentMeals);
         ui.showCaloriesLeft(currentMeals, user, currentDate);
         ui.showLine();

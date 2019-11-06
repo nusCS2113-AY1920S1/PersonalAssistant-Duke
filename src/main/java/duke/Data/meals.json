@@ -1,4 +1,51 @@
 {
+  "2019-11-06": [
+    {
+      "description": "dips",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": true,
+      "date": "2019-11-06",
+      "nutritionValue": {
+        "calorie": 100
+      },
+      "costStr": "0.5"
+    },
+    {
+      "description": "apple",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": true,
+      "date": "2019-11-06",
+      "nutritionValue": {
+        "calorie": 800
+      },
+      "costStr": "1.5"
+    },
+    {
+      "description": "porridge",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-06",
+      "nutritionValue": {
+        "calorie": 300
+      },
+      "costStr": "3.00"
+    },
+    {
+      "description": "chocolate",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-06",
+      "nutritionValue": {
+        "calcium": 200,
+        "calorie": 500
+      },
+      "costStr": "3.25"
+    }
+  ],
   "2019-11-05": [
     {
       "description": "roti",
@@ -90,6 +137,16 @@
         "calorie": 300
       },
       "costStr": "123"
+    },
+    {
+      "description": "steaky",
+      "type": "D",
+      "isDone": true,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 200
+      },
+      "costStr": "1143.90"
     }
   ],
   "2019-11-04": [

@@ -41,7 +41,7 @@ public class Account {
     }
 
     public boolean isSufficientBalance(BigDecimal withdrawal) {
-        return withdrawal.compareTo(amount) < 0;
+        return withdrawal.compareTo(amount) <= 0;
     }
 
     public void depositToAccount(BigDecimal depositAmount) {
