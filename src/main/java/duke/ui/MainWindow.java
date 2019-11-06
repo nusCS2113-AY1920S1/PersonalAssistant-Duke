@@ -9,10 +9,11 @@ import duke.command.FilterCommand;
 import duke.enums.Numbers;
 import duke.dukeexception.DukeException;
 import duke.task.TaskList;
-import duke.task.BudgetList;
-import duke.task.FilterList;
-import duke.task.Reminders;
 import duke.task.Task;
+import duke.task.BudgetList;
+import duke.task.Reminders;
+import duke.task.FilterList;
+import duke.task.ContactList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -501,6 +502,28 @@ public class MainWindow extends AnchorPane {
             stage.show();
         } catch (IOException e) {
             logr.log(Level.SEVERE, "Unable to load budget window", e);
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Creates a budget window to allow the user to view contacts list via user friendly interface.
+     */
+    @FXML
+    public void createContactsWindow() {
+        ContactList contactList = duke.getContactList();
+        String contactDesc = contactList.getContactList();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/ContactsWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setAlwaysOnTop(true);
+            fxmlLoader.<ContactsWindow>getController().setContactsWindow(contactDesc);
+            stage.show();
+        } catch (IOException e) {
+            logr.log(Level.SEVERE, "Unable to load contacts window", e);
             e.printStackTrace();
         }
     }

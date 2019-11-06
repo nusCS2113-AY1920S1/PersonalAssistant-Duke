@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.dukeexception.DukeException;
 import duke.enums.Numbers;
 import duke.storage.Storage;
 import duke.task.TaskList;
@@ -11,6 +10,8 @@ import duke.task.FixedDuration;
 import duke.ui.Ui;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -73,31 +74,35 @@ public class UpdateCommand extends Command {
                     if (items.get(index) instanceof Deadline) {
                         return "     (>_<) OOPS!!! You are updating the same type of task! (Deadline)";
                     } else {
-                        newtaskObj = new Deadline(items.get(index).getDescription(), "01/01/2001 0001");
+                        SimpleDateFormat datetimeFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+                        Date currentDate = new Date();
+                        String datetimeStr = datetimeFormat.format(currentDate);
+                        newtaskObj = new Deadline(items.get(index).getDescription(), datetimeStr);
+                        str += "     The date and time will be set to current date/time by default.\n";
                     }
                 } else if (typeDesc.equals("fixedduration")) {
                     if (items.get(index) instanceof FixedDuration) {
                         return "     (>_<) OOPS!!! You are updating the same type of task! (FixedDuration)";
                     } else {
-                        newtaskObj = new FixedDuration(items.get(index).getDescription(), Numbers.ZERO.value, "min");
+                        str += "     The duration will be set to 1 hour by default.\n";
+                        newtaskObj = new FixedDuration(items.get(index).getDescription(), Numbers.ONE.value, "hour");
                     }
                 } else {
                     return "     (>_<) OOPS!!! You are entered an invalid task type!";
                 }
                 items.setTaskType(index, newtaskObj);
             }
-            str = Ui.showUpdateGui(items, index);
+            str += Ui.showUpdateGui(items, index);
         } catch (ParseException e) {
             e.printStackTrace();
             logr.log(Level.WARNING,"Error found when updating task's date", e);
-            str = "     Error found when updating task's date, please use this format \"d/MM/yyyy HHmm\"";
+            str = "     Error found when updating task's date, please use this format \"dd/MM/yyyy HHmm\"";
         } catch (Exception e) {
             ui.showErrorMsg(e.getMessage());
             str = "     New error found when updating task, please fix.";
             logr.log(Level.SEVERE,"New error found when updating task", e);
 
         }
-
         return str;
     }
 
