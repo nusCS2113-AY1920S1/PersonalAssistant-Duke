@@ -368,9 +368,9 @@ Percent of tasks with priority 1: 0.0%
 
 === Sort by: `sort`
 
-Sort all task by date/description/priority: `sort SORTTYPE`
+Sort all task by date, description, priority, type of task or either it is done or not: `sort SORTTYPE`
 
-SORTTYPE is either date, description, priority
+SORTTYPE is either date, description, priority, type or done
 
 Be careful:
 
