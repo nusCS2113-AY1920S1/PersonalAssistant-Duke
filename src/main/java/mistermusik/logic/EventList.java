@@ -337,7 +337,7 @@ public class EventList {
         Predicate<Object> lowerPredicate = new Predicate<>(lowerLimit, SMALLER_THAN);
         Predicate<Object> upperPredicate = new Predicate<>(upperLimit, GREATER_THAN);
         return "The time now is " + systemDateAndTime + ".\n" +
-                "Here is a list of events you need to complete in the next " + days + " days (by " +
+                "Here is a list of events you need to complete in the next " + days + " day(s) (by " +
                 reminderDeadline + "):\n" + filteredListTwoPredicates(lowerPredicate, upperPredicate);
     }
 
