@@ -5,6 +5,8 @@ import money.Account;
 import controlpanel.DukeException;
 import controlpanel.Ui;
 import money.Expenditure;
+
+import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.time.LocalDate;
 
@@ -47,47 +49,8 @@ public class ViewPastExpenditureCommand extends MoneyCommand {
      * @param month Index of the month
      * @return String of the month name
      */
-    private String getMonthName(int month) {
-        switch (month) {
-        case 1: {
-            return "January";
-        }
-        case 2: {
-            return "February";
-        }
-        case 3: {
-            return "March";
-        }
-        case 4: {
-            return "April";
-        }
-        case 5: {
-            return "May";
-        }
-        case 6: {
-            return "June";
-        }
-        case 7: {
-            return "July";
-        }
-        case 8: {
-            return "August";
-        }
-        case 9: {
-            return "September";
-        }
-        case 10: {
-            return "October";
-        }
-        case 11: {
-            return "November";
-        }
-        case 12: {
-            return "December";
-        }
-        default:
-            return null;
-        }
+    private String getMonth(int month) {
+        return new DateFormatSymbols().getMonths()[month-1];
     }
 
     @Override
@@ -121,7 +84,7 @@ public class ViewPastExpenditureCommand extends MoneyCommand {
             }
         }
         ui.appendToOutput("Got it, list will be printed in the other pane!\n");
-        ui.appendToGraphContainer("Total expenditure for " + getMonthName(month) + " of " + year + " : $");
+        ui.appendToGraphContainer("Total expenditure for " + getMonth(month) + " of " + year + " : $");
         ui.appendToGraphContainer(totalMonthExpenditure + "\n");
     }
 

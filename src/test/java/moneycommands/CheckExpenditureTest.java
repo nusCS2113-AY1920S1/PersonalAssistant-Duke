@@ -2,7 +2,6 @@ package moneycommands;
 
 import controlpanel.MoneyStorage;
 import money.Expenditure;
-import money.Income;
 import controlpanel.DukeException;
 import controlpanel.Ui;
 import org.junit.jupiter.api.Test;
@@ -45,20 +44,39 @@ public class CheckExpenditureTest {
         ui.clearOutputString();
         ui.clearGraphContainerString();
         String checkInput1 = "check expenditure 10 1997";
-        MoneyCommand checkIncome1 = new ViewPastExpenditureCommand(checkInput1);
-        checkIncome1.execute(account, ui, storage);
+        MoneyCommand checkExpenditure1 = new ViewPastExpenditureCommand(checkInput1);
+        checkExpenditure1.execute(account, ui, storage);
         assertEquals(" 1.[E]$120.0 A Jays 5(on: 9/10/1997)\n" +
                 "Total expenditure for October of 1997 : $120.0\n", ui.getGraphContainerString());
         assertEquals("Got it, list will be printed in the other pane!\n", ui.getOutputString());
         ui.clearOutputString();
         ui.clearGraphContainerString();
         String checkInput2 = "check expenditure 9 2015";
-        MoneyCommand checkIncome2 = new ViewPastExpenditureCommand(checkInput2);
-        checkIncome2.execute(account, ui, storage);
+        MoneyCommand checkExpenditure2 = new ViewPastExpenditureCommand(checkInput2);
+        checkExpenditure2.execute(account, ui, storage);
         assertEquals(" 1.[E]$94.0 HHN VIP Tickets(on: 4/9/2015)\n" +
                 "Total expenditure for September of 2015 : $94.0\n", ui.getGraphContainerString());
         assertEquals("Got it, list will be printed in the other pane!\n", ui.getOutputString());
     }
+
+     @Test
+     void testCheckMonthExpenditure() throws DukeException, ParseException {
+        account.getExpListTotal().clear();
+        int currMonth = LocalDate.now().getMonthValue();
+        int currYear = LocalDate.now().getYear();
+        LocalDate currMonthDate = LocalDate.parse("4/" + currMonth + "/" + currYear, dateTimeFormatter);
+        Expenditure e1 = new Expenditure(40, "blue shirt", "gift", currMonthDate);
+        Expenditure e2 = new Expenditure(94, "HHN VIP Tickets", "gift", testDate2);
+        account.getExpListTotal().add(e1);
+        account.getExpListTotal().add(e2);
+        ui.clearOutputString();
+        ui.clearGraphContainerString();
+        String checkInput = "list month expenditure";
+        MoneyCommand checkMonthExpenditure = new ViewPastExpenditureCommand(checkInput);
+        checkMonthExpenditure.execute(account, ui, storage);
+
+
+     }
 
     @Test
     void testInvalidInput() {

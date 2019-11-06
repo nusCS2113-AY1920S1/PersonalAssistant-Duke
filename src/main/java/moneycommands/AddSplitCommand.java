@@ -59,7 +59,7 @@ public class AddSplitCommand extends MoneyCommand {
             price = Float.parseFloat(furSplit[0]);
             String[] morSplit = furSplit[1].split("/on ", 2);
             category = morSplit[0];
-            String[] evenMorSplit = morSplit[1].split("/with ", 2);
+            String[] evenMorSplit = morSplit[1].split(" /with ", 2);
             boughtTime = Parser.shortcutTime(evenMorSplit[0]);
             String[] people = evenMorSplit[1].split("and ");
             parties = new ArrayList<>();

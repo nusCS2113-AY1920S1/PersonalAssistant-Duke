@@ -1,5 +1,7 @@
 package money;
 
+import java.text.DecimalFormat;
+
 public class Item {
     private float price;
     private String description;
@@ -19,7 +21,9 @@ public class Item {
     }
 
     public String toString() {
-        return "$" + price + " " + description;
+        DecimalFormat decimalFormat = new DecimalFormat("#.00");
+        String priceStr = decimalFormat.format(price);
+        return "$" + priceStr + " " + description;
     }
 
 }
