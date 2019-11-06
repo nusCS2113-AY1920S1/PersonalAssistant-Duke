@@ -18,7 +18,7 @@ public class BinaryToIntegerConversionQuestion extends Question {
     @Override
     public void questionFormatter() {
         question = "What is the integer representation of binary value "
-                + binaryRepresentation + "?";
+                + binaryRepresentation + "?\n";
     }
 
     /**
@@ -26,20 +26,23 @@ public class BinaryToIntegerConversionQuestion extends Question {
      */
     private void reviewCalculation() {
         rtlm = new ReviewTracingListModel();
-        rtlm.addReviewTracingModel("This is the current binary value.");
-        rtlm.addReviewTracingModel(binaryRepresentation);
-        rtlm.addReviewTracingModel("First we reverse the value.");
+        rtlm.addReviewStep("This is the current binary value.");
+        rtlm.addReviewStep(binaryRepresentation);
+        rtlm.addReviewStep("First we reverse the value.");
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(binaryRepresentation);
         stringBuilder.reverse();
-        rtlm.addReviewTracingModel("This is the new binary value.");
-        rtlm.addReviewTracingModel(stringBuilder.toString());
-        rtlm.addReviewTracingModel("From the index 0, we begin doing our calculations.");
-        rtlm.addReviewTracingModel("int counter = 0");
+        rtlm.addReviewStep("This is the new binary value.");
+        rtlm.addReviewStep(stringBuilder.toString());
+        rtlm.addReviewStep("From the index 0, we begin doing our calculations.");
+        rtlm.addReviewStep("int counter = 0");
         int counter = 0;
         for (int i = 0; i < stringBuilder.length(); i++) {
-            rtlm.addReviewTracingModel("counter += " + stringBuilder.charAt(i) + "pow(2 , " + i + ")");
+            int val = (int) (Character.getNumericValue(stringBuilder.charAt(i)) * Math.pow(2, i));
+            counter += val;
+            rtlm.addReviewStep("counter += " + stringBuilder.charAt(i) + " * pow(2 , " + i + ")");
+            rtlm.addReviewStep("counter = " + counter);
         }
-        rtlm.addReviewTracingModel("This is the final counter : " + counter);
+        rtlm.addReviewStep("This is the final counter : " + counter);
     }
 }

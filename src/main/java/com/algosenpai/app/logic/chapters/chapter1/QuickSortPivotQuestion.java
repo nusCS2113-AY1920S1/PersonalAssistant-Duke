@@ -53,7 +53,7 @@ public class QuickSortPivotQuestion extends Question {
     public void questionFormatter() {
         question = "An array of " + arraySize
                 + " elements underwent some passes of the Quick Sort Algorithm to become : \n" + initialArray + "\n";
-        question += "How many elements could possibly have been the pivot?\n\n";
+        question += "How many elements could possibly have been the pivot?\n";
     }
 
     /**
@@ -63,34 +63,34 @@ public class QuickSortPivotQuestion extends Question {
      */
     private static String quickSortPivotAnswerGenerator() {
         rtlm = new ReviewTracingListModel();
-        rtlm.addReviewTracingModel("This is the array after some number of passes of Quick Sort.");
-        rtlm.addReviewTracingModel(initialArray.toString());
-        rtlm.addReviewTracingModel("The trick is to traverse from left to right.");
-        rtlm.addReviewTracingModel("Rule #1 Number is bigger than all on left.");
-        rtlm.addReviewTracingModel("Rule #2 Number is smaller than all on right.");
+        rtlm.addReviewStep("This is the array after some number of passes of Quick Sort.");
+        rtlm.addReviewStep(initialArray.toString());
+        rtlm.addReviewStep("The trick is to traverse from left to right.");
+        rtlm.addReviewStep("Rule #1 Number is bigger than all on left.");
+        rtlm.addReviewStep("Rule #2 Number is smaller than all on right.");
         int answer = 0;
-        rtlm.addReviewTracingModel("Counter = " + answer + ".");
+        rtlm.addReviewStep("Counter = " + answer + ".");
         for (int i = 0; i < arraySize; i++) {
             boolean canBePivot = true;
-            rtlm.addReviewTracingModel("Referenced number is " + arr[i]);
+            rtlm.addReviewStep("Referenced number is " + arr[i]);
             for (int j = 0; j < arraySize; j++) {
                 if (i == j) {
                     continue;
                 }
                 if ((j < i && arr[j] > arr[i]) || (j > i && arr[j] < arr[i])) {
-                    rtlm.addReviewTracingModel("One of the rules are broken when second number is "
+                    rtlm.addReviewStep("One of the rules are broken when second number is "
                             + arr[j] + ".");
                     canBePivot = false;
                     break;
                 }
             }
             if (canBePivot) {
-                rtlm.addReviewTracingModel("Number " + arr[i] + " is a valid pivot.");
+                rtlm.addReviewStep("Number " + arr[i] + " is a valid pivot.");
                 answer++;
-                rtlm.addReviewTracingModel("Counter = " + answer + ".");
+                rtlm.addReviewStep("Counter = " + answer + ".");
             }
         }
-        rtlm.addReviewTracingModel("Final count : " + answer + ".");
+        rtlm.addReviewStep("Final count : " + answer + ".");
         return String.valueOf(answer);
     }
 

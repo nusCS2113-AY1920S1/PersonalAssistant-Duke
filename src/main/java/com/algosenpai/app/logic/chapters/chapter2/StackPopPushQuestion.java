@@ -31,7 +31,7 @@ public class StackPopPushQuestion extends Question {
     public void questionFormatter() {
         question = "A Stack of size " + stackSize
                 + " undergoes a series of operations as shown below.\n"
-                + "What would be the new value called upon stack.peek()?\n";
+                + "What would be the new value called upon stack.peek()?";
     }
 
     /**
@@ -116,22 +116,22 @@ public class StackPopPushQuestion extends Question {
      */
     private static void changeStack(ArrayList<String> instructions, LinkedList<Integer> stack) {
         rtlm = new ReviewTracingListModel();
-        rtlm.addReviewTracingModel("This is the current stack.");
-        rtlm.addReviewTracingModel(printStack(stack));
+        rtlm.addReviewStep("This is the current stack.");
+        rtlm.addReviewStep(printStack(stack));
         for (String cmd : instructions) {
-            rtlm.addReviewTracingModel("Consider step : " + cmd);
+            rtlm.addReviewStep("Consider step : " + cmd);
             if (cmd.contains("Pop")) {
-                rtlm.addReviewTracingModel("Removing this element : " + stack.pollLast() + ".");
+                rtlm.addReviewStep("Removing this element : " + stack.pollLast() + ".");
             } else {
                 String number = cmd.substring(5, cmd.length() - 2);
-                rtlm.addReviewTracingModel("Adding this number to the front : " + number + ".");
+                rtlm.addReviewStep("Adding this number to the front : " + number + ".");
                 int valuetoadd = Integer.parseInt(number);
                 stack.addLast(valuetoadd);
             }
-            rtlm.addReviewTracingModel("This is the new stack.");
-            rtlm.addReviewTracingModel(printStack(stack));
+            rtlm.addReviewStep("This is the new stack.");
+            rtlm.addReviewStep(printStack(stack));
         }
-        rtlm.addReviewTracingModel("This is the final stack.");
-        rtlm.addReviewTracingModel(printStack(stack));
+        rtlm.addReviewStep("This is the final stack.");
+        rtlm.addReviewStep(printStack(stack));
     }
 }

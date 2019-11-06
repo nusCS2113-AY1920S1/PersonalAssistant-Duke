@@ -41,32 +41,32 @@ public class BitwiseOperatorQuestion extends Question {
 
     private void reviewCalculation() {
         rtlm = new ReviewTracingListModel();
-        rtlm.addReviewTracingModel("The first number when represented in bits : ");
+        rtlm.addReviewStep("The first number when represented in bits : ");
         StringBuilder firstString = new StringBuilder();
         firstString.append(Integer.toBinaryString(firstNumber));
-        rtlm.addReviewTracingModel(firstString.toString());
-        rtlm.addReviewTracingModel("The second number when represented in bits : ");
+        rtlm.addReviewStep(firstString.toString());
+        rtlm.addReviewStep("The second number when represented in bits : ");
         StringBuilder secondString = new StringBuilder();
         secondString.append(Integer.toBinaryString(secondNumber));
-        rtlm.addReviewTracingModel(secondString.toString());
-        rtlm.addReviewTracingModel("Reverse both strings, and apply the operator" + bitwiseOperator
+        rtlm.addReviewStep(secondString.toString());
+        rtlm.addReviewStep("Reverse both strings, and apply the operator" + bitwiseOperator
                 + "to each bit : ");
         firstString.reverse();
         secondString.reverse();
-        rtlm.addReviewTracingModel("These are the new strings.");
-        rtlm.addReviewTracingModel("\t" + firstString.toString() + "\n" + bitwiseOperator + "\n\t"
+        rtlm.addReviewStep("These are the new strings.");
+        rtlm.addReviewStep("\t" + firstString.toString() + "\n" + bitwiseOperator + "\n\t"
                 + secondString.toString());
-        rtlm.addReviewTracingModel("-------------------------------------------");
+        rtlm.addReviewStep("-------------------------------------------");
         StringBuilder output = new StringBuilder();
         output.append(Integer.toBinaryString(ans));
         output.reverse();
-        rtlm.addReviewTracingModel("\t" + output);
-        rtlm.addReviewTracingModel("Reverse this output to give you " + ans);
+        rtlm.addReviewStep("\t" + output);
+        rtlm.addReviewStep("Reverse this output to give you " + ans);
     }
 
     @Override
     public void questionFormatter() {
-        question = "What is the integer result of " + firstNumber + bitwiseOperator + secondNumber + "?";
+        question = "What is the integer result of " + firstNumber + bitwiseOperator + secondNumber + "?\n";
     }
 
 }
