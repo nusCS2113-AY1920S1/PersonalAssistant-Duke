@@ -62,7 +62,7 @@ public class PrioritizeCommand extends Command {
             priority = Integer.parseInt(commandString[1].trim());
         }
         catch (Exception e ){
-            throw new PrioritizeLimitException();
+            throw new PrioritizeFormatException();
         }
         if (priority < 0 || priority > 9) {
             throw new PrioritizeLimitException();

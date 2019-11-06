@@ -40,12 +40,11 @@ public class EditCommand extends Command {
      * @throws EmptyEventDateException Exception caught when one of the two date given does not exist.
      * @throws ConflictDateException Exception thrown when the new event is in conflict with others event.
      * @throws DateComparisonEventException  Exception caught when the second date is before the first one.
-     * @throws PrioritizeLimitException  Exception caught when the new priority is not an int or is greater than 9 or less than 0.
      * @throws EditFormatException Exception caught when the format of a one shot edit command is not respected.
      * @throws EmptyTodoException Exception caught when the description of the todo list is not given by the user.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage)
-            throws NonExistentDateException, FileException, NonExistentTaskException, EmptyEventDateException, ConflictDateException, DateComparisonEventException, PrioritizeLimitException, EditFormatException, UserAnswerException, EmptyTodoException {
+            throws NonExistentDateException, FileException, NonExistentTaskException, EmptyEventDateException, ConflictDateException, DateComparisonEventException, EditFormatException, UserAnswerException, EmptyTodoException {
         String userSubstring;
         if(callByShortcut){
             userSubstring = user.trim().substring(EditCommand.editShortcut.length());
