@@ -3,14 +3,20 @@ package oof.command;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
+import java.time.DayOfWeek;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Locale;
 
 import oof.Ui;
 import oof.exception.command.CommandException;
 import oof.exception.command.InvalidArgumentException;
+import oof.model.module.Lesson;
+import oof.model.module.Module;
+import oof.model.module.Semester;
 import oof.model.module.SemesterList;
 import oof.model.task.Deadline;
 import oof.model.task.Event;
@@ -75,7 +81,7 @@ public class FreeCommand extends Command {
         Date current = new Date();
         try {
             if (isDateAfterCurrentDate(current, dateWanted) || isDateSame(current, dateWanted)) {
-                findFreeTime(ui, taskList, this.dateWanted);
+                findFreeTime(semesterList, ui, taskList, this.dateWanted);
             } else {
                 throw new InvalidArgumentException("OOPS!!! Please enter either today's date or a date in the future!");
             }
@@ -93,7 +99,8 @@ public class FreeCommand extends Command {
      * @throws ParseException   exception may be thrown when parsing datetime.
      * @throws CommandException print customised error message.
      */
-    private void findFreeTime(Ui ui, TaskList tasks, String freeDate) throws ParseException, CommandException {
+    private void findFreeTime(SemesterList semesterList, Ui ui, TaskList tasks, String freeDate)
+        throws ParseException, CommandException {
         for (int i = 0; i < tasks.getSize(); i++) {
             Task task = tasks.getTask(i);
             if (task instanceof Event) {
@@ -112,6 +119,7 @@ public class FreeCommand extends Command {
                 populateDeadlines(dueDateAndTime, fullDescription, freeDate, dueDate, isCompleted);
             }
         }
+        parseSemesterList(semesterList, freeDate);
         eventStartTimes.sort(new SortByTime());
         eventEndTimes.sort(new SortByTime());
         deadlinesDue.sort(new SortByTime());
@@ -119,6 +127,55 @@ public class FreeCommand extends Command {
         ui.printFreeTimeHeader(freeDate, getDayOfTheWeek(freeDate));
         parseSlotStates();
         parseOutput(ui);
+    }
+
+    /**
+     * Parses the semester list for lessons that occurs within the queried date.
+     *
+     * @param semesterList Instance of SemesterList that stores Semester objects.
+     * @param freeDate     The user specified date.
+     */
+    private void parseSemesterList(SemesterList semesterList, String freeDate) throws ParseException {
+        for (Semester semester : semesterList.getSemesterList()) {
+            Date startDate = convertStringToDate(semester.getStartDate());
+            Date endDate = convertStringToDate(semester.getEndDate());
+            Date freeSlotsDate = convertStringToDate(freeDate);
+            if (isWithinRange(freeSlotsDate, startDate, endDate)) {
+                queryModules(semester, freeSlotsDate);
+            }
+        }
+    }
+
+    /**
+     * Adds lessons of each module to the calendar if they fall within the queried month.
+     *
+     * @param semester Instance of Semester containing Module data.
+     * @param freeDate The user specified date.
+     */
+    private void queryModules(Semester semester, Date freeDate) throws ParseException {
+        for (Module module : semester.getModules()) {
+            addLessons(freeDate, module);
+        }
+    }
+
+    /**
+     * Adds lesson to the calendar.
+     *
+     * @param freeDate The user specified date.
+     * @param module   Instance of Module containing Lesson data.
+     */
+    private void addLessons(Date freeDate, Module module) throws ParseException {
+        String freeSlotsDate = convertDateToString(freeDate);
+        for (Lesson lesson : module.getLessons()) {
+            DayOfWeek day = lesson.getDay();
+            String dayOfWeek = day.getDisplayName(TextStyle.FULL, Locale.getDefault());
+            Date lessonStart = convertStringToTime(lesson.getStartTime());
+            Date lessonEnd = convertStringToTime(lesson.getEndTime());
+            if (getDayOfTheWeek(freeSlotsDate).equals(dayOfWeek) && !isDuplicateEvent(lessonStart, lessonEnd)) {
+                eventStartTimes.add(lessonStart);
+                eventEndTimes.add(lessonEnd);
+            }
+        }
     }
 
     /**
@@ -298,7 +355,7 @@ public class FreeCommand extends Command {
         Calendar oneWeekFromFreeDate = Calendar.getInstance();
         oneWeekFromFreeDate.setTime(freeSlotsDate);
         oneWeekFromFreeDate.add(Calendar.DATE, ONE_WEEK);
-        Date nextWeek = convertStringToDate(convertDatetoString(oneWeekFromFreeDate.getTime()));
+        Date nextWeek = convertStringToDate(convertDateToString(oneWeekFromFreeDate.getTime()));
         return (dueDate.compareTo(nextWeek) <= 0 && dueDate.compareTo(freeSlotsDate) >= 0);
     }
 
@@ -360,7 +417,7 @@ public class FreeCommand extends Command {
      * @return true if user specified date is current date.
      */
     private boolean isDateSame(Date currDate, String freeDate) {
-        String currentDate = convertDatetoString(currDate);
+        String currentDate = convertDateToString(currDate);
         return freeDate.equals(currentDate);
     }
 
@@ -416,6 +473,19 @@ public class FreeCommand extends Command {
         SimpleDateFormat format = new SimpleDateFormat("EEEE");
         Date dayOfTheWeek = convertStringToDate(freeDate);
         return format.format(dayOfTheWeek);
+    }
+
+    /**
+     * Checks if a date is within two dates.
+     *
+     * @param queryDate Date to be checked.
+     * @param startDate Starting Date used for checking.
+     * @param endDate   Ending Date used for checking.
+     * @return true if queried date is within start and end date.
+     */
+    private boolean isWithinRange(Date queryDate, Date startDate, Date endDate) {
+        return queryDate.compareTo(startDate) > 0 && queryDate.compareTo(endDate) < 0
+            || queryDate.compareTo(startDate) == 0 || queryDate.compareTo(endDate) == 0;
     }
 
 }
