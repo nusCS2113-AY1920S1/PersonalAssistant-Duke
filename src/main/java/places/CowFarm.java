@@ -15,8 +15,7 @@ public class CowFarm extends Farm {
 
     /**
      * Checks whether the cowfarm currently has Milk.
-     * @return true if milkfarm has milk.
-     * @return false if milkfarm has no milk.
+     * @return true if milkfarm has milk, false if milkfarm has no milk.
      */
     public boolean hasMilk() {
         return milk > 0;
@@ -24,8 +23,7 @@ public class CowFarm extends Farm {
 
     /**
      * Checks whether the cowfarm currently has cow.
-     * @return true if cowfarm has cow.
-     * @return false if cowfarm has no cow.
+     * @return true if cowfarm has cow, false if cowfarm has no cow.
      */
     public boolean hasCow() {
         return cow > 0;
@@ -33,8 +31,7 @@ public class CowFarm extends Farm {
 
     /**
      * Checks whether the cowfarm currently has fullCow.
-     * @return true if cowfarm has fullCow.
-     * @return false if cowfarm has no fullCow.
+     * @return true if cowfarm has fullCow, false if cowfarm has no fullCow.
      */
     public boolean hasFullCow() {
         return fullCow > 0;
@@ -60,7 +57,7 @@ public class CowFarm extends Farm {
             this.milk = (int) (long) obj.get(JSON_KEY_MILK);
             this.fullCow = (int) (long) obj.get(JSON_KEY_FULLCOW);
 
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new FarmioException("Game save corrupted!");
         }
     }
