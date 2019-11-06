@@ -65,9 +65,10 @@ public class Storage {
      * Constructs a Storage object that contains information from the model.
      */
     public Storage() {
-        events = new EventList();
-        routes = new RouteList();
-        itineraryTable = new HashMap<>();
+        SampleStorage sampleData = new SampleStorage();
+        events = sampleData.getEvents();
+        routes = sampleData.getRoutes();
+        itineraryTable = sampleData.getItineraryTable();
         try {
             read();
         } catch (FileLoadFailException | ParseException e) {
