@@ -50,16 +50,14 @@ public class ShopList {
      * @param index the index of the item in the list.
      * @return the ShopItem that is purchased, if any.
      */
-    public Optional<ShopItem> buy(int index) {
+    public Optional<ShopItem> buy(int index, int totalPoints) {
         if (!shopList.get(index).isPurchased()) {
-            if (shopList.get(index).canPurchase(Achievements.totalPoints)) {
+            if (shopList.get(index).canPurchase(totalPoints)) {
                 shopList.get(index).setPurchased(true);
-                Achievements.totalPoints -= shopList.get(index).getCost();
-            } else {
-                return Optional.empty();
+                return Optional.ofNullable(shopList.get(index));
             }
         }
-        return Optional.ofNullable(shopList.get(index));
+        return Optional.empty();
     }
 
     /**
@@ -68,6 +66,14 @@ public class ShopList {
      */
     public int size() {
         return this.shopList.size();
+    }
+
+    /**
+     * Gets the shop item with the given index
+     * @return the shop item in the shop list.
+     */
+    public ShopItem getItem(int index) {
+        return this.shopList.get(index);
     }
 
     /**

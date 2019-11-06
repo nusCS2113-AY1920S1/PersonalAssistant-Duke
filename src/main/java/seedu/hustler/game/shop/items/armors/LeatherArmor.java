@@ -1,5 +1,7 @@
 package seedu.hustler.game.shop.items.armors;
 
+import seedu.hustler.game.shop.items.ShopItem;
+
 /**
  * The cheapest armor in the shop.
  */

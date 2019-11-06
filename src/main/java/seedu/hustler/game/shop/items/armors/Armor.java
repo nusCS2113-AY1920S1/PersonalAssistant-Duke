@@ -85,4 +85,34 @@ public abstract class Armor implements ShopItem {
     public String toString() {
         return "+" + DEF_INCR + " DEF, +" + STA_INCR + " STA ";
     }
+
+    @Override
+    public int getCost() {
+        return this.cost;
+    }
+
+    @Override
+    public Boolean isPurchased() {
+        return this.isPurchased;
+    }
+
+    @Override
+    public String getType() {
+        return this.type;
+    }
+
+    @Override
+    public void setPurchased(Boolean purchased) {
+        this.isPurchased = purchased;
+    }
+
+    @Override
+    public Boolean isSameType(ShopItem other) {
+        return this.type.equals(other.getType());
+    }
+
+    @Override
+    public boolean canPurchase(int points) {
+        return this.cost <= points;
+    }
 }

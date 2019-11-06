@@ -66,24 +66,41 @@ public class StatsTest {
 
         // Checks if stats increment of damage, defence, stamina and speed are 2, 1, 2, 1 respectively.
         Stats upgradedStats1 = new Stats().upStats(2);
-        assertEquals(upgradedStats1.getDamage(), 1 + 2);
-        assertEquals(upgradedStats1.getDefence(), 1 + 1);
-        assertEquals(upgradedStats1.getStamina(), 3 + 2);
-        assertEquals(upgradedStats1.getSpeed(), 1 + 1);
+        assertEquals(1 + 2, upgradedStats1.getDamage());
+        assertEquals(1 + 1, upgradedStats1.getDefence());
+        assertEquals(3 + 2, upgradedStats1.getStamina());
+        assertEquals(1 + 1, upgradedStats1.getSpeed());
 
         // Checks if stats increment of damage, defence, stamina and speed are 1, 2, 2, 1 respectively.
         Stats upgradedStats2 = new Stats().upStats(3);
-        assertEquals(upgradedStats2.getDamage(), 1 + 1);
-        assertEquals(upgradedStats2.getDefence(), 1 + 2);
-        assertEquals(upgradedStats2.getStamina(), 3 + 2);
-        assertEquals(upgradedStats2.getSpeed(), 1 + 1);
+        assertEquals(1 + 1, upgradedStats2.getDamage());
+        assertEquals(1 + 2, upgradedStats2.getDefence());
+        assertEquals(3 + 2, upgradedStats2.getStamina());
+        assertEquals(1 + 1, upgradedStats2.getSpeed());
 
         // Checks if stats increment of damage, defence, stamina and speed are 2, 2, 2, 1 respectively.
         Stats upgradedStats3 = new Stats().upStats(6);
-        assertEquals(upgradedStats3.getDamage(), 1 + 2);
-        assertEquals(upgradedStats3.getDefence(), 1 + 2);
-        assertEquals(upgradedStats3.getStamina(), 3 + 2);
-        assertEquals(upgradedStats3.getSpeed(), 1 + 1);
+        assertEquals(1 + 2, upgradedStats3.getDamage());
+        assertEquals(1 + 2, upgradedStats3.getDefence());
+        assertEquals(3 + 2, upgradedStats3.getStamina());
+        assertEquals(1 + 1, upgradedStats3.getSpeed());
+    }
+
+    @Test
+    public void immutabilityCheck() {
+        Stats baseStats = new Stats();
+
+        // Should still return the base stat values.
+        baseStats.upStats(1000);
+        assertEquals(baseStats, new Stats());
+
+        // Should still return the base Stat values.
+        baseStats.upStats(1).upStats(1).upStats(1);
+        assertEquals(baseStats, new Stats());
+
+        // Supports chaining when creating a new instance.
+        Stats upgradedStats = new Stats(3, 2, 5, 2);
+        assertEquals(new Stats().upStats(2), upgradedStats);
     }
 
     /**

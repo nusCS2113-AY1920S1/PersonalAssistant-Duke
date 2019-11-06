@@ -17,8 +17,8 @@ public class LevelTest {
         Level levelTest = new Level();
 
         // Level and Xp should be 1 and 0 respectively for it to be true.
-        assertEquals(levelTest.getLevel(), 1);
-        assertEquals(levelTest.getXp(), 0);
+        assertEquals(1, levelTest.getLevel());
+        assertEquals(0, levelTest.getXp());
     }
 
     /**
@@ -30,7 +30,7 @@ public class LevelTest {
 
         // Should increment the xp by 1.
         levelTest = levelTest.increaseXp();
-        assertEquals(levelTest.getXp(), 1);
+        assertEquals(1, levelTest.getXp());
     }
 
     /**
@@ -79,12 +79,26 @@ public class LevelTest {
         Level level3 = new Level(4, 17);
 
         // The string should represent the level's current Level and Xp respectively, separated by a space.
-        assertEquals(level1.toTxt(), "1 0");
-        assertEquals(level2.toTxt(), "3 14");
-        assertEquals(level3.toTxt(), "4 17");
+        assertEquals("1 0", level1.toTxt());
+        assertEquals("3 14", level2.toTxt());
+        assertEquals("4 17", level3.toTxt());
 
         // Different levels with different values should not return the same toTxt format.
         assertNotEquals(level1.toTxt(), level2.toTxt());
+    }
+
+    @Test
+    public void immutabilityCheck() {
+        Level newLevel = new Level();
+
+        // Should return the same level instance as before.
+        newLevel.increaseXp().increaseXp().upLevel();
+        assertEquals(newLevel, new Level());
+
+        // Supports chaining when creating a new instance.
+        Level upgradedLevel = new Level(1, 3);
+        assertEquals(upgradedLevel, new Level().increaseXp().increaseXp().increaseXp());
+
     }
 
 

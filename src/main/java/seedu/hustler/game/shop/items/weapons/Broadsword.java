@@ -1,5 +1,7 @@
 package seedu.hustler.game.shop.items.weapons;
 
+import seedu.hustler.game.shop.items.ShopItem;
+
 /**
  * The cheapest weapon in the shop which gives the least damage.
  */

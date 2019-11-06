@@ -1,5 +1,7 @@
 package seedu.hustler.game.shop.items.weapons;
 
+import seedu.hustler.game.shop.items.ShopItem;
+
 /**
  * The highest tiered Weapon in the shop.
  */

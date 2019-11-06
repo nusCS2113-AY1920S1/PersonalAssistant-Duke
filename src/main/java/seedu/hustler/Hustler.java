@@ -161,6 +161,7 @@ public class Hustler extends Application {
             AvatarStorage.save(avatar);
             AchievementStorage.saveAchievements(achievementList);
             AchievementStorage.saveStatus();
+            inventory.updateInventory();
         } catch (IOException e) {
             ui.showSaveError();
         }
