@@ -1,25 +1,13 @@
 [
   {
-    "name": "P1",
+    "name": "tester1",
     "taskList": [
-      "job A",
-      "job B",
-      "job C"
+      "todo1"
     ],
     "skillList": []
   },
   {
-    "name": "P2",
-    "taskList": [],
-    "skillList": []
-  },
-  {
-    "name": "P3",
-    "taskList": [],
-    "skillList": []
-  },
-  {
-    "name": "john",
+    "name": "tester2",
     "taskList": [],
     "skillList": []
   }
