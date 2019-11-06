@@ -2,7 +2,7 @@ package com.algosenpai.app.logic.command;
 
 import java.util.ArrayList;
 
-public class ChaptersCommand extends Command{
+public class ChaptersCommand extends Command {
 
     public ChaptersCommand(ArrayList<String> inputs) {
         super(inputs);

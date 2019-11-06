@@ -35,6 +35,12 @@ public enum CommandsEnum {
         return enumNames;
     }
 
+    /**
+     * Returns the blocked commands during a quiz.
+     * @param enumNames the list of commands
+     * @return list of blocked commands during a quiz
+     */
+
     public static List<String> getBlockedNames(List<String> enumNames) {
         List<String> blockedNames = enumNames;
         blockedNames.remove(0); //menu

@@ -40,8 +40,9 @@ public class InvalidCommand extends Command {
             if (!compare(input).isEmpty()) {
                 return "OOPS!!! Error occurred. Please input a valid command. Did you mean... " + compare(input) + "?";
             } else {
-                return "Sorry please input a valid command. Enter `menu` to view our list of commands and `menu <command> "
-                        + "to find out how to use them!";
+                return "Sorry please input a valid command. "
+                        + "Enter `menu` to view our list of commands "
+                        + "and `menu <command> to find out how to use them!";
             }
         }
     }

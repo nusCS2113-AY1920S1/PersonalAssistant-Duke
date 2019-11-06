@@ -40,11 +40,11 @@ public class MenuCommand extends Command {
             try {
                 MenuExceptions.checkInput(inputs);
                 switch (inputs.get(1)) {
-                    case "chapters":
-                        return "`chapters` to view the list of chapters";
+                case "chapters":
+                    return "`chapters` to view the list of chapters";
                 case "help":
                     return "`help <chapter>` to view the list of problems on kattis "
-                           + "that you may wish to solve for the corresponding chapter";
+                            + "that you may wish to solve for the corresponding chapter";
                 case "select":
                     return "`select <chapter>` to attempt a quiz on that chapter";
                 case "quiz":
@@ -56,7 +56,7 @@ public class MenuCommand extends Command {
                     return "`history <number of commands you'd like to view>` to view your past commands";
                 case "undo":
                     return "`undo` to reverse a single action or undo <number of steps you'd like to undo> "
-                           + "to reverse multiple actions";
+                            + "to reverse multiple actions";
                 case "clear":
                     return "`clear` to clear all chats";
                 case "save":
