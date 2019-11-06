@@ -11,10 +11,10 @@ import java.util.Set;
 /**
  * Creates a virtual game console on the terminal.
  */
-class GameConsole {
+public class GameConsole {
     static final int FULL_CONSOLE_HEIGHT = 22;
     static final int FULL_CONSOLE_WIDTH = 103;
-    static final int FRAME_SECTION_HEIGHT = 18;
+    public static final int FRAME_SECTION_HEIGHT = 18;
     static final int FRAME_SECTION_WIDTH = 55;
     static final int USER_CODE_SECTION_WIDTH = 31;
 

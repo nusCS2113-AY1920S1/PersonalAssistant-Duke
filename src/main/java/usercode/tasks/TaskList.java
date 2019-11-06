@@ -1,6 +1,7 @@
 package usercode.tasks;
 
 import exceptions.FarmioException;
+import frontend.GameConsole;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -18,8 +19,12 @@ public class TaskList extends ArrayList<Task>{
     }
 
 
-    public void addTask(Task task) {
-        this.add(task);
+    public void addTask(Task task) throws FarmioException {
+        if (this.size() < GameConsole.FRAME_SECTION_HEIGHT) {
+            this.add(task);
+        } else {
+            throw new FarmioException("Unable to add more task! Please optimize your code!");
+        }
     }
 
     public void editTask(int taskID, Task task) throws FarmioException {
@@ -31,6 +36,9 @@ public class TaskList extends ArrayList<Task>{
     }
 
     public void insertTask (int taskID, Task task) throws FarmioException {
+        if (this.size() >= GameConsole.FRAME_SECTION_HEIGHT) {
+            throw new FarmioException("Unable to add more task! Please optimize your code!");
+        }
         try {
             this.add(taskID - 1, task);
         } catch (IndexOutOfBoundsException e) {
