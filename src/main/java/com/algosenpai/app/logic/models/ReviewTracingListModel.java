@@ -10,7 +10,7 @@ public class ReviewTracingListModel {
         reviewMethodList = new ArrayList<>();
     }
 
-    public void addReviewTracingModel(String reviewStep) {
+    public void addReviewStep(String reviewStep) {
         this.reviewMethodList.add(reviewStep);
     }
 

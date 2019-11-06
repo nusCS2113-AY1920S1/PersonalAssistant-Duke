@@ -1,6 +1,7 @@
 package com.algosenpai.app.logic.chapters.chapter3;
 
 import com.algosenpai.app.logic.chapters.Question;
+import com.algosenpai.app.logic.models.ReviewTracingListModel;
 
 public class CountingBitsQuestion extends Question {
 
@@ -10,15 +11,43 @@ public class CountingBitsQuestion extends Question {
     CountingBitsQuestion() {
         //This bounds the number between 40 and 129.
         number = getRandomNumber(40,90);
+        rtlm = new ReviewTracingListModel();
+        rtlm.addReviewStep("We begin by converting the decimal number "
+                + "into its binary representation.");
         String binaryRepresentation = Integer.toBinaryString(number);
+        int num = number;
+        rtlm.addReviewStep("This is the decimal form : " + number);
+        findBinary(num);
+        rtlm.addReviewStep("This is the binary form : " + binaryRepresentation);
         //This bounds the value to be either 0 or 1.
         int val = getRandomNumber(0,2);
         //Decide if bit '1' or '0' should be found.
         bitToFind = getBitToFind(val);
+        rtlm.addReviewStep("Since this is the bit we want to find : " + bitToFind);
         //Format the question
         questionFormatter();
         int ans = calculateBits(binaryRepresentation, bitToFind);
         answer = String.valueOf(ans);
+        rtlm.addReviewStep("We can scan through the string to find out that number of bits = " + ans);
+    }
+
+    /**
+     * Calculates the binary form of the question number.
+     * Used for the review segment.
+     */
+    private void findBinary(int num) {
+        StringBuilder stringBuilder = new StringBuilder();
+        rtlm.addReviewStep("We constantly divide the number by 2 to find the last bit.");
+        while (num != 0) {
+            rtlm.addReviewStep("Since number is not 0");
+            int bit = num % 2;
+            rtlm.addReviewStep(num + " % 2 = " + bit);
+            stringBuilder.append(bit);
+            rtlm.addReviewStep("Append the bit to string : " + stringBuilder);
+            num /= 2;
+            rtlm.addReviewStep("Divide by 2 and check if the value is now 0.");
+        }
+        rtlm.addReviewStep("Number is now 0. Terminate and reverse the string.");
     }
 
     @Override
