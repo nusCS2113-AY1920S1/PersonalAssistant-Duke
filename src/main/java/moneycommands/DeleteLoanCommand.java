@@ -25,7 +25,8 @@ public class DeleteLoanCommand extends MoneyCommand {
     public DeleteLoanCommand(String command) throws DukeException {
         try {
             inputString = command;
-            String temp = inputString.replaceAll("[^0-9]", "");
+            String temp = inputString.replaceFirst("delete loan ", "");
+            temp = temp.replaceAll(" ", "");
             serialNo = Integer.parseInt(temp);
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter a numerical number as the index of the loan to be deleted\n");
@@ -50,7 +51,7 @@ public class DeleteLoanCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException {
-        if (serialNo > account.getLoans().size()) {
+        if (serialNo > account.getLoans().size() || serialNo <= 0) {
             throw new DukeException("The serial number of the loan is Out Of Bounds!");
         }
         Loan deletedEntryLoan = account.getLoans().get(serialNo - 1);
