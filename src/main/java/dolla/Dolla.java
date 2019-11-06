@@ -17,17 +17,14 @@ import java.util.Scanner;
 public class Dolla {
 
     private static final String COMMAND_BYE = "bye";
+    private static final String COMMAND_DEBT = "debt";
     private DollaData dollaData = new DollaData();
     protected static TagList tagList = new TagList(); //todo: change
-
-    //private TaskList tasks = new TaskList(new ArrayList<Task>());
-    //Storage storage = new Storage();
 
     /**
      * Creates an instance of Dolla using a data loaded from /data/dolla.txt
      */
     private Dolla() {
-        //tasks = new TaskList(Storage.load());
         StorageRead.load(); //TODO: add load for tag also (for now it can add to tagList but cant store to harddrive)
     }
 
@@ -35,9 +32,9 @@ public class Dolla {
      * Runs the main program of duke.Dolla
      * @throws Exception when exceptional condition happens
      */
-    public void run() throws Exception {
+    private void run() throws Exception {
         boolean isExit = false;
-        Reminder reminder = new Reminder("debt");
+        Reminder reminder = new Reminder(COMMAND_DEBT);
         reminder.showReminder(dollaData);
         Scanner input = new Scanner(System.in); // TODO: Add to Ui or MainParser instead?
         while (!isExit) {

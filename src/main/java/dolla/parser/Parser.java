@@ -2,13 +2,15 @@ package dolla.parser;
 
 import dolla.ModeStringList;
 import dolla.Time;
+import dolla.task.RecordList;
+import dolla.ui.EntryUi;
+import dolla.ui.LimitUi;
+import dolla.ui.Ui;
+import dolla.ui.ModifyUi;
 
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
-import dolla.ui.EntryUi;
-import dolla.ui.ModifyUi;
 import dolla.ui.SortUi;
-import dolla.ui.Ui;
 import dolla.ui.RemoveUi;
 
 import java.time.LocalDate;
@@ -31,10 +33,6 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     protected String[] inputArray;
     protected String commandToRun;
     protected static final String SPACE = " ";
-    protected static int undoFlag = 0;
-    protected static int redoFlag = 0;
-    protected static int prevPosition;
-
     protected int modifyRecordNum;
 
 
@@ -83,7 +81,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * @param str String (of number) to be converted into integer type.
      * @return Integer type of the specified string.
      */
-    public double stringToDouble(String str) {
+    public static double stringToDouble(String str) {
         double newDouble = 0.0;
         try {
             newDouble = Double.parseDouble(str);
@@ -202,7 +200,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * @return true if there is a valid number or false otherwise.
      */
     protected boolean verifyRemove() {
-        if (inputArray.length < 2) {
+        if (inputArray.length != 2) {
             RemoveUi.printInvalidRemoveMessage();
             return false;
         }
@@ -215,35 +213,18 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         return true;
     }
 
-    /**
-     * This method will set the prevPosition int in this class.
-     * @param prevPosition the prevPosition of a deleted input.
-     */
-    public static void setPrevPosition(int prevPosition) {
-        Parser.prevPosition = prevPosition;
-        undoFlag = 1;
-    }
-
-    /**
-     * THis method will set prevPosition to -1 and undoFlag to 0.
-     */
-    public static void resetUndoFlag() {
-        Parser.prevPosition = -1;
-        undoFlag = 0;
-    }
-
-    /**
-     * This method will set redoFlag to 1.
-     */
-    public static void setRedoFlag() {
-        redoFlag = 1;
-    }
-
-    /**
-     * This method will set redoFlag to 0.
-     */
-    public static void resetRedoFlag() {
-        redoFlag = 0;
+    protected boolean verifyShortcut() {
+        if (inputArray.length != 2) {
+            //print error message;
+            return false;
+        }
+        try {
+            Integer.parseInt(inputArray[1]);
+        } catch (NumberFormatException e) {
+            RemoveUi.printInvalidRemoveMessage();
+            return false;
+        }
+        return true;
     }
 
     //@@author omupenguin
@@ -398,6 +379,95 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         }
         tempStr = tempStr.substring(0, tempStr.length() - 1);
         return tempStr;
+    }
+
+    //@@author tatayu
+    /**
+     * Check if the component is valid.
+     * @param s string at the component position.
+     * @return true if it is a valid component.
+     */
+    protected Boolean verifyDebtSearchComponent(String s) {
+        return s.equals(SEARCH_DESCRIPTION) || s.equals(SEARCH_DATE) || s.equals(SEARCH_NAME);
+    }
+
+    //@@author tatayu
+    /**
+     * Check if the number is valid.
+     * @param s the input.
+     * @param recordList the list that records all the bill.
+     * @return true if it is a valid number.
+     */
+    protected Boolean verifyPaidCommand(String s, RecordList recordList) {
+        try {
+            Integer.parseInt(s);
+            if (Integer.parseInt(s) < recordList.size()) {
+                return true;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Check if the component is valid.
+     * @param s string at the component position.
+     * @return true if it is a valid component.
+     */
+    protected Boolean verifyEntrySearchComponent(String s) {
+        return s.equals(SEARCH_DESCRIPTION) || s.equals(SEARCH_DATE);
+    }
+
+    /**
+     * Check if the component is valid.
+     * @param s string at the component position.
+     * @return true if it is a valid component.
+     */
+    protected Boolean verifyLimitSearchComponent(String s) {
+        return s.equals(SEARCH_DURATION);
+    }
+
+    //@@author Weng-Kexin
+    protected double findLimitAmount() {
+        double amount = 0;
+        try {
+            amount = stringToDouble(inputArray[2]);
+        } catch (NumberFormatException e) {
+            LimitUi.invalidAmountPrinter();
+        }
+        return amount;
+    }
+
+    private Boolean verifyLimitType(String limitType) {
+        return limitType.equals(LIMIT_TYPE_S)
+                || limitType.equals(LIMIT_TYPE_B);
+    }
+
+    private Boolean verifyLimitDuration(String limitDuration) {
+        return limitDuration.equals(LIMIT_DURATION_D)
+                || limitDuration.equals(LIMIT_DURATION_W)
+                || limitDuration.equals(LIMIT_DURATION_M);
+    }
+
+    private Boolean verifyLimitAmount(double limitAmount) {
+        return (limitAmount != 0);
+    }
+
+    protected Boolean verifySetLimitCommand() {
+        boolean isValid;
+        try {
+            String typeStr = inputArray[1];
+            double amountInt = findLimitAmount();
+            String durationStr = inputArray[3];
+            isValid = verifyLimitType(typeStr) && verifyLimitAmount(amountInt) && verifyLimitDuration(durationStr);
+        } catch (IndexOutOfBoundsException e) {
+            LimitUi.invalidSetCommandPrinter();
+            isValid = false;
+        } catch (Exception e) {
+            isValid = false;
+        }
+        return isValid;
     }
 
 }

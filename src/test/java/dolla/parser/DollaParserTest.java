@@ -21,7 +21,7 @@ public class DollaParserTest {
         DollaParser dollaParser = new DollaParser(inputLine);
         //expectedResult = "AddEntryCommand{ type: expense, amount: 100.0, " +
         //        "description: Expense Description, date: 03/12/2001, prePosition: -1 }";
-        expectedResult = "AddEntryCommand{ expense, 100.0, Expense Description, 03/12/2001, -1 }";
+        expectedResult = "AddEntryCommand{ expense, 100.0, Expense Description, 03/12/2001}";
         Command command = dollaParser.parseInput();
         assertEquals(expectedResult, command.getCommandInfo());
     }

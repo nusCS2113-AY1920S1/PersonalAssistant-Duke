@@ -21,14 +21,14 @@ public class EntryList extends RecordList {
     }
 
     @Override
-    public void insertPrevPosition(int prevPosition, Record newRecord) {
-        super.insertPrevPosition(prevPosition, newRecord);
-        StorageWrite.setEntries(get()); //save
+    public void removeFromList(int index) {
+        super.removeFromList(index);
+        StorageWrite.setEntries(get());
     }
 
     @Override
-    public void removeFromList(int index) {
-        super.removeFromList(index);
+    public void setRecordList(ArrayList<Record> recordList) {
+        this.list = recordList;
         StorageWrite.setEntries(get());
     }
 
@@ -43,7 +43,7 @@ public class EntryList extends RecordList {
     public int findExistingRecordIndex(DollaData dollaData, Record inputRecord, String mode) {
         Entry entry = (Entry) inputRecord;
         int index = - 1;
-        EntryList entryList = (EntryList) dollaData.getRecordList(mode);
+        EntryList entryList = (EntryList) dollaData.getRecordListObj(mode);
         for (int i = 0; i < entryList.size(); i++) {
             Entry currEntry = (Entry) (entryList.getFromList(i));
             String currType = currEntry.type;

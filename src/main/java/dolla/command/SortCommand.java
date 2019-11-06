@@ -14,6 +14,10 @@ import dolla.sort.SortName;
 import java.util.ArrayList;
 
 public class SortCommand extends Command {
+    private static final String TYPE_AMOUNT = "amount";
+    private static final String TYPE_DATE = "date";
+    private static final String TYPE_DESC = "description";
+    private static final String TYPE_NAME = "name";
     private String mode;
     private String type;
 
@@ -24,18 +28,18 @@ public class SortCommand extends Command {
     }
 
     @Override
-    public void execute(DollaData dollaData) throws Exception {
+    public void execute(DollaData dollaData) {
         RecordList recordList = new RecordList(new ArrayList<>());
         ArrayList<Record> list;
         switch (mode) {
-        case "entry":
-            recordList = dollaData.getRecordList(mode);
+        case MODE_ENTRY:
+            recordList = dollaData.getRecordListObj(mode);
             break;
-        case "debt":
-            recordList = dollaData.getRecordList(mode);
+        case MODE_DEBT:
+            recordList = dollaData.getRecordListObj(mode);
             break;
-        case "limit":
-            recordList = dollaData.getRecordList(mode);
+        case MODE_LIMIT:
+            recordList = dollaData.getRecordListObj(mode);
             break;
         default:
             Ui.printInvalidCommandError();
@@ -46,15 +50,15 @@ public class SortCommand extends Command {
             list = recordList.getCloneList();
             list.get(0); //test if list is empty
             switch (mode) {
-            case "entry":
+            case MODE_ENTRY:
                 switch (type) {
-                case "amount":
+                case TYPE_AMOUNT:
                     new SortAmount(list);
                     break;
-                case "date":
+                case TYPE_DATE:
                     new SortDate(list);
                     break;
-                case "description":
+                case TYPE_DESC:
                     new SortDescription(list);
                     break;
                 default:
@@ -62,18 +66,18 @@ public class SortCommand extends Command {
                     break;
                 }
                 break;
-            case "debt":
+            case MODE_DEBT:
                 switch (type) {
-                case "amount":
+                case TYPE_AMOUNT:
                     new SortAmount(list);
                     break;
-                case"date":
+                case TYPE_DATE:
                     new SortDate(list);
                     break;
-                case "description":
+                case TYPE_DESC:
                     new SortDescription(list);
                     break;
-                case "name":
+                case TYPE_NAME:
                     new SortName(list);
                     break;
                 default:
@@ -81,8 +85,8 @@ public class SortCommand extends Command {
                     break;
                 }
                 break;
-            case "limit":
-                if (type != null && type.equals("amount")) {
+            case MODE_LIMIT:
+                if (type.equals(TYPE_AMOUNT)) {
                     new SortAmount(list);
                 } else {
                     SortUi.printInvalidSort(mode);

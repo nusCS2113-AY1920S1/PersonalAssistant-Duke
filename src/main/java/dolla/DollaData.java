@@ -6,18 +6,25 @@ import dolla.task.LimitList;
 import dolla.task.Record;
 import dolla.task.RecordList;
 import dolla.task.BillList;
+import dolla.task.ShortcutList;
+
+
+import java.util.ArrayList;
 
 import static dolla.storage.Storage.getDebtsFromSave;
 import static dolla.storage.Storage.getEntriesFromSave;
 import static dolla.storage.Storage.getLimitsFromSave;
 import static dolla.storage.Storage.getBillsFromSave;
+import static dolla.storage.Storage.getShortcutsFromSave;
+import static dolla.storage.StorageStringList.BILL;
 
 public class DollaData implements ModeStringList {
 
-    private String mode = "dolla";
-    private EntryList entryList; // TODO: Find out alternatives to using a public variable
+    private String mode = MODE_DOLLA;
+    private EntryList entryList;
     private DebtList debtList;
     private LimitList limitList;
+    private ShortcutList shortcutList;
     private BillList billList;
 
     private String prevMode;
@@ -27,29 +34,50 @@ public class DollaData implements ModeStringList {
      * Creates an instance of DollaData to store and manipulate data.
      */
     public DollaData() {
-        //this.entryList = new EntryList(new ArrayList<Record>());
         this.entryList = new EntryList(getEntriesFromSave()); //Import from save file
-        this.limitList = new LimitList(getLimitsFromSave()); //Import from save file
-        this.debtList = new DebtList(getDebtsFromSave()); //Import from save file
-        this.billList = new BillList(getBillsFromSave()); //Import from save file
-
+        this.limitList = new LimitList(getLimitsFromSave());
+        this.debtList = new DebtList(getDebtsFromSave());
+        this.shortcutList = new ShortcutList(getShortcutsFromSave());
+        this.billList = new BillList(getBillsFromSave());
     }
 
     /**
-     * Returns the relevant RecordList (ie. EntryList) according to the specified mode.
+     * Returns the relevant RecordList object according to the specified mode.
      *
      * @param mode The mode pertaining to the RecordList to be retrieved.
      * @return The RecordList according to the specified mode.
      */
-    public RecordList getRecordList(String mode) {
-        if (mode.equals(MODE_ENTRY)) {
+    public RecordList getRecordListObj(String mode) {
+        switch (mode) {
+        case MODE_ENTRY:
             return entryList;
-        } else if (mode.equals(MODE_DEBT)) {
+        case MODE_DEBT:
             return debtList;
-        } else if (mode.equals(MODE_LIMIT)) {
+        case MODE_LIMIT:
             return limitList;
+        case MODE_SHORTCUT:
+            return shortcutList;
+        default:
+            return null; // placeholder so that Dolla can compile
         }
-        return null; // placeholder so that Dolla can compile
+    }
+
+    /**
+     * The method will get the ArrayList of Record with respect to the mode.
+     * @param mode the mode that the program is in.
+     * @return the ArrayList of Record.
+     */
+    public ArrayList<Record> getRecordList(String mode) {
+        if (mode.equals(MODE_ENTRY)) {
+            return entryList.get();
+        } else if (mode.equals(MODE_DEBT)) {
+            return debtList.get();
+        } else if (mode.equals(MODE_LIMIT)) {
+            return limitList.get();
+        } else if (mode.equals(MODE_SHORTCUT)) {
+            return shortcutList.get();
+        }
+        return null;
     }
 
     /**
@@ -60,14 +88,18 @@ public class DollaData implements ModeStringList {
      * @return The Record according to the specified mode.
      */
     public Record getRecordFromList(String mode, int index) {
-        if (mode.equals(MODE_ENTRY)) {
+        switch (mode) {
+        case MODE_ENTRY:
             return entryList.getFromList(index);
-        } else if (mode.equals(MODE_DEBT)) {
+        case MODE_DEBT:
             return debtList.getFromList(index);
-        } else if (mode.equals(MODE_LIMIT)) {
+        case MODE_LIMIT:
             return limitList.getFromList(index);
+        case MODE_SHORTCUT:
+            return shortcutList.getFromList(index);
+        default:
+            return null; // placeholder so that Dolla can compile
         }
-        return null; // placeholder so that Dolla can compile
     }
 
     public RecordList getBillRecordList() {
@@ -87,6 +119,8 @@ public class DollaData implements ModeStringList {
             debtList.add(newRecord);
         } else if (mode.equals(MODE_LIMIT)) {
             limitList.add(newRecord);
+        } else if (mode.equals(MODE_SHORTCUT)) {
+            shortcutList.add(newRecord);
         }
     }
 
@@ -94,21 +128,8 @@ public class DollaData implements ModeStringList {
         billList.add(newRecord);
     }
 
-    /**
-     * Add to prev position.
-     *
-     * @param mode         the mode
-     * @param newRecord       the new record
-     * @param prevPosition the prev position
-     */
-    public void addToPrevPosition(String mode, Record newRecord, int prevPosition) {
-        if (mode.equals(MODE_ENTRY)) {
-            entryList.insertPrevPosition(prevPosition, newRecord);
-        } else if (mode.equals(MODE_DEBT)) {
-            debtList.insertPrevPosition(prevPosition, newRecord);
-        } else if (mode.equals(MODE_LIMIT)) {
-            limitList.insertPrevPosition(prevPosition, newRecord);
-        }
+    public void addNewBillToRecordList(Record newRecord) {
+        billList.add(newRecord);
     }
 
     /**
@@ -124,6 +145,10 @@ public class DollaData implements ModeStringList {
             debtList.removeFromList(index);
         } else if (mode.equals(MODE_LIMIT)) {
             limitList.removeFromList(index);
+        } else if (mode.equals(MODE_SHORTCUT)) {
+            shortcutList.removeFromList(index);
+        } else if (mode.equals(BILL)) {
+            billList.removeFromList(index);
         }
     }
 
@@ -179,7 +204,37 @@ public class DollaData implements ModeStringList {
         modifyIndex = index;
     }
 
+    /**
+     * getPrevMode TODO: update.
+     * @return preMode
+     */
     public String getPrevMode() {
         return prevMode;
+    }
+
+    /**
+     * This method will set the ArrayList of Record in the object with respect to the mode.
+     * @param recordList the ArrayList of Record to be set as.
+     */
+    public void setRecordList(ArrayList<Record> recordList) {
+        switch (mode) {
+        case MODE_ENTRY:
+            this.entryList.setRecordList(recordList);
+            break;
+        case MODE_DEBT:
+            this.debtList.setRecordList(recordList);
+            break;
+        case MODE_LIMIT:
+            this.limitList.setRecordList(recordList);
+            break;
+        case MODE_SHORTCUT:
+            this.shortcutList.setRecordList(recordList);
+            break;
+        case BILL:
+            this.billList.setRecordList(recordList);
+            break;
+        default:
+            break;
+        }
     }
 }

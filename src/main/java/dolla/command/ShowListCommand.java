@@ -26,48 +26,18 @@ public class ShowListCommand extends Command {
     @Override
     public void execute(DollaData dollaData) {
 
-        /*
-        RecordList recordList = new RecordList(new ArrayList<Record>());
-        RecordList entryList = new EntryList(new ArrayList<Entry>());
-
-        switch (mode) {
-        case "entries":
-            recordList = dollaData.entryList;
-            entryList = dollaData.entryList;
-            entryList = dollaData.getLogList(mode);
-         */
-
-        RecordList recordList = new RecordList(new ArrayList<>());
-
-        switch (mode) { //TODO: is this needed?
-        case "entry":
-            recordList = dollaData.getRecordList(mode);
-            break;
-        case "debt":
-            recordList = dollaData.getRecordList(mode);
-            break;
-        case "limit":
-            recordList = dollaData.getRecordList(mode);
-            break;
-        default:
-            break; // TODO: What to do here?
-        }
-
+        RecordList recordList = dollaData.getRecordListObj(mode);
         boolean listIsEmpty = (recordList.size() == 0);
 
         if (listIsEmpty) { // TODO: Place this in proper place
             ListUi.printEmptyListError(mode);
-            return;
-        //} else if (mode.equals("entries")) {
-            //Ui.printList(mode, entryList);
-        } else if (mode.equals("entry")) {
+        } else if (mode.equals(MODE_ENTRY)) {
             ListUi.printList(mode, recordList);
-            return;
-        } else if (mode.equals("debt")) {
+        } else if (mode.equals(MODE_DEBT)) {
             ListUi.printList(mode, recordList);
-            //System.out.println(recordList.get().size());//test
-            return;
-        } else if (mode.equals("limit")) {
+        } else if (mode.equals(MODE_LIMIT)) {
+            ListUi.printList(mode, recordList);
+        } else if (mode.equals(MODE_SHORTCUT)) {
             ListUi.printList(mode, recordList);
         }
     }

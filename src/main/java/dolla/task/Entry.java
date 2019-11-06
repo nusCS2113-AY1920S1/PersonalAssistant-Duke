@@ -19,7 +19,7 @@ public class Entry extends Record {
      * @param date Date of income/expense.
      */
     public Entry(String type, double amount, String description, LocalDate date) {
-        this.sign = (type.equals("income") ? '+' : '-');
+        this.sign = (type.equals("income") ? '+' : '-'); //TODO: are we still printing this?
         this.type = type;
         this.amount = amount;
         this.description = description;

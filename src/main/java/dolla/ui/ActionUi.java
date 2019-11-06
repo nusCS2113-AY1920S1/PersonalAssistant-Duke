@@ -18,11 +18,16 @@ public class ActionUi extends Ui {
     }
 
     /**
-     * This method will print the empty repeat message.
+     * This method will print the message of successfully executed an action command.
+     * @param type the type of action command.
      */
-    public static void printEmptyRepeatError() {
+    public static void printActionMessage(String type) {
         System.out.println(line);
-        System.out.println("\tSorry, you do not have any command to repeat.");
+        if (type != null && type.equals("undo")) {
+            System.out.println("\tI have undone the command for you!");
+        } else if (type != null && type.equals("redo")) {
+            System.out.println("\tI have redone the command for you!");
+        }
         System.out.println(line);
     }
 }

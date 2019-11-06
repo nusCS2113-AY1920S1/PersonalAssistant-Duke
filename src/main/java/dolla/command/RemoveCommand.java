@@ -1,12 +1,18 @@
 package dolla.command;
 
 import dolla.DollaData;
-import dolla.ui.RemoveUi;
-import dolla.ui.Ui;
-import dolla.action.Redo;
-import dolla.action.Undo;
-import dolla.task.RecordList;
 
+import dolla.command.action.Redo;
+import dolla.command.action.state.DebtState;
+import dolla.command.action.state.EntryState;
+import dolla.command.action.state.LimitState;
+import dolla.command.action.state.UndoStateList;
+import dolla.task.Record;
+import dolla.ui.RemoveUi;
+
+import java.util.ArrayList;
+
+//@@author yetong1895
 /**
  * RemoveCommand is a Command used to remove a Task from the TaskList.
  */
@@ -14,7 +20,6 @@ public class RemoveCommand extends Command {
     private String logNumStr;
     protected String mode;
 
-    //@@author yetong1895
     public RemoveCommand(String mode, String logNumStr) {
         this.mode = mode;
         this.logNumStr = logNumStr;
@@ -38,33 +43,23 @@ public class RemoveCommand extends Command {
      */
     @Override
     public void execute(DollaData dollaData) {
-        int logNumInt;
-        RecordList recordList = dollaData.getRecordList(mode);
-        boolean isListEmpty = (recordList.size() == 0);
-
-        if (isListEmpty) {
-            return; // TODO: return error command
-        }
+        int recordNumInt;
+        ArrayList<Record> recordList = dollaData.getRecordList(mode);
         try {
-            if (logNumStr.contains("/")) { //input from undo
-                resetUndoFlag();
-                String[] parser = logNumStr.split("/", 2);
-                logNumInt = stringToInt(parser[0]) - 1;
-                Redo.addCommand(mode, recordList.get().get(logNumInt).getUserInput()); //add undo input to redo
-            } else if (logNumStr.contains("|")) { //input form redo
-                resetRedoFlag();
-                String[] parser = logNumStr.split("//|", 2);
-                logNumInt = stringToInt(parser[0]) - 1;
-                Undo.addCommand(mode, recordList.get().get(logNumInt).getUserInput(), logNumInt); //add input to undo
-            } else { //normal user input
-                logNumInt = stringToInt(logNumStr) - 1;
-                Undo.addCommand(mode, recordList.get().get(logNumInt).getUserInput(), logNumInt);
-                Redo.clearRedo(mode);
+            if (mode.equals(MODE_ENTRY)) {
+                UndoStateList.addState(new EntryState(recordList), mode);
+            } else if (mode.equals(MODE_DEBT)) {
+                UndoStateList.addState(new DebtState(recordList), mode);
+            } else if (mode.equals(MODE_LIMIT)) {
+                UndoStateList.addState(new LimitState(recordList), mode);
             }
-            RemoveUi.echoRemove(recordList.get().get(logNumInt).getRecordDetail());
-            dollaData.removeFromRecordList(mode, logNumInt);
+            Redo.clearRedoState(mode);
+            recordNumInt = stringToInt(logNumStr) - 1;
+            Record record = recordList.get(recordNumInt);
+            RemoveUi.echoRemove(record.getRecordDetail());
+            dollaData.removeFromRecordList(mode, recordNumInt);
         } catch (IndexOutOfBoundsException e) {
-            RemoveUi.printRemoveError(recordList.size());
+            RemoveUi.printNumberOfRecords(recordList.size());
         }
     }
 

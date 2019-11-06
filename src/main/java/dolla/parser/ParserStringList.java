@@ -17,12 +17,25 @@ public interface ParserStringList {
     String LIMIT_COMMAND_LIST = "limits";
     String LIMIT_COMMAND_SET = "set";
 
+    String LIMIT_TYPE_S = "saving";
+    String LIMIT_TYPE_B = "budget";
+
+    String LIMIT_DURATION_D = "daily";
+    String LIMIT_DURATION_W = "weekly";
+    String LIMIT_DURATION_M = "monthly";
+
     // Commands specific to Debt mode
     String DEBT_COMMAND_OWE = "owe";
     String DEBT_COMMAND_BORROW = "borrow";
     String DEBT_COMMAND_LIST = "debts";
     String BILL_COMMAND_BILL = "bill";
     String BILL_COMMAND_LIST = "bills";
+    String BILL_COMMAND_PAID = "paid";
+
+    //Commands specific to shortcut
+    String SHORTCUT_COMMAND_CREATE = "cs";
+    String SHORTCUT_COMMAND_EXECUTE = "es";
+    String SHORTCUT_COMMAND_LIST = "shortcuts";
 
     // Shared Commands
     String COMMAND_MODIFY = "modify";
@@ -43,4 +56,14 @@ public interface ParserStringList {
     String SORT_TYPE_DESC = "description";
     String SORT_TYPE_NAME = "name";
 
+    //Search Components
+    static final String SEARCH_DESCRIPTION = "description";
+    static final String SEARCH_DATE = "date";
+    static final String SEARCH_NAME = "name";
+    static final String SEARCH_DURATION = "duration";
+
+    //Components used in Action
+    String COMMAND_REDO = "redo";
+    String COMMAND_UNDO = "undo";
+    String COMMAND_REPEAT = "repeat";
 }

@@ -61,4 +61,53 @@ public class DebtUi extends Ui {
         System.out.println(MSG_MODIFY_DEBT);
         System.out.println(line);
     }
+
+    /**
+     * Print error message for invalid bill input.
+     */
+    public static void printInvalidBillFormatError() {
+        System.out.println(line);
+        System.out.println("\tplease follow the format "
+                + "'bill [NUMBER OF PEOPLE] [TOTAL AMOUNT] [NAME1] [NAME2]...'");
+        System.out.println(line);
+    }
+
+    /**
+     * Print message after deleting a name.
+     * @param name name of the person who paid the bill.
+     * @param nameList the name list.
+     */
+    public static void printRemoveNameMessage(String name, ArrayList<String> nameList) {
+        System.out.println(line);
+        System.out.println("\tGot it! " + name + " has paid the bill.");
+        System.out.println("\tHere is the updated name list: " + nameList);
+        System.out.println(line);
+    }
+
+    /**
+     * Print invalid paid format.
+     */
+    public static void printInvalidPaidFormatError() {
+        System.out.println(line);
+        System.out.println("\tPlease follow the format: paid [LIST NUMBER] [NAME]");
+        System.out.println(line);
+    }
+
+    /**
+     * Print message to notify a bill that has been paid by everyone.
+     */
+    public static void printFinishMessage() {
+        System.out.println(line);
+        System.out.println("\tOne bill has cleared");
+        System.out.println(line);
+    }
+
+    /**
+     * Print empty bill message.
+     */
+    public static void printEmptyBillMessage() {
+        System.out.println(line);
+        System.out.println("\tYou don't have any bills yet.");
+        System.out.println(line);
+    }
 }

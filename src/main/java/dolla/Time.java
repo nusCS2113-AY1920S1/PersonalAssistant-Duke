@@ -3,7 +3,6 @@ package dolla;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Locale;
 
 public class Time {
@@ -16,8 +15,7 @@ public class Time {
      */
     public static LocalDateTime readDateTime(String timeStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm", Locale.ENGLISH);
-        LocalDateTime time = LocalDateTime.parse(timeStr, formatter);
-        return time;
+        return LocalDateTime.parse(timeStr, formatter);
     }
 
     /**
@@ -28,8 +26,7 @@ public class Time {
      */
     public static LocalDate readDate(String timeStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH);
-        LocalDate time = LocalDate.parse(timeStr, formatter);
-        return time;
+        return LocalDate.parse(timeStr, formatter);
     }
 
     /**
@@ -39,8 +36,7 @@ public class Time {
      */
     public static String dateToString(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH);
-        String dateStr = date.format(formatter);
-        return dateStr;
+        return date.format(formatter);
     }
 
     /**
@@ -50,7 +46,6 @@ public class Time {
      */
     public static String dateTimeToString(LocalDateTime time) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm", Locale.ENGLISH);
-        String timeStr = time.format(formatter);
-        return timeStr;
+        return time.format(formatter);
     }
 }

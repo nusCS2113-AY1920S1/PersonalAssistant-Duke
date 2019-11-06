@@ -16,16 +16,16 @@ public class SortUi extends Ui {
         System.out.println(line);
         switch (type) {
         case "date":
-            System.out.println("sorting date.........");
+            typewriter("\tsorting date.........\n");
             break;
         case "description":
-            System.out.println("sorting description.........");
+            typewriter("\tsorting description.........\n");
             break;
         case "name":
-            System.out.println("sorting name.........");
+            typewriter("\tsorting name.........\n");
             break;
         case "amount":
-            System.out.println("sorting amount.........");
+            typewriter("\tsorting amount.........\n");
             break;
         default:
             break;
