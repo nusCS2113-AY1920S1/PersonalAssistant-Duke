@@ -157,6 +157,24 @@ public abstract class Task {
     public boolean isCompleted() {
         return this.isDone;
     }
+    
+    /**
+     * Sets the description of the task.
+     *
+     * @param description description to be set
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Sets the difficulty of the task.
+     *
+     * @param difficulty to be set to
+     */
+    public void setDifficulty(String difficulty) {
+        this.difficulty = new Difficulty(difficulty); 
+    }
 
     public abstract LocalDateTime getDateTime();
 
