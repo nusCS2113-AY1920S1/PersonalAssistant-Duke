@@ -85,7 +85,7 @@ public class DeleteCommandTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {1,4})
+    @ValueSource(ints = {1, 4})
     public void execute_contact_invalidId_error(int input) {
         DeleteCommand command = new DeleteCommand("contact", input);
         command.execute(testWallet);
