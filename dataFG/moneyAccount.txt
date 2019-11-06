@@ -10,6 +10,7 @@ INC @ 100.0 @ Initialize account: OCBC @ 6/11/2019
 INC @ 10.0 @ Deposit to OCBC @ 11/11/2020
 INC @ 32.0 @ shoit  @ 6/11/2019
 INC @ 32.11 @ shoit  @ 6/11/2019
+INC @ 40.0 @ ta  @ 22/1/1900
 EXP @ 3.0 @ taxi fare  @ transport  @ 24/10/2019
 EXP @ 60.0 @ food for the week  @ food  @ 31/10/2019
 EXP @ 2000.0 @ To DBS @ Loan Repayment @ 6/11/2019

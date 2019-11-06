@@ -74,6 +74,9 @@ public class ViewPastExpenditureCommand extends MoneyCommand {
         if (month < 1 || month > 12) {
             throw new DukeException("Month is invalid! Please pick a month from 1-12");
         }
+        if (year < 1000 || year > 9999) {
+            throw new DukeException("Only years dated from 1000-9999 are accepted by Financial Ghost :)");
+        }
         float totalMonthExpenditure = 0;
         int counter = 1;
         for (Expenditure i : account.getExpListTotal()) {
