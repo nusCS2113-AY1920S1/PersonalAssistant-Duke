@@ -8,7 +8,7 @@
     "For this Level, you are required to implement a sequence of steps",
     "You have to check whether you have enough money before purchasing the seeds",
     "afterwhich it is necessary to go to the wheat farm and plant seeds",
-    "using [if hasSeeds do plantSeeds && if haswWheat do harvestWheat]",
+    "using [if hasSeeds do plantSeeds && if hasWheat do harvestWheat]",
     "before selling the grains at the market"
   ],
   "gold": 30,
