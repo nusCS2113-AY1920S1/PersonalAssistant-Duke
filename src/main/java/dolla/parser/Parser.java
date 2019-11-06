@@ -40,8 +40,8 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * @param inputLine The entire string containing the user's input.
      */
     public Parser(String inputLine) {
-        Parser.inputLine = inputLine;
-        inputArray = inputLine.split(SPACE);
+        this.inputLine = inputLine;
+        this.inputArray = inputLine.split(SPACE);
         this.commandToRun = inputArray[0];
     }
 
