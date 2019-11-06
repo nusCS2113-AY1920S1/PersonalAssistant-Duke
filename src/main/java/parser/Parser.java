@@ -19,6 +19,7 @@ import command.SetReminderCommand;
 import dictionary.Word;
 import exception.CommandInvalidException;
 import exception.EmptyWordException;
+import exception.InvalidCharacterException;
 import exception.InvalidHistoryIndexException;
 import exception.WordUpException;
 import exception.WrongAddFormatException;
@@ -127,7 +128,8 @@ public class Parser {
      * @throws WrongAddFormatException when the format of the delete command does not match the required format
      * @throws EmptyWordException when there is no word entered with the command
      */
-    protected static Command parseAdd(String[] taskInfo) throws WrongAddFormatException, EmptyWordException {
+    protected static Command parseAdd(String[] taskInfo) throws WrongAddFormatException,
+            EmptyWordException, InvalidCharacterException {
         if (taskInfo.length == 1) {
             throw new WrongAddFormatException();
         }
@@ -143,8 +145,14 @@ public class Parser {
         if (wordDescription.length() == 0) {
             throw new EmptyWordException();
         }
+        if (isAlphabetString(wordDescription) == false) {
+            throw new InvalidCharacterException();
+        }
         String[] meaningAndTag = wordDetail[1].split("t/");
         String meaning = meaningAndTag[0].trim();
+        if (isAlphabetString(meaning) == false) {
+            throw new InvalidCharacterException();
+        }
         if (meaning.length() == 0) {
             throw new EmptyWordException();
         }
@@ -152,7 +160,11 @@ public class Parser {
         if (meaningAndTag.length > 1) {
             HashSet<String> tags = new HashSet<>();
             for (int j = 1; j < meaningAndTag.length; ++j) {
-                tags.add(meaningAndTag[j]);
+                if (isAlphabetString(meaningAndTag[j])) {
+                    tags.add(meaningAndTag[j]);
+                } else {
+                    throw new InvalidCharacterException();
+                }
             }
             word = new Word(wordDescription, meaning, tags);
         } else {
@@ -367,4 +379,23 @@ public class Parser {
         return new QuizCommand();
     }
 
+    /**
+     * Checks a string to ensure it contains only alphabets and spaces.
+     * @param s where s is the string to be scanned
+     * @return true or false
+     */
+    protected static boolean isAlphabetString(String s) {
+        if (s == null || s.length() == 0) {
+            return false;
+        }
+        char[] chars = s.toCharArray();
+        for (int index = 0; index < chars.length; index++) {
+            int codePoint = Character.codePointAt(chars, index);
+            if (!Character.isLetter(codePoint) && !Character.isSpaceChar(codePoint)
+                    && !(chars[index] == ',' || chars[index] == '.' || chars[index] == ';')) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
