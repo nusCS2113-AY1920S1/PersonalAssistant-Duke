@@ -91,9 +91,9 @@ public class Storage {
     }
 
     /**
-     *
-     * @param userList
-     * @throws IOException
+     * To write to file for users.
+     * @param userList list of users
+     * @throws IOException entry error
      */
     public void saveToFile(UserList userList) throws IOException {
         FileOutputStream fileOutputStream = new FileOutputStream(fileToRead);

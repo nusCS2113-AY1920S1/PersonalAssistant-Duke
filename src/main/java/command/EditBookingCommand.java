@@ -1,6 +1,7 @@
 
 package command;
 
+import booking.ApprovedList;
 import inventory.Inventory;
 
 import booking.Booking;
@@ -48,8 +49,10 @@ public class EditBookingCommand extends Command {
     }
 
     @Override
-    public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage)
+    public void execute(UserList userList, Inventory inventory, RoomList roomList,
+                        BookingList bookingList, ApprovedList approvedList, Ui ui,
+                        Storage userStorage, Storage inventoryStorage,
+                        Storage bookingstorage, Storage roomstorage, Storage approvestorage)
             throws DukeException, IOException, ParseException {
         bookingList.get(index).setDescription(textToEdit);
         ui.addToOutput("The description of this request has been changed!");
