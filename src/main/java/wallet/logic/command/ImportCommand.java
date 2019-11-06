@@ -57,10 +57,14 @@ public class ImportCommand extends Command {
     @Override
     public boolean execute(Wallet wallet) {
 
+        System.out.println("Importing records... \n");
+
         if ("loan".equals(type)) {
 
             ArrayList<Loan> loanData = loanList.getLoanList();
+
             for (Loan loan : loanData) {
+
 
                 //@@author Xdecosee-reused
                 int largestId = wallet.getContactList().getLargestId(wallet.getContactList().getContactList()) + 1;
@@ -75,6 +79,7 @@ public class ImportCommand extends Command {
                 wallet.getLoanList().setModified(true);
                 System.out.println(MESSAGE_SUCCESS_ADD_LOAN);
                 System.out.println(loan.toString());
+                System.out.println();
 
             }
 
@@ -102,10 +107,11 @@ public class ImportCommand extends Command {
                 wallet.getExpenseList().setModified(true);
                 System.out.println(MESSAGE_SUCCESS_ADD_EXPENSE);
                 System.out.println(expense.toString());
+                System.out.println();
             }
         }
 
-
+        System.out.println("Finish Import!");
         return false;
     }
 }

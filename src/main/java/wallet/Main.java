@@ -1,6 +1,5 @@
 package wallet;
 
-import org.apache.commons.logging.Log;
 import wallet.logic.LogicManager;
 import wallet.ui.Ui;
 
@@ -37,12 +36,12 @@ public class Main {
             String fullCommand = ui.readLine();
 
             //@@author Xdecosee
-            if(fullCommand.equals("help")){
-               ui.showHelp(LogicManager.getHelpList());
-               continue;
+            if ("help".equals(fullCommand)) {
+                ui.showHelp(LogicManager.getHelpList());
+                continue;
             }
             //@@author
-            
+
             //ui.printLine();
             isExit = logicManager.execute(fullCommand);
             //ui.printLine();

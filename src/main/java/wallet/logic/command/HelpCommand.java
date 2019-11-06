@@ -27,7 +27,6 @@ public class HelpCommand extends Command {
     @Override
     public boolean execute(Wallet wallet) {
         //@@author Xdecosee
-
         int chosenIndex;
         try {
             chosenIndex = Integer.parseInt(input);
@@ -42,7 +41,6 @@ public class HelpCommand extends Command {
         } catch (NumberFormatException e) {
             System.out.println(MESSAGE_ERROR_INDEX);
         }
-
         return false;
         //@@author
     }

@@ -158,4 +158,5 @@ public class ContactParserHelper {
 
         return new Contact(name, details, phone);
     }
+
 }
