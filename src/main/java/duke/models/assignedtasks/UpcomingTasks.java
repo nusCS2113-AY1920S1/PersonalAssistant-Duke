@@ -36,22 +36,20 @@ public class UpcomingTasks {
         this.date = dateTime.toLocalDate();
         for (AssignedTask task : assignedTaskManager.getAssignTasks()) {
             if (task.getTodoDate() != null) {
-                LocalDateTime taskTime = task.getTodoDate();
                 LocalDate taskDate = task.getTodoDate().toLocalDate();
 
-                if (taskTime.isAfter(dateTime) && taskDate.isBefore(date.plusDays(1))) {
+                if (taskDate.isEqual(date)) {
                     tasks.add(task);
                 }
             } else if (task.getStartDate() != null && task.getEndDate() != null) {
-                LocalDateTime startTime = task.getStartDate();
                 LocalDate startDate = task.getStartDate().toLocalDate();
-                LocalDateTime endTime = task.getEndDate();
                 LocalDate endDate = task.getEndDate().toLocalDate();
 
-                if ((startTime.isAfter(dateTime)
-                        && startDate.isBefore(date.plusDays(1)))
-                        || (endTime.isAfter(dateTime)
-                        && endDate.isBefore(date.plusDays(1)))) {
+                if (startDate.isEqual(date)) {
+                    tasks.add(task);
+                }
+
+                if (startDate.isBefore(date) && (endDate.isAfter(date) || endDate.isEqual(date))) {
                     tasks.add(task);
                 }
             } else {
@@ -99,6 +97,20 @@ public class UpcomingTasks {
      */
     public String getFormattedDate() {
         return dateTime.format(dateFormatParser);
+    }
+
+    /**
+     * Returns String Array list of each of the provided date's tasks + their respective info.
+     * @return Array list of Strings with the date's tasks + info
+     */
+    public ArrayList<String> getTaskAndInfo() {
+        ArrayList<String> tasksWithInfo = new ArrayList<String>();
+        for (int i = 0; i < tasks.size(); i++) {
+            String output = "Unique ID: " + tasks.get(i).getUuid() + ". \nDescription: "
+                    + taskDescriptions.get(i) + "\nFor patient: " + patientsForTasks.get(i) + "\n";
+            tasksWithInfo.add(output);
+        }
+        return tasksWithInfo;
     }
 
 }

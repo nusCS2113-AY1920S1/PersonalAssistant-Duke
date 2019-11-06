@@ -18,14 +18,17 @@ public class UpcomingTasksCommand implements Command {
 
     LocalDateTime fromDate;
     ArrayList<LocalDateTime> dates = new ArrayList<LocalDateTime>();
+    ArrayList<UpcomingTasks> upcomingTaskList = new ArrayList<UpcomingTasks>();
+    Boolean isTypedCommand = false;
 
     /**
      * The constructor for the UpcomingTasksCommand. Takes today's date and prepares UpcomingTask lists
      * for each day within the following week.
      * @param fromDate The current date.
      */
-    public UpcomingTasksCommand(LocalDateTime fromDate) {
+    public UpcomingTasksCommand(LocalDateTime fromDate, Boolean isTypedCommand) {
         this.fromDate = fromDate;
+        this.isTypedCommand = isTypedCommand;
         for (int i = 0; i < 7; i++) {
             LocalDateTime currentDate = fromDate.plusDays(i);
             dates.add(currentDate);
@@ -38,10 +41,20 @@ public class UpcomingTasksCommand implements Command {
                         StorageManager storageManager) throws DukeException {
         for (LocalDateTime date : dates) {
             UpcomingTasks upcomingTaskForDay = new UpcomingTasks(date, patientTask, tasks, patientList);
-            dukeUi.showUpcomingTasks(upcomingTaskForDay);
+            upcomingTaskList.add(upcomingTaskForDay);
+            if (isTypedCommand) {
+                dukeUi.showUpcomingTasks(upcomingTaskForDay);
+            }
         }
-
+        if (isTypedCommand) {
+            isTypedCommand = false;
+        }
     }
+
+    public ArrayList<UpcomingTasks> getUpcomingTaskLists() {
+        return upcomingTaskList;
+    }
+
 
     @Override
     public boolean isExit() {
