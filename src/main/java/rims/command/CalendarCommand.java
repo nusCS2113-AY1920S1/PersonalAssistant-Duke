@@ -86,6 +86,21 @@ public abstract class CalendarCommand extends Command {
             printMidCells(row);
         }
         printBotCells();
+
+       /*System.out.print("\n \n 1x Seminar Room 1 is unavailable for booking at this slot, would you like Seminar Room 2 or Seminar Room 3 instead? \n \n" +
+                "4x Badminton Rackets are successfully booked! \n" +
+                "Would you also like to book:\n" +
+                "- 2x Shuttlecocks(12-pack 12) \n" +
+                "- MPSH 1\n" +
+                "- 1x Badminton net\n" +
+                "\n" +
+                "The demand for: \n" +
+                "- Frisbees\n" +
+                "- Footballs \n" +
+                "- Volleyballs \n" +
+                " are projected to increase in the following month, RIMS recommends to increase supply to meet increasing demand \n" +
+                " \n" );*/
+
     }
 
     private static void printTopCells() {
