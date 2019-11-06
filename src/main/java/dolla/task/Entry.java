@@ -20,7 +20,7 @@ public class Entry extends Record {
      * @param tagName Details of the tag name.
      */
     public Entry(String type, double amount, String description, LocalDate date, String tagName) {
-        this.sign = (type.equals("income") ? '+' : '-');
+        this.sign = ("income".equals(type) ? '+' : '-');
         this.type = type;
         this.amount = amount;
         this.description = description;
