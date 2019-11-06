@@ -42,7 +42,8 @@ public class ThirtyMinReminder extends Reminder {
     public void execute(LocalDateTime now) {
         try {
             now = LocalDateTime.now();
-            this.thread.sleep(1800000);
+            //Thread.sleep(1800000);
+            Thread.sleep(2000);
             this.thread.notify();
             new PlannerUi().reminderMsg();
         } catch (InterruptedException e) {
