@@ -1,7 +1,6 @@
 package duke.command.impression;
 
 import duke.DukeCore;
-import duke.command.ArgCommand;
 import duke.command.ArgLevel;
 import duke.command.Switch;
 import duke.data.DukeData;
@@ -22,10 +21,10 @@ import java.util.Map;
 public class ImpressionEditSpec extends DukeDataSpec {
 
     private static final ImpressionEditSpec spec = new ImpressionEditSpec();
+
     public static ImpressionEditSpec getSpec() {
         return spec;
     }
-    private ArgCommand cmd;
 
     private ImpressionEditSpec() {
         cmdArgLevel = ArgLevel.NONE;

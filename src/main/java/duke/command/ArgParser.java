@@ -165,7 +165,8 @@ public class ArgParser {
         if (currSwitchName == null && currCommand.getArg() != null) {
             throw new DukeHelpException("I don't know what you're trying to tell me with the word '"
             + elementBuilder.toString() + "'!", currCommand);
-        };
+        }
+
         // if ambiguous whether argument is for command or switch, favour switch
         if (currSwitchName != null) {
             if (currCommand.isArgForbidden(currSwitchName)) { // switch should not have arguments

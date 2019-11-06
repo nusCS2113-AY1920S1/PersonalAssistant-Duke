@@ -17,6 +17,11 @@ public class ArgCommand extends Command {
     private HashMap<String, String> switchVals; //hashmap of switch parameters
     private final ArgSpec spec;
 
+    /**
+     * Creates a new command that takes arguments, with switches and functionality specified in the supplied ArgSpec
+     * object.
+     * @param spec The ArgSpec object that specifies this command object's switches and functionality.
+     */
     public ArgCommand(ArgSpec spec) {
         super(spec);
         this.spec = spec;
@@ -24,6 +29,16 @@ public class ArgCommand extends Command {
         switchVals = new HashMap<String, String>();
     }
 
+    /**
+     * Creates a new command that takes arguments, with switches and functionality specified in the supplied ArgSpec
+     * object, with the option to specify the argument and switch values, if allowed.
+     * @param spec The ArgSpec object that specifies this command object's switches and functionality.
+     * @param arg The argument to load for this command.
+     * @param switchNames The names of the switches to set.
+     * @param switchVals The values of the switches to set.
+     * @throws DukeException If illegal values are supplied for the switches or arguments, or if the number of switch
+     *      values is different from the number of switch names.
+     */
     public ArgCommand(ArgSpec spec, String arg, String[] switchNames, String[] switchVals) throws DukeException {
         this(spec);
         initArg(arg);
@@ -51,7 +66,7 @@ public class ArgCommand extends Command {
      * @param switchName The name of the switch to be initialised.
      * @param value The value to initialise it to.
      * @throws DukeHelpException If the switch is already initialised, if {@code switchName} is null, if the switch
-     * should not have an argument but {@code value} is not null, or if the switch should have an argument but
+     *      should not have an argument but {@code value} is not null, or if the switch should have an argument but
      * {@code value} is null.
      */
     protected void initSwitchVal(String switchName, String value) throws DukeHelpException {
@@ -190,6 +205,10 @@ public class ArgCommand extends Command {
         return true;
     }
 
+    /**
+     * Check if the argument (if required) and all required switches are set.
+     * @throws DukeHelpException If the argument (if required) or any required switches are not set.
+     */
     public void checkCommandValid() throws DukeHelpException {
         if (getCmdArgLevel() == ArgLevel.REQUIRED && getArg() == null) {
             throw new DukeHelpException("You need to give an argument for the command!", this);
@@ -197,7 +216,7 @@ public class ArgCommand extends Command {
         for (HashMap.Entry<String, Switch> switchEntry : getSwitchMap().entrySet()) {
             Switch checkSwitch = switchEntry.getValue();
             if (!checkSwitch.isOptional && !switchVals.containsKey(checkSwitch.name)) {
-                throw new DukeHelpException("You need to give me this switch: "
+                throw new DukeHelpException("You need to set this switch: "
                         + switchEntry.getKey(), this);
             }
         }
