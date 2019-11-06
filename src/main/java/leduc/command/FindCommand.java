@@ -118,22 +118,14 @@ public class FindCommand extends Command {
             }
 
         }
-        if(storage.getLanguage().equals("en")) {
-            if (result.isEmpty()) {
-                uien.showFindNotMatching();
+        if (result.isEmpty()) {
+            ui.showFindNotMatching();
 
-            } else {
-                uien.showFindMatching(result);
-            }
+        } else {
+            ui.showFindMatching(result);
         }
-        else if(storage.getLanguage().equals("fr")) {
-            if (result.isEmpty()) {
-                uifr.showFindNotMatching();
 
-            } else {
-                uifr.showFindMatching(result);
-            }
-        }
+
     }
     /**
      * getter because the shortcut is private

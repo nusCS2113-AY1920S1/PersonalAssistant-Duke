@@ -177,53 +177,31 @@ public class StatsCommand extends Command {
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      */
     public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidFlagException {
-        UiEn uien = new UiEn();
-        UiFr uifr = new UiFr();
         //get user flag
         String flag = String.join(" ", Arrays.copyOfRange(user.split(" "), 1, user.split( " ").length));
         analyzeTaskList(taskList);
         createPercentageMetrics();
         //display metrics
-            if(storage.getLanguage().equals("fr")) {
-                if (flag.equals("")) {
-                    uifr.showGeneralStats(numTasks, numTodos, numEvents, numHomework, numIncomplete, numComplete, percentComplete);
-                }
-                //display priority statistics
-                else if (flag.equals("-p")) {
-                    uifr.showPriorityStats(numFivePrio, numFourPrio,
-                            numThreePrio, numTwoPrio, numOnePrio, percentFivePrio,
-                            percentFourPrio, percentThreePrio, percentTwoPrio,
-                            percentOnePrio);
-                }
-                //display completion statistics
-                else if (flag.equals("-c")) {
-                    uifr.showCompletionStats(numIncompleteHomework, numIncompleteTodo, numIncompleteEvent,
-                            percentIncompleteHomework, percentIncompleteTodo, percentIncompleteEvent);
-                } else {
-                    Exception e = new InvalidFlagException();
-                    uifr.showError((DukeException) e);
-                }
-        }
-        else if(storage.getLanguage().equals("en")) {
+
             if (flag.equals("")) {
-                uien.showGeneralStats(numTasks, numTodos, numEvents, numHomework, numIncomplete, numComplete, percentComplete);
+                ui.showGeneralStats(numTasks, numTodos, numEvents, numHomework, numIncomplete, numComplete, percentComplete);
             }
             //display priority statistics
             else if (flag.equals("-p")) {
-                uien.showPriorityStats(numFivePrio, numFourPrio,
+                ui.showPriorityStats(numFivePrio, numFourPrio,
                         numThreePrio, numTwoPrio, numOnePrio, percentFivePrio,
                         percentFourPrio, percentThreePrio, percentTwoPrio,
                         percentOnePrio);
             }
             //display completion statistics
             else if (flag.equals("-c")) {
-                uien.showCompletionStats(numIncompleteHomework, numIncompleteTodo, numIncompleteEvent,
+                ui.showCompletionStats(numIncompleteHomework, numIncompleteTodo, numIncompleteEvent,
                         percentIncompleteHomework, percentIncompleteTodo, percentIncompleteEvent);
             } else {
                 Exception e = new InvalidFlagException();
-                uien.showError((DukeException) e);
+                ui.showError((DukeException) e);
             }
-        }
+
 
     }
 
