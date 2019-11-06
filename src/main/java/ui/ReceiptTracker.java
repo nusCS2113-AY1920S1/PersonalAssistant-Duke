@@ -208,6 +208,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
                         + ". "
                         + this.get(index).getTags()
                         + " "
+                        + "$"
                         + this.get(index).getCashSpent()
                         + " "
                         + this.get(index).getDate()
