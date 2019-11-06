@@ -172,13 +172,14 @@ public class Pomodoro {
     }
 
     public void doneTask(int i) throws DukeException {
-        if (i < 1) {
+        if (i < 0) {
             throw new DukeException("Please enter a positive index!");
         }
         if (i >= pomodoroTaskList.size()) {
             throw new DukeException("No such task exist in your pomodoro task list!");
         }
         Task t = pomodoroTaskList.get(i);
+        t.markAsDone();
         System.out.println("Congratulations! You have completed: " + t.getDescription());
         pomodoroTaskList.remove(i);
     }
