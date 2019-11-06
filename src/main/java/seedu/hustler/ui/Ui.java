@@ -80,7 +80,7 @@ public class Ui {
     public void showAvatarStatistics() {
         System.out.println(LINE);
         System.out.println("\tHere are the information on your Avatar:");
-        System.out.println(Hustler.avatar.toString());
+        System.out.println("\t" + Hustler.avatar.toString());
         System.out.println(LINE);
     }
 
@@ -312,7 +312,8 @@ public class Ui {
      * @param achievementList list of achievements
      */
     public void showAchievementList(ArrayList<Achievements> achievementList) {
-        System.out.println("********* UNLOCKED ACHIEVEMENTS *********");
+        System.out.println("****************** Here is the list of your achievements ******************");
+        System.out.println("\n\t\t\t====== UNLOCKED ACHIEVEMENTS ======");
         if (!achievementList.isEmpty()) {
             int l = 0;
             for (int i = 0; i < achievementList.size(); i++) {
@@ -322,7 +323,7 @@ public class Ui {
                     System.out.println(achievementList.get(i));
                 }
             }
-            System.out.println("\n********* LOCKED ACHIEVEMENTS *********");
+            System.out.println("\n\t\t\t======= LOCKED ACHIEVEMENTS =======");
             int j = 0;
             for (int i = 0; i < achievementList.size(); i++) {
                 if (achievementList.get(i).checkLock()) {
@@ -331,7 +332,8 @@ public class Ui {
                     System.out.println(achievementList.get(i));
                 }
             }
-            System.out.println("\nTotal Points = " + totalPoints);
+            System.out.println("\n\t\t\t\tYou currently have: " + totalPoints + " points.");
+            System.out.println("*************************************************************************");
         }
     }
 }
