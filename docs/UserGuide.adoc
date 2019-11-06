@@ -167,6 +167,7 @@ Format : `history NUMBER` +
 Example : +
 `history 5` will print the last 5 console commands given.
 
+
 === Delete chat bubbles in the chatbox : `undo`
 
 This command allows users to delete the previous chat bubbles in the chat.

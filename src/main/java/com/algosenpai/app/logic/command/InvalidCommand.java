@@ -25,12 +25,10 @@ public class InvalidCommand extends Command {
         for (String i : inputs) {
             if (Parser.allCharacters(i)) {
                 input += i;
-            } else {
-                arg += i;
             }
         }
         if (!compare(input).isEmpty()) {
-            return "Sorry please input a valid command. Did you mean... " + compare(input) + " " + arg;
+            return "OOPS!!! Error occurred. Please input a valid command. Did you mean... " + compare(input) + "?";
         } else {
             return "Sorry please input a valid command. Enter `menu` to view our list of commands and `menu <command> "
                     + "to find out how to use them!";

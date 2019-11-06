@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 public enum CommandsEnum {
     hello,
     menu,
+    quiz,
     select,
     result,
     history,
