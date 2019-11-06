@@ -76,9 +76,9 @@ Given below is a quick overview of each component.
 
 * `Model` package contains all the object containers that are used by our `commands`.
 
-* `Storage` package contains class files to help store all your data to the hard disk.
+* `Storage` package contains classes to help store all your data to the hard disk.
 
-* `OofException` contains classes to print customised error messages when things are not going as expected.
+* `Exception` package contains classes to print customised error messages when things are not going as expected.
 
 === UI component
 
