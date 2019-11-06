@@ -1,7 +1,6 @@
 package duke.command.home;
 
 import duke.DukeCore;
-import duke.command.ArgCommand;
 import duke.command.ArgLevel;
 import duke.command.ArgSpec;
 import duke.command.CommandUtils;
@@ -27,7 +26,7 @@ public class HomeOpenSpec extends ArgSpec {
     }
 
     @Override
-    public void execute(DukeCore core, ArgCommand cmd) throws DukeException {
+    protected void execute(DukeCore core) throws DukeException {
         String bed = cmd.getSwitchVal("bed");
         Patient patient = CommandUtils.findFromHome(core, bed, cmd.getArg());
 

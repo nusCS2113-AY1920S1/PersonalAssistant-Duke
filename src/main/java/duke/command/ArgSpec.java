@@ -18,6 +18,7 @@ public abstract class ArgSpec {
     protected ArgLevel cmdArgLevel;
     protected Map<String, Switch> switchMap;
     protected Map<String, String> switchAliases;
+    protected ArgCommand cmd;
 
     public ArgLevel getCmdArgLevel() {
         return cmdArgLevel;
@@ -31,7 +32,13 @@ public abstract class ArgSpec {
         return switchAliases;
     }
 
-    public abstract void execute(DukeCore core, ArgCommand cmd) throws DukeException;
+    public void execute(DukeCore core, ArgCommand cmd) throws DukeException {
+        this.cmd = cmd;
+        execute(core);
+        this.cmd = null;
+    }
+
+    protected abstract void execute(DukeCore core) throws DukeException;
 
     protected void initSwitches(Switch... switches) {
         Map<String, Switch> tempSwitchMap = new HashMap<String, Switch>();

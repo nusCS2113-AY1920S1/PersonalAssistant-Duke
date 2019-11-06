@@ -1,7 +1,6 @@
 package duke.command.home;
 
 import duke.DukeCore;
-import duke.command.ArgCommand;
 import duke.command.ArgLevel;
 import duke.command.ArgSpec;
 import duke.command.Switch;
@@ -34,7 +33,7 @@ public class HomeNewSpec extends ArgSpec {
     }
 
     @Override
-    public void execute(DukeCore core, ArgCommand cmd) throws DukeException {
+    protected void execute(DukeCore core) throws DukeException {
         //ideally, we would pass an array of objects
         cmd.nullToEmptyString(); //set optional string parameters to ""
         Integer height = cmd.switchToInt("height");

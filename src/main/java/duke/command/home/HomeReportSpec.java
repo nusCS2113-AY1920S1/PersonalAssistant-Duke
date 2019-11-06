@@ -1,7 +1,6 @@
 package duke.command.home;
 
 import duke.DukeCore;
-import duke.command.ArgCommand;
 import duke.command.ArgLevel;
 import duke.command.ArgSpec;
 import duke.command.Switch;
@@ -30,7 +29,7 @@ public class HomeReportSpec extends ArgSpec {
     }
 
     @Override
-    public void execute(DukeCore core, ArgCommand cmd) throws DukeException {
+    protected void execute(DukeCore core) throws DukeException {
         String header = "PATIENT REPORT";
         String explanation = "This report shows all the data that was stored about a patient at the time the report was"
                 + " created.";
