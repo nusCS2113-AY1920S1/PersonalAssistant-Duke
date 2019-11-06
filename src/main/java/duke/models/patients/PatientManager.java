@@ -95,6 +95,9 @@ public class PatientManager {
      */
     public void nricIsValid(String nric) throws DukeException {
         Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
+        if (nric.length() != 9) {
+            throw new DukeException("NRIC must contain exactly 9 characters.");
+        }
         for (Patient patient : patientIdMap.values()) {
             if (patient.getNric().toLowerCase().contains(nric)) {
                 throw new DukeException("The NRIC is existed.");
@@ -108,9 +111,6 @@ public class PatientManager {
             throw new DukeException("The first letter of NRIC can only be S, T, F or G.");
         }
         String nricSubstring = nric.substring(1);
-        if (nricSubstring.length() != 8) {
-            throw new DukeException("The length of NRIC can only 9 characters.");
-        }
         if (Character.isAlphabetic(nricSubstring.charAt(7))) {
             String nricSubstring2 = nricSubstring.substring(0, nricSubstring.length() - 1);
             if (!nricSubstring2.matches("[0-9]+")) {
@@ -128,6 +128,9 @@ public class PatientManager {
      * @throws DukeException if the room number is invalid.
      */
     public void roomIsValid(String room) throws DukeException {
+        if (room.length() == 0) {
+            throw new DukeException("The patient's Room No. cannot be empty.");
+        }
         Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
         if (regex.matcher(room).find()) {
             throw new DukeException("The patient's Room No. cannot contain any special characters.");
