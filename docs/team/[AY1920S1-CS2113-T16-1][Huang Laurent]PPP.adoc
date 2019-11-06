@@ -11,56 +11,59 @@ Leduc is a task management application geared to help high school students manag
 
 == Summary of contributions
 
-=== *Code contribution:*
-
-https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=laurenthg
-
 === *Features implemented:*
 
-==== Modify a task
+==== Major enhancement: modify a task
 
-* Implemented my biggest feature "modify a task". Several commands are implemented: `reschedule`, `postpone`, `snooze`, `edit` and `prioritize`.
-** snooze and postpone a homework task: `PostponeCommand` and `SnoozeCommand` with their Junit tests `PostponeCommandTest` and `SnoozeCommandTest`.
+* Several commands are implemented: `reschedule`, `postpone`, `snooze`, `edit` and `prioritize`.
+** snooze and postpone a homework task:
 *** This command is important as the deadline of a homework could have to change.
 *** Verification of that the new date is after the old one is made.
-** reschedule a event task: `RescheduleCommand` and its JUnit test `RescheduleCommandTest`
+** reschedule a event task:
 *** This command is important as a event could be moved to another date, could be extended ...
 *** Verification of that the new event period have not conflict with other tasks is made.
-** Edit a task: `EditCommand` and its Junit `EditCommandTest` with the text-ui-test `test6` for the multi-steps part.
+** Edit a task:
 *** This command allows the user to edit the description or date/period of a task.
 *** This is a primary command as a task description or date are likely changed if the user initially created a incorrect task.
 *** This is managed either in a interactive way which the multi-steps command or in one shot command.
 *** Verification of conflict dates for event task is made when the user wants to change the period of an event task.
 *** With edit command, user is allowed to give a new date to a homework task which is earlier than the old one.
-** Prioritize a task: `PrioritizeCommand` and its Junit test `PrioritizeCommandTest`.
+** Prioritize a task:
 *** A priority field is added to each task. So, the user can now create a task with a priority of his choice ( from 1 to 9) or the priority 5 by default.
 *** This command allows to change the priority of a task and this is very important as the priority of a task generally increase with the time.
 
-==== Sort the task list
+==== Minor enhancement: Sort the task list
 
-* Implemented the second feature "sort the task list': `SortCommand` and `SortCommandTest`
-** This feature is very useful for the user as he could now see the task list either in the description, date or priority order.
+* Implemented the second feature "sort the task list':
+** This feature is very useful for the user as he could now see the task list either in the description, date, priority, type of task or either the task is done or not order.
+
+*Code contribution:* [https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=laurenthg[Project Code Dashboard]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/PostponeCommand.java[PostponeCommand]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/SnoozeCommand.java[SnoozeCommand]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/RescheduleCommand.java[RescheduleCommand]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/EditCommand.java[EditCommand]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/PrioritizeCommand.java[PrioritizeCommand]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/SortCommand.java[SortCommand]]
+
 
 === Other contributions:
 
 * *Gradle*
-** Set up  and managed gradle : `build.gradle`
+** Set up  and managed gradle : https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/build.gradle[build.gradle]
 *** Gradle allows to manage the build for running, automate the Junit test and so improve the team productivity.
 *** It allows also to generated the jar file
 
 * *Manage releases*
-*** Managed releases with setting for milestones in Github, creation of jar files for the different milestones thanks to gradle:
-`leduc-mid-v1.1.jar`, `leduc-v1.1.jar`, `leduc-v1.2.jar` and `leduc-v1.2.1jar`.
+*** Managed releases with setting for milestones in Github, creation of jar files for the different milestones thanks to gradle: https://github.com/AY1920S1-CS2113-T16-1/main/releases/tag/v1.1[leduc-v1.1.jar], https://github.com/AY1920S1-CS2113-T16-1/main/releases/tag/v1.2[leduc-v1.2.jar], https://github.com/AY1920S1-CS2113-T16-1/main/releases/tag/v1.2.1[leduc-v1.2.1jar] and https://github.com/AY1920S1-CS2113-T16-1/main/releases/tag/v1.3[leduc-v1.3.jar].
 
 * *Manage Github*
 *** Set up the labels and milestone.
 *** Set up the issues corresponding to different user stories.
 *** Set up the pull request for requiring reviews ...
 
+* *Write tests*
+*** JUnit : [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/PostponeCommandTest.java[PostponeCommandTest]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/SnoozeCommandTest.java[SnoozeCommandTest]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/RescheduleCommandTest.java[RescheduleCommandTest]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/EditCommandTest.java[EditCommandTest]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/PrioritizeCommandTest.java[PrioritizeCommandTest]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/test/java/leduc/SortCommandTest.java[SortCommandTest]]
+*** Text-ui-test : [https://github.com/AY1920S1-CS2113-T16-1/main/tree/master/src/test/text-ui-test/test6[Edit text-ui-test for multi-steps part]]
+
 * *Community*
-*** Reviews important pull request: #21, #25 ...
+*** Reviews important pull request: https://github.com/AY1920S1-CS2113-T16-1/main/pull/21[#21], https://github.com/AY1920S1-CS2113-T16-1/main/pull/75[#75] ...
+
 * *Documentation contribution*
-** Write the Readme file `README.adoc`
+** Write the Readme file https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/README.adoc[README.adoc]
 ** Contribute to writing the User Guide file  `[AY1920S1-CS2113-T16-1]-[Le Duc]-UG.adoc`
 ** Contribute for writing the Developer Guide `[AY1920S1-CS2113-T16-1]-[Le Duc]-DG.adoc`
 
@@ -110,15 +113,17 @@ Be careful : when rescheduling an event, two dates can’t clash
 
 === Sort by: `sort`
 
-Sort all task by date/description/priority: `sort SORTTYPE`
+Sort all task by date, description, priority, type of task or either it is done or not: `sort SORTTYPE`
 
-SORTTYPE is either date, description, priority
+SORTTYPE is either date, description, priority, type or done
 
 Be careful:
 
-* Sorting "by date" will sort tasks in chronological order
-* Sorting "by description" will sort the descriptions in alphabetical order
-* Sorting "by priority" will sort tasks in ascending urgency
+* Sorting by date will sort tasks in chronological order
+* Sorting by description will sort the descriptions in alphabetical order
+* Sorting by priority will sort tasks in ascending urgency
+* Sorting by type will sort tasks depending on its task type ( event, homework, todo)
+* Sorting by done will sort tasks depending on it the task is done or not
 
 
 === Prioritize:  `prioritize`
@@ -186,8 +191,9 @@ The sequence diagram shows the interactions between different classes when the u
 - edit the period of an event task: `edit INDEX /at DATE - DATE`
 
 The sequence diagram shows the interactions between different classes when the user input `edit 2 description DESCRIPTION`.
+*Please refer to the Developer Guide to find the Sequence Diagram for the one shot edit command.*
 
-image::SequenceDiagramEditOneShot.png[width="1000", align="left"]
+//image::SequenceDiagramEditOneShot.png[width="1000", align="left"]
 
 ==== *Prioritize a task*
 
@@ -206,12 +212,14 @@ However, these two commands are obviously easy to combine into one command.
 
 === Sort the task list
 
-Sort all task by date/description/priority: `sort SORTTYPE`
-SORTTYPE is either date, description, priority
+Sort all task by date/description/priority/type of task/ done or not: `sort SORTTYPE`
+SORTTYPE is either date, description, priority, type, done
 
-* Sorting "by date" will sort tasks in chronological order
-* Sorting "by description" will sort the descriptions in alphabetical order
-* Sorting "by priority" will sort tasks in ascending urgency
+* Sorting by date will sort tasks in chronological order
+* Sorting by description will sort the descriptions in alphabetical order
+* Sorting by priority will sort tasks in ascending urgency
+* Sorting by type will sort tasks depending on its task type ( event, homework, todo)
+* Sorting by done will sort tasks depending on it the task is done or not.
 
 To implement the sort command, the comparing static method of Comparator interface introduced in Java 8 is used.
 So, here the sort key are the desciption or the priority of the task.
