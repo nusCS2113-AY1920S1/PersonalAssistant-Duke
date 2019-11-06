@@ -172,8 +172,12 @@ public class Command {
             events.sortList();
             storage.saveToFile(events, ui);
         }
-        if ((command.equals("calendar"))) {
-            printCalendar(events, ui, calendarStartDate);
+        if (!(command.equals("calendar"))) {
+            CalendarView calendarView = null;
+            EventDate today = new EventDate(calendarStartDate.getEventJavaDate());
+            calendarView = new CalendarView(events, today);
+            calendarView.setCalendarInfo();
+            ui.printCalendar(calendarView.getStringForOutput());
         }
     }
 
@@ -203,6 +207,9 @@ public class Command {
                     break;
                 case "checklist":
                     ui.printChecklistHelp();
+                    break;
+                case "instruments":
+                    ui.printInstrumentsHelp();
                     break;
                 case "reschedule":
                 case "edit":
