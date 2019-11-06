@@ -36,6 +36,7 @@ public class MainDisplay {
     private static final String COLUMN_TITLES = " <Categories > |                         "
             + "       <Amount>                    "
             + "               |   <Budget>  |  <Savings>  |\n";
+
     public MainDisplay() {
 
     }
