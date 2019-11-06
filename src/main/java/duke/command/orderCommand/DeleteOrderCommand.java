@@ -32,8 +32,12 @@ public class DeleteOrderCommand extends Command {
         if (orderList.size()==0) { throw new DukeException("No order in the list! No order can be removed!"); }
         if (orderIndex < orderList.size() && orderIndex >= 0) {
             Order removed = orderList.getEntry(orderIndex);
+
             // TODO: update chef's to do list
+            ui.showLine();
+
             ui.showRemovedOrder(removed.toString(), orderList.size());
+            ui.showLine();
             orderList.removeEntry(orderIndex);
             try {
                 os.removeFromFile(orderIndex + 1);

@@ -40,8 +40,12 @@ public class DoneOrderCommand extends Command {
 
             // TODO: update chef's to do list
 
+
+            
             orderList.markOrderDone(orderIndex);
+            ui.showLine();
             ui.showMarkDoneOrder(orderList.getEntry(orderIndex).toString());
+            ui.showLine();
         } else {
             throw new DukeException("Must enter a valid order number, between 1 and " + orderList.size() + " to be done");
         }

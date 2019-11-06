@@ -40,7 +40,9 @@ public class AlterDateCommand extends Command {
             Order order = orderList.getEntry(orderIndex);
             if (order.isDone()) { throw new DukeException("Order done already. Date alteration is not expected."); }
             order.setDate(date);
+            ui.showLine();
             ui.showOrderChangedDate(order.getDate(),orderList.getEntry(orderIndex).toString());
+            ui.showLine();
             orderStorage.changeContent(orderIndex+1);
             // TODO: update today's dish(task) list if new date is today
         } else {
