@@ -3,14 +3,12 @@ package seedu.duke.common.storage;
 import seedu.duke.ui.UI;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.ResolverStyle;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 /**
@@ -20,7 +18,8 @@ public class StorageHelper {
 
     /**
      * Saves content to a designated path.
-     * @param path where the content is stored to
+     *
+     * @param path    where the content is stored to
      * @param content the content of the file to be saved
      * @throws IOException when error occurs at file io
      */
@@ -109,9 +108,9 @@ public class StorageHelper {
         return Path.of(".", "data", "emails", filename);
     }
 
-    private static final String[] directories = { "emails", "logs" };
+    private static final String[] directories = {"emails", "logs"};
 
-    private static final String[] dataFilenames = { "email.txt", "keywords.txt", "task.txt", "user.txt" };
+    private static final String[] dataFilenames = {"email.txt", "keywords.txt", "task.txt", "user.txt"};
 
     private static void createDirectories() throws IOException {
         for (String directory : directories) {
@@ -162,5 +161,18 @@ public class StorageHelper {
                     "Please transfer the JAR file to a clean and accessible directory and start again. ");
             return false;
         }
+    }
+
+    /**
+     * Read content from a file through the input stream.
+     *
+     * @param in the input stream of the file
+     * @return content of the file
+     * @author Viacheslav Vedenin from https://stackoverflow.com/questions/309424/how-do-i-read-convert-an-
+     * inputstream-into-a-string-in-java
+     */
+    public static String readFromInputStream(InputStream in) {
+        Scanner s = new Scanner(in).useDelimiter("\\A");
+        return s.hasNext() ? s.next() : "";
     }
 }
