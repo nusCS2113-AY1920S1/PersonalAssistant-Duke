@@ -135,7 +135,7 @@ public abstract class Command {
      * @param date The date to be converted.
      * @return A string in the format specified.
      */
-    public String convertDatetoString(Date date) {
+    public String convertDateToString(Date date) {
         return new SimpleDateFormat("dd-MM-yyyy").format(date);
     }
 
