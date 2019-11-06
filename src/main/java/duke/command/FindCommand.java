@@ -4,8 +4,9 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+//@@author talesrune
 /**
- * Representing a command that locates certain tasks in task list using keyword.
+ * Represents a command that locates certain tasks in task list using keyword.
  */
 public class FindCommand extends Command {
     protected String keyword;

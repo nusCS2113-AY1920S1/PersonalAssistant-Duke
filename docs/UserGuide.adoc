@@ -14,11 +14,23 @@ By: `Team AY1920S1-CS2113-T13-4`      Since: `Aug 2019`      Licence: `MIT`
 
 DUKE Manager is for those who prefers an electronic handbook as compared to a hard copy one. It is also optimised for those who prefer to input notes as a text messenger style, or something similar to a coding format. Just type in some command, and the description, and DUKE Manager will sort it out for you neatly.
 
+== Quick Start
+
+.  Ensure you have Java 11 or above installed in your Computer.
+.  Clone the Github to your computer and launch the GUI stored in main/src/main/java/duke/Launcher.java
+.  Type a command in the text box and press “Enter” to execute it.
+.  Some example commands you can try:
+* list : lists all tasks
+* todo housework : adds “housework” into list of todo tasks
+* delete 1 : deletes the first task stored in the list of tasks
+* bye : exits the app
+
 [[Features]]
 == Features
 DUKE Manager will be able to 
 - Handle various Task Inputs, 
 - Manage Tasks 
+- Show upcoming reminders due in 3 days at Home Page when program first boots up
 - Track Academic Expenses 
 - Manage and Track Academic Module 
 
@@ -37,13 +49,6 @@ In the future, our team envision DUKE Manager to be able to
 
 === Priority-Related Task Inputs
 
-==== Creating a new "Event" task : `event`
-
-Creates a new task called "Event" in Duke Manager. +
-Format: `event <task description> /at <date and time>`
-
-* Date and time have to be inputted in this format `<d/MM/yyyy HHmm>`.
-
 ==== Creating a new "Deadline" task : `deadline`
 
 Creates a new task called "Deadline" in Duke Manager. +
@@ -61,37 +66,23 @@ Format: `fixedduration <task description> /for <duration> <unit>`
 
 ==== Creating a new "Repeat" task : `repeat`
 
-Creates a new task called "Repeat" in Duke Manager. +
+This command creates a new task called “Repeat” and is stored inside DUKE Manager.
+
+Example:
+
+Let’s say you have to attend the same event for a few weeks. It will be a hassle to enter the same event 3 times with each of them having a different date. Thus, using this command, you only need to enter the event once, the starting date and time, and set how frequent the event is.
+
 Format: `repeat <task> /from <date and time> /for <duration> <day/week/month>`
 
-* Date and time have to be inputted in this format `<d/MM/yyyy HHmm>`.
+* Date and time must be input in this format <d/MM/yyyy HHmm>.
 * The duration refers to the length of time.
 
-==== Creating a new "Reminder" task : `reminder`
-
-Creates a new task called "Reminder" in Duke Manager. +
-Format: `remind <task number> /in <duration in days>`
-
-* Reminds the user of the task at the specified `<task number>`.
-* The task number refers to the index number shown in the displayed task list.
-* The index *must be in between 1 and the size of tasklist*. e.g. For a tasklist that contains 4 tasks, only numbers 1 to 4 are allowed.
-* The duration in days refers to the length of time in days.
-
-=== Non Priority-Related Task Inputs
+=== Non-Priority-Related Task Inputs
 
 ==== Creating a new "To-Do" task : `todo`
 
 Creates a new task called "To-do" in Duke Manager. +
 Format: `todo <task description>`
-
-==== Creating a new "DoAfter" task : `doafter`
-
-Creates a new task called "DoAfter" in Duke Manager. +
-Format: `doafter <task description> /after <existing task description>`
-
-* The existing task description refers to the existing task in the tasklist.
-* Only existing tasks in the tasklist are allowed to be inputted in `<existing task description>`.
-
 
 === Expenditure Tracker
 
@@ -103,52 +94,111 @@ Creates a new budget if there is no budget created.
 Format: `budget new <amount>` 
 
 ==== Add expenses to budget : `-`
-Deducts the expenses from current available budget.
-Format: `budget - <amount>`
+Deducts the expenses from current available budget, with an optional description.
+If the user does not input any description, it will input "No Description" instead.
+Format: `budget - <amount> <(Optional)Description>`
 
 ==== Add earnings to budget : `+`
-Adds the earnings to the current available budget
-Format: `budget + <amount>`
+Adds the earnings to the current available budget, with an optional description.
+If the user does not input any description, it will input "No Description" instead.
+Format: `budget + <amount> <(Optional)Description>`
 
 ==== View currently available budget : `view` 
 Shows the user the current available budget, as well as the total earnings and expenses recorded.
 Format: `budget view`
 
 ==== Resets budget : `reset`
-Resets the budget available to the amount that it was initially created
-Format: `budget reset`
+Resets the budget list with the initial input being the one that is defined.
+Format: `budget reset <amount>`
 
-==== Delete budget : `delete`
-Delets the budget that is currently stored
-Format: `budget delete`
+=== Contacts
 
-=== On-App Guide *(Coming in v2.0)*
+// tag::addcontact[]
+==== Adding a contact : `addcontact`
+This command allows the user to add a new contact that stores name, number, email and office.
 
-==== Opens the interface guide : `help`
-Shows a tutorial for DUKE Manager
-Format : `help`
+Example:
 
-==== Opens the command overview : `help --c`
-Shows the command overview of the various capabilities of DUKE Manager
-Format: `help --c`
+Let’s say you have a professor’s contact to add but you are afraid that you may accidentally press the call button should you store it in your phone. Thus, you store his contact details in DUKE Manager instead. 
 
-=== Module Structure *(Coming in v2.0)*
+Format: `addcontact <name>, <number>, <email>, <office>`
 
-==== Storing of modules `storemods` 
-- Stores the module into DUKE Manager 
+* The name refers to the name of the contact to be added.
+* The number, email and office of the contact is to be input in this format.
+* For details that are not known, simply omit it.
 
-==== Shows modules `viewmods`
-Views the module that are stored in DUKE Manager
+==== Listing all contacts : `listcontact`
+This command shows the user all the contacts that have been saved.
 
-=== Contacts *(Coming in v2.0)*
+Example:
 
-==== Stores contacts `storecontact`
-Stores the contacts inside DUKE Manager
-Format: `storecontact <name> / <contact> / <Details>
+Let’s say you want to see all the contacts saved thus far.
 
-==== View contacts `viewcontact`
-Views the contacts inside DUKE Manager
-Format: `viewcontact`
+Format: `listcontact`
+
+==== Delete specific contacts : `deletecontact`
+This command allows the user to delete a specific contact inside DUKE Manager.
+
+Example:
+
+Let’s say the contact details are outdated and you would like to remove it totally from the system since you do not have that person’s new contact details.
+
+Format: deletecontact `<index>`
+
+* Deletes the contact at the specified `<index>`.
+* The index refers to the index number shown in the displayed list contact.
+* The index must be between 1 and the total number of contacts in the contact list.
+
+==== Find contacts : `findcontact`
+This command finds and displays relevant contacts stored inside DUKE Manager.
+
+Example:
+
+Let’s say you have stored a lot of contact and would like to quickly find a specific person’s details, but you only remembered part of the person’s name. Thus, you find by inputting that detail and DUKE Manager will find it for you. This also works for numbers, emails and office location.
+
+Format: findcontact `<keyword>`
+
+* The search is not case sensitive.
+* Can search for name, number, email or office.
+* Partial words will be matched. Eg. Tan will match Prof Tan.
+* Only contacts will be searched.
+
+==== Sorting of contacts : sortcontact [coming in v2.0]
+This command will allow users to sort contacts in either alphabetical or most recent order.
+
+Example:
+
+Let’s say you entered the command listcontacts, but you find it difficult to find the details as you may have forgotten which contact was added first or most recently. Thus, sorting will make it a lot easier to users to find the contact without using findcontact.
+
+Format: sortcontacts `<alpha/recent>`
+
+* Alpha will sort in alphabetical order and recent sort in terms of latest addition.
+
+=== Notes
+==== Notes in a task : `notes`
+Notes can be either added or updated to an existing task in the tasklist. They can also be removed from an existing task. Notes of an existing task can be shown in the tasklist.
+Format: `notes <task number> <type of notes> <(Optional) notes description>`
+
+* Adds/Updates/Deletes/Shows notes of the task at the specified `<task number>`.
+* The task number refers to the index number shown in the displayed task list.
+* The index *must be in between 1 and the size of tasklist.* e.g. For a tasklist that contains 4 tasks, only numbers 1 to 4 are allowed.
+* The type of notes refers to either `/add`, `/date`, or `/show`. 
+* `/add` represents adding/updating notes of the task.
+* `/delete` represents removing existing notes from the task.
+* `/show` represents showing the notes of the task.
+* The notes description is *only required when adding or updating notes*, not when deleting or showing notes.
+
+Examples:
+
+* `notes 1 /add read page 578`
+Adds/Updates notes of the first task in the tasklist.
+ 
+* `notes 3 /delete`
+Deletes notes of the third task in the tasklist.
+ 
+* `notes 2 /show`
+Shows notes of the second task to the user in the tasklist.
+
 
 === Generic Task Management
 
@@ -195,18 +245,19 @@ Deletes the 4th task in the results of the `find` command.
 
 ==== Updates an existing task in tasklist: `update`
 
-Updates the task, either task description or date and time in Duke Manager. +
+Updates the task, either task description, date and time, or type of task in Duke Manager.
 Format: `update <task number> <type of update> <description to be updated>`
 
 * Updates the task at the specified `<task number>`.
 * The task number refers to the index number shown in the displayed task list.
 * The index *must be in between 1 and the size of tasklist*. e.g. For a tasklist that contains 4 tasks, only numbers 1 to 4 are allowed.
-* The type of update refers to either `/desc` or `/date`.
+* The type of update refers to either `/desc`, `/date`, or `/type`.
 * `/desc` represents updating the task description.
 * `/date` represents updating the date and time of the task.
-* The description to be updated refers to either description of task, or date and time depending on `<type of update>`.
+* The description to be updated refers to either description of task, date and time, or type of task depending on `<type of update>`.
 * Date and time have to be inputted in this format `<d/MM/yyyy HHmm>`.
 * Returns an error if a task does not contain date and time when the user tries to update date and time of the particular task.
+* Returns an error if the task type is invalid.
 
 Examples:
 
@@ -214,17 +265,22 @@ Examples:
 Updates the 1st task description in the tasklist.
 * `update 5 /date 17/09/2019 1222` +
 Updates date and time of the 5th task in the tasklist.
+* `update 2 /type deadline`
+Updates type of the 2nd task to Deadline in the tasklist.
 
-==== Detecting duplicates in task list
+==== Detect duplicates in task list
 
-Detects tasks that are duplicated in Duke Manager. 
+This feature finds and alerts the user of duplicated tasks which may be re-entered.
 
-* Alerts user that a task has already been added.
-* If task is duplicated, the program returns `The same task is already in the list!` and prevents an additional task added to the tasklist.
+Example:
+
+Let’s say you have entered a task to do homework but after keying in other tasks, you have forgotten that homework was already entered and thus, you enter the same task again. Without this feature, when you mark the first homework task as done, you may get confused as to why it still appears in the list of undone tasks. Thus, detect duplicates prevents that from occurring.
+
+There is no format and does not require any form of input to be executed. This feature will automatically be implemented when a task is entered.
 
 ==== Detecting anomalies in task list
 
-Detects tasks that clash with the same date and time when adding a new task in Duke Manager. 
+Detects tasks that clash with the same date and time when adding a new task, or updating an existing task in Duke Manager. 
 
 * Alerts user that an existing task has the same date and time.
 * Prompts the user to either pick a different date and time, or mark the existing task as done.
@@ -244,7 +300,7 @@ Change the default priority of a task to a user-set priority.
 Format: `setpriority <task number> <priority>`
 
 * Set the priority of the task at the specified `<task number>`.
-* The <task number> refers to the index number shown in the displayed task list.
+* The `<task number>` refers to the index number shown in the displayed task list.
 * The index *must be in between 1 and the size of tasklist*. e.g. For a tasklist that contains 4 tasks, only numbers 1 to 4 are allowed.
 * The <priority> refers to the priority of the task: 1-HighPriority ~ 5-LowPriority.
 * The priority *must be between 1 and 5 both inclusive*. 
@@ -254,7 +310,42 @@ Format: `setpriority <task number> <priority>`
 Display the list of tasks and their priorities beside each task.
 Format: `priority`
 
+====  Find a list of tasks with a certain priority: `findpriority`
+Return a list of tasks that have a certain priority.
+Format: `findpriority <priority>`
+
+* The <priority> refers to the priority of the task: 1-HighPriority ~ 5-LowPriority.
+* The priority *must be between 1 and 5 both inclusive*. 
+* If no records are found, the user will be alerted.
+
+====  Find a list of tasks on a certain date: `finddate`
+Return a list of tasks due on a certain date.
+Format: `findpriority /on <date>`
+
+* The <date> is in the format <dd/MM/yyyy>.
+* If no records are found, the user will be alerted.
+
+ 
+==== Filters tasks that are of the same type in tasklist: `filter`
+Categorizes tasks in the task list based on the type of task.
+Format: `filter <type of task>`
+* The type must be in lowercase. e.g. `todo` is not `Todo`
+* Returns an error if the task type is invalid. 
+ 
+Examples:
+
+* `filter todo`
+Returns a list of Todo tasks.
+ 
+* `filter deadline`
+Returns a list of Deadline tasks.
+
 === Miscellenous Inputs 
+
+==== Backing up the program : `backup`
+
+Backs up the current state of Duke Manager and opens the file explorer containing the data for importing / exporting.
+Format: `backup`
 
 ==== Exiting the program : `exit`
 
@@ -266,6 +357,24 @@ Format: `exit`
 Duke Manager data is saved in the hard disk automatically upon exiting. +
 There is no need to save manually. *However, if the program is exited by any other means and not through the `exit` command, any unsaved progress will be lost*.
 
+=== On-App Guide *(Coming in v2.0)*
+
+==== Opens the interface guide : `help`
+Shows a tutorial for DUKE Manager
+Format : `help`
+
+==== Opens the command overview : `help --c`
+Shows the command overview of the various capabilities of DUKE Manager
+Format: `help --c`
+
+=== Module Structure *(Coming in v2.0)*
+
+==== Storing of modules `storemods` 
+- Stores the module into DUKE Manager 
+
+==== Shows modules `viewmods`
+Views the module that are stored in DUKE Manager
+
 == Additional Features (v2.0) 
 
 === Term Calender 
@@ -276,8 +385,8 @@ There is no need to save manually. *However, if the program is exited by any oth
 ==== Login / Password 
 
 === Better Expenses Record
-==== List of expenses with description
 ==== Deletion of expenses from records 
+==== Undoing expenses from records
 
 == FAQs
 
@@ -295,13 +404,41 @@ e.g. `todo CS2113 assignment`
 e.g. `deadline finish reading book /by 27/10/2019 2359`
 * *Event* : `event [EVENT] /at [DD/MM/YYYY HHMM]` +
 e.g. `event attend recruitment talk /at 1/10/2019 1300`
-* *DoAfter* : `doafter [NEWTASK] / [EXISITINGTASK]`
-e.g. `doafter buy food / CS2113 assignment`
 * *FixedDuration* : `fixedduration [TASK] /for [DURATION][UNITS]`
 e.g. `fixedduration build a robot /for 3hrs`
 * *Repeat* : `repeat [TASK] /from [DD/MM/YYYY HHMM] /for [INDEX] [DAY/WEEK/MONTH]`
 e.g. `repeat meeting /from 01/04/2019 1100 /for 2 day`
 * *Remind* : `remind [INDEX] /in [DAYSTOREMINDER]`
 e.g. `remind 1 /in 3`
-* *Set Priority* : `setpriority [TASK_NUMBER] [PRIORITY]` +
+* *Modify Budget*: `budget add/+/minus/- [AMOUNT] [(OPTIONAL)DESCRIPTION]`
+e.g. `budget add 21.13 pay school fees`
+* *Reset/New Budget*: `budget reset/new [AMOUNT]`
+e.g. `budget reset 100`
+* *View Budget*: `budget view`
+* *AddContact* : `addcontact [NAME], [NUMBER], [EMAIL], [OFFICE]`
+eg. `addcontact Prof Tan, 91234567, tancc@nus.edu.sg, E1-08-11`
+* *ListContact* : `listcontact`
+* *DeleteContact* : deletecontact [INDEX]
+eg. `deletecontact 1`
+* *FindContact* : `findcontact [KEYWORD]`
+eg. `findcontact Prof Tan`
+* *Add/Update Notes* : `notes [INDEX] /add [NOTES DESCRIPTION]`
+e.g. `notes 1 /add read page 578`
+* *Delete Notes* : `notes [INDEX] /delete`
+e.g. `notes 1 /delete`
+* *Show Notes* : `notes [INDEX] /show`
+e.g. `notes 1 /show`
+* *Filter* : `filter [TASK TYPE]`
+e.g. `filter deadline`
+* *Update task description* : `update [INDEX] /desc [DESCRIPTION]`
+e.g. `update 1 /desc running`
+* *Update task date/time* : `update [INDEX] /date [DATE/TIME]`
+e.g. `update 1 /date 27/10/2019 2359`
+* *Update task type* : `update [INDEX] /type [TASK TYPE]`
+e.g. `update 1 /type todo`
+* *Set Priority* : `setpriority [TASK_NUMBER] [PRIORITY]` 
 e.g. `setpriority 1 5`
+* *Find tasks based on the priority* : `findpriority [PRIORITY]` 
+e.g. `findpriority 1`
+* *Find tasks on a date* : `findpriority /on [DATE]` 
+e.g. `finddate /on 01/12/2019`

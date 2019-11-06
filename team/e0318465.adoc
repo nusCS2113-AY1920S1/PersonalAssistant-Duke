@@ -1,0 +1,83 @@
+= Aw Rui Huan - Project Portfolio
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+== PROJECT: Diary (of the) Undergraduate Kommon Engineer (D.U.K.E.) Manager
+
+---
+
+== Overview
+
+My team and I were tasked to write a Java code to solve problems for our Software Engineering project. We chose to enhance the code into a Java-based electronic diary for engineering students, called DUKE Manager. This application gives engineering students a more efficient platform to record their daily tasks on their devices.
+
+My role was to design and implement the features - Contacts, Detect Duplicates and Repeat Event. The following sections shall illustrate each of them in details.
+
+== Summary of Contributions
+
+* *Biggest Feature:*  added *the ability to store contacts*
+** What it does: Allows the user to store information such as name, number, email and office. User may also delete and find contacts after they are stored into DUKE Manager.
+** Justification: This feature improves the product remarkably as sometimes the user wants to find the contact by its email or office location and thus, using this, they may be able to find the name and number of the person they are looking for.
+** Highlights: This enhancement is an add on to existing commands and provides for functions for the user to use in DUKE Manager.
+
+* *Other Features Implemented*
+** Detects for duplicated task input so that the user is notified when they enter the same task twice. This is to ensure that when they mark a task as done, they would not get confused with the other same input that is not marked as done.
+** Quick addition of same events with different dates. Some events may occur weekly and having to input one line for each event with different dates may be troublesome. Thus, with this feature, the user just need to enter the event and how frequent it will be repeated within one line of input and DUKE Manager will store all of them automatically.
+
+* *Code contributed:* [https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=e0318465[Project Code Dashboard]]
+
+Functional Code: [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/command/AddContactsCommand.java[AddContactsCommand]] [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/command/ListContactsCommand.java[ListContactsCommand]] [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/command/DeleteContactCommand.java[DeleteContactCommand]] [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/command/FindContactCommand.java[FindContactCommand]] [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/command/DuplicateFoundCommand.java[DuplicateFoundCommand]] [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/storage/ContactStorage.java[ContactStorage]] [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/command/AddMultipleCommand.java[AddMultipleCommand]] [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/task/ContactList.java[ContactList]] [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/task/Contacts.java[Contacts]]
+
+Test Code: [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/test/java/duke/command/AddContactsCommTest.java[AddContactsCommTest]]
+
+* *Other contributions:*
+
+** *Project Management*
+*** Managed user stories by labelling and placing in the right column.
+** *Community*
+*** PR reviewed https://github.com/AY1920S1-CS2113-T13-4/main/pull/141[#141], https://github.com/AY1920S1-CS2113-T13-4/main/pull/125[#125], https://github.com/AY1920S1-CS2113-T13-4/main/pull/119[#119], https://github.com/AY1920S1-CS2113-T13-4/main/pull/42[#42]
+** *Documentation*
+*** Did cosmetic tweaks to the positioning of the contents in User Guide and Developer Guide.
+
+== Contributions to the User Guide
+
+This section is an excerpt from our DUKE Manager User Guide which shows the features I have implemented for the project.
+
+*Adding a contact :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/UserGuide.adoc#341-adding-a-contact--addcontact[addcontact]]
+
+*Listing all contacts :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/UserGuide.adoc#342-listing-all-contacts--listcontact[listcontacts]]
+
+*Deleting specific contacts :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/UserGuide.adoc#343-delete-specific-contacts--deletecontact[deletecontact]]
+
+*Finding contacts :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/UserGuide.adoc#344-find-contacts--findcontact[findcontact]]
+
+*Detect Duplicates in Task List :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/UserGuide.adoc#356-detect-duplicates-in-task-list[detectduplicates]]
+
+*Creating a new "Repeat" task :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/UserGuide.adoc#314-creating-a-new-repeat-task--repeat[repeat]]
+
+*Sorting of contacts :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/UserGuide.adoc#345-sorting-of-contacts--sortcontact-coming-in-v20[sortcontacts]]
+
+== Contributions to the Developer Guide
+This section is an excerpt from our DUKE Manager Developer Guide which shows the features I have implemented for the project.
+
+*Implementation for adding contact :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/DeveloperGuide.adoc#411-implementation-for-adding-contact[addcontact]]
+
+*Implementation for listing, deleting and finding of contact:* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/DeveloperGuide.adoc#413-implementation-for-listing-deleting-and-finding-of-contact[list, del, find contacts]]
+
+*Detect Duplicates :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/DeveloperGuide.adoc#415-detect-duplicates[detectduplicates]]
+
+*Repeat :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/DeveloperGuide.adoc#416-repeat[repeat]]
+
+*[Proposed Features] Contacts :* [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/DeveloperGuide.adoc#414-implementation-for-sorting-contacts-coming-in-v20[sortcontacts]]
+
+== Design Considerations
+Aspect: How saving is done
+
+* *Alternative 1 (Current Choice):* Saves the entire contact list in another text file instead of putting it together with the text file that stores tasks.
+** Pros: Makes it easier for developers to debug and see, less cluttered.
+** Cons: For every different type of data to be stored, there is a new text file.
+
+* *Alternative 2:* Saves the contact list together with tasks.
+** Pros: Reduces the number of files required to store information.
+** Cons: File can be extremely long as too much details are added in.

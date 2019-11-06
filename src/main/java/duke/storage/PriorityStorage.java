@@ -1,5 +1,6 @@
 package duke.storage;
 
+import duke.enums.Numbers;
 import duke.task.PriorityList;
 
 import java.io.IOException;
@@ -10,11 +11,13 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
+//@@author Dou-Maokang
+/**
+ * Representing a class to store the list of priorities.
+ */
 public class PriorityStorage {
-    //protected String filePath = "./";
     protected String filePath = "";
-    String storageClassPath = Storage.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-    private static final int ZERO = 0;
+    String storageClassPath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
 
     /**
      * Creates a storage with a specified filePath.
@@ -22,13 +25,19 @@ public class PriorityStorage {
      * @param filePath The location of the text file.
      */
     public PriorityStorage(String filePath) {
+        int numberofSlash;
+        storageClassPath = storageClassPath.replaceAll("%20", " ");
         String[] pathSplitter = storageClassPath.split("/");
+        numberofSlash = pathSplitter.length - Numbers.ONE.value;
         for (String directory: pathSplitter) {
-            if (!directory.isEmpty() && !directory.equals("build")) {
+            if (numberofSlash == Numbers.ZERO.value) {
+                break;
+            } else if (!directory.isEmpty() && !directory.equals("build") && !directory.equals("out")) {
                 this.filePath += directory + "/";
-            } else if (directory.equals("build")) {
+            } else if (directory.equals("build") || directory.equals("out")) {
                 break;
             }
+            numberofSlash--;
         }
         this.filePath += filePath;
     }
@@ -62,7 +71,7 @@ public class PriorityStorage {
      */
     public void write(PriorityList priorityList) throws IOException {
         String fileContent = "";
-        for (int i = ZERO; i < priorityList.getSize(); i++) {
+        for (int i = Numbers.ZERO.value; i < priorityList.getSize(); i++) {
             fileContent += priorityList.getList().get(i) + "\n";
         }
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
@@ -71,3 +80,4 @@ public class PriorityStorage {
     }
 
 }
+//@@author

@@ -1,7 +1,9 @@
 package duke.storage;
 
+import duke.enums.Numbers;
 import duke.task.ContactList;
 import duke.task.Contacts;
+import duke.ui.Ui;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,14 +15,8 @@ import java.util.ArrayList;
 
 //@@author e0318465
 public class ContactStorage {
-    //protected String filePathForContacts = "./";
     protected String filePathForContacts = "";
-    String storageClassPath = Storage.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-    private static final int ZERO = 0;
-    private static final int ONE = 1;
-    private static final int TWO = 2;
-    private static final int THREE = 3;
-
+    String storageClassPath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
 
     /**
      * Creates a storage with a specified filePathForContacts.
@@ -28,17 +24,22 @@ public class ContactStorage {
      * @param filePathForContacts The location of the contacts text file.
      */
     public ContactStorage(String filePathForContacts) {
+        int numberOfSlash;
+        storageClassPath = storageClassPath.replaceAll("%20", " ");
         String[] pathSplitter = storageClassPath.split("/");
+        numberOfSlash = pathSplitter.length - Numbers.ONE.value;
         for (String directory: pathSplitter) {
-            if (!directory.isEmpty() && !directory.equals("build")) {
+            if (numberOfSlash == Numbers.ZERO.value) {
+                break;
+            } else if (!directory.isEmpty() && !directory.equals("build") && !directory.equals("out")) {
                 this.filePathForContacts += directory + "/";
-            } else if (directory.equals("build")) {
+            } else if (directory.equals("build") || directory.equals("out")) {
                 break;
             }
+            numberOfSlash--;
         }
         this.filePathForContacts += filePathForContacts;
     }
-
 
     /**
      * Updates the contact list from reading the contents of the contacts text file.
@@ -48,6 +49,7 @@ public class ContactStorage {
      */
     public ArrayList<Contacts> read() throws IOException {
         ArrayList<Contacts> contacts = new ArrayList<>();
+        Ui ui = new Ui();
         File file = new File(filePathForContacts);
 
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -57,14 +59,19 @@ public class ContactStorage {
         String contact;
         String email;
         String office;
+
         while ((st = br.readLine()) != null) {  //name + "," + contact + "," + email + "," + office
             String[] contactDetails = st.split(",");
-            name = contactDetails[ZERO];
-            contact = contactDetails[ONE];
-            email = contactDetails[TWO];
-            office = contactDetails[THREE];
-            Contacts contactObj = new Contacts(name, contact, email, office);
-            contacts.add(contactObj);
+            if (contactDetails.length != Numbers.FOUR.value) {
+                ui.showErrorMsg("     Not all contact details entered, please leave a space for empty fields.");
+            } else {
+                name = contactDetails[Numbers.ZERO.value];
+                contact = contactDetails[Numbers.ONE.value];
+                email = contactDetails[Numbers.TWO.value];
+                office = contactDetails[Numbers.THREE.value];
+                Contacts contactObj = new Contacts(name, contact, email, office);
+                contacts.add(contactObj);
+            }
         }
         br.close();
         return contacts;
@@ -78,7 +85,7 @@ public class ContactStorage {
      */
     public void write(ContactList contacts) throws IOException {
         String fileContent = "";
-        for (int i = ZERO; i < contacts.size(); i++) {
+        for (int i = Numbers.ZERO.value; i < contacts.size(); i++) {
             fileContent += contacts.get(i).toFile() + "\n";
         }
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePathForContacts));

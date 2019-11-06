@@ -4,7 +4,6 @@ import duke.task.TaskList;
 import duke.task.Task;
 import duke.task.Todo;
 import duke.task.Deadline;
-import duke.task.Event;
 import duke.ui.Ui;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -13,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+//@@author talesrune
 class StorageTest {
 
     @Test
@@ -22,7 +22,7 @@ class StorageTest {
 
         Task task = new Todo("store items");
         Task task2 = new Deadline("assignment", "08/04/2019 1000");
-        Task task3 = new Event("party", "02/12/2019 1430");
+        Task task3 = new Deadline("party", "02/12/2019 1430");
         items.add(task);
         items.add(task2);
         items.add(task3);

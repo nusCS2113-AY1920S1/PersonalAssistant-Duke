@@ -5,7 +5,12 @@ import org.junit.jupiter.api.Test;
 import java.text.ParseException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+//@@author maxxyx96-unused
 
+/**
+ *  * Code is not used as we are narrowing down our feature and this test code is done to satisfy B-DoAfter requirements
+ *  * for Week 6.
+ */
 public class DoAfterTest {
 
     @Test
@@ -29,3 +34,4 @@ public class DoAfterTest {
         assertEquals("[A][X] After Deadline (Do after: Deadline Task)", doAftertask.toString());
     }
 }
+//@@author

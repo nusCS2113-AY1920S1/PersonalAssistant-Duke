@@ -1,0 +1,63 @@
+= Ong Yu Xuan - Project Portfolio
+
+== PROJECT: Duke Manager 
+
+---
+
+== Overview
+
+For our CS2113 Software Engineering & Object Oriented Programming module, My team and I were tasked to create an application that utilises Java to morph or extend our initial Duke project. For our team, we decided to extend the project into a Electronic Handbook called DUKE Manager. 
+
+Diary of the Kommon Engineer Manager, or DUKE Manager, is for those who prefer an electronic handbook as compared to a hard copy one. It is also optimised for those who prefer to input notes as a CLI / text messenger style.
+
+My role was mainly to create and implement a Expenditure/Budget Tracker to Duke Manager, which will be highlighted in the sections to come. Amongst the Tracker, i also contributed to smaller portions of the code such as backup, as well as FriendlierSyntax. 
+
+== Summary of contributions
+
+* *Main Enhancement Added*: Implemented Budget tracking
+** What it does: This enhancement allows Duke Manager to be able to store and track the user's budget and expenditures. 
+** Justification: As an academic student, some students would like to monitor their expenditures during the academic term so that they are able to flexibly manage their remaining budget. Therefore this enhancement will be useful for the users in general as a quick way to note their budget.
+** Highlights: The students can have the ability to reset their budget, or quickly store a budget without any description so that they dont have to spend so much time to ponder about what to write for their life choices. It will also have an undo feature in V1.4, allowing them to revert their previous input should the entry be errorneous.
+
+* *Minor Enhancements*: 
+
+** *Backup Feature*: Upon entering the `backup` command, users will be able to access the data of Duke Manager for exporting/importing of Duke files. 
+
+** *FriendlierSyntax*: For longer commands, there are shorter alternatives that can be called by the user, such as `addcontacts` can be called by `ac` as well. Some commands can also be called by other terms which has similar meanings, such as  `bye` and `exit`.
+
+* *Code contributed*: [https://nuscs2113-ay1920s1.github.io/dashboard/#search=maxxyx96&sort=groupTitle&sortWithin=title&since=2019-09-21&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=zoom&tabAuthor=maxxyx96&tabRepo=AY1920S1-CS2113-T13-4%2Fmain%5Bmaster%5D[Repo-Sense]]
+
+** *Budget Tracking Related Code*: [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/storage/BudgetStorage.java[Budget Storage]] [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/task/BudgetList.java[Budget List]], [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/command/AddBudgetCommand.java[Add Budget Command]], [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/command/ViewBudgetCommand.java[View Budget Command]], [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/command/ResetBudgetCommand.java[Reset Budget Command]]
+
+** *Backup Related Code*:  [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/src/main/java/duke/command/BackupCommand.java[Backup Command]]
+
+* *Other contributions*:
+
+** Project management: Added user stories into Github issues
+
+** Enhancements to existing features: Modified exit such that it saves all the files instead of just the task list.
+
+** Documentation: Created the initial skeleton of the guides (AboutUs, Developer Guide, User Guide).
+
+** Tools:
+*** Integrated travis CI into project, to ensure that minimal code quality has been achieved and that test cases are passed. 
+
+== Contributions to the User Guide
+Contributed the following sections of the [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/UserGuide.adoc[User Guide]]:
+
+*Expenditure Tracker Section* 
+
+*Miscellaneous Inputs - Backing up*
+
+== Contributions to the Developer Guide
+Contributed the following sections of the [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide]]:
+
+*Implementation of Budget Tracking*
+
+*User Stories*
+
+*Non Functional Requirements*
+
+== Design Considerations 
+When designing budget tracking, i had to make certain decisions on what is best for the user when entering the commands.
+[To-Do] Add reasoning for implementing budget tracking etc

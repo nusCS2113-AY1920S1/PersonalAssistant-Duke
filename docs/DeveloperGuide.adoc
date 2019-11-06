@@ -5,6 +5,7 @@
 :toc-title: Table of Contents
 :toc-placement: preamble
 :sectnums:
+:imagesDir: images
 :hardbreaks:
 :repoURL: https://github.com/AY1920S1-CS2113-T13-4/main
 
@@ -15,7 +16,7 @@ By: `Team AY1920S1-CS2113-T13-4`      Since: `Aug 2019`      Licence: `MIT`
 
 *Target user profile*:
 
-* has a need to manage a large number of school-related tasks
+* has a need to manage a large number of school-related tasks such as todo and deadline
 * prefer desktop apps over other types
 * can type fast
 * is reasonably comfortable using CLI and GUI apps
@@ -25,7 +26,93 @@ By: `Team AY1920S1-CS2113-T13-4`      Since: `Aug 2019`      Licence: `MIT`
 == Value Proposition
 *Value proposition*: manage school-related tasks better than an average task scheduler app
 
+== Implementation
+This section describes some noteworthy details on how certain features are implemented.
+
+=== Contacts Feature
+==== Implementation for adding contact
+The add contacts feature allows the user to store details about a person’s name, number, email and office location. It is facilitated by `Duke` and works together with the following operations:
+
+* `listcontacts()` - List all the contacts stored.
+* `deletecontact()` - Allow user to remove contacts.
+* `findcontact()` - Allow user to navigate and find contacts.
+* `sortcontacts()` - Sort contact from A to Z. (coming in v1.4)
+* `editcontact()` - Allow users to add, remove or change information of saved contact. (coming in v1.4)
+
+Below is an example of how the addcontact feature behaves at each step.
+
+*Step 1.* DUKE Manager is launched for the first time. It attempts to read data stored in the `ContactStorage()` and since the file to store the contacts is not found, DUKE Manager automatically creates an empty file. It then waits for input to add contacts before executing the function respectively.
+*Step 2.* The user executes addcontact command to add contact details. The Parser stores the details into an object in `Contacts()` and calls `AddContactsCommand()` class which calls out the `execute()` and `executeStorage()` methods.
+*Step 3.* In `execute()`, the `contactList.add()` command adds the object into the list. In `executeStorage()`, the list is written into `ContactStorage()` to store new contacts in a text file.
+
+The following sequence diagram shows how the addcontact operation works:
+
+image::SDaddcontact.png[]
+
+The following is an activity diagram to show the events when another add contacts command is executed:
+
+image::ADaddcontacts.png[]
+
+==== Design Considerations
+Aspect: How saving is done
+
+* *Alternative 1 (Current Choice):* Saves the entire contact list in another text file instead of putting it together with the text file that stores tasks.
+** Pros: Makes it easier for developers to debug and see, less cluttered.
+** Cons: For every different type of data to be stored, there is a new text file.
+* *Alternative 2:* Saves the contact list together with tasks.
+** Pros: Reduces the number of files required to store information.
+** Cons: File can be extremely long as too much details are added in.
+
+==== Implementation for listing, deleting and finding of contact
+*listcontacts*
+
+*Step 1:* DUKE Managers waits for an input by the user. If listcontacts is entered, Parser calls for `ListContactsCommand()` class which then calls out the `execute()` method.
+*Step 2:* In `execute()`, the `showContactList()` method in Ui is called to display the contacts list. 
+
+*deletecontact*
+
+*Step 1:* User inputs an index to delete a contact. Parser passes the index into `DeleteContactCommand()` class which calls out `execute()` method.
+*Step 2:* The `execute()` method calls out `getAndDisplay()` method inside the contactList class to show the user the contact that has been removed. It then proceeds to remove it by calling `remove()` in the contactList class. If there is no contacts or an invalid input has been detected, it will display an error message accordingly.
+
+*findcontact*
+
+*Step 1:* User inputs a keyword to be searched across all contacts. Parser converts the keyword into lowercase and passes them into `FindContactCommand()` class which calls out execute() method.
+*Step 2:* The `execute()` method calls out `showFoundContacts()` method inside the Ui class. In the method, it extracts the details from the contactList `getOnlyDetails()` method and removes the punctuation and converts them to lowercase. It then proceeds to find keywords that matches inside the list.
+*Step 3:* If there is no contacts found, it will display that no matching tasks were found, else, it will show the user a list of contacts found to be matched.
+
+The following is an activity diagram to show the events when listcontacts, deletecontact or findcontact is executed.
+
+image::ADlistdelfindcontacts.png[]
+
+==== Implementation for sorting contacts [coming in v2.0]
+
+This command will allow users to sort contacts in either alphabetical or most recent order.
+
+*Step 1:* First, it receives the input by the user to sort in alphabetical or most recent.
+*Step 2:* Next, using hash map, each contact will be sorted in alphabetical order and their indexes will change accordingly in order to match with future commands such as delete and add.
+*Step 3:* Output to the user the list of contacts in the order chosen by the user.
+
+==== Detect Duplicates
+The following is an activity diagram to show the events when a duplicated task is found.
+
+image::ADdetectduplicate.png[]
+
+==== Repeat
+The following is an activity diagram to show the events when repeat is executed.
+
+image::ADrepeat.png[]
+
 == Appendix A
+
+*Introduction*
+User profile: Engineering Undergraduates in NUS
+
+Problem addressed: As an engineering student, there can be many different commitments to handle and things may be confusing at times. The academic handbook given by Student Union (NUSSU) might not be handy for us as most of us use laptops. Therefore our team is aiming to create a digital academic handbook to address the problem of having multiple tasks and deadlines in general.  
+
+Societal impact: The impact of our handbook is targeted mainly to ease the workload of engineering undergraduates like our team. 
+
+Optimize or morph: Optimize the code
+
 === User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -41,6 +128,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *`|user| have a backup for my handbook| recover it in case I delete this program
 |`* * *`|user | set the priority of existing tasks | know clearly which task to finish first. 
 |`* * *`|user | set a reminder for a specific task | create a reminder of a task which is due in how many days specified.
+|`* * *`|user | find tasks by date | know what tasks I have on that certain date.
+|`* * *`|user | set priority for a task | remaind myself the importance of that task.
+|`* * *`|user | find tasks by priority | selectively complete all my tasks.
+|`* * *`|user | sort tasks by priority | know clearly which task to finish first.
 |`* *`|engineering undergraduate | keep track of my budget and expenditure | know when to not overspend.
 |`* *`|engineering undergraduate | receive notifications 3 days before it is due, | know the highest priority or urgent tasks to be completed.
 |`* *`|user | be able to delete multiple tasks | not have to repeat the delete action multiple times.

@@ -7,7 +7,7 @@ import duke.ui.Ui;
 import java.io.IOException;
 
 /**
- * Representing a command that states a task is duplicated.
+ * Represents a command that states a task is duplicated.
  */
 public class DuplicateFoundCommand extends Command {
     /**
@@ -31,7 +31,8 @@ public class DuplicateFoundCommand extends Command {
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        return "";
+        String str = ui.showDuplicateMsgGui();
+        return str;
     }
 
     /**

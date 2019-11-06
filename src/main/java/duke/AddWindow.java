@@ -1,6 +1,7 @@
 package duke;
 
 
+import duke.enums.Numbers;
 import duke.task.TaskList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -11,13 +12,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 
-
+//@@author talesrune
 /**
  * Controller for AddWindow. Provides the layout for the other controls.
  */
 public class AddWindow extends AnchorPane {
     private Duke duke;
-    private static final int ZERO = 0;
+
 
     private MainWindow mainWindow;
 
@@ -58,13 +59,11 @@ public class AddWindow extends AnchorPane {
         cbType.getItems().addAll(
                 "Todo",
                 "Deadline",
-                "Event",
                 "Fixed Duration",
-                "Repeat",
-                "Do After"
+                "Repeat"
         );
         TaskList items = d.getTaskList();
-        for (int i = ZERO; i < items.size(); i++) {
+        for (int i = Numbers.ZERO.value; i < items.size(); i++) {
             cbExistingTask.getItems().add(items.get(i).getDescription());
         }
     }
@@ -77,8 +76,6 @@ public class AddWindow extends AnchorPane {
             mainWindow.handleUserEvent("todo " + tfDesc.getText().trim());
         } else if (cbType.getSelectionModel().getSelectedItem().equals("Deadline")) {
             mainWindow.handleUserEvent("deadline " + tfDesc.getText().trim() + " /by " + tfDateTime.getText().trim());
-        } else if (cbType.getSelectionModel().getSelectedItem().equals("Event")) {
-            mainWindow.handleUserEvent("event " + tfDesc.getText().trim() + " /at " +  tfDateTime.getText().trim());
         } else if (cbType.getSelectionModel().getSelectedItem().equals("Fixed Duration")) {
             mainWindow.handleUserEvent("fixedduration " + tfDesc.getText().trim() + " /for "
                     +  tfDuration.getText().trim() + " " +  tfUnit.getText().trim());
@@ -87,9 +84,6 @@ public class AddWindow extends AnchorPane {
                     + " /from " +  tfDateTime.getText().trim() + " /for "
                     +  tfDuration.getText().trim()
                     + " " + tfUnit.getText().trim());
-        } else if (cbType.getSelectionModel().getSelectedItem().equals("Do After")) {
-            mainWindow.handleUserEvent("doafter " + tfDesc.getText().trim()
-                    + " /after " +  cbExistingTask.getSelectionModel().getSelectedItem());
         }
         mainWindow.listViewRefresh();
         Stage stage = (Stage) btnAdd.getScene().getWindow();

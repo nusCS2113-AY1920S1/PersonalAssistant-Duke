@@ -1,11 +1,11 @@
 package duke.command;
 
+import duke.dukeexception.DukeException;
 import duke.storage.Storage;
+import duke.task.BudgetList;
 import duke.task.TaskList;
 import duke.ui.Ui;
-import duke.task.BudgetList;
 
-import duke.dukeexception.DukeException;
 import java.io.IOException;
 
 //@@author maxxyx96
@@ -13,16 +13,21 @@ public class AddBudgetCommand extends Command {
     protected BudgetList budgetList;
     protected Ui ui = new Ui();
     protected float amount;
+    protected String remark;
+    private static final String NO_DESCRIPTION = "No Description";
+    private static final float MAX_BUDGET = 999999;
 
     /**
      * Adds the amount specified into the budgetList.
      *
      * @param budgetList The list of budget that is stored by Duke Manager.
      * @param amount amount to be updated in the user's budget.
+     * @param remark Some description.
      */
-    public AddBudgetCommand(BudgetList budgetList, float amount) {
+    public AddBudgetCommand(BudgetList budgetList, float amount, String remark) {
         this.budgetList = budgetList;
         this.amount = amount;
+        this.remark = remark;
     }
 
 
@@ -35,21 +40,43 @@ public class AddBudgetCommand extends Command {
     @Override
     public void execute(TaskList items, Ui ui) {
         ui.showAddBudget(amount, budgetList.getBudget());
-        budgetList.addToBudget(amount);
+        budgetList.addToBudget(Float.toString(amount), remark);
         ui.showBudget(budgetList.getBudget());
+    }
+
+    /**
+     * Checks if the budget exceeds the limits of what was intended for.
+     *
+     * @param amount the amount to be checked.
+     * @return Returns true if the amount is within limit, false otherwise.
+     */
+    public boolean isExceedLimit(float amount) {
+        if (amount < -MAX_BUDGET || amount > MAX_BUDGET) {
+            return true;
+        }
+        return false;
     }
 
     /**
      * Executes the command to add a certain amount to the existing budget.
      *
      * @param items The task list that contains a list of tasks.
-     * @param ui    To tell the user that it is executed successfully.
+     * @param ui To tell the user that it is executed successfully.
      * @return String to be outputted to the user.
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        budgetList.addToBudget(amount);
-        return ui.showAddBudgetGui(amount, budgetList.getBudget()) + "\n" + ui.showBudgetGui(budgetList.getBudget());
+        String beforeBudgetAdd = ui.showAddBudgetGui(amount, budgetList.getBudget());
+        if (!isExceedLimit(amount)) {
+            if (remark.equals("")) {
+                remark = NO_DESCRIPTION;
+            }
+            budgetList.addToBudget(Float.toString(amount), remark);
+            return beforeBudgetAdd + "\n" + ui.showBudgetGui(budgetList.getBudget()) + "\n"
+                    + ui.showRemarkGui(remark);
+        } else {
+            return ui.showBudgetExceededLimitMessageGui();
+        }
     }
 
     /**

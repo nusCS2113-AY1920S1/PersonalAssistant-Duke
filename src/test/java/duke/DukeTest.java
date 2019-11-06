@@ -2,6 +2,7 @@ package duke;
 
 import org.junit.jupiter.api.Test;
 
+//@@author talesrune
 class DukeTest {
     @Test
     void testMethod() {

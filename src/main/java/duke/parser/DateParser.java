@@ -1,5 +1,7 @@
 package duke.parser;
 
+import duke.enums.Numbers;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -19,19 +21,19 @@ public class DateParser {
         String[] startDate = dateDesc.split(" ");
         String addedDate;
 
-        String dayInString = startDate[0].split("/")[0];
-        String mthInString = startDate[0].split("/")[1];
-        String yrsInString = startDate[0].split("/")[2];
+        String dayInString = startDate[Numbers.ZERO.value].split("/")[Numbers.ZERO.value];
+        String mthInString = startDate[Numbers.ZERO.value].split("/")[Numbers.ONE.value];
+        String yrsInString = startDate[Numbers.ZERO.value].split("/")[Numbers.TWO.value];
 
         LocalDate localDate = LocalDate.of(Integer.parseInt(yrsInString),
                                             Integer.parseInt(mthInString),
                                             Integer.parseInt(dayInString));
         switch (datePeriod) {
-        case "days" : localDate = localDate.plusDays(1);
+        case "days" : localDate = localDate.plusDays(Numbers.ONE.value);
             break;
-        case "weeks" : localDate = localDate.plusWeeks(1);
+        case "weeks" : localDate = localDate.plusWeeks(Numbers.ONE.value);
             break;
-        case "months": localDate = localDate.plusMonths(1);
+        case "months": localDate = localDate.plusMonths(Numbers.ONE.value);
             break;
         default:
             break;

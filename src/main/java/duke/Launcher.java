@@ -2,7 +2,7 @@ package duke;
 
 import javafx.application.Application;
 
-
+//@@author talesrune-reused
 /**
  * A launcher class to workaround classpath issues.
  */

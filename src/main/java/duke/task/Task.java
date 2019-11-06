@@ -1,22 +1,25 @@
 package duke.task;
 
 import duke.dukeexception.DukeException;
+import duke.enums.Numbers;
 
 import java.time.LocalDateTime;
 
+//@@author talesrune
 /**
  * Represents a task that stores description and boolean that indicates the task as completed.
  */
 public class Task {
-    private static final int ZERO = 0;
 
     protected String description;
+    protected String notesDesc = "empty";
     protected boolean isDone;
-    public int numberOfDays = ZERO;
+    public int numberOfDays = Numbers.ZERO.value;
     public LocalDateTime currentDate;
     public LocalDateTime dueDate;
 
     public int priority;
+    protected Reminders reminders;
 
     /**
      * Creates a task with the specified description.
@@ -44,6 +47,32 @@ public class Task {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Sets the notes description of a task.
+     *
+     * @param notesDesc String of the description.
+     */
+    public void setNotes(String notesDesc) {
+        this.notesDesc = notesDesc;
+    }
+
+    /**
+     * Deletes the notes description of a task.
+     *
+     */
+    public void deleteNotes() {
+        this.notesDesc = "empty";
+    }
+
+    /**
+     * Sets the notes description of a task.
+     *
+     * @return String of the notes description.
+     */
+    public String getNotes() {
+        return notesDesc;
     }
 
     /**
@@ -91,34 +120,28 @@ public class Task {
         return (isDone ? "[\u2713]" : "[\u2718]"); //return [✓]" : "[✗] symbols
     }
 
+    //@@author gervaiseang
     /**
-     * Set the remaining days of reminder.
+     * Returns the reminder of one task.
      *
-     * @param remainingDays The number of days left of the reminded task.
+     * @return integer of the number of days to set the reminded task.
      */
-    public void setReminder(int remainingDays) {
-        this.numberOfDays = remainingDays;
+
+    public int getReminder() {
+        return this.numberOfDays;
     }
 
     /**
      * Set the remaining days of reminder.
      *
-     * @return boolean that triggers the reminder.
+     * @param remainingDays The number of days left of the reminded task.
      */
-    public boolean isTriggerReminder() {
-        /*if (dueDate != null) {
-            LocalDateTime reminderDate = dueDate.minusDays(numberOfDays);
-            return LocalDateTime.now().isAfter(reminderDate);
-        }
-        if (currentDate != null) {
-            LocalDateTime reminderDate = currentDate.minusDays(numberOfDays);
-            return LocalDateTime.now().isAfter(reminderDate);
-        }*/
-        if (isDone() == false) {
-            System.out.println("     High priority: ");
-        }
-        return false;
+
+    public void setReminder(int remainingDays) {
+        this.numberOfDays = remainingDays;
     }
+
+    //@@author
 
     /**
      * Set the priority of one task.
@@ -138,7 +161,7 @@ public class Task {
         return this.priority;
     }
 
-
+    //@@author talesrune
     /**
      * Extracting a task content into readable string.
      *
@@ -170,7 +193,7 @@ public class Task {
         } else {
             numStr = "0|";
         }
-        return  numStr + description;
+        return  numStr + description + "|" + notesDesc;
     }
 
     /**
@@ -192,6 +215,7 @@ public class Task {
         throw new DukeException("     Error! This task does not have date/time.");
     }
 
+    //@@author
     /**
      * Checks if the input and description matches.
      *

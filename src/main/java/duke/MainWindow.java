@@ -2,29 +2,43 @@ package duke;
 
 import duke.command.Command;
 import duke.command.ExitCommand;
+import duke.command.BackupCommand;
+import duke.command.FilterCommand;
+import duke.enums.Numbers;
 import duke.dukeexception.DukeException;
-import duke.task.Task;
 import duke.task.TaskList;
+import duke.task.BudgetList;
+import duke.task.FilterList;
+import duke.task.Reminders;
+import duke.task.Task;
+import duke.ui.Ui;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.Tab;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.SingleSelectionModel;
+import javafx.scene.control.Tooltip;
+
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import duke.ui.Ui;
 import javafx.stage.Stage;
-
+import javafx.util.Duration;
+import javafx.scene.Node;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -61,13 +75,19 @@ public class MainWindow extends AnchorPane {
     private TextField tfnewDateTime;
     @FXML
     private ComboBox<String> cbtaskType;
+    @FXML
+    private TabPane tpTabs;
+    @FXML
+    private SingleSelectionModel<Tab> selectedTab;
+
 
     private Duke duke;
+    private Tooltip toolTip;
 
-    private static final int ZERO = 0;
-    private static final int ONE = 1;
+    private int refreshType = Numbers.ZERO.value;
     private static final int TIMER_DELAY = 500;
     private static final int VBOX_WIDTH = 200;
+    private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/myUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/myBot.png"));
@@ -77,6 +97,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    //@@author talesrune-reused
     /**
      * Setting up Duke GUI.
      * @param d The object of Duke.
@@ -86,16 +107,29 @@ public class MainWindow extends AnchorPane {
         updateGui();
         setVboxWidth(false);
         setButtonsVisibility(true);
+        selectedTab =  tpTabs.getSelectionModel();
+        toolTip = new Tooltip();
+        toolTip.setText("");
+        listT.setTooltip(toolTip);
+        toolTip.setShowDelay(Duration.millis(70.0));
+        toolTip.setShowDuration(Duration.millis(0.001));
 
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(Ui.showWelcomeGui(), dukeImage)
+        );
+
+        TaskList items = duke.getTaskList();
+        Reminders remind = new Reminders();
+        dialogContainer.getChildren().add(
+                //DialogBox.getDukeDialog("Upcoming Reminders: \n" + items.getList(), dukeImage)
+                DialogBox.getDukeDialog(remind.getReminders(3, items).getList(), dukeImage)
         );
     }
 
     Timer timer = new Timer();
     TimerTask exitDuke = new TimerTask() {
         public void run() {
-            System.exit(ZERO);
+            System.exit(Numbers.ZERO.value);
         }
     };
 
@@ -119,7 +153,16 @@ public class MainWindow extends AnchorPane {
                         DialogBox.getDukeDialog(response, dukeImage)
                 );
                 timer.schedule(exitDuke, new Date(System.currentTimeMillis() + TIMER_DELAY));
+            }  else if (cmd instanceof BackupCommand) {
+                duke.saveState(cmd);
+                response = Ui.showBackupMessageGui();
+                dialogContainer.getChildren().add(
+                        DialogBox.getDukeDialog(response, dukeImage)
+                );
             } else {
+                if (cmd instanceof FilterCommand) {
+                    refreshType = Numbers.ONE.value;
+                }
                 response = duke.executeCommand(cmd);
                 dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
@@ -128,12 +171,15 @@ public class MainWindow extends AnchorPane {
             }
         } catch (DukeException e) {
             response = Ui.showErrorMsgGui(e.getMessage());
+            logr.log(Level.WARNING, response, e);
+
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
         } catch (Exception e) {
             response = Ui.showErrorMsgGui("     New error, please read console:")
                     +  Ui.showErrorMsgGui("     Duke will continue as per normal.");
+            logr.log(Level.WARNING, response, e);
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
@@ -142,9 +188,9 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    //@@author talesrune
     @FXML
     protected void handleUserEvent(String input) {
-        //String input = userInput.getText();
         String response;
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage)
@@ -158,12 +204,14 @@ public class MainWindow extends AnchorPane {
 
         } catch (DukeException e) {
             response = Ui.showErrorMsgGui(e.getMessage());
+            logr.log(Level.WARNING, response, e);
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
         } catch (Exception e) {
             response = Ui.showErrorMsgGui("     New error, please read console:")
                     +  Ui.showErrorMsgGui("     Duke will continue as per normal.");
+            logr.log(Level.WARNING, response, e);
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
@@ -173,10 +221,14 @@ public class MainWindow extends AnchorPane {
     }
 
     @FXML
-    private void onMouseClick_ListView() {
-        //System.out.println("clicked on " + listT.getSelectionModel().getSelectedItem());
+    private void onMouseClick_ListView(MouseEvent mouseEvent) {
         labelSelectedTask.setText("Selected Task: " + listT.getSelectionModel().getSelectedItem());
         Task taskObj = listT.getSelectionModel().getSelectedItem();
+        toolTip.setText("Notes: " + taskObj.getNotes());
+        Node node = (Node) mouseEvent.getSource();
+        toolTip.show(node, mouseEvent.getScreenX() + 120, mouseEvent.getScreenY());
+
+
         if (taskObj.isDone()) {
             btnDone.setDisable(true);
         } else {
@@ -187,11 +239,23 @@ public class MainWindow extends AnchorPane {
     }
 
     @FXML
+    private void onMouseClickTabs() {
+        String str = selectedTab.getSelectedItem().getText();
+        if (str.toLowerCase().equals("all")) {
+            handleUserEvent("list");
+        } else {
+            handleUserEvent("filter " + str.toLowerCase());
+            refreshType = Numbers.ONE.value;
+        }
+        updateGui();
+    }
+
+
+    @FXML
     private void onMouseClickDone() {
-        //System.out.println("CURRENTLY on " + listT.getSelectionModel().getSelectedItem());
         Task taskObj = listT.getSelectionModel().getSelectedItem();
         TaskList items = duke.getTaskList();
-        int itemNumber = items.getIndex(taskObj) + ONE;
+        int itemNumber = items.getIndex(taskObj) + Numbers.ONE.value;
         handleUserEvent("done " + itemNumber);
         updateGui();
     }
@@ -200,8 +264,17 @@ public class MainWindow extends AnchorPane {
     private void onMouseClickDelete() {
         Task taskObj = listT.getSelectionModel().getSelectedItem();
         TaskList items = duke.getTaskList();
-        int itemNumber = items.getIndex(taskObj) + ONE;
+        int itemNumber = items.getIndex(taskObj) + Numbers.ONE.value;
         handleUserEvent("delete " + itemNumber);
+        updateGui();
+    }
+
+    @FXML
+    private void onMouseClick_DeleteNotes() {
+        Task taskObj = listT.getSelectionModel().getSelectedItem();
+        TaskList items = duke.getTaskList();
+        int itemNumber = items.getIndex(taskObj) + Numbers.ONE.value;
+        handleUserEvent("notes " + itemNumber + " /delete");
         updateGui();
     }
 
@@ -219,10 +292,8 @@ public class MainWindow extends AnchorPane {
         cbtaskType.getItems().addAll(
                 "Todo",
                 "Deadline",
-                "Event",
                 "Fixed Duration",
-                "Repeat",
-                "Do After"
+                "Repeat"
         );
     }
 
@@ -230,7 +301,7 @@ public class MainWindow extends AnchorPane {
     private void onMouseClickOK() {
         Task taskObj = listT.getSelectionModel().getSelectedItem();
         TaskList items = duke.getTaskList();
-        int itemNumber = items.getIndex(taskObj) + ONE;
+        int itemNumber = items.getIndex(taskObj) + Numbers.ONE.value;
         if (cbupdateType.getSelectionModel().getSelectedItem().equals("Description")) {
             handleUserEvent("update " + itemNumber + " /desc " + tfnewDesc.getText().trim());
         } else if (cbupdateType.getSelectionModel().getSelectedItem().equals("Date/Time")) {
@@ -241,14 +312,10 @@ public class MainWindow extends AnchorPane {
                 typeStr = "todo";
             } else  if (cbtaskType.getSelectionModel().getSelectedItem().equals("Deadline")) {
                 typeStr = "deadline";
-            } else  if (cbtaskType.getSelectionModel().getSelectedItem().equals("Event")) {
-                typeStr = "event";
             } else  if (cbtaskType.getSelectionModel().getSelectedItem().equals("Fixed Duration")) {
                 typeStr = "fixedduration";
             } else  if (cbtaskType.getSelectionModel().getSelectedItem().equals("Repeat")) {
                 typeStr = "repeat";
-            } else  if (cbtaskType.getSelectionModel().getSelectedItem().equals("Do After")) {
-                typeStr = "doafter";
             }
             handleUserEvent("update " + itemNumber + " /type " + typeStr);
         }
@@ -277,7 +344,7 @@ public class MainWindow extends AnchorPane {
             vboxUpdate.setPrefWidth(VBOX_WIDTH);
             vboxUpdate.setVisible(true);
         } else {
-            vboxUpdate.setPrefWidth(ZERO);
+            vboxUpdate.setPrefWidth(Numbers.ZERO.value);
             vboxUpdate.setVisible(false);
         }
     }
@@ -297,7 +364,6 @@ public class MainWindow extends AnchorPane {
             btnUpdate.setVisible(false);
             btnDelete.setVisible(false);
         }
-
     }
 
     @FXML
@@ -311,9 +377,22 @@ public class MainWindow extends AnchorPane {
     protected void listViewRefresh() {
         listT.getItems().clear();
         TaskList items = duke.getTaskList();
-        for (int i = ZERO; i < items.size(); i++) {
-            listT.getItems().add(items.get(i));
+        FilterList filterList = duke.getFilterList();
+        if (refreshType == Numbers.ZERO.value) {
+            if (selectedTab != null) {
+                selectedTab.selectFirst();
+            }
+            for (int i = Numbers.ZERO.value; i < items.size(); i++) {
+                listT.getItems().add(items.get(i));
+            }
+        } else {
+            for (int i = Numbers.ZERO.value; i < filterList.size(); i++) {
+                listT.getItems().add(filterList.get(i));
+            }
+            selectedTab.select(filterList.getFilterIndex());
         }
+        refreshType = Numbers.ZERO.value;
+
     }
 
     @FXML
@@ -340,12 +419,14 @@ public class MainWindow extends AnchorPane {
             timer.schedule(exitDuke, new Date(System.currentTimeMillis() + TIMER_DELAY));
         } catch (DukeException e) {
             response = Ui.showErrorMsgGui(e.getMessage());
+            logr.log(Level.WARNING, response, e);
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
         } catch (Exception e) {
             response = Ui.showErrorMsgGui("     New error, please read console:")
                     +  Ui.showErrorMsgGui("     Duke will continue as per normal.");
+            logr.log(Level.WARNING, response, e);
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
@@ -365,9 +446,57 @@ public class MainWindow extends AnchorPane {
             Scene scene = new Scene(ap);
             Stage stage = new Stage();
             stage.setScene(scene);
+            stage.setAlwaysOnTop(true);
             fxmlLoader.<AddWindow>getController().setAddWindow(duke, this);
             stage.show();
         } catch (IOException e) {
+            logr.log(Level.SEVERE, "Unable to load add window", e);
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Creates a new window to allow the user to add or update notes of existing task via user friendly interface.
+     */
+    @FXML
+    public void createAddNotesWindow() {
+        Task taskObj = listT.getSelectionModel().getSelectedItem();
+        TaskList items = duke.getTaskList();
+        int itemNumber = items.getIndex(taskObj) + Numbers.ONE.value;
+        String notesDesc = items.get(itemNumber - Numbers.ONE.value).getNotes();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/AddNotesWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setAlwaysOnTop(true);
+            fxmlLoader.<AddNotesWindow>getController().setAddNotesWindow(this, itemNumber, notesDesc);
+            stage.show();
+        } catch (IOException e) {
+            logr.log(Level.SEVERE, "Unable to load add notes window", e);
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Creates a budget window to allow the user to view budget list via user friendly interface.
+     */
+    @FXML
+    public void createBudgetWindow() {
+        BudgetList budgetList = duke.getBudgetList();
+        String budgetDesc = budgetList.getStringList();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/BudgetWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setAlwaysOnTop(true);
+            fxmlLoader.<BudgetWindow>getController().setBudgetWindow(budgetDesc);
+            stage.show();
+        } catch (IOException e) {
+            logr.log(Level.SEVERE, "Unable to load budget window", e);
             e.printStackTrace();
         }
     }
@@ -383,10 +512,13 @@ public class MainWindow extends AnchorPane {
             Scene scene = new Scene(ap);
             Stage stage = new Stage();
             stage.setScene(scene);
+            stage.setAlwaysOnTop(true);
             fxmlLoader.<HelpWindow>getController().setHelpWindow(duke, this);
             stage.show();
         } catch (IOException e) {
+            logr.log(Level.SEVERE, "Unable to load help window", e);
             e.printStackTrace();
         }
     }
+
 }

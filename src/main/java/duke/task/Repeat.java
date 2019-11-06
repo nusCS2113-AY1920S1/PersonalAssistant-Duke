@@ -1,22 +1,18 @@
 package duke.task;
 
+import duke.enums.Numbers;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Represents a recursive task that stores the same description and across the different dates.
  */
 public class Repeat extends Task {
-    private static final int ZERO = 0;
-    private static final int ONE = 1;
-    private static final int MINUS_ONE = -1;
-    private static final int TWO = 2;
-    private static final int THREE = 3;
-    private static final int TWENTY_ONE = 21;
-    private static final int TWENTY_TWO = 22;
-    private static final int TWENTY_THREE = 23;
-    private static final int THIRTY_ONE = 31;
+    private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     protected Date from;
     protected String[] suf = { "st", "nd", "rd", "th" };
@@ -36,6 +32,7 @@ public class Repeat extends Task {
             dateTime = datetimeFormat.parse(from);
             this.from = dateTime;
         } catch (ParseException e) {
+            logr.log(Level.WARNING,"Error reading date/time, please use this format \"d/MM/yyyy HHmm\"", e);
             System.out.println("Error reading date/time, please use this format \"d/MM/yyyy HHmm\"");
             throw e;
         }
@@ -54,21 +51,21 @@ public class Repeat extends Task {
 
         int day = Integer.parseInt(new SimpleDateFormat("d").format(from));
         int min = Integer.parseInt(new SimpleDateFormat("m").format(from));
-        if (min > ZERO) {
+        if (min > Numbers.ZERO.value) {
             displayDT = datetimeFormat2.format(from);
         } else {
             displayDT = datetimeFormat3.format(from);
         }
-        int sufIndex = MINUS_ONE;
+        int sufIndex = Numbers.MINUS_ONE.value;
 
-        if (day == ONE || day == TWENTY_ONE || day == THIRTY_ONE) {
-            sufIndex = ZERO;
-        } else if (day == TWO || day == TWENTY_TWO) {
-            sufIndex = ONE;
-        } else if (day == THREE || day == TWENTY_THREE) {
-            sufIndex = TWO;
-        } else if (day > THREE && day < THIRTY_ONE) {
-            sufIndex = THREE;
+        if (day == Numbers.ONE.value || day == Numbers.TWENTY_ONE.value || day == Numbers.THIRTY_ONE.value) {
+            sufIndex = Numbers.ZERO.value;
+        } else if (day == Numbers.TWO.value || day == Numbers.TWENTY_TWO.value) {
+            sufIndex = Numbers.ONE.value;
+        } else if (day == Numbers.THREE.value || day == Numbers.TWENTY_THREE.value) {
+            sufIndex = Numbers.TWO.value;
+        } else if (day > Numbers.THREE.value && day < Numbers.THIRTY_ONE.value) {
+            sufIndex = Numbers.THREE.value;
         }
         String suffixStr = day + suf[sufIndex];
         displayDT = suffixStr + " of " + displayDT;
@@ -88,21 +85,21 @@ public class Repeat extends Task {
 
         int day = Integer.parseInt(new SimpleDateFormat("d").format(from));
         int min = Integer.parseInt(new SimpleDateFormat("m").format(from));
-        if (min > ZERO) {
+        if (min > Numbers.ZERO.value) {
             displayDT = datetimeFormat2.format(from);
         } else {
             displayDT = datetimeFormat3.format(from);
         }
-        int sufIndex = MINUS_ONE;
+        int sufIndex = Numbers.MINUS_ONE.value;
 
-        if (day == ONE || day == TWENTY_ONE || day == THIRTY_ONE) {
-            sufIndex = ZERO;
-        } else if (day == TWO || day == TWENTY_TWO) {
-            sufIndex = ONE;
-        } else if (day == THREE || day == TWENTY_THREE) {
-            sufIndex = TWO;
-        } else if (day > THREE && day < THIRTY_ONE) {
-            sufIndex = THREE;
+        if (day == Numbers.ONE.value || day == Numbers.TWENTY_ONE.value || day == Numbers.THIRTY_ONE.value) {
+            sufIndex = Numbers.ZERO.value;
+        } else if (day == Numbers.TWO.value || day == Numbers.TWENTY_TWO.value) {
+            sufIndex = Numbers.ONE.value;
+        } else if (day == Numbers.THREE.value || day == Numbers.TWENTY_THREE.value) {
+            sufIndex = Numbers.TWO.value;
+        } else if (day > Numbers.THREE.value && day < Numbers.THIRTY_ONE.value) {
+            sufIndex = Numbers.THREE.value;
         }
         String suffixStr = day + suf[sufIndex];
         displayDT = suffixStr + " of " + displayDT;
@@ -130,6 +127,7 @@ public class Repeat extends Task {
             dateTime = datetimeFormat.parse(from);
             this.from = dateTime;
         } catch (ParseException e) {
+            logr.log(Level.WARNING,"Error reading date/time, please use this format \"d/MM/yyyy HHmm\"", e);
             System.out.println("Error reading date/time, please use this format \"d/MM/yyyy HHmm\"");
             throw e;
         }

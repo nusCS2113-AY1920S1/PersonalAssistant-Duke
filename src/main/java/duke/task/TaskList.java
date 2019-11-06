@@ -1,15 +1,15 @@
 package duke.task;
 
+import duke.enums.Numbers;
+
 import java.util.ArrayList;
 
+//@@author talesrune
 /**
  * Represents a task list that stores a list of tasks.
  */
 public class TaskList {
     protected ArrayList<Task> items;
-    private static final int ZERO = 0;
-    private static final int MINUS_ONE = -1;
-    private static final int ONE = 1;
 
     /**
      * Creates an empty task list using an array list.
@@ -91,8 +91,8 @@ public class TaskList {
      * @return int that contains the index of task.
      */
     public int getIndex(Task taskObj) {
-        int index = MINUS_ONE;
-        for (int i = ZERO; i < items.size(); i++) {
+        int index = Numbers.MINUS_ONE.value;
+        for (int i = Numbers.ZERO.value; i < items.size(); i++) {
             if (taskObj.equals(items.get(i))) {
                 index = i;
             }
@@ -100,6 +100,7 @@ public class TaskList {
         return index;
     }
 
+    //@@author
     /**
      * Retrieves all tasks from the task list.
      *
@@ -107,8 +108,8 @@ public class TaskList {
      */
     public String getList() {
         String listStr = "";
-        for (int i = ZERO; i < items.size(); i++) {
-            listStr += "     " + (i + ONE) + "." + items.get(i).toString() + "\n";
+        for (int i = Numbers.ZERO.value; i < items.size(); i++) {
+            listStr += "     " + (i + Numbers.ONE.value) + "." + items.get(i).toString() + "\n";
         }
         return listStr;
     }
@@ -120,8 +121,8 @@ public class TaskList {
      */
     public String getListGui() {
         String listStr = "";
-        for (int i = ZERO; i < items.size(); i++) {
-            listStr += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
+        for (int i = Numbers.ZERO.value; i < items.size(); i++) {
+            listStr += "     " + (i + Numbers.ONE.value) + "." + items.get(i).toStringGui() + "\n";
         }
         return listStr;
     }

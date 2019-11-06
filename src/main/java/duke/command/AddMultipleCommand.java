@@ -9,7 +9,7 @@ import duke.ui.Ui;
 import java.util.ArrayList;
 
 /**
- * Representing a command that adds multiple tasks.
+ * Represents a command that adds multiple tasks.
  */
 //@@author e0318465
 public class AddMultipleCommand extends Command {

@@ -4,9 +4,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.text.ParseException;
 
+//@@author talesrune-unused
 /**
+ * Code for event task will not be used as the final product as it is very similar to Deadline.
+ *
  * Represents an event that stores description and date/time.
  */
+
 public class Event extends Task {
     protected Date at;
     protected String[] suf = { "st", "nd", "rd", "th" };
@@ -147,3 +151,35 @@ public class Event extends Task {
         }
     }
 }
+
+/**
+ * Code snippet from executeGui function in UpdateCommand Class
+ */
+/*
+               else if (typeDesc.equals("event")) {
+                   if (items.get(index) instanceof Deadline || items.get(index) instanceof Repeat) {
+                       newtaskObj = new Event(items.get(index).getDescription(), items.get(index).getDateTime());
+                   } else if (items.get(index) instanceof Event) {
+                       //throw new DukeException("     You are updating the same type of task! (Event)");
+                       return "     (>_<) OOPS!!! You are updating the same type of task! (Event)";
+                   } else {
+                       newtaskObj = new Event(items.get(index).getDescription(), "01/01/2001 0001");
+                   }
+               }
+*/
+
+/**
+ * Code snippet from read function in Storage Class
+ */
+/*
+               else if (commandList[ZERO].equals("E")) {
+                   if (taskDesc.isEmpty() || dateDesc.isEmpty()) {
+                       throw new DukeException("Error reading description or date/time, skipping to next line");
+                   } else {
+                       t = new Event(taskDesc, dateDesc);
+                       t.setStatusIcon(checked);
+                       t.setNotes(notesDesc);
+                       items.add(t);
+                   }
+               }
+*/

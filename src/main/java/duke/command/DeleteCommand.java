@@ -5,8 +5,9 @@ import duke.task.PriorityList;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+//@@author talesrune
 /**
- * Representing a command that deletes a task.
+ * Represents a command that deletes a task.
  */
 public class DeleteCommand extends Command {
     protected int index;
