@@ -45,7 +45,7 @@ The sequence diagram below shows how the different components interact with each
 image::ComponentSequence.jpeg[]
 
 The sections below give more details of each component.
-
+//tag::ajl3[]
 [[Design-Ui]]
 === UI component
 
@@ -53,7 +53,7 @@ The sections below give more details of each component.
 image::UiClassDiagram.png[]
 
 The ui package is relatively simple, since we have no GUI. The ui package consists of 2 classes - `TaskListPrinter` and `Ui`. `TaskListPrinter` is a class that handles the printing of the `TaskList` for the user to view. `Ui` is a class that deals with user interactions. `TaskListPrinter` depends on `Task` and `TaskList` while the logic package relies heavily on `UI` (e.g. all commands have execute method which uses `Ui`).
-
+//end::ajl3[]
 // tag::logic[]
 [[Design-Logic]]
 === Logic component
@@ -80,6 +80,7 @@ The `TaskList`:
 * Event object extends tasks and enforces a compulsory `LocalDateTime` object denoting the time of the event
 * `TaskList` does not depend on other components
 
+//tag::ajl2[]
 [[Design-Storage]]
 === Storage component
 
@@ -89,6 +90,7 @@ image::StorageClassDiagram.png[]
 The storage package contains 3 classes - `RuntimeTypeAdaptorFactory`, `Storage` and `UndoStack`. `RuntimeTypeAdaptorFactory` is a class that facilitates serializing and deserializing since we store our persistent data in a json file. Storage is a class that deals with the saving and loading of all task data the user has saved. `UndoStack` contains all the mirror commands of commands which can be undone.
 
 `Storage` depends on `TaskList` and `Task` because it needs to have the `Task` and `TaskList` variables before saving them. `UndoStack` has a stack of `Commands`, so it depends on `Command`. `UndoCommand` needs the `UndoStack` to perform “un-doing” while `AddCommand`, `EditCommand`, `DeleteCommand` and `DoneCommand` need to add the “negation” of performed tasks to UndoStack.
+//end::ajl2[]
 
 == Implementation
 
@@ -268,8 +270,8 @@ image::PomodoroSequenceDiagram.jpeg[]
 ** Pros: Won’t need to call individual setters for each attribute.
 ** Cons: Have to deal with AddCommand class to create a new task. 
 
-
-=== Finding
+//tag::ajl[]
+=== Finding feature
 ==== Implementation
 The find feature is an extension of the `ListCommand`. As the name suggests, it allows the user to list tasks whose description matches the text.
 
@@ -321,7 +323,7 @@ The `OffByOneChecker` and `StartsWithChecker` is designed such that regardless o
 ==== Future Scope (Next Milestone)
 Use a more efficient data structure. Extend this to other keywords like “priority”.
 
-=== Automatically assign filter to some task feature
+=== Feature to automatically assign some task a filter
 ==== Implementation
 Some tasks which the user has created are yet to be assigned to a filter. If the user wants to clean up his unassigned tasks by assigning them to some existing filter but he is either not sure what the filter should be or cannot recall the name of the filter, he could use the auto assign feature.
 
@@ -358,7 +360,7 @@ The second heuristic is using cosine similarity and is slightly more complicated
 
 ==== Design Considerations
 Given the large number of steps for this command, we can isolate many parts of the implementation into methods. For instance, calculating vector counts for a list of tokens can be a method. This improves code reuse and readability.
-
+//end::ajl[]
 
 [appendix]
 == Product Scope

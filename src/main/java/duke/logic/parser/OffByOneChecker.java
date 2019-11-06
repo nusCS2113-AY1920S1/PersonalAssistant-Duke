@@ -34,8 +34,8 @@ public class OffByOneChecker {
                 System.out.println(String.format("Did you mean %s? (Y/N)", command));
                 String input = scanner.nextLine().toUpperCase();
                 while (!input.equals("Y") && !input.equals("N")) {
-                    System.out.println(String.format("Did you mean %s? Please enter anything (Y/N)", command));
-                    input = scanner.nextLine();
+                    System.out.println(String.format("Did you mean %s? Please enter either (Y/N)", command));
+                    input = scanner.nextLine().toUpperCase();
                 }
                 if (input.equals("Y")) {
                     return command;
