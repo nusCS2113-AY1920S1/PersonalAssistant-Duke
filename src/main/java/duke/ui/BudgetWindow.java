@@ -1,4 +1,4 @@
-package duke;
+package duke.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
