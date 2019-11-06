@@ -29,7 +29,7 @@ public class FindFreeTimesParse extends Parse {
 
     @Override
     public Command parse() throws DukeInvalidFormatException {
-        fullCommand = fullCommand.replaceFirst("find", "");
+        fullCommand = fullCommand.replaceFirst("find/ft", "");
         fullCommand = fullCommand.trim();
         if (fullCommand.contains("hours")) fullCommand = fullCommand.replaceFirst("hours", "");
         else if (fullCommand.contains("hour")) fullCommand = fullCommand.replaceFirst("hour", "");

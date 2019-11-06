@@ -46,7 +46,7 @@ public class MainParser {
             case "done":
                 return new DoneParse(fullCommand).parse();
 
-            case "find":
+            case "find/ft":
                 return new FindFreeTimesParse(fullCommand).parse();
 
             case "show/previous":

@@ -30,14 +30,14 @@ public class FindFreeTimesParseTest {
 
     @BeforeAll
     public static void setAllVariables() {
-        validUserInputWithDuration = "find 5 hours";
+        validUserInputWithDuration = "find/ft 5 hours";
 
-        userInputWithNegativeDuration = "find -100 hours";
-        userInputWithInvalidDuration = "find abc hours";
-        userInputWithDurationInDecimal = "find 5.6 hours";
+        userInputWithNegativeDuration = "find/ft -100 hours";
+        userInputWithInvalidDuration = "find/ft abc hours";
+        userInputWithDurationInDecimal = "find/ft 5.6 hours";
 
-        userInputWithoutPostFix = "find 5";
-        userInputWithoutDuration = "find hours";
+        userInputWithoutPostFix = "find/ft 5";
+        userInputWithoutDuration = "find/ft hours";
     }
 
     @Test
