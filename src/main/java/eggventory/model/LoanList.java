@@ -71,7 +71,6 @@ public final class LoanList {
     }
 
     //@@author cyanoei
-
     /**
      * Deletes a Loan object from the system. Removes both records of the loan.
      * @param stockCode the stockCode of the Stock.

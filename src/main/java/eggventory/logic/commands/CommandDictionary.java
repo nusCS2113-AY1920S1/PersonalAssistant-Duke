@@ -18,6 +18,8 @@ public class CommandDictionary {
         // Add Commands
         commandDict.add(new Pair<>("add stock", "<StockType> <StockCode> <Quantity> <Description>"));
         commandDict.add(new Pair<>("add stocktype", "<StockType>"));
+        commandDict.add(new Pair<>("add loan", "<StockCode> <Quantity>"));
+        commandDict.add(new Pair<>("add stocktype", "<StockType>"));
         commandDict.add(new Pair<>("add person", "<MatricNo> <Name>"));
         commandDict.add(new Pair<>("add template", "<TemplateName> {<StockCode>, <Quantity>}"));
 
@@ -37,6 +39,7 @@ public class CommandDictionary {
         commandDict.add(new Pair<>("list stocktype", "<StockType>"));
         commandDict.add(new Pair<>("list loan", null));
         commandDict.add(new Pair<>("list template", null));
+        commandDict.add(new Pair<>("list template", "<TemplateName>"));
         commandDict.add(new Pair<>("list lost", null));
         commandDict.add(new Pair<>("list person", null));
         commandDict.add(new Pair<>("list person", "<MatricNo>"));

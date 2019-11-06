@@ -39,9 +39,13 @@ public class AddTemplateCommand extends Command {
     public String execute(StockList list, Ui ui, Storage storage) throws BadInputException {
         String output;
 
-        TemplateList.addTemplate(name, loans);
-
-        output = TemplateList.printTemplateLoans(name);
+        if (TemplateList.templateExists(name)) {
+            output = "OOPS! A template with that name already exists!";
+        } else {
+            TemplateList.addTemplate(name, loans);
+            output = TemplateList.printTemplateLoans(name);
+        }
+      
         ui.print(output);
 
         return output;
