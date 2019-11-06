@@ -3,6 +3,7 @@ import javacake.Logic;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 import javacake.commands.ListCommand;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
