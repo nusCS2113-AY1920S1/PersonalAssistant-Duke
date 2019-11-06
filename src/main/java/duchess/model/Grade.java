@@ -10,10 +10,11 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  */
 public class Grade {
     private String assessment;
-    private int marks;
-    private int maxMarks;
-    private int weightage;
+    private double marks;
+    private double maxMarks;
+    private double weightage;
     private boolean isComplete;
+    private double modulePercentage; // marks obtained converted to percentage of the module
 
     /**
      * Creates a Grade object.
@@ -33,6 +34,10 @@ public class Grade {
         this.maxMarks = maxMarks;
         this.weightage = weightage;
         this.isComplete = isComplete;
+    }
+
+    private void calculateModulePercentage() {
+        modulePercentage = marks / maxMarks * weightage;
     }
 
     /**
@@ -59,6 +64,8 @@ public class Grade {
         this(assessment, weightage);
         this.marks = marks;
         this.maxMarks = maxMarks;
+        this.isComplete = true;
+        calculateModulePercentage();
     }
 
     @JsonGetter
@@ -72,7 +79,7 @@ public class Grade {
     }
 
     @JsonGetter
-    public int getMarks() {
+    public double getMarks() {
         return marks;
     }
 
@@ -82,7 +89,7 @@ public class Grade {
     }
 
     @JsonGetter
-    public int getMaxMarks() {
+    public double getMaxMarks() {
         return maxMarks;
     }
 
@@ -92,7 +99,7 @@ public class Grade {
     }
 
     @JsonGetter
-    public int getWeightage() {
+    public double getWeightage() {
         return weightage;
     }
 
@@ -102,7 +109,7 @@ public class Grade {
     }
 
     @JsonGetter
-    public boolean getIsComplete(boolean isComplete) {
+    public boolean getIsComplete() {
         return isComplete;
     }
 
@@ -111,12 +118,26 @@ public class Grade {
         this.isComplete = isComplete;
     }
 
+    @JsonGetter
+    public double getModulePercentage() {
+        return modulePercentage;
+    }
+
+    @JsonSetter
+    public void setModulePercentage(double modulePercentage) {
+        this.modulePercentage = modulePercentage;
+    }
+
     public void markAsComplete() {
         this.isComplete = true;
     }
 
     @Override
     public String toString() {
-        return String.format("%s %d/%d %d%%", assessment, marks, maxMarks, weightage);
+        if (isComplete) {
+            return String.format("%s %.1f/%.1f %.1f%%", assessment, marks, maxMarks, weightage);
+        } else {
+            return String.format("%s %.1f%%", assessment, weightage);
+        }
     }
 }
