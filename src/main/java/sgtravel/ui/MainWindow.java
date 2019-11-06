@@ -34,6 +34,11 @@ import java.util.logging.Logger;
  */
 public class MainWindow extends UiPart<Stage> {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    private LogicManager logic;
+    private static final String FXML = "MainWindow.fxml";
+    private Stage primaryStage;
+    private Main main;
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -44,11 +49,6 @@ public class MainWindow extends UiPart<Stage> {
     private Button sendButton;
     @FXML
     private AnchorPane sidePanel;
-
-    private LogicManager logic;
-    private static final String FXML = "MainWindow.fxml";
-    private Stage primaryStage;
-    private Main main;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duke.png"));
@@ -140,7 +140,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private void sgTravelShow(String msg) {
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(msg, dukeImage)
+                DialogBox.getDialog(msg, dukeImage)
         );
     }
 
@@ -151,7 +151,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void sgTravelShow(String message, Image image) {
         dialogContainer.getChildren().addAll(
-                DialogBoxImage.getDukeDialog(message, dukeImage, image)
+                DialogBoxImage.getDialog(message, dukeImage, image)
         );
     }
 

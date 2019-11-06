@@ -41,6 +41,7 @@ public class LocationSearchUrlRequest extends UrlRequest {
     @Override
     public Venue execute() throws ApiException {
         String response;
+
         try {
             URL url = new URL(API_LINK + PARAM_TYPE + "=" + param + OPTIONAL_VARIABLES);
             URLConnection connection = url.openConnection();
@@ -53,6 +54,7 @@ public class LocationSearchUrlRequest extends UrlRequest {
         } catch (IOException e) {
             return localSearch.search(param);
         }
+
         if (response != null) {
             JsonParser jp = new JsonParser();
             JsonElement root = jp.parse(response);
@@ -61,8 +63,6 @@ public class LocationSearchUrlRequest extends UrlRequest {
 
             String numFoundString = String.valueOf(results.getAsJsonPrimitive("found"));
             int numFound = Integer.parseInt(numFoundString);
-
-
             if (numFound > 0) {
                 JsonObject firstResult = arr.get(0).getAsJsonObject();
                 return new Venue(firstResult.get("ADDRESS").getAsString(), firstResult.get("LATITUDE").getAsDouble(),
@@ -70,6 +70,7 @@ public class LocationSearchUrlRequest extends UrlRequest {
                         firstResult.get("Y").getAsDouble());
             }
         }
+
         throw new ApiException();
     }
 }

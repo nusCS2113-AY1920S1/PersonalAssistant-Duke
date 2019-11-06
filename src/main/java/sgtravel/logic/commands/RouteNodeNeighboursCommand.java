@@ -1,5 +1,6 @@
 package sgtravel.logic.commands;
 
+import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.ApiException;
 import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.logic.api.ApiParser;
@@ -16,8 +17,6 @@ import java.util.ArrayList;
  * Shows nearby neighbours of a given RouteNode.
  */
 public class RouteNodeNeighboursCommand extends Command {
-    private static final String MESSAGE_SUCCESS = "Here are some Nodes that are close to this:\n";
-    private static final String MESSAGE_FAILURE = "I'm sorry, but it is out of bounds...\n";
     private int indexRoute;
     private int indexNode;
 
@@ -39,20 +38,20 @@ public class RouteNodeNeighboursCommand extends Command {
      * @return The CommandResultImage.
      */
     @Override
-    public CommandResultImage execute(Model model) throws OutOfBoundsException {
+    public CommandResultImage execute(Model model) {
         try {
-            Route route = model.getRoutes().get(indexRoute);
-            RouteNode node = model.getRoutes().get(indexRoute).getNode(indexNode);
+            Route route = model.getRoute(indexRoute);
+            RouteNode node = route.getNode(indexNode);
             ArrayList<Venue> result = ApiParser.getNeighbour(model, node);
 
             try {
                 Image image = ApiParser.generateStaticMapNeighbours(model, route, node, indexNode);
-                return new CommandResultImage(image, MESSAGE_SUCCESS, result);
+                return new CommandResultImage(image, Messages.ROUTE_NODE_NEIGHBOURS_SUCCESS, result);
             } catch (ApiException e) {
-                return new CommandResultImage(null, MESSAGE_SUCCESS, result);
+                return new CommandResultImage(null, Messages.ERROR_API_FAIL, result);
             }
         } catch (IndexOutOfBoundsException | OutOfBoundsException e) {
-            return new CommandResultImage(MESSAGE_FAILURE, null);
+            return new CommandResultImage(Messages.ERROR_INDEX_OUT_OF_BOUNDS, null);
         }
     }
 }

@@ -57,8 +57,6 @@ public class ConversationParser {
             return new RouteNodeAddConversation();
         case "routeNodeDelete":
             return new RouteNodeDeleteConversation();
-        case "routeNodeEdit":
-            return new RouteNodeEditConversation();
         case "routeNodeList":
             return new RouteNodeListConversation();
         default:

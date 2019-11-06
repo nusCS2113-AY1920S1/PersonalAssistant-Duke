@@ -1,5 +1,6 @@
 package sgtravel.logic.commands;
 
+import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.ApiException;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.QueryFailedException;
@@ -48,13 +49,23 @@ public class RouteNodeAddCommand extends Command {
     public CommandResultImage execute(Model model) throws QueryFailedException, DuplicateRouteNodeException,
             OutOfBoundsException, FileNotSavedException, ApiException {
         if (node instanceof BusStop) {
-            ((BusStop) node).fetchData(model);
+            try {
+                ((BusStop) node).fetchData(model);
+            } catch (QueryFailedException e) {
+                return new CommandResultImage(Messages.ERROR_BUS_STOP_NOT_FOUND_STARTER + e.getQueriedItem()
+                        + Messages.ERROR_BUS_STOP_NOT_FOUND_END, null);
+            }
         } else if (node instanceof TrainStation) {
-            ((TrainStation) node).fetchData(model);
+            try {
+                ((TrainStation) node).fetchData(model);
+            } catch (QueryFailedException e) {
+                return new CommandResultImage(Messages.ERROR_TRAIN_STATION_NOT_FOUND_STARTER + e.getQueriedItem()
+                        + Messages.ERROR_TRAIN_STATION_NOT_FOUND_END, null);
+            }
         }
 
         try {
-            Route route = model.getRoutes().get(indexRoute);
+            Route route = model.getRoute(indexRoute);
             if (isEmptyIndexNode) {
                 route.add(node);
                 indexNode = route.size() - 1;

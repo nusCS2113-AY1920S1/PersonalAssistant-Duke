@@ -1,8 +1,10 @@
 package sgtravel;
 
+import org.assertj.core.data.Index;
 import sgtravel.commons.exceptions.FileLoadFailException;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.DuplicateRouteException;
+import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.model.Model;
 import sgtravel.model.lists.EventList;
 import sgtravel.model.lists.RouteList;
@@ -67,6 +69,15 @@ public class ModelStub implements Model {
     @Override
     public RouteList getRoutes() {
         return routes;
+    }
+
+    @Override
+    public Route getRoute(int index) throws OutOfBoundsException {
+        try {
+            return routes.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new OutOfBoundsException();
+        }
     }
 
     @Override

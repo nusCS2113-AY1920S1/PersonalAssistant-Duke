@@ -8,7 +8,7 @@ import sgtravel.model.Model;
 import sgtravel.model.locations.Venue;
 
 /**
- * Fetchs a location query and returns a location with coordinates.
+ * Fetches a location query and returns a location with coordinates.
  */
 public class LocationSearchCommand extends Command {
     private String location;
@@ -27,7 +27,6 @@ public class LocationSearchCommand extends Command {
      *
      * @param model The model object containing information about the user.
      * @return The CommandResultText.
-     * @throws ApiException If the Api call fails.
      */
     @Override
     public CommandResultText execute(Model model) {

@@ -12,8 +12,12 @@ public class Messages {
     public static final String LOCATIONSEARCH_STARTER = "These are the coordinates of your search:\n";
     public static final String LOCATIONSEARCH_API_EXCEPTION
             = "Sorry, but the search has timed out due to connection issues.";
-    public static final String MESSAGE_BUS_ROUTE = "Here is the bus route:\n";
-    public static final String MESSAGE_BUS_ROUTE_NOT_FOUND = "I'm sorry, but nothing was found...\n";
+    public static final String BUS_ROUTE_STARTER = "Here is the bus route:\n";
+    public static final String BUS_ROUTE_NOT_FOUND = "I'm sorry, but nothing was found...\n";
+    public static final String ROUTE_NODE_ADD_SUCCESS = "Got it. I've added this route:\n";
+    public static final String ROUTE_NODE_DELETE_SUCCESS = "Got it. I've deleted this Route Node:\n";
+    public static final String ROUTE_NODE_EDIT_SUCCESS = "Edited the Route!\n";
+    public static final String ROUTE_NODE_NEIGHBOURS_SUCCESS = "Here are some Nodes that are close to this:\n";
 
     /**
      * Error messages.
@@ -41,7 +45,11 @@ public class Messages {
     public static final String ERROR_EVENT_NOT_SELECTED = "There are no events selected.";
     public static final String ERROR_RESULT_NOT_FOUND = "Nothing could be found.";
     public static final String ERROR_BUS_SERVICE_NOT_FOUND = "I'm sorry, there is no such bus service.";
-    public static final String ERROR_BUS_STOP_NOT_FOUND = "I'm sorry, there is no such bus stop.";
+    public static final String ERROR_BUS_STOP_NOT_FOUND = "I'm sorry, the bus stop does not exist! :-(";
+    public static final String ERROR_BUS_STOP_NOT_FOUND_STARTER = "I'm sorry, the bus stop ";
+    public static final String ERROR_BUS_STOP_NOT_FOUND_END = " does not exist! :-(";
+    public static final String ERROR_TRAIN_STATION_NOT_FOUND_STARTER = "I'm sorry, the train station ";
+    public static final String ERROR_TRAIN_STATION_NOT_FOUND_END = " does not exist! :-(";
     public static final String ERROR_DATE_INCONSISTENT = "Im sorry, there is some discrepancy between your dates";
     public static final String ERROR_DATE_BEFORE_NOW = "Im sorry, your dates must be in the future";
     public static final String ERROR_DATE_AFTER_NOW = "Im sorry, your dates must be in the past";

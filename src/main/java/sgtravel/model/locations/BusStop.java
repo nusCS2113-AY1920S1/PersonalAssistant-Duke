@@ -84,7 +84,7 @@ public class BusStop extends RouteNode {
             return;
         }
 
-        throw new QueryFailedException("BUS_STOP");
+        throw new QueryFailedException(busCode);
     }
 }
 

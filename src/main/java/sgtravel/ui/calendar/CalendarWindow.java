@@ -42,12 +42,58 @@ public class CalendarWindow extends UiPart<Stage> {
     @FXML
     private GridPane gridCalendar;
 
+    /**
+     * Creates a new CalendarWindow.
+     *
+     * @param root Stage to use as the root of the CalendarWindow.
+     */
+    private CalendarWindow(Stage root, EventList events) {
+        super(FXML, root);
+        root.getScene().getStylesheets().addAll(this.getClass().getResource("/css/calendarStyle.css").toExternalForm());
+        setCalendarLayout(events);
+    }
+
+    /**
+     * Creates a new CalendarWindow.
+     */
+    public CalendarWindow(CommandResultCalender commandResult) {
+        this(new Stage(), commandResult.getEvents());
+    }
+
+    /**
+     * Shows the Calendar window.
+     * @throws IllegalStateException
+     * <ul>
+     *     <li>
+     *         if this method is called on a thread other than the JavaFX Application Thread.
+     *     </li>
+     *     <li>
+     *         if this method is called during animation or layout processing.
+     *     </li>
+     *     <li>
+     *         if this method is called on the primary stage.
+     *     </li>
+     *     <li>
+     *         if {@code dialogStage} is already showing.
+     *     </li>
+     * </ul>
+     */
+    public void show() {
+        getRoot().show();
+    }
+
+    /**
+     * Changes to the previous month.
+     */
     @FXML
     private void previousMonth() {
         currentYearMonth = currentYearMonth.minusMonths(1);
         refreshCalendar();
     }
 
+    /**
+     * Changes to the next month.
+     */
     @FXML
     private void nextMonth() {
         currentYearMonth = currentYearMonth.plusMonths(1);
@@ -65,6 +111,9 @@ public class CalendarWindow extends UiPart<Stage> {
 
     /**
      * Sets the title of the calendar according to a specific month and year.
+     *
+     * @param year The year.
+     * @param month The month.
      */
     private void setCalendarTitle(int year, String month) {
         calendarTitle.setText(" " + month + " " + year + " ");
@@ -119,15 +168,15 @@ public class CalendarWindow extends UiPart<Stage> {
     /**
      * Tries to add a task to the current calendar.
      *
-     * @param t A task from the Duke's task list.
+     * @param task A task from the Duke's task list.
      */
-    private void tryAddingTask(Event t) {
-        LocalDate startDate = t.getStartDate().toLocalDate();
-        LocalDate endDate = t.getEndDate().toLocalDate();
+    private void tryAddingTask(Event task) {
+        LocalDate startDate = task.getStartDate().toLocalDate();
+        LocalDate endDate = task.getEndDate().toLocalDate();
         while (!startDate.isAfter(endDate)) {
             if (isSameYearMonth(startDate)) {
                 try {
-                    filteredEvents.get(startDate.getDayOfMonth()).add(t);
+                    filteredEvents.get(startDate.getDayOfMonth()).add(task);
                 } catch (DuplicateTaskException e) {
                     logger.log(Level.WARNING, "Duplicated tasks should not exists.");
                 }
@@ -136,9 +185,11 @@ public class CalendarWindow extends UiPart<Stage> {
         }
     }
 
-    private boolean isSameYearMonth(Object date) {
-        return currentYearMonth.getYear() == ((LocalDate) date).getYear()
-                && currentYearMonth.getMonth() == ((LocalDate) date).getMonth();
+    /**
+     * Focuses on the Calendar window.
+     */
+    public void focus() {
+        getRoot().requestFocus();
     }
 
     /**
@@ -161,46 +212,6 @@ public class CalendarWindow extends UiPart<Stage> {
     }
 
     /**
-     * Creates a new CalendarWindow.
-     *
-     * @param root Stage to use as the root of the CalendarWindow.
-     */
-    private CalendarWindow(Stage root, EventList events) {
-        super(FXML, root);
-        root.getScene().getStylesheets().addAll(this.getClass().getResource("/css/calendarStyle.css").toExternalForm());
-        setCalendarLayout(events);
-    }
-
-    /**
-     * Creates a new CalendarWindow.
-     */
-    public CalendarWindow(CommandResultCalender commandResult) {
-        this(new Stage(), commandResult.getEvents());
-    }
-
-    /**
-     * Shows the Calendar window.
-     * @throws IllegalStateException
-     * <ul>
-     *     <li>
-     *         if this method is called on a thread other than the JavaFX Application Thread.
-     *     </li>
-     *     <li>
-     *         if this method is called during animation or layout processing.
-     *     </li>
-     *     <li>
-     *         if this method is called on the primary stage.
-     *     </li>
-     *     <li>
-     *         if {@code dialogStage} is already showing.
-     *     </li>
-     * </ul>
-     */
-    public void show() {
-        getRoot().show();
-    }
-
-    /**
      * Returns true if the Calendar window is currently being shown.
      */
     public boolean isShowing() {
@@ -208,9 +219,13 @@ public class CalendarWindow extends UiPart<Stage> {
     }
 
     /**
-     * Focuses on the Calendar window.
+     * Checks if it is the same year and month.
+     *
+     * @param date The date object.
+     * @return true If it is the same year and month.
      */
-    public void focus() {
-        getRoot().requestFocus();
+    private boolean isSameYearMonth(Object date) {
+        return currentYearMonth.getYear() == ((LocalDate) date).getYear()
+                && currentYearMonth.getMonth() == ((LocalDate) date).getMonth();
     }
 }

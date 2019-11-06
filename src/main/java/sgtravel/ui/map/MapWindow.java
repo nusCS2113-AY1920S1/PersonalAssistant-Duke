@@ -15,14 +15,40 @@ import java.util.List;
  * Represents a generic Map Window in the UI.
  */
 public class MapWindow extends UiPart<Stage> {
-    @FXML
-    private AnchorPane map;
-
     private static final String FXML = "MapWindow.fxml";
     private List<Venue> locations = new ArrayList<>();
 
-    private void generateNodes(List<RouteNode> routes) {
-        locations.addAll(routes);
+    @FXML
+    private AnchorPane map;
+
+    /**
+     * Creates a new MapWindow.
+     *
+     * @param root Stage to use as the root of the CalendarWindow.
+     * @param routeNodeList The List of RouteNodes.
+     */
+    private MapWindow(Stage root, List<RouteNode> routeNodeList) {
+        super(FXML, root);
+        root.getScene().getStylesheets().addAll(this.getClass().getResource("/css/mapStyle.css").toExternalForm());
+        generateNodes(routeNodeList);
+    }
+
+    /**
+     * Creates a new MapWindow.
+     *
+     * @param commandResultMap The CommandResult that contains a Route.
+     */
+    public MapWindow(CommandResultMap commandResultMap) {
+        this(new Stage(), commandResultMap.getRoute());
+    }
+
+    /**
+     * Generates the RouteNodes in a Route for the MapWindow.
+     *
+     * @param routeNodeList The List of RouteNodes.
+     */
+    private void generateNodes(List<RouteNode> routeNodeList) {
+        locations.addAll(routeNodeList);
         map.getChildren().clear();
         int index = 0;
         String id = "";
@@ -37,24 +63,6 @@ public class MapWindow extends UiPart<Stage> {
             map.getChildren().add(LocationCard.getCard(location, id));
             index++;
         }
-    }
-
-    /**
-     * Creates a new MapWindow.
-     *
-     * @param root Stage to use as the root of the CalendarWindow.
-     */
-    private MapWindow(Stage root, List<RouteNode> routes) {
-        super(FXML, root);
-        root.getScene().getStylesheets().addAll(this.getClass().getResource("/css/mapStyle.css").toExternalForm());
-        generateNodes(routes);
-    }
-
-    /**
-     * Creates a new MapWindow.
-     */
-    public MapWindow(CommandResultMap commandResult) {
-        this(new Stage(), commandResult.getRoute());
     }
 
     /**

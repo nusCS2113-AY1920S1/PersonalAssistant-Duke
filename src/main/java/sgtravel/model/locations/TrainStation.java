@@ -1,6 +1,7 @@
 package sgtravel.model.locations;
 
 import sgtravel.commons.enumerations.Constraint;
+import sgtravel.commons.exceptions.QueryFailedException;
 import sgtravel.model.Model;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class TrainStation extends RouteNode {
      * @param trainStationName The bus code.
      * @param model The model object containing information about the user.
      */
-    public TrainStation(String trainStationName, Model model) {
+    public TrainStation(String trainStationName, Model model) throws QueryFailedException {
         super(Constraint.valueOf("MRT"), "", "", 0, 0);
         this.setAddress(trainStationName);
         fetchData(model);
@@ -62,7 +63,7 @@ public class TrainStation extends RouteNode {
      *
      * @param model The model.
      */
-    public void fetchData(Model model) {
+    public void fetchData(Model model) throws QueryFailedException {
         String[] addressDetails = this.getAddress().split(" ");
         StringBuilder addressSB = new StringBuilder();
         for (String detail : addressDetails) {
@@ -76,6 +77,8 @@ public class TrainStation extends RouteNode {
             this.setAddress(address + " MRT");
             this.setLatitude(allTrainStations.get(address).getLatitude());
             this.setLongitude(allTrainStations.get(address).getLongitude());
+        } else {
+            throw new QueryFailedException(address);
         }
     }
 }

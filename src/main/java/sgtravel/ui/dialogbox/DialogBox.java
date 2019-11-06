@@ -15,9 +15,7 @@ import javafx.scene.shape.Circle;
 import java.util.Collections;
 
 /**
- * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
- * containing text from the speaker.
+ * Dialog Box containing text only.
  */
 public class DialogBox extends UiPart<HBox> {
     private static final String FXML = "DialogBox.fxml";
@@ -31,18 +29,26 @@ public class DialogBox extends UiPart<HBox> {
     @FXML
     private HBox miniBox;
 
-    private DialogBox(String text, Image img) {
+    /**
+     * Constructs the DialogBox object.
+     *
+     * @param text The text to display.
+     * @param user The picture of the user.
+     */
+    private DialogBox(String text, Image user) {
         super(FXML);
         dialog.setText(text);
         dialog.setMinHeight(Label.USE_PREF_SIZE);
-        roundImageView(img);
+        roundImageView(user);
     }
 
     /**
      * Rounds an image.
+     *
+     * @param image The image to round.
      */
-    private void roundImageView(Image img) {
-        ImagePattern pattern = new ImagePattern(img);
+    private void roundImageView(Image image) {
+        ImagePattern pattern = new ImagePattern(image);
         circle.setFill(pattern);
     }
 
@@ -58,6 +64,12 @@ public class DialogBox extends UiPart<HBox> {
         flipNode(tmp2, miniBox);
     }
 
+    /**
+     * Flips the node.
+     *
+     * @param tmp The ObservableList of Nodes.
+     * @param root The HBox to interact with.
+     */
     private void flipNode(ObservableList<Node> tmp, HBox root) {
         Collections.reverse(tmp);
         root.getChildren().setAll(tmp);
@@ -66,16 +78,24 @@ public class DialogBox extends UiPart<HBox> {
 
     /**
      * Gets a User Dialog box for display.
+     *
+     * @param text The text to display.
+     * @param user The picture of the user.
+     * @return The DialogBox created.
      */
-    public static HBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img).getRoot();
+    public static HBox getUserDialog(String text, Image user) {
+        return new DialogBox(text, user).getRoot();
     }
 
     /**
-     * Gets a Duke Dialog box for display.
+     * Gets a DialogBox for display.
+     *
+     * @param text The text to display.
+     * @param user The picture of the user.
+     * @return The DialogBox created.
      */
-    public static HBox getDukeDialog(String text, Image img) {
-        DialogBox db = new DialogBox(text, img);
+    public static HBox getDialog(String text, Image user) {
+        DialogBox db = new DialogBox(text, user);
         db.flip();
         return db.getRoot();
     }

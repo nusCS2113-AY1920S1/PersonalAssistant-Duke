@@ -2,6 +2,7 @@ package sgtravel.model;
 
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.NoRecentItineraryException;
+import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.commons.exceptions.ParseException;
 import sgtravel.commons.exceptions.DuplicateRouteException;
 import sgtravel.model.lists.EventList;
@@ -57,6 +58,13 @@ public interface Model {
      * Returns the list of Routes.
      */
     RouteList getRoutes();
+
+    /**
+     * Gets a specified Route.
+     *
+     * @param index The index of the Route.
+     */
+    Route getRoute(int index) throws OutOfBoundsException;
 
     /**
      * Adds a route to the list of routes.

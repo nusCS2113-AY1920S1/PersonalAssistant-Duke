@@ -32,6 +32,13 @@ public class DialogBoxImage extends UiPart<HBox> {
     @FXML
     private ImageView imageBox;
 
+    /**
+     * Constructs the DialogBoxImage object.
+     *
+     * @param text The text to display.
+     * @param user The picture of the user.
+     * @param picture The picture to display.
+     */
     private DialogBoxImage(String text, Image user, Image picture) {
         super(FXML);
         dialog.setText(text);
@@ -42,6 +49,8 @@ public class DialogBoxImage extends UiPart<HBox> {
 
     /**
      * Rounds an image.
+     *
+     * @param image The image to round.
      */
     private void roundImageView(Image image) {
         ImagePattern pattern = new ImagePattern(image);
@@ -50,6 +59,7 @@ public class DialogBoxImage extends UiPart<HBox> {
 
     /**
      * Sets the image to display in the imageBox.
+     *
      * @param image The image to display
      */
     private void setPictureView(Image image) {
@@ -73,6 +83,12 @@ public class DialogBoxImage extends UiPart<HBox> {
         flipNode(tmp2, miniBox);
     }
 
+    /**
+     * Flips the node.
+     *
+     * @param tmp The ObservableList of Nodes.
+     * @param root The HBox to interact with.
+     */
     private void flipNode(ObservableList<Node> tmp, HBox root) {
         Collections.reverse(tmp);
         root.getChildren().setAll(tmp);
@@ -80,9 +96,14 @@ public class DialogBoxImage extends UiPart<HBox> {
     }
 
     /**
-     * Gets a Duke Dialog box for display.
+     * Gets a DialogBoxImage for display.
+     *
+     * @param text The text to display.
+     * @param user The picture of the user.
+     * @param picture The picture to display.
+     * @return The DialogBoxImage created.
      */
-    public static HBox getDukeDialog(String text, Image user, Image picture) {
+    public static HBox getDialog(String text, Image user, Image picture) {
         DialogBoxImage db = new DialogBoxImage(text, user, picture);
         db.flip();
         return db.getRoot();

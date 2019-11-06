@@ -16,6 +16,9 @@ import java.util.logging.Logger;
  * Represents the side panel of the main window.
  */
 public class SidePanel extends UiPart<AnchorPane> {
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    private static final String FXML = "SidePanel.fxml";
+
     @FXML
     private StackPane taskContainer;
     @FXML
@@ -27,9 +30,11 @@ public class SidePanel extends UiPart<AnchorPane> {
     @FXML
     private Label endDate;
 
-    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-    private static final String FXML = "SidePanel.fxml";
-
+    /**
+     * Creates the SidePanel object.
+     *
+     * @param result The PanelResult for the object.
+     */
     private SidePanel(PanelResult result) {
         super(FXML);
         if (result.isReady()) {
@@ -47,6 +52,21 @@ public class SidePanel extends UiPart<AnchorPane> {
         }
     }
 
+    /**
+     * Gets the SidePanel.
+     *
+     * @param result The PanelResult for the object.
+     * @return The SidePanel created.
+     */
+    public static AnchorPane getPanel(PanelResult result) {
+        return new SidePanel(result).getRoot();
+    }
+
+    /**
+     * Sets a highlight for a label.
+     *
+     * @param result The PanelResult for the object.
+     */
     private void setHighlight(PanelResult result) {
         try {
             switch (result.getField()) {
@@ -64,9 +84,5 @@ public class SidePanel extends UiPart<AnchorPane> {
         } catch (OutOfBoundsException e) {
             logger.log(Level.FINE, "Nothing needs to be highlighted.");
         }
-    }
-
-    public static AnchorPane getPanel(PanelResult result) {
-        return new SidePanel(result).getRoot();
     }
 }
