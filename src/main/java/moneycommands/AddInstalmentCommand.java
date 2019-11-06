@@ -84,7 +84,9 @@ public class AddInstalmentCommand extends MoneyCommand {
         ui.appendToOutput(" Until " + ins.getDateEndDate() + "\n");
         ui.appendToOutput(" The total amount you will pay is $" + ins.totalAmount() + "\n");
 
+        MoneyCommand update = new AutoUpdateInstalmentCommand();
         MoneyCommand list = new ListInstalmentCommand();
+        update.execute(account, ui, storage);
         list.execute(account,ui,storage);
     }
 

@@ -1,16 +1,16 @@
 package moneycommands;
 
-import controlpanel.*;
+import controlpanel.MoneyStorage;
+import controlpanel.Ui;
+import controlpanel.Parser;
+import controlpanel.DukeException;
 import money.Goal;
 import money.Account;
-import moneycommands.MoneyCommand;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
 
 /**
  * This command adds a short-term goal to the Short-Term Goals List.
@@ -52,19 +52,18 @@ public class AddGoalCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
-    try{
-        desc = inputString.split("/amt ")[0].replaceFirst("goal ", "");
-        price = Float.parseFloat(inputString.split("/amt ")[1].split("/by ")[0]);
-        byDate = Parser.shortcutTime(inputString.split("/by ")[1].split(" /priority ")[0]);
-        priorityLevel = inputString.split("/priority ")[1];
-        category = "GS";
-
-    }catch(NumberFormatException e){
-        throw new DukeException("Please enter in the format: " +
-                "goal <desc> /amt <amount> /by <date> /priority <HIGH/MEDIUM/LOW>\n");
-    }catch(DateTimeParseException e){
-        throw new DukeException("Invalid date! Please enter date in the format: d/m/yyyy\n");
-    }
+        try {
+            desc = inputString.split("/amt ")[0].replaceFirst("goal ", "");
+            price = Float.parseFloat(inputString.split("/amt ")[1].split("/by ")[0]);
+            byDate = Parser.shortcutTime(inputString.split("/by ")[1].split(" /priority ")[0]);
+            priorityLevel = inputString.split("/priority ")[1];
+            category = "GS";
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter in the format: "
+                    + "goal <desc> /amt <amount> /by <date> /priority <HIGH/MEDIUM/LOW>\n");
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date! Please enter date in the format: d/m/yyyy\n");
+        }
         Goal g = new Goal(price, desc, category, byDate, priorityLevel);
         account.getShortTermGoals().add(g);
         storage.writeToFile(account);

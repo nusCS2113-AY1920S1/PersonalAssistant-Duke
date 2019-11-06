@@ -25,6 +25,12 @@ public class CommitGoalCommand extends MoneyCommand {
     private float goalSavingsAfterCommit;
 
     //@@author therealnickcheong
+
+    /**
+     * Constructor of the command which initialises the commit goal command.
+     * @param cmd command input by the user.
+     */
+
     public CommitGoalCommand(String cmd) {
         inputString = cmd;
         dateTimeFormatter  = DateTimeFormatter.ofPattern("d/M/yyyy");
@@ -36,82 +42,103 @@ public class CommitGoalCommand extends MoneyCommand {
         return false;
     }
 
-    public String percentageProgress(float goalSavings, float currGoalPrice){
-        float percentageProgress = (goalSavings/currGoalPrice)*100;
+    /**
+     * method to calculate the percentage progress the user has made towards his goals.
+     * @param goalSavings current goal savings.
+     * @param currGoalPrice the price of the goal to calculate.
+     * @return String of the percentage progress.
+     */
+
+    public String percentageProgress(float goalSavings, float currGoalPrice) {
+        float percentageProgress = (goalSavings / currGoalPrice) * 100;
         DecimalFormat df = new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.CEILING);
         return "[" + df.format(percentageProgress) + "%]";
     }
 
-    public String dpRounding(float f){
+    /**
+     * method to do decimal point rounding.
+     * @param f float to round.
+     * @return String of the rounded off float.
+     */
+
+    public String dpRounding(float f) {
         DecimalFormat df = new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.CEILING);
         return df.format(f);
     }
 
-    public float savingsPerGoal(float goalSavings, float currGoalPrice, float monthsBetween){
-        if(monthsBetween <= 0){
-            return currGoalPrice-goalSavings;
-        }else{
-            return (currGoalPrice - goalSavings)/monthsBetween;
+    /**
+     * method to calculate the savings per month to achieve the set goal.
+     * @param goalSavings current goal savings.
+     * @param currGoalPrice price of the goal.
+     * @param monthsBetween months left to achieve the goal.
+     * @return the amount of  money to save per month for the goal.
+     */
+
+    public float savingsPerGoal(float goalSavings, float currGoalPrice, float monthsBetween) {
+        if (monthsBetween <= 0) {
+            return currGoalPrice - goalSavings;
+        } else {
+            return (currGoalPrice - goalSavings) / monthsBetween;
         }
     }
 
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
         String[] args = inputString.split("commit goal ");
-        if(args.length == 1){
-            throw new DukeException("Please enter in the format: " +
-                    "commit goal <index 1, index 2,...>");
-        }else{
+        if (args.length == 1) {
+            throw new DukeException("Please enter in the format: "
+                    + "commit goal <index 1, index 2,...>");
+        } else {
             String combinedArgs = args[1];
             String[] indivArgs = combinedArgs.split(",");
             goalsAfterCommit =  new ArrayList<>(account.getShortTermGoals());
             goalSavingsAfterCommit = account.getGoalSavings();
             ArrayList<Integer> indexOfCommittedGoals = new ArrayList<>();
-            try{
-                for(String i: indivArgs){
+            try {
+                for (String i: indivArgs) {
                     int index = Integer.parseInt(i.replaceAll("[^0-9]+", ""));
                     indexOfCommittedGoals.add(index);
                 }
-            }catch(NumberFormatException e){
+            } catch (NumberFormatException e) {
                 throw new DukeException("The indexes must be a number");
             }
 
 
             Collections.sort(indexOfCommittedGoals, Collections.reverseOrder());
 
-            for(int j: indexOfCommittedGoals){
-                if(j > account.getShortTermGoals().size()){
+            for (int j: indexOfCommittedGoals) {
+                if (j > account.getShortTermGoals().size() || (j < 1)) {
                     throw new DukeException("The serial number of the Goal is Out Of Bounds!");
-                }else{
-                    Goal committedGoal =  goalsAfterCommit.get(j-1);
+                } else {
+                    Goal committedGoal =  goalsAfterCommit.get(j - 1);
                     float price = committedGoal.getPrice();
-                    if(goalSavingsAfterCommit < price){
+                    if (goalSavingsAfterCommit < price) {
                         throw new DukeException("Goals committed exceeds Goal Savings");
                     }
-                    goalsAfterCommit.remove(j-1);
+                    goalsAfterCommit.remove(j - 1);
                     goalSavingsAfterCommit -= price;
                 }
             }
 
             float savingsReqPerMonth = 0;
             for (int i = 1; i <= goalsAfterCommit.size();i++) {
-                Goal currGoal = goalsAfterCommit.get(i-1);
+                Goal currGoal = goalsAfterCommit.get(i - 1);
                 float currGoalPrice = currGoal.getPrice();
                 LocalDate goalDate = currGoal.getDateBoughtDate();
                 float monthsBetween = ChronoUnit.MONTHS.between(LocalDate.now(), goalDate);
 
                 String goalProgress = "";
 
-                if(goalSavingsAfterCommit >= currGoalPrice){
+                if (goalSavingsAfterCommit >= currGoalPrice) {
                     goalProgress = "[\u2713]";
-                }else{
+                } else {
                     goalProgress = percentageProgress(goalSavingsAfterCommit, currGoalPrice);
                     savingsReqPerMonth += savingsPerGoal(goalSavingsAfterCommit, currGoalPrice, monthsBetween);
                 }
 
-                ui.appendToOutput(" " + i + "." + goalProgress + goalsAfterCommit.get(i-1).toString() + "\n");
+                ui.appendToOutput(" " + i + "." + goalProgress + goalsAfterCommit.get(i - 1).toString() + "\n");
             }
             String savingsPerMonth = dpRounding(savingsReqPerMonth);
             ui.appendToOutput("Goal Savings after commit: $" + goalSavingsAfterCommit + "\n");

@@ -29,6 +29,12 @@ public class ListGoalsCommand extends MoneyCommand {
         return false;
     }
 
+    /**
+     * calculate the percentage progress the user has made towards their goals.
+     * @param goalSavings current goal savings.
+     * @param currGoalPrice price of the goal.
+     * @return returns a percentage progress of the goal achieved.
+     */
     public String percentageProgress(float goalSavings, float currGoalPrice) {
         float percentageProgress = (goalSavings / currGoalPrice) * 100;
         DecimalFormat df = new DecimalFormat("#.##");
@@ -36,11 +42,24 @@ public class ListGoalsCommand extends MoneyCommand {
         return "[" + df.format(percentageProgress) + "%]";
     }
 
+    /**
+     * rounds of a float to 2 decimal places.
+     * @param f the float to rouond off.
+     * @return returns the rounded off float.
+     */
     public String dpRounding(float f) {
         DecimalFormat df = new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.CEILING);
         return df.format(f);
     }
+
+    /**
+     * calculate the savings required by the user in the month per goal.
+     * @param goalSavings current goal savings.
+     * @param currGoalPrice the price of the goal.
+     * @param monthsBetween months till the due date of the goal.
+     * @return returns the amount to save per goal.
+     */
 
     public float savingsPerGoal(float goalSavings, float currGoalPrice, float monthsBetween) {
         if (monthsBetween <= 0) {

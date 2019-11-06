@@ -1,14 +1,15 @@
 package help;
 
+import controlpanel.DukeException;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * This class is created to parse out the list of all the commands available to
- * the userInput TextField.
- */
-public class AutoComplete {
+public class AutoCompleteTest {
     private final String[] list = {
             "init [existing savings] [Avg Monthly Expenditure]",
             "add income [desc] /amt [amount in dollars] /on [d/mm/yyyy]",
@@ -53,20 +54,13 @@ public class AutoComplete {
     };
     private List<String> commandList = Arrays.asList(list);
 
-    //@@author ChenChao19
-    /**
-     * This is the constructor for the AutoComplete class.
-     * It automatically sorts the list of all commands when it instantiates.
-     */
-    public AutoComplete() {
+    public AutoCompleteTest() {
         Collections.sort(commandList);
     }
 
-    /**
-     * This method is the getter for the list of commands.
-     * @return The list of the sorted commands.
-     */
-    public List<String> getCommandList() {
-        return commandList;
+    @Test
+    public void testGetAutoComplete() {
+        AutoComplete autoComplete = new AutoComplete();
+        assertEquals(commandList, autoComplete.getCommandList());
     }
 }
