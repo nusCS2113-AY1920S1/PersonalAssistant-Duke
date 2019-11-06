@@ -10,6 +10,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import templates.CommandTest;
 
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -31,11 +33,13 @@ public class PatientCommandTest extends CommandTest {
 
     @Test
     public void patientNewCommand_allSwitches_correctImpressionCreated() {
-        String[] switchNames = {"name", "description"};
-        String[] switchVals = {"test", "test description"};
+        Map<String, String> switchValMap = Map.ofEntries(
+                Map.entry("name", "description"),
+                Map.entry("test", "test description")
+        );
         Impression imp = new Impression("test", "test description", patient);
         try {
-            ArgCommand newImpCmd = new ArgCommand(PatientNewSpec.getSpec(), null, switchNames, switchVals);
+            ArgCommand newImpCmd = new ArgCommand(PatientNewSpec.getSpec(), null, switchValMap);
             newImpCmd.execute(core);
             assertTrue(imp.equals(patient.getImpression("test")));
         } catch (DukeException excp) {
