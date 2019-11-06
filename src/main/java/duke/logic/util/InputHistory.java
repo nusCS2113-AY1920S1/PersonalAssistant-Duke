@@ -13,6 +13,11 @@ import java.util.List;
  */
 public class InputHistory {
 
+    /**
+     * The singleton of the InputHistory class.
+     */
+    private static InputHistory theOne = null;
+
     private static final int INITIAL_INDEX = 0;
     private static final String EMPTY_STRING = "";
 
@@ -22,9 +27,21 @@ public class InputHistory {
     /**
      * Creates an InputHistory to record user commands sent in textField of mainWindow.
      */
-    public InputHistory() {
+    private InputHistory() {
         inputHistory = new ArrayList<String>();
         iteratingIndex = INITIAL_INDEX;
+    }
+
+    /**
+     * Provides a singleton of this AutoCompleter class.
+     *
+     * @return The singleton of this AutoCompleter class.
+     */
+    public static InputHistory getInstance() {
+        if (theOne == null) {
+            theOne = new InputHistory();
+        }
+        return theOne;
     }
 
     /**
