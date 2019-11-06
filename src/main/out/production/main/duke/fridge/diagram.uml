@@ -28,7 +28,7 @@
     <node x="1079.5" y="182.0">duke.command.dishesCommand.ListDishCommand</node>
     <node x="173.5" y="106.0">duke.command.ingredientCommand.FindToday</node>
     <node x="14.5" y="106.0">duke.command.ingredientCommand.DeleteCommand</node>
-    <node x="948.5" y="106.0">duke.command.dishesCommand.InitCommand</node>
+    <node x="948.5" y="106.0">duke.command.dishesCommand.ResetDishCommand</node>
     <node x="165.5" y="253.0">duke.list.GenericList</node>
     <node x="520.5" y="106.0">duke.command.ingredientCommand.DoneCommand</node>
     <node x="1323.0" y="253.0">duke.parser.Convert</node>
@@ -151,7 +151,7 @@
       <point x="0.0" y="-13.0" />
       <point x="0.0" y="13.0" />
     </edge>
-    <edge source="duke.command.dishesCommand.InitCommand" target="duke.command.Cmd">
+    <edge source="duke.command.dishesCommand.ResetDishCommand" target="duke.command.Cmd">
       <point x="0.0" y="-13.0" />
       <point x="1011.0" y="86.0" />
       <point x="872.0909090909091" y="86.0" />

@@ -63,7 +63,7 @@ public abstract class Storage<T> {
      * Part of the load method, taken out.
      * Generates tasks based on contentSoFar.
      */
-    abstract GenericList<T> generate() throws DukeException;
+    public abstract GenericList<T> generate() throws DukeException;
 
     /**
      * Returns the {@link Path} that holds the directory used for I/O.
@@ -107,7 +107,6 @@ public abstract class Storage<T> {
             throw new DukeException("Error while updating the file");
         }
     }
-
 
     public void removeFromFile(int index) throws IOException {
         contentSoFar = new ArrayList<>(Files.readAllLines(getPath(), StandardCharsets.UTF_8));

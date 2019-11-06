@@ -68,12 +68,12 @@ public class IngredientsList extends GenericList<Ingredient> {
         }
         return genList.get(genList.indexOf(entry));
     }
-    public Ingredient getNonExpiredEntry(Ingredient ingredient) throws DukeException {
-        for(Ingredient ingredient1:genList){
-            if(ingredient.equals(ingredient)&&!ingredient1.isExpired())
-                return ingredient1;
+    public Ingredient getNonExpiredEntry(Ingredient ingredientNeeded) throws DukeException {
+        for(Ingredient ingredient:genList){
+            if(ingredientNeeded.equals(ingredient)&&!ingredient.isExpired())
+                return ingredient;
         }
-        throw new DukeException("There is not enough of "+ ingredient.getName()+" that is not expired!");
+        throw new DukeException("There is not enough of "+ ingredientNeeded.getName()+" that is not expired!");
     }
 
     public IngredientsList sortByExpiryDate() {
