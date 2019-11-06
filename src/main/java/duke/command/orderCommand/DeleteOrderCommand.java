@@ -32,8 +32,9 @@ public class DeleteOrderCommand extends Command<Order> {
             Order removed = orderList.getEntry(orderIndex);
             //to do
             //update chef's to do list
-
+            ui.showLine();
             ui.showRemovedOrder(removed.toString(), orderList.size());
+            ui.showLine();
             orderList.removeEntry(orderIndex);
             orderStorage.removeFromFile(orderIndex+1);
         } else {
