@@ -34,4 +34,9 @@ public class ReminderList {
     public ArrayList<Reminder> getReminderList() {
         return reminderList;
     }
+
+    public Reminder getReminder(int index) {
+        return reminderList.get(index - 1);
+    }
+
 }

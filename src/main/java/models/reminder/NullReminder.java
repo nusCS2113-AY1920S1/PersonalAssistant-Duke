@@ -26,6 +26,13 @@ public class NullReminder implements IReminder {
     }
 
     @Override
+    public void setIsDone(Boolean isDone) {
+        /**
+         * Empty method
+         */
+    }
+
+    @Override
     public String getReminderName() {
         return null;
     }
@@ -37,6 +44,16 @@ public class NullReminder implements IReminder {
 
     @Override
     public Date getReminderDate() {
+        return null;
+    }
+
+    @Override
+    public Boolean getIsDone() {
+        return null;
+    }
+
+    @Override
+    public String getStatus() {
         return null;
     }
 }
