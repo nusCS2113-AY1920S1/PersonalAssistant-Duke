@@ -54,7 +54,10 @@ public class DeleteCommand extends Command {
 
             if (!isInsideData) {
                 ui.showError("Task number is out of bounds! [Done]");
-                throw new CakeException("[!] Not a valid Task Number!");
+                throw new CakeException("[!] Task number is out of bounds!\n"
+                        + "Task number must be <= '"
+                        + storageManager.storage.getData().size()
+                        + "'!");
             }
         } catch (NumberFormatException e) {
             throw new CakeException("[!] Task number is invalid! [Delete]");
