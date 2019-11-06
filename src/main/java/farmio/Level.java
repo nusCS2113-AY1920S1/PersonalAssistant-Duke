@@ -3,7 +3,12 @@ package farmio;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Arrays;
+
 
 public class Level {
     private ArrayList<String> narratives;
@@ -24,9 +29,9 @@ public class Level {
     private ObjectiveResult levelState;
 
     /**
-     * Intitalises variables based off values obtain form the JSON File
-     * @param object JSON Object
-     * @param name player name
+     * Intitalises variables based off values obtain form the JSON File.
+     * @param object JSON Object to be parsed.
+     * @param name player's name
      */
     public Level(JSONObject object, String name) {
         JSONArray array = (JSONArray) object.get("narratives");

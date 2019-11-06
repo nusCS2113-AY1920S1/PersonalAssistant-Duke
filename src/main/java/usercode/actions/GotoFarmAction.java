@@ -12,6 +12,14 @@ public class GotoFarmAction extends Action {
         super(ActionType.gotoWheatFarm);
     }
 
+    /**
+     * Run simulation to display location transition .
+     * @param ui The user interface used to print messages of the action
+     * @param storage which stores the assets after acton execution
+     * @param farmer The farmer whose variables are displayed and changed
+     * @param simulation The simulation object initialised with farmio
+     * @throws FarmioFatalException Fatel error from simulation, need to stop program.
+     */
     public void execute(Ui ui, Storage storage, Farmer farmer, Simulation simulation) throws FarmioFatalException {
         if (farmer.getLocation().equals("WheatFarm")) {
             simulation.simulate("GotoWheatFarmSimulation", 12);

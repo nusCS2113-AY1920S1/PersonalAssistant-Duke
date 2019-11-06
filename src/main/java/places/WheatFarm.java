@@ -5,10 +5,10 @@ import org.json.simple.JSONObject;
 
 public class WheatFarm extends Farm {
 
-    private final String JSON_KEY_SEED = "seed";
-    private final String JSON_KEY_SEEDLING = "seedling";
-    private final String JSON_KEY_WHEAT = "wheat";
-    private final String JSON_KEY_GRAIN = "grain";
+    private static final String JSON_KEY_SEED = "seed";
+    private static final String JSON_KEY_SEEDLING = "seedling";
+    private static final String JSON_KEY_WHEAT = "wheat";
+    private static final String JSON_KEY_GRAIN = "grain";
 
     private int seeds;
     private int seedlings;

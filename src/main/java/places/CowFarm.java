@@ -4,9 +4,9 @@ import exceptions.FarmioException;
 import org.json.simple.JSONObject;
 
 public class CowFarm extends Farm {
-    private final String JSON_KEY_MILK = "milk";
-    private final String JSON_KEY_COW = "cow";
-    private final String JSON_KEY_FULLCOW = "fullcow";
+    private static final String JSON_KEY_MILK = "milk";
+    private static final String JSON_KEY_COW = "cow";
+    private static final String JSON_KEY_FULLCOW = "fullcow";
 
     private int milk;
     private int cow;

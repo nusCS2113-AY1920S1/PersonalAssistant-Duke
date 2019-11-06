@@ -16,17 +16,17 @@ import java.util.Map;
 
 public class Farmer {
 
-    private final String JSON_KEY_GOLD = "gold";
-    private final String JSON_KEY_LEVEL = "level";
-    private final String JSON_KEY_DAY = "day";
-    private final String JSON_KEY_LOCATION = "location";
-    private final String JSON_KEY_FARM_WHEAT = "farm_wheat";
-    private final String JSON_KEY_FARM_CHICKEN = "farm_chicken";
-    private final String JSON_KEY_FARM_COW = "farm_cow";
-    private final String JSON_KEY_TASK_LIST = "task_list";
-    private final String JSON_KEY_TASK_CURRENT = "task_current";
-    private final String JSON_KEY_TASK_STATUS_FAIL = "task_status_fail";
-    private final String JSON_KEY_NAME = "name";
+    private static final String JSON_KEY_GOLD = "gold";
+    private static final String JSON_KEY_LEVEL = "level";
+    private static final String JSON_KEY_DAY = "day";
+    private static final String JSON_KEY_LOCATION = "location";
+    private static final String JSON_KEY_FARM_WHEAT = "farm_wheat";
+    private static final String JSON_KEY_FARM_CHICKEN = "farm_chicken";
+    private static final String JSON_KEY_FARM_COW = "farm_cow";
+    private static final String JSON_KEY_TASK_LIST = "task_list";
+    private static final String JSON_KEY_TASK_CURRENT = "task_current";
+    private static final String JSON_KEY_TASK_STATUS_FAIL = "task_status_fail";
+    private static final String JSON_KEY_NAME = "name";
 
     private int gold;
     private double level;

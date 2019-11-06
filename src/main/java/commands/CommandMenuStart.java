@@ -13,7 +13,7 @@ public class CommandMenuStart extends Command {
      */
     @Override
     public void execute(Farmio farmio) throws FarmioFatalException {
-        Menu.show(farmio, false);
+        Menu.show(farmio.getUi(), farmio.getSimulation(), farmio.getStorage().getSaveExist(), false);
         farmio.setStage(Farmio.Stage.MENU_START);
     }
 }
