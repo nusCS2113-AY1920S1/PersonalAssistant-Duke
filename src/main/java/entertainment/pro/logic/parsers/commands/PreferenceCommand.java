@@ -1,7 +1,7 @@
 package entertainment.pro.logic.parsers.commands;
 
 import entertainment.pro.commons.PromptMessages;
-import entertainment.pro.commons.exceptions.InvalidFormatCommandExceptions;
+import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.storage.utils.ProfileCommands;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
@@ -21,8 +21,8 @@ public class PreferenceCommand extends CommandSuper {
     ArrayList<String> containsPossibleInputs = new ArrayList<>();
 
 
-    public PreferenceCommand(Controller uicontroller) {
-        super(COMMANDKEYS.preference, CommandStructure.cmdStructure.get(COMMANDKEYS.preference), uicontroller);
+    public PreferenceCommand(Controller uiController) {
+        super(COMMANDKEYS.preference, CommandStructure.cmdStructure.get(COMMANDKEYS.preference), uiController);
     }
 
     private void setContainsInputs() {
@@ -71,7 +71,7 @@ public class PreferenceCommand extends CommandSuper {
                 try {
                     command.addPreference(this.getFlagMap(), containsPossibleInputs.get(i));
                     movieHandler.setGeneralFeedbackText(PromptMessages.PREFERENCES_SUCCESS);
-                } catch (InvalidFormatCommandExceptions invalidFormatCommandExceptions) {
+                } catch (InvalidFormatCommandException InvalidFormatCommandException) {
                     movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
                 }
             }
@@ -93,7 +93,7 @@ public class PreferenceCommand extends CommandSuper {
                 try {
                     command.removePreference(this.getFlagMap(), containsPossibleInputs.get(i));
                     movieHandler.setGeneralFeedbackText(PromptMessages.PREFERENCES_SUCCESS);
-                } catch (InvalidFormatCommandExceptions invalidFormatCommandExceptions) {
+                } catch (InvalidFormatCommandException InvalidFormatCommandException) {
                     movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
                 }
             }
@@ -117,7 +117,7 @@ public class PreferenceCommand extends CommandSuper {
                 try {
                     command.clearPreference(this.getFlagMap(), containsPossibleInputs.get(i));
                     movieHandler.setGeneralFeedbackText(PromptMessages.PREFERENCES_SUCCESS);
-                } catch (InvalidFormatCommandExceptions invalidFormatCommandExceptions) {
+                } catch (InvalidFormatCommandException InvalidFormatCommandException) {
                     movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
                 }
             }

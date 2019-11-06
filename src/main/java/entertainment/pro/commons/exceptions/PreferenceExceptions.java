@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import entertainment.pro.model.GenreId;
 import entertainment.pro.model.UserProfile;
+import entertainment.pro.storage.utils.EditProfileJson;
 
 import java.io.FileInputStream;
 import java.io.IOException;
