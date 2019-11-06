@@ -25,7 +25,7 @@ public class CommandUtils {
      * For autocorrect, do not consider strings whose lengths differ from the input by more than this value.
      */
     private static final int MAX_LEN_DIFF = 2;
-    private static Logger logger = Logger.getLogger("CmdLogger");
+    private static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private static final Map<Character, Coord> keyboardMap =
             Map.ofEntries(Map.entry('q', new Coord(0, 1)), Map.entry('w', new Coord(1, 1)),
                     Map.entry('e', new Coord(2, 1)), Map.entry('r', new Coord(3, 1)),
