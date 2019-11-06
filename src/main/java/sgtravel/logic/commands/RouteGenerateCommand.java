@@ -1,6 +1,5 @@
 package sgtravel.logic.commands;
 
-import org.apache.commons.lang3.ObjectUtils;
 import sgtravel.commons.Messages;
 import sgtravel.commons.enumerations.Constraint;
 import sgtravel.commons.exceptions.ApiException;
@@ -89,7 +88,7 @@ public class RouteGenerateCommand extends Command {
                         try {
                             addNodeToRoute(route, (RouteNode) inbetweenVenue, model);
                         } catch (DuplicateRouteNodeException e) {
-                            route = pruneDuplicateRoute(route, inbetweenVenue);
+                            pruneDuplicateRoute(route, inbetweenVenue);
                         }
                     }
                 }
@@ -117,10 +116,9 @@ public class RouteGenerateCommand extends Command {
      *
      * @param route The route object.
      * @param target The RouteNode that has a duplicate.
-     * @return The route object.
      * @throws RouteGenerateFailException If the Route fails to generate.
      */
-    private Route pruneDuplicateRoute(Route route, Venue target) throws RouteGenerateFailException {
+    private void pruneDuplicateRoute(Route route, Venue target) throws RouteGenerateFailException {
         try {
             for (int i = route.size() - 1; i >= 0; i--) {
                 if (!route.getNode(i).equals(target)) {
@@ -130,7 +128,6 @@ public class RouteGenerateCommand extends Command {
                 }
             }
 
-            return route;
         } catch (IndexOutOfBoundsException e) {
             throw new RouteGenerateFailException();
         }
