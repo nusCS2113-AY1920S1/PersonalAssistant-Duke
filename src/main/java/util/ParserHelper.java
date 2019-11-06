@@ -189,7 +189,8 @@ public class ParserHelper {
 
         ValidityHelper validityHelper = new ValidityHelper();
         if (editReminderCommand.length > 3 || !validityHelper.digitChecker(editReminderCommand[2])) {
-            errorMessages.add("Please input the correct command! Example, edit reminder REMINDER_INDEX -n REMINDER_NAME");
+            errorMessages.add("Please input the correct command! "
+                    + "Example, edit reminder REMINDER_INDEX -n REMINDER_NAME");
             return 0;
         } else {
             return Integer.parseInt(editReminderCommand[2]);
@@ -199,7 +200,7 @@ public class ParserHelper {
     /**
      * Parses string input to extract information on marking/un-marking Reminder.
      * @param input Contains the command of marking/un-marking reminder.
-     * @return An ArrayList<String>  consisting of the status and indexes to be updated or null.
+     * @return An ArrayList String consisting of the status and indexes to be updated or null.
      */
     public ArrayList<String> parseCheckReminder(String input) {
         errorMessages.clear();

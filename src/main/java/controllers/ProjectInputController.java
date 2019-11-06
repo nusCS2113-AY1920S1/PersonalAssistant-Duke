@@ -639,7 +639,7 @@ public class ProjectInputController implements IController {
         int index = 1;
         allTaskDetailsForTable.add(0, "Reminder of " + projectToManage.getName() + ":");
         for (Reminder reminder: projectToManage.getReminderList()) {
-            allTaskDetailsForTable.add(index + ". " + reminder.getStatus() + " "+ reminder.getReminderName());
+            allTaskDetailsForTable.add(index + ". " + reminder.getStatus() + " " + reminder.getReminderName());
             allTaskDetailsForTable.add("   - Remarks: " + reminder.getReminderRemarks());
             allTaskDetailsForTable.add("   - " + dateTimeHelper.formatDateForDisplay(reminder.getReminderDate())
                     + dateTimeHelper.getDifferenceDays(reminder.getReminderDate()));
@@ -669,7 +669,8 @@ public class ProjectInputController implements IController {
             ArrayList<String> outputMessages = new ArrayList<>(parserHelper.getErrorMessages());
             return outputMessages.toArray(new String[0]);
         } else if (index > projectToManage.getReminderListSize()) {
-            return new String[] {"No reminder index number found in the list! Please enter the correct reminder index number."};
+            return new String[] {"No reminder index number found in the list! "
+                    + "Please enter the correct reminder index number."};
         } else {
             String removedReminder = projectToManage.getReminder(index).getReminderName();
             projectToManage.removeReminder(index);
@@ -677,6 +678,12 @@ public class ProjectInputController implements IController {
         }
     }
 
+    /**
+     * Edit reminder from the list.
+     * @param projectToManage The project specified by the user.
+     * @param projectCommand The user input.
+     * @return the output for the user to consume.
+     */
     public String[] projectEditReminder(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectEditReminder] User input: '"
                 + projectCommand + "'");
@@ -686,7 +693,8 @@ public class ProjectInputController implements IController {
             ArrayList<String> outputMessages = new ArrayList<>(parserHelper.getErrorMessages());
             return outputMessages.toArray(new String[0]);
         } else if (index > projectToManage.getReminderListSize()) {
-            return new String[] {"No reminder index number found in the list! Please enter the correct reminder index number."};
+            return new String[] {"No reminder index number found in the list! "
+                    + "Please enter the correct reminder index number."};
         } else {
 
             try {
@@ -700,7 +708,8 @@ public class ProjectInputController implements IController {
                     projectToManage.getReminder(index).setReminderRemarks(newReminderDetails.get(1));
                 }
                 if (!(newReminderDetails.get(2) == null)) {
-                    projectToManage.getReminder(index).setReminderDate(dateTimeHelper.formatDate(newReminderDetails.get(2)));
+                    projectToManage.getReminder(index)
+                            .setReminderDate(dateTimeHelper.formatDate(newReminderDetails.get(2)));
                 }
                 return new String[] {"Your reminder have been updated."};
             } catch (NumberFormatException | ParseException e) {
@@ -728,8 +737,8 @@ public class ProjectInputController implements IController {
             boolean status = Boolean.parseBoolean(checkReminderDetails.get(0));
             int index = Integer.parseInt(checkReminderDetails.get(1));
             projectToManage.markReminder(status,index);
-            return new String[] {projectToManage.getReminder(index).getReminderName()
-                    + " have been marked " + projectToManage.getReminder(index).getStatus()};
+            return new String[] {projectToManage.getReminder(index).getReminderName() + " have been marked "
+                    + projectToManage.getReminder(index).getStatus()};
         }
     }
 }

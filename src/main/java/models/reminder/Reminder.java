@@ -63,6 +63,6 @@ public class Reminder implements IReminder {
 
     @Override
     public String getStatus() {
-        return (this.isDone ? "[\u2713]" : "[\u2718]");
+        return (this.isDone ? "[/]" : "[X]");
     }
 }

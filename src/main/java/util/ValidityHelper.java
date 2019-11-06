@@ -54,7 +54,7 @@ public class ValidityHelper {
     }
 
     /**
-     * Check validity of of input is number
+     * Check validity of of input is number.
      * @param number The user input mainly the index.
      * @return Boolean value indicating validity of phoneNumber.
      */

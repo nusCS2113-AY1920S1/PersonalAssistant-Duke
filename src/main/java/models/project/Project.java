@@ -228,7 +228,7 @@ public class Project implements IProject {
     }
 
     /**
-     * Get a reminder from the reminderList
+     * Get a reminder from the reminderList.
      * @param index the index of the Reminder.
      * @return Reminder object.
      */
