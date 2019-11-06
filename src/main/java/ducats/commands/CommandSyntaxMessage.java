@@ -12,6 +12,7 @@ import java.util.Map;
  * and add the command name and format into nameToSyntax HashMap.
  */
 public abstract class CommandSyntaxMessage {
+    private static final String helpSyntax = "help\n";
     private static final String listSyntax = "list\n";
     private static final String newSyntax =
             "new s/SONG_NAME [key:s/KEY](C) [time:n/TIME_SIG](4/4) [tempo:n/TEMPO](120)\n";
@@ -58,6 +59,7 @@ public abstract class CommandSyntaxMessage {
     //@@author SalonetheGreat
     private static Map<String, String> nameToSyntax = new HashMap<String, String>() {
         {
+            put("help", helpSyntax);
             put("list", listSyntax);
             put("new", newSyntax);
             put("delete", deleteSyntax);
