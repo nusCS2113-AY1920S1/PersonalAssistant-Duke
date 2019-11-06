@@ -117,7 +117,7 @@ public class Avatar implements Convertible {
      */
     public Avatar levelUp() {
         this.level.upLevel();
-        this.stats.upStats(this.level.getLevel());
+        this.stats = this.stats.upStats(this.level.getLevel());
         return this;
     }
 
