@@ -23,7 +23,8 @@ public class ParserTest {
     @Test
     public void parseCommand_fullSwitchNames_argumentsExtracted() {
         try {
-            ArgCommand testCmd = (ArgCommand) uut.parse("doctor Hello -switch World -optswitch Optional -maybe berhabs -none ");
+            ArgCommand testCmd = (ArgCommand) uut.parse("doctor Hello -switch World -optswitch Optional"
+                            + " -maybe berhabs -none ");
             String[] switchNames = {"switch", "optswitch", "maybe", "none"};
             String[] switchVals = {"World", "Optional", "berhabs", null};
             ArgCommand docCmd = new ArgCommand(DoctorSpec.getSpec(), "Hello", switchNames, switchVals);
@@ -110,7 +111,8 @@ public class ParserTest {
     @Test
     public void parseCommand_argAfterNoArgSwitch_argumentsExtracted() {
         try {
-            ArgCommand testCmd = (ArgCommand) uut.parse("doctor -none Hello -switch World -optswitch Optional -maybe berhabs ");
+            ArgCommand testCmd = (ArgCommand) uut.parse("doctor -none Hello -switch World -optswitch Optional "
+                            + "-maybe berhabs ");
             String[] switchNames = {"switch", "optswitch", "maybe", "none"};
             String[] switchVals = {"World", "Optional", "berhabs", null};
             ArgCommand docCmd = new ArgCommand(DoctorSpec.getSpec(), "Hello", switchNames, switchVals);

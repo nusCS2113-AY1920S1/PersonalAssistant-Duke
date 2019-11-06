@@ -20,6 +20,17 @@ public abstract class ArgSpec extends CommandSpec {
     protected Map<String, String> switchAliases;
     protected ArgCommand cmd;
 
+    /**
+     * Set {@code cmd} to the supplied command, exposing access to the switches supplied to it, and perform the
+     * operations specified by this CommandSpec object's {@code execute(DukeCore core)} method, using the supplied
+     * switches to modify behaviour.
+     *
+     * @param core The DukeCore object to use to execute the command.
+     * @param cmd The ArgCommand instance being executed, holding the relevant switches.
+     * @see DukeCore
+     * @see ArgCommand
+     * @throws DukeException If an error occurs during command execution.
+     */
     public void execute(DukeCore core, ArgCommand cmd) throws DukeException {
         this.cmd = cmd;
         execute(core);
