@@ -1,11 +1,10 @@
 package eggventory.logic.commands.add;
 
+import eggventory.commons.enums.CommandType;
+import eggventory.commons.exceptions.BadInputException;
 import eggventory.model.StockList;
 import eggventory.storage.Storage;
-import eggventory.commons.exceptions.BadInputException;
 import eggventory.stubs.UiStub;
-import eggventory.ui.Cli;
-import eggventory.commons.enums.CommandType;
 import eggventory.ui.Ui;
 import org.junit.jupiter.api.Test;
 
@@ -40,7 +39,7 @@ public class AddStockCommandTest {
 
     //@@author cyanoei
     @Test
-    void testExecuteAddStock_DuplicateStock_ThrowsBadInputException() {
+    void testExecuteAddStock_DuplicateStock_ThrowsBadInputException() throws BadInputException {
         testStockType = "Uncategorised";
         testStockCode = "R5";
         testQuantity = 1000;

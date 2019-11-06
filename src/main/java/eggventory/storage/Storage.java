@@ -49,20 +49,20 @@ public class Storage {
 
             while (s.hasNext()) {
                 String itemRaw = s.nextLine();
-                AddStockTypeCommand cmd1 = new AddStockTypeCommand(CommandType.ADD, itemRaw);
-                cmd1.execute(savedList);
+                AddStockTypeCommand loadStockTypes = new AddStockTypeCommand(CommandType.ADD, itemRaw);
+                loadStockTypes.execute(savedList);
             }
             while (s2.hasNext()) {
                 String itemRaw = s2.nextLine();
                 String[] item = itemRaw.split(",", 0);
 
-                AddStockCommand cmd = new AddStockCommand(CommandType.ADD, item[0], item[1],
+                AddStockCommand loadStocks = new AddStockCommand(CommandType.ADD, item[0], item[1],
                         Integer.parseInt(item[2]), item[3]);
 
                 /*Todo: In the future, call setMinimum here to update the minimum value (item[4]) instead of defaulting.
                     Also applies for other optional params that we may add.
                 */
-                cmd.execute(savedList);
+                loadStocks.execute(savedList);
             }
 
 

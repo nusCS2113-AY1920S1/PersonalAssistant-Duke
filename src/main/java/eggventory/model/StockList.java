@@ -1,6 +1,7 @@
 package eggventory.model;
 
 import eggventory.commons.enums.StockProperty;
+import eggventory.commons.exceptions.BadInputException;
 import eggventory.model.items.Stock;
 import eggventory.model.items.StockType;
 import eggventory.ui.TableStruct;
@@ -96,7 +97,8 @@ public class StockList {
      * @param quantity Quantity of the stock.
      * @param description A String describing the nature of the Stock object.
      */
-    public void addStock(String stockType, String stockCode, int quantity, String description) {
+    public void addStock(String stockType, String stockCode, int quantity, String description)
+            throws BadInputException {
         for (StockType listType: stockList) {
             if (listType.getName().equals(stockType)) {
                 listType.addStock(stockType, stockCode, quantity, description);
@@ -125,6 +127,28 @@ public class StockList {
         return null;
     }
 
+    //@@author cyanoei
+
+    /**
+     * Formats an error message for the case of editing to a repeated stockCode.
+     * @param newStockCode the new stockCode chosen by the user.
+     * @return the error message.
+     */
+    public String repeatedStockCodeOutput(String newStockCode) {
+        return String.format("Sorry, the stock code \"%s\" is already assigned to a stock in the system. "
+                + "Please enter a different stock code.", newStockCode);
+    }
+
+    /**
+     * Formats an error message for the case of trying to edit a nonexistent stockCode.
+     * @param stockCode the stockCode which does not exist in the system.
+     * @return the error message.
+     */
+    public String nonexistentStockCodeOutput(String stockCode) {
+        return String.format("Sorry, the stock code \"%s\" cannot be found in the system. "
+                + "Please enter a different stock code.", stockCode);
+    }
+
     //@@author patwaririshab
     /**
      * Edits a Stock object in a StockList.
@@ -133,8 +157,20 @@ public class StockList {
      * @param newValue  The new value of the property we want to edit.
      * @return the stock before edits, for printing purposes.
      */
-    public Stock setStock(String stockCode, StockProperty property, String newValue) {
+    public Stock setStock(String stockCode, StockProperty property, String newValue)
+            throws BadInputException {
         Stock updatedStock;
+
+        //Error: StockCode not found.
+        if (!isExistingStockCode(stockCode)) {
+            throw new BadInputException(nonexistentStockCodeOutput(stockCode));
+        }
+
+        //Error: New StockCode is already used.
+        if (property == StockProperty.STOCKCODE && isExistingStockCode(newValue)) {
+            throw new BadInputException(repeatedStockCodeOutput(newValue));
+        }
+
         for (StockType stockType : stockList) {
             updatedStock = stockType.setStock(stockCode, property, newValue);
             if (updatedStock != null) { //The corresponding stockCode was found in the StockList
@@ -232,7 +268,7 @@ public class StockList {
      */
     public String toStocktypeString() {
         StringBuilder ret = new StringBuilder();
-        ret.append("QUERY INVENTORY\n");
+        ret.append("LISTING STOCKTYPES\n");
         for (StockType stocktype : stockList) {
             ret.append("------------------------\n");
             ret.append(stocktype.getName()).append("\n");
@@ -249,8 +285,10 @@ public class StockList {
         ret.append("CURRENT INVENTORY\n");
 
         for (StockType stocktype : stockList) {
-            ret.append("------------------------\n");
-            ret.append(stocktype.toString()).append("\n");
+            if (stocktype.toString() != "") { //Does not print empty StockTypes.
+                ret.append("------------------------\n");
+                ret.append(stocktype.toString()).append("\n");
+            }
         }
 
         return ret.toString();

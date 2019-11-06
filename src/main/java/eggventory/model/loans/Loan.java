@@ -80,11 +80,37 @@ public class Loan {
     }
 
     /**
+     * Gets the date that this Loan was made.
+     * @return the loan date.
+     */
+    public Calendar getLoanDate() {
+        return loanDate;
+    }
+
+    /**
+     * Gets the date that this loan should be returned by.
+     * @return the return date.
+     */
+    public Calendar getReturnDate() {
+        return returnDate;
+    }
+
+    /**
      * Sets the new quantity of the Stock loaned.
      * @param quantity the new amount that is loaned.
      */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    /**
+     * Determines if this Loan matches both the queried Stock and Person.
+     * @param stockCode the stockCode of the Stock.
+     * @param matricNo the matric number of the Person.
+     * @return whether they are both equal.
+     */
+    public boolean loanEquals(String stockCode, String matricNo) {
+        return this.stockCode.equals(stockCode) && this.matricNo.equals(matricNo);
     }
 
     /**

@@ -1,10 +1,10 @@
 package eggventory.logic.commands.delete;
 
+import eggventory.commons.enums.CommandType;
+import eggventory.commons.exceptions.BadInputException;
 import eggventory.model.StockList;
 import eggventory.storage.Storage;
-import eggventory.logic.commands.delete.DeleteStockTypeCommand;
 import eggventory.ui.Cli;
-import eggventory.commons.enums.CommandType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -36,7 +36,7 @@ public class DeleteStockTypeCommandTest {
     }
 
     @Test
-    void testExecute_deleteStockType_success() {
+    void testExecute_deleteStockType_success() throws BadInputException {
 
         String testStockType = "Resistor";
         String testStockCode = "R5";

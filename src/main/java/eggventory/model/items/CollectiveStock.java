@@ -2,6 +2,8 @@ package eggventory.model.items;
 
 //@@author cyanoei
 
+import eggventory.commons.exceptions.BadInputException;
+
 /**
  Child of the Stock class.
  * A CollectiveStock (eg. 330ohm resistor) may consist of many individual items (multiple resistors),
@@ -17,7 +19,8 @@ public class CollectiveStock extends Stock {
      * @param quantity  The quantity (number of items) of this stock.
      * @param description The name of the stock. (eg. 500ohm resistor, mini breadboard)
      */
-    public CollectiveStock(String stockType, String stockCode, int quantity, String description) {
+    public CollectiveStock(String stockType, String stockCode, int quantity, String description)
+            throws BadInputException {
         super(stockType, stockCode, quantity, description);
 
     }

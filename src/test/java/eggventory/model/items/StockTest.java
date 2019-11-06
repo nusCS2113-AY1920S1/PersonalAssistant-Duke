@@ -1,5 +1,6 @@
 package eggventory.model.items;
 
+import eggventory.commons.exceptions.BadInputException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -7,6 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 //@@author patwaririshab
 class StockTest {
     Stock testStock = new Stock("TestType", "#T",500, "Test");
+
+    StockTest() throws BadInputException {
+    }
 
     @Test
     void testGetStockType_success() {

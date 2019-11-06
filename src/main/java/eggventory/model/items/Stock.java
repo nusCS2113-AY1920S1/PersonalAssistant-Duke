@@ -1,8 +1,8 @@
 package eggventory.model.items;
 
 
+import eggventory.commons.exceptions.BadInputException;
 import eggventory.model.loans.Loan;
-import eggventory.ui.Gui;
 
 import java.util.ArrayList;
 
@@ -36,7 +36,9 @@ public class Stock {
      * @param quantity The quantity (number of items) of this stock.
      * @param description The name of the stock. (eg. 500ohm resistor, mini breadboard.
      */
-    public Stock(String stockType, String stockCode, int quantity, String description) {
+    public Stock(String stockType, String stockCode, int quantity, String description)
+            throws BadInputException {
+        quantitySanityCheck(quantity);
         this.stockType = stockType;
         this.stockCode = stockCode;
         this.quantity = quantity;
@@ -103,8 +105,20 @@ public class Stock {
      * Sets the new total number of this stock. To be used by 'change' or 'qty' commands to modify the number.
      * @param newTotal the new total number of items.
      */
-    public void setQuantity(int newTotal) {
+    public void setQuantity(int newTotal) throws BadInputException {
+        quantitySanityCheck(newTotal);
         this.quantity = newTotal;
+    }
+
+    /**
+     * Checks if quantity input is reasonable.
+     * @param quantity the quantity of the stock.
+     * @throws BadInputException if the quantity is negative.
+     */
+    public void quantitySanityCheck(int quantity) throws BadInputException {
+        if (quantity < 0) {
+            throw new BadInputException("Sorry, the quantity cannot be negative!");
+        }
     }
 
     /**
@@ -182,45 +196,6 @@ public class Stock {
     public String saveDetailsString() {
         return stockType + "," + stockCode + "," + quantity + "," + description + "," + minimum;
     }
-
-    //    /**
-    //     * Prints the complete details of all the items of this type.
-    //     * Format example: 560ohm Resistors: 280 available. 100 on loan. 20 lost. (400 total.)
-    //     * To be used with the 'stock all' command.
-    //     */
-    //    public String printAll() {
-    //        String output = description + ": " + numAvailable() + " available. " + loaned + " on loan. "
-    //                + lost + " lost. (" + quantity + " total.)";
-    //
-    //
-    //    }
-    //
-    //    /**
-    //     * Prints the name and number of available items. Used as part of printing a list of available items.
-    //     * Format example: 560ohm Resistors: 280
-    //     * To be used with the 'stock' command.
-    //     */
-    //    public void printAvailable() {
-    //        System.out.println(description + ": " + numAvailable() + " available.");
-    //    }
-    //
-    //    /**
-    //     * Prints the name and number of items on loan. Used as part of printing a list of items on loan.
-    //     * Format example: 560ohm Resistors: 100
-    //     * To be used with the 'stock loan' command.
-    //     */
-    //    public void printLoan() {
-    //        System.out.println(description + ": " + loaned + " on loan.");
-    //    }
-    //
-    //    /**
-    //     * Prints the name and number of lost items. Used as part of printing a list of lost items.
-    //     * Format example: 560ohm Resistors: 20
-    //     * To be used with the 'stock lost' command.
-    //     */
-    //    public void printLost() {
-    //        System.out.println(description + ": " + lost + " lost.");
-    //    }
 
     //@@author Raghav-B
     /**

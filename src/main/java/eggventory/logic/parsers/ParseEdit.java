@@ -11,25 +11,37 @@ import eggventory.commons.exceptions.InsufficientInfoException;
 
 //@@author patwaririshab
 public class ParseEdit {
-    private Command processEditStock(String input) throws BadInputException {
-        String[] addInput = input.split(" +", 3); //<stockCode> <property> <newValue>
 
-        String stockCode = addInput[0];
-        switch (addInput[1]) {
+    //@@author cyanoei
+    private void checkStockCode(String stockCode) throws BadInputException {
+        if (stockCode.contains(" ")) {
+            throw new BadInputException("Sorry, the new StockCode cannot contain spaces!");
+        }
+    }
+
+    //@@author patwaririshab
+
+    private Command processEditStock(String input) throws BadInputException {
+        String[] editInput = input.split(" +", 3); //<stockCode> <property> <newValue>
+
+        String stockCode = editInput[0];
+        switch (editInput[1]) {
         case "stockcode":
+            checkStockCode(editInput[2]);
             return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.STOCKCODE,
-                    addInput[2].toLowerCase());
+                    editInput[2].toLowerCase());
         case "quantity":
-            return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.QUANTITY, addInput[2].toLowerCase());
+            return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.QUANTITY,
+                    editInput[2].toLowerCase());
         case "loaned":
-            return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.LOANED, addInput[2].toLowerCase());
+            return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.LOANED, editInput[2].toLowerCase());
         case "lost":
-            return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.LOST, addInput[2].toLowerCase());
+            return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.LOST, editInput[2].toLowerCase());
         case "description":
             return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.DESCRIPTION,
-                    addInput[2].toLowerCase());
+                    editInput[2].toLowerCase());
         case "minimum":
-            return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.MINIMUM, addInput[2].toLowerCase());
+            return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.MINIMUM, editInput[2].toLowerCase());
         default:
             throw new BadInputException("The property you are trying to edit does not exist.");
         }
