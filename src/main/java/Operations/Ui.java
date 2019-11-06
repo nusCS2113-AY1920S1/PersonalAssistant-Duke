@@ -241,7 +241,7 @@ public class Ui {
     }
 
     public void helpList() {
-        System.out.println("Here are a list of commands you can input: \n add \n delete \n list \n done \n restore \n find \n priority \n snooze \n reorder \n subtask \n update \n sort \n log \n" +
+        System.out.println("Here are a list of commands you can input: \n add \n update \n done \n delete \n find \n snooze \n sort \n subtask \n restore \n priority \n reorder \n log \n bye \n" +
                 "For more information about a specific command you can \nEnter help followed by a command, eg. help add");
     }
 
