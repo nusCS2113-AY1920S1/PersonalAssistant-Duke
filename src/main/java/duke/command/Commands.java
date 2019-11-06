@@ -8,15 +8,14 @@ import duke.command.home.HomeHistorySpec;
 import duke.command.home.HomeNewSpec;
 import duke.command.home.HomeOpenSpec;
 import duke.command.home.HomeReportSpec;
-import duke.command.impression.ImpressionDeleteCommand;
-import duke.command.impression.ImpressionEditCommand;
-import duke.command.impression.ImpressionFindCommand;
-import duke.command.impression.ImpressionMoveCommand;
-import duke.command.impression.ImpressionNewCommand;
-import duke.command.impression.ImpressionPrimaryCommand;
-import duke.command.impression.ImpressionPriorityCommand;
-import duke.command.impression.ImpressionResultCommand;
-import duke.command.impression.ImpressionStatusCommand;
+import duke.command.impression.ImpressionDeleteSpec;
+import duke.command.impression.ImpressionEditSpec;
+import duke.command.impression.ImpressionFindSpec;
+import duke.command.impression.ImpressionMoveSpec;
+import duke.command.impression.ImpressionNewSpec;
+import duke.command.impression.ImpressionPrioritySpec;
+import duke.command.impression.ImpressionResultSpec;
+import duke.command.impression.ImpressionStatusSpec;
 import duke.command.patient.PatientDeleteCommand;
 import duke.command.patient.PatientDischargeCommand;
 import duke.command.patient.PatientEditCommand;
@@ -96,23 +95,23 @@ public class Commands {
         case IMPRESSION:
             switch (cmdStr) {
             case "new":
-                return new ImpressionNewCommand();
+                return new ArgCommand(ImpressionNewSpec.getSpec());
             case "edit":
-                return new ImpressionEditCommand();
+                return new ArgCommand(ImpressionEditSpec.getSpec());
             case "find":
-                return new ImpressionFindCommand();
+                return new ArgCommand(ImpressionFindSpec.getSpec());
             case "move":
-                return new ImpressionMoveCommand();
+                return new ArgCommand(ImpressionMoveSpec.getSpec());
             case "delete":
-                return new ImpressionDeleteCommand();
+                return new ArgCommand(ImpressionDeleteSpec.getSpec());
             case "result":
-                return new ImpressionResultCommand();
+                return new ArgCommand(ImpressionResultSpec.getSpec());
             case "priority":
-                return new ImpressionPriorityCommand();
+                return new ArgCommand(ImpressionPrioritySpec.getSpec());
             case "status":
-                return new ImpressionStatusCommand();
+                return new ArgCommand(ImpressionStatusSpec.getSpec());
             case "primary":
-                return new ImpressionPrimaryCommand();
+                return new ArgCommand(ImpressionPrimarySpec.getSpec());
             default:
                 return null;
             }

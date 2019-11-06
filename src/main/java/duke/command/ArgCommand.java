@@ -105,19 +105,19 @@ public class ArgCommand extends Command {
         return arg;
     }
 
-    protected ArgLevel getCmdArgLevel() {
+    public ArgLevel getCmdArgLevel() {
         return spec.getCmdArgLevel();
     }
 
-    protected Map<String, Switch> getSwitchMap() {
+    public Map<String, Switch> getSwitchMap() {
         return spec.getSwitchMap();
     }
 
-    protected Map<String, String> getSwitchAliases() {
+    public Map<String, String> getSwitchAliases() {
         return spec.getSwitchAliases();
     }
 
-    protected Map<String, String> getSwitchVals() {
+    public Map<String, String> getSwitchVals() {
         return Collections.unmodifiableMap(switchVals);
     }
 

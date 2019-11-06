@@ -1,7 +1,6 @@
 package duke.command.impression;
 
 import duke.DukeCore;
-import duke.command.ArgCommand;
 import duke.command.ArgLevel;
 import duke.command.ArgSpec;
 import duke.command.Switch;
@@ -27,7 +26,7 @@ public class ImpressionDeleteSpec extends ArgSpec {
     }
 
     @Override
-    public void execute(DukeCore core, ArgCommand cmd) throws DukeException {
+    protected void execute(DukeCore core) throws DukeException {
         Impression impression = ImpressionUtils.getImpression(core);
         DukeData delData = ImpressionUtils.getData(cmd.getArg(), cmd.getSwitchVal("evidence"),
                 cmd.getSwitchVal("treatment"), impression);

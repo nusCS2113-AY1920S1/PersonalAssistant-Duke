@@ -11,7 +11,6 @@ import duke.data.Medicine;
 import duke.data.Observation;
 import duke.data.Patient;
 import duke.data.Plan;
-import duke.data.Result;
 import duke.data.Treatment;
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
@@ -51,7 +50,7 @@ public class ImpressionEditSpec extends DukeDataSpec {
     }
 
     @Override
-    public void execute(DukeCore core, ArgCommand cmd) throws DukeException {
+    protected void execute(DukeCore core) throws DukeException {
         String editType = uniqueDataType(cmd);
         DukeData editData;
         boolean isAppending = false;
@@ -138,18 +137,18 @@ public class ImpressionEditSpec extends DukeDataSpec {
                             med.setDuration((isAppending) ? med.getDuration() + entryStr : entryStr);
                             break;
                         default:
-                            throw new DukeHelpException("Medicine plans do not have this property: '"
-                                    + entryStr + "'", this);
+                            throw new DukeHelpException("Medicine plans do not have the property: '"
+                                    + entryStr + "'", cmd);
                         }
                         break;
                     case "observation":
                         Observation obsv = (Observation) editData;
-                        if (isSwitchSet("objective") && isSwitchSet("subjective")) {
-                            throw new DukeHelpException("I don't know if you want this observation to be objective"
-                                    + "or subjective!", this);
-                        } else if (isSwitchSet("objective")) {
+                        if (cmd.isSwitchSet("objective") && cmd.isSwitchSet("subjective")) {
+                            throw new DukeHelpException("I don't know if you want the observation to be objective"
+                                    + "or subjective!", cmd);
+                        } else if (cmd.isSwitchSet("objective")) {
                             obsv.setObjective(true);
-                        } else if (isSwitchSet("subjective")) {
+                        } else if (cmd.isSwitchSet("subjective")) {
                             obsv.setObjective(false);
                         }
                         break;
@@ -181,14 +180,14 @@ public class ImpressionEditSpec extends DukeDataSpec {
     private void editImpression(Impression impression, boolean isAppending) {
         Patient patient = (Patient) impression.getParent();
 
-        String newName = getSwitchVal("name");
+        String newName = cmd.getSwitchVal("name");
         if (newName != null) {
             patient.getImpressionsObservableMap().remove(impression.getName());
             impression.setName((isAppending) ? impression.getName() + newName : newName);
             patient.getImpressionsObservableMap().put(newName, impression);
         }
 
-        String newDesc = getSwitchVal("description");
+        String newDesc = cmd.getSwitchVal("description");
         if (newDesc != null) {
             impression.setDescription((isAppending) ? impression.getDescription() + newDesc : newDesc);
         }
