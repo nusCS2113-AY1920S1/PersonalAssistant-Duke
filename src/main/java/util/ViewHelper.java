@@ -1,11 +1,78 @@
 package util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 import static util.constant.ConstantHelper.*;
 
 public class ViewHelper {
 
+    public String[] consolePrintMultipleTables(ArrayList<ArrayList<String>> toPrintAll, int tableWidth,
+                                               int numOfTableColumns, String overallTitle) {
+        ArrayList<String> overallTableContent = new ArrayList<>();
+        ArrayList<ArrayList<String>> columnsOfTableContent = new ArrayList<>();
+        for (int i = 0; i < numOfTableColumns; i++) {
+            columnsOfTableContent.add(new ArrayList<>());
+        }
+        // Each element in columnsOfTableContent is an ArrayList containing content for that column of tables
+        int individualTableWidth = (tableWidth - (numOfTableColumns + 1)) / numOfTableColumns - 2;
+        while (toPrintAll.size() != 0) {
+            for (int i = 0; i < numOfTableColumns; i++) {
+                if (toPrintAll.size() == 0) {
+                    break;
+                }
+                ArrayList<ArrayList<String>> tableToBePrinted = new ArrayList<>(Collections.singleton(toPrintAll.get(0)));
+                String[] individualTableContent = consolePrintTable(tableToBePrinted, individualTableWidth);
+                int columnToBeAdded = findColumnWithMinNumOfRows(columnsOfTableContent);
+                columnsOfTableContent.get(columnToBeAdded).addAll(Arrays.asList(individualTableContent));
+                toPrintAll.remove(0);
+            }
+        }
+        int maxNumOfRows = findMaxNumOfRows(columnsOfTableContent);
+
+        //addRemainingSpacesToShorterColumns()
+        for (int i = 0; i < numOfTableColumns; i++) {
+            while (columnsOfTableContent.get(i).size() != maxNumOfRows) {
+                columnsOfTableContent.get(i).add(getRemainingSpaces(individualTableWidth + 2));
+            }
+        }
+        overallTableContent.add(overallTitle);
+        for (int i = 0; i < maxNumOfRows; i++) {
+            StringBuilder line = new StringBuilder();
+            for (ArrayList<String> strings : columnsOfTableContent) {
+                line.append(" ");
+                line.append(strings.get(i));
+            }
+            line.append(" ");
+            overallTableContent.add(line.toString());
+        }
+        ArrayList<ArrayList<String>> overallTableContentDummy = new ArrayList<>();
+        overallTableContentDummy.add(overallTableContent);
+        return consolePrintTable(overallTableContentDummy, tableWidth);
+    }
+
+    private int findMaxNumOfRows(ArrayList<ArrayList<String>> columnsOfTableContent) {
+        int maxNumOfRows = 0;
+        for (ArrayList<String> strings : columnsOfTableContent) {
+            if (strings.size() > maxNumOfRows) {
+                maxNumOfRows = strings.size();
+            }
+        }
+        return maxNumOfRows;
+    }
+
+    private int findColumnWithMinNumOfRows(ArrayList<ArrayList<String>> columnsOfTableContent) {
+        int minNumOfRows = Integer.MAX_VALUE;
+        int indexOfColumnWithMinNumOfRows = -1;
+        for (int i = 0; i < columnsOfTableContent.size(); i++) {
+            if (columnsOfTableContent.get(i).size() < minNumOfRows) {
+                minNumOfRows = columnsOfTableContent.get(i).size();
+                indexOfColumnWithMinNumOfRows = i;
+            }
+        }
+        return indexOfColumnWithMinNumOfRows;
+    }
 
     /**
      * Returns a String array that contains input in table form.
