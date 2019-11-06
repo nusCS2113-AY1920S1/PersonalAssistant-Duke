@@ -2,6 +2,7 @@ package models.project;
 
 import models.member.Member;
 import models.member.MemberList;
+import models.reminder.Reminder;
 import models.task.Task;
 import models.task.TaskList;
 
@@ -124,6 +125,30 @@ public class NullProject implements IProject {
 
     @Override
     public HashMap<Task, ArrayList<Member>> getTasksAndAssignedMembers() {
+        return null;
+    }
+
+    @Override
+    public void addReminderToList(Reminder reminder) {
+        /*
+        Empty method
+         */
+    }
+
+    @Override
+    public ArrayList<Reminder> getReminderList() {
+        return null;
+    }
+
+    @Override
+    public void markReminder(Boolean isDone, int index) {
+        /*
+        Empty method
+         */
+    }
+
+    @Override
+    public Reminder getReminder(int index) {
         return null;
     }
 

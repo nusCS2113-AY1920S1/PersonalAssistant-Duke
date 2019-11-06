@@ -21,7 +21,7 @@ public class ReminderFactory {
     }
 
     /**
-     * Method to create a new reminder and put it into the remidner list.
+     * Method to create a new reminder and put it into the reminder list.
      * @param input Input containing the information about the reminder.
      * @return Reminder as an object
      */
@@ -30,8 +30,7 @@ public class ReminderFactory {
             return new NullReminder();
         }
 
-        String [] reminderDetails = input.split("-");
-        ArrayList<String> newReminderDetails = parserHelper.parseReminderDetails(reminderDetails);
+        ArrayList<String> newReminderDetails = parserHelper.parseReminderDetails(input);
         String newReminderName = newReminderDetails.get(0);
         String newReminderRemarks = newReminderDetails.get(1);
         Date newReminderDate = null;

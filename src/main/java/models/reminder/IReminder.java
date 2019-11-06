@@ -10,9 +10,15 @@ public interface IReminder {
 
     void setReminderDate(Date reminderDate);
 
+    void setIsDone(Boolean isDone);
+
     String getReminderName();
 
     String getReminderRemarks();
 
     Date getReminderDate();
+
+    Boolean getIsDone();
+
+    String getStatus();
 }

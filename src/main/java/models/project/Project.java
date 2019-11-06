@@ -190,10 +190,12 @@ public class Project implements IProject {
     }
     //@@author
 
+    @Override
     public void addReminderToList(Reminder reminder) {
         this.reminderList.addReminderList(reminder);
     }
 
+    @Override
     public ArrayList<Reminder> getReminderList() {
         return reminderList.getReminderList();
     }
@@ -212,5 +214,34 @@ public class Project implements IProject {
 
     public boolean taskExists(ITask task) {
         return this.taskList.contains((Task) task);
+    }
+
+
+    /**
+     * Set the status of the Reminder.
+     * @param isDone the status of the reminder.
+     * @param index the 1 based index of the reminder.
+     */
+    @Override
+    public void markReminder(Boolean isDone, int index) {
+        reminderList.getReminderList().get(index - 1).setIsDone(isDone);
+    }
+
+    /**
+     * Get a reminder from the reminderList
+     * @param index the index of the Reminder.
+     * @return Reminder object.
+     */
+    @Override
+    public Reminder getReminder(int index) {
+        return reminderList.getReminderList().get(index - 1);
+    }
+
+    public void removeReminder(int index) {
+        reminderList.getReminderList().remove(index - 1);
+    }
+
+    public int getReminderListSize() {
+        return reminderList.getReminderList().size();
     }
 }

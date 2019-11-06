@@ -52,4 +52,13 @@ public class ValidityHelper {
         }
         return errorMessage;
     }
+
+    /**
+     * Check validity of of input is number
+     * @param number The user input mainly the index.
+     * @return Boolean value indicating validity of phoneNumber.
+     */
+    public Boolean digitChecker(String number) {
+        return number.matches("-?\\d+(\\.\\d+)?");
+    }
 }

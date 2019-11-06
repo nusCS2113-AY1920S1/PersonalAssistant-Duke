@@ -2,6 +2,7 @@ package models.project;
 
 import models.member.IMemberList;
 import models.member.Member;
+import models.reminder.Reminder;
 import models.task.Task;
 import models.task.TaskList;
 
@@ -48,4 +49,13 @@ public interface IProject {
     HashMap<Member, ArrayList<Task>> getMembersIndividualTaskList();
 
     HashMap<Task, ArrayList<Member>> getTasksAndAssignedMembers();
+
+    void addReminderToList(Reminder reminder);
+
+    ArrayList<Reminder> getReminderList();
+
+    void markReminder(Boolean isDone, int index);
+
+    Reminder getReminder(int index);
+
 }

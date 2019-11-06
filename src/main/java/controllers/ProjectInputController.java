@@ -102,7 +102,7 @@ public class ProjectInputController implements IController {
             responseToView = projectViewTasks(this.projectToManage, projectFullCommand);
         } else if (projectFullCommand.matches("view assignments.*")) {
             responseToView = projectViewAssignments(this.projectToManage, projectFullCommand);
-        } else if (projectFullCommand.matches("view task requirements.*")) { // need to refactor this
+        } else if (projectFullCommand.matches("view task requirements.*")) {
             responseToView = projectViewTaskRequirements(this.projectToManage, projectFullCommand);
         } else if (projectFullCommand.matches("edit task requirements.*")) {
             responseToView = projectEditTaskRequirements(this.projectToManage, projectFullCommand);
@@ -116,6 +116,12 @@ public class ProjectInputController implements IController {
             responseToView = projectAddReminder(this.projectToManage,projectFullCommand);
         } else if (projectFullCommand.matches("view reminders"))  {
             responseToView = projectViewReminder(this.projectToManage);
+        } else if (projectFullCommand.matches("edit reminder.*")) {
+            responseToView = projectEditReminder(this.projectToManage,projectFullCommand);
+        } else if (projectFullCommand.matches("delete reminder.*")) {
+            responseToView = projectDeleteReminder(this.projectToManage,projectFullCommand);
+        } else if (projectFullCommand.matches(".*mark reminder.*")) {
+            responseToView = projectSetReminderStatus(this.projectToManage,projectFullCommand);
         } else if (projectFullCommand.matches("view")) {
             responseToView = projectViewSelf(this.projectToManage);
         } else if (projectFullCommand.matches("help")) {
@@ -608,7 +614,7 @@ public class ProjectInputController implements IController {
             IReminder newReminder = reminderFactory.createReminder(projectCommand.substring(13));
             if (newReminder.getReminderName() != null) {
                 projectToManage.addReminderToList((Reminder) newReminder);
-                return new String[] {"Added new reminder to the Reminder List in project."};
+                return new String[] {"Added new reminder to the Reminder List in the project."};
             }
             return new String[] {"Failed to create new task. Please ensure all "
                     + "necessary parameters are given"};
@@ -633,8 +639,8 @@ public class ProjectInputController implements IController {
         int index = 1;
         allTaskDetailsForTable.add(0, "Reminder of " + projectToManage.getName() + ":");
         for (Reminder reminder: projectToManage.getReminderList()) {
-            allTaskDetailsForTable.add(index + ". " + reminder.getReminderName());
-            allTaskDetailsForTable.add("   - " + reminder.getReminderRemarks());
+            allTaskDetailsForTable.add(index + ". " + reminder.getStatus() + " "+ reminder.getReminderName());
+            allTaskDetailsForTable.add("   - Remarks: " + reminder.getReminderRemarks());
             allTaskDetailsForTable.add("   - " + dateTimeHelper.formatDateForDisplay(reminder.getReminderDate())
                     + dateTimeHelper.getDifferenceDays(reminder.getReminderDate()));
             allTaskDetailsForTable.add(" ");
@@ -643,5 +649,87 @@ public class ProjectInputController implements IController {
 
         tableToPrint.add(allTaskDetailsForTable);
         return viewHelper.consolePrintTable(tableToPrint, DEFAULT_HORI_BORDER_LENGTH);
+    }
+
+    /**
+     * Delete reminder from the list.
+     * @param projectToManage The project specified by the user.
+     * @param projectCommand The user input.
+     * @return the output for the user to consume.
+     */
+    public String[] projectDeleteReminder(Project projectToManage, String projectCommand) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectDeleteReminder] User input: '"
+                + projectCommand + "'");
+        if (projectCommand.length() <= 12) {
+            return new String[] {"No reminder index number detected! Please enter the reminder index number."};
+        }
+        ParserHelper parserHelper = new ParserHelper();
+        int index = parserHelper.parseDeleteReminder(projectCommand);
+        if (index == 0) {
+            ArrayList<String> outputMessages = new ArrayList<>(parserHelper.getErrorMessages());
+            return outputMessages.toArray(new String[0]);
+        } else if (index > projectToManage.getReminderListSize()) {
+            return new String[] {"No reminder index number found in the list! Please enter the correct reminder index number."};
+        } else {
+            String removedReminder = projectToManage.getReminder(index).getReminderName();
+            projectToManage.removeReminder(index);
+            return new String[] {removedReminder + " has been remove from the reminder list in the project."};
+        }
+    }
+
+    public String[] projectEditReminder(Project projectToManage, String projectCommand) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectEditReminder] User input: '"
+                + projectCommand + "'");
+        ParserHelper parserHelper = new ParserHelper();
+        int index = parserHelper.parseEditReminder(projectCommand);
+        if (index == 0) {
+            ArrayList<String> outputMessages = new ArrayList<>(parserHelper.getErrorMessages());
+            return outputMessages.toArray(new String[0]);
+        } else if (index > projectToManage.getReminderListSize()) {
+            return new String[] {"No reminder index number found in the list! Please enter the correct reminder index number."};
+        } else {
+
+            try {
+                ArrayList<String> newReminderDetails = parserHelper.parseReminderDetails(projectCommand);
+                DateTimeHelper dateTimeHelper = new DateTimeHelper();
+
+                if (!newReminderDetails.get(0).matches("--")) {
+                    projectToManage.getReminder(index).setReminderName(newReminderDetails.get(0));
+                }
+                if (!newReminderDetails.get(1).matches("--")) {
+                    projectToManage.getReminder(index).setReminderRemarks(newReminderDetails.get(1));
+                }
+                if (!(newReminderDetails.get(2) == null)) {
+                    projectToManage.getReminder(index).setReminderDate(dateTimeHelper.formatDate(newReminderDetails.get(2)));
+                }
+                return new String[] {"Your reminder have been updated."};
+            } catch (NumberFormatException | ParseException e) {
+                ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectEditReminder] "
+                        + "Please enter your reminder date format correctly.");
+                return new String[] {"Please enter your reminder date format correctly."};
+            }
+        }
+    }
+
+    /**
+     * Set the status of the reminder.
+     * @param projectToManage The project to manage.
+     * @param projectCommand The user input.
+     */
+    public String[] projectSetReminderStatus(Project projectToManage, String projectCommand) {
+        ArchDukeLogger.logDebug(ProjectInputController.class.getName(),
+                "[projectSetReminderStatus] User input: '" + projectCommand + "'");
+        ParserHelper parserHelper = new ParserHelper();
+        ArrayList<String> checkReminderDetails = parserHelper.parseCheckReminder(projectCommand);
+        if (checkReminderDetails == null) {
+            ArrayList<String> outputMessages = new ArrayList<>(parserHelper.getErrorMessages());
+            return outputMessages.toArray(new String[0]);
+        } else {
+            boolean status = Boolean.parseBoolean(checkReminderDetails.get(0));
+            int index = Integer.parseInt(checkReminderDetails.get(1));
+            projectToManage.markReminder(status,index);
+            return new String[] {projectToManage.getReminder(index).getReminderName()
+                    + " have been marked " + projectToManage.getReminder(index).getStatus()};
+        }
     }
 }
