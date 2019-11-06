@@ -8,7 +8,7 @@ public class BlockedCommand extends Command {
     /**
      * Create new command.
      *
-     * @param inputs
+     * @param inputs The user's inputs.
      */
     public BlockedCommand(ArrayList<String> inputs) {
         super(inputs);
