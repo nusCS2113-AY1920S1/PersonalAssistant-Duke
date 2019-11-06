@@ -208,6 +208,9 @@ public class Command {
                 case "checklist":
                     ui.printChecklistHelp();
                     break;
+                case "instruments":
+                    ui.printInstrumentsHelp();
+                    break;
                 case "reschedule":
                 case "edit":
                 case "done":
@@ -756,10 +759,29 @@ public class Command {
         }
     }
 
-    //@@author
+    //@@author Dng132FEI
+    
+    public static boolean isNumeric(String str) { 
+	    try {  
+	        Integer.parseInt(str);  
+	        return true;
+	    } catch(NumberFormatException e){  
+	        return false;  
+	    }  
+	}
+    
     private void remindEvents(EventList events, UI ui) {
-        ui.printReminder(events);
+    	if (continuation.isEmpty()) {
+    		ui.printReminderDays(events, 3);
+    		return;
+    	}
+    	String instrumentCommand[] = continuation.split(" ");
+    	if (isNumeric(instrumentCommand[0])) {
+    		int days = Integer.parseInt(instrumentCommand[0]);
+    		ui.printReminderDays(events, days);
+    	}
     }
+
 
     private void listEvents(EventList events, UI ui) {
         UI.printListOfEvents(events);

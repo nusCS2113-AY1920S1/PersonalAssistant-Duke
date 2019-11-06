@@ -18,11 +18,11 @@ By: `Team CS2113T-F11-4`      Since: `Aug 2019`      Licence: `MIT`
 
 
 == Setting up
-
-
 == Design
 === Overall Architecture
-image::Architecture main.png[width = 95%]
+This image shows the overall architecture of our program
+
+image::Architecture main.png[width = 500%]
 There are three main components in the overall architecture of the application.
 
 === Main component
@@ -58,6 +58,11 @@ In particular, the `Storage` class directly reads from and writes to and externa
 This component represent all other low-level classes required for the program to function. +
 This includes classes like the `Event` class which is the abstract parent class for all the types of classes that
 represent the different types of events(`ToDo`, `Concert`, `Exam`, etc.) a user can input as an entry in the program.
+
+This image shows the sequence diagram when a user input "delete 1" is entered.
+
+image::sequenceDiagramDeleteEvent.png["SequenceDiag", 5000, align=center]
+
 
 == Implementation
 This section describes some noteworthy details on how certain features are implemented.
@@ -145,45 +150,9 @@ This deletes an item from the checklist of an event.
 
 === Clash handling
 ==== Activity diagram
-====
-                    +-----------+
-                    |  addEvent |
-                    |   called  |
-                    +-----------+
-                          |
-                          |
-                          v             found
-                    +-----------+   matching date   +------------+
-          +---------|  Search   | ----------------> |   Compare  |
-          |         |   List    |    +--------------|    times   |
-          |         +-----------+    |              +------------+
-          |                          |            Found     |
-     else |                      else|         overlapping  |
-          |         +----------------+            times     |
-          |         |                                       |
-          v         v                                       v
-    +-----------------+                         +----------------+
-    |      Return     |                         |Exception thrown|
-    |       null      |                         | clashing event |
-    +-----------------+                         +----------------+
-            |                                            |
-            |                                            |
-            |                                            |
-            v                                            v
-    +-----------------+                         +----------------+
-    |    Add Event    |                         | Alert user of  |
-    |     to list     |                         |     clash      |
-    +-----------------+                         +----------------+
-            |                                            |
-            |                                            |
-            +----------------|        |------------------+
-                             |        |
-                             v        v
-                            +-----------+
-                            | Await new |
-                            |  Command  |
-                            +-----------+
-====
+The following activity diagram represents a typical clash handling scenario
+
+image::ActivityDiagramClashHandling.png[Clash Handling, 1600, align=center]
 
 ==== How is it implemented
 The program is able to *detect clashes when creating new events*. When the user enters the command
@@ -192,12 +161,11 @@ class object upon execution.
 
 The `addEvent` method will then call the `EventList.clashEvent` method to check the
 existing entries for any clash in schedule. This is done by first searching the list for an event
-that has a matching date with the new event, done with a simple loop.
+that has a matching date with the new event.
 
 If no such event is found, the method returns a *_null_* value, indicating that there is no schedule clash.
 If an event is found with a matching date, the `clashEvent` then calls the `EventList.timeClash` method to check whether
-the two events have overlapping time periods. This is done by simple mathematical comparison using `>` and
-`<` operators, comparing the times in 24h format as 4 digit integers.
+the two events have overlapping time periods.
 
 If there is any overlap, the `timeClash` method will return *_true_* as a boolean, indicating there is a schedule clash.
 The `clashEvent` method then throws an exception `ClashException`, indicating that there was indeed a schedule
@@ -210,13 +178,12 @@ the new Event entry.
 
 ==== Why it is implemented this way
 The process of checking for a clash was implemented as small, simple components so as to ensure scalability,
-easier testing, and to reduce dependencies.
+reliability, and to reduce dependencies.
 
 The choice to use exception handling to deal with an event clash
 was done so that it could be easily re-purposed for any incremental extension that required checking for a
-schedule clash. This can be easily done by using `try catch` blocks and catching any `ClashException` thrown
-so that suitable action can be taken, and the info for the clashing event can be easily obtained for said
-action.
+schedule clash. Catching of the ClashException should be performed in the Command class, and the info regarding the
+schedule clash can be easily obtained for further action.
 
 By having the `clashEvent` method return a *_null_* value or a reference to a clashing event in the schedule, the
 `clashEvent` method can now be used for any further increments to the code requiring addition of events.
@@ -226,8 +193,10 @@ It was thus easy to implement this clash detection as a part of adding recurrent
 rescheduling function (to check for clashes when the user attempts to reschedule
 an existing event, so that he/she does not inadvertently create a new schedule conflict).
 
-Testing is also very simple to implement as it can be done unit by unit or as a whole, due to clash detection
-being broken down into multiple simple components, each with a specific purpose.
+This implementation is reliable because it can always be expected to work whenever it is necessary to add
+new events to the list, provided the unit tests for this functionality under MainTest work. It is also not
+dependent on any other functionality, allowing for developers to change the implementation of other parts of the
+application without affecting the clash handling
 
 ==== Expected behaviour of functionality
 When a user attempts to add an event(recurring or otherwise) and the program detects a clash with an existing event
@@ -615,3 +584,9 @@ Expected: Prints the success of editing the contact.
 [appendix]
 == Instructions for Manual Testing
 === Launch and Shutdown
+Upon launch, a startup message should be shown including the logo, and a list of commands that the user
+can use. This is list is available under UI.welcome() method and can be changed. +
+
+Upon shutdown, a goodbye message is displayed before the app is terminated. If needed, the data/misterMusik.main.txt
+file can be checked for discrepancies between what was stored in the program and what was written to the file for
+storage.
