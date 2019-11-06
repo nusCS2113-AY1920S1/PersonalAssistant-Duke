@@ -3,6 +3,7 @@ import Enums.ExceptionType;
 import Enums.SortType;
 import Enums.TaskType;
 import Enums.TimeUnit;
+import Model_Classes.ProgressBar;
 import Model_Classes.Task;
 import Operations.*;
 
@@ -347,6 +348,18 @@ public class RoomShare {
                     ui.showError(e);
                     storage.writeFile(TaskList.currentList(), "data.txt");
                 }
+                listRoutine.list();
+                break;
+
+            case show:
+                Ui.clearScreen();
+                ui.startUp();
+                String input = parser.getCommandLine();
+                ui.showTagged(input);
+                int[] doneArray = taskList.listTagged(input);
+                ui.showTaggedPercentage(input);
+                ProgressBar progressBar = new ProgressBar(doneArray[0], doneArray[1]);
+                ui.showBar(progressBar.showBar());
                 listRoutine.list();
                 break;
 
