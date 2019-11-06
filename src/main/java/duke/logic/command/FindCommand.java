@@ -33,7 +33,7 @@ public class FindCommand extends Command {
     public FindCommand(String keyword, Optional<String> filter) {
         this.keyword = keyword;
         this.filter = filter;
-        this.listCommand = new ListCommand(Optional.empty());
+        this.listCommand = new ListCommand(filter);
     }
 
     /**
@@ -51,11 +51,10 @@ public class FindCommand extends Command {
         if (tasks.size() == 0) {
             ui.showLine("You have no tasks in your list! :-)");
         } else {
-            ArrayList<Task> filteredTaskList = tasks.getList(filter);
             ArrayList<Task> foundTasksTemp = new ArrayList<Task>();
-            for (int i = 0; i < filteredTaskList.size(); i++) {
-                Task currentTask = filteredTaskList.get(i);
-                if (currentTask.getDescription().contains(keyword)) {
+            for (int i = 0; i < tasks.size(); i++) {
+                Task currentTask = tasks.get(i);
+                if (currentTask.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                     foundTasksTemp.add(currentTask);
                 }
             }

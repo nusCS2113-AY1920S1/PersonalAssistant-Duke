@@ -1,0 +1,50 @@
+= Ang Jun Liang - Project Portfolio
+:site-section: AboutUs
+:stylesDir: ../stylesheets
+:imagesDir: images
+
+== PROJECT: El Duque
+
+== Overview
+
+El Duque is a CLI-based task manager application. El Duque’s main target audience are people who are familiar with the command line such as Computer Science students. The main selling point of El Duque is its flexible and powerful command structures as well as its quality of life features.
+
+== Summary of contributions
+
+* *Major Enhancement*: added *the ability to automatically assign tasks*
+** What it does: Using certain heuristics, it suggests the most probable filter(s) to a particular task. Note: filter is basically a sublist.
+** Justification: This feature improves the product significantly because a user can initially create a task without a filter but wish to assign a filter to it later. However, he may not be sure exactly which filter is most appropriate, or is simply lazy to remember which filter(s) are available.
+** Highlights: This feature is multi-faceted. There are 2 main heuristics at play. The first heuristic is matching filter names to description. The second heuristic is significantly more complicated. It uses concepts from Natural
+Language Processing (cleaning text, tokenzing, vectorizing token counts) and Mathematics (cosine similarity). Why cosine similarity? Suppose documents A and B are have a similarity score x. Now, I copy paste A twice to A2. A2 and B should still have the same similarity score x . Cosine similarity can achieve this as it measures similarity as angle between vectors so magnitude of each vector doesn’t matter.
+** Credits: Idea of using Natural Language Processing was motivated by taking Natural Language Processing as a module while doing this project.
+
+* *Minor Enhancement*: added *quality of life features to deal with shortforms and typos.*
+* *Minor Enhancement*: added *find command to find tasks with certain description.*
+* *Minor Enhancement*: added *help command to show summary of commands.*
+* *Minor Enhancement*: added *abnormality checker to check for clashes in event timing.*
+* *Minor Enhancement*: added *random command to show a random task.*
+
+* *Code contributed*: https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=nimiew
+
+* *Other contributions*:
+
+** Project Management for >V1.3 (Create/Assign/Close issues)
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+_{TODO - convert UG to adoc for easy conversion to here}_
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+include::DeveloperGuide.adoc[tag=ajl]
+include::DeveloperGuide.adoc[tag=ajl3]
+include::DeveloperGuide.adoc[tag=ajl2]
