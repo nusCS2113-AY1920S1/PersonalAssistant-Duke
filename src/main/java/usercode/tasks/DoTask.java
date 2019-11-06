@@ -14,7 +14,7 @@ public class DoTask extends Task {
      * @param action The action to be done
      */
     public DoTask(Condition condition, Action action) {
-        super(taskType.DO, condition, action);
+        super(Tasktype.DO, condition, action);
     }
 
     @Override

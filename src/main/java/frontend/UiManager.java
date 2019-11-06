@@ -126,7 +126,9 @@ public class UiManager implements Ui {
      */
     public void typeWriter(String text, boolean hasPressEnter) {
         int lineLength = 0;
-        if (!text.isBlank()) print(">>> ");
+        if (!text.isBlank()) {
+            print(">>> ");
+        }
         sleep(150);
         for (int i = 0; i < text.length(); i++) {
             System.out.printf("%c", text.charAt(i));

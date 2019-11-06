@@ -14,7 +14,7 @@ public class IfTask extends Task {
      * @param action The action to be executed if the condition is true.
      */
     public IfTask(Condition condition, Action action) {
-        super(taskType.IF, condition, action);
+        super(Tasktype.IF, condition, action);
     }
 
     @Override

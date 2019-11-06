@@ -55,9 +55,15 @@ public class UiDummy implements Ui {
         uiTestString += "levelBegin";
     }
 
+    /**
+     * Mimics showing a narrative.
+     * @param level that the narrative is to be shown.
+     * @param simulation that the simulation of the level will utilise.
+     * @throws FarmioFatalException if simulation file is missing
+     */
     public void showNarrative(Level level, Simulation simulation) throws FarmioFatalException {
         int frameId;
-        for (frameId = 0; frameId < level.getNarratives().size() - 1; frameId ++) {
+        for (frameId = 0; frameId < level.getNarratives().size() - 1; frameId++) {
             getInput();
             simulation.simulate(level.getPath(), frameId);
             typeWriter("", true);

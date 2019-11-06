@@ -21,7 +21,7 @@ public class IfElseTask extends Task {
      * @param elseAction The action to be executed if the condition is false.
      */
     public IfElseTask(Condition condition, Action ifAction, Action elseAction) {
-        super(taskType.IF_ELSE, condition, ifAction);
+        super(Tasktype.IF_ELSE, condition, ifAction);
         this.ifAction = ifAction;
         this.elseAction = elseAction;
     }
@@ -43,8 +43,8 @@ public class IfElseTask extends Task {
     }
 
     @Override
-    public JSONObject toJSON() {
-        JSONObject object = super.toJSON();
+    public JSONObject toJson() {
+        JSONObject object = super.toJson();
         object.put(JSON_KEY_ACTION_ELSE, elseAction.toString());
         return object;
     }

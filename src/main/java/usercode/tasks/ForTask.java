@@ -14,7 +14,7 @@ public class ForTask extends Task {
      * @param action the action to be carried out that number of times.
      */
     public ForTask(Condition condition, Action action) {
-        super(taskType.FOR, condition, action);
+        super(Tasktype.FOR, condition, action);
     }
 
     @Override

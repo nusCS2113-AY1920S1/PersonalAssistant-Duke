@@ -96,7 +96,7 @@ public class StorageManager implements Storage {
         FileWriter file;
         try {
             file = new FileWriter(GAME_FILENAME);
-            jsonFarmer = farmer.updateJSON(jsonFarmer);
+            jsonFarmer = farmer.updateJson(jsonFarmer);
             file.write(jsonFarmer.toJSONString());
             file.close();
         } catch (IOException e) {

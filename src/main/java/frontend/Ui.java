@@ -53,7 +53,7 @@ public interface Ui {
     void sleep(int delay);
 
     /**
-     * shows a hint
+     * shows a hint.
      * @param text the text to be shown as a hint
      */
     void showHint(String text);

@@ -14,7 +14,7 @@ public class WhileTask extends Task {
      * @param action The action to be executed while the condition is true.
      */
     public WhileTask(Condition condition, Action action) {
-        super(taskType.WHILE, condition, action);
+        super(Tasktype.WHILE, condition, action);
     }
 
     @Override
