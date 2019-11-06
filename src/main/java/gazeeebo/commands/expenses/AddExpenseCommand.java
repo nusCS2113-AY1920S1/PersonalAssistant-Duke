@@ -5,23 +5,28 @@ import gazeeebo.UI.Ui;
 
 
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * This class adds the expense from the expense list and expenses.
+ */
 public class AddExpenseCommand {
-
     /**
      * This method adds the expense from the expense list and expenses.
      *
-     * @param ui the object that deals with printing things to the user.
-     * @param storage the object that deals with storing data, in this case storing data in the expenses map
-     * @param expenses the object that map each expenses to its date
+     * @param ui       the object that deals with printing things to the user.
+     * @param storage  the object that deals with storing data,
+     *                 in this case storing data in the expenses map
+     * @param expenses the map that maps each expenses to its date
      * @throws IOException catch any error if read file fails
      */
-    public AddExpenseCommand(Ui ui, Storage storage, Map<LocalDate, ArrayList<String>> expenses) throws IOException {
+    public AddExpenseCommand(final Ui ui,
+                             final Storage storage,
+                             final Map<LocalDate, ArrayList<String>> expenses)
+            throws IOException {
 
         System.out.println("What did you buy:");
         ui.readCommand();
@@ -36,14 +41,6 @@ public class AddExpenseCommand {
         System.out.println("Date of purchase:");
         ui.readCommand();
         String date = ui.fullCommand;
-
-//        System.out.println("Enter item, price ($xx) and date (yyyy-MM-dd)");
-//        ui.readCommand();
-//        String expenseInput = ui.fullCommand;
-//
-//        String item = expenseInput.split("$")[0];
-//       // String price = ex
-
 
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateOfPurchase = LocalDate.parse(date, fmt);
@@ -60,20 +57,25 @@ public class AddExpenseCommand {
         }
         if (!isEqual) {
             itemAndPriceList.add(itemAndPrice);
-            expenses.put(dateOfPurchase, itemAndPriceList);
+            expenses.put(dateOfPurchase,
+                    itemAndPriceList);
         }
-        System.out.println("Successfully added: " + "\n" + itemAndPrice + ", bought on " + dateOfPurchase);
+        System.out.println("Successfully added: "
+                + "\n" + itemAndPrice
+                + ", bought on " + dateOfPurchase);
 
         /*Stores the updated expenses map after deletion of expenses*/
         String toStore = "";
         for (LocalDate key : expenses.keySet()) {
             if (expenses.get(key).size() > 1) {
                 for (int i = 0; i < expenses.get(key).size(); i++) {
-                    toStore = toStore.concat(key + "|" + expenses.get(key).get(i) + "\n");
+                    toStore = toStore.concat(key + "|"
+                            + expenses.get(key).get(i) + "\n");
                 }
             } else if (expenses.get(key).size() == 1) {
 
-                toStore = toStore.concat(key + "|" + expenses.get(key).get(0) + "\n");
+                toStore = toStore.concat(key + "|"
+                        + expenses.get(key).get(0) + "\n");
             }
         }
         storage.Storages_Expenses(toStore);

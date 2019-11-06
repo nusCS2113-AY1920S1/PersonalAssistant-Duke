@@ -1,7 +1,7 @@
+
 package gazeeebo.commands.capCalculator;
 
 import gazeeebo.UI.Ui;
-import gazeeebo.exception.DukeException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,15 +13,19 @@ import java.util.Map;
 
 public class AddCAPCommand {
     /**
+     * Index of the grade.
+     */
+    private static final int GRADE_INDEX = 3;
+
+    /**
      * Add a new module into GPAList.
      *
      * @param ui      prints things to the user.
      * @param caplist deals stores
      *                semNumber, moduleCode, moduleCredits and CAP score.
-     * @throws IOException catch the error if the read file fails.
      */
     public AddCAPCommand(final Ui ui, final Map<String,
-            ArrayList<CAPCommand>> caplist) throws IOException {
+            ArrayList<CAPCommand>> caplist) {
         try {
             String toAdd = "";
             switch (ui.fullCommand.split(" ").length) {
@@ -41,7 +45,7 @@ public class AddCAPCommand {
             String semNumber = splitAddInput[0];
             String moduleCode = splitAddInput[1];
             int moduleCredit = Integer.parseInt(splitAddInput[2]);
-            String grade = splitAddInput[3];
+            String grade = splitAddInput[GRADE_INDEX];
             CAPCommand newCAP = new CAPCommand(moduleCode, moduleCredit, grade);
             if (caplist.containsKey(semNumber)) {
                 caplist.get(semNumber).add(newCAP);

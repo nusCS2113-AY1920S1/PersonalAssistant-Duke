@@ -13,11 +13,12 @@ public class DeleteCAPCommand {
     /**
      * Delete the module from CAPList.
      *
-     * @param ui      prints things to the user.
-     * @param CAPList deals stores
+     * @param ui      prints to the user.
+     * @param caplist deals stores
      *                semNumber, moduleCode, moduleCredits and GPA score.
      */
-    public DeleteCAPCommand(final Ui ui, final Map<String, ArrayList<CAPCommand>> CAPList) {
+    public DeleteCAPCommand(final Ui ui,
+                            final Map<String, ArrayList<CAPCommand>> caplist) {
         try {
             String moduleName = "";
             switch (ui.fullCommand.split(" ").length) {
@@ -33,17 +34,18 @@ public class DeleteCAPCommand {
                     throw new ArrayIndexOutOfBoundsException();
             }
             boolean haveDeleted = false;
-            for (String key : CAPList.keySet()) {
+            for (String key : caplist.keySet()) {
                 /*Only one element in the array */
-                if (moduleName.equals(CAPList.get(key).get(0).moduleCode)
-                        && (CAPList.get(key).size() == 1)) {
-                    CAPList.remove(key); //Remove the entire key
+                if (moduleName.equals(caplist.get(key).get(0).moduleCode)
+                        && (caplist.get(key).size() == 1)) {
+                    caplist.remove(key); //Remove the entire key
                     haveDeleted = true;
                     break;
                 } else {
-                    for (int i = 0; i < CAPList.get(key).size(); i++) {
-                        if (moduleName.equals(CAPList.get(key).get(i).moduleCode)) {
-                            CAPList.get(key).remove(i);
+                    for (int i = 0; i < caplist.get(key).size(); i++) {
+                        if (moduleName.equals(caplist.
+                                get(key).get(i).moduleCode)) {
+                            caplist.get(key).remove(i);
                             haveDeleted = true;
                             break;
                         }
