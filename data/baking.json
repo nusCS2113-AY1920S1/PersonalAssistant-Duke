@@ -42,5 +42,13 @@
   "inventory": [],
   "shoppingList": [],
   "sales": [],
-  "shortcuts": []
+  "shortcuts": [
+    {
+      "name": "a",
+      "userInputs": [
+        "1",
+        "1"
+      ]
+    }
+  ]
 }

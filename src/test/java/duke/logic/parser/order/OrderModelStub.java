@@ -63,7 +63,6 @@ public class OrderModelStub implements Model {
 
     @Override
     public void updateFilteredOrderList(Predicate<Order> predicate) {
-
     }
 
     @Override

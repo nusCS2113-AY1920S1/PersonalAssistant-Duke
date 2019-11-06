@@ -23,11 +23,21 @@ public class SortOrderCommandParser implements Parser<SortOrderCommand> {
             throw new ParseException(Message.MESSAGE_INVALID_CRITERIA);
         }
 
+        //Throws exception if value of reverse prefix is not empty / blank
+        if (map.getValue(CliSyntax.PREFIX_ORDER_SORT_REVERSE).isPresent()
+            && !map.getValue(CliSyntax.PREFIX_ORDER_SORT_REVERSE).get().isBlank()) {
+            throw new ParseException(String.format(
+                Message.MESSAGE_INVALID_PREFIX_VALUE,
+                map.getValue(CliSyntax.PREFIX_ORDER_SORT_REVERSE).get())
+            );
+        }
+
+
         try {
             SortOrderCommand.SortCriteria criteria = SortOrderCommand.SortCriteria
                 .valueOf(map.getPreamble().toUpperCase());
-            boolean isIncreasing = !map.getValue(CliSyntax.PREFIX_ORDER_SORT_REVERSE).isPresent();
-            return new SortOrderCommand(criteria, isIncreasing);
+            boolean isReversed = map.getValue(CliSyntax.PREFIX_ORDER_SORT_REVERSE).isEmpty();
+            return new SortOrderCommand(criteria, isReversed);
 
         } catch (IllegalArgumentException e) {
             throw new ParseException(Message.MESSAGE_INVALID_CRITERIA);
