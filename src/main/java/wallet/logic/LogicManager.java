@@ -40,7 +40,7 @@ public class LogicManager {
     private static ArrayList<String> commandHistory;
     private static WalletList walletList;
     private int state = 0;
-    private ArrayList<Help> helpList;
+    private static ArrayList<Help> helpList;
 
     /**
      * Constructs a LogicManager object.
@@ -48,7 +48,8 @@ public class LogicManager {
     public LogicManager() {
         this.currencyStorage = new CurrencyStorage();
         HelpStorage helpStorage = new HelpStorage();
-        this.helpList = helpStorage.helpData();
+        ArrayList<Help> helpData =  helpStorage.helpData();
+        this.helpList = helpData;
         this.storageManager = new StorageManager();
         this.wallet = new Wallet(new CurrencyList(currencyStorage.loadFile()),
                 new BudgetList(storageManager.loadBudget()),
@@ -193,7 +194,7 @@ public class LogicManager {
      *
      * @return list of help sections.
      */
-    public ArrayList<Help> getHelpList() {
+    public static ArrayList<Help> getHelpList() {
         return helpList;
     }
 
