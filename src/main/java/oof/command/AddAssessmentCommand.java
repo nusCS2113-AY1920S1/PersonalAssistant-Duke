@@ -7,7 +7,6 @@ import oof.Ui;
 import oof.exception.command.CommandException;
 import oof.exception.command.InvalidArgumentException;
 import oof.exception.command.MissingArgumentException;
-import oof.exception.command.ModuleNotSelectedException;
 import oof.model.module.Module;
 import oof.model.module.SemesterList;
 import oof.model.task.Assessment;
@@ -38,16 +37,14 @@ public class AddAssessmentCommand extends AddEventCommand {
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
      *                       objects to hard disk.
-     * @throws CommandException if module is not selected or if user input contains missing or invalid arguments.
+     * @throws CommandException if user input contains missing or invalid arguments.
      */
     @Override
     public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager) throws
             CommandException {
         SelectedInstance selectedInstance = SelectedInstance.getInstance();
         Module module = selectedInstance.getModule();
-        if (module == null) {
-            throw new ModuleNotSelectedException("OOPS!! Please select a Module.");
-        } else if (arguments.get(INDEX_DESCRIPTION).isEmpty()) {
+        if (arguments.get(INDEX_DESCRIPTION).isEmpty()) {
             throw new MissingArgumentException("OOPS!!! The assessment needs a name.");
         } else if (arguments.size() < ARRAY_SIZE_DATE_TIME_START || arguments.get(INDEX_DATE_TIME_START).isEmpty()) {
             throw new MissingArgumentException("OOPS!!! The assessment needs a start time.");
@@ -55,8 +52,8 @@ public class AddAssessmentCommand extends AddEventCommand {
             throw new MissingArgumentException("OOPS!!! The assessment needs an end time.");
         }
         String description = arguments.get(INDEX_DESCRIPTION);
-        String startDateTime = arguments.get(INDEX_DATE_TIME_START);
-        String endDateTime = arguments.get(INDEX_DATE_TIME_END);
+        String startDateTime = parseDateTime(arguments.get(INDEX_DATE_TIME_START));
+        String endDateTime = parseDateTime(arguments.get(INDEX_DATE_TIME_END));
         if (!isDateValid(startDateTime)) {
             throw new InvalidArgumentException("OOPS!!! The start date is invalid.");
         } else if (!isDateValid(endDateTime)) {

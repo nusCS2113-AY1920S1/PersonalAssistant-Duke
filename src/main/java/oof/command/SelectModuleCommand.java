@@ -2,6 +2,7 @@ package oof.command;
 
 import oof.SelectedInstance;
 import oof.Ui;
+import oof.exception.command.CommandException;
 import oof.exception.command.InvalidArgumentException;
 import oof.model.module.Module;
 import oof.model.module.Semester;
@@ -36,11 +37,11 @@ public class SelectModuleCommand extends Command {
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
      *                       objects to hard disk.
-     * @throws InvalidArgumentException if user input contains invalid arguments.
+     * @throws CommandException if user input contains invalid arguments.
      */
     @Override
     public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
-            throws InvalidArgumentException {
+            throws CommandException {
         try {
             SelectedInstance selectedInstance = SelectedInstance.getInstance();
             Semester semester = selectedInstance.getSemester();

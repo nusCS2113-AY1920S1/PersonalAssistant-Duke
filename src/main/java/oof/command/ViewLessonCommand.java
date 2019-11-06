@@ -4,7 +4,6 @@ import oof.SelectedInstance;
 import oof.Ui;
 import oof.exception.command.CommandException;
 import oof.exception.command.EmptyListException;
-import oof.exception.command.ModuleNotSelectedException;
 import oof.model.module.Module;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
@@ -38,10 +37,8 @@ public class ViewLessonCommand extends Command {
             throws CommandException {
         SelectedInstance selectedInstance = SelectedInstance.getInstance();
         Module module = selectedInstance.getModule();
-        if (module == null) {
-            throw new ModuleNotSelectedException("OOPS!! No module selected.");
-        } else if (module.getLessons().isEmpty()) {
-            throw new EmptyListException("OOPS!! Lessons List is empty!");
+        if (module.getLessons().isEmpty()) {
+            throw new EmptyListException("OOPS!! Lesson list is empty!");
         } else {
             ui.printLessonList(module);
         }
