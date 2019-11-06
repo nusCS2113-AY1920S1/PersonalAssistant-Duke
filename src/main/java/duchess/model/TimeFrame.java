@@ -2,6 +2,14 @@ package duchess.model;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents an interval in time.
+ *
+ * <p>
+ * This module is used to compare times and possible clashes of tasks such as
+ * events, deadlines and todos.
+ * </p>
+ */
 public class TimeFrame implements Comparable<TimeFrame> {
     /**
      * Start and end points of the timeframe.
@@ -45,10 +53,21 @@ public class TimeFrame implements Comparable<TimeFrame> {
         this.isInstantaneous = false;
     }
 
+    /**
+     * Creates and returns a TimeFrame that represents a point in time.
+     *
+     * @param time the point in time
+     * @return the TimeFrame
+     */
     public static TimeFrame ofInstantaneousTask(LocalDateTime time) {
         return new TimeFrame(time);
     }
 
+    /**
+     * Creates and returns a TimeFrame that does not fall in any point in time.
+     *
+     * @return the TimeFrame
+     */
     public static TimeFrame ofTimelessTask() {
         return new TimeFrame();
     }
@@ -81,6 +100,10 @@ public class TimeFrame implements Comparable<TimeFrame> {
         return this.fallsWithin(that);
     }
 
+    /**
+     * Returns the start time of the TimeFrame, if present.
+     * @return the start time if present, null otherwise
+     */
     public LocalDateTime getStart() {
         return start;
     }
@@ -94,6 +117,16 @@ public class TimeFrame implements Comparable<TimeFrame> {
         return !isIndefinite && !isInstantaneous;
     }
 
+    /**
+     * Comparator to compare TimeFrame that orders TimeFrame objects in chronological order.
+     *
+     * <p>
+     * If the TimeFrame is indefinite (no associated time), it is ordered first.
+     * </p>
+     *
+     * @param that the other TimeFrame to compare
+     * @return an integer value indicating order (follows Java's conventions)
+     */
     @Override
     public int compareTo(TimeFrame that) {
         if (this.isIndefinite && that.isIndefinite) {
