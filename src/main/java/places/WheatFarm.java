@@ -76,7 +76,7 @@ public class WheatFarm extends Farm {
 
     /**
      * Gets number of seedlings.
-     * @return seeds as the amount of seedlings in the wheatfarm.
+     * @return seedlings as the amount of seedlings in the wheatfarm.
      */
     public int getSeedlings() {
         return seedlings;
@@ -84,7 +84,7 @@ public class WheatFarm extends Farm {
 
     /**
      * Gets number of wheat.
-     * @return seeds as the amount of wheat in the wheatfarm.
+     * @return wheat as the amount of wheat in the wheatfarm.
      */
     public int getWheat() {
         return wheat;
@@ -141,7 +141,7 @@ public class WheatFarm extends Farm {
 
     /**
      * Increases the amount of money user has.
-     * Resets grain to 0.
+     * @return the amount of money earned.
      */
     @Override
     public int sell() {
