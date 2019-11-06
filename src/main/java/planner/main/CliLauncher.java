@@ -71,7 +71,7 @@ public class CliLauncher {
     /**
      * Setup data files for module data and logging.
      */
-    private void modSetup() {
+    public void modSetup() {
         try {
             modDetailedMap = jsonWrapper.getModuleDetailedMap(true, store);
             modTasks.setTasks(jsonWrapper.readJsonTaskList(store));
