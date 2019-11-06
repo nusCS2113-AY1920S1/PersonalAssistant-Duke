@@ -7,11 +7,16 @@ import seedu.duke.ui.UI;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ResourceHelper {
+    private static final String TEST_FILE_NAME = "test_template.txt";
+
+    //--------------Prepare test data--------------
 
     public static void prepareTestFile() {
         Path path = StorageHelper.prepareDataPath("test_template.txt");
@@ -34,8 +39,8 @@ public class ResourceHelper {
         for (String testEmailFilename : testEmailFilenames) {
             testEmailArray.put(prepareTestEmailJsonObject(testEmailFilename));
         }
-        testJson.put("testData", testDataArray);
-        testJson.put("testEmail", testEmailArray);
+        testJson.put("test_data", testDataArray);
+        testJson.put("test_email", testEmailArray);
         return testJson;
     }
 
@@ -60,7 +65,8 @@ public class ResourceHelper {
     private static JSONObject prepareJsonObjectFromPath(String filename, Path path) throws IOException, JSONException {
         String content = StorageHelper.readFromFile(path);
         JSONObject json = new JSONObject();
-        json.put(filename, content);
+        json.put("filename", filename);
+        json.put("content", content);
         return json;
     }
 
@@ -93,6 +99,45 @@ public class ResourceHelper {
         return filenames;
     }
 
+    //--------------apply test data--------------
+    public static boolean applyTestData() {
+        try {
+            prepareDirectories();
+            JSONObject testJson = new JSONObject(readTestContent());
+            writeTestDataFiles(testJson.getJSONArray("test_data"));
+            writeTestEmailFiles(testJson.getJSONArray("test_email"));
+            UI.getInstance().showDebug("Apply test data successful.");
+            return true;
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+            UI.getInstance().showError("Apply test data failed with exception...");
+            return false;
+        }
+    }
 
+    private static void prepareDirectories() throws IOException {
+        Files.createDirectories(Path.of(".", "data", "test_data", "emails"));
+    }
+
+    private static void writeTestDataFiles(JSONArray fileArray) throws JSONException, IOException {
+        for (int i = 0; i < fileArray.length(); i++) {
+            JSONObject fileJson = fileArray.getJSONObject(i);
+            Path path = prepareTestDataPath(fileJson.getString("filename"));
+            StorageHelper.saveToFile(path, fileJson.getString("content"));
+        }
+    }
+
+    private static void writeTestEmailFiles(JSONArray fileArray) throws JSONException, IOException {
+        for (int i = 0; i < fileArray.length(); i++) {
+            JSONObject fileJson = fileArray.getJSONObject(i);
+            Path path = prepareTestEmailPath(fileJson.getString("filename"));
+            StorageHelper.saveToFile(path, fileJson.getString("content"));
+        }
+    }
+
+    private static String readTestContent() {
+        InputStream in = ResourceHelper.class.getResourceAsStream("/" + TEST_FILE_NAME);
+        return StorageHelper.readFromInputStream(in);
+    }
 
 }

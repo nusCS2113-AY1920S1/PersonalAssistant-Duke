@@ -58,6 +58,7 @@ public class Duke {
         logger.info("preparing data files");
         StorageHelper.constructDataDirectory();
         //ResourceHelper.prepareTestFile();
+        ResourceHelper.applyTestData();
         logger.info("initializing UI");
         UI.getInstance().initUi();
         logger.info("initializing Model");
