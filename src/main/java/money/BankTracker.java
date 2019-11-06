@@ -1,5 +1,7 @@
 package money;
 
+import controlpanel.DukeException;
+
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Period;
@@ -84,7 +86,10 @@ public class BankTracker {
      * changes the latest date to the given date.
      * @param date The latest update date
      */
-    public void updateDate(LocalDate date) {
+    public void updateDate(LocalDate date) throws DukeException {
+        if (date.isBefore(latestDate)) {
+            throw new DukeException("The new date cannot be before the current latest update date!");
+        }
         Period period = Period.between(latestDate, date);
         int length = period.getMonths() + period.getYears()*12;
         amt *= Math.pow((1+rate), length);
@@ -97,7 +102,10 @@ public class BankTracker {
      * @param date the given date
      * @return the future balanced based on the given date
      */
-    public float predictAmt(LocalDate date) {
+    public float predictAmt(LocalDate date) throws DukeException {
+        if (date.isBefore(latestDate)) {
+            throw new DukeException("The date cannot be early than the current latest update date!");
+        }
         Period period = Period.between(latestDate, date);
         int length = period.getMonths() + period.getYears()*12;
         return (float) (amt * Math.pow((1+rate), length));

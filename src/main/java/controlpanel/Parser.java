@@ -9,12 +9,12 @@ import moneycommands.DeleteExpenditureCommand;
 import moneycommands.DeleteGoalCommand;
 import moneycommands.DeleteIncomeCommand;
 import moneycommands.ExitMoneyCommand;
-import moneycommands.initCommand;
+import moneycommands.InitCommand;
 import moneycommands.ListBankTrackerCommand;
 import moneycommands.ListGoalsCommand;
 import moneycommands.ListTotalExpenditureCommand;
 import moneycommands.ListTotalIncomeCommand;
-import moneycommands.startCommand;
+import moneycommands.StartCommand;
 import moneycommands.MoneyCommand;
 
 import java.text.ParseException;
@@ -42,10 +42,10 @@ public class Parser {
     public static MoneyCommand moneyParse(String cmd, boolean isNewUser) throws DukeException, ParseException {
         MoneyCommand moneyCommand = null;
 
-        if (cmd.equals("start")) {
-            moneyCommand = new startCommand(isNewUser);
+        if (cmd.startsWith("start")) {
+            moneyCommand = new StartCommand(isNewUser);
         } else if (cmd.startsWith("init")) {
-            moneyCommand = new initCommand(cmd, isNewUser);
+            moneyCommand = new InitCommand(cmd, isNewUser);
         } else if(cmd.equals("bye")) {
             moneyCommand = new ExitMoneyCommand();
         } else if(isNewUser) {
@@ -70,7 +70,7 @@ public class Parser {
             moneyCommand = new CommitGoalCommand(cmd);
         }else if (cmd.startsWith("done goal")) {
             moneyCommand = new DoneGoalCommand(cmd);
-        }else if (cmd.startsWith("find")) {
+        }else if (cmd.startsWith("find#")) {
             moneyCommand = new FindCommand(cmd);
         } else if (cmd.startsWith("add income")) {
             moneyCommand = new AddIncomeCommand(cmd);
