@@ -149,6 +149,11 @@ public class Profile {
         return count;
     }
 
+    /**
+     * Method to write config file.
+     * @param isLight whether isLight mode is on
+     * @throws CakeException when unable to create file
+     */
     public void writeColorConfig(boolean isLight) throws CakeException {
         File configFile = new File("data/colorconfig/color.txt");
         try {

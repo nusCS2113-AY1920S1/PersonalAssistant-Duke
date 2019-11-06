@@ -630,23 +630,19 @@ public class MainWindow extends GridPane {
 
     private void setList(ArrayList<String> list) {
         list.add("Hi, Welcome to JavaCake!\nWant sum cake?\nAll you have to do is get 100%!");
-        //        list.add("WELL DONE!!!\nYou rekt that cake!\n");
-        //        list.add("soooOOOOO CLOOSEEE!\nYou can do better next time!");
-        //        list.add("Baaakaaa!\nYou obviously can do better than that...");
-//        list.add("I LOVE BIG CAKES AND I CANNOT LIE!");
-//        list.add("the cake...\n     is a LIE!");
-//        list.add("Your momma so fat...\nshe segfaulted on JavaCake");
-//        list.add("CAAAAAAAAAaaaaakkkke!");
-//        list.add("Want to know a secret?\nYour waifu does not love you!");
-//        list.add("I LOVE BIG CAKES\nAND I CANNOT LIE!");
-//        list.add("the cake...\n     is a LIE!");
-//        list.add("Your momma so fat...\nshe segfaulted on JavaCake");
-//        list.add("CAAAAAAAAAaaaaakkkke!");
-//        list.add("Want to know a secret?\nYour waifu does not love you!");
-//        list.add("late as heck but...\nhappy halloween!!!");
-//        list.add("like my hat?\nit ate my soul");
-//        list.add("late as heck but...\nhappy halloween!!!");
-//        list.add("like my hat?\nit ate my soul");
+        list.add("Akshay-sensei is my favourite prof!!!");
+        list.add("Learning Java\nis a piece of cake with JavaCake!!\nuWu");
+        list.add("Learning Cake\nis a piece of java with CakeJava!!\nwUw");
+        list.add("I rather get Akshay than an A!\n");
+        list.add("I LOVE BIG CAKES AND I CANNOT LIE!");
+        list.add("CAAAAAAAAAaaaaakkkke!");
+        //list.add("the cake...\n     is a LIE!");
+        //list.add("Your momma so fat...\nshe segfaulted on JavaCake");
+        //list.add("Want to know a secret?\nYour waifu does not love you!");
+        //list.add("Hi, Welcome to JavaCake!\nWant sum cake?\nAll you have to do is get 100%!");
+        //list.add("late as heck but...\nhappy halloween!!!");
+        //list.add("like my hat?\nit ate my soul");
+        //list.add("Hi, Welcome to JavaCake!\nWant sum cake?\nAll you have to do is get 100%!");
     }
 
     private static boolean isNumeric(String input) {
