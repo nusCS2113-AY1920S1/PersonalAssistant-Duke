@@ -13,6 +13,7 @@ import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
 //@@author sinteary
 public class AssignmentViewHelper {
     private static ViewHelper viewHelper = new ViewHelper();
+
     /**
      * Returns output to show viewer the task assignments of members.
      * @param membersToView List of valid member index numbers.

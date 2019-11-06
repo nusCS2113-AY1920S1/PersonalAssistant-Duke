@@ -8,9 +8,17 @@ import static util.constant.ConstantHelper.*;
 
 public class ViewHelper {
 
+    /**
+     * Method to print a table containing multiple tables within itself.
+     * @param toPrintAll ArrayList with each element being an ArrayList containing details for a table.
+     * @param tableWidth Width of the table.
+     * @param numOfTableColumns Number of columns of tables.
+     * @param overallTitle Header for the overall table.
+     * @return String array containing the entire table content to be printed.
+     */
     public String[] consolePrintMultipleTables(ArrayList<ArrayList<String>> toPrintAll, int tableWidth,
                                                int numOfTableColumns, String overallTitle) {
-        ArrayList<String> overallTableContent = new ArrayList<>();
+
         ArrayList<ArrayList<String>> columnsOfTableContent = new ArrayList<>();
         for (int i = 0; i < numOfTableColumns; i++) {
             columnsOfTableContent.add(new ArrayList<>());
@@ -22,7 +30,8 @@ public class ViewHelper {
                 if (toPrintAll.size() == 0) {
                     break;
                 }
-                ArrayList<ArrayList<String>> tableToBePrinted = new ArrayList<>(Collections.singleton(toPrintAll.get(0)));
+                ArrayList<ArrayList<String>> tableToBePrinted
+                        = new ArrayList<>(Collections.singleton(toPrintAll.get(0)));
                 String[] individualTableContent = consolePrintTable(tableToBePrinted, individualTableWidth);
                 int columnToBeAdded = findColumnWithMinNumOfRows(columnsOfTableContent);
                 columnsOfTableContent.get(columnToBeAdded).addAll(Arrays.asList(individualTableContent));
@@ -31,12 +40,14 @@ public class ViewHelper {
         }
         int maxNumOfRows = findMaxNumOfRows(columnsOfTableContent);
 
-        //addRemainingSpacesToShorterColumns()
+        // can possibly refactor into new method addRemainingSpacesToShorterColumns()
         for (int i = 0; i < numOfTableColumns; i++) {
             while (columnsOfTableContent.get(i).size() != maxNumOfRows) {
                 columnsOfTableContent.get(i).add(getRemainingSpaces(individualTableWidth + 2));
             }
         }
+
+        ArrayList<String> overallTableContent = new ArrayList<>();
         overallTableContent.add(overallTitle);
         for (int i = 0; i < maxNumOfRows; i++) {
             StringBuilder line = new StringBuilder();
