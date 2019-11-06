@@ -1,6 +1,12 @@
 package duke.command.impression;
 
 import duke.command.ArgCommand;
+import duke.command.ArgSpec;
+import duke.data.Investigation;
+import duke.data.Medicine;
+import duke.data.Observation;
+import duke.data.Plan;
+import duke.data.Result;
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
 
@@ -8,7 +14,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public abstract class DukeDataCommand extends ArgCommand {
+public abstract class DukeDataSpec extends ArgSpec {
+
+    private static final Map<String, Class> typeMap = Map.ofEntries(
+            Map.entry("medicine", Medicine.class),
+            Map.entry("plan", Plan.class),
+            Map.entry("investigation", Investigation.class),
+            Map.entry("result", Result.class),
+            Map.entry("observation", Observation.class));
 
     // TODO: change map to allowed switches, and code accordingly
     private static final Map<String, List<String>> forbiddenSwitchesMap = Map.ofEntries(
@@ -23,14 +36,13 @@ public abstract class DukeDataCommand extends ArgCommand {
      * @return The type of data specified amongst the switches for this Command, or null if none of them were given.
      * @throws DukeException If multiple data type switches were specified.
      */
-    protected String uniqueDataType() throws DukeException {
+    protected String uniqueDataType(ArgCommand cmd) throws DukeException {
         String addType = null;
-        String[] typeArr = {"medicine", "investigation", "result", "observation", "plan"};
-        for (String type : typeArr) {
-            if (isSwitchSet(type)) {
+        for (String type : typeMap.keySet()) {
+            if (cmd.isSwitchSet(type)) {
                 if (addType != null) {
                     throw new DukeHelpException("Multiple types of data specified: '" + addType
-                            + "' and '" + type + "'!", this);
+                            + "' and '" + type + "'!", cmd);
                 }
                 addType = type;
             }
@@ -38,22 +50,26 @@ public abstract class DukeDataCommand extends ArgCommand {
         return addType;
     }
 
-    protected void checkTypeSwitches(String addType) throws DukeException {
+    protected void checkTypeSwitches(String addType, ArgCommand cmd) throws DukeException {
         // check if required switches are in place
         if ("medicine".equals(addType)) {
-            if (getSwitchVal("dose") == null) {
+            if (cmd.getSwitchVal("dose") == null) {
                 throw new DukeException("I need to know the dose of this course of medicine!");
             }
-            if (getSwitchVal("duration") == null) {
+            if (cmd.getSwitchVal("duration") == null) {
                 throw new DukeException("I need to know how long this medicine will be given for!");
             }
         }
 
         List<String> forbiddenSwitches = forbiddenSwitchesMap.get(addType);
         for (String switchName : forbiddenSwitches) {
-            if (isSwitchSet(switchName)) {
+            if (cmd.isSwitchSet(switchName)) {
                 throw new DukeException("Illegal switch '" + switchName + "' for data type '" + addType + "'!");
             }
         }
+    }
+
+    protected Class getDataClass(String type) {
+        return typeMap.get(type);
     }
 }
