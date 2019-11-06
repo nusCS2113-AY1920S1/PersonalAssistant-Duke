@@ -12,12 +12,11 @@ import duke.model.product.Product;
 import java.util.List;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
+import static duke.logic.message.ProductMessageUtils.MESSAGE_SHOW_PRODUCT_SUCCESS;
 
 public class ShowProductCommand extends ProductCommand {
 
     public static final String COMMAND_WORD = "show";
-
-    public static final String MESSAGE_SHOW_PRODUCT_SUCCESS = "Showing product %s";
 
     public final Index index;
 
@@ -31,13 +30,7 @@ public class ShowProductCommand extends ProductCommand {
 
         this.index = index;
     }
-    /**
-     * Executes the command and returns the result message.
-     *
-     * @param model {@code Model} which the command should operate on.
-     * @return feedback message of the operation result for display
-     * @throws CommandException If an error occurs during command execution.
-     */
+
     @Override
     public ShowProductCommandResult execute(Model model) throws CommandException {
         requireAllNonNull(model);

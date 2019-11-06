@@ -8,6 +8,7 @@ import duke.logic.command.product.ListProductCommand;
 import duke.logic.command.product.ProductCommand;
 import duke.logic.command.product.SearchProductCommand;
 import duke.logic.command.product.ShowProductCommand;
+import duke.logic.command.product.SortProductCommand;
 import duke.logic.command.product.SwitchProductPageCommand;
 import duke.logic.parser.commons.SubCommandParser;
 import duke.logic.parser.exceptions.ParseException;
@@ -39,6 +40,8 @@ ProductCommandParser implements SubCommandParser<ProductCommand> {
             return new DeleteProductCommandParser().parse(args);
         case SearchProductCommand.COMMAND_WORD:
             return new SearchProductCommandParser().parse(args);
+        case SortProductCommand.COMMAND_WORD:
+            return new SortProductCommandParser().parse(args);
         default:
             throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);
         }

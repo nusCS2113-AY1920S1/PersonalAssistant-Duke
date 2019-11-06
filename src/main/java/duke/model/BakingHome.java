@@ -1,12 +1,10 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
-import duke.logic.command.exceptions.CommandException;
 import duke.logic.command.order.SortOrderCommand;
-import duke.logic.message.InventoryMessageUtils;
+import duke.logic.command.product.SortProductCommand;
 import duke.model.commons.Item;
 import duke.model.commons.Quantity;
-import duke.model.exceptions.DuplicateEntityException;
 import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
 import duke.model.order.OrderComparator;
@@ -213,6 +211,37 @@ public class BakingHome implements ReadOnlyBakingHome {
      */
     public void setProducts(List<Product> products) {
         this.products.setAll(products);
+    }
+
+    /**
+     * Sorts products.
+     *
+     * @param category   sorting category
+     * @param isReversed true if sorted in decreasing order
+     */
+    public void sortProducts(SortProductCommand.Category category, boolean isReversed) {
+        switch (category) {
+        case NAME:
+            products.sort((o1, o2) -> o2.getProductName().compareTo(o1.getProductName()),
+                isReversed);
+            break;
+        case COST:
+            products.sort((o1, o2) -> o2.getIngredientCost().compareTo(o1.getIngredientCost()),
+                isReversed);
+            break;
+        case PRICE:
+            products.sort((o1, o2) -> o2.getRetailPrice().compareTo(o1.getRetailPrice()),
+                isReversed);
+            break;
+        case PROFIT:
+            products.sort((o1, o2) -> o2.getProfit().compareTo(o1.getProfit()),
+                isReversed);
+            break;
+        default:
+            break;
+        }
+
+
     }
 
     @Override

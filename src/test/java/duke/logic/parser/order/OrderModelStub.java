@@ -2,6 +2,7 @@ package duke.logic.parser.order;
 
 import duke.commons.core.index.Index;
 import duke.logic.command.order.SortOrderCommand;
+import duke.logic.command.product.SortProductCommand;
 import duke.model.Model;
 import duke.model.ReadOnlyBakingHome;
 import duke.model.commons.Item;
@@ -128,6 +129,17 @@ public class OrderModelStub implements Model {
     @Override
     public boolean hasProduct(Product product) {
         return false;
+    }
+
+    /**
+     * Sorts products of given {@code scope} by the given {@code category}.
+     *
+     * @param category
+     * @param isReverse
+     */
+    @Override
+    public void sortProducts(SortProductCommand.Category category, boolean isReverse) {
+
     }
 
     @Override

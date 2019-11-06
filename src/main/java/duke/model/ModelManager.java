@@ -1,8 +1,9 @@
 package duke.model;
 
+import duke.commons.core.LogsCenter;
 import duke.commons.core.index.Index;
-import duke.logic.command.exceptions.CommandException;
 import duke.logic.command.order.SortOrderCommand;
+import duke.logic.command.product.SortProductCommand;
 import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
@@ -17,6 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
@@ -25,6 +27,8 @@ import static java.util.Objects.requireNonNull;
  * Represents the in-memory model of baking home data.
  */
 public class ModelManager implements Model {
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+
     private final VersionedBakingHome bakingHome;
     private final FilteredList<Order> filteredOrders;
     private final FilteredList<Sale> filteredSales;
@@ -37,6 +41,7 @@ public class ModelManager implements Model {
      */
     public ModelManager(ReadOnlyBakingHome bakingHome) {
         super();
+        logger.fine("Initializing with address book: " + bakingHome);
         this.bakingHome = new VersionedBakingHome(bakingHome);
         this.filteredOrders = new FilteredList<>(this.bakingHome.getOrderList());
         this.filteredSales = new FilteredList<>(this.bakingHome.getSaleList());
@@ -237,6 +242,13 @@ public class ModelManager implements Model {
     public boolean hasProduct(Product product) {
         requireNonNull(product);
         return bakingHome.getProductList().contains(product);
+    }
+
+    @Override
+    public void sortProducts(SortProductCommand.Category category, boolean isReversed) {
+        requireNonNull(category);
+
+        bakingHome.sortProducts(category, isReversed);
     }
 
     /**

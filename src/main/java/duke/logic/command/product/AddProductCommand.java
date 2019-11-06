@@ -1,5 +1,6 @@
 package duke.logic.command.product;
 
+import duke.commons.core.LogsCenter;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.logic.message.ProductMessageUtils;
@@ -9,12 +10,15 @@ import duke.logic.parser.exceptions.ParseException;
 import duke.model.Model;
 import duke.model.product.Product;
 
+import java.util.logging.Logger;
+
 import static java.util.Objects.requireNonNull;
 
 public class AddProductCommand extends ProductCommand {
 
     public static final String COMMAND_WORD = "add";
     private final Product toAdd;
+    private static final Logger logger = LogsCenter.getLogger(AddProductCommand.class);
 
     public static final String AUTO_COMPLETE_INDICATOR = ProductCommand.COMMAND_WORD + " " + COMMAND_WORD;
     public static final Prefix[] AUTO_COMPLETE_PARAMETERS = {
@@ -44,8 +48,10 @@ public class AddProductCommand extends ProductCommand {
         requireNonNull(model);
 
         if (model.hasProduct(toAdd)) {
-            throw new CommandException(String.format(ProductMessageUtils.MESSAGE_DUPLICATE_PRODUCT,
-                toAdd.getProductName()));
+            String info = String.format(ProductMessageUtils.MESSAGE_DUPLICATE_PRODUCT,
+                toAdd.getProductName());
+            logger.info(info);
+            throw new CommandException(info);
         }
 
         ProductCommandUtil.verifyNewIngredients(model, toAdd);
