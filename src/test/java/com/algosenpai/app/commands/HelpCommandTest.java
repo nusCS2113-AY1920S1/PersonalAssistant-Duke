@@ -60,7 +60,7 @@ public class HelpCommandTest extends ApplicationTest {
     void testHelpWithSpace() {
         clickOn("#userInput").write(" help sorting ").clickOn("#sendButton");
         VBox container = find();
-        DialogBox dialogBox = (DialogBox) container.getChildren().get(1);
+        DialogBox dialogBox = (DialogBox) container.getChildren().get(0);
         String actualText = dialogBox.getDialog().getText();
         Assertions.assertEquals(" help sorting ", actualText);
     }
