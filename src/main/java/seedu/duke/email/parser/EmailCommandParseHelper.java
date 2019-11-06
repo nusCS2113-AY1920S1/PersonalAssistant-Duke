@@ -11,6 +11,7 @@ import seedu.duke.email.EmailKeywordPairList;
 import seedu.duke.email.command.EmailAddKeywordCommand;
 import seedu.duke.email.command.EmailFetchCommand;
 import seedu.duke.email.command.EmailListCommand;
+import seedu.duke.email.command.EmailListKeywordCommand;
 import seedu.duke.email.command.EmailListTagCommand;
 import seedu.duke.email.command.EmailShowCommand;
 import seedu.duke.email.command.EmailTagCommand;
@@ -37,33 +38,38 @@ public class EmailCommandParseHelper {
      */
     public static Command parseEmailCommand(String rawInput, ArrayList<Command.Option> optionList)
             throws EmailParseException {
-        String input = stripPrefix(rawInput);
-        if (input == null) {
+        String strippedPrefixInput = stripPrefix(rawInput);
+        if (strippedPrefixInput == null) {
             return new InvalidCommand("Command must not be empty. ");
         }
-        String emailCommand = extractCommandWord(input);
-        return parseByCommandType(optionList, input, emailCommand);
+        String emailCommand = extractCommandWord(strippedPrefixInput);
+        return parseByCommandType(optionList, strippedPrefixInput, emailCommand);
     }
 
-    private static Command parseByCommandType(ArrayList<Command.Option> optionList, String input,
+    private static Command parseByCommandType(ArrayList<Command.Option> optionList, String strippedPrefixInput,
                                               String emailCommand) throws EmailParseException {
-        switch (emailCommand) {
+        switch (strippedPrefixInput) {
         case "flip":
             return new FlipCommand();
         case "bye":
             return new ExitCommand();
         case "help":
             return new HelpCommand();
-        case "list":
-            return parseEmailListCommand(optionList, input);
-        case "show":
-            return parseShowEmailCommand(input);
         case "fetch":
             return new EmailFetchCommand();
+        case "listKeyword":
+            return new EmailListKeywordCommand();
+        }
+
+        switch (emailCommand) {
+        case "list":
+            return parseEmailListCommand(optionList, strippedPrefixInput);
+        case "show":
+            return parseShowEmailCommand(strippedPrefixInput);
         case "update":
-            return parseEmailTagCommand(optionList, input);
+            return parseEmailTagCommand(optionList, strippedPrefixInput);
         case "addKeyword":
-            return parseEmailAddKeywordCommand(optionList, input);
+            return parseEmailAddKeywordCommand(optionList, strippedPrefixInput);
         default:
             throw new EmailParseException("Invalid command word. Please enter \'help\' for more information");
         }
