@@ -17,7 +17,8 @@ public class MooMooLauncher {
         String operatingSystem = System.getProperty("os.name").toLowerCase();
         if (operatingSystem.contains("win")) {
             try {
-                ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c", "chcp", "65001", ">", "nul", "2>&1").inheritIO();
+                ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c",
+                        "chcp", "65001", ">", "nul", "2>&1").inheritIO();
                 pb.start();
             } catch (IOException e) {
                 throw new MooMooException("An error has occurred. Some output may be corrupted");
