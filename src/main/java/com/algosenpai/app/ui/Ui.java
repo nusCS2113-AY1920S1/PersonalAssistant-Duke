@@ -147,11 +147,12 @@ public class Ui extends AnchorPane {
         } else if (commandGenerated instanceof SetupCommand) {
             setPlayerGender(SetupCommand.getGender());
             userLevel = SetupCommand.getLevel();
-            maxuserExp = maxuserExp << (userLevel - 1);
+            maxuserExp = 8 << (userLevel - 1);
             userExp = SetupCommand.getExpLevel();
+            System.out.println(userLevel);
+            System.out.println(maxuserExp);
             updateLevelProgress(0);
             playerName.setText("Username : " + SetupCommand.getUserName());
-            ;
             printToGui(input, response, userImage, senpaiImage);
         } else if (response.startsWith("You got ")) {
             String[] resp = response.split(" ");
