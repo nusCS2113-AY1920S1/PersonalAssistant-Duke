@@ -105,7 +105,7 @@ public class InvalidCommandTest extends ApplicationTest {
         Command command = logic.executeCommand("fffgggjjjkkk");
         String actualText = command.execute();
         Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
-                                          + "hello, menu, quiz, select, result, history, undo, clear, help "
+                                          + "hello, menu, quiz, select, result, history, undo, clear, help, "
                                           + "volume, print, archive, save, reset, exit?", actualText);
     }
 
