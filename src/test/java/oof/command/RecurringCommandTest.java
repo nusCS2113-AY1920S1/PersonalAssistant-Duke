@@ -171,7 +171,7 @@ class RecurringCommandTest {
      * Tests the behaviour for adding Todo Task.
      *
      * @throws CommandException if command is invalid.
-     * @throws ParserException if command cannot be parsed.
+     * @throws ParserException  if command cannot be parsed.
      */
     @Test
     void execute_CorrectCommandAndRecurOnce_AddTodo() throws CommandException, ParserException {
@@ -201,7 +201,7 @@ class RecurringCommandTest {
      * Tests the behaviour for adding Deadline.
      *
      * @throws CommandException if command is invalid.
-     * @throws ParserException if command cannot be parsed.
+     * @throws ParserException  if command cannot be parsed.
      */
     @Test
     void execute_CorrectCommandAndRecurOnce_AddDeadline() throws CommandException, ParserException {
@@ -231,7 +231,7 @@ class RecurringCommandTest {
      * Tests the behaviour for adding Deadline.
      *
      * @throws CommandException if command is invalid.
-     * @throws ParserException if command cannot be parsed.
+     * @throws ParserException  if command cannot be parsed.
      */
     @Test
     void execute_CorrectCommandAndRecurOnce_AddEvent() throws CommandException, ParserException {
@@ -261,7 +261,7 @@ class RecurringCommandTest {
      * Tests the behaviour for adding more than one recurring tasks.
      *
      * @throws CommandException if command is invalid.
-     * @throws ParserException if command cannot be parsed.
+     * @throws ParserException  if command cannot be parsed.
      */
     @Test
     void execute_CorrectCommandAndRecurMoreThanOnce_AddTasks() throws CommandException, ParserException {

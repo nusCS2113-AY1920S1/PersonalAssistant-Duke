@@ -66,12 +66,12 @@ Add Assessment              assessment DESCRIPTION /from DD-MM-YYYY HH:MM /to DD
 
 Add Assignment              assignment DESCRIPTION /by DD-MM-YYYY HH:MM
 
-Start Assignment Tracker    tracker /start MODULE_CODE ASSIGNMENT_DESCRIPTION
+Start Assignment Tracker    tracker /start TASK_INDEX MODULE_CODE
 
-Pause Assignment Tracker    tracker /pause MODULE_CODE ASSIGNMENT_DESCRIPTION
+Pause Assignment Tracker    tracker /pause TASK_INDEX MODULE_CODE
 
-Stop Assignment Tracker     tracker /stop MODULE_CODE ASSIGNMENT_DESCRIPTION
+Stop Assignment Tracker     tracker /stop TASK_INDEX MODULE_CODE
 
-View Assignment Tracker     tracker /view
+View Assignment Tracker     tracker /view TIME_PERIOD
 
 Exit                        bye
