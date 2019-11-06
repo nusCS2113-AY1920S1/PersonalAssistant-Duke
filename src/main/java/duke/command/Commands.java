@@ -43,11 +43,11 @@ public class Commands {
         // check context-independent switches first
         switch (cmdStr) {
         case "bye":
-            return new ByeCommand();
+            return new Command(ByeSpec.getSpec());
         case "back":
-            return new BackCommand();
+            return new Command(BackSpec.getSpec());
         case "up":
-            return new UpCommand();
+            return new Command(UpSpec.getSpec());
         default:
             break; //not one of these; continue
         }

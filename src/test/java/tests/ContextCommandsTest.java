@@ -1,6 +1,6 @@
 package tests;
 
-import duke.command.ByeCommand;
+import duke.command.ByeSpec;
 import duke.command.Parser;
 import duke.exception.DukeException;
 import duke.ui.context.Context;
@@ -22,7 +22,7 @@ public class ContextCommandsTest {
         testUiContext.setContext(Context.HOME, null);
         Parser actualParser = new Parser(testUiContext);
         try {
-            assertEquals(ByeCommand.class, actualParser.parse("bye").getClass());
+            assertEquals(ByeSpec.class, actualParser.parse("bye").getClass());
             assertEquals(actualParser.parse("new -n Hello -b 100 -a world").getClass(),
                     HomeNewCommand.class);
         } catch (DukeException excp) {

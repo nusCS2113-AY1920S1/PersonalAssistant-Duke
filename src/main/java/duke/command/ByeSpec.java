@@ -3,7 +3,13 @@ package duke.command;
 import duke.DukeCore;
 import duke.exception.DukeFatalException;
 
-public class ByeCommand extends Command {
+public class ByeSpec extends CommandSpec {
+    private static final ByeSpec spec = new ByeSpec();
+
+    public static ByeSpec getSpec() {
+        return spec;
+    }
+
     @Override
     public void execute(DukeCore core) throws DukeFatalException {
         core.writeJsonFile();
