@@ -5,6 +5,7 @@
     "memberList": [
       "tester1"
     ],
-    "skillReqList": []
+    "skillReqList": [],
+    "time": "Nov 6, 2019, 11:59:00 PM"
   }
 ]
