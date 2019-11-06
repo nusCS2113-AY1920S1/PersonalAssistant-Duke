@@ -23,7 +23,7 @@ public class CommandTaskDelete extends CommandChangeTask {
             throw new FarmioException("Invalid TaskID!");
         }
         try {
-            String taskToString = farmio.getFarmer().getTasks().removeTask(taskID);
+            String taskToString = farmio.getFarmer().getTasks().deleteTask(taskID);
             super.saveTaskandResetScreen(farmio);
             farmio.getUi().showInfo("You have deleted task: " + taskToString);
         } catch (Exception e) {

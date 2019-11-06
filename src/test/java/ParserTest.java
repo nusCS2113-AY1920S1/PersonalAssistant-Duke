@@ -94,7 +94,7 @@ public class ParserTest {
             assert true;
         }
         try {
-            Parser.parse("if gold greater than -10 do buyseeds", Farmio.Stage.TASK_ADD);r
+            Parser.parse("if gold greater than -10 do buyseeds", Farmio.Stage.TASK_ADD);
             assert false;
         } catch (FarmioException e) {
             assert true;
