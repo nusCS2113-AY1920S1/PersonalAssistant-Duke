@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class ShowPreviousCommand extends Command{
 
-    private String fullCommand;
+    private final String fullCommand;
 
     /**
      * Creates ShowPreviousCommand object.
@@ -40,14 +40,14 @@ public class ShowPreviousCommand extends Command{
 
     public static ArrayList<String> result = new ArrayList<>();
     public ArrayList<String> userInputsList = new ArrayList<>();
-    public ArrayList<String> updatedUserInputList = new ArrayList<>();
+    public final ArrayList<String> updatedUserInputList = new ArrayList<>();
 
     /**
      * Shows the previous user inputs that user requested.
      * @param ui The Ui object to display the message to display all the inputs
      * @return This returns the method in the Ui object which returns the string to display the lists
      * of user inputs
-     * @throws Exception
+     * @throws DukeInvalidCommandException when user request to show more
      */
     @Override
     public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws DukeInvalidCommandException {
