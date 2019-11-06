@@ -1,12 +1,10 @@
 package rims.core;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
-
 import rims.command.Command;
 import rims.command.AddCommand;
 import rims.command.ReserveCommand;
@@ -19,10 +17,7 @@ import rims.command.ReturnCommand;
 import rims.command.StatsCommand;
 import rims.command.UndoCommand;
 import rims.command.ViewDeadlinesCommand;
-
 import rims.exception.RimsException;
-import rims.core.Ui;
-import rims.core.ResourceList;
 import rims.resource.Resource;
 import rims.resource.Reservation;
 import rims.resource.ReservationList;
@@ -179,7 +174,16 @@ public class Parser {
             // @@author danielcyc
         } else if (words[0].equals("calendar") && words.length == 1 || words[0].equals("c")) {
             CalendarCommand.printCal(resources, ui);
-            c = new ListCommand();
+            c =new ListCommand();
+
+
+        } else if (words[0].equals("+") && words.length == 1 || words[0].equals("c")) {
+            CalendarCommand.increaseSize(resources, ui);
+            c =new ListCommand();
+    } else if (words[0].equals("-") && words.length == 1 || words[0].equals("c")) {
+        CalendarCommand.decreaseSize(resources, ui);
+        c =new ListCommand();
+
          //@@author hin1
         } else if (words[0].equals("add") || words[0].equals("a")) {
             if (words[1].equals("/item")) {
@@ -389,7 +393,9 @@ public class Parser {
                 String[] splitDateFrom = dateFrom.split(" ");
                 dateFrom = convertNaturalDate(splitDateFrom[0], splitDateFrom[1]);
             }
-            if (dateTill.length() < 15) {
+            dateTill = ui.getInput(
+                "Enter the end date in the format: DD/MM/YYYY HHmm, OR in the format: Tuesday HHmm");
+            if (dateFrom.length() < 15) {
                 String[] splitDateTill = dateFrom.split(" ");
                 dateTill = convertNaturalDate(splitDateTill[0], splitDateTill[1]);
             }
@@ -399,4 +405,6 @@ public class Parser {
         }
         return c;
     }
-}
+
+
+        }
