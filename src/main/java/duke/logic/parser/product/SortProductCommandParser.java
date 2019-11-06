@@ -7,8 +7,7 @@ import duke.logic.parser.commons.ArgumentTokenizer;
 import duke.logic.parser.commons.Parser;
 import duke.logic.parser.exceptions.ParseException;
 
-import static duke.logic.message.ProductMessageUtils.MESSAGE_INVALID_CATEGORY;
-import static duke.logic.message.ProductMessageUtils.MESSAGE_INVALID_SCOPE_VALUE;
+import static duke.logic.message.ProductMessageUtils.*;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_SORT;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_SCOPE;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_SORT_REVERSE;
@@ -37,6 +36,9 @@ public class SortProductCommandParser implements Parser<SortProductCommand> {
 
         ListProductCommand.Scope scope = ListProductCommand.Scope.ACTIVE;
         if(map.getValue(PREFIX_PRODUCT_SCOPE).isPresent()) {
+            if (!map.getValue(PREFIX_PRODUCT_SORT_REVERSE).get().isEmpty()) {
+                throw new ParseException(MESSAGE_NON_EMPTY_REVERSE_PARAMETER);
+            }
             try {
                 scope = ListProductCommand.Scope.valueOf(map.getValue(PREFIX_PRODUCT_SCOPE).get().toUpperCase());
             } catch (IllegalArgumentException e) {

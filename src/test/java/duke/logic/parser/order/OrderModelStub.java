@@ -153,7 +153,7 @@ public class OrderModelStub implements Model {
      */
     @Override
     public List<Product> getActiveProductList() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override

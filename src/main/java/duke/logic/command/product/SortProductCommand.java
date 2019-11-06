@@ -22,7 +22,7 @@ public class SortProductCommand extends ProductCommand {
 
     private Category category;
     private Scope scope;
-    private boolean isIncrease;
+    private boolean isReversed;
 
     public static final String AUTO_COMPLETE_INDICATOR = ProductCommand.COMMAND_WORD + " " + COMMAND_WORD;
     public static final Prefix[] AUTO_COMPLETE_PARAMETERS = {
@@ -35,18 +35,18 @@ public class SortProductCommand extends ProductCommand {
      * Constructs a {@code SortProductCommand}.
      * @param category Sorting category
      * @param scope Scope of the product to sort
-     * @param isIncrease true if products are sorted in increasing order
+     * @param isReversed true if products are sorted in increasing order
      */
-    public SortProductCommand(Category category, Scope scope, boolean isIncrease) {
+    public SortProductCommand(Category category, Scope scope, boolean isReversed) {
         this.category = category;
         this.scope = scope;
-        this.isIncrease = isIncrease;
+        this.isReversed = isReversed;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         new ListProductCommand(scope).execute(model);
-        model.sortProducts(category, isIncrease);
+        model.sortProducts(category, isReversed);
 
         return new CommandResult(String.format(MESSAGE_SORT_PRODUCT_SUCCESS, category),
                 CommandResult.DisplayedPage.PRODUCT);
