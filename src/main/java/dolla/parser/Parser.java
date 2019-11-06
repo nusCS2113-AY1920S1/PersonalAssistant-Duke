@@ -27,14 +27,12 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     protected String mode;
     protected LocalDate date;
     protected String description;
-    protected String inputLine;
+    protected static String inputLine;
     protected String type;
     protected double amount;
-    protected String[] inputArray;
+    protected static String[] inputArray;
     protected String commandToRun;
-    protected static final String SPACE = " ";
     protected int modifyRecordNum;
-
 
     /**
      * Creates an instance of a parser.
@@ -48,6 +46,14 @@ public abstract class Parser implements ParserStringList, ModeStringList {
 
     public abstract Command parseInput();
 
+    public static String getInputLine() {
+        return inputLine;
+    }
+
+    public static String[] getInputArray() {
+        return inputArray;
+    }
+
     /**
      * Splits the input from the user and assigns the relevant data into description and date variables.
      * If the incorrect format is given in the input, the corresponding alert will be printed.
@@ -55,10 +61,10 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     public void extractDescTime() throws Exception {
         // dataArray[0] is command, amount and description, dataArray[1] is time and tag
         String[] dataArray = inputLine.split(" /on ");
-        String dateString = (dataArray[1].split(" /tag "))[0];
+        String dateString = (dataArray[1].split(" /tag"))[0];
         description = dataArray[0].split(inputArray[2] + " ")[1];
         try {
-            date = Time.readDate(dateString);
+            date = Time.readDate(dateString.trim());
         } catch (ArrayIndexOutOfBoundsException e) {
             // TODO: Shouldn't happen anymore, need to test if this will happen still
             Ui.printMsg("Please add '/at <date>' after your task to specify the entry date.");
@@ -429,16 +435,6 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     }
 
     //@@author Weng-Kexin
-    protected double findLimitAmount() {
-        double amount = 0;
-        try {
-            amount = stringToDouble(inputArray[2]);
-        } catch (NumberFormatException e) {
-            LimitUi.invalidAmountPrinter();
-        }
-        return amount;
-    }
-
     private Boolean verifyLimitType(String limitType) {
         return limitType.equals(LIMIT_TYPE_S)
                 || limitType.equals(LIMIT_TYPE_B);
@@ -457,17 +453,18 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     protected Boolean verifySetLimitCommand() {
         boolean isValid;
         try {
+            double amountInt = stringToDouble(inputArray[2]);
+
             String typeStr = inputArray[1];
-            double amountInt = findLimitAmount();
             String durationStr = inputArray[3];
             isValid = verifyLimitType(typeStr) && verifyLimitAmount(amountInt) && verifyLimitDuration(durationStr);
-        } catch (IndexOutOfBoundsException e) {
-            LimitUi.invalidSetCommandPrinter();
+        } catch (NumberFormatException e) {
+            LimitUi.invalidAmountPrinter();
             isValid = false;
-        } catch (Exception e) {
+        } catch (Exception e) { //index out of bounds here also
+            //LimitUi.invalidSetCommandPrinter();
             isValid = false;
         }
         return isValid;
     }
-
 }

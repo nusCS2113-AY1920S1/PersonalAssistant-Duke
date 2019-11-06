@@ -6,7 +6,7 @@ import dolla.command.action.state.EntryState;
 import dolla.command.action.Redo;
 import dolla.command.action.state.UndoStateList;
 import dolla.task.EntryList;
-import dolla.ui.EntryUi;
+import dolla.task.Record;
 import dolla.ui.Ui;
 import dolla.task.Entry;
 
@@ -21,6 +21,7 @@ public class AddEntryCommand extends Command {
     private double amount;
     private String description;
     private LocalDate date;
+    private String tagName;
     private static final String mode = MODE_ENTRY;
 
     /**
@@ -30,16 +31,17 @@ public class AddEntryCommand extends Command {
      * @param description Details pertaining to the entry.
      * @param date Date of income/expense.
      */
-    public AddEntryCommand(String type, double amount, String description, LocalDate date) {
+    public AddEntryCommand(String type, double amount, String description, LocalDate date, String tagName) {
         this.type = type;
         this.amount = amount;
         this.description = description;
         this.date = date;
+        this.tagName = tagName;
     }
 
     @Override
     public void execute(DollaData dollaData) {
-        Entry newEntry = new Entry(type, amount, description, date);
+        Entry newEntry = new Entry(type, amount, description, date, tagName);
         EntryList entryList = (EntryList) dollaData.getRecordListObj(mode);
         UndoStateList.addState(new EntryState(entryList.get()), mode);///////////////////////////////////////
         Redo.clearRedoState(mode);
@@ -48,13 +50,13 @@ public class AddEntryCommand extends Command {
             dollaData.addToRecordList(mode, newEntry);
             Ui.echoAddRecord(newEntry);
         } else {
-            Entry existingEntry = (Entry) entryList.getFromList(duplicateEntryIndex);
-            EntryUi.existingEntryPrinter(existingEntry);
+            Record existingEntry = entryList.getFromList(duplicateEntryIndex);
+            Ui.existingRecordPrinter(existingEntry, mode);
         }
     }
 
     @Override
-    public String getCommandInfo() {
+    public String getCommandInfo() { //todo: add tag part
         String command = "AddEntryCommand";
         //return (command + "{ type: " + type + ", amount: " + amount + ", description: "
         //        + description + ", date: " + Time.dateToString(date) + ", prevPosition: "

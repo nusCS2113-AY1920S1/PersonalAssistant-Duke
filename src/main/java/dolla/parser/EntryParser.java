@@ -31,10 +31,10 @@ public class EntryParser extends Parser {
         } else if (commandToRun.equals(ENTRY_COMMAND_ADD)) {
             if (verifyAddCommand()) {
                 Tag t = new Tag();
-                Entry entry = new Entry(inputArray[1], stringToDouble(inputArray[2]), description, date);
-                t.handleTag(inputLine, inputArray, entry);
+                Entry entry = new Entry(inputArray[1], stringToDouble(inputArray[2]), description, date, EMPTY_STR);
+                t.handleTag(entry);
                 return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
-                        description, date);
+                        description, date, t.getTagName());
             } else {
                 return new ErrorCommand();
             }
