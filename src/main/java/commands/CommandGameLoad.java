@@ -25,13 +25,11 @@ public class CommandGameLoad extends Command {
             farmio.setLevel(level);
             farmio.getSimulation().simulate("GameLoad", 0, 8, true);
             farmio.getSimulation().simulate("GameLoad", 9);
-            ui.typeWriter("Load Game Successful!, press [ENTER] to continue or enter [SKIP] to skip the story..", false);
+            ui.typeWriter("Load Game Successful!, press [ENTER] to continue or enter [skip] to skip the story..", false);
         } catch (FarmioException e) {
             if (farmio.getStage() == Farmio.Stage.MENU_START || farmio.getStage() == Farmio.Stage.WELCOME) {
                 farmio.getSimulation().simulate("GameNew", 0, true);
-                ui.showWarning(e.getMessage());
-                ui.typeWriter("Starting a new game.", true);
-                farmio.getSimulation().simulate("GameNew", 0, true);
+                ui.showWarning(e.getMessage() + ". Starting a new game.");
                 ui.typeWriter("New Game Created!", false);
                 ui.typeWriter("Enter your name:", false);
                 farmio.setStage(Farmio.Stage.NAME_ADD);

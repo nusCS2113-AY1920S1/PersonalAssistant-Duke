@@ -2,7 +2,6 @@ package commands;
 
 import exceptions.FarmioFatalException;
 import farmio.Farmio;
-import farmio.Menu;
 import frontend.Ui;
 
 public class CommandShowList extends Command {

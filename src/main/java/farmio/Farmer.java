@@ -85,6 +85,12 @@ public class Farmer {
         this.name = name;
     }
 
+
+    /**
+     *
+     * @param loadName as the name that is loaded from the save file.
+     * @throws FarmioException if loadName does not meet the conditions of the name.
+     */
     private void isValidName(String loadName) throws FarmioException {
         boolean hasError = false;
         if(loadName.equals("MENU") || !(loadName.length() <= 15 && loadName.length() > 0 && (loadName.matches("[a-zA-Z0-9]+") || loadName.contains("_")))) {
@@ -117,10 +123,6 @@ public class Farmer {
      */
     public int getGold() {
         return gold;
-    }
-
-    public boolean hasGold() {
-        return gold > 0;
     }
 
     /**

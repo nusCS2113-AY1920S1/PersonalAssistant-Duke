@@ -2,7 +2,6 @@ package commands;
 
 import exceptions.FarmioFatalException;
 import farmio.Farmio;
-import frontend.AsciiColours;
 
 public class CommandTasksRun extends Command {
     /**
