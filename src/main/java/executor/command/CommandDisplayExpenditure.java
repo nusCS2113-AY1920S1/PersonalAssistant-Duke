@@ -1,32 +1,36 @@
 package executor.command;
 
-import executor.task.TaskList;
-import ui.Ui;
-import ui.Wallet;
-
+import duke.exception.DukeException;
+import storage.StorageManager;
 import java.text.DecimalFormat;
 
 public class CommandDisplayExpenditure extends Command {
+
     /**
      * Constructor for CommandDisplayExpenditure subCommand Class.
      * @param userInput The user input from the CLI
      */
     public CommandDisplayExpenditure(String userInput) {
+        super();
         this.userInput = userInput;
-        this.description = "Shows the total amount of money spent";
+        this.description = "Shows the total amount of money spent"
+                + "FORMAT :  ";
         this.commandType = CommandType.EXPENSES;
     }
 
     @Override
-    public void execute(TaskList taskList) {
-    }
-
-    @Override
-    public void execute(Wallet wallet) {
-        double totalExpenses = wallet.getTotalExpenses();
+    public void execute(StorageManager storageManager) {
+        double totalExpenses;
+        try {
+            totalExpenses = storageManager.getWalletExpenses();
+        } catch (DukeException e) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr(e.getMessage());
+            return;
+        }
         DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-        System.out.println("Total Expenditure: $"
-                + decimalFormat.format(totalExpenses)
-        );
+        this.infoCapsule.setCodeToast();
+        this.infoCapsule.setOutputStr("Total Expenditure: $"
+                + decimalFormat.format(totalExpenses));
     }
 }

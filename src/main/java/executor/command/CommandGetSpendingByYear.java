@@ -1,10 +1,8 @@
 package executor.command;
 
-import executor.task.TaskList;
 import interpreter.Parser;
-import ui.ReceiptTracker;
-import ui.Ui;
-import ui.Wallet;
+import storage.StorageManager;
+import java.time.Year;
 
 public class CommandGetSpendingByYear extends Command {
     private String userInput;
@@ -14,25 +12,50 @@ public class CommandGetSpendingByYear extends Command {
      * @param userInput userInput from CLI
      */
     public CommandGetSpendingByYear(String userInput) {
+        super();
         this.commandType = CommandType.EXPENDEDYEAR;
         this.userInput = userInput;
-        this.description = "Provides the user the total expenditure for the year stated. "
-                + "Format : expendedyear <year>";
+        this.description = "Provides the user the total expenditure for the year stated. \n"
+                + "FORMAT : expendedyear <year>\n";
     }
 
     @Override
-    public void execute(Wallet wallet) {
-        ReceiptTracker receiptsInYear = new ReceiptTracker();
+    public void execute(StorageManager storageManager) {
         String yearStr = Parser.parseForPrimaryInput(CommandType.EXPENDEDYEAR, userInput);
-        int year = Integer.parseInt(yearStr);
-        receiptsInYear = wallet.getReceipts().findReceiptByYear(year);
-        Double totalMoney = receiptsInYear.getTotalCashSpent();
-        Ui.dukeSays("The total amount of money spent in " + year + " : " + totalMoney);
-    }
+        try {
+            if (yearStr.isEmpty()) {
+                this.infoCapsule.setCodeError();
+                this.infoCapsule.setOutputStr("No year input detected.\nFORMAT : expendedyear 2019\n");
+                return;
+            }
+            if (yearStr.length() != 4) {
+                this.infoCapsule.setCodeError();
+                this.infoCapsule.setOutputStr("Year input contains extra number of variables.\n"
+                        + " FORMAT : expendedyear 2019\n");
+                return;
+            }
 
-    @Override
-    public void execute(TaskList taskList) {
-    }
+            int year = Integer.parseInt(yearStr);
+            if (year > Year.now().getValue()) {
+                this.infoCapsule.setCodeError();
+                this.infoCapsule.setOutputStr("Future year entered is invalid!" + "\n");
+                return;
+            }
 
+            if (year < 1000) {
+                this.infoCapsule.setCodeError();
+                this.infoCapsule.setOutputStr("Year is too far back into the past" + "\n");
+                return;
+            }
+            Double totalMoney = storageManager.getReceiptsByYear(year).getTotalCashSpent();
+            this.infoCapsule.setCodeToast();
+            this.infoCapsule.setOutputStr("The total amount of money spent in " + year + " : $" + totalMoney + "\n");
+
+        } catch (Exception e) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr("Year input is either a double or contains String values.\n"
+                    + "FORMAT : expendedyear 2019\n");
+        }
+    }
 }
 

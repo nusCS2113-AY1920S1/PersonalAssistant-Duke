@@ -93,4 +93,32 @@ public class Wallet {
     public double getTotalExpenses() {
         return this.receipts.getTotalCashSpent();
     }
+
+    /**
+     * Accessor for method getReceiptsByDate in ReceiptTracker.
+     * @param date String representing the date to look for
+     * @return ReceiptTracker containing all the Receipts for a particular Date
+     */
+    public ReceiptTracker getReceiptsByDate(String date) {
+        return this.receipts.getReceiptsByDate(date);
+    }
+
+    /**
+     * Accessor for method getReceiptByMonthYear in ReceiptTracker.
+     * @param month int representing the month to look for
+     * @param year int representing the year to look for
+     * @return ReceiptTracker containing all the Receipts for a particular month and year
+     */
+    public ReceiptTracker getReceiptsByMonthYear(int month, int year) {
+        return this.receipts.getReceiptsByMonthYear(month, year);
+    }
+
+    /**
+     * Accessor for method getReceiptsByYear in ReceiptTracker.
+     * @param year int representing the year to look for
+     * @return ReceiptTracker containing all the Receipts for a particular year
+     */
+    public ReceiptTracker getReceiptsByYear(int year) {
+        return this.receipts.getReceiptsByYear(year);
+    }
 }

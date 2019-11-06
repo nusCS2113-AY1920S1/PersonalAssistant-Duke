@@ -2,20 +2,26 @@ package interpreter;
 
 import executor.command.CommandType;
 import executor.command.Executor;
-import executor.task.TaskList;
-import ui.Wallet;
+import utils.InfoCapsule;
 
 public class Interpreter {
+    private Executor executorLayer;
+
+    public Interpreter(String taskPath, String walletPath) {
+        this.executorLayer = new Executor(taskPath, walletPath);
+    }
 
     /**
      * Interprets the userInput relative to the TaskList provided and executes the Command.
-     * @param taskList The caller's TaskList
      * @param userInput The userInput taken from the User Interface
-     * @return True if the Command executed calls for an ExitRequest, false otherwise
+     * @return InfoCapsule containing the execution results of the Command
      */
-    public static boolean interpret(TaskList taskList, Wallet wallet, String userInput) {
+    public InfoCapsule interpret(String userInput) {
         CommandType commandType = Parser.parseForCommandType(userInput);
-        boolean exitRequest = Executor.runCommand(taskList, wallet, commandType, userInput);
-        return exitRequest;
+        return this.executorLayer.runCommand(commandType, userInput);
+    }
+
+    public void requestSave() {
+        this.executorLayer.saveAllData();
     }
 }

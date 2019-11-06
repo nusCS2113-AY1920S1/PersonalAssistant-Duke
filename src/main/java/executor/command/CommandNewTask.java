@@ -1,12 +1,9 @@
 package executor.command;
 
 import duke.exception.DukeException;
-import executor.task.Task;
-import executor.task.TaskList;
 import executor.task.TaskType;
 import interpreter.Parser;
-import ui.Ui;
-import ui.Wallet;
+import storage.StorageManager;
 
 public class CommandNewTask extends Command {
     protected String userInput;
@@ -17,32 +14,33 @@ public class CommandNewTask extends Command {
      * @param userInput The user input from the CLI.
      */
     public CommandNewTask(String userInput) {
+        super();
         this.userInput = userInput;
         this.commandType = CommandType.TASK;
         this.taskType = extractTaskType();
-        this.description = "Adds user entry to the list";
+        this.description = "Adds user entry to the list \n"
+                + "FORMAT :  ";
     }
 
     @Override
-    public void execute(Wallet wallet) {
-    }
-
-    @Override
-    public void execute(TaskList taskList) {
+    public void execute(StorageManager storageManager) {
+        String outputStr;
         try {
             checkForwardSlash(this.userInput);
+            storageManager.createTask(this.taskType, this.userInput);
+            outputStr = "I've added "
+                    + storageManager.getPrintableLatestTask()
+                    + " to your private list("
+                    + storageManager.getTaskListSize()
+                    + ").\n"
+            ;
         } catch (DukeException e) {
-            e.printStackTrace();
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr(e.getMessage());
             return;
         }
-        Task newTask = TaskList.createTask(this.taskType, this.userInput);
-        taskList.addTask(newTask);
-        Ui.dukeSays("I've added "
-                + newTask.genTaskDesc()
-                + " to your private list("
-                + String.valueOf(taskList.getSize())
-                + ")."
-        );
+        this.infoCapsule.setCodeToast();
+        this.infoCapsule.setOutputStr(outputStr);
     }
 
     /**
@@ -53,7 +51,7 @@ public class CommandNewTask extends Command {
     private void checkForwardSlash(String input) throws DukeException {
         if (this.taskType.equals(TaskType.FDURATION)) {
             if (!Parser.containsForwardSlash(input)) {
-                throw new DukeException("Check your format!!! Correct format is: fduration <description> / <time>");
+                throw new DukeException("Check your format!!! Correct format is: fduration <description> / <time>\n");
             }
         }
     }

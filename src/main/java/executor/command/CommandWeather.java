@@ -3,10 +3,10 @@ package executor.command;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import executor.task.TaskList;
+import duke.exception.DukeException;
 import interpreter.Parser;
-import ui.Ui;
-import ui.Wallet;
+import storage.StorageManager;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -26,37 +26,36 @@ public class CommandWeather extends Command {
      * @param userInput String is the user entered Input from CLI
      */
     public CommandWeather(String userInput) {
+        super();
         this.userInput = userInput;
         this.commandType = CommandType.WEATHER;
-        this.description = "Command that displays weather for now, tomorrow or later";
-        setFullWeatherData(storeWeatherDataFromJson());
+        this.description = "Command that displays weather for now, tomorrow or later \n"
+                + "FORMAT : \n";
     }
     
     @Override
-    public void execute(Wallet wallet) {
-        printWeatherDataOutput();
+    public void execute(StorageManager storageManager) {
+        String outputStr;
+        setFullWeatherData(storeWeatherDataFromJson());
+        outputStr = getPrintableWeatherDataOutput();
+        this.infoCapsule.setCodeCli();
+        this.infoCapsule.setOutputStr(outputStr);
     }
-
-    @Override
-    public void execute(TaskList taskList) {
-
-    }
-
 
     /**
      * getWhichWeatherDataUserWants parses to see until when user wants weather forecast.
      * @param userInput String is the user entered Input from CLI.
      * @return this function returns a String based on user's choice 
      */
-    private String getWhichWeatherDataUserWants(String userInput) {
+    private String getWhichWeatherDataUserWants(String userInput) throws DukeException {
         String period = Parser.parseForFlag("until", userInput);
         if (period != null && getPeriodsPossible().contains(period)) {
             period = period.toLowerCase();
             return period;
         } else {
-            Ui.dukeSays(getErrorMessage());
-            Ui.dukeSays("However we believe you would want to know the weather forecast for today.");
-            return "now";
+            String outputStr = getErrorMessage() + "\n"
+                    + "However we believe you would want to know the weather forecast for today.\n";
+            throw new DukeException(outputStr);
         }
     }
 
@@ -79,50 +78,52 @@ public class CommandWeather extends Command {
 
     /**
      * printWeatherDataOutput loops through the HashMap of HashMap to get weather data.
+     * @return String containing the Weather Data
      */
-    private void printWeatherDataOutput() {
-
-        int size = getLengthOfHashMapToPrint(getWhichWeatherDataUserWants(this.userInput));
+    private String getPrintableWeatherDataOutput() {
+        StringBuilder outputStr = new StringBuilder();
+        int size;
+        try {
+            size = getLengthOfHashMapToPrint(getWhichWeatherDataUserWants(this.userInput));
+        } catch (DukeException e) {
+            outputStr.append(e.getMessage());
+            size = getLengthOfHashMapToPrint("now");
+        }
         if (this.fullWeatherData != null) {
-            Ui.dukeSays("Duke$$$ has predicted the following weather forecast :");
+            outputStr.append("Duke$$$ has predicted the following weather forecast :\n\n");
             for (Map.Entry<String, LinkedHashMap<String, String>> weather : this.fullWeatherData.entrySet()) {
                 String weatherKey = weather.getKey();
                 if (Integer.parseInt(weatherKey) < size) {
-                    System.out.println("\n");
                     for (Map.Entry<String, String> weatherEntry : weather.getValue().entrySet()) {
                         String field = weatherEntry.getKey();
                         String value = weatherEntry.getValue();
-                        System.out.println(field + " : " + value);
+                        outputStr.append(field + " : " + value);
                     }
                 }
             }
-            Ui.printSeparator();
+            outputStr.append("\n");
         } else {
-            Ui.dukeSays("Weather Data not available \n"
+            outputStr.append("Weather Data not available \n"
                     + "1. Please ensure that you have active Internet access \n"
                     + "2. Please also ensure that you follow correct format for the user input \n");
         }
+        return outputStr.toString();
     }
 
     /**
      * consultWeatherApi fetches data from the api in json.
      * @return a String of the json data is returned
      */
-    private String consultWeatherApi() {
-        try {
-            String link = "https://www.metaweather.com/api/location/1062617/";
-            URL url = new URL(link);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
-            String line;
-            String completeJson = "";
-            while (null != (line = reader.readLine())) {
-                completeJson += line;
-            }
-            return completeJson;
-        } catch (Exception ex) {
-            //ex.printStackTrace();
-            return null;
+    private String consultWeatherApi() throws Exception {
+        String link = "https://www.metaweather.com/api/location/1062617/";
+        URL url = new URL(link);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+        String line;
+        String completeJson = "";
+        while (null != (line = reader.readLine())) {
+            completeJson += line;
         }
+        return completeJson;
     }
 
     /**
@@ -130,7 +131,12 @@ public class CommandWeather extends Command {
      * @return a map of maps is returned containing the weather forecast we need by date
      */
     private LinkedHashMap<String, LinkedHashMap<String, String>> storeWeatherDataFromJson() {
-        String json = consultWeatherApi();
+        String json;
+        try {
+            json = consultWeatherApi();
+        } catch (Exception e) {
+            json = null;
+        }
         LinkedHashMap<String, LinkedHashMap<String, String>> weatherData = new LinkedHashMap<>();
 
         if (json != null) {

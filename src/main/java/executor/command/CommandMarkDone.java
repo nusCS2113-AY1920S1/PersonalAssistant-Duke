@@ -1,42 +1,45 @@
 package executor.command;
 
-import executor.task.Task;
-import executor.task.TaskList;
+import duke.exception.DukeException;
 import interpreter.Parser;
-import ui.Ui;
-import ui.Wallet;
+import storage.StorageManager;
 
 public class CommandMarkDone extends Command {
     private String userInput;
 
-    // Constructor
     /**
      * Constructor for CommandMarkDone subCommand Class.
      * @param userInput The user input from the CLI
      */
     public CommandMarkDone(String userInput) {
+        super();
         this.userInput = userInput;
-        this.description = "Marks a certain task as done";
+        this.description = "Marks a certain task as done \n"
+                + "FORMAT :  ";
         this.commandType = CommandType.DONE;
 
     }
 
     @Override
-    public void execute(Wallet wallet) {
-
-    }
-
-    @Override
-    public void execute(TaskList taskList) {
+    public void execute(StorageManager storageManager) {
+        String outputStr;
         try {
             int index = Integer.parseInt(Parser.removeStr("done", this.userInput)) - 1;
-            Task mainTask = taskList.getList().get(index);
-            mainTask.markDone();
-            loadQueuedTasks(taskList, mainTask);
-            Ui.dukeSays(genMarkDoneReply(index, taskList));
+            storageManager.markTaskDoneByIndex(index);
+            storageManager.loadQueuedTasksByIndex(index);
+            outputStr = genMarkDoneReply(index, storageManager);
+        } catch (DukeException e) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr(e.getMessage());
+            return;
         } catch (Exception e) {
-            Ui.dukeSays("Invalid 'done' statement. Please indicate the index of the task you wish to mark done.");
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr("Invalid 'done' statement. Please indicate the index of"
+                    + " the task you wish to mark done.");
+            return;
         }
+        this.infoCapsule.setCodeToast();
+        this.infoCapsule.setOutputStr(outputStr);
     }
 
 
@@ -44,30 +47,14 @@ public class CommandMarkDone extends Command {
     /**
      * Generates the standard duke reply to inform user that the Task is marked done.
      * @param index The index of the Task in the TaskList
-     * @param taskList The TaskList containing all tasks
+     * @param storageManager StorageManager containing the TaskList with all tasks
      * @return Standard duke reply for user
      */
-    private String genMarkDoneReply(int index, TaskList taskList) {
+    private String genMarkDoneReply(int index, StorageManager storageManager) throws DukeException {
         return "Alrighty, I've marked task '"
-                + String.valueOf(index + 1)
+                + (index + 1)
                 + ") "
-                + taskList.getList().get(index).getTaskName()
-                + "' as done!";
-    }
-
-    /**
-     * Loads all queued Tasks from the now-done Task to the main TaskList.
-     * @param taskList The Main TaskList for Tasks to be added to
-     * @param mainTask The Task that has been marked done
-     */
-    private void loadQueuedTasks(TaskList taskList, Task mainTask) {
-        TaskList queuedTasks = mainTask.getQueuedTasks();
-        if (queuedTasks == null) {
-            return;
-        }
-        for (Task newTask : queuedTasks.getList()) {
-            taskList.addTask(newTask);
-        }
-        mainTask.setQueuedTasks(null);
+                + storageManager.getTaskNameByIndex(index)
+                + "' as done!\n";
     }
 }

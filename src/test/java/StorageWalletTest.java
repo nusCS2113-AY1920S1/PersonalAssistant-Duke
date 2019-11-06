@@ -1,3 +1,4 @@
+import duke.exception.DukeException;
 import ui.Wallet;
 import ui.ReceiptTracker;
 import ui.Receipt;
@@ -15,8 +16,13 @@ public class StorageWalletTest {
     @Test
     void loadData() {
         StorageWallet storageWallet = new StorageWallet("testWalletDataLoad.txt");
-        Wallet wallet = storageWallet.loadData();
-
+        Wallet wallet = null;
+        try {
+            wallet = storageWallet.loadData();
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+        }
+        assert wallet != null;
         //In 5.00 /date 2019-01-29 /tags street
         Receipt firstReceipt = wallet.getReceipts().get(0);
         assertEquals(-5.00, firstReceipt.getCashSpent(),
@@ -64,8 +70,13 @@ public class StorageWalletTest {
         // Follow the Storage Format when inputting new test cases
         StorageWallet storageExpected = new StorageWallet("testWalletDataLoad.txt");
         StorageWallet storageSaved = new StorageWallet("testWalletDataSave.txt");
-        Wallet wallet = storageExpected.loadData();
-
+        Wallet wallet = null;
+        try {
+            wallet = storageExpected.loadData();
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+        }
+        assert wallet != null;
         // Check file content manually, as input may differ from standard format (Input: $5 Saved: $5.00)
         storageSaved.saveData(wallet);
     }

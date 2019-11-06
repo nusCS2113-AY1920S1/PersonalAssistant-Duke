@@ -1,30 +1,23 @@
 package executor.command;
 
-import executor.task.TaskList;
-import ui.Ui;
-import ui.Wallet;
+import storage.StorageManager;
 
 public class CommandBye extends Command {
 
-    // Constructor
     /**
      * Constructor for CommandBye subCommand Class.
      * @param userInput The user input from the CLI
      */
     public CommandBye(String userInput) {
+        super();
         this.userInput = userInput;
-        this.description = "Exits the program";
+        this.description = "Exits the program \n"
+                + "FORMAT : bye";
         this.commandType =  CommandType.BYE;
     }
 
     @Override
-    public void execute(TaskList taskList) {
-        this.exitRequest = true;
-        Ui.dukeSays("Bye. Hope to see you again soon!");
-    }
-
-    @Override
-    public void execute(Wallet wallet) {
-
+    public void execute(StorageManager storageManager) {
+        this.infoCapsule.setCodeExit();
     }
 }

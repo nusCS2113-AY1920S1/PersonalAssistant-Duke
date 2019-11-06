@@ -1,13 +1,13 @@
 package executor.task;
 
-import duke.exception.DukeException;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 
 public class ToDo extends Task {
-    private Date dateFrom;
-    private Date dateTo;
+    private LocalDate dateFrom;
+    private LocalDate dateTo;
 
     /**
      * Constructor for Class.
@@ -17,30 +17,30 @@ public class ToDo extends Task {
         super(name);
         this.taskType = TaskType.TODO;
         this.recordTaskDetails(name);
-        try {
-            this.parseForTaskPeriod();
-        } catch  (DukeException invalidInput) {
-            invalidInput.printStackTrace();
-        }
+        this.parseForTaskPeriod();
     }
 
-    private void parseForTaskPeriod() throws DukeException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+
+    private void parseForTaskPeriod()  {
         if (this.detailDesc == null) {
             return;
         }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
         if (this.detailDesc.equals("between")) {
             try {
                 String[] dates = taskDetails.trim().split(" ");
-                this.dateFrom = dateFormat.parse(dates[0]);
-                this.dateTo = dateFormat.parse(dates[1]);
-                System.out.println("Date Interpreted as: From " + dateFormat.format(this.dateFrom)
-                        + " to " + dateFormat.format(this.dateTo));
+                setDateFrom(LocalDate.parse(dates[0], formatter));
+                setDateTo(LocalDate.parse(dates[1], formatter));
+                this.setDate(getDateFrom());
+                System.out.println("Date Interpreted as: From "
+                        + this.getDateFrom().format(formatter)
+                        + " to "
+                        + this.getDateTo().format(formatter));
             } catch (Exception e) {
-                //System.out.println("Invalid Input. Unable to interpret Datetime (use: dd/mm/yyyy HHmm)");
-                this.dateFrom = new Date();
-                this.dateTo = new Date();
-                throw new DukeException("Invalid Input. Unable to interpret Datetime (use: dd/mm/yyyy)");
+                this.dateFrom = LocalDate.now();
+                this.dateTo = LocalDate.now();
+                System.out.println("Invalid Input. Unable to interpret Datetime (use: dd/MM/yy)");
             }
         }
     }
@@ -51,7 +51,7 @@ public class ToDo extends Task {
      * Sets the dateFrom variable.
      * @param dateFrom date to do the task from
      */
-    public void setDateFrom(Date dateFrom) {
+    public void setDateFrom(LocalDate dateFrom) {
         this.dateFrom = dateFrom;
     }
 
@@ -59,15 +59,15 @@ public class ToDo extends Task {
      * Sets the dateFrom variable.
      * @param dateTo date to do the task from
      */
-    public void setDateTo(Date dateTo) {
+    public void setDateTo(LocalDate dateTo) {
         this.dateTo = dateTo;
     }
 
-    public Date getDateFrom() {
+    public LocalDate getDateFrom() {
         return dateFrom;
     }
 
-    public Date getDateTo() {
+    public LocalDate getDateTo() {
         return dateTo;
     }
 }

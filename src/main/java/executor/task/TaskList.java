@@ -1,13 +1,12 @@
 package executor.task;
 
+import duke.exception.DukeException;
 import interpreter.Parser;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskList {
-    protected List<Task> taskList = new ArrayList<Task>();
-
+public class TaskList extends ArrayList<Task> {
     /**
      * Constructor for 'TaskList' Class.
      */
@@ -20,7 +19,7 @@ public class TaskList {
      * @param index Index of the task to be deleted
      */
     public void deleteTaskByIndex(int index) {
-        this.taskList.remove(index);
+        this.remove(index);
     }
 
     /**
@@ -29,36 +28,45 @@ public class TaskList {
      * @param newTask The Task Object to be added
      */
     public void addTask(Task newTask) {
-        this.taskList.add(newTask);
+        this.add(newTask);
     }
 
     /**
      * Finds and prints each task that contains the string.
-     *
      * @param name The substring to be found.
      */
-    public void findTasks(String name) {
-        for (int index = 0; index < this.taskList.size(); ++index) {
+    public TaskList getTasksByName(String name) {
+        TaskList filteredTaskList = new TaskList();
+        for (int index = 0; index < this.size(); ++index) {
             try {
-                if (this.taskList.get(index).taskName.contains(name)) {
-                    printTaskByIndex(index);
+                if (this.get(index).taskName.contains(name)) {
+                    filteredTaskList.addTask(this.get(index));
                 }
             } catch (Exception e) {
-                System.out.println("Read invalid taskName");
+                // Read invalid taskName"
             }
         }
+        return filteredTaskList;
     }
 
     /**
-     * Prints tasks from Duke.taskList based on the index provided.
-     *
+     * Prints tasks from taskList based on the index provided.
      * @param indexes Varargs The indexes of tasks from taskList to be printed.
+     * @return String representing the list of Tasks to be printed to the User.
      */
-    public void printTaskByIndex(int... indexes) {
+    public String getPrintableTaskByIndex(int... indexes) {
+        StringBuilder outputStr = new StringBuilder();
         for (int index : indexes) {
-            System.out.println(String.valueOf(index + 1) + ". "
-                    + this.taskList.get(index).genTaskDesc());
+            outputStr.append(index + 1)
+                    .append(". ")
+                    .append(this.get(index).genTaskDesc())
+                    .append("\n");
         }
+        return outputStr.toString();
+    }
+
+    public Task getMostRecentTaskAdded() {
+        return this.get(this.size() - 1);
     }
 
     /**
@@ -68,27 +76,31 @@ public class TaskList {
      * @param taskDesc The task description from the user input
      * @param taskType TaskType enum that specifies the subclass to create
      */
-    public static Task createTask(TaskType taskType, String taskDesc) {
+    public static Task createTask(TaskType taskType, String taskDesc) throws DukeException {
         Task newTask;
-        switch (taskType) {
-        case DEADLINE:
-            newTask = new Deadline(taskDesc);
-            break;
-        case EVENT:
-            newTask = new Event(taskDesc);
-            break;
-        case TODO:
-            newTask = new ToDo(taskDesc);
-            break;
-        case FDURATION:
-            newTask = new FixedDuration(taskDesc);
-            break;
-        case RECUR:
-            newTask = new Recurring(taskDesc);
-            break;
-        default:
-            newTask = null;
-            break;
+        try {
+            switch (taskType) {
+            case DEADLINE:
+                newTask = new Deadline(taskDesc);
+                break;
+            case EVENT:
+                newTask = new Event(taskDesc);
+                break;
+            case TODO:
+                newTask = new ToDo(taskDesc);
+                break;
+            case FDURATION:
+                newTask = new FixedDuration(taskDesc);
+                break;
+            case RECUR:
+                newTask = new Recurring(taskDesc);
+                break;
+            default:
+                newTask = null;
+                break;
+            }
+        } catch (Exception e) {
+            throw new DukeException("Unable to create task.\n");
         }
         return newTask;
     }
@@ -98,7 +110,7 @@ public class TaskList {
      * @param userInput The saved string
      * @return Created Task Object
      */
-    public static Task createTaskFromString(String userInput) {
+    public static Task createTaskFromString(String userInput) throws DukeException {
         String[] parsedInput = Parser.parseStoredTaskDetails(userInput);
         TaskType taskType = TaskType.valueOf(parsedInput[0]);
         Task newTask = TaskList.createTask(taskType, parsedInput[1]);
@@ -111,37 +123,40 @@ public class TaskList {
     // ---- Get Methods
 
     /**
-     * Returns a List(ArrayList) of Task Objects.
-     *
-     * @return List(ArrayList) of Task Objects
+     * Returns a String representing each task in the taskList.
+     * @return String containing all the Tasks to be printed by the User.
      */
-    public List<Task> getList() {
-        return this.taskList;
-    }
-
-    /**
-     * Returns the size of the list.
-     *
-     * @return Size of the list as an int
-     */
-    public int getSize() {
-        return this.taskList.size();
-    }
-
-    /**
-     * Prints each task in the taskList.
-     */
-    public void printTasks() {
-        for (int index = 0; index < this.taskList.size(); ++index) {
+    public String getPrintableTasks() {
+        StringBuilder outputStr = new StringBuilder();
+        for (int index = 0; index < this.size(); ++index) {
             try {
-                System.out.println((index + 1)
-                                 + ". "
-                                 + this.taskList.get(index).genTaskDesc()
-                );
+                outputStr.append(index + 1)
+                        .append(". ")
+                        .append(this.get(index).genTaskDesc())
+                        .append("\n");
+                ;
             } catch (Exception e) {
-                System.out.println("Unable to print Task "
-                         + String.valueOf(index + 1));
+                outputStr.append("Unable to print Task ")
+                         .append(index + 1)
+                        .append("\n")
+                ;
             }
         }
+        return outputStr.toString();
+    }
+
+    /**
+     * Loads all queued Tasks from the now-done Task to the main TaskList.
+     * @param mainTask The Task that has been marked done
+     */
+    public void loadQueuedTasks(Task mainTask) {
+        TaskList queuedTasks = mainTask.getQueuedTasks();
+        if (queuedTasks == null) {
+            return;
+        }
+        for (Task newTask : queuedTasks) {
+            this.addTask(newTask);
+        }
+        mainTask.setQueuedTasks(null);
     }
 }
