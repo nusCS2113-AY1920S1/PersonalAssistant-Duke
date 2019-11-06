@@ -1,5 +1,4 @@
-
-package gazeeebo.commands.contact;
+package gazeeebo.commands.Contact;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
@@ -65,6 +64,7 @@ public class ContactCommand extends Command {
         System.out.print(helpContact);
         ui.readCommand();
         while (!ui.fullCommand.equals("esc")) {
+
             if (ui.fullCommand.split(" ")[0].equals("add")
                     || ui.fullCommand.equals("1")) {
                 copyMap(contactList, oldcontacts);

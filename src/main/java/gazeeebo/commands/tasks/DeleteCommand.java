@@ -5,6 +5,7 @@ import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
+
 import java.io.IOException;
 
 import gazeeebo.exception.DukeException;
@@ -14,18 +15,32 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
 
+/**
+ * This class allows user to delete existing tasks from list.
+ */
 public class DeleteCommand extends Command {
     /**
+     * The string "delete" has 6 characters.
+     */
+    static final int DELETE_CHAR_COUNT = 6;
+    /**
+     * The string "delete " has 7 characters.
+     */
+    static final int DELETE_AND_SPACE_CHAR_COUNT = 7;
+    /**
+     * Allows user to delete 1 or more tasks at a time.
      *
-     * @param list
-     * @param ui
-     * @param storage
+     * @param list          List of all tasks
+     * @param ui            the object that deals with
+     *                      printing things to the user
+     * @param storage       The object that deals with storing data
      * @param commandStack
      * @param deletedTask
-     * @throws DukeException
-     * @throws ParseException
-     * @throws IOException
-     * @throws NullPointerException
+     * @param triviaManager
+     * @throws DukeException  Throws custom exception when
+     *                        format of delete command is wrong
+     * @throws ParseException Catch error if parsing of command fails
+     * @throws IOException    Catch error if the read file fails
      */
     @Override
     public void execute(final ArrayList<Task> list, final Ui ui,
@@ -33,10 +48,10 @@ public class DeleteCommand extends Command {
                         final Stack<ArrayList<Task>> commandStack,
                         final ArrayList<Task> deletedTask,
                         final TriviaManager triviaManager)
-            throws DukeException,
-            ParseException, IOException {
-        if (ui.fullCommand.length() == 6) {
-            throw new DukeException("OOPS!!! The description of a deletion cannot be empty.");
+            throws DukeException, ParseException, IOException {
+        if (ui.fullCommand.length() == DELETE_CHAR_COUNT) {
+            throw new DukeException("OOPS!!! The description "
+                    + "of a deletion cannot be empty.");
         } else {
             if (ui.fullCommand.contains("all")) { //delete all tasks at once
                 for (int i = 0; i < list.size(); i++) {
@@ -44,16 +59,20 @@ public class DeleteCommand extends Command {
                 }
                 list.clear();
                 System.out.println("Noted. I've removed all the tasks.");
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
-
-            } else if (ui.fullCommand.contains("and")) { //delete multiple chosen tasks
+                System.out.println("Now you have "
+                        + list.size()
+                        + " tasks in the list.");
+            } else if (ui.fullCommand.contains("and")) {
+                //delete multiple tasks at once
                 int numOfAnds = 0;
                 for (int i = 0; i < ui.fullCommand.length(); i++) {
                     if (ui.fullCommand.charAt(i) == 'a') {
                         numOfAnds++;
                     }
                 }
-                String[] strNumberList = ui.fullCommand.substring(7).split(" and ", numOfAnds + 1);
+                String[] strNumberList = ui.fullCommand.substring(
+                        DELETE_AND_SPACE_CHAR_COUNT).split(
+                        " and ", numOfAnds + 1);
                 int size = strNumberList.length;
                 int[] intNumberList = new int[size];
                 for (int j = 0; j < size; j++) {
@@ -70,16 +89,19 @@ public class DeleteCommand extends Command {
                     System.out.println(taskremoved);
                     count++;
                 }
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
+                System.out.println("Now you have " + list.size()
+                        + " tasks in the list.");
             } else if (ui.fullCommand.split(" ")[1] != null) {
                 try {
-                    int index = Integer.parseInt(ui.fullCommand.substring(6).trim()) - 1;
+                    int index = Integer.parseInt(ui.fullCommand.substring(
+                            DELETE_CHAR_COUNT).trim()) - 1;
                     deletedTask.add(list.get(index));
                     String taskremoved = list.get(index).listFormat();
                     list.remove(index);
                     System.out.println("Noted. I've removed this task: ");
                     System.out.println(taskremoved);
-                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    System.out.println("Now you have " + list.size()
+                            + " tasks in the list.");
                 } catch (NumberFormatException e) {
                     System.out.println("Wrong input for delete command");
                 } catch (IndexOutOfBoundsException e) {
@@ -93,7 +115,12 @@ public class DeleteCommand extends Command {
             }
         }
     }
-
+    /**
+     * Program does not exit and continues running
+     * since command "bye" is not called.
+     *
+     * @return false
+     */
     @Override
     public boolean isExit() {
         return false;

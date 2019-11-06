@@ -1,5 +1,6 @@
 package gazeeebo.parsers;
 
+import gazeeebo.commands.Command;
 import gazeeebo.commands.specialization.SpecializationCommand;
 
 import gazeeebo.UI.Ui;
@@ -11,14 +12,15 @@ import gazeeebo.commands.expenses.ExpenseCommand;
 import gazeeebo.commands.capCalculator.CAPCommand;
 import gazeeebo.commands.tasks.TaskCommand;
 import gazeeebo.exception.DukeException;
-import gazeeebo.commands.*;
-import gazeeebo.commands.contact.ContactCommand;
+import gazeeebo.commands.Contact.ContactCommand;
 import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.commands.places.PlacesCommand;
 
 
 public class Parser {
-    public static Command parse(final String command, Ui ui) throws DukeException {
+    public static Command parse(final String command,
+                                final Ui ui)
+            throws DukeException {
         String[] splitCommand = command.split(" ");
         if (splitCommand[0].equals("help") || command.equals("1")) {
             return new HelpCommand();

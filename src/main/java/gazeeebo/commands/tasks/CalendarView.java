@@ -6,6 +6,7 @@ import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Event;
 import gazeeebo.tasks.Task;
 import gazeeebo.tasks.Timebound;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -15,11 +16,11 @@ public class CalendarView {
      * Returns the day of the month.
      *
      * @param month month of the date
-     * @param day date
+     * @param day   date
      * @param year  year
      * @return int d The day of the start of the month in integer
      */
-    public int startDay(int month, int day, int year) {
+    public int startDay(final int month, final int day, final int year) {
         int y = year - (14 - month) / 12;
         int x = y + y / 4 - y / 100 + y / 400;
         int m = month + 12 * ((14 - month) / 12) - 2;
@@ -33,7 +34,7 @@ public class CalendarView {
      * @param year year
      * @return true if it is a leap year, false otherwise
      */
-    public boolean isLeapYear(int year) {
+    public boolean isLeapYear(final int year) {
         if ((year % 4 == 0) && (year % 100 != 0)) {
             return true;
         }
@@ -41,11 +42,12 @@ public class CalendarView {
     }
 
     /**
-     * Prints out the calendar in the command line, if there is a task on that day the day will be marked with an '*'.
+     * Prints out the calendar in the command line,
+     * if there is a task on that day the day will be marked with an '*'.
      *
      * @param list list of tasks
      */
-    public void monthlyView(ArrayList<Task> list) {
+    public void monthlyView(final ArrayList<Task> list) {
         Calendar now = Calendar.getInstance();
         int month = (now.get(Calendar.MONTH) + 1);
         int year = now.get(Calendar.YEAR);
@@ -53,50 +55,52 @@ public class CalendarView {
         boolean[] isBusy = new boolean[32];
         for (Task task : list) {
             switch (task.getClass().getName()) {
-            case "gazeeebo.tasks.Event":
-                Event event = (Event) task;
-                if (event.date.getMonthValue() == month) {
-                    isBusy[event.date.getDayOfMonth()] = true;
-                }
-                break;
-            case "gazeeebo.tasks.Deadline":
-                Deadline deadline = (Deadline) task;
-                if (deadline.by.getMonthValue() == month) {
-                    isBusy[deadline.by.getDayOfMonth()] = true;
-                }
-                break;
-            case "gazeeebo.tasks.Timebound":
-                LocalDate startDate = ((Timebound) task).dateStart;
-                LocalDate endDate = ((Timebound) task).dateEnd;
-                if (endDate.getMonthValue() == month && startDate.getMonthValue() == month) {
-                    for (int i = startDate.getDayOfMonth(); i <= endDate.getDayOfMonth(); i++) {
-                        isBusy[i] = true;
+                case "gazeeebo.tasks.Event":
+                    Event event = (Event) task;
+                    if (event.date.getMonthValue() == month) {
+                        isBusy[event.date.getDayOfMonth()] = true;
                     }
-                } else if (endDate.getMonthValue() == month) {
-                    assert (startDate.getDayOfMonth() != month);
-                    for (int i = 1; i <= endDate.getDayOfMonth(); i++) {
-                        isBusy[i] = true;
+                    break;
+                case "gazeeebo.tasks.Deadline":
+                    Deadline deadline = (Deadline) task;
+                    if (deadline.by.getMonthValue() == month) {
+                        isBusy[deadline.by.getDayOfMonth()] = true;
                     }
-                } else if (startDate.getMonthValue() == month) {
-                    assert (endDate.getDayOfMonth() != month);
-                    for (int i = startDate.getDayOfMonth(); i <= 31; i++) {
-                        isBusy[i] = true;
+                    break;
+                case "gazeeebo.tasks.Timebound":
+                    LocalDate startDate = ((Timebound) task).dateStart;
+                    LocalDate endDate = ((Timebound) task).dateEnd;
+                    if (endDate.getMonthValue()
+                            == month && startDate.getMonthValue() == month) {
+                        for (int i = startDate.getDayOfMonth();
+                             i <= endDate.getDayOfMonth(); i++) {
+                            isBusy[i] = true;
+                        }
+                    } else if (endDate.getMonthValue() == month) {
+                        assert (startDate.getDayOfMonth() != month);
+                        for (int i = 1; i <= endDate.getDayOfMonth(); i++) {
+                            isBusy[i] = true;
+                        }
+                    } else if (startDate.getMonthValue() == month) {
+                        assert (endDate.getDayOfMonth() != month);
+                        for (int i = startDate.getDayOfMonth(); i <= 31; i++) {
+                            isBusy[i] = true;
+                        }
                     }
-                }
-                break;
-            default:
+                    break;
+                default:
             }
         }
         String[] months = {
-            "",
-            "January", "February", "March",
-            "April", "May", "June",
-            "July", "August", "September",
-            "October", "November", "December"
+                "",
+                "January", "February", "March",
+                "April", "May", "June",
+                "July", "August", "September",
+                "October", "November", "December"
         };
 
         int[] days = {
-            0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
+                0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
         };
 
         if (month == 2 && isLeapYear(year)) {
@@ -128,12 +132,13 @@ public class CalendarView {
     }
 
     /**
-     * Prints out the annual calendar in the command line and if there is a task on that day the day will be marked
+     * Prints out the annual calendar in the command line and
+     * if there is a task on that day the day will be marked
      * with an '*'.
      *
      * @param list list of tasks
      */
-    public void annualView(ArrayList<Task> list) {
+    public void annualView(final ArrayList<Task> list) {
         Calendar now = Calendar.getInstance();
         int month = (now.get(Calendar.MONTH) + 1);
         int year = now.get(Calendar.YEAR);
@@ -141,50 +146,55 @@ public class CalendarView {
         boolean[][] isBusy = new boolean[13][32];
         for (Task task : list) {
             switch (task.getClass().getName()) {
-            case "gazeeebo.tasks.Event":
-                Event event = (Event) task;
-                isBusy[event.date.getMonthValue()][event.date.getDayOfMonth()] = true;
-                break;
-            case "gazeeebo.tasks.Deadline":
-                Deadline deadline = (Deadline) task;
-                isBusy[deadline.by.getMonthValue()][deadline.by.getDayOfMonth()] = true;
-                break;
-            case "gazeeebo.tasks.Timebound":
-                LocalDate startDate = ((Timebound) task).dateStart;
-                LocalDate endDate = ((Timebound) task).dateEnd;
-                if (startDate.getMonthValue() == endDate.getMonthValue()) {
-                    for (int i = startDate.getDayOfMonth(); i <= endDate.getDayOfMonth(); i++) {
-                        isBusy[startDate.getMonthValue()][i] = true;
-                    }
-                } else {
-                    for (int i = startDate.getDayOfMonth(); i <= 31; i++) {
-                        isBusy[startDate.getMonthValue()][i] = true;
-                    }
-                    for (int i = 1; i <= endDate.getDayOfMonth(); i++) {
-                        isBusy[endDate.getMonthValue()][i] = true;
-                    }
-                    if (endDate.getMonthValue() - startDate.getMonthValue() > 1) {
-                        for (int i = startDate.getMonthValue() + 1; i < endDate.getMonthValue(); i++) {
-                            for (int k = 1; k <= 31; k++) {
-                                isBusy[i][k] = true;
+                case "gazeeebo.tasks.Event":
+                    Event event = (Event) task;
+                    isBusy[event.date.getMonthValue()]
+                            [event.date.getDayOfMonth()] = true;
+                    break;
+                case "gazeeebo.tasks.Deadline":
+                    Deadline deadline = (Deadline) task;
+                    isBusy[deadline.by.getMonthValue()]
+                            [deadline.by.getDayOfMonth()] = true;
+                    break;
+                case "gazeeebo.tasks.Timebound":
+                    LocalDate startDate = ((Timebound) task).dateStart;
+                    LocalDate endDate = ((Timebound) task).dateEnd;
+                    if (startDate.getMonthValue() == endDate.getMonthValue()) {
+                        for (int i = startDate.getDayOfMonth();
+                             i <= endDate.getDayOfMonth(); i++) {
+                            isBusy[startDate.getMonthValue()][i] = true;
+                        }
+                    } else {
+                        for (int i = startDate.getDayOfMonth(); i <= 31; i++) {
+                            isBusy[startDate.getMonthValue()][i] = true;
+                        }
+                        for (int i = 1; i <= endDate.getDayOfMonth(); i++) {
+                            isBusy[endDate.getMonthValue()][i] = true;
+                        }
+                        if (endDate.getMonthValue()
+                                - startDate.getMonthValue() > 1) {
+                            for (int i = startDate.getMonthValue() + 1;
+                                 i < endDate.getMonthValue(); i++) {
+                                for (int k = 1; k <= 31; k++) {
+                                    isBusy[i][k] = true;
+                                }
                             }
                         }
                     }
-                }
-                break;
-            default:
+                    break;
+                default:
             }
         }
         String[] months = {
-            "",
-            "January", "February", "March",
-            "April", "May", "June",
-            "July", "August", "September",
-            "October", "November", "December"
+                "",
+                "January", "February", "March",
+                "April", "May", "June",
+                "July", "August", "September",
+                "October", "November", "December"
         };
 
         int[] days = {
-            0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
+                0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
         };
 
         if (month == 2 && isLeapYear(year)) {

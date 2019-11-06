@@ -1,42 +1,39 @@
 package gazeeebo.commands.expenses;
 
 import gazeeebo.UI.Ui;
-import gazeeebo.exception.DukeException;
 
-import javax.swing.text.DateFormatter;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Map;
 
+/**
+ * This method finds expenses bought on the same date.
+ */
 public class FindExpenseCommand {
 
     /**
      * This method finds expenses bought on the same date.
      *
      * @param ui       the object that deals with printing things to the user.
-     * @param expenses the object that map each expenses to its date
-     * @throws IOException catch any error if read file fails
+     * @param expenses the map that maps each expenses to its date
      */
-    public FindExpenseCommand(Ui ui, Map<LocalDate, ArrayList<String>> expenses) throws IOException, NullPointerException, DateTimeParseException {
+    public FindExpenseCommand(final Ui ui,
+                              final Map<LocalDate,
+                                      ArrayList<String>> expenses) {
         String date = ui.fullCommand.split(" ")[1];
 
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateOfPurchase;
         try {
             dateOfPurchase = LocalDate.parse(date, fmt);
-
-
             boolean isExist = false;
             for (LocalDate key : expenses.keySet()) {
                 if (dateOfPurchase.equals(key)) {
                     for (int i = 0; i < expenses.get(key).size(); i++) {
-                        System.out.println((i + 1) + "." + expenses.get(key).get(i));
+                        System.out.println((i + 1) + "."
+                                + expenses.get(key).get(i));
                     }
                     isExist = true;
                     break;

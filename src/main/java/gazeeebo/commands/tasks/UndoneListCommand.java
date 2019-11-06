@@ -7,6 +7,7 @@ import gazeeebo.UI.Ui;
 import gazeeebo.storage.Storage;
 
 import gazeeebo.exception.DukeException;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -37,14 +38,19 @@ public class UndoneListCommand extends Command {
                 sb.append(list.get(i).toString() + "\n");
             }
             storage.writeToSaveFile(sb.toString());
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
     }
 
+    /**
+     * Program does not exit and continues running
+     * since command "bye" is not called.
+     *
+     * @return false
+     */
     @Override
-    public boolean isExit () {
+    public boolean isExit() {
         return false;
     }
 }
