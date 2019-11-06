@@ -9,17 +9,30 @@ import duke.storage.Storage;
 import java.time.LocalDate;
 import java.util.HashMap;
 
+//@@author koushireo
+
 public class UpdateWeightCommand extends Command {
-    private String description;
     private String weight;
+
+
+    public UpdateWeightCommand() {
+        this.weight = null;
+        this.currentDate = null;
+    }
 
     /**
      * Constructor for UpdateWeightCommand.
-     * @param description the data to update the user document with
+     * @param weight the data to update the user document with
      */
 
-    public UpdateWeightCommand(String description) {
-        this.description = description;
+    public UpdateWeightCommand(String weight) {
+        this.weight = weight;
+        this.currentDate = LocalDate.now();
+    }
+
+    public UpdateWeightCommand(String weight, String date) {
+        this.weight = weight;
+        this.currentDate = LocalDate.parse(date, dateFormat);
     }
 
     public UpdateWeightCommand(boolean flag, String messageStr) {
@@ -51,12 +64,7 @@ public class UpdateWeightCommand extends Command {
 
     public void stage0(User user, Storage storage) {
         ui.showLine();
-        String[] temp = description.split("/date");
-        weight = temp[0].trim();
         HashMap<LocalDate, Double> allWeight = user.getAllWeight();
-        if (temp.length > 1) {
-            currentDate = LocalDate.parse(temp[1], dateFormat);
-        }
         if (!allWeight.containsKey(currentDate)) {
             try {
                 user.setWeight(Integer.parseInt(weight), currentDate);
@@ -86,10 +94,14 @@ public class UpdateWeightCommand extends Command {
             } catch (Exception e) {
                 ui.showMessage(e.getMessage());
             }
-        } else {
+            isDone = true;
+        } else if (this.responseStr.equals("n")) {
             ui.showRejected();
+            isDone = true;
+        } else {
+            ui.showMessage("Please enter either Y/N");
+            stage -= 1;
         }
-        isDone = true;
         try {
             storage.updateUser(user);
         } catch (DukeException e) {
@@ -98,7 +110,7 @@ public class UpdateWeightCommand extends Command {
         ui.showLine();
     }
 
-    public void setResponse(String response) {
+    public void setResponseStr(String response) {
         this.responseStr = response.toLowerCase().substring(0,1);
     }
 }

@@ -2,10 +2,7 @@ package duke.logic.parsers;
 
 import duke.commons.exceptions.DukeException;
 import duke.logic.autocorrect.Autocorrect;
-import duke.logic.commands.Command;
-import duke.logic.commands.ExitCommand;
-import duke.logic.commands.StatsCommand;
-import duke.logic.commands.UpdateWeightCommand;
+import duke.logic.commands.*;
 
 import static duke.commons.constants.CommandDefinitions.PARSER_ADD_COMMAND;
 import static duke.commons.constants.CommandDefinitions.PARSER_ADD_GOAL_COMMAND;
@@ -27,7 +24,7 @@ import static duke.commons.constants.CommandDefinitions.PARSER_PAYMENT_COMMAND;
 import static duke.commons.constants.CommandDefinitions.PARSER_STATS_COMMAND;
 import static duke.commons.constants.CommandDefinitions.PARSER_SUGGEST_COMMAND;
 import static duke.commons.constants.CommandDefinitions.PARSER_SUGGEST_EXERCISE_COMMAND;
-import static duke.commons.constants.CommandDefinitions.PARSER_UPDATE_WEIGHT_COMMAND;
+import static duke.commons.constants.CommandDefinitions.PARSER_UPDATE_COMMAND;
 import static duke.commons.exceptions.ExceptionMessages.UNKNOWN_COMMAND;
 
 /**
@@ -87,8 +84,8 @@ public class Parser {
                 return new FindCommandParser().parse(argumentStr);
             case PARSER_DELETE_COMMAND:
                 return new DeleteCommandParser().parse(argumentStr);
-            case PARSER_UPDATE_WEIGHT_COMMAND:
-                return new UpdateWeightCommand(argumentStr);
+            case PARSER_UPDATE_COMMAND:
+                return new UpdateCommandParser().parse(argumentStr);
             case PARSER_CLEAR_COMMAND:
                 return new ClearCommandParser().parse(argumentStr);
             case PARSER_EDIT_COMMAND:
