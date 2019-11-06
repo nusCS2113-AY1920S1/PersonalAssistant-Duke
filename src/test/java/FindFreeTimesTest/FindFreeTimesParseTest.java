@@ -14,9 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  */
 public class FindFreeTimesParseTest {
     private final String invalidInput = "Invalid input. Please enter the command as follows. \n" +
-            "Find 'x' hours , where 'x' is a digit between 1 - 16";
+            "find/ft 'x' hours , where 'x' is a digit between 1 - 16";
     private final String invalidDuration = "Invalid duration. Please enter the command as follows. \n" +
-            "Find 'x' hours , where 'x' is a digit between 1 - 16";
+            "find/ft 'x' hours , where 'x' is a digit between 1 - 16";
 
     private static String validUserInputWithDuration;
     //TODO: ask if should take 0 and 17 instead of negative

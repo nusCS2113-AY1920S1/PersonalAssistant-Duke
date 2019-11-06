@@ -15,9 +15,9 @@ public class FindFreeTimesParse extends Parse {
     private final Logger LOGGER = DukeLogger.getLogger(FindFreeTimesParse.class);
     private String fullCommand;
     private final String invalidInput = "Invalid input. Please enter the command as follows. \n" +
-            "Find 'x' hours , where 'x' is a digit between 1 - 16";
+            "find/ft 'x' hours , where 'x' is a digit between 1 - 16";
     private final String invalidDuration = "Invalid duration. Please enter the command as follows. \n" +
-            "Find 'x' hours , where 'x' is a digit between 1 - 16";
+            "find/ft 'x' hours , where 'x' is a digit between 1 - 16";
 
     /**
      * Creates FindFreeTimesParse object.
