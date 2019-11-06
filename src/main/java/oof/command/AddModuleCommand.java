@@ -23,6 +23,8 @@ public class AddModuleCommand extends Command {
     private static final int INDEX_CODE = 0;
     private static final int INDEX_NAME = 1;
     private static final int ARRAY_SIZE_NAME = 2;
+    private static final int DESCRIPTION_LENGTH_MAX = 50;
+
 
     /**
      * Constructor for AddModuleCommand.
@@ -68,5 +70,15 @@ public class AddModuleCommand extends Command {
         ui.printModuleAddedMessage(module);
         selectedInstance.selectModule(module);
         storageManager.writeSemesterList(semesterList);
+    }
+
+    /**
+     * Checks if description and module code exceeds the maximum description length.
+     *
+     * @return True if maximum description length is exceeded, false otherwise.
+     */
+    @Override
+    boolean exceedsMaxLength(String description) {
+        return description.length() >= DESCRIPTION_LENGTH_MAX;
     }
 }

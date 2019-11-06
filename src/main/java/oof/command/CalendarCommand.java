@@ -1,11 +1,17 @@
 package oof.command;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import oof.Ui;
 import oof.exception.command.InvalidArgumentException;
+import oof.model.module.Lesson;
+import oof.model.module.Module;
+import oof.model.module.Semester;
 import oof.model.module.SemesterList;
 import oof.model.task.Deadline;
 import oof.model.task.Event;
@@ -24,6 +30,7 @@ public class CalendarCommand extends Command {
     public static final String COMMAND_WORD = "calendar";
     private int month;
     private int year;
+    private YearMonth yearMonth;
     private static final int INDEX_DATE = 0;
     private static final int INDEX_TIME = 1;
     private static final int INDEX_DAY = 0;
@@ -60,6 +67,7 @@ public class CalendarCommand extends Command {
             this.month = calendar.get(Calendar.MONTH) + 1;
             this.year = calendar.get(Calendar.YEAR);
         }
+        this.yearMonth = YearMonth.of(year, month);
     }
 
     /**
@@ -68,11 +76,26 @@ public class CalendarCommand extends Command {
      * @param semesterList   Instance of SemesterList that stores Semester objects.
      * @param taskList       Instance of TaskList that stores Task objects.
      * @param ui             Instance of Ui that is responsible for visual feedback.
-     * @param storageManager Instance of Storage that enables the reading and writing of Task
+     * @param storageManager Instance of Storage that enables the reading and writing of Task.
+     * @throws InvalidArgumentException if date of Semester is invalid.
      */
     @Override
-    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager) {
-        YearMonth yearMonth = YearMonth.of(year, month);
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
+            throws InvalidArgumentException {
+        parseTaskList(taskList);
+        parseSemesterList(semesterList);
+        for (ArrayList<String[]> day : calendarTasks) {
+            day.sort(new SortByTime());
+        }
+        ui.printCalendar(yearMonth, calendarTasks);
+    }
+
+    /**
+     * Parses the task list for tasks that occurs within the queried month.
+     *
+     * @param taskList Instance of TaskList that stores Task objects.
+     */
+    private void parseTaskList(TaskList taskList) {
         for (Task task : taskList.getTaskList()) {
             String description = task.getDescription();
             String[] dateSplit = {};
@@ -97,10 +120,53 @@ public class CalendarCommand extends Command {
             }
 
         }
-        for (ArrayList<String[]> day : calendarTasks) {
-            day.sort(new SortByTime());
+    }
+
+    /**
+     * Parses the semester list for lessons that occurs within the queried month.
+     *
+     * @param semesterList Instance of SemesterList that stores Semester objects.
+     */
+    private void parseSemesterList(SemesterList semesterList) {
+        for (Semester semester : semesterList.getSemesterList()) {
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate startDate = LocalDate.parse(semester.getStartDate(), format);
+            LocalDate endDate = LocalDate.parse(semester.getEndDate(), format);
+            for (int day = 1; day <= yearMonth.lengthOfMonth(); day++) {
+                queryModules(semester, startDate, endDate, day);
+            }
         }
-        ui.printCalendar(yearMonth, calendarTasks);
+    }
+
+    /**
+     * Adds lessons of each module to the calendar if they fall within the queried month.
+     * @param semester Instance of Semester containing Module data.
+     * @param startDate Start date of Semester.
+     * @param endDate End date of Semester.
+     * @param day Day of Month.
+     */
+    private void queryModules(Semester semester, LocalDate startDate, LocalDate endDate, int day) {
+        LocalDate queryDate = yearMonth.atDay(day);
+        if (isWithinRange(queryDate, startDate, endDate)) {
+            for (Module module : semester.getModules()) {
+                addLessons(queryDate, module);
+            }
+        }
+    }
+
+    /**
+     * Adds lesson to the calendar.
+     *
+     * @param queryDate Day of the month.
+     * @param module Instance of Module containing Lesson data
+     */
+    private void addLessons(LocalDate queryDate, Module module) {
+        for (Lesson lesson : module.getLessons()) {
+            DayOfWeek dayOfWeek = lesson.getDay();
+            if (queryDate.getDayOfWeek() == dayOfWeek) {
+                addEntry(lesson.getStartTime(), lesson.getDescription(), queryDate.getDayOfMonth());
+            }
+        }
     }
 
     /**
@@ -127,4 +193,15 @@ public class CalendarCommand extends Command {
         this.calendarTasks.get(day).add(entry);
     }
 
+    /**
+     * Checks if a date is within two dates.
+     * @param queryDate Date to be checked.
+     * @param startDate Starting Date used for checking.
+     * @param endDate Ending Date used for checking.
+     * @return true if queried date is within start and end date.
+     */
+    private boolean isWithinRange(LocalDate queryDate, LocalDate startDate, LocalDate endDate) {
+        return queryDate.isAfter(startDate) && queryDate.isBefore(endDate) || queryDate.isEqual(startDate)
+                || queryDate.isEqual(endDate);
+    }
 }
