@@ -1,80 +1,20 @@
 package seedu.hustler.game.shop.items;
 
 /**
- * The class in which every item will inherit from.
+ * Interface that all shop items implements; checks if the User is able to
+ * purchase the selected item in the shop.
  */
-public abstract class ShopItem implements Purchasable {
-
+public interface ShopItem {
+    public int getCost();
+    public Boolean isPurchased();
+    public String getType();
+    public void setPurchased(Boolean purchased);
+    public Boolean isSameType(ShopItem other);
     /**
-     * The cost of the shop item.
+     * The abstract function that checks if User is able to purchase
+     * the item from the shop.
+     * @param points the current points of the avatar.
+     * @return true if User can purchase the item; false if otherwise.
      */
-    protected int cost;
-    /**
-     * Boolean if the shop item has been purchased.
-     */
-
-    protected Boolean isPurchased;
-
-    /**
-     * The type in string, of each item.
-     */
-    protected String type;
-
-    /**
-     * Constructs a ShopItem with the given cost, hasPurchased, and type.
-     * @param cost the cost of the item.
-     * @param hasPurchased if the ShopItem was purchased; false if otherwise.
-     * @param type the type in string, of the item.
-     */
-    public ShopItem(int cost, Boolean hasPurchased, String type) {
-        this.cost = cost;
-        this.isPurchased = hasPurchased;
-        this.type = type;
-    }
-
-    /**
-     * Gets the cost of the Shop Item.
-     * @return the cost of the shop item.
-     */
-    public int getCost() {
-        return this.cost;
-    }
-
-    /**
-     * Gets the boolean value of isPurchased.
-     * @return true if item has been purchased; false if otherwise.
-     */
-    public Boolean isPurchased() {
-        return this.isPurchased;
-    }
-
-    /**
-     * Sets the boolean value of isPurchased.
-     * @param purchased the boolean value if item has been purchased.
-     */
-    public void setPurchased(Boolean purchased) {
-        this.isPurchased = purchased;
-    }
-
-    /**
-     * Gets the type of shop item.
-     * @return the type of the shop item in String.
-     */
-    public String getType() {
-        return this.type;
-    }
-
-    /**
-     * Checks if the shop item is same type as the other by comparing their type.
-     * @param other the other shop item to compare to.
-     * @return the boolean value if they are equivalent; false if otherwise.
-     */
-    public Boolean isSameType(Purchasable other) {
-        return this.type.equals(other.getType());
-    }
-
-    @Override
-    public boolean canPurchase(int points) {
-        return points >= this.cost;
-    }
+    boolean canPurchase(int points);
 }

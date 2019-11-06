@@ -1,7 +1,6 @@
 package seedu.hustler.game.shop;
 
 import seedu.hustler.game.achievement.Achievements;
-import seedu.hustler.game.shop.items.Purchasable;
 import seedu.hustler.game.shop.items.ShopItem;
 import seedu.hustler.game.shop.items.weapons.Broadsword;
 import seedu.hustler.game.shop.items.weapons.Mace;
@@ -20,7 +19,7 @@ public class ShopList {
     /**
      * The ArrayList of ShopItem to be purchased.
      */
-    private final ArrayList<Purchasable> shopList;
+    private final ArrayList<ShopItem> shopList;
 
     /**
      * Constructs a ShopList and populate with every existing shopItem.
@@ -41,7 +40,7 @@ public class ShopList {
      * Gets the shop item list of the shop.
      * @return the array list containing all of the shop items.
      */
-    public ArrayList<Purchasable> getShopList() {
+    public ArrayList<ShopItem> getShopList() {
         return this.shopList;
     }
 
@@ -51,7 +50,7 @@ public class ShopList {
      * @param index the index of the item in the list.
      * @return the ShopItem that is purchased, if any.
      */
-    public Optional<Purchasable> buy(int index) {
+    public Optional<ShopItem> buy(int index) {
         if (!shopList.get(index).isPurchased()) {
             if (shopList.get(index).canPurchase(Achievements.totalPoints)) {
                 shopList.get(index).setPurchased(true);
@@ -96,9 +95,9 @@ public class ShopList {
      * Gets the array list of purchased shop items.
      * @return the array list of the shop items that has been purchased.
      */
-    public ArrayList<Purchasable> getPurchasedItems() {
-        ArrayList<Purchasable> itemsPurchased = new ArrayList<>();
-        for (Purchasable item : shopList) {
+    public ArrayList<ShopItem> getPurchasedItems() {
+        ArrayList<ShopItem> itemsPurchased = new ArrayList<>();
+        for (ShopItem item : shopList) {
             if (item.isPurchased()) {
                 itemsPurchased.add(item);
             }
@@ -106,7 +105,7 @@ public class ShopList {
         return itemsPurchased;
     }
 
-    public ShopList addItem(Purchasable item) {
+    public ShopList addItem(ShopItem item) {
         ShopList newShop = new ShopList(this);
         newShop.shopList.add(item);
         return newShop;

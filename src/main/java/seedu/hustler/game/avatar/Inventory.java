@@ -1,8 +1,8 @@
 package seedu.hustler.game.avatar;
 
 import seedu.hustler.Hustler;
-import seedu.hustler.game.shop.items.Purchasable;
 import seedu.hustler.game.shop.items.ShopItem;
+
 import java.util.ArrayList;
 
 /**
@@ -14,7 +14,7 @@ public class Inventory {
     /**
      * The arraylist of the items that the user has purchased.
      */
-    private ArrayList<Purchasable> items;
+    private ArrayList<ShopItem> items;
 
     /**
      * Constructs a new inventory with an empty array list of items.
@@ -35,13 +35,13 @@ public class Inventory {
      * @param index the index of the item in the array list.
      * @return the shop item with the given index.
      */
-    public Purchasable get(int index) { return items.get(index); }
+    public ShopItem get(int index) { return items.get(index); }
 
     /**
      * Gets the array list of the shop item in the inventory.
      * @return the array list of the items.
      */
-    public ArrayList<Purchasable> getItems() {
+    public ArrayList<ShopItem> getItems() {
         return this.items;
     }
 
