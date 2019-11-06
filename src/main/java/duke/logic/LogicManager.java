@@ -169,5 +169,6 @@ public class LogicManager implements Logic {
 
         //Exit command
         autoCompleter.addCommandClass(ExitCommand.class);
+
     }
 }

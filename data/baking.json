@@ -1,45 +1,23 @@
 {
   "orders": [
     {
-      "id": 1573003324370,
-      "creationDate": "2019-11-06T01:22:04.370+0000",
+      "id": 1573031357117,
+      "creationDate": "2019-11-06T09:09:17.117+0000",
       "name": "customer",
       "contact": "N/A",
       "remarks": "N/A",
-      "deliveryDate": "2019-11-05T14:35:06.518+0000",
+      "deliveryDate": "1999-01-01T10:00:00.000+0000",
       "status": "COMPLETED",
-      "total": 0.0,
-      "items": [
-        {
-          "product": {
-            "productName": "1",
-            "ingredientItems": [],
-            "ingredientCost": 0.0,
-            "retailPrice": 0.0,
-            "status": "ACTIVE"
-          },
-          "amount": 1.0
-        }
-      ]
-    },
-    {
-      "id": 1573003318934,
-      "creationDate": "2019-11-06T01:21:58.934+0000",
-      "name": "customer",
-      "contact": "N/A",
-      "remarks": "N/A",
-      "deliveryDate": "2019-11-06T01:21:58.926+0000",
-      "status": "ACTIVE",
       "total": 0.0,
       "items": []
     },
     {
-      "id": 1573003347340,
-      "creationDate": "2019-11-06T01:22:27.340+0000",
+      "id": 1573031227300,
+      "creationDate": "2019-11-06T09:07:07.300+0000",
       "name": "customer",
       "contact": "N/A",
       "remarks": "N/A",
-      "deliveryDate": "2019-11-06T01:22:27.340+0000",
+      "deliveryDate": "1999-03-01T10:00:00.000+0000",
       "status": "ACTIVE",
       "total": 0.0,
       "items": []

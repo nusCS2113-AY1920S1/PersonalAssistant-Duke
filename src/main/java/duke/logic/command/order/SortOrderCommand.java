@@ -7,6 +7,16 @@ import duke.logic.parser.commons.Prefix;
 import duke.model.Model;
 
 public class SortOrderCommand extends OrderCommand {
+    /**
+     * The criteria by which to sort order list.
+     */
+    public enum SortCriteria {
+        STATUS,
+        TOTAL,
+        DEADLINE,
+        CREATION
+    }
+
     public static final String COMMAND_WORD = "sort";
 
     public static final String AUTO_COMPLETE_INDICATOR = OrderCommand.COMMAND_WORD + " " + COMMAND_WORD;
@@ -42,13 +52,4 @@ public class SortOrderCommand extends OrderCommand {
         return new CommandResult(MESSAGE_SUCCESS, CommandResult.DisplayedPage.ORDER);
     }
 
-    /**
-     * The criteria by which to sort order list.
-     */
-    public enum SortCriteria {
-        STATUS,
-        TOTAL,
-        DEADLINE,
-        CREATION
-    }
 }
