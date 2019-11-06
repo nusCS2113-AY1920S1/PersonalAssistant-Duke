@@ -102,10 +102,9 @@ public class Parser {
      * @return returns true if it can be split, false otherwise.
      */
     private static boolean isValidEmail(String input) {
-        if(input.trim().equals("") || input.contains("@")){
+        if (input.trim().equals("") || input.contains("@")) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
@@ -550,7 +549,7 @@ public class Parser {
                 && (arr[Numbers.ZERO.value].equals("addcontact") || arr[Numbers.ZERO.value].equals("ac"))) {
             String[] userInput = sentence.split(" ",Numbers.TWO.value);
             String[] contactDetails = userInput[Numbers.ONE.value].split(",");
-            if(isValidEmail(contactDetails[Numbers.TWO.value])) {
+            if (isValidEmail(contactDetails[Numbers.TWO.value])) {
                 try {
                     Contacts contactObj = new Contacts(contactDetails[Numbers.ZERO.value],
                             contactDetails[Numbers.ONE.value],
@@ -560,7 +559,7 @@ public class Parser {
                     logr.log(Level.WARNING, ErrorMessages.CONTACT_FORMAT.message, e);
                     throw new DukeException(ErrorMessages.CONTACT_FORMAT.message);
                 }
-            } else{
+            } else {
                 throw new DukeException(ErrorMessages.INVALID_EMAIL_ALERT.message);
             }
         } else if (sentence.equals("listcontacts") || sentence.equals("lc") || sentence.equals(("listcontact"))) {
