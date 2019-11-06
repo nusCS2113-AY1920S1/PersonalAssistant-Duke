@@ -374,7 +374,7 @@ public class TaskCommandParseHelper {
      */
     public static boolean validPriority(String input) {
         for (Task.Priority priority : Task.Priority.values()) {
-            if (priority.name().equals(input) && input != "NULL") {
+            if (priority.name().equals(input) && !"NULL".equals(input)) {
                 return true;
             }
         }
