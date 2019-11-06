@@ -15,6 +15,13 @@ public class CommandAddSpendingReceipt extends CommandAddReceipt {
         this.commandType = CommandType.OUT;
         this.userInput = userInput;
         this.cash = extractIncome(this.commandType, this.userInput);
+
+        if (this.cash == 0) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr("Cash value cannot be $0.");
+            return;
+        }
+
         this.date = extractDate(this.userInput);
         this.tags = extractTags(this.userInput);
         this.description = "You can add a new spendings receipt.\n"
@@ -23,11 +30,12 @@ public class CommandAddSpendingReceipt extends CommandAddReceipt {
 
     @Override
     public void execute(StorageManager storageManager) {
+
         Receipt r = new Receipt(this.cash, this.date, this.tags);
         try {
             storageManager.addReceipt(r);
             this.infoCapsule.setCodeToast();
-            this.infoCapsule.setOutputStr("Added Receipt: $"
+            this.infoCapsule.setOutputStr("Added Spending Receipt: $"
                     + r.getCashSpent().toString()
                     + " "
                     + "with tags: "
