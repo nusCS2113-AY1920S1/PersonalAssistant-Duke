@@ -164,7 +164,8 @@ public class DollaData implements ModeStringList {
             entryList.addWithIndex(modifyIndex, newRecord);
             break;
         case MODE_LIMIT:
-            // TODO
+            limitList.removeFromList(modifyIndex);
+            limitList.addWithIndex(modifyIndex, newRecord);
             break;
         case MODE_DEBT:
             debtList.removeFromList(modifyIndex);
@@ -202,6 +203,10 @@ public class DollaData implements ModeStringList {
 
     public void setModifyIndex(int index) {
         modifyIndex = index;
+    }
+
+    public int getModifyIndex() {
+        return modifyIndex;
     }
 
     /**

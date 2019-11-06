@@ -3,6 +3,7 @@ package dolla.parser;
 import dolla.command.AddLimitCommand;
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
+import dolla.command.InitialModifyCommand;
 import dolla.command.ShowListCommand;
 import dolla.command.RemoveCommand;
 import dolla.command.SearchCommand;
@@ -43,10 +44,7 @@ public class LimitParser extends Parser {
             }
         } else if (commandToRun.equals(COMMAND_MODIFY)) {
             if (verifyFullModifyCommand()) {
-                // TODO: Update when ready
-                //return new InitialModifyCommand(inputArray[1]);
-                Ui.printUpcomingFeature();
-                return new ErrorCommand();
+                return new InitialModifyCommand(inputArray[1]);
             } else if (verifyPartialModifyCommand()) {
                 // TODO:
                 return new ErrorCommand();
