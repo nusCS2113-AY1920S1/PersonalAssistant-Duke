@@ -5,6 +5,7 @@ import compal.logic.command.Command;
 import compal.model.tasks.Task;
 import compal.logic.parser.exceptions.ParserException;
 
+import javax.swing.text.html.parser.Parser;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -71,6 +72,7 @@ public interface CommandParser {
     String MESSAGE_MISSING_FILE_NAME_ARG = "ArgumentError: Missing /file-name";
     String MESSAGE_MISSING_FILE_NAME = "Error: Missing file name input!";
     String MESSAGE_INVALID_INTERVAL = "Invalid interval input";
+    String MESSAGE_INVALID_PARAM = "Looks like there's an invalid parameter inserted!";
 
     /**
      * Method specification for different command parsers to parse user input.
@@ -148,7 +150,6 @@ public interface CommandParser {
         }
     }
 
-    //@@author LTPZ
     /**
      * Returns the hour in the String input.
      *
@@ -307,7 +308,14 @@ public interface CommandParser {
                 throw new ParserException(MESSAGE_MISSING_INPUT);
             } else {
                 try {
-                    interval = scanner.nextInt();
+                    String stringInterval = scanner.next();
+                    interval = Integer.parseInt(stringInterval);
+                    if (scanner.hasNext()) {
+                        String leftInput = scanner.next();
+                        if (!leftInput.substring(0, 1).equals(TOKEN_SLASH)) {
+                            throw new ParserException(MESSAGE_INVALID_PARAM);
+                        }
+                    }
                 } catch (Exception e) {
                     //float number
                     throw new ParserException(MESSAGE_INVALID_INTERVAL);
@@ -387,6 +395,12 @@ public interface CommandParser {
             } else {
                 throw new ParserException(MESSAGE_INVALID_PRIORITY);
             }
+            if (scanner.hasNext()) {
+                String leftInput = scanner.next();
+                if (!leftInput.substring(0, 1).equals(TOKEN_SLASH)) {
+                    throw new ParserException(MESSAGE_INVALID_PARAM);
+                }
+            }
         } else {
             priorityField = Task.Priority.low;
         }
@@ -441,6 +455,12 @@ public interface CommandParser {
             }
             String endTimeField = scanner.next();
             if (isTimeValid(endTimeField)) {
+                if (scanner.hasNext()) {
+                    String leftInput = scanner.next();
+                    if (!leftInput.substring(0, 1).equals(TOKEN_SLASH)) {
+                        throw new ParserException(MESSAGE_INVALID_PARAM);
+                    }
+                }
                 return endTimeField;
             } else {
                 throw new ParserException(MESSAGE_INVALID_TIME_FORMAT);
@@ -472,6 +492,12 @@ public interface CommandParser {
         }
         String finalDateField = scanner.next();
         if (isDateValid(finalDateField)) {
+            if (scanner.hasNext()) {
+                String leftInput = scanner.next();
+                if (!leftInput.substring(0, 1).equals(TOKEN_SLASH)) {
+                    throw new ParserException(MESSAGE_INVALID_PARAM);
+                }
+            }
             return finalDateField;
         } else {
             throw new ParserException(MESSAGE_INVALID_DATE_FORMAT);
@@ -630,6 +656,26 @@ public interface CommandParser {
     default void isValidInterval(int interval) throws ParserException {
         if (interval <= 0) {
             throw new ParserException(MESSAGE_INVALID_INTERVAL);
+        }
+    }
+
+    //@author LTPZ
+    /**
+     * Check if there is any invalid key.
+     *
+     * @param key The set of valid keys of the command
+     * @param restOfInput The input command
+     * @throws ParserException if the command contains invalid keys
+     */
+    default void isValidKey(ArrayList<String> key, String restOfInput) throws ParserException {
+        Scanner scanner = new Scanner(restOfInput);
+        while (scanner.hasNext()) {
+            String param = scanner.next();
+            if (param.substring(0, 1).equals(TOKEN_SLASH)) {
+                if (!key.contains(param)) {
+                    throw new ParserException(MESSAGE_INVALID_PARAM);
+                }
+            }
         }
     }
 
