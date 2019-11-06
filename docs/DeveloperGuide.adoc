@@ -2158,12 +2158,11 @@ Expected: New `card` is added into the profile.
 `/add /card /name POBB Tomorrow Card /limit 10000 /rebate 1.5` +
 Expected: Error saying that there is already an existing card with the same name.
 
-
 === Editing a credit card
 
 . Editing the name of the `card`
 
-.. Prerequisites: There is an existing `card` to be edited.
+.. Prerequisites: There is an existing `card` to be edited and there must be no unpaid card expenditures.
 
 .. Test case:
 `/edit /card /name POBB Tomorrow Card /newname JunBank GoodVibes Card` +
@@ -2171,7 +2170,7 @@ Expected: Updated name of the `card` being displayed after being edited.
 
 . Editing the limit of the `card`
 
-.. Prerequisites: There is an existing `card` to be edited.
+.. Prerequisites: There is an existing `card` to be edited and there must be no unpaid card expenditures.
 
 .. Test case:
 `/edit /card /name POBB Tomorrow Card /limit 10000` +
@@ -2194,6 +2193,71 @@ Expected: Deleted `card` details will be displayed after being deleted.
 .. Test case:
 `/delete /card /name POBB Tomorrow Card` +
 Expected: Error saying `card` to be deleted does not exist.
+
+=== Adding a card expenditure
+
+. Adding a `card expenditure` into a `card`.
+
+.. Prerequisites: `Card expenditure` must be added into a `card` that exist and that month's expenditures +
+must be unpaid.
+
+.. Test case:
+`/add /cardexpenditure /from POBB Tomorrow Card /amount 300 /date 01/11/2019 /desc Chicken Rice` +
+Expected: `Card expenditure` successfully added into `card`.
+
+. Adding a `card expenditure` into a `card` which exceeds the monthly `card` limit.
+
+.. Prerequisites: `Card expenditure` must be added into a `card` that exist and `expenditure amount` must +
+be above `card` limit.
+
+.. Test case:
+`/add /cardexpenditure /from POBB Tomorrow Card /amount 1200 /date 02/11/2019 /desc Fried Rice` +
+Expected: `Card expenditure` failed to be added because amount has exceeded monthly `card` limit.
+
+=== Listing card expenditures
+
+. Listing `card expenditure` from a `card`.
+
+.. Prerequisites: `Card expenditure` must exist inside `card`.
+
+.. Test case:
+`/list /cardexpenditure /from POBB Tomorrow Card` +
+Expected: Paid and unpaid `card expenditure` are being listed.
+
+=== Deleting a card expenditure
+
+. Deleting a `card expenditure` from a `card`.
+
+.. Prerequisites: `Card` must be contain the expenditure to be deleted and expenditure must be unpaid.
+
+.. Test case:
+`/delete /cardexpenditure /from POBB Tomorrow Card /transno 1` +
+Expected: `Card expenditure` #1 successfully deleted from `card`.
+
+=== Adding a card bill
+
+. Adding a `card bill` to `savings` account.
+
+.. Prerequisites: `Card expenditure` for the particular month and `savings` account must exist.
+
+.. Test case:
+`/add /cardbill /card POBB Tomorrow Card /date 10/2019 /bank JunBank Savings Account` +
+Expected: `Card bill` with total amount spent for the specified month added into `savings` expenditure
+and total rebates added into `savings` deposit. When listing `card` expenditures with
+`/list /cardexpenditure /from POBB Tomorrow Card`, expenditures for that particular month will be
+transferred from unpaid to paid.
+
+=== Deleting a card bill
+
+. Deleting a `card bill` from `savings` account.
+
+.. Prerequisites: `Card bill` for the particular month must exist in `savings` account.
+
+.. Test case:
+`/delete /cardbill /card POBB Tomorrow Card /date 10/2019 /bank JunBank Savings Account` +
+Expected: `Card bill` expenditure and deposit in `savings` account will be deleted. When listing `card`
+expenditures with `/list /cardexpenditure /from POBB Tomorrow Card`, expenditures for that particular month
+will be transferred from paid to unpaid.
 
 === Transferring fund
 
