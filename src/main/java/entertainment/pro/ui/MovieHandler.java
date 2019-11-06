@@ -131,7 +131,7 @@ public class MovieHandler extends Controller implements RequestListener {
     int age = 0;
 
 
-    SearchProfile searchProfile = new SearchProfile(name, age, genrePreference, genreRestriction, isAdultEnabled,
+    public SearchProfile searchProfile = new SearchProfile(name, age, genrePreference, genreRestriction, isAdultEnabled,
             playlist, sortByAlphaOrder, sortByRating, sortByReleaseDate, searchEntryName, isMovie);
 
 
@@ -379,10 +379,14 @@ public class MovieHandler extends Controller implements RequestListener {
         //System.out.print("Request rsdceceived");
         SearchResultContext.addResults(MoviesFinal);
         mMovies = MoviesFinal;
+        displayItems();
+    }
+
+    public void displayItems() {
         mImagesLoadingProgress = new double[mMovies.size()];
         Platform.runLater(() -> {
             try {
-                buildMoviesFlowPane(MoviesFinal);
+                buildMoviesFlowPane(mMovies);
                 pageTracker.setToMainPage();
             } catch (Exceptions exceptions) {
                 exceptions.printStackTrace();
@@ -520,6 +524,7 @@ public class MovieHandler extends Controller implements RequestListener {
      */
     public void showMovie(int num) throws Exceptions {
         //System.out.println("this is " + mMovies.size());
+        System.out.println("this is it 3");
         MovieInfoObject movie = mMovies.get(num - 1);
         moviePosterClicked(movie);
         setGeneralFeedbackText(PromptMessages.TO_VIEW_BACK_SEARCHES);
@@ -951,7 +956,7 @@ public class MovieHandler extends Controller implements RequestListener {
 
 
 
-    public static void setSearchProfile(SearchProfile searchProfile) {
+    public void setSearchProfile(SearchProfile searchProfile) {
         mMovieRequest.setSearchProfile(searchProfile);
     }
 

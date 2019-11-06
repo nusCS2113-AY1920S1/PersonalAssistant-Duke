@@ -42,9 +42,16 @@ public class ViewCommand extends CommandSuper {
             case recommendation:
                 executeRecommendationCommand();
                 break;
+                case back:
+                    executeBackCommands();
+
             default:
                 break;
         }
+    }
+
+    private void executeBackCommands() {
+        ((MovieHandler) this.getUiController()).displayItems();
     }
 
     /**

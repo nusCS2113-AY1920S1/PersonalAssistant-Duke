@@ -153,7 +153,7 @@ public class RetrieveRequest implements InfoFetcher {
      * @param searchProfile Object that contains all the users' preferences for a particular search.
      */
     public void setSearchProfile(SearchProfile searchProfile) {
-        this.searchProfile = searchProfile;
+        this.searchProfile= searchProfile;
     }
 
     /**

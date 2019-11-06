@@ -51,7 +51,7 @@ public class SearchCommand extends CommandSuper {
     }
 
     /**
-     * Responible for extracting user preferences from the command and storing it in a SearchProfile object.
+     * Responsible for extracting user preferences from the command and storing it in a SearchProfile object.
      * Also responsible for extracting whether the search request is for movies or TV shows.
      * And then call the approriate function to further extract the exact search request.
      * @throws Exceptions

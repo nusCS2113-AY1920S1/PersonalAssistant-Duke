@@ -6,6 +6,7 @@ import entertainment.pro.logic.parsers.commands.SearchCommand;
 import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.model.SearchProfile;
 import entertainment.pro.storage.utils.OfflineSearchStorage;
+import entertainment.pro.ui.MovieHandler;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -228,7 +229,7 @@ public class RetrieveRequestTest {
         String searchProfileData = getString(SEARCH_PROFILE_FILEPATH);
         JSONArray jsonArray = getValidData(searchProfileData);
         for (int i = 0; i < jsonArray.size(); i += 1) {
-            SearchProfile searchProfile = null;
+            SearchProfile searchProfile = MovieHandler.getSearchProfile();
             ArrayList<Integer> genrePref = new ArrayList<>();
             ArrayList<Integer> genreRestrict = new ArrayList<>();
             JSONObject jsonObject = (JSONObject) jsonArray.get(i);
@@ -263,5 +264,7 @@ public class RetrieveRequestTest {
             }
         }
     }
+
+
 }
 
