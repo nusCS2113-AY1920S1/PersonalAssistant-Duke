@@ -140,8 +140,6 @@ class ProjectInputControllerManageTest {
         expectedOutput = new String[] {
             "Success!",
             "'Sacrifice Ironman' has been successfully added as a new requirement of this task!",
-            "",
-            "There were no errors!"
         };
         assertArrayEquals(expectedOutput, simulatedOutput);
 

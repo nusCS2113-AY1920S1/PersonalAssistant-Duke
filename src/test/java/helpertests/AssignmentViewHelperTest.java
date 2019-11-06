@@ -1,5 +1,7 @@
 package helpertests;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import util.AssignmentViewHelper;
@@ -27,8 +29,8 @@ public class AssignmentViewHelperTest {
         this.member2 = new Member("Dick", "--", "--", 2, "member");
         this.member3 = new Member("Harry", "--", "--", 3, "member");
 
-        Task task = new Task("Documentation", 0,null, 0, TaskState.OPEN, new ArrayList<>());
-        Task task2 = new Task("JUnit tests", 0,null, 0, TaskState.OPEN, new ArrayList<>());
+        Task task = new Task("Documentation", 1,null, 10, TaskState.OPEN, new ArrayList<>());
+        Task task2 = new Task("JUnit tests", 1,null, 10, TaskState.OPEN, new ArrayList<>());
         this.project.addMember(member1);
         this.project.addMember(member2);
         this.project.addMember(member3);
@@ -67,6 +69,27 @@ public class AssignmentViewHelperTest {
     @Test
     public void testGetMemberOutput() {
         ArrayList<Integer> validMembersIndexes = new ArrayList<>(Arrays.asList(1, 2, 3));
+        String[] actualMemberOutput = AssignmentViewHelper.getMemberOutput(validMembersIndexes,
+                project);
+        String[] expectedMemberOutput = new String[] {
+            "+----------------------------------------------------------------------+",
+            "|Here are each member's tasks:                                         |",
+            "+----------------------------------------------------------------------+",
+            "| +-------------------------------+ +-------------------------------+  |",
+            "| |Tom                            | |Dick                           |  |",
+            "| +-------------------------------+ +-------------------------------+  |",
+            "| |1. Documentation (P: 1, D: --, | |1. Documentation (P: 1, D: --, |  |",
+            "| |C: 10, S: OPEN)                | |C: 10, S: OPEN)                |  |",
+            "| +-------------------------------+ |                               |  |",
+            "| +-------------------------------+ |2. JUnit tests (P: 1, D: --,   |  |",
+            "| |Harry                          | |C: 10, S: OPEN)                |  |",
+            "| +-------------------------------+ +-------------------------------+  |",
+            "| |1. JUnit tests (P: 1, D: --,   |                                    |",
+            "| |C: 10, S: OPEN)                |                                    |",
+            "| +-------------------------------+                                    |",
+            "+----------------------------------------------------------------------+"};
+        assertArrayEquals(expectedMemberOutput, actualMemberOutput);
+        /*
         ArrayList<String> memberOutput = AssignmentViewHelper.getMemberOutput(validMembersIndexes,
             project);
         assertEquals("Here are each member's tasks:", memberOutput.get(0));
@@ -81,11 +104,28 @@ public class AssignmentViewHelperTest {
         assertEquals("Tasks assigned to Harry", memberOutput.get(6));
         assertEquals("1. JUnit tests | Priority: 0 | Due: -- | Credit: 0 | State: OPEN",
             memberOutput.get(7));
+         */
     }
 
     @Test
     public void testGetTaskOutput() {
         ArrayList<Integer> validTasksIndexes = new ArrayList<>(Arrays.asList(1, 2));
+        String[] actualTaskOutput = AssignmentViewHelper.getTaskOutput(validTasksIndexes,
+                project);
+        String[] expectedTaskOutput = new String[] {
+            "+----------------------------------------------------------------------+",
+            "|Here are the members assigned to each task:                           |",
+            "+----------------------------------------------------------------------+",
+            "| +-------------------------------+ +-------------------------------+  |",
+            "| |Documentation (P: 1, D: --, C: | |JUnit tests (P: 1, D: --, C:   |  |",
+            "| |10, S: OPEN)                   | |10, S: OPEN)                   |  |",
+            "| +-------------------------------+ +-------------------------------+  |",
+            "| |1. Tom                         | |1. Dick                        |  |",
+            "| |2. Dick                        | |2. Harry                       |  |",
+            "| +-------------------------------+ +-------------------------------+  |",
+            "+----------------------------------------------------------------------+"};
+        assertArrayEquals(expectedTaskOutput, actualTaskOutput);
+        /*
         ArrayList<String> taskOutput = AssignmentViewHelper.getTaskOutput(validTasksIndexes,
             project);
         assertEquals("Here are the members assigned to each task:", taskOutput.get(0));
@@ -100,6 +140,7 @@ public class AssignmentViewHelperTest {
             taskOutput.get(6));
         assertEquals("1. Dick", taskOutput.get(7));
         assertEquals("2. Harry", taskOutput.get(8));
+         */
     }
 
 }

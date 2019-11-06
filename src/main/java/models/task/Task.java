@@ -79,6 +79,22 @@ public class Task implements ITask {
         }
     }
 
+    /**
+     * Method to get task details to be presented in a concise form for Assignment table.
+     * @return String containing task details.
+     */
+    public String getDetailsForAssignmentTable() {
+        if (this.dueDate != null) {
+            return this.taskName + " (P: " + this.taskPriority + ", D: "
+                    + dateTimeHelper.formatDateForDisplay(this.dueDate) + ", C: " + this.taskCredit + ", S: "
+                    + this.taskState + ")";
+        } else {
+            return this.taskName + " (P: " + this.taskPriority + ", D: --, C: " + this.taskCredit + ", S: "
+                    + this.taskState + ")";
+        }
+
+    }
+
     public Date getDueDate() {
         return this.dueDate;
     }

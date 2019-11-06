@@ -8,6 +8,8 @@ import util.log.ArchDukeLogger;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
+
 public class ConsoleInputController implements IController {
 
     private ProjectRepository projectRepository;
@@ -90,7 +92,7 @@ public class ConsoleInputController implements IController {
             return new String[] {"You currently have no projects!"};
         } else {
             System.out.println("Here are all the Projects you are managing:"); // Need to change this out.
-            return viewHelper.consolePrintTable(allProjectsDetails);
+            return viewHelper.consolePrintTable(allProjectsDetails, DEFAULT_HORI_BORDER_LENGTH);
         }
     }
 
@@ -154,7 +156,7 @@ public class ConsoleInputController implements IController {
         ArrayList<ArrayList<String>> toPrintAll = new ArrayList<>();
         toPrintAll.add(commandHelper.getCommandsForConsole());
 
-        return viewHelper.consolePrintTable(toPrintAll);
+        return viewHelper.consolePrintTable(toPrintAll, DEFAULT_HORI_BORDER_LENGTH);
     }
 
     //@@author Lucria
