@@ -759,10 +759,26 @@ public class Command {
         }
     }
 
-    //@@author
+    //@@author Dng132FEI
+    
     private void remindEvents(EventList events, UI ui) {
-        ui.printReminder(events);
+    	if (continuation.isEmpty()) {
+    		ui.printReminderDays(events, 3);
+    		return;
+    	}
+    	String instrumentCommand[] = continuation.split(" ");
+    	if (instrumentCommand.length > 1) {
+    		ui.printInvalidCommand();
+    		return;
+    	}
+        try {
+    		int days = Integer.parseInt(instrumentCommand[0]);
+    		ui.printReminderDays(events, days);
+    	} catch (NumberFormatException e) {
+    		ui.printInvalidCommand();
+    	}
     }
+
 
     private void listEvents(EventList events, UI ui) {
         UI.printListOfEvents(events);

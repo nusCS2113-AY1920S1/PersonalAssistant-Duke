@@ -37,25 +37,39 @@ E.g. typing `help` and pressing kbd:[Enter] will open the help window.
 
 [[Features]]
 == Features
+====
+. Words in <> are the parameters to be supplied by the user
+. Items in [] are optional
+. Items with | in between them indicate the user can choose to use either of them
+====
 
-=== Help list :
+=== Help list : `help`
 
-Brings up a list of available commands that the user can input.
-It also displays a brief version of this user guide. +
+Brings up a list of available commands that the user can input. Users can also use `help <command type>` to see the
+combined or detailed commands.+
+The help list will be printed every time MisterMusik is opened.
 
-Format: `help`
+Format: `help [<command type>]`
+Note: Command types are the first word of following commands or some key words listed in the basic help list.
+
+=== List : `list`
+List all the events from the current date. +
+
+Format: `list`
 
 === Reminders : `reminder`
 
-Displays the list of tasks over the next three days. +
+Displays the list of tasks over the next three days in default. The user is also able to see the events in days they
+wants by typing in `reminder <days>` +
 
-Format: `reminder`
+Format: `reminder [<reminder days>]` +
+Note: The number of days must be an integer.
 
 === Adding a to-do task : `todo`
 
 Adds a task defined by the user to the to-do list with a deadline. +
 
-Format: `todo <name of task> /dd-MM-yyyy` +
+Format: `todo <name of task> /dd-MM-yyyy [HHmm]` +
 E.g. `todo complete theory homework /10-10-2019`
 adds a deadline to complete the user's theory homework by 10 October 2019.
 
@@ -67,16 +81,19 @@ The former and latter time inputs denote the start and end time respectively. +
 For recurring events, please see <<Recurring events :, Recurring events>>.
 
 . Practice sessions : `practice` +
-Format: `practice <name of practice> /dd-MM-yyyy HHmm HHmm`
+Format: `practice <practice description> /dd-MM-yyyy HHmm HHmm`
 +
-. Examinations: `exam` +
-Format: `exam <name of exam> /dd-MM-yyyy HHmm HHmm`
+. Lessons : `lesson` +
+Format: `lesson <lesson description> /dd-MM-yyyy HHmm HHmm`
++
+. Examinations : `exam` +
+Format: `exam <exam description> /dd-MM-yyyy HHmm HHmm`
 +
 . Recitals: `recital` +
-Format: `recital <name of recital> /dd-MM-yyyy HHmm HHmm`
+Format: `recital <recital description> /dd-MM-yyyy HHmm HHmm`
 +
 . Concerts : `concert` +
-Format: `concert <concert name> /dd-MM-yyyy HHmm HHmm/<cost of concert>` +
+Format: `concert <concert description> /dd-MM-yyyy HHmm HHmm [/<cost of concert>]` +
 Note: Cost of concert must be an integer (for simplicity regarding budgeting).
 
 
@@ -87,12 +104,13 @@ The input format is as per normal with an extra recurring period input.
 This only works with lesson and practice type events. Concerts, exams and
 recitals cannot be entered as recurring events.
 
-Format: `<type of event> <name of event> /dd-MM-yyyy HHmm HHmm /period(days)`
+Format: `<lesson|practice> <event description> /dd-MM-yyyy HHmm HHmm /<period(in days)>` +
+Note: The number of days must be an integer.
 
 E.g. “lesson Theory class /18-09-2019 0900 1030 /7”
 adds a weekly recurring event from 9:00am to 10:30am, starting on 18 September 2019.
 
-=== Calendar Table
+=== Calendar Table : `calendar`
 The calendar table is generated from the `EventList`. It prints on the screen a table of calendar of 7 days
 starting from a specified day, including the events within this time period. +
 
@@ -121,7 +139,7 @@ as events.
 Format: `check`
 
 
-=== Marking a task as done: `done`
+=== Marking a task as done : `done`
 
 Marks a ToDo in the list as completed, denoted by a tick when displaying the task.
 This functionality does not work for events that are not ToDos. +
@@ -129,50 +147,20 @@ This functionality does not work for events that are not ToDos. +
 Format: `done <task index>` +
 E.g. “done 5” marks task number 5 as done.
 
+=== Rescheduling events : `reschedule`
 
-=== Rating a practice session : `[coming v1.4]`
-
-The user will be able to rate the efficiency of a particular practice session after completing it.
-When the practice session is marked as done,
-the user will be prompted to add an efficiency rating and any extra comments or feedback. +
-
-Format: `rate <task index>`
-
-
-=== Adding details to events : `[coming v1.4]`
-
-The user will be able to add any extra details to an event when adding it to the task list.
-For practice sessions or lessons,
-it can be used to take feedback from instructors and lesson notes respectively. +
-
-Format: `details <task index>` or `notes <task index>`
-
-
-=== Rescheduling events :
-
-The user will be able to reschedule an existing event. +
+The user is able to reschedule an existing event. +
 
 Format: `reschedule <task index> dd-MM-yyyy HHmm HHmm`
 
-
-=== Searching for a free slot : `[coming v1.4]`
-
-The user will be able to search for any days within the next 2 weeks
-that contains a specified period of time that is free. +
-For example, searching for a 4h free slot
-will display all the dates within the 2 weeks with
-at least 4 hours of free time in the schedule. +
-
-Format: `searchfree 4h`
-
-=== Search
+=== Search : `find`
 
 The user is able to search for a specific event/task using keywords.
 
 Format: `find <keyword>` will display all events/tasks previously entered
 containing the desired keyword.
 
-=== Edit an event/ToDo
+=== Edit an event/ToDo : `edit`
 The user is able to edit the name of the event/ToDo he entered in case he entered it wrongly.
 
 Format: `edit <index for edition>/<new description>`
@@ -183,7 +171,7 @@ The user is able to add, delete, view, and edit contacts information of an event
 A contact includes name, email address, and phone number.
 
 ==== Add contact item
-Format: `contact add <event index> /<name>, <email>, <phone number>` +
+Format: `contact add <event index> /<name>, [<email>], [<phone number>]` +
 Users can type kbd:[Space] instead of `<name>` or `<email>` or `<phone number>` if the user do not want to write in one
 or two type of information. (e.g. `contact add 1 /name, ,12345678` adds a contact set without email address to the
 first event)
@@ -198,7 +186,7 @@ Format: `contact view <event index>`
 Format: `contact edit <event index> <contact index> <edit type> /<new contact information>` +
 The edit types are name, email, and phone.
 
-=== Goals list
+=== Goals list : `goal`
 Goals list of each event helps the user keep track of the outcome that they wishes to achieve by the end of the event.
 The user is able to add, edit, delete or set a goal as achieved.
 
@@ -222,7 +210,7 @@ This sets the specified goal as achieved.
 `goal view <event index>`
 This displays the goals list of a specified event along with their status - whether a goal is achieved or not.
 
-=== Checklists
+=== Checklists : `checklist`
 Checklist of each event can be used to remind users of certain items (e.g. bring glasses to concert).
 This is implemented by storing an array list of strings in `Event` objects.
 
@@ -244,31 +232,7 @@ This edits a specific item in the checklist of an event.
 `checklist delete <event index> <item index>`
 This deletes an item from the checklist of an event.
 
-=== Goals list
-Goals list of each event helps the user keep track of the outcome that they wishes to achieve by the end of the event.
-The user is able to add, edit, delete or set a goal as achieved.
-
-==== Adding a goal
-`goal add <event index>/<input goal>`
-This adds a goal to a specific event.
-
-==== Editing a goal
-`goal edit <event index> <goal index>/<new input goal>`
-This edits an existing goal.
-
-==== Deleting a goal
-`goal delete <event index> <goal index>`
-This deletes a specified goal.
-
-==== Setting a goal as achieved
-`goal achieved <event index> <goal index>`
-This sets the specified goal as achieved.
-
-==== Viewing the goal list
-`goal view <event index>`
-This displays the goals list of a specified event along with their status - whether a goal is achieved or not.
-
-=== viewing monthly costs of concerts
+=== viewing monthly costs of concerts : `budget`
 The total cost of concerts each month can be viewed by the user using the
 `budget` command.
 
@@ -282,6 +246,31 @@ Exits the program. +
 
 Format: `bye`
 
+=== Rating a practice session : `[coming v2.0]`
+
+The user will be able to rate the efficiency of a particular practice session after completing it.
+When the practice session is marked as done,
+the user will be prompted to add an efficiency rating and any extra comments or feedback. +
+
+Format: `rate <task index>`
+
+=== Adding details to events : `[coming v2.0]`
+
+The user will be able to add any extra details to an event when adding it to the task list.
+For practice sessions or lessons,
+it can be used to take feedback from instructors and lesson notes respectively. +
+
+Format: `details <task index>` or `notes <task index>`
+
+=== Searching for a free slot : `[coming v2.0]`
+
+The user will be able to search for any days within the next 2 weeks
+that contains a specified period of time that is free. +
+For example, searching for a 4h free slot
+will display all the dates within the 2 weeks with
+at least 4 hours of free time in the schedule. +
+
+Format: `searchfree 4h`
 
 == Additional Features
 
@@ -299,15 +288,7 @@ MisterMusik will automatically sort the list by the date and time of each task
 so the user will not have to manually prioritise each event and todo task. ToDos
 are listed at the front of each day as they do not have an included time.
 
-=== Reminder for specific task types : `[coming v2.0]`
-
-The user will be able to get reminders of specific task type using the reminder command
-and specifying which type they would like to be displayed. +
-
-E.g. “reminder exam”
-displays a reminder of all exam events within the next 3 days.
-
-=== Budget handling system
+=== Budget handling system ：
 
 The system allows for the user to handle their own monthly budget. There is a set budget
 for each month (fixed at $50 initially) that stops users from entering new concerts into
@@ -320,6 +301,14 @@ operation as it would lead to monthly costs of $51 that exceeds the monthly budg
 
 The user also has the ability to change the stipulated budget for each month or universally if
 he/she wishes to (Coming in v1.4).
+
+=== Reminder for specific task types : `[coming v2.0]`
+
+The user will be able to get reminders of specific task type using the reminder command
+and specifying which type they would like to be displayed. +
+
+E.g. “reminder exam”
+displays a reminder of all exam events within the next 3 days.
 
 == FAQ
 *Q:* How do I transfer my data to another Computer? +

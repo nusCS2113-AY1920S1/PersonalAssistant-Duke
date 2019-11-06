@@ -131,11 +131,11 @@ public class UI {
 
     public void printChangeHelp() {
         System.out.print(lineSeparation);
-        System.out.println("\"1.  done <event index>\"                  \n\t-- " +
+        System.out.println("1.  \"done <event index>\"                  \n\t-- " +
                 "Mark a Todo task as completed. Do not work for non-Todo event.");
-        System.out.println("\"2.  reschedule <event index> dd-MM-yyyy\" \n\t-- " +
+        System.out.println("2.  \"reschedule <event index> dd-MM-yyyy\" \n\t-- " +
                 "Reschedule the date and time of an event.");
-        System.out.println("\"3.  edit <event index> /<description>\"   \n\t-- Edit the description of an event.");
+        System.out.println("3.  \"edit <event index> /<description>\"   \n\t-- Edit the description of an event.");
         System.out.print(lineSeparation);
     }
 
@@ -154,15 +154,16 @@ public class UI {
 
     /**
      * Obtains the current date and prints the events to be completed within the next
-     * three days as a reminder.
+     * input number of days as a reminder.
      *
-     * @param events the EventList used in the mistermusik.Main function.
+     * @param events the EventList used in the Duke function.
      */
-    public void printReminder(EventList events) {
+    public void printReminderDays(EventList events, int days) {
         System.out.print(lineSeparation);
-        System.out.print(events.getReminder());
+        System.out.print(events.getReminder(days));
         System.out.print(lineSeparation);
     }
+
 
     /**
      * Prints a message when an invalid command is entered.
