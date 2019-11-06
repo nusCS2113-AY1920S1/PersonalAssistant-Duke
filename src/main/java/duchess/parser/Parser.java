@@ -6,6 +6,8 @@ import duchess.parser.states.DefaultState;
 import duchess.parser.states.ParserState;
 
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Parses user input.
@@ -71,6 +73,8 @@ public class Parser {
     public static final String TASK_INVALID_WEIGHTAGE =
             "Please enter a weightage between 0 to 100. (enter 'nil' to skip)";
 
+    private static final Logger logger = Logger.getLogger("Parser");
+
     /**
      * Error messages.
      */
@@ -94,6 +98,8 @@ public class Parser {
      * @throws DuchessException if the user input is invalid
      */
     public Command parse(String input) throws DuchessException {
+        logger.log(Level.INFO, "Parsing " + input);
+
         if (input.equals("exit") || input.equals("bye")) {
             this.parserState = new DefaultState(this);
         }
@@ -113,6 +119,8 @@ public class Parser {
      * @throws DuchessException if the user input is invalid
      */
     public Command continueParsing(Map<String, String> parameters) throws DuchessException {
+        logger.log(Level.INFO, "Continuing parsing " + parameters);
+
         return this.parserState.continueParsing(parameters);
     }
 

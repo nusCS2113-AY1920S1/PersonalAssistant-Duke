@@ -22,6 +22,9 @@ public class AddModuleCommand extends Command {
     public AddModuleCommand(String moduleName, String moduleCode) {
         this.moduleName = moduleName;
         this.moduleCode = moduleCode;
+
+        assert moduleName != null : "module name can't be null";
+        assert moduleCode != null : "module code can't be null";
     }
 
     /**
