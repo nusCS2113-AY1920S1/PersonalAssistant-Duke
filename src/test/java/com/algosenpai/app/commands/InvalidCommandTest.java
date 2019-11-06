@@ -70,40 +70,40 @@ public class InvalidCommandTest extends ApplicationTest {
 
     @Test
     void testInvalidMultipleSpaces() throws IOException {
-        UserStats stats = new UserStats("./UserData.txt");
-        Logic logic = new Logic(stats);
-        Command command = logic.executeCommand("se le ct");
-        String actualText = command.execute();
+        clickOn("#userInput").write("se le ct").press(KeyCode.ENTER);
+        VBox container = find();
+        DialogBox dialogBox = (DialogBox) container.getChildren().get(2);
+        String actualText = dialogBox.getDialog().getText();
         Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. "
                                           + "Did you mean... select?", actualText);
     }
 
     @Test
     void testInvalidUnknownCharacterAbsentFromAllCommands() throws IOException {
-        UserStats stats = new UserStats("./UserData.txt");
-        Logic logic = new Logic(stats);
-        Command command = logic.executeCommand("f");
-        String actualText = command.execute();
+        clickOn("#userInput").write("f").press(KeyCode.ENTER);
+        VBox container = find();
+        DialogBox dialogBox = (DialogBox) container.getChildren().get(2);
+        String actualText = dialogBox.getDialog().getText();
         Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
                                           + "menu, quiz, undo, help, save, exit?", actualText);
     }
 
     @Test
     void testInvalidWithMultipleMinEditDistance() throws IOException {
-        UserStats stats = new UserStats("./UserData.txt");
-        Logic logic = new Logic(stats);
-        Command command = logic.executeCommand("la");
-        String actualText = command.execute();
+        clickOn("#userInput").write("la").press(KeyCode.ENTER);
+        VBox container = find();
+        DialogBox dialogBox = (DialogBox) container.getChildren().get(2);
+        String actualText = dialogBox.getDialog().getText();
         Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
                                           + "clear, help, save?", actualText);
     }
 
     @Test
     void testInvalidWithMaximumEditDistance() throws IOException {
-        UserStats stats = new UserStats("./UserData.txt");
-        Logic logic = new Logic(stats);
-        Command command = logic.executeCommand("fffgggjjjkkk");
-        String actualText = command.execute();
+        clickOn("#userInput").write("fffgggjjjkkk").press(KeyCode.ENTER);
+        VBox container = find();
+        DialogBox dialogBox = (DialogBox) container.getChildren().get(2);
+        String actualText = dialogBox.getDialog().getText();
         Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
                                           + "hello, menu, quiz, select, result, history, undo, clear, help, "
                                           + "volume, print, archive, save, reset, exit?", actualText);

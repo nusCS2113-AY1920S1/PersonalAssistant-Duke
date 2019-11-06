@@ -81,6 +81,7 @@ public class MenuCommandTest extends ApplicationTest {
         DialogBox dialogBox = (DialogBox) container.getChildren().get(2);
         String actualText = dialogBox.getDialog().getText();
         Assertions.assertEquals("Senpai will teach you! Try these commands\n"
+                + "chapters\n"
                 + "help\n"
                 + "quiz\n"
                 + "select\n"
