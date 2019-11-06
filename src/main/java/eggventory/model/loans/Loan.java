@@ -46,6 +46,16 @@ public class Loan {
     }
 
     /**
+     * Constructor for creating templates.
+     * @param stockCode Stockcode of the loan.
+     * @param quantity Quantity to be loaned out.
+     */
+    public Loan(String stockCode, String quantity) {
+        this.stockCode = stockCode;
+        this.quantity = Integer.parseInt(quantity);
+    }
+
+    /**
      * Gets the stockcode of the Stock being loaned.
      * @return the stockcode.
      */

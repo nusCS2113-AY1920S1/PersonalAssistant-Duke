@@ -2,13 +2,17 @@ package eggventory.logic.parsers;
 
 import eggventory.logic.commands.Command;
 import eggventory.logic.commands.CommandDictionary;
-import eggventory.logic.commands.add.AddLoanCommand;
 import eggventory.logic.commands.add.AddPersonCommand;
+import eggventory.logic.commands.add.AddLoanCommand;
 import eggventory.logic.commands.add.AddStockCommand;
 import eggventory.logic.commands.add.AddStockTypeCommand;
+import eggventory.logic.commands.add.AddTemplateCommand;
 import eggventory.commons.enums.CommandType;
 import eggventory.commons.exceptions.BadInputException;
 import eggventory.commons.exceptions.InsufficientInfoException;
+import javafx.util.Pair;
+
+import java.util.ArrayList;
 
 //@@author cyanoei
 public class ParseAdd {
@@ -59,6 +63,21 @@ public class ParseAdd {
         }
 
         return new AddPersonCommand(CommandType.ADD, addInput[0], addInput[1]);
+    }
+
+    private Command processAddTemplate(String input) throws BadInputException {
+        String[] addInput = input.split(" +");
+        if (addInput.length % 2 == 0) { // A parameter is missing if there are odd number of arguments.
+            throw new BadInputException("Template is missing a <StockCode> or <Quantity>");
+        }
+
+        ArrayList<Pair<String, String>> loanPairs = new ArrayList<>();
+
+        for (int i = 1; i < addInput.length; i += 2) {
+            loanPairs.add(new Pair<>(addInput[i], addInput[i + 1]));
+        }
+
+        return new AddTemplateCommand(CommandType.ADD, addInput[0], loanPairs);
     }
 
     //@@author cyanoei
@@ -115,6 +134,13 @@ public class ParseAdd {
             }
 
             addCommand = processAddPerson(addInput[1]);
+            break;
+
+        case "template":
+            if (!Parser.isCommandComplete(inputString, 3)) {
+                throw new InsufficientInfoException(CommandDictionary.getCommandUsage("add template"));
+            }
+            addCommand = processAddTemplate(addInput[1]);
             break;
 
         default:

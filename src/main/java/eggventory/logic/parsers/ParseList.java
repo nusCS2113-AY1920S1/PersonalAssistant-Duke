@@ -8,6 +8,7 @@ import eggventory.logic.commands.list.ListPersonCommand;
 import eggventory.logic.commands.list.ListPersonLoansCommand;
 import eggventory.logic.commands.list.ListStockCommand;
 import eggventory.logic.commands.list.ListStockTypeCommand;
+import eggventory.logic.commands.list.ListLoanCommand;
 import eggventory.logic.commands.list.ListPersonLoansCommand;
 import eggventory.logic.commands.list.ListPersonCommand;
 import eggventory.commons.enums.CommandType;

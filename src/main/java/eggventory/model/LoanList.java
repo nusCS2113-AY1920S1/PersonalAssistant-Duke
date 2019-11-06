@@ -51,7 +51,27 @@ public final class LoanList {
         loansList.add(loan);
         updateStockLoaned(stockCode, quantity);
     }
+    //@@author
 
+    //@@author Deculsion
+    /**
+     * Add multiple loans using a template.
+     * @param matricNo Matriculation number of student to assign loans to.
+     * @param template Name of the template.
+     */
+    public static void addLoan(String matricNo, String template) {
+        Loan[] loans = TemplateList.getTemplateLoans(template);
+        if (loans == null) {
+            return;
+        }
+
+        for (Loan loan : loans) {
+            addLoan(loan.getStockCode(), matricNo, loan.getQuantity());
+        }
+    }
+    //@@author
+
+    //@@author cyanoei
     /**
      * Deletes a Loan object from the system. Removes both records of the loan.
      * @param stockCode the stockCode of the Stock.
@@ -69,6 +89,9 @@ public final class LoanList {
 
         return true;
     }
+    //@@author
+
+    //@@author Deculsion
 
     /**
      * Adds a new stock to track in LoanList.
@@ -132,7 +155,9 @@ public final class LoanList {
 
         return loans;
     }
+    //@@author
 
+    //@@author cyanoei
     //TODO: Add getters for the loan and return dates also.
     /**
      * Means of obtaining all the Loans of a single type of Stock.
