@@ -589,6 +589,7 @@ public class MovieHandler extends Controller implements RequestListener {
     private void playlistPaneClicked(Playlist playlist) {
         buildPlaylistInfo(playlist);
         playlistName = playlist.getPlaylistName();
+        mMovies = convert(playlist.getMovies());
     }
 
     private void buildPlaylistInfo(Playlist playlist) {

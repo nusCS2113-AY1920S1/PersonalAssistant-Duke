@@ -58,13 +58,14 @@ public class SetExceptions {
      */
     public static void checkPreferenceCommand(Map<String, ArrayList<String>> flagMap, UserProfile userProfile)
             throws InvalidFormatCommandException, InvalidParameterException, IOException, NoPermissionException {
+        int count  = 0;
         for (Map.Entry<String, ArrayList<String>> flag : flagMap.entrySet()) {
+            System.out.println(count++);
             checkPreferenceFlag(flag);
             if (flag.getKey().equals("-g")) {
                 for (String log : flag.getValue()) {
                     checkValidGenre(log);
-                    checkForSetGenre(findGenreID(log.trim()), userProfile.getGenreIdPreference(),
-                            userProfile.getGenreIdRestriction());
+                    checkForSetPreference(findGenreID(log.trim()), userProfile.getGenreIdRestriction());
                 }
             } else if (flag.getKey().equals("-a")) {
                 checkAgeForSetAdult(userProfile);
@@ -86,8 +87,7 @@ public class SetExceptions {
             checkRestrictionFlag(flag);
             for (String log : flag.getValue()) {
                 checkValidGenre(log);
-                checkForSetGenre(findGenreID(log.trim()), userProfile.getGenreIdPreference(),
-                        userProfile.getGenreIdRestriction());
+                checkForSetRestriction(findGenreID(log.trim()), userProfile.getGenreIdPreference());
             }
         }
     }
@@ -212,24 +212,52 @@ public class SetExceptions {
         }
     }
 
+//    /**
+//     * to check whether a genre id can be added to user's preferences/restrictions.
+//     * command: preference -g / restriction -g
+//     * @throws InvalidParameterException when id already belongs to preferences or
+//     *                                   when id already belongs to restrictions
+//     */
+//    private static void checkForSetGenre(int id, ArrayList<Integer> preferences, ArrayList<Integer> restrictions)
+//            throws InvalidParameterException, IOException {
+//        for (int log : preferences) {
+//            if (id == log) {
+//                throw new InvalidParameterException(PromptMessages.GENRE_IN_PREFERENCE_START + findGenreName(id)
+//                        + PromptMessages.GENRE_IN_PREFERENCE_END);
+//            }
+//        }
+//        for (int log : restrictions) {
+//            if (id == log) {
+//                throw new InvalidParameterException(PromptMessages.GENRE_IN_RESTRICTION_START + findGenreName(id)
+//                        + PromptMessages.GENRE_IN_RESTRICTION_END);
+//            }
+//        }
+//    }
+
     /**
-     * to check whether a genre id can be added to user's preferences/restrictions.
-     * command: preference -g / restriction -g
-     * @throws InvalidParameterException when id already belongs to preferences or
-     *                                   when id already belongs to restrictions
+     * to check whether a genre id can be set to user's preferences.
+     * command: preference -g
+     * @throws InvalidParameterException when id already belongs to restrictions
      */
-    private static void checkForSetGenre(int id, ArrayList<Integer> preferences, ArrayList<Integer> restrictions)
-            throws InvalidParameterException, IOException {
-        for (int log : preferences) {
-            if (id == log) {
-                throw new InvalidParameterException(PromptMessages.GENRE_IN_PREFERENCE_START + findGenreName(id)
-                        + PromptMessages.GENRE_IN_PREFERENCE_END);
-            }
-        }
+    public static void checkForSetPreference(int id, ArrayList<Integer> restrictions) throws IOException, InvalidParameterException {
         for (int log : restrictions) {
             if (id == log) {
                 throw new InvalidParameterException(PromptMessages.GENRE_IN_RESTRICTION_START + findGenreName(id)
                         + PromptMessages.GENRE_IN_RESTRICTION_END);
+            }
+        }
+    }
+
+    /**
+     * to check whether a genre id can be set to user's restriction.
+     * command: restriction -g
+     * @throws InvalidParameterException when id already belongs to preferences
+     */
+    public static void checkForSetRestriction(int id, ArrayList<Integer> preferences) throws InvalidParameterException, IOException {
+        for (int log : preferences) {
+            if (id == log) {
+                throw new InvalidParameterException(PromptMessages.GENRE_IN_PREFERENCE_START + findGenreName(id)
+                        + PromptMessages.GENRE_IN_PREFERENCE_END);
             }
         }
     }
