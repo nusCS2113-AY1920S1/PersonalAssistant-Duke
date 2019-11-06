@@ -10,8 +10,8 @@ public class SetupCommand extends Command {
     private UserStats stats;
     private static String userName;
     private static String gender;
-    private int level;
-    private int expLevel;
+    private static int level;
+    private static int expLevel;
 
     /**
      * Create new command.
@@ -40,27 +40,19 @@ public class SetupCommand extends Command {
                 return "Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
                     + "Can I have your name and gender in the format : 'hello NAME GENDER (boy/girl)' please.";
             } else {
-                if (previousStats.getGender().equals("boy")) {
-                    gender = "Mr. ";
-                    userName = previousStats.getUsername();
-                } else {
-                    gender = "Ms. ";
-                    userName = previousStats.getUsername();
-                }
+                gender = previousStats.getGender();
+                userName = previousStats.getUsername();
+                level = previousStats.getUserLevel();
+                expLevel = previousStats.getUserExp();
+                stats = new UserStats(previousStats);
                 return "Welcome back " + userName + "! To continue on your adventure, pick a command from 'menu'.";
             }
         } else {
             userName = inputs.get(1);
-            stats.setUsername(userName);
-
-            if (inputs.get(2).equals("boy")) {
-                gender = "Mr. ";
-                stats.setGender("boy");
-                stats.setUserLevel(1);
-                stats.setUserExp(0);
-            } else if (inputs.get(2).equals("girl")) {
-                gender = "Ms. ";
-                stats.setGender("girl");
+            gender = inputs.get(2);
+            if (gender.equals("boy") || gender.equals("girl")) {
+                stats.setUsername(userName);
+                stats.setGender(gender);
                 stats.setUserLevel(1);
                 stats.setUserExp(0);
             } else {
@@ -77,5 +69,13 @@ public class SetupCommand extends Command {
 
     public static String getUserName() {
         return userName;
+    }
+
+    public static int getLevel() {
+        return level;
+    }
+
+    public static int getExpLevel() {
+        return expLevel;
     }
 }

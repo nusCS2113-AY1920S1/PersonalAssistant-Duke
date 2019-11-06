@@ -101,6 +101,21 @@ public class UserStats {
     }
 
     /**
+     * Takes reference from the previous userstats.
+     * @param previousStats The old userstats.
+     */
+    public UserStats(UserStats previousStats) {
+        this.userName = previousStats.getUsername();
+        this.gender = previousStats.getGender();
+        this.level = previousStats.getUserLevel();
+        this.expLevel = previousStats.getUserExp();
+        this.chapterData = previousStats.getChapterData();
+        for (ChapterStat stat : chapterData) {
+            chapterNumber.put(stat.chapterName, stat.chapterNumber);
+        }
+    }
+
+    /**
      * Get the stats for a particular chapter by searching for the chapter number then
      * calling the getStatsByIndex function.
      * @param chapterName The name of the chapter.

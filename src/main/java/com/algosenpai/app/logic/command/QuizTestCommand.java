@@ -119,7 +119,7 @@ public class QuizTestCommand extends QuizCommand {
         userStats.setUserExp(userStats.getUserExp() + userQuizScore);
         // Update level, each level is double of previous, so we use log base 2.
         if (userStats.getUserExp() == 0) {
-            userStats.setUserLevel(0);
+            userStats.setUserLevel(1);
         } else {
             userStats.setUserLevel((int)(Math.log(userStats.getUserExp() / 10.0) / Math.log(2) + 1));
         }
@@ -129,7 +129,9 @@ public class QuizTestCommand extends QuizCommand {
         return "You got " + userQuizScore + "/10 questions correct!\n"
                 + "You have gained " + userQuizScore + " EXP points!\n"
                 + "Here are the questions you got wrong : " + wrongQuestions.toString() + ".\n"
-                + "Type 'review x' where x is the question number in order to review the "
-                + "question and see where you went wrong.";
+                + "* Type 'review x' where x is the question number to review the "
+                + "question and see where you went wrong.\n"
+                + "* Type 'select x' where x is a chapter to pick another chapter.\n"
+                + "* Type 'menu' to see other commands.";
     }
 }
