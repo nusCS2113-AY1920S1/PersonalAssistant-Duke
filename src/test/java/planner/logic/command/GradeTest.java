@@ -49,7 +49,7 @@ public class GradeTest extends InputTest {
     final String[] hold = {""};
 
     /**
-     * Test initialization of ModPlan main classes
+     * Test initialization of ModPlan main classes.
      */
     public static void initialize() throws ModFailedJsonException {
         store = new Storage();
