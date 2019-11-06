@@ -26,17 +26,6 @@ public class FindContactCommand extends Command {
     }
 
     /**
-     * Executes a command that locates matching contacts in contact list and outputs the result.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user the matching tasks based on the keyword.
-     */
-    @Override
-    public void execute(TaskList items, Ui ui) {
-        ui.showFoundContacts(contactList, keyword);
-    }
-
-    /**
      * Executes a command that locates matching tasks in task list and outputs the result (GUI).
      *
      * @param items The task list that contains a list of tasks.

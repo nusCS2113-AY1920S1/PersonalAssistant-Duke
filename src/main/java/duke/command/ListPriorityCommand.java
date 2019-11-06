@@ -12,16 +12,6 @@ import duke.task.TaskList;
 public class ListPriorityCommand extends Command {
 
     /**
-     * Executes a command with task list and ui.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user that it is executed successfully.
-     */
-    public void execute(TaskList items, Ui ui) {
-    }
-
-
-    /**
      * Executes a command that gathers all tasks from task list and outputs the result.
      *
      * @param items The task list that contains a list of tasks.

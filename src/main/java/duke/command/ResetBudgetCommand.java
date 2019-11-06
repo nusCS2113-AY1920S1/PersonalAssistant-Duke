@@ -44,20 +44,6 @@ public class ResetBudgetCommand extends Command {
     }
 
     /**
-     * Executes a command with task list and ui.
-     * (not used)
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui    To tell the user that it is executed successfully.
-     */
-    @Override
-    public void execute(TaskList items, Ui ui) {
-        ui.showResetBudget(budgetList.getBudget());
-        budgetList.resetBudget(amount);
-        ui.showBudget(budgetList.getBudget());
-    }
-
-    /**
      * Executes a command with task list and ui (GUI).
      * (not used)
      *
