@@ -44,9 +44,10 @@ public class CommandDiv extends Command {
         }
         double result = entryOne / entryTwo;
         this.infoCapsule.setCodeCli();
-        this.infoCapsule.setOutputStr(entryOneStr
+        this.infoCapsule.setOutputStr(stringOne
                 + " / "
-                + entryTwoStr
+                + stringTwo
+                + "="
                 + result
                 + "\n");
     }
