@@ -250,7 +250,7 @@ public interface Model {
      */
     void addSaleFromShopping(Double totalCost, ArrayList<Item<Ingredient>> toBuyList);
 
-    //========Ingredient operations======
+    //========Inventory operations======
     /**
      * Returns an unmodifiable view of the filtered inventory list.
      */
