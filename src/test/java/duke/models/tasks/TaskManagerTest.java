@@ -43,13 +43,30 @@ public class TaskManagerTest {
     public void addTaskTest() throws DukeException {
         ArrayList<Task> testTaskList = new ArrayList<>();
         TaskManager taskManager = new TaskManager();
-        Task task1 = new Task(1,"Do mammogram");
+        Task task1 = new Task(0,"Do mammogram");
         taskManager.addTask(task1);
-        Task task2 = new Task(2,"Do blood test");
+        Task task2 = new Task(0,"Do blood test");
         taskManager.addTask(task2);
         assertEquals(taskManager.getTaskList().size(),2);
-        assertEquals(taskManager.getTask(1),task1);
-        assertEquals(taskManager.getTask(2),task2);
+        assertEquals(taskManager.getTask(1).getDescription(),task1.getDescription());
+        assertEquals(taskManager.getTask(2).getDescription(),task2.getDescription());
+
+        Task task3 = new Task(0,"abc");
+        try {
+            taskManager.addTask(task3);
+        } catch (Exception e) {
+            String expectedMessage = "Oops! The task description is too short.";
+            assertEquals(expectedMessage, e.getMessage());
+        }
+
+        Task task4 = new Task(0,"Do blood test");
+        try {
+            taskManager.addTask(task4);
+        } catch (Exception e) {
+            String expectedMessage = "Oops! The task 'Do blood test' already existed.";
+            assertEquals(expectedMessage, e.getMessage());
+        }
+
     }
 
     @Test
