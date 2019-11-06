@@ -37,7 +37,7 @@ public class Ui {
         System.out.println("Hello from\n" + logo);
 
         printLine();
-        System.out.println("Hello! Welcome to the WalletCLi Application!");
+        System.out.println("Hello! Welcome to the WalletCLI Application!");
         System.out.println("What can I do for you?");
         printLine();
     }
