@@ -24,9 +24,7 @@ import java.util.logging.Logger;
  * Represents a storage to store the task list into a text file.
  */
 public class Storage {
-    protected String filePath = "";   //27-28, 40-47
-    String storageClassPath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
-
+    protected String filePath = System.getProperty("user.dir") + "/";   //27-28, 40-47
     private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
@@ -35,20 +33,6 @@ public class Storage {
      * @param filePath The location of the text file for tasks.
      */
     public Storage(String filePath) {
-        int numberofSlash;
-        storageClassPath = storageClassPath.replaceAll("%20", " ");
-        String[] pathSplitter = storageClassPath.split("/");
-        numberofSlash = pathSplitter.length - Numbers.ONE.value;
-        for (String directory: pathSplitter) {
-            if (numberofSlash == Numbers.ZERO.value) {
-                break;
-            } else if (!directory.isEmpty() && !directory.equals("build") && !directory.equals("out")) {
-                this.filePath += directory + "/";
-            } else if (directory.equals("build") || directory.equals("out")) {
-                break;
-            }
-            numberofSlash--;
-        }
         this.filePath += filePath;
     }
 
