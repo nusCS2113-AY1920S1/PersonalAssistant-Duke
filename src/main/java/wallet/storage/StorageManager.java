@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class StorageManager {
+    //@@author kyang96
     public static final String MESSAGE_ERROR_MKDIR = "Error when trying to create directory.";
     public static final String DEFAULT_STORAGE_DIRECTORY = "./data";
 

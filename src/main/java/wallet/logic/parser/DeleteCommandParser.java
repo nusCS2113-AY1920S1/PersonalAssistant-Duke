@@ -13,8 +13,9 @@ import java.util.ArrayList;
  * appropriate parameters.
  */
 public class DeleteCommandParser implements Parser<DeleteCommand> {
-
     public static final String MESSAGE_ERROR_DELETE_CONTACT = "There are loans using this contact. Unable to delete!";
+    public static final String MESSAGE_ERROR_INVALID_ID = "You need to provide a valid ID (Number) when deleting.";
+    public static final String MESSAGE_ERROR_MISSING_ID = "You need to provide an ID when deleting.";
 
     /**
      * Changes user input String to appropriate parameters
@@ -31,21 +32,9 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         try {
             id = Integer.parseInt(arguments[1]);
         } catch (ArrayIndexOutOfBoundsException err) {
-            if (arguments[0].equals("contact")) {
-                throw new InsufficientParameters("You need to provide an ID when deleting contact!");
-            } else if (arguments[0].equals("loan")) {
-                throw new InsufficientParameters("You need to provide an ID when deleting loan!");
-            } else if (arguments[0].equals("expense")) {
-                throw new InsufficientParameters("You need to provide an ID when deleting expense!");
-            }
+            throw new InsufficientParameters(MESSAGE_ERROR_MISSING_ID);
         } catch (NumberFormatException err) {
-            if (arguments[0].equals("contact")) {
-                throw new WrongParameterFormat("You need to provide a valid ID (Number) when deleting contact!");
-            } else if (arguments[0].equals("loan")) {
-                throw new WrongParameterFormat("You need to provide a valid ID (Number) when deleting loan!");
-            } else if (arguments[0].equals("expense")) {
-                throw new WrongParameterFormat("You need to provide a valid ID (Number) when deleting expense!");
-            }
+            throw new WrongParameterFormat(MESSAGE_ERROR_INVALID_ID);
         }
     
         //@@author Xdecosee

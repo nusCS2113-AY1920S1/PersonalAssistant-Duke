@@ -1,6 +1,7 @@
 package wallet.logic.parser;
 
 import wallet.exception.InsufficientParameters;
+import wallet.exception.WrongDateTimeFormat;
 import wallet.logic.LogicManager;
 import wallet.logic.command.AddCommand;
 import wallet.model.contact.Contact;
@@ -12,11 +13,17 @@ import wallet.model.record.Loan;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class AddCommandParser implements Parser<AddCommand> {
-
     public static final String MESSAGE_ERROR_ADD_CONTACT = "Error in input format when adding contact.";
+    public static final String MESSAGE_ERROR_INSUFFICIENT_PARAMETERS = "There are insufficient parameters provided.";
+    public static final String MESSAGE_ERROR_WRONG_DATETIME_FORMAT = "Wrong date format, use \"dd/MM/yyyy\".";
+    public static final String MESSAGE_ERROR_INVALID_CATEGORY
+            = "Category can only be Bills, Food, Others, Shopping or Transport.";
+    public static final String MESSAGE_ERROR_INVALID_RECURRENCE_RATE
+            = "Recurrence rate can only be Daily, Weekly or Monthly.";
 
     /**
      * Returns an AddCommand object.
@@ -26,7 +33,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException ParseException.
      */
     @Override
-    public AddCommand parse(String input) throws ParseException, InsufficientParameters {
+    public AddCommand parse(String input) throws ParseException {
         String[] arguments = input.split(" ", 2);
         switch (arguments[0]) {
         case "expense":
@@ -34,7 +41,9 @@ public class AddCommandParser implements Parser<AddCommand> {
             try {
                 expense = parseExpense(arguments[1]);
             } catch (ArrayIndexOutOfBoundsException err) {
-                throw new InsufficientParameters("There are insufficient arguments when adding expenses!");
+                throw new InsufficientParameters(MESSAGE_ERROR_INSUFFICIENT_PARAMETERS);
+            } catch (DateTimeParseException dt) {
+                throw new WrongDateTimeFormat(MESSAGE_ERROR_WRONG_DATETIME_FORMAT);
             }
             if (expense != null) {
                 return new AddCommand(expense);
@@ -47,7 +56,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             try {
                 contact = parseContact(arguments[1]);
             } catch (ArrayIndexOutOfBoundsException err) {
-                throw new InsufficientParameters("There are insufficient arguments when adding contacts!");
+                throw new InsufficientParameters(MESSAGE_ERROR_INSUFFICIENT_PARAMETERS);
             }
             if (contact != null) {
                 return new AddCommand(contact);
@@ -59,7 +68,9 @@ public class AddCommandParser implements Parser<AddCommand> {
             try {
                 loan = parseLoan(arguments[1]);
             } catch (ArrayIndexOutOfBoundsException err) {
-                throw new InsufficientParameters("There are insufficient arguments when adding loans!");
+                throw new InsufficientParameters(MESSAGE_ERROR_INSUFFICIENT_PARAMETERS);
+            } catch (DateTimeParseException dt) {
+                throw new WrongDateTimeFormat(MESSAGE_ERROR_WRONG_DATETIME_FORMAT);
             }
             if (loan != null) {
                 return new AddCommand(loan);
@@ -72,16 +83,17 @@ public class AddCommandParser implements Parser<AddCommand> {
         return null;
     }
 
+    //@@author kyang96
     /**
-     * Returns an Expense object.
+     * Parses user input and returns an Expense object with input values.
      *
      * @param input A string input.
      * @return The Expense object.
-     * @throws NumberFormatException          Wrong format.
-     * @throws ArrayIndexOutOfBoundsException Out of index.
+     * @throws NumberFormatException  Wrong format.
+     * @throws InsufficientParameters Insufficient parameters provided.
      */
-    public Expense parseExpense(String input) throws NumberFormatException, ArrayIndexOutOfBoundsException {
-        //@@author kyang96
+    public Expense parseExpense(String input) throws DateTimeParseException,
+                                                NumberFormatException, InsufficientParameters {
         boolean isRecurring = input.contains("/r");
         String[] arguments = input.split("\\$");
         String desc = arguments[0].trim();
@@ -96,6 +108,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             arguments = arguments[1].split(" ", 2);
             cat = Category.getCategory(arguments[0].trim());
             if (cat == null) {
+                System.out.println(MESSAGE_ERROR_INVALID_CATEGORY);
                 return null;
             }
             if (isRecurring) {
@@ -104,8 +117,8 @@ public class AddCommandParser implements Parser<AddCommand> {
                 date = LocalDate.parse(arguments[0].trim(), formatter);
                 freq = arguments[1].trim().toUpperCase();
                 if (!freq.equals("DAILY") && !freq.equals("WEEKLY") && !freq.equals("MONTHLY")) {
-                    System.out.println(AddCommand.MESSAGE_ERROR_ADD_EXPENSE);
-                    System.out.println(AddCommand.MESSAGE_USAGE);
+                    System.out.println(MESSAGE_ERROR_INVALID_RECURRENCE_RATE);
+                    return null;
                 }
             } else {
                 arguments = arguments[1].split("/on");
@@ -114,6 +127,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         } else {
             cat = Category.getCategory(arguments[1].trim());
             if (cat == null) {
+                System.out.println(MESSAGE_ERROR_INVALID_CATEGORY);
                 return null;
             }
         }
