@@ -19,7 +19,7 @@ public class DeleteInventoryCommand extends InventoryCommand {
 
     public static final String COMMAND_WORD = "remove";
 
-    private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index [%d] is out of bound.";
+    private static final String MESSAGE_INGREDIENT_NOT_FOUND = "No ingredient found at index [%d].";
 
     private final Set<Index> indices;
     private ArrayList<Item<Ingredient>> toDeleteList;
@@ -38,7 +38,7 @@ public class DeleteInventoryCommand extends InventoryCommand {
 
         for (Index index: indices) {
             if (index.getZeroBased() >= inventoryList.size()) {
-                throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_BOUND, index.getOneBased()));
+                throw new CommandException(String.format(MESSAGE_INGREDIENT_NOT_FOUND, index.getOneBased()));
             }
             toDeleteList.add(inventoryList.get(index.getZeroBased()));
         }
