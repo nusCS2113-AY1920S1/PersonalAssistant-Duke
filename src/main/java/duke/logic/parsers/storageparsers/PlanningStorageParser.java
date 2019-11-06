@@ -22,8 +22,8 @@ public class PlanningStorageParser {
         try {
             String[] taskParts = line.split("\\|");
             String address = taskParts[0].strip();
-            double longitude = Double.parseDouble(taskParts[1].strip());
-            double latitude = Double.parseDouble(taskParts[2].strip());
+            double latitude = Double.parseDouble(taskParts[1].strip());
+            double longitude = Double.parseDouble(taskParts[2].strip());
             double distX = Double.parseDouble(taskParts[3].strip());
             double distY = Double.parseDouble(taskParts[4].strip());
             return new Venue(address, latitude, longitude, distX, distY);
