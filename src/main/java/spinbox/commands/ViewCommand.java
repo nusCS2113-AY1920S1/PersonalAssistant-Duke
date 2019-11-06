@@ -18,7 +18,8 @@ public class ViewCommand extends Command {
     private static final String INCORRECT_VIEW_FORMAT = "Please input correct format for view command.";
     private static final String NON_EXISTENT_PAGE = "Sorry, that page does not exist."
             + " Please choose 'main', 'calendar', or 'modules'.";
-    private static final String NON_EXISTENT_MODULE = "Sorry, that module does not exist. These are the current "
+    private static final String NON_EXISTENT_MODULE = "Sorry, that module or module tab does not exist. "
+            + "These are the current "
             + "modules:";
     private static final String NON_EXISTENT_TAB = "Sorry, that tab does not exist."
             + " Please choose 'tasks', 'files', 'notes' or 'grades'.";
@@ -54,7 +55,6 @@ public class ViewCommand extends Command {
             case "tasks":
             case "files":
             case "grades":
-            case "notes":
                 // check if on a module page first
                 try {
                     moduleCode = pageDataComponents[1];
@@ -76,7 +76,7 @@ public class ViewCommand extends Command {
                 page = "modules";
                 moduleCode = contentComponents[1];
             } else if (contentComponents[1].equals("tasks") || contentComponents[1].equals("files")
-                    || contentComponents[1].equals("grades") || contentComponents[1].equals("notes")) {
+                    || contentComponents[1].equals("grades")) {
                 page = "modules";
                 moduleCode = contentComponents[0];
                 tab = contentComponents[1];

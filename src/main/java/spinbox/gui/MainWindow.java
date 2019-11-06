@@ -341,13 +341,9 @@ public class MainWindow extends GridPane {
             fileSubHeader.setFill(Color.AQUA);
             break;
 
-        case "tasks":
+        default:
             taskSubHeader.setStyle("-fx-font-weight: bold");
             taskSubHeader.setFill(Color.AQUA);
-            break;
-
-        default:
-            break;
         }
 
         textFlow.getChildren().add(taskSubHeader);
@@ -362,13 +358,19 @@ public class MainWindow extends GridPane {
     private void updateSpecificModuleNotes(Module currentModule) {
         TextFlow textFlow = new TextFlow();
         textFlow.setStyle("-fx-background-color: #AAABB8");
-        textFlow.setPadding(new Insets(5, 5, 5, 5));
+        textFlow.setPadding(new Insets(5, 5, 5, 15));
         textFlow.setLineSpacing(5.0);
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
 
+        Text header = new Text(currentModule.getModuleCode() + " Notes");
+        header.setStyle("-fx-font-weight: bold; -fx-font-family: 'Roboto Light'; -fx-font-size: 20.0;");
+        textFlow.getChildren().add(header);
+        textFlow.getChildren().add(new Text(System.lineSeparator()));
+
+
         List<String> notes = currentModule.getNotepad().getNotes();
-        for (String note : notes) {
-            textFlow.getChildren().add(new Text(note));
+        for (int i = 0; i < notes.size(); i++) {
+            textFlow.getChildren().add(new Text(Integer.toString(i + 1) + ". " + notes.get(i)));
             textFlow.getChildren().add(new Text(System.lineSeparator()));
         }
 
