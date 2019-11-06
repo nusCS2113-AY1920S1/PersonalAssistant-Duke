@@ -74,6 +74,7 @@ public class TaskList {
         if (tasks.size() != 0) {
             int listCount = 1;
             for (Task output : tasks) {
+
                 if (!output.getDone()) {
                     Priority priority = output.getPriority();
                     String priorityLVL;
@@ -88,8 +89,11 @@ public class TaskList {
                     if (new Date().after(output.getDate())) {
                         output.setOverdue(true);
                     }
+                  
                     if (!output.getDone() && !output.getOverdue()) {
+
                         System.out.println("\t" + listCount + ". " + output.toString() + priorityLVL);
+
                         if (output instanceof Assignment && !(((Assignment) output).getSubTasks() == null)) {
                             ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
                             for (String subtask : subTasks) {
@@ -140,6 +144,7 @@ public class TaskList {
     public ArrayList<Task> getOverdueList() throws RoomShareException {
         ArrayList<Task> overdueTaskList = new ArrayList<>();
         if( tasks.size() != 0 ){
+            int listCount = 1;
             for (Task output : tasks) {
                 if(new Date().after(output.getDate())) {
                     overdueTaskList.add(output);
