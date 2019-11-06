@@ -3,7 +3,7 @@ package duke.command.dishesCommand;
 import duke.command.Command;
 import duke.dish.DishList;
 import duke.exception.DukeException;
-import duke.ingredient.IngredientsList;
+import duke.fridge.Fridge;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
@@ -12,7 +12,7 @@ import duke.ui.Ui;
 public class ListDishCommand extends Command {
 
     @Override
-    public void execute(IngredientsList il, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+    public void execute(Fridge fridge, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
         Object[][] data = new Object[dishList.size()][2]; //using text utils to display data in form of a table
         if (dishList.size() == 0) { //if list is empty
             throw new DukeException("No Dishes yet!");

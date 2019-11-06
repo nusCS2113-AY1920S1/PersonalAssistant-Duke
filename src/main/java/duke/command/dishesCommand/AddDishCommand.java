@@ -4,6 +4,7 @@ import duke.command.Command;
 import duke.dish.Dish;
 import duke.dish.DishList;
 import duke.exception.DukeException;
+import duke.fridge.Fridge;
 import duke.ingredient.IngredientsList;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
@@ -20,7 +21,7 @@ public class AddDishCommand extends Command {
     }
 
     @Override
-    public void execute(IngredientsList il, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+    public void execute(Fridge fridge, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
         boolean flag = true;
         try {
             if(dishList.size() == 0) { //if the list is empty, immediately add dish in it

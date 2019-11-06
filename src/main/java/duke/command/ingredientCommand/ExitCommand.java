@@ -2,7 +2,7 @@ package duke.command.ingredientCommand;
 
 import duke.command.Command;
 import duke.dish.DishList;
-import duke.ingredient.IngredientsList;
+import duke.fridge.Fridge;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
@@ -17,7 +17,7 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute(IngredientsList il, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) {
+    public void execute(Fridge fridge, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) {
         System.out.println("\t Bye. Hope to see you again soon!");
     }
 }

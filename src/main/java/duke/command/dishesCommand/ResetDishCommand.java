@@ -3,7 +3,7 @@ package duke.command.dishesCommand;
 import duke.command.Command;
 import duke.dish.DishList;
 import duke.exception.DukeException;
-import duke.ingredient.IngredientsList;
+import duke.fridge.Fridge;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
@@ -12,7 +12,7 @@ import duke.ui.Ui;
 public class ResetDishCommand extends Command {
 
     @Override
-    public void execute(IngredientsList il, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+    public void execute(Fridge fridge, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
         System.out.println("\t are you sure you want to clear list? [y/n]");
         String command = ui.readCommand();
         if(command.toLowerCase().equals("y")){

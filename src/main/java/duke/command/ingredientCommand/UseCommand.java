@@ -3,8 +3,8 @@ package duke.command.ingredientCommand;
 import duke.command.Command;
 import duke.dish.DishList;
 import duke.exception.DukeException;
+import duke.fridge.Fridge;
 import duke.ingredient.Ingredient;
-import duke.ingredient.IngredientsList;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
@@ -18,8 +18,8 @@ public class UseCommand extends Command {
     }
 
     @Override
-    public void execute(IngredientsList il, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
-        if (il.removeEntry(toUse)) {
+    public void execute(Fridge fridge, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+        if (fridge.removeIngredient(toUse)) {
             ui.show("Great you used "+ toUse.toStringWithoutDate());
             fs.update();
         } else {

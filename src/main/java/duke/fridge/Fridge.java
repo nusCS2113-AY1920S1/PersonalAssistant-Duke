@@ -67,12 +67,14 @@ public class Fridge {
 
     public IngredientsList removeExpiring(Date expireBefore) throws DukeException {
         List<Ingredient> expired = new ArrayList<>();
-        for(int i=0; i<currentIngredients.getAllEntries().size(); i++){
+        while(hasExpiredIngredients()){
+        for(int i=0;i<currentIngredients.getAllEntries().size();i++){
             if (!currentIngredients.getAllEntries().get(i).getExpiryDate().after(expireBefore)) {
                 expired.add(currentIngredients.getAllEntries().get(i));
                 currentIngredients.getAllEntries().remove(i);
             }
         }
+    }
         fridgeStorage.update();
         return new IngredientsList(expired);
     }
@@ -95,5 +97,28 @@ public class Fridge {
             }
         });
         return nbIngredients > currentIngredients.size() ? currentIngredients : new IngredientsList(currentIngredients.getAllEntries().subList(0, nbIngredients));
+    }
+
+    public void addIngredient(Ingredient ingredient) {
+        currentIngredients.addEntry(ingredient);
+    }
+
+    public Ingredient getIngredient(int index) {
+        return currentIngredients.getEntry(index);
+    }
+    public Ingredient getIngredient(Ingredient ingredient) {
+       return currentIngredients.getEntry(ingredient);
+    }
+
+    public int numberOfIngredients() {
+        return currentIngredients.size();
+    }
+
+    public Ingredient removeIngredient(int i) {
+        return currentIngredients.removeEntry(i);
+    }
+
+    public boolean removeIngredient(Ingredient toUse) throws DukeException {
+        return currentIngredients.removeEntry(toUse);
     }
 }

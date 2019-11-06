@@ -4,7 +4,7 @@ import duke.command.Command;
 import duke.command.ingredientCommand.ListCommand;
 import duke.dish.DishList;
 import duke.exception.DukeException;
-import duke.ingredient.IngredientsList;
+import duke.fridge.Fridge;
 import duke.order.Order;
 import duke.order.OrderList;
 import duke.parser.Convert;
@@ -33,7 +33,7 @@ public class ListOrderCommand extends ListCommand {
     }
 
     @Override
-    public void execute(IngredientsList il, DishList dl, OrderList orderList, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+    public void execute(Fridge fridge, DishList dl, OrderList orderList, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
         if (orderList.size() == 0) { throw new DukeException("No orders in the order list!");}
         List<Order> filtered = parse(orderList);
         ui.showLine();
