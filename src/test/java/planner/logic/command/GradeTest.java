@@ -65,23 +65,39 @@ public class GradeTest extends InputTest {
         final String[] hold = {""};
         provideInput(moduleTest1);
         CliLauncher.main(hold);
-        String temp = "_______________________________\n" +
-            "Welcome to ModPlanner, your one stop solution to module planning!\n" +
-            "Begin typing to get started!\n" +
-            "_______________________________\n" +
-            "_______________________________\n" +
-            "Got it, graded CS1010 with grade: A\n" +
-            "_______________________________\n" +
-            "_______________________________\n" +
-            "Thanks for using ModPlanner!\n" +
-            "Your data will be stored in file shortly!\n" +
-            "_______________________________\n" +
+        String temp = "_______________________________\n"
+            +
+            "Welcome to ModPlanner, your one stop solution to module planning!\n"
+            +
+            "Begin typing to get started!\n"
+            +
+            "_______________________________\n"
+            +
+            "_______________________________\n"
+            +
+            "Got it, graded CS1010 with grade: A\n"
+            +
+            "_______________________________\n"
+            +
+            "_______________________________\n"
+            +
+            "Thanks for using ModPlanner!\n"
+            +
+            "Your data will be stored in file shortly!\n"
+            +
+            "_______________________________\n"
+            +
             "_______________________________";
-        String expectedAddModule = "_______________________________\n" +
-            "Welcome to ModPlanner, your one stop solution to module planning!\n" +
-            "Begin typing to get started!\n" +
-            "_______________________________\n" +
-            "Got it, graded CS1010 with grade: A\n" +
+        String expectedAddModule = "_______________________________\n"
+            +
+            "Welcome to ModPlanner, your one stop solution to module planning!\n"
+            +
+            "Begin typing to get started!\n"
+            +
+            "_______________________________\n"
+            +
+            "Got it, graded CS1010 with grade: A\n"
+            +
             "_______________________________\n" + expectedBye;
         assertEquals(outContent, outContent);
     }
