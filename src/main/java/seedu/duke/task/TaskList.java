@@ -7,7 +7,6 @@ import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 /**
@@ -221,7 +220,7 @@ public class TaskList extends ArrayList<Task> {
     public String setPriority(int index, Task.Priority priority) throws CommandParseHelper.CommandParseException {
         validateIndex(index);
         Task task = this.get(index);
-        task.setPriorityTo(priority);
+        task.setPriorityLevelTo(priority);
         return constructSetPriorityMessage(priority, index + 1);
     }
 
@@ -290,12 +289,7 @@ public class TaskList extends ArrayList<Task> {
         return "Task List has been cleared";
     }
 
-    public void sortListByPriority(TaskList taskList) {
-        Collections.sort(taskList, new Comparator<Task>() {
-            @Override
-            public int compare(Task task1, Task task2) {
-                return task1.getPriority().compareTo(task2.getPriority());
-            }
-        });
+    public void sortListByPriority() {
+        sort(Comparator.comparing(Task::getPriority));
     }
 }

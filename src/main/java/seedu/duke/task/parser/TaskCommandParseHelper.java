@@ -157,7 +157,8 @@ public class TaskCommandParseHelper {
         }
     }
 
-    private static int extractDayLimit(Matcher reminderCommandMatcher) throws NumberFormatException, TaskParseException {
+    private static int extractDayLimit(Matcher reminderCommandMatcher)
+            throws NumberFormatException, TaskParseException {
         int dayLimit;
         String dayLimitString = reminderCommandMatcher.group("dayLimit");
         if (dayLimitString == null) {
@@ -230,7 +231,7 @@ public class TaskCommandParseHelper {
         try {
             String priority = extractPriority(optionList);
             Task.Priority level = Task.getPriorityLevel(priority);
-            if (level == Task.Priority.NULL) {
+            if ("".equals(priority)) {
                 return new InvalidCommand("Please enter a priority level to set for the task after"
                         + " \'-priority\' option");
             } else if (!validPriority(priority)) {
