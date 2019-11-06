@@ -217,3 +217,35 @@ If there are no states saved, or 3 versions already saved, the user will be noti
 Expected outcome:
 
 `changed to state 3.`
+
+## 3.5 Export command
+### 3.5.1) Export: 'export'
+Create an ICS file which can be used to import your tasklist to other applications that support calendar files.<br/>
+Format: `export <file name>`
+
+- Only deadlines,events and todo tasks with period will be exported as most calendar applications won’t support dateless tasks.
+- A new ICS file will be created under src/DukeDatabase/file name.
+- Chronologer will inform user if no file name provided.
+
+Examples:<br/>
+
+`Export MyCalendar`<br/>
+`Export schedule`<br/>
+
+### 3.5.2) Export only certain task types: 'export'
+Create an ICS file which only consist of the tasks included.</br>
+Format: `export <file name> </task type flag>`
+
+- Task type supported: Todo with period,deadline,event
+- Task type flags:
+* `-d = Deadline,assignments and exams`
+* `-e = Event,lectures and tutorials`
+* `-t = Todo with period`
+- Can include multiple flags in the instruction. If there are no task flags, all supported task type will be exported by default.
+
+Examples:</br>
+
+`Export MyCalendar -d`</br>
+`Export schedule -e`</br>
+`Export TestCalendar -d -e`</br>
+`Export TestCalendar -d -e -t`</br>
