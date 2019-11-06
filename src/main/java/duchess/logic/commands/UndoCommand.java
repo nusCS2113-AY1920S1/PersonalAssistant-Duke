@@ -7,6 +7,9 @@ import duchess.ui.Ui;
 
 import java.util.List;
 
+/**
+ * Undo feature.
+ */
 public class UndoCommand extends Command {
     private int undoCounter;
     private static final String UNDO_USAGE_ERROR_MESSAGE = "Usage: undo [number]";
@@ -42,6 +45,14 @@ public class UndoCommand extends Command {
         }
     }
 
+    /**
+     * Restores previous available state.
+     *
+     * @param store store object
+     * @param ui user interaction object
+     * @param storage storage object
+     * @throws DuchessException if undo is unsuccessful
+     */
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
         if (storage.getUndoStack().size() == 1) {
@@ -61,6 +72,13 @@ public class UndoCommand extends Command {
         ui.showUndo(undoCounter);
     }
 
+    /**
+     * Updates data to previous Store values.
+     *
+     * @param store store object
+     * @param storage storage object
+     * @throws DuchessException if updating store is unsuccessful
+     */
     private void setToPreviousStore(Store store, Storage storage) throws DuchessException {
         storage.getLastSnapshot();
         storage.save(storage.peekUndoStackAsStore());

@@ -46,6 +46,14 @@ public class AddLessonCommand extends Command {
         this.startDate = start.toLocalDate();
     }
 
+    /**
+     * Compares user inputs and adds recurring lessons for the semester.
+     *
+     * @param store store object
+     * @param ui user interaction object
+     * @param storage storage object
+     * @throws DuchessException exception thrown if invalid module code or start date
+     */
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
         AcademicYear academicYear = new AcademicYear();
@@ -94,6 +102,13 @@ public class AddLessonCommand extends Command {
         }
     }
 
+    /**
+     * Adds lessons to task list.
+     *
+     * @param store store object
+     * @param storage storage object
+     * @throws DuchessException exception thrown if adding lessons is unsuccessful
+     */
     private void addLessons(Store store, Storage storage) throws DuchessException {
         Event task = new Event(description, endCopy, startCopy);
 
