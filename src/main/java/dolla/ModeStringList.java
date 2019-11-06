@@ -8,7 +8,4 @@ public interface ModeStringList {
     String MODE_LIMIT = "limit";
     String MODE_DEBT = "debt";
     String MODE_SHORTCUT = "shortcut";
-
-    //change this to be inside parser
-    String PREFIX_TAG = "/tag";
 }

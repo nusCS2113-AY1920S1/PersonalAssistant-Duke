@@ -1,8 +1,5 @@
-package dolla;
+package dolla.task;
 
-import dolla.task.Entry;
-import dolla.task.EntryList;
-import dolla.task.Record;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,17 +10,17 @@ import java.util.ArrayList;
 public class EntryListTest {
     private Entry createNewEntry1() {
         return new Entry("expense", 100, "Expense Description",
-                LocalDate.parse("2001-12-03"));
+                LocalDate.parse("2001-12-03"), "");
     }
 
     private Entry createNewEntry2() {
         return new Entry("income", 200, "Income Description",
-                LocalDate.parse("1111-11-11"));
+                LocalDate.parse("1111-11-11"), "");
     }
 
     private Entry createNewEntry3() {
         return new Entry("income", 300, "New Entry",
-                LocalDate.parse("1000-01-01"));
+                LocalDate.parse("1000-01-01"), "");
     }
 
     private EntryList createNewEntryList() {

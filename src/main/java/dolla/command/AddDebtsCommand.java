@@ -6,7 +6,7 @@ import dolla.command.action.Redo;
 import dolla.command.action.state.DebtState;
 import dolla.command.action.state.UndoStateList;
 import dolla.task.DebtList;
-import dolla.ui.DebtUi;
+import dolla.task.Record;
 import dolla.ui.Ui;
 import dolla.task.Debt;
 
@@ -19,6 +19,7 @@ public class AddDebtsCommand extends Command {
     private double amount;
     private String description;
     private LocalDate date;
+    private String tagName;
     private static final String mode = MODE_DEBT;
 
     /**
@@ -30,12 +31,13 @@ public class AddDebtsCommand extends Command {
      * @param date date of debt.
      */
     public AddDebtsCommand(String type, String name, double amount,
-                           String description, LocalDate date) {
+                           String description, LocalDate date, String tagName) {
         this.type = type;
         this.name = name;
         this.amount = amount;
         this.description = description;
         this.date = date;
+        this.tagName = tagName;
     }
 
     @Override
@@ -44,14 +46,14 @@ public class AddDebtsCommand extends Command {
         DebtList debtList = (DebtList) dollaData.getRecordListObj(mode);
         UndoStateList.addState(new DebtState(debtList.get()), mode);
         Redo.clearRedoState(mode);
-        Debt newDebt = new Debt(type, name, amount, description, date);
+        Debt newDebt = new Debt(type, name, amount, description, date, tagName);
         int duplicateDebtIndex = debtList.findExistingRecordIndex(dollaData, newDebt, mode);
         if (recordDoesNotExist(duplicateDebtIndex)) {
             dollaData.addToRecordList(mode, newDebt);
             Ui.echoAddRecord(newDebt);
         } else {
-            Debt existingDebt = (Debt) debtList.getFromList(duplicateDebtIndex);
-            DebtUi.existingDebtPrinter(existingDebt);
+            Record existingDebt = debtList.getFromList(duplicateDebtIndex);
+            Ui.existingRecordPrinter(existingDebt, mode);
         }
     }
 
