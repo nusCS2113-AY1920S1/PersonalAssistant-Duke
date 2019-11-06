@@ -548,7 +548,7 @@ public class Ui {
      */
     public void showContactList(ContactList contactList) {
         out.println("     Here are all your contacts:");
-        out.print(contactList.getContactList());
+        out.print(contactList.getFullContactList());
     }
 
     /**
@@ -560,7 +560,7 @@ public class Ui {
     public static String showContactListGui(ContactList contactList) {
         String str = "";
         str += "Here are all your contacts:\n";
-        str += contactList.getContactList();
+        str += contactList.getFullContactList();
         return str;
     }
 

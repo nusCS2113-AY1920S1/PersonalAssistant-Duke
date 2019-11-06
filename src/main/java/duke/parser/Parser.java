@@ -96,7 +96,7 @@ public class Parser {
 
     //@@author e0318465
     /**
-     * Checks whether the string input can be split by a set string.
+     * Checks for string input that is empty or contains an "@", if so, it is a valid email.
      *
      * @param input the input to test if there exits an "@" for emails.
      * @return returns true if it can be split, false otherwise.

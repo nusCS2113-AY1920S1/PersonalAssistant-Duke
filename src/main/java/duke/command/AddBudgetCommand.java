@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.dukeexception.DukeException;
 import duke.storage.Storage;
 import duke.task.BudgetList;
 import duke.task.TaskList;
@@ -29,7 +28,6 @@ public class AddBudgetCommand extends Command {
         this.amount = amount;
         this.remark = remark;
     }
-
 
     /**
      * Executes the command to add a certain amount to the existing budget.
