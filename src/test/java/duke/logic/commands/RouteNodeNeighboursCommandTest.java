@@ -27,7 +27,7 @@ class RouteNodeNeighboursCommandTest {
         model.addRoute(route);
 
         RouteNodeNeighboursCommand command1 = new RouteNodeNeighboursCommand(0, 0);
-        assertThrows(ExceptionInInitializerError.class, () -> {
+        assertThrows(NoClassDefFoundError.class, () -> {
             command1.execute(model);
         });
 
