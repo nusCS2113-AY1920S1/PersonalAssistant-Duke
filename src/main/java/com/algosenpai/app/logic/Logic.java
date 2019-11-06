@@ -52,6 +52,9 @@ public class Logic {
 
     // History features;
     private ArrayList<String> historyList = new ArrayList<>();
+    // Used to get the past commands, using arrow keys. Stores the number of elements from the back of historyList
+    // That the user wants to get. E.g. if user presses arrow UP, historyListOffset is incremented, DOWN -> decremented.
+    private int historyListOffset = 0;
 
     /**
      * Initializes logic for the application with all the different components.
@@ -66,6 +69,9 @@ public class Logic {
      * @return the command object to be executed.
      */
     public Command executeCommand(String input) {
+        // reset the offset whenever the user executes a command
+        historyListOffset = 0;
+
         ArrayList<String> inputs = Parser.parseInput(input);
         historyList.add(input);
         String userInput = inputs.get(0);
@@ -163,5 +169,38 @@ public class Logic {
         } catch (IndexOutOfBoundsException e) {
             return new PrintCommand(inputs);
         }
+    }
+
+    /**
+     * Get the previous command from historyList. Previous command is relative to the current value of offset.
+     * i.e. you can call this function multiple times and it will return the history of commands entered in reverse
+     * order. Similar to how terminal works.
+     * @return The command entered.
+     */
+    public String getPreviousCommand() {
+        // User has not typed in any commands yet.
+        if (historyList.size() == 0) {
+            return "";
+        }
+
+        historyListOffset++;
+        if (historyListOffset > historyList.size()) {
+            historyListOffset = historyList.size();
+        }
+        return historyList.get(historyList.size() - historyListOffset);
+    }
+
+    /**
+     * Get the next command entered in history, relative to the current offset.
+     * @return The command entered by the user, or empty string if the user has reached the present point in history.
+     */
+    public String getNextCommand() {
+        historyListOffset--;
+        if (historyListOffset <= 0) {
+            historyListOffset = 0;
+            // If 0, the user has returned to the current point in history. So return empty string, no more history.
+            return "";
+        }
+        return historyList.get(historyList.size() - historyListOffset);
     }
 }

@@ -34,4 +34,23 @@ public class Parser {
         sc.nextInt();
         return !sc.hasNext();
     }
+
+    /**
+     * Finds out if a string is an integer.
+     * @param s input string
+     * @return boolean true if string is an integer else false otherwise
+     */
+
+    public static boolean integer(String s) {
+        try {
+            Integer.parseInt(s);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static boolean allCharacters(String s) {
+        return ((!s.equals(""))) && (s != null) && (s.matches("^[a-zA-Z]*$"));
+    }
 }

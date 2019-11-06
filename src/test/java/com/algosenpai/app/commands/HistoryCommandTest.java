@@ -1,6 +1,7 @@
 package com.algosenpai.app.commands;
 
 import com.algosenpai.app.logic.Logic;
+import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.storage.Storage;
 import com.algosenpai.app.ui.Ui;
@@ -20,6 +21,8 @@ import org.junit.jupiter.api.Test;
 
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
+
+import java.io.IOException;
 
 public class HistoryCommandTest extends ApplicationTest {
 
@@ -76,14 +79,34 @@ public class HistoryCommandTest extends ApplicationTest {
     }
 
     @Test
-    void testHistoryWithLimits() {
-        clickOn("#userInput").write("command 1").clickOn("#sendButton");
-        clickOn("#userInput").write(" history ").clickOn("#sendButton");
-        VBox container = find();
-        DialogBox dialogBox = (DialogBox) container.getChildren().get(4);
-        String actualText = dialogBox.getDialog().getText();
-        Assertions.assertEquals("OOPS!!! Error occurred. Please key in the number of commands"
-                                          + "you'd like to view in the following format: e.g history 5", actualText);
+    void testHistoryWithLimits() throws IOException {
+        clickOn("#userInput").write("select sorting").clickOn("#sendButton");
+        clickOn("#userInput").write("quiz").clickOn("#sendButton");
+        UserStats stats = new UserStats("./UserData.txt");
+        Logic logic = new Logic(stats);
+        Command command = logic.executeCommand("history 5");
+        String actualText = command.execute();
+        Assertions.assertEquals("OOPS!!! Error occurred. You don't have that many past commands!", actualText);
+    }
+
+    @Test
+    void testHistoryMissingInput() throws IOException {
+        UserStats stats = new UserStats("./UserData.txt");
+        Logic logic = new Logic(stats);
+        Command command = logic.executeCommand("history");
+        String actualText = command.execute();
+        Assertions.assertEquals("OOPS!!! Error occurred. Please key in the number of commands "
+                + "you'd like to view in the following format: e.g history 5", actualText);
+    }
+
+    @Test
+    void testHistoryWrongTypeInput() throws IOException {
+        UserStats stats = new UserStats("./UserData.txt");
+        Logic logic = new Logic(stats);
+        Command command = logic.executeCommand("history two");
+        String actualText = command.execute();
+        Assertions.assertEquals("OOPS!!! Error occurred. "
+                + "Please key in a valid number of commands you'd like to view!", actualText);
     }
 
     <T extends Node> T find() {
