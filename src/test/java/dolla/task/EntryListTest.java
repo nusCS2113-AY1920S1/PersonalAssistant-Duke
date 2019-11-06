@@ -1,8 +1,5 @@
-package dolla;
+package dolla.task;
 
-import dolla.task.Entry;
-import dolla.task.EntryList;
-import dolla.task.Record;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

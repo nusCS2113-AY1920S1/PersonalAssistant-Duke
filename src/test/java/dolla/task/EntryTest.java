@@ -1,6 +1,5 @@
-package dolla;
+package dolla.task;
 
-import dolla.task.Entry;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

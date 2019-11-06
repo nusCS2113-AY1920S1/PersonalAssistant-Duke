@@ -34,11 +34,6 @@ public class Limit extends Record {
     }
 
     @Override
-    public String getDescription() {
-        return null; //to be modified
-    }
-
-    @Override
     public String formatSave() {
         saveType = type.equals("saving") ? "S" : "BU";
         return  saveType + " | "
