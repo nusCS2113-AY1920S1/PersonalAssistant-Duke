@@ -1,24 +1,25 @@
 package moomoo.task;
 
 import moomoo.command.Command;
+import moomoo.command.EditBudgetCommand;
+import moomoo.command.ExitCommand;
 import moomoo.command.GraphCategoryCommand;
 import moomoo.command.GraphTotalCommand;
-import moomoo.command.EditBudgetCommand;
-import moomoo.command.ListBudgetCommand;
-import moomoo.command.SavingsBudgetCommand;
-import moomoo.command.SetBudgetCommand;
-import moomoo.command.ExitCommand;
 import moomoo.command.HelpCommand;
+import moomoo.command.ListBudgetCommand;
+import moomoo.command.MainDisplayCommand;
+import moomoo.command.MooCommand;
+import moomoo.command.SavingsBudgetCommand;
 import moomoo.command.ScheduleCommand;
+import moomoo.command.SetBudgetCommand;
 import moomoo.command.TotalCommand;
 import moomoo.command.category.AddCategoryCommand;
 import moomoo.command.category.AddExpenditureCommand;
 import moomoo.command.category.DeleteCategoryCommand;
 import moomoo.command.category.ListCategoryCommand;
 import moomoo.task.category.CategoryParser;
-import moomoo.command.MainDisplayCommand;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -47,6 +48,7 @@ public class Parser {
         }
         switch (commandType) {
         case ("bye"):
+        case ("exit"):
             return new ExitCommand(true);
         case ("budget"):
             return parseBudget(scanner);
@@ -66,6 +68,8 @@ public class Parser {
             return new TotalCommand();
         case ("help"):
             return new HelpCommand();
+        case ("moo"):
+            return new MooCommand();
         case ("view"):
             return parseView(scanner, ui);
         default:
@@ -87,13 +91,18 @@ public class Parser {
             String inputCategory = input.substring(2);
             if (scanner.hasNext()) {
                 input = scanner.next();
-                if (input.startsWith("d/")) {
-                    String inputDate = input.substring(2);
-                    if (!inputDate.equals("") && 0 < Integer.parseInt(inputDate) && Integer.parseInt(inputDate) < 13) {
-                        return new GraphCategoryCommand(inputCategory,
-                                Integer.parseInt(inputDate),
-                                LocalDate.now().getYear());
-                    } else {
+                if (input.startsWith("m/")) {
+                    try {
+                        String inputDate = input.substring(2);
+                        if (!inputDate.equals("") && 0 < Integer.parseInt(inputDate)
+                                && Integer.parseInt(inputDate) < 13) {
+                            return new GraphCategoryCommand(inputCategory,
+                                    Integer.parseInt(inputDate),
+                                    LocalDate.now().getYear());
+                        } else {
+                            throw new MooMooException("Month must be from 1 to 12 (inclusive)!");
+                        }
+                    } catch (Exception e) {
                         throw new MooMooException("Month must be from 1 to 12 (inclusive)!");
                     }
                 } else {
@@ -124,7 +133,7 @@ public class Parser {
         }
         throw new MooMooException("Sorry I did not recognize that command.");
     }
-
+    
     private static Command parseView(Scanner scanner, Ui ui) throws MooMooException {
         String text = "Which month's summary do you wish to view?" + "(m/) month" + "(y/) year";
         String input = parseInput(scanner, ui, text);
@@ -151,7 +160,7 @@ public class Parser {
         }
         throw new MooMooException("Sorry i did not recognize that command.");
     }
-
+    
     private static Command parseAdd(Scanner scanner, Ui ui) throws MooMooException {
         String text = "What do you wish to add?" + "\n(c/) category" + "\n(n/) expenditure";
         String input = parseInput(scanner, ui, text);
@@ -179,7 +188,7 @@ public class Parser {
                     date = LocalDate.parse(tokens[i + 1]);
                 }
             }
-
+            
             if (!categoryName.isBlank() && !expenditureName.isBlank() && !amount.equals(0.0)) {
                 return new AddExpenditureCommand(expenditureName, amount, date, categoryName);
             }
@@ -197,7 +206,7 @@ public class Parser {
         }
         return categoryName;
     }
-
+    
     private static String parseInput(Scanner scanner, Ui ui, String text) {
         String input;
         try {
@@ -259,7 +268,7 @@ public class Parser {
                 if ("".equals(inputCategory)) {
                     throw new MooMooException("Please input in this format \"c/CATEGORY b/BUDGET\"");
                 }
-
+                
                 try {
                     budget = Double.parseDouble(input.substring(2));
                     if (budget <= 0) {
@@ -268,7 +277,7 @@ public class Parser {
                 } catch (NumberFormatException e) {
                     throw new MooMooException("Please insert a number larger than 0 for the budget");
                 }
-
+                
                 categories.add(inputCategory);
                 budgets.add(budget);
                 if (categories.size() > budgets.size()) {
@@ -288,7 +297,7 @@ public class Parser {
                 break;
             }
         }
-
+        
         if (categories.size() == 0 || budgets.size() == 0) {
             throw new MooMooException("You have entered the command wrongly. "
                     + "Please input in this format \"c/CATEGORY b/BUDGET\"");
@@ -297,10 +306,10 @@ public class Parser {
             return new EditBudgetCommand(false, categories, budgets);
         } else {
             return new SetBudgetCommand(false, categories, budgets);
-
+            
         }
     }
-
+    
     private static Command listBudget(Scanner scanner) throws MooMooException {
         ArrayList<String> categories = new ArrayList<>();
         

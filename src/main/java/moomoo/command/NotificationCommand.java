@@ -35,10 +35,9 @@ public class NotificationCommand extends Command {
         if (expenditure > budget.getBudgetFromCategory(cat)) {
             alert = "You have exceeded your budget for " + cat + "!";
         } else if (expenditure == budget.getBudgetFromCategory(cat)) {
-            alert = "You have reached your budget limit!"; //of " + budget.getBudgetFromCategory(cat) + ".\n";
+            alert = "You have reached your budget limit!";
         } else if (expenditure > budget.getBudgetFromCategory(cat) * 0.9) {
-            alert = "You are reaching your budget limit!" // of " + budget.getBudgetFromCategory(cat) + " for " + cat
-                    + ".\n";
+            alert = "You are reaching your budget limit!";         
         }
         int blank = 47 - alert.length();
         String blankSpace = " ";

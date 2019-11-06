@@ -36,7 +36,7 @@ public class ListBudgetCommand extends Command {
         double currentBudget = 0;
         if (categories.size() == 0) {
             for (int i = 0; i < catList.getCategoryList().size(); ++i) {
-                String categoryName = catList.getCategoryList().get(i).toString();
+                String categoryName = catList.getCategoryList().get(i).toString().toLowerCase();
                 currentBudget = budget.getBudgetFromCategory(categoryName);
                 if (currentBudget == 0) {
                     outputValue += "Budget for " + categoryName + " has not been set\n";
