@@ -95,7 +95,8 @@ public class Task {
      */
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("EEE dd-MM-yyyy HH:mm'H'");
-        return "[" + this.getStatusIcon() + "] " + this.name + (time == null ? "" : (" (due: " + sdf.format(time) + ")"));
+        return "[" + this.getStatusIcon() + "] " + this.name + (time == null ? "" : (" (due: "
+                + sdf.format(time) + ")"));
     }
 
     /**

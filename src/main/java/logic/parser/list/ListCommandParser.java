@@ -8,8 +8,8 @@ import java.util.regex.Matcher;
 
 public class ListCommandParser {
 
-    private static final String LIST_USAGE = "Usage: list tasks {all/todo} (picnum),\n" +
-            "list members (todonum/progress),\nor list reminders";
+    private static final String LIST_USAGE = "Usage: list tasks {all/todo} (picnum),\n"
+            + "list members (todonum/progress),\nor list reminders";
     private static final String TASK = "tasks";
     private static final String MEMBER = "members";
     private static final String REMINDER = "reminders";
@@ -37,14 +37,14 @@ public class ListCommandParser {
         arguments = arguments.trim();
 
         switch (listType) {
-            case TASK:
-                return ListTasksParser.parseListTasks(arguments);
-            case MEMBER:
-                return ListMembersParser.parseListMembers(arguments);
-            case REMINDER:
-                return ListRemindersParser.parseReminders(arguments);
-            default:
-                throw new DukeException(LIST_USAGE);
+        case TASK:
+            return ListTasksParser.parseListTasks(arguments);
+        case MEMBER:
+            return ListMembersParser.parseListMembers(arguments);
+        case REMINDER:
+            return ListRemindersParser.parseReminders(arguments);
+        default:
+            throw new DukeException(LIST_USAGE);
         }
 
     }
