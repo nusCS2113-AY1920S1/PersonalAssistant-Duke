@@ -572,7 +572,6 @@ public class Ui {
     }
 
     /**
-<<<<<<< HEAD
      * Outputs an alert when a duplicated inout is detected (GUI).
      *
      * @return String to be outputted to the user.

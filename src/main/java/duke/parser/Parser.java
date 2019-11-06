@@ -94,6 +94,23 @@ public class Parser {
     }
     //@@author
 
+    //@@author e0318465
+    /**
+     * Checks whether the string input can be split by a set string.
+     *
+     * @param input the input to test if there exits an "@" for emails.
+     * @return returns true if it can be split, false otherwise.
+     */
+    private static boolean isValidEmail(String input) {
+        if(input.trim().equals("") || input.contains("@")){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    //@@author
+
     /**
      * Generates a command based on the user input.
      *
@@ -533,28 +550,32 @@ public class Parser {
                 && (arr[Numbers.ZERO.value].equals("addcontact") || arr[Numbers.ZERO.value].equals("ac"))) {
             String[] userInput = sentence.split(" ",Numbers.TWO.value);
             String[] contactDetails = userInput[Numbers.ONE.value].split(",");
-            try {
-                Contacts contactObj = new Contacts(contactDetails[Numbers.ZERO.value],
-                        contactDetails[Numbers.ONE.value],
-                        contactDetails[Numbers.TWO.value], contactDetails[Numbers.THREE.value]);
-                return new AddContactsCommand(contactObj, contactList);
-            } catch (Exception e) {
-                logr.log(Level.WARNING, ErrorMessages.CONTACT_FORMAT.message, e);
-                throw new DukeException(ErrorMessages.CONTACT_FORMAT.message);
+            if(isValidEmail(contactDetails[Numbers.TWO.value])) {
+                try {
+                    Contacts contactObj = new Contacts(contactDetails[Numbers.ZERO.value],
+                            contactDetails[Numbers.ONE.value],
+                            contactDetails[Numbers.TWO.value], contactDetails[Numbers.THREE.value]);
+                    return new AddContactsCommand(contactObj, contactList);
+                } catch (Exception e) {
+                    logr.log(Level.WARNING, ErrorMessages.CONTACT_FORMAT.message, e);
+                    throw new DukeException(ErrorMessages.CONTACT_FORMAT.message);
+                }
+            } else{
+                throw new DukeException(ErrorMessages.INVALID_EMAIL_ALERT.message);
             }
         } else if (sentence.equals("listcontacts") || sentence.equals("lc") || sentence.equals(("listcontact"))) {
             return new ListContactsCommand(contactList);
         } else if (arr.length > Numbers.ZERO.value
                 && (arr[Numbers.ZERO.value].equals("deletecontact") || arr[Numbers.ZERO.value].equals("dc"))) {
             if (arr.length == Numbers.ONE.value) {
-                throw new DukeException("     (>_<) OOPS!!! The contact index cannot be empty.");
+                throw new DukeException(ErrorMessages.CONTACT_INDEX.message);
             } else {
                 try {
                     Integer.parseInt(arr[Numbers.ONE.value]); //Catches for non integer value
                     return new DeleteContactCommand(
                             Integer.parseInt(arr[Numbers.ONE.value]) - Numbers.ONE.value, contactList);
                 } catch (NumberFormatException e) {
-                    throw new DukeException("     Input is not an integer value!");
+                    throw new DukeException(ErrorMessages.NON_INTEGER_ALERT.message);
                 }
             }
         } else if (arr.length > Numbers.ZERO.value
