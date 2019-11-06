@@ -15,7 +15,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class AddCommandParser implements Parser<AddCommand> {
     public static final String MESSAGE_ERROR_ADD_CONTACT = "Error in input format when adding contact.";

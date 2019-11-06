@@ -41,14 +41,13 @@ public class LogicManager {
     private static WalletList walletList;
     private int state = 0;
     private static ArrayList<Help> helpList;
-    private static HelpStorage helpStorage;
 
     /**
      * Constructs a LogicManager object.
      */
     public LogicManager() {
         this.currencyStorage = new CurrencyStorage();
-        this.helpStorage = new HelpStorage();
+        HelpStorage helpStorage = new HelpStorage();
         this.helpList = helpStorage.helpData();
         this.storageManager = new StorageManager();
         this.wallet = new Wallet(new CurrencyList(currencyStorage.loadFile()),

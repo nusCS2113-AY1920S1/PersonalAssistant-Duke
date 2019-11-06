@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
-    private static String input;
+    private String input;
     private static String MESSAGE_ERROR_INDEX = "Error! Input not a valid help section index";
 
     public HelpCommand(String input) {
