@@ -123,12 +123,12 @@ public class TaskList {
                     System.out.println("\t" + listCount + ". " + output.toString());
                     if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
                         ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
-                        for(String subtask : subTasks) {
+                        for (String subtask : subTasks) {
                             System.out.println("\t" + "\t" + "- " + subtask);
                         }
                     }
-                    listCount += 1;
                 }
+                listCount += 1;
             }
         } else {
             throw new RoomShareException(ExceptionType.emptyList);
@@ -144,7 +144,6 @@ public class TaskList {
     public ArrayList<Task> getOverdueList() throws RoomShareException {
         ArrayList<Task> overdueTaskList = new ArrayList<>();
         if( tasks.size() != 0 ){
-            int listCount = 1;
             for (Task output : tasks) {
                 if(new Date().after(output.getDate())) {
                     overdueTaskList.add(output);

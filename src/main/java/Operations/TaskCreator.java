@@ -323,7 +323,11 @@ public class TaskCreator {
                 TaskReminder taskReminder = new TaskReminder(description, duration);
                 taskReminder.start();
             }
-            return assignment;
+            if (!CheckAnomaly.checkDuplicate(assignment)) {
+                return assignment;
+            } else {
+                throw new RoomShareException(ExceptionType.duplicateTask);
+            }
         } else if (type.equals("leave")) {
             String user;
             String[] leaveUserArray = input.split("@");
@@ -334,7 +338,11 @@ public class TaskCreator {
             Leave leave = new Leave(description, user, from, to);
             leave.setPriority(priority);
             leave.setRecurrenceSchedule(recurrence);
-            return leave;
+            if (!CheckAnomaly.checkDuplicate(leave)) {
+                return leave;
+            } else {
+                throw new RoomShareException(ExceptionType.duplicateTask);
+            }
         } else if (type.equals("meeting")) {
             if (remind) {
                 if (unit.equals(TimeUnit.unDefined)) {
@@ -345,7 +353,15 @@ public class TaskCreator {
                     meeting.setRecurrenceSchedule(recurrence);
                     TaskReminder taskReminder = new TaskReminder(description, duration);
                     taskReminder.start();
-                    return meeting;
+                    if (!CheckAnomaly.checkTask(meeting)) {
+                        if (!CheckAnomaly.checkDuplicate(meeting)) {
+                            return meeting;
+                        } else {
+                            throw new RoomShareException(ExceptionType.duplicateTask);
+                        }
+                    } else {
+                        throw new RoomShareException(ExceptionType.timeClash);
+                    }
                 } else {
                     Meeting meeting = new Meeting(description, date, duration, unit);
                     meeting.setPriority(priority);
@@ -353,7 +369,15 @@ public class TaskCreator {
                     meeting.setRecurrenceSchedule(recurrence);
                     TaskReminder taskReminder = new TaskReminder(description, duration);
                     taskReminder.start();
-                    return meeting;
+                    if (!CheckAnomaly.checkTask(meeting)) {
+                        if (!CheckAnomaly.checkDuplicate(meeting)) {
+                            return meeting;
+                        } else {
+                            throw new RoomShareException(ExceptionType.duplicateTask);
+                        }
+                    } else {
+                        throw new RoomShareException(ExceptionType.timeClash);
+                    }
                 }
             } else {
                 if (unit.equals(TimeUnit.unDefined)) {
@@ -362,13 +386,29 @@ public class TaskCreator {
                     meeting.setPriority(priority);
                     meeting.setAssignee(assignee);
                     meeting.setRecurrenceSchedule(recurrence);
-                    return meeting;
+                    if (!CheckAnomaly.checkTask(meeting)) {
+                        if (!CheckAnomaly.checkDuplicate(meeting)) {
+                            return meeting;
+                        } else {
+                            throw new RoomShareException(ExceptionType.duplicateTask);
+                        }
+                    } else {
+                        throw new RoomShareException(ExceptionType.timeClash);
+                    }
                 } else {
                     Meeting meeting = new Meeting(description, date, duration, unit);
                     meeting.setPriority(priority);
                     meeting.setAssignee(assignee);
                     meeting.setRecurrenceSchedule(recurrence);
-                    return meeting;
+                    if (!CheckAnomaly.checkTask(meeting)) {
+                        if (!CheckAnomaly.checkDuplicate(meeting)) {
+                            return meeting;
+                        } else {
+                            throw new RoomShareException(ExceptionType.duplicateTask);
+                        }
+                    } else {
+                        throw new RoomShareException(ExceptionType.timeClash);
+                    }
                 }
             }
         } else {
