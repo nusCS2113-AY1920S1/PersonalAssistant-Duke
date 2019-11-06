@@ -1,5 +1,7 @@
-package duke;
+package duke.ui;
 
+import duke.Duke;
+import duke.Main;
 import duke.command.Command;
 import duke.command.ExitCommand;
 import duke.command.BackupCommand;
@@ -11,7 +13,6 @@ import duke.task.BudgetList;
 import duke.task.FilterList;
 import duke.task.Reminders;
 import duke.task.Task;
-import duke.ui.Ui;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

@@ -1,8 +1,10 @@
-package duke;
+package duke.ui;
 
 
+import duke.Duke;
 import duke.enums.Numbers;
 import duke.task.TaskList;
+import duke.ui.MainWindow;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;

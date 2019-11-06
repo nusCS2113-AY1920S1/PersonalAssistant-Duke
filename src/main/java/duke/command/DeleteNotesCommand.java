@@ -22,18 +22,6 @@ public class DeleteNotesCommand extends Command {
         this.index = index;
     }
 
-    /**
-     * Executes a command that adds or updates the notes of the task in task list and outputs the result.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user that it is added or updated successfully.
-     */
-    @Override
-    public void execute(TaskList items, Ui ui) {
-        String deletedNotes = items.get(index).getNotes();
-        items.get(index).deleteNotes();
-        ui.showDeleteNotes(items, index, deletedNotes);
-    }
 
     /**
      * Executes a command that adds or updates the notes of the task in task list and outputs the result (GUI).

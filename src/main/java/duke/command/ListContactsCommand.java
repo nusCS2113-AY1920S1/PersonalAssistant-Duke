@@ -17,16 +17,6 @@ public class ListContactsCommand extends Command {
         this.contactList = contactList;
     }
 
-    /**
-     * Executes a command that gathers all contacts from contact list and outputs the result.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user the matching tasks based on the keyword.
-     */
-    @Override
-    public void execute(TaskList items, Ui ui) {
-        ui.showContactList(contactList);
-    }
 
     /**
      * Executes a command that gathers all contacts from contact list and outputs the list (GUI).

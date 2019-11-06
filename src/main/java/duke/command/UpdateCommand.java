@@ -48,54 +48,6 @@ public class UpdateCommand extends Command {
      *
      * @param items The task list that contains a list of tasks.
      * @param ui To tell the user that it is updated successfully.
-     */
-    @Override
-    public void execute(TaskList items, Ui ui) {
-        try {
-            if (typeOfUpdate == Numbers.ONE.value) {
-                items.get(index).setDescription(taskDesc);
-            } else if (typeOfUpdate == Numbers.TWO.value) {
-                if (items.get(index) instanceof Todo || items.get(index) instanceof FixedDuration) {
-                    throw new DukeException("     (>_<) OOPS!!! This task does not have date and time!");
-                }
-                items.get(index).setDateTime(dateDesc);
-            } else if (typeOfUpdate == Numbers.THREE.value) {
-                Task newtaskObj = null;
-                if (typeDesc.equals("todo")) {
-                    if (items.get(index) instanceof Todo) {
-                        throw new DukeException("     You are updating the same type of task! (Todo)");
-                    } else {
-                        newtaskObj = new Todo(items.get(index).getDescription());
-                    }
-                } else if (typeDesc.equals("deadline")) {
-                    if (items.get(index) instanceof Deadline) {
-                        throw new DukeException("     You are updating the same type of task! (Deadline)");
-                    } else {
-                        newtaskObj = new Deadline(items.get(index).getDescription(), "01/01/2001 0001");
-                    }
-                } else if (typeDesc.equals("fixedduration")) {
-                    if (items.get(index) instanceof FixedDuration) {
-                        throw new DukeException("     You are updating the same type of task! (FixedDuration)");
-                    } else {
-                        newtaskObj = new FixedDuration(items.get(index).getDescription(), Numbers.ZERO.value, "min");
-                    }
-                }
-                items.setTaskType(index, newtaskObj);
-            }
-            ui.showUpdate(items, index);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            ui.showErrorMsg(e.getMessage());
-        }
-
-    }
-
-    /**
-     * Executes a command that updates the task in task list and outputs the result.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user that it is updated successfully.
      * @return String to be outputted to the user.
      */
     @Override

@@ -21,18 +21,6 @@ public class DoneCommand extends Command {
     }
 
     /**
-     * Executes a command that marks the task as done in the task list and outputs the result.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user that it is marked as done successfully.
-     */
-    @Override
-    public void execute(TaskList items, Ui ui) {
-        items.get(index).setStatusIcon(true);
-        ui.showDone(items, index);
-    }
-
-    /**
      * Executes a command that marks the task as done in the task list and outputs the result (GUI).
      *
      * @param items The task list that contains a list of tasks.

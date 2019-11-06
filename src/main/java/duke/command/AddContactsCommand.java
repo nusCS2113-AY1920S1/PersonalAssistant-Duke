@@ -28,17 +28,6 @@ public class AddContactsCommand extends Command {
         this.contactList = contactList;
     }
 
-    /**
-     * Adds the user input to a list of contacts.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user that it is executed successfully.
-     */
-    @Override
-    public void execute(TaskList items, Ui ui) {
-        contactList.add(contactObj);
-        ui.showAddedContact(contactList);
-    }
 
     /**
      * Executes a command that adds the contact into contact list and outputs the result (GUI).
