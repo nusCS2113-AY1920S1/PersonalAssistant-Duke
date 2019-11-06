@@ -72,9 +72,9 @@ public interface Model {
     void commit(String commitMessage);
 
     /**
-     * TODO: add details.
-     *
-     * @param isEnabled should be set to true to enable version control.
+     * Sets the status of version control.
+     * If {@code isEnabled} is false, version control is disabled. As a result,
+     * {@code commit()} will not save the current BakingHome state.
      */
     void setVersionControl(Boolean isEnabled);
 

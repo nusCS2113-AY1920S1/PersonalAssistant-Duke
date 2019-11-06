@@ -119,7 +119,8 @@ public class AutoCompleter {
 
         List<String> suggestions = new ArrayList<>();
         Optional<Class<? extends Command>> matchedCommandClass = getMatchedCommandClass(userInput);
-        matchedCommandClass.ifPresent(matchedClass -> suggestions.addAll(generateParameterSuggestions(currentWord, matchedClass)));
+        matchedCommandClass.ifPresent(matchedClass ->
+            suggestions.addAll(generateParameterSuggestions(currentWord, matchedClass)));
 
         suggestions.addAll(generateCommandWordSuggestions(currentWord));
 
@@ -151,6 +152,7 @@ public class AutoCompleter {
             logger.warning(String.format("Could not add duplicate %s to AutoCompleter", commandClass.toString()));
             throw new ParseException();
         }
+
 
         this.commandClasses.add(commandClass);
 

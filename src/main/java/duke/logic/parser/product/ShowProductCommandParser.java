@@ -14,7 +14,6 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INDEX;
 public class ShowProductCommandParser implements Parser<ShowProductCommand> {
 
 
-
     @Override
     public ShowProductCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
