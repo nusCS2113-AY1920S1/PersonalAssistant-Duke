@@ -2,25 +2,13 @@ TODO||N||borrow another book||30-12-2019||||||||
 DEADLINE||N||homework||13-10-2019||23:59||||||
 EVENT||N||lecture||08-10-2019||10:00||08-10-2019||12:00||
 EVENT||N||tutorial||09-10-2019||17:00||09-10-2019||18:00||
-EVENT||Y||test||10-10-2019||09:00||10-10-2019||10:00||
-TODO||N||cs2105 cs2106 cs2107 cs2113t cs2101||13-10-2019||||||||
+EVENT||N||test||10-10-2019||09:00||10-10-2019||10:00||
 DEADLINE||N||homework||14-10-2019||23:59||||||
 EVENT||N||steamboat||15-10-2019||18:00||15-10-2019||20:00||
-DEADLINE||N||homework||29-10-2019||23:59||||||
-DEADLINE||N||homework||14-10-2019||10:00||||||
-TODO||N||testing||30-10-2019||||||||
-DEADLINE||N||testing||30-10-2019||23:59||||||
 EVENT||N||testing||30-10-2019||10:00||30-10-2019||11:00||
 DEADLINE||N||homework||20-10-2019||23:59||||||
-TODO||N||borrow another book||14-10-2019||||||||
 DEADLINE||N||homework||20-10-2019||23:59||||||
-TODO||N||borrow another book||14-10-2019||||||||
 ASSESSMENT||N||CS2106||final examination||31-10-2019||16:00||31-10-2019||18:00
 ASSIGNMENT||Y||CS2101||PPP||31-10-2019||08:35||||
-EVENT||N||tutorial||10-10-2019||17:00||10-10-2019||18:00||
-EVENT||N||tutorial||11-10-2019||17:00||11-10-2019||18:00||
-EVENT||N||test||11-10-2019||09:00||11-10-2019||10:00||
-EVENT||N||tutorial||10-10-2019||17:00||10-10-2019||18:00||
 DEADLINE||N||homework||14-10-2019||23:59||||||
-TODO||N||borrow another book||31-12-2019||||||||
 EVENT||N||lecture||09-10-2019||10:00||09-10-2019||12:00||

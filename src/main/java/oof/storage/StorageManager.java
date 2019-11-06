@@ -1,7 +1,6 @@
 package oof.storage;
 
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,11 +18,11 @@ import oof.model.tracker.Tracker;
 public class StorageManager {
 
     private Storage storage;
-    private static final String PATH_OUTPUT = "./output.txt";
-    private static final String PATH_MANUAL = "./manual.txt";
-    private static final String PATH_THRESHOLD = "./oof.config";
-    private static final String PATH_TRACKER = "./tracker.csv";
-    private static final String PATH_SEMESTER = "./semester.txt";
+    private static final String PATH_OUTPUT = "output.txt";
+    private static final String PATH_MANUAL = "manual.txt";
+    private static final String PATH_THRESHOLD = "oof.config";
+    private static final String PATH_TRACKER = "tracker.csv";
+    private static final String PATH_SEMESTER = "semester.txt";
     private static final int INDEX_THRESHOLD = 0;
     private static final int DEFAULT_THRESHOLD = 24;
 
@@ -35,9 +34,9 @@ public class StorageManager {
      * Reads list of Semesters from persistent storage.
      *
      * @return ArrayList containing list of Semester objects.
-     * @throws FileNotFoundException if file does not exist.
+     * @throws NullPointerException if file does not exist.
      */
-    public ArrayList<Semester> readSemesterList() throws FileNotFoundException, StorageFileCorruptedException {
+    public ArrayList<Semester> readSemesterList() throws NullPointerException, StorageFileCorruptedException {
         ArrayList<String> data = storage.loadFile(PATH_SEMESTER);
         return StorageParser.dataToSemester(data);
     }
@@ -58,9 +57,9 @@ public class StorageManager {
      *
      * @param semesterList Instance of SemesterList containing Semester data
      * @return ArrayList containing list of Task objects.
-     * @throws FileNotFoundException if file does not exist.
+     * @throws NullPointerException if file does not exist.
      */
-    public ArrayList<Task> readTaskList(SemesterList semesterList) throws FileNotFoundException,
+    public ArrayList<Task> readTaskList(SemesterList semesterList) throws NullPointerException,
             StorageFileCorruptedException {
         ArrayList<String> data = storage.loadFile(PATH_OUTPUT);
         return StorageParser.dataToTask(data, semesterList);
@@ -79,13 +78,14 @@ public class StorageManager {
 
     /**
      * Reads threshold value from storage.
+     *
      * @return value of threshold if file exists, else returns default threshold
      */
     public int readThreshold() {
         try {
             ArrayList<String> data = storage.loadFile(PATH_THRESHOLD);
             return Integer.parseInt(data.get(INDEX_THRESHOLD));
-        } catch (FileNotFoundException | NumberFormatException e) {
+        } catch (NullPointerException | NumberFormatException e) {
             return DEFAULT_THRESHOLD;
         }
     }
@@ -110,7 +110,7 @@ public class StorageManager {
      *
      * @return TrackerList that contains Tracker objects.
      */
-    public ArrayList<Tracker> readTrackerList() throws FileNotFoundException, StorageFileCorruptedException {
+    public ArrayList<Tracker> readTrackerList() throws NullPointerException, StorageFileCorruptedException {
         ArrayList<String> data = storage.loadFile(PATH_TRACKER);
         ArrayList<Tracker> trackers = StorageParser.dataToTrackerList(data);
         return trackers;
@@ -126,7 +126,7 @@ public class StorageManager {
         storage.writeFile(PATH_TRACKER, data);
     }
 
-    public ArrayList<String> readManual() throws FileNotFoundException {
+    public ArrayList<String> readManual() throws NullPointerException {
         return storage.loadFile(PATH_MANUAL);
     }
 }

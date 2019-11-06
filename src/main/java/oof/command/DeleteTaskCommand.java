@@ -3,6 +3,8 @@ package oof.command;
 import oof.Ui;
 import oof.exception.command.InvalidArgumentException;
 import oof.model.module.SemesterList;
+import oof.model.task.Assessment;
+import oof.model.task.Assignment;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;

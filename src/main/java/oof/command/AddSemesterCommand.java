@@ -117,7 +117,7 @@ public class AddSemesterCommand extends Command {
      * @return true if start date occurs before end date, false otherwise.
      */
     private boolean isStartDateBeforeEndDate(Date startTime, Date endTime) {
-        return startTime.compareTo(endTime) <= 0;
+        return startTime.compareTo(endTime) < 0;
     }
 
     /**
