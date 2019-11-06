@@ -126,10 +126,13 @@ public class RoomShare {
             case restore:
                 Ui.clearScreen();
                 ui.startUp();
+                ui.showRestoreList();
                 try {
                     String input = parser.getCommandLine();
+                    tempDeleteList.list();
                     int restoreIndex = parser.getIndex(input);
                     tempDeleteList.restore(restoreIndex, taskList);
+
                     storage.writeFile(TaskList.currentList(), "data.txt");
                 } catch (RoomShareException e) {
                     storage.writeFile(TaskList.currentList(), "data.txt");

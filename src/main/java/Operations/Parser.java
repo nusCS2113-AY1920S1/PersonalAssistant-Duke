@@ -58,7 +58,7 @@ public class Parser {
             int index = Integer.parseInt(arr[0]) - 1;
             return index;
         } catch (IllegalArgumentException e) {
-            throw new RoomShareException(ExceptionType.wrongIndexFormat);
+            throw new RoomShareException(ExceptionType.emptyIndex);
         }
     }
 

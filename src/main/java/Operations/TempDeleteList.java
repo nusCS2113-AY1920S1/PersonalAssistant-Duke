@@ -52,7 +52,7 @@ public class TempDeleteList {
      * lists the tasks in the temp delete list
      * @throws RoomShareException when the list is empty
      */
-    private void list() throws RoomShareException {
+    public void list() throws RoomShareException {
         if (tempDelete.size() == 0) {
             throw new RoomShareException(ExceptionType.emptyList);
         } else {
