@@ -11,15 +11,14 @@ import duke.ui.context.Context;
 
 public class PatientDischargeSpec extends ArgSpec {
     private static final PatientDischargeSpec spec = new PatientDischargeSpec();
-
-    public static PatientDischargeSpec getSpec() {
-        return spec;
-    }
-
     private static final String header = "DISCHARGED PATIENT REPORT";
     private static final String explanation = "This report shows all the data that was stored about a patient at the "
             + "time the report was created.";
     private static final String result = "Patient discharged. A discharge report have been created.";
+
+    public static PatientDischargeSpec getSpec() {
+        return spec;
+    }
 
     private PatientDischargeSpec() {
         cmdArgLevel = ArgLevel.NONE;

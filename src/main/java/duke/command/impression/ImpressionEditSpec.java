@@ -48,6 +48,7 @@ public class ImpressionEditSpec extends DukeDataSpec {
         );
     }
 
+    // TODO: split method to call one method per editType
     @Override
     protected void execute(DukeCore core) throws DukeException {
         String editType = uniqueDataType(cmd);
@@ -79,13 +80,13 @@ public class ImpressionEditSpec extends DukeDataSpec {
             // process status
             switch (editType) {
             case "plan":
-                editStatus(editData, Plan.getStatusArr());
+                updateStatus(editData, Plan.getStatusArr());
                 break;
             case "medicine":
-                editStatus(editData, Medicine.getStatusArr());
+                updateStatus(editData, Medicine.getStatusArr());
                 break;
             case "investigation":
-                editStatus(editData, Investigation.getStatusArr());
+                updateStatus(editData, Investigation.getStatusArr());
                 break;
             default:
                 break;
@@ -168,14 +169,6 @@ public class ImpressionEditSpec extends DukeDataSpec {
         core.updateUi("Details updated");
     }
 
-    private void editStatus(DukeData editData, List<String> statusList) throws DukeUtilException {
-        String statusStr = cmd.getSwitchVal("status");
-        if (statusStr != null) {
-            Treatment treatment = (Treatment) editData;
-            treatment.setStatusIdx(ImpressionUtils.processStatus(statusStr, statusList));
-        }
-    }
-
     private void editImpression(Impression impression, boolean isAppending) {
         Patient patient = (Patient) impression.getParent();
 
@@ -202,5 +195,13 @@ public class ImpressionEditSpec extends DukeDataSpec {
             }
         }
         return null;
+    }
+
+    private void updateStatus(DukeData editData, List<String> statusList) throws DukeUtilException {
+        String statusStr = cmd.getSwitchVal("status");
+        if (statusStr != null) {
+            Treatment treatment = (Treatment) editData;
+            treatment.setStatusIdx(ImpressionUtils.processStatus(statusStr, statusList));
+        }
     }
 }

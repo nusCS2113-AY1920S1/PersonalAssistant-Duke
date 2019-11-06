@@ -10,6 +10,10 @@ import duke.exception.DukeException;
 
 public class HomeDischargeSpec extends ArgSpec {
     private static final HomeDischargeSpec spec = new HomeDischargeSpec();
+    private static final String header = "DISCHARGED PATIENT REPORT";
+    private static final String explanation = "This report shows all the data that was stored about a patient at the "
+            + "time the report was created.";
+    private static final String result = "Patient discharged. A discharge report have been created.";
 
     public static HomeDischargeSpec getSpec() {
         return spec;
@@ -22,11 +26,6 @@ public class HomeDischargeSpec extends ArgSpec {
                 new Switch("summary", String.class, true, ArgLevel.OPTIONAL, "sum")
         );
     }
-
-    private static final String header = "DISCHARGED PATIENT REPORT";
-    private static final String explanation = "This report shows all the data that was stored about a patient at the "
-            + "time the report was created.";
-    private static final String result = "Patient discharged. A discharge report have been created.";
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
