@@ -58,115 +58,135 @@ image::Ui.png[width="650"]
 which can be used as `select Sorting`.
 ====
 
-=== Set up user profile or load previous user data : `hello`
+=== Setting up of user profile : `hello`
 
-This command is to be executed when you open the program. If it is your first time opening it, you will need to set up
-your user profile by entering the hello command in the format `hello NAME GENDER`. It will then customise the user interface
-to your data and save the information in the UserData.txt. +
-If it is not your first time opening the program, you can load your previous user profile by typing `hello` and the user interface.
-Format: `hello` or `hello NAME GENDER` +
-Example: +
-`hello Matthew boy` will mean that the program will save my name as Matthew and my gender as boy.
+This command is to be executed when you first open the program. The system will prompt you to set up by
+entering the hello command in the format `hello NAME GENDER`, whereby `GENDER` refers to only `boy` or `girl`.
+It will then customise the user interface to your data and save the information in the UserData.txt, which will
+automatically created when the programme first starts up. +
+
+If it is not your first time opening the program, you do not have to worry about reloading your data as it will be done automatically.
+The system will prompt `Welcome back ~name~! To continue your adventure, pick a command from menu.` and you may continue from where you left off
+the previous time.
 
 === View all the commands available : `menu`
 
-This command is for new users, users who are still learning the console commands, or have forgotten a particular command.
-`menu` will list all the commands that are available in the program. +
+This command is for new users and users who are still unfamiliar with the console commands.
+It can also be used should you forget the list of commands or the command for a particular action. +
+
+`menu` will list all the commands that are recognised in the program. +
 Format: `menu`
 
+====
+*Expected outcome* +
+`Senpai will teach you! Try these commands:` +
+`help +
+ quiz +
+ select +
+ result +
+ history +
+ undo +
+ clear +
+ save +
+ reset +
+ exit +
+ print +
+ archive +
+ review +
+ volume +
+ menu COMMAND`
+where `menu COMMAND` returns the syntax to use each command +
+
+Example: `menu print`
+=====
+*Expected Outcome*
+
+`'print <archive | quiz | user> <filename>.pdf' to print the selected pdf file`
+=====
+
+- `COMMAND` must be one of the console commands
+====
+
+=== Chapters: `chapters`
+This command allows you to see the chapters available to choose from. +
+Format: `chapters`
+====
+*Expected Outcome*
+
+- Chapter 1: sorting
+- Chapter 2: linkedlist
+- Chapter 3: bitmask
+====
+
+=== Select the chapter: `select`
+This command allows you to choose the chapter of the game that you'd like to attempt a quiz on. +
+Format: `select CHAPTER` +
+
+Example : +
+`select sorting` will select the chapter on Sorting for the quiz.
+
+====
+*Expected Outcome*
+
+`You have selected Chapter 1. Type 'quiz' to begin.`,
+where the chapter number will depend on your chapter chosen (refer to 3.3).
+====
+
 === Start the quiz : `quiz`
-This command allows you to start the quiz. By default, the quiz will have a mix of questions from all the three
-chapters (Sorting, Linked List and Bitmask). If you would like to only attempt the quiz on a specific chapter,
-you will need to specify which Chapter you want to play using the `select`
-command first. +
+This command allows you to start the quiz and only works after you have selected a particular chapter. +
 Format: `quiz`
 
-=== Entering a quiz answer : `quiz ANSWER`
-This command can only be used when you are playing the quiz itself. +
-Format: `quiz ANSWER` +
+=== Entering your answer
+There is no command for this, you type your answers in the interactive box and submit them by pressing enter or clicking on the `send` button. +
+Should your answers be sequential, make sure you use the ", " format else your answer will not be recognised!
 
 Example: +
-`quiz 60, 40, 30` will mean that you want to enter the answer `60, 40, 30` for the current question
-in the quiz. +
-`quiz 2` will mean that you want to enter the answer `2` for the current question in the quiz.
+`60, 40, 30`
 
-=== Return to the previous question : `quiz back`
+=== Return to the previous question : `back`
 
-This command allows users to return to the previous question if you made a mistake. This would help prevent any accidental input,
+This command allows users to return to the previous question if you have made a mistake. This would help prevent any accidental input,
 rendering the answer as wrong. This command only works during the quiz. +
-Format : `quiz back`
+Format : `back`
 
-=== Skip to the next question : `quiz next`
+=== Skip to the next question : `next`
 
-This command allows you to skip to the next question if you would like. This command only works during the quiz. +
-Format : `quiz next`
+This command allows you to skip to the next question if you would like to. This command only works during the quiz. +
+Format : `next`
 
-=== Skip to the next question : `quiz end`
+=== End the quiz : `end`
 
-This command allows you to exit the quiz abruptly if you would like. It will still give you a
-quiz score based on the answers you have entered. This command only works during the quiz. +
-Format : `quiz end`
-
-=== Entering a quiz answer : `quiz ANSWER`
-This command can only be used when you are playing the quiz itself. +
-Format: `quiz ANSWER` +
-Example: +
-`quiz 60, 40, 30` will mean that you want to enter the answer `60, 40, 30` for the current question
-in the quiz. +
-`quiz 2` will mean that you want to enter the answer `2` for the current question in the quiz.
-
-=== Return to the previous question : `quiz back`
-=======
-This command allows you to choose the chapter of the game to be run. The CHAPTERS that are available
-to be selected in the program are `sorting`, `linkedlist` and `bitmask`. +
-Format: `select CHAPTER` +
-
-Example : +
-`select sorting` will select the chapter on Sorting for the quiz.
-
-This command allows users to return to the previous question if you made a mistake. This would help prevent any accidental input,
-rendering the answer as wrong. This command only works during the quiz. +
-Format : `quiz back`
-
-=== Skip to the next question : `quiz next`
-
-This command allows you to skip to the next question if you would like. This command only works during the quiz. +
-Format : `quiz next`
-
-=== Skip to the next question : `quiz end`
-
-This command allows you to exit the quiz abruptly if you would like. It will still give you a
-quiz score based on the answers you have entered. This command only works during the quiz. +
-Format : `quiz end`
-
-=== Choose a chapter : `select`
-
-This command allows you to choose the chapter of the game to be run. The CHAPTERS that are available
-to be selected in the program are `sorting`, `linkedlist` and `bitmask`. +
-Format: `select CHAPTER` +
-
-Example : +
-`select sorting` will select the chapter on Sorting for the quiz.
+This command allows you to exit the quiz if you would like, even if you are only in the midst of it. It will still give you
+your achieved score based on the questions that have been attempted. This command only works during the quiz. +
+Format : `end`
 
 === List results of a chapter : `result`
 
-This command will generate a comprehensive summary of the previous quiz that you attempted. You will be able to see
-where you went wrong in your previous quiz so you can improve in your next attempt. +
+This command will generate a comprehensive summary of the previous quiz that you have attempted. You will be able to see
+where you went wrong in your previous quiz so as to be able to work on your weaker concepts. +
 Format : `result`
-=======
-This command will generate a comprehensive summary of the previous quiz that you attempted. You will be able to see
-where you went wrong in your previous quiz so you can improve in your next attempt. +
-Format : `result`
-
 
 === List previously entered commands : `history`
 
-This command provides a list of commands you have entered. This would be useful in the event if some console command has changed
-the your result but you has forgotten what commands you have entered. +
+This command provides a list of past commands you have entered upon request. +
+In the event where one of your commands, be it intentional or accidental, changes your result,
+you may use this command to help retrieve and track the past commands which you've entered, hence
+better able to find out your mistake. +
+
 Format : `history NUMBER` +
 Example : +
 `history 5` will print the last 5 console commands given.
 
+Expected outcome:
+`Have you forgotten our conversation?` +
+`menu` +
+`select` +
+`menu select` +
+`select sorting` +
+`quiz`
+
+- NUMBER should be a positive number that is greater than 0
+- NUMBER must be smaller than the number of past commands made
 
 === Delete chat bubbles in the chatbox : `undo`
 
@@ -176,6 +196,9 @@ Format : `undo NUMBER` +
 Example: +
 `undo 2` will delete 2 chat bubbles.
 
+- NUMBER should be a positive and greater than 1 (since `undo` gives a default of NUMBER as 1)
+- NUMBER should be smaller than the number of response chats.
+
 === Clear the chatbox : `clear`
 
 This command removes all existing conversations in the chat if you deem the interface to be too cluttered with information +
@@ -183,26 +206,37 @@ Format : `clear`
 
 === Provides suggestions to users to improve : `help`
 
-This command provides a suggestion of problems that you can solve to improve at a particular chapter. +
+This command provides a suggestion of problems (targeted at respective chapters) that you may wish to attempt to brush up on weaker concepts +
 Format : `help CHAPTER` +
+
 Example : +
 `help sorting` will list a few problems from Kattis that the user can attempt to increase their
 understanding of the chapter selected.
+
+====
+*Expected Outcome* +
+`Try solving these problems on Kattis: +
+cups, lineup, mjehuric, sidewayssorting`
+====
 
 === Change the volume of the background music : `volume`
 
 This command adjust the volume. Specify a number between 0 to 10 adjust the sound level with 10 the maximum loudness. +
 Format: `volume NUMBER` +
+
 Example: +
 `volume 1` will set the volume to level 1.
 
+- NUMBER should be between 0 to 100 inclusive.
+
 === Print questions or user information : `print`
 
-This command provides a way for you to print the questions you have experienced in a text file. This is for users who
+This command provides a way for you to print the questions you have attempted in a text file. This is for users who
 want to keep a copy of the questions they found hard, or attempted wrongly. Specify `user`, `archive`, or `quiz` to the
 second argument to print the data in the user, archive, or quiz respectively.
 Specify the filename with the extension `.pdf` as the third argument to print the data to PDF +
 Format : `print DATA_SOURCE FILENAME` +
+
 Example: +
 `print user MyData.pdf` will print the UserData (His name, gender, level, exp, chapter information) into a pdf named MyData.
 
@@ -210,9 +244,12 @@ Example: +
 
 This command archives the specified question. Specifying the question number archived the question in the last attempted quiz. This is for users who found a particular question interesting, or users who are
 not sure of the correct answer and wish to review the question in greater detail in the future. +
+
 Format: `archive NUMBER` +
 Example: +
 `archive 1` archives question 1 in the quiz. Note that to view the archived questions in pdf, please read the `print archive FILENAME` with FILENAME having the .pdf extension.
+
+- NUMBER should be between 1 to 10 inclusive.
 
 === Manually save the game : `save` `[coming in v1.4]`
 
@@ -266,27 +303,28 @@ Format : `exit`
 
 * *hello* `hello`
 * *menu* : `menu`
-* *quiz* : `quiz`
-* *quiz ANSWER* : `quiz ANSWER`
-* *quiz BACK* : `quiz back`
-* *quiz NEXT* : `quiz next`
-* *quiz END* : `quiz end`
-* *select* : `select CHAPTER` +
+* *chapters* : `chapters`
+* *select* : `select CHAPTER`
 e.g. `select sorting`
+* *quiz* : `quiz`
+* *quiz ANSWER* : `ANSWER`
+* *quiz BACK* : `back`
+* *quiz NEXT* : `next`
+* *quiz END* : `end`
 * *result* : `result`
 * *history* : `history NUMBER` +
 e.g. `history 5`
 * *Undo* : `undo NUMBER` +
-e.g. `undo 1`
-* *Clear* : `clear`
-* *Help* : `help CHAPTER` +
+e.g. `undo` or `undo 4`
+* *clear* : `clear`
+* *help* : `help CHAPTER` +
 e.g. `help sorting`
-* *Volume* : `volume LEVEL_NUMBER` +
+* *volume* : `volume LEVEL_NUMBER` +
 e.g. `volume 1`
-* *Print* : `print DATA_SOURCE FILENAME` +
-e.g `print user MyData`
-* *Archive* : `archive QUESTION_NUMBER` +
+* *print* : `print DATA_SOURCE FILENAME` +
+e.g `print user MyData.pdf`
+* *archive* : `archive QUESTION_NUMBER` +
 e.g. `archive 1`
-* *Save* : `save`
-* *Reset* : `reset`
-* *Exit* : `exit`
+* *save* : `save`
+* *reset* : `reset`
+* *exit* : `exit`

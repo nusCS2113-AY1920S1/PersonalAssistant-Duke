@@ -45,7 +45,7 @@ public class HelpCommand extends Command {
      */
     public String getDefaultMessage() {
         StringBuilder str = new StringBuilder(
-                "No such chapter found. Please select the following:\nselect <chapter name>\n");
+                "No such chapter found. Please select the following:\nhelp <chapter name>\n");
         for (String chapter: userStats.getChapters()) {
             str.append(chapter).append("\n");
         }

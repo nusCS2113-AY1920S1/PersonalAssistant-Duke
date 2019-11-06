@@ -4,6 +4,7 @@ import com.algosenpai.app.logic.chapters.QuizGenerator;
 import com.algosenpai.app.logic.command.ArchiveCommand;
 import com.algosenpai.app.logic.command.BlockedCommand;
 import com.algosenpai.app.logic.command.ByeCommand;
+import com.algosenpai.app.logic.command.ChaptersCommand;
 import com.algosenpai.app.logic.command.ClearCommand;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.logic.command.HelpCommand;
@@ -53,7 +54,8 @@ public class Logic {
     // VariabReview features;
     private ArrayList<QuestionModel> archiveList = new ArrayList<>();
 
-    private HashSet<String> quizBlockedCommands = new HashSet<>(CommandsEnum.getNames());
+    //private HashSet<String> quizBlockedCommands = new HashSet<>(CommandsEnum.getNames());
+    private HashSet<String> quizBlockedCommands = new HashSet<>(CommandsEnum.getBlockedNames(CommandsEnum.getNames()));
     // History features;
     private ArrayList<String> historyList = new ArrayList<>();
     // Used to get the past commands, using arrow keys. Stores the number of elements from the back of historyList
@@ -89,6 +91,12 @@ public class Logic {
                 return setupNewQuiz(inputs);
             } else if (isNewQuiz.get() && userInput.equals("select")) {
                 return new SelectCommand(inputs, chapterNumber, userStats, isQuizMode);
+            } else if ("menu".equals(userInput)) {
+                return new MenuCommand(inputs);
+            } else if ("history".equals(userInput)) {
+                return new HistoryCommand(inputs, historyList);
+            } else if ("volume".equals(userInput)) {
+                return new VolumeCommand(inputs);
             } else if (quizBlockedCommands.contains(userInput)) {
                 return new BlockedCommand(inputs);
             } else {
@@ -98,6 +106,8 @@ public class Logic {
             switch (userInput) {
             case "hello":
                 return new SetupCommand(inputs, userStats);
+            case "chapters":
+                return new ChaptersCommand(inputs);
             case "help":
                 return new HelpCommand(inputs, userStats);
             case "menu":
