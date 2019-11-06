@@ -122,7 +122,6 @@ public class StackPopPushQuestion extends Question {
             rtlm.addReviewTracingModel("Consider step : " + cmd);
             if (cmd.contains("Pop")) {
                 rtlm.addReviewTracingModel("Removing this element : " + stack.pollLast() + ".");
-                stack.removeLast();
             } else {
                 String number = cmd.substring(5, cmd.length() - 2);
                 rtlm.addReviewTracingModel("Adding this number to the front : " + number + ".");

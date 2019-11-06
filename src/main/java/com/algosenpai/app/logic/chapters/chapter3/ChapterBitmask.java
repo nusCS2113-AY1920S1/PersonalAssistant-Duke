@@ -13,15 +13,15 @@ public class ChapterBitmask {
      * @return A question model containing to the random number being generated.
      */
     public static QuestionModel generateQuestions() {
-        int questionType = random.nextInt(5);
+        int questionType = random.nextInt(4);
         switch (questionType) {
         case 0 :
             return new LeastSignificantBitQuestion().execute();
         case 1 :
             return new BinaryToIntegerConversionQuestion().execute();
-        case 3 :
+        case 2 :
             return new CountingBitsQuestion().execute();
-        case 4 :
+        case 3 :
             return new BitwiseOperatorQuestion().execute();
         default :
             return null;
