@@ -1,7 +1,9 @@
 package leduc;
 
 import leduc.command.*;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,13 +12,21 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class ParserTest {
 
+    private static Parser parser;
+
+    /**
+     * Represents the before of commandCreatedTest.
+     */
+    @BeforeAll
+    public static void beforeCommandCreatedTest(){
+        parser =  new Parser();
+    }
     /**
      * Represents a JUnit test method to test if the parser could
      * create the right command depending on the input String (user).
      */
     @Test
     public void commandCreatedTest(){
-        Parser parser = new Parser();
         assertTrue(parser.parse("ok") instanceof MeaninglessCommand);
         assertTrue(parser.parse("list") instanceof ListCommand);
         assertFalse(parser.parse("listlist") instanceof ListCommand);
@@ -26,7 +36,7 @@ public class ParserTest {
         assertTrue(parser.parse("delete 12") instanceof DeleteCommand);
         assertFalse(parser.parse("delete e") instanceof DeleteCommand);
         assertTrue(parser.parse("todo ekzoa") instanceof TodoCommand);
-        assertTrue(parser.parse("deadline d1")instanceof DeadlineCommand);
+        assertTrue(parser.parse("homework d1")instanceof HomeworkCommand);
         assertTrue(parser.parse("event e") instanceof EventCommand);
         assertTrue(parser.parse("bye")instanceof ByeCommand);
         assertTrue(parser.parse("edit")instanceof EditCommand);

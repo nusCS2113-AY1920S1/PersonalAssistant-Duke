@@ -31,8 +31,7 @@ public class SetWelcomeCommand extends Command{
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws FileException {
         FileWriter fileWriter = null;
-        String filepath = System.getProperty("user.dir")+ "/data/welcome.txt";//get location of welcome message file
-        File file = Ui.openFile(filepath);
+        File file = storage.getWelcomeFile();
         //open fileWriter object
         String welcomeMessage;
         try {
@@ -50,7 +49,7 @@ public class SetWelcomeCommand extends Command{
             e.printStackTrace();
             throw new FileException();
         }
-        ui.display("\t The welcome message is edited: " + welcomeMessage);
+        ui.showNewWelcome(welcomeMessage);
     }
 
     /**

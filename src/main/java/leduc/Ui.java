@@ -2,6 +2,9 @@ package leduc;
 
 import leduc.exception.DukeException;
 import leduc.exception.FileException;
+import leduc.storage.Storage;
+import leduc.task.EventsTask;
+import leduc.task.HomeworkTask;
 import leduc.task.Task;
 import leduc.task.TaskList;
 
@@ -13,7 +16,7 @@ import java.util.Scanner;
 /**
  *  Represents leduc.Ui which deals with the interactions with the user.
  */
-public class Ui {
+public abstract class Ui {
     private Scanner sc;
 
     /**
@@ -63,11 +66,10 @@ public class Ui {
     /**
      * Show welcome to the user.
      */
-    public void showWelcome() throws FileException {
+    public void showWelcome(Storage storage) throws FileException {
 
         //open the file
-        String filepath = System.getProperty("user.dir")+ "/data/welcome.txt";
-        File file = openFile(filepath);
+        File file = storage.getWelcomeFile();
 
         //create Scanner object to read file
         Scanner sc2 = null;
@@ -93,11 +95,99 @@ public class Ui {
     /**
      * Bye message to the user.
      */
-    public void showBye(){
-        this.display("\t Bye. Hope to see you again soon!");
-    }
 
+    public abstract void showBye();
 
+    /**
+     * Display this message when a task has been delete
+     * @param removedTask the task that was removed
+     * @param size the size of the TaskList after deletion
+     */
+    public abstract void showDelete(Task removedTask, int size);
+
+    /**
+     * Display this message when a task has been done
+     * @param doneTask the task that has been done
+     */
+    public abstract void showDone(Task doneTask);
+
+    /**
+     * Display this message when a new task has been added
+     * @param newTask the new task that has been added
+     * @param size the size of the TaskList after the addition
+     */
+
+    public abstract void showTask(Task newTask, int size);
+
+    /**
+     * Display this message when there is a matching for the find
+     * @param result the list of all matching task
+     */
+    public abstract void showFindMatching(String result);
+
+    /**
+     * Display this message when there is no matching for the find
+     */
+    public abstract void showFindNotMatching();
+
+    /**
+     * Display this message when there is no task to display
+     */
+    public abstract void showNoTask();
+
+    /**
+     * Display this message when a task has been postponed
+     * @param postponeTask the task that has been postponed
+     */
+    public abstract void showPostpone(HomeworkTask postponeTask);
+
+    /**
+     * Display this message when there is a task where the priority has been set
+     * @param task the task where the priority has been set
+     */
+    public abstract void showPrioritize(Task task);
+
+    /**
+     * Display this message when a task has been rescheduled
+     * @param rescheduleTask the task that has been rescheduled
+     */
+    public abstract void showReschedule(EventsTask rescheduleTask);
+
+    /**
+     * Display this message when a new welcome message has been set
+     * @param welcomeMessage the new welcome message
+     */
+    public abstract void showNewWelcome(String welcomeMessage);
+
+    /**
+     * Display this message when a task has been snoozed
+     * @param snoozeTask
+     */
+    public abstract void showSnooze(HomeworkTask snoozeTask);
+
+    /**
+     * Display this message when the list of tasks has been sorted
+     */
+    public abstract void showSort();
+
+    /**
+     * Display this message when the user wants some statistics
+     * @param numTasks number of tasks
+     * @param numTodos number of todos
+     * @param numEvents number of events
+     * @param numHomework number of homework
+     * @param numIncomplete number of uncompleted task
+     * @param numComplete number of completed task
+     * @param percentComplete percent complete
+     */
+    public abstract void showStats(double numTasks, double numTodos, double numEvents, double numHomework,
+                                   double numIncomplete, double numComplete, float percentComplete);
+
+    /**
+     * Display this message when a new language has been set for the program
+     * @param lang the new language
+     */
+    public abstract void showLanguage(String lang);
     /**
      * Display the String in the parameter between two lines.
      * @param s String which will be printed.
@@ -111,96 +201,94 @@ public class Ui {
      * Display the unfinished tasks to the terminal
      * @param unfinishedTasks the arraylist of unfinished tasks.
      */
-    public void showUnFinishedTasks(ArrayList<Task> unfinishedTasks){//print the task so they have the same index
-        String result = "";
-        TaskList unfinishedTaskList = new TaskList(unfinishedTasks);
-        for(int i = 0; i < unfinishedTaskList.size(); i++){
-            Task task = unfinishedTaskList.get(i);
-            result += unfinishedTaskList.displayOneElementList(i);
-        }
-        if(result.equals("")){
-            System.out.println("\t---------------------------------------------------------------------------------");
-            System.out.println("\t There are no unfinished tasks in your list");
-            System.out.println("\t---------------------------------------------------------------------------------");
-        }
-        else {
-            System.out.println("\t---------------------------------------------------------------------------------");
-            System.out.println("\t Here are the unfinished tasks in your list:");
-            System.out.println(result);
-            System.out.println("\t---------------------------------------------------------------------------------");
-        }
-    }
+    public abstract void showUnFinishedTasks(ArrayList<Task> unfinishedTasks);
     /**
      * Display the list of tasks.
      * @param tasks tasks list.
      */
-    public void showList(TaskList tasks){
-        System.out.println("\t---------------------------------------------------------------------------------");
-        System.out.println("\t Here are the tasks in your list:");
-        for (int i = 0 ;i< tasks.size() ; i++ ){
-            System.out.print(tasks.displayOneElementList(i));
-        }
-        System.out.println("\t---------------------------------------------------------------------------------");
-    }
+    public abstract void showList(TaskList tasks);
 
-    public void showNotCompleteList(ArrayList<Task> notCompleteTasks, TaskList tasks){//print the task so they have the same index
-        System.out.println("\t---------------------------------------------------------------------------------");
-        System.out.println("\t Here are the tasks in your list:");
-        for(int i = 0; i < tasks.size(); i++){
-            if(notCompleteTasks.contains(tasks.get(i))){
-                System.out.print(tasks.displayOneElementList(i));
-            }
-        }
-        System.out.println("\t---------------------------------------------------------------------------------");
-    }
+
+    /**
+     * display when the program want to show a partial list with their right index
+     * @param notCompleteTasks the partial list
+     * @param tasks the complete list that will be compare to
+     */
+    public abstract void showNotCompleteList(ArrayList<Task> notCompleteTasks, TaskList tasks);//print the task so they have the same index
+
+
 
     /**
      * Display the error message
      * @param e the error that has been catch
      */
-    public void showError(DukeException e){
-        System.out.println(e.print());
-    }
+    public abstract void showError(DukeException e);
 
     /**
      * Display every command
      */
-    public void showHelp(){
-        System.out.println("\t---------------------------------------------------------------------------------");
-        System.out.println("\t All command will be display as :");
-        System.out.println("\t commandName [PARAMETERS] : description of the command");
-        System.out.println("\t All parameters will be written in UPPER_CASE");
-        System.out.println("\t Parameters are :");
-        System.out.println("\t DESCRIPTION : the description of a task");
-        System.out.println("\t SORTTYPE : the date or description");
-        System.out.println("\t DATE : the date of a task");
-        System.out.println("\t INDEX : the index of the task (goes from 1 to ...)");
-        System.out.println("\t KEYWORD : the keyword to find a task");
-        System.out.println("\t WELCOME: the welcome message");
-        System.out.println("\t DATEOPTION");
-        System.out.println("\t Date format is DD/MM/YYYY HH:mm except for show");
-        System.out.println("\t All blank space should be respected");
-        System.out.println("\t Here are the list of all command:");
-        System.out.println("\t todo DESCRIPTION prio INDEX: create a todo task ( prio index is optional) with priority index");
-        System.out.println("\t homework DESCRIPTION /by DATE prio INDEX: create a homework task ( prio index is optional) with priority index");
-        System.out.println("\t event DESCRIPTION /at DATE - DATE prio INDEX: create an event task ( prio index is optional) with priority index");
-        System.out.println("\t list : show all the tasks");
-        System.out.println("\t bye : exit the application");
-        System.out.println("\t done INDEX : mark as done the task of index INDEX");
-        System.out.println("\t delete INDEX : delete the task of index INDEX");
-        System.out.println("\t find KEYWORD : find the task with a keyword");
-        System.out.println("\t snooze INDEX : snooze a task of index INDEX");
-        System.out.println("\t postpone INDEX /by DATE : postpone a deadline task");
-        System.out.println("\t sort SORTTYPE : Sort all task by date/description");
-        System.out.println("\t reschedule INDEX /at DATE - DATE : reschedule an event task");
-        System.out.println("\t remind : remind the first three task");
-        System.out.println("\t setwelcome WELCOME : customize the welcome message");
-        System.out.println("\t edit : edit a task (then, you have to follow the instructions)");
-        System.out.println("\t show DATEOPTION DATE: show task by day/dayofweek/month/year ( day format is DD/MM/YYYY; " +
-                "dayofweek format is monday,tuesday...; month format is MM/YYYY; year format is YYYY)");
-        System.out.println("\t prioritize INDEX prio INDEX : give priority to task");
-        System.out.println("\t unfinished: Find and display all unfinished tasks");
-        System.out.println("\t help : show the list of all command");
-        System.out.println("\t---------------------------------------------------------------------------------");
-    }
+    public abstract void showHelp();
+
+    /**
+     * display when the program ask the user which task he want to edit
+     */
+    public abstract void showEditChooseTask();
+
+    /**
+     * display when the program ask the user to choose between 2 choices : description or deadline/period
+     */
+    public abstract void showEdit2Choice();
+
+    /**
+     * display when the program ask the user to enter a new information for the choice
+     * @param choice the choice : description, deadline or period
+     */
+    public abstract void showEditWhat(String choice);
+
+    /**
+     * display the task that has been edited
+     * @param task the task that has been edited
+     */
+    public abstract void showEdit(Task task);
+
+    /**
+     * display when the program ask the user to set a shortcut name for the command name
+     * @param commandName the command name that will have a new shortcut name
+     */
+    public abstract void showAskShortcut(String commandName);
+
+    /**
+     * display when the program ask the user to set a shortcut name for the command name
+     * @param commmandName command name
+     * @param shortcutName the previous shortcut name
+     */
+    public abstract void showAskAllShortcut(String commmandName, String shortcutName);
+
+    /**
+     * display after setting a shortcut name for the command name
+     * @param commandName the command name which the shortcut name has been set
+     */
+    public abstract void showOneShortcutSet(String commandName);
+
+    /**
+     * display when the shortcut for all the command has been set
+     */
+    public abstract void showAllShortcutSet();
+    /**
+     * display when the program ask the user to enter a day date
+     */
+    public abstract void showEnterDayShow();
+
+    /**
+     * display when the program ask the user to enter a day of week
+     */
+    public abstract void showEnterDayOfWeekShow();
+    /**
+     * display when the program ask the user to enter a month
+     */
+    public abstract void showEnterMonthShow();
+    /**
+     * display when the program ask the user to enter a year
+     */
+    public abstract void showEnterYearShow();
 }

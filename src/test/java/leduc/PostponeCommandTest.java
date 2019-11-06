@@ -4,6 +4,8 @@ import leduc.command.PostponeCommand;
 import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.task.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -18,23 +20,26 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Represents a JUnit test class for the PostponeCommand.
  */
 public class PostponeCommandTest {
+
+    private static Ui ui;
+    private static Storage storage;
+    private static TaskList tasks;
+
     /**
-     * Represents a JUnit test method for the PostponeCommand.
-     * Test the command depending on the input String (user).
+     * Represents the before of PostponeCommandTest.
      */
-    @Test
-    public void PostponeCommandTest() {
-        Ui ui = new Ui();
-        Storage storage = null;
+    @BeforeAll
+    public static void beforePostponeCommandTest(){
+        ui = new UiEn();
         try {
-            storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/testFile/configTest.txt");
+            storage = new Storage(System.getProperty("user.dir")+ "/src/test/java/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/java/testFile/configTest.txt",System.getProperty("user.dir")+ "/src/test/java/testFile/welcome.txt");
         } catch (FileException e) {
             e.printStackTrace();
         } catch (MeaninglessException e) {
             e.printStackTrace();
         }
 
-        TaskList tasks = new TaskList(new ArrayList<>());
+        tasks = new TaskList(new ArrayList<>());
 
         LocalDateTime d1 = null;
         LocalDateTime d2 = null;
@@ -54,7 +59,7 @@ public class PostponeCommandTest {
             }
         }
         date1 = new Date(d1);
-        tasks.add(new DeadlinesTask("d1",date1));
+        tasks.add(new HomeworkTask("d1",date1));
 
         try{
             d1 = LocalDateTime.parse("21/09/2019 22:22".trim(), formatter);
@@ -84,10 +89,17 @@ public class PostponeCommandTest {
             }
         }
         date1 = new Date(d1);
-        tasks.add(new DeadlinesTask("d1",date1));
+        tasks.add(new HomeworkTask("d1",date1));
 
         assertTrue(tasks.size()==6);
+    }
 
+    /**
+     * Represents a JUnit test method for the PostponeCommand.
+     * Test the command depending on the input String (user).
+     */
+    @Test
+    public void PostponeCommandTest() {
         PostponeCommand postponeCommand1 = new PostponeCommand("postpone 4ee /by 12/12/2222 22:22");
         try{
             postponeCommand1.execute(tasks,ui,storage);
@@ -109,7 +121,7 @@ public class PostponeCommandTest {
             postponeCommand3.execute(tasks,ui,storage);
         }
         catch( DukeException e ){
-            assertTrue(e instanceof DeadlineTypeException);
+            assertTrue(e instanceof HomeworkTypeException);
         }
 
         PostponeCommand postponeCommand4 = new PostponeCommand("postpone 2");
@@ -117,7 +129,7 @@ public class PostponeCommandTest {
             postponeCommand4.execute(tasks,ui,storage);
         }
         catch( DukeException e ){
-            assertTrue(e instanceof EmptyDeadlineDateException);
+            assertTrue(e instanceof EmptyHomeworkDateException);
         }
 
         PostponeCommand postponeCommand5 = new PostponeCommand("postpone 2 /by 12/12/22a2 22:22");
@@ -131,19 +143,19 @@ public class PostponeCommandTest {
 
 
         Task task = tasks.get(tasks.size()-1);
-        assertTrue(task.isDeadline());
-        Date d = ((DeadlinesTask) task).getDeadlines();
+        assertTrue(task.isHomework());
+        Date d = ((HomeworkTask) task).getDeadlines();
         Date dAfter = d;
-        dAfter.setD(d.getD().plusDays(1));
+        dAfter.setDate(d.getDate().plusDays(1));
         Date dBefore = d;
-        dAfter.setD(d.getD().plusDays(-1));
+        dAfter.setDate(d.getDate().plusDays(-1));
 
         PostponeCommand postponeCommand6 = new PostponeCommand("postpone 6 /by "+ dBefore);
         try{
             postponeCommand6.execute(tasks,ui,storage);
         }
         catch( DukeException e ){
-            assertTrue(e instanceof PostponeDeadlineException);
+            assertTrue(e instanceof PostponeHomeworkException);
         }
 
         PostponeCommand postponeCommand7 = new PostponeCommand("postpone 6 /by " +dAfter);
@@ -153,7 +165,13 @@ public class PostponeCommandTest {
         catch( DukeException e ){ // Should not happen
             assertTrue(false);
         }
+    }
 
+    /**
+     * Represents the after of PostponeCommandTest.
+     */
+    @AfterAll
+    public static void afterPostponeCommandTest(){
         tasks.getList().removeAll(tasks.getList());
         try {
             storage.save(tasks.getList());

@@ -143,12 +143,12 @@ public abstract class Task {
     public LocalDateTime getDate(){
         if (this.isHomework()) {
             HomeworkTask homework = (HomeworkTask) this;
-            return (homework.getDeadlines()).getD();
+            return (homework.getDeadlines()).getDate();
         }
         else if (this.isEvent()){
             EventsTask event = (EventsTask)this;
 
-            return(event.getDateFirst()).getD();
+            return(event.getDateFirst()).getDate();
         }
         else{
             return null;

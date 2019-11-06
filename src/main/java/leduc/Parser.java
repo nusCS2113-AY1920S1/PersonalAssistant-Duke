@@ -50,13 +50,17 @@ public class Parser {
             c = new PostponeCommand(user);
             c.calledByShortcut();
         }
-        else if (user.trim().matches(EditCommand.getEditShortcut())){
+        else if (user.trim().matches("edit(.*)")){
             c = new EditCommand(user);
         }
-        else if (user.matches("delete \\d+")) {// if it is done and a number of task
+        else if (user.trim().matches(EditCommand.getEditShortcut()+ "(.*)")){
+            c = new EditCommand(user);
+            c.calledByShortcut();
+        }
+        else if (user.matches("delete \\d+")) {// if it is delete and a number of task
             c = new DeleteCommand(user);
         }
-        else if (user.matches(DeleteCommand.getDeleteShortcut() + " \\d+")) {// if it is done and a number of task
+        else if (user.matches(DeleteCommand.getDeleteShortcut() + " \\d+")) {// if it is delete and a number of task
             c = new DeleteCommand(user);
             c.calledByShortcut();
         }
@@ -139,6 +143,13 @@ public class Parser {
         else if(user.matches("shortcut") | user.matches("shortcut (.*)")){
             c = new ShortcutCommand(user);
 
+        }
+        else if (user.matches("language (.*)") | user.matches("language")) {
+            c = new LanguageCommand(user);
+        }
+        else if (user.matches(LanguageCommand.getLanguageShortcut() + " (.*)") | user.matches(LanguageCommand.getLanguageShortcut())) {
+            c = new LanguageCommand(user);
+            c.calledByShortcut();
         }
         else {
             c = new MeaninglessCommand(user);

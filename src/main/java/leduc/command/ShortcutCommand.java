@@ -25,7 +25,7 @@ public class ShortcutCommand extends Command {
                 newShortcut = userCommand[2].trim();
             }
             else {
-                ui.display("Please enter a shortcut for " + userCommand[1]);
+                ui.showAskShortcut(userCommand[1]);
                 newShortcut = ui.readCommand();
             }
             if(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut)){
@@ -33,125 +33,130 @@ public class ShortcutCommand extends Command {
             }
             else {
                 setOneShortcut(userCommand[1], newShortcut);
-                ui.display("The shortcut for " + userCommand[1] +" has been set");
+                ui.showOneShortcutSet(userCommand[1]);
             }
         }
         else {
             do{
-                ui.display("The precedent shortcut for bye is " + ByeCommand.getByeShortcut() +" please enter new shortcut");
+                ui.showAskAllShortcut("bye", ByeCommand.getByeShortcut());
                 newShortcut = ui.readCommand();
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("bye", newShortcut);
 
             do{
-                ui.display("The precedent shortcut for list is " + ListCommand.getListShortcut() +" please enter new shortcut");
+                ui.showAskAllShortcut("list", ListCommand.getListShortcut());
                 newShortcut = ui.readCommand();
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("list", newShortcut);
 
             do{
-                ui.display("The precedent shortcut for help is " + HelpCommand.getHelpShortcut() +" please enter new shortcut");
+                ui.showAskAllShortcut("help", HelpCommand.getHelpShortcut());
                 newShortcut = ui.readCommand();
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("help", newShortcut);
 
             do{
-                ui.display("The precedent shortcut for done is " + DoneCommand.getDoneShortcut() +" please enter new shortcut");
+                ui.showAskAllShortcut("done", DoneCommand.getDoneShortcut());
                 newShortcut = ui.readCommand();
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("done", newShortcut);
 
             do{
-                ui.display("The precedent shortcut for find is " + FindCommand.getFindShortcut() +" please enter new shortcut");
+                ui.showAskAllShortcut("find", FindCommand.getFindShortcut());
                 newShortcut = ui.readCommand();
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("find", newShortcut);
 
             do{
-                ui.display("The precedent shortcut for delete is " + DeleteCommand.getDeleteShortcut() +" please enter new shortcut");
+                ui.showAskAllShortcut("delete", DeleteCommand.getDeleteShortcut());
                 newShortcut = ui.readCommand();
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("delete", newShortcut);
 
 
             do{
-                ui.display("The precedent shortcut for homework is " + HomeworkCommand.getHomeworkShortcut() +" please enter new shortcut");
+                ui.showAskAllShortcut("homework", HomeworkCommand.getHomeworkShortcut());
                 newShortcut = ui.readCommand();
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("homework", newShortcut);
 
             do{
-                ui.display("The precedent shortcut for event is " + EventCommand.getEventShortcut() +" please enter new shortcut");
+                ui.showAskAllShortcut("event", EventCommand.getEventShortcut());
                 newShortcut = ui.readCommand();
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("event", newShortcut);
 
             do{
-                ui.display("The precedent shortcut for todo is " + TodoCommand.getTodoShortcut() +" please enter new shortcut");
+                ui.showAskAllShortcut("todo", TodoCommand.getTodoShortcut());
                 newShortcut = ui.readCommand();
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("todo", newShortcut);
 
             do{
-                ui.display("The precedent shortcut for edit is " + EditCommand.getEditShortcut() +" please enter new shortcut");
+                ui.showAskAllShortcut("edit", EditCommand.getEditShortcut());
                 newShortcut = ui.readCommand();
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("edit", newShortcut);
 
             do{
-                ui.display("The precedent shortcut for postpone is " + PostponeCommand.getPostponeShortcut() +" please enter new shortcut");
+                ui.showAskAllShortcut("postpone", PostponeCommand.getPostponeShortcut());
                 newShortcut = ui.readCommand();
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("postpone", newShortcut);
 
             do{
-                ui.display("The precedent shortcut for snooze is " + SnoozeCommand.getSnoozeShortcut() +" please enter new shortcut");
+                ui.showAskAllShortcut("snooze", SnoozeCommand.getSnoozeShortcut());
                 newShortcut = ui.readCommand();
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("snooze", newShortcut);
 
             do{
-                ui.display("The precedent shortcut for reschedule is " + RescheduleCommand.getRescheduleShortcut() +" please enter new shortcut");
+                ui.showAskAllShortcut("reschedule", RescheduleCommand.getRescheduleShortcut());
                 newShortcut = ui.readCommand();
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("reschedule", newShortcut);
 
             do{
-                ui.display("The precedent shortcut for remind is " + RemindCommand.getRemindShortcut() +" please enter new shortcut");
+                ui.showAskAllShortcut("remind", RemindCommand.getRemindShortcut());
                 newShortcut = ui.readCommand();
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("remind", newShortcut);
 
             do{
-                ui.display("The precedent shortcut for sort is " + SortCommand.getSortShortcut() +" please enter new shortcut");
+                ui.showAskAllShortcut("sort", SortCommand.getSortShortcut());
                 newShortcut = ui.readCommand();
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("sort", newShortcut);
 
             do{
-                ui.display("The precedent shortcut for setWelcome is " + SetWelcomeCommand.getSetWelcomeShortcut() +" please enter new shortcut");
+                ui.showAskAllShortcut("setWelcome", SetWelcomeCommand.getSetWelcomeShortcut());
                 newShortcut = ui.readCommand();
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("setwelcome", newShortcut);
             do{
-                ui.display("The precedent shortcut for show is " + ShowCommand.getShowShortcut() +" please enter new shortcut");
+                ui.showAskAllShortcut("show", ShowCommand.getShowShortcut());
                 newShortcut = ui.readCommand();
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("show", newShortcut);
 
             do{
-                ui.display("The precedent shortcut for prioritize is " + PrioritizeCommand.getPrioritizeShortcut() +" please enter new shortcut");
+                ui.showAskAllShortcut("prioritize", PrioritizeCommand.getPrioritizeShortcut());
                 newShortcut = ui.readCommand();
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("prioritize", newShortcut);
 
             do{
-                ui.display("The precedent shortcut for unfinished is " + PrioritizeCommand.getPrioritizeShortcut() +" please enter new shortcut");
+                ui.showAskAllShortcut("unfinished", UnfinishedCommand.getUnfinishedShortcut());
                 newShortcut = ui.readCommand();
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("unfinished", newShortcut);
 
-            ui.display("All shortcut has been set");
+            do{
+                ui.showAskAllShortcut("language", LanguageCommand.getLanguageShortcut());
+                newShortcut = ui.readCommand();
+            } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
+            setOneShortcut("language", newShortcut);
+            ui.showAllShortcutSet();
         }
         storage.saveConfig();
     }
@@ -253,6 +258,11 @@ public class ShortcutCommand extends Command {
                 UnfinishedCommand.setUnfinishedShortcut(shortcutName);
                 setShortcut.add(shortcutName);
                 break;
+            case "language" :
+                setShortcut.remove(LanguageCommand.getLanguageShortcut());
+                LanguageCommand.setLanguageShortcut(shortcutName);
+                setShortcut.add(shortcutName);
+                break;
             default:
                 throw new MeaninglessException();
         }
@@ -281,5 +291,6 @@ public class ShortcutCommand extends Command {
         setDefaultShortcut.add("show");
         setDefaultShortcut.add("prioritize");
         setDefaultShortcut.add("unfinished");
+        setDefaultShortcut.add("language");
     }
 }
