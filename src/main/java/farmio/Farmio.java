@@ -122,6 +122,8 @@ public class Farmio {
         this.stage = stage;
     }
 
+    public void setUi(Ui dummyUi){ui = dummyUi;}
+
     public void setLevel(Level level) {
         this.level = level;
     }
