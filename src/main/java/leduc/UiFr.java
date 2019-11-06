@@ -320,6 +320,10 @@ public class UiFr extends Ui {
         else if (e instanceof UserAnswerException){
             System.out.println("\t UserAnswerException:\n\t\t ☹ OOPS!!! Veuillez répondre correctement à la question.");
         }
+        else if(e instanceof RecurrenceException){
+            System.out.println("\t RecurrenceException:\n\t\t ☹ OOPS!!! Please respect the recurrence format" +
+                    "\n\t\t\t recu TYPEOFRECURRENCE NBRECURRENCE");
+        }
     }
 
     @Override
