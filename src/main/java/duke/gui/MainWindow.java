@@ -181,8 +181,10 @@ public class MainWindow extends UiPart<Stage> {
         initializeTableViews();
 
         //@@author qjie7
-        String[] possibleWords = {"add", "delete", "find", "update", "list", "task", "patients", "assigned", "patient",
-            "bye", "period", "deadline", "undo", "help"};
+        String[] possibleWords = {"add task :", "add patient :", "assign period task :", "list patient",
+                                  "list tasks","delete patient :", "delete task :", "delete assigned task :",
+                                  "find patient :", "find task :", "find assigned tasks", "update patient :",
+                                  "update task :", "help", "piechart","bye", "undo", "help"};
         TextFields.bindAutoCompletion(userInput, possibleWords);
         //@@author
         showHelpGuide();

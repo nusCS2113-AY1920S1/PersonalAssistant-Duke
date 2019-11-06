@@ -7,9 +7,10 @@ import duke.commands.assignedtask.AssignPeriodTaskCommand;
 import duke.commands.assignedtask.DeleteAssignedTaskCommand;
 import duke.commands.assignedtask.FindAssignedTaskCommand;
 import duke.commands.functional.DukeCommand;
-import duke.commands.functional.HelpCommand;
-import duke.commands.functional.UndoCommand;
 import duke.commands.functional.ExitCommand;
+import duke.commands.functional.HelpCommand;
+import duke.commands.functional.PieChartCommand;
+import duke.commands.functional.UndoCommand;
 import duke.commands.patient.AddPatientCommand;
 import duke.commands.patient.DeletePatientCommand;
 import duke.commands.patient.FindPatientCommand;
@@ -150,6 +151,8 @@ public class CommandManager {
             return new UndoCommand();
         case "help":
             return new HelpCommand();
+        case "piechart":
+            return new PieChartCommand();
         default:
             throw new DukeException("Could not understand user input.");
         }
