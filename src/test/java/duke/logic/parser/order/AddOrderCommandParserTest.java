@@ -3,6 +3,7 @@ package duke.logic.parser.order;
 import duke.logic.command.exceptions.CommandException;
 import duke.logic.command.order.AddOrderCommand;
 import duke.logic.parser.exceptions.ParseException;
+import duke.model.ModelStub;
 import duke.model.order.Order;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,7 @@ public class AddOrderCommandParserTest {
 
     @Test
     public void parse_validStatus_success() {
-        OrderModelStub modelStub = new OrderModelStub();
+        ModelStub modelStub = new ModelStub();
         AddOrderCommand command = parser.parse(USER_INPUT_WITH_STATUS_VALID);
         try {
             command.execute(modelStub);

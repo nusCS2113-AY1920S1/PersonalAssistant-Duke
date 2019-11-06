@@ -7,9 +7,11 @@ import duke.model.product.IngredientItemList;
 import duke.model.product.Product;
 import duke.testutil.IngredientBuilder;
 import duke.testutil.IngredientItemListBuilder;
+import duke.testutil.ProductBuilder;
 import duke.testutil.ProductDescriptorBuilder;
 import org.junit.jupiter.api.Test;
 
+import static duke.logic.command.product.ProductCommandUtil.getEditedProductFromDescriptor;
 import static duke.testutil.TypicalProducts.CHEESE_CAKE;
 import static duke.testutil.TypicalProducts.EGG_TART;
 import static org.junit.jupiter.api.Assertions.*;
@@ -62,7 +64,36 @@ class ProductCommandUtilTest {
     }
     @Test
     void getEditedProductFromDescriptorTest() {
+        Product toEdit = new ProductBuilder(CHEESE_CAKE).build();
+        Product afterEdition = new ProductBuilder(CHEESE_CAKE).build();
 
+        // Change name, name are with different capitalization-> success
+        afterEdition.setProductName("Cheese_cake");
+        Product edited = getEditedProductFromDescriptor(toEdit, new ProductDescriptorBuilder().withName("Cheese_Cake").build());
+        assertTrue(edited.equals(afterEdition));
+
+        //change status -> success
+        edited = getEditedProductFromDescriptor(toEdit,
+                new ProductDescriptorBuilder().withStatus(STATUS_ACTIVE).build());
+        afterEdition = new ProductBuilder(CHEESE_CAKE).build();
+        afterEdition.setStatus(STATUS_ARCHIVE);
+        assertTrue(edited.equals(afterEdition));
+
+        //change cost -> success
+        edited = getEditedProductFromDescriptor(toEdit, new ProductDescriptorBuilder().withIngredientCost(
+                1000.0).build());
+        afterEdition = new ProductBuilder(CHEESE_CAKE).build();
+        afterEdition.setIngredientCost(1000.0);
+        assertTrue(edited.equals(afterEdition));
+
+        //change price -> success
+        edited = getEditedProductFromDescriptor(toEdit, new ProductDescriptorBuilder().withRetailPrice(
+                1000.0).build());
+        afterEdition = new ProductBuilder(CHEESE_CAKE).build();
+        afterEdition.setRetailPrice(1000.0);
+        assertTrue(edited.equals(afterEdition));
+
+        //todo: check model for duplicate product
     }
 
     /**
@@ -84,15 +115,11 @@ class ProductCommandUtilTest {
         descriptor.setProductName("cHeeSe CAke");
         assertTrue(CHEESE_CAKE.hasSameInfo(ProductCommandUtil.getAddedProductFromDescriptor(descriptor)));
 
-        // different name -> returns true
+        // different name -> returns false
         descriptor = new ProductDescriptor(DESC_CHEESE_CAKE);
         descriptor.setProductName("Cheese_cake");
         assertFalse(CHEESE_CAKE.hasSameInfo(ProductCommandUtil.getAddedProductFromDescriptor(descriptor)));
 
-        // Different names -> returns false
-        descriptor = new ProductDescriptor(DESC_CHEESE_CAKE);
-        descriptor.setProductName("cHeeSe");
-        assertFalse(CHEESE_CAKE.hasSameInfo(ProductCommandUtil.getAddedProductFromDescriptor(descriptor)));
 
         // Different ingredients -> returns false
         descriptor = new ProductDescriptor(DESC_CHEESE_CAKE);
