@@ -45,7 +45,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Date;
 import java.text.SimpleDateFormat;
-
+import java.text.DecimalFormat;
 
 /**
  * Represents a parser that breaks down user input into commands.
@@ -79,6 +79,18 @@ public class Parser {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    /**
+     * Converts a string amount to look like what a typical monetary amount would look like..
+     *
+     * @param stringAmount The amount to be converted.
+     * @return the converted amount with 2 decimal places.
+     */
+    private static String budgetAmountFormat(String stringAmount) {
+        DecimalFormat decimalFormat = new DecimalFormat("#.00");
+        float floatAmount = Float.parseFloat(stringAmount);
+        return decimalFormat.format(floatAmount);
     }
     //@@author
 
@@ -578,8 +590,11 @@ public class Parser {
                         budgetRemark = budgetAmount.split(" ", Numbers.TWO.value)[Numbers.ONE.value];
                         budgetAmount = budgetAmount.split(" ")[Numbers.ZERO.value];
                     }
+                    budgetAmount = budgetAmountFormat(budgetAmount);
                     if (budgetCommand.equals("new") || budgetCommand.equals("reset")) {
                         return new ResetBudgetCommand(budgetList, Float.parseFloat(budgetAmount));
+                    } else if (Float.parseFloat(budgetAmount) == 0) {
+                        throw new DukeException("     (>_<) OoPS!!! You cant add/subtract an empty amount!");
                     } else if (budgetCommand.equals("add") || budgetCommand.equals("+")) {
                         return new AddBudgetCommand(budgetList, Float.parseFloat(budgetAmount), budgetRemark);
                     } else if (budgetCommand.equals("minus") || budgetCommand.equals("-")) {
@@ -587,12 +602,14 @@ public class Parser {
                     } else {
                         throw new DukeException("     (>_<) OoPS!!! Invalid Budget Command. "
                                                 + "\n     It should be more like: "
-                                                + "\n     budget <+/-/reset/view> <amount> <desc(Optional)>");
+                                                + "\n     budget <cmd> <amount> <desc(Optional)>"
+                                                + "\n     ,where cmd can be add/minus/view/reset. ");
                     }
                 } catch (Exception p) {
                     throw new DukeException("     (>_<) OoPS!!! Invalid Budget Command. "
                             + "\n     It should be more like: "
-                            + "\n     budget <+/-/reset/view> <amount> <desc(Optional)>");
+                            + "\n     budget <cmd> <amount> <desc(Optional)>"
+                            + "\n     ,where cmd can be add/minus/view/reset. ");
                 }
             }
         } else if (sentence.equals("backup")) {
