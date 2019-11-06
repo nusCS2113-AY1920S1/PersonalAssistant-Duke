@@ -4,7 +4,6 @@ import duke.command.BackupCommand;
 import duke.command.ExitCommand;
 import duke.command.ListPriorityCommand;
 import duke.command.Command;
-import duke.command.AddMultipleCommand;
 import duke.command.SetPriorityCommand;
 import duke.command.DeleteCommand;
 import duke.command.FilterCommand;
@@ -254,7 +253,6 @@ public class Duke {
                     cmd.executeStorage(items, ui, storage);
                     break;
                 } else if (cmd instanceof ListPriorityCommand
-                        || cmd instanceof AddMultipleCommand
                         || cmd instanceof DeleteCommand
                         || cmd instanceof SetPriorityCommand
                         || cmd instanceof FindTasksByPriorityCommand) {

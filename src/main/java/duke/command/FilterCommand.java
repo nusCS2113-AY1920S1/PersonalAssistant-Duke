@@ -8,7 +8,6 @@ import duke.ui.Ui;
 import duke.task.Todo;
 import duke.task.Deadline;
 import duke.task.FixedDuration;
-import duke.task.Repeat;
 
 //@@author talesrune
 /**
@@ -54,9 +53,6 @@ public class FilterCommand extends Command {
             } else if (taskType.equals("deadline") && items.get(i) instanceof Deadline) {
                 filterList.add(items.get(i));
                 filterList.setFilterIndex(Numbers.TWO.value);
-            } else if (taskType.equals("repeat") && items.get(i) instanceof Repeat) {
-                filterList.add(items.get(i));
-                filterList.setFilterIndex(Numbers.THREE.value);
             } else if (taskType.equals("fixedduration") && items.get(i) instanceof FixedDuration) {
                 filterList.add(items.get(i));
                 filterList.setFilterIndex(Numbers.FOUR.value);

@@ -297,8 +297,7 @@ public class MainWindow extends AnchorPane {
         cbtaskType.getItems().addAll(
                 "Todo",
                 "Deadline",
-                "Fixed Duration",
-                "Repeat"
+                "Fixed Duration"
         );
     }
 
@@ -319,8 +318,6 @@ public class MainWindow extends AnchorPane {
                 typeStr = "deadline";
             } else  if (cbtaskType.getSelectionModel().getSelectedItem().equals("Fixed Duration")) {
                 typeStr = "fixedduration";
-            } else  if (cbtaskType.getSelectionModel().getSelectedItem().equals("Repeat")) {
-                typeStr = "repeat";
             }
             handleUserEvent("update " + itemNumber + " /type " + typeStr);
         }
