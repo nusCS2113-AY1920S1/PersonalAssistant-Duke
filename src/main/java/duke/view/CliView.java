@@ -524,4 +524,17 @@ public class CliView {
     public void addStudentFormat() {
         System.out.println("Insert [Name],[Age],[Address] to add new student.\n");
     }
+
+    /**
+     * Method prints out string in system.
+     *
+     * @param s message to be printed out
+     */
+    public void message(String s) {
+        System.out.println(s);
+    }
+
+    public void bufferLine() {
+        System.out.println("--------------------------");
+    }
 }

@@ -1,6 +1,7 @@
 package duke.models;
 
 import duke.data.Storage;
+import duke.view.CliViewSchedule;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -9,75 +10,36 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+//@@author Sfloydzy
 /**
  * Class manages the timetable for the user.
  */
-public class Schedule {
+public class Schedule extends CliViewSchedule {
 
     /**
-     * Input scan.
+     * List that needs to be removed.
      */
-    private ArrayList<TimeSlot> list;
-
-    /**
-     * The constructor for Schedule objects.
-     *
-     * @param timeSlots The details of a time slot that needs to be scheduled.
-      */
-    //    public Schedule(final ArrayList<TimeSlot> timeSlots) {
-    //        this.list = timeSlots;
-    //    }
-
-
-    /**
-     * Will print out a formatted calender.
-     *
-     * @param numberOfDays days in the month
-     * @param startDay     beginning day in the month
-     */
-    private static void printMonth(final int numberOfDays,
-                                   final int startDay) {
-        final int numberOfDaysInAWeek = 7;
-        int weekdayIndex = 0;
-        System.out.println("Su  Mo  Tu  We  Th  Fr  Sa");
-
-        for (int day = 1; day < startDay; day++) {
-            System.out.print("    ");
-            weekdayIndex++;
-        }
-
-        for (int day = 1; day <= numberOfDays; day++) {
-            System.out.printf("%1$2d", day);
-            weekdayIndex++;
-            if (weekdayIndex == numberOfDaysInAWeek) {
-                weekdayIndex = 0;
-                System.out.println();
-            } else {
-                System.out.print("  ");
-            }
-        }
-        System.out.println();
-    }
+    ArrayList<TimeSlot> list;
 
     /**
      * Function gets the month of the current year.
      *
+     * @param selectMonth The month you want to view
      * @return String of all the days in the month
      */
-    public String getMonth() {
+    public void getMonth(final int selectMonth) {
         Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.MONTH, selectMonth);
 
         // Set the calendar to monday of the current week
         cal.set(Calendar.DAY_OF_MONTH, 1);
-
         // Print dates of the current week starting on Monday
         int numDays = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
         DateFormat df = new SimpleDateFormat("MMM");
-        System.out.println("--------------------------");
-        System.out.println(df.format(cal.getTime()) + " "
-            + cal.get(Calendar.YEAR));
+        String date = df.format(cal.getTime());
+        int year = cal.get(Calendar.YEAR);
+        printMonthHeader(date, year);
         printMonth(numDays, cal.get(Calendar.DAY_OF_MONTH));
-        return "--------------------------";
     }
 
     /**
@@ -116,28 +78,28 @@ public class Schedule {
             final int numberOfHoursInADay = 24;
             final int tempInt = 10;
             String message = "";
-            for (int i = 0; i <= numberOfHoursInADay; i++) {
-                String time = (i < tempInt) ? "0" + i + "00" : i + "00";
-                SimpleDateFormat simpleDateFormat =
-                    new SimpleDateFormat("dd/MM/yyyy HHmm");
-                Date now = simpleDateFormat.parse(dayOfClass + " " + time);
-                DateFormat df = new SimpleDateFormat("HH:mm");
-                boolean isAssignedClass = false;
-                for (TimeSlot t : this.list) {
-                    if (now.equals(t.getStartTime())) {
-                        isAssignedClass = true;
-                        message += df.format(now)
-                            + " " + t.getClassName() + " from "
-                            + df.format(t.getStartTime())
-                            + " to " + df.format(t.getEndTime()) + " at "
-                            + t.getLocation() + "\n";
-                    }
-                }
-                if (!isAssignedClass) {
-                    message += df.format(now) + "\n";
-                }
-            }
-            message += "--------------------------";
+            //            for (int i = 0; i <= numberOfHoursInADay; i++) {
+            //                String time = (i < tempInt) ? "0" + i + "00" : i + "00";
+            //                SimpleDateFormat simpleDateFormat =
+            //                    new SimpleDateFormat("dd/MM/yyyy HHmm");
+            //                Date now = simpleDateFormat.parse(dayOfClass + " " + time);
+            //                DateFormat df = new SimpleDateFormat("HH:mm");
+            //                boolean isAssignedClass = false;
+            //                for (TimeSlot t : this.list) {
+            //                    if (now.equals(t.getStartTime())) {
+            //                        isAssignedClass = true;
+            //                        message += df.format(now)
+            //                            + " " + t.getClassName() + " from "
+            //                            + df.format(t.getStartTime())
+            //                            + " to " + df.format(t.getEndTime()) + " at "
+            //                            + t.getLocation() + "\n";
+            //                    }
+            //                }
+            //                if (!isAssignedClass) {
+            //                    message += df.format(now) + "\n";
+            //                }
+            //            }
+            //            message += "--------------------------";
             return message;
         } catch (NullPointerException e) {
             return "empty";

@@ -2,6 +2,7 @@ package duke.models;
 
 import java.util.Date;
 
+//@@author Sfloydzy
 /**
  * Function contains all the details of a time slot that needs to be scheduled.
  */

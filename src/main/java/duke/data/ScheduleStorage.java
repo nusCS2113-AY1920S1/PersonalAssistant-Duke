@@ -1,5 +1,6 @@
 package duke.data;
 
+import duke.models.TimeSlot;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -7,12 +8,13 @@ import org.json.simple.parser.JSONParser;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Iterator;
 
 /**
  * Class controls all the loading of data for the Schedule class.
  */
-public class StorageSchedule implements IStorage {
+public class ScheduleStorage implements IStorage {
 
     /**
      * Location of the saved file that schedule will be using.
@@ -58,22 +60,17 @@ public class StorageSchedule implements IStorage {
      * Method will save file to location.
      */
     @Override
-    public void save() throws IOException {
-        JSONObject obj = new JSONObject();
-        obj.put("Name", "crunchify.com");
-        obj.put("Author", "App Shah");
-
+    @SuppressWarnings("unchecked")
+    public void save(TimeSlot timeSlot) throws IOException {
+        JSONObject saveObj = new JSONObject();
         JSONArray company = new JSONArray();
-        company.add("Compnay: eBay");
-        company.add("Compnay: Paypal");
-        company.add("Compnay: Google");
-        obj.put("Company List", company);
-        obj.put("Second List", company);
+        company.add(timeSlot);
+        saveObj.put("Time Slots", company);
         FileWriter file = new FileWriter(filePath);
         try {
-            file.write(obj.toJSONString());
+            file.write(saveObj.toJSONString());
             System.out.println("Successfully Copied JSON Object to File...");
-            System.out.println("\nJSON Object: " + obj);
+            System.out.println("\nJSON Object: " + saveObj);
         } catch (IOException e) {
             System.err.println("file not found");
         } finally {
