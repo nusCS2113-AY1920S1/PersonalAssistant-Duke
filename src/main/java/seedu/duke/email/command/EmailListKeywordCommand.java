@@ -18,7 +18,7 @@ public class EmailListKeywordCommand extends Command {
             i++;
             responseMsg += i + ". ";
             responseMsg += keywordPair.getKeyword() + System.lineSeparator();
-            responseMsg += "Expressions: " + keywordPair.getExpressions()+ System.lineSeparator();
+            responseMsg += "Expressions: " + keywordPair.getExpressions() + System.lineSeparator();
         }
         UI.getInstance().showResponse(responseMsg);
         return true;
