@@ -68,11 +68,12 @@ public class TaskManager {
      */
     public void addTask(Task taskToBeAdded) throws DukeException {
         if (taskToBeAdded.getDescription().length() < 3) {
-            throw new DukeException("The task description is too short.");
+            throw new DukeException(TaskManager.class, "The task description is too short.");
         }
         for (Task task : taskIdMap.values()) {
             if (task.getDescription().toLowerCase().equals(taskToBeAdded.getDescription().toLowerCase())) {
-                throw new DukeException("The task '" + taskToBeAdded.getDescription() + "' already existed.");
+                throw new DukeException(TaskManager.class,
+                        "The task '" + taskToBeAdded.getDescription() + "' already existed.");
             }
         }
         if (taskToBeAdded.getId() == 0) {
@@ -92,7 +93,7 @@ public class TaskManager {
         if (taskIdMap.containsKey(id)) {
             taskIdMap.remove(id);
         } else {
-            throw new DukeException("The task with id " + id + " does not exist.");
+            throw new DukeException(TaskManager.class, "The task with id " + id + " does not exist.");
         }
 
     }
@@ -121,7 +122,7 @@ public class TaskManager {
         if (taskIdMap.containsKey(id)) {
             return taskIdMap.get(id);
         } else {
-            throw new DukeException("The task with id " + id + " does not exist.");
+            throw new DukeException(TaskManager.class, "The task with id " + id + " does not exist.");
         }
     }
 

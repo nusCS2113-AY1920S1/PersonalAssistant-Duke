@@ -73,7 +73,7 @@ public class AssignedTaskManager {
             assignedTaskIdMap.remove(patientID, assignedTask);
             assignedTaskUniqueIdMap.remove(uid);
         } catch (Exception e) {
-            throw new DukeException("Such Unique ID does not exist" + e.getMessage());
+            throw new DukeException(AssignedTaskManager.class, "Such Unique ID does not exist" + e.getMessage());
         }
     }
 
@@ -213,7 +213,7 @@ public class AssignedTaskManager {
 
             assignedTaskIdMap.removeAll(pid);
         } else {
-            throw new DukeException("Patient id: " + pid + " does not have any tasks!");
+            throw new DukeException(AssignedTaskManager.class, "Patient id: " + pid + " does not have any tasks!");
         }
     }
 
@@ -230,7 +230,8 @@ public class AssignedTaskManager {
             tempArray.addAll(assignedTaskIdMap.get(pid));
             return tempArray;
         } else {
-            throw new DukeException("The patient with id " + pid + " does not have any tasks.");
+            throw new DukeException(AssignedTaskManager.class,
+                    "The patient with id " + pid + " does not have any tasks.");
         }
     }
 
@@ -251,7 +252,8 @@ public class AssignedTaskManager {
         if (tempArray.size() != 0) {
             return tempArray;
         } else {
-            throw new DukeException("The Task with id " + tid + " has not been assigned to any patients");
+            throw new DukeException(AssignedTaskManager.class,
+                    "The Task with id " + tid + " has not been assigned to any patients");
         }
 
     }

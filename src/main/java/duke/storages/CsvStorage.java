@@ -76,7 +76,7 @@ public class CsvStorage extends Storage {
             }
             return infoList;
         } catch (Exception e) {
-            throw new DukeException("Loading of "
+            throw new DukeException(CsvStorage.class, "Loading of "
                     + filePath
                     + " is unsuccessful.\n"
                     + "e.getMessage()");

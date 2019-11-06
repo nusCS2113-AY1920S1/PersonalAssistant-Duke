@@ -26,7 +26,7 @@ public class AssignedTaskWithDate extends AssignedTask {
         try {
             setTodoDate(DateTimeParser.convertToLocalDateTime(timeBeforeFormat));
         } catch (DukeException e) {
-            throw new DukeException("The date time format is wrong!");
+            throw new DukeException(AssignedTaskWithDate.class, "The date time format is wrong!");
         }
     }
 
@@ -47,7 +47,7 @@ public class AssignedTaskWithDate extends AssignedTask {
         try {
             setTodoDate(DateTimeParser.convertToLocalDateTime(timeBeforeFormat));
         } catch (DukeException e) {
-            throw new DukeException("The date time format is wrong!");
+            throw new DukeException(AssignedTaskWithDate.class, "The date time format is wrong!");
         }
     }
 
@@ -68,7 +68,7 @@ public class AssignedTaskWithDate extends AssignedTask {
         try {
             setTodoDate(DateTimeParser.convertToLocalDateTime(timeBeforeFormat));
         } catch (DukeException e) {
-            throw new DukeException("The date time format is wrong!");
+            throw new DukeException(AssignedTaskWithDate.class, "The date time format is wrong!");
         }
     }
 

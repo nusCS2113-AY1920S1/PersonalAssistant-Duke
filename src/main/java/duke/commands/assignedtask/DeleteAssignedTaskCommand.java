@@ -29,13 +29,13 @@ public class DeleteAssignedTaskCommand implements Command {
 
         try {
             if (deleteInfo.charAt(0) != '#') {
-                throw new DukeException("Invalid format. Please follow: "
+                throw new DukeException(DeleteAssignedTaskCommand.class, "Invalid format. Please follow: "
                         + "delete assigned task : #<taskUniqueID>");
             }
             taskUniqueId = Integer.parseInt(deleteInfo.substring(1));
 
         } catch (DukeException e) {
-            throw new DukeException("Warning " + e.getMessage());
+            throw new DukeException(DeleteAssignedTaskCommand.class, "Warning " + e.getMessage());
         }
     }
 
