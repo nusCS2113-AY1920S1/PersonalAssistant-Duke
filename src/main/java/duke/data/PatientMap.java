@@ -125,7 +125,7 @@ public class PatientMap {
         String lowerSearchTerm = searchTerm.toLowerCase();
         ArrayList<Patient> resultList = new ArrayList<Patient>();
         for (Map.Entry<String, Patient> patientEntry: patientObservableMap.entrySet()) {
-            if (patientEntry.getKey().contains(lowerSearchTerm)) {
+            if (patientEntry.getKey().toLowerCase().contains(lowerSearchTerm)) {
                 resultList.add(patientEntry.getValue());
             }
         }
