@@ -11,7 +11,6 @@ import duke.models.student.Major;
 import duke.models.student.MatricNumber;
 import duke.models.student.Name;
 import duke.models.student.Student;
-import duke.parser.ParserCheck;
 import duke.storage.FileHandling;
 import duke.ui.Ui;
 
@@ -66,7 +65,9 @@ public class EditUsageCommand extends Command {
         LockerDate editedStartDate = createEditedStartDate(usageToEdit,editDate);
         LockerDate editedEndDate = createEditedEndDate(usageToEdit,editDate);
         Usage editedUsage = new Usage(editedStudent,editedStartDate,editedEndDate);
-        ParserCheck.parseDifferenceBetweenStartAndEndDate(editedStartDate,editedEndDate);
+        if (!LockerDate.isDifferenceBetweenDatesValid(editedStartDate.getDate(),editedEndDate.getDate())) {
+            throw new DukeException(LockerDate.ERROR_IN_DATE_DIFFERENCE);
+        }
         return new Locker(lockerToEdit.getSerialNumber(),
                 lockerToEdit.getAddress(),lockerToEdit.getZone(),
                 lockerToEdit.getTag(),editedUsage);

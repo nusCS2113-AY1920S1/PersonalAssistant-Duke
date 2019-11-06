@@ -18,6 +18,11 @@ public class LockerDate {
             + "\n\n      1. Should be a valid date as per the Gregorian Calendar."
             + "\n      2. Should be in the format of <DD-MM-YYYY>";
 
+    public static final String ERROR_IN_DATE_DIFFERENCE = " The start and end date for"
+            + " rentals should satisfy the following constraints:\n"
+            + "\n     1. The end date should be after the start date."
+            + "\n     2. The rental period should be between 7 to 365 days (inclusive)";
+
     private static final DateTimeFormatter checkDateFormat =
             DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(ResolverStyle.STRICT);
 
