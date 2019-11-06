@@ -36,6 +36,11 @@ public class Assessment extends Event {
         this.date = date;
     }
 
+    @Override
+    public String getDescription() {
+        return moduleCode + " " + super.getDescription();
+    }
+
     /**
      * Converts a Lesson object to string format for storage.
      *

@@ -713,6 +713,7 @@ public class Ui {
      * @param yearMonth Object containing month and year information.
      */
     private void printCalendarLabel(YearMonth yearMonth) {
+        printLine();
         String[] months = {"", "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST",
                 "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
         String month = months[yearMonth.getMonthValue()];
