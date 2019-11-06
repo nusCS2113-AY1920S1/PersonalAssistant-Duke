@@ -272,6 +272,11 @@
                                                 <content>
                                                   <AnchorPane fx:id="firstUpcomingTaskContainer" minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="285.0">
                                                          <children>
+                                                            <ScrollPane fx:id="firstScroll" hbarPolicy="NEVER" prefHeight="690.0" prefWidth="275.0">
+                                                              <content>
+                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                                                              </content>
+                                                            </ScrollPane>
                                                             <VBox fx:id="firstDayBox" prefHeight="690.0" prefWidth="275.0" />
                                                          </children>
                                                       </AnchorPane>
@@ -281,6 +286,11 @@
                                                    <content>
                                                       <AnchorPane fx:id="secondUpcomingTaskContainer" minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="285.0">
                                                          <children>
+                                                            <ScrollPane fx:id="secondScroll" hbarPolicy="NEVER" prefHeight="690.0" prefWidth="275.0">
+                                                              <content>
+                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                                                              </content>
+                                                            </ScrollPane>
                                                             <VBox fx:id="secondDayBox" prefHeight="690.0" prefWidth="275.0" />
                                                          </children>
                                                       </AnchorPane>
@@ -290,6 +300,11 @@
                                                    <content>
                                                       <AnchorPane fx:id="thirdUpcomingTaskContainer" minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="285.0">
                                                          <children>
+                                                            <ScrollPane fx:id="thirdScroll" hbarPolicy="NEVER" prefHeight="690.0" prefWidth="275.0">
+                                                              <content>
+                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                                                              </content>
+                                                            </ScrollPane>
                                                             <VBox fx:id="thirdDayBox" prefHeight="690.0" prefWidth="275.0" />
                                                          </children>
                                                       </AnchorPane>
@@ -299,6 +314,11 @@
                                                    <content>
                                                       <AnchorPane fx:id="fourthUpcomingTaskContainer" minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="285.0">
                                                          <children>
+                                                            <ScrollPane fx:id="fourthScroll" hbarPolicy="NEVER" prefHeight="690.0" prefWidth="275.0">
+                                                              <content>
+                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                                                              </content>
+                                                            </ScrollPane>
                                                             <VBox fx:id="fourthDayBox" prefHeight="690.0" prefWidth="275.0" />
                                                          </children>
                                                       </AnchorPane>
@@ -308,6 +328,11 @@
                                                    <content>
                                                       <AnchorPane fx:id="fifthUpcomingTaskContainer" minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="285.0">
                                                          <children>
+                                                            <ScrollPane fx:id="fifthScroll" hbarPolicy="NEVER" prefHeight="690.0" prefWidth="275.0">
+                                                              <content>
+                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                                                              </content>
+                                                            </ScrollPane>
                                                             <VBox fx:id="fifthDayBox" prefHeight="690.0" prefWidth="275.0" />
                                                          </children>
                                                       </AnchorPane>
@@ -317,6 +342,11 @@
                                                    <content>
                                                       <AnchorPane fx:id="sixthUpcomingTaskContainer" minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="285.0">
                                                          <children>
+                                                            <ScrollPane fx:id="sixthScroll" hbarPolicy="NEVER" prefHeight="690.0" prefWidth="275.0">
+                                                              <content>
+                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                                                              </content>
+                                                            </ScrollPane>
                                                             <VBox fx:id="sixthDayBox" prefHeight="690.0" prefWidth="275.0" />
                                                          </children>
                                                       </AnchorPane>
@@ -326,6 +356,11 @@
                                                    <content>
                                                       <AnchorPane fx:id="seventhUpcomingTaskContainer" minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="285.0">
                                                          <children>
+                                                            <ScrollPane fx:id="seventhScroll" hbarPolicy="NEVER" prefHeight="690.0" prefWidth="275.0">
+                                                              <content>
+                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                                                              </content>
+                                                            </ScrollPane>
                                                             <VBox fx:id="seventhDayBox" prefHeight="690.0" prefWidth="275.0" />
                                                          </children>
                                                       </AnchorPane>

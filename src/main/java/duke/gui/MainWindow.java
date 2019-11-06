@@ -171,6 +171,21 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private TitledPane seventhTitledPane;
 
+    @FXML
+    private ScrollPane firstScroll;
+    @FXML
+    private ScrollPane secondScroll;
+    @FXML
+    private ScrollPane thirdScroll;
+    @FXML
+    private ScrollPane fourthScroll;
+    @FXML
+    private ScrollPane fifthScroll;
+    @FXML
+    private ScrollPane sixthScroll;
+    @FXML
+    private ScrollPane seventhScroll;
+
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/robot.png"));
@@ -677,6 +692,8 @@ public class MainWindow extends UiPart<Stage> {
                                             fifthDayBox, sixthDayBox, seventhDayBox};
         TitledPane[] titledPanes = {firstTitledPane, secondTitledPane, thirdTitledPane, fourthTitledPane,
                                     fifthTitledPane, sixthTitledPane, seventhTitledPane};
+        ScrollPane[] scrollPanes = {firstScroll, secondScroll, thirdScroll, fourthScroll,
+                                    fifthScroll, sixthScroll, seventhScroll};
         ArrayList<UpcomingTasks> upcomingTasks =
                 new UpcomingTasksCommand(LocalDateTime.now(), false).getUpcomingTaskLists();
 
@@ -693,7 +710,8 @@ public class MainWindow extends UiPart<Stage> {
 
             for (UpcomingTasksBox taskInfoForDate : taskBoxesForDate) {
                 upcomingTaskContainers[i].getChildren().addAll(taskInfoForDate);
-                titledPanes[i].setContent(upcomingTaskContainers[i]);
+                scrollPanes[i].setContent(upcomingTaskContainers[i]);
+                titledPanes[i].setContent(scrollPanes[i]);
             }
         }
     }
