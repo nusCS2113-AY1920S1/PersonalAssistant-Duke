@@ -2,6 +2,7 @@ package javacake.storage;
 
 import javacake.JavaCake;
 import javacake.exceptions.CakeException;
+import javacake.ui.MainWindow;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -60,6 +61,7 @@ public class Profile {
                 System.out.println("before reader");
                 throw new CakeException("Failed to create new file");
             }
+            readColorConfig();
 
             BufferedReader reader = new BufferedReader(new FileReader(filepath));
             String line;
@@ -145,6 +147,58 @@ public class Profile {
             count += i;
         }
         return count;
+    }
+
+    /**
+     * Method to write config file.
+     * @param isLight whether isLight mode is on
+     * @throws CakeException when unable to create file
+     */
+    public void writeColorConfig(boolean isLight) throws CakeException {
+        File configFile = new File("data/colorconfig/color.txt");
+        try {
+            if (!configFile.getParentFile().getParentFile().exists()) {
+                configFile.getParentFile().getParentFile().mkdirs();
+                configFile.getParentFile().mkdirs();
+                configFile.createNewFile();
+            } else if (!configFile.getParentFile().exists()) {
+                configFile.getParentFile().mkdirs();
+                configFile.createNewFile();
+            } else {
+                configFile.createNewFile();
+            }
+            PrintWriter out = new PrintWriter(configFile.getPath());
+            System.out.println(configFile.getPath());
+            if (isLight) {
+                out.println("1");
+            } else {
+                out.println("0");
+            }
+            out.close();
+        } catch (IOException e) {
+            throw new CakeException("Failed to change color!");
+        }
+    }
+
+    private void readColorConfig() throws CakeException {
+        File configFile = new File("data/colorconfig/color.txt");
+        if (configFile.exists()) {
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader(configFile.getPath()));
+                String line;
+                String output = "";
+                int count = -1;
+                while ((line = reader.readLine()) != null) {
+                    output += line;
+                }
+                if (output.equals("0")) {
+                    MainWindow.isChanged = true;
+                }
+                reader.close();
+            } catch (IOException e) {
+                throw new CakeException("Config failed");
+            }
+        }
     }
 
     /**
