@@ -786,7 +786,7 @@ public class Command {
 	}
     
     private void remindEvents(EventList events, UI ui) {
-    	if (continuation == " ") {
+    	if (continuation.isEmpty()) {
     		ui.printReminderDays(events, 3);
     		return;
     	}
