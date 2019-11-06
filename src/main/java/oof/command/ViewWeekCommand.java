@@ -207,14 +207,14 @@ public class ViewWeekCommand extends Command {
      * @param day       Day of Month.
      */
     private void queryModules(Semester semester, LocalDate startDate, LocalDate endDate, int day) {
-        if (day > lastDate) {
+        if (day == lastDate + OFFSET) {
             day -= lastDate;
-            month++;
-            if (month > MONTH_DECEMBER + OFFSET) {
-                year++;
-                month = OFFSET;
+            yearMonth = yearMonth.plusMonths(OFFSET);
+            if (yearMonth.getYear() > MONTH_DECEMBER + OFFSET) {
+                yearMonth.plusYears(OFFSET);
             }
-            yearMonth = YearMonth.of(year, month);
+        } else if (day > lastDate) {
+            day -= lastDate;
         }
         LocalDate queryDate = yearMonth.atDay(day);
         if (isWithinRange(queryDate, startDate, endDate)) {
