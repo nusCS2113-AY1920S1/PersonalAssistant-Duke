@@ -1,10 +1,9 @@
 package tests;
 
-import templates.CommandTest;
 import duke.command.ArgCommand;
 import duke.command.Command;
-import duke.command.impression.ImpressionNewCommand;
-import duke.command.impression.ImpressionPrimaryCommand;
+import duke.command.impression.ImpressionNewSpec;
+import duke.command.impression.ImpressionPrimarySpec;
 import duke.data.Impression;
 import duke.data.Medicine;
 import duke.data.Patient;
@@ -12,6 +11,7 @@ import duke.exception.DukeException;
 import duke.ui.context.Context;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import templates.CommandTest;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -46,14 +46,13 @@ public class ImpressionCommandTest extends CommandTest {
     @Test
     public void impressionNewCommand_fullCommand_correctDataCreated() {
         //TODO test other DukeData
-        ArgCommand newMedCmd = new ImpressionNewCommand();
         String[] switchNames = {"medicine", "name", "priority", "status", "dose", "date", "duration"};
         String[] switchVals = {null, "test", "2", "1", "test dose", "today", "next two weeks"};
-        setupCommand(newMedCmd, null, switchNames, switchVals);
         Medicine testMed = new Medicine("test", impression, 2, 1, "test dose",
                 "today", "next two weeks");
 
         try {
+            ArgCommand newMedCmd = new ArgCommand(ImpressionNewSpec.getSpec(), null, switchNames, switchVals);
             newMedCmd.execute(core);
             assertTrue(testMed.equals(impression.getTreatment("test")));
         } catch (DukeException excp) {
@@ -64,14 +63,12 @@ public class ImpressionCommandTest extends CommandTest {
     @Test
     public void impressionNewCommand_minCommand_correctDataCreated() {
         //TODO test other DukeData
-        ArgCommand newMedCmd = new ImpressionNewCommand();
         String[] switchNames = {"medicine", "name", "dose", "duration"};
         String[] switchVals = {null, "test", "test dose", "next two weeks"};
-        setupCommand(newMedCmd, null, switchNames, switchVals);
         Medicine testMed = new Medicine("test", impression, 0, 0, "test dose",
                 LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy")), "next two weeks");
-
         try {
+            ArgCommand newMedCmd = new ArgCommand(ImpressionNewSpec.getSpec(), null, switchNames, switchVals);
             newMedCmd.execute(core);
             assertTrue(testMed.equals(impression.getTreatment("test")));
         } catch (DukeException excp) {
@@ -81,7 +78,7 @@ public class ImpressionCommandTest extends CommandTest {
 
     @Test
     public void impressionPrimaryCommand_fullCommand_setAsPrimary() {
-        Command primaryCmd = new ImpressionPrimaryCommand();
+        Command primaryCmd = new Command(ImpressionPrimarySpec.getSpec());
         Impression newImpression = new Impression("name2", "description2", patient);
         try {
             patient.addNewImpression(newImpression);
