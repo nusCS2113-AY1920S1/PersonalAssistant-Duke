@@ -7,7 +7,6 @@ import oof.Ui;
 import oof.exception.command.CommandException;
 import oof.exception.command.InvalidArgumentException;
 import oof.exception.command.MissingArgumentException;
-import oof.exception.command.SemesterNotSelectedException;
 import oof.model.module.Module;
 import oof.model.module.Semester;
 import oof.model.module.SemesterList;
@@ -44,7 +43,7 @@ public class AddModuleCommand extends Command {
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
      *                       objects to hard disk.
-     * @throws CommandException if semester is not selected or if user input contains missing or invalid arguments.
+     * @throws CommandException if user input contains missing or invalid arguments.
      */
     @Override
     public void execute(SemesterList semesterList, TaskList tasks, Ui ui, StorageManager storageManager)
@@ -62,9 +61,6 @@ public class AddModuleCommand extends Command {
         }
         SelectedInstance selectedInstance = SelectedInstance.getInstance();
         Semester semester = selectedInstance.getSemester();
-        if (semester == null) {
-            throw new SemesterNotSelectedException("OOPS!! Please select a semester!");
-        }
         Module module = new Module(moduleCode, moduleName);
         semester.addModule(module);
         ui.printModuleAddedMessage(module);

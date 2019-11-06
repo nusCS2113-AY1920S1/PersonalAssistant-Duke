@@ -57,6 +57,7 @@ public abstract class Command {
     String parseDateTime(String dateTime) {
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+            format.setLenient(false);
             Date parsed = format.parse(dateTime);
             return format.format(parsed);
         } catch (ParseException | DateTimeException e) {
@@ -73,6 +74,7 @@ public abstract class Command {
     String parseDate(String date) {
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+            format.setLenient(false);
             Date parsed = format.parse(date);
             return format.format(parsed);
         } catch (ParseException | DateTimeException e) {
@@ -89,6 +91,7 @@ public abstract class Command {
     public String parseTime(String time) {
         try {
             SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+            format.setLenient(false);
             Date parsed = format.parse(time);
             return format.format(parsed);
         } catch (ParseException | DateTimeException e) {
@@ -135,7 +138,7 @@ public abstract class Command {
      * @param date The date to be converted.
      * @return A string in the format specified.
      */
-    public String convertDatetoString(Date date) {
+    public String convertDateToString(Date date) {
         return new SimpleDateFormat("dd-MM-yyyy").format(date);
     }
 

@@ -22,7 +22,7 @@ import oof.model.tracker.Tracker;
 /**
  * Represents a class to parse save file data and object data.
  */
-public class StorageParser {
+class StorageParser {
 
     private static final String DELIMITER = "\\|\\|";
     private static final String DELIMITER_TRACKER = ",";
@@ -64,12 +64,12 @@ public class StorageParser {
     private static final int INDEX_TASK_DATE_END = 5;
     private static final int INDEX_TASK_TIME_END = 6;
     private static final int INDEX_TASK_STATUS = 1;
-    private static final int INDEX_TRACKER_MODULECODE = 0;
-    private static final int INDEX_TRACKER_TASKINDEX = 1;
+    private static final int INDEX_TRACKER_MODULE_CODE = 0;
+    private static final int INDEX_TRACKER_TASK_INDEX = 1;
     private static final int INDEX_TRACKER_DESCRIPTION = 2;
-    private static final int INDEX_TRACKER_STARTDATE = 3;
-    private static final int INDEX_TRACKER_LASTUPDATED = 4;
-    private static final int INDEX_TRACKER_TIMETAKEN = 5;
+    private static final int INDEX_TRACKER_START_DATE = 3;
+    private static final int INDEX_TRACKER_LAST_UPDATED = 4;
+    private static final int INDEX_TRACKER_TIME_TAKEN = 5;
 
     /**
      * Converts data to ArrayList of Semester objects.
@@ -78,7 +78,7 @@ public class StorageParser {
      * @return ArrayList containing list of Semesters.
      * @throws StorageFileCorruptedException if file is corrupted.
      */
-    public static ArrayList<Semester> dataToSemester(ArrayList<String> data) throws StorageFileCorruptedException {
+    static ArrayList<Semester> dataToSemester(ArrayList<String> data) throws StorageFileCorruptedException {
         ArrayList<Semester> semesters = new ArrayList<>();
         Semester semester = null;
         Module module = null;
@@ -155,7 +155,7 @@ public class StorageParser {
      * @param semesters ArrayList containing semester objects
      * @return ArrayList containing data strings.
      */
-    public static ArrayList<String> semestersToData(ArrayList<Semester> semesters) {
+    static ArrayList<String> semestersToData(ArrayList<Semester> semesters) {
         ArrayList<String> data = new ArrayList<>();
         for (Semester semester : semesters) {
             data.add(semester.toStorageString());
@@ -170,7 +170,7 @@ public class StorageParser {
      * @param data     ArrayList of Strings containing object data
      * @param semester Semester object containing Module data.
      */
-    public static void writeModules(ArrayList<String> data, Semester semester) {
+    private static void writeModules(ArrayList<String> data, Semester semester) {
         for (Module module : semester.getModules()) {
             data.add(module.toStorageString());
             writeLessons(data, module);
@@ -183,7 +183,7 @@ public class StorageParser {
      * @param data   ArrayList of Strings containing object data
      * @param module Module object containing Lesson data.
      */
-    public static void writeLessons(ArrayList<String> data, Module module) {
+    private static void writeLessons(ArrayList<String> data, Module module) {
         for (Lesson lesson : module.getLessons()) {
             data.add(lesson.toStorageString());
         }
@@ -197,7 +197,7 @@ public class StorageParser {
      * @return ArrayList containing list of Tasks.
      * @throws StorageFileCorruptedException if file is corrupted.
      */
-    public static ArrayList<Task> dataToTask(ArrayList<String> data, SemesterList semesterList)
+    static ArrayList<Task> dataToTask(ArrayList<String> data, SemesterList semesterList)
             throws StorageFileCorruptedException {
         ArrayList<Task> tasks = new ArrayList<>();
         for (String datum : data) {
@@ -340,7 +340,7 @@ public class StorageParser {
      * @param tasks ArrayList containing task objects
      * @return ArrayList of strings representing data strings.
      */
-    public static ArrayList<String> tasksToData(ArrayList<Task> tasks) {
+    static ArrayList<String> tasksToData(ArrayList<Task> tasks) {
         ArrayList<String> data = new ArrayList<>();
         for (Task task : tasks) {
             data.add(task.toStorageString());
@@ -356,7 +356,7 @@ public class StorageParser {
      * @return ArrayList of Tracker objects.
      * @throws StorageFileCorruptedException if tracker.csv is corrupted
      */
-    public static ArrayList<Tracker> dataToTrackerList(ArrayList<String> data) throws StorageFileCorruptedException {
+    static ArrayList<Tracker> dataToTrackerList(ArrayList<String> data) throws StorageFileCorruptedException {
         ArrayList<Tracker> trackers = new ArrayList<>();
         for (String datum : data) {
             trackers.add(processLine(datum));
@@ -375,12 +375,12 @@ public class StorageParser {
         SimpleDateFormat readFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         Date start;
         String[] processed = line.split(DELIMITER_TRACKER);
-        String moduleCode = processed[INDEX_TRACKER_MODULECODE];
-        int taskIndex = Integer.parseInt(processed[INDEX_TRACKER_TASKINDEX]);
+        String moduleCode = processed[INDEX_TRACKER_MODULE_CODE];
+        int taskIndex = Integer.parseInt(processed[INDEX_TRACKER_TASK_INDEX]);
         String description = processed[INDEX_TRACKER_DESCRIPTION];
-        String startDate = processed[INDEX_TRACKER_STARTDATE];
-        String lastUpdated = processed[INDEX_TRACKER_LASTUPDATED];
-        long timeTaken = Long.parseLong(processed[INDEX_TRACKER_TIMETAKEN]);
+        String startDate = processed[INDEX_TRACKER_START_DATE];
+        String lastUpdated = processed[INDEX_TRACKER_LAST_UPDATED];
+        long timeTaken = Long.parseLong(processed[INDEX_TRACKER_TIME_TAKEN]);
 
         try {
             if (startDate.equals("null")) {
@@ -401,7 +401,7 @@ public class StorageParser {
      * @param line Task object in string format.
      * @return true if the Task object has already been marked as done, false otherwise.
      */
-    public static boolean checkDone(String line) {
+    private static boolean checkDone(String line) {
         return line.equals(DONE);
     }
 
@@ -411,7 +411,7 @@ public class StorageParser {
      * @param trackerList Instance of trackerList that stores tracker objects
      * @return ArrayList containing data strings of tracker data.
      */
-    public static ArrayList<String> trackerListToData(ArrayList<Tracker> trackerList) {
+    static ArrayList<String> trackerListToData(ArrayList<Tracker> trackerList) {
         ArrayList<String> data = new ArrayList<>();
         for (Tracker tracker : trackerList) {
             data.add(tracker.toStorageString());

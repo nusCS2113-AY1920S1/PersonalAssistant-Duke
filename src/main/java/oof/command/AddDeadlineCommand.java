@@ -53,7 +53,7 @@ public class AddDeadlineCommand extends Command {
             throw new MissingArgumentException("OOPS!!! The deadline needs a due date.");
         }
         String description = arguments.get(INDEX_DESCRIPTION);
-        String date = arguments.get(INDEX_DATE);
+        String date = parseDateTime(arguments.get(INDEX_DATE));
         if (exceedsMaxLength(description)) {
             throw new InvalidArgumentException("Task exceeds maximum description length!");
         } else if (!isDateValid(date)) {

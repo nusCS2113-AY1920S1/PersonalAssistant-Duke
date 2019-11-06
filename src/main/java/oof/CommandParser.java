@@ -36,11 +36,16 @@ import oof.command.ViewLessonCommand;
 import oof.command.ViewSelectedModuleCommand;
 import oof.command.ViewSelectedSemesterCommand;
 import oof.command.ViewWeekCommand;
+import oof.exception.CommandNotFoundException;
+import oof.exception.IllegalCommandException;
+import oof.exception.ParserException;
+import oof.exception.command.CommandException;
 import oof.exception.command.InvalidArgumentException;
 import oof.exception.command.MissingArgumentException;
-import oof.exception.IllegalCommandException;
-import oof.exception.InvalidCommandException;
-import oof.exception.ParserException;
+import oof.exception.command.ModuleNotSelectedException;
+import oof.exception.command.SemesterNotSelectedException;
+import oof.model.module.Module;
+import oof.model.module.Semester;
 
 //@@author KahLokKee
 
@@ -57,12 +62,10 @@ public class CommandParser {
      *
      * @param input Command entered by user.
      * @return Command based on the user input.
-     * @throws ParserException          if command contains illegal strings or if command does not exists.
-     * @throws InvalidArgumentException if command contains invalid arguments.
-     * @throws MissingArgumentException if command contains missing arguments.
+     * @throws ParserException  if command contains illegal strings or if command does not exists.
+     * @throws CommandException if command contains invalid arguments.
      */
-    public static Command parse(String input) throws ParserException, InvalidArgumentException,
-            MissingArgumentException {
+    public static Command parse(String input) throws ParserException, CommandException {
         if (containsIllegalInput(input)) {
             throw new IllegalCommandException("Your command contains illegal input!");
         }
@@ -139,7 +142,7 @@ public class CommandParser {
             return parseLessonCommand(input);
 
         default:
-            throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new CommandNotFoundException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
@@ -233,7 +236,12 @@ public class CommandParser {
      * @param input User input.
      * @return Instance of AddAssignmentCommand if the user input is successfully tokenized.
      */
-    private static Command parseAddAssignmentCommand(String input) {
+    private static Command parseAddAssignmentCommand(String input) throws ModuleNotSelectedException {
+        SelectedInstance selectedInstance = SelectedInstance.getInstance();
+        Module module = selectedInstance.getModule();
+        if (module == null) {
+            throw new ModuleNotSelectedException("OOPS!! No module selected.");
+        }
         String[] argumentDelimiters = {"/by"};
         ArrayList<String> arguments = tokenizeToStringArray(input, argumentDelimiters);
         return new AddAssignmentCommand(arguments);
@@ -257,7 +265,12 @@ public class CommandParser {
      * @param input User input.
      * @return Instance of AddAssessmentCommand if the user input is successfully tokenized.
      */
-    private static Command parseAddAssessmentCommand(String input) {
+    private static Command parseAddAssessmentCommand(String input) throws ModuleNotSelectedException {
+        SelectedInstance selectedInstance = SelectedInstance.getInstance();
+        Module module = selectedInstance.getModule();
+        if (module == null) {
+            throw new ModuleNotSelectedException("OOPS!! No module selected.");
+        }
         String[] argumentDelimiters = {"/from", "/to"};
         ArrayList<String> arguments = tokenizeToStringArray(input, argumentDelimiters);
         return new AddAssessmentCommand(arguments);
@@ -350,10 +363,11 @@ public class CommandParser {
      *
      * @param input Command inputted by user in string format.
      * @return Returns relevant Semester Commands if the parameters are valid.
-     * @throws InvalidCommandException  if command is invalid.
+     * @throws CommandNotFoundException if command is invalid.
      * @throws InvalidArgumentException if command arguments are invalid.
      */
-    private static Command parseSemesterCommand(String input) throws InvalidCommandException, InvalidArgumentException {
+    private static Command parseSemesterCommand(String input) throws CommandNotFoundException,
+            InvalidArgumentException {
         if (input.isEmpty()) {
             return new ViewSelectedSemesterCommand();
         } else {
@@ -369,7 +383,7 @@ public class CommandParser {
             case "/view":
                 return new ViewAllSemesterCommand();
             default:
-                throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new CommandNotFoundException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         }
     }
@@ -403,10 +417,15 @@ public class CommandParser {
      *
      * @param input Command inputted by user in string format.
      * @return Returns relevant Module Commands if the parameters are valid.
-     * @throws InvalidCommandException  if command is invalid.
-     * @throws InvalidArgumentException if command arguments are invalid
+     * @throws CommandNotFoundException if command is invalid.
+     * @throws CommandException         if semester is not selected or if command arguments are invalid.
      */
-    private static Command parseModuleCommand(String input) throws InvalidCommandException, InvalidArgumentException {
+    private static Command parseModuleCommand(String input) throws CommandNotFoundException, CommandException {
+        SelectedInstance selectedInstance = SelectedInstance.getInstance();
+        Semester semester = selectedInstance.getSemester();
+        if (semester == null) {
+            throw new SemesterNotSelectedException("OOPS!! Please select a semester!");
+        }
         if (input.isEmpty()) {
             return new ViewSelectedModuleCommand();
         } else {
@@ -422,7 +441,7 @@ public class CommandParser {
             case "/view":
                 return new ViewAllModuleCommand();
             default:
-                throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new CommandNotFoundException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         }
     }
@@ -442,7 +461,7 @@ public class CommandParser {
         }
     }
 
-    private static Command parseModuleSelect(String input) throws InvalidArgumentException {
+    private static Command parseModuleSelect(String input) throws CommandException {
         try {
             int index = Integer.parseInt(input) - 1;
             return new SelectModuleCommand(index);
@@ -456,11 +475,15 @@ public class CommandParser {
      *
      * @param input Command inputted by user in string format.
      * @return Returns relevant Lesson Commands if the parameters are valid.
-     * @throws InvalidCommandException  if command is invalid.
-     * @throws InvalidArgumentException if command arguments are invalid.
+     * @throws CommandNotFoundException if command is invalid.
+     * @throws CommandException         if module is not selected or if command arguments are invalid.
      */
-    private static Command parseLessonCommand(String input) throws InvalidCommandException, InvalidArgumentException {
-        if (input.isEmpty()) {
+    private static Command parseLessonCommand(String input) throws CommandNotFoundException, CommandException {
+        SelectedInstance selectedInstance = SelectedInstance.getInstance();
+        Module module = selectedInstance.getModule();
+        if (module == null) {
+            throw new ModuleNotSelectedException("OOPS!! No module selected.");
+        } else if (input.isEmpty()) {
             return new ViewLessonCommand();
         } else {
             String commandFlag = getFirstWord(input);
@@ -471,7 +494,7 @@ public class CommandParser {
             case "/delete":
                 return parseLessonDelete(input);
             default:
-                throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new CommandNotFoundException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         }
     }

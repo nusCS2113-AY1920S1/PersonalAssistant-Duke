@@ -11,7 +11,6 @@ import oof.Ui;
 import oof.exception.command.CommandException;
 import oof.exception.command.InvalidArgumentException;
 import oof.exception.command.MissingArgumentException;
-import oof.exception.command.ModuleNotSelectedException;
 import oof.model.module.Lesson;
 import oof.model.module.Module;
 import oof.model.module.SemesterList;
@@ -64,8 +63,8 @@ public class AddLessonCommand extends Command {
         } else if (arguments.size() < ARRAY_SIZE_END_TIME || arguments.get(INDEX_END_TIME).isEmpty()) {
             throw new MissingArgumentException("OOPS!!! The lesson needs an end time.");
         }
-        String startTime = arguments.get(INDEX_START_TIME);
-        String endTime = arguments.get(INDEX_END_TIME);
+        String startTime = parseTime(arguments.get(INDEX_START_TIME));
+        String endTime = parseTime(arguments.get(INDEX_END_TIME));
         if (!isDateValid(startTime)) {
             throw new InvalidArgumentException("OOPS!!! The start date is invalid.");
         } else if (!isDateValid(endTime)) {
@@ -81,12 +80,8 @@ public class AddLessonCommand extends Command {
         } catch (ParseException e) {
             throw new InvalidArgumentException("Timestamp given is invalid! Please try again.");
         }
-
         SelectedInstance selectedInstance = SelectedInstance.getInstance();
         Module module = selectedInstance.getModule();
-        if (module == null) {
-            throw new ModuleNotSelectedException("OOPS!! Please select a Module.");
-        }
         String name = arguments.get(INDEX_NAME);
         String moduleCode = module.getModuleCode();
         String description = moduleCode + " " + name;
@@ -108,7 +103,7 @@ public class AddLessonCommand extends Command {
      * @return true if start date occurs before end date, false otherwise.
      */
     private boolean isStartDateBeforeEndDate(Date startTime, Date endTime) {
-        return startTime.compareTo(endTime) <= 0;
+        return startTime.compareTo(endTime) < 0;
     }
 
     @Override

@@ -35,7 +35,7 @@ public class ViewAllSemesterCommand extends Command {
     public void execute(SemesterList semesterList, TaskList tasks, Ui ui, StorageManager storageManager)
             throws CommandException {
         if (semesterList.getSemesterList().isEmpty()) {
-            throw new EmptyListException("Semester List is empty!");
+            throw new EmptyListException("Semester list is empty!");
         } else {
             ui.printSemesterList(semesterList);
         }

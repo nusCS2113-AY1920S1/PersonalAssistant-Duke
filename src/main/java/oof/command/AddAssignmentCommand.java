@@ -7,7 +7,6 @@ import oof.Ui;
 import oof.exception.command.CommandException;
 import oof.exception.command.InvalidArgumentException;
 import oof.exception.command.MissingArgumentException;
-import oof.exception.command.ModuleNotSelectedException;
 import oof.model.module.Module;
 import oof.model.module.SemesterList;
 import oof.model.task.Assignment;
@@ -37,16 +36,13 @@ public class AddAssignmentCommand extends AddDeadlineCommand {
      * @param ui             Instance of Ui that is responsible for visual feedback.
      * @param storageManager Instance of Storage that enables the reading and writing of Task
      *                       objects to hard disk.
-     * @throws CommandException if module is not selected or if user input contains missing or invalid arguments.
+     * @throws CommandException if user input contains missing or invalid arguments.
      */
     @Override
     public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
             throws CommandException {
         SelectedInstance selectedInstance = SelectedInstance.getInstance();
         Module module = selectedInstance.getModule();
-        if (module == null) {
-            throw new ModuleNotSelectedException("OOPS!! Please select a Module.");
-        }
         String moduleCode = module.getModuleCode();
         String description = arguments.get(INDEX_DESCRIPTION);
         if (arguments.get(INDEX_DESCRIPTION).equals("")) {
