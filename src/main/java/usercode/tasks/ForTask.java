@@ -9,19 +9,20 @@ import usercode.conditions.Condition;
 public class ForTask extends Task {
 
     /**
-     * Creates a task of type for
+     * Creates a task of type for.
+     *
      * @param condition the condition as a value
      * @param action the action to be carried out that number of times
      */
     public ForTask(Condition condition, Action action) {
-        super(taskType.FOR, condition, action);
+        super(Tasktype.FOR, condition, action);
     }
 
     @Override
-    public void execute(Farmio farmio) throws FarmioFatalException, FarmioException { //if got error during the loop we use FarmioException to break out
+    public void execute(Farmio farmio) throws FarmioFatalException, FarmioException {
         {
             int repeatNumber = 0;
-            for (int i = 0; i < repeatNumber; i ++) {
+            for (int i = 0; i < repeatNumber; i++) {
                 action.execute(farmio.getUi(), farmio.getStorage(), farmio.getFarmer(), farmio.getSimulation());
             }
         }
