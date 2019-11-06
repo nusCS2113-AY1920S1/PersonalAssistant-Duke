@@ -18,13 +18,17 @@ public class CheckAnomaly {
      * @return true if duplicate detected and false if no duplicate detected
      */
     public static Boolean checkDuplicate(Task task) {
+        boolean isDuplicate = false;
         String name = task.getDescription();
+        String assignee = task.getAssignee();
+        String date = task.getDate().toString();
         for( Task output : TaskList.currentList() ) {
-            if( output.getDescription().equals(name) ) {
-                return true;
+            if( output.getDescription().equals(name) && output.getAssignee().equals(assignee)
+            && output.getDate().toString().equals(date) && output.getClass().equals(task.getClass())) {
+                isDuplicate = true;
             }
         }
-        return false;
+        return isDuplicate;
     }
 
     /**

@@ -20,25 +20,20 @@ public class Ui {
      * Shows the startup logo for RoomShare
      */
     public void startUp() {
-        String logo = "      /@@&@@@*\n"
-                + "      (@&@/ (@@@/ \n"
-                + "      (@&&(    /@@@.\n"
-                + "      /@&&(       &@@\n"
-                + "      /@&&@/       #@@(\n"
-                + "      (@&&%@@@*    *&@@(\n"
-                + "      (@&@/  %@@@&%%&&@&,\n"
-                + "      (@&@(     &@&@@@@#   ,#%&%(* \n"
-                + "      &@&@/     ,@@%      (@&&@@@@@@(\n"
-                + "        #@&      /@@#     (@@&     /@@@&*\n"
-                + "                  #@@/    .&@&        %@@%\n"
-                + "                  .&@@,     &@@*         /,\n"
-                + "                   #&@&       #@@&.\n"
-                + "                    #@@&        .&@@# \n"
-                + "                       ##          .&@@/\n"
-                + "                           (&*        %@@/\n"
-                + "                             %@%       /@@%\n"
-                + "                               ,@@@.   /@@@/\n"
-                + "                                  .%@@@@&@@*\n";
+        String logo = "    &@\n"
+                + "    #@&@@.\n"
+                + "    #&&  .@@,\n"
+                + "    %&&     %@,\n"
+                + "    #@&@%    %@#\n"
+                + "    %&&  @@@&&&&.\n"
+                + "    &&&    @@##/  @@@@@#\n"
+                + "     (@    .@&   .@@.   &@@.\n"
+                + "            /@%   (@(     * \n"
+                + "             @@*    #@%\n"
+                + "              #@,      @@#\n"
+                + "                  /*     *@@\n"
+                + "                    %@.    @@.\n"
+                + "                       #@@@&@*\n";
         System.out.println("Hello from RoomShare!\n" + logo);
         System.out.println("Enter 'help' if you require assistance");
     }
@@ -241,7 +236,24 @@ public class Ui {
     }
 
     public void helpList() {
-        System.out.println("Here are a list of commands you can input: \n add \n delete \n list \n done \n restore \n find \n priority \n snooze \n reorder \n subtask \n update \n sort \n log \n" +
+        System.out.println("Here are a list of commands you can input: " +
+                "\n add " +
+                "\n delete " +
+                "\n list " +
+                "\n done " +
+                "\n restore " +
+                "\n find " +
+                "\n priority " +
+                "\n snooze " +
+                "\n reorder " +
+                "\n subtask " +
+                "\n update " +
+                "\n sort " +
+                "\n bye " +
+                "\n completed " +
+                "\n overdue " +
+                "\n reschedule " +
+                "\n log \n" +
                 "For more information about a specific command you can \nEnter help followed by a command, eg. help add");
     }
 
@@ -286,5 +298,31 @@ public class Ui {
         } else {
             System.out.println("Deadline");
         }
+    }
+
+    public void showRestoreList() {
+        System.out.println("This are the items in your restore list");
+    }
+
+    public void showOverdueList() {
+        System.out.println("Here are your overdued tasks: ");
+    }
+
+    public void helpBye() {
+        System.out.println("Typing in 'bye' will exit the program");
+    }
+
+    public void helpCompleted() {
+        System.out.println("Shows the list of completed tasks");
+    }
+
+    public void helpOverdue() {
+        System.out.println("Shows the list of overdued tasks");
+    }
+
+    public void helpReschedule() {
+        System.out.println("Reschedules an overdued task by index to a later date by inputting a new date");
+        System.out.println("\teg. reschedule 1 &20/11/2019 10:00&");
+        System.out.println("This will reschedule task 1 in the overdue task list to have a deadline of 20th Nov 2019 at 10am");
     }
 }

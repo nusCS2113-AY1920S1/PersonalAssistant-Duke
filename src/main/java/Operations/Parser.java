@@ -58,7 +58,7 @@ public class Parser {
             int index = Integer.parseInt(arr[0]) - 1;
             return index;
         } catch (IllegalArgumentException e) {
-            throw new RoomShareException(ExceptionType.wrongIndexFormat);
+            throw new RoomShareException(ExceptionType.emptyIndex);
         }
     }
 
@@ -154,11 +154,13 @@ public class Parser {
      */
     public Date formatDateCustom_1(String by) throws RoomShareException {
         try {
-            Date date = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(by);
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            format.setLenient(false);
+            Date date = format.parse(by);
             date.setSeconds(0);
             return date;
         } catch (ParseException | IndexOutOfBoundsException | IllegalArgumentException e2) {
-            throw new RoomShareException(ExceptionType.wrongFormat);
+            throw new RoomShareException(ExceptionType.wrongDateFormat);
         }
     }
 
@@ -172,14 +174,20 @@ public class Parser {
             Date date = new Date();
             String[] temp = by.split(" ");
             String day = temp[0];
-            String[] time = temp[1].split(":");
+            String[] time = temp[1].trim().split(":");
 
-            // extract and validate hours and minutes
+            // validate hours and minute
+            SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+            format.setLenient(false);
+            format.parse(temp[1].trim());
+
+            // extract hours and minutes
             int hours = Integer.parseInt(time[0]);
             int minutes = Integer.parseInt(time[1]);
             date.setHours(hours);
             date.setMinutes(minutes);
             date.setSeconds(0);
+
             if (day.toLowerCase().equals("tomorrow") || day.toLowerCase().equals("tmr")) {
                 date.setDate(date.getDate() + 1);
                 return date;
@@ -188,7 +196,8 @@ public class Parser {
                 return date;
             }
             else return null;
-        } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
+
+        } catch (IndexOutOfBoundsException | IllegalArgumentException | ParseException e) {
             return null;
         }
     }
@@ -205,6 +214,11 @@ public class Parser {
             Date outputDate;
 
             String[] temp = by.split(" ");
+
+            // validate hours and minute
+            SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+            format.setLenient(false);
+            format.parse(temp[2].trim());
 
             // Check if the user enter proper keyword "next" or "this"
             if (!temp[0].toLowerCase().equals("next") && !temp[0].toLowerCase().equals("this"))
@@ -247,14 +261,14 @@ public class Parser {
             outputDate = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
 
             // Set hours and minute as specified
-            String[] time = temp[2].split(":");
+            String[] time = temp[2].trim().split(":");
             int hours = Integer.parseInt(time[0]);
             int minutes = Integer.parseInt(time[1]);
             outputDate.setHours(hours);
             outputDate.setMinutes(minutes);
             outputDate.setSeconds(0);
             return outputDate;
-        } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
+        } catch (IndexOutOfBoundsException | IllegalArgumentException | ParseException e) {
             return null;
         }
     }
