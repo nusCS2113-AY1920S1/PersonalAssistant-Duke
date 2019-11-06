@@ -2,8 +2,7 @@ package RetrieveFreeTimesTest;
 
 import Commands.Command;
 import Commands.FindFreeTimesCommand;
-import Commons.LookupTable;
-import Commons.Ui;
+import Commons.UserInteraction;
 import DukeExceptions.DukeInvalidFormatException;
 import Parser.FindFreeTimesParse;
 import Parser.RetrieveFreeTimesParse;
@@ -31,11 +30,10 @@ public class RetrieveFreeTimesCommandTest {
 
     private static ArrayList<Pair<String, String>> retrievedFreeTimesList;
 
-    private LookupTable lookupTable = new LookupTable();
     private TaskList events = new TaskList();
     private TaskList deadlines = new TaskList();
     private StorageStub storageStub = new StorageStub();
-    private Ui ui = new Ui();
+    private UserInteraction ui = new UserInteraction();
 
     @BeforeAll
     public static void setAllVariables() {
@@ -51,7 +49,7 @@ public class RetrieveFreeTimesCommandTest {
         Command command = null;
         try {
             command = new RetrieveFreeTimesParse(userInputWithValidOption).parse();
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
 
         } catch (DukeInvalidFormatException e) {
             actual = e.getMessage();
@@ -88,7 +86,7 @@ public class RetrieveFreeTimesCommandTest {
         Command command = null;
         try {
             command = new FindFreeTimesParse(validUserInputWithDuration).parse();
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (DukeInvalidFormatException e) {
             actual = e.getMessage();
         } catch (Exception e) {
@@ -107,7 +105,7 @@ public class RetrieveFreeTimesCommandTest {
         Command command = null;
         try {
             command = new RetrieveFreeTimesParse(userInputWithValidOption).parse();
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (DukeInvalidFormatException e) {
             actual = e.getMessage();
         } catch (Exception e) {
