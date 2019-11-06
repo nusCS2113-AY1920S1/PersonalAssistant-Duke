@@ -37,7 +37,7 @@ public class Main {
 
             //@@author Xdecosee
             if ("help".equals(fullCommand)) {
-                ui.showHelp(LogicManager.getHelpList());
+                ui.showHelp(logicManager.getHelpList());
                 continue;
             }
             //@@author
