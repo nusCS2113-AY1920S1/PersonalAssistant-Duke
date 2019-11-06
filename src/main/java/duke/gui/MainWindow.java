@@ -704,15 +704,18 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         for (int i = 0; i < upcomingTaskContainers.length; i++) {
+            upcomingTaskContainers[i].getChildren().clear();
             titledPanes[i].setText(upcomingTasks.get(i).getFormattedDate());
             ArrayList<UpcomingTasksBox> taskBoxesForDate
                     = UpcomingTasksBox.createUpcomingTasksBoxesForDate(upcomingTasks.get(i).getTaskAndInfo());
 
             for (UpcomingTasksBox taskInfoForDate : taskBoxesForDate) {
                 upcomingTaskContainers[i].getChildren().addAll(taskInfoForDate);
-                scrollPanes[i].setContent(upcomingTaskContainers[i]);
-                titledPanes[i].setContent(scrollPanes[i]);
             }
+
+            scrollPanes[i].setContent(upcomingTaskContainers[i]);
+            titledPanes[i].setContent(scrollPanes[i]);
+
         }
     }
 
