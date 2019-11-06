@@ -28,7 +28,7 @@ public class BadCommand extends Command {
      * @throws DukeException DukeException throws exception
      */
     public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists, DegreeManager degreesManager) throws DukeException {
-        throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
 }

@@ -150,4 +150,8 @@ public class ModuleList {
             System.out.println(line.toString());
         }
     }
+
+    public int getSize() {
+        return this.modList.size();
+    }
 }

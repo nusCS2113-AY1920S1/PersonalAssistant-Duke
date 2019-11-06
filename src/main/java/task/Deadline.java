@@ -27,11 +27,29 @@ public class Deadline extends Task {
             throw new DukeException("Please use /by to indicate date");
         } else if (split.length > 2) {
             throw new DukeException("Too many /by in String");
-        } else {
+
+        }
+        else if (split[1].contains("/priority")){
+            String[] splitPriority = split[1].split(Parser.priority);
+            if (splitPriority.length < 2){
+                throw new DukeException("Please enter a priority level!");
+            }
+            if (!splitPriority[1].toLowerCase().matches("high|medium|low")){
+                throw new DukeException("Please ensure that priority level is either High, Medium, or Low");
+            }
+            this.isDone = false;
+            this.description = split[0];
+            this.readDate(splitPriority[0]);
+            this.userDefinedPriority = splitPriority[1].toLowerCase();
+            this.calculatePriorityScore();
+        }
+
+        else {
             this.description = split[0];
             this.readDate(split[1]);
             this.isDone = false;
-            this.assignPriority();
+            this.userDefinedPriority = "low";
+            this.calculatePriorityScore();
         }
     }
 
@@ -42,11 +60,11 @@ public class Deadline extends Task {
      * @param description String contains description of Task
      * @param dueDate     String contains the date in correct format
      */
-    public Deadline(String bool, String description, String dueDate) throws DukeException {
+    public Deadline(String bool, String description, String dueDate, String priority) throws DukeException {
         this.description = description;
         this.readDate(dueDate);
         this.isDone = (1 == Integer.parseInt(bool));
-        this.assignPriority();
+        this.userDefinedPriority = (priority);
     }
 
 
