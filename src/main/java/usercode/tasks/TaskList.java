@@ -66,12 +66,16 @@ public class TaskList extends ArrayList<Task>{
         return list;
     }
 
-    public String removeTask (int taskID) throws FarmioException {
+    public String deleteTask(int taskID) throws FarmioException {
         try {
             Task t = this.remove(taskID - 1);
             return t.toString();
         } catch (IndexOutOfBoundsException e) {
             throw new FarmioException("Invalid TaskID!");
         }
+    }
+
+    public void deleteAll() {
+        this.clear();
     }
 }
