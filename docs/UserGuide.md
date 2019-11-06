@@ -7,24 +7,25 @@
    - Recipe Book Management
      - Adding Dish
      - Adding Ingredient to Dish
-     - List all Dish
-     - Initialize Dish
+     - Listing all Dish
+     - Initializing Dish
      - Removing Dish
    - Ingredient Management by Fridge Storage
-     - Add Ingredient
-     - Remove Ingredient
+     - Adding Ingredient
+     - Removing Ingredient
      - Finding Ingredient
      - Using an Ingredient
      - Listing all Expired Ingredients Today
      - Removing all Expired Ingredients 
    - Order Management
-   - Todo List
+     - Adding Order Today or Pre-Order
+     - Alterering Order Serving Date
+     - Removing Order
+     - Marking Order as Done
+     - Initializing Order List
+     - Listing Order by Different Filtering Keywords
+   - Chef's ToDo List of Today
    - Statistics: Popularity of Dishes
-   - (the below related to tasks should be deleted)
-   - Load and save tasks to hard disk
-   - Identify dates and times
-   - delete: Delete a task
-   - find: Find a task by searching for a keyword. 
    - Error Handling 
 4. Command Summary
 5.  FAQ
@@ -388,11 +389,267 @@ Otherwise,
 
 ### 3.4 Order Management
 
-3.4.1 
+To begin with, the user needs to enter command `c` in main menu, so as to step into Order management menu. The below commands are all executed in the Order management menu. 
+
+#### 3.4.1 Adding Order Today or Pre-Order: `add`
+
+To add a new order to the order list, the user needs to execute the command following the below format.
+
+Format: `add [-d ORDER_DATE-(dd/mm/yyyy)] -n DISH1_NAME[*DISH_AMOUNT], DISH2_NAME[*DISH_AMOUNT], ...`
+
+<u>Requirement:</u>
+
+- The serving date of the order `ORDER_DATE` should be valid and **cannot be before today**. 
+  - If the date is today, the user can simply enter command `add -n ...`. 
+  - Otherwise, the order is treated as *pre-order*. `ORDER_DATE` must be specified.
+- The ordered dishes **cannot be empty**.
+
+Examples: 
+
+- `add -d 31/12/2019 -n beef noodle*3`: there can be only one ordered dishes.
+- `add -d 12/11/2019 -n chicken rice*1, cake*2, laksa`: the amount of laksa is 1, as default.
+- `add -n pasta, mushroom soup` : the serving date of this order is date of today, as default.
+
+Sample output message:
+
+```
+_________________________________________________________________________________________
+	 Got it. I've added this order: 
+	 [✘] Order /on 31/12/2019 
+	    (1) beef noodle 3
+	 Now you have 1 orders in the order list.
+_________________________________________________________________________________________
+```
+
+```
+_________________________________________________________________________________________
+	 Got it. I've added this order: 
+	 [✘] Order today 
+	    (1) pasta 1
+	    (2) mushroom soup 1
+	 Now you have 2 orders in the order list.
+_________________________________________________________________________________________
+```
 
 
 
-### 3.5 Error Handling 
+#### 3.4.2 Alterering Order Serving Date
+
+In pre-order management, it is very likely that the serving date alters. To update the serving date information of an order in the order list, the user needs to execute the command following the below format.
+
+Format: `alter ORDER_INDEX ORDER_DATE-(dd/mm/yyyy)`
+
+<u>Requirement:</u>
+
+- Altering a done order is not expected. It will do nothing and reminds you of `Order done already. Date alteration is not expected.`
+- The range of `ORDER_INDEX` is 1 to the size of the order list.
+- The newly set date should be in valid format and **cannot be before today**. 
+  - If the date is today, the user can simply enter `alter ORDER_INDEX`. 
+  - Otherwise, the order is treated as *pre-order*. `ORDER_DATE` must be specified.
+
+Examples: 
+
+- `alter 2`: changes the serving date of 2nd order in the order list to today.
+- `alter 1 03/01/2020`: changes the serving date of 2nd order in the order list to `03/01/2020`.
+
+If the order list is empty, the output message would be:
+
+```
+	 ☹ OOPS!!! No order in the list! No order can be altered!
+```
+
+Otherwise, the sample output message would be like:
+
+```
+_________________________________________________________________________________________
+	 Nice! I've changed the order at 07/11/2019:
+	 [✘] Order today 
+	    (1) fish 1
+	    (2) chili crab 1
+	    (3) rice 2
+_________________________________________________________________________________________
+```
+
+```
+_________________________________________________________________________________________
+	 Nice! I've changed the order at 03/12/2019:
+	 [✘] Order /on 03/12/2019 
+	    (1) fish 1
+	    (2) chili crab 1
+	    (3) rice 2
+_________________________________________________________________________________________
+```
+
+
+
+#### 3.4.3 Removing Order
+
+To remove an existing order from the order list, the user needs to execute the command following the below format.
+
+Format: `remove ORDER_INDEX`
+
+<u>Requirement:</u>
+
+- The range of `ORDER_INDEX` is 1 to the size of the order list.
+
+Examples: 
+
+- `remove 3`: remove 3rd order in the order list.
+
+If the order list is empty, the output message would be:
+
+```
+	 ☹ OOPS!!! No order in the list! No order can be removed!
+```
+
+Otherwise, the sample output message would be like:
+
+```
+_________________________________________________________________________________________
+	 Noted. I've removed this order:
+	 [✘] Order /on 03/12/2019 
+	    (1) fish 1
+	    (2) chili crab 1
+	    (3) rice 2
+	 Now you have 3 orders in the order list.
+_________________________________________________________________________________________
+```
+
+
+
+#### 3.4.4 Marking Order as Done
+
+To mark an existing undone order as done, the user needs to execute the command following the below format.
+
+Format: `done ORDER_INDEX`
+
+<u>Requirement:</u>
+
+- The range of `ORDER_INDEX` is 1 to the size of the order list.
+- The indexed order should be in status of `undone` before marking it as `done`. Otherwise, it will do nothing and reminds you `Order ORDER_INDEX has already been done!`
+
+Examples: 
+
+- `done 3`: mark 3rd order in the (whole) order list as done. The whole order list inclues orders with the status of done. But the program will check if the targeted order is done during the execution.
+
+If the order list is empty, the output message would be:
+
+```
+	 ☹ OOPS!!! No order in the list! No order can be done!
+```
+
+Otherwise, the sample output message would be like:
+
+```
+_________________________________________________________________________________________
+	 Nice! I've marked this order as done:
+	 [✓] Order /on 12/09/2020 
+	    (1) beef noodle 1
+	    (2) chili crab 1
+	    (3) rice 3
+_________________________________________________________________________________________
+```
+
+
+
+#### 3.4.5 Initializing Order List
+
+To clear all the orders in the order list, the user needs to execute the command following the below format.
+
+Format: `init`
+
+The program will then asks the user to confirm the initialization: `Are you sure you want to clear all orders in the order list? [y/n] `
+
+If the user enters `y` or `Y`, the output message will be:
+
+```
+_________________________________________________________________________________________
+	 ORDER LIST CLEARED
+
+	 Continue by adding order. Template:
+	 add [-d ORDER_DATE-(dd/mm/yyyy)] -n DISH1_NAME[*DISH_AMOUNT], DISH2_NAME[*DISH_AMOUNT]
+_________________________________________________________________________________________
+```
+
+If the user enters `n`  or `N`, the output message will be:
+
+```
+_________________________________________________________________________________________
+	 ORDER LIST NOT CLEARED
+
+	 Continue by adding, removing, altering, listing order.
+	 Type 'template' to see the format of the commands
+_________________________________________________________________________________________
+```
+
+If the user enters neither `y` or `n`, then the order list maintains. Note that the user has to enter `init` again and then enters confirm the initialization. An `y` or `n`  command not after the confirmation question is regarded as invalid.
+
+
+
+#### 3.4.5 Listing Order by Different Filtering Keywords
+
+To list orders in the order list, the user needs to execute the command following the below format.
+
+Format 1: `list [-l LIST_TYPE-(option: all (default) | undone | today | undoneToday)]`
+
+- Example: `list -l undone`, `list -l today`, `list -l undoneToday`, `list` (i.e., `list -l all`)
+
+Format 2: `list -n DISH_NAME`
+
+- Example: `list -n chicken rice`
+
+Format 3: `list -d ORDER_DATE-(dd/mm/yyyy) [-l LIST_TYPE-(option: all (default) | undone)]`
+
+- Example: `list -d 31/12/2019 -l undone`, ``list -d 31/12/2019` (i.e., `list -d 31/12/2019 -l all`)
+- *If you want to find today's orders, we recommend you to follow format 1.*
+
+If there is no order in the order list, the output message is: 
+
+```
+	 OOPS!!! No orders in the order list!. 
+```
+
+If there is no order satisfying the requirement, the output message is
+
+```
+	 OOPS!!! No orders found.
+```
+
+Otherwise, the sample output message is like:
+
+```
+_________________________________________________________________________________________
+	 Here are the orders in the order list:
+	 1.[✘] Order today 
+	    (1) laksa 1
+	 2.[✘] Order today 
+	    (1) chicken rice 1
+	 3.[✘] Order /on 12/12/2019 
+	    (1) beef noodle 2
+_________________________________________________________________________________________
+```
+
+
+
+### 3.5 Chef's ToDo List
+
+Chef needs to check his/her remaining tasks of the day. The ToDo list keeps in accordance with the update of any order in the order list. To view the ToDo list, the user needs to enter `t` in the main menu.
+
+The sample output message as follows: 
+
+```
+_________________________________________________________________________________________
+	 Today Task list (Thu Nov 07 03:15:25 SGT 2019)
+	 1. chicken rice (amount: 3) 
+   2. cake (amount: 2) 
+   3. beef noodles (amount: 4)
+
+_________________________________________________________________________________________
+```
+
+
+
+### 3.6 Error Handling 
 
 handles unexpected commands from the user such as unknown/incomplete command. if user enters an invalid command, the application will output a message that corresponds to what the user entered wrongly.
 
