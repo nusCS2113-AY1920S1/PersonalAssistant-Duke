@@ -61,7 +61,6 @@ public class Duke {
      */
     public void run() {
         String fullCommand;
-        //ui.clearScreen();
         ui.showWelcome();
 
         if (fridge.hasExpiredIngredients()) {
@@ -82,7 +81,6 @@ public class Duke {
                 ui.showOptions();
                 ui.showLine();
                 fullCommand = ui.readCommand();
-                //ui.clearScreen();
                 ui.showLine();
                 switch (fullCommand) {
                     case "options": {
@@ -113,7 +111,6 @@ public class Duke {
                         while (true) {
                             try {
                                 fullCommand = ui.readCommand();
-                                //ui.clearScreen();
                                 if (fullCommand.trim().equals("back")) {
                                     break;
                                 }
@@ -146,7 +143,6 @@ public class Duke {
                         while (true) {
                             try {
                                 fullCommand = ui.readCommand();
-                                //ui.clearScreen();
                                 if (fullCommand.trim().equals("back")) { break; }
                                 if (fullCommand.trim().equals("q")) {
                                     Command command = new ExitCommand();
@@ -171,7 +167,6 @@ public class Duke {
                             try {
                                 ui.showDishTemplate();
                                 fullCommand = ui.readCommand();
-                                //ui.clearScreen();
                                 if(fullCommand.trim().equals("q")) {
                                     Command command = new ExitCommand();
                                     command.execute(null, dish, order, ui, fridgeStorage, orderStorage);
@@ -182,7 +177,6 @@ public class Duke {
                                     break;
                                 }
                                 if(fullCommand.trim().equals("template")) {
-                                    //ui.clearScreen();
                                     continue;
                                 }
                                 Command command = Parser.parse(fullCommand, Type.DISH);

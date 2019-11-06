@@ -362,6 +362,7 @@ public class Ui {
     }
 
     /**
+     * WARNING: DO NOT USE THIS METHOD as it is not compatible with Mac comp.
      * Every time this method is executed, it clears the console screen.
      * @throws IOException
      * @throws InterruptedException
