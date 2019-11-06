@@ -331,4 +331,8 @@ public class Ui {
     public void showTaggedPercentage(String user) {
         System.out.println("The completion status for '" + user + "' is:");
     }
+
+    public void showDeletedList() {
+        System.out.println("Here are the tasks that you have deleted and are in temporary storage");
+    }
 }

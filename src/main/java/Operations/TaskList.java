@@ -418,8 +418,9 @@ public class TaskList {
      * lists out all the tasks associated with a certain assignee
      * will include tasks that are tagged "everyone", since everyone includes the assignee
      * @param user assignee to the tasks
+     * @throws RoomShareException when the list is empty
      */
-    public int[] listTagged(String user) {
+    public int[] listTagged(String user) throws RoomShareException{
         int listCount = 1;
         int belongCount = 0;
         int doneCount  = 0;
@@ -438,6 +439,9 @@ public class TaskList {
                 }
             }
             listCount += 1;
+        }
+        if (belongCount == 0) {
+            throw new RoomShareException(ExceptionType.emptyList);
         }
         int[] done = {belongCount, doneCount};
         return done;

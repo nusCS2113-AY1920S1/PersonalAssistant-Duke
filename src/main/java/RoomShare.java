@@ -356,10 +356,26 @@ public class RoomShare {
                 ui.startUp();
                 String input = parser.getCommandLine();
                 ui.showTagged(input);
-                int[] doneArray = taskList.listTagged(input);
-                ui.showTaggedPercentage(input);
-                ProgressBar progressBar = new ProgressBar(doneArray[0], doneArray[1]);
-                ui.showBar(progressBar.showBar());
+                try {
+                    int[] doneArray = taskList.listTagged(input);
+                    ui.showTaggedPercentage(input);
+                    ProgressBar progressBar = new ProgressBar(doneArray[0], doneArray[1]);
+                    ui.showBar(progressBar.showBar());
+                } catch (RoomShareException e) {
+                    ui.showError(e);
+                }
+                listRoutine.list();
+                break;
+
+            case deleted:
+                Ui.clearScreen();
+                ui.startUp();
+                ui.showDeletedList();
+                try {
+                    tempDeleteList.list();
+                } catch (RoomShareException e) {
+                    ui.showError(e);
+                }
                 listRoutine.list();
                 break;
 
