@@ -58,7 +58,7 @@ public class MainParser {
             case "retrieve/previous":
                 return new RetrievePreviousCommand(fullCommand);
 
-            case "Week":
+            case "show/week":
                 return new WeekParse(fullCommand).parse();
 
             case "bye":
