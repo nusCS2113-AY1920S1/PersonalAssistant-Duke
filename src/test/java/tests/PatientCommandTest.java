@@ -1,7 +1,7 @@
 package tests;
 
 import duke.command.ArgCommand;
-import duke.command.patient.PatientNewCommand;
+import duke.command.patient.PatientNewSpec;
 import duke.data.Impression;
 import duke.data.Patient;
 import duke.exception.DukeException;
@@ -31,12 +31,11 @@ public class PatientCommandTest extends CommandTest {
 
     @Test
     public void patientNewCommand_allSwitches_correctImpressionCreated() {
-        ArgCommand newImpCmd = new PatientNewCommand();
-        String[] switchNames = {"description"};
-        String[] switchVals = {"test description"};
-        setupCommand(newImpCmd, "test", switchNames, switchVals);
+        String[] switchNames = {"name", "description"};
+        String[] switchVals = {"test", "test description"};
         Impression imp = new Impression("test", "test description", patient);
         try {
+            ArgCommand newImpCmd = new ArgCommand(PatientNewSpec.getSpec(), null, switchNames, switchVals);
             newImpCmd.execute(core);
             assertTrue(imp.equals(patient.getImpression("test")));
         } catch (DukeException excp) {

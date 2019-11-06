@@ -1,5 +1,8 @@
 package duke.command;
 
+import duke.DukeCore;
+import duke.exception.DukeException;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,11 +14,28 @@ import java.util.Set;
  * mechanism to enforce or document this contract, any subclass of ArgSpec must have a private constructor which sets
  * {@code cmdArgLevel} and {@code emptyArgMsg}, and which calls {@code switchInit()}.
  */
-public abstract class ArgSpec {
-    protected String emptyArgMsg;
+public abstract class ArgSpec extends CommandSpec {
     protected ArgLevel cmdArgLevel;
     protected Map<String, Switch> switchMap;
     protected Map<String, String> switchAliases;
+    protected ArgCommand cmd;
+
+    /**
+     * Set {@code cmd} to the supplied command, exposing access to the switches supplied to it, and perform the
+     * operations specified by this CommandSpec object's {@code execute(DukeCore core)} method, using the supplied
+     * switches to modify behaviour.
+     *
+     * @param core The DukeCore object to use to execute the command.
+     * @param cmd The ArgCommand instance being executed, holding the relevant switches.
+     * @see DukeCore
+     * @see ArgCommand
+     * @throws DukeException If an error occurs during command execution.
+     */
+    public void execute(DukeCore core, ArgCommand cmd) throws DukeException {
+        this.cmd = cmd;
+        execute(core);
+        this.cmd = null;
+    }
 
     public ArgLevel getCmdArgLevel() {
         return cmdArgLevel;
@@ -27,10 +47,6 @@ public abstract class ArgSpec {
 
     public Map<String, String> getSwitchAliases() {
         return switchAliases;
-    }
-
-    public String getEmptyArgMsg() {
-        return emptyArgMsg;
     }
 
     protected void initSwitches(Switch... switches) {

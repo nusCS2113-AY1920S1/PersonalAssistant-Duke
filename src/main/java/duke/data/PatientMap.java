@@ -120,12 +120,7 @@ public class PatientMap {
      */
     public ArrayList<Patient> findPatientsByName(String searchTerm) {
         String lowerSearchTerm = searchTerm.toLowerCase();
-        ArrayList<Patient> resultList = new ArrayList<Patient>();
-        for (Patient patient : patientList) {
-            if (patient.getName().toLowerCase().contains(lowerSearchTerm)) {
-                resultList.add(patient);
-            }
-        }
+        ArrayList<Patient> resultList = new ArrayList<Patient>(patientList);
         return resultList;
     }
 

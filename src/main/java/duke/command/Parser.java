@@ -43,17 +43,17 @@ public class Parser {
      * @throws DukeException If there is no matching command or the arguments do not meet the command's requirements.
      */
     public Command parse(String inputStr) throws DukeException {
-        String safeInputStr = inputStr.replace("\t", "    "); //sanitise input
-        int spaceIdx = safeInputStr.indexOf(" ");
-        int sepIdx = safeInputStr.indexOf(System.lineSeparator());
-        String cmdStr = safeInputStr;
+        inputStr = inputStr.replace("\t", "    "); //sanitise input
+        int spaceIdx = inputStr.indexOf(" ");
+        int sepIdx = inputStr.indexOf(System.lineSeparator());
+        String cmdStr = inputStr;
         if (!(spaceIdx == -1 && sepIdx == -1)) {
             if (spaceIdx == -1) {
-                cmdStr = safeInputStr.substring(0, sepIdx);
+                cmdStr = inputStr.substring(0, sepIdx);
             } else if (sepIdx == -1) {
-                cmdStr = safeInputStr.substring(0, spaceIdx);
+                cmdStr = inputStr.substring(0, spaceIdx);
             } else {
-                cmdStr = safeInputStr.substring(0, min(sepIdx, spaceIdx));
+                cmdStr = inputStr.substring(0, min(sepIdx, spaceIdx));
             }
         }
         Command command = commands.getCommand(cmdStr, uiContext.getContext());
@@ -64,9 +64,9 @@ public class Parser {
         // trim command and first space after it from input if needed, and standardise newlines
         if (command instanceof ArgCommand) { // stripping not required otherwise
             //standardise line separators for internal manipulation
-            safeInputStr = safeInputStr.replaceAll("(\\r\\n|\\n|\\r)", "\n");
+            inputStr = inputStr.replaceAll("(\\r\\n|\\n|\\r)", "\n");
             try {
-                argParser.parseArgument((ArgCommand) command, safeInputStr.substring(cmdStr.length()));
+                argParser.parseArgument((ArgCommand) command, inputStr.substring(cmdStr.length()));
             } catch (DukeUtilException excp) {
                 throw new DukeHelpException(excp.getMessage(), command);
             }
