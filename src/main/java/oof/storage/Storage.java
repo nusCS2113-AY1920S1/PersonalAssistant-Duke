@@ -36,7 +36,7 @@ public class Storage {
         BufferedReader bufferedReader;
         try {
             FileReader fileReader = new FileReader(filePath);
-             bufferedReader = new BufferedReader(fileReader);
+            bufferedReader = new BufferedReader(fileReader);
         } catch (FileNotFoundException e) {
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filePath);
             bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
