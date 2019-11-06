@@ -327,7 +327,7 @@ public class Storage {
      * @return time A string with the correct formatting to be placed in the data file.
      * @throws RoomShareException If there is any error in parsing the Date information.
      */
-    private String convertForStorageLeave(Task task) throws RoomShareException {
+    public String convertForStorageLeave(Task task) throws RoomShareException {
         try {
             String time;
             String[] prelimSplit = task.toString().split("\\(");

@@ -7,7 +7,6 @@ import Model_Classes.Task;
 import Operations.*;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -185,16 +184,8 @@ public class RoomShare {
                 ui.startUp();
                 try {
                     String input = parser.getCommandLine();
-                    if(!(CheckAnomaly.checkTask((taskCreator.create(input))))) {
-                        if( !(CheckAnomaly.checkDuplicate((taskCreator.create(input)))) ) {
-                            taskList.add(taskCreator.create(input));
-                            ui.showAdd();
-                        } else {
-                            throw new RoomShareException(ExceptionType.duplicateTask);
-                        }
-                    } else {
-                        throw new RoomShareException(ExceptionType.timeClash);
-                    }
+                    taskList.add(taskCreator.create(input));
+                    ui.showAdd();
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 } finally {
