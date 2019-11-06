@@ -24,7 +24,7 @@ public class ViewHelper {
             columnsOfTableContent.add(new ArrayList<>());
         }
         // Each element in columnsOfTableContent is an ArrayList containing content for that column of tables
-        int individualTableWidth = (tableWidth - (numOfTableColumns + 1)) / numOfTableColumns - 2;
+        int individualTableWidth = ((tableWidth - (numOfTableColumns + 1)) / numOfTableColumns) - 2;
         while (toPrintAll.size() != 0) {
             for (int i = 0; i < numOfTableColumns; i++) {
                 if (toPrintAll.size() == 0) {

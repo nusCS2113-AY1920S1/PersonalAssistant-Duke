@@ -41,8 +41,10 @@ public class AssignmentViewHelper {
                 int currentNumber = 1;
                 for (Task task : memberAndIndividualTasks.get(member)) {
                     outputToPrint.add(currentNumber + ". " + task.getDetailsForAssignmentTable());
+                    outputToPrint.add("");
                     currentNumber++;
                 }
+                outputToPrint.remove(outputToPrint.lastIndexOf(""));
             }
             totalOutputToPrint.add(outputToPrint);
         }
