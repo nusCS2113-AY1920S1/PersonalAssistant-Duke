@@ -28,10 +28,11 @@ public class EditDifficultyCommand extends Edit {
     /**
     * Initializes task to be edited.
     *
-    * @param userInput input that contains task id to do
+    * @param index index of task in Hustler's TaskList
+    * @param difficulty difficulty to be set to
     */
-    public EditDifficultyCommand(Task task, String difficulty) {
-        super(task);
+    public EditDifficultyCommand(int index, String difficulty) {
+        super(index);
         this.difficulty = difficulty;
     }
 
@@ -39,6 +40,10 @@ public class EditDifficultyCommand extends Edit {
      * Does task at index taskIndex inside.
      */
     public void execute() {
-        this.task.setDifficulty(this.difficulty); 
+        Ui ui = new Ui();
+        Hustler.list.get(this.index).setDifficulty(this.difficulty); 
+        String output = "The task difficulty has been changed: \n\t\t" 
+            + Hustler.list.get(this.index).toString();
+        ui.showMessage(output); 
     }
 }

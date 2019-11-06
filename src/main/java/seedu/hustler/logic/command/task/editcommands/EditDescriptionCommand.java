@@ -28,10 +28,11 @@ public class EditDescriptionCommand extends Edit {
     /**
     * Initializes task to be edited.
     *
-    * @param userInput input that contains task id to do
+    * @param index index of task to be edited in Hustler's TaskList
+    * @param description description to be set to
     */
-    public EditDescriptionCommand(Task task, String description) {
-        super(task);
+    public EditDescriptionCommand(int index, String description) {
+        super(index);
         this.description = description;
     }
 
@@ -39,6 +40,10 @@ public class EditDescriptionCommand extends Edit {
      * Does task at index taskIndex inside.
      */
     public void execute() {
-        this.task.setDescription(this.description); 
+        Ui ui = new Ui();
+        Hustler.list.get(this.index).setDescription(this.description); 
+        String output = "The task description has been changed: \n\t\t" 
+            + Hustler.list.get(this.index).toString();
+        ui.showMessage(output); 
     }
 }

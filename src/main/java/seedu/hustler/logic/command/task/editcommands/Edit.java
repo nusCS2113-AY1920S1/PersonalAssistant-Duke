@@ -2,27 +2,29 @@ package seedu.hustler.logic.command.task.editcommands;
 
 import java.io.IOException;
 import seedu.hustler.task.Task;
+import seedu.hustler.task.TaskList;
 
 /**
  * Template for duke commands.
  */
 public abstract class Edit {
-    /**
-     * Task to be edited.
-     */
-    protected Task task;
 
     /**
-     * Initializes the task to be edited.
-     *
-     * @param task the task to be edited
+     * Index of task in Hustler's TaskList.
      */
-    public Edit(Task task) {
-        this.task = task;
+    protected int index;
+    
+    /**
+     * Initializes index.
+     *
+     * @param index index to be initialized with
+     */
+    public Edit(int index) {
+        this.index = index;
     }
 
     /**
      * Executes the command.
      */
-    public abstract void execute() throws IOException;
+    public abstract void execute();
 }
