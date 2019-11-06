@@ -6,6 +6,7 @@ import frontend.Ui;
 
 public class CommandShowList extends Command {
     private String filePath;
+
     public CommandShowList(String listPath) {
         filePath = listPath;
     }

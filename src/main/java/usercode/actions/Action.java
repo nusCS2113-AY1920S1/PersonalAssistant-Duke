@@ -14,20 +14,13 @@ public abstract class Action {
 
     ActionType type;
 
-    public Action(ActionType type){
+    public Action(ActionType type) {
         this.type = type;
     }
 
     /**
-     * public Action(JSONObject obj) {
-     * this.wheatFarm = new WheatFarm((JSONObject) obj.get("farm_wheat"));
-     * this.chickenFarm = new ChickenFarm((JSONObject) obj.get("farm_chicken"));
-     * this.cowFarm = new CowFarm((JSONObject) obj.get("farm_cow"));
-     * }
-     **/
-
-    /**
-     * Executes the Action
+     * Executes the Action.
+     *
      * @param ui The user interface used to print messages of the action
      * @param storage which stores the assets after acton execution
      * @param farmer The farmer whose variables are displayed and changed
@@ -38,6 +31,12 @@ public abstract class Action {
     public abstract void execute(Ui ui, Storage storage, Farmer farmer, Simulation simulation)
             throws FarmioException, FarmioFatalException;
 
+    /**
+     * Checks if the user input String is a valid Action.
+     *
+     * @param userInput substring of the user input that represents the Action
+     * @return true if it is a valid Action and false otherwise
+     */
     public static boolean isValidAction(String userInput) {
         for (ActionType type : ActionType.values()) {
             if ((type.name()).toLowerCase().equals(userInput)) {
@@ -47,6 +46,13 @@ public abstract class Action {
         return false;
     }
 
+    /**
+     * Converts the user input String to an Action object.
+     *
+     * @param actionName the String that is the name of the Action Object
+     * @return the Action Object
+     * @throws FarmioException if the name is invalid
+     */
     public static Action toAction(String actionName) throws FarmioException {
         ActionType actionType = ActionType.buySeeds;
         for (ActionType a : ActionType.values()) {
@@ -55,20 +61,20 @@ public abstract class Action {
             }
         }
         switch (actionType) {
-            case buySeeds:
-                return new BuySeedAction();
-            case harvestWheat:
-                return new HarvestWheatAction();
-            case plantSeeds:
-                return new PlantSeedAction();
-            case sellGrain:
-                return new SellWheatAction();
-            case gotoMarket:
-                return new GotoMarketAction();
-            case gotoWheatFarm:
-                return new GotoFarmAction();
-            default:
-                throw new FarmioException("Error Creating Action!");
+        case buySeeds:
+            return new BuySeedAction();
+        case harvestWheat:
+            return new HarvestWheatAction();
+        case plantSeeds:
+            return new PlantSeedAction();
+        case sellGrain:
+            return new SellWheatAction();
+        case gotoMarket:
+            return new GotoMarketAction();
+        case gotoWheatFarm:
+            return new GotoFarmAction();
+        default:
+            throw new FarmioException("Error Creating Action!");
         }
     }
 
@@ -77,7 +83,8 @@ public abstract class Action {
     }
 
     /**
-     * Checks if Action criteria is met before execution
+     * Checks if Action criteria is met before execution.
+     *
      * @param ui The user interface used to print messages of the action
      * @param farmer The farmer whose variables are displayed and changed
      * @param simulation The simulation object initialised with farmio
@@ -86,8 +93,8 @@ public abstract class Action {
      * @throws FarmioFatalException if file for simulation is missing
 
      */
-    protected void checkActionCriteria(Ui ui, Farmer farmer, Simulation simulation
-            , ArrayList<Pair<Boolean, String>> criteriaFeedbackList) throws FarmioException, FarmioFatalException {
+    protected void checkActionCriteria(Ui ui, Farmer farmer, Simulation simulation,
+               ArrayList<Pair<Boolean, String>> criteriaFeedbackList) throws FarmioException, FarmioFatalException {
         boolean hasError = false;
         ui.sleep(2000);
         for (Pair<Boolean, String> criteriaFeedback: criteriaFeedbackList) {

@@ -16,7 +16,7 @@ public class CommandTaskAddReset extends Command {
     public void execute(Farmio farmio) throws FarmioFatalException {
         Ui ui = farmio.getUi();
         Level level = farmio.getLevel();
-        farmio.getSimulation().simulate(level.getPath() ,level.getNarratives().size() - 1);
+        farmio.getSimulation().simulate(level.getPath(),level.getNarratives().size() - 1);
         ui.show("Enter [start] if you are ready to complete the objective or Enter [hint] if you get stuck!");
     }
 }
