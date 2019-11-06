@@ -1,11 +1,11 @@
-package dolla.action;
+package dolla.command.action;
 
 import dolla.ModeStringList;
-import dolla.action.state.LimitState;
-import dolla.action.state.DebtState;
-import dolla.action.state.EntryState;
-import dolla.action.state.State;
-import dolla.action.state.UndoStateList;
+import dolla.command.action.state.LimitState;
+import dolla.command.action.state.DebtState;
+import dolla.command.action.state.EntryState;
+import dolla.command.action.state.State;
+import dolla.command.action.state.UndoStateList;
 import dolla.task.Record;
 
 import java.util.ArrayList;

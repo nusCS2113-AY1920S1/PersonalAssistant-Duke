@@ -200,8 +200,22 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * @return true if there is a valid number or false otherwise.
      */
     protected boolean verifyRemove() {
-        if (inputArray.length < 2) {
+        if (inputArray.length != 2) {
             RemoveUi.printInvalidRemoveMessage();
+            return false;
+        }
+        try {
+            Integer.parseInt(inputArray[1]);
+        } catch (NumberFormatException e) {
+            RemoveUi.printInvalidRemoveMessage();
+            return false;
+        }
+        return true;
+    }
+
+    protected boolean verifyShortcut() {
+        if (inputArray.length != 2) {
+            //print error message;
             return false;
         }
         try {

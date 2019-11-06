@@ -23,8 +23,6 @@ public class MainParser implements ParserStringList, ModeStringList {
      */
     public static Command handleInput(String mode, String inputLine) {
 
-        //Scanner input = new Scanner(System.in);
-        //String inputLine = input.nextLine();
         String[] inputArray = inputLine.split(SPACE);
         String command = inputArray[0];
         boolean isExitCommand = isExitCommand(command);
@@ -50,6 +48,9 @@ public class MainParser implements ParserStringList, ModeStringList {
         case MODE_LIMIT:
             LimitParser limitParser = new LimitParser(inputLine);
             return limitParser.parseInput();
+        case MODE_SHORTCUT:
+            ShortcutParser shortcutParser = new ShortcutParser(inputLine);
+            return shortcutParser.parseInput();
         case MODE_MODIFY_ENTRY:
         case MODE_MODIFY_LIMIT:
         case MODE_MODIFY_DEBT:

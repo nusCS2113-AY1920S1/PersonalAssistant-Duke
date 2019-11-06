@@ -1,14 +1,14 @@
 package dolla.command;
 
 import dolla.DollaData;
-import dolla.action.Redo;
-import dolla.action.Undo;
+import dolla.command.action.Redo;
+import dolla.command.action.Undo;
 import dolla.task.Record;
 
 import java.util.ArrayList;
 
 //@@author yetong1895
-public class AddActionCommand extends Command {
+public class ActionCommand extends Command {
     private String mode;
     private String command;
     private static final String UNDO = "undo";
@@ -19,7 +19,7 @@ public class AddActionCommand extends Command {
      * @param mode the mode to be set in this class.
      * @param command the command to be set in this class.
      */
-    public AddActionCommand(String mode, String command) {
+    public ActionCommand(String mode, String command) {
         this.mode = mode;
         this.command = command;
     }
