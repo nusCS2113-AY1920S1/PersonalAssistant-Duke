@@ -84,17 +84,20 @@ public class ModuleInfoDetailed {
      * Checks if module is S/U-able, and assigns grade based on String score.
      */
     public void setGrade(String score) throws ModBadGradeException, ModBadSuException {
-        if (!validGrades.contains(score)) {
-            throw new ModBadGradeException();
-        }
-        if (score.equalsIgnoreCase("S") || score.equalsIgnoreCase("U")) {
+        if (score.equalsIgnoreCase("S") ||
+            score.equalsIgnoreCase("U") ||
+            score.equalsIgnoreCase("CS") ||
+            score.equalsIgnoreCase("CU")) {
             if (this.attributes.isSu()) {
                 this.grade = score;
             } else {
                 throw new ModBadSuException();
             }
+        } else if (!this.validGrades.contains(score)) {
+            throw new ModBadGradeException();
+        } else {
+            this.grade = score;
         }
-        this.grade = score;
     }
 
 
