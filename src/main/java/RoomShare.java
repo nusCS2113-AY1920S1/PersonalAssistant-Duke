@@ -7,6 +7,7 @@ import Model_Classes.Task;
 import Operations.*;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -16,7 +17,7 @@ public class RoomShare {
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
-    private TaskList doneTaskList;
+    private OverdueList overdueList;
     private Parser parser;
     private RecurHandler recurHandler;
     private TempDeleteList tempDeleteList;
@@ -37,12 +38,21 @@ public class RoomShare {
         taskCreator = new TaskCreator();
         ArrayList<Task> tempStorage = new ArrayList<>();
         tempDeleteList = new TempDeleteList(tempStorage);
+        ArrayList<Task> aloverdue = new ArrayList<>();
         try {
             taskList = new TaskList(storage.loadFile("data.txt"));
         } catch (RoomShareException e) {
             ui.showError(e);
             ArrayList<Task> emptyList = new ArrayList<>();
             taskList = new TaskList(emptyList);
+        }
+        try {
+            aloverdue = taskList.getOverdueList();
+            overdueList = new OverdueList(aloverdue);
+        } catch (RoomShareException e) {
+            ui.showError(e);
+            ArrayList<Task> emptyList = new ArrayList<>();
+            overdueList = new OverdueList(emptyList);
         }
         listRoutine = new ListRoutine(taskList);
         recurHandler = new RecurHandler(taskList);
@@ -312,12 +322,32 @@ public class RoomShare {
             case overdue:
                 Ui.clearScreen();
                 ui.startUp();
-                listRoutine.list();
+                ui.showOverdueList();
                 try {
-                    taskList.showOverdue();
+                    overdueList.list();
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
+                listRoutine.list();
+                break;
+
+            case reschedule:
+                Ui.clearScreen();
+                ui.startUp();
+                try {
+                    overdueList.list();
+                    String input = parser.getCommandLine();
+                    int index = parser.getIndex(input);
+                    Task oldTask = overdueList.get(index);
+                    taskCreator.rescheduleTask(input,oldTask);
+                    overdueList.reschedule(index);
+                    ui.showUpdated(index+1);
+                    storage.writeFile(TaskList.currentList(), "data.txt");
+                } catch (RoomShareException e) {
+                    ui.showError(e);
+                    storage.writeFile(TaskList.currentList(), "data.txt");
+                }
+                listRoutine.list();
                 break;
 
             default:
