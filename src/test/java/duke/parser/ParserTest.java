@@ -76,7 +76,7 @@ class ParserTest {
         cmd = Parser.parse("deadline soccer /by 19/04/2019 2000", items, budgetList, contactList);
         assertTrue(cmd instanceof AddCommand);
         cmd = Parser.parse("done 1", items, budgetList, contactList);
-        cmd.execute(items, ui);
+        cmd.executeGui(items, ui);
         cmd = Parser.parse("deadline party /by 19/04/2019 1900", items, budgetList, contactList);
         assertTrue(cmd instanceof AddCommand);
     }

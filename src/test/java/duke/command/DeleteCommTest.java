@@ -17,11 +17,11 @@ class DeleteCommTest {
         Task task = new Todo("sleep");
         Task task2 = new Todo("wake up");
         Command cmd = new AddCommand(task);
-        cmd.execute(items, ui);
+        cmd.executeGui(items, ui);
         cmd = new AddCommand(task2);
-        cmd.execute(items, ui);
+        cmd.executeGui(items, ui);
         cmd = new DeleteCommand(0);
-        cmd.execute(items, ui);
+        cmd.executeGui(items, ui);
 
         for (int i = 0; i < items.size(); i++) {
             assertNotEquals(task,items.get(i));

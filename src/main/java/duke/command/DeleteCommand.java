@@ -21,18 +21,6 @@ public class DeleteCommand extends Command {
         this.index = index;
     }
 
-    /**
-     * Executes a command that deletes the task from the task list and outputs the result.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user that it is deleted successfully.
-     */
-    @Override
-    public void execute(TaskList items, Ui ui) {
-        String deletedStr = "       " + items.get(index).toString();
-        items.remove(index);
-        ui.showDelete(items, deletedStr);
-    }
 
     /**
      * Executes a command that deletes the task from the task list together with its priority.

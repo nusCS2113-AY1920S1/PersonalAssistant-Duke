@@ -28,27 +28,6 @@ public class DeleteContactCommand extends Command {
     }
 
     /**
-     * Executes a command that deletes the contact from the contact list.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user that it is deleted successfully.
-     */
-    @Override
-    public void execute(TaskList items, Ui ui) {
-        if (indexOfContactToDelete >= Numbers.ZERO.value && indexOfContactToDelete
-                + Numbers.ONE.value <= contactList.size()) {
-            String deletedContact = contactList.getAndDisplay(indexOfContactToDelete);
-            contactList.remove(indexOfContactToDelete);
-            ui.showContactDeleted(contactList, deletedContact);
-        } else if (contactList.size() == Numbers.ZERO.value) {
-            ui.showErrorMsgGui("     No contacts to be deleted!");
-        } else {
-            ui.showErrorMsg("     Invalid index! Please choose 1 "
-                    + ((contactList.size() == Numbers.ONE.value) ? "" : "to " + contactList.size()));
-        }
-    }
-
-    /**
      * Executes a command that deletes the contact from the contact list and outputs the deleted contact (GUI).
      *
      * @param items The task list that contains a list of tasks.
