@@ -366,7 +366,8 @@ public class CommandParser {
      * @throws CommandNotFoundException if command is invalid.
      * @throws InvalidArgumentException if command arguments are invalid.
      */
-    private static Command parseSemesterCommand(String input) throws CommandNotFoundException, InvalidArgumentException {
+    private static Command parseSemesterCommand(String input) throws CommandNotFoundException,
+            InvalidArgumentException {
         if (input.isEmpty()) {
             return new ViewSelectedSemesterCommand();
         } else {
