@@ -16,6 +16,7 @@ import mistermusik.commons.Instruments.InstrumentList;
 import mistermusik.commons.budgeting.CostExceedsBudgetException;
 import mistermusik.commons.Goal;
 import mistermusik.ui.UI;
+
 import java.text.ParseException;
 import java.util.*;
 
@@ -380,6 +381,7 @@ public class Command {
     }
 
     //@@author yenpeichih
+
     /**
      * Searches list for events found in a singular date, passes to UI for printing.
      */
@@ -435,7 +437,8 @@ public class Command {
                 ui.scheduleClash(e.getClashEvent());
             } catch (CostExceedsBudgetException e) { //budget exceeded in attempt to add concert
                 ui.costExceedsBudget(e.getConcert(), e.getBudget());
-            } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | ParseException e) {
+            } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException
+                    | ParseException | NumberFormatException e) {
                 ui.newEntryFormatWrong();
             } catch (EndBeforeStartException e) { //start time is after end time
                 ui.eventEndsBeforeStart();
@@ -760,23 +763,23 @@ public class Command {
     }
 
     //@@author Dng132FEI
-    
+
     private void remindEvents(EventList events, UI ui) {
-    	if (continuation.isEmpty()) {
-    		ui.printReminderDays(events, 3);
-    		return;
-    	}
-    	String instrumentCommand[] = continuation.split(" ");
-    	if (instrumentCommand.length > 1) {
-    		ui.printInvalidCommand();
-    		return;
-    	}
+        if (continuation.isEmpty()) {
+            ui.printReminderDays(events, 3);
+            return;
+        }
+        String instrumentCommand[] = continuation.split(" ");
+        if (instrumentCommand.length > 1) {
+            ui.printInvalidCommand();
+            return;
+        }
         try {
-    		int days = Integer.parseInt(instrumentCommand[0]);
-    		ui.printReminderDays(events, days);
-    	} catch (NumberFormatException e) {
-    		ui.printInvalidCommand();
-    	}
+            int days = Integer.parseInt(instrumentCommand[0]);
+            ui.printReminderDays(events, days);
+        } catch (NumberFormatException e) {
+            ui.printInvalidCommand();
+        }
     }
 
 
