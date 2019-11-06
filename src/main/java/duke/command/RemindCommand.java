@@ -22,20 +22,6 @@ public class RemindCommand extends Command {
     }
 
     /**
-     * Executes a command that sets a reminder of a task in a specified noOfDays.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user that it is sets a reminder successfully.
-     */
-    @Override
-    public void execute(TaskList items, Ui ui) {
-        Task task = items.getTasks().get(taskIndex);
-        task.setReminder(reminder);
-        ui.showErrorMsg(String.format("You will get a reminder for this task in %d days", reminder));
-        ui.showErrorMsg(" " + task.toString());
-    }
-
-    /**
      * Executes a command that gathers all tasks from task list and outputs the result (GUI).
      *
      * @param items The task list that contains a list of tasks.

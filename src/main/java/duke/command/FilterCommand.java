@@ -25,16 +25,6 @@ public class FilterCommand extends Command {
         this.taskType = taskType;
     }
 
-    /**
-     * Executes a command that filters tasks in task list and outputs the result.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user the filtered tasks based on the task's type.
-     */
-    @Override
-    public void execute(TaskList items, Ui ui) {
-        ui.showFilter(items, taskType);
-    }
 
     /**
      * Executes a command that filters tasks in task list and updates the updated list.
