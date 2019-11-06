@@ -133,8 +133,12 @@ public class Parser {
             c = new ByeCommand(user);
         }
 
-        else if (user.matches(StatsCommand.getStatsShortcut()) || user.matches("stats")){
+        else if (user.matches("stats (.*)") | user.matches("stats")) {
             c = new StatsCommand(user);
+        }
+        else if (user.matches(StatsCommand.getStatsShortcut() + " (.*)") | user.matches(StatsCommand.getStatsShortcut())) {
+            c = new StatsCommand(user);
+            c.calledByShortcut();
         }
         else if(user.matches("shortcut") | user.matches("shortcut (.*)")){
             c = new ShortcutCommand(user);

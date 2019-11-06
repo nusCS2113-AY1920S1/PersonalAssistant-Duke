@@ -4,6 +4,7 @@ import leduc.Ui;
 import leduc.task.TaskList;
 import leduc.task.Task;
 import java.util.ArrayList;
+
 /**
  * Represents a Remind Command.
  * Allow to remind user of upcoming tasks in the list.
@@ -49,8 +50,9 @@ public class RemindCommand extends Command {
         if (sortedTasks.size() > 0) {
             int j = 0;
             for (int i = 0; i < sortedTasks.size(); i++) {//prints first 3 tasks in the sorted taskList
-                if ((j < 3) && (sortedTasks.get(i).getMark().equals("[✓]"))) {
+                if ((j < 3) && (sortedTasks.get(i).getMark().equals("[✗]"))) {
                     result += sortedTasks.displayOneElementList(i);
+                    j++;
                 }
             }
             ui.display(result);
