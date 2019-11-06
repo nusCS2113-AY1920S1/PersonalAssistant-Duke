@@ -7,6 +7,7 @@ public enum CommandType {
     BLANK(CommandBlank.class),
     FIND(CommandFind.class),
     DELETE(CommandDelete.class),
+    RECEIPTDELETE(CommandReceiptDelete.class),
     DONE(CommandMarkDone.class),
     QUEUE(CommandQueue.class),
     VIEWSCHEDULE(CommandSchedule.class),
