@@ -39,7 +39,7 @@ public abstract class Task implements Comparable<Task> {
     @Override
     public String toString() {
         return
-                "[" + (this.isDone ? "✓" : "✘") + "]"
+                "[" + (this.isDone ? "/" : "X") + "]"
                         + module.map(m -> "[" + m.getCode() + "]").orElse("");
     }
 

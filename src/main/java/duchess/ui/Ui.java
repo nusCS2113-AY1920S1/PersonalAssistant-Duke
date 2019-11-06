@@ -2,6 +2,7 @@ package duchess.ui;
 
 import duchess.model.Grade;
 import duchess.model.Module;
+import duchess.model.calendar.CalendarEntry;
 import duchess.model.task.Task;
 
 import java.time.LocalTime;
@@ -17,14 +18,20 @@ public class Ui {
     /**
      * The following final strings are used to print out duchessCalendar.
      */
-    private final int horizontalLength = 161;
-    private final int blockLength = 23;
+    public final int horizontalLength = 161;
+    public final int horizontalBlock = 141; // 9 + 150
+    public final int longLength = 150;
+    private final int blockLength = 21;
     private final String emptyBlock = "                     |";
     public final String calendarHeader = "|  TIME  |         MON         |         TUE         |         WED         "
             + "|         THUR        |         FRI         |         SAT         |         SUN         |";
     public final String blockSeparator = "+--------+---------------------+---------------------+---------------------"
             + "+---------------------+---------------------+---------------------+---------------------+";
+    public final String blockShort = "+--------+------------------------------------------------------"
+            + "+---------------------------------------------------------------------------------------+";
     public final String plainSeparator = "+---------------------------------------------------------------------------"
+            + "---------------------------------------------------------------------------------------+";
+    public final String plainShort = "+----------------------------------------------------------------"
             + "---------------------------------------------------------------------------------------+";
 
     /**
@@ -231,12 +238,12 @@ public class Ui {
      * @param str string containing academic year + semester + week
      * @return string with academic context centered and padded with whitespace
      */
-    public String processHeader(String str) {
-        int partition = (int) Math.floor((horizontalLength - str.length()) / (double) 2);
+    public String processCentred(String str, int length) {
+        int partition = (int) Math.floor((length - str.length()) / (double) 2);
         StringBuilder strBuilder = new StringBuilder();
         strBuilder.append(" ".repeat(Math.max(0, partition)));
         strBuilder.append(str);
-        strBuilder.append(" ".repeat(Math.max(0, horizontalLength - strBuilder.length() + 1)));
+        strBuilder.append(" ".repeat(Math.max(0, length - strBuilder.length() + 1)));
         return "|" + strBuilder.toString() + "|";
     }
 
@@ -255,6 +262,18 @@ public class Ui {
     }
 
     /**
+     * Joins together the time column and description column for each event.
+     *
+     * @param t Task
+     * @return joined string of time + description of event
+     */
+    public String processRow(Task t) {
+        String time = t.getTimeFrame().getStart().toLocalTime().toString().replaceAll(":", "");
+        String description = processCentred(t.toString(), horizontalBlock);
+        return "|  " + time + "  " + description;
+    }
+
+    /**
      * Prints out weekly calendar displaying only event tasks.
      *
      * @param flatCalendar flattened duchessCalendar
@@ -262,7 +281,7 @@ public class Ui {
      */
     public void displayCalendar(SortedMap<LocalTime, String[]> flatCalendar, String context) {
         printIndented(plainSeparator);
-        printIndented(processHeader(context));
+        printIndented(processCentred(context, horizontalLength));
         printIndented(blockSeparator);
         printIndented(calendarHeader);
         printIndented(blockSeparator);
@@ -271,6 +290,24 @@ public class Ui {
             String[] strArr = entry.getValue();
             printIndented(processRow(time, strArr));
             printIndented(blockSeparator);
+        }
+    }
+
+    /**
+     * Prints out the a day view of the calendar.
+     *
+     * @param ce calendar entry
+     */
+    public void displayCalendar(CalendarEntry ce, String context) {
+        printIndented(plainShort);
+        printIndented(processCentred(context, longLength));
+        printIndented(plainShort);
+        String dayOfWeek = ce.getDate().getDayOfWeek().toString();
+        printIndented("|  TIME  " + processCentred(dayOfWeek, horizontalBlock));
+        printIndented(blockShort);
+        for (Task t : ce.getDateTasks()) {
+            printIndented(processRow(t));
+            printIndented(blockShort);
         }
     }
 

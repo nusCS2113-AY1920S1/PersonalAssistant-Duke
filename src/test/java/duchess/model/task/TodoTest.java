@@ -14,6 +14,6 @@ public class TodoTest {
     @Test
     public void toString_formatsCorrectly() {
         assertEquals(todo.toString(),
-                "[T][✘] something");
+                "[T][X] something");
     }
 }

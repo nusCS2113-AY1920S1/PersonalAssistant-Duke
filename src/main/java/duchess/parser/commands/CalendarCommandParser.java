@@ -15,7 +15,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Map;
 
 public class CalendarCommandParser {
@@ -24,6 +23,8 @@ public class CalendarCommandParser {
      */
     private static final String DISPLAY_KEYWORD = "display";
     private static final String EXPORT_KEYWORD = "export";
+    private static final String WEEK_KEYWORD = "week";
+    private static final String DAY_KEYWORD = "day";
 
     /**
      * This class enables the user to interact with the calendar. It parses the
@@ -39,34 +40,42 @@ public class CalendarCommandParser {
         try {
             String type = parameters.get("general");
             String date = parameters.get("date");
+            String view = parameters.get("view");
+            boolean isValidView = view.equals(WEEK_KEYWORD) || view.equals(DAY_KEYWORD);
+            boolean isValidCommand = type.equals(DISPLAY_KEYWORD) || type.equals(EXPORT_KEYWORD);
             LocalDate input = Util.parseDate(date);
             if (!AcademicYear.isWithinAcademicCalendar(input)) {
                 throw new DuchessException("Please input a date within the current academic year.");
+            } else if (!isValidCommand) {
+                throw new DuchessException(Parser.CALENDAR_USAGE);
+            } else if (!isValidView) {
+                throw new DuchessException("Please input either a day or week view.");
             }
-            List<LocalDate> dateRange = Util.parseToWeekDates(input);
-            LocalDate start = dateRange.get(0);
-            LocalDate end = dateRange.get(1);
+
+            boolean isWeek = view.equals(WEEK_KEYWORD);
+
             if (type.equals(DISPLAY_KEYWORD)) {
-                return new DisplayCalendarCommand(start, end);
-            } else if (type.equals(EXPORT_KEYWORD)) {
+                return new DisplayCalendarCommand(input, isWeek);
+            } else {
+                assert (type.equals(EXPORT_KEYWORD));
                 JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
                 jfc.updateUI();
                 jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
                 JFrame frame = new JFrame();
                 frame.setAlwaysOnTop(true);
                 int returnValue = jfc.showDialog(frame, "Select Folder");
+                PrintStream file;
+                File selectedFile;
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = jfc.getSelectedFile();
+                    selectedFile = jfc.getSelectedFile();
                     if (!selectedFile.isDirectory()) {
                         selectedFile = selectedFile.getParentFile();
                     }
-                    PrintStream file = new PrintStream(selectedFile + File.separator + "duchess.txt");
-                    return new ExportCommand(start, end, file, selectedFile.toString());
+                    file = new PrintStream(selectedFile + File.separator + "duchess.txt");
                 } else {
                     throw new DuchessException("Export command terminated.");
                 }
-            } else {
-                throw new IllegalArgumentException();
+                return new ExportCommand(input, file, selectedFile.toString(), isWeek);
             }
         } catch (NullPointerException | IllegalArgumentException | FileNotFoundException e) {
             throw new DuchessException(Parser.CALENDAR_USAGE);

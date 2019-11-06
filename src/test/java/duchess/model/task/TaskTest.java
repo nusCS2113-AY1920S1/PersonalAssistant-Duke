@@ -76,12 +76,12 @@ public class TaskTest {
         deadline.setDone(true);
         assertEquals(
                 deadline.toString(),
-                "[D][✓] return book (by: 12/12/2020 1200)"
+                "[D][/] return book (by: 12/12/2020 1200)"
         );
         deadline.setDone(false);
         assertEquals(
                 deadline.toString(),
-                "[D][✘] return book (by: 12/12/2020 1200)"
+                "[D][X] return book (by: 12/12/2020 1200)"
         );
     }
 }

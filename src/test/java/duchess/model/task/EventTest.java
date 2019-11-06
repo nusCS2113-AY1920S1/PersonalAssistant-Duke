@@ -17,7 +17,7 @@ public class EventTest {
     public void toString_formatsCorrectly() {
         event.setDescription("Test");
         assertEquals(event.toString(),
-                "[E][✘] Test (at: 27/12/2019 1212 to 27/12/2019 1214)");
+                "[E][X] Test (at: 27/12/2019 1212 to 27/12/2019 1214)");
     }
 
     @Test
