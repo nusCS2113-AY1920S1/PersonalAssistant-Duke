@@ -14,11 +14,17 @@ import java.util.Set;
  * mechanism to enforce or document this contract, any subclass of ArgSpec must have a private constructor which sets
  * {@code cmdArgLevel} and {@code emptyArgMsg}, and which calls {@code switchInit()}.
  */
-public abstract class ArgSpec {
+public abstract class ArgSpec extends CommandSpec {
     protected ArgLevel cmdArgLevel;
     protected Map<String, Switch> switchMap;
     protected Map<String, String> switchAliases;
     protected ArgCommand cmd;
+
+    public void execute(DukeCore core, ArgCommand cmd) throws DukeException {
+        this.cmd = cmd;
+        execute(core);
+        this.cmd = null;
+    }
 
     public ArgLevel getCmdArgLevel() {
         return cmdArgLevel;
@@ -31,14 +37,6 @@ public abstract class ArgSpec {
     public Map<String, String> getSwitchAliases() {
         return switchAliases;
     }
-
-    public void execute(DukeCore core, ArgCommand cmd) throws DukeException {
-        this.cmd = cmd;
-        execute(core);
-        this.cmd = null;
-    }
-
-    protected abstract void execute(DukeCore core) throws DukeException;
 
     protected void initSwitches(Switch... switches) {
         Map<String, Switch> tempSwitchMap = new HashMap<String, Switch>();
@@ -68,4 +66,6 @@ public abstract class ArgSpec {
         switchMap = Collections.unmodifiableMap(tempSwitchMap);
         switchAliases = Collections.unmodifiableMap(tempSwitchAliases);
     }
+
+
 }

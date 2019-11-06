@@ -18,9 +18,10 @@ public class ArgCommand extends Command {
     private final ArgSpec spec;
 
     public ArgCommand(ArgSpec spec) {
-         arg = null;
-         switchVals = new HashMap<String, String>();
-         this.spec = spec;
+        super(spec);
+        this.spec = spec;
+        arg = null;
+        switchVals = new HashMap<String, String>();
     }
 
     public ArgCommand(ArgSpec spec, String arg, String[] switchNames, String[] switchVals) throws DukeException {

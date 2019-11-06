@@ -3,7 +3,7 @@ package tests;
 import duke.command.ArgCommand;
 import duke.command.Command;
 import duke.command.impression.ImpressionNewSpec;
-import duke.command.impression.ImpressionPrimaryCommand;
+import duke.command.impression.ImpressionPrimarySpec;
 import duke.data.Impression;
 import duke.data.Medicine;
 import duke.data.Patient;
@@ -78,7 +78,7 @@ public class ImpressionCommandTest extends CommandTest {
 
     @Test
     public void impressionPrimaryCommand_fullCommand_setAsPrimary() {
-        Command primaryCmd = new ImpressionPrimaryCommand();
+        Command primaryCmd = new Command(ImpressionPrimarySpec.getSpec());
         Impression newImpression = new Impression("name2", "description2", patient);
         try {
             patient.addNewImpression(newImpression);

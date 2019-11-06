@@ -13,6 +13,7 @@ import duke.command.impression.ImpressionEditSpec;
 import duke.command.impression.ImpressionFindSpec;
 import duke.command.impression.ImpressionMoveSpec;
 import duke.command.impression.ImpressionNewSpec;
+import duke.command.impression.ImpressionPrimarySpec;
 import duke.command.impression.ImpressionPrioritySpec;
 import duke.command.impression.ImpressionResultSpec;
 import duke.command.impression.ImpressionStatusSpec;
@@ -111,7 +112,7 @@ public class Commands {
             case "status":
                 return new ArgCommand(ImpressionStatusSpec.getSpec());
             case "primary":
-                return new ArgCommand(ImpressionPrimarySpec.getSpec());
+                return new Command(ImpressionPrimarySpec.getSpec());
             default:
                 return null;
             }
