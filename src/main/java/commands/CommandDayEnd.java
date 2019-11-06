@@ -13,10 +13,10 @@ public class CommandDayEnd extends Command {
      */
     @Override
     public void execute(Farmio farmio) throws FarmioFatalException {
-        Farmer farmer = farmio.getFarmer();
         farmio.getSimulation().simulate("DayEnd", 0,4);
         farmio.getUi().show(AsciiColours.MAGENTA + AsciiColours.UNDERLINE +  "Day Ended" + AsciiColours.SANE);
         farmio.getUi().sleep(700);
+        Farmer farmer = farmio.getFarmer();
         farmer.nextDay();
         farmio.getSimulation().simulate();
         farmio.getUi().sleep(700);

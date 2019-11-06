@@ -15,10 +15,10 @@ public class IfElseTask extends Task {
     private Action elseAction;
 
     /**
-     * Creates an if else task
-     * @param condition The condition to be considered
-     * @param ifAction The action to be executed if the condition is true
-     * @param elseAction The action to be executed if the condition is false
+     * Creates an if else task.
+     * @param condition The condition to be considered.
+     * @param ifAction The action to be executed if the condition is true.
+     * @param elseAction The action to be executed if the condition is false.
      */
     public IfElseTask(Condition condition, Action ifAction, Action elseAction) {
         super(taskType.IF_ELSE, condition, ifAction);
@@ -43,7 +43,7 @@ public class IfElseTask extends Task {
     }
 
     @Override
-    public JSONObject toJSON(){
+    public JSONObject toJSON() {
         JSONObject object = super.toJSON();
         object.put(JSON_KEY_ACTION_ELSE, elseAction.toString());
         return object;

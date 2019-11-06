@@ -9,7 +9,7 @@ import usercode.conditions.Condition;
 public class DoTask extends Task {
 
     /**
-     * Creates a Task of type Do
+     * Creates a Task of type Do.
      * @param condition The condition to be considered
      * @param action The action to be done
      */

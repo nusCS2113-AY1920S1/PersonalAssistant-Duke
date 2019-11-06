@@ -5,8 +5,6 @@ import frontend.Simulation;
 import frontend.Ui;
 
 public class Menu {
-    private static final String ART_NAME = "menu";
-    private static final String BULLET = "\t\u2022 ";
 
     public static void show(Farmio farmio, boolean resume) throws FarmioFatalException {
         Storage storage = farmio.getStorage();

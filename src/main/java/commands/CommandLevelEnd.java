@@ -19,7 +19,7 @@ public class CommandLevelEnd extends Command {
         farmio.getUi().getInput();
         farmio.getSimulation().simulate("LevelEnd", 0,4);
         farmio.getUi().show(AsciiColours.GREEN + AsciiColours.UNDERLINE +  "Level Ended" + AsciiColours.SANE);
-        farmio.getUi().typeWriter("Farmer "+ farmio.getFarmer().getName()+" is now ready for his next adventure! "
+        farmio.getUi().typeWriter("Farmer " + farmio.getFarmer().getName() + " is now ready for his next adventure!"
                 + "\nPress [ENTER] to continue or Enter [skip] to skip the story", false);
         Storage storage = farmio.getStorage();
         Farmer farmer = farmio.getFarmer();
