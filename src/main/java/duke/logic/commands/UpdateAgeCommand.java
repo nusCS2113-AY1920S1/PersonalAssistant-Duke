@@ -38,6 +38,7 @@ public class UpdateAgeCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
         int ageInt = 0;
         try {
             ageInt = Integer.parseInt(description);
@@ -53,7 +54,8 @@ public class UpdateAgeCommand extends Command {
                 }
             }
         } catch (NumberFormatException e) {
-            ui.showMessage("Please input a proper number");
+            ui.showMessage("Please input a proper number for age");
         }
+        ui.showLine();
     }
 }

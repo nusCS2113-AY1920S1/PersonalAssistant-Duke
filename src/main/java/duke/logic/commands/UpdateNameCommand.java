@@ -39,6 +39,7 @@ public class UpdateNameCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
         user.setName(description);
         ui.showSuccess("name", description);
         try {
@@ -46,5 +47,6 @@ public class UpdateNameCommand extends Command {
         } catch (DukeException e) {
             ui.showMessage(e.getMessage());
         }
+        ui.showLine();
     }
 }
