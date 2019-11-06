@@ -211,7 +211,7 @@ public class ViewWeekCommand extends Command {
             day -= lastDate;
             yearMonth = yearMonth.plusMonths(OFFSET);
             if (yearMonth.getYear() > MONTH_DECEMBER + OFFSET) {
-                yearMonth.plusYears(OFFSET);
+                yearMonth = yearMonth.plusYears(OFFSET);
             }
         } else if (day > lastDate) {
             day -= lastDate;
