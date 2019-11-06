@@ -1,100 +1,79 @@
 package command;
 
-import task.Task;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import common.AlphaNUSException;
+import project.Project;
 
-import java.io.BufferedReader;
+
+import java.io.File;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.lang.reflect.Type;
+import java.util.LinkedHashMap;
 
 /**
- * Storage that saves and loads the tasklist of the user.
+ * command.Storage that saves and loads the tasklist of the user.
  */
 public class Storage {
-    private static String filepath;
+    private static String ProjectsFilePath = "localdata/Projects.json";
+    private static String CommandListFilePath = "localdata/CommandList.json";
+
+    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     /**
-     * Creates a Storage instance with the required attributes.
-     *
-     * @param filepath Filepath to the storage file.
+     * Writes current projectmap in ProjectManager to local storage.
+     * @param projectmap LinkedHashMap of projects.
+     * @throws AlphaNUSException If the file cannot be written to.
      */
-    public Storage(String filepath) {
-        Storage.filepath = filepath;
+    public void writeToProjectsFile(LinkedHashMap<String, Project> projectmap) throws AlphaNUSException {
+        String toWriteStr = gson.toJson(projectmap);
+        try {
+            File file = new File(ProjectsFilePath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+            for (String lineStr : toWriteStr.split("\n")) {
+                bufferedWriter.write(lineStr);
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+        } catch (IOException e) {
+            throw new AlphaNUSException("Unable to write to file: " + ProjectsFilePath);
+        }
     }
 
     /**
-     * Loads an ArrayList containing the Task object from the storage file.
-     *
-     * @return The ArrayList containing the Task object.
+     * Read HashMap of projects from local storage and returns it.
+     * @return HashMap of Project objects stored in local storage.
+     * @throws AlphaNUSException If the file cannot be read.
      */
-    public static ArrayList<String> load() {
+    public LinkedHashMap<String, Project> readFromProjectsFile() throws AlphaNUSException {
+        Type projectmaptype = new TypeToken<LinkedHashMap<String, Project>>(){}.getType();
+        LinkedHashMap<String, Project> projectmap;
         try {
-            String line;
-            ArrayList<String> list = new ArrayList<String>();
-            FileReader fileReader = new FileReader(filepath);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-            while ((line = bufferedReader.readLine()) != null) {
-                list.add(line);
-            }
-
+            File file = new File(ProjectsFilePath);
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            projectmap = gson.fromJson(bufferedReader, projectmaptype);
             bufferedReader.close();
-            return list;
-            /*FileInputStream file = new FileInputStream(filepath);
-            ObjectInputStream out = new ObjectInputStream(file);
-
-            ArrayList<String> commandList =  (ArrayList) out.readObject();
-
-            out.close();
-             */
-
-        } catch (FileNotFoundException ex) {
-            System.out.println("Unable to open file '" + filepath + "'");
-        } catch (IOException ex) {
-            System.out.println("Error reading file '" + filepath + "'");
+        } catch (Exception e) {
+            throw new AlphaNUSException("Unable to read file");
         }
-        return new ArrayList<String>();
-        /*catch (EOFException e) {
-            System.out.println("File is empty");
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        } catch (ClassNotFoundException c) {
-            System.out.println("Class not found");
-            c.printStackTrace();
-        }
-        return new ArrayList<String>();
-        */
+        return projectmap;
     }
 
     /**
      * Saves the tasklist of the user as an ArrayList containing the task object.
+     * @param str TODO
      *
      */
-    public static void save(String str) {
-        try {
-            FileWriter fileWriter = new FileWriter(filepath, true);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.newLine();
-            /*for (int i = 0; i < tasklist.size(); i = i + 1) {
-                bufferedWriter.write(tasklist.get(i));
-            }
-             */
-            bufferedWriter.write(str);
-            bufferedWriter.close();
-            /*FileOutputStream file = new FileOutputStream(filepath);
-            ObjectOutputStream out = new ObjectOutputStream(file);
-            out.writeObject(tasklist);
-            out.close();
-            file.close();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-             */
-        } catch (IOException ex) {
-            System.out.println("Error writing to file '" + filepath + "'");
-        }
+    public static void remove(String str){
+        //TODO
     }
 }

@@ -39,11 +39,11 @@ public class Ui {
      * Prints starting message for the AlphaNUS program.
      */
     public void startMessage() {
-        String logo = line
-                + "     Hello! I'm AlphaNUS\n"
-                + "     What can I do for you?\n"
-                + line;
-        System.out.print(logo);
+        System.out.print(line);
+        System.out.println("\t" + "Hello! I'm AlphaNUS");
+        System.out.println("");
+        System.out.println("\t" + "Enter \"help\" to see things that I can do!");
+        System.out.print(line);
     }
 
     /**
@@ -66,6 +66,10 @@ public class Ui {
         System.out.print(line);
     }
 
+    /**
+     * Prints a message to list all projects in the record.
+     * @param projectslist ArrayList containing all projects in record.
+     */
     public void printProjectsList(ArrayList<Project> projectslist) {
         int index = 1;
         System.out.print(line);
@@ -169,6 +173,16 @@ public class Ui {
     }
 
     /**
+     * Prints dates from which history was cleared.
+     * @param date1 from date to delete history.
+     * @param date2 to date to delete history.
+     */
+    public void printdeletehistory(String date1, String date2) {
+        System.out.println("Got it. The input commands from " + date1 + " to " 
+            + date2 + " have been deleted from the history");
+    }
+
+    /**
      * Prints the list of payments of a payee.
      * @param paymentList paymentList of the payee.
      */
@@ -249,12 +263,30 @@ public class Ui {
     }
 
     /**
-     * Prints message to indicate a task being edited.
-     * @param task Task to be edited.
+     * Prints message to indicate a payee has been edited.
+     * @param payee Payee that had been edited.
      */
-    public void printEditMessage(Task task) {
-        System.out.print(line + "     Got it. I've edited this task:  \n");
-        System.out.print("       " + task.giveTask() + "\n");
+    public void printEditMessage(Payee payee) {
+        System.out.print(line + "     Got it. I've edited this payee:  \n");
+        System.out.println("\t" + "Payee: " + payee.payee);
+        System.out.println("\t" + "Email: " + payee.email);
+        System.out.println("\t" + "Matric No: " + payee.matricNum);
+        System.out.println("\t" + "Phone No: " + payee.phoneNum);
+        System.out.print(line);
+    }
+    
+    /**
+     * Prints message to indicate a payment has been edited.
+     * @param payment Payment that had been edited
+     */
+    public void printEditMessage(Payments payment, String name) {
+        System.out.print(line + "     Got it. I've edited this payment:  \n");
+        System.out.println("\t" + "Payee: " + name);
+        System.out.println("\t" + "Item: " + payment.item);
+        System.out.println("\t" + "Cost: " + payment.cost);
+        System.out.println("\t" + "Invoice: " + payment.inv);
+        System.out.println("\t" + "Deadline: " + payment.deadline);
+        System.out.println("\t" + "Status: " + payment.status);
         System.out.print(line);
     }
 
@@ -329,8 +361,8 @@ public class Ui {
     }
 
     /**
-     * Prints message of adding a fund to all projects
-     * @param fund the fund for all projects
+     * Prints message of adding a fund to all projects.
+     * @param fund the fund for all projects.
      */
     public void printSetFundMessage(Fund fund) {
         System.out.print(line);
@@ -340,8 +372,8 @@ public class Ui {
     }
 
     /**
-     * Prints message of adding a fund to all projects
-     * @param fund the fund for all projects
+     * Prints message of adding a fund to all projects.
+     * @param fund the fund for all projects.
      */
     public void printAddFundMessage(Fund fund, double amount) {
         System.out.print(line);
@@ -350,7 +382,12 @@ public class Ui {
         System.out.print(line);
     }
 
-
+    /**
+     * Prints message of adding a fund to all projects.
+     * @param fund the fund for all projects.
+     * @param amount amount to be added.
+     * @param project project to be added to.
+     */
     public void printAssignFundMessage(Fund fund, double amount, Project project) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've assigned " + amount + "to the project:");
@@ -373,9 +410,13 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints out a help message with command formats.
+     */
     public void printHelpMessage() {
         System.out.print(line);
         System.out.println("\t" + "*Help*");
+        System.out.println("");
         System.out.println("\t" + "Add Project:          " + commandFormat.addProjectFormat());
         System.out.println("\t" + "Delete Project:       " + commandFormat.deleteProjectFormat());
         System.out.println("\t" + "List Projects:        " + commandFormat.listProjectFormat());
@@ -383,11 +424,11 @@ public class Ui {
         System.out.println("\t" + "Add Payee:            " + commandFormat.addPayeeFormat());
         System.out.println("\t" + "Add Payment:          " + commandFormat.addPaymentFormat());
         System.out.println("\t" + "Delete Payee:         " + commandFormat.deletePayeeFormat());
-        System.out.println("\t" + "Set Fund:         " + commandFormat.setFundFormat());
-        System.out.println("\t" + "Add Fund:         " + commandFormat.addFundFormat());
-        System.out.println("\t" + "Assign Fund:         " + commandFormat.assignFundFormat());
+        System.out.println("\t" + "Set Fund:             " + commandFormat.setFundFormat());
+        System.out.println("\t" + "Add Fund:             " + commandFormat.addFundFormat());
+        System.out.println("\t" + "Assign Fund:          " + commandFormat.assignFundFormat());
         System.out.println("\t" + "History of Commands:  " + commandFormat.historyFormat());
-        System.out.println("\t" + "View History:         " + commandFormat.viewhistoryFormat());
+        System.out.println("\t" + "View History within a certain period:         " + commandFormat.viewhistoryFormat());
         System.out.println("\t" + "Exit:                 " + commandFormat.exitFormat());
         System.out.print(line);
     }

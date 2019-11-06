@@ -32,9 +32,9 @@ may find it a chore to keep up to date with their finances.
 
 .  Some example commands you can try:
 
-* *`list`* : lists all submission deadlines
-* **`delete`**`3` : deletes the 3rd task shown in the current list
-* *`bye`* : exits the app
+* `add project pr/rag` : Adds a project called `rag` to the record.
+* `list projects`: Lists all projects in the record.
+* `bye` : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
@@ -51,6 +51,14 @@ may find it a chore to keep up to date with their finances.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[p/PAYMENT_DETAIL]…`​ can be used as `` ``(i.e. 0 times), `p/food 12`, `p/food 12 p/drinks 7` etc
 
 ====
+
+=== Command Help: `help`
+Lists all available commands of AlphaNUS. +
+Format: `help`
+
+Examples:
+
+* `help`
 
 === Adding a project: `add project`
 Adds a project called `PROJECT_NAME` to the record. +
@@ -149,8 +157,8 @@ You may not add a new `PAYEE` if a payee named `PAYEE` already exists.
 
 Examples:
 
-* GOOD: `payments p/John Doe i/Welcome Tea c/12.00 v/INV-001`
-* BAD: `payments p/John Doe i/Welcome Tea c/*$*12.00 v/INV-001`
+* GOOD: `add payee p/John Doe e/johndoe@u.nus.edu m/A0112301A ph/999`
+* BAD: `add payee pR/John Doe e/johndoe@u.nus.edu m/A0112301A ph/999`
 
 === Adding a new payment: `add payment`
 
@@ -164,8 +172,8 @@ You may use more than one word for all fields except `COST`.
 
 Examples:
 
-* GOOD: `payments p/John Doe i/Welcome Tea c/12.00 v/INV-001`
-* BAD: `payments p/John Doe i/Welcome Tea c/*$*12.00 v/INV-001`
+* GOOD: `add payment p/John Doe i/Welcome Tea c/12.00 v/INV-001`
+* BAD: `add payment p/John Doe i/Welcome Tea c/*$*12.00 v/INV-001`
 
 
 === Edit the payment details: `edit`
@@ -173,7 +181,7 @@ Examples:
 Edits any field `FIELD` of payee named `PAYEE`, replacing the existing data in that field with `REPLACEMENT`+
 If only the payee fields are being modified, `INVOICE` should be blank. +
 The following payee fields are acceptable: `PAYEE`, `EMAIL`, `MATRIC`, `PHONE` +
-The following payment fields are acceptable: `ITEM`, `COST`, `INV`, `DEADLINE`, `STATUS` +
+The following payment fields are acceptable: `ITEM`, `COST`, `INVOICE`, `DEADLINE`, `STATUS` +
 
 Format: `edit p/PAYEE v/INVOICE f/FIELD r/REPLACEMENT`
 
@@ -184,8 +192,8 @@ Ensure `FIELD` supplied matches one of the acceptable fields above!
 
 Examples:
 
-* `redetail 2 d/drinks 8 d/snacks 20`
-* `redetail 2`(i.e. this operation removes all previous details)
+* `edit p/John Doe v/ f/EMAIL r/johnyy@u.nus.edu`
+* `edit p/John Doe v/INV-001 f/COST r/10.00`
 
 //=== Find a payment or deadline based on its description: `find`
 //
@@ -340,4 +348,22 @@ There is no need to save manually.
 
 == Command Summary
 
-// this part will be done later when all features are finalized
+
+* *Command Help*: `help`
+* *Add Project*: `add project pr/PROJECT_NAME`
+* *Delete Project*: `delete project pr/PROJECT_NAME`
+* *Go to Project*: `goto project pr/PROJECT_NAME`
+* *List Projects*: `list projects`
+* *Set Total Fund*: `set fund am/AMOUNT`
+* *Add to Fund*: `add fund add/500`
+* *Assign Fund*: `assign fund pr/PROJECT_NAME am/AMOUNT`
+* *Show Fund*: `show fund`
+* *Add Payee*: `add payee p/PAYEE e/EMAIL m/MATRICNUM ph/PHONENUM`
+* *Add Payment*: `add payment p/PAYEE i/ITEM c/COST v/INVOICE`
+* *Edit Payment/Payee*: `edit p/PAYEE v/INVOICE f/FIELD r/REPLACEMENT`
+* *Delete Payee*: `delete payee p/PAYEE`
+* *Full History*: `history`
+* *Specific History*: `view history h/DATE_1 to DATE_2`
+* *exit*: `bye`
+
+

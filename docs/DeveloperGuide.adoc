@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2113T-F10-3/main/blob/master
 
 By: `AY1920S1-CS2113T-F10-3` Since: `Aug 2019` Licence: `NUS`
 
@@ -175,7 +175,7 @@ The feature is also supported by 2 enum objects, `Field`; +
 ** PHONE
 ** ITEM
 ** COST
-** INV
+** INVOICE
 ** DEADLINE
 ** STATUS
 
@@ -298,7 +298,23 @@ Step 4: The user exit AlphaNUS through `bye` command. When he relaunch the appli
 
 == Dev Ops
 
-{To be added}
+=== Build Automation
+
+See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
+
+=== Continuous Integration
+
+We use https://travis-ci.org/[Travis CI] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> for more details.
+
+=== Making a Release
+
+Here are the steps to create a new release.
+
+.  Update the version number in link:{repoURL}/build.gradle[`build.gradle`].
+.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
+.  Tag the repo with the version number. e.g. `v0.1`
+.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
+
 
 [appendix]
 == Product Scope
