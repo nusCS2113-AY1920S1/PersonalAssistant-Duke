@@ -822,9 +822,9 @@ public class Command {
         /**
          * contains all info regarding an entry for a non-recurring event
          *
-         * @return organized entryForEvent information
+         * @return organized entryForEvent object containing information required for a new event.
          */
-        private EntryForEvent invoke() throws ParseException {
+        private EntryForEvent invoke() throws NumberFormatException, ParseException {
             int NON_RECURRING = -1;
             String[] splitEvent = continuation.split("/");
             description = splitEvent[0];
