@@ -69,9 +69,9 @@ public class HelpWindow extends AnchorPane {
                     getDescription.setText(cbCommands.getValue() + " <task description> /for <duration> <unit>");
                     getDescription.getScene().getWindow();
                 } else if (cbCommands.getSelectionModel().getSelectedItem().equals("budget")) {
-                    getDescription.setText(cbCommands.getValue() + " add/minus <amount> <optional desc> \n" +
-                            cbCommands.getValue() + "<reset/new <amount> \n" +
-                            cbCommands.getValue() + "<view>");
+                    getDescription.setText(cbCommands.getValue() + " add/minus <amount> <optional desc> \n"
+                            + cbCommands.getValue() + "<reset/new <amount> \n"
+                            + cbCommands.getValue() + "<view>");
                     getDescription.getScene().getWindow();
                 } else if (cbCommands.getSelectionModel().getSelectedItem().equals("addcontact")) {
                     getDescription.setText(cbCommands.getValue() + " <name> <number> <email> <office>");
@@ -86,17 +86,17 @@ public class HelpWindow extends AnchorPane {
                     getDescription.setText(cbCommands.getValue() + " <keyword>");
                     getDescription.getScene().getWindow();
                 } else if (cbCommands.getSelectionModel().getSelectedItem().equals("notes")) {
-                    getDescription.setText(cbCommands.getValue() + " <index> /add <notes description> \n" +
-                            cbCommands.getValue() + " /delete \n" +
-                            cbCommands.getValue() + " /show");
+                    getDescription.setText(cbCommands.getValue() + " <index> /add <notes description> \n"
+                            + cbCommands.getValue() + " /delete \n"
+                            + cbCommands.getValue() + " /show");
                     getDescription.getScene().getWindow();
                 } else if (cbCommands.getSelectionModel().getSelectedItem().equals("filter")) {
                     getDescription.setText(cbCommands.getValue() + " <task type>");
                     getDescription.getScene().getWindow();
                 } else if (cbCommands.getSelectionModel().getSelectedItem().equals("update")) {
-                    getDescription.setText(cbCommands.getValue() + " <index> /desc <description> \n" +
-                            cbCommands.getValue() + " <index> /date <date time> \n" +
-                            cbCommands.getValue() + " <index> /type <task type>");
+                    getDescription.setText(cbCommands.getValue() + " <index> /desc <description> \n"
+                            + cbCommands.getValue() + " <index> /date <date time> \n"
+                            + cbCommands.getValue() + " <index> /type <task type>");
                     getDescription.getScene().getWindow();
                 } else if (cbCommands.getSelectionModel().getSelectedItem().equals("setpriority")) {
                     getDescription.setText(cbCommands.getValue() + " <task number> <priority>");
