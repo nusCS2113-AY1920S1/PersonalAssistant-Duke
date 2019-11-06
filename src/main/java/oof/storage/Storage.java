@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,11 +30,17 @@ public class Storage {
      *
      * @param filePath String containing file path name
      * @return ArrayList of String containing data stored in file
-     * @throws FileNotFoundException if file does not exist.
+     * @throws NullPointerException if file does not exist.
      */
-    public ArrayList<String> loadFile(String filePath) throws FileNotFoundException {
-        FileReader fileReader = new FileReader(filePath);
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
+    public ArrayList<String> loadFile(String filePath) throws NullPointerException {
+        BufferedReader bufferedReader;
+        try {
+            FileReader fileReader = new FileReader(filePath);
+             bufferedReader = new BufferedReader(fileReader);
+        } catch (FileNotFoundException e) {
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filePath);
+            bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        }
         ArrayList<String> data = new ArrayList<>();
         String line;
         try {
@@ -49,7 +57,7 @@ public class Storage {
      * Writes to a file from persistent storage.
      *
      * @param filePath String containing file path name
-     * @param data ArrayList of data to be written
+     * @param data     ArrayList of data to be written
      */
     public void writeFile(String filePath, ArrayList<String> data) {
         try {

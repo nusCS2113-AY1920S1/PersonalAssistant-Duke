@@ -57,7 +57,7 @@ public class TrackerCommand extends Command {
         ArrayList<Tracker> trackerList;
         try {
             trackerList = storageManager.readTrackerList();
-        } catch (FileNotFoundException | StorageFileCorruptedException e) {
+        } catch (NullPointerException | StorageFileCorruptedException e) {
             trackerList = new ArrayList<>();
         }
         String[] input = description.split(" ", SPLIT_INPUT);

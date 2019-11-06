@@ -1,11 +1,9 @@
 package oof;
 
-import java.io.IOException;
-
 import oof.command.Command;
-import oof.exception.command.CommandException;
 import oof.exception.ParserException;
 import oof.exception.StorageFileCorruptedException;
+import oof.exception.command.CommandException;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
@@ -31,12 +29,12 @@ public class Oof {
         reminder = new Reminder();
         try {
             semesterList = new SemesterList(storageManager.readSemesterList());
-        } catch (IOException | StorageFileCorruptedException e) {
+        } catch (NullPointerException | StorageFileCorruptedException e) {
             semesterList = new SemesterList();
         }
         try {
             taskList = new TaskList(storageManager.readTaskList(semesterList));
-        } catch (IOException | StorageFileCorruptedException e) {
+        } catch (NullPointerException | StorageFileCorruptedException e) {
             taskList = new TaskList();
         }
     }

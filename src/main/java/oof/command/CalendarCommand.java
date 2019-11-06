@@ -140,10 +140,11 @@ public class CalendarCommand extends Command {
 
     /**
      * Adds lessons of each module to the calendar if they fall within the queried month.
-     * @param semester Instance of Semester containing Module data.
+     *
+     * @param semester  Instance of Semester containing Module data.
      * @param startDate Start date of Semester.
-     * @param endDate End date of Semester.
-     * @param day Day of Month.
+     * @param endDate   End date of Semester.
+     * @param day       Day of Month.
      */
     private void queryModules(Semester semester, LocalDate startDate, LocalDate endDate, int day) {
         LocalDate queryDate = yearMonth.atDay(day);
@@ -158,7 +159,7 @@ public class CalendarCommand extends Command {
      * Adds lesson to the calendar.
      *
      * @param queryDate Day of the month.
-     * @param module Instance of Module containing Lesson data
+     * @param module    Instance of Module containing Lesson data
      */
     private void addLessons(LocalDate queryDate, Module module) {
         for (Lesson lesson : module.getLessons()) {
@@ -195,9 +196,10 @@ public class CalendarCommand extends Command {
 
     /**
      * Checks if a date is within two dates.
+     *
      * @param queryDate Date to be checked.
      * @param startDate Starting Date used for checking.
-     * @param endDate Ending Date used for checking.
+     * @param endDate   Ending Date used for checking.
      * @return true if queried date is within start and end date.
      */
     private boolean isWithinRange(LocalDate queryDate, LocalDate startDate, LocalDate endDate) {

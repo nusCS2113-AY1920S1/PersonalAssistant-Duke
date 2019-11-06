@@ -212,6 +212,9 @@ public class Ui {
      * Prints a warning regarding event clashes.
      */
     public void printClashWarning(ArrayList<Event> eventClashes) {
+        if (eventClashes.isEmpty()) {
+            return;
+        }
         printLine();
         System.out.println(" Warning! Event being added clashes with the following events:");
         for (Event e : eventClashes) {
@@ -842,8 +845,8 @@ public class Ui {
      * @param yearMonth Object containing month and year information.
      */
     private void printCalendarBody(YearMonth yearMonth, ArrayList<ArrayList<String[]>> calendar) {
-        String[] date = {"  ", " 1", " 2", " 3", " 4", " 5", " 6", " 7",
-                " 8", " 9", "10", "11", "12", "13", "14", "15",
+        String[] date = {"  ", "1 ", "2 ", "3 ", "4 ", "5 ", "6 ", "7 ",
+                "8 ", "9 ", "10", "11", "12", "13", "14", "15",
                 "16", "17", "18", "19", "20", "21", "22", "23",
                 "24", "25", "26", "27", "28", "29", "30", "31"};
         ArrayList<String> calendarDates = new ArrayList<>();
@@ -877,6 +880,9 @@ public class Ui {
                 System.out.print(" " + calendarDates.get(dayIndex + day) + "                        |");
             }
             System.out.println();
+            System.out.println("|                           |                           |                           |"
+                    + "                           |                           |                           |"
+                    + "                           |");
             printCalendarDetails(calendar, calendarDates, dayIndex, calendarRows);
             System.out.println("-------------------------------------------------------------------------------------"
                     + "--------------------------------------------------------------------------------------------"
