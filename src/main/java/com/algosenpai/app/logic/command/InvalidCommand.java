@@ -7,10 +7,6 @@ import com.algosenpai.app.logic.parser.Parser;
 import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.storage.Storage;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
