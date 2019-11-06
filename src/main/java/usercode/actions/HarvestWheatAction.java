@@ -17,10 +17,13 @@ public class HarvestWheatAction extends Action {
     }
 
     @Override
-    public void execute(Ui ui, Storage storage, Farmer farmer, Simulation simulation) throws FarmioFatalException, FarmioException {
+    public void execute(Ui ui, Storage storage, Farmer farmer, Simulation simulation)
+            throws FarmioFatalException, FarmioException {
         ArrayList<Pair<Boolean, String>> criteriaFeedbackList = new ArrayList<>();
-        criteriaFeedbackList.add(new Pair<>(!farmer.getWheatFarm().hasWheat(), "Error! you have attempted to harvest wheat despite not having any wheat"));
-        criteriaFeedbackList.add(new Pair<>(!farmer.getLocation().equals("WheatFarm"), "Error! you have attempted to harvest wheat despite not being at the Wheatfarm"));
+        criteriaFeedbackList.add(new Pair<>(!farmer.getWheatFarm().hasWheat(),
+                "Error! you have attempted to harvest wheat despite not having any wheat"));
+        criteriaFeedbackList.add(new Pair<>(!farmer.getLocation().equals("WheatFarm"),
+                "Error! you have attempted to harvest wheat despite not being at the Wheatfarm"));
         checkActionCriteria(ui, farmer, simulation, criteriaFeedbackList);
         simulation.simulate("HarvestWheatSimulation", 0, 9);
         farmer.getWheatFarm().harvestWheat();

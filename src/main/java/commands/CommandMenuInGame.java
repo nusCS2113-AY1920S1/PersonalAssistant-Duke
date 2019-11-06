@@ -13,6 +13,6 @@ public class CommandMenuInGame extends Command {
      */
     @Override
     public void execute(Farmio farmio) throws FarmioFatalException {
-        Menu.show(farmio, true);
+        Menu.show(farmio.getUi(), farmio.getSimulation(), farmio.getStorage().getSaveExist(), true);
     }
 }
