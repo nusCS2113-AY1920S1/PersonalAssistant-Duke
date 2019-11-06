@@ -11,7 +11,15 @@ import duke.logic.command.GoToCommand;
 import duke.logic.command.PlanBotCommand;
 import duke.logic.command.SortExpenseCommand;
 import duke.logic.command.ViewExpenseCommand;
-import duke.logic.command.payment.*;
+import duke.logic.command.BudgetCommand;
+import duke.logic.command.ViewBudgetCommand;
+import duke.logic.command.payment.AddPaymentCommand;
+import duke.logic.command.payment.ChangePaymentCommand;
+import duke.logic.command.payment.DeletePaymentCommand;
+import duke.logic.command.payment.DonePaymentCommand;
+import duke.logic.command.payment.FilterPaymentCommand;
+import duke.logic.command.payment.SearchPaymentCommand;
+import duke.logic.command.payment.SortPaymentCommand;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,11 +52,34 @@ public class AutoCompleter {
     private static final Logger logger = LogsCenter.getLogger(AutoCompleter.class);
 
     /**
+     * The singleton of the AutoCompleter class.
+     */
+    private static AutoCompleter theOne = null;
+
+    /**
      * Three keywords used to decide the purpose of complement.
      **/
     private static final String EMPTY_STRING = "";
+
+    /**
+     * Works as a space regex to tokenize the input.
+     */
     private static final String SPACE = " ";
+
+    /**
+     * Works as a indicator of secondary parameter.
+     */
     private static final String PARAMETER_INDICATOR = "/";
+
+    /**
+     * Indicates the first element of a list.
+     */
+    private static final int INITIAL_INDEX = 0;
+
+    /**
+     * Helps conversion between 0-based and 1-based indexes.
+     */
+    private static final int ZERO_BASED_CONVERSION = 1;
 
     /**
      * The list storing all commands' names.
@@ -64,11 +95,6 @@ public class AutoCompleter {
      * The most recent complement provided by auto-completer.
      **/
     private String lastComplement;
-
-    /**
-     * The purpose of complement.
-     **/
-    private Purpose purpose;
 
     /**
      * The content inside the userInput TextField when TAB key is pressed.
@@ -114,7 +140,9 @@ public class AutoCompleter {
             new FilterPaymentCommand(),
             new SearchPaymentCommand(),
             new SortPaymentCommand(),
-            new DonePaymentCommand()
+            new DonePaymentCommand(),
+            new BudgetCommand(),
+            new ViewBudgetCommand()
     );
 
     /**
@@ -135,7 +163,7 @@ public class AutoCompleter {
      * The {@code complementList} is initialized as an empty ArrayList.
      * The {@code lastComplement} is initialized as an empty String.
      */
-    public AutoCompleter() {
+    private AutoCompleter() {
         allCommandNames = COMMANDS.get().map(Command::getName).collect(Collectors.toList());
 
         allSecondaryParams = new HashMap<String, List<String>>();
@@ -150,6 +178,19 @@ public class AutoCompleter {
     }
 
     /**
+     * Provides a singleton of this AutoCompleter class.
+     *
+     * @return The singleton of this AutoCompleter class.
+     */
+    public static AutoCompleter getInstance() {
+        if (theOne == null) {
+            theOne = new AutoCompleter();
+        }
+        return theOne;
+    }
+
+
+    /**
      * Receives the content in userInput TextField when TAB key is pressed.
      * Stores it in {@code fromInput}.
      *
@@ -158,7 +199,6 @@ public class AutoCompleter {
     public void receiveText(String fromInput) {
         this.fromInput = fromInput;
         logger.info("start receiving Text");
-        getPurpose();
     }
 
     /**
@@ -171,9 +211,100 @@ public class AutoCompleter {
      * @return Full complement going to be set in userInput TextField
      */
     public String getFullComplement() {
-        String complement = getComplement();
-        lastComplement = fromInput.substring(0, startIndexOfLastToken) + complement;
+        Purpose purpose = getPurpose();
+        String complement = getComplement(purpose);
+        lastComplement = getTailoredInput() + complement;
         return lastComplement;
+    }
+
+    /**
+     * Decides the {@code purpose} with values of various criteria.
+     */
+    private Purpose getPurpose() {
+        if (isEmpty()) {
+            return Purpose.NOT_DOABLE;
+        }
+
+        if (isSameAsLastComplement()) {
+            return Purpose.ITERATE;
+        }
+
+        if (!hasValidCommandName()) {
+            if (numberOfTokens > 1 || endsWithSpace()) {
+                return Purpose.NOT_DOABLE;
+            }
+            return Purpose.COMPLETE_COMMAND_NAME;
+        }
+
+        if (endsWithSpace()) {
+            return Purpose.PRODUCE_PARAMETER;
+        }
+
+        if (inUncompletedParameter()) {
+            return Purpose.COMPLETE_PARAMETER;
+        }
+
+        if (numberOfTokens == 1) {
+            return Purpose.COMPLETE_COMMAND_NAME;
+        }
+
+        logger.info("purpose decided.");
+        return Purpose.NOT_DOABLE;
+    }
+
+    /**
+     * Gets the complement token.
+     * If the {@code purpose} is not {@code ITERATE},
+     * it firstly generates {@code complementList} containing all suitable complements(tokens)
+     * and chooses the first element of list as complement token.
+     * If the {@code purpose} is {@code ITERATE},
+     * it adds the {@code iteratingIndex} by one and chooses the corresponding element
+     * in existing {@code complementList} as complement token.
+     *
+     * @return The complement token
+     */
+    private String getComplement(Purpose purpose) {
+        switch (purpose) {
+        case COMPLETE_COMMAND_NAME:
+            completeCommandNameComplements();
+            iteratingIndex = INITIAL_INDEX;
+            break;
+
+        case PRODUCE_PARAMETER:
+            produceParameterComplements();
+            iteratingIndex = INITIAL_INDEX;
+            break;
+
+        case COMPLETE_PARAMETER:
+            completeParameterComplements();
+            iteratingIndex = INITIAL_INDEX;
+            break;
+
+        case ITERATE:
+            iterateIndex();
+            break;
+
+        case NOT_DOABLE:
+            complementList.clear();
+            break;
+        }
+
+        if (complementList.isEmpty()) { // return original last token if there's no suitable complement
+            return getLastToken();
+        }
+
+        return complementList.get(iteratingIndex);
+
+    }
+
+
+    /**
+     * Cuts off the last token from {@code fromInput}.
+     *
+     * @return A tailored input without the last token.
+     */
+    private String getTailoredInput() {
+        return fromInput.substring(INITIAL_INDEX, startIndexOfLastToken);
     }
 
     /**
@@ -228,7 +359,7 @@ public class AutoCompleter {
         tokens = tokens.stream().map(String::trim).collect(Collectors.toList());
         numberOfTokens = tokens.size();
 
-        return tokens.get(0);
+        return tokens.get(INITIAL_INDEX);
     }
 
     /**
@@ -248,47 +379,12 @@ public class AutoCompleter {
      * @return The last token of {@code fromInput}.
      */
     private String getLastToken() {
-        int index = fromInput.length() - 1;
-        while (index >= 0 && SPACE.charAt(0) != fromInput.charAt(index)) {
-            index -= 1;
+        int index = fromInput.length() - ZERO_BASED_CONVERSION;
+        while (index >= INITIAL_INDEX && SPACE.charAt(INITIAL_INDEX) != fromInput.charAt(index)) {
+            index --;
         }
-        startIndexOfLastToken = index + 1;
+        startIndexOfLastToken = index + ZERO_BASED_CONVERSION;
         return fromInput.substring(startIndexOfLastToken);
-    }
-
-    /**
-     * Decides the {@code purpose} with values of various criteria.
-     */
-    private void getPurpose() {
-        if (isEmpty()) {
-            purpose = Purpose.NOT_DOABLE;
-
-        } else if (isSameAsLastComplement()) {
-            purpose = Purpose.ITERATE;
-
-        } else if (!hasValidCommandName()) {
-            if (numberOfTokens > 1 || endsWithSpace()) {
-                purpose = Purpose.NOT_DOABLE;
-
-            } else {
-                purpose = Purpose.COMPLETE_COMMAND_NAME;
-
-            }
-
-        } else if (endsWithSpace()) {
-            purpose = Purpose.PRODUCE_PARAMETER;
-
-        } else if (inUncompletedParameter()) {
-            purpose = Purpose.COMPLETE_PARAMETER;
-
-        } else if (numberOfTokens == 1) {
-            purpose = Purpose.COMPLETE_COMMAND_NAME;
-
-        } else {
-            purpose = Purpose.NOT_DOABLE;
-
-        }
-        logger.info("purpose decided.");
     }
 
     /**
@@ -329,53 +425,9 @@ public class AutoCompleter {
      * This is called when {@code purpose} is {@code ITERATE}.
      */
     private void iterateIndex() {
-        iteratingIndex += 1;
+        iteratingIndex ++;
         if (iteratingIndex >= complementList.size()) {
-            iteratingIndex = 0;
-        }
-    }
-
-    /**
-     * Gets the complement token.
-     * If the {@code purpose} is not {@code ITERATE},
-     * it firstly generates {@code complementList} containing all suitable complements(tokens)
-     * and chooses the first element of list as complement token.
-     * If the {@code purpose} is {@code ITERATE},
-     * it adds the {@code iteratingIndex} by one and chooses the corresponding element
-     * in existing {@code complementList} as complement token.
-     *
-     * @return The complement token
-     */
-    private String getComplement() {
-        switch (purpose) {
-        case COMPLETE_COMMAND_NAME:
-            completeCommandNameComplements();
-            iteratingIndex = 0;
-            break;
-
-        case PRODUCE_PARAMETER:
-            produceParameterComplements();
-            iteratingIndex = 0;
-            break;
-
-        case COMPLETE_PARAMETER:
-            completeParameterComplements();
-            iteratingIndex = 0;
-            break;
-
-        case ITERATE:
-            iterateIndex();
-            break;
-
-        case NOT_DOABLE:
-            complementList.clear();
-            break;
-        }
-
-        if (complementList.isEmpty()) { // return original last token if there's no suitable complement
-            return getLastToken();
-        } else {
-            return complementList.get(iteratingIndex);
+            iteratingIndex = INITIAL_INDEX;
         }
     }
 

@@ -70,8 +70,9 @@ public class MainWindow extends UiPart<Stage> {
         fillInnerPart();
 
 
-        inputHistory = new InputHistory();
-        autoCompleter = new AutoCompleter();
+        inputHistory = InputHistory.getInstance();
+        logger.info("The inputHistory Singleton in given.");
+        autoCompleter = AutoCompleter.getInstance();
 
         this.userInput.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.TAB) {
