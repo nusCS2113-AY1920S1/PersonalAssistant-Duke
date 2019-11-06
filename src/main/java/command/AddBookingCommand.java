@@ -77,7 +77,7 @@ public class AddBookingCommand extends Command {
                         Storage userStorage, Storage inventoryStorage, Storage bookingstorage,
                         Storage roomstorage, Storage approvestorage)
             throws DukeException, IOException, ParseException {
-        Booking newBooking = new Booking(name, room, description, timeStart, datetime[1], timeEnd);
+        Booking newBooking = new Booking(name, room, description, timeStart, timeEnd);
         boolean clash = BookingList.checkBooking(bookingList, room, timeStart, timeEnd);
         if (clash) {
             throw new DukeException(Constants.UNHAPPY

@@ -48,7 +48,7 @@ public class ListBookingYearCommand extends Command {
         ui.addToOutput("Here are the bookings: ");
         for (Booking i : bookingList) {
             if (i.getStartYear() == this.dateStart.getYear()) {
-                ui.addToOutput(bookingList.indexOf(i) + ". " + i.toString() + "\n");
+                ui.addToOutput((bookingList.indexOf(i) + 1) + ". " + i.toString() + "\n");
             }
         }
 
