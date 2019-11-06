@@ -225,7 +225,7 @@ public class MainTest {
         String correctString1 = "14-12-2019";
         String correctString2 = "12-05-4938";
         String correctString3 = "5-5-2000";
-        
+
         String wrongString1 = "5-5--3931-5-3513";
         String wrongString2 = "5-5dsafs-3 3301";
         String wrongString3 = "21-12 6000 7000";
