@@ -74,6 +74,7 @@ public class TaskList {
         if (tasks.size() != 0) {
             int listCount = 1;
             for (Task output : tasks) {
+
                 if (!output.getDone()) {
                     Priority priority = output.getPriority();
                     String priorityLVL;
@@ -89,15 +90,15 @@ public class TaskList {
                     if (new Date().after(output.getDate())) {
                         output.setOverdue(true);
                     }
-//                    if (!output.getDone() && !output.getOverdue()) {
-//                        System.out.println("\t" + listCount + ". " + output.toString());
-//                        if (output instanceof Assignment && !(((Assignment) output).getSubTasks() == null)) {
-//                            ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
-//                            for (String subtask : subTasks) {
-//                                System.out.println("\t" + "\t" + "- " + subtask);
-//                            }
-//                        }
-//                    }
+                    if (!output.getDone() && !output.getOverdue()) {
+                        System.out.println("\t" + listCount + ". " + output.toString());
+                        if (output instanceof Assignment && !(((Assignment) output).getSubTasks() == null)) {
+                            ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
+                            for (String subtask : subTasks) {
+                                System.out.println("\t" + "\t" + "- " + subtask);
+                            }
+                        }
+                    }
                     listCount += 1;
                 }
             }
@@ -132,41 +133,27 @@ public class TaskList {
         }
     }
 
-    public static ArrayList<Task> getOverdueList() throws RoomShareException {
-        ArrayList<Task> overdueTaskList = new ArrayList<>();
+    public void showOverdue() throws RoomShareException {
+        sortTasks();
+        System.out.println("Overdue Tasks:");
         if( tasks.size() != 0 ){
+            int listCount = 1;
             for (Task output : tasks) {
                 if( output.getOverdue() ) {
-                    overdueTaskList.add(output);
+                    System.out.println("\t" + listCount + ". " + output.toString());
+                    if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
+                        ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
+                        for(String subtask : subTasks) {
+                            System.out.println("\t" + "\t" + "- " + subtask);
+                        }
+                    }
+                    listCount += 1;
                 }
             }
         } else {
             throw new RoomShareException(ExceptionType.emptyList);
         }
-        return overdueTaskList;
     }
-//    public void showOverdue() throws RoomShareException {
-//        sortTasks();
-//        System.out.println("Overdue Tasks:");
-//        if( tasks.size() != 0 ){
-//            int listCount = 1;
-//            for (Task output : tasks) {
-//                if( output.getOverdue() ) {
-//                    System.out.println("\t" + listCount + ". " + output.toString());
-//                    if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
-//                        ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
-//                        for(String subtask : subTasks) {
-//                            System.out.println("\t" + "\t" + "- " + subtask);
-//                        }
-//                    }
-//                    listCount += 1;
-//                }
-//            }
-//        } else {
-//            throw new RoomShareException(ExceptionType.emptyList);
-//        }
-//    }
-
 
     /**
      * Sets a task in the list as 'done' to mark that the user has completed the task.
