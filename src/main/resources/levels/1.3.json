@@ -16,5 +16,5 @@
   "file_path": "Level1.3",
   "objective": "Plant the seeds in your wheat farm",
   "modelAnswer": "|do gotoWheatFarm|do plantSeeds|",
-  "hint": "1.Remember that you have to complete the objective in 1 iteration of the code\n2.Enter [do gotowheatfarm] to drive back to your wheat farm\n3.Enter [do plantseeds] to plant seeds"
+  "hint": "1.Remember that you have to complete the objective in 1 iteration of the code\n2.Enter [do gotoWheatFarm] to drive back to your wheat farm\n3.Enter [do plantSeeds] to plant seeds"
 }

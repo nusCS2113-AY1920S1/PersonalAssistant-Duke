@@ -22,7 +22,7 @@ public class CommandShowList extends Command {
         double level = farmio.getFarmer().getLevel();
         farmio.getSimulation().simulate(filePath, (int)(level * 10),false);
 
-        ui.show("Press [Enter] to go back to game");
+        ui.show("Press [ENTER] to go back to game");
     }
 
 }

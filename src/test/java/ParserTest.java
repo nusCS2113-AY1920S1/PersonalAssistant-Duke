@@ -1,5 +1,6 @@
 import exceptions.FarmioException;
 import farmio.Farmio;
+import farmio.Farmio.Stage;
 import org.junit.jupiter.api.Test;
 import farmio.Parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -52,24 +53,28 @@ public class ParserTest {
         } catch (FarmioException e) {
             assert true;
         }
+      
         try {
             Parser.parse("if ", Farmio.Stage.TASK_ADD);
             assert false;
         } catch (FarmioException e) {
             assert true;
         }
+      
         try {
             Parser.parse("if hasseeds", Farmio.Stage.TASK_ADD);
             assert false;
         } catch (FarmioException e) {
             assert true;
         }
+      
         try {
             Parser.parse("if hasseeds do", Farmio.Stage.TASK_ADD);
             assert false;
         } catch (FarmioException e) {
             assert true;
         }
+      
         try {
             Parser.parse("if hasseeds do ", Farmio.Stage.TASK_ADD);
             assert false;
@@ -89,7 +94,7 @@ public class ParserTest {
             assert true;
         }
         try {
-            Parser.parse("if gold greater than -10 do buyseeds", Farmio.Stage.TASK_ADD);
+            Parser.parse("if gold greater than -10 do buyseeds", Farmio.Stage.TASK_ADD);r
             assert false;
         } catch (FarmioException e) {
             assert true;
