@@ -17,6 +17,7 @@ public class Entry extends Record {
      * @param amount Amount of money that is earned/spent.
      * @param description Details pertaining to the entry.
      * @param date Date of income/expense.
+     * @param tagName Details of the tag name.
      */
     public Entry(String type, double amount, String description, LocalDate date, String tagName) {
         this.sign = (type.equals("income") ? '+' : '-');

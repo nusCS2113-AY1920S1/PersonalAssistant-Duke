@@ -11,6 +11,8 @@ import static dolla.ModeStringList.MODE_SHORTCUT;
  */
 public abstract class Ui {
 
+    private static final String MSG_MODIFY = "\tPlease use the format 'modify [LIST NUM]' to modify it.";
+
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -167,27 +169,6 @@ public abstract class Ui {
     }
 
     /**
-     * Prints a message to inform user that a new tag has been added.
-     * @param tag     Tag that is added.
-     * @param record  Record the tag is added to.
-     */
-    public static void printAddedTagMsg(String tag, Record record) {
-        System.out.println(line);
-        System.out.println("\tNoted. I have added the tag " + tag + " to " + record.getRecordDetail());
-        System.out.println(line);
-    }
-
-    /**
-     * Prints a message to inform user that a new tag has been added.
-     * @param tag     Tag that is added.
-     */
-    public static void printAddedTagMsg(String tag) {
-        System.out.println(line);
-        System.out.println("\tNoted. I have added the tag " + tag);
-        System.out.println(line);
-    }
-
-    /**
      * Prints a message to inform user that the command is not implemented yet.
      */
     public static void printUpcomingFeature() {
@@ -235,4 +216,16 @@ public abstract class Ui {
         System.out.println("\tPlease enter your new entry date in the format 'DD/MM/YYYY'");
     }
 
+    /**
+     * Prints a message with the related details about an existing record.
+     * @param record The existing record.
+     * @param mode   The mode Dolla is on.
+     */
+    public static void existingRecordPrinter(Record record, String mode) {
+        System.out.println(line);
+        System.out.println("\tOOPS! You already have the following " + mode + ":");
+        System.out.println("\t" + record.getRecordDetail());
+        System.out.println(MSG_MODIFY);
+        System.out.println(line);
+    }
 }

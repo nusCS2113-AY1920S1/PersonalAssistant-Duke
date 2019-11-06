@@ -1,8 +1,5 @@
 package dolla.parser;
 
-import dolla.Tag;
-
-
 import dolla.command.AddLimitCommand;
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
@@ -11,7 +8,6 @@ import dolla.command.RemoveCommand;
 import dolla.command.SearchCommand;
 import dolla.command.SortCommand;
 import dolla.command.ActionCommand;
-import dolla.task.Limit;
 import dolla.ui.LimitUi;
 import dolla.ui.SearchUi;
 import dolla.ui.Ui;
@@ -30,15 +26,12 @@ public class LimitParser extends Parser {
     @Override
     public Command parseInput() {
         if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_LIST)) {
-            return new ShowListCommand(mode);
+            return new ShowListCommand(mode); //todo: add the bar viewing thing for budgets
         } else if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_SET)) {
             if (verifySetLimitCommand()) {
                 String typeStr = inputArray[1];
                 double amountInt = stringToDouble(inputArray[2]);
                 String durationStr = inputArray[3];
-                Limit limit = new Limit(typeStr, amountInt, durationStr);
-                Tag t = new Tag();
-                t.handleTag(limit);
                 return new AddLimitCommand(typeStr, amountInt, durationStr);
             } else {
                 LimitUi.invalidSetCommandPrinter();

@@ -11,7 +11,6 @@ public class Tag {
     private String tagName;
     private String[] inputArray = Parser.getInputArray();
     private String inputLine = Parser.getInputLine();
-    private static final String EMPTY_STR = "";
 
     /**
      * Instantiates a new Tag.
@@ -26,17 +25,13 @@ public class Tag {
 
     @Override
     public String toString() {
-        if (EMPTY_STR.equals(tagName)) {
-            return EMPTY_STR;
-        } else {
-            return " {Tag: " + tagName + '}';
-        }
+        return " {Tag: " + tagName + '}';
     }
 
     private Boolean hasTag() {
         boolean hasTag = false;
         for (int i = 0; i < inputArray.length - 1; i++) {
-            if (inputArray[i].equals(COMPONENT_TAG)) {
+            if (inputArray[i].equals(COMPONENT_TAG) && i > 4) {
                 hasTag = true;
                 break;
             }

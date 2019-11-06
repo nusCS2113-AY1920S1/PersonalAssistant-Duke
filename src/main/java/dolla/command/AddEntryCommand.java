@@ -6,7 +6,7 @@ import dolla.command.action.state.EntryState;
 import dolla.command.action.Redo;
 import dolla.command.action.state.UndoStateList;
 import dolla.task.EntryList;
-import dolla.ui.EntryUi;
+import dolla.task.Record;
 import dolla.ui.Ui;
 import dolla.task.Entry;
 
@@ -50,8 +50,8 @@ public class AddEntryCommand extends Command {
             dollaData.addToRecordList(mode, newEntry);
             Ui.echoAddRecord(newEntry);
         } else {
-            Entry existingEntry = (Entry) entryList.getFromList(duplicateEntryIndex);
-            EntryUi.existingEntryPrinter(existingEntry);
+            Record existingEntry = entryList.getFromList(duplicateEntryIndex);
+            Ui.existingRecordPrinter(existingEntry, mode);
         }
     }
 

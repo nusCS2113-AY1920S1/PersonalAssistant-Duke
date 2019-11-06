@@ -6,7 +6,7 @@ import dolla.command.action.Redo;
 import dolla.command.action.state.DebtState;
 import dolla.command.action.state.UndoStateList;
 import dolla.task.DebtList;
-import dolla.ui.DebtUi;
+import dolla.task.Record;
 import dolla.ui.Ui;
 import dolla.task.Debt;
 
@@ -52,8 +52,8 @@ public class AddDebtsCommand extends Command {
             dollaData.addToRecordList(mode, newDebt);
             Ui.echoAddRecord(newDebt);
         } else {
-            Debt existingDebt = (Debt) debtList.getFromList(duplicateDebtIndex);
-            DebtUi.existingDebtPrinter(existingDebt);
+            Record existingDebt = debtList.getFromList(duplicateDebtIndex);
+            Ui.existingRecordPrinter(existingDebt, mode);
         }
     }
 
