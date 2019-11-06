@@ -1,10 +1,8 @@
 package help;
 
-import controlpanel.DukeException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -27,7 +25,7 @@ public class AutoCompleteTest {
             "list goals",
             "done goal [index]",
             "commit goal [index 1, index 2,...]",
-            "add instalment [desc] /amt [cost] /within [number of months] months /from [d/M/yyyy] @[annual interest rate]%",
+            "add instalment [desc] /amt [cost] /within [number of months] months /from [d/M/yyyy] /percentage [annual interest rate]",
             "delete instalment [index]",
             "list all instalments",
             "lent [other party] /amt [cost] /on [date]",
