@@ -6,7 +6,7 @@ public class Item {
     private float price;
     private String description;
 
-    DecimalFormat decimalFormat = new DecimalFormat("#.00");
+    private DecimalFormat decimalFormat = new DecimalFormat("#.00");
 
     //@@author chengweixuan
     public Item(float price, String description) {

@@ -2,6 +2,7 @@ package money;
 
 import controlpanel.Parser;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -21,6 +22,8 @@ public class Loan extends Item {
     Type type;
 
     private DateTimeFormatter dateTimeFormatter;
+    private DecimalFormat decimalFormat = new DecimalFormat("#.00");
+
 
     //@@author chengweixuan
     /**
@@ -58,7 +61,7 @@ public class Loan extends Item {
             typeStr = null;
         }
         String status = isSettled ? "[Settled]" : "[Outstanding]";
-        return status + typeStr + " " + super.getDescription() + "(loan: $" + super.getPrice() + ") (Lent On: "
+        return status + typeStr + " " + super.getDescription() + "(loan: $" + super.getPriceStr() + ") (Lent On: "
                 + getStartDate() + ")" + getEndDateString();
     }
 
@@ -123,7 +126,7 @@ public class Loan extends Item {
      */
     private String getEndDateString() {
         if (endDate == null) {
-            return " Outstanding Amount: $" + outstandingLoan;
+            return " Outstanding Amount: $" + decimalFormat.format(outstandingLoan);
         } else {
             return " (Paid Back On: " + getEndDate() + ")";
 
