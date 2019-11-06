@@ -7,15 +7,15 @@ REM delete output from previous run
 del ACTUAL.TXT
 
 REM compile the code into the bin folder
-javac  -cp ..\src -Xlint:none -d ..\bin ..\src\main\java\duke\Duke.java
+javac  -cp ..\src -Xlint:none -d ..\bin ..\src\main\java\sgtravel\Duke.java
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
     exit /b 1
 )
 REM no error here, errorlevel == 0
 
-REM run the program, feed duke.logic.commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ..\bin duke.Duke < input.txt > ACTUAL.TXT
+REM run the program, feed sgtravel.logic.commands from input.txt file and redirect the output to the ACTUAL.TXT
+java -classpath ..\bin sgtravel.Duke < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT

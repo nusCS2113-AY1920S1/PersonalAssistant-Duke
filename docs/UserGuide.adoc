@@ -144,17 +144,19 @@ Marks the 2nd event as done in SGTravel.
 === Editing places of visit: `edit`
 
 Panel will automatically select an intial location and the current location will be glowing green in color. +
+
+image::edit1.png[width="600" height="400"]
+
 Users will use `up, down, left, right or ESC and Enter` key to then select the place of visit they want to edit. +
 `Enter` selects and `ESC` deselects. +
 Once an event is selected (orange), simply type in the new `VENUE/DATE` into the CLI depending on what is currently highlighted. +
+
+image::edit2.png[width="600" height="400"]
 
 Examples:
 
 * `Orchard road` if updating the `VENUE`
 * `Mon` or `12/12/12` if updating a `DATE`
-
-+
-image::Ui.png[width="600" height="400"]
 
 To save the edits, type `save` or `done` or `x`. +
 To discard the changes, type `close` or `end` or `X`.+
