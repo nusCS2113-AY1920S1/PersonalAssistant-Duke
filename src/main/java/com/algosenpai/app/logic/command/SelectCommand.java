@@ -35,14 +35,14 @@ public class SelectCommand extends Command {
         }
         chapterNumber.set(index - 1);
         this.isQuizMode.set(true);
-        return "You have selected Chapter " + chapterNumber.incrementAndGet();
+        return "You have selected Chapter " + chapterNumber.incrementAndGet() + ". Type 'quiz' to begin.";
     }
 
     /**
      * Returns default message if the select command is not called properly.
      * @return default message to use select command.
      */
-    public String getDefaultMessage() {
+    private String getDefaultMessage() {
         StringBuilder str = new StringBuilder(
                 "No such chapter found. Please select the following:\nselect <chapter name>\n");
         for (String chapter: userStats.getChapters()) {
