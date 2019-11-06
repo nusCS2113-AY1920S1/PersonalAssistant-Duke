@@ -3,6 +3,7 @@ package executor.command;
 import duke.exception.DukeException;
 import interpreter.Parser;
 import storage.StorageManager;
+import java.time.format.DateTimeParseException;
 
 public class CommandDateList extends Command {
     private String date;
@@ -15,19 +16,25 @@ public class CommandDateList extends Command {
         super();
         this.userInput = userInput;
         this.description = "Lists based on date. \n"
-                + "Format: listmy <date>";
+                + "Format: datelist <date>";
         this.commandType = CommandType.DATELIST;
         this.date = Parser.parseForPrimaryInput(this.commandType, userInput);
     }
 
     @Override
     public void execute(StorageManager storageManager) {
+        if (this.date == null || this.date.isEmpty()) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr("Date input is missing. FORMAT : datelist yyyy-mm-dd");
+            return;
+        }
         String outputStr;
         try {
-            outputStr = storageManager.getReceiptsByDate(this.date).getPrintableReceipts();
+            outputStr = "You have the following receipts for" + " " + date;
+            outputStr += storageManager.getReceiptsByDate(this.date).getPrintableReceipts();
         } catch (DukeException e) {
             this.infoCapsule.setCodeError();
-            this.infoCapsule.setOutputStr(e.getMessage());
+            this.infoCapsule.setOutputStr("Invalid input. FORMAT : datelist yyyy-mm-dd");
             return;
         }
         this.infoCapsule.setCodeCli();

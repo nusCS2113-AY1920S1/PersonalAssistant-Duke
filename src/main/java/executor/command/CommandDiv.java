@@ -9,7 +9,7 @@ public class CommandDiv extends Command {
     private double entryTwo;
 
     /**
-     * Constructor for CommandListMonYear subCommand Class.
+     * Constructor for CommandDiv subCommand Class.
      *
      * @param userInput String is the user input from the CLI
      */
@@ -22,20 +22,26 @@ public class CommandDiv extends Command {
 
     @Override
     public void execute(StorageManager storageManager) {
-        String entryOneStr = Parser.parseForPrimaryInput(this.commandType, userInput);
-        if (entryOneStr.equals("")) {
+        String stringOne = Parser.parseForPrimaryInput(this.commandType, userInput);
+        String stringTwo = Parser.parseForFlag("", userInput);
+        try {
+            this.entryOne = Double.parseDouble(stringOne);
+        } catch (NumberFormatException e) {
             this.infoCapsule.setCodeError();
-            this.infoCapsule.setOutputStr("Missing Numerator. \n FORMAT: div <number> // <number>\n");
+            this.infoCapsule.setOutputStr("Invalid input please enter in this Format: div <num1> / <num2>");
             return;
         }
-        this.entryOne = Double.parseDouble(entryOneStr);
-        String entryTwoStr = Parser.parseForFlag("", userInput);
-        if (entryTwoStr == null) {
+        try {
+            this.entryTwo = Double.parseDouble(stringTwo);
+        } catch (NumberFormatException e) {
             this.infoCapsule.setCodeError();
-            this.infoCapsule.setOutputStr("Missing Divisor. \n FORMAT: div <number> // <number>\n");
+            this.infoCapsule.setOutputStr("Invalid input please enter the second number. Format: div <num1> / <num2>");
+            return;
+        } catch (NullPointerException e) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr("Enter forward slash and second number. Format: div <num1> / <num2>");
             return;
         }
-        this.entryTwo = Double.parseDouble(entryTwoStr);
         double result = entryOne / entryTwo;
         this.infoCapsule.setCodeCli();
         this.infoCapsule.setOutputStr(entryOneStr
@@ -44,6 +50,4 @@ public class CommandDiv extends Command {
                 + result
                 + "\n");
     }
-
 }
-

@@ -19,23 +19,31 @@ public class CommandAdd extends Command {
     public CommandAdd(String userInput) {
         super();
         this.userInput = userInput;
-        this.description = "Adds two double values. Format: add <number> // <number>";
+        this.description = "Adds two double values. Format: add <num1> / <num2>";
         this.commandType = CommandType.ADD;
     }
 
     @Override
     public void execute(StorageManager storageManager) {
-        String entryOneStr = Parser.parseForPrimaryInput(this.commandType, userInput);
-        if (entryOneStr.equals("")) {
+        String stringOne = Parser.parseForPrimaryInput(this.commandType, userInput);
+        String stringTwo = Parser.parseForFlag("", userInput);
+        try {
+            this.entryOne = Double.parseDouble(stringOne);
+        } catch (NumberFormatException e) {
             this.infoCapsule.setCodeError();
-            this.infoCapsule.setOutputStr("Missing Numerator. \n FORMAT: div <number> // <number>\n");
+            this.infoCapsule.setOutputStr("Invalid input please enter in this format: add <num1> / <num2>");
             return;
         }
-        String entryTwoStr = Parser.parseForFlag("", userInput);
-        if (entryTwoStr == null) {
-            this.entryTwo = 0.0;
-        } else {
-            this.entryTwo = Double.parseDouble(entryTwoStr);
+        try {
+            this.entryTwo = Double.parseDouble(stringTwo);
+        } catch (NumberFormatException e) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr("Invalid input please enter the second number. Format: add <num1> / <num2>");
+            return;
+        } catch (NullPointerException e) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr("Enter forward slash and second number. Format: add <num1> / <num2>");
+            return;
         }
         double sum = entryOne + entryTwo;
         this.infoCapsule.setCodeToast();
@@ -45,5 +53,4 @@ public class CommandAdd extends Command {
                 + sum
                 + "\n");
     }
-
 }

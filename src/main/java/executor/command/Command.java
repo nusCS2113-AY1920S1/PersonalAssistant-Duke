@@ -5,11 +5,17 @@ import storage.StorageManager;
 import ui.Wallet;
 import utils.InfoCapsule;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Command {
     protected InfoCapsule infoCapsule;
+    private static List<String> executedCommands = new ArrayList<>();
+    protected Boolean exitRequest = false;
     protected String userInput = null;
     protected CommandType commandType;
     protected String description = "NO DESCRIPTION";
+
 
     // Constructor
 
@@ -42,5 +48,9 @@ public abstract class Command {
 
     public CommandType getCommandType() {
         return commandType;
+    }
+
+    public static List<String> getExecutedCommands() {
+        return executedCommands;
     }
 }

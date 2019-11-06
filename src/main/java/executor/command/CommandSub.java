@@ -9,30 +9,38 @@ public class CommandSub extends Command {
     private double entryTwo;
 
     /**
-     * Constructor for CommandListMonYear subCommand Class.
+     * Constructor for CommandSub subCommand Class.
      *
      * @param userInput String is the user input from the CLI
      */
     public CommandSub(String userInput) {
         super();
         this.userInput = userInput;
-        this.description = "Subtracts two double values. Format: sub <number> // <number>";
+        this.description = "Subtracts two double values. Format: sub <num1> / <num2>";
         this.commandType = CommandType.SUB;
     }
 
     @Override
     public void execute(StorageManager storageManager) {
-        String entryOneStr = Parser.parseForPrimaryInput(this.commandType, userInput);
-        if (entryOneStr.equals("")) {
+        String stringOne = Parser.parseForPrimaryInput(this.commandType, userInput);
+        String stringTwo = Parser.parseForFlag("", userInput);
+        try {
+            this.entryOne = Double.parseDouble(stringOne);
+        } catch (NumberFormatException e) {
             this.infoCapsule.setCodeError();
-            this.infoCapsule.setOutputStr("Missing Numerator. \n FORMAT: div <number> // <number>\n");
+            this.infoCapsule.setOutputStr("Invalid input please enter in this format: sub <num1> / <num2>");
             return;
         }
-        String entryTwoStr = Parser.parseForFlag("", userInput);
-        if (entryTwoStr == null) {
-            this.entryTwo = 0.0;
-        } else {
-            this.entryTwo = Double.parseDouble(entryTwoStr);
+        try {
+            this.entryTwo = Double.parseDouble(stringTwo);
+        } catch (NumberFormatException e) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr("Invalid input please enter the second number. Format: sub <num1> / <num2>");
+            return;
+        } catch (NullPointerException e) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr("Enter forward slash and second number. Format: sub <num1> / <num2>");
+            return;
         }
         double result = entryOne - entryTwo;
         this.infoCapsule.setCodeToast();

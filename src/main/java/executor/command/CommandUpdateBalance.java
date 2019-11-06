@@ -3,12 +3,9 @@ package executor.command;
 import duke.exception.DukeException;
 import interpreter.Parser;
 import storage.StorageManager;
-
 import java.text.DecimalFormat;
 
 public class CommandUpdateBalance extends Command {
-
-    private Double newBalance;
 
     /**
      * Constructor for the CommandUpdateBalance class.
@@ -29,6 +26,7 @@ public class CommandUpdateBalance extends Command {
         } catch (DukeException e) {
             this.infoCapsule.setCodeError();
             this.infoCapsule.setOutputStr(e.getMessage());
+            return;
         }
         DecimalFormat decimalFormat = new DecimalFormat("#0.00");
         storageManager.setWalletBalance(this.newBalance);
@@ -38,11 +36,16 @@ public class CommandUpdateBalance extends Command {
 
     private Double extractAmount() throws DukeException {
         String incomeStr = Parser.parseForPrimaryInput(this.commandType, this.userInput);
-        incomeStr = incomeStr.trim().replace("$", "");
         try {
-            return Double.parseDouble(incomeStr);
+            incomeStr = incomeStr.trim().replace("$", "");
+            Double amount = Double.parseDouble(incomeStr);
+            if (amount < 0) {
+                throw new Exception();
+            }
+            return amount;
         } catch (Exception e) {
-            throw new DukeException("Invalid amount entered.\n");
+            throw new DukeException("Please kindly follow the format : setbalance $<amount> \n"
+            + "Please enter an amount greater than or equal to zero in your wallet !\n");
         }
     }
 }
