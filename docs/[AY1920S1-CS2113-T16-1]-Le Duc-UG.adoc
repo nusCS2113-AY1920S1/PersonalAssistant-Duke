@@ -46,6 +46,8 @@ image::Ui.png[width="790"]
 - WELCOME: the welcome message
 - INDEX is the index of the task (goes from 1 to the number of tasks). You can find the index of the task by showing all the task with the command list of by searching the task with the command find.
 - KEYWORD: the keyword to find a task.
+- SORTTYPE: date, description, priority, type or done
+
 
 ====
 
@@ -153,7 +155,6 @@ find homewqeuktest
         ---------------------------------------------------------------------------------
 
 ```
-
 === Delete a task : `delete`
 
 To delete a task : `delete INDEX`
@@ -225,28 +226,51 @@ remind
 
 === Edit a task : `edit`
 
-To edit a task: `edit`
 
-To edit a task, follow these instructions:
+* Multi-steps command: to edit a task, follow these instructions:
 
-1. All of the tasks will be displayed, you have to choose a task INDEX
-2. Depending on the type of task:
-* If it is a todo task, you can enter the new DESCRIPTION of the task
-* If it is not a todo task, you have to choose 1) if you want to edit the description or 2) if you want to edit the date
+1. `edit`
+2. All of the tasks will be displayed, you have to choose a task INDEX
+3. Depending on the type of task:
+** If it is a todo task, you have to enter the new DESCRIPTION
+** If it is not a todo task, you have to choose 1) if you want to edit the description or 2) if you want to edit the date
 - Then, enter the new DESCRIPTION or the new DATE of the task
+
+
+* For one shot command:
+- edit the description: `edit INDEX description DESCRIPTION`
+- edit the date of an homework task: `edit INDEX /by DATE`
+- edit the period of an event task: `edit INDEX /at DATE - DATE`
 
 Examples:
 
 * Edit the description of the task 2 ( todo task )
+** Multi-steps command
 - `edit`
 - `2`
 - `DESCRIPTION`
+** One shot command
+- `edit 2 description DESCRIPTION`
 
 * The task 2 is a homework task:
+** Multi-steps command
 - `edit`
 - `2`
 - `2`
 - `DATE`
+** One shot command
+- `edit 2 /by DATE`
+
+* The task 3 is a event task:
+** Multi-steps command
+- `edit`
+- `3`
+- `2`
+- `DATE - DATE`
+** One shot command
+- `edit 3 /at DATE - DATE`
+
+
 
 === Customize the welcome message : `setwelcome`
 
@@ -260,6 +284,7 @@ Be careful:
 
 *Reverting to the previous welcome message is not possible once a new message is set.
 *Ensure the directory data is in the correct location
+
 === Exit the program : `bye`
 
 To exit the program : `bye`
@@ -343,21 +368,25 @@ Percent of tasks with priority 1: 0.0%
 
 === Sort by: `sort`
 
-Sort all task by date/description: `sort SORTTYPE`
+Sort all task by date/description/priority: `sort SORTTYPE`
 
 SORTTYPE is either date, description, priority
 
 Be careful:
 
-* Sorting "by date" will sort tasks in chronological order
-* Sorting "by description" will sort the descriptions in alphabetical order
-* Sorting "by priority" will sort tasks in ascending urgency
+* Sorting by date will sort tasks in chronological order
+* Sorting by description will sort the descriptions in alphabetical order
+* Sorting by priority will sort tasks in ascending urgency
+* Sorting by type will sort tasks depending on its task type ( event, homework, todo)
+* Sorting by done will sort tasks depending on it the task is done or not
 
 Examples:
 
 * `sort date`
 * `sort priority`
 * `sort description`
+* `sort type`
+* `sort done`
 
 === Prioritize:  `prioritize`
 
@@ -378,26 +407,109 @@ Example:
 * `prioritize 4 prio 2`
 * `prioritize 5 prio 8`
 
-=== Display by day/week/month: `display`
+=== Display by day/week/month: `show`
 
-Display all the task for one particular day/week/month: `display date DATETYPE DATE`
+Display all the task for one particular day/week/month: `show DATETYPE DATE`
 
-DATETYPE is day, week, month.
+DATETYPE is day, dayofweek, today, week, month, year.
 
-DATE is
+The DATE argument depends on the DATETYPE
 
-* a date for the DATETYPE day
-* the first date of the week for the DATETYPE week
-* a month and the year for the DATETYPE month
+* day :
+** shows all the tasks for the given date
+** DATE : DD/MM/YYYY
 
-Be careful:
+* dayofweek :
+** shows all the tasks for the given day of week
+** DATE : monday, tuesday, wednesday, thursday, friday, saturday, sunday
 
-* DATE must be in dd/MM/yyyy format for the DATETYPE day and week
-* DATE must be in MM/yyyy format for the DATETYPE month
+* today :
+** shows all the tasks for the user's today
+** DATE : nothing should be written !!
+
+* week :
+** shows all the tasks, starting from user's today to 7 days later (the last days is not included)
+** DATE : nothing should be written !!
+
+* month :
+** shows all the tasks for the given month
+** DATE : MM/YYYY
+
+* year
+** shows all the tasks for the given year
+** DATE : YYYY
+
+There are two behaviour, one line command and multi-step command
+
+Example (one line command) :
+
+* `show day 29/10/2019`
+* `show dayofweek monday`
+* `show today`
+* `show week`
+* `show month 10/2019`
+* `show year 2019`
+
+Example (multi-step command) :
+
+* `show day`
+
+* The console ask to enter the day :
+
+* `29/10/2019`
+
+or
+
+* `show dayofweek`
+
+* The program ask to enter the day :
+
+* `monday`
 
 === Shortcut : `shortcut`
 
-Give shortcut to command : `shortcut`
+Give shortcut to command : `shortcut COMMANDNAME SHORTCUTNAME`
+
+COMMANDNAME is the name of the command (like todo, sort, show ...)
+
+SHORTCUTNAME is the new shortcut name for the command
+
+There are three behaviour : One line command, multi-step command, multi-step customize all command
+
+Be careful :
+
+* There can't be 2 same shortcut name.
+* The shortcut name can't be the same as one of the default command name (for example, the shortcut name can't be todo because it is a default command name).
+
+
+
+Example (One line command) :
+
+* `shortcut todo t`
+* `shortcut prioritize prio`
+
+Example (multi-step command) :
+
+* `shortcut todo`
+* The program ask to enter the shortcut
+* `t`
+
+Example (multi-step customize all command)
+
+* `shortcut`
+* The program enter in customize shortcut mode
+* The program display the first command with his shortcut and ask to enter for a new shortcut name
+* `shortcutname`
+* The program display the first command with his shortcut and ask to enter for a new shortcut name
+* `shortcutname2`
+* ...
+* The program display all the shortcut
+
+
+Be careful :
+
+* There can't be 2 same shortcut name. If we enter a shortcut that already exists, we are in one line command or multi-step command behaviour, it will show an error, and if we are in multi-step customize all command, it will ask again.
+* The shortcut name can't be the same as one of the default command name (for example, the shortcut name can't be todo because it is a default command name).
 
 For each command, the console will output the command name.
 
@@ -411,8 +523,8 @@ Find and display all unfinished tasks : `unfinished`
 
 Example:
 
- * `unfinished`
- * Output:
+* `unfinished`
+* Output:
 
  Here are the unfinished tasks in your list:
          1. [T][✗] td1 [Priority: 5]
@@ -423,6 +535,16 @@ Example:
         ---------------------------------------------------------------------------------
 
 
+=== Change language : `language`
+
+Change the language for all the display message : `language LANGUAGE`
+
+`LANGUAGE` can be en or fr (only two language is available).
+The language will be set after the program is closed and open again.
+Example :
+
+* `language fr`
+* `language en`
 
 === Create task list (not implemented yet)
 
@@ -483,15 +605,16 @@ A) Yes, if we have enough imagination and time and energy.
 * *postpone* : `postpone INDEX /by DATE`
 * *reschedule* : `reschedule INDEX /at DATE - DATE`
 * *remind* : `remind`
-* *edit* : `edit` and follow the instructions
+* *edit* : `edit` and follow the instructions or  `edit INDEX description DESCRIPTION` or `edit INDEX /by DATE` or  `edit INDEX /at DATE - DATE`
 * *setwelcome* : `setwelcome WELCOME`
 * *bye* : `bye`
 * *stats* : `stats`
 * *sort* : `sort SORTTYPE`
 * *prioritize* : `prioritize INDEX prio INDEX`
-* *display* : `display date DATETYPE DATE`
-* *shortcut* : `shortcut`
+* *display* : `display DATETYPE DATE`
+* *shortcut* : `shortcut COMMANDNAME SHORTCUTNAME`
 * *unfinished* : `unfinished`
+* *language* : `language LANGUAGE`
 
 
 ====

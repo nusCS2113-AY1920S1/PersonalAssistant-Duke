@@ -19,7 +19,7 @@
 
 == User Stories
 
-[cols="3,5,1", options="header"]
+[cols="3,4,1", options="header"]
 |===
 |Target |User Stories |Priority
 
@@ -78,6 +78,9 @@
 |* *
 
 |As a student,| I want to see the time left until the allocated time for that task is over
+|* *
+
+|As a student,| I want to have different languages
 |* *
 
 |As a student,| I want to know the location, the address
@@ -169,13 +172,37 @@
 * *Recurrent task*: A task that repeat every day/week/month…
 
 ---
+== Design
+=== Class Diagram
+
+Le Duc main class, called `Duke`, is composed of 4 classes : `Storage`, `Ui`, `Parser`, `TaskList`.
+
+* `Storage` deals with saving and loading files such as the file containing the config or the file containing all the tasks.
+* `Ui` deals with the interaction between the user and the program.
+* `Parser` given an user's input (through Ui), the Parser will return the corresponding command
+* `TaskList` represents the list containing all the tasks.
+
+image::ClassDiagramDuke.png[width="1000"]
+
+In this class diagram, constructors, getters and setters were not all represented.
+
+The following class diagram will represent the interaction between all classes without being too specific. The class diagram for the abstract class `Command` and his concrete class is not represented because it is only one abstract class connected to a multitude of concrete class. The same goes for the `DukeException` class.
+
+image::AllClassDiagram.png[width="1000"]
+
 
 == Implementation
 
-=== Shortcut
+=== Customization
 
+The user can customize Le Duc in the following ways :
 
-The shortcut mechanism is done by the ShortcutCommand. As every other command, it extends Command with a HashSet containing all the command’s shortcut name and another HashSet containing all the default command’s shortcut name. Others commands include now a static attribute named shortcut that correspond to the command’s shortcut. It implements these following methods:
+* `shortcut`: The user can implement and use shortcut for every command.
+* `language`: The user can change the language for Le Duc.
+
+==== Shortcut
+
+The shortcut mechanism is done by the `ShortcutCommand`. As every other command, it extends Command with a HashSet containing all the command’s shortcut name and another HashSet containing all the default command’s shortcut name. Others commands include now a static attribute named shortcut that correspond to the command’s shortcut. It implements these following methods:
 
 * `ShortcutCommand#setOneShortcut` — set the shortcut of one command
 * `ShortcutCommand#initializedSetShortcut` — initialized the HashSet contains all the default command’s shortcut name
@@ -190,58 +217,135 @@ When the user launches the application, the program will read the config file, t
 
 These following diagram show how the 3 cases were implemented:
 
-==== One shot one command
+*One shot one command*
 
 The user type the "entry" (not shown in the sequence diagram) as `shortcut CommandName ShortcutName`.
 
-image::SDShortcutOneShot.png[width="790"]
+image::SDShortcutOneShot.png[width="1000"]
 
 The method setShortcut is static, thus an object Command won’t be created
 
-==== Multi-step one command
+*Multi-step one command*
 
 The user type the "entry" (not shown in the sequence diagram) as `shortcut CommandName`. Then the console will ask what will be the new name for the shortcut.
 
-image::SGShortcutMultiOneCmd.png[width="790"]
+image::SGShortcutMultiOneCmd.png[width="1000"]
 
-==== Multi-step every command
+*Multi-step every command*
 
 The user type the "entry" (not shown in the sequence diagram) as `shortcut`. The console will display one command's name, then the console will ask what will be the new name for the shortcut. The console will repeat until every command have a shortcut.
 
-image::SGShortcutMultiEveryCmd.png[width="790"]
+image::SGShortcutMultiEveryCmd.png[width="1000"]
 
-==== Consideration
+*Consideration*
+
 * The config file that contains all the name for the shortcut can be edit by hand, because it is faster to edit the config file than doing it via the application.
 * When a command’s shortcut is set, the default shortcut can still be used
 
+==== Language
+
+Changing the language mechanism is done by the `LanguageCommand`. For the moment two languages are available : french and english. Only the return message after a command and the error message are changed. After typing the command to change the language, the language is changed at the next execution of the program.
+
+The following are the steps to change a language :
+
+* The user open Le Duc (the program).
+* Le Duc create the object `ui` as an instance of `UiEn`.
+* The user type `language fr` (the program is previously in english)
+* The program will change the config file.
+* The user exit the program.
+* The user reopen Le Duc.
+* Le Duc load the config file with the new language.
+* Le Duc create the object `ui` as an instance of `UiFr`.
+* The language of Le Duc is french.
+
+image::languageSequenceDiagram.png[width="1000"]
+
+In the sequence diagram, `Parser` and `Storage` should be created and destroyed when Duke is created or destroyed, but for more clarity, it was not represented.
+
+*Consideration*
+
+* (Current implementation) Each message displayed to the user (error or a message returned by a command) correspond to an abstract method in `Ui` and an override method in `UiFr` and `UiEn`. It was done so because it is easier to add a new language because it is sufficient to create a new class and override the method.
+* (Atlernative) Make an if statement for each new language and an static attribut in `Ui`. There are less methods and less classes but if a new language is added in the future, every single command and every single exception have to be edited.
 
 === Modify a Task
 
-Several commands allow the user to modify a task: `reschedule`, `postpone`, `snooze` and `edit` .
+Several commands allow the user to modify a task: `reschedule`, `postpone`, `snooze`, `edit` and `prioritize`.
 As every other command, these commands extend Command.
 As these commands relate to the modification of tasks, each command need to write into the data file after its execution.
 
-* *Reschedule an event task*
+==== *Reschedule an event task*
 
 When rescheduling an event, two dates can’t clash. This verification is done with the verifyConflictDate method which is
 in the TaskList class. Indeed, all task dates are needed to verify if there is a conflict. So, this allows to improve the cohesion.
 
 image::SequenceDiagramReschedule.png[width="1000", align="left"]
 
-* *Snooze an homework task*
+==== *Snooze an homework task*
 
 Snooze is applicable to a homework task. The snooze time is fixed at 30 minutes( it could be easily changed in the snoozeLocalDateTime() method of Date.
 
 image::SequenceDiagramSnooze.png[width="1000", align="left"]
 
-* *Postpone an homework task*
+==== *Postpone an homework task*
 
 Postpone is also only applicable to a homework task. The new date should be after the old one.
 This is verified inside the execution of the postponeCommand.
 
 image::SequenceDiagramPostpone.png[width="1000", align="left"]
 
-* *Edit a task* ( Only in multi-set commands yet)
+==== *Edit a task*
+
+* Multi-steps command: to edit a task, the user has to follow these instructions:
+
+1. `edit`
+2. All of the tasks will be displayed, you have to choose a task INDEX
+3. Depending on the type of task:
+** If it is a todo task, you have to enter the new DESCRIPTION
+** If it is not a todo task, you have to choose 1) if you want to edit the description or 2) if you want to edit the date
+- Then, enter the new DESCRIPTION or the new DATE of the task
+
+The sequence diagram shows the interactions between different classes when the user want to edit the description an homework or event task with a multi-steps edit command.
+
+image::SequenceDiagramEditMultiSteps.png[width="1000", align="left"]
+
+
+* For one shot command:
+- edit the description: `edit INDEX description DESCRIPTION`
+- edit the date of an homework task: `edit INDEX /by DATE`
+- edit the period of an event task: `edit INDEX /at DATE - DATE`
+
+The sequence diagram shows the interactions between different classes when the user input `edit 2 description DESCRIPTION`.
+
+image::SequenceDiagramEditOneShot.png[width="1000", align="left"]
+
+==== *Prioritize a task*
+
+A task has initially a priority of 5. The priority of a task goes from 0 to 9.
+This command allows the user to change the priority of a task.
+
+The sequence diagram show the interactions between different classes when the user wants to change to priority of the first task to 2.
+
+image::SequenceDiagramPrioritize.png[width="1000", align="left"]
+
+==== Consideration
+
+There are two different commands for modifying the priority ( `prioritize`) and the description/date (`edit`) o f a task. Indeed, the edit command is considered to be used when a user have initially created a incorrect task, whereas the prioritize command is supposed to be used regularly as the priority of a task generally increase with the time.
+However, these two commands are obviously easy to combine into one command.
+
+
+=== Sort the task list
+
+Sort all task by date/description/priority/type of task/ done or not: `sort SORTTYPE`
+SORTTYPE is either date, description, priority, type, done
+
+* Sorting by date will sort tasks in chronological order
+* Sorting by description will sort the descriptions in alphabetical order
+* Sorting by priority will sort tasks in ascending urgency
+* Sorting by type will sort tasks depending on its task type ( event, homework, todo)
+* Sorting by done will sort tasks depending on it the task is done or not.
+
+To implement the sort command, the comparing static method of Comparator interface introduced in Java 8 is used.
+So, here the sort key are the desciption or the priority of the task.
 
 
 === Remind
