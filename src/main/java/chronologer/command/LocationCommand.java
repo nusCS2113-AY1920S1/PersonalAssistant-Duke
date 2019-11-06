@@ -42,7 +42,7 @@ public class LocationCommand extends Command {
             ChronologerStateList.addState((tasks.getTasks()));
             storage.saveFile(tasks.getTasks());
             UiTemporary.printOutput("Noted. Your task location has been added:" + "\n "
-                + taskWithLocation.toString() + " " + taskWithLocation.getLocation());
+                + taskWithLocation.toString());
         }
     }
 }

@@ -50,7 +50,7 @@ class StorageTest {
 
         String expectedJson = "[{\"type\":\"DEADLINE\",\"description\":\"Test\","
             + "\"startDate\":{\"date\":{\"year\":2019,\"month\":12,\"day\":12},"
-            + "\"time\":{\"hour\":19,\"minute\":0,\"second\":0,\"nano\":0}},\"priority\":\"MEDIUM\","
+            + "\"time\":{\"hour\":19,\"minute\":0,\"second\":0,\"nano\":0}},\"location\":\"\",\"priority\":\"MEDIUM\","
             + "\"reminder\":{\"reminderDate\":{\"date\":{\"year\":2019,\"month\":12,\"day\":9},"
             + "\"time\":{\"hour\":19,\"minute\":0,\"second\":0,\"nano\":0}}},\"comment\":\"\","
             + "\"isIgnored\":false,\"isDone\":false,\"modCode\":\"\"}]";

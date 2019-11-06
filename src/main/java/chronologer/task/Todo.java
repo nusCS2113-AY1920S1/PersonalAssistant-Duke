@@ -73,8 +73,11 @@ public class Todo extends Task implements Serializable {
             message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description + " "
                 + "(for " + duration + " hours)";
         }
+        if (!location.isBlank()) {
+            message = message + "\n" + location;
+        }
         if (!comment.isBlank()) {
-            message = message + "\n  Note to self: " + comment;
+            message = message + "\nNote to self: " + comment;
         }
         return message;
     }

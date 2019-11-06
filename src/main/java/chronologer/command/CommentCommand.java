@@ -40,7 +40,7 @@ public class CommentCommand extends Command {
             Task taskToEdit = tasks.editTaskComment(indexOfTask, comment);
             ChronologerStateList.addState((tasks.getTasks()));
             storage.saveFile(tasks.getTasks());
-            UiTemporary.printOutput("Noted. Your new task comment is:" + "\n " + taskToEdit.getComment());
+            UiTemporary.printOutput("Noted. Your comment has been added:" + "\n " + taskToEdit.toString());
         }
     }
 
