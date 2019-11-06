@@ -52,6 +52,11 @@ public interface Ui {
     void showHint(String text);
 
     /**
+     * show the level begin string
+     */
+    void showLevelBegin();
+
+    /**
      * Prints text to the terminal type writer style.
      * @param text to be printed.
      * @param hasPressEnter if 'Press ENTER' should be added to the print.

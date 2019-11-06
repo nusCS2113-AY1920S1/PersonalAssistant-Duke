@@ -2,7 +2,7 @@
   "narratives": [
     "Now that you have some seeds, you can start growing your farm!",
     "Note that your current location is at the market. You can only plant your seeds in your farm.",
-    "The action [do plantSeeds] plants ALL of your seeds on the farm.~"
+    "The action [do plantSeeds] plants ALL of your seeds on the farm."
   ],
   "feedback": [
     "You have succesfully travelled to the farm and planted your seeds using the [do] command"
@@ -16,5 +16,5 @@
   "file_path": "Level1.3",
   "objective": "Plant the seeds in your wheat farm",
   "modelAnswer": "|do gotoWheatFarm|do plantSeeds|",
-  "hint": "1.Remember that you have to complete the objective in 1 iteration of the code\n2.Enter [do gotowheatfarm] to drive back to your wheat farm\n3.Enter [do plantseeds] to plant seeds"
+  "hint": "1.Remember that you have to complete the objective in 1 iteration of the code\n2.Enter [do gotoWheatFarm] to drive back to your wheat farm\n3.Enter [do plantSeeds] to plant seeds"
 }

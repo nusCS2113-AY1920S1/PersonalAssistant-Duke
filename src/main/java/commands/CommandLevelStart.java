@@ -25,14 +25,15 @@ public class CommandLevelStart extends Command {
         int lastFrameId = level.getNarratives().size() - 1;
         for (String narrative: level.getNarratives()) {
             String userInput = ui.getInput();
-            if (userInput.toLowerCase().equals("skip")) {
-                farmio.getSimulation().simulate(level.getPath(), lastFrameId);
-                ui.typeWriter(level.getNarratives().get(lastFrameId), false);
+            if (userInput.toLowerCase().equals("skip") || frameId == lastFrameId) {
                 break;
             }
             farmio.getSimulation().simulate(level.getPath(), frameId++);
             ui.typeWriter(narrative, true);
         }
+        farmio.getSimulation().simulate(level.getPath(), lastFrameId);
+        ui.typeWriter(level.getNarratives().get(lastFrameId), false);
+        ui.showLevelBegin();
         farmio.setStage(Farmio.Stage.TASK_ADD);
     }
 }

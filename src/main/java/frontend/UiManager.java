@@ -22,6 +22,14 @@ public class UiManager implements Ui {
     }
 
     /**
+     * Prints the message in the terminal without a new line.
+     * @param message to be printed.
+     */
+    private void print(String message) {
+        System.out.print(message);
+    }
+
+    /**
      * Prints the exit message.
      */
     public void showExit() {
@@ -88,37 +96,30 @@ public class UiManager implements Ui {
         show("~.Enter [Start] when you are ready to complete the objective");
     }
 
+    public void showLevelBegin() {
+        show("\n" + " ".repeat(GameConsole.FULL_CONSOLE_WIDTH / 2 - 8) + AsciiColours.GREEN
+                + AsciiColours.UNDERLINE + "[LEVEL BEGIN]" + AsciiColours.SANE + "\n");
+        show("       " +
+                "Enter [start] if you are ready to complete the objective or Enter [hint] if you get stuck!");
+    }
     /**
      * Prints text to the terminal type writer style.
      * @param text to be printed.
      * @param hasPressEnter if 'Press ENTER' should be added to the print.
      */
-    public void typeWriter(String text, boolean hasPressEnter) { //TODO clean this method up
-        final char LEVEL_BEGIN_PLACEHOLDER = '~';
-        boolean isNewline = false;
+    public void typeWriter(String text, boolean hasPressEnter) {
         int lineLength = 0;
-        if (!text.isBlank()) System.out.print(">>> ");
+        if (!text.isBlank()) print(">>> ");
         sleep(150);
         for (int i = 0; i < text.length(); i++) {
+            System.out.printf("%c", text.charAt(i));
             lineLength++;
             if (lineLength > GameConsole.FULL_CONSOLE_WIDTH - 10 && text.charAt(i) == ' ') {
-                System.out.print("\n   ");
+                print("\n    ");
                 lineLength = 0;
             } else if (text.charAt(i) == '\n') {
-                isNewline = true;
+                print("    ");
                 lineLength = 0;
-            } else if (text.charAt(i) == LEVEL_BEGIN_PLACEHOLDER) {
-                System.out.println("\n" + " ".repeat(GameConsole.FULL_CONSOLE_WIDTH / 2 - 8) + AsciiColours.GREEN
-                        + AsciiColours.UNDERLINE + "[LEVEL BEGIN]" + AsciiColours.SANE + "\n");
-                show("       Enter [Start] if you are ready to complete the objective or Enter [HINT] if you get stuck!");
-                return;
-            }
-            else {
-                System.out.printf("%c", text.charAt(i));
-            }
-            if (isNewline) {
-                System.out.print("\n    ");
-                isNewline = false;
             }
             sleep(10);
         }

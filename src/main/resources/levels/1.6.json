@@ -2,13 +2,13 @@
   "narratives": [
     "After selling your wheat, you can observe that you have more gold than when you first started.",
     "Your current location is at the market. You can only plant your seeds in your farm.",
-    "Using the knowledge you have learnt so far, help farmer + get rich!~"
+    "Using the knowledge you have learnt so far, help farmer + get rich!"
   ],
   "feedback": [
     "For this Level, you are required to implement a sequence of steps",
     "You have to check whether you have enough money before purchasing the seeds",
     "afterwhich it is necessary to go to the wheat farm and plant seeds",
-    "using [if hasSeeds do plantSeeds && if haswWheat do harvestWheat]",
+    "using [if hasSeeds do plantSeeds && if hasWheat do harvestWheat]",
     "before selling the grains at the market"
   ],
   "gold": 30,

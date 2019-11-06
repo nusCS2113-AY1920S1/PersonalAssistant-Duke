@@ -14,11 +14,11 @@
     "The first command you will be using is a 'Do' command.\nThe 'Do' command instructs farmer + to carry out an action.",
     "The type of tasks available and the action to be executed can be seen in the middle of the screen.",
     "From the example above, 'Do' is the type of task given and 'goToMarket' is the action to be carried out by the farmer.",
-    "Enter [do GoToMarket] to create a task that tells Farmer + to drive to the market.~"
+    "Enter [do gotoMarket] to create a task that tells Farmer + to drive to the market."
   ],
   "feedback": [
     "You have succesfully travelled to the market by using the [do] command.",
-    "Note that your goal changed from white to green when it is completed (ubuntu only)",
+    "Note that your goal changed from white to green when it is completed (ubuntu only)"
   ],
   "gold": 0,
   "seeds": 0,
@@ -28,7 +28,7 @@
   "file_path": "Level1.1",
   "deadline" : 1,
   "objective": "Travel to the Market",
-  "hint": "Enter [do gotomarket] to create a task that tells Farmer + to drive to the market.",
+  "hint": "Enter [do gotoMarket] to create a task that tells Farmer + to drive to the market.",
   "modelAnswer": "|do gotoMarket|",
 
 }

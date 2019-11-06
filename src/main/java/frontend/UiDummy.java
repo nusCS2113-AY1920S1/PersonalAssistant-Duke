@@ -77,6 +77,11 @@ public class UiDummy implements Ui {
         uiTestString += "hint";
     }
 
+    @Override
+    public void showLevelBegin() {
+        uiTestString += "levelBegin";
+    }
+
     /**
      * Prints text to the terminal type writer style.
      * @param text to be printed.
