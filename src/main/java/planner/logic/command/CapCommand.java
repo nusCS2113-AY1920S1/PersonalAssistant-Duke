@@ -3,6 +3,7 @@
 package planner.logic.command;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -55,6 +56,8 @@ public class CapCommand extends ModuleCommand {
     private double projectedModuleCap;
     private double projectedCap;
     private double mcCount;
+    private ArrayList<String> validGrades = new ArrayList<>(Arrays.asList("A+", "A", "A-", "B+", "B",
+        "B-", "C+", "C", "D+", "D", "F", "S", "U", "CS", "CU"));
 
     /**
      * Constructor for the CapCommand class where user can enquire information about their CAP.
@@ -170,6 +173,9 @@ public class CapCommand extends ModuleCommand {
             if (userInfo.length <= 1) {
                 throw new ModBadGradeException();
             }
+            if (!validGrades.contains(userInfo[1])) {
+                throw new ModBadGradeException();
+            }
             if (!detailedMap.containsKey(userInfo[0].toUpperCase())) {
                 throw new ModNotFoundException();
             }
@@ -251,12 +257,6 @@ public class CapCommand extends ModuleCommand {
             plannerUi.capModuleIncompleteMsg(prunedModules);
         }
     }
-
-
-
-    // make 2 more identical list of lists, remove from one if found in moduletask list / equivalent,
-    // check if isempty, if it is then print cap score according to the cloned list of lists
-    //}
 
     /**
      * Calculates CAP according to the modules with grades in the ModuleTaskList.
