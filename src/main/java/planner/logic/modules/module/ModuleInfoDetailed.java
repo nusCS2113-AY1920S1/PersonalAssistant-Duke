@@ -23,7 +23,7 @@ public class ModuleInfoDetailed {
     private ExamInfo[] semesterData = new ExamInfo[0];
     private String[] semester = {""};
     private ArrayList<String> validGrades = new ArrayList<String>(Arrays.asList("A+", "A", "A-", "B+", "B",
-        "B-", "C+", "C", "D+", "D", "F", "S", "U"));
+        "B-", "C+", "C", "D+", "D", "F", "S", "U", "CS", "CU"));
 
 
     public String getModuleCode() {
@@ -74,11 +74,12 @@ public class ModuleInfoDetailed {
         return semester;
     }
 
+    //@@author andrewleow97
+
     public String getGrade() {
         return grade;
     }
 
-    //@@author andrewleow97
     /**
      * Checks if module is S/U-able, and assigns grade based on String score.
      */
