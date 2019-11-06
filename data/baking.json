@@ -1,13 +1,13 @@
 {
   "orders": [
     {
-      "id": 1572964506525,
-      "creationDate": "2019-11-05T14:35:06.525+0000",
+      "id": 1573003324370,
+      "creationDate": "2019-11-06T01:22:04.370+0000",
       "name": "customer",
       "contact": "N/A",
       "remarks": "N/A",
       "deliveryDate": "2019-11-05T14:35:06.518+0000",
-      "status": "ACTIVE",
+      "status": "COMPLETED",
       "total": 0.0,
       "items": [
         {
@@ -21,6 +21,28 @@
           "amount": 1.0
         }
       ]
+    },
+    {
+      "id": 1573003318934,
+      "creationDate": "2019-11-06T01:21:58.934+0000",
+      "name": "customer",
+      "contact": "N/A",
+      "remarks": "N/A",
+      "deliveryDate": "2019-11-06T01:21:58.926+0000",
+      "status": "ACTIVE",
+      "total": 0.0,
+      "items": []
+    },
+    {
+      "id": 1573003347340,
+      "creationDate": "2019-11-06T01:22:27.340+0000",
+      "name": "customer",
+      "contact": "N/A",
+      "remarks": "N/A",
+      "deliveryDate": "2019-11-06T01:22:27.340+0000",
+      "status": "ACTIVE",
+      "total": 0.0,
+      "items": []
     }
   ],
   "products": [
@@ -48,7 +70,16 @@
   ],
   "inventory": [],
   "shoppingList": [],
-  "sales": [],
+  "sales": [
+    {
+      "id": 1573003324415,
+      "description": "Order 1573003324370 completed.",
+      "value": 0.0,
+      "isSpend": false,
+      "saleDate": "2019-11-05T14:35:06.518+0000",
+      "remarks": "N/A"
+    }
+  ],
   "shortcuts": [
     {
       "name": "a",
