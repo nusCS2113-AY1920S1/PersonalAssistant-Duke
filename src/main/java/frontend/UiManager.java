@@ -1,10 +1,14 @@
 package frontend;
 
+import exceptions.FarmioFatalException;
+import farmio.Level;
+
 import java.util.Scanner;
 
 public class UiManager implements Ui {
     private Scanner scanner;
-    private static final String CLEAR_SCREEN = "\033c" + "\033[2J";
+    private String clearScreen = "\033c" + "\033[2J";
+
 
     /**
      * Creates a user interface object.
@@ -20,6 +24,14 @@ public class UiManager implements Ui {
      */
     public void show(String message) {
         System.out.println(message);
+    }
+
+    /**
+     * Prints the message in the terminal without a new line.
+     * @param message to be printed.
+     */
+    private void print(String message) {
+        System.out.print(message);
     }
 
     /**
@@ -51,7 +63,7 @@ public class UiManager implements Ui {
      * Clears the screen.
      */
     public void clearScreen() {
-        System.out.println(CLEAR_SCREEN);
+        System.out.println(clearScreen);
     }
 
     /**
@@ -93,44 +105,49 @@ public class UiManager implements Ui {
      * @param text hint to be displayed.
      */
     public void showHint(String text) {
-        show(AsciiColours.YELLOW + "Hint:" + AsciiColours.SANE);
+        show(AsciiColours.YELLOW
+                + "Hint:"
+                + AsciiColours.SANE);
         show(text);
         show("~.Enter [Start] when you are ready to complete the objective");
     }
 
     /**
+     * Shows the level begin String.
+     */
+    private void showLevelBegin() {
+        show("\n"
+                + " ".repeat(GameConsole.FULL_CONSOLE_WIDTH / 2 - 8)
+                + AsciiColours.GREEN
+                + AsciiColours.UNDERLINE
+                + "[LEVEL BEGIN]"
+                + AsciiColours.SANE
+                + "\n\n       "
+                + "Enter [start] if you are ready to complete the objective or Enter [hint] if you get stuck!");
+    }
+
+    /**
      * Prints text to the terminal type writer style.
      *
-     * @param text          to be printed.
+     * @param text to be printed.
      * @param hasPressEnter if 'Press ENTER' should be added to the print.
      */
-    public void typeWriter(String text, boolean hasPressEnter) { //TODO clean this method up
-        final char levelBeginPlaceholder = '~';
-        boolean isNewline = false;
+
+    public void typeWriter(String text, boolean hasPressEnter) {
         int lineLength = 0;
         if (!text.isBlank()) {
-            System.out.print(">>> ");
+            print(">>> ");
         }
         sleep(150);
         for (int i = 0; i < text.length(); i++) {
+            System.out.printf("%c", text.charAt(i));
             lineLength++;
             if (lineLength > GameConsole.FULL_CONSOLE_WIDTH - 10 && text.charAt(i) == ' ') {
-                System.out.print("\n   ");
+                print("\n    ");
                 lineLength = 0;
             } else if (text.charAt(i) == '\n') {
-                isNewline = true;
+                print("    ");
                 lineLength = 0;
-            } else if (text.charAt(i) == levelBeginPlaceholder) {
-                System.out.println("\n" + " ".repeat(GameConsole.FULL_CONSOLE_WIDTH / 2 - 8) + AsciiColours.GREEN
-                        + AsciiColours.UNDERLINE + "[LEVEL BEGIN]" + AsciiColours.SANE + "\n");
-                show("       Enter [start] if you are ready to complete the objective. Enter [hint] if you get stuck!");
-                return;
-            } else {
-                System.out.printf("%c", text.charAt(i));
-            }
-            if (isNewline) {
-                System.out.print("\n    ");
-                isNewline = false;
             }
             sleep(10);
         }
@@ -139,5 +156,27 @@ public class UiManager implements Ui {
                     + "Press [ENTER] to continue..");
         }
         show("");
+    }
+
+    /**
+     * Prints the Narrative of a given level with a simulation instance.
+     * @param level that the narrative is to be shown.
+     * @param simulation that the simulation of the level will utilise.
+     * @throws FarmioFatalException if simulation file is not found
+     */
+    public void showNarrative(Level level, Simulation simulation) throws FarmioFatalException {
+        int frameId = 0;
+        int lastFrameId = level.getNarratives().size() - 1;
+        for (String narrative: level.getNarratives()) {
+            String userInput = getInput();
+            if (userInput.toLowerCase().equals("skip") || frameId == lastFrameId) {
+                break;
+            }
+            simulation.simulate(level.getPath(), frameId++);
+            typeWriter(narrative, true);
+        }
+        simulation.simulate(level.getPath(), lastFrameId);
+        typeWriter(level.getNarratives().get(lastFrameId), false);
+        showLevelBegin();
     }
 }

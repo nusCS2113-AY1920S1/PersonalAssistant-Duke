@@ -56,19 +56,9 @@ public class FrontEndTest {
             farmio.setLevel(new Level(farmio.getStorage().getLevel(levelId), "tester"));
             Level level = farmio.getLevel();
             Ui ui = farmio.getUi();
-            int lastFrameId = level.getNarratives().size() - 1;
-            int frameId = 0;
-            for (String narrative : level.getNarratives()) {
-                String userInput = ui.getInput();
-                if (userInput.toLowerCase().equals("skip")) {
-                    farmio.getSimulation().simulate(level.getPath(), lastFrameId);
-                    ui.typeWriter(level.getNarratives().get(lastFrameId), false);
-                    break;
-                }
-                farmio.getSimulation().simulate(level.getPath(), frameId++);
-                ui.typeWriter(narrative, true);
-            }
-            assert "inputsleepclearshowtypewriter".repeat(lastFrameId + 1).equals(UiDummy.uiTestString);
+            ui.showNarrative(level, farmio.getSimulation());
+            assert ("inputsleepclearshowtypewriter".repeat(level.getNarratives().size())
+                    + "levelBegin").equals(UiDummy.uiTestString);
             levelId = farmio.getFarmer().nextLevel();
         }
     }

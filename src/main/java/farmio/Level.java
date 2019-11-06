@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Arrays;
 
-
 public class Level {
     private ArrayList<String> narratives;
     private String filePath;
@@ -277,10 +276,6 @@ public class Level {
             return  output;
         }
         return output;
-    }
-
-    public ObjectiveResult getLevelState() {
-        return levelState;
     }
 
     /**

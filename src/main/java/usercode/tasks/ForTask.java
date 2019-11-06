@@ -10,9 +10,8 @@ public class ForTask extends Task {
 
     /**
      * Creates a task of type for.
-     *
-     * @param condition the condition as a value
-     * @param action the action to be carried out that number of times
+     * @param condition the condition as a value.
+     * @param action the action to be carried out that number of times.
      */
     public ForTask(Condition condition, Action action) {
         super(Tasktype.FOR, condition, action);

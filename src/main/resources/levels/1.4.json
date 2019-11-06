@@ -8,7 +8,7 @@
     "For this level, we will be introducing a new task called 'If'.",
     "'If' can be used when you want an action to be executed after a certain condition is met.",
     "Take note that you cannot change your code between days. Hence, it is important to know when you need to use an 'If' statement",
-    "The format of using an 'If' statement is as follows..\nIf [condition] do [action].~"
+    "The format of using an 'If' statement is as follows..\nIf [condition] do [action]."
   ],
   "feedback": [
     "In order to complete this task you have to use the [if] command to check whether you had a wheat",

@@ -2,7 +2,7 @@
   "narratives": [
     "At the market, you can buy and sell seeds in exchange for gold.",
     "The action [do buySeeds] allows you to purchase 1 unit of seed from the market.",
-    "Enter [Task] [Action] to buy seeds from the market.~"
+    "Enter [Task] [Action] to buy seeds from the market."
   ],
   "feedback": [
     "You have succesfully bought seeds using the gold you have",

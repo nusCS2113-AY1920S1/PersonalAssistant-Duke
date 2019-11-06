@@ -1,74 +1,44 @@
 package frontend;
 
+import exceptions.FarmioFatalException;
+import farmio.Level;
+
 public class UiDummy implements Ui {
     public static String uiTestString;
 
-    /**
-     * Creates a user interface object.
-     */
     public UiDummy() {
         uiTestString = "";
     }
 
-    /**
-     * Prints the message in the terminal.
-     * @param message to be printed.
-     */
     public void show(String message) {
         uiTestString += "show";
     }
 
-    /**
-     * Prints the exit message.
-     */
     public void showExit() {
         uiTestString += "exit";
     }
 
-    /**
-     * Prints an error in the terminal.
-     * @param message to be printed as an error.
-     */
     public void showError(String message) {
         uiTestString += "error";
     }
 
-    /**
-     * Prints a warning in the terminal.
-     * @param message as the warning message.
-     */
     public void showWarning(String message) {
         uiTestString += "warning";
     }
 
-    /**
-     * Clears the screen.
-     */
     public void clearScreen() {
         uiTestString += "clear";
     }
 
-    /**
-     * Prints a message as an info.
-     * @param message as the info message.
-     */
     public void showInfo(String message) {
         uiTestString += "info";
     }
 
-    /**
-     * Gets user input.
-     * @return the user input.
-     */
     public String getInput() {
         uiTestString += "input";
         return "";
     }
 
-    /**
-     * Delays the program.
-     * @param delay time in milliseconds.
-     */
     public void sleep(int delay) {
         uiTestString += "sleep";
     }
@@ -77,12 +47,30 @@ public class UiDummy implements Ui {
         uiTestString += "hint";
     }
 
-    /**
-     * Prints text to the terminal type writer style.
-     * @param text to be printed.
-     * @param hasPressEnter if 'Press ENTER' should be added to the print.
-     */
     public void typeWriter(String text, boolean hasPressEnter) {
         uiTestString += "typewriter";
+    }
+
+    private void showLevelBegin() {
+        uiTestString += "levelBegin";
+    }
+
+    /**
+     * Mimics showing a narrative.
+     * @param level that the narrative is to be shown.
+     * @param simulation that the simulation of the level will utilise.
+     * @throws FarmioFatalException if simulation file is missing
+     */
+    public void showNarrative(Level level, Simulation simulation) throws FarmioFatalException {
+        int frameId;
+        for (frameId = 0; frameId < level.getNarratives().size() - 1; frameId++) {
+            getInput();
+            simulation.simulate(level.getPath(), frameId);
+            typeWriter("", true);
+        }
+        getInput();
+        simulation.simulate(level.getPath(), frameId);
+        typeWriter("", true);
+        showLevelBegin();
     }
 }

@@ -21,9 +21,9 @@ public class SellWheatAction extends Action {
             throws FarmioFatalException, FarmioException {
         ArrayList<Pair<Boolean, String>> criteriaFeedbackList = new ArrayList<>();
         criteriaFeedbackList.add(new Pair<>(!farmer.getWheatFarm().hasGrain(),
-                        "Error! you have attempted to sell grain despite not having any grain"));
+                "Error! you have attempted to sell grain despite not having any grain"));
         criteriaFeedbackList.add(new Pair<>(!farmer.getLocation().equals("Market"),
-                        "Error! you have attempted to sell grain despite not being at the market"));
+                "Error! you have attempted to sell grain despite not being at the market"));
         checkActionCriteria(ui, farmer, simulation, criteriaFeedbackList);
         simulation.simulate("SellWheatSimulation", 0, 9);
         ui.typeWriter("Selling grain!", false);

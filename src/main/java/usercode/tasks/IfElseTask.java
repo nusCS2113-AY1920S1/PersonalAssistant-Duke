@@ -16,10 +16,9 @@ public class IfElseTask extends Task {
 
     /**
      * Creates an if else task.
-     *
-     * @param condition The condition to be considered
-     * @param ifAction The action to be executed if the condition is true
-     * @param elseAction The action to be executed if the condition is false
+     * @param condition The condition to be considered.
+     * @param ifAction The action to be executed if the condition is true.
+     * @param elseAction The action to be executed if the condition is false.
      */
     public IfElseTask(Condition condition, Action ifAction, Action elseAction) {
         super(Tasktype.IF_ELSE, condition, ifAction);
