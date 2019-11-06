@@ -82,8 +82,10 @@ public abstract class TaskWithMultiplePeriods<E extends TimePeriod> extends Task
      */
     public List<DayOfWeek> getDaysOfWeek() {
         Set<DayOfWeek> result = new HashSet<>();
-        for (E timePeriod: this.getPeriods()) {
-            result.addAll(timePeriod.getDaysOfWeek());
+        if (this.getPeriods() != null) {
+            for (E timePeriod: this.getPeriods()) {
+                result.addAll(timePeriod.getDaysOfWeek());
+            }
         }
         return new ArrayList<>(result);
     }

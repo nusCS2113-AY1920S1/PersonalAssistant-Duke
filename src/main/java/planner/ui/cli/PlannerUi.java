@@ -1,12 +1,15 @@
 package planner.ui.cli;
 
+import java.time.DayOfWeek;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
+import planner.logic.exceptions.legacy.ModInvalidIndexException;
 import planner.logic.modules.legacy.task.Task;
+import planner.logic.modules.legacy.task.TaskWithMultipleWeeklyPeriod;
 import planner.logic.modules.module.ModuleTask;
 
 /**
@@ -329,6 +332,17 @@ public class PlannerUi {
         showLine();
         for (Object object : list) {
             System.out.println(object);
+        }
+    }
+
+    /**
+     * Prints activities on the given dayOfWeek.
+     */
+    public void showSortedTimes(List<TaskWithMultipleWeeklyPeriod> list, DayOfWeek dayOfWeek) {
+        showLine();
+        for (TaskWithMultipleWeeklyPeriod task : list) {
+            String taskNameAndPeriods = task.getName() + task.onWeekDayToString(dayOfWeek);
+            System.out.println(taskNameAndPeriods);
         }
     }
 
