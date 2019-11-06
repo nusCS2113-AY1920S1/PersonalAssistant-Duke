@@ -97,7 +97,10 @@ public class CommandWeather extends Command {
                     for (Map.Entry<String, String> weatherEntry : weather.getValue().entrySet()) {
                         String field = weatherEntry.getKey();
                         String value = weatherEntry.getValue();
-                        outputStr.append(field + " : " + value+"\n");
+                        outputStr.append(field
+                                + " : "
+                                + value
+                                + "\n");
                     }
                     outputStr.append("\n");
                 }

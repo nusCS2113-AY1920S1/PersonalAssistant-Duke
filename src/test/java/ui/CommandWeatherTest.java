@@ -25,5 +25,15 @@ public class CommandWeatherTest {
                 + "2. weather /until later \n"
                 + "3. weather /until tomorrow \n";
         assertTrue(c2.getInfoCapsule().getOutputStr().contains(error1));
+        CommandWeather c3 = new CommandWeather("weather /until now");
+        c3.execute(storageManager);
+        String description = "Command that displays weather for now, tomorrow or later \n"
+                + "FORMAT : weather /until <period> \n";
+        assertEquals(CommandType.WEATHER, c3.getCommandType());
+        assertEquals(description, c3.getDescription());
+        String headerMessage = "Duke$$$ has predicted the following weather forecast :\n\n";
+        assertTrue(c3.getInfoCapsule().getOutputStr().contains(headerMessage));
+        assertTrue(c3.getInfoCapsule().getOutputStr().contains("Minimum Temperature in Degrees Celsius"));
+
     }
 }
