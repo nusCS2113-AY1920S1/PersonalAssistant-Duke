@@ -19,7 +19,7 @@ public class ListRemindersCommand extends Command {
         ArrayList<Task> tasks = model.getTaskList();
         ArrayList<Task> reminderTasks = new ArrayList<Task>();
 
-        for (int i = 0; i < tasks.size(); i++)  {
+        for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).getReminder() != null) {
                 reminderTasks.add(tasks.get(i));
             }
@@ -28,7 +28,7 @@ public class ListRemindersCommand extends Command {
         String reminders = "";
 
         SimpleDateFormat sdf = new SimpleDateFormat("EEE dd-MM-yyyy HH:mm'H'");
-        for (int i = 0; i < reminderTasks.size(); i++)  {
+        for (int i = 0; i < reminderTasks.size(); i++) {
             reminders += "" + (i + 1) + ". At " + sdf.format(reminderTasks.get(i).getReminder()) + ":\n";
             reminders += reminderTasks.get(i).toString() + '\n';
         }

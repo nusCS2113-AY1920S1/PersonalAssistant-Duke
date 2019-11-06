@@ -7,8 +7,8 @@ import logic.command.ReminderCommand;
 //@@author AugGust
 public class ReminderCommandParser {
     /**
-     * parses arguments of addtask into a multimap
-     * */
+     * parses arguments of reminders
+     */
     public static ReminderCommand parseReminder(String userInput) throws DukeException {
         String[] splites = userInput.split(" ");
         if (splites.length != 2) {
@@ -25,8 +25,12 @@ public class ReminderCommandParser {
             throwSyntaxError();
         }
 
+        if (beforeInt < 0) {
+            throw new DukeException("You can't set reminders after the task!");
+        }
+
         char beforeMult = splites[1].charAt(splites[1].length() - 1);
-        if (beforeMult != 'm' && beforeMult != 'h' && beforeMult != 'd')    {
+        if (beforeMult != 'm' && beforeMult != 'h' && beforeMult != 'd') {
             throw new DukeException("Specify m (minutes), h (hours) or d (days)");
         }
         return new ReminderCommand(taskIndex, beforeInt, beforeMult);
