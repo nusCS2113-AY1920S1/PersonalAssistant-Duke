@@ -1,6 +1,6 @@
 Let us look at a simple code that will print the words Hello World.
 
-Example
+Example:
 
 public class MyFirstJavaProgram {
 
@@ -15,4 +15,4 @@ public class MyFirstJavaProgram {
 To compile the program :
 1) navigate to the directory of the java file in the terminal
 2) compile the program by typing : javac MyFirstJavaProgram.java
-3)To run the program, simply enter: java MyFirstJavaProgram
+3) to run the program, simply enter: java MyFirstJavaProgram

@@ -7,10 +7,6 @@ import javacake.ui.Ui;
 
 public class BackCommand extends Command {
 
-    public BackCommand() {
-
-    }
-
     /**
      * Constructor for BackCommand.
      * Checks that no parameters are included.

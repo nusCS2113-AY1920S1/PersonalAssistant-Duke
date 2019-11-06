@@ -132,6 +132,7 @@ public class MainWindow extends GridPane {
     /**
      * Creates two dialog boxes, one echoing user input and the other containing JavaCake's reply
      * and then appends them to the dialog container. Clears the user input after processing.
+     * If quiz is in session, no other commands are executed
      */
     @FXML
     private void handleUserInput() {
@@ -147,6 +148,8 @@ public class MainWindow extends GridPane {
                 AvatarScreen.avatarMode = AvatarScreen.AvatarMode.HAPPY;
                 if (input.equals("exit")) {
                     handleExit();
+                } if (isQuiz) {
+                    handleOtherProcesses();
                 } else if (input.equals("listnote")) {
                     handleListNote();
                 } else if (inputDivider[0].equals("deletenote")) {
@@ -210,7 +213,11 @@ public class MainWindow extends GridPane {
     private void handleOtherProcesses() throws CakeException {
         JavaCake.logger.log(Level.INFO, "executing normal(else) mode!");
         response = javaCake.getResponse(input);
-        if (isDeadlineRelated()) {
+        if (isFirstQuiz()) {
+            JavaCake.logger.log(Level.INFO, "First Quiz Incoming!");
+        } else if (isQuiz) {
+            handleQuiz();
+        } else if (isDeadlineRelated()) {
             //handles "deadline" and "reminder"
             JavaCake.logger.log(Level.INFO, "deadline setting");
         } else if (isColorRelated()) {
@@ -229,8 +236,6 @@ public class MainWindow extends GridPane {
             } else {
                 handleNormalCommand();
             }
-        } else if (isQuiz) {
-            handleQuiz();
         }
     }
 
@@ -309,27 +314,6 @@ public class MainWindow extends GridPane {
         response = EditNoteCommand.getHeadingMessage();
         //response.setEditable(false);
         DialogBox.isScrollingText = false;
-        /*dialogContainer.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                    if(mouseEvent.getClickCount() == 2){
-                        //label.setVisible(false);
-                        //TextArea textarea = new TextArea(label.getText());
-                        //textarea.setPrefHeight(label.getHeight() + 10);
-                        //stackpane.getChildren().add(textarea);
-
-                        textarea.setOnKeyPressed(event ->{
-                            System.out.println(event.getCode());
-                            if(event.getCode().toString().equals("ENTER"))
-                            {
-                                stackpane.getChildren().remove(textarea);
-                                label.setVisible(true);
-                            }
-                        });
-                    }
-            }
-        });*/
         showContentContainer();
         EditNoteCommand.clearTextFileContent();
     }
@@ -503,6 +487,7 @@ public class MainWindow extends GridPane {
         timeline.play();
     }
 
+
     private boolean isColorRelated() throws CakeException {
         if (input.equals("change")) {
             isChanged = true;
@@ -513,7 +498,7 @@ public class MainWindow extends GridPane {
         return false;
     }
 
-    private boolean isDeadlineRelated() {
+    private boolean isDeadlineRelated() throws CakeException {
         if (input.length() >= 8 && input.substring(0, 8).equals("deadline")) {
             //response = JavaCake.getResponse(input);
             System.out.println(response);
@@ -608,7 +593,7 @@ public class MainWindow extends GridPane {
         showNoteContainer();
     }
 
-    private void showRemindersBox() {
+    private void showRemindersBox() throws CakeException {
         response = Ui.showDeadlineReminder(JavaCake.storageManager);
         //CHECKSTYLE:OFF
         response = response.replaceAll("✓", "\u2713");
