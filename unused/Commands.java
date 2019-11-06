@@ -155,7 +155,7 @@
 //        ui.showDone(items, index);
 //    }
 
-//@@author maxxyx96-unused
+//@@author e0318465-unused
 /**
  * Code snippet from DuplicateFoundCommand
  */
@@ -218,7 +218,7 @@
 
 //@@author talesrune-unused
 /**
- * Code snippet from ListContactsCommand
+ * Code snippet from ListCommand
  */
 //    /**
 //     * Executes a command that gathers all tasks from task list and outputs the result.
