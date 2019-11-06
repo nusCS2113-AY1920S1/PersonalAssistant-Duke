@@ -40,14 +40,16 @@ public class EditCommand extends Command {
             + "/description , /date . /start, /end , /priority";
 
     //@@author jaedonkey
+
     /**
      * Constructs an edit command object.
-     * @param taskId id of task to edit
+     *
+     * @param taskId      id of task to edit
      * @param description new description
-     * @param date new date
-     * @param startTime new start time
-     * @param endTime new end time
-     * @param priority new priority level
+     * @param date        new date
+     * @param startTime   new start time
+     * @param endTime     new end time
+     * @param priority    new priority level
      */
     public EditCommand(int taskId, String description, Date date, String startTime, String endTime,
                        Task.Priority priority) {
@@ -65,12 +67,10 @@ public class EditCommand extends Command {
         logger.info("Executing edit command");
         Task toEdit;
         try {
-           toEdit = taskList.getTaskById(taskId);
+            toEdit = taskList.getTaskById(taskId);
         } catch (NullPointerException e) {
-                throw new CommandException(invalidTaskIdMsg);
+            throw new CommandException(invalidTaskIdMsg);
         }
-
-
 
 
         if (description == null && date == null && startTime == null && endTime == null && priority == null) {
@@ -102,7 +102,6 @@ public class EditCommand extends Command {
 
         return new CommandResult("Your task has been edited:\n" + toEdit.toString(), true);
     }
-
 
 
 }
