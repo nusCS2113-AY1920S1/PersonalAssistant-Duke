@@ -121,7 +121,7 @@ Given below is an example usage scenario and how the `RecurringCommand` class be
 The user types in `recurring 1 1 1`. The `parse` method in `CommandParser` class is called to parse the command to obtain integers `1` as the `Index` of the `Task` in `TaskList`, `1` as the `number of recurrences` and `1` as the `frequency` of recurrence.
 
 [WARNING]
-`OofException` will be thrown if the user enters invalid commands.
+Customised `MissingArgumentException` and `InvalidArgumentException` will be thrown if the user enters invalid commands.
 
 *Step 2.* +
 A new instance of `RecurringCommand` class is returned to the main `Oof` program with the parameters `1, 1, 1` as described above. The `execute` method of `RecurringCommand` class is then called.
