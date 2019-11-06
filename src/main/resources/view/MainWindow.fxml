@@ -38,7 +38,7 @@
           <Menu mnemonicParsing="false" text="View">
             <items>
               <MenuItem id="budgetMenu" fx:id="menuBudget" mnemonicParsing="false" onAction="#createBudgetWindow" text="Budget" />
-                  <MenuItem mnemonicParsing="false" text="Blank" />
+                  <MenuItem fx:id="menuContacts" mnemonicParsing="false" onAction="#createContactsWindow" text="Contacts" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -67,7 +67,6 @@
                         <Tab text="All" />
                       <Tab text="Todo" />
                       <Tab text="Deadline" />
-                        <Tab text="Repeat" />
                         <Tab text="FixedDuration" />
                     </tabs>
                      <opaqueInsets>

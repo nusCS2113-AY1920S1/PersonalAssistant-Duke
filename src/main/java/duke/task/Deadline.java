@@ -33,9 +33,8 @@ public class Deadline extends Task {
             dateTime = datetimeFormat.parse(by);
             this.by = dateTime;
         } catch (ParseException e) {
-            logr.log(Level.WARNING,"Error reading date/time, please use this format \"d/MM/yyyy HHmm\"", e);
-            System.out.println("Error reading date/time, please use this format \"d/MM/yyyy HHmm\"");
-            throw new DukeException("Error reading date/time, please use this format \"d/MM/yyyy HHmm\"");
+            logr.log(Level.WARNING,"Error reading date/time, please use this format \"dd/MM/yyyy HHmm\"", e);
+            throw new DukeException("Error reading date/time, please use this format \"dd/MM/yyyy HHmm\"");
         }
     }
 
@@ -139,8 +138,8 @@ public class Deadline extends Task {
             dateTime = datetimeFormat.parse(by);
             this.by = dateTime;
         } catch (ParseException e) {
-            logr.log(Level.WARNING,"Error reading date/time, please use this format \"d/MM/yyyy HHmm\"", e);
-            System.out.println("Error reading date/time, please use this format \"d/MM/yyyy HHmm\"");
+            logr.log(Level.WARNING,"Error reading date/time, please use this format \"dd/MM/yyyy HHmm\"", e);
+            System.out.println("Error reading date/time, please use this format \"dd/MM/yyyy HHmm\"");
             throw e;
         }
     }
