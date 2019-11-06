@@ -62,7 +62,7 @@ public class TaskList {
                 return t;
             }
         }
-        throw null;
+        return null;
     }
 
     //@@author jaedonkey

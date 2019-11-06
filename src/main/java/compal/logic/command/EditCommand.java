@@ -34,8 +34,10 @@ public class EditCommand extends Command {
     private Task.Priority priority;
     private static final Logger logger = LogUtils.getLogger(EditCommand.class);
     private static final String deadlineStartDateMsg = "Deadline has no start time! Please omit /start <date>!";
-    private static final String noValidEditsString = "No valid editable fields found! Please include one of the following:\" +\n" +
-            "                    \"/description , /date . /start, /end , /priority";
+    private static final String invalidTaskIdMsg = "Task ID invalid! Please try again!";
+    private static final String noValidEditsMsg = "No valid editable fields found! Please include one of the "
+            + "following:"
+            + "/description , /date . /start, /end , /priority";
 
     //@@author jaedonkey
     /**
@@ -62,10 +64,13 @@ public class EditCommand extends Command {
     public CommandResult commandExecute(TaskList taskList) throws CommandException {
         logger.info("Executing edit command");
         Task toEdit = taskList.getTaskById(taskId);
+        if (toEdit == null) {
+            throw new CommandException(invalidTaskIdMsg);
+        }
 
 
         if (description == null && date == null && startTime == null && endTime == null && priority == null) {
-            throw new CommandException(noValidEditsString);
+            throw new CommandException(noValidEditsMsg);
         }
 
 
@@ -81,8 +86,7 @@ public class EditCommand extends Command {
             System.out.println("c");
             if (!toEdit.getSymbol().equalsIgnoreCase("D")) {
                 toEdit.setStartTime(startTime);
-            }
-            else {
+            } else {
                 throw new CommandException(deadlineStartDateMsg);
             }
 
