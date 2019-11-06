@@ -2,7 +2,6 @@ package duke.logic.commands;
 
 import duke.exceptions.DukeException;
 import duke.models.LockerList;
-import duke.models.locker.Usage;
 import duke.models.locker.Locker;
 import duke.models.locker.SerialNumber;
 import duke.models.tag.Tag;
@@ -19,8 +18,8 @@ public class DeleteUsageCommand extends Command {
 
     @Override
     public void execute(LockerList lockerList, Ui ui, FileHandling storage) throws DukeException {
-        Locker lockerToDelete = CommandCheck.getLockerToEdit(lockerList,serialNumberToDeleteUsage);
-        if (!(lockerToDelete.getUsage().isPresent() && lockerToDelete.getTag().equals(new Tag(Tag.IN_USE)))) {
+        Locker lockerToDelete = lockerList.getLockerToEdit(serialNumberToDeleteUsage);
+        if (!(lockerToDelete.isOfTypeInUse())) {
             throw new DukeException(" usage of only an in-use locker can be deleted");
         }
         lockerList.addLockerInPosition(new Locker(lockerToDelete.getSerialNumber(),

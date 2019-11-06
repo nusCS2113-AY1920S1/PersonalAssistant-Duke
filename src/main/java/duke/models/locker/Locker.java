@@ -5,6 +5,7 @@ package duke.models.locker;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
+import duke.exceptions.DukeException;
 import duke.models.tag.Tag;
 
 
@@ -66,12 +67,20 @@ public class Locker {
         tag.tagName = Tag.IN_USE;
     }
 
+    public boolean isOfTypeInUse() throws DukeException {
+        return getUsage().isPresent() && getTag().equals(new Tag(Tag.IN_USE));
+    }
+
+    public boolean hasSameTagAs(Tag checkTag) {
+        return getTag().equals(checkTag);
+    }
+
     /**
      * checks if the locker is already present in the lockerList.
      * @param other to check if the object is already present
      * @return true if the object is present, false otherwise
      */
-    public boolean isPresent(Object other) {
+    public boolean hasSameSerialNumber(Object other) {
         if (other == this) {
             return true;
         }

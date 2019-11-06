@@ -4,9 +4,7 @@ import duke.exceptions.DukeException;
 import duke.models.LockerList;
 import duke.models.locker.Usage;
 import duke.models.locker.Locker;
-import duke.models.locker.LockerDate;
 import duke.models.locker.Zone;
-import duke.models.student.Student;
 import duke.models.tag.Tag;
 import duke.storage.FileHandling;
 import duke.ui.Ui;
@@ -65,11 +63,6 @@ public class AssignLockerCommand extends Command {
                 && p.getZone().equals(zone);
     }
 
-    private Predicate<Locker> findLockersInAnyZone() throws DukeException {
-        Tag checkTag = new Tag(Tag.NOT_IN_USE);
-        return p -> p.getTag().equals(checkTag);
-    }
-
     private Locker getFreeLocker(LockerList lockerList, Ui ui) throws DukeException {
         for (Zone zone: preferences) {
             List<Locker> freeLockersInZone = lockerList.getMatchingLockers(
@@ -81,9 +74,7 @@ public class AssignLockerCommand extends Command {
         //If the control reaches here, that means SpongeBob was unable to allocate
         //any Lockers in the given preferences and hence we will arbitrarily
         //assign any locker that is free
-        List<Locker> freeLockersInAnyZone = lockerList.getMatchingLockers(
-                findLockersInAnyZone());
-
+        List<Locker> freeLockersInAnyZone = lockerList.getAnyAvailableLocker(new Tag(Tag.NOT_IN_USE));
         if (freeLockersInAnyZone.size() == 0) {
             throw new DukeException(" There are no available lockers at the moment.");
         }

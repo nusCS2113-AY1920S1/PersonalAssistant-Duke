@@ -55,18 +55,20 @@ public class EditLockerCommand extends Command {
     }
 
     private Locker editLockerDetails(LockerList lockerList, Ui ui) throws DukeException {
-        Locker lockerToEdit = CommandCheck.getLockerToEdit(lockerList,serialNumberOfLockerToEdit);
+        Locker lockerToEdit = lockerList.getLockerToEdit(serialNumberOfLockerToEdit);
         Locker editedLocker = createEditedLocker(lockerToEdit,editLocker);
-        if (!(editedLocker.getSerialNumber().equals(lockerToEdit.getSerialNumber()))) {
-            CommandCheck.isAlreadyPresent(editedLocker.getSerialNumber(),lockerList);
+        if (!(editedLocker.hasSameSerialNumber(lockerToEdit))) {
+            if (lockerList.isPresentLocker(editedLocker)) {
+                throw new DukeException(" Duplicate entries not allowed. The serial number "
+                        + "should be unique.");
+            }
         }
 
         if (!validationChecks(lockerToEdit,editedLocker)) {
             throw new DukeException(EDIT_LOCKER_ERROR);
         }
 
-
-        if (isOfTypeInUseLocker(lockerToEdit) && !isOfTypeInUseLocker(editedLocker)) {
+        if (lockerToEdit.isOfTypeInUse() && !editedLocker.isOfTypeInUse()) {
             assignNewLocker(lockerToEdit, lockerList, ui);
         }
         lockerList.addLockerInPosition(editedLocker,lockerList.getIndexOfLocker(lockerToEdit));
@@ -76,7 +78,7 @@ public class EditLockerCommand extends Command {
 
     private void assignNewLocker(Locker lockerToEdit, LockerList lockerList, Ui ui) throws DukeException {
         assert lockerToEdit.getUsage().isPresent();
-        List<Locker> getFreeLockers = CommandCheck.findLockersInAnyZone(lockerList);
+        List<Locker> getFreeLockers = lockerList.getAnyAvailableLocker(new Tag(Tag.NOT_IN_USE));
         if (getFreeLockers.size() == 0) {
             ui.showNoAvailableLockers();
         } else {
@@ -93,16 +95,17 @@ public class EditLockerCommand extends Command {
     private boolean validationChecks(Locker lockerToEdit,Locker editedLocker) throws DukeException {
         Tag testInUse = new Tag(Tag.IN_USE);
         Tag testBroken = new Tag(Tag.BROKEN);
-        if (lockerToEdit.getTag().equals(editedLocker.getTag())) {
+
+        if (lockerToEdit.hasSameTagAs(editedLocker.getTag())) {
             return true;
         }
 
-        if (editedLocker.getTag().equals(testInUse)) {
+        if (editedLocker.hasSameTagAs(testInUse)) {
             return false;
         }
 
-        if (lockerToEdit.getTag().equals(testInUse)
-                && !(editedLocker.getTag().equals(testBroken))) {
+        if (lockerToEdit.hasSameTagAs(testInUse)
+                && !(editedLocker.hasSameTagAs(testBroken))) {
             return false;
         }
         return true;
@@ -118,13 +121,6 @@ public class EditLockerCommand extends Command {
         Usage usage = lockerToEdit.getUsage().orElse(null);
 
         return new Locker(editedSerialNumber,editedAddress,editedZone,editedTag,usage);
-    }
-
-    private boolean isOfTypeInUseLocker(Locker locker) throws DukeException {
-        if (locker.getTag().equals(new Tag(Tag.IN_USE))) {
-            return true;
-        }
-        return false;
     }
 
     public static class EditLocker {

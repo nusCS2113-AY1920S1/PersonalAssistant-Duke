@@ -57,8 +57,9 @@ public class SerialNumber {
     public boolean equals(Object other) {
         return other == this //short circuit if the two objects are the same
                 || (other instanceof SerialNumber //handles all cases for null
-                && serialNumberForLocker.equals(((SerialNumber) other)
-                .serialNumberForLocker)); //checks for equality
+                && serialNumberForLocker.replaceFirst("^0+(?!$)", "")
+                .equals(((SerialNumber) other).serialNumberForLocker
+                        .replaceFirst("^0+(?!$)", ""))); //checks for equality while ignoring leading zeroes
     }
 
     @Override

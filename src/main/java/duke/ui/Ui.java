@@ -70,13 +70,13 @@ public class Ui {
 
     /**
      * This function tells the user that SpongeBob has added the locker into the list.
-     * @param listOfLockers used for printing the number of lockers in the list
+     * @param size used for printing the number of lockers in the list
      * @param lockerA stores the locker that is added to the list
      */
-    public void printAddLocker(List<Locker> listOfLockers, String lockerA) {
+    public void printAddLocker(int size, String lockerA) {
         printSpaces(" Got it. I have added this locker: ");
         printSpaces(" " + lockerA);
-        printSpaces(" Now, Spongebob is managing " + listOfLockers.size() + " lockers");
+        printSpaces(" Now, Spongebob is managing " + size + " lockers");
         printDash();
     }
 

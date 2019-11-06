@@ -18,7 +18,7 @@ public class DeleteLockerCommand extends Command {
 
     @Override
     public void execute(LockerList lockerList, Ui ui, FileHandling storage) throws DukeException {
-        Locker lockerToDelete = CommandCheck.getLockerToEdit(lockerList,serialNumberToDelete);
+        Locker lockerToDelete = lockerList.getLockerToEdit(serialNumberToDelete);
         lockerList.deleteLocker(lockerToDelete);
         ui.deleteMessage(lockerList.numLockers(), lockerToDelete.toString());
         storage.saveData(lockerList);

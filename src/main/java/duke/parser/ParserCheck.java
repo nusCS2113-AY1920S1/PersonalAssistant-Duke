@@ -79,7 +79,7 @@ public class ParserCheck {
         requireNonNull(size);
         try {
             int numLockers = Integer.parseInt(size.trim());
-            if (numLockers < 0 || numLockers > 30) {
+            if (numLockers <= 0 || numLockers > 30) {
                 throw new DukeException(" Please enter a positive number within the range of 1 to 30");
             }
             return numLockers;

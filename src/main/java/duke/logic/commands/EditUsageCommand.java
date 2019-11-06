@@ -11,7 +11,6 @@ import duke.models.student.Major;
 import duke.models.student.MatricNumber;
 import duke.models.student.Name;
 import duke.models.student.Student;
-import duke.models.tag.Tag;
 import duke.parser.ParserCheck;
 import duke.storage.FileHandling;
 import duke.ui.Ui;
@@ -50,17 +49,14 @@ public class EditUsageCommand extends Command {
     }
 
     private Locker editUsageDetails(LockerList lockerList) throws DukeException {
-        Locker lockerToEdit = CommandCheck.getLockerToEdit(lockerList,
-                serialNumberToEdit);
+        Locker lockerToEdit = lockerList.getLockerToEdit(serialNumberToEdit);
         int storeIndex = lockerList.getIndexOfLocker(lockerToEdit);
-        Tag tag = new Tag(Tag.IN_USE);
-        if (!lockerToEdit.getTag().equals(tag)) {
+        if (!lockerToEdit.isOfTypeInUse()) {
             throw new DukeException(" You are allowed to edit usage of only type In-Use Locker");
         }
         Locker editedLocker = getEditedLocker(lockerToEdit);
         lockerList.addLockerInPosition(editedLocker,storeIndex);
         return editedLocker;
-
     }
 
     private Locker getEditedLocker(Locker lockerToEdit) throws DukeException {

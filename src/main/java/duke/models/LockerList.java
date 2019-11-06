@@ -2,7 +2,10 @@ package duke.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import duke.exceptions.DukeException;
 import duke.models.locker.Locker;
+import duke.models.locker.SerialNumber;
+import duke.models.tag.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +29,7 @@ public class LockerList {
 
     public boolean isPresentLocker(Locker newLocker) {
         return lockerList.stream()
-                .anyMatch(locker -> locker.isPresent(newLocker));
+                .anyMatch(locker -> locker.hasSameSerialNumber(newLocker));
     }
 
     /**
@@ -42,6 +45,33 @@ public class LockerList {
             }
         }
         return false;
+    }
+
+    /**
+     * returns all the lockers that match a given property.
+     * @param isMatching stores the predicate for matching
+     * @return list of lockers that match the given predicate
+     */
+    public List<Locker> getMatchingLockers(Predicate<Locker> isMatching) {
+        return lockerList.stream()
+                .filter(isMatching)
+                .collect(Collectors.toList());
+    }
+
+    public List<Locker> getAnyAvailableLocker(Tag availableTag) {
+        return lockerList.stream()
+                .filter(locker -> locker.getTag().equals(availableTag))
+                .collect(Collectors.toList());
+    }
+
+    public Locker getLockerToEdit(SerialNumber serialNumber) throws DukeException {
+        List<Locker> checkAllLockers = lockerList.stream()
+                .filter(locker -> locker.getSerialNumber().equals(serialNumber))
+                .collect(Collectors.toList());
+        if (checkAllLockers.size() == 0) {
+            throw new DukeException(" There are no lockers associated to the serial number entered");
+        }
+        return checkAllLockers.get(0);
     }
 
     public void addLocker(Locker locker) {
@@ -70,17 +100,6 @@ public class LockerList {
 
     public int numLockers() {
         return lockerList.size();
-    }
-
-    /**
-     * returns all the lockers that match a given property.
-     * @param isMatching stores the predicate for matching
-     * @return list of lockers that match the given predicate
-     */
-    public List<Locker> getMatchingLockers(Predicate<Locker> isMatching) {
-        return lockerList.stream()
-                .filter(isMatching)
-                .collect(Collectors.toList());
     }
 
     public List<Locker> getAllLockers() {
