@@ -434,4 +434,25 @@ public class TaskCreator {
             oldTask.setRecurrenceSchedule(recurrence);
         }
     }
+
+    /**
+     * Updates the date of the overdue task
+     *
+     * @param input user's input of the date
+     * @param overdueTask the task which date needs to be updated
+     */
+    public void rescheduleTask(String input, Task overdueTask) throws RoomShareException {
+        ArrayList<Date> dates = this.extractDate(input);
+        if (overdueTask instanceof Leave && dates.size() == 2) {
+            Leave oldLeave = (Leave) overdueTask;
+            Date start = dates.get(0);
+            Date end = dates.get(1);
+            oldLeave.setDate(start);
+            oldLeave.setStartDate(start);
+            oldLeave.setEndDate(end);
+        } else {
+            Date date = dates.get(0);
+            overdueTask.setDate(date);
+        }
+    }
 }
