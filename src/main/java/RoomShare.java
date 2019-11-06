@@ -126,10 +126,13 @@ public class RoomShare {
             case restore:
                 Ui.clearScreen();
                 ui.startUp();
+                ui.showRestoreList();
                 try {
                     String input = parser.getCommandLine();
+                    tempDeleteList.list();
                     int restoreIndex = parser.getIndex(input);
                     tempDeleteList.restore(restoreIndex, taskList);
+
                     storage.writeFile(TaskList.currentList(), "data.txt");
                 } catch (RoomShareException e) {
                     storage.writeFile(TaskList.currentList(), "data.txt");
@@ -177,7 +180,6 @@ public class RoomShare {
                         if( !(CheckAnomaly.checkDuplicate((taskCreator.create(input)))) ) {
                             taskList.add(taskCreator.create(input));
                             ui.showAdd();
-                            storage.writeFile(TaskList.currentList(), "data.txt");
                         } else {
                             throw new RoomShareException(ExceptionType.duplicateTask);
                         }
@@ -186,6 +188,7 @@ public class RoomShare {
                     }
                 } catch (RoomShareException e) {
                     ui.showError(e);
+                } finally {
                     storage.writeFile(TaskList.currentList(), "data.txt");
                 }
                 listRoutine.list();

@@ -7,6 +7,7 @@ public enum ExceptionType {
     wrongTaskType,
     wrongFormat,
     wrongPriority,
+    wrongDateFormat,
     negativeTimeAmount,
 
     timeClash,
@@ -29,5 +30,7 @@ public enum ExceptionType {
     loadError,
 
     invalidInputString,
+    invalidDateRange,
+    emptyIndex,
     invalidDateError
     }
