@@ -112,10 +112,7 @@ public class Goals {
     }
 
     boolean savingAccNotTied() {
-        if (savingAccount == null) {
-            return true;
-        }
-        return false;
+        return savingAccount == null;
     }
 
     /**
