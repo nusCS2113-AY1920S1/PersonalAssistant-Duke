@@ -48,7 +48,13 @@ public class SearchThenAddCommand extends ModuleCommand {
                 String upperModuleCode = moduleCode.toUpperCase().trim();
                 if (detailedMap.containsKey(upperModuleCode)) {
                     ModuleInfoDetailed mod = detailedMap.get(upperModuleCode);
-                    ModuleTask temp = new ModuleTask(upperModuleCode, mod);
+                    ModuleTask temp;
+                    if (arg("begin") != null) {
+                        temp = new ModuleTask(upperModuleCode, mod, arg("begin"), arg("end"),
+                                arg("dayOfWeek"));
+                    } else {
+                        temp = new ModuleTask(upperModuleCode, mod);
+                    }
                     HashSet<ModuleTask> checkSet = tasks.getSetModuleTask();
                     if (checkSet.contains(temp)) {
                         throw new ModClashesException();

@@ -24,5 +24,4 @@ public class ShowTest extends InputTest {
         CliLauncher.main(hold);
         assertEquals(outContent, outContent);
     }
-
 }
