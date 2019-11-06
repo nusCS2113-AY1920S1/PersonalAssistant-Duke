@@ -25,6 +25,15 @@ public class RoomListBox extends HBox {
     @FXML
     private Label timeEndLabel;
 
+    /**
+     * For displaying room related information.
+     * @param index Index of room in the list
+     * @param room room code
+     * @param date active date
+     * @param timeStart active time start
+     * @param timeEnd active time end
+     * @throws DukeException when input does not exist or invalid
+     */
     public RoomListBox(String index, String room, String date, String timeStart, String timeEnd) throws DukeException {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Ui.class.getResource("/view/RoomListBox.fxml"));

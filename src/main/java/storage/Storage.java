@@ -90,6 +90,11 @@ public class Storage {
         fileOutputStream.close();
     }
 
+    /**
+     * To write to file for users.
+     * @param userList list of users
+     * @throws IOException entry error
+     */
     public void saveToFile(UserList userList) throws IOException {
         FileOutputStream fileOutputStream = new FileOutputStream(fileToRead);
         String toWrite = "";

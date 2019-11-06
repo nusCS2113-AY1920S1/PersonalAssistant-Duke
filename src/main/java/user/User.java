@@ -5,7 +5,7 @@ public class User {
     public String username;
 
     /**
-     * Create new user account
+     * Create new user account.
      * @param username preferably name of the user
      */
     public User(String username) {

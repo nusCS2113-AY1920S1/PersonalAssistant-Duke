@@ -1,6 +1,7 @@
 
 package command;
 
+import booking.ApprovedList;
 import inventory.Inventory;
 
 import booking.Booking;
@@ -36,16 +37,20 @@ public class FindBookingCommand extends Command {
     }
 
     @Override
-    public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage)
+    public void execute(UserList userList, Inventory inventory, RoomList roomList,
+                        BookingList bookingList, ApprovedList approvedList, Ui ui,
+                        Storage userStorage, Storage inventoryStorage,
+                        Storage bookingstorage, Storage roomstorage, Storage approvestorage)
             throws DukeException, IOException, ParseException {
         boolean found = false;
-        for(int i = 0; i < bookingList.size(); i++) {
+        for (int i = 0; i < bookingList.size(); i++) {
             if (bookingList.get(i).getDescription().contains(textToFind)) {
                 found = true;
                 ui.addToOutput(i + 1 + ". " + bookingList.get(i).toString());
             }
         }
-        if (!found) ui.addToOutput("No items match your search!");
+        if (!found) {
+            ui.addToOutput("No items match your search!");
+        }
     }
 }

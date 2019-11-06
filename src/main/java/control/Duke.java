@@ -1,5 +1,6 @@
 package control;
 
+import booking.ApprovedList;
 import command.Command;
 import exception.DukeException;
 import inventory.Inventory;
@@ -24,14 +25,16 @@ public class Duke {
     private final User user;
     private Storage bookingStorage;
     private BookingList bookingList;
+    private ApprovedList approveList;
     private RoomList roomList;
-    private UserList userList;
+    private static UserList userList;
     private Ui ui;
     private boolean isExit;
     private Storage roomStorage;
     private Inventory inventory;
     private Storage inventoryStorage;
     private Storage userStorage;
+    private Storage approveStorage;
 
 
     /**
@@ -93,7 +96,8 @@ public class Duke {
         try {
             ui.setOutput("");
             Command c = Parser.parse(input);
-            c.execute(userList, inventory, roomList, bookingList, ui, userStorage, inventoryStorage, bookingStorage, roomStorage);
+            c.execute(userList, inventory, roomList, bookingList, approveList, ui,
+                    userStorage, inventoryStorage, bookingStorage, roomStorage, approveStorage);
             System.out.println(ui.getOutput());
             return ui.getOutput();
         } catch (DukeException | IOException | ParseException e) {
@@ -110,7 +114,11 @@ public class Duke {
         return roomList;
     }
 
-    public UserList getUserList() {
+    /*public UserList getUserList() {
+        return userList;
+    }*/
+
+    public static UserList getUserList() {
         return userList;
     }
 }

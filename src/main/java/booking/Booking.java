@@ -1,11 +1,15 @@
 package booking;
 
+import exception.DukeException;
+import user.UserList;
+
 import java.time.ZoneId;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 public class Booking {
@@ -17,6 +21,7 @@ public class Booking {
     protected String name;
     private String description;
     private String status;
+    //private String currentUser;
     private String approvedBy;
 
     /**
@@ -27,16 +32,24 @@ public class Booking {
      * @param dateTimeStart when you are booking the facility
      * @param dateTimeEnd   when your booked period ends
      */
-    public Booking(String username, String roomcode, String description, String dateTimeStart, String dateTimeEnd) {
+    public Booking(String username, String roomcode, String description, String dateTimeStart,
+                   String dateTimeEnd, String approvedBy) throws DukeException {
         this.venue = roomcode;
-        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
-        this.dateTimeStart = LocalDateTime.parse(dateTimeStart, formatterStart);
-        this.dateStart = this.dateTimeStart.toLocalDate();
-        this.timeEnd = LocalTime.parse(dateTimeEnd, formatterEnd);
-        this.description = description;
-        this.name = username;
-        this.status = "P";
+        try {
+            DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+            DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
+            this.dateTimeStart = LocalDateTime.parse(dateTimeStart, formatterStart);
+            this.dateStart = this.dateTimeStart.toLocalDate();
+            this.timeEnd = LocalTime.parse(dateTimeEnd, formatterEnd);
+            this.description = description;
+            this.name = username;
+            this.status = "P";
+            this.approvedBy = approvedBy;
+        } catch (DateTimeParseException error) {
+            throw new DukeException("Not able to parse the date for all patterns given, "
+        + "please use this format: add NAME DESCRIPTION /at ROOM_CODE /from DATE TIMESTART /to TIMEEND"
+        + ", DATE TIMESTART format is dd/mm/yyyy HHMM, TIMEEND is HHMM");
+        }
     }
 
     /**
@@ -48,7 +61,8 @@ public class Booking {
      * @param atEnd end date and time
      * @param status request status
      */
-    public Booking(String username, String roomcode, String description, String atStart, String atEnd, String status) {
+    public Booking(String username, String roomcode, String description, String atStart,
+                   String atEnd, String status, String approvedBy) {
         this.venue = roomcode;
         this.description = description;
         Date storedStart = new Date(Long.parseLong(atStart));
@@ -58,7 +72,8 @@ public class Booking {
         this.timeEnd = storedEnd.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
         this.name = username;
         this.status = status;
-        this.approvedBy = null;
+        //this.currentUser = currentuSer;
+        this.approvedBy = approvedBy;
     }
 
     /**
@@ -82,7 +97,7 @@ public class Booking {
         Date storeTimeEnd = Date.from(timeEndInstant);
         return this.name + " | " + this.venue + " | " + this.description + " | "
                 + storeTimeStart.getTime() + " | "
-                + storeTimeEnd.getTime() + " | " + this.status + "\n";
+                + storeTimeEnd.getTime() + " | " + this.status + " | " + this.approvedBy + "\n";
     }
 
     public LocalDateTime getDateTimeStart() {
@@ -132,6 +147,16 @@ public class Booking {
     public String getDescription() {
         return description;
     }
+
+    /*
+    public void setCurrentUser(String currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    public String getCurrentUser() {
+        return currentUser;
+    }*/
+
 
     public void approveStatus(String username) {
         status = "A";

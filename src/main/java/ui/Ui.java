@@ -112,6 +112,11 @@ public class Ui extends AnchorPane {
                 userLabel.setText("Not Logged In");
             }
             break;
+            /*
+            case "listapprove":
+                listContainer.getChildren().clear();
+                BookingList approveList = duke.getBookingList();
+                showList(listApprove);*/
         }
     }
 
@@ -130,11 +135,12 @@ public class Ui extends AnchorPane {
                 "To", "Status", "Purpose", "Approved/ Rejected By:"));
         Integer index = 1;
         for (Booking i : bookingList) {
-            addToList(customListBox(i, index));
+            addToList(customListBox(bookingList, i, index));
             index++;
         }
     }
-    private void showListDay (BookingList bookingList, String date) throws DukeException {
+
+    private void showListDay(BookingList bookingList, String date) throws DukeException {
         addToList(new ListBox("S/N", "Name", "Venue", "Date", "From",
                 "To", "Status", "Purpose", "Approved/ Rejected By:"));
         Integer index = 1;
@@ -142,13 +148,13 @@ public class Ui extends AnchorPane {
         LocalDate dateStart = LocalDate.parse(date, formatterStart);
         for (Booking i : bookingList) {
             if (i.getDateStart() == dateStart) {
-                addToList(customListBox(i, index));
+                addToList(customListBox(bookingList, i, index));
                 index++;
             }
         }
     }
 
-    private void showListYear (BookingList bookingList, String date) throws DukeException {
+    private void showListYear(BookingList bookingList, String date) throws DukeException {
         addToList(new ListBox("S/N", "Name", "Venue", "Date", "From",
                 "To", "Status", "Purpose", "Approved/ Rejected By"));
         Integer index = 1;
@@ -156,19 +162,19 @@ public class Ui extends AnchorPane {
         LocalDate dateStart = LocalDate.parse(date, formatterStart);
         for (Booking i : bookingList) {
             if (i.getStartYear() == dateStart.getYear()) {
-                addToList(customListBox(i, index));
+                addToList(customListBox(bookingList, i, index));
                 index++;
             }
         }
     }
 
-    private void showListMonth (BookingList bookingList, String month) throws DukeException {
+    private void showListMonth(BookingList bookingList, String month) throws DukeException {
         addToList(defaultListBox());
         Integer index = 1;
         int intMonth = Integer.parseInt(month.substring(10));
         for (Booking i : bookingList) {
             if (i.getStartMonth() == intMonth) {
-                addToList(customListBox(i, index));
+                addToList(customListBox(bookingList, i, index));
                 index++;
             }
         }
@@ -247,9 +253,36 @@ public class Ui extends AnchorPane {
                 "To", "Status", "Purpose", "Approved/ Rejected By");
     }
 
-    private ListBox customListBox(Booking booking, Integer index) throws DukeException {
-        return new ListBox(index.toString(), booking.getName(), booking.getVenue(), booking.getDateStart().toString(),
+    private ListBox customListBox(BookingList bookinglist, Booking booking, Integer index) throws DukeException {
+        return new ListBox(String.valueOf(bookinglist.indexOf(booking) + 1), booking.getName(),
+                booking.getVenue(), booking.getDateStart().toString(),
                 booking.getTimeStart().toString(), booking.getTimeEnd().toString(), booking.getStatus(),
                 booking.getDescription(), booking.getApprovedBy());
+    }
+
+    /**
+     * Displays help message.
+     */
+    public void showHelp() {
+        setOutput("Here are the available commands:\n"
+                + "--------------\n"
+                + "Account\n"
+                + "Add user: adduser <username>\n"
+                + "Remove user: rmuser <username>\n"
+                + "Login: login <username>\n"
+                + "Logout: logout\n"
+                + "--------------\n"
+                + "Booking\n"
+                + "Add booking: add <description> /at <roomcode> /from <DD/MM/YYYY> <HHMM> /to <HHMM>\n"
+                + "List booking: list\n"
+                + "Edit booking: edit <index> <description>\n"
+                + "Delete booking: delete <index>\n"
+                + "List month: listmonth\n"
+                + "List day: listday\n"
+                + "Find booking: find <keyword>, find <index>\n"
+                + "--------------\n"
+                + "Add room: addroom <roomcode> /date <DD/MM/YYYY> <HHMM> /to <HHMM>\n"
+                + "List room: listroom\n"
+                + "Delete room: deleteroom <index>\n");
     }
 }
