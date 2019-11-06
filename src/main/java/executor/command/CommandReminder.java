@@ -4,13 +4,12 @@ import executor.task.Task;
 import executor.task.TaskList;
 import ui.Ui;
 import ui.Wallet;
-
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class CommandReminder extends Command {
-    //private String[] reminders;
-    protected Date currentDate = Calendar.getInstance().getTime();
+
+    private LocalDate currentDate;
 
     /**
      * Constructor for CommandReminder subCommand Class.
@@ -18,11 +17,13 @@ public class CommandReminder extends Command {
      */
     public CommandReminder(String userInput) {
         this.userInput = userInput;
-        this.currentDate.setTime(0);
         this.commandType = CommandType.REMINDER;
+        this.currentDate = LocalDate.now();
         this.description = "Loops through list and checks if current date matches date linked with task and prints it \n"
-                + "FORMAT :  ";
+                + "FORMAT :  reminder ";
+
     }
+
 
     @Override
     public void execute(Wallet wallet) {
@@ -31,19 +32,19 @@ public class CommandReminder extends Command {
 
     @Override
     public void execute(TaskList taskList) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
         try {
             for (Task task : taskList.getList()) {
-                Date dateCopy = task.getDatetime();
-                if (dateCopy != null) {
-                    dateCopy.setTime(0);
-                    if (dateCopy.equals(this.currentDate)) {
+                String dateOfTask = task.getDate().format(formatter);
+                if (dateOfTask.equals(this.currentDate.format(formatter))) {
                         Ui.dukeSays(task.genTaskDesc());
                         Ui.printSeparator();
                     }
                 }
-            }
-        } catch (Exception e) {
-            System.out.println("sorry");
+            } catch (Exception e) {
+            Ui.dukeSays("Either there are no tasks for today OR \n"
+                    + "Please enter the correct format for reminder available if you"
+                    + "type help on the CLI ! \n");
         }
     }
 }

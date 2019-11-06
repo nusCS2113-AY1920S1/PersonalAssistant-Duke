@@ -2,6 +2,9 @@ package executor.task;
 
 import interpreter.Parser;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 public abstract class Task {
@@ -11,7 +14,8 @@ public abstract class Task {
     protected TaskType taskType;
     protected Boolean isDone = false;
     private TaskList queuedTasks = null;
-    protected Date datetime = null;
+    protected LocalDate date;
+    protected LocalTime time;
 
     /**
      * Constructor for the 'Task' Class.
@@ -21,7 +25,8 @@ public abstract class Task {
     public Task(String name) {
         this.taskType = TaskType.BLANK;
         this.taskName = name.replace(this.taskType.name(), "").trim();
-        this.datetime = null;
+        this.date = null;
+        this.time = null;
         this.isDone = false;
     }
 
@@ -218,10 +223,10 @@ public abstract class Task {
     /**
      * Setter for datetime property.
      *
-     * @param datetime The Date to set
+     * @param date The Date to set
      */
-    public void setDatetime(Date datetime) {
-        this.datetime = datetime;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     /**
@@ -229,7 +234,15 @@ public abstract class Task {
      *
      * @return Date represented by the datetime property
      */
-    public Date getDatetime() {
-        return this.datetime;
+    public LocalDate getDate() {
+        return this.date;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 }
