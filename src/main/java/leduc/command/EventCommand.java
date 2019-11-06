@@ -36,9 +36,10 @@ public class EventCommand extends Command {
      * @throws FileException Exception caught when the file can't be open or read or modify
      * @throws ConflictDateException Exception thrown when the new event is in conflict with others event
      * @throws PrioritizeLimitException Exception caught when the new priority is greater than 9 or less than 0.
+     * @throws EventDateException  Exception caught when the start date is after the end date of an event task.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage)
-            throws EmptyEventDateException, EmptyEventException, NonExistentDateException, FileException, ConflictDateException, PrioritizeLimitException {
+            throws EmptyEventDateException, EmptyEventException, NonExistentDateException, FileException, ConflictDateException, PrioritizeLimitException, EventDateException {
         String userSubstring;
         if (callByShortcut) {
             userSubstring = user.substring(EventCommand.eventShortcut.length());
@@ -67,6 +68,9 @@ public class EventCommand extends Command {
             Date date1 = new Date(dateString[0]);
             Date date2 = new Date(dateString[1]);
             tasks.verifyConflictDate(date1, date2);
+            if (date1.getDate().isAfter(date2.getDate())) {
+                throw new EventDateException();
+            }
             EventsTask newTask = null;
             if (prioritySplit.length == 1) {
                 newTask = new EventsTask(description, date1, date2);

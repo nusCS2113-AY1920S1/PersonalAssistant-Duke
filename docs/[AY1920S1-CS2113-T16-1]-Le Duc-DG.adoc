@@ -241,7 +241,59 @@ This is verified inside the execution of the postponeCommand.
 
 image::SequenceDiagramPostpone.png[width="1000", align="left"]
 
-* *Edit a task* ( Only in multi-set commands yet)
+==== *Edit a task*
+
+* Multi-steps command: to edit a task, the user has to follow these instructions:
+
+1. `edit`
+2. All of the tasks will be displayed, you have to choose a task INDEX
+3. Depending on the type of task:
+** If it is a todo task, you have to enter the new DESCRIPTION
+** If it is not a todo task, you have to choose 1) if you want to edit the description or 2) if you want to edit the date
+- Then, enter the new DESCRIPTION or the new DATE of the task
+
+The sequence diagram shows the interactions between different classes when the user want to edit the description an homework or event task with a multi-steps edit command.
+
+image::SequenceDiagramEditMultiSteps.png[width="1000", align="left"]
+
+
+* For one shot command:
+- edit the description: `edit INDEX description DESCRIPTION`
+- edit the date of an homework task: `edit INDEX /by DATE`
+- edit the period of an event task: `edit INDEX /at DATE - DATE`
+
+The sequence diagram shows the interactions between different classes when the user input `edit 2 description DESCRIPTION`.
+
+image::SequenceDiagramEditOneShot.png[width="1000", align="left"]
+
+==== *Prioritize a task*
+
+A task has initially a priority of 5. The priority of a task goes from 0 to 9.
+This command allows the user to change the priority of a task.
+
+The sequence diagram show the interactions between different classes when the user wants to change to priority of the first task to 2.
+
+image::SequenceDiagramPrioritize.png[width="1000", align="left"]
+
+==== Consideration
+
+There are two different commands for modifying the priority ( `prioritize`) and the description/date (`edit`) o f a task. Indeed, the edit command is considered to be used when a user have initially created a incorrect task, whereas the prioritize command is supposed to be used regularly as the priority of a task generally increase with the time.
+However, these two commands are obviously easy to combine into one command.
+
+
+=== Sort the task list
+
+Sort all task by date/description/priority/type of task/ done or not: `sort SORTTYPE`
+SORTTYPE is either date, description, priority, type, done
+
+* Sorting by date will sort tasks in chronological order
+* Sorting by description will sort the descriptions in alphabetical order
+* Sorting by priority will sort tasks in ascending urgency
+* Sorting by type will sort tasks depending on its task type ( event, homework, todo)
+* Sorting by done will sort tasks depending on it the task is done or not.
+
+To implement the sort command, the comparing static method of Comparator interface introduced in Java 8 is used.
+So, here the sort key are the desciption or the priority of the task.
 
 
 === Remind

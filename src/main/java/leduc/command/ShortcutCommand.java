@@ -40,36 +40,66 @@ public class ShortcutCommand extends Command {
             do{
                 ui.showAskAllShortcut("bye", ByeCommand.getByeShortcut());
                 newShortcut = ui.readCommand();
+                if(newShortcut.equals("bye")){
+                    storage.saveConfig();
+                    ui.terminateShortcut();
+                    return;
+                }
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("bye", newShortcut);
 
             do{
                 ui.showAskAllShortcut("list", ListCommand.getListShortcut());
                 newShortcut = ui.readCommand();
+                if(newShortcut.equals("bye")){
+                    storage.saveConfig();
+                    ui.terminateShortcut();
+                    return;
+                }
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("list", newShortcut);
 
             do{
                 ui.showAskAllShortcut("help", HelpCommand.getHelpShortcut());
                 newShortcut = ui.readCommand();
+                if(newShortcut.equals("bye")){
+                    storage.saveConfig();
+                    ui.terminateShortcut();
+                    return;
+                }
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("help", newShortcut);
 
             do{
                 ui.showAskAllShortcut("done", DoneCommand.getDoneShortcut());
                 newShortcut = ui.readCommand();
+                if(newShortcut.equals("bye")){
+                    storage.saveConfig();
+                    ui.terminateShortcut();
+                    return;
+                }
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("done", newShortcut);
 
             do{
                 ui.showAskAllShortcut("find", FindCommand.getFindShortcut());
                 newShortcut = ui.readCommand();
+                if(newShortcut.equals("bye")){
+                    storage.saveConfig();
+                    ui.terminateShortcut();
+                    return;
+                }
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("find", newShortcut);
 
             do{
                 ui.showAskAllShortcut("delete", DeleteCommand.getDeleteShortcut());
                 newShortcut = ui.readCommand();
+                if(newShortcut.equals("bye")){
+                    storage.saveConfig();
+                    ui.terminateShortcut();
+                    return;
+                }
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("delete", newShortcut);
 
@@ -77,83 +107,153 @@ public class ShortcutCommand extends Command {
             do{
                 ui.showAskAllShortcut("homework", HomeworkCommand.getHomeworkShortcut());
                 newShortcut = ui.readCommand();
+                if(newShortcut.equals("bye")){
+                    storage.saveConfig();
+                    ui.terminateShortcut();
+                    return;
+                }
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("homework", newShortcut);
 
             do{
                 ui.showAskAllShortcut("event", EventCommand.getEventShortcut());
                 newShortcut = ui.readCommand();
+                if(newShortcut.equals("bye")){
+                    storage.saveConfig();
+                    ui.terminateShortcut();
+                    return;
+                }
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("event", newShortcut);
 
             do{
                 ui.showAskAllShortcut("todo", TodoCommand.getTodoShortcut());
                 newShortcut = ui.readCommand();
+                if(newShortcut.equals("bye")){
+                    storage.saveConfig();
+                    ui.terminateShortcut();
+                    return;
+                }
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("todo", newShortcut);
 
             do{
                 ui.showAskAllShortcut("edit", EditCommand.getEditShortcut());
                 newShortcut = ui.readCommand();
+                if(newShortcut.equals("bye")){
+                    storage.saveConfig();
+                    ui.terminateShortcut();
+                    return;
+                }
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("edit", newShortcut);
 
             do{
                 ui.showAskAllShortcut("postpone", PostponeCommand.getPostponeShortcut());
                 newShortcut = ui.readCommand();
+                if(newShortcut.equals("bye")){
+                    storage.saveConfig();
+                    ui.terminateShortcut();
+                    return;
+                }
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("postpone", newShortcut);
 
             do{
                 ui.showAskAllShortcut("snooze", SnoozeCommand.getSnoozeShortcut());
                 newShortcut = ui.readCommand();
+                if(newShortcut.equals("bye")){
+                    storage.saveConfig();
+                    ui.terminateShortcut();
+                    return;
+                }
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("snooze", newShortcut);
 
             do{
                 ui.showAskAllShortcut("reschedule", RescheduleCommand.getRescheduleShortcut());
                 newShortcut = ui.readCommand();
+                if(newShortcut.equals("bye")){
+                    storage.saveConfig();
+                    ui.terminateShortcut();
+                    return;
+                }
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("reschedule", newShortcut);
 
             do{
                 ui.showAskAllShortcut("remind", RemindCommand.getRemindShortcut());
                 newShortcut = ui.readCommand();
+                if(newShortcut.equals("bye")){
+                    storage.saveConfig();
+                    ui.terminateShortcut();
+                    return;
+                }
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("remind", newShortcut);
 
             do{
                 ui.showAskAllShortcut("sort", SortCommand.getSortShortcut());
                 newShortcut = ui.readCommand();
+                if(newShortcut.equals("bye")){
+                    storage.saveConfig();
+                    ui.terminateShortcut();
+                    return;
+                }
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("sort", newShortcut);
 
             do{
                 ui.showAskAllShortcut("setWelcome", SetWelcomeCommand.getSetWelcomeShortcut());
                 newShortcut = ui.readCommand();
+                if(newShortcut.equals("bye")){
+                    storage.saveConfig();
+                    ui.terminateShortcut();
+                    return;
+                }
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("setwelcome", newShortcut);
             do{
                 ui.showAskAllShortcut("show", ShowCommand.getShowShortcut());
                 newShortcut = ui.readCommand();
+                if(newShortcut.equals("bye")){
+                    storage.saveConfig();
+                    ui.terminateShortcut();
+                    return;
+                }
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("show", newShortcut);
 
             do{
                 ui.showAskAllShortcut("prioritize", PrioritizeCommand.getPrioritizeShortcut());
                 newShortcut = ui.readCommand();
+                if(newShortcut.equals("bye")){
+                    storage.saveConfig();
+                    ui.terminateShortcut();
+                    return;
+                }
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("prioritize", newShortcut);
 
             do{
                 ui.showAskAllShortcut("unfinished", UnfinishedCommand.getUnfinishedShortcut());
                 newShortcut = ui.readCommand();
+                if(newShortcut.equals("bye")){
+                    storage.saveConfig();
+                    ui.terminateShortcut();
+                    return;
+                }
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("unfinished", newShortcut);
 
             do{
                 ui.showAskAllShortcut("language", LanguageCommand.getLanguageShortcut());
                 newShortcut = ui.readCommand();
+                if(newShortcut.equals("bye")){
+                    storage.saveConfig();
+                    ui.terminateShortcut();
+                    return;
+                }
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("language", newShortcut);
             ui.showAllShortcutSet();

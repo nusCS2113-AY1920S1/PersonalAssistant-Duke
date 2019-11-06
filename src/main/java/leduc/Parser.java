@@ -19,7 +19,7 @@ public class Parser {
      */
     public Command parse(String user){
         Command c ;
-        if (user.equals(ListCommand.getListShortcut())) {
+        if (user.equals(ListCommand.getListShortcut()) | (user.matches("list"))) {
             c = new ListCommand(user);
         }
         else if (user.matches("find (.*)") | user.matches("find")){
