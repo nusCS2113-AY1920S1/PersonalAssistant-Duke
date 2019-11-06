@@ -25,7 +25,7 @@ public class CGraphCommandParser implements ParserInterface<CGraphCommand> {
         } catch (DukeException e) {
             return new CGraphCommand(false, e.getMessage());
         }
-        String[] lineSplit = userInputStr.split(" ");
+        String[] lineSplit = ArgumentSplitter.splitArguments(userInputStr," ");
         try {
             month = Integer.parseInt(lineSplit[2]);
         } catch (NumberFormatException e) {

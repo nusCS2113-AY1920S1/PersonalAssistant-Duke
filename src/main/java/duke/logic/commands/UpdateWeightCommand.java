@@ -13,7 +13,6 @@ import java.util.HashMap;
 
 public class UpdateWeightCommand extends Command {
     private String weight;
-    private LocalDate currentDate;
 
 
     public UpdateWeightCommand() {
