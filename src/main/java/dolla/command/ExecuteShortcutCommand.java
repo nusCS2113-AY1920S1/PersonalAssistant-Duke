@@ -32,7 +32,7 @@ public class ExecuteShortcutCommand extends Command {
                     String inputDate = input.nextLine();
                     LocalDate newDate = Time.readDate(inputDate);
                     Command c = new AddEntryCommand(shortcut.getType(), shortcut.getAmount(),
-                                                    shortcut.getDescription(), newDate);
+                                                    shortcut.getDescription(), newDate, "");
                     c.execute(dollaData);
                     break;
                 } catch (DateTimeParseException e) {

@@ -6,6 +6,7 @@ import dolla.command.action.Redo;
 import dolla.command.action.state.UndoStateList;
 import dolla.task.Limit;
 import dolla.task.LimitList;
+import dolla.task.Record;
 import dolla.ui.LimitUi;
 
 /**
@@ -34,18 +35,17 @@ public class AddLimitCommand extends Command {
     @Override
     public void execute(DollaData dollaData) {
         Limit newLimit = new Limit(type, amount, duration);
-
         LimitList limitList = (LimitList) dollaData.getRecordListObj(mode);
         UndoStateList.addState(new LimitState(limitList.get()), mode);///////////////////////////////////////
         Redo.clearRedoState(mode);
-        //todo: need to add budget and show and deduct money every time there is an expense entry
+
         int duplicateLimitIndex = limitList.findExistingRecordIndex(dollaData, newLimit, mode);
         if (recordDoesNotExist(duplicateLimitIndex)) {
             dollaData.addToRecordList(mode, newLimit);
             LimitUi.echoAddRecord(newLimit);
         } else {
-            Limit existingLimit = (Limit) limitList.getFromList(duplicateLimitIndex);
-            LimitUi.existingLimitPrinter(existingLimit);
+            Record existingLimit = limitList.getFromList(duplicateLimitIndex);
+            LimitUi.existingRecordPrinter(existingLimit, mode);
         }
     }
 

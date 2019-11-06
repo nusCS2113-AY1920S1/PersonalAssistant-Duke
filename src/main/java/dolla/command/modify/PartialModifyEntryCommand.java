@@ -15,6 +15,7 @@ public class PartialModifyEntryCommand extends Command {
     private double amount;
     private String description;
     private LocalDate date;
+    private String tagName;
 
     private static final String MODE_ENTRY = "entry";
 
@@ -39,7 +40,7 @@ public class PartialModifyEntryCommand extends Command {
         dollaData.prepForModify(MODE_ENTRY, index);
         Record originalEntry = dollaData.getRecordFromList(MODE_ENTRY, index);
         overwriteComponents(originalEntry);
-        Entry newEntry = new Entry(type, amount, description, date);
+        Entry newEntry = new Entry(type, amount, description, date, tagName);
         dollaData.modifyRecordList(newEntry);
         ModifyUi.echoModifyRecord(newEntry);
         dollaData.updateMode("entry");

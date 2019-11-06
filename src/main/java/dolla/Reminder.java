@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Class handles Reminder-related methods.
  */
-public class Reminder {
+public class Reminder implements ModeStringList {
 
     protected LocalDate today;
     private String mode;
@@ -20,7 +20,7 @@ public class Reminder {
      * @param mode the mode
      */
     public Reminder(String mode) {
-        this.mode = "debt";
+        this.mode = MODE_DEBT;
     }
 
     /**

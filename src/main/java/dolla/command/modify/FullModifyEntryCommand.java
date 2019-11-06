@@ -33,7 +33,7 @@ public class FullModifyEntryCommand extends Command {
     @Override
     public void execute(DollaData dollaData) {
         //System.out.println("Executing FullModifyEntryCommand....");
-        Entry newEntry = new Entry(type, amount, description, date);
+        Entry newEntry = new Entry(type, amount, description, date, "");
         dollaData.modifyRecordList(newEntry);
         ModifyUi.echoModifyRecord(newEntry);
         dollaData.updateMode("entry");
