@@ -171,7 +171,7 @@ public class Ui extends AnchorPane {
     private void showListMonth(BookingList bookingList, String month) throws DukeException {
         addToList(defaultListBox());
         Integer index = 1;
-        int intMonth = Integer.parseInt(month.substring(10));
+        int intMonth = Integer.parseInt(month);
         for (Booking i : bookingList) {
             if (i.getStartMonth() == intMonth) {
                 addToList(customListBox(bookingList, i, index));

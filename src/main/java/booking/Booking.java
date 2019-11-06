@@ -33,7 +33,7 @@ public class Booking {
      * @param dateTimeEnd   when your booked period ends
      */
     public Booking(String username, String roomcode, String description, String dateTimeStart,
-                   String dateTimeEnd, String approvedBy) throws DukeException {
+                   String dateTimeEnd) throws DukeException {
         this.venue = roomcode;
         try {
             DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
@@ -44,7 +44,7 @@ public class Booking {
             this.description = description;
             this.name = username;
             this.status = "P";
-            this.approvedBy = approvedBy;
+            this.approvedBy = null;
         } catch (DateTimeParseException error) {
             throw new DukeException("Not able to parse the date for all patterns given, "
         + "please use this format: add NAME DESCRIPTION /at ROOM_CODE /from DATE TIMESTART /to TIMEEND"
