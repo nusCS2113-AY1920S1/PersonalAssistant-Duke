@@ -80,6 +80,18 @@ public class ShopListTest {
         assertEquals(1, shopListTest.getPurchasedItems().size());
     }
 
+    @Test
+    public void immutabilityCheck() {
+        ShopList emptyShopList = new ShopList();
+
+        // Should still return an empty shop list.
+        emptyShopList.addItem(new ShopItemStub()).addItem(new ShopItemStub());
+        assertEquals(0, emptyShopList.size());
+
+        // Supports chaining when creating a new instance.
+        assertEquals(1, new ShopList().addItem(new ShopItemStub()).size());
+    }
+
 
     private class ShopItemStub implements ShopItem {
 
