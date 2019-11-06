@@ -41,6 +41,9 @@ public class Farmer {
     private boolean hasfailedCurrentTask;
     private ArrayList<Double> levelList = new ArrayList<Double>(Arrays.asList(1.1,1.2,1.3,1.4,1.5,1.6,2.1));
 
+    /**
+     * Constructor for Farmer to intialize farmer object.
+     */
     public Farmer() {
         this.gold = 10;
         this.level = 1.1; // temp relaced
@@ -55,6 +58,11 @@ public class Farmer {
         this.name = "name";
     }
 
+    /**
+     * Constructor to initialize farmer object from saved JSON file.
+     * @param jsonObject load variables saved from save file.
+     * @throws FarmioException if level and name are not valid.
+     */
     public Farmer(JSONObject jsonObject) throws FarmioException {
         try {
             this.level = (Double) jsonObject.get(JSON_KEY_LEVEL);
@@ -77,7 +85,18 @@ public class Farmer {
         }
     }
 
-    public Farmer(double level, int gold, WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm, TaskList tasks, String name) {
+    /**
+     * Constructor for Farmer to intialize farmer objects.
+     * @param level as the current level of the game.
+     * @param gold as the amoount of gold the farmer has.
+     * @param wheatFarm as the current status of the wheatfarm.
+     * @param chickenFarm as the current status of the chickenfarm.
+     * @param cowFarm as the current status of the cowfarm.
+     * @param tasks as the tasks the farmer has to execute.
+     * @param name as the name of the farmer that was input by the user.
+     */
+    public Farmer(double level, int gold, WheatFarm wheatFarm, ChickenFarm chickenFarm,
+                  CowFarm cowFarm, TaskList tasks, String name) {
         this.level = level;
         this.gold = gold;
         this.wheatFarm = wheatFarm;
@@ -89,16 +108,18 @@ public class Farmer {
 
 
     /**
-     *
+     * Checks whether the name that was loaded from the save file is a valid name.
      * @param loadName as the name that is loaded from the save file.
      * @throws FarmioException if loadName does not meet the conditions of the name.
      */
     private void isValidName(String loadName) throws FarmioException {
         boolean hasError = false;
-        if(loadName.equals("MENU") || !(loadName.length() <= 15 && loadName.length() > 0 && (loadName.matches("[a-zA-Z0-9]+") || loadName.contains("_")))) {
-                hasError = true;
+        if (loadName.equals("MENU") || !(loadName.length() <= 15 && loadName.length() > 0
+                && (loadName.matches("[a-zA-Z0-9]+") || loadName.contains("_")))) {
+            hasError = true;
         }
-        if(hasError) {
+
+        if (hasError) {
             throw new FarmioException("Invalid Name!");
         }
     }
@@ -171,15 +192,11 @@ public class Farmer {
     public Map<String, Integer> getAssets() {
         Map<String, Integer> assets = new HashMap<>();
 
-        if (level >= 3) {
-        }
-        if (level >= 2) {
-        }
         if (level >= 1.4) {
             assets.put("Wheat", wheatFarm.getWheat());
             assets.put("Grain", wheatFarm.getGrain());
         }
-        if(level >= 1.3) {
+        if (level >= 1.3) {
             assets.put("Seedlings", wheatFarm.getSeedlings());
         }
         if (level >= 1.2) {
@@ -195,7 +212,9 @@ public class Farmer {
      * Gets user wheatfarm.
      * @return the user wheatfarm.
      */
-    public WheatFarm getWheatFarm() { return  wheatFarm; }
+    public WheatFarm getWheatFarm() {
+        return  wheatFarm;
+    }
 
     /**
      * Gets user chickenfarm.
@@ -222,8 +241,8 @@ public class Farmer {
     }
 
     /**
-     * Checks if curent task has failed and resets current task
-     * @return true if current task has failed and false otherwise
+     * Checks if curent task has failed and resets current task.
+     * @return true if current task has failed and false otherwise.
      */
     public boolean isHasfailedCurrentTask() {
         if (hasfailedCurrentTask) {
@@ -234,12 +253,14 @@ public class Farmer {
     }
 
     /**
-     * Reverts task list execution failure
+     * Reverts task list execution failure.
      */
-    public void resetTaskFailed() {hasfailedCurrentTask = false;}
+    public void resetTaskFailed() {
+        hasfailedCurrentTask = false;
+    }
 
     /**
-     * Sets task list execution as failed
+     * Sets task list execution as failed.
      */
     public void setTaskFailed() {
         hasfailedCurrentTask = true;
@@ -255,25 +276,25 @@ public class Farmer {
 
     /**
      * Increments gold after selling an item.
-     * @param profit as the selling price of the item
+     * @param profit as the selling price of the item.
      */
     public void earnGold(int profit) {
         gold += profit;
     }
 
     /**
-     * Gets the index of the current task in execution
-     * @return the index of the current task
+     * Gets the index of the current task in execution.
+     * @return the index of the current task.
      */
     public int getCurrentTask() {
         return this.currentTask;
     }
 
     /**
-     * Increases the level
+     * Increases the level.
      * @return the next level number. 0 if current level is not registered or game has ended
      */
-    public double nextLevel(){
+    public double nextLevel() {
         if (level < levelList.get(levelList.size() - 1)) {
             level = levelList.get(levelList.indexOf(level) + 1);
             return level;
@@ -282,9 +303,9 @@ public class Farmer {
     }
 
     /**
-     * Takes care of TaskList execution and handles task failure
-     * @param farmio The game where the day should be started
-     * @throws FarmioFatalException if file from action's simulation cannot be found
+     * Takes care of TaskList execution and handles task failure.
+     * @param farmio The game where the day should be started.
+     * @throws FarmioFatalException if file from action's simulation cannot be found.
      */
     public void startDay(Farmio farmio) throws FarmioFatalException {
         try {
@@ -308,7 +329,12 @@ public class Farmer {
         day += 1;
     }
 
-    public JSONObject toJson(){
+
+    /**
+     * To add java docs.
+     * @return something
+     */
+    public JSONObject toJson() {
         JSONObject obj = new JSONObject();
         obj.put(JSON_KEY_LEVEL, level);
         obj.put(JSON_KEY_GOLD, gold);
@@ -324,7 +350,12 @@ public class Farmer {
         return obj;
     }
 
-    public JSONObject updateJSON(JSONObject object){
+    /**
+     * to do java docs.
+     * @param object something
+     * @return something
+     */
+    public JSONObject updateJson(JSONObject object) {
         object.replace(JSON_KEY_TASK_LIST, tasks.toJson());
         return object;
     }
