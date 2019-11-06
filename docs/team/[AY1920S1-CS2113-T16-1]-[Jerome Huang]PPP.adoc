@@ -15,6 +15,7 @@ Le Duc is a task management application geared to help high school students mana
 ** Justification: This feature give the possibility to the user to make the application more personal. Moreover, changing the language allow international student to use it.
 ** Highlights: For now, only the language, the welcome message and the shortcut can be customized. But more will come in the future.
 ** Credit: The customization of the welcome message was made by SHAH RAHUL.
+** *Minor enhancement*: added the possibility to add recurrence for homework
 ** *Minor enhancement*: added *the ability to show task by day/dayofweek/week/month/year*
 ** What it does: allows the user to see tasks for a specific day, week, month, years.
 ** Justification : This feature make the user's life easier because he can see which day has which task or which week has which task ...
