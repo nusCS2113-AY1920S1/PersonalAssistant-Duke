@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import util.uiformatter.ViewHelper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -94,4 +95,27 @@ class ViewHelperTest {
         assertArrayEquals(expectedOutput3, actualOutput3);
     }
 
+    //@@author Lucria
+    @Test
+    void consolePrintCalender_successfulExecution() {
+        HashMap<Integer, Integer> simulatedInput = new HashMap<>();
+        String[] simulatedOutput = viewHelper.consolePrintCalender(simulatedInput);
+        String[] expectedOutput = new String[]{
+            "+----------------------------------------------------------------------+",
+            "|    Today's date is 7 11 2019                                         |",
+            "+----------------------------------------------------------------------+",
+            "|        U        M        T        W        R        F        S       |",
+            "|                                                     1        2       |",
+            "|                                                                      |",
+            "|        3        4        5        6        7        8        9       |",
+            "|                                                                      |",
+            "|       10       11       12       13       14       15       16       |",
+            "|                                                                      |",
+            "|       17       18       19       20       21       22       23       |",
+            "|                                                                      |",
+            "|       24       25       26       27       28       29       30       |",
+            "+----------------------------------------------------------------------+"
+        };
+        assertArrayEquals(expectedOutput, simulatedOutput);
+    }
 }
