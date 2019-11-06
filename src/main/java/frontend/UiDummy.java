@@ -111,7 +111,7 @@ public class UiDummy implements Ui {
             } else if (text.charAt(i) == LEVEL_BEGIN_PLACEHOLDER) {
                 System.out.println("\n" + " ".repeat(GameConsole.FULL_CONSOLE_WIDTH / 2 - 8) + AsciiColours.GREEN
                         + AsciiColours.UNDERLINE + "[LEVEL BEGIN]" + AsciiColours.SANE + "\n");
-                show("       Enter [Start] if you are ready to complete the objective or Enter [HINT] if you get stuck!");
+                show("       Enter [start] if you are ready to complete the objective or Enter [hint] if you get stuck!");
                 return;
             }
             else {

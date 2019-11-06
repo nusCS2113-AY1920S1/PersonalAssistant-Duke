@@ -68,12 +68,12 @@ class GameConsole {
             + AsciiColours.BACKGROUND_BLUE
             + AsciiColours.HIGH_INTENSITY
             + AsciiColours.UNDERLINE
-            + " [EXIT] to exit"
+            + " [exit] to exit"
             + " ".repeat(6)
-            + "[MENU]"
+            + "[menu]"
             + " for full instruction list or settings"
             + " ".repeat(10)
-            + "[HINT] for hint on <CODE>"
+            + "[hint] for hint on <CODE>"
             + " ".repeat(3)
             + AsciiColours.SANE
             + "|\n";
