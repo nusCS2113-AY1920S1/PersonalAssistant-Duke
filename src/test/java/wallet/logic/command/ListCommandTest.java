@@ -6,7 +6,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import wallet.model.Wallet;
 import wallet.model.contact.Contact;
-import wallet.model.record.*;
+import wallet.model.record.Category;
+import wallet.model.record.Expense;
+import wallet.model.record.Loan;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -42,9 +44,12 @@ public class ListCommandTest {
         testWallet.getContactList().addContact(new Contact("Mary", "friend", "41242131"));
         testWallet.getContactList().addContact(new Contact("Maria", "stranger", "124314343"));
 
-        testWallet.getLoanList().addLoan(new Loan("for lunch", localDate1, 10, true, false, testWallet.getContactList().getContact(0)));
-        testWallet.getLoanList().addLoan(new Loan("for lunch", localDate3, 10, false, false, testWallet.getContactList().getContact(1)));
-        testWallet.getLoanList().addLoan(new Loan("for lunch", localDate4, 10, true, false, testWallet.getContactList().getContact(2)));
+        testWallet.getLoanList().addLoan(new Loan("for lunch", localDate1, 10, true,
+                false, testWallet.getContactList().getContact(0)));
+        testWallet.getLoanList().addLoan(new Loan("for lunch", localDate3, 10, false,
+                false, testWallet.getContactList().getContact(1)));
+        testWallet.getLoanList().addLoan(new Loan("for lunch", localDate4, 10, true,
+                false, testWallet.getContactList().getContact(2)));
     }
 
     /**
