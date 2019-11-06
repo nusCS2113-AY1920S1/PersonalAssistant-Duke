@@ -8,13 +8,11 @@ import dolla.command.RemoveCommand;
 import dolla.command.SearchCommand;
 import dolla.command.SortCommand;
 import dolla.command.ActionCommand;
+
 import dolla.ui.LimitUi;
 import dolla.ui.SearchUi;
 import dolla.ui.Ui;
 
-/**
- * This class handles all limit related parsing (set, edit, remove).
- */
 //@@author Weng-Kexin
 public class LimitParser extends Parser {
 

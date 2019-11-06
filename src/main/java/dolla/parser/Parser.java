@@ -32,7 +32,6 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     protected double amount;
     protected static String[] inputArray;
     protected String commandToRun;
-    protected static final String SPACE = " ";
     protected int modifyRecordNum;
 
     /**

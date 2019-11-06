@@ -70,4 +70,5 @@ public interface ParserStringList {
     //Commons
     String SPACE = " ";
     String COMMAND_BYE = "bye";
+    String EMPTY_STR = "";
 }

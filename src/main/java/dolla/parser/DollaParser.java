@@ -28,9 +28,8 @@ public class DollaParser extends Parser {
         if (commandToRun.equals(ENTRY_COMMAND_ADD)) {
             if (verifyAddCommand()) {
                 Tag tag = new Tag();
-                Entry entry = new Entry(inputArray[1], stringToDouble(inputArray[2]), description, date, "");
+                Entry entry = new Entry(inputArray[1], stringToDouble(inputArray[2]), description, date, EMPTY_STR);
                 tag.handleTag(entry);
-                //System.out.println(t.toString());
                 return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
                         description, date, tag.getTagName());
             } else {
@@ -57,7 +56,7 @@ public class DollaParser extends Parser {
                 name = inputArray[1];
                 amount = stringToDouble(inputArray[2]);
 
-                String[] desc = inputLine.split(inputArray[2] + " ");
+                String[] desc = inputLine.split(inputArray[2] + SPACE);
                 String[] dateString = desc[1].split(" /due ");
                 description = dateString[0];
                 if (inputLine.contains(COMPONENT_TAG)) {
@@ -72,7 +71,7 @@ public class DollaParser extends Parser {
             } catch (Exception e) {
                 return new ErrorCommand();
             }
-            Debt debt = new Debt(type, name, amount, description, date, "");
+            Debt debt = new Debt(type, name, amount, description, date, EMPTY_STR);
             t.handleTag(debt);
             return new AddDebtsCommand(type, name, amount, description, date, t.getTagName());
 
