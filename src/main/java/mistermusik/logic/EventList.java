@@ -325,14 +325,14 @@ public class EventList {
     /**
      * @return String containing events found in the next 3 days
      */
-    public String getReminder() {
-        String systemDateAndTime = new Date().toString();
+    public String getReminder(int days) {
+        Date systemDateAndTime = new Date();
         EventDate limit = new EventDate(systemDateAndTime);
-        limit.addDaysAndSetMidnight(3);
+        limit.addDaysAndSetMidnight(days);
         String reminderDeadline = limit.getEventJavaDate().toString();
         Predicate<Object> objectPredicate = new Predicate<>(limit, GREATER_THAN);
         return "The time now is " + systemDateAndTime + ".\n" +
-                "Here is a list of events you need to complete in the next 3 days (by " +
+                "Here is a list of events you need to complete in the next " + days + " days (by " +
                 reminderDeadline + "):\n" + filteredList(objectPredicate);
     }
 
