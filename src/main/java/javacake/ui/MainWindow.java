@@ -114,7 +114,7 @@ public class MainWindow extends GridPane {
         showRemindersBox();
         playGuiModeLoop();
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(25), ev -> {
-            dialogContainer.setPrefWidth(scrollPane.getWidth() - 5);
+            dialogContainer.setPrefWidth(scrollPane.getWidth() - 15);
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
