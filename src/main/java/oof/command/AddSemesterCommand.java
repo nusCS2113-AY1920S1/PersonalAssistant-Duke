@@ -27,6 +27,7 @@ public class AddSemesterCommand extends Command {
     private static final int SIZE_NAME = 2;
     private static final int SIZE_DATE_START = 3;
     private static final int SIZE_DATE_END = 4;
+    private static final int DESCRIPTION_LENGTH_MAX = 50;
 
 
     /**
@@ -46,7 +47,7 @@ public class AddSemesterCommand extends Command {
      * @param startDate    Start date of Semester being added.
      * @param endDate      End date of Semester being added.
      * @return true if semester being added clashes with other semesters, false otherwise.
-     * @throws OofException if start date is after end date or if date is invalid.
+     * @throws CommandException if start date is after end date or if date is invalid.
      */
     private boolean hasClashes(SemesterList semesterList, String startDate, String endDate) throws CommandException {
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
@@ -131,5 +132,15 @@ public class AddSemesterCommand extends Command {
     private boolean isClash(Date newStartTime, Date newEndTime, Date currStartTime, Date currEndTime) {
         return (newStartTime.compareTo(currStartTime) >= 0 && newStartTime.compareTo(currEndTime) < 0)
                 || (newEndTime.compareTo(currStartTime) > 0 && newEndTime.compareTo(currEndTime) <= 0);
+    }
+
+    /**
+     * Checks if description and module code exceeds the maximum description length.
+     *
+     * @return True if maximum description length is exceeded, false otherwise.
+     */
+    @Override
+    boolean exceedsMaxLength(String description) {
+        return description.length() >= DESCRIPTION_LENGTH_MAX;
     }
 }

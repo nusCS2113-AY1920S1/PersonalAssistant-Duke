@@ -47,8 +47,16 @@ public class Lesson {
         return lessonName;
     }
 
+    public DayOfWeek getDay() {
+        return day;
+    }
+
     public String getDayString() {
         return day.toString();
+    }
+
+    public String getDescription() {
+        return moduleCode + " " + lessonName;
     }
 
     /**
