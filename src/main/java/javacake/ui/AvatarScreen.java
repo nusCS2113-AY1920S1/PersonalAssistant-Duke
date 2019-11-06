@@ -33,21 +33,21 @@ public class AvatarScreen extends VBox {
     }
 
     private Image avatarHappy1 = new Image(this.getClass().getResourceAsStream(
-            "/images/avatar/h_happyopen.png"));
+            "/images/avatar/happyopen.png"));
     private Image avatarHappy2 = new Image(this.getClass().getResourceAsStream(
-            "/images/avatar/h_happyclose.png"));
+            "/images/avatar/happyclose.png"));
     private Image avatarExtHappy1 = new Image(this.getClass().getResourceAsStream(
-            "/images/avatar/h_exthappyopen.png"));
+            "/images/avatar/exthappyopen.png"));
     private Image avatarExtHappy2 = new Image(this.getClass().getResourceAsStream(
-            "/images/avatar/h_exthappyclose.png"));
+            "/images/avatar/exthappyclose.png"));
     private Image avatarSad1 = new Image(this.getClass().getResourceAsStream(
-            "/images/avatar/h_sadopen.png"));
+            "/images/avatar/sadopen.png"));
     private Image avatarSad2 = new Image(this.getClass().getResourceAsStream(
-            "/images/avatar/h_sadclose.png"));
+            "/images/avatar/sadclose.png"));
     private Image avatarPout1 = new Image(this.getClass().getResourceAsStream(
-            "/images/avatar/h_poutopen.png"));
+            "/images/avatar/poutopen.png"));
     private Image avatarPout2 = new Image(this.getClass().getResourceAsStream(
-            "/images/avatar/h_poutclose.png"));
+            "/images/avatar/poutclose.png"));
     List<Image> images = new ArrayList<>();
     private int imageIndex = 0;
     private int timeFrame = 0;

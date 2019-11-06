@@ -91,6 +91,9 @@ public class MainWindow extends GridPane {
     @FXML
     public void initialize() throws CakeException {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        //scrollPane.prefWidthProperty().bind(dialogContainer.widthProperty());
+        //scrollPane.minWidthProperty().bind(dialogContainer.widthProperty());
+        //scrollPane.maxWidthProperty().bind(dialogContainer.widthProperty());
         taskScreen.vvalueProperty().bind(taskContainer.heightProperty());
         noteScreen.vvalueProperty().bind(noteContainer.heightProperty());
         avatarScreen.getChildren().add(AvatarScreen.setAvatar(AvatarScreen.AvatarMode.HAPPY));
@@ -110,6 +113,12 @@ public class MainWindow extends GridPane {
         showListNotesBox();
         showRemindersBox();
         playGuiModeLoop();
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(25), ev -> {
+            dialogContainer.setPrefWidth(scrollPane.getWidth() - 5);
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+
     }
 
     public void setJavaCake(JavaCake d) {
@@ -211,6 +220,10 @@ public class MainWindow extends GridPane {
         } else if (isDeadlineRelated()) {
             //handles "deadline" and "reminder"
             JavaCake.logger.log(Level.INFO, "deadline setting");
+        } else if (isColorRelated()) {
+            JavaCake.logger.log(Level.INFO, "colormode setting");
+        } else if (isFirstQuiz()) {
+            JavaCake.logger.log(Level.INFO, "First Quiz Incoming!");
         } else if (isFirstResetRequest()) {
             JavaCake.logger.log(Level.INFO, "Reset command executed!");
         } else if (!isQuiz || isStarting) {
@@ -474,6 +487,17 @@ public class MainWindow extends GridPane {
         timeline.play();
     }
 
+
+    private boolean isColorRelated() throws CakeException {
+        if (input.equals("change")) {
+            isChanged = true;
+            JavaCake.logger.log(Level.INFO, "is changing color!");
+            javaCake.storageManager.profile.writeColorConfig(!isLightMode);
+            return true;
+        }
+        return false;
+    }
+
     private boolean isDeadlineRelated() throws CakeException {
         if (input.length() >= 8 && input.substring(0, 8).equals("deadline")) {
             //response = JavaCake.getResponse(input);
@@ -606,23 +630,19 @@ public class MainWindow extends GridPane {
 
     private void setList(ArrayList<String> list) {
         list.add("Hi, Welcome to JavaCake!\nWant sum cake?\nAll you have to do is get 100%!");
-        //        list.add("WELL DONE!!!\nYou rekt that cake!\n");
-        //        list.add("soooOOOOO CLOOSEEE!\nYou can do better next time!");
-        //        list.add("Baaakaaa!\nYou obviously can do better than that...");
+        list.add("Akshay-sensei is my favourite prof!!!");
+        list.add("Learning Java\nis a piece of cake with JavaCake!!\nuWu");
+        list.add("Learning Cake\nis a piece of java with CakeJava!!\nwUw");
+        list.add("I rather get Akshay than an A!\n");
         list.add("I LOVE BIG CAKES AND I CANNOT LIE!");
-        list.add("the cake...\n     is a LIE!");
-        list.add("Your momma so fat...\nshe segfaulted on JavaCake");
         list.add("CAAAAAAAAAaaaaakkkke!");
-        list.add("Want to know a secret?\nYour waifu does not love you!");
-        list.add("I LOVE BIG CAKES\nAND I CANNOT LIE!");
-        list.add("the cake...\n     is a LIE!");
-        list.add("Your momma so fat...\nshe segfaulted on JavaCake");
-        list.add("CAAAAAAAAAaaaaakkkke!");
-        list.add("Want to know a secret?\nYour waifu does not love you!");
-        list.add("late as heck but...\nhappy halloween!!!");
-        list.add("like my hat?\nit ate my soul");
-        list.add("late as heck but...\nhappy halloween!!!");
-        list.add("like my hat?\nit ate my soul");
+        //list.add("the cake...\n     is a LIE!");
+        //list.add("Your momma so fat...\nshe segfaulted on JavaCake");
+        //list.add("Want to know a secret?\nYour waifu does not love you!");
+        //list.add("Hi, Welcome to JavaCake!\nWant sum cake?\nAll you have to do is get 100%!");
+        //list.add("late as heck but...\nhappy halloween!!!");
+        //list.add("like my hat?\nit ate my soul");
+        //list.add("Hi, Welcome to JavaCake!\nWant sum cake?\nAll you have to do is get 100%!");
     }
 
     private static boolean isNumeric(String input) {
