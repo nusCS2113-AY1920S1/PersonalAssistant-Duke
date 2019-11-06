@@ -12,44 +12,42 @@ import java.util.List;
 import java.util.Map;
 
 public class Deadline extends Task {
-    private String by;
+    private String dateString;
     private Date dateNow;
 
     /**
      * Initialises the description of the task.
      * @param description String containing description
      *                    of the task inputted by user
-     * @param by The details of when task is to be done
+     * @param inputDate The details of when task is to be done
      */
-    public Deadline(String description, String by) throws CakeException {
+    public Deadline(String description, String inputDate) throws CakeException {
         super(description);
         taskType = TaskType.DEADLINE;
 
-        String formatDate = getFormattedDateX(by);
+        String formatDate = getFormattedDateX(inputDate);
         boolean noTime = false;
         if (formatDate == null) {
-            formatDate = getFormattedDate(by);
+            formatDate = getFormattedDate(inputDate);
             noTime = true;
         }
         try {
             assert formatDate != null;
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formatDate);
             simpleDateFormat.setLenient(false);
-            dateNow = simpleDateFormat.parse(by);
-            this.by = by;
+            dateNow = simpleDateFormat.parse(inputDate);
+            this.dateString = inputDate;
             if (noTime) {
-                by += " 0000";
-                formatDate = getFormattedDateX(by);
+                inputDate += " 0000";
+                formatDate = getFormattedDateX(inputDate);
                 simpleDateFormat = new SimpleDateFormat(formatDate);
                 simpleDateFormat.setLenient(false);
-                dateNow = simpleDateFormat.parse(by);
+                dateNow = simpleDateFormat.parse(inputDate);
             }
             System.out.println("Format:" + formatDate);
         } catch (ParseException | NullPointerException e) {
-            throw new CakeException("[!] Date cannot be parsed: " + by);
+            throw new CakeException("[!] Date cannot be parsed: " + inputDate);
         }
-
-
         //        Parser parser = new Parser();
         //        List<DateGroup> groups = parser.parse(by);
         //        dateNow = groups.get(0).getDates().get(0);
@@ -64,12 +62,12 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + description + " (by: " + by + ")";
+        return "[D]" + description + " (by: " + dateString + ")";
     }
 
     @Override
     public String getFullString() {
-        return "[D][" + getStatusIcon() + "] " + description + " (by: " + by + ")";
+        return "[D][" + getStatusIcon() + "] " + description + " (by: " + dateString + ")";
     }
 
     /**
@@ -89,7 +87,7 @@ public class Deadline extends Task {
      */
     @Override
     public String getExtra() {
-        return this.by;
+        return this.dateString;
     }
 
     @Override
@@ -106,7 +104,7 @@ public class Deadline extends Task {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formatDate);
             simpleDateFormat.setLenient(false);
             dateNow = simpleDateFormat.parse(newDate);
-            this.by = newDate;
+            this.dateString = newDate;
             if (noTime) {
                 newDate += " 0000";
                 formatDate = getFormattedDateX(newDate);

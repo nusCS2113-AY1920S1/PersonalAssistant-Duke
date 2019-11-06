@@ -33,12 +33,12 @@ public class EditCommand extends Command {
             System.out.println("Task: " + input);
             String[] buffer = input.split("\\s+");
             System.out.println("Task num: " + buffer[1]);
-            int taskIdx = Integer.parseInt(buffer[1]);
-            --taskIdx;
+            int taskIndex = Integer.parseInt(buffer[1]);
+            --taskIndex;
             if (!buffer[2].equals("/by")) {
                 throw new CakeException("[!] Wrong format\nPlease input:\n'deadline TASK /by TASK_DATE'");
             }
-            if (taskIdx >= storageManager.storage.getData().size() || taskIdx <= 0) {
+            if (taskIndex >= storageManager.storage.getData().size() || taskIndex <= 0) {
                 throw new CakeException("[!] Task number is out of bounds!\n"
                         + "Task number must be <= '"
                         + storageManager.storage.getData().size()
@@ -60,7 +60,7 @@ public class EditCommand extends Command {
                 Parser parser = new Parser();
                 List<DateGroup> groups = parser.parse(newDateString);
                 newDate = groups.get(0).getDates().get(0);
-                storageManager.storage.getData().get(taskIdx).changeDate(newDateString);
+                storageManager.storage.getData().get(taskIndex).changeDate(newDateString);
                 System.out.println("Snoozed to: " + newDateString);
                 storageManager.storage.write(storageManager.storage.getData());
                 isInsideData = true;
