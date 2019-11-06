@@ -131,7 +131,6 @@ public interface CommandParser {
      * @param restOfInput String input of user after command word
      * @return reminder status
      * @throws ParserException if the token (/status) or reminder status is missing
-     * @author Tan Kai Li Catherine
      */
     default String getTokenStatus(String restOfInput) throws ParserException {
         if (restOfInput.contains(TOKEN_STATUS)) {

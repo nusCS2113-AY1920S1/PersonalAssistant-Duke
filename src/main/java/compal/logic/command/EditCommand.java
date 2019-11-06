@@ -1,11 +1,13 @@
 package compal.logic.command;
 
 import compal.commons.CompalUtils;
+import compal.commons.LogUtils;
 import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 
 import java.util.Date;
+import java.util.logging.Logger;
 
 //@@author jaedonkey
 public class EditCommand extends Command {
@@ -30,6 +32,10 @@ public class EditCommand extends Command {
     private String endTime;
     private int taskId;
     private Task.Priority priority;
+    private static final Logger logger = LogUtils.getLogger(EditCommand.class);
+    private static final String deadlineStartDateMsg = "Deadline has no start time! Please omit /start <date>!";
+    private static final String noValidEditsString = "No valid editable fields found! Please include one of the following:\" +\n" +
+            "                    \"/description , /date . /start, /end , /priority";
 
     //@@author jaedonkey
     /**
@@ -54,20 +60,40 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult commandExecute(TaskList taskList) throws CommandException {
+        logger.info("Executing edit command");
         Task toEdit = taskList.getTaskById(taskId);
+
+
+        if (description == null && date == null && startTime == null && endTime == null && priority == null) {
+            throw new CommandException(noValidEditsString);
+        }
+
+
         if (description != null) {
+            System.out.println("a");
             toEdit.setDescription(description);
         }
         if (date != null) {
+            System.out.println("b");
             toEdit.setMainDate(CompalUtils.dateToString(date));
         }
-        if (startTime != null && !toEdit.getSymbol().equalsIgnoreCase("D")) { //dealine has no start time
-            toEdit.setStartTime(startTime);
+        if (startTime != null) { //dealine has no start time
+            System.out.println("c");
+            if (!toEdit.getSymbol().equalsIgnoreCase("D")) {
+                toEdit.setStartTime(startTime);
+            }
+            else {
+                throw new CommandException(deadlineStartDateMsg);
+            }
+
         }
+
         if (endTime != null) {
+            System.out.println("d");
             toEdit.setEndTime(endTime);
         }
         if (priority != null) {
+            System.out.println("e");
             toEdit.setPriority(priority);
         }
 

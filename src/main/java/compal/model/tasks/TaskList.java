@@ -1,14 +1,19 @@
 package compal.model.tasks;
 
 
+import compal.commons.LogUtils;
+import compal.logic.parser.EditCommandParser;
+
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Logger;
 
 
 public class TaskList {
 
     private ArrayList<Task> arrlist;
     private TaskIdManager taskIdManager;
+    private static final Logger logger = LogUtils.getLogger(TaskList.class);
 
     /**
      * Constructs TaskList object.
@@ -89,7 +94,7 @@ public class TaskList {
      */
     public void unsetId(int id) {
         taskIdManager.clearId(id);
-        System.out.println("TaskList:LOG:" + id + " unset");
+        logger.info(id + " unset");
     }
 
     public ArrayList<Task> returnTaskList() {
