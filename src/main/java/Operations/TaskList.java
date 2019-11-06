@@ -84,20 +84,19 @@ public class TaskList {
                     } else {
                         priorityLVL = " ***";
                     }
-                    System.out.println("\t" + listCount + ". " + output.toString() + priorityLVL);
 
                     if (new Date().after(output.getDate())) {
                         output.setOverdue(true);
                     }
-//                    if (!output.getDone() && !output.getOverdue()) {
-//                        System.out.println("\t" + listCount + ". " + output.toString());
-//                        if (output instanceof Assignment && !(((Assignment) output).getSubTasks() == null)) {
-//                            ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
-//                            for (String subtask : subTasks) {
-//                                System.out.println("\t" + "\t" + "- " + subtask);
-//                            }
-//                        }
-//                    }
+                    if (!output.getDone() || !output.getOverdue()) {
+                        System.out.println("\t" + listCount + ". " + output.toString() + priorityLVL);
+                        if (output instanceof Assignment && !(((Assignment) output).getSubTasks() == null)) {
+                            ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
+                            for (String subtask : subTasks) {
+                                System.out.println("\t" + "\t" + "- " + subtask);
+                            }
+                        }
+                    }
                     listCount += 1;
                 }
             }
