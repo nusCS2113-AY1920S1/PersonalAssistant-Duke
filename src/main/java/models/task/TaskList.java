@@ -367,13 +367,18 @@ public class TaskList {
         return progressDetails.toArray(new String[0]);
     }
 
-    public HashMap<String, String> getTasksWithinCurrentMonth() {
-        HashMap<String, String> allTasksWithinCurrentMonth = new HashMap<>();
+    //@@author Lucria
+    /**
+     * Method that will get all tasks that are in the current month.
+     * @return : Returns a hashmap typing the task name with date in the current month.
+     */
+    public HashMap<String, Integer> getTasksWithinCurrentMonth() {
+        HashMap<String, Integer> allTasksWithinCurrentMonth = new HashMap<>();
         String currentMonth = dateTimeHelper.getCurrentMonth();
         for (Task task : this.taskList) {
             Date taskDate = task.getDueDate();
             if (dateTimeHelper.getMonthFromDateObject(taskDate).equals(currentMonth)) {
-                String dayOfTaskDueDate = dateTimeHelper.getDayFromDateObject(taskDate);
+                int dayOfTaskDueDate = dateTimeHelper.getDayFromDateObject(taskDate);
                 allTasksWithinCurrentMonth.put(task.getTaskName(), dayOfTaskDueDate);
             }
         }

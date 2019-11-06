@@ -3,6 +3,7 @@ package util;
 import models.member.Member;
 import models.project.Project;
 import models.task.Task;
+import util.validation.ValidityHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -457,8 +458,8 @@ public class ParserHelper {
         }
 
         for (Integer index: repeated) {
-            assignees.remove(assignees.indexOf(index));
-            unassignees.remove(unassignees.indexOf(index));
+            assignees.remove(index);
+            unassignees.remove(index);
         }
     }
 

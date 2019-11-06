@@ -206,19 +206,24 @@ public class ViewHelper {
     }
 
     //@@author Lucria
-
-    public String[] consolePrintCalender(HashMap<String,String> currentMonthTasks) {
+    /**
+     * Method that returns an array of strings representing a calender for printing to the console line.
+     * @param currentMonthTasks : All tasks that has a deadline in the current month.
+     * @return : Returns an array of strings for View layer to print to the console line.
+     */
+    public String[] consolePrintCalender(HashMap<String, Integer> currentMonthTasks) {
         StringBuilder oneLine = new StringBuilder();
         ArrayList<String> consoleCalender = new ArrayList<>();
-        ArrayList<ArrayList<String>> responseModel = new ArrayList<>();
-        int [] daysPerMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
         DateTimeHelper dateTimeHelper = new DateTimeHelper();
-        consoleCalender.add("    Today's date is " + dateTimeHelper.getCurrentDate() +" " + dateTimeHelper.getCurrentMonth() + " " + dateTimeHelper.getCurrentYear());
+        consoleCalender.add("    Today's date is " + dateTimeHelper.getCurrentDate() + " "
+                            + dateTimeHelper.getCurrentMonth() + " " + dateTimeHelper.getCurrentYear());
         consoleCalender.add("        U        M        T        W        R        F        S");
         int emptySpaces = dateTimeHelper.getDayAtStartOfMonth();
         for (int i = 1; i < emptySpaces; i++) {
             oneLine.append(SPACING).append("  ");
         }
+
+        int [] daysPerMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
         for (int i = 1; i <= daysPerMonth[Integer.parseInt(dateTimeHelper.getCurrentMonth()) - 1]; i++) {
             if (oneLine.length() == 63) {
                 consoleCalender.add(oneLine.toString());
@@ -232,6 +237,7 @@ public class ViewHelper {
         }
         consoleCalender.add(oneLine.toString());
 
+        ArrayList<ArrayList<String>> responseModel = new ArrayList<>();
         responseModel.add(consoleCalender);
         return consolePrintTable(responseModel, DEFAULT_HORI_BORDER_LENGTH);
     }

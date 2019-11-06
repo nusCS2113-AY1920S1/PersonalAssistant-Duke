@@ -63,33 +63,60 @@ public class DateTimeHelper {
     }
 
     //@@author Lucria
+
+    /**
+     * Method that will return the current year.
+     * @return : Returns a string representing the current year.
+     */
     public String getCurrentYear() {
         return Integer.toString(this.calender.get(Calendar.YEAR));
     }
 
+    /**
+     * Method that returns the current month.
+     * @return : Returns a string representing the current month.
+     */
     public String getCurrentMonth() {
         return Integer.toString(this.calender.get(Calendar.MONTH) + 1);
     }
 
+    /**
+     * Method that returns the current date.
+     * @return : Returns a string representing the current date.
+     */
     public String getCurrentDate() {
         return Integer.toString(this.calender.get(Calendar.DAY_OF_MONTH) + 1);
     }
 
+    /**
+     * Method that gets the day for the first date in a month.
+     * @return : Returns an integer that represents the first day in the start of a month.
+     */
     public int getDayAtStartOfMonth() {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_MONTH, 1);
         return cal.get(Calendar.DAY_OF_WEEK);
     }
 
+    /**
+     * Parses a Date object in order to get the month from it.
+     * @param date : Desired date object from which we wish to get the month.
+     * @return : Returns the month of the Date object as a String.
+     */
     public String getMonthFromDateObject(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         return Integer.toString(cal.get(Calendar.MONTH));
     }
 
-    public String getDayFromDateObject(Date date) {
+    /**
+     * Method that gets the day from a Date object.
+     * @param date : Desired date object from which we wish to get the day.
+     * @return : Returns the day of a Date object as a String
+     */
+    public int getDayFromDateObject(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        return Integer.toString(cal.get(Calendar.DAY_OF_MONTH));
+        return cal.get(Calendar.DAY_OF_MONTH);
     }
 }
