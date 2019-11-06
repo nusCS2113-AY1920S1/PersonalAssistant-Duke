@@ -326,6 +326,10 @@ public class UiFr extends Ui {
             System.out.println("\t RecurrenceException:\n\t\t ☹ OOPS!!! Respectez le format pour la recurrence" +
                     "\n\t\t\t recu TYPEOFRECURRENCE NBRECURRENCE");
         }
+        else if(e instanceof RecurrenceDateException){
+            System.out.println("\t RecurrenceException:\n\t\t ☹ OOPS!!! Vous êtes en train de créer un event récurrent, mais il y aura un conflit de date avec ces dates là" +
+                    "\n\t\t\t L'event n'a pas été créé, veuillez vérifier la date");
+        }
     }
 
     @Override
