@@ -1,5 +1,0 @@
-route | go to nus | 
-node | BUS | 16171 | Yusof Ishak Hse | Kent Ridge Cres | 1.29890150201437 | 103.77438231319462
-node | BUS | 16181 | Ctrl Lib | Kent Ridge Cres | 1.29656572408064 | 103.77254247664239
-node | MRT | [] | Clementi MRT |  | 1.3152 | 103.7652
-node | BUS | 18221 | NUH | Lower Kent Ridge Rd | 1.29630067771211 | 103.78346553393848
