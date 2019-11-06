@@ -1,10 +1,11 @@
 {
   "narratives": [
     "Now that you have some seeds, you can start growing your farm!",
-    "Note that your current location is at the market. You can only plant your seeds in your farm.~"
+    "Note that your current location is at the market. You can only plant your seeds in your farm.",
+    "The action [do plantSeeds] plants ALL of your seeds on the farm.~"
   ],
   "feedback": [
-    " you have succesfully went to the farm and plant seed using the [do] command"
+    "You have succesfully travelled to the farm and planted your seeds using the [do] command"
   ],
   "gold": 0,
   "seeds": 0,

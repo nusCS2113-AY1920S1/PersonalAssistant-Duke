@@ -126,15 +126,6 @@ public class Farmer {
     }
 
     /**
-     * Returns whether the farmer has any gold.
-     * @return true if the farmer has gold.
-     * @return false if the farmer has no gold.
-     */
-    public boolean hasGold() {
-        return gold > 0;
-    }
-
-    /**
      * Gets user level.
      * @return the user level.
      */

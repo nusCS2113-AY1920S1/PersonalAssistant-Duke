@@ -3,7 +3,7 @@
      |do    |hasSeeds          |gotoMarket       |
      |if    |hasWheat          |buySeeds         |
      |      |hasGrain          |gotoWheatFarm    |
-     |      |hasGold           |plantSeeds       |
+     |      |                  |plantSeeds       |
      |      |                  |harvestWheat     |
      |      |                  |sellGrain        |
      |      |                  |                 |

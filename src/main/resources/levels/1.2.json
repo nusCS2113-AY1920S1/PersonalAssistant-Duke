@@ -1,11 +1,12 @@
 {
   "narratives": [
     "At the market, you can buy and sell seeds in exchange for gold.",
+    "The action [do buySeeds] allows you to purchase 1 unit of seed from the market.",
     "Enter [Task] [Action] to buy seeds from the market.~"
   ],
   "feedback": [
-    "you have succesfully bought seeds using gold",
-    "Note that a symbol '->'  shows you whenever there is a change in your assets, "
+    "You have succesfully bought seeds using the gold you have",
+    "Note that a symbol '->'  will appear whenever there is a change in your assets, "
   ],
   "gold": 0,
   "seeds": 1,
