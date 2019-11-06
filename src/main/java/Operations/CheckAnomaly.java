@@ -21,12 +21,10 @@ public class CheckAnomaly {
         boolean isDuplicate = false;
         String name = task.getDescription();
         String assignee = task.getAssignee();
-        Date date = task.getDate();
+        String date = task.getDate().toString();
         for( Task output : TaskList.currentList() ) {
-            if (date.compareTo(output.getDate()) == 0) {
-                System.out.println("true");
-            }
-            if( output.getDescription().equals(name) && output.getAssignee().equals(assignee)) {
+            if( output.getDescription().equals(name) && output.getAssignee().equals(assignee)
+            && output.getDate().toString().equals(date) && output.getClass().equals(task.getClass())) {
                 isDuplicate = true;
             }
         }

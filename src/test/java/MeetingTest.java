@@ -1,3 +1,4 @@
+import CustomExceptions.RoomShareException;
 import Enums.Priority;
 import Enums.RecurrenceScheduleType;
 import Enums.TimeUnit;
@@ -33,7 +34,11 @@ public class MeetingTest {
     @Test
     void getDone() {
         assertFalse(meeting1.getDone());
-        meeting2.setDone(true);
+        try {
+            meeting2.setDone(true);
+        } catch (RoomShareException e) {
+            e.printStackTrace();
+        }
         assertTrue(meeting2.getDone());
     }
 
