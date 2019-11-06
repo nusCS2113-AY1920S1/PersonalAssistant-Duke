@@ -15,6 +15,9 @@ import mistermusik.commons.budgeting.CostExceedsBudgetException;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -302,6 +305,48 @@ public class MainTest {
         boolean isTasksFound = !foundTask.isEmpty();
         assertEquals(true, isTasksFound);
     }
+
+
+    @Test
+    public void checkFreeDaysTest() {
+        ArrayList<String> readFromFile = new ArrayList<String>();
+        String fileContent;
+        fileContent = "XT/fawpeifwe/02-12-2019";
+        readFromFile.add(fileContent);
+        fileContent = "XP/apiejfpwiefw/03-12-2019 1500/03-12-2019 1800";
+        readFromFile.add(fileContent);
+        fileContent = "XC/halloween/04-12-2019 1600/04-12-2019 1930/5";
+        readFromFile.add(fileContent);
+
+        EventList eventListTest = new EventList(readFromFile);
+
+        EventDate dayToCheckIfFreeObject = new EventDate(new Date());
+        dayToCheckIfFreeObject.addDaysAndSetMidnight(0);
+        Queue<String> daysFree = new LinkedList<>();
+        int nextDays = 1;
+        while (daysFree.size() <= 3) {
+            boolean isFree = true;
+            for (Event viewEvent : eventListTest.getEventArrayList()) {
+                if (viewEvent.getStartDate().getFormattedDateString().substring(0, 16).equals(dayToCheckIfFreeObject.getFormattedDateString())) {
+                    isFree = false;
+                    break;
+                }
+            }
+            if (isFree) {
+                daysFree.add(dayToCheckIfFreeObject.getFormattedDateString());
+            }
+            dayToCheckIfFreeObject.addDaysAndSetMidnight(1);
+            nextDays++;
+        }
+
+        boolean checkFreeFlag = false;
+        EventDate eventDateCompare = new EventDate(new Date());
+        eventDateCompare.addDaysAndSetMidnight(0);
+        if (daysFree.poll().equals("19 SEP 2019")) {
+            checkFreeFlag = true;
+        }
+        assertEquals(true, checkFreeFlag);
+    }
 //
 //    @Test
 //    public void addRecurringEventTest() {
@@ -325,39 +370,6 @@ public class MainTest {
 //        assertEquals(4, taskFound);
 //    }
 //
-//    @Test
-//    public void checkFreeDaysTest() {
-//        ArrayList<String> taskListString = new ArrayList<>();
-//        EventList testList = new EventList(taskListString);
-//        Task toDoTest = new ToDo("B-extensions");
-//        testList.addTask(toDoTest);
-//        Task deadlineTest1 = new Deadline("finish extension", "21/09/2019 1900");
-//        testList.addTask(deadlineTest1);
-//        Task deadlineTest2 = new Deadline("submit report", "22/09/2019 2000");
-//        testList.addTask(deadlineTest2);
-//        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-//        EventDate today = new EventDate(f.format(new Date()));
-//        Queue<String> daysFree = new LinkedList<String>();
-//        int nextDays = 1;
-//        while (daysFree.size() <= 3) {
-//            boolean flagFree = true;
-//            for (Task viewTask : testList.getTaskArrayList()) {
-//                if (viewTask.toString().contains(today.toOutputString())) {
-//                    flagFree = false;
-//                    break;
-//                }
-//            }
-//            if (flagFree) {
-//                daysFree.add(today.toOutputString());
-//            }
-//            today.addDays(nextDays);
-//        }
-//        boolean checkFreeFlag = false;
-//        if (daysFree.poll().equals("19 SEP 2019")) {
-//            checkFreeFlag = true;
-//        }
-//        assertEquals(true, checkFreeFlag);
-//    }
 //
 //    @Test
 //    public void reminderTest () {
