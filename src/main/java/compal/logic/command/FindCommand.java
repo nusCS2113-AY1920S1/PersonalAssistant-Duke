@@ -1,8 +1,11 @@
 package compal.logic.command;
 
+import compal.commons.LogUtils;
 import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
+
+import java.util.logging.Logger;
 
 public class FindCommand extends Command {
 
@@ -14,6 +17,7 @@ public class FindCommand extends Command {
             + "find cs2106\n\t\t"
             + "show all tasks containing cs2106 in their description";
     private String keyWord;
+    private static final Logger logger = LogUtils.getLogger(FindCommand.class);
 
     public FindCommand(String keyWord) {
         this.keyWord = keyWord;
@@ -22,7 +26,7 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult commandExecute(TaskList taskList) throws CommandException {
-
+        logger.info("Executing find command");
         if (taskList.getArrList().isEmpty()) {
             return new CommandResult("You have no tasks at the moment!",false);
         }

@@ -1,5 +1,6 @@
 package compal.logic.parser;
 
+import compal.commons.LogUtils;
 import compal.logic.command.Command;
 import compal.logic.command.EditCommand;
 import compal.logic.parser.exceptions.ParserException;
@@ -9,12 +10,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 //@@author jaedonkey
 public class EditCommandParser implements CommandParser {
+    private static final Logger logger = LogUtils.getLogger(EditCommandParser.class);
+
 
     @Override
     public Command parseCommand(String restOfInput) throws ParserException, ParseException {
+        logger.info("Attempting to parse edit command");
         int taskId = getTaskID(restOfInput);
         String description = getTokenDescription(restOfInput);
         Date date = getDate(restOfInput);
@@ -25,6 +30,29 @@ public class EditCommandParser implements CommandParser {
         return new EditCommand(taskId, description, date, startTime, endTime, priority);
 
 
+    }
+
+    @Override
+    public Task.Priority getTokenPriority(String restOfInput) throws ParserException {
+        Task.Priority priorityField;
+        if (restOfInput.contains(TOKEN_PRIORITY)) {
+            int startPoint = restOfInput.indexOf(TOKEN_PRIORITY);
+            String priorityStartInput = restOfInput.substring(startPoint);
+            Scanner scanner = new Scanner(priorityStartInput);
+            scanner.next();
+            if (!scanner.hasNext()) {
+                throw new ParserException(MESSAGE_MISSING_INPUT);
+            }
+            String commandPriority = scanner.next();
+            if (isPriorityValid(commandPriority)) {
+                priorityField = Task.Priority.valueOf(commandPriority.toLowerCase());
+            } else {
+                throw new ParserException(MESSAGE_INVALID_PRIORITY);
+            }
+        } else {
+            priorityField = null;
+        }
+        return priorityField;
     }
 
     @Override
@@ -70,6 +98,7 @@ public class EditCommandParser implements CommandParser {
                 description = sub.substring(0,splitPoint);
             }
         } else {
+            System.out.println("No desc found!!!");
             return null;
         }
         return description;
