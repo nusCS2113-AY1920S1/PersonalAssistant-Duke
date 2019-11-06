@@ -4,7 +4,13 @@ package com.algosenpai.app.logic.command;
 
 import com.algosenpai.app.logic.constant.CommandsEnum;
 import com.algosenpai.app.logic.parser.Parser;
+import com.algosenpai.app.stats.UserStats;
+import com.algosenpai.app.storage.Storage;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,18 +26,23 @@ public class InvalidCommand extends Command {
 
     @Override
     public String execute() {
-        String input = "";
-        String arg = "";
-        for (String i : inputs) {
-            if (Parser.allCharacters(i)) {
-                input += i;
-            }
-        }
-        if (!compare(input).isEmpty()) {
-            return "OOPS!!! Error occurred. Please input a valid command. Did you mean... " + compare(input) + "?";
+        UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
+        if (previousStats.getUsername().equals("Default")) {
+            return "Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
+                    + "Can I have your name and gender in the format : 'hello NAME GENDER (boy/girl)' please.";
         } else {
-            return "Sorry please input a valid command. Enter `menu` to view our list of commands and `menu <command> "
-                    + "to find out how to use them!";
+            String input = "";
+            for (String i : inputs) {
+                if (Parser.allCharacters(i)) {
+                    input += i.toLowerCase();
+                }
+            }
+            if (!compare(input).isEmpty()) {
+                return "OOPS!!! Error occurred. Please input a valid command. Did you mean... " + compare(input) + "?";
+            } else {
+                return "Sorry please input a valid command. Enter `menu` to view our list of commands and `menu <command> "
+                        + "to find out how to use them!";
+            }
         }
     }
 
@@ -47,15 +58,23 @@ public class InvalidCommand extends Command {
         ArrayList<String> strings = new ArrayList<>();
 
         for (String s: name) {
-            int temp = editDist(input, s, input.length(), s.length());
-            if (temp < num) {
-                num = temp;
+            if (s.startsWith(input)) {
                 if (!strings.isEmpty()) {
                     clear(strings);
                 }
                 strings.add(s);
-            } else if (temp == num) {
-                strings.add(s);
+                break;
+            } else {
+                int temp = editDist(input, s, input.length(), s.length());
+                if (temp < num) {
+                    num = temp;
+                    if (!strings.isEmpty()) {
+                        clear(strings);
+                    }
+                    strings.add(s);
+                } else if (temp == num) {
+                    strings.add(s);
+                }
             }
         }
         return strings.toString().replace("[", "").replace("]","");

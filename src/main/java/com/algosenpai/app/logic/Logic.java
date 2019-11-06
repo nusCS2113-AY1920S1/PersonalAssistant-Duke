@@ -1,29 +1,7 @@
 package com.algosenpai.app.logic;
 
 import com.algosenpai.app.logic.chapters.QuizGenerator;
-import com.algosenpai.app.logic.command.ArchiveCommand;
-import com.algosenpai.app.logic.command.BlockedCommand;
-import com.algosenpai.app.logic.command.ByeCommand;
-import com.algosenpai.app.logic.command.ClearCommand;
-import com.algosenpai.app.logic.command.Command;
-import com.algosenpai.app.logic.command.HelpCommand;
-import com.algosenpai.app.logic.command.HistoryCommand;
-import com.algosenpai.app.logic.command.InvalidCommand;
-import com.algosenpai.app.logic.command.MenuCommand;
-import com.algosenpai.app.logic.command.PrintArchiveCommand;
-import com.algosenpai.app.logic.command.PrintCommand;
-import com.algosenpai.app.logic.command.PrintQuizCommand;
-import com.algosenpai.app.logic.command.PrintUserCommand;
-import com.algosenpai.app.logic.command.QuizCommand;
-import com.algosenpai.app.logic.command.QuizNextCommand;
-import com.algosenpai.app.logic.command.QuizTestCommand;
-import com.algosenpai.app.logic.command.ResultCommand;
-import com.algosenpai.app.logic.command.ReviewCommand;
-import com.algosenpai.app.logic.command.SaveCommand;
-import com.algosenpai.app.logic.command.SelectCommand;
-import com.algosenpai.app.logic.command.SetupCommand;
-import com.algosenpai.app.logic.command.UndoCommand;
-import com.algosenpai.app.logic.command.VolumeCommand;
+import com.algosenpai.app.logic.command.*;
 import com.algosenpai.app.logic.constant.CommandsEnum;
 import com.algosenpai.app.logic.models.QuestionModel;
 import com.algosenpai.app.logic.parser.Parser;
@@ -53,7 +31,8 @@ public class Logic {
     // VariabReview features;
     private ArrayList<QuestionModel> archiveList = new ArrayList<>();
 
-    private HashSet<String> quizBlockedCommands = new HashSet<>(CommandsEnum.getNames());
+    //private HashSet<String> quizBlockedCommands = new HashSet<>(CommandsEnum.getNames());
+    private HashSet<String> quizBlockedCommands = new HashSet<>(CommandsEnum.getBlockedNames(CommandsEnum.getNames()));
     // History features;
     private ArrayList<String> historyList = new ArrayList<>();
     // Used to get the past commands, using arrow keys. Stores the number of elements from the back of historyList
@@ -89,6 +68,12 @@ public class Logic {
                 return setupNewQuiz(inputs);
             } else if (isNewQuiz.get() && userInput.equals("select")) {
                 return new SelectCommand(inputs, chapterNumber, userStats, isQuizMode);
+            } else if (userInput.equals("menu")) {
+                return new MenuCommand(inputs);
+            } else if (userInput.equals("history")) {
+                return new HistoryCommand(inputs, historyList);
+            } else if (userInput.equals("volume")) {
+                return new VolumeCommand(inputs);
             } else if (quizBlockedCommands.contains(userInput)) {
                 return new BlockedCommand(inputs);
             } else {
@@ -98,6 +83,8 @@ public class Logic {
             switch (userInput) {
             case "hello":
                 return new SetupCommand(inputs, userStats);
+            case "chapters":
+                return new ChaptersCommand(inputs);
             case "help":
                 return new HelpCommand(inputs, userStats);
             case "menu":

@@ -137,7 +137,12 @@ public class Ui extends AnchorPane {
         String response = commandGenerated.execute();
 
         if (commandGenerated instanceof UndoCommand) {
-            undoChat(response, input, response);
+            if (dialogContainer.getChildren().isEmpty()) {
+                printSenpaiText("There are no more chats to undo!", senpaiImage);
+                handleUndoAfterClear();
+            } else {
+                undoChat(response, input, response);
+            }
         } else if (commandGenerated instanceof ClearCommand) {
             clearChat();
         } else if (commandGenerated instanceof ByeCommand) {
@@ -282,6 +287,20 @@ public class Ui extends AnchorPane {
                 } else {
                     idleMinutesMax = 180;
                     printSenpaiText(HELP_MESSAGE, senpaiImage);
+                }
+            }
+        };
+        animationTimerController.start();
+    }
+
+    private void handleUndoAfterClear() {
+        AnimationTimerController animationTimerController = new AnimationTimerController(1000) {
+            @Override
+            public void handle() {
+                if (idleMinutesMax > 170) {
+                    idleMinutesMax--;
+                } else {
+                    clearChat();
                 }
             }
         };

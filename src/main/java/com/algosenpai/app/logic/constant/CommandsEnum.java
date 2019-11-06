@@ -7,11 +7,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public enum CommandsEnum {
-    hello,
     menu,
     quiz,
     select,
     result,
+    review,
+    reset,
     history,
     undo,
     clear,
@@ -20,7 +21,6 @@ public enum CommandsEnum {
     print,
     archive,
     save,
-    reset,
     exit;
 
     /**
@@ -33,5 +33,15 @@ public enum CommandsEnum {
                                        .map(CommandsEnum::name)
                                        .collect(Collectors.toList());
         return enumNames;
+    }
+
+    public static List<String> getBlockedNames(List<String> enumNames) {
+        List<String> blockedNames = enumNames;
+        blockedNames.remove(0); //menu
+        blockedNames.remove(5); //history
+        blockedNames.remove(8);
+        blockedNames.remove(10); //volume
+
+        return blockedNames;
     }
 }

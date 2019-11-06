@@ -81,19 +81,20 @@ public class MenuCommandTest extends ApplicationTest {
         DialogBox dialogBox = (DialogBox) container.getChildren().get(2);
         String actualText = dialogBox.getDialog().getText();
         Assertions.assertEquals("Senpai will teach you! Try these commands\n"
-                + "hello\n"
                 + "help\n"
+                + "quiz\n"
                 + "select\n"
                 + "result\n"
                 + "history\n"
                 + "undo\n"
                 + "clear\n"
-                + "reset\n"
                 + "save\n"
+                + "reset\n"
                 + "exit\n"
                 + "print\n"
                 + "archive\n"
                 + "review\n"
+                + "volume \n"
                 + "menu <command>\n", actualText);
     }
 
@@ -103,7 +104,8 @@ public class MenuCommandTest extends ApplicationTest {
         VBox container = find();
         DialogBox dialogBox = (DialogBox) container.getChildren().get(2);
         String actualText = dialogBox.getDialog().getText();
-        Assertions.assertEquals("print <archive | quiz | user> <filename>.pdf", actualText);
+        Assertions.assertEquals("`print <archive | quiz | user> <filename>.pdf` "
+                                          + "to print the selected pdf file", actualText);
     }
 
 
