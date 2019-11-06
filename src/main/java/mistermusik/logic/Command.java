@@ -761,24 +761,21 @@ public class Command {
 
     //@@author Dng132FEI
     
-    public static boolean isNumeric(String str) { 
-	    try {  
-	        Integer.parseInt(str);  
-	        return true;
-	    } catch(NumberFormatException e){  
-	        return false;  
-	    }  
-	}
-    
     private void remindEvents(EventList events, UI ui) {
     	if (continuation.isEmpty()) {
     		ui.printReminderDays(events, 3);
     		return;
     	}
     	String instrumentCommand[] = continuation.split(" ");
-    	if (isNumeric(instrumentCommand[0])) {
+    	if (instrumentCommand.length > 1) {
+    		ui.printInvalidCommand();
+    		return;
+    	}
+        try {
     		int days = Integer.parseInt(instrumentCommand[0]);
     		ui.printReminderDays(events, days);
+    	} catch (NumberFormatException e) {
+    		ui.printInvalidCommand();
     	}
     }
 
