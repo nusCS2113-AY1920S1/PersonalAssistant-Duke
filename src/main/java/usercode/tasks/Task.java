@@ -9,7 +9,7 @@ import org.json.simple.JSONObject;
 
 public abstract class Task {
 
-    public enum taskType {
+    public enum Tasktype {
         DO,
         IF,
         IF_ELSE,
@@ -24,9 +24,16 @@ public abstract class Task {
     protected Condition condition;
     protected Action action;
 
-    private taskType type;
+    private Tasktype type;
 
-    public Task(taskType type, Condition condition, Action action) {
+    /**
+     * Creates a new Task object.
+     *
+     * @param type a tasktype enum
+     * @param condition the Condition to check
+     * @param action the Action to be executed
+     */
+    public Task(Tasktype type, Condition condition, Action action) {
         this.condition = condition;
         this.action = action;
         this.type = type;
@@ -44,54 +51,47 @@ public abstract class Task {
 
     public abstract void execute(Farmio farmio) throws FarmioException, FarmioFatalException;
 
+    /**
+     * Generates Task object from saved JSON data.
+     *
+     * @param object JSON Object to convert
+     * @return Task object
+     * @throws FarmioException if the JSON object cannot be converted successfully
+     */
     public static Task toTask(JSONObject object) throws FarmioException {
         try {
             Condition condition = Condition.toCondition((JSONObject) object.get(Task.JSON_KEY_CONDITION));
             Action action = Action.toAction((String) object.get(JSON_KEY_ACTION));
-            switch (taskType.valueOf((String) object.get(Task.JSON_KEY_TYPE))) {
-                case DO:
-                    return new DoTask(condition, action);
-                case IF:
-                    return new IfTask(condition, action);
-                case IF_ELSE:
-                    Action action_else = Action.toAction((String) object.get(IfElseTask.JSON_KEY_ACTION_ELSE));
-                    return new IfElseTask(condition, action, action_else);
-                case FOR:
-                    return new ForTask(condition, action);
-                case WHILE:
-                    return new WhileTask(condition, action);
-                default:
-                    throw new FarmioException("Game save is corrupted.");
+            switch (Tasktype.valueOf((String) object.get(Task.JSON_KEY_TYPE))) {
+            case DO:
+                return new DoTask(condition, action);
+            case IF:
+                return new IfTask(condition, action);
+            case IF_ELSE:
+                Action actionElse = Action.toAction((String) object.get(IfElseTask.JSON_KEY_ACTION_ELSE));
+                return new IfElseTask(condition, action, actionElse);
+            case FOR:
+                return new ForTask(condition, action);
+            case WHILE:
+                return new WhileTask(condition, action);
+            default:
+                throw new FarmioException("Game save is corrupted.");
             }
-        }catch(Exception e) {
+        } catch (Exception e) {
             throw new FarmioException("Game save is corrupted.");
         }
     }
 
-    public JSONObject toJSON() {
+    /**
+     * Converts Task Object to JSON Object.
+     *
+     * @return the JSON Object to be stored in the save file
+     */
+    public JSONObject toJson() {
         JSONObject object = new JSONObject();
         object.put(JSON_KEY_CONDITION, condition.toJson());
         object.put(JSON_KEY_ACTION, action.toString());
         object.put(JSON_KEY_TYPE, type.name());
         return object;
     }
-
-//    private Action parseJsonAction(JSONObject obj) throws FarmioException {
-//        Action action;
-//        switch ((String) obj.get("action")){
-//            case "plant_seed":
-//                action = new PlantSeedAction(obj);
-//                break;
-//            default:
-//                throw new FarmioException("Invalid task action.");
-//        }
-//        return action;
-//    }
-
-//    public JSONObject toJSON(){
-//        JSONObject obj = new JSONObject();
-//        //obj.put("condition", condition.name());
-//        obj.put("action", action.toJSON());
-//        return obj;
-//    }
 }

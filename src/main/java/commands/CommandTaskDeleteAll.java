@@ -12,7 +12,7 @@ public class CommandTaskDeleteAll extends CommandChangeTask {
      */
     @Override
     public void execute(Farmio farmio) throws FarmioFatalException {
-        farmio.getFarmer().getTasks().clear();
+        farmio.getFarmer().getTasks().deleteAll();
         super.saveTaskandResetScreen(farmio);
         farmio.getUi().showInfo("You have deleted all tasks!");
     }

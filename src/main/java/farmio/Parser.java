@@ -288,7 +288,7 @@ public class Parser {
      */
     private static Command editTask(String userInput) throws FarmioException {
         Matcher matcher = Pattern.compile("^(?<key>edit)\\s+(?<index>-?\\d+)\\s(?<cmd>.+)$").matcher(userInput);
-        if(matcher.find()){
+        if (matcher.find()) {
             int taskID = Integer.parseInt(matcher.group("index"));
             Task task = parseTask(matcher.group("cmd"));
             return new CommandTaskEdit(taskID, task);
@@ -306,7 +306,7 @@ public class Parser {
      */
     private static Command insertTask(String userInput) throws FarmioException {
         Matcher matcher = Pattern.compile("^(?<key>insert)\\s+(?<id>-?\\d+)\\s+(?<task>.+)$").matcher(userInput);
-        if(matcher.find()){
+        if (matcher.find()) {
             int taskID = Integer.parseInt(matcher.group("id"));
             Task task = parseTask(matcher.group("task"));
             return new CommandTaskInsert(taskID, task);
