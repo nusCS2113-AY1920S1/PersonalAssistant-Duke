@@ -130,13 +130,13 @@ public class ParserHelper {
      * @param input Contains the name, and reminder date
      * @return An ArrayList consisting of name in index 0,due date in index 1.
      */
-    public ArrayList<String> parseReminderDetails(String[] input) {
+    public ArrayList<String> parseReminderDetails(String input) {
         ArrayList<String> newReminderInfo = new ArrayList<>();
         String newReminderName = "--";
         String newReminderRemarks = "--";
         String newReminderDate = null;
-
-        ArrayList<String> newReminderInfoInput  =  new ArrayList<>(Arrays.asList(input));
+        String [] newReminderDetails = input.split("-");
+        ArrayList<String> newReminderInfoInput  =  new ArrayList<>(Arrays.asList(newReminderDetails));
         newReminderInfoInput.remove(0); // Remove the first empty string in newReminderInfoInput
         for (String s : newReminderInfoInput) {
             switch (s.charAt(0)) {
@@ -158,6 +158,71 @@ public class ParserHelper {
         newReminderInfo.add(newReminderRemarks);
         newReminderInfo.add(newReminderDate);
         return newReminderInfo;
+    }
+
+    /**
+     * Parse input to extract the index of the reminder specify by the user.
+     * @param input Contain the input from the user.
+     * @return index in integer.
+     */
+    public int parseDeleteReminder(String input) {
+        errorMessages.clear();
+        String [] deleteReminderDetails = input.split(" ");
+        ValidityHelper validityHelper = new ValidityHelper();
+        if (deleteReminderDetails.length > 3 || !validityHelper.digitChecker(deleteReminderDetails[2])) {
+            errorMessages.add("Please input the correct command! Example, delete reminder REMINDER_INDEX");
+            return 0;
+        } else {
+            return Integer.parseInt(deleteReminderDetails[2]);
+        }
+    }
+
+    /**
+     * Parse input to extract the index of the reminder specify by the user.
+     * @param input Contain the input from the user.
+     * @return index in integer.
+     */
+    public int parseEditReminder(String input) {
+        errorMessages.clear();
+        String [] editReminderDetails = input.split("-");
+        String []  editReminderCommand = editReminderDetails[0].split(" ");
+
+        ValidityHelper validityHelper = new ValidityHelper();
+        if (editReminderCommand.length > 3 || !validityHelper.digitChecker(editReminderCommand[2])) {
+            errorMessages.add("Please input the correct command! "
+                    + "Example, edit reminder REMINDER_INDEX -n REMINDER_NAME");
+            return 0;
+        } else {
+            return Integer.parseInt(editReminderCommand[2]);
+        }
+    }
+
+    /**
+     * Parses string input to extract information on marking/un-marking Reminder.
+     * @param input Contains the command of marking/un-marking reminder.
+     * @return An ArrayList String consisting of the status and indexes to be updated or null.
+     */
+    public ArrayList<String> parseCheckReminder(String input) {
+        errorMessages.clear();
+        String [] checkReminderDetails = input.split(" ");
+        ArrayList<String> newCheckReminderInfo = new ArrayList<>();
+        String booleanString = "";
+        String indexString = "";
+        ValidityHelper validityHelper = new ValidityHelper();
+        if (checkReminderDetails.length > 3 || !validityHelper.digitChecker(checkReminderDetails[2])) {
+            errorMessages.add("Please input the correct command! Example, mark reminder REMINDER_INDEX");
+            return null;
+        } else if (checkReminderDetails[0].equals("unmark") && validityHelper.digitChecker(checkReminderDetails[2])) {
+            booleanString = "false";
+            indexString = checkReminderDetails[2];
+        } else if (checkReminderDetails[0].equals("mark") && validityHelper.digitChecker(checkReminderDetails[2])) {
+            booleanString = "true";
+            indexString = checkReminderDetails[2];
+        }
+        newCheckReminderInfo.add(booleanString);
+        newCheckReminderInfo.add(indexString);
+
+        return newCheckReminderInfo;
     }
 
     /**
