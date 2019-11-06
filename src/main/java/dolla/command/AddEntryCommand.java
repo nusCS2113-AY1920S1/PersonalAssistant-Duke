@@ -2,9 +2,9 @@ package dolla.command;
 
 import dolla.DollaData;
 import dolla.Time;
-import dolla.action.state.EntryState;
-import dolla.action.Redo;
-import dolla.action.state.UndoStateList;
+import dolla.command.action.state.EntryState;
+import dolla.command.action.Redo;
+import dolla.command.action.state.UndoStateList;
 import dolla.task.EntryList;
 import dolla.ui.EntryUi;
 import dolla.ui.Ui;

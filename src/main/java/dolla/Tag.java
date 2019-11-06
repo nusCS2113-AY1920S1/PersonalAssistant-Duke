@@ -11,6 +11,7 @@ public class Tag {
     private String tagName;
     private String[] inputArray = Parser.getInputArray();
     private String inputLine = Parser.getInputLine();
+    private static final String EMPTY_STR = "";
 
     /**
      * Instantiates a new Tag.
@@ -25,8 +26,8 @@ public class Tag {
 
     @Override
     public String toString() {
-        if (tagName.equals("")) {
-            return "";
+        if (EMPTY_STR.equals(tagName)) {
+            return EMPTY_STR;
         } else {
             return " {Tag: " + tagName + '}';
         }

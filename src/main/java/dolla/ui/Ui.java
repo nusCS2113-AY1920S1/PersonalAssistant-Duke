@@ -4,6 +4,8 @@ import dolla.task.Record;
 
 import java.util.ArrayList;
 
+import static dolla.ModeStringList.MODE_SHORTCUT;
+
 /**
  * duke.Ui is a class that handles all interactions to the user.
  */
@@ -24,18 +26,14 @@ public abstract class Ui {
     protected static final String SORT_NAME = "name";
 
     private static String newLogo =
-            "\t   /$$$$$$$            /$$ /$$  \n"
-          + "\t  | $$__  $$          | $$| $$   \n"
-          + "\t  | $$  \\ $$  /$$$$$$ | $$| $$  /$$$$$$ \n"
-          + "\t  | $$  | $$ /$$__  $$| $$| $$ |____  $$\n"
-          + "\t  | $$  | $$| $$  \\ $$| $$| $$  /$$$$$$$\n"
-          + "\t  | $$  | $$| $$  | $$| $$| $$ /$$__  $$\n"
-          + "\t  | $$$$$$$/|  $$$$$$/| $$| $$|  $$$$$$$\n"
-          + "\t  |_______/  \\______/ |__/|__/ \\_______/\n";
-
-
-
-
+            "\t /$$$$$$$            /$$ /$$  \n"
+          + "\t| $$__  $$          | $$| $$   \n"
+          + "\t| $$  \\ $$  /$$$$$$ | $$| $$  /$$$$$$ \n"
+          + "\t| $$  | $$ /$$__  $$| $$| $$ |____  $$\n"
+          + "\t| $$  | $$| $$  \\ $$| $$| $$  /$$$$$$$\n"
+          + "\t| $$  | $$| $$  | $$| $$| $$ /$$__  $$\n"
+          + "\t| $$$$$$$/|  $$$$$$/| $$| $$|  $$$$$$$\n"
+          + "\t|_______/  \\______/ |__/|__/ \\_______/\n";
 
     private static String logo =
         "\t ____    _   _  _   _       \n"
@@ -89,21 +87,6 @@ public abstract class Ui {
 
     // TODO: DELETE
     /**
-     * This method prints the strings of text from 'msg' with the proper format. Each element
-     * from 'msg' is a line of text to be printed.
-     *
-     * @param msg ArrayList of strings containing the messages to be printed.
-     */
-    public static void printMsg(ArrayList<String> msg) {
-        System.out.println(line);
-        for (String outputMsg : msg) {
-            System.out.println("\t" + outputMsg);
-        }
-        System.out.println(line);
-    }
-
-    // TODO: DELETE
-    /**
      * This method prints the strings of text from 's' with the proper format. Each element
      * from 's' is a line of text to be printed.
      *
@@ -129,15 +112,9 @@ public abstract class Ui {
         System.out.println(line);
         System.out.println("\tGot it. I've added this " + currRecord.getRecordType() + ": ");
         System.out.println("\t" + currRecord.getRecordDetail());
-        System.out.println(line);
-    }
-
-    /**
-     * Prints an error message when date in not in the format 'DD/MM/YYYY HHmm'.
-     */
-    public static void printDateTimeFormatError() {
-        System.out.println(line);
-        System.out.println("\tPlease use the format 'DD/MM/YYYY HHmm'!");
+        if (currRecord.getRecordType().equals(MODE_SHORTCUT)) {
+            System.out.println("\tYou can execute 'shortcuts' to view your list of shortcuts!");
+        }
         System.out.println(line);
     }
 
@@ -242,6 +219,20 @@ public abstract class Ui {
             System.out.printf("%c",message.charAt(i));
             sleep(10);
         }
+    }
+
+    /**
+     * This method will print the error message if user is trying trying to remove a non-existing record.
+     * @param number the total number of record.
+     */
+    public static void printNumberOfRecords(int number) {
+        System.out.println(line);
+        System.out.println("\tSorry, you only have " + number + " record(s).");
+        System.out.println(line);
+    }
+
+    public static void printDateRequest() {
+        System.out.println("\tPlease enter your new entry date in the format 'DD/MM/YYYY'");
     }
 
 }

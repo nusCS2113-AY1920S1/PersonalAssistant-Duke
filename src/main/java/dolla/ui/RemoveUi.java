@@ -3,16 +3,6 @@ package dolla.ui;
 public class RemoveUi extends Ui {
     //@@author yetong1895
     /**
-     * This method will print the error message if user is trying trying to remove a non-existing record.
-     * @param number the total number of record.
-     */
-    public static void printRemoveError(int number) {
-        System.out.println(line);
-        System.out.println("\tSorry, you only have " + number + " record(s).");
-        System.out.println(line);
-    }
-
-    /**
      * The method will print the message of the removal of a user defined record.
      * @param record the record to be removed
      */

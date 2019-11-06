@@ -2,9 +2,9 @@ package dolla.command;
 
 import dolla.DollaData;
 
-import dolla.action.Redo;
-import dolla.action.state.DebtState;
-import dolla.action.state.UndoStateList;
+import dolla.command.action.Redo;
+import dolla.command.action.state.DebtState;
+import dolla.command.action.state.UndoStateList;
 import dolla.task.DebtList;
 import dolla.ui.DebtUi;
 import dolla.ui.Ui;
