@@ -35,6 +35,9 @@ INS @ 23580.0 @ car @ INS @ 12/12/2017 @ 150 @ 0.03
 INS @ 4000.0 @ television @ INS @ 12/9/2019 @ 10 @ 0.027999999
 INS @ 40000.0 @ student loan @ INS @ 12/10/2018 @ 40 @ 0.032
 INS @ 7000.0 @ motorbike @ INS @ 12/12/2017 @ 100 @ 0.03
+INS @ 200000.0 @ mortgage @ INS @ 30/10/2019 @ 200 @ 0.027999999
+INS @ 200000.0 @ car @ INS @ 10/2/2017 @ 200 @ 0.025
+INS @ 29000.0 @ car @ INS @ 30/10/2019 @ 200 @ 0.025
 LOA @ 4000.0 @ rekt @ 20/10/2019 @ INCOMING @  @ 0 @ 100.0
 LOA @ 700.0 @ mah parents @ 19/10/2019 @ INCOMING @  @ 0 @ 700.0
 LOA @ 700.0 @ mah parents @ 26/10/2019 @ OUTGOING @  @ 0 @ 400.0

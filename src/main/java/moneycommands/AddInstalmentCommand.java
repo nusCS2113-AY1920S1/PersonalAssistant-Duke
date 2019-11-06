@@ -58,8 +58,8 @@ public class AddInstalmentCommand extends MoneyCommand {
             desc = inputString.split(" /amt ")[0].replaceFirst("add instalment ", "");
             amount = Float.parseFloat(inputString.split(" /amt ")[1].split(" /within ")[0]);
             numOfPaymentsReq = Integer.parseInt(inputString.split(" /within ")[1].split(" months /from ")[0]);
-            boughtDate = Parser.shortcutTime(inputString.split(" months /from ")[1].split(" @")[0]);
-            annualIR = Float.parseFloat(inputString.split(" @")[1].split("%")[0]);
+            boughtDate = Parser.shortcutTime(inputString.split(" months /from ")[1].split(" /percentage ")[0]);
+            annualIR = Float.parseFloat(inputString.split(" /percentage ")[1]);
             category = "INS";
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new DukeException("Please enter in the format: "

@@ -22,9 +22,14 @@ public class DeleteInstalmentCommand extends MoneyCommand {
      * with the index of the item to be deleted within the user input
      * @param command delete command inputted from user
      */
-    public DeleteInstalmentCommand(String command) {
-        inputString = command;
-        serialNo = Integer.parseInt(inputString.replaceAll("[^0-9]", ""));
+    public DeleteInstalmentCommand(String command) throws DukeException{
+        try {
+            inputString = command;
+            String temp = inputString.replaceAll("[^0-9]", "");
+            serialNo = Integer.parseInt(temp);
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter a numerical number as the index of the instalment to be deleted\n");
+        }
     }
 
     @Override
