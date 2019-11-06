@@ -141,14 +141,32 @@ public class ParserSchedule {
      * Method to run when entering monthly schedule.
      */
     public void monthlySchedule() {
-        System.out.println(schedule.getMonth());
+        boolean runMonth = true;
+        while (runMonth) {
+            cliView.bufferLine();
+            cliView.message("Please enter a valid month: 1 - 12");
+            cliView.message("Go back: 13");
+            cliView.bufferLine();
+            int inputMonth = sc.nextInt();
+            if (inputMonth == 13) {
+                runMonth = false;
+                cliView.bufferLine();
+            } else if (inputMonth > 12 || inputMonth < 0) {
+                cliView.message("Invalid date");
+            } else {
+                cliView.bufferLine();
+                schedule.getMonth(inputMonth - 1);
+                cliView.bufferLine();
+            }
+        }
     }
 
     //@@author Sfloydzy
 
     /**
      * Method to parse the command input from the menu.
-     * @throws ParseException Parse
+     *
+     * @throws ParseException        Parse
      * @throws FileNotFoundException File not found
      */
     public void parseCommand() throws ParseException, IOException {

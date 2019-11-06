@@ -1,5 +1,7 @@
 package duke.data;
 
+import duke.models.TimeSlot;
+
 import java.io.IOException;
 
 /**
@@ -14,5 +16,5 @@ public interface IStorage {
     /**
      * Method will save file to location.
      */
-    public void save() throws IOException;
+    public void save(TimeSlot timeSlot) throws IOException;
 }

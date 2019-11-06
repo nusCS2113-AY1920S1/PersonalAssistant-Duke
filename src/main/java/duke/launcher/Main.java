@@ -1,6 +1,6 @@
 package duke.launcher;
 
-import duke.data.StorageSchedule;
+import duke.data.ScheduleStorage;
 import duke.parser.ParserCommand;
 import duke.data.Storage;
 import duke.models.Schedule;
@@ -77,10 +77,7 @@ public class Main extends Application {
      *
      * @param args expects array of string objects
      */
-    public static void main(final String[] args) throws IOException {
-        StorageSchedule storageSchedule = new StorageSchedule();
-        storageSchedule.save();
-        storageSchedule.load();
+    public static void main(final String[] args) {
         CliView cliView = new CliView();
         cliView.execute();
     }
