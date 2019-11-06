@@ -25,7 +25,6 @@ public class Schedule extends CliViewSchedule {
      * Function gets the month of the current year.
      *
      * @param selectMonth The month you want to view
-     * @return String of all the days in the month
      */
     public void getMonth(final int selectMonth) {
         Calendar cal = Calendar.getInstance();

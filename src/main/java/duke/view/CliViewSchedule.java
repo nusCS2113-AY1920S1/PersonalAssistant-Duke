@@ -3,7 +3,7 @@ package duke.view;
 import java.util.Calendar;
 
 /**
- * Class handles the Schedule specific print commands
+ * Class handles the Schedule specific print commands.
  */
 public class CliViewSchedule {
 
@@ -43,7 +43,7 @@ public class CliViewSchedule {
      * @param date The month and day
      * @param year The year to be printed
      */
-    protected void printMonthHeader (String date, int year) {
+    protected void printMonthHeader(String date, int year) {
         System.out.println(date + " " + year);
     }
 }

@@ -151,11 +151,9 @@ public class ParserSchedule {
             if (inputMonth == 13) {
                 runMonth = false;
                 cliView.bufferLine();
-            }
-            else if (inputMonth > 12 || inputMonth < 0) {
+            } else if (inputMonth > 12 || inputMonth < 0) {
                 cliView.message("Invalid date");
-            }
-            else {
+            } else {
                 cliView.bufferLine();
                 schedule.getMonth(inputMonth - 1);
                 cliView.bufferLine();
