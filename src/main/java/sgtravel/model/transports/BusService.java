@@ -13,7 +13,7 @@ public class BusService {
     private ArrayList<String> backward;
 
     /**
-     * Create bus object.
+     * Creates a BusService object.
      */
     public BusService(String bus) {
         this.bus = bus;
@@ -22,7 +22,7 @@ public class BusService {
     }
 
     /**
-     * Add the bus stop code to the route which the bus would travel to.
+     * Adds the bus stop code to the route which the bus would travel to.
      *
      * @param busCode Code of bus stop
      * @param direction Direction of travel to next bus stop
