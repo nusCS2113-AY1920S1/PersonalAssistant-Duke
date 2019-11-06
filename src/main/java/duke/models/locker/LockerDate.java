@@ -7,6 +7,7 @@ import duke.exceptions.DukeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.time.temporal.ChronoUnit;
 
 import static java.util.Objects.requireNonNull;
@@ -18,7 +19,7 @@ public class LockerDate {
             + "\n      2. Should be in the format of <DD-MM-YYYY>";
 
     private static final DateTimeFormatter checkDateFormat =
-            DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(ResolverStyle.STRICT);
 
     public String date;
 
