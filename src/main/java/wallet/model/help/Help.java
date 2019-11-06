@@ -1,4 +1,5 @@
 //@@author Xdecosee
+
 package wallet.model.help;
 
 import java.util.ArrayList;

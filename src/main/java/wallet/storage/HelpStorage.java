@@ -55,7 +55,7 @@ public class HelpStorage {
     }
 
     /**
-     * Retrieve help section content
+     * Retrieve help section content.
      *
      * @param filePath file path to a help section.
      * @return list with help section content.
