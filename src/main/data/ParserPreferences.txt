@@ -1,3 +1,4 @@
+gg|help
 a|add
 b|bye
 shw|show
@@ -11,3 +12,4 @@ re|reassign-seat
 arc|archive
 s|sell
 v|view
+pow|archive

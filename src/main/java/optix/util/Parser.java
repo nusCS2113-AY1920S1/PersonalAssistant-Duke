@@ -86,8 +86,12 @@ public class Parser {
                 return new ResetAliasCommand(this.preferenceFilePath);
             case "list-alias":
                 return new ListAliasCommand();
+            case "archive":
+            case "show":
+            case "finance":
+                return new TabCommand(commandName);
             default:
-                return new TabCommand(splitStr[0]);
+                throw new OptixInvalidCommandException();
             }
         } else if (splitStr.length == 2) {
 
