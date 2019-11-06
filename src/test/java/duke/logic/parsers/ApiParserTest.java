@@ -36,7 +36,8 @@ class ApiParserTest {
         Venue expected = new Venue("21 LOWER KENT RIDGE ROAD NATIONAL UNIVERSITY OF SINGAPORE "
                 + "(LT24) SINGAPORE 119077", 1.295891879784, 103.780531726731, 22125.2865001485,
                 30918.7200026438);
-        Venue actual = ApiParser.getLocationSearch("NUS");
+        Venue actual = ApiParser.getLocationSearch("21 LOWER KENT RIDGE ROAD NATIONAL "
+                + "UNIVERSITY OF SINGAPORE (LT24) SINGAPORE");
 
         assertTrue(expected.equals(actual));
     }

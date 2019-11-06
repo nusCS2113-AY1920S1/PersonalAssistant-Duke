@@ -22,7 +22,9 @@ class EventTest {
         LocalDateTime startDate = ParserTimeUtil.parseStringToDate("12/12/12");
         LocalDateTime endDate = ParserTimeUtil.parseStringToDate("06/06/18");
         Event event = new Event("Pulau Ubin", startDate, endDate);
-        assertEquals(event.toString(), "[E][✘] Pulau Ubin between " + startDate + " and " + endDate);
+        assertEquals(event.toString(), "[E][✘] Pulau Ubin between "
+                + ParserTimeUtil.stringify(startDate) + " and "
+                + ParserTimeUtil.stringify(endDate));
         assertNotEquals(event.toString(), "");
     }
 

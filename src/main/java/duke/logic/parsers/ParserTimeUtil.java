@@ -10,6 +10,7 @@ import java.time.LocalTime;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.FormatStyle;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAdjusters;
 
@@ -53,5 +54,14 @@ public class ParserTimeUtil {
             }
         }
         throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
+    }
+
+    /**
+     * Converts a LocalDateTime object to a pleasant looking string.
+     * @param date The LocalDateTime object.
+     * @return A pleasant looking string.
+     */
+    public static String stringify(LocalDateTime date) {
+        return DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG, FormatStyle.SHORT).format(date);
     }
 }

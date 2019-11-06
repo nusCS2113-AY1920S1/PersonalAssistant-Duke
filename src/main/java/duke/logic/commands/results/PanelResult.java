@@ -1,6 +1,7 @@
 package duke.logic.commands.results;
 
 import duke.commons.exceptions.OutOfBoundsException;
+import duke.logic.parsers.ParserTimeUtil;
 import duke.model.Event;
 import duke.model.lists.VenueList;
 import duke.model.locations.Venue;
@@ -58,14 +59,14 @@ public class PanelResult {
      * Returns the start date of the Event.
      */
     public String getStartDate() {
-        return event.getStartDate().toString();
+        return ParserTimeUtil.stringify(event.getStartDate());
     }
 
     /**
      * Returns the end date of the Event.
      */
     public String getEndDate() {
-        return event.getEndDate().toString();
+        return ParserTimeUtil.stringify(event.getEndDate());
     }
 
     /**

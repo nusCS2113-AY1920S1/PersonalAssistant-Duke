@@ -2,6 +2,7 @@ package duke.model;
 
 import duke.commons.exceptions.ApiException;
 import duke.logic.api.ApiParser;
+import duke.logic.parsers.ParserTimeUtil;
 import duke.model.locations.Venue;
 
 import java.io.Serializable;
@@ -40,7 +41,8 @@ public class Event extends TaskWithDates implements Serializable {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " between " + super.getStartDate() + " and " + super.getEndDate();
+        return "[E]" + super.toString() + " between " + ParserTimeUtil.stringify(getStartDate())
+                + " and " + ParserTimeUtil.stringify(getEndDate());
     }
 
     /**
