@@ -1,5 +1,5 @@
-import dolla.model.Limit;
-import dolla.model.Record;
+package dolla.model;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
