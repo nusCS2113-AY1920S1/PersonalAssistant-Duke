@@ -20,6 +20,37 @@ By: `Team SGTravel`      Since: `Aug 2019`      Licence: `MIT`
 
 SGTravel is for those who *prefer to use a desktop app for scheduling tasks*. SGTravel is also able to provide all sort of information about Singapore. Regardless whether you are a tourist or a local, SGTravel is the best application for planning your vacation plans in Singapore! More importantly, SGTravel is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, SGTravel can get your tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
+== How to use this user guide
+
+=== Basic information
+
+To jump to a specific topic immediately, simply click on the topic in the <<toc, Table of Contents>> at the top
+
+To improve the navigability and readability of this user guide, multiple styles will be used, which will
+include the following:
+
+* User commands and parameters will displayed as: `format`
+* Important keywords will be displayed as: *format*
+* Keyboard buttons will be displayed as: kbd:[format]
+
+
+Additionally, the following annotations will be used throughout this user guide:
+
+[TIP]
+====
+This symbol denotes a tip which you may find useful when using the application.
+====
+[WARNING]
+====
+This symbol denotes a warning which you will need to be careful of when using the application.
+====
+[NOTE]
+====
+This symbol denotes some information or caveats that you will need to take note of when using the application.
+====
+
+Now that you have familiarized yourself with the style used in this guide, lets move on to how to setup *SGTravel*!
+
 == Quick Start
 
 .  Ensure you have Java `11` (revision `11` or later) installed in your Computer.
@@ -38,8 +69,8 @@ image::Ui.png[width="600" height="400"]
 .  Some example commands you can try:
 
 * *`list`* : lists all tasks
-* **`todo`**`Go Jurong Regional Library` : adds a task named `Go Jurong Regional Library` to SGTravel.
-* **`delete`**`3` : deletes the 3rd task shown in the current list
+* **`map`**`Jurong Regional Library` : Shows the map area of `Jurong Regional Library` on SGTravel.
+* **`delete`**`3` : deletes the 3rd event shown in the current list
 * *`bye`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
