@@ -168,8 +168,8 @@ Command Example: `/find /savings /name Jun`
 The command example allows the user to find and list all savings account that matches the keyword "Jun". This can
 be seen from Figure 2 below.
 
-.Find Investment Account
-image::FindSavingAccountCommand.png[caption="Figure 2: "]
+.Successful search of savings account after `/find /savings`
+image::FindSavings.png[caption="Figure : "]
 
 [NOTE]
 ====
@@ -186,8 +186,8 @@ Command Example: `/find /savings /name Vickers`
 The command example allows the user to find and list all investment account that matches the keyword "Vickers".
 This can be seen from Figure 3 below.
 
-.Find Investment Account
-image::FindInvestmentAccountCommand.png[caption="Figure 3: "]
+.Successful search of investment account after `/find /investment`
+image::FindInvestment.png[caption="Figure : "]
 
 [NOTE]
 ====
@@ -222,8 +222,8 @@ Command Example: `/find /bonds /name SSB /from DBB Vickers Account`
 The command example allows the user to find and list all bonds within DBB Vicker Account that matches the
 keyword "SSB". This can be seen from Figure 5 below.
 
-.Find Bonds
-image::FindBondCommand.png[caption="Figure 5: "]
+.Successful search of bonds after `/find /bonds`
+image::FindBond.png[caption="Figure : "]
 
 [NOTE]
 ====
@@ -241,8 +241,8 @@ Command Example: `/find /banktransaction /name JunBank Savings Account /desc bub
 The command example allows the user to find and list all savings account that matches the keyword "DBB". This can
 be seen from Figure 6 below.
 
-.Find Bank Transaction
-image::FindBankTransactionCommand.png[caption="Figure 6: "]
+.Successful search of bank transaction by description, category and date range after `/find /banktransaction`
+image::FindBankTransaction4.png[caption="Figure : "]
 
 [NOTE]
 ====
