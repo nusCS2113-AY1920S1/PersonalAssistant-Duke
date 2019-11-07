@@ -1,5 +1,6 @@
-# Eggventory User GuideBy: Team F09-03  
-Dated: 5 November 2019  
+# Eggventory User Guide
+By: Team F09-03  
+Dated: 7 November 2019  
 ## Table of contents  
 ### [1. Introduction ](#introduction)  
 ### [2. Quick Start ](#quickstart)  
@@ -86,8 +87,6 @@ Note: Stock Type names are not allowed to have spaces in them.
 This adds a new category of stock to the inventory.  
   
 Format: `add stocktype <StockType> ` 
-  
-
 
 eg. add stocktype Resistor  
   
@@ -96,21 +95,18 @@ eg. add stocktype Resistor
 This removes a stocktype from the inventory, and all stock under it.  
   
 Format: `delete stocktype <StockType>`  
-  
-
 
 #### 3.2.3 Editing Stock Types: `edit stocktype`  
     
-This changes the name of the selected stock type.  
+This changes the name of the selected stock type.
   
-Format: `edit stocktype <StockType><name>`  
-  #### 3.2.4 Listing Stock Types: `list stocktype`  
+Format: `edit stocktype <StockType> <NewStockType>`
+
+#### 3.2.4 Listing Stock Types: `list stocktype`  
   
 This lists out all Stock Types that are present in the inventory.  
   
 Format: `list stocktype all`  
-  
-
 
 ---  
 ### 3.3 Working with Stocks  
@@ -119,10 +115,11 @@ Stocks are the main types of items that Eggventory helps you to manage. Every St
 Stocks may be Collective or Unique. Collective stocks consist of items that are not tracked individually. They generally are stocks that do not have each have their own serial number, and are considered interchangeable. Unique stocks are items that are often expensive or limited in quantity. Such stocks usually are each assigned a serial number, and are loaned out and tracked by this number. Stocks are set as Collective by default.  
   
 Stocks have the following properties:  
+
 | Property | Description |  
-|---:|---|  
+|---:|---| 
 StockType|The category the stock belongs to. The StockType should have previously been added to the inventory system before being referenced.  
-StockCode|nique string of numbers and letters, used to identify the stock.  
+StockCode|A unique string of numbers and letters, used to identify the stock.  
 Quantity | The number of items under the stock.
 Description | The common name of the item.  
   
@@ -138,13 +135,13 @@ eg. `add stock Resistor R500 1000 500ohm resistor`
   
 **[coming in v2.0]**  
 In addition to the required parameters, stocks can also be added with the following optional parameters:  
+
 Format|Purpose|  
 |---|---|  
-`-mq <Mintity>` |Sets the minimum quantity of stock that should be maintained in the inventory  
+`-mq <MinQuantity>` |Sets the minimum quantity of stock that should be maintained in the inventory  
 `-u`|Sets the stock to contain items that are unique  
   
-    
-  
+
 Format: `add stock <StockType> <Stock Code> <Quantity> <Description> {<optional parameter>}`  
   
 eg. `add stock Resistor R500 1000 500ohm resistor -mq 100`  
@@ -152,18 +149,15 @@ eg. `add stock Resistor R500 1000 500ohm resistor -mq 100`
 #### 3.3.2 Deleting Stocks: `delete  stock`  
     
 This removes a stock from the inventory, including any references to loaned out stock.  
-  Format: delete stock <Stock Code>  
+  Format: `delete stock <Stock Code>`
   
 #### 3.3.3 Editing Stock: `edit  stock`  
     
-This directly modifies the value of a property stock. You may modify as many properties as you wish in one command.  
+This directly modifies the value of a property stock. You may modify as many properties as you wish in one command.
   
 Keywords to modify each property:  
-  
--
 
-
--   stockcode  
+- stockcode  
       
 - description  
       
@@ -174,14 +168,14 @@ Keywords to modify each property:
 - minquantity  
       
     
-Format: `edit stock <Stock Code> {<Property> <New Value>}`  
+Format: `edit stock <Stock Code> <Property> <New Value>`  
   
-eg. `edit stock R500 quantity 1000 description stockcode Res500`  
+eg. `edit stock R500 quantity 1000` : Changes the quantity of the stock R500 to 1000.
   
 #### 3.3.4 Listing Stock: `list stock`  
     
 This lists out all Stocks that are present in the inventory.  
-Format: list stock  
+Format: `list stock`
   
 #### 3.3.5 Listing Stock of a particular StockType: `list <StockType>`  
     
@@ -195,15 +189,14 @@ eg. `list Resistor`
 ### 3.4 Managing your list of People  
 People have to be added to the system before they can take loans from the inventory. Each person is identified by their matric number, as the inventory primarily loans out stock to students.  
   
-#### 3.4.1 Adding a Person: `add person`  
+#### 3.4.1 Adding a Person: `add person`
   
 This adds a new person to keep track that will loan stock.  
-  
-
 
 Format: `add person <Matric No.> <Name>`  
   
-eg. `add person A0123456`  
+eg. `add person A0123456 Akshay`  
+
 Note: By nature, the matric number of each Person should be unique, meaning no two individuals are allowed to share the same matric number.  
   
   
@@ -214,8 +207,6 @@ Optional Parameters:
 |---|---|  
 |`-n <Name>`|Sets the name of the person being added|
 |`-c <Course>`|Sets the course of the person being added|
-  
-
 
 Format: `add person <Matric. No> {<flag> <optional parameter>}`  
   
@@ -233,11 +224,11 @@ eg. `delete person A0123456`
 This directly modifies the value of a property of a person. You may modify as many properties as you wish in one command.  
   
 Properties:  
-  
 - matric 
 - name 
   
-Format: `edit person <Matric No.> {<Property> <New Value>edit person A0123456 name Alex`  
+Format: `edit person <Matric No.> <Property> <New Value>`
+e.g. `edit person A0123456 name Alex`
   
 #### 3.4.4 Listing all People: `list person`  
     
@@ -250,26 +241,32 @@ Format: `list person`
     
 #### 3.5.1 Adding a Loan: `add loan`
     
-This adds a new Loan made by a Person.  is possible to add multiple stocks at once.  
+This adds a new Loan and assigns it to a Person.
   
-Format: `add loan <Matric No.> {<Stock Code> <Quantity>}`  
+Format: `add loan <Matric No.> <Stock Code> <Quantity>`  
   
 eg. `add loan A0123456 R500 1000 X123 80`  
+
+#### 3.5.2 Deleting a Loan: `delete loan`
+This deletes an existing Loan assigned to a Person. If there are multiple loans of the same StockCode to the same
+ Person, the first instance of such a Loan will be deleted.
+
+Format: `delete loan <MatricNo> <StockCode>`
+
+e.g. `delete loan A0123456 R500`
   
-#### 3.5.2 Returning specific Loans: `loan return` [coming in v1.4]  
+#### 3.5.3 Returning specific Loans: `loan return` [coming in v2.0]  
     
 This marks specific Loans of a Person as returned.  
   Format: `loan return <Matric No.> {<Stock Code> <Quantity>}`  
   
-#### 3.5.3 Returning all Loans: `loan returnall` [coming in v1.4] 
+#### 3.5.4 Returning all Loans: `loan returnall` [coming in v2.0] 
     
 This marks all Loans of a Person as returned.  
-  
-
 
 Format: `loan returnall <Matric No.>`  
   
-#### 3.5.4 Listing all Persons and their Loans: `list  loan`
+#### 3.5.5 Listing all Persons and their Loans: `list  loan`
     
 This lists out all loans currently recorded, listed by the Person who made the loan.  
   
@@ -279,15 +276,16 @@ Format: `list loan`
 ### 3.6 Loaning using Templates
     
 To speed up the loaning process, Eggventory allows you to create loan templates. These templates are simply lists of
- stocks and quantity to be loaned out all at once. The name of each template must be unique, or it will not added. 
+ stocks and quantity to be loaned out all at once. 
   
 #### 3.6.1 Adding loan templates: `add template`  
-
-This creates a template that can be substituted for {<Stock Code> <Quantity>} in loan commands.  
+This creates a new template of Loans. 
   
-Format: `add template “<TemplateName>” {<StockCode> <Quantity>}`  
+Format: `add template <TemplateName> {<StockCode> <Quantity>}`  
   
 e.g. `add template CG1112_Alex R500 5 A123 1`  
+ 
+ Note: The name of each template must be unique, or it will not be added. 
   
 #### 3.6.2  Deleting a Template: `delete template`  
 
@@ -299,7 +297,8 @@ eg. `delete template CG1112_Alex`
   
 #### 3.6.3 Making a Loan from a template: `add loan`
 
-This adds a Loan to a Person from a Template.  
+This adds a Loan to a Person from a Template. Every loan in the template will be added to the person as if you added
+ them individually. 
 
 Format: `add loan <Matric. No> <Template Name>`  
   
@@ -307,14 +306,14 @@ eg. `add loan A0187654 CG1112_Alex`
   
 Note: Additional Loans can still be added on to the same Person afterwards using the loan add command.  
 
-#### 3.6.4 Listing Loan Templates: `list template  
+#### 3.6.4 Listing Loan Templates: `list template` 
   
 This lists out all the templates and their associated loans that you have created.
   
 Format: `list template`
   
 ---  
-### 3.7 Marking Stock as lost [coming in v2.0]  
+### 3.7 Marking Stock as lost **[coming in v2.0]**
 Marks a certain quantity of a stock as lost. Differs from deleting stock in the fact that the quantity of stock will still be saved in the inventory (eg. for administrative purposes). Lost stock will not be included in tallies of available stock.  
   
 #### 3.7.1 Marking Stock as lost: `lost`  
@@ -341,9 +340,9 @@ This finds all StockTypes that matches the query.
 Format: `find stocktype <Query>`  
 
 ---  
-### 3.9 Using Undo and Redo commands: [coming in v2.0]  
+### 3.9 Using Undo and Redo commands: **[coming in v2.0]**
   
-#### 3.9.1 Undoing a command: `undo  
+#### 3.9.1 Undoing a command: `undo`
   
 If you accidentally entered a command by accident, the effects of any command can be reversed with the undo command.  
   Format: `undo`  
@@ -367,8 +366,6 @@ Format: `autosave on` OR `autosave off`
 Format: `bye`  
   
 ## 4. FAQ    
-    
-
 
 ## 5. Command Summary  
 ### Add Commands  
@@ -390,7 +387,7 @@ delete person | `delete person <MatricNo>`
 |Command| Syntax
 |---|---|  
 edit stock | `edit stock <StockCode> <Property> <NewValue>`
-edit stocktype | `<  
+edit stocktype | `edit stocktype <StockType> <NewStockType>`
 edit person | `edit person <MatricNo> <Property> <NewValue>`  
   
 ### List Commands  
@@ -409,7 +406,7 @@ list lost | `list lost`
 
 |Command| Syntax  
 |---|---|  
-add loan | `add loan <MatricNo> <StockCode> <Quantity>
+add loan | `add loan <MatricNo> <StockCode> <Quantity>`
 loan return | `loan return <MatricNo> <StockCode> <Quantity>`
 loan returnall | `loan returnall <MatricNo>`
 
@@ -433,8 +430,6 @@ undo last command | `undo`
 redo previous command | `redo`  
 exit application | `bye`
  
-
-
 ## 6. Glossary  
 |Item|Description|
 | --- | --- |
