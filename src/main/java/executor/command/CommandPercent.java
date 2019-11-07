@@ -30,10 +30,8 @@ public class CommandPercent extends Command {
             return;
         }
         try {
-            String stringTag = storageManager.getReceiptsByTag(this.tag).getTotalCashSpent().toString();
-            Double totalTag = Double.parseDouble(stringTag);
-            String stringSpent = storageManager.getWalletExpenses().toString();
-            Double totalSpent = Double.parseDouble(stringSpent);
+            Double totalTag = storageManager.getReceiptsByTag(this.tag).getTotalCashSpent();
+            Double totalSpent = storageManager.getWalletExpenses();
             outputStr.append((totalTag / totalSpent) * 100)
                      .append("%")
                      .append(" ")
