@@ -8,7 +8,6 @@ import java.util.stream.Stream;
 
 public enum CommandsEnum {
     menu,
-    quiz,
     select,
     result,
     review,
@@ -44,11 +43,9 @@ public enum CommandsEnum {
 
     public static List<String> getBlockedNames(List<String> enumNames) {
         List<String> blockedNames = enumNames;
-        blockedNames.remove(0); //menu
-        blockedNames.remove(5); //history
-        blockedNames.remove(8);
-        blockedNames.remove(10); //volume
-
+        blockedNames.remove(14); //exit
+        blockedNames.remove(9); //volume
+        blockedNames.remove(1); //select
         return blockedNames;
     }
 }

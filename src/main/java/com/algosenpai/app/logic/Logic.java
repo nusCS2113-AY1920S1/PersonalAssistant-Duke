@@ -95,10 +95,6 @@ public class Logic {
                 return setupNewQuiz(inputs);
             } else if (isNewQuiz.get() && userInput.equals("select")) {
                 return new SelectCommand(inputs, chapterNumber, userStats, isQuizMode);
-            } else if ("menu".equals(userInput)) {
-                return new MenuCommand(inputs);
-            } else if ("history".equals(userInput)) {
-                return new HistoryCommand(inputs, historyList);
             } else if ("volume".equals(userInput)) {
                 return new VolumeCommand(inputs);
             } else if (quizBlockedCommands.contains(userInput)) {
