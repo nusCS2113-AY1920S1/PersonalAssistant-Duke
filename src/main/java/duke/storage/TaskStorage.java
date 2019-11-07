@@ -16,7 +16,7 @@ public class TaskStorage extends Storage<Task> {
     }
 
     @Override
-    GenericList<Task> generate() throws DukeException {
+    public GenericList<Task> generate() throws DukeException {
         for (String next : contentSoFar) {
             //splitting each line to extract the task:
             //type - words[0], done or not - words[1], description - words[2], and more.

@@ -1,10 +1,13 @@
 package duke.command.ingredientCommand;
 
 import duke.command.Command;
+import duke.dish.DishList;
 import duke.exception.DukeException;
+import duke.fridge.Fridge;
 import duke.ingredient.Ingredient;
-import duke.list.GenericList;
-import duke.storage.Storage;
+import duke.order.OrderList;
+import duke.storage.FridgeStorage;
+import duke.storage.OrderStorage;
 import duke.ui.Ui;
 
 import java.text.SimpleDateFormat;
@@ -14,22 +17,22 @@ import java.text.SimpleDateFormat;
  * @author x3chillax
  * Class FindIngredientCommand is used to find an ingredient in the IngredientsList using 'find (ingredient name)'
  */
-public class FindIngredientCommand extends Command<Ingredient> {
+public class FindIngredientCommand extends Command {
 
     private String toFind;
-    private String pattern = "dd/MM/yyyy";
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+    private SimpleDateFormat simpleDateFormat;
 
     public FindIngredientCommand(String toFind) {
         this.toFind = toFind;
+        simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
     }
 
     @Override
-    public void execute(GenericList<Ingredient> ingList, Ui ui, Storage storage) throws DukeException {
+    public void execute(Fridge ingList, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
         int i = 1;
         StringBuilder sb = new StringBuilder();
 
-        for (Ingredient ingredient : ingList.getAllEntries()) {     //for every ingredient, scan through the ingredientslist
+        for (Ingredient ingredient : ingList.getAllIngredients().getAllEntries()) {     //for every ingredient, scan through the ingredientslist
             i += 1;
             if (ingredient.getName().equals(toFind))
             {

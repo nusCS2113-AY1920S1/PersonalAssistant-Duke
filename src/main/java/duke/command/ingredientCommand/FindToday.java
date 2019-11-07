@@ -1,14 +1,17 @@
 package duke.command.ingredientCommand;
 
 import duke.command.Command;
+import duke.dish.DishList;
+import duke.fridge.Fridge;
 import duke.ingredient.Ingredient;
-import duke.list.GenericList;
-import duke.storage.Storage;
+import duke.order.OrderList;
+import duke.storage.FridgeStorage;
+import duke.storage.OrderStorage;
 import duke.ui.Ui;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
+<<<<<<< HEAD
 /**
  * Represents a specific {@link Command} used to list Expired Ingredients occurring in the {@link Ingredient}.
  * @author x3chillax
@@ -22,19 +25,26 @@ public class FindToday extends Command<Ingredient> {
     @Override
     public boolean isExit() {
         return false;
+=======
+public class FindToday extends Command {
+
+    private SimpleDateFormat simpleDateFormat;
+
+    public FindToday(){
+        simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+>>>>>>> f76ca5f8965e787d9414af1c58fa19b0d027e9bf
     }
 
     @Override
-    public void execute(GenericList<Ingredient> IngredientsList, Ui ui, Storage storage)
-    {
+    public void execute(Fridge fridge, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) {
         int i = 1;
         StringBuilder sb = new StringBuilder();
-        for (Ingredient ingredient : IngredientsList.getAllEntries())
-        {     //for every ingredient, scan through the ingredientslist
+        for (Ingredient ingredient : fridge.getAllIngredients().getAllEntries())
+        {     //for every ingredient, scan through the ingredient list
             i += 1;
             if (ingredient.isExpiredToday(simpleDateFormat.format(ingredient.getExpiryDate())))
             {
-                sb.append("\t ").append(i-1).append(". ").append(IngredientsList.getEntry(ingredient).toStringNoWarning()).append(".");
+                sb.append("\t ").append(i-1).append(". ").append(fridge.getIngredient(ingredient).toStringNoWarning()).append(".");
                 sb.append(System.lineSeparator());
             }
         }
