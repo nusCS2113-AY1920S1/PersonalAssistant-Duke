@@ -33,16 +33,16 @@ public class ParseAddCard extends ParseCard {
         while (cardIterator.hasNext()) {
             String key = cardIterator.next();
             String value = cardParameters.get(key);
-            if (!NEW_NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (!NEW_NAME_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding a new card");
             }
-            if (LIMIT.equals(key)) {
+            if (LIMIT_PARAMETER.equals(key)) {
                 checkLimit(value);
             }
-            if (REBATE.equals(key)) {
+            if (REBATE_PARAMETER.equals(key)) {
                 checkCashBack(value);
             }
-            if (NAME.equals(key)) {
+            if (NAME_PARAMETER.equals(key)) {
                 checkName(value);
             }
         }
@@ -54,8 +54,9 @@ public class ParseAddCard extends ParseCard {
      * @return AddCardCommand to be executed.
      */
     public Command getCommand() {
-        AddCardCommand newAddCardCommand = new AddCardCommand(cardParameters.get(NAME),
-                Double.parseDouble(cardParameters.get(LIMIT)), Double.parseDouble(cardParameters.get(REBATE)));
+        AddCardCommand newAddCardCommand = new AddCardCommand(cardParameters.get(NAME_PARAMETER),
+                Double.parseDouble(cardParameters.get(LIMIT_PARAMETER)), Double.parseDouble(cardParameters.get(
+                REBATE_PARAMETER)));
         return newAddCardCommand;
     }
 }

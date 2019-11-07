@@ -14,7 +14,7 @@ import owlmoney.ui.Ui;
  * Executes AddRecurringExpenditureCommand to add a recurring expenditure transaction.
  */
 public class AddRecurringExpenditureCommand extends Command {
-    private final String accName;
+    private final String accountName;
     private final double amount;
     private final Date date;
     private final String description;
@@ -33,7 +33,7 @@ public class AddRecurringExpenditureCommand extends Command {
      */
     public AddRecurringExpenditureCommand(String name, double amount, Date date, String description,
             String category, String type) {
-        this.accName = name;
+        this.accountName = name;
         this.amount = amount;
         this.date = date;
         this.description = description;
@@ -52,7 +52,7 @@ public class AddRecurringExpenditureCommand extends Command {
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException {
         Transaction newExpenditure = new Expenditure(this.description, this.amount, this.date, this.category);
-        profile.profileAddRecurringExpenditure(accName, newExpenditure, ui, this.type);
+        profile.profileAddRecurringExpenditure(accountName, newExpenditure, ui, this.type);
         return this.isExit;
     }
 }

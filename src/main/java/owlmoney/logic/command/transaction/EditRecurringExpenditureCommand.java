@@ -11,7 +11,7 @@ import owlmoney.ui.Ui;
  */
 public class EditRecurringExpenditureCommand extends Command {
 
-    private final String accName;
+    private final String accountName;
     private final String amount;
     private final String description;
     private final String category;
@@ -30,7 +30,7 @@ public class EditRecurringExpenditureCommand extends Command {
      */
     public EditRecurringExpenditureCommand(String name, String amount,
             String description, String category, int index, String type) {
-        this.accName = name;
+        this.accountName = name;
         this.amount = amount;
         this.description = description;
         this.category = category;
@@ -48,7 +48,7 @@ public class EditRecurringExpenditureCommand extends Command {
      * @throws TransactionException If there are 0 recurring expenditure or index is out of range.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException {
-        profile.profileEditRecurringExpenditure(accName, index, description, amount, category, ui, this.type);
+        profile.profileEditRecurringExpenditure(accountName, index, description, amount, category, ui, this.type);
         return this.isExit;
     }
 }

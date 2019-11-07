@@ -175,9 +175,6 @@ public class Profile {
         if (!name.equals(this.username)) {
             throw new ProfileException("No profile name with " + name + "found!\nTry this instead: " + this.username);
         }
-        if (newName.equals(this.username)) {
-            throw new ProfileException("Profile name is already " + this.username);
-        }
     }
 
     /**

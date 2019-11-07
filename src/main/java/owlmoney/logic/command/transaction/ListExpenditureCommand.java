@@ -11,7 +11,7 @@ import owlmoney.ui.Ui;
  * Executes ListExpenditureCommand to list expenditures.
  */
 public class ListExpenditureCommand extends Command {
-    private final String accName;
+    private final String accountName;
     private final int displayNum;
     private final String type;
 
@@ -23,7 +23,7 @@ public class ListExpenditureCommand extends Command {
      * @param type       Represents type of expenditure to be listed.
      */
     public ListExpenditureCommand(String name, int displayNum, String type) {
-        this.accName = name;
+        this.accountName = name;
         this.displayNum = displayNum;
         this.type = type;
     }
@@ -39,7 +39,7 @@ public class ListExpenditureCommand extends Command {
      * @throws CardException        If the credit card name cannot be found.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException, CardException {
-        profile.profileListExpenditure(accName, ui, displayNum, this.type);
+        profile.profileListExpenditure(accountName, ui, displayNum, this.type);
         return this.isExit;
     }
 }

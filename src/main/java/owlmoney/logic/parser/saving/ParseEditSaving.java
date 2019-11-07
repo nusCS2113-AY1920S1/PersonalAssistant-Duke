@@ -33,21 +33,21 @@ public class ParseEditSaving extends ParseSaving {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = savingsParameters.get(key);
-            if (NAME.equals(key) && (value.isEmpty() || value.isBlank())) {
+            if (NAME_PARAMETER.equals(key) && (value.isEmpty() || value.isBlank())) {
                 throw new ParserException("/name cannot be empty.");
-            } else if (NAME.equals(key)) {
-                checkName(NAME, value);
+            } else if (NAME_PARAMETER.equals(key)) {
+                checkName(NAME_PARAMETER, value);
             }
-            if (INCOME.equals(key) && !(value.isEmpty() || value.isBlank())) {
+            if (INCOME_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
                 checkIncome(value);
                 changeCounter++;
             }
-            if (AMOUNT.equals(key) && !(value.isEmpty() || value.isBlank())) {
+            if (AMOUNT_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
                 checkAmount(value);
                 changeCounter++;
             }
-            if (NEW_NAME.equals(key) && !(value.isEmpty() || value.isBlank())) {
-                checkName(NEW_NAME, value);
+            if (NEW_NAME_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
+                checkName(NEW_NAME_PARAMETER, value);
                 changeCounter++;
             }
         }
@@ -62,8 +62,11 @@ public class ParseEditSaving extends ParseSaving {
      * @return Returns EditSavingsCommand to be executed.
      */
     public Command getCommand() {
-        EditSavingsCommand newEditSavingsCommand = new EditSavingsCommand(savingsParameters.get(NAME),
-                savingsParameters.get(INCOME), savingsParameters.get(AMOUNT), savingsParameters.get(NEW_NAME));
+        EditSavingsCommand newEditSavingsCommand = new EditSavingsCommand(
+                savingsParameters.get(NAME_PARAMETER),
+                savingsParameters.get(INCOME_PARAMETER),
+                savingsParameters.get(AMOUNT_PARAMETER),
+                savingsParameters.get(NEW_NAME_PARAMETER));
         return newEditSavingsCommand;
     }
 

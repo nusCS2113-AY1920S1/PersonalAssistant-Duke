@@ -10,7 +10,7 @@ import owlmoney.logic.parser.exception.ParserException;
  * Represents the parsing of inputs for deleting a card.
  */
 public class ParseDeleteCard extends ParseCard {
-    private static final String DELETE = "/delete";
+    private static final String DELETE_COMMAND = "/delete";
 
     /**
      * Creates an instance of ParseDeleteCard.
@@ -20,8 +20,8 @@ public class ParseDeleteCard extends ParseCard {
      */
     public ParseDeleteCard(String data) throws ParserException {
         super(data);
-        checkRedundantParameter(LIMIT, DELETE);
-        checkRedundantParameter(REBATE, DELETE);
+        checkRedundantParameter(LIMIT_PARAMETER, DELETE_COMMAND);
+        checkRedundantParameter(REBATE_PARAMETER, DELETE_COMMAND);
         checkFirstParameter();
     }
 
@@ -36,10 +36,10 @@ public class ParseDeleteCard extends ParseCard {
         while (cardIterator.hasNext()) {
             String key = cardIterator.next();
             String value = cardParameters.get(key);
-            if ((NAME.equals(key) && (value.isBlank() || value.isEmpty()))) {
+            if ((NAME_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty()))) {
                 throw new ParserException(key + " cannot be empty when deleting a card");
             }
-            if (NAME.equals(key)) {
+            if (NAME_PARAMETER.equals(key)) {
                 checkName(value);
             }
         }
@@ -51,7 +51,7 @@ public class ParseDeleteCard extends ParseCard {
      * @return DeleteCardCommand to be executed.
      */
     public Command getCommand() {
-        DeleteCardCommand newDeleteCardCommand = new DeleteCardCommand(cardParameters.get(NAME));
+        DeleteCardCommand newDeleteCardCommand = new DeleteCardCommand(cardParameters.get(NAME_PARAMETER));
         return newDeleteCardCommand;
     }
 

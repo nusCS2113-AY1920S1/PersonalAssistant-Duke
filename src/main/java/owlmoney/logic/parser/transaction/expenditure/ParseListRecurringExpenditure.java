@@ -20,11 +20,10 @@ public class ParseListRecurringExpenditure extends ParseRecurringExpenditure {
      */
     public ParseListRecurringExpenditure(String data, String type) throws ParserException {
         super(data, type);
-        checkRedundantParameter(TRANSNO, LIST);
-        checkRedundantParameter(AMOUNT, LIST);
-        checkRedundantParameter(DATE, LIST);
-        checkRedundantParameter(DESCRIPTION, LIST);
-        checkRedundantParameter(CATEGORY, LIST);
+        checkRedundantParameter(TRANSACTION_NUMBER_PARAMETER, LIST);
+        checkRedundantParameter(AMOUNT_PARAMETER, LIST);
+        checkRedundantParameter(DESCRIPTION_PARAMETER, LIST);
+        checkRedundantParameter(CATEGORY_PARAMETER, LIST);
     }
 
     /**
@@ -38,9 +37,9 @@ public class ParseListRecurringExpenditure extends ParseRecurringExpenditure {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = expendituresParameters.get(key);
-            if (FROM.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (FROM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding a new expenditure");
-            } else if (FROM.equals(key)) {
+            } else if (FROM_PARAMETER.equals(key)) {
                 checkName(value);
             }
         }
@@ -53,7 +52,7 @@ public class ParseListRecurringExpenditure extends ParseRecurringExpenditure {
      */
     public Command getCommand() {
         ListRecurringExpenditureCommand newListRecurringExpenditureCommand =
-                new ListRecurringExpenditureCommand(expendituresParameters.get(FROM), this.type);
+                new ListRecurringExpenditureCommand(expendituresParameters.get(FROM_PARAMETER), this.type);
         return newListRecurringExpenditureCommand;
     }
 }

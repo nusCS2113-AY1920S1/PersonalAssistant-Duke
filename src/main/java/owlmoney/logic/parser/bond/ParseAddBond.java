@@ -11,7 +11,7 @@ import owlmoney.logic.parser.exception.ParserException;
  * Parses input by user for adding bonds.
  */
 public class ParseAddBond extends ParseBond {
-    private static final String ADD = "/add";
+    private static final String ADD_COMMAND = "/add";
     private Date date;
 
     /**
@@ -22,7 +22,7 @@ public class ParseAddBond extends ParseBond {
      */
     public ParseAddBond(String data, String type) throws ParserException {
         super(data, type);
-        checkRedundantParameter(NUM, ADD);
+        checkRedundantParameter(NUM_PARAMETER, ADD_COMMAND);
         checkFirstParameter();
     }
 
@@ -37,25 +37,25 @@ public class ParseAddBond extends ParseBond {
         while (bondIterator.hasNext()) {
             String key = bondIterator.next();
             String value = bondParameters.get(key);
-            if (!NUM.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (!NUM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding bond");
             }
-            if (NAME.equals(key)) {
-                checkName(NAME, value);
+            if (NAME_PARAMETER.equals(key)) {
+                checkName(NAME_PARAMETER, value);
             }
-            if (FROM.equals(key)) {
-                checkName(FROM, value);
+            if (FROM_PARAMETER.equals(key)) {
+                checkName(FROM_PARAMETER, value);
             }
-            if (AMOUNT.equals(key)) {
+            if (AMOUNT_PARAMETER.equals(key)) {
                 checkAmount(value);
             }
-            if (RATE.equals(key)) {
+            if (RATE_PARAMETER.equals(key)) {
                 checkInterestRate(value);
             }
-            if (DATE.equals(key)) {
+            if (DATE_PARAMETER.equals(key)) {
                 date = checkDate(value);
             }
-            if (YEAR.equals(key)) {
+            if (YEAR_PARAMETER.equals(key)) {
                 checkYear(value);
             }
         }
@@ -67,12 +67,12 @@ public class ParseAddBond extends ParseBond {
      * @return AddBondCommand to be executed.
      */
     public Command getCommand() {
-        AddBondCommand newAddBondCommand = new AddBondCommand(bondParameters.get(NAME),
-                bondParameters.get(FROM),
-                Double.parseDouble(bondParameters.get(AMOUNT)),
-                Double.parseDouble(bondParameters.get(RATE)),
+        AddBondCommand newAddBondCommand = new AddBondCommand(bondParameters.get(NAME_PARAMETER),
+                bondParameters.get(FROM_PARAMETER),
+                Double.parseDouble(bondParameters.get(AMOUNT_PARAMETER)),
+                Double.parseDouble(bondParameters.get(RATE_PARAMETER)),
                 this.date,
-                Integer.parseInt(bondParameters.get(YEAR)), this.type);
+                Integer.parseInt(bondParameters.get(YEAR_PARAMETER)), this.type);
         return newAddBondCommand;
     }
 }

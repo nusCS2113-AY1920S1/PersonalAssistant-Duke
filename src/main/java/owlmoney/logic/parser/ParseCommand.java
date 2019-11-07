@@ -16,9 +16,20 @@ import java.util.Scanner;
 public class ParseCommand extends Parser {
     private ParseType parseType = new ParseType();
     private final Scanner scanner = new Scanner(System.in);
+    private static final String HELP_COMMAND = "/help";
+    private static final String UNDO_COMMAND = "/undo";
+    private static final String ADD_COMMAND = "/add";
+    private static final String EDIT_COMMAND = "/edit";
+    private static final String DELETE_COMMAND = "/delete";
+    private static final String LIST_COMMAND = "/list";
+    private static final String FIND_COMMAND = "/find";
+    private static final String TRANSFER_COMMAND = "/transfer";
+    private static final String EXIT_COMMAND = "/exit";
+    private static final String UPDATE_COMMAND = "/update";
     private static final String[] COMMAND_KEYWORDS = new String[] {
-        "/help", "/undo", "/add", "/edit", "/delete", "/list", "/find", "/transfer", "/exit", "/update"
-    };
+        HELP_COMMAND, UNDO_COMMAND, ADD_COMMAND,
+        EDIT_COMMAND, DELETE_COMMAND, LIST_COMMAND,
+        FIND_COMMAND, TRANSFER_COMMAND, EXIT_COMMAND, UPDATE_COMMAND};
     private static final List<String> COMMAND_KEYWORD_LISTS = Arrays.asList(COMMAND_KEYWORDS);
 
     /**
@@ -71,24 +82,24 @@ public class ParseCommand extends Parser {
      */
     private Command parseCommandMenu(String command, String data) throws ParserException {
         switch (command) {
-        case "/add":
+        case ADD_COMMAND:
             // Fallthrough
-        case "/delete":
+        case DELETE_COMMAND:
             // Fallthrough
-        case "/edit":
+        case EDIT_COMMAND:
             // Fallthrough
-        case "/transfer":
+        case TRANSFER_COMMAND:
             // Fallthrough
-        case "/find":
+        case FIND_COMMAND:
             // Fallthrough
-        case "/list":
+        case LIST_COMMAND:
             return parseType.parseData(command, data);
-        case "/exit":
+        case EXIT_COMMAND:
             if (!data.isBlank()) {
                 throw new ParserException("/exit cannot have trailing arguments");
             }
             return new ExitCommand();
-        case "/update":
+        case UPDATE_COMMAND:
             if (!data.isBlank()) {
                 throw new ParserException("/update cannot have trailing arguments");
             }

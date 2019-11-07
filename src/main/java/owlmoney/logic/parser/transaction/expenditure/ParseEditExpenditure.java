@@ -10,8 +10,8 @@ import owlmoney.logic.parser.exception.ParserException;
  * Parses the inputs for editing an expenditure.
  */
 public class ParseEditExpenditure extends ParseExpenditure {
-    private static final String EDIT = "/edit";
-    private static final String RESERVEDCATEGORY = "deposit";
+    private static final String EDIT_COMMAND = "/edit";
+    private static final String RESERVED_CATEGORY = "deposit";
 
     /**
      * Creates an instance of ParseEditExpenditure.
@@ -21,7 +21,7 @@ public class ParseEditExpenditure extends ParseExpenditure {
      */
     public ParseEditExpenditure(String data, String type) throws ParserException {
         super(data, type);
-        checkRedundantParameter(NUM, EDIT);
+        checkRedundantParameter(NUM_PARAMETER, EDIT_COMMAND);
         checkFirstParameter();
     }
 
@@ -36,31 +36,31 @@ public class ParseEditExpenditure extends ParseExpenditure {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = expendituresParameters.get(key);
-            if (TRANSNO.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (TRANSACTION_NUMBER_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when editing an expenditure");
-            } else if (TRANSNO.equals(key)) {
-                checkInt(TRANSNO, value);
+            } else if (TRANSACTION_NUMBER_PARAMETER.equals(key)) {
+                checkInt(TRANSACTION_NUMBER_PARAMETER, value);
             }
-            if (FROM.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (FROM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when editing an expenditure");
-            } else if (FROM.equals(key)) {
+            } else if (FROM_PARAMETER.equals(key)) {
                 checkName(value);
             }
-            if (CATEGORY.equals(key) && RESERVEDCATEGORY.equals(value)) {
+            if (CATEGORY_PARAMETER.equals(key) && RESERVED_CATEGORY.equals(value)) {
                 throw new ParserException(key + " cannot be deposit when editing an expenditure");
-            } else if (CATEGORY.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            } else if (CATEGORY_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
                 checkCategory(value);
                 changeCounter++;
             }
-            if (AMOUNT.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (AMOUNT_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
                 checkAmount(value);
                 changeCounter++;
             }
-            if (DESCRIPTION.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (DESCRIPTION_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
                 checkDescription(value, key);
                 changeCounter++;
             }
-            if (DATE.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (DATE_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
                 checkDate(value);
                 changeCounter++;
             }
@@ -76,10 +76,11 @@ public class ParseEditExpenditure extends ParseExpenditure {
      * @return EditExpenditureCommand to be executed.
      */
     public Command getCommand() {
-        EditExpenditureCommand newEditExpenditureCommand = new EditExpenditureCommand(expendituresParameters.get(FROM),
-                expendituresParameters.get(AMOUNT), expendituresParameters.get(DATE),
-                expendituresParameters.get(DESCRIPTION), expendituresParameters.get(CATEGORY),
-                Integer.parseInt(expendituresParameters.get(TRANSNO)), this.type);
+        EditExpenditureCommand newEditExpenditureCommand = new EditExpenditureCommand(expendituresParameters.get(
+                FROM_PARAMETER),
+                expendituresParameters.get(AMOUNT_PARAMETER), expendituresParameters.get(DATE_PARAMETER),
+                expendituresParameters.get(DESCRIPTION_PARAMETER), expendituresParameters.get(CATEGORY_PARAMETER),
+                Integer.parseInt(expendituresParameters.get(TRANSACTION_NUMBER_PARAMETER)), this.type);
         return newEditExpenditureCommand;
     }
 }

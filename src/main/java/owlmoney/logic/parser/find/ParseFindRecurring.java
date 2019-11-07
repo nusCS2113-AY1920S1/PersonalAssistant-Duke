@@ -35,17 +35,17 @@ public class ParseFindRecurring extends ParseFind {
         while (findIterator.hasNext()) {
             String key = findIterator.next();
             String value = findParameters.get(key);
-            if (DESCRIPTION.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (DESCRIPTION_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
                 checkDescription(value);
                 findCounter++;
             }
-            if (CATEGORY.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (CATEGORY_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
                 checkCategory(value);
                 findCounter++;
             }
-            if (NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (NAME_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when finding recurring expenditure");
-            } else if (NAME.equals(key)) {
+            } else if (NAME_PARAMETER.equals(key)) {
                 checkName(value);
             }
         }
@@ -62,7 +62,10 @@ public class ParseFindRecurring extends ParseFind {
      */
     public Command getCommand() {
         FindRecurringExpenditureCommand newFindRecurringExpenditureCommand = new FindRecurringExpenditureCommand(
-                findParameters.get(NAME), findParameters.get(DESCRIPTION), findParameters.get(CATEGORY), this.type);
+                findParameters.get(NAME_PARAMETER),
+                findParameters.get(DESCRIPTION_PARAMETER),
+                findParameters.get(CATEGORY_PARAMETER),
+                this.type);
         return newFindRecurringExpenditureCommand;
 
     }

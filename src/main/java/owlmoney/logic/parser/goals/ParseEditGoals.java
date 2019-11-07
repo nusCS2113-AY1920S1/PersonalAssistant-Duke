@@ -39,34 +39,34 @@ public class ParseEditGoals extends ParseGoals {
         while (goalIterator.hasNext()) {
             String key = goalIterator.next();
             String value = goalsParameters.get(key);
-            if (NAME.equals(key) && (value.isEmpty() || value.isBlank())) {
+            if (NAME_PARAMETER.equals(key) && (value.isEmpty() || value.isBlank())) {
                 throw new ParserException("/name cannot be empty.");
-            } else if (NAME.equals(key)) {
-                checkName(NAME, value);
+            } else if (NAME_PARAMETER.equals(key)) {
+                checkName(NAME_PARAMETER, value);
             }
-            if (AMOUNT.equals(key) && !(value.isEmpty() || value.isBlank())) {
+            if (AMOUNT_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
                 checkAmount(value);
                 changeCounter++;
             }
-            if (NEW_NAME.equals(key) && !(value.isEmpty() || value.isBlank())) {
-                checkName(NEW_NAME, value);
+            if (NEW_NAME_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
+                checkName(NEW_NAME_PARAMETER, value);
                 changeCounter++;
             }
-            if (BY.equals(key) && !(value.isEmpty() || value.isBlank())) {
+            if (BY_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
                 by = checkDate(value);
                 changeCounter++;
             }
-            if (FROM.equals(key) && !(value.isEmpty() || value.isBlank())) {
-                checkName(FROM, value);
+            if (FROM_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
+                checkName(FROM_PARAMETER, value);
                 changeCounter++;
             }
-            if (IN.equals(key) && !(value.isEmpty() || value.isBlank())) {
-                checkDay(IN, value);
+            if (IN_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
+                checkDay(IN_PARAMETER, value);
                 by = convertDaysToDate(Integer.parseInt(value));
                 changeCounter++;
             }
-            if (MARKDONE.equals(key) && !(value.isEmpty() || value.isBlank())) {
-                checkInt(MARKDONE, value);
+            if (MARK_DONE_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
+                checkInt(MARK_DONE_PARAMETER, value);
                 markDone = true;
                 markDoneCounter++;
             }
@@ -87,9 +87,9 @@ public class ParseEditGoals extends ParseGoals {
      */
     @Override
     public Command getCommand() {
-        EditGoalsCommand newEditGoalsCommand = new EditGoalsCommand(goalsParameters.get(NAME),
-                goalsParameters.get(AMOUNT),
-                by, goalsParameters.get(NEW_NAME), goalsParameters.get(FROM), markDone);
+        EditGoalsCommand newEditGoalsCommand = new EditGoalsCommand(goalsParameters.get(NAME_PARAMETER),
+                goalsParameters.get(AMOUNT_PARAMETER),
+                by, goalsParameters.get(NEW_NAME_PARAMETER), goalsParameters.get(FROM_PARAMETER), markDone);
         return newEditGoalsCommand;
     }
 }
