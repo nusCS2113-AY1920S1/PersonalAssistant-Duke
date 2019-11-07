@@ -167,6 +167,8 @@ public class Ui {
         System.out.println("\t add <dish name>");
         System.out.println("\t remove <dish index>");
         System.out.println("\t list");
+        System.out.println("\t find <description>");
+        System.out.println("\t change <index> <description>");
         System.out.println("\t ingredient <description> <amount> <index>");
         System.out.println("\t initialize (REMOVES all entries in the list)");
         System.out.println("\t back, return to main menu");

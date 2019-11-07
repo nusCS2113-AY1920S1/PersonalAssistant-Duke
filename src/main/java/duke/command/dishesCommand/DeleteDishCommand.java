@@ -18,6 +18,14 @@ public class DeleteDishCommand extends Command {
         this.Nb = dishNb;
     }
 
+    //@@ Author Hafidz
+    /**
+     *
+     * @param dish1
+     * @param ui
+     * @param storage
+     * @throws DukeException
+     */
     @Override
     public void execute(Fridge fridge, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
         try {

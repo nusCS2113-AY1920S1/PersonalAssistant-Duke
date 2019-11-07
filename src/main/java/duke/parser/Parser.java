@@ -74,7 +74,21 @@ public class Parser {
         }
     }
 
+    /**
+     * commands for Dish
+     * add: adds a dish to dishList
+     * remove: remove a dish from dishList
+     * list: list all dishes in list
+     * initialize: clears the list
+     * ingredient: add an ingredient to a dish
+     *
+     * @param fullCommand command from the user
+     * @return a command to be executed
+     * @throws DukeException
+     * @@@author Hafidz
+     */
     private static Command dish(String fullCommand) throws DukeException {
+        int index = 0, amount = 0;
         String[] part = fullCommand.split(" ", 2);
         switch (part[0]) {
             case "add":
@@ -96,16 +110,33 @@ public class Parser {
             case "initialize":
                 return new ResetDishCommand();
             case "ingredient":
-                String[] getIng = part[1].split(" ", 3);
-                int amount = 0;
-                int index = 0;
+                String[] getIng = new String[0];
+                try {
+                    getIng = part[1].split(" ", 3);
+                } catch (Exception e) {
+                    throw new DukeException("description cannot be emtpy");
+                }
                 try {
                     amount = checkInt(getIng[1]);
                     index = checkInt(getIng[2]);
-                } catch (NumberFormatException e) {
+                } catch (Exception e) {
                     throw new DukeException("enter a valid amount/index");
                 }
                 return new AddIngredient(new Ingredient(getIng[0], amount, new Date()), index);
+            case "find":
+                try {
+                    return new FindDishCommand(part[1]);
+                } catch (Exception e) {
+                    throw new DukeException("description cannot be emtpy");
+                }
+            case "change":
+                try {
+                    String[] partition = part[1].split(" ", 2);
+                    index = Integer.parseInt(partition[0]);
+                    return new ChangeDishCommand(partition[1], index);
+                } catch (NumberFormatException e) {
+                    throw new DukeException("enter a valid index/description");
+                }
             default:
                 throw new DukeException("not a valid command for a Dish");
         }

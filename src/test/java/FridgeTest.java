@@ -1,4 +1,4 @@
-package duke.test;
+//package duke.test;
 
 import duke.exception.DukeException;
 import duke.fridge.Fridge;
