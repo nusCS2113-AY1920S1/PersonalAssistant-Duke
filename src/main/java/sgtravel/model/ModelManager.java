@@ -51,6 +51,14 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void doneItinerary(String name) throws OutOfBoundsException {
+        if(itineraryTable.get(name) == null) {
+            throw new OutOfBoundsException();
+        }
+        this.itineraryTable.remove(name);
+    }
+
+    @Override
     public TransportationMap getMap() {
         return map;
     }

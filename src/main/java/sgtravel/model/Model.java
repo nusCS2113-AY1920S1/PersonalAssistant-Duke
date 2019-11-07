@@ -108,4 +108,6 @@ public interface Model {
      * Returns name of the user.
      */
     String getName();
+
+    void doneItinerary(String name) throws OutOfBoundsException;
 }
