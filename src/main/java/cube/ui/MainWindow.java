@@ -2,6 +2,7 @@ package cube.ui;
 
 import cube.exception.CubeException;
 import cube.logic.command.Command;
+import cube.logic.command.exception.CommandException;
 import cube.logic.command.util.CommandResult;
 import cube.logic.parser.Parser;
 import cube.model.ModelManager;
@@ -146,6 +147,7 @@ public class MainWindow extends UiManager<Stage> {
             logger.info("Command Entered : " + command);
             Command c = Parser.parse(command);
             CommandResult result = c.execute(modelManager, storageManager);
+
             resultDisplay.setResultText(result.getFeedbackToUser());
             // Updates GUI components
             listPanel.updateProductList(storageManager.getFoodList());

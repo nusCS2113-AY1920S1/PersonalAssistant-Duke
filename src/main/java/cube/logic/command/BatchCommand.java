@@ -8,6 +8,8 @@
 package cube.logic.command;
 
 import cube.exception.CubeException;
+import cube.logic.command.exception.CommandErrorMessage;
+import cube.logic.command.exception.CommandException;
 import cube.logic.command.util.CommandResult;
 import cube.model.ModelManager;
 import cube.model.food.Food;
@@ -93,7 +95,7 @@ public class BatchCommand extends Command {
      * Constructs the command result output to be shown to the user.
      */
     @Override
-    public CommandResult execute(ModelManager model, StorageManager storage) {
+    public CommandResult execute(ModelManager model, StorageManager storage) throws CommandException {
         try {
             switch (operationType) {
             case IMPORT:
@@ -108,10 +110,10 @@ public class BatchCommand extends Command {
                 return new CommandResult(String.format(MESSAGE_SUCCESS, MESSAGE_EXPORT, fileName));
             case EMPTY:
                 batchEmpty();
-                return new CommandResult(String.format(MESSAGE_SUCCESS, fileName));
+                return new CommandResult(String.format(MESSAGE_SUCCESS_TEMPLATE, fileName));
             }
         } catch (CubeException e) {
-            e.printStackTrace();
+            throw new CommandException(CommandErrorMessage.INVALID_COMMAND_FORMAT);
         }
         return null;
     }
