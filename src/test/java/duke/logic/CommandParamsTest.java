@@ -1,4 +1,4 @@
-package duke.parser;
+package duke.logic;
 
 import duke.logic.CommandParams;
 import duke.exception.DukeException;
@@ -13,11 +13,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class CommandParamsTest {
 
-    /* TODO: Test broken due to regressions, do fix
+
     @Test
     public void testCorrectParamValues() throws DukeException {
-        CommandParams testParams = new CommandParams("add 2.12 /description hello /tag a b c");
-        assertEquals(testParams.getCommand().getName(), "add");
+        CommandParams testParams = new CommandParams("addExpense 2.12 /description hello /tag a b c");
+        assertEquals(testParams.getCommand().getName(), "addExpense");
         assertEquals(testParams.getMainParam(), "2.12");
         assertEquals(testParams.getParam("description"), "hello");
         assertEquals(testParams.getParam("tag"), "a b c");
@@ -25,12 +25,11 @@ public class CommandParamsTest {
         assertFalse(testParams.containsParams("time"));
     }
 
-     */
 
-    /* TODO: Test broken due to regressions, do fix
+
     @Test
     public void testCorrectNullParamValues() throws DukeException {
-        CommandParams testParams = new CommandParams("add /description /tag not null");
+        CommandParams testParams = new CommandParams("addExpense /description /tag not null");
         assertNull(testParams.getMainParam());
         assertEquals(testParams.getParam("tag"), "not null");
 
@@ -43,7 +42,6 @@ public class CommandParamsTest {
         }
     }
 
-     */
 
     @Test
     public void testParamNotFoundException() throws DukeException {
@@ -67,7 +65,8 @@ public class CommandParamsTest {
                 String.format(DukeException.MESSAGE_COMMAND_PARAM_DUPLICATE, "time"), e.getMessage());
         }
     }
-    /* TODO:Test broken due to regressions, do fix
+
+    /*
     @Test
     public void testAbbreviationFunctionality() throws DukeException {
         try {
@@ -78,9 +77,10 @@ public class CommandParamsTest {
                 DukeException.MESSAGE_COMMAND_NAME_UNKNOWN, e.getMessage());
         }
 
-        CommandParams testParams = new CommandParams("ad /d description");
-        assertEquals(testParams.getCommand().getName(), "add");
+        CommandParams testParams = new CommandParams("addE /d description");
+        // assertEquals(testParams.getCommand().getName(), "addExpense");
         assertEquals(testParams.getParam("description"), "description");
     }
      */
+
 }
