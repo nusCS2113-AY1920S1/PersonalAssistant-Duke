@@ -354,13 +354,17 @@ public class UiFr extends Ui {
             System.out.println("\t UserAnswerException:\n\t\t ☹ OOPS!!! Veuillez répondre correctement à la question.");
         }
 
-        else if (e instanceof InvalidFlagException){
+        else if (e instanceof InvalidFlagException) {
             System.out.println("\t InvalidFlagException:\n\t\t ☹ OOPS!!! Drapeau invalide.");
-
+        }
         else if(e instanceof RecurrenceException){
             System.out.println("\t RecurrenceException:\n\t\t ☹ OOPS!!! Respectez le format pour la recurrence" +
                     "\n\t\t\t recu TYPEOFRECURRENCE NBRECURRENCE");
 
+        }
+        else if(e instanceof RecurrenceDateException){
+            System.out.println("\t RecurrenceException:\n\t\t ☹ OOPS!!! Vous êtes en train de créer un event récurrent, mais il y aura un conflit de date avec ces dates là" +
+                    "\n\t\t\t L'event n'a pas été créé, veuillez vérifier la date");
         }
     }
 

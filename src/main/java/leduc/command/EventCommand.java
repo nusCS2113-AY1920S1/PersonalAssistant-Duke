@@ -5,7 +5,11 @@ import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.Ui;
 import leduc.task.EventsTask;
+import leduc.task.Task;
 import leduc.task.TaskList;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 /**
  * Represents a event task Command.
@@ -39,8 +43,10 @@ public class EventCommand extends Command {
      * @throws EventDateException  Exception caught when the start date is after the end date of an event task.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage)
-            throws EmptyEventDateException, EmptyEventException, NonExistentDateException, FileException, ConflictDateException, PrioritizeLimitException, EventDateException {
+            throws EmptyEventDateException, EmptyEventException, NonExistentDateException, FileException, ConflictDateException, PrioritizeLimitException, EventDateException, RecurrenceException, RecurrenceDateException {
         String userSubstring;
+        int nbRecurrence = 0;
+        String typeOfRecurrence = "";
         if (callByShortcut) {
             userSubstring = user.substring(EventCommand.eventShortcut.length());
         } else {
@@ -59,7 +65,31 @@ public class EventCommand extends Command {
             String periodString = taskDescription[1].trim();
             //date format used: dd/MM/yyyy HH:mm - dd/MM/yyyy HH:mm
             String[] prioritySplit = periodString.split("prio");
-            String[] dateString = prioritySplit[0].split(" - ");
+            String[] dateString = null;
+            if(prioritySplit.length == 1){
+                String[] recurrenceSplit = prioritySplit[0].trim().split(("recu"));
+                dateString = recurrenceSplit[0].trim().split(" - ");
+                if(!(recurrenceSplit.length==1)){
+                    String[] recurrenceSplit2 = recurrenceSplit[1].trim().split(" ");
+                    if(recurrenceSplit2.length == 1){
+                        throw new RecurrenceException();
+                    }
+                    else {
+                        typeOfRecurrence = recurrenceSplit2[0].trim();
+                        if(!(typeOfRecurrence.equals("day") || typeOfRecurrence.equals("month") || typeOfRecurrence.equals("week"))){
+                            throw new RecurrenceException();
+                        }
+                        try{
+                            nbRecurrence = Integer.parseInt(recurrenceSplit2[1].trim());
+                        }catch (Exception e){
+                            throw new RecurrenceException();
+                        }
+                    }
+                }
+            }
+            else {
+                dateString = prioritySplit[0].split(" - ");
+            }
             if (dateString.length == 1) {
                 throw new EmptyEventDateException();
             } else if (dateString[0].isBlank() || dateString[1].isBlank()) {
@@ -76,8 +106,27 @@ public class EventCommand extends Command {
                 newTask = new EventsTask(description, date1, date2);
             } else {
                 int priority = -1;
+                String[] recurrenceSplit = prioritySplit[1].trim().split(("recu"));
+                String priorityString = recurrenceSplit[0].trim();
+                if(!(recurrenceSplit.length==1)){
+                    String[] recurrenceSplit2 = recurrenceSplit[1].trim().split(" ");
+                    if(recurrenceSplit2.length == 1){
+                        throw new RecurrenceException();
+                    }
+                    else {
+                        typeOfRecurrence = recurrenceSplit2[0].trim();
+                        if(!(typeOfRecurrence.equals("day") || typeOfRecurrence.equals("month") || typeOfRecurrence.equals("week"))){
+                            throw new RecurrenceException();
+                        }
+                        try{
+                            nbRecurrence = Integer.parseInt(recurrenceSplit2[1].trim());
+                        }catch (Exception e){
+                            throw new RecurrenceException();
+                        }
+                    }
+                }
                 try {
-                    priority = Integer.parseInt(prioritySplit[1].trim());
+                    priority = Integer.parseInt(priorityString);
                 } catch (Exception e) {
                     throw new PrioritizeLimitException();
                 }
@@ -86,10 +135,71 @@ public class EventCommand extends Command {
                 }
                 newTask = new EventsTask(description, date1, date2, priority);
             }
-            tasks.add(newTask);
-            storage.save(tasks.getList());
-            ui.showTask(newTask, tasks.size());
+            if (nbRecurrence == 0) {
+                tasks.add(newTask);
+                storage.save(tasks.getList());
+                ui.showTask(newTask, tasks.size());
+            }
+            else {
+                contructRecurrenceTask(newTask, nbRecurrence, typeOfRecurrence, tasks, storage, ui);
+            }
+
         }
+    }
+
+    public void contructRecurrenceTask(EventsTask task, int nbRecurrence, String typeOfRecurrence, TaskList tasks, Storage storage, Ui ui) throws FileException, RecurrenceDateException {
+        ArrayList<Task> newTaskList = new ArrayList<>();
+        LocalDateTime initialDate1 = task.getDateFirst().getDate();
+        LocalDateTime initialDate2 = task.getDateSecond().getDate();
+        String description = task.getTask();
+        int priority = task.getPriority();
+        switch (typeOfRecurrence) {
+            case "day":
+                if(initialDate2.isAfter(initialDate1.plusDays(1))){
+                    throw new RecurrenceDateException();
+                }
+                newTaskList.add(task);
+                tasks.add(task);
+                for (int i = 1; i <= nbRecurrence; i++) {
+
+                    EventsTask recurrentEventsTask = new EventsTask(description, new Date(initialDate1.plusDays(i)), new Date(initialDate2.plusDays(i)), priority);
+                    newTaskList.add(recurrentEventsTask);
+                    tasks.add(recurrentEventsTask);
+                }
+                ui.showNotCompleteList(newTaskList, tasks);
+                break;
+            case "week":
+                if(initialDate2.isAfter(initialDate1.plusWeeks(1))){
+                    throw new RecurrenceDateException();
+                }
+                newTaskList.add(task);
+                tasks.add(task);
+                for (int i = 1; i <= nbRecurrence; i++) {
+                    EventsTask recurrentEventsTask = new EventsTask(description, new Date(initialDate1.plusWeeks(i)), new Date(initialDate2.plusWeeks(i)), priority);
+                    newTaskList.add(recurrentEventsTask);
+                    tasks.add(recurrentEventsTask);
+                }
+                ui.showNotCompleteList(newTaskList, tasks);
+                break;
+            case "month":
+                if(initialDate2.isAfter(initialDate1.plusMonths(1))){
+                    throw new RecurrenceDateException();
+                }
+                for (int i = 1; i <= nbRecurrence; i++) {
+                    EventsTask recurrentEventsTask = new EventsTask(description, new Date(initialDate1.plusMonths(i)), new Date(initialDate2.plusMonths(i)), priority);
+                    newTaskList.add(recurrentEventsTask);
+                    tasks.add(recurrentEventsTask);
+                }
+                newTaskList.add(task);
+                tasks.add(task);
+                ui.showNotCompleteList(newTaskList, tasks);
+                break;
+            default:
+                tasks.add(task);
+                ui.showTask(task, tasks.size());
+                break;
+        }
+        storage.save(tasks.getList());
     }
     /**
      * getter because the shortcut is private
