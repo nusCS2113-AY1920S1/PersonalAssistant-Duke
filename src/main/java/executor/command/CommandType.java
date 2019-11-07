@@ -15,6 +15,7 @@ public enum CommandType {
     VIEWSCHEDULE(CommandSchedule.class),
     REMINDER(CommandReminder.class),
     BALANCE(CommandDisplayBalance.class),
+    PERCENT(CommandPercent.class),
     IN(CommandAddIncomeReceipt.class),
     OUT(CommandAddSpendingReceipt.class),
     SETBALANCE(CommandUpdateBalance.class),
