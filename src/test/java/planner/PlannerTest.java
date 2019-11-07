@@ -1,3 +1,5 @@
+//@@author namiwa
+
 package planner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,6 +40,6 @@ public class PlannerTest extends InputTest {
                 + "\n"
                 + LINE
                 + "\n";
-        assertEquals(expected, outContent.toString().replace("\r", ""));
+        assertEquals(expected, outContent.toString().replaceAll("\r", ""));
     }
 }

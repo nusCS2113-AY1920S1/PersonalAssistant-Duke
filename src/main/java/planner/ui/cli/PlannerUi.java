@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
-import planner.logic.exceptions.legacy.ModInvalidIndexException;
 import planner.logic.modules.legacy.task.Task;
 import planner.logic.modules.legacy.task.TaskWithMultipleWeeklyPeriod;
 import planner.logic.modules.module.ModuleTask;
