@@ -2,10 +2,15 @@ package cube.ui;
 
 
 import cube.CubeApp;
+import cube.logic.parser.Parser;
+import cube.util.LogUtil;
+import cube.util.exception.CubeUtilException;
+import cube.util.exception.UtilErrorMessage;
 import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.logging.Logger;
 
 public abstract class UiManager<Type> {
 
@@ -16,6 +21,8 @@ public abstract class UiManager<Type> {
 
     private FXMLLoader fxmlLoader = new FXMLLoader();
 
+    private final Logger logger = LogUtil.getLogger(UiManager.class);
+
     /**
      * Main Constructor for Root
      *
@@ -24,9 +31,13 @@ public abstract class UiManager<Type> {
      */
     public UiManager(String FXML, Type root) {
         super();
-        URL fxmlUrl = getFxmlUrl(FXML);
-        setRoot(root);
-        loadFxmlFile(fxmlUrl);
+        try {
+            URL fxmlUrl = getFxmlUrl(FXML);
+            setRoot(root);
+            loadFxmlFile(fxmlUrl);
+        } catch (CubeUtilException e) {
+            logger.warning(e.getMessage());
+        }
     }
 
     /**
@@ -36,8 +47,12 @@ public abstract class UiManager<Type> {
      */
     public UiManager(String FXML) {
         super();
-        URL fxmlUrl = getFxmlUrl(FXML);
-        loadFxmlFile(fxmlUrl);
+        try {
+            URL fxmlUrl = getFxmlUrl(FXML);
+            loadFxmlFile(fxmlUrl);
+        } catch (CubeUtilException e) {
+            logger.warning(e.getMessage());
+        }
     }
 
     /**
@@ -61,14 +76,14 @@ public abstract class UiManager<Type> {
      *
      * @param location Location where the FXML files are being stored.
      */
-    private void loadFxmlFile(URL location) {
+    private void loadFxmlFile(URL location) throws CubeUtilException {
         fxmlLoader.setLocation(location);
         fxmlLoader.setController(this);
 
         try {
             fxmlLoader.load();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new CubeUtilException(UtilErrorMessage.READ_ERROR + location.toString());
         }
     }
 

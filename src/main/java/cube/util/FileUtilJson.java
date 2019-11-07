@@ -48,7 +48,6 @@ public class FileUtilJson<Type> extends FileUtil {
                 JavaType type = mapper.getTypeFactory().constructType(fileObject.getClass());
                 fileObject = mapper.readValue(file, type);
             } catch (IOException e) {
-                e.printStackTrace();
                 throw new CubeUtilException(UtilErrorMessage.READ_ERROR + fileFullPath);
             }
         }
@@ -66,7 +65,6 @@ public class FileUtilJson<Type> extends FileUtil {
         try {
             mapper.writeValue(file, fileObject);
         } catch (IOException e) {
-            e.printStackTrace();
             throw new CubeUtilException(UtilErrorMessage.WRITE_ERROR + fileFullPath);
         }
     }
