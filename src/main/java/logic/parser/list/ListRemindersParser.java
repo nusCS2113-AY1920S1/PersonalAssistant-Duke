@@ -12,7 +12,7 @@ public class ListRemindersParser {
      * Parses for "list reminders"
      * @param argument not used for this parser
      * @return Command to list reminders
-     * @throws DukeException
+     * @throws DukeException dnot used for this parser
      */
     public static Command parseReminders(String argument) throws DukeException {
         return new ListRemindersCommand();
