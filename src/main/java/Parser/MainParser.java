@@ -37,8 +37,8 @@ public class MainParser {
             case "show/workload":
                 return new WorkloadParse(fullCommand).parse();
 
-            case "filter":
-                return new FilterCommand(fullCommand);
+            case "show/filter":
+                return new FilterParse(fullCommand).parse();
             case "help":
                 return new HelpCommand();
 

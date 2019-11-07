@@ -21,7 +21,7 @@ public class FilterCommand extends Command{
      */
     public FilterCommand(String Command)
     {
-        this.keyword = Command.trim().substring(7);
+        this.keyword = Command;
     }
 
     /**
