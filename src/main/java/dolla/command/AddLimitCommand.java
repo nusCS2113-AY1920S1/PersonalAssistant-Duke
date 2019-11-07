@@ -9,9 +9,6 @@ import dolla.task.LimitList;
 import dolla.task.Record;
 import dolla.ui.LimitUi;
 
-/**
- * AddLimitCommand is used to create a new Limit entity.
- */
 //@@author Weng-Kexin
 public class AddLimitCommand extends Command {
 
@@ -19,6 +16,8 @@ public class AddLimitCommand extends Command {
     private double amount;
     private String duration;
     private static final String mode = MODE_LIMIT;
+    private static final String commandInfo = "AddLimitCommand";
+
 
     /**
      * Instantiates a new AddLimitCommand.
@@ -51,6 +50,6 @@ public class AddLimitCommand extends Command {
 
     @Override
     public String getCommandInfo() {
-        return null;
+        return commandInfo;
     }
 }
