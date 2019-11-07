@@ -27,7 +27,7 @@ public class TaskList {
      * @param tasks ArrayList of Task objects to be operated on.
      */
     public TaskList(ArrayList<Task> tasks) {
-        this.tasks = tasks;
+        TaskList.tasks = tasks;
     }
 
     /**
@@ -77,7 +77,7 @@ public class TaskList {
         if (tasks.size() != 0) {
             int listCount = 1;
             for(int i=0; i<tasks.size(); i++) {
-                if (new Date().after(tasks.get(i).getDate())) {
+                if (new Date().after(tasks.get(i).getDate()) && !(tasks.get(i) instanceof Leave)){
                     tasks.get(i).setOverdue(true);
                     overdueList.add(tasks.get(i));
                     tasks.remove(tasks.get(i));
@@ -110,7 +110,7 @@ public class TaskList {
             }
             for(int i=0; i<tasks.size(); i++) {
                 if (tasks.get(i) instanceof Leave) {
-                   if (((Leave) tasks.get(i)).getEndDate().after(new Date())) {
+                   if (((Leave) tasks.get(i)).getEndDate().before(new Date())) {
                         tasks.remove(tasks.get(i));
                     }
                 }
