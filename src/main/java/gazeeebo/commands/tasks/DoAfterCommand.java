@@ -15,8 +15,12 @@ import java.util.Stack;
 import gazeeebo.tasks.Task;
 import gazeeebo.tasks.DoAfter;
 
+/**
+ * Allows user to set a reminder task to be done after a certain task.
+ */
 public class DoAfterCommand extends Command {
     /**
+<<<<<<< HEAD
      * @param list         task lists
      * @param ui           the object that deals with printing things to the user.
      * @param storage      the object that deals with storing data.
@@ -24,6 +28,20 @@ public class DoAfterCommand extends Command {
      * @throws ParseException catch error if parse string to date fails.
      * @throws IOException catch error if read file fails.
      * @throws NullPointerException if tDate doesn't get updated.
+=======
+     * Creates a task to be done after the previous task
+     * and sets a reminder when the previous task is done.
+     *
+     * @param list         Task lists
+     * @param ui           The object that deals with
+     *                     printing things to the user.
+     * @param storage      The object that deals with storing data.
+     * @param commandStack
+     * @throws DukeException  Throws custom exception when
+     *                        format of do after command is wrong
+     * @throws ParseException
+     * @throws IOException
+>>>>>>> 7b39e99af9747527697bf0b67af93c7dfcdfe446
      */
     @Override
     public void execute(final ArrayList<Task> list,
@@ -31,8 +49,8 @@ public class DoAfterCommand extends Command {
                         final Stack<ArrayList<Task>> commandStack,
                         final ArrayList<Task> deletedTask,
                         final TriviaManager triviaManager)
-            throws DukeException, ParseException,
-            IOException {
+            throws DukeException, ParseException, IOException {
+
         String before = "";
         String after = "";
         String[] splitstring = ui.fullCommand.split("/after");
@@ -42,6 +60,7 @@ public class DoAfterCommand extends Command {
         list.add(to);
         System.out.println("Got it. I've added this task:");
         System.out.println(to.listFormat());
+
         System.out.println("Now you have "
                 + list.size() + " tasks in the list.");
         StringBuilder sb = new StringBuilder();
@@ -52,6 +71,9 @@ public class DoAfterCommand extends Command {
     }
 
     /**
+     * Program does not exit and continues running
+     * since command "bye" is not called.
+     * <p>
      * Tells the main Duke class that
      * the system should not exit and continue running.
      *

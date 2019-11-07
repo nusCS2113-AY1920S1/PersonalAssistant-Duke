@@ -1,7 +1,7 @@
 package capCalculatorTest;
 
 import gazeeebo.UI.Ui;
-import gazeeebo.commands.capCalculator.CAPCommand;
+import gazeeebo.parsers.CAPCommandParser;
 import gazeeebo.commands.capCalculator.DeleteCAPCommand;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,10 +13,10 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DeleteCAPCommandTest {
+public class DeleteCAPCommandParserTest {
     private Ui ui = new Ui();
-    private HashMap<String, ArrayList<CAPCommand>> map = new HashMap<>();
-    private Map<String, ArrayList<CAPCommand>> CAPList = new TreeMap<>(map);
+    private HashMap<String, ArrayList<CAPCommandParser>> map = new HashMap<>();
+    private Map<String, ArrayList<CAPCommandParser>> CAPList = new TreeMap<>(map);
 
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
     private PrintStream mine = new PrintStream(output);
@@ -35,8 +35,8 @@ public class DeleteCAPCommandTest {
 
     @Test
     void testDeleteCAPCommand() {
-        CAPCommand newCAP = new CAPCommand("CS1231", 4, "A");
-        ArrayList<CAPCommand> list = new ArrayList<>();
+        CAPCommandParser newCAP = new CAPCommandParser("CS1231", 4, "A");
+        ArrayList<CAPCommandParser> list = new ArrayList<>();
         list.add(newCAP);
         CAPList.put("1", list);
         ui.fullCommand = "delete CS1231";
@@ -46,8 +46,8 @@ public class DeleteCAPCommandTest {
 
     @Test
     void testDeleteNotInCAPListCommand() {
-        CAPCommand newCAP = new CAPCommand("CS1231", 4, "A");
-        ArrayList<CAPCommand> list = new ArrayList<>();
+        CAPCommandParser newCAP = new CAPCommandParser("CS1231", 4, "A");
+        ArrayList<CAPCommandParser> list = new ArrayList<>();
         list.add(newCAP);
         CAPList.put("1", list);
         ui.fullCommand = "delete CG1111";
@@ -57,8 +57,8 @@ public class DeleteCAPCommandTest {
 
     @Test
     void testDeleteIncorrectFormatInCAPListCommand() {
-        CAPCommand newCAP = new CAPCommand("CS1231", 4, "A");
-        ArrayList<CAPCommand> list = new ArrayList<>();
+        CAPCommandParser newCAP = new CAPCommandParser("CS1231", 4, "A");
+        ArrayList<CAPCommandParser> list = new ArrayList<>();
         list.add(newCAP);
         CAPList.put("1", list);
         ui.fullCommand = "delete CG1111 and CS1231";

@@ -2,11 +2,12 @@ package capCalculatorTest;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.commands.capCalculator.*;
 import gazeeebo.exception.DukeException;
+import gazeeebo.parsers.CAPCommandParser;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -46,11 +47,11 @@ public class MainCAPCalculatorTest {
         TriviaManager triviaManager = new TriviaManager(storage);
         String moduleCode = "", grade = "";
         int moduleCredit = 0;
-        CAPCommand test = new CAPCommand(moduleCode, moduleCredit, grade);
+        CAPCommandParser test = new CAPCommandParser(moduleCode, moduleCredit, grade);
         ByteArrayInputStream in = new ByteArrayInputStream("esc".getBytes());
         System.setIn(in);
         test.execute(list, ui, storage, commandStack, deletedTask, triviaManager);
-        assertEquals("Welcome to your CAP Calculator page! What would you like to do?\n\n"
+        Assertions.assertEquals("Welcome to your CAP Calculator page! What would you like to do?\n\n"
                         + "__________________________________________________________\n"
                         + "1. Add module: add semester number,"
                         + "module's code, module's credit, module's grade\n"
@@ -61,7 +62,7 @@ public class MainCAPCalculatorTest {
                         + "6. Help page: help\n"
                         + "7. Exit CAP page: esc\n"
                         + "__________________________________________________________\n"
-                        + "\nGo back to Main Menu...\n" +
+                        + "\nGoing back to Main Menu...\n" +
                         "Content Page:\n" +
                         "------------------ \n" +
                         "1. help\n" +
@@ -72,7 +73,8 @@ public class MainCAPCalculatorTest {
                         "6. cap\n" +
                         "7. spec\n" +
                         "8. moduleplanner\n" +
-                        "9. notes\n"
+                        "9. notes\n" +
+                        "To exit: bye\n"
                 , output.toString()
         );
     }
@@ -82,11 +84,11 @@ public class MainCAPCalculatorTest {
         TriviaManager triviaManager = new TriviaManager(storage);
         String moduleCode = "", grade = "";
         int moduleCredit = 0;
-        CAPCommand test = new CAPCommand(moduleCode, moduleCredit, grade);
+        CAPCommandParser test = new CAPCommandParser(moduleCode, moduleCredit, grade);
         ByteArrayInputStream in = new ByteArrayInputStream("7".getBytes());
         System.setIn(in);
         test.execute(list, ui, storage, commandStack, deletedTask, triviaManager);
-        assertEquals("Welcome to your CAP Calculator page! What would you like to do?\n\n"
+        Assertions.assertEquals("Welcome to your CAP Calculator page! What would you like to do?\n\n"
                         + "__________________________________________________________\n"
                         + "1. Add module: add semester number,"
                         + "module's code, module's credit, module's grade\n"
@@ -97,7 +99,7 @@ public class MainCAPCalculatorTest {
                         + "6. Help page: help\n"
                         + "7. Exit CAP page: esc\n"
                         + "__________________________________________________________\n"
-                        + "\nGo back to Main Menu...\n" +
+                        + "\nGoing back to Main Menu...\n" +
                         "Content Page:\n" +
                         "------------------ \n" +
                         "1. help\n" +
@@ -108,7 +110,7 @@ public class MainCAPCalculatorTest {
                         "6. cap\n" +
                         "7. spec\n" +
                         "8. moduleplanner\n" +
-                        "9. notes\n"
+                        "9. notes\n" + "To exit: bye\n"
                 , output.toString()
         );
     }

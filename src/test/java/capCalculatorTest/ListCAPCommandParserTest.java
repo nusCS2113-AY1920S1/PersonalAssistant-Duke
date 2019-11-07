@@ -1,7 +1,7 @@
 package capCalculatorTest;
 
 import gazeeebo.UI.Ui;
-import gazeeebo.commands.capCalculator.CAPCommand;
+import gazeeebo.parsers.CAPCommandParser;
 import gazeeebo.commands.capCalculator.ListCAPCommand;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,11 +14,11 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ListCAPCommandTest {
+public class ListCAPCommandParserTest {
     private static final String LINEBREAK = "------------------------------\n";
     private Ui ui = new Ui();
-    private HashMap<String, ArrayList<CAPCommand>> map = new HashMap<>();
-    private Map<String, ArrayList<CAPCommand>> CAPList = new TreeMap<>(map);
+    private HashMap<String, ArrayList<CAPCommandParser>> map = new HashMap<>();
+    private Map<String, ArrayList<CAPCommandParser>> CAPList = new TreeMap<>(map);
 
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
     private PrintStream mine = new PrintStream(output);
@@ -37,11 +37,11 @@ public class ListCAPCommandTest {
 
     @Test
     void testListAllCAPCommand() throws IOException {
-        CAPCommand newCAP = new CAPCommand("CS1231", 4, "A");
-        ArrayList<CAPCommand> list = new ArrayList<>();
+        CAPCommandParser newCAP = new CAPCommandParser("CS1231", 4, "A");
+        ArrayList<CAPCommandParser> list = new ArrayList<>();
         list.add(newCAP);
-        ArrayList<CAPCommand> list2 = new ArrayList<>();
-        CAPCommand newCAP2 = new CAPCommand("CG1112", 6, "A");
+        ArrayList<CAPCommandParser> list2 = new ArrayList<>();
+        CAPCommandParser newCAP2 = new CAPCommandParser("CG1112", 6, "A");
         list2.add(newCAP2);
         CAPList.put("1", list);
         CAPList.put("2", list2);
@@ -56,11 +56,11 @@ public class ListCAPCommandTest {
 
     @Test
     void testListSemFoundCAPCommand() throws IOException {
-        CAPCommand newCAP = new CAPCommand("CS1231", 4, "A");
-        ArrayList<CAPCommand> list = new ArrayList<>();
+        CAPCommandParser newCAP = new CAPCommandParser("CS1231", 4, "A");
+        ArrayList<CAPCommandParser> list = new ArrayList<>();
         list.add(newCAP);
-        ArrayList<CAPCommand> list2 = new ArrayList<>();
-        CAPCommand newCAP2 = new CAPCommand("CG1112", 6, "A");
+        ArrayList<CAPCommandParser> list2 = new ArrayList<>();
+        CAPCommandParser newCAP2 = new CAPCommandParser("CG1112", 6, "A");
         list2.add(newCAP2);
         CAPList.put("1", list);
         CAPList.put("2", list2);
@@ -74,11 +74,11 @@ public class ListCAPCommandTest {
 
     @Test
     void testListSemFoundEmptyCAPCommand() throws IOException {
-        CAPCommand newCAP = new CAPCommand("CS1231", 4, "A");
-        ArrayList<CAPCommand> list = new ArrayList<>();
+        CAPCommandParser newCAP = new CAPCommandParser("CS1231", 4, "A");
+        ArrayList<CAPCommandParser> list = new ArrayList<>();
         list.add(newCAP);
-        ArrayList<CAPCommand> list2 = new ArrayList<>();
-        CAPCommand newCAP2 = new CAPCommand("CG1112", 6, "A");
+        ArrayList<CAPCommandParser> list2 = new ArrayList<>();
+        CAPCommandParser newCAP2 = new CAPCommandParser("CG1112", 6, "A");
         list2.add(newCAP2);
         CAPList.put("1", list);
         CAPList.put("2", list2);
@@ -90,11 +90,11 @@ public class ListCAPCommandTest {
 
     @Test
     void testListSemNotFoundCAPCommand() throws IOException {
-        CAPCommand newCAP = new CAPCommand("CS1231", 4, "A");
-        ArrayList<CAPCommand> list = new ArrayList<>();
+        CAPCommandParser newCAP = new CAPCommandParser("CS1231", 4, "A");
+        ArrayList<CAPCommandParser> list = new ArrayList<>();
         list.add(newCAP);
-        ArrayList<CAPCommand> list2 = new ArrayList<>();
-        CAPCommand newCAP2 = new CAPCommand("CG1112", 6, "A");
+        ArrayList<CAPCommandParser> list2 = new ArrayList<>();
+        CAPCommandParser newCAP2 = new CAPCommandParser("CG1112", 6, "A");
         list2.add(newCAP2);
         CAPList.put("1", list);
         CAPList.put("2", list2);
@@ -105,11 +105,11 @@ public class ListCAPCommandTest {
 
     @Test
     void testListNonsenseCAPCommand() throws IOException {
-        CAPCommand newCAP = new CAPCommand("CS1231", 4, "A");
-        ArrayList<CAPCommand> list = new ArrayList<>();
+        CAPCommandParser newCAP = new CAPCommandParser("CS1231", 4, "A");
+        ArrayList<CAPCommandParser> list = new ArrayList<>();
         list.add(newCAP);
-        ArrayList<CAPCommand> list2 = new ArrayList<>();
-        CAPCommand newCAP2 = new CAPCommand("CG1112", 6, "A");
+        ArrayList<CAPCommandParser> list2 = new ArrayList<>();
+        CAPCommandParser newCAP2 = new CAPCommandParser("CG1112", 6, "A");
         list2.add(newCAP2);
         CAPList.put("1", list);
         CAPList.put("2", list2);

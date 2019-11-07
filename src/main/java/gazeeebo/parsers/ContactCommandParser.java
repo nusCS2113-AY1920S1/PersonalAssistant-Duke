@@ -1,9 +1,9 @@
-
-package gazeeebo.commands.contact;
+package gazeeebo.parsers;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
+import gazeeebo.commands.contact.*;
 import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
@@ -19,7 +19,7 @@ import java.util.TreeMap;
 /**
  * Deals with the user input in the contacts page.
  */
-public class ContactCommand extends Command {
+public class ContactCommandParser extends Command {
     /**
      * Print the line separator between contacts.
      */
@@ -65,6 +65,7 @@ public class ContactCommand extends Command {
         System.out.print(helpContact);
         ui.readCommand();
         while (!ui.fullCommand.equals("esc")) {
+
             if (ui.fullCommand.split(" ")[0].equals("add")
                     || ui.fullCommand.equals("1")) {
                 copyMap(contactList, oldcontacts);
@@ -103,7 +104,7 @@ public class ContactCommand extends Command {
             System.out.println("What do you want to do next ?");
             ui.readCommand();
         }
-        System.out.print("Go back to Main Menu...\n"
+        System.out.print("Going back to Main Menu...\n"
                 + "Content Page:\n"
                 + "------------------ \n"
                 + "1. help\n"
@@ -114,7 +115,8 @@ public class ContactCommand extends Command {
                 + "6. cap\n"
                 + "7. spec\n"
                 + "8. moduleplanner\n"
-                + "9. notes\n");
+                + "9. notes\n"
+                + "To exit: bye\n");
     }
 
     /**

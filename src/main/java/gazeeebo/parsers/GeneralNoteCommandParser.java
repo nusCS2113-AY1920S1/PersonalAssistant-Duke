@@ -1,10 +1,11 @@
 //@@author yueyuu
-package gazeeebo.commands.note;
+package gazeeebo.parsers;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
 import gazeeebo.commands.help.HelpCommand;
+import gazeeebo.commands.note.ModuleCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.notes.GeneralNotePage;
 import gazeeebo.storage.NotePageStorage;
@@ -20,7 +21,7 @@ import java.util.Stack;
 /**
  * Deals with the commands input at the note page.
  */
-public class GeneralNoteCommand extends Command {
+public class GeneralNoteCommandParser extends Command {
 
     private static final String ESC = "esc";
     private static final String VIEW = "view";
@@ -31,7 +32,7 @@ public class GeneralNoteCommand extends Command {
     private static final String COMMANDS = "commands";
     private static final String HELP = "help";
 
-    private void showListOfCommands() {
+    public static void showListOfCommands() {
         System.out.println("__________________________________________________________");
         System.out.println("1. View goal and list of modules: " + VIEW);
         System.out.println("2. Edit goal: " + EDIT_GOAL);
@@ -86,7 +87,8 @@ public class GeneralNoteCommand extends Command {
                 "6. cap\n" +
                 "7. spec\n" +
                 "8. moduleplanner\n" +
-                "9. notes\n");
+                "9. notes\n" +
+                "To exit: bye\n");
     }
 
     @Override

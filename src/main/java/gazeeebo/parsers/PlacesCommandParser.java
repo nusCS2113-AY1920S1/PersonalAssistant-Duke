@@ -1,8 +1,9 @@
 //@@author jessteoxizhi
 
-package gazeeebo.commands.places;
+package gazeeebo.parsers;
 
 import gazeeebo.commands.help.HelpCommand;
+import gazeeebo.commands.places.*;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
@@ -17,7 +18,7 @@ import java.util.Stack;
 import java.util.TreeMap;
 import java.util.HashMap;
 
-public class PlacesCommand extends Command {
+public class PlacesCommandParser extends Command {
     /**
      * Parses the user input and return a command object.
      *
@@ -40,9 +41,10 @@ public class PlacesCommand extends Command {
                 + "2. Find a place in SOC: find-place\n"
                 + "3. Delete a place: delete-place\n"
                 + "4. See all places in SOC: list\n"
-                + "5. See all commands: commands\n"
-                + "6. Help command: help\n"
-                + "7. Exit places: esc\n"
+                + "5. Undo previous command: undo\n"
+                + "6. See all commands: commands\n"
+                + "7. Help command: help\n"
+                + "8. Exit places: esc\n"
                 + "__________________________________________________________\n\n";
         System.out.println("Welcome to your places in SOC! What would you like to do?");
         System.out.println(helpPlaces);
@@ -69,7 +71,7 @@ public class PlacesCommand extends Command {
                 } else if (ui.fullCommand.equals("help")) {
                     new HelpCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
                 } else if (ui.fullCommand.equals("esc")) {
-                    System.out.println("Go back to Main Menu...\n" +
+                    System.out.println("Going back to Main Menu...\n" +
                             "Content Page:\n" +
                             "------------------ \n" +
                             "1. help\n" +
@@ -80,7 +82,8 @@ public class PlacesCommand extends Command {
                             "6. cap\n" +
                             "7. spec\n" +
                             "8. moduleplanner\n" +
-                            "9. notes\n");
+                            "9. notes\n" +
+                            "To exit: bye\n");
                     isExitFromPlaces = true;
                 } else if (ui.fullCommand.equals("undo")) {
                     places = UndoPlacesCommand.undoPlaces(places,oldplaces,storage);

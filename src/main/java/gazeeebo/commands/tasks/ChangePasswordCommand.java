@@ -1,4 +1,3 @@
-
 package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
@@ -13,16 +12,29 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * Allows user to change their current password
+ * to a new password.
+ */
 public class ChangePasswordCommand extends Command {
     /**
-     * This method will verify current password
-     * and write the new password to the Password.txt file.
+     * This method will verify current password and
+     * write the new password to the Password.txt file.
      *
+<<<<<<< HEAD
      * @param list         task lists
      * @param ui           deals with printing things to the user.
      * @param storage      deals with storing data.
      * @param commandStack keep stack of previous commands.
      * @throws IOException catch the error if the read file fails.
+=======
+     * @param list         Task lists
+     * @param ui           The object that deals
+     *                     with printing things to the user.
+     * @param storage      The object that deals with storing data.
+     * @param commandStack
+     * @throws IOException Catch the error if the read file fails.
+>>>>>>> 7b39e99af9747527697bf0b67af93c7dfcdfe446
      */
     @Override
     public void execute(final ArrayList<Task> list, final Ui ui,
@@ -48,6 +60,7 @@ public class ChangePasswordCommand extends Command {
                 System.out.println("Password successfully changed.");
                 break;
             } else {
+
                 System.out.println("Wrong password, "
                         + "exit by entering esc or try again:");
                 ui.readCommand();
@@ -56,6 +69,10 @@ public class ChangePasswordCommand extends Command {
     }
 
     /**
+     * Program does not exit and continues running
+     * since command "bye" is not called.
+     *
+     * @return false
      * Exit the program if isExit is true.
      */
     @Override

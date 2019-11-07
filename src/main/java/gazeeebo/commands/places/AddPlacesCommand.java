@@ -17,7 +17,7 @@ public class AddPlacesCommand {
      * @param places  Map each place to a location
      * @throws IOException catch any error if read file fails
      */
-    public AddPlacesCommand(Ui ui, Storage storage, Map<String, String> places) {
+    public AddPlacesCommand(final Ui ui, final Storage storage, final Map<String, String> places) {
         try {
             String[] parseInput = ui.fullCommand.split("-");
             String[] splitInfo = parseInput[1].split(",");

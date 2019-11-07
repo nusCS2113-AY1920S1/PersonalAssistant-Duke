@@ -18,7 +18,7 @@ public class UndoTaskCommand {
      * @return Previous Arraylist of Task before command executed
      * @throws IOException input or output error when interacting with user.
      */
-    static ArrayList<Task> undo(Stack<ArrayList<Task>> commandStack, ArrayList<Task> list, Storage storage)
+    public static ArrayList<Task> undo(Stack<ArrayList<Task>> commandStack, ArrayList<Task> list, Storage storage)
             throws IOException {
         if (!commandStack.empty()) {
             list = commandStack.peek();

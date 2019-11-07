@@ -1,4 +1,3 @@
-
 package gazeeebo.commands.contact;
 
 import gazeeebo.storage.Storage;

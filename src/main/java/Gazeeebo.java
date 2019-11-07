@@ -5,7 +5,7 @@ import gazeeebo.UI.Ui;
 import gazeeebo.storage.Storage;
 import gazeeebo.commands.Command;
 import gazeeebo.notes.NoteList;
-import gazeeebo.parsers.Parser;
+import gazeeebo.parsers.ParserManager;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.NoteStorage;
 
@@ -42,7 +42,7 @@ public class Gazeeebo {
             while (!isExit) {
                 ui.readCommand();
                 String command = ui.fullCommand;
-                Command c = Parser.parse(command, ui);
+                Command c = ParserManager.parse(command, ui);
                 if (c != null) {
                     c.execute(list, ui, store, CommandStack, deletedTask, triviaManager);
                     isExit = c.isExit();
