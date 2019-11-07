@@ -4,6 +4,8 @@ import CustomExceptions.RoomShareException;
 import Enums.ExceptionType;
 import Model_Classes.Assignment;
 import Model_Classes.Task;
+import Enums.TaskType;
+
 
 import java.util.ArrayList;
 
@@ -80,6 +82,26 @@ public class OverdueList {
             return Overdue.get(index);
         } catch (IndexOutOfBoundsException e) {
             throw new RoomShareException(ExceptionType.outOfBounds);
+        }
+    }
+
+    public void remove(int[] index, TempDeleteList deletedList) throws RoomShareException {
+        int[] idx = index.clone();
+        if (idx.length == 1) {
+            if (idx[0] < 0 || idx[0] >= Overdue.size()) {
+                throw new RoomShareException(ExceptionType.outOfBounds);
+            }
+            deletedList.add(Overdue.get(idx[0]));
+            Overdue.remove(idx[0]);
+        }
+        else {
+            if (idx[0] < 0 || idx[0] >= Overdue.size() || idx[1] < 0 || idx[1] >= Overdue.size()) {
+                throw new RoomShareException(ExceptionType.outOfBounds);
+            }
+            for (int i = idx[0]; idx[1] >= idx[0]; idx[1]--) {
+                deletedList.add(Overdue.get(i));
+                Overdue.remove(i);
+            }
         }
     }
 }
