@@ -1,6 +1,7 @@
 package dolla.command;
 
 import dolla.DollaData;
+import dolla.exception.DollaException;
 import dolla.task.Bill;
 import dolla.ui.DebtUi;
 
@@ -29,7 +30,7 @@ public class AddBillCommand extends Command {
     }
 
     @Override
-    public void execute(DollaData dollaData) throws Exception {
+    public void execute(DollaData dollaData) throws DollaException {
         Bill newBill = new Bill(type, people, amount, nameList);
         dollaData.addBillToRecordList(newBill);
         DebtUi.printAverageAmount(people, amount, nameList);

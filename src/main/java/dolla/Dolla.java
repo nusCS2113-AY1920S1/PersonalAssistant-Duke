@@ -1,6 +1,7 @@
 package dolla;
 
 import dolla.command.Command;
+import dolla.exception.DollaException;
 import dolla.parser.MainParser;
 import dolla.parser.ParserStringList;
 import dolla.storage.StorageRead;
@@ -23,7 +24,7 @@ public class Dolla implements ModeStringList, ParserStringList {
         StorageRead.load();
     }
 
-    private void run() throws Exception {
+    private void run() throws DollaException {
         boolean isExit = false;
         Reminder reminder = new Reminder(MODE_DEBT);
         reminder.showReminder(dollaData);
@@ -42,7 +43,7 @@ public class Dolla implements ModeStringList, ParserStringList {
         }
     }
 
-    public static void main(String[] args) throws Exception { // Exception needs to be handled?
+    public static void main(String[] args) throws DollaException { // Exception needs to be handled?
         new Dolla().run();
     }
 }
