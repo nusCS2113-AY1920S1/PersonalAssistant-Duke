@@ -11,7 +11,7 @@ public class SearchBeginCommand extends Command {
     String begin;
 
     public SearchBeginCommand(String begin) {
-        this.begin = begin.toLowerCase();
+        this.begin = begin;
     }
 
     @Override

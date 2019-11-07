@@ -1,10 +1,10 @@
 package dictionary;
 
+import exception.NoTagFoundException;
 import exception.NoWordFoundException;
 import exception.WordAlreadyExistsException;
 import exception.WordBankEmptyException;
 import exception.WordCountEmptyException;
-import storage.Storage;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -21,17 +21,6 @@ public class Bank {
      */
     public Bank() {
         wordBank = new WordBank();
-        tagBank = new TagBank();
-        synonymBank = new SynonymBank();
-        wordCount = new WordCount(wordBank);
-    }
-
-    /**
-     * Instantiates a wordBank, tagBank and wordCount object.
-     * @param storage object required to create instantiate a wordBank
-     */
-    public Bank(Storage storage) {
-        wordBank = new WordBank(storage);
         tagBank = new TagBank();
         synonymBank = new SynonymBank();
         wordCount = new WordCount(wordBank);
@@ -171,5 +160,26 @@ public class Bank {
     public void addTagToWord(String word, String tag) {
         wordBank.addTagToWord(word, tag);
         tagBank.addWordToOneTag(word, tag);
+    }
+
+    public boolean tagBankEmpty() {
+        return tagBank.isEmpty();
+    }
+
+    /**
+     * Gets all words of a specific tag.
+     * @param searchTag tag to be searched
+     * @return a primitive array of all strings represent words belong to the tag
+     * @throws NoTagFoundException if the tag doesn't exist in the tag bank
+     */
+    public String[] getWordsOfTag(String searchTag) throws NoTagFoundException {
+        if (!tagBank.contains(searchTag)) {
+            throw new NoTagFoundException(searchTag);
+        }
+        return tagBank.getAllWordsOfTag(searchTag);
+    }
+
+    public String[] getAllTags() {
+        return tagBank.getAllTagsAsList();
     }
 }

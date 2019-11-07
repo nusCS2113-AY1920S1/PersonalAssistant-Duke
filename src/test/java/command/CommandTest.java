@@ -46,9 +46,9 @@ public class CommandTest {
         writer.println("kiwi: green fruit");
         writer.close();
         storage = new Storage(filename, excelFileName);
-        bank = new Bank(storage);
+        bank = storage.loadExcelFile();
         ui = new Ui();
-        wordBank = new WordBank(storage);
+        wordBank = bank.getWordBankobject();
     }
 
     /**

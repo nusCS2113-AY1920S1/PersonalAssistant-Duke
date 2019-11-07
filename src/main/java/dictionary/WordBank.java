@@ -3,7 +3,6 @@ package dictionary;
 import exception.NoWordFoundException;
 import exception.WordAlreadyExistsException;
 import exception.WordBankEmptyException;
-import storage.Storage;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,10 +11,6 @@ import java.util.TreeMap;
 
 public class WordBank {
     private TreeMap<String, Word> wordBank;
-
-    public WordBank(Storage storage) {
-        wordBank = storage.loadFile();
-    }
 
     public WordBank() {
         this.wordBank = new TreeMap<>();

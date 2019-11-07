@@ -98,4 +98,12 @@ public class TagBank {
             tagBank.put(tag, new HashSet<>(Collections.singletonList(word)));
         }
     }
+
+    public boolean isEmpty() {
+        return tagBank.isEmpty();
+    }
+
+    public boolean contains(String searchTag) {
+        return tagBank.containsKey(searchTag);
+    }
 }

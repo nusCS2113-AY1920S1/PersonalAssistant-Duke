@@ -54,10 +54,6 @@ public class Word {
         return word;
     }
 
-    public void setStringLowerCase() {
-        word = word.toLowerCase();
-    }
-
     public int getNumberOfSearches() {
         return numberOfSearches;
     }

@@ -20,19 +20,13 @@ public class SearchCommand extends Command {
     protected String searchTerm;
 
     public SearchCommand(String queryWord) {
-        this.searchTerm = queryWord.toLowerCase();
+        this.searchTerm = queryWord;
     }
 
     @Override
     public String execute(Ui ui, Bank bank, Storage storage) {
         try {
             String meaning = bank.searchWordBankForMeaning(this.searchTerm);
-            Word word = bank.getWordBankObject().getWord(this.searchTerm);
-            if (bank.getWordFromWordBank(searchTerm).getNumberOfSearches() == 0) {
-                storage.updateFile(word.toString(),"");
-                storage.writeFile(word.toString(),true);
-                storage.writeWordBankExcelFile(bank.getWordBankObject());
-            }
             bank.increaseSearchCount(searchTerm);
             return ui.showSearch(this.searchTerm, meaning);
         } catch (NoWordFoundException e) {

@@ -1,9 +1,9 @@
 import dictionary.Bank;
+import javafx.application.Application;
+import javafx.stage.Stage;
 import scene.MainScene;
 import storage.Storage;
 import ui.Ui;
-import javafx.application.Application;
-import javafx.stage.Stage;
 
 
 public class WordUp extends Application {

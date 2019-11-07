@@ -13,7 +13,6 @@ import ui.Ui;
 public class AddCommand extends Command {
     public AddCommand(Word w) {
         word = w;
-        word.setStringLowerCase();
     }
 
     @Override

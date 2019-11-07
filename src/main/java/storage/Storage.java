@@ -29,7 +29,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Stack;
-import java.util.TreeMap;
 
 /**
  * Represents the object that reads and writes to the text files where data is stored.
@@ -44,51 +43,16 @@ public class Storage {
         excelFile = new File(EXCEL_PATH);
     }
 
+    /**
+     * Initiates storage with text file path and excel file path.
+     * @param filePath
+     * @param excelPath
+     */
     public Storage(String filePath, String excelPath) {
         FILE_PATH = filePath;
         EXCEL_PATH = excelPath;
         excelFile = new File(EXCEL_PATH);
     }
-
-    /**
-     * Converts all data from text file in storage to list of words.
-     * @return an arraylist containing all words in dictionary ordered by ALPHABET
-     */
-    public TreeMap<String, Word> loadFile() {
-        File file = new File(FILE_PATH);
-        FileReader fr = null;
-        BufferedReader br = null;
-        try {
-            fr = new FileReader(file);
-            br = new BufferedReader(fr);
-            TreeMap<String, Word> wordBank = new TreeMap<>();
-            String line = br.readLine();
-            while (line != null) {
-                // get data from storage
-                // parse the line first
-                if (line.equals("")) {
-                    line = br.readLine();
-                    continue;
-                }
-                String[] parsedWordAndMeaning = line.split(":");
-                Word word = new Word(parsedWordAndMeaning[0].trim(), parsedWordAndMeaning[1].trim());
-                wordBank.put(word.getWordString(), word);
-                line = br.readLine();
-            }
-            return wordBank;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            try {
-                br.close();
-                fr.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
 
     /**
      * Converts all data from the text file in the displayOrder it is written in.
@@ -211,29 +175,25 @@ public class Storage {
             FileInputStream fileInputStream = new FileInputStream(excelFile);
 
             Workbook workbook = new XSSFWorkbook(fileInputStream);
-            Sheet sheet;
-            Iterator<Row> rowIterator;
-            Iterator<Cell> cellIterator;
-            Row row;
 
-            sheet = workbook.getSheetAt(0);
-            rowIterator = sheet.iterator();
+            Sheet wordBankSheet = workbook.getSheetAt(0);
+            Iterator<Row> rowIterator = wordBankSheet.iterator();
             rowIterator.next();
             while (rowIterator.hasNext()) {
-                row = rowIterator.next();
-                cellIterator = row.cellIterator();
+                Row row = rowIterator.next();
+                Iterator<Cell> cellIterator = row.cellIterator();
 
                 bank.addWord(new
                         Word(cellIterator.next().getStringCellValue(), cellIterator.next().getStringCellValue())
                 );
             }
 
-            sheet = workbook.getSheetAt(1);
-            rowIterator = sheet.iterator();
-            rowIterator.next();
-            while (rowIterator.hasNext()) {
-                row = rowIterator.next();
-                cellIterator = row.cellIterator();
+            Sheet tagBankSheet = workbook.getSheetAt(1);
+            Iterator<Row> rowIteratorTagBank = tagBankSheet.iterator();
+            rowIteratorTagBank.next();
+            while (rowIteratorTagBank.hasNext()) {
+                Row row = rowIteratorTagBank.next();
+                Iterator<Cell> cellIterator = row.cellIterator();
                 String tag = cellIterator.next().getStringCellValue();
                 String[] allWords = cellIterator.next().getStringCellValue().split(", ");
 
@@ -247,6 +207,7 @@ public class Storage {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (WordAlreadyExistsException e) {
+            System.out.println("Exists");
             e.showError();
         }
         return bank;
