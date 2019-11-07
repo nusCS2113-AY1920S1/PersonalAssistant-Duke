@@ -30,6 +30,7 @@ import java.util.function.Supplier;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Provides a auto-complete to what the user has typed in userInput when TAB key is pressed.
@@ -197,7 +198,7 @@ public class AutoCompleter {
      * @param fromInput The content in userInput TextField.
      */
     public void receiveText(String fromInput) {
-        this.fromInput = fromInput;
+        this.fromInput = requireNonNull(fromInput);
         logger.info("start receiving Text");
     }
 
