@@ -58,8 +58,9 @@ public class GroupCommand extends Command<SongList> {
             endNo = Integer.parseInt(sections[1]);
             name = sections[2];
 
-            if (songList.getSize() > 0) {
-                Group group = createGroup(songList.getSongIndex(0), name, startNo, endNo);
+            boolean nameAlreadyExists = groupNameExists(songList, name);
+            if (songList.getSize() > 0 && !nameAlreadyExists) {
+                Group group = createGroup(songList.getSongIndex(songList.getActiveIndex()), name, startNo, endNo);
                 songList.getSongIndex(songList.getActiveIndex()).getGroups().add(group);
             } else {
                 throw new DucatsException(message, "group");
@@ -69,6 +70,16 @@ public class GroupCommand extends Command<SongList> {
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new DucatsException(message, "group");
         }
+    }
+
+    private boolean groupNameExists(SongList songList, String newGroupName) {
+        ArrayList<Group> groups = songList.getSongIndex(songList.getActiveIndex()).getGroups();
+        for (Group group : groups) {
+            if (group.getName().equals(newGroupName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -99,6 +110,7 @@ public class GroupCommand extends Command<SongList> {
     }
 
     //@@author rohan-av
+
     /**
      * Returns an integer corresponding to the duration, tempo and time signature if the command starts a metronome.
      * Else, returns an array containing -1.
