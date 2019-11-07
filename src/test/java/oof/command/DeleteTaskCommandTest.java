@@ -3,15 +3,15 @@ package oof.command;
 import oof.Oof;
 import oof.exception.ParserException;
 import oof.exception.command.CommandException;
+import oof.model.task.Task;
 import oof.model.task.TaskList;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 
-public class DeleteCommandTest {
+public class DeleteTaskCommandTest {
 
     private Oof oof = new Oof();
     private TaskList taskList = oof.getTaskList();
@@ -30,6 +30,32 @@ public class DeleteCommandTest {
     }
 
     /**
+     * Test behavior when index is of negative value.
+     */
+    @Test
+    public void execute_negativeIndex_exceptionThrown() {
+        try {
+            oof.executeCommand("delete -1");
+            fail();
+        } catch (CommandException | ParserException e) {
+            assertEquals("OOPS!!! Invalid number!", e.getMessage());
+        }
+    }
+
+    /**
+     * Test behavior when index is a String.
+     */
+    @Test
+    public void execute_stringIndex_exceptionThrown() {
+        try {
+            oof.executeCommand("delete abc");
+            fail();
+        } catch (CommandException | ParserException e) {
+            assertEquals("OOPS!!! Please enter a valid number!", e.getMessage());
+        }
+    }
+
+    /**
      * Test behavior for deleting Task.
      *
      * @throws CommandException if command in invalid.
@@ -37,19 +63,13 @@ public class DeleteCommandTest {
      */
     @Test
     public void execute_correctIndex_deleteTask() throws CommandException, ParserException {
+        int size = taskList.getSize() - 1;
+        final Task before = taskList.getTask(size);
         oof.executeCommand("todo test /on 06-11-2019");
-        int index = taskList.getSize() - 1;
-        String before = taskList.getTask(index).toString();
-
-        int recent = index + 1;
-        oof.executeCommand("delete " + recent);
-        index = taskList.getSize() - 1;
-        String after = taskList.getTask(index).toString();
-
-        boolean isDeleted = false;
-        if (!before.equals(after)) {
-            isDeleted = true;
-        }
-        assertTrue(isDeleted);
+        size = taskList.getSize();
+        oof.executeCommand("delete " + size);
+        size = taskList.getSize() - 1;
+        Task after = taskList.getTask(size);
+        assertEquals(before, after);
     }
 }

@@ -10,7 +10,6 @@ import oof.model.tracker.Tracker;
 import oof.storage.StorageManager;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -143,7 +142,6 @@ public class TrackerCommandTest {
      *
      * @throws CommandException if command is invalid.
      * @throws ParserException if command cannot be parsed.
-     * @throws FileNotFoundException if tracker.csv is not found.
      * @throws StorageFileCorruptedException if tracker.csv cannot be processed.
      */
     @Test
@@ -171,12 +169,11 @@ public class TrackerCommandTest {
      *
      * @throws CommandException if command is invalid.
      * @throws ParserException if command cannot be parsed.
-     * @throws FileNotFoundException if tracker.csv is not found.
      * @throws StorageFileCorruptedException if tracker.csv cannot be processed.
      */
     @Test
-    public void execute_PauseTrackerCorrectly_PauseTracker() throws CommandException, ParserException,
-            FileNotFoundException, StorageFileCorruptedException {
+    public void execute_PauseTrackerCorrectly_PauseTracker() throws CommandException,
+            ParserException, StorageFileCorruptedException {
         oof.executeCommand("todo pause tracker /on 06-11-2019");
         int recent = taskList.getSize() - 1;
         String command = "tracker /start " + recent + " CS2113T";
@@ -200,12 +197,11 @@ public class TrackerCommandTest {
      *
      * @throws CommandException if command is invalid.
      * @throws ParserException if command cannot be parsed.
-     * @throws FileNotFoundException if tracker.csv is not found.
      * @throws StorageFileCorruptedException if tracker.csv cannot be processed.
      */
     @Test
-    public void execute_StopTrackerCorrectly_StopTracker() throws CommandException, ParserException,
-            FileNotFoundException, StorageFileCorruptedException {
+    public void execute_StopTrackerCorrectly_StopTracker() throws CommandException,
+            ParserException, StorageFileCorruptedException {
         oof.executeCommand("todo stop tracker /on 06-11-2019");
         int recent = taskList.getSize() - 1;
         String command = "tracker /start " + recent + " CS2113T";
@@ -225,7 +221,6 @@ public class TrackerCommandTest {
         int index = tracker.getTaskIndex();
         Task task = taskList.getTask(index);
         assertTrue(task.getStatus());
-
         oof.executeCommand("delete " + recent);
     }
 }
