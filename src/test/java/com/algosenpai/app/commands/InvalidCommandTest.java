@@ -24,6 +24,8 @@ import org.testfx.framework.junit5.ApplicationTest;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class InvalidCommandTest extends ApplicationTest {
 
     @Override
@@ -70,43 +72,67 @@ public class InvalidCommandTest extends ApplicationTest {
 
     @Test
     void testInvalidMultipleSpaces() throws IOException {
-        UserStats stats = new UserStats("./UserData.txt");
-        Logic logic = new Logic(stats);
+        UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
+        Logic logic = new Logic(previousStats);
         Command command = logic.executeCommand("se le ct");
         String actualText = command.execute();
-        Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. "
-                                          + "Did you mean... select?", actualText);
+        if (previousStats.getUsername().equals("Default")) {
+            Assertions.assertEquals("Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
+                    + "Can I have your name and gender in the format : "
+                    + "'hello NAME GENDER (boy/girl)' please.", actualText);
+        } else if (!previousStats.getUsername().equals("Default")) {
+            Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. "
+                    + "Did you mean... select?", actualText);
+        }
     }
 
     @Test
     void testInvalidUnknownCharacterAbsentFromAllCommands() throws IOException {
-        UserStats stats = new UserStats("./UserData.txt");
-        Logic logic = new Logic(stats);
+        UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
+        Logic logic = new Logic(previousStats);
         Command command = logic.executeCommand("f");
         String actualText = command.execute();
-        Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
-                                          + "menu, quiz, undo, help, save, exit?", actualText);
+        if (previousStats.getUsername().equals("Default")) {
+            Assertions.assertEquals("Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
+                    + "Can I have your name and gender in the format : "
+                    + "'hello NAME GENDER (boy/girl)' please.", actualText);
+        } else if (!previousStats.getUsername().equals("Default")) {
+            Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
+                    + "menu, quiz, undo, help, save, exit?", actualText);
+        }
     }
 
     @Test
     void testInvalidWithMultipleMinEditDistance() throws IOException {
-        UserStats stats = new UserStats("./UserData.txt");
-        Logic logic = new Logic(stats);
+        UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
+        Logic logic = new Logic(previousStats);
         Command command = logic.executeCommand("la");
         String actualText = command.execute();
-        Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
-                                          + "clear, help, save?", actualText);
+        if (previousStats.getUsername().equals("Default")) {
+            Assertions.assertEquals("Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
+                    + "Can I have your name and gender in the format : "
+                    + "'hello NAME GENDER (boy/girl)' please.", actualText);
+        } else if (!previousStats.getUsername().equals("Default")) {
+            Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
+                    + "clear, help, save?", actualText);
+        }
     }
 
     @Test
     void testInvalidWithMaximumEditDistance() throws IOException {
-        UserStats stats = new UserStats("./UserData.txt");
-        Logic logic = new Logic(stats);
+        UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
+        Logic logic = new Logic(previousStats);
         Command command = logic.executeCommand("fffgggjjjkkk");
         String actualText = command.execute();
-        Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
-                                          + "hello, menu, quiz, select, result, history, undo, clear, help, "
-                                          + "volume, print, archive, save, reset, exit?", actualText);
+        if (previousStats.getUsername().equals("Default")) {
+            Assertions.assertEquals("Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
+                    + "Can I have your name and gender in the format : "
+                    + "'hello NAME GENDER (boy/girl)' please.", actualText);
+        } else if (!previousStats.getUsername().equals("Default")) {
+            Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
+                    + "menu, quiz, select, result, review, reset, history, undo, clear, help, "
+                    + "volume, print, archive, save, exit?", actualText);
+        }
     }
 
     <T extends Node> T find() {

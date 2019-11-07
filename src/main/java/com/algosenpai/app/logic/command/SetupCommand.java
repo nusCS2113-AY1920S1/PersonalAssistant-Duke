@@ -47,9 +47,11 @@ public class SetupCommand extends Command {
                 stats = new UserStats(previousStats);
                 return "Welcome back " + userName + "! To continue on your adventure, pick a command from 'menu'.";
             }
+        } else if (inputs.size() > 3) {
+            return "Please enter your name and gender in the following format : 'hello NAME GENDER (boy/girl)' please.";
         } else {
             userName = inputs.get(1);
-            gender = inputs.get(2);
+            gender = inputs.get(2).toLowerCase();
             level = 1;
             expLevel = 0;
             if (gender.equals("boy") || gender.equals("girl")) {

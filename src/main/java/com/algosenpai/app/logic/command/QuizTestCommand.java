@@ -2,8 +2,6 @@ package com.algosenpai.app.logic.command;
 
 import com.algosenpai.app.logic.models.QuestionModel;
 import com.algosenpai.app.stats.UserStats;
-import com.algosenpai.app.storage.Storage;
-
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;

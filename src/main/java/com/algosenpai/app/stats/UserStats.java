@@ -316,6 +316,18 @@ public class UserStats {
     }
 
     /**
+     * Reset all the progress data for that userStats (does not reset name and gender).
+     */
+    public void resetAll() {
+        expLevel = 0;
+        level = 0;
+
+        for (int i = 0; i < chapterData.size(); i++) {
+            chapterData.get(i).resetAll();
+        }
+    }
+
+    /**
      * Get the default UserStats (if the user launches the game for the first time).
      * @return The UserStats object.
      */

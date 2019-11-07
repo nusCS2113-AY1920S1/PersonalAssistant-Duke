@@ -4,6 +4,7 @@ import com.algosenpai.app.logic.chapters.QuizGenerator;
 import com.algosenpai.app.logic.command.ArchiveCommand;
 import com.algosenpai.app.logic.command.BlockedCommand;
 import com.algosenpai.app.logic.command.ByeCommand;
+import com.algosenpai.app.logic.command.ChaptersCommand;
 import com.algosenpai.app.logic.command.ClearCommand;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.logic.command.HelpCommand;
@@ -18,11 +19,12 @@ import com.algosenpai.app.logic.command.PrintUserCommand;
 import com.algosenpai.app.logic.command.QuizCommand;
 import com.algosenpai.app.logic.command.QuizNextCommand;
 import com.algosenpai.app.logic.command.QuizTestCommand;
+import com.algosenpai.app.logic.command.ResetCommand;
 import com.algosenpai.app.logic.command.ResultCommand;
 import com.algosenpai.app.logic.command.ReviewCommand;
-import com.algosenpai.app.logic.command.SaveCommand;
 import com.algosenpai.app.logic.command.SelectCommand;
 import com.algosenpai.app.logic.command.SetupCommand;
+import com.algosenpai.app.logic.command.ShowStatsCommand;
 import com.algosenpai.app.logic.command.UndoCommand;
 import com.algosenpai.app.logic.command.VolumeCommand;
 import com.algosenpai.app.logic.constant.CommandsEnum;
@@ -43,6 +45,8 @@ public class Logic {
     private AtomicInteger chapterNumber = new AtomicInteger(-1);
     //Check if currently in quiz mode.
     private AtomicBoolean isQuizMode = new AtomicBoolean(false);
+    //Check if currently in reset Confirmation mode
+    private AtomicBoolean isResetMode = new AtomicBoolean(false);
     //Checks if it is a new quiz.
     private AtomicBoolean isNewQuiz = new AtomicBoolean(true);
     //The arraylist containing the questions.
@@ -54,7 +58,8 @@ public class Logic {
     // VariabReview features;
     private ArrayList<QuestionModel> archiveList = new ArrayList<>();
 
-    private HashSet<String> quizBlockedCommands = new HashSet<>(CommandsEnum.getNames());
+    //private HashSet<String> quizBlockedCommands = new HashSet<>(CommandsEnum.getNames());
+    private HashSet<String> quizBlockedCommands = new HashSet<>(CommandsEnum.getBlockedNames(CommandsEnum.getNames()));
     // History features;
     private ArrayList<String> historyList = new ArrayList<>();
     // Used to get the past commands, using arrow keys. Stores the number of elements from the back of historyList
@@ -90,15 +95,25 @@ public class Logic {
                 return setupNewQuiz(inputs);
             } else if (isNewQuiz.get() && userInput.equals("select")) {
                 return new SelectCommand(inputs, chapterNumber, userStats, isQuizMode);
+            } else if ("menu".equals(userInput)) {
+                return new MenuCommand(inputs);
+            } else if ("history".equals(userInput)) {
+                return new HistoryCommand(inputs, historyList);
+            } else if ("volume".equals(userInput)) {
+                return new VolumeCommand(inputs);
             } else if (quizBlockedCommands.contains(userInput)) {
                 return new BlockedCommand(inputs);
             } else {
                 return determineQuizAction(inputs);
             }
+        } else if (isResetMode.get() || userInput.equals("reset")) {
+            return new ResetCommand(inputs,userStats,isResetMode);
         } else {
             switch (userInput) {
             case "hello":
                 return new SetupCommand(inputs, userStats);
+            case "chapters":
+                return new ChaptersCommand(inputs);
             case "help":
                 return new HelpCommand(inputs, userStats);
             case "menu":
@@ -113,12 +128,8 @@ public class Logic {
                 return new UndoCommand(inputs);
             case "clear":
                 return new ClearCommand(inputs);
-            case "reset":
-                // TODO SHANTANU
-                return null;
-            case "save":
-                // TODO SHANTANU
-                return new SaveCommand(inputs, userStats);
+            case "stats":
+                return new ShowStatsCommand(inputs,userStats);
             case "exit":
                 return new ByeCommand(inputs);
             case "print":
