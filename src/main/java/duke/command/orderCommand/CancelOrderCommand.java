@@ -15,35 +15,37 @@ import java.io.IOException;
 /**
  * Represents a specific {@link Command} used to cancel/delete a {@link Order} from the {@link OrderList}.
  */
-public class DeleteOrderCommand extends Command {
+public class CancelOrderCommand extends Command {
     private int orderIndex;
 
     /**
-     * the constructor method of class {@link DeleteOrderCommand}
+     * the constructor method of class {@link CancelOrderCommand}
      *
      * @param orderNumber order number in the order list
      */
-    public DeleteOrderCommand(int orderNumber) {
+    public CancelOrderCommand(int orderNumber) {
         this.orderIndex = orderNumber;
     }
 
     @Override
-    public void execute(Fridge fridge, DishList dl, OrderList orderList, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
-        if (orderList.size()==0) { throw new DukeException("No order in the list! No order can be removed!"); }
-        if (orderIndex < orderList.size() && orderIndex >= 0) {
-            Order removed = orderList.getEntry(orderIndex);
+    public void execute(Fridge fridge, DishList dl, OrderList orderList, Ui ui, FridgeStorage fs, OrderStorage orderStorage) throws DukeException, IOException {
 
-            // TODO: update chef's to do list
+        if (orderList.size()==0) {
+            throw new DukeException("No order in the list! No order can be cancelled!");
+        }
+
+        if (orderIndex <= orderList.size() && orderIndex > 0) {
+            Order removed = orderList.getEntry(orderIndex-1);
+            if (removed.isToday()) {
+                orderList.getTodoList().deleteTodoFromOrder(removed);
+            }
+            orderList.removeEntry(orderIndex-1);
+            orderStorage.removeFromFile(orderIndex-1);
+
             ui.showLine();
-
             ui.showRemovedOrder(removed.toString(), orderList.size());
             ui.showLine();
-            orderList.removeEntry(orderIndex);
-            try {
-                os.removeFromFile(orderIndex + 1);
-            } catch (IOException e) {
-                throw new DukeException(e.getMessage());
-            }
+
         } else {
             throw new DukeException("Please enter a valid order number between 1 and " + orderList.size() + " to remove");
         }

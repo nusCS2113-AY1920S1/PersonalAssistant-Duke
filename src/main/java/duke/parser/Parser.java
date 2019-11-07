@@ -52,9 +52,9 @@ public class Parser {
                     return addOrderParser(part);
                 case "alter":  //alter order date
                     return alterOrderDateParser(part);
-                case "remove": //fall through onto next case
+                case "cancel": //fall through onto next case
                 case "done":  //remove or done an order
-                    return removeOrDoneOrderParser(part);
+                    return cancelOrDoneOrderParser(part);
                 case "init":
                     return new InitOrderListCommand();
                 case "list": //list orders
@@ -235,7 +235,8 @@ public class Parser {
             String[] dateAndDish = splitter[1].substring(3).split(" -n ",2);
             if (dateAndDish[0].length()!=10) { throw new DukeException("Must enter a valid order date: dd/mm/yyyy"); }
             orderDate = Convert.stringToDate(dateAndDish[0]);
-            newOrder = new Order(orderDate);
+            newOrder = new Order();
+            newOrder.setDate(orderDate);
             orderedDishes = dateAndDish[1].split(", ");
         } else { throw new DukeException("must enter a valid order date or specify dishes"); }
         for (String dishes: orderedDishes) {
@@ -276,15 +277,15 @@ public class Parser {
         return new AlterDateCommand(orderIndex-1, orderDate);
     }
 
-    public static Command removeOrDoneOrderParser(String[] splitter) throws DukeException {
+    public static Command cancelOrDoneOrderParser(String[] splitter) throws DukeException {
         if (splitter.length == 1) {
             throw new DukeException("Must enter an order index.\n\t Note that ORDER_INDEX starts from 1");
         }
         try {
-            int orderIndex = checkInt(splitter[1]);
+            int orderIndex = Integer.parseInt(splitter[1]);
             if (orderIndex <= 0) throw new DukeException("Must enter a positive order index");
-            if (splitter[0].equals("remove")) return new DeleteOrderCommand(orderIndex - 1);
-            else return new DoneOrderCommand(orderIndex - 1);
+            if (splitter[0].equals("cancel")) return new CancelOrderCommand(orderIndex);
+            else return new DoneOrderCommand(orderIndex);
         } catch (NumberFormatException e) {
             throw new DukeException("Must enter a valid order index");
         }

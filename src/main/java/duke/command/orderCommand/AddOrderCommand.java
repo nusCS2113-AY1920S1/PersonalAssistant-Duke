@@ -11,6 +11,8 @@ import duke.storage.OrderStorage;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
+import java.io.IOException;
+
 public class AddOrderCommand extends Command {
 
     private Order order;
@@ -31,15 +33,17 @@ public class AddOrderCommand extends Command {
      * @param fridge
      * @param orderList the {@link OrderList} to be expanded
      * @param ui       {@link Ui} used for printing the order output
-     * @param os  {@link Storage} writes in the file on the hard disc
+     * @param orderStorage  {@link Storage} writes in the file on the hard disc
      * @throws DukeException Error while adding the command to the duke.txt file
      */
     @Override
-    public void execute(Fridge fridge, DishList dl, OrderList orderList, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+    public void execute(Fridge fridge, DishList dl, OrderList orderList, Ui ui, FridgeStorage fs, OrderStorage orderStorage) throws DukeException, IOException {
         orderList.addEntry(order);
+        orderList.getTodoList().addTodoFromOrder(order);
+        orderStorage.addInFile(order.printInFile());
+
         ui.showLine();
         ui.showAddOrder(order.toString(), orderList.size());
-
-        // TODO: store the new order into file
+        ui.showLine();
     }
 }

@@ -14,6 +14,8 @@ import duke.storage.OrderStorage;
 import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
+import java.io.IOException;
+
 /**
  * MAIN CLASS DUKE, start from main function.
  */
@@ -189,7 +191,7 @@ public class Duke {
                     default:
                         System.out.println("\t OOPS!!! Wrong input!");
                 }
-            } catch (DukeException e) {
+            } catch (DukeException | IOException e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();
