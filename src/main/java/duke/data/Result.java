@@ -2,7 +2,6 @@ package duke.data;
 
 import duke.exception.DukeFatalException;
 import duke.ui.card.ResultCard;
-import duke.ui.card.UiCard;
 import duke.ui.context.Context;
 
 public class Result extends Evidence {

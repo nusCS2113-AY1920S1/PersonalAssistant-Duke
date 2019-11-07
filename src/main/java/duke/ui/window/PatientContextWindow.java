@@ -5,25 +5,14 @@ import duke.data.DukeObject;
 import duke.data.Evidence;
 import duke.data.Impression;
 import duke.data.Investigation;
-import duke.data.Medicine;
-import duke.data.Observation;
 import duke.data.Patient;
-import duke.data.Plan;
-import duke.data.Result;
 import duke.data.Treatment;
 import duke.exception.DukeFatalException;
 import duke.ui.UiStrings;
-import duke.ui.card.EvidenceCard;
 import duke.ui.card.ImpressionCard;
-import duke.ui.card.InvestigationCard;
-import duke.ui.card.MedicineCard;
-import duke.ui.card.ObservationCard;
-import duke.ui.card.PlanCard;
-import duke.ui.card.ResultCard;
 import duke.ui.card.TreatmentCard;
 import duke.ui.card.UiCard;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 
 import java.util.ArrayList;
@@ -150,12 +139,10 @@ public class PatientContextWindow extends ContextWindow {
 
             // Investigation list
             for (Treatment treatment : impression.getTreatments()) {
-                if (treatment instanceof Investigation) {
+                if (treatment instanceof Investigation && treatment.getPriority() != 1) {
                     // only display investigations not seen in criticals
-                    if (treatment.getPriority() != 1) {
-                        investigationListPanel.getItems().add(treatment.toCard());
-                        indexedInvestigationList.add(treatment);
-                    }
+                    investigationListPanel.getItems().add(treatment.toCard());
+                    indexedInvestigationList.add(treatment);
                 }
             }
         }

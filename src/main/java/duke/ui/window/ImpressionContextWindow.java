@@ -4,23 +4,12 @@ import com.jfoenix.controls.JFXListView;
 import duke.data.DukeObject;
 import duke.data.Evidence;
 import duke.data.Impression;
-import duke.data.Investigation;
-import duke.data.Medicine;
-import duke.data.Observation;
 import duke.data.Patient;
-import duke.data.Plan;
-import duke.data.Result;
 import duke.data.Treatment;
 import duke.exception.DukeFatalException;
 import duke.ui.UiStrings;
 import duke.ui.card.EvidenceCard;
-import duke.ui.card.InvestigationCard;
-import duke.ui.card.MedicineCard;
-import duke.ui.card.ObservationCard;
-import duke.ui.card.PlanCard;
-import duke.ui.card.ResultCard;
 import duke.ui.card.TreatmentCard;
-import duke.ui.card.UiCard;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -63,17 +52,9 @@ public class ImpressionContextWindow extends ContextWindow {
         if (impression != null && patient != null) {
             this.patient = patient;
             this.impression = impression;
-            //setImpression();
+            assert (patient.getName().equals(impression.getParent().getName()));
             updateUi();
         }
-    }
-
-    /**
-     * Set impressions for {@code patient}.
-     */
-    private void setImpression() throws DukeFatalException {
-        assert (patient.getName().equals(impression.getParent().getName()));
-        updateUi();
     }
 
     /**

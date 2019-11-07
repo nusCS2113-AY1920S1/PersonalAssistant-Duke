@@ -3,7 +3,6 @@ package duke.data;
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
 import duke.ui.card.ImpressionCard;
-import duke.ui.card.UiCard;
 import duke.ui.context.Context;
 
 import java.util.ArrayList;

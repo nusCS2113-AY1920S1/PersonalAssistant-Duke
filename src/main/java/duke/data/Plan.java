@@ -2,7 +2,6 @@ package duke.data;
 
 import duke.exception.DukeFatalException;
 import duke.ui.card.PlanCard;
-import duke.ui.card.UiCard;
 import duke.ui.context.Context;
 
 import java.util.Arrays;

@@ -6,7 +6,6 @@ import duke.data.DukeObject;
 import duke.data.Patient;
 import duke.exception.DukeFatalException;
 import duke.ui.card.PatientCard;
-import duke.ui.card.UiCard;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 
