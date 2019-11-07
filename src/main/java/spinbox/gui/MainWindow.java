@@ -431,8 +431,10 @@ public class MainWindow extends GridPane {
 
         TaskList taskList = currModule.getTasks();
         List<Task> tasks = taskList.getList();
-        for (Task task : tasks) {
-            String description = task.getTaskType().name();
+        for (int i = 0; i < tasks.size(); i += 1) {
+            Task task = tasks.get(i);
+            String doneStatus = (task.getDone()) ? "[DONE] " : "[NOT DONE] ";
+            String description = (i + 1) + ". " + doneStatus + task.getTaskType().name();
             description += ": " + task.getName();
             String dates = "";
             if (task.isSchedulable()) {
