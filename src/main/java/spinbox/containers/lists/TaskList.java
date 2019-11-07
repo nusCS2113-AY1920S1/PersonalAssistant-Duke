@@ -48,7 +48,7 @@ public class TaskList extends SpinBoxList<Task> {
             }
 
             if (startDateA == null && startDateB == null) {
-                return 0;
+                return a.getName().compareToIgnoreCase(b.getName());
             } else if (startDateA == null) {
                 return 1;
             } else if (startDateB == null) {
