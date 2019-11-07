@@ -2,7 +2,6 @@ package duke.command.patient;
 
 import duke.DukeCore;
 import duke.command.ArgLevel;
-import duke.command.CommandUtils;
 import duke.command.ObjSpec;
 import duke.command.Switch;
 import duke.data.DukeObject;
@@ -44,16 +43,16 @@ public class PatientOpenSpec extends ObjSpec {
                     type = condition.getKey();
                 } else {
                     throw new DukeException("Please provide at most 1 unique type (IMPRESSION, CRITICAL or "
-                            + "INVESTIGATION that you wish to open!");
+                            + "INVESTIGATION) for the command!");
                 }
             }
         }
 
         Patient patient = (Patient) core.uiContext.getObject();
-        DukeObject object = CommandUtils.findFromPatient(core, patient, type, cmd.getArg());
+        DukeObject object = PatientUtils.findFromPatient(core, type, cmd.getArg());
         if (object == null) {
-            SearchResults results = CommandUtils.searchFromPatient(patient, type, cmd.getArg());
-            core.search(results, cmd);
+            SearchResults results = PatientUtils.searchFromPatient(patient, type, cmd.getArg());
+            processResults(core, results);
         } else {
             executeWithObj(core, object);
         }
