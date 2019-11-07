@@ -31,7 +31,7 @@ public class HomeCommandTest extends CommandTest {
         try {
             ArgCommand newPatientCmd = new ArgCommand(HomeNewSpec.getSpec(), null, switchNames, switchVals);
             newPatientCmd.execute(core);
-            assertTrue(patient.equals(core.patientList.getPatient("C1")));
+            assertTrue(patient.equals(core.patientList.getPatientByBed("C1")));
         } catch (DukeException excp) {
             fail("Exception thrown when validly creating patient from command: " + excp.getMessage());
         }

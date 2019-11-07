@@ -43,14 +43,14 @@ public class Impression extends DukeObject {
      * @return ArrayList of the Treatments
      */
     public ArrayList<Treatment> findTreatments(String searchTerm) {
-        ArrayList<Treatment> searchResult = new ArrayList<>();
+        ArrayList<Treatment> treatmentList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
         for (Treatment treatment : treatments) {
             if (treatment.toString().toLowerCase().contains(lowerSearchTerm)) {
-                searchResult.add(treatment);
+                treatmentList.add(treatment);
             }
         }
-        return searchResult;
+        return treatmentList;
     }
 
     /**
@@ -60,14 +60,14 @@ public class Impression extends DukeObject {
      * @return ArrayList of the Evidence
      */
     public ArrayList<Evidence> findEvidences(String searchTerm) {
-        ArrayList<Evidence> searchResult = new ArrayList<>();
+        ArrayList<Evidence> evidenceList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
         for (Evidence evidence : evidences) {
             if (evidence.toString().toLowerCase().contains(lowerSearchTerm)) {
-                searchResult.add(evidence);
+                evidenceList.add(evidence);
             }
         }
-        return searchResult;
+        return evidenceList;
     }
 
     /**
@@ -90,14 +90,14 @@ public class Impression extends DukeObject {
      * @return ArrayList of the Treatments
      */
     public ArrayList<Treatment> findTreatmentsByName(String searchTerm) {
-        ArrayList<Treatment> searchResult = new ArrayList<>();
+        ArrayList<Treatment> treatmentList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
         for (Treatment entry : treatments) {
             if (entry.getName().toLowerCase().contains(lowerSearchTerm)) {
-                searchResult.add(entry);
+                treatmentList.add(entry);
             }
         }
-        return searchResult;
+        return treatmentList;
     }
 
     /**
@@ -107,14 +107,14 @@ public class Impression extends DukeObject {
      * @return ArrayList of the Evidences
      */
     public ArrayList<Evidence> findEvidencesByName(String searchTerm) {
-        ArrayList<Evidence> searchResult = new ArrayList<>();
+        ArrayList<Evidence> evidenceList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
         for (Evidence entry : evidences) {
             if (entry.getName().toLowerCase().contains(lowerSearchTerm)) {
-                searchResult.add(entry);
+                evidenceList.add(entry);
             }
         }
-        return searchResult;
+        return evidenceList;
     }
 
     /**
@@ -167,11 +167,11 @@ public class Impression extends DukeObject {
             sortEvidences();
             return deletedEvidence;
         }
-        throw new DukeException("I can't delete that evidence because I don't have it!");
+        throw new DukeException("I can't delete that Evidence because I don't have it!");
     }
 
     /**
-     * This getEvidence function returns the evidence from the evidence list at the specified index.
+     * This getEvidence function returns the evidence with the specified name.
      *
      * @param keyIdentifier name of the evidence
      * @return the evidence specified by the index

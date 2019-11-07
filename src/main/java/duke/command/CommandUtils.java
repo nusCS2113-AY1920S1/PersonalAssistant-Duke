@@ -232,7 +232,7 @@ public class CommandUtils {
         }
 
         if (bedNo != null) {
-            return core.patientList.getPatient(bedNo);
+            return core.patientList.getPatientByBed(bedNo);
         }
         int index = idxFromString(nameOrIdx);
         if (index != -1) {

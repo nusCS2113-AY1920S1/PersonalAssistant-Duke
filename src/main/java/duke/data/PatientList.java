@@ -50,7 +50,7 @@ public class PatientList {
      * @return the patient object added.
      */
     public Patient addPatient(Patient newPatient) throws DukeException {
-        if (getPatient(newPatient.getBedNo()) != null) {
+        if (getPatientByBed(newPatient.getBedNo()) != null) {
             throw new DukeException("This patient's bed is occupied");
         }
         patientList.add(newPatient);
@@ -65,7 +65,7 @@ public class PatientList {
      * @throws DukeException If bedNo cannot be resolved to a valid bedNo.
      */
     public Patient deletePatient(String keyIdentifier) throws DukeException {
-        Patient deletedPatient = getPatient(keyIdentifier);
+        Patient deletedPatient = getPatientByBed(keyIdentifier);
         if (deletedPatient != null) {
             patientList.remove(deletedPatient);
             return deletedPatient;
@@ -79,7 +79,7 @@ public class PatientList {
      * @param keyIdentifier The argument given by the user to identify the patient.
      * @return the patient object
      */
-    public Patient getPatient(String keyIdentifier) {
+    public Patient getPatientByBed(String keyIdentifier) {
         String lowerKey = keyIdentifier.toLowerCase();
         for (Patient patient : patientList) {
             String lowerBed = patient.getBedNo().toLowerCase();
@@ -177,7 +177,7 @@ public class PatientList {
     }
 
     public boolean patientExist(String keyIdentifier) {
-        return getPatient(keyIdentifier) != null;
+        return getPatientByBed(keyIdentifier) != null;
     }
 
     public ArrayList<Patient> getPatientList() {

@@ -170,10 +170,10 @@ public class GsonStorageTest extends CommandTest {
         fileWriter.write(expected);
         fileWriter.close();
         core.patientList = new PatientList(core.storage);
-        assertTrue(identical(core.patientList.getPatient("A100"), dummy1));
-        assertTrue(identical(core.patientList.getPatient("A200"), dummy2));
-        assertTrue(identical(core.patientList.getPatient("A300"), dummy3));
-        assertTrue(identical(core.patientList.getPatient("C1"), createComplexPatient()));
+        assertTrue(identical(core.patientList.getPatientByBed("A100"), dummy1));
+        assertTrue(identical(core.patientList.getPatientByBed("A200"), dummy2));
+        assertTrue(identical(core.patientList.getPatientByBed("A300"), dummy3));
+        assertTrue(identical(core.patientList.getPatientByBed("C1"), createComplexPatient()));
     }
 
     /**
@@ -210,7 +210,7 @@ public class GsonStorageTest extends CommandTest {
         core.patientList.addPatient(dummy1);
         core.storage.writeJsonFile(core.patientList.getPatientList());
         core.patientList = new PatientList(core.storage);
-        Patient dummyPatientRecreated = core.patientList.getPatient(dummy1.getBedNo());
+        Patient dummyPatientRecreated = core.patientList.getPatientByBed(dummy1.getBedNo());
         boolean equals = identical(dummy1, dummyPatientRecreated);
         assertTrue(equals);
         core.patientList = core.storage.resetAllData();
@@ -227,7 +227,7 @@ public class GsonStorageTest extends CommandTest {
         core.patientList.addPatient(complexPatient);
         core.storage.writeJsonFile(core.patientList.getPatientList());
         core.storage.loadPatients();
-        Patient complexPatientRecreated = core.patientList.getPatient(complexPatient.getBedNo());
+        Patient complexPatientRecreated = core.patientList.getPatientByBed(complexPatient.getBedNo());
         boolean equals = identical(complexPatient, complexPatientRecreated);
         assertTrue(equals);
     }

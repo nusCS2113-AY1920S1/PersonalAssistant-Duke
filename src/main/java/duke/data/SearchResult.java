@@ -2,16 +2,14 @@ package duke.data;
 
 import duke.exception.DukeException;
 import duke.ui.card.UiCard;
-import javafx.util.Pair;
 
-import java.util.ArrayList;
 import java.util.List;
 
 // TODO parametrise types
 
 public class SearchResult extends DukeObject {
 
-    private List<Pair<DukeObject, Class<? extends DukeObject>>> searchList;
+    private List<DukeObject> searchList;
 
     /**
      * TODO fix documentation
@@ -23,13 +21,12 @@ public class SearchResult extends DukeObject {
      * @param name the list of DukeObjects
      * @param parent the impression object the data is tagged to
      */
-    public SearchResult(String name, DukeObject parent,
-                        List<Pair<DukeObject, Class<? extends DukeObject>>> searchList) {
+    public SearchResult(String name, List<DukeObject> searchList, DukeObject parent) {
         super(name, parent);
         this.searchList = searchList;
     }
 
-    public Pair<DukeObject, Class<? extends DukeObject>> getResult(int idx) throws DukeException{
+    public DukeObject getResult(int idx) throws DukeException{
         if (idx > searchList.size()) {
             throw new DukeException("I don't have a search result with that number!");
         } else {
@@ -38,11 +35,7 @@ public class SearchResult extends DukeObject {
     }
 
     public List<DukeObject> getSearchList() {
-        List<DukeObject> objectList = new ArrayList<DukeObject>();
-        for (Pair<DukeObject, Class<? extends DukeObject>> entry : searchList) {
-            objectList.add(entry.getKey());
-        }
-        return objectList;
+        return searchList;
     }
 
     @Override
@@ -55,14 +48,14 @@ public class SearchResult extends DukeObject {
         int evCount = 0;
         int treatCount = 0;
 
-        for (Pair<DukeObject, Class<? extends DukeObject>> entry : searchList) {
-            if (entry.getValue() == Patient.class) {
+        for (DukeObject obj : searchList) {
+            if (obj.getClass() == Patient.class) {
                 ++patCount;
-            } else if (entry.getValue() == Impression.class) {
+            } else if (obj.getClass() == Impression.class) {
                 ++impCount;
-            } else if (entry.getValue() == Evidence.class) {
+            } else if (obj.getClass() == Evidence.class) {
                 ++evCount;
-            } else if (entry.getValue() == Treatment.class) {
+            } else if (obj.getClass() == Treatment.class) {
                 ++treatCount;
             }
         }
