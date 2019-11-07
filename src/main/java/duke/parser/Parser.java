@@ -67,19 +67,6 @@ public class Parser {
     }
 
     /**
-     * Checks if the input string array contains any strings.
-     *
-     * @param arr the string array to be checked.
-     * @return true if it is an empty string array, false otherwise.
-     */
-    private static boolean isEmptyStringArray(String[] arr) {
-        if (arr.length > Numbers.ZERO.value) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-    /**
      * Checks whether the string input can be split by a set string.
      * @param input the input to test if it is splittable.
      * @param splitWith the characters to detect splitting.
@@ -122,7 +109,7 @@ public class Parser {
         String[] arr = sentence.split(" ");
         String taskDesc = "";
         String dateDesc = "";
-        boolean emptyString = isEmptyStringArray(arr);
+        boolean emptyString = arr.length < Numbers.ZERO.value;
         boolean getDate = false;
         if (sentence.trim().isEmpty()) {
             throw new DukeException(ErrorMessages.UNKNOWN_COMMAND.message);
