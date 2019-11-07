@@ -22,7 +22,7 @@ public class ImpressionResultSpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
-    super.execute(core);
+        super.execute(core);
         //Impression impression = ImpressionUtils.getImpression(core);
         // TODO: find by name or index
     }
