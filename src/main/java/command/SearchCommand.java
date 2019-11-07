@@ -3,12 +3,12 @@ package command;
 import dictionary.Bank;
 import dictionary.Word;
 import exception.NoWordFoundException;
+import exception.WordAlreadyExistsException;
 import exception.WordBankEmptyException;
 import exception.WordCountEmptyException;
 import storage.Storage;
 import ui.Ui;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -36,8 +36,10 @@ public class SearchCommand extends Command {
                     + "\" in local dictionary.\nLooking up Oxford dictionary.\n\n");
             try {
                 String result = OxfordCall.onlineSearch(searchTerm);
+                storage.writeWordBankExcelFile(bank.getWordBankObject());
+                bank.addWord(new Word(searchTerm, result));
                 stringBuilder.append(ui.showSearch(this.searchTerm, result));
-            } catch (NoWordFoundException e2) {
+            } catch (NoWordFoundException | WordAlreadyExistsException e2) {
                 stringBuilder.append("Failed to find the word from Oxford dictionary.\n");
             }
 

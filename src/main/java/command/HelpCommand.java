@@ -17,6 +17,10 @@ public class HelpCommand extends Command {
         this.instruction = instruction;
     }
 
+    public HelpCommand() {
+        this.instruction = "";
+    }
+
     @Override
     public String execute(Ui ui, Bank bank, Storage storage) {
         return ui.showHelp(this.instruction);

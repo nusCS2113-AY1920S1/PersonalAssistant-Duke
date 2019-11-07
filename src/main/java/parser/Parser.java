@@ -1,8 +1,8 @@
 package parser;
 
 import command.AddCommand;
-import command.AddTagCommand;
 import command.AddSynonymCommand;
+import command.AddTagCommand;
 import command.BadCommand;
 import command.Command;
 import command.DeleteCommand;
@@ -11,30 +11,36 @@ import command.ExitCommand;
 import command.HelpCommand;
 import command.HistoryCommand;
 import command.ListCommand;
+import command.ListTagCommand;
 import command.QuizCommand;
 import command.SearchBeginCommand;
 import command.SearchCommand;
 import command.SearchFrequencyCommand;
+import command.SearchTagCommand;
 import command.SetReminderCommand;
 import dictionary.Word;
+
 import exception.CommandInvalidException;
+import exception.EmptyTagException;
 import exception.EmptyWordException;
 import exception.InvalidCharacterException;
 import exception.InvalidHistoryIndexException;
+import exception.ReminderWrongDateFormatException;
 import exception.WordUpException;
 import exception.WrongAddFormatException;
 import exception.WrongAddSynonymFormatException;
 import exception.WrongAddTagFormatException;
-import exception.ReminderWrongDateFormatException;
 import exception.WrongDeleteFormatException;
 import exception.WrongEditFormatException;
 import exception.WrongHistoryFormatException;
-import exception.WrongListFormatDescription;
+import exception.WrongListFormatException;
+import exception.WrongListTagFormatException;
 import exception.WrongQuizFormatException;
 import exception.WrongReminderFormatException;
 import exception.WrongSearchBeginFormatException;
 import exception.WrongSearchFormatException;
 import exception.WrongSearchFrequencyFormatException;
+import exception.WrongSearchTagFormatException;
 import exception.ZeroHistoryRequestException;
 
 import java.text.SimpleDateFormat;
@@ -48,6 +54,11 @@ import java.util.HashSet;
 public class Parser {
 
     /**
+     * Valid string for input word, which contains a-z, A-Z.
+     */
+    private static final String VALID_REGEX = "^[a-zA-Z ]*$";
+
+    /**
      * Extracts the command specified in the user input and creates the respective command objects.
      *
      * @param input user input from command line
@@ -57,7 +68,8 @@ public class Parser {
         try {
             String[] taskInfo = input.trim().split(" ", 2);
             for (int i = 0; i < taskInfo.length; i++) {
-                taskInfo[i] = taskInfo[i].trim();
+                taskInfo[i] = taskInfo[i].toLowerCase();
+                taskInfo[i] = taskInfo[i].trim().replaceAll(" +", " ");
             }
             String userCommand = taskInfo[0];
             Command command;
@@ -75,6 +87,8 @@ public class Parser {
                 command = parseSearchBegin(taskInfo);
             } else if (userCommand.equals("list")) {
                 command = parseList(taskInfo);
+            } else if (userCommand.equals("list_tags")) {
+                command = parseListTags(taskInfo);
             } else if (userCommand.equals("history")) {
                 command = parseHistory(taskInfo);
             } else if (userCommand.equals("freq")) {
@@ -89,6 +103,8 @@ public class Parser {
                 command = parseSynonym(taskInfo);
             } else if (userCommand.equals("quiz")) {
                 command = parseQuiz(taskInfo);
+            } else if (userCommand.equals("search_tag")) {
+                command = parseSearchTag(taskInfo);
             } else {
                 try {
                     throw new CommandInvalidException(input);
@@ -99,6 +115,39 @@ public class Parser {
             return command;
         } catch (WordUpException e) {
             return new BadCommand(e.showError());
+        }
+    }
+
+    private static Command parseListTags(String[] taskInfo) throws WrongListTagFormatException {
+        if (taskInfo.length > 1) {
+            throw new WrongListTagFormatException();
+        }
+        return new ListTagCommand();
+    }
+
+    private static Command parseSearchTag(String[] taskInfo) throws WrongSearchTagFormatException,
+            EmptyTagException, EmptyWordException, InvalidCharacterException {
+        if (taskInfo.length == 1 || (!taskInfo[1].startsWith("t/") && !taskInfo[1].startsWith("w/"))) {
+            throw new WrongSearchTagFormatException();
+        }
+        if (taskInfo[1].startsWith("t/")) {
+            String tag = taskInfo[1].substring(2).trim();
+            if (tag.length() == 0) {
+                throw new EmptyTagException();
+            }
+            if (!isValidInputWord(tag)) {
+                throw new InvalidCharacterException();
+            }
+            return new SearchTagCommand(tag, "tag");
+        } else {
+            String word = taskInfo[1].substring(2).trim();
+            if (word.length() == 0) {
+                throw new EmptyWordException();
+            }
+            if (!isValidInputWord(word)) {
+                throw new InvalidCharacterException();
+            }
+            return new SearchTagCommand(word, "word");
         }
     }
 
@@ -116,7 +165,7 @@ public class Parser {
      */
     protected static Command parseHelp(String[] taskInfo) {
         if (taskInfo.length == 1) {
-            return new HelpCommand("");
+            return new HelpCommand();
         }
         return new HelpCommand(taskInfo[1]);
     }
@@ -129,7 +178,7 @@ public class Parser {
      * @throws EmptyWordException when there is no word entered with the command
      */
     protected static Command parseAdd(String[] taskInfo) throws WrongAddFormatException,
-            EmptyWordException, InvalidCharacterException {
+            EmptyWordException, EmptyTagException, InvalidCharacterException {
         if (taskInfo.length == 1) {
             throw new WrongAddFormatException();
         }
@@ -145,12 +194,12 @@ public class Parser {
         if (wordDescription.length() == 0) {
             throw new EmptyWordException();
         }
-        if (isAlphabetString(wordDescription) == false) {
+        if (!isValidInputWord(wordDescription)) {
             throw new InvalidCharacterException();
         }
         String[] meaningAndTag = wordDetail[1].split("t/");
         String meaning = meaningAndTag[0].trim();
-        if (isAlphabetString(meaning) == false) {
+        if (!isValidInputWord(meaning)) {
             throw new InvalidCharacterException();
         }
         if (meaning.length() == 0) {
@@ -160,7 +209,10 @@ public class Parser {
         if (meaningAndTag.length > 1) {
             HashSet<String> tags = new HashSet<>();
             for (int j = 1; j < meaningAndTag.length; ++j) {
-                if (isAlphabetString(meaningAndTag[j])) {
+                if (meaningAndTag[j].trim().length() == 0) {
+                    throw new EmptyTagException();
+                }
+                if (isValidInputWord(meaningAndTag[j])) {
                     tags.add(meaningAndTag[j]);
                 } else {
                     throw new InvalidCharacterException();
@@ -179,17 +231,31 @@ public class Parser {
      * @return a DeleteCommand object
      * @throws WrongDeleteFormatException when the format of the delete command does not match required format
      */
-    protected static Command parseDelete(String[] taskInfo) throws WrongDeleteFormatException {
-        if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
+    protected static Command parseDelete(String[] taskInfo)
+            throws WrongDeleteFormatException, EmptyWordException, EmptyTagException, InvalidCharacterException {
+        if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/") || taskInfo[1].split("w/").length != 2) {
             throw new WrongDeleteFormatException();
         }
         String[] wordAndTags = taskInfo[1].split("t/");
         if (wordAndTags.length == 1) {
-            return new DeleteCommand(taskInfo[1].substring(2));
+            String deletedWord = taskInfo[1].substring(2).trim();
+            if (deletedWord.length() == 0) {
+                throw new EmptyWordException();
+            }
+            if (!isValidInputWord(deletedWord)) {
+                throw new InvalidCharacterException();
+            }
+            return new DeleteCommand(deletedWord);
         } else {
             String wordDescription = wordAndTags[0].substring(2).trim();
+            if (wordDescription.length() == 0) {
+                throw new EmptyWordException();
+            }
             ArrayList<String> tags = new ArrayList<>();
             for (int i = 1; i < wordAndTags.length; ++i) {
+                if (wordAndTags[i].trim().length() == 0) {
+                    throw new EmptyTagException();
+                }
                 tags.add(wordAndTags[i].trim());
             }
             return new DeleteCommand(wordDescription, tags);
@@ -202,35 +268,51 @@ public class Parser {
      * @return a SearchCommand object
      * @throws WrongSearchFormatException when the format of the search command does not match required format
      */
-    protected static Command parseSearch(String[] taskInfo) throws WrongSearchFormatException {
+    protected static Command parseSearch(String[] taskInfo)
+            throws WrongSearchFormatException, EmptyWordException, InvalidCharacterException {
         if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
             throw new WrongSearchFormatException();
         }
-        return new SearchCommand(taskInfo[1].substring(2).trim());
+        String word = taskInfo[1].substring(2).trim();
+        if (word.length() == 0) {
+            throw new EmptyWordException();
+        }
+        if (!isValidInputWord(word)) {
+            throw new InvalidCharacterException();
+        }
+        return new SearchCommand(word);
     }
 
-    protected static Command parseSearchBegin(String[] taskInfo) throws WrongSearchBeginFormatException {
+    protected static Command parseSearchBegin(String[] taskInfo)
+            throws WrongSearchBeginFormatException, EmptyWordException, InvalidCharacterException {
         if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
             throw new WrongSearchBeginFormatException();
         }
-        return new SearchBeginCommand(taskInfo[1].substring(2).trim());
+        String word = taskInfo[1].substring(2).trim();
+        if (word.length() == 0) {
+            throw new EmptyWordException();
+        }
+        if (!isValidInputWord(word)) {
+            throw new InvalidCharacterException();
+        }
+        return new SearchBeginCommand(word);
     }
 
     /**
      * Parses a list command.
      * @param taskInfo String array containing first stage parsed user input
      * @return a ListCommand object
-     * @throws WrongListFormatDescription when the format of the list command does not match required format
+     * @throws WrongListFormatException when the format of the list command does not match required format
      */
-    protected static Command parseList(String[] taskInfo) throws WrongListFormatDescription {
+    protected static Command parseList(String[] taskInfo) throws WrongListFormatException {
         String order = "";
         if (taskInfo.length > 1) {
             if (!taskInfo[1].startsWith("o/")) {
-                throw new WrongListFormatDescription();
+                throw new WrongListFormatException();
             }
             order = taskInfo[1].substring(2);
             if (!order.equals("asc") && !order.equals("desc")) {
-                throw new WrongListFormatDescription();
+                throw new WrongListFormatException();
             }
         }
         return new ListCommand(order);
@@ -380,22 +462,14 @@ public class Parser {
     }
 
     /**
-     * Checks a string to ensure it contains only alphabets and spaces.
-     * @param s where s is the string to be scanned
-     * @return true or false
+     * Checks if an input word is in valid form.
+     * Valid input is a word that contains a-z, A-Z
+     * @param word string represents word input by user
+     * @return true if input is valid
      */
-    protected static boolean isAlphabetString(String s) {
-        if (s == null || s.length() == 0) {
-            return false;
-        }
-        char[] chars = s.toCharArray();
-        for (int index = 0; index < chars.length; index++) {
-            int codePoint = Character.codePointAt(chars, index);
-            if (!Character.isLetter(codePoint) && !Character.isSpaceChar(codePoint)
-                    && !(chars[index] == ',' || chars[index] == '.' || chars[index] == ';')) {
-                return false;
-            }
-        }
-        return true;
+    protected static boolean isValidInputWord(String word) {
+        return ((word != null)
+                && (!word.equals(""))
+                && (word.matches(VALID_REGEX)));
     }
 }
