@@ -20,7 +20,6 @@ import duke.ui.card.ObservationCard;
 import duke.ui.card.PlanCard;
 import duke.ui.card.ResultCard;
 import duke.ui.card.TreatmentCard;
-import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -121,7 +120,7 @@ public class PatientContextWindow extends ContextWindow {
         criticalListPanel.getItems().clear();
         indexedInvestigationList.clear();
 
-        for (Impression impression : patient.getImpressionsObservableMap().values()) {
+        for (Impression impression : patient.getImpressions()) {
             // Impression list
             ImpressionCard impressionCard;
             if (impression.equals(patient.getPrimaryDiagnosis())) {
@@ -135,14 +134,14 @@ public class PatientContextWindow extends ContextWindow {
             }
 
             // Critical list
-            for (Treatment treatment : impression.getObservableTreatments().values()) {
+            for (Treatment treatment : impression.getTreatments()) {
                 if (treatment.getPriority() == 1) {
                     criticalListPanel.getItems().add(newTreatmentCard(treatment));
                     indexedCriticalList.add(treatment);
                 }
             }
 
-            for (Evidence evidence : impression.getObservableEvidences().values()) {
+            for (Evidence evidence : impression.getEvidences()) {
                 if (evidence.getPriority() == 1) {
                     criticalListPanel.getItems().add(newEvidenceCard(evidence));
                     indexedCriticalList.add(evidence);
@@ -150,7 +149,7 @@ public class PatientContextWindow extends ContextWindow {
             }
 
             // Investigation list
-            for (Treatment treatment : impression.getObservableTreatments().values()) {
+            for (Treatment treatment : impression.getTreatments()) {
                 if (treatment instanceof Investigation) {
                     Investigation investigation = (Investigation) treatment;
                     if (investigation.getPriority() != 1) {
@@ -174,11 +173,11 @@ public class PatientContextWindow extends ContextWindow {
         });
     }
 
-    private void attachPatientWindowListener() {
-        patient.getAttributes().addListener((MapChangeListener<String, Object>) change -> {
-            updatePatientWindow();
-        });
-    }
+    //private void attachPatientWindowListener() {
+    //    patient.getAttributes().addListener((MapChangeListener<String, Object>) change -> {
+    //        updatePatientWindow();
+    //    });
+    //}
 
     /**
      * This function returns the new card added dependent on the class instance.

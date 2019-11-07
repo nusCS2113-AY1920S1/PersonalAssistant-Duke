@@ -23,7 +23,6 @@ public class PatientHistorySpec extends ArgSpec {
     protected void execute(DukeCore core) throws DukeException {
         Patient patient = (Patient) core.uiContext.getObject();
         patient.appendHistory(cmd.getArg());
-        patient.updateAttributes();
         core.writeJsonFile();
         core.updateUi("Note appended!");
     }

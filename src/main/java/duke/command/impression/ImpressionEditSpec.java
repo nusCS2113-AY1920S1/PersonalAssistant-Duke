@@ -174,9 +174,7 @@ public class ImpressionEditSpec extends DukeDataSpec {
 
         String newName = cmd.getSwitchVal("name");
         if (newName != null) {
-            patient.getImpressionsObservableMap().remove(impression.getName());
             impression.setName((isAppending) ? impression.getName() + newName : newName);
-            patient.getImpressionsObservableMap().put(newName, impression);
         }
 
         String newDesc = cmd.getSwitchVal("description");

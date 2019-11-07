@@ -29,7 +29,6 @@ public class PatientPrimarySpec extends ArgSpec {
         Patient patient = (Patient) core.uiContext.getObject();
         Impression impression = (Impression) CommandUtils.findFromPatient(core, patient, "impression", cmd.getArg());
         patient.setPrimaryDiagnosis(impression.getName());
-        patient.updateAttributes();
         core.writeJsonFile();
         core.updateUi("Primary diagnosis set!");
     }

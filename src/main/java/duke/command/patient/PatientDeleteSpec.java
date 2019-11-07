@@ -32,6 +32,7 @@ public class PatientDeleteSpec extends ArgSpec {
         String searchInvestigation = cmd.getSwitchVal("investigation");
         String searchImpression = cmd.getSwitchVal("impression");
 
+        // TODO refactor, this is not what the standard says
         if (searchCritical != null && (patient.getPrimaryDiagnosis()) != null) {
             if (patient.getPrimaryDiagnosis().getName().equals((searchCritical))) {
                 patient.deletePriDiagnose();
@@ -48,15 +49,15 @@ public class PatientDeleteSpec extends ArgSpec {
             core.updateUi("Not implemented yet, bug when adding treatments needs to be solved first");
             //core.ui.print("Successfully deleted " + searchInvestigation);
         }
+
+        // TODO proper searching
         if (searchImpression != null) {
-            if ((patient.getImpressionsObservableMap().containsKey(searchImpression))) {
+            if (patient.getImpression(searchImpression) != null) {
                 patient.deleteImpression(searchImpression);
                 core.updateUi("Successfully deleted " + searchImpression);
             } else {
                 core.updateUi("Unsuccessfully deleted, none of patient's impressions match " + searchImpression);
             }
         }
-
-        patient.updateAttributes();
     }
 }

@@ -34,11 +34,11 @@ public class HomeReportSpec extends ArgSpec {
         String explanation = "This report shows all the data that was stored about a patient at the time the report was"
                 + " created.";
 
-        if (core.patientMap.getPatient(cmd.getSwitchVal("bed")) != null) {
-            createReport(core.patientMap.getPatient(cmd.getSwitchVal("bed")), header, explanation,
+        if (core.patientList.getPatient(cmd.getSwitchVal("bed")) != null) {
+            createReport(core.patientList.getPatient(cmd.getSwitchVal("bed")), header, explanation,
                     cmd.getSwitchVal("summary"));
             core.updateUi("Patient report created for "
-                    + core.patientMap.getPatient(cmd.getSwitchVal("bed")).getName());
+                    + core.patientList.getPatient(cmd.getSwitchVal("bed")).getName());
         }
     }
 

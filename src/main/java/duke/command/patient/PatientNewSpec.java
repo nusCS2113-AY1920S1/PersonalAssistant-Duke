@@ -30,7 +30,6 @@ public class PatientNewSpec extends ArgSpec {
         Patient patient = (Patient) core.uiContext.getObject();
         Impression impression = new Impression(cmd.getSwitchVal("name"), cmd.getSwitchVal("description"), patient);
         patient.addNewImpression(impression);
-        patient.updateAttributes();
         core.writeJsonFile();
         core.updateUi("Impression added:\n" + patient.getImpression(impression.getName()).toString());
 
