@@ -5,7 +5,9 @@ import money.Account;
 import controlpanel.DukeException;
 import controlpanel.Ui;
 import money.Income;
+import java.text.DateFormatSymbols;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.time.LocalDate;
 
@@ -13,9 +15,11 @@ import java.time.LocalDate;
  * This command allows users to check the income
  * for a previous or future month specified by the user input.
  */
-public class ViewPastMonthIncome extends MoneyCommand {
+public class ViewPastIncomeCommand extends MoneyCommand {
     private int month;
     private int year;
+
+    private DecimalFormat decimalFormat = new DecimalFormat("#.00");
 
     //@@author chengweixuan
     /**
@@ -23,7 +27,7 @@ public class ViewPastMonthIncome extends MoneyCommand {
      * with the data for the month and year to check as given in the user input.
      * @param command Check command inputted from user
      */
-    public ViewPastMonthIncome(String command) throws DukeException {
+    public ViewPastIncomeCommand(String command) throws DukeException {
         if (command.equals("list month")) {
             LocalDate currDate = LocalDate.now();
             month = currDate.getMonthValue();
@@ -47,47 +51,8 @@ public class ViewPastMonthIncome extends MoneyCommand {
      * @param month Index of the month
      * @return String of the month name
      */
-    private String getMonthName(int month) {
-        switch (month) {
-            case 1: {
-                return "January";
-            }
-            case 2: {
-                return "February";
-            }
-            case 3: {
-                return "March";
-            }
-            case 4: {
-                return "April";
-            }
-            case 5: {
-                return "May";
-            }
-            case 6: {
-                return "June";
-            }
-            case 7: {
-                return "July";
-            }
-            case 8: {
-                return "August";
-            }
-            case 9: {
-                return "September";
-            }
-            case 10: {
-                return "October";
-            }
-            case 11: {
-                return "November";
-            }
-            case 12: {
-                return "December";
-            }
-            default:
-                return null;
-        }
+    private String getMonth(int month) {
+        return new DateFormatSymbols().getMonths()[month-1];
     }
 
     @Override
@@ -111,6 +76,9 @@ public class ViewPastMonthIncome extends MoneyCommand {
         if (month < 1 || month > 12) {
             throw new DukeException("Month is invalid! Please pick a month from 1-12");
         }
+        if (year < 1000 || year > 9999) {
+            throw new DukeException("Only years dated from 1000-9999 are accepted by Financial Ghost :)");
+        }
 
         float totalMonthIncome = 0;
         int counter = 1;
@@ -122,8 +90,8 @@ public class ViewPastMonthIncome extends MoneyCommand {
             }
         }
         ui.appendToOutput("Got it, list will be printed in the other pane!\n");
-        ui.appendToGraphContainer("Total income for " + getMonthName(month) + " of " + year + " : $");
-        ui.appendToGraphContainer(totalMonthIncome + "\n");
+        ui.appendToGraphContainer("Total income for " + getMonth(month) + " of " + year + " : $");
+        ui.appendToGraphContainer(decimalFormat.format(totalMonthIncome) + "\n");
     }
 
     @Override

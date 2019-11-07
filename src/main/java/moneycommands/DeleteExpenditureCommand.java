@@ -24,8 +24,9 @@ public class DeleteExpenditureCommand extends MoneyCommand {
     public DeleteExpenditureCommand(String command) throws DukeException {
         try {
             inputString = command;
-            String temp = inputString.replaceAll("[^0-9]", "");
-            serialNo = Integer.parseInt(temp);
+            String tempStr = inputString.replaceFirst("delete expenditure ", "");
+            String tempStr1 = tempStr.replaceAll(" ", "");
+            serialNo = Integer.parseInt(tempStr1);
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter a numerical number as the index of the expenditure to be deleted\n");
         }

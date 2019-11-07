@@ -6,7 +6,6 @@ import controlpanel.Ui;
 import money.Account;
 import money.Item;
 import money.Loan;
-import moneycommands.MoneyCommand;
 
 /**
  * This command deletes a loan from the Loans List according to index.
@@ -25,7 +24,8 @@ public class DeleteLoanCommand extends MoneyCommand {
     public DeleteLoanCommand(String command) throws DukeException {
         try {
             inputString = command;
-            String temp = inputString.replaceAll("[^0-9]", "");
+            String temp = inputString.replaceFirst("delete loan ", "");
+            temp = temp.replaceAll(" ", "");
             serialNo = Integer.parseInt(temp);
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter a numerical number as the index of the loan to be deleted\n");

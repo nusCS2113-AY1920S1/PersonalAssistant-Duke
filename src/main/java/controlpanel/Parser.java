@@ -97,17 +97,13 @@ public class Parser {
         } else if (cmd.startsWith("list all instalment")) {
             moneyCommand = new ListInstalmentCommand();
         } else if (cmd.equals("list month income")) {
-            moneyCommand = new ViewPastMonthIncome("list month");
+            moneyCommand = new ViewPastIncomeCommand("list month");
         } else if (cmd.equals("list month expenditure")) {
-            moneyCommand = new ViewPastMonthExpenditure("list month");
+            moneyCommand = new ViewPastExpenditureCommand("list month");
         } else if (cmd.startsWith("check income")) {
-            moneyCommand = new ViewPastMonthIncome(cmd);
+            moneyCommand = new ViewPastIncomeCommand(cmd);
         } else if (cmd.startsWith("check expenditure")) {
-            moneyCommand = new ViewPastMonthExpenditure(cmd);
-        } else if (cmd.startsWith("split")) {
-            moneyCommand = new AddSplitCommand(cmd);
-        } else if (cmd.startsWith("settle")) {
-            moneyCommand = new SettleSplitCommand(cmd);
+            moneyCommand = new ViewPastExpenditureCommand(cmd);
         } else if (cmd.startsWith("lent") || cmd.startsWith("borrowed")) {
             moneyCommand = new AddLoanCommand(cmd);
         } else if (cmd.startsWith("list") && cmd.contains("loans")) {

@@ -6,10 +6,14 @@ import controlpanel.Ui;
 import money.Account;
 import money.Expenditure;
 
+import java.text.DecimalFormat;
+
 /**
  * This command lists all expenditures within the Total Expenditure List to the user.
  */
 public class ListTotalExpenditureCommand extends MoneyCommand {
+
+    private DecimalFormat decimalFormat = new DecimalFormat("#.00");
 
     //@@author chengweixuan
     /**
@@ -34,12 +38,12 @@ public class ListTotalExpenditureCommand extends MoneyCommand {
     public void execute(Account account, Ui ui, MoneyStorage storage) {
         int counter = 1;
         for (Expenditure i : account.getExpListTotal()) {
-            //System.out.println(" " + counter + "." + i.toString() + "\n");
             ui.appendToGraphContainer(" " + counter + "." + i.toString() + "\n");
             counter++;
         }
-        //System.out.println("Total income so far: $" + account.getTotalExp());
-        ui.appendToGraphContainer("Total expenditure so far: $" + account.getTotalExp() + "\n");
+
+        String totalExpStr = decimalFormat.format(account.getTotalExp());
+        ui.appendToGraphContainer("Total expenditure so far: $" + totalExpStr + "\n");
         ui.appendToOutput("Got it, list will be printed in the other pane!\n");
 
     }

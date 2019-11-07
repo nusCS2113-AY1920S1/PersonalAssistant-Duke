@@ -26,7 +26,7 @@ public class Income extends Item {
 
     @Override
     public String toString() {
-        return "[I]" + " " + super.getDescription() + "(salary: $" + super.getPrice() + ") (Paid On: "
+        return "[I]" + " " + super.getDescription() + "(salary: $" + super.getPriceStr() + ") (Paid On: "
                 + getPaidTime() + ")";
     }
 

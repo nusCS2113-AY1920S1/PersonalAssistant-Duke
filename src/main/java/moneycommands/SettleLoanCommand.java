@@ -9,8 +9,8 @@ import money.Expenditure;
 import money.Income;
 import money.Loan;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -27,6 +27,9 @@ public class SettleLoanCommand extends MoneyCommand {
     private String loanToString;
     private boolean isSettled;
     private String payDirection;
+
+    private DecimalFormat decimalFormat = new DecimalFormat("#.00");
+
 
     //@@author chengweixuan
     /**
@@ -70,10 +73,13 @@ public class SettleLoanCommand extends MoneyCommand {
      * @throws DukeException When loan is not found
      */
     private int getSerialNo(ArrayList<Loan> loanList, String name) throws DukeException {
+        if (name.equals("")) {
+            throw new DukeException("Other party name is empty!");
+        }
         if (getListOfNames(loanList).contains(name)) {
             return getListOfNames(loanList).indexOf(name);
         } else {
-            throw new DukeException(name + " does not have a/an " + type.toString().toLowerCase() + " loan");
+            throw new DukeException(name + " does not have an " + type.toString().toLowerCase() + " loan");
         }
     }
 
@@ -139,9 +145,7 @@ public class SettleLoanCommand extends MoneyCommand {
                     serialNo = getSerialNo(account.getIncomingLoans(), splitStr[1]);
                 }
             }
-        } catch (NumberFormatException e) {
-            throw new DukeException("Please enter the amount in numbers!\n");
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             throw new DukeException("Please enter in the format: paid/received <amount> /(to/from) <person/serialNo>\n");
         }
 
@@ -163,7 +167,7 @@ public class SettleLoanCommand extends MoneyCommand {
         }
         storage.writeToFile(account);
 
-        ui.appendToOutput(" Got it. An amount of $" + amount + " has been paid" + payDirection);
+        ui.appendToOutput(" Got it. An amount of $" + decimalFormat.format(amount) + " has been paid" + payDirection);
         ui.appendToOutput(description + " for the following loan: \n");
         ui.appendToOutput("     " + loanToString + "\n");
         if (isSettled) {

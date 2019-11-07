@@ -6,10 +6,14 @@ import controlpanel.Ui;
 import money.Account;
 import money.Income;
 
+import java.text.DecimalFormat;
+
 /**
  * This command lists all income sources within the Total Income List to the user.
  */
 public class ListTotalIncomeCommand extends MoneyCommand {
+
+    private DecimalFormat decimalFormat = new DecimalFormat("#.00");
 
     //@@author chengweixuan
     /**
@@ -38,7 +42,8 @@ public class ListTotalIncomeCommand extends MoneyCommand {
             counter++;
         }
 
-        ui.appendToGraphContainer("Total income so far: $" + account.getTotalIncome() + "\n");
+        String totalIncomeStr = decimalFormat.format(account.getTotalIncome());
+        ui.appendToGraphContainer("Total income so far: $" + totalIncomeStr + "\n");
         ui.appendToOutput("Got it, list will be printed in the other pane!\n");
     }
 

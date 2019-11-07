@@ -25,8 +25,9 @@ public class DeleteIncomeCommand extends MoneyCommand {
     public DeleteIncomeCommand(String command) throws DukeException {
         try {
             inputString = command;
-            String temp = inputString.replaceAll("[^0-9]", "");
-            serialNo = Integer.parseInt(temp);
+            String temp = inputString.replaceFirst("delete income ", "");
+            String tempStr = temp.replaceAll(" ", "");
+            serialNo = Integer.parseInt(tempStr);
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter a numerical number as the index of the income source to be deleted\n");
         }
@@ -57,7 +58,6 @@ public class DeleteIncomeCommand extends MoneyCommand {
         ui.appendToOutput(" Now you have " + (account.getIncomeListTotal().size() - 1));
         ui.appendToOutput(" income sources in the list.\n");
 
-        //storage.markDeletedEntry("INC", serialNo);
         account.getIncomeListTotal().remove(serialNo - 1);
         storage.addDeletedEntry(deletedEntryInc);
         storage.writeToFile(account);
