@@ -38,7 +38,7 @@ public class Member implements IMember {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.name, this.phone, this.email);
+        return Objects.hash(this.name);
     }
 
 
