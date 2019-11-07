@@ -866,22 +866,22 @@ At least one of `/newname`, `/limit` or `/rebate` must be used.
 
 * `/edit /card /name POBB Tomorrow Card /newname JunBank GoodVibes Card`
 
-.`/edit /card /name POBB Tomorrow Card /newname JunBank GoodVibes Card` (Edit Card Command)
-image::EditCardCommandExample1.png[caption="Figure : "]
+.Successful edition of card name after using `/edit /card`
+image::EditCard3.png[caption="Figure : "]
 
 Edits the credit card name from `POBB Tomorrow Card` to `JunBank GoodVibes Card`.
 
 * `/edit /card /name POBB Tomorrow Card /limit 10000`
 
-.`/edit /card /name POBB Tomorrow Card /limit 10000` (Edit Card Command)
-image::EditCardCommandExample2.png[caption="Figure : "]
+.Successful edition of card limit after using `/edit /card`
+image::EditCard1.png[caption="Figure : "]
 
 Edits the credit limit of `POBB Tomorrow Card` to $`10000`.
 
 * `/edit /card /name POBB Tomorrow Card /rebate 2.25`
 
-.`/edit /card /name POBB Tomorrow Card /limit 10000` (Edit Card Command)
-image::EditCardCommandExample3.png[caption="Figure : "]
+.Successful edition of card rebate after using `/edit /card`
+image::EditCard2.png[caption="Figure : "]
 
 Edits the cashback rate of `POBB Tomorrow Card` to `2.25`%.
 
@@ -902,8 +902,8 @@ All transactions (e.g. expenditures) related to the credit card will be deleted.
 
 * `/delete /card /name POBB Tomorrow Card`
 
-.`/delete /card /name POBB Tomorrow Card` (Delete Card Command)
-image::DeleteCardCommandExample.png[caption="Figure : "]
+.Successful deletion of card after using `/delete /card`
+image::DeleteCard.png[caption="Figure : "]
 
 Deletes a credit card named `POBB Tomorrow Card`.
 
@@ -1292,7 +1292,7 @@ your bank account as long as you remember part of your account name.
 
 * `/find /savings /name Jun`
 
-Successful search of savings account after `/find /savings`
+.Successful search of savings account after `/find /savings`
 image::FindSavings.png[caption="Figure : "]
 
 Finds and lists all savings accounts that have the phrase `Jun` in the account name.
