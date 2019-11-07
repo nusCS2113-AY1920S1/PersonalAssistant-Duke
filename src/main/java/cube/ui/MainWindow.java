@@ -8,6 +8,7 @@ import cube.model.ModelManager;
 import cube.model.food.Food;
 import cube.storage.ConfigStorage;
 import cube.storage.StorageManager;
+import cube.storage.config.UiConfig;
 import cube.util.FileUtilJson;
 import cube.util.LogUtil;
 import javafx.fxml.FXML;
@@ -104,11 +105,16 @@ public class MainWindow extends UiManager<Stage> {
         double windowWidth = configStorage.getUiConfig().getWindowWidth();
 
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        double maxHeight = primaryScreenBounds.getHeight();
+        double maxWidth = primaryScreenBounds.getWidth();
 
-        if (windowHeight >= primaryStage.getMinHeight() && windowHeight <= primaryScreenBounds.getHeight()) {
+        UiConfig.setMaxWindowHeight(maxHeight);
+        UiConfig.setMaxWindowWidth(maxWidth);
+
+        if (windowHeight >= primaryStage.getMinHeight() && windowHeight <= maxHeight) {
             primaryStage.setHeight(windowHeight);
         }
-        if (windowWidth >= primaryStage.getMinWidth() && windowWidth <= primaryScreenBounds.getWidth()) {
+        if (windowWidth >= primaryStage.getMinWidth() && windowWidth <= maxWidth) {
             primaryStage.setWidth(windowWidth);
         }
     }
