@@ -25,7 +25,7 @@ public class HomeContextWindow extends ContextWindow {
     private ScrollPane scrollPane;
 
     private ArrayList<Patient> patientList;
-    private List<DukeObject> indexedPatientList;
+    private List<Patient> indexedPatientList;
 
     /**
      * Constructs the Home UI window.
@@ -45,11 +45,11 @@ public class HomeContextWindow extends ContextWindow {
     private void fillPatientList() throws DukeFatalException {
         indexedPatientList = new ArrayList<>(patientList);
         patientListPanel.getChildren().clear();
-        indexedPatientList.forEach(patient -> {
-            PatientCard patientCard = new PatientCard((Patient) patient);
-            patientCard.setIndex(patientList.indexOf(patient) + 1);
-            patientListPanel.getChildren().add(patientCard);
-        });
+        for (Patient patient : indexedPatientList) {
+            PatientCard newCard = patient.toCard();
+            newCard.setIndex(patientList.indexOf(patient) + 1);
+            patientListPanel.getChildren().add(newCard);
+        }
     }
 
     /**
@@ -66,7 +66,8 @@ public class HomeContextWindow extends ContextWindow {
      */
     @Override
     public List<DukeObject> getIndexedList(String type) {
-        return indexedPatientList;
+        List<DukeObject> returnList = new ArrayList<>(indexedPatientList);
+        return returnList;
     }
 
     /**
