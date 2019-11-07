@@ -279,7 +279,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * demarcated with strings like "/type", and the entered data is valid.
      * Also designates the correct information to the relevant variables.
      * @return true if the input contains a component to be edited in the current mode, and is followed
-     * by valid data relevant to the component.
+     *         by valid data relevant to the component.
      */
     private boolean findComponents() {
         boolean hasComponents;
