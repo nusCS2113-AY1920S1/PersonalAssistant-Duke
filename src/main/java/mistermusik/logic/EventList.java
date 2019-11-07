@@ -52,9 +52,19 @@ public class EventList {
     public int currentDateIndex = 0;
 
     /**
+     * Calendar class to get the current system date.
+     */
+    Calendar currentDateCalendar = Calendar.getInstance();
+
+    /**
+     * Date class to be used to compare event dates with current date.
+     */
+    Date currentDate = currentDateCalendar.getTime();
+
+    /**
      * Flag to check if there are unachieved goals for past events.
      */
-    boolean gotPastUnachieved = false;
+    public boolean gotPastUnachieved = false;
 
     /**
      * Creates new Model_Class.EventList object.
@@ -299,7 +309,7 @@ public class EventList {
      * @return String containing all events, separated by a newline.
      */
     public String listOfEvents_String() {
-        findNextEventAndSetBoolean();
+        findNextEventAndSetBoolean(currentDate);
         String allEvents = "";
         for (int i = currentDateIndex; i < eventArrayList.size(); ++i) {
             if (eventArrayList.get(i) == null) continue;
@@ -365,10 +375,10 @@ public class EventList {
     /**
      * Compares the dates of each event with current date
      */
-    private void findNextEventAndSetBoolean() {
-        Calendar currentDate = Calendar.getInstance();
+    public void findNextEventAndSetBoolean(Date currentDate) {
+        gotPastUnachieved = false;
         for (int i = 0; i < eventArrayList.size(); i += 1) {
-            if (this.getEvent(i).getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) <= 0) {
+            if (this.getEvent(i).getStartDate().getEventJavaDate().compareTo(currentDate) <= 0) {
                 currentDateIndex = i + 1;
             }
         }
