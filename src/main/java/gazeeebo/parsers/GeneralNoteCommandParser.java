@@ -1,10 +1,11 @@
 //@@author yueyuu
-package gazeeebo.commands.note;
+package gazeeebo.parsers;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
 import gazeeebo.commands.help.HelpCommand;
+import gazeeebo.commands.note.ModuleCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.notes.GeneralNotePage;
 import gazeeebo.storage.NotePageStorage;
@@ -20,7 +21,7 @@ import java.util.Stack;
 /**
  * Deals with the commands input at the note page.
  */
-public class GeneralNoteCommand extends Command {
+public class GeneralNoteCommandParser extends Command {
 
     private static final String ESC = "esc";
     private static final String VIEW = "view";

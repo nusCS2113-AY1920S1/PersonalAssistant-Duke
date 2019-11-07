@@ -1,5 +1,7 @@
 package gazeeebo.commands.capCalculator;
 
+import gazeeebo.parsers.CAPCommandParser;
+
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -20,7 +22,7 @@ public class CalculateCAPCommand {
      * @return the CAP.
      */
     public double calculateCAP(final Map<String,
-            ArrayList<CAPCommand>> caplist) {
+            ArrayList<CAPCommandParser>> caplist) {
         double sumGPAMCS = 0;
         int sumMCS = 0;
         double scoreNotToCount = DONT_COUNT_SCORE;
@@ -47,7 +49,7 @@ public class CalculateCAPCommand {
      * @return the GPA.
      */
     public double calculateCAPPerSem(final Map<String,
-            ArrayList<CAPCommand>> caplist, final String semNumber) {
+            ArrayList<CAPCommandParser>> caplist, final String semNumber) {
         double sumGPAMCS = 0;
         int sumMCS = 0;
         for (String key : caplist.keySet()) {

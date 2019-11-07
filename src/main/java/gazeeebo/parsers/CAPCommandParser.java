@@ -1,9 +1,10 @@
 
-package gazeeebo.commands.capCalculator;
+package gazeeebo.parsers;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
+import gazeeebo.commands.capCalculator.*;
 import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
@@ -20,29 +21,29 @@ import java.util.Stack;
 /**
  * Deals with the user in the main CAP page.
  */
-public class CAPCommand extends Command {
+public class CAPCommandParser extends Command {
     /**
      * module name of the module.
      */
-    protected String moduleCode;
+    public String moduleCode;
     /**
      * Modular Credit of the module.
      */
-    protected int moduleCredit;
+    public int moduleCredit;
     /**
      * Alphabetical score for the module.
      */
-    protected String grade;
+    public String grade;
 
     /**
-     * Constructor for CAPCommand.
+     * Constructor for CAPCommandParser.
      *
      * @param moduleCode   name of the module
      * @param moduleCredit about of Modular Credit of the module
      * @param grade        Alphabetical score attained
      */
-    public CAPCommand(final String moduleCode,
-                      final int moduleCredit, final String grade) {
+    public CAPCommandParser(final String moduleCode,
+                            final int moduleCredit, final String grade) {
         this.moduleCode = moduleCode;
         this.moduleCredit = moduleCredit;
         this.grade = grade;
@@ -74,9 +75,9 @@ public class CAPCommand extends Command {
         System.out.print("Welcome to your CAP Calculator page! "
                 + "What would you like to do?\n\n");
         System.out.print(helpCAP);
-        HashMap<String, ArrayList<CAPCommand>> map
+        HashMap<String, ArrayList<CAPCommandParser>> map
                 = storage.readFromCAPFile(); //Read the file
-        Map<String, ArrayList<CAPCommand>> caplist = new TreeMap<>(map);
+        Map<String, ArrayList<CAPCommandParser>> caplist = new TreeMap<>(map);
         String lineBreak = "------------------------------\n";
         ui.readCommand();
         while (!(ui.fullCommand.equals("esc") || ui.fullCommand.equals("7"))) {

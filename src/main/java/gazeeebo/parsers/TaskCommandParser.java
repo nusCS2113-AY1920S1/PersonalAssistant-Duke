@@ -1,6 +1,7 @@
-package gazeeebo.commands.tasks;
+package gazeeebo.parsers;
 
 import gazeeebo.commands.Command;
+import gazeeebo.commands.tasks.*;
 import gazeeebo.commands.tasks.edit.EditCommand;
 import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.commands.note.AddNoteCommand;
@@ -26,7 +27,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class TaskCommand extends Command {
+public class TaskCommandParser extends Command {
     /**
      * Parses the user input and return a command object.
      *
@@ -286,8 +287,8 @@ public class TaskCommand extends Command {
      * @param oldList
      * @param list
      */
-    private void copyOldList(final ArrayList<Task> oldList,
-                             ArrayList<Task> list) {
+    public static void copyOldList(final ArrayList<Task> oldList,
+                                   ArrayList<Task> list) {
         for (Task task : list) {
             if (task.getClass().getName().equals("gazeeebo.tasks.Deadline")) {
                 Deadline deadline = new Deadline(task.description,

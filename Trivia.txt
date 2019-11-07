@@ -1,2 +1,2 @@
 
-deadline die /by 2019-11-12 12:12:12
+todo study

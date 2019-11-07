@@ -2,6 +2,7 @@
 package gazeeebo.commands.capCalculator;
 
 import gazeeebo.UI.Ui;
+import gazeeebo.parsers.CAPCommandParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class AddCAPCommand {
      *                semNumber, moduleCode, moduleCredits and CAP score.
      */
     public AddCAPCommand(final Ui ui, final Map<String,
-            ArrayList<CAPCommand>> caplist) {
+            ArrayList<CAPCommandParser>> caplist) {
         try {
             String toAdd = "";
             switch (ui.fullCommand.split(" ").length) {
@@ -46,11 +47,11 @@ public class AddCAPCommand {
             String moduleCode = splitAddInput[1];
             int moduleCredit = Integer.parseInt(splitAddInput[2]);
             String grade = splitAddInput[GRADE_INDEX];
-            CAPCommand newCAP = new CAPCommand(moduleCode, moduleCredit, grade);
+            CAPCommandParser newCAP = new CAPCommandParser(moduleCode, moduleCredit, grade);
             if (caplist.containsKey(semNumber)) {
                 caplist.get(semNumber).add(newCAP);
             } else {
-                ArrayList<CAPCommand> semInfo = new ArrayList<>();
+                ArrayList<CAPCommandParser> semInfo = new ArrayList<>();
                 semInfo.add(newCAP);
                 caplist.put(semNumber, semInfo);
             }

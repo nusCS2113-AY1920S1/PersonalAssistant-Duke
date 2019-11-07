@@ -1,9 +1,10 @@
-package gazeeebo.commands.studyassist;
+package gazeeebo.parsers;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
 import gazeeebo.commands.help.HelpCommand;
+import gazeeebo.commands.studyassist.*;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
@@ -13,7 +14,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class studyassistCommand extends Command {
+public class studyassistCommandParser extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException, DukeException, ParseException {
         System.out.println("Welcome to Module Planner!");

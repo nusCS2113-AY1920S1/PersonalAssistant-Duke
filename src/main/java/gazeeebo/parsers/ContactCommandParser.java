@@ -1,8 +1,9 @@
-package gazeeebo.commands.Contact;
+package gazeeebo.parsers;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
+import gazeeebo.commands.contact.*;
 import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
@@ -18,7 +19,7 @@ import java.util.TreeMap;
 /**
  * Deals with the user input in the contacts page.
  */
-public class ContactCommand extends Command {
+public class ContactCommandParser extends Command {
     /**
      * Print the line separator between contacts.
      */

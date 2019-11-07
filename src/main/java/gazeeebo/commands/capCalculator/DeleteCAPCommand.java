@@ -1,6 +1,7 @@
 package gazeeebo.commands.capCalculator;
 
 import gazeeebo.UI.Ui;
+import gazeeebo.parsers.CAPCommandParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class DeleteCAPCommand {
      *                semNumber, moduleCode, moduleCredits and GPA score.
      */
     public DeleteCAPCommand(final Ui ui,
-                            final Map<String, ArrayList<CAPCommand>> caplist) {
+                            final Map<String, ArrayList<CAPCommandParser>> caplist) {
         try {
             String moduleName = "";
             switch (ui.fullCommand.split(" ").length) {
