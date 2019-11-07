@@ -100,12 +100,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Boolean isAutoCompletable(AutoCompleter.UserInputState currentState) {
+    public Boolean isAutoCompletable(AutoCompleter.Input currentState) {
         return autoCompleter.isAutoCompletable(currentState);
     }
 
     @Override
-    public AutoCompleter.UserInputState complete() {
+    public AutoCompleter.Input complete() {
         return autoCompleter.complete();
     }
 

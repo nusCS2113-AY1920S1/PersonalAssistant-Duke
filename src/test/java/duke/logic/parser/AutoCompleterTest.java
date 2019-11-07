@@ -53,7 +53,7 @@ public class AutoCompleterTest {
 
         Assertions.assertEquals(
             false,
-            completer.isAutoCompletable(new AutoCompleter.UserInputState("unknown", 0))
+            completer.isAutoCompletable(new AutoCompleter.Input("unknown", 0))
         );
     }
 
@@ -63,7 +63,7 @@ public class AutoCompleterTest {
 
         Assertions.assertEquals(
             true,
-            completer.isAutoCompletable(new AutoCompleter.UserInputState("St", 0))
+            completer.isAutoCompletable(new AutoCompleter.Input("St", 0))
         );
     }
 
@@ -73,7 +73,7 @@ public class AutoCompleterTest {
 
         Assertions.assertEquals(
             false,
-            completer.isAutoCompletable(new AutoCompleter.UserInputState("  ", 0))
+            completer.isAutoCompletable(new AutoCompleter.Input("  ", 0))
         );
     }
 
@@ -83,7 +83,7 @@ public class AutoCompleterTest {
 
         Assertions.assertEquals(
             false,
-            completer.isAutoCompletable(new AutoCompleter.UserInputState("", 0))
+            completer.isAutoCompletable(new AutoCompleter.Input("", 0))
         );
     }
 
@@ -94,12 +94,12 @@ public class AutoCompleterTest {
         completer.addCommandClass(CommandStub.class);
         Assertions.assertEquals(
             true,
-            completer.isAutoCompletable(new AutoCompleter.UserInputState("St", 1))
+            completer.isAutoCompletable(new AutoCompleter.Input("St", 1))
         );
 
         Assertions.assertEquals(
             "Stub",
-            completer.complete().userInputString
+            completer.complete().text
         );
     }
 
@@ -117,10 +117,10 @@ public class AutoCompleterTest {
 
         Assertions.assertEquals(
             true,
-            completer.isAutoCompletable(new AutoCompleter.UserInputState("Stub stub -b", 10))
+            completer.isAutoCompletable(new AutoCompleter.Input("Stub stub -b", 10))
         );
 
-        Assertions.assertEquals("Stub stub -bb", completer.complete().userInputString);
+        Assertions.assertEquals("Stub stub -bb", completer.complete().text);
 
     }
 
@@ -133,15 +133,15 @@ public class AutoCompleterTest {
 
         Assertions.assertEquals(
             true,
-            completer.isAutoCompletable(new AutoCompleter.UserInputState("Stub stub -", 11))
+            completer.isAutoCompletable(new AutoCompleter.Input("Stub stub -", 11))
         );
 
-        Assertions.assertEquals("Stub stub -bb", completer.complete().userInputString);
-        Assertions.assertEquals("Stub stub -cc", completer.complete().userInputString);
-        Assertions.assertEquals("Stub stub -aa", completer.complete().userInputString);
+        Assertions.assertEquals("Stub stub -bb", completer.complete().text);
+        Assertions.assertEquals("Stub stub -cc", completer.complete().text);
+        Assertions.assertEquals("Stub stub -aa", completer.complete().text);
 
         //Should go cyclic to the first suggestion
-        Assertions.assertEquals("Stub stub -bb", completer.complete().userInputString);
+        Assertions.assertEquals("Stub stub -bb", completer.complete().text);
 
     }
 
@@ -184,36 +184,36 @@ public class AutoCompleterTest {
 
     @Test
     public void constructor_validInputAndValidCaretPosition_success() {
-        Assertions.assertAll(() -> new AutoCompleter.UserInputState("hello", 2));
+        Assertions.assertAll(() -> new AutoCompleter.Input("hello", 2));
     }
 
     @Test
     public void constructor_nullInput_throwsNullPointerException() {
         Assertions.assertThrows(NullPointerException.class,
-            () -> new AutoCompleter.UserInputState(null, 0));
+            () -> new AutoCompleter.Input(null, 0));
     }
 
     @Test
     public void constructor_negativeCaretPosition_throwsNullPointerException() {
         Assertions.assertThrows(ParseException.class,
-            () -> new AutoCompleter.UserInputState("order", -10));
+            () -> new AutoCompleter.Input("order", -10));
     }
 
     @Test
     public void constructor_invalidCaretPosition_throwsNullPointerException() {
         Assertions.assertThrows(ParseException.class,
-            () -> new AutoCompleter.UserInputState("order", 10));
+            () -> new AutoCompleter.Input("order", 10));
     }
 
     @Test
     public void constructor_validBoundaryCaretPositions_success() {
         //Boundaries near zero (BVA cases 6, 7)
-        Assertions.assertAll(() -> new AutoCompleter.UserInputState("hello", 1));
-        Assertions.assertAll(() -> new AutoCompleter.UserInputState("hello", 0));
+        Assertions.assertAll(() -> new AutoCompleter.Input("hello", 1));
+        Assertions.assertAll(() -> new AutoCompleter.Input("hello", 0));
 
         //Boundaries near string.length(BVA cases 8, 9)
-        Assertions.assertAll(() -> new AutoCompleter.UserInputState("hello", 4));
-        Assertions.assertAll(() -> new AutoCompleter.UserInputState("hello", 5));
+        Assertions.assertAll(() -> new AutoCompleter.Input("hello", 4));
+        Assertions.assertAll(() -> new AutoCompleter.Input("hello", 5));
 
     }
 
@@ -221,11 +221,11 @@ public class AutoCompleterTest {
     public void constructor_inValidBoundaryCaretPositions_throwsParseException() {
         //negative position (BVA case 5)
         Assertions.assertThrows(ParseException.class,
-            () -> new AutoCompleter.UserInputState("order", -1));
+            () -> new AutoCompleter.Input("order", -1));
 
         //More than string.length() (BVA case 10)
         Assertions.assertThrows(ParseException.class,
-            () -> new AutoCompleter.UserInputState("order", 6));
+            () -> new AutoCompleter.Input("order", 6));
 
     }
 

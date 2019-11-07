@@ -188,12 +188,12 @@ public class MainWindow extends UiPart<Stage> {
 
     //@@author liujiajun
     private void autocomplete() {
-        if (logic.isAutoCompletable(new AutoCompleter.UserInputState(
+        if (logic.isAutoCompletable(new AutoCompleter.Input(
                 userInput.getText(),
                 userInput.getCaretPosition()
         ))) {
-            AutoCompleter.UserInputState newState = logic.complete();
-            this.userInput.setText(newState.userInputString);
+            AutoCompleter.Input newState = logic.complete();
+            this.userInput.setText(newState.text);
             this.userInput.positionCaret(newState.caretPosition);
         }
     }

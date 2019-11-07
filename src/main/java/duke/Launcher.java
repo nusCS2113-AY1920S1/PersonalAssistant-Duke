@@ -54,14 +54,12 @@ public class Launcher extends Application {
     private Model initModelManager(BakingHomeStorage storage) {
         Optional<ReadOnlyBakingHome> bakingHomeOptional;
         ReadOnlyBakingHome initialData;
-        logger.info("there");
         try {
             bakingHomeOptional = storage.readBakingHome();
             if (bakingHomeOptional.isEmpty()) {
                 logger.info("Data file not found. Using demo data");
                 initialData = getDemoBakingHome();
             } else {
-                logger.info("here");
                 initialData = bakingHomeOptional.get();
             }
         } catch (DataConversionException e) {
