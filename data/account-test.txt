@@ -1,4 +1,3 @@
 INIT @ true
 BS @ 0.0
 INC @ 560.0 @ TA  @ 10/12/2040
-EXP @ 30.0 @ sick sirloin steak  @ food  @ 9/10/1997
