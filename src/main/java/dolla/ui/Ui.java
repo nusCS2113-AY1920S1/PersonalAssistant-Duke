@@ -228,4 +228,14 @@ public abstract class Ui {
         System.out.println(MSG_MODIFY);
         System.out.println(line);
     }
+
+    /**
+     * Prints a message reminding user to input a valid amount.
+     * @param msg Message to be printed to user.
+     */
+    public static void invalidAmountPrinter(String msg) {
+        System.out.println(line);
+        System.out.println(msg);
+        System.out.println(line);
+    }
 }
