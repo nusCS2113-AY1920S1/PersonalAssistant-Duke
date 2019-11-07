@@ -38,8 +38,10 @@ sourceSets {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.0'
+    testImplementation (
+            'junit:junit:4.12',
+            'org.junit.jupiter:junit-jupiter:5.5.0')
+    testRuntimeOnly ('org.junit.jupiter:junit-jupiter-engine:5.5.0')
     String javaFxVersion = '11.0.1'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
