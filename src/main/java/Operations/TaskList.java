@@ -6,6 +6,7 @@ import Enums.Priority;
 import Enums.SortType;
 import Enums.TimeUnit;
 import Model_Classes.Assignment;
+import Model_Classes.Leave;
 import Model_Classes.Task;
 
 import java.util.ArrayList;
@@ -375,7 +376,7 @@ public class TaskList {
     public int getSize() {
         int count =0;
         for(Task t : tasks) {
-            if(!t.getOverdue()) {
+            if(!t.getOverdue() && !(t instanceof Leave)) {
                 count += 1;
             }
         }
@@ -389,7 +390,9 @@ public class TaskList {
     public int getDoneSize(){
         int count = 0;
         for (Task t: tasks){
-            if (t.getDone() && !t.getOverdue()) count++;
+            if (t.getDone() && !t.getOverdue() && !(t instanceof Leave)) {
+                count++;
+            }
         }
         return count;
     }
@@ -446,4 +449,5 @@ public class TaskList {
         int[] done = {belongCount, doneCount};
         return done;
     }
+
 }
