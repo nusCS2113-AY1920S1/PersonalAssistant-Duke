@@ -61,7 +61,7 @@ public class SortCommandTest {
         date1 = new Date(d1);
         tasks.add(new HomeworkTask("d1",date1,1));
         tasks2.add(new HomeworkTask("d1",date1,1));
-        tasks2.add(new HomeworkTask("d2","[✓]",date1));
+        tasks2.add(new HomeworkTask("d2","[V]",date1));
 
 
         try{
@@ -90,7 +90,7 @@ public class SortCommandTest {
         date2 = new Date(d2);
         tasks.add(new EventsTask("e1",date1,date2,2));
         tasks2.add(new EventsTask("e1",date1,date2,2));
-        tasks2.add(new EventsTask("e2","[✓]",date1,date2));
+        tasks2.add(new EventsTask("e2","[V]",date1,date2));
 
         try{
             d1 = LocalDateTime.parse("22/09/2019 12:12".trim(), formatter);
@@ -108,7 +108,7 @@ public class SortCommandTest {
 
         tasks.add(new TodoTask("1",4));
         tasks2.add(new TodoTask("t1",4));
-        tasks2.add(new TodoTask("t2","[✓]"));
+        tasks2.add(new TodoTask("t2","[V]"));
 
 
         tasks.add(new TodoTask("2",5));
