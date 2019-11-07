@@ -40,6 +40,7 @@ public class Parser {
             if (instr.isBye(input)) {
                 storage.writeToProjectsFile(process.projectmanager.projectmap);
                 storage.writeToFundFile(fund);
+                storage.writeTocurrentprojectnameFile(process.projectmanager.currentprojectname);
                 ui.byeMessage();
                 ui.getIn().close();
                 return true;
@@ -85,6 +86,9 @@ public class Parser {
                 //storage.save(tasklist.returnArrayList());
             } else if (instr.isFind(input)) {
                 // process.find(input, tasklist, ui);
+                //process.commandHistory(input, ui, storage);
+            } else if (instr.isListPayments(input)) {
+                process.listAllPayments(input, ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isWithinPeriodTask(input)) {
                 process.within(input, tasklist, ui);
@@ -109,9 +113,6 @@ public class Parser {
                 process.viewSchedule(input, tasklist, ui);
                 process.commandHistory(input, ui, storage);
                 //storage.save(tasklist.returnArrayList());
-            } else if (instr.isReminder(input)) {
-                //process.reminder(input, tasklist, ui);
-                process.commandHistory(input, ui, storage);
             } else if (instr.isEdit(input)) {
                 process.edit(input,ui);
                 process.commandHistory(input, ui, storage);
@@ -149,6 +150,9 @@ public class Parser {
                 process.commandHistory(input, ui, storage);
             } else if (instr.isHelp(input)) {
                 ui.printHelpMessage();
+            } else if (instr.isReminder(input)) {
+                process.reminder( ui, storage);
+                process.commandHistory(input, ui, storage);
             } else {
                 throw new AlphaNUSException("\t" + "OOPS!!! I'm sorry, but I don't know what that means :-(");
             }

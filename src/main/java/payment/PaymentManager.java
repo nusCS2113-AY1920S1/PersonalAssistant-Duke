@@ -74,6 +74,14 @@ public abstract class PaymentManager {
                         payment.cost = Double.parseDouble(replace);
                     } else if (field == Field.INV) {
                         payment.inv = replace;
+                    } else if (field == Field.STATUS) {
+                        if (replace.equalsIgnoreCase("pending")) {
+                            payment.status = Status.PENDING;
+                        } else if (replace.equalsIgnoreCase("approved")) {
+                            payment.status = Status.APPROVED;
+                        } else if (replace.equalsIgnoreCase("overdue")) {
+                            payment.status = Status.OVERDUE;
+                        }
                     }
                     ui.printEditMessage(payment, payee);
                     break;
@@ -86,34 +94,37 @@ public abstract class PaymentManager {
     /**
      * List the Payments object details, may extend to generate statement of accounts.
      */
-    public static void listPayments(HashMap<String, Payee> managermap) {
+    public static ArrayList<ArrayList<Payments>> listPayments(HashMap<String, Payee> managermap) {
+        ArrayList<ArrayList<Payments>> listOfPayments = new ArrayList<>();
         ArrayList<Payments> overdue = new ArrayList<>();
         ArrayList<Payments> pending = new ArrayList<>();
         ArrayList<Payments> approved = new ArrayList<>();
-        Date currDate = new Date();
         for (Payee payee : managermap.values()) {
             for (Payments payment : payee.payments) {
-                if (payment.status == Status.PENDING) {
+                if (payment.getStatus() == Status.PENDING) {
                     pending.add(payment);
-                } else if (payment.status == Status.OVERDUE) {
+                } else if (payment.getStatus() == Status.OVERDUE) {
                     overdue.add(payment);
                 } else {
                     approved.add(payment);
                 }
             }
         }
-        // printList(); <-- TODO : Modify implementation in UI
+        listOfPayments.add(pending);
+        listOfPayments.add(overdue);
+        listOfPayments.add(approved);
+        return listOfPayments;
     }
 
     /**
      * Deletes the Payments object details.
      */
-    public static Payments deletePayments(String payee, String item, HashMap<String, Payee> managermap) {
+    public static Payments deletePayments(String payee, String item, HashMap<String, Payee> managermap, String projectname) {
         int i = 0;
         while (i < managermap.get(payee).payments.size()) {
             if (managermap.get(payee).payments.get(i++).item.equals(item)) {
-                Payments deleted = new Payments(item, managermap.get(payee).payments.get(--i).cost,
-                        managermap.get(payee).payments.get(i).inv);
+                Payments deleted = new Payments(payee, item, managermap.get(payee).payments.get(--i).cost,
+                        managermap.get(payee).payments.get(i).inv, projectname);
                 managermap.get(payee).payments.remove(i);
                 return deleted;
             }
@@ -125,8 +136,8 @@ public abstract class PaymentManager {
      * Add the Payments object details to PaymentsList.
      */
     public static Payments addPayments(String payee, String item, double cost, String inv,
-                                       HashMap<String, Payee> managermap) {
-        Payments pay = new Payments(item, cost, inv);
+                                       HashMap<String, Payee> managermap, String projectname) {
+        Payments pay = new Payments(payee, item, cost, inv, projectname);
         managermap.get(payee).payments.add(pay);
         return pay;
     }
@@ -136,6 +147,9 @@ public abstract class PaymentManager {
      */
     public static Payee addPayee(String payee, String email, String matricNum, String phoneNum,
                                  HashMap<String, Payee> managermap) {
+        if (managermap.keySet().contains(payee)) {
+            throw new IllegalArgumentException();
+        }
         Payee payeeNew = new Payee(payee, email, matricNum, phoneNum);
         managermap.put(payee, payeeNew);
         return payeeNew;
@@ -148,5 +162,22 @@ public abstract class PaymentManager {
         Payee payeeDeleted = managermap.get(payee);
         managermap.remove(payee);
         return payeeDeleted;
+    }
+
+    /**
+     * This function scans through every payment and changes its status if needed.
+     * @param managermap The managermap.
+     */
+    public static void checkStatus(HashMap<String, Payee> managermap){
+        Date dateObj = new Date();
+        for (Payee payee : managermap.values()) { // iterate through the payees
+            for (Payments payment : payee.payments) { // iterate through the payments
+                if( payment.getStatus() == Status.APPROVED || dateObj.compareTo(payment.getDeadline()) >= 0) {
+                    continue;
+                } else {
+                    payment.setStatus(Status.OVERDUE);
+                }
+            }
+        }
     }
 }

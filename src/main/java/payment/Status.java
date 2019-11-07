@@ -1,6 +1,6 @@
 package payment;
 
-enum Status {
+public enum Status {
     PENDING,
     APPROVED,
     OVERDUE

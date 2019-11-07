@@ -29,6 +29,7 @@ public class Storage {
     private static String redoListFilePath = "localdata/redo.json";
     private static String undofundfilepath = "localdata/undoFund.json";
     private static String redofundfilepath = "localdata/redoFund.json";
+    private static String currentprojectfilepath = "localdata/CurrentProject.json";
 
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -53,6 +54,30 @@ public class Storage {
             bufferedWriter.close();
         } catch (IOException e) {
             throw new AlphaNUSException("Unable to write to file: " + projectsfilepath);
+        }
+    }
+
+    /**
+     * Writes current project in ProjectManager to local storage.
+     * @param currentprojectname Current project before exiting the application.
+     * @throws AlphaNUSException If the file cannot be written to.
+     */
+    public void writeTocurrentprojectnameFile(String currentprojectname) throws AlphaNUSException {
+        String toWriteStr = gson.toJson(currentprojectname);
+        try {
+            File file = new File(currentprojectfilepath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, false));
+            for (String lineStr : toWriteStr.split("\n")) {
+                bufferedWriter.write(lineStr);
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+        } catch (IOException e) {
+            throw new AlphaNUSException("Unable to write to file: " + currentprojectfilepath);
         }
     }
 
@@ -200,6 +225,29 @@ public class Storage {
             throw new AlphaNUSException("Unable to read file");
         }
         return projectmap;
+    }
+
+    /**
+     * Read Current Project from local storage and returns it.
+     * @return Current Project object stored in local storage.
+     * @throws AlphaNUSException If the file cannot be read.
+     */
+    public String readFromcurrentprojectnameFile() throws AlphaNUSException {
+        Type projectmaptype = new TypeToken<String>(){}.getType();
+        String currentprojectname;
+        try {
+            File file = new File(currentprojectfilepath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            currentprojectname = gson.fromJson(bufferedReader, projectmaptype);
+            bufferedReader.close();
+        } catch (Exception e) {
+            throw new AlphaNUSException("Unable to read file");
+        }
+        return currentprojectname;
     }
 
     /**
