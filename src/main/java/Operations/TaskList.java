@@ -19,7 +19,6 @@ import java.util.Date;
 public class TaskList {
     private static ArrayList<Task> tasks;
     private static SortType sortType = SortType.priority;
-    public static ArrayList<Task> overdueList = new ArrayList<>();
 
     /**
      * Constructor for the TaskList class.
@@ -72,14 +71,17 @@ public class TaskList {
      * hides completed tasks
      * @throws RoomShareException when the list is empty
      */
-    public void list() throws RoomShareException {
+    public void list(OverdueList overdueList) throws RoomShareException {
         sortTasks();
         if (tasks.size() != 0) {
             int listCount = 1;
             for(int i=0; i<tasks.size(); i++) {
                 if (new Date().after(tasks.get(i).getDate()) && !(tasks.get(i) instanceof Leave)){
                     tasks.get(i).setOverdue(true);
-                    overdueList.add(tasks.get(i));
+                    if (!CheckAnomaly.checkDuplicateOverdue(tasks.get(i))) {
+                        // no duplicates in overdue list
+                        overdueList.add(tasks.get(i));
+                    }
                     tasks.remove(tasks.get(i));
                 }
             }
@@ -144,26 +146,6 @@ public class TaskList {
         } else {
             throw new RoomShareException(ExceptionType.emptyList);
         }
-    }
-
-    /**
-     * Adds the overdue tasks that a currently in the task list to another task list
-     * which contains stores tasks that are overdue.
-     * @return ArrayList of tasks containing tasks that are overdue.
-     * @throws RoomShareException when the list is empty.
-     */
-    public static ArrayList<Task> getOverdueList() throws RoomShareException {
-        if( tasks.size() != 0 ){
-            for (int i=0; i<tasks.size(); i++) {
-                if(new Date().after(tasks.get(i).getDate())) {
-                    overdueList.add(tasks.get(i));
-                    tasks.remove(tasks.get(i));
-                }
-            }
-        } else {
-            throw new RoomShareException(ExceptionType.emptyList);
-        }
-        return overdueList;
     }
 
     /**

@@ -4,13 +4,11 @@ import CustomExceptions.RoomShareException;
 import Enums.ExceptionType;
 import Model_Classes.Assignment;
 import Model_Classes.Task;
-import Enums.TaskType;
-
 
 import java.util.ArrayList;
 
 public class OverdueList {
-    private ArrayList<Task> Overdue;
+    private static ArrayList<Task> Overdue;
 
     /**
      * A constructor for the overdueList class.
@@ -45,7 +43,7 @@ public class OverdueList {
         } else {
             taskList.add(Overdue.get(index));
             Overdue.get(index).setOverdue(false);
-            this.Overdue.remove(index);
+            Overdue.remove(index);
         }
     }
 
@@ -103,5 +101,9 @@ public class OverdueList {
                 Overdue.remove(i);
             }
         }
+    }
+
+    public static ArrayList<Task> getOverdueList() {
+        return Overdue;
     }
 }
