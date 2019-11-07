@@ -21,6 +21,11 @@ public class RecommendedSchedule extends Scheduler {
      * Current amount of seconds available for work.
      */
     private static long seconds;
+
+    /**
+     * Ui instance that handles outputs to the user.
+     */
+    private static Ui ui = new Ui();
     
     /**
      * Initializes recommended based on the supplied time available and priority.
@@ -81,6 +86,12 @@ public class RecommendedSchedule extends Scheduler {
      * Displays the recommended schedule and amount of time allocated to each entry.
      */
     public static void displayRecommendedSchedule() {
+        if (size() == 0) {
+            ui.showMessage("There are no tasks to complete. "
+                + "Please add more tasks."); 
+            return;
+        }
+
         String output = "Hey, this is your recommended schedule for the next "
             + "few hours. Please confirm if you will follow it. Please add or delete" 
             + " entries before updating time:\n\t";
@@ -91,7 +102,6 @@ public class RecommendedSchedule extends Scheduler {
             output += (i + 1) + ". " + recommended.get(i).getTask().toString() 
                 + " time alloted: " + hours + ":" + minutes + ":" + seconds + "\n\t";
         }
-        Ui ui = new Ui();
         ui.showMessage(output);
     }
 
