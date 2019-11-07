@@ -174,7 +174,7 @@ public class ProfileCommands {
         }
     }
 
-    private void clearSortPreference() throws IOException {
+    public void clearSortPreference() throws IOException {
         setSort(false, false, false);
     }
 

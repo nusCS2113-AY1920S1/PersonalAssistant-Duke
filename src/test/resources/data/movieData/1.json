@@ -1,0 +1,213 @@
+[{
+  "cast": [
+    "Matti Pellonpää",
+    "Kati Outinen",
+    "Sakari Kuosmanen",
+    "Esko Nikkari",
+    "Kylli Köngäs"
+  ],
+  "overview": "An episode in the life of Nikander, a garbage man, involving the death of a co-worker, an affair and much more.",
+  "release_date": "1986-10-17",
+  "vote_average": 7.4,
+  "runtime": 72,
+  "cert": "N\/A",
+  "id": 3,
+  "title": "Shadows in Paradise",
+  "adult": false,
+  "genre_ids": [
+    18,
+    35
+  ]
+},
+{
+"cast": [
+"Emilio Estevez",
+"Cuba Gooding Jr.",
+"Denis Leary",
+"Jeremy Piven",
+"Peter Greene"
+],
+"overview": "While racing to a boxing match, Frank, Mike, John and Rey get more than they bargained for. A wrong turn lands them directly in the path of Fallon, a vicious, wise-cracking drug lord. After accidentally witnessing Fallon murder a disloyal henchman, the four become his unwilling prey in a savage game of cat & mouse as they are mercilessly stalked through the urban jungle in this taut suspense drama",
+"release_date": "1993-10-15",
+"vote_average": 6.6,
+"runtime": 110,
+"cert": "N\/A",
+"id": 6,
+"title": "Judgment Night",
+"adult": false,
+"genre_ids": [
+28,
+53,
+80
+]
+},
+{
+"cast": [
+"Rita Lengyel",
+"Milton Welsh"
+],
+"overview": "",
+"release_date": "2004-09-02",
+"vote_average": 6.7,
+"runtime": 15,
+"cert": "N\/A",
+"id": 9,
+"title": "Sunday in August",
+"adult": false,
+"genre_ids": [
+18
+]
+},
+{
+"cast": [
+"Albert Brooks",
+"Ellen DeGeneres",
+"Alexander Gould",
+"Willem Dafoe",
+"Brad Garrett"
+],
+"overview": "Nemo, an adventurous young clownfish, is unexpectedly taken from his Great Barrier Reef home to a dentist's office aquarium. It's up to his worrisome father Marlin and a friendly but forgetful fish Dory to bring Nemo home -- meeting vegetarian sharks, surfer dude turtles, hypnotic jellyfish, hungry seagulls, and more along the way.",
+"release_date": "2003-05-30",
+"vote_average": 7.8,
+"runtime": 100,
+"cert": "U",
+"id": 12,
+"title": "Finding Nemo",
+"adult": false,
+"genre_ids": [
+16,
+10751
+]
+},
+{
+"cast": [
+"Tom Hanks",
+"Robin Wright",
+"Gary Sinise",
+"Mykelti Williamson",
+"Sally Field"
+],
+"overview": "A man with a low IQ has accomplished great things in his life and been present during significant historic events\u2014in each case, far exceeding what anyone imagined he could do. But despite all he has achieved, his one true love eludes him.",
+"release_date": "1994-07-06",
+"vote_average": 8.4,
+"runtime": 142,
+"cert": "12",
+"id": 13,
+"title": "Forrest Gump",
+"adult": false,
+"genre_ids": [
+35,
+18,
+10749
+]
+},
+{
+"cast": [
+"Kevin Spacey",
+"Annette Bening",
+"Thora Birch",
+"Wes Bentley",
+"Mena Suvari"
+],
+"overview": "Lester Burnham, a depressed suburban father in a mid-life crisis, decides to turn his hectic life around after developing an infatuation with his daughter's attractive friend.",
+"release_date": "1999-09-15",
+"vote_average": 8.0,
+"runtime": 122,
+"cert": "18",
+"id": 14,
+"title": "American Beauty",
+"adult": false,
+"genre_ids": [
+18
+]
+},
+{
+"cast": [
+"Orson Welles",
+"Joseph Cotten",
+"Dorothy Comingore",
+"Ray Collins",
+"George Coulouris"
+],
+"overview": "Newspaper magnate, Charles Foster Kane is taken from his mother as a boy and made the ward of a rich industrialist. As a result, every well-meaning, tyrannical or self-destructive move he makes for the rest of his life appears in some way to be a reaction to that deeply wounding event.",
+"release_date": "1941-04-30",
+"vote_average": 8.1,
+"runtime": 119,
+"cert": "U",
+"id": 15,
+"title": "Citizen Kane",
+"adult": false,
+"genre_ids": [
+9648,
+18
+]
+},
+{
+"cast": [
+"Björk",
+"Catherine Deneuve",
+"David Morse",
+"Peter Stormare",
+"Joel Grey"
+],
+"overview": "Selma, a Czech immigrant on the verge of blindness, struggles to make ends meet for herself and her son, who has inherited the same genetic disorder and will suffer the same fate without an expensive operation. When life gets too difficult, Selma learns to cope through her love of musicals, escaping life's troubles - even if just for a moment - by dreaming up little numbers to the rhythmic beats of her surroundings.",
+"release_date": "2000-05-17",
+"vote_average": 7.9,
+"runtime": 141,
+"cert": "",
+"id": 16,
+"title": "Dancer in the Dark",
+"adult": false,
+"genre_ids": [
+18,
+80,
+10402
+]
+},
+{
+"cast": [
+"Sean Bean",
+"Maria Bello",
+"Richard Elfyn",
+"Maurice Roeves",
+"Abigail Stone"
+],
+"overview": "Adèle and her daughter Sarah are traveling on the Welsh coastline to see her husband James when Sarah disappears. A different but similar looking girl appears who says she died in a past time. Adèle tries to discover what happened to her daughter as she is tormented by Celtic mythology from the past.",
+"release_date": "2005-09-28",
+"vote_average": 5.9,
+"runtime": 87,
+"cert": "15",
+"id": 17,
+"title": "The Dark",
+"adult": false,
+"genre_ids": [
+27,
+53,
+9648
+]
+},
+{
+"cast": [
+"Bruce Willis",
+"Gary Oldman",
+"Ian Holm",
+"Milla Jovovich",
+"Chris Tucker"
+],
+"overview": "In 2257, a taxi driver is unintentionally given the task of saving a young girl who is part of the key that will ensure the survival of humanity.",
+"release_date": "1997-05-02",
+"vote_average": 7.4,
+"runtime": 126,
+"cert": "PG",
+"id": 18,
+"title": "The Fifth Element",
+"adult": false,
+"genre_ids": [
+12,
+14,
+28,
+53,
+878
+]
+}
+  ]

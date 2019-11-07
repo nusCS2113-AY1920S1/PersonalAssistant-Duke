@@ -1,7 +1,8 @@
 package entertainment.pro.storage.utils;
 
 
-//import entertainment.pro.commons.exceptions.InvalidFormatCommandExceptions;
+
+import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.model.UserProfile;
 import org.junit.jupiter.api.Test;
 
@@ -30,14 +31,14 @@ public class ProfileCommandsTest {
 
     /*
     @Test
-    public void addPreferenceTest_valid_sort_input() throws InvalidFormatCommandExceptions {
+    public void addPreferenceTest_valid_sort_input() throws InvalidFormatCommandException, IOException {
         TreeMap<String, ArrayList<String>> flagMap = new TreeMap<>();
         ArrayList<String> sortOption = new ArrayList<>();
         sortOption.add("1");
         flagMap.put("-s", sortOption);
         try {
             profileCommands.addPreference(flagMap, "-s");
-        } catch (IOException e) {
+        } catch (IOException | InvalidFormatCommandException e) {
             e.printStackTrace();
         }
         assertTrue(userProfile.isSortByAlphabetical(), "Test failed");
@@ -47,29 +48,29 @@ public class ProfileCommandsTest {
     }
 
     @Test
-    public void addPreferenceTest_invalid_sort_input() throws IOException, InvalidFormatCommandExceptions {
+    public void addPreferenceTest_invalid_sort_input() throws IOException, InvalidFormatCommandException {
         TreeMap<String, ArrayList<String>> testFlagMap1 = new TreeMap<>();
         TreeMap<String, ArrayList<String>> testFlagMap2 = new TreeMap<>();
         ArrayList<String> sortOption = new ArrayList<>();
         sortOption.add("4");
         testFlagMap1.put("-s", sortOption);
-        assertThrows(InvalidFormatCommandExceptions.class, () -> {
+        assertThrows(InvalidFormatCommandException.class, () -> {
                 profileCommands.addPreference(testFlagMap1, "-s");
         });
         testFlagMap1.get("-s").add("4");
-        assertThrows(InvalidFormatCommandExceptions.class, () -> {
+        assertThrows(InvalidFormatCommandException.class, () -> {
             profileCommands.addPreference(testFlagMap1, "-s");
         });
         sortOption.clear();
         sortOption.add("0");
         testFlagMap2.put("-s", sortOption);
-        assertThrows(InvalidFormatCommandExceptions.class, () -> {
+        assertThrows(InvalidFormatCommandException.class, () -> {
             profileCommands.addPreference(testFlagMap2, "-s");
         });
     }
 
     @Test
-    public void addPreferenceTest_valid_adult_input() throws InvalidFormatCommandExceptions {
+    public void addPreferenceTest_valid_adult_input() throws InvalidFormatCommandException, IOException {
         TreeMap<String, ArrayList<String>> flagMap = new TreeMap<>();
         ArrayList<String> adultOption = new ArrayList<>();
         adultOption.add("true");
@@ -84,29 +85,29 @@ public class ProfileCommandsTest {
     }
 
     @Test
-    public void addPreferenceTest_invalid_adult_input() throws IOException, InvalidFormatCommandExceptions {
+    public void addPreferenceTest_invalid_adult_input() throws IOException, InvalidFormatCommandException {
         TreeMap<String, ArrayList<String>> testFlagMap1 = new TreeMap<>();
         TreeMap<String, ArrayList<String>> testFlagMap2 = new TreeMap<>();
         ArrayList<String> adultOption = new ArrayList<>();
         adultOption.add("yes");
         testFlagMap1.put("-a", adultOption);
-        assertThrows(InvalidFormatCommandExceptions.class, () -> {
+        assertThrows(InvalidFormatCommandException.class, () -> {
             profileCommands.addPreference(testFlagMap1, "-a");
         });
         testFlagMap1.get("-a").add("true");
-        assertThrows(InvalidFormatCommandExceptions.class, () -> {
+        assertThrows(InvalidFormatCommandException.class, () -> {
             profileCommands.addPreference(testFlagMap1, "-a");
         });
         adultOption.clear();
         adultOption.add("allow");
         testFlagMap2.put("-a", adultOption);
-        assertThrows(InvalidFormatCommandExceptions.class, () -> {
+        assertThrows(InvalidFormatCommandException.class, () -> {
             profileCommands.addPreference(testFlagMap2, "-a");
         });
     }
 
     @Test
-    public void clearPreferenceTest_valid_sort_input() throws InvalidFormatCommandExceptions {
+    public void clearPreferenceTest_valid_sort_input() throws InvalidFormatCommandException, IOException {
         TreeMap<String, ArrayList<String>> flagMap = new TreeMap<>();
         ArrayList<String> sortOption = new ArrayList<>();
         flagMap.put("-s", sortOption);
@@ -122,23 +123,23 @@ public class ProfileCommandsTest {
     }
 
     @Test
-    public void clearPreferenceTest_invalid_sort_input() throws IOException, InvalidFormatCommandExceptions {
+    public void clearPreferenceTest_invalid_sort_input() throws IOException, InvalidFormatCommandException {
         TreeMap<String, ArrayList<String>> testFlagMap1 = new TreeMap<>();
         TreeMap<String, ArrayList<String>> testFlagMap2 = new TreeMap<>();
         ArrayList<String> sortOption = new ArrayList<>();
         sortOption.add("4");
         testFlagMap1.put("-s", sortOption);
-        assertThrows(InvalidFormatCommandExceptions.class, () -> {
+        assertThrows(InvalidFormatCommandException.class, () -> {
             profileCommands.clearPreference(testFlagMap1, "-s");
         });
         testFlagMap1.get("-s").add("0");
-        assertThrows(InvalidFormatCommandExceptions.class, () -> {
+        assertThrows(InvalidFormatCommandException.class, () -> {
             profileCommands.clearPreference(testFlagMap1, "-s");
         });
         sortOption.clear();
         sortOption.add("0");
         testFlagMap2.put("-s", sortOption);
-        assertThrows(InvalidFormatCommandExceptions.class, () -> {
+        assertThrows(InvalidFormatCommandException.class, () -> {
             profileCommands.clearPreference(testFlagMap2, "-s");
         });
     }
