@@ -1,5 +1,7 @@
 package owlmoney.model.profile;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import owlmoney.model.bank.Bank;
 import owlmoney.model.bank.BankList;
 import owlmoney.model.bank.Investment;
@@ -30,6 +32,7 @@ import java.time.YearMonth;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 /**
  * Stores details of the user which includes bank accounts, cards, names.
@@ -69,6 +72,8 @@ public class Profile {
     private static final String BLANK = "";
     private static final int ARRAY_INDEX = 1;
     private static final String RECURRING = "recurring";
+    private static final Logger logger = getLogger(Profile.class);
+
 
     /**
      * Creates a new instance of the user profile.
@@ -90,6 +95,7 @@ public class Profile {
         } catch (IllegalArgumentException | IndexOutOfBoundsException | NullPointerException
                 | BankException | ParseException exceptionMessage) {
             ui.printError("Error importing banks from persistent storage.");
+            logger.warning(exceptionMessage.getMessage());
         }
         try {
             iterateBanksToAddTransaction();
@@ -97,29 +103,34 @@ public class Profile {
                 | BankException | ParseException exceptionMessage) {
             ui.printError("Error importing transactions, recurring transactions and "
                     + "bonds for bank accounts.");
+            logger.warning(exceptionMessage.getMessage());
         }
         try {
             loadGoalsFromImportedData();
         } catch (IllegalArgumentException | NullPointerException | ParseException
                 | BankException exceptionMessage) {
             ui.printError("Error importing goals from persistent storage.");
+            logger.warning(exceptionMessage.getMessage());
         }
         try {
             loadCardsFromImportedData();
         } catch (IllegalArgumentException | IndexOutOfBoundsException
                 | NullPointerException | CardException exceptionMessage) {
             ui.printError("Error importing cards from persistent storage.");
+            logger.warning(exceptionMessage.getMessage());
         }
         try {
             iterateCardsToAddTransaction();
         } catch (IllegalArgumentException | IndexOutOfBoundsException | NullPointerException
                 | ParseException exceptionMessage) {
             ui.printError("Error importing cards from persistent storage.");
+            logger.warning(exceptionMessage.getMessage());
         }
         try {
             loadAchievementFromImportedData();
         } catch (IllegalArgumentException | NullPointerException | ParseException | GoalsException exceptionMessage) {
             ui.printError("Error importing goals from persistent storage.");
+            logger.warning(exceptionMessage.getMessage());
         }
     }
 

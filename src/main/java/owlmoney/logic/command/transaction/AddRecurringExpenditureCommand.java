@@ -47,7 +47,7 @@ public class AddRecurringExpenditureCommand extends Command {
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
-     * @throws BankException If bank account does not exists or is an investment account.
+     * @throws BankException        If bank account does not exists or is an investment account.
      * @throws TransactionException If the recurring expenditure list is full.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException {

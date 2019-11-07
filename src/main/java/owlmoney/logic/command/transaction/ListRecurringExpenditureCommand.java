@@ -16,8 +16,8 @@ public class ListRecurringExpenditureCommand extends Command {
     /**
      * Creates an instance of ListRecurringExpenditureCommand.
      *
-     * @param name       Bank account name.
-     * @param type       Represents type of expenditure to be listed.
+     * @param name Bank account name.
+     * @param type Represents type of expenditure to be listed.
      */
     public ListRecurringExpenditureCommand(String name, String type) {
         this.accName = name;
