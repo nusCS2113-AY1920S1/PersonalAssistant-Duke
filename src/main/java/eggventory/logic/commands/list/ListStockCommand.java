@@ -17,7 +17,7 @@ public class ListStockCommand extends Command {
         String output = "";
 
         //Outstanding case when list is empty
-        int max = list.getStockQuantity();
+        int max = list.getTotalNumberOfStocks();
         String listString = "";
         if (max == 0) {
             output = "The list is currently empty.";

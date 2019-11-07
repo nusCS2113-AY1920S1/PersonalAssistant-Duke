@@ -29,8 +29,13 @@ public class AddLoanCommand extends Command {
         this.quantity = quantity;
     }
 
-    private boolean stockExists() {
-        if (LoanList.getStockLoanedQuantity(stockCode) == -1) {
+    /**
+     * Determines if this Stock exists, checked by the stockCode.
+     * @param list the stockList being checked.
+     * @return true if the stock exists inside the list.
+     */
+    private boolean stockExists(StockList list) {
+        if (list.findStock(stockCode) == null) {
             return false;
         }
 
@@ -44,8 +49,8 @@ public class AddLoanCommand extends Command {
         return true;
     }
 
-    private boolean sufficientStock() {
-        if (LoanList.getStockLoanedQuantity(stockCode) - quantity < 0) {
+    private boolean sufficientStock(StockList list) {
+        if (list.getStockQuantity(stockCode) - LoanList.getStockLoanedQuantity(stockCode) - quantity < 0) {
             return false;
         }
         return true;
@@ -62,10 +67,13 @@ public class AddLoanCommand extends Command {
         String output = "";
         if (!personExists()) {
             output += String.format("Sorry, the person with matric number \"%s\" does not exist!", matricNo);
-        } else if (!stockExists()) {
+
+        } else if (!stockExists(list)) {
             output += String.format("Sorry, that stock with StockCode \"%s\" does not exist!", stockCode);
-        } else if (!sufficientStock()) {
+
+        } else if (!sufficientStock(list)) {
             output = ("OOPS there is insufficient stock to loan out!");
+
         } else {
             LoanList.addLoan(matricNo, stockCode, quantity);
 

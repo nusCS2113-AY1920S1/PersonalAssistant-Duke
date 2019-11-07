@@ -1,13 +1,12 @@
 package eggventory.logic.commands.add;
 
-import eggventory.model.LoanList;
-import eggventory.model.StockList;
-import eggventory.logic.commands.Command;
-import eggventory.commons.exceptions.BadInputException;
-import eggventory.ui.Ui;
-import eggventory.storage.Storage;
-import eggventory.model.items.DateTime;
 import eggventory.commons.enums.CommandType;
+import eggventory.commons.exceptions.BadInputException;
+import eggventory.logic.commands.Command;
+import eggventory.model.StockList;
+import eggventory.model.items.DateTime;
+import eggventory.storage.Storage;
+import eggventory.ui.Ui;
 
 /**
  * Command objects for adding Stocks.
@@ -72,6 +71,5 @@ public class AddStockCommand extends Command {
      */
     public void execute(StockList list) throws BadInputException {
         list.addStock(stockType, stockCode, quantity, description);
-        LoanList.addStock(stockCode, quantity);
     }
 }

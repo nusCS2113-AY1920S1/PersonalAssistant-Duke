@@ -24,7 +24,7 @@ public class FindCommand extends Command {
     public String execute(StockList list, Ui ui, Storage storage) {
         String output;
         //int max = list.getQuantity(); Note by Rebs: changed variable name to be more specific.
-        int max = list.getStockQuantity();
+        int max = list.getTotalNumberOfStocks();
         boolean found = false;
 
         String listString = "";

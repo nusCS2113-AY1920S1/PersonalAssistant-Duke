@@ -127,8 +127,6 @@ public class StockList {
         return null;
     }
 
-    //@@author cyanoei
-
     /**
      * Formats an error message for the case of editing to a repeated stockCode.
      * @param newStockCode the new stockCode chosen by the user.
@@ -187,12 +185,17 @@ public class StockList {
      * @return the stockType before editing, for printing purpose.
      */
     public StockType setStockType(String stockTypeName, String newName) {
-        StockType previous;
+        StockType updated;
         for (StockType stockType : stockList) {
             if (stockTypeName.equals(stockType.getName())) {
-                previous = stockType;
+                updated = stockType;
                 stockType.setName(newName);
-                return previous;
+
+                for (Stock stock : stockType.getStockList()) {
+                    stock.setStockType(newName);
+                }
+
+                return updated;
             }
         }
         return null;
@@ -202,7 +205,7 @@ public class StockList {
      * Gets the total number of stocks in this stockList. This sums the number of stocks across stockTypes.
      * @return the total number of stocks.
      */
-    public int getStockQuantity() { //The number of stocks in the list, across all stockTypes.
+    public int getTotalNumberOfStocks() { //The number of stocks in the list, across all stockTypes.
         int total = 0;
         for (StockType stockType : stockList) {
             total += stockType.getQuantity();
@@ -212,6 +215,22 @@ public class StockList {
     }
 
     //@@author cyanoei
+
+    /**
+     * Obtains the quantity of a Stock based on its StockCode.
+     * @param stockCode the StockCode of the Stock.
+     * @return the quantity of the stock, if found, otherwise -1. 
+     */
+    public int getStockQuantity(String stockCode) {
+        Stock stock = findStock(stockCode);
+        if (stock == null) {
+            return -1;
+        } else {
+            return stock.getQuantity();
+        }
+    }
+
+
     /**
      * Determines if any of the stocks in this stockList have the same stockCode.
      * @param stockCode the queried stockCode.
@@ -240,8 +259,23 @@ public class StockList {
         return false;
     }
 
+    /**
+     * Searches for a stock in the stockList which has that stockCode.
+     * @param stockCode the stockCode being queried.
+     * @return the stock in question.
+     */
+    public Stock findStock(String stockCode) {
+        for (StockType stocktype : stockList) {
+            for (Stock stock : stocktype.getStockList()) {
+                if (stock.getStockCode().equals(stockCode)) {
+                    return stock;
+                }
+            }
+        }
+        return null;
+    }
 
-    //@@author
+    //@@author yanprosobo
     /**
      * Prints every stock within stocklist whose stocktype matches query. Should only be called by Cli.
      * @return The string of the stocklist whose stocktype matches query.

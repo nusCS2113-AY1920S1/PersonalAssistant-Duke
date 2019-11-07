@@ -5,13 +5,8 @@ import eggventory.commons.exceptions.BadInputException;
 import eggventory.logic.commands.Command;
 import eggventory.model.LoanList;
 import eggventory.model.StockList;
-import eggventory.model.TemplateList;
-import eggventory.model.loans.Loan;
 import eggventory.storage.Storage;
 import eggventory.ui.Ui;
-
-import javax.imageio.ImageTranscoder;
-import java.util.ArrayList;
 
 public class AddLoanByTemplateCommand extends Command {
 
@@ -32,7 +27,7 @@ public class AddLoanByTemplateCommand extends Command {
     @Override
     public String execute(StockList list, Ui ui, Storage storage) throws BadInputException {
 
-        String output = LoanList.addLoan(matricNo, name);
+        String output = LoanList.addLoanByTemplate(matricNo, name);
 
         if (output == null) {
             output = "OOPS! Template does not exist!";

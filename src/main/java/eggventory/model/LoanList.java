@@ -59,7 +59,7 @@ public final class LoanList {
      * @param template Name of the template.
      * @return String of the loans added.
      */
-    public static String addLoan(String matricNo, String template) {
+    public static String addLoanByTemplate(String matricNo, String template) {
         Loan[] loans = TemplateList.getTemplateLoans(template);
         if (loans == null) {
             return null;
@@ -96,15 +96,6 @@ public final class LoanList {
     }
 
     //@@author Deculsion
-
-    /**
-     * Adds a new stock to track in LoanList.
-     * @param stockCode The code of the stock
-     * @param quantity The starting quantity of the stock
-     */
-    public static void addStock(String stockCode, int quantity) {
-        updateStockLoaned(stockCode, quantity);
-    }
 
     /**
      * Returns the quantity of a certain Stock that a Person has loaned out.
