@@ -26,7 +26,7 @@ public class Task {
     }
 
     public String getTask() {
-        return this.getTaskToLowerCase();
+        return task;
     }
 
     /**
