@@ -17,6 +17,7 @@ import spinbox.entities.items.tasks.Task;
 import spinbox.entities.items.tasks.Todo;
 import spinbox.entities.items.tasks.Tutorial;
 
+import spinbox.exceptions.InputException;
 import spinbox.exceptions.InvalidIndexException;
 import spinbox.exceptions.StorageException;
 import spinbox.exceptions.SpinBoxException;
@@ -24,14 +25,22 @@ import spinbox.exceptions.SpinBoxException;
 import java.util.ArrayDeque;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskCommandsIntegrationTest {
+    private ModuleContainer testContainer;
+    private Module testModule;
+    private TaskList taskList;
+    private ArrayDeque<String> pageTrace;
+    private Command command;
+    private Ui ui;
+  
     @Test
     public void loadDataSuccessful_AddTasksThenManualClear_successfulRepopulationOfData() throws
             StorageException, InvalidIndexException {
         Module testModuleOne = new Module("testMod6", "Engineering Principles & Practice IV");
 
-        TaskList taskList = testModuleOne.getTasks();
+        taskList = testModuleOne.getTasks();
         while (taskList.getList().size() > 0) {
             taskList.getList().remove(0);
         }
@@ -76,11 +85,11 @@ public class TaskCommandsIntegrationTest {
     @Test
     public void setNameSuccessful_setNameOfTaskToANewName_taskNameSuccessfullySet() throws
             SpinBoxException {
-        ModuleContainer testContainer = new ModuleContainer();
-        Module testModule = new Module("CG1112", "Engineering Principles & Practice III");
+        testContainer = new ModuleContainer();
+        testModule = new Module("CG1112", "Engineering Principles & Practice III");
         testContainer.addModule(testModule);
 
-        TaskList taskList = testModule.getTasks();
+        taskList = testModule.getTasks();
         while (taskList.getList().size() > 0) {
             taskList.getList().remove(0);
         }
@@ -91,12 +100,12 @@ public class TaskCommandsIntegrationTest {
         taskList.add(testTask1);
         taskList.add(testTask2);
 
-        ArrayDeque<String> pageTrace = new ArrayDeque<>();
-        Ui ui = new Ui(true);
+        pageTrace = new ArrayDeque<>();
+        ui = new Ui(true);
 
         String setNameForTask1 = "set-name CG1112 / task 1 to: Lab";
         Parser.setPageTrace(pageTrace);
-        Command command = Parser.parse(setNameForTask1);
+        command = Parser.parse(setNameForTask1);
         command.execute(testContainer, pageTrace, ui, false);
 
         String setNameForTask2 = "set-name CG1112 / task 2 to: Todo";
@@ -110,13 +119,42 @@ public class TaskCommandsIntegrationTest {
     }
 
     @Test
-    public void setDateSuccessful_setDateOfSchedulableTaskToANewDate_taskDateSuccessfullySet() throws
+    public void setNameUnsuccessful_invalidIndexUsed_exceptionThrown() throws
             SpinBoxException {
-        ModuleContainer testContainer = new ModuleContainer();
-        Module testModule = new Module("CG1112", "Engineering Principles & Practice III");
+        testContainer = new ModuleContainer();
+        testModule = new Module("CG1112", "Engineering Principles & Practice III");
         testContainer.addModule(testModule);
 
-        TaskList taskList = testModule.getTasks();
+        taskList = testModule.getTasks();
+        while (taskList.getList().size() > 0) {
+            taskList.getList().remove(0);
+        }
+        Task testTask1 = new Todo("Test 1");
+
+        taskList.add(testTask1);
+
+        pageTrace = new ArrayDeque<>();
+        ui = new Ui(true);
+
+        try {
+            String setNameForTask1 = "set-name CG1112 / task 3 to: Lab";
+            Parser.setPageTrace(pageTrace);
+            command = Parser.parse(setNameForTask1);
+            command.execute(testContainer, pageTrace, ui, false);
+            fail();
+        } catch (InvalidIndexException e) {
+            assertEquals("Invalid Input\n\nYou have entered an invalid index.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void setDateSuccessful_setDateOfSchedulableTaskToANewDate_taskDateSuccessfullySet() throws
+            SpinBoxException {
+        testContainer = new ModuleContainer();
+        testModule = new Module("CG1112", "Engineering Principles & Practice III");
+        testContainer.addModule(testModule);
+
+        taskList = testModule.getTasks();
         while (taskList.getList().size() > 0) {
             taskList.getList().remove(0);
         }
@@ -126,13 +164,13 @@ public class TaskCommandsIntegrationTest {
 
         taskList.add(testTask1);
         taskList.add(testTask2);
-
-        ArrayDeque<String> pageTrace = new ArrayDeque<>();
-        Ui ui = new Ui(true);
+  
+        pageTrace = new ArrayDeque<>();
+        ui = new Ui(true);
 
         String setDateForTask1 = "set-date CG1112 / task 1 to: 02/01/2019 12:00";
         Parser.setPageTrace(pageTrace);
-        Command command = Parser.parse(setDateForTask1);
+        command = Parser.parse(setDateForTask1);
         command.execute(testContainer, pageTrace, ui, false);
 
         String setDateForTask2 = "set-date CG1112 / task 2 to: 02/05/2019 16:00 to 02/05/2019 19:00";
@@ -143,5 +181,195 @@ public class TaskCommandsIntegrationTest {
         assertEquals(taskList.get(0).toString(), "[D][NOT DONE] Test 1 (by: 02/01/2019 12:00)");
         assertEquals(taskList.get(1).toString(), "[EXAM][NOT DONE] Test 2 (at: 02/05/2019 16:00"
                 + " to 02/05/2019 19:00)");
+    }
+      
+    @Test
+    public void setDateUnsuccessful_invalidIndexUsed_exceptionThrown() throws
+            SpinBoxException {
+        testContainer = new ModuleContainer();
+        testModule = new Module("CG1112", "Engineering Principles & Practice III");
+        testContainer.addModule(testModule);
+
+        taskList = testModule.getTasks();
+        while (taskList.getList().size() > 0) {
+            taskList.getList().remove(0);
+        }
+        Task testTask1 = new Todo("Test 1");
+
+        taskList.add(testTask1);
+
+        pageTrace = new ArrayDeque<>();
+        ui = new Ui(true);
+
+        try {
+            String setDateForTask1 = "set-date CG1112 / task 2 to: 01/03/2019 15:00 to 01/03/2019 19:00";
+            Parser.setPageTrace(pageTrace);
+            command = Parser.parse(setDateForTask1);
+            command.execute(testContainer, pageTrace, ui, false);
+            fail();
+        } catch (InvalidIndexException e) {
+            assertEquals("Invalid Input\n\nYou have entered an invalid index.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void setDateUnsuccessful_setDateUsedOnNonSchedulableItems_exceptionThrown() throws
+            SpinBoxException {
+        testContainer = new ModuleContainer();
+        testModule = new Module("CG1112", "Engineering Principles & Practice III");
+        testContainer.addModule(testModule);
+
+        taskList = testModule.getTasks();
+        while (taskList.getList().size() > 0) {
+            taskList.getList().remove(0);
+        }
+        Task testTask1 = new Todo("Test 1");
+
+        taskList.add(testTask1);
+
+        pageTrace = new ArrayDeque<>();
+        ui = new Ui(true);
+
+        try {
+            String setDateForTask1 = "set-date CG1112 / task 1 to: 01/03/2019 15:00 to 01/03/2019 19:00";
+            Parser.setPageTrace(pageTrace);
+            command = Parser.parse(setDateForTask1);
+            command.execute(testContainer, pageTrace, ui, false);
+            fail();
+        } catch (InputException e) {
+            assertEquals("Invalid Input\n\nSorry, set-date is not available for a To-Do task.\n"
+                    + "Set-date is only available for a Deadline/Event/Exam/Lab/Lecture/Tutorial.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void removeTasksSuccessful_removeOneSingleTaskAndMultipleTasks_tasksSuccessfullyRemoved() throws
+            SpinBoxException {
+        testContainer = new ModuleContainer();
+        testModule = new Module("CG1112", "Engineering Principles & Practice III");
+        testContainer.addModule(testModule);
+
+        taskList = testModule.getTasks();
+        while (taskList.getList().size() > 0) {
+            taskList.getList().remove(0);
+        }
+        Task testTask1 = new Deadline("Test 1", new DateTime("01/01/2019 10:00"));
+        Task testTask2 = new Event("Test 2", new DateTime("01/02/2019 10:00"),
+                new DateTime("01/02/2019 12:00"));
+        Task testTask3 = new Exam("Test 3", new DateTime("01/03/2019 10:00"),
+                new DateTime("01/03/2019 12:00"));
+        Task testTask4 = new Lab("Test 4", new DateTime("01/04/2019 10:00"),
+                new DateTime("01/04/2019 12:00"));
+        Task testTask5 = new Lecture("Test 5", new DateTime("01/05/2019 10:00"),
+                new DateTime("01/05/2019 12:00"));
+        Task testTask6 = new Tutorial("Test 6", new DateTime("01/06/2019 10:00"),
+                new DateTime("01/06/2019 12:00"));
+
+        taskList.add(testTask1);
+        taskList.add(testTask2);
+        taskList.add(testTask3);
+        taskList.add(testTask4);
+        taskList.add(testTask5);
+        taskList.add(testTask6);
+
+        pageTrace = new ArrayDeque<>();
+        ui = new Ui(true);
+
+        String removeOneTask = "remove CG1112 / task 1";
+        Parser.setPageTrace(pageTrace);
+        command = Parser.parse(removeOneTask);
+        command.execute(testContainer, pageTrace, ui, false);
+
+        assertEquals(taskList.size(), 5);
+
+        String removeMultipleTasks = "remove-* CG1112 / task 1,2,3,4,5";
+        Parser.setPageTrace(pageTrace);
+        command = Parser.parse(removeMultipleTasks);
+        command.execute(testContainer, pageTrace, ui, false);
+
+        assertEquals(taskList.size(), 0);
+    }
+
+    @Test
+    public void updateTasksSuccessful_updateOneSingleTaskAndMultipleTasks_tasksSuccessfullyUpdated() throws
+            SpinBoxException {
+        testContainer = new ModuleContainer();
+        testModule = new Module("CG1112", "Engineering Principles & Practice III");
+        testContainer.addModule(testModule);
+
+        taskList = testModule.getTasks();
+        while (taskList.getList().size() > 0) {
+            taskList.getList().remove(0);
+        }
+        Task testTask1 = new Event("Test 1", new DateTime("01/02/2019 10:00"),
+                new DateTime("01/02/2019 12:00"));
+        Task testTask2 = new Exam("Test 2", new DateTime("01/03/2019 10:00"),
+                new DateTime("01/03/2019 12:00"));
+        Task testTask3 = new Lab("Test 3", new DateTime("01/04/2019 10:00"),
+                new DateTime("01/04/2019 12:00"));
+        Task testTask4 = new Lecture("Test 4", new DateTime("01/05/2019 10:00"),
+                new DateTime("01/05/2019 12:00"));
+        Task testTask5 = new Tutorial("Test 5", new DateTime("01/06/2019 10:00"),
+                new DateTime("01/06/2019 12:00"));
+
+        taskList.add(testTask1);
+        taskList.add(testTask2);
+        taskList.add(testTask3);
+        taskList.add(testTask4);
+        taskList.add(testTask5);
+
+        pageTrace = new ArrayDeque<>();
+        ui = new Ui(true);
+
+        String updateOneTask = "update CG1112 / task 1 true";
+        Parser.setPageTrace(pageTrace);
+        command = Parser.parse(updateOneTask);
+        command.execute(testContainer, pageTrace, ui, false);
+
+        assertEquals(taskList.get(4).toString(), "[E][DONE] Test 1 (at: 01/02/2019 10:00 to 01/02/2019 12:00)");
+
+        String updateMultipleTasks = "update-* CG1112 / task 1,2,3,4 true";
+        Parser.setPageTrace(pageTrace);
+        command = Parser.parse(updateMultipleTasks);
+        command.execute(testContainer, pageTrace, ui, false);
+
+        assertEquals(taskList.get(1).toString(), "[EXAM][DONE] Test 2 (at: 01/03/2019 10:00"
+                + " to 01/03/2019 12:00)");
+        assertEquals(taskList.get(2).toString(), "[LAB][DONE] Test 3 (at: 01/04/2019 10:00"
+                + " to 01/04/2019 12:00)");
+        assertEquals(taskList.get(3).toString(), "[LEC][DONE] Test 4 (at: 01/05/2019 10:00"
+                + " to 01/05/2019 12:00)");
+        assertEquals(taskList.get(4).toString(), "[TUT][DONE] Test 5 (at: 01/06/2019 10:00"
+                + " to 01/06/2019 12:00)");
+    }
+
+    @Test
+    public void updateTasksUnsuccessful_noBooleanValueProvided_exceptionThrown() throws
+            SpinBoxException {
+        testContainer = new ModuleContainer();
+        testModule = new Module("CG1112", "Engineering Principles & Practice III");
+        testContainer.addModule(testModule);
+
+        taskList = testModule.getTasks();
+        while (taskList.getList().size() > 0) {
+            taskList.getList().remove(0);
+        }
+        Task testTask1 = new Event("Test 1", new DateTime("01/02/2019 10:00"),
+                new DateTime("01/02/2019 12:00"));
+
+        taskList.add(testTask1);
+
+        pageTrace = new ArrayDeque<>();
+        ui = new Ui(true);
+
+        try {
+            String updateTask = "update CG1112 / task 1";
+            Parser.setPageTrace(pageTrace);
+            command = Parser.parse(updateTask);
+            command.execute(testContainer, pageTrace, ui, false);
+            fail();
+        } catch (InputException e) {
+            assertEquals("Invalid Input\n\nPlease provide an index of item to be updated.", e.getMessage());
+        }
     }
 }
