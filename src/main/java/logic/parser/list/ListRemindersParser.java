@@ -7,11 +7,12 @@ import logic.command.list.ListRemindersCommand;
 public class ListRemindersParser {
 
     //@@author AugGust
+
     /**
-     * parse list todo task command, according to list type, picnum/'nothing'
-     * @param argument command after todo
-     * @return a list todo task command
-     * @throws DukeException throw exception when list type is not correct
+     * Parses for "list reminders"
+     * @param argument not used for this parser
+     * @return Command to list reminders
+     * @throws DukeException
      */
     public static Command parseReminders(String argument) throws DukeException {
         return new ListRemindersCommand();
