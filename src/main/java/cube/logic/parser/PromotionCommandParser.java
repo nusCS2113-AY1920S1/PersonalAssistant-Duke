@@ -1,3 +1,9 @@
+/**
+ * The command adds a new promotion to the promotion list.
+ *
+ * @author parvathi14
+ */
+
 package cube.logic.parser;
 
 import cube.logic.command.PromotionCommand;

@@ -9,6 +9,7 @@ import cube.model.food.Food;
 import cube.model.food.FoodList;
 import cube.logic.command.exception.CommandException;
 import cube.logic.command.exception.CommandErrorMessage;
+import cube.model.promotion.PromotionList;
 
 public class CommandUtil {
 
@@ -76,5 +77,4 @@ public class CommandUtil {
     		throw new CommandException(CommandErrorMessage.INVALID_QUANTITY_SOLD);
     	}
     }
-	
 }
