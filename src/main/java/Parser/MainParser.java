@@ -34,7 +34,7 @@ public class MainParser {
             case "remind/rm":
                 return new RemindParse(fullCommand).parse();
 
-            case "/show":
+            case "show/workload":
                 return new WorkloadParse(fullCommand).parse();
 
             case "filter":

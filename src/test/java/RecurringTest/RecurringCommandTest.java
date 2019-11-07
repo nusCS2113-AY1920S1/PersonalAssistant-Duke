@@ -3,7 +3,7 @@ package RecurringTest;
 import Commands.Command;
 import Commands.RecurringCommand;
 import Commons.LookupTable;
-import Commons.Ui;
+import Commons.UserInteraction;
 import StubClasses.StorageStub;
 import Tasks.Assignment;
 import Tasks.Event;
@@ -23,8 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class RecurringCommandTest {
     private static TaskList events = new TaskList();
     private static TaskList deadlines = new TaskList();
-    private static LookupTable lookupTable = new LookupTable();
-    private Ui ui = new Ui();
+    private UserInteraction ui = new UserInteraction();
     private StorageStub storageStub = new StorageStub();
     private static String description;
     private static String startWeekDate;
@@ -51,6 +50,7 @@ public class RecurringCommandTest {
     private static SimpleDateFormat eventTimeInputFormat = new SimpleDateFormat("HHmm");
     private static SimpleDateFormat dateOutputFormat = new SimpleDateFormat("E dd/MM/yyyy");
     private static SimpleDateFormat timeOutputFormat = new SimpleDateFormat("hh:mm a");
+    private static LookupTable lookupTable = LookupTable.getInstance();
 
     @BeforeAll
     public static void setAllVariables() throws ParseException {
@@ -88,7 +88,7 @@ public class RecurringCommandTest {
         String expected = "Sorry, you have similar event at the same time on the same day";
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
@@ -101,7 +101,7 @@ public class RecurringCommandTest {
         String expected = "Sorry, you have no such recurring mod task to be removed";
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
@@ -114,7 +114,7 @@ public class RecurringCommandTest {
         String expected = "Sorry, you have no such date of the recurring task to be removed";
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
@@ -127,7 +127,7 @@ public class RecurringCommandTest {
         String expected = "Sorry, you have no timing of the mod task to be removed";
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
@@ -140,7 +140,7 @@ public class RecurringCommandTest {
         String expected = "Weekly recurring task: " + description + " has been added between " + endDateString + " and " + dateAfterEndDateString + "\n";
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
@@ -154,7 +154,7 @@ public class RecurringCommandTest {
         String expected = "Weekly recurring task: " + description + " has been removed between " + endDateString + " and " + dateAfterEndDateString + "\n";
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
@@ -168,7 +168,7 @@ public class RecurringCommandTest {
         String expected = "Biweekly recurring task: " + description + " has been added between " + endDateString + " and " + dateAfterEndDateString + "\n";
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
@@ -181,7 +181,7 @@ public class RecurringCommandTest {
         String expected = "Biweekly recurring task: " + description + " has been removed between " + endDateString + " and " + dateAfterEndDateString + "\n";
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
