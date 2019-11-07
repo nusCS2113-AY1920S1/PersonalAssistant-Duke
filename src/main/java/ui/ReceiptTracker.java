@@ -197,6 +197,15 @@ public class ReceiptTracker extends ArrayList<Receipt> {
     }
 
     /**
+     * Deletes a receipt via its index.
+     *
+     * @param index Index of the receipt to be deleted
+     */
+    public void deleteReceiptsByIndex(int index) {
+        this.remove(index);
+    }
+
+    /**
      * Prints all the receipts stored in the ReceiptTracker Object.
      * @return String containing all the receipts to be printed to the User
      */

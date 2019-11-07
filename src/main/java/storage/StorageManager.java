@@ -19,6 +19,7 @@ public class StorageManager {
     private Wallet wallet = new Wallet();
     private TaskList taskList = new TaskList();
 
+
     /**
      * Constructor for the StorageManager Object.
      * @param taskPath String detailing the filepath to the stored Task Data
@@ -149,6 +150,21 @@ public class StorageManager {
     }
 
     /**
+     * Deletes Receipt by Index in ReceiptTracker Object.
+     * Used in CommandDeleteReceipt
+     * @param index int of Receipt to be deleted
+     * @throws DukeException Error occured when trying to delete Receipt
+     */
+    public void deleteReceiptByIndex(int index) throws DukeException {
+        try {
+            this.wallet.getReceipts().deleteReceiptsByIndex(index);
+        } catch (Exception e) {
+            throw new DukeException("Invalid 'receiptdelete' statement. "
+            + "Please indicate the index of the receipt you wish to delete.\n");
+        }
+    }
+
+    /**
      * Gets the taskName property of a Task by its index in a TaskList.
      * Used in CommandDelete.
      * @param index int representing the index of the Task
@@ -162,6 +178,7 @@ public class StorageManager {
             throw new DukeException("Unable to get Task Name of Task at index " + index + "\n");
         }
     }
+
 
     /**
      * Gets the balance property of the Wallet Object.
