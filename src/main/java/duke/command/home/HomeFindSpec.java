@@ -34,9 +34,9 @@ public class HomeFindSpec extends ArgSpec {
         String searchTerm = cmd.getArg();
         ArrayList<DukeObject> resultList = new ArrayList<>();
         if (cmd.hasNoSwitches()) {
-            resultList = core.patientList.find(searchTerm);
+            resultList = core.patientList.searchAll(searchTerm);
         } else {
-            ArrayList<Patient> filteredPatients = core.patientList.findPatient(searchTerm);
+            ArrayList<Patient> filteredPatients = core.patientList.findPatients(searchTerm);
             for (Patient patient : filteredPatients) {
                 if (cmd.isSwitchSet("patient")) {
                     resultList.add(patient);

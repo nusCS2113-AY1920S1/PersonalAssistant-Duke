@@ -37,7 +37,7 @@ public class PatientFindSpec extends ArgSpec {
         ArrayList<DukeObject> resultList = new ArrayList<>();
         ArrayList<Impression> impressionResult;
         if (cmd.hasNoSwitches()) {
-            resultList = patient.find(searchTerm);
+            resultList = patient.searchAll(searchTerm);
         } else {
             impressionResult = patient.findImpressions(searchTerm);
             for (Impression imp : impressionResult) {

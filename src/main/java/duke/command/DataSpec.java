@@ -8,9 +8,9 @@ public abstract class DataSpec extends ArgSpec {
 
     private DukeData data;
 
-    public void execute(DukeCore core, ArgCommand cmd, DukeData data) throws DukeException {
+    public void execute(DukeCore core, DukeData data) throws DukeException {
         this.data = data;
-        execute(core, cmd);
+        execute(core);
         this.data = null;
     }
 }

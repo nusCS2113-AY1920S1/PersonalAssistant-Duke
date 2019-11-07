@@ -51,7 +51,7 @@ public class Patient extends DukeObject {
         this.primaryDiagnosis = null;
     }
 
-    private Boolean isDuplicate(Impression newImpression) {
+    private boolean isDuplicate(Impression newImpression) {
         String newLower = newImpression.getName().toLowerCase();
         for (Impression oldImpression : impressions) {
             String oldLower = oldImpression.getName().toLowerCase();
@@ -90,13 +90,13 @@ public class Patient extends DukeObject {
             impressions.remove(deletedImpression);
             return deletedImpression;
         }
-        throw new DukeException("I don't have that entry in the list!");
+        throw new DukeException("I don't have an Impression called that!");
     }
 
     /**
      * This getImpression function returns the impression from the impressions list at the specified index.
      *
-     * @param keyIdentifier index of the impression
+     * @param keyIdentifier name of the impression
      * @return Impression the impression specified by the index
      */
     public Impression getImpression(String keyIdentifier) throws DukeException {
@@ -107,24 +107,7 @@ public class Patient extends DukeObject {
                 return imp;
             }
         }
-        return null;
-    }
-
-    /**
-     * This function finds Impressions relevant to the searchTerm.
-     *
-     * @param searchTerm the search term
-     * @return the list of impressions
-     */
-    public ArrayList<Impression> findImpressions(String searchTerm) {
-        ArrayList<Impression> searchResult = new ArrayList<>();
-        String lowerSearchTerm = searchTerm.toLowerCase();
-        for (Impression impression : impressions) {
-            if (impression.toString().toLowerCase().contains(lowerSearchTerm)) {
-                searchResult.add(impression);
-            }
-        }
-        return searchResult;
+        throw new DukeException("I don't have an Impression called that!");
     }
 
     /**
@@ -190,6 +173,25 @@ public class Patient extends DukeObject {
         return resultList;
     }
 
+
+    /**
+     * This function finds Impressions relevant to the searchTerm.
+     *
+     * @param searchTerm the search term
+     * @return the list of impressions
+     */
+    public ArrayList<Impression> findImpressions(String searchTerm) {
+        ArrayList<Impression> searchResult = new ArrayList<>();
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        for (Impression impression : impressions) {
+            if (impression.toString().toLowerCase().contains(lowerSearchTerm)) {
+                searchResult.add(impression);
+            }
+        }
+        return searchResult;
+    }
+
+
     /**
      * This function find returns a list of all DukeObjects.
      * with names related to the patient containing the search term.
@@ -197,7 +199,7 @@ public class Patient extends DukeObject {
      * @param searchTerm String to be used to filter the DukeObj
      * @return the hashMap of DukeObjs
      */
-    public ArrayList<DukeObject> find(String searchTerm) throws DukeException {
+    public SearchResult searchAll(String searchTerm) throws DukeException {
         ArrayList<Impression> filteredList = findImpressions(searchTerm);
         ArrayList<DukeObject> searchResult = new ArrayList<>();
         for (Impression imp : filteredList) {
@@ -403,6 +405,14 @@ public class Patient extends DukeObject {
         } else {
             return count + "critical issues";
         }
+    }
+
+    public boolean contains(String searchTerm) {
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        return allergies.toLowerCase().contains(lowerSearchTerm)
+                || history.toLowerCase().contains(lowerSearchTerm)
+                || getName().toLowerCase().contains(lowerSearchTerm)
+                || address.toLowerCase().contains(lowerSearchTerm);
     }
 
     public boolean equals(Patient other) {
