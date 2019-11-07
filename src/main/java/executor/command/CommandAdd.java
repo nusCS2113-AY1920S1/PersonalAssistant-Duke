@@ -11,7 +11,7 @@ public class CommandAdd extends Command {
     private double entryTwo;
 
     /**
-     * Constructor for CommandListMonYear subCommand Class.
+     * Constructor for CommandAdd subCommand Class.
      * @param userInput String is the user input from the CLI
      */
     public CommandAdd(String userInput) {
@@ -20,6 +20,7 @@ public class CommandAdd extends Command {
         this.description = "Adds two double values. Format: add <num1> / <num2>";
         this.commandType = CommandType.ADD;
     }
+
 
     @Override
     public void execute(StorageManager storageManager) {
@@ -48,8 +49,13 @@ public class CommandAdd extends Command {
         this.infoCapsule.setOutputStr(stringOne
                 + " + "
                 + stringTwo
+                + " "
                 + "="
+                + " "
                 + sum
                 + "\n");
     }
+
+
+
 }

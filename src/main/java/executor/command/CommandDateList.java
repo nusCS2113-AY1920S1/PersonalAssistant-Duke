@@ -9,7 +9,7 @@ public class CommandDateList extends Command {
     private String date;
 
     /**
-     * Constructor for CommandListMonYear subCommand Class.
+     * Constructor for CommandDateList subCommand Class.
      * @param userInput String is the user input from the CLI
      */
     public CommandDateList(String userInput) {
