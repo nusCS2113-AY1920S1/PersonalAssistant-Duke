@@ -25,6 +25,7 @@ public class HelpCommand extends Command {
     private static final String CONTACTS = "contacts";
     private static final String CAP = "cap";
     private static final String EXPENSES = "expenses";
+    private static final String SPECIALIZATION = "spec";
 
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, IOException, NullPointerException {
@@ -43,7 +44,8 @@ public class HelpCommand extends Command {
                     HelpText.MODULE_PAGE +
                     HelpText.CONTACTS_PAGE +
                     HelpText.CAP_PAGE +
-                    HelpText.EXPENSES_PAGE;
+                    HelpText.EXPENSES_PAGE +
+                    HelpText.SPECIALIZATION_PAGE;
         } else {
             switch (command[1]) {
             case TASKS: description = HelpText.TASKS_PAGE;
@@ -59,6 +61,8 @@ public class HelpCommand extends Command {
             case CAP: description = HelpText.CAP_PAGE;
                 break;
             case EXPENSES: description = HelpText.EXPENSES_PAGE;
+                break;
+            case SPECIALIZATION: description = HelpText.SPECIALIZATION_PAGE;
                 break;
             default:
                 description = "OOPS!!! There is no such command.";

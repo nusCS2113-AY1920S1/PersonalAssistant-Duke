@@ -502,13 +502,13 @@ public class HelpText {
             "\t- Type in the command \'notes\' in the main menu page and press ENTER.\n" +
             "\t- You can only go to the notes page from the main menu.\n";
 
-    public static final String NOTES_VIEW =
+    private static final String NOTES_VIEW =
             "\t[ View goal and list of modules: view ]\n" +
                     "\tLists out your goal and the list of modules you have added.\n" +
                     "\n" +
                     "\tFormat: view";
 
-    public static final String NOTES_EDIT_GOAL =
+    private static final String NOTES_EDIT_GOAL =
             "\t[ Edit goal: edit goal ]\n" +
                     "\tEdits your existing goal to the new goal you specify.\n" +
                     "\n" +
@@ -519,7 +519,7 @@ public class HelpText {
                     "\t\t2. You will be prompted with the question \"What is your new goal?\"\n" +
                     "\t\t3. Type your new goal and press ENTER.\n";
 
-    public static final String NOTES_ADD_MODULE =
+    private static final String NOTES_ADD_MODULE =
             "\t[ Add a module: add module ]\n" +
                     "\tAdds a module to your note page.\n" +
                     "\n" +
@@ -533,7 +533,7 @@ public class HelpText {
                     "\t\t2. You will be prompted with the question \"What module do you want to add?\"\n" +
                     "\t\t3. Type the module name and press ENTER.\n";
 
-    public static final String NOTES_DELETE_MODULE =
+    private static final String NOTES_DELETE_MODULE =
             "\t[ Delete a module: delete module ]\n" +
                     "\tDeletes a module from your note page.\n" +
                     "\n" +
@@ -544,7 +544,7 @@ public class HelpText {
                     "\t\t2. You will be prompted with the question \"Which module do you want to delete?\"\n" +
                     "\t\t3. Type the name of the module you want to delete and press ENTER.\n";
 
-    public static final String HEADER_MODULE_PAGE = "********** Module page: module **********\n" +
+    private static final String HEADER_MODULE_PAGE = "********** Module page: module **********\n" +
             "\n" +
             "Brings you to the module page, which contains the notes for that module, for the module you specify. " +
             "The notes for the module are grouped into 2 categories, namely assessments and miscellaneous.\n" +
@@ -558,12 +558,12 @@ public class HelpText {
             "to view/edit?\"\n" +
             "\t3. Type in the name of the module you want to view or edit and press ENTER.\n";
 
-    public static final String MODULE_VIEW =
+    private static final String MODULE_VIEW =
             "\t[ View the module’s notes: view ]\n" +
                     "\tShows you the notes you have for the module.\n" +
                     "\tFormat: view";
 
-    public static final String MODULE_EDIT_MODULE_NAME =
+    private static final String MODULE_EDIT_MODULE_NAME =
             "\t[ Edit the module’s name: edit name ]\n" +
                     "\tEdits the name of the module.\n" +
                     "\n" +
@@ -574,7 +574,7 @@ public class HelpText {
                     "\t\t2. You will be prompted with the question \"What do you want to edit the name to?\"\n" +
                     "\t\t3. Type the new name of the module and press ENTER.\n";
 
-    public static final String MODULE_ADD_ASSMT =
+    private static final String MODULE_ADD_ASSMT =
             "\t[ Add an assessment: add assmt ]\n" +
                     "\tAdds an assessment to the module.\n" +
                     "\n" +
@@ -587,7 +587,7 @@ public class HelpText {
                     "\t\t4. You will be prompted with the question \"What is the weightage of the assessment?\"\n" +
                     "\t\t5. Type the assessment weightage and press ENTER.\n";
 
-    public static final String MODULE_EDIT_ASSMT =
+    private static final String MODULE_EDIT_ASSMT =
             "\t[ Edit an assessment name: edit assmt ]\n" +
                     "\tEdits the name of the specified assessment.\n" +
                     "\n" +
@@ -600,7 +600,7 @@ public class HelpText {
                     "\t\t4. You will be prompted with the question \"What do you want to change the name to?\"\n" +
                     "\t\t5. Type in the new name and press ENTER.\n";
 
-    public static final String MODULE_EDIT_WEIGHTAGE =
+    private static final String MODULE_EDIT_WEIGHTAGE =
             "\t[ Edit an assessment weightage: edit weightage ]\n" +
                     "\tEdits the weightage of the specified assessment.\n" +
                     "\n" +
@@ -613,7 +613,7 @@ public class HelpText {
                     "\t\t4. You will be prompted with the question \"What do you want to change the weightage to?\"\n" +
                     "\t\t5. Type in the new weightage and press ENTER.\n";
 
-    public static final String MODULE_DELETE_ASSMT =
+    private static final String MODULE_DELETE_ASSMT =
             "\t[ Delete an assessment: delete assmt ]\n" +
                     "\tDeletes the specified assessment.\n" +
                     "\n" +
@@ -624,7 +624,7 @@ public class HelpText {
                     "\t\t2. You will be prompted with the question \"Which assessment do you want to delete?\"\n" +
                     "\t\t3. Type the index of the assessment you want to delete and press ENTER.\n";
 
-    public static final String MODULE_ADD_MSC =
+    private static final String MODULE_ADD_MSC =
             "\t[ Add a miscellaneous information: add msc ]\n" +
                     "\tAdds a miscellaneous information to the module.\n" +
                     "\n" +
@@ -635,7 +635,7 @@ public class HelpText {
                     "\t\t2. You will be prompted with the question \"What miscellaneous information do you want to add?\"\n" +
                     "\t\t3. Type the miscellaneous information and press ENTER.\n";
 
-    public static final String MODULE_EDIT_MSC =
+    private static final String MODULE_EDIT_MSC =
             "\t[ Edit a miscellaneous information: edit msc ]\n" +
                     "\tEdits the specified miscellaneous information.\n" +
                     "\n" +
@@ -648,7 +648,7 @@ public class HelpText {
                     "\t\t4. You will be prompted with the question \"What do you want to change the miscellaneous information to?\"\n" +
                     "\t\t5. Type the edited miscellaneous information and press ENTER.\n";
 
-    public static final String MODULE_DELETE_MSC =
+    private static final String MODULE_DELETE_MSC =
             "\t[ Delete a miscellaneous information: delete msc ]\n" +
                     "\tDeletes the specified miscellaneous information.\n" +
                     "\n" +
@@ -659,20 +659,20 @@ public class HelpText {
                     "\t\t2. You will be prompted with the question \"Which miscellaneous information do you want to delete?\"\n" +
                     "\t\t3. Type the index of the miscellaneous information you want to delete and press ENTER.\n";
 
-    public static final String MODULE_VIEW_COMMANDS =
+    private static final String MODULE_VIEW_COMMANDS =
             "\t[ View the list of possible commands for the module page: commands ]\n" +
                     "\tShows you the possible things you can do on the module page.\n" +
                     "\n" +
                     "\tFormat: commands\n";
 
-    public static final String NOTES_VIEW_COMMANDS =
+    private static final String NOTES_VIEW_COMMANDS =
             "\t[ View the list of possible commands for the notes page: commands ]\n" +
                     "\tShows you the possible things you can do on the notes page.\n" +
                     "\n" +
                     "\tFormat: commands\n";
 
     //---------------------------------------------------contacts---------------------------
-    public static final String HEADER_CONTACTS_PAGE = "********** Contacts page: contacts **********\n" +
+    private static final String HEADER_CONTACTS_PAGE = "********** Contacts page: contacts **********\n" +
             "\n" +
             "Function to store contacts.\n" +
             "Enter the contacts page.\n" +
@@ -682,7 +682,7 @@ public class HelpText {
             "Example:\n" +
             "\t- contacts\n";
 
-    public static final String CONTACT_ADD =
+    private static final String CONTACT_ADD =
             "\t[ Adding a new contact name and number ]\n" +
                     "\tAdds and stores a new name and number.\n" +
                     "\n" +
@@ -691,7 +691,7 @@ public class HelpText {
                     "\tExample:\n" +
                     "\t\t- Add jason,96251922\n";
 
-    public static final String CONTACT_FIND =
+    private static final String CONTACT_FIND =
             "\t[ Finding a contact ]\n" +
                     "\tList out the contact names that have the keyword.\n" +
                     "\n" +
@@ -700,7 +700,7 @@ public class HelpText {
                     "\tExample:\n" +
                     "\t\t- find Jason\n";
 
-    public static final String CONTACT_LIST =
+    private static final String CONTACT_LIST =
             "\t[ Listing all contacts ]\n" +
                     "\tLists all contacts.\n" +
                     "\n" +
@@ -709,7 +709,7 @@ public class HelpText {
                     "\tExample:\n" +
                     "\t\t- list \n";
 
-    public static final String CONTACT_DELETE =
+    private static final String CONTACT_DELETE =
             "\t[ Deleting a contact in the list ]\n" +
                     "\tDeletes an existing contact in the list.\n" +
                     "\n" +
@@ -719,7 +719,7 @@ public class HelpText {
                     "\t\t- delete Jason\n";
 
     //--------------------------------------CAP-----------------------------------------------
-    public static final String HEADER_CAP_PAGE = "********** CAP page: cap **********\n" +
+    private static final String HEADER_CAP_PAGE = "********** CAP page: cap **********\n" +
             "\n" +
             "A function to calculate the CAP of modules and to store module’s sem number, code, credit and grade.\n" +
             "\n" +
@@ -728,7 +728,7 @@ public class HelpText {
             "Example:\n" +
             "\t- cap\n";
 
-    public static final String CAP_ADD_MODULE =
+    private static final String CAP_ADD_MODULE =
             "\t[ Adding a new module’s sem number, code, credit, and grade ]\n" +
                     "\tCall out the add feature and input the required module information.\n" +
                     "\tFormat: add semester number,module’s code,module’s credit,module’s grade\n" +
@@ -736,7 +736,7 @@ public class HelpText {
                     "\tExample:\n" +
                     "\t\t- add 1,cg1111,6,B\n";
 
-    public static final String CAP_FIND_MODULE =
+    private static final String CAP_FIND_MODULE =
             "\t[ Finding a module(s) ]\n" +
                     "\tFinds all the modules by module’s code\n" +
                     "\n" +
@@ -745,7 +745,7 @@ public class HelpText {
                     "\tExample:\n" +
                     "\t\t- find CS1231\n";
 
-    public static final String CAP_LIST_MODULE =
+    private static final String CAP_LIST_MODULE =
             "\t[ Listing modules ]\n" +
                     "\tCall out the list feature\n" +
                     "\n" +
@@ -755,7 +755,7 @@ public class HelpText {
                     "\t\t- list all\n" +
                     "\t\t- list 1\n";
 
-    public static final String CAP_DELETE_MODULE =
+    private static final String CAP_DELETE_MODULE =
             "\t[ Deleting a module in the list ]\n" +
                     "\tDeletes an existing module in the list.\n" +
                     "\n" +
@@ -804,7 +804,7 @@ public class HelpText {
             "\t\t4. You will be prompted with the question \"How much did you spend:\"\n" +
             "\t\t5. Type the price of the item and press ENTER.\n" +
             "\t\t6. You will be prompted with the hint \"Date of purchase:\"\n" +
-            "\t\t7. Type the date the item was bought in the format YYYY-MM-DD and press ENTER.";
+            "\t\t7. Type the date the item was bought in the format YYYY-MM-DD and press ENTER.\n";
 
     private static final String EXP_DELETE = "\t[ Delete a certain expense: delete expense ]\n" +
             "\tDeletes an expense from your expenses list.\n" +
@@ -815,6 +815,33 @@ public class HelpText {
             "\t\t1. Type the command delete and press ENTER.\n" +
             "\t\t2. Type the index of the expense you want to delete and press ENTER.\n";
 
+    //----------------------------------specialisation-----------------------------
+    private static final String HEADER_SPECIALISATION_PAGE = "********** Specialization page: spec **********\n" +
+            "\n" +
+            "Brings you to your specialization page from the main menu page. This specialization " +
+            "page helps you be clearer of what specialization you can take in your course and record " +
+            "the technical elective modules taken to see the progress of achieving that specialization.\n";
+
+    private static final String SPEC_LIST = "\t[ List all specialization and Technical Electives ]\n" +
+            "\tShows all possible specializations and their respective modules. Number of MCs completed out of 20 will be shown too. (20MCs are needed to complete a specialization)\n" +
+            "\n" +
+            "\tFormat: list\n" +
+            "\n" +
+            "\tExample:\n" +
+            "\t\t- list\n";
+
+    private static final String SPEC_COMPLETE = "\t[ Key in completed electives ]\n" +
+            "\tAllow users to mark their chosen elective as completed and record it under the " +
+            "specific specialization.\n" +
+            "\n" +
+            "\tFormat: complete\n" +
+            "\n" +
+            "\tSteps for recording a completed technical elective module:\n" +
+            "\t\t1. Type the command complete and press ENTER.\n" +
+            "\t\t2. You will be prompted with the question \"Which specialization number is your module under?\"\n" +
+            "\t\t3. Type the index of the specialization and press ENTER.\n" +
+            "\t\t4. You will be prompted with the question \"Which module have you completed?\"\n" +
+            "\t\t5. Type the index of the module completed and press ENTER.\n";
     //-----------------------------pages--------------------------------------
     public static final String TASKS_PAGE =  SEPARATOR_PAGE +
             HEADER_TASKS_PAGE + SEPARATOR_COMMAND +
@@ -900,6 +927,11 @@ public class HelpText {
             EXP_FIND + SEPARATOR_COMMAND +
             EXP_ADD + SEPARATOR_COMMAND +
             EXP_DELETE + SEPARATOR_PAGE;
+
+    public static final String SPECIALIZATION_PAGE = SEPARATOR_PAGE +
+            HEADER_SPECIALISATION_PAGE + SEPARATOR_COMMAND +
+            SPEC_LIST + SEPARATOR_COMMAND +
+            SPEC_COMPLETE + SEPARATOR_PAGE;
 }
 
 
