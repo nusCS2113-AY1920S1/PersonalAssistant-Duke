@@ -243,10 +243,10 @@ public class Parser {
             throw new DukeException("Must enter an order index.\n\t Note that ORDER_INDEX starts from 1");
         }
         try {
-            int orderIndex = checkInt(splitter[1]);
+            int orderIndex = Integer.parseInt(splitter[1]);
             if (orderIndex <= 0) throw new DukeException("Must enter a positive order index");
-            if (splitter[0].equals("remove")) return new CancelOrderCommand(orderIndex - 1);
-            else return new DoneOrderCommand(orderIndex - 1);
+            if (splitter[0].equals("cancel")) return new CancelOrderCommand(orderIndex);
+            else return new DoneOrderCommand(orderIndex);
         } catch (NumberFormatException e) {
             throw new DukeException("Must enter a valid order index");
         }

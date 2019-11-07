@@ -31,7 +31,7 @@ public class CancelOrderCommand extends Command {
     public void execute(Fridge fridge, DishList dl, OrderList orderList, Ui ui, FridgeStorage fs, OrderStorage orderStorage) throws DukeException, IOException {
 
         if (orderList.size()==0) {
-            throw new DukeException("No order in the list! No order can be removed!");
+            throw new DukeException("No order in the list! No order can be cancelled!");
         }
 
         if (orderIndex <= orderList.size() && orderIndex > 0) {

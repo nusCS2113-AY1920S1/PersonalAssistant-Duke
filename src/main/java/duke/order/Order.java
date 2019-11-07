@@ -31,15 +31,15 @@ public class Order implements Printable {
     }
 
     /**
-     * The constructor method for the {@link Order} in reservation case.
+     * The constructor method for the {@link Order} in reservation case, i.e., pre-order.
+     * Or another case is loading past orders from order storage file.
      * @param date date of serving the {@link Order}.
      */
     public Order(Date date) {
-        if (date.before(new Date())) {date = new Date();}
         this.date = date;
         this.isDone = false;
         this.content = new LinkedHashMap<>();
-
+        //if (date.before(new Date())&&!isToday()) {this.isDone=true;}
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         this.dateToString = simpleDateFormat.format(this.date);
 
@@ -130,7 +130,7 @@ public class Order implements Printable {
         String description;
         description = "["+this.getStatusIcon()+"] ";
         if (this.isToday()) { description += "Order today "; }
-        else { description += "Order /on " + dateToString + " "; }
+        else { description += "Order on " + dateToString + " "; }
         int count=0;
         for (Map.Entry<String, Integer> entry : content.entrySet()) {
             String dishName = entry.getKey();
@@ -187,7 +187,6 @@ public class Order implements Printable {
         if (!this.isDone())
             addDishFromFile(dishes);
     }
-
 
     /**
      * add dishes from order storage txt file
