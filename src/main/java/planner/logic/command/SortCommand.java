@@ -48,7 +48,7 @@ public class SortCommand extends ModuleCommand {
             case ("ccas"): {
                 CcaList hold = ccas;
                 List<TaskWithMultipleWeeklyPeriod> holdForCcas = new ArrayList<>();
-                hold.sort(Comparator.comparing((Object t) -> ((Cca) t).getTask()));
+                hold.sort(Comparator.comparing((Object t) -> ((Cca) t).getTaskToLowerCase()));
                 if (arg("forwardOrReverse").equals("r")) {
                     for (int i = hold.size() - 1; i >= 0; i--) {
                         holdForCcas.add(hold.get(i));
