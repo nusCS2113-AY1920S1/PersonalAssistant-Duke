@@ -5,9 +5,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import oof.exception.StorageFileCorruptedException;
-import oof.model.module.Semester;
-import oof.model.module.SemesterList;
+import oof.commons.exceptions.StorageFileCorruptedException;
+import oof.model.semester.Semester;
+import oof.model.semester.SemesterList;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.model.tracker.Tracker;
@@ -112,8 +112,7 @@ public class StorageManager {
      */
     public ArrayList<Tracker> readTrackerList() throws NullPointerException, StorageFileCorruptedException {
         ArrayList<String> data = storage.loadFile(PATH_TRACKER);
-        ArrayList<Tracker> trackers = StorageParser.dataToTrackerList(data);
-        return trackers;
+        return StorageParser.dataToTrackerList(data);
     }
 
     /**

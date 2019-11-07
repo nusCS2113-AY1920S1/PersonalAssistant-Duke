@@ -6,11 +6,11 @@ import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Date;
 
-import oof.exception.StorageFileCorruptedException;
-import oof.model.module.Lesson;
-import oof.model.module.Module;
-import oof.model.module.Semester;
-import oof.model.module.SemesterList;
+import oof.commons.exceptions.StorageFileCorruptedException;
+import oof.model.semester.Lesson;
+import oof.model.semester.Module;
+import oof.model.semester.Semester;
+import oof.model.semester.SemesterList;
 import oof.model.task.Assessment;
 import oof.model.task.Assignment;
 import oof.model.task.Deadline;
