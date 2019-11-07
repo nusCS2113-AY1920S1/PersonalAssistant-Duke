@@ -68,7 +68,7 @@ public class DeleteLoanCommand extends MoneyCommand {
     //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         Item deletedEntry = storage.getDeletedEntry();
-        if (deletedEntry instanceof Loan){
+        if (deletedEntry instanceof Loan) {
             account.getLoans().add(serialNo - 1, (Loan)deletedEntry);
             storage.writeToFile(account);
             ui.appendToOutput(" Last command undone: \n");

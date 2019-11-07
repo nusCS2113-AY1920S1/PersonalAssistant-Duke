@@ -57,8 +57,8 @@ public class AddExpenditureCommand extends MoneyCommand {
             category = morSplit[0];
             boughtTime = Parser.shortcutTime(morSplit[1]);
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-            throw new DukeException("Please enter in the format: " +
-                    "spent <description> /amt <amount> /cat <category> /on <date>\n");
+            throw new DukeException("Please enter in the format: "
+                    + "spent <description> /amt <amount> /cat <category> /on <date>\n");
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid date! Please enter date in the format: d/m/yyyy\n");
         }

@@ -65,7 +65,7 @@ public class SettleLoanCommand extends MoneyCommand {
     }
 
     /**
-     * This method returns the index of the loan becoming to the person whose name
+     * Method returns the index of the loan becoming to the person whose name
      * is specified. If the loan is not found, throws a DukeException.
      * @param loanList ArrayList of loans to be checked
      * @param name String name of the person
@@ -93,7 +93,8 @@ public class SettleLoanCommand extends MoneyCommand {
      */
     private void setLoanToSettled(ArrayList<Loan> loanList, int serialNo) throws ParseException, DukeException {
         if (amount > loanList.get(serialNo).getOutstandingLoan()) {
-            throw new DukeException("Whoa! The amount entered is more than debt! Type 'all' to settle the entire debt\n");
+            throw new DukeException("Whoa! The amount entered is more than debt! "
+                    + "Type 'all' to settle the entire debt\n");
         }
         Loan l = loanList.get(serialNo);
         amount = (amount == SETTLE_ALL_FLAG) ? l.getOutstandingLoan() : amount;
@@ -146,7 +147,8 @@ public class SettleLoanCommand extends MoneyCommand {
                 }
             }
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-            throw new DukeException("Please enter in the format: paid/received <amount> /(to/from) <person/serialNo>\n");
+            throw new DukeException("Please enter in the format: "
+                    + "paid/received <amount> /(to/from) <person/serialNo>\n");
         }
 
         try {
@@ -177,24 +179,23 @@ public class SettleLoanCommand extends MoneyCommand {
 
     @Override
     //@@author Chianhaoplanks
-    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException{
-        //find the type, the amount and the serial number
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
         Loan l;
         switch (type) {
-            case OUTGOING:
-                account.getIncomeListTotal().remove(account.getIncomeListTotal().size() - 1);
-                l = account.getOutgoingLoans().get(serialNo);
-                l.settleLoanDebt(-amount);
-                account.getOutgoingLoans().set(serialNo, l);
-                break;
-            case INCOMING:
-                account.getExpListTotal().remove(account.getExpListTotal().size() - 1);
-                l = account.getIncomingLoans().get(serialNo);
-                l.settleLoanDebt(-amount);
-                account.getIncomingLoans().set(serialNo, l);
-                break;
-            default:
-                break;
+        case OUTGOING:
+            account.getIncomeListTotal().remove(account.getIncomeListTotal().size() - 1);
+            l = account.getOutgoingLoans().get(serialNo);
+            l.settleLoanDebt(-amount);
+            account.getOutgoingLoans().set(serialNo, l);
+            break;
+        case INCOMING:
+            account.getExpListTotal().remove(account.getExpListTotal().size() - 1);
+            l = account.getIncomingLoans().get(serialNo);
+            l.settleLoanDebt(-amount);
+            account.getIncomingLoans().set(serialNo, l);
+            break;
+        default:
+            break;
         }
         storage.writeToFile(account);
 
