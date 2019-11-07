@@ -2,14 +2,14 @@ package dolla.storage;
 
 import dolla.Time;
 import dolla.parser.MainParser;
-import dolla.task.Debt;
-import dolla.task.Entry;
-import dolla.task.Limit;
-import dolla.task.Record;
-import dolla.task.Bill;
+import dolla.model.Debt;
+import dolla.model.Entry;
+import dolla.model.Limit;
+import dolla.model.Record;
+import dolla.model.Bill;
 import dolla.ui.StorageUi;
 import dolla.ui.Ui;
-import dolla.task.Shortcut;
+import dolla.model.Shortcut;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -40,13 +40,19 @@ public class StorageRead extends Storage {
                 case INCOME_TYPE: //check if there is a tag
                     if (numOfElements == 4) {
                         newRecord = new Entry(INCOME, stringToDouble(inArray[1]), inArray[2],
-                                Time.readDate(inArray[3])); //income [AMOUNT] [DESCRIPTION] /on [DATE]
+                                Time.readDate(inArray[3]), ""); //income [AMOUNT] [DESCRIPTION] /on [DATE]
+                    } else if (numOfElements == 5) {
+                        newRecord = new Entry(INCOME, stringToDouble(inArray[1]), inArray[2],
+                                Time.readDate(inArray[3]), inArray[4]); //income [AMOUNT] [DESCRIPTION] /on [DATE] /tag
                     }
                     break;
                 case EXPENSE_TYPE: //check if there is a tag
                     if (numOfElements == 4) {
                         newRecord = new Entry(EXPENSE, stringToDouble(inArray[1]), inArray[2],
-                                Time.readDate(inArray[3])); //expense [AMOUNT] [DESCRIPTION] /on [DATE]
+                                Time.readDate(inArray[3]), ""); //expense [AMOUNT] [DESCRIPTION] /on [DATE]
+                    } else if (numOfElements == 5) {
+                        newRecord = new Entry(EXPENSE, stringToDouble(inArray[1]), inArray[2],
+                                Time.readDate(inArray[3]), inArray[4]); //expense [AMOUNT] [DESCRIPTION] /on [DATE] /tag
                     }
                     break;
                 case BUDGET_TYPE: //must include 3 additional word, every,for and tag
@@ -56,12 +62,22 @@ public class StorageRead extends Storage {
                     newRecord = new Limit(SAVING, stringToDouble(inArray[1]), inArray[2]);
                     break;
                 case OWE_TYPE:
-                    newRecord = new Debt(OWE, inArray[1], stringToDouble(inArray[2]), inArray[3],
-                            Time.readDate(inArray[4]));
+                    if (numOfElements == 5) {
+                        newRecord = new Debt(OWE, inArray[1], stringToDouble(inArray[2]), inArray[3],
+                                Time.readDate(inArray[4]), "");
+                    } else {
+                        newRecord = new Debt(OWE, inArray[1], stringToDouble(inArray[2]), inArray[3],
+                                Time.readDate(inArray[4]), inArray[5]);
+                    }
                     break;
                 case BORROW_TYPE:
-                    newRecord = new Debt(BORROW, inArray[1], stringToDouble(inArray[2]), inArray[3],
-                            Time.readDate(inArray[4]));
+                    if (numOfElements == 5) {
+                        newRecord = new Debt(BORROW, inArray[1], stringToDouble(inArray[2]), inArray[3],
+                                Time.readDate(inArray[4]), "");
+                    } else {
+                        newRecord = new Debt(BORROW, inArray[1], stringToDouble(inArray[2]), inArray[3],
+                                Time.readDate(inArray[4]), inArray[5]);
+                    }
                     break;
                 case SHORTCUT:
                     newRecord = new Shortcut(inArray[1], stringToDouble(inArray[2]),inArray[3]);

@@ -1,15 +1,11 @@
 package dolla.ui;
 
-import dolla.task.RecordList;
-import dolla.task.Debt;
+import dolla.model.RecordList;
 
 import java.util.ArrayList;
 
 //@@author tatayu
 public class DebtUi extends Ui {
-
-    private static final String MSG_EXISTING_DEBT = "\tOOPS! You already have the following debt:";
-    private static final String MSG_MODIFY_DEBT = "\tWould you like to modify it instead?";
 
     /**
      * Print invalid debt format error.
@@ -49,17 +45,6 @@ public class DebtUi extends Ui {
             int listNum = i + 1;
             System.out.println("\t" + listNum + ". " + recordList.get().get(i).getRecordDetail());
         }
-    }
-
-    /**
-     *Prints out the current debt that already exists.
-     */
-    public static void existingDebtPrinter(Debt debt) {
-        System.out.println(line);
-        System.out.println(MSG_EXISTING_DEBT);
-        System.out.println("\t" + debt.getRecordDetail());
-        System.out.println(MSG_MODIFY_DEBT);
-        System.out.println(line);
     }
 
     /**

@@ -1,12 +1,9 @@
 package dolla.command;
 
-import dolla.DollaData;
+import dolla.model.DollaData;
 import dolla.ui.ListUi;
 
-import dolla.task.RecordList;
-
-
-import java.util.ArrayList;
+import dolla.model.RecordList;
 
 /**
  * Display all the tasks stored in the relevant RecordList depending on mode.
@@ -42,8 +39,12 @@ public class ShowListCommand extends Command {
         }
     }
 
+    /**
+     * Returns the mode that Dolla is on, to show the respective records.
+     * @return mode Dolla is on
+     */
     @Override
     public String getCommandInfo() {
-        return null;
+        return mode;
     }
 }

@@ -1,6 +1,7 @@
 package dolla.parser;
 
 import dolla.command.Command;
+import dolla.exception.DollaException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,7 +17,7 @@ public class DollaParserTest {
     //}
 
     @Test
-    public void parseInputAddSuccess() {
+    public void parseInputAddSuccess() throws DollaException {
         inputLine = "add expense 100 Expense Description /on 03/12/2001";
         DollaParser dollaParser = new DollaParser(inputLine);
         //expectedResult = "AddEntryCommand{ type: expense, amount: 100.0, " +
@@ -27,7 +28,7 @@ public class DollaParserTest {
     }
 
     @Test
-    public void parseInputAddInvalidInput() {
+    public void parseInputAddInvalidInput() throws DollaException {
         inputLine = "add potatoes /on 03/12/2001";
         DollaParser dollaParser = new DollaParser(inputLine);
         expectedResult = "ErrorCommand";

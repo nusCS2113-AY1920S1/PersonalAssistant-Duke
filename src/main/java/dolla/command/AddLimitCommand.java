@@ -1,16 +1,14 @@
 package dolla.command;
 
-import dolla.DollaData;
+import dolla.model.DollaData;
 import dolla.command.action.state.LimitState;
 import dolla.command.action.Redo;
 import dolla.command.action.state.UndoStateList;
-import dolla.task.Limit;
-import dolla.task.LimitList;
+import dolla.model.Limit;
+import dolla.model.LimitList;
+import dolla.model.Record;
 import dolla.ui.LimitUi;
 
-/**
- * AddLimitCommand is used to create a new Limit entity.
- */
 //@@author Weng-Kexin
 public class AddLimitCommand extends Command {
 
@@ -18,6 +16,8 @@ public class AddLimitCommand extends Command {
     private double amount;
     private String duration;
     private static final String mode = MODE_LIMIT;
+    private static final String commandInfo = "AddLimitCommand";
+
 
     /**
      * Instantiates a new AddLimitCommand.
@@ -34,23 +34,22 @@ public class AddLimitCommand extends Command {
     @Override
     public void execute(DollaData dollaData) {
         Limit newLimit = new Limit(type, amount, duration);
-
         LimitList limitList = (LimitList) dollaData.getRecordListObj(mode);
         UndoStateList.addState(new LimitState(limitList.get()), mode);///////////////////////////////////////
         Redo.clearRedoState(mode);
-        //todo: need to add budget and show and deduct money every time there is an expense entry
+
         int duplicateLimitIndex = limitList.findExistingRecordIndex(dollaData, newLimit, mode);
         if (recordDoesNotExist(duplicateLimitIndex)) {
             dollaData.addToRecordList(mode, newLimit);
             LimitUi.echoAddRecord(newLimit);
         } else {
-            Limit existingLimit = (Limit) limitList.getFromList(duplicateLimitIndex);
+            Record existingLimit = limitList.getFromList(duplicateLimitIndex);
             LimitUi.existingLimitPrinter(existingLimit);
         }
     }
 
     @Override
     public String getCommandInfo() {
-        return null;
+        return commandInfo;
     }
 }

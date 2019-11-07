@@ -1,4 +1,4 @@
-package dolla.task;
+package dolla.model;
 
 //@@author yetong1895
 /**
