@@ -10,6 +10,7 @@ public class ViewNoteCommand extends Command {
     public ViewNoteCommand(String inputCommand) {
 
     }
+    
     @Override
     public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         return null;
