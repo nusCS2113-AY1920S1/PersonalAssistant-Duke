@@ -28,4 +28,10 @@ public class ConstantHelper {
     public static final String ALL_MARKER = "all";
 
     public static final String BLANK = "";
+
+    public static final String BLANK_MEMBER_DETAILS = "--";
+
+    public static final String NAME_FLAG = "-n";
+
+    public static final String ASSIGN_TASK_COMMAND = "assign task ";
 }

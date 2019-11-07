@@ -1,5 +1,7 @@
 package controllers;
 
+import static util.constant.ConstantHelper.ASSIGN_TASK_COMMAND;
+
 import java.util.ArrayList;
 import models.member.IMember;
 import models.member.Member;
@@ -33,15 +35,15 @@ public class AssignmentController {
      * @param input The input from the user.
      */
     public void assignAndUnassign(String input) {
-        if (input.length() < 12) {
+        if (input.length() < ASSIGN_TASK_COMMAND.length()) {
             errorMessages.add("Insufficient parameters!"
                 + "Indicate the tasks and members whom you wish to assign or remove!");
             errorMessages.add("Format is \"assign task -i TASK_INDEX -to [MEMBER_INDEX] -rm [MEMBER_INDEX]\"");
             errorMessages.add("You must either assign a task to someone, or remove, or both!");
             return;
         }
-        assert input.length() >= 12 : "Valid input";
-        input = input.substring(12); //remove the "assign task " portion
+        assert input.length() >= ASSIGN_TASK_COMMAND.length() : "Valid input";
+        input = input.substring(ASSIGN_TASK_COMMAND.length()); //remove the "assign task " portion
         ArrayList<ArrayList<Integer>> assignmentParams = parserHelper.parseAssignmentParams(input, project);
         errorMessages.addAll(parserHelper.getErrorMessages());
         ArrayList<Integer> validTaskIndexes = assignmentParams.get(0);
