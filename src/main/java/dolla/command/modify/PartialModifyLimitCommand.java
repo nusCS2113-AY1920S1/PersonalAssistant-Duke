@@ -1,6 +1,5 @@
 package dolla.command.modify;
 
-import dolla.command.Command;
 import dolla.model.DollaData;
 import dolla.model.Limit;
 import dolla.model.LimitList;
