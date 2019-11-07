@@ -2,6 +2,8 @@ package wallet.logic.command;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import wallet.logic.LogicManager;
 import wallet.model.Wallet;
 import wallet.model.WalletList;
@@ -29,8 +31,10 @@ public class DeleteCommandTest {
         testWallet.getExpenseList().addExpense(new Expense("Dinner", LocalDate.now(), 5, Category.FOOD, false, null));
         Contact person1 = new Contact("Mary", "Friend", "1234 5678");
         Contact person2 = new Contact("Jane", "Girlfriend", "8765 4321");
+        Contact person3 = new Contact("John", "Boyfriend", "9017 3121");
         testWallet.getContactList().addContact(person1);
         testWallet.getContactList().addContact(person2);
+        testWallet.getContactList().addContact(person3);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate createdDate = LocalDate.parse("24/10/2019", formatter);
         Loan loan1 = new Loan("lunch", createdDate, 10.0, false, false, person1);
@@ -70,4 +74,22 @@ public class DeleteCommandTest {
         assertEquals(1, testWallet.getLoanList().getSize());
     }
     //@@author
+
+    //@@author Xdecosee
+    @Test
+    public void execute_contact_validId_success() {
+        DeleteCommand command = new DeleteCommand("contact", 3);
+        command.execute(testWallet);
+        assertEquals(2, testWallet.getContactList().getContactListSize());
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {1, 4})
+    public void execute_contact_invalidId_error(int input) {
+        DeleteCommand command = new DeleteCommand("contact", input);
+        command.execute(testWallet);
+        assertEquals(3, testWallet.getContactList().getContactListSize());
+    }
+    //@@author
+
 }

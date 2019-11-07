@@ -5,13 +5,13 @@ package wallet.logic.parser;
 import com.opencsv.CSVReader;
 import wallet.logic.command.ImportCommand;
 import wallet.model.contact.Contact;
-import wallet.model.port.ImportList;
-import wallet.model.record.Category;
-import wallet.model.record.Expense;
 import wallet.model.record.Loan;
+import wallet.model.record.LoanList;
+import wallet.model.record.Expense;
+import wallet.model.record.ExpenseList;
+import wallet.model.record.Category;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -42,16 +42,18 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         if ("loan".equals(arguments[0])) {
             ArrayList<Loan> data = parseLoans(arguments[1]);
             if (data != null) {
-                ImportList importList = new ImportList(data, null);
-                return new ImportCommand(importList, arguments[0]);
+                LoanList newList = new LoanList();
+                newList.setLoanList(data);
+                return new ImportCommand(newList, arguments[0]);
             } else {
                 return null;
             }
         } else if ("expense".equals(arguments[0])) {
             ArrayList<Expense> data = parseExpenses(arguments[1]);
             if (data != null) {
-                ImportList importList = new ImportList(null, data);
-                return new ImportCommand(importList, arguments[0]);
+                ExpenseList newList = new ExpenseList();
+                newList.setExpenseList(data);
+                return new ImportCommand(newList, arguments[0]);
             } else {
                 return null;
             }
@@ -71,7 +73,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         ArrayList<Loan> data = new ArrayList<>();
         try {
             File current = new File(ImportCommand.class.getProtectionDomain().getCodeSource().getLocation()
-                .toURI().getPath());
+                    .toURI().getPath());
             File csv = new File(current.getParentFile().getPath(), fileName);
             FileReader filereader = new FileReader(csv);
             CSVReader csvReader = new CSVReader(filereader);
@@ -138,25 +140,10 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             filereader.close();
 
 
-        } catch (URISyntaxException e) {
+        } catch (URISyntaxException | IOException | NullPointerException e) {
             System.out.println(MESSAGE_ERROR_READING_CSV);
             return null;
-        } catch (FileNotFoundException e) {
-            System.out.println(MESSAGE_ERROR_READING_CSV);
-            return null;
-        } catch (IOException e) {
-            System.out.println(MESSAGE_ERROR_READING_CSV);
-            return null;
-        } catch (DateTimeParseException e) {
-            System.out.println(MESSAGE_ERROR_CSV_FORMAT);
-            return null;
-        } catch (NullPointerException e) {
-            System.out.println(MESSAGE_ERROR_READING_CSV);
-            return null;
-        } catch (NumberFormatException e) {
-            System.out.println(MESSAGE_ERROR_CSV_FORMAT);
-            return null;
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (DateTimeParseException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
             System.out.println(MESSAGE_ERROR_CSV_FORMAT);
             return null;
         }
@@ -173,7 +160,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         ArrayList<Expense> data = new ArrayList<>();
         try {
             File current = new File(ImportCommand.class.getProtectionDomain().getCodeSource().getLocation()
-                .toURI().getPath());
+                    .toURI().getPath());
             File csv = new File(current.getParentFile().getPath(), fileName);
             FileReader filereader = new FileReader(csv);
             CSVReader csvReader = new CSVReader(filereader);
@@ -209,25 +196,10 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             csvReader.close();
             filereader.close();
 
-        } catch (URISyntaxException e) {
+        } catch (URISyntaxException | IOException | NullPointerException e) {
             System.out.println(MESSAGE_ERROR_READING_CSV);
             return null;
-        } catch (FileNotFoundException e) {
-            System.out.println(MESSAGE_ERROR_READING_CSV);
-            return null;
-        } catch (IOException e) {
-            System.out.println(MESSAGE_ERROR_READING_CSV);
-            return null;
-        } catch (NullPointerException e) {
-            System.out.println(MESSAGE_ERROR_READING_CSV);
-            return null;
-        } catch (NumberFormatException e) {
-            System.out.println(MESSAGE_ERROR_CSV_FORMAT);
-            return null;
-        } catch (DateTimeParseException e) {
-            System.out.println(MESSAGE_ERROR_CSV_FORMAT);
-            return null;
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (NumberFormatException | DateTimeParseException | ArrayIndexOutOfBoundsException e) {
             System.out.println(MESSAGE_ERROR_CSV_FORMAT);
             return null;
         }

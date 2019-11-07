@@ -91,13 +91,13 @@ public class EditCommand extends Command {
                 if (contact.getName() != null) {
                     currentContact.setName(contact.getName());
                 }
-                //resetting detail
+
                 if ("".equals(contact.getDetail())) {
                     currentContact.setDetail(null);
                 } else if (contact.getDetail() != null) {
                     currentContact.setDetail(contact.getDetail());
                 }
-                //resetting phone number
+
                 if ("".equals(contact.getPhoneNum())) {
                     currentContact.setPhoneNum(null);
                 } else if (contact.getPhoneNum() != null) {
@@ -117,9 +117,8 @@ public class EditCommand extends Command {
                     }
                 }
 
-
                 System.out.println(MESSAGE_SUCCESS_EDIT_CONTACT);
-                System.out.println(currentContact.toString());
+                Ui.printContact(currentContact);
             } else {
                 System.out.println(MESSAGE_ERROR_COMMAND);
             }
