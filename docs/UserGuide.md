@@ -684,11 +684,11 @@ ________________________________________________________________________________
 
 Update Principle:
 
-1. add undone dishes from pre-orders when the restaurant opens;
-2. add undone dishes when today's new order comes;
-3. delete finished dishes from the ToDo list when an order of today is done;
-4. delete undone dishes from the ToDo list when an order of today is cancelled.
-5. add undone dishes when a pre-order alters its date to become today's undone order.
+-- add undone dishes from pre-orders when the restaurant opens;
+-- add undone dishes when today's new order comes;
+-- delete finished dishes from the ToDo list when an order of today is done;
+-- delete undone dishes from the ToDo list when an order of today is cancelled.
+-- add undone dishes when a pre-order alters its date to become today's undone order.
 
 
 
