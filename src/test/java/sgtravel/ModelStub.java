@@ -53,7 +53,7 @@ public class ModelStub implements Model {
 
     @Override
     public void doneItinerary(String name) throws NoSuchItineraryException {
-        if(itineraryTable.get(name) == null) {
+        if (itineraryTable.get(name) == null) {
             throw new NoSuchItineraryException();
         }
         this.itineraryTable.remove(name);

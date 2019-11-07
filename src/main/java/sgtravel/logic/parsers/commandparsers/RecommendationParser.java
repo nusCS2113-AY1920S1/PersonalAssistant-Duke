@@ -30,12 +30,11 @@ public class RecommendationParser extends CommandParser {
     private String[] createRecommendation() throws ParseException {
 
         String[] itineraryDetails = input.substring("recommend".length()).strip().split("between|and");
-        logger.info(itineraryDetails[0]+itineraryDetails[1]+itineraryDetails[2]);
         if (itineraryDetails.length != THREE || itineraryDetails[ONE] == null || itineraryDetails[TWO] == null) {
             throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }
 
-        if(!itineraryDetails[ZERO].equals("itinerary ")) {
+        if (!itineraryDetails[ZERO].equals("itinerary ")) {
             throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }
 
