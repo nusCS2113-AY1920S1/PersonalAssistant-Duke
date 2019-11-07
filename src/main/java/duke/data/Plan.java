@@ -1,5 +1,8 @@
 package duke.data;
 
+import duke.ui.card.PlanCard;
+import duke.ui.card.UiCard;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -44,5 +47,10 @@ public class Plan extends Treatment {
 
     public static List<String> getStatusArr() {
         return Collections.unmodifiableList(statusArr);
+    }
+
+    @Override
+    public UiCard toCard() {
+        return new PlanCard(this);
     }
 }

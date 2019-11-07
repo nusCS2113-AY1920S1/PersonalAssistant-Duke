@@ -1,5 +1,8 @@
 package duke.data;
 
+import duke.ui.card.InvestigationCard;
+import duke.ui.card.UiCard;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -57,5 +60,9 @@ public class Investigation extends Treatment {
 
     public static List<String> getStatusArr() {
         return Collections.unmodifiableList(statusArr);
+    }
+
+    public UiCard toCard() {
+        return new InvestigationCard(this);
     }
 }

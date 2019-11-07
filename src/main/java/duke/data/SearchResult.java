@@ -1,6 +1,7 @@
 package duke.data;
 
 import duke.exception.DukeException;
+import duke.ui.card.UiCard;
 import javafx.util.Pair;
 
 import java.util.List;
@@ -47,4 +48,8 @@ public class SearchResult extends DukeObject {
         return "";
     }
 
+    @Override
+    public UiCard toCard() {
+        return null;
+    }
 }

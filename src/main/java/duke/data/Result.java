@@ -1,5 +1,8 @@
 package duke.data;
 
+import duke.ui.card.ResultCard;
+import duke.ui.card.UiCard;
+
 public class Result extends Evidence {
 
     /**
@@ -29,4 +32,7 @@ public class Result extends Evidence {
         return null;
     }
 
+    public UiCard toCard() {
+        return new ResultCard(this);
+    }
 }

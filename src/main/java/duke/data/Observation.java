@@ -1,5 +1,8 @@
 package duke.data;
 
+import duke.ui.card.ObservationCard;
+import duke.ui.card.UiCard;
+
 public class Observation extends Evidence {
 
     private boolean isObjective;
@@ -42,4 +45,8 @@ public class Observation extends Evidence {
         isObjective = objective;
     }
 
+    @Override
+    public UiCard toCard() {
+        return new ObservationCard(this);
+    }
 }

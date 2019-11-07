@@ -1,5 +1,8 @@
 package duke.data;
 
+import duke.ui.card.MedicineCard;
+import duke.ui.card.UiCard;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -105,5 +108,9 @@ public class Medicine extends Treatment {
         } else {
             return false;
         }
+    }
+
+    public UiCard toCard() {
+        return new MedicineCard(this);
     }
 }

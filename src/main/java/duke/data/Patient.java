@@ -1,6 +1,8 @@
 package duke.data;
 
 import duke.exception.DukeException;
+import duke.ui.card.PatientCard;
+import duke.ui.card.UiCard;
 
 import java.util.ArrayList;
 
@@ -411,4 +413,8 @@ public class Patient extends DukeObject {
         return impressions;
     }
 
+    @Override
+    public UiCard toCard() {
+        return new PatientCard(this);
+    }
 }
