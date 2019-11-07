@@ -7,6 +7,8 @@ import planner.logic.modules.module.ModuleTask;
 
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 class CcaTest {
 
@@ -15,9 +17,6 @@ class CcaTest {
         Cca cca = new Cca("soccer","1600", "1800", "Monday");
         String expectedOutput = "[C][✗] soccer | 16:00 - 18:00 on MONDAY";
         assertTrue(expectedOutput.equals(cca.toString()));
-    }
-
-    private void assertTrue(boolean equals) {
     }
 
     @Test
