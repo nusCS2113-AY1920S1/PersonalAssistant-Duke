@@ -25,7 +25,7 @@ public class CreateNoteCommand extends Command {
      * @throws CakeException If the input command is invalid.
      */
     public CreateNoteCommand(String inputCommand) throws CakeException {
-        type = CmdType.CREATENOTE;
+        type = CmdType.CREATE_NOTE;
         updateDefaultDirectoryPath();
         //Storage.generateFolder(new File("data/notes/"));
         checksValidityOfCommand(inputCommand);
@@ -35,7 +35,7 @@ public class CreateNoteCommand extends Command {
      * Updates default directory path according the storage.
      */
     private void updateDefaultDirectoryPath() {
-        defaultDirectoryPath = Storage.returnDefaultFilePath();
+        defaultDirectoryPath = Storage.returnNotesDefaultFilePath();
     }
 
     /**

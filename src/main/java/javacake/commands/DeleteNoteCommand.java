@@ -28,7 +28,7 @@ public class DeleteNoteCommand extends Command {
             String[] parametersInCommand = inputCommand.split("\\s+");
             String inputFileName = parametersInCommand[1];
             processFile(inputFileName);
-            type = CmdType.DELETENOTE;
+            type = CmdType.DELETE_NOTE;
         } catch (NullPointerException e) {
             throw new CakeException(e.getMessage());
         }
@@ -91,7 +91,7 @@ public class DeleteNoteCommand extends Command {
      * @return updated default file path.
      */
     private String updateDefaultDirectoryPath() {
-        return Storage.returnDefaultFilePath();
+        return Storage.returnNotesDefaultFilePath();
     }
 
     /**

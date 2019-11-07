@@ -19,6 +19,7 @@ import javacake.commands.OverviewCommand;
 import javacake.commands.ReminderCommand;
 import javacake.commands.ResetCommand;
 import javacake.commands.ScoreCommand;
+import javacake.commands.ViewNoteCommand;
 import javacake.exceptions.CakeException;
 import javacake.ui.MainWindow;
 
@@ -50,6 +51,7 @@ public class Parser {
         case ("createnote"): return new CreateNoteCommand(inputCommand);
         case ("editnote"): return new EditNoteCommand(inputCommand);
         case ("deletenote"): return new DeleteNoteCommand(inputCommand);
+        case ("viewnote"): return new ViewNoteCommand(inputCommand);
         case ("deadline"): return new AddCommand(inputCommand);
         case ("done"): return new DoneCommand(inputCommand);
         case ("delete"): return new DeleteCommand(inputCommand);

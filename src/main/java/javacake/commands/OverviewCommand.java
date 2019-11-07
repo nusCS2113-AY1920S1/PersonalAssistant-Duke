@@ -37,7 +37,7 @@ public class OverviewCommand extends Command {
      */
     public OverviewCommand(String inputCommand) throws CakeException {
         checksParam(inputCommand);
-        type = CmdType.TREE;
+        type = CmdType.OVERVIEW;
     }
 
     /**

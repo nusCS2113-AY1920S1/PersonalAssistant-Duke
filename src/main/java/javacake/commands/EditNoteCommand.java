@@ -40,7 +40,7 @@ public class EditNoteCommand extends Command {
      */
     public EditNoteCommand(String inputCommand) throws CakeException {
         JavaCake.logger.log(Level.INFO, "Processing EditNoteCommand: " + inputCommand);
-        type = CmdType.EDITNOTE;
+        type = CmdType.EDIT_NOTE;
         updateDefaultDirectoryPath();
         verifyCommand(inputCommand);
     }
@@ -49,7 +49,7 @@ public class EditNoteCommand extends Command {
      * Updates default directory path according the storage.
      */
     private void updateDefaultDirectoryPath() {
-        defaultDirectoryPath = Storage.returnDefaultFilePath();
+        defaultDirectoryPath = Storage.returnNotesDefaultFilePath();
     }
 
     /**

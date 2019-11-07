@@ -14,9 +14,12 @@ public abstract class Command {
      */
     public enum CmdType {
         EXIT, LIST, FIND, DONE, DELETE, TODO, DEADLINE, REMIND, VIEWSCH,
-        EDIT, BACK, GOTO, QUIZ, HELP, TREE, CREATENOTE, EDITNOTE, LISTNOTE,
-        DELETENOTE
+        EDIT, BACK, GOTO, QUIZ, HELP, OVERVIEW, CREATE_NOTE, EDIT_NOTE, LIST_NOTE,
+        DELETE_NOTE, VIEW_NOTE
     }
+
+    private static final char[] ILLEGAL_CHARACTERS = { '/', '\n', '\r', '\t',
+            '\0', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':', '.', ','};
 
     public abstract String execute(Logic logic, Ui ui, StorageManager storageManager)
             throws CakeException;
@@ -32,6 +35,23 @@ public abstract class Command {
         if (subStrings.length > 1) {
             throw new CakeException("Please ensure there is no parameter(s) for this command");
         }
+    }
+
+    public static boolean containsIllegalCharacter(String inputCommand) {
+        String bySpaces = "\\s+";
+        String[] subStrings = inputCommand.split(bySpaces);
+        if (subStrings.length > 1) {
+            String word = subStrings[1];
+            return checkForIllegalChar(word);
+        }
+        return false;
+    }
+
+    private static boolean checkForIllegalChar(String word) {
+        for (char illegalChar : ILLEGAL_CHARACTERS) {
+            return (word.indexOf(illegalChar) >= 0);
+        }
+        return false;
     }
 
 

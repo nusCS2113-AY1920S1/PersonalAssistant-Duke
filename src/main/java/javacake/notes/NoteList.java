@@ -26,7 +26,7 @@ public class NoteList {
      */
     public ArrayList<Note> compileNotes() throws CakeException {
         try {
-            Stream<Path> walk = Files.walk(Paths.get(Storage.returnDefaultFilePath()));
+            Stream<Path> walk = Files.walk(Paths.get(Storage.returnNotesDefaultFilePath()));
             List<String> result = walk.filter(Files::isRegularFile)
                     .map(x -> x.toString()).collect(Collectors.toList());
 

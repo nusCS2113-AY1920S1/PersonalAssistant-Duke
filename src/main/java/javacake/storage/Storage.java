@@ -121,7 +121,7 @@ public class Storage {
 
     }
 
-    public static String returnDefaultFilePath() {
+    public static String returnNotesDefaultFilePath() {
         return defaultFilePath + "/notes/";
     }
 
