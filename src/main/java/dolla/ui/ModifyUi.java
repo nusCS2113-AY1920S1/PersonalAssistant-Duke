@@ -1,6 +1,6 @@
 package dolla.ui;
 
-import dolla.task.Record;
+import dolla.model.Record;
 
 //@@author omupenguin
 public class ModifyUi extends Ui {
@@ -56,6 +56,17 @@ public class ModifyUi extends Ui {
         System.out.println(line);
         System.out.println("\tGot it. I've modified this " + currRecord.getRecordType() + ": ");
         System.out.println("\t" + currRecord.getRecordDetail());
+        System.out.println(line);
+    }
+
+    /**
+     * Prints a message to alert user that they did not add the new information that they want to
+     * use after indicating the component they want to change.
+     * @param component The component that expects a string after it
+     */
+    public static void printMissingComponentInfoError(String component) {
+        System.out.println(line);
+        System.out.println("\tHey! You forgot to tell me what you want to modify " + component +  " to!");
         System.out.println(line);
     }
 }

@@ -3,8 +3,14 @@ package dolla.parser;
 import dolla.ModeStringList;
 import dolla.Tag;
 import dolla.Time;
-import dolla.task.RecordList;
-import dolla.ui.*;
+import dolla.model.RecordList;
+import dolla.exception.DollaException;
+import dolla.ui.Ui;
+import dolla.ui.EntryUi;
+import dolla.ui.DebtUi;
+import dolla.ui.RemoveUi;
+import dolla.ui.SortUi;
+import dolla.ui.ModifyUi;
 
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
@@ -23,14 +29,14 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     protected String mode;
     protected LocalDate date;
     protected String description;
-    protected String inputLine;
+    protected static String inputLine;
     protected String type;
     protected double amount;
-    protected String[] inputArray;
+    protected static String[] inputArray;
     protected String commandToRun;
-    protected static final String SPACE = " ";
     protected int modifyRecordNum;
 
+    protected static int maxAmount = 1000000;
 
     /**
      * Creates an instance of a parser.
@@ -44,6 +50,14 @@ public abstract class Parser implements ParserStringList, ModeStringList {
 
     public abstract Command parseInput();
 
+    public static String getInputLine() {
+        return inputLine;
+    }
+
+    public static String[] getInputArray() {
+        return inputArray;
+    }
+
     /**
      * Splits the input from the user and assigns the relevant data into description and date variables.
      * If the incorrect format is given in the input, the corresponding alert will be printed.
@@ -51,15 +65,15 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     public void extractDescTime() throws Exception {
         // dataArray[0] is command, amount and description, dataArray[1] is time and tag
         String[] dataArray = inputLine.split(" /on ");
-        String dateString = (dataArray[1].split(" /tag "))[0];
+        String dateString = (dataArray[1].split(" /tag"))[0];
         description = dataArray[0].split(inputArray[2] + " ")[1];
         try {
-            date = Time.readDate(dateString);
+            date = Time.readDate(dateString.trim());
         } catch (ArrayIndexOutOfBoundsException e) {
             // TODO: Shouldn't happen anymore, need to test if this will happen still
             Ui.printMsg("Please add '/at <date>' after your task to specify the entry date.");
             throw new Exception("missing date");
-        }  catch (DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             Ui.printDateFormatError();
             throw new Exception("invalid date");
         }
@@ -77,12 +91,16 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * @param str String (of number) to be converted into integer type.
      * @return Integer type of the specified string.
      */
-    public static double stringToDouble(String str) {
+    public static double stringToDouble(String str) throws Exception {
         double newDouble = 0.0;
         try {
             newDouble = Double.parseDouble(str);
+            if (newDouble <= 0 || newDouble >= maxAmount) {
+                throw new DollaException(DollaException.invalidAmount());
+            }
         } catch (NumberFormatException e) {
             Ui.printInvalidNumberError(str);
+            throw new NumberFormatException("Invalid amount");
         }
         return newDouble;
     }
@@ -118,8 +136,8 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      */
     public boolean verifyAddCommand() {
         try {
-            verifyAddType(inputArray[1]);
-            stringToDouble(inputArray[2]);
+            type = verifyAddType(inputArray[1]);
+            amount = stringToDouble(inputArray[2]);
             extractDescTime();
         } catch (IndexOutOfBoundsException e) {
             EntryUi.printInvalidEntryFormatError();
@@ -140,12 +158,12 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     public boolean verifyDebtCommand(Tag t) {
         try{
             String name = inputArray[1];
-            stringToDouble(inputArray[2]);
-            String[] desc = inputLine.split(inputArray[2] + " ");
+            amount = stringToDouble(inputArray[2]);
+            String[] desc = inputLine.split(inputArray[2] + SPACE);
             String[] dateString = desc[1].split(" /due ");
             description = dateString[0];
             return checkTag(dateString[1], t);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (Exception e) {
             DebtUi.printInvalidDebtFormatError();
             return false;
         }
@@ -159,8 +177,8 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * @return true if no error occurs.
      */
     private boolean checkTag(String dateString, Tag t) {
-        if (inputLine.contains(t.getPrefixTag())) {
-            String[] dateAndTag = dateString.split(t.getPrefixTag());
+        if (inputLine.contains(COMPONENT_TAG)) {
+            String[] dateAndTag = dateString.split(COMPONENT_TAG);
             try {
                 date = Time.readDate(dateAndTag[0].trim());
             } catch (DateTimeParseException e) {
@@ -336,8 +354,8 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             String currStr = inputArray[i];
 
             if (isComponent(currStr)) {
-                String nextStr = inputArray[i + 1];
                 try {
+                    String nextStr = inputArray[i + 1];
                     switch (currStr) {
                     case COMPONENT_TYPE:
                         type = verifyAddType(nextStr);
@@ -357,8 +375,13 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                     default:
                         break;
                     }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    ModifyUi.printMissingComponentInfoError(currStr);
+                    return false;
+                } catch (DateTimeParseException e) {
+                    Ui.printDateFormatError();
+                    return false;
                 } catch (Exception e) {
-                    ModifyUi.printInvalidPartialModifyFormatError();
                     return false;
                 }
                 hasComponents = true;
@@ -474,16 +497,6 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     }
 
     //@@author Weng-Kexin
-    protected double findLimitAmount() {
-        double amount = 0;
-        try {
-            amount = stringToDouble(inputArray[2]);
-        } catch (NumberFormatException e) {
-            LimitUi.invalidAmountPrinter();
-        }
-        return amount;
-    }
-
     private Boolean verifyLimitType(String limitType) {
         return limitType.equals(LIMIT_TYPE_S)
                 || limitType.equals(LIMIT_TYPE_B);
@@ -502,17 +515,14 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     protected Boolean verifySetLimitCommand() {
         boolean isValid;
         try {
+            amount = stringToDouble(inputArray[2]);
             String typeStr = inputArray[1];
-            double amountInt = findLimitAmount();
             String durationStr = inputArray[3];
-            isValid = verifyLimitType(typeStr) && verifyLimitAmount(amountInt) && verifyLimitDuration(durationStr);
-        } catch (IndexOutOfBoundsException e) {
-            LimitUi.invalidSetCommandPrinter();
-            isValid = false;
-        } catch (Exception e) {
+            isValid = verifyLimitType(typeStr) && verifyLimitAmount(amount) && verifyLimitDuration(durationStr);
+        } catch (Exception e) { //index out of bounds here also
+            //LimitUi.invalidSetCommandPrinter();
             isValid = false;
         }
         return isValid;
     }
-
 }

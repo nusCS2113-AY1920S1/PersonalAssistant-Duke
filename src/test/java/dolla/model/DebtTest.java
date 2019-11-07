@@ -1,6 +1,5 @@
-package dolla;
+package dolla.model;
 
-import dolla.task.Debt;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 
@@ -10,7 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DebtTest {
 
     private Debt createNewDebt() {
-        return new Debt("owe", "tata", 20, "food", LocalDate.parse("2019-01-01"));
+        return new Debt("owe", "tata", 20, "food",
+                LocalDate.parse("2019-01-01"), "");
     }
 
     @Test
@@ -40,18 +40,18 @@ public class DebtTest {
     @Test
     public void getUserInput() {
         Debt newDebt = createNewDebt();
-        assertEquals("owe tata 20.0 food /due 01/01/2019", newDebt.getUserInput());
+        assertEquals("owe tata 20.0 food /due 01/01/2019 ", newDebt.getUserInput());
     }
 
     @Test
     public void formatSave() {
         Debt newDebt = createNewDebt();
-        assertEquals("O | tata | 20.0 | food | 01/01/2019", newDebt.formatSave());
+        assertEquals("O | tata | 20.0 | food | 01/01/2019 | ", newDebt.formatSave());
     }
 
     @Test
     public void getRecordDetail() {
         Debt newDebt = createNewDebt();
-        assertEquals("[owe] [tata] [$20.0] [food] [/due 01/01/2019]", newDebt.getRecordDetail());
+        assertEquals("[owe] [tata] [$20.0] [food] [/due 01/01/2019] {Tag: }", newDebt.getRecordDetail());
     }
 }

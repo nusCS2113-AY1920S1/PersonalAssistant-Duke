@@ -1,12 +1,12 @@
 package dolla.command;
 
-import dolla.DollaData;
-import dolla.task.Record;
+import dolla.model.DollaData;
+import dolla.model.Record;
 import dolla.ui.ListUi;
 import dolla.ui.SortUi;
 import dolla.ui.Ui;
 import dolla.sort.SortAmount;
-import dolla.task.RecordList;
+import dolla.model.RecordList;
 import dolla.sort.SortDate;
 import dolla.sort.SortDescription;
 import dolla.sort.SortName;

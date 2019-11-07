@@ -1,11 +1,10 @@
 package dolla.command;
 
-import dolla.DollaData;
-import dolla.task.RecordList;
+import dolla.model.DollaData;
+import dolla.model.RecordList;
+import dolla.exception.DollaException;
 import dolla.ui.DebtUi;
 import dolla.ui.ListUi;
-
-import java.util.ArrayList;
 
 //@@author tatayu
 /**
@@ -20,7 +19,7 @@ public class ShowBillListCommand extends Command {
     }
 
     @Override
-    public void execute(DollaData dollaData) throws Exception {
+    public void execute(DollaData dollaData) throws DollaException {
         RecordList recordList;
         recordList = dollaData.getBillRecordList();
 

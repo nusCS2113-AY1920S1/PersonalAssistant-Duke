@@ -1,8 +1,8 @@
 package dolla.command.modify;
 
-import dolla.DollaData;
+import dolla.model.DollaData;
 import dolla.command.Command;
-import dolla.task.Debt;
+import dolla.model.Debt;
 import dolla.ui.ModifyUi;
 
 import java.time.LocalDate;
@@ -38,7 +38,7 @@ public class FullModifyDebtCommand extends Command {
 
     @Override
     public void execute(DollaData dollaData) {
-        Debt newDebt = new Debt(type, name, amount, description, date);
+        Debt newDebt = new Debt(type, name, amount, description, date, "");
         dollaData.modifyRecordList(newDebt);
         ModifyUi.echoModifyRecord(newDebt);
         dollaData.updateMode("debt");

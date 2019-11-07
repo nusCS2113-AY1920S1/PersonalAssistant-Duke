@@ -1,6 +1,5 @@
-package dolla;
+package dolla.model;
 
-import dolla.task.Entry;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -12,7 +11,7 @@ public class EntryTest {
 
     private Entry createNewEntry() {
         return new Entry("expense", 100, "Expense Description",
-                LocalDate.parse("2001-12-03"));
+                LocalDate.parse("2001-12-03"), "");
     }
 
     @Test
@@ -24,14 +23,14 @@ public class EntryTest {
     @Test
     public void getLogText() {
         Entry newEntry = createNewEntry();
-        assertEquals("[expense] [$100.0] [Expense Description] [/on 03/12/2001]",
+        assertEquals("[expense] [$100.0] [Expense Description] [/on 03/12/2001] {Tag: }",
                 newEntry.getRecordDetail());
     }
 
     @Test
     public void formatSave() {
         Entry newEntry = createNewEntry();
-        assertEquals("E | 100.0 | Expense Description | 03/12/2001", newEntry.formatSave());
+        assertEquals("E | 100.0 | Expense Description | 03/12/2001 | ", newEntry.formatSave());
     }
 
     @Test
@@ -43,6 +42,6 @@ public class EntryTest {
     @Test
     public void getUserInput() {
         Entry newEntry = createNewEntry();
-        assertEquals("expense 100.0 Expense Description /on 03/12/2001", newEntry.getUserInput());
+        assertEquals("expense 100.0 Expense Description /on 03/12/2001 ", newEntry.getUserInput());
     }
 }

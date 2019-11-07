@@ -1,4 +1,4 @@
-package dolla.task;
+package dolla.model;
 
 /**
  * Limit is a class that stores all limit related methods (savings and budgets).
@@ -31,11 +31,6 @@ public class Limit extends Record {
         return "[" + type + "] "
                 + "[" + amountToMoney() + "] "
                 + "[" + duration + "]";
-    }
-
-    @Override
-    public String getDescription() {
-        return null; //to be modified
     }
 
     @Override

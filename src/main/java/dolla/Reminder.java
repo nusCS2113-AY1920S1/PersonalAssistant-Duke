@@ -1,6 +1,7 @@
 package dolla;
 
-import dolla.task.RecordList;
+import dolla.model.DollaData;
+import dolla.model.RecordList;
 import dolla.ui.Ui;
 
 import java.time.LocalDate;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Class handles Reminder-related methods.
  */
-public class Reminder {
+public class Reminder implements ModeStringList {
 
     protected LocalDate today;
     private String mode;
@@ -20,7 +21,7 @@ public class Reminder {
      * @param mode the mode
      */
     public Reminder(String mode) {
-        this.mode = "debt";
+        this.mode = MODE_DEBT;
     }
 
     /**

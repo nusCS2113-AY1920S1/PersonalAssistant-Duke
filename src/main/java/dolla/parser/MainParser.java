@@ -12,9 +12,6 @@ import dolla.command.SwitchModeCommand;
  */
 public class MainParser implements ParserStringList, ModeStringList {
 
-    protected static final String SPACE = " ";
-    protected static final String COMMAND_BYE = "bye";
-
     /**
      * Returns a command corresponding to the user input by directing
      * the input to the relevant dolla.parser.
@@ -65,7 +62,7 @@ public class MainParser implements ParserStringList, ModeStringList {
     }
 
     private static boolean isExitCommand(String command) {
-        return command.equalsIgnoreCase(COMMAND_BYE);
+        return command.equals(COMMAND_BYE);
     }
 
     private static boolean isSwitchModeCommand(String command) {

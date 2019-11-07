@@ -8,12 +8,12 @@ import dolla.command.Command;
 import dolla.command.AddEntryCommand;
 import dolla.command.ShowListCommand;
 import dolla.command.ErrorCommand;
-import dolla.command.InitialModifyCommand;
+import dolla.command.modify.InitialModifyCommand;
 import dolla.command.SortCommand;
 import dolla.command.SearchCommand;
 import dolla.command.RemoveCommand;
 import dolla.command.modify.PartialModifyEntryCommand;
-import dolla.task.Entry;
+import dolla.model.Entry;
 import dolla.ui.SearchUi;
 
 public class EntryParser extends Parser {
@@ -31,10 +31,10 @@ public class EntryParser extends Parser {
         } else if (commandToRun.equals(ENTRY_COMMAND_ADD)) {
             if (verifyAddCommand()) {
                 Tag t = new Tag();
-                Entry entry = new Entry(inputArray[1], stringToDouble(inputArray[2]), description, date);
-                t.handleTag(inputLine, inputArray, entry);
-                return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
-                        description, date);
+                Entry entry = new Entry(inputArray[1], amount, description, date, EMPTY_STR);
+                t.handleTag(entry);
+                return new AddEntryCommand(inputArray[1], amount,
+                        description, date, t.getTagName());
             } else {
                 return new ErrorCommand();
             }
