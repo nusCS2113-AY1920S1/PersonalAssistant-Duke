@@ -341,29 +341,29 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     private void verifyLimitComponents(String currStr, String nextStr, int i) throws Exception {
         try {
             switch (currStr) {
-                case COMPONENT_TYPE:
-                    if (verifyLimitType(nextStr)) {
-                        type = nextStr;
-                    } else {
-                        throw new Exception("invalid type");
-                    }
-                    break;
-                case COMPONENT_AMOUNT:
+            case COMPONENT_TYPE:
+                if (verifyLimitType(nextStr)) {
+                    type = nextStr;
+                } else {
+                    throw new DollaException("invalid type");
+                }
+                break;
+            case COMPONENT_AMOUNT:
+                amount = stringToDouble(nextStr);
+                if (verifyLimitAmount(stringToDouble(nextStr))) {
                     amount = stringToDouble(nextStr);
-                    if (verifyLimitAmount(stringToDouble(nextStr))) {
-                        amount = stringToDouble(nextStr);
-                    } else {
-                        throw new Exception("invalid amount");
-                    }
-                    break;
-                case COMPONENT_DURATION:
-                    if (verifyLimitDuration(nextStr)) {
-                        duration = nextStr;
-                    } else {
-                        throw new Exception("invalid duration");
-                    }
-                default:
-                    break;
+                } else {
+                    throw new DollaException("invalid amount");
+                }
+                break;
+            case COMPONENT_DURATION:
+                if (verifyLimitDuration(nextStr)) {
+                    duration = nextStr;
+                } else {
+                    throw new DollaException("invalid duration");
+                }
+            default:
+                break;
             }
         } catch (Exception e) {
             throw e;
@@ -373,23 +373,23 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     private void verifyEntryComponents(String currStr, String nextStr, int index) throws Exception {
         try {
             switch (currStr) {
-                case COMPONENT_TYPE:
-                    type = verifyAddType(nextStr);
-                    break;
-                case COMPONENT_AMOUNT:
-                    amount = stringToDouble(nextStr);
-                    break;
-                case COMPONENT_DESC:
-                    description = parseDesc(index + 1);
-                    break;
-                case COMPONENT_DATE:
-                    date = Time.readDate(nextStr);
-                    break;
-                case COMPONENT_TAG:
-                    //TODO
-                    break;
-                default:
-                    break;
+            case COMPONENT_TYPE:
+                type = verifyAddType(nextStr);
+                break;
+            case COMPONENT_AMOUNT:
+                amount = stringToDouble(nextStr);
+                break;
+            case COMPONENT_DESC:
+                description = parseDesc(index + 1);
+                break;
+            case COMPONENT_DATE:
+                date = Time.readDate(nextStr);
+                break;
+            case COMPONENT_TAG:
+                //TODO
+                break;
+            default:
+                break;
             }
         } catch (Exception e) {
             throw e;

@@ -9,6 +9,13 @@ import dolla.ui.ModifyUi;
 
 public class PartialModifyLimitCommand extends ModifyLimitCommand {
 
+    /**
+     * Instantiates a new PartialModifyLimitCommand.
+     * @param recordNum number of limit in list to modify.
+     * @param type type of limit.
+     * @param amount of money.
+     * @param duration of limit.
+     */
     public PartialModifyLimitCommand(int recordNum, String type, double amount, String duration) {
         this.index = recordNum - 1;
         this.type = type;
