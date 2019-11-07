@@ -39,7 +39,6 @@ public class AddOrderCommand extends Command {
         orderList.addEntry(order);
         ui.showLine();
         ui.showAddOrder(order.toString(), orderList.size());
-
-        // TODO: store the new order into file
+        os.update();
     }
 }

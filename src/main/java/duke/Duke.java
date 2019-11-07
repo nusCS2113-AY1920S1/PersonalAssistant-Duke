@@ -49,7 +49,7 @@ public class Duke {
             orderStorage = new OrderStorage(orderFilePath);
             recipeStorage = new RecipeStorage(recipeFilePath); //TODO: use this
             fridge = new Fridge(fridgeStorage);
-            order = new OrderList(orderStorage.load().getAllEntries());
+            order = new OrderList(orderStorage.getEntries().getAllEntries());
         } catch (DukeException e) {
             ui.showLoadingError();
             e.printStackTrace();
