@@ -89,8 +89,12 @@ public class TaskCreatorTest {
 
     @Test
     void extractAssignee() {
-        assertEquals(taskCreator.extractAssignee(input1), "john");
-        assertEquals(taskCreator.extractAssignee(input2), "everyone");
+        try {
+            assertEquals(taskCreator.extractAssignee(input1), "john");
+            assertEquals(taskCreator.extractAssignee(input2), "everyone");
+        } catch (RoomShareException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -103,8 +107,12 @@ public class TaskCreatorTest {
     void extractDuration() {
         Pair<Integer, TimeUnit> pair = new Pair<>(2, TimeUnit.hours);
         Pair<Integer, TimeUnit> pair2 = new Pair<>(0, TimeUnit.unDefined);
-        assertEquals(taskCreator.extractDuration(input1), pair);
-        assertEquals(taskCreator.extractDuration(input2), pair2);
+        try {
+            assertEquals(taskCreator.extractDuration(input1), pair);
+            assertEquals(taskCreator.extractDuration(input2), pair2);
+        } catch (RoomShareException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test

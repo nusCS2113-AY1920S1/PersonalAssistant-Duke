@@ -20,25 +20,20 @@ public class Ui {
      * Shows the startup logo for RoomShare
      */
     public void startUp() {
-        String logo = "      /@@&@@@*\n"
-                + "      (@&@/ (@@@/ \n"
-                + "      (@&&(    /@@@.\n"
-                + "      /@&&(       &@@\n"
-                + "      /@&&@/       #@@(\n"
-                + "      (@&&%@@@*    *&@@(\n"
-                + "      (@&@/  %@@@&%%&&@&,\n"
-                + "      (@&@(     &@&@@@@#   ,#%&%(* \n"
-                + "      &@&@/     ,@@%      (@&&@@@@@@(\n"
-                + "        #@&      /@@#     (@@&     /@@@&*\n"
-                + "                  #@@/    .&@&        %@@%\n"
-                + "                  .&@@,     &@@*         /,\n"
-                + "                   #&@&       #@@&.\n"
-                + "                    #@@&        .&@@# \n"
-                + "                       ##          .&@@/\n"
-                + "                           (&*        %@@/\n"
-                + "                             %@%       /@@%\n"
-                + "                               ,@@@.   /@@@/\n"
-                + "                                  .%@@@@&@@*\n";
+        String logo = "    &@\n"
+                + "    #@&@@.\n"
+                + "    #&&  .@@,\n"
+                + "    %&&     %@,\n"
+                + "    #@&@%    %@#\n"
+                + "    %&&  @@@&&&&.\n"
+                + "    &&&    @@##/  @@@@@#\n"
+                + "     (@    .@&   .@@.   &@@.\n"
+                + "            /@%   (@(     * \n"
+                + "             @@*    #@%\n"
+                + "              #@,      @@#\n"
+                + "                  /*     *@@\n"
+                + "                    %@.    @@.\n"
+                + "                       #@@@&@*\n";
         System.out.println("Hello from RoomShare!\n" + logo);
         System.out.println("Enter 'help' if you require assistance");
     }
@@ -329,5 +324,15 @@ public class Ui {
         System.out.println("Reschedules an overdued task by index to a later date by inputting a new date");
         System.out.println("\teg. reschedule 1 &20/11/2019 10:00&");
         System.out.println("This will reschedule task 1 in the overdue task list to have a deadline of 20th Nov 2019 at 10am");
+    }
+    public void showTagged(String user) {
+        System.out.println("These are the tasks assigned to " + user + ":");
+    }
+    public void showTaggedPercentage(String user) {
+        System.out.println("The completion status for '" + user + "' is:");
+    }
+
+    public void showDeletedList() {
+        System.out.println("Here are the tasks that you have deleted and are in temporary storage");
     }
 }

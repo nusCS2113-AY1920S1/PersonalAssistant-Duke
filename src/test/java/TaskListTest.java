@@ -94,7 +94,11 @@ class TaskListTest {
     void reorder() {
         tl.add(ts);
         tl.add(ts2);
-        tl.reorder(0, 1);
+        try {
+            tl.reorder(0, 1);
+        } catch (RoomShareException e) {
+            e.printStackTrace();
+        }
         try {
             assertEquals("[A][\u2718] task2 (everyone) (by: Sun Dec 22 18:00:00 SGT 2019)\n" +
                     "[A][\u2718] task1 (everyone) (by: Sun Dec 22 18:00:00 SGT 2019)", tl.get(0).toString() + "\n" + tl.get(1).toString());

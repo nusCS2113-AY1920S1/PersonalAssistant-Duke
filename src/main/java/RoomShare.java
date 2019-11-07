@@ -3,11 +3,11 @@ import Enums.ExceptionType;
 import Enums.SortType;
 import Enums.TaskType;
 import Enums.TimeUnit;
+import Model_Classes.ProgressBar;
 import Model_Classes.Task;
 import Operations.*;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -207,16 +207,8 @@ public class RoomShare {
                 ui.startUp();
                 try {
                     String input = parser.getCommandLine();
-                    if(!(CheckAnomaly.checkTask((taskCreator.create(input))))) {
-                        if( !(CheckAnomaly.checkDuplicate((taskCreator.create(input)))) ) {
-                            taskList.add(taskCreator.create(input));
-                            ui.showAdd();
-                        } else {
-                            throw new RoomShareException(ExceptionType.duplicateTask);
-                        }
-                    } else {
-                        throw new RoomShareException(ExceptionType.timeClash);
-                    }
+                    taskList.add(taskCreator.create(input));
+                    ui.showAdd();
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 } finally {
@@ -284,7 +276,7 @@ public class RoomShare {
                 try {
                     String input = parser.getCommandLine();
                     int index = parser.getIndex(input);
-                    Task oldTask = taskList.get(index);
+                    Task oldTask = TaskList.get(index);
                     taskCreator.updateTask(input,oldTask);
                     ui.showUpdated(index+1);
                     storage.writeFile(TaskList.currentList(), "data.txt");
@@ -379,6 +371,31 @@ public class RoomShare {
                     storage.writeFile(TaskList.getOverdueList(), "overdue.txt");
                 } catch (RoomShareException e) {
                     ui.showError(e);
+                }
+                listRoutine.list();
+                break;
+
+            case show:
+                Ui.clearScreen();
+                ui.startUp();
+                String input = parser.getCommandLine();
+                if (input.equals("deleted")) {
+                    ui.showDeletedList();
+                    try {
+                        tempDeleteList.list();
+                    } catch (RoomShareException e) {
+                        ui.showError(e);
+                    }
+                } else {
+                    ui.showTagged(input);
+                    try {
+                        int[] doneArray = taskList.listTagged(input);
+                        ui.showTaggedPercentage(input);
+                        ProgressBar progressBar = new ProgressBar(doneArray[0], doneArray[1]);
+                        ui.showBar(progressBar.showBar());
+                    } catch (RoomShareException e) {
+                        ui.showError(e);
+                    }
                 }
                 listRoutine.list();
                 break;
