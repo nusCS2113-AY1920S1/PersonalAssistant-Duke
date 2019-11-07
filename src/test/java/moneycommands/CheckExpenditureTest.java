@@ -110,5 +110,14 @@ public class CheckExpenditureTest {
         } catch (ParseException | DukeException | NumberFormatException  e) {
             assertThat(e.getMessage(), is("Month is invalid! Please pick a month from 1-12"));
         }
+        String invalidYearInput = "check expenditure 10 839";
+        ui.clearOutputString();
+        try {
+            MoneyCommand invalidYearCommand = new ViewPastExpenditureCommand(invalidYearInput);
+            invalidYearCommand.execute(account, ui, storage);
+            fail();
+        } catch (ParseException | DukeException e) {
+            assertThat(e.getMessage(), is("Only years dated from 1000-9999 are accepted by Financial Ghost :)"));
+        }
     }
 }

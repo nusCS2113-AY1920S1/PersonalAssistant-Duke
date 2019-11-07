@@ -12,6 +12,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.hamcrest.CoreMatchers.is;
@@ -249,6 +251,52 @@ class LoansTest {
             notExistIncomingCommand.execute(account, ui, storage);
         } catch (DukeException | ParseException e) {
             assertThat(e.getMessage(), is("Vivian Hsu does not have an incoming loan"));
+        }
+    }
+
+    @Test
+    void testInvalidAddInput() {
+        String invalidInput = "borrowed from my daddy /amt 200000     ";
+        MoneyCommand invalidAddCommand = new AddLoanCommand(invalidInput);
+        ui.clearOutputString();
+        try {
+            invalidAddCommand.execute(account, ui, storage);
+            fail();
+        } catch (DukeException | ParseException | ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            assertThat(e.getMessage(), is("Please enter in the format: " +
+                    "lent/borrowed <person> /amt <amount> /on <date>\n"));
+        }
+        String invalidDateInput = "lent my boys /amt 3000 /on blah blah blah";
+        MoneyCommand invalidDateCommand = new AddLoanCommand(invalidDateInput);
+        ui.clearOutputString();
+        try {
+            invalidDateCommand.execute(account, ui, storage);
+            fail();
+        } catch (DukeException | ParseException | DateTimeParseException e) {
+            assertThat(e.getMessage(), is("Invalid date! Please enter date in the format: d/m/yyyy\n"));
+        }
+    }
+
+    @Test
+    void testInvalidDeleteInput() {
+        String invalidInput = "delete loan whoa whoa";
+        ui.clearOutputString();
+        try {
+            MoneyCommand invalidDeleteCommand = new DeleteLoanCommand(invalidInput);
+            invalidDeleteCommand.execute(account, ui, storage);
+            fail();
+        } catch (DukeException | ParseException | NumberFormatException e) {
+            assertThat(e.getMessage(),
+                    is("Please enter a numerical number as the index of the loan to be deleted\n"));
+        }
+        String invalidIndexInput = "delete loan -2";
+        ui.clearOutputString();
+        try {
+            MoneyCommand invalidIndexCommand = new DeleteLoanCommand(invalidIndexInput);
+            invalidIndexCommand.execute(account, ui, storage);
+            fail();
+        } catch (DukeException | ParseException e) {
+            assertThat(e.getMessage(), is("The serial number of the loan is Out Of Bounds!"));
         }
     }
 }
