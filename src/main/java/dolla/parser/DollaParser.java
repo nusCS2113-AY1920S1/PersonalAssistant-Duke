@@ -76,12 +76,9 @@ public class DollaParser extends Parser {
             return new AddDebtsCommand(type, name, amount, description, date, t.getTagName());
 
         } else if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_SET)) {
-            if (verifySetLimitCommand()) {
-                String typeStr = inputArray[1];
-                String durationStr = inputArray[3];
-                return new AddLimitCommand(typeStr, amount, durationStr);
+            if (verifySetCommand()) {
+                return new AddLimitCommand(type, amount, duration);
             } else {
-                LimitUi.invalidSetCommandPrinter();
                 return new ErrorCommand();
             }
         } else {

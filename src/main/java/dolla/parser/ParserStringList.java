@@ -16,6 +16,7 @@ public interface ParserStringList {
     // Commands specific to Limit mode
     String LIMIT_COMMAND_LIST = "limits";
     String LIMIT_COMMAND_SET = "set";
+    String LIMIT_COMMAND_REMAINING = "remaining";
 
     String LIMIT_TYPE_S = "saving";
     String LIMIT_TYPE_B = "budget";

@@ -4,14 +4,16 @@ import dolla.ModeStringList;
 import dolla.Time;
 import dolla.model.RecordList;
 import dolla.exception.DollaException;
-import dolla.ui.EntryUi;
+
 import dolla.ui.Ui;
+import dolla.ui.EntryUi;
+import dolla.ui.RemoveUi;
+import dolla.ui.LimitUi;
+import dolla.ui.SortUi;
 import dolla.ui.ModifyUi;
 
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
-import dolla.ui.SortUi;
-import dolla.ui.RemoveUi;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -33,6 +35,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     protected static String[] inputArray;
     protected String commandToRun;
     protected int modifyRecordNum;
+    protected String duration;
 
     protected static int maxAmount = 1000000;
 
@@ -46,7 +49,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         this.commandToRun = inputArray[0];
     }
 
-    public abstract Command parseInput();
+    public abstract Command parseInput() throws DollaException;
 
     public static String getInputLine() {
         return inputLine;
@@ -90,7 +93,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * @return Integer type of the specified string.
      */
     public static double stringToDouble(String str) throws Exception {
-        double newDouble = 0.0;
+        double newDouble;
         try {
             newDouble = Double.parseDouble(str);
             if (newDouble <= 0 || newDouble >= maxAmount) {
@@ -446,32 +449,35 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     }
 
     //@@author Weng-Kexin
-    private Boolean verifyLimitType(String limitType) {
-        return limitType.equals(LIMIT_TYPE_S)
-                || limitType.equals(LIMIT_TYPE_B);
-    }
-
-    private Boolean verifyLimitDuration(String limitDuration) {
-        return limitDuration.equals(LIMIT_DURATION_D)
-                || limitDuration.equals(LIMIT_DURATION_W)
-                || limitDuration.equals(LIMIT_DURATION_M);
-    }
-
-    private Boolean verifyLimitAmount(double limitAmount) {
-        return (limitAmount != 0);
-    }
-
-    protected Boolean verifySetLimitCommand() {
-        boolean isValid;
-        try {
-            amount = stringToDouble(inputArray[2]);
-            String typeStr = inputArray[1];
-            String durationStr = inputArray[3];
-            isValid = verifyLimitType(typeStr) && verifyLimitAmount(amount) && verifyLimitDuration(durationStr);
-        } catch (Exception e) { //index out of bounds here also
-            //LimitUi.invalidSetCommandPrinter();
-            isValid = false;
+    private String verifyLimitType(String limitType) throws DollaException {
+        if (limitType.equals(LIMIT_TYPE_S) || limitType.equals(LIMIT_TYPE_B)) {
+            return limitType;
+        } else {
+            throw new DollaException(DollaException.invalidLimitType());
         }
-        return isValid;
+    }
+
+    private String verifyLimitDuration(String limitDuration) throws DollaException {
+        if (limitDuration.equals(LIMIT_DURATION_D)
+                || limitDuration.equals(LIMIT_DURATION_W)
+                || limitDuration.equals(LIMIT_DURATION_M)) {
+            return limitDuration;
+        } else {
+            throw new DollaException(DollaException.invalidLimitDuration());
+        }
+    }
+
+    protected Boolean verifySetCommand() {
+        try {
+            type = verifyLimitType(inputArray[1]);
+            amount = stringToDouble(inputArray[2]);
+            duration = verifyLimitDuration(inputArray[3]);
+        } catch (IndexOutOfBoundsException e) {
+            LimitUi.invalidSetCommandPrinter();
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 }
