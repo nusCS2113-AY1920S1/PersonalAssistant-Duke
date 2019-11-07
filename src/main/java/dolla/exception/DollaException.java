@@ -2,6 +2,7 @@ package dolla.exception;
 
 import dolla.ui.Ui;
 
+//@@author Weng-Kexin
 public class DollaException extends Exception {
 
     private static final String INVALID_AMOUNT_MSG = "\tOOPS! The amount you have entered is invalid.\n"
