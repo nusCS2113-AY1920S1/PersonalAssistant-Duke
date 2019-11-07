@@ -37,15 +37,16 @@ import java.util.TreeMap;
 public class Storage {
 
     private static String FILE_PATH;
-    private static final String EXCEL_PATH = "data/wordup.xlsx";
+    private static String EXCEL_PATH;
     private File excelFile;
 
     public Storage() {
         excelFile = new File(EXCEL_PATH);
     }
 
-    public Storage(String filePath) {
+    public Storage(String filePath, String excelPath) {
         FILE_PATH = filePath;
+        EXCEL_PATH = excelPath;
         excelFile = new File(EXCEL_PATH);
     }
 
