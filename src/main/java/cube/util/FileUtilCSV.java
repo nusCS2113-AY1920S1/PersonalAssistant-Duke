@@ -13,7 +13,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import cube.exception.CubeException;
-import cube.exception.CubeLoadingException;
+import cube.util.exception.CubeUtilException;
+import cube.util.exception.UtilErrorMessage;
 
 import java.io.File;
 import java.io.IOException;
@@ -62,7 +63,7 @@ public class FileUtilCSV<Type> extends FileUtil {
 
         } catch (IOException e) {
             e.printStackTrace();
-            throw new CubeLoadingException(fileFullPath);
+            throw new CubeUtilException(UtilErrorMessage.READ_ERROR + fileFullPath);
         }
 
         return collectionToLoad;
@@ -84,7 +85,7 @@ public class FileUtilCSV<Type> extends FileUtil {
             mapper.writerFor(collectionToSave.getClass()).with(schema).writeValue(file, collectionToSave);
         } catch (IOException e) {
             e.printStackTrace();
-            throw new CubeLoadingException(fileFullPath);
+            throw new CubeUtilException(UtilErrorMessage.WRITE_ERROR + fileFullPath);
         }
     }
 }
