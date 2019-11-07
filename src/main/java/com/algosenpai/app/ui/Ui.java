@@ -67,9 +67,9 @@ public class Ui extends AnchorPane {
     private int idleMinutesMax = 180;
     private int userLevel = 1;
 
+    // A flag to prevent a key *held down* from being interpreted as multiple key Presses.
+    // Once keyPressed is true, subsequent keypress events are ignored.
     private boolean keyPressed = false;
-    // How many inputs in the past the user wants to access
-    private int inputHistoryOffset = 0;
 
     private static final String GREETING_MESSAGE = "Welcome to AlgoSenpai Adventures!"
                                                    + " Type 'hello' followed by your name and gender"
@@ -108,14 +108,18 @@ public class Ui extends AnchorPane {
         dialogContainer.getChildren().add(DialogBox.getSenpaiDialog(response, senpaiImage));
         handle();
         userPic.setImage(userImage);
-        userInput.setPromptText("Enter a command (Enter \"menu\" to see a list of commands)");
+
+        userInput.setPromptText("Enter a command (Enter \"menu\" to see a list of commands");
+
         // Add a listener to monitor for Arrow keys and Tab.
         userInput.setOnKeyPressed(keyEvent -> {
             if (!keyPressed) {
                 handleKeyPress(keyEvent.getCode());
+                // Set flag to true to ignore any more keypress events when that key is helld down.
                 keyPressed = true;
             }
         });
+        // Reset the flag when the key is released.
         userInput.setOnKeyReleased(keyEvent -> keyPressed = false);
         handle();
     }
@@ -168,6 +172,11 @@ public class Ui extends AnchorPane {
         }
     }
 
+    /**
+     * Handles any keypresses when the userInput is in focus. Currently it responds to UP/DOWN to navigate through
+     * history and TAB to auto complete words. Other keys are ignored.
+     * @param k The Keycode of the key pressed.
+     */
     @FXML
     private void handleKeyPress(KeyCode k) {
         // Get the previous and next commands from the historyList inside logic.
@@ -189,13 +198,7 @@ public class Ui extends AnchorPane {
             userInput.deselect();
             // Puts the cursor to the front of the text.
             userInput.positionCaret(userInput.getText().length());
-
-
         }
-
-
-
-
     }
 
     /**

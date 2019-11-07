@@ -18,11 +18,12 @@ import com.algosenpai.app.logic.command.PrintUserCommand;
 import com.algosenpai.app.logic.command.QuizCommand;
 import com.algosenpai.app.logic.command.QuizNextCommand;
 import com.algosenpai.app.logic.command.QuizTestCommand;
+import com.algosenpai.app.logic.command.ResetCommand;
 import com.algosenpai.app.logic.command.ResultCommand;
 import com.algosenpai.app.logic.command.ReviewCommand;
-import com.algosenpai.app.logic.command.SaveCommand;
 import com.algosenpai.app.logic.command.SelectCommand;
 import com.algosenpai.app.logic.command.SetupCommand;
+import com.algosenpai.app.logic.command.ShowStatsCommand;
 import com.algosenpai.app.logic.command.UndoCommand;
 import com.algosenpai.app.logic.command.VolumeCommand;
 import com.algosenpai.app.logic.constant.CommandsEnum;
@@ -43,6 +44,8 @@ public class Logic {
     private AtomicInteger chapterNumber = new AtomicInteger(-1);
     //Check if currently in quiz mode.
     private AtomicBoolean isQuizMode = new AtomicBoolean(false);
+    //Check if currently in reset Confirmation mode
+    private AtomicBoolean isResetMode = new AtomicBoolean(false);
     //Checks if it is a new quiz.
     private AtomicBoolean isNewQuiz = new AtomicBoolean(true);
     //The arraylist containing the questions.
@@ -102,6 +105,8 @@ public class Logic {
             } else {
                 return determineQuizAction(inputs);
             }
+        } else if (isResetMode.get() || userInput.equals("reset")) {
+            return new ResetCommand(inputs,userStats,isResetMode);
         } else {
             switch (userInput) {
             case "hello":
@@ -122,12 +127,8 @@ public class Logic {
                 return new UndoCommand(inputs);
             case "clear":
                 return new ClearCommand(inputs);
-            case "reset":
-                // TODO SHANTANU
-                return null;
-            case "save":
-                // TODO SHANTANU
-                return new SaveCommand(inputs, userStats);
+            case "stats":
+                return new ShowStatsCommand(inputs,userStats);
             case "exit":
                 return new ByeCommand(inputs);
             case "print":

@@ -21,6 +21,7 @@ public enum CommandsEnum {
     print,
     archive,
     save,
+    stats,
     exit;
 
     /**

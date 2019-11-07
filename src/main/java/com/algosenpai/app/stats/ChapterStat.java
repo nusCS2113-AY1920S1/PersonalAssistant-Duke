@@ -146,4 +146,17 @@ public class ChapterStat {
             return false;
         }
     }
+
+    /**
+     * Resets the stats for that chapter.
+     */
+    public void resetAll() {
+        this.attempts = 0;
+        this.correctAnswers = 0;
+        this.comments = "";
+        this.totalAnswered = 0;
+        this.wrongAnswers = 0;
+        this.percentage = 0;
+
+    }
 }
