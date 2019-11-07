@@ -264,27 +264,6 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             return false;
         }
 
-//        switch (mode) {
-//        case MODE_ENTRY:
-//            hasComponents = findComponents();
-//            break;
-//        case MODE_LIMIT:
-//            hasComponents = findLimitComponents();
-//            //Ui.printUpcomingFeature();
-//            return false;
-//            //break;
-//        case MODE_DEBT:
-//            // TODO
-//            Ui.printUpcomingFeature();
-//            return false;
-//            //break;
-//        case MODE_SHORTCUT:
-//            // TODO
-//            break;
-//        default:
-//            break;
-//        }
-
         hasComponents = findComponents();
 
         if (!hasComponents) {
@@ -316,7 +295,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                         verifyEntryComponents(currStr, nextStr, i);
                         break;
                     case MODE_LIMIT:
-                        verifyLimitComponents(currStr, nextStr, i);
+                        verifyLimitComponents(currStr, nextStr);
                         break;
                     default:
                         break;
@@ -338,7 +317,14 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         return hasComponents;
     }
 
-    private void verifyLimitComponents(String currStr, String nextStr, int i) throws Exception {
+    /**
+     * Checks if the string from input (currStr) represents a component of limit. If so, verify and assign
+     * the components of limit with the new data (nextStr).
+     * @param currStr to be checked if it's a component (ie. /type).
+     * @param nextStr the new data to be used for the specified component.
+     * @throws Exception when the nextStr is not a valid input for component from currStr.
+     */
+    private void verifyLimitComponents(String currStr, String nextStr) throws Exception {
         try {
             switch (currStr) {
             case COMPONENT_TYPE:
@@ -370,6 +356,14 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         }
     }
 
+     /**
+     * Checks if the string from input (currStr) represents a component of entry. If so, verify and assign
+     * the components of entry with the new data (nextStr).
+     * @param currStr to be checked if it's a component (ie. /type).
+     * @param nextStr the new data to be used for the specified component.
+     * @param index the index of currStr in the input array.
+     * @throws Exception when the nextStr is not a valid input for component from currStr.
+     */
     private void verifyEntryComponents(String currStr, String nextStr, int index) throws Exception {
         try {
             switch (currStr) {
