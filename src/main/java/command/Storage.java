@@ -187,6 +187,10 @@ public class Storage {
         LinkedHashMap<String, Project> projectmap;
         try {
             File file = new File(undoListFilePath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
             projectmap = gson.fromJson(bufferedReader, projectmaptype);
             bufferedReader.close();
@@ -207,6 +211,10 @@ public class Storage {
         LinkedHashMap<String, Project> projectmap;
         try {
             File file = new File(redoListFilePath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
             projectmap = gson.fromJson(bufferedReader, projectmaptype);
             bufferedReader.close();
@@ -255,6 +263,10 @@ public class Storage {
         ArrayList<String> List = new ArrayList<String>();
         try {
             File file = new File(CommandListFilePath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
             while((line = bufferedReader.readLine()) != null) {
                List.add(line);
