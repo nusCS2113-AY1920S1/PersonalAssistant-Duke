@@ -38,4 +38,5 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    mainClassName = "Maintest"
 }
