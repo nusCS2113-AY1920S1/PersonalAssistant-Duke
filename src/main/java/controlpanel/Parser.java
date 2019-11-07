@@ -1,8 +1,7 @@
 package controlpanel;
 
-import moneycommands.*;
-
 import moneycommands.AddIncomeCommand;
+import moneycommands.AddExpenditureCommand;
 import moneycommands.AddGoalCommand;
 import moneycommands.CreateBankAccountCommand;
 import moneycommands.DeleteExpenditureCommand;
@@ -16,6 +15,23 @@ import moneycommands.ListTotalExpenditureCommand;
 import moneycommands.ListTotalIncomeCommand;
 import moneycommands.StartCommand;
 import moneycommands.MoneyCommand;
+import moneycommands.CommitGoalCommand;
+import moneycommands.DoneGoalCommand;
+import moneycommands.FindCommand;
+import moneycommands.DeleteBankAccountCommand;
+import moneycommands.GraphCommand;
+import moneycommands.UndoCommand;
+import moneycommands.AddInstalmentCommand;
+import moneycommands.DeleteInstalmentCommand;
+import moneycommands.ListInstalmentCommand;
+import moneycommands.ViewPastExpenditureCommand;
+import moneycommands.ViewPastIncomeCommand;
+import moneycommands.AddLoanCommand;
+import moneycommands.ListLoansCommand;
+import moneycommands.DeleteLoanCommand;
+import moneycommands.CheckFutureBalanceCommand;
+import moneycommands.InternalTransferCommand;
+import moneycommands.SettleLoanCommand;
 
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -29,10 +45,12 @@ import java.util.Date;
  * correct command type. Calls the appropriate MoneyCommand from control panel
  */
 public class Parser {
-    public Parser() throws DukeException, ParseException {}
+    public Parser() throws DukeException, ParseException {
+
+    }
 
     /**
-     * Constructor which runs the parser to parse all commands
+     * Constructor which runs the parser to parse all commands.
      * @param cmd Original input command from the user
      * @param isNewUser Boolean to identify if the user if a new or returning user
      * @return MoneyCommand to be called according to the user commands
@@ -46,10 +64,11 @@ public class Parser {
             moneyCommand = new StartCommand(isNewUser);
         } else if (cmd.startsWith("init")) {
             moneyCommand = new InitCommand(cmd, isNewUser);
-        } else if(cmd.equals("bye")) {
+        } else if (cmd.equals("bye")) {
             moneyCommand = new ExitMoneyCommand();
-        } else if(isNewUser) {
-            throw new DukeException("You are a new user please type: init [existing savings] [Avg Monthly Expenditure]");
+        } else if (isNewUser) {
+            throw new DukeException("You are a new user, "
+                    + "please type: init [existing savings] [Avg Monthly Expenditure]");
         } else if (cmd.startsWith("bank-account")) {
             moneyCommand = new CreateBankAccountCommand(cmd);
         } else if (cmd.equals("list bank trackers")) {
@@ -68,9 +87,9 @@ public class Parser {
             moneyCommand = new DeleteGoalCommand(serialNo);
         } else if (cmd.startsWith("commit goal")) {
             moneyCommand = new CommitGoalCommand(cmd);
-        }else if (cmd.startsWith("done goal")) {
+        } else if (cmd.startsWith("done goal")) {
             moneyCommand = new DoneGoalCommand(cmd);
-        }else if (cmd.startsWith("find#")) {
+        } else if (cmd.startsWith("find#")) {
             moneyCommand = new FindCommand(cmd);
         } else if (cmd.startsWith("add income")) {
             moneyCommand = new AddIncomeCommand(cmd);

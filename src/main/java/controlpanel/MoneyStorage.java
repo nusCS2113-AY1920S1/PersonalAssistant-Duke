@@ -17,6 +17,10 @@ public class MoneyStorage {
     private static Stack<Item> deletedEntries;
     private static Stack<BankTracker> deletedBanks;
 
+    /**
+     * Constructor for the MoneyStorage Object
+     * @param filePath FilePath of the data text file
+     */
     public MoneyStorage(String filePath) {
         fileName = filePath;
         dateTimeFormatter  = DateTimeFormatter.ofPattern("d/M/yyyy");
@@ -73,7 +77,7 @@ public class MoneyStorage {
                 //if (line.contains("#")) { continue; }
                 String[] info = line.split(" @ ");
 
-                switch(info[0]) {
+                switch (info[0]) {
                 case "INIT":
                     account.setToInitialize(Boolean.parseBoolean(info[1]));
                     break;
@@ -109,8 +113,8 @@ public class MoneyStorage {
             final String hash = "moneyAccount";
             final String fileName = hash + ".txt";
             final File file = new File(parentDir, fileName);
-            file.createNewFile(); // Creates file crawl_html/abc.txt
-        }catch(IOException | DateTimeParseException | DukeException e){
+            file.createNewFile();
+        } catch (IOException | DateTimeParseException | DukeException e) {
             e.printStackTrace();
         }
         return account;

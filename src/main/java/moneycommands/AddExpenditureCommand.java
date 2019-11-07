@@ -10,7 +10,6 @@ import money.Expenditure;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.Calendar;
 
 /**
  * This command adds an expenditure to the Total Expenditure List.
