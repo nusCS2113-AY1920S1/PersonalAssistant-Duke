@@ -1,22 +1,17 @@
 package duke;
 
-import duke.data.DukeObject;
 import duke.data.GsonStorage;
 import duke.data.PatientList;
-import duke.data.SearchResult;
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
-import duke.exception.DukeUtilException;
 import duke.ui.Ui;
 import duke.ui.UiManager;
-import duke.ui.context.Context;
 import duke.ui.context.UiContext;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.util.List;
 
 /**
  * Main class of the application.
@@ -43,24 +38,6 @@ public class DukeCore extends Application {
         } catch (DukeException e) {
             ui.showErrorDialogAndShutdown("Error encountered!", e);
         }
-    }
-
-    // TODO finish up
-    /**
-     * Displays results of a search.
-     * @param searchTerm The term that was used to perform the search.
-     * @param resultList The search results obtained.
-     * @param parent The parent object that the search was performed in.
-     * @throws DukeUtilException If the search result list is null.
-     */
-    public void showSearchResults(String searchTerm, List<? extends DukeObject> resultList,
-                                  DukeObject parent) throws DukeUtilException {
-        if (resultList == null) {
-            throw new DukeUtilException("Search result list is null!");
-        }
-        SearchResult search = new SearchResult(searchTerm, resultList, parent);
-        uiContext.setContext(Context.SEARCH, search);
-        ui.print("Opening search results for " + searchTerm);
     }
 
     /**

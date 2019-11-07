@@ -40,6 +40,10 @@ public class Commands {
      * @return The newly constructed command without any parameters loaded.
      */
     public Command getCommand(String cmdStr, Context context) {
+        if (context == Context.SEARCH) {
+            return new ArgCommand(SearchSpec.getSpec(cmdStr));
+        }
+
         // check context-independent switches first
         switch (cmdStr) {
         case "bye":
