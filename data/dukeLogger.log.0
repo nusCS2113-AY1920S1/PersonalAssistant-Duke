@@ -678,3 +678,451 @@ Nov 06, 2019 3:34:48 PM Parser.RemindParse parse
 INFO: Invalid remind formatIndex 1 out of bounds for length 1
 Nov 06, 2019 3:34:48 PM Parser.RecurParse parse
 INFO: Invalid recur formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:01:05 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 06, 2019 6:01:09 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:01:09 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:01:15 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:01:23 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:01:54 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:02:10 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 06, 2019 6:02:18 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:02:22 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:03:01 PM Commons.Storage stringToTask
+SEVERE: Unable to parse data from event.txt or deadline.txtUnparseable date: "08/11/2019"
+Nov 06, 2019 6:03:14 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 06, 2019 6:03:18 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:03:18 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:03:22 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:07:23 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 06, 2019 6:07:31 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:08:56 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 06, 2019 6:08:57 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:08:57 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:09:00 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:09:00 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:09:08 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidFormatException: Invalid input. Please enter the command as follows. 
+Find 'x' hours , where 'x' is a digit between 1 - 16Invalid input. Please enter the command as follows. 
+Find 'x' hours , where 'x' is a digit between 1 - 16
+Nov 06, 2019 6:09:08 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:09:14 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:09:21 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:10:25 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 06, 2019 6:10:31 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:10:52 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 06, 2019 6:10:52 PM UserInterface.Main start
+SEVERE: MainWindow.fxml cannot be found.
+/Users/jer/main/build/resources/main/view/MainWindow.fxml
+
+Nov 06, 2019 6:11:09 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 06, 2019 6:11:16 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:11:19 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:12:43 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 06, 2019 6:13:41 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:14:02 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:15:23 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:16:17 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 06, 2019 6:18:32 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 06, 2019 6:18:43 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:18:48 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:18:51 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:19:12 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:19:27 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidFormatException: Invalid Week. Please enter the command as follows. 
+Week 'x' , where 'x' is a digit between 1 - 13 or 
+'x' is either 'recess', 'reading', or 'exam'Invalid Week. Please enter the command as follows. 
+Week 'x' , where 'x' is a digit between 1 - 13 or 
+'x' is either 'recess', 'reading', or 'exam'
+Nov 06, 2019 6:19:27 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:19:32 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:19:37 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:19:42 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:19:46 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:21:47 PM Parser.ShowPreviousParse parse
+INFO: Unable to parse string to integerFor input string: "add/d"
+Nov 06, 2019 6:21:47 PM Parser.ShowPreviousParse parse
+INFO: Unable to parse string to integerFor input string: "remove/all"
+Nov 06, 2019 6:21:47 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "5.6"
+Nov 06, 2019 6:21:47 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "abc"
+Nov 06, 2019 6:21:47 PM Parser.RetrieveFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "a0b1c2"
+Nov 06, 2019 6:21:47 PM Parser.RetrieveFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "1.1"
+Nov 06, 2019 6:21:47 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:21:47 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:21:47 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:21:47 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:21:47 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:21:47 PM Parser.RecurParse parse
+INFO: Invalid recur formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:23:12 PM Parser.ShowPreviousParse parse
+INFO: Unable to parse string to integerFor input string: "add/d"
+Nov 06, 2019 6:23:12 PM Parser.ShowPreviousParse parse
+INFO: Unable to parse string to integerFor input string: "remove/all"
+Nov 06, 2019 6:23:12 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "5.6"
+Nov 06, 2019 6:23:12 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "abc"
+Nov 06, 2019 6:23:12 PM Parser.RetrieveFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "a0b1c2"
+Nov 06, 2019 6:23:12 PM Parser.RetrieveFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "1.1"
+Nov 06, 2019 6:23:12 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:23:12 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:23:12 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:23:12 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:23:12 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:23:12 PM Parser.RecurParse parse
+INFO: Invalid recur formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:23:51 PM Parser.ShowPreviousParse parse
+INFO: Unable to parse string to integerFor input string: "add/d"
+Nov 06, 2019 6:23:51 PM Parser.ShowPreviousParse parse
+INFO: Unable to parse string to integerFor input string: "remove/all"
+Nov 06, 2019 6:23:51 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "5.6"
+Nov 06, 2019 6:23:51 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "abc"
+Nov 06, 2019 6:23:51 PM Parser.RetrieveFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "a0b1c2"
+Nov 06, 2019 6:23:51 PM Parser.RetrieveFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "1.1"
+Nov 06, 2019 6:23:51 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:23:51 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:23:51 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:23:51 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:23:51 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:23:51 PM Parser.RecurParse parse
+INFO: Invalid recur formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:26:32 PM Parser.ShowPreviousParse parse
+INFO: Unable to parse string to integerFor input string: "add/d"
+Nov 06, 2019 6:26:32 PM Parser.ShowPreviousParse parse
+INFO: Unable to parse string to integerFor input string: "remove/all"
+Nov 06, 2019 6:26:32 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "5.6"
+Nov 06, 2019 6:26:32 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "abc"
+Nov 06, 2019 6:26:32 PM Parser.RetrieveFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "a0b1c2"
+Nov 06, 2019 6:26:32 PM Parser.RetrieveFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "1.1"
+Nov 06, 2019 6:26:32 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:26:32 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:26:32 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:26:32 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:26:32 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:26:33 PM Parser.RecurParse parse
+INFO: Invalid recur formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:26:43 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 06, 2019 6:26:55 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:27:02 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:27:08 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:27:17 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidFormatException: Invalid input. Please enter the command as follows. 
+Find 'x' hours , where 'x' is a digit between 1 - 16Invalid input. Please enter the command as follows. 
+Find 'x' hours , where 'x' is a digit between 1 - 16
+Nov 06, 2019 6:27:17 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:27:57 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 06, 2019 6:28:16 PM Parser.ShowPreviousParse parse
+INFO: Unable to parse string to integerFor input string: "add/d"
+Nov 06, 2019 6:28:16 PM Parser.ShowPreviousParse parse
+INFO: Unable to parse string to integerFor input string: "remove/all"
+Nov 06, 2019 6:28:16 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "5.6"
+Nov 06, 2019 6:28:16 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "abc"
+Nov 06, 2019 6:28:16 PM Parser.RetrieveFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "a0b1c2"
+Nov 06, 2019 6:28:16 PM Parser.RetrieveFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "1.1"
+Nov 06, 2019 6:28:16 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:28:16 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:28:16 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:28:16 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:28:16 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:28:17 PM Parser.RecurParse parse
+INFO: Invalid recur formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:28:42 PM Parser.ShowPreviousParse parse
+INFO: Unable to parse string to integerFor input string: "add/d"
+Nov 06, 2019 6:28:42 PM Parser.ShowPreviousParse parse
+INFO: Unable to parse string to integerFor input string: "remove/all"
+Nov 06, 2019 6:28:42 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "5.6"
+Nov 06, 2019 6:28:42 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "abc"
+Nov 06, 2019 6:28:42 PM Parser.RetrieveFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "a0b1c2"
+Nov 06, 2019 6:28:42 PM Parser.RetrieveFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "1.1"
+Nov 06, 2019 6:28:42 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:28:42 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:28:42 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:28:42 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:28:42 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:28:42 PM Parser.RecurParse parse
+INFO: Invalid recur formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:28:59 PM Parser.ShowPreviousParse parse
+INFO: Unable to parse string to integerFor input string: "add/d"
+Nov 06, 2019 6:28:59 PM Parser.ShowPreviousParse parse
+INFO: Unable to parse string to integerFor input string: "remove/all"
+Nov 06, 2019 6:28:59 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "5.6"
+Nov 06, 2019 6:28:59 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "abc"
+Nov 06, 2019 6:28:59 PM Parser.RetrieveFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "a0b1c2"
+Nov 06, 2019 6:28:59 PM Parser.RetrieveFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "1.1"
+Nov 06, 2019 6:28:59 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:28:59 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:28:59 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:28:59 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:28:59 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:28:59 PM Parser.RecurParse parse
+INFO: Invalid recur formatIndex 1 out of bounds for length 1
+Nov 06, 2019 6:29:10 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 06, 2019 6:29:16 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:29:27 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidFormatException: Invalid input. Please enter the command as follows. 
+find/ft 'x' hours , where 'x' is a digit between 1 - 16Invalid input. Please enter the command as follows. 
+find/ft 'x' hours , where 'x' is a digit between 1 - 16
+Nov 06, 2019 6:29:27 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:29:34 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidFormatException: Invalid input. Please enter the command as follows. 
+find/ft 'x' hours , where 'x' is a digit between 1 - 16Invalid input. Please enter the command as follows. 
+find/ft 'x' hours , where 'x' is a digit between 1 - 16
+Nov 06, 2019 6:29:34 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:29:36 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:29:43 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidFormatException: Invalid input. Please enter the command as follows. 
+find/ft 'x' hours , where 'x' is a digit between 1 - 16Invalid input. Please enter the command as follows. 
+find/ft 'x' hours , where 'x' is a digit between 1 - 16
+Nov 06, 2019 6:29:43 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:30:04 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidFormatException: Invalid input. Please enter the command as follows. 
+find/ft 'x' hours , where 'x' is a digit between 1 - 16Invalid input. Please enter the command as follows. 
+find/ft 'x' hours , where 'x' is a digit between 1 - 16
+Nov 06, 2019 6:30:04 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:30:09 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "abc"
+Nov 06, 2019 6:30:09 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidFormatException: Invalid duration. Please enter the command as follows. 
+find/ft 'x' hours , where 'x' is a digit between 1 - 16Invalid duration. Please enter the command as follows. 
+find/ft 'x' hours , where 'x' is a digit between 1 - 16
+Nov 06, 2019 6:30:09 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:30:25 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidFormatException: Invalid option. Please enter the command as follows. 
+retrieve/ft 'x', where 'x' is a digit between 1 - 5Invalid option. Please enter the command as follows. 
+retrieve/ft 'x', where 'x' is a digit between 1 - 5
+Nov 06, 2019 6:30:25 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:30:30 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:30:47 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidFormatException: Invalid Week. Please enter the command as follows. 
+show/week 'x' , where 'x' is a digit between 1 - 13 or 
+'x' is either 'recess', 'reading', or 'exam'Invalid Week. Please enter the command as follows. 
+show/week 'x' , where 'x' is a digit between 1 - 13 or 
+'x' is either 'recess', 'reading', or 'exam'
+Nov 06, 2019 6:30:47 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:31:01 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidFormatException: Invalid Week. Please enter the command as follows. 
+show/week 'x' , where 'x' is a digit between 1 - 13 or 
+'x' is either 'recess', 'reading', or 'exam'Invalid Week. Please enter the command as follows. 
+show/week 'x' , where 'x' is a digit between 1 - 13 or 
+'x' is either 'recess', 'reading', or 'exam'
+Nov 06, 2019 6:31:01 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:31:10 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidFormatException: Invalid Week. Please enter the command as follows. 
+show/week 'x' , where 'x' is a digit between 1 - 13 or 
+'x' is either 'recess', 'reading', or 'exam'Invalid Week. Please enter the command as follows. 
+show/week 'x' , where 'x' is a digit between 1 - 13 or 
+'x' is either 'recess', 'reading', or 'exam'
+Nov 06, 2019 6:31:10 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:43:29 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 06, 2019 6:43:33 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:43:33 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:43:40 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:43:44 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:43:53 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidFormatException: Invalid Week. Please enter the command as follows. 
+show/week 'x' , where 'x' is a digit between 1 - 13 or 
+'x' is either 'recess', 'reading', or 'exam'Invalid Week. Please enter the command as follows. 
+show/week 'x' , where 'x' is a digit between 1 - 13 or 
+'x' is either 'recess', 'reading', or 'exam'
+Nov 06, 2019 6:43:53 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:43:57 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 06, 2019 6:44:00 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidFormatException: Invalid Week. Please enter the command as follows. 
+show/week 'x' , where 'x' is a digit between 1 - 13 or 
+'x' is either 'recess', 'reading', or 'exam'Invalid Week. Please enter the command as follows. 
+show/week 'x' , where 'x' is a digit between 1 - 13 or 
+'x' is either 'recess', 'reading', or 'exam'
+Nov 06, 2019 6:44:00 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 07, 2019 3:05:10 PM Parser.ShowPreviousParse parse
+INFO: Unable to parse string to integerFor input string: "add/d"
+Nov 07, 2019 3:05:10 PM Parser.ShowPreviousParse parse
+INFO: Unable to parse string to integerFor input string: "remove/all"
+Nov 07, 2019 3:05:10 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "5.6"
+Nov 07, 2019 3:05:10 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "abc"
+Nov 07, 2019 3:05:10 PM Parser.RetrieveFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "a0b1c2"
+Nov 07, 2019 3:05:10 PM Parser.RetrieveFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "1.1"
+Nov 07, 2019 3:05:10 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 3:05:10 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 3:05:10 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 3:05:10 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 3:05:10 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 3:05:11 PM Parser.RecurParse parse
+INFO: Invalid recur formatIndex 1 out of bounds for length 1
+Nov 07, 2019 3:11:17 PM Parser.ShowPreviousParse parse
+INFO: Unable to parse string to integerFor input string: "add/d"
+Nov 07, 2019 3:11:17 PM Parser.ShowPreviousParse parse
+INFO: Unable to parse string to integerFor input string: "remove/all"
+Nov 07, 2019 3:11:17 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "5.6"
+Nov 07, 2019 3:11:17 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "abc"
+Nov 07, 2019 3:11:17 PM Parser.RetrieveFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "a0b1c2"
+Nov 07, 2019 3:11:17 PM Parser.RetrieveFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "1.1"
+Nov 07, 2019 3:11:17 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 3:11:17 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 3:11:17 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 3:11:17 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 3:11:17 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 3:11:17 PM Parser.RecurParse parse
+INFO: Invalid recur formatIndex 1 out of bounds for length 1
+Nov 07, 2019 3:11:24 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 07, 2019 3:11:40 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 07, 2019 3:11:45 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 07, 2019 3:11:52 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 07, 2019 3:12:05 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
+Nov 07, 2019 3:17:38 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 07, 2019 3:17:43 PM Commons.Duke run
+INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
