@@ -27,7 +27,7 @@ public class AddSemesterCommand extends Command {
     private static final int SIZE_NAME = 2;
     private static final int SIZE_DATE_START = 3;
     private static final int SIZE_DATE_END = 4;
-    private static final int DESCRIPTION_LENGTH_MAX = 50;
+    private static final int DESCRIPTION_LENGTH_MAX = 100;
 
 
     /**

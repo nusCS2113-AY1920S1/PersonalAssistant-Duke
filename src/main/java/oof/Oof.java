@@ -63,6 +63,9 @@ public class Oof {
             try {
                 ui.printCommandPrompt();
                 String line = ui.scanLine();
+                if (line.trim().isEmpty()) {
+                    continue;
+                }
                 isExit = executeCommand(line);
             } catch (CommandException | ParserException exception) {
                 ui.printCommandException(exception);
