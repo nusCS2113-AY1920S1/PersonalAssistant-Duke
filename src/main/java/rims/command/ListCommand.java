@@ -1,19 +1,14 @@
 package rims.command;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
-
-import javafx.util.converter.DateTimeStringConverter;
 import rims.core.ResourceList;
 import rims.core.Storage;
 import rims.core.Ui;
 import rims.resource.Resource;
-import rims.resource.Reservation;
 import rims.resource.ReservationList;
 import rims.exception.RimsException;
 
@@ -190,50 +185,27 @@ public class ListCommand extends Command {
 
     }
 
-    //
+    //@@author danielcyc
 
-    public static String[] getListForSpecificDay(Date day, ResourceList resources, Ui ui)
+    public static ArrayList<String> getListForSpecificDay(Date day, ResourceList resources, Ui ui)
             throws ParseException, RimsException {
-        System.out.print("here are the booked items: ");
-        String[] result = new String[10];
-
         ArrayList<String> coveredResources = new ArrayList<String>();
-
-        // String[] coveredResources = {};
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
         String strDate = dateFormat.format(day);
-
         for (int i = 0; i < resources.size(); i++) {
             Resource thisResource = resources.getResourceByIndex(i);
-            // System.out.print(thisResource);
-            result[i] = thisResource.toString();
-            // int bookedNumberOfResource =
-            // resources.getBookedNumberOfResourceForDate(thisResource.getName(), strDate);
+            int bookedNumberOfResource = resources.getBookedNumberOfResourceForDate(thisResource.getName(), strDate);
 
-            // if (!coveredResources.contains(thisResource.getName()) &&
-            // bookedNumberOfResource > 0) {
-            // coveredResources.add(thisResource.toString() + " (qty: " +
-            // bookedNumberOfResource + ")");
-            // result[i] = thisResource.toString() + " (qty: " + bookedNumberOfResource +
-            // ")";
-
-            // ui.print(thisResource.toString() + " (qty: " + bookedNumberOfResource + ")");
-            // ArrayList<Resource> allOfResource =
-            // resources.getAllOfResource(thisResource.getName());
-            // for (int j = 0; j < allOfResource.size(); j++) {
-            // if (!allOfResource.get(j).isAvailableOnDate(day)) {
-            // result.add(allOfResource.get(j).getReservations().getCurrentBooking().toString());
-
-            // }
-
-            // }
-            // }
+            if(!coveredResources.contains(bookedNumberOfResource + "x " + thisResource.getName()) && bookedNumberOfResource > 0){
+                coveredResources.add(bookedNumberOfResource + "x " + thisResource.getName());
+            }
         }
-        // List<String> list = Arrays.asList(coveredResources);
-        for (int i = 0; i < result.length; i++) {
-            System.out.print("\n");
-            System.out.print(result[i]);
-        }
-        return result;
+
+        /*System.out.print("here are the booked items for this day: \n");
+        //System.out.print(Arrays.toString(coveredResources.toArray()));
+        for(int i = 0; i < coveredResources.size(); i++) {
+            System.out.println(coveredResources.get(i));
+        }*/
+        return coveredResources;
     }
 }

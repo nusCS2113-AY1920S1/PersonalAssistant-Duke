@@ -63,6 +63,7 @@ public class Storage {
      * @throws ParseException        when unable to parse an integer for ID or checking if a resource is booked.
      */
     public void readResourceFile() throws FileNotFoundException, ParseException {
+        resources.clear();
         Scanner fileScanner = new Scanner(resourceFile);
         while (fileScanner.hasNextLine()) {
             String[] input = fileScanner.nextLine().split(",");
@@ -90,7 +91,7 @@ public class Storage {
         ReservationList resourceReservations = new ReservationList();
         while (fileScanner.hasNextLine()) {
             String[] line = fileScanner.nextLine().split(",");
-            if (line[1].equals(resourceId)) {
+            if (line[0].equals(resourceId)) {
                 Reservation newReservation = new Reservation(Integer.parseInt(line[0]),
                     Integer.parseInt(line[1]), Integer.parseInt(line[2]), line[3], line[4]);
                 resourceReservations.add(newReservation);
