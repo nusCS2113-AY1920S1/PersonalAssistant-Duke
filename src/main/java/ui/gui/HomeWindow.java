@@ -120,8 +120,6 @@ public class HomeWindow extends AnchorPane {
     }
 
     void displayBreakdownChart() {
-        InfoCapsule infoCapsule = this.interpreterLayer.request(AccessType.WALLET, null);
-        Wallet wallet = infoCapsule.getWallet();
         XYChart.Series<String, Double> expenditureSeries = new XYChart.Series<>();
         expenditureSeries.setName("Expenditure");
         XYChart.Series<String, Double> incomeSeries = new XYChart.Series<>();
@@ -130,6 +128,8 @@ public class HomeWindow extends AnchorPane {
 
         XYChart.Series<String, Double> backdrop = new XYChart.Series<>();
         backdrop.setName("Backdrop");
+        InfoCapsule infoCapsule = this.interpreterLayer.request(AccessType.WALLET, null);
+        Wallet wallet = infoCapsule.getWallet();
         Double backdropValue = this.getBackdropValue(wallet);
         HashMap<String, Double> backdropData = this.getBackdropData(backdropValue, expenditureSeries, incomeSeries);
 
