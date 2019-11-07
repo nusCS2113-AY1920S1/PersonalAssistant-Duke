@@ -1,6 +1,7 @@
 package spinbox.containers.lists;
 
 import spinbox.DateTime;
+import spinbox.exceptions.CorruptedDataException;
 import spinbox.storage.Storage;
 import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
@@ -64,44 +65,45 @@ public class TaskList extends SpinBoxList<Task> {
 
     @Override
     public void loadData() throws DataReadWriteException {
-        DateTime start;
-        DateTime end;
         List<String> savedData = localStorage.loadData();
 
         for (String datum : savedData) {
             String[] arguments = datum.split(DELIMITER_FILTER);
             switch (arguments[0]) {
             case "T":
-                this.addFromStorage(new Todo(Integer.parseInt(arguments[1]), arguments[2]));
+                Todo todo = new Todo();
+                todo.fromStoredString(datum);
+                this.addFromStorage(todo);
                 break;
             case "D":
-                start = new DateTime(arguments[3]);
-                this.addFromStorage(new Deadline(Integer.parseInt(arguments[1]), arguments[2], start));
+                Deadline deadline = new Deadline();
+                deadline.fromStoredString(datum);
+                this.addFromStorage(deadline);
                 break;
             case "E":
-                start = new DateTime(arguments[3]);
-                end = new DateTime(arguments[4]);
-                this.addFromStorage(new Event(Integer.parseInt(arguments[1]), arguments[2], start, end));
+                Event event = new Event();
+                event.fromStoredString(datum);
+                this.addFromStorage(event);
                 break;
             case "EXAM":
-                start = new DateTime(arguments[3]);
-                end = new DateTime(arguments[4]);
-                this.addFromStorage(new Exam(Integer.parseInt(arguments[1]), arguments[2], start, end));
+                Exam exam = new Exam();
+                exam.fromStoredString(datum);
+                this.addFromStorage(exam);
                 break;
             case "LAB":
-                start = new DateTime(arguments[3]);
-                end = new DateTime(arguments[4]);
-                this.addFromStorage(new Lab(Integer.parseInt(arguments[1]), arguments[2], start, end));
+                Lab lab = new Lab();
+                lab.fromStoredString(datum);
+                this.addFromStorage(lab);
                 break;
             case "LEC":
-                start = new DateTime(arguments[3]);
-                end = new DateTime(arguments[4]);
-                this.addFromStorage(new Lecture(Integer.parseInt(arguments[1]), arguments[2], start, end));
+                Lecture lecture = new Lecture();
+                lecture.fromStoredString(datum);
+                this.addFromStorage(lecture);
                 break;
             default:
-                start = new DateTime(arguments[3]);
-                end = new DateTime(arguments[4]);
-                this.addFromStorage(new Tutorial(Integer.parseInt(arguments[1]), arguments[2], start, end));
+                Tutorial tutorial = new Tutorial();
+                tutorial.fromStoredString(datum);
+                this.addFromStorage(tutorial);
             }
         }
     }

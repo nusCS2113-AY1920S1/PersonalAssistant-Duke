@@ -43,7 +43,8 @@ public class ModuleTest {
         assertEquals(testModuleOne.getModuleCode(), "testMod4");
         assertEquals(testModuleOne.getModuleName(), "Engineering Principles & Practice I");
 
-        Module testModuleOneRecreated = new Module(testModuleOne.storeString());
+        Module testModuleOneRecreated = new Module();
+        testModuleOneRecreated.fromStoredString(testModuleOne.storeString());
         assertEquals(testModuleOneRecreated.getModuleCode(), "testMod4");
         assertEquals(testModuleOneRecreated.getModuleName(), "Engineering Principles & Practice I");
         assertEquals(testModuleOneRecreated.storeString(), "testMod4 | Engineering Principles & Practice I");

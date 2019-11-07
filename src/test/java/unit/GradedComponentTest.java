@@ -87,7 +87,8 @@ public class GradedComponentTest {
         testGradeOne.updateWeightedScore(15, 30);
         assertEquals(testGradeOne.storeString(), "1 | Essay | 1 | 20.0 | 10.0");
 
-        GradedComponent testGradeOneRecreated = new GradedComponent("1 | Essay | 1 | 20.0 | 10.0");
+        GradedComponent testGradeOneRecreated = new GradedComponent();
+        testGradeOneRecreated.fromStoredString("1 | Essay | 1 | 20.0 | 10.0");
         assertEquals(testGradeOneRecreated.getWeight(), 20);
         assertEquals(testGradeOneRecreated.storeString(), "1 | Essay | 1 | 20.0 | 10.0");
         assertEquals(testGradeOneRecreated.getWeightedScoreAsString(), "10");

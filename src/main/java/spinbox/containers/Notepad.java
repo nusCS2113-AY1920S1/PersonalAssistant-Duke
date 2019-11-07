@@ -13,10 +13,16 @@ public class Notepad implements StorageContainer {
     private static final String DIRECTORY_NAME = "SpinBoxData/";
     private static final String NOTEPAD_FILE_NAME = "/notes.txt";
     private static final String CLI_LIST_HEADER =  "Here are your notes: ";
+    private static final String NUMERICAL_SEPARATOR = ". ";
 
     private Storage localStorage;
-    List<String> notes;
+    private List<String> notes;
 
+    /**
+     * Constructor for a new notepad instance.
+     * @param parentName The specific module that this notepad belongs to.
+     * @throws FileCreationException Error thrown if there is an issue with the creation of a .txt storage file.
+     */
     public Notepad(String parentName) throws FileCreationException {
         notes = new ArrayList<>();
         localStorage = new Storage(DIRECTORY_NAME + parentName + NOTEPAD_FILE_NAME);
@@ -86,20 +92,32 @@ public class Notepad implements StorageContainer {
         outputList.add(0, CLI_LIST_HEADER);
 
         for (int i = 0; i < notes.size(); i++) {
-            outputList.add((Integer.toString(i + 1) + ". " + notes.get(i)));
+            outputList.add((Integer.toString(i + 1) + NUMERICAL_SEPARATOR + notes.get(i)));
         }
         return outputList;
     }
 
+    /**
+     * Gets the notes belonging to the module.
+     * @return A list of Strings, each representing a single note.
+     */
     public List<String> getNotes() {
         return notes;
     }
 
+    /**
+     *  Loads data using the localStorage instance from the relevant .txt file.
+     * @throws DataReadWriteException I/O error.
+     */
     @Override
     public void loadData() throws DataReadWriteException {
         notes = localStorage.loadData();
     }
 
+    /**
+     * Saves data using the localStorage instance to the relevant .txt file.
+     * @throws DataReadWriteException I/O error.
+     */
     @Override
     public void saveData() throws DataReadWriteException {
         localStorage.saveData(notes);

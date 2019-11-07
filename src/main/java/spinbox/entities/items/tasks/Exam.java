@@ -31,6 +31,10 @@ public class Exam extends Schedulable {
         taskType = TaskType.EXAM;
     }
 
+    public Exam() {
+        taskType = TaskType.EXAM;
+    }
+
     @Override
     public String storeString() {
         return "EXAM | " + super.storeString() + " | " + this.getStartDateString() + " | " + this.getEndDateString();

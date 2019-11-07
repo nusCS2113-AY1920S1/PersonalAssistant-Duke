@@ -31,6 +31,13 @@ public class Tutorial extends Schedulable {
         taskType = TaskType.TUTORIAL;
     }
 
+    /**
+     * Constructor for recreation from storage.
+     */
+    public Tutorial() {
+        taskType = TaskType.TUTORIAL;
+    }
+
     @Override
     public String storeString() {
         return "TUT | " + super.storeString() + " | " + this.getStartDateString() + " | " + this.getEndDateString();

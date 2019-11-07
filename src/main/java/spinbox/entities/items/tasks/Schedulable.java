@@ -1,6 +1,7 @@
 package spinbox.entities.items.tasks;
 
 import spinbox.DateTime;
+import spinbox.exceptions.CorruptedDataException;
 
 public abstract class Schedulable extends Task {
     DateTime startDate;
@@ -14,6 +15,22 @@ public abstract class Schedulable extends Task {
         super(taskName);
         this.startDate = null;
         this.endDate = null;
+    }
+
+    public Schedulable() {
+
+    }
+
+    @Override
+    public void fromStoredString(String fromStorage) {
+        String[] arguments = fromStorage.split(DELIMITER_FILTER);
+        this.setStartDate(new DateTime(arguments[3]));
+        if (arguments.length == 5) {
+            this.setEndDate(new DateTime(arguments[4]));
+        }
+        int done = Integer.parseInt(arguments[1]);
+        this.updateDone(done == 1);
+        this.setName(arguments[2]);
     }
 
     public DateTime getStartDate() {

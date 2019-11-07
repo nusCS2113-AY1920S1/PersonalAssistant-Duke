@@ -31,6 +31,10 @@ public class Lecture extends Schedulable {
         taskType = TaskType.LECTURE;
     }
 
+    public Lecture() {
+        taskType = TaskType.LECTURE;
+    }
+
     @Override
     public String storeString() {
         return "LEC | " + super.storeString() + " | " + this.getStartDateString() + " | " + this.getEndDateString();

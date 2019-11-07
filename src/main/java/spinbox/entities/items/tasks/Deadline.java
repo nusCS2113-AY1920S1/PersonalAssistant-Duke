@@ -27,6 +27,10 @@ public class Deadline extends Schedulable {
         taskType = TaskType.DEADLINE;
     }
 
+    public Deadline() {
+        taskType = TaskType.DEADLINE;
+    }
+
     @Override
     public String storeString() {
         return "D | " + super.storeString() + " | " + this.getStartDateString();

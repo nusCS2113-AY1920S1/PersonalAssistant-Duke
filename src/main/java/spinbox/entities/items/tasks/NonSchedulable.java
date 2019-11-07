@@ -11,6 +11,19 @@ public abstract class NonSchedulable extends Task {
         super(taskName);
     }
 
+    public NonSchedulable() {
+        super();
+    }
+
+    @Override
+    public void fromStoredString(String fromStorage) {
+        String[] arguments = fromStorage.split(DELIMITER_FILTER);
+        int done = Integer.parseInt(arguments[1]);
+        String taskName = arguments[2];
+        this.updateDone(done == 1);
+        this.setName(taskName);
+    }
+
     public boolean isSchedulable() {
         return false;
     }

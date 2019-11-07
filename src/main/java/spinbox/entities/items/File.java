@@ -5,7 +5,6 @@ import spinbox.exceptions.CorruptedDataException;
 public class File extends Item {
     private static final String BRACKET_OPEN = "[";
     private static final String BRACKET_CLOSE = "] ";
-    private static final String CORRUPTED_FILES_DATA = "Corrupted files data.";
     private static final String DELIMITER_FILTER = " \\| ";
     private static final String DOWNLOADED = "DOWNLOADED";
     private static final String NOT_DOWNLOADED = "NOT DOWNLOADED";
@@ -21,19 +20,10 @@ public class File extends Item {
     }
 
     /**
-     * Parses a string extracted from storage back into a File object.
-     * @param fromStorage This String is provided directly from the localStorage instance.
-     * @throws CorruptedDataException Thrown when a user manually edits the .txt file incorrectly.
+     * Empty constructor to be populated from Storage string.
      */
-    public File(String fromStorage) throws CorruptedDataException {
+    public File() {
         super();
-        try {
-            String[] components = fromStorage.split(DELIMITER_FILTER);
-            this.updateDone(Integer.parseInt(components[0]) == 1);
-            this.setName(components[1]);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new CorruptedDataException();
-        }
     }
 
     @Override
@@ -49,5 +39,16 @@ public class File extends Item {
     @Override
     public String storeString() {
         return super.storeString();
+    }
+
+    @Override
+    public void fromStoredString(String fromStorage) throws CorruptedDataException {
+        try {
+            String[] components = fromStorage.split(DELIMITER_FILTER);
+            this.updateDone(Integer.parseInt(components[0]) == 1);
+            this.setName(components[1]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new CorruptedDataException();
+        }
     }
 }

@@ -7,9 +7,9 @@ import spinbox.exceptions.FileCreationException;
 import spinbox.containers.lists.FileList;
 import spinbox.containers.lists.GradeList;
 import spinbox.containers.lists.TaskList;
+import spinbox.storage.Storable;
 
-public class Module {
-    private static final String CORRUPTED_MODULES_DATA = "Corrupted modules data.";
+public class Module implements Storable {
     private static final String STORE_DELIMITER = " | ";
     private static final String DELIMITER_FILTER = " \\| ";
 
@@ -19,7 +19,6 @@ public class Module {
     private TaskList tasks;
     private GradeList grades;
     private Notepad notepad;
-    // private Event exam;
 
     /**
      * Constructor for module.
@@ -36,23 +35,10 @@ public class Module {
     }
 
     /**
-     * Parses a string extracted from storage back into a Module object.
-     * @param fromStorage This String is provided directly from the localStorage instance.
-     * @throws CorruptedDataException Thrown when a user manually edits the .txt file incorrectly.
+     * Empty constructor to be used for retrieval and re-population from storage.
      */
-    public Module(String fromStorage) throws CorruptedDataException, DataReadWriteException, FileCreationException {
-        try {
-            String[] components = fromStorage.split(DELIMITER_FILTER);
-            this.setModuleCode(components[0]);
-            this.setModuleName(components[1]);
-            this.files = new FileList(moduleCode);
-            this.tasks = new TaskList(moduleCode);
-            this.grades = new GradeList(moduleCode);
-            this.notepad = new Notepad(moduleCode);
-            this.loadData();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new CorruptedDataException();
-        }
+    public Module() {
+
     }
 
     /**
@@ -64,8 +50,34 @@ public class Module {
         return this.getModuleCode().concat(" ").concat(this.getModuleName());
     }
 
+    /**
+     * Prepares the module into a stringified version for storage.
+     * @return String containing a formatted string for storage.
+     */
     public String storeString() {
         return this.getModuleCode() + STORE_DELIMITER + this.getModuleName();
+    }
+
+    /**
+     * Parses a string extracted from storage back into a Module object.
+     * @param fromStorage This String is provided directly from the localStorage instance.
+     * @throws CorruptedDataException Thrown when a user manually edits the .txt file incorrectly such that
+     *     the data cannot be extracted or such a file is not located where expected, or is not available for RW.
+     */
+    @Override
+    public void fromStoredString(String fromStorage) throws CorruptedDataException {
+        try {
+            String[] components = fromStorage.split(DELIMITER_FILTER);
+            this.setModuleCode(components[0]);
+            this.setModuleName(components[1]);
+            this.files = new FileList(moduleCode);
+            this.tasks = new TaskList(moduleCode);
+            this.grades = new GradeList(moduleCode);
+            this.notepad = new Notepad(moduleCode);
+            this.loadData();
+        } catch (ArrayIndexOutOfBoundsException | FileCreationException | DataReadWriteException e) {
+            throw new CorruptedDataException();
+        }
     }
 
     /**
@@ -108,16 +120,12 @@ public class Module {
         return tasks;
     }
 
+    /**
+     * Gets the notepad.
+     * @return Notepad instance.
+     */
     public Notepad getNotepad() {
         return notepad;
-    }
-
-    private void setModuleCode(String moduleCode) {
-        this.moduleCode = moduleCode;
-    }
-
-    private void setModuleName(String moduleName) {
-        this.moduleName = moduleName;
     }
 
     /**
@@ -131,4 +139,14 @@ public class Module {
         this.grades.loadData();
         this.notepad.loadData();
     }
+
+    private void setModuleCode(String moduleCode) {
+        this.moduleCode = moduleCode;
+    }
+
+    private void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
+    }
+
+
 }

@@ -31,6 +31,10 @@ public class Event extends Schedulable {
         taskType = TaskType.EVENT;
     }
 
+    public Event() {
+        taskType = TaskType.EVENT;
+    }
+
     @Override
     public String storeString() {
         return "E | " + super.storeString() + " | " + this.getStartDateString() + " | " + this.getEndDateString();

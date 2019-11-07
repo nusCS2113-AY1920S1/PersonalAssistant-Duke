@@ -3,6 +3,7 @@ package spinbox.entities.items.tasks;
 import spinbox.entities.items.Item;
 
 public abstract class Task extends Item {
+    protected static final String DELIMITER_FILTER = " \\| ";
     /**
      * Constructor to initialize default values of any instances of children of Task.
      */
@@ -12,9 +13,8 @@ public abstract class Task extends Item {
         super(taskName);
     }
 
-    @Override
-    public String storeString() {
-        return super.storeString();
+    public Task() {
+
     }
 
     public TaskType getTaskType() {

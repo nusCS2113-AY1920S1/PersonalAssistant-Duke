@@ -9,14 +9,12 @@ public class GradedComponent extends Item {
     private static final String UNKNOWN_SCORE = "----";
     private static final String DIVIDE_BY_ZERO = "Maximum possible score should be non-zero";
     private static final String TWO_DP = "#.##";
-    private static final String CORRUPTED_GRADES_DATA = "Corrupted grades data.";
     private static final String STORE_DELIMITER = " | ";
     private static final String DELIMITER_FILTER = " \\| ";
     private static final String BRACKET_OPEN = "[";
     private static final String BRACKET_CLOSE = "] ";
     private static final String COMPLETED = "COMPLETED";
     private static final String NOT_COMPLETED = "NOT COMPLETED";
-
 
     private double weight;
     private boolean scoreKnown;
@@ -35,30 +33,25 @@ public class GradedComponent extends Item {
     }
 
     /**
-     * Parses a string extracted from storage back into a GradedComponent object.
-     * @param fromStorage This String is provided directly from the localStorage instance.
-     * @throws CorruptedDataException Thrown when a user manually edits the .txt file incorrectly.
+     * Empty constructor to be populated from Storage string.
      */
-    public GradedComponent(String fromStorage) throws CorruptedDataException {
+    public GradedComponent() {
         super();
-        try {
-            String[] components = fromStorage.split(DELIMITER_FILTER);
-            this.updateDone(Integer.parseInt(components[0]) == 1);
-            this.setName(components[1]);
-            this.setScoreKnown(Integer.parseInt(components[2]) == 1);
-            this.setWeight(Double.parseDouble(components[3]));
-            this.setWeightedScore(Double.parseDouble(components[4]));
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new CorruptedDataException();
-        }
-
     }
 
+    /**
+     * This method describes the current status of the gradedComponent - complete or incomplete.
+     * @return String describing the status of the gradedComponent
+     */
     @Override
     public String getStatusText() {
         return (this.getDone() ? COMPLETED : NOT_COMPLETED);
     }
 
+    /**
+     * This method converts the gradedComponent data into a human readable string for display on the GUI.
+     * @return a String that is human-readable and contains data to be shown on the screen.
+     */
     @Override
     public String toString() {
         return BRACKET_OPEN + this.getStatusText() + BRACKET_CLOSE + this.getName() + "\n"
@@ -73,6 +66,25 @@ public class GradedComponent extends Item {
     public String storeString() {
         return super.storeString() + STORE_DELIMITER + (this.isScoreKnown() ? 1 : 0)
             + STORE_DELIMITER + Double.toString(this.weight) + STORE_DELIMITER + Double.toString(this.weightedScore);
+    }
+
+    /**
+     * This method repopulates the newly created GradedComponent object with data from a String extracted from storage.
+     * @param fromStorage This String is provided directly from the localStorage instance.
+     * @throws CorruptedDataException Thrown when a user manually edits the .txt file incorrectly.
+     */
+    @Override
+    public void fromStoredString(String fromStorage) throws CorruptedDataException {
+        try {
+            String[] components = fromStorage.split(DELIMITER_FILTER);
+            this.updateDone(Integer.parseInt(components[0]) == 1);
+            this.setName(components[1]);
+            this.setScoreKnown(Integer.parseInt(components[2]) == 1);
+            this.setWeight(Double.parseDouble(components[3]));
+            this.setWeightedScore(Double.parseDouble(components[4]));
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new CorruptedDataException();
+        }
     }
 
     /**
@@ -119,6 +131,14 @@ public class GradedComponent extends Item {
         this.setWeightedScore(weightedScore);
     }
 
+    /**
+     * Returns the relative weight in % of the graded component across 100% of module assessment.
+     * @return a double, stating the relative weight of the graded component.
+     */
+    public double getWeight() {
+        return weight;
+    }
+
     private boolean checkDivideByZero(double maximumScore) {
         return (Double.compare(0.0, maximumScore) == 0);
     }
@@ -142,14 +162,6 @@ public class GradedComponent extends Item {
 
     private void setWeight(double weight) {
         this.weight = weight;
-    }
-
-    /**
-     * Returns the relative weight in % of the graded component across 100% of module assessment.
-     * @return a double, stating the relative weight of the graded component.
-     */
-    public double getWeight() {
-        return weight;
     }
 
     private void setWeightedScore(double weightedScore) {

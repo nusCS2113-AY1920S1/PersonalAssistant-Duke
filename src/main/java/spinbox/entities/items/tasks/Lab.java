@@ -31,6 +31,10 @@ public class Lab extends Schedulable {
         taskType = TaskType.LAB;
     }
 
+    public Lab() {
+        taskType = TaskType.LAB;
+    }
+
     @Override
     public String storeString() {
         return "LAB | " + super.storeString() + " | " + this.getStartDateString() + " | " + this.getEndDateString();

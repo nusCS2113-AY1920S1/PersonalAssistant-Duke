@@ -31,6 +31,10 @@ public class ModuleContainer implements StorageContainer {
         this.loadData();
     }
 
+    /**
+     * Method call returns the modules contained within this moduleContainer instance.
+     * @return HashMap of String : Module of modules.
+     */
     public HashMap<String, Module> getModules() {
         return modules;
     }
@@ -88,11 +92,12 @@ public class ModuleContainer implements StorageContainer {
      * @throws CorruptedDataException polluted data within txt files.
      */
     @Override
-    public void loadData() throws DataReadWriteException, CorruptedDataException, FileCreationException {
+    public void loadData() throws DataReadWriteException, CorruptedDataException {
         List<String> savedData = localStorage.loadData();
         for (String datum : savedData) {
-            Module temp = new Module(datum);
-            this.modules.put(temp.getModuleCode(), temp);
+            Module module = new Module();
+            module.fromStoredString(datum);
+            this.modules.put(module.getModuleCode(), module);
         }
     }
 }

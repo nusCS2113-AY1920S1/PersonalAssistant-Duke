@@ -38,7 +38,9 @@ public class GradeList extends SpinBoxList<GradedComponent> {
     public void loadData() throws DataReadWriteException, CorruptedDataException {
         List<String> savedData = localStorage.loadData();
         for (String datum : savedData) {
-            this.addFromStorage(new GradedComponent(datum));
+            GradedComponent gradedComponent = new GradedComponent();
+            gradedComponent.fromStoredString(datum);
+            this.addFromStorage(gradedComponent);
         }
     }
 

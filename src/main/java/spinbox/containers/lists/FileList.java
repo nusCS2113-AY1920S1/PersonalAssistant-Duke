@@ -36,7 +36,9 @@ public class FileList extends SpinBoxList<File> {
     public void loadData() throws DataReadWriteException, CorruptedDataException {
         List<String> savedData = localStorage.loadData();
         for (String datum : savedData) {
-            this.addFromStorage(new File(datum));
+            File file = new File();
+            file.fromStoredString(datum);
+            this.addFromStorage(file);
         }
     }
 

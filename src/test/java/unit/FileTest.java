@@ -18,7 +18,8 @@ public class FileTest {
 
     @org.junit.jupiter.api.Test
     void testStoreString_createAndMarkDoneNewTask() throws CorruptedDataException {
-        Item item = new File("0 | file1");
+        Item item = new File();
+        item.fromStoredString("0 | file1");
         assertEquals("0 | file1", item.storeString());
         item.markDone();
         assertEquals("1 | file1", item.storeString());

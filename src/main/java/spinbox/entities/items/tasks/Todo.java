@@ -17,6 +17,13 @@ public class Todo extends NonSchedulable {
         taskType = TaskType.TODO;
     }
 
+    /**
+     * Constructor for recreation of a To do object from storage.
+     */
+    public Todo() {
+        taskType = TaskType.TODO;
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();

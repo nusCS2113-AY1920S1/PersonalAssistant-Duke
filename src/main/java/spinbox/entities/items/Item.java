@@ -1,8 +1,9 @@
 package spinbox.entities.items;
 
 import spinbox.exporter.Exportable;
+import spinbox.storage.Storable;
 
-public abstract class Item implements Exportable {
+public abstract class Item implements Exportable, Storable {
     private static final String STORE_DELIMITER = " | ";
     private static final String BRACKET_OPEN = "[";
     private static final String BRACKET_CLOSE = "] ";
