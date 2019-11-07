@@ -2,6 +2,7 @@ package seedu.hustler.logic.parser.anomaly;
 
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.ui.Ui;
+import seedu.hustler.Hustler;
 
 /**
  * Detects timer anomalies in user input.
@@ -17,6 +18,10 @@ public class TimerAnomaly extends DetectAnomaly {
     public void detect(String[] userInput) throws CommandLineException {
 
         Ui ui = new Ui();
+
+        if (Hustler.timermanager.isRunning()) {
+            throw new CommandLineException("Timer already running. Please use /stoptimer to stop the current timer.");
+        }
 
         //detects if the /timer command is followed with any arguments.
         if (userInput.length == 1) {
