@@ -73,7 +73,6 @@ public class IngredientItemListParserTest {
         //Throwable throwable = Assertions.assertThrows(ParseException.class, () -> {
         //    assertFalse(getIngredientsInInput("[Cream cheese, 3][Butter, 2][Egg, 2] ");
         //});
-        //Assertions.assertEquals(MESSAGE_INVALID_COMMAND_FORMAT, throwable.getMessage());
     }
 
 }

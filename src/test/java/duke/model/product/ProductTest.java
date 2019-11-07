@@ -1,7 +1,12 @@
 package duke.model.product;
 
+import duke.logic.command.product.AddProductCommand;
 import duke.logic.message.ProductMessageUtils;
+import duke.model.Model;
+import duke.model.ModelManager;
+import duke.model.exceptions.DuplicateEntityException;
 import duke.testutil.ProductBuilder;
+import duke.testutil.ProductDescriptorBuilder;
 import org.junit.jupiter.api.Test;
 
 import static duke.logic.command.product.ProductCommandTestUtil.VALID_COST;
@@ -16,8 +21,14 @@ public class ProductTest {
 
     @Test
     public void createNewProduct_emptyName_throwsParseExceptionWithMessage() {
+        Model model = new ModelManager();
+        model.addProduct(CHEESE_CAKE);
         assertThrows(IllegalArgumentException.class, ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME,
                 () -> new ProductBuilder("").build());
+
+        assertThrows(DuplicateEntityException.class, ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME,
+                () -> new AddProductCommand(new ProductDescriptorBuilder(CHEESE_CAKE).build()));
+
     }
 
     @Test
