@@ -19,8 +19,9 @@ public class ScheduleMemberTodoParser {
         if (argument.equals("")) {
             throw new DukeException(SCHEDULE_USAGE);
         } else {
-            String memberName = argument.trim();
-            return new ScheduleMemberTodoCommand(memberName);
+            argument = argument.trim();
+            int memberIndexInList = Integer.parseInt(argument);
+            return new ScheduleMemberTodoCommand(memberIndexInList);
         }
     }
 }

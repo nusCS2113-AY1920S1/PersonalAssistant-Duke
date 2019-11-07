@@ -147,8 +147,8 @@ public class MemberManager {
         return false;
     }
 
-    public ArrayList<String> getTaskListOfMember(String memberName) {
-        return getMemberByName(memberName).getTaskList();
+    public ArrayList<String> getTaskListOfMember(int index) {
+        return getMemberById(index).getTaskList();
     }
 
     /**
@@ -271,11 +271,9 @@ public class MemberManager {
     public String membersInorderTodoNum(ArrayList<Integer> todoNum) {
         String result = "";
         int size = todoNum.size();
-        System.out.println(size);
         ArrayList<Integer> todoNumCopy = (ArrayList<Integer>) todoNum.clone();
         for (int i = 0; i < size; i++) {
             int min = Integer.MAX_VALUE;
-            System.out.println(todoNum.size());
             for (int j = 0; j < todoNum.size(); j++) {
                 if (todoNum.get(j) < min) {
                     min = todoNum.get(j);

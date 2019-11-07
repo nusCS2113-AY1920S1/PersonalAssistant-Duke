@@ -87,9 +87,9 @@ public interface Model {
 
     String deleteMember(int index) throws DukeException;
 
-    String scheduleMemberAll(String memberName) throws DukeException;
+    String scheduleMemberAll(int memberIndex);
 
-    String scheduleMemberTodo(String memberName) throws DukeException;
+    String scheduleMemberTodo(int memberIndex);
 
     String check();
 }

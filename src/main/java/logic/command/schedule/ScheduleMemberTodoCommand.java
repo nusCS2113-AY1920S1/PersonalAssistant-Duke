@@ -8,27 +8,26 @@ import model.Model;
 public class ScheduleMemberTodoCommand extends Command {
 
     private static final String SUCCESS_MSSAGE = "Schedule todo tasks of member: ";
-    private static final String FAIL_MSSAGE = "fail to schedule todo tasks of member: ";
     private static final String EMPTY_MSSAGE = "no todo task for member: ";
 
-    private String memberName;
+    private int memberIndexInList;
 
-    public ScheduleMemberTodoCommand(String memberName) {
-        this.memberName = memberName;
+    public ScheduleMemberTodoCommand(int memberIndexInList) {
+        this.memberIndexInList = memberIndexInList;
     }
 
     @Override
     public CommandOutput execute(Model model) throws DukeException {
-        try {
-            String tasks = model.scheduleMemberTodo(memberName);
+        if (!checkMemberIndex(memberIndexInList, model)) {
+            throw new DukeException(Command.INDEX_NOT_IN_MEMlIST_MESSAGE);
+        } else {
+            String tasks = model.scheduleMemberTodo(memberIndexInList - 1);
+            String memberName = model.getMemberNameById(memberIndexInList - 1);
             if (tasks.equals("")) {
                 return new CommandOutput(EMPTY_MSSAGE + memberName);
             } else {
                 return new CommandOutput(SUCCESS_MSSAGE + memberName + tasks);
             }
-
-        } catch (Exception e) {
-            throw new DukeException(FAIL_MSSAGE + memberName);
         }
     }
 }

@@ -235,13 +235,13 @@ public class ModelController implements Model {
         return name;
     }
 
-    public String scheduleMemberAll(String memberName) {
-        ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
+    public String scheduleMemberAll(int memberIndex) {
+        ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberIndex);
         return tasksManager.tasksAllInorderTime(tasksName);
     }
 
-    public String scheduleMemberTodo(String memberName) {
-        ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
+    public String scheduleMemberTodo(int memberIndex) {
+        ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberIndex);
         return tasksManager.tasksTodoInorderTime(tasksName);
     }
 
@@ -250,7 +250,7 @@ public class ModelController implements Model {
         String result = "";
         for (int i = 0; i < memberManager.getMemberListSize(); i++) {
             String memberName = memberManager.getMemberNameById(i);
-            ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
+            ArrayList<String> tasksName = memberManager.getTaskListOfMember(i);
             String subResult = tasksManager.check(tasksName);
             if (!subResult.equals("")) {
                 result += "\n" + memberName + ": " + tasksManager.check(tasksName);
@@ -263,8 +263,7 @@ public class ModelController implements Model {
     public String membersInorderProgress() {
         ArrayList<Double> progress = new ArrayList<>();
         for (int i = 0; i < memberManager.getMemberListSize(); i++) {
-            String memberName = memberManager.getMemberNameById(i);
-            ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
+            ArrayList<String> tasksName = memberManager.getTaskListOfMember(i);
             progress.add(tasksManager.getProgress(tasksName));
         }
         return memberManager.membersInorderProgress(progress);
@@ -276,8 +275,7 @@ public class ModelController implements Model {
     public String membersInorderTodoNum() {
         ArrayList<Integer> todoNum = new ArrayList<>();
         for (int i = 0; i < memberManager.getMemberListSize(); i++) {
-            String memberName = memberManager.getMemberNameById(i);
-            ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
+            ArrayList<String> tasksName = memberManager.getTaskListOfMember(i);
             todoNum.add(tasksManager.getTodoTasks(tasksName));
         }
         return memberManager.membersInorderTodoNum(todoNum);

@@ -36,10 +36,11 @@ public class Task {
     }
 
     /**
-     * add javadoc please
+     * This method is to delete a member in member list of a task
+     *
+     * @param toDelete the name of the member to be deleted
      */
     public void deleteMember(String toDelete) {
-        System.out.println(memberList);
         memberList.remove(toDelete);
     }
 
@@ -85,15 +86,6 @@ public class Task {
 
     public void setReminder(Date time) {
         this.reminder = time;
-    }
-
-    /**
-     * change task to string to show on window
-     *
-     * @return string of task
-     */
-    public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.name + (time == null ? "" : (" (at: " + time + ")"));
     }
 
     /**
@@ -153,4 +145,13 @@ public class Task {
         memberList.set(memberList.indexOf(oldName), newName);
     }
 
+    //@@author yuyanglin28
+    /**
+     * This method is to transfer task to string
+     *
+     * @return a string represent task
+     */
+    public String toString() {
+        return "[" + this.getStatusIcon() + "] " + this.name + (time == null ? "" : (" (at: " + time + ")"));
+    }
 }

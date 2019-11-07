@@ -1,18 +1,17 @@
 [
   {
-
     "name": "job A",
     "isDone": false,
     "memberList": [
       "P1"
     ],
-    "skillReqList": []
+    "skillReqList": [],
+    "time": "Nov 11, 2019, 11:11:00 AM"
   },
   {
     "name": "job B",
     "isDone": false,
     "memberList": [
-
       "P1"
     ],
     "skillReqList": []
