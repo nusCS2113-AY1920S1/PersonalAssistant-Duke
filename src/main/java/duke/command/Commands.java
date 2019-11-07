@@ -60,11 +60,11 @@ public class Commands {
         case HOME:
             switch (cmdStr) {
             case "find":
-                return new ArgCommand(HomeFindSpec.getSpec());
+                return new ObjCommand(HomeFindSpec.getSpec());
             case "new":
                 return new ArgCommand(HomeNewSpec.getSpec());
             case "open":
-                return new ArgCommand(HomeOpenSpec.getSpec());
+                return new ObjCommand(HomeOpenSpec.getSpec());
             case "report":
                 return new ArgCommand(HomeReportSpec.getSpec());
             case "discharge":
@@ -93,7 +93,7 @@ public class Commands {
             case "history":
                 return new ArgCommand(PatientHistorySpec.getSpec());
             case "open":
-                return new ArgCommand(PatientOpenSpec.getSpec());
+                return new ObjCommand(PatientOpenSpec.getSpec());
             default:
                 return null;
             }

@@ -2,13 +2,12 @@ package duke.command.home;
 
 import duke.DukeCore;
 import duke.command.ArgLevel;
-import duke.command.ArgSpec;
-import duke.command.CommandUtils;
 import duke.command.Switch;
+import duke.data.DukeObject;
 import duke.data.Patient;
 import duke.exception.DukeException;
 
-public class HomeDischargeSpec extends ArgSpec {
+public class HomeDischargeSpec extends HomeObjSpec {
     private static final HomeDischargeSpec spec = new HomeDischargeSpec();
     private static final String header = "DISCHARGED PATIENT REPORT";
     private static final String explanation = "This report shows all the data that was stored about a patient at the "
@@ -28,11 +27,8 @@ public class HomeDischargeSpec extends ArgSpec {
     }
 
     @Override
-    protected void execute(DukeCore core) throws DukeException {
-    super.execute(core);
-        String bed = cmd.getSwitchVal("bed");
-        Patient patient = CommandUtils.findFromHome(core, bed, cmd.getArg());
-
+    protected void executeWithObj(DukeCore core, DukeObject obj) throws DukeException {
+        Patient patient = (Patient) obj;
         HomeReportSpec.createReport(patient, header, explanation, cmd.getSwitchVal("summary"));
         core.patientData.deletePatient(patient.getBedNo());
         core.writeJsonFile();
