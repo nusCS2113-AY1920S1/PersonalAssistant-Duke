@@ -10,6 +10,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 public class checkPrerequisiteCommand {
+    /**
+     * This method allows user to check module's prerequisite modules, display them in a tree structure from left to right.
+     * @param ui The object that deals with interaction between users and the system.
+     * @param storage The object that deals with modify,access and save external files.
+     * @throws IOException
+     */
     public void execute(Ui ui, Storage storage) throws IOException {
         HashMap<String, ArrayList<String>> PrerequisiteList = new HashMap<String,ArrayList<String>>(storage.readFromPrerequisiteFile());
         try {
@@ -30,6 +36,16 @@ public class checkPrerequisiteCommand {
         }
         return;
     }
+
+    /**
+     * This method allows a Depth-First-Search on the prerequisite data structure, finding all prerequisite module and add their
+     * name string to string builder for later printing purpose.
+     * @param ModuleCode the module that we are going to search for its prerequisite
+     * @param Prefix parameter for string builder
+     * @param ChildrenPrefix parameter for string builder
+     * @param buffer parameter for string builder
+     * @param PrerequisiteList Data structure that stores all prerequisite information.
+     */
     private void dfsPrerequisite(String ModuleCode,String Prefix, String ChildrenPrefix, StringBuilder buffer, HashMap<String, ArrayList<String>> PrerequisiteList){
         buffer.append(Prefix);
         buffer.append(ModuleCode);

@@ -8,6 +8,13 @@ import java.io.IOException;
 import java.util.stream.Collectors;
 
 public class addModuleCommand {
+    /** This method allows user to add module code into study plan, store changes in data structure and external txt files.
+     *
+     * @param StudyPlan The object contain all needed modules data structure and a showplan method to display plan table
+     * @param storage The object that deals with access,modify and save files
+     * @param ui The object that deals with interaction between users and the system.
+     * @throws IOException
+     */
     public void execute(StudyPlannerCommand StudyPlan, Storage storage, Ui ui) throws IOException {
         try {
             if (ui.fullCommand.split(" ").length != 4){

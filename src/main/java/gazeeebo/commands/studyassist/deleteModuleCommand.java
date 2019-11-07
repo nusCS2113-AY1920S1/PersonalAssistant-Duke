@@ -7,6 +7,14 @@ import java.io.IOException;
 import java.util.stream.Collectors;
 
 public class deleteModuleCommand {
+    /**
+     * This method allows users to delete certain module out of the module plan,
+     * store changes in data structure and also external txt files.
+     * @param StudyPlan The object that holds data structure of module plan.
+     * @param storage The object that deals with access, modify and save files.
+     * @param ui The object that deals with interaction with users and the system.
+     * @throws IOException
+     */
     public void execute(StudyPlannerCommand StudyPlan, Storage storage, Ui ui) throws IOException {
         try {
             if(ui.fullCommand.split(" ").length != 4) throw new DukeException("Please follow the correct input format~");

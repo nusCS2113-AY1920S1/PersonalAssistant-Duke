@@ -7,6 +7,14 @@ import java.io.IOException;
 import java.util.stream.Collectors;
 
 public class shiftModuleCommand {
+    /**
+     * This method allows users to shift certain module from current semester to another
+     * semesters, store changes in data structure and external txt files.
+     * @param StudyPlan the object that holds data structure of module plan.
+     * @param storage the object that deals with access,modify and save files.
+     * @param ui the object htat deals with interactions between users and the system.
+     * @throws IOException
+     */
     public void execute(StudyPlannerCommand StudyPlan, Storage storage, Ui ui) throws IOException {
         try {
             if(ui.fullCommand.split(" ").length != 4){
