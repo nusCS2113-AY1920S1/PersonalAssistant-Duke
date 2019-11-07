@@ -42,13 +42,14 @@ public class ShowCommand extends ModuleCommand {
         coreModList.add("CS1231");
         coreModList.add("MA1511");
         coreModList.add("MA1512");
-        coreModList.add("M1508E");
+        coreModList.add("MA1508E");
         coreModList.add("CG2023");
         coreModList.add("CG2027");
         coreModList.add("CG2028");
         coreModList.add("CG2271");
         coreModList.add("CS2040C");
         coreModList.add("CS2101");
+        coreModList.add("CS2113T");
         coreModList.add("EE2026");
         coreModList.add("EG2401A");
         coreModList.add("ST2334");
