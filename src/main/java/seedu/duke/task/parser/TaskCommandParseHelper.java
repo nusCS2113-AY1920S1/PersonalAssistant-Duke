@@ -268,6 +268,10 @@ public class TaskCommandParseHelper {
             addDoAfterToUpdateCommand(optionList, attributes, descriptions);
             addPriorityToUpdateCommand(optionList, attributes, descriptions);
             addTagsToUpdateCommand(optionList, attributes, descriptions);
+
+            if (descriptions.isEmpty()) {
+                return new InvalidCommand("Please enter at least one valid attribute to update");
+            }
             return new TaskUpdateCommand(index, descriptions, attributes);
         } catch (NumberFormatException e) {
             return new InvalidCommand("Please enter correct task index: " + editMatcher.group(
@@ -501,7 +505,8 @@ public class TaskCommandParseHelper {
     private static Command parseLinkCommand(String input, ArrayList<Command.Option> optionList) {
         Matcher linkCommandMatcher = prepareCommandMatcher(input, "^link\\s+(?<index>[\\d]*)\\s*?");
         if (!linkCommandMatcher.matches()) {
-            return new InvalidCommand("Please enter a task index after \'link\'");
+            return new InvalidCommand("Please enter a task index after \'link\', followed by" +
+                    "emails (optional)");
         }
         try {
             int index = parseTaskIndex(linkCommandMatcher.group("index"));
