@@ -518,26 +518,31 @@ public class UI {
     public void goalAdded(String goal) {
         System.out.println("Ok, the following goal has been added to the event.");
         System.out.println(goal);
+        System.out.println(lineSeparation);
     }
 
     public void goalDeleted(String deletedGoal) {
         System.out.println("Ok, the following goal has been deleted from the event.");
         System.out.println(deletedGoal);
+        System.out.println(lineSeparation);
     }
 
     public void goalUpdated(EventList events, int eventID, int goalID) {
         System.out.println("Ok, the goal has been updated to: ");
         System.out.println(events.getEvent(eventID).getGoalObject(goalID).getGoal());
+        System.out.println(lineSeparation);
     }
 
     public void goalSetAsAchieved(EventList events, int eventID, int goalID) {
         System.out.println("Ok, the goal has been set as achieved. Congratulations for achieving the goal!");
         Goal goal = new Goal(events.getEvent(eventID).getGoalObject(goalID).getGoal());
         System.out.println(goal.getGoal() + " - " + goal.getStatus());
+        System.out.println(lineSeparation);
     }
 
     public void noSuchGoal() {
         System.out.println("Sorry, the specified goal does not exist!");
+        System.out.println(lineSeparation);
     }
   
     public void checklistDeleted(int eventIndex) {
