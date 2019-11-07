@@ -93,5 +93,5 @@ public class Messages {
     public static final String COMMAND_RECURRING = "recurring";
     public static final String COMMAND_DETECTCLASHES = "detectclashes";
 
-    public static final String DIVIDER = "   ____________________________________________________________\n";
+    public static final String DIVIDER = "_______________________________\n";
 }
