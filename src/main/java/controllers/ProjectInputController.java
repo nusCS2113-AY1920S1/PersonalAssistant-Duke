@@ -294,7 +294,7 @@ public class ProjectInputController implements IController {
         if (allCredits.isEmpty()) {
             allCredits.add(0, "There are no members in this project.");
         } else {
-            allCredits.add(0, "Here are all the member credits: ");
+            allCredits.add(0, "Here are the credits earned by the members of this project: ");
         }
         return allCredits.toArray(new String[0]);
     }

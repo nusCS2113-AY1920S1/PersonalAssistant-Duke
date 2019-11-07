@@ -126,13 +126,23 @@ public class Project implements IProject {
         HashMap<Member, ArrayList<Task>> assignedMembers = this.getMembersIndividualTaskList();
         int count = 1;
         for (Member member : allMembers) {
-            int credits = 0;
+            int totalCredits = 0;
+            int doneCredits = 0;
             for (Task assignedTask : assignedMembers.get(member)) {
+                totalCredits += assignedTask.getTaskCredit();
                 if (assignedTask.getTaskState() == TaskState.DONE) {
-                    credits += assignedTask.getTaskCredit();
+                    doneCredits += assignedTask.getTaskCredit();
                 }
             }
-            allMemberCredits.add(count + ". " + member.getName() + " | Credits: " + credits);
+            int percentDone = (int)((doneCredits/(float)totalCredits)*10);
+            String progress = "";
+            for (int i = 0; i < percentDone; i++) {
+                progress += "#";
+            }
+            for (int i = progress.length(); i < 10; i++) {
+                progress += ".";
+            }
+            allMemberCredits.add(count + ". " + member.getName() + ": " + doneCredits + " (Progress: " + progress + ")");
             count++;
         }
         return allMemberCredits;
