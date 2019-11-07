@@ -1,6 +1,13 @@
-package executor.command;
+package executor;
 
+import duke.exception.DukeException;
+import executor.accessors.AccessDeny;
+import executor.accessors.Accessor;
+import executor.command.Command;
+import executor.command.CommandError;
+import executor.command.CommandType;
 import storage.StorageManager;
+import utils.AccessType;
 import utils.InfoCapsule;
 
 public class Executor {
@@ -15,7 +22,6 @@ public class Executor {
 
     /**
      * Parses the user input and executes the Command specified.
-     *
      * @param userInput User input from the CLI
      * @return True if the Command executed calls for an ExitRequest, false otherwise
      */
@@ -42,7 +48,33 @@ public class Executor {
         return c;
     }
 
-    public void saveAllData() {
-        this.storageLayer.saveAllData();
+    public InfoCapsule access(AccessType accessType, String argsStr) {
+        Accessor accessor = Executor.createAccessor(accessType, argsStr);
+        accessor.execute(this.storageLayer);
+        return accessor.getInfoCapsule();
+    }
+
+    public static Accessor createAccessor(AccessType accessType, String argsStr) {
+        Accessor accessor;
+        try {
+            accessor = (Accessor) accessType.getAccessClass().getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            accessor = new AccessDeny(argsStr);
+        }
+        return accessor;
+    }
+
+    public InfoCapsule saveAllData() {
+        InfoCapsule infoCapsule = new InfoCapsule();
+        try {
+            this.storageLayer.saveAllData();
+        } catch (DukeException e) {
+            infoCapsule.setCodeError();
+            infoCapsule.setOutputStr(e.getMessage());
+            return infoCapsule;
+        }
+        infoCapsule.setCodeToast();
+        infoCapsule.setOutputStr("Saved All Data Succesfully.\n");
+        return infoCapsule;
     }
 }

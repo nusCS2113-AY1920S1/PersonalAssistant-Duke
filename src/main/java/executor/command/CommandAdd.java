@@ -10,8 +10,6 @@ public class CommandAdd extends Command {
     private double entryOne;
     private double entryTwo;
 
-    //Constructor
-
     /**
      * Constructor for CommandListMonYear subCommand Class.
      * @param userInput String is the user input from the CLI

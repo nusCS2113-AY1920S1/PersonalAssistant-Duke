@@ -1,6 +1,6 @@
 package ui;
 
-import java.text.DecimalFormat;
+import java.util.HashMap;
 
 public class Wallet {
     private Double balance;
@@ -55,11 +55,9 @@ public class Wallet {
     /**
      * Setter for balance property of Wallet Object.
      * @param input The value to be set as balance
-     * @return
      */
-    public DecimalFormat setBalance(Double input) {
+    public void setBalance(Double input) {
         this.balance = input;
-        return null;
     }
 
     /**
@@ -92,6 +90,14 @@ public class Wallet {
      */
     public double getTotalExpenses() {
         return this.receipts.getTotalCashSpent();
+    }
+
+    /**
+     * Getter for the folders property of the ReceiptTracker Object housed in the Wallet Object.
+     * @return HashMap representing keys and the corresponding ReceiptTracker object
+     */
+    public HashMap<String, ReceiptTracker> getFolders() {
+        return this.receipts.getFolders();
     }
 
     /**

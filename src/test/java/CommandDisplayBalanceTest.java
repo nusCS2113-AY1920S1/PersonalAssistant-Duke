@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import storage.StorageManager;
 import ui.Wallet;
+import ui.gui.MainWindow;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;

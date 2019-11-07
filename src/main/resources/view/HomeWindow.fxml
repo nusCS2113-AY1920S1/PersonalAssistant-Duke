@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Label?>
+<?import ui.gui.DonutChart?>
+<?import javafx.scene.chart.StackedBarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ui.gui.HomeWindow"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <AnchorPane fx:id="balanceChartPane"
+                prefHeight="190.0" prefWidth="254.0"
+                AnchorPane.leftAnchor="30" AnchorPane.topAnchor="30"
+    >
+        <StackPane prefHeight="190.0" prefWidth="254.0"
+                   AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+                   AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="0">
+
+            <Label fx:id="balanceChartDesc" StackPane.alignment="TOP_LEFT"
+                   text="BUDGET: " textFill="#013950">
+                <font>
+                    <Font name="Constantia" size="11.0"/>
+                </font>
+            </Label>
+
+            <DonutChart fx:id="balanceChart"
+                        maxHeight="190.0" prefHeight="190.0" maxWidth="254.0" prefWidth="252.0"
+                        AnchorPane.bottomAnchor="0"
+            />
+            <Label fx:id="balanceFigure"
+                   maxWidth="130"
+                   StackPane.alignment="CENTER" style="-fx-padding: 0 0 15 10;"
+                   textFill="#f9bd4d">
+                <font>
+                    <Font name="Constantia" size="45.0"/>
+                </font>
+            </Label>
+
+            <Label fx:id="balanceIndicator"
+                   StackPane.alignment="CENTER" style="-fx-padding: 35 0 0 80;"
+                   textFill="#013950" text="left">
+                <font>
+                    <Font name="Constantia" size="10.0"/>
+                </font>
+            </Label>
+
+        </StackPane>
+    </AnchorPane>
+
+    <AnchorPane fx:id="breakdownChartPane"
+                prefHeight="190.0" prefWidth="254.0"
+                AnchorPane.rightAnchor="30" AnchorPane.topAnchor="50"
+    >
+        <Label fx:id="breakdownChartDesc"
+               alignment="TOP_LEFT"
+               text="STATS: " textFill="#013950">
+            <font>
+                <Font name="Constantia" size="11.0"/>
+            </font>
+        </Label>
+        <StackedBarChart fx:id="breakdownChart" style="-fx-background-color: #ede7d1;"
+                         maxHeight="190.0" prefHeight="180.0" maxWidth="254.0" prefWidth="252.0"
+                         AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="20">
+            <xAxis>
+                <CategoryAxis fx:id="xAxis" side="BOTTOM"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis fx:id="yAxis" side="LEFT"
+                            tickLabelsVisible="false" opacity="0"/>
+            </yAxis>
+        </StackedBarChart>
+    </AnchorPane>
+
+    <AnchorPane fx:id="taskPane"
+                AnchorPane.topAnchor="255.0" AnchorPane.rightAnchor="30" AnchorPane.leftAnchor="30"
+                prefHeight="168.0" prefWidth="585.0" minWidth="585.0" maxWidth="585.0"
+                style="-fx-background-color: #ede7d1;" >
+        <ScrollPane fx:id="taskScroller" prefWidth="Infinity" prefHeight="168" maxHeight="Infinity"
+                    hbarPolicy="NEVER"
+                    AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="-10"
+                    style="-fx-background: #ede7d1; -fx-background-color: transparent;">
+            <AnchorPane fx:id="taskContainerMain"
+                        prefHeight="-Infinity" prefWidth="540.0" pickOnBounds="false"
+                        style="-fx-background-color: #ede7d1;" >
+                <VBox fx:id="taskContainerLeft"
+                      prefHeight="-Infinity" prefWidth="266.5"
+                      AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0"
+                      spacing="5.0"
+                      style="-fx-background-color: #ede7d1;" />
+                <VBox fx:id="taskContainerRight"
+                      prefHeight="-Infinity" prefWidth="266.5"
+                      AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0"
+                      spacing="5.0"
+                      style="-fx-background-color: #ede7d1;" />
+            </AnchorPane>
+        </ScrollPane>
+    </AnchorPane>
+</AnchorPane>

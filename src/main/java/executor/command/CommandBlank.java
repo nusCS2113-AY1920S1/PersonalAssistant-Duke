@@ -11,7 +11,7 @@ public class CommandBlank extends Command {
     public CommandBlank(String userInput) {
         super();
         this.userInput = userInput;
-        this.description = "Prints a line separator";
+        this.description = "Does Nothing";
         this.commandType = CommandType.BLANK;
     }
 

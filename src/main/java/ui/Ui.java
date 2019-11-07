@@ -109,7 +109,8 @@ public class Ui {
      */
     private void exitUi() {
         this.scanner.close();
-
+        InfoCapsule infoCapsule = this.interpreterLayer.requestSave();
+        this.updateUi(infoCapsule);
     }
 
     /**

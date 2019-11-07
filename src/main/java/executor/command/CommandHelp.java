@@ -1,5 +1,6 @@
 package executor.command;
 
+import executor.Executor;
 import interpreter.Parser;
 import storage.StorageManager;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class CommandHelp extends Command {
                     break;
                 }
             }
-            if (flag == false) {
+            if (!flag) {
                 this.infoCapsule.setCodeError();
                 this.infoCapsule.setOutputStr("Command invalid. Enter 'help' to see all the available commands.\n");
                 return;

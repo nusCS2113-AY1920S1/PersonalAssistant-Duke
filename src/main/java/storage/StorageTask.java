@@ -14,7 +14,6 @@ public class StorageTask {
 
     /**
      * * Constrctor for the 'StorageTask' Class.
-     *
      * @param filePath The file path to be used to store and load data
      */
     public StorageTask(String filePath) {
@@ -23,10 +22,9 @@ public class StorageTask {
 
     /**
      * Method to save the current list of tasks.
-     *
-     * @param taskList TaskList class
+     * @param taskList TaskList that houses all the Tasks to be saved
      */
-    public void saveData(TaskList taskList) {
+    public void saveData(TaskList taskList) throws DukeException {
         try {
             FileWriter writer = new FileWriter(this.filePath);
             for (Task task : taskList) {
@@ -35,17 +33,15 @@ public class StorageTask {
             }
             writer.close();
         } catch (Exception e) {
-            System.out.println(e);
+            throw new DukeException("Unable to load saved Task Data.\n");
         }
     }
 
     /**
      * Method to load previously saved list of tasks.
-     *
-     * @return TaskList class
+     * @param taskList TaskList that will house all the Tasks
      */
-    public TaskList loadData() throws DukeException {
-        TaskList taskList = new TaskList();
+    public void loadData(TaskList taskList) throws DukeException {
         try {
             File file = new File(this.filePath);
             Scanner scanner = new Scanner(file);
@@ -61,7 +57,6 @@ public class StorageTask {
         } catch (Exception e) {
             throw new DukeException("No Previously Saved Tasks.\n");
         }
-        return taskList;
     }
 
     /**

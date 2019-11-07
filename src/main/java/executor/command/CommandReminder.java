@@ -5,7 +5,6 @@ import storage.StorageManager;
 import java.time.LocalDate;
 
 public class CommandReminder extends Command {
-
     private LocalDate currentDate;
 
     /**

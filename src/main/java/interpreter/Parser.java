@@ -35,7 +35,7 @@ public class Parser {
         String commandStr = parseForEnum(userInput, CommandType.getNames());
         // Type of command not as specified inside the enum types
         if (commandStr == "") {
-            return null;
+            return CommandType.ERROR;
         }
         return CommandType.valueOf(commandStr);
     }

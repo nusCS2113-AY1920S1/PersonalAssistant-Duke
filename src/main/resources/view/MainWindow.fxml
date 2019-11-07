@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainPain"
+            maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            mouseTransparent="false" prefHeight="600.0" prefWidth="642.0" style="-fx-background-color: #ede7d1;"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ui.gui.MainWindow">
+    <children>
+        <AnchorPane fx:id="headerPane"
+                   prefHeight="128.0" prefWidth="642.0" style="-fx-background-color: #10073e;"
+                   AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0">
+                <ImageView fx:id="headerBackground"
+                           fitHeight="128.0" fitWidth="642.0"
+                           nodeOrientation="INHERIT" pickOnBounds="true" />
+                <Label fx:id="appName"
+                       AnchorPane.topAnchor="10" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+                       alignment="TOP_CENTER"
+                       text="Duke$$$" textFill="#fffaeb">
+                    <font>
+                        <Font name="Bodoni MT Bold" size="70.0"/>
+                    </font>
+                </Label>
+
+                <Label fx:id="appDescription" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+                       alignment="BOTTOM_CENTER"
+                       AnchorPane.bottomAnchor="15"
+                       text="Financial Tracker" textFill="#ede7d1">
+                    <font>
+                        <Font name="Bodoni MT Bold" size="20.0" />
+                    </font>
+                </Label>
+
+        </AnchorPane>
+
+        <AnchorPane fx:id="inputPane"
+                    prefHeight="30.0" prefWidth="600.0" style="-fx-background-color: #ede7d1;"
+                    AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="150">
+            <TextField fx:id="userInput"
+                       onAction="#handleUserInput"
+                       prefHeight="26.0" prefWidth="585.0"
+                       promptText="Ready"
+                       style="-fx-background-color: #ede7d1;
+                       -fx-border-style: none none solid none; -fx-border-width: 0 0 1 0; -fx-border-color: #696969;"
+                       AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0">
+                <font>
+                    <Font name="Constantia" size="12.0" />
+                </font>
+            </TextField>
+        </AnchorPane>
+
+        <AnchorPane fx:id="contentPane"
+                    prefHeight="450.0" prefWidth="600.0" style="-fx-background-color: #ede7d1;"
+                    AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="180">
+        </AnchorPane>
+    </children>
+</AnchorPane>

@@ -23,14 +23,8 @@ public class CommandDateList extends Command {
 
     @Override
     public void execute(StorageManager storageManager) {
-        if (this.date == null || this.date.isEmpty()) {
-            this.infoCapsule.setCodeError();
-            this.infoCapsule.setOutputStr("Date input is missing. FORMAT : datelist yyyy-mm-dd");
-            return;
-        }
-        String outputStr;
+        String outputStr = "You have the following receipts for" + " " + date + "\n";
         try {
-            outputStr = "You have the following receipts for" + " " + date;
             outputStr += storageManager.getReceiptsByDate(this.date).getPrintableReceipts();
         } catch (DukeException e) {
             this.infoCapsule.setCodeError();
