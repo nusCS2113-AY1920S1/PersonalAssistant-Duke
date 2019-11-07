@@ -1,7 +1,7 @@
 import Commands.Command;
 import Commands.FilterCommand;
 import Commons.LookupTable;
-import Commons.Ui;
+import Commons.UserInteraction;
 import StubClasses.StorageStub;
 import Tasks.Assignment;
 import Tasks.Deadline;
@@ -18,10 +18,9 @@ public class FilterTest {
     private static Assignment eventWithKeyword;
     private static Assignment deadlineWithKeyword;
     private static String keyword = "key";
-    private LookupTable lookupTable = new LookupTable();
     private StorageStub storage = new StorageStub();
     private static TaskList events = new TaskList();
-    private Ui ui = new Ui();
+    private UserInteraction ui = new UserInteraction();
     private static TaskList deadlines = new TaskList();
 
     @BeforeAll
@@ -40,7 +39,7 @@ public class FilterTest {
         String w1 = "There are no task(s) matching your keyword.";
         String w2 = new String();
         try {
-            w2 = command.execute(lookupTable, events, deadlines, ui, storage);
+            w2 = command.execute(events, deadlines, ui, storage);
         } catch (Exception e) {
             w2 = e.getMessage();
         }
@@ -52,11 +51,11 @@ public class FilterTest {
         events.addTask(eventWithKeyword);
         Command command = new FilterCommand(keyword);
         String w1 ="Here are the following events/deadline with the keyword key\n" +
-                "1.[E] EventWithKey CS2101 Sat 12/10/2019 01:00 pm to 01:01 pm\n" +
-                "2.[D] DeadlineWithKey CS2101 Sun 13/10/2019 12:00 pm" ;
+                "1. [E]EventWithKey CS2101 12/10/2019 1300 to 1301\n" +
+                "2. [D]DeadlineWithKey CS2101 13/10/2019 1200\n" ;
         String w2;
         try {
-            w2 = command.execute(lookupTable, events, deadlines, ui, storage);
+            w2 = command.execute(events, deadlines, ui, storage);
         } catch (Exception e) {
             w2 = e.getMessage();
         }
@@ -73,7 +72,7 @@ public class FilterTest {
          String w1 = "There are no task(s) matching your keyword.";
          String w2 ;
          try {
-              w2 = command.execute(lookupTable, events, deadlines, ui, storage);
+              w2 = command.execute(events, deadlines, ui, storage);
          } catch (Exception e) {
              w2 = e.getMessage();
          }

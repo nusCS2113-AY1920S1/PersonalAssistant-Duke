@@ -265,27 +265,9 @@ public class MainWindow extends BorderPane implements Initializable {
 
     private void setDukeResponse() {
         dukeResponseTable.getColumns().clear();
-//        TableColumn dukeIndexColumn = new TableColumn<>();
-//        dukeIndexColumn.setText("Index");
-//        dukeIndexColumn.setMinWidth(35);
-//        dukeIndexColumn.setCellValueFactory(new PropertyValueFactory<>("index"));
         dukeResponseColumn = new TableColumn<>();
         dukeResponseColumn.setText("Duke Response");
         dukeResponseColumn.setSortable(false);
-        /*dukeResponseColumn.setCellFactory((param) -> new TableCell<>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                if (item != null) {
-                    setText(item);
-                    if (dukeResponseTable.getSelectionModel().getFocusedIndex() == getTableRow().getIndex()) {
-                        setStyle("-fx-background-color: red;");
-                    } else {
-                        setStyle(null);
-                    }
-                }
-                super.updateItem(item, empty);
-            }
-        });*/
         dukeResponseColumn.setCellValueFactory(new PropertyValueFactory("response"));
         dukeResponseTable.setItems(betterDukeResponse);
         dukeResponseTable.getColumns().add(dukeResponseColumn);
@@ -298,11 +280,11 @@ public class MainWindow extends BorderPane implements Initializable {
     private void handleUserInput() throws IOException, DukeInvalidFormatException, ParseException {
         String input = userInput.getText();
         String response = duke.getResponse(input);
-        if(input.startsWith("Week")) {
+        if(input.startsWith("show/week")) {
             if(WeekParse.isValid(input)) {
-                week = input;
+                week = WeekParse.getWeek(input);
                 // //if Week Recess need make till Recess Week normal case: Week 7
-                setWeek(false, WeekParse.getWeek(input));
+                setWeek(false, week);
             }
         }
         retrieveList();
