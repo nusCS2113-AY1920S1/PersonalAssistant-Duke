@@ -7,6 +7,7 @@ import compal.logic.parser.exceptions.ParserException;
 import compal.model.tasks.Task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 // @@author yueyeah
@@ -16,6 +17,8 @@ import java.util.logging.Logger;
  */
 public class DeadlineCommandParser implements CommandParser {
     private static final Logger logger = LogUtils.getLogger(DeadlineCommand.class);
+    private static final ArrayList<String> key = new ArrayList<>(Arrays.asList(TOKEN_END_TIME,
+            TOKEN_DATE, TOKEN_PRIORITY, TOKEN_FINAL_DATE, TOKEN_INTERVAL));
 
     @Override
     public Command parseCommand(String restOfInput) throws ParserException {
@@ -34,6 +37,7 @@ public class DeadlineCommandParser implements CommandParser {
         }
         isFinalDateAfterStartDate(startDateList.get(INDEX_ZERO), finalDate);
         isValidInterval(interval);
+        isValidKey(key, restOfInput);
         logger.info("Successfully parse deadline command");
         return new DeadlineCommand(description, priority, startDateList, endTime, finalDate, interval);
     }

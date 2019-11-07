@@ -1,11 +1,13 @@
 package compal.logic.command;
 
 import compal.commons.CompalUtils;
+import compal.commons.LogUtils;
 import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 
 import java.util.Date;
+import java.util.logging.Logger;
 
 //@@author jaedonkey
 public class EditCommand extends Command {
@@ -30,16 +32,24 @@ public class EditCommand extends Command {
     private String endTime;
     private int taskId;
     private Task.Priority priority;
+    private static final Logger logger = LogUtils.getLogger(EditCommand.class);
+    private static final String deadlineStartDateMsg = "Deadline has no start time! Please omit /start <date>!";
+    private static final String invalidTaskIdMsg = "Task ID invalid! Please try again!";
+    private static final String noValidEditsMsg = "No valid editable fields found! Please include one of the "
+            + "following:"
+            + "/description , /date . /start, /end , /priority";
 
     //@@author jaedonkey
+
     /**
      * Constructs an edit command object.
-     * @param taskId id of task to edit
+     *
+     * @param taskId      id of task to edit
      * @param description new description
-     * @param date new date
-     * @param startTime new start time
-     * @param endTime new end time
-     * @param priority new priority level
+     * @param date        new date
+     * @param startTime   new start time
+     * @param endTime     new end time
+     * @param priority    new priority level
      */
     public EditCommand(int taskId, String description, Date date, String startTime, String endTime,
                        Task.Priority priority) {
@@ -54,16 +64,35 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult commandExecute(TaskList taskList) throws CommandException {
-        Task toEdit = taskList.getTaskById(taskId);
+        logger.info("Executing edit command");
+        Task toEdit;
+        try {
+            toEdit = taskList.getTaskById(taskId);
+        } catch (NullPointerException e) {
+            throw new CommandException(invalidTaskIdMsg);
+        }
+
+
+        if (description == null && date == null && startTime == null && endTime == null && priority == null) {
+            throw new CommandException(noValidEditsMsg);
+        }
+
+
         if (description != null) {
             toEdit.setDescription(description);
         }
         if (date != null) {
             toEdit.setMainDate(CompalUtils.dateToString(date));
         }
-        if (startTime != null && !toEdit.getSymbol().equalsIgnoreCase("D")) { //dealine has no start time
-            toEdit.setStartTime(startTime);
+        if (startTime != null) { //dealine has no start time
+            if (!toEdit.getSymbol().equalsIgnoreCase("D")) {
+                toEdit.setStartTime(startTime);
+            } else {
+                throw new CommandException(deadlineStartDateMsg);
+            }
+
         }
+
         if (endTime != null) {
             toEdit.setEndTime(endTime);
         }
@@ -73,7 +102,6 @@ public class EditCommand extends Command {
 
         return new CommandResult("Your task has been edited:\n" + toEdit.toString(), true);
     }
-
 
 
 }

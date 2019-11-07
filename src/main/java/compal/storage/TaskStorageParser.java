@@ -1,8 +1,11 @@
 package compal.storage;
 
+import compal.commons.LogUtils;
 import compal.model.tasks.Deadline;
 import compal.model.tasks.Event;
 import compal.model.tasks.Task;
+
+import java.util.logging.Logger;
 
 //@@author jaedonkey
 /**
@@ -14,7 +17,7 @@ public class TaskStorageParser implements StorageParser<Task> {
     private static final String SYMBOL_RECUR = "RT";
     private static final String SYMBOL_DEADLINE = "D";
     private static final String SYMBOL_EVENT = "E";
-
+    private static final Logger logger = LogUtils.getLogger(TaskStorageParser.class);
 
     @Override
     public Task parseData(String[] parts) {
@@ -24,7 +27,7 @@ public class TaskStorageParser implements StorageParser<Task> {
         case SYMBOL_EVENT:
             return new Event(parts[2], stringToPriority(parts[4]), parts[5], parts[6], parts[7], parts[8]);
         default:
-            System.out.println("Storage:LOG: Could not parse text. Returning what we managed to parse.");
+            logger.info("Could not parse text. Returning what we managed to parse.");
             return null;
 
         }

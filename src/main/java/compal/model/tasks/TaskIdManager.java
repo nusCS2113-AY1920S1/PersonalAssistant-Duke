@@ -1,23 +1,27 @@
 package compal.model.tasks;
 
+import compal.commons.LogUtils;
+
 import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.BitSet;
+import java.util.logging.Logger;
 
 //@@author jaedonkey
 public class TaskIdManager {
 
     private BitSet idBitSet;
+    private static final Logger logger = LogUtils.getLogger(TaskIdManager.class);
 
     TaskIdManager() {
         BitSet bs = readIdBitSet();
         if (bs != null) {
             idBitSet = (BitSet) readIdBitSet().clone();
         } else {
-            System.out.println("TaskList:LOG: No saved idbitset found");
+            logger.info("No saved idbitset found");
             idBitSet = new BitSet(1_000_000); //bitset of 1,000,000 bits (hard limit of no. of tasks)
         }
     }

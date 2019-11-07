@@ -16,7 +16,8 @@ import java.util.logging.Logger;
  * Parses input arguments and creates a new ViewCommand object.
  */
 public class ViewCommandParser implements CommandParser {
-    public static final String MESSAGE_INVALID_PARAM = "Invalid parameter for view command.";
+    public static final String MESSAGE_INVALID_PARAM = "Looks like there's an invalid parameter inserted!\n"
+        + "This is how you use the view command:\n\n" + ViewCommand.MESSAGE_USAGE;
     private static final Logger logger = LogUtils.getLogger(ViewCommandParser.class);
 
     /**
