@@ -5,6 +5,8 @@ package entertainment.pro.commons;
  *
  */
 public class PromptMessages {
+    public static final String VIEW_BACK_FAILURE = "Sorry, there is nothing to view back!";
+    public static final String VIEW_BACK_SUCCESS = "Nice! Displaying back your search results...";
     public static final String WAIT_FOR_APP_TO_PROCESS = "Please wait while the app processes your request...";
 
     public static final String VIEW_CURRENT_MOVIES_SUCCESS =
@@ -62,7 +64,7 @@ public class PromptMessages {
 
     public static final String AUTOCOMPLETION_PROMPT = "Did you mean this?";
 
-    public static final String UNKNOWN_COMMAND = "☹ I'm sorry, but I don't know what that means. "
+    public static final String UNKNOWN_COMMAND = "I'm sorry, but I don't know what that means. "
             + "Refer to help for command formats :-(";
     public static final String INVALID_FORMAT =
             "Invalid format/parameter is used. Refer to help for command formats :-(";
@@ -85,7 +87,7 @@ public class PromptMessages {
 
     //API Messages
     public static final String RECACHING_DATA_API_ERROR = "Sorry, but something went wrong when recaching data";
-    public static final String API_FAIL_GENERAL = "☹ I'sorry, but something went wrong when fetching data";
+    public static final String API_FAIL_GENERAL = "I'sorry, but something went wrong when fetching data";
     public static final String API_NULL_DATA = "Null data in API";
     public static final String API_TIME_OUT = "☹ I'sorry, but your request took so long";
     public static final String API_MALFORMED_URL = "Malformed URL in fetching data";

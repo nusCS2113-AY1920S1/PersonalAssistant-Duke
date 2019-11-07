@@ -313,7 +313,7 @@ public class MovieHandler extends Controller implements RequestListener {
                     try {
                         switch (pageTracker.getCurrentPage()) {
                             case "mainPage":
-                                moviePosterClicked(mMovies.get(index));
+                                showMovie(index);
                                 break;
                             case "playlistInfo":
                                 Playlist playlist1 = new EditPlaylistJson(playlistName).load();
@@ -379,10 +379,24 @@ public class MovieHandler extends Controller implements RequestListener {
         //System.out.print("Request rsdceceived");
         SearchResultContext.addResults(MoviesFinal);
         mMovies = MoviesFinal;
-        displayItems();
+        try {
+            displayItems();
+        } catch (Exceptions exceptions) {
+            exceptions.printStackTrace();
+        }
     }
 
-    public void displayItems() {
+    /**
+     *
+     * Responsible for displaying the search results in the UI.
+     * @throws Exceptions when there is nothing to show.
+     */
+    public void displayItems() throws Exceptions {
+        if (mMovies.size() == 0) {
+            setGeneralFeedbackText(PromptMessages.VIEW_BACK_FAILURE);
+            throw new Exceptions(PromptMessages.VIEW_BACK_FAILURE);
+        }
+        setGeneralFeedbackText(PromptMessages.VIEW_BACK_SUCCESS);
         mImagesLoadingProgress = new double[mMovies.size()];
         Platform.runLater(() -> {
             try {
@@ -428,7 +442,6 @@ public class MovieHandler extends Controller implements RequestListener {
      * @param index a unique number assigned to every movie/tv show that is being displayed.
      * @return Anchorpane consisting of the movie poster, name and the unique id.
      */
-
     private AnchorPane buildMoviePosterPane(MovieInfoObject movie, int index) throws Exceptions {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -524,10 +537,9 @@ public class MovieHandler extends Controller implements RequestListener {
      */
     public void showMovie(int num) throws Exceptions {
         //System.out.println("this is " + mMovies.size());
-        System.out.println("this is it 3");
+        //System.out.println("this is it 3");
         MovieInfoObject movie = mMovies.get(num - 1);
         moviePosterClicked(movie);
-        setGeneralFeedbackText(PromptMessages.TO_VIEW_BACK_SEARCHES);
         System.out.println("this is it 4");
     }
 
@@ -793,6 +805,8 @@ public class MovieHandler extends Controller implements RequestListener {
             mMoviesFlowPane.getChildren().add(posterView);
             mMoviesScrollPane.setContent(mMoviesFlowPane);
             mMoviesScrollPane.setVvalue(0);
+            setGeneralFeedbackText(PromptMessages.TO_VIEW_BACK_SEARCHES);
+            clearAutoCompleteFeedbackText();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -880,7 +894,7 @@ public class MovieHandler extends Controller implements RequestListener {
      * @param txt The text to be printed.
      */
     public void setGeneralFeedbackText(String txt) {
-        generalFeedbackText.setText(txt);
+        generalFeedbackText.setText(txt + "\n");
     }
 
 

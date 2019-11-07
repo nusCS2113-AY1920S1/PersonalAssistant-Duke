@@ -50,7 +50,10 @@ public class ViewCommand extends CommandSuper {
         }
     }
 
-    private void executeBackCommands() {
+    /**
+     * Responsible for redirecting users back to list of movies/TV shows.
+     */
+    private void executeBackCommands() throws Exceptions {
         ((MovieHandler) this.getUiController()).displayItems();
     }
 

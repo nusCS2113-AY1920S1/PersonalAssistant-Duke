@@ -166,9 +166,10 @@ public class RetrieveRequestTest {
         assertEquals(expected1, cert1);
     }
 
-    public JSONArray getOffline(int i) throws Exceptions {
-        String filename = MOVIES_DATABASE_FILEPATH;
-        filename += i + ".json";
+    public JSONArray getOffline() throws Exceptions {
+        //String filename = MOVIES_DATABASE_FILEPATH;
+       // filename += i + ".json";
+        String filename = "/data/movieData/1.json";
         String dataFromJSON = getString(filename);
         JSONParser jsonParser = new JSONParser();
         JSONArray jsonArray = new JSONArray();
@@ -227,17 +228,15 @@ public class RetrieveRequestTest {
         expectedArrayList1.addAll(expectedObjectsList);
         RetrieveRequest.finalSearchResults = testArrayList;
         RetrieveRequest.sortByHighestRating();
-        checkConditionTest();
         testArrayList = RetrieveRequest.finalSearchResults;
         assertEquals(expectedArrayList1, testArrayList);
     }
 
-
-    public void checkConditionTest() throws Exceptions {
+    @Test
+    public void checkConditionTest_returns_true() throws Exceptions {
         String searchProfileData = getString(SEARCH_PROFILE_FILEPATH);
         JSONArray jsonArray = getValidData(searchProfileData);
-        JSONArray trueData = new JSONArray();
-        JSONArray falseData = new JSONArray();
+        int d = 0;
         for (int i = 0; i < jsonArray.size(); i += 1) {
             SearchProfile searchProfile = new SearchProfile(name, age, genrePreference, genreRestriction, isAdultEnabled,
                     playlist, sortByAlphaOrder, sortByRating, sortByReleaseDate, searchEntryName, isMovie);
@@ -266,41 +265,48 @@ public class RetrieveRequestTest {
             searchProfile.setMovie((Boolean) jsonObject.get("isMovie"));
             searchProfile.setName((String) jsonObject.get("name"));
             RetrieveRequest.searchProfile = searchProfile;
+            JSONArray jsonArray3 = getOffline();
+            ArrayList<String> getResults = getResultsData();
+            for (int a = 1; a < jsonArray3.size(); a += 1) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray3.get(a);
+                if (RetrieveRequest.checkCondition(jsonObject1)) {
+                //    System.out.println("true");
+                //} else {
+                  //  System.out.println("false");
+                //}
+                    assertEquals("true", getResults.get(d));
+                    d += 1;
+                } else {
+                    assertEquals("false", getResults.get(d));
+                    d += 1;
+               }
+                //System.out.println(j);
 
-            for (int k = 1; k <= 2; k += 1) {
-                JSONArray jsonArray3 = getOffline(k);
-                for (int a = 1; a < jsonArray3.size(); a += 1) {
-                    JSONObject jsonObject1 = (JSONObject) jsonArray3.get(a);
-                    if (RetrieveRequest.checkCondition(jsonObject1)) {
-                        trueData.add(jsonObject1);
-                    } else {
-                        falseData.add(jsonObject1);
-                    }
-                    //assertFalse(RetrieveRequest.checkCondition(jsonObject1), "Test has failed");
-                }
+            }
+
             }
         }
-        File fileToSaveJson = new File("/data/movieData/false.json");
-        //====================
 
-        //jsonArray2.addAll(casts)
-
-        //================
-        byte[] jsonArrayTrue = falseData.toString().getBytes();
-        BufferedOutputStream bos;
-        try {
-            bos = new BufferedOutputStream(new FileOutputStream(fileToSaveJson));
-            bos.write(jsonArrayTrue);
-            bos.flush();
-            bos.close();
-
-        } catch (IOException e4) {
-            // TODO Auto-generated catch block
-            e4.printStackTrace();
-
+        public ArrayList<String> getResultsData() throws Exceptions {
+        ArrayList<String> arrayList = new ArrayList<>();
+            InputStream inputStream = OfflineSearchStorage.class.getResourceAsStream("/data/movieData/results.txt");
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            String line = "";
+            String dataFromJSON = "";
+            try {
+                while ((line = bufferedReader.readLine()) != null) {
+                    dataFromJSON += line;
+                    arrayList.add(line);
+                }
+                bufferedReader.close();
+                inputStreamReader.close();
+                inputStream.close();
+            } catch (IOException e) {
+                throw new Exceptions(PromptMessages.IO_EXCEPTION_IN_OFFLINE);
+            }
+            return arrayList;
         }
-    }
-
-
 }
+
 
