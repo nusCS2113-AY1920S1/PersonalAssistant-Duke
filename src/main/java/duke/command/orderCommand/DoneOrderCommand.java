@@ -26,28 +26,33 @@ public class DoneOrderCommand extends Command {
     }
 
     @Override
-    public void execute(Fridge fridge, DishList dl, OrderList orderList, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+    public void execute(Fridge fridge, DishList dl, OrderList orderList, Ui ui, FridgeStorage fs, OrderStorage orderStorage) throws DukeException {
         if (orderList.size()==0) {
             throw new DukeException("No order in the list! No order can be done!");
         }
-        if (orderIndex < orderList.size() && orderIndex >= 0) {
-            Order doneOrder = orderList.getEntry(orderIndex);
+
+        if (orderIndex <= orderList.size() && orderIndex > 0) {
+            Order doneOrder = orderList.getEntry(orderIndex-1);
             if (doneOrder.isDone()) {
-                int number = orderIndex+1;
-                throw new DukeException("Order "+number+" has already been done!");
+                throw new DukeException("Order "+orderIndex+" has already been done!");
             }
-            os.changeContent(orderIndex+1);
+            if (!doneOrder.isToday()) {
+                throw new DukeException("Order "+orderIndex+" is not serving today!\n\t You cannot done an order that is not today!");
+            }
+            orderList.markOrderDone(orderIndex-1);
+            orderStorage.changeContent(orderIndex-1);
 
-            // TODO: update chef's to do list
+            orderList.getTodoList().deleteTodoFromOrder(doneOrder);
 
-
-            
-            orderList.markOrderDone(orderIndex);
             ui.showLine();
-            ui.showMarkDoneOrder(orderList.getEntry(orderIndex).toString());
+            ui.showMarkDoneOrder(orderList.getEntry(orderIndex-1).toString());
             ui.showLine();
         } else {
-            throw new DukeException("Must enter a valid order number, between 1 and " + orderList.size() + " to be done");
+            if (orderList.size()==1) {
+                throw new DukeException("You've got only 1 order in the list.\n\t Enter 'done 1' to mark current order done");
+            } else {
+                throw new DukeException("Must enter a valid order number, between 1 and " + orderList.size() + " to be done");
+            }
         }
     }
 }

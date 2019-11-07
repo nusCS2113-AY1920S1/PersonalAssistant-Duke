@@ -65,6 +65,23 @@ public class Order implements Printable {
     }
 
     /**
+     * Used to set the serving date of the {@link Order} reading from the txt file.
+     * @param date reset date of the {@link Order}.
+     */
+    public void setReadDate(Date date) throws DukeException {
+        Date setDate = date;
+        Date todayDate = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String todayToString = simpleDateFormat.format(todayDate);
+        String setDateToString = simpleDateFormat.format(setDate);
+        if (setDate.before(todayDate) && !setDateToString.equals(todayToString)) {
+            this.isDone=true;
+        }
+        this.date = setDate;
+        this.dateToString = setDateToString;
+    }
+
+    /**
      * Returns a boolean indicating whether the serving date of the {@link Order}
      * is today or not.
      * @return boolean true if it is today's order, false otherwise (i.e., pre-order)
@@ -164,15 +181,25 @@ public class Order implements Printable {
      * If the dishes is not found in the {@link Order},
      * simply add a new element in the content map.
      * If the order is done, do nothing.
+     * @param dishes dishes name
      */
-    public void addDish(String dishes){
+    public void addDish(String dishes) {
         if (!this.isDone())
-            if (!this.hasDishes(dishes)) {
-                content.put(dishes, 1);
-            } else {
-                int oldAmount = this.getDishesAmount(dishes);
-                content.put(dishes, oldAmount+1);
-            }
+            addDishFromFile(dishes);
+    }
+
+
+    /**
+     * add dishes from order storage txt file
+     * @param dishes dishes name
+     */
+    public void addDishFromFile(String dishes) {
+        if (!this.hasDishes(dishes)) {
+            content.put(dishes, 1);
+        } else {
+            int oldAmount = this.getDishesAmount(dishes);
+            content.put(dishes, oldAmount+1);
+        }
     }
 
     /**
@@ -180,15 +207,26 @@ public class Order implements Printable {
      * If the dishes is not found in the {@link Order},
      * simply add a new element in the content map.
      * If the order is done, do nothing.
+     * @param dishes dishes name
+     * @param addAmount add amount of the dishes
      */
     public void addDish(String dishes, int addAmount){
         if (!this.isDone())
-            if (!content.containsKey(dishes)) {
-                content.put(dishes, addAmount);
-            } else {
-                int oldAmount = content.get(dishes);
-                content.put(dishes, oldAmount+addAmount);
-            }
+            addDishFromFile(dishes, addAmount);
+    }
+
+    /**
+     * add dishes from order storage txt file
+     * @param dishes dishes name
+     * @param addAmount add amount of the dishes
+     */
+    public void addDishFromFile(String dishes, int addAmount) {
+        if (!content.containsKey(dishes)) {
+            content.put(dishes, addAmount);
+        } else {
+            int oldAmount = content.get(dishes);
+            content.put(dishes, oldAmount+addAmount);
+        }
     }
 
 }

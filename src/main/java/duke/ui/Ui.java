@@ -176,13 +176,14 @@ public class Ui {
         System.out.println("\t init");
         System.out.println("\t add [-d ORDER_DATE-(dd/mm/yyyy)] -n DISH1_NAME[*DISH_AMOUNT], DISH2_NAME[*DISH_AMOUNT]");
         System.out.println("\t alter ORDER_INDEX ORDER_DATE-(dd/mm/yyyy)");
-        System.out.println("\t remove ORDER_INDEX");
+        System.out.println("\t cancel ORDER_INDEX");
         System.out.println("\t done ORDER_INDEX");
         System.out.println("\t list [-l LIST_TYPE-(option: all (default) | undone | today | undoneToday)]");
         System.out.println("\t list -n DISH_NAME    *** Find the dishes in today's undone orders ***");
         System.out.println("\t list -d ORDER_DATE-(dd/mm/yyyy) [-l LIST_TYPE-(option: all (default) | undone)]");
         showLine();
     }
+
 
     public void showIngredientsInFridge(IngredientsList ingredientsList) {
         if (ingredientsList.isEmpty())
@@ -280,7 +281,7 @@ public class Ui {
         } else {
             System.out.print(" orders");
         }
-        System.out.println(" in the order list.");
+        System.out.println(" in the order list. Type 'list' to see all the orders.");
     }
 
     /**
@@ -302,7 +303,7 @@ public class Ui {
      * @param size  current size of the whole order list
      */
     public void showAddOrder(String description, int size) {
-        System.out.println("\t Got it. I've added this order: ");
+        System.out.println("\t Got it. New order added! ");
         System.out.println("\t " + description);
         showOrderListSize(size);
     }
@@ -326,7 +327,7 @@ public class Ui {
      * @param size    size of order list
      */
     public void showRemovedOrder(String removed, int size) {
-        System.out.println("\t Noted. I've removed this order:");
+        System.out.println("\t Noted. I've cancelled this order:");
         System.out.println("\t " + removed);
         showOrderListSize(size);
     }

@@ -18,7 +18,9 @@ public class TodayTodoList {
     public TodayTodoList(List<Order> orderList) {
         this.tasks = new LinkedHashMap<>();
         for (Order order: orderList) {
-            addTodoFromOrder(order);
+            if (order.isToday()&&(!order.isDone())) {
+                addTodoFromOrder(order);
+            }
         }
     }
 
