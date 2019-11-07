@@ -62,6 +62,6 @@ public class HomeFindSpec extends ObjSpec {
 
     @Override
     protected void executeWithObj(DukeCore core, DukeObject obj) {
-        core.uiContext.setContext();
+        core.uiContext.open(obj);
     }
 }

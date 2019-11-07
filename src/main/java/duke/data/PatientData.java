@@ -130,11 +130,11 @@ public class PatientData {
      */
     public SearchResults searchAll(String searchTerm) throws DukeException {
         String lowerSearchTerm = searchTerm.toLowerCase();
-        SearchResults results= findPatients(lowerSearchTerm);
+        SearchResults results = findPatients(lowerSearchTerm);
         for (Patient patient : patientList) {
-            result.addAll(patient.searchAll(lowerSearchTerm));
+            results.addAll(patient.searchAll(lowerSearchTerm));
         }
-        return result;
+        return results;
     }
 
     /**

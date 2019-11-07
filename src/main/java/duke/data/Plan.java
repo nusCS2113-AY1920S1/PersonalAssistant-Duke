@@ -2,6 +2,7 @@ package duke.data;
 
 import duke.ui.card.PlanCard;
 import duke.ui.card.UiCard;
+import duke.ui.context.Context;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -52,5 +53,10 @@ public class Plan extends Treatment {
     @Override
     public UiCard toCard() {
         return new PlanCard(this);
+    }
+
+    @Override
+    public Context toContext() {
+        return Context.TREATMENT;
     }
 }

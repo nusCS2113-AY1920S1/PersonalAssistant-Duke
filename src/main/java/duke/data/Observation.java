@@ -2,6 +2,7 @@ package duke.data;
 
 import duke.ui.card.ObservationCard;
 import duke.ui.card.UiCard;
+import duke.ui.context.Context;
 
 public class Observation extends Evidence {
 
@@ -48,5 +49,10 @@ public class Observation extends Evidence {
     @Override
     public UiCard toCard() {
         return new ObservationCard(this);
+    }
+
+    @Override
+    public Context toContext() {
+        return Context.EVIDENCE;
     }
 }

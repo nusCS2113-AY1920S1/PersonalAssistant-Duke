@@ -1,6 +1,7 @@
 package duke.data;
 
 import duke.ui.card.UiCard;
+import duke.ui.context.Context;
 
 /*
  * Highest level of abstraction for all DukeObjects storing Patient related Data
@@ -54,4 +55,6 @@ public abstract class DukeObject {
     }
 
     public abstract UiCard toCard();
+
+    public abstract Context toContext();
 }

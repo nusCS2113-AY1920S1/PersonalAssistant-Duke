@@ -47,8 +47,11 @@ public class UiContext {
         if (newContext != Context.HOME) {
             contexts.push(new Pair<>(this.context, this.object));
         }
-
         updateContext(newContext, object);
+    }
+
+    public void open(DukeObject obj) {
+        setContext(obj.toContext(), obj);
     }
 
     /**

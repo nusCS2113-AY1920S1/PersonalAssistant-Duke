@@ -2,6 +2,7 @@ package duke.data;
 
 import duke.exception.DukeException;
 import duke.ui.card.UiCard;
+import duke.ui.context.Context;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,5 +96,10 @@ public class SearchResults extends DukeObject {
     @Override
     public UiCard toCard() {
         return null;
+    }
+
+    @Override
+    public Context toContext() {
+        return Context.SEARCH;
     }
 }

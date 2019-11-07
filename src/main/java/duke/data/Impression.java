@@ -3,6 +3,7 @@ package duke.data;
 import duke.exception.DukeException;
 import duke.ui.card.ImpressionCard;
 import duke.ui.card.UiCard;
+import duke.ui.context.Context;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -77,10 +78,10 @@ public class Impression extends DukeObject {
      * @return the list of DukeData
      */
     public SearchResults searchAll(String searchTerm) {
-        SearchResults results= new SearchResults(searchTerm, new ArrayList<DukeObject>(), this);
-        result.addAll(findEvidences(searchTerm));
-        result.addAll(findTreatments(searchTerm));
-        return result;
+        SearchResults results = new SearchResults(searchTerm, new ArrayList<DukeObject>(), this);
+        results.addAll(findEvidences(searchTerm));
+        results.addAll(findTreatments(searchTerm));
+        return results;
     }
 
     /**
@@ -124,10 +125,10 @@ public class Impression extends DukeObject {
      * @return the list of DukeData
      */
     public SearchResults findByName(String searchTerm) {
-        SearchResults results= new SearchResults(searchTerm, new ArrayList<DukeObject>(), this);
-        result.addAll(findEvidencesByName(searchTerm));
-        result.addAll(findTreatmentsByName(searchTerm));
-        return result;
+        SearchResults results = new SearchResults(searchTerm, new ArrayList<DukeObject>(), this);
+        results.addAll(findEvidencesByName(searchTerm));
+        results.addAll(findTreatmentsByName(searchTerm));
+        return results;
     }
 
     private void sortEvidences() {
@@ -357,5 +358,10 @@ public class Impression extends DukeObject {
 
     public boolean contains(String searchTerm) {
         return description.toLowerCase().contains(searchTerm.toLowerCase());
+    }
+
+    @Override
+    public Context toContext() {
+        return Context.IMPRESSION;
     }
 }

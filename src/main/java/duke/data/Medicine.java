@@ -2,6 +2,7 @@ package duke.data;
 
 import duke.ui.card.MedicineCard;
 import duke.ui.card.UiCard;
+import duke.ui.context.Context;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -113,4 +114,10 @@ public class Medicine extends Treatment {
     public UiCard toCard() {
         return new MedicineCard(this);
     }
+
+    @Override
+    public Context toContext() {
+        return Context.TREATMENT;
+    }
+
 }

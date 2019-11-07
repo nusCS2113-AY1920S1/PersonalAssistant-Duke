@@ -2,6 +2,7 @@ package duke.data;
 
 import duke.ui.card.ResultCard;
 import duke.ui.card.UiCard;
+import duke.ui.context.Context;
 
 public class Result extends Evidence {
 
@@ -34,5 +35,10 @@ public class Result extends Evidence {
 
     public UiCard toCard() {
         return new ResultCard(this);
+    }
+
+    @Override
+    public Context toContext() {
+        return Context.EVIDENCE;
     }
 }

@@ -2,6 +2,7 @@ package duke.data;
 
 import duke.ui.card.InvestigationCard;
 import duke.ui.card.UiCard;
+import duke.ui.context.Context;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -64,5 +65,10 @@ public class Investigation extends Treatment {
 
     public UiCard toCard() {
         return new InvestigationCard(this);
+    }
+
+    @Override
+    public Context toContext() {
+        return Context.INVESTIGATION;
     }
 }

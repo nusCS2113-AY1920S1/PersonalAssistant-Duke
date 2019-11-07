@@ -3,6 +3,7 @@ package duke.data;
 import duke.exception.DukeException;
 import duke.ui.card.PatientCard;
 import duke.ui.card.UiCard;
+import duke.ui.context.Context;
 
 import java.util.ArrayList;
 
@@ -191,10 +192,10 @@ public class Patient extends DukeObject {
      */
     public SearchResults searchAll(String searchTerm) throws DukeException {
         String lowerSearchTerm = searchTerm.toLowerCase();
-        SearchResults results= findImpressions(lowerSearchTerm);
+        SearchResults results = findImpressions(lowerSearchTerm);
         ArrayList<DukeObject> resultList = new ArrayList<>();
         for (Impression imp : impressionList) {
-            result.addAll(imp.searchAll(searchTerm));
+            results.addAll(imp.searchAll(searchTerm));
         }
         return new SearchResults(searchTerm, resultList, this);
     }
@@ -413,6 +414,11 @@ public class Patient extends DukeObject {
     @Override
     public UiCard toCard() {
         return new PatientCard(this);
+    }
+
+    @Override
+    public Context toContext() {
+        return Context.PATIENT;
     }
 
     private boolean isDuplicate(Impression newImpression) {
