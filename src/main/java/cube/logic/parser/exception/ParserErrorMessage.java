@@ -21,4 +21,7 @@ public class ParserErrorMessage {
         = "OOPS!!! The sort type can only be expiry/name/stock.";
     public static final String INVALID_PARAM_RANGE
         = "OOPS!!! The input value range for %1$s parameter should be between %2$s and %3$s.";
+    public static final String INVALID_COMMAND_FORMAT
+        = "OOPS!!! There are some issues with the command format.\n" +
+        "Please view 'help' or our user guide for more info!";
 }

@@ -47,10 +47,9 @@ public class CommandBox extends UiManager<StackPane> {
         try {
             commandExecutor.execute(fullCommand);
         } catch (Exception e) {
-            logger.severe(e.getMessage());
+            logger.warning(e.getMessage());
             commandTextField.clear();
         }
-
         commandTextField.clear();
     }
 

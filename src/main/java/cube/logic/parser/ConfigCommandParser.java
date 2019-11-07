@@ -120,7 +120,6 @@ public class ConfigCommandParser implements ParserPrototype<ConfigCommand> {
         case VIEW:
             return new ConfigCommand(configType);
         }
-
-        return null;
+        throw new ParserException(ParserErrorMessage.INVALID_COMMAND_FORMAT);
     }
 }
