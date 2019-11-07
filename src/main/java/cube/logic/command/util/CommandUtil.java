@@ -77,8 +77,6 @@ public class CommandUtil {
     		throw new CommandException(CommandErrorMessage.INVALID_QUANTITY_SOLD);
     	}
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Checks that the expiry date is not before today.
@@ -95,5 +93,4 @@ public class CommandUtil {
             throw new CommandException(CommandErrorMessage.INVALID_EXPIRY_DATE);
         }
     }
->>>>>>> d602f9a7dd2b883ec7e84ccb9cdb377bb3eb3b21
 }
