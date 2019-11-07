@@ -34,7 +34,7 @@ public class ScheduleCommandTest {
      */
     @Test
     public void execute_noTasksOnDate_exceptionThrown() {
-        String date = "01-01-2020";
+        String date = "01-01-2018";
         try {
             oof.executeCommand("schedule " + date);
         } catch (CommandException | ParserException e) {
