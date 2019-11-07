@@ -3,6 +3,8 @@ package duke.testutil;
 import duke.logic.command.order.OrderDescriptor;
 import duke.model.commons.Item;
 import duke.model.order.Order;
+import duke.model.order.Remark;
+import duke.model.order.TotalPrice;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -42,7 +44,7 @@ public class OrderDescriptorBuilder {
      * Sets the {@code remarks} of the {@code OrderDescriptor} that we are building.
      */
     public OrderDescriptorBuilder withRemarks(String remarks) {
-        this.descriptor.setRemarks(remarks);
+        this.descriptor.setRemarks(new Remark(remarks));
         return this;
     }
 
@@ -58,7 +60,7 @@ public class OrderDescriptorBuilder {
      * Sets the {@code total} of the {@code OrderDescriptor} that we are building.
      */
     public OrderDescriptorBuilder withTotal(double total) {
-        this.descriptor.setTotal(total);
+        this.descriptor.setTotal(new TotalPrice(total));
         return this;
     }
 

@@ -57,13 +57,31 @@ public class OrderCommandTestUtil {
     public static final String DESC_STATUS_RORY = " " + PREFIX_ORDER_STATUS + " " + VALID_STATUS_RORY;
 
     public static final String DESC_DATE_ALICE = " " + PREFIX_ORDER_DEADLINE + " " + convertToValidDateString(VALID_DELIVERY_DATE_ALICE);
-    public static final String DESC_DATE_RPRY = " " + PREFIX_ORDER_DEADLINE + " " + convertToValidDateString(VALID_DELIVERY_DATE_RORY);
+    public static final String DESC_DATE_RORY = " " + PREFIX_ORDER_DEADLINE + " " + convertToValidDateString(VALID_DELIVERY_DATE_RORY);
 
     public static final String DESC_ITEMS_ALICE = convertToValidItemsString(VALID_ITEMS_ALICE);
     public static final String DESC_ITEMS_RORY = convertToValidItemsString(VALID_ITEMS_RORY);
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+
+    public static final String DESC_INVALID_NAME_TOO_LONG = " " + PREFIX_CUSTOMER_NAME + " " + "This name is tooooooooooooooooo long";
+    public static final String DESC_INVALID_NAME_BLANK = " " + PREFIX_CUSTOMER_NAME + " " + "\t  \r  \n";
+    public static final String DESC_INVALID_CONTACT_TOO_LONG = " " + PREFIX_CUSTOMER_NAME + " " + "This contact is tooooooooooooooooo long";
+    public static final String DESC_INVALID_CONTACT_BLANK = " " + PREFIX_CUSTOMER_NAME + " " + "\t  \r  \n";
+    public static final String DESC_INVALID_REMARKS_TOO_LONG = " " + PREFIX_ORDER_REMARKS + " "
+        + "This remark is 51 chars. This remark is 51 chars...";
+    public static final String DESC_INVALID_QUANTITY = " " + PREFIX_ORDER_ITEM + " "
+        + "item, 50001";
+    public static final String DESC_INVALID_QUANTITY_BOUNDARY = " " + PREFIX_ORDER_ITEM + " "
+        + "item, 50000.0001";
+    public static final String DESC_INVALID_STATUS = " " + PREFIX_ORDER_STATUS + " "
+        + "unknown";
+    public static final String DESC_INVALID_DATE_NOT_EXIST = " " + PREFIX_ORDER_DEADLINE + " "
+        + "32/01/01/1999 18:00";
+    public static final String DESC_INVALID_DATE_WRONG_FORMAT = " " + PREFIX_ORDER_DEADLINE + " "
+        + "32,01,01,1999 18:00";
+
 
     private static String convertToValidDateString(Date date) {
         return TimeParser.inputDateFormat.format(date);

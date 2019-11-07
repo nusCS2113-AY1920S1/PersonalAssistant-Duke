@@ -9,11 +9,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 
+import static duke.logic.command.order.OrderCommandTestUtil.VALID_NAME_ALICE;
+
 /**
  * A utility class containing a list of {@code OrderDescriptor} objects to be used in tests.
  */
 public class TypicalOrderDescriptors {
-    public static final OrderDescriptor ORDER_DESCRIPTOR_A = new OrderDescriptorBuilder()
+    /**
+     * {@code OrderDescriptor} with all fields present.
+     */
+    public static final OrderDescriptor ORDER_DESCRIPTOR_ALICE = new OrderDescriptorBuilder()
         .withName("Alice Wang")
         .withContact("Alice@gmail.com")
         .withRemarks("No nuts.")
@@ -23,6 +28,35 @@ public class TypicalOrderDescriptors {
         .withItems(new HashSet<>() {{
             add(new Item<>("Cake", new Quantity(5)));
         }})
+        .build();
+
+    /**
+     * {@code OrderDescriptor} with one field missing.
+     */
+    public static final OrderDescriptor ORDER_DESCRIPTOR_RORY = new OrderDescriptorBuilder()
+        .withName("Rory Liu")
+        .withContact("12345678")
+        .withRemarks("no")
+        .withStatus(Order.Status.ACTIVE)
+        .withTotal(60.0)
+        .withDeliveryDate(new Date(2018, Calendar.DECEMBER, 11, 18, 0))
+        .build();
+
+    /**
+     * {@code OrderDescriptor} with multiple fields missing.
+     */
+    public static final OrderDescriptor ORDER_DESCRIPTOR_ALICE_MISSING_FIELDS = new OrderDescriptorBuilder()
+        .withName(VALID_NAME_ALICE)
+        .withContact("Alice@gmail.com")
+        .withRemarks("No nuts.")
+        .withStatus(Order.Status.ACTIVE)
+        .withTotal(50.0)
+        .build();
+
+    /**
+     * {@code OrderDescriptor} with all fields missing.
+     */
+    public static final OrderDescriptor ORDER_DESCRIPTOR_MISSING_ALL_FIELDS = new OrderDescriptorBuilder()
         .build();
 
     private TypicalOrderDescriptors() {

@@ -1,7 +1,6 @@
 package duke.logic.parser.product;
 
 import duke.logic.command.product.AddProductCommand;
-import duke.logic.command.product.ProductDescriptor;
 import duke.logic.message.ProductMessageUtils;
 import duke.testutil.ProductDescriptorBuilder;
 import org.junit.jupiter.api.Test;

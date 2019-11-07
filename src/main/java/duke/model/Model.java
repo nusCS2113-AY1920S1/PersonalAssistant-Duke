@@ -173,6 +173,11 @@ public interface Model {
     ObservableList<Product> getFilteredProductList();
 
     /**
+     * Returns an unmodifiable view of active product list.
+     */
+    List<Product> getActiveProductList();
+
+    /**
      * Updates the product list with the given predicate
      */
     void updateFilteredProductList(Predicate<Product> predicate);
@@ -250,7 +255,7 @@ public interface Model {
      */
     void addSaleFromShopping(Double totalCost, ArrayList<Item<Ingredient>> toBuyList);
 
-    //========Ingredient operations======
+    //========Inventory operations======
     /**
      * Returns an unmodifiable view of the filtered inventory list.
      */

@@ -75,11 +75,11 @@ class OrderCommandUtil {
             newItems = original.getItems();
         }
 
-        String newRemarks = orderDescriptor.getRemarks().orElse(original.getRemarks().value);
+        Remark newRemarks = orderDescriptor.getRemarks().orElse(original.getRemarks());
         Order.Status newStatus = orderDescriptor.getStatus().orElse(original.getStatus());
-        double newTotal = orderDescriptor.getTotal().orElse(original.getTotal().value);
+        TotalPrice newTotal = orderDescriptor.getTotal().orElse(original.getTotal());
         Order order = new Order(newCustomer, newDate, newStatus,
-            new Remark(newRemarks), newItems, new TotalPrice(newTotal));
+            newRemarks, newItems, newTotal);
         order.listenToInventory(inventoryList);
         return order;
     }

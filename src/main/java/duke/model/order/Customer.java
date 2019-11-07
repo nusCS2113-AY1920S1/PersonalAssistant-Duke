@@ -10,7 +10,7 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: immutable; is valid as declared in {@link #isValidCustomer(String, String)}
  */
 public class Customer {
-    private static final String MESSAGE_CONSTRAINTS
+    public static final String MESSAGE_CONSTRAINTS
         = "Customer name/contact should be non-blank and less than 20 characters.";
 
     //Identity field
@@ -35,8 +35,23 @@ public class Customer {
     }
 
     public static boolean isValidCustomer(String name, String contact) {
-        return !name.isBlank() && !contact.isBlank()
-            && name.length() <= 20 && contact.length() <= 20;
+        return isValidCustomerName(name) && isValidCustomerContact(contact);
+    }
+
+    /**
+     * Returns true if the {@code name} is valid.
+     */
+    public static boolean isValidCustomerName(String name) {
+        assert (name != null);
+        return !name.isBlank() && name.length() <= 20;
+    }
+
+    /**
+     * Returns true if the {@code contact} is valid.
+     */
+    public static boolean isValidCustomerContact(String contact) {
+        assert (contact != null);
+        return !contact.isBlank() && contact.length() <= 20;
     }
 
     @Override

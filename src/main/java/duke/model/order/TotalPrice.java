@@ -9,8 +9,9 @@ import static duke.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidTotalPrice(double)}
  */
 public class TotalPrice {
+    public static final double MAX = 500000.0;
     public static final String MESSAGE_CONSTRAINTS =
-        "Total price of an order should be less than 500,000.0";
+        "Total price of an order should be less than " + MAX + ".";
     public final double value;
 
     /**
@@ -24,7 +25,7 @@ public class TotalPrice {
     }
 
     public boolean isValidTotalPrice(double value) {
-        return value <= 500000.0;
+        return value <= MAX;
     }
 
     @Override

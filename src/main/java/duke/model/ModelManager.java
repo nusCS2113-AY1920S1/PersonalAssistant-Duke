@@ -226,10 +226,6 @@ public class ModelManager implements Model {
         updateFilteredProductList(PREDICATE_SHOW_ACTIVE_PRODUCTS);
     }
 
-    /**
-     * Replaces the given product {@code originalProduct} in the list with {@code editedProduct}. {@code
-     * originalProduct} must exist in product list
-     */
     @Override
     public void setProduct(Product originalProduct, Product editedProduct) {
         requireNonNull(originalProduct);
@@ -247,16 +243,19 @@ public class ModelManager implements Model {
     @Override
     public void sortProducts(SortProductCommand.Category category, boolean isReversed) {
         requireNonNull(category);
-
         bakingHome.sortProducts(category, isReversed);
     }
 
-    /**
-     * Returns an unmodifiable view of the filtered product list.
-     */
     @Override
     public ObservableList<Product> getFilteredProductList() {
         return filteredProducts;
+    }
+
+    @Override
+    public List<Product> getActiveProductList() {
+        FilteredList<Product> activeProducts = new FilteredList<>(this.bakingHome.getProductList());
+        activeProducts.setPredicate(PREDICATE_SHOW_ACTIVE_PRODUCTS);
+        return activeProducts;
     }
 
     @Override
@@ -265,17 +264,13 @@ public class ModelManager implements Model {
         filteredProducts.setPredicate(predicate);
     }
 
-    /**
-     * Returns a predicate that filters product containing the given keyword.
-     *
-     * @param keyword
-     */
     @Override
     public void getProductWithKeyword(String keyword) {
         Predicate<Product> containsKeyword =
             product -> product.getProductName().toLowerCase().contains(keyword);
         updateFilteredProductList(containsKeyword);
     }
+
 
     //========Inventory operations==========
 

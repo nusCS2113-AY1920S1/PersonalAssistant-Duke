@@ -8,6 +8,8 @@ import duke.logic.parser.exceptions.ParseException;
 import duke.model.commons.Item;
 import duke.model.commons.Quantity;
 import duke.model.order.Order;
+import duke.model.order.Remark;
+import duke.model.order.TotalPrice;
 
 import java.util.HashSet;
 import java.util.List;
@@ -46,7 +48,7 @@ class OrderParserUtil {
         }
         if (map.getValue(PREFIX_ORDER_REMARKS).isPresent()) {
             String value = map.getValue(PREFIX_ORDER_REMARKS).get();
-            descriptor.setRemarks(value);
+            descriptor.setRemarks(new Remark(value));
         }
         if (map.getValue(PREFIX_ORDER_ITEM).isPresent()) {
             descriptor.setItems(parseItems(map.getAllValues(PREFIX_ORDER_ITEM)));
@@ -93,9 +95,9 @@ class OrderParserUtil {
         }
     }
 
-    private static double parseTotal(String totalString) throws ParseException {
+    private static TotalPrice parseTotal(String totalString) throws ParseException {
         try {
-            return Double.parseDouble(totalString);
+            return new TotalPrice(Double.parseDouble(totalString));
         } catch (NumberFormatException e) {
             throw new ParseException(Message.MESSAGE_INVALID_NUMBER_FORMAT);
         }

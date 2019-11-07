@@ -48,7 +48,7 @@ public class AddOrderCommand extends OrderCommand {
 
     private static final String DEFAULT_CUSTOMER_NAME = "customer";
     private static final String DEFAULT_CUSTOMER_CONTACT = "N/A";
-    private static final String DEFAULT_REMARKS = "N/A";
+    private static final Remark DEFAULT_REMARKS = new Remark("N/A");
     private static final Order.Status DEFAULT_STATUS = Order.Status.ACTIVE;
 
     private final OrderDescriptor addOrderDescriptor;
@@ -65,6 +65,18 @@ public class AddOrderCommand extends OrderCommand {
         this.addOrderDescriptor = addOrderDescriptor;
     }
 
+    /**
+     * Returns the total retail price of {@code productItems}.
+     */
+    private static TotalPrice calculateTotal(Set<Item<Product>> productItems) {
+        requireNonNull(productItems);
+
+        double total = 0;
+        for (Item<Product> productItem : productItems) {
+            total += productItem.getItem().getRetailPrice() * productItem.getQuantity().getNumber();
+        }
+        return new TotalPrice(total);
+    }
 
     /**
      * Executes the add order command and returns the result message.
@@ -76,7 +88,7 @@ public class AddOrderCommand extends OrderCommand {
     public CommandResult execute(Model model) throws CommandException {
 
         Order toAdd = createOrder(addOrderDescriptor,
-            model.getFilteredProductList(),
+            model.getActiveProductList(),
             model.getFilteredInventoryList());
         model.addOrder(toAdd);
 
@@ -96,33 +108,19 @@ public class AddOrderCommand extends OrderCommand {
         throws CommandException {
         Set<Item<Product>> productItems = OrderCommandUtil.getProductItems(productList,
                 descriptor.getItems().orElse(new HashSet<>()));
-        double total = descriptor.getTotal().orElse(calculateTotal(productItems));
+        TotalPrice total = descriptor.getTotal().orElse(calculateTotal(productItems));
         Order order = new Order(
             new Customer(descriptor.getCustomerName().orElse(DEFAULT_CUSTOMER_NAME),
                 descriptor.getCustomerContact().orElse(DEFAULT_CUSTOMER_CONTACT)
             ),
             descriptor.getDeliveryDate().orElse(getDefaultDeliveryDate()),
             descriptor.getStatus().orElse(DEFAULT_STATUS),
-            new Remark(descriptor.getRemarks().orElse(DEFAULT_REMARKS)),
+            descriptor.getRemarks().orElse(DEFAULT_REMARKS),
             productItems,
-            new TotalPrice(total)
+            total
         );
         order.listenToInventory(inventoryList);
         return order;
-    }
-
-
-    /**
-     * Returns the total retail price of {@code productItems}.
-     */
-    private static double calculateTotal(Set<Item<Product>> productItems) {
-        requireNonNull(productItems);
-
-        double total = 0;
-        for (Item<Product> productItem : productItems) {
-            total += productItem.getItem().getRetailPrice() * productItem.getQuantity().getNumber();
-        }
-        return total;
     }
 
     /**

@@ -21,7 +21,6 @@ public class DeleteOrderCommandParser implements Parser<DeleteOrderCommand> {
             throw new ParseException(MESSAGE_EMPTY_INDICES);
         }
 
-
         return new DeleteOrderCommand(ParserUtil.getIndices(map.getPreamble()));
     }
 

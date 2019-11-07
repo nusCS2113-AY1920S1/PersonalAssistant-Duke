@@ -1,54 +1,47 @@
 package duke.logic.parser.order;
 
+import duke.commons.core.Message;
 import duke.logic.command.order.AddOrderCommand;
 import duke.logic.command.order.OrderDescriptor;
 import duke.logic.parser.CommandParserTestUtil;
-import duke.logic.parser.exceptions.ParseException;
-import duke.model.order.Order;
-import duke.testutil.OrderDescriptorBuilder;
+import duke.model.commons.Quantity;
+import duke.model.order.Customer;
+import duke.model.order.Remark;
 import duke.testutil.TypicalOrderDescriptors;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static duke.logic.command.order.OrderCommandTestUtil.DESC_CONTACT_ALICE;
 import static duke.logic.command.order.OrderCommandTestUtil.DESC_CONTACT_RORY;
 import static duke.logic.command.order.OrderCommandTestUtil.DESC_DATE_ALICE;
+import static duke.logic.command.order.OrderCommandTestUtil.DESC_DATE_RORY;
+import static duke.logic.command.order.OrderCommandTestUtil.DESC_INVALID_CONTACT_BLANK;
+import static duke.logic.command.order.OrderCommandTestUtil.DESC_INVALID_CONTACT_TOO_LONG;
+import static duke.logic.command.order.OrderCommandTestUtil.DESC_INVALID_DATE_NOT_EXIST;
+import static duke.logic.command.order.OrderCommandTestUtil.DESC_INVALID_DATE_WRONG_FORMAT;
+import static duke.logic.command.order.OrderCommandTestUtil.DESC_INVALID_NAME_BLANK;
+import static duke.logic.command.order.OrderCommandTestUtil.DESC_INVALID_NAME_TOO_LONG;
+import static duke.logic.command.order.OrderCommandTestUtil.DESC_INVALID_QUANTITY;
+import static duke.logic.command.order.OrderCommandTestUtil.DESC_INVALID_QUANTITY_BOUNDARY;
+import static duke.logic.command.order.OrderCommandTestUtil.DESC_INVALID_REMARKS_TOO_LONG;
+import static duke.logic.command.order.OrderCommandTestUtil.DESC_INVALID_STATUS;
 import static duke.logic.command.order.OrderCommandTestUtil.DESC_ITEMS_ALICE;
 import static duke.logic.command.order.OrderCommandTestUtil.DESC_NAME_ALICE;
 import static duke.logic.command.order.OrderCommandTestUtil.DESC_NAME_RORY;
 import static duke.logic.command.order.OrderCommandTestUtil.DESC_RMK_ALICE;
+import static duke.logic.command.order.OrderCommandTestUtil.DESC_RMK_RORY;
 import static duke.logic.command.order.OrderCommandTestUtil.DESC_STATUS_ALICE;
+import static duke.logic.command.order.OrderCommandTestUtil.DESC_STATUS_RORY;
 import static duke.logic.command.order.OrderCommandTestUtil.DESC_TOTAL_ALICE;
+import static duke.logic.command.order.OrderCommandTestUtil.DESC_TOTAL_RORY;
+import static duke.logic.command.order.OrderCommandTestUtil.PREAMBLE_NON_EMPTY;
 import static duke.logic.command.order.OrderCommandTestUtil.PREAMBLE_WHITESPACE;
-import static duke.logic.command.order.OrderCommandTestUtil.VALID_CONTACT_ALICE;
-import static duke.logic.command.order.OrderCommandTestUtil.VALID_DELIVERY_DATE_ALICE;
-import static duke.logic.command.order.OrderCommandTestUtil.VALID_NAME_ALICE;
-import static duke.logic.command.order.OrderCommandTestUtil.VALID_REMARKS_ALICE;
-import static duke.logic.command.order.OrderCommandTestUtil.VALID_TOTAL_ALICE;
 
 public class AddOrderCommandParserTest {
-
-    private static final String USER_INPUT_WITH_STATUS_VALID = "-status active";
-    private static final String USER_INPUT_WITH_STATUS_INVALID = "-status random";
-    private static final String USER_INPUT_WITH_DATE_INVALID = "-by 32/10/1999";
-    private static final String USER_INPUT_EMPTY = "";
-    private static final String USER_INPUT_WITH_ITEM = "-item apple, %s";
-
-    private static final Double ITEM_QUANTITY_OUT_OF_RANGE = 50000000.0;
-    private static final Double ITEM_QUANTITY_NEGATIVE = -10.0;
-    private static final Double ITEM_QUANTITY_VALID = 2000.0;
-    private static final Double ITEM_QUANTITY_LOWER_BOUNDARY_VALID = 0.0;
-    private static final Double ITEM_QUANTITY_LOWER_BOUNDARY_POSITIVE_VALID = 0.1;
-    private static final Double ITEM_QUANTITY_LOWER_BOUNDARY_NEGATIVE_INVALID = -0.1;
-    private static final Double ITEM_QUANTITY_UPPER_BOUNDARY_VALID = 50000.0;
-    private static final Double ITEM_QUANTITY_UPPER_BOUNDARY_WITHIN_RANGE_VALID = 49999.9;
-    private static final Double ITEM_QUANTITY_UPPER_BOUNDARY_INVALID = 50000.1;
-
     private AddOrderCommandParser parser = new AddOrderCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        OrderDescriptor expectedDescriptor = TypicalOrderDescriptors.ORDER_DESCRIPTOR_A;
+        OrderDescriptor expectedDescriptor = TypicalOrderDescriptors.ORDER_DESCRIPTOR_ALICE;
 
         // whitespace only preamble
         CommandParserTestUtil.assertParseSuccess(parser,
@@ -78,109 +71,48 @@ public class AddOrderCommandParserTest {
     @Test
     public void parse_missingFields_success() {
         //Missing one field
-        OrderDescriptor expectedDescriptorMissingOneField = new OrderDescriptorBuilder().withName(VALID_NAME_ALICE)
-            .withContact(VALID_CONTACT_ALICE)
-            .withRemarks(VALID_REMARKS_ALICE)
-            .withStatus(Order.Status.ACTIVE)
-            .withTotal(VALID_TOTAL_ALICE)
-            .withDeliveryDate(VALID_DELIVERY_DATE_ALICE)
-            .build();
         CommandParserTestUtil.assertParseSuccess(parser,
-            PREAMBLE_WHITESPACE + DESC_CONTACT_ALICE + DESC_NAME_ALICE + DESC_RMK_ALICE + DESC_DATE_ALICE
-                + DESC_TOTAL_ALICE + DESC_STATUS_ALICE,
-            new AddOrderCommand(expectedDescriptorMissingOneField));
+            PREAMBLE_WHITESPACE + DESC_CONTACT_RORY + DESC_NAME_RORY + DESC_RMK_RORY + DESC_DATE_RORY
+                + DESC_TOTAL_RORY + DESC_STATUS_RORY,
+            new AddOrderCommand(TypicalOrderDescriptors.ORDER_DESCRIPTOR_RORY));
 
         //Missing multiple fields
-        OrderDescriptor expectedDescriptorMissingMultipleFields = new OrderDescriptorBuilder().withName(VALID_NAME_ALICE)
-            .withContact(VALID_CONTACT_ALICE)
-            .withRemarks(VALID_REMARKS_ALICE)
-            .withStatus(Order.Status.ACTIVE)
-            .withTotal(VALID_TOTAL_ALICE)
-            .build();
         CommandParserTestUtil.assertParseSuccess(parser,
             PREAMBLE_WHITESPACE + DESC_CONTACT_ALICE + DESC_NAME_ALICE + DESC_RMK_ALICE
                 + DESC_TOTAL_ALICE + DESC_STATUS_ALICE,
-            new AddOrderCommand(expectedDescriptorMissingMultipleFields));
+            new AddOrderCommand(TypicalOrderDescriptors.ORDER_DESCRIPTOR_ALICE_MISSING_FIELDS));
 
         //Missing all fields
-        OrderDescriptor expectedDescriptorMissingAllFields = new OrderDescriptorBuilder().build();
-
-        OrderDescriptor actual = parser.parse(PREAMBLE_WHITESPACE).getAddOrderDescriptor();
-        System.out.println(actual);
-        System.out.println(expectedDescriptorMissingAllFields);
-
         CommandParserTestUtil.assertParseSuccess(parser,
             PREAMBLE_WHITESPACE,
-            new AddOrderCommand(expectedDescriptorMissingAllFields));
+            new AddOrderCommand(TypicalOrderDescriptors.ORDER_DESCRIPTOR_MISSING_ALL_FIELDS));
     }
 
     @Test
     public void parse_invalidValue_failure() {
+        //Non-empty preamble
+        CommandParserTestUtil.assertParseFailure(parser, PREAMBLE_NON_EMPTY, Message.MESSAGE_INVALID_COMMAND_FORMAT);
 
+        //Invalid name
+        CommandParserTestUtil.assertParseFailure(parser, DESC_INVALID_NAME_BLANK, Customer.MESSAGE_CONSTRAINTS); //blank
+        CommandParserTestUtil.assertParseFailure(parser, DESC_INVALID_NAME_TOO_LONG, Customer.MESSAGE_CONSTRAINTS); //too long
+
+        //Invalid contact
+        CommandParserTestUtil.assertParseFailure(parser, DESC_INVALID_CONTACT_BLANK, Customer.MESSAGE_CONSTRAINTS); //blank
+        CommandParserTestUtil.assertParseFailure(parser, DESC_INVALID_CONTACT_TOO_LONG, Customer.MESSAGE_CONSTRAINTS); //too long
+
+        //Invalid remarks
+        CommandParserTestUtil.assertParseFailure(parser, DESC_INVALID_REMARKS_TOO_LONG, Remark.MESSAGE_CONSTRAINTS); //too long
+
+        //Invalid quantity
+        CommandParserTestUtil.assertParseFailure(parser, DESC_INVALID_QUANTITY, Quantity.MESSAGE_LIMIT_QUANTITY); //too big
+        CommandParserTestUtil.assertParseFailure(parser, DESC_INVALID_QUANTITY_BOUNDARY, Quantity.MESSAGE_LIMIT_QUANTITY); //boundary
+
+        //Invalid status
+        CommandParserTestUtil.assertParseFailure(parser, DESC_INVALID_STATUS, Message.MESSAGE_INVALID_STATUS); //unknown status
+
+        //Invalid dates
+        CommandParserTestUtil.assertParseFailure(parser, DESC_INVALID_DATE_NOT_EXIST, Message.MESSAGE_INVALID_DATE); //date does not exist. Such as 32nd day of a month
+        CommandParserTestUtil.assertParseFailure(parser, DESC_INVALID_DATE_WRONG_FORMAT, Message.MESSAGE_INVALID_DATE); //date is not given in correct format
     }
-    @Test
-    public void parse_invalidStatus_throwsParseException() {
-        Assertions.assertThrows(
-            ParseException.class,
-            () -> parser.parse(USER_INPUT_WITH_STATUS_INVALID)
-        );
-    }
-
-    @Test
-    public void parse_invalidDate_throwsParseException() {
-        Assertions.assertThrows(
-            ParseException.class,
-            () -> parser.parse(USER_INPUT_WITH_DATE_INVALID)
-        );
-    }
-
-    @Test
-    public void parse_noArgument_success() {
-        Assertions.assertAll(() -> parser.parse(USER_INPUT_EMPTY));
-    }
-
-    /**
-     * Invalid equivalence partition for quantity of item:
-     * - negative quantity and quantity more than 50000
-     * Valid equivalence partition for quantity:
-     * - quantities in (0, 50000)
-     * Boundary values:
-     * - 0, 50000, 0.1, 49999.9 (valid input)
-     * - 50000.1, -0.01 (invalid input)
-     * <p>
-     * The four test cases below tests EP one at a time.
-     */
-
-    @Test
-    public void parse_invalid_quantity_throwsParseException() {
-        Assertions.assertThrows(
-            ParseException.class,
-            () -> parser.parse(String.format(USER_INPUT_WITH_ITEM, ITEM_QUANTITY_OUT_OF_RANGE))
-        );
-
-        Assertions.assertThrows(
-            ParseException.class,
-            () -> parser.parse(String.format(USER_INPUT_WITH_ITEM, ITEM_QUANTITY_NEGATIVE))
-        );
-    }
-
-    @Test
-    public void parse_quantityWithinValidRange_success() {
-        Assertions.assertAll(() -> parser.parse(String.format(USER_INPUT_WITH_ITEM, ITEM_QUANTITY_VALID)));
-    }
-
-    @Test
-    public void parse_boundaryQuantity_success() {
-        Assertions.assertAll(() -> parser.parse(String.format(USER_INPUT_WITH_ITEM, ITEM_QUANTITY_LOWER_BOUNDARY_VALID)));
-        Assertions.assertAll(() -> parser.parse(String.format(USER_INPUT_WITH_ITEM, ITEM_QUANTITY_UPPER_BOUNDARY_VALID)));
-        Assertions.assertAll(() -> parser.parse(String.format(USER_INPUT_WITH_ITEM, ITEM_QUANTITY_UPPER_BOUNDARY_WITHIN_RANGE_VALID)));
-        Assertions.assertAll(() -> parser.parse(String.format(USER_INPUT_WITH_ITEM, ITEM_QUANTITY_LOWER_BOUNDARY_POSITIVE_VALID)));
-    }
-
-    @Test
-    public void parse_boundaryQuantity_throwsParseException() {
-        Assertions.assertThrows(ParseException.class, () -> parser.parse(String.format(USER_INPUT_WITH_ITEM, ITEM_QUANTITY_LOWER_BOUNDARY_NEGATIVE_INVALID)));
-        Assertions.assertThrows(ParseException.class, () -> parser.parse(String.format(USER_INPUT_WITH_ITEM, ITEM_QUANTITY_UPPER_BOUNDARY_INVALID)));
-    }
-
 }
