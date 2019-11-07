@@ -93,7 +93,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             newDouble = Double.parseDouble(str);
         } catch (NumberFormatException e) {
             Ui.printInvalidNumberError(str);
-            throw new Exception("invalid amount");
+            throw new Exception(INVALID_AMOUNT_EXCEPTION);
         }
         return newDouble;
     }

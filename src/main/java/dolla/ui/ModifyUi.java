@@ -59,6 +59,11 @@ public class ModifyUi extends Ui {
         System.out.println(line);
     }
 
+    /**
+     * Prints a message to alert user that they did not add the new information that they want to
+     * use after indicating the component they want to change.
+     * @param component
+     */
     public static void printMissingComponentInfoError(String component) {
         System.out.println(line);
         System.out.println("\tHey! You forgot to tell me what you want to modify " + component +  " to!");
