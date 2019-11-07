@@ -4,7 +4,6 @@ import eggventory.model.StockList;
 import eggventory.storage.Storage;
 import eggventory.logic.commands.Command;
 import eggventory.commons.enums.CommandType;
-import eggventory.commons.exceptions.BadInputException;
 import eggventory.ui.Ui;
 
 public class ListStockTypeCommand extends Command {
@@ -29,7 +28,7 @@ public class ListStockTypeCommand extends Command {
             ui.drawTable(list.getAllStockTypesStruct());
         } else { // list stocktype <Stock Type> command
             String listString = "";
-            listString = list.findStock(query);
+            listString = list.queryStocks(query);
             output = listString;
 
             if (listString.equals("")) {

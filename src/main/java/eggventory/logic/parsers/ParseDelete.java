@@ -12,6 +12,11 @@ import eggventory.commons.exceptions.InsufficientInfoException;
 //@@author cyanoei
 public class ParseDelete {
 
+    /**
+     * Processes a command to delete a loan.
+     * @param input the string containing both the person's matric number and the StockCode.
+     * @return the delete command.
+     */
     private Command processDeleteLoan(String input) {
         String[] deleteInput = input.split(" +");
         return new DeleteLoanCommand(CommandType.DELETE, deleteInput[0], deleteInput[1]);
@@ -36,6 +41,7 @@ public class ParseDelete {
         switch (deleteInput[0]) {
 
         case "stock":
+            //Required: stock <stockCode>
             if (!Parser.isCommandComplete(inputString, 1)) {
                 throw new InsufficientInfoException(CommandDictionary.getCommandUsage("delete stock"));
             }
@@ -44,6 +50,7 @@ public class ParseDelete {
             break;
 
         case "stocktype":
+            //Required: stockType <name>
             if (!Parser.isCommandComplete(inputString, 1)) {
                 throw new InsufficientInfoException(CommandDictionary.getCommandUsage("delete stocktype"));
             }
@@ -51,6 +58,7 @@ public class ParseDelete {
             break;
 
         case "loan":
+            //Required: loan <matric> <stockCode>
             if (!Parser.isCommandComplete(inputString, 2)) {
                 throw new InsufficientInfoException(CommandDictionary.getCommandUsage("delete loan"));
             }

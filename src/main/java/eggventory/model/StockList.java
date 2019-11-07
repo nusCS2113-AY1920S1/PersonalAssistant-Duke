@@ -246,7 +246,7 @@ public class StockList {
      * Prints every stock within stocklist whose stocktype matches query. Should only be called by Cli.
      * @return The string of the stocklist whose stocktype matches query.
      */
-    public String findStock(String query) {
+    public String queryStocks(String query) {
         StringBuilder ret = new StringBuilder();
         boolean found = false;
         for (StockType stocktype : stockList) {

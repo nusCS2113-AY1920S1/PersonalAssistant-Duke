@@ -15,15 +15,15 @@ public class Loan {
 
     /**
      * Temporary shorter constructor used to test the non-date attributes.
-     * @param stockCode the stockCode of the stock being loaned.
      * @param matricNo the matric number of the person making the loan.
+     * @param stockCode the stockCode of the stock being loaned.
      * @param quantity the quantity being loaned out.
      */
-    public Loan(String stockCode, String matricNo, int quantity) {
+    public Loan(String matricNo, String stockCode, int quantity) {
         //AddLoanCommand should have determined beforehand that the Person and Stock being referred to
         //are existing entries.
-        this.stockCode = stockCode;
         this.matricNo = matricNo;
+        this.stockCode = stockCode;
         this.quantity = quantity;
     }
 
@@ -35,11 +35,11 @@ public class Loan {
      * @param loanDate the date the loan was processed.
      * @param returnDate the date the loans have to be returned by.
      */
-    public Loan(String stockCode, String matricNo, int quantity, Calendar loanDate, Calendar returnDate) {
+    public Loan(String matricNo, String stockCode, int quantity, Calendar loanDate, Calendar returnDate) {
         //AddLoanCommand should have determined beforehand that the Person and Stock being referred to
         //are existing entries.
-        this.stockCode = stockCode;
         this.matricNo = matricNo;
+        this.stockCode = stockCode;
         this.quantity = quantity;
         this.loanDate = loanDate;
         this.returnDate = returnDate;
@@ -109,8 +109,8 @@ public class Loan {
      * @param matricNo the matric number of the Person.
      * @return whether they are both equal.
      */
-    public boolean loanEquals(String stockCode, String matricNo) {
-        return this.stockCode.equals(stockCode) && this.matricNo.equals(matricNo);
+    public boolean loanEquals(String matricNo, String stockCode) {
+        return this.matricNo.equals(matricNo) && this.stockCode.equals(stockCode);
     }
 
     /**

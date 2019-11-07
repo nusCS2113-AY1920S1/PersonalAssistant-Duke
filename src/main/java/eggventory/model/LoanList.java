@@ -1,7 +1,6 @@
 package eggventory.model;
 
 import eggventory.model.loans.Loan;
-import eggventory.model.loans.LoanPair;
 import eggventory.ui.TableStruct;
 
 import java.util.ArrayList;
@@ -25,12 +24,12 @@ public final class LoanList {
     /**
      * Overloaded version of addLoan which does not require Date parameters.
      * Adds a Loan object to both the LoanList and LoanPairs.
-     * @param stockCode the stockCode of the Stock loaned.
      * @param matricNo the matric number of the Person who is loaning.
+     * @param stockCode the stockCode of the Stock loaned.
      * @param quantity the quantity loaned out.
      */
-    public static void addLoan(String stockCode, String matricNo, int quantity) {
-        Loan loan = new Loan(stockCode, matricNo, quantity);
+    public static void addLoan(String matricNo, String stockCode, int quantity) {
+        Loan loan = new Loan(matricNo, stockCode, quantity);
 
         loansList.add(loan);
         updateStockLoaned(stockCode, quantity);
@@ -38,15 +37,15 @@ public final class LoanList {
 
     /**
      * Adds a Loan object to both the LoanList and LoanPairs.
-     * @param stockCode the stockCode of the Stock loaned.
      * @param matricNo the matric number of the Person who is loaning.
+     * @param stockCode the stockCode of the Stock loaned.
      * @param quantity the quantity loaned out.
      * @param loanDate the date the loan was made.
      * @param returnDate the date the loan is to be returned.
      */
-    public static void addLoan(String stockCode, String matricNo, int quantity,
+    public static void addLoan(String matricNo, String stockCode, int quantity,
                                Calendar loanDate, Calendar returnDate) {
-        Loan loan = new Loan(stockCode, matricNo, quantity, loanDate, returnDate);
+        Loan loan = new Loan(matricNo, stockCode, quantity, loanDate, returnDate);
 
         loansList.add(loan);
         updateStockLoaned(stockCode, quantity);
@@ -70,7 +69,7 @@ public final class LoanList {
                 "The following loans have been added to %s:", matricNo));
 
         for (Loan loan : loans) {
-            addLoan(loan.getStockCode(), matricNo, loan.getQuantity());
+            addLoan(matricNo, loan.getStockCode(), loan.getQuantity());
             output.append(String.format("%s: %d", loan.getStockCode(), loan.getQuantity()));
         }
 
@@ -83,8 +82,8 @@ public final class LoanList {
      * @param stockCode the stockCode of the Stock.
      * @param matricNo the matric number of the Person.
      */
-    public static boolean deleteLoan(String stockCode, String matricNo) {
-        Loan loan = findLoan(stockCode, matricNo);
+    public static boolean deleteLoan(String matricNo, String stockCode) {
+        Loan loan = findLoan(matricNo, stockCode);
 
         if (loan == null) {
             return false;
@@ -113,8 +112,8 @@ public final class LoanList {
      * @param matricNo the matric number of the Person involved.
      * @return the quantity loaned out by a person.
      */
-    public static int getPersonLoanQuantity(String stockCode, String matricNo) {
-        Loan loan = findLoan(stockCode, matricNo);
+    public static int getPersonLoanQuantity(String matricNo, String stockCode) {
+        Loan loan = findLoan(matricNo, stockCode);
         if (loan == null) {
             return -1;
         }
@@ -129,8 +128,8 @@ public final class LoanList {
      * @param matricNo the matric number of the Person making the Loan.
      * @return the loaned date.
      */
-    public static Calendar getStockLoanDate(String stockCode, String matricNo) {
-        Loan loan = findLoan(stockCode, matricNo);
+    public static Calendar getStockLoanDate(String matricNo, String stockCode) {
+        Loan loan = findLoan(matricNo, stockCode);
         if (loan == null) {
             return null;
         }
@@ -143,8 +142,8 @@ public final class LoanList {
      * @param matricNo the matric number of the Person making the Loan.
      * @return the return date.
      */
-    public static Calendar getStockReturnDate(String stockCode, String matricNo) {
-        Loan loan = findLoan(stockCode, matricNo);
+    public static Calendar getStockReturnDate(String matricNo, String stockCode) {
+        Loan loan = findLoan(matricNo, stockCode);
         if (loan == null) {
             return null;
         }
@@ -167,13 +166,13 @@ public final class LoanList {
 
     /**
      * Returns the Loan of a particular Stock to a particular Person.
-     * @param stockCode the stockCode of the Stock.
      * @param matricNo the matric number of the Person.
+     * @param stockCode the stockCode of the Stock.
      * @return the Loan object of this particular loan pair.
      */
-    private static Loan findLoan(String stockCode, String matricNo) {
+    private static Loan findLoan(String matricNo, String stockCode) {
         for (Loan loan : loansList) {
-            if (loan.loanEquals(stockCode, matricNo)) {
+            if (loan.loanEquals(matricNo, stockCode)) {
                 return loan;
             }
         }

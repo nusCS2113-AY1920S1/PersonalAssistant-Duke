@@ -21,16 +21,16 @@ public class DeleteLoanCommand extends Command {
      * @param stockCode the stockCode of the Stock in the Loan being deleted.
      * @param matricNo the matric number of the Person whose Loan is being deleted.
      */
-    public DeleteLoanCommand(CommandType type, String stockCode, String matricNo) {
+    public DeleteLoanCommand(CommandType type, String matricNo, String stockCode) {
         super(type);
         this.stockCode = stockCode;
         this.matricNo = matricNo;
-        this.quantity = LoanList.getPersonLoanQuantity(stockCode, matricNo);
+        this.quantity = LoanList.getPersonLoanQuantity(matricNo, stockCode);
     }
 
     @Override
     public String execute(StockList list, Ui ui, Storage storage) throws BadInputException {
-        boolean removeSuccess = LoanList.deleteLoan(stockCode, matricNo);
+        boolean removeSuccess = LoanList.deleteLoan(matricNo, stockCode);
 
         String output = "";
 
@@ -39,7 +39,7 @@ public class DeleteLoanCommand extends Command {
 
         } else {
             output = (String.format("Nice, I have deleted this loan for you: \n"
-                    + "Stock: %s | Person: %s | Quantity: %d", stockCode, matricNo, quantity));
+                    + "Person: %s | Stock: %s | Quantity: %d", matricNo, stockCode, quantity));
         }
 
         ui.print(output);

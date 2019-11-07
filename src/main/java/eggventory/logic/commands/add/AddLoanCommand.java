@@ -1,10 +1,11 @@
 package eggventory.logic.commands.add;
 
+import eggventory.commons.enums.CommandType;
+import eggventory.logic.commands.Command;
 import eggventory.model.LoanList;
+import eggventory.model.PersonList;
 import eggventory.model.StockList;
 import eggventory.storage.Storage;
-import eggventory.logic.commands.Command;
-import eggventory.commons.enums.CommandType;
 import eggventory.ui.Ui;
 
 //@@author cyanoei
@@ -36,6 +37,13 @@ public class AddLoanCommand extends Command {
         return true;
     }
 
+    private boolean personExists() {
+        if (PersonList.findPerson(matricNo) == -1) {
+            return false;
+        }
+        return true;
+    }
+
     private boolean sufficientStock() {
         if (LoanList.getStockLoanedQuantity(stockCode) - quantity < 0) {
             return false;
@@ -52,14 +60,20 @@ public class AddLoanCommand extends Command {
      */
     public String execute(StockList list, Ui ui, Storage storage) {
         String output = "";
-        if (!stockExists()) {
-            output += "OOPS that stock does not exist!";
+        if (!personExists()) {
+            output += String.format("Sorry, the person with matric number \"%s\" does not exist!", matricNo);
+        } else if (!stockExists()) {
+            output += String.format("Sorry, that stock with StockCode \"%s\" does not exist!", stockCode);
         } else if (!sufficientStock()) {
             output = ("OOPS there is insufficient stock to loan out!");
         } else {
-            LoanList.addLoan(stockCode, matricNo, quantity);
+            LoanList.addLoan(matricNo, stockCode, quantity);
+
+            String personName = PersonList.getName(matricNo);
+            String stockDescription = stockCode;  //In future write a method to get the stock description.
+
             output = (String.format("Nice, I have added this loan for you: \n"
-                    + "Stock: %s | Person: %s | Quantity: %d", stockCode, matricNo, quantity));
+                    + "Person: %s | Stock: %s | Quantity: %d", personName, stockDescription, quantity));
         }
 
         ui.print(output);

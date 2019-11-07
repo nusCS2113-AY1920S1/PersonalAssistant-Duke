@@ -80,15 +80,5 @@ class ParseAddTest {
         assertEquals("'all' is an invalid name as it is a keyword for an existing command.",
                 exception.getMessage());
     }
-
-    @Test
-    public void testParseAddLoan_ReservedArgument_ThrowsBadInputException() {
-        assertDoesNotThrow(() -> testParser.parse("loan arg1 arg2 500"));
-        BadInputException exception =  assertThrows(BadInputException.class,
-            () -> testParser.parse("loan all all2 500"));
-
-        assertEquals("'all' is an invalid name as it is a keyword for an existing command.",
-                exception.getMessage());
-    }
     //@@author
 }

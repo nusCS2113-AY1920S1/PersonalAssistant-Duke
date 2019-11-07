@@ -76,6 +76,7 @@ public class ParseEdit {
 
         switch (addInput[0]) {
         case "stock":
+            //Required: stock <stockCode> <property> <new>
             if (!Parser.isCommandComplete(inputString, 3)) {
                 throw new InsufficientInfoException(CommandDictionary.getCommandUsage("edit stock"));
             }
@@ -83,6 +84,7 @@ public class ParseEdit {
             break;
 
         case "stocktype":
+            //Required: stockType <name> <new>
             if (!Parser.isCommandComplete(inputString, 2)) {
                 throw new InsufficientInfoException(CommandDictionary.getCommandUsage("edit stocktype"));
             }

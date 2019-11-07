@@ -50,13 +50,16 @@ public class Parser {
 
     /**
      * Checks if a command is complete by checking for existence of its arguments.
+     * This method should only be used within the ParseX.parse method, not processX methods.
      * @param command String passed into one of the subparsers, e.g. "stock ...", "stocktype ...".
      *                Checks if command entered by user are valid by comparing against
      *                ideal argument count for command in question.
+     *                This DOES NOT include the first word in the command, eg. "stock".
      * @param reqArguments Least number of arguments required by command in question.
      * @return True if user input matches required number of arguments, false otherwise.
      */
     public static boolean isCommandComplete(String command, int reqArguments) {
+        command = command.strip();
         String[] commandArr = command.split(" ");
         return commandArr.length - 1 >= reqArguments;
     }

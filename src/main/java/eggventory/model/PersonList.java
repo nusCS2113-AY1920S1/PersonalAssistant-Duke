@@ -6,7 +6,6 @@ import eggventory.model.loans.Person;
 import eggventory.ui.TableStruct;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 //@@author Raghav-B
 public final class PersonList {

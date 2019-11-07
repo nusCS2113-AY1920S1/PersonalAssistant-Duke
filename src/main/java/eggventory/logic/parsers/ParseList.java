@@ -89,6 +89,7 @@ public class ParseList {
             break;
 
         case "stocktype":
+            //Required: stockType <name>
             if (!Parser.isCommandComplete(inputString, 1)) {
                 throw new InsufficientInfoException(CommandDictionary.getCommandUsage("list stocktype"));
             }
