@@ -30,7 +30,7 @@ public class ImpressionStatusSpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
-    super.execute(core);
+        super.execute(core);
         Impression impression = ImpressionUtils.getImpression(core);
         Treatment treatment = (Treatment) ImpressionUtils.getData(null, null, cmd.getArg(), impression);
         List<String> statusList;

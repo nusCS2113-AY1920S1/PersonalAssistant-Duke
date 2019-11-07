@@ -364,4 +364,20 @@ public class Impression extends DukeObject {
     public Context toContext() {
         return Context.IMPRESSION;
     }
+
+    public Evidence getEvidenceAtIdx(int idx) throws DukeException {
+        if (idx < evidences.size()) {
+            return evidences.get(idx);
+        } else {
+            throw new DukeException("I don't have an evidence at that index!");
+        }
+    }
+
+    public Treatment getTreatmentAtIdx(int idx) throws DukeException {
+        if (idx < treatments.size()) {
+            return treatments.get(idx);
+        } else {
+            throw new DukeException("I don't have an treatment at that index!");
+        }
+    }
 }

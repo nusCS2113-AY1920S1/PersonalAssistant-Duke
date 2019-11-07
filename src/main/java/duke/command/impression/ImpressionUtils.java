@@ -40,6 +40,25 @@ public class ImpressionUtils {
         }
     }
 
+    public static DukeData getData(String allStr, String evidStr, String treatStr, Impression impression)
+            throws DukeException {
+        if (allStr != null) {
+            return null;
+        }
+
+        try {
+            if (evidStr != null && treatStr == null) {
+                return impression.getEvidenceAtIdx(Integer.parseInt(evidStr));
+            } else if (evidStr == null && treatStr != null) {
+                return impression.getTreatmentAtIdx(Integer.parseInt(treatStr));
+            } else {
+                throw new DukeUtilException("I don't know what index you want me to access!");
+            }
+        } catch (NumberFormatException excp) {
+            return null;
+        }
+    }
+
     /**
      * General-purpose function for finding DukeData by name or index. One and only one of allStr (search evidences
      * and treatments), treatStr (search treatments) and evidStr (search evidences) is to be non-null. The appropriate
@@ -52,13 +71,11 @@ public class ImpressionUtils {
      * @throws DukeException If a matching evidence or treatment cannot be found, given the provided search terms, or
      *                       more than one search term was non-null.
      */
-    public static SearchResults getData(String allStr, String evidStr, String treatStr, Impression impression)
+    public static SearchResults searchData(String allStr, String evidStr, String treatStr, Impression impression)
             throws DukeException {
-        DukeData data;
         DukeException dataNotFound;
         SearchResults results;
 
-        // TODO handle idx
         if (allStr != null && evidStr == null && treatStr == null) {
             results = impression.findByName(allStr);
             dataNotFound = new DukeException("Can't find any data item with that name!");
@@ -72,10 +89,10 @@ public class ImpressionUtils {
             throw new DukeUtilException("I don't know what you want me to look for!");
         }
 
-        if (results.getCount() != 0) {
-            return results;
-        } else {
+        if (results.getCount() == 0) {
             throw dataNotFound;
+        } else {
+            return results;
         }
     }
 
