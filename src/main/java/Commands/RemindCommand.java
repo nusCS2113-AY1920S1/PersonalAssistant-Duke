@@ -25,7 +25,6 @@ public class RemindCommand extends Command {
     private Date time;
     private boolean remind;
     private Reminder reminder;
-    private static final Logger LOGGER = Logger.getLogger(RemindCommand.class.getName());
 
     /**
      * Creates RemindCommand object

@@ -8,6 +8,7 @@ import DukeExceptions.DukeInvalidFormatException;
 import Tasks.Deadline;
 import Tasks.Event;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,7 +49,7 @@ public class DeleteParse extends Parse {
                 String[] out = DateTimeParser.EventParse(split[1]);
                 return new DeleteCommand("event", new Event(split[0].trim(), out[0],out[1],out[2]));
             } catch (ParseException | ArrayIndexOutOfBoundsException e) {
-                LOGGER.info("Invalid format for deleting event" + e.getMessage());
+                LOGGER.severe("Invalid format for deleting event");
                 throw new DukeInvalidFormatException("OOPS!!! Please enter in the format as follows:\n" +
                         "delete/e mod_code name_of_event /at dd/MM/yyyy /from HHmm /to HHmm\n" +
                         "or delete/e mod_code name_of_event /at week x day /from HHmm /to HHmm\n");
@@ -67,7 +68,7 @@ public class DeleteParse extends Parse {
                 String[] out = DateTimeParser.DeadlineParse(split[1]);
                 return new DeleteCommand("deadline", new Deadline(split[0].trim(), out[0],out[1]));
             } catch (ParseException | ArrayIndexOutOfBoundsException e) {
-                LOGGER.info("Invalid format for deleting deadline" + e.getMessage());
+                LOGGER.severe("Invalid format for deleting deadline");
                 throw new DukeInvalidFormatException("OOPS!!! Please enter in the format as follows:\n" +
                         "delete/d mod_code name_of_event /by dd/MM/yyyy HHmm\n" +
                         "or delete/d mod_code name_of_event /by week x day HHmm\n");

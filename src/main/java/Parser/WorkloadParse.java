@@ -40,7 +40,7 @@ public class WorkloadParse extends Parse{
             String nextWeekDate = formatter.format(nextWeek);
             return new ShowWorkloadCommand(nextWeekDate);
         } catch (ArrayIndexOutOfBoundsException e) {
-            LOGGER.info("Invalid show workload format" + e.getMessage());
+            LOGGER.severe("Invalid show workload format");
             throw new DukeInvalidFormatException("OOPS!!! Please enter show workload as follows:\n" +
                     "/show workload");
         }

@@ -8,7 +8,6 @@ import Tasks.Deadline;
 
 import java.text.ParseException;
 import java.util.Date;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -19,7 +18,7 @@ public class RemindParse extends Parse {
     private String[] modDescriptionsplit;
     private String fullCommand;
     private String[] dateDescriptionSplit;
-    private static final Logger LOGGER = DukeLogger.getLogger(RemindCommand.class);
+    private static final Logger LOGGER = DukeLogger.getLogger(RemindParse.class);
 
     /**
      * Creates RemindParse object.
@@ -66,7 +65,7 @@ public class RemindParse extends Parse {
             Date remindDate = DateTimeParser.deadlineInputStringToDate(dateTime[2]);
             return new RemindCommand(new Deadline(description, dateTime[0], dateTime[1]), remindDate, isRemind);
         } catch (ParseException | ArrayIndexOutOfBoundsException e) {
-            LOGGER.info("Invalid remind format" + e.getMessage());
+            LOGGER.severe("Invalid remind format");
             throw new DukeInvalidFormatException("OOPS!!! Please enter remind as follows:\n" +
                     "remind/(set/rm) mod_code description /by week n.o day time /on week n.o day time\n" +
                     "For example: remind/set cs2100 hand in homework /by week 9 fri 1500 /on week 9 thu 1500");

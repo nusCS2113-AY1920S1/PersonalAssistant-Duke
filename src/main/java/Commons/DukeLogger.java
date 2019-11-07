@@ -17,7 +17,6 @@ public class DukeLogger {
     private static Level currentLogLevel = Level.INFO;
     private static final Logger logger = DukeLogger.getLogger(DukeLogger.class);
     private static FileHandler fileHandler;
-    private static ConsoleHandler consoleHandler;
 
     /**
      * Initializes with a custom log level.
@@ -34,7 +33,6 @@ public class DukeLogger {
         logger.setUseParentHandlers(false);
 
         removeHandlers(logger);
-        addConsoleHandler(logger);
         addFileHandler(logger);
 
         return Logger.getLogger(name);
@@ -48,17 +46,6 @@ public class DukeLogger {
             return Logger.getLogger("");
         }
         return getLogger(clazz.getSimpleName());
-    }
-
-    /**
-     * Adds the {@code consoleHandler} to the {@code logger}. <br>
-     * Creates the {@code consoleHandler} if it is null.
-     */
-    private static void addConsoleHandler(Logger logger) {
-        if (consoleHandler == null) {
-            consoleHandler = createConsoleHandler();
-        }
-        logger.addHandler(consoleHandler);
     }
 
     /**
@@ -91,13 +78,8 @@ public class DukeLogger {
     private static FileHandler createFileHandler() throws IOException {
         FileHandler fileHandler = new FileHandler(LOG_FILE, MAX_FILE_SIZE_IN_BYTES, MAX_FILE_COUNT, true);
         fileHandler.setFormatter(new SimpleFormatter());
-        fileHandler.setLevel(currentLogLevel);
+        fileHandler.setLevel(Level.SEVERE);
         return fileHandler;
     }
 
-    private static ConsoleHandler createConsoleHandler() {
-        ConsoleHandler consoleHandler = new ConsoleHandler();
-        consoleHandler.setLevel(currentLogLevel);
-        return consoleHandler;
-    }
 }
