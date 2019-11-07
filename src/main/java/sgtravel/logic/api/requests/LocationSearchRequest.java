@@ -18,14 +18,17 @@ public class LocationSearchRequest {
 
     /**
      * Searches venue from local database.
+     *
+     * @param query The query.
      */
     public Venue search(String query) throws ApiException {
         logger.log(Level.INFO, query);
         Scanner s = new Scanner(getClass().getResourceAsStream(VENUE_FILE_PATH));
+        String queryUppercase = query.toUpperCase();
         while (s.hasNext()) {
             try {
-                Venue v = PlanningStorageParser.getVenueFromStorage(s.nextLine());
-                if (v.getAddress().contains(query.toUpperCase())) {
+                Venue v = getNextVenue(s);
+                if (v.getAddress().contains(queryUppercase)) {
                     return v;
                 }
             } catch (ParseException e) {
@@ -34,5 +37,16 @@ public class LocationSearchRequest {
         }
         s.close();
         throw new ApiException();
+    }
+
+    /**
+     * Gets the next Venue from the Storage.
+     *
+     * @param s The Scanner object.
+     * @return The Venue found from the Storage.
+     * @throws ParseException If the Storage fails to load.
+     */
+    private Venue getNextVenue(Scanner s) throws ParseException {
+        return PlanningStorageParser.getVenueFromStorage(s.nextLine());
     }
 }

@@ -29,7 +29,7 @@ public class LogicManager implements Logic {
     private ConversationManager conversationManager;
 
     /**
-     * Creates LogicManager instance.
+     * Constructs a LogicManager instance.
      */
     public LogicManager() {
         model = new ModelManager();
@@ -64,6 +64,8 @@ public class LogicManager implements Logic {
 
     /**
      * Gets response from LogicManager.
+     *
+     * @param keyCode The KeyCode for the EditorManager.
      */
     public PanelResult execute(KeyCode keyCode) {
         if (EditorManager.isActive()) {
@@ -74,6 +76,8 @@ public class LogicManager implements Logic {
 
     /**
      * Gets a command from ConversationManager.
+     *
+     * @param userInput The user input.
      */
     private Command getCommandFromConversationManager(String userInput) throws DukeException {
         conversationManager.converse(userInput);

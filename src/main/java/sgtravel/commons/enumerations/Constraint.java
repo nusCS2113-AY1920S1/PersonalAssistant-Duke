@@ -6,6 +6,5 @@ package sgtravel.commons.enumerations;
 public enum Constraint {
     MRT,
     BUS,
-    MIXED,
     CUSTOM
 }

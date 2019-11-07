@@ -10,7 +10,7 @@ public class FindConversation extends Conversation {
     private String keyword;
 
     /**
-     * Initialises the Conversation object.
+     * Initialises the FindConversation object.
      */
     public FindConversation() {
         super();
@@ -19,6 +19,8 @@ public class FindConversation extends Conversation {
 
     /**
      * Executes Prompt and returns a String reply.
+     *
+     * @param input The user input.
      */
     @Override
     public void execute(String input) {
@@ -28,9 +30,7 @@ public class FindConversation extends Conversation {
     }
 
     /**
-     * Gets result of prompt.
-     *
-     * @return result The result.
+     * Builds the result of the conversation string.
      */
     @Override
     protected void buildResult() {

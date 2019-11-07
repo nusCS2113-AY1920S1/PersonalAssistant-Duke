@@ -5,6 +5,7 @@ import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.logic.commands.results.CommandResultText;
 import sgtravel.model.Model;
+import sgtravel.model.locations.RouteNode;
 import sgtravel.model.transports.Route;
 
 /**
@@ -37,7 +38,8 @@ public class RouteNodeDeleteCommand extends Command {
     public CommandResultText execute(Model model) throws FileNotSavedException, OutOfBoundsException {
         try {
             Route route = model.getRoute(indexRoute);
-            String address = route.getNode(indexNode).getAddress();
+            RouteNode node = route.getNode(indexNode);
+            String address = node.getAddress();
             route.remove(indexNode);
             model.save();
             return new CommandResultText(Messages.ROUTE_NODE_DELETE_SUCCESS + address);

@@ -8,6 +8,11 @@ import sgtravel.commons.exceptions.ApiException;
 public abstract class UrlRequest<T> {
     protected String param;
 
+    /**
+     * Constructs the UrlRequest.
+     *
+     * @param param The parameter for the request.
+     */
     public UrlRequest(String param) {
         this.param = param;
     }

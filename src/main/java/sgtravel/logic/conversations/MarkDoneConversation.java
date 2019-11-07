@@ -10,16 +10,18 @@ public class MarkDoneConversation extends Conversation {
     private String index;
 
     /**
-     * Initialises the Conversation object.
+     * Initialises the MarkDoneConversation object.
      */
-
     public MarkDoneConversation() {
         super();
         prompt = Messages.PROMPT_MARKDONE_STARTER;
     }
 
+
     /**
      * Executes Prompt and returns a String reply.
+     *
+     * @param input The user input.
      */
     @Override
     public void execute(String input) {
@@ -32,6 +34,9 @@ public class MarkDoneConversation extends Conversation {
         tryCancelConversation(input);
     }
 
+    /**
+     * Builds the result of the conversation string.
+     */
     @Override
     protected void buildResult() {
         assert (index != null);

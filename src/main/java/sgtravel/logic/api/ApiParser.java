@@ -11,6 +11,7 @@ import sgtravel.model.locations.TrainStation;
 import sgtravel.model.locations.Venue;
 import sgtravel.model.transports.Route;
 import javafx.scene.image.Image;
+import sgtravel.model.transports.TransportationMap;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -153,11 +154,9 @@ public class ApiParser {
 
         String rgb = RED_VALUE_OTHER + "," + GREEN_VALUE_OTHER + "," + BLUE_VALUE_OTHER;
 
-        Image image = getStaticMap(ApiParser.generateStaticMapParams(DIMENSIONS, DIMENSIONS,
+        return getStaticMap(ApiParser.generateStaticMapParams(DIMENSIONS, DIMENSIONS,
                 ZOOM_LEVEL, String.valueOf(query.getLatitude()), String.valueOf(query.getLongitude()), "",
                 generateLineParam(points, rgb), generatePointParam(route, node, null)));
-
-        return image;
     }
 
     /**
@@ -214,19 +213,15 @@ public class ApiParser {
             ArrayList<Venue> result = new ArrayList<>();
             ArrayList<Venue> temp = new ArrayList<>();
 
-            for (Map.Entry mapElement : model.getMap().getBusStopMap().entrySet()) {
-                BusStop newNode = ((BusStop) mapElement.getValue());
-                if (newNode.getDistance(node) < DISTANCE_THRESHOLD
-                        && !newNode.equals(node)) {
-                    temp.add(newNode);
-                }
+            TransportationMap transportationMap = model.getMap();
+            Map<String, BusStop> busStopMap = transportationMap.getBusStopMap();
+            for (Map.Entry mapElement : busStopMap.entrySet()) {
+                addNearbyBusStop(node, temp, mapElement);
             }
 
-            for (Map.Entry mapElement : model.getMap().getTrainMap().entrySet()) {
-                TrainStation newNode = ((TrainStation) mapElement.getValue());
-                if (newNode.getDistance(node) < DISTANCE_THRESHOLD && !newNode.equals(node)) {
-                    temp.add(newNode);
-                }
+            Map<String, TrainStation> trainStationMap = transportationMap.getTrainMap();
+            for (Map.Entry mapElement : trainStationMap.entrySet()) {
+                addNearbyTrainStation(node, temp, mapElement);
             }
 
             temp.sort((Venue o1, Venue o2) -> (int) (o1.getDistance(node) - o2.getDistance(node)));
@@ -237,6 +232,35 @@ public class ApiParser {
             return result;
         } catch (IndexOutOfBoundsException e) {
             throw new OutOfBoundsException();
+        }
+    }
+
+    /**
+     * Adds a BusStop to an ArrayList of Venues if it is close enough.
+     *
+     * @param node The RouteNode being selected.
+     * @param temp The ArrayList of Venues.
+     * @param mapElement The map value corresponding to the BusStop being checked.
+     */
+    private static void addNearbyBusStop(RouteNode node, ArrayList<Venue> temp, Map.Entry mapElement) {
+        BusStop newNode = ((BusStop) mapElement.getValue());
+        if (newNode.getDistance(node) < DISTANCE_THRESHOLD
+                && !newNode.equals(node)) {
+            temp.add(newNode);
+        }
+    }
+
+    /**
+     * Adds a TrainStation to an ArrayList of Venues if it is close enough.
+     *
+     * @param node The RouteNode being selected.
+     * @param temp The ArrayList of Venues.
+     * @param mapElement The map value corresponding to the TrainStation being checked.
+     */
+    private static void addNearbyTrainStation(RouteNode node, ArrayList<Venue> temp, Map.Entry mapElement) {
+        TrainStation newNode = ((TrainStation) mapElement.getValue());
+        if (newNode.getDistance(node) < DISTANCE_THRESHOLD && !newNode.equals(node)) {
+            temp.add(newNode);
         }
     }
 
@@ -284,25 +308,11 @@ public class ApiParser {
         StringBuilder result = new StringBuilder();
 
         if (extraNodes != null) {
-            int index = 1;
-            for (Venue node : extraNodes) {
-                result.append(ApiParser.generateStaticMapPoint(String.valueOf(node.getLatitude()),
-                        String.valueOf(node.getLongitude()), RED_VALUE_NEIGHBOUR, GREEN_VALUE_NEIGHBOUR,
-                        BLUE_VALUE_NEIGHBOUR, String.valueOf(index))).append("|");
-                index++;
-            }
+            appendExtraNodes(extraNodes, result);
         }
 
         for (RouteNode node : route.getNodes()) {
-            if (!node.equals(query) && isWithinDistance(node, query)) {
-                result.append(ApiParser.generateStaticMapPoint(String.valueOf(node.getLatitude()),
-                        String.valueOf(node.getLongitude()), RED_VALUE_OTHER, GREEN_VALUE_OTHER, BLUE_VALUE_OTHER,
-                        node.getAddress())).append("|");
-            } else {
-                result.append(ApiParser.generateStaticMapPoint(String.valueOf(node.getLatitude()),
-                        String.valueOf(node.getLongitude()), RED_VALUE_QUERY, GREEN_VALUE_QUERY, BLUE_VALUE_QUERY,
-                        node.getAddress())).append("|");
-            }
+            appendNodes(query, result, node);
         }
 
         result = new StringBuilder(result.substring(0, result.length() - 1));
@@ -310,6 +320,40 @@ public class ApiParser {
         return result.toString();
     }
 
+    /**
+     * Appends RouteNodes in a StringBuilder.
+     *
+     * @param query The query RouteNode.
+     * @param result The String to append to.
+     * @param node The RouteNode to compare to.
+     */
+    private static void appendNodes(RouteNode query, StringBuilder result, RouteNode node) {
+        if (!node.equals(query) && isWithinDistance(node, query)) {
+            result.append(ApiParser.generateStaticMapPoint(String.valueOf(node.getLatitude()),
+                    String.valueOf(node.getLongitude()), RED_VALUE_OTHER, GREEN_VALUE_OTHER, BLUE_VALUE_OTHER,
+                    node.getAddress())).append("|");
+        } else {
+            result.append(ApiParser.generateStaticMapPoint(String.valueOf(node.getLatitude()),
+                    String.valueOf(node.getLongitude()), RED_VALUE_QUERY, GREEN_VALUE_QUERY, BLUE_VALUE_QUERY,
+                    node.getAddress())).append("|");
+        }
+    }
+
+    /**
+     * Appends RouteNodes in a StringBuilder.
+     *
+     * @param extraNodes The ArrayList of RouteNodes to add.
+     * @param result The String to append to.
+     */
+    private static void appendExtraNodes(ArrayList<Venue> extraNodes, StringBuilder result) {
+        int index = 1;
+        for (Venue node : extraNodes) {
+            result.append(ApiParser.generateStaticMapPoint(String.valueOf(node.getLatitude()),
+                    String.valueOf(node.getLongitude()), RED_VALUE_NEIGHBOUR, GREEN_VALUE_NEIGHBOUR,
+                    BLUE_VALUE_NEIGHBOUR, String.valueOf(index))).append("|");
+            index++;
+        }
+    }
 
 
     /**

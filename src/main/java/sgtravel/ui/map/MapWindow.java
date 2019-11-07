@@ -1,5 +1,8 @@
 package sgtravel.ui.map;
 
+import javafx.geometry.Rectangle2D;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Screen;
 import sgtravel.logic.commands.results.CommandResultMap;
 import sgtravel.model.locations.RouteNode;
 import sgtravel.model.locations.Venue;
@@ -16,6 +19,8 @@ import java.util.List;
  */
 public class MapWindow extends UiPart<Stage> {
     private static final String FXML = "MapWindow.fxml";
+    private static final double MAP_WINDOW_SCALING = 0.667;
+    private static final double MAP_IMAGE_ASPECT_RATIO = 1.47154;
     private List<Venue> locations = new ArrayList<>();
 
     @FXML
@@ -31,6 +36,7 @@ public class MapWindow extends UiPart<Stage> {
         super(FXML, root);
         root.getScene().getStylesheets().addAll(this.getClass().getResource("/css/mapStyle.css").toExternalForm());
         generateNodes(routeNodeList);
+        setSize();
     }
 
     /**
@@ -50,18 +56,28 @@ public class MapWindow extends UiPart<Stage> {
     private void generateNodes(List<RouteNode> routeNodeList) {
         locations.addAll(routeNodeList);
         map.getChildren().clear();
+
         int index = 0;
-        String id = "";
         for (Venue location : locations) {
-            if (index == 0) {
-                id = "RouteNodeStart";
-            } else if (index == locations.size() - 1) {
-                id = "RouteNodeEnd";
-            } else {
-                id = "RouteNodeIntermediate";
-            }
-            map.getChildren().add(LocationCard.getCard(location, id));
+            StackPane locationCard = LocationCard.getCard(location, getLocationCardId(index));
+            map.getChildren().add(locationCard);
             index++;
+        }
+    }
+
+    /**
+     * Gets the ID for a LocationCard, based on the index.
+     *
+     * @param index The index of the Location.
+     * @return The ID to set.
+     */
+    private String getLocationCardId(int index) {
+        if (index == 0) {
+            return "RouteNodeStart";
+        } else if (index == locations.size() - 1) {
+            return "RouteNodeEnd";
+        } else {
+            return "RouteNodeIntermediate";
         }
     }
 
@@ -99,5 +115,15 @@ public class MapWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
+    }
+
+    /**
+     * Sets the size of the MapWindow.
+     */
+    private void setSize() {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        double windowHeight = primaryScreenBounds.getHeight() * MAP_WINDOW_SCALING;
+        map.setMaxHeight(windowHeight);
+        map.setMaxWidth(windowHeight * MAP_IMAGE_ASPECT_RATIO);
     }
 }

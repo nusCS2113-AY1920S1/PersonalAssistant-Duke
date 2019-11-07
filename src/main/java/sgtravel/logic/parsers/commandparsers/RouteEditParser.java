@@ -17,6 +17,8 @@ public class RouteEditParser extends CommandParser {
 
     /**
      * Constructs the RouteEditParser.
+     *
+     * @param input The user input.
      */
     public RouteEditParser(String input) {
         this.input = input;
@@ -24,7 +26,8 @@ public class RouteEditParser extends CommandParser {
 
     /**
      * Parses the user input and constructs RouteEditCommand object.
-     * @return RouteEditCommand object.
+     *
+     * @return The RouteEditCommand object.
      * @throws ParseException If RouteEditCommand object cannot be created.
      */
     @Override

@@ -23,6 +23,8 @@ public class AddEventParser extends CommandParser {
 
     /**
      * Constructs the AddEventParser.
+     *
+     * @param input The user input.
      */
     public AddEventParser(String input) {
         this.input = input;
@@ -40,6 +42,7 @@ public class AddEventParser extends CommandParser {
     private Event createEvent(String userInput) throws ParseException,
             ChronologyBeforePresentException, ChronologyInconsistentException {
         String[] withinDetails = userInput.substring("event".length()).strip().split("between| and");
+
         if (withinDetails.length == ONE) {
             throw new ParseException(Messages.ERROR_DESCRIPTION_EMPTY);
         }
@@ -49,6 +52,7 @@ public class AddEventParser extends CommandParser {
         if (withinDetails[ZERO].strip().isEmpty()) {
             throw new ParseException(Messages.ERROR_DESCRIPTION_EMPTY);
         }
+
         LocalDateTime start = ParserTimeUtil.parseStringToDate(withinDetails[ONE].strip());
         LocalDateTime end = ParserTimeUtil.parseStringToDate(withinDetails[TWO].strip());
         checkLogicalDate(start, end);

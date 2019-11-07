@@ -11,9 +11,8 @@ public class RouteGenerateConversation extends Conversation {
     private String endLocation;
     private String constraint;
 
-
     /**
-     * Initialises the Conversation object.
+     * Initialises the RouteGenerateConversation object.
      */
     public RouteGenerateConversation() {
         super();
@@ -22,6 +21,8 @@ public class RouteGenerateConversation extends Conversation {
 
     /**
      * Executes Prompt and returns a String reply.
+     *
+     * @param input The user input.
      */
     @Override
     public void execute(String input) {
@@ -55,9 +56,7 @@ public class RouteGenerateConversation extends Conversation {
     }
 
     /**
-     * Gets result of prompt.
-     *
-     * @return result The result.
+     * Builds the result of the conversation string.
      */
     @Override
     protected void buildResult() {

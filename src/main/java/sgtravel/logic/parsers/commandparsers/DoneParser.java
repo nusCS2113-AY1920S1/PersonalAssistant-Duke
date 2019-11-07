@@ -15,6 +15,8 @@ public class DoneParser extends CommandParser {
 
     /**
      * Constructs the DoneParser.
+     *
+     * @param input The user input.
      */
     public DoneParser(String input) {
         this.input = input;
@@ -22,6 +24,7 @@ public class DoneParser extends CommandParser {
 
     /**
      * Parses the user input and constructs DoneCommand object.
+     * 
      * @return DoneCommand object.
      * @throws ParseException If DoneCommand object cannot be created.
      */

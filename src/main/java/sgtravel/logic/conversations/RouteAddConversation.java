@@ -11,14 +11,18 @@ public class RouteAddConversation extends Conversation {
     private String description;
 
     /**
-     * Initialises the Conversation object.
+     * Initialises the RouteAddConversation object.
      */
-
     public RouteAddConversation() {
         super();
         prompt = Messages.PROMPT_ROUTE_ADD_STARTER;
     }
 
+    /**
+     * Executes Prompt and returns a String reply.
+     *
+     * @param input The user input.
+     */
     @Override
     public void execute(String input) {
         switch (state) {
@@ -41,6 +45,9 @@ public class RouteAddConversation extends Conversation {
         tryCancelConversation(input);
     }
 
+    /**
+     * Builds the result of the conversation string.
+     */
     @Override
     protected void buildResult() {
         result = command + " " + name + " desc " + description;

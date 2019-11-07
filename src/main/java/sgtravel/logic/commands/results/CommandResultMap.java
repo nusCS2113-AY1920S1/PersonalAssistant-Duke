@@ -14,26 +14,27 @@ public class CommandResultMap extends CommandResult implements Routeable {
     /**
      * Constructs a basic CommandResultMap object.
      *
-     * @param message Message for ui to display.
-     */
-    public CommandResultMap(String message) {
-        this.message = message;
-    }
-
-    /**
-     * Alternative constructor for a basic CommandResultMap object.
-     *
      * @param route The route object.
      */
     public CommandResultMap(Route route) {
         this.route = route.getNodes();
     }
 
+    /**
+     * Gets the Route represented by the Map.
+     *
+     * @return route The Route represented by the Map.
+     */
     @Override
     public ArrayList<RouteNode> getRoute() {
         return route;
     }
 
+    /**
+     * Sets the Route in the Map.
+     *
+     * @param route The Route to set.
+     */
     @Override
     public void setRoute(ArrayList<RouteNode> route) {
         this.route = route;

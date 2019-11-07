@@ -13,6 +13,7 @@ public abstract class CommandParser<T extends Command> {
 
     /**
      * Parses the data it have into a Command object.
+     *
      * @return Command object.
      * @throws ParseException If data cannot be parsed.
      */

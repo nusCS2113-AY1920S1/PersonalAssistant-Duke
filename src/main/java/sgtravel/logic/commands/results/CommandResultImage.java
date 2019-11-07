@@ -33,27 +33,46 @@ public class CommandResultImage extends CommandResult implements Imageable {
      * @param venues The ArrayList of Venue.
      */
     public CommandResultImage(Image image, String message, ArrayList<Venue> venues) {
-        String result = message;
+        this.message = message;
         int index = 1;
         for (Venue venue : venues) {
-            if (venue instanceof BusStop) {
-                result += "(" + index + ") " + ((BusStop) venue).getBusCode() + " " + venue.getAddress() + "\n";
-            } else if (venue instanceof TrainStation) {
-                result += "(" + index + ") " + ((TrainStation) venue).getDescription() + " Station\n";
-            } else {
-                result += "(" + index + ") " + venue.getAddress() + "\n";
-            }
+            appendNodeInformation(index, venue);
             index++;
         }
-        this.message = result;
         this.image = image;
     }
 
+    /**
+     * Appends the RouteNode information to the result.
+     *
+     * @param index The index of the route.
+     * @param venue The Venue object.
+     */
+    private void appendNodeInformation(int index, Venue venue) {
+        if (venue instanceof BusStop) {
+            this.message += "(" + index + ") " + ((BusStop) venue).getBusCode() + " " + venue.getAddress() + "\n";
+        } else if (venue instanceof TrainStation) {
+            this.message += "(" + index + ") " + ((TrainStation) venue).getDescription() + " Station\n";
+        } else {
+            this.message += "(" + index + ") " + venue.getAddress() + "\n";
+        }
+    }
+
+    /**
+     * Gets the Image.
+     *
+     * @return image The Image to show.
+     */
     @Override
     public Image getImage() {
         return image;
     }
 
+    /**
+     * Gets the message.
+     *
+     * @return message The message in this object.
+     */
     @Override
     public String getMessage() {
         return message;

@@ -14,7 +14,7 @@ public abstract class Conversation {
     protected int state;
     private boolean isFinished;
     protected int attempts;
-    protected static final int ATTEMPTS_LIMIT = 3;
+    private static final int ATTEMPTS_LIMIT = 3;
 
     /**
      * Initialises the Conversation object.
@@ -28,6 +28,8 @@ public abstract class Conversation {
 
     /**
      * Executes Prompt and returns a String reply.
+     *
+     * @param input The user input.
      */
     public abstract void execute(String input);
 
@@ -50,11 +52,15 @@ public abstract class Conversation {
         return result;
     }
 
+    protected void setFinished(boolean finished) {
+        isFinished = finished;
+    }
+
     /**
      * Checks if input is int.
      *
      * @param input The input.
-     * @return If the input is int.
+     * @return true If the input is int.
      */
     protected Boolean isIntInput(String input) {
         try {
@@ -71,7 +77,7 @@ public abstract class Conversation {
      * Checks if input is a field of a Route.
      *
      * @param input The input.
-     * @return If the input is a field of a Route.
+     * @return true If the input is a field of a Route.
      */
     protected boolean isRouteField(String input) {
         if ("name".equals(input) || "description".equals(input)) {
@@ -87,7 +93,7 @@ public abstract class Conversation {
      * Checks if input is a field of a RouteNode.
      *
      * @param input The input.
-     * @return If the input is a field of a RouteNode.
+     * @return true If the input is a field of a RouteNode.
      */
     protected boolean isRouteNodeField(String input) {
         if ("address".equals(input) || "description".equals(input) || "type".equals(input) || "latitude".equals(input)
@@ -104,7 +110,7 @@ public abstract class Conversation {
      * Checks if input is a Constraint enum.
      *
      * @param input The input.
-     * @return If the input is a Constraint.
+     * @return true If the input is a Constraint.
      */
     protected boolean isConstraint(String input) {
         try {
@@ -121,7 +127,7 @@ public abstract class Conversation {
      * Checks if input is a DateTime.
      *
      * @param input The input.
-     * @return If the input is a DateTime.
+     * @return true If the input is a DateTime.
      */
     protected Boolean isDateInput(String input) {
         try {
@@ -149,13 +155,9 @@ public abstract class Conversation {
     /**
      * Returns whether the conversation is finished.
      *
-     * @return Whether the conversation is finished.
+     * @return true If the conversation is finished.
      */
     public boolean isFinished() {
         return isFinished;
-    }
-
-    protected void setFinished(boolean finished) {
-        isFinished = finished;
     }
 }

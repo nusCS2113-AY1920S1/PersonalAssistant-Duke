@@ -28,6 +28,8 @@ public class RouteNodeAddParser extends CommandParser {
 
     /**
      * Constructs the RouteNodeAddParser.
+     *
+     * @param input The user input.
      */
     public RouteNodeAddParser(String input) {
         this.input = input;
@@ -36,7 +38,7 @@ public class RouteNodeAddParser extends CommandParser {
     /**
      * Parses user input and constructs a new RouteNode object.
      *
-     * @return RouteNode object.
+     * @return The RouteNode object.
      * @throws ParseException If RouteNode object cannot be created from user input.
      */
     private static RouteNode createRouteNode(String userInput) throws ParseException {
@@ -51,25 +53,36 @@ public class RouteNodeAddParser extends CommandParser {
                 throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
             }
 
-            String[] details;
             if (type.substring(ZERO, TWO).equals("at")) {
-                details = withinDetails[ONE].strip().split("by ");
-                switch (details[ONE].toUpperCase()) {
-                case "BUS":
-                    return new BusStop(details[ZERO].strip(), null, null, ZERO, ZERO);
-                case "MRT":
-                    return new TrainStation(new ArrayList<>(), details[ZERO].strip(), null, ZERO, ZERO);
-                case "CUSTOM":
-                    return createCustomNode(details[ZERO].strip());
-                default:
-                    throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
-                }
+                return getRouteNode(withinDetails[ONE]);
             }
         } catch (ArrayIndexOutOfBoundsException | ApiException e) {
             throw new ParseException(Messages.ERROR_OBJECT_NOT_CREATED);
         }
 
         throw new ParseException(Messages.ERROR_OBJECT_NOT_CREATED);
+    }
+
+    /**
+     * Gets the RouteNode from the details.
+     *
+     * @param input The parsed input.
+     * @return The RouteNode created.
+     * @throws ParseException If the parsing fails.
+     */
+    private static RouteNode getRouteNode(String input) throws ParseException {
+        String[] details;
+        details = input.strip().split("by ");
+        switch (details[ONE].toUpperCase()) {
+        case "BUS":
+            return new BusStop(details[ZERO].strip(), null, null, ZERO, ZERO);
+        case "MRT":
+            return new TrainStation(new ArrayList<>(), details[ZERO].strip(), null, ZERO, ZERO);
+        case "CUSTOM":
+            return createCustomNode(details[ZERO].strip());
+        default:
+            throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
+        }
     }
 
     /**
@@ -93,6 +106,7 @@ public class RouteNodeAddParser extends CommandParser {
 
     /**
      * Parses the user input and constructs RouteNodeAddCommand object.
+     *
      * @return The RouteNodeAddCommand object.
      * @throws ParseException If RouteNodeAddCommand object cannot be created.
      */

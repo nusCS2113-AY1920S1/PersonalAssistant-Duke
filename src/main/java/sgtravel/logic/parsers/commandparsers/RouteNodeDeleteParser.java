@@ -16,6 +16,8 @@ public class RouteNodeDeleteParser extends CommandParser {
 
     /**
      * Constructs the RouteNodeDeleteParser.
+     *
+     * @param input The user input.
      */
     public RouteNodeDeleteParser(String input) {
         this.input = input;
@@ -23,6 +25,7 @@ public class RouteNodeDeleteParser extends CommandParser {
 
     /**
      * Parses the user input and constructs RouteNodeDeleteCommand object.
+     *
      * @return RouteNodeDeleteCommand object.
      * @throws ParseException If RouteNodeDeleteCommand object cannot be created.
      */

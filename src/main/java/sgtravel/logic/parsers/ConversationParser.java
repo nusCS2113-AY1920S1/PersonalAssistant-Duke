@@ -14,7 +14,6 @@ import sgtravel.logic.conversations.RouteGenerateConversation;
 import sgtravel.logic.conversations.RouteListConversation;
 import sgtravel.logic.conversations.RouteNodeAddConversation;
 import sgtravel.logic.conversations.RouteNodeDeleteConversation;
-import sgtravel.logic.conversations.RouteNodeListConversation;
 import sgtravel.logic.conversations.SearchConversation;
 import sgtravel.logic.conversations.SetupProfileConversation;
 
@@ -22,6 +21,7 @@ import sgtravel.logic.conversations.SetupProfileConversation;
  * Parser for conversations. Selects conversation based on user input.
  */
 public class ConversationParser {
+
     /**
      * Parses the input and returns a Conversation object.
      * @param input The user input from Ui.
@@ -56,8 +56,6 @@ public class ConversationParser {
             return new RouteNodeAddConversation();
         case "routeNodeDelete":
             return new RouteNodeDeleteConversation();
-        case "routeNodeList":
-            return new RouteNodeListConversation();
         default:
             throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }

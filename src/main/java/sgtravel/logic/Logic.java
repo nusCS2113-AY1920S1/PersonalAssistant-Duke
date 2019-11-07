@@ -7,6 +7,7 @@ import sgtravel.logic.commands.results.CommandResult;
  * Defines the api of main logic.
  */
 public interface Logic {
+
     /**
      * Gets response from LogicManager.
      *

@@ -3,6 +3,7 @@ package sgtravel.model.locations;
 import sgtravel.commons.enumerations.Constraint;
 import sgtravel.commons.exceptions.QueryFailedException;
 import sgtravel.model.Model;
+import sgtravel.model.transports.TransportationMap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,11 +73,13 @@ public class TrainStation extends RouteNode {
         String address = addressSB.toString();
         address = address.substring(0, address.length() - 1);
 
-        HashMap<String, TrainStation> allTrainStations = model.getMap().getTrainMap();
+        TransportationMap map = model.getMap();
+        HashMap<String, TrainStation> allTrainStations = map.getTrainMap();
         if (allTrainStations.containsKey(address)) {
+            TrainStation node = allTrainStations.get(address);
             this.setAddress(address + " MRT");
-            this.setLatitude(allTrainStations.get(address).getLatitude());
-            this.setLongitude(allTrainStations.get(address).getLongitude());
+            this.setLatitude(node.getLatitude());
+            this.setLongitude(node.getLongitude());
         } else {
             throw new QueryFailedException(address);
         }

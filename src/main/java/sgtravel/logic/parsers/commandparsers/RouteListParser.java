@@ -15,6 +15,8 @@ public class RouteListParser extends CommandParser {
 
     /**
      * Constructs the RouteListParser.
+     *
+     * @param input The user input.
      */
     public RouteListParser(String input) {
         this.input = input;
@@ -22,7 +24,7 @@ public class RouteListParser extends CommandParser {
 
     /**
      * Parses the user input and constructs RouteListCommand object.
-     * @return RouteListCommand object.
+     * @return The RouteListCommand object.
      * @throws ParseException If RouteListCommand object cannot be created.
      */
     @Override
