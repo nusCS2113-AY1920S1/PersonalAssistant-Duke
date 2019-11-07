@@ -10,53 +10,53 @@
    
    3.2 Dish
    
-   ​	3.2.1 Adding Dish
+     	3.2.1 Adding Dish
    
-   ​	3.2.2 Adding Ingredient to Dish
+   ​	  3.2.2 Adding Ingredient to Dish
    
-   ​	3.2.3 List all Dishes
+   ​	  3.2.3 List all Dishes
    
-   ​	3.2.4 Initializing the Dish
+   ​	  3.2.4 Initializing the Dish
    
-   ​	3.2.5 Removing a Dish
+   ​	  3.2.5 Removing a Dish
    
    3.3 Ingredient
    
-   ​	3.3.1 Adding Ingredient
+   ​	  3.3.1 Adding Ingredient
    
-   ​	3.3.2 Removing Ingredient
+   ​	  3.3.2 Removing Ingredient
    
-   ​	3.3.3 Finding Ingredients
+   ​	  3.3.3 Finding Ingredients
    
-   ​	3.3.4 Listing all Expired Ingredient on Date itself
+   ​	  3.3.4 Listing all Expired Ingredient on Date itself
    
-   ​	3.3.5 Removing all Expired Ingredient 
+   ​	  3.3.5 Removing all Expired Ingredient 
    
-   ​	3.3.6 Using an Ingredient
+   ​	  3.3.6 Using an Ingredient
    
    3.4 Fridge
    
-   ​	3.4.1 Add an Ingredient to Fridge
+   ​	  3.4.1 Add an Ingredient to Fridge
    
-   ​	3.4.2 Removing an Ingredient from Fridge
+   ​	  3.4.2 Removing an Ingredient from Fridge
    
-   ​	3.4.3 Use Ingredient from Fridge 
+   ​	  3.4.3 Use Ingredient from Fridge 
    
-   ​	3.4.4 Remove all Expired Ingredient from Fridge
+   ​	  3.4.4 Remove all Expired Ingredient from Fridge
    
    3.5 Order
    
-   ​	3.5.1 Adding Order Today or Pre-Order
+   ​	  3.5.1 Adding Order Today or Pre-Order
    
-   ​	3.5.2 Altering Order Serving Date
+   ​	  3.5.2 Altering Order Serving Date
    
-   ​	3.5.3 Cancelling Order
+   ​	  3.5.3 Cancelling Order
    
-   ​	3.5.4 Marking Order as Done
+   ​	  3.5.4 Marking Order as Done
    
-   ​	3.5.5 Initializing Order List
+   ​	  3.5.5 Initializing Order List
    
-   ​	3.5.6 Listing Order by Different Filtering Keywords
+   ​	  3.5.6 Listing Order by Different Filtering Keywords
    
    3.6 Todo List Today
    
@@ -294,11 +294,11 @@ Format: `remove ` `ingredient index`
 If the ingredient index does not exist in the list, message is output:
 
 ```
-	 ☹ OOPS!!! Enter a valid ingredient index number after delete, between 1 and 14.
-	 You can type: 
-	'template' to see the format of the commands, 
-	'back' to see all your options, 
-	'q' to exit
+   ☹ OOPS!!! Enter a valid ingredient index number after delete, between 1 and 14.
+   You can type: 
+  'template' to see the format of the commands, 
+  'back' to see all your options, 
+  'q' to exit
 ```
 
 This example was done when the size of the ingredient list is 14.
@@ -311,8 +311,8 @@ Examples:
 ```
          _________________________________________________________________________________________
          Noted. I've removed this ingredient:
-	 salt, amount is: 50 expiring on 31st of Octoboer 2019
-	 Now you have 14 ingredients in the list.
+   salt, amount is: 50 expiring on 31st of Octoboer 2019
+   Now you have 14 ingredients in the list.
          _________________________________________________________________________________________
 ```
 
@@ -327,7 +327,7 @@ Format: `find` `INGREDIENT_NAME`
 If the ingredient index does not exist in the list, message is output:
 
 ```
-	 No such ingredient found!
+   No such ingredient found!
 ```
 
 Examples: 
@@ -337,8 +337,8 @@ Examples:
 
 ```
 These are the ingredients you searched for!
-	 5. salt 50 31/10/2019.
-	 9. salt 60 21/07/2021
+   5. salt 50 31/10/2019.
+   9. salt 60 21/07/2021
 ```
 
 
@@ -351,7 +351,7 @@ Format: `use`  `INGREDIENT_NAME` `INGREDIENT_AMOUNT`
 If there are not enough required ingredients, message is output:
 
 ```
-	 There is not a sufficient amount of rice that is not expired, maybe you could buy some first? 
+   There is not a sufficient amount of rice that is not expired, maybe you could buy some first? 
 ```
 
 Examples: 
@@ -360,7 +360,7 @@ Examples:
 - `use` ` chilli` `40`  
 
 ```
-	 Great you used salt amount: 50
+   Great you used salt amount: 50
 ```
 
 Also, once amount reaches 0, the ingredient will be deleted off from the IngredientsList. 
@@ -376,15 +376,15 @@ Format: `listtoday`
 if there are no expired ingredients for the date itself, message is output:
 
 ```
-	 No expired ingredients for today!
+   No expired ingredients for today!
 ```
 
 Otherwise,
 
 ```
-	 Here are the expired ingredients for today
-	 6. salt, amount is: 50 expired on 31st of October 2019.
-	 7. chilli, amount is: 60 expired on 31st of October 2019.
+   Here are the expired ingredients for today
+   6. salt, amount is: 50 expired on 31st of October 2019.
+   7. chilli, amount is: 60 expired on 31st of October 2019.
 ```
 
 #### 3.3.6 Removing all expired ingredients 
@@ -396,14 +396,14 @@ User needs to enter `a` in the menu.
 If there are no expired ingredients for the date itself, message is output:
 
 ```
-	 ☹ OOPS!!! Seems like you don't have any expired ingredients in the fridge!. 
+   ☹ OOPS!!! Seems like you don't have any expired ingredients in the fridge!. 
 ```
 
 Otherwise,
 
 ```
-	Removed:  ingredients: 
-	salt, amount is: 50 expired on 31st of October 2019
+  Removed:  ingredients: 
+  salt, amount is: 50 expired on 31st of October 2019
 ```
 
 ### 3.5 Order Management
@@ -433,20 +433,20 @@ Sample output message:
 
 ```
 _________________________________________________________________________________________
-	 Got it. I've added this order: 
-	 [✘] Order on 31/12/2019 
-	    (1) beef noodle 3
-	 Now you have 1 orders in the order list.
+   Got it. I've added this order: 
+   [✘] Order on 31/12/2019 
+      (1) beef noodle 3
+   Now you have 1 orders in the order list.
 _________________________________________________________________________________________
 ```
 
 ```
 _________________________________________________________________________________________
-	 Got it. I've added this order: 
-	 [✘] Order today 
-	    (1) pasta 1
-	    (2) mushroom soup 1
-	 Now you have 2 orders in the order list.
+   Got it. I've added this order: 
+   [✘] Order today 
+      (1) pasta 1
+      (2) mushroom soup 1
+   Now you have 2 orders in the order list.
 _________________________________________________________________________________________
 ```
 
@@ -472,28 +472,28 @@ Examples:
 If the order list is empty, the output message would be:
 
 ```
-	 OOPS!!! No order in the list! No order can be altered!
+   OOPS!!! No order in the list! No order can be altered!
 ```
 
 Otherwise, the sample output message would be like:
 
 ```
 _________________________________________________________________________________________
-	 Nice! I've changed the order to the date 07/11/2019:
-	 [✘] Order today 
-	    (1) fish 1
-	    (2) chili crab 1
-	    (3) rice 2
+   Nice! I've changed the order to the date 07/11/2019:
+   [✘] Order today 
+      (1) fish 1
+      (2) chili crab 1
+      (3) rice 2
 _________________________________________________________________________________________
 ```
 
 ```
 _________________________________________________________________________________________
-	 Nice! I've changed the order to the date 03/12/2019:
-	 [✘] Order on 03/12/2019 
-	    (1) fish 1
-	    (2) chili crab 1
-	    (3) rice 2
+   Nice! I've changed the order to the date 03/12/2019:
+   [✘] Order on 03/12/2019 
+      (1) fish 1
+      (2) chili crab 1
+      (3) rice 2
 _________________________________________________________________________________________
 ```
 
@@ -517,19 +517,19 @@ Examples:
 If the order list is empty, the output message would be:
 
 ```
-	 OOPS!!! No order in the list! No order can be cancelled!
+   OOPS!!! No order in the list! No order can be cancelled!
 ```
 
 Otherwise, the sample output message would be like:
 
 ```
 _________________________________________________________________________________________
-	 Noted. I've cancelled this order:
-	 [✘] Order on 03/12/2019 
-	    (1) fish 1
-	    (2) chili crab 1
-	    (3) rice 2
-	 Now you have 3 orders in the order list.
+   Noted. I've cancelled this order:
+   [✘] Order on 03/12/2019 
+      (1) fish 1
+      (2) chili crab 1
+      (3) rice 2
+   Now you have 3 orders in the order list.
 _________________________________________________________________________________________
 ```
 
@@ -553,18 +553,18 @@ Examples:
 If the order list is empty, the output message would be:
 
 ```
-	 OOPS!!! No order in the list! No order can be done!
+   OOPS!!! No order in the list! No order can be done!
 ```
 
 Otherwise, the sample output message would be like:
 
 ```
 _________________________________________________________________________________________
-	 Nice! I've marked this order as done:
-	 [✓] Order on 12/09/2020 
-	    (1) beef noodle 1
-	    (2) chili crab 1
-	    (3) rice 3
+   Nice! I've marked this order as done:
+   [✓] Order on 12/09/2020 
+      (1) beef noodle 1
+      (2) chili crab 1
+      (3) rice 3
 _________________________________________________________________________________________
 ```
 
@@ -582,11 +582,11 @@ If the user answers  `y` or `Y`, the output message will be:
 
 ```
 _________________________________________________________________________________________
-	 ORDER LIST CLEARED
-	 TODAY TODO LIST CLEARED
+   ORDER LIST CLEARED
+   TODAY TODO LIST CLEARED
 
-	 Continue by adding order. Template:
-	 add [-d ORDER_DATE-(dd/mm/yyyy)] -n DISH1_NAME[*DISH_AMOUNT], DISH2_NAME[*DISH_AMOUNT]
+   Continue by adding order. Template:
+   add [-d ORDER_DATE-(dd/mm/yyyy)] -n DISH1_NAME[*DISH_AMOUNT], DISH2_NAME[*DISH_AMOUNT]
 _________________________________________________________________________________________
 ```
 
@@ -594,17 +594,17 @@ If the user answers  `n`  or `N`, the output message will be:
 
 ```
 _________________________________________________________________________________________
-	 ORDER LIST NOT CLEARED
+   ORDER LIST NOT CLEARED
 
-	 Continue by adding, removing, altering, listing order.
-	 Type 'template' to see the format of the commands
+   Continue by adding, removing, altering, listing order.
+   Type 'template' to see the format of the commands
 _________________________________________________________________________________________
 ```
 
 If the user enters neither `y` or `n`, then the order list maintains. Note that the user has to enter `init` again and then enters confirm the initialization. An `y` or `n`  command not after the confirmation question is regarded as invalid. The reminding message will be:
 
 ```
-	 OOPS!!! Please enter 'y' or 'n' after the second 'init' command.
+   OOPS!!! Please enter 'y' or 'n' after the second 'init' command.
 ```
 
 
@@ -636,32 +636,32 @@ Format 3: `list -d ORDER_DATE-(dd/mm/yyyy) [-l LIST_TYPE-(option: all (default) 
 If entering invalid command, the output message is: 
 
 ```
-	 OOPS!!! Must enter a list type, dishes name, or order date.
+   OOPS!!! Must enter a list type, dishes name, or order date.
 ```
 
 If there is no order in the order list, the output message is: 
 
 ```
-	 OOPS!!! No orders in the order list! 
+   OOPS!!! No orders in the order list! 
 ```
 
 If there is no order satisfying your requirement, the output message is:
 
 ```
-	 OOPS!!! No orders found!
+   OOPS!!! No orders found!
 ```
 
 Otherwise, the sample output message is like:
 
 ```
 _________________________________________________________________________________________
-	 Here are the orders in the order list:
-	 1.[✘] Order today 
-	    (1) laksa 1
-	 2.[✘] Order today 
-	    (1) chicken rice 1
-	 3.[✘] Order on 12/12/2019 
-	    (1) beef noodle 2
+   Here are the orders in the order list:
+   1.[✘] Order today 
+      (1) laksa 1
+   2.[✘] Order today 
+      (1) chicken rice 1
+   3.[✘] Order on 12/12/2019 
+      (1) beef noodle 2
 _________________________________________________________________________________________
 ```
 
@@ -675,10 +675,10 @@ The sample output message as follows:
 
 ```
 _________________________________________________________________________________________
-	 Today Task list (Thu Nov 07 13:00:00 SGT 2019)
-	 1. chicken rice (amount: 3) 
-	 2. cake (amount: 2) 
-	 3. beef noodles (amount: 4)
+   Today Task list (Thu Nov 07 13:00:00 SGT 2019)
+   1. chicken rice (amount: 3) 
+   2. cake (amount: 2) 
+   3. beef noodles (amount: 4)
 _________________________________________________________________________________________
 ```
 
@@ -730,18 +730,18 @@ Ingredient template
 
 Order Template
 
-| Index | Keyword | Usage                            | Description |
-| ----- | ------- | -------------------------------- | ----------- |
-| 1     | add     | add [-d ORDER_DATE-(dd/mm/yyyy)] -n DISH1_NAME[*DISH_AMOUNT], DISH2_NAME[*DISH_AMOUNT]|             |
-| 2     | alter   | alter <index> <date>             |             |
-| 3     | remove  | remove <index>                   |             |
-| 4     | done    | done <index>                     |             |
-| 5     | init    | init                             |             |
-| 6     | list    | list -l <option>                 |             |
-| 7     | list    | list -n <desc>                   |             |
-| 8     | list    | list -d <date> -l <option>       |             |
+| Index | Keyword | Usage                                          | Description                           |
+| ----- | ------- | ---------------------------------------------- | ------------------------------------- |
+| 1     | add     | add [-d ORDER_DATE] -n DISH_NAME[*DISH_AMOUNT] | add a new order                       |
+| 2     | alter   | alter ORDER_INDEX ORDER_DATE                   | alter serving date                    |
+| 3     | cancel  | cancel ORDER_INDEX                             | cancel undone order                   |
+| 4     | done    | done ORDER_INDEX                               | mark order done                       |
+| 5     | init    | init                                           | initialize                            |
+| 6     | list    | list [-l LIST_TYPE]                            | list orders                           |
+| 7     | list    | list -n DISH_NAME                              | ind the orders containing that dishes |
+| 8     | list    | list -d ORDER_DATE [-l LIST_TYPE]              | list orders on querying date          |
 
-for <option>, (option: all (default) | undone | today | undoneToday)
+** For more details, please go for Section 3.5 Order.
 
 Dish Template
 
