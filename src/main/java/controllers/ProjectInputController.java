@@ -660,9 +660,6 @@ public class ProjectInputController implements IController {
     public String[] projectDeleteReminder(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectDeleteReminder] User input: '"
                 + projectCommand + "'");
-        if (projectCommand.length() <= 12) {
-            return new String[] {"No reminder index number detected! Please enter the reminder index number."};
-        }
         ParserHelper parserHelper = new ParserHelper();
         int index = parserHelper.parseDeleteReminder(projectCommand);
         if (index == 0) {
