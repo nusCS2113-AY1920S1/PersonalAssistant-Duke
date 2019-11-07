@@ -1,15 +1,15 @@
 package controllers;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.text.ParseException;
-import java.util.Arrays;
-import java.util.Date;
 import models.project.Project;
 import org.junit.jupiter.api.Test;
 import repositories.ProjectRepository;
 import util.date.DateTimeHelper;
+
+import java.text.ParseException;
+import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ProjectInputControllerTest {
     private ProjectRepository projectRepository;
@@ -168,30 +168,34 @@ class ProjectInputControllerTest {
         simulatedUserInput = "add member -n Sean";
         projectInputController.projectAddMember(project, simulatedUserInput);
 
-        simulatedUserInput = "add task -t task1 -p 1 -c 10 -s todo";
+        simulatedUserInput = "add task -t task1 -p 1 -c 10 -s doing";
         projectInputController.projectAddTask(project, simulatedUserInput);
 
-        simulatedUserInput = "add task -t task2 -p 5 -c 10 -s doing";
+        simulatedUserInput = "add task -t task2 -p 5 -c 10 -s done";
         projectInputController.projectAddTask(project, simulatedUserInput);
 
         actualOutput = "";
         for (String message : project.getCredits().toArray(new String[0])) {
             actualOutput += message;
         }
-        expectedOutput = "1. Dillen | Credits: 02. Jerry | Credits: 03. Sean | Credits: 0";
+        expectedOutput = "1. Dillen: 0 credits   Progress: .................... (0%)"
+                + "2. Jerry: 0 credits   Progress: .................... (0%)"
+                + "3. Sean: 0 credits   Progress: .................... (0%)";
         assertEquals(expectedOutput, actualOutput);
 
         simulatedUserInput = "assign task -i 1 -to 1 2";
         projectInputController.projectAssignTask(project, simulatedUserInput);
 
-        simulatedUserInput = "assign task -i 2 -to 1";
+        simulatedUserInput = "assign task -i 2 -to 1 3";
         projectInputController.projectAssignTask(project, simulatedUserInput);
 
         actualOutput = "";
         for (String message : project.getCredits().toArray(new String[0])) {
             actualOutput += message;
         }
-        expectedOutput = "1. Dillen | Credits: 202. Jerry | Credits: 103. Sean | Credits: 0";
+        expectedOutput = "1. Dillen: 3 credits   Progress: ##########.......... (50%)"
+                + "2. Jerry: 0 credits   Progress: .................... (0%)"
+                + "3. Sean: 3 credits   Progress: #################### (100%)";
         assertEquals(expectedOutput, actualOutput);
     }
 

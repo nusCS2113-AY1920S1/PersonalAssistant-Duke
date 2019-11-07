@@ -127,17 +127,21 @@ public class Project implements IProject {
      */
     @Override
     public ArrayList<String> getCredits() {
+        /*
+        *
+        *       THIS METHOD IS TO BE REFACTORED
+        *
+         */
         ArrayList<String> allMemberCredits = new ArrayList<>();
         ArrayList<Member> allMembers = this.getMembers().getMemberList();
         HashMap<Member, ArrayList<Task>> assignedMembers = this.getMembersIndividualTaskList();
         int count = 1;
         for (Member member : allMembers) {
-            boolean overdue = false;
             int totalCredits = 0;
             int doneCredits = 0;
             for (Task assignedTask : assignedMembers.get(member)) {
                 // credits are split equally between members
-                int taskCredit = (assignedTask.getTaskCredit())/(assignedMembers.size());
+                int taskCredit = (assignedTask.getTaskCredit()) / (assignedMembers.size());
                 totalCredits += taskCredit;
                 // members only get credits if the task is "DONE"
                 if (assignedTask.getTaskState() == TaskState.DONE) {
@@ -154,7 +158,7 @@ public class Project implements IProject {
                 progress += ".";
             }
             allMemberCredits.add(count + ". " + member.getName() + ": " + doneCredits + " credits");
-            allMemberCredits.add("   Progress: " + progress + " (" + percentDone*(100/scale) + "%)");
+            allMemberCredits.add("   Progress: " + progress + " (" + percentDone * (100 / scale) + "%)");
             count++;
         }
         return allMemberCredits;
@@ -240,7 +244,6 @@ public class Project implements IProject {
     public boolean taskExists(ITask task) {
         return this.taskList.contains((Task) task);
     }
-
 
     /**
      * Set the status of the Reminder.
