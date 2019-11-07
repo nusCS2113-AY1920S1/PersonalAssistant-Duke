@@ -1,5 +1,6 @@
 package chronologer.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import chronologer.ui.UiTemporary;
@@ -173,27 +174,39 @@ public class TaskList {
     /**
      * This function allows the user to obtain the tasks on a particular date.
      *
-     * @param dateToFind is the desired date of schedule.
+     * @param dayToFind is the desired date of schedule.
      * @return sortDateList the sorted schedule of all the tasks on a particular date.
      */
-    public ArrayList<Task> schedule(LocalDateTime dateToFind) {
+    public ArrayList<Task> schedule(String dayToFind) {
+        assert dayToFind != null;
+        LocalDate dateToFind = LocalDate.parse(dayToFind, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         ArrayList<Task> sortedDateList = new ArrayList<>();
-        for (Task listOfTask : listOfTasks) {
-            LocalDateTime start = listOfTask.startDate;
-            LocalDateTime end = listOfTask.endDate;
-            if (start == null && end == null) {
+        for (Task task : listOfTasks) {
+            if (task.startDate == null && task.endDate == null) {
                 continue;
             }
-            if (isWithinDates(dateToFind, start, end)) {
-                sortedDateList.add(listOfTask);
+            assert task.startDate != null;
+            if (isOnDate(dateToFind, task.startDate)) {
+                sortedDateList.add(task);
+                continue;
+            }
+            if (task.endDate == null) {
+                continue;
+            }
+            if (isWithinDates(dateToFind, task.startDate, task.endDate)) {
+                sortedDateList.add(task);
             }
         }
         sortedDateList.sort(DateComparator);
         return sortedDateList;
     }
 
-    private boolean isWithinDates(LocalDateTime dateToCheck, LocalDateTime startDate, LocalDateTime endDate) {
-        return !(dateToCheck.isBefore(startDate) || dateToCheck.isAfter(endDate));
+    private boolean isOnDate(LocalDate dateToCheck, LocalDateTime startDate) {
+        return (dateToCheck.isEqual(startDate.toLocalDate()));
+    }
+
+    private boolean isWithinDates(LocalDate dateToCheck, LocalDateTime startDate, LocalDateTime endDate) {
+        return !(dateToCheck.isBefore(startDate.toLocalDate()) || dateToCheck.isAfter(endDate.toLocalDate()));
     }
 
     /**
@@ -244,16 +257,18 @@ public class TaskList {
      */
     public ArrayList<Event> obtainEventList(LocalDateTime deadlineDate) {
         ArrayList<Event> eventList = new ArrayList<>();
-        for (Task item : listOfTasks) {
-            boolean isAnEventBeforeDeadline = item.getClass() == Event.class
-                && item.getStartDate().isBefore(deadlineDate);
-            if (isAnEventBeforeDeadline) {
-                eventList.add((Event) item);
+        for (Task task : listOfTasks) {
+            if (isAnEventBeforeDeadline(task, deadlineDate)) {
+                eventList.add((Event) task);
             }
         }
         Collections.sort(eventList);
 
         return eventList;
+    }
+
+    private boolean isAnEventBeforeDeadline(Task task, LocalDateTime deadlineDate) {
+        return task.getClass() == Event.class && task.startDate.isBefore(deadlineDate);
     }
 
     /**
@@ -280,16 +295,32 @@ public class TaskList {
      * @return sortDateList which contains only the descriptions of the tasks.
      */
     public ArrayList<String> scheduleForDay(String dayToFind) {
-        LocalDateTime dateToFind = LocalDateTime.parse(dayToFind, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
-        ArrayList<Task> obtainDescriptions = schedule(dateToFind);
+        ArrayList<Task> obtainDescriptions = schedule(dayToFind);
         ArrayList<String> scheduleDescriptionOnly = new ArrayList<>();
-        for (int i = 0; i < obtainDescriptions.size(); i++) {
-            if (obtainDescriptions.get(i).toString().contains(dayToFind)) {
-                scheduleDescriptionOnly.add(obtainDescriptions.get(i).getModCode().trim() + " "
-                    + obtainDescriptions.get(i).getDescription().trim());
-            }
+        for (Task task : obtainDescriptions) {
+            scheduleDescriptionOnly.add(task.getModCode().trim() + " "
+                    + task.getDescription().trim() + "\n"
+                    + getTime(task));
         }
         return scheduleDescriptionOnly;
+    }
+
+    private String getTime(Task task) {
+        String hourPadding = "";
+        String minutePadding = "";
+        String time;
+
+        int hour = task.startDate.getHour();
+        int minute = task.startDate.getMinute();
+        if (hour < 10) {
+            hourPadding = "0";
+        }
+        if (minute < 10) {
+            minutePadding = "0";
+        }
+
+        time = hourPadding + hour + minutePadding + minute;
+        return time;
     }
 
     /**
