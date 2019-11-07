@@ -75,8 +75,8 @@ public class TrackerCommandTest {
     @Test
     public void execute_pauseTimerWithoutStarting_exceptionThrown() {
         try {
-            oof.executeCommand("todo pause no start /on 05-11-2019");
-            int recent = taskList.getSize() - 1;
+            oof.executeCommand("todo pause test /on 05-11-2019");
+            int recent = taskList.getSize();
             String command = "tracker /pause " + recent + " CS2101";
             oof.executeCommand(command);
             fail();
@@ -147,8 +147,8 @@ public class TrackerCommandTest {
      * @throws StorageFileCorruptedException if tracker.csv cannot be processed.
      */
     @Test
-    public void execute_StartTrackerCorrectly_StartTracker() throws CommandException, ParserException,
-            FileNotFoundException, StorageFileCorruptedException {
+    public void execute_StartTrackerCorrectly_StartTracker() throws CommandException,
+            ParserException, StorageFileCorruptedException {
         oof.executeCommand("todo start tracker /on 06-11-2019");
         int recent = taskList.getSize() - 1;
         String command = "tracker /start " + recent + " CS2113T";
