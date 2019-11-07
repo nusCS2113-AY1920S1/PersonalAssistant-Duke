@@ -6,11 +6,11 @@ import duke.exception.DukeException;
 
 public abstract class DataSpec extends ArgSpec {
 
-    private DukeData data;
+    protected DukeData data;
 
-    public void execute(DukeCore core, DukeData data) throws DukeException {
+    public void execute(DukeCore core, DataCommand cmd, DukeData data) throws DukeException {
         this.data = data;
-        execute(core);
+        super.execute(core, cmd);
         this.data = null;
     }
 }

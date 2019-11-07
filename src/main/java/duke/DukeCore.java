@@ -1,5 +1,6 @@
 package duke;
 
+import duke.command.DataCommand;
 import duke.data.GsonStorage;
 import duke.data.PatientList;
 import duke.exception.DukeException;
@@ -24,6 +25,7 @@ public class DukeCore extends Application {
     public UiContext uiContext;
     public GsonStorage storage;
     public PatientList patientList;
+    public DataCommand queuedCommand;
 
     /**
      * Constructs a DukeCore object with the specified stdtestout.
