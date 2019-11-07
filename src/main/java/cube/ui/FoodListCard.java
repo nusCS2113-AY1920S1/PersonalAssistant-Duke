@@ -43,10 +43,17 @@ public class FoodListCard extends UiManager<HBox> {
 
         name.setText(food.getName());
         id.setText(displayedIndex + ". ");
-        tags.getChildren().add(new Label(food.getType()));
-        price.setText("Price: $" + food.getPrice());
-        stock.setText("Stock: " + food.getStock());
-        expiry.setText("Expiry: " + food.getExpiryDate().toString());
+        try {
+            tags.getChildren().add(new Label(food.getType()));
+            price.setText("Price: $" + food.getPrice());
+            stock.setText("Stock: " + food.getStock());
+            expiry.setText("Expiry: " + food.getExpiryDate().toString());
+        } catch (NullPointerException e) {
+            tags.getChildren().setAll(new Label("Uncategorized"));
+            price.setText("Price: $" + "0.00");
+            stock.setText("Stock: " + "0");
+            expiry.setText("Expiry: " + "Not Specified");
+        }
 
         this.sellExecutor = sellExecutor;
         this.deleteExecutor = deleteExecutor;
