@@ -403,7 +403,9 @@ public class PlannerUi {
      */
     public void reminderMsg() {
         showLine();
-        System.out.println("Please remember to update your module information!");
+        System.out.println("Please remember to update your module information!\n"
+                            + "To do so, you can input the update command in the following format:\n"
+                            + "update YEAR_SEM_1-YEAR_SEM_2 ");
         showLine();
     }
 
@@ -412,11 +414,12 @@ public class PlannerUi {
      */
     public void reminderList() {
         showLine();;
-        System.out.println("Would you like to off your reminder for\n"
-                            + "1) for 30 mins\n"
-                            + "2) for 1 hour\n"
-                            + "3) for 12 hours\n"
-                            + "4) for 24 hours\n"
+        System.out.println("Would you like to set your reminder to every:\n"
+                            + "1) for 30 seconds\n"
+                            + "2) for 1 minute\n"
+                            + "3) for 2 minutes\n"
+                            + "4) for 5 minutes\n"
                             + "*helpline* : for 1), enter 'reminder one'");
     }
+
 }

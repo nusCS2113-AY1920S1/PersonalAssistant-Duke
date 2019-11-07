@@ -3,8 +3,10 @@
 package planner.logic.command;
 
 import java.util.HashMap;
+import java.util.Timer;
 
 import planner.logic.modules.module.ModuleInfoDetailed;
+import planner.main.CliLauncher;
 import planner.util.crawler.JsonWrapper;
 import planner.logic.modules.module.ModuleTasksList;
 import planner.ui.cli.PlannerUi;
@@ -21,8 +23,15 @@ public class EndCommand extends ModuleCommand {
             PlannerUi plannerUi,
             Storage store,
             JsonWrapper jsonWrapper) {
+        killAllTimers();
         plannerUi.goodbyeMsg();
         //System.exit(0); // Causes test cases to throw exceptions
         //Runtime.getRuntime().halt(0); //Forced kill
+    }
+
+    private void killAllTimers() {
+        for (Timer timer: CliLauncher.timerPool) {
+            timer.cancel();
+        }
     }
 }
