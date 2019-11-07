@@ -249,7 +249,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      */
     public boolean verifyPartialModifyCommand() {
 
-        boolean hasComponents = false;
+        boolean hasComponents;
         //ArrayList<String> errorList = new ArrayList<String>();
         type = null;
         amount = -1;
