@@ -94,7 +94,7 @@ public class PatientList {
      * @param searchTerm String to search through the patients for.
      * @return PatientList of matching patients.
      */
-    public SearchResult findPatients(String searchTerm) throws DukeException {
+    public SearchResults findPatients(String searchTerm) throws DukeException {
         String lowerSearchTerm = searchTerm.toLowerCase();
         ArrayList<Patient> resultList = new ArrayList<Patient>();
         for (Patient patient : patientList) {
@@ -102,7 +102,7 @@ public class PatientList {
                 resultList.add(patient);
             }
         }
-        return new SearchResult(searchTerm, resultList, null);
+        return new SearchResults(searchTerm, resultList, null);
     }
 
     /**
@@ -111,7 +111,7 @@ public class PatientList {
      * @param searchTerm String to search through the patients for.
      * @return PatientList of matching patients.
      */
-    public SearchResult findPatientsByName(String searchTerm) {
+    public SearchResults findPatientsByName(String searchTerm) {
         String lowerSearchTerm = searchTerm.toLowerCase();
         ArrayList<Patient> resultList = new ArrayList<Patient>();
         for (Patient patient : patientList) {
@@ -119,7 +119,7 @@ public class PatientList {
                 resultList.add(patient);
             }
         }
-        return new SearchResult(searchTerm, resultList, null);
+        return new SearchResults(searchTerm, resultList, null);
     }
 
     /**
@@ -128,9 +128,9 @@ public class PatientList {
      * @return array list of objects relevant to the search
      * @throws DukeException if the database does not contain the information
      */
-    public SearchResult searchAll(String searchTerm) throws DukeException {
+    public SearchResults searchAll(String searchTerm) throws DukeException {
         String lowerSearchTerm = searchTerm.toLowerCase();
-        SearchResult result = findPatients(lowerSearchTerm);
+        SearchResults results= findPatients(lowerSearchTerm);
         for (Patient patient : patientList) {
             result.addAll(patient.searchAll(lowerSearchTerm));
         }

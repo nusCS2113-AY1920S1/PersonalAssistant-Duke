@@ -3,7 +3,7 @@ package duke.ui.window;
 import com.jfoenix.controls.JFXListView;
 import duke.DukeCore;
 import duke.data.DukeObject;
-import duke.data.SearchResult;
+import duke.data.SearchResults;
 import duke.ui.UiStrings;
 import duke.ui.card.UiCard;
 import javafx.fxml.FXML;
@@ -35,12 +35,12 @@ class SearchContextWindow extends ContextWindow {
     private ImageView parentTypeImage;
 
     private DukeObject parent;
-    private SearchResult searchResults;
+    private SearchResults searchResults;
 
     /**
      * Constructs the search UI window.
      */
-    SearchContextWindow(SearchResult searchResults) {
+    SearchContextWindow(SearchResults searchResults) {
         super(FXML);
 
         if (searchResults != null) {

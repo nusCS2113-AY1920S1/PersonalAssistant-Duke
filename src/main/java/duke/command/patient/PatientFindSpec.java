@@ -7,7 +7,7 @@ import duke.command.Switch;
 import duke.data.DukeObject;
 import duke.data.Impression;
 import duke.data.Patient;
-import duke.data.SearchResult;
+import duke.data.SearchResults;
 import duke.exception.DukeException;
 import duke.ui.context.Context;
 
@@ -55,7 +55,7 @@ public class PatientFindSpec extends ArgSpec {
         }
 
         if (!resultList.isEmpty()) {
-            SearchResult search = new SearchResult(searchTerm, resultList, patient);
+            SearchResults search = new SearchResults(searchTerm, resultList, patient);
             core.uiContext.setContext(Context.SEARCH, search);
             core.updateUi("Returning result of search of " + searchTerm);
         } else {

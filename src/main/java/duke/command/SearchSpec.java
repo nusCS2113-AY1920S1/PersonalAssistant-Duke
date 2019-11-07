@@ -1,7 +1,8 @@
 package duke.command;
 
 import duke.DukeCore;
-import duke.data.SearchResult;
+import duke.data.DukeObject;
+import duke.data.SearchResults;
 import duke.exception.DukeException;
 
 public class SearchSpec extends ArgSpec {
@@ -25,18 +26,22 @@ public class SearchSpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
-        SearchResult result;
+        assert (core.queuedCommand != null);
+        SearchResults results;
+        int idx;
         try {
-            int idx = Integer.parseInt(input);
+            idx = Integer.parseInt(input);
         } catch (NumberFormatException excp) {
             throw new DukeException("Please enter the index of a search result!");
         }
         try {
-            result = (SearchResult) core.uiContext.getObject();
+            results = (SearchResults) core.uiContext.getObject();
         } catch (ClassCastException excp) {
             throw new DukeException("Search command called from non-search context!");
         }
 
+        DukeObject result = results.getResult(idx);
+        core.queuedCommand.execute(core, result);
         // TODO: send the DukeObject back to the caller
 
     }

@@ -106,7 +106,7 @@ public class Patient extends DukeObject {
      * @param searchTerm the search term
      * @return the list of impressions
      */
-    public SearchResult findImpressionsByName(String searchTerm) {
+    public SearchResults findImpressionsByName(String searchTerm) {
         ArrayList<Impression> resultList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
         for (Impression entry : impressionList) {
@@ -114,7 +114,7 @@ public class Patient extends DukeObject {
                 resultList.add(entry);
             }
         }
-        return new SearchResult(searchTerm, resultList, this);
+        return new SearchResults(searchTerm, resultList, this);
     }
 
     /**
@@ -123,7 +123,7 @@ public class Patient extends DukeObject {
      * @param searchTerm the search term
      * @return the list of critical items
      */
-    public SearchResult findCriticalsByName(String searchTerm) {
+    public SearchResults findCriticalsByName(String searchTerm) {
         ArrayList<DukeData> resultList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
         for (Impression entry : impressionList) {
@@ -140,7 +140,7 @@ public class Patient extends DukeObject {
                 }
             }
         }
-        return new SearchResult(searchTerm, resultList, this);
+        return new SearchResults(searchTerm, resultList, this);
     }
 
     /**
@@ -149,7 +149,7 @@ public class Patient extends DukeObject {
      * @param searchTerm the search term
      * @return the list of follow-up items
      */
-    public SearchResult findFollowUpsByName(String searchTerm) {
+    public SearchResults findFollowUpsByName(String searchTerm) {
         ArrayList<DukeData> resultList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
         for (Impression imp : impressionList) {
@@ -160,7 +160,7 @@ public class Patient extends DukeObject {
                 }
             }
         }
-        return new SearchResult(searchTerm, resultList, this);
+        return new SearchResults(searchTerm, resultList, this);
     }
 
 
@@ -170,7 +170,7 @@ public class Patient extends DukeObject {
      * @param searchTerm the search term
      * @return the list of impressions
      */
-    public SearchResult findImpressions(String searchTerm) {
+    public SearchResults findImpressions(String searchTerm) {
         ArrayList<Impression> resultList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
         for (Impression impression : impressionList) {
@@ -178,7 +178,7 @@ public class Patient extends DukeObject {
                 resultList.add(impression);
             }
         }
-        return new SearchResult(searchTerm, resultList, this);
+        return new SearchResults(searchTerm, resultList, this);
     }
 
 
@@ -189,14 +189,14 @@ public class Patient extends DukeObject {
      * @param searchTerm String to be used to filter the DukeObj
      * @return the hashMap of DukeObjs
      */
-    public SearchResult searchAll(String searchTerm) throws DukeException {
+    public SearchResults searchAll(String searchTerm) throws DukeException {
         String lowerSearchTerm = searchTerm.toLowerCase();
-        SearchResult result = findImpressions(lowerSearchTerm);
+        SearchResults results= findImpressions(lowerSearchTerm);
         ArrayList<DukeObject> resultList = new ArrayList<>();
         for (Impression imp : impressionList) {
             result.addAll(imp.searchAll(searchTerm));
         }
-        return new SearchResult(searchTerm, resultList, this);
+        return new SearchResults(searchTerm, resultList, this);
     }
 
     /**

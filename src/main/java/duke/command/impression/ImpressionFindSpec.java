@@ -6,7 +6,7 @@ import duke.command.ArgSpec;
 import duke.command.Switch;
 import duke.data.DukeObject;
 import duke.data.Impression;
-import duke.data.SearchResult;
+import duke.data.SearchResults;
 import duke.exception.DukeException;
 import duke.ui.context.Context;
 
@@ -46,7 +46,7 @@ public class ImpressionFindSpec extends ArgSpec {
         }
 
         if (!searchResult.isEmpty()) {
-            SearchResult search = new SearchResult(searchTerm, searchResult, impression);
+            SearchResults search = new SearchResults(searchTerm, searchResult, impression);
             core.uiContext.setContext(Context.SEARCH, search);
             core.updateUi("Returning result of search of " + searchTerm);
         } else {

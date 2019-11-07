@@ -1,6 +1,6 @@
 package duke;
 
-import duke.command.DataCommand;
+import duke.command.ObjCommand;
 import duke.data.GsonStorage;
 import duke.data.PatientList;
 import duke.exception.DukeException;
@@ -25,7 +25,7 @@ public class DukeCore extends Application {
     public UiContext uiContext;
     public GsonStorage storage;
     public PatientList patientList;
-    public DataCommand queuedCommand;
+    public ObjCommand queuedCommand;
 
     /**
      * Constructs a DukeCore object with the specified stdtestout.
@@ -52,7 +52,7 @@ public class DukeCore extends Application {
     }
 
     /**
-     * Displays a set of search results, while storing a DataCommand object (the one that calls the search), so that
+     * Displays a set of search results, while storing a ObjCommand object (the one that calls the search), so that
      * it can resume execution after receiving the search results.
      *
      * @throws DukeFatalException If the file writer cannot be setup.

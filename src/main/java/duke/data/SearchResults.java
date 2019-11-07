@@ -8,7 +8,7 @@ import java.util.List;
 
 // TODO parametrise types
 
-public class SearchResult extends DukeObject {
+public class SearchResults extends DukeObject {
 
     private List<DukeObject> searchList;
 
@@ -22,7 +22,7 @@ public class SearchResult extends DukeObject {
      * @param name the list of DukeObjects
      * @param parent the impression object the data is tagged to
      */
-    public SearchResult(String name, List<? extends DukeObject> searchList, DukeObject parent) {
+    public SearchResults(String name, List<? extends DukeObject> searchList, DukeObject parent) {
         super(name, parent);
         this.searchList = new ArrayList<DukeObject>(searchList);
     }
@@ -39,7 +39,7 @@ public class SearchResult extends DukeObject {
         return searchList;
     }
 
-    public void addAll(SearchResult other) {
+    public void addAll(SearchResults other) {
         searchList.addAll(other.searchList);
     }
 

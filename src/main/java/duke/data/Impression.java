@@ -42,7 +42,7 @@ public class Impression extends DukeObject {
      * @param searchTerm the term to be searched for
      * @return ArrayList of the Treatments
      */
-    public SearchResult findTreatments(String searchTerm) {
+    public SearchResults findTreatments(String searchTerm) {
         ArrayList<Treatment> treatmentList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
         for (Treatment treatment : treatments) {
@@ -50,7 +50,7 @@ public class Impression extends DukeObject {
                 treatmentList.add(treatment);
             }
         }
-        return new SearchResult(searchTerm, treatmentList, this);
+        return new SearchResults(searchTerm, treatmentList, this);
     }
 
     /**
@@ -59,7 +59,7 @@ public class Impression extends DukeObject {
      * @param searchTerm the term to be searched for
      * @return ArrayList of the Evidence
      */
-    public SearchResult findEvidences(String searchTerm) {
+    public SearchResults findEvidences(String searchTerm) {
         ArrayList<Evidence> evidenceList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
         for (Evidence evidence : evidences) {
@@ -67,7 +67,7 @@ public class Impression extends DukeObject {
                 evidenceList.add(evidence);
             }
         }
-        return new SearchResult(searchTerm, evidenceList, this);
+        return new SearchResults(searchTerm, evidenceList, this);
     }
 
     /**
@@ -76,8 +76,8 @@ public class Impression extends DukeObject {
      * @param searchTerm String to be used to filter the DukeData
      * @return the list of DukeData
      */
-    public SearchResult searchAll(String searchTerm) {
-        SearchResult result = new SearchResult(searchTerm, new ArrayList<DukeObject>(), this);
+    public SearchResults searchAll(String searchTerm) {
+        SearchResults results= new SearchResults(searchTerm, new ArrayList<DukeObject>(), this);
         result.addAll(findEvidences(searchTerm));
         result.addAll(findTreatments(searchTerm));
         return result;
@@ -89,7 +89,7 @@ public class Impression extends DukeObject {
      * @param searchTerm the term to be searched for
      * @return ArrayList of the Treatments
      */
-    public SearchResult findTreatmentsByName(String searchTerm) {
+    public SearchResults findTreatmentsByName(String searchTerm) {
         ArrayList<Treatment> treatmentList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
         for (Treatment entry : treatments) {
@@ -97,7 +97,7 @@ public class Impression extends DukeObject {
                 treatmentList.add(entry);
             }
         }
-        return new SearchResult(searchTerm, treatmentList, this);
+        return new SearchResults(searchTerm, treatmentList, this);
     }
 
     /**
@@ -106,7 +106,7 @@ public class Impression extends DukeObject {
      * @param searchTerm the term to be searched for
      * @return ArrayList of the Evidences
      */
-    public SearchResult findEvidencesByName(String searchTerm) {
+    public SearchResults findEvidencesByName(String searchTerm) {
         ArrayList<Evidence> evidenceList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
         for (Evidence entry : evidences) {
@@ -114,7 +114,7 @@ public class Impression extends DukeObject {
                 evidenceList.add(entry);
             }
         }
-        return new SearchResult(searchTerm, evidenceList, this);
+        return new SearchResults(searchTerm, evidenceList, this);
     }
 
     /**
@@ -123,8 +123,8 @@ public class Impression extends DukeObject {
      * @param searchTerm String to be used to filter the DukeData
      * @return the list of DukeData
      */
-    public SearchResult findByName(String searchTerm) {
-        SearchResult result = new SearchResult(searchTerm, new ArrayList<DukeObject>(), this);
+    public SearchResults findByName(String searchTerm) {
+        SearchResults results= new SearchResults(searchTerm, new ArrayList<DukeObject>(), this);
         result.addAll(findEvidencesByName(searchTerm));
         result.addAll(findTreatmentsByName(searchTerm));
         return result;

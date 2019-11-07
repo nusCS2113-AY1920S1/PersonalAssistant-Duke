@@ -7,7 +7,7 @@ import duke.data.DukeObject;
 import duke.data.GsonStorage;
 import duke.data.Impression;
 import duke.data.Patient;
-import duke.data.SearchResult;
+import duke.data.SearchResults;
 import duke.exception.DukeException;
 import duke.ui.UiElement;
 import duke.ui.context.Context;
@@ -105,8 +105,8 @@ public class MainWindow extends UiElement<Stage> {
                 currentTab = new Tab("Impression", currentContextWindow.getRoot());
                 break;
             case SEARCH:
-                SearchResult searchResult = (SearchResult) uiContext.getObject();
-                currentContextWindow = new SearchContextWindow(searchResult);
+                SearchResults searchResults = (SearchResults) uiContext.getObject();
+                currentContextWindow = new SearchContextWindow(searchResults);
                 currentTab = new Tab("Search", currentContextWindow.getRoot());
                 break;
             default:
