@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -21,6 +22,16 @@ import static duke.commons.util.CollectionUtil.requireAllNonNull;
  * Represents an order in order list.
  */
 public class Order {
+    /**
+     * Makes the order's {@code isIngredientEnough} property changes dynamically with the change of {@code inventory}.
+     */
+    public void listenToInventory(ObservableList<Item<Ingredient>> inventory) {
+        requireAllNonNull(inventory);
+
+        updateIsIngredientEnough(inventory);
+        inventory.addListener((ListChangeListener<Item<Ingredient>>) c -> updateIsIngredientEnough(inventory));
+    }
+
     //Identity field
     private final OrderId id;
     private final Remark remarks;
@@ -88,14 +99,6 @@ public class Order {
         return id;
     }
 
-    /**
-     * Makes the order's {@code isIngredientEnough} property changes dynamically with the change of {@code inventory}.
-     */
-    public void listenToInventory(ObservableList<Item<Ingredient>> inventory) {
-        updateIsIngredientEnough(inventory);
-        inventory.addListener((ListChangeListener<Item<Ingredient>>) c -> updateIsIngredientEnough(inventory));
-    }
-
     public Customer getCustomer() {
         return customer;
     }
@@ -124,15 +127,6 @@ public class Order {
         return status;
     }
 
-    /**
-     * Status of an order.
-     */
-    public enum Status {
-        ACTIVE,
-        COMPLETED,
-        CANCELED
-    }
-
     public boolean isIsIngredientEnough() {
         return isIngredientEnough.get();
     }
@@ -141,19 +135,22 @@ public class Order {
         return isIngredientEnough;
     }
 
-    private long generateId() {
-        return System.currentTimeMillis();
+    /**
+     * Updates the {@code isIngredientEnough} property based on {@code inventory}.
+     */
+    private void updateIsIngredientEnough(ObservableList<Item<Ingredient>> inventory) {
+        requireAllNonNull(inventory);
+
+        isIngredientEnough.setValue(
+            isRequiredIngredientSufficient(inventory, getRequiredIngredients(inventory))
+        );
     }
 
     private Date generateCreationDate() {
         return new Date(System.currentTimeMillis());
     }
 
-
-    /**
-     * Updates the {@code isIngredientEnough} property based on {@code inventory}.
-     */
-    private void updateIsIngredientEnough(ObservableList<Item<Ingredient>> inventory) {
+    private Map<Ingredient, Double> getRequiredIngredients(ObservableList<Item<Ingredient>> inventory) {
         requireAllNonNull(inventory);
 
         //Key: the ingredient needed;
@@ -177,7 +174,14 @@ public class Order {
             }
         }
 
-        isIngredientEnough.setValue(true);
+        return requiredIngredients;
+    }
+
+    private boolean isRequiredIngredientSufficient(ObservableList<Item<Ingredient>> inventory,
+                                                   Map<Ingredient, Double> requiredIngredients) {
+        requireAllNonNull(inventory, requiredIngredients);
+
+        AtomicBoolean isEnough = new AtomicBoolean(true);
 
         //Iterate through all ingredients needed.
         requiredIngredients.forEach((requiredIngredient, requiredAmount) -> {
@@ -189,7 +193,7 @@ public class Order {
                 if (requiredIngredient.equals(inventoryIngredient)) {
                     isFound = true;
                     if (requiredAmount > inventoryAmount) {
-                        isIngredientEnough.setValue(false);
+                        isEnough.set(false);
                         break;
                     }
                 }
@@ -197,9 +201,20 @@ public class Order {
 
             //If ingredient needed is not in inventory
             if (!isFound) {
-                isIngredientEnough.setValue(false);
+                isEnough.set(false);
             }
         });
+
+        return isEnough.get();
+    }
+
+    /**
+     * Status of an order.
+     */
+    public enum Status {
+        ACTIVE,
+        COMPLETED,
+        CANCELED
     }
 
     @Override
