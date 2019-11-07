@@ -43,7 +43,7 @@ public class DebtsParser extends Parser {
         } else if (commandToRun.equals(DEBT_COMMAND_OWE) || commandToRun.equals(DEBT_COMMAND_BORROW)) {
             String type = commandToRun;
             Tag t = new Tag();
-            if (verifyDebtCommand(t)) {
+            if (verifyDebtCommand()) {
                 Debt debt = new Debt(type, inputArray[1], amount, description, date, t.getTagName());
                 t.handleTag(debt);
                 return new AddDebtsCommand(type, inputArray[1], amount, description, date, t.getTagName());

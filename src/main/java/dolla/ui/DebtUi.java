@@ -95,4 +95,13 @@ public class DebtUi extends Ui {
         System.out.println("\tYou don't have any bills yet.");
         System.out.println(line);
     }
+
+    /**
+     * Pritn invalid name message.
+     */
+    public static void printInvalidNameMessage() {
+        System.out.println(line);
+        System.out.println("\tPlease input a valid name.");
+        System.out.println(line);
+    }
 }

@@ -3,6 +3,7 @@ package dolla.parser;
 import dolla.ModeStringList;
 import dolla.Tag;
 import dolla.Time;
+import dolla.model.Debt;
 import dolla.model.RecordList;
 import dolla.exception.DollaException;
 import dolla.ui.Ui;
@@ -152,17 +153,22 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     /**
      * Returns true if no error occurs while creating the required variables for 'addDebtCommand'.
      * Also splits name, description components in the process.
-     * @param t Tag.
      * @return true if no error occurs.
      */
-    public boolean verifyDebtCommand(Tag t) {
+    public boolean verifyDebtCommand() {
         try {
-            String name = inputArray[1];
+            try{
+                Integer.parseInt(inputArray[1]);
+                DebtUi.printInvalidNameMessage();
+                return false;
+            } catch (Exception ignored) {
+
+            }
             amount = stringToDouble(inputArray[2]);
             String[] desc = inputLine.split(inputArray[2] + SPACE);
             String[] dateString = desc[1].split(" /due ");
             description = dateString[0];
-            return checkTag(dateString[1], t);
+            return checkTag(dateString[1]);
         } catch (Exception e) {
             DebtUi.printInvalidDebtFormatError();
             return false;
@@ -173,10 +179,9 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     /**
      * Returns true if no error occurs while creating the date for 'addDebtCommand'.
      * @param dateString the string that contains date and tag.
-     * @param t Tag.
      * @return true if no error occurs.
      */
-    private boolean checkTag(String dateString, Tag t) {
+    private boolean checkTag(String dateString) {
         if (inputLine.contains(COMPONENT_TAG)) {
             String[] dateAndTag = dateString.split(COMPONENT_TAG);
             try {
