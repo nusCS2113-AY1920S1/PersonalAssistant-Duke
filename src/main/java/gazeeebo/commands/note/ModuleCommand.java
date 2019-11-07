@@ -8,6 +8,7 @@ import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.notes.GeneralNotePage;
 import gazeeebo.notes.Module;
+import gazeeebo.parsers.GeneralNoteCommandParser;
 import gazeeebo.storage.NotePageStorage;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
@@ -79,7 +80,8 @@ public class ModuleCommand extends Command {
             module = findModule(ui.fullCommand);
         } catch (DukeException d) {
             ui.showErrorMessage(d);
-            System.out.println("Going back to notes page.");
+            System.out.println("Going back to notes page...");
+            GeneralNoteCommandParser.showListOfCommands();
             return;
         }
         System.out.println("What would you like to do?\n");
@@ -121,18 +123,8 @@ public class ModuleCommand extends Command {
             }
             ui.readCommand();
         }
-        System.out.println("Go back to Main Menu...\n" +
-                "Content Page:\n" +
-                "------------------ \n" +
-                "1. help\n" +
-                "2. contacts\n" +
-                "3. expenses\n" +
-                "4. places\n" +
-                "5. tasks\n" +
-                "6. cap\n" +
-                "7. spec\n" +
-                "8. moduleplanner\n" +
-                "9. notes\n");
+        System.out.println("Going back to notes page...\n");
+        GeneralNoteCommandParser.showListOfCommands();
     }
 
     @Override

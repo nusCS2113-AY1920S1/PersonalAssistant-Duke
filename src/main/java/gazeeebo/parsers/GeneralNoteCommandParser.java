@@ -32,7 +32,7 @@ public class GeneralNoteCommandParser extends Command {
     private static final String COMMANDS = "commands";
     private static final String HELP = "help";
 
-    private void showListOfCommands() {
+    public static void showListOfCommands() {
         System.out.println("__________________________________________________________");
         System.out.println("1. View goal and list of modules: " + VIEW);
         System.out.println("2. Edit goal: " + EDIT_GOAL);
@@ -87,7 +87,8 @@ public class GeneralNoteCommandParser extends Command {
                 "6. cap\n" +
                 "7. spec\n" +
                 "8. moduleplanner\n" +
-                "9. notes\n");
+                "9. notes\n" +
+                "To exit: bye\n");
     }
 
     @Override

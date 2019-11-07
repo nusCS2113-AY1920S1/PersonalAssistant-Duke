@@ -249,7 +249,7 @@ public class TaskCommandParser extends Command {
             } else if (command.equals("calendar annual view")) {
                 new CalendarView().annualView(list);
             } else if (command.equals("esc")) {
-                System.out.println("Go back to Main Menu...\n"
+                System.out.println("Going back to Main Menu...\n"
                         + "Content Page:\n"
                         + "------------------ \n"
                         + "1. help\n"
@@ -260,7 +260,8 @@ public class TaskCommandParser extends Command {
                         + "6. cap\n"
                         + "7. spec\n"
                         + "8. moduleplanner\n"
-                        + "9. notes\n");
+                        + "9. notes\n"
+                        + "To exit: bye\n");
             } else {
                 System.out.println("OOPS!!! I'm sorry,"
                         + "but I don't know what that means :-(");
