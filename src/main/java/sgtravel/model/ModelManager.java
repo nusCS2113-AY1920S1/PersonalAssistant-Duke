@@ -3,6 +3,7 @@ package sgtravel.model;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.NoRecentItineraryException;
 import sgtravel.commons.exceptions.DuplicateRouteException;
+import sgtravel.commons.exceptions.NoSuchItineraryException;
 import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.model.lists.EventList;
 import sgtravel.model.lists.RouteList;
@@ -51,9 +52,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void doneItinerary(String name) throws OutOfBoundsException {
+    public void doneItinerary(String name) throws NoSuchItineraryException {
         if(itineraryTable.get(name) == null) {
-            throw new OutOfBoundsException();
+            throw new NoSuchItineraryException();
         }
         this.itineraryTable.remove(name);
     }

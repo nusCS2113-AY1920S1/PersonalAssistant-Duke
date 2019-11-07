@@ -1,5 +1,6 @@
 package sgtravel.logic.commands;
 
+import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.NoSuchItineraryException;
 import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.logic.commands.results.CommandResultText;
@@ -27,8 +28,9 @@ public class DoneItineraryCommand extends Command {
      * @throws NoSuchItineraryException If the itinerary cannot be found.
      */
     @Override
-    public CommandResultText execute(Model model) throws NoSuchItineraryException, OutOfBoundsException {
+    public CommandResultText execute(Model model) throws NoSuchItineraryException, FileNotSavedException {
         model.doneItinerary(name);
+        model.save();
         return new CommandResultText("Successfully deleted your itinerary with name " + name);
     }
 }
