@@ -17,6 +17,14 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.FileSystemNotFoundException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.spi.FileSystemProvider;
+import java.util.Collections;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -45,19 +53,23 @@ public class Launcher extends Application {
 
     private Model initModelManager(BakingHomeStorage storage) {
         Optional<ReadOnlyBakingHome> bakingHomeOptional;
-        ReadOnlyBakingHome initialData = new BakingHome();
-
+        ReadOnlyBakingHome initialData;
+        logger.info("there");
         try {
             bakingHomeOptional = storage.readBakingHome();
             if (bakingHomeOptional.isEmpty()) {
-                logger.info("Data file not found.");
+                logger.info("Data file not found. Using demo data");
+                initialData = getDemoBakingHome();
             } else {
+                logger.info("here");
                 initialData = bakingHomeOptional.get();
             }
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format");
+            logger.warning("Data file not in the correct format. Using demo data.");
+            initialData = getDemoBakingHome();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file");
+            logger.warning("Problem while reading from the file. Using demo data.");
+            initialData = getDemoBakingHome();
         }
 
         return new ModelManager(initialData);
@@ -71,5 +83,52 @@ public class Launcher extends Application {
 
     public static void main(String[] args) {
         launch(Launcher.class, args);
+    }
+
+    private ReadOnlyBakingHome getDemoBakingHome() {
+        Optional<ReadOnlyBakingHome> demoBakingHome;
+        try {
+            demoBakingHome = storage.readBakingHome(getDemoFilePath());
+        } catch (IOException | URISyntaxException | DataConversionException e) {
+            logger.warning("Problem while getting demo resources. Using empty data.");
+            return new BakingHome();
+        }
+
+        if (demoBakingHome.isEmpty()) {
+            logger.warning("Problem while loading demo file. Using empty data.");
+            return new BakingHome();
+        }
+
+        return demoBakingHome.get();
+    }
+
+    private Path getDemoFilePath() throws IOException, URISyntaxException {
+        URI demoUri = Objects.requireNonNull(getClass()
+            .getClassLoader()
+            .getResource("data/demo.json"))
+            .toURI();
+
+        /*
+         * The following is a workaround for the error
+         * "java.nio.file.FileSystemNotFoundException" when trying to access files in jar.
+         * Adapted from
+         * stackoverflow.com/questions/22605666/
+         * java-access-files-in-jar-causes-java-nio-file-filesystemnotfoundexception.
+         */
+        if ("jar".equals(demoUri.getScheme())) {
+            for (FileSystemProvider provider : FileSystemProvider.installedProviders()) {
+                if (provider.getScheme().equalsIgnoreCase("jar")) {
+                    try {
+                        provider.getFileSystem(demoUri);
+                    } catch (FileSystemNotFoundException e) {
+                        // in this case we need to initialize it first:
+                        provider.newFileSystem(demoUri, Collections.emptyMap());
+                    }
+                }
+            }
+        }
+        //--- End of the adapted part ----
+
+        return Paths.get(demoUri);
     }
 }
