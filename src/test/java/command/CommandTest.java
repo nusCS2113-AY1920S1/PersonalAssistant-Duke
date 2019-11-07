@@ -48,7 +48,7 @@ public class CommandTest {
         storage = new Storage(filename, excelFileName);
         bank = storage.loadExcelFile();
         ui = new Ui();
-        wordBank = bank.getWordBankobject();
+        wordBank = bank.getWordBankObject();
     }
 
     /**
