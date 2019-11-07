@@ -118,6 +118,10 @@ public class Instruction {
         return input.startsWith("show fund"); 
     }
 
+    public boolean isResetFund(String input) {
+        return input.startsWith("reset fund");
+    }
+
     public boolean isViewhistory(String input) { 
         return input.startsWith("view history"); 
     }

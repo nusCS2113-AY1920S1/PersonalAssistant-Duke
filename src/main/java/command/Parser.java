@@ -144,6 +144,9 @@ public class Parser {
             } else if (instr.isShowFund(input)) {
                 process.showFund(input, ui, fund);
                 process.commandHistory(input, ui, storage);
+            } else if (instr.isResetFund(input)) {
+                process.resetFund(input, ui, fund);
+                process.commandHistory(input, ui, storage);
             } else if (instr.isHelp(input)) {
                 ui.printHelpMessage();
             } else {
