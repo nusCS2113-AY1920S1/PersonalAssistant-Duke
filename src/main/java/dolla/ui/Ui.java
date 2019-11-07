@@ -11,7 +11,7 @@ import static dolla.ModeStringList.MODE_SHORTCUT;
  */
 public abstract class Ui {
 
-    private static final String MSG_MODIFY = "\tPlease use the format 'modify [LIST NUM]' to modify it.";
+    protected static final String MSG_MODIFY = "\tPlease use the format 'modify [LIST NUM]' if you wish to modify it.";
 
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";

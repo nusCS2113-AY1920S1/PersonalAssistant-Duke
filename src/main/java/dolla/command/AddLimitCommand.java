@@ -45,7 +45,7 @@ public class AddLimitCommand extends Command {
             LimitUi.echoAddRecord(newLimit);
         } else {
             Record existingLimit = limitList.getFromList(duplicateLimitIndex);
-            LimitUi.existingRecordPrinter(existingLimit, mode);
+            LimitUi.existingLimitPrinter(existingLimit);
         }
     }
 
