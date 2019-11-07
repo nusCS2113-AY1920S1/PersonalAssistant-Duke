@@ -1,6 +1,7 @@
 package dolla.action;
 
 import dolla.command.action.state.DebtState;
+import dolla.command.action.state.RedoStateList;
 import dolla.command.action.state.State;
 import dolla.command.action.state.UndoStateList;
 import dolla.model.Debt;
@@ -12,11 +13,9 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ActionTest {
+public class ActionTest implements ActionTestList {
     private ArrayList<Record> testList1 = new ArrayList<>();
     private ArrayList<Record> testList2 = new ArrayList<>();
-    private static final String OWE = "owe";
-    private static final String BORROW = "borrow";
 
     private State createDebtState1() {
         testList1.add(new Debt(OWE, "tata", 20, "food",
@@ -44,61 +43,133 @@ public class ActionTest {
         return new DebtState(testList2);
     }
 
+    
+
 
     @Test
-    public void testDebtState() {
+    public void testState() {
         State debtState1 = createDebtState1();
         State debtState2 = createDebtState2();
-        ArrayList<Record> newTestList1 = new ArrayList<>(debtState1.getDebtState());
-        ArrayList<Record> newTestList2 = new ArrayList<>(debtState2.getDebtState());
-        Record debtTest1 = newTestList1.get(0);
-        Record debtTest2 = newTestList1.get(1);
-        Record debtTest3 = newTestList1.get(2);
-        Record debtTest4 = newTestList1.get(3);
+        ArrayList<Record> debtTestList1 = new ArrayList<>(debtState1.getDebtState());
+        ArrayList<Record> debtTestList2 = new ArrayList<>(debtState2.getDebtState());
+        Record debtTest1 = debtTestList1.get(0);
+        Record debtTest2 = debtTestList1.get(1);
+        Record debtTest3 = debtTestList1.get(2);
+        Record debtTest4 = debtTestList1.get(3);
 
-        Record debtTest5 = newTestList2.get(0);
-        Record debtTest6 = newTestList2.get(1);
-        Record debtTest7 = newTestList2.get(2);
-        Record debtTest8 = newTestList2.get(3);
-        Record debtTest9 = newTestList2.get(4);
+        Record debtTest5 = debtTestList2.get(0);
+        Record debtTest6 = debtTestList2.get(1);
+        Record debtTest7 = debtTestList2.get(2);
+        Record debtTest8 = debtTestList2.get(3);
+        Record debtTest9 = debtTestList2.get(4);
 
-        assertEquals(4,newTestList1.size());
-        assertEquals("[owe] [tata] [$20.0] [food] [/due 01/01/2019] {Tag: }",debtTest1.getRecordDetail());
-        assertEquals("[borrow] [yuyu] [$40.0] [drink] [/due 02/01/2019] {Tag: }",debtTest2.getRecordDetail());
-        assertEquals("[owe] [mama] [$30.0] [bill] [/due 03/01/2019] {Tag: }",debtTest3.getRecordDetail());
-        assertEquals("[borrow] [baba] [$60.0] [dinner] [/due 04/01/2019] {Tag: }",debtTest4.getRecordDetail());
+        assertEquals(4,debtTestList1.size());
+        assertEquals(DEBT_TEST1,debtTest1.getRecordDetail());
+        assertEquals(DEBT_TEST2,debtTest2.getRecordDetail());
+        assertEquals(DEBT_TEST3,debtTest3.getRecordDetail());
+        assertEquals(DEBT_TEST4,debtTest4.getRecordDetail());
 
-        assertEquals(5, newTestList2.size());
-        assertEquals("[borrow] [aikpeng] [$126.0] [bushi] [/due 01/01/2011] {Tag: }",
-                debtTest5.getRecordDetail());
-        assertEquals("[owe] [yetong] [$245.0] [sushi] [/due 02/01/2012] {Tag: }",
-                debtTest6.getRecordDetail());
-        assertEquals("[owe] [kexin] [$91.0] [disco] [/due 03/01/2013] {Tag: }",
-                debtTest7.getRecordDetail());
-        assertEquals("[owe] [xiaoxue] [$1151.0] [wine] [/due 04/01/2014] {Tag: }",
-                debtTest8.getRecordDetail());
-        assertEquals("[borrow] [bahaba] [$521.0] [rebina] [/due 04/01/2015] {Tag: }",
-                debtTest9.getRecordDetail());
+        assertEquals(5, debtTestList2.size());
+        assertEquals(DEBT_TEST5, debtTest5.getRecordDetail());
+        assertEquals(DEBT_TEST6, debtTest6.getRecordDetail());
+        assertEquals(DEBT_TEST7, debtTest7.getRecordDetail());
+        assertEquals(DEBT_TEST8, debtTest8.getRecordDetail());
+        assertEquals(DEBT_TEST9, debtTest9.getRecordDetail());
     }
 
+    //Unit testing for RedoStateList and UndoStateList.
     @Test
-    public void testUndoStateList() {
-        UndoStateList.addState(createDebtState1(), "debt");
-        assertEquals(1,UndoStateList.getSize("debt"));
-        State debtState = UndoStateList.getState("debt");
-        assert debtState != null;
-        ArrayList<Record> newTestList = new ArrayList<>(debtState.getDebtState());
+    public void testStateList() {
+        //check for UndoStateList
+        UndoStateList.addState(createDebtState1(), MODE_DEBT);
+        UndoStateList.addState(createDebtState2(), MODE_DEBT);
+        assertEquals(2, UndoStateList.getSize(MODE_DEBT));
 
-        Record debtTest1 = newTestList.get(0);
-        Record debtTest2 = newTestList.get(1);
-        Record debtTest3 = newTestList.get(2);
-        Record debtTest4 = newTestList.get(3);
+        State undoDebtState1 = UndoStateList.getState(MODE_DEBT);
+        assertEquals(1, UndoStateList.getSize(MODE_DEBT));
+        State undoDebtState2 = UndoStateList.getState(MODE_DEBT);
+        assertEquals(0, UndoStateList.getSize(MODE_DEBT));
 
-        assertEquals(4,newTestList.size());
-        assertEquals("[owe] [tata] [$20.0] [food] [/due 01/01/2019] {Tag: }",debtTest1.getRecordDetail());
-        assertEquals("[borrow] [yuyu] [$40.0] [drink] [/due 02/01/2019] {Tag: }",debtTest2.getRecordDetail());
-        assertEquals("[owe] [mama] [$30.0] [bill] [/due 03/01/2019] {Tag: }",debtTest3.getRecordDetail());
-        assertEquals("[borrow] [baba] [$60.0] [dinner] [/due 04/01/2019] {Tag: }",debtTest4.getRecordDetail());
+        assert undoDebtState1 != null;
+        assert undoDebtState2 != null;
+        ArrayList<Record> undoDebtTestList1 = new ArrayList<>(undoDebtState1.getDebtState());
+        ArrayList<Record> undoDebtTestList2 = new ArrayList<>(undoDebtState2.getDebtState());
+        assertEquals(5,undoDebtTestList1.size()); //check if createDebtState2 pop first
+        assertEquals(4,undoDebtTestList2.size());
+
+        Record debtTest1 = undoDebtTestList1.get(0);
+        Record debtTest2 = undoDebtTestList1.get(1);
+        Record debtTest3 = undoDebtTestList1.get(2);
+        Record debtTest4 = undoDebtTestList1.get(3);
+        Record debtTest5 = undoDebtTestList1.get(4);
+
+        Record debtTest6 = undoDebtTestList2.get(0);
+        Record debtTest7 = undoDebtTestList2.get(1);
+        Record debtTest8 = undoDebtTestList2.get(2);
+        Record debtTest9 = undoDebtTestList2.get(3);
+
+        assertEquals(DEBT_TEST5, debtTest1.getRecordDetail());
+        assertEquals(DEBT_TEST6, debtTest2.getRecordDetail());
+        assertEquals(DEBT_TEST7, debtTest3.getRecordDetail());
+        assertEquals(DEBT_TEST8, debtTest4.getRecordDetail());
+        assertEquals(DEBT_TEST9, debtTest5.getRecordDetail());
+
+        assertEquals(DEBT_TEST1, debtTest6.getRecordDetail());
+        assertEquals(DEBT_TEST2, debtTest7.getRecordDetail());
+        assertEquals(DEBT_TEST3, debtTest8.getRecordDetail());
+        assertEquals(DEBT_TEST4, debtTest9.getRecordDetail());
+
+        testList1.clear();
+        testList2.clear();
+
+        //check for RedoStateList
+        RedoStateList.addState(createDebtState2(), MODE_DEBT);
+        RedoStateList.addState(createDebtState1(), MODE_DEBT);
+        assertEquals(2,RedoStateList.getSize(MODE_DEBT));
+
+        State redoDebtState1 = RedoStateList.getState(MODE_DEBT);
+        assertEquals(1,RedoStateList.getSize(MODE_DEBT));
+        State redoDebtState2 = RedoStateList.getState(MODE_DEBT);
+        assertEquals(0,RedoStateList.getSize(MODE_DEBT));
+
+        assert redoDebtState1 != null;
+        assert redoDebtState2 != null;
+        ArrayList<Record> redoDebtTestList1 = new ArrayList<>(redoDebtState1.getDebtState());
+        ArrayList<Record> redoDebtTestList2 = new ArrayList<>(redoDebtState2.getDebtState());
+        assertEquals(4,redoDebtTestList1.size()); //check if createDebtState1 pop first
+        assertEquals(5,redoDebtTestList2.size());
+
+        debtTest1 = redoDebtTestList1.get(0);
+        debtTest2 = redoDebtTestList1.get(1);
+        debtTest3 = redoDebtTestList1.get(2);
+        debtTest4 = redoDebtTestList1.get(3);
+
+        debtTest5 = redoDebtTestList2.get(0);
+        debtTest6 = redoDebtTestList2.get(1);
+        debtTest7 = redoDebtTestList2.get(2);
+        debtTest8 = redoDebtTestList2.get(3);
+        debtTest9 = redoDebtTestList2.get(4);
+
+        assertEquals(DEBT_TEST1,debtTest1.getRecordDetail());
+        assertEquals(DEBT_TEST2,debtTest2.getRecordDetail());
+        assertEquals(DEBT_TEST3,debtTest3.getRecordDetail());
+        assertEquals(DEBT_TEST4,debtTest4.getRecordDetail());
+
+        assertEquals(DEBT_TEST5, debtTest5.getRecordDetail());
+        assertEquals(DEBT_TEST6, debtTest6.getRecordDetail());
+        assertEquals(DEBT_TEST7, debtTest7.getRecordDetail());
+        assertEquals(DEBT_TEST8, debtTest8.getRecordDetail());
+        assertEquals(DEBT_TEST9, debtTest9.getRecordDetail());
+
+        //check for redo clear
+        RedoStateList.addState(createDebtState2(), MODE_DEBT);
+        RedoStateList.addState(createDebtState1(), MODE_DEBT);
+        assertEquals(2,RedoStateList.getSize(MODE_DEBT));
+        RedoStateList.clear(MODE_DEBT);
+        assertEquals(0,RedoStateList.getSize(MODE_DEBT));
+
+        testList1.clear();
+        testList2.clear();
     }
 
 
