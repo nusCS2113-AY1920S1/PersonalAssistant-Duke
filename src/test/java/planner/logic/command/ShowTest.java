@@ -22,6 +22,7 @@ public class ShowTest extends InputTest {
         provideInput(test + bye);
         final String[] hold = {"a"};
         CliLauncher.main(hold);
-        assertEquals(outContent, outContent);
+        String expected = outContent.toString().replaceAll("\r", "");
+        assertEquals(expected, expected);
     }
 }

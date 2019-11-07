@@ -3,7 +3,10 @@ package planner.main;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Timer;
 
 import planner.credential.CredentialManager;
 import planner.logic.command.EndCommand;
@@ -34,6 +37,7 @@ public class CliLauncher {
     private HashMap<String, ModuleInfoDetailed> modDetailedMap;
     private CredentialManager credential;
     private transient ByteArrayOutputStream output;
+    public static List<Timer> timerPool = new ArrayList<>();
 
 
     /**

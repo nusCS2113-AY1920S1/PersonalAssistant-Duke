@@ -73,4 +73,8 @@ public class Task {
     public String getName() {
         return this.task;
     }
+
+    public String getTaskToLowerCase() {
+        return this.task.toLowerCase();
+    }
 }
