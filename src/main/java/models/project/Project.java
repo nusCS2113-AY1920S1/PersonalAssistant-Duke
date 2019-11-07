@@ -154,7 +154,7 @@ public class Project implements IProject {
             for (int i = 0; i < percentDone; i++) {
                 progress += "#";
             }
-            for (int i = progress.length(); i < scale; i++) {
+            for (int i = percentDone; i < scale; i++) {
                 progress += ".";
             }
             allMemberCredits.add(count + ". " + member.getName() + ": " + doneCredits + " credits");
