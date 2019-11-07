@@ -631,15 +631,6 @@ public class Ui {
     }
 
     /**
-     * Prints message if there are no Tasks scheduled on a date.
-     *
-     * @param date Date where no task has been scheduled.
-     */
-    public void printNoTaskScheduled(String date) {
-        System.out.println("There are no Tasks scheduled on " + date + ".");
-    }
-
-    /**
      * Print when Start Tracker Command is completed.
      *
      * @param tracker  description of Tracker object.
