@@ -26,7 +26,7 @@ public class SearchSpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
-        assert (core.queuedCommand != null);
+        assert (core.queuedCmd != null);
         SearchResults results;
         int idx;
         try {
@@ -41,8 +41,6 @@ public class SearchSpec extends ArgSpec {
         }
 
         DukeObject result = results.getResult(idx);
-        core.queuedCommand.execute(core, result);
-        // TODO: send the DukeObject back to the caller
-
+        core.executeQueuedCmd(result);
     }
 }

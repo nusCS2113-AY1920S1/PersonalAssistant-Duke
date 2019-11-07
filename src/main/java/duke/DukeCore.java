@@ -1,12 +1,15 @@
 package duke;
 
 import duke.command.ObjCommand;
+import duke.data.DukeObject;
 import duke.data.GsonStorage;
 import duke.data.PatientList;
+import duke.data.SearchResults;
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
 import duke.ui.Ui;
 import duke.ui.UiManager;
+import duke.ui.context.Context;
 import duke.ui.context.UiContext;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -25,7 +28,7 @@ public class DukeCore extends Application {
     public UiContext uiContext;
     public GsonStorage storage;
     public PatientList patientList;
-    public ObjCommand queuedCommand;
+    public ObjCommand queuedCmd;
 
     /**
      * Constructs a DukeCore object with the specified stdtestout.
@@ -43,21 +46,32 @@ public class DukeCore extends Application {
     }
 
     /**
-     * Writes JSON file using patientList HashMap.
-     *
-     * @throws DukeFatalException If the file writer cannot be setup.
-     */
-    public void writeJsonFile() throws DukeFatalException {
-        storage.writeJsonFile(patientList.getPatientList());
-    }
-
-    /**
      * Displays a set of search results, while storing a ObjCommand object (the one that calls the search), so that
      * it can resume execution after receiving the search results.
      *
      * @throws DukeFatalException If the file writer cannot be setup.
      */
-    public void search() throws DukeFatalException {
+    public void search(SearchResults results, ObjCommand objCmd) throws DukeException {
+        queuedCmd = objCmd;
+        uiContext.setContext(Context.SEARCH, results);
+    }
+
+    /**
+     * Executes the queued ObjCommand with the object found from search.
+     *
+     * @throws DukeFatalException If the file writer cannot be setup.
+     */
+    public void executeQueuedCmd(DukeObject obj) throws DukeException {
+        uiContext.moveBackOneContext();
+        queuedCmd.execute(this, obj);
+    }
+
+    /**
+     * Writes JSON file using patientList HashMap.
+     *
+     * @throws DukeFatalException If the file writer cannot be setup.
+     */
+    public void writeJsonFile() throws DukeFatalException {
         storage.writeJsonFile(patientList.getPatientList());
     }
 
