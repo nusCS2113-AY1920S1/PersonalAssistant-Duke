@@ -13,6 +13,11 @@ repositories {
     mavenCentral()
 }
 
+javafx {
+    version = "11.0.2"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
 dependencies  {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
     implementation 'com.google.code.gson:gson:2.8.6'
@@ -42,7 +47,3 @@ test {
     useJUnitPlatform()
 }
 
-javafx {
-    version = "11.0.2"
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
-}
