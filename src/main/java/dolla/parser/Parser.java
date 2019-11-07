@@ -282,7 +282,8 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * by valid data relevant to the component.
      */
     private boolean findComponents() {
-        boolean hasComponents = false;
+        boolean hasComponents;
+        hasComponents = false;
         for (int i = 0; i < inputArray.length; i += 1) {
             String currStr = inputArray[i];
 
@@ -348,6 +349,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                 } else {
                     throw new DollaException("invalid duration");
                 }
+                break;
             default:
                 break;
             }
@@ -356,7 +358,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         }
     }
 
-     /**
+    /**
      * Checks if the string from input (currStr) represents a component of entry. If so, verify and assign
      * the components of entry with the new data (nextStr).
      * @param currStr to be checked if it's a component (ie. /type).
