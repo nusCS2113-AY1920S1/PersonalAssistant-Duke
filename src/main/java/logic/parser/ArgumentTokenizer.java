@@ -23,7 +23,7 @@ public class ArgumentTokenizer {
     /**
      * add javadocs
      */
-    public static ArrayList<Integer> getSortedBreakpoints(String userInput) {
+    private static ArrayList<Integer> getSortedBreakpoints(String userInput) {
         ArrayList<Integer> breakpoints = new ArrayList<>();
         for (int i = 0; i < TOKENS.length; i++) {
             if (userInput.contains(TOKENS[i])) {
@@ -42,7 +42,7 @@ public class ArgumentTokenizer {
     /**
      * add javadocs
      */
-    public static String[] breakByBreakpoints(String s, ArrayList<Integer> breakpoints) {
+    private static String[] breakByBreakpoints(String s, ArrayList<Integer> breakpoints) {
         if (breakpoints.size() == 0) {
             return new String[]{s};
         }
@@ -58,7 +58,7 @@ public class ArgumentTokenizer {
     /**
      * add javadocs
      */
-    public static HashMap<String, String> getMultimap(String[] argumentStrings) throws DukeException {
+    private static HashMap<String, String> getMultimap(String[] argumentStrings) throws DukeException {
         HashMap<String, String> arguments = new HashMap<>();
         for (int i = 0; i < argumentStrings.length; i++) {
             boolean found = false;

@@ -123,7 +123,7 @@ public class Window {
         panel2.setLayout(null);
         panel2.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
         panel2.setBackground(Color.WHITE);
-        panel2.setBounds(106, 234, 197, 40);
+        panel2.setBounds(97, 234, 215, 40);
         frame.getContentPane().add(panel2);
 
         completedPercField = new JTextField();
@@ -132,7 +132,7 @@ public class Window {
         completedPercField.setFont(new Font("Constantia", Font.PLAIN, 15));
         completedPercField.setColumns(10);
         completedPercField.setBorder(BorderFactory.createEmptyBorder());
-        completedPercField.setBounds(10, 10, 177, 19);
+        completedPercField.setBounds(10, 10, 195, 19);
         panel2.add(completedPercField);
 
         JPanel piePanel = new JPanel();
@@ -250,7 +250,7 @@ public class Window {
             output += (i + 1) + ". " + tasks.get(i) + '\n';
             //================ For displaying skill requirement list ==============================
             ArrayList<String> skillList = tasks.get(i).getSkillReqList();
-            if (skillList.size() != 0) {
+            if (skillList != null && skillList.size() != 0) {
                 output += "     required Skill List: \n";
             }
             for (int k = 0; k < skillList.size(); k += 1) {
@@ -292,7 +292,7 @@ public class Window {
 
             //================ For displaying skill requirement list ==============================
             ArrayList<String> skillList = members.get(i).getSkillList();
-            if (skillList.size() != 0) {
+            if (skillList != null && skillList.size() != 0) {
                 output += "     Skills: \n";
             }
             for (int k = 0; k < skillList.size(); k += 1) {
