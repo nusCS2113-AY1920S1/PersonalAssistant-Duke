@@ -1,5 +1,6 @@
 package duke.models;
 
+import duke.data.ScheduleStorage;
 import duke.data.Storage;
 import duke.view.CliViewSchedule;
 
@@ -11,15 +12,18 @@ import java.util.Calendar;
 import java.util.Date;
 
 //@@author Sfloydzy
+
 /**
  * Class manages the timetable for the user.
  */
-public class Schedule extends CliViewSchedule {
+public class Schedule {
 
     /**
      * List that needs to be removed.
      */
-    ArrayList<TimeSlot> list;
+    private ArrayList<TimeSlot> list = new ArrayList<>();
+
+    private CliViewSchedule cliViewSchedule = new CliViewSchedule();
 
     /**
      * Function gets the month of the current year.
@@ -37,8 +41,11 @@ public class Schedule extends CliViewSchedule {
         DateFormat df = new SimpleDateFormat("MMM");
         String date = df.format(cal.getTime());
         int year = cal.get(Calendar.YEAR);
-        printMonthHeader(date, year);
-        printMonth(numDays, cal.get(Calendar.DAY_OF_MONTH));
+
+        //display the month selected
+        cliViewSchedule.printMonthHeader(date, year);
+        cliViewSchedule.printMonth(numDays, cal.get(Calendar.DAY_OF_MONTH));
+
     }
 
     /**
@@ -72,37 +79,39 @@ public class Schedule extends CliViewSchedule {
      * @return String of every hour from 8am inside the day.
      * @throws ParseException if dayOfClass is in wrong format
      */
-    public String getDay(final String dayOfClass) throws ParseException {
-        try {
-            final int numberOfHoursInADay = 24;
-            final int tempInt = 10;
-            String message = "";
-            //            for (int i = 0; i <= numberOfHoursInADay; i++) {
-            //                String time = (i < tempInt) ? "0" + i + "00" : i + "00";
-            //                SimpleDateFormat simpleDateFormat =
-            //                    new SimpleDateFormat("dd/MM/yyyy HHmm");
-            //                Date now = simpleDateFormat.parse(dayOfClass + " " + time);
-            //                DateFormat df = new SimpleDateFormat("HH:mm");
-            //                boolean isAssignedClass = false;
-            //                for (TimeSlot t : this.list) {
-            //                    if (now.equals(t.getStartTime())) {
-            //                        isAssignedClass = true;
-            //                        message += df.format(now)
-            //                            + " " + t.getClassName() + " from "
-            //                            + df.format(t.getStartTime())
-            //                            + " to " + df.format(t.getEndTime()) + " at "
-            //                            + t.getLocation() + "\n";
-            //                    }
-            //                }
-            //                if (!isAssignedClass) {
-            //                    message += df.format(now) + "\n";
-            //                }
-            //            }
-            //            message += "--------------------------";
-            return message;
-        } catch (NullPointerException e) {
-            return "empty";
+    public String getDay(final int dayOfClass, final int monthOfClass) throws ParseException {
+
+        final int numberOfHoursInADay = 24;
+        final int tempInt = 10;
+        String selectedDate = dayOfClass + "/" + monthOfClass;
+        String message = "";
+        for (int i = 0; i <= numberOfHoursInADay; i++) {
+            String time = (i < tempInt) ? "0" + i + "00" : i + "00";
+            SimpleDateFormat simpleDateFormat =
+                new SimpleDateFormat("dd/MM HHmm");
+            Date now = simpleDateFormat.parse(selectedDate + " " + time);
+            DateFormat df = new SimpleDateFormat("HH:mm");
+            boolean isAssignedClass = false;
+            try {
+                for (TimeSlot t : this.list) {
+                    if (now.equals(t.getStartTime())) {
+                        isAssignedClass = true;
+                        message += df.format(now)
+                            + " " + t.getClassName() + " from "
+                            + df.format(t.getStartTime())
+                            + " to " + df.format(t.getEndTime()) + " at "
+                            + t.getLocation() + "\n";
+                    }
+                }
+            } catch (NullPointerException e) {
+                cliViewSchedule.errMessage("Error with the loaded schedule");
+            }
+            if (!isAssignedClass) {
+                message += df.format(now) + "\n";
+            }
         }
+        message += "--------------------------";
+        return message;
     }
 
     /**
@@ -170,7 +179,7 @@ public class Schedule extends CliViewSchedule {
      */
     public String delClass(final String startTime,
                            final String name,
-                           final Storage scheduleStorage)
+                           final ScheduleStorage scheduleStorage)
         throws ParseException {
         SimpleDateFormat simpleDateFormat =
             new SimpleDateFormat("dd/MM/yyyy HHmm");
@@ -183,7 +192,7 @@ public class Schedule extends CliViewSchedule {
             if (i.getClassName().equals(name)
                 && i.getStartTime().equals(start)) {
                 this.list.remove(index);
-                scheduleStorage.updateSchedule(this.list);
+                //                scheduleStorage.updateSchedule(this.list);
                 return "Class removed";
             }
             ++index;

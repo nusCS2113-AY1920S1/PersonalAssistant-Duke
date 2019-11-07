@@ -1,14 +1,18 @@
 package duke.parser;
 
+import duke.data.ScheduleStorage;
+import duke.exceptions.DukeException;
 import duke.view.CliView;
 import duke.data.Storage;
 import duke.models.Schedule;
+import duke.view.CliViewSchedule;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import duke.util.ApacheLogger;
 
 //@@author Sfloydzy
 public class ParserSchedule {
@@ -32,7 +36,7 @@ public class ParserSchedule {
     /**
      * The ui object responsible for showing things to the user.
      */
-    private CliView cliView;
+    private CliViewSchedule cliView;
     /**
      * The schedule object.
      */
@@ -41,10 +45,8 @@ public class ParserSchedule {
      * The scanner object responsible for taking in user input.
      */
     private Scanner sc;
-    /**
-     * The storage object for Schedule.
-     */
-    private Storage scheduleStorage;
+
+    private ScheduleStorage scheduleStorage;
 
     /**
      * Constructor for ParserSchedule.
@@ -52,8 +54,8 @@ public class ParserSchedule {
      * @throws FileNotFoundException if file does not exist
      * @throws ParseException        if user input is not in the correct format
      */
-    public ParserSchedule() throws FileNotFoundException, ParseException {
-        cliView = new CliView();
+    public ParserSchedule() {
+        cliView = new CliViewSchedule();
         sc = new Scanner(System.in);
         schedule = new Schedule();
     }
@@ -76,57 +78,57 @@ public class ParserSchedule {
             cliView.showEmptyList();
         }
         while (isRunning) {
-            try {
-                cliView.showScheduleAllActions(scheduleDate);
-                int executeType = sc.nextInt();
-                sc.nextLine();  // This line you have
-                // to add (It consumes the \n character)
-                switch (executeType) {
-                case 1:
-                    System.out.println(schedule.getDay(scheduleDate));
-                    break;
-
-                case 2:
-                    cliView.showPromptStartTime();
-                    cliView.showPromptEndTime();
-                    cliView.showPromptClassLocation();
-                    String className = sc.nextLine();
-                    String startTime = sc.nextLine();
-                    String endTime = sc.nextLine();
-                    String location = sc.nextLine();
-                    cliView.showPromptClassName();
-                    System.out.println(schedule.addClass(startTime,
-                        endTime, location,
-                        className, scheduleStorage));
-                    break;
-
-                case indexThree:
-                    cliView.showPromptStartTime();
-                    String delstartTime = sc.nextLine();
-                    cliView.showPromptClassName();
-                    String delclassName = sc.nextLine();
-                    System.out.println(
-                        schedule.delClass(
-                            delstartTime, delclassName, scheduleStorage));
-                    break;
-
-                case indexFour:
-                    System.out.println(
-                        schedule.delAllClass(scheduleDate, scheduleStorage));
-                    break;
-
-                case indexFive:
-                    isRunning = false;
-                    cliView.showQuitClass();
-                    break;
-                default:
-                    cliView.showDontKnow();
-                }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                cliView.showFullCommand();
-            } catch (ParseException e) {
-                cliView.showCorrectFormat();
-            }
+            //            try {
+            //                cliView.showScheduleAllActions(scheduleDate);
+            //                int executeType = sc.nextInt();
+            //                sc.nextLine();  // This line you have
+            //                // to add (It consumes the \n character)
+            //                switch (executeType) {
+            //                case 1:
+            //                    System.out.println(schedule.getDay(scheduleDate));
+            //                    break;
+            //
+            //                case 2:
+            //                    cliView.showPromptStartTime();
+            //                    cliView.showPromptEndTime();
+            //                    cliView.showPromptClassLocation();
+            //                    String className = sc.nextLine();
+            //                    String startTime = sc.nextLine();
+            //                    String endTime = sc.nextLine();
+            //                    String location = sc.nextLine();
+            //                    cliView.showPromptClassName();
+            //                    System.out.println(schedule.addClass(startTime,
+            //                        endTime, location,
+            //                        className, scheduleStorage));
+            //                    break;
+            //
+            //                case indexThree:
+            //                    cliView.showPromptStartTime();
+            //                    String delstartTime = sc.nextLine();
+            //                    cliView.showPromptClassName();
+            //                    String delclassName = sc.nextLine();
+            //                    System.out.println(
+            //                        schedule.delClass(
+            //                            delstartTime, delclassName, scheduleStorage));
+            //                    break;
+            //
+            //                case indexFour:
+            //                    System.out.println(
+            //                        schedule.delAllClass(scheduleDate, scheduleStorage));
+            //                    break;
+            //
+            //                case indexFive:
+            //                    isRunning = false;
+            //                    cliView.showQuitClass();
+            //                    break;
+            //                default:
+            //                    cliView.showDontKnow();
+            //                }
+            //            } catch (ArrayIndexOutOfBoundsException e) {
+            //                cliView.showFullCommand();
+            //            } catch (ParseException e) {
+            //                cliView.showCorrectFormat();
+            //            }
         }
     }
 
@@ -135,6 +137,7 @@ public class ParserSchedule {
      */
     public void weeklySchedule() {
         System.out.println(schedule.getWeek());
+
     }
 
     /**
@@ -143,20 +146,27 @@ public class ParserSchedule {
     public void monthlySchedule() {
         boolean runMonth = true;
         while (runMonth) {
-            cliView.bufferLine();
-            cliView.message("Please enter a valid month: 1 - 12");
-            cliView.message("Go back: 13");
-            cliView.bufferLine();
-            int inputMonth = sc.nextInt();
-            if (inputMonth == 13) {
-                runMonth = false;
-                cliView.bufferLine();
-            } else if (inputMonth > 12 || inputMonth < 0) {
-                cliView.message("Invalid date");
-            } else {
-                cliView.bufferLine();
-                schedule.getMonth(inputMonth - 1);
-                cliView.bufferLine();
+            try {
+                cliView.printMonthMenu();
+                int month = sc.nextInt();
+                if (month == 13) {
+                    runMonth = false;
+                    cliView.bufferLine();
+                } else if (month > 12 || month < 0) {
+                    cliView.message("Invalid date");
+                } else {
+                    cliView.bufferLine();
+                    schedule.getMonth(month - 1);
+                    cliView.bufferLine();
+                    cliView.message("Enter the date of the day you want to plan!");
+                    int day = sc.nextInt();
+                    String timeTable = schedule.getDay(day, month);
+                    cliView.message(timeTable);
+                }
+
+            } catch (ParseException e) {
+                cliView.errMessage("Please enter a valid day");
+                ApacheLogger.logError("ParserSchedule", "Invalid date");
             }
         }
     }

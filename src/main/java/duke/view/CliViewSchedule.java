@@ -1,11 +1,10 @@
 package duke.view;
 
-import java.util.Calendar;
 
 /**
  * Class handles the Schedule specific print commands.
  */
-public class CliViewSchedule {
+public class CliViewSchedule extends CliView {
 
     /**
      * Will print out a formatted calender.
@@ -13,8 +12,8 @@ public class CliViewSchedule {
      * @param numberOfDays days in the month
      * @param startDay     beginning day in the month
      */
-    protected void printMonth(final int numberOfDays,
-                              final int startDay) {
+    public void printMonth(final int numberOfDays,
+                           final int startDay) {
         final int numberOfDaysInAWeek = 7;
         int weekdayIndex = 0;
         System.out.println("Su  Mo  Tu  We  Th  Fr  Sa");
@@ -43,7 +42,19 @@ public class CliViewSchedule {
      * @param date The month and day
      * @param year The year to be printed
      */
-    protected void printMonthHeader(String date, int year) {
+    public void printMonthHeader(String date, int year) {
         System.out.println(date + " " + year);
     }
+
+    /**
+     * Prints out the menu for the month.
+     */
+    public void printMonthMenu() {
+        bufferLine();
+        message("Please enter a valid month: 1 - 12");
+        message("Go back: 13");
+        bufferLine();
+    }
+
+
 }
