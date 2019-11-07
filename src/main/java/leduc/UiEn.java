@@ -111,15 +111,23 @@ public class UiEn extends Ui {
         super.display(message);
     }
     @Override
-    public void showPriorityStats(int numFivePrio, int numFourPrio, int numThreePrio, int numTwoPrio, int numOnePrio, double percentFivePrio, double percentFourPrio, double percentThreePrio, double percentTwoPrio, double percentOnePrio){
+    public void showPriorityStats(int numNinePrio, int numEightPrio, int numSevenPrio, int numSixPrio, int numFivePrio, int numFourPrio, int numThreePrio, int numTwoPrio, int numOnePrio, double percentNinePrio, double percentEightPrio,double percentSevenPrio, double percentSixPrio, double percentFivePrio, double percentFourPrio, double percentThreePrio, double percentTwoPrio, double percentOnePrio){
         String message = "Here are some priority statistics about your task list: \n" +
                 "----PRIORITY COUNTS----" + "\n" +
+                "Number of tasks with priority 9: " + numNinePrio + "\n" +
+                "Number of tasks with priority 8: " + numEightPrio + "\n" +
+                "Number of tasks with priority 7: " + numSevenPrio + "\n" +
+                "Number of tasks with priority 6: " + numSixPrio + "\n" +
                 "Number of tasks with priority 5: " + numFivePrio + "\n" +
                 "Number of tasks with priority 4: " + numFourPrio + "\n" +
                 "Number of tasks with priority 3: " + numThreePrio + "\n" +
                 "Number of tasks with priority 2: " + numTwoPrio + "\n" +
                 "Number of tasks with priority 1: " + numOnePrio + "\n" +
                 "----PRIORITY PERCENTAGES----" + "\n" +
+                "Percent of tasks with priority 9: " + percentNinePrio + "%" + "\n" +
+                "Percent of tasks with priority 8: " + percentEightPrio + "%" + "\n" +
+                "Percent of tasks with priority 7: " + percentSevenPrio + "%" + "\n" +
+                "Percent of tasks with priority 6: " + percentSixPrio + "%" + "\n" +
                 "Percent of tasks with priority 5: " + percentFivePrio + "%" + "\n" +
                 "Percent of tasks with priority 4: " + percentFourPrio + "%" + "\n" +
                 "Percent of tasks with priority 3: " + percentThreePrio + "%" + "\n" +

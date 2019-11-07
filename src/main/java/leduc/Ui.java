@@ -186,21 +186,26 @@ public abstract class Ui {
 
     /**
      * Dispplays priority statistics
+     * @param numNinePrio = number of 9 priority tasks
+     * @param numEightPrio = number of 8 priority tasks
+     * @param numSevenPrio = number of 7 priority tasks
+     * @param numSixPrio = number of 6 priority tasks
      * @param numFivePrio = number of 5 priority tasks
      * @param numFourPrio = number of 4 priority tasks
      * @param numThreePrio = number of 3 priority tasks
      * @param numTwoPrio = number of 2 priority tasks
      * @param numOnePrio = number of 1 priority tasks
+     * @param percentNinePrio = % of 9 priority tasks
+     * @param percentEightPrio = % of 8 priority tasks
+     * @param percentSevenPrio = % of 7 priority tasks
+     * @param percentSixPrio = % of 6 priority tasks
      * @param percentFivePrio = % of 5 priority tasks
      * @param percentFourPrio = % of 4 priority tasks
      * @param percentThreePrio = % of 3 priority tasks
      * @param percentTwoPrio = % of 2 priority tasks
      * @param percentOnePrio = % of 1 priority tasks
      */
-    public abstract void showPriorityStats(int numFivePrio, int numFourPrio,
-                                           int numThreePrio, int numTwoPrio, int numOnePrio, double percentFivePrio,
-                                           double percentFourPrio, double percentThreePrio, double percentTwoPrio,
-                                           double percentOnePrio);
+    public abstract void showPriorityStats(int numNinePrio, int numEightPrio, int numSevenPrio, int numSixPrio, int numFivePrio, int numFourPrio, int numThreePrio, int numTwoPrio, int numOnePrio, double percentNinePrio, double percentEightPrio,double percentSevenPrio, double percentSixPrio, double percentFivePrio, double percentFourPrio, double percentThreePrio, double percentTwoPrio, double percentOnePrio);
 
     /**
      * Displays completion statistics
