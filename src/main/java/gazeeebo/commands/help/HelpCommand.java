@@ -10,20 +10,21 @@ import gazeeebo.exception.DukeException;
 import gazeeebo.commands.Command;
 import gazeeebo.help.HelpText;
 
+import java.awt.*;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
 public class HelpCommand extends Command {
 
-    private static final String TASKS_PAGE = "tasks page";
-    private static final String TASKS_TODO = "tasks todo";
-    private static final String TASKS_DEADLINE = "tasks deadline";
-    private static final String TASKS_EVENT = "tasks event";
-    private static final String TASKS_LIST = "tasks list";
-    private static final String TASKS_DELETE = "tasks delete";
-    private static final String TASKS_DONE = "tasks done";
+    //private static final String TASKS_PAGE = "tasks page";
+    private static final String TASKS = "tasks";
+    private static final String PLACES = "places";
+    private static final String NOTES = "notes";
+    private static final String MODULE = "module";
+    private static final String CONTACTS = "contacts";
+    private static final String CAP = "cap";
+    private static final String EXPENSES = "expenses";
 
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, IOException, NullPointerException {
@@ -34,51 +35,30 @@ public class HelpCommand extends Command {
         String[] command = ui.fullCommand.split(" ", 2);
         assert command.length != 0 : "Bug in parser that affects HelpCommand";
         if (command.length == 1) {
-            description = HelpText.commandFormat + System.lineSeparator() + System.lineSeparator() +
-                    HelpText.commandsHeader + HelpText.pageSeparator +
-                    HelpText.tasksPageHeader + HelpText.commandSeparator +
-                    HelpText.todo + HelpText.commandSeparator +
-                    HelpText.deadline + HelpText.commandSeparator +
-                    HelpText.event + HelpText.commandSeparator +
-                    HelpText.list + HelpText.commandSeparator +
-                    HelpText.delete + HelpText.commandSeparator +
-                    HelpText.done + HelpText.commandSeparator +
-                    HelpText.tasksFind + HelpText.commandSeparator +
-                    HelpText.scheduleDaily + HelpText.commandSeparator +
-                    HelpText.scheduleWeekly + HelpText.commandSeparator +
-                    HelpText.scheduleMonthly + HelpText.commandSeparator +
-                    HelpText.doWithinPeriod + HelpText.commandSeparator +
-                    HelpText.addTentativeEvent + HelpText.commandSeparator +
-                    HelpText.confirmTentativeEvent + HelpText.commandSeparator +
-                    HelpText.tasksEdit + HelpText.commandSeparator +
-                    HelpText.fixedDurationTask + HelpText.commandSeparator +
-                    HelpText.categorizeTasks + HelpText.commandSeparator +
-                    HelpText.monthlyCalendarView + HelpText.commandSeparator +
-                    HelpText.annualCalendarView + HelpText.commandSeparator +
-                    HelpText.undone + HelpText.commandSeparator +
-                    HelpText.doneList + HelpText.commandSeparator +
-                    HelpText.doAfterTask + HelpText.commandSeparator +
-                    HelpText.snooze + HelpText.commandSeparator +
-                    HelpText.reschedule + HelpText.commandSeparator +
-                    HelpText.recurringTask + HelpText.commandSeparator +
-                    HelpText.undoneList + HelpText.commandSeparator +
-                    HelpText.tagging + HelpText.commandSeparator +
-                    HelpText.undoCommands + HelpText.commandSeparator;
+            description = HelpText.COMMAND_FORMAT + System.lineSeparator() + System.lineSeparator() +
+                    HelpText.COMMANDS_HEADER +
+                    HelpText.TASKS_PAGE +
+                    HelpText.PLACES_PAGE +
+                    HelpText.NOTES_PAGE +
+                    HelpText.MODULE_PAGE +
+                    HelpText.CONTACTS_PAGE +
+                    HelpText.CAP_PAGE +
+                    HelpText.EXPENSES_PAGE;
         } else {
             switch (command[1]) {
-            case TASKS_PAGE: description = help.tasksPageHeader;
+            case TASKS: description = HelpText.TASKS_PAGE;
                 break;
-            case TASKS_TODO: description = help.todo;
+            case PLACES: description = HelpText.PLACES_PAGE;
                 break;
-            case TASKS_DEADLINE: description = help.deadline;
+            case NOTES: description = HelpText.NOTES_PAGE;
                 break;
-            case TASKS_EVENT: description = help.event;
+            case MODULE: description = HelpText.MODULE_PAGE;
                 break;
-            case TASKS_LIST: description = help.list;
+            case CONTACTS: description = HelpText.CONTACTS_PAGE;
                 break;
-            case TASKS_DELETE: description = help.delete;
+            case CAP: description = HelpText.CAP_PAGE;
                 break;
-            case TASKS_DONE: description = help.done;
+            case EXPENSES: description = HelpText.EXPENSES_PAGE;
                 break;
             default:
                 description = "OOPS!!! There is no such command.";
