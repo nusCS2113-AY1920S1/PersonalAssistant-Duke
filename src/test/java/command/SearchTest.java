@@ -3,6 +3,7 @@ package command;
 import dictionary.Bank;
 import dictionary.Word;
 import dictionary.WordBank;
+import exception.NoWordFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
- *
+ *  Tests for search command.
  */
 
 public class SearchTest {
@@ -66,7 +67,7 @@ public class SearchTest {
     }
 
     /**
-     * test if search command is case insensitive
+     * test if search command is case insensitive.
      */
     @Test
     public void searchCaseInsensitiveTest() {
@@ -83,33 +84,34 @@ public class SearchTest {
     }
 
     /**
-     * test Oxford search with word in oxford dictionary
+     * test Oxford search with word in oxford dictionary.
      */
     @Test
     public void oxfordSearchPositiveTest() {
         try {
             String search = OxfordCall.onlineSearch("guava");
-            Assertions.assertEquals(search, "an edible, pale orange tropical fruit with pink juicy flesh and a strong sweet aroma.");
+            Assertions.assertEquals(search, "an edible, pale orange tropical fruit with pink juicy "
+                    + "flesh and a strong sweet aroma.");
         } catch (Exception e) {
             fail("oxfordSearchPositiveTest failed: " + e.getMessage());
         }
     }
 
     /**
-     * test Oxford search with word out of oxford dictionary
+     * test Oxford search with word out of oxford dictionary.
      */
     @Test
     public void oxfordSearchNegativeTest() {
         try {
-            String search = OxfordCall.onlineSearch("bananaa");
+            OxfordCall.onlineSearch("bananaa");
             fail("oxfordSearchNegativeTest failed.");
         } catch (Exception e) {
-
+            assert (e instanceof NoWordFoundException);
         }
     }
 
     /**
-     * test Oxford search with word in oxford dictionary
+     * test Oxford search with word in oxford dictionary.
      */
     @Test
     public void spellCheckingTest() {

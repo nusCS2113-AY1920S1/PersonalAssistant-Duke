@@ -118,7 +118,8 @@ public class CommandTest {
             ListCommand listCommand = new ListCommand("asc");
             String list = listCommand.execute(ui, bank, storage);
             Assertions.assertEquals(list,
-                    "Here are your words:\napple: red fruit\nbanana: yellow fruit\nkiwi: green fruit\norange: orange fruit\n");
+                    "Here are your words:\napple: red fruit\nbanana: yellow fruit\n"
+                            + "kiwi: green fruit\norange: orange fruit\n");
         } catch (Exception e) {
             fail("execute() in HistoryCommand failed: " + e.getMessage());
         }
