@@ -25,7 +25,7 @@ public class CLIView {
         ArchDukeLogger.logInfo(CLIView.class.getName(), "ArchDuke have started.");
         Scanner sc = new Scanner(System.in);
         boolean isDukeRunning = true;
-        consolePrint(HELLO_MESSAGE);
+        System.out.println(String.join("\n", HELLO_MESSAGE));
         while (isDukeRunning) {
             String commandInput = sc.nextLine();
             ArchDukeLogger.logInfo(CLIView.class.getName(), "User input: " + commandInput);
