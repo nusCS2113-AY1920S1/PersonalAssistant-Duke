@@ -10,6 +10,7 @@ import static dolla.parser.ParserStringList.LIMIT_TYPE_B;
 import static dolla.parser.ParserStringList.LIMIT_TYPE_S;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author Weng-Kexin
 public class LimitListTest {
 
     private Limit newBudget = createNewLimit(LIMIT_TYPE_B, 5, LIMIT_DURATION_D);
@@ -21,8 +22,8 @@ public class LimitListTest {
     }
 
     private ArrayList<Record> createNewLimitList() {
-        ArrayList<Record> LimitList = new ArrayList<Record>();
-        return LimitList;
+        ArrayList<Record> limitList = new ArrayList<Record>();
+        return limitList;
     }
 
     @Test
