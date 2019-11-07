@@ -215,7 +215,7 @@ public class Process {
                     fund.setFund(amount);
                     ui.printSetFundMessage(fund);
                 } else {
-                    ui.exceptionMessage("     ☹ OOPS!!! The fund is set already. "  
+                    ui.exceptionMessage("     ☹ OOPS!!! The fund is set already. "
                             + "Please use reset fund command instead.");
                 }
             }
