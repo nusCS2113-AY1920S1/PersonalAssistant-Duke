@@ -18,8 +18,8 @@ public class AddDepositCommand extends Command {
     private final double amount;
     private final Date date;
     private final String description;
-    private final String type = "bank";
-    private final String category = "deposit";
+    private final String BANK_TYPE = "bank";
+    private final String TRANSACTION_CATEGORY_DEPOSIT = "deposit";
 
     /**
      * Creates an instance of AddDepositCommand.
@@ -45,8 +45,9 @@ public class AddDepositCommand extends Command {
      * @throws BankException If bank account does not exist.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException {
-        Transaction newDeposit = new Deposit(this.description, this.amount, this.date, this.category);
-        profile.profileAddNewDeposit(accName, newDeposit, ui, this.type);
+        Transaction newDeposit = new Deposit(this.description, this.amount, this.date,
+                this.TRANSACTION_CATEGORY_DEPOSIT);
+        profile.profileAddNewDeposit(accName, newDeposit, ui, this.BANK_TYPE);
         return this.isExit;
     }
 }
