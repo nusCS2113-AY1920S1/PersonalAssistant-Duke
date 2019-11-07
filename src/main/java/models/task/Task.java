@@ -113,7 +113,8 @@ public class Task implements ITask {
      */
     public ArrayList<String> getTaskRequirements() {
         ArrayList<String> taskRequirements = new ArrayList<>();
-        taskRequirements.add("Here are the requirements needed to complete the task '" + this.taskName + "':");
+        taskRequirements.add(0, "Requirements for the task '"
+                + this.taskName + "':");
         int index = 1;
         for (String s : this.taskRequirements) {
             taskRequirements.add(index + ". " + s);
