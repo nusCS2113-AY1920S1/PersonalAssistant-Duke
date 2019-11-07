@@ -9,11 +9,13 @@ import cube.model.food.Food;
 import cube.model.food.FoodList;
 import cube.logic.command.exception.CommandException;
 import cube.logic.command.exception.CommandErrorMessage;
+import java.util.Date;
+import java.util.Calendar;
 
 public class CommandUtil {
 
 	/**
-	 * The class checks that a given food name is not in the food list.
+	 * Checks that a given food name is not in the food list.
 	 *
 	 * @param list The food list.
 	 * @param foodName The food name to check.
@@ -26,7 +28,7 @@ public class CommandUtil {
     }
 
     /**
-     * The class checks that a given food name is in the food list.
+     * Checks that a given food name is in the food list.
      *
      * @param list The food list.
      * @param foodName The food name to check.
@@ -39,7 +41,7 @@ public class CommandUtil {
     }
 
     /**
-     * The class checks that a given food tyep is in the food list.
+     * Checks that a given food type is in the food list.
      *
      * @param list The food list.
      * @param foodType The food type to check.
@@ -52,7 +54,7 @@ public class CommandUtil {
     }
 
     /**
-     * The class checks that a given index is valid.
+     * Checks that a given index is valid.
      *
      * @param list The food list.
      * @param index The food index to check.
@@ -65,16 +67,30 @@ public class CommandUtil {
     }
 
     /**
-     * The class checks that a given index is valid.
-     *
-     * @param list The food list.
-     * @param quantity The food quantity to check.
-     * @throws CommandException If the given index is invalid.
+     * Checks the quantity is valid.
+     * @param food The food to check agaisnt.
+     * @param quantity The quantity to check.
+     * @throws CommandException if quantity is not valid.
      */
     public static void requireValidQuantity(Food food, int quantity) throws CommandException {
     	if (quantity < 0 || quantity > food.getStock()) {
     		throw new CommandException(CommandErrorMessage.INVALID_QUANTITY_SOLD);
     	}
     }
-	
+
+    /**
+     * Checks that the expiry date is not before today.
+     * @param date The expiry date to check.
+     * @throws CommandException if expiry date is before today.
+     */
+    public static void requireValidExpiryDate(Date date) throws CommandException {
+        if (date == null) {
+            return;
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        if (cal.before(Calendar.getInstance())) {
+            throw new CommandException(CommandErrorMessage.INVALID_EXPIRY_DATE);
+        }
+    }
 }

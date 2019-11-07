@@ -101,22 +101,10 @@ public class Food {
 		return expiryDate;
 	}
 
-
 	/**
-	 * Updates the total revenue made from selling the product.
+	 * Getter for the total revenue earned from selling the food.
 	 *
-	 * @param newRevenue New total revenue made from selling the product.
-	 */
-	/*
-	public static void updateRevenue(double newRevenue) {
-			revenue = newRevenue;
-	}
-    */
-
-	/**
-	 * Generates the total revenue earned from selling the product.
-	 *
-	 * @return the total revenue earned from selling the product.
+	 * @return the total revenue earned from selling the food.
 	 */
 	public static double getRevenue() {
 		FoodList list = ModelManager.getFoodList();
@@ -128,19 +116,28 @@ public class Food {
 		return revenue;
 	}
 
+	/**
+	 * Getter for the revenue of a food.
+	 *
+	 * @return the revenue of a food.
+	 */
 	public double getFoodRevenue() {
 		return foodRevenue;
 	}
 
+	/**
+	 *
+	 * @param revenue
+	 */
 	public void setFoodRevenue(double revenue) {
 		this.foodRevenue = revenue;
 	}
 
 
 	/**
-	 * Updates the quantity of the product available in stock.
+	 * Setter for the quantity of the food available in stock.
 	 *
-	 * @param newStock New quantity of product available.
+	 * @param newStock The new quantity of the food available to be set.
 	 */
 	public void setStock(int newStock) {
 		stock = newStock;

@@ -8,6 +8,7 @@ package cube.storage;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import cube.model.food.FoodList;
+import cube.model.promotion.PromotionList;
 import cube.model.sale.SalesHistory;
 
 public class StorageManager {
@@ -19,6 +20,8 @@ public class StorageManager {
 	private ConfigStorage configStorage;
 	@JsonProperty
 	private SaleStorage saleStorage;
+	@JsonProperty
+	private PromotionStorage promotionStorage;
 
 	/**
 	 * Default constructor.
@@ -29,16 +32,18 @@ public class StorageManager {
 		this.revenueStorage = new RevenueStorage();
 		this.configStorage = new ConfigStorage();
 		this.saleStorage = new SaleStorage();
+		this.promotionStorage = new PromotionStorage();
 	}
 
 	/**
-	 * Constructor with 2 arguments.
+	 * Constructor with multiple arguments.
 	 * Creates a new instance of Food & Revenue Storage Classes.
 	 */
-	public StorageManager(FoodStorage foodStorage, RevenueStorage revenueStorage, SaleStorage saleStorage, ConfigStorage configStorage) {
+	public StorageManager(FoodStorage foodStorage, RevenueStorage revenueStorage, SaleStorage saleStorage, PromotionStorage promotionStorage, ConfigStorage configStorage) {
 		this.foodStorage = foodStorage;
 		this.revenueStorage = revenueStorage;
 		this.saleStorage = saleStorage;
+		this.promotionStorage = promotionStorage;
 		this.configStorage = configStorage;
 	}
 
@@ -91,6 +96,23 @@ public class StorageManager {
 	 */
 	public void storeSalesHistory(SalesHistory salesHistory) {
 		saleStorage.storeSalesHistory(salesHistory);
+	}
+
+	/**
+	 * Retrieves the past sales histories stored in SaleStorage.
+	 * @return SalesHistory object containing past sale histories stored in SaleStroage.
+	 */
+	@JsonIgnore
+	public PromotionList getPromotionList() {
+		return promotionStorage.getPromotionList();
+	}
+
+	/**
+	 * Stores the SalesHistory object into SaleStorage.
+	 * @param promotionList SalesHistory object to be stored in the SaleStorage.
+	 */
+	public void storePromotionList(PromotionList promotionList) {
+		promotionStorage.storePromotionList(promotionList);
 	}
 
 	/**

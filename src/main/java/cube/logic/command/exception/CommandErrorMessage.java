@@ -11,4 +11,6 @@ public class CommandErrorMessage {
 			= "OOPS!!! The index is out of the range of food list";
 	public static final String INVALID_TYPE
 			= "OOPS!!! The food type does not exist";
+	public static final String INVALID_EXPIRY_DATE
+			= "OOPS!!! The food expiry date cannot be before today";
 }
