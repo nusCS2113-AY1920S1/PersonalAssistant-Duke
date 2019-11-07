@@ -36,7 +36,7 @@ public class CommandTest {
      */
     @BeforeEach
     public void createWordUpTestFile() throws FileNotFoundException, UnsupportedEncodingException {
-        filename = "C:\\Users\\zyueh\\Documents\\Y2S2_CS2113\\main\\data\\WordUpTest.txt";
+        filename = "data\\WordUpTest.txt";
         PrintWriter writer = new PrintWriter(filename, "UTF-8");
         writer.println("apple: red fruit");
         writer.println("orange: orange fruit");
@@ -58,7 +58,7 @@ public class CommandTest {
             Word word = new Word("hello", "greeting word");
             AddCommand addCommand = new AddCommand(word);
             String add = addCommand.execute(ui, bank, storage);
-            assertNotEquals(add, "Got it. I've added this word:\n" + "hello: greeting word\n");
+            Assertions.assertEquals(add, "Got it. I've added this word:\n" + "hello: greeting word");
         } catch (Exception e) {
             fail("execute() in AddCommand failed: " + e.getMessage());
         }
@@ -72,7 +72,7 @@ public class CommandTest {
         try {
             DeleteCommand deleteCommand = new DeleteCommand("orange");
             String delete = deleteCommand.execute(ui, bank, storage);
-            assertNotEquals(delete, "Noted. I've removed this word:\n" + "orange: orange fruit\n");
+            Assertions.assertEquals(delete, "Noted. I've removed this word:\n" + "orange: orange fruit");
 
         } catch (Exception e) {
             fail("execute() in DeleteCommand failed: " + e.getMessage());
@@ -87,7 +87,7 @@ public class CommandTest {
         try {
             EditCommand editCommand = new EditCommand("kiwi", "a kind of bird");
             String edit = editCommand.execute(ui, bank, storage);
-            assertNotEquals(edit, "Got it. I've edited this word:\n" + "kiwi: a kind of bird\n");
+            Assertions.assertEquals(edit, "Got it. I've edited this word:\n" + "kiwi: a kind of bird");
         } catch (Exception e) {
             fail("execute() in EditCommand failed: " + e.getMessage());
         }
@@ -101,8 +101,9 @@ public class CommandTest {
         try {
             HistoryCommand historyCommand = new HistoryCommand(2);
             String history = historyCommand.execute(ui, bank, storage);
-            assertNotEquals(history,
-                    "Here are the last 2 words you have added:\nkiwi: green fruit\nbanana: yellow fruit");
+            System.out.println(history);
+            Assertions.assertEquals(history,
+                    "Here are the last 2 words you have added:\nkiwi: green fruit\nbanana: yellow fruit\n");
         } catch (Exception e) {
             fail("execute() in HistoryCommand failed: " + e.getMessage());
         }
@@ -116,8 +117,8 @@ public class CommandTest {
         try {
             ListCommand listCommand = new ListCommand("asc");
             String list = listCommand.execute(ui, bank, storage);
-            Assertions.assertNotEquals(list,
-                    "apple: red fruit\nbanana: yellow fruit\nkiwi: green fruit\norange: orange: fruit\n");
+            Assertions.assertEquals(list,
+                    "Here are your words:\napple: red fruit\nbanana: yellow fruit\nkiwi: green fruit\norange: orange fruit\n");
         } catch (Exception e) {
             fail("execute() in HistoryCommand failed: " + e.getMessage());
         }
@@ -146,7 +147,7 @@ public class CommandTest {
         try {
             SearchCommand searchCommand = new SearchCommand("banana");
             String search = searchCommand.execute(ui, bank, storage);
-            Assertions.assertNotEquals(search, "Here is the meaning of banana: yellow fruit");
+            Assertions.assertEquals(search, "Here is the meaning of banana: yellow fruit\n");
         } catch (Exception e) {
             fail("execute() in SearchCommand failed: " + e.getMessage());
         }
