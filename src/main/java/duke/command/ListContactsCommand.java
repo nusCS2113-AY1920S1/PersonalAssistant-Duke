@@ -27,7 +27,7 @@ public class ListContactsCommand extends Command {
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        String str = Ui.showContactListGui(contactList);
+        String str = ui.showContactListGui(contactList);
         return str;
     }
 

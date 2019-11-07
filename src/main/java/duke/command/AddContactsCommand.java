@@ -28,10 +28,8 @@ public class AddContactsCommand extends Command {
         this.contactList = contactList;
     }
 
-
     /**
      * Executes a command that adds the contact into contact list and outputs the result (GUI).
-     * (Not in use)
      *
      * @param items The task list that contains a list of tasks.
      * @param ui To tell the user that it is added successfully.

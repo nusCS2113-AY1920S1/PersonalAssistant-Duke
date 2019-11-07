@@ -48,6 +48,7 @@ public class ContactList {
 
     /**
      * Displays the selected contact detail.
+     *
      * @param index The index of contact.
      * @return Contact details in String format.
      */
@@ -61,7 +62,7 @@ public class ContactList {
      *
      * @return String that contains the whole list of contacts.
      */
-    public String getContactList() {
+    public String getFullContactList() {
         String fullContactList = "";
         for (int i = Numbers.ZERO.value; i < contactList.size(); i++) {
             fullContactList += "     " + (i + Numbers.ONE.value) + ". " + contactList.get(i).toStringGui() + "\n";
@@ -81,7 +82,7 @@ public class ContactList {
     }
 
     /**
-     * Retrieves all contacts from the contact list.
+     * Retrieves some contacts from the contact list.
      *
      * @param index The index of the task.
      * @return String that contains the whole list of contacts.

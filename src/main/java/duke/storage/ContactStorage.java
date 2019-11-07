@@ -48,7 +48,7 @@ public class ContactStorage {
         while ((st = br.readLine()) != null) {  //name + "," + contact + "," + email + "," + office
             String[] contactDetails = st.split(",");
             if (contactDetails.length != Numbers.FOUR.value) {
-                ui.showErrorMsg("     Not all contact details entered, please leave a space for empty fields.");
+                ui.showErrorMsg("     Not all contact details entered, please key in nil for empty fields.");
             } else {
                 name = contactDetails[Numbers.ZERO.value];
                 contact = contactDetails[Numbers.ONE.value];
