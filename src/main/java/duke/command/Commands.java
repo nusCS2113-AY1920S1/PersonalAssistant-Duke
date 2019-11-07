@@ -104,17 +104,17 @@ public class Commands {
             case "edit":
                 return new ArgCommand(ImpressionEditSpec.getSpec());
             case "find":
-                return new ArgCommand(ImpressionFindSpec.getSpec());
+                return new ObjCommand(ImpressionFindSpec.getSpec());
             case "move":
-                return new ArgCommand(ImpressionMoveSpec.getSpec());
+                return new ObjCommand(ImpressionMoveSpec.getSpec());
             case "delete":
-                return new ArgCommand(ImpressionDeleteSpec.getSpec());
+                return new ObjCommand(ImpressionDeleteSpec.getSpec());
             case "result":
-                return new ArgCommand(ImpressionResultSpec.getSpec());
+                return new ObjCommand(ImpressionResultSpec.getSpec());
             case "priority":
-                return new ArgCommand(ImpressionPrioritySpec.getSpec());
+                return new ObjCommand(ImpressionPrioritySpec.getSpec());
             case "status":
-                return new ArgCommand(ImpressionStatusSpec.getSpec());
+                return new ObjCommand(ImpressionStatusSpec.getSpec());
             case "primary":
                 return new Command(ImpressionPrimarySpec.getSpec());
             default:
