@@ -18,7 +18,25 @@ import command.SearchFrequencyCommand;
 import command.SetReminderCommand;
 import dictionary.Word;
 
-import exception.*;
+import exception.CommandInvalidException;
+import exception.EmptyTagException;
+import exception.EmptyWordException;
+import exception.InvalidInputWordException;
+import exception.ReminderWrongDateFormatException;
+import exception.WordUpException;
+import exception.WrongAddFormatException;
+import exception.WrongAddSynonymFormatException;
+import exception.WrongAddTagFormatException;
+import exception.WrongDeleteFormatException;
+import exception.WrongEditFormatException;
+import exception.WrongHistoryFormatException;
+import exception.WrongListFormatDescription;
+import exception.WrongQuizFormatException;
+import exception.WrongReminderFormatException;
+import exception.WrongSearchBeginFormatException;
+import exception.WrongSearchFormatException;
+import exception.WrongSearchFrequencyFormatException;
+import exception.ZeroHistoryRequestException;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
