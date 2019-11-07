@@ -1,5 +1,6 @@
 import command.Parser;
 import command.Storage;
+import command.beforeAftercommand;
 import common.AlphaNUSException;
 import common.TaskList;
 import project.Fund;
@@ -27,12 +28,12 @@ public class AlphaNUS {
     /**
      * Creates a AlphaNUS instance and initialises the required attributes.
      */
-    public AlphaNUS() {
+    public AlphaNUS() throws AlphaNUSException {
         ui = new Ui();
         storage = new Storage();
         tasklist = new TaskList();
         fund = new Fund(); //TODO the fund need to be stored in the text file.
-        //commandList = storage.load(); TODO
+        commandList = storage.readFromCommandsFile();
 
     }
 

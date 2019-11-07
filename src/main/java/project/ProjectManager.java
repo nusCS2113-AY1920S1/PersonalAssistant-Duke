@@ -63,7 +63,7 @@ public class ProjectManager {
      * Lists all projects in the projectmap.
      * @return Returns an ArrayList of projects.
      */
-    public ArrayList<Project> listProjects() {
+    public ArrayList<Project> listProjects() throws AlphaNUSException {
         ArrayList<Project> projectslist = new ArrayList<>();
         for (Project project: projectmap.values()) {
             projectslist.add(project);
