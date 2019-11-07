@@ -27,6 +27,7 @@ public enum CommandType {
     FDURATION(CommandNewTask.class),
     TAGLIST(CommandTagList.class),
     EXPENDEDDAY(CommandGetSpendingByDay.class),
+    EXPENDEDWEEK(CommandGetSpendingByWeek.class),
     EXPENDEDMONTH(CommandGetSpendingByMonth.class),
     EXPENDEDYEAR(CommandGetSpendingByYear.class),
     CONVERT(CommandConvert.class),

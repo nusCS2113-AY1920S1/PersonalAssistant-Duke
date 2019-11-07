@@ -2,3 +2,5 @@
 out $250.0 /date 2019-11-07 /tags 
 out $100.0 /date 2019-11-07 /tags 
 in $100.0 /date 2019-11-07 /tags 
+out $5.0 /date 2019-11-07 /tags food
+out $-0.0 /date 2019-11-07 /tags 
