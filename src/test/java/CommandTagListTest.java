@@ -19,7 +19,7 @@ public class CommandTagListTest {
 
         CommandTagList dateOne = new CommandTagList("taglist food");
         dateOne.execute(storageManager);
-        String output= dateOne.getInfoCapsule().getOutputStr();
+        String output = dateOne.getInfoCapsule().getOutputStr();
 
         assertEquals("You spent a total of $3.00 on food\n" + "1. [food] 3.0 2019-02-01\n\n", output);
     }
