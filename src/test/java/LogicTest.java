@@ -1,9 +1,7 @@
 import javacake.Logic;
 import javacake.exceptions.CakeException;
 import org.junit.jupiter.api.AfterAll;
-import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,7 +13,6 @@ public class LogicTest {
 
     @BeforeAll
     static void init() {
-        //File tempFile = File.createTempFile("tempFile", ".txt", "")
 
 
     }
@@ -28,10 +25,6 @@ public class LogicTest {
     @Test
     void testGoToParentFileMethod() throws CakeException {
 
-        String startingPath;
-        String expectedOutput;
-        String actualOutput;
-
         assertThrows(CakeException.class, () -> {
             logic.gotoParentFilePath("/");
         });
@@ -43,6 +36,10 @@ public class LogicTest {
         assertThrows(CakeException.class, () -> {
             logic.gotoParentFilePath("startingPath/");
         });
+
+        String startingPath;
+        String expectedOutput;
+        String actualOutput;
 
         startingPath = "data/resources/hi";
         expectedOutput = "data/resources";
