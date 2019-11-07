@@ -232,7 +232,7 @@ public class CommandUtils {
         }
 
         if (bedNo != null) {
-            return core.patientMap.getPatient(bedNo);
+            return core.patientList.getPatient(bedNo);
         }
         int index = idxFromString(nameOrIdx);
         if (index != -1) {
@@ -246,7 +246,7 @@ public class CommandUtils {
             return (Patient) patientList.get(index - 1);
         } else {
             // TODO proper searching
-            return core.patientMap.findPatientsByName(nameOrIdx).get(0);
+            return core.patientList.findPatientsByName(nameOrIdx).get(0);
         }
     }
 
@@ -308,6 +308,21 @@ public class CommandUtils {
             return Integer.parseInt(inputStr);
         } catch (NumberFormatException excp) {
             return -1;
+        }
+    }
+
+    /**
+     * Checks two possibly-null strings for equality in a null-safe way.
+     *
+     * @param str1 The first string to compare.
+     * @param str2 The second string to compare.
+     * @return True if the strings are both null, or both equal. False otherwise.
+     */
+    public static boolean equalsIfNotBothNull(String str1, String str2) {
+        if (str1 != null) {
+            return str1.equals(str2);
+        } else {
+            return str2 == null;
         }
     }
 }

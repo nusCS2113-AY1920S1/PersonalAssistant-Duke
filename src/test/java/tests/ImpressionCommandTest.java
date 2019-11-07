@@ -2,8 +2,8 @@ package tests;
 
 import duke.command.ArgCommand;
 import duke.command.Command;
-import duke.command.impression.ImpressionNewCommand;
-import duke.command.impression.ImpressionPrimaryCommand;
+import duke.command.impression.ImpressionNewSpec;
+import duke.command.impression.ImpressionPrimarySpec;
 import duke.data.Impression;
 import duke.data.Medicine;
 import duke.data.Patient;
@@ -36,52 +36,49 @@ public class ImpressionCommandTest extends CommandTest {
         impression = new Impression("name", "description", patient);
         try {
             patient.addNewImpression(impression);
+            core.patientList.addPatient(patient);
         } catch (DukeException excp) {
-            fail("Duplicate impression in patient, somehow.");
+            fail("Failed to setup patient and impression for testing!");
         }
-        core.patientMap.addPatient(patient);
         core.uiContext.setContext(Context.IMPRESSION, impression);
     }
 
     @Test
     public void impressionNewCommand_fullCommand_correctDataCreated() {
         //TODO test other DukeData
-        ArgCommand newMedCmd = new ImpressionNewCommand();
-        String[] switchNames = {"medicine", "priority", "status", "dose", "date", "duration"};
-        String[] switchVals = {null, "2", "1", "test dose", "today", "next two weeks"};
-        setupCommand(newMedCmd, "test", switchNames, switchVals);
+        String[] switchNames = {"medicine", "name", "priority", "status", "dose", "date", "duration"};
+        String[] switchVals = {null, "test", "2", "1", "test dose", "today", "next two weeks"};
         Medicine testMed = new Medicine("test", impression, 2, 1, "test dose",
                 "today", "next two weeks");
 
         try {
+            ArgCommand newMedCmd = new ArgCommand(ImpressionNewSpec.getSpec(), null, switchNames, switchVals);
             newMedCmd.execute(core);
             assertTrue(testMed.equals(impression.getTreatment("test")));
         } catch (DukeException excp) {
-            fail("Exception thrown while executing valid command!");
+            fail("Exception thrown while executing valid command: " + excp.getMessage());
         }
     }
 
     @Test
     public void impressionNewCommand_minCommand_correctDataCreated() {
         //TODO test other DukeData
-        ArgCommand newMedCmd = new ImpressionNewCommand();
-        String[] switchNames = {"medicine", "dose", "duration"};
-        String[] switchVals = {null, "test dose", "next two weeks"};
-        setupCommand(newMedCmd, "test", switchNames, switchVals);
+        String[] switchNames = {"medicine", "name", "dose", "duration"};
+        String[] switchVals = {null, "test", "test dose", "next two weeks"};
         Medicine testMed = new Medicine("test", impression, 0, 0, "test dose",
                 LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy")), "next two weeks");
-
         try {
+            ArgCommand newMedCmd = new ArgCommand(ImpressionNewSpec.getSpec(), null, switchNames, switchVals);
             newMedCmd.execute(core);
             assertTrue(testMed.equals(impression.getTreatment("test")));
         } catch (DukeException excp) {
-            fail("Exception thrown while executing valid command!");
+            fail("Exception thrown while executing valid command: " + excp.getMessage());
         }
     }
 
     @Test
     public void impressionPrimaryCommand_fullCommand_setAsPrimary() {
-        Command primaryCmd = new ImpressionPrimaryCommand();
+        Command primaryCmd = new Command(ImpressionPrimarySpec.getSpec());
         Impression newImpression = new Impression("name2", "description2", patient);
         try {
             patient.addNewImpression(newImpression);
@@ -92,13 +89,13 @@ public class ImpressionCommandTest extends CommandTest {
         try {
             patient.setPrimaryDiagnosis("name2");
         } catch (DukeException excp) {
-            fail("Exception thrown while setting primary diagnosis through API!");
+            fail("Exception thrown while setting primary diagnosis through API: " + excp.getMessage());
         }
 
         try {
             primaryCmd.execute(core);
         } catch (DukeException excp) {
-            fail("Exception thrown while setting primary diagnosis through command!");
+            fail("Exception thrown while setting primary diagnosis through command: " + excp.getMessage());
         }
         assertEquals(impression, patient.getPrimaryDiagnosis());
     }

@@ -19,7 +19,6 @@ import duke.ui.card.ObservationCard;
 import duke.ui.card.PlanCard;
 import duke.ui.card.ResultCard;
 import duke.ui.card.TreatmentCard;
-import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -75,14 +74,14 @@ public class ImpressionContextWindow extends ContextWindow {
 
         updateUi();
 
-        patient.getAttributes().addListener((MapChangeListener<String, Object>) change -> {
-            updateUi();
-        });
+        //patient.getAttributes().addListener((MapChangeListener<String, Object>) change -> {
+        //    updateUi();
+        //});
 
         // TODO: description doesn't update UI
-        patient.getImpressionsObservableMap().addListener((MapChangeListener<String, Impression>) change -> {
-            updateUi();
-        });
+        //patient.getImpressionsObservableMap().addListener((MapChangeListener<String, Impression>) change -> {
+        //    updateUi();
+        //});
 
         //        for (Map.Entry<String, Evidence> pair : impression.getObservableEvidences().entrySet()) {
         //            evidenceListPanel.getItems().add(newEvidenceCard(pair.getValue()));
@@ -184,13 +183,13 @@ public class ImpressionContextWindow extends ContextWindow {
 
 
         evidenceListPanel.getItems().clear();
-        for (Evidence evidence : impression.getEvidences().values()) {
+        for (Evidence evidence : impression.getEvidences()) {
             int index = (evidence.getPriority() == 1) ? 1 : evidenceListPanel.getItems().size() + 1;
             evidenceListPanel.getItems().add(newEvidenceCard(evidence, index));
         }
 
         treatmentListPanel.getItems().clear();
-        for (Treatment treatment : impression.getTreatments().values()) {
+        for (Treatment treatment : impression.getTreatments()) {
             int index = (treatment.getPriority() == 1) ? 1 : treatmentListPanel.getItems().size() + 1;
             treatmentListPanel.getItems().add(newTreatmentCard(treatment, index));
         }

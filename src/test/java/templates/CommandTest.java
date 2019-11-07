@@ -1,11 +1,9 @@
 package templates;
 
 import duke.DukeCore;
-import duke.command.ArgCommand;
 import duke.data.GsonStorage;
-import duke.data.PatientMap;
+import duke.data.PatientList;
 import duke.exception.DukeException;
-import duke.exception.DukeFatalException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -33,7 +31,7 @@ public abstract class CommandTest {
     public static void setupCore() {
         try {
             core = new DukeCore();
-            core.patientMap = new PatientMap();
+            core.patientList = new PatientList();
             core.storage = new GsonStorage(testFilePath);
             core.writeJsonFile();
         } catch (DukeException excp) {
@@ -46,7 +44,7 @@ public abstract class CommandTest {
      */
     @AfterEach
     public void clearPatientMap() {
-        core.patientMap = new PatientMap();
+        core.patientList = new PatientList();
         testPrint.flush();
         testOut.reset();
     }
@@ -59,14 +57,6 @@ public abstract class CommandTest {
         File testData = new File(testFilePath);
         if (!testData.delete()) {
             fail("Unable to delete test data file!");
-        }
-    }
-
-    protected void setupCommand(ArgCommand command, String arg, String[] switchNames, String[] switchVals) {
-        assert (switchNames.length == switchVals.length);
-        command.setArg(arg);
-        for (int i = 0; i < switchNames.length; ++i) {
-            command.setSwitchVal(switchNames[i], switchVals[i]);
         }
     }
 }

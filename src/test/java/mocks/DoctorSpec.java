@@ -1,5 +1,6 @@
 package mocks;
 
+import duke.DukeCore;
 import duke.command.ArgLevel;
 import duke.command.ArgSpec;
 import duke.command.Switch;
@@ -13,7 +14,6 @@ public class DoctorSpec extends ArgSpec {
     }
 
     private DoctorSpec() {
-        emptyArgMsg = "You didn't tell me what to do!";
         cmdArgLevel = ArgLevel.REQUIRED;
         initSwitches(
                 new Switch("switch", String.class, false, ArgLevel.REQUIRED, "s"),
@@ -21,5 +21,11 @@ public class DoctorSpec extends ArgSpec {
                 new Switch("maybe", String.class, true, ArgLevel.OPTIONAL, "m"),
                 new Switch("none", String.class, true, ArgLevel.NONE, "n")
         );
+    }
+
+    @Override
+    protected void execute(DukeCore core) {
+        core.ui.print("Argument: " + cmd.getArg() + System.lineSeparator() + "Switch: "
+                + cmd.getSwitchVal("switch"));
     }
 }

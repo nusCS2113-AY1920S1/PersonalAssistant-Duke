@@ -1,31 +1,31 @@
 package duke.command;
 
-// TODO: Write different commands for different contexts
+// TODO: Write different commands for different contexts?
 
-import duke.command.home.HomeDischargeCommand;
-import duke.command.home.HomeFindCommand;
-import duke.command.home.HomeHistoryCommand;
-import duke.command.home.HomeNewCommand;
-import duke.command.home.HomeOpenCommand;
-import duke.command.home.HomeReportCommand;
-import duke.command.impression.ImpressionDeleteCommand;
-import duke.command.impression.ImpressionEditCommand;
-import duke.command.impression.ImpressionFindCommand;
-import duke.command.impression.ImpressionMoveCommand;
-import duke.command.impression.ImpressionNewCommand;
-import duke.command.impression.ImpressionPrimaryCommand;
-import duke.command.impression.ImpressionPriorityCommand;
-import duke.command.impression.ImpressionResultCommand;
-import duke.command.impression.ImpressionStatusCommand;
-import duke.command.patient.PatientDeleteCommand;
-import duke.command.patient.PatientDischargeCommand;
-import duke.command.patient.PatientEditCommand;
-import duke.command.patient.PatientFindCommand;
-import duke.command.patient.PatientHistoryCommand;
-import duke.command.patient.PatientNewCommand;
-import duke.command.patient.PatientOpenCommand;
-import duke.command.patient.PatientPrimaryCommand;
-import duke.command.patient.PatientReportCommand;
+import duke.command.home.HomeDischargeSpec;
+import duke.command.home.HomeFindSpec;
+import duke.command.home.HomeHistorySpec;
+import duke.command.home.HomeNewSpec;
+import duke.command.home.HomeOpenSpec;
+import duke.command.home.HomeReportSpec;
+import duke.command.impression.ImpressionDeleteSpec;
+import duke.command.impression.ImpressionEditSpec;
+import duke.command.impression.ImpressionFindSpec;
+import duke.command.impression.ImpressionMoveSpec;
+import duke.command.impression.ImpressionNewSpec;
+import duke.command.impression.ImpressionPrimarySpec;
+import duke.command.impression.ImpressionPrioritySpec;
+import duke.command.impression.ImpressionResultSpec;
+import duke.command.impression.ImpressionStatusSpec;
+import duke.command.patient.PatientDeleteSpec;
+import duke.command.patient.PatientDischargeSpec;
+import duke.command.patient.PatientEditSpec;
+import duke.command.patient.PatientFindSpec;
+import duke.command.patient.PatientHistorySpec;
+import duke.command.patient.PatientNewSpec;
+import duke.command.patient.PatientOpenSpec;
+import duke.command.patient.PatientPrimarySpec;
+import duke.command.patient.PatientReportSpec;
 import duke.ui.context.Context;
 
 /**
@@ -43,11 +43,11 @@ public class Commands {
         // check context-independent switches first
         switch (cmdStr) {
         case "bye":
-            return new ByeCommand();
+            return new Command(ByeSpec.getSpec());
         case "back":
-            return new BackCommand();
+            return new Command(BackSpec.getSpec());
         case "up":
-            return new UpCommand();
+            return new Command(UpSpec.getSpec());
         default:
             break; //not one of these; continue
         }
@@ -56,63 +56,63 @@ public class Commands {
         case HOME:
             switch (cmdStr) {
             case "find":
-                return new HomeFindCommand();
+                return new ArgCommand(HomeFindSpec.getSpec());
             case "new":
-                return new HomeNewCommand();
+                return new ArgCommand(HomeNewSpec.getSpec());
             case "open":
-                return new HomeOpenCommand();
+                return new ArgCommand(HomeOpenSpec.getSpec());
             case "report":
-                return new HomeReportCommand();
+                return new ArgCommand(HomeReportSpec.getSpec());
             case "discharge":
-                return new HomeDischargeCommand();
+                return new ArgCommand(HomeDischargeSpec.getSpec());
             case "history":
-                return new HomeHistoryCommand();
+                return new ArgCommand(HomeHistorySpec.getSpec());
             default:
                 return null;
             }
         case PATIENT:
             switch (cmdStr) {
             case "new":
-                return new PatientNewCommand();
+                return new ArgCommand(PatientNewSpec.getSpec());
             case "find":
-                return new PatientFindCommand();
+                return new ArgCommand(PatientFindSpec.getSpec());
             case "report":
-                return new PatientReportCommand();
+                return new Command(PatientReportSpec.getSpec());
             case "discharge":
-                return new PatientDischargeCommand();
+                return new ArgCommand(PatientDischargeSpec.getSpec());
             case "delete":
-                return new PatientDeleteCommand();
+                return new ArgCommand(PatientDeleteSpec.getSpec());
             case "primary":
-                return new PatientPrimaryCommand();
+                return new ArgCommand(PatientPrimarySpec.getSpec());
             case "edit":
-                return new PatientEditCommand();
+                return new ArgCommand(PatientEditSpec.getSpec());
             case "history":
-                return new PatientHistoryCommand();
+                return new ArgCommand(PatientHistorySpec.getSpec());
             case "open":
-                return new PatientOpenCommand();
+                return new ArgCommand(PatientOpenSpec.getSpec());
             default:
                 return null;
             }
         case IMPRESSION:
             switch (cmdStr) {
             case "new":
-                return new ImpressionNewCommand();
+                return new ArgCommand(ImpressionNewSpec.getSpec());
             case "edit":
-                return new ImpressionEditCommand();
+                return new ArgCommand(ImpressionEditSpec.getSpec());
             case "find":
-                return new ImpressionFindCommand();
+                return new ArgCommand(ImpressionFindSpec.getSpec());
             case "move":
-                return new ImpressionMoveCommand();
+                return new ArgCommand(ImpressionMoveSpec.getSpec());
             case "delete":
-                return new ImpressionDeleteCommand();
+                return new ArgCommand(ImpressionDeleteSpec.getSpec());
             case "result":
-                return new ImpressionResultCommand();
+                return new ArgCommand(ImpressionResultSpec.getSpec());
             case "priority":
-                return new ImpressionPriorityCommand();
+                return new ArgCommand(ImpressionPrioritySpec.getSpec());
             case "status":
-                return new ImpressionStatusCommand();
+                return new ArgCommand(ImpressionStatusSpec.getSpec());
             case "primary":
-                return new ImpressionPrimaryCommand();
+                return new Command(ImpressionPrimarySpec.getSpec());
             default:
                 return null;
             }

@@ -6,7 +6,13 @@ import duke.exception.DukeException;
 /**
  * Highest-level abstract class for Command objects.
  */
-public abstract class Command {
+public class Command {
+
+    protected final CommandSpec spec;
+
+    public Command(CommandSpec spec) {
+        this.spec = spec;
+    }
 
     /**
      * Runs the command using the parameters loaded with Command's parse method.
@@ -15,10 +21,12 @@ public abstract class Command {
      * @throws DukeException If command fails to execute.
      * @see DukeCore
      */
-    public abstract void execute(DukeCore core) throws DukeException;
+    public void execute(DukeCore core) throws DukeException {
+        spec.execute(core, this);
+    }
 
     //TODO: replace with abstract function that actually prints excerpts from the user guide
     public String getHelp() {
-        return "https://github.com/AY1920S1-CS2113-T14-1/main/blob/master/docs/UserGuide.adoc";
+        return spec.getHelp();
     }
 }

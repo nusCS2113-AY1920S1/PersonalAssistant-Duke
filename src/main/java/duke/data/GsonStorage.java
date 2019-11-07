@@ -92,35 +92,32 @@ public class GsonStorage {
      * @return the hash map containing the patients
      * @throws DukeFatalException If data file cannot be setup.
      */
-    public HashMap<String, Patient> loadPatientHashMap() throws DukeFatalException {
-        HashMap<String, Patient> patientMap = new HashMap<>();
+    public ArrayList<Patient> loadPatients() throws DukeFatalException {
+        ArrayList<Patient> patients = new ArrayList<>();
         try {
             String json = Files.readString(Paths.get(filePath), StandardCharsets.US_ASCII);
-            Patient[] patientList = gson.fromJson(json, Patient[].class);
-            if (patientList == null) {
-                return patientMap;
+            Patient[] patientArr = gson.fromJson(json, Patient[].class);
+            if (patientArr == null) {
+                return patients;
             }
-            for (Patient patient : patientList) {
-                patientMap.put(patient.getBedNo(), patient);
-            }
+            patients.addAll(Arrays.asList(patientArr));
         } catch (IOException e) {
             throw new DukeFatalException("Unable to load data file, try checking your permissions?");
         }
-        return patientMap;
+        return patients;
     }
 
     /**
      * Creates a list with the patients in the hash map and writes the lists json representation
      * to the json file.
      *
-     * @param patientMap the hash map containng all the patients
+     * @param patientList the hash map containng all the patients
      * @throws DukeFatalException If the file writer cannot be setup.
      */
-    public void writeJsonFile(HashMap<String, Patient> patientMap) throws DukeFatalException {
-        ArrayList<Patient> patientArrList = new ArrayList<Patient>(patientMap.values());
+    public void writeJsonFile(ArrayList<Patient> patientList) throws DukeFatalException {
         try {
             FileWriter fileWriter = new FileWriter(jsonFile);
-            fileWriter.write(gson.toJson(patientArrList));
+            fileWriter.write(gson.toJson(patientList));
             fileWriter.close();
         } catch (IOException e) {
             throw new DukeFatalException("Unable to write data! Some data may have been lost,");
@@ -140,12 +137,12 @@ public class GsonStorage {
     /**
      * Clears the json file and the paitent hash map. Used to reset the storage data.
      *
-     * @return an empty PatientMap object
+     * @return an empty PatientList object
      */
-    public PatientMap resetAllData() throws IOException {
+    public PatientList resetAllData() throws IOException {
         FileWriter fileWriter = new FileWriter(jsonFile);
         fileWriter.close();
-        return new PatientMap();
+        return new PatientList();
     }
 
     /**
