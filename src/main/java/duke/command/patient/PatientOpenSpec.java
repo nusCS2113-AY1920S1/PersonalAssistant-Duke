@@ -2,16 +2,10 @@ package duke.command.patient;
 
 import duke.DukeCore;
 import duke.command.ArgLevel;
-import duke.command.CommandUtils;
 import duke.command.ObjSpec;
 import duke.command.Switch;
 import duke.data.DukeObject;
 import duke.data.Patient;
-import duke.data.SearchResults;
-import duke.exception.DukeException;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class PatientOpenSpec extends ObjSpec {
     private static final PatientOpenSpec spec = new PatientOpenSpec();
@@ -28,36 +22,6 @@ public class PatientOpenSpec extends ObjSpec {
                 new Switch("investigation", String.class, true, ArgLevel.NONE, "inv")
         );
     }
-
-    @Override
-    protected void execute(DukeCore core) throws DukeException {
-        super.execute(core);
-        Map<String, Boolean> conditions = new HashMap<>();
-        conditions.put("impression", cmd.isSwitchSet("impression"));
-        conditions.put("critical", cmd.isSwitchSet("critical"));
-        conditions.put("investigation", cmd.isSwitchSet("investigation"));
-
-        String type = null;
-        for (Map.Entry<String, Boolean> condition : conditions.entrySet()) {
-            if (condition.getValue()) {
-                if (type == null) {
-                    type = condition.getKey();
-                } else {
-                    throw new DukeException("Please provide at most 1 unique type (IMPRESSION, CRITICAL or "
-                            + "INVESTIGATION that you wish to open!");
-                }
-            }
-        }
-
-        Patient patient = (Patient) core.uiContext.getObject();
-        DukeObject object = CommandUtils.findFromPatient(core, patient, type, cmd.getArg());
-        if (object == null) {
-            SearchResults results = CommandUtils.searchFromPatient(patient, type, cmd.getArg());
-            core.search(results, cmd);
-        } else {
-            executeWithObj(core, object);
-        }
-   }
 
     @Override
     protected void executeWithObj(DukeCore core, DukeObject obj) {

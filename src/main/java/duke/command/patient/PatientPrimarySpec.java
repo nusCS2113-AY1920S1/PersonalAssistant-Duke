@@ -5,6 +5,7 @@ import duke.command.ArgLevel;
 import duke.command.ObjSpec;
 import duke.data.DukeObject;
 import duke.data.Impression;
+import duke.data.SearchResults;
 import duke.exception.DukeException;
 
 public class PatientPrimarySpec extends ObjSpec {
@@ -24,7 +25,8 @@ public class PatientPrimarySpec extends ObjSpec {
         super.execute(core);
         Impression impression = (Impression) PatientUtils.findFromPatient(core,"impression", cmd.getArg());
         if (impression == null) {
-            core.search(PatientUtils.getPatient(core).findImpressions(cmd.getArg()), cmd);
+            SearchResults results = PatientUtils.getPatient(core).findImpressions(cmd.getArg());
+            processResults(core, results);
         } else {
             executeWithObj(core, impression);
         }

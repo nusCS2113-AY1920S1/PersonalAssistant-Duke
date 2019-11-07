@@ -16,6 +16,8 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Main class of the application.
@@ -23,6 +25,7 @@ import java.io.File;
  */
 public class DukeCore extends Application {
     private static final String storagePath = "data" + File.separator + "patients.json";
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     public Ui ui;
     public UiContext uiContext;
@@ -63,7 +66,13 @@ public class DukeCore extends Application {
      */
     public void executeQueuedCmd(DukeObject obj) throws DukeException {
         uiContext.moveBackOneContext();
-        queuedCmd.execute(this, obj);
+        try {
+            queuedCmd.execute(this, obj);
+        } catch (ClassCastException excp) {
+            logger.log(Level.SEVERE, "Wrong type of object returned from search!"
+                    + System.lineSeparator() + excp.getMessage());
+        }
+        queuedCmd = null;
     }
 
     /**
