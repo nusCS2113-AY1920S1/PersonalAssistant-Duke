@@ -67,6 +67,19 @@ public class Parser {
     }
 
     /**
+     * Checks if the input string array contains any strings.
+     *
+     * @param arr the string array to be checked.
+     * @return true if it is an empty string array, false otherwise.
+     */
+    private static boolean isEmptyStringArray(String[] arr) {
+        if (arr.length > Numbers.ZERO.value) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    /**
      * Checks whether the string input can be split by a set string.
      * @param input the input to test if it is splittable.
      * @param splitWith the characters to detect splitting.
@@ -109,6 +122,7 @@ public class Parser {
         String[] arr = sentence.split(" ");
         String taskDesc = "";
         String dateDesc = "";
+        boolean emptyString = isEmptyStringArray(arr);
         boolean getDate = false;
         if (sentence.trim().isEmpty()) {
             throw new DukeException(ErrorMessages.UNKNOWN_COMMAND.message);
@@ -118,7 +132,7 @@ public class Parser {
             return new ListCommand();
         } else if (sentence.equals("priority")) {
             return new ListPriorityCommand();
-        } else if (arr.length > Numbers.ZERO.value && (arr[Numbers.ZERO.value].equals("done")
+        } else if (!emptyString && (arr[Numbers.ZERO.value].equals("done")
                 || arr[Numbers.ZERO.value].equals("delete"))) {
             if (arr.length == Numbers.ONE.value) {
                 throw new DukeException(ErrorMessages.TASKNUM_IS_EMPTY.message);
@@ -143,7 +157,7 @@ public class Parser {
                     }
                 }
             } //@@author talesrune
-        } else if (arr.length > Numbers.ZERO.value && arr[Numbers.ZERO.value].equals("find")) {
+        } else if (!emptyString && arr[Numbers.ZERO.value].equals("find")) {
             if (arr.length == Numbers.ONE.value) {
                 throw new DukeException(ErrorMessages.KEYWORD_IS_EMPTY.message);
             } else {
@@ -157,7 +171,7 @@ public class Parser {
                     return new FindCommand(keyword.trim());
                 }
             }
-        } else if (arr.length > Numbers.ZERO.value && arr[Numbers.ZERO.value].equals("filter")) {
+        } else if (!emptyString && arr[Numbers.ZERO.value].equals("filter")) {
             if (arr.length == Numbers.ONE.value) {
                 throw new DukeException(ErrorMessages.TASKTYPE_IS_EMPTY.message);
             } else {
@@ -167,7 +181,7 @@ public class Parser {
                     return new FilterCommand(arr[Numbers.ONE.value]);
                 }
             }
-        } else if (arr.length > Numbers.ZERO.value && arr[Numbers.ZERO.value].equals("notes")) {
+        } else if (!emptyString && arr[Numbers.ZERO.value].equals("notes")) {
             if (arr.length == Numbers.ONE.value) {
                 throw new DukeException(ErrorMessages.TASKNUM_IS_EMPTY.message);
             } else {
@@ -225,7 +239,7 @@ public class Parser {
                     }
                 }
             }   //@@author
-        } else if (arr.length > Numbers.ZERO.value && arr[Numbers.ZERO.value].equals("todo")) {
+        } else if (!emptyString && arr[Numbers.ZERO.value].equals("todo")) {
             String[] getDescription = sentence.split(" ", Numbers.TWO.value);
             DetectDuplicate detectDuplicate = new DetectDuplicate(items);
             for (int i = Numbers.ONE.value; i < arr.length; i++) {
@@ -243,7 +257,7 @@ public class Parser {
                 return new AddCommand(taskObj);
 
             }
-        } else if (arr.length > Numbers.ZERO.value && (arr[Numbers.ZERO.value].equals("deadline")
+        } else if (!emptyString && (arr[Numbers.ZERO.value].equals("deadline")
                 || arr[Numbers.ZERO.value].equals("dl"))) {
             for (int i = Numbers.ONE.value; i < arr.length; i++) {
                 if ((arr[i].trim().isEmpty()
@@ -282,7 +296,7 @@ public class Parser {
                 }
                 return new AddCommand(taskObj);
             }
-        } else if (arr.length > Numbers.ZERO.value
+        } else if (!emptyString
                 && (arr[Numbers.ZERO.value].equals("fixedduration") || arr[Numbers.ZERO.value].equals("fd"))) {
             //fixedduration <task> /for <duration> <unit>
             String description = "";
@@ -337,7 +351,7 @@ public class Parser {
                     return new AddCommand(fixedDuration);
                 }
             }
-        } else if (arr.length > Numbers.ZERO.value
+        } else if (!emptyString
                 && (arr[Numbers.ZERO.value].equals("setpriority") || arr[Numbers.ZERO.value].equals("sp"))) {
             //fixedduration <taskNum> <priority>
             String description = "";
@@ -377,7 +391,7 @@ public class Parser {
                 return new SetPriorityCommand(taskNum, priority);
             }
 
-        } else if (arr.length > Numbers.ZERO.value
+        } else if (!emptyString
                     && (arr[Numbers.ZERO.value].equals("findpriority") || arr[Numbers.ZERO.value].equals("fp"))) {
             // findpriority <int>
             if (arr.length == Numbers.ONE.value) {
@@ -400,7 +414,7 @@ public class Parser {
                     return new FindTasksByPriorityCommand(target);
                 }
             }
-        } else if (arr.length > Numbers.ZERO.value && arr[Numbers.ZERO.value].equals("finddate")) {
+        } else if (!emptyString && arr[Numbers.ZERO.value].equals("finddate")) {
             // finddate /on <dd/MM/yyyy>
             SimpleDateFormat datetimeFormat = new SimpleDateFormat("dd/MM/yyyy");
             int sufIndex = Numbers.MINUS_ONE.value;
@@ -431,7 +445,7 @@ public class Parser {
 
             return new FindTasksByDateCommand(displayDT);
             //@@author
-        } else if (arr.length > Numbers.ZERO.value && arr[Numbers.ZERO.value].equals("remind")) {
+        } else if (!emptyString && arr[Numbers.ZERO.value].equals("remind")) {
             //remind <taskNumber> /in <howManyDays>
             String afterTaskDesc = "";
             boolean detectBackSlash = false;
@@ -462,7 +476,7 @@ public class Parser {
                 int howManyDays = Integer.parseInt(afterTaskDesc);
                 return new RemindCommand(duration, howManyDays);
             }  //@@author talesrune
-        } else if (arr.length > Numbers.ZERO.value && (arr[Numbers.ZERO.value].equals("update"))) {
+        } else if (!emptyString && (arr[Numbers.ZERO.value].equals("update"))) {
             if (arr.length == Numbers.ONE.value) {
                 throw new DukeException(ErrorMessages.TASKNUM_IS_EMPTY.message);
             } else {
@@ -533,7 +547,7 @@ public class Parser {
                     }
                 }
             }   //@@author e0318465
-        } else if (arr.length > Numbers.ZERO.value
+        } else if (!emptyString
                 && (arr[Numbers.ZERO.value].equals("addcontact") || arr[Numbers.ZERO.value].equals("ac")
                 || arr[Numbers.ZERO.value].equals("addcontacts"))) {
             String[] userInput = sentence.split(" ",Numbers.TWO.value);
@@ -561,7 +575,7 @@ public class Parser {
             }
         } else if (sentence.equals("listcontact") || sentence.equals("lc") || sentence.equals(("listcontacts"))) {
             return new ListContactsCommand(contactList);
-        } else if (arr.length > Numbers.ZERO.value
+        } else if (!emptyString
                 && (arr[Numbers.ZERO.value].equals("deletecontact") || arr[Numbers.ZERO.value].equals("dc")
                 || arr[Numbers.ZERO.value].equals("deletecontacts"))) {
             if (arr.length == Numbers.ONE.value) {
@@ -575,7 +589,7 @@ public class Parser {
                     throw new DukeException(ErrorMessages.NON_INTEGER_ALERT.message);
                 }
             }
-        } else if (arr.length > Numbers.ZERO.value
+        } else if (!emptyString
                 && (arr[Numbers.ZERO.value].equals("findcontact") || arr[Numbers.ZERO.value].equalsIgnoreCase("fc")
                 || arr[Numbers.ZERO.value].equals("findcontacts"))) {
             String[] keyword = sentence.split(" ", Numbers.TWO.value);
@@ -586,7 +600,7 @@ public class Parser {
                 return new FindContactCommand(keyword[Numbers.ONE.value].toLowerCase(), contactList);
             }
             //@@author
-        } else if (arr.length > Numbers.ZERO.value && arr[Numbers.ZERO.value].equals("budget")) { //@@author maxxyx96
+        } else if (!emptyString && arr[Numbers.ZERO.value].equals("budget")) { //@@author maxxyx96
             try {
                 String budgetCommandString = sentence.split(" ", Numbers.TWO.value)[Numbers.ONE.value];
             } catch (Exception e) {
