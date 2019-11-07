@@ -49,4 +49,15 @@ public class UndoStateList implements ModeStringList {
         return null;
     }
 
+    public static int getSize(String mode) {
+        if (mode.equals(MODE_ENTRY)) {
+            return entryStateList.size();
+        } else if (mode.equals(MODE_DEBT)) {
+            return debtStateList.size();
+        } else if (mode.equals(MODE_LIMIT)) {
+            return limitStateList.size();
+        }
+        return -1;
+    }
+
 }
