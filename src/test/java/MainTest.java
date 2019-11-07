@@ -1,9 +1,11 @@
+import mistermusik.commons.budgeting.Budgeting;
 import mistermusik.commons.events.eventtypes.Event;
 import mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclasses.Recital;
 import mistermusik.commons.events.eventtypes.eventsubclasses.Concert;
 import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Lesson;
 import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Practice;
 import mistermusik.commons.events.eventtypes.eventsubclasses.ToDo;
+import mistermusik.commons.events.formatting.DateStringValidator;
 import mistermusik.commons.events.formatting.EventDate;
 import mistermusik.logic.ClashException;
 import mistermusik.logic.EndBeforeStartException;
@@ -14,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MainTest {
 
@@ -50,7 +52,7 @@ public class MainTest {
     /**
      * Test clash handling for recurring events
      */
-    public void clashTestRecurring(){
+    public void clashTestRecurring() {
         ArrayList<String> readFromFile = new ArrayList<String>();
         String fileContent;
         fileContent = "XT/fawpeifwe/02-12-2019";
@@ -73,7 +75,7 @@ public class MainTest {
     }
 
     @Test
-    public void testSorting() throws Exception{
+    public void testSorting() throws Exception {
         ArrayList<String> readFromFile = new ArrayList<String>();
         String fileContent;
         fileContent = "XT/fawpeifwe/02-12-2019";
@@ -117,6 +119,131 @@ public class MainTest {
         assertEquals(true, succeeded);
     }
 
+    @Test
+    public void testBudget () {
+        ArrayList<String> readFromFile = new ArrayList<String>();
+        String fileContent;
+        fileContent = "XT/fawpeifwe/02-12-2019";
+        readFromFile.add(fileContent);
+        fileContent = "XP/apiejfpwiefw/03-12-2019 1500/03-12-2019 1800";
+        readFromFile.add(fileContent);
+        fileContent = "XC/halloween/04-12-2019 1600/04-12-2019 1930/5";
+        readFromFile.add(fileContent);
+
+        EventList eventListTest = new EventList(readFromFile);
+        boolean succeededInAddingConcert;
+        try {
+            eventListTest.addEvent(new Concert("good concert", "05-12-2019 1500",
+                    "05-12-2019 1600",44));
+            succeededInAddingConcert = true;
+        } catch (CostExceedsBudgetException | EndBeforeStartException | ClashException e) {
+            System.out.println("1");
+            succeededInAddingConcert = false;
+        }
+        assertTrue(succeededInAddingConcert);
+
+        boolean CostExceededBudget = false;
+        try {
+            eventListTest.addEvent(new Concert("good concert", "06-12-2019 1500",
+                    "06-12-2019 1600",2));
+        } catch (CostExceedsBudgetException e) { //entry should exceed cost
+            CostExceededBudget = true;
+        } catch (ClashException | EndBeforeStartException e) {
+        }
+
+        assertTrue(CostExceededBudget);
+    }
+
+    @Test
+    public void testSetBudget() {
+        Budgeting testBudgeting = new Budgeting(new ArrayList<Event>(), 5);
+        assertEquals(5, testBudgeting.getBudget());
+
+        try {
+            testBudgeting.updateMonthlyCost(new Concert("test1", "2-12-2019 1500",
+                    "2-12-2019 1600", 6));
+            fail();
+        } catch (CostExceedsBudgetException e) {
+        }
+
+        testBudgeting.setBudget(75);
+        assertEquals(75, testBudgeting.getBudget());
+
+        try {
+            testBudgeting.updateMonthlyCost(new Concert("test1", "2-12-2019 1500",
+                    "2-12-2019 1600", 5));
+        } catch (CostExceedsBudgetException e) {
+            fail();
+        }
+
+        try {
+            testBudgeting.updateMonthlyCost(new Concert("test2", "2-12-2019 1500",
+                    "2-12-2019 1600", 5));
+        } catch (CostExceedsBudgetException e) {
+            fail();
+        }
+
+        try {
+            testBudgeting.updateMonthlyCost(new Concert("test3", "2-12-2019 1500",
+                    "2-12-2019 1600", 5));
+        } catch (CostExceedsBudgetException e) {
+            fail();
+        }
+
+        try {
+            testBudgeting.updateMonthlyCost(new Concert("test4", "2-12-2019 1500",
+                    "2-12-2019 1600", 61));
+            fail();
+        } catch (CostExceedsBudgetException e) {
+        }
+    }
+
+    @Test
+    public void dateValidatorTestEvent() {
+        String correctString1 = "14-12-2019 1500";
+        String correctString2 = "12-05-4938 1800";
+        String correctString3 = "05-05-2000 0800";
+        String wrongString1 = "5-5-5-5-3513";
+        String wrongString2 = "5-5-3 3301";
+        String wrongString3 = "21-12-1900 6000 7000";
+        String wrongString4 = "alkjawfwe";
+        String wrongString5 = "21-12-2019 15awawer";
+
+        assertTrue(DateStringValidator.isValidDateForEvent(correctString1));
+        assertTrue(DateStringValidator.isValidDateForEvent(correctString2));
+        assertTrue(DateStringValidator.isValidDateForEvent(correctString3));
+
+        assertFalse(DateStringValidator.isValidDateForEvent(wrongString1));
+        assertFalse(DateStringValidator.isValidDateForEvent(wrongString2));
+        assertFalse(DateStringValidator.isValidDateForEvent(wrongString3));
+        assertFalse(DateStringValidator.isValidDateForEvent(wrongString4));
+        assertFalse(DateStringValidator.isValidDateForEvent(wrongString5));
+    }
+
+    @Test
+    public void dateValidatorTestToDo() {
+        String correctString1 = "14-12-2019";
+        String correctString2 = "12-05-4938";
+        String correctString3 = "5-5-2000";
+
+        String wrongString1 = "5-5--3931-5-3513";
+        String wrongString2 = "5-5dsafs-3 3301";
+        String wrongString3 = "21-12 6000 7000";
+        String wrongString4 = "alkjawfwe";
+        String wrongString5 = "50-50-50";
+
+        assertTrue(DateStringValidator.isValidDateForToDo(correctString1));
+        assertTrue(DateStringValidator.isValidDateForToDo(correctString2));
+        assertTrue(DateStringValidator.isValidDateForToDo(correctString3));
+
+        assertFalse(DateStringValidator.isValidDateForToDo(wrongString1));
+        assertFalse(DateStringValidator.isValidDateForToDo(wrongString2));
+        assertFalse(DateStringValidator.isValidDateForToDo(wrongString3));
+        assertFalse(DateStringValidator.isValidDateForToDo(wrongString4));
+        assertFalse(DateStringValidator.isValidDateForToDo(wrongString5));
+    }
+
+    //@@author
     @Test
     public void goalsListTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
         ArrayList<String> testListString = new ArrayList<>();

@@ -3,10 +3,8 @@ package mistermusik.commons.Instruments;
 import mistermusik.commons.events.formatting.EventDate;
 
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 public class InstrumentList {
-	private static Logger logger = Logger.getLogger("instrumentList");
     private ArrayList<Instrument> instrumentList;
 
 //    private boolean isAchieved;
@@ -32,7 +30,6 @@ public class InstrumentList {
     public int addInstrument(String name) {
     	Instrument newInstrument = new Instrument(name);
     	instrumentList.add(newInstrument);
-//    	logger.log(Level.INFO, "The new instrument is added to the list");
     	return instrumentList.size();
     }
     

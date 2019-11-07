@@ -10,14 +10,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Logger;
 
 /**
  * Class containing file path and scanner, allowing for reading from and writing to the storage file.
  * Allows for creation of new storage file if necessary.
  */
 public class Storage {
-    private static Logger logger = Logger.getLogger("Storage");
     private File file;
     private Scanner scanFile;
 
@@ -47,17 +45,14 @@ public class Storage {
         try {
             this.scanFile = new Scanner(file);
             System.out.println("Event list loaded!");
-            //            logger.log(Level.INFO, "The event list is loaded from the existing data file");
         } catch (FileNotFoundException FNFe) {
 
             System.out.println("No mistermusik.Main file found!\nCreating new file...");
 
             try {
                 file.createNewFile();
-                //                logger.log(Level.INFO, "A new file is created");
             } catch (IOException IOe) {
                 System.out.println("Failed! Please re-download the jar file and try again.");
-                //                logger.log(Level.WARNING, IOe.getMessage(), IOe);
             }
 
             System.out.println("New file created!\nAssigning...");
@@ -93,10 +88,8 @@ public class Storage {
             FileWriter writer = new FileWriter(file);
             writer.write(toWriteToFile);
             writer.close();
-            //            logger.log(Level.INFO, "The data is stored in the file");
         } catch (IOException IOe) {
             ui.errorWritingToFile();
-            //            logger.log(Level.WARNING, IOe.getMessage(), IOe);
         }
     }
 }

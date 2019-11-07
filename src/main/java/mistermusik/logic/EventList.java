@@ -17,23 +17,23 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.logging.Logger;
 
 /**
  * Allows for access to the list of events currently stored, and editing that list of events.
  * Does NOT contain any methods for reading/writing to savefile.
  */
 public class EventList {
-    private static Logger logger = Logger.getLogger("EventList");
     /**
      * list of Model_Class.Event objects currently stored.
      */
     private ArrayList<Event> eventArrayList;
 
     /**
-     * Comparator function codes
+     * compare_func codes
      */
-    private static final int GREATER_THAN = 1;
+    static final int EQUAL = 0;
+    static final int GREATER_THAN = 1;
+    static final int SMALLER_THAN = 2;
 
     /**
      * Filter type codes
@@ -133,7 +133,6 @@ public class EventList {
      */
     public void addEvent(Event event) throws EndBeforeStartException, ClashException, CostExceedsBudgetException {
         if (event.getStartDate().getEventJavaDate().compareTo(event.getEndDate().getEventJavaDate()) == 1) {
-//            logger.log(Level.WARNING, "The end time is earlier than the start time");
             throw new EndBeforeStartException();
         }
 
@@ -144,16 +143,13 @@ public class EventList {
             }
 
             this.eventArrayList.add(event);
-//            logger.log(Level.INFO, "The new event is added to the eventList");
         } else { //if clash is found, notify user via terminal.
-//            logger.log(Level.WARNING, "The event to be added clashes with another event in the list");
             throw new ClashException(clashEvent);
         }
     }
 
     public void addNewTodo(Event event) {
         this.eventArrayList.add(event);
-//        logger.log(Level.INFO, "The new Todo is added to the eventList");
     }
 
     //@@author YuanJiayi
@@ -188,7 +184,6 @@ public class EventList {
             if (clashEvent(newEvent) == null) {
                 tempEventList.add(newEvent);
             } else {
-//                logger.log(Level.WARNING, "At least one of the events to be added clashes with another event in the list");
                 throw new ClashException(newEvent);
             }
             calendarStartDate.add(Calendar.DATE, period);
@@ -196,7 +191,6 @@ public class EventList {
         }
 
         this.eventArrayList.addAll(tempEventList);
-//        logger.log(Level.INFO, "Recurring events are added to the list");
     }
 
     //@@author Ryan-Wong-Ren-Wei
@@ -227,11 +221,9 @@ public class EventList {
 
             if (newEventDate.equals(currEventStartDateTime[0]) && //check for same date
                     timeClash(newEventStartTime, newEventEndTime, currEventStartDateTime[1], currEventEndDateTime[1])) { //check for time clash
-//                logger.log(Level.INFO, "Clash found");
                 return currEvent; //clash found
             }
         }
-//        logger.log(Level.INFO, "No clash found");
         return null; //no clash found
     }
 
@@ -271,7 +263,6 @@ public class EventList {
             budgeting.removeMonthlyCost((Concert) this.eventArrayList.get(eventNo));
         }
         this.eventArrayList.remove(eventNo);
-//        logger.log(Level.INFO, "The event is deleted");
     }
 
     /**
@@ -321,12 +312,13 @@ public class EventList {
     /**
      * @return String containing the filtered list of events, each separated by a newline.
      */
-    private String filteredList(Predicate<Object> predicate) {
+    private String filteredListTwoPredicates(Predicate<Object> predicate1, Predicate<Object> predicate2) {
         String filteredEvents = "";
         int j;
         for (int i = 0; i < eventArrayList.size(); ++i) {
             if (eventArrayList.get(i) == null) continue;
-            else if (!predicate.check(eventArrayList.get(i).getStartDate())) continue;
+            else if (!predicate1.check(eventArrayList.get(i).getStartDate()) 
+            		|| !predicate2.check(eventArrayList.get(i).getStartDate())) continue;
             j = i + 1;
             filteredEvents += j + ". " + this.getEvent(i).toString() + "\n";
         }
@@ -336,15 +328,18 @@ public class EventList {
     /**
      * @return String containing events found in the next 3 days
      */
-    public String getReminder() {
-        String systemDateAndTime = new Date().toString();
-        EventDate limit = new EventDate(systemDateAndTime);
-        limit.addDaysAndSetMidnight(3);
-        String reminderDeadline = limit.getEventJavaDate().toString();
-        Predicate<Object> objectPredicate = new Predicate<>(limit, GREATER_THAN);
+    public String getReminder(int days) {
+        Date systemDateAndTime = new Date();
+        EventDate lowerLimit = new EventDate(systemDateAndTime);
+        EventDate upperLimit = new EventDate(systemDateAndTime);
+        lowerLimit.addDaysAndSetMidnight(-1);
+        upperLimit.addDaysAndSetMidnight(days);
+        String reminderDeadline = upperLimit.getEventJavaDate().toString();
+        Predicate<Object> lowerPredicate = new Predicate<>(lowerLimit, SMALLER_THAN);
+        Predicate<Object> upperPredicate = new Predicate<>(upperLimit, GREATER_THAN);
         return "The time now is " + systemDateAndTime + ".\n" +
-                "Here is a list of events you need to complete in the next 3 days (by " +
-                reminderDeadline + "):\n" + filteredList(objectPredicate);
+                "Here is a list of events you need to complete in the next " + days + " day(s) (by " +
+                reminderDeadline + "):\n" + filteredListTwoPredicates(lowerPredicate, upperPredicate);
     }
 
     //@@author
@@ -357,11 +352,9 @@ public class EventList {
                 this.budgeting.updateMonthlyCost((Concert) event);
             }
         } catch (CostExceedsBudgetException e) {
-//            logger.log(Level.WARNING, e.getMessage(), e);
             //ignore exception, will never happen
         }
         eventArrayList.add(event);
-//        logger.log(Level.INFO, "The deleted event is added back to the list");
     }
 
     public Budgeting getBudgeting() {

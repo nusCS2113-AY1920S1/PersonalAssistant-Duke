@@ -48,22 +48,23 @@ public class UI {
         System.out.println("        Items in [] are optional;");
         System.out.println("        Items with | in between them indicate the user can choose to use either of them");
         System.out.println("-----Basic Commands-----");
-        System.out.println("1.  \"help\"            -- Print out all the commands you can input.");
-        System.out.println("2.  \"list\"            -- Print out all the events in the list.");
-        System.out.println("3.  \"reminder\"        -- Display the list of events over the next 3 days.");
-        System.out.println("4.  \"check\"           -- Print the next 3 free days.");
-        System.out.println("5.  \"find <keyword>\"  -- Search for a specific event using keywords.");
-        System.out.println("6.  \"view dd-MM-yyyy\" -- Print the event list for a particular date.");
-        System.out.println("7.  \"budget MM-yyyy\"  -- View monthly cost of concerts");
+        System.out.println("1.  \"help\"                     -- Print out all the commands you can input.");
+        System.out.println("2.  \"list\"                     -- Print out all the events in the list.");
+        System.out.println("3.  \"reminder [number of days]\"-- Display the list of events over the next given number (default 3) days.");
+        System.out.println("4.  \"check\"                    -- Print the next 3 free days.");
+        System.out.println("5.  \"find <keyword>\"           -- Search for a specific event using keywords.");
+        System.out.println("6.  \"view dd-MM-yyyy\"          -- Print the event list for a particular date.");
+        System.out.println("7.  \"budget MM-yyyy\"           -- View monthly cost of concerts");
         System.out.println("8.  \"budget set <new budget>\"  -- Set new monthly budget");
-        System.out.println("9.  \"bye\"             -- Exit the program.");
+        System.out.println("9.  \"bye\"                      -- Exit the program.");
         System.out.println("-----More Commands-----");
         System.out.println("1.  \"help calendar\"   -- To see commands about calendar.");
         System.out.println("2.  \"help event\"      -- To see commands about how to add or delete event.");
         System.out.println("3.  \"help goal\"       -- To see commands about goal management of an event.");
         System.out.println("4.  \"help contact\"    -- To see commands about contact management of an event.");
         System.out.println("5.  \"help checklist\"  -- To see commands about checklist management of an event.");
-        System.out.println("6.  \"help change\"     -- To see commands about changing basic information of an event.");
+        System.out.println("6.  \"help instruments\"-- To see commands about instruments management");
+        System.out.println("7.  \"help change\"     -- To see commands about changing basic information of an event.");
         System.out.print(lineSeparation);
     }
 
@@ -130,25 +131,39 @@ public class UI {
 
     public void printChangeHelp() {
         System.out.print(lineSeparation);
-        System.out.println("\"1.  done <event index>\"                  \n\t-- " +
+        System.out.println("1.  \"done <event index>\"                  \n\t-- " +
                 "Mark a Todo task as completed. Do not work for non-Todo event.");
-        System.out.println("\"2.  reschedule <event index> dd-MM-yyyy\" \n\t-- " +
+        System.out.println("2.  \"reschedule <event index> dd-MM-yyyy\" \n\t-- " +
                 "Reschedule the date and time of an event.");
-        System.out.println("\"3.  edit <event index> /<description>\"   \n\t-- Edit the description of an event.");
+        System.out.println("3.  \"edit <event index> /<description>\"   \n\t-- Edit the description of an event.");
+        System.out.print(lineSeparation);
+    }
+
+    public void printInstrumentsHelp() {
+        System.out.print(lineSeparation);
+        System.out.println("1.  \"instruments add /<instrument name>\"                      \n\t-- " +
+                "Add an instrument.");
+        System.out.println("2.  \"instruments service <instrument index> /<details>/<date>\"\n\t-- " +
+                "Add an instrument into service list.");
+        System.out.println("3.  \"instruments view services <service index>\"               \n\t-- " +
+                "View past servicing information of the specified instrument.");
+        System.out.println("4.  \"instruments view instruments\"                            \n\t-- " +
+                "View list of instruments.");
         System.out.print(lineSeparation);
     }
 
     /**
      * Obtains the current date and prints the events to be completed within the next
-     * three days as a reminder.
+     * input number of days as a reminder.
      *
-     * @param events the EventList used in the mistermusik.Main function.
+     * @param events the EventList used in the Duke function.
      */
-    public void printReminder(EventList events) {
+    public void printReminderDays(EventList events, int days) {
         System.out.print(lineSeparation);
-        System.out.print(events.getReminder());
+        System.out.print(events.getReminder(days));
         System.out.print(lineSeparation);
     }
+
 
     /**
      * Prints a message when an invalid command is entered.
