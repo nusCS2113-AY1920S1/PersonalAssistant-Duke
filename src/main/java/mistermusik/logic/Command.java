@@ -227,6 +227,13 @@ public class Command {
 
     }
 
+    //@@author ZhangYihanNus
+
+    /**
+     * Add, view, edit or delete checklist items for an event.
+     * @param events The event list
+     * @param ui UI
+     */
     private void checklistManagement(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.checklistCommandWrongFormat();
@@ -294,6 +301,7 @@ public class Command {
         ui.printCalendar(calendarView.getStringForOutput());
     }
 
+
     /**
      * Command to edit an event in the list.
      */
@@ -355,6 +363,7 @@ public class Command {
         }
     }
 
+    //@@author ZhangYihanNus
     /**
      * Finds the next 3 free days in the schedule and passes them to UI class to be printed.
      */
@@ -424,12 +433,13 @@ public class Command {
                     }
                 } else { //recurring event
                     if (entryForEvent.getPeriod() > 0) {
-                      events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
-                    ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
+                        events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
+                        ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
                         if (newEvent.getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) < 0) {
                             ui.printEnteredEventOver();
+                        }
                     } else {
-                          ui.periodNotPositive();
+                        ui.periodNotPositive();
                     }
                 }
 
