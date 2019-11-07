@@ -28,7 +28,7 @@ public class Task implements ITask {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.taskName, this.taskPriority, this.taskCredit);
+        return Objects.hash(this.taskName);
     }
 
     /**
