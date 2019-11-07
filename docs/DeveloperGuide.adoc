@@ -393,42 +393,74 @@ Wrapping of task name which will allow the display of the full task name. Not fe
 
 === Find free time slots feature
 
+[[FreeTimeDisplay]]
+.Output of Free Command
+image::FreeTimeDisplay.png[FreeTimeDisplay]
+
 ==== Implementation
 
-The `FreeCommand` class extends `Command` by providing methods to search for free time slots by determining if `Event` times stored in the persistent `TaskList` of the main program `OOF` clashes with a default time slot of 07:00 to 00:00 in the user-specified date.
+The `FreeCommand` class extends `Command` by providing methods to search for free time slots by determining if `Event` times stored in the persistent `TaskList` of the main program `OOF` clashes with a default time slot of 07:00 to 00:00 in the user-specified date. At the same time, this command provides methods to suggest deadlines to complete if `Deadline` due dates stored in the persistent `TaskList` of the main program `OOF` are within one week from the user entered date.
 
 [NOTE]
 `TaskList` is stored internally as an `ArrayList` in the Oof Program as well as externally in persistent storage in `output.txt`.
 
-All features are implemented in the parse method of the CommandParser class that parses user input commands.
+Features elaborated:
+
+* The output of `FreeCommand` is ANSI colour enabled to easily differentiate free time slots and busy time slots. 
+
+[WARNING]
+As the output is ANSI colour enabled, there is a need to enable ANSI colour support on Windows machines. Refer to table 1. 
 
 Given below is an example usage scenario and how the `FreeCommand` class behaves at each step.
 
 *Step 1.* +
-The user enters `free 30-10-2019`. The `parse` method in the `CommandParser` class is called to parse the input to obtain `30-10-2019` as the date to search for free time slots in.
+The user enters `free 08-11-2019`. The `parse` method in the `CommandParser` class returns a new `FreeCommand` with `08-11-2019` as the input date to search for free time on.
 
 [WARNING]
-`OofException` will be thrown if the user enters an invalid command.
+`InvalidCommandException` will be thrown if the user enters an invalid command.
 
 *Step 2.* +
 The `execute` method in `FreeCommand` class is then called by the `Oof.run()` method in the main class `Oof`.
 
 *Step 3.* +
-The `findFreeTime` method in `FreeCommand` class is then called by the `execute` method. This method does the following:
+In the `execute` method, the `isDateAfterCurrentDate()` and `isDateSame()` methods are called to check if the input date entered is either the current date or a date in the future. If the input date is valid, the `findFreeTime` method is then called.
 
-* Iterates through the the current list of `Task` from the `TaskList` class and checks if an `Event` lies within the date given.
-* All 'Event' corresponding to the date given will be added to an `ArrayList` corresponding to `eventsOnSameDay`, `eventStartTimes` and `eventEndTimes`.
-* Calls `sort` method in `Collections` class to sort all `Event` start and end times in ascending order.
-* Checks if an `Event` coincides with a time slot.
-* Prints the time slots with the relevant details by:
-** Calling `printEventDescription` method in `Ui` class if `Event` coincides with the time slot
-** Calling `printFreeSlot` method in `Ui` class if `Event` does not coincide with the time slot.
+[WARNING]
+`InvalidArgumentException` will be thrown if the user enters a date in the past.
 
-The following activity diagram summarises what happens when a user executes a new command:
+*Step 4.* + 
+The `findFreeTime()` method iterates through the current list of `Task` from the `TaskList` class and checks for both `Event` and `Deadline` tasks. If an `Event` or `Deadline` is found, the `populateEventTimes` or `populateDeadlines` method is then called respectively. 
 
-[[FreeCommandActivityDiagram]]
-.Activity diagram for Free Command
-image::FreeCommandActivityDiagram.png[FreeCommandActivityDiagram]
+*Step 5.* +
+The `populateEventTimes` method calls the `isEventDateWithin()` and `isDuplicateEvent()` methods to check if the `Event` date lie within the input date and if they are a duplicate `Event` respectively. If the `Event` date lie within the input date and is not a duplicate entry, its start and end times will be added to an `ArrayList` corresponding to `eventStartTimes` and `eventEndTimes` respectively.  
+
+*Step 6.* + 
+The `populateDeadlines` method calls the `isDeadlineDueNextWeek()`, `isDuplicateDeadline()` and ``isCompleted()` methods to check if the `Deadline` due date lie within one week from the input date, whether they are a duplicate `Deadline` and if they have already been completed respectively. If the `Deadline` due date lie within one week from the input date, is not a duplicate entry and has not been completed yet, its due date will be added to an `ArrayList` corresponding to `deadlinesDue` while its name will be added to both `deadlineNames` and `sortedDeadlineNames`. 
+
+*Step 7.* + 
+The `findFreetime()` method then calls the `parseSemesterList` method, which uses the same logic in Step 4 to obtain the lesson start and end times if the lesson day coincides with the input day. The lesson start and end times are then added into an existing `ArrayList` called `eventStartTimes` and `eventEndTimes` respectively after checking that it is not a duplicate.  
+
+*Step 8.* + 
+All `eventStartTimes`, `eventEndTimes` and `deadlinesDue` are sorted in ascending order by calling the `sort` method in the `SortByTime` class. The `sortDeadlineNames()` method is then called to sort the deadline names according to their due dates. 
+
+*Step 9.* + 
+The `printFreeTimeHeader` method in `Ui` class is then called to display to the user the header of the input date. 
+
+*Step 10.* + 
+The `parseSlotStates` method is then called to determine if the time slot is `free` if `Event` does not coincide with the time slot or `BUSY` if `Event` coincides with the time slot.
+
+*Step 11.* +
+The `parseOutput` method is then called to print the time slots with the relevant details by:
+
+* Calling `printFreeSlots` method in `Ui` class if the slot state is `free`
+* Calling `printBusySlots` method in `Ui` class if the slot state is `BUSY`.
+* Calling `printSuggestionDetails` method in `Ui` class if 4 consecutive `free` slots are present.
+
+The following sequence diagram summarises what happens when a user executes a new command:
+
+[[FreeCommandSequenceDiagram]]
+.Sequence diagram for Free Command
+image::FreeCommandSequenceDiagram.png[FreeCommandSequenceDiagram]
 
 ==== Design Considerations
 
@@ -447,6 +479,13 @@ This would give users a clean and easy view of the free time slots for that spec
 ** Alternatives considered: +
 Show free time slots in user-specified time blocks. This alternative can be an extension of the current implementation
 of the `FreeCommand` class.
+
+* *Displaying suggestions for deadlines at the end of the free time slots display.*
+** Rationale: + 
+This would allow the users to view the suggestions easily without having to scroll up since the display for free time slots is very long.
+** Alternatives considered: +
+Show suggestions directly in the 4 consecutive free time slots instead. This alternative would inhibit users in optimally viewing their free time since the free time slot will be replaced with the suggested deadline to complete. 
+Thus, showing suggestions in the current implementation gives the user the freedom to plan what to do with their free time. 
 
 === Time Tracker feature
 ==== Implementation
