@@ -38,7 +38,9 @@ public class CreateNoteTest {
 
     @Test
     void illegalCharacterTestInCreateNoteCommand() {
-        String actualOutput, expectedOutput;
+        String actualOutput;
+        String expectedOutput;
+
         actualOutput = javaCake.getResponse("createnote ../hi");
         expectedOutput = "Invalid file name: Illegal character in file name detected!";
         assertEquals(expectedOutput, actualOutput);
@@ -62,7 +64,9 @@ public class CreateNoteTest {
 
     @Test
     void validTestCasesInCreateNoteCommand() {
-        String actualOutput, expectedOutput;
+        String actualOutput;
+        String expectedOutput;
+
         actualOutput = javaCake.getResponse("createnote");
         expectedOutput = "File 'Notes.txt' has been created successfully!\n";
         assertEquals(expectedOutput, actualOutput);
@@ -90,7 +94,8 @@ public class CreateNoteTest {
 
     @Test
     void fileAlreadyExistNotificationInCreateNoteCommand() {
-        String actualOutput, expectedOutput;
+        String actualOutput;
+        String expectedOutput;
         actualOutput = javaCake.getResponse("createnote Notes");
         expectedOutput = "File already exists, please type 'editnote Notes.txt' to edit the file instead";
         assertEquals(expectedOutput, actualOutput);
