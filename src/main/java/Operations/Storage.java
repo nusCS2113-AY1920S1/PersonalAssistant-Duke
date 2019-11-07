@@ -145,7 +145,6 @@ public class Storage {
                     Leave leave = new Leave(description, user, from, to);
                     leave.setPriority(priority);
                     leave.setRecurrenceSchedule(recurrence);
-                    leave.setDone(done);
                     taskArrayList.add(leave);
                 } else {
                     //Meeting type

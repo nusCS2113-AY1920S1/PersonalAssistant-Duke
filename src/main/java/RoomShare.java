@@ -254,7 +254,7 @@ public class RoomShare {
                 try {
                     String input = parser.getCommandLine();
                     int index = parser.getIndex(input);
-                    Task oldTask = taskList.get(index);
+                    Task oldTask = TaskList.get(index);
                     taskCreator.updateTask(input,oldTask);
                     ui.showUpdated(index+1);
                     storage.writeFile(TaskList.currentList(), "data.txt");
@@ -355,26 +355,23 @@ public class RoomShare {
                 Ui.clearScreen();
                 ui.startUp();
                 String input = parser.getCommandLine();
-                ui.showTagged(input);
-                try {
-                    int[] doneArray = taskList.listTagged(input);
-                    ui.showTaggedPercentage(input);
-                    ProgressBar progressBar = new ProgressBar(doneArray[0], doneArray[1]);
-                    ui.showBar(progressBar.showBar());
-                } catch (RoomShareException e) {
-                    ui.showError(e);
-                }
-                listRoutine.list();
-                break;
-
-            case deleted:
-                Ui.clearScreen();
-                ui.startUp();
-                ui.showDeletedList();
-                try {
-                    tempDeleteList.list();
-                } catch (RoomShareException e) {
-                    ui.showError(e);
+                if (input.equals("deleted")) {
+                    ui.showDeletedList();
+                    try {
+                        tempDeleteList.list();
+                    } catch (RoomShareException e) {
+                        ui.showError(e);
+                    }
+                } else {
+                    ui.showTagged(input);
+                    try {
+                        int[] doneArray = taskList.listTagged(input);
+                        ui.showTaggedPercentage(input);
+                        ProgressBar progressBar = new ProgressBar(doneArray[0], doneArray[1]);
+                        ui.showBar(progressBar.showBar());
+                    } catch (RoomShareException e) {
+                        ui.showError(e);
+                    }
                 }
                 listRoutine.list();
                 break;
