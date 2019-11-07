@@ -1,6 +1,7 @@
 package dolla.command;
 
 import dolla.DollaData;
+import dolla.exception.DollaException;
 import dolla.task.Record;
 import dolla.task.Shortcut;
 import dolla.ui.Ui;
@@ -16,7 +17,7 @@ public class AddShortcutCommand extends Command {
     }
 
     @Override
-    public void execute(DollaData dollaData) throws Exception {
+    public void execute(DollaData dollaData) throws DollaException {
         ArrayList<Record> recordList = dollaData.getRecordList(MODE_ENTRY);
         ArrayList<Record> shortcutList = dollaData.getRecordList(MODE_SHORTCUT);
         try {

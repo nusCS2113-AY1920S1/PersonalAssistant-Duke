@@ -1,6 +1,7 @@
 package dolla.parser;
 
 import dolla.ModeStringList;
+import dolla.exception.DollaException;
 import dolla.ui.Ui;
 
 import dolla.command.Command;
@@ -18,7 +19,7 @@ public class MainParser implements ParserStringList, ModeStringList {
      * @param mode The mode Dolla is currently on.
      * @return a command corresponding to the user input.
      */
-    public static Command handleInput(String mode, String inputLine) {
+    public static Command handleInput(String mode, String inputLine) throws DollaException {
 
         String[] inputArray = inputLine.split(SPACE);
         String command = inputArray[0];

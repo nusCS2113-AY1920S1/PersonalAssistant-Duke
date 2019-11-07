@@ -1,6 +1,7 @@
 package dolla.command;
 
 import dolla.DollaData;
+import dolla.exception.DollaException;
 import dolla.task.RecordList;
 import dolla.ui.DebtUi;
 import dolla.ui.ListUi;
@@ -20,7 +21,7 @@ public class ShowBillListCommand extends Command {
     }
 
     @Override
-    public void execute(DollaData dollaData) throws Exception {
+    public void execute(DollaData dollaData) throws DollaException {
         RecordList recordList;
         recordList = dollaData.getBillRecordList();
 
