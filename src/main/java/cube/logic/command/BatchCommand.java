@@ -22,7 +22,7 @@ public class BatchCommand extends Command {
      * Use enums to specify the export or import operations to be performed by FileUtilCSV.
      */
     public enum OperationType {
-        EXPORT, IMPORT
+        EXPORT, IMPORT, EMPTY
     }
 
     private String fileName;
@@ -33,6 +33,8 @@ public class BatchCommand extends Command {
         + "%2$s\n";
     private final String MESSAGE_EXPORT = "exported";
     private final String MESSAGE_IMPORT = "imported";
+    private final String MESSAGE_SUCCESS_TEMPLATE = "An empty template has been successfully generated as file:\n"
+        + "%1$s\n";
 
     private final String MESSAGE_FILE_NOT_FOUND = "The file that you are importing cannot be found:\n"
         + "%1$s\n";
@@ -79,6 +81,15 @@ public class BatchCommand extends Command {
     }
 
     /**
+     * Creates a empty template CSV file.
+     *
+     * @throws CubeException Throws an exception if error occured during file handling.
+     */
+    private void batchEmpty() throws CubeException {
+        batchUtil.save(new ArrayList<Food>);
+    }
+
+    /**
      * Constructs the command result output to be shown to the user.
      */
     @Override
@@ -95,6 +106,9 @@ public class BatchCommand extends Command {
             case EXPORT:
                 batchExport(storage);
                 return new CommandResult(String.format(MESSAGE_SUCCESS, MESSAGE_EXPORT, fileName));
+            case EMPTY:
+                batchEmpty();
+                return new CommandResult(String.format(MESSAGE_SUCCESS, fileName));
             }
         } catch (CubeException e) {
             e.printStackTrace();

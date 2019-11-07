@@ -7,7 +7,7 @@ import cube.logic.parser.exception.ParserException;
 public class BatchCommandParser implements ParserPrototype<BatchCommand> {
 
     public BatchCommand parse(String[] args) throws ParserException {
-        String[] params = new String[] {"-o", "-i"};
+        String[] params = new String[] {"-o", "-i", "-e"};
 
         if (ParserUtil.hasInvalidParameters(args, params)) {
             throw new ParserException(ParserErrorMessage.INVALID_PARAMETER);
@@ -24,6 +24,8 @@ public class BatchCommandParser implements ParserPrototype<BatchCommand> {
             return new BatchCommand(args[2], "EXPORT");
         case "-i":
             return new BatchCommand(args[2], "IMPORT");
+        case "-e":
+            return new BatchCommand(args[2], "EMPTY");
         }
         return null;
     }
