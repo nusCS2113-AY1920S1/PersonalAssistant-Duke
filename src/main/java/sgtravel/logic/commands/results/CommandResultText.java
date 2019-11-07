@@ -17,8 +17,9 @@ import java.util.ArrayList;
  * Defines the result of various commands as a string.
  */
 public class CommandResultText extends CommandResult {
+
     /**
-     * Constructs a basic CommandResultImage object.
+     * Constructs a basic CommandResultText object.
      *
      * @param message Message for ui to display.
      */
@@ -28,6 +29,8 @@ public class CommandResultText extends CommandResult {
 
     /**
      * Alternative constructor that helps to create text for a list of events.
+     *
+     * @param events The EventList to create text for.
      */
     public CommandResultText(EventList events) {
         message = "Here are the list of events:\n";
@@ -40,10 +43,12 @@ public class CommandResultText extends CommandResult {
 
     /**
      * Alternative constructor that helps to create text for a list of Routes.
+     *
+     * @param routes The RouteList to create text for.
      */
     public CommandResultText(RouteList routes) {
         int index = 1;
-        message = "Here is the information of Routes:\n";
+        message = "Here is the information of Routes:\nThere are " + routes.size() + " Routes.\n";
         for (Route route: routes.getRoutes()) {
             message += "(" + index + ") " + route.getName() + "\n" + route.getDescription() + "\n";
             index++;
@@ -52,6 +57,8 @@ public class CommandResultText extends CommandResult {
 
     /**
      * Alternative constructor that helps to create text for a Route.
+     *
+     * @param route The Route to create text for.
      */
     public CommandResultText(Route route) {
         message = "Here is the information of the Route:\n" + route.getName() + "\n";
@@ -73,6 +80,8 @@ public class CommandResultText extends CommandResult {
 
     /**
      * Alternative constructor that helps to create text for a Route Node.
+     *
+     * @param node The RouteNode to create text for.
      */
     public CommandResultText(RouteNode node) {
         message = "Here is the information of the ";
@@ -87,25 +96,27 @@ public class CommandResultText extends CommandResult {
     }
 
     /**
-     * Alternative constructor that helps to create text for an ArrayList of Venue.
+     * Alternative constructor that helps to create text for an ArrayList of Venues.
      *
      * @param message The message to show at the top.
-     * @param venues The ArrayList of Venue.
+     * @param venues The ArrayList of Venues to create text for.
      */
     public CommandResultText(String message, ArrayList<Venue> venues) {
-        String result = message;
+        StringBuilder result = new StringBuilder(message);
         for (Venue venue : venues) {
             if (venue instanceof BusStop) {
-                result += ((BusStop) venue).getBusCode() + " " + venue.getAddress() + "\n";
+                result.append(((BusStop) venue).getBusCode()).append(" ").append(venue.getAddress()).append("\n");
             } else {
-                result += venue.getAddress() + "\n";
+                result.append(venue.getAddress()).append("\n");
             }
         }
-        this.message = result;
+        this.message = result.toString();
     }
 
     /**
-     * Alternative constructor that helps to create text for a list of events.
+     * Alternative constructor that helps to create text for a ProfileCard.
+     *
+     * @param profileCard The ProfileCard to create text for.
      */
     public CommandResultText(ProfileCard profileCard) {
         message = "PROFILE:\n\n";

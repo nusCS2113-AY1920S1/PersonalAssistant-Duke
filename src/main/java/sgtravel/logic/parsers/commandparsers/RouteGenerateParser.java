@@ -18,6 +18,8 @@ public class RouteGenerateParser extends CommandParser {
 
     /**
      * Constructs the RouteGenerateParser.
+     *
+     * @param input The user input.
      */
     public RouteGenerateParser(String input) {
         this.input = input;
@@ -25,7 +27,8 @@ public class RouteGenerateParser extends CommandParser {
 
     /**
      * Parses the user input and constructs RouteGenerateCommand object.
-     * @return RouteGenerateCommand object.
+     *
+     * @return The RouteGenerateCommand object.
      * @throws ParseException If RouteGenerateCommand object cannot be created.
      */
     @Override

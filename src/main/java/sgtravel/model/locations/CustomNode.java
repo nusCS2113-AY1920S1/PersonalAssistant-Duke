@@ -26,6 +26,5 @@ public class CustomNode extends RouteNode {
      */
     public CustomNode(Venue venue) {
         super(Constraint.valueOf("CUSTOM"), venue.getAddress(), "", venue.getLatitude(), venue.getLongitude());
-
     }
 }

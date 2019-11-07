@@ -23,8 +23,9 @@ public class ApiConstraintParser {
     public static BusStop getNearestBusStop(Venue place, HashMap<String, BusStop> busStopMap) {
         double minimumDisplacement = 1000;
         BusStop nearestBusStop = null;
+
         for (Map.Entry mapElement : busStopMap.entrySet()) {
-            BusStop cur = (BusStop)mapElement.getValue();
+            BusStop cur = (BusStop) mapElement.getValue();
             double displacement = getDisplacement(place, cur);
             if (displacement < minimumDisplacement) {
                 minimumDisplacement = displacement;

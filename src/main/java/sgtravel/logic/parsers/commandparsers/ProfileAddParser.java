@@ -18,6 +18,8 @@ public class ProfileAddParser extends CommandParser {
 
     /**
      * Constructs the AddProfileParser.
+     *
+     * @param input The user input.
      */
     public ProfileAddParser(String input) {
         this.input = input;
@@ -25,6 +27,7 @@ public class ProfileAddParser extends CommandParser {
 
     /**
      * Parses user input and constructs an AddProfileCommand object.
+     *
      * @return AddProfileCommand object.
      * @throws ParseException If AddProfileCommand object cannot be created from user input.
      */

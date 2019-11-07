@@ -14,6 +14,8 @@ public class BusService {
 
     /**
      * Creates a BusService object.
+     *
+     * @param bus The number for this BusService.
      */
     public BusService(String bus) {
         this.bus = bus;

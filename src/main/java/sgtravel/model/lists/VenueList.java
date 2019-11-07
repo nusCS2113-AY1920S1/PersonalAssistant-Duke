@@ -13,6 +13,9 @@ import java.util.List;
 public class VenueList implements Iterable<Venue>, Listable<Venue> {
     private List<Venue> list;
 
+    /**
+     * Constructs a blank VenueList.
+     */
     public VenueList() {
         list = new ArrayList<>();
     }

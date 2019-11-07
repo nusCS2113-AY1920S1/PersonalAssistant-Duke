@@ -17,6 +17,8 @@ public class RecommendationParser extends CommandParser {
 
     /**
      * Constructs the RecommendationParser.
+     *
+     * @param input The user input.
      */
     public RecommendationParser(String input) {
         this.input = input;
@@ -24,6 +26,7 @@ public class RecommendationParser extends CommandParser {
 
     /**
      * Parses the input and return a new Itinerary constructed from it.
+     *
      * @return The Itinerary object.
      * @throws ParseException If Itinerary object cannot be created.
      */

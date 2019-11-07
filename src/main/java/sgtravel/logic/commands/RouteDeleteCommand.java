@@ -5,6 +5,7 @@ import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.logic.commands.results.CommandResultText;
 import sgtravel.model.Model;
 import sgtravel.model.lists.RouteList;
+import sgtravel.model.transports.Route;
 
 /**
  * Deletes a Route from RouteList.
@@ -35,7 +36,8 @@ public class RouteDeleteCommand extends Command {
             OutOfBoundsException {
         try {
             RouteList routes = model.getRoutes();
-            String routeName = routes.get(index).getName();
+            Route route = routes.get(index);
+            String routeName = route.getName();
             routes.remove(index);
             model.save();
             return new CommandResultText(MESSAGE_DELETION + routeName);

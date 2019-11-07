@@ -10,14 +10,18 @@ public class GetBusStopConversation extends Conversation {
     private String busCode;
 
     /**
-     * Initialises the Conversation object.
+     * Initialises the GetBusStopConversation object.
      */
-
     public GetBusStopConversation() {
         super();
         prompt = Messages.PROMPT_GETBUSSTOP_STARTER;
     }
 
+    /**
+     * Executes Prompt and returns a String reply.
+     *
+     * @param input The user input.
+     */
     @Override
     public void execute(String input) {
         if (isIntInput(input)) {
@@ -29,6 +33,9 @@ public class GetBusStopConversation extends Conversation {
         tryCancelConversation(input);
     }
 
+    /**
+     * Builds the result of the conversation string.
+     */
     @Override
     protected void buildResult() {
         result = command + " " + busCode;

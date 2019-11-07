@@ -3,6 +3,7 @@ package sgtravel.logic;
 import sgtravel.commons.enumerations.Constraint;
 import sgtravel.commons.enumerations.Direction;
 import sgtravel.commons.exceptions.QueryFailedException;
+import sgtravel.commons.exceptions.RouteGenerateFailException;
 import sgtravel.logic.api.ApiConstraintParser;
 import sgtravel.model.Model;
 import sgtravel.model.locations.BusStop;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Objects;
+import java.util.Set;
 
 /**
  * Defines an algorithm to find a path between 2 Venues.
@@ -45,7 +46,7 @@ public class PathFinder {
      * @param end ending location.
      * @return path.
      */
-    public ArrayList<Venue> execute(Venue start, Venue end, Constraint constraint) {
+    public ArrayList<Venue> execute(Venue start, Venue end, Constraint constraint) throws RouteGenerateFailException {
         found = false;
         switch (constraint) {
         case BUS:
@@ -53,47 +54,8 @@ public class PathFinder {
         case MRT:
             return findTrainRoute(start, end);
         default:
-            return findMixedRoute(start, end);
+            throw new RouteGenerateFailException();
         }
-    }
-
-    private ArrayList<Venue> findMixedRoute(Venue start, Venue end) {
-        Venue startTransport = ApiConstraintParser.getNearestTransport(start, this.map);
-        Venue endTransport = ApiConstraintParser.getNearestTransport(end, this.map);
-        ArrayList<Venue> ans = new ArrayList<>();
-
-        if (startTransport instanceof TrainStation && endTransport instanceof TrainStation) {
-            return findTrainRoute(start, end);
-        }
-
-        if (startTransport instanceof BusStop && endTransport instanceof TrainStation) {
-            TrainStation middleTrain = ApiConstraintParser.getNearestTrainStation(start, this.map.getTrainMap());
-            BusStop middleBus = ApiConstraintParser.getNearestBusStop(middleTrain, this.map.getBusStopMap());
-
-            ans = findBusRoute(start, middleBus);
-            ans.addAll(Objects.requireNonNull(findTrainRoute(middleTrain, end)));
-        }
-
-        if (startTransport instanceof TrainStation && endTransport instanceof BusStop) {
-            TrainStation middleTrain = ApiConstraintParser.getNearestTrainStation(end, this.map.getTrainMap());
-            BusStop middleBus = ApiConstraintParser.getNearestBusStop(middleTrain, this.map.getBusStopMap());
-
-            ans = findTrainRoute(start, middleTrain);
-            ans.addAll(Objects.requireNonNull(findBusRoute(middleBus, end)));
-        }
-
-        if (startTransport instanceof BusStop && endTransport instanceof BusStop) {
-            TrainStation startTrain = ApiConstraintParser.getNearestTrainStation(start, this.map.getTrainMap());
-            TrainStation endTrain = ApiConstraintParser.getNearestTrainStation(end, this.map.getTrainMap());
-            BusStop startMiddleBus = ApiConstraintParser.getNearestBusStop(startTrain, this.map.getBusStopMap());
-            BusStop endMiddleBus = ApiConstraintParser.getNearestBusStop(endTrain, this.map.getBusStopMap());
-
-            ans = findBusRoute(start, startMiddleBus);
-            ans.addAll(Objects.requireNonNull(findTrainRoute(startTrain, endTrain)));
-            ans.addAll(Objects.requireNonNull(findBusRoute(endMiddleBus, end)));
-        }
-
-        return ans;
     }
 
     private ArrayList<Venue> findTrainRoute(Venue start, Venue end) {
@@ -240,9 +202,16 @@ public class PathFinder {
         }
     }
 
-    private boolean haveSameBus(BusStop cur, BusStop endBusStop) {
-        for (String bus : cur.getBuses()) {
-            if (endBusStop.getBuses().contains(bus)) {
+    /**
+     * Returns if two BusStops have a common Bus Service.
+     *
+     * @param firstBusStop The first BusStop object.
+     * @param secondBusStop The second BusStop object.
+     * @return true If the two BusStops have a common Bus Service.
+     */
+    private boolean haveSameBus(BusStop firstBusStop, BusStop secondBusStop) {
+        for (String bus : firstBusStop.getBuses()) {
+            if (secondBusStop.getBuses().contains(bus)) {
                 return true;
             }
         }
@@ -289,29 +258,30 @@ public class PathFinder {
      * @param model The model object containing information about the user.
      * @return result The ArrayList of BusStops.
      */
-    public static ArrayList<Venue> generateInbetweenBusRoutes(Venue startVenue, Venue endVenue, Model model)
+    private static ArrayList<Venue> generateInbetweenBusRoutes(Venue startVenue, Venue endVenue, Model model)
             throws QueryFailedException {
-        ArrayList<Venue> result = new ArrayList<>();
-        HashMap<String, BusService> busMap = model.getMap().getBusMap();
         boolean isGenerated = false;
+        ArrayList<Venue> result = new ArrayList<>();
+        TransportationMap map = model.getMap();
+        HashMap<String, BusService> busMap = map.getBusMap();
+        Set<String> busServices = ((BusStop) startVenue).getBuses();
 
-        for (String busNumber: ((BusStop) startVenue).getBuses()) {
+        for (String busNumber: busServices) {
             if (!isGenerated) {
                 BusService bus = busMap.get(busNumber);
                 ArrayList<String> busCodes = bus.getDirection(Direction.FORWARD);
 
                 result =
                         searchForwardDirectionBus((BusStop) startVenue, (BusStop) endVenue, busNumber, busCodes, model);
-                if (result == null) {
-                    //search backward direction
+                if (result != null) {
+                    isGenerated = true;
+                } else {
                     Collections.reverse(busCodes);
                     result =
-                    searchReverseDirectionBus((BusStop) startVenue, (BusStop) endVenue, busNumber, busCodes, model);
+                        searchReverseDirectionBus((BusStop) startVenue, (BusStop) endVenue, busNumber, busCodes, model);
                     if (result != null) {
                         isGenerated = true;
                     }
-                } else {
-                    isGenerated = true;
                 }
 
             } else {
@@ -334,16 +304,18 @@ public class PathFinder {
      */
     private static ArrayList<Venue> searchForwardDirectionBus(BusStop startVenue, BusStop endVenue,
                               String busNumber, ArrayList<String> busCodes, Model model) throws QueryFailedException {
-        ArrayList<Venue> result = new ArrayList<>();
         boolean isStartNodeFound = false;
         boolean isGenerated = false;
+        ArrayList<Venue> result = new ArrayList<>();
+        String startNodeBusCode = startVenue.getBusCode();
+        String endNodeBusCode = endVenue.getBusCode();
 
         for (String busCode : busCodes) {
-            if (endVenue.getBusCode().equals(busCode) && !isStartNodeFound) {
+            if (endNodeBusCode.equals(busCode) && !isStartNodeFound) {
                 break;
             }
 
-            if (endVenue.getBusCode().equals(busCode) && isStartNodeFound) {
+            if (endNodeBusCode.equals(busCode) && isStartNodeFound) {
                 isGenerated = true;
                 break;
             }
@@ -353,7 +325,7 @@ public class PathFinder {
                 result.add(node);
             }
 
-            if (startVenue.getBusCode().equals(busCode)) {
+            if (startNodeBusCode.equals(busCode)) {
                 BusStop node = new BusStop(busCode, "", "", 0, 0);
                 node.fetchData(model);
                 result.add(new CustomNode("Bus Service " + busNumber, "", node.getLatitude(),
@@ -382,12 +354,14 @@ public class PathFinder {
      */
     private static ArrayList<Venue> searchReverseDirectionBus(BusStop startVenue, BusStop endVenue,
                               String busNumber, ArrayList<String> busCodes, Model model) throws QueryFailedException {
-        ArrayList<Venue> result = new ArrayList<>();
         boolean isStartNodeFound = false;
         boolean isGenerated = false;
+        ArrayList<Venue> result = new ArrayList<>();
+        String startNodeBusCode = startVenue.getBusCode();
+        String endNodeBusCode = endVenue.getBusCode();
 
         for (String busCode : busCodes) {
-            if (endVenue.getBusCode().equals(busCode) && isStartNodeFound) {
+            if (endNodeBusCode.equals(busCode) && isStartNodeFound) {
                 isGenerated = true;
                 break;
             }
@@ -397,7 +371,7 @@ public class PathFinder {
                 result.add(node);
             }
 
-            if (startVenue.getBusCode().equals(busCode)) {
+            if (startNodeBusCode.equals(busCode)) {
                 BusStop node = new BusStop(busCode, "", "", 0, 0);
                 node.fetchData(model);
                 result.add(new CustomNode("Bus Service " + busNumber, "", node.getLatitude(),
@@ -421,30 +395,30 @@ public class PathFinder {
      * @param model The model object containing information about the user.
      * @return result The ArrayList of TrainStations.
      */
-    public static ArrayList<Venue> generateInbetweenTrainRoutes(TrainStation startVenue, TrainStation endVenue,
-                                                                Model model) throws QueryFailedException {
-        ArrayList<Venue> result = new ArrayList<>();
-        TrainStation start = model.getMap().getTrainStation(startVenue.getDescription());
-        ArrayList<String> trainCodes = start.getTrainCodes();
+    private static ArrayList<Venue> generateInbetweenTrainRoutes(TrainStation startVenue, TrainStation endVenue,
+                                                                 Model model) throws QueryFailedException {
         boolean isGenerated = false;
+        ArrayList<Venue> result = new ArrayList<>();
+        TransportationMap map = model.getMap();
+        String startNodeDescription = startVenue.getDescription();
+        TrainStation start = map.getTrainStation(startNodeDescription);
+        ArrayList<String> trainCodes = start.getTrainCodes();
 
         for (String trainCode: trainCodes) {
-
             if (!isGenerated) {
-                ArrayList<TrainStation> trainLine = model.getMap().getTrainLine(trainCode.substring(0, 2));
-                //search forward direction
+                String lineCode = trainCode.substring(0, 2);
+                ArrayList<TrainStation> trainLine = map.getTrainLine(lineCode);
+
                 result = searchForwardDirectionTrain(startVenue, endVenue, trainCode, trainLine);
-                if (result == null) {
-                    //search backward direction
+                if (result != null) {
+                    isGenerated = true;
+                } else {
                     Collections.reverse(trainLine);
                     result = searchReverseDirectionTrain(startVenue, endVenue, trainCode, trainLine);
                     if (result != null) {
                         isGenerated = true;
                     }
-                } else {
-                    isGenerated = true;
                 }
-
             } else {
                 break;
             }
@@ -465,16 +439,19 @@ public class PathFinder {
      */
     private static ArrayList<Venue> searchForwardDirectionTrain(TrainStation startVenue, TrainStation endVenue,
                                String trainCode, ArrayList<TrainStation> trainLine) {
-        ArrayList<Venue> result = new ArrayList<>();
         boolean isStartNodeFound = false;
         boolean isGenerated = false;
+        ArrayList<Venue> result = new ArrayList<>();
+        String startNodeDescription = startVenue.getDescription();
+        String endNodeDescription = endVenue.getDescription();
 
         for (TrainStation trainStation : trainLine) {
-            if (endVenue.getDescription().equals(trainStation.getDescription()) && !isStartNodeFound) {
+            String newNodeDescription = trainStation.getDescription();
+            if (endNodeDescription.equals(newNodeDescription) && !isStartNodeFound) {
                 break;
             }
 
-            if (endVenue.getDescription().equals(trainStation.getDescription()) && isStartNodeFound) {
+            if (endNodeDescription.equals(newNodeDescription) && isStartNodeFound) {
                 isGenerated = true;
                 break;
             }
@@ -483,7 +460,7 @@ public class PathFinder {
                 result.add(trainStation);
             }
 
-            if (startVenue.getDescription().equals(trainStation.getDescription())) {
+            if (startNodeDescription.equals(newNodeDescription)) {
                 result.add(new CustomNode(trainCode + " Line", "", trainStation.getLatitude(),
                         trainStation.getLongitude()));
                 isStartNodeFound = true;
@@ -508,12 +485,15 @@ public class PathFinder {
      */
     private static ArrayList<Venue> searchReverseDirectionTrain(TrainStation startVenue, TrainStation endVenue,
                                                                 String trainCode, ArrayList<TrainStation> trainLine) {
-        ArrayList<Venue> result = new ArrayList<>();
         boolean isStartNodeFound = false;
         boolean isGenerated = false;
+        ArrayList<Venue> result = new ArrayList<>();
+        String startNodeDescription = startVenue.getDescription();
+        String endNodeDescription = endVenue.getDescription();
 
         for (TrainStation trainStation : trainLine) {
-            if (endVenue.getDescription().equals(trainStation.getDescription()) && isStartNodeFound) {
+            String newNodeDescription = trainStation.getDescription();
+            if (endNodeDescription.equals(newNodeDescription) && isStartNodeFound) {
                 isGenerated = true;
                 break;
             }
@@ -522,7 +502,7 @@ public class PathFinder {
                 result.add(trainStation);
             }
 
-            if (startVenue.getDescription().equals(trainStation.getDescription())) {
+            if (startNodeDescription.equals(newNodeDescription)) {
                 result.add(new CustomNode(trainCode + " Line", "", trainStation.getLatitude(),
                         trainStation.getLongitude()));
                 isStartNodeFound = true;
@@ -534,27 +514,5 @@ public class PathFinder {
         } else {
             return null;
         }
-    }
-
-    /**
-     * Converts an ArrayList of Venues to RouteNodes.
-     *
-     * @param nodes The ArrayList of Venues.
-     * @return result The ArrayList of RouteNodes.
-     */
-    public ArrayList<RouteNode> convertToRouteNode(ArrayList<Venue> nodes) {
-        ArrayList<RouteNode> result = new ArrayList<>();
-        for (Venue node: nodes) {
-            if (node instanceof BusStop) {
-                result.add((BusStop) node);
-            } else if (node instanceof TrainStation) {
-                result.add((TrainStation) node);
-            } else {
-                CustomNode converted = new CustomNode(node.getAddress(), "", node.getLatitude(), node.getLongitude());
-                result.add(converted);
-            }
-        }
-
-        return result;
     }
 }

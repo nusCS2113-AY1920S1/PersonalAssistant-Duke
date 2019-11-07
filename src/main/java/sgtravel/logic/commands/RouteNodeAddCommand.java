@@ -48,33 +48,20 @@ public class RouteNodeAddCommand extends Command {
     @Override
     public CommandResultImage execute(Model model) throws QueryFailedException, DuplicateRouteNodeException,
             OutOfBoundsException, FileNotSavedException, ApiException {
-        if (node instanceof BusStop) {
-            try {
-                ((BusStop) node).fetchData(model);
-            } catch (QueryFailedException e) {
+        try {
+            fetchNodeData(model);
+        } catch (QueryFailedException e) {
+            if (node instanceof BusStop) {
                 return new CommandResultImage(Messages.ERROR_BUS_STOP_NOT_FOUND_STARTER + e.getQueriedItem()
                         + Messages.ERROR_BUS_STOP_NOT_FOUND_END, null);
-            }
-        } else if (node instanceof TrainStation) {
-            try {
-                ((TrainStation) node).fetchData(model);
-            } catch (QueryFailedException e) {
+            } else {
                 return new CommandResultImage(Messages.ERROR_TRAIN_STATION_NOT_FOUND_STARTER + e.getQueriedItem()
                         + Messages.ERROR_TRAIN_STATION_NOT_FOUND_END, null);
             }
         }
 
         try {
-            Route route = model.getRoute(indexRoute);
-            if (isEmptyIndexNode) {
-                route.add(node);
-                indexNode = route.size() - 1;
-            } else if (indexNode >= 0) {
-                route.addNode(node, indexNode);
-            } else {
-                throw new OutOfBoundsException();
-            }
-
+            addToRoute(model);
         } catch (IndexOutOfBoundsException e) {
             throw new OutOfBoundsException();
         }
@@ -82,5 +69,38 @@ public class RouteNodeAddCommand extends Command {
         model.save();
 
         return new RouteNodeShowCommand(indexRoute, indexNode).execute(model);
+    }
+
+    /**
+     * Adds a RouteNode to the Route.
+     *
+     * @param model The model object containing information about the user.
+     * @throws OutOfBoundsException If the indexes are out of bounds.
+     * @throws DuplicateRouteNodeException If the RouteNode is a duplicate.
+     */
+    private void addToRoute(Model model) throws OutOfBoundsException, DuplicateRouteNodeException {
+        Route route = model.getRoute(indexRoute);
+        if (isEmptyIndexNode) {
+            route.add(node);
+            indexNode = route.size() - 1;
+        } else if (indexNode >= 0) {
+            route.addNode(node, indexNode);
+        } else {
+            throw new OutOfBoundsException();
+        }
+    }
+
+    /**
+     * Fetches the RouteNode data from the Model.
+     *
+     * @param model The model object containing information about the user.
+     * @throws QueryFailedException If the fetching of data fails.
+     */
+    private void fetchNodeData(Model model) throws QueryFailedException {
+        if (node instanceof BusStop) {
+            ((BusStop) node).fetchData(model);
+        } else if (node instanceof TrainStation) {
+            ((TrainStation) node).fetchData(model);
+        }
     }
 }

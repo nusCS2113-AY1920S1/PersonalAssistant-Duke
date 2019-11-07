@@ -12,13 +12,18 @@ public class RouteEditConversation extends Conversation {
     private String newValue;
 
     /**
-     * Initialises the Conversation object.
+     * Initialises the RouteEditConversation object.
      */
     public RouteEditConversation() {
         super();
         prompt = Messages.PROMPT_ROUTE_EDIT_STARTER;
     }
 
+    /**
+     * Executes Prompt and returns a String reply.
+     *
+     * @param input The user input.
+     */
     @Override
     public void execute(String input) {
         switch (state) {
@@ -54,6 +59,9 @@ public class RouteEditConversation extends Conversation {
         tryCancelConversation(input);
     }
 
+    /**
+     * Builds the result of the conversation string.
+     */
     @Override
     protected void buildResult() {
         result = command + " " + index + " " + field + " " + newValue;

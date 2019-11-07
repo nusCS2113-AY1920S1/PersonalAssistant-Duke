@@ -18,7 +18,7 @@ public class ConversationManager {
     private Conversation conversation;
 
     /**
-     * Constructs the ConversationManager object and include the RouteManager.
+     * Constructs the ConversationManager object.
      */
     public ConversationManager() {
         isFinished = true;
@@ -75,6 +75,7 @@ public class ConversationManager {
 
     /**
      * Gets a command from the ConversationManager.
+     *
      * @return Command for logic to execute.
      * @throws DukeException If the result could not be parse by parser.
      */

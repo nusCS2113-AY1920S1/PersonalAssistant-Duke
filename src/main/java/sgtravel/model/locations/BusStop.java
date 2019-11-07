@@ -3,6 +3,8 @@ package sgtravel.model.locations;
 import sgtravel.commons.enumerations.Constraint;
 import sgtravel.commons.exceptions.QueryFailedException;
 import sgtravel.model.Model;
+import sgtravel.model.transports.TransportationMap;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -75,9 +77,11 @@ public class BusStop extends RouteNode {
      * @throws QueryFailedException If the bus stop is not found.
      */
     public void fetchData(Model model) throws QueryFailedException {
-        HashMap<String, BusStop> allBus = model.getMap().getBusStopMap();
-        if (allBus.containsKey(this.busCode)) {
-            BusStop busStop = allBus.get(this.busCode);
+        TransportationMap map = model.getMap();
+        HashMap<String, BusStop> allBus = map.getBusStopMap();
+
+        if (allBus.containsKey(busCode)) {
+            BusStop busStop = allBus.get(busCode);
             this.setAddress(busStop.getAddress());
             this.setDescription(busStop.getDescription());
             this.setLatitude(busStop.getLatitude());

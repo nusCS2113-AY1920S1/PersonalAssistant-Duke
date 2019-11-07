@@ -27,7 +27,6 @@ import sgtravel.logic.commands.RouteGenerateCommand;
 import sgtravel.logic.commands.RouteListCommand;
 import sgtravel.logic.commands.RouteNodeAddCommand;
 import sgtravel.logic.commands.RouteNodeDeleteCommand;
-import sgtravel.logic.commands.RouteNodeListCommand;
 import sgtravel.logic.commands.RouteNodeNeighboursCommand;
 import sgtravel.logic.commands.RouteNodeShowCommand;
 import sgtravel.logic.commands.RouteShowCommand;
@@ -70,7 +69,6 @@ class ParserTest {
         assertTrue(Parser.parseComplexCommand("routeNodeAdd 1 1 at 17009 by bus") instanceof RouteNodeAddCommand);
         assertTrue(Parser.parseComplexCommand("routeGenerate amk hub to clementi by bus")
                 instanceof RouteGenerateCommand);
-        assertTrue(Parser.parseComplexCommand("routeNodeList 1 1") instanceof RouteNodeListCommand);
         assertTrue(Parser.parseComplexCommand("routeShow 1") instanceof RouteShowCommand);
         assertTrue(Parser.parseComplexCommand("routeNodeShow 1 1") instanceof RouteNodeShowCommand);
         assertTrue(Parser.parseComplexCommand("routeNodeNearby 1 1") instanceof RouteNodeNeighboursCommand);

@@ -11,6 +11,8 @@ public class GetBusStopParser extends CommandParser {
 
     /**
      * Constructs the GetBusStopParser.
+     *
+     * @param input The user input.
      */
     public GetBusStopParser(String input) {
         busStopNo = input;
@@ -18,6 +20,7 @@ public class GetBusStopParser extends CommandParser {
 
     /**
      * Parses the user input and constructs GetBusStopCommand object.
+     *
      * @return GetBusStopCommand object.
      */
     @Override
