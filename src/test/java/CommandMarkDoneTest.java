@@ -5,7 +5,6 @@ import executor.task.TaskList;
 import executor.task.TaskType;
 import org.junit.jupiter.api.Test;
 import storage.StorageManager;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CommandMarkDoneTest {

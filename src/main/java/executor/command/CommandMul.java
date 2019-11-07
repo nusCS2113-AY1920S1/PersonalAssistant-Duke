@@ -47,7 +47,9 @@ public class CommandMul extends Command {
         this.infoCapsule.setOutputStr(stringOne
                 + " * "
                 + stringTwo
+                + " "
                 + "="
+                + " "
                 + result
                 + "\n");
     }

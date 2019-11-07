@@ -45,7 +45,7 @@ public class CommandGetSpendingByMonth extends Command {
 
             if (yearStr.length() != 4) {
                 this.infoCapsule.setCodeError();
-                this.infoCapsule.setOutputStr("Year input contains extra number of variables. "
+                this.infoCapsule.setOutputStr("Year input contains lesser/extra number of variables. "
                         + "\nFORMAT : expendedmonth <month> /year <year>");
                 return;
             }
@@ -58,7 +58,7 @@ public class CommandGetSpendingByMonth extends Command {
                     return;
                 }
 
-                if (year < 1000) {
+                if (year < 1800) {
                     this.infoCapsule.setCodeError();
                     this.infoCapsule.setOutputStr("Year is too far back into the past");
                     return;

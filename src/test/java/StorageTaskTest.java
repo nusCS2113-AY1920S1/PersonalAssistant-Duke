@@ -17,13 +17,12 @@ public class StorageTaskTest {
     @Test
     void loadData() {
         StorageTask storagetask = new StorageTask("testDataLoad.txt");
-        TaskList taskListResult = null;
+        TaskList taskListResult = new TaskList();
         try {
-            taskListResult = storagetask.loadData();
+            storagetask.loadData(taskListResult);
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
-        assert taskListResult != null;
         final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
         //TODO yoda things/ tmrw at last@|@false
         Task taskResult = taskListResult.get(0);
@@ -75,14 +74,17 @@ public class StorageTaskTest {
         // Follow the Storage Format when inputting new test cases
         StorageTask storageExpected = new StorageTask("testDataLoad.txt");
         StorageTask storageSaved = new StorageTask("testDataSave.txt");
-        TaskList taskList = null;
+        TaskList taskList = new TaskList();
         try {
-            taskList = storageExpected.loadData();
+            storageExpected.loadData(taskList);
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
-        assert taskList != null;
-        storageSaved.saveData(taskList);
+        try {
+            storageSaved.saveData(taskList);
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+        }
         File fileExpected = new File("testDataLoad.txt");
         File fileSaved = new File("testDataSave.txt");
         try {
@@ -92,7 +94,7 @@ public class StorageTaskTest {
                 assertEquals(scannerExpected.nextLine(), scannerSaved.nextLine());
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.toString());
         }
     }
 }

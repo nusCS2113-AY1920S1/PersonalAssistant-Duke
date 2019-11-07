@@ -15,3 +15,5 @@ bin/
 
 # Customized
 savedData.txt
+savedWallet.txt
+savedTask.txt

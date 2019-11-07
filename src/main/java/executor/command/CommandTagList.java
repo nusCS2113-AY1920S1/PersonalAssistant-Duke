@@ -9,7 +9,8 @@ public class CommandTagList extends CommandList {
     private String tag;
 
     /**
-     * Constructor for CommandListTag subCommand Class.
+     * Constructor for CommandTagList subCommand Class.
+     *
      * @param userInput The user input from the CLI
      */
     public CommandTagList(String userInput) {
@@ -22,19 +23,24 @@ public class CommandTagList extends CommandList {
     }
 
     @Override
-       public void execute(StorageManager storageManager) {
+    public void execute(StorageManager storageManager) {
         StringBuilder outputStr = new StringBuilder();
+        if (this.tag == null || this.tag.isEmpty()) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr("Tag input is missing. FORMAT : taglist <tag>");
+            return;
+        }
         DecimalFormat decimalFormat = new DecimalFormat("#0.00");
         try {
             outputStr.append("You spent a total of $")
-                    .append(decimalFormat.format(storageManager.getReceiptsByTag(this.tag).getTotalCashSpent()))
-                    .append(" ")
-                    .append("on")
-                    .append(" ")
-                    .append(this.tag)
-                    .append("\n")
-                    .append(storageManager.getReceiptsByTag(this.tag).getPrintableReceipts())
-                    .append("\n");
+                .append(decimalFormat.format(storageManager.getReceiptsByTag(this.tag).getTotalCashSpent()))
+                .append(" ")
+                .append("on")
+                .append(" ")
+                .append(this.tag)
+                .append("\n")
+                .append(storageManager.getReceiptsByTag(this.tag).getPrintableReceipts())
+                .append("\n");
         } catch (DukeException e) {
             this.infoCapsule.setCodeError();
             this.infoCapsule.setOutputStr(e.getMessage());
@@ -44,3 +50,5 @@ public class CommandTagList extends CommandList {
         this.infoCapsule.setOutputStr(outputStr.toString());
     }
 }
+
+

@@ -15,7 +15,6 @@ public class TaskList extends ArrayList<Task> {
 
     /**
      * Deletes a task via its index.
-     *
      * @param index Index of the task to be deleted
      */
     public void deleteTaskByIndex(int index) {
@@ -24,7 +23,6 @@ public class TaskList extends ArrayList<Task> {
 
     /**
      * Adds a new task to the List.
-     *
      * @param newTask The Task Object to be added
      */
     public void addTask(Task newTask) {
@@ -72,7 +70,6 @@ public class TaskList extends ArrayList<Task> {
     /**
      * Initializes a 'Task' subclass based on TaskType.
      * TODO: Think about how this can be neater.
-     *
      * @param taskDesc The task description from the user input
      * @param taskType TaskType enum that specifies the subclass to create
      */
@@ -114,7 +111,7 @@ public class TaskList extends ArrayList<Task> {
         String[] parsedInput = Parser.parseStoredTaskDetails(userInput);
         TaskType taskType = TaskType.valueOf(parsedInput[0]);
         Task newTask = TaskList.createTask(taskType, parsedInput[1]);
-        if (Boolean.valueOf(parsedInput[2])) {
+        if (Boolean.parseBoolean(parsedInput[2])) {
             newTask.markDone();
         }
         return newTask;

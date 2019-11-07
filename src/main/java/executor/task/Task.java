@@ -61,18 +61,12 @@ public abstract class Task {
      * Generates a String Describing the Task Object.
      * Optimized for user's reading.
      *
-     * @return String detailing the Task Object, including type, isDone, taskName and taskDetails
+     * @return String detailing the Task Object, taskName and taskDetails
      */
     public String genTaskDesc() {
         String generatedStr = "";
-        if (!this.taskName.isEmpty()) {
-            generatedStr += "["
-                    + this.getStatusIcon()
-                    + "]"
-                    + "["
-                    + this.genTypeAcronym()
-                    + "] "
-                    + this.taskName;
+        if (this.taskName != null) {
+            generatedStr = this.taskName;
         }
         if (this.detailDesc != null || this.taskDetails != null) {
             generatedStr += " (";

@@ -16,7 +16,6 @@ public class CommandBye extends Command {
         this.commandType =  CommandType.BYE;
     }
 
-    @Override
     public void execute(StorageManager storageManager) {
         this.infoCapsule.setCodeExit();
     }

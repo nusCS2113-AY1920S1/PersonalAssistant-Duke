@@ -1,5 +1,7 @@
 package executor.command;
 
+import ui.gui.CommandLineDisplay;
+
 public enum CommandType {
     TASK(CommandNewTask.class),
     BYE(CommandBye.class),
@@ -7,6 +9,7 @@ public enum CommandType {
     BLANK(CommandBlank.class),
     FIND(CommandFind.class),
     DELETE(CommandDelete.class),
+    RECEIPTDELETE(CommandReceiptDelete.class),
     DONE(CommandMarkDone.class),
     QUEUE(CommandQueue.class),
     VIEWSCHEDULE(CommandSchedule.class),
@@ -30,6 +33,8 @@ public enum CommandType {
     DATELIST(CommandDateList.class),
     ERROR(CommandError.class),
     WEATHER(CommandWeather.class),
+    HOME(CommandHomeDisplay.class),
+    CLI(CommandCliDisplay.class),
     ADD(CommandAdd.class),
     SUB(CommandSub.class),
     DIV(CommandDiv.class),

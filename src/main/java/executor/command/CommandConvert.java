@@ -47,7 +47,7 @@ public class CommandConvert extends Command {
             convertedAmount = this.convertCurrency(this.getFrom(), this.getTo(), this.getAmount());
             outputStr = this.getPrintableResult(convertedAmount);
         } catch (DukeException e) {
-            this.infoCapsule.setCodeExit();
+            this.infoCapsule.setCodeError();
             this.infoCapsule.setOutputStr(e.getMessage());
             return;
         }

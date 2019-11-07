@@ -17,7 +17,6 @@ public class CommandMarkDone extends Command {
         this.description = "Marks a certain task as done \n"
                 + "FORMAT :  ";
         this.commandType = CommandType.DONE;
-
     }
 
     @Override
@@ -41,8 +40,6 @@ public class CommandMarkDone extends Command {
         this.infoCapsule.setCodeToast();
         this.infoCapsule.setOutputStr(outputStr);
     }
-
-
 
     /**
      * Generates the standard duke reply to inform user that the Task is marked done.

@@ -5,6 +5,7 @@ import executor.command.CommandType;
 import executor.task.Task;
 import executor.task.TaskList;
 import executor.task.TaskType;
+import main.Duke;
 import ui.Receipt;
 import ui.ReceiptTracker;
 import ui.Wallet;
@@ -18,6 +19,7 @@ public class StorageManager {
     private StorageTask taskStore;
     private Wallet wallet = new Wallet();
     private TaskList taskList = new TaskList();
+
 
     /**
      * Constructor for the StorageManager Object.
@@ -34,7 +36,7 @@ public class StorageManager {
         this.initializationStatus = "";
     }
 
-    public void saveAllData() {
+    public void saveAllData() throws DukeException{
         this.taskStore.saveData(this.taskList);
         this.walletStore.saveData(this.wallet);
     }
@@ -149,6 +151,21 @@ public class StorageManager {
     }
 
     /**
+     * Deletes Receipt by Index in ReceiptTracker Object.
+     * Used in CommandDeleteReceipt
+     * @param index int of Receipt to be deleted
+     * @throws DukeException Error occured when trying to delete Receipt
+     */
+    public void deleteReceiptByIndex(int index) throws DukeException {
+        try {
+            this.wallet.getReceipts().deleteReceiptsByIndex(index);
+        } catch (Exception e) {
+            throw new DukeException("Invalid 'receiptdelete' statement. "
+            + "Please indicate the index of the receipt you wish to delete.\n");
+        }
+    }
+
+    /**
      * Gets the taskName property of a Task by its index in a TaskList.
      * Used in CommandDelete.
      * @param index int representing the index of the Task
@@ -162,6 +179,7 @@ public class StorageManager {
             throw new DukeException("Unable to get Task Name of Task at index " + index + "\n");
         }
     }
+
 
     /**
      * Gets the balance property of the Wallet Object.
@@ -304,7 +322,7 @@ public class StorageManager {
         this.taskStore = new StorageTask(taskPath);
         String outputStr;
         try {
-            this.taskList = this.taskStore.loadData();
+            this.taskStore.loadData(this.taskList);
             outputStr = "Tasks loaded successfully.\n";
         } catch (DukeException e) {
             outputStr = e.getMessage();
@@ -316,7 +334,7 @@ public class StorageManager {
         String outputStr;
         this.walletStore = new StorageWallet(walletPath);
         try {
-            this.wallet = this.walletStore.loadData();
+            this.walletStore.loadData(this.wallet);
             outputStr = "Wallet loaded successfully.\n";
         } catch (DukeException e) {
             outputStr = e.getMessage();

@@ -17,8 +17,7 @@ public class StorageWallet {
     protected String filePath;
 
     /**
-     * * Constrctor for the 'StorageWallet' Class.
-     *
+     * Constrctor for the 'StorageWallet' Class.
      * @param filePath The file path to be used to store and load data
      */
     public StorageWallet(String filePath) {
@@ -27,34 +26,38 @@ public class StorageWallet {
 
     /**
      * Method to save the current list of receipts.
-     *
-     * @param wallet Wallet class
+     * @param wallet Wallet Object that stores all the Receipts
      */
-    public void saveData(Wallet wallet) {
+    public void saveData(Wallet wallet) throws DukeException {
         try {
             FileWriter writer = new FileWriter(this.filePath);
+            writer.write(wallet.getBalance().toString() + "\n");
             for (Receipt receipt : wallet.getReceipts()) {
                 String strSave = Parser.encodeReceipt(receipt);
                 writer.write(strSave);
-                //writer.append(strSave);
             }
             writer.close();
         } catch (Exception e) {
-            System.out.println(e);
+            throw new DukeException("Unable to save Wallet Data.\n");
         }
     }
 
     /**
      * Method to load previously saved list of receipts.
-     *
-     * @return Wallet class
+     * @param wallet Wallet Object to be used to house all the Receipts
      */
-    public Wallet loadData() throws DukeException {
-        Wallet wallet = new Wallet();
+    public void loadData(Wallet wallet) throws DukeException {
         try {
             File file = new File(this.filePath);
             Scanner scanner = new Scanner(file);
-            Receipt newReceipt;
+            String storedBalanceStr = scanner.nextLine();
+            double storedBalanceDouble = 0.0;
+            try {
+                storedBalanceDouble = Double.parseDouble(storedBalanceStr);
+            } catch (Exception e) {
+                throw new DukeException("Balance cannot be read");
+            }
+            wallet.setBalance(storedBalanceDouble);
             while (scanner.hasNextLine()) {
                 String loadedInput = scanner.nextLine();
                 if (loadedInput.equals("")) {
@@ -65,11 +68,11 @@ public class StorageWallet {
         } catch (Exception e) {
             throw new DukeException("No Previously Saved Wallet Data.");
         }
-        return wallet;
     }
 
     /**
      * Converts saved String in StorageWallet to actual Receipt object and saves in Wallet Object.
+     * @param wallet Wallet Object for the Receipt to be added in.
      * @param loadedInput The saved String to be converted
      */
     private void parseAddReceiptFromStorageString(Wallet wallet, String loadedInput) {
