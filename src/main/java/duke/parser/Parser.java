@@ -533,10 +533,23 @@ public class Parser {
                 }
             }   //@@author e0318465
         } else if (arr.length > Numbers.ZERO.value
-                && (arr[Numbers.ZERO.value].equals("addcontact") || arr[Numbers.ZERO.value].equals("ac"))) {
+                && (arr[Numbers.ZERO.value].equals("addcontact") || arr[Numbers.ZERO.value].equals("ac")
+                || arr[Numbers.ZERO.value].equals("addcontacts"))) {
             String[] userInput = sentence.split(" ",Numbers.TWO.value);
             String[] contactDetails = userInput[Numbers.ONE.value].split(",");
             try {
+                if (contactDetails[Numbers.ZERO.value].trim().equals("")) {
+                    contactDetails[Numbers.ZERO.value] = "Nil";
+                }
+                if (contactDetails[Numbers.ONE.value].trim().equals("")) {
+                    contactDetails[Numbers.ONE.value] = "Nil";
+                }
+                if (contactDetails[Numbers.TWO.value].trim().equals("")) {
+                    contactDetails[Numbers.TWO.value] = "Nil";
+                }
+                if (contactDetails[Numbers.THREE.value].trim().equals("")) {
+                    contactDetails[Numbers.THREE.value] = "Nil";
+                }
                 Contacts contactObj = new Contacts(contactDetails[Numbers.ZERO.value],
                         contactDetails[Numbers.ONE.value],
                         contactDetails[Numbers.TWO.value], contactDetails[Numbers.THREE.value]);
@@ -545,10 +558,11 @@ public class Parser {
                 logr.log(Level.WARNING, ErrorMessages.CONTACT_FORMAT.message, e);
                 throw new DukeException(ErrorMessages.CONTACT_FORMAT.message);
             }
-        } else if (sentence.equals("listcontacts") || sentence.equals("lc") || sentence.equals(("listcontact"))) {
+        } else if (sentence.equals("listcontact") || sentence.equals("lc") || sentence.equals(("listcontacts"))) {
             return new ListContactsCommand(contactList);
         } else if (arr.length > Numbers.ZERO.value
-                && (arr[Numbers.ZERO.value].equals("deletecontact") || arr[Numbers.ZERO.value].equals("dc"))) {
+                && (arr[Numbers.ZERO.value].equals("deletecontact") || arr[Numbers.ZERO.value].equals("dc")
+                || arr[Numbers.ZERO.value].equals("deletecontacts"))) {
             if (arr.length == Numbers.ONE.value) {
                 throw new DukeException(ErrorMessages.CONTACT_INDEX.message);
             } else {
@@ -561,7 +575,8 @@ public class Parser {
                 }
             }
         } else if (arr.length > Numbers.ZERO.value
-                && arr[Numbers.ZERO.value].equals("findcontact") || arr[Numbers.ZERO.value].equalsIgnoreCase("fc")) {
+                && (arr[Numbers.ZERO.value].equals("findcontact") || arr[Numbers.ZERO.value].equalsIgnoreCase("fc")
+                || arr[Numbers.ZERO.value].equals("findcontacts"))) {
             String[] keyword = sentence.split(" ", Numbers.TWO.value);
             if (arr.length == Numbers.ONE.value || keyword[Numbers.ONE.value].trim().isEmpty()
                     || keyword[Numbers.ONE.value].trim().equals(",")) {
