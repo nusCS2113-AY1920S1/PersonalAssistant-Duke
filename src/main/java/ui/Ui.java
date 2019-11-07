@@ -46,10 +46,6 @@ public class Ui {
         System.out.print(line);
     }
 
-    public void homePageMessage() {
-
-    }
-
     /**
      * Prints ending message for the AlphaNUS program.
      */
@@ -394,9 +390,11 @@ public class Ui {
      */
     public void printAssignFundMessage(Fund fund, double amount, Project project) {
         System.out.print(line);
-        System.out.println("\t" + "Got it. I've assigned " + amount + "to the project:");
+        System.out.println("\t" + "Got it. I've assigned " + amount + " to the project:");
         System.out.print(project.giveProject());
-        System.out.println("\t" + "The new fund is as follow:");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("\t" + "The new fund is as follows:");
         System.out.print(fund.giveFund());
         System.out.print(line);
     }

@@ -144,7 +144,7 @@ public class Parser {
         } catch (AlphaNUSException e) {
             ui.exceptionMessage(e.getMessage());
         } catch (NullPointerException e) {
-            ui.exceptionMessage("NULLPOINTEREXCEPTION");
+            ui.exceptionMessage(e.getMessage());
         } catch (ParseException e) {
             e.printStackTrace();
         }
