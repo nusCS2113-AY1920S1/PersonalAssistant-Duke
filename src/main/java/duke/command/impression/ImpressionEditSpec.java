@@ -70,7 +70,7 @@ public class ImpressionEditSpec extends DukeDataSpec {
             // TODO: select by index
 
             String editDataName = cmd.getSwitchVal(editType);
-            List<DukeData> resultList = ImpressionUtils.getImpression(core).find(editDataName);
+            List<DukeData> resultList = ImpressionUtils.getImpression(core).searchAll(editDataName);
             editData = findDataOfClass(resultList, getDataClass(editType));
 
             if (editData == null) {

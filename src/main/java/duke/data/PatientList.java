@@ -21,9 +21,9 @@ public class PatientList {
         patientList = storage.loadPatients();
 
         for (Patient patient : patientList) {
-            for (Impression imp: patient.getImpressions()) {
+            for (Impression imp: patient.getImpressionList()) {
                 imp.setParent(patient);
-                imp.initChild();
+                imp.initChildren();
             }
             if (patient.getPrimaryDiagnosis() != null) {
                 String primaryDiagnosisID = patient.getPrimaryDiagnosis().getName();

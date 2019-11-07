@@ -34,7 +34,7 @@ public class ImpressionFindSpec extends ArgSpec {
         ArrayList<DukeObject> searchResult = new ArrayList<>();
         Impression impression = (Impression) core.uiContext.getObject();
         if (cmd.getSwitchVals().isEmpty()) {
-            searchResult.addAll(impression.find(searchTerm));
+            searchResult.addAll(impression.searchAll(searchTerm));
         } else {
             if (cmd.getSwitchVals().containsKey("evidence")) {
                 searchResult.addAll(impression.findEvidences(searchTerm));

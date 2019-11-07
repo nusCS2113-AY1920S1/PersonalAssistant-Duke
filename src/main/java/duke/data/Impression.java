@@ -71,12 +71,12 @@ public class Impression extends DukeObject {
     }
 
     /**
-     * This find function returns a list of all DukeData related to the impression containing the search term.
+     * Searches through all DukeData associated with this impression containing the search term.
      *
      * @param searchTerm String to be used to filter the DukeData
      * @return the list of DukeData
      */
-    public SearchResult find(String searchTerm) {
+    public SearchResult searchAll(String searchTerm) {
         SearchResult result = new SearchResult(searchTerm, new ArrayList<DukeObject>(), this);
         result.addAll(findEvidences(searchTerm));
         result.addAll(findTreatments(searchTerm));
@@ -162,12 +162,9 @@ public class Impression extends DukeObject {
      */
     public Evidence deleteEvidence(String keyIdentifier) throws DukeException {
         Evidence deletedEvidence = getEvidence(keyIdentifier);
-        if (deletedEvidence != null) {
-            evidences.remove(deletedEvidence);
-            sortEvidences();
-            return deletedEvidence;
-        }
-        throw new DukeException("I can't delete that Evidence because I don't have it!");
+        evidences.remove(deletedEvidence);
+        sortEvidences();
+        return deletedEvidence;
     }
 
     /**
@@ -176,16 +173,15 @@ public class Impression extends DukeObject {
      * @param keyIdentifier name of the evidence
      * @return the evidence specified by the index
      */
-    public Evidence getEvidence(String keyIdentifier) {
+    public Evidence getEvidence(String keyIdentifier) throws DukeException {
         String lowerKey = keyIdentifier.toLowerCase();
-
         for (Evidence evidence : evidences) {
             String dataName = evidence.getName().toLowerCase();
             if (dataName.equals(lowerKey)) {
                 return evidence;
             }
         }
-        return null;
+        throw new DukeException("I don't have an evidence named that!");
     }
 
     /**
@@ -211,12 +207,9 @@ public class Impression extends DukeObject {
      */
     public Treatment deleteTreatment(String keyIdentifier) throws DukeException {
         Treatment deletedTreatment = getTreatment(keyIdentifier);
-        if (deletedTreatment != null) {
-            treatments.remove(deletedTreatment);
-            sortEvidences();
-            return deletedTreatment;
-        }
-        throw new DukeException("I can't delete that treatment because I don't have it!");
+        treatments.remove(deletedTreatment);
+        sortEvidences();
+        return deletedTreatment;
     }
 
     /**
@@ -227,13 +220,13 @@ public class Impression extends DukeObject {
      */
     public Treatment getTreatment(String keyIdentifier) throws DukeException {
         String lowerKey = keyIdentifier.toLowerCase();
-        for (Treatment treatment: treatments) {
+        for (Treatment treatment : treatments) {
             String dataName = treatment.getName().toLowerCase();
             if (dataName.equals(lowerKey)) {
                 return treatment;
             }
         }
-        return null;
+        throw new DukeException("I don't have a treatment named that!");
     }
 
     @Override
@@ -280,9 +273,9 @@ public class Impression extends DukeObject {
     }
 
     /**
-     * This function initialises the parent object of each evidence and treatment.
+     * This function initialises the parent of each evidence and treatment held to this Impression.
      */
-    public void initChild() {
+    public void initChildren() {
         for (Evidence evidence : evidences) {
             evidence.setParent(this);
         }
@@ -360,5 +353,9 @@ public class Impression extends DukeObject {
 
     public UiCard toCard() {
         return new ImpressionCard(this);
+    }
+
+    public boolean contains(String searchTerm) {
+        return description.toLowerCase().contains(searchTerm.toLowerCase());
     }
 }

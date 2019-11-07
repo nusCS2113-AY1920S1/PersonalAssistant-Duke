@@ -10,7 +10,7 @@ public class Patient extends DukeObject {
     private String bedNo;
     private String allergies;
     private Impression primaryDiagnosis;
-    private ArrayList<Impression> impressions;
+    private ArrayList<Impression> impressionList;
     private Integer height;
     private Integer weight;
     private Integer age;
@@ -41,7 +41,7 @@ public class Patient extends DukeObject {
         super(name, null);
         this.bedNo = bedNo;
         this.allergies = allergies;
-        this.impressions = new ArrayList<>();
+        this.impressionList = new ArrayList<>();
         this.height = height;
         this.weight = weight;
         this.age = age;
@@ -51,16 +51,6 @@ public class Patient extends DukeObject {
         this.primaryDiagnosis = null;
     }
 
-    private boolean isDuplicate(Impression newImpression) {
-        String newLower = newImpression.getName().toLowerCase();
-        for (Impression oldImpression : impressions) {
-            String oldLower = oldImpression.getName().toLowerCase();
-            if (oldLower.equals(newLower)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
      * This addNewImpression function adds a new impression to the impressions list.
@@ -73,7 +63,7 @@ public class Patient extends DukeObject {
         if (isDuplicate(newImpression)) {
             throw new DukeException("Impression already exists!");
         }
-        this.impressions.add(newImpression);
+        this.impressionList.add(newImpression);
         return newImpression;
     }
 
@@ -87,7 +77,7 @@ public class Patient extends DukeObject {
     public Impression deleteImpression(String keyIdentifier) throws DukeException {
         Impression deletedImpression = getImpression(keyIdentifier);
         if (deletedImpression != null) {
-            impressions.remove(deletedImpression);
+            impressionList.remove(deletedImpression);
             return deletedImpression;
         }
         throw new DukeException("I don't have an Impression called that!");
@@ -101,7 +91,7 @@ public class Patient extends DukeObject {
      */
     public Impression getImpression(String keyIdentifier) throws DukeException {
         String id = keyIdentifier.toLowerCase();
-        for (Impression imp : impressions) {
+        for (Impression imp : impressionList) {
             String impName = imp.getName().toLowerCase();
             if (id.equals(impName)) {
                 return imp;
@@ -116,15 +106,15 @@ public class Patient extends DukeObject {
      * @param searchTerm the search term
      * @return the list of impressions
      */
-    public ArrayList<Impression> findImpressionsByName(String searchTerm) {
+    public SearchResult findImpressionsByName(String searchTerm) {
         ArrayList<Impression> resultList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
-        for (Impression entry : impressions) {
+        for (Impression entry : impressionList) {
             if (entry.getName().toLowerCase().contains(lowerSearchTerm)) {
                 resultList.add(entry);
             }
         }
-        return resultList;
+        return new SearchResult(searchTerm, resultList, this);
     }
 
     /**
@@ -133,10 +123,10 @@ public class Patient extends DukeObject {
      * @param searchTerm the search term
      * @return the list of critical items
      */
-    public ArrayList<DukeData> findCriticalsByName(String searchTerm) {
+    public SearchResult findCriticalsByName(String searchTerm) {
         ArrayList<DukeData> resultList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
-        for (Impression entry : impressions) {
+        for (Impression entry : impressionList) {
             for (Evidence evidenceEntry : entry.getEvidences()) {
                 if (evidenceEntry.getName().toLowerCase().contains(lowerSearchTerm)
                         && evidenceEntry.getPriority() == 1) {
@@ -150,7 +140,7 @@ public class Patient extends DukeObject {
                 }
             }
         }
-        return resultList;
+        return new SearchResult(searchTerm, resultList, this);
     }
 
     /**
@@ -159,10 +149,10 @@ public class Patient extends DukeObject {
      * @param searchTerm the search term
      * @return the list of follow-up items
      */
-    public ArrayList<DukeData> findFollowUpsByName(String searchTerm) {
+    public SearchResult findFollowUpsByName(String searchTerm) {
         ArrayList<DukeData> resultList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
-        for (Impression imp : impressions) {
+        for (Impression imp : impressionList) {
             for (Treatment treatmentEntry : imp.getTreatments()) {
                 if (treatmentEntry.getName().toLowerCase().contains(lowerSearchTerm)
                         && treatmentEntry.getClass() == Investigation.class) {
@@ -170,7 +160,7 @@ public class Patient extends DukeObject {
                 }
             }
         }
-        return resultList;
+        return new SearchResult(searchTerm, resultList, this);
     }
 
 
@@ -180,15 +170,15 @@ public class Patient extends DukeObject {
      * @param searchTerm the search term
      * @return the list of impressions
      */
-    public ArrayList<Impression> findImpressions(String searchTerm) {
-        ArrayList<Impression> searchResult = new ArrayList<>();
+    public SearchResult findImpressions(String searchTerm) {
+        ArrayList<Impression> resultList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
-        for (Impression impression : impressions) {
-            if (impression.toString().toLowerCase().contains(lowerSearchTerm)) {
-                searchResult.add(impression);
+        for (Impression impression : impressionList) {
+            if (impression.contains(lowerSearchTerm)) {
+                resultList.add(impression);
             }
         }
-        return searchResult;
+        return new SearchResult(searchTerm, resultList, this);
     }
 
 
@@ -200,13 +190,13 @@ public class Patient extends DukeObject {
      * @return the hashMap of DukeObjs
      */
     public SearchResult searchAll(String searchTerm) throws DukeException {
-        ArrayList<Impression> filteredList = findImpressions(searchTerm);
-        ArrayList<DukeObject> searchResult = new ArrayList<>();
-        for (Impression imp : filteredList) {
-            searchResult.add(imp);
-            searchResult.addAll(imp.find(searchTerm));
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        SearchResult result = findImpressions(lowerSearchTerm);
+        ArrayList<DukeObject> resultList = new ArrayList<>();
+        for (Impression imp : impressionList) {
+            result.addAll(imp.searchAll(searchTerm));
         }
-        return searchResult;
+        return new SearchResult(searchTerm, resultList, this);
     }
 
     /**
@@ -234,7 +224,7 @@ public class Patient extends DukeObject {
      * @return boolean
      */
     public boolean isAllergic(String allergy) {
-        return this.allergies.contains(allergy);
+        return this.allergies.toLowerCase().contains(allergy.toLowerCase());
     }
 
     /**
@@ -257,7 +247,7 @@ public class Patient extends DukeObject {
         informationString.append("Allergies: ").append(this.allergies).append("\n");
         informationString.append((primaryDiagnosis != null) ? "Primary Diagnosis: "
                 + this.primaryDiagnosis.toString() + "\n" : "");
-        for (Impression imp : this.impressions) {
+        for (Impression imp : this.impressionList) {
             informationString.append(imp.toString());
         }
         return super.toString() + informationString + "\n";
@@ -296,7 +286,7 @@ public class Patient extends DukeObject {
                     .append("\n");
             informationString.append("\nData about doctors impression of the patient and associated"
                     + " treatments and evidences;");
-            for (Impression imp : this.impressions) {
+            for (Impression imp : this.impressionList) {
                 informationString.append(imp.toString());
             }
         }
@@ -326,13 +316,9 @@ public class Patient extends DukeObject {
      */
     public void setPrimaryDiagnosis(String keyIdentifier) throws DukeException {
         Impression primaryImpression = getImpression(keyIdentifier);
-        if (primaryImpression != null) {
-            impressions.remove(primaryImpression);
-            impressions.add(0, primaryImpression);
-            primaryDiagnosis = primaryImpression;
-            return;
-        }
-        throw new DukeException("I don't have that entry in the list!");
+        impressionList.remove(primaryImpression);
+        impressionList.add(0, primaryImpression);
+        primaryDiagnosis = primaryImpression;
     }
 
     public Integer getHeight() {
@@ -384,7 +370,7 @@ public class Patient extends DukeObject {
     }
 
     public void deletePriDiagnose() throws DukeException {
-        this.impressions.remove(primaryDiagnosis);
+        this.impressionList.remove(primaryDiagnosis);
         this.primaryDiagnosis = null;
     }
 
@@ -394,7 +380,7 @@ public class Patient extends DukeObject {
      */
     public String getCriticalCountStr() {
         int count = 0;
-        for (Impression imp : impressions) {
+        for (Impression imp : impressionList) {
             count += imp.getCriticalCount();
         }
 
@@ -420,12 +406,23 @@ public class Patient extends DukeObject {
         return this.getName().equals(other.getName());
     }
 
-    public ArrayList<Impression> getImpressions() {
-        return impressions;
+    public ArrayList<Impression> getImpressionList() {
+        return impressionList;
     }
 
     @Override
     public UiCard toCard() {
         return new PatientCard(this);
+    }
+
+    private boolean isDuplicate(Impression newImpression) {
+        String newLower = newImpression.getName().toLowerCase();
+        for (Impression oldImpression : impressionList) {
+            String oldLower = oldImpression.getName().toLowerCase();
+            if (oldLower.equals(newLower)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -118,7 +118,7 @@ public class PatientContextWindow extends ContextWindow {
         criticalListPanel.getItems().clear();
         indexedInvestigationList.clear();
 
-        for (Impression impression : patient.getImpressions()) {
+        for (Impression impression : patient.getImpressionList()) {
             // Impression list
             ImpressionCard impressionCard;
             if (impression.equals(patient.getPrimaryDiagnosis())) {
