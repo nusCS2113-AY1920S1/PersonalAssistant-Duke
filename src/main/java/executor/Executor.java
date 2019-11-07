@@ -48,22 +48,37 @@ public class Executor {
         return c;
     }
 
+    /**
+     * Accesses the requested data from the Storage Layer.
+     * @param accessType AccessType representing the data to be accessed
+     * @param argsStr String any other String arguments
+     * @return InfoCapsule containing the result of the request
+     */
     public InfoCapsule access(AccessType accessType, String argsStr) {
-        Accessor accessor = Executor.createAccessor(accessType, argsStr);
+        Accessor accessor = Executor.createAccessor(accessType);
         accessor.execute(this.storageLayer);
         return accessor.getInfoCapsule();
     }
 
-    public static Accessor createAccessor(AccessType accessType, String argsStr) {
+    /**
+     * Creates the Accessor Class given the AccessType.
+     * @param accessType AccessType of the Accessor to be created
+     * @return Accessor Object
+     */
+    public static Accessor createAccessor(AccessType accessType) {
         Accessor accessor;
         try {
             accessor = (Accessor) accessType.getAccessClass().getDeclaredConstructor().newInstance();
         } catch (Exception e) {
-            accessor = new AccessDeny(argsStr);
+            accessor = new AccessDeny();
         }
         return accessor;
     }
 
+    /**
+     * Saves all Data.
+     * @return InfoCapsule detailing any error messages that could occur.
+     */
     public InfoCapsule saveAllData() {
         InfoCapsule infoCapsule = new InfoCapsule();
         try {

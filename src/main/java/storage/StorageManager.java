@@ -36,7 +36,7 @@ public class StorageManager {
         this.initializationStatus = "";
     }
 
-    public void saveAllData() throws DukeException{
+    public void saveAllData() throws DukeException {
         this.taskStore.saveData(this.taskList);
         this.walletStore.saveData(this.wallet);
     }

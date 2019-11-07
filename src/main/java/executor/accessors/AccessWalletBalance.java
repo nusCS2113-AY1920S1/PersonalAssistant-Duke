@@ -7,7 +7,7 @@ import ui.UiCode;
 public class AccessWalletBalance extends Accessor {
 
     /**
-     * Constructor for AccessWalletBalance Class
+     * Constructor for AccessWalletBalance Class.
      */
     public AccessWalletBalance() {
         super();

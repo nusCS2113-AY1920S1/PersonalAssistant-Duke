@@ -8,7 +8,7 @@ import utils.AccessType;
 public class AccessWalletExpenses extends Accessor {
 
     /**
-     * Constructor for AccessExpenses
+     * Constructor for AccessExpenses.
      */
     public AccessWalletExpenses() {
         super();
