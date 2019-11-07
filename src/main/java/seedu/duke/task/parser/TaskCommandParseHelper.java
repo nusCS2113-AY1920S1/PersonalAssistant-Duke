@@ -121,7 +121,7 @@ public class TaskCommandParseHelper {
         }
         int index = Integer.parseInt(strippedInput) - 1;
         if (index < 0 || index >= Model.getInstance().getTaskListLength()) {
-            throw new TaskParseException("Index out of bounds. ");
+            throw new TaskParseException("Index out of bounds.");
         }
         return index;
     }
@@ -505,8 +505,8 @@ public class TaskCommandParseHelper {
     private static Command parseLinkCommand(String input, ArrayList<Command.Option> optionList) {
         Matcher linkCommandMatcher = prepareCommandMatcher(input, "^link\\s+(?<index>[\\d]*)\\s*?");
         if (!linkCommandMatcher.matches()) {
-            return new InvalidCommand("Please enter a task index after \'link\', followed by" +
-                    "emails (optional)");
+            return new InvalidCommand("Please enter a task index after \'link\', followed by " +
+                    "email indexes (optional)");
         }
         try {
             int index = parseTaskIndex(linkCommandMatcher.group("index"));
@@ -516,6 +516,8 @@ public class TaskCommandParseHelper {
             return new LinkCommand(taskIndexList, emailIndexList);
         } catch (TaskParseException e) {
             return new InvalidCommand("Please enter a valid task index");
+        } catch (EmailParseException e) {
+            return new InvalidCommand("Please ensure all email indexes are valid");
         }
     }
 
@@ -525,11 +527,16 @@ public class TaskCommandParseHelper {
      * @param optionList the list of options where the parameters are extracted
      * @return the ArrayList of email index
      */
-    public static ArrayList<Integer> extractEmails(ArrayList<Command.Option> optionList) {
+    public static ArrayList<Integer> extractEmails(ArrayList<Command.Option> optionList)
+            throws EmailParseException {
         ArrayList<Integer> emailList = new ArrayList<>();
         for (Command.Option option : optionList) {
             if (option.getKey().equals("email")) {
-                emailList.add(Integer.parseInt(option.getValue().strip()) - 1);
+                int index = Integer.parseInt(option.getValue().strip()) - 1;
+                if (index < 0 || index >= Model.getInstance().getEmailListLength()) {
+                    throw new EmailParseException("Index out of bounds.");
+                }
+                emailList.add(index);
             }
         }
         return emailList;
@@ -555,6 +562,19 @@ public class TaskCommandParseHelper {
          * @param msg the message that is ready to be displayed by UI.
          */
         public TaskParseException(String msg) {
+            super(msg);
+        }
+
+    }
+
+    private static class EmailParseException extends CommandParseHelper.CommandParseException {
+
+        /**
+         * Instantiates the exception with a message, which is ready to be displayed by the UI.
+         *
+         * @param msg the message that is ready to be displayed by UI.
+         */
+        public EmailParseException(String msg) {
             super(msg);
         }
 

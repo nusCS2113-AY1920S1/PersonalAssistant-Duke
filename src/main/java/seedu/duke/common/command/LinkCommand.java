@@ -83,7 +83,7 @@ public class LinkCommand extends Command {
             }
         } catch (IndexOutOfBoundsException e) {
             if (!silent) {
-                UI.getInstance().showError("Please enter the a valid email index");
+                UI.getInstance().showError("Please ensure that all email indexes in the command are valid");
             }
             return false;
         }
