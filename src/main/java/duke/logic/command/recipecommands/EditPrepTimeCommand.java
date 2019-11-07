@@ -13,6 +13,11 @@ import static duke.common.RecipeMessages.*;
 
 public class EditPrepTimeCommand extends Command<RecipeList, Ui, RecipeStorage> {
 
+    /**
+     * Constructor for class EditPrepTimeCommand.
+     *
+     * @param userInput input command from user
+     */
     public EditPrepTimeCommand(String userInput) {
         this.userInput = userInput;
     }

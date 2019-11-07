@@ -16,6 +16,11 @@ import static duke.common.RecipeMessages.*;
 
 public class ViewRequiredIngredientCommand extends Command<RecipeList, Ui, RecipeStorage> {
 
+    /**
+     * Constructor for class ViewRequiredIngredientCommand.
+     *
+     * @param userInput input command from user
+     */
     public ViewRequiredIngredientCommand(String userInput) {
         this.userInput = userInput;
     }

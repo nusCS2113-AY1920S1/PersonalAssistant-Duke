@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -64,7 +65,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws ParseException {
+    private void handleUserInput() throws ParseException, IOException {
         String input = userInput.getText();
         if (input.isEmpty()) {
             showMessage("Pls input a command to proceed");

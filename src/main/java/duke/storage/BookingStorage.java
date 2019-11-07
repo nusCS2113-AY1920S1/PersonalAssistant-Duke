@@ -14,26 +14,25 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
- * Handles the ability to read and write to the storage location.
+ * Handles the ability to read and write to the booking storage location.
  */
 public class BookingStorage {
     private static final ArrayList<Booking> arrBookingList = new ArrayList<>();
     private final String filePath;
 
     /**
-     * Constructor for the class Storage.
+     * Constructor for the class BookingStorage.
      *
-     * @param filePath String containing the directory in which the tasks are to be stored
+     * @param filePath the directory in which the recipes are to be stored
      */
     public BookingStorage(String filePath) {
         this.filePath = filePath;
     }
 
     /**
-
-     * Writing to file to save the task to file.
+     * Writes to file to save the bookings to file.
      *
-     * @param bookingList contains the task list
+     * @param bookingList the list containing recipes
      */
     public void saveFile(BookingList bookingList) {
         try {
@@ -49,9 +48,9 @@ public class BookingStorage {
     }
 
     /**
-     * Load all the save tasks in the file.
+     * Loads all the save bookings in the file.
      *
-     * @return the list of tasks in taskList
+     * @return the list of bookings in booking list
      */
     public ArrayList<Booking> load() {
         try {

@@ -6,24 +6,26 @@ import duke.model.task.recipetasks.Rating2;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Handles the ability to read and write to the rating storage location.
+ */
 public class RatingStorage {
     private final ArrayList<Rating2> arrRating2List = new ArrayList<>();
     private final String filePathRating;
 
     /**
-     * Constructor for the class Storage.
+     * Constructor for the class RatingStorage.
      *
-     * @param filePathRating String containing the directory in which the tasks are to be stored
+     * @param filePathRating the directory in which the ratings are to be stored
      */
     public RatingStorage(String filePathRating) {
         this.filePathRating = filePathRating;
     }
 
     /**
-
-     * Writing to file to save the task to file.
+     * Writes to file to save the ratings to file.
      *
-     * @param ratingList contains the task list
+     * @param ratingList the list containing ratings
      */
     public void saveFile(RatingList ratingList) {
         try {
@@ -39,9 +41,9 @@ public class RatingStorage {
     }
 
     /**
-     * Load all the save tasks in the file.
+     * Loads all the save ratings in the file.
      *
-     * @return the list of tasks in taskList
+     * @return the list of ratings in rating list
      */
     public ArrayList<Rating2> load() {
         try {

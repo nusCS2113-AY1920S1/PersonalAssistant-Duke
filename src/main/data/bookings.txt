@@ -6,4 +6,4 @@ booking | james | 8376324 | 4 | 3/3/2019 | steak, rice
 booking | zihan | 9153174 | 4 | 9/2/2022 | steak, fish, chicken
 booking | Johnny | 9153174 | 4 | 9/2/2002 | steak, fish, chicken
 booking | zihan | 9153174 | 4 | 29/2/2000 | steak, fish, chicken
-booking | zihan | 9153174 | 4 | 29/2/2004 | steak, fish, chicken
+booking | John | 845638575 | 7 | 28/2/2017 | fish fillet, seafood pasta, steak

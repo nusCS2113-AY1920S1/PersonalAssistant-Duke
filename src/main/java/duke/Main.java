@@ -14,9 +14,6 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-        //You are violating SLAP here.
-        // If the responsibility of this method is to call other objects' method to start the application,
-        // then it should not deal with creation of objects to follow SLAP.
         AnchorPane ap = fxmlLoader.load();
         Scene scene = new Scene(ap);
         stage.setScene(scene);

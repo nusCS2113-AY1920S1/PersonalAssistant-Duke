@@ -14,6 +14,11 @@ import static duke.common.InventoryMessages.*;
 
 public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, RecipeStorage> {
 
+    /**
+     * Constructor for class EditRequiredIngredientCommand.
+     *
+     * @param userInput input command from user
+     */
     public EditRequiredIngredientCommand(String userInput) {
         this.userInput = userInput;
     }
@@ -206,7 +211,12 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
         return arrayList;
     }
 
-
+    /**
+     * Validates that the input contains all of the ingredient's name, quantity, unit, and additional information.
+     *
+     * @param description the input information from user
+     * @return true if all of the ingredient's name, quantity, unit, and additional information are provided
+     */
     private boolean hasAllIngredientFields(String description) {
         if (description.contains("n/") && description.contains("q/") && description.contains("u/")) {
             return true;
@@ -215,6 +225,12 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
         }
     }
 
+    /**
+     * Validates that the input contains only one command.
+     *
+     * @param description the input information from user
+     * @return true if the input contains only one command
+     */
     private static boolean hasOneCommand(String description) {
         int i = 0;
         if (description.contains("ins/")) {
@@ -234,6 +250,12 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
         }
     }
 
+    /**
+     * Gets the type of the command from user.
+     *
+     * @param description the input information from user
+     * @return the command type
+     */
     private String whichCommand(String description) {
         if (description.contains("ins/")) {
             return "ins/";
@@ -246,6 +268,12 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
         }
     }
 
+    /**
+     * Checks if the command type is insert.
+     *
+     * @param command the input information by user
+     * @return true if the command type is insert
+     */
     private boolean isIns(String command) {
         if (command.equals("ins/")) {
             return true;
@@ -254,6 +282,12 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
         }
     }
 
+    /**
+     * Checks if the command type is delete.
+     *
+     * @param command the input information from user
+     * @return true if the command type is delete
+     */
     private boolean isDel(String command) {
         if (command.equals("del/")) {
             return true;
@@ -262,6 +296,12 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
         }
     }
 
+    /**
+     * Checks if the command type is append.
+     *
+     * @param command the input information from user
+     * @return true if the command type is append
+     */
     private boolean isApp(String command) {
         if (command.equals("app/")) {
             return true;
@@ -270,6 +310,12 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
         }
     }
 
+    /**
+     * Checks if the command type is clear.
+     *
+     * @param command the input information from user
+     * @return true if the command type is clear
+     */
     private boolean isClr(String command) {
         if (command.equals("clr/")) {
             return true;
@@ -296,10 +342,24 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
         }
     }
 
+    /**
+     * Validates the input position.
+     *
+     * @param recipeTitle name of the recipe
+     * @param  position index of the preparation step
+     * @param recipeList list of all recipes
+     * @return true if the position is valid
+     */
     private boolean isValidPosition(String recipeTitle, String position, RecipeList recipeList) {
         return Integer.parseInt(position) <= (recipeList.getRecipeList().get(recipeTitle).getRequiredIngredients().getSize() + 1);
     }
 
+    /**
+     * Validates the input unit.
+     *
+     * @param unit the input unit from user
+     * @return true if the unit is known
+     */
     private static boolean isKnownUnit(String unit) { // edit this part.
         if (unit.equals("g") || unit.equals("kg") || unit.equals("l") || unit.equals("ml") || unit.equals("cup") || unit.equals("teaspoon") || unit.equals("tablespoon")) {
             return true;

@@ -6,6 +6,7 @@ import duke.storage.BookingStorage;
 import duke.ui.Ui;
 
 import java.util.ArrayList;
+import java.util.logging.*;
 
 import static duke.common.BookingMessages.*;
 import static duke.common.Messages.ERROR_MESSAGE_INVALID_INDEX;
@@ -17,6 +18,20 @@ import static duke.common.Messages.ERROR_MESSAGE_UNKNOWN_INDEX;
  */
 public class DeleteBookingCommand extends Command<BookingList, Ui, BookingStorage> {
     private static String msg = "";
+    private static final Logger logger = Logger.getLogger(DeleteBookingCommand.class.getName());
+
+    private static void setupLogger() {
+        LogManager.getLogManager().reset();
+        logger.setLevel(Level.INFO);
+
+        try {
+            FileHandler fh = new FileHandler("logFile.log",true);
+            fh.setLevel(Level.INFO);
+            logger.addHandler(fh);
+        } catch (java.io.IOException e){
+            logger.log(Level.SEVERE, "File logger is not working.", e);
+        }
+    }
 
     /**
      * Constructor for class DeleteCommand.
@@ -36,6 +51,7 @@ public class DeleteBookingCommand extends Command<BookingList, Ui, BookingStorag
             Integer.parseInt(input);
             return true;
         } catch (NumberFormatException e) {
+            logger.warning("Index input is not an integer.");
             return false;
         }
     }
@@ -48,6 +64,7 @@ public class DeleteBookingCommand extends Command<BookingList, Ui, BookingStorag
      */
     @Override
     public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) {
+        DeleteBookingCommand.setupLogger();
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_DELETE_BOOKING)) {
             arrayList.add(ERROR_MESSAGE_EMPTY_BOOKING_INDEX);
@@ -78,6 +95,7 @@ public class DeleteBookingCommand extends Command<BookingList, Ui, BookingStorag
                 arrayList.add(ERROR_MESSAGE_UNKNOWN_INDEX);
             }
         } else {
+            logger.warning("Invalid deletebooking command");
             arrayList.add(ERROR_MESSAGE_INVALID_DELETE_COMMAND);
         }
         return arrayList;
