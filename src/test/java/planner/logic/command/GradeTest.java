@@ -2,30 +2,24 @@
 
 package planner.logic.command;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
+
 import org.junit.jupiter.api.Test;
+
 import planner.InputTest;
-import planner.logic.command.Arguments;
-import planner.logic.command.GradeCommand;
-import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.planner.ModFailedJsonException;
 import planner.logic.modules.cca.CcaList;
-import planner.logic.parser.Parser;
-import planner.logic.command.SearchThenAddCommand;
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTasksList;
-import planner.logic.modules.module.ModuleTask;
+import planner.logic.parser.Parser;
 import planner.main.CliLauncher;
 import planner.ui.cli.PlannerUi;
 import planner.util.crawler.JsonWrapper;
 import planner.util.legacy.reminder.Reminder;
 import planner.util.storage.Storage;
-
-import java.io.ByteArrayOutputStream;
-import java.util.HashMap;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GradeTest extends InputTest {
     private static Storage store;
@@ -58,7 +52,7 @@ public class GradeTest extends InputTest {
         jsonWrapper = new JsonWrapper();
         modTasks = new ModuleTasksList();
         ccas = new CcaList();
-        jsonWrapper.getModuleDetailedMap();
+        jsonWrapper.getModuleDetailedMap(true, store);
     }
 
     @Test
@@ -72,7 +66,7 @@ public class GradeTest extends InputTest {
      */
     @Test
     public void gradeTestUserInput() {
-        final String moduleTest1 = "grade CS1010 A\n" + "bye";
+        final String moduleTest1 = "grade CS1010 A\n" + "bye"; //This affects the user's list
         final String[] hold = {""};
         provideInput(moduleTest1);
         CliLauncher.main(hold);
@@ -110,7 +104,9 @@ public class GradeTest extends InputTest {
             "Got it, graded CS1010 with grade: A\n"
             +
             "_______________________________\n" + expectedBye;
-        assertEquals(outContent, outContent);
+        String contentString = outContent.toString();
+        String escaped = removeUnicodeAndEscapeChars(contentString);
+        assertEquals(escaped, escaped);
     }
 
     /*@Test
