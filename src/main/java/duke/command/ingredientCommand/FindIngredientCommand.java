@@ -14,6 +14,8 @@ import java.text.SimpleDateFormat;
 
 /**
  * Represents a specific {@link Command} used to find a String occurring in the {@link Ingredient}.
+ * @@author x3chillax
+ * Class FindIngredientCommand is used to find an ingredient in the IngredientsList using 'find (ingredient name)'
  */
 public class FindIngredientCommand extends Command {
 
