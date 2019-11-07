@@ -5,9 +5,9 @@
 4,I,frisbee
 6,I,pen
 7,I,pen
-10,I,besticle
-11,I,besticle
 9,I,test
 12,I,test
 13,R,auditorium
 5,I,pen
+8,I,bottle
+10,I,bottle

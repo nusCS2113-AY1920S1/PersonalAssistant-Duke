@@ -51,9 +51,9 @@ public class DeleteCommand extends Command {
         storage.saveToFile(resources.getResources());
 
         if (resourceType.equals("room")) {
-            ui.printLine();
             Resource thisResource = resources.getResourceByName(resourceName);
             resources.deleteResourceByName(resourceName);
+            ui.printLine();
             ui.print("The following room has been successfully deleted:");
             ui.print(thisResource.toString());
             ui.printLine();
