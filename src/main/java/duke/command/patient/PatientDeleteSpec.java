@@ -33,7 +33,6 @@ public class PatientDeleteSpec extends ArgSpec {
         String searchInvestigation = cmd.getSwitchVal("investigation");
         String searchImpression = cmd.getSwitchVal("impression");
 
-        // TODO refactor, this is not what the standard says
         if (searchCritical != null && (patient.getPrimaryDiagnosis()) != null) {
             if (patient.getPrimaryDiagnosis().getName().equals((searchCritical))) {
                 patient.deletePriDiagnose();
