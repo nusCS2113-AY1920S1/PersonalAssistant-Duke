@@ -6,11 +6,6 @@ import duke.order.Order;
 import duke.order.OrderList;
 import duke.parser.Convert;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class OrderStorage extends Storage<Order> {
@@ -31,8 +26,9 @@ public class OrderStorage extends Storage<Order> {
             String[] words = next.split("\\|",3);
             if(words.length!=3) throw new DukeException("Error while reading from the order Storage");
             Date orderDate = Convert.stringToDate(words[1]);
-            Order tmpOrder = new Order(orderDate);
-            if (words[0].equals("1")) tmpOrder.markAsDone();
+            Order tmpOrder = new Order();
+            tmpOrder.setReadDate(orderDate);
+            if (words[0].equals("1")) { tmpOrder.markAsDone(); }
             String[] dishes = words[2].split("D\\|");
             for (String d: dishes) {
                 if (d=="") continue;
@@ -40,7 +36,7 @@ public class OrderStorage extends Storage<Order> {
                 if (nameAndAmount.length==1) continue;
                 else {
                     try {
-                        tmpOrder.addDish(nameAndAmount[0], Integer.parseInt(nameAndAmount[1]));
+                        tmpOrder.addDishFromFile(nameAndAmount[0], Integer.parseInt(nameAndAmount[1]));
                     } catch (NumberFormatException e) {
                         e.getStackTrace();
                     }
@@ -48,6 +44,7 @@ public class OrderStorage extends Storage<Order> {
             }
             entries.addEntry(tmpOrder);
         }
+        ((OrderList)entries).updateTodoList();
         return entries;
     }
 

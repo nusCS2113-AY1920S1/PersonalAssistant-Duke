@@ -142,15 +142,20 @@ public class Ui {
         showIngredientTemplate();
         System.out.println("\t type 'back' to go back to the main menu");
         System.out.println("\t type 'show' to see all ingredients currently in the fridge");
+        System.out.println("\t type 'listtoday to see all ingredients that have expired today");
         System.out.println("\t type 'template' to see the format of the commands");
     }
 
     public void showIngredientTemplate(){
-        System.out.println("\t Continue by adding, removing or using an ingredient \n\t Template: ");
+        System.out.println("\t Continue by adding, removing,using or finding an ingredient. \n\t");
+        System.out.println("\t You can also edit the Name or Amount of an ingredient(using its index number). \n\t Template: ");
         showLine();
-        System.out.println("\t add <Ingredient name> <amount> <expiry date: DD/MM/YYYY>");
-        System.out.println("\t remove <ingredient number>");
-        System.out.println("\t use <ingredient name> <amount> *always use most recently expiring ingredients first, to prevent food waste!*");
+        System.out.println("\t To add, add <Ingredient name> <Amount> <expiry date: DD/MM/YYYY>");
+        System.out.println("\t To remove, remove <Ingredient number>");
+        System.out.println("\t To use, use <Ingredient name> <Amount> *always use most recently expiring ingredients first, to prevent food waste!*");
+        System.out.println("\t To change amount, changeamount <Ingredient's Index> <New amount>");
+        System.out.println("\t To change name, changename <Ingredient's Index> <New name>");
+        System.out.println("\t To find an ingredient, find <Ingredient name>");
         showLine();
     }
 
@@ -162,6 +167,8 @@ public class Ui {
         System.out.println("\t add <dish name>");
         System.out.println("\t remove <dish index>");
         System.out.println("\t list");
+        System.out.println("\t find <description>");
+        System.out.println("\t change <index> <description>");
         System.out.println("\t ingredient <description> <amount> <index>");
         System.out.println("\t initialize (REMOVES all entries in the list)");
         System.out.println("\t back, return to main menu");
@@ -176,13 +183,14 @@ public class Ui {
         System.out.println("\t init");
         System.out.println("\t add [-d ORDER_DATE-(dd/mm/yyyy)] -n DISH1_NAME[*DISH_AMOUNT], DISH2_NAME[*DISH_AMOUNT]");
         System.out.println("\t alter ORDER_INDEX ORDER_DATE-(dd/mm/yyyy)");
-        System.out.println("\t remove ORDER_INDEX");
+        System.out.println("\t cancel ORDER_INDEX");
         System.out.println("\t done ORDER_INDEX");
         System.out.println("\t list [-l LIST_TYPE-(option: all (default) | undone | today | undoneToday)]");
         System.out.println("\t list -n DISH_NAME    *** Find the dishes in today's undone orders ***");
         System.out.println("\t list -d ORDER_DATE-(dd/mm/yyyy) [-l LIST_TYPE-(option: all (default) | undone)]");
         showLine();
     }
+
 
     public void showIngredientsInFridge(IngredientsList ingredientsList) {
         if (ingredientsList.isEmpty())
@@ -249,7 +257,7 @@ public class Ui {
      * @param changedOrder the order that has been changed
      */
     public void showOrderChangedDate(String date, String changedOrder) {
-        System.out.println("\t Nice! I've changed the order at " + date + ":");
+        System.out.println("\t Nice! I've changed the order to the date " + date + ":");
         System.out.println("\t " + changedOrder);
     }
 
@@ -280,7 +288,7 @@ public class Ui {
         } else {
             System.out.print(" orders");
         }
-        System.out.println(" in the order list.");
+        System.out.println(" in the order list. Type 'list' to see all the orders.");
     }
 
     /**
@@ -302,7 +310,7 @@ public class Ui {
      * @param size  current size of the whole order list
      */
     public void showAddOrder(String description, int size) {
-        System.out.println("\t Got it. I've added this order: ");
+        System.out.println("\t Got it. New order added! ");
         System.out.println("\t " + description);
         showOrderListSize(size);
     }
@@ -326,7 +334,7 @@ public class Ui {
      * @param size    size of order list
      */
     public void showRemovedOrder(String removed, int size) {
-        System.out.println("\t Noted. I've removed this order:");
+        System.out.println("\t Noted. I've cancelled this order:");
         System.out.println("\t " + removed);
         showOrderListSize(size);
     }

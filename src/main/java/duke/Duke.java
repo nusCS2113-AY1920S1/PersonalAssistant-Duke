@@ -7,13 +7,14 @@ import duke.command.ingredientCommand.RemoveAllExpired;
 import duke.dish.DishList;
 import duke.exception.DukeException;
 import duke.fridge.Fridge;
-import duke.ingredient.IngredientsList;
 import duke.order.OrderList;
 import duke.parser.Parser;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
 import duke.storage.RecipeStorage;
 import duke.ui.Ui;
+
+import java.io.IOException;
 
 /**
  * MAIN CLASS DUKE, start from main function.
@@ -190,7 +191,7 @@ public class Duke {
                     default:
                         System.out.println("\t OOPS!!! Wrong input!");
                 }
-            } catch (DukeException e) {
+            } catch (DukeException | IOException e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();

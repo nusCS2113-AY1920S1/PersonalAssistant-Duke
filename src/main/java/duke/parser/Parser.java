@@ -52,9 +52,9 @@ public class Parser {
                     return addOrderParser(part);
                 case "alter":  //alter order date
                     return alterOrderDateParser(part);
-                case "remove": //fall through onto next case
+                case "cancel": //fall through onto next case
                 case "done":  //remove or done an order
-                    return removeOrDoneOrderParser(part);
+                    return cancelOrDoneOrderParser(part);
                 case "init":
                     return new InitOrderListCommand();
                 case "list": //list orders
@@ -74,7 +74,21 @@ public class Parser {
         }
     }
 
+    /**
+     * commands for Dish
+     * add: adds a dish to dishList
+     * remove: remove a dish from dishList
+     * list: list all dishes in list
+     * initialize: clears the list
+     * ingredient: add an ingredient to a dish
+     *
+     * @param fullCommand command from the user
+     * @return a command to be executed
+     * @throws DukeException
+     * @@@author Hafidz
+     */
     private static Command dish(String fullCommand) throws DukeException {
+        int index = 0, amount = 0;
         String[] part = fullCommand.split(" ", 2);
         switch (part[0]) {
             case "add":
@@ -96,16 +110,33 @@ public class Parser {
             case "initialize":
                 return new ResetDishCommand();
             case "ingredient":
-                String[] getIng = part[1].split(" ", 3);
-                int amount = 0;
-                int index = 0;
+                String[] getIng = new String[0];
+                try {
+                    getIng = part[1].split(" ", 3);
+                } catch (Exception e) {
+                    throw new DukeException("description cannot be emtpy");
+                }
                 try {
                     amount = checkInt(getIng[1]);
                     index = checkInt(getIng[2]);
-                } catch (NumberFormatException e) {
+                } catch (Exception e) {
                     throw new DukeException("enter a valid amount/index");
                 }
                 return new AddIngredient(new Ingredient(getIng[0], amount, new Date()), index);
+            case "find":
+                try {
+                    return new FindDishCommand(part[1]);
+                } catch (Exception e) {
+                    throw new DukeException("description cannot be emtpy");
+                }
+            case "change":
+                try {
+                    String[] partition = part[1].split(" ", 2);
+                    index = Integer.parseInt(partition[0]);
+                    return new ChangeDishCommand(partition[1], index);
+                } catch (NumberFormatException e) {
+                    throw new DukeException("enter a valid index/description");
+                }
             default:
                 throw new DukeException("not a valid command for a Dish");
         }
@@ -123,7 +154,7 @@ public class Parser {
                     throw new DukeException("must specify a index");
                 return new DeleteCommand(checkInt(part[1]));
             case "use":
-                if (part.length != 3)
+                if (part.length != 3)           //use something 23
                     throw new DukeException("follow the template: use <ingredient name> <amount>");
                 return new UseCommand(new Ingredient(part[1], checkInt(part[2]), new Date()));
             case "listtoday":
@@ -134,6 +165,14 @@ public class Parser {
                 if (part.length != 2)
                     throw new DukeException("follow the template: find <ingredient name>");
                 return new FindIngredientCommand(part[1]);
+            case "changename":
+                if (part.length != 3)
+                    throw new DukeException("follow the template: change <ingredient index> <new ingredient name>");
+                return new ChangeNameCommand(checkInt(part[1]), part[2]);       //change 2 beef
+            case "changeamount":
+            if (part.length != 3)
+                throw new DukeException("follow the template: change <ingredient index> <new ingredient amount");
+            return new ChangeAmountCommand(checkInt(part[1]), checkInt(part[2]));       //change 2 70
             default:
                 throw new DukeException("not a valid command for an Ingredient");
         }
@@ -196,7 +235,8 @@ public class Parser {
             String[] dateAndDish = splitter[1].substring(3).split(" -n ",2);
             if (dateAndDish[0].length()!=10) { throw new DukeException("Must enter a valid order date: dd/mm/yyyy"); }
             orderDate = Convert.stringToDate(dateAndDish[0]);
-            newOrder = new Order(orderDate);
+            newOrder = new Order();
+            newOrder.setDate(orderDate);
             orderedDishes = dateAndDish[1].split(", ");
         } else { throw new DukeException("must enter a valid order date or specify dishes"); }
         for (String dishes: orderedDishes) {
@@ -237,15 +277,15 @@ public class Parser {
         return new AlterDateCommand(orderIndex-1, orderDate);
     }
 
-    public static Command removeOrDoneOrderParser(String[] splitter) throws DukeException {
+    public static Command cancelOrDoneOrderParser(String[] splitter) throws DukeException {
         if (splitter.length == 1) {
             throw new DukeException("Must enter an order index.\n\t Note that ORDER_INDEX starts from 1");
         }
         try {
-            int orderIndex = checkInt(splitter[1]);
+            int orderIndex = Integer.parseInt(splitter[1]);
             if (orderIndex <= 0) throw new DukeException("Must enter a positive order index");
-            if (splitter[0].equals("remove")) return new DeleteOrderCommand(orderIndex - 1);
-            else return new DoneOrderCommand(orderIndex - 1);
+            if (splitter[0].equals("cancel")) return new CancelOrderCommand(orderIndex);
+            else return new DoneOrderCommand(orderIndex);
         } catch (NumberFormatException e) {
             throw new DukeException("Must enter a valid order index");
         }

@@ -12,7 +12,7 @@ public class ViewTodoListCommand extends Command {
 
     @Override
     public void execute(Fridge fridge, DishList dl, OrderList orderList, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
-        String info = (orderList).todoListToString();
+        String info = orderList.todoListToString();
         System.out.println(info);
     }
 }

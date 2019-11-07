@@ -23,6 +23,14 @@ public class AddIngredient extends Command {
         this.index = index;
     }
 
+    //@@ Author Hafidz
+    /**
+     *
+     * @param dishList
+     * @param ui
+     * @param storage
+     * @throws DukeException
+     */
     @Override
     public void execute(Fridge fridge, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
         try {

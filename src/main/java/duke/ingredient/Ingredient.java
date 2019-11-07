@@ -38,7 +38,7 @@ public class Ingredient implements Printable {
         return name;
     }
 
-    public void changeDate(Date date)       //to change date, we need new date
+    public void setDate(Date date)       //to change date, we need new date
     {
         this.expiryDate = date;
     }

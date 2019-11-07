@@ -36,15 +36,23 @@ public class AlterDateCommand extends Command {
         if (orderList.size()==0) {
             throw new DukeException("No order in the list! No order can be altered!");
         }
+
         if (orderIndex < orderList.size() && orderIndex >= 0) {
             Order order = orderList.getEntry(orderIndex);
-            if (order.isDone()) { throw new DukeException("Order done already. Date alteration is not expected."); }
+            if (order.isDone()) {
+                throw new DukeException("Order done already. Date alteration is not expected.");
+            }
+
             order.setDate(date);
+            orderStorage.changeContent(orderIndex);
+            if (order.isToday()) {
+                orderList.getTodoList().addTodoFromOrder(order);
+            }
+
             ui.showLine();
             ui.showOrderChangedDate(order.getDate(),orderList.getEntry(orderIndex).toString());
             ui.showLine();
-            orderStorage.changeContent(orderIndex+1);
-            // TODO: update today's dish(task) list if new date is today
+
         } else {
             throw new DukeException("Must enter a valid order index number between 1 and "+orderList.size());
         }
