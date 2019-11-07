@@ -452,7 +452,8 @@ ________________________________________________________________________________
 
 #### 3.5.2 Altering Order Serving Date
 
-In pre-order management, it is very likely that the serving date alters. To update the serving date information of an order in the order list, the user needs to execute the command following the below format.
+In pre-order management, it is very likely that the serving date alters. To 
+the serving date information of an order in the order list, the user needs to execute the command following the below format.
 
 Format: `alter ORDER_INDEX ORDER_DATE-(dd/mm/yyyy)`
 
@@ -630,7 +631,7 @@ Format 3: `list -d ORDER_DATE-(dd/mm/yyyy) [-l LIST_TYPE-(option: all (default) 
 
 - Example: 
   - `list -d 31/12/2019 -l undone`: list all undone orders on `31/12/2019`. 
-  - ``list -d 31/12/2019` (i.e., `list -d 31/12/2019 -l all`): list all orders on `31/12/2019`. 
+  - `list -d 31/12/2019` (i.e., `list -d 31/12/2019 -l all`): list all orders on `31/12/2019`. 
 - Remark: If you want to find ***today's orders***, we recommend you to enter `list -l today` or `list -l undoneToday`.
 
 If entering invalid command, the output message is: 
@@ -677,18 +678,18 @@ The sample output message as follows:
 _________________________________________________________________________________________
 	 Today Task list (Thu Nov 07 13:00:00 SGT 2019)
 	 1. chicken rice (amount: 3) 
-   2. cake (amount: 2) 
-   3. beef noodles (amount: 4)
+	 2. cake (amount: 2) 
+	 3. beef noodles (amount: 4)
 _________________________________________________________________________________________
 ```
 
 Update Principle:
 
--- add undone dishes from pre-orders when the restaurant opens;
--- add undone dishes when today's new order comes;
--- delete finished dishes from the ToDo list when an order of today is done;
--- delete undone dishes from the ToDo list when an order of today is cancelled.
--- add undone dishes when a pre-order alters its date to become today's undone order.
+1. add undone dishes from pre-orders when the restaurant opens;
+2. add undone dishes when today's new order comes;
+3. delete finished dishes from the ToDo list when an order of today is done;
+4. delete undone dishes from the ToDo list when an order of today is cancelled.
+5. add undone dishes when a pre-order alters its date to become today's undone order.
 
 
 
