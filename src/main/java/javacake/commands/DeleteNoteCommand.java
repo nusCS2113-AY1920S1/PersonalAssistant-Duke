@@ -2,6 +2,7 @@ package javacake.commands;
 
 import javacake.Logic;
 import javacake.exceptions.CakeException;
+import javacake.storage.Storage;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 
@@ -27,7 +28,7 @@ public class DeleteNoteCommand extends Command {
             String[] parametersInCommand = inputCommand.split("\\s+");
             String inputFileName = parametersInCommand[1];
             processFile(inputFileName);
-            type = CmdType.DELETENOTE;
+            type = CmdType.DELETE_NOTE;
         } catch (NullPointerException e) {
             throw new CakeException(e.getMessage());
         }
@@ -36,9 +37,9 @@ public class DeleteNoteCommand extends Command {
     /**
      * Executes the deleting process.
      * Verifies if the file specified by the user has been deleted.
-     * @param logic TaskList containing current tasks
-     * @param ui the Ui responsible for outputting messages
-     * @param storageManager storage container
+     * @param logic TaskList containing current tasks.
+     * @param ui the Ui responsible for outputting messages.
+     * @param storageManager storage container.
      * @return Notification messages depending delete outcome.
      * @throws CakeException If file does not exist.
      */
@@ -80,9 +81,17 @@ public class DeleteNoteCommand extends Command {
      * @return Full file path to the file to be deleted.
      */
     private String processFilePath(String inputFileName) {
-        String filePath = "data/notes/";
+        String filePath = updateDefaultDirectoryPath();
         fullFilePath = filePath + inputFileName + ".txt" + "/";
         return fullFilePath;
+    }
+
+    /**
+     * Updates default directory path according the storage.
+     * @return updated default file path.
+     */
+    private String updateDefaultDirectoryPath() {
+        return Storage.returnNotesDefaultFilePath();
     }
 
     /**

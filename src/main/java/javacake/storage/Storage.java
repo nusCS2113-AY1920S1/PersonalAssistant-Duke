@@ -121,6 +121,10 @@ public class Storage {
 
     }
 
+    public static String returnNotesDefaultFilePath() {
+        return defaultFilePath + "/notes/";
+    }
+
     /**
      * Method to hard reset profile.
      */

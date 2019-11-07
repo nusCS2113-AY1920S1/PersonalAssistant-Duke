@@ -35,7 +35,9 @@ public class JavaCake {
             logic = Logic.getInstance();
             storageManager = new StorageManager();
             userProgress = storageManager.profile.getTotalProgress();
+            System.out.println("userProgress is " + userProgress);
             userName = storageManager.profile.getUsername();
+            System.out.println("userName is " + userName);
             // Default username when creating new profile
             checkIfNewUser("NEW_USER_!@#");
         } catch (CakeException e) {

@@ -14,7 +14,7 @@ public class CreateNoteCommand extends Command {
     private String defaultFileName = "Notes";
     private static String userGivenFileName = "Notes";
     private static int defaultFileNameCounter = 1;
-    private String defaultDirectoryPath = "data/notes/";
+    private static String defaultDirectoryPath = "data/notes/";
 
     private static final char[] ILLEGAL_CHARACTERS = { '/', '\n', '\r', '\t',
         '\0', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':', '.', ','};
@@ -25,9 +25,17 @@ public class CreateNoteCommand extends Command {
      * @throws CakeException If the input command is invalid.
      */
     public CreateNoteCommand(String inputCommand) throws CakeException {
-        type = CmdType.CREATENOTE;
-        Storage.generateFolder(new File("data/notes/"));
+        type = CmdType.CREATE_NOTE;
+        updateDefaultDirectoryPath();
+        //Storage.generateFolder(new File("data/notes/"));
         checksValidityOfCommand(inputCommand);
+    }
+
+    /**
+     * Updates default directory path according the storage.
+     */
+    private void updateDefaultDirectoryPath() {
+        defaultDirectoryPath = Storage.returnNotesDefaultFilePath();
     }
 
     /**
@@ -109,7 +117,7 @@ public class CreateNoteCommand extends Command {
      * @param inputFileName Specified file name by user.
      * @return True if file name does not contains illegal characters.
      */
-    public static boolean noIllegalCharacters(String inputFileName) {
+    private static boolean noIllegalCharacters(String inputFileName) {
         for (char illegalChar : ILLEGAL_CHARACTERS) {
             if (containsIllegal(inputFileName, illegalChar)) {
                 return false;
@@ -140,7 +148,7 @@ public class CreateNoteCommand extends Command {
     /**
      * Checks if file name already exists.
      * If file name does not exist, create note for user.
-     * @param logic TaskList containing current tasks
+     * @param logic tracks current location in program
      * @param ui the Ui responsible for outputting messages
      * @param storageManager storage container
      * @return Message when note is created successfully.
@@ -161,7 +169,7 @@ public class CreateNoteCommand extends Command {
         } else {
             File file = new File(newFilePath);
             createFile(file, formattedFileName);
-            return "File '" + formattedFileName + "'has been created successfully!\n";
+            return "File '" + formattedFileName + "' has been created successfully!\n";
         }
 
     }

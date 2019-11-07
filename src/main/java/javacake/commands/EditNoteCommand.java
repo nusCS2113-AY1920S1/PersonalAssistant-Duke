@@ -3,6 +3,7 @@ package javacake.commands;
 import javacake.JavaCake;
 import javacake.Logic;
 import javacake.exceptions.CakeException;
+import javacake.storage.Storage;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 
@@ -18,7 +19,7 @@ import java.util.logging.Level;
 
 public class EditNoteCommand extends Command {
 
-    private String defaultDirectoryPath = "data/notes/";
+    private static String defaultDirectoryPath = "data/notes/";
 
     private static String nameOfEditFile;
     private static String currentFilePath;
@@ -39,8 +40,16 @@ public class EditNoteCommand extends Command {
      */
     public EditNoteCommand(String inputCommand) throws CakeException {
         JavaCake.logger.log(Level.INFO, "Processing EditNoteCommand: " + inputCommand);
-        type = CmdType.EDITNOTE;
+        type = CmdType.EDIT_NOTE;
+        updateDefaultDirectoryPath();
         verifyCommand(inputCommand);
+    }
+
+    /**
+     * Updates default directory path according the storage.
+     */
+    private void updateDefaultDirectoryPath() {
+        defaultDirectoryPath = Storage.returnNotesDefaultFilePath();
     }
 
     /**
@@ -172,7 +181,7 @@ public class EditNoteCommand extends Command {
      * Executes the EditNoteCommand accordingly depends on CLI or GUI.
      * If CLI, use ui and readAndSaveNewContent method to generate message for user.
      * If GUI, return !@#_EDIT_NOTE to notify MainWindow class to call GUI methods.
-     * @param logic TaskList containing current tasks
+     * @param logic tracks current location in program
      * @param ui the Ui responsible for outputting messages
      * @param storageManager storage container
      * @return endingMessage if CLI is used, else return !@#_EDIT_NOTE to request MainWindow class to handle.
