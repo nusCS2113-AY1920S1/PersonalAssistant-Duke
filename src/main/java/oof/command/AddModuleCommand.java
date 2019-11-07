@@ -22,7 +22,7 @@ public class AddModuleCommand extends Command {
     private static final int INDEX_CODE = 0;
     private static final int INDEX_NAME = 1;
     private static final int ARRAY_SIZE_NAME = 2;
-    private static final int DESCRIPTION_LENGTH_MAX = 50;
+    private static final int DESCRIPTION_LENGTH_MAX = 100;
 
 
     /**
