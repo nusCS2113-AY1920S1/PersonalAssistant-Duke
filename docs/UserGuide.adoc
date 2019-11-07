@@ -433,7 +433,7 @@ This error appears when you input an invalid letter grade.
 Example of error message: `Error: Please enter a valid letter grade!`
 
 > **_Solving the error:_** +
-> Input one of the following grades: "A+, A, A-, B+, B, B-, C+, C, C-, D+, D, F, S or U".
+> Input one of the following grades: "A+, A, A-, B+, B, B-, C+, C, D+, D, F, S or U".
 
 === `ModBadSuException`
 This errors appears when you input an S or U grade for a module that does not have an S/U option.
