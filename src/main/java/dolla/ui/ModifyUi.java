@@ -62,7 +62,7 @@ public class ModifyUi extends Ui {
     /**
      * Prints a message to alert user that they did not add the new information that they want to
      * use after indicating the component they want to change.
-     * @param component
+     * @param component The component that expects a string after it
      */
     public static void printMissingComponentInfoError(String component) {
         System.out.println(line);

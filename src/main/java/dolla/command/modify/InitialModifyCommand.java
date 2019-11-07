@@ -2,9 +2,7 @@ package dolla.command.modify;
 
 import dolla.command.Command;
 import dolla.model.DollaData;
-import dolla.ui.ListUi;
 import dolla.ui.ModifyUi;
-import dolla.model.RecordList;
 
 //@@author omupenguin
 /**

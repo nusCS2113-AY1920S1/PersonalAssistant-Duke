@@ -87,13 +87,13 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * @param str String (of number) to be converted into integer type.
      * @return Integer type of the specified string.
      */
-    public static double stringToDouble(String str) throws Exception {
+    public static double stringToDouble(String str) throws NumberFormatException {
         double newDouble = 0.0;
         try {
             newDouble = Double.parseDouble(str);
         } catch (NumberFormatException e) {
             Ui.printInvalidNumberError(str);
-            throw new Exception(INVALID_AMOUNT_EXCEPTION);
+            throw new NumberFormatException("Invalid amount");
         }
         return newDouble;
     }
