@@ -96,8 +96,9 @@ public class ExpenseCommandParser extends Command {
                         + "9. notes\n"
                         + "To exit: bye\n"
                 );
+            } else {
+                System.out.println("Command not found, please re-enter!");
             }
-            System.out.println("Command not found, please re-enter!");
         }
     }
 

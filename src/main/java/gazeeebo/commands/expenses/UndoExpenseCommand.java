@@ -41,9 +41,9 @@ public class UndoExpenseCommand {
             }
             storage.Storages_Expenses(toStore);
             oldExpenses.pop();
-            System.out.println("You have undo the previous command.");
+            System.out.println("You have undid the previous command.");
         } else {
-            System.out.println("The previous command cannot be undo");
+            System.out.println("The previous command cannot be undone");
         }
         return expenses;
     }

@@ -49,70 +49,74 @@ public class DeleteCommand extends Command {
                         final ArrayList<Task> deletedTask,
                         final TriviaManager triviaManager)
             throws DukeException, ParseException, IOException {
-        if (ui.fullCommand.length() == DELETE_CHAR_COUNT) {
-            throw new DukeException("OOPS!!! The description "
-                    + "of a deletion cannot be empty.");
-        } else {
-            if (ui.fullCommand.contains("all")) { //delete all tasks at once
-                for (int i = 0; i < list.size(); i++) {
-                    deletedTask.add(list.get(i));
-                }
-                list.clear();
-                System.out.println("Noted. I've removed all the tasks.");
-                System.out.println("Now you have "
-                        + list.size()
-                        + " tasks in the list.");
-            } else if (ui.fullCommand.contains("and")) {
-                //delete multiple tasks at once
-                int numOfAnds = 0;
-                for (int i = 0; i < ui.fullCommand.length(); i++) {
-                    if (ui.fullCommand.charAt(i) == 'a') {
-                        numOfAnds++;
+        try {
+            if (ui.fullCommand.length() == DELETE_CHAR_COUNT) {
+                throw new DukeException("OOPS!!! The description "
+                        + "of a deletion cannot be empty.");
+            } else {
+                if (ui.fullCommand.contains("all")) { //delete all tasks at once
+                    for (int i = 0; i < list.size(); i++) {
+                        deletedTask.add(list.get(i));
                     }
-                }
-                String[] strNumberList = ui.fullCommand.substring(
-                        DELETE_AND_SPACE_CHAR_COUNT).split(
-                        " and ", numOfAnds + 1);
-                int size = strNumberList.length;
-                int[] intNumberList = new int[size];
-                for (int j = 0; j < size; j++) {
-                    intNumberList[j] = Integer.parseInt(strNumberList[j]);
-                }
-                Arrays.sort(intNumberList);
-                int count = 1;
-                System.out.println("Noted. I've removed this task: ");
-                for (int k = 0; k < size; k++) {
-                    int index = intNumberList[k] - count;
-                    String taskremoved = list.get(index).listFormat();
-                    deletedTask.add(list.get(index));
-                    list.remove(index);
-                    System.out.println(taskremoved);
-                    count++;
-                }
-                System.out.println("Now you have " + list.size()
-                        + " tasks in the list.");
-            } else if (ui.fullCommand.split(" ")[1] != null) {
-                try {
-                    int index = Integer.parseInt(ui.fullCommand.substring(
-                            DELETE_CHAR_COUNT).trim()) - 1;
-                    deletedTask.add(list.get(index));
-                    String taskremoved = list.get(index).listFormat();
-                    list.remove(index);
+                    list.clear();
+                    System.out.println("Noted. I've removed all the tasks.");
+                    System.out.println("Now you have "
+                            + list.size()
+                            + " tasks in the list.");
+                } else if (ui.fullCommand.contains("and")) {
+                    //delete multiple tasks at once
+                    int numOfAnds = 0;
+                    for (int i = 0; i < ui.fullCommand.length(); i++) {
+                        if (ui.fullCommand.charAt(i) == 'a') {
+                            numOfAnds++;
+                        }
+                    }
+                    String[] strNumberList = ui.fullCommand.substring(
+                            DELETE_AND_SPACE_CHAR_COUNT).split(
+                            " and ", numOfAnds + 1);
+                    int size = strNumberList.length;
+                    int[] intNumberList = new int[size];
+                    for (int j = 0; j < size; j++) {
+                        intNumberList[j] = Integer.parseInt(strNumberList[j]);
+                    }
+                    Arrays.sort(intNumberList);
+                    int count = 1;
                     System.out.println("Noted. I've removed this task: ");
-                    System.out.println(taskremoved);
+                    for (int k = 0; k < size; k++) {
+                        int index = intNumberList[k] - count;
+                        String taskremoved = list.get(index).listFormat();
+                        deletedTask.add(list.get(index));
+                        list.remove(index);
+                        System.out.println(taskremoved);
+                        count++;
+                    }
                     System.out.println("Now you have " + list.size()
                             + " tasks in the list.");
-                } catch (NumberFormatException e) {
-                    System.out.println("Wrong input for delete command");
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("Task number not found");
+                } else if (ui.fullCommand.split(" ")[1] != null) {
+                    try {
+                        int index = Integer.parseInt(ui.fullCommand.substring(
+                                DELETE_CHAR_COUNT).trim()) - 1;
+                        deletedTask.add(list.get(index));
+                        String taskremoved = list.get(index).listFormat();
+                        list.remove(index);
+                        System.out.println("Noted. I've removed this task: ");
+                        System.out.println(taskremoved);
+                        System.out.println("Now you have " + list.size()
+                                + " tasks in the list.");
+                    } catch (NumberFormatException e) {
+                        System.out.println("Wrong input for delete command");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Task number not found");
+                    }
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < list.size(); i++) {
+                        sb.append(list.get(i).toString() + "\n");
+                    }
+                    storage.writeToSaveFile(sb.toString());
                 }
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < list.size(); i++) {
-                    sb.append(list.get(i).toString() + "\n");
-                }
-                storage.writeToSaveFile(sb.toString());
             }
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
         }
     }
     /**
