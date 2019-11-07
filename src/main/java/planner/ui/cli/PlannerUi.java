@@ -1,12 +1,15 @@
 package planner.ui.cli;
 
+import java.time.DayOfWeek;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
+import planner.logic.exceptions.legacy.ModInvalidIndexException;
 import planner.logic.modules.legacy.task.Task;
+import planner.logic.modules.legacy.task.TaskWithMultipleWeeklyPeriod;
 import planner.logic.modules.module.ModuleTask;
 
 /**
@@ -279,26 +282,28 @@ public class PlannerUi {
      */
     public void capModMsg(double predictedCap, String moduleCode) {
         showLine();
-        System.out.println("Here is your predicted CAP for " + moduleCode);
+        System.out.println("Here is your predicted CAP for "
+            +
+            moduleCode
+            +
+            " based on the modules you have taken.");
         System.out.printf("%.2f\n", predictedCap);
     }
 
     /**
      * Prints the list of modules that have not been graded/taken for prerequisite of another module.
      */
-    public void capModuleIncompleteMsg(List<List<String>> toCalculate) {
+    public void capModuleIncompleteMsg(List<String> toCalculate) {
         int i = 0;
         showLine();
-        System.out.println("Please complete the following prerequisite modules: ");
+        System.out.println("Please complete any/all of the following prerequisite modules and add them to your list: ");
         while (i < toCalculate.size()) {
-            if (!toCalculate.get(i).isEmpty()) {
-                for (String x : toCalculate.get(i)) {
-                    System.out.print(x + " or ");
-                }
-                System.out.print("\n");
-            }
+            System.out.println(toCalculate.get(i));
             i++;
         }
+        System.out.println("If you have completed any of these modules preclusions/co-requisites/equivalents,"
+            +
+                "please add them to your module list with the appropriate grade and try again.");
     }
 
     /**
@@ -313,7 +318,11 @@ public class PlannerUi {
      * Message to print the sorted module list.
      */
     public void sortMsg(String toSort) {
-        System.out.println("Here are your sorted " + toSort + ":");
+        System.out.println("Here are your sorted "
+            +
+            toSort
+            +
+            ":");
     }
 
     /**
@@ -323,6 +332,17 @@ public class PlannerUi {
         showLine();
         for (Object object : list) {
             System.out.println(object);
+        }
+    }
+
+    /**
+     * Prints activities on the given dayOfWeek.
+     */
+    public void showSortedTimes(List<TaskWithMultipleWeeklyPeriod> list, DayOfWeek dayOfWeek) {
+        showLine();
+        for (TaskWithMultipleWeeklyPeriod task : list) {
+            String taskNameAndPeriods = task.getName() + task.onWeekDayToString(dayOfWeek);
+            System.out.println(taskNameAndPeriods);
         }
     }
 
@@ -421,5 +441,4 @@ public class PlannerUi {
                             + "4) for 5 minutes\n"
                             + "*helpline* : for 1), enter 'reminder one'");
     }
-
 }
