@@ -12,7 +12,7 @@ import list.DegreeListStorage;
 import parser.Parser;
 import statistics.CohortSize;
 import storage.Storage;
-import task.UniversityTaskHandler;
+import task.NUSEvents;
 import statistics.GraduateEmployment;
 import task.NUSEvents;
 import task.TaskList;
@@ -46,7 +46,7 @@ public class Duke extends Application {
     private Map<String, Degree> degreeInfo = new HashMap<>();
     private ArrayList<String> mydegrees = new ArrayList<>();
 
-    private UniversityTaskHandler universityTaskHandler = new UniversityTaskHandler();
+    private NUSEvents universityTaskHandler = new NUSEvents();
     private GraduateEmployment graduateEmployment = new GraduateEmployment();
     private CohortSize cohortSize = new CohortSize();
 

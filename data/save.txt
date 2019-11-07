@@ -1,2 +1,2 @@
-E | 0 | [BME] Open House for Prospective Students | 11-05-2020 1030
-E | 0 | [BME] NUS-BME Open House | 18-05-2020 1330
+E | 0 | [BME] Open House for Prospective Students | 11-05-2020 1030 | 1
+E | 0 | [BME] NUS-BME Open House | 18-05-2020 1330 | 1
