@@ -7,7 +7,6 @@ import duke.command.ingredientCommand.RemoveAllExpired;
 import duke.dish.DishList;
 import duke.exception.DukeException;
 import duke.fridge.Fridge;
-import duke.ingredient.IngredientsList;
 import duke.order.OrderList;
 import duke.parser.Parser;
 import duke.storage.FridgeStorage;

@@ -1,9 +1,9 @@
 package duke.storage;
 
 import duke.exception.DukeException;
+import duke.ingredient.Ingredient;
+import duke.ingredient.IngredientsList;
 import duke.list.GenericList;
-import duke.task.Task;
-import duke.task.TaskList;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a storage used to load {@link Task}s from a text {@link File} and store {@link Task}s in it.
+ * Represents a storage used to load {@link Ingredient}s from a text {@link File} and store {@link Ingredient}s in it.
  */
 public abstract class Storage<T> {
 
@@ -38,7 +38,7 @@ public abstract class Storage<T> {
     /**
      * Load tasks from file.
      *
-     * @return an {@link ArrayList} of {@link Task}s read from the text file indicated by the {@link Path}.
+     * @return an {@link ArrayList} of {@link Ingredient}s read from the text file indicated by the {@link Path}.
      */
     public GenericList<T> load() throws DukeException {
         try {
@@ -79,9 +79,9 @@ public abstract class Storage<T> {
     }
 
     /**
-     * Updates the content in the text file, by changing the specific {@link Task} indicated by the taskNb.
+     * Updates the content in the text file, by changing the specific {@link Ingredient} indicated by the taskNb.
      *
-     * @param taskNb Positive integer indicating the number of the {@link Task} in the {@link TaskList} to be updated
+     * @param taskNb Positive integer indicating the number of the {@link Ingredient} in the {@link IngredientsList} to be updated
      * @throws DukeException if the taskNb is invalid or there was an I/O Exception
      */
     public void changeContent(int taskNb) throws DukeException {
@@ -116,9 +116,9 @@ public abstract class Storage<T> {
     }
 
     /**
-     * Used to add a {@link Task} by writing to {@link File}.
+     * Used to add a {@link Ingredient} by writing to {@link File}.
      *
-     * @param task {@link Task} to be written
+     * @param task {@link Ingredient} to be written
      * @throws IOException whatever that is
      */
     public void addInFile(String task) throws IOException {
