@@ -9,7 +9,7 @@
 :table-caption: Table
 :imagesDir: images
 :stylesDir: stylesheets
-:xrefstyle: full
+:xrefstyle: fullThe task is then added to calendarTask using the addEntry() method. After iterating through the current list of tasks, the same logic is applied to the semesterList to retrieve appropriate lesson timings via the parseLessons() method which calls queryModules() and addLesson() methods. The printViewWeek() method in the Ui class is then called to print the tasks for the current week.
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -297,7 +297,7 @@ In the `execute` method, the first day of the week is retrieved using the `getSt
 The `execute` method iterates through the current list of tasks and parses the `date`, `time` and `description` of each task. The `dateMatches()` method is then called to verify if the task falls in the same week as the current week. If the current task falls in the current week, the `date` of the task is compared with the first day of the week to obtain an `index` to slot the task into calendarTasks.
 
 *Step 5.* +
-The task is then added to calendarTask using the `addEntry()` method. After iterating through the current list of tasks, the `printViewWeek() method` in `Ui` class is then called to print the tasks for the current week.
+The `task` is then added to `calendarTasks` using the `addEntry()` method. After iterating through the current list of tasks, the same logic is applied to the `semesterList` to retrieve appropriate lesson timings via the `parseLessons()` method which calls `queryModules()` and `addLesson()` methods. The `printViewWeek()` method in the `Ui` class is then called to print the tasks for the current week.
 
 *Step 6.* +
 In the `printViewWeek()` method, 3 main methods are being called to print the final output. Firstly, `printViewWeekHeader()` method is called to print the header of the output which consists of the top border and the days of the current week.
