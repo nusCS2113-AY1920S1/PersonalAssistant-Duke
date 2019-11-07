@@ -1,10 +1,10 @@
 package dictionary;
 
+import exception.NoTagFoundException;
 import exception.NoWordFoundException;
 import exception.WordAlreadyExistsException;
 import exception.WordBankEmptyException;
 import exception.WordCountEmptyException;
-import storage.Storage;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,16 +16,11 @@ public class Bank {
     SynonymBank synonymBank;
     WordCount wordCount;
 
-    public Bank() {
-
-    }
-
     /**
-     * Instantiates a wordBank, tagBank and wordCount object.
-     * @param storage object required to create instantiate a wordBank
+     * Initiates an empty bank.
      */
-    public Bank(Storage storage) {
-        wordBank = new WordBank(storage);
+    public Bank() {
+        wordBank = new WordBank();
         tagBank = new TagBank();
         synonymBank = new SynonymBank();
         wordCount = new WordCount(wordBank);
@@ -51,6 +46,25 @@ public class Bank {
         return tagBank;
     }
 
+    public int getWordBankSize() {
+        return wordBank.getSize();
+    }
+
+    public int getTagBankSize() {
+        return tagBank.getSize();
+    }
+
+    /**
+     * Adds a word into bank and updates wordBank, tagBank, and wordCount with the new word.
+     * @param word Word object represents the added word
+     * @throws WordAlreadyExistsException if the word already exists in bank
+     */
+    public void addWord(Word word) throws WordAlreadyExistsException {
+        wordBank.addWord(word);
+        tagBank.addWordToAllTags(word);
+        wordCount.addWord(word);
+    }
+
     /**
      * Returns true if wordBank is empty.
      * @return boolean value indicating if wordBank is empty
@@ -66,7 +80,7 @@ public class Bank {
      */
     public void addWordToBank(Word word) throws WordAlreadyExistsException {
         wordBank.addWord(word);
-        tagBank.addWordAllTags(word);
+        tagBank.addWordToAllTags(word);
         synonymBank.addWordAllSynonyms(word);
         wordCount.addWord(word);
     }
@@ -90,9 +104,10 @@ public class Bank {
      * @return all tags of the word after adding to show to user
      * @throws NoWordFoundException if the word doesn't exist in the WordBank
      */
-    public HashSet<String> addTag(String wordDescription, ArrayList<String> tags) throws NoWordFoundException {
-        HashSet<String> tagsOfWord = wordBank.addTag(wordDescription, tags);
-        tagBank.addTag(wordDescription, tags);
+    public HashSet<String> addWordToSomeTags(String wordDescription, ArrayList<String> tags)
+            throws NoWordFoundException {
+        HashSet<String> tagsOfWord = wordBank.addWordToSomeTags(wordDescription, tags);
+        tagBank.addWordToSomeTags(wordDescription, tags);
         return tagsOfWord;
     }
 
@@ -140,5 +155,31 @@ public class Bank {
 
     public ArrayList<String> getClosedWords(String searchTerm) {
         return wordBank.getClosedWords(searchTerm);
+    }
+
+    public void addTagToWord(String word, String tag) {
+        wordBank.addTagToWord(word, tag);
+        tagBank.addWordToOneTag(word, tag);
+    }
+
+    public boolean tagBankEmpty() {
+        return tagBank.isEmpty();
+    }
+
+    /**
+     * Gets all words of a specific tag.
+     * @param searchTag tag to be searched
+     * @return a primitive array of all strings represent words belong to the tag
+     * @throws NoTagFoundException if the tag doesn't exist in the tag bank
+     */
+    public String[] getWordsOfTag(String searchTag) throws NoTagFoundException {
+        if (!tagBank.contains(searchTag)) {
+            throw new NoTagFoundException(searchTag);
+        }
+        return tagBank.getAllWordsOfTag(searchTag);
+    }
+
+    public String[] getAllTags() {
+        return tagBank.getAllTagsAsList();
     }
 }

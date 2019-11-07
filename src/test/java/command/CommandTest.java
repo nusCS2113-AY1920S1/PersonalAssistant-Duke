@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class CommandTest {
     public String filename;
+    public String excelFileName;
     public Storage storage;
     public Bank bank;
     public Ui ui;
@@ -37,16 +38,17 @@ public class CommandTest {
     @BeforeEach
     public void createWordUpTestFile() throws FileNotFoundException, UnsupportedEncodingException {
         filename = "C:\\Users\\zyueh\\Documents\\Y2S2_CS2113\\main\\data\\WordUpTest.txt";
+        excelFileName = "C:\\Users\\zyueh\\Documents\\Y2S2_CS2113\\main\\data\\WordUpTest.xlsx";
         PrintWriter writer = new PrintWriter(filename, "UTF-8");
         writer.println("apple: red fruit");
         writer.println("orange: orange fruit");
         writer.println("banana: yellow fruit");
         writer.println("kiwi: green fruit");
         writer.close();
-        storage = new Storage(filename);
-        bank = new Bank(storage);
+        storage = new Storage(filename, excelFileName);
+        bank = storage.loadExcelFile();
         ui = new Ui();
-        wordBank = new WordBank(storage.loadFile());
+        wordBank = bank.getWordBankObject();
     }
 
     /**

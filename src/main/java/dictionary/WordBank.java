@@ -1,29 +1,27 @@
 package dictionary;
 
-import command.OxfordCall;
 import exception.NoWordFoundException;
 import exception.WordAlreadyExistsException;
 import exception.WordBankEmptyException;
-import storage.Storage;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-public class WordBank extends Bank {
+public class WordBank {
     private TreeMap<String, Word> wordBank;
 
-    public WordBank(Storage storage) {
-        wordBank = storage.loadFile();
-    }
-
-    public WordBank(TreeMap<String, Word> wordBank) {
-        this.wordBank = wordBank;
+    public WordBank() {
+        this.wordBank = new TreeMap<>();
     }
 
     public TreeMap<String, Word> getWordBank() {
         return wordBank;
+    }
+
+    public int getSize() {
+        return wordBank.size();
     }
 
     /**
@@ -33,16 +31,11 @@ public class WordBank extends Bank {
      * @throws NoWordFoundException when the wordBank does not contain the word
      */
     public Word getWord(String word) throws NoWordFoundException {
-        try {
-            if (wordBank.containsKey(word)) {
-                return wordBank.get(word);
-            } else {
-                throw new NoWordFoundException(word);
-            }
-        } catch (NoWordFoundException e) {
-            e.showError();
+        if (wordBank.containsKey(word)) {
+            return wordBank.get(word);
+        } else {
+            throw new NoWordFoundException(word);
         }
-        return null;
     }
 
     public boolean isEmpty() {
@@ -97,10 +90,9 @@ public class WordBank extends Bank {
      * @throws NoWordFoundException if no words in the WordBank have that beginning substring
      */
     public ArrayList<String> searchWordWithBegin(String word) throws NoWordFoundException {
-        word = word.toLowerCase();
         ArrayList<String> arrayList = new ArrayList<>();
         String upperBoundWord = wordBank.ceilingKey(word);
-        if (!upperBoundWord.startsWith(word)) {
+        if (upperBoundWord == null || !upperBoundWord.startsWith(word)) {
             throw new NoWordFoundException(word);
         }
         SortedMap<String, Word> subMap = wordBank.subMap(upperBoundWord, wordBank.lastKey());
@@ -134,7 +126,8 @@ public class WordBank extends Bank {
      * @return tags lists of that word
      * @throws NoWordFoundException if the word doesn't exist in the word bank
      */
-    public HashSet<String> addTag(String wordToBeAddedTag, ArrayList<String> tags) throws NoWordFoundException {
+    public HashSet<String> addWordToSomeTags(String wordToBeAddedTag, ArrayList<String> tags)
+            throws NoWordFoundException {
         if (!wordBank.containsKey(wordToBeAddedTag)) {
             throw new NoWordFoundException(wordToBeAddedTag);
         }
@@ -205,16 +198,41 @@ public class WordBank extends Bank {
 
     /**
      * Checks spelling when user input a non-existing word.
+     * A word is considered to be close will must differs in less than its length
+     * compared to the searched word.
+     * Also consider words with one swap between any 2 characters.
      * @param word word to be searched
      * @return list of words that is considered to be close from the word user is looking for
      */
     public ArrayList<String> getClosedWords(String word) {
         ArrayList<String> closedWords = new ArrayList<>();
         for (Word w : wordBank.values()) {
+            boolean isClosed = false;
             if (w.isClosed(word)) {
+                isClosed = true;
+            }
+            for (int i = 0; i < word.length() && !isClosed; i++) {
+                for (int j = i + 1; j < word.length() && !isClosed; j++) {
+                    StringBuilder wordWithOneSwap = new StringBuilder(word);
+                    wordWithOneSwap.setCharAt(i, word.charAt(j));
+                    wordWithOneSwap.setCharAt(j, word.charAt(i));
+                    if (w.isClosed(wordWithOneSwap.toString())) {
+                        isClosed = true;
+                    }
+                }
+            }
+            if (isClosed) {
                 closedWords.add(w.getWordString());
             }
         }
         return closedWords;
+    }
+
+    public void addTagToWord(String word, String tag) {
+        wordBank.get(word).addTag(tag);
+    }
+
+    public Word[] getAllWordsAsList() {
+        return wordBank.values().toArray(new Word[wordBank.size()]);
     }
 }

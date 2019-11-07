@@ -87,7 +87,9 @@ public class Word {
     }
 
     /**
-     * Measure the difference between 2 words.
+     * Levenshtein distance between 2 strings.
+     * Calculates the minimum number of changes from 1 string to get to another
+     * Possible changes are insert, delete or change change characters
      * @param another string represents word to be compared
      * @return edit distance between 2 words divided by the length of shorter word
      */
@@ -107,7 +109,6 @@ public class Word {
                     } else if (dp[i][j] > dp[i][j - 1] + 1) {
                         dp[i][j] = dp[i][j - 1] + 1;
                     }
-
                 }
             }
         }

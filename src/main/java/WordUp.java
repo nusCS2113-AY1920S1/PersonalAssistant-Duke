@@ -22,8 +22,8 @@ public class WordUp extends Application {
      */
     public WordUp() {
         ui = new Ui();
-        storage = new Storage("C:\\Users\\user\\gitclones\\main\\src\\data\\wordup.txt");
-        bank = new Bank(storage);
+        storage = new Storage("data/wordup.txt", "data/wordup.xlsx");
+        bank = storage.loadExcelFile();
     }
 
     @Override
