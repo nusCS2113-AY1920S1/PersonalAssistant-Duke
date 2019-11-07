@@ -42,9 +42,9 @@ public class GetBusRouteCommand extends Command {
                 }
             }
 
-            return new CommandResultText(Messages.MESSAGE_BUS_ROUTE + result);
+            return new CommandResultText(Messages.BUS_ROUTE_STARTER + result);
         } catch (NullPointerException e) {
-            return new CommandResultText(Messages.MESSAGE_BUS_ROUTE_NOT_FOUND);
+            return new CommandResultText(Messages.BUS_ROUTE_NOT_FOUND);
         }
     }
 }

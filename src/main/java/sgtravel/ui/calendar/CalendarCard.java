@@ -12,6 +12,12 @@ import javafx.scene.layout.StackPane;
  * Represents a calender card as a part of the UI.
  */
 public class CalendarCard extends UiPart<StackPane> {
+    private final EventList events;
+    private static final String FXML = "CalendarCard.fxml";
+    private static final String CLASSNAME = "class duke.model.";
+    private int currentIndex = 0;
+    private boolean isCalendarCardClass = true;
+
     @FXML
     private Label day;
     @FXML
@@ -21,12 +27,12 @@ public class CalendarCard extends UiPart<StackPane> {
     @FXML
     private StackPane calendarCard;
 
-    private final EventList events;
-    private static final String FXML = "CalendarCard.fxml";
-    private static final String CLASSNAME = "class duke.model.";
-    private int currentIndex = 0;
-    private boolean isCalendarCardClass = true;
-
+    /**
+     * Creates the CalenderCard.
+     *
+     * @param day The number of the day.
+     * @param events The EventsList.
+     */
     private CalendarCard(int day, EventList events) {
         super(FXML);
         this.day.setText(Integer.toString(day));
@@ -38,6 +44,9 @@ public class CalendarCard extends UiPart<StackPane> {
         }
     }
 
+    /**
+     * Loads the information onto the CalenderCard.
+     */
     private void loadInfoOnToCard() {
         task.setText(events.get(currentIndex).getClass().toString().replace(CLASSNAME, ""));
         description.setText(events.get(currentIndex).getDescription());
@@ -49,10 +58,20 @@ public class CalendarCard extends UiPart<StackPane> {
         Tooltip.install(getRoot(), tooltip);
     }
 
+    /**
+     * Gets the CalenderCard for a day.
+     *
+     * @param day The number of the day.
+     * @param events The EventsList.
+     * @return The CalenderCard created.
+     */
     protected static StackPane getCalendarCard(int day, EventList events) {
         return new CalendarCard(day, events).getRoot();
     }
 
+    /**
+     * onClick event handler.
+     */
     @FXML
     private void onClick() {
         if (!events.isEmpty()) {
@@ -61,6 +80,9 @@ public class CalendarCard extends UiPart<StackPane> {
         }
     }
 
+    /**
+     * onHover handler to apply CSS.
+     */
     @FXML
     private void onMouseEnter() {
         calendarCard.getStyleClass().add("calendarCardHover");
@@ -68,6 +90,9 @@ public class CalendarCard extends UiPart<StackPane> {
         isCalendarCardClass = false;
     }
 
+    /**
+     * onHover handler to remove CSS.
+     */
     @FXML
     private void onMouseExit() {
         if (!isCalendarCardClass) {

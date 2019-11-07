@@ -77,14 +77,15 @@ public class BusStop extends RouteNode {
     public void fetchData(Model model) throws QueryFailedException {
         HashMap<String, BusStop> allBus = model.getMap().getBusStopMap();
         if (allBus.containsKey(this.busCode)) {
-            this.setAddress(allBus.get(this.busCode).getAddress());
-            this.setDescription(allBus.get(this.busCode).getDescription());
-            this.setLatitude(allBus.get(this.busCode).getLatitude());
-            this.setLongitude(allBus.get(this.busCode).getLongitude());
+            BusStop busStop = allBus.get(this.busCode);
+            this.setAddress(busStop.getAddress());
+            this.setDescription(busStop.getDescription());
+            this.setLatitude(busStop.getLatitude());
+            this.setLongitude(busStop.getLongitude());
             return;
         }
 
-        throw new QueryFailedException("BUS_STOP");
+        throw new QueryFailedException(busCode);
     }
 }
 

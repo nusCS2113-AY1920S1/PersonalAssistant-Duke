@@ -65,15 +65,6 @@ public abstract class RouteNode extends Venue {
     }
 
     /**
-     * Sets the type of the RouteNode.
-     *
-     * @param type The latitude to set.
-     */
-    public void setType(Constraint type) {
-        this.type = type;
-    }
-
-    /**
      * Sets the description of the RouteNode.
      *
      * @param description The latitude to set.

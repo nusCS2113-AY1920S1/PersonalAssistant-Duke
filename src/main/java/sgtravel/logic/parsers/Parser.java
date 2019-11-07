@@ -36,7 +36,6 @@ import sgtravel.logic.parsers.commandparsers.RouteGenerateParser;
 import sgtravel.logic.parsers.commandparsers.RouteListParser;
 import sgtravel.logic.parsers.commandparsers.RouteNodeAddParser;
 import sgtravel.logic.parsers.commandparsers.RouteNodeDeleteParser;
-import sgtravel.logic.parsers.commandparsers.RouteNodeEditParser;
 import sgtravel.logic.parsers.commandparsers.RouteNodeListParser;
 import sgtravel.logic.parsers.commandparsers.StaticMapParser;
 import sgtravel.logic.parsers.storageparsers.PlanningStorageParser;
@@ -95,8 +94,6 @@ public class Parser {
             return new RouteNodeAddParser(getWord(input)).parse();
         case "routeEdit":
             return new RouteEditParser(getWord(input)).parse();
-        case "routeNodeEdit":
-            return new RouteNodeEditParser(getWord(input)).parse();
         case "routeDelete":
             return new RouteDeleteParser(getWord(input)).parse();
         case "routeNodeDelete":

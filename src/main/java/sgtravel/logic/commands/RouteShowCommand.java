@@ -29,7 +29,7 @@ public class RouteShowCommand extends Command {
     @Override
     public CommandResultMap execute(Model model) throws OutOfBoundsException {
         try {
-            return new CommandResultMap(model.getRoutes().get(index));
+            return new CommandResultMap(model.getRoute(index));
         } catch (IndexOutOfBoundsException e) {
             throw new OutOfBoundsException();
         }

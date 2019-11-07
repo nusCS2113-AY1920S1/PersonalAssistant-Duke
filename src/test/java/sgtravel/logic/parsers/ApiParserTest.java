@@ -33,11 +33,9 @@ class ApiParserTest {
 
     @Test
     void locationSearchTest() throws ApiException {
-        Venue expected = new Venue("21 LOWER KENT RIDGE ROAD NATIONAL UNIVERSITY OF SINGAPORE "
-                + "(LT24) SINGAPORE 119077", 1.295891879784, 103.780531726731, 22125.2865001485,
-                30918.7200026438);
-        Venue actual = ApiParser.getLocationSearch("21 LOWER KENT RIDGE ROAD NATIONAL "
-                + "UNIVERSITY OF SINGAPORE (LT24) SINGAPORE");
+        Venue expected = new Venue("40 CLEMENTI AVENUE 1 NUS HIGH RESIDENCE SINGAPORE 129959",
+                1.30698270981494, 103.770671662772, 21027.9779569674, 32145.1125975922);
+        Venue actual = ApiParser.getLocationSearch("NUS");
 
         assertTrue(expected.equals(actual));
     }

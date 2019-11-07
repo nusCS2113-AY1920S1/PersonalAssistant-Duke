@@ -16,6 +16,12 @@ public class LocationCard extends UiPart<StackPane> {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private static final String FXML = "LocationCard.fxml";
 
+    /**
+     * Creates the LocationCard object.
+     *
+     * @param location The location for the LocationCard.
+     * @param id The id of the location.
+     */
     private LocationCard(Venue location, String id) {
         super(FXML);
         double offsetY = 900 - ((location.getLatitude() - 1.218) * 900 / (1.486 - 1.218));
@@ -31,6 +37,13 @@ public class LocationCard extends UiPart<StackPane> {
         }
     }
 
+    /**
+     * Creates the tooltip card.
+     *
+     * @param location The location for the LocationCard.
+     * @param id The id of the location.
+     * @return The StackPane for the tooltip.
+     */
     public static StackPane getCard(Venue location, String id) {
         return new LocationCard(location, id).getRoot();
     }

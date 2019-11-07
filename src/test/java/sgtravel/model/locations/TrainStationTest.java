@@ -3,6 +3,7 @@ package sgtravel.model.locations;
 import sgtravel.ModelStub;
 import sgtravel.commons.exceptions.FileLoadFailException;
 import org.junit.jupiter.api.Test;
+import sgtravel.commons.exceptions.QueryFailedException;
 
 import java.util.ArrayList;
 
@@ -98,7 +99,7 @@ class TrainStationTest {
     }
 
     @Test
-    void testFetch() throws FileLoadFailException {
+    void testFetch() throws FileLoadFailException, QueryFailedException {
         TrainStation v3 = new TrainStation(new ArrayList<String>(), "Woodlands", "",
                 0, 0);
         ModelStub model = new ModelStub();
@@ -111,7 +112,7 @@ class TrainStationTest {
     }
 
     @Test
-    void getDisplayInfo() throws FileLoadFailException {
+    void getDisplayInfo() throws FileLoadFailException, QueryFailedException {
         ModelStub model = new ModelStub();
         TrainStation trainStation = new TrainStation(new ArrayList<>(), "Woodlands", "",
                 0, 0);

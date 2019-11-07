@@ -1,5 +1,6 @@
 package sgtravel.logic.commands;
 
+import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.commons.exceptions.UnknownFieldException;
@@ -11,7 +12,6 @@ import sgtravel.model.transports.Route;
  * Edits a Route in RouteList.
  */
 public class RouteEditCommand extends Command {
-    private static final String MESSAGE_SUCCESS = "Edited the Route!\n";
     private int index;
     private String field;
     private String newValue;
@@ -55,7 +55,7 @@ public class RouteEditCommand extends Command {
             }
 
             model.save();
-            return new CommandResultText(MESSAGE_SUCCESS);
+            return new CommandResultText(Messages.ROUTE_NODE_EDIT_SUCCESS);
         } catch (IndexOutOfBoundsException e) {
             throw new OutOfBoundsException();
         }

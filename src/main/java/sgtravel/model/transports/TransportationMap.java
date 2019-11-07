@@ -127,7 +127,7 @@ public class TransportationMap {
             return trainMap.get(query);
         }
 
-        throw new QueryFailedException("TRAIN_STATION");
+        throw new QueryFailedException(query);
     }
 
     /**

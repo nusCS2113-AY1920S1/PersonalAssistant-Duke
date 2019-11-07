@@ -3,6 +3,7 @@ package sgtravel.model;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.NoRecentItineraryException;
 import sgtravel.commons.exceptions.DuplicateRouteException;
+import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.model.lists.EventList;
 import sgtravel.model.lists.RouteList;
 import sgtravel.model.lists.VenueList;
@@ -67,6 +68,15 @@ public class ModelManager implements Model {
     @Override
     public RouteList getRoutes() {
         return routes;
+    }
+
+    @Override
+    public Route getRoute(int index) throws OutOfBoundsException {
+        try {
+            return routes.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new OutOfBoundsException();
+        }
     }
 
     @Override

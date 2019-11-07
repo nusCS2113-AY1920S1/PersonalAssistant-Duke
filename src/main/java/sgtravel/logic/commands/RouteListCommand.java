@@ -29,7 +29,7 @@ public class RouteListCommand extends Command {
     @Override
     public CommandResultText execute(Model model) throws OutOfBoundsException {
         try {
-            return new CommandResultText(model.getRoutes().get(index));
+            return new CommandResultText(model.getRoute(index));
         } catch (IndexOutOfBoundsException e) {
             throw new OutOfBoundsException();
         }

@@ -34,7 +34,7 @@ class ApiConstraintParserTest {
     }
 
     @Test
-    void getNearestTrainStation() throws FileLoadFailException {
+    void getNearestTrainStation() throws FileLoadFailException, QueryFailedException {
         ModelStub model = new ModelStub();
         HashMap<String, TrainStation> trainStationMap = model.getMap().getTrainMap();
         TrainStation trainStation = new TrainStation("Ang Mo Kio", model);

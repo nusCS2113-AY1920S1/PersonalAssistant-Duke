@@ -43,10 +43,20 @@ public class RouteGenerateCommand extends Command {
         this.type = type;
     }
 
+    /**
+     * Executes this command and creates a new Route.
+     *
+     * @param model The model object containing information about the user.
+     * @return The CommandResultText.
+     * @throws ApiException If the api call fails.
+     * @throws UnknownConstraintException If the constraint is unknown.
+     * @throws RouteGenerateFailException If the Route fails to generate.
+     * @throws DuplicateRouteException If the new Route exists.
+     * @throws FileNotSavedException If the file cannot be saved.
+     */
     @Override
     public CommandResultText execute(Model model) throws ApiException, UnknownConstraintException,
-            RouteGenerateFailException, QueryFailedException, DuplicateRouteNodeException,
-            DuplicateRouteException, FileNotSavedException {
+            RouteGenerateFailException, DuplicateRouteException, FileNotSavedException {
         Venue startVenue = ApiParser.getLocationSearch(startPoint);
         Venue endVenue = ApiParser.getLocationSearch(endPoint);
         PathFinder pathFinder = new PathFinder(model.getMap());
@@ -68,41 +78,32 @@ public class RouteGenerateCommand extends Command {
         Route route = new Route(startPoint + " to " + endPoint + "  (" + type.toString() + ")", "");
         Venue previousVenue = null;
 
-        for (Venue venue: venueList) {
-            if ((previousVenue instanceof BusStop && venue instanceof BusStop)
-                    || (previousVenue instanceof TrainStation && venue instanceof TrainStation)) {
-                ArrayList<Venue> inBetweenNodes = PathFinder.generateInbetweenNodes(previousVenue, venue, model);
+        try {
+            for (Venue venue : venueList) {
+                if ((previousVenue instanceof BusStop && venue instanceof BusStop)
+                        || (previousVenue instanceof TrainStation && venue instanceof TrainStation)) {
+                    ArrayList<Venue> inBetweenNodes = PathFinder.generateInbetweenNodes(previousVenue, venue, model);
 
-                for (Venue inbetweenVenue: inBetweenNodes) {
-                    try {
-                        if (inbetweenVenue instanceof CustomNode) {
-                            String description = route.getDescription();
-                            description += inbetweenVenue.getAddress() + "/";
-                            route.setDescription(description);
+                    for (Venue inbetweenVenue : inBetweenNodes) {
+                        try {
+                            addNodeToRoute(route, (RouteNode) inbetweenVenue, model);
+                        } catch (DuplicateRouteNodeException e) {
+                            pruneDuplicateRoute(route, inbetweenVenue);
                         }
-                        route.add((RouteNode) inbetweenVenue);
-                    } catch (DuplicateRouteNodeException e) {
-                        route = pruneDuplicateRoute(route, inbetweenVenue);
                     }
                 }
-            }
 
-            if (venue instanceof BusStop || venue instanceof TrainStation) {
-                route.add((RouteNode) venue);
-            } else {
-                route.add(PathFinder.generateCustomRouteNode(venue));
-            }
+                if (venue instanceof BusStop || venue instanceof TrainStation) {
+                    route.add((RouteNode) venue);
+                } else {
+                    route.add(PathFinder.generateCustomRouteNode(venue));
+                }
 
-            previousVenue = venue;
+                previousVenue = venue;
+            }
+        } catch (QueryFailedException | DuplicateRouteNodeException e) {
+            throw new RouteGenerateFailException();
         }
-
-        for (RouteNode node : route.getNodes()) {
-            if (node instanceof TrainStation) {
-                node.setAddress(node.getDescription());
-            }
-        }
-
-        updateRouteNodes(route, model);
 
         model.getRoutes().add(route);
         model.save();
@@ -115,10 +116,9 @@ public class RouteGenerateCommand extends Command {
      *
      * @param route The route object.
      * @param target The RouteNode that has a duplicate.
-     * @return The route object.
      * @throws RouteGenerateFailException If the Route fails to generate.
      */
-    private Route pruneDuplicateRoute(Route route, Venue target) throws RouteGenerateFailException {
+    private void pruneDuplicateRoute(Route route, Venue target) throws RouteGenerateFailException {
         try {
             for (int i = route.size() - 1; i >= 0; i--) {
                 if (!route.getNode(i).equals(target)) {
@@ -128,30 +128,52 @@ public class RouteGenerateCommand extends Command {
                 }
             }
 
-            return route;
         } catch (IndexOutOfBoundsException e) {
             throw new RouteGenerateFailException();
         }
     }
 
     /**
-     * Updates the RouteNodes in a route by fetching data from the model if possible.
+     * Updates the RouteNode in a route by fetching data from the model if possible.
      *
-     * @param route The Route object.
+     * @param node The RouteNode object.
      * @param model The model.
      * @throws RouteGenerateFailException If the Route fails to generate.
      */
-    private void updateRouteNodes(Route route, Model model) throws RouteGenerateFailException {
+    private void updateRouteNode(RouteNode node, Model model) throws RouteGenerateFailException {
         try {
-            for (RouteNode routeNode : route.getNodes()) {
-                if (routeNode instanceof BusStop) {
-                    ((BusStop) routeNode).fetchData(model);
-                } else if (routeNode instanceof TrainStation) {
-                    ((TrainStation) routeNode).fetchData(model);
-                }
+            if (node instanceof BusStop) {
+                ((BusStop) node).fetchData(model);
+            } else if (node instanceof TrainStation) {
+                ((TrainStation) node).fetchData(model);
             }
         } catch (QueryFailedException e) {
             throw new RouteGenerateFailException();
+        }
+    }
+
+    /**
+     * Adds a RouteNode to a Route, and if it is a CustomNode, update the description instead.
+     *
+     * @param route The Route to add the RouteNode to.
+     * @param node The RouteNode.
+     * @param model The model object containing information about the user.
+     * @throws RouteGenerateFailException If the Route fails to generate.
+     * @throws DuplicateRouteNodeException If there is a duplicate RouteNode.
+     */
+    private void addNodeToRoute(Route route, RouteNode node, Model model) throws RouteGenerateFailException,
+            DuplicateRouteNodeException {
+        if (node instanceof CustomNode) {
+            String description = route.getDescription();
+            description += node.getAddress() + "/";
+            route.setDescription(description);
+        } else {
+            if (node instanceof TrainStation) {
+                node.setAddress(node.getDescription());
+            }
+
+            updateRouteNode(node, model);
+            route.add(node);
         }
     }
 }

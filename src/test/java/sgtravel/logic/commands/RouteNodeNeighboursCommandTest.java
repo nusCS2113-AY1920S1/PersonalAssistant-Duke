@@ -32,7 +32,7 @@ class RouteNodeNeighboursCommandTest {
         });
 
         //OOB tests
-        String expectedError = "I'm sorry, but it is out of bounds...\n";
+        String expectedError = "Index requested is out of bounds! :-(";
         RouteNodeNeighboursCommand command2 = new RouteNodeNeighboursCommand(1, 0);
         assertEquals(expectedError, command2.execute(model).getMessage());
 

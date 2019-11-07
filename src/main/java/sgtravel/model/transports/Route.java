@@ -199,7 +199,7 @@ public class Route {
             return true;
         }
 
-        return otherRoute != null && otherRoute.getName().equals(getName())
-                && otherRoute.getDescription().equals(getDescription()) && otherRoute.getNodes().equals(nodes);
+        return otherRoute != null && otherRoute.getName().equals(name)
+                && otherRoute.getDescription().equals(description) && otherRoute.getNodes().equals(nodes);
     }
 }

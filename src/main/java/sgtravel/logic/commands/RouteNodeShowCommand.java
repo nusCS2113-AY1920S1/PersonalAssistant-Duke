@@ -38,8 +38,8 @@ public class RouteNodeShowCommand extends Command {
     @Override
     public CommandResultImage execute(Model model) throws OutOfBoundsException {
         try {
-            Route route = model.getRoutes().get(indexRoute);
-            RouteNode node = model.getRoutes().get(indexRoute).getNode(indexNode);
+            Route route = model.getRoute(indexRoute);
+            RouteNode node = route.getNode(indexNode);
 
             try {
                 Image image = ApiParser.generateRouteNodeShow(route, node, indexNode);

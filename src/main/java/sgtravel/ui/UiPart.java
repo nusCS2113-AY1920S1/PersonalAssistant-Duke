@@ -60,6 +60,7 @@ public abstract class UiPart<T> {
 
     /**
      * Loads the object hierarchy from a FXML document.
+     *
      * @param location Location of the FXML document.
      * @param root Specifies the root of the object hierarchy.
      */
@@ -77,6 +78,9 @@ public abstract class UiPart<T> {
 
     /**
      * Returns the FXML file URL for the specified FXML file name within {@link #FXML_FILE_FOLDER}.
+     *
+     * @param fxmlFileName The name of the FXML file.
+     * @return The URL for the FXML file.
      */
     private static URL getFxmlFileUrl(String fxmlFileName) {
         requireNonNull(fxmlFileName);

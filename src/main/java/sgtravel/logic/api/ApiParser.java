@@ -19,7 +19,6 @@ import java.util.Map;
  * Handles all API requests.
  */
 public class ApiParser {
-    private static final double STATIC_MAP_MAX_DIST = 0.04;
     private static final String DIMENSIONS = "512";
     private static final String ZOOM_LEVEL = "16";
     private static final String RED_VALUE_OTHER = "255";
@@ -35,9 +34,10 @@ public class ApiParser {
     private static final int DISTANCE_THRESHOLD = 3000;
     private static final int NEIGHBOUR_MAX_SIZE = 5;
     private static final int ROUTE_NEIGHBOUR_MAX_SIZE = 6;
+    private static final double STATIC_MAP_MAX_DIST = 0.04;
 
     /**
-     * Returns names and coordinates of location search.
+     * Returns a Venue from a location search.
      *
      * @param param The query location.
      * @return The location found.

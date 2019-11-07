@@ -1,5 +1,6 @@
 package sgtravel.logic.commands;
 
+import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.DuplicateRouteException;
 import sgtravel.logic.commands.results.CommandResultText;
@@ -11,7 +12,6 @@ import sgtravel.model.transports.Route;
  * Adds a Route to RouteList.
  */
 public class RouteAddCommand extends Command {
-    private static final String MESSAGE_ADDITION = "Got it. I've added this route:\n";
     private String name;
     private String description;
 
@@ -39,6 +39,6 @@ public class RouteAddCommand extends Command {
         RouteList routes = model.getRoutes();
         routes.add(new Route(name, description));
         model.save();
-        return new CommandResultText(MESSAGE_ADDITION + name);
+        return new CommandResultText(Messages.ROUTE_NODE_ADD_SUCCESS + name);
     }
 }
