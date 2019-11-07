@@ -2,10 +2,13 @@ package wallet.model;
 
 import wallet.model.contact.ContactList;
 import wallet.model.currency.CurrencyList;
+import wallet.model.help.Help;
 import wallet.model.record.BudgetList;
 import wallet.model.record.ExpenseList;
 import wallet.model.record.LoanList;
 import wallet.model.record.RecordList;
+
+import java.util.ArrayList;
 
 public class Wallet {
     private BudgetList budgetList;
@@ -14,6 +17,7 @@ public class Wallet {
     private ContactList contactList;
     private LoanList loanList;
     private CurrencyList currencyList;
+    private ArrayList<Help> helpList;
 
     /**
      * Default constructor with no data.
@@ -25,6 +29,7 @@ public class Wallet {
         this.expenseList = new ExpenseList();
         this.contactList = new ContactList();
         this.loanList = new LoanList();
+        this.helpList = new ArrayList<Help>();
     }
 
     /**
@@ -37,13 +42,14 @@ public class Wallet {
      * @param loanList The LoanList object.
      */
     public Wallet(CurrencyList currencyList, BudgetList budgetList, RecordList recordList, ExpenseList expenseList,
-                  ContactList contactList, LoanList loanList) {
+                  ContactList contactList, LoanList loanList, ArrayList<Help> helpList) {
         this.currencyList = currencyList;
         this.budgetList = budgetList;
         this.recordList = recordList;
         this.expenseList = expenseList;
         this.contactList = contactList;
         this.loanList = loanList;
+        this.helpList = helpList;
     }
 
     public CurrencyList getCurrencyList() {
@@ -128,5 +134,14 @@ public class Wallet {
      */
     public void setLoanList(LoanList loanList) {
         this.loanList = loanList;
+    }
+
+    /**
+     * Get list of help sections.
+     *
+     * @return list of help sections.
+     */
+    public ArrayList<Help> getHelpList() {
+        return helpList;
     }
 }

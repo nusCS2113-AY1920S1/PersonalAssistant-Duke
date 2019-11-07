@@ -92,7 +92,8 @@ public class AddCommand extends Command {
             wallet.getContactList().addContact(contact);
             wallet.getContactList().setModified(true);
             System.out.println(MESSAGE_SUCCESS_ADD_CONTACT);
-            System.out.println(contact.toString());
+            //@@author Xdecosee
+            Ui.printContact(contact);
         }
         //@@author A0171206R
         if (loan != null) {

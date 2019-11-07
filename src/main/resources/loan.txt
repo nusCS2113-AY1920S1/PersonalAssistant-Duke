@@ -1,16 +1,16 @@
 --View Loans--
 command	|list loan [/sortby TYPE]
-TYPE|lend OR borrow OR date OR category
+TYPE|lend OR borrow OR date
 desc|list all loans
 --Add Loan--
-command	|add loan <DETAILS> <AMOUNT> [DATE] </l OR /b>
+command	|add loan <DETAILS> <AMOUNT> <DATE> </l OR /b> </c INDEX of contact from contact list>
 DATE|dd/mm/yyyy
 /l|use this if entry indicates the amount you lend others
 /b|use this if entry indicates the amount you borrow from others
 desc|add new loan entry
 example|add loan lunch $100 21/09/2019 /b /c 2
 --Edit Loan--
-command	|edit loan <INDEX in loan list> </d new DETAILS> </a new AMOUNT> [/l OR /b] [/c INDEX of contact from contact list]
+command	|edit loan <INDEX in loan list> [/d new DETAILS] [/a new AMOUNT] [/l OR /b] [/c INDEX of contact from contact list]
 /l|use this if entry indicates the amount you lend others
 /b|use this if entry indicates the amount you borrow from others
 desc|edit existing loan entry

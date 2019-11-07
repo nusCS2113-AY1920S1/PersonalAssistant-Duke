@@ -13,7 +13,7 @@ RECURRENCE|daily OR weekly OR monthly
 desc|add new expense entry
 example|add expense Phone Bill $30 Bills /on 10/10/2019 /r monthly
 --Edit Expense--
-command|edit expense <INDEX in expense list> </d new DETAILS> </a new AMOUNT> </c new CATEGORY> [/r new RECURRENCE]
+command|edit expense <INDEX in expense list> [/d new DETAILS] [/a new AMOUNT] [/c new CATEGORY] [/r new RECURRENCE]
 DATE|dd/mm/yyyy
 RECURRENCE|daily OR weekly OR monthly
 desc|edit existing expense entry

@@ -1,5 +1,5 @@
 --View Contacts--
-command|list contact
+command|list contact [/sortby name]
 desc|list all contacts
 --Add Contact--
 command|add contact <NAME> [/d DETAILS] [/p PHONE NUMBER]

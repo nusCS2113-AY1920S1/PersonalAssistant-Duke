@@ -3,10 +3,11 @@
 package wallet.logic.command;
 
 import wallet.model.Wallet;
-import wallet.model.port.ImportList;
-import wallet.model.record.Budget;
+import wallet.model.record.ExpenseList;
+import wallet.model.record.LoanList;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
+import wallet.model.record.Budget;
 
 import java.text.DateFormatSymbols;
 import java.time.LocalDate;
@@ -15,25 +16,36 @@ import java.util.ArrayList;
 public class ImportCommand extends Command {
 
     public static final String COMMAND_WORD = "import";
-    public static final String MESSAGE_SUCCESS_ADD_CONTACT = "Got it. I've added this contact:";
-    public static final String MESSAGE_SUCCESS_ADD_EXPENSE = "Got it. I've added this expense:";
-    public static final String MESSAGE_SUCCESS_ADD_LOAN = "Got it. I've added this loan:";
-    public static final String MESSAGE_NEW_BUDGET = " is your new budget for ";
-    public static final String MESSAGE_EXCEED_BUDGET = "Your budget has exceeded!!";
-    public static final String MESSAGE_REACH_BUDGET = "You have reached your budget!!";
-    private ImportList importList;
+    private static final String MESSAGE_SUCCESS_ADD_CONTACT = "Got it. I've added this contact:";
+    private static final String MESSAGE_SUCCESS_ADD_EXPENSE = "Got it. I've added this expense:";
+    private static final String MESSAGE_SUCCESS_ADD_LOAN = "Got it. I've added this loan:";
+    private static final String MESSAGE_NEW_BUDGET = " is your new budget for ";
+    private static final String MESSAGE_EXCEED_BUDGET = "Your budget has exceeded!!";
+    private static final String MESSAGE_REACH_BUDGET = "You have reached your budget!!";
     private String type;
-
+    private LoanList loanList;
+    private ExpenseList expenseList;
 
     /**
-     * Constructs the ImportCommand object with ImportList object and type.
+     * Constructs the ImportCommand object with LoanList object.
      *
-     * @param importList Processed Data from csv file.
-     * @param type type of data.
+     * @param newList list of new loan entries.
+     * @param type    command type.
      */
-    public ImportCommand(ImportList importList, String type) {
+    public ImportCommand(LoanList newList, String type) {
         this.type = type;
-        this.importList = importList;
+        this.loanList = newList;
+    }
+
+    /**
+     * Constructs the ImportCommand object with LoanList object.
+     *
+     * @param newList list of new expense entries.
+     * @param type    command type.
+     */
+    public ImportCommand(ExpenseList newList, String type) {
+        this.type = type;
+        this.expenseList = newList;
     }
 
     /**
@@ -45,10 +57,14 @@ public class ImportCommand extends Command {
     @Override
     public boolean execute(Wallet wallet) {
 
+        System.out.println("Importing records... \n");
+
         if ("loan".equals(type)) {
 
-            ArrayList<Loan> loanData = importList.getLoanList();
+            ArrayList<Loan> loanData = loanList.getLoanList();
+
             for (Loan loan : loanData) {
+
 
                 //@@author Xdecosee-reused
                 int largestId = wallet.getContactList().getLargestId(wallet.getContactList().getContactList()) + 1;
@@ -63,13 +79,14 @@ public class ImportCommand extends Command {
                 wallet.getLoanList().setModified(true);
                 System.out.println(MESSAGE_SUCCESS_ADD_LOAN);
                 System.out.println(loan.toString());
+                System.out.println();
 
             }
 
         } else if ("expense".equals(type)) {
 
             //@@author Xdecosee-reused
-            ArrayList<Expense> expenseData = importList.getExpenseList();
+            ArrayList<Expense> expenseData = expenseList.getExpenseList();
             for (Expense expense : expenseData) {
                 wallet.getExpenseList().addExpense(expense);
                 LocalDate date = expense.getDate();
@@ -83,17 +100,18 @@ public class ImportCommand extends Command {
                             System.out.println(MESSAGE_REACH_BUDGET);
                         }
                         System.out.println("$" + b.getAmount() + MESSAGE_NEW_BUDGET
-                            + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
+                                + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
                     }
                 }
                 wallet.getRecordList().addRecord(expense);
                 wallet.getExpenseList().setModified(true);
                 System.out.println(MESSAGE_SUCCESS_ADD_EXPENSE);
                 System.out.println(expense.toString());
+                System.out.println();
             }
         }
 
-
+        System.out.println("Finish Import!");
         return false;
     }
 }

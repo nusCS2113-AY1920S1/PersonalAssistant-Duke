@@ -1,6 +1,5 @@
 --View All Data--
-command	|list all [/sortby TYPE]
-TYPE|date OR category
+command	|list all [/sortby date]
 desc|list your data in the application
 --View Data By Date--
 command	|list <DATE>
@@ -13,7 +12,7 @@ MONTH|mm/yyyy
 desc|sets budget for given month
 example|budget $400 02/2019
 --View Budget By Month--
-command|budget <MONTH>
+command|view budget <MONTH>
 MONTH|mm/yyyy
 desc|view budget for given month
 example|view budget 02/2019
@@ -33,18 +32,20 @@ DATE|dd/mm/yyyy
 desc|view schedule of a given date
 example|view schedule 01/02/2019
 --Statistics--
-command	|view stats
+command	|view stats [MONTH]
+MONTH|mm/yyyy
 desc|view statistics of expenses
+example|view stats 11/2019
 --Export Expenses--
-command	| export expenses <MONTH>
+command	| export expense <MONTH>
 MONTH|mm/yyyy
 desc|export expenses from a given month to csv file.saved to home directory.
 example|export expenses 10/2019
 --Export Loans--
-command	| export loans
+command	| export loan
 desc|export loan records to csv file. saved to home directory.
 --Import Data--
-command|import <loans OR expenses> <FILENAME>
+command|import <loan OR expense> <FILENAME>
 desc|import loan or expense records from csv file in home directory to the app.
 example|import loans importLoans.csv
 --Convert Currency--
@@ -56,4 +57,8 @@ command	|bye
 desc|Exits WalletCLi
 --Help--
 command	|help
-desc|displays available commands and usage
+desc|displays available help sections
+--Read Help Section--
+command	|help<section number>
+desc|read a help section
+example|help 3
