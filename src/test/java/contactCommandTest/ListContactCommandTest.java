@@ -36,7 +36,7 @@ public class ListContactCommandTest {
         String LINE_BREAK = "------------------------------------------\n";
         contact.put("janel", "9625 1722");
         contact.put("jason", "9825 1822");
-        ListContactCommand test = new ListContactCommand(contact, LINE_BREAK);
+        ListContactCommand test = new ListContactCommand(contact);
         assertEquals("Name:                         | Number:\n"
                 + LINE_BREAK
                 + "janel                         | 9625 1722\n"

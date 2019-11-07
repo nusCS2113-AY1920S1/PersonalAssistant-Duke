@@ -17,15 +17,21 @@ public class ByeCommand extends Command {
      * @param list An array list of type gazeeebo.Tasks.Task.
      * @param ui Class ui
      * @param storage class storage
-     * @param commandStack
-     * @param deletedTask
-     * @return Void.
+     * @param commandStack keep stack of previous commands.
+     * @param deletedTask keep task that are deleted.
      * @throws DukeException | ParseException | IOException
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException {
+    public void execute(final ArrayList<Task> list, final Ui ui,
+                        final Storage storage,
+                        final Stack<ArrayList<Task>> commandStack,
+                        final ArrayList<Task> deletedTask,
+                        final TriviaManager triviaManager)
+            throws DukeException,
+            ParseException, IOException {
         System.out.println("Bye! Hope to see you again soon!");
     }
+    /** isExit is true and exit program.*/
     @Override
     public boolean isExit() {
         return true;

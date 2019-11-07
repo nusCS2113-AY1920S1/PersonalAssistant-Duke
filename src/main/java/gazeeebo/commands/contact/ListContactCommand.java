@@ -12,33 +12,35 @@ public class ListContactCommand {
      * Separates contacts.
      */
     private static final int SPACE_NUMBER = 30;
+    /**
+     * Print the line separator between contacts.
+     */
+    private static final String LINEBREAK
+            = "------------------------------------------\n";
 
     /**
      * List out all the phone numbers.
      *
      * @param contactList to Map each name to its phone number.
-     * @param lineBreak   to print out a
-     *                    separator to separate each line in the list.
      */
-    public ListContactCommand(final Map<String, String> contactList,
-                              final String lineBreak) {
+    public ListContactCommand(final Map<String, String> contactList) {
         System.out.print("Name:                         "
-                + "| Number:\n" + lineBreak);
+                + "| Number:\n" + LINEBREAK);
         for (String key : contactList.keySet()) {
             if (!key.contains("NUS") || !key.contains("CEG")) {
-                forPrint(contactList, lineBreak, key);
+                forPrint(contactList, LINEBREAK, key);
             }
         }
         System.out.print("\nCEG CONTACTS:\n");
         for (String key : contactList.keySet()) {
             if (key.contains("CEG")) {
-                forPrint(contactList, lineBreak, key);
+                forPrint(contactList, LINEBREAK, key);
             }
         }
         System.out.print("\nNUS CONTACTS:\n");
         for (String key : contactList.keySet()) {
             if (key.contains("NUS")) {
-                forPrint(contactList, lineBreak, key);
+                forPrint(contactList, LINEBREAK, key);
             }
         }
     }

@@ -40,7 +40,7 @@ public class FindContactsCommandTest {
         contact.put("janel", "9625 1722");
         contact.put("jason", "9825 1822");
         ui.fullCommand = "find jason";
-        FindContactCommand test = new FindContactCommand(ui, contact, LINE_BREAK);
+        FindContactCommand test = new FindContactCommand(ui, contact);
         assertEquals("Name:                         | Number:\n"
                 + LINE_BREAK
                 + "jason                         | 9825 1822\n"
@@ -55,7 +55,7 @@ public class FindContactsCommandTest {
         contact.put("janel", "9625 1722");
         contact.put("jason", "9825 1822");
         ui.fullCommand = "find jay";
-        FindContactCommand test = new FindContactCommand(ui, contact, LINE_BREAK);
+        FindContactCommand test = new FindContactCommand(ui, contact);
         assertEquals("jay is not found in the list.\n", output.toString());
     }
     @Test
@@ -66,7 +66,7 @@ public class FindContactsCommandTest {
         contact.put("janel", "9625 1722");
         contact.put("jason", "9825 1822");
         ui.fullCommand = "find janel and jason";
-        FindContactCommand test = new FindContactCommand(ui, contact, LINE_BREAK);
+        FindContactCommand test = new FindContactCommand(ui, contact);
         assertEquals("Please Input in the correct format\n", output.toString());
     }
 }

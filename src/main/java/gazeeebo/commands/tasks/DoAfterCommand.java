@@ -20,9 +20,9 @@ public class DoAfterCommand extends Command {
      * @param list         task lists
      * @param ui           the object that deals with printing things to the user.
      * @param storage      the object that deals with storing data.
-     * @param commandStack
-     * @throws ParseException
-     * @throws IOException
+     * @param commandStack keep stack of previous commands.
+     * @throws ParseException catch error if parse string to date fails.
+     * @throws IOException catch error if read file fails.
      * @throws NullPointerException if tDate doesn't get updated.
      */
     @Override

@@ -5,6 +5,7 @@ import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
+
 import java.io.IOException;
 
 import gazeeebo.exception.DukeException;
@@ -16,16 +17,15 @@ import java.util.Stack;
 
 public class DeleteCommand extends Command {
     /**
-     *
-     * @param list
-     * @param ui
-     * @param storage
-     * @param commandStack
-     * @param deletedTask
+     * @param list         task lists
+     * @param ui           deals with printing things to the user.
+     * @param storage      deals with storing data.
+     * @param commandStack keep stack of previous commands.
+     * @param deletedTask  keep stack of deleted tasks.
      * @throws DukeException
-     * @throws ParseException
-     * @throws IOException
-     * @throws NullPointerException
+     * @throws ParseException catch error if parse string to date fails.
+     * @throws IOException catch the error if the read file fails.
+     * @throws NullPointerException if tDate doesn't get updated.
      */
     @Override
     public void execute(final ArrayList<Task> list, final Ui ui,
@@ -94,6 +94,7 @@ public class DeleteCommand extends Command {
         }
     }
 
+    /** isExit is false, won't terminate program.*/
     @Override
     public boolean isExit() {
         return false;

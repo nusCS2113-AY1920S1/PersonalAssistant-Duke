@@ -71,14 +71,14 @@ public class ContactCommand extends Command {
                 new AddContactCommand(ui, contactList);
             } else if (ui.fullCommand.split(" ")[0].equals("find")
                     || ui.fullCommand.equals("2")) {
-                new FindContactCommand(ui, contactList, LINEBREAK);
+                new FindContactCommand(ui, contactList);
             } else if (ui.fullCommand.split(" ")[0].equals("delete")
                     || ui.fullCommand.equals("3")) {
                 copyMap(contactList, oldcontacts);
                 new DeleteContactCommand(ui, contactList);
             } else if (ui.fullCommand.equals("list")
                     || ui.fullCommand.equals("4")) {
-                new ListContactCommand(contactList, LINEBREAK);
+                new ListContactCommand(contactList);
             } else if (ui.fullCommand.equals("undo")
                     || ui.fullCommand.equals("5")) {
                 contactList = UndoContactCommand.
