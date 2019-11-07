@@ -23,11 +23,10 @@ public class CommandUpdateBalance extends Command {
 
     @Override
     public void execute(StorageManager storageManager) {
-        if(this.HasBeenSetAlready()){
+        if (this.hasBeenSetAlready()) {
             this.infoCapsule.setCodeToast();
             this.infoCapsule.setOutputStr("Setbalance can be only set once !!\n");
-        }
-        else {
+        } else {
             try {
                 this.newBalance = extractAmount();
             } catch (DukeException e) {
@@ -59,7 +58,7 @@ public class CommandUpdateBalance extends Command {
         }
     }
 
-    private boolean HasBeenSetAlready(){
+    private boolean hasBeenSetAlready() {
         return getExecutedCommands().contains(this.commandType.toString());
     }
 
