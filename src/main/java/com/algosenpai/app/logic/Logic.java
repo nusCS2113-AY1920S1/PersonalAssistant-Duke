@@ -1,29 +1,7 @@
 package com.algosenpai.app.logic;
 
 import com.algosenpai.app.logic.chapters.QuizGenerator;
-import com.algosenpai.app.logic.command.ArchiveCommand;
-import com.algosenpai.app.logic.command.BlockedCommand;
-import com.algosenpai.app.logic.command.ByeCommand;
-import com.algosenpai.app.logic.command.ClearCommand;
-import com.algosenpai.app.logic.command.Command;
-import com.algosenpai.app.logic.command.HelpCommand;
-import com.algosenpai.app.logic.command.HistoryCommand;
-import com.algosenpai.app.logic.command.InvalidCommand;
-import com.algosenpai.app.logic.command.MenuCommand;
-import com.algosenpai.app.logic.command.PrintArchiveCommand;
-import com.algosenpai.app.logic.command.PrintCommand;
-import com.algosenpai.app.logic.command.PrintQuizCommand;
-import com.algosenpai.app.logic.command.PrintUserCommand;
-import com.algosenpai.app.logic.command.QuizCommand;
-import com.algosenpai.app.logic.command.QuizNextCommand;
-import com.algosenpai.app.logic.command.QuizTestCommand;
-import com.algosenpai.app.logic.command.ResultCommand;
-import com.algosenpai.app.logic.command.ReviewCommand;
-import com.algosenpai.app.logic.command.SaveCommand;
-import com.algosenpai.app.logic.command.SelectCommand;
-import com.algosenpai.app.logic.command.SetupCommand;
-import com.algosenpai.app.logic.command.UndoCommand;
-import com.algosenpai.app.logic.command.VolumeCommand;
+import com.algosenpai.app.logic.command.*;
 import com.algosenpai.app.logic.constant.CommandsEnum;
 import com.algosenpai.app.logic.models.QuestionModel;
 import com.algosenpai.app.logic.parser.Parser;
@@ -48,7 +26,7 @@ public class Logic {
     private ArrayList<QuestionModel> quizList = new ArrayList<>();
     //The current question number.
     private AtomicInteger questionNumber = new AtomicInteger(0);
-    private int prevResult = -1;
+    private AtomicInteger prevResult = new AtomicInteger(-1);
 
     // VariabReview features;
     private ArrayList<QuestionModel> archiveList = new ArrayList<>();
@@ -128,6 +106,8 @@ public class Logic {
                 return new ReviewCommand(inputs, quizList);
             case "volume":
                 return new VolumeCommand(inputs);
+            case "lecture":
+                return new LectureCommand(inputs);
             default:
                 return new InvalidCommand(inputs);
             }
@@ -142,7 +122,7 @@ public class Logic {
             return new QuizNextCommand(inputs, quizList, questionNumber);
         } else {
             return new QuizTestCommand(
-                    inputs, quizList, questionNumber, isQuizMode, isNewQuiz, chapterNumber.get(),userStats);
+                    inputs, quizList, questionNumber, isQuizMode, isNewQuiz, chapterNumber.get(),userStats, prevResult);
         }
     }
 
@@ -151,7 +131,7 @@ public class Logic {
         isNewQuiz.set(false);
         isQuizMode.set(true);
         return new QuizTestCommand(inputs, quizList, questionNumber, isQuizMode,
-                isNewQuiz, chapterNumber.get(), userStats);
+                isNewQuiz, chapterNumber.get(), userStats, prevResult);
     }
 
     /**

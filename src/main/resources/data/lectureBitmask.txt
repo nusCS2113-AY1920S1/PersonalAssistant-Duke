@@ -1,0 +1,2 @@
+Hello this is the chapter on bitmask. We hope you learn something new from this lecture.
+bitmask is a fundamental topic in data structures and algorithms.
