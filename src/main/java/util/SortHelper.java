@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public class SortHelper {
+    //@@author iamabhishek98
     /**
      * Sorts the list of tasks by the task name in alphabetical order.
      * @param taskList The list of tasks.
@@ -25,6 +26,7 @@ public class SortHelper {
         return taskDetails;
     }
 
+    //@@author iamabhishek98
     /**
      * Sorts the list of tasks by the task due date in descending order.
      * @param taskList The list of tasks.
@@ -48,6 +50,7 @@ public class SortHelper {
         return taskDetails;
     }
 
+    //@@author iamabhishek98
     /**
      * Sorts the list of tasks by the task priority in descending order.
      * @param taskList The list of tasks.
@@ -64,6 +67,7 @@ public class SortHelper {
         return taskDetails;
     }
 
+    //@@author iamabhishek98
     /**
      * Sorts the list of tasks by the task credit in descending order.
      * @param taskList The list of tasks.
@@ -80,6 +84,7 @@ public class SortHelper {
         return taskDetails;
     }
 
+    //@@author iamabhishek98
     /**
      * Sorts the list of tasks by the name of the members assigned to the tasks in alphabetical order.
      * @param tasksAndAssignedMembers HashMap containing tasks with assigned members.
@@ -101,6 +106,7 @@ public class SortHelper {
         return this.sortTaskName(allAssignedTasks);
     }
 
+    //@@author iamabhishek98
     /**
      * Filters the list of tasks by the task state.
      * @param taskList The List of tasks.

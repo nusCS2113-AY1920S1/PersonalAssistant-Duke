@@ -59,17 +59,20 @@ public class Project implements IProject {
         return this.taskList.getTaskList().size();
     }
 
+    //@@author iamabhishek98
     @Override
     public void addMember(Member newMember) {
         this.memberList.addMember(newMember);
         this.memberAndIndividualListOfTasks.put(newMember, new ArrayList<>());
     }
 
+    //@@author iamabhishek98
     @Override
     public String editMember(int memberIndexNumber, String updatedMemberDetails) {
         return this.memberList.editMember(memberIndexNumber, updatedMemberDetails);
     }
 
+    //@@author iamabhishek98
     @Override
     public void removeMember(Member memberToBeRemoved) {
         for (Task task : this.taskAndListOfMembersAssigned.keySet()) {
@@ -85,6 +88,7 @@ public class Project implements IProject {
         this.taskAndListOfMembersAssigned.put(newTask, new ArrayList<>());
     }
 
+    //@@author iamabhishek98
     @Override
     public void removeTask(int taskIndexNumber) {
         Task taskToRemove = this.getTask(taskIndexNumber);
@@ -105,6 +109,7 @@ public class Project implements IProject {
         return this.taskList.getTask(taskIndex);
     }
 
+    //@@author iamabhishek98
     @Override
     public String[] editTask(int taskIndexNumber, String updatedTaskDetails) {
         return this.taskList.editTask(taskIndexNumber, updatedTaskDetails);
@@ -115,6 +120,7 @@ public class Project implements IProject {
         return this.taskList.editTaskRequirements(taskIndexNumber, updatedTaskRequirements);
     }
 
+    //@@author iamabhishek98
     /**
      * Returns the member names with the credits of their assigned tasks.
      * @return The member names with the credits of their assigned tasks.
@@ -126,23 +132,29 @@ public class Project implements IProject {
         HashMap<Member, ArrayList<Task>> assignedMembers = this.getMembersIndividualTaskList();
         int count = 1;
         for (Member member : allMembers) {
+            boolean overdue = false;
             int totalCredits = 0;
             int doneCredits = 0;
             for (Task assignedTask : assignedMembers.get(member)) {
-                totalCredits += assignedTask.getTaskCredit();
+                // credits are split equally between members
+                int taskCredit = (assignedTask.getTaskCredit())/(assignedMembers.size());
+                totalCredits += taskCredit;
+                // members only get credits if the task is "DONE"
                 if (assignedTask.getTaskState() == TaskState.DONE) {
-                    doneCredits += assignedTask.getTaskCredit();
+                    doneCredits += taskCredit;
                 }
             }
-            int percentDone = (int)((doneCredits/(float)totalCredits)*10);
+            int scale = 20;
+            int percentDone = (int) ((doneCredits / (float) totalCredits) * scale);
             String progress = "";
             for (int i = 0; i < percentDone; i++) {
                 progress += "#";
             }
-            for (int i = progress.length(); i < 10; i++) {
+            for (int i = progress.length(); i < scale; i++) {
                 progress += ".";
             }
-            allMemberCredits.add(count + ". " + member.getName() + ": " + doneCredits + " (Progress: " + progress + ")");
+            allMemberCredits.add(count + ". " + member.getName() + ": " + doneCredits + " credits");
+            allMemberCredits.add("   Progress: " + progress + " (" + percentDone*(100/scale) + "%)");
             count++;
         }
         return allMemberCredits;
