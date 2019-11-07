@@ -1,5 +1,11 @@
 package controllers;
 
+import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import models.member.IMember;
 import models.member.Member;
 import models.member.NullMember;
@@ -19,13 +25,6 @@ import util.factories.ReminderFactory;
 import util.factories.TaskFactory;
 import util.json.JsonConverter;
 import util.log.ArchDukeLogger;
-
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-
-import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
 
 public class ProjectInputController implements IController {
     private ProjectRepository projectRepository;
@@ -259,14 +258,6 @@ public class ProjectInputController implements IController {
         if (!validMemberIndexes.isEmpty()) {
             outputMessages.add("Take note that the member indexes might have changed after deleting!");
         }
-        //Shift this logger statement into ParserHelper to detect anytime there is incorrect input
-        /*
-        try {
-        } catch (IndexOutOfBoundsException e) {
-            ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectEditMember] "
-                    + "Please enter the index number of the member to be deleted correctly.");
-            return new String[] {"Please enter the index number of the member to be deleted correctly."};
-        }*/
         return outputMessages.toArray(new String[0]);
     }
 
