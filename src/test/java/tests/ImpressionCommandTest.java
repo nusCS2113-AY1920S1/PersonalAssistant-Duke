@@ -8,7 +8,6 @@ import duke.data.Impression;
 import duke.data.Medicine;
 import duke.data.Patient;
 import duke.exception.DukeException;
-import duke.ui.context.Context;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import templates.CommandTest;
@@ -40,7 +39,7 @@ public class ImpressionCommandTest extends CommandTest {
         } catch (DukeException excp) {
             fail("Failed to setup patient and impression for testing!");
         }
-        core.uiContext.setContext(Context.IMPRESSION, impression);
+        core.uiContext.open(impression);
     }
 
     @Test
