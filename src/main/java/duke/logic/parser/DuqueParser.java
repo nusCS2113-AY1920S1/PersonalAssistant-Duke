@@ -74,7 +74,7 @@ public class DuqueParser {
             return new DeleteCommand(filter, fcArray[1]);
         case "find":
             if (fcArray.length == 1) {
-                throw new DukeException("☹ OOPS!!! The description of find cannot be empty.");
+                throw new DukeException("OOPS!!! The description of find cannot be empty.");
             }
             return new FindCommand(fcArray[1], filter);
         case "random":
@@ -84,37 +84,37 @@ public class DuqueParser {
             return new RandomCommand(fcArray[1], filter);
         case "done":
             if (fcArray.length == 1) {
-                throw new DukeException("☹ OOPS!!! The description of done cannot be empty.");
+                throw new DukeException("OOPS!!! The description of done cannot be empty.");
             }
             return new DoneCommand(filter, fcArray[1]);
         case "edit":
             if (fcArray.length == 1) {
-                throw new DukeException("☹ OOPS!!! The description of edit cannot be empty.");
+                throw new DukeException("OOPS!!! The description of edit cannot be empty.");
             }
             return new EditCommandParser().parse(filter, fcArray[1]);
         case "task":
         case "event":
             if (fcArray.length == 1) {
-                throw new DukeException("☹ OOPS!!! The description of " + keyword + " cannot be empty.");
+                throw new DukeException("OOPS!!! The description of " + keyword + " cannot be empty.");
             }
             return new AddCommandParser().parse(filter, fullCommand);
         case "pomo":
             if (fcArray.length == 1) {
-                throw new DukeException("☹ OOPS!!! Please specify which pomodoro timer you would like to start!");
+                throw new DukeException("OOPS!!! Please specify which pomodoro timer you would like to start!");
             }
             return new PomodoroCommand(filter, fcArray[1]);
         case "autoassign":
             if (fcArray.length == 1) {
-                throw new DukeException("☹ OOPS!!! Please specify which task to auto assign!");
+                throw new DukeException("OOPS!!! Please specify which task to auto assign!");
             }
             return new AutoAssignCommand(fcArray[1]);
         case "undo":
             if (fcArray.length != 1) {
-                throw new DukeException("☹ OOPS!!! There should not be any description for undo!");
+                throw new DukeException("OOPS!!! There should not be any description for undo!");
             }
             return new UndoCommand(undoStack);
         default:
-            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
         }
     }
 }

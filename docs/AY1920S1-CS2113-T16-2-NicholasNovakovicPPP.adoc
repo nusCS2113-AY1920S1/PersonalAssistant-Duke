@@ -1,0 +1,57 @@
+= Nicholas Novakovic - Project Portfolio
+:site-section: AboutUs
+:stylesDir: ../stylesheets
+
+== PROJECT: El Duque
+
+== Overview
+
+El Duque is a task manager application targeting computer science students. The user interacts with it using a CLI. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Enhancement*: added *the ability to undo previous commands*
+** What it does: allows the user to undo all previous commands one at a time.
+** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+
+* *Enhancement*: added *the ability to filter tasks*
+** What it does: allows the user to organise tasks based on user-defined categories.
+** Justification: This feature improves the product significantly because a user can now choose to view tasks from specific categories. This is especially helpful considering our target user audience is computer science students who will have many tasks of varying categories to do. This will help them better organise their tasks. 
+** Highlights: This enhancement affects existing tasks, commands, and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{TODO: give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed all JAR releases on GitHub
+** Enhancements to existing features:
+*** Updated the formatting of how the task list is printed to the user, increasing the readability and improving the user experience (Pull requests {to be added})
+** Documentation:
+*** Converted the entire DeveloperGuide from a Google Doc to an AsciiDoc to improve the formatting
+*** TODO -> convert UG similarly
+** Tools:
+*** Integrated a third party library (Gson) to the project
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+_{TODO - convert UG to adoc for easy conversion to here}_
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::DeveloperGuide.adoc[tag=logic]
+
+include::DeveloperGuide.adoc[tag=nova]
+
+include::DeveloperGuide.adoc[tag=nova2]

@@ -44,7 +44,6 @@ public class TaskList {
                 int filterLength = t.getFilter().get().length();
                 longestFilter = Math.max(longestFilter, filterLength);
             }
-
         }
     }
 

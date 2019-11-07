@@ -1,6 +1,9 @@
 package duke.logic.parser;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import duke.logic.command.AddCommand;
@@ -10,11 +13,13 @@ import duke.exception.DukeException;
  * Class that parsers the parameters of the add command and creates the corresponding command
  */
 public class AddCommandParser implements Parser<AddCommand> {
+    private static List<String> priorityAllowed = Arrays.asList("high", "medium", "low", "h", "m", "l");
+
     private String description;
     private String taskType;
 
     private int duration = 0;
-    private int priority = 0;
+    private String priority = "L";
     private Optional<LocalDateTime> dateTime = Optional.empty();
     private Optional<String> recurrence = Optional.empty();
 
@@ -48,11 +53,11 @@ public class AddCommandParser implements Parser<AddCommand> {
                 this.dateTime = Optional.of(DateTimeParser.parseDateTime(field));
                 break;
             case "p":
-                try {
-                    priority = Integer.parseInt(field) - 1;
-                } catch (NumberFormatException e) {
-                    throw new DukeException("Please enter a numerical field for the priority!");
+                String p = field.trim().toLowerCase();
+                if (!priorityAllowed.contains(p)) {
+                    throw new DukeException("Please enter a valid priority description!");
                 }
+                this.priority = p;
                 break;
             default:
                 throw new DukeException("I don't know which field you are trying to add!");

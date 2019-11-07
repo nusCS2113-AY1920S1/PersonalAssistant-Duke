@@ -49,6 +49,8 @@ public class SetCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, ParseException, DukeException {
         tasks.set(filter, index, t);
+        ui.showLine(t + " has successfully been reverted to its previous state!");
+        storage.save(tasks);
     }
 
     /**
