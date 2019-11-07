@@ -3,7 +3,7 @@ package dolla.parser;
 import dolla.command.AddLimitCommand;
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
-import dolla.command.InitialModifyCommand;
+import dolla.command.modify.InitialModifyCommand;
 import dolla.command.ShowListCommand;
 import dolla.command.RemoveCommand;
 import dolla.command.SearchCommand;
@@ -12,7 +12,6 @@ import dolla.command.ActionCommand;
 
 import dolla.ui.LimitUi;
 import dolla.ui.SearchUi;
-import dolla.ui.Ui;
 
 //@@author Weng-Kexin
 public class LimitParser extends Parser {

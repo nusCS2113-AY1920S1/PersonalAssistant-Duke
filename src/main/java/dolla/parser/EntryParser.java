@@ -8,7 +8,7 @@ import dolla.command.Command;
 import dolla.command.AddEntryCommand;
 import dolla.command.ShowListCommand;
 import dolla.command.ErrorCommand;
-import dolla.command.InitialModifyCommand;
+import dolla.command.modify.InitialModifyCommand;
 import dolla.command.SortCommand;
 import dolla.command.SearchCommand;
 import dolla.command.RemoveCommand;

@@ -1,5 +1,6 @@
-package dolla.command;
+package dolla.command.modify;
 
+import dolla.command.Command;
 import dolla.model.DollaData;
 import dolla.ui.ListUi;
 import dolla.ui.ModifyUi;

@@ -4,7 +4,7 @@ import dolla.model.DollaData;
 import dolla.Tag;
 import dolla.Time;
 import dolla.command.Command;
-import dolla.command.InitialModifyCommand;
+import dolla.command.modify.InitialModifyCommand;
 import dolla.command.ShowListCommand;
 import dolla.command.ShowBillListCommand;
 import dolla.command.ErrorCommand;
