@@ -404,8 +404,7 @@ public class Patient extends DukeObject {
     }
 
     public boolean equals(Patient other) {
-        // todo
-        return this.getName().equals(other.getName());
+        return this.getBedNo().equals(other.getBedNo());
     }
 
     public ArrayList<Impression> getImpressionList() {
