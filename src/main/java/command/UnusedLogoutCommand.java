@@ -1,6 +1,7 @@
 
 package command;
 
+import booking.ApprovedList;
 import inventory.Inventory;
 
 import booking.BookingList;
@@ -30,8 +31,10 @@ public class UnusedLogoutCommand extends Command {
     }
 
     @Override
-    public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage) {
+    public void execute(UserList userList, Inventory inventory, RoomList roomList,
+                        BookingList bookingList, ApprovedList approvedList, Ui ui,
+                        Storage userStorage, Storage inventoryStorage,
+                        Storage bookingstorage, Storage roomstorage, Storage approvestorage) {
         UnusedLogin.setCurrentUser(" ");
         ui.addToOutput("You have succesfully logged out!");
     }

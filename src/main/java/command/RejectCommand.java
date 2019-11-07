@@ -1,5 +1,6 @@
 package command;
 
+import booking.ApprovedList;
 import inventory.Inventory;
 import booking.BookingList;
 import exception.DukeException;
@@ -25,7 +26,8 @@ public class RejectCommand extends Command {
      */
     public RejectCommand(String input, String[] splitStr) throws DukeException, IOException {
         if (splitStr.length <= 1) {
-            throw new DukeException("☹ OOPS!!! Please create the booking you want to approve with the following format: "
+            throw new DukeException("☹ OOPS!!! Please create the booking you want to approve"
+                    + " with the following format: "
                     + "name, roomcode, start date and time");
         }
         try {
@@ -37,8 +39,10 @@ public class RejectCommand extends Command {
     }
 
     @Override
-    public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage)
+    public void execute(UserList userList, Inventory inventory, RoomList roomList,
+                        BookingList bookingList, ApprovedList approvedList, Ui ui,
+                        Storage userStorage, Storage inventoryStorage,
+                        Storage bookingstorage, Storage roomstorage, Storage approvestorage)
             throws DukeException, IOException, ParseException {
         if (!userList.getLoginStatus()) {
             throw new DukeException("Please log in to approve or reject bookings.");

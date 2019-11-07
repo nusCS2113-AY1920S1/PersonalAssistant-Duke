@@ -1,5 +1,6 @@
 package command;
 
+import booking.ApprovedList;
 import inventory.Inventory;
 import exception.DukeException;
 import room.RoomList;
@@ -37,18 +38,18 @@ public class AddBookingCommand extends Command {
      */
     public AddBookingCommand(String input, String[] splitStr) throws DukeException, IOException {
         if (!input.contains("/from") || !input.contains("/at") || !input.contains("/to")) {
-            throw new DukeException(Constants.UNHAPPY + " "
+            throw new DukeException(Constants.UNHAPPY
                    + "OOPS!!! Please create your booking with the following format: "
-                   + "add NAME DESCRIPTION /at ROOM_CODE /from DATE TIMESTART /to DATE TIMEEND"
+                    + "add NAME DESCRIPTION /at ROOM_CODE /from DATE TIMESTART /to TIMEEND"
                    + ", DATE TIME format is dd/mm/yyyy HHMM ");
         }
 
-        String temp = input.substring(3).trim(); // name description /at roomcode /from dd/mm/yyyy hhmm /to dd/mm/yyyy hhmm
-        splitC = temp.split("/at", 2); //splitC[] = {name, description, roomcode, dd/mm/yyyy hhmm /to dd/mm/yyyy hhmm)
+        String temp = input.substring(3).trim(); // name description /at roomcode /from dd/mm/yyyy hhmm /to hhmm
+        splitC = temp.split("/at", 2); //splitC[] = {name, description, roomcode, dd/mm/yyyy hhmm /to hhmm)
         if (splitC.length < 2) {
             throw new DukeException(Constants.UNHAPPY
                     + "OOPS!!! Please create your booking with the following format: "
-                    + "name, description, roomcode, date and time");
+                    + "description, roomcode, date and time");
         }
         splitE = splitC[0].split(" ");
         this.name = splitE[0].trim();
@@ -71,8 +72,10 @@ public class AddBookingCommand extends Command {
      * @throws IOException if input entry is incorrect
      */
     @Override
-    public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage)
+    public void execute(UserList userList, Inventory inventory, RoomList roomList,
+                        BookingList bookingList, ApprovedList approvedList, Ui ui,
+                        Storage userStorage, Storage inventoryStorage, Storage bookingstorage,
+                        Storage roomstorage, Storage approvestorage)
             throws DukeException, IOException, ParseException {
         Booking newBooking = new Booking(name, room, description, timeStart, timeEnd);
         boolean clash = BookingList.checkBooking(bookingList, room, timeStart, timeEnd);

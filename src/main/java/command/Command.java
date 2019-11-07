@@ -1,6 +1,7 @@
 
 package command;
 
+import booking.ApprovedList;
 import inventory.Inventory;
 
 import exception.DukeException;
@@ -27,8 +28,10 @@ public abstract class Command {
      * @throws DukeException if control.Duke specific exception found
      * @throws IOException if IO exception found
      */
-    public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage)
+    public void execute(UserList userList, Inventory inventory, RoomList roomList,
+                        BookingList bookingList, ApprovedList approvedList, Ui ui,
+                        Storage userStorage, Storage inventoryStorage,
+                        Storage bookingstorage, Storage roomstorage, Storage approvestorage)
             throws DukeException, IOException, ParseException {
 
     }
