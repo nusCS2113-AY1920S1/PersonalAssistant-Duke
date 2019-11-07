@@ -176,7 +176,7 @@ public class PatientList {
         return "Now you have " + patientCountStr + " in the list.";
     }
 
-    public boolean patientExist(String keyIdentifier) {
+    public boolean patientExists(String keyIdentifier) {
         return getPatientByBed(keyIdentifier) != null;
     }
 

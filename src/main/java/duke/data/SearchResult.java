@@ -3,6 +3,7 @@ package duke.data;
 import duke.exception.DukeException;
 import duke.ui.card.UiCard;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // TODO parametrise types
@@ -21,9 +22,9 @@ public class SearchResult extends DukeObject {
      * @param name the list of DukeObjects
      * @param parent the impression object the data is tagged to
      */
-    public SearchResult(String name, List<DukeObject> searchList, DukeObject parent) {
+    public SearchResult(String name, List<? extends DukeObject> searchList, DukeObject parent) {
         super(name, parent);
-        this.searchList = searchList;
+        this.searchList = new ArrayList<DukeObject>(searchList);
     }
 
     public DukeObject getResult(int idx) throws DukeException{
@@ -36,6 +37,14 @@ public class SearchResult extends DukeObject {
 
     public List<DukeObject> getSearchList() {
         return searchList;
+    }
+
+    public void addAll(SearchResult other) {
+        searchList.addAll(other.searchList);
+    }
+
+    public int getCount() {
+        return searchList.size();
     }
 
     @Override
