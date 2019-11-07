@@ -1,0 +1,36 @@
+{
+  "rag": {
+    "managermap": {
+      "yh": {
+        "payee": "yh",
+        "email": "e013021@qweqcc",
+        "matricNum": "A123012",
+        "phoneNum": "1929929",
+        "payments": []
+      }
+    },
+    "budget": 0.0,
+    "spending": 0.0,
+    "projectname": "rag"
+  },
+  "Rag": {
+    "managermap": {},
+    "budget": 0.0,
+    "spending": 0.0,
+    "projectname": "Rag"
+  },
+  "/flag": {
+    "managermap": {
+      "yh": {
+        "payee": "yh",
+        "email": "e013021@qweqcc",
+        "matricNum": "A123012",
+        "phoneNum": "1929929",
+        "payments": []
+      }
+    },
+    "budget": 100.0,
+    "spending": 0.0,
+    "projectname": "/flag"
+  }
+}

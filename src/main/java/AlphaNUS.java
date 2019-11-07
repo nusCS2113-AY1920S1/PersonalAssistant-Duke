@@ -1,5 +1,6 @@
 import command.Parser;
 import command.Storage;
+import command.beforeAftercommand;
 import common.AlphaNUSException;
 import common.TaskList;
 import project.Fund;
@@ -32,8 +33,7 @@ public class AlphaNUS {
         storage = new Storage();
         tasklist = new TaskList();
         fund = storage.readFromFundFile();
-        //commandList = storage.load(); TODO
-
+        commandList = storage.readFromCommandsFile();
     }
 
     /**
