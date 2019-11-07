@@ -66,11 +66,11 @@ public class Commands {
             case "open":
                 return new ObjCommand(HomeOpenSpec.getSpec());
             case "report":
-                return new ArgCommand(HomeReportSpec.getSpec());
+                return new ObjCommand(HomeReportSpec.getSpec());
             case "discharge":
-                return new ArgCommand(HomeDischargeSpec.getSpec());
+                return new ObjCommand(HomeDischargeSpec.getSpec());
             case "history":
-                return new ArgCommand(HomeHistorySpec.getSpec());
+                return new ObjCommand(HomeHistorySpec.getSpec());
             default:
                 return null;
             }
@@ -79,15 +79,15 @@ public class Commands {
             case "new":
                 return new ArgCommand(PatientNewSpec.getSpec());
             case "find":
-                return new ArgCommand(PatientFindSpec.getSpec());
+                return new ObjCommand(PatientFindSpec.getSpec());
             case "report":
                 return new Command(PatientReportSpec.getSpec());
             case "discharge":
                 return new ArgCommand(PatientDischargeSpec.getSpec());
             case "delete":
-                return new ArgCommand(PatientDeleteSpec.getSpec());
+                return new ObjCommand(PatientDeleteSpec.getSpec());
             case "primary":
-                return new ArgCommand(PatientPrimarySpec.getSpec());
+                return new ObjCommand(PatientPrimarySpec.getSpec());
             case "edit":
                 return new ArgCommand(PatientEditSpec.getSpec());
             case "history":
