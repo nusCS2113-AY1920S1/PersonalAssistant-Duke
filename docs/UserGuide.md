@@ -248,7 +248,7 @@ If user enters an invalid index, an error message will appear.
          _________________________________________________________________________________________
 ```
 
-Otherwise, it will print out the information of the removed dishes.
+Otherwise, it will print out the information of the dishes.
 
 ```
          _________________________________________________________________________________________
@@ -490,7 +490,7 @@ ________________________________________________________________________________
 ```
 _________________________________________________________________________________________
 	 Nice! I've changed the order to the date 03/12/2019:
-	 [✘] Order /on 03/12/2019 
+	 [✘] Order on 03/12/2019 
 	    (1) fish 1
 	    (2) chili crab 1
 	    (3) rice 2
@@ -517,7 +517,7 @@ Examples:
 If the order list is empty, the output message would be:
 
 ```
-	 OOPS!!! No order in the list! No order can be removed!
+	 OOPS!!! No order in the list! No order can be cancelled!
 ```
 
 Otherwise, the sample output message would be like:
@@ -525,7 +525,7 @@ Otherwise, the sample output message would be like:
 ```
 _________________________________________________________________________________________
 	 Noted. I've cancelled this order:
-	 [✘] Order /on 03/12/2019 
+	 [✘] Order on 03/12/2019 
 	    (1) fish 1
 	    (2) chili crab 1
 	    (3) rice 2
@@ -544,7 +544,7 @@ Format: `done ORDER_INDEX`
 <u>Requirement:</u>
 
 - `ORDER_INDEX` ranges from 1 to the size of the (whole) order list. Use command `list` to check `ORDER_INDEX`.
-- Only **today's undone order** can be done. Pre-order supports cancellation and date alteration.
+- Only **today's undone order** can be done, while Pre-order cannot. Pre-order supports cancellation and date alteration.
 
 Examples: 
 
@@ -561,7 +561,7 @@ Otherwise, the sample output message would be like:
 ```
 _________________________________________________________________________________________
 	 Nice! I've marked this order as done:
-	 [✓] Order /on 12/09/2020 
+	 [✓] Order on 12/09/2020 
 	    (1) beef noodle 1
 	    (2) chili crab 1
 	    (3) rice 3
@@ -636,7 +636,7 @@ Format 3: `list -d ORDER_DATE-(dd/mm/yyyy) [-l LIST_TYPE-(option: all (default) 
 If entering invalid command, the output message is: 
 
 ```
-	 OOPS!!! Must enter a list type, dishes name, or order date
+	 OOPS!!! Must enter a list type, dishes name, or order date.
 ```
 
 If there is no order in the order list, the output message is: 
@@ -660,7 +660,7 @@ ________________________________________________________________________________
 	    (1) laksa 1
 	 2.[✘] Order today 
 	    (1) chicken rice 1
-	 3.[✘] Order /on 12/12/2019 
+	 3.[✘] Order on 12/12/2019 
 	    (1) beef noodle 2
 _________________________________________________________________________________________
 ```
@@ -669,7 +669,7 @@ ________________________________________________________________________________
 
 ### 3.6 ToDo List Today
 
-Chef needs to check his/her remaining tasks of the day. The ToDo list keeps in accordance with the update of the orders in the order list. To view the ToDo List of today, the user needs to enter `t` in the main menu.
+Chef needs to check his/her remaining tasks of the day. The ToDo list keeps in accordance with the update of the orders in the order list. To view the ToDo List of today, the user needs to enter `t` in the **main menu**.
 
 The sample output message as follows: 
 
@@ -732,7 +732,7 @@ Order Template
 
 | Index | Keyword | Usage                            | Description |
 | ----- | ------- | -------------------------------- | ----------- |
-| 1     | add     | add -d <date> -n <desc>*<amount> |             |
+| 1     | add     | add [-d ORDER_DATE-(dd/mm/yyyy)] -n DISH1_NAME[*DISH_AMOUNT], DISH2_NAME[*DISH_AMOUNT]|             |
 | 2     | alter   | alter <index> <date>             |             |
 | 3     | remove  | remove <index>                   |             |
 | 4     | done    | done <index>                     |             |
