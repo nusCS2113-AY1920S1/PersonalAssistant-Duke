@@ -13,35 +13,20 @@ import dolla.model.RecordList;
  */
 public class InitialModifyCommand extends Command {
 
-    private int index;
-
     public InitialModifyCommand(String indexStr) {
-        this.index = Integer.parseInt(indexStr) - 1;
+        index = Integer.parseInt(indexStr) - 1;
     }
 
     @Override
     public void execute(DollaData dollaData) {
         String currMode = dollaData.getMode();
-        if (isIndexInList(dollaData.getRecordListObj(currMode))) {
+        if (isIndexInList(dollaData.getRecordListObj(currMode), currMode)) {
             ModifyUi.printInitialModifyMsg(currMode);
             dollaData.updateMode("modify " + currMode);
             dollaData.prepForModify(currMode, index);
         } else {
-            ListUi.printNoRecordAssocError(index, currMode);
+            //istUi.printNoRecordAssocError(index, currMode);
             return;
-        }
-    }
-
-    /**
-     * Returns true is the given index is within the recordList.
-     * @param recordList The recordList containing the record to be modified.
-     * @return true if index is within the specified recordList.
-     */
-    private boolean isIndexInList(RecordList recordList) {
-        if (index >= recordList.size()) {
-            return false;
-        } else {
-            return true;
         }
     }
 

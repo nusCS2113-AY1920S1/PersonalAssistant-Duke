@@ -10,7 +10,6 @@ import java.time.LocalDate;
 
 public class PartialModifyEntryCommand extends Command {
 
-    private int index;
     private String type;
     private double amount;
     private String description;
@@ -38,12 +37,16 @@ public class PartialModifyEntryCommand extends Command {
     @Override
     public void execute(DollaData dollaData) {
         dollaData.prepForModify(MODE_ENTRY, index);
-        Record originalEntry = dollaData.getRecordFromList(MODE_ENTRY, index);
-        overwriteComponents(originalEntry);
-        Entry newEntry = new Entry(type, amount, description, date, tagName);
-        dollaData.modifyRecordList(newEntry);
-        ModifyUi.echoModifyRecord(newEntry);
-        dollaData.updateMode("entry");
+        if (isIndexInList(dollaData.getRecordListObj(MODE_ENTRY), MODE_ENTRY)) {
+            Record originalEntry = dollaData.getRecordFromList(MODE_ENTRY, index);
+            overwriteComponents(originalEntry);
+            Entry newEntry = new Entry(type, amount, description, date, tagName);
+            dollaData.modifyRecordList(newEntry);
+            ModifyUi.echoModifyRecord(newEntry);
+            dollaData.updateMode(MODE_ENTRY);
+        } else {
+            return;
+        }
     }
 
     private void overwriteComponents(Record ogEntry) {

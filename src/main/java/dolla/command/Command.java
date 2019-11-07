@@ -2,6 +2,8 @@ package dolla.command;
 
 import dolla.model.DollaData;
 import dolla.ModeStringList;
+import dolla.model.RecordList;
+import dolla.ui.ListUi;
 import dolla.ui.Ui;
 
 /**
@@ -46,5 +48,20 @@ public abstract class Command implements ModeStringList {
 
     protected Boolean recordDoesNotExist(int recordIndex) {
         return (recordIndex == - 1);
+    }
+
+    /**
+     * Returns true is the given index is within the recordList.
+     * @param recordList The recordList containing the record to be modified.
+     * @return true if index is within the specified recordList.
+     */
+    protected boolean isIndexInList(RecordList recordList, String currMode) {
+        if (index >= recordList.size()) {
+            ListUi.printNoRecordAssocError(index, currMode);
+            return false;
+        } else {
+            //System.out.println(index + " " + recordList.size());
+            return true;
+        }
     }
 }
