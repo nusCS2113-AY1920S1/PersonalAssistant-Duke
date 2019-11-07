@@ -231,7 +231,7 @@ public class Parser {
             if (splitter[1].length()<4) { throw new DukeException("Must specify dishes name"); }
             newOrder = new Order();
             orderedDishes = splitter[1].substring(3).split(", ");
-        } else if (splitter[1].startsWith("-d ")&&splitter[1].length()>20) {
+        } else if (splitter[1].startsWith("-d ")&&splitter[1].length()>17) {
             String[] dateAndDish = splitter[1].substring(3).split(" -n ",2);
             if (dateAndDish[0].length()!=10) { throw new DukeException("Must enter a valid order date: dd/mm/yyyy"); }
             orderDate = Convert.stringToDate(dateAndDish[0]);
