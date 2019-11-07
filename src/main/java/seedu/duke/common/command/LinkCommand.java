@@ -81,14 +81,9 @@ public class LinkCommand extends Command {
                 }
                 return true;
             }
-        } catch (NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             if (!silent) {
-                UI.getInstance().showError("Email index out of bounds");
-            }
-            return false;
-        } catch (Exception e) {
-            if (!silent) {
-                UI.getInstance().showError(e.getMessage());
+                UI.getInstance().showError("Please enter the a valid email index");
             }
             return false;
         }

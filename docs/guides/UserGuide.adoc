@@ -110,7 +110,7 @@ Any hanging or "not responding" when first launch the app is normal, please wait
 .Main Window
 [#main-window]
 [caption="Figure 2: Main window of Email Manager"]
-image::MainWindow.png[Main Window, 800]
+image::annotatedUI.png[Main Window, 800]
 
 As shown in Figure 2, the main window of Email Manager has three sections.
 

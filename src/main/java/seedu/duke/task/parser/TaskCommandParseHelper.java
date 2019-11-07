@@ -499,10 +499,9 @@ public class TaskCommandParseHelper {
     }
 
     private static Command parseLinkCommand(String input, ArrayList<Command.Option> optionList) {
-        Matcher linkCommandMatcher = prepareCommandMatcher(input, "^link(?:\\s+(?<index>[\\d]*)\\s*)?");
+        Matcher linkCommandMatcher = prepareCommandMatcher(input, "^link\\s+(?<index>[\\d]*)\\s*?");
         if (!linkCommandMatcher.matches()) {
-            showError("Please enter a task index and at least one email index");
-            return new InvalidCommand();
+            return new InvalidCommand("Please enter a task index after \'link\'");
         }
         try {
             int index = parseTaskIndex(linkCommandMatcher.group("index"));
@@ -510,9 +509,8 @@ public class TaskCommandParseHelper {
             ArrayList<Integer> taskIndexList = new ArrayList<>();
             taskIndexList.add(index);
             return new LinkCommand(taskIndexList, emailIndexList);
-        } catch (NumberFormatException | TaskParseException e) {
-            showError("Unable to find task/email.");
-            return new InvalidCommand();
+        } catch (TaskParseException e) {
+            return new InvalidCommand("Please enter a valid task index");
         }
     }
 
