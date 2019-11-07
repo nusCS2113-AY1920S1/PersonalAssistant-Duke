@@ -163,7 +163,7 @@ public class Duke {
      *
      * @return A list of contacts.
      */
-    public ContactList getContactList() {
+    public ContactList getFullContactList() {
         return contactList;
     }
     //@@author

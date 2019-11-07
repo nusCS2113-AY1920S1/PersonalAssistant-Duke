@@ -511,8 +511,8 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void createContactsWindow() {
-        ContactList contactList = duke.getContactList();
-        String contactDesc = contactList.getContactList();
+        ContactList contactList = duke.getFullContactList();
+        String contactDesc = contactList.getFullContactList();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/ContactsWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
