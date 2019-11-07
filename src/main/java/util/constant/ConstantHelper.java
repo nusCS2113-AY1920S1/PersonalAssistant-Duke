@@ -16,4 +16,6 @@ public class ConstantHelper {
     public static final int DEFAULT_HORI_BORDER_LENGTH = 70;
 
     public static final int DEFAULT_HORI_BORDER_LENGTH_70_FOR_TEST = 70;
+
+    public static final int LONGEST_WORD_LIMIT_BEFORE_BREAKING_WITH_HYPHEN = 25;
 }

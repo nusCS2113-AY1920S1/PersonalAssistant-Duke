@@ -7,6 +7,7 @@ import java.util.Collections;
 import static util.constant.ConstantHelper.HORI_BORDER_UNIT;
 import static util.constant.ConstantHelper.BORDER_CORNER;
 import static util.constant.ConstantHelper.VERTI_BORDER_UNIT;
+import static util.constant.ConstantHelper.LONGEST_WORD_LIMIT_BEFORE_BREAKING_WITH_HYPHEN;
 
 public class ViewHelper {
 
@@ -139,7 +140,8 @@ public class ViewHelper {
         int indexOfStringSplitEnd = tableWidth;
         boolean isLastLine = false;
         while (!isLastLine) {
-            if (toPrint.substring(indexOfStringSplitStart, indexOfStringSplitEnd).contains(" ")) {
+            if (toPrint.substring(indexOfStringSplitStart, indexOfStringSplitEnd).lastIndexOf(" ")
+                    > (tableWidth - LONGEST_WORD_LIMIT_BEFORE_BREAKING_WITH_HYPHEN)) {
                 while (toPrint.charAt(indexOfStringSplitEnd - 1) != ' ') {
                     indexOfStringSplitEnd--;
                 }

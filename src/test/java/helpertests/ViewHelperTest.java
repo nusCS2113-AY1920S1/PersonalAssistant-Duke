@@ -77,9 +77,9 @@ public class ViewHelperTest {
 
         String input2 = " 3. aVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameWi"
                 + "thoutSpace (Phone: -- | Email: -- | Role: member)";
-        String[] expectedOutput2 = new String[] {" 3. ",
-            "aVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameWithoutSpace ",
-            "(Phone: -- | Email: -- | Role: member)"};
+        String[] expectedOutput2 = new String[] {
+            " 3. aVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameWithoutS-",
+            "pace (Phone: -- | Email: -- | Role: member)"};
         String[] actualOutput2 = viewHelper.getArrayOfSplitStrings(input2, DEFAULT_HORI_BORDER_LENGTH_70_FOR_TEST);
         assertArrayEquals(expectedOutput2, actualOutput2);
 
