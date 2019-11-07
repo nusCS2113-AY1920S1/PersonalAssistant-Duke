@@ -455,9 +455,7 @@ class ProjectInputControllerTest {
             for (String message : project.getTask(1).getTaskRequirements().toArray(new String[0])) {
                 actualOutput += message;
             }
-            expectedOutput = "Documentation for product | Priority: 2 | Due: 21 Sep 2019"
-                    + dateTimeHelper.getDifferenceDays(dueDate)
-                    + " | Credit: 40 | State: TODO"
+            expectedOutput = "Requirements for the task 'Documentation for product':"
                     + "1. do something2. do another thing3. do nothing";
             assertEquals(expectedOutput, actualOutput);
 
@@ -467,9 +465,7 @@ class ProjectInputControllerTest {
             for (String message : project.getTask(1).getTaskRequirements().toArray(new String[0])) {
                 actualOutput += message;
             }
-            expectedOutput = "Documentation for product | Priority: 2 | Due: 21 Sep 2019"
-                    + dateTimeHelper.getDifferenceDays(dueDate)
-                    + " | Credit: 40 | State: TODO"
+            expectedOutput = "Requirements for the task 'Documentation for product':"
                     + "1. do nothing2. do everything";
             assertEquals(expectedOutput, actualOutput);
         } catch (ParseException e) {
