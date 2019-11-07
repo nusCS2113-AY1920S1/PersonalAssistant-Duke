@@ -307,7 +307,7 @@ public class StockList {
         StringBuilder details = new StringBuilder();
         for (StockType stocktype : stockList) {
             if (isStockTypeEmpty(stocktype) == false) {
-                details.append(stocktype.saveDetailsString()).append("\n");
+                details.append(stocktype.saveDetailsString()); //Don't need to add newline.
             }
         }
 

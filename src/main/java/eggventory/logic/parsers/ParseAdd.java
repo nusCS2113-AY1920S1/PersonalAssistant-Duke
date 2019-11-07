@@ -46,18 +46,23 @@ public class ParseAdd {
      * @throws InsufficientInfoException if there are insufficient details provided.
      */
     private Command processAddStockType(String input) throws BadInputException {
-        String[] addInput = input.split(" +");
 
-        if (Parser.isReserved(addInput[0])) {
-            throw new BadInputException("'" + addInput[0] + "' is an invalid name as it is a keyword"
+        input = input.strip();  //In case of trailing spaces.
+
+        if (Parser.isReserved(input)) {
+            throw new BadInputException("'" + input + "' is an invalid name as it is a keyword"
                     + " for an existing command.");
         }
 
-        return new AddStockTypeCommand(CommandType.ADD, addInput[0]);
+        if (input.contains(" ")) {
+            throw new BadInputException("Sorry, the StockType name cannot contain spaces!");
+        }
+
+        return new AddStockTypeCommand(CommandType.ADD, input);
     }
 
     private Command processAddPerson(String input) throws BadInputException {
-        String[] addInput = input.split(" +");
+        String[] addInput = input.split(" +", 2); //Permits spaces in names.
 
         if (Parser.isReserved(addInput[0])) {
             throw new BadInputException("'" + addInput[0] + "' is an invalid name as it is a keyword"
