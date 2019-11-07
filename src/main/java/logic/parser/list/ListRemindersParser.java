@@ -6,7 +6,7 @@ import logic.command.list.ListRemindersCommand;
 
 public class ListRemindersParser {
 
-    //@@author yuyanglin28
+    //@@author AugGust
     /**
      * parse list todo task command, according to list type, picnum/'nothing'
      * @param argument command after todo
