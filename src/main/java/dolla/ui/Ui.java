@@ -236,4 +236,8 @@ public abstract class Ui {
         System.out.println(msg);
         System.out.println(line);
     }
+
+    public static void printSingleOverview(double todayOverview) {
+        System.out.println(line);
+    }
 }

@@ -2,6 +2,7 @@ package dolla.parser;
 
 import dolla.Tag;
 import dolla.Time;
+import dolla.command.ViewTodayCommand;
 import dolla.ui.DebtUi;
 import dolla.command.AddDebtsCommand;
 import dolla.command.AddEntryCommand;
@@ -25,7 +26,9 @@ public class DollaParser extends Parser {
     @Override
     public Command parseInput() {
 
-        if (commandToRun.equals(ENTRY_COMMAND_ADD)) {
+        if (commandToRun.equals(DOLLA_VIEW_TODAY)) {
+            return new ViewTodayCommand();
+        } else if (commandToRun.equals(ENTRY_COMMAND_ADD)) {
             if (verifyAddCommand()) {
                 Tag tag = new Tag();
                 Entry entry = new Entry(inputArray[1], amount, description, date, EMPTY_STR);

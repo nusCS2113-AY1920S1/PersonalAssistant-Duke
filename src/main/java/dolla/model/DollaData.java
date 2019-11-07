@@ -10,6 +10,7 @@ import dolla.model.BillList;
 import dolla.model.ShortcutList;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static dolla.storage.Storage.getDebtsFromSave;
@@ -243,4 +244,9 @@ public class DollaData implements ModeStringList {
             break;
         }
     }
+
+    public double dateOverallExpense(LocalDate cmpDate) {
+        return entryList.dateOverallExpense(cmpDate);
+    }
+
 }
