@@ -69,7 +69,7 @@ public class PlacesCommand extends Command {
                 } else if (ui.fullCommand.equals("help")) {
                     new HelpCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
                 } else if (ui.fullCommand.equals("esc")) {
-                    System.out.println("Go back to Main Menu...\n" +
+                    System.out.println("Going back to Main Menu...\n" +
                             "Content Page:\n" +
                             "------------------ \n" +
                             "1. help\n" +
@@ -80,7 +80,8 @@ public class PlacesCommand extends Command {
                             "6. cap\n" +
                             "7. spec\n" +
                             "8. moduleplanner\n" +
-                            "9. notes\n");
+                            "9. notes\n" +
+                            "To exit: bye\n");
                     isExitFromPlaces = true;
                 } else if (ui.fullCommand.equals("undo")) {
                     places = UndoPlacesCommand.undoPlaces(places,oldplaces,storage);

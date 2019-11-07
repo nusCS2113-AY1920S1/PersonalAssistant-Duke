@@ -44,7 +44,7 @@ public class studyassistCommand extends Command {
             }
             ui.readCommand();
         }
-        System.out.println("Go back to Main Menu...\n" +
+        System.out.println("Going back to Main Menu...\n" +
                 "Content Page:\n" +
                 "------------------ \n" +
                 "1. help\n" +
@@ -55,7 +55,8 @@ public class studyassistCommand extends Command {
                 "6. cap\n" +
                 "7. spec\n" +
                 "8. moduleplanner\n" +
-                "9. notes\n");
+                "9. notes\n" +
+                "To exit: bye\n");
     }
     @Override
     public boolean isExit() {

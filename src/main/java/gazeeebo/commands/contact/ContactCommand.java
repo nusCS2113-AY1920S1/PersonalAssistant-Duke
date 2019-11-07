@@ -1,4 +1,4 @@
-package gazeeebo.commands.Contact;
+package gazeeebo.commands.contact;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
@@ -103,7 +103,7 @@ public class ContactCommand extends Command {
             System.out.println("What do you want to do next ?");
             ui.readCommand();
         }
-        System.out.print("Go back to Main Menu...\n"
+        System.out.print("Going back to Main Menu...\n"
                 + "Content Page:\n"
                 + "------------------ \n"
                 + "1. help\n"
@@ -114,7 +114,8 @@ public class ContactCommand extends Command {
                 + "6. cap\n"
                 + "7. spec\n"
                 + "8. moduleplanner\n"
-                + "9. notes\n");
+                + "9. notes\n"
+                + "To exit: bye\n");
     }
 
     /**

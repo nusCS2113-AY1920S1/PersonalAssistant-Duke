@@ -81,7 +81,7 @@ public class ExpenseCommand extends Command {
                         oldExpenses, storage);
             } else if (ui.fullCommand.equals("esc")) {
                 isExitExpenses = true;
-                System.out.println("Go back to Main Menu...\n"
+                System.out.println("Going back to Main Menu...\n"
                         + "Content Page:\n"
                         + "------------------ \n"
                         + "1. help\n"
@@ -93,6 +93,7 @@ public class ExpenseCommand extends Command {
                         + "7. spec\n"
                         + "8. moduleplanner\n"
                         + "9. notes\n"
+                        + "To exit: bye\n"
                 );
             }
             System.out.println("Command not found, please re-enter!");
