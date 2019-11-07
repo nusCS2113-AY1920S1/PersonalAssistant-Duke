@@ -1,8 +1,8 @@
 package duke.list;
 
 import duke.exception.DukeException;
-import duke.task.Task;
-import duke.task.TaskList;
+import duke.ingredient.Ingredient;
+import duke.ingredient.IngredientsList;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -36,9 +36,9 @@ public abstract class GenericList<T> {
     }
 
     /**
-     * Returns the number of {@link Task}s in the {@link TaskList} so far.
+     * Returns the number of {@link Ingredient}s in the {@link IngredientsList} so far.
      *
-     * @return an integer indicating the size of the list of {@link Task}s stored
+     * @return an integer indicating the size of the list of {@link Ingredient}s stored
      */
     public int size() {
         return genList.size();
@@ -46,10 +46,10 @@ public abstract class GenericList<T> {
 
 
     /**
-     * Returns the {@link Task} at the position indicated by the taskNb.
+     * Returns the {@link Ingredient} at the position indicated by the taskNb.
      *
-     * @param taskNb the position of the {@link Task} requested in the {@link TaskList}
-     * @return the requested {@link Task}
+     * @param taskNb the position of the {@link Ingredient} requested in the {@link IngredientsList}
+     * @return the requested {@link Ingredient}
      */
     public T getEntry(int taskNb) {
         return genList.get(taskNb);
@@ -57,18 +57,18 @@ public abstract class GenericList<T> {
 
 
     /**
-     * Returns a list of all the {@link Task}s in the {@link TaskList}.
+     * Returns a list of all the {@link Ingredient}s in the {@link IngredientsList}.
      *
-     * @return {@link ArrayList} of {@link Task}
+     * @return {@link ArrayList} of {@link Ingredient}
      */
     public List<T> getAllEntries() {
         return genList;
     }
 
     /**
-     * Returns the removed {@link Task} from position taskNb in the {@link TaskList}.
+     * Returns the removed {@link Ingredient} from position taskNb in the {@link IngredientsList}.
      *
-     * @param taskNb the position of the {@link Task} to be removed from the {@link TaskList}
+     * @param taskNb the position of the {@link Ingredient} to be removed from the {@link IngredientsList}
      * @return Task the task that was removed
      */
     public T removeEntry(int taskNb) {
