@@ -13,7 +13,6 @@ public class RouteAddConversation extends Conversation {
     /**
      * Initialises the Conversation object.
      */
-
     public RouteAddConversation() {
         super();
         prompt = Messages.PROMPT_ROUTE_ADD_STARTER;

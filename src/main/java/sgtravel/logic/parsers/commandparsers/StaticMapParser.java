@@ -11,6 +11,8 @@ public class StaticMapParser extends CommandParser {
 
     /**
      * Constructs the StaticMapParser.
+     *
+     * @param input The user input.
      */
     public StaticMapParser(String input) {
         this.location = input;
@@ -18,6 +20,7 @@ public class StaticMapParser extends CommandParser {
 
     /**
      * Parses the user input and constructs StaticMapCommand object.
+     *
      * @return StaticMapCommand object.
      */
     @Override

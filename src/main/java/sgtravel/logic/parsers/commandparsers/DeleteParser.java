@@ -15,6 +15,8 @@ public class DeleteParser extends CommandParser {
 
     /**
      * Constructs the DeleteParser.
+     *
+     * @param input The user input.
      */
     public DeleteParser(String input) {
         this.input = input;
@@ -22,6 +24,7 @@ public class DeleteParser extends CommandParser {
 
     /**
      * Parses the user input and constructs DeleteCommand object.
+     *
      * @return DeleteCommand object.
      * @throws ParseException If DeleteCommand object cannot be created.
      */

@@ -10,6 +10,8 @@ public class LocationSearchParser extends CommandParser {
 
     /**
      * Constructs the LocationSearchParser.
+     *
+     * @param input The user input.
      */
     public LocationSearchParser(String input) {
         location = input;
@@ -17,6 +19,7 @@ public class LocationSearchParser extends CommandParser {
 
     /**
      * Parses the user input and constructs LocationSearchCommand object.
+     *
      * @return LocationSearchCommand object.
      */
     @Override

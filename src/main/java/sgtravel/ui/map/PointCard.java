@@ -15,11 +15,18 @@ import javafx.fxml.FXML;
  */
 public class PointCard extends UiPart<StackPane> {
     private static final String FXML = "PointCard.fxml";
+    private static final double LENGTH_Y = 240;
+    private static final double LENGTH_Y_START = 230;
+    private static final double MAP_IMAGE_Y_LATITUDE_START = 1.486;
+    private static final double MAP_IMAGE_Y_LATITUDE_END = 1.218;
+    private static final double LENGTH_X = 288;
+    private static final double LENGTH_X_START = 30;
+    private static final double MAP_IMAGE_X_LONGITUDE_START = 104.028;
+    private static final double MAP_IMAGE_X_LONGITUDE_END = 103.630;
     private Venue venue;
 
     @FXML
     private Circle circle;
-
 
     /**
      * Creates the PointCard object.
@@ -38,8 +45,13 @@ public class PointCard extends UiPart<StackPane> {
      * Sets the location of the PointCard.
      */
     private void setLocation() {
-        double offsetY = 230 - ((venue.getLatitude() - 1.218) * 240 / (1.486 - 1.218));
-        double offsetX = 30 + (venue.getLongitude() - 103.630) * 288  / (104.028 - 103.630);
+        double offsetY = LENGTH_Y_START
+                - ((venue.getLatitude() - MAP_IMAGE_Y_LATITUDE_END) * LENGTH_Y /
+                        (MAP_IMAGE_Y_LATITUDE_START - MAP_IMAGE_Y_LATITUDE_END));
+        double offsetX = LENGTH_X_START
+                + (venue.getLongitude() - MAP_IMAGE_X_LONGITUDE_END) * LENGTH_X /
+                (MAP_IMAGE_X_LONGITUDE_START - MAP_IMAGE_X_LONGITUDE_END);
+
         AnchorPane.setLeftAnchor(getRoot(), offsetX);
         AnchorPane.setTopAnchor(getRoot(), offsetY);
         Tooltip tooltip = new Tooltip(venue.getAddress());

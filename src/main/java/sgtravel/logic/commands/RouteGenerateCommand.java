@@ -13,6 +13,7 @@ import sgtravel.logic.PathFinder;
 import sgtravel.logic.api.ApiParser;
 import sgtravel.logic.commands.results.CommandResultText;
 import sgtravel.model.Model;
+import sgtravel.model.lists.RouteList;
 import sgtravel.model.locations.BusStop;
 import sgtravel.model.locations.CustomNode;
 import sgtravel.model.locations.RouteNode;
@@ -48,67 +49,102 @@ public class RouteGenerateCommand extends Command {
      *
      * @param model The model object containing information about the user.
      * @return The CommandResultText.
-     * @throws ApiException If the api call fails.
      * @throws UnknownConstraintException If the constraint is unknown.
      * @throws RouteGenerateFailException If the Route fails to generate.
      * @throws DuplicateRouteException If the new Route exists.
      * @throws FileNotSavedException If the file cannot be saved.
      */
     @Override
-    public CommandResultText execute(Model model) throws ApiException, UnknownConstraintException,
+    public CommandResultText execute(Model model) throws UnknownConstraintException,
             RouteGenerateFailException, DuplicateRouteException, FileNotSavedException {
+        try {
+            ArrayList<Venue> venueList = generateRoute(model);
+
+            try {
+                if (type == Constraint.BUS) {
+                    Collections.reverse(venueList);
+                }
+            } catch (NullPointerException e) {
+                throw new RouteGenerateFailException();
+            }
+
+            Route route = new Route(startPoint + " to " + endPoint + "  (" + type.toString() + ")", "");
+            Venue previousVenue = null;
+            try {
+                for (Venue venue : venueList) {
+                    addInbetweenNodes(model, route, previousVenue, venue);
+                    addEndingNode(route, venue);
+                    previousVenue = venue;
+                }
+            } catch (QueryFailedException | DuplicateRouteNodeException e) {
+                throw new RouteGenerateFailException();
+            }
+
+            RouteList routes = model.getRoutes();
+            routes.add(route);
+            model.save();
+
+            return new CommandResultText(Messages.PROMPT_ROUTE_ADD_SUCCESS + "\n" + route.getName());
+        } catch (ApiException e) {
+            return new CommandResultText(Messages.ERROR_API_FAIL);
+        }
+    }
+
+    /**
+     * Generates a Route via PathFinder.
+     *
+     * @param model The model object containing information about the user.
+     * @return The Route that is generated.
+     * @throws ApiException If the API call fails.
+     * @throws RouteGenerateFailException If the Route fails to generate.
+     */
+    private ArrayList<Venue> generateRoute(Model model) throws ApiException, RouteGenerateFailException {
         Venue startVenue = ApiParser.getLocationSearch(startPoint);
         Venue endVenue = ApiParser.getLocationSearch(endPoint);
         PathFinder pathFinder = new PathFinder(model.getMap());
 
-        if (type == Constraint.MIXED) {
-            throw new UnknownConstraintException();
+        return pathFinder.execute(startVenue, endVenue, type);
+    }
+
+    /**
+     * Adds the ending RouteNode to the Route.
+     *
+     * @param route The Route to add to.
+     * @param venue The Venue to add to.
+     * @throws DuplicateRouteNodeException If the RouteNode is a duplicate.
+     */
+    private void addEndingNode(Route route, Venue venue) throws DuplicateRouteNodeException {
+        if (venue instanceof BusStop || venue instanceof TrainStation) {
+            route.add((RouteNode) venue);
+        } else {
+            route.add(PathFinder.generateCustomRouteNode(venue));
         }
+    }
 
-        ArrayList<Venue> venueList = pathFinder.execute(startVenue, endVenue, type);
+    /**
+     * Adds any RouteNodes that are inbetween 2 Venues.
+     *
+     * @param model The model object containing information about the user.
+     * @param route The Route.
+     * @param startVenue The starting Venue.
+     * @param endVenue The ending Venue.
+     * @throws QueryFailedException If the RouteNode cannot be found in local storage.
+     * @throws RouteGenerateFailException If the Route fails to generate.
+     */
+    private void addInbetweenNodes(Model model, Route route, Venue startVenue, Venue endVenue)
+            throws QueryFailedException, RouteGenerateFailException {
+        if ((startVenue instanceof BusStop && endVenue instanceof BusStop)
+                || (startVenue instanceof TrainStation && endVenue instanceof TrainStation)) {
+            ArrayList<Venue> inBetweenNodes = PathFinder.generateInbetweenNodes(startVenue, endVenue, model);
 
-        try {
-            if (type == Constraint.BUS) {
-                Collections.reverse(venueList);
-            }
-        } catch (NullPointerException e) {
-            throw new RouteGenerateFailException();
-        }
-
-        Route route = new Route(startPoint + " to " + endPoint + "  (" + type.toString() + ")", "");
-        Venue previousVenue = null;
-
-        try {
-            for (Venue venue : venueList) {
-                if ((previousVenue instanceof BusStop && venue instanceof BusStop)
-                        || (previousVenue instanceof TrainStation && venue instanceof TrainStation)) {
-                    ArrayList<Venue> inBetweenNodes = PathFinder.generateInbetweenNodes(previousVenue, venue, model);
-
-                    for (Venue inbetweenVenue : inBetweenNodes) {
-                        try {
-                            addNodeToRoute(route, (RouteNode) inbetweenVenue, model);
-                        } catch (DuplicateRouteNodeException e) {
-                            pruneDuplicateRoute(route, inbetweenVenue);
-                        }
-                    }
+            for (Venue inbetweenVenue : inBetweenNodes) {
+                try {
+                    addNodeToRoute(route, (RouteNode) inbetweenVenue, model);
+                } catch (DuplicateRouteNodeException e) {
+                    pruneDuplicateRoute(route, inbetweenVenue);
                 }
-
-                if (venue instanceof BusStop || venue instanceof TrainStation) {
-                    route.add((RouteNode) venue);
-                } else {
-                    route.add(PathFinder.generateCustomRouteNode(venue));
-                }
-
-                previousVenue = venue;
             }
-        } catch (QueryFailedException | DuplicateRouteNodeException e) {
-            throw new RouteGenerateFailException();
         }
-
-        model.getRoutes().add(route);
-        model.save();
-
-        return new CommandResultText(Messages.PROMPT_ROUTE_ADD_SUCCESS + "\n" + route.getName());
     }
 
     /**
@@ -121,7 +157,8 @@ public class RouteGenerateCommand extends Command {
     private void pruneDuplicateRoute(Route route, Venue target) throws RouteGenerateFailException {
         try {
             for (int i = route.size() - 1; i >= 0; i--) {
-                if (!route.getNode(i).equals(target)) {
+                RouteNode node = route.getNode(i);
+                if (!node.equals(target)) {
                     route.remove(i);
                 } else {
                     break;
@@ -171,7 +208,6 @@ public class RouteGenerateCommand extends Command {
             if (node instanceof TrainStation) {
                 node.setAddress(node.getDescription());
             }
-
             updateRouteNode(node, model);
             route.add(node);
         }

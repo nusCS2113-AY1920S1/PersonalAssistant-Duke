@@ -50,6 +50,10 @@ public abstract class Conversation {
         return result;
     }
 
+    protected void setFinished(boolean finished) {
+        isFinished = finished;
+    }
+
     /**
      * Checks if input is int.
      *
@@ -153,9 +157,5 @@ public abstract class Conversation {
      */
     public boolean isFinished() {
         return isFinished;
-    }
-
-    protected void setFinished(boolean finished) {
-        isFinished = finished;
     }
 }

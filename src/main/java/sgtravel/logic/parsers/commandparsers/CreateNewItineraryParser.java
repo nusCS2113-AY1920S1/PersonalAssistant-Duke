@@ -22,7 +22,7 @@ public class CreateNewItineraryParser extends CommandParser {
     /**
      * Constructs the CreateNewItineraryParser.
      *
-     * @param input The User input
+     * @param input The user input.
      */
     public CreateNewItineraryParser(String input) {
         this.input = input;
@@ -30,6 +30,7 @@ public class CreateNewItineraryParser extends CommandParser {
 
     /**
      * Parses user input and constructs an NewItineraryCommand object.
+     *
      * @return NewItineraryCommand object.
      * @throws ParseException If NewItineraryCommand object cannot be created from user input.
      */
@@ -38,11 +39,13 @@ public class CreateNewItineraryParser extends CommandParser {
         String[] itineraryDetails = input.substring("newItinerary".length()).strip().split(" ");
         LocalDateTime start = ParserTimeUtil.parseStringToDate(itineraryDetails[ZERO].strip());
         LocalDateTime end = ParserTimeUtil.parseStringToDate(itineraryDetails[ONE].strip());
+
         if (start.isBefore(LocalDateTime.now()) || end.isBefore(LocalDateTime.now())) {
             throw new ChronologyBeforePresentException();
         } else if (end.isBefore(start) || start.isAfter(end)) {
             throw new ChronologyInconsistentException();
         }
+
         String hotelLocation = itineraryDetails[TWO].strip();
         String name = itineraryDetails[THREE].strip();
         return new NewItineraryCommand(start, end, hotelLocation, name, itineraryDetails);

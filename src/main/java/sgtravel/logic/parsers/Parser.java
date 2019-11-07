@@ -36,7 +36,6 @@ import sgtravel.logic.parsers.commandparsers.RouteGenerateParser;
 import sgtravel.logic.parsers.commandparsers.RouteListParser;
 import sgtravel.logic.parsers.commandparsers.RouteNodeAddParser;
 import sgtravel.logic.parsers.commandparsers.RouteNodeDeleteParser;
-import sgtravel.logic.parsers.commandparsers.RouteNodeListParser;
 import sgtravel.logic.parsers.commandparsers.StaticMapParser;
 import sgtravel.logic.parsers.storageparsers.PlanningStorageParser;
 
@@ -102,8 +101,6 @@ public class Parser {
             return new RouteListParser(getWord(input)).parse();
         case "routeListAll":
             return new RouteListAllCommand();
-        case "routeNodeList":
-            return new RouteNodeListParser(getWord(input)).parse();
         case "routeGenerate":
             return new RouteGenerateParser(getWord(input)).parse();
         case "routeShow":

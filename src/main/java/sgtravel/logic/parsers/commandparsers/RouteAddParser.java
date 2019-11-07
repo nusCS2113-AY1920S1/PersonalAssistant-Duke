@@ -14,6 +14,8 @@ public class RouteAddParser extends CommandParser {
 
     /**
      * Constructs the RouteAddParser.
+     *
+     * @param input The user input.
      */
     public RouteAddParser(String input) {
         this.input = input;
@@ -21,7 +23,8 @@ public class RouteAddParser extends CommandParser {
 
     /**
      * Parses the user input and constructs RouteAddCommand object.
-     * @return RouteAddCommand object.
+     *
+     * @return The RouteAddCommand object.
      */
     @Override
     public Command parse() {

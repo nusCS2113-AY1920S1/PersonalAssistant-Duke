@@ -34,8 +34,8 @@ import java.util.logging.Logger;
  */
 public class MainWindow extends UiPart<Stage> {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-    private LogicManager logic;
     private static final String FXML = "MainWindow.fxml";
+    private LogicManager logic;
     private Stage primaryStage;
     private Main main;
 

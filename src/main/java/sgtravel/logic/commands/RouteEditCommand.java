@@ -43,21 +43,30 @@ public class RouteEditCommand extends Command {
             UnknownFieldException, OutOfBoundsException {
         try {
             Route route = model.getRoutes().get(index);
-            switch (field.toLowerCase()) {
-            case "name":
-                route.setName(newValue);
-                break;
-            case "description":
-                route.setDescription(newValue);
-                break;
-            default:
-                throw new UnknownFieldException();
-            }
-
+            editField(route);
             model.save();
             return new CommandResultText(Messages.ROUTE_NODE_EDIT_SUCCESS);
         } catch (IndexOutOfBoundsException e) {
             throw new OutOfBoundsException();
+        }
+    }
+
+    /**
+     * Edits the field of the Route.
+     *
+     * @param route The Route to edit.
+     * @throws UnknownFieldException If the field is unknown.
+     */
+    private void editField(Route route) throws UnknownFieldException {
+        switch (field.toLowerCase()) {
+        case "name":
+            route.setName(newValue);
+            break;
+        case "description":
+            route.setDescription(newValue);
+            break;
+        default:
+            throw new UnknownFieldException();
         }
     }
 }

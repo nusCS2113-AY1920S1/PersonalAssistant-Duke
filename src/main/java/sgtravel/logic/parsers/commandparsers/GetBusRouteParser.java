@@ -11,6 +11,8 @@ public class GetBusRouteParser extends CommandParser {
 
     /**
      * Constructs the GetBusRouteParser.
+     *
+     * @param input The user input.
      */
     public GetBusRouteParser(String input) {
         busServiceNo = input;
@@ -18,6 +20,7 @@ public class GetBusRouteParser extends CommandParser {
 
     /**
      * Parses the user input and constructs GetBusRouteCommand object.
+     *
      * @return GetBusRouteCommand object.
      */
     public Command parse() {
