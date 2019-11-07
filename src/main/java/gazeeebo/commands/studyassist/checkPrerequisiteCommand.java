@@ -1,6 +1,7 @@
 package gazeeebo.commands.studyassist;
 
 import gazeeebo.UI.Ui;
+import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 
 import java.io.IOException;
@@ -11,15 +12,21 @@ import java.util.Iterator;
 public class checkPrerequisiteCommand {
     public void execute(Ui ui, Storage storage) throws IOException {
         HashMap<String, ArrayList<String>> PrerequisiteList = new HashMap<String,ArrayList<String>>(storage.readFromPrerequisiteFile());
-        if(!PrerequisiteList.get(ui.fullCommand.split(" ")[1]).isEmpty()){
-            StringBuilder buffer = new StringBuilder();
-            String Prefix = "";
-            String ChildrenPrefix = "";
+        try {
+            if(ui.fullCommand.split(" ").length!=2) throw new DukeException("Please follow the correct input format~");
+            if(PrerequisiteList.get(ui.fullCommand.split(" ")[1])==null)throw new DukeException("We currently do not support this module");
+            if (!PrerequisiteList.get(ui.fullCommand.split(" ")[1]).isEmpty()) {
+                StringBuilder buffer = new StringBuilder();
+                String Prefix = "";
+                String ChildrenPrefix = "";
 //            test(ui.fullCommand.split(" ")[1],Prefix,ChildrenPrefix,buffer,PrerequisiteList);
-            dfsPrerequisite(ui.fullCommand.split(" ")[1],Prefix,ChildrenPrefix,buffer,PrerequisiteList);
-            System.out.println(buffer);
-        }else{
-            System.out.println("This module "+ui.fullCommand+" does not have any pre-requisite~");
+                dfsPrerequisite(ui.fullCommand.split(" ")[1], Prefix, ChildrenPrefix, buffer, PrerequisiteList);
+                System.out.println(buffer);
+            } else {
+                System.out.println("This module " + ui.fullCommand + " does not have any pre-requisite~");
+            }
+        }catch (DukeException e){
+            System.out.println(e.getMessage());
         }
         return;
     }

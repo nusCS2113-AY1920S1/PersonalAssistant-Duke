@@ -137,7 +137,7 @@ public class StudyPlannerCommand {
                     count += MCMap.get(key);
                 }
             } catch (DukeException e){
-                System.out.println(e);
+                System.out.println(e.getMessage());
             }
         }
         return count;

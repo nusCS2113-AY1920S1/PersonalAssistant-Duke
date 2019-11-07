@@ -47,6 +47,8 @@ public class studyassistCommandParser extends Command {
                 new checkPrerequisiteCommand().execute(ui, storage);
             } else if (ui.fullCommand.equals("undo")) {
                StudyPlan.StudyPlan = new UndoStudyPlannerCommand().undoStudyPlanner(oldStudyPlan,StudyPlan.StudyPlan, storage);
+            } else if(!ui.fullCommand.equals("moduleplanner")){
+                System.out.println("Invalid input that i could not understand~");
             }
             ui.readCommand();
         }
