@@ -14,36 +14,41 @@ import static duke.common.Messages.ERROR_MESSAGE_UNKNOWN_INDEX;
 
 
 /**
- * Handles the delete command and inherits all the fields and methods of Command parent class.
+ * Handles the delete booking command.
  */
 public class DeleteBookingCommand extends Command<BookingList, Ui, BookingStorage> {
     private static String msg = "";
     private static final Logger logger = Logger.getLogger(DeleteBookingCommand.class.getName());
 
+    /**
+     * Set up a logger to log important information.
+     */
     private static void setupLogger() {
         LogManager.getLogManager().reset();
         logger.setLevel(Level.INFO);
 
         try {
-            FileHandler fh = new FileHandler("logFile.log",true);
+            FileHandler fh = new FileHandler("logFile.log", true);
             fh.setLevel(Level.INFO);
             logger.addHandler(fh);
-        } catch (java.io.IOException e){
+        } catch (java.io.IOException e) {
             logger.log(Level.SEVERE, "File logger is not working.", e);
         }
     }
 
     /**
-     * Constructor for class DeleteCommand.
-     * @param userInput String containing input command from user
+     * Constructor for class DeleteBookingCommand.
+     *
+     * @param userInput string containing the input from the user
      */
     public DeleteBookingCommand(String userInput) {
         this.userInput = userInput;
     }
 
     /**
-     * Validates that user inputs an integer value for the index.
-     * @param input String containing integer input from user for the index
+     * Validates the input to be integer.
+     *
+     * @param input String input from user
      * @return true if the user inputs an integer and false otherwise
      */
     private static boolean isParsable(String input) {
@@ -57,10 +62,12 @@ public class DeleteBookingCommand extends Command<BookingList, Ui, BookingStorag
     }
 
     /**
-     * Processes the delete command to delete booking in the task list.
-     * @param bookingList contains the booking list
-     * @param ui deals with interactions with the user
-     * @param bookingStorage deals with loading tasks from the file and saving tasks in the file
+     * Processes the delete command to delete a booking from the booking list.
+     *
+     * @param bookingList    contains the booking list
+     * @param ui             deals with interactions with the user
+     * @param bookingStorage deals with loading tasks from the file and saving bookings in the file
+     * @return an array list consist of the results or prompts to be displayed to user
      */
     @Override
     public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) {
@@ -69,7 +76,7 @@ public class DeleteBookingCommand extends Command<BookingList, Ui, BookingStorag
         if (userInput.trim().equals(COMMAND_DELETE_BOOKING)) {
             arrayList.add(ERROR_MESSAGE_EMPTY_BOOKING_INDEX);
         } else if (userInput.trim().charAt(13) == ' ') {
-            String input = userInput.split("\\s",2)[1].trim();
+            String input = userInput.split("\\s", 2)[1].trim();
             if (isParsable(input)) {
                 int index = Integer.parseInt(input);
                 if (index > bookingList.getSize() || index <= 0) {
@@ -89,7 +96,6 @@ public class DeleteBookingCommand extends Command<BookingList, Ui, BookingStorag
 
                     bookingList.deleteBooking(index - 1);
                     bookingStorage.saveFile(bookingList);
-
                 }
             } else {
                 arrayList.add(ERROR_MESSAGE_UNKNOWN_INDEX);

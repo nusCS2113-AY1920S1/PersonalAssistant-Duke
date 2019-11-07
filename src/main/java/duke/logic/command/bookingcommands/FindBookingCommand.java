@@ -9,12 +9,26 @@ import java.util.ArrayList;
 
 import static duke.common.BookingMessages.*;
 
+/**
+ * Handles the find booking command by filtering the bookings by keyword.
+ */
 public class FindBookingCommand extends Command<BookingList, Ui, BookingStorage> {
 
+    /**
+     * Constructor for class FindBookingCommand.
+     *
+     * @param userInput string containing the input from the user
+     */
     public FindBookingCommand(String userInput) {
         this.userInput = userInput;
     }
 
+    /**
+     * Validates the input to be alphabets or _.
+     *
+     * @param input String input from user
+     * @return true if the string consist only alphabets or _ and false otherwise
+     */
     private static boolean isValidName(String input) {
         for (char c : input.toCharArray()) {
             if (!Character.isLetter(c) && !(c == '_')) {
@@ -24,6 +38,14 @@ public class FindBookingCommand extends Command<BookingList, Ui, BookingStorage>
         return true;
     }
 
+    /**
+     * Processes the find command to search for bookings with specific name keyword from the booking list.
+     *
+     * @param bookingList    contains the booking list
+     * @param ui             deals with interactions with the user
+     * @param bookingStorage deals with loading tasks from the file and saving bookings in the file
+     * @return an array list consist of the results or prompts to be displayed to user
+     */
     @Override
     public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) {
         ArrayList<String> arrayList = new ArrayList<>();
