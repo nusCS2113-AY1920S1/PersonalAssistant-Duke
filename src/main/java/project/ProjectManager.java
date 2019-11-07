@@ -9,15 +9,15 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class ProjectManager {
-    public Project currentProject;
+    public String currentprojectname;
     public LinkedHashMap<String, Project> projectmap;
-    private Storage storage = new Storage();
 
     /**
      * Initialises a project manager instance to manage the projects.
      */
     public ProjectManager() throws AlphaNUSException {
-        this.currentProject = null;
+        Storage storage = new Storage();
+        this.currentprojectname = storage.readFromcurrentprojectnameFile();
         this.projectmap = storage.readFromProjectsFile();
     }
 
@@ -29,8 +29,8 @@ public class ProjectManager {
     public Project addProject(String projectname) {
         Project newProject = new Project(projectname);
         projectmap.put(projectname, newProject);
-        if (currentProject == null) {
-            currentProject = newProject;
+        if (currentprojectname == null) {
+            currentprojectname = newProject.projectname;
         }
         return newProject;
     }
@@ -44,8 +44,8 @@ public class ProjectManager {
     public Project addProject(String projectname, double projectamount) {
         Project newProject = new Project(projectname, projectamount);
         projectmap.put(projectname, newProject);
-        if (currentProject == null) {
-            currentProject = newProject;
+        if (currentprojectname == null) {
+            currentprojectname = newProject.projectname;
         }
         return newProject;
     }
@@ -57,8 +57,8 @@ public class ProjectManager {
      */
     public Project deleteProject(String projectname) {
         Project deletedProject = projectmap.get(projectname);//TODO check if project exists
-        if (currentProject == deletedProject) {
-            currentProject = null;
+        if (currentprojectname == deletedProject.projectname) {
+            currentprojectname = null;
         }
         projectmap.remove(projectname); //TODO assert projectname does not exist
         return deletedProject;
@@ -66,12 +66,13 @@ public class ProjectManager {
 
     /**
      * Method to go to the project in the projectmap.
-     * @param projectname Name of project to go to.
+     * @param projectindex Name of project to go to.
      * @return Returns the project object of the project to go to.
      */
-    public Project gotoProject(String projectname) {
-        currentProject = projectmap.get(projectname);
-        return currentProject;
+    public String gotoProject(int projectindex) {
+        Project gotoProject = (Project) projectmap.values().toArray()[projectindex];
+        currentprojectname = (gotoProject).projectname;
+        return currentprojectname;
     }
 
     /**
@@ -80,9 +81,7 @@ public class ProjectManager {
      */
     public ArrayList<Project> listProjects() throws AlphaNUSException {
         ArrayList<Project> projectslist = new ArrayList<>();
-        for (Project project: projectmap.values()) {
-            projectslist.add(project);
-        }
+        projectslist.addAll(projectmap.values());
         return projectslist;
     }
 
@@ -117,11 +116,11 @@ public class ProjectManager {
      * Returns the current project being edited.
      * @return Returns current project.
      */
-    public Project getCurrentProject() {
-        return currentProject;
+    public String getcurrentprojectname() {
+        return currentprojectname;
     }
 
     public HashMap<String, Payee> getCurrentProjectManagerMap() {
-        return currentProject.managermap;
+        return projectmap.get(currentprojectname).managermap;
     }
 }
