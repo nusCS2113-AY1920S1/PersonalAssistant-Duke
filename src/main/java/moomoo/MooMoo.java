@@ -10,6 +10,7 @@ import moomoo.task.Parser;
 import moomoo.task.ScheduleList;
 import moomoo.task.Storage;
 import moomoo.task.Ui;
+import moomoo.task.Cow;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,6 +81,10 @@ public class MooMoo {
      */
     private void run() {
         ui.showWelcome();
+        Cow moo = new Cow();
+        ui.setOutput(moo.getHappyCow());
+        ui.showResponse();
+        
         String date = ui.showDate();
         String todaySchedule = calendar.showSchedule(date);
         ui.setOutput(todaySchedule);
