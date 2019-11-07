@@ -56,9 +56,35 @@ public class BudgetCommandTest {
 
         SetBudgetCommand setBudget = new SetBudgetCommand(false, categories, budgets);
         setBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
-
-        assertEquals("You have set $50.00 as the budget for shoes\n"
-                + "You have set $100.00 as the budget for food\n"
+        assertEquals(
+                ".__________________________________.\n"
+                        + "| ___ _   _ ___   ___ ___ _____    |\n"
+                        + "|| _ ) | | |   \\ / __| _ |_   _|   |\n"
+                        + "|| _ \\ |_| | |) | (_ | _|  | |     |\n"
+                        + "||___/\\___/|___/ \\___|___| |_|     |\n"
+                        + "|                                  |\n"
+                        + "|Category : shoes                  |\n"
+                        + "|$50.00                            |\n"
+                        + ".----------------------------------.\n"
+                        + "        \\   ^__^\n"
+                        + "         \\  (oo)\\_______\n"
+                        + "            (__)\\       )\\/\\\n"
+                        + "                ||----w |\n"
+                        + "                ||     ||\n"
+                + ".__________________________________.\n"
+                        + "| ___ _   _ ___   ___ ___ _____    |\n"
+                        + "|| _ ) | | |   \\ / __| _ |_   _|   |\n"
+                        + "|| _ \\ |_| | |) | (_ | _|  | |     |\n"
+                        + "||___/\\___/|___/ \\___|___| |_|     |\n"
+                        + "|                                  |\n"
+                        + "|Category : food                   |\n"
+                        + "|$100.00                           |\n"
+                        + ".----------------------------------.\n"
+                        + "        \\   ^__^\n"
+                        + "         \\  (oo)\\_______\n"
+                        + "            (__)\\       )\\/\\\n"
+                        + "                ||----w |\n"
+                        + "                ||     ||\n"
                 + "Please set your budget for places to go to a value more than 0\n"
                 + "test value category does not exist. Please add it first.\n", newUi.returnResponse());
     }

@@ -33,9 +33,18 @@ public class Ui {
                 + "   (____)||----w |  o \n"
                 + "         ||     ||   00\n"
                 + "   wmwwmWMWMwmWMmwMWWMWMwm\n"
-                + "MOOOOOOOO!\n"
-
-                + "Welcome to MooMooMoney! Your one-stop budgeting and expenses tracker!\n"
+                //+ "\n"
+                + " __      _____ _    ___ ___  __  __ ___   _____ ___ \n"
+                + " \\ \\    / / __| |  / __/ _ \\|  \\/  | __| |_   _/ _ \\\n"
+                + "  \\ \\/\\/ /| _|| |_| (_| (_) | |\\/| | _|    | || (_) |\n"
+                + "   \\_/\\_/ |___|____\\___\\___/|_|  |_|___|   |_| \\___/ \n"
+                + "\n"
+                + " __  __  ___   ___  __  __  ___   ___  __  __  ___  _  _ _____   __\n"
+                + "|  \\/  |/ _ \\ / _ \\|  \\/  |/ _ \\ / _ \\|  \\/  |/ _ \\| \\| | __\\ \\ / /\n"
+                + "| |\\/| | (_) | (_) | |\\/| | (_) | (_) | |\\/| | (_) | .` | _| \\ V /\n"
+                + "|_|  |_|\\___/ \\___/|_|  |_|\\___/ \\___/|_|  |_|\\___/|_|\\_|___| |_|\n"
+                + "\n"
+                + "Your one-stop budgeting and expenses tracker!\n"
                 + "What can MooMoo do for you today?");
     }
     
@@ -142,7 +151,22 @@ public class Ui {
      * @param categoryName name of the new category
      */
     public void showNewCategoryMessage(String categoryName) {
-        print("Ok, I've added a new category named " + categoryName + ".");
+        String blankSpace = " ";
+        int blanks = 18 - categoryName.length();
+        for (int i = 0; i < blanks; i++) {
+            blankSpace += " ";
+        }
+        String output =
+                " _________________________________________________\n"
+                + "/ Mooo.                                           \\\n"
+                + "\\ New category named : " + categoryName + " added. " + blankSpace + "/\n"
+                + " -------------------------------------------------\n"
+                + "        \\   ^__^\n"
+                + "         \\  (oo)\\_______\n"
+                + "            (__)\\       )\\/\\\n"
+                + "                ||----w |\n"
+                + "                ||     ||\n";
+        print(output);
     }
 
     /**
@@ -191,7 +215,28 @@ public class Ui {
      * @param categoryName name of the new expenditure
      */
     public void showNewExpenditureMessage(String expenditureName, String categoryName) {
-        print("Ok, I've added a new expenditure " + expenditureName + " under " + categoryName + ".");
+        String blankSpace = " ";
+        int blanks = 18 - expenditureName.length();
+        for (int i = 0; i < blanks; i++) {
+            blankSpace += " ";
+        }
+        String blank2 = " ";
+        blanks = 32 - categoryName.length();
+        for (int i = 0; i < blanks; i++) {
+            blank2 += " ";
+        }
+        String output =
+                "  _________________________________________________\n"
+                + " / Mooo.                                           \\\n"
+                + "|  New expenditure named : " + expenditureName + " added" + blankSpace + "|\n"
+                + " \\ To category : " + categoryName + "." + blank2 + "/\n"
+                + "  -------------------------------------------------\n"
+                + "        \\   ^__^\n"
+                + "         \\  (oo)\\_______\n"
+                + "            (__)\\       )\\/\\\n"
+                + "                ||----w |\n"
+                + "                ||     ||\n";
+        print(output);
     }
 
     /**
@@ -222,8 +267,20 @@ public class Ui {
      * @param month month that should be totaled
      */
     public void showMonthlyTotal(double monthlyTotal, Category category, int month) {
-        print("Your total spending in the month of " + month + " for " + category.toString()
-            + " is $" + monthlyTotal + ".");
+        String cow =
+                ".__________________________________.\n"
+                + "|Month : " + month + "blank" + "|\n"
+                + "|Category : " + category.toString() + "|\n"
+                + "|                                  |\n"
+                + "|Total spending : $" + monthlyTotal + "|\n"
+                + ".----------------------------------.\n"
+                + "        \\   ^__^\n"
+                + "         \\  (oo)\\_______\n"
+                + "            (__)\\       )\\/\\\n"
+                + "                ||----w |\n"
+                + "                ||     ||\n";
+
+        print(cow);
     }
 
     /**

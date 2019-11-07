@@ -32,15 +32,32 @@ public class ScheduleList {
      * @return a list of scheduled payments due today.
      */
     public String showSchedule(String date) {
-        String output = "Outstanding Payment:\n";
+        String output =
+                ".__________________________.\n"
+                + "|Outstanding Payment Today |\n"
+                + "|--------------------------|\n";
         if (date.length() < 8) {
             date = "0" + date;
         }
         if (calendar.containsKey(date)) {
             for (String n : calendar.get(date)) {
-                output += (n + "\n");
+                String[] amount = n.split(" ");
+                int index = amount.length - 1;
+                String blanks = " ";
+                n = n.replaceAll("[0-9]","");
+                int blank = 19 - n.length();
+                for (int i = 1; i <= blank; i++) {
+                    blanks += " ";
+                }
+                String blank2 = " ";
+                blank = 4 - amount[index].length();
+                for (int i = 1; i <= blank; i++) {
+                    blank2 += " ";
+                }
+                output += "|" + n + blanks + "|" + amount[index] + blank2 + "|\n";
             }
         }
+        output += ".--------------------------.\n";
         return output;
     }
 }

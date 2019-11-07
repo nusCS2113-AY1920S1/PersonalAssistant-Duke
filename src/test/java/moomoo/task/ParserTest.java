@@ -87,9 +87,49 @@ public class ParserTest {
 
         Command c = newParser.parse("budget set c/food c/laptop b/123.45 c/places to go b/150", newUi);
         c.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
-        assertEquals("You have set $123.45 as the budget for food\n"
-                + "You have set $123.45 as the budget for laptop\n"
-                + "You have set $150.00 as the budget for places to go\n", newUi.returnResponse());
+        assertEquals(
+                ".__________________________________.\n"
+                + "| ___ _   _ ___   ___ ___ _____    |\n"
+                + "|| _ ) | | |   \\ / __| _ |_   _|   |\n"
+                + "|| _ \\ |_| | |) | (_ | _|  | |     |\n"
+                + "||___/\\___/|___/ \\___|___| |_|     |\n"
+                + "|                                  |\n"
+                + "|Category : food                   |\n"
+                + "|$123.45                           |\n"
+                + ".----------------------------------.\n"
+                + "        \\   ^__^\n"
+                + "         \\  (oo)\\_______\n"
+                + "            (__)\\       )\\/\\\n"
+                + "                ||----w |\n"
+                + "                ||     ||\n"
+                + ".__________________________________.\n"
+                + "| ___ _   _ ___   ___ ___ _____    |\n"
+                + "|| _ ) | | |   \\ / __| _ |_   _|   |\n"
+                + "|| _ \\ |_| | |) | (_ | _|  | |     |\n"
+                + "||___/\\___/|___/ \\___|___| |_|     |\n"
+                + "|                                  |\n"
+                + "|Category : laptop                 |\n"
+                + "|$123.45                           |\n"
+                + ".----------------------------------.\n"
+                + "        \\   ^__^\n"
+                + "         \\  (oo)\\_______\n"
+                + "            (__)\\       )\\/\\\n"
+                + "                ||----w |\n"
+                + "                ||     ||\n"
+                + ".__________________________________.\n"
+                + "| ___ _   _ ___   ___ ___ _____    |\n"
+                + "|| _ ) | | |   \\ / __| _ |_   _|   |\n"
+                + "|| _ \\ |_| | |) | (_ | _|  | |     |\n"
+                + "||___/\\___/|___/ \\___|___| |_|     |\n"
+                + "|                                  |\n"
+                + "|Category : places to go           |\n"
+                + "|$150.00                           |\n"
+                + ".----------------------------------.\n"
+                + "        \\   ^__^\n"
+                + "         \\  (oo)\\_______\n"
+                + "            (__)\\       )\\/\\\n"
+                + "                ||----w |\n"
+                + "                ||     ||\n", newUi.returnResponse());
 
         try {
             c = newParser.parse("budget set b/100 c/places to go b/150", newUi);
