@@ -10,7 +10,7 @@ public class ScheduleTeamParser {
 
     private static final String ALL = "all";
     private static final String TODO = "todo";
-    private static final String SCHEDULE_USAGE = "Usage: schedule [team/member] [all/todo] {member name}";
+    private static final String SCHEDULE_USAGE = "Usage: schedule [tasks/member] [all/todo] {member name}";
 
     //@@author yuyanglin28
     /**

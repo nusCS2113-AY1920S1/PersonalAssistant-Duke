@@ -22,7 +22,7 @@ public class EditMemberPhoneCommand extends Command {
 
     @Override
     public CommandOutput execute(Model model) throws DukeException {
-        if (checkMemberIndex(memberIndexInList, model)) {
+        if (!checkMemberIndex(memberIndexInList, model)) {
             return new CommandOutput(INDEX_NOT_IN_MEMlIST_MESSAGE);
         } else {
             String oldphone = model.updateMemberPhone(memberIndexInList - 1, phone);

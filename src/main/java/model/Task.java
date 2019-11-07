@@ -1,8 +1,10 @@
 package model;
 
+import common.LoggerController;
 import model.Member;
 import common.DukeException;
 
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,12 +14,17 @@ public class Task {
     private String description;
     private boolean isDone;
     private ArrayList<String> memberList;
+    private ArrayList<String> skillReqList;
     private Date time;
     private Date reminder;
 
+    /**
+     * Task object model
+     */
     public Task(String name) {
         this.name = name.trim();
         this.memberList = new ArrayList<>();
+        this.skillReqList = new ArrayList<String>();
     }
 
     /**
@@ -57,6 +64,10 @@ public class Task {
         isDone = true;
     }
 
+    public void markAsUndone() {
+        isDone = false;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -87,7 +98,9 @@ public class Task {
      * @return string of task
      */
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.name + (time == null ? "" : (" (at: " + time + ")"));
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE dd-MM-yyyy HH:mm'H'");
+        return "[" + this.getStatusIcon() + "] " + this.name + (time == null ? "" : (" (due: "
+                + sdf.format(time) + ")"));
     }
 
     /**
@@ -98,4 +111,53 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2715");
     }
+
+    //@@author JustinChia1997
+    public ArrayList<String> getReqSkills() {
+        return this.skillReqList;
+    }
+
+    /**
+     * Adds a required skill to required skills array
+     *
+     * @return a boolean if addition was successful
+     */
+    public boolean addReqSkill(String skillName) {
+        //TODO add regex to check for skillName
+        if (!skillReqList.contains(skillName)) {
+            skillReqList.add(skillName);
+            LoggerController.logDebug(Task.class, "Added skill into model" + skillName);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public ArrayList<String> getSkillReqList() {
+        return skillReqList;
+    }
+
+
+    /**
+     * Checks if member has a skill
+     *
+     * @param skillName is the skillname you are searching for
+     */
+    public boolean hasSkill(String skillName) {
+        if (skillReqList != null) {
+            return skillReqList.contains(skillName);
+        }
+        return false;
+    }
+
+    //@@author JasonChanWQ
+    public boolean hasMember(String oldName) {
+        return memberList.contains(oldName);
+    }
+
+    //@@author JasonChanWQ
+    public void updateMember(String oldName, String newName) {
+        memberList.set(memberList.indexOf(oldName), newName);
+    }
+
 }

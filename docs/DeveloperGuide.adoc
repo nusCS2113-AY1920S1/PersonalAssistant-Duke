@@ -278,7 +278,7 @@ Actor: Project Manger
 
 1. User check each member's tasks to see if there is a very busy day for a member.
 2. User go to that member's details, find a task that can be change to others.
-3. User list the tasks in oder of PIC's number to find that task.
+3. User pick the task which has most PICs.
 4. User unlink the task to that member
 5. User find another proper member that can be assigned to.(UC07)
 6. Use case ends.

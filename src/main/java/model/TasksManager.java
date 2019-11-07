@@ -3,6 +3,8 @@ package model;
 import common.DukeException;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -22,6 +24,7 @@ public class TasksManager implements Serializable {
     }
 
     //@@author JustinChia1997
+
     /**
      * Add a new task with name.
      *
@@ -54,8 +57,18 @@ public class TasksManager implements Serializable {
     }
 
     /**
+     * @return true if skill req was sucessfully added
+     */
+    public boolean addReqSkill(String taskName, String skillName) {
+        if (hasTask(taskName)) {
+            return getTaskByName(taskName).addReqSkill(skillName);
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Delete a task from the task list.
-     *
      */
     public boolean deleteTask(Task toDelete) {
 
@@ -92,6 +105,7 @@ public class TasksManager implements Serializable {
     }
 
     //@@author yuyanglin28
+
     /**
      * delete member (person in charge) in task list
      *
@@ -113,8 +127,53 @@ public class TasksManager implements Serializable {
         return taskList.size();
     }
 
+    public String getTasks() {
+        return showTasks(taskList);
+    }
+
+    public String getTodoTasks() {
+        ArrayList<Task> todoTasks = pickTodo(taskList);
+        return showTasks(todoTasks);
+    }
+
+    /**
+     *javadoc
+     */
+    public int getTodoTasks(ArrayList<String> tasksName) {
+        int todoNum = 0;
+        for (int i = 0; i < tasksName.size(); i++) {
+            Task task = getTaskByName(tasksName.get(i));
+            if (!task.isDone()) {
+                todoNum++;
+            }
+        }
+        return todoNum;
+    }
+
+
+    /**
+     * java doc
+     */
+    public double getProgress(ArrayList<String> tasksName) {
+        double total = tasksName.size();
+        int todoNum = getTodoTasks(tasksName);
+        double doneNum = total - todoNum;
+        double progress;
+        if (total == 0) {
+            progress = 1.0;
+        } else {
+            progress = doneNum / total;
+        }
+        BigDecimal bd = new BigDecimal(progress).setScale(2, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
     public String getTaskNameById(int index) {
         return getTaskById(index).getName();
+    }
+
+    public int getIndexInListByTask(Task task) {
+        return taskList.indexOf(task) + 1;
     }
 
 
@@ -133,6 +192,7 @@ public class TasksManager implements Serializable {
     }
 
     //@@author JustinChia1997
+
     /**
      * Finds Task from task list. returns null if no match was found
      *
@@ -174,9 +234,13 @@ public class TasksManager implements Serializable {
     public String getTasksByKeyword(String keyword) {
         String result = "";
         for (int i = 0; i < taskList.size(); i++) {
-            if (taskList.get(i).getName().contains(keyword)
-                    || taskList.get(i).getDescription().contains(keyword)) {
-                result += "\n" + taskList.get(i);
+            String des = getTaskDes(i);
+            String name = getTaskNameById(i);
+            int indexInList = i + 1;
+            if (name.contains(keyword)) {
+                result += "\n" + indexInList + ". " + taskList.get(i);
+            } else if (des != null && des.contains(keyword)) {
+                result += "\n" + indexInList + ". " + taskList.get(i);
             }
         }
         return result;
@@ -190,7 +254,7 @@ public class TasksManager implements Serializable {
      * @return a string shows the scheduled task list
      */
     public String scheduleTeamAll() {
-        ArrayList<Task> taskListCopy = (ArrayList<Task>) taskList.clone();
+        ArrayList<Task> taskListCopy = (ArrayList<Task>)taskList.clone();
         return showScheduleOfTaskList(taskListCopy);
     }
 
@@ -203,8 +267,7 @@ public class TasksManager implements Serializable {
      */
     public String scheduleTeamTodo() {
         ArrayList<Task> taskListCopy = (ArrayList<Task>) taskList.clone();
-        ArrayList<Task> todoTasks = new ArrayList<>();
-        todoTasks = pickTodo(taskListCopy);
+        ArrayList<Task> todoTasks = pickTodo(taskListCopy);
         return showScheduleOfTaskList(todoTasks);
 
     }
@@ -259,20 +322,28 @@ public class TasksManager implements Serializable {
 
     private ArrayList<Task> sortByTime(ArrayList<Task> toSort) {
         ArrayList<Task> sorted = new ArrayList<>();
+        ArrayList<Task> hasTime = new ArrayList<>();
         int size = toSort.size();
+        for (int i = 0; i < size; i++) {
+            Task task = toSort.get(i);
+            Date time = task.getTime();
+            if (time != null) {
+                hasTime.add(task);
+            }
+        }
+        size = hasTime.size();
         for (int i = 0; i < size; i++) {
             Date earliest = new Date(Long.MAX_VALUE);
             int earliestIndex = -1;
-            for (int j = 0; j < toSort.size(); j++) {
-                Task temp = toSort.get(j);
-                if (temp.getTime().before(earliest)) {
-                    earliest = temp.getTime();
+            for (int j = 0; j < hasTime.size(); j++) {
+                Date time = hasTime.get(j).getTime();
+                if (time.before(earliest)) {
+                    earliest = time;
                     earliestIndex = j;
                 }
             }
-
-            sorted.add(toSort.get(earliestIndex));
-            toSort.remove(earliestIndex);
+            sorted.add(hasTime.get(earliestIndex));
+            hasTime.remove(earliestIndex);
         }
         return sorted;
     }
@@ -280,7 +351,7 @@ public class TasksManager implements Serializable {
     private ArrayList<Task> pickTodo(ArrayList<Task> toFilter) {
         ArrayList<Task> filtered = new ArrayList<>();
         for (int i = 0; i < toFilter.size(); i++) {
-            if (toFilter.get(i).isDone() == false) {
+            if (!toFilter.get(i).isDone()) {
                 filtered.add(toFilter.get(i));
             }
         }
@@ -288,12 +359,118 @@ public class TasksManager implements Serializable {
     }
 
     private String showScheduleOfTaskList(ArrayList<Task> toSorted) {
-        String result = "";
         ArrayList<Task> tasks = sortByTime(toSorted);
-        for (int i = 0; i < tasks.size(); i++) {
-            result += "\n" + tasks.get(i);
+        return showTasks(tasks);
+    }
+
+    public String tasksAllInorderPicNum() {
+        return tasksInorderPicNum(taskList);
+    }
+
+    public String tasksTodoInorderPicNum() {
+        ArrayList<Task> todoTasks = pickTodo(taskList);
+        return tasksInorderPicNum(todoTasks);
+    }
+
+    private String tasksInorderPicNum(ArrayList<Task> tasks) {
+        ArrayList<Task> toSort = (ArrayList<Task>) tasks.clone();
+        String result = "";
+        int size = toSort.size();
+        for (int i = 0; i < size; i++) {
+            int min = Integer.MAX_VALUE;
+            int minIndex = -1;
+            for (int j = 0; j < toSort.size(); j++) {
+                int num = toSort.get(j).getMemberList().size();
+                if (num < min) {
+                    minIndex = j;
+                    min = num;
+                }
+            }
+            int indexInList = getIndexInListByTask(toSort.get(minIndex));
+            result += "\n" + indexInList + ". " + toSort.get(minIndex) + " has " + min + " PICs.";
+            System.out.println(result);
+            toSort.remove(minIndex);
         }
         return result;
+    }
+
+    private String showTasks(ArrayList<Task> tasks) {
+        String result = "";
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            result += "\n" + getIndexInListByTask(task) + ". " + task;
+        }
+        return result;
+    }
+
+    /**
+     * javadoc
+     */
+    public static String getDateString(Date date) {
+        String year = (date.getYear() + 1900) + "";
+        String mm = (date.getMonth() + 1) + "";
+        if (Integer.valueOf(mm) < 10) {
+            mm = "0" + mm;
+        }
+        String day = date.getDate() + "";
+        if (Integer.valueOf(day) < 10) {
+            day = "0" + day;
+        }
+        return year + "/" + mm + "/" + day;
+    }
+
+    /**
+     * javadoc
+     */
+    public String check(ArrayList<String> tasksName) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        String result = "";
+        if (tasksName.size() > 1) {
+            for (int i = 0; i < tasksName.size(); i++) {
+                Task task = getTaskByName(tasksName.get(i));
+                tasks.add(task);
+            }
+            ArrayList<Task> sorted = sortByTime(pickTodo(tasks));
+            if (sorted.size() > 1) {
+                int count = 1;
+                int index = -1;
+                for (int i = 0; i < sorted.size() - 1; i++) {
+                    Date time1 = sorted.get(i).getTime();
+                    Date time2 = sorted.get(i + 1).getTime();
+                    String date1 = getDateString(time1);
+                    String date2 = getDateString(time2);
+                    if (date1.equals(date2)) {
+                        count++;
+                        index = i;
+                    } else {
+                        if (count != 1) {
+                            String name = "";
+                            for (int j = count; j > 0; j--) {
+                                Task task = sorted.get(i - j);
+                                name += " " + getIndexInListByTask(task) + ". " + getNameByTask(task);
+                            }
+                            result += "\n" + date2 + " " + count + "tasks:" + name;
+                        }
+                        count = 1;
+                        continue;
+                    }
+                }
+                if (count != 1) {
+                    String name = "";
+                    for (int j = count; j > 0; j--) {
+                        Task task = sorted.get(index + 2 - j);
+                        name += " " + getIndexInListByTask(task) + ". " + getNameByTask(task);
+                    }
+                    result += "\n" + getDateString(sorted.get(index).getTime()) + " " + count + " tasks:\n" + name;
+                }
+            }
+        }
+        return result;
+    }
+
+    //@@author JasonChanWQ
+    public Date getTaskDateTimeById(int index) {
+        return getTaskById(index).getTime();
     }
 
 }

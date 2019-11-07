@@ -35,9 +35,9 @@ public class EditTaskParser {
 
         switch (editType) {
         case TIME:
-            return EditTaskTimeParser.parseEditTaskTime(arguments);
+            return EditTaskDateTimeParser.parseEditTaskDateTime(arguments);
         case DES:
-            return EditTaskDesParser.parseEditTaskDes(arguments);
+            return EditTaskDescriptionParser.parseEditMemberDescription(arguments);
         default:
             throw new DukeException(EDIT_USAGE);
         }

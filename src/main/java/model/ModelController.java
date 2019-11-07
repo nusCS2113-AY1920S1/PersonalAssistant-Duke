@@ -5,6 +5,7 @@ import storage.Storage;
 import common.DukeException;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class ModelController implements Model {
@@ -48,12 +49,24 @@ public class ModelController implements Model {
         return tasksManager.getTaskList();
     }
 
+    public String getTodoTasks() {
+        return tasksManager.getTodoTasks();
+    }
+
+    public String getTasks() {
+        return tasksManager.getTasks();
+    }
+
     public int getTaskListSize() {
         return tasksManager.getTaskListSize();
     }
 
     public String getTaskNameById(int index) {
         return tasksManager.getTaskNameById(index);
+    }
+
+    public Date getTaskDateTimeById(int index) {
+        return tasksManager.getTaskDateTimeById(index);
     }
 
     @Override
@@ -72,27 +85,44 @@ public class ModelController implements Model {
     @Override
     public boolean hasTask(String name) throws DukeException {
         return tasksManager.hasTask(name);
+
     }
 
     @Override
+    public boolean addTaskReqSkill(String taskName, String skillName) {
+        return tasksManager.addReqSkill(taskName, skillName);
+    }
+
+
+    /**
+     * javadoc please
+     */
     public String updateTaskDes(int index, String des) {
         String oldDes = tasksManager.getTaskDes(index);
         tasksManager.updateTaskDes(index, des);
         return oldDes;
     }
 
+
     public String getTasksByKeyword(String keyword) {
         return tasksManager.getTasksByKeyword(keyword);
     }
 
-    public String scheduleTeamAll() {
+    public String tasksAllInorderTime() {
         return tasksManager.scheduleTeamAll();
     }
 
-    public String scheduleTeamTodo() {
+    public String tasksTodoInorderTime() {
         return tasksManager.scheduleTeamTodo();
     }
 
+    public String tasksAllInorderPicNum() {
+        return tasksManager.tasksAllInorderPicNum();
+    }
+
+    public String tasksTodoInorderPicNum() {
+        return tasksManager.tasksTodoInorderPicNum();
+    }
 
 
     //=================Member interfaces=============================================
@@ -129,6 +159,13 @@ public class ModelController implements Model {
     }
 
     @Override
+    public boolean addMemberSkill(String memberName, String skillName) {
+        return memberManager.addSkill(memberName, skillName);
+    }
+
+    /**
+     * javadoc please
+     */
     public String updateMemberBio(int index, String bio) {
         String oldBio = memberManager.getMemberBio(index);
         memberManager.updateMemberBio(index, bio);
@@ -150,8 +187,9 @@ public class ModelController implements Model {
     }
 
 
-    //============================
+    //============================ Task and member interfaces =================================
 
+    //@@author JustinChia1997
     @Override
     public void link(int taskIndex, String memberName) {
         tasksManager.getTaskById(taskIndex).addMember(memberName);
@@ -160,17 +198,22 @@ public class ModelController implements Model {
     }
 
     @Override
-    public void unlink(int taskIndex, String memberName) {
+    public void unlink(int taskIndex, String memberName) throws DukeException {
         Task task = tasksManager.getTaskById(taskIndex);
+        if (!task.hasMember(memberName)) {
+            throw new DukeException("Warning: no link between " + task.getName() + " and " + memberName);
+        }
         task.deleteMember(memberName);
         memberManager.getMemberByName(memberName).deleteTask(task.getName());
     }
 
     //@@author yuyanglin28
+
     /**
      * This method is to delete member in member list and also in task list corresponding member name
+     *
      * @return if success (the member name exists), return true.
-     *         if fail (the member name doesn't exist), return false.
+     * if fail (the member name doesn't exist), return false.
      */
     @Override
     public String deleteMember(int index) {
@@ -182,6 +225,7 @@ public class ModelController implements Model {
     }
 
     //@@author yuyanglin28
+
     /**
      * javadoc
      */
@@ -194,7 +238,6 @@ public class ModelController implements Model {
         return name;
     }
 
-
     public String scheduleMemberAll(String memberName) {
         ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
         return tasksManager.scheduleAllTasks(tasksName);
@@ -203,5 +246,43 @@ public class ModelController implements Model {
     public String scheduleMemberTodo(String memberName) {
         ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
         return tasksManager.scheduleTodoTasks(tasksName);
+    }
+
+    @Override
+    public String check() {
+        String result = "";
+        for (int i = 0; i < memberManager.getMemberListSize(); i++) {
+            String memberName = memberManager.getMemberNameById(i);
+            ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
+            String subResult = tasksManager.check(tasksName);
+            if (!subResult.equals("")) {
+                result += "\n" + memberName + ": " + tasksManager.check(tasksName);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public String membersInorderProgress() {
+        ArrayList<Double> progress = new ArrayList<>();
+        for (int i = 0; i < memberManager.getMemberListSize(); i++) {
+            String memberName = memberManager.getMemberNameById(i);
+            ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
+            progress.add(tasksManager.getProgress(tasksName));
+        }
+        return memberManager.membersInorderProgress(progress);
+    }
+
+
+
+    @Override
+    public String membersInorderTodoNum() {
+        ArrayList<Integer> todoNum = new ArrayList<>();
+        for (int i = 0; i < memberManager.getMemberListSize(); i++) {
+            String memberName = memberManager.getMemberNameById(i);
+            ArrayList<String> tasksName = memberManager.getTaskListOfMember(memberName);
+            todoNum.add(tasksManager.getTodoTasks(tasksName));
+        }
+        return memberManager.membersInorderTodoNum(todoNum);
     }
 }

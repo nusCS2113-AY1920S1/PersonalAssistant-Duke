@@ -4,6 +4,7 @@ import logic.command.Command;
 import common.DukeException;
 import logic.parser.delete.DeleteCommandParser;
 import logic.parser.edit.EditCommandParser;
+import logic.parser.list.ListCommandParser;
 import logic.parser.schedule.ScheduleCommandParser;
 
 import java.util.regex.Matcher;
@@ -13,21 +14,25 @@ public class NewParser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final String ADD_COMMAND_WORD = "ADD";
     private static final String LIST_COMMAND_WORD = "LIST";
     private static final String DELETE_COMMAND_WORD = "DELETE";
     private static final String DONE_COMMAND_WORD = "DONE";
+    private static final String UNDONE_COMMAND_WORD = "UNDONE";
     private static final String SNOOZE_COMMAND_WORD = "SNOOZE";
     private static final String RENAME_COMMAND_WORD = "RENAME";
-    public static final String LINK_COMMAND_WORD = "LINK";
-    public static final String UNLINK_COMMAND_WORD = "UNLINK";
-    public static final String HELP_COMMAND_WORD = "HELP";
-    public static final String FIND_COMMAND_WORD = "FIND";
-    public static final String BYE_COMMAND_WORD = "BYE";
-    public static final String SCHEDULE_COMMAND_WORD = "SCHEDULE";
-    public static final String REMINDER_COMMAND_WORD = "REMINDER";
-    public static final String EDIT_COMMAND_WORD = "EDIT";
+    private static final String LINK_COMMAND_WORD = "LINK";
+    private static final String UNLINK_COMMAND_WORD = "UNLINK";
+    private static final String HELP_COMMAND_WORD = "HELP";
+    private static final String FIND_COMMAND_WORD = "FIND";
+    private static final String BYE_COMMAND_WORD = "BYE";
+    private static final String SCHEDULE_COMMAND_WORD = "SCHEDULE";
+    private static final String REMINDER_COMMAND_WORD = "REMINDER";
+    private static final String MATCH_COMMAND_WORD = "MATCH";
+    private static final String EDIT_COMMAND_WORD = "EDIT";
+    public static final String SHOW_COMMAND_WORD = "SHOW";
+    private static final String CHECK_COMMAND_WORD = "CHECK";
 
     //@@author JustinChia1997
 
@@ -50,8 +55,9 @@ public class NewParser {
         commandWord = commandWord.trim().toUpperCase();
 
         String[] dict = {
-            "ADD", "LIST", "DONE", "DELETE", "HELP", "FIND", "BYE", "REMINDER",
-            "SNOOZE", "SCHEDULE", "CHECK", "LINK", "UNLINK", "RENAME"
+            "ADD", "LIST", "DONE", "UNDONE", "DELETE", "HELP", "FIND", "BYE", "REMINDER", "SHOW",
+            "SNOOZE", "SCHEDULE", "CHECK", "LINK", "UNLINK", "RENAME", "EDIT",
+            "MATCH", "CHECK"
         };
 
         commandWord = SpellingErrorCorrector.commandCorrector(dict, commandWord);
@@ -63,6 +69,8 @@ public class NewParser {
             return ListCommandParser.parseListCommand(arguments);
         case DONE_COMMAND_WORD:
             return DoneCommandParser.parseDoneCommand(arguments);
+        case UNDONE_COMMAND_WORD:
+            return DoneCommandParser.parseUndoneCommand(arguments);
         case SNOOZE_COMMAND_WORD:
             return SnoozeCommandParser.parseSnoozeCommand(arguments);
         case RENAME_COMMAND_WORD:
@@ -83,8 +91,14 @@ public class NewParser {
             return ScheduleCommandParser.parseScheduleCommand(arguments);
         case REMINDER_COMMAND_WORD:
             return ReminderCommandParser.parseReminder(arguments);
+        case MATCH_COMMAND_WORD:
+            return MatchCommandParser.parseMatch(arguments);
         case EDIT_COMMAND_WORD:
             return EditCommandParser.parseEditCommand(arguments);
+        case SHOW_COMMAND_WORD:
+            return ShowCommandParser.parseShowCommand(arguments);
+        case CHECK_COMMAND_WORD:
+            return CheckCommandParser.parseCheckCommand(arguments);
 
         default:
             throw new DukeException("Command not found");

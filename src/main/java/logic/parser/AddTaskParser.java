@@ -16,9 +16,10 @@ public class AddTaskParser {
     public static final String TIME_PATTERN = "dd/MM/yyyy hhmm";
 
     //@@author chenyuheng
+
     /**
      * parses arguments of addtask into a multimap
-     * */
+     */
     public static AddTaskCommand parseAddTask(String userInput) throws DukeException {
         HashMap<String, String> argumentMultimap = ArgumentTokenizer.tokenize(userInput);
         String name = argumentMultimap.get("");
@@ -41,6 +42,10 @@ public class AddTaskParser {
         String members = argumentMultimap.get("/to");
         if (members != null) {
             command.setMembers(members);
+        }
+        String skills = argumentMultimap.get("/skill");
+        if (skills != null) {
+            command.setReqSkill(skills);
         }
         return command;
     }

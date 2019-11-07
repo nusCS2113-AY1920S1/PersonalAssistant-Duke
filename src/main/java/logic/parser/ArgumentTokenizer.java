@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 //@@author chenyuheng
 public class ArgumentTokenizer {
-    public static final String[] TOKENS = new String[]{"/to", "/at", "/from"};
+    public static final String[] TOKENS = new String[]{"/to", "/at", "/from", "/skill"};
 
     /**
      * add javadocs
@@ -23,7 +23,7 @@ public class ArgumentTokenizer {
     /**
      * add javadocs
      */
-    public static ArrayList<Integer> getSortedBreakpoints(String userInput) {
+    private static ArrayList<Integer> getSortedBreakpoints(String userInput) {
         ArrayList<Integer> breakpoints = new ArrayList<>();
         for (int i = 0; i < TOKENS.length; i++) {
             if (userInput.contains(TOKENS[i])) {
@@ -42,7 +42,7 @@ public class ArgumentTokenizer {
     /**
      * add javadocs
      */
-    public static String[] breakByBreakpoints(String s, ArrayList<Integer> breakpoints) {
+    private static String[] breakByBreakpoints(String s, ArrayList<Integer> breakpoints) {
         if (breakpoints.size() == 0) {
             return new String[]{s};
         }
@@ -58,17 +58,19 @@ public class ArgumentTokenizer {
     /**
      * add javadocs
      */
-    public static HashMap<String, String> getMultimap(String[] argumentStrings) throws DukeException {
+    private static HashMap<String, String> getMultimap(String[] argumentStrings) throws DukeException {
         HashMap<String, String> arguments = new HashMap<>();
         for (int i = 0; i < argumentStrings.length; i++) {
             boolean found = false;
             for (int j = 0; j < TOKENS.length; j++) {
+
                 try {
                     if (argumentStrings[i].indexOf(TOKENS[j]) == 0) {
                         String value = argumentStrings[i].substring(TOKENS[j].length() + 1).trim();
                         arguments.put(TOKENS[j], value);
                         found = true;
                         break;
+
                     }
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new DukeException("Tag cannot be empty");

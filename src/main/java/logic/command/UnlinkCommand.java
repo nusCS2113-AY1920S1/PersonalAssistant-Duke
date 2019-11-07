@@ -16,11 +16,15 @@ public class UnlinkCommand extends LinkCommand {
         String output = "";
         for (int i = 0; i < tasksIndexes.length; i++) {
             for (int j = 0; j < membersNames.length; j++) {
-                model.unlink(tasksIndexes[i], membersNames[j]);
-                output += "Noted, unlinked task "
-                        + model.getTasksManager().getTaskById(tasksIndexes[i]).getName()
-                        + " from member "
-                        + membersNames[j] + ".\n";
+                try {
+                    model.unlink(tasksIndexes[i], membersNames[j]);
+                    output += "Noted, unlinked task "
+                            + model.getTasksManager().getTaskById(tasksIndexes[i]).getName()
+                            + " from member "
+                            + membersNames[j] + ".\n";
+                } catch (DukeException e) {
+                    output += e.getMessage() + ".\n";
+                }
             }
         }
         model.save();
