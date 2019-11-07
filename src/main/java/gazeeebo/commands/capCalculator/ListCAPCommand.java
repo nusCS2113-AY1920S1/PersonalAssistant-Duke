@@ -2,6 +2,7 @@
 package gazeeebo.commands.capCalculator;
 
 import gazeeebo.UI.Ui;
+import gazeeebo.parsers.CAPCommandParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class ListCAPCommand {
      * @throws IOException catch the error if the read file fails.
      */
     public ListCAPCommand(final Ui ui,
-                          final Map<String, ArrayList<CAPCommand>> caplist,
+                          final Map<String, ArrayList<CAPCommandParser>> caplist,
                           final String lineBreak) throws IOException {
         try {
             CalculateCAPCommand calculatedGPA = new CalculateCAPCommand();
@@ -78,7 +79,7 @@ public class ListCAPCommand {
      * @param lineBreak print out a separator to separate each line in the list.
      * @param cap       CAP of the modules.
      */
-    private void listAll(final Map<String, ArrayList<CAPCommand>> caplist,
+    private void listAll(final Map<String, ArrayList<CAPCommandParser>> caplist,
                          final String lineBreak, final double cap) {
         System.out.print("Sem | Module code | MC | CAP\n" + lineBreak);
         for (String key : caplist.keySet()) {
@@ -109,7 +110,7 @@ public class ListCAPCommand {
      * @param cap       CAP of the modules.
      * @param semNumber semester that user input
      */
-    private void listSem(final Map<String, ArrayList<CAPCommand>> caplist,
+    private void listSem(final Map<String, ArrayList<CAPCommandParser>> caplist,
                          final Ui ui, final String lineBreak,
                          final double cap, final String semNumber) {
         try {

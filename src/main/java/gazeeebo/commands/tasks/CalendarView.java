@@ -12,6 +12,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class CalendarView {
+    private final int totalNumberDays = 31;
+    private final int totalNumberMonths = 12;
+    private final int daysInWeek = 7;
+    private final int leapYearEvery = 4;
+    private final int noLeapYear = 100;
+    private final int leapYear = 400;
+    private final int determineCurrMonth = 14;
+
     /**
      * Returns the day of the month.
      *
@@ -21,10 +29,10 @@ public class CalendarView {
      * @return int d The day of the start of the month in integer
      */
     public int startDay(final int month, final int day, final int year) {
-        int y = year - (14 - month) / 12;
-        int x = y + y / 4 - y / 100 + y / 400;
-        int m = month + 12 * ((14 - month) / 12) - 2;
-        int d = (day + x + (31 * m) / 12) % 7;
+        int y = year - (determineCurrMonth - month) / totalNumberMonths;
+        int x = y + y / leapYearEvery - y / noLeapYear + y / leapYear;
+        int m = month + totalNumberMonths * ((determineCurrMonth - month) / totalNumberMonths) - 2;
+        int d = (day + x + (totalNumberDays * m) / totalNumberMonths) % daysInWeek;
         return d;
     }
 
@@ -34,11 +42,11 @@ public class CalendarView {
      * @param year year
      * @return true if it is a leap year, false otherwise
      */
-    public boolean isLeapYear(final int year) {
-        if ((year % 4 == 0) && (year % 100 != 0)) {
+    public boolean isLeapYear(int year) {
+        if ((year % leapYearEvery == 0) && (year % noLeapYear != 0)) {
             return true;
         }
-        return year % 400 == 0;
+        return year % leapYear == 0;
     }
 
     /**
@@ -52,7 +60,7 @@ public class CalendarView {
         int month = (now.get(Calendar.MONTH) + 1);
         int year = now.get(Calendar.YEAR);
         int date = now.get(Calendar.DATE);
-        boolean[] isBusy = new boolean[32];
+        boolean[] isBusy = new boolean[totalNumberDays+1];
         for (Task task : list) {
             switch (task.getClass().getName()) {
                 case "gazeeebo.tasks.Event":
@@ -83,7 +91,7 @@ public class CalendarView {
                         }
                     } else if (startDate.getMonthValue() == month) {
                         assert (endDate.getDayOfMonth() != month);
-                        for (int i = startDate.getDayOfMonth(); i <= 31; i++) {
+                        for (int i = startDate.getDayOfMonth(); i <= totalNumberDays; i++) {
                             isBusy[i] = true;
                         }
                     }
@@ -125,7 +133,7 @@ public class CalendarView {
             } else {
                 System.out.printf("%4s ", i);
             }
-            if (((i + d) % 7 == 0) || (i == days[month])) {
+            if (((i + d) % daysInWeek == 0) || (i == days[month])) {
                 System.out.println();
             }
         }
@@ -143,7 +151,7 @@ public class CalendarView {
         int month = (now.get(Calendar.MONTH) + 1);
         int year = now.get(Calendar.YEAR);
         int date = now.get(Calendar.DATE);
-        boolean[][] isBusy = new boolean[13][32];
+        boolean[][] isBusy = new boolean[totalNumberMonths + 1][totalNumberDays + 1];
         for (Task task : list) {
             switch (task.getClass().getName()) {
                 case "gazeeebo.tasks.Event":
@@ -165,7 +173,7 @@ public class CalendarView {
                             isBusy[startDate.getMonthValue()][i] = true;
                         }
                     } else {
-                        for (int i = startDate.getDayOfMonth(); i <= 31; i++) {
+                        for (int i = startDate.getDayOfMonth(); i <= totalNumberDays; i++) {
                             isBusy[startDate.getMonthValue()][i] = true;
                         }
                         for (int i = 1; i <= endDate.getDayOfMonth(); i++) {
@@ -175,7 +183,7 @@ public class CalendarView {
                                 - startDate.getMonthValue() > 1) {
                             for (int i = startDate.getMonthValue() + 1;
                                  i < endDate.getMonthValue(); i++) {
-                                for (int k = 1; k <= 31; k++) {
+                                for (int k = 1; k <= totalNumberDays; k++) {
                                     isBusy[i][k] = true;
                                 }
                             }
@@ -220,7 +228,7 @@ public class CalendarView {
                 } else {
                     System.out.printf("%4s ", i);
                 }
-                if (((i + d) % 7 == 0) || (i == days[month])) {
+                if (((i + d) % daysInWeek == 0) || (i == days[month])) {
                     System.out.println();
                 }
             }

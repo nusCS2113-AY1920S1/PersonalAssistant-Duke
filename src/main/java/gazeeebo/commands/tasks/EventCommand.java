@@ -83,7 +83,7 @@ public class EventCommand extends Command {
                 }
             }
             if (!clash.isEmpty()) {
-                System.out.println("The following event(s)"
+                System.out.println("The following event(s) "
                         + "clash with your current event:");
                 for (int i = 0; i < clash.size(); i++) {
                     System.out.println((i + 1) + "."

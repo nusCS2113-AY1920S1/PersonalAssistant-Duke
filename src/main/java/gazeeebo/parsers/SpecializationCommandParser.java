@@ -1,8 +1,12 @@
-package gazeeebo.commands.specialization;
+package gazeeebo.parsers;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
+import gazeeebo.commands.specialization.CompletedCommand;
+import gazeeebo.commands.specialization.ListOfSpecializationAndModules;
+import gazeeebo.commands.specialization.ListSpecializationCommand;
+import gazeeebo.commands.specialization.ModuleCategory;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
@@ -14,7 +18,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.Stack;
 
-public class SpecializationCommand extends Command {
+public class SpecializationCommandParser extends Command {
     /**
      * This method is allows user to call commands to add expenses,
      * find expenses on a certain date, delete a chosen expense,

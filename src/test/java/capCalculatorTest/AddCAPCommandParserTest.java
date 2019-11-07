@@ -2,7 +2,7 @@ package capCalculatorTest;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.capCalculator.AddCAPCommand;
-import gazeeebo.commands.capCalculator.CAPCommand;
+import gazeeebo.parsers.CAPCommandParser;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,10 +13,10 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AddCAPCommandTest {
+public class AddCAPCommandParserTest {
     private Ui ui = new Ui();
-    private HashMap<String, ArrayList<CAPCommand>> map = new HashMap<>();
-    private Map<String, ArrayList<CAPCommand>> CAPList = new TreeMap<>(map);
+    private HashMap<String, ArrayList<CAPCommandParser>> map = new HashMap<>();
+    private Map<String, ArrayList<CAPCommandParser>> CAPList = new TreeMap<>(map);
 
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
     private PrintStream mine = new PrintStream(output);

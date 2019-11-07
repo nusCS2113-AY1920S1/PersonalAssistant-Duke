@@ -66,6 +66,7 @@ demarcated by an “*”. This function allows users to visualise and better pla
 ** Documentation:
 *** Reorganise the user guide and group it according to the feature so that it will be more user-friendly.
 *** Standardised font and font size used for different sections.
+*** Organised the contents of the Developer Guide (Pull Requests https://github.com/AY1920S1-CS2113T-F10-4/main/pull/272[#272])
 ** Community:
 *** Reviewed Pull Requests (Pull Requests https://github.com[#166], https://github.com[#147], https://github.com[#100], https://github.com[#97], https://github.com[#78], https://github.com[#68], https://github.com[#66], https://github.com[#61], https://github.com[#51], https://github.com[#49]
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/jessteoxizhi/ped/issues/6[1], https://github.com/jessteoxizhi/ped/issues/9[2], https://github.com/jessteoxizhi/ped/issues/7[3])

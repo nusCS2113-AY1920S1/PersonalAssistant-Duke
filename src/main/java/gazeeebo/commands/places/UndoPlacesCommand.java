@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Stack;
 
-class UndoPlacesCommand {
+public class UndoPlacesCommand {
     /**
      *  Undo places previous command
      *
@@ -18,7 +18,7 @@ class UndoPlacesCommand {
      * @return previous map before the command.
      * @throws IOException input or output error when interacting with user.
      */
-    static Map<String,String> undoPlaces(Map<String, String> places, Stack<Map<String, String>> oldplaces,
+    public static Map<String,String> undoPlaces(Map<String, String> places, Stack<Map<String, String>> oldplaces,
                                          Storage storage) throws IOException {
         if (!oldplaces.empty()) {
             places = oldplaces.peek();

@@ -1,8 +1,9 @@
 //@@author jessteoxizhi
 
-package gazeeebo.commands.places;
+package gazeeebo.parsers;
 
 import gazeeebo.commands.help.HelpCommand;
+import gazeeebo.commands.places.*;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
@@ -17,7 +18,7 @@ import java.util.Stack;
 import java.util.TreeMap;
 import java.util.HashMap;
 
-public class PlacesCommand extends Command {
+public class PlacesCommandParser extends Command {
     /**
      * Parses the user input and return a command object.
      *
@@ -40,9 +41,10 @@ public class PlacesCommand extends Command {
                 + "2. Find a place in SOC: find-place\n"
                 + "3. Delete a place: delete-place\n"
                 + "4. See all places in SOC: list\n"
-                + "5. See all commands: commands\n"
-                + "6. Help command: help\n"
-                + "7. Exit places: esc\n"
+                + "5. Undo previous command: undo\n"
+                + "6. See all commands: commands\n"
+                + "7. Help command: help\n"
+                + "8. Exit places: esc\n"
                 + "__________________________________________________________\n\n";
         System.out.println("Welcome to your places in SOC! What would you like to do?");
         System.out.println(helpPlaces);

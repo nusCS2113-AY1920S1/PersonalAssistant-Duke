@@ -1,5 +1,6 @@
-package gazeeebo.commands.expenses;
+package gazeeebo.parsers;
 
+import gazeeebo.commands.expenses.*;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
@@ -18,7 +19,7 @@ import java.util.TreeMap;
 /**
  * Allows user to call commands to record and manage their expenses.
  */
-public class ExpenseCommand extends Command {
+public class ExpenseCommandParser extends Command {
 
     /**
      * This method is allows user to call commands to add expenses,
