@@ -16,7 +16,9 @@ public abstract class ObjSpec extends ArgSpec {
     }
 
     protected void processResults(DukeCore core, SearchResults results) throws DukeException {
-        if (results.getCount() == 1) {
+        if (results.getCount() == 0) {
+            throw new DukeException("No results found for '" + results.getName() + "'!");
+        } else if (results.getCount() == 1) {
             executeWithObj(core, results.getResult(0));
         } else {
             core.search(results, cmd);
