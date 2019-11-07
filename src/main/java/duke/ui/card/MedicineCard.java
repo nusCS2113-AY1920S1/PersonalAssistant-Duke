@@ -12,10 +12,7 @@ import java.util.List;
  */
 public class MedicineCard extends TreatmentCard {
     private static final String FXML = "MedicineCard.fxml";
-    // TODO: holdover from when we intended to implement custom status arrays
-    private static final String[] statuses = {"No status", "Request not submitted", "Submitted request",
-        "Pending", "Ongoing", "Completed"};
-
+    private static final List<String> statuses = Arrays.asList("Not ordered", "In progress", "Completed");
     private final Medicine medicine;
 
     /**
@@ -40,8 +37,8 @@ public class MedicineCard extends TreatmentCard {
         if (medicine.getStatusIdx() >= 0
                 && medicine.getStatusIdx() < Medicine.getStatusArr().size()) {
             statusText += " - " + medicine.getStatusStr();
-        } else if (medicine.getStatusIdx() >= 0 && medicine.getStatusIdx() < statuses.length) {
-            statusText += " - Default " + statuses[medicine.getStatusIdx()];
+        } else if (medicine.getStatusIdx() >= 0 && medicine.getStatusIdx() < statuses.size()) {
+            statusText += " - Default " + statuses.get(medicine.getStatusIdx());
         }
         statusLabel.setText(statusText);
     }
