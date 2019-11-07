@@ -1,11 +1,1 @@
-degree-CEG-0
-degree-MSE-1
-degree-BME-2
-degree-BioMed-3
-degree-BM-4
-degree-EE-5
-degree-ElecE-6
-degree-Mech Eng-7
-degree-MSE-8
-degree-IE-9
-degree-ISE-10
+degree-Biomedical Engineering-0
