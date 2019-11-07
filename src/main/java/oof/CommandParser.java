@@ -67,10 +67,10 @@ public class CommandParser {
      */
     public static Command parse(String input) throws ParserException, CommandException {
         if (containsIllegalInput(input)) {
-            throw new IllegalCommandException("Your command contains illegal input!");
+            throw new IllegalCommandException("OOPS!!! Command contains illegal input!");
         }
         String command = getFirstWord(input);
-        input = input.replaceFirst(command, "").trim();
+        input = removeFirstWord(input);
         switch (command) {
         case ByeCommand.COMMAND_WORD:
             return new ByeCommand();
@@ -157,10 +157,10 @@ public class CommandParser {
     }
 
     /**
-     * Extracts the Command type from user input.
+     * Extracts the first word from user input.
      *
      * @param input User input.
-     * @return String containing type of command.
+     * @return String containing the first word.
      */
     private static String getFirstWord(String input) {
         int index = input.indexOf(' ');
@@ -170,6 +170,23 @@ public class CommandParser {
             return input.substring(0, index).trim(); // Extracts first word.
         }
     }
+
+    /**
+     * Removes the first word from user input.
+     *
+     * @param input User input.
+     * @return string without first word or empty string if user input contains one word.
+     */
+    private static String removeFirstWord(String input) {
+        int index = input.indexOf(' ');
+        if (index == -1) { // Input only contains a single word
+            return "";
+        } else {
+            return input.substring(index + 1).trim(); // Extracts after space.
+        }
+    }
+
+
 
     /**
      * Tokenize the user input into an argument array.
@@ -372,7 +389,7 @@ public class CommandParser {
             return new ViewSelectedSemesterCommand();
         } else {
             String commandFlag = getFirstWord(input);
-            input = input.replaceFirst(commandFlag, "").trim();
+            input = removeFirstWord(input);
             switch (commandFlag) {
             case "/add":
                 return parseSemesterAdd(input);
@@ -430,7 +447,7 @@ public class CommandParser {
             return new ViewSelectedModuleCommand();
         } else {
             String commandFlag = getFirstWord(input);
-            input = input.replaceFirst(commandFlag, "").trim();
+            input = removeFirstWord(input);
             switch (commandFlag) {
             case "/add":
                 return parseModuleAdd(input);
@@ -487,7 +504,7 @@ public class CommandParser {
             return new ViewLessonCommand();
         } else {
             String commandFlag = getFirstWord(input);
-            input = input.replaceFirst(commandFlag, "").trim();
+            input = removeFirstWord(input);
             switch (commandFlag) {
             case "/add":
                 return parseLessonAdd(input);
