@@ -39,7 +39,7 @@ class ExportTest {
      * Setups the necessary base to carry out the test operations.
      */
     @BeforeAll
-    static void setup(){
+    static void setup() {
         list = new ArrayList<>();
         tasks = new TaskList(list);
         file = new File(System.getProperty("user.dir") + "/src/test/Test");
@@ -65,7 +65,7 @@ class ExportTest {
     @Test
     void testExport() throws ChronologerException, IOException, ParserException, ParseException {
         Command export = new ExportCommand("ExportTest", Boolean.TRUE, Boolean.FALSE, Boolean.FALSE);
-        export.execute(tasks,storage);
+        export.execute(tasks, storage);
 
         System.setProperty("net.fortuna.ical4j.timezone.cache.impl", MapTimeZoneCache.class.getName());
         calendarFile = new File(System.getProperty("user.dir") + "/src/ChronologerDatabase/ExportTest.ics");
@@ -75,16 +75,16 @@ class ExportTest {
 
         Component component = calendar.getComponents().get(0);
         Description deadlineDescription = component.getProperty(Property.DESCRIPTION);
-        Assertions.assertEquals(deadlineDescription.getValue(),"Testing description");
+        Assertions.assertEquals(deadlineDescription.getValue(), "Testing description");
 
         Summary deadlineSummary = component.getProperty(Property.SUMMARY);
-        Assertions.assertEquals(deadlineSummary.getValue(),"Test");
+        Assertions.assertEquals(deadlineSummary.getValue(), "Test");
 
         DtEnd deadlineDate = component.getProperty(Property.DTEND);
         java.util.Calendar deadlineCalendar = convertToCalendar(LocalDateTime.now().plusDays(3));
         DateTime testDeadlineDate = new DateTime(deadlineCalendar.getTime());
         DateTime deadlineConverted = new DateTime(String.valueOf(deadlineDate.getValue()));
-        Assertions.assertEquals(deadlineConverted,testDeadlineDate);
+        Assertions.assertEquals(deadlineConverted, testDeadlineDate);
 
         inputStream.close();
         calendarFile.delete();
