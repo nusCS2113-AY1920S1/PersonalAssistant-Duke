@@ -35,6 +35,7 @@ public class AssignmentController {
      * @param input The input from the user.
      */
     public void assignAndUnassign(String input) {
+        assert input != null;
         if (input.length() < ASSIGN_TASK_COMMAND.length()) {
             errorMessages.add("Insufficient parameters!"
                 + "Indicate the tasks and members whom you wish to assign or remove!");
@@ -42,7 +43,6 @@ public class AssignmentController {
             errorMessages.add("You must either assign a task to someone, or remove, or both!");
             return;
         }
-        assert input.length() >= ASSIGN_TASK_COMMAND.length() : "Valid input";
         input = input.substring(ASSIGN_TASK_COMMAND.length()); //remove the "assign task " portion
         ArrayList<ArrayList<Integer>> assignmentParams = parserHelper.parseAssignmentParams(input, project);
         errorMessages.addAll(parserHelper.getErrorMessages());
@@ -55,7 +55,6 @@ public class AssignmentController {
             errorMessages.add("Please input valid task numbers in this format: -i TASK_INDEX");
             return;
         }
-        assert validTaskIndexes.size() > 0 : "Valid tasks exist";
 
         if (validAssignees.size() == 0 && validUnassignees.size() == 0) {
             errorMessages.add("Insufficient parameters! Indicate the members whom you wish to assign or remove!");
@@ -63,7 +62,6 @@ public class AssignmentController {
             errorMessages.add("You must either assign a task to someone, or remove, or both!");
             return;
         }
-        assert validAssignees.size() > 0 || validUnassignees.size() > 0 : "Valid members exist";
 
         for (Integer taskIndex : validTaskIndexes) {
             Task task = project.getTask(taskIndex);
