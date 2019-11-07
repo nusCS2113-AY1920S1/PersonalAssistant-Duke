@@ -70,6 +70,10 @@ public class Instruction {
         return input.startsWith("add payee");
     }
 
+    public boolean isListPayments(String input) {
+        return input.startsWith("list payments");
+    }
+
     public boolean isDeletePayee(String input) {
         return input.startsWith("delete payee");
     }
@@ -116,6 +120,10 @@ public class Instruction {
 
     public boolean isShowFund(String input) { 
         return input.startsWith("show fund"); 
+    }
+
+    public boolean isResetFund(String input) {
+        return input.startsWith("reset fund");
     }
 
     public boolean isViewhistory(String input) { 

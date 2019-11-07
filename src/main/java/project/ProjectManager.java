@@ -76,6 +76,16 @@ public class ProjectManager {
     }
 
     /**
+     * Method to go to the project in the projectmap.
+     * @param projectname Name of project to go to.
+     * @return Returns the project object of the project to go to.
+     */
+    public String gotoProject(String projectname) {
+        currentprojectname = projectmap.get(projectname).projectname;
+        return currentprojectname;
+    }
+
+    /**
      * Lists all projects in the projectmap.
      * @return Returns an ArrayList of projects.
      */

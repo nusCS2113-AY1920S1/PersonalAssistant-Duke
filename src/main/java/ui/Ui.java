@@ -4,6 +4,7 @@ import common.CommandFormat;
 import common.TaskList;
 import payment.Payee;
 import payment.Payments;
+import payment.Status;
 import project.Fund;
 import project.Project;
 import task.Task;
@@ -197,29 +198,49 @@ public class Ui {
             + date2 + " have been deleted from the history");
     }
 
+
     /**
      * Prints the list of payments of a payee.
      * @param paymentList paymentList of the payee.
      */
     public void printPaymentList(ArrayList<Payments> paymentList) {
+        System.out.println("Here are your payments:");
+        int i = 0;
         for (Payments payments : paymentList) {
-            System.out.println(payments.givePayments());
+            System.out.println("Payment " + ++i + ":");
+            payments.givePayments();
+        }
+    }
+
+    /**
+     * Prints the list of payments of a payee.
+     * @param paymentList paymentList of the payee.
+     */
+    public void printPaymentList(ArrayList<Payments> paymentList, Status status) {
+        if (status == Status.PENDING) {
+            System.out.println("Here are your pending payments:");
+        } else if (status == Status.OVERDUE) {
+            System.out.println("Here are your overdue payments:");
+        } else if (status == Status.APPROVED) {
+            System.out.println("Here are your approved payments:");
+        }
+        int i = 0;
+        for (Payments payments : paymentList) {
+            System.out.println("Payment " + ++i + ":");
+            payments.givePayments();
         }
     }
 
     /**
      * Prints message to indicate deletion of a Payment from the Payee and the number of Payments left.
      * @param payment Representation of the Payment that is deleted.
-     * @param payee the name of the payee to whom Payment was being made to
      * @param size the number of payments in the record for this Payee after deletion
      */
-    public void printDeletePaymentMessage(String payee, Payments payment, int size, String currentprojectnameName) {
+    public void printDeletePaymentMessage(Payments payment, int size, String currentprojectnameName) {
         System.out.print(line + "     Noted. I've removed this payment: \n");
-        System.out.println("\t" + "Payee: " + payee);
-        System.out.println("\t" + "Item: " + payment.item);
-        System.out.println("\t" + "Cost: " + payment.cost);
-        System.out.println("\t" + "Invoice: " + payment.inv);
-        System.out.print("\t" + payee + " now has " + size + " payments in project " + currentprojectnameName + ".\n");
+        payment.givePayments();
+        System.out.print("\t" + payment.payee + " now has " + size 
+            + " payments in project " + currentprojectnameName + ".\n");
         System.out.print(line);
     }
 
@@ -296,12 +317,7 @@ public class Ui {
      */
     public void printEditMessage(Payments payment, String name) {
         System.out.print(line + "     Got it. I've edited this payment:  \n");
-        System.out.println("\t" + "Payee: " + name);
-        System.out.println("\t" + "Item: " + payment.item);
-        System.out.println("\t" + "Cost: " + payment.cost);
-        System.out.println("\t" + "Invoice: " + payment.inv);
-        System.out.println("\t" + "Deadline: " + payment.deadline);
-        System.out.println("\t" + "Status: " + payment.status);
+        payment.givePayments();
         System.out.print(line);
     }
 
@@ -317,19 +333,14 @@ public class Ui {
 
     /**
      * Prints message to indicate a Payment being added to a certain Payee.
-     * @param payee name of entity Payment is directed to
      * @param payment the new Payment containing the relevant information added to Payee object.
      */
-    public void printAddPaymentMessage(String payee, Payments payment, int size, String currentprojectname) {
+    public void printAddPaymentMessage(Payments payment, int size, String currentprojectname) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've added this payment:");
-        System.out.println("\t" + "Payee: " + payee);
-        System.out.println("\t" + "Item: " + payment.item);
-        System.out.println("\t" + "Cost: " + payment.cost);
-        System.out.println("\t" + "Invoice: " + payment.inv);
-        System.out.println("\t" + "Deadline: " + payment.deadline);
-        System.out.println("\t" + "Status: " + payment.status);
-        System.out.print("\t" + payee + " now has " + size + " payments in project " + currentprojectname + ".\n");
+        payment.givePayments();
+        System.out.print("\t" + payment.payee + " now has " + size 
+            + " payments in project " + currentprojectname + ".\n");
         System.out.print(line);
     }
 
@@ -389,6 +400,7 @@ public class Ui {
     /**
      * Prints message of adding a fund to all projects.
      * @param fund the fund for all projects.
+     * @param amount amount to be added.
      */
     public void printAddFundMessage(Fund fund, double amount) {
         System.out.print(line);
@@ -413,6 +425,20 @@ public class Ui {
         System.out.print(fund.giveFund());
         System.out.print(line);
     }
+
+    /**
+     * Prints message of adding a fund to all projects.
+     * @param fund the fund for all projects.
+     * @param amount amount to be set.
+     */
+    public void printResetFundMessage(Fund fund, double amount) {
+        System.out.print(line);
+        System.out.println("\t" + "Got it. I've reset the new fund as " + amount
+                + " dollars. The new fund is as follow:");
+        System.out.print(fund.giveFund());
+        System.out.print(line);
+    }
+
     /**
      * Prints out the statement of accounts.
      * @param managermap managermap containing Payee and Payments information.
@@ -441,6 +467,16 @@ public class Ui {
         System.out.println("Got it! I have redone the previous command.");
     }
 
+    public void printReminderMessage(ArrayList<Payments> paymentlist){
+        System.out.print(line);
+        System.out.println("\tYour reminder is as follow:\n");
+        for(Payments p:paymentlist){
+            System.out.println("\t" + p.getProject());
+            p.givePayments();
+        }
+        System.out.print(line);
+    }
+
     /**
      * Prints out a help message with command formats.
      */
@@ -455,10 +491,12 @@ public class Ui {
         System.out.println("\t" + "Set Fund:             " + commandFormat.setFundFormat());
         System.out.println("\t" + "Add Fund:             " + commandFormat.addFundFormat());
         System.out.println("\t" + "Assign Fund:          " + commandFormat.assignFundFormat());
+        System.out.println("\t" + "Reset Fund:           " + commandFormat.resetFundFormat());
         System.out.println("\t" + "Add Payee:            " + commandFormat.addPayeeFormat());
         System.out.println("\t" + "Add Payment:          " + commandFormat.addPaymentFormat());
         System.out.println("\t" + "Delete Payee:         " + commandFormat.deletePayeeFormat());
         System.out.println("\t" + "Edit Payment/Payee:   " + commandFormat.editPaymentFormat());
+        System.out.println("\t" + "Reminder:             " + commandFormat.reminderFormat());
         System.out.println("\t" + "History of Commands:  " + commandFormat.historyFormat());
         System.out.println("\t" + "View History within a certain period:         " + commandFormat.viewhistoryFormat());
         System.out.println("\t" + "Exit:                 " + commandFormat.exitFormat());

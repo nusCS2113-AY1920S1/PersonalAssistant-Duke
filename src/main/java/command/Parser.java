@@ -86,6 +86,9 @@ public class Parser {
                 //storage.save(tasklist.returnArrayList());
             } else if (instr.isFind(input)) {
                 // process.find(input, tasklist, ui);
+                //process.commandHistory(input, ui, storage);
+            } else if (instr.isListPayments(input)) {
+                process.listAllPayments(input, ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isWithinPeriodTask(input)) {
                 process.within(input, tasklist, ui);
@@ -110,9 +113,6 @@ public class Parser {
                 process.viewSchedule(input, tasklist, ui);
                 process.commandHistory(input, ui, storage);
                 //storage.save(tasklist.returnArrayList());
-            } else if (instr.isReminder(input)) {
-                //process.reminder(input, tasklist, ui);
-                process.commandHistory(input, ui, storage);
             } else if (instr.isEdit(input)) {
                 process.edit(input,ui);
                 process.commandHistory(input, ui, storage);
@@ -145,8 +145,14 @@ public class Parser {
             } else if (instr.isShowFund(input)) {
                 process.showFund(input, ui, fund);
                 process.commandHistory(input, ui, storage);
+            } else if (instr.isResetFund(input)) {
+                process.resetFund(input, ui, fund);
+                process.commandHistory(input, ui, storage);
             } else if (instr.isHelp(input)) {
                 ui.printHelpMessage();
+            } else if (instr.isReminder(input)) {
+                process.reminder( ui, storage);
+                process.commandHistory(input, ui, storage);
             } else {
                 throw new AlphaNUSException("\t" + "OOPS!!! I'm sorry, but I don't know what that means :-(");
             }

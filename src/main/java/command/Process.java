@@ -6,6 +6,7 @@ import common.TaskList;
 import payment.Payee;
 import payment.PaymentManager;
 import payment.Payments;
+import payment.Status;
 import project.Fund;
 import project.Project;
 import project.ProjectManager;
@@ -27,6 +28,7 @@ public class Process {
     private SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
     private CommandFormat commandformat = new CommandFormat();
     ProjectManager projectmanager = new ProjectManager();
+    private payment.Status Status;
 
     Process() throws AlphaNUSException {
     }
@@ -217,14 +219,23 @@ public class Process {
         try {
             String[] split = input.split("am/", 2);
             Double amount = Double.parseDouble(split[1]);
-            if (fund.getFund() == 0.0) {
-                fund.setFund(amount);
-                ui.printSetFundMessage(fund);
+            if (amount < 0) {
+                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value. ");
+            } else if (amount > 500000) {
+                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value of no more than 500,000. ");
             } else {
-                ui.exceptionMessage("     ☹ OOPS!!! The fund id set already.");
+                if (fund.getFund() == 0.0) {
+                    fund.setFund(amount);
+                    ui.printSetFundMessage(fund);
+                } else {
+                    ui.exceptionMessage("     ☹ OOPS!!! The fund is set already. "
+                            + "Please use reset fund command instead.");
+                }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+        } catch (NumberFormatException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! The amount of fund must be a positive number and mustser not be empty!");
         }
     }
 
@@ -239,10 +250,21 @@ public class Process {
         try {
             String[] split = input.split("add/", 2);
             Double amount = Double.parseDouble(split[1]);
-            fund.addFund(amount);
-            ui.printAddFundMessage(fund, amount);
+            if (amount < 0) {
+                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value. ");
+            } else if (amount > 500000) {
+                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value of no more than 500,000. ");
+            } else if (fund.getFund() + amount >= 500000) {
+                ui.exceptionMessage("     ☹ Oops!!! The total fund will be above the limit. You can still add "
+                        + (500000 - fund.getFund()) + "dollars to your current fund!");
+            } else {
+                fund.addFund(amount);
+                ui.printAddFundMessage(fund, amount);
+            }
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+        } catch (NumberFormatException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! The amount of fund must be a positive number and mustser not be empty!");
         }
     }
 
@@ -261,6 +283,10 @@ public class Process {
             if (!projectmanager.projectmap.containsKey(projectname)) {
                 System.out.println("\t" + "Project does not exist!");
                 return;
+            } else if (amount < 0) {
+                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value. ");
+            } else if (amount > 500000) {
+                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value of no more than 500,000. ");
             } else {
                 if (fund.getFundRemaining() >= amount) {
                     fund.takeFund(amount);
@@ -276,6 +302,8 @@ public class Process {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException e) {
             ui.exceptionMessage("     ☹ OOPS!!! There is no project with that name yet, please add the project first!");
+        } catch (NumberFormatException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! The amount of fund must be a positive number and mustser not be empty!");
         }
     }
 
@@ -290,6 +318,38 @@ public class Process {
         System.out.print(fund.giveFund());
         System.out.println(Ui.line);
     }
+
+    /**
+     * Process the reset fund command to add fund value to all projects.
+     * TODO future implementation: user need to key in password to enable this action.
+     * Command format: reset fund new/AMOUNT_OF_FUND.
+     * @param input Input from the user.
+     * @param ui Ui that interacts with the user.
+     * @param fund the total fund the that the organisation owns
+     */
+    public void resetFund(String input, Ui ui, Fund fund) {
+        try {
+            String[] split = input.split("new/", 2);
+            Double newFund = Double.parseDouble(split[1]);
+            if (newFund < 0) {
+                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value. ");
+            } else if (newFund > 500000) {
+                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value of no more than 500,000. ");
+            } else if (fund.getFundTaken() > newFund) {
+                ui.exceptionMessage("     ☹ Oops!!! new fund should not be more than the sum of assigned budgets!\n "
+                        + "   You have assigned " + (fund.getFundTaken()) + " dollars to your projects!");
+            } else {
+                fund.setFund(newFund);
+                ui.printResetFundMessage(fund, newFund);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+        } catch (NumberFormatException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! The amount of fund must be a positive number and mustser not be empty!");
+        }
+    }
+
+
     //===========================* Deadline *================================
 
     /**
@@ -594,12 +654,12 @@ public class Process {
     public void deletePayment(String input, Ui ui, Storage storage) throws AlphaNUSException {
         BeforeAfterCommand.beforedoCommand(storage, projectmanager);
         HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
-        String currentprojectnameName = projectmanager.currentprojectname;
+        String currentprojectname = projectmanager.currentprojectname;
         String[] arr = input.split("payment ", 2);
         String[] split = arr[1].split("p/|i/");
         split = cleanStrStr(split);
-        Payments deleted = PaymentManager.deletePayments(split[1], split[2], managermap);
-        ui.printDeletePaymentMessage(split[1], deleted, managermap.get(split[1]).payments.size(), currentprojectnameName);
+        Payments deleted = PaymentManager.deletePayments(split[1], split[2], managermap, currentprojectname);
+        ui.printDeletePaymentMessage(deleted, managermap.get(split[1]).payments.size(), currentprojectname);
         BeforeAfterCommand.afterCommand(storage, projectmanager);
     }
 
@@ -621,9 +681,9 @@ public class Process {
             String item = splitpayments[2];
             double cost = Double.parseDouble(splitpayments[3]);
             String invoice = splitpayments[4];
-            Payments payment = PaymentManager.addPayments(payee, item, cost, invoice, managermap);
+            Payments payment = PaymentManager.addPayments(payee, item, cost, invoice, managermap, currentprojectname);
             int paymentsSize = managermap.get(payee).payments.size();
-            ui.printAddPaymentMessage(splitpayments[1], payment, paymentsSize, currentprojectname);
+            ui.printAddPaymentMessage(payment, paymentsSize, currentprojectname);
             BeforeAfterCommand.afterCommand(storage, projectmanager);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
@@ -658,6 +718,8 @@ public class Process {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException e) {
             ui.exceptionMessage("     ☹ OOPS!!! There is no payee with that name yet, please add the payee first!");
+        } catch (IllegalArgumentException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! There is a payee with that name in the record!");
         } catch (AlphaNUSException e) {
             e.printStackTrace();
         }
@@ -704,6 +766,75 @@ public class Process {
             ui.exceptionMessage("     ☹ OOPS!!! The content to find cannot be empty.");
         }
     }
+
+
+
+    /**
+     * reminder of the payments based on the status and deadline
+     * @param ui Ui that interacts with the user.
+     * @param storage storage of the programme.
+     */
+    public void reminder ( Ui ui, Storage storage) throws AlphaNUSException {
+        ArrayList<Project> projectslist = projectmanager.listProjects();
+        ArrayList<Payments> approved = new ArrayList<>();
+        ArrayList<Payments> overdue = new ArrayList<>();
+        ArrayList<Payments> pending = new ArrayList<>();
+        ArrayList<Payments> tobesorted = new ArrayList<>();
+        if (projectslist.isEmpty()) {
+            ui.printNoProjectMessage();
+            return;
+        }
+        for (Project project:projectslist) {
+            HashMap<String, Payee> managermap = project.managermap;
+            for (Payee payee : managermap.values()) { // iterate through the payees
+                for (Payments payment : payee.payments) { // iterate through the payments
+                    if (payment.getStatus()==Status.APPROVED) {
+                        approved.add(payment);
+                    } else {
+                        tobesorted.add(payment);
+                    }
+                }
+            }
+        }
+        Collections.sort(overdue);
+        Collections.sort(pending);
+        Collections.sort(tobesorted);
+        ui.printReminderMessage(tobesorted);
+    }
+
+    /**
+     * Processes the find command and outputs a list of payments from the payee name given.
+     * @param input Input from the user.
+     * @param ui Ui that interacts with the user.
+     */
+    public void listAllPayments(String input, Ui ui) {
+        try {
+            if (input.contains("pr/")) {
+                String[] splitspace = input.split("payments ", 2);
+                String[] splitpayments = splitspace[1].split("pr/");
+                splitpayments = cleanStrStr(splitpayments);
+                projectmanager.gotoProject(splitpayments[1]);
+            } else if (input.contains("p/")) {
+                String[] splitspace = input.split("payments ", 2);
+                String[] splitpayments = splitspace[1].split("p/");
+                splitpayments = cleanStrStr(splitpayments);
+                HashMap<String, Payee> managerMap = projectmanager.getCurrentProjectManagerMap();
+                ui.printPaymentList(managerMap.get(splitpayments[1]).payments);
+                return;
+            }
+            HashMap<String, Payee> managerMap = projectmanager.getCurrentProjectManagerMap();
+            ArrayList<ArrayList<Payments>> listOfPayments = PaymentManager.listPayments(managerMap);
+            for (ArrayList<Payments> lists : listOfPayments) {
+                if (lists.isEmpty()) {
+                    continue;
+                }
+                ui.printPaymentList(lists, lists.get(0).status);
+            }
+        } catch (NullPointerException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! There are no payments to list!");
+        }
+    }
+
 
     //===========================* Command History *================================
 
