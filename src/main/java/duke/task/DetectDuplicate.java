@@ -27,7 +27,7 @@ public class DetectDuplicate {
      */
     public boolean isDuplicate(String command, String description) {
         if ("todo".equals(command) || "fixedduration".equals(command)
-                || "deadline".equals(command) || "repeat".equals(command)) {
+                || "deadline".equals(command) || "update".equals(command)) {
             for (int i = Numbers.ZERO.value; i < items.size(); i++) {
                 if (items.get(i).isContain(description)) {
                     //contains, is implemented in Task.java

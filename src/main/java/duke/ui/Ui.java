@@ -418,6 +418,7 @@ public class Ui {
     public static String showFindGui(TaskList items, String keyword) {
         String str = "     Here are the matching tasks in your list:\n";
         int numFound = Numbers.ZERO.value;
+
         for (int i = Numbers.ZERO.value; i < items.size(); i++) {
             if (items.get(i).getDescription().contains(keyword)) {
                 str += "     " + (i + Numbers.ONE.value) + "." + items.get(i).toStringGui() + "\n";

@@ -112,6 +112,8 @@ public class Parser {
         boolean getDate = false;
         if (sentence.trim().isEmpty()) {
             throw new DukeException(ErrorMessages.UNKNOWN_COMMAND.message);
+        } else if (sentence.contains("|")) {
+            throw new DukeException(ErrorMessages.AVOID_PIPELINE.message);
         } else if (sentence.equals("list")) {
             return new ListCommand();
         } else if (sentence.equals("priority")) {
@@ -132,15 +134,8 @@ public class Parser {
                     throw new DukeException(ErrorMessages.TASKNUM_INVALID_INT.message);
                 } else {
                     if (arr[Numbers.ZERO.value].equals("done")) {
-                        if (items.get(tasknum).toString().contains("[A]")) {
-                            String tempString = items.get(tasknum).toString();
-                            tempString = tempString.split(": ", Numbers.TWO.value)[Numbers.ONE.value];
-                            tempString = tempString.split("\\)")[Numbers.ZERO.value];
-
-                            if (!items.isTaskDone(tempString)) {
-                                throw new DukeException("     (>_<) OOPS!! Task requirements has yet to be completed!"
-                                        + " please complete task [" + tempString + "] before marking this as done!");
-                            }
+                        if (items.get(tasknum).isDone()) {
+                            throw new DukeException("     (>_<) OOPS!! This task has been marked as done!");
                         }
                         return new DoneCommand(tasknum);
                     } else { //delete
@@ -155,7 +150,11 @@ public class Parser {
                 if (arr[Numbers.ONE.value].trim().isEmpty()) {
                     throw new DukeException(ErrorMessages.KEYWORD_IS_EMPTY.message);
                 } else {
-                    return new FindCommand(arr[Numbers.ONE.value]);
+                    String keyword = EMPTY_STRING;
+                    for (int i = Numbers.ONE.value; i < arr.length; i++) {
+                        keyword += arr[i] + " ";
+                    }
+                    return new FindCommand(keyword.trim());
                 }
             }
         } else if (arr.length > Numbers.ZERO.value && arr[Numbers.ZERO.value].equals("filter")) {
@@ -248,7 +247,7 @@ public class Parser {
                 || arr[Numbers.ZERO.value].equals("dl"))) {
             for (int i = Numbers.ONE.value; i < arr.length; i++) {
                 if ((arr[i].trim().isEmpty()
-                        || !arr[i].substring(Numbers.ZERO.value, Numbers.ONE.value).equals("/")) && !getDate) {
+                        || !arr[i].equals("/by")) && !getDate) {
                     taskDesc += arr[i] + " ";
                 } else {
                     if (!getDate) { //detect "/"
@@ -265,7 +264,8 @@ public class Parser {
                 throw new DukeException("     (>_<) OOPS!!! The description of a "
                         + arr[Numbers.ZERO.value] + " cannot be empty.");
             } else if (dateDesc.isEmpty()) {
-                throw new DukeException("     (>_<) OOPS!!! The description of date/time for "
+                throw new DukeException("     (>_<) OOPS!!! Ensure that you have /by before writing date/time."
+                        + " The description of date/time for "
                         + arr[Numbers.ZERO.value] + " cannot be empty.");
             } else if (detectDuplicate.isDuplicate(arr[Numbers.ZERO.value], taskDesc)) {
                 return new DuplicateFoundCommand();
@@ -504,6 +504,7 @@ public class Parser {
                     taskDesc = taskDesc.trim();
                     dateDesc = dateDesc.trim();
                     typeDesc = typeDesc.trim();
+                    DetectDuplicate detectDuplicate = new DetectDuplicate(items);
                     if (typeOfUpdate == Numbers.ONE.value && taskDesc.isEmpty()) {
                         throw new DukeException("     (>_<) OOPS!!! The description of a "
                                 + arr[Numbers.ZERO.value] + " cannot be empty.");
@@ -513,6 +514,8 @@ public class Parser {
                     } else if (typeOfUpdate == Numbers.THREE.value && typeDesc.isEmpty()) {
                         throw new DukeException("     (>_<) OOPS!!! The description of type for "
                                 + arr[Numbers.ZERO.value] + " cannot be empty.");
+                    } else if (detectDuplicate.isDuplicate(arr[Numbers.ZERO.value], taskDesc)) {
+                        return new DuplicateFoundCommand();
                     } else if (typeOfUpdate != Numbers.MINUS_ONE.value) {
                         for (int i = Numbers.ZERO.value; i < items.size(); i++) {
                             if (dateDesc.equals(items.get(i).getDateTime()) && !items.get(i).isDone()) {

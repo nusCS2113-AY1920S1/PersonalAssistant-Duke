@@ -13,9 +13,9 @@ public class BudgetWindow extends AnchorPane {
     private TextArea taBudgetList;
 
     /**
-     * Setting up Add budget Window Interface.
+     * Setting up Budget Window Interface.
      *
-     * @param budgetDesc The existing notes of the task.
+     * @param budgetDesc The budget details.
      * @param currBudget The current budget.
      */
     @FXML

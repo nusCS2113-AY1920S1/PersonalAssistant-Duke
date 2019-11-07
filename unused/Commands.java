@@ -218,7 +218,7 @@
 
 //@@author talesrune-unused
 /**
- * Code snippet from ListContactsCommand
+ * Code snippet from ListCommand
  */
 //    /**
 //     * Executes a command that gathers all tasks from task list and outputs the result.
