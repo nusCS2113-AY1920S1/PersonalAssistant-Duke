@@ -1,8 +1,8 @@
-149.0
+98.95
 -100.05 : Backpack for the new semester
 -299.0 : Hypebeast hoodie
 -12.0 : iSteaks
 150.0 : Sold hypebeast shoes
 -1000.0 : Bought escooter
 400.0 : Sold escooter because cant ride on pathway and play man yao
-10.05 : No Description
+-40.0 : Family dinner, my treat
