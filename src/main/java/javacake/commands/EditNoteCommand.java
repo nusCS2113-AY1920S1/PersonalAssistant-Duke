@@ -181,7 +181,7 @@ public class EditNoteCommand extends Command {
      * Executes the EditNoteCommand accordingly depends on CLI or GUI.
      * If CLI, use ui and readAndSaveNewContent method to generate message for user.
      * If GUI, return !@#_EDIT_NOTE to notify MainWindow class to call GUI methods.
-     * @param logic TaskList containing current tasks
+     * @param logic tracks current location in program
      * @param ui the Ui responsible for outputting messages
      * @param storageManager storage container
      * @return endingMessage if CLI is used, else return !@#_EDIT_NOTE to request MainWindow class to handle.

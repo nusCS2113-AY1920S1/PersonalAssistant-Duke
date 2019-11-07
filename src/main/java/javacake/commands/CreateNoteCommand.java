@@ -148,7 +148,7 @@ public class CreateNoteCommand extends Command {
     /**
      * Checks if file name already exists.
      * If file name does not exist, create note for user.
-     * @param logic TaskList containing current tasks
+     * @param logic tracks current location in program
      * @param ui the Ui responsible for outputting messages
      * @param storageManager storage container
      * @return Message when note is created successfully.

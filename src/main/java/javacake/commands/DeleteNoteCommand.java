@@ -37,9 +37,9 @@ public class DeleteNoteCommand extends Command {
     /**
      * Executes the deleting process.
      * Verifies if the file specified by the user has been deleted.
-     * @param logic TaskList containing current tasks
-     * @param ui the Ui responsible for outputting messages
-     * @param storageManager storage container
+     * @param logic TaskList containing current tasks.
+     * @param ui the Ui responsible for outputting messages.
+     * @param storageManager storage container.
      * @return Notification messages depending delete outcome.
      * @throws CakeException If file does not exist.
      */
