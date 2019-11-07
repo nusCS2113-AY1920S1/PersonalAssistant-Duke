@@ -14,17 +14,20 @@ public class FindContactCommand {
      * alphabelt to first vertical line separator.
      */
     private static final int SPACE_NUMBER = 30;
+    /**
+     * Print the line separator between contacts.
+     */
+    private static final String LINEBREAK
+            = "------------------------------------------\n";
 
     /**
      * Finds the contact number with the contact name.
      *
      * @param ui          deals with printing things to the user.
      * @param contactList map each name to its own phone number
-     * @param lineBreak   String separator
      */
     public FindContactCommand(final Ui ui,
-                              final Map<String, String> contactList,
-                              final String lineBreak) {
+                              final Map<String, String> contactList) {
         try {
             String nameToFind = "";
             StringBuilder toPrint = new StringBuilder();
@@ -51,14 +54,14 @@ public class FindContactCommand {
                         toPrint.append(" ");
                     }
                     toPrint.append("| ").append(contactList.get(keys)).
-                            append("\n").append(lineBreak);
+                            append("\n").append(LINEBREAK);
                 }
             }
             if (!isExist) {
                 System.out.print(nameToFind + " is not found in the list.\n");
             } else {
                 System.out.print("Name:                         "
-                        + "| Number:\n" + lineBreak + toPrint);
+                        + "| Number:\n" + LINEBREAK + toPrint);
             }
         } catch (ArrayIndexOutOfBoundsException | IOException e) {
             System.out.print("Please Input in the correct format\n");

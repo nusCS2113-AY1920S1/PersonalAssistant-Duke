@@ -20,6 +20,17 @@ import java.util.Stack;
  */
 public class DeleteCommand extends Command {
     /**
+<<<<<<< HEAD
+     * @param list         task lists
+     * @param ui           deals with printing things to the user.
+     * @param storage      deals with storing data.
+     * @param commandStack keep stack of previous commands.
+     * @param deletedTask  keep stack of deleted tasks.
+     * @throws DukeException
+     * @throws ParseException catch error if parse string to date fails.
+     * @throws IOException catch the error if the read file fails.
+     * @throws NullPointerException if tDate doesn't get updated.
+=======
      * The string "delete" has 6 characters.
      */
     static final int DELETE_CHAR_COUNT = 6;
@@ -41,6 +52,7 @@ public class DeleteCommand extends Command {
      *                        format of delete command is wrong
      * @throws ParseException Catch error if parsing of command fails
      * @throws IOException    Catch error if the read file fails
+>>>>>>> 7b39e99af9747527697bf0b67af93c7dfcdfe446
      */
     @Override
     public void execute(final ArrayList<Task> list, final Ui ui,
