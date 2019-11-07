@@ -215,7 +215,8 @@ public class Process {
                     fund.setFund(amount);
                     ui.printSetFundMessage(fund);
                 } else {
-                    ui.exceptionMessage("     ☹ OOPS!!! The fund is set already. Please use reset fund command instead.");
+                    ui.exceptionMessage("     ☹ OOPS!!! The fund is set already. " +
+                            "Please use reset fund command instead.");
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -239,8 +240,8 @@ public class Process {
             } else if (amount > 500000) {
                 ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value of no more than 500,000. ");
             } else if (fund.getFund() + amount >= 500000) {
-                ui.exceptionMessage("     ☹ Oops!!! The total fund will be above the limit. You can still add "+
-                        (500000 - fund.getFund()) + "dollars to your current fund!");
+                ui.exceptionMessage("     ☹ Oops!!! The total fund will be above the limit. You can still add "
+                        + (500000 - fund.getFund()) + "dollars to your current fund!");
             } else {
                 fund.addFund(amount);
                 ui.printAddFundMessage(fund, amount);
@@ -316,8 +317,8 @@ public class Process {
             } else if (newFund > 500000) {
                 ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value of no more than 500,000. ");
             } else if (fund.getFundTaken() > newFund) {
-                ui.exceptionMessage("     ☹ Oops!!! new fund should not be more than the sum of assigned budgets!\n "+
-                        "   You have assigned " + (fund.getFundTaken()) + " dollars to your projects!");
+                ui.exceptionMessage("     ☹ Oops!!! new fund should not be more than the sum of assigned budgets!\n "
+                        + "   You have assigned " + (fund.getFundTaken()) + " dollars to your projects!");
             } else {
                 fund.setFund(newFund);
                 ui.printResetFundMessage(fund, newFund);
