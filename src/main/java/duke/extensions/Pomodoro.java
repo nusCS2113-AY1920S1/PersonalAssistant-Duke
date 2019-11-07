@@ -165,20 +165,26 @@ public class Pomodoro {
         currState = State.WORK;
     }
 
-    public void setPomodoroTask(Task t) {
+    public void setPomodoroTask(Task t) throws DukeException {
+        for (int i = 0; i < pomodoroTaskList.size(); i++) {
+            if (pomodoroTaskList.get(i) == t) {
+                throw new DukeException("You have already added this task to your pomodoro task list!");
+            }
+        }
         pomodoroTaskList.add(t);
         System.out.println("You have successfully assigned this task to your pomodoro:");
         System.out.println(t.getDescription());
     }
 
     public void doneTask(int i) throws DukeException {
-        if (i < 1) {
+        if (i < 0) {
             throw new DukeException("Please enter a positive index!");
         }
         if (i >= pomodoroTaskList.size()) {
             throw new DukeException("No such task exist in your pomodoro task list!");
         }
         Task t = pomodoroTaskList.get(i);
+        t.markAsDone();
         System.out.println("Congratulations! You have completed: " + t.getDescription());
         pomodoroTaskList.remove(i);
     }
