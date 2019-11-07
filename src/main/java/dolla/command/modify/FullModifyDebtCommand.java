@@ -1,8 +1,8 @@
 package dolla.command.modify;
 
-import dolla.DollaData;
+import dolla.model.DollaData;
 import dolla.command.Command;
-import dolla.task.Debt;
+import dolla.model.Debt;
 import dolla.ui.ModifyUi;
 
 import java.time.LocalDate;

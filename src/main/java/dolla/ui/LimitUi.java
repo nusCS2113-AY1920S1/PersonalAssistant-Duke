@@ -1,6 +1,6 @@
 package dolla.ui;
 
-import dolla.task.Record;
+import dolla.model.Record;
 
 /**
  * LimitUi is a class that handles all limit related user interactions.

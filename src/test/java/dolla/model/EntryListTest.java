@@ -1,4 +1,4 @@
-package dolla.task;
+package dolla.model;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;

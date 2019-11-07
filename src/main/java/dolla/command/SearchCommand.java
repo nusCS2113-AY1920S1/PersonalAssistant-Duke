@@ -1,8 +1,8 @@
 package dolla.command;
 
-import dolla.DollaData;
+import dolla.model.DollaData;
+import dolla.model.RecordList;
 import dolla.exception.DollaException;
-import dolla.task.RecordList;
 import dolla.ui.ListUi;
 import dolla.ui.SearchUi;
 

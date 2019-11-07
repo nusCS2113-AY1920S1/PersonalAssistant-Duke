@@ -1,4 +1,4 @@
-package dolla.task;
+package dolla.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

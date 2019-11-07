@@ -1,8 +1,6 @@
 package dolla.ui;
 
-import dolla.task.Record;
-
-import java.util.ArrayList;
+import dolla.model.Record;
 
 import static dolla.ModeStringList.MODE_SHORTCUT;
 

@@ -2,10 +2,9 @@ package dolla.parser;
 
 import dolla.ModeStringList;
 import dolla.Time;
+import dolla.model.RecordList;
 import dolla.exception.DollaException;
-import dolla.task.RecordList;
 import dolla.ui.EntryUi;
-import dolla.ui.LimitUi;
 import dolla.ui.Ui;
 import dolla.ui.ModifyUi;
 
@@ -47,7 +46,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         this.commandToRun = inputArray[0];
     }
 
-    public abstract Command parseInput() throws DollaException;
+    public abstract Command parseInput();
 
     public static String getInputLine() {
         return inputLine;
@@ -72,7 +71,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             // TODO: Shouldn't happen anymore, need to test if this will happen still
             Ui.printMsg("Please add '/at <date>' after your task to specify the entry date.");
             throw new Exception("missing date");
-        }  catch (DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             Ui.printDateFormatError();
             throw new Exception("invalid date");
         }
@@ -90,7 +89,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * @param str String (of number) to be converted into integer type.
      * @return Integer type of the specified string.
      */
-    public static double stringToDouble(String str) throws DollaException {
+    public static double stringToDouble(String str) throws Exception {
         double newDouble = 0.0;
         try {
             newDouble = Double.parseDouble(str);
@@ -99,6 +98,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             }
         } catch (NumberFormatException e) {
             Ui.printInvalidNumberError(str);
+            throw new NumberFormatException("Invalid amount");
         }
         return newDouble;
     }
@@ -134,8 +134,8 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      */
     public boolean verifyAddCommand() {
         try {
-            verifyAddType(inputArray[1]);
-            stringToDouble(inputArray[2]);
+            type = verifyAddType(inputArray[1]);
+            amount = stringToDouble(inputArray[2]);
             extractDescTime();
         } catch (IndexOutOfBoundsException e) {
             EntryUi.printInvalidEntryFormatError();
@@ -303,8 +303,8 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             String currStr = inputArray[i];
 
             if (isComponent(currStr)) {
-                String nextStr = inputArray[i + 1];
                 try {
+                    String nextStr = inputArray[i + 1];
                     switch (currStr) {
                     case COMPONENT_TYPE:
                         type = verifyAddType(nextStr);
@@ -324,8 +324,13 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                     default:
                         break;
                     }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    ModifyUi.printMissingComponentInfoError(currStr);
+                    return false;
+                } catch (DateTimeParseException e) {
+                    Ui.printDateFormatError();
+                    return false;
                 } catch (Exception e) {
-                    ModifyUi.printInvalidPartialModifyFormatError();
                     return false;
                 }
                 hasComponents = true;
@@ -459,11 +464,10 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     protected Boolean verifySetLimitCommand() {
         boolean isValid;
         try {
-            double amountInt = stringToDouble(inputArray[2]);
-
+            amount = stringToDouble(inputArray[2]);
             String typeStr = inputArray[1];
             String durationStr = inputArray[3];
-            isValid = verifyLimitType(typeStr) && verifyLimitAmount(amountInt) && verifyLimitDuration(durationStr);
+            isValid = verifyLimitType(typeStr) && verifyLimitAmount(amount) && verifyLimitDuration(durationStr);
         } catch (Exception e) { //index out of bounds here also
             //LimitUi.invalidSetCommandPrinter();
             isValid = false;

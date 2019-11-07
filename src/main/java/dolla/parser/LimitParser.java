@@ -3,16 +3,15 @@ package dolla.parser;
 import dolla.command.AddLimitCommand;
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
+import dolla.command.modify.InitialModifyCommand;
 import dolla.command.ShowListCommand;
 import dolla.command.RemoveCommand;
 import dolla.command.SearchCommand;
 import dolla.command.SortCommand;
 import dolla.command.ActionCommand;
 
-import dolla.exception.DollaException;
 import dolla.ui.LimitUi;
 import dolla.ui.SearchUi;
-import dolla.ui.Ui;
 
 //@@author Weng-Kexin
 public class LimitParser extends Parser {
@@ -23,15 +22,14 @@ public class LimitParser extends Parser {
     }
 
     @Override
-    public Command parseInput() throws DollaException {
+    public Command parseInput() {
         if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_LIST)) {
             return new ShowListCommand(mode); //todo: add the bar viewing thing for budgets
         } else if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_SET)) {
             if (verifySetLimitCommand()) {
                 String typeStr = inputArray[1];
-                double amountInt = stringToDouble(inputArray[2]);
                 String durationStr = inputArray[3];
-                return new AddLimitCommand(typeStr, amountInt, durationStr);
+                return new AddLimitCommand(typeStr, amount, durationStr);
             } else {
                 LimitUi.invalidSetCommandPrinter();
                 return new ErrorCommand();
@@ -44,10 +42,7 @@ public class LimitParser extends Parser {
             }
         } else if (commandToRun.equals(COMMAND_MODIFY)) {
             if (verifyFullModifyCommand()) {
-                // TODO: Update when ready
-                //return new InitialModifyCommand(inputArray[1]);
-                Ui.printUpcomingFeature();
-                return new ErrorCommand();
+                return new InitialModifyCommand(inputArray[1]);
             } else if (verifyPartialModifyCommand()) {
                 // TODO:
                 return new ErrorCommand();

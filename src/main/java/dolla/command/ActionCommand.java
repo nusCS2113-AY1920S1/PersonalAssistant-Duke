@@ -1,10 +1,10 @@
 package dolla.command;
 
-import dolla.DollaData;
+import dolla.model.DollaData;
 import dolla.command.action.Redo;
 import dolla.command.action.Undo;
+import dolla.model.Record;
 import dolla.exception.DollaException;
-import dolla.task.Record;
 
 import java.util.ArrayList;
 

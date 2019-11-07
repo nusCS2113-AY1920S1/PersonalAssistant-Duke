@@ -1,6 +1,7 @@
 package dolla;
 
 import dolla.command.Command;
+import dolla.model.DollaData;
 import dolla.exception.DollaException;
 import dolla.parser.MainParser;
 import dolla.parser.ParserStringList;

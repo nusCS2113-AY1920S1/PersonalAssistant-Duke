@@ -1,9 +1,9 @@
 package dolla.command;
 
-import dolla.DollaData;
+import dolla.model.DollaData;
 import dolla.Time;
+import dolla.model.Record;
 import dolla.exception.DollaException;
-import dolla.task.Record;
 import dolla.ui.Ui;
 
 import java.time.LocalDate;

@@ -1,10 +1,10 @@
 package dolla.parser;
 
-import dolla.DollaData;
+import dolla.model.DollaData;
 import dolla.Tag;
 import dolla.Time;
 import dolla.command.Command;
-import dolla.command.InitialModifyCommand;
+import dolla.command.modify.InitialModifyCommand;
 import dolla.command.ShowListCommand;
 import dolla.command.ShowBillListCommand;
 import dolla.command.ErrorCommand;
@@ -15,8 +15,8 @@ import dolla.command.ActionCommand;
 import dolla.command.RemoveCommand;
 import dolla.command.SearchCommand;
 import dolla.command.RemoveNameCommand;
-import dolla.task.Debt;
-import dolla.task.RecordList;
+import dolla.model.Debt;
+import dolla.model.RecordList;
 import dolla.ui.DebtUi;
 import dolla.ui.SearchUi;
 import dolla.ui.Ui;

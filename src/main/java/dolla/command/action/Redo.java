@@ -7,7 +7,7 @@ import dolla.command.action.state.DebtState;
 import dolla.command.action.state.EntryState;
 import dolla.command.action.state.RedoStateList;
 import dolla.command.action.state.State;
-import dolla.task.Record;
+import dolla.model.Record;
 import java.util.ArrayList;
 
 //@@author yetong1895

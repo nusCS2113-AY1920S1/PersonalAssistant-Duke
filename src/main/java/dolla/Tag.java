@@ -1,7 +1,7 @@
 package dolla;
 
 import dolla.parser.Parser;
-import dolla.task.Record;
+import dolla.model.Record;
 
 import static dolla.parser.ParserStringList.COMPONENT_TAG;
 

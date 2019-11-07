@@ -1,8 +1,8 @@
 package dolla.command;
 
-import dolla.DollaData;
+import dolla.model.DollaData;
+import dolla.model.Bill;
 import dolla.exception.DollaException;
-import dolla.task.Bill;
 import dolla.ui.DebtUi;
 
 import java.util.ArrayList;
