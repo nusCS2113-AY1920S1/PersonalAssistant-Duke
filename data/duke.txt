@@ -1,21 +1,21 @@
-H//[✗]//math assignment 1//07/11/2019 23:59//5
-H//[✓]//Software Security lab 2//08/11/2019 23:59//5
-H//[✓]//Science exercice 2//09/11/2019 05:05//2
-H//[✗]//Prepare interview //09/11/2019 10:30//4
-E//[✗]//Sport //10/11/2019 11:00//10/11/2019 17:00//5
-H//[✗]//Optimized algorithm assignement //12/11/2019 10:30//4
-E//[✗]//Sport //15/11/2019 11:00//15/11/2019 17:00//5
-E//[✗]//Software security Final exam //20/11/2019 11:00//20/11/2019 13:00//5
-E//[✗]//Sport //25/11/2019 11:00//25/11/2019 17:00//5
-H//[✗]//Formals Methods assignment 1//01/12/2019 21:59//5
-H//[✗]//Formals Methods assignment 2//03/12/2019 21:59//3
-E//[✗]//CS4239 Final exam //08/12/2019 11:00//08/12/2019 13:00//5
-E//[✗]//CS4211 Final exam //12/12/2019 11:00//12/12/2019 13:00//5
-H//[✗]//Semester report//07/01/2020 23:59//5
-T//[✗]//CS2113 demo//2
-T//[✓]//Software security: lab 4: exercice 2//2
-T//[✗]//Software security: lab 5: exercice 1//2
-T//[✗]//Software security: lab 5: exercice 2//1
-T//[✗]//Software security: lab 6: exercice 1//1
-T//[✗]//Software security: lab 6: exercice 2//1
-T//[✗]//return book//5
+H//[X]//math assignment 1//07/11/2019 23:59//5
+H//[V]//Software Security lab 2//08/11/2019 23:59//5
+H//[V]//Science exercice 2//09/11/2019 05:05//2
+H//[X]//Prepare interview //09/11/2019 10:30//4
+E//[X]//Sport //10/11/2019 11:00//10/11/2019 17:00//5
+H//[X]//Optimized algorithm assignement //12/11/2019 10:30//4
+E//[X]//Sport //22/11/2019 13:00//22/11/2019 15:00//5
+E//[X]//Software security Final exam //20/11/2019 11:00//20/11/2019 13:00//5
+E//[X]//Sport //25/11/2019 11:00//25/11/2019 17:00//5
+H//[X]//Formals Methods assignment 1//01/12/2019 21:59//5
+H//[X]//Formals Methods assignment 2//03/12/2019 21:59//3
+E//[X]//CS4239 Final exam //08/12/2019 11:00//08/12/2019 13:00//5
+E//[X]//CS4211 Final exam //12/12/2019 11:00//12/12/2019 13:00//5
+H//[X]//Semester report//07/01/2020 23:59//5
+T//[X]//CS2113 demo//2
+T//[V]//Software security: lab 4: exercice 2//2
+T//[X]//Software security: lab 5: exercice 1//2
+T//[X]//Software security: lab 5: exercice 2//1
+T//[X]//Software security: lab 6: exercice 1//1
+T//[V]//Software security: lab 6: exercice 2//1
+T//[X]//return book//5

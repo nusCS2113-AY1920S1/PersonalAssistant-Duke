@@ -68,9 +68,9 @@ Examples:
 find sci
         ---------------------------------------------------------------------------------
          Here are the most relevant tasks in your list:
-         7. [H][✓] science by: 05/05/2005 05:05 [Priority: 2]
-         8. [H][✗] test by: 01/01/2001 01:01 [Priority: 5]
-         6. [H][✓] homeworktest by: 04/04/2004 04:04 [Priority: 5]
+         7. [H][V] science by: 05/05/2005 05:05 [Priority: 2]
+         8. [H][X] test by: 01/01/2001 01:01 [Priority: 5]
+         6. [H][V] homeworktest by: 04/04/2004 04:04 [Priority: 5]
 
         ---------------------------------------------------------------------------------
 
@@ -81,10 +81,10 @@ find sci
 find homewqeuktest
         ---------------------------------------------------------------------------------
          Here are the most relevant tasks in your list:
-         6. [H][✓] homeworktest by: 04/04/2004 04:04 [Priority: 5]
-         5. [H][✗] math by: 11/11/2011 01:01 [Priority: 5]
-         7. [H][✓] science by: 05/05/2005 05:05 [Priority: 2]
-         8. [H][✗] test by: 01/01/2001 01:01 [Priority: 5]
+         6. [H][V] homeworktest by: 04/04/2004 04:04 [Priority: 5]
+         5. [H][X] math by: 11/11/2011 01:01 [Priority: 5]
+         7. [H][V] science by: 05/05/2005 05:05 [Priority: 2]
+         8. [H][X] test by: 01/01/2001 01:01 [Priority: 5]
 
         ---------------------------------------------------------------------------------
 
@@ -191,9 +191,9 @@ Example:
 * `remind`
 ```
 remind
-         1. [H][✗] test by: 01/01/2001 01:01 [Priority: 5]
-         4. [H][✗] math by: 11/11/2011 01:01 [Priority: 5]
-         5. [E][✗] e at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
+         1. [H][X] test by: 01/01/2001 01:01 [Priority: 5]
+         4. [H][X] math by: 11/11/2011 01:01 [Priority: 5]
+         5. [E][X] e at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
 
 ```
 
@@ -232,9 +232,9 @@ There are 3 cases:
 
 ```---------------------------------------------------------------------------------
 remind
-1. [D][✗] d1 by: 14/09/2019 22:33 [Priority: 5]
-2. [E][✗] e1 at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
-3. [T][✗] td1 [Priority: 5]
+1. [D][X] d1 by: 14/09/2019 22:33 [Priority: 5]
+2. [E][X] e1 at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
+3. [T][X] td1 [Priority: 5]
 ```
 ==== TaskList only contains Todo Objects
 
@@ -242,9 +242,9 @@ remind
 * *Output:*
 ```---------------------------------------------------------------------------------
 remind
-1. [T][✗] todo1 [Priority: 5]
-2. [T][✗] todo2 [Priority: 5]
-3. [T][✗] todo3 [Priority: 5]
+1. [T][X] todo1 [Priority: 5]
+2. [T][X] todo2 [Priority: 5]
+3. [T][X] todo3 [Priority: 5]
 ```
 ==== TaskList Contains No Objects
 

@@ -376,9 +376,9 @@ All cases are handled separately, as the tasks must be ordered differently.
 
 ```---------------------------------------------------------------------------------
 remind
-1. [D][✗] d1 by: 14/09/2019 22:33 [Priority: 5]
-2. [E][✗] e1 at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
-3. [T][✗] td1 [Priority: 5]
+1. [D][X] d1 by: 14/09/2019 22:33 [Priority: 5]
+2. [E][X] e1 at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
+3. [T][X] td1 [Priority: 5]
 ```
 ==== TaskList only contains Todo Objects
 
@@ -386,9 +386,9 @@ remind
 * *Output:*
 ```---------------------------------------------------------------------------------
 remind
-1. [T][✗] todo1 [Priority: 5]
-2. [T][✗] todo2 [Priority: 5]
-3. [T][✗] todo3 [Priority: 5]
+1. [T][X] todo1 [Priority: 5]
+2. [T][X] todo2 [Priority: 5]
+3. [T][X] todo3 [Priority: 5]
 ```
 ==== TaskList Contains No Objects
 
