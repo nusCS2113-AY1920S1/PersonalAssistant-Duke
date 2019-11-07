@@ -30,7 +30,7 @@ public class ListTasksCommand implements Command {
                         DukeUi dukeUi, StorageManager storageManager) throws DukeException {
         ArrayList<Task> taskList = taskManager.getTaskList();
         if (taskList.size() < 1) {
-            throw new DukeException("You do not have any task yet.");
+            throw new DukeException(ListTasksCommand.class, "You do not have any task yet.");
         } else {
             dukeUi.listAllTasks(taskList);
         }

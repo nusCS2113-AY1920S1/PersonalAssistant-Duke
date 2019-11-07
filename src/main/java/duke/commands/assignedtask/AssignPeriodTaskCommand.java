@@ -48,7 +48,7 @@ public class AssignPeriodTaskCommand implements Command {
 
         try {
             if (userInput.length < 4 || userInput[0].charAt(0) != '#' || userInput[1].charAt(0) != '#') {
-                throw new DukeException("Invalid format. Please follow: "
+                throw new DukeException(AssignPeriodTaskCommand.class, "Invalid format. Please follow: "
                     + "assign period task: #<patient id> :#<task id> : dd/MM/yyyy HHmm : dd/MM/yyyy HHmm");
             }
             int pid = Integer.parseInt(userInput[0].substring(1));
@@ -57,10 +57,10 @@ public class AssignPeriodTaskCommand implements Command {
             String etime = userInput[3];
             String type = "period";
             if (!taskManager.doesExist(tid)) {
-                throw new DukeException("The task " + tid + " does not exist");
+                throw new DukeException(AssignPeriodTaskCommand.class, "The task " + tid + " does not exist");
             }
             if (!patientManager.doesExist(pid)) {
-                throw new DukeException("The patient " + pid + " does not exist");
+                throw new DukeException(AssignPeriodTaskCommand.class, "The patient " + pid + " does not exist");
             }
             AssignedTask newAssignedTask = new AssignedTaskWithPeriod(pid, tid, stime, etime, type);
 
@@ -70,7 +70,7 @@ public class AssignPeriodTaskCommand implements Command {
                 dukeUi.patientTaskAssigned(newAssignedTask, patientManager.getPatient(pid).getName(),
                         taskManager.getTask(tid).getDescription());
             } else {
-                throw new DukeException("A same period task already exists");
+                throw new DukeException(AssignPeriodTaskCommand.class, "A same period task already exists");
             }
         } catch (DukeException e) {
             throw new DukeException(e.getMessage());

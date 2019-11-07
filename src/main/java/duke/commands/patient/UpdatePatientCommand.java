@@ -14,6 +14,7 @@ import duke.storages.StorageManager;
 public class UpdatePatientCommand implements Command {
 
     private String[] command;
+    private Patient patientToBeUpdated;
 
     public UpdatePatientCommand(String[] command) {
         this.command = command;
@@ -37,28 +38,66 @@ public class UpdatePatientCommand implements Command {
             int id;
             try {
                 id = Integer.parseInt(command[0].substring(1));
-                Patient patientToBeUpdated = patientManager.getPatient(id);
-                if (command[1].toLowerCase().equals("name")) {
-                    patientToBeUpdated.setName(command[2]);
-                } else if (command[1].toLowerCase().equals("nric")) {
-                    patientToBeUpdated.setNric(command[2]);
-                } else if (command[1].toLowerCase().equals("room")) {
-                    patientToBeUpdated.setRoom(command[2]);
-                } else if (command[1].toLowerCase().equals("remark")) {
-                    patientToBeUpdated.setRemark(command[2]);
-                } else {
-                    throw new DukeException(UpdatePatientCommand.class,
-                            "You can only update 'Name', 'NRIC', 'Room', or 'Remark' of the patient");
-                }
-
-                storageManager.savePatients(patientManager.getPatientList());
-                dukeUi.showUpdatedSuccessfully();
-                dukeUi.showPatientInfo(patientToBeUpdated);
             } catch (Exception e) {
                 throw new DukeException(UpdatePatientCommand.class,
                         "Please follow the format 'update patient :#<id> :<Name/NRIC/Room/Remark> "
                                 + ":<new information>'.");
             }
+            try {
+                patientToBeUpdated = patientManager.getPatient(id);
+            } catch (Exception e) {
+                throw e;
+            }
+            if (command[1].toLowerCase().equals("name")) {
+                try {
+                    if (command.length == 2) {
+                        patientManager.nameIsValid("");
+                    } else {
+                        patientManager.nameIsValid(command[2]);
+                    }
+                } catch (Exception e) {
+                    throw e;
+                }
+                patientToBeUpdated.setName(command[2]);
+            } else if (command[1].toLowerCase().equals("nric")) {
+                try {
+                    if (command.length == 2) {
+                        patientManager.nricIsValid("");
+                    } else {
+                        patientManager.nricIsValid(command[2]);
+                    }
+                } catch (Exception e) {
+                    throw e;
+                }
+                patientToBeUpdated.setNric(command[2]);
+            } else if (command[1].toLowerCase().equals("room")) {
+                try {
+                    if (command.length == 2) {
+                        patientManager.roomIsValid("");
+                    } else {
+                        patientManager.roomIsValid(command[2]);
+                    }
+                } catch (Exception e) {
+                    throw e;
+                }
+                patientToBeUpdated.setRoom(command[2]);
+            } else if (command[1].toLowerCase().equals("remark")) {
+                if (command.length == 2) {
+                    patientToBeUpdated.setRemark("");
+                } else {
+                    patientToBeUpdated.setRemark(command[2]);
+                }
+            } else {
+                throw new DukeException(UpdatePatientCommand.class,
+                        "You can only update 'Name', 'NRIC', 'Room', or 'Remark' of the patient");
+            }
+            try {
+                storageManager.savePatients(patientManager.getPatientList());
+            } catch (Exception e) {
+                throw e;
+            }
+            dukeUi.showUpdatedSuccessfully();
+            dukeUi.showPatientInfo(patientToBeUpdated);
         } else {
             throw new DukeException(UpdatePatientCommand.class,
                     "Please follow the format 'update patient :#<id> :<Name/NRIC/Room/Remark> :<new information>'.");

@@ -47,7 +47,7 @@ public class AssignDeadlineTaskCommand implements Command {
                         DukeUi dukeUi, StorageManager storageManager) throws DukeException {
         try {
             if (userInput.length < 3 || userInput[0].charAt(0) != '#' || userInput[1].charAt(0) != '#') {
-                throw new DukeException("Invalid format. Please follow format: "
+                throw new DukeException(AssignDeadlineTaskCommand.class, "Invalid format. Please follow format: "
                     + "assign deadline task: #<patient id> :#<task id> : dd/MM/yyyy HHmm");
             }
             int pid = Integer.parseInt(userInput[0].substring(1));
@@ -55,10 +55,10 @@ public class AssignDeadlineTaskCommand implements Command {
             String datetime = userInput[2];
             String type = "deadline";
             if (!taskManager.doesExist(tid)) {
-                throw new DukeException("The task " + tid + " does not exist");
+                throw new DukeException(AssignDeadlineTaskCommand.class, "The task " + tid + " does not exist");
             }
             if (!patientManager.doesExist(pid)) {
-                throw new DukeException("The patient " + pid + " does not exist");
+                throw new DukeException(AssignDeadlineTaskCommand.class, "The patient " + pid + " does not exist");
             }
             AssignedTask newAssignedTask = new AssignedTaskWithDate(pid, tid, datetime, type);
 
@@ -68,7 +68,7 @@ public class AssignDeadlineTaskCommand implements Command {
                 dukeUi.patientTaskAssigned(newAssignedTask, patientManager.getPatient(pid).getName(),
                         taskManager.getTask(tid).getDescription());
             } else {
-                throw new DukeException("A same deadline task already exists");
+                throw new DukeException(AssignDeadlineTaskCommand.class, "A same deadline task already exists");
             }
 
         } catch (Exception e) {

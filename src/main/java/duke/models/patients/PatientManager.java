@@ -51,7 +51,7 @@ public class PatientManager {
         if (patientIdMap.containsKey(id)) {
             return patientIdMap.get(id);
         } else {
-            throw new DukeException("The patient with id " + id + " does not exist.");
+            throw new DukeException(PatientManager.class, "The patient with id " + id + " does not exist.");
         }
     }
 
@@ -83,7 +83,7 @@ public class PatientManager {
         if (regex.matcher(name).find()) {
             throw new DukeException(PatientManager.class, "The patient's name cannot contain any special characters.");
         } else if (name.length() < 3 && name.matches("^[a-zA-Z]*$")) {
-            throw new DukeException("The patient's name must have at least 3 alphabets.");
+            throw new DukeException(PatientManager.class, "The patient's name must have at least 3 alphabets.");
         }
     }
 
@@ -95,29 +95,30 @@ public class PatientManager {
      */
     public void nricIsValid(String nric) throws DukeException {
         Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
+        if (nric.length() != 9) {
+            throw new DukeException(PatientManager.class, "NRIC must contain exactly 9 characters.");
+        }
         for (Patient patient : patientIdMap.values()) {
             if (patient.getNric().toLowerCase().contains(nric)) {
-                throw new DukeException("The NRIC is existed.");
+                throw new DukeException(PatientManager.class, "The NRIC is existed.");
             }
         }
         if (regex.matcher(nric).find()) {
-            throw new DukeException("The patient's NRIC cannot contain any special characters.");
+            throw new DukeException(PatientManager.class, "The patient's NRIC cannot contain any special characters.");
         }
         char firstChar = nric.charAt(0);
         if (firstChar != 'S' && firstChar != 'T' && firstChar != 'F' && firstChar != 'G') {
-            throw new DukeException("The first letter of NRIC can only be S, T, F or G.");
+            throw new DukeException(PatientManager.class, "The first letter of NRIC can only be S, T, F or G.");
         }
         String nricSubstring = nric.substring(1);
-        if (nricSubstring.length() != 8) {
-            throw new DukeException("The length of NRIC can only 9 characters.");
-        }
         if (Character.isAlphabetic(nricSubstring.charAt(7))) {
             String nricSubstring2 = nricSubstring.substring(0, nricSubstring.length() - 1);
             if (!nricSubstring2.matches("[0-9]+")) {
-                throw new DukeException("The NRIC can only be numerical except the first and last character.");
+                throw new DukeException(PatientManager.class,
+                        "The NRIC can only be numerical except the first and last character.");
             }
         } else {
-            throw new DukeException("The last character of NRIC can only be alphabet.");
+            throw new DukeException(PatientManager.class, "The last character of NRIC can only be alphabet.");
         }
     }
 
@@ -128,9 +129,13 @@ public class PatientManager {
      * @throws DukeException if the room number is invalid.
      */
     public void roomIsValid(String room) throws DukeException {
+        if (room.length() == 0) {
+            throw new DukeException(PatientManager.class, "The patient's Room No. cannot be empty.");
+        }
         Pattern regex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
         if (regex.matcher(room).find()) {
-            throw new DukeException("The patient's Room No. cannot contain any special characters.");
+            throw new DukeException(PatientManager.class,
+                    "The patient's Room No. cannot contain any special characters.");
         }
     }
 
@@ -175,7 +180,7 @@ public class PatientManager {
         if (patientIdMap.containsKey(id)) {
             patientIdMap.remove(id);
         } else {
-            throw new DukeException("The patient with id " + id + " does not exist.");
+            throw new DukeException(PatientManager.class, "The patient with id " + id + " does not exist.");
         }
 
     }

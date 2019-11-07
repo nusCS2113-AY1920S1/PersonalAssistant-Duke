@@ -120,7 +120,7 @@ public class PatientManagerTest {
         try {
             patientManager.nricIsValid("S12345677I");
         } catch (Exception e) {
-            String expectedMessage = "Oops! The length of NRIC can only 9 characters.";
+            String expectedMessage = "Oops! NRIC must contain exactly 9 characters.";
             assertEquals(expectedMessage, e.getMessage());
         }
 
@@ -142,6 +142,12 @@ public class PatientManagerTest {
     @Test
     public void roomIsValidTest() throws DukeException {
         PatientManager patientManager = new PatientManager(new ArrayList<Patient>());
+        try {
+            patientManager.roomIsValid("");
+        } catch (Exception e) {
+            String expectedMessage = "Oops! The patient's Room No. cannot be empty.";
+            assertEquals(expectedMessage, e.getMessage());
+        }
         try {
             patientManager.roomIsValid("12A&");
         } catch (Exception e) {
@@ -171,6 +177,22 @@ public class PatientManagerTest {
             patientManager.addPatient(patient4);
         } catch (Exception e) {
             String expectedMessage = "Oops! The patient's name cannot contain any special characters.";
+            assertEquals(expectedMessage, e.getMessage());
+        }
+
+        Patient patient5 = new Patient("Anni","S2534569I","","Nil");
+        try {
+            patientManager.addPatient(patient5);
+        } catch (Exception e) {
+            String expectedMessage = "Oops! The patient's Room No. cannot be empty.";
+            assertEquals(expectedMessage, e.getMessage());
+        }
+
+        Patient patient6 = new Patient("Anni","","32C","Nil");
+        try {
+            patientManager.addPatient(patient6);
+        } catch (Exception e) {
+            String expectedMessage = "Oops! NRIC must contain exactly 9 characters.";
             assertEquals(expectedMessage, e.getMessage());
         }
     }

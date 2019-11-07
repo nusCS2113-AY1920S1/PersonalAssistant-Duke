@@ -4,6 +4,7 @@ import duke.commands.Command;
 import duke.commands.functional.DukeCommand;
 import duke.commands.functional.ExitCommand;
 import duke.commands.functional.HelpCommand;
+import duke.commands.functional.PieChartCommand;
 import duke.commands.functional.UndoCommand;
 import duke.exceptions.DukeException;
 import duke.storages.StorageManager;
@@ -40,8 +41,8 @@ public class Counter {
 
     public void runCommandCounter(Command command, StorageManager storageManager,
                                   Counter counter) throws DukeException {
-        if (!(command instanceof ExitCommand || command instanceof DukeCommand
-                || command instanceof UndoCommand || command instanceof HelpCommand)) {
+        if (!(command instanceof ExitCommand || command instanceof DukeCommand || command instanceof UndoCommand
+            || command instanceof HelpCommand || command instanceof PieChartCommand)) {
             String commandName = command.getClass().getSimpleName();
             runCounterLogic(commandName);
             storageManager.saveCounters(counter.getCommandTable());
@@ -57,7 +58,7 @@ public class Counter {
      */
     public void runCounterLogic(String commandName) {
         int count = commandTable.containsKey(commandName)
-                ? commandTable.get(commandName) : 0;
+                    ? commandTable.get(commandName) : 0;
         commandTable.put(commandName, count + 1);
     }
 }

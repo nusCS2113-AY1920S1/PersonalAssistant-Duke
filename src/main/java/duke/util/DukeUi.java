@@ -574,7 +574,7 @@ public class DukeUi {
             String changeValue = dukeUi.readUserInput();
             return changeValue;
         } else {
-            throw new DukeException("Please provide a proper parameter into getPatient function!");
+            throw new DukeException(DukeUi.class, "Please provide a proper parameter into getPatient function!");
         }
     }
 
@@ -618,7 +618,7 @@ public class DukeUi {
             String changeValue = dukeUi.readUserInput();
             return changeValue;
         } else {
-            throw new DukeException("Please provide a proper parameter into getPatient function!");
+            throw new DukeException(DukeUi.class, "Please provide a proper parameter into getPatient function!");
         }
     }
 
