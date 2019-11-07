@@ -157,7 +157,8 @@ public class TaskCommandParseHelper {
         }
     }
 
-    private static int extractDayLimit(Matcher reminderCommandMatcher) throws NumberFormatException, TaskParseException {
+    private static int extractDayLimit(Matcher reminderCommandMatcher)
+            throws NumberFormatException, TaskParseException {
         int dayLimit;
         String dayLimitString = reminderCommandMatcher.group("dayLimit");
         if (dayLimitString == null) {
@@ -229,7 +230,7 @@ public class TaskCommandParseHelper {
         }
         try {
             String priority = extractPriority(optionList);
-            Task.Priority level = getPriorityLevel(priority);
+            Task.Priority level = Task.getPriorityLevel(priority);
             if ("".equals(priority)) {
                 return new InvalidCommand("Please enter a priority level to set for the task after"
                         + " \'-priority\' option");
@@ -316,7 +317,7 @@ public class TaskCommandParseHelper {
                                                    ArrayList<TaskUpdateCommand.Attributes> attributes,
                                                    ArrayList<String> descriptions) throws TaskParseException {
         String priority = extractPriority(optionList);
-        Task.Priority level = getPriorityLevel(priority);
+        Task.Priority level = Task.getPriorityLevel(priority);
         if (validPriority(priority)) {
             descriptions.add(level.name());
             attributes.add(TaskUpdateCommand.Attributes.PRIORITY);
@@ -373,30 +374,11 @@ public class TaskCommandParseHelper {
      */
     public static boolean validPriority(String input) {
         for (Task.Priority priority : Task.Priority.values()) {
-            if (priority.name().equals(input)) {
+            if (priority.name().equals(input) && !"NULL".equals(input)) {
                 return true;
             }
         }
         return false;
-    }
-
-    /**
-     * Get the priority level of task by user input.
-     *
-     * @param input user input
-     * @return priority level of task.
-     */
-    public static Task.Priority getPriorityLevel(String input) {
-        Task.Priority level = null;
-        if (level.HIGH.name().equals(input)) {
-            return level.HIGH;
-        } else if (level.MEDIUM.name().equals(input) || level.MED.name().equals(input)) {
-            return level.MEDIUM;
-        } else if (level.LOW.name().equals(input)) {
-            return level.LOW;
-        } else {
-            return null;
-        }
     }
 
     private static int extractSnooze(ArrayList<Command.Option> optionList) throws TaskParseException {
@@ -458,10 +440,10 @@ public class TaskCommandParseHelper {
     private static Command constructAddCommandByType(String input, String doAfter, LocalDateTime time,
                                                      ArrayList<String> tags, String priority,
                                                      ArrayList<String> links) {
+        Task.Priority level = Task.getPriorityLevel(priority);
         if ("".equals(priority)) {
-            return constructByType(input, doAfter, time, tags, null, links);
+            return constructByType(input, doAfter, time, tags, Task.Priority.NULL, links);
         } else if (validPriority(priority)) {
-            Task.Priority level = getPriorityLevel(priority);
             return constructByType(input, doAfter, time, tags, level, links);
         }
         return new InvalidCommand("Invalid priority");

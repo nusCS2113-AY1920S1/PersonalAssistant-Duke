@@ -183,7 +183,7 @@ public class Email {
     private String bodyWithoutAttachmentImage() {
         //String newBody = body.replaceAll("(width=\"\\d+\" height=\"\\d+\")|(width:[\\d.]+\\w*;"
         //                + "\\s*height:[\\d.]+)",
-                String newBody = body.replaceAll("<img",
+        String newBody = body.replaceAll("<img",
                 "<img style=\"display: none;\"");
         System.out.println(newBody);
         return newBody;

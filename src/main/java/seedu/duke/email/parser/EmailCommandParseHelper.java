@@ -59,6 +59,7 @@ public class EmailCommandParseHelper {
             return new EmailFetchCommand();
         case "listKeyword":
             return new EmailListKeywordCommand();
+        default:
         }
 
         switch (emailCommand) {
@@ -133,7 +134,7 @@ public class EmailCommandParseHelper {
     }
 
     private static Command parseEmailAddKeywordCommand(ArrayList<Command.Option> optionList,
-                                                          String input) {
+                                                       String input) {
         Pattern emailAddKeywordCommandPattern = Pattern.compile("^addKeyword\\s+(?<keyword>\\w+)\\s*$");
         Matcher emailAddKeywordCommandMatcher = emailAddKeywordCommandPattern.matcher(input);
         if (!emailAddKeywordCommandMatcher.matches()) {

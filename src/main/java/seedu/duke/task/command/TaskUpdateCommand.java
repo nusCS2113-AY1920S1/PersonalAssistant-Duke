@@ -5,7 +5,6 @@ import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
 import seedu.duke.task.TaskList;
 import seedu.duke.task.entity.Task;
-import seedu.duke.task.parser.TaskCommandParseHelper;
 import seedu.duke.ui.UI;
 
 import java.util.ArrayList;
@@ -80,7 +79,7 @@ public class TaskUpdateCommand extends Command {
 
     private String updatePriority(TaskList taskList, int i) throws CommandParseHelper.CommandParseException {
         String msg;
-        Task.Priority level = TaskCommandParseHelper.getPriorityLevel(descriptions.get(i));
+        Task.Priority level = Task.getPriorityLevel(descriptions.get(i));
         msg = taskList.setPriority(index, level);
         return msg;
     }

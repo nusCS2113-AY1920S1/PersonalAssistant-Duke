@@ -43,7 +43,6 @@ public class Event extends Task {
         this.taskType = TaskType.EVENT;
         setTags(tags);
         setPriorityLevelTo(priority);
-        setPriorityTo(priority);
         for (String email : linkedEmails) {
             addLinkedEmails(email);
         }
@@ -73,8 +72,8 @@ public class Event extends Task {
         for (String tagName : tags) {
             output += " #" + tagName;
         }
-        if (this.priority != null && !this.priority.equals("")) {
-            output += " Priority: " + priority;
+        if (this.level != Priority.NULL) {
+            output += " Priority: " + level.name();
         }
         return output;
     }
@@ -98,8 +97,8 @@ public class Event extends Task {
         for (String email : linkedEmails) {
             output += " -link " + email;
         }
-        if (this.priority != null && !this.priority.equals("")) {
-            output += " -priority " + priority;
+        if (this.level != Priority.NULL) {
+            output += " -priority " + level.name();
         }
         return output;
     }
@@ -120,6 +119,7 @@ public class Event extends Task {
         }
         return "";
     }
+
     private boolean isPast() {
         return this.time.compareTo(LocalDateTime.now()) < 0;
     }

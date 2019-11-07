@@ -1,6 +1,5 @@
 package seedu.duke.task.entity;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -34,7 +33,6 @@ public class ToDo extends Task {
         this.taskType = TaskType.TODO;
         setTags(tags);
         setPriorityLevelTo(priority);
-        setPriorityTo(priority);
         for (String email : linkedEmails) {
             addLinkedEmails(email);
         }
@@ -56,8 +54,8 @@ public class ToDo extends Task {
         for (String tagName : tags) {
             output += " #" + tagName;
         }
-        if (this.priority != null && !this.priority.equals("")) {
-            output += " Priority: " + priority;
+        if (this.level != Priority.NULL) {
+            output += " Priority: " + level.name();
         }
         return output;
     }
@@ -80,8 +78,8 @@ public class ToDo extends Task {
         for (String email : linkedEmails) {
             output += " -link " + email;
         }
-        if (this.priority != null && !this.priority.equals("")) {
-            output += " -priority " + priority;
+        if (this.level != Priority.NULL) {
+            output += " -priority " + level.name();
         }
         return output;
     }
