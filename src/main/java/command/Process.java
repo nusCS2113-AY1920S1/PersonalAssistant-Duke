@@ -639,7 +639,7 @@ public class Process {
         String[] arr = input.split("payment ", 2);
         String[] split = arr[1].split("p/|i/");
         split = cleanStrStr(split);
-        Payments deleted = PaymentManager.deletePayments(split[1], split[2], managermap);
+        Payments deleted = PaymentManager.deletePayments(split[1], split[2], managermap, currentProjectName);
         ui.printDeletePaymentMessage(deleted, managermap.get(split[1]).payments.size(), currentProjectName);
         BeforeAfterCommand.afterCommand(storage, projectmanager);
     }
@@ -662,7 +662,7 @@ public class Process {
             String item = splitpayments[2];
             double cost = Double.parseDouble(splitpayments[3]);
             String invoice = splitpayments[4];
-            Payments payment = PaymentManager.addPayments(payee, item, cost, invoice, managermap);
+            Payments payment = PaymentManager.addPayments(payee, item, cost, invoice, managermap, currentProjectName);
             int paymentsSize = managermap.get(payee).payments.size();
             ui.printAddPaymentMessage(payment, paymentsSize, currentProjectName);
             BeforeAfterCommand.afterCommand(storage, projectmanager);

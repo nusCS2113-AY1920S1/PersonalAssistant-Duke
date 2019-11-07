@@ -119,12 +119,12 @@ public abstract class PaymentManager {
     /**
      * Deletes the Payments object details.
      */
-    public static Payments deletePayments(String payee, String item, HashMap<String, Payee> managermap) {
+    public static Payments deletePayments(String payee, String item, HashMap<String, Payee> managermap, String projectname) {
         int i = 0;
         while (i < managermap.get(payee).payments.size()) {
             if (managermap.get(payee).payments.get(i++).item.equals(item)) {
                 Payments deleted = new Payments(payee, item, managermap.get(payee).payments.get(--i).cost,
-                        managermap.get(payee).payments.get(i).inv);
+                        managermap.get(payee).payments.get(i).inv, projectname);
                 managermap.get(payee).payments.remove(i);
                 return deleted;
             }
@@ -136,8 +136,8 @@ public abstract class PaymentManager {
      * Add the Payments object details to PaymentsList.
      */
     public static Payments addPayments(String payee, String item, double cost, String inv,
-                                       HashMap<String, Payee> managermap) {
-        Payments pay = new Payments(payee, item, cost, inv);
+                                       HashMap<String, Payee> managermap, String projectname) {
+        Payments pay = new Payments(payee, item, cost, inv, projectname);
         managermap.get(payee).payments.add(pay);
         return pay;
     }

@@ -468,7 +468,8 @@ public class Ui {
         System.out.print(line);
         System.out.println("\tYour reminder is as follow:\n");
         for(Payments p:paymentlist){
-            System.out.println("\t" + p.givePayments() + "\n");
+            System.out.println("\t" + p.getProject());
+            p.givePayments();
         }
         System.out.print(line);
     }

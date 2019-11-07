@@ -15,7 +15,8 @@ public class Payments implements Comparable<Payments>{
     public double cost;
     public String inv;
     private Date deadline;
-    private Status status;
+    public Status status;
+    private String project;
 
     /**
      * Creates an instance of a Payment object.
@@ -23,7 +24,7 @@ public class Payments implements Comparable<Payments>{
      * @param cost Cost of the item.
      * @param inv Invoice for the payment.
      */
-    public Payments(String payee, String item, double cost, String inv) {
+    public Payments(String payee, String item, double cost, String inv, String project) {
         this.payee = payee;
         this.item = item;
         this.cost = cost;
@@ -31,6 +32,7 @@ public class Payments implements Comparable<Payments>{
         this.status = Status.PENDING;
         Date currDate = new Date();
         this.deadline = new Date(currDate.getTime() + TimeUnit.DAYS.toMillis(30));
+        this.project = project;
     }
 
 
@@ -50,6 +52,14 @@ public class Payments implements Comparable<Payments>{
         return this.status;
     }
 
+    /**
+     * return the project name that the payment belongs to
+     * @return The project that the payment belongs to
+     */
+    public String getProject(){
+        return this.project;
+    }
+
     public void setStatus(Status status) {
         this.status = status;
     }
@@ -64,7 +74,7 @@ public class Payments implements Comparable<Payments>{
         System.out.println("\t" + "Invoice: " + this.inv);
         System.out.println("\t" + "Deadline: " + this.deadline);
         System.out.println("\t" + "Status: " + this.status);
-
+    }
     @Override
     public int compareTo(Payments payments) {
         return getDeadline().compareTo(payments.getDeadline());
