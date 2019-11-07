@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
+//@@author
 /**
  * Allows for access to the list of events currently stored, and editing that list of events.
  * Does NOT contain any methods for reading/writing to savefile.
@@ -66,6 +67,7 @@ public class EventList {
      */
     public boolean gotPastUnachieved = false;
 
+    //@author Ryan-Wong-Ren-Wei
     /**
      * Creates new Model_Class.EventList object.
      *
@@ -101,7 +103,6 @@ public class EventList {
                         eventArrayList.add(new Concert(description, isDone, startDateAndTime, endDateAndTime,
                                 Integer.parseInt(splitString[4])));
                         break;
-
                     case LESSON:
                         eventArrayList.add(new Lesson(description, isDone, startDateAndTime, endDateAndTime));
                         break;
@@ -124,6 +125,8 @@ public class EventList {
         budgeting = new Budgeting(eventArrayList, 50);
     }
 
+
+    //@@author
     /**
      * Edit an event's description, start time and end time in the list.
      *

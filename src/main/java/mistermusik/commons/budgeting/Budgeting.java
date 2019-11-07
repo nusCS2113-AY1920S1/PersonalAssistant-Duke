@@ -11,13 +11,13 @@ public class Budgeting {
 
     /**
      * Map that stores all information regarding monthly budgeting for concerts
-     * String is the month followed by year <MM-yyyy> representing the month that we analyze budget
+     * String is the month followed by year "MM-yyyy" representing the month that we analyze budget
      * MonthlyBudget is the class corresponding to the month being analyzed, stores all details
      * for budget analysis including the corresponding Concert objects.
      */
     private HashMap<String, MonthlyBudget> monthlyCosts;
 
-    int budget; //current user defined budget
+    private int budget; //current user defined budget
 
     /**
      * Constructor for budgeting system. Sets budget and creates new map of monthly costs.
@@ -31,9 +31,9 @@ public class Budgeting {
     }
 
     /**
-     * remove costs from list when deleting a Concert object.
+     * Remove costs from list when deleting a Concert object.
      *
-     * @param concert Concert to be deleted.
+     * @param concert Concert object to be deleted.
      */
     public void removeMonthlyCost(Concert concert) {
         String monthAndYear = getMonthAndYear(concert.getStartDate());
@@ -47,9 +47,9 @@ public class Budgeting {
     }
 
     /**
-     * update the cost for the month when a new Concert object is added to EventList.
+     * Updates the monthly concert costs when a new Concert object is added to EventList.
      *
-     * @param concert Concert that was added.
+     * @param concert Concert object to be added.
      */
     public void updateMonthlyCost(Concert concert) throws CostExceedsBudgetException, NumberFormatException {
         String monthAndYear = getMonthAndYear(concert.getStartDate());
@@ -64,6 +64,11 @@ public class Budgeting {
         }
     }
 
+    /**
+     * Sets monthly budget.
+     *
+     * @param budget New monthly budget
+     */
     public void setBudget(int budget) {
         if (budget < 0) {
             throw new NumberFormatException();
@@ -121,6 +126,9 @@ public class Budgeting {
         return false;
     }
 
+    /**
+     * Checks whether two EventDate objects have the same month.
+     */
     private boolean isSameMonth(EventDate eventDateA, EventDate eventDateB) {
         try {
             Calendar cal = Calendar.getInstance();
@@ -140,6 +148,9 @@ public class Budgeting {
         }
     }
 
+    /**
+     * Retrieves the month and year in a string "mm-YYYY" from an EvenDate object.
+     */
     private String getMonthAndYear(EventDate date) {
         String MonthAndYear = date.getUserInputDateString();
         MonthAndYear = MonthAndYear.substring(3, 10); //get MM-yyyy from dd-MM-yyyy HHmm
@@ -147,10 +158,18 @@ public class Budgeting {
         return MonthAndYear;
     }
 
+    /**
+     * Gets total concert costs for a month.
+     *
+     * @param monthAndYear String containing month and year "mm-YYYY" to retrieve costs from
+     */
     public int getCostForMonth(String monthAndYear) throws NullPointerException {
         return monthlyCosts.get(monthAndYear).getTotalCost();
     }
 
+    /**
+     * Gets current monthly budget
+     */
     public int getBudget() {
         return this.budget;
     }
