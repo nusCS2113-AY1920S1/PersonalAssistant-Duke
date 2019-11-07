@@ -10,8 +10,10 @@ import duke.storage.InventoryStorage;
 import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.logging.*;
 
 import static duke.common.BookingMessages.*;
 import static duke.common.InventoryMessages.*;
@@ -23,6 +25,8 @@ import static duke.common.RecipeMessages.*;
  */
 public class Duke {
 
+    private static final Logger logger = Logger.getLogger(Duke.class.getName());
+
     private Ui ui;
 
     private InventoryStorage inventoryStorage;
@@ -32,6 +36,19 @@ public class Duke {
 
     private RecipeStorage recipeStorage;
     private RecipeList recipeList;
+
+    private static void setupLogger() {
+        LogManager.getLogManager().reset();
+        logger.setLevel(Level.INFO);
+
+        try {
+            FileHandler fh = new FileHandler("logFile.log",true);
+            fh.setLevel(Level.WARNING);
+            logger.addHandler(fh);
+        } catch (java.io.IOException e){
+            logger.log(Level.SEVERE, "File logger is not working.", e);
+        }
+    }
 
     public Duke(Ui ui) {
         this.ui = ui;
@@ -48,12 +65,8 @@ public class Duke {
         return ui.showWelcome();
     }
 
-    //Should the runProgram method deals with string manipulations?
-    // I hope its responsibility is to call relevant objects to initiate the run
-    //I hope it is not the responsibility of the runProgram method to decide what does the command user type and react to it.
-    // Please check it again
-    public ArrayList<String> runProgram(String userInput) throws ParseException {
-
+    public ArrayList<String> runProgram(String userInput) throws ParseException, IOException {
+        Duke.setupLogger();
         ArrayList<String> arrayList = new ArrayList<>();
 
         // RECIPE.
@@ -229,6 +242,7 @@ public class Duke {
                 return arrayList;
             }
         } else {
+            logger.warning("Wrong command entered!");
             arrayList.add(ERROR_MESSAGE_RANDOM);
             return arrayList;
         }

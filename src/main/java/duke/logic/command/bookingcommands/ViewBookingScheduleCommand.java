@@ -12,10 +12,28 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 import static duke.common.BookingMessages.*;
 
 public class ViewBookingScheduleCommand extends Command<BookingList, Ui, BookingStorage> {
+    private static final Logger logger = Logger.getLogger(ViewBookingScheduleCommand.class.getName());
+
+    private static void setupLogger() {
+        LogManager.getLogManager().reset();
+        logger.setLevel(Level.INFO);
+
+        try {
+            FileHandler fh = new FileHandler("logFile.log",true);
+            fh.setLevel(Level.INFO);
+            logger.addHandler(fh);
+        } catch (java.io.IOException e){
+            logger.log(Level.SEVERE, "File logger is not working.", e);
+        }
+    }
 
     public ViewBookingScheduleCommand(String userInput) {
         this.userInput = userInput;
@@ -26,6 +44,7 @@ public class ViewBookingScheduleCommand extends Command<BookingList, Ui, Booking
             new SimpleDateFormat("dd/MM/yyyy").parse(bookingDate);
             return true;
         } catch (ParseException e) {
+            logger.warning("Invalid date format entered.");
             return false;
         }
     }
@@ -85,6 +104,7 @@ public class ViewBookingScheduleCommand extends Command<BookingList, Ui, Booking
 
     @Override
     public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) throws ParseException {
+        ViewBookingScheduleCommand.setupLogger();
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_VIEW_BOOKING_SCHEDULE)) {
             arrayList.add(ERROR_MESSAGE_EMPTY_DATE);

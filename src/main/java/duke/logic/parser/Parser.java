@@ -5,6 +5,8 @@ import duke.logic.command.bookingcommands.*;
 import duke.logic.command.inventorycommands.*;
 import duke.logic.command.recipecommands.*;
 
+import java.io.IOException;
+
 import static duke.common.BookingMessages.*;
 import static duke.common.InventoryMessages.*;
 import static duke.common.RecipeMessages.*;
