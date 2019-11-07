@@ -86,7 +86,7 @@ public class BatchCommand extends Command {
      * @throws CubeException Throws an exception if error occured during file handling.
      */
     private void batchEmpty() throws CubeException {
-        batchUtil.save(new ArrayList<Food>);
+        batchUtil.save(new ArrayList<>());
     }
 
     /**
