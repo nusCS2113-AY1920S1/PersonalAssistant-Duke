@@ -60,7 +60,7 @@
                      </font></Label>
                </children>
             </HBox>
-            <ScrollPane hbarPolicy="NEVER" minHeight="-Infinity" prefHeight="100.0" prefWidth="1000.0" vbarPolicy="NEVER">
+            <ScrollPane hbarPolicy="NEVER" minHeight="-Infinity" pannable="true" prefHeight="100.0" prefWidth="1000.0" vbarPolicy="NEVER">
                <content>
                   <HBox fx:id="progressContainer" minHeight="-Infinity" prefHeight="93.0" prefWidth="1000.0" />
                </content>

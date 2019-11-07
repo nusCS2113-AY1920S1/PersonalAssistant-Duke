@@ -11,6 +11,7 @@ import Tasks.TaskList;
 import javafx.util.Pair;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -82,7 +83,7 @@ public class RetrieveFreeTimesCommandTest {
     @Before
     public void setRetrievedFreeTimesList() {
         String actual = "No error";
-        String validUserInputWithDuration = "find 3 hours";
+        String validUserInputWithDuration = "find/ft 3 hours";
         Command command = null;
         try {
             command = new FindFreeTimesParse(validUserInputWithDuration).parse();

@@ -6,11 +6,8 @@ import DukeExceptions.DukeInvalidFormatException;
 
 public class WeekParse extends Parse {
     private String fullCommand;
-    private final String invalidInput = "Invalid input. Please enter the command as follows. \n" +
-            "Week 'x' , where 'x' is a digit between 1 - 13 or \n" +
-            "'x' is either 'recess', 'reading', or 'exam'";
     private final String invalidWeek = "Invalid Week. Please enter the command as follows. \n" +
-            "Week 'x' , where 'x' is a digit between 1 - 13 or \n" +
+            "show/week 'x' , where 'x' is a digit between 1 - 13 or \n" +
             "'x' is either 'recess', 'reading', or 'exam'";
 
     public WeekParse(String fullCommand) {
@@ -26,8 +23,8 @@ public class WeekParse extends Parse {
         else throw new DukeInvalidFormatException(invalidWeek);
     }
 
-    public static boolean isValid(String fullCommand) throws DukeInvalidFormatException {
-        String strWeek = fullCommand.replaceFirst("Week", "");
+    public static boolean isValid(String fullCommand) {
+        String strWeek = fullCommand.replaceFirst("show/week", "");
         if(!strWeek.isEmpty()) {
             char checkSpace = strWeek.charAt(0);
             if (checkSpace != ' ') return false;
@@ -49,7 +46,7 @@ public class WeekParse extends Parse {
     }
 
     public static String getWeek(String fullCommand) {
-        String week = fullCommand.replaceFirst("Week", "");
+        String week = fullCommand.replaceFirst("show/week", "");
         week = week.trim();
         if ((week.equals("recess") || week.equals("reading") || week.equals("exam"))) {
             String firstLetter = week.substring(0,1);
@@ -57,7 +54,7 @@ public class WeekParse extends Parse {
             week = firstLetter + week.substring(1);
             week = week + " Week";
         } else {
-            return fullCommand;
+            week = "Week " + week;
         }
         return week;
     }

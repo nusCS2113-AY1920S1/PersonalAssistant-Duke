@@ -34,7 +34,7 @@ public class MainParser {
             case "remind/rm":
                 return new RemindParse(fullCommand).parse();
 
-            case "/show":
+            case "show/workload":
                 return new WorkloadParse(fullCommand).parse();
 
             case "filter":
@@ -46,7 +46,7 @@ public class MainParser {
             case "done":
                 return new DoneParse(fullCommand).parse();
 
-            case "find":
+            case "find/ft":
                 return new FindFreeTimesParse(fullCommand).parse();
 
             case "show/previous":
@@ -58,7 +58,7 @@ public class MainParser {
             case "retrieve/previous":
                 return new RetrievePreviousCommand(fullCommand);
 
-            case "Week":
+            case "show/week":
                 return new WeekParse(fullCommand).parse();
 
             case "bye":

@@ -12,3 +12,119 @@ Nov 05, 2019 3:53:41 PM Commons.Duke run
 INFO: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commandsInvalid input. Please type help to see all commands
 Nov 05, 2019 3:53:51 PM Commons.Duke run
 INFO: DukeExceptions.DukeInvalidFormatException: ☹ OOPS!!! The ModCode is invalid☹ OOPS!!! The ModCode is invalid
+Nov 06, 2019 11:11:50 AM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 06, 2019 11:15:18 AM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 06, 2019 2:27:06 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 06, 2019 2:35:25 PM Commons.Duke run
+INFO: DukeExceptions.DukeException: Sorry, you have no such mod task to be removedSorry, you have no such mod task to be removed
+Nov 06, 2019 2:36:18 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 06, 2019 2:41:31 PM Commons.Duke run
+INFO: DukeExceptions.DukeException: Sorry, you have no such date of the mod task to be mark doneSorry, you have no such date of the mod task to be mark done
+Nov 06, 2019 2:41:50 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 06, 2019 2:46:38 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 06, 2019 2:47:15 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 06, 2019 2:47:32 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 07, 2019 2:54:38 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "5.6"
+Nov 07, 2019 2:54:38 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "abc"
+Nov 07, 2019 2:54:38 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "find 3"
+Nov 07, 2019 2:54:38 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "find 3"
+Nov 07, 2019 2:54:38 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "find 3"
+Nov 07, 2019 2:54:39 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 2:54:39 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 2:54:39 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 2:54:39 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 2:54:39 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 2:54:39 PM Parser.RetrieveFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "a0b1c2"
+Nov 07, 2019 2:54:39 PM Parser.RetrieveFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "1.1"
+Nov 07, 2019 2:54:39 PM Parser.ShowPreviousParse parse
+INFO: Unable to parse string to integerFor input string: "add/d"
+Nov 07, 2019 2:54:39 PM Parser.ShowPreviousParse parse
+INFO: Unable to parse string to integerFor input string: "remove/all"
+Nov 07, 2019 2:54:39 PM Parser.RecurParse parse
+INFO: Invalid recur formatIndex 1 out of bounds for length 1
+Nov 07, 2019 2:55:46 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 07, 2019 3:01:56 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "5.6"
+Nov 07, 2019 3:01:56 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "abc"
+Nov 07, 2019 3:01:56 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "find 3"
+Nov 07, 2019 3:01:56 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "find 3"
+Nov 07, 2019 3:01:56 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "find 3"
+Nov 07, 2019 3:01:56 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 3:01:56 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 3:01:56 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 3:01:56 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 3:01:56 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 3:01:56 PM Parser.RetrieveFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "a0b1c2"
+Nov 07, 2019 3:01:56 PM Parser.RetrieveFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "1.1"
+Nov 07, 2019 3:01:56 PM Parser.ShowPreviousParse parse
+INFO: Unable to parse string to integerFor input string: "add/d"
+Nov 07, 2019 3:01:56 PM Parser.ShowPreviousParse parse
+INFO: Unable to parse string to integerFor input string: "remove/all"
+Nov 07, 2019 3:01:56 PM Parser.RecurParse parse
+INFO: Invalid recur formatIndex 1 out of bounds for length 1
+Nov 07, 2019 3:02:41 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 07, 2019 3:03:35 PM Commons.DukeLogger initialise
+INFO: currentLogLevel: INFO
+Nov 07, 2019 3:04:03 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "5.6"
+Nov 07, 2019 3:04:03 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "abc"
+Nov 07, 2019 3:04:03 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "find 3"
+Nov 07, 2019 3:04:03 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "find 3"
+Nov 07, 2019 3:04:03 PM Parser.FindFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "find 3"
+Nov 07, 2019 3:04:03 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 3:04:03 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 3:04:03 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 3:04:03 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 3:04:03 PM Parser.RemindParse parse
+INFO: Invalid remind formatIndex 1 out of bounds for length 1
+Nov 07, 2019 3:04:03 PM Parser.RetrieveFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "a0b1c2"
+Nov 07, 2019 3:04:03 PM Parser.RetrieveFreeTimesParse parse
+INFO: Unable to parse string to integerFor input string: "1.1"
+Nov 07, 2019 3:04:03 PM Parser.ShowPreviousParse parse
+INFO: Unable to parse string to integerFor input string: "add/d"
+Nov 07, 2019 3:04:03 PM Parser.ShowPreviousParse parse
+INFO: Unable to parse string to integerFor input string: "remove/all"
+Nov 07, 2019 3:04:03 PM Parser.RecurParse parse
+INFO: Invalid recur formatIndex 1 out of bounds for length 1
