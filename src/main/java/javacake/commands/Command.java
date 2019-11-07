@@ -14,15 +14,14 @@ public abstract class Command {
      */
     public enum CmdType {
         EXIT, LIST, FIND, DONE, DELETE, TODO, DEADLINE, REMIND, VIEWSCH,
-        EDIT, BACK, GOTO, QUIZ, HELP, OVERVIEW, CREATE_NOTE, EDIT_NOTE, LIST_NOTE,
-        DELETE_NOTE, VIEW_NOTE
+        EDIT, BACK, GOTO, QUIZ, HELP, OVERVIEW, CREATE_NOTE, EDIT_NOTE,
+        LIST_NOTE, DELETE_NOTE, VIEW_NOTE
     }
 
     private static final char[] ILLEGAL_CHARACTERS = { '/', '\n', '\r', '\t',
-            '\0', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':', '.', ','};
+        '\0', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':', '.', ','};
 
-    public abstract String execute(Logic logic, Ui ui, StorageManager storageManager)
-            throws CakeException;
+    public abstract String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException;
 
     /**
      * Checks if input command has no other parameter appended.
@@ -37,6 +36,11 @@ public abstract class Command {
         }
     }
 
+    /**
+     * Checks for illegal character methods for commands.
+     * @param inputCommand Command input from user
+     * @return True if command contains illegal characters.
+     */
     public static boolean containsIllegalCharacter(String inputCommand) {
         String bySpaces = "\\s+";
         String[] subStrings = inputCommand.split(bySpaces);
@@ -47,6 +51,11 @@ public abstract class Command {
         return false;
     }
 
+    /**
+     * Checks for illegal characters in a keyword.
+     * @param word Parameter within a input command.
+     * @return True if illegal character is found.
+     */
     private static boolean checkForIllegalChar(String word) {
         for (char illegalChar : ILLEGAL_CHARACTERS) {
             return (word.indexOf(illegalChar) >= 0);

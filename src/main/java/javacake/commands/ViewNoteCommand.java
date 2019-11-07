@@ -16,6 +16,13 @@ public class ViewNoteCommand extends Command {
     private String fileName;
     private static String defaultFilePath = Storage.returnNotesDefaultFilePath();
 
+    /**
+     * Constructor for ViewNoteCommand.
+     * Validates the command by checking parameters.
+     * Instantiates command object if validation passed.
+     * @param inputCommand ViewNoteCommand by user.
+     * @throws CakeException If command is not validated.
+     */
     public ViewNoteCommand(String inputCommand) throws CakeException {
         validateCommand(inputCommand);
         type = CmdType.VIEW_NOTE;
@@ -49,7 +56,7 @@ public class ViewNoteCommand extends Command {
             + "E.g. viewnote [name of file]");
         } else if (containsMultipleParameters(inputCommand)) {
             throw new CakeException("Please only enter one file name! E.g. viewnote [name of file]");
-        } else if (Command.containsIllegalCharacter(inputCommand)){
+        } else if (Command.containsIllegalCharacter(inputCommand)) {
             throw new CakeException("Invalid file name: Illegal character in file name detected!");
         } else if (fileDoesNotExist(inputCommand)) {
             throw new CakeException("File specified does not exist! "
