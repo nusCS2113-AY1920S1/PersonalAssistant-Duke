@@ -18,13 +18,10 @@ public class AddExpenseCommand {
      * This method adds the expense from the expense list and expenses.
      *
      * @param ui       the object that deals with printing things to the user.
-     * @param storage  the object that deals with storing data,
-     *                 in this case storing data in the expenses map
      * @param expenses the map that maps each expenses to its date
      * @throws IOException catch any error if read file fails
      */
     public AddExpenseCommand(final Ui ui,
-                             final Storage storage,
                              final Map<LocalDate, ArrayList<String>> expenses)
             throws IOException {
 
@@ -64,20 +61,5 @@ public class AddExpenseCommand {
                 + "\n" + itemAndPrice
                 + ", bought on " + dateOfPurchase);
 
-        /*Stores the updated expenses map after deletion of expenses*/
-        String toStore = "";
-        for (LocalDate key : expenses.keySet()) {
-            if (expenses.get(key).size() > 1) {
-                for (int i = 0; i < expenses.get(key).size(); i++) {
-                    toStore = toStore.concat(key + "|"
-                            + expenses.get(key).get(i) + "\n");
-                }
-            } else if (expenses.get(key).size() == 1) {
-
-                toStore = toStore.concat(key + "|"
-                        + expenses.get(key).get(0) + "\n");
-            }
-        }
-        storage.Storages_Expenses(toStore);
     }
 }

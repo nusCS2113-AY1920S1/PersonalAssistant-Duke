@@ -99,14 +99,14 @@ public class DoneCommand extends Command {
         }
     }
 
-        /**
-         * Program does not exit and continues running
-         * since command "bye" is not called.
-         *
-         * @return false
-         */
-        @Override
-        public boolean isExit () {
-            return false;
-        }
+    /**
+     * Program does not exit and continues running
+     * since command "bye" is not called.
+     *
+     * @return false
+     */
+    @Override
+    public boolean isExit() {
+        return false;
     }
+}

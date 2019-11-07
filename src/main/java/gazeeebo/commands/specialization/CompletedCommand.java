@@ -203,7 +203,7 @@ public class CompletedCommand {
                         + toStoreLS
                         + "\n"
                         + toStoreSC;
-                storage.completedElectivesStorage(allCompletedE);
+                storage.writeToCompletedElectivesFile(allCompletedE);
             }
         } catch (DukeException e) {
             System.out.println(e.getMessage());

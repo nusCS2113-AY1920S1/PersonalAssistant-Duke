@@ -27,6 +27,7 @@ public class DeleteCommand extends Command {
      * The string "delete " has 7 characters.
      */
     static final int DELETE_AND_SPACE_CHAR_COUNT = 7;
+
     /**
      * Allows user to delete 1 or more tasks at a time.
      *
@@ -119,6 +120,7 @@ public class DeleteCommand extends Command {
             System.out.println(e.getMessage());
         }
     }
+
     /**
      * Program does not exit and continues running
      * since command "bye" is not called.

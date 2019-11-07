@@ -512,7 +512,7 @@ public class ListSpecializationCommand {
                     + toStoreIdmB + "\n" + toStoreIdmD + toStorelsB
                     + "\n" + toStorelsD + "\n" + toStoreSysChipB
                     + "\n" + toStoreSysChipD;
-            storage.specializationStorage(totalStoringOfSpec);
+            storage.writeToSpecializationFile(totalStoringOfSpec);
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }

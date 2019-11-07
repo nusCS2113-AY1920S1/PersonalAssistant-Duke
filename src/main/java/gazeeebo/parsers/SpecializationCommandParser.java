@@ -43,10 +43,10 @@ public class SpecializationCommandParser extends Command {
                         final TriviaManager triviaManager)
             throws IOException, DukeException {
         HashMap<String, ArrayList<ModuleCategory>> sMap
-                = storage.Specialization(); //Read the file
+                = storage.readFromSpecializationFile(); //Read the file
         Map<String, ArrayList<ModuleCategory>> specMap = new TreeMap<>(sMap);
         HashMap<String, ArrayList<String>> eMap
-                = storage.completedElectives(); //Read the file
+                = storage.readFromCompletedElectivesFile(); //Read the file
         Map<String, ArrayList<String>> completedEMap = new TreeMap<>(eMap);
         new ListOfSpecializationAndModules(specMap);
 
