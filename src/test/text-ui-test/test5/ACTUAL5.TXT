@@ -9,7 +9,7 @@
 
 	---------------------------------------------------------------------------------
 	---------------------------------------------------------------------------------
-	 Here are the matching tasks in your list:
+	 Here are the most relevant tasks in your list:
 	 3. [H][✗] deadline1 by: 12/12/2222 12:22 [Priority: 5]
 	 1. [T][✗] todo1 [Priority: 5]
 	 2. [T][✗] todo2 [Priority: 5]
@@ -17,7 +17,7 @@
 
 	---------------------------------------------------------------------------------
 	---------------------------------------------------------------------------------
-	 Here are the matching tasks in your list:
+	 Here are the most relevant tasks in your list:
 	 1. [T][✗] todo1 [Priority: 5]
 	 2. [T][✗] todo2 [Priority: 5]
 	 4. [E][✗] event1 at: 12/12/1222 22:22 - 22/12/2222 11:11 [Priority: 5]
@@ -25,7 +25,7 @@
 
 	---------------------------------------------------------------------------------
 	---------------------------------------------------------------------------------
-	 Here are the matching tasks in your list:
+	 Here are the most relevant tasks in your list:
 	 1. [T][✗] todo1 [Priority: 5]
 	 4. [E][✗] event1 at: 12/12/1222 22:22 - 22/12/2222 11:11 [Priority: 5]
 	 3. [H][✗] deadline1 by: 12/12/2222 12:22 [Priority: 5]

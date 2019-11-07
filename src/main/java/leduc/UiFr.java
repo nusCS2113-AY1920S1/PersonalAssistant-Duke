@@ -312,7 +312,7 @@ public class UiFr extends Ui {
             System.out.println("\t EventTypeException:\n\t\t ☹ OOPS!!! La tâche devrait être de type event");
         }
         else if(e instanceof FileException){
-            System.out.println("Le fichier n'existe pas ou ne peut pas être créé ou ne peut pas être ouvert ");
+            System.out.println("Le fichier n'existe pas ou ne peut pas être créé ou ne peut pas être ouvert");
         }
         else if(e instanceof HomeworkTypeException){
             System.out.println("\t HomeworkTypeException:\n\t\t ☹ OOPS!!! La tâche devrait être de type homework");
