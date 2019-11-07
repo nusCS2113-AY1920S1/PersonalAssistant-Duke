@@ -71,7 +71,7 @@ Adds a CCA task into the CCA list. +
 Format: `add cca CCA_NAME --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK`
 
 ****
-* The `BEGIN_TIME` and `END_TIME` must be in the format of HH:mm.
+* The `BEGIN_TIME` and `END_TIME` must be in the format of HHmm.
 * The `DAY_OF_WEEK` must be in the format of the day names such as, "Monday", "Tuesday", etc. 
 * Example: `add cca SOCCER --begin 16:00 --end 18:00 --dayOfWeek Monday`
 ****
