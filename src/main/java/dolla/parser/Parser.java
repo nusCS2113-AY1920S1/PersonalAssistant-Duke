@@ -464,9 +464,6 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             String typeStr = inputArray[1];
             String durationStr = inputArray[3];
             isValid = verifyLimitType(typeStr) && verifyLimitAmount(amountInt) && verifyLimitDuration(durationStr);
-        } catch (NumberFormatException e) {
-            LimitUi.invalidAmountPrinter();
-            isValid = false;
         } catch (Exception e) { //index out of bounds here also
             //LimitUi.invalidSetCommandPrinter();
             isValid = false;
