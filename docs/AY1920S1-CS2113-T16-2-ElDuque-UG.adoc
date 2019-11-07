@@ -25,7 +25,7 @@ El Duque is a desktop task manager made for computing students. More importantly
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `El-Duque.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your personal Task Manager.
-.  Double-click the file to start the app. The CLI should appear in a few seconds.
+.  Open the command line and navigate to the selected folder and type `java -jar El-Duque.jar` to run El Duque.
 +
 image::Ui.png[width="790"]
 +
@@ -33,10 +33,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will show you a brief summary of commands and their format
 .  Some example commands you can try:
 
-* *`list`* : lists all tasks
-* **`task`**`example` : adds a task with a description called example to the task manager
-* **`delete`**`3` : deletes the 3rd task shown in the current list
-* *`bye`* : exits the app
+* `list` : lists all tasks
+* `task example` : adds a task with a description called example to the task manager
+* `delete 3` : deletes the 3rd task shown in the current list
+* `bye` : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
@@ -46,7 +46,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will show you a brief summary of c
 ====
 El Duque relies on a flexible command line syntax to parse in commands. Here is the general form of that said syntax.
 
-`[-FILTER] COMMAND [-MODIFICATIONS]`
+    [-FILTER] COMMAND [-MODIFICATIONS]
 
 There are 3 main parts to the syntax and filter and modifications have to be prefixed with `-`. Filter and modifications are optional. They serve to add extra depth to the basic commands.
 You can think of filters as sublists. To learn more filters, go to Section 4.5, “Project Filters”. One very important point to note is that `INDEX` is relative to `FILTER`. 
@@ -63,52 +63,149 @@ For example: +
 
 === Viewing help : `help`
 
-Format: `help`
+    help
 
-=== Adding a task: `add`
+=== Adding a task: `task`
+Adds a task to the task manager. +
 
-Adds a task to the address book +
-Format: `[-FILTER] task DESCRIPTION [-p PRIORITY] [-t DATETIME] [-d DURATION] [-r RECURRENCE]`
+ [-FILTER] task DESCRIPTION [-p PRIORITY] [-t DATETIME] [-d DURATION] [-r RECURRENCE]
 
-[TIP]
-A task can have any number of tags (including 0)
+Modifications at the back are optional, feel free to use them if you wish.
 
-Examples:
+    task ST2334 Tutorial
 
-* `task ST2334 Tutorial`
-* `-CS2113 task Project Meeting -p high -t tomorrow 1400 -r weekly`
+If you wish to add a task to the `CS2113` list.
+
+    -CS2113 task Project Meeting -p high -t tomorrow 1400 -r weekly
+
+[NOTE]
+Only one word filters are allowed.
+
+=== Adding an event: `event`
+Adds an event to the task manager. Events support the same functionalities of task but they have a compulsary date time modification.
+
+    event Student Life Fair -t tomorrow 1000
+
+=== Modifications
+
+==== Priority
+Priority tagging for tasks have 3 levels. `l` , `m` and `h` to represent low, medium and high respectively. +
+
+    -p h
+
+[NOTE]
+Feel free to type `low`, `medium` or `high` as well, El Duque understands.
+
+==== Recurring Tasks
+Recurring tasks are tasks that will mark itself as undone after the recurrence period.
+A daily task will be refreshed daily, saving you the trouble of having to recreate the task every day.
+Recurrence periods supported are `daily` and `weekly`.
+
+    -r daily
+
+==== Duration
+Duration assigned to task denotes the amount of time in hours you assigned for the task.
+
+    -d 5
+
+==== Date and Time
+Date and time input follows the following formats: `ddMMyy` or `ddMMyy HHmm`. +
+
+    -t 071119 1000
+
+El Duque also supports keywords `today`,  `tomorrow` and `today/tomorrow HHmm` as well. +
+
+    -t tomorrow 1200
 
 === Listing all tasks : `list`
-
 Shows a list of all tasks in the task manager. +
-Format: `list`
+
+    list
+
+==== Filtered List
+Adding a `-FILTER` infront of the list command will show the respective filtered list. +
+
+    -CS2113 list
+
+==== Time-Based List
+List based on certain time frames are also included: `day` and `week`. +
+
+    list day
+
+==== Uncompleted List
+List based on completion of task: `undone`
+
+    list undone
+
+==== Priority List
+List based on priority: `priority`
+
+    list priority
 
 === Completing a task : `done`
-
 Completes an existing task in the address book. +
-Format: `done INDEX`
+
+    done INDEX
 
 [NOTE]
 Only valid indexes will work! If you try to perform the command using an index not shown in the current list, the task manager will ask you to type in a valid index!
 
-Examples:
+This following command marks the first task in the list as complete.
 
-* `done 1` +
-Completes the 1st task shown in the current list.
-* `done 12` +
-Completes the task at index 12 shown in the current list.
+    done 1
+
+Filters can be used with this command as well as shown.
+
+    -CS2113 done 2
+
+Will mark the second task in the -CS2113 list as done.
 
 === Locating tasks by description: `find`
 
 Finds task whose description contain any of the given keywords. +
+
+    [-FILTER] find KEYWORD
+
 The task manager supports partial matching in the search operation. +
-If there is no exact match found, the task manager will list all partial matches. +
-Format: `[-FILTER] find KEYWORD`
+
+    find bo
+
+Will return tasks that have "bo" in the description.
+
+=== Auto assign: `autoassign`
+You can auto assign tasks that have yet to have filters using certain heuristics.
+This feature relies on filter name matching or having similar description words.
+For example, if `cs` filter has many tasks with description contatining "programming", auto assigning a task with "programming" in the description will suggest `cs` as a filter.
+
+    autoassign 2
+
+=== Editing a task : `edit`
+El Duque supports the editing of any parameters of a given task.
+The parameters to be edited must begin with `-KEYWORD` followed by the edit.
+
+    [-FILTER] edit INDEX -KEYWORD [MODIFICATION]
+
+Editing the description and recurrence of the first task of the list is as follows. +
+
+    edit 1 -desc gym -r daily
+
+[NOTE]
+The order of the parameters does not matter!
+
+Shown below are the list of keywords and the respective attributes that they edit.
+
+* `-f` : filter
+* `-des` / `-desc` / `-descript` : description
+* `priority` : priority
+* `t` : date and time
+* `d` : duration of the task
+* `r` : recurrence
 
 === Deleting a task : `delete`
 
 Deletes the specified task from the task manager. +
-Format: `[-FILTER] delete INDEX`
+
+ [-FILTER] delete INDEX
 
 ****
 * Deletes the person at the specified `INDEX`.
@@ -116,13 +213,14 @@ Format: `[-FILTER] delete INDEX`
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-Examples:
+    list
+    delete 2
 
-* `list` +
-`delete 2` +
-Deletes the 2nd task in the address book.
-* `-CS2113 list` +
-`-CS2113 delete 1` +
+Deletes the 2nd task in the task list.
+
+    -CS2113 list
+    -CS2113 delete 1
+
 Deletes the 1st task in the list shown by the `-CS2113 list` command.
 
 
@@ -130,33 +228,110 @@ Deletes the 1st task in the list shown by the `-CS2113 list` command.
 === Undoing previous command : `undo`
 
 Restores the task manager to the state before the previous _undoable_ command was executed. +
-Format: `undo`
+
+    undo
 
 [NOTE]
 ====
 Undoable commands: those commands that modify the address book's content (`task`, `event`, `edit`, `delete` and `done`).
 ====
 
-Examples:
+    delete 1
+    list
+    undo
 
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
+This will reverse the `delete 1` command.
 
-* `list` +
-`undo` +
+    list
+    undo
+
 The `undo` command fails as there are no undoable commands executed previously.
 
-* `delete 1` +
-`edit 2 -p high` +
-`undo` (reverses the `edit 2 -p high` command) +
-`undo` (reverses the `delete 1` command) +
+    delete 1
+    edit 2 -p high
+    undo
+    undo
+
+This first undo will reverse the `delete 1` command. +
+The second undeo will reverse the `edit 2 -p high` command. +
 // end::undoredo[]
+
+=== Pomodoro Timer
+El Duque includes a pomodoro timer to complement the pomodoro workflow.
+This timer has 3 states, *work*, *short break* and *long break*.
+A work cycle is followed by a *short break*, every 4th break will be a *long break*. +
+
+Pomodoro supports the adding of task to a temporary pomodoro task list for you to keep track of tasks you wish to complete this pomodoro work session. +
+
+
+==== Starting a pomodoro: `start`
+Starts the timer for the current cycle that it is in. First instance of this would be the work cycle. +
+
+    pomo start
+
+El Duque will subsequently update you on the time remaining for the current state every 5 minutes.
+
+[NOTE]
+Once the timer has ended, the next call of `pomo start` will be the next state.
+If the current state is *work*, the next call will be a *break*.
+
+==== Stopping a pomodoro: `stop`
+Ends the current pomodoro. The pomodoro will automatically update to the next state.+
+
+    pomo end
+
+==== Viewing the status: `status`
+Shows the remaining time and current status of the pomodoro. +
+
+    pomo status
+
+==== Resetting the pomodoro : `reset`
+Resets the current state to the previous state.
+If current state is a *break*, it will be resetted to a *work* state. +
+
+    pomo status
+
+==== Restarts the pomodoro : `restart`
+Restarts the entire pomodoro to the first *work* state. +
+
+    pomo restart
+
+==== Adding to pomodoro tasks: `add`
+This pomodoro supports adding of tasks to the pomodoro to help you keep track of what you wish to complete in this cycle.
+Addition of task uses `add` followed by the `INDEX`.
+
+The following command adds the first task of the task list into the pomodoro.
+
+    pomo add 1
+
+[TIP]
+Filters are supported as well. `-CS2113 pomo add 1` will add the first task in the CS2113 task list.
+
+==== Listing pomodoro tasks: `list`
+Lists out all the tasks you have added to the pomodoro task list.
+
+    pomo list
+
+==== Completing a task: `done`
+After you have completed a pomodoro task, you can mark it as `done`.
+This will remove it from the pomodoro task list and update the task as completed in the main task list.
+
+    pomo done 1
+
+==== Answers to brain teaser: `answer`
+El Duque contains a bank of brain teasers that will be shown every time a break has started.
+We hope this gives you something to take your mind of work. You can use the `answer` keyword to reveal the answer to the brain teaser. +
+
+    pomo answer
+
+[NOTE]
+Brain teaser bank is randomised, you might not get the same question the next break. Make sure to type `pomo answer` before you start your next break to view the answer to this current brain teaser!
 
 === Exiting the program : `bye`
 
 Exits the program. +
-Format: `bye`
+
+    bye
 
 === Saving the data
 
