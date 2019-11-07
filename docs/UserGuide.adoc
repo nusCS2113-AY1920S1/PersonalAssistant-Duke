@@ -575,6 +575,26 @@ Example: `tracker /view week`
 .Displays Task Tracker by Module Code
 image::ViewTracker.png[ViewTracker]
 
+==== View Task Tracker List: `tracker`
+You can view a list of all your Task trackers.
+
+Format: `tracker /list`
+
+[[ViewTrackerList]]
+.Displays a list of Task Trackers
+image::ViewTrackerList.png[ViewTrackerList]
+
+==== Delete a Task Tracker: `tracker`
+You can delete a Task Tracker.
+
+Format: `tracker /delete TRACKER_INDEX`
+
+Example: `tracker /delete `
+
+[[DeleteTracker]]
+.Deletes a Task Tracker
+image::DeleteTracker.png[DeleteTracker]
+
 === Organisation
 
 ==== Listing tasks: `list`
@@ -841,25 +861,30 @@ View reminder based on the threshold set.
 [NOTE]
 This feature runs in the background thus no input is needed from you.
 
-Starts assignment tracker.
+Starts Task tracker.
 
-* *Start Assignment Tracker*: `tracker /start TASK_INDEX MODULE_CODE` +
+* *Start Task Tracker*: `tracker /start TASK_INDEX MODULE_CODE` +
 e.g. `tracker /start 20 cs2113t`
 
-Pauses assignment tracker.
+Pauses Task tracker.
 
-* *Pause Assignment Tracker*: `tracker /pause TASK_INDEX MODULE_CODE` +
+* *Pause Task Tracker*: `tracker /pause TASK_INDEX MODULE_CODE` +
 e.g. `tracker /pause 20 cs2113t`
 
-Stops assignment tracker.
+Stops Task tracker.
 
 * *Stop Assignment Tracker*: `tracker /stop TASK_INDEX MODULE_CODE` +
 e.g. `tracker /stop 20 cs2113t`
 
-View assignment tracker diagram.
+View Task tracker diagram.
 
-* *View Assignment Tracker*: `tracker /view TIME_PERIOD` +
+* *View Task Tracker*: `tracker /view TIME_PERIOD` +
 e.g. `tracker /view week`
+
+* *List Task Trackers*: `tracker /list`
+
+* *Delete a Task Tracker*: `tracker /delete TRACKER_INDEX` +
+e.g. `tracker /delete 1`
 
 Exit *OOF* by using this command.
 

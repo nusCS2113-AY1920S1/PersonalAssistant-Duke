@@ -53,76 +53,44 @@ public class TrackerCommandTest {
     }
 
     /**
-     * Test behavior when tracker tries to stop without starting.
+     * Test behavior when tracker view period is empty.
      */
     @Test
-    public void execute_stopTimerWithoutStarting_exceptionThrown() {
+    public void execute_emptyPeriod_exceptionThrown() {
         try {
-            oof.executeCommand("todo stop timer no start /on 05-11-2019");
-            int recent = taskList.getSize() - 1;
-            String command = "tracker /pause " + recent + " CS2101";
-            oof.executeCommand(command);
+            oof.executeCommand("tracker /view");
             fail();
         } catch (CommandException | ParserException e) {
-            assertEquals("Tracker for this Assignment has not started.", e.getMessage());
+            assertEquals("Invalid Commmand!", e.getMessage());
         }
     }
 
     /**
-     * Test behavior when tracker tries to pause without starting.
+     * Test behavior when tracker view period is invalid.
      */
     @Test
-    public void execute_pauseTimerWithoutStarting_exceptionThrown() {
+    public void execute_stringPeriod_exceptionThrown() {
         try {
-            oof.executeCommand("todo pause test /on 05-11-2019");
-            int recent = taskList.getSize();
-            String command = "tracker /pause " + recent + " CS2101";
-            oof.executeCommand(command);
+            oof.executeCommand("tracker /view abc");
             fail();
         } catch (CommandException | ParserException e) {
-            assertEquals("Tracker for this Assignment has not started.", e.getMessage());
+            assertEquals("Invalid Period!", e.getMessage());
         }
     }
 
     /**
-     * Test behavior when tracker tries to start a task tracker that has already been stopped and completed.
+     * Test behavior when tracker view period is an integer.
      */
     @Test
-    public void execute_startTimerThatHasStopped_exceptionThrown() {
+    public void execute_integerPeriod_exceptionThrown() {
         try {
-            oof.executeCommand("todo start stopped timer /on 06-11-2019");
-            int recent = taskList.getSize() - 1;
-            Task task = taskList.getTask(recent);
-            oof.executeCommand("done " + recent);
-            String command = "tracker /start " + recent + " CS2113T";
-            oof.executeCommand(command);
+            oof.executeCommand("tracker /view 12");
             fail();
         } catch (CommandException | ParserException e) {
-            assertEquals("Task has already been completed.", e.getMessage());
+            assertEquals("Invalid Period!", e.getMessage());
         }
     }
 
-    /**
-     * Test behavior when tracker tries to start/stop/pause a task description that
-     * does not match the previous start entry.
-     */
-    @Test
-    public void execute_taskDescriptionsNotMatched_exceptionThrown() {
-        try {
-            oof.executeCommand("todo description /on 06-11-2019");
-            oof.executeCommand("todo desc /on 07-11-2019");
-            int recent = taskList.getSize() - 2;
-            String command = "tracker /start " + recent + " CS2113T";
-            oof.executeCommand(command);
-            oof.executeCommand("delete " + recent);
-
-            command = "tracker /start " + recent + " CS2113T";
-            oof.executeCommand(command);
-            fail();
-        } catch (CommandException | ParserException e) {
-            assertEquals("Task descriptions do not match!", e.getMessage());
-        }
-    }
 
     /**
      * test behavior when an invalid task index is given.
@@ -138,6 +106,102 @@ public class TrackerCommandTest {
     }
 
     /**
+     * Test behavior when tracker tries to stop without starting.
+     *
+     * @throws CommandException if Command is invalid.
+     * @throws ParserException if Command cannot be parsed.
+     */
+    @Test
+    public void execute_stopTimerWithoutStarting_exceptionThrown() throws CommandException, ParserException {
+        try {
+            oof.executeCommand("todo stop without start /on 05-11-2019");
+            int recent = taskList.getSize();
+            String command = "tracker /stop " + recent + " CS2113T";
+            oof.executeCommand(command);
+            fail();
+        } catch (CommandException | ParserException e) {
+            assertEquals("Tracker for this Assignment has not started.", e.getMessage());
+        }
+        int index = taskList.getSize();
+        oof.executeCommand("delete " + index);
+    }
+
+    /**
+     * Test behavior when tracker tries to pause without starting.
+     *
+     * @throws CommandException if Command is invalid.
+     * @throws ParserException if Command cannot be parsed.
+     */
+    @Test
+    public void execute_pauseTimerWithoutStarting_exceptionThrown() throws CommandException, ParserException {
+        try {
+            oof.executeCommand("todo pause test /on 05-11-2019");
+            int recent = taskList.getSize();
+            String command = "tracker /pause " + recent + " CS2113T";
+            oof.executeCommand(command);
+            fail();
+        } catch (CommandException | ParserException e) {
+            assertEquals("Tracker for this Assignment has not started.", e.getMessage());
+        }
+        int index = taskList.getSize();
+        oof.executeCommand("delete " + index);
+    }
+
+    /**
+     * Test behavior when tracker tries to start a task tracker that has already been stopped and completed.
+     *
+     * @throws CommandException if Command is invalid.
+     * @throws ParserException if Command cannot be parsed.
+     */
+    @Test
+    public void execute_startTimerThatHasStopped_exceptionThrown() throws CommandException, ParserException {
+        try {
+            oof.executeCommand("todo start stopped timer /on 06-11-2019");
+            int recent = taskList.getSize();
+            oof.executeCommand("done " + recent);
+            String command = "tracker /start " + recent + " CS2113T";
+            oof.executeCommand(command);
+            fail();
+        } catch (CommandException | ParserException e) {
+            assertEquals("Task has already been completed.", e.getMessage());
+        }
+        int index = taskList.getSize();
+        oof.executeCommand("delete " + index);
+    }
+
+    /**
+     * Test behavior when tracker tries to start/stop/pause a task description
+     * that does not match the previous start entry.
+     *
+     * @throws CommandException if Command is invalid.
+     * @throws ParserException if Command cannot be parsed.
+     * @throws StorageFileCorruptedException if tracker.csv cannot be read.
+     */
+    @Test
+    public void execute_taskDescriptionsNotMatched_exceptionThrown() throws CommandException,
+            ParserException, StorageFileCorruptedException {
+        try {
+            oof.executeCommand("todo description /on 06-11-2019");
+            oof.executeCommand("todo desc /on 07-11-2019");
+            int index = taskList.getSize() - 1;
+            String command = "tracker /start " + index + " CS2113T";
+            oof.executeCommand(command);
+            oof.executeCommand("delete " + index);
+
+            command = "tracker /start " + index + " CS2113T";
+            oof.executeCommand(command);
+            fail();
+        } catch (CommandException | ParserException e) {
+            assertEquals("Task descriptions do not match!", e.getMessage());
+        }
+        int index = taskList.getSize();
+        oof.executeCommand("delete " + index);
+        ArrayList<Tracker> trackerList = oof.getStorageManager().readTrackerList();
+        int trackerIndex = trackerList.size();
+        oof.executeCommand("tracker /delete " + trackerIndex);
+    }
+
+    /**
      * Test behavior for starting a Tracker.
      *
      * @throws CommandException if command is invalid.
@@ -145,10 +209,10 @@ public class TrackerCommandTest {
      * @throws StorageFileCorruptedException if tracker.csv cannot be processed.
      */
     @Test
-    public void execute_StartTrackerCorrectly_StartTracker() throws CommandException,
+    public void execute_correctStartTracker_startTracker() throws CommandException,
             ParserException, StorageFileCorruptedException {
         oof.executeCommand("todo start tracker /on 06-11-2019");
-        int recent = taskList.getSize() - 1;
+        int recent = taskList.getSize();
         String command = "tracker /start " + recent + " CS2113T";
         oof.executeCommand(command);
 
@@ -161,7 +225,11 @@ public class TrackerCommandTest {
         String lastUpdated = simpleDateFormat.format(tracker.getLastUpdated());
         assertEquals(date, lastUpdated);
 
+        oof.executeCommand("tracker /stop " + recent + " CS2113T");
         oof.executeCommand("delete " + recent);
+        ArrayList<Tracker> trackerList = oof.getStorageManager().readTrackerList();
+        int trackerIndex = trackerList.size();
+        oof.executeCommand("tracker /delete " + trackerIndex);
     }
 
     /**
@@ -172,10 +240,10 @@ public class TrackerCommandTest {
      * @throws StorageFileCorruptedException if tracker.csv cannot be processed.
      */
     @Test
-    public void execute_PauseTrackerCorrectly_PauseTracker() throws CommandException,
+    public void execute_correctPauseTracker_pauseTracker() throws CommandException,
             ParserException, StorageFileCorruptedException {
         oof.executeCommand("todo pause tracker /on 06-11-2019");
-        int recent = taskList.getSize() - 1;
+        int recent = taskList.getSize();
         String command = "tracker /start " + recent + " CS2113T";
         oof.executeCommand(command);
 
@@ -189,7 +257,11 @@ public class TrackerCommandTest {
         String date = simpleDateFormat.format(new Date());
         assertEquals(date, simpleDateFormat.format(tracker.getLastUpdated()));
         assertNull(tracker.getStartDate());
+
         oof.executeCommand("delete " + recent);
+        ArrayList<Tracker> trackerList = oof.getStorageManager().readTrackerList();
+        int trackerIndex = trackerList.size();
+        oof.executeCommand("tracker /delete " + trackerIndex);
     }
 
     /**
@@ -200,10 +272,10 @@ public class TrackerCommandTest {
      * @throws StorageFileCorruptedException if tracker.csv cannot be processed.
      */
     @Test
-    public void execute_StopTrackerCorrectly_StopTracker() throws CommandException,
+    public void execute_correctStopTracker_stopTracker() throws CommandException,
             ParserException, StorageFileCorruptedException {
         oof.executeCommand("todo stop tracker /on 06-11-2019");
-        int recent = taskList.getSize() - 1;
+        int recent = taskList.getSize();
         String command = "tracker /start " + recent + " CS2113T";
         oof.executeCommand(command);
 
@@ -221,6 +293,10 @@ public class TrackerCommandTest {
         int index = tracker.getTaskIndex();
         Task task = taskList.getTask(index);
         assertTrue(task.getStatus());
+
         oof.executeCommand("delete " + recent);
+        ArrayList<Tracker> trackerList = oof.getStorageManager().readTrackerList();
+        int trackerIndex = trackerList.size();
+        oof.executeCommand("tracker /delete " + trackerIndex);
     }
 }

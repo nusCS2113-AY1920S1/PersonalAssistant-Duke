@@ -21,6 +21,8 @@ import oof.model.task.TaskList;
 import oof.model.tracker.Tracker;
 import oof.storage.StorageManager;
 
+import javax.sound.midi.Track;
+
 public class TrackerCommand extends Command {
 
     public static final String COMMAND_WORD = "tracker";
@@ -28,12 +30,14 @@ public class TrackerCommand extends Command {
     private static final long DEFAULT_TIMETAKEN = 0;
     private static final int INDEX_INSTRUCTION = 0;
     private static final int PERIOD_INDEX = 1;
+    private static final int DELETE_INDEX = 1;
     private static final int TASK_INDEX = 1;
     private static final int CORRECT_INDEX = 1;
     private static final int MODULE_CODE_INDEX = 2;
     private static final int SPLIT_INPUT = 3;
     private static final int NOT_FOUND = -1;
     private static final int VIEW_COMMAND_LENGTH = 2;
+    private static final int DELETE_COMMAND_LENGTH = 2;
     private static final int TIMER_COMMAND_LENGTH = 3;
     private static final String PERIOD_DAY = "day";
     private static final String PERIOD_WEEK = "week";
@@ -42,6 +46,8 @@ public class TrackerCommand extends Command {
     private static final String STOP_COMMAND = "/stop";
     private static final String PAUSE_COMMAND = "/pause";
     private static final String VIEW_COMMAND = "/view";
+    private static final String DELETE_COMMAND = "/delete";
+    private static final String LIST_COMMAND = "/list";
 
     public TrackerCommand(String description) {
         this.description = description;
@@ -60,10 +66,13 @@ public class TrackerCommand extends Command {
         } catch (NullPointerException | StorageFileCorruptedException e) {
             trackerList = new ArrayList<>();
         }
+
         String[] input = description.split(" ", SPLIT_INPUT);
         String trackerCommand = input[INDEX_INSTRUCTION].toLowerCase();
+        Tracker tracker;
 
-        if (trackerCommand.equals(VIEW_COMMAND)) {
+        switch (trackerCommand) {
+        case VIEW_COMMAND:
             if (input.length != VIEW_COMMAND_LENGTH) {
                 throw new InvalidArgumentException("Invalid Commmand!");
             }
@@ -71,8 +80,27 @@ public class TrackerCommand extends Command {
             ArrayList<Tracker> sortedTL = processModuleTrackerList(period, trackerList);
             long totalTimeTaken = calculateTotalTime(sortedTL);
             ui.printTrackerDiagram(sortedTL, totalTimeTaken);
+            break;
 
-        } else {
+        case LIST_COMMAND:
+            ui.printTrackerList(trackerList);
+            break;
+
+        case DELETE_COMMAND:
+            if (input.length != DELETE_COMMAND_LENGTH) {
+                throw new InvalidArgumentException("Invalid Commmand!");
+            }
+            int deleteIndex = Integer.parseInt(input[DELETE_INDEX]) - CORRECT_INDEX;
+            tracker = trackerList.get(deleteIndex);
+            String description = tracker.getDescription();
+            long timeTaken = tracker.getTimeTaken();
+            trackerList.remove(deleteIndex);
+            int size = trackerList.size();
+            ui.printTrackerDelete(size, description, timeTaken);
+            storageManager.writeTrackerList(trackerList);
+            break;
+
+        default:
             if (input.length != TIMER_COMMAND_LENGTH) {
                 throw new InvalidArgumentException("Invalid Command!");
             }
@@ -83,7 +111,7 @@ public class TrackerCommand extends Command {
                 throw new InvalidArgumentException("Invalid Task Index!");
             }
 
-            Tracker tracker = findTrackerByTaskIndex(trackerList, taskIndex);
+            tracker = findTrackerByTaskIndex(trackerList, taskIndex);
             Task task = findTask(taskIndex, taskList);
             boolean isCompleted = task.getStatus();
             if (isCompleted) {
@@ -261,11 +289,12 @@ public class TrackerCommand extends Command {
         if (trackerList.isEmpty()) {
             return true;
         }
-        Task task = taskList.getTask(taskIndex);
-        String taskDescription = task.getDescription();
+        Task currTask = taskList.getTask(taskIndex);
+        String taskDescription = currTask.getDescription();
         for (Tracker tracker : trackerList) {
+            int index = tracker.getTaskIndex();
             String desc = tracker.getDescription();
-            if (taskDescription.equals(desc)) {
+            if (taskDescription.equals(desc) && index == taskIndex) {
                 return true;
             }
         }
