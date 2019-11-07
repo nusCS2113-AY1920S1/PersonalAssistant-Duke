@@ -11,13 +11,12 @@ import duke.ui.Ui;
 
 import java.text.SimpleDateFormat;
 
-<<<<<<< HEAD
 /**
  * Represents a specific {@link Command} used to list Expired Ingredients occurring in the {@link Ingredient}.
- * @author x3chillax
+ * @@author x3chillax
  * Class FindToday is used to list all ingredients in the IngredientsList that are expired using 'listtoday'
  */
-
+/*
 public class FindToday extends Command<Ingredient> {
     private Date today = new Date();
     private String pattern = "dd/MM/yyyy";
@@ -25,14 +24,13 @@ public class FindToday extends Command<Ingredient> {
     @Override
     public boolean isExit() {
         return false;
-=======
+  */
 public class FindToday extends Command {
 
     private SimpleDateFormat simpleDateFormat;
 
     public FindToday(){
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
->>>>>>> f76ca5f8965e787d9414af1c58fa19b0d027e9bf
     }
 
     @Override

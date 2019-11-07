@@ -123,7 +123,7 @@ public class Parser {
                     throw new DukeException("must specify a index");
                 return new DeleteCommand(checkInt(part[1]));
             case "use":
-                if (part.length != 3)
+                if (part.length != 3)           //use something 23
                     throw new DukeException("follow the template: use <ingredient name> <amount>");
                 return new UseCommand(new Ingredient(part[1], checkInt(part[2]), new Date()));
             case "listtoday":
@@ -134,6 +134,14 @@ public class Parser {
                 if (part.length != 2)
                     throw new DukeException("follow the template: find <ingredient name>");
                 return new FindIngredientCommand(part[1]);
+            case "changename":
+                if (part.length != 3)
+                    throw new DukeException("follow the template: change <ingredient index> <new ingredient name>");
+                return new ChangeNameCommand(checkInt(part[1]), part[2]);       //change 2 beef
+            case "changeamount":
+            if (part.length != 3)
+                throw new DukeException("follow the template: change <ingredient index> <new ingredient amount");
+            return new ChangeAmountCommand(checkInt(part[1]), checkInt(part[2]));       //change 2 70
             default:
                 throw new DukeException("not a valid command for an Ingredient");
         }

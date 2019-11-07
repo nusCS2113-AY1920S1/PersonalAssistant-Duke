@@ -55,6 +55,7 @@ public abstract class GenericList<T> {
         return genList.get(taskNb);
     }
 
+
     /**
      * Returns a list of all the {@link Task}s in the {@link TaskList}.
      *
