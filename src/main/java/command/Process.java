@@ -27,6 +27,7 @@ public class Process {
     private SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
     private CommandFormat commandformat = new CommandFormat();
     ProjectManager projectmanager = new ProjectManager();
+    Fund fund = new Fund();
 
     Process() throws AlphaNUSException {
     }
@@ -80,6 +81,7 @@ public class Process {
     public void addProject(String input, Ui ui, Fund fund, Storage storage) {
         try {
             BeforeAfterCommand.beforedoCommand(storage, projectmanager);
+            BeforeAfterCommand.undoforfund(storage, fund);
             String[] splitproject = input.split("pr/", 2);
             splitproject = cleanStrStr(splitproject);
             String[] splitamount = splitproject[1].split("am/", 2);
@@ -118,6 +120,7 @@ public class Process {
                     int projectsize = projectmanager.projectmap.size();
                     ui.printAddProject(newProject, projectsize);
                     BeforeAfterCommand.afterCommand(storage, projectmanager);
+                    BeforeAfterCommand.redoforfund(storage, fund);
                 } else {
                     ui.exceptionMessage("\t" + "Not enough funds");
                 }
@@ -202,8 +205,9 @@ public class Process {
      * @param ui    Ui that interacts with the user.
      * @param fund  the total fund the that the organisation owns
      */
-    public void setFund(String input, Ui ui, Fund fund) {
+    public void setFund(String input, Ui ui, Fund fund, Storage storage) {
         try {
+            BeforeAfterCommand.undoforfund(storage, fund);
             String[] split = input.split("am/", 2);
             Double amount = Double.parseDouble(split[1]);
             if (amount < 0) {
@@ -214,12 +218,13 @@ public class Process {
                 if (fund.getFund() == 0.0) {
                     fund.setFund(amount);
                     ui.printSetFundMessage(fund);
+                    BeforeAfterCommand.redoforfund(storage, fund);
                 } else {
                     ui.exceptionMessage("     ☹ OOPS!!! The fund is set already. "
                             + "Please use reset fund command instead.");
                 }
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException | AlphaNUSException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         }
     }
@@ -231,8 +236,9 @@ public class Process {
      * @param ui    Ui that interacts with the user.
      * @param fund  the total fund the that the organisation owns
      */
-    public void addFund(String input, Ui ui, Fund fund) {
+    public void addFund(String input, Ui ui, Fund fund, Storage storage) {
         try {
+            BeforeAfterCommand.undoforfund(storage, fund);
             String[] split = input.split("add/", 2);
             Double amount = Double.parseDouble(split[1]);
             if (amount < 0) {
@@ -245,8 +251,9 @@ public class Process {
             } else {
                 fund.addFund(amount);
                 ui.printAddFundMessage(fund, amount);
+                BeforeAfterCommand.redoforfund(storage, fund);
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException | AlphaNUSException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         }
     }
@@ -817,8 +824,10 @@ public class Process {
      * @param ui Ui that interacts with the user.
      * @param storage Storage that stores the project map.
      */
-    public void undo(Storage storage, Ui ui) throws AlphaNUSException {
+    public void undo(Storage storage, Ui ui, Fund fund) throws AlphaNUSException {
         projectmanager.projectmap = storage.readFromUndoFile();
+        fund = storage.readFromundoFundFile();
+        System.out.println(fund);
         ui.undoMessage();
     }
 
@@ -827,8 +836,9 @@ public class Process {
      * @param ui Ui that interacts with the user.
      * @param storage Storage that stores the project map.
      */
-    public void redo(Storage storage, Ui ui) throws AlphaNUSException {
+    public void redo(Storage storage, Ui ui, Fund fund) throws AlphaNUSException {
         projectmanager.projectmap = storage.readFromRedoFile();
+        fund = storage.readFromredoFundFile();
         ui.redoMessage();
     }
 }

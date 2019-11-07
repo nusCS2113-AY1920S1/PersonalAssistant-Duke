@@ -27,6 +27,8 @@ public class Storage {
     private static String fundfilepath = "localdata/Fund.json";
     private static String undoListFilePath = "localdata/undo.json";
     private static String redoListFilePath = "localdata/redo.json";
+    private static String undofundfilepath = "localdata/undoFund.json";
+    private static String redofundfilepath = "localdata/redoFund.json";
 
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -67,7 +69,7 @@ public class Storage {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             }
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, false));
             for (String lineStr : toWriteStr.split("\n")) {
                 bufferedWriter.write(lineStr);
                 bufferedWriter.newLine();
@@ -75,6 +77,54 @@ public class Storage {
             bufferedWriter.close();
         } catch (IOException e) {
             throw new AlphaNUSException("Unable to write to file: " + fundfilepath);
+        }
+    }
+
+    /**
+     * writes the fund present, before the current command was executed, to local storage.
+     * @param fund
+     * @throws AlphaNUSException
+     */
+    public void writeToundoFundFile(Fund fund) throws AlphaNUSException {
+        String toWriteStr = gson.toJson(fund);
+        try {
+            File file = new File(undofundfilepath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, false));
+            for (String lineStr : toWriteStr.split("\n")) {
+                bufferedWriter.write(lineStr);
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+        } catch (IOException e) {
+            throw new AlphaNUSException("Unable to write to file: " + undofundfilepath);
+        }
+    }
+
+    /**
+     * Writes the fund present, after the current command is executed, to the local storage.
+     * @param fund
+     * @throws AlphaNUSException
+     */
+    public void writeToredoFundFile(Fund fund) throws AlphaNUSException {
+        String toWriteStr = gson.toJson(fund);
+        try {
+            File file = new File(redofundfilepath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, false));
+            for (String lineStr : toWriteStr.split("\n")) {
+                bufferedWriter.write(lineStr);
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+        } catch (IOException e) {
+            throw new AlphaNUSException("Unable to write to file: " + redofundfilepath);
         }
     }
 
@@ -162,6 +212,58 @@ public class Storage {
         Fund fund;
         try {
             File file = new File(fundfilepath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            fund = gson.fromJson(bufferedReader, fundtype);
+            bufferedReader.close();
+            if (fund == null) {
+                fund = new Fund();
+            }
+        } catch (Exception e) {
+            throw new AlphaNUSException("Unable to read file");
+        }
+        return fund;
+    }
+
+    /**
+     * Reads fund from undo file for fund from local storage and returns it.
+     * @return
+     * @throws AlphaNUSException
+     */
+    public Fund readFromundoFundFile() throws AlphaNUSException {
+        Type fundtype = new TypeToken<Fund>(){}.getType();
+        Fund fund;
+        try {
+            File file = new File(undofundfilepath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            fund = gson.fromJson(bufferedReader, fundtype);
+            bufferedReader.close();
+            if (fund == null) {
+                fund = new Fund();
+            }
+        } catch (Exception e) {
+            throw new AlphaNUSException("Unable to read file");
+        }
+        return fund;
+    }
+
+    /**
+     * Reads fund from redo file for fund from local storage and returns it.
+     * @return
+     * @throws AlphaNUSException
+     */
+    public Fund readFromredoFundFile() throws AlphaNUSException {
+        Type fundtype = new TypeToken<Fund>(){}.getType();
+        Fund fund;
+        try {
+            File file = new File(redofundfilepath);
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();

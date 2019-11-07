@@ -45,10 +45,10 @@ public class Parser {
                 return true;
             } else if (instr.isUndo(input)) {
                 process.commandHistory(input, ui, storage);
-                process.undo(storage, ui);
+                process.undo(storage, ui, fund);
             } else if (instr.isRedo(input)) {
                 process.commandHistory(input, ui, storage);
-                process.redo(storage, ui);
+                process.redo(storage, ui, fund);
             } else if (instr.isViewhistory(input)) {
                 process.viewhistory(input, ui, storage);
             } else if (instr.isHistory(input)) {
@@ -133,10 +133,10 @@ public class Parser {
             } else if (instr.isHistory(input)) {
                 process.commandHistory(input, ui, storage);
             } else if (instr.isSetFund(input)) {
-                process.setFund(input, ui, fund);
+                process.setFund(input, ui, fund, storage);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isAddFund(input)) {
-                process.addFund(input, ui, fund);
+                process.addFund(input, ui, fund, storage);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isAssignFund(input)) {
                 process.assignFund(input, ui, fund);
