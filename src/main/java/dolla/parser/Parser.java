@@ -1,17 +1,13 @@
 package dolla.parser;
 
 import dolla.ModeStringList;
+import dolla.Tag;
 import dolla.Time;
 import dolla.task.RecordList;
-import dolla.ui.EntryUi;
-import dolla.ui.LimitUi;
-import dolla.ui.Ui;
-import dolla.ui.ModifyUi;
+import dolla.ui.*;
 
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
-import dolla.ui.SortUi;
-import dolla.ui.RemoveUi;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -132,6 +128,55 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             return false; // If error occurs, stop the method!
         }
         return true;
+    }
+
+    //@@author tatayu
+    /**
+     * Returns true if no error occurs while creating the required variables for 'addDebtCommand'.
+     * Also splits name, description components in the process.
+     * @param t Tag.
+     * @return true if no error occurs.
+     */
+    public boolean verifyDebtCommand(Tag t) {
+        try{
+            String name = inputArray[1];
+            stringToDouble(inputArray[2]);
+            String[] desc = inputLine.split(inputArray[2] + " ");
+            String[] dateString = desc[1].split(" /due ");
+            description = dateString[0];
+            return checkTag(dateString[1], t);
+        } catch (IndexOutOfBoundsException e) {
+            DebtUi.printInvalidDebtFormatError();
+            return false;
+        }
+    }
+
+    //@@author tatayu
+    /**
+     * Returns true if no error occurs while creating the date for 'addDebtCommand'.
+     * @param dateString the string that contains date and tag.
+     * @param t Tag.
+     * @return true if no error occurs.
+     */
+    private boolean checkTag(String dateString, Tag t) {
+        if (inputLine.contains(t.getPrefixTag())) {
+            String[] dateAndTag = dateString.split(t.getPrefixTag());
+            try {
+                date = Time.readDate(dateAndTag[0].trim());
+            } catch (DateTimeParseException e) {
+                Ui.printDateFormatError();
+                return false;
+            }
+            return true;
+        } else {
+            try {
+                date = Time.readDate(dateString.trim());
+            } catch (DateTimeParseException e) {
+                Ui.printDateFormatError();
+                return false;
+            }
+            return true;
+        }
     }
 
     /**

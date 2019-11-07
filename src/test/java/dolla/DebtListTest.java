@@ -3,7 +3,6 @@ package dolla;
 import dolla.task.Debt;
 import dolla.task.DebtList;
 import dolla.task.Record;
-import dolla.ui.ListUi;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
