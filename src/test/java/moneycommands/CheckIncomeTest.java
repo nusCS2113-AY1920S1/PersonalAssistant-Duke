@@ -9,6 +9,7 @@ import money.Account;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -46,16 +47,37 @@ public class CheckIncomeTest {
         String checkInput1 = "check income 10 1997";
         MoneyCommand checkIncome1 = new ViewPastIncomeCommand(checkInput1);
         checkIncome1.execute(account, ui, storage);
-        assertEquals(" 1.[I] TA Pay(salary: $2000.0) (Paid On: 9/10/1997)\n" +
-                "Total income for October of 1997 : $2000.0\n", ui.getGraphContainerString());
+        assertEquals(" 1.[I] TA Pay(salary: $2000.00) (Paid On: 9/10/1997)\n" +
+                "Total income for October of 1997 : $2000.00\n", ui.getGraphContainerString());
         assertEquals("Got it, list will be printed in the other pane!\n", ui.getOutputString());
         ui.clearOutputString();
         ui.clearGraphContainerString();
         String checkInput2 = "check income 6 2018";
         MoneyCommand checkIncome2 = new ViewPastIncomeCommand(checkInput2);
         checkIncome2.execute(account, ui, storage);
-        assertEquals(" 1.[I] Slave Job(salary: $1000.0) (Paid On: 5/6/2018)\n" +
-                "Total income for June of 2018 : $1000.0\n", ui.getGraphContainerString());
+        assertEquals(" 1.[I] Slave Job(salary: $1000.00) (Paid On: 5/6/2018)\n" +
+                "Total income for June of 2018 : $1000.00\n", ui.getGraphContainerString());
+        assertEquals("Got it, list will be printed in the other pane!\n", ui.getOutputString());
+    }
+
+    @Test
+    void testCheckMonthIncome() throws DukeException, ParseException {
+        account.getIncomeListTotal().clear();
+        int currMonth = LocalDate.now().getMonthValue();
+        int currYear = LocalDate.now().getYear();
+        LocalDate currMonthDate = LocalDate.parse("4/" + currMonth + "/" + currYear, dateTimeFormatter);
+        Income i1 = new Income(4000, "day job", currMonthDate);
+        Income i2 = new Income(3000, "night job", testDate2);
+        account.getIncomeListTotal().add(i1);
+        account.getIncomeListTotal().add(i2);
+        ui.clearOutputString();
+        ui.clearGraphContainerString();
+        String checkInput = "list month";
+        MoneyCommand checkMonthIncome = new ViewPastIncomeCommand(checkInput);
+        checkMonthIncome.execute(account, ui, storage);
+        String currMontStr = new DateFormatSymbols().getMonths()[currMonth-1];
+        assertEquals(" 1.[I] day job(salary: $4000.00) (Paid On: 4/" + currMonth + "/" + currYear + ")\n" +
+                "Total income for " + currMontStr + " of " + currYear + " : $4000.00\n", ui.getGraphContainerString());
         assertEquals("Got it, list will be printed in the other pane!\n", ui.getOutputString());
     }
 

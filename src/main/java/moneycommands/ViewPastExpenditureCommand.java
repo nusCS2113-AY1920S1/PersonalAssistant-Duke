@@ -7,6 +7,7 @@ import controlpanel.Ui;
 import money.Expenditure;
 
 import java.text.DateFormatSymbols;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.time.LocalDate;
 
@@ -17,6 +18,8 @@ import java.time.LocalDate;
 public class ViewPastExpenditureCommand extends MoneyCommand {
     private int month;
     private int year;
+
+    private DecimalFormat decimalFormat = new DecimalFormat("#.00");
 
     //@@author chengweixuan
     /**
@@ -88,7 +91,7 @@ public class ViewPastExpenditureCommand extends MoneyCommand {
         }
         ui.appendToOutput("Got it, list will be printed in the other pane!\n");
         ui.appendToGraphContainer("Total expenditure for " + getMonth(month) + " of " + year + " : $");
-        ui.appendToGraphContainer(totalMonthExpenditure + "\n");
+        ui.appendToGraphContainer(decimalFormat.format(totalMonthExpenditure) + "\n");
     }
 
     @Override
