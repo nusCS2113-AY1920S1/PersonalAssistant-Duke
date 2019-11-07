@@ -1467,31 +1467,30 @@ At least one of `/desc`, `/category`, or `/from` with `/to` must be used.
 
 * `/find /cardtransaction /name POBB Tomorrow Card /desc bubble tea`
 
-.`/find /cardtransaction /name POBB Tomorrow Card /desc bubble tea` (Find Card Transaction Command)
-image::FindCardTransactionCommandExample1.png[caption="Figure : "]
+.Successful search of card transaction by description after `/find /cardtransaction`
+image::FindCardTransaction1.png[caption="Figure : "]
 
 Finds and list all transactions that matches with the description `bubble tea` from the credit card named `POBB
 Tomorrow Card`
 
 * `/find /cardtransaction /name POBB Tomorrow Card /category food`
 
-.`/find /cardtransaction /name POBB Tomorrow Card /category food` (Find Card Transaction Command)
-image::FindCardTransactionCommandExample3.png[caption="Figure : "]
+.Successful search of card transaction by category after `/find /cardtransaction`
+image::FindCardTransaction2.png[caption="Figure : "]
 
 Finds and lists all transactions that matches the category `food` from the credit card named `POBB Tomorrow Card`
 
 * `/find /cardtransaction /name POBB Tomorrow Card /from 1/1/2019 /to 7/1/2019`
 
-.`/find /cardtransaction /name POBB Tomorrow Card /from 1/1/2019 /to 7/1/2019` (Find Card Transaction Command)
-image::FindCardTransactionCommandExample2.png[caption="Figure : "]
+.Successful search of card transaction by date range after `/find /cardtransaction`
+image::FindCardTransaction3.png[caption="Figure : "]
 
 Finds all transactions charged to `POBB Tomorrow Card` between `1/1/2019` and `7/1/2019`.
 
 * `/find /cardtransaction /name POBB Tomorrow Card /desc bubble tea /from 1/1/2019 /to 7/1/2019 /category food`
 
-.`/find /cardtransaction /name POBB Tomorrow Card /desc bubble tea /from 1/1/2019 /to 7/1/2019 /category food` (Find
-Card Transaction Command)
-image::FindCardTransactionCommandExample4.png[caption="Figure : "]
+.Successful search of card transaction by description, category and date range after `/find /cardtransaction`
+image::FindCardTransaction4.png[caption="Figure : "]
 
 Finds and lists all transactions that matches any one of the categories:
 
@@ -1540,13 +1539,22 @@ At least one of `/desc` or `/category` must be used.
 
 * `/find /recurbankexp /name JunBank Savings Account /desc spotif`
 
+.Successful search of recurring expenditure by description after `/find /recurbankexp`
+image::FindRecur1.png[caption="Figure : "]
+
 Finds and lists all recurring expenditures that matches the description `spotif` within `JunBank Savings Account`.
 
 * `/find /recurbankexp /name JunBank Savings Account /category bills`
 
+.Successful search of recurring expenditure by category after `/find /recurbankexp`
+image::FindRecur2.png[caption="Figure : "]
+
 Finds and lists all recurring expenditures that matches the category `bills` within `JunBank Savings Account`
 
 * `/find /recurbankexp /name JunBank Savings Account /desc spotif /category bills`
+
+.Successful search of recurring expenditure by description and category after `/find /recurbankexp`
+image::FindRecur3.png[caption="Figure : "]
 
 Finds and lists all recurring expenditures that matches any one of the categories:
 
