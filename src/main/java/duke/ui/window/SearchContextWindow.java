@@ -24,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Pair;
 
 import java.util.List;
 
@@ -68,8 +69,8 @@ class SearchContextWindow extends ContextWindow {
         setParent();
         searchTermLabel.setText(searchResults.getName());
         searchDetailsLabel.setText(buildSearchDetails());
-        for (DukeObject object : searchResults.getSearchList()) {
-            searchListPanel.getItems().add(newCard(object));
+        for (Pair<DukeObject, Class<? extends DukeObject>> entry : searchResults.getSearchList()) {
+            searchListPanel.getItems().add(newCard(entry.getKey()));
         }
     }
 

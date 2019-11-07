@@ -1,53 +1,40 @@
 package duke.data;
 
-import java.util.ArrayList;
+import duke.exception.DukeException;
+import javafx.util.Pair;
+
 import java.util.List;
 
 public class SearchResult extends DukeObject {
 
-    private List<? extends DukeObject> searchList;
-    private ArrayList<Patient> patientList;
-    private ArrayList<Impression> impressionList;
-    private ArrayList<Evidence> evidenceList;
-    private ArrayList<Treatment> treatmentList;
+    private List<Pair<DukeObject, Class<? extends DukeObject>>> searchList;
 
     /**
+     * TODO fix documentation
      * Abstraction of the evidence or treatment data of a patient.
      * A DukeData object corresponds to the evidence or treatment a doctor has,
      * the impression that led to that data as well as an integer
      * between 1-4 representing the priority or significance of the investigation.
      * Attributes:
      * @param name the list of DukeObjects
-     * @param searchList the impression object the data is tagged to
+     * @param parent the impression object the data is tagged to
      */
-    public SearchResult(String name, List<? extends DukeObject> searchList, DukeObject parent) {
+    public SearchResult(String name, DukeObject parent,
+                        List<Pair<DukeObject, Class<? extends DukeObject>>> searchList) {
         super(name, parent);
         this.searchList = searchList;
-        this.patientList = new ArrayList<>();
-        this.impressionList = new ArrayList<>();
-        this.evidenceList = new ArrayList<>();
-        this.treatmentList = new ArrayList<>();
-        initList();
     }
 
-    public List<? extends DukeObject> getSearchList() {
+    public Pair<DukeObject, Class<? extends DukeObject>> getResult(int idx) throws DukeException{
+        if (idx > searchList.size()) {
+            throw new DukeException("I don't have a search result with that number!");
+        } else {
+            return searchList.get(idx - 1);
+        }
+    }
+
+    public List<Pair<DukeObject, Class<? extends DukeObject>>> getSearchList() {
         return searchList;
-    }
-
-    public ArrayList<Patient> getPatientList() {
-        return patientList;
-    }
-
-    public ArrayList<Impression> getImpressionList() {
-        return impressionList;
-    }
-
-    public ArrayList<Evidence> getEvidenceList() {
-        return evidenceList;
-    }
-
-    public ArrayList<Treatment> getTreatmentList() {
-        return treatmentList;
     }
 
     @Override
@@ -60,23 +47,4 @@ public class SearchResult extends DukeObject {
         return "";
     }
 
-    /*
-    public Object parseUserChoice(String inputStr) {
-
-    }*/
-
-    private void initList() {
-        // TODO: index
-        for (DukeObject object : searchList) {
-            if (object instanceof Patient) {
-                patientList.add((Patient) object);
-            } else if (object instanceof Impression) {
-                impressionList.add((Impression) object);
-            } else if (object instanceof Observation || object instanceof Result) {
-                evidenceList.add((Evidence) object);
-            } else if (object instanceof Investigation || object instanceof Medicine || object instanceof Plan) {
-                treatmentList.add((Treatment) object);
-            }
-        }
-    }
 }

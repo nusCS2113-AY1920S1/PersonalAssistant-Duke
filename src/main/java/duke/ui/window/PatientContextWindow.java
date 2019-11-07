@@ -79,8 +79,6 @@ public class PatientContextWindow extends ContextWindow {
         }
 
         updateUi();
-        //updatePatientWindow();
-        //attachPatientWindowListener();
     }
 
     private void updatePatientWindow() {
@@ -172,12 +170,6 @@ public class PatientContextWindow extends ContextWindow {
             ((InvestigationCard) card).setIndex(investigationListPanel.getItems().indexOf(card) + 1);
         });
     }
-
-    //private void attachPatientWindowListener() {
-    //    patient.getAttributes().addListener((MapChangeListener<String, Object>) change -> {
-    //        updatePatientWindow();
-    //    });
-    //}
 
     /**
      * This function returns the new card added dependent on the class instance.
