@@ -28,6 +28,6 @@ public class ProfitCommandParser implements ParserPrototype<ProfitCommand> {
             case "-t":
                 return new ProfitCommand(date1, date2, String.join(" ", Arrays.copyOfRange(args,6,args.length)),"TYPE");
         }
-        return null;
+        throw new ParserException(ParserErrorMessage.INVALID_COMMAND_FORMAT);
     }
 }

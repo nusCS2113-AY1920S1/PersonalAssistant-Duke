@@ -2,12 +2,14 @@ package cube.ui;
 
 import cube.exception.CubeException;
 import cube.logic.command.Command;
+import cube.logic.command.exception.CommandException;
 import cube.logic.command.util.CommandResult;
 import cube.logic.parser.Parser;
 import cube.model.ModelManager;
 import cube.model.food.Food;
 import cube.storage.ConfigStorage;
 import cube.storage.StorageManager;
+import cube.storage.config.UiConfig;
 import cube.util.FileUtilJson;
 import cube.util.LogUtil;
 import javafx.fxml.FXML;
@@ -104,11 +106,16 @@ public class MainWindow extends UiManager<Stage> {
         double windowWidth = configStorage.getUiConfig().getWindowWidth();
 
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        double maxHeight = primaryScreenBounds.getHeight();
+        double maxWidth = primaryScreenBounds.getWidth();
 
-        if (windowHeight >= primaryStage.getMinHeight() && windowHeight <= primaryScreenBounds.getHeight()) {
+        UiConfig.setMaxWindowHeight(maxHeight);
+        UiConfig.setMaxWindowWidth(maxWidth);
+
+        if (windowHeight >= primaryStage.getMinHeight() && windowHeight <= maxHeight) {
             primaryStage.setHeight(windowHeight);
         }
-        if (windowWidth >= primaryStage.getMinWidth() && windowWidth <= primaryScreenBounds.getWidth()) {
+        if (windowWidth >= primaryStage.getMinWidth() && windowWidth <= maxWidth) {
             primaryStage.setWidth(windowWidth);
         }
     }
@@ -140,6 +147,7 @@ public class MainWindow extends UiManager<Stage> {
             logger.info("Command Entered : " + command);
             Command c = Parser.parse(command);
             CommandResult result = c.execute(modelManager, storageManager);
+
             resultDisplay.setResultText(result.getFeedbackToUser());
             // Updates GUI components
             listPanel.updateProductList(storageManager.getFoodList());

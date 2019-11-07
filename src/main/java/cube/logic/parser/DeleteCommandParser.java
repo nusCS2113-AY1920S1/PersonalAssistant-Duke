@@ -35,6 +35,6 @@ public class DeleteCommandParser implements ParserPrototype<DeleteCommand> {
 			case "-all":
 				return new DeleteCommand(String.join(" ", Arrays.copyOfRange(args,2,args.length)),"ALL");
 		}
-		return null;
+		throw new ParserException(ParserErrorMessage.INVALID_COMMAND_FORMAT);
 	}
 }
