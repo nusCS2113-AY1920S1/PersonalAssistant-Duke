@@ -21,9 +21,9 @@ public class RemindersTest {
         try {
             rc = ReminderCommandParser.parseReminder("rubbish");
         } catch (DukeException e) {
-            assertEquals("usage: reminder [task index] [time before]\n" +
-                    "*Only for tasks with dates\n" +
-                    "Time before: e.g. 5m, 10h, 3d", e.getMessage());
+            assertEquals("usage: reminder [task index] [time before]\n"
+                    + "*Only for tasks with dates\n"
+                    + "Time before: e.g. 5m, 10h, 3d", e.getMessage());
         }
 
         try {
