@@ -132,7 +132,7 @@ public class PatientList {
         String lowerSearchTerm = searchTerm.toLowerCase();
         SearchResult result = findPatients(lowerSearchTerm);
         for (Patient patient : patientList) {
-            result.addAll(patient.searchAll(lowerSearchTerm))
+            result.addAll(patient.searchAll(lowerSearchTerm));
         }
         return result;
     }

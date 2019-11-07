@@ -181,7 +181,6 @@ public class ImpressionContextWindow extends ContextWindow {
         criticalLabel.setText(impression.getCriticalCountStr());
         followUpLabel.setText(impression.getFollowUpCountStr());
 
-
         evidenceListPanel.getItems().clear();
         for (Evidence evidence : impression.getEvidences()) {
             int index = (evidence.getPriority() == 1) ? 1 : evidenceListPanel.getItems().size() + 1;
