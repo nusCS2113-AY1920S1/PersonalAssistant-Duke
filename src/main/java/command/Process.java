@@ -176,11 +176,17 @@ public class Process {
         try {
             String[] split = input.split("am/", 2);
             Double amount = Double.parseDouble(split[1]);
-            if (fund.getFund() == 0.0) {
-                fund.setFund(amount);
-                ui.printSetFundMessage(fund);
+            if (amount < 0) {
+                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value. ");
+            } else if (amount > 500000) {
+                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value of no more than 500,000. ");
             } else {
-                ui.exceptionMessage("     ☹ OOPS!!! The fund id set already.");
+                if (fund.getFund() == 0.0) {
+                    fund.setFund(amount);
+                    ui.printSetFundMessage(fund);
+                } else {
+                    ui.exceptionMessage("     ☹ OOPS!!! The fund is set already. Please use reset fund command instead.");
+                }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
@@ -198,8 +204,17 @@ public class Process {
         try {
             String[] split = input.split("add/", 2);
             Double amount = Double.parseDouble(split[1]);
-            fund.addFund(amount);
-            ui.printAddFundMessage(fund, amount);
+            if (amount < 0) {
+                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value. ");
+            } else if (amount > 500000) {
+                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value of no more than 500,000. ");
+            } else if (fund.getFund() + amount >= 500000) {
+                ui.exceptionMessage("     ☹ Oops!!! The total fund will be above the limit. You can still add "+
+                        (500000 - fund.getFund()) + "dollars to your current fund!");
+            } else {
+                fund.addFund(amount);
+                ui.printAddFundMessage(fund, amount);
+            }
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         }
@@ -220,6 +235,10 @@ public class Process {
             if (!projectmanager.projectmap.containsKey(projectname)) {
                 System.out.println("\t" + "Project does not exist!");
                 return;
+            } else if (amount < 0) {
+                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value. ");
+            } else if (amount > 500000) {
+                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value of no more than 500,000. ");
             } else {
                 if (fund.getFundRemaining() >= amount) {
                     fund.takeFund(amount);
@@ -248,6 +267,34 @@ public class Process {
         System.out.println(Ui.line);
         System.out.print(fund.giveFund());
         System.out.println(Ui.line);
+    }
+
+    /**
+     * Process the reset fund command to add fund value to all projects.
+     * TODO future implementation: user need to key in password to enable this action.
+     * Command format: reset fund new/AMOUNT_OF_FUND.
+     * @param input Input from the user.
+     * @param ui Ui that interacts with the user.
+     * @param fund the total fund the that the organisation owns
+     */
+    public void resetFund(String input, Ui ui, Fund fund) {
+        try {
+            String[] split = input.split("new/", 2);
+            Double newFund = Double.parseDouble(split[1]);
+            if (newFund < 0) {
+                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value. ");
+            } else if (newFund > 500000) {
+                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value of no more than 500,000. ");
+            } else if (fund.getFundTaken() > newFund) {
+                ui.exceptionMessage("     ☹ Oops!!! new fund should not be more than the sum of assigned budgets!\n "+
+                        "   You have assigned " + (fund.getFundTaken()) + " dollars to your projects!");
+            } else {
+                fund.setFund(newFund);
+                ui.printResetFundMessage(fund, newFund);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+        }
     }
     //===========================* Deadline *================================
 

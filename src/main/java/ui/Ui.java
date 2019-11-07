@@ -374,6 +374,7 @@ public class Ui {
     /**
      * Prints message of adding a fund to all projects.
      * @param fund the fund for all projects.
+     * @param amount amount to be added.
      */
     public void printAddFundMessage(Fund fund, double amount) {
         System.out.print(line);
@@ -393,6 +394,18 @@ public class Ui {
         System.out.println("\t" + "Got it. I've assigned " + amount + "to the project:");
         System.out.print(project.giveProject());
         System.out.println("\t" + "The new fund is as follow:");
+        System.out.print(fund.giveFund());
+        System.out.print(line);
+    }
+
+    /**
+     * Prints message of adding a fund to all projects.
+     * @param fund the fund for all projects.
+     * @param amount amount to be set.
+     */
+    public void printResetFundMessage(Fund fund, double amount) {
+        System.out.print(line);
+        System.out.println("\t" + "Got it. I've reset the new fund as " + amount + " dollars. The new fund is as follow:");
         System.out.print(fund.giveFund());
         System.out.print(line);
     }
