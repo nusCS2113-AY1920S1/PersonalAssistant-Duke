@@ -45,8 +45,8 @@ public class Storage {
 
     /**
      * Initiates storage with text file path and excel file path.
-     * @param filePath
-     * @param excelPath
+     * @param filePath relative path of text file
+     * @param excelPath relative path of excel file
      */
     public Storage(String filePath, String excelPath) {
         FILE_PATH = filePath;

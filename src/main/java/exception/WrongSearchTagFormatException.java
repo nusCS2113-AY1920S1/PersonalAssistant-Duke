@@ -1,9 +1,9 @@
 package exception;
 
-/**
- * Creates an exception to inform if user inputs search_tag command wrongly.
- */
 public class WrongSearchTagFormatException extends WrongFormatException {
+    /**
+     * Creates an exception to inform if user inputs search_tag command wrongly.
+     */
     public WrongSearchTagFormatException() {
         super(" OOPS: Your input format is not correct for search_tag:\n"
                 + "If you search for words of a tag:\n"
