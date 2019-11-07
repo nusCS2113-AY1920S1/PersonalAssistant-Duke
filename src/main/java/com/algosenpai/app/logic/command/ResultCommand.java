@@ -24,7 +24,7 @@ public class ResultCommand extends Command {
 
     @Override
     public String execute() {
-        if (results.get() == -1 ) {
+        if (results.get() == -1) {
             return "You have not attempted any quiz yet.";
         }
         return "You had " + results + "/10 questions correct for the last attempt.";

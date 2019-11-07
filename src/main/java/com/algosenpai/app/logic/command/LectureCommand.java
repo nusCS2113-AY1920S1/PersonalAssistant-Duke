@@ -10,12 +10,13 @@ import java.util.HashMap;
 public class LectureCommand extends Command {
 
     private static Boolean isSetUp = false;
-    private static HashMap<String, ArrayList<String> > lectureSlides = new HashMap<>();
+    private static HashMap<String, ArrayList<String>> lectureSlides = new HashMap<>();
     private static HashMap<String, Integer> slidePointer = new HashMap<>();
+
     /**
      * Create new command.
      *
-     * @param inputs
+     * @param inputs The user's input.
      */
     public LectureCommand(ArrayList<String> inputs) {
         super(inputs);
