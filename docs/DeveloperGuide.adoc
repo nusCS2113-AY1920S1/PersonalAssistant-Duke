@@ -487,7 +487,7 @@ Extensions 5.1: User inputs an invalid rating.
   Expected: A list of items is printed in stdout.
 
 
-=== Add a Task
+=== Add an Event
 . Add Todo +
    Key in `todo tdtask /01-01-2011 0100` +
    Expected: Output should be +
@@ -510,11 +510,13 @@ Extensions 5.1: User inputs an invalid rating.
    Now you have <previous number of items + 1> tasks in the list.
 
 . Add Concert +
-   Key in `concert Noon Concert /06-06-2016 1200 1400` +
+   Key in `concert Noon Concert /06-06-2016 1200 1400/15` +
    Expected: Output should be +
    Got it. I've added this task: +
    [x][C] Noon Concert  START: Mon, 06 Jun 2016, 12:00 END: Mon, 06 Jun 2016, 14:00 +
-   Now you have <previous number of items + 1> tasks in the list.
+   Now you have <number of tasks> tasks in the list. +
+   Note: The final value (in this case 15) represents the cost of the concert in dollars.
+   The significance of this is explained under section E.13 budgeting.
 
 . Add Recital +
    Key in `recital Evening Recital /07-07-2017 1900 2100` +
@@ -533,6 +535,7 @@ Extensions 5.1: User inputs an invalid rating.
 === Set a Task as done
 Key in `done 1` +
 Expected: Prints a message that the first task on the list has been marked as done.
+Note: Only works for To-Dos.
 
 === Find tasks that contains a certain keyword or key phrase
 Key in `find <key>`, where `<key>` is the keyword or key phrase +
@@ -551,9 +554,11 @@ Key in `<edit> <event index>/<new description>`.+
 Expected: Prints the success of editing event of index `<event index>`.
 
 === Reschedule an event
-Key in `<reschedule> <event index> <new date> <new start time> <new end time>`,
+Key in `reschedule <event index> <new date> <new start time> <new end time>`,
 where `<new date> <new start time> <new end time>` has the format dd-MM-yyyy HH:mm HH:mm. +
-Expected: Prints the success of rescheduling event of index `<event index>`.
+Expected: Prints the success of rescheduling event of index `<event index>`. +
+e.g `reschedule 3 2-12-2019 1500 1600` will change the third (by list index) event's date and time to
+2nd Dec 2019, starts 1500 ends 1600.
 
 === Check the next 3 free days
 Key in `check`. +
@@ -581,12 +586,14 @@ Expected: Prints the contacts information in the event.
 Key in `contact edit <event index> <contact index> <edit type> /<new contact information>` +
 Expected: Prints the success of editing the contact.
 
-[appendix]
-== Instructions for Manual Testing
-=== Launch and Shutdown
-Upon launch, a startup message should be shown including the logo, and a list of commands that the user
-can use. This is list is available under UI.welcome() method and can be changed. +
+=== Budgeting
+. Each concert added to the list has a cost denoted at the end of the user input.
+For example, the user input command "concert MyConcert/2-12-2019 1500 1600/30" will
+have a cost of $30.
 
-Upon shutdown, a goodbye message is displayed before the app is terminated. If needed, the data/misterMusik.main.txt
-file can be checked for discrepancies between what was stored in the program and what was written to the file for
-storage.
+. Attempting to add two concerts to the same month that exceeds the stipulated budget
+(set at $50) will result in a message telling the user so, and that the operation has been
+cancelled.
+
+. The user command "budget MM-yyyy" will result in the program displaying the costs
+of all concerts in the month denoted by MM-yyyy.

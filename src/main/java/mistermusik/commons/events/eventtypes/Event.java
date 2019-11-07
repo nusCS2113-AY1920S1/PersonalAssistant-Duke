@@ -8,18 +8,47 @@ import mistermusik.commons.Goal;
 import java.util.ArrayList;
 
 /**
- * Model_Class.Event object inherits Model_Class.Task.
- * Is a type of task available for use.
+ * Parent class of all event types.
  */
 public abstract class Event implements Comparable<Event> {
+    /**
+     * event description
+     */
     protected String description;
-    protected boolean isDone;
-    public EventDate startEventDate;
-    public EventDate endEventDate;
-    private char eventType;
-    protected ArrayList<Goal> goalsList;
-    protected ArrayList<Contact> contactList;
 
+    /**
+     * state of event (only applicable to ToDo)
+     */
+    protected boolean isDone;
+
+    /**
+     * event start date object.
+     */
+    protected EventDate startEventDate;
+
+    /**
+     * event end date object.
+     */
+    protected EventDate endEventDate;
+
+    /**
+     * character signifying event type.
+     */
+    private char eventType;
+
+    /**
+     * list of goals.
+     */
+    private ArrayList<Goal> goalsList;
+
+    /**
+     * list of contacts.
+     */
+    private ArrayList<Contact> contactList;
+
+    /**
+     * list of items to complete before event.
+     */
     private Checklist checklist;
 
     /**
@@ -117,10 +146,6 @@ public abstract class Event implements Comparable<Event> {
         this.isDone = true;
     }
 
-    public boolean getIsDone() {
-        return this.isDone;
-    }
-
     public void rescheduleStartDate(EventDate newStartDate) {
         this.startEventDate = newStartDate;
     }
@@ -170,11 +195,9 @@ public abstract class Event implements Comparable<Event> {
     public void editContact(int contactIndex, char editType, String newContact) {
         if (editType == 'N') {
             contactList.get(contactIndex).setName(newContact);
-        }
-        else if (editType == 'E') {
+        } else if (editType == 'E') {
             contactList.get(contactIndex).setEmail(newContact);
-        }
-        else if (editType == 'P') {
+        } else if (editType == 'P') {
             contactList.get(contactIndex).setPhoneNo(newContact);
         }
     }
