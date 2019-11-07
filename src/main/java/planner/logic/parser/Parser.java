@@ -197,6 +197,10 @@ public class Parser {
                 .addArgument("toReminder")
                 .help("When do you want to set the reminder again");
 
+        getSubParser("passwd")
+                .help("Set or update your password")
+                .addArgument("password")
+                .help("Your new password");
     }
 
     private void initBuiltinActions() {
