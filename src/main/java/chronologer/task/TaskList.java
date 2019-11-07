@@ -248,7 +248,6 @@ public class TaskList {
     }
 
     //@@author fauzt-reused
-
     /**
      * Retrieves all Event tasks in the main task list in chronologically-ordered list.
      *
@@ -286,6 +285,7 @@ public class TaskList {
         return reminders;
     }
 
+    //@@author E0310898
     /**
      * This function allows the user to obtain the tasks on a particular date, but
      * only with description.
@@ -299,30 +299,12 @@ public class TaskList {
         ArrayList<String> scheduleDescriptionOnly = new ArrayList<>();
         for (Task task : obtainDescriptions) {
             scheduleDescriptionOnly.add(task.getModCode().trim() + " "
-                    + task.getDescription().trim() + "\n"
-                    + getTime(task));
+                    + task.getDescription().trim());
         }
         return scheduleDescriptionOnly;
     }
 
-    private String getTime(Task task) {
-        String hourPadding = "";
-        String minutePadding = "";
-        String time;
-
-        int hour = task.startDate.getHour();
-        int minute = task.startDate.getMinute();
-        if (hour < 10) {
-            hourPadding = "0";
-        }
-        if (minute < 10) {
-            minutePadding = "0";
-        }
-
-        time = hourPadding + hour + minutePadding + minute;
-        return time;
-    }
-
+    //@@ author
     /**
      * This function allows the user to edit the task description.
      *
