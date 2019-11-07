@@ -425,6 +425,7 @@ public class Cow {
         for (int i = 0; i < 7; i += 1) {
             model += fullBlock;
         }
+        model += ANSI_RESET;
         
         return model;
     }
