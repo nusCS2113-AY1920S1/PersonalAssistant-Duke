@@ -73,7 +73,13 @@ public class PatientContextWindow extends ContextWindow {
     }
 
     private void updatePatientWindow() throws DukeFatalException {
-        // TODO: clean up
+        fillPatientDetails();
+        clearLists();
+        fillLists();
+        indexLists();
+    }
+
+    private void fillPatientDetails() {
         nameLabel.setText(String.valueOf(patient.getName()));
         bedLabel.setText(String.valueOf(patient.getBedNo()));
         int ageNum = patient.getAge();
@@ -88,9 +94,7 @@ public class PatientContextWindow extends ContextWindow {
         addressLabel.setText(("".equals(addressStr)) ? UiStrings.DISPLAY_ADDRESS_NOT_SET : addressStr);
         String historyStr = patient.getHistory();
         historyLabel.setText(("".equals(historyStr)) ? UiStrings.DISPLAY_HISTORY_NOT_SET : historyStr);
-
         StringBuilder allergies = new StringBuilder();
-
         if ("".equals(patient.getAllergies())) {
             allergiesLabel.setText(UiStrings.DISPLAY_ALLERGIES_NONE);
         } else {
@@ -100,15 +104,32 @@ public class PatientContextWindow extends ContextWindow {
             }
             allergiesLabel.setText(allergies.toString());
         }
+    }
 
-
+    private void clearLists() {
         indexedImpressionList.clear();
         indexedCriticalList.clear();
         indexedInvestigationList.clear();
         impressionListPanel.getItems().clear();
         criticalListPanel.getItems().clear();
         indexedInvestigationList.clear();
+    }
 
+    private void indexLists() {
+        impressionListPanel.getItems().forEach(card -> {
+            card.setIndex(impressionListPanel.getItems().indexOf(card) + 1);
+        });
+
+        criticalListPanel.getItems().forEach(card -> {
+            card.setIndex(criticalListPanel.getItems().indexOf(card) + 1);
+        });
+
+        investigationListPanel.getItems().forEach(card -> {
+            card.setIndex(investigationListPanel.getItems().indexOf(card) + 1);
+        });
+    }
+
+    private void fillLists() throws DukeFatalException {
         for (Impression impression : patient.getImpressionList()) {
             // Impression list
             ImpressionCard impressionCard;
@@ -146,18 +167,6 @@ public class PatientContextWindow extends ContextWindow {
                 }
             }
         }
-
-        impressionListPanel.getItems().forEach(card -> {
-            card.setIndex(impressionListPanel.getItems().indexOf(card) + 1);
-        });
-
-        criticalListPanel.getItems().forEach(card -> {
-            card.setIndex(criticalListPanel.getItems().indexOf(card) + 1);
-        });
-
-        investigationListPanel.getItems().forEach(card -> {
-            card.setIndex(investigationListPanel.getItems().indexOf(card) + 1);
-        });
     }
 
     /**
