@@ -2283,7 +2283,7 @@ Expected: Error saying that sender account has insufficient fund to be transferr
 
 . Searching for existing `savings` account
 
-.. Prerequisites: There is at least one existing `savings` accounts.
+.. Prerequisites: There are at least one existing `savings` accounts.
 
 .. Test case:
 `/find /savings /name Jun` +
@@ -2301,7 +2301,7 @@ Expected: Error sayings that there is no `savings` account found.
 
 . Searching for existing `investment` account
 
-.. Prerequisites: There is at least one existing `investment` accounts.
+.. Prerequisites: There are at least one existing `investment` accounts.
 
 .. Test case:
 `/find /investment /name Vickers` +
@@ -2319,7 +2319,7 @@ Expected: Error sayings that there is no `investment` account found.
 
 . Searching for existing `card`
 
-.. Prerequisites: There is at least one existing `card`.
+.. Prerequisites: There are at least one existing `card`.
 
 .. Test case:
 `/find /card /name POBB` +
@@ -2337,7 +2337,7 @@ Expected: Error sayings that there is no `card` found.
 
 . Searching for existing `bond`
 
-.. Prerequisites: There is at least one existing `bond` within the `investment` account.
+.. Prerequisites: There are at least one existing `bond` within the `investment` account.
 
 .. Test case:
 `/find /bonds /name SSB /from DBB Vickers Account` +
@@ -2355,7 +2355,7 @@ Expected: Error sayings that there is no `bond` found.
 
 . Searching for existing transaction records based on description
 
-.. Prerequisites: There is at least one transaction record and the `bank` to be search must exist.
+.. Prerequisites: There are at least one transaction record and the `bank` to be search must exist.
 
 .. Test case:
 `/find /banktransaction /name JunBank Savings Account /desc bubble tea` +

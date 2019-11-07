@@ -840,7 +840,7 @@ There can only be a maximum of *20* credit cards.
 
 * `/add /card /name POBB Tomorrow Card /limit 10000 /rebate 1.5`
 
-.`/add /card /name POBB Tomorrow Card /limit 10000 /rebate 1.5` (Add Card Command)
+.Successful addition of card after using `/add /card`
 image::AddCardCommandExample.png[caption="Figure : "]
 
 Adds a credit card named `POBB Tomorrow Card` which has a credit limit of $`10 000` and
@@ -1395,21 +1395,21 @@ At least one of `/desc`, `/category`, or `/from` with `/to` must be used.
 
 * `/find /banktransaction /name JunBank Savings Account /desc bubble tea`
 
-.`/find /banktransaction /name JunBank Savings Account /desc bubble tea` (Find Bank Transaction Command)
+.Successful search of bank transaction by description after `/find /banktransaction`
 image::FindBankTransactionCommandExample1.png[caption="Figure : "]
 
 Finds and lists all transactions that matches the description `bubble tea` charged to `JunBank Savings Account`.
 
 * `/find /banktransaction /name JunBank Savings Account /category food`
 
-.`/find /banktransaction /name JunBank Savings Account /category food` (Find Bank Transaction Command)
+.Successful search of bank transaction by category after `/find /banktransaction`
 image::FindBankTransactionCommandExample3.png[caption="Figure : "]
 
 Finds and lists all transactions that matches the category `food` from the bank named `JunBank Savings Account`
 
 * `/find /banktransaction /name JunBank Savings Account /from 1/1/2019 /to 7/1/2019`
 
-.`/find /banktransaction /name JunBank Savings Account /from 1/1/2019 /to 7/1/2019` (Find Bank Transaction Command)
+.Successful search of bank transaction by date range after `/find /banktransaction`
 image::FindBankTransactionCommandExample2.png[caption="Figure : "]
 
 Finds and lists all transactions that fall between the date range of `1/1/2019` and `7/1/2019` from the bank named
@@ -1417,8 +1417,7 @@ Finds and lists all transactions that fall between the date range of `1/1/2019` 
 
 * `/find /banktransaction /name JunBank Savings Account /desc bubble tea /from 1/1/2019 /to 7/1/2019 /category food`
 
-.`/find /banktransaction /name JunBank Savings Account /desc bubble tea /from 1/1/2019 /to 7/1/2019 /category food`
-(Find Bank Transaction Command)
+.Successful search of bank transaction by description, category and date range after `/find /banktransaction`
 image::FindBankTransactionCommandExample4.png[caption="Figure : "]
 
 Finds and lists all transactions that matches any one of the categories:
@@ -1713,8 +1712,7 @@ investment and vice-versa)
 
 * `/transfer /fund /from JunBank Savings Account /to POBB Savings Account /amount 500 /date 1/1/2019`
 
-.`/transfer /fund /from JunBank Savings Account /to POBB Savings Account /amount 500 /date 1/1/2019` (Transfer Fund
-Command)
+.Successful transfer between two savings account after using `/transfer /fund`
 image::TransferfundCommandExample1.png[caption="Figure : "]
 
 Transfers $`500` from `JunBank Savings Account` (savings account) to `POBB Savings Account` (savings account) on
@@ -1722,8 +1720,7 @@ Transfers $`500` from `JunBank Savings Account` (savings account) to `POBB Savin
 
 * `/transfer /fund /from DBB Vickers Account /to JunBank Savings Account /amount 250 /date 1/1/2019`
 
-.`/transfer /fund /from DBB Vickers Account /to JunBank Savings Account /amount 250 /date 1/1/2019` (Transfer Fund
-Command)
+.Successful transfer between savings and investment account after using `/transfer /fund`
 image::TransferfundCommandExample2.png[caption="Figure : "]
 
 Transfers $`250` from `DBB Vickers Account` (investment account) to `JunBank Savings Account` (savings account) on
