@@ -2,10 +2,8 @@ package sgtravel.logic.commands;
 
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.NoSuchItineraryException;
-import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.logic.commands.results.CommandResultText;
 import sgtravel.model.Model;
-import sgtravel.model.planning.Itinerary;
 
 /**
  * Shows the requested Itinerary.
