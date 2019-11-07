@@ -28,7 +28,7 @@ public class UndoContactCommand {
                 toStore = toStore.concat(key + "|"
                         + contactList.get(key) + "\n");
             }
-            storage.storagesPlaces(toStore);
+            storage.writeToContactFile(toStore);
             oldcontacts.pop();
             System.out.println("You have undo the previous command.");
         } else {
