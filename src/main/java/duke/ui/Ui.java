@@ -142,15 +142,20 @@ public class Ui {
         showIngredientTemplate();
         System.out.println("\t type 'back' to go back to the main menu");
         System.out.println("\t type 'show' to see all ingredients currently in the fridge");
+        System.out.println("\t type 'listtoday to see all ingredients that have expired today");
         System.out.println("\t type 'template' to see the format of the commands");
     }
 
     public void showIngredientTemplate(){
-        System.out.println("\t Continue by adding, removing or using an ingredient \n\t Template: ");
+        System.out.println("\t Continue by adding, removing,using or finding an ingredient. \n\t");
+        System.out.println("\t You can also edit the Name or Amount of an ingredient(using its index number). \n\t Template: ");
         showLine();
-        System.out.println("\t add <Ingredient name> <amount> <expiry date: DD/MM/YYYY>");
-        System.out.println("\t remove <ingredient number>");
-        System.out.println("\t use <ingredient name> <amount> *always use most recently expiring ingredients first, to prevent food waste!*");
+        System.out.println("\t To add, add <Ingredient name> <Amount> <expiry date: DD/MM/YYYY>");
+        System.out.println("\t To remove, remove <Ingredient number>");
+        System.out.println("\t To use, use <Ingredient name> <Amount> *always use most recently expiring ingredients first, to prevent food waste!*");
+        System.out.println("\t To change amount, changeamount <Ingredient's Index> <New amount>");
+        System.out.println("\t To change name, changename <Ingredient's Index> <New name>");
+        System.out.println("\t To find an ingredient, find <Ingredient name>");
         showLine();
     }
 
