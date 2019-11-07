@@ -2,7 +2,6 @@ package eggventory.logic.parsers;
 
 import eggventory.logic.commands.Command;
 import eggventory.logic.commands.CommandDictionary;
-import eggventory.logic.commands.FindCommand;
 import eggventory.logic.HelpCommand;
 import eggventory.logic.commands.ByeCommand;
 import eggventory.commons.enums.CommandType;
@@ -26,6 +25,7 @@ public class Parser {
     private ParseDelete deleteParser;
     private ParseEdit editParser;
     private ParseList listParser;
+    private ParseFind findParser;
 
     /**
      * Parser object contains submodules for parsing commands with many different options.
@@ -35,6 +35,7 @@ public class Parser {
         deleteParser = new ParseDelete();
         editParser = new ParseEdit();
         listParser = new ParseList();
+        findParser = new ParseFind();
     }
 
     //@@author Raghav-B
@@ -45,7 +46,8 @@ public class Parser {
      * @return True if invalid, false otherwise.
      */
     public static boolean isReserved(String input) {
-        return reservedNames.contains(input);
+        String lowercaseInput = input.toLowerCase();
+        return reservedNames.contains(lowercaseInput);
     }
 
     /**
@@ -120,13 +122,8 @@ public class Parser {
         case "find": {
             if (inputArr.length == 1) {
                 throw new InsufficientInfoException(CommandDictionary.getCommandUsage("find"));
-            }
-
-            String description = inputArr[1].trim(); //Might need to catch empty string exceptions?
-            if (!description.isBlank()) {
-                command = new FindCommand(CommandType.FIND, description);
             } else {
-                throw new InsufficientInfoException("Please enter the search description.");
+                command = findParser.parse(inputArr[1]);
             }
             break;
         }

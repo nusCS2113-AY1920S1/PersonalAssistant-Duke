@@ -213,6 +213,19 @@ public class Stock {
     }
 
     /**
+     * Searches if the stock description contains the query.
+     * @param query The word to search for in the description
+     * @return The formatted stock details if query is within the description, else an empty string.
+     */
+    public String containDescription(String query) {
+        if (this.getDescription().contains(query)) {
+            return this.toString() + "\n";
+        } else {
+            return "";
+        }
+    }
+
+    /**
      * Formats all stock details appropriately for Cli output. Should only be called by Cli and StockType.
      * @return the stock details string.
      */

@@ -1,1 +1,8 @@
-helpfind
+Finds the stock whose description contains words equal to the search query.
+
+find:       find description <query>
+
+<query>         The word to find and search for.
+
+E.g. find description 100
+E.g. find description resistor

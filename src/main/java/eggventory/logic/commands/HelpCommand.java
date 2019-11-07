@@ -12,6 +12,8 @@ import eggventory.storage.Storage;
 import eggventory.model.StockList;
 import eggventory.commons.enums.CommandType;
 
+//@@author yanprosobo
+
 /**
  * Command object for all help command.
  */
@@ -77,6 +79,20 @@ public class HelpCommand extends Command {
                     output = "Error in reading HelpDelete.txt";
                 }
                 break;
+            case "list":
+                try {
+                    output = getStringFromFile("/help/HelpList.txt");
+                } catch (IOException e) {
+                    output = "Error in reading HelpList.txt";
+                }
+                break;
+            case "find":
+                try {
+                    output = getStringFromFile("/help/HelpFind.txt");
+                } catch (IOException e) {
+                    output = "Error in reading HelpFind.txt";
+                }
+                break;
             case "bye":
                 try {
                     output = getStringFromFile("/help/HelpBye.txt");
@@ -121,3 +137,4 @@ public class HelpCommand extends Command {
         return sb.toString();
     }
 }
+//@@author
