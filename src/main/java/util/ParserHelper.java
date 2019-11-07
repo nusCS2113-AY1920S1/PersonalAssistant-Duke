@@ -1,12 +1,17 @@
 package util;
 
-import models.member.Member;
-import models.project.Project;
-import models.task.Task;
+import static util.constant.ConstantHelper.ALL_MARKER;
+import static util.constant.ConstantHelper.ASSIGNEE_MARKER;
+import static util.constant.ConstantHelper.BLANK;
+import static util.constant.ConstantHelper.INDEX_NUMBER_MARKER;
+import static util.constant.ConstantHelper.UNASSIGNEE_MARKER;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import models.member.Member;
+import models.project.Project;
+import models.task.Task;
 
 public class ParserHelper {
     private SortHelper sortHelper;
@@ -334,32 +339,26 @@ public class ParserHelper {
     public ArrayList<ArrayList<Integer>> parseAssignmentParams(String input, Project project) {
         errorMessages.clear();
         String [] inputParts = input.split("-");
-        String allTaskIndexes = "";
-        String allAssigneeIndexes = "";
-        String allUnassigneeIndexes = "";
+        String allTaskIndexes = BLANK;
+        String allAssigneeIndexes = BLANK;
+        String allUnassigneeIndexes = BLANK;
 
         for (String s : inputParts) {
             String [] part = s.split(" ");
             switch (part[0]) {
-            case "i":
+            case INDEX_NUMBER_MARKER:
                 if (s.length() >= 3) {
                     allTaskIndexes = s.substring(2).trim();
-                } else {
-                    allTaskIndexes = "";
                 }
                 break;
-            case "to":
+            case ASSIGNEE_MARKER:
                 if (s.length() >= 4) {
                     allAssigneeIndexes = s.substring(3).trim();
-                } else {
-                    allAssigneeIndexes = "";
                 }
                 break;
-            case "rm":
+            case UNASSIGNEE_MARKER:
                 if (s.length() >= 4) {
                     allUnassigneeIndexes = s.substring(3).trim();
-                } else {
-                    allUnassigneeIndexes = "";
                 }
                 break;
             default:
@@ -386,7 +385,7 @@ public class ParserHelper {
      */
     public ArrayList<Integer> parseMembersIndexes(String input, int numberOfMembersInProject) {
         ArrayList<Integer> validMembers = new ArrayList<>();
-        if ("all".equals(input)) {
+        if (ALL_MARKER.equals(input)) {
             for (int i = 1; i <= numberOfMembersInProject; i++) {
                 validMembers.add(i);
             }
@@ -394,7 +393,7 @@ public class ParserHelper {
         }
         String[] inputParts = input.split(" ");
         for (String index : inputParts) {
-            if ("".equals(index)) {
+            if (BLANK.equals(index)) {
                 continue;
             }
             try {
@@ -420,7 +419,7 @@ public class ParserHelper {
      */
     public ArrayList<Integer> parseTasksIndexes(String input, int numberOfTasksInProject) {
         ArrayList<Integer> tasksToView = new ArrayList<>();
-        if ("all".equals(input)) {
+        if (ALL_MARKER.equals(input)) {
             for (int i = 1; i <= numberOfTasksInProject; i++) {
                 tasksToView.add(i);
             }
@@ -428,7 +427,7 @@ public class ParserHelper {
         }
         String[] inputParts = input.split(" ");
         for (String index : inputParts) {
-            if ("".equals(index)) {
+            if (BLANK.equals(index)) {
                 continue;
             }
             try {

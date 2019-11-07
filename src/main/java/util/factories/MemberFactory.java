@@ -1,5 +1,8 @@
 package util.factories;
 
+import static util.constant.ConstantHelper.BLANK;
+import static util.constant.ConstantHelper.BLANK_MEMBER_DETAILS;
+
 import models.member.IMember;
 import models.member.Member;
 import models.member.NullMember;
@@ -24,7 +27,7 @@ public class MemberFactory implements IArchDukeFactory<IMember> {
         String[] memberDetails = this.parserHelper.parseMemberDetails(input);
         boolean isNameCreated = false;
         String name = memberDetails[0];
-        if (!("--").equals(name) && !("").equals(name)) {
+        if (!(BLANK_MEMBER_DETAILS).equals(name) && !(BLANK).equals(name)) {
             isNameCreated = true;
         }
         String phone = memberDetails[1];
