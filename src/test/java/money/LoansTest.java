@@ -1,12 +1,10 @@
 package money;
 
 import controlpanel.MoneyStorage;
-import money.Loan;
 import moneycommands.*;
 import controlpanel.DukeException;
 import controlpanel.Ui;
 import org.junit.jupiter.api.Test;
-import money.Account;
 import java.text.ParseException;
 import java.nio.file.Path;
 import java.nio.file.Paths;

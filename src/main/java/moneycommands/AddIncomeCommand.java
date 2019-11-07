@@ -54,8 +54,8 @@ public class AddIncomeCommand extends MoneyCommand {
             salary = Float.parseFloat(furSplit[0]);
             payDay = Parser.shortcutTime(furSplit[1]);
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-            throw new DukeException("Please enter in the format: " +
-                    "add income <description> /amt <amount> /on <date>\n");
+            throw new DukeException("Please enter in the format: "
+                    + "add income <description> /amt <amount> /on <date>\n");
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid date! Please enter date in the format: d/m/yyyy\n");
         }

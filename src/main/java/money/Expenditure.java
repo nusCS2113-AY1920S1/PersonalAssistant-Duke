@@ -25,11 +25,19 @@ public class Expenditure extends Item {
     }
 
     @Override
-    public String toString() { return "[E]" + super.toString() + "(on: " + getBoughtDate() + ")"; }
+    public String toString() {
+        return "[E]" + super.toString() + "(on: " + getBoughtDate() + ")";
+    }
 
-    public String getCategory() { return category; }
+    public String getCategory() {
+        return category;
+    }
 
-    public LocalDate getDateBoughtDate() { return boughtDate; }
+    public LocalDate getDateBoughtDate() {
+        return boughtDate;
+    }
 
-    public String getBoughtDate() { return boughtDate.format(dateTimeFormatter); }
+    public String getBoughtDate() {
+        return boughtDate.format(dateTimeFormatter);
+    }
 }

@@ -47,12 +47,12 @@ public class ViewPastIncomeCommand extends MoneyCommand {
     }
 
     /**
-     * This method returns the name of a month given the index of the month from 1-12.
+     * Returns the name of a month given the index of the month from 1-12.
      * @param month Index of the month
      * @return String of the month name
      */
     private String getMonth(int month) {
-        return new DateFormatSymbols().getMonths()[month-1];
+        return new DateFormatSymbols().getMonths()[month - 1];
     }
 
     @Override

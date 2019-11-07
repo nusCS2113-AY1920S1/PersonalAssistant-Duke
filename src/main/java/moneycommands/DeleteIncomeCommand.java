@@ -29,7 +29,8 @@ public class DeleteIncomeCommand extends MoneyCommand {
             String tempStr = temp.replaceAll(" ", "");
             serialNo = Integer.parseInt(tempStr);
         } catch (NumberFormatException e) {
-            throw new DukeException("Please enter a numerical number as the index of the income source to be deleted\n");
+            throw new DukeException("Please enter a numerical number as "
+                    + "the index of the income source to be deleted\n");
         }
     }
 
@@ -72,7 +73,8 @@ public class DeleteIncomeCommand extends MoneyCommand {
             storage.writeToFile(account);
             ui.appendToOutput(" Last command undone: \n");
             ui.appendToOutput(account.getIncomeListTotal().get(serialNo - 1).toString() + "\n");
-            ui.appendToOutput(" Now you have " + account.getIncomeListTotal().size() + " income sources listed\n");
+            ui.appendToOutput(" Now you have " + account.getIncomeListTotal().size()
+                    + " income sources listed\n");
         } else {
             throw new DukeException("Wah u messed up at income\n");
         }
