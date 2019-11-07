@@ -18,4 +18,14 @@ public class CustomNode extends RouteNode {
     public CustomNode(String address, String description, double latitude, double longitude) {
         super(Constraint.valueOf("CUSTOM"), address, description, latitude, longitude);
     }
+
+    /**
+     * Alternative constructor using a Venue instead.
+     *
+     * @param venue The venue representing this CustomNode.
+     */
+    public CustomNode(Venue venue) {
+        super(Constraint.valueOf("CUSTOM"), venue.getAddress(), "", venue.getLatitude(), venue.getLongitude());
+
+    }
 }
