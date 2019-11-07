@@ -6,6 +6,7 @@ import common.TaskList;
 import payment.Payee;
 import payment.PaymentManager;
 import payment.Payments;
+import payment.Status;
 import project.Fund;
 import project.Project;
 import project.ProjectManager;
@@ -27,6 +28,7 @@ public class Process {
     private SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
     private CommandFormat commandformat = new CommandFormat();
     ProjectManager projectmanager = new ProjectManager();
+    private payment.Status Status;
 
     Process() throws AlphaNUSException {
     }
@@ -327,6 +329,8 @@ public class Process {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         }
     }
+
+
     //===========================* Deadline *================================
 
     /**
@@ -635,7 +639,7 @@ public class Process {
         String[] arr = input.split("payment ", 2);
         String[] split = arr[1].split("p/|i/");
         split = cleanStrStr(split);
-        Payments deleted = PaymentManager.deletePayments(split[1], split[2], managermap);
+        Payments deleted = PaymentManager.deletePayments(split[1], split[2], managermap, currentProjectName);
         ui.printDeletePaymentMessage(deleted, managermap.get(split[1]).payments.size(), currentProjectName);
         BeforeAfterCommand.afterCommand(storage, projectmanager);
     }
@@ -658,7 +662,7 @@ public class Process {
             String item = splitpayments[2];
             double cost = Double.parseDouble(splitpayments[3]);
             String invoice = splitpayments[4];
-            Payments payment = PaymentManager.addPayments(payee, item, cost, invoice, managermap);
+            Payments payment = PaymentManager.addPayments(payee, item, cost, invoice, managermap, currentProjectName);
             int paymentsSize = managermap.get(payee).payments.size();
             ui.printAddPaymentMessage(payment, paymentsSize, currentProjectName);
             BeforeAfterCommand.afterCommand(storage, projectmanager);
@@ -744,6 +748,41 @@ public class Process {
         }
     }
 
+
+
+    /**
+     * reminder of the payments based on the status and deadline
+     * @param ui Ui that interacts with the user.
+     * @param storage storage of the programme.
+     */
+    public void reminder ( Ui ui, Storage storage) throws AlphaNUSException {
+        ArrayList<Project> projectslist = projectmanager.listProjects();
+        ArrayList<Payments> approved = new ArrayList<>();
+        ArrayList<Payments> overdue = new ArrayList<>();
+        ArrayList<Payments> pending = new ArrayList<>();
+        ArrayList<Payments> tobesorted = new ArrayList<>();
+        if (projectslist.isEmpty()) {
+            ui.printNoProjectMessage();
+            return;
+        }
+        for (Project project:projectslist) {
+            HashMap<String, Payee> managermap = project.managermap;
+            for (Payee payee : managermap.values()) { // iterate through the payees
+                for (Payments payment : payee.payments) { // iterate through the payments
+                    if (payment.getStatus()==Status.APPROVED) {
+                        approved.add(payment);
+                    } else {
+                        tobesorted.add(payment);
+                    }
+                }
+            }
+        }
+        Collections.sort(overdue);
+        Collections.sort(pending);
+        Collections.sort(tobesorted);
+        ui.printReminderMessage(tobesorted);
+    }
+
     /**
      * Processes the find command and outputs a list of payments from the payee name given.
      * @param input Input from the user.
@@ -776,6 +815,7 @@ public class Process {
             ui.exceptionMessage("     ☹ OOPS!!! There are no payments to list!");
         }
     }
+
 
     //===========================* Command History *================================
 

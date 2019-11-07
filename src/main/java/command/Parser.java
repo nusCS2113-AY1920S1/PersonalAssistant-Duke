@@ -112,9 +112,6 @@ public class Parser {
                 process.viewSchedule(input, tasklist, ui);
                 process.commandHistory(input, ui, storage);
                 //storage.save(tasklist.returnArrayList());
-            } else if (instr.isReminder(input)) {
-                //process.reminder(input, tasklist, ui);
-                process.commandHistory(input, ui, storage);
             } else if (instr.isEdit(input)) {
                 process.edit(input,ui);
                 process.commandHistory(input, ui, storage);
@@ -152,6 +149,9 @@ public class Parser {
                 process.commandHistory(input, ui, storage);
             } else if (instr.isHelp(input)) {
                 ui.printHelpMessage();
+            } else if (instr.isReminder(input)) {
+                process.reminder( ui, storage);
+                process.commandHistory(input, ui, storage);
             } else {
                 throw new AlphaNUSException("\t" + "OOPS!!! I'm sorry, but I don't know what that means :-(");
             }

@@ -46,6 +46,14 @@ public class CommandFormat {
         return "assign fund pr/PROJECT_NAME am/AMOUNT";
     }
 
+    public String resetFundFormat() {
+        return "reset fund am/AMOUNT";
+    }
+
+    public String reminderFormat() {
+        return "reminder";
+    }
+
     public String historyFormat() {
         return "history";
     }

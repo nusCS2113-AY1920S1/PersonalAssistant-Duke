@@ -464,6 +464,16 @@ public class Ui {
         System.out.println("Got it! I have redone the previous command.");
     }
 
+    public void printReminderMessage(ArrayList<Payments> paymentlist){
+        System.out.print(line);
+        System.out.println("\tYour reminder is as follow:\n");
+        for(Payments p:paymentlist){
+            System.out.println("\t" + p.getProject());
+            p.givePayments();
+        }
+        System.out.print(line);
+    }
+
     /**
      * Prints out a help message with command formats.
      */
@@ -478,10 +488,12 @@ public class Ui {
         System.out.println("\t" + "Set Fund:             " + commandFormat.setFundFormat());
         System.out.println("\t" + "Add Fund:             " + commandFormat.addFundFormat());
         System.out.println("\t" + "Assign Fund:          " + commandFormat.assignFundFormat());
+        System.out.println("\t" + "Reset Fund:           " + commandFormat.resetFundFormat());
         System.out.println("\t" + "Add Payee:            " + commandFormat.addPayeeFormat());
         System.out.println("\t" + "Add Payment:          " + commandFormat.addPaymentFormat());
         System.out.println("\t" + "Delete Payee:         " + commandFormat.deletePayeeFormat());
         System.out.println("\t" + "Edit Payment/Payee:   " + commandFormat.editPaymentFormat());
+        System.out.println("\t" + "Reminder:             " + commandFormat.reminderFormat());
         System.out.println("\t" + "History of Commands:  " + commandFormat.historyFormat());
         System.out.println("\t" + "View History within a certain period:         " + commandFormat.viewhistoryFormat());
         System.out.println("\t" + "Exit:                 " + commandFormat.exitFormat());
