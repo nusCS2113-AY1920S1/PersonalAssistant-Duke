@@ -47,7 +47,9 @@ public class CommandDiv extends Command {
         this.infoCapsule.setOutputStr(stringOne
                 + " / "
                 + stringTwo
+                + " "
                 + "="
+                + " "
                 + result
                 + "\n");
     }
