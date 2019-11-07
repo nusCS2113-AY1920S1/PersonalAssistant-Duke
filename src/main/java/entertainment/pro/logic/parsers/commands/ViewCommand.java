@@ -1,5 +1,6 @@
 package entertainment.pro.logic.parsers.commands;
 
+import entertainment.pro.commons.PromptMessages;
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.commons.exceptions.EmptyCommandException;
 import entertainment.pro.commons.exceptions.Exceptions;
@@ -54,7 +55,13 @@ public class ViewCommand extends CommandSuper {
      * Responsible for redirecting users back to list of movies/TV shows.
      */
     private void executeBackCommands() throws Exceptions {
-        ((MovieHandler) this.getUiController()).displayItems();
+        MovieHandler movieHandler = ((MovieHandler) this.getUiController());
+        if (movieHandler.isViewMoreInfoPage()) {
+            movieHandler.displayItems();
+        } else {
+            movieHandler.setGeneralFeedbackText(PromptMessages.VIEW_BACK_FAILURE);
+            throw new Exceptions(PromptMessages.VIEW_BACK_FAILURE);
+        }
     }
 
     /**
