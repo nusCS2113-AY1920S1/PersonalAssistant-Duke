@@ -257,7 +257,7 @@ public class Ui {
      * @param changedOrder the order that has been changed
      */
     public void showOrderChangedDate(String date, String changedOrder) {
-        System.out.println("\t Nice! I've changed the order at " + date + ":");
+        System.out.println("\t Nice! I've changed the order to the date " + date + ":");
         System.out.println("\t " + changedOrder);
     }
 

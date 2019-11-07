@@ -46,17 +46,22 @@
    
    3.5 Order
    
-   ​	3.5.1 Adding Order
+   ​	3.5.1 Adding Order Today or Pre-Order
    
-   ​	3.5.2 Altering Order
+   ​	3.5.2 Altering Order Serving Date
    
-   ​	3.5.3 Deleting Order
+   ​	3.5.3 Cancelling Order
    
-   ​	3.5.4 Done Order
+   ​	3.5.4 Marking Order as Done
    
-   ​	3.5.5 Initializing Order
+   ​	3.5.5 Initializing Order List
+   
+   ​	3.5.6 Listing Order by Different Filtering Keywords
+   
+   3.6 Todo List Today
    
 4. Command Summary
+
 5. FAQ
 
 
@@ -401,20 +406,20 @@ Otherwise,
 	salt, amount is: 50 expired on 31st of October 2019
 ```
 
-### 3.4 Order Management
+### 3.5 Order Management
 
 To begin with, the user needs to enter command `c` in main menu, so as to step into Order management menu. The below commands are all executed in the Order management menu. 
 
-#### 3.4.1 Adding Order Today or Pre-Order: `add`
+#### 3.5.1 Adding Order Today or Pre-Order
 
 To add a new order to the order list, the user needs to execute the command following the below format.
 
-Format: `add [-d ORDER_DATE-(dd/mm/yyyy)] -n DISH1_NAME[*DISH_AMOUNT], DISH2_NAME[*DISH_AMOUNT], ...`
+Format: `add [-d ORDER_DATE-(dd/mm/yyyy)] -n DISH1_NAME[*DISH1_AMOUNT], DISH2_NAME[*DISH2_AMOUNT], ...`
 
 <u>Requirement:</u>
 
 - The serving date of the order `ORDER_DATE` should be valid and **cannot be before today**. 
-  - If the date is today, the user can simply enter command `add -n ...`. 
+  - If the date is today, the user can simply enter command `add -n DISH_NAME[*DISH_AMOUNT], ...`. 
   - Otherwise, the order is treated as *pre-order*. `ORDER_DATE` must be specified.
 - The ordered dishes **cannot be empty**.
 
@@ -429,7 +434,7 @@ Sample output message:
 ```
 _________________________________________________________________________________________
 	 Got it. I've added this order: 
-	 [✘] Order /on 31/12/2019 
+	 [✘] Order on 31/12/2019 
 	    (1) beef noodle 3
 	 Now you have 1 orders in the order list.
 _________________________________________________________________________________________
@@ -445,7 +450,7 @@ ________________________________________________________________________________
 _________________________________________________________________________________________
 ```
 
-#### 3.4.2 Altering Order Serving Date
+#### 3.5.2 Altering Order Serving Date
 
 In pre-order management, it is very likely that the serving date alters. To update the serving date information of an order in the order list, the user needs to execute the command following the below format.
 
@@ -453,7 +458,7 @@ Format: `alter ORDER_INDEX ORDER_DATE-(dd/mm/yyyy)`
 
 <u>Requirement:</u>
 
-- Altering a done order is not expected. It will do nothing and reminds you of `Order done already. Date alteration is not expected.`
+- Altering a done order is not expected. It will do nothing and reminds you of  `Order done already. Date alteration is not expected.`
 - The range of `ORDER_INDEX` is 1 to the size of the order list.
 - The newly set date should be in valid format and **cannot be before today**. 
   - If the date is today, the user can simply enter `alter ORDER_INDEX`. 
@@ -467,14 +472,14 @@ Examples:
 If the order list is empty, the output message would be:
 
 ```
-	 ☹ OOPS!!! No order in the list! No order can be altered!
+	 OOPS!!! No order in the list! No order can be altered!
 ```
 
 Otherwise, the sample output message would be like:
 
 ```
 _________________________________________________________________________________________
-	 Nice! I've changed the order at 07/11/2019:
+	 Nice! I've changed the order to the date 07/11/2019:
 	 [✘] Order today 
 	    (1) fish 1
 	    (2) chili crab 1
@@ -484,7 +489,7 @@ ________________________________________________________________________________
 
 ```
 _________________________________________________________________________________________
-	 Nice! I've changed the order at 03/12/2019:
+	 Nice! I've changed the order to the date 03/12/2019:
 	 [✘] Order /on 03/12/2019 
 	    (1) fish 1
 	    (2) chili crab 1
@@ -492,31 +497,34 @@ ________________________________________________________________________________
 _________________________________________________________________________________________
 ```
 
-#### 3.4.3 Removing Order
 
-To remove an existing order from the order list, the user needs to execute the command following the below format.
 
-Format: `remove ORDER_INDEX`
+#### 3.5.3 Cancelling Order
+
+To cancel an existing order from the order list, the user needs to execute the command following the below format.
+
+Format: `cancel ORDER_INDEX`
 
 <u>Requirement:</u>
 
-- The range of `ORDER_INDEX` is 1 to the size of the order list.
+- The range of `ORDER_INDEX` ranges from 1 to the size of the order list. Use command `list` to check `ORDER_INDEX`.
+- Only **today's undone order** or **pre-order** can be cancelled. 
 
 Examples: 
 
-- `remove 3`: remove 3rd order in the order list.
+- `cancel 3`: remove 3rd order in the order list, if exists.
 
 If the order list is empty, the output message would be:
 
 ```
-	 ☹ OOPS!!! No order in the list! No order can be removed!
+	 OOPS!!! No order in the list! No order can be removed!
 ```
 
 Otherwise, the sample output message would be like:
 
 ```
 _________________________________________________________________________________________
-	 Noted. I've removed this order:
+	 Noted. I've cancelled this order:
 	 [✘] Order /on 03/12/2019 
 	    (1) fish 1
 	    (2) chili crab 1
@@ -525,25 +533,27 @@ ________________________________________________________________________________
 _________________________________________________________________________________________
 ```
 
-#### 3.4.4 Marking Order as Done
 
-To mark an existing undone order as done, the user needs to execute the command following the below format.
+
+#### 3.5.4 Marking Order as Done
+
+To mark an existing undone order of the date today as done, the user needs to execute the command following the below format.
 
 Format: `done ORDER_INDEX`
 
 <u>Requirement:</u>
 
-- The range of `ORDER_INDEX` is 1 to the size of the order list.
-- The indexed order should be in status of `undone` before marking it as `done`. Otherwise, it will do nothing and reminds you `Order ORDER_INDEX has already been done!`
+- `ORDER_INDEX` ranges from 1 to the size of the (whole) order list. Use command `list` to check `ORDER_INDEX`.
+- Only **today's undone order** can be done. Pre-order supports cancellation and date alteration.
 
 Examples: 
 
-- `done 3`: mark 3rd order in the (whole) order list as done. The whole order list includes orders with the status of done. But the program will check if the targeted order is done during the execution.
+- `done 2`: Mark 2nd order in the order list as done, if there exists. 
 
 If the order list is empty, the output message would be:
 
 ```
-	 ☹ OOPS!!! No order in the list! No order can be done!
+	 OOPS!!! No order in the list! No order can be done!
 ```
 
 Otherwise, the sample output message would be like:
@@ -560,7 +570,7 @@ ________________________________________________________________________________
 
 
 
-#### 3.4.5 Initializing Order List
+#### 3.5.5 Initializing Order List
 
 To clear all the orders in the order list, the user needs to execute the command following the below format.
 
@@ -568,13 +578,19 @@ Format: `init`
 
 The program will then asks the user to confirm the initialization: `Are you sure you want to clear all orders in the order list? [y/n] `
 
-If the user enters `y` or `Y`, the output message will be:
+If the user answers  `y` or `Y`, the output message will be:
 
 ```
-_________________________________________________________________________________________     ORDER LIST CLEARED​     Continue by adding order. Template:     add [-d ORDER_DATE-(dd/mm/yyyy)] -n DISH1_NAME[*DISH_AMOUNT], DISH2_NAME[*DISH_AMOUNT]_________________________________________________________________________________________
+_________________________________________________________________________________________
+	 ORDER LIST CLEARED
+	 TODAY TODO LIST CLEARED
+
+	 Continue by adding order. Template:
+	 add [-d ORDER_DATE-(dd/mm/yyyy)] -n DISH1_NAME[*DISH_AMOUNT], DISH2_NAME[*DISH_AMOUNT]
+_________________________________________________________________________________________
 ```
 
-If the user enters `n`  or `N`, the output message will be:
+If the user answers  `n`  or `N`, the output message will be:
 
 ```
 _________________________________________________________________________________________
@@ -585,35 +601,54 @@ ________________________________________________________________________________
 _________________________________________________________________________________________
 ```
 
-If the user enters neither `y` or `n`, then the order list maintains. Note that the user has to enter `init` again and then enters confirm the initialization. An `y` or `n`  command not after the confirmation question is regarded as invalid.
+If the user enters neither `y` or `n`, then the order list maintains. Note that the user has to enter `init` again and then enters confirm the initialization. An `y` or `n`  command not after the confirmation question is regarded as invalid. The reminding message will be:
 
-#### 3.4.5 Listing Order by Different Filtering Keywords
+```
+	 OOPS!!! Please enter 'y' or 'n' after the second 'init' command.
+```
+
+
+
+#### 3.5.6 Listing Order by Different Filtering Keywords
 
 To list orders in the order list, the user needs to execute the command following the below format.
 
 Format 1: `list [-l LIST_TYPE-(option: all (default) | undone | today | undoneToday)]`
 
-- Example: `list -l undone`, `list -l today`, `list -l undoneToday`, `list` (i.e., `list -l all`)
+- Examples:
+  - `list -l undone`: list all the undone orders in the order list. 
+  - `list -l today`: list all orders of the date today in the order list.
+  -  `list -l undoneToday`: list all undone orders of the date today in the order list.
+  -  `list` (i.e., `list -l all`): list all orders in the order list.
 
 Format 2: `list -n DISH_NAME`
 
-- Example: `list -n chicken rice`
+- Example
+  -  `list -n chicken rice`: list all undone orders of the date today that contains the dishes `chicken rice`.
 
 Format 3: `list -d ORDER_DATE-(dd/mm/yyyy) [-l LIST_TYPE-(option: all (default) | undone)]`
 
-- Example: `list -d 31/12/2019 -l undone`, ``list -d 31/12/2019` (i.e., `list -d 31/12/2019 -l all`)
-- *If you want to find today's orders, we recommend you to follow format 1.*
+- Example: 
+  - `list -d 31/12/2019 -l undone`: list all undone orders on `31/12/2019`. 
+  - `list -d 31/12/2019` (i.e., `list -d 31/12/2019 -l all`): list all orders on `31/12/2019`. 
+- Remark: If you want to find ***today's orders***, we recommend you to enter `list -l today` or `list -l undoneToday`.
+
+If entering invalid command, the output message is: 
+
+```
+	 OOPS!!! Must enter a list type, dishes name, or order date
+```
 
 If there is no order in the order list, the output message is: 
 
 ```
-	 OOPS!!! No orders in the order list!. 
+	 OOPS!!! No orders in the order list! 
 ```
 
-If there is no order satisfying the requirement, the output message is
+If there is no order satisfying your requirement, the output message is:
 
 ```
-	 OOPS!!! No orders found.
+	 OOPS!!! No orders found!
 ```
 
 Otherwise, the sample output message is like:
@@ -630,21 +665,30 @@ ________________________________________________________________________________
 _________________________________________________________________________________________
 ```
 
-### 3.5 Chef's ToDo List
 
-Chef needs to check his/her remaining tasks of the day. The ToDo list keeps in accordance with the update of any order in the order list. To view the ToDo list, the user needs to enter `t` in the main menu.
+
+### 3.6 ToDo List Today
+
+Chef needs to check his/her remaining tasks of the day. The ToDo list keeps in accordance with the update of the orders in the order list. To view the ToDo List of today, the user needs to enter `t` in the main menu.
 
 The sample output message as follows: 
 
 ```
 _________________________________________________________________________________________
-	 Today Task list (Thu Nov 07 03:15:25 SGT 2019)
+	 Today Task list (Thu Nov 07 13:00:00 SGT 2019)
 	 1. chicken rice (amount: 3) 
-   2. cake (amount: 2) 
-   3. beef noodles (amount: 4)
-
+	 2. cake (amount: 2) 
+	 3. beef noodles (amount: 4)
 _________________________________________________________________________________________
 ```
+
+Update Principle:
+
+1. add undone dishes from pre-orders when the restaurant opens;
+2. add undone dishes when today's new order comes;
+3. delete finished dishes from the ToDo list when an order of today is done;
+4. delete undone dishes from the ToDo list when an order of today is cancelled.
+5. add undone dishes when a pre-order alters its date to become today's undone order.
 
 
 

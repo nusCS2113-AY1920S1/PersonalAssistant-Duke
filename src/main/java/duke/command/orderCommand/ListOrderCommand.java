@@ -36,9 +36,9 @@ public class ListOrderCommand extends ListCommand {
     public void execute(Fridge fridge, DishList dl, OrderList orderList, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
         if (orderList.size() == 0) { throw new DukeException("No orders in the order list!");}
         List<Order> filtered = parse(orderList);
-        ui.showLine();
         if (filtered.size()==0) { throw new DukeException("No orders found");}
-        else if (filtered.size()==1) { System.out.println("\t Here are the order in the order list:"); }
+        ui.showLine();
+        if (filtered.size()==1) { System.out.println("\t Here are the order in the order list:"); }
         else System.out.println("\t Here are the orders in the order list:");
         int cnt = 1;
         for (Order order: filtered) { // looping to print all the saved orders

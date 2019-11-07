@@ -44,7 +44,7 @@ public class AlterDateCommand extends Command {
             }
 
             order.setDate(date);
-            orderStorage.changeContent(orderIndex+1);
+            orderStorage.changeContent(orderIndex);
             if (order.isToday()) {
                 orderList.getTodoList().addTodoFromOrder(order);
             }

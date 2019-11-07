@@ -41,7 +41,7 @@ public class InitOrderListCommand extends Command {
             System.out.println("\n\t Continue by adding, cancelling, altering, listing order.");
             System.out.println("\t Type 'template' to see command format.");
             ui.showLine();
-        } else { throw new DukeException("Please enter y or n after the second 'init' command"); }
+        } else { throw new DukeException("Please enter 'y' or 'n' after the second 'init' command"); }
 
     }
 
