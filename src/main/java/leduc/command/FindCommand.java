@@ -104,7 +104,7 @@ public class FindCommand extends Command {
 
         String result = "";
         //Add tasks to "String result" in the order of relevance.
-        for(int i = 0; i < scores.size(); i++) {
+        for(int i = 0; i < scores.size() && i < 5; i++) {
             double nullDouble = -99.0;
             //find the index of the task that is most similar to the user query
             int max_index = findMaxIndex(scores);
@@ -116,7 +116,6 @@ public class FindCommand extends Command {
             else{//all tasks are sorted
                 break;
             }
-
         }
         if (result.isEmpty()) {
             ui.showFindNotMatching();
@@ -124,8 +123,6 @@ public class FindCommand extends Command {
         } else {
             ui.showFindMatching(result);
         }
-
-
     }
     /**
      * getter because the shortcut is private
