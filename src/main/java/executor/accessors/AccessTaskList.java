@@ -7,7 +7,7 @@ import utils.AccessType;
 public class AccessTaskList extends Accessor {
 
     /**
-     * Constructor for AccessTaskList Class
+     * Constructor for AccessTaskList Class.
      */
     public AccessTaskList() {
         super();

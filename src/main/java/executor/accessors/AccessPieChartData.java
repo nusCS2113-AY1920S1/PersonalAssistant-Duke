@@ -10,7 +10,7 @@ import utils.AccessType;
 public class AccessPieChartData extends Accessor {
 
     /**
-     * Constructor for AccessPieChartData
+     * Constructor for AccessPieChartData.
      */
     public AccessPieChartData() {
         super();

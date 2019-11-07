@@ -1,4 +1,5 @@
-0.1
-out $10.0 /date 2001-08-25 /tags
+100.0
+in $5.0 /date 2019-08-30 /tags street
+out $10.0 /date 2001-08-25 /tags 
 out $15.0 /date 2019-12-10 /tags dogfood puppy monthly
 in $3.0 /date 2018-03-14 /tags refund clothes

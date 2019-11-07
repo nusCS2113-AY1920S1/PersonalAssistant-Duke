@@ -7,9 +7,11 @@ import utils.InfoCapsule;
 
 public abstract class Accessor {
     protected AccessType accessType;
-    protected String argsStr;
     protected InfoCapsule infoCapsule;
 
+    /**
+     * Constructor for Accessor Class.
+     */
     public Accessor() {
         this.accessType = AccessType.DENY;
         this.infoCapsule = new InfoCapsule();
@@ -18,8 +20,7 @@ public abstract class Accessor {
     }
 
     /**
-     * Executes the Accessor Method to Obtain Information for the UI
-     * @return InfoCapsule containing the desired information
+     * Executes the Accessor Method to Obtain Information for the UI.
      */
     public abstract void execute(StorageManager storageManager);
 
@@ -31,9 +32,5 @@ public abstract class Accessor {
 
     public AccessType getAccessType() {
         return this.accessType;
-    }
-
-    public String getArgsStr() {
-        return this.argsStr;
     }
 }
