@@ -184,7 +184,7 @@ public class UserInteraction {
     public String showFilter(ArrayList<String> list,String keyword){
 
         if(list.size() == 0) {
-            return "There are no task(s) matching your keyword.\n";
+            return "There are no task(s) matching your keyword.";
         } else {
             String message = "Here are the following events/deadline with the keyword " + keyword + "\n";
             for (int i = 1; i <= list.size(); i++) {
