@@ -74,44 +74,6 @@ public class ImpressionContextWindow extends ContextWindow {
     private void setImpression() throws DukeFatalException {
         assert (patient.getName().equals(impression.getParent().getName()));
         updateUi();
-
-        //patient.getAttributes().addListener((MapChangeListener<String, Object>) change -> {
-        //    updateUi();
-        //});
-
-        // TODO: description doesn't update UI
-        //patient.getImpressionsObservableMap().addListener((MapChangeListener<String, Impression>) change -> {
-        //    updateUi();
-        //});
-
-        //        for (Map.Entry<String, Evidence> pair : impression.getObservableEvidences().entrySet()) {
-        //            evidenceListPanel.getItems().add(newEvidenceCard(pair.getValue()));
-        //
-        //        }
-        //
-        //        for (Map.Entry<String, Treatment> pair : impression.getObservableTreatments().entrySet()) {
-        //            treatmentListPanel.getItems().add(newTreatmentCard(pair.getValue()));
-        //        }
-        //
-        //        // TODO: optimise by tracking critical and follow-up count in impression
-        //        impression.getObservableEvidences().addListener((MapChangeListener<String, Evidence>) change -> {
-        //            if (change.wasAdded() && newEvidenceCard(change.getValueAdded()) != null) {
-        //                evidenceListPanel.getItems().add(newEvidenceCard(change.getValueAdded()));
-        //            } else if (change.wasRemoved() && newEvidenceCard(change.getValueRemoved()) != null) {
-        //                evidenceListPanel.getItems().remove(newEvidenceCard(change.getValueRemoved()));
-        //            }
-        //            criticalLabel.setText(impression.getCriticalCountStr());
-        //        });
-        //
-        //        impression.getObservableTreatments().addListener((MapChangeListener<String, Treatment>) change -> {
-        //            if (change.wasAdded() && newTreatmentCard(change.getValueAdded()) != null) {
-        //                treatmentListPanel.getItems().add(newTreatmentCard(change.getValueAdded()));
-        //            } else if (change.wasRemoved() && newTreatmentCard(change.getValueAdded()) != null) {
-        //                treatmentListPanel.getItems().remove(newTreatmentCard(change.getValueRemoved()));
-        //            }
-        //            criticalLabel.setText(impression.getCriticalCountStr());
-        //            followUpLabel.setText(impression.getFollowUpCountStr());
-        //        });
     }
 
     /**
