@@ -224,8 +224,8 @@ To discard the changes, type `close` or `end`.
 
 [TIP]
 ====
-* Users can use `x` to save changes.
-* Users can use `X` to discard changes.
+* Users can type `x` to save changes.
+* Users can type `X` to discard changes.
 ====
 
 [WARNING]
@@ -234,7 +234,7 @@ Changes will not be saved if user attempts to store 2 or more events at the same
 
 Examples:
 
-* 2 Events sharing the same Venue, Marina Bay Sands
+* 2 Events sharing the same Venue: Marina Bay Sands
 ====
 
 [TIP]
@@ -254,9 +254,10 @@ Format: `list`
 SGTravel shows the events whose names contain any of the given keywords. +
 Format: `find KEYWORD`
 
-****
+[NOTE]
+====
 * The search is case sensitive. e.g `Changi Airport` will match `Changi Airport`
-****
+====
 
 Examples:
 
@@ -289,9 +290,9 @@ Format: `map KEYWORD`
 
 Examples:
 
-* `map NUS`
+* `map ntu`
 +
-image::Ui.png[width="600" height="400"]
+image::map.png[width="600" height="400"]
 
 === Recommend an Itinerary: `recommend`
 
@@ -339,7 +340,7 @@ Example Output:
 
 === Show a saved Itinerary: `showItinerary`
 
-Disaplays a specific saved Itinerary +
+Displays a specific saved Itinerary +
 Format: `showItinerary ITIERARY_SERIAL_NUMBER`
 
 Examples:
@@ -581,17 +582,17 @@ Examples:
 * `busRoute 96`
 * `busRoute 193`
 
-=== Exiting the program : `bye`
-
-Exits the program. +
-Format: `bye`
-
 === Viewing calendar : `view`
 
 SGTravel will display a calendar containing the events. Click or hover to view other events on the same day. +
 Format: `view`
 
-image::Ui.png[width="600" height="400"]
+image::cal.png[width="600" height="400"]
+
+=== Exiting the program : `bye`
+
+Exits the program. +
+Format: `bye`
 
 === Saving the data
 
