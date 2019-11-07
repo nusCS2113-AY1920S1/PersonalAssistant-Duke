@@ -8,6 +8,7 @@ import models.reminder.ReminderList;
 import models.task.ITask;
 import models.task.Task;
 import models.task.TaskList;
+import models.task.TaskState;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -127,7 +128,9 @@ public class Project implements IProject {
         for (Member member : allMembers) {
             int credits = 0;
             for (Task assignedTask : assignedMembers.get(member)) {
-                credits += assignedTask.getTaskCredit();
+                if (assignedTask.getTaskState() == TaskState.DONE) {
+                    credits += assignedTask.getTaskCredit();
+                }
             }
             allMemberCredits.add(count + ". " + member.getName() + " | Credits: " + credits);
             count++;
