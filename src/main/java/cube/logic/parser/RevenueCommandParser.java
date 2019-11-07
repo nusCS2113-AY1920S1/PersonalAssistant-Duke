@@ -1,3 +1,4 @@
+//@@author LL-Pengfei
 package cube.logic.parser;
 
 import cube.logic.command.RevenueCommand;
@@ -33,6 +34,6 @@ public class RevenueCommandParser implements ParserPrototype<RevenueCommand> {
             case "-t":
                 return new RevenueCommand(String.join(" ", Arrays.copyOfRange(args,2,args.length)),"TYPE");
         }
-        return null;
+        throw new ParserException(ParserErrorMessage.INVALID_COMMAND_FORMAT);
     }
 }

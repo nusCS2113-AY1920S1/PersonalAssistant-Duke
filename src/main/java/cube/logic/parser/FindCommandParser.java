@@ -28,9 +28,7 @@ public class FindCommandParser implements ParserPrototype<FindCommand> {
                 }
                 return new FindCommand(Integer.parseInt(args[2]),"INDEX");
             case "-n":
-                return new FindCommand(new ParserUtil().findFullString(args,2),"NAME");
-            case "-t":
-                String type  = new ParserUtil().findFullString(args,2);
+                String name  = new ParserUtil().findFullString(args,2);
                 int sortIndex = -1;
                 for (int i = 1; i < args.length; i ++) {
                     if (args[i].equals("-sort")) {
@@ -38,10 +36,36 @@ public class FindCommandParser implements ParserPrototype<FindCommand> {
                     }
                 }
                 if (sortIndex!=-1) {
-                    return new FindCommand(type,"TYPE", FoodList.SortType.valueOf(args[sortIndex+1].toUpperCase()));
+                    if (!ParserUtil.hasField(args,sortIndex+1)) {
+                        throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
+                    }
+                    if (FoodList.SortType.IsDefined(args[sortIndex+1])){
+                        return new FindCommand(name,"NAME", FoodList.SortType.valueOf(args[sortIndex+1].toUpperCase()));
+                    } else {
+                        throw new ParserException(ParserErrorMessage.INVALID_SORT_TYPE);
+                    }
+                }
+                return new FindCommand(name,"NAME");
+            case "-t":
+                String type  = new ParserUtil().findFullString(args,2);
+                sortIndex = -1;
+                for (int i = 1; i < args.length; i ++) {
+                    if (args[i].equals("-sort")) {
+                        sortIndex = i;
+                    }
+                }
+                if (sortIndex!=-1) {
+                    if (!ParserUtil.hasField(args,sortIndex+1)) {
+                        throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
+                    }
+                    if (FoodList.SortType.IsDefined(args[sortIndex+1])){
+                        return new FindCommand(type,"TYPE", FoodList.SortType.valueOf(args[sortIndex+1].toUpperCase()));
+                    } else {
+                        throw new ParserException(ParserErrorMessage.INVALID_SORT_TYPE);
+                    }
                 }
                 return new FindCommand(type,"TYPE");
         }
-        return null;
+        throw new ParserException(ParserErrorMessage.INVALID_COMMAND_FORMAT);
     }
 }

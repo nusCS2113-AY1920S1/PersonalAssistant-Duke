@@ -1,15 +1,16 @@
 package cube.ui;
 
 import cube.exception.CubeException;
-import cube.logic.command.Command;
 import cube.logic.command.util.CommandResult;
-import cube.logic.parser.Parser;
 import cube.model.food.FoodList;
 import cube.storage.StorageManager;
 import cube.util.FileUtilJson;
+import cube.util.LogUtil;
+import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
-import javafx.fxml.FXML;
+
+import java.util.logging.Logger;
 
 
 public class CommandBox extends UiManager<StackPane> {
@@ -24,27 +25,34 @@ public class CommandBox extends UiManager<StackPane> {
     private FileUtilJson storage;
     private FoodList foodList;
 
+    private final Logger logger = LogUtil.getLogger(CommandBox.class);
+
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+    }
+
+    public void setCommandText(String commandText) {
+        commandTextField.clear();
+        commandTextField.setText(commandText);
     }
 
     /**
      * Handles the Enter button pressed event listener.
      */
     @FXML
-    private void handleCommandEntered() {
+    private void handleCommandEntered() throws CubeException {
         String fullCommand = commandTextField.getText();
 
         try {
             commandExecutor.execute(fullCommand);
-        } catch (CubeException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            logger.warning(e.getMessage());
+            commandTextField.clear();
         }
-
-        System.out.println(commandTextField.getText());
         commandTextField.clear();
     }
+
 
     /**
      * Represents a function that can execute commands.

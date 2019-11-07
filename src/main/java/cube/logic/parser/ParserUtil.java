@@ -40,6 +40,7 @@ public class ParserUtil {
 			return null;
 		}
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+		formatter.setLenient(false);
 		formatter.setTimeZone(TimeZone.getTimeZone("GMT-8:00"));
 		Date date;
 		try {
@@ -47,25 +48,7 @@ public class ParserUtil {
 		} catch (ParseException e) {
 			throw new ParserException(ParserErrorMessage.INVALID_DATE_FORMAT);
 		}
-		// check the negative date, month, year etc.
-		requireValidDate(dateString);
 		return date;
-	}
-
-	/**
-	 * Checks the date value is reasonable.
-	 * However, it doesn't handle edge cases such as leap year, even or odd month.
-	 * @param dateString The date input by user.
-	 * @throws ParserException if the date value is not reasonable.
-	 */
-	public static void requireValidDate(String dateString) throws ParserException{
-		String[] timeStamps = dateString.split("/");
-		int date = Integer.valueOf(timeStamps[0]);
-		int month = Integer.valueOf(timeStamps[1]);
-		int year = Integer.valueOf(timeStamps[2]);
-		if (date <= 0 || date > 31 || month <= 0 || month > 12 || year < 0) {
-			throw new ParserException(ParserErrorMessage.INVALID_DATE_VALUE);
-		}
 	}
 
 	//@@author ZKathrynx
@@ -89,7 +72,7 @@ public class ParserUtil {
 			fullString += inputs[i];
 		}
 
-		return fullString;
+		return fullString.trim();
 	}
 
 	/**
@@ -139,16 +122,30 @@ public class ParserUtil {
 	}
 
 	/**
+	 * Find out whether the field value is empty.
+	 * @param inputs tokens containing the full string to be found.
+	 * @param index the index after which there should be a field value.
+	 * @return true if the field value after index is not empty
+	 *         false otherwise.
+	 */
+	public static boolean hasField (String[] inputs, int index) {
+		if (index >= inputs.length || inputs[index].matches("-(.*)")) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
 	 * Find the full name/type until next parameter/end of input.
 	 * @param input tokens containing the full string to be found.
 	 * @return true if the input has parameter that is not within possible parameter set.
 	 *         false otherwise.
 	 */
 	public static boolean isValidNumber (String input) {
-		int number;
+		double number;
 		try{
-			number = Integer.parseInt(input);
-			if (number<0){
+			number = Double.parseDouble(input);
+			if (number<0||number>=10000){
 				return false;
 			}
 			return true;

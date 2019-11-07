@@ -3,16 +3,18 @@
  *
  * @author kuromono
  */
+
 package cube.util;
 
 import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.MappingIterator;
+import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
-import com.fasterxml.jackson.databind.ObjectReader;
-import com.fasterxml.jackson.databind.MappingIterator;
 import cube.exception.CubeException;
-import cube.exception.CubeLoadingException;
+import cube.util.exception.CubeUtilException;
+import cube.util.exception.UtilErrorMessage;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,25 +48,23 @@ public class FileUtilCSV<Type> extends FileUtil {
     public ArrayList<Type> load() throws CubeException {
         ArrayList<Type> collectionToLoad = new ArrayList<>();
 
-        if (checkFileAvailable(fileFullPath)) {
-            System.out.println("Loading file from : " + fileFullPath);
-            try {
-                CsvSchema schema = CsvSchema.emptySchema().withHeader();
-                JavaType type = mapper.getTypeFactory().constructType(fileObject.getClass());
-                ObjectReader reader = mapper.readerFor(type).with(schema);
+        System.out.println("Loading file from : " + fileFullPath);
+        try {
+            CsvSchema schema = CsvSchema.emptySchema().withHeader();
+            JavaType type = mapper.getTypeFactory().constructType(fileObject.getClass());
+            ObjectReader reader = mapper.readerFor(type).with(schema);
 
-                MappingIterator<Type> iterator = reader.readValues(file);
+            MappingIterator<Type> iterator = reader.readValues(file);
 
-                while(iterator.hasNext()) {
-                    Type currentObject = iterator.next();
-                    collectionToLoad.add(currentObject);
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-                throw new CubeLoadingException(fileFullPath);
+            while (iterator.hasNext()) {
+                Type currentObject = iterator.next();
+                collectionToLoad.add(currentObject);
             }
+
+        } catch (IOException e) {
+            throw new CubeUtilException(UtilErrorMessage.READ_ERROR + fileFullPath);
         }
+
         return collectionToLoad;
     }
 
@@ -75,7 +75,7 @@ public class FileUtilCSV<Type> extends FileUtil {
      * @throws CubeException exception happens in writing to the data file.
      */
     public void save(Collection<Type> collectionToSave) throws CubeException {
-        checkFileAvailable(fileFullPath);
+        checkFileAvailable(true);
         try {
             JavaType type = mapper.getTypeFactory().constructType(fileObject.getClass());
             CsvSchema schema = mapper.schemaFor(type);
@@ -83,8 +83,7 @@ public class FileUtilCSV<Type> extends FileUtil {
             mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
             mapper.writerFor(collectionToSave.getClass()).with(schema).writeValue(file, collectionToSave);
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new CubeLoadingException(fileFullPath);
+            throw new CubeUtilException(UtilErrorMessage.WRITE_ERROR + fileFullPath);
         }
     }
 }

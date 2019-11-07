@@ -6,7 +6,6 @@ import cube.logic.parser.exception.ParserException;
 
 import java.util.Date;
 
-//TODO: remove quantity parameter
 public class SoldCommandParser implements ParserPrototype<SoldCommand> {
 
 	public SoldCommand parse(String[] args) throws ParserException {
@@ -35,12 +34,18 @@ public class SoldCommandParser implements ParserPrototype<SoldCommand> {
 			throw new ParserException(ParserErrorMessage.INVALID_NAME);
 		}
 		if(quantityIndex == -1) {
+			if (!ParserUtil.hasField(args,quantityIndex+1)) {
+				throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
+			}
 			throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
 		}
 		if(!ParserUtil.isValidNumber(args[quantityIndex + 1])){
 			throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
 		}
 		if(dateIndex == -1) {
+			if (!ParserUtil.hasField(args,dateIndex+1)) {
+				throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
+			}
 			return new SoldCommand(foodName,Integer.parseInt(args[quantityIndex+1]), new Date());
 		}
 		return new SoldCommand(foodName,Integer.parseInt(args[quantityIndex+1]), ParserUtil.parseStringToDate(args[dateIndex+1]));

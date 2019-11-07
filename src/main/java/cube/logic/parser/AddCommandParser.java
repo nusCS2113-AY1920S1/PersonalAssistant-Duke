@@ -46,21 +46,33 @@ public class AddCommandParser implements ParserPrototype<AddCommand> {
 		}
 		Food tempFood = new Food(foodName);
 		if (foodTypeIndex != -1) {
+			if (!ParserUtil.hasField(args,foodTypeIndex+1)) {
+				throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
+			}
 			tempFood.setType(ParserUtil.findFullString(args,foodTypeIndex+1));
 		}
 		if (priceIndex != -1) {
+			if (!ParserUtil.hasField(args,priceIndex+1)) {
+				throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
+			}
             if(!ParserUtil.isValidNumber(args[priceIndex+1])){
                 throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
             }
 			tempFood.setPrice(Integer.parseInt(args[priceIndex+1]));
 		}
 		if (stockIndex != -1) {
+			if (!ParserUtil.hasField(args,stockIndex+1)) {
+				throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
+			}
 		    if(!ParserUtil.isValidNumber(args[stockIndex+1])){
 		        throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
             }
 			tempFood.setStock(Integer.parseInt(args[stockIndex+1]));
 		}
 		if (expiryDateIndex != -1) {
+			if (!ParserUtil.hasField(args,expiryDateIndex+1)) {
+				throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
+			}
 			tempFood.setExpiryDate(ParserUtil.parseStringToDate(args[expiryDateIndex+1]));
 		}
 		return new AddCommand(tempFood);

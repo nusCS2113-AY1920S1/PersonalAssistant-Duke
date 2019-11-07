@@ -1,40 +1,58 @@
 package cube.ui;
 
 
+import cube.CubeApp;
+import cube.logic.parser.Parser;
+import cube.util.LogUtil;
+import cube.util.exception.CubeUtilException;
+import cube.util.exception.UtilErrorMessage;
 import javafx.fxml.FXMLLoader;
-import cube.MainApp;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.logging.Logger;
 
 public abstract class UiManager<Type> {
 
-    /** Resource folder where FXML files are stored. */
-    public static final String FXML_FILE_FOLDER = File.separator + "view" + File.separator;
+    /**
+     * Resource folder where FXML files are stored.
+     */
+    public static final String FXML_FILE_FOLDER = "view/";
 
     private FXMLLoader fxmlLoader = new FXMLLoader();
 
+    private final Logger logger = LogUtil.getLogger(UiManager.class);
+
     /**
      * Main Constructor for Root
+     *
      * @param FXML File name for the FXML user interface design file.
      * @param root Type of the JavaFX Object type to load.
      */
     public UiManager(String FXML, Type root) {
         super();
-        URL fxmlUrl = getFxmlUrl(FXML);
-        setRoot(root);
-        loadFxmlFile(fxmlUrl);
+        try {
+            URL fxmlUrl = getFxmlUrl(FXML);
+            setRoot(root);
+            loadFxmlFile(fxmlUrl);
+        } catch (CubeUtilException e) {
+            logger.warning(e.getMessage());
+        }
     }
 
     /**
      * Secondary Constructor
+     *
      * @param FXML File name for the FXML user interface design file.
      */
     public UiManager(String FXML) {
         super();
-        URL fxmlUrl = getFxmlUrl(FXML);
-        loadFxmlFile(fxmlUrl);
+        try {
+            URL fxmlUrl = getFxmlUrl(FXML);
+            loadFxmlFile(fxmlUrl);
+        } catch (CubeUtilException e) {
+            logger.warning(e.getMessage());
+        }
     }
 
     /**
@@ -46,6 +64,7 @@ public abstract class UiManager<Type> {
 
     /**
      * Sets he root object of the FXML Loader.
+     *
      * @param root The root FXML Object to be set.
      */
     private void setRoot(Type root) {
@@ -54,16 +73,17 @@ public abstract class UiManager<Type> {
 
     /**
      * Loads the FXML object of the provided type.
+     *
      * @param location Location where the FXML files are being stored.
      */
-    private void loadFxmlFile(URL location) {
+    private void loadFxmlFile(URL location) throws CubeUtilException {
         fxmlLoader.setLocation(location);
         fxmlLoader.setController(this);
 
         try {
             fxmlLoader.load();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new CubeUtilException(UtilErrorMessage.READ_ERROR + location.toString());
         }
     }
 
@@ -72,7 +92,7 @@ public abstract class UiManager<Type> {
      */
     private static URL getFxmlUrl(String FXML) {
         String fxmlPath = FXML_FILE_FOLDER + FXML;
-        URL fxmlUrl = MainApp.class.getClassLoader().getResource(fxmlPath);
+        URL fxmlUrl = CubeApp.class.getClassLoader().getResource(fxmlPath);
 
         return fxmlUrl;
     }

@@ -25,7 +25,7 @@ sourceSets {
 }
 
 application {
-    mainClassName = "cube.Cube"
+    mainClassName = "cube.CubeLauncher"
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
