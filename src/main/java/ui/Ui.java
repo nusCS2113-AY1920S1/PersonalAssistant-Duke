@@ -4,6 +4,7 @@ import common.CommandFormat;
 import common.TaskList;
 import payment.Payee;
 import payment.Payments;
+import payment.Status;
 import project.Fund;
 import project.Project;
 import task.Task;
@@ -182,29 +183,49 @@ public class Ui {
             + date2 + " have been deleted from the history");
     }
 
+
     /**
      * Prints the list of payments of a payee.
      * @param paymentList paymentList of the payee.
      */
     public void printPaymentList(ArrayList<Payments> paymentList) {
+        System.out.println("Here are your payments:");
+        int i = 0;
         for (Payments payments : paymentList) {
-            System.out.println(payments.givePayments());
+            System.out.println("Payment " + ++i + ":");
+            payments.givePayments();
+        }
+    }
+
+    /**
+     * Prints the list of payments of a payee.
+     * @param paymentList paymentList of the payee.
+     */
+    public void printPaymentList(ArrayList<Payments> paymentList, Status status) {
+        if (status == Status.PENDING) {
+            System.out.println("Here are your pending payments:");
+        } else if (status == Status.OVERDUE) {
+            System.out.println("Here are your overdue payments:");
+        } else if (status == Status.APPROVED) {
+            System.out.println("Here are your approved payments:");
+        }
+        int i = 0;
+        for (Payments payments : paymentList) {
+            System.out.println("Payment " + ++i + ":");
+            payments.givePayments();
         }
     }
 
     /**
      * Prints message to indicate deletion of a Payment from the Payee and the number of Payments left.
      * @param payment Representation of the Payment that is deleted.
-     * @param payee the name of the payee to whom Payment was being made to
      * @param size the number of payments in the record for this Payee after deletion
      */
-    public void printDeletePaymentMessage(String payee, Payments payment, int size, String currentProjectName) {
+    public void printDeletePaymentMessage(Payments payment, int size, String currentProjectName) {
         System.out.print(line + "     Noted. I've removed this payment: \n");
-        System.out.println("\t" + "Payee: " + payee);
-        System.out.println("\t" + "Item: " + payment.item);
-        System.out.println("\t" + "Cost: " + payment.cost);
-        System.out.println("\t" + "Invoice: " + payment.inv);
-        System.out.print("\t" + payee + " now has " + size + " payments in project " + currentProjectName + ".\n");
+        payment.givePayments();
+        System.out.print("\t" + payment.payee + " now has " + size 
+            + " payments in project " + currentProjectName + ".\n");
         System.out.print(line);
     }
 
@@ -281,12 +302,7 @@ public class Ui {
      */
     public void printEditMessage(Payments payment, String name) {
         System.out.print(line + "     Got it. I've edited this payment:  \n");
-        System.out.println("\t" + "Payee: " + name);
-        System.out.println("\t" + "Item: " + payment.item);
-        System.out.println("\t" + "Cost: " + payment.cost);
-        System.out.println("\t" + "Invoice: " + payment.inv);
-        System.out.println("\t" + "Deadline: " + payment.deadline);
-        System.out.println("\t" + "Status: " + payment.status);
+        payment.givePayments();
         System.out.print(line);
     }
 
@@ -302,19 +318,14 @@ public class Ui {
 
     /**
      * Prints message to indicate a Payment being added to a certain Payee.
-     * @param payee name of entity Payment is directed to
      * @param payment the new Payment containing the relevant information added to Payee object.
      */
-    public void printAddPaymentMessage(String payee, Payments payment, int size, String currentProjectName) {
+    public void printAddPaymentMessage(Payments payment, int size, String currentProjectName) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've added this payment:");
-        System.out.println("\t" + "Payee: " + payee);
-        System.out.println("\t" + "Item: " + payment.item);
-        System.out.println("\t" + "Cost: " + payment.cost);
-        System.out.println("\t" + "Invoice: " + payment.inv);
-        System.out.println("\t" + "Deadline: " + payment.deadline);
-        System.out.println("\t" + "Status: " + payment.status);
-        System.out.print("\t" + payee + " now has " + size + " payments in project " + currentProjectName + ".\n");
+        payment.givePayments();
+        System.out.print("\t" + payment.payee + " now has " + size 
+            + " payments in project " + currentProjectName + ".\n");
         System.out.print(line);
     }
 

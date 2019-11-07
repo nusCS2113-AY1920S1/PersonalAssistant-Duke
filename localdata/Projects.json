@@ -1,6 +1,23 @@
 {
   "rag": {
-    "managermap": {},
+    "managermap": {
+      "Karan Sarat": {
+        "payee": "Karan Sarat",
+        "email": "karansarat@u.nus.edu",
+        "matricNum": "A0178947E",
+        "phoneNum": "81318131",
+        "payments": [
+          {
+            "payee": "Karan Sarat",
+            "item": "Venue Rental",
+            "cost": 2345.0,
+            "inv": "INV-01",
+            "deadline": "Dec 7, 2019, 7:21:15 PM",
+            "status": "APPROVED"
+          }
+        ]
+      }
+    },
     "budget": 0.0,
     "spending": 0.0,
     "projectname": "rag"
