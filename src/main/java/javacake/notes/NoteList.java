@@ -1,6 +1,7 @@
 package javacake.notes;
 
 import javacake.exceptions.CakeException;
+import javacake.storage.Storage;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class NoteList {
      */
     public ArrayList<Note> compileNotes() throws CakeException {
         try {
-            Stream<Path> walk = Files.walk(Paths.get("data/notes/"));
+            Stream<Path> walk = Files.walk(Paths.get(Storage.returnDefaultFilePath()));
             List<String> result = walk.filter(Files::isRegularFile)
                     .map(x -> x.toString()).collect(Collectors.toList());
 

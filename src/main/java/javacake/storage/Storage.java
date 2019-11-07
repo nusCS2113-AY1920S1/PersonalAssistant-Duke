@@ -122,7 +122,7 @@ public class Storage {
     }
 
     public static String returnDefaultFilePath() {
-        return defaultFilePath;
+        return defaultFilePath + "/notes/";
     }
 
     /**

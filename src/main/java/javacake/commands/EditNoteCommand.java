@@ -3,6 +3,7 @@ package javacake.commands;
 import javacake.JavaCake;
 import javacake.Logic;
 import javacake.exceptions.CakeException;
+import javacake.storage.Storage;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 
@@ -18,7 +19,7 @@ import java.util.logging.Level;
 
 public class EditNoteCommand extends Command {
 
-    private String defaultDirectoryPath = "data/notes/";
+    private static String defaultDirectoryPath = "data/notes/";
 
     private static String nameOfEditFile;
     private static String currentFilePath;
@@ -40,7 +41,15 @@ public class EditNoteCommand extends Command {
     public EditNoteCommand(String inputCommand) throws CakeException {
         JavaCake.logger.log(Level.INFO, "Processing EditNoteCommand: " + inputCommand);
         type = CmdType.EDITNOTE;
+        updateDefaultDirectoryPath();
         verifyCommand(inputCommand);
+    }
+
+    /**
+     * Updates default directory path according the storage.
+     */
+    private void updateDefaultDirectoryPath() {
+        defaultDirectoryPath = Storage.returnDefaultFilePath();
     }
 
     /**

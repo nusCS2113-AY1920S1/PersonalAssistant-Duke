@@ -2,6 +2,7 @@ package javacake.commands;
 
 import javacake.Logic;
 import javacake.exceptions.CakeException;
+import javacake.storage.Storage;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 
@@ -80,9 +81,17 @@ public class DeleteNoteCommand extends Command {
      * @return Full file path to the file to be deleted.
      */
     private String processFilePath(String inputFileName) {
-        String filePath = "data/notes/";
+        String filePath = updateDefaultDirectoryPath();
         fullFilePath = filePath + inputFileName + ".txt" + "/";
         return fullFilePath;
+    }
+
+    /**
+     * Updates default directory path according the storage.
+     * @return updated default file path.
+     */
+    private String updateDefaultDirectoryPath() {
+        return Storage.returnDefaultFilePath();
     }
 
     /**

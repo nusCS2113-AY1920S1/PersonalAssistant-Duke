@@ -35,7 +35,7 @@ public class CreateNoteCommand extends Command {
      * Updates default directory path according the storage.
      */
     private void updateDefaultDirectoryPath() {
-        defaultDirectoryPath = Storage.returnDefaultFilePath() + "/notes/";
+        defaultDirectoryPath = Storage.returnDefaultFilePath();
     }
 
     /**

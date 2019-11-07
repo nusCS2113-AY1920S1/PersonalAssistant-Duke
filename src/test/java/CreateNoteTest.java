@@ -82,6 +82,10 @@ public class CreateNoteTest {
         actualOutput = javaCake.getResponse("createnote editnote");
         expectedOutput = "File 'editnote.txt' has been created successfully!\n";
         assertEquals(expectedOutput, actualOutput);
+
+        actualOutput = javaCake.getResponse("createnote 2113rocks!");
+        expectedOutput = "File '2113rocks!.txt' has been created successfully!\n";
+        assertEquals(expectedOutput, actualOutput);
     }
 
     @Test
@@ -90,7 +94,6 @@ public class CreateNoteTest {
         actualOutput = javaCake.getResponse("createnote Notes");
         expectedOutput = "File already exists, please type 'editnote Notes.txt' to edit the file instead";
         assertEquals(expectedOutput, actualOutput);
-
     }
 
 }
