@@ -4,6 +4,7 @@ import duke.exception.DukeException;
 import duke.ui.card.UiCard;
 import javafx.util.Pair;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchResult extends DukeObject {
@@ -34,8 +35,11 @@ public class SearchResult extends DukeObject {
         }
     }
 
-    public List<Pair<DukeObject, Class<? extends DukeObject>>> getSearchList() {
-        return searchList;
+    public List<DukeObject> getSearchList() {
+        List<DukeObject> objectList = new ArrayList<DukeObject>();
+        for (Pair<DukeObject, Class<? extends DukeObject>> entry : searchList) {
+            objectList.add(entry.getKey());
+        }
     }
 
     @Override

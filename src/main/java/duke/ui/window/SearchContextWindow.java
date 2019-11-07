@@ -69,38 +69,8 @@ class SearchContextWindow extends ContextWindow {
         setParent();
         searchTermLabel.setText(searchResults.getName());
         searchDetailsLabel.setText(buildSearchDetails());
-        for (Pair<DukeObject, Class<? extends DukeObject>> entry : searchResults.getSearchList()) {
-            searchListPanel.getItems().add(newCard(entry.getKey()));
-        }
-    }
-
-    /**
-     * This function returns the new card added dependent on the class instance.
-     * @param object the object
-     * @return relevant card
-     */
-    private UiCard newCard(DukeObject object) {
-        if (object instanceof Patient) {
-            return new PatientCard((Patient) object);
-        } else if (object instanceof Impression) {
-            return new ImpressionCard((Impression) object,false);
-        } else if (object instanceof Observation) {
-            // TODO: index
-            return new ObservationCard((Observation) object);
-        } else if (object instanceof Result) {
-            // TODO: index
-            return new ResultCard((Result) object);
-        } else if (object instanceof Investigation) {
-            // TODO: index
-            return new InvestigationCard((Investigation) object);
-        } else if (object instanceof Medicine) {
-            // TODO: index
-            return new MedicineCard((Medicine) object);
-        } else if (object instanceof Plan) {
-            // TODO: index
-            return new PlanCard((Plan) object);
-        } else {
-            return null;
+        for (DukeObject obj : searchResults.getSearchList()) {
+            searchListPanel.getItems().add(obj.toCard());
         }
     }
 
