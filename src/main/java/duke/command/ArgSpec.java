@@ -18,7 +18,7 @@ public abstract class ArgSpec extends CommandSpec {
     protected ArgLevel cmdArgLevel;
     protected Map<String, Switch> switchMap;
     protected Map<String, String> switchAliases;
-    protected ArgCommand cmd;
+    protected ArgCommand cmd = null;
 
     /**
      * Set {@code cmd} to the supplied command, exposing access to the switches supplied to it, and perform the
@@ -31,10 +31,15 @@ public abstract class ArgSpec extends CommandSpec {
      * @see ArgCommand
      * @throws DukeException If an error occurs during command execution.
      */
-    public void execute(DukeCore core, ArgCommand cmd) throws DukeException {
+    public void executeWithCmd(DukeCore core, ArgCommand cmd) throws DukeException {
         this.cmd = cmd;
         execute(core);
         this.cmd = null;
+    }
+
+    @Override
+    protected void execute(DukeCore core) throws DukeException {
+        assert (cmd != null);
     }
 
     public ArgLevel getCmdArgLevel() {

@@ -58,7 +58,7 @@ public class ArgCommand extends Command {
      */
     @Override
     public void execute(DukeCore core) throws DukeException {
-        spec.execute(core, this);
+        spec.executeWithCmd(core, this);
     }
 
     /**

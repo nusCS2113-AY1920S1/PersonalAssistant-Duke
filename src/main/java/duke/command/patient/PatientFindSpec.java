@@ -61,6 +61,6 @@ public class PatientFindSpec extends ArgSpec {
             throw new DukeException("No results found in this patient context.");
         }
 
-        core.showSearchResults(searchTerm, resultList, patient);
+        core.search(result, this);
     }
 }

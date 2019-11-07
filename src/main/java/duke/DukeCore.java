@@ -52,6 +52,16 @@ public class DukeCore extends Application {
     }
 
     /**
+     * Displays a set of search results, while storing a DataCommand object (the one that calls the search), so that
+     * it can resume execution after receiving the search results.
+     *
+     * @throws DukeFatalException If the file writer cannot be setup.
+     */
+    public void search() throws DukeFatalException {
+        storage.writeJsonFile(patientList.getPatientList());
+    }
+
+    /**
      * Update UI.
      */
     public void updateUi(String message) {
