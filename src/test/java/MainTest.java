@@ -243,9 +243,9 @@ public class MainTest {
         assertFalse(DateStringValidator.isValidDateForToDo(wrongString5));
     }
 
-    //@@author
+    //@@author yenpeichih
     @Test
-    public void goalsListTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
+    public void goalsListAddTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
         ArrayList<String> testListString = new ArrayList<>();
         EventList testList = new EventList(testListString);
         Event practiceTest1 = new Practice("band rehearsal", "12-12-2019 1800", "12-12-2019 2100");
@@ -259,22 +259,127 @@ public class MainTest {
             goalIndex += 1;
         }
         boolean isGoalFound = !testOutput.isEmpty();
-        //testing if added successfully
-        assertEquals(true, isGoalFound);
+        assertTrue(isGoalFound);
+    }
 
-        Goal practiceGoal2 = new Goal("Finish Symphony No.9");
-        testList.getEvent(0).editGoalList(practiceGoal2, 0);
+    @Test
+    public void goalsListEditTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
+        ArrayList<String> testListString = new ArrayList<>();
+        EventList testList = new EventList(testListString);
+        Event lessonTest1 = new Lesson("theory lesson 1", "19-12-2019 1800", "19-12-2019 2100");
+        testList.addEvent(lessonTest1);
+        Goal lessonGoal1 = new Goal("Finish Flight of the Bumblebee");
+        testList.getEvent(0).addGoal(lessonGoal1);
+        Goal lessonGoal2 = new Goal("Finish Symphony No.9");
+        testList.getEvent(0).editGoalList(lessonGoal2, 0);
         boolean isUpdated = false;
         if (testList.getEvent(0).getGoalList().get(0).getGoal().equals("Finish Symphony No.9")) {
             isUpdated = true;
         }
-        //testing if edited successfully
-        assertEquals(true, isUpdated);
-
-
+        assertTrue(isUpdated);
     }
 
-    //@@author
+    @Test
+    public void goalsListDeleteTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
+        ArrayList<String> testListString = new ArrayList<>();
+        EventList testList = new EventList(testListString);
+        Event lessonTest1 = new Lesson("theory lesson 1", "19-12-2019 1800", "19-12-2019 2100");
+        testList.addEvent(lessonTest1);
+        Goal lessonGoal1 = new Goal("Finish Flight of the Bumblebee");
+        testList.getEvent(0).addGoal(lessonGoal1);
+        testList.getEvent(0).removeGoal(0);
+        boolean isDeleted = false;
+        if (testList.getEvent(0).getGoalList().isEmpty()) {
+            isDeleted = true;
+        }
+        assertTrue(isDeleted);
+    }
+
+    @Test
+    public void goalsListAchievedTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
+        ArrayList<String> testListString = new ArrayList<>();
+        EventList testList = new EventList(testListString);
+        Event lessonTest1 = new Lesson("theory lesson 1", "19-12-2019 1800", "19-12-2019 2100");
+        testList.addEvent(lessonTest1);
+        Goal lessonGoal1 = new Goal("Finish Flight of the Bumblebee");
+        testList.getEvent(0).addGoal(lessonGoal1);
+        testList.getEvent(0).getGoalObject(0).setAchieved();
+        assertEquals("Yes", testList.getEvent(0).getGoalObject(0).getStatus());
+        assertNotEquals("No", testList.getEvent(0).getGoalObject(0).getStatus());
+    }
+
+    @Test
+    public void goalsListViewTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
+        ArrayList<String> testListString = new ArrayList<>();
+        EventList testList = new EventList(testListString);
+        Event lessonTest1 = new Lesson("theory lesson 1", "19-12-2019 1800", "19-12-2019 2100");
+        testList.addEvent(lessonTest1);
+        Goal lessonGoal1 = new Goal("Finish Flight of the Bumblebee");
+        testList.getEvent(0).addGoal(lessonGoal1);
+        String testPrint = testList.getEvent(0).getGoalObject(0).getGoal();
+        assertEquals("Finish Flight of the Bumblebee", testPrint);
+    }
+
+    @Test
+    public void pastEventIndexTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
+        EventDate currentDate1 = new EventDate("7-11-2019 1300");
+        ArrayList<String> testListString = new ArrayList<>();
+        EventList testList = new EventList(testListString);
+        Event practiceTest1 = new Practice("full band rehearsal", "12-12-2019 1800", "12-12-2019 2100");
+        testList.addEvent(practiceTest1);
+        Event practiceTest2 = new Practice("individual practice", "3-11-2019 1800", "3-11-2019 1900");
+        testList.addEvent(practiceTest2);
+        Event practiceTest3 = new Practice("sectionals practice", "4-11-2019 1400", "4-11-2019 1600");
+        testList.addEvent(practiceTest3);
+        Event practiceTest4 = new Practice("full band sound check", "19-11-2019 1600", "19-11-2019 1900");
+        testList.addEvent(practiceTest4);
+        testList.findNextEventAndSetBoolean(currentDate1.getEventJavaDate());
+        assertEquals(3, testList.currentDateIndex);
+    }
+
+    @Test
+    public void pastEventUnachievedGoalsListTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
+        EventDate currentDate1 = new EventDate("7-11-2019 1300");
+        ArrayList<String> testListString = new ArrayList<>();
+        EventList testList = new EventList(testListString);
+        Event practiceTest1 = new Practice("full band rehearsal", "12-12-2019 1800", "12-12-2019 2100");
+        testList.addEvent(practiceTest1);
+        Event practiceTest2 = new Practice("individual practice", "3-11-2019 1800", "3-11-2019 1900");
+        testList.addEvent(practiceTest2);
+        Event practiceTest3 = new Practice("sectionals practice", "4-11-2019 1400", "4-11-2019 1600");
+        testList.addEvent(practiceTest3);
+        Goal pastGoal1 = new Goal("finish chapter 2");
+        testList.getEvent(0).addGoal(pastGoal1);
+        Goal pastGoal2 = new Goal("finish chapter 6");
+        testList.getEvent(1).addGoal(pastGoal2);
+        Goal futureGoal1 = new Goal("finish chapter 9");
+        testList.getEvent(2).addGoal(futureGoal1);
+        testList.findNextEventAndSetBoolean(currentDate1.getEventJavaDate());
+        assertTrue(testList.gotPastUnachieved);
+        assertNotEquals("You do not have any unachieved goals for past events! Yay!" + "\n", testList.getPastEventsWithUnachievedGoals());
+    }
+
+    @Test
+    public void noPastUnachievedGoalsTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
+        EventDate currentDate1 = new EventDate("1-11-2019 1300");
+        ArrayList<String> testListString = new ArrayList<>();
+        EventList testList = new EventList(testListString);
+        Event practiceTest1 = new Practice("full band rehearsal", "12-12-2019 1800", "12-12-2019 2100");
+        testList.addEvent(practiceTest1);
+        Event practiceTest2 = new Practice("individual practice", "3-11-2019 1800", "3-11-2019 1900");
+        testList.addEvent(practiceTest2);
+        Event practiceTest3 = new Practice("sectionals practice", "4-11-2019 1400", "4-11-2019 1600");
+        testList.addEvent(practiceTest3);
+        Goal pastGoal1 = new Goal("finish chapter 2");
+        testList.getEvent(0).addGoal(pastGoal1);
+        Goal pastGoal2 = new Goal("finish chapter 6");
+        testList.getEvent(1).addGoal(pastGoal2);
+        Goal futureGoal1 = new Goal("finish chapter 9");
+        testList.getEvent(2).addGoal(futureGoal1);
+        testList.findNextEventAndSetBoolean(currentDate1.getEventJavaDate());
+        assertEquals("\n" + "Below lists all the unachieved goal for past events. Please be reminded to add them to the future events." + "\n" + "You do not have any unachieved goals for past events! Yay!" + "\n", testList.getPastEventsWithUnachievedGoals());
+    }
+
     @Test
     public void viewScheduleTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
         ArrayList<String> testListString = new ArrayList<>();
@@ -302,6 +407,8 @@ public class MainTest {
         boolean isTasksFound = !foundTask.isEmpty();
         assertEquals(true, isTasksFound);
     }
+    //@@author
+
 //
 //    @Test
 //    public void addRecurringEventTest() {
