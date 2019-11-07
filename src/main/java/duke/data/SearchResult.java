@@ -7,6 +7,8 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO parametrise types
+
 public class SearchResult extends DukeObject {
 
     private List<Pair<DukeObject, Class<? extends DukeObject>>> searchList;
@@ -40,11 +42,47 @@ public class SearchResult extends DukeObject {
         for (Pair<DukeObject, Class<? extends DukeObject>> entry : searchList) {
             objectList.add(entry.getKey());
         }
+        return objectList;
     }
 
     @Override
     public String toString() {
-        return "";
+        StringBuilder searchDetails = new StringBuilder();
+        searchDetails.append("There are ").append(searchList.size()).append(" result(s).");
+        searchDetails.append(System.lineSeparator());
+        int patCount = 0;
+        int impCount = 0;
+        int evCount = 0;
+        int treatCount = 0;
+
+        for (Pair<DukeObject, Class<? extends DukeObject>> entry : searchList) {
+            if (entry.getValue() == Patient.class) {
+                ++patCount;
+            } else if (entry.getValue() == Impression.class) {
+                ++impCount;
+            } else if (entry.getValue() == Evidence.class) {
+                ++evCount;
+            } else if (entry.getValue() == Treatment.class) {
+                ++treatCount;
+            }
+        }
+
+        if (patCount != 0) {
+            searchDetails.append("There are ").append(patCount).append(" patient(s)");
+            searchDetails.append(System.lineSeparator());
+        }
+        if (impCount != 0) {
+            searchDetails.append("There are ").append(impCount).append(" impression(s)");
+            searchDetails.append(System.lineSeparator());
+        }
+        if (evCount != 0) {
+            searchDetails.append("There are ").append(evCount).append(" evidence(s)");
+            searchDetails.append(System.lineSeparator());
+        }
+        if (treatCount != 0) {
+            searchDetails.append("There are ").append(treatCount).append(" treatment(s)");
+        }
+        return searchDetails.toString();
     }
 
     @Override
