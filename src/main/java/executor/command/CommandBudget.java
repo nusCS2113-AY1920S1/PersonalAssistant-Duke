@@ -24,19 +24,21 @@ public class CommandBudget extends Command {
     public void execute(StorageManager storageManager) {
         try {
             this.budgetAmount = extractAmount();
+            DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+            storageManager.getWallet().getReceipts().setBudget(this.budgetAmount);
+            String percentageExceeded = percentageOfBudgetExceeded(storageManager.getWalletExpenses());
+            String percentageUsedUp = percentageOfBudgetUsedUp(storageManager.getWalletExpenses());
+            this.infoCapsule.setCodeToast();
+            this.infoCapsule.setOutputStr("Budget updated to: $" + decimalFormat.format(this.budgetAmount) +"\n"
+                    + "Percentage of Budget Exceeded :" + percentageExceeded + "\n"
+                    + "Percentage of Budget Used Up : " + percentageUsedUp + "\n"
+                    + "\n");
+
         } catch (DukeException e) {
             this.infoCapsule.setCodeError();
             this.infoCapsule.setOutputStr(e.getMessage());
             return;
         }
-        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-        storageManager.getWallet().getReceipts().setBudget(this.budgetAmount);
-        Double percentage = percentageOfBudgetExceeded(storageManager.getWalletExpenses());
-        this.infoCapsule.setCodeToast();
-        this.infoCapsule.setOutputStr("Budget updated to: $" + decimalFormat.format(this.budgetAmount)
-                + ""
-                + "\n");
-
     }
 
     private Double extractAmount() throws DukeException {
@@ -57,18 +59,30 @@ public class CommandBudget extends Command {
     private String percentageOfBudgetExceeded(Double amountSpent) throws DukeException {
         try {
             if (amountSpent <= getBudgetAmount()) {
-                return "You are still good and safe as you did not overspend your budget";
+                return "You are still good and safe as you did not overspend your budget ;) \n";
             }
 
             Double percent = ((amountSpent - getBudgetAmount()) / getBudgetAmount()) * 100;
-            return percent.toString();
+            Double percentage = roundByDecimalPlace(percent , 2);
+            return percentage.toString() + "%";
         } catch (Exception e) {
-            throw new DukeException("Unable to calculate percentage overspent!");
+            throw new DukeException("Unable to calculate percentage overspent!\n");
         }
     }
 
-    private String percentageOfBudgetUsedUp(Double amountSpent) {
-        
+    private String percentageOfBudgetUsedUp(Double amountSpent) throws DukeException {
+        try {
+            if (amountSpent <= getBudgetAmount()) {
+                Double percent = ((getBudgetAmount() - amountSpent) / getBudgetAmount()) * 100;
+                Double percentage = roundByDecimalPlace(percent, 2);
+                return percentage.toString() + "%";
+            }
+
+            return "You have already exceeded your budget \n";
+
+        } catch (Exception e) {
+            throw new DukeException("Unable to calculate percentage overspent!\n");
+        }
     }
 
 
