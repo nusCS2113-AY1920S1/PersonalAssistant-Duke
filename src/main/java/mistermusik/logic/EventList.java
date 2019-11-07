@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
+//@@author
 /**
  * Allows for access to the list of events currently stored, and editing that list of events.
  * Does NOT contain any methods for reading/writing to savefile.
@@ -29,9 +30,11 @@ public class EventList {
     private ArrayList<Event> eventArrayList;
 
     /**
-     * Comparator function codes
+     * compare_func codes
      */
-    private static final int GREATER_THAN = 1;
+    static final int EQUAL = 0;
+    static final int GREATER_THAN = 1;
+    static final int SMALLER_THAN = 2;
 
     /**
      * Filter type codes
@@ -50,10 +53,21 @@ public class EventList {
     public int currentDateIndex = 0;
 
     /**
+     * Calendar class to get the current system date.
+     */
+    Calendar currentDateCalendar = Calendar.getInstance();
+
+    /**
+     * Date class to be used to compare event dates with current date.
+     */
+    Date currentDate = currentDateCalendar.getTime();
+
+    /**
      * Flag to check if there are unachieved goals for past events.
      */
-    boolean gotPastUnachieved = false;
+    public boolean gotPastUnachieved = false;
 
+    //@author Ryan-Wong-Ren-Wei
     /**
      * Creates new Model_Class.EventList object.
      *
@@ -89,7 +103,6 @@ public class EventList {
                         eventArrayList.add(new Concert(description, isDone, startDateAndTime, endDateAndTime,
                                 Integer.parseInt(splitString[4])));
                         break;
-
                     case LESSON:
                         eventArrayList.add(new Lesson(description, isDone, startDateAndTime, endDateAndTime));
                         break;
@@ -112,6 +125,8 @@ public class EventList {
         budgeting = new Budgeting(eventArrayList, 50);
     }
 
+
+    //@@author
     /**
      * Edit an event's description, start time and end time in the list.
      *
@@ -297,7 +312,7 @@ public class EventList {
      * @return String containing all events, separated by a newline.
      */
     public String listOfEvents_String() {
-        findNextEventAndSetBoolean();
+        findNextEventAndSetBoolean(currentDate);
         String allEvents = "";
         for (int i = currentDateIndex; i < eventArrayList.size(); ++i) {
             if (eventArrayList.get(i) == null) continue;
@@ -310,16 +325,15 @@ public class EventList {
     /**
      * @return String containing the filtered list of events, each separated by a newline.
      */
-    private String filteredList(Predicate<Object> predicateFront, Predicate<Object> predicateBack) {
+    private String filteredListTwoPredicates(Predicate<Object> predicate1, Predicate<Object> predicate2) {
         String filteredEvents = "";
         int j;
         for (int i = 0; i < eventArrayList.size(); ++i) {
             if (eventArrayList.get(i) == null) continue;
-            else if (!predicateBack.check(eventArrayList.get(i).getStartDate())) continue;
-            if (!predicateFront.check(eventArrayList.get(i).getStartDate())) {
-                j = i + 1;
-                filteredEvents += j + ". " + this.getEvent(i).toString() + "\n";
-            }
+            else if (!predicate1.check(eventArrayList.get(i).getStartDate()) 
+            		|| !predicate2.check(eventArrayList.get(i).getStartDate())) continue;
+            j = i + 1;
+            filteredEvents += j + ". " + this.getEvent(i).toString() + "\n";
         }
         return filteredEvents;
     }
@@ -329,16 +343,16 @@ public class EventList {
      */
     public String getReminder(int days) {
         Date systemDateAndTime = new Date();
-        EventDate frontLimit = new EventDate(systemDateAndTime);
-        EventDate backLimit = new EventDate(systemDateAndTime);
-        frontLimit.addDaysAndSetMidnight(0);
-        backLimit.addDaysAndSetMidnight(days);
-        String reminderDeadline = backLimit.getEventJavaDate().toString();
-        Predicate<Object> objectPredicateFront = new Predicate<>(frontLimit, GREATER_THAN);
-        Predicate<Object> objectPredicateBack = new Predicate<>(backLimit, GREATER_THAN);
+        EventDate lowerLimit = new EventDate(systemDateAndTime);
+        EventDate upperLimit = new EventDate(systemDateAndTime);
+        lowerLimit.addDaysAndSetMidnight(-1);
+        upperLimit.addDaysAndSetMidnight(days);
+        String reminderDeadline = upperLimit.getEventJavaDate().toString();
+        Predicate<Object> lowerPredicate = new Predicate<>(lowerLimit, SMALLER_THAN);
+        Predicate<Object> upperPredicate = new Predicate<>(upperLimit, GREATER_THAN);
         return "The time now is " + systemDateAndTime + ".\n" +
-                "Here is a list of events you need to complete in the next " + days + " days (by " +
-                reminderDeadline + "):\n" + filteredList(objectPredicateFront, objectPredicateBack);
+                "Here is a list of events you need to complete in the next " + days + " day(s) (by " +
+                reminderDeadline + "):\n" + filteredListTwoPredicates(lowerPredicate, upperPredicate);
     }
 
     //@@author
@@ -364,10 +378,10 @@ public class EventList {
     /**
      * Compares the dates of each event with current date
      */
-    private void findNextEventAndSetBoolean() {
-        Calendar currentDate = Calendar.getInstance();
+    public void findNextEventAndSetBoolean(Date currentDate) {
+        gotPastUnachieved = false;
         for (int i = 0; i < eventArrayList.size(); i += 1) {
-            if (this.getEvent(i).getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) <= 0) {
+            if (this.getEvent(i).getStartDate().getEventJavaDate().compareTo(currentDate) <= 0) {
                 currentDateIndex = i + 1;
             }
         }
