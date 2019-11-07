@@ -26,7 +26,7 @@ public class CommandReceiptDelete extends Command {
         String integer = Parser.parseForPrimaryInput(this.commandType, userInput);
         if (integer.isEmpty()) {
             this.infoCapsule.setCodeError();
-            this.infoCapsule.setOutputStr("Index input is missing. FORMAT : receiptdelete <tag>");
+            this.infoCapsule.setOutputStr("Index input is missing. FORMAT : receiptdelete <Index_of_Entry>");
             return;
         }
         try {

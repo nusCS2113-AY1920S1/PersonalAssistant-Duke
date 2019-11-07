@@ -26,7 +26,7 @@ public class CommandReceiptDeleteTest {
         CommandReceiptDelete d2 = new CommandReceiptDelete("receiptdelete");
         d2.execute(storageManager);
         String result = d2.getInfoCapsule().getOutputStr();
-        assertEquals("Index input is missing. FORMAT : receiptdelete <tag>", result);
+        assertEquals("Index input is missing. FORMAT : receiptdelete <Index_of_Entry>", result);
 
 
     }
