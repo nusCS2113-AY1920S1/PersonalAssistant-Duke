@@ -431,7 +431,9 @@ public class ProjectInputController implements IController {
                         return new String[] {"This task has no specific requirements."};
                     } else {
                         ArrayList<String> taskRequirements = projectToManage.getTask(taskIndex).getTaskRequirements();
-                        return taskRequirements.toArray(new String[0]);
+                        ArrayList<ArrayList<String>> toPrintTable = new ArrayList<>();
+                        toPrintTable.add(taskRequirements);
+                        return viewHelper.consolePrintTable(toPrintTable, DEFAULT_HORI_BORDER_LENGTH);
                     }
                 }
                 return new String[] {"The task index entered is invalid."};
