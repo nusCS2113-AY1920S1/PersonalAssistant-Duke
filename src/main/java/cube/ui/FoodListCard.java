@@ -13,7 +13,7 @@ public class FoodListCard extends UiManager<HBox> {
     private Food food;
     private int index;
 
-    private final EditExecutor editExecutor;
+    private final SellExecutor sellExecutor;
     private final DeleteExecutor deleteExecutor;
 
     @FXML
@@ -36,7 +36,7 @@ public class FoodListCard extends UiManager<HBox> {
     @FXML
     private Button delete;
 
-    public FoodListCard(Food food, int displayedIndex, EditExecutor editExecutor, DeleteExecutor deleteExecutor) {
+    public FoodListCard(Food food, int displayedIndex, SellExecutor sellExecutor, DeleteExecutor deleteExecutor) {
         super(FXML);
         this.food = food;
         this.index = displayedIndex;
@@ -48,13 +48,13 @@ public class FoodListCard extends UiManager<HBox> {
         stock.setText("Stock: " + food.getStock());
         expiry.setText("Expiry: " + food.getExpiryDate().toString());
 
-        this.editExecutor = editExecutor;
+        this.sellExecutor = sellExecutor;
         this.deleteExecutor = deleteExecutor;
     }
 
     @FXML
-    private void handleEdit() {
-        editExecutor.execute(index);
+    private void handleSell() {
+        sellExecutor.execute(index);
     }
 
     @FXML
@@ -66,7 +66,7 @@ public class FoodListCard extends UiManager<HBox> {
      * Represents a function that can execute edit commands.
      */
     @FunctionalInterface
-    public interface EditExecutor {
+    public interface SellExecutor {
         /**
          * Executes the command and returns the result.
          */

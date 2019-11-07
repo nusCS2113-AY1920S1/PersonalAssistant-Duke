@@ -33,10 +33,14 @@ public class CubeApp extends Application {
 
     @Override
     public void start(Stage stage) {
-        MainWindow mwc = new MainWindow(stage, storageManager, storage);
+        try {
+            MainWindow mwc = new MainWindow(stage, storageManager, storage);
 
-        mwc.initComponents();
-        mwc.show();
+            mwc.initComponents();
+            mwc.show();
+        } catch (Exception e) {
+            logger.severe(e.getMessage());
+        }
     }
 
     @Override
