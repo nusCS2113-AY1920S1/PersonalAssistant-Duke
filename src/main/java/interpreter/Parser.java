@@ -207,7 +207,7 @@ public class Parser {
                     + receipt.getCashSpent();
         }
 
-        if (receipt.getDate() != null && receipt.getTags() != null) {
+        if (receipt.getDate() != null && receipt.getTags().size() > 1) {
             strSave += ' ';
         }
         if (receipt.getDate() != null) {
@@ -215,12 +215,14 @@ public class Parser {
                     + receipt.getDate();
         }
         strSave += " ";
-        if (receipt.getTags() != null) {
+        if (receipt.getTags().size() > 1) {
             strSave += "/tags";
 
             for (String tag : receipt.getTags()) {
-                strSave += " ";
-                strSave += tag;
+                if (!tag.equals("Income") && !tag.equals("Expenses")) {
+                    strSave += " ";
+                    strSave += tag;
+                }
             }
         }
         return strSave;

@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import main.Duke;
 import storage.StorageTask;
 import storage.StorageWallet;
 import ui.UiCode;
@@ -51,8 +52,6 @@ public class MainWindow extends AnchorPane {
 
         this.fetchStoredImages();
         this.showHomeDisplay();
-        this.displayToast("test");
-
     }
 
     @FXML
@@ -75,6 +74,7 @@ public class MainWindow extends AnchorPane {
      */
     private void showHomeDisplay() {
         if (this.displayType == DisplayType.HOME) {
+            this.updateHomeDisplay();
             return;
         }
         try {
@@ -88,7 +88,7 @@ public class MainWindow extends AnchorPane {
         } catch (DukeException e) {
             this.displayToast(e.getMessage());
         } catch (Exception e) {
-            e.printStackTrace();
+            // Catch Error
         }
         if (this.contentPane.getChildren().size() > 1) {
             this.contentPane.getChildren().remove(0);
@@ -106,6 +106,7 @@ public class MainWindow extends AnchorPane {
         } catch (DukeException e) {
             this.displayToast(e.getMessage());
         }
+
     }
 
     private void updateGui(InfoCapsule infoCapsule) {

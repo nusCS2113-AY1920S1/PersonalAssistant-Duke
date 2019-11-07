@@ -47,7 +47,7 @@ public class CommandGetSpendingByYear extends Command {
                 this.infoCapsule.setOutputStr("Year is too far back into the past" + "\n");
                 return;
             }
-            Double totalMoney = storageManager.getReceiptsByYear(year).getTotalCashSpent();
+            Double totalMoney = storageManager.getReceiptsByYear(year).getNettCashSpent();
             this.infoCapsule.setCodeToast();
             this.infoCapsule.setOutputStr("The total amount of money spent in " + year + " : $" + totalMoney + "\n");
 

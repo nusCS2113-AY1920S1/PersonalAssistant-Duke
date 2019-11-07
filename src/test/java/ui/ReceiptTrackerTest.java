@@ -35,13 +35,13 @@ public class ReceiptTrackerTest {
     @Test
     void constructorTest() {
         ReceiptTracker trackerA = new ReceiptTracker();
-        assertEquals(0.0, trackerA.getTotalCashSpent());
+        assertEquals(0.0, trackerA.getNettCashSpent());
         assertTrue(trackerA.isEmpty());
         assertTrue(trackerA.getFolders().isEmpty());
 
         ArrayList<Receipt> receiptList = new ArrayList<>();
         ReceiptTracker trackerB = new ReceiptTracker(receiptList);
-        assertEquals(0.0, trackerB.getTotalCashSpent());
+        assertEquals(0.0, trackerB.getNettCashSpent());
         assertTrue(trackerB.isEmpty());
         assertTrue(trackerB.getFolders().isEmpty());
 
@@ -49,7 +49,7 @@ public class ReceiptTrackerTest {
         receiptList.add(receipt);
         ReceiptTracker trackerC = new ReceiptTracker(receiptList);
         assertFalse(trackerC.isEmpty());
-        assertEquals(5.00, trackerC.getTotalCashSpent());
+        assertEquals(5.00, trackerC.getNettCashSpent());
         assertEquals(5.00, trackerC.get(0).getCashSpent());
     }
 
@@ -60,10 +60,10 @@ public class ReceiptTrackerTest {
             Receipt receipt = new Receipt(x);
             tracker.add(receipt);
         }
-        assertEquals(0.0, tracker.getTotalCashSpent());
+        assertEquals(0.0, tracker.getNettCashSpent());
         assertEquals(55.0, tracker.sumReceipts());
-        tracker.updateTotalCashSpent();
-        assertEquals(55.0, tracker.getTotalCashSpent());
+        tracker.updateNettCashSpent();
+        assertEquals(55.0, tracker.getNettCashSpent());
     }
 
     @Test
@@ -71,21 +71,21 @@ public class ReceiptTrackerTest {
         ReceiptTracker tracker = new ReceiptTracker();
         Receipt receiptA = new Receipt(5.00);
         tracker.addReceipt(receiptA);
-        assertEquals(5.00, tracker.getTotalCashSpent());
+        assertEquals(5.00, tracker.getNettCashSpent());
 
         tracker.getFolders().put("tagged", new ReceiptTracker());
         Receipt receiptB = new Receipt(10.00);
         receiptB.getTags().add("tagged");
         tracker.addReceipt(receiptB);
-        assertEquals(15.00, tracker.getTotalCashSpent());
-        assertEquals(10.00, tracker.getFolders().get("tagged").getTotalCashSpent());
+        assertEquals(15.00, tracker.getNettCashSpent());
+        assertEquals(10.00, tracker.getFolders().get("tagged").getNettCashSpent());
         assertTrue(tracker.getFolders().get("tagged").getFolders().isEmpty());
     }
 
     @Test
     void findReceiptsByTagTest() {
         ReceiptTracker tracker = initializeTracker();
-        assertEquals(1.00, tracker.getTotalCashSpent());
+        assertEquals(1.00, tracker.getNettCashSpent());
         assertEquals(5.00, tracker.getReceiptsByTag("loans").get(0).getCashSpent());
         assertEquals(4.00, tracker.getReceiptsByTag("loans").get(1).getCashSpent());
         assertEquals(4.00, tracker.getReceiptsByTag("ice").get(0).getCashSpent());
@@ -114,7 +114,7 @@ public class ReceiptTrackerTest {
             tracker.addFolder("tagged");
             assertFalse(tracker.getFolders().isEmpty());
             assertTrue(tracker.isRegisteredTag("tagged"));
-            assertEquals(40.0, tracker.getFolders().get("tagged").getTotalCashSpent());
+            assertEquals(40.0, tracker.getFolders().get("tagged").getNettCashSpent());
             assertFalse(tracker.isRegisteredTag("Fire"));
         } catch (DukeException e) {
             System.out.println(e.toString());
@@ -125,7 +125,7 @@ public class ReceiptTrackerTest {
             assertFalse(tracker.getFolders().isEmpty());
             assertTrue(tracker.isRegisteredTag("fire"));
             assertFalse(tracker.isRegisteredTag("Fire"));
-            assertEquals(0.0, tracker.getFolders().get("fire").getTotalCashSpent());
+            assertEquals(0.0, tracker.getFolders().get("fire").getNettCashSpent());
         } catch (DukeException e) {
             System.out.println(e.toString());
         }

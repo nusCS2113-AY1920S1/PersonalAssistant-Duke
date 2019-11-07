@@ -6,8 +6,6 @@ import storage.StorageManager;
 import java.text.DecimalFormat;
 
 public class CommandUpdateBalance extends Command {
-
-
     private Double newBalance;
 
     /**

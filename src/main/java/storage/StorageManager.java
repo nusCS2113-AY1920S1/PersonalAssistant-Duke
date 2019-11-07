@@ -36,9 +36,22 @@ public class StorageManager {
         this.initializationStatus = "";
     }
 
+    /**
+     * Saves both the TaskList and the Wallet.
+     * @throws DukeException Error Saving either the Wallet or the TaskList
+     */
     public void saveAllData() throws DukeException {
         this.taskStore.saveData(this.taskList);
         this.walletStore.saveData(this.wallet);
+    }
+
+    /**
+     * Tracks a particular tag.
+     * @param tag String to track by
+     * @throws DukeException The tag is already tracked.
+     */
+    public void trackTag(String tag) throws DukeException {
+        this.wallet.addFolder(tag);
     }
 
     /**

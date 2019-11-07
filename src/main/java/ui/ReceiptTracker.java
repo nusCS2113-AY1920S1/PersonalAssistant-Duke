@@ -7,15 +7,22 @@ import java.util.HashMap;
 
 public class ReceiptTracker extends ArrayList<Receipt> {
     private HashMap<String, ReceiptTracker> folders;
-    private Double totalCashSpent;
+    private Double nettCashSpent;
 
     /**
      * Overloaded Constructor for ReceiptTracker.
      * @param receiptList List of receipts to be loaded into the ReceiptTracker.
      */
     public ReceiptTracker(ArrayList<Receipt> receiptList) {
+        this.setFolders(new HashMap<>());
         this.addAll(receiptList);
-        this.updateTotalCashSpent();
+        try {
+            this.addFolder("Income");
+            this.addFolder("Expenditure");
+        } catch (DukeException e) {
+            e.printStackTrace();
+        }
+        this.updateNettCashSpent();
         this.setFolders(new HashMap<>());
     }
 
@@ -23,9 +30,13 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      * Default Constructor for ReceiptTracker.
      */
     public ReceiptTracker() {
+        this.updateNettCashSpent();
         this.setFolders(new HashMap<>());
-        this.updateTotalCashSpent();
-        this.setFolders(new HashMap<>());
+    }
+
+    public void initializeMainReceiptTracker() {
+        this.getFolders().put("Income", new ReceiptTracker());
+        this.getFolders().put("Expenses", new ReceiptTracker());
     }
 
     /**
@@ -36,19 +47,19 @@ public class ReceiptTracker extends ArrayList<Receipt> {
         this.add(receipt);
         for (String tag : receipt.getTags()) {
             if (isRegisteredTag(tag)) {
-                Double currTotalCashSpent = folders.get(tag).getTotalCashSpent();
+                Double currTotalCashSpent = folders.get(tag).getNettCashSpent();
                 folders.get(tag).addReceipt(receipt);
-                folders.get(tag).setTotalCashSpent(currTotalCashSpent + receipt.getCashSpent());
+                folders.get(tag).setNettCashSpent(currTotalCashSpent + receipt.getCashSpent());
             }
         }
-        this.updateTotalCashSpent();
+        this.updateNettCashSpent();
     }
 
     /**
      * Updates totalCashSpent property of this ReceiptTracker Object.
      */
-    public void updateTotalCashSpent() {
-        this.setTotalCashSpent(this.sumReceipts());
+    public void updateNettCashSpent() {
+        this.setNettCashSpent(this.sumReceipts());
     }
 
     /**
@@ -72,7 +83,9 @@ public class ReceiptTracker extends ArrayList<Receipt> {
             throw new DukeException("Category already exists!");
         }
         ArrayList<Receipt> taggedReceipts = getReceiptsByTag(tag);
-        this.getFolders().put(tag, new ReceiptTracker(taggedReceipts));
+        if (taggedReceipts.size() < this.size()) {
+            this.getFolders().put(tag, new ReceiptTracker(taggedReceipts));
+        }
     }
 
     /**
@@ -157,10 +170,10 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      */
     public double getCashSpentByTag(String tag) {
         if (isRegisteredTag(tag)) {
-            return this.getFolders().get(tag).getTotalCashSpent();
+            return this.getFolders().get(tag).getNettCashSpent();
         } else {
             ReceiptTracker temp = new ReceiptTracker(this.getReceiptsByTag(tag));
-            return temp.getTotalCashSpent();
+            return temp.getNettCashSpent();
         }
     }
 
@@ -182,18 +195,18 @@ public class ReceiptTracker extends ArrayList<Receipt> {
 
     /**
      * Setter for the totalCashSpent property of the ReceiptTracker Object.
-     * @param totalCashSpent Double amount to be set as the totalCashSpent property of ReceiptTracker Object
+     * @param nettCashSpent Double amount to be set as the totalCashSpent property of ReceiptTracker Object
      */
-    public void setTotalCashSpent(Double totalCashSpent) {
-        this.totalCashSpent = totalCashSpent;
+    public void setNettCashSpent(Double nettCashSpent) {
+        this.nettCashSpent = nettCashSpent;
     }
 
     /**
      * Getter for totalCashSpent property of ReceiptTracker Object.
      * @return Double representing the totalCashSpent property of ReceiptTracker Object
      */
-    public Double getTotalCashSpent() {
-        return totalCashSpent;
+    public Double getNettCashSpent() {
+        return nettCashSpent;
     }
 
     /**
@@ -230,5 +243,26 @@ public class ReceiptTracker extends ArrayList<Receipt> {
             }
         }
         return outputStr.toString();
+    }
+
+    public Double getTotalIncome() {
+        if (this.getFolders().containsKey("Income")) {
+            return -this.getFolders().get("Income").getNettCashSpent();
+        } else if (this.nettCashSpent < 0){
+            return -this.nettCashSpent;
+        } else {
+            return 0.0;
+        }
+
+    }
+
+    public Double getTotalExpenses() {
+        if (this.getFolders().containsKey("Expenses")) {
+            return this.getFolders().get("Expenses").getNettCashSpent();
+        } else if (this.nettCashSpent >= 0) {
+            return this.nettCashSpent;
+        } else {
+            return 0.0;
+        }
     }
 }

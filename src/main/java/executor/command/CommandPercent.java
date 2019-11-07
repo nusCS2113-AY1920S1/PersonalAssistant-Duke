@@ -3,7 +3,6 @@ package executor.command;
 import duke.exception.DukeException;
 import interpreter.Parser;
 import storage.StorageManager;
-import ui.Wallet;
 
 public class CommandPercent extends Command {
     private String tag;
@@ -30,7 +29,7 @@ public class CommandPercent extends Command {
             return;
         }
         try {
-            Double totalTag = storageManager.getReceiptsByTag(this.tag).getTotalCashSpent();
+            Double totalTag = storageManager.getReceiptsByTag(this.tag).getNettCashSpent();
             Double totalSpent = storageManager.getWalletExpenses();
             outputStr.append((totalTag / totalSpent) * 100)
                      .append("%")

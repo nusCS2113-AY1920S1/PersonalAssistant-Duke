@@ -17,6 +17,7 @@ public class CommandAddSpendingReceipt extends CommandAddReceipt {
         this.cash = extractIncome(this.commandType, this.userInput);
         this.date = extractDate(this.userInput);
         this.tags = extractTags(this.userInput);
+        this.tags.add(0, "Expenses");
         this.description = "You can add a new spendings receipt.\n"
                 + "FORMAT :  out <value> /date <YYYY-MM-DD> /tags <tag>";
     }

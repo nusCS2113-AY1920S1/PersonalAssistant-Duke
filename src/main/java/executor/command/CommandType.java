@@ -39,7 +39,8 @@ public enum CommandType {
     ADD(CommandAdd.class),
     SUB(CommandSub.class),
     DIV(CommandDiv.class),
-    MUL(CommandMul.class);
+    MUL(CommandMul.class),
+    TRACK(CommandTrackTag.class);
 
     private final Class commandClass;
 

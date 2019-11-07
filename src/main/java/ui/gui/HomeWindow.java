@@ -2,10 +2,7 @@ package ui.gui;
 
 import duke.exception.DukeException;
 import executor.task.Task;
-import executor.task.TaskList;
 import interpreter.Interpreter;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
@@ -25,6 +22,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class HomeWindow extends AnchorPane {
     @FXML
@@ -80,7 +78,7 @@ public class HomeWindow extends AnchorPane {
         this.balanceFigure.setText(decimalFormat.format(balanceCapsule.getOutputDouble()));
     }
 
-    void displayBalanceChart() throws DukeException {
+    private void displayBalanceChart() throws DukeException {
         this.extractPieChartData();
         this.balanceChart.setData(this.pieChartData);
         this.balanceChart.setLegendVisible(false);
@@ -123,17 +121,19 @@ public class HomeWindow extends AnchorPane {
         }
     }
 
-    void displayBreakdownChart() {
+    private void displayBreakdownChart() {
         XYChart.Series<String, Double> expenditureSeries = new XYChart.Series<>();
         expenditureSeries.setName("Expenditure");
         XYChart.Series<String, Double> incomeSeries = new XYChart.Series<>();
         incomeSeries.setName("Income");
-        updateBreakdownData(expenditureSeries, incomeSeries);
+
+        InfoCapsule infoCapsule = this.interpreterLayer.request(AccessType.WALLET, null);
+        Wallet wallet = infoCapsule.getWallet();
+        updateBreakdownData(wallet, expenditureSeries, incomeSeries);
 
         XYChart.Series<String, Double> backdrop = new XYChart.Series<>();
         backdrop.setName("Backdrop");
-        InfoCapsule infoCapsule = this.interpreterLayer.request(AccessType.WALLET, null);
-        Wallet wallet = infoCapsule.getWallet();
+
         Double backdropValue = this.getBackdropValue(wallet);
         HashMap<String, Double> backdropData = this.getBackdropData(backdropValue, expenditureSeries, incomeSeries);
 
@@ -149,32 +149,38 @@ public class HomeWindow extends AnchorPane {
         this.breakdownChart.getStylesheets().add(css);
     }
 
-    private void updateBreakdownData(XYChart.Series<String, Double> expenditureSeries,
+    private void updateBreakdownData(Wallet wallet, XYChart.Series<String, Double> expenditureSeries,
                                      XYChart.Series<String, Double> incomeSeries) {
-        InfoCapsule infoCapsule = this.interpreterLayer.request(AccessType.WALLET, null);
-        Wallet wallet = infoCapsule.getWallet();
         for (Map.Entry<String, ReceiptTracker> folder : wallet.getFolders().entrySet()) {
-            if (folder.getValue().getTotalCashSpent() > 0) {
-                expenditureSeries.getData().add(new XYChart.Data<>(
+            if (isFolderValid(folder)) {
+                expenditureSeries.getData().add(new XYChart.Data<String, Double>(
                         folder.getKey(),
-                        folder.getValue().getTotalCashSpent())
-                );
-            } else if (-folder.getValue().getTotalCashSpent() > 0) {
-                incomeSeries.getData().add(new XYChart.Data<>(
+                        folder.getValue().getTotalExpenses()
+                ));
+                incomeSeries.getData().add(new XYChart.Data<String, Double>(
                         folder.getKey(),
-                        -folder.getValue().getTotalCashSpent())
-                );
+                        folder.getValue().getTotalIncome()
+                ));
             }
         }
+    }
+
+    private boolean isFolderValid(Map.Entry<String, ReceiptTracker> folder) {
+        if (folder.getKey().equals("Expenses")) {
+            return false;
+        } else if (folder.getKey().equals("Income")) {
+            return false;
+        } else if (folder.getValue().size() == 0) {
+            return false;
+        }
+        return true;
     }
 
     private Double getBackdropValue(Wallet wallet) {
         double maxValue = 100.0;
         for (ReceiptTracker folderContent : wallet.getFolders().values()) {
-            if (folderContent.getTotalCashSpent() > maxValue) {
-                maxValue = folderContent.getTotalCashSpent();
-            } else if (-folderContent.getTotalCashSpent() > maxValue) {
-                maxValue = -folderContent.getTotalCashSpent();
+            if (folderContent.getTotalExpenses() + folderContent.getTotalIncome() > maxValue) {
+                maxValue = folderContent.getTotalExpenses() + folderContent.getTotalIncome();
             }
         }
         return maxValue;

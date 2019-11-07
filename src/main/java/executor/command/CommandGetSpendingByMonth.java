@@ -63,7 +63,7 @@ public class CommandGetSpendingByMonth extends Command {
                     this.infoCapsule.setOutputStr("Year is too far back into the past");
                     return;
                 }
-                Double totalMoney = storageManager.getReceiptsByMonthDate(month, year).getTotalCashSpent();
+                Double totalMoney = storageManager.getReceiptsByMonthDate(month, year).getNettCashSpent();
                 this.infoCapsule.setCodeToast();
                 this.infoCapsule.setOutputStr("The total amount of money spent in "
                         + monthStr
