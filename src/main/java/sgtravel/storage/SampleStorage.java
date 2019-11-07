@@ -57,7 +57,7 @@ public class SampleStorage {
     private void readItineraryTable() {
         try {
             Scanner scanner = new Scanner(getClass().getResourceAsStream(ITINERARIES_FILE_PATH));
-            Storage.makeItineraryTable(scanner, itineraryTable);
+            this.itineraryTable = Storage.makeItineraryTable(scanner);
         } catch (ParseException e) {
             logger.log(Level.INFO, "Sample data not found.");
         }

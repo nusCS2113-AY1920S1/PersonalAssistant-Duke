@@ -80,8 +80,8 @@ public class Storage {
      * Reads all storage file.
      */
     private void read() throws FileLoadFailException, ParseException {
-        readTrain();
         readBus();
+        readTrain();
         readEvents();
         readRoutes();
         readProfile();
@@ -283,7 +283,6 @@ public class Storage {
         todoList = PlanningStorageParser.getTodoListFromStorage(newVenue);
         return new Agenda(todoList, venueList, number2);
     }
-
 
     /**
      * Writes the tasks into a file of the given filepath.
