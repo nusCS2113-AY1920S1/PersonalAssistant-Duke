@@ -62,7 +62,6 @@ public class FileUtilCSV<Type> extends FileUtil {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
             throw new CubeUtilException(UtilErrorMessage.READ_ERROR + fileFullPath);
         }
 
@@ -84,7 +83,6 @@ public class FileUtilCSV<Type> extends FileUtil {
             mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
             mapper.writerFor(collectionToSave.getClass()).with(schema).writeValue(file, collectionToSave);
         } catch (IOException e) {
-            e.printStackTrace();
             throw new CubeUtilException(UtilErrorMessage.WRITE_ERROR + fileFullPath);
         }
     }
