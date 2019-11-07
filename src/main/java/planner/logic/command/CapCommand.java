@@ -2,12 +2,18 @@
 
 package planner.logic.command;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.antlr.runtime.CharStreamState;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.legacy.ModMissingArgumentException;
+import planner.logic.exceptions.planner.ModBadGradeException;
+import planner.logic.exceptions.planner.ModNoPrerequisiteException;
 import planner.logic.exceptions.planner.ModNotFoundException;
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.cca.CcaList;
@@ -133,8 +139,6 @@ public class CapCommand extends ModuleCommand {
             case "module":
                 plannerUi.capModStartMsg();
                 calculateModuleCap(moduleTasksList, detailedMap, plannerUi, store, scanner);
-                //calculate the module's predicted cap from its prerequisites
-                //TODO in progress
                 break;
             case "list":
                 List<ModuleTask> hold = moduleTasksList.getTasks();
@@ -155,15 +159,17 @@ public class CapCommand extends ModuleCommand {
                                     PlannerUi plannerUi,
                                     Storage store,
                                     Scanner scanner)
-        throws ModMissingArgumentException, ModNotFoundException, ModEmptyCommandException {
+        throws ModMissingArgumentException, ModNotFoundException, ModEmptyCommandException,
+        ModBadGradeException {
         String userInput = scanner.nextLine();
         while (!isComplete(userInput)) {
             if (userInput.isEmpty()) {
                 throw new ModEmptyCommandException();
-                //"Please input a completed module and your grade for it,"
-                //" or input done to finish and calculate your CAP"
             }
             String[] userInfo = userInput.split(" ");
+            if (userInfo.length <= 1) {
+                throw new ModBadGradeException();
+            }
             if (!detailedMap.containsKey(userInfo[0].toUpperCase())) {
                 throw new ModNotFoundException();
             }
@@ -172,15 +178,19 @@ public class CapCommand extends ModuleCommand {
                 || letterGradeToCap(userInfo[1].toUpperCase()) != 0.00) {
                 mcCount += mcTemp;
             }
-            if (userInfo[1].isEmpty()) {
+            if (userInfo[1].isEmpty() || userInfo[1].isBlank()) {
                 throw new ModMissingArgumentException("Please input a letter grade for this module.");
             }
 
             currentCap += (letterGradeToCap(userInfo[1].toUpperCase()) * mcTemp);
             userInput = scanner.nextLine();
         }
-        double averageCap = currentCap / mcCount;
-        plannerUi.capMsg(averageCap);
+        if (currentCap == 0 && mcCount == 0) {
+            plannerUi.capMsg(0.00);
+        } else {
+            double averageCap = currentCap / mcCount;
+            plannerUi.capMsg(averageCap);
+        }
     }
 
     /**
@@ -191,38 +201,59 @@ public class CapCommand extends ModuleCommand {
                                     PlannerUi plannerUi,
                                     Storage store,
                                     Scanner scanner)
-        throws ModMissingArgumentException,
-        ModNotFoundException,
+        throws ModNotFoundException,
+        ModNoPrerequisiteException,
         ModEmptyListException {
-        String moduleCode = scanner.nextLine().toUpperCase();
+        String moduleCode = scanner.next().toUpperCase();
+        if (detailedMap.get(moduleCode).getPrerequisites().isEmpty()
+            ||
+            detailedMap.get(moduleCode).getPrerequisites().isBlank()) {
+            throw new ModNoPrerequisiteException();
+        }
         if (!detailedMap.containsKey(moduleCode)) {
             throw new ModNotFoundException();
         }
-        System.out.println(detailedMap.get(moduleCode).getPrerequisites());
-        List<List<String>> prunedModules = parsePrerequisiteTree(moduleCode, detailedMap);
-        List<List<String>> toCalculate = prunedModules;
         if (moduleTasksList.getTasks().isEmpty()) {
             throw new ModEmptyListException();
         }
+        ArrayList<String> prunedModules = parsePrerequisiteTree(detailedMap.get(moduleCode).getPrerequisites());
         for (ModuleTask x : moduleTasksList.getTasks()) {
-            for (int i = 0; i < toCalculate.size(); i++) {
-                if (prunedModules.get(i).contains(x.getModuleCode())) {
-                    if (!x.getModuleInfoDetailed().getAttributes().isSu() || letterGradeToCap(x.getGrade()) != 0.00) {
+            if (prunedModules.contains(x.getModuleCode())) {
+                if (letterGradeToCap(x.getGrade()) != 0.00) {
+                    mcCount += x.getModuleCredit();
+                    projectedModuleCap += letterGradeToCap(x.getGrade()) * x.getModuleCredit();
+                }
+                prunedModules.remove(x.getModuleCode());
+            }
+        }
+        if (!prunedModules.isEmpty()) {
+            for (String module : prunedModules) {
+                boolean hasPreclusions = false;
+                for (ModuleTask x : moduleTasksList.getTasks()) {
+                    if (detailedMap.get(module).getPreclusion().contains(x.getModuleCode())) {
+                        hasPreclusions = true;
                         mcCount += x.getModuleCredit();
+                        projectedModuleCap += letterGradeToCap(x.getGrade()) * x.getModuleCredit();
+                        break;
                     }
-                    projectedModuleCap += letterGradeToCap(x.getGrade());
-                    toCalculate.remove(i);
-                    break;
+                }
+                if (hasPreclusions) {
+                    prunedModules.remove(module);
                 }
             }
         }
-        if (toCalculate.isEmpty()) {
-            double averageCap = projectedModuleCap / mcCount;
-            plannerUi.capModMsg(averageCap, moduleCode);
+        if (prunedModules.isEmpty()) {
+            if (projectedModuleCap == 0 && mcCount == 0) {
+                plannerUi.capModMsg(0.00, moduleCode);
+            } else {
+                double averageCap = projectedModuleCap / mcCount;
+                plannerUi.capModMsg(averageCap, moduleCode);
+            }
         } else {
-            plannerUi.capModuleIncompleteMsg(toCalculate);
+            plannerUi.capModuleIncompleteMsg(prunedModules);
         }
     }
+
 
 
     // make 2 more identical list of lists, remove from one if found in moduletask list / equivalent,
@@ -239,10 +270,10 @@ public class CapCommand extends ModuleCommand {
                                  Scanner scanner,
                                  List<ModuleTask> moduleList) {
         for (ModuleTask module : moduleList) {
-            if (!module.getModuleInfoDetailed().getAttributes().isSu() || letterGradeToCap(module.getGrade()) != 0.00) {
+            if (letterGradeToCap(module.getGrade()) != 0.00) {
                 mcCount += module.getModuleCredit();
+                projectedCap += (letterGradeToCap(module.getGrade()) * module.getModuleCredit());
             }
-            projectedCap += (letterGradeToCap(module.getGrade()) * module.getModuleCredit());
         }
         double averageCap = projectedCap / mcCount;
         if (projectedCap == 0 && mcCount == 0) {
@@ -261,46 +292,13 @@ public class CapCommand extends ModuleCommand {
      *
      * @return A List of lists of string of prerequisite modules to be graded before calculating cap
      */
-    public List<List<String>> parsePrerequisiteTree(String prerequisites,
-                                                    HashMap<String,
-                                                    ModuleInfoDetailed> detailedMap) {
-        //regex([a-zA-Z][a-zA-Z][0-9][0-9][0-9][0-9]|and|or) to get only module codes, and and ors into string array
-        // (check for and after because some have AY19/20 and after, then need to reject those 'ands')
-        // need to logic and/or from array to cut down size of array
-        String[] initialParsedModules = prerequisites
-            .split("[a-zA-Z][a-zA-Z][a-zA-Z]?[0-9][0-9][0-9][0-9][a-zA-Z]?|and|or|equivalent");
-        List<List<String>> prunedModules = null;
-        int j = 0;
-        /* EXAMPLES
-            prerequisite":"((CS2010 or its equivalent) or CS2020 or (CS2040 or its equivalent))
-            and (MA1100 or (CS1231 or its equivalent))"
-            prerequisite":"CG2027/EE2027 (for AY2017 intake & after)
-            prerequisite":"EE2028 or CG2028 (for AY2017 intake & after)
-            prerequisite":"((CS2010 or its equivalent) or CS2020 or (CS2040 or its equivalent)) and CS2102
-            prerequisite":"CG2027/EE2027 (for AY2017 intake & after) ; EE2021 (for AY2016 intake & prior)
-        */
-        // what does or its equivalent mean? get preclusion of mod and add it to the pruned
-        // make 2 more identical list of lists, remove from one if found in moduletask list / equivalent,
-        // check if isempty, if it is then print cap score according to the cloned list of lists
-        // for 'or' check next input, if not equivalent
-        // then add to same i dont increase i, if is check after if still or vs and
-        // if and, add to list i, move i
-        for (int i = 0; i < initialParsedModules.length; i++) {
-            if (initialParsedModules[i].equals("equivalent")) {
-                String[] preclusions = detailedMap.get(initialParsedModules[i - 1]).getPreclusion()
-                    .split("[a-zA-Z][a-zA-Z][a-zA-Z]?[0-9][0-9][0-9][0-9][a-zA-Z]?");
-                //preclusion should be all ors, just split and add to pruned without incrementing j
-                for (String x : preclusions) {
-                    prunedModules.get(j).add(x);
-                }
-            } else if (initialParsedModules[i].equals("and")) {
-                j++;
-                prunedModules.get(j).add(initialParsedModules[i + 1]);
-                i++;
-            } else if (!initialParsedModules[i].equals("or")) {
-                prunedModules.get(j).add(initialParsedModules[i]);
-            }
+    public ArrayList<String> parsePrerequisiteTree(String prerequisites) {
+        Matcher matcher = Pattern.compile("[a-zA-Z][a-zA-Z][a-zA-Z]?[0-9][0-9][0-9][0-9][a-zA-Z]?")
+            .matcher(prerequisites);
+        ArrayList<String> prerequisiteModules = new ArrayList<>();
+        while (matcher.find()) {
+            prerequisiteModules.add(matcher.group());
         }
-        return prunedModules;
+        return prerequisiteModules;
     }
 }

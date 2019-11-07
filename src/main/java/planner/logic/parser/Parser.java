@@ -175,7 +175,7 @@ public class Parser {
                 .help("Day of the week");
 
         getSubParser("cap")
-                .help("Calculate your CAP")
+                .help("Calculate your CAP from your input or list")
                 .addArgument("toCap")
                 .choices("overall", "list", "module")
                 .help("What type of CAP to calculate");

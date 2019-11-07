@@ -16,11 +16,24 @@ import java.util.HashMap;
 
 public class GradeCommand extends ModuleCommand {
 
+    String moduleCode;
+    String letterGrade;
+
     /**
      * Constructor for GradeCommand.
      */
     public GradeCommand(Arguments args) {
         super(args);
+        this.moduleCode = arg("moduleCode").toUpperCase();
+        this.letterGrade = arg("letterGrade").toUpperCase();
+    }
+
+    /**
+     * Constructor for testing.
+     */
+    public GradeCommand(String moduleCode, String letterGrade) {
+        this.moduleCode = moduleCode;
+        this.letterGrade = letterGrade;
     }
 
     /**
@@ -33,8 +46,6 @@ public class GradeCommand extends ModuleCommand {
                         PlannerUi plannerUi,
                         Storage store,
                         JsonWrapper jsonWrapper) throws ModException {
-        String moduleCode = arg("moduleCode").toUpperCase();
-        String letterGrade = arg("letterGrade").toUpperCase();
         if (!detailedMap.containsKey(moduleCode)) {
             throw new ModNotFoundException();
         }

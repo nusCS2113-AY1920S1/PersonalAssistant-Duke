@@ -59,6 +59,10 @@ public class ModuleTask extends TaskWithMultipleWeeklyPeriod {
         return moduleInfoDetailed;
     }
 
+    public String getPrerequisites() {
+        return moduleInfoDetailed.getPrerequisites();
+    }
+
     public String getGrade() {
         return moduleInfoDetailed.getGrade();
     }
