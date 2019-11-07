@@ -39,9 +39,7 @@
 
    Appendix E: Glossary 
 
-   Appendix F: Product Survey 
-
-   Appendix G: Instructions for Manual
+   Appendix F: Instructions for Manual
 
 
 
@@ -63,7 +61,7 @@
 The Application consist of 11 other components 
 
 - `command`: executes the command that is read from the user
-- `dishesCommand`
+  - `dishesCommand`
   - `orderCommand`
   - `ingredientCommand`
 - `exception`: handle error messages
@@ -109,6 +107,53 @@ The Ui will reply to the User with the following messages:
 	 chicken rice
 	 ____________________________________________________________
 ```
+the ui also consist of templates for the different sections of the program, such as a template for dish, orders and ingredient
+
+<u>ingredient</u> 
+
+```
+         _________________________________________________________________________________________
+         Continue by adding, removing or using an ingredient
+         Template:
+         _________________________________________________________________________________________
+         add <Ingredient name> <amount> <expiry date: DD/MM/YYYY>
+         remove <ingredient number>
+         use <ingredient name> <amount> *always use most recently expiring ingredients first, to prevent food waste!*
+```
+
+<u>order</u>
+
+```
+         _________________________________________________________________________________________
+         Continue by adding, removing, altering, listing order and initializing order list.
+         Command Template:
+         _________________________________________________________________________________________
+         init
+         add [-d ORDER_DATE-(dd/mm/yyyy)] -n DISH1_NAME[*DISH_AMOUNT], DISH2_NAME[*DISH_AMOUNT]
+         alter ORDER_INDEX ORDER_DATE-(dd/mm/yyyy)
+         remove ORDER_INDEX
+         done ORDER_INDEX
+         list [-l LIST_TYPE-(option: all (default) | undone | today | undoneToday)]
+         list -n DISH_NAME    *** Find the dishes in today's undone orders ***
+         list -d ORDER_DATE-(dd/mm/yyyy) [-l LIST_TYPE-(option: all (default) | undone)]
+         _________________________________________________________________________________________
+```
+
+<u>Dish</u>
+
+```
+         _________________________________________________________________________________________
+         Continue by adding, removing, listing, adding ingredient and initializing
+         Template:       _________________________________________________________________________________________
+         add <dish name>
+         remove <dish index>
+         list
+         ingredient <description> <amount> <index>
+         initialize (REMOVES all entries in the list)
+         back, return to main menu
+         template     _________________________________________________________________________________________
+```
+
 The Ui class consists of methods that outputs messages to the user as a response when the user enters a certain command
 
 - reads and return s user input using `scanner.nextLine()`
@@ -134,10 +179,10 @@ The Command class is used as an abstract class for other classes, its method `ex
   - DeleteOrderCommand
   - DoneOrderCommand
   - ListOrderCommand
+  - InitOrderListCommand
 - IngredientCommand
   - AddCommand
   - DeleteCommand
-  - DoneCommand
   - ExitCommand
   - FindIngredientCommand
   - FindToday
@@ -168,12 +213,12 @@ It is modelled as an abstract class,  with `TaskStorage.java` and `FridgeStorage
 
 An example for the format of saving for tasks is :
 
-- T|1|read book
-- D|0|return book|Monday
-- E|0|meeting|U-Town
-- P|0|lecture|1600|1800
+- milk|3|09/09/2019
+- cheese|4|12/12/2019
+- rice|50|12/12/2019
+- potato|3|12/2/2020
 
-where the first column is denotes the type of task, T for todo, D for deadline, etc. 
+where the first column is denotes the ingredient, followed by amount and expiry date.
 
 The program can `load` or `generate` an entry from the storage and also `changeContent` and `addInFile`
 
@@ -243,19 +288,7 @@ this component allows the chef to add dishes to the current menu, remove it and 
   
   user enters the command `addish chicken rice /num 2` which denotes adding the dish called chicken rice into the dishList. the program will enter the AddDishCommand class and executes the method below.
   
-  ```java
-              if(dishList.size() == 0) {
-                  dishList.addEntry(dish);
-                  dishList.getEntry(0).setNumberOfOrders(amount);
-                  ui.showAddedDishes(dish.getDishname(), amount);
-              }
-  ```
-  
-  
-  
   If the dishList is empty(size of dishList is 0), immediately add the dish into the dishList. however, if the dishList is not empty, the program will need to go through the entire dishList to check if the dish has already been added. this is done so that there are no duplicate dishes.
-  
-  
   
   once the dish is added to the dishList, the method will use the Ui class with method call ui.showAddedDishes() as a reply to the user that the dish has been successfully added into the list.
   
@@ -263,11 +296,23 @@ this component allows the chef to add dishes to the current menu, remove it and 
   
 - **<u>AddIngredient</u>**
 
+  user intends to add an ingredient to a certain dish in dishList. thus user enters `ingredient rice 100 1` which denotes adding an ingredient called rice with a amount of 100g to the index of the dish. in this case the index is 1. 
+
+  if any of the description is empty, an exception will be thrown to inform the user. 
+
 - **<u>DeleteDishCommand</u>**
+
+  user intends to remove a dish in dishList. thus user enters `remove 1` which denotes removing a dish of index 1 from the dishList. 
+
+  if there is no such dish with user keyed index, an exception will be thrown to the user.
 
 - **<u>InitCommand</u>**
 
+  user intends to clear the dishList. thus user enters `initialize` which will clear the dishList
+
 - **<u>ListDishCommand</u>**
+
+  user intends to list all the dishes in the dishList. for each dish in the list, there are also ingredients associated to it. hence, this command prints all the dishes as well as the ingredients associated to it.
 
 ![dishesCommand](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/dishesCommand.PNG)
 
@@ -387,7 +432,20 @@ The Recipebook contains 2 classes, Ingredient and IngredientsList.
 | expiryDate: Date     | Expiry date of the given ingredient    |
 | dateAsString: String | A string to store the date as a string |
 
+#### 2.10 Fridge Component
+API: `Fridge.java`
 
+The Fridge class allows access and modification of the `Ingredient`s used by the chef. By keeping track of the Ingredients' expiry date, it allows the user to know which products have expired, and remove them. It allows for less ingredient waste, as it can return the most recently expiring ingredients, so that they can be used first. 
+
+![Fridge](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/fridgeUML.png)
+
+#### 2.11 GenericList
+
+This abstract class allows for creation of different types of lists, and basic list entry manipulations. It is extended by multiple classes, including `IngredientsList.java`, `TaksList.java`, `OrderList.java` and `DishList.java`. All of these classes inherit the basic methods from the Generic List and extend it with their specific methods, eg.  `allUndoneOrders()` from`OrderList.java`, or `changeAmount()` from `IngredientsList.java`. A UML Class Diagram is shown below.
+
+![GenericList](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/GenericListUML.png)
+
+##### <u>Ingredient Class</u>
 
 
 
@@ -463,9 +521,11 @@ The ingredientCommand classes inherits from the `Command` class. They overwrite 
 Target user profile: Restaurant Chef
 
 - needs to manage all the ingredients for his dishes  
-- prefers a desktop application with GUI
+- needs to keep track of orders 
+- needs to manage ingredients in the fridge
+- 
+- prefers a desktop application, CLI
 - prefers to keep everything neat in terms of viewing information
-- can also use CLI if needed
 ### Appendix B: User Stories
 
 ​	Priorities: High (must have), Medium (nice to have), Low (may not have)
@@ -480,6 +540,11 @@ Target user profile: Restaurant Chef
 | Medium   | restaurant manager | I want to keep track of my company meetings                  | I am able to organize all my employees               |
 | Low      | restaurant manager | note down customer feedbacks regarding dishes                | I can tell if my recipe is doing well or not         |
 | Low      | restaurant manager | I want to keep track of holiday dates                        | I can prepare for special food menus                 |
+| high     | restaurant Chef    | a list to keep all my recipes                                | i can refer to them if needed                        |
+| high     | restaurant Chef    | keep track of all the ingredients in the kitchen             | there are ample supply and no expired ingredient     |
+| high     | restaurant Chef    | to see dishes that i am able to make                         |                                                      |
+| high     | restaurant Chef    |                                                              |                                                      |
+| high     | restaurant Chef    |                                                              |                                                      |
 
 ### Appendix C: Use Case
 
@@ -505,7 +570,7 @@ Target user profile: Restaurant Chef
 
 **Use case:  Show all the tasks**
 
-​	1. User requests to view all the existing tasks
+​	1. User requests to view all the existing todo list
 
 ​	2. Program loads up the lists of existing tasks
 
@@ -513,7 +578,7 @@ Target user profile: Restaurant Chef
 
 **Extensions**
 
-- 2a. Task List is empty
+- 2a. todoList is empty
 
 ​		Use case ends.
 
@@ -525,11 +590,11 @@ Target user profile: Restaurant Chef
 
 
 
-**Use case: Mark a task as done**
+**Use case: Mark a order as done**
 
-​	1. User requests to mark a task as done
+​	1. User requests to mark order as done
 
-​	2. Program marks the task as done
+​	2. Program marks the order as done
 
 ​		Use case ends.
 
@@ -549,11 +614,11 @@ Target user profile: Restaurant Chef
 
 
 
-**Use case: Create a new todo task**
+**Use case: Create a new order**
 
-​	1. User requests to add a new todo task
+​	1. User requests to add a new order
 
-​	2. Program adds new todo task to Task List
+​	2. Program adds new order to order List
 
 ​		Use case ends.
 
@@ -567,11 +632,11 @@ Target user profile: Restaurant Chef
 
 
 
-**Use case: Create a new deadline task**
+**Use case: Create a new dish**
 
-1. User requests to add a new deadline task
+1. User requests to add a new dish
 
-2. Program adds new deadline task to Task List
+2. Program adds new deadline dish to dish List
 
    Use case ends.
 
@@ -585,11 +650,11 @@ Target user profile: Restaurant Chef
 
 
 
-**Use case: Create a new event task**
+**Use case: Create a new ingredient**
 
-​	1. User request to add a new event task
+​	1. User request to add a new ingredient
 
-​	2. Program adds a new event task to Task List
+​	2. Program adds a new event ingredient to ingredient List
 
 ​		Use case ends.
 
@@ -603,15 +668,15 @@ Target user profile: Restaurant Chef
 
 
 
-**Use case: Find a task by searching for keyword**
+**Use case: Find a ingredient by searching for keyword**
 
 1. User requests to find tasks with the given keyword
 
-2. Program loads up and shows tasks with the given keyword
+2. Program loads up and shows ingredient with the given keyword
 
 **Extensions**
 
-- 2a. Task List is empty
+- 2a. ingredient List is empty
 
   - Program prompts for correct syntax
 
@@ -637,8 +702,80 @@ Target user profile: Restaurant Chef
 
 1. 
 
-### Appendix F: Product Survey
+### Appendix F: Instruction for Manual Testing 
 
+1. Ensure you have Java `11` or above installed in your Computer.
+2. Download the latest Duke.jar [here](https://github.com/AY1920S1-CS2113-T14-2/main/releases).
+3. Copy the file to the folder you want to use as the home folder for your Duke application.
+4. Use the command prompt and navigate to the path where the application is downloaded `cd ../FILEPATH`
+5. run the command `java -jar v1.4` , application will then be executed 
 
+initially you are greeted with the main page, if there are expired ingredients in the fridge, the program will alert the user to clear the items. user can either enter `yes` or `no`. if user enters yes, all expired ingredients will be cleared. if user enters no, the ingredients will remain.
 
-### Appendix G: Instruction for Manual Testing 
+in the main page, there are several actions for the user:
+
+| Index | Keyword | Usage   | Description                 |
+| ----- | ------- | ------- | --------------------------- |
+| 1     | options | options | show options                |
+| 2     | q       | q       | exit program                |
+| 3     | t       | t       | view todo list              |
+| 4     | a       | a       | remove expired ingredients  |
+| 5     | b       | b       | go into ingredient template |
+| 6     | c       | c       | go into order template      |
+| 7     | d       | d       | go into dish template       |
+
+#### E2. Launch and shutdown
+
+1. Initial Launch
+   1. Download Jar file and copy into empty folder
+   2. open command prompt and navigate to that `FILEPATH` and run `java -jar v1.4`. 
+   3. resize window if size is not optimum
+   4. enter `q` to close the program or close the window
+
+#### E1. Adding an ingredient
+
+1. Adding an ingredient to the List
+
+#### E4. Finding an ingredient
+
+#### E5. Remove an ingredient
+
+#### E6. Adding an order
+
+#### E7. Marking order as done
+
+#### E8. Altering order
+
+#### E9. Removing order
+
+#### E10. Adding a dish
+
+1. adding a dish to the dishList
+
+   1. prerequisite: list all dishes using `list` 
+
+   2. Test case 1: `add chicken rice`
+
+      Expected: search through the dishList, if there is no match, adds a dish called chicken rice into the dishList. output message to user that the dish has been added
+
+   3. Test case 2: `add chicken rice`
+
+      Expected: search through the dishList, if there is a match, dish will not be added into the dishList. output message to user that the dish is already in the list
+
+   4. Test case 3: `add`
+
+      Expected: output message to user that the description cannot be empty
+
+#### E11. Removing a dish
+
+1. removing a dish from the dishList
+
+   1. prerequisite: list all dishes  using `list`, eg the size 
+
+   2. Test case 1: `remove 1`
+
+      Expected: deletes the first dish in the list, 
+
+#### E12. Adding an ingredient to a dish
+
+#### E13.
