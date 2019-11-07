@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://https://github.com/AY1920S1-CS2113-T16-2/main
+:repoURL: https://github.com/AY1920S1-CS2113-T16-2/main
 
 By: `CS2113-T16-2`      Since: `Aug 2019`      Licence: `MIT`
 

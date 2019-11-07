@@ -1,6 +1,7 @@
 package duke.ui;
 
 import duke.exception.DukeException;
+import duke.task.Event;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 
@@ -21,7 +22,7 @@ public class TaskListPrinter {
         int filterLength = list.getLongestFilter();
         String filterHead = createFilterHead(filterLength);
         filterLength = filterHead.length();
-        ui.showLine("ID | " + filterHead + " | Priority | Recurrence | Duration | Done? | Description");
+        ui.showLine("ID | " + filterHead + " |  Type  | Priority | Recurrence | Duration | Done? | Description");
         String rowBreak = createRowBreak(filterLength);
         for (int i = 0; i < taskCount; i++) {
             ui.showLine(rowBreak);
@@ -33,12 +34,21 @@ public class TaskListPrinter {
             }
             Task t = list.get(i);
             curr.append(" | ").append(padFilter(t.getFilter(), filterLength));
+            curr.append(" | ").append(padType(t));
             curr.append(" | ").append(padPriority(t.getPriority()));
             curr.append(" | ").append(padRecurrence(t.getRecurrenceCode()));
             curr.append(" | ").append(padDuration(t.getDuration()));
             curr.append(" |   ").append(t.getStatusIcon());
             curr.append("   | ").append(t.getDescription());
             ui.showLine(curr.toString());
+        }
+    }
+
+    private static String padType(Task t) {
+        if (t instanceof Event) {
+            return " Event";
+        } else {
+            return " Task ";
         }
     }
 
@@ -126,7 +136,7 @@ public class TaskListPrinter {
         while (filterLength-- > 0) {
             result.append("-");
         }
-        return result + " | -------- | ---------- | -------- | ----- | -----------";
+        return result + " | ------ | -------- | ---------- | -------- | ----- | -----------";
     }
 
     private static String padFilter(Optional<String> filter, int filterLength) {

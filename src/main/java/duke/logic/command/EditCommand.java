@@ -3,6 +3,8 @@ package duke.logic.command;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import duke.exception.DukeException;
@@ -20,6 +22,8 @@ import duke.ui.Ui;
  * Class that handles the editing of a given task and updating given values of the task
  */
 public class EditCommand extends Command {
+    private static List<String> priorityAllowed = Arrays.asList("high", "medium", "low", "h", "m", "l");
+
     private Optional<String> filter;
     private int taskListIndex;
     private ArrayList<KeywordAndField> keywordAndFields;
@@ -62,13 +66,13 @@ public class EditCommand extends Command {
             case "description":
                 t.setDescription(edit);
                 break;
+            case "p":
             case "priority":
-                try {
-                    int priorityLevel = Integer.parseInt(edit);
-                    t.setPriority(priorityLevel);
-                } catch (NumberFormatException e) {
-                    throw new DukeException("Please enter a numerical field for the priority!");
+                String p = edit.trim().toLowerCase();
+                if (!priorityAllowed.contains(p)) {
+                    throw new DukeException("Please enter a valid priority description!");
                 }
+                t.editPriority(p);
                 break;
             case "t":
                 Optional<LocalDateTime> dateTime = Optional.of(DateTimeParser.parseDateTime(edit));

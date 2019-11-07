@@ -31,7 +31,7 @@ public class Event extends Task {
      * @param duration fixed duration of the task
      */
     public Event(Optional<String> filter, Optional<LocalDateTime> dateTime, Recurrence recurrence, String description,
-                 int duration, int priority) throws DukeException {
+                 int duration, String priority) throws DukeException {
         super(filter, dateTime, recurrence, description, duration, priority);
         this.key = "[E]";
     }
