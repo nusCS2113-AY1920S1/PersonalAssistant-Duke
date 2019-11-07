@@ -249,7 +249,6 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      */
     public boolean verifyPartialModifyCommand() {
 
-        boolean hasComponents;
         //ArrayList<String> errorList = new ArrayList<String>();
         type = null;
         amount = -1;
@@ -264,7 +263,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             return false;
         }
 
-        hasComponents = findComponents();
+        boolean hasComponents = findComponents();
 
         if (!hasComponents) {
             ModifyUi.printInvalidPartialModifyFormatError();
