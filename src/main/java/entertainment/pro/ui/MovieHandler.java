@@ -1,9 +1,8 @@
 package entertainment.pro.ui;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import entertainment.pro.commons.PromptMessages;
-import entertainment.pro.commons.exceptions.EmptyCommandException;
-import entertainment.pro.commons.exceptions.Exceptions;
-import entertainment.pro.commons.exceptions.MissingInfoException;
+import entertainment.pro.commons.exceptions.*;
 import entertainment.pro.logic.cinemaRequesterAPI.CinemaRetrieveRequest;
 import entertainment.pro.logic.contexts.CommandContext;
 import entertainment.pro.logic.contexts.ContextHelper;
@@ -78,33 +77,10 @@ public class MovieHandler extends Controller implements RequestListener {
     private TextField mSearchTextField;
 
     @FXML
-    private MenuBar menuBar;
-
-    @FXML
     private ProgressBar mProgressBar;
 
-    @FXML
-    private AnchorPane movieAnchorPane;
-
-
     private final static Logger LOGGER = Logger.getLogger(MovieHandler.class.getName());
-
-
-    private boolean isViewBack = false;
-    private boolean isViewBackMoreInfo = false;
-
-    public boolean isViewBackMoreInfo() {
-        return isViewBackMoreInfo;
-    }
-
-    public void setViewBackMoreInfo(boolean viewBackMoreInfo) {
-        isViewBackMoreInfo = viewBackMoreInfo;
-    }
-
-    public void setViewBack(boolean viewBack) {
-        isViewBack = viewBack;
-    }
-
+    private boolean isViewMoreInfoPage = false;
     private AnchorPane anchorPane;
     private static UserProfile userProfile;
     private ArrayList<String> playlists;
@@ -130,15 +106,27 @@ public class MovieHandler extends Controller implements RequestListener {
     String name = "";
     int age = 0;
 
-
-    SearchProfile searchProfile = new SearchProfile(name, age, genrePreference, genreRestriction, isAdultEnabled,
+    /**
+     * Initializes the Search Profile.
+     */
+    public SearchProfile searchProfile = new SearchProfile(name, age, genrePreference, genreRestriction, isAdultEnabled,
             playlist, sortByAlphaOrder, sortByRating, sortByReleaseDate, searchEntryName, isMovie);
 
-
+    /**
+     * Responsible for retrieving the Search Profile
+     * @return Search Profile
+     */
     public SearchProfile getSearchProfile() {
         return searchProfile;
     }
 
+    /**
+     * Responsible for returning the boolean status of isViewMoreInfo.
+     * @return The boolean status of isViewMoreInfo.
+     */
+    public boolean isViewMoreInfoPage() {
+        return isViewMoreInfoPage;
+    }
 
     /**
      * This function is called when JavaFx runtime when view is loaded.
@@ -177,7 +165,7 @@ public class MovieHandler extends Controller implements RequestListener {
 
 
     /**
-     * Called by JavaFX runtime when view is loaded.
+     * Responsible for calling JavaFX runtime when view is loaded.
      */
     @FXML
     public void initialize() throws IOException, Exceptions {
@@ -192,6 +180,15 @@ public class MovieHandler extends Controller implements RequestListener {
         System.out.println("Tgt we are winners");
         bp.load();
         HelpStorage.initialiseAllHelp();
+        setUpEventSearchField();
+        mMovieRequest.beginSearchRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
+        setEventsScrollPane();
+    }
+
+    /**
+     * Responsible for setting up the keypad events for search text field.
+     */
+    private void setUpEventSearchField() {
         mSearchTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.TAB) {
                 System.out.println("Tab pressed");
@@ -228,17 +225,18 @@ public class MovieHandler extends Controller implements RequestListener {
                 mMoviesFlowPane.getChildren().get(0).setStyle("-fx-border-color: white");
             }
         });
-
-        mMovieRequest.beginSearchRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
         //Real time changes to text field
         mSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println("textfield changed from " + oldValue + " to " + newValue);
         });
 
         System.out.println(generalFeedbackText.getText());
+    }
 
-//        //Enter is Pressed
-//        mSearchTextField.setOnKeyPressed(new KeyboardClick(this));
+    /**
+     * Responsible for setting up keypad events for scrollpane.
+     */
+    public void setEventsScrollPane() {
         mMoviesScrollPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -313,7 +311,7 @@ public class MovieHandler extends Controller implements RequestListener {
                     try {
                         switch (pageTracker.getCurrentPage()) {
                             case "mainPage":
-                                moviePosterClicked(mMovies.get(index));
+                                showMovie(index);
                                 break;
                             case "playlistInfo":
                                 Playlist playlist1 = new EditPlaylistJson(playlistName).load();
@@ -368,6 +366,7 @@ public class MovieHandler extends Controller implements RequestListener {
      * @param moviesInfo ArrayList containing all the seacrh results.
      */
     public void obtainedResultsData(ArrayList<MovieInfoObject> moviesInfo) {
+        isViewMoreInfoPage = false;
         ArrayList<MovieInfoObject> filteredMovies = Blacklist.filter(moviesInfo);
         final ArrayList<MovieInfoObject> MoviesFinal = filteredMovies;
         mMovies.clear();
@@ -379,10 +378,31 @@ public class MovieHandler extends Controller implements RequestListener {
         //System.out.print("Request rsdceceived");
         SearchResultContext.addResults(MoviesFinal);
         mMovies = MoviesFinal;
+        try {
+            displayItems();
+        } catch (Exceptions exceptions) {
+            exceptions.printStackTrace();
+        }
+    }
+
+    /**
+     *
+     * Responsible for displaying the search results in the UI.
+     * @throws Exceptions when there is nothing to show.
+     */
+    public void displayItems() throws Exceptions {
+        if (mMovies.size() == 0) {
+            setGeneralFeedbackText(PromptMessages.VIEW_BACK_FAILURE);
+            throw new Exceptions(PromptMessages.VIEW_BACK_FAILURE);
+        }
+        if (isViewMoreInfoPage) {
+            setGeneralFeedbackText(PromptMessages.VIEW_BACK_SUCCESS);
+            isViewMoreInfoPage = false;
+        }
         mImagesLoadingProgress = new double[mMovies.size()];
         Platform.runLater(() -> {
             try {
-                buildMoviesFlowPane(MoviesFinal);
+                buildMoviesFlowPane(mMovies);
                 pageTracker.setToMainPage();
             } catch (Exceptions exceptions) {
                 exceptions.printStackTrace();
@@ -419,12 +439,11 @@ public class MovieHandler extends Controller implements RequestListener {
 
 
     /**
-     * to build the movie posters.
+     * Reponsible for building the movie posters in the UI.
      * @param movie a object that contains information about a movie
      * @param index a unique number assigned to every movie/tv show that is being displayed.
      * @return Anchorpane consisting of the movie poster, name and the unique id.
      */
-
     private AnchorPane buildMoviePosterPane(MovieInfoObject movie, int index) throws Exceptions {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -486,7 +505,7 @@ public class MovieHandler extends Controller implements RequestListener {
     }
 
     /**
-     * This funcion updates the progress bar as the movie poster is being displayed.
+     * This function updates the progress bar as the movie poster is being displayed.
      *
      * @param movie    Object that contains all the information about a particular movie.
      * @param progress contains the progress value.
@@ -516,16 +535,18 @@ public class MovieHandler extends Controller implements RequestListener {
     /**
      * Responsible for displaying more information about a movie/TV show item.
      * @param num the movie/TV show item that user want to know mpre information about.
-     * @throws Exceptions
+     * @throws Exceptions when user enter an invalid command.
      */
     public void showMovie(int num) throws Exceptions {
-        //System.out.println("this is " + mMovies.size());
-        MovieInfoObject movie = mMovies.get(num - 1);
-        moviePosterClicked(movie);
-        setGeneralFeedbackText(PromptMessages.TO_VIEW_BACK_SEARCHES);
-        System.out.println("this is it 4");
+       try {
+           MovieInfoObject movie = mMovies.get(num - 1);
+           moviePosterClicked(movie);
+           System.out.println("this is it 4");
+       } catch (ArrayIndexOutOfBoundsException e) {
+           setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
+           throw new InvalidFormatCommandException(PromptMessages.INVALID_FORMAT);
+       }
     }
-
 
 
     private void buildPlaylistVBox(ArrayList<String> playlists) throws IOException {
@@ -768,34 +789,20 @@ public class MovieHandler extends Controller implements RequestListener {
                 }
 
             }
-
-            /**String[] genres = RetrieveRequest.getGenreStrings(movie);
-             StringBuilder builder = new StringBuilder();
-             try {
-             for (String genre : genres) {
-             builder.append(genre);
-             System.out.println(genre + "  " + genres.length);
-             // if not last string in array, append a ,
-             if (genres.length == 0) {
-             System.out.println("no genres");
-             } else if (!genres[genres.length - 1].equals(genre)) {
-             builder.append(", ");
-             }
-             }
-             } catch (NullPointerException ex) {
-             }**/
-            //controller.getMovieGenresLabel().setText(builder.toString());
             controller.getMovieGenresLabel().setText(genreText);
             mMoviesFlowPane.getChildren().add(posterView);
             mMoviesScrollPane.setContent(mMoviesFlowPane);
             mMoviesScrollPane.setVvalue(0);
+            setGeneralFeedbackText(PromptMessages.TO_VIEW_BACK_SEARCHES);
+            isViewMoreInfoPage = true;
+            clearAutoCompleteFeedbackText();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Tis function is called when the user wants to see more information about a movie.
+     * This function is called when the user wants to see more information about a movie.
      */
     public void playlistMoviePosterClicked(MovieInfoObject movie) throws Exceptions {
         try {
@@ -842,41 +849,28 @@ public class MovieHandler extends Controller implements RequestListener {
     }
 
     /**
-     * This function clears the searchTextField when called.
+     * This function clears the search text field when called.
      */
     public void clearSearchTextField() {
         mSearchTextField.setText("");
     }
 
-
-
-
-
-
+    /**
+     * This function is called to update the search text field.
+     * @param updateStr The string to be written in the search text field.
+     */
     public void updateTextField(String updateStr) {
         mSearchTextField.setText(mSearchTextField.getText() + updateStr);
         mSearchTextField.positionCaret(mSearchTextField.getText().length());
     }
 
-    /**
-     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
-     */
-    public void setFeedbackText(ArrayList<String> txtArr) {
-        String output = "";
-        for (String s : txtArr) {
-            output += s;
-            output += "\n";
-
-        }
-        generalFeedbackText.setText(output);
-    }
 
     /**
      * Sets text in the UI under generalFeedbackText.
      * @param txt The text to be printed.
      */
     public void setGeneralFeedbackText(String txt) {
-        generalFeedbackText.setText(txt);
+        generalFeedbackText.setText(txt + "\n");
     }
 
 
@@ -897,8 +891,10 @@ public class MovieHandler extends Controller implements RequestListener {
     public void setAutoCompleteText(String text) {
         autoCompleteText.setText(text);
     }
+
     /**
-     * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
+     * Updates the text in the autoCompleteText component in the UI.
+     * @param txtArr The text to be writen in the autoCompleteText.
      */
     public void setAutoCompleteText(ArrayList<String> txtArr) {
         String output = "";
@@ -932,32 +928,40 @@ public class MovieHandler extends Controller implements RequestListener {
         return mCinemaRequest;
     }
 
+    /**
+     * Retrieves the Command class.
+     * @return the Command class
+     */
     public static String getCommands() {
         return command;
     }
 
+    /**
+     * Retrieves the UserProfile class.
+     * @return the UserProfile class
+     */
     public UserProfile getUserProfile() {
         return userProfile;
     }
 
-
+    /**
+     * Retrieves the Arraylist of the movie objects to be displayed in the UI.
+     * @return The Arraylist of the movie objects to be displayed in the UI.
+     */
     public ArrayList<MovieInfoObject> getmMovies() {
         return mMovies;
     }
 
-    @FXML
-    private void clearSearchButtonClicked() {
-        mSearchTextField.clear();
-    }
-
-
-
-    public static void setSearchProfile(SearchProfile searchProfile) {
+    /**
+     * Called to set the search profile for a particular search request.
+     * @param searchProfile The search profile for a particular search request.
+     */
+    public void setSearchProfile(SearchProfile searchProfile) {
         mMovieRequest.setSearchProfile(searchProfile);
     }
 
     /**
-     * to update the user's preferred sort label.
+     * Called to update the user's preferred sort label.
      */
     private void updateSortInterface(UserProfile userProfile) {
         if (userProfile.isSortByAlphabetical()) {
@@ -989,7 +993,7 @@ public class MovieHandler extends Controller implements RequestListener {
     }
 
     /**
-     * to refresh the gui page so it reflects user's changes.
+     * Called to refresh the gui page so it reflects user's changes.
      */
     public void refresh() throws IOException {
         userProfile = new EditProfileJson().load();
