@@ -48,7 +48,7 @@ public class AssignLockerCommand extends Command {
         int storeIndex = lockerList.getIndexOfLocker(freeLocker);
         Locker lockerAssignedToStudent = getLockerToAssign(freeLocker);
 
-        lockerList.addLockerInPosition(lockerAssignedToStudent,storeIndex);
+        lockerList.setLockerInPosition(lockerAssignedToStudent,storeIndex);
         return storeIndex;
     }
 

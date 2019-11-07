@@ -71,7 +71,7 @@ public class EditLockerCommand extends Command {
         if (lockerToEdit.isOfTypeInUse() && !editedLocker.isOfTypeInUse()) {
             assignNewLocker(lockerToEdit, lockerList, ui);
         }
-        lockerList.addLockerInPosition(editedLocker,lockerList.getIndexOfLocker(lockerToEdit));
+        lockerList.setLockerInPosition(editedLocker,lockerList.getIndexOfLocker(lockerToEdit));
         return editedLocker;
     }
 
@@ -86,7 +86,7 @@ public class EditLockerCommand extends Command {
             freeLocker.setStatusAsInUse();
             freeLocker.setUsage(lockerToEdit.getUsage().get());
             int storeIndex = lockerList.getIndexOfLocker(freeLocker);
-            lockerList.addLockerInPosition(freeLocker,
+            lockerList.setLockerInPosition(freeLocker,
                     storeIndex);
             ui.printSuccessfulAllocation(lockerList.getLocker(storeIndex).toString());
         }

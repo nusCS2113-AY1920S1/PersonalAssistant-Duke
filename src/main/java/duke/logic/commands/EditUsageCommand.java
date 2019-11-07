@@ -54,7 +54,7 @@ public class EditUsageCommand extends Command {
             throw new DukeException(" You are allowed to edit usage of only type In-Use Locker");
         }
         Locker editedLocker = getEditedLocker(lockerToEdit);
-        lockerList.addLockerInPosition(editedLocker,storeIndex);
+        lockerList.setLockerInPosition(editedLocker,storeIndex);
         return editedLocker;
     }
 

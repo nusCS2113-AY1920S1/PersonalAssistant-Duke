@@ -30,7 +30,6 @@ public class Locker {
      * @param zone         stores the zone to which the locker belongs
      * @param tag          instance of the class Tag that stores the status of the locker
      */
-
     @JsonCreator
     public Locker(@JsonProperty("LockerSerial") SerialNumber serialNumber,
                   @JsonProperty("LockerAddress") Address address,
@@ -75,6 +74,17 @@ public class Locker {
 
     public boolean hasSameTagAs(Tag checkTag) {
         return getTag().equals(checkTag);
+    }
+
+    /**
+     * checks if the locker is of invalid type as per the constraints.
+     * @return true if the locker is of invalid type, false otherwise
+     * @throws DukeException if the Tag is invalid
+     */
+    public boolean isOfInValidType() throws DukeException {
+        Tag testInUse = new Tag(Tag.IN_USE);
+        return (hasSameTagAs(testInUse) && getUsage().isEmpty())
+                || (!hasSameTagAs(testInUse) && getUsage().isPresent());
     }
 
     /**

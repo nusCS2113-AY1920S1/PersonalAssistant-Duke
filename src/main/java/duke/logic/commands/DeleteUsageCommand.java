@@ -22,7 +22,7 @@ public class DeleteUsageCommand extends Command {
         if (!(lockerToDelete.isOfTypeInUse())) {
             throw new DukeException(" usage of only an in-use locker can be deleted");
         }
-        lockerList.addLockerInPosition(new Locker(lockerToDelete.getSerialNumber(),
+        lockerList.setLockerInPosition(new Locker(lockerToDelete.getSerialNumber(),
                 lockerToDelete.getAddress(),lockerToDelete.getZone(),new Tag(Tag.NOT_IN_USE),null),
                 lockerList.getIndexOfLocker(lockerToDelete));
         ui.showDeleteUsage();

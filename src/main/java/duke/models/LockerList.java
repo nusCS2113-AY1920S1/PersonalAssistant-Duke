@@ -89,7 +89,11 @@ public class LockerList {
         lockerList.add(locker);
     }
 
-    public void addLockerInPosition(Locker locker, int index) {
+    public void addLockerAtPosition(Locker locker, int index) {
+        lockerList.add(index,locker);
+    }
+
+    public void setLockerInPosition(Locker locker, int index) {
         lockerList.set(index,locker);
     }
 

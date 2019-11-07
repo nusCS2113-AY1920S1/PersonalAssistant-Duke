@@ -11,6 +11,9 @@ import duke.models.student.MatricNumber;
 import duke.models.student.Name;
 import duke.models.tag.Tag;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -204,8 +207,12 @@ public class ParserCheck {
      */
     public static void parseDifferenceBetweenStartAndEndDate(LockerDate startDate,
                                                              LockerDate endDate) throws DukeException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu")
+                .withResolverStyle(ResolverStyle.STRICT);
+        LocalDate currentDate = LocalDate.now();
         if (!LockerDate.isDifferenceBetweenDatesValid(startDate.getDate(),
-                endDate.getDate())) {
+                endDate.getDate())
+                || LockerDate.isEndDateBeforeCurrentDate(endDate.getDate(), formatter.format(currentDate))) {
 
             throw new DukeException(LockerDate.ERROR_IN_DATE_DIFFERENCE);
 
