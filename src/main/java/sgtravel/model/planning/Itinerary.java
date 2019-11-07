@@ -31,31 +31,6 @@ public class Itinerary {
     }
 
     /**
-     * Returns number of days of the trip based on entered start and end dates.
-     *
-     * @return The number of days of the trip
-     */
-
-    public int getNumberOfDays() {
-        LocalDateTime tempDateTime = LocalDateTime.from(startDate);
-        long days = tempDateTime.until(endDate, ChronoUnit.DAYS);
-        return Integer.parseInt(String.valueOf(days)) + 1;
-    }
-
-    public List<Agenda> getList() {
-        return list;
-    }
-
-
-    /**
-     * Replaces the contents of this list with {@code Days}.
-     * {@code Tasks} must not contain duplicate Tasks.
-     */
-    public void setTasks(List<Agenda> agenda) {
-        list = agenda;
-    }
-
-    /**
      * Prints the itinerary list in entirety.
      *
      * @return The String which lists the itinerary in full
@@ -63,9 +38,8 @@ public class Itinerary {
     public String printItinerary() {
 
         int days = getNumberOfDays();
-
         StringBuilder result = new StringBuilder("Here are the list of Locations in "
-                +  days + " with name " + this.name + ": \n");
+                +  days + "trip days with name " + this.name + ": \n");
         for (Agenda list1 : this.getList()) {
             result.append("\n");
             result.append("Day ").append(list1.getDay()).append(":").append("\n \n");
@@ -125,6 +99,29 @@ public class Itinerary {
         } catch (NumberFormatException e) {
             throw new ParseException(Messages.ERROR_ITINERARY_INCORRECT_COMMAND);
         }
+    }
+    /**
+     * Returns number of days of the trip based on entered start and end dates.
+     *
+     * @return The number of days of the trip
+     */
+
+    public int getNumberOfDays() {
+        LocalDateTime tempDateTime = LocalDateTime.from(startDate);
+        long days = tempDateTime.until(endDate, ChronoUnit.DAYS);
+        return Integer.parseInt(String.valueOf(days)) + 1;
+    }
+
+    public List<Agenda> getList() {
+        return list;
+    }
+
+    /**
+     * Replaces the contents of this list with {@code Days}.
+     * {@code Tasks} must not contain duplicate Tasks.
+     */
+    public void setTasks(List<Agenda> agenda) {
+        list = agenda;
     }
 
     public LocalDateTime getStartDate() {

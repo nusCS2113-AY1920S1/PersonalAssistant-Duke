@@ -80,56 +80,13 @@ public class Storage {
      * Reads all storage file.
      */
     private void read() throws FileLoadFailException, ParseException {
-        readBus();
         readTrain();
-        readProfile();
-        readRecommendations();
+        readBus();
         readEvents();
         readRoutes();
+        readProfile();
+        readRecommendations();
         readItineraryTable();
-    }
-
-    /**
-     * Reads the itinerary hash map from storage.
-     *
-     * @throws FileLoadFailException If the file cannot be loaded.
-     */
-    private void readItineraryTable() throws FileLoadFailException {
-        try {
-            File itinerariesFile = new File(ITINERARIES_FILE_PATH);
-            Scanner scanner = new Scanner(itinerariesFile);
-            while (scanner.hasNextLine()) {
-                String name = scanner.nextLine();
-                LocalDateTime start = ParserTimeUtil.parseStringToDate(scanner.nextLine());
-                LocalDateTime end = ParserTimeUtil.parseStringToDate(scanner.nextLine());
-                Itinerary itinerary = new Itinerary(start, end, name);
-                List<Agenda> agendaList = new ArrayList<>();
-                String fileLine = scanner.nextLine();
-                while (fileLine.split("\\|")[0].equals("Agenda ")) {
-                    List<Venue> venueList = new ArrayList<>();
-                    List<Todo> todoList;
-                    final int number2 = Integer.parseInt(fileLine.split("\\|")[1]);
-                    String newVenue = scanner.nextLine();
-                    while (newVenue.contains(" | ")) {
-                        venueList.add(PlanningStorageParser.getVenueFromStorage(newVenue));
-                        newVenue = scanner.nextLine();
-                    }
-                    todoList = PlanningStorageParser.getTodoListFromStorage(newVenue);
-                    Agenda agenda = new Agenda(todoList, venueList, number2);
-                    agendaList.add(agenda);
-                    if (scanner.hasNextLine()) {
-                        fileLine = scanner.nextLine();
-                    } else {
-                        break;
-                    }
-                }
-                itinerary.setTasks(agendaList);
-                itineraryTable.put(itinerary.getName(), itinerary);
-            }
-            scanner.close();
-        } catch (FileNotFoundException | ParseException e) {
-            throw new FileLoadFailException(ITINERARIES_FILE_PATH);
-        }
     }
 
     /**
@@ -226,6 +183,25 @@ public class Storage {
     }
 
     /**
+     * Reads the profile from filepath. Creates new empty profile if file doesn't exist.
+     */
+    private void readProfile() throws FileLoadFailException {
+        profileCard = new ProfileCard();
+        try {
+            File f = new File(PROFILE_FILE_PATH);
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String input = s.nextLine();
+                ProfileStorageParser.createProfileFromStorage(profileCard, input);
+            }
+            s.close();
+        } catch (FileNotFoundException | ParseException e) {
+            profileCard = new ProfileCard();
+            throw new FileLoadFailException(PROFILE_FILE_PATH);
+        }
+    }
+
+    /**
      * Returns Venues fetched from stored memory.
      */
     private void readRecommendations() throws ParseException {
@@ -246,23 +222,68 @@ public class Storage {
     }
 
     /**
-     * Reads the profile from filepath. Creates new empty profile if file doesn't exist.
+     * Reads the itinerary hash map from storage.
+     *
+     * @throws FileLoadFailException If the file cannot be loaded.
      */
-    private void readProfile() throws FileLoadFailException {
-        profileCard = new ProfileCard();
+    private void readItineraryTable() throws FileLoadFailException {
         try {
-            File f = new File(PROFILE_FILE_PATH);
-            Scanner s = new Scanner(f);
-            while (s.hasNext()) {
-                String input = s.nextLine();
-                ProfileStorageParser.createProfileFromStorage(profileCard, input);
-            }
-            s.close();
+            File itinerariesFile = new File(ITINERARIES_FILE_PATH);
+            Scanner scanner = new Scanner(itinerariesFile);
+            this.itineraryTable = makeItineraryTable(scanner);
         } catch (FileNotFoundException | ParseException e) {
-            profileCard = new ProfileCard();
-            throw new FileLoadFailException(PROFILE_FILE_PATH);
+            throw new FileLoadFailException(ITINERARIES_FILE_PATH);
         }
     }
+
+    /**
+     * Makes a hash-map containing all of the itineraries in storage.
+     *
+     * @throws ParseException If the file cannot be parsed correctly.
+     */
+    static HashMap<String, Itinerary> makeItineraryTable(Scanner scanner) throws ParseException {
+        HashMap<String, Itinerary> itineraryTable = new HashMap<>();
+        while (scanner.hasNextLine()) {
+            String name = scanner.nextLine();
+            LocalDateTime start = ParserTimeUtil.parseStringToDate(scanner.nextLine());
+            LocalDateTime end = ParserTimeUtil.parseStringToDate(scanner.nextLine());
+            Itinerary itinerary = new Itinerary(start, end, name);
+            List<Agenda> agendaList = new ArrayList<>();
+            String fileLine = scanner.nextLine();
+            while (fileLine.split("\\|")[0].equals("Agenda ")) {
+                Agenda agenda = getAgenda(scanner, fileLine);
+                agendaList.add(agenda);
+                if (scanner.hasNextLine()) {
+                    fileLine = scanner.nextLine();
+                } else {
+                    break;
+                }
+            }
+            itinerary.setTasks(agendaList);
+            itineraryTable.put(itinerary.getName(), itinerary);
+        }
+        scanner.close();
+        return itineraryTable;
+    }
+
+    /**
+     * Makes an agenda object which is parsed from storage.
+     *
+     * @throws ParseException If the file cannot be parsed correctly.
+     */
+    private static Agenda getAgenda(Scanner scanner, String fileLine) throws ParseException {
+        List<Venue> venueList = new ArrayList<>();
+        List<Todo> todoList;
+        final int number2 = Integer.parseInt(fileLine.split("\\|")[1]);
+        String newVenue = scanner.nextLine();
+        while (newVenue.contains(" | ")) {
+            venueList.add(PlanningStorageParser.getVenueFromStorage(newVenue));
+            newVenue = scanner.nextLine();
+        }
+        todoList = PlanningStorageParser.getTodoListFromStorage(newVenue);
+        return new Agenda(todoList, venueList, number2);
+    }
+
 
     /**
      * Writes the tasks into a file of the given filepath.
