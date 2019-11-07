@@ -146,7 +146,7 @@ public class Impression extends DukeObject {
      * @return the Evidence added
      */
     public Evidence addNewEvidence(Evidence newEvidence) throws DukeException {
-        if (getEvidence(newEvidence.getName()) != null) {
+        if (getEvidence(newEvidence.getName()) == null) {
             evidences.add(newEvidence);
             sortEvidences();
             return newEvidence;
@@ -178,6 +178,7 @@ public class Impression extends DukeObject {
      */
     public Evidence getEvidence(String keyIdentifier) {
         String lowerKey = keyIdentifier.toLowerCase();
+
         for (Evidence evidence : evidences) {
             String dataName = evidence.getName().toLowerCase();
             if (dataName.equals(lowerKey)) {
@@ -194,7 +195,7 @@ public class Impression extends DukeObject {
      * @return the treatment added
      */
     public Treatment addNewTreatment(Treatment newTreatment) throws DukeException {
-        if (getTreatment(newTreatment.getName()) != null) {
+        if (getTreatment(newTreatment.getName()) == null) {
             treatments.add(newTreatment);
             sortTreatments();
             return newTreatment;

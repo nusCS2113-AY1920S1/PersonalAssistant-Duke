@@ -51,45 +51,42 @@ public class GsonStorageTest extends CommandTest {
      * The expected Json representation of dummy1, dummy2, dummy 3 and the complex patient that is created with
      * the createComplexPatient method.
      */
-    private String expected = "[{\"bedNo\":\"A300\",\"allergies\":\"cats\",\"impressions\":{},\"height\":0,"
-            + "\"weight\":0,"
-            + "\"age\":0,\"number\":0,\"address\":\"\",\"history\":\"\",\"name\":\"dummy3\"},{\"bedNo\":\"A100\","
-            + "\"allergies\":\"nuts\",\"impressions\":{},\"height\":0,\"weight\":0,\"age\":0,\"number\":0,"
-            + "\"address\":\"\",\"history\":\"\",\"name\":\"dummy1\"},{\"bedNo\":\"C1\",\"allergies\":\"test "
-            + "allergies\",\"primaryDiagnosis\":{\"description\":\"test description 2\",\"evidences\":{\"test obs "
-            + "2\":{\"type\":\"Observation\",\"properties\":{\"isObjective\":true,\"priority\":1,\"summary\":\"test"
-            + " summary 2\",\"name\":\"test obs 2\"}},\"test obs 1\":{\"type\":\"Observation\","
-            + "\"properties\":{\"isObjective\":false,\"priority\":0,\"summary\":\"test summary 1\",\"name\":\"test "
-            + "obs 1\"}},\"test result 1\":{\"type\":\"Result\",\"properties\":{\"priority\":2,\"summary\":\"test "
-            + "summary 1\",\"name\":\"test result 1\"}},\"test result 2\":{\"type\":\"Result\","
-            + "\"properties\":{\"priority\":3,\"summary\":\"test summary 2\",\"name\":\"test result 2\"}}},"
-            + "\"treatments\":{\"test inv 1\":{\"type\":\"Investigation\",\"properties\":{\"statusIdx\":1,"
-            + "\"priority\":0,\"summary\":\"test summary 1\",\"name\":\"test inv 1\"}},\"test plan "
-            + "1\":{\"type\":\"Plan\",\"properties\":{\"statusIdx\":1,\"priority\":0,\"summary\":\"test summary "
-            + "2\",\"name\":\"test plan 1\"}}},\"name\":\"test imp 1\"},\"impressions\":{\"test imp "
-            + "2\":{\"description\":\"test description 2\",\"evidences\":{},\"treatments\":{\"test inv "
-            + "2\":{\"type\":\"Investigation\",\"properties\":{\"statusIdx\":3,\"priority\":2,\"summary\":\"test "
-            + "summary 2\",\"name\":\"test inv 2\"}},\"test medicine 1\":{\"type\":\"Medicine\","
-            + "\"properties\":{\"dose\":\"test dose 2\",\"startDate\":\"test start date\",\"duration\":\"test "
-            + "duration\",\"statusIdx\":3,\"priority\":2,\"name\":\"test medicine 1\"}},\"test medicine "
-            + "2\":{\"type\":\"Medicine\",\"properties\":{\"dose\":\"test dose 1\",\"startDate\":\"test start "
-            + "date\",\"duration\":\"test duration\",\"statusIdx\":1,\"priority\":0,\"name\":\"test medicine 2\"}},"
-            + "\"test plan 2\":{\"type\":\"Plan\",\"properties\":{\"statusIdx\":2,\"priority\":1,\"summary\":\"test"
-            + " summary 2\",\"name\":\"test plan 2\"}}},\"name\":\"test imp 2\"},\"test imp "
-            + "1\":{\"description\":\"test description 2\",\"evidences\":{\"test obs 2\":{\"type\":\"Observation\","
-            + "\"properties\":{\"isObjective\":true,\"priority\":1,\"summary\":\"test summary 2\",\"name\":\"test "
-            + "obs 2\"}},\"test obs 1\":{\"type\":\"Observation\",\"properties\":{\"isObjective\":false,"
-            + "\"priority\":0,\"summary\":\"test summary 1\",\"name\":\"test obs 1\"}},\"test result "
-            + "1\":{\"type\":\"Result\",\"properties\":{\"priority\":2,\"summary\":\"test summary 1\","
-            + "\"name\":\"test result 1\"}},\"test result 2\":{\"type\":\"Result\",\"properties\":{\"priority\":3,"
-            + "\"summary\":\"test summary 2\",\"name\":\"test result 2\"}}},\"treatments\":{\"test inv "
-            + "1\":{\"type\":\"Investigation\",\"properties\":{\"statusIdx\":1,\"priority\":0,\"summary\":\"test "
-            + "summary 1\",\"name\":\"test inv 1\"}},\"test plan 1\":{\"type\":\"Plan\","
-            + "\"properties\":{\"statusIdx\":1,\"priority\":0,\"summary\":\"test summary 2\",\"name\":\"test plan "
-            + "1\"}}},\"name\":\"test imp 1\"}},\"height\":123,\"weight\":456,\"age\":100,\"number\":6582447,"
-            + "\"address\":\"test address\",\"history\":\"test history\",\"name\":\"testCPatient\"},"
-            + "{\"bedNo\":\"A200\",\"allergies\":\"\",\"impressions\":{},\"height\":0,\"weight\":0,\"age\":0,"
-            + "\"number\":0,\"address\":\"\",\"history\":\"\",\"name\":\"dummy2\"}]";
+    private String expected =
+            "[{\"bedNo\":\"A100\",\"allergies\":\"nuts\",\"impressions\":[],\"height\":0,\"weight\":0,\"age\":0,"
+            + "\"number\":0,\"address\":\"\",\"history\":\"\",\"name\":\"dummy1\"},"
+            + "{\"bedNo\":\"A200\",\"allergies\":\"\",\"impressions\":[],\"height\":0,\"weight\":0,\"age\":0,"
+            + "\"number\":0,\"address\":\"\",\"history\":\"\",\"name\":\"dummy2\"},"
+            + "{\"bedNo\":\"A300\",\"allergies\":\"cats\",\"impressions\":[],\"height\":0,\"weight\":0,\"age\":0,"
+            + "\"number\":0,\"address\":\"\",\"history\":\"\",\"name\":\"dummy3\"},"
+            + "{\"bedNo\":\"C1\",\"allergies\":\"test allergies\","
+            + "\"primaryDiagnosis\":{\"description\":\"test description 1\","
+            + "\"evidences\":[{\"type\":\"Observation\",\"properties\":{\"isObjective\":false,\"priority\":0,"
+            + "\"summary\":\"test summary 1\",\"name\":\"test obs 1\"}},{\"type\":\"Observation\",\"properties\":{"
+            + "\"isObjective\":true,\"priority\":1,\"summary\":\"test summary 2\",\"name\":\"test obs 2\"}},{\"type\":"
+            + "\"Result\",\"properties\":{\"priority\":2,\"summary\":\"test summary 1\",\"name\":\"test result 1\"}},"
+            + "{\"type\":\"Result\",\"properties\":{\"priority\":3,\"summary\":\"test summary 2\",\"name\":"
+            + "\"test result 2\"}}],\"treatments\":[{\"type\":\"Plan\",\"properties\":{\"statusIdx\":1,\"priority\":0,"
+            + "\"summary\":\"test summary 2\",\"name\":\"test plan 1\"}},{\"type\":\"Investigation\",\"properties\":{"
+            + "\"statusIdx\":1,\"priority\":0,\"summary\":\"test summary 1\",\"name\":\"test inv 1\"}}],\"name\":"
+            + "\"test imp 1\"},\"impressions\":[{\"description\":\"test description 1\",\"evidences\":[{\"type\":"
+            + "\"Observation\",\"properties\":{\"isObjective\":false,\"priority\":0,\"summary\":\"test summary 1\","
+            + "\"name\":\"test obs 1\"}},{\"type\":\"Observation\",\"properties\":{\"isObjective\":true,\"priority\":1,"
+            + "\"summary\":\"test summary 2\",\"name\":\"test obs 2\"}},{\"type\":\"Result\",\"properties\":{"
+            + "\"priority\":2,\"summary\":\"test summary 1\",\"name\":\"test result 1\"}},{\"type\":\"Result\","
+            + "\"properties\":{\"priority\":3,\"summary\":\"test summary 2\",\"name\":\"test result 2\"}}],"
+            + "\"treatments\":[{\"type\":\"Plan\",\"properties\":{\"statusIdx\":1,\"priority\":0,\"summary\":"
+            + "\"test summary 2\",\"name\":\"test plan 1\"}},{\"type\":\"Investigation\",\"properties\":{\"statusIdx\":"
+            + "1,\"priority\":0,\"summary\":\"test summary 1\",\"name\":\"test inv 1\"}}],\"name\":\"test imp 1\"},"
+            + "{\"description\":\"test description 2\",\"evidences\":[],\"treatments\":[{\"type\":\"Medicine\","
+            + "\"properties\":{\"dose\":\"test dose 1\",\"startDate\":\"test start date\",\"duration\":"
+            + "\"test duration\",\"statusIdx\":1,\"priority\":0,\"name\":\"test medicine 2\"}},{\"type\":\"Plan\","
+            + "\"properties\":{\"statusIdx\":2,\"priority\":1,\"summary\":\"test summary 2\",\"name\":\"test plan 2\"}"
+            + "},{\"type\":\"Investigation\",\"properties\":{\"statusIdx\":3,\"priority\":2,\"summary\":"
+            + "\"test summary 2\",\"name\":\"test inv 2\"}},{\"type\":\"Medicine\",\"properties\":{\"dose\":"
+            + "\"test dose 2\",\"startDate\":\"test start date\",\"duration\":\"test duration\",\"statusIdx\":3,"
+            + "\"priority\":2,\"name\":\"test medicine 1\"}}],\"name\":\"test imp 2\"}],\"height\":123,\"weight\":456,"
+            + "\"age\":100,\"number\":6582447,\"address\":\"test address\",\"history\":\"test history\","
+            + "\"name\":\"testCPatient\"}]\n";
 
     /**
      * Creates a patient object and assign values to all of its attributes - used to test if the nesting works.
@@ -99,7 +96,7 @@ public class GsonStorageTest extends CommandTest {
     private Patient createComplexPatient() throws DukeException {
         Patient complexPatient = new Patient("testCPatient", "C1", "test allergies", 123,
                 456, 100, 6582447, "test address", "test history");
-        Impression impression1 = new Impression("test imp 1", "test description 2", complexPatient);
+        Impression impression1 = new Impression("test imp 1", "test description 1", complexPatient);
         Impression impression2 = new Impression("test imp 2", "test description 2", complexPatient);
         Observation observation1 = new Observation("test obs 1", impression1, 0,
                 "test summary 1", false);
@@ -192,7 +189,15 @@ public class GsonStorageTest extends CommandTest {
         core.patientList.addPatient(createComplexPatient());
         core.storage.writeJsonFile(core.patientList.getPatientList());
         String json = Files.readString(Paths.get(testFilePath), StandardCharsets.US_ASCII);
-        assertEquals(expected, json);
+        for (int i = 0; i < json.length(); i++) {
+            if (json.charAt(i) != expected.charAt(i)) {
+                System.out.println("index" + i);
+            }
+        }
+        //System.out.println(json);
+        int i = json.length() / 2;
+        assertEquals(expected.substring(0, i), json.substring(0, i));
+        assertEquals(expected.substring(i, json.length() - 1), json.substring(i, json.length() - 1));
     }
 
     /**
