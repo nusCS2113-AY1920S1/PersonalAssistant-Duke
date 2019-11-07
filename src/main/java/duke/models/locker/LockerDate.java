@@ -1,12 +1,15 @@
 package duke.models.locker;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import duke.exceptions.DukeException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.time.temporal.ChronoUnit;
 
 import static java.util.Objects.requireNonNull;
@@ -17,8 +20,13 @@ public class LockerDate {
             + "\n\n      1. Should be a valid date as per the Gregorian Calendar."
             + "\n      2. Should be in the format of <DD-MM-YYYY>";
 
+    public static final String ERROR_IN_DATE_DIFFERENCE = " The start and end date for"
+            + " rentals should satisfy the following constraints:\n"
+            + "\n     1. The end date should be after the start date."
+            + "\n     2. The rental period should be between 7 to 365 days (inclusive)";
+
     private static final DateTimeFormatter checkDateFormat =
-            DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(ResolverStyle.STRICT);
 
     public String date;
 
@@ -27,7 +35,8 @@ public class LockerDate {
      * @param date stores the date that is to be assigned to the member field
      * @throws DukeException when the date is in invalid format
      */
-    public LockerDate(String date) throws DukeException {
+    @JsonCreator
+    public LockerDate(@JsonProperty("date") String date) throws DukeException {
         requireNonNull(date);
         if (!checkIsValidDate(date)) {
             throw new DukeException(ERROR_MESSAGE);
@@ -35,9 +44,6 @@ public class LockerDate {
         this.date = date;
     }
 
-    public LockerDate() {
-
-    }
 
     /**
      * This function is used to check whether the date is in correct format or not.

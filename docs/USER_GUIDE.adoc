@@ -98,7 +98,6 @@ All the data is automatically saved as a JSON file.
 Exports a list of lockers as csv. +
 Format: `export`
 
-
 //tag::addLocker[]
 === Adding Lockers
 This feature enables the user to add more lockers to SpongeBob. The lockers are by default
@@ -112,6 +111,7 @@ Format: `addLocker s/SERIALNUMBER a/ADDRESS z/ZONE`
 [NOTE]
 A locker serial number is unique and there should not be multiple lockers with the
 same serial number. A serial number should be a non-negative integer with not more than 6 digits
+
 
 [NOTE]
 `ZONE` can only be a single letter character.
@@ -172,7 +172,8 @@ Format: `editLocker SERIALNUMBER [s/SERIALNUMBER] [a/AREA] [z/ZONE] [c/CONDITION
 * At least one of the fields must be provided.
 * Lockers with condition/tag `unauthorized` and `not-in-use` cannot be edited to `in-use` and vice-versa.
 * Lockers with condition/tag `in-use` can only be edited to condition/tag `broken`.
-* If a locker is edited from `CONDITION` `in-use` to `broken` , SpongeBob will try to re allocate
+* If a locke
+r is edited from `CONDITION` `in-use` to `broken` , SpongeBob will try to re allocate
   a free locker to the student who was using the locker.
 ****
 
@@ -196,7 +197,6 @@ Format: `editUsage SERIALNUMBER [n/NAME] [e/EMAIL] [i/ID] [m/MAJOR] [f/STARTDATE
 * At least one of the fields must be present
 * The locker associated with the `SERIALNUMBER` must be present in SpongeBob and its tag/condition should be `in-use`
 ****
-Examples:
 
 * `editUsage 1234 n/John Doe e/johnDoe@example.com` +
 will change the name of the student and his email to `John Doe` and `johnDoe@example.com`
@@ -231,10 +231,8 @@ Example: +
 `deleteUsage 1234` +
 will delete the rental information.
 
-//end::deleteUsage[]
+==== Finding and searching for lockers: `find`
 
-//tag::findLockers[]
-=== Finding and searching for lockers:`find`
 
 Finds lockers based on their serial number, area and zone +
 Format: `find s/SERIALNUMBER a/AREA z/zone`

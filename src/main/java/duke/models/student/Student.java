@@ -1,7 +1,8 @@
 package duke.models.student;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Objects;
 
@@ -20,7 +21,11 @@ public class Student {
      * @param email stores the email id of the student
      * @param major stores the major/course of the student
      */
-    public Student(Name name, MatricNumber matricNumber, Email email, Major major) {
+    @JsonCreator
+    public Student(@JsonProperty("studentName") Name name,
+                   @JsonProperty("studentId") MatricNumber matricNumber,
+                   @JsonProperty("studentEmail") Email email,
+                   @JsonProperty("studentMajor") Major major) {
         requireNonNull(name);
         requireNonNull(matricNumber);
         requireNonNull(email);
@@ -31,18 +36,9 @@ public class Student {
         this.major = major;
     }
 
-    public Student() {
-
-    }
-
     @JsonGetter("studentName")
     public Name getName() {
         return name;
-    }
-
-    @JsonSetter("studentName")
-    public void setName(Name name) {
-        this.name = name;
     }
 
     @JsonGetter("studentId")
@@ -50,19 +46,9 @@ public class Student {
         return matricNumber;
     }
 
-    @JsonSetter("studentId")
-    public void setMatricNumber(MatricNumber matricNumber) {
-        this.matricNumber = matricNumber;
-    }
-
     @JsonGetter("studentEmail")
     public Email getEmail() {
         return email;
-    }
-
-    @JsonSetter("studentEmail")
-    public void setEmail(Email email) {
-        this.email = email;
     }
 
     @JsonGetter("studentMajor")
@@ -70,10 +56,6 @@ public class Student {
         return major;
     }
 
-    @JsonSetter("studentMajor")
-    public void setMajor(Major major) {
-        this.major = major;
-    }
 
     /* We need to override function equals() and hashCode() in order to account
       for user defined checks for equality while using streams

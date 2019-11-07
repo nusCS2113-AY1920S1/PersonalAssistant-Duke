@@ -2,6 +2,7 @@ package duke.storage;
 
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import duke.exceptions.DukeException;
 import duke.models.LockerList;
 
@@ -54,13 +55,12 @@ public class FileHandling {
             write.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
             throw new DukeException(" Error occurred while writing data to the file");
         }
     }
 
     private ObjectMapper getObjectMapper() {
-        return new ObjectMapper()
+        return new ObjectMapper().registerModule(new Jdk8Module())
                 .enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL)
                 .disable(MapperFeature.AUTO_DETECT_CREATORS,
                         MapperFeature.AUTO_DETECT_FIELDS,

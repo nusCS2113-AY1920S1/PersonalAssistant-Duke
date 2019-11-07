@@ -18,10 +18,6 @@ import java.util.List;
 import static java.util.Objects.requireNonNull;
 
 public class ParserCheck {
-    public static final String ERROR_IN_DATE_DIFFERENCE = " The start and end date for"
-            + " rentals should satisfy the following constraints:\n"
-            + "\n     1. The end date should be after the start date."
-            + "\n     2. The rental period should be between 7 to 365 days (inclusive)";
 
     /**
      * This function is used to parse the serial number for the locker.
@@ -79,7 +75,7 @@ public class ParserCheck {
         requireNonNull(size);
         try {
             int numLockers = Integer.parseInt(size.trim());
-            if (numLockers < 0 || numLockers > 30) {
+            if (numLockers <= 0 || numLockers > 30) {
                 throw new DukeException(" Please enter a positive number within the range of 1 to 30");
             }
             return numLockers;
@@ -211,7 +207,7 @@ public class ParserCheck {
         if (!LockerDate.isDifferenceBetweenDatesValid(startDate.getDate(),
                 endDate.getDate())) {
 
-            throw new DukeException(ERROR_IN_DATE_DIFFERENCE);
+            throw new DukeException(LockerDate.ERROR_IN_DATE_DIFFERENCE);
 
         }
     }

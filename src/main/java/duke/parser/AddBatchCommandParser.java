@@ -68,7 +68,7 @@ public class AddBatchCommandParser {
         requireNonNull(addBatchOfLockers);
         for (int i = 1; i <= size; i++) {
             addBatchOfLockers.add(
-                    new Locker(serialNumber,address,zone,new Tag("not-in-use")));
+                    new Locker(serialNumber,address,zone,new Tag(Tag.NOT_IN_USE),null));
             int serial = Integer.parseInt(serialNumber.getSerialNumberForLocker()) + 1;
             serialNumber = ParserCheck.parseSerialNumber(Integer.toString(serial));
         }

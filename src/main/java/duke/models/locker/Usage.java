@@ -1,32 +1,29 @@
 package duke.models.locker;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import duke.models.student.Student;
-import duke.models.tag.Tag;
 
 import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
 
-public class InUseLocker extends Locker {
-    private Student student;
-    private LockerDate startDate;
-    private LockerDate endDate;
+public class Usage {
+    private  Student student;
+    private  LockerDate startDate;
+    private  LockerDate endDate;
 
     /**
      * This constructor instantiates a locker that is currently being used by a student.
-     * @param serialNumber stores the serial number of the locker
-     * @param address stores the location of the locker
-     * @param zone stores the zone assigned to the locker
-     * @param tag stores the status of the locker (in-use)
      * @param student stores the details associated with students
      * @param startDate stores the starting date of the locker subscription
      * @param endDate stores the ending date of the locker subscription
      */
-    public InUseLocker(SerialNumber serialNumber, Address address, Zone zone, Tag tag,
-                       Student student,LockerDate startDate,LockerDate endDate) {
-        super(serialNumber,address,zone,tag);
+    @JsonCreator
+    public Usage(@JsonProperty("student") Student student,
+                 @JsonProperty("startDate") LockerDate startDate,
+                 @JsonProperty("endDate") LockerDate endDate) {
         requireNonNull(student);
         requireNonNull(startDate);
         requireNonNull(endDate);
@@ -35,52 +32,21 @@ public class InUseLocker extends Locker {
         this.endDate = endDate;
     }
 
-    public InUseLocker() {
-
-    }
-
-
     @JsonGetter("student")
     public Student getStudent() {
         return student;
     }
 
-    @JsonSetter("student")
-    public void setStudent(Student student) {
-        this.student  = student;
-    }
 
     @JsonGetter("startDate")
     public LockerDate getStartDate() {
         return startDate;
     }
 
-    @JsonSetter("startDate")
-    public void setStartDate(LockerDate startDate) {
-        this.startDate = startDate;
-    }
 
     @JsonGetter("endDate")
     public LockerDate getEndDate() {
         return endDate;
-    }
-
-    @JsonSetter("endDate")
-    public void setEndDate(LockerDate endDate) {
-        this.endDate = endDate;
-    }
-
-    @Override
-    public boolean isPresent(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof InUseLocker)) {
-            return false;
-        }
-
-        return this.getSerialNumber().equals(((InUseLocker) other).getSerialNumber());
     }
 
     @Override
@@ -98,11 +64,11 @@ public class InUseLocker extends Locker {
             return true; //both represent the same objects
         }
 
-        if (!(other instanceof InUseLocker)) {
+        if (!(other instanceof Usage)) {
             return false; //accounts for all null cases and irrelevant references
         }
 
-        InUseLocker otherLocker = (InUseLocker) other;
+        Usage otherLocker = (Usage) other;
         return otherLocker.getStudent().equals(this.getStudent())
                 && otherLocker.getStartDate().equals(this.getStartDate())
                 && otherLocker.getEndDate().equals(this.getEndDate()); //all equality checks

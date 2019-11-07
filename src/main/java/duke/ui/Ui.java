@@ -12,6 +12,7 @@ public class Ui {
         return sc.nextLine();
     }
 
+
     /**
      * This function responsible for printing a line.
      */
@@ -60,25 +61,22 @@ public class Ui {
     }
 
     /**
-     * This function tells the user that Duke has added the task to the list.
-     * @param listOfTasks used for printing the number of tasks in the list.
-     * @param taskA stores the task that is to be added to the list.
+     * This function is used to indicate the user that the usage has been deleted.
      */
-    public void printAddTask(List<Locker> listOfTasks, String taskA) {
-        printSpaces(" Got it. I have added this task:");
-        printSpaces("  " + taskA);
-        showNumTasks(listOfTasks);
+    public void showDeleteUsage() {
+        printSpaces(" I have successfully deleted the usage of the locker.");
+        printDash();
     }
 
     /**
      * This function tells the user that SpongeBob has added the locker into the list.
-     * @param listOfLockers used for printing the number of lockers in the list
+     * @param size used for printing the number of lockers in the list
      * @param lockerA stores the locker that is added to the list
      */
-    public void printAddLocker(List<Locker> listOfLockers, String lockerA) {
+    public void printAddLocker(int size, String lockerA) {
         printSpaces(" Got it. I have added this locker: ");
         printSpaces(" " + lockerA);
-        printSpaces(" Now, Spongebob is managing " + listOfLockers.size() + " lockers");
+        printSpaces(" Now, Spongebob is managing " + size + " lockers");
         printDash();
     }
 
@@ -142,9 +140,9 @@ public class Ui {
 
     }
 
-    private void showNumTasks(List<Locker> listOfTasks) {
-        printSpaces(" Now you have " + listOfTasks.size()
-                + ((listOfTasks.size() == 1) ? " locker in the list." : " lockers in "
+    private void showNumTasks(int size) {
+        printSpaces(" Now you have " + size
+                + ((size == 1) ? " locker in the list." : " lockers in "
                 + "the list"));
         printDash();
     }
@@ -178,13 +176,13 @@ public class Ui {
 
     /**
      * This function tells the user that SpongeBob has deleted the lockers from the list.
-     * @param lockerList used for showing the number of lockers left in the list.
+     * @param numLockers used for showing the number of lockers left in the list.
      * @param lockerA stores the locker that is deleted.
      */
-    public void deleteMessage(List<Locker> lockerList, String lockerA) {
+    public void deleteMessage(int numLockers, String lockerA) {
         printSpaces(" Noted. I have removed this locker:");
         printSpaces("  " + lockerA);
-        showNumTasks(lockerList);
+        showNumTasks(numLockers);
     }
 
     /**
@@ -383,19 +381,12 @@ public class Ui {
      */
     public void printListSerialNumber(String str) {
         System.out.print("|");
-        if (str.length() == 4) {
-            printEmptySpace(4);
-            System.out.print(str);
-            printEmptySpace(5);
-        } else if (str.length() == 5) {
-            printEmptySpace(4);
-            System.out.print(str);
-            printEmptySpace(4);
-        } else {
-            printEmptySpace(4);
-            System.out.print(str);
-            printEmptySpace(3);
-        }
+        int trailingSpaces = (13 - str.length()) / 2;
+        int endingSpaces = 13 - trailingSpaces - str.length();
+        printEmptySpace(trailingSpaces);
+        System.out.print(str);
+        printEmptySpace(endingSpaces);
+
     }
 
     /**

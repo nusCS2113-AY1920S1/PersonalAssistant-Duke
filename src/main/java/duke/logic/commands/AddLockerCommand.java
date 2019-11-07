@@ -29,8 +29,7 @@ public class AddLockerCommand extends Command {
         }
 
         lockerList.addLocker(addLocker);
-        String lockerA = addLocker.toString();
-        ui.printAddLocker(lockerList.getAllLockers(),lockerA);
+        ui.printAddLocker(lockerList.numLockers(),addLocker.toString());
         storage.saveData(lockerList);
     }
 }

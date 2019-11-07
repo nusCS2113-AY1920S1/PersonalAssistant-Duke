@@ -2,7 +2,7 @@ package duke.logic.commands;
 
 import duke.exceptions.DukeException;
 import duke.models.LockerList;
-import duke.models.locker.InUseLocker;
+import duke.models.locker.Usage;
 import duke.models.locker.Locker;
 import duke.models.locker.LockerDate;
 import duke.models.locker.SerialNumber;
@@ -11,8 +11,6 @@ import duke.models.student.Major;
 import duke.models.student.MatricNumber;
 import duke.models.student.Name;
 import duke.models.student.Student;
-import duke.models.tag.Tag;
-import duke.parser.ParserCheck;
 import duke.storage.FileHandling;
 import duke.ui.Ui;
 
@@ -50,53 +48,55 @@ public class EditUsageCommand extends Command {
     }
 
     private Locker editUsageDetails(LockerList lockerList) throws DukeException {
-        Locker lockerToEdit = CommandCheck.getLockerToEdit(lockerList,
-                serialNumberToEdit);
+        Locker lockerToEdit = lockerList.getLockerToEdit(serialNumberToEdit);
         int storeIndex = lockerList.getIndexOfLocker(lockerToEdit);
-        Tag tag = new Tag(Tag.IN_USE);
-        if (!lockerToEdit.getTag().equals(tag)) {
+        if (!lockerToEdit.isOfTypeInUse()) {
             throw new DukeException(" You are allowed to edit usage of only type In-Use Locker");
         }
-        Locker editedLocker = getEditedLocker((InUseLocker)lockerToEdit);
+        Locker editedLocker = getEditedLocker(lockerToEdit);
         lockerList.addLockerInPosition(editedLocker,storeIndex);
         return editedLocker;
-
     }
 
-    private Locker getEditedLocker(InUseLocker lockerToEdit) throws DukeException {
-        Student editedStudent = createEditedStudent(lockerToEdit,editStudent);
-        LockerDate editedStartDate = createEditedStartDate(lockerToEdit,editDate);
-        LockerDate editedEndDate = createEditedEndDate(lockerToEdit,editDate);
-        ParserCheck.parseDifferenceBetweenStartAndEndDate(editedStartDate,editedEndDate);
-        return new InUseLocker(lockerToEdit.getSerialNumber(),
+    private Locker getEditedLocker(Locker lockerToEdit) throws DukeException {
+        assert lockerToEdit.getUsage().isPresent();
+        Usage usageToEdit = lockerToEdit.getUsage().get();
+        Student editedStudent = createEditedStudent(usageToEdit,editStudent);
+        LockerDate editedStartDate = createEditedStartDate(usageToEdit,editDate);
+        LockerDate editedEndDate = createEditedEndDate(usageToEdit,editDate);
+        Usage editedUsage = new Usage(editedStudent,editedStartDate,editedEndDate);
+        if (!LockerDate.isDifferenceBetweenDatesValid(editedStartDate.getDate(),editedEndDate.getDate())) {
+            throw new DukeException(LockerDate.ERROR_IN_DATE_DIFFERENCE);
+        }
+        return new Locker(lockerToEdit.getSerialNumber(),
                 lockerToEdit.getAddress(),lockerToEdit.getZone(),
-                lockerToEdit.getTag(),editedStudent,editedStartDate,editedEndDate);
+                lockerToEdit.getTag(),editedUsage);
     }
 
-    private Student createEditedStudent(InUseLocker lockerToEdit,EditStudent editStudent) {
-        assert lockerToEdit != null;
+    private Student createEditedStudent(Usage usageToEdit, EditStudent editStudent) {
+        assert usageToEdit != null;
         Name editedName = editStudent.getName()
-                .orElse(lockerToEdit.getStudent().getName());
+                .orElse(usageToEdit.getStudent().getName());
         Major editedMajor = editStudent.getMajor()
-                .orElse(lockerToEdit.getStudent().getMajor());
+                .orElse(usageToEdit.getStudent().getMajor());
         Email editedEmail = editStudent.getEmail()
-                .orElse(lockerToEdit.getStudent().getEmail());
+                .orElse(usageToEdit.getStudent().getEmail());
         MatricNumber editedMatricNumber = editStudent.getMatricNumber()
-                .orElse(lockerToEdit.getStudent().getMatricNumber());
+                .orElse(usageToEdit.getStudent().getMatricNumber());
 
         return new Student(editedName,editedMatricNumber,editedEmail,editedMajor);
     }
 
-    private LockerDate createEditedStartDate(InUseLocker lockerToEdit, EditLockerDate editDate) throws DukeException {
-        assert lockerToEdit != null;
+    private LockerDate createEditedStartDate(Usage usageToEdit, EditLockerDate editDate) throws DukeException {
+        assert usageToEdit != null;
         return new LockerDate((editDate.getStartDate()
-                .orElse(lockerToEdit.getStartDate())).getDate());
+                .orElse(usageToEdit.getStartDate()).getDate()));
     }
 
-    private LockerDate createEditedEndDate(InUseLocker lockerToEdit, EditLockerDate editDate) throws DukeException {
-        assert lockerToEdit != null;
+    private LockerDate createEditedEndDate(Usage usageToEdit, EditLockerDate editDate) throws DukeException {
+        assert usageToEdit != null;
         return new LockerDate((editDate.getEndDate()
-                .orElse(lockerToEdit.getEndDate())).getDate());
+                .orElse(usageToEdit.getEndDate())).getDate());
     }
 
 
