@@ -340,14 +340,6 @@ Any other PRIORITY inputted will be invalid.
 This command can override the priority set to a task by the command `update ITEM_NUMBER -priority PRIORITY`
 and vice versa.
 
-[[tag]]
-==== Tagging a task: `tag`
-Format: `tag ITEM_NUMBER -tag TAG1 [-tag TAG2]...` +
-
-Tags the specified item with the tag(s) minimum number of tags is 1.
-
-Example: +
-`tag 1 -tag fun`
 
 ==== Snooze a task: `snooze`
 Format: `snooze ITEM_NUMBER [-by NO_OF_DAYS]`
@@ -398,6 +390,10 @@ Examples:
 `link 2` will give a list of all emails that is linked to task 2.
 
 `link 2 -email 2 -email 4` will link emails 2 and 4 to task 2.
+
+[NOTE]
+Any links created will only be visible from the task it is added to.
+Emails will not be able to show any links to tasks.
 
 ==== Clear task list: `clear`
 Format: `clear`

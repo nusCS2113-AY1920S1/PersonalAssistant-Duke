@@ -32,60 +32,55 @@ public class LinkCommand extends Command {
      */
     @Override
     public boolean execute(Model model) {
-        try {
-            TaskList taskList = model.getTaskList();
-            EmailList emailList = model.getEmailList();
-            StringBuilder msg = new StringBuilder();
+        TaskList taskList = model.getTaskList();
+        EmailList emailList = model.getEmailList();
+        StringBuilder msg = new StringBuilder();
 
-            if (emailIndexList.isEmpty()) {
-                ArrayList<String> linkedEmails = taskList.get(taskIndexList.get(0)).getLinkedEmails();
-                if (linkedEmails.isEmpty()) {
-                    msg.append("No linked emails currently.");
-                } else {
-                    msg.append("Here are your linked emails:" + System.lineSeparator());
-                    int i = 1;
-                    for (String filename : linkedEmails) {
-                        String name = null;
-                        for (int j = 0; j < emailList.size(); j++) {
-                            if (filename.equals(emailList.get(j).getShaHash())) {
-                                name = emailList.get(j).getSubject();
-                                break;
-                            }
+        if (emailIndexList.isEmpty()) {
+            ArrayList<String> linkedEmails = taskList.get(taskIndexList.get(0)).getLinkedEmails();
+            if (linkedEmails.isEmpty()) {
+                msg.append("No linked emails currently.");
+            } else {
+                //TODO make function in EmailList to return Array List of email subjects (and maybe index)
+                //TODO create function to convert SHA to Subject
+                msg.append("Here are your linked emails:" + System.lineSeparator());
+                int i = 1;
+                for (String filename : linkedEmails) {
+                    String name = null;
+                    for (int j = 0; j < emailList.size(); j++) {
+                        if (filename.equals(emailList.get(j).getShaHash())) {
+                            name = emailList.get(j).getSubject();
+                            break;
                         }
-                        msg.append(i + ". " + name + System.lineSeparator());
-                        i++;
                     }
+                    msg.append(i + ". " + name + System.lineSeparator());
+                    i++;
                 }
+            }
+            responseMsg = msg.toString();
+            UI.getInstance().showResponse(msg.toString());
+            return true;
+        } else {
+            msg.append("Linked task ");
+            for (int i = 0; i < taskIndexList.size(); i++) {
+                Task task = taskList.get(taskIndexList.get(i));
+                msg.append(task.getName());
+                msg.append(" with email(s):" + System.lineSeparator());
+
+                for (int j = 0; j < emailIndexList.size(); j++) {
+                    Email email = emailList.get(emailIndexList.get(j));
+                    msg.append(email.getSubject() + System.lineSeparator());
+                    if (task.getLinkedEmails().contains(email.getShaHash())) {
+                        continue;
+                    }
+                    task.addLinkedEmails(email.getShaHash());
+                }
+            }
+            if (!silent) {
                 responseMsg = msg.toString();
                 UI.getInstance().showResponse(msg.toString());
-                return true;
-            } else {
-                msg.append("Linked task ");
-                for (int i = 0; i < taskIndexList.size(); i++) {
-                    Task task = taskList.get(taskIndexList.get(i));
-                    msg.append(task.getName());
-                    msg.append(" with email(s):" + System.lineSeparator());
-
-                    for (int j = 0; j < emailIndexList.size(); j++) {
-                        Email email = emailList.get(emailIndexList.get(j));
-                        msg.append(email.getSubject() + System.lineSeparator());
-                        if (task.getLinkedEmails().contains(email.getShaHash())) {
-                            continue;
-                        }
-                        task.addLinkedEmails(email.getShaHash());
-                    }
-                }
-                if (!silent) {
-                    responseMsg = msg.toString();
-                    UI.getInstance().showResponse(msg.toString());
-                }
-                return true;
             }
-        } catch (IndexOutOfBoundsException e) {
-            if (!silent) {
-                UI.getInstance().showError("Please ensure that all email indexes in the command are valid");
-            }
-            return false;
+            return true;
         }
     }
 }
