@@ -1,3 +1,4 @@
+
 package gazeeebo.commands.tasks.edit;
 
 import gazeeebo.storage.Storage;
@@ -14,15 +15,17 @@ import java.util.Stack;
 
 public class EditCommand extends Command {
     /**
-     * This method will receive the user's input on which
+     * Receive the user's input on which
      * list index to edit and then receive another
      * user's input, checking he/she wants to edit the
      * task's description or time or both and
      * execute them in the following methods respectively.
      *
      * @param list         task lists
-     * @param ui           the object that deals with printing things to the user.
-     * @param storage      the object that deals with storing data to the Save.txt file.
+     * @param ui           the object that
+     *                     deals with printing things to the user.
+     * @param storage      the object that d
+     *                     eals with storing data to the Save.txt file.
      * @param commandStack
      * @param deletedTask
      * @throws IOException
@@ -35,7 +38,8 @@ public class EditCommand extends Command {
                         final Stack<ArrayList<Task>> commandStack,
                         final ArrayList<Task> deletedTask,
                         final TriviaManager triviaManager)
-            throws DukeException, ParseException, IOException, NullPointerException {
+            throws DukeException, ParseException,
+            IOException, NullPointerException {
         String[] input = ui.fullCommand.split(" ");
         System.out.println("Edit description/time/both ?");
         int listnoIndex = Integer.parseInt(input[1]) - 1;

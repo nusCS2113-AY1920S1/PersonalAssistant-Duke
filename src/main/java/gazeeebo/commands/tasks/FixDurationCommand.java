@@ -1,3 +1,4 @@
+
 package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
@@ -8,23 +9,41 @@ import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 
 import gazeeebo.exception.DukeException;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * This class creates and adds a new fixed duration task.
+ */
 public class FixDurationCommand extends Command {
+
     /**
-     * @param list    task list
-     * @param ui      the object that deals with printing things to the user.
-     * @param storage the object that deals with storing data to the Save.txt file.
+     * Adds task that has a fixed duration when called.
+     *
+     * @param list          Task list
+     * @param ui            The object that deals with
+     *                      printing things to the user.
+     * @param storage       The object that deals with
+     *                      storing data to the Save.txt file.
      * @param commandStack
      * @param deletedTask
-     * @throws IOException
-     * @throws NullPointerException if tDate doesn't get updated.
+     * @param triviaManager
+     * @throws DukeException  Throws custom exception when
+     *                        format of fixed duration command is wrong
+     * @throws ParseException Catch error if parsing of command fails
+     * @throws IOException    Catch error if the read file fails
      */
     @Override
-    public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<ArrayList<Task>> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException {
+    public void execute(final ArrayList<Task> list,
+                        final Ui ui, final Storage storage,
+                        final Stack<ArrayList<Task>> commandStack,
+                        final ArrayList<Task> deletedTask,
+                        final TriviaManager triviaManager)
+            throws DukeException, ParseException, IOException {
+
         String description = "";
         String duration = "";
         String[] splitstring;
@@ -36,7 +55,8 @@ public class FixDurationCommand extends Command {
         list.add(to);
         System.out.println("Got it. I've added this task:");
         System.out.println(to.listFormat());
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        System.out.println("Now you have "
+                + list.size() + " tasks in the list.");
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
@@ -45,8 +65,8 @@ public class FixDurationCommand extends Command {
     }
 
     /**
-     * Tells the main Duke class that the system
-     * should not exit and continue running.
+     * Program does not exit and continues running
+     * since command "bye" is not called.
      *
      * @return false
      */

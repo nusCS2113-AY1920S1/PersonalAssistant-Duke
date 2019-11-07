@@ -1,4 +1,5 @@
 //@@author jessteoxizhi
+
 package gazeeebo.commands.places;
 
 import gazeeebo.storage.Storage;
@@ -9,7 +10,7 @@ import java.util.Map;
 
 public class DeletePlacesCommand {
     /**
-     * Delete a place from the list of places
+     * Delete a place from the list of places.
      *
      * @param ui      the object that deals with printing things to the user.
      * @param storage the object that deals with storing data.
@@ -17,7 +18,7 @@ public class DeletePlacesCommand {
      * @throws IOException catch any error if read file fails
      */
 
-    public DeletePlacesCommand(Ui ui, Storage storage, Map<String, String> places) throws IOException, ArrayIndexOutOfBoundsException{
+    public DeletePlacesCommand(Ui ui, Storage storage, Map<String, String> places) throws IOException, ArrayIndexOutOfBoundsException {
         if (!ui.fullCommand.equals("delete") && ui.fullCommand.contains("-")) {
             String placeToDelete = ui.fullCommand.split("-")[1];
             if (places.containsKey(placeToDelete)) {
@@ -26,8 +27,7 @@ public class DeletePlacesCommand {
             } else {
                 System.out.println(placeToDelete + " is not found in the list.");
             }
-        }
-        else {
+        } else {
             System.out.println("Incorrect format: delete-place");
         }
         String toStore = "";

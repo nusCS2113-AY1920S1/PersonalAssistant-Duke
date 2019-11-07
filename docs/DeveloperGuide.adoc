@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Gazeeebo - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,13 +12,62 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2113T-F10-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S1-CS2113T-F10-4`      Since: `Aug 2019`
+
+== Introduction
+
+=== Purpose
+This document explains the design, implementation, and testing for the planner, Gazeeebo.
+
+=== Target user profile
+The target user profile is undergraduate Computer Engineering students from the National University of Singapore (NUS).
+
+=== Overview of product
+The product, Gazeeebo, is an integrated planner for NUS CEG students. It aims to aid them in drafting their 4-year study plan in NUS. The main features of Gazeeebo are: a four-year module planner, a specialization and prerequisites help feature and a CAP calculator.
+
+=== Markups Used
+- Words `highlighted` in white are buttons to be clicked or files.
+- Words in _Italics_ are commands to be typed into a terminal, for example in IntelliJ.
+- Words #highlighted# in yellow are classes.
 
 == Setting up
 
-Refer to the guide <<SettingUp#, here>>.
+=== Prerequisites
+- JDK 11
+- IntelliJ IDE
+
+=== Setting up the project on your computer
+
+1. Fork this repo, and clone the fork to your computer.
+2. Open IntelliJ (if you are not in the welcome screen, `click File > Close Project` to close the existing project dialog first).
+3. Set up the correct JDK version for Gradle.
+4. Click `Configure > Project Defaults > Project Structure`.
+5. Click `New…`​ and find the directory of the JDK.
+6. Click `Import Project`.
+7. Locate the `build.gradle` file and select it. Click OK.
+8. Click `Open as Project`.
+9. Click `OK` to accept the default settings.
+10. Open a console and run the command _gradlew processResources_ (Mac/Linux: _./gradlew processResources_). It should finish with the ‘BUILD SUCCESSFUL’ message.
+11. This will generate all the resources required by the application and tests.
+12. Open link:https://github.com/AY1920S1-CS2113T-F10-4/main/blob/master/src/main/java/Gazeeebo.java[Gazeeebo.java] and check for any code errors.
+
+=== Verifying the setup
+1. Run the `seedu.address.MainApp` and try a few commands.
+2. Run the tests to ensure they all pass.
+
+=== Configuration to do before writing code
+This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ’s default style is mostly compliant with ours but it uses a different import order from ours. To rectify:
+
+1. Go to `File > Settings…` (Windows/Linux), or `IntelliJ IDEA > Preferences…`​ (macOS)
+2. Select `Editor > Code Style > Java`
+3. Click on the `Imports` tab to set the order
+- For `Class count to use import with **` and `Names count to use static import with **`: Set to 999 to prevent IntelliJ from contracting the import statements
+- For `Import Layout`: The order is `import static all other imports`, `import java.**`, `import javax.**`, `import org.**`, `import com.**`, `import all other imports`. Add a `<blank line>` between each `import`
+
+Optionally, you can follow the https://github.com/AY1920S1-CS2113T-F10-4/main/blob/master/docs/UsingCheckstyle.adoc[UsingCheckstyle.adoc] document to configure Intellij to check style-compliance as you write code.
+
 
 == Design
 
@@ -145,7 +194,7 @@ The `Storage` component,
 * can save the Address Book data in json format and read it back.
 
 [[Design-Commons]]
-=== Common classes
+=== Common class
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
@@ -153,9 +202,8 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+// tag::password[]
+=== Password Feature
 
 The undo/redo mechanism is facilitated by `VersionedAddressBook`.
 It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
@@ -236,13 +284,13 @@ image::CommitActivityDiagram.png[]
 // end::undoredo[]
 
 // tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== Cap Calculator Feature
 
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
-=== Logging
+=== Calendar View Feature
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
@@ -258,17 +306,49 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
-=== Configuration
+=== Contacts Feature
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+=== Expenses Feature
+
+=== Places Feature
+
+=== Module Planner Feature
+
+=== Notes Feature
+
+=== Help Feature
+
+=== Tasks Feature
+
+=== Undo Feature
 
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
 
+=== Editing Documentation
+
+=== Publishing Documentation
+
+=== Converting Documentation to PDF Format
+
+=== Site-wide Documentation Settings
+
+=== Per-file Documentation Settings
+
+=== Site Template
+
 == Testing
 
 Refer to the guide <<Testing#, here>>.
+
+=== Running Tests
+
+=== Types of Tests
+
+=== Troubleshoot Testing
 
 == Dev Ops
 

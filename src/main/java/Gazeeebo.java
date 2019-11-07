@@ -5,9 +5,10 @@ import gazeeebo.UI.Ui;
 import gazeeebo.storage.Storage;
 import gazeeebo.commands.Command;
 import gazeeebo.notes.NoteList;
-import gazeeebo.parsers.Parser;
+import gazeeebo.parsers.ParserManager;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.NoteStorage;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -20,7 +21,6 @@ public class Gazeeebo {
      * @param args a String array that takes in input from the command line
      */
     public static void main(String[] args) throws IOException {
-
         ArrayList<Task> list;
         Stack<ArrayList<Task>> CommandStack = new Stack<ArrayList<Task>>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
@@ -37,12 +37,12 @@ public class Gazeeebo {
             NoteStorage.readFromFile("NoteMonthly.txt", NoteList.monthly);
             NotePageStorage.readFromGoalFile();
             NotePageStorage.readFromModulesFile();
-            ui.UpcomingTask(list);
+            ui.upcomingTask(list);
             ui.MajorCategories();
             while (!isExit) {
                 ui.readCommand();
                 String command = ui.fullCommand;
-                Command c = Parser.parse(command, ui);
+                Command c = ParserManager.parse(command, ui);
                 if (c != null) {
                     c.execute(list, ui, store, CommandStack, deletedTask, triviaManager);
                     isExit = c.isExit();

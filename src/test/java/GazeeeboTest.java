@@ -42,7 +42,7 @@ public class GazeeeboTest {
         ArrayList<Task> tasks = new ArrayList<Task>();
         Ui ui = new Ui();
         try {
-            ui.UpcomingTask(tasks);
+            ui.upcomingTask(tasks);
         } catch (ParseException e) {
             assertEquals("Date Time has to be in YYYY-MM-DD HH:mm:ss format",e.getMessage());
         } catch (NullPointerException e) {

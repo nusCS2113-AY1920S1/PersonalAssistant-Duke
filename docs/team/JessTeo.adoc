@@ -5,14 +5,15 @@
 
 == PROJECT: Gazeeebo
 
----
-
 == Overview
 
 My team of 5 software engineering students and I were tasked with developing a basic command line
 interface application for our Software Engineering project. We chose to morph
 it into a Computer Engineering (CEG) school life planner called Gazeeebo. This enhanced
-application enables CEG students to plan their CEG life in university with more knowledge about the course.
+application enables CEG students to plan their CEG life in university with more knowledge about the CEG course.
+Gazeeebo not only has the capabilities of a normal planner, but also the ability to give you an overview of the
+core modules you will need to take, thus enabling us to better plan our future schedule.
+This portfolio serves to document my contribution to the project.
 
 This the current design of Gazeeebo:
 
@@ -24,39 +25,55 @@ illustrate these enhancements in more detail, as well as the relevant sections I
 guides in relation to these enhancements.
 
 == Summary of contributions
+|===
+|_This section shows the features that I have contributed to the project._
+|===
+* *Major Enhancement added:* *Places Page*
+** What it does: It is a function for users to search for places in SOC, they can add new places, delete existing ones and list out all places.
+This function allows users to locate places in SOC and easily navigate their way to the location.It allows the user to undo all previous commands one at a time.
+** Justification: This feature improves the product significantly because a user might be unsure of the location in their timetable,
+this function enables them to easily search and locate the venue.can make mistakes in commands and the app should provide a convenient way to rectify them.
+** Highlights: This enhancement needs to be able to store and read information from a .txt file.
 
-* Enhancement added: *Ability to undo/redo previous commands*
+* *Major Enhancement added:* *Ability to undo commands*
 ** What it does: It allows the user to undo all previous commands one at a time.
 ** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+** Highlights: This enhancement affects existing commands and commands to be added in future.
+The current commands that are supported are:
+• EventCommand
+• TodoCommand
+• DeadlineCommand
+• TentativeEventCommand
+• DoneCommand
+• DeleteCommand
+• DoAfterCommand
+• TimeBoundCommand
+• FixDurationCommand
+• ConfirmTentativeCommand
+• UndoneCommand
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*:Click on this link to see a sample of my code [https://nuscs2113-ay1920s1.github.io/dashboard/#search=e0309463&sort=groupTitle&sortWithin=title&since=2019-09-21&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Managed releases `v1.3.2`  on GitHub
+** Minor enhancements to existing features:
+*** Calendar View.
+A monthly calendar can be print out which shows the current month and the current date, days that have tasks are
+demarcated by an “*”. This function allows users to visualise and better plan their schedule.
+(Pull requests https://github.com/AY1920S1-CS2113T-F10-4/main/pull/146[#146], https://github.com/AY1920S1-CS2113T-F10-4/main/pull/148[#148], https://github.com/AY1920S1-CS2113T-F10-4/main/pull/149[#149])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Reorganise the user guide and group it according to the feature so that it will be more user-friendly.
+*** Standardised font and font size used for different sections.
+*** Organised the contents of the Developer Guide (Pull Requests https://github.com/AY1920S1-CS2113T-F10-4/main/pull/272[#272])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Reviewed Pull Requests (Pull Requests https://github.com[#166], https://github.com[#147], https://github.com[#100], https://github.com[#97], https://github.com[#78], https://github.com[#68], https://github.com[#66], https://github.com[#61], https://github.com[#51], https://github.com[#49]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/jessteoxizhi/ped/issues/6[1], https://github.com/jessteoxizhi/ped/issues/9[2], https://github.com/jessteoxizhi/ped/issues/7[3])
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
-
+We created a user guide for Gazeeebo. The following is an excerpt from our Gazeeebo User Guide, showing additions that I have made for the undo features, places feature and Calendar view feature.
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
@@ -72,7 +89,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=ndoredo]
+include::../DeveloperGuide.adoc[tag=undoredo]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
 
