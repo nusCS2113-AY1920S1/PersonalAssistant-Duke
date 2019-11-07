@@ -167,7 +167,10 @@ public class Parser {
                 .choices("code", "grade", "level", "mc")
                 .help("What to use for sorting");
         sortParsers.addParser("ccas")
-                .help("Sort your CCAs");
+                .help("Sort your CCAs")
+                .addArgument("forwardOrReverse")
+                .choices("f","r")
+                .help("Forward or reverse order");
         sortParsers.addParser("times")
                 .help("Sort your modules and ccas to days of the week")
                 .addArgument("DayOfTheWeek")
