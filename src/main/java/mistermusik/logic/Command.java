@@ -603,8 +603,9 @@ public class Command {
                 switch (goalCommand[0]) {
                     case "delete":
                         if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
+                            String deletedGoal = events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getGoal();
                             events.getEvent(eventIndex).removeGoal(goalIndex - 1);
-                            ui.goalDeleted();
+                            ui.goalDeleted(deletedGoal);
                         } else {
                             ui.noSuchGoal();
                         }
@@ -614,7 +615,7 @@ public class Command {
                         if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
                             Goal newGoal = new Goal(splitGoal[1]);
                             events.getEvent(eventIndex).editGoalList(newGoal, goalIndex - 1);
-                            ui.goalUpdated();
+                            ui.goalUpdated(events, eventIndex, goalIndex - 1);
                         } else {
                             ui.noSuchGoal();
                         }
@@ -623,7 +624,7 @@ public class Command {
                     case "achieved":
                         if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
                             events.getEvent(eventIndex).updateGoalAchieved(goalIndex - 1);
-                            ui.goalSetAsAchieved();
+                            ui.goalSetAsAchieved(events, eventIndex, goalIndex - 1);
                         } else {
                             ui.noSuchGoal();
                         }
@@ -634,7 +635,7 @@ public class Command {
                     case "add":
                         Goal newGoal = new Goal(splitGoal[1]);
                         events.getEvent(eventIndex).addGoal(newGoal);
-                        ui.goalAdded();
+                        ui.goalAdded(newGoal.getGoal());
                         break;
 
                     case "view":
