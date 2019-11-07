@@ -46,11 +46,11 @@ public class PointCard extends UiPart<StackPane> {
      */
     private void setLocation() {
         double offsetY = LENGTH_Y_START
-                - ((venue.getLatitude() - MAP_IMAGE_Y_LATITUDE_END) * LENGTH_Y /
-                        (MAP_IMAGE_Y_LATITUDE_START - MAP_IMAGE_Y_LATITUDE_END));
+                - ((venue.getLatitude() - MAP_IMAGE_Y_LATITUDE_END) * LENGTH_Y
+                        / (MAP_IMAGE_Y_LATITUDE_START - MAP_IMAGE_Y_LATITUDE_END));
         double offsetX = LENGTH_X_START
-                + (venue.getLongitude() - MAP_IMAGE_X_LONGITUDE_END) * LENGTH_X /
-                (MAP_IMAGE_X_LONGITUDE_START - MAP_IMAGE_X_LONGITUDE_END);
+                + (venue.getLongitude() - MAP_IMAGE_X_LONGITUDE_END) * LENGTH_X
+                / (MAP_IMAGE_X_LONGITUDE_START - MAP_IMAGE_X_LONGITUDE_END);
 
         AnchorPane.setLeftAnchor(getRoot(), offsetX);
         AnchorPane.setTopAnchor(getRoot(), offsetY);

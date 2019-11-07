@@ -13,7 +13,7 @@ public abstract class Conversation {
     protected String prompt;
     protected int state;
     private boolean isFinished;
-    int attempts;
+    protected int attempts;
     private static final int ATTEMPTS_LIMIT = 3;
 
     /**

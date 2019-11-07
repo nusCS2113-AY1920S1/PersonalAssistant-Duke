@@ -50,7 +50,9 @@ public class LocationSearchUrlRequest extends UrlRequest {
 
         if (response != null) {
             Venue result = getResult(response);
-            if (result != null) return result;
+            if (result != null) {
+                return result;
+            }
         }
 
         throw new ApiException();

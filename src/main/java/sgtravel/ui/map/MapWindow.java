@@ -118,9 +118,9 @@ public class MapWindow extends UiPart<Stage> {
     }
 
     /**
-     * Sets the size of the MapWindow
+     * Sets the size of the MapWindow.
      */
-    public void setSize() {
+    private void setSize() {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         double windowHeight = primaryScreenBounds.getHeight() * MAP_WINDOW_SCALING;
         map.setMaxHeight(windowHeight);

@@ -17,10 +17,6 @@ public class PathFinderTest {
         PathFinder pathFinder = new PathFinder(modelStub.getMap());
         Venue buonaVistaMrt = new Venue("Buona Vista",1.3073, 103.8077,0,0);
         Venue yewTeeMrt = new Venue("yewtee", 1.3973, 103.7475,0,0);
-        Venue bloxhomeDrBusStop = new Venue("Opp Bloxhome Dr", 1.36412138937997,
-                103.86103467229529,0,0);
-        Venue westCoastCcBusStop = new Venue("West Coast CC", 1.30232494247638,
-                103.7647147428673,0,0);
 
         assertNotNull(pathFinder.execute(buonaVistaMrt, yewTeeMrt, Constraint.MRT));
         assertNotNull(pathFinder.execute(buonaVistaMrt, yewTeeMrt, Constraint.BUS));
