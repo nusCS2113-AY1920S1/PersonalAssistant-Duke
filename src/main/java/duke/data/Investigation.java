@@ -1,5 +1,6 @@
 package duke.data;
 
+import duke.exception.DukeFatalException;
 import duke.ui.card.InvestigationCard;
 import duke.ui.card.UiCard;
 import duke.ui.context.Context;
@@ -63,7 +64,7 @@ public class Investigation extends Treatment {
         return Collections.unmodifiableList(statusArr);
     }
 
-    public UiCard toCard() {
+    public InvestigationCard toCard() throws DukeFatalException {
         return new InvestigationCard(this);
     }
 

@@ -1,5 +1,6 @@
 package duke.data;
 
+import duke.exception.DukeFatalException;
 import duke.ui.card.ResultCard;
 import duke.ui.card.UiCard;
 import duke.ui.context.Context;
@@ -23,7 +24,6 @@ public class Result extends Evidence {
 
     @Override
     public String toString() {
-        // todo
         return super.toString();
     }
 
@@ -33,7 +33,7 @@ public class Result extends Evidence {
         return null;
     }
 
-    public UiCard toCard() {
+    public ResultCard toCard() throws DukeFatalException {
         return new ResultCard(this);
     }
 

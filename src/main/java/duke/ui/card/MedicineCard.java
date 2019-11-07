@@ -2,6 +2,10 @@ package duke.ui.card;
 
 import duke.data.Medicine;
 import duke.data.Treatment;
+import duke.exception.DukeFatalException;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * A UI card that displays the basic information of a {@code Medicine}.
@@ -19,7 +23,7 @@ public class MedicineCard extends TreatmentCard {
      *
      * @param medicine Medicine object.
      */
-    public MedicineCard(Medicine medicine) {
+    public MedicineCard(Medicine medicine) throws DukeFatalException {
         super(FXML, medicine);
 
         this.medicine = medicine;

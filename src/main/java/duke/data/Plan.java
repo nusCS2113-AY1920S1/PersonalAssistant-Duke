@@ -1,5 +1,6 @@
 package duke.data;
 
+import duke.exception.DukeFatalException;
 import duke.ui.card.PlanCard;
 import duke.ui.card.UiCard;
 import duke.ui.context.Context;
@@ -51,7 +52,7 @@ public class Plan extends Treatment {
     }
 
     @Override
-    public UiCard toCard() {
+    public PlanCard toCard() throws DukeFatalException {
         return new PlanCard(this);
     }
 

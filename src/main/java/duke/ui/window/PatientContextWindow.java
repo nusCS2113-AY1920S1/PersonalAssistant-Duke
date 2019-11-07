@@ -11,6 +11,7 @@ import duke.data.Patient;
 import duke.data.Plan;
 import duke.data.Result;
 import duke.data.Treatment;
+import duke.exception.DukeFatalException;
 import duke.ui.UiStrings;
 import duke.ui.card.EvidenceCard;
 import duke.ui.card.ImpressionCard;
@@ -20,6 +21,7 @@ import duke.ui.card.ObservationCard;
 import duke.ui.card.PlanCard;
 import duke.ui.card.ResultCard;
 import duke.ui.card.TreatmentCard;
+import duke.ui.card.UiCard;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -66,7 +68,7 @@ public class PatientContextWindow extends ContextWindow {
     /**
      * Constructs the patient UI window.
      */
-    public PatientContextWindow(Patient patient) {
+    public PatientContextWindow(Patient patient) throws DukeFatalException {
         super(FXML);
 
         this.patient = patient;
@@ -81,7 +83,7 @@ public class PatientContextWindow extends ContextWindow {
         updateUi();
     }
 
-    private void updatePatientWindow() {
+    private void updatePatientWindow() throws DukeFatalException {
         // TODO: clean up
         nameLabel.setText(String.valueOf(patient.getName()));
         bedLabel.setText(String.valueOf(patient.getBedNo()));
@@ -208,7 +210,7 @@ public class PatientContextWindow extends ContextWindow {
     /**
      * {@inheritDoc}
      */
-    public void updateUi() {
+    public void updateUi() throws DukeFatalException {
         updatePatientWindow();
     }
 

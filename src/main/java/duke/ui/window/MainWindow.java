@@ -9,9 +9,11 @@ import duke.data.Impression;
 import duke.data.Patient;
 import duke.data.SearchResults;
 import duke.exception.DukeException;
+import duke.exception.DukeFatalException;
 import duke.ui.UiElement;
 import duke.ui.context.Context;
 import duke.ui.context.UiContext;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -19,6 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +58,7 @@ public class MainWindow extends UiElement<Stage> {
      * @param primaryStage Main stage of the application.
      * @param core         Core of Dr. Duke.
      */
-    public MainWindow(Stage primaryStage, DukeCore core) {
+    public MainWindow(Stage primaryStage, DukeCore core) throws DukeFatalException {
         super(FXML, primaryStage);
 
         this.primaryStage = primaryStage;
@@ -71,7 +74,7 @@ public class MainWindow extends UiElement<Stage> {
     /**
      * Places child UI elements in the main UI window.
      */
-    private void placeChildUiElements() {
+    private void placeChildUiElements() throws DukeFatalException {
         currentContextWindow = new HomeContextWindow(patientList);
         currentTab = new Tab("Home", currentContextWindow.getRoot());
         contextWindowHolder.getTabs().add(currentTab);
@@ -87,35 +90,7 @@ public class MainWindow extends UiElement<Stage> {
         }
 
         // TODO: Add contexts here.
-        uiContext.addListener(event -> {
-            contextWindowHolder.getTabs().remove(currentTab);
-
-            switch ((Context) event.getNewValue()) {
-            case HOME:
-                currentContextWindow = new HomeContextWindow(patientList);
-                currentTab = new Tab("Home", currentContextWindow.getRoot());
-                break;
-            case PATIENT:
-                currentContextWindow = new PatientContextWindow((Patient) uiContext.getObject());
-                currentTab = new Tab("Patient", currentContextWindow.getRoot());
-                break;
-            case IMPRESSION:
-                Impression impression = (Impression) uiContext.getObject();
-                currentContextWindow = new ImpressionContextWindow(impression, (Patient) impression.getParent());
-                currentTab = new Tab("Impression", currentContextWindow.getRoot());
-                break;
-            case SEARCH:
-                SearchResults searchResults = (SearchResults) uiContext.getObject();
-                currentContextWindow = new SearchContextWindow(searchResults);
-                currentTab = new Tab("Search", currentContextWindow.getRoot());
-                break;
-            default:
-                return;
-            }
-
-            contextWindowHolder.getTabs().add(currentTab);
-            contextWindowHolder.getSelectionModel().select(currentTab);
-        });
+        uiContext.addListener(this::propertyChange);
     }
 
     /**
@@ -137,7 +112,7 @@ public class MainWindow extends UiElement<Stage> {
     /**
      * Update UI window.
      */
-    public void updateUi(String message) {
+    public void updateUi(String message) throws DukeFatalException {
         print(message);
         currentContextWindow.updateUi();
     }
@@ -151,5 +126,40 @@ public class MainWindow extends UiElement<Stage> {
      */
     public List<DukeObject> getIndexedList(String type) {
         return currentContextWindow.getIndexedList(type);
+    }
+
+    private void propertyChange(PropertyChangeEvent event) {
+        contextWindowHolder.getTabs().remove(currentTab);
+        try {
+            switch ((Context) event.getNewValue()) {
+                case HOME:
+                    currentContextWindow = new HomeContextWindow(patientList);
+                    currentTab = new Tab("Home", currentContextWindow.getRoot());
+                    break;
+                case PATIENT:
+                    currentContextWindow = new PatientContextWindow((Patient) uiContext.getObject());
+                    currentTab = new Tab("Patient", currentContextWindow.getRoot());
+                    break;
+                case IMPRESSION:
+                    Impression impression = (Impression) uiContext.getObject();
+                    currentContextWindow = new ImpressionContextWindow(impression, (Patient) impression.getParent());
+                    currentTab = new Tab("Impression", currentContextWindow.getRoot());
+                    break;
+                case SEARCH:
+                    SearchResults searchResults = (SearchResults) uiContext.getObject();
+                    currentContextWindow = new SearchContextWindow(searchResults);
+                    currentTab = new Tab("Search", currentContextWindow.getRoot());
+                    break;
+                default:
+                    return;
+            }
+        } catch (DukeFatalException e) {
+            // todo check
+            Platform.exit();
+            System.exit(0);
+        }
+
+        contextWindowHolder.getTabs().add(currentTab);
+        contextWindowHolder.getSelectionModel().select(currentTab);
     }
 }

@@ -1,6 +1,7 @@
 package duke.ui.window;
 
 import duke.data.DukeObject;
+import duke.exception.DukeFatalException;
 import duke.ui.UiElement;
 import javafx.scene.layout.Region;
 
@@ -19,7 +20,7 @@ public abstract class ContextWindow extends UiElement<Region> {
     /**
      * Update UI window.
      */
-    public abstract void updateUi();
+    public abstract void updateUi() throws DukeFatalException;
 
     /**
      * Retrieves indexed list of {@code DukeObject}.

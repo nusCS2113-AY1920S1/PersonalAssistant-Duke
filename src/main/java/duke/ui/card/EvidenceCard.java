@@ -1,6 +1,7 @@
 package duke.ui.card;
 
 import duke.data.Evidence;
+import duke.exception.DukeFatalException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -23,7 +24,7 @@ public abstract class EvidenceCard extends UiCard {
      * @param fxmlFileName Name of FXML file.
      * @param evidence     Evidence object.
      */
-    public EvidenceCard(String fxmlFileName, Evidence evidence) {
+    public EvidenceCard(String fxmlFileName, Evidence evidence) throws DukeFatalException {
         super(fxmlFileName);
 
         this.evidence = evidence;

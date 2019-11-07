@@ -4,7 +4,9 @@ import com.jfoenix.controls.JFXMasonryPane;
 import com.jfoenix.controls.JFXScrollPane;
 import duke.data.DukeObject;
 import duke.data.Patient;
+import duke.exception.DukeFatalException;
 import duke.ui.card.PatientCard;
+import duke.ui.card.UiCard;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 
@@ -30,7 +32,7 @@ public class HomeContextWindow extends ContextWindow {
      *
      * @param patientList List of {@code Patient} objects.
      */
-    public HomeContextWindow(ArrayList<Patient> patientList) {
+    public HomeContextWindow(ArrayList<Patient> patientList) throws DukeFatalException {
         super(FXML);
         this.patientList = patientList;
         JFXScrollPane.smoothScrolling(scrollPane);
@@ -40,7 +42,7 @@ public class HomeContextWindow extends ContextWindow {
     /**
      * Fills {@code indexedPatientList} and {@code patientListPanel}.
      */
-    private void fillPatientList() {
+    private void fillPatientList() throws DukeFatalException {
         indexedPatientList = new ArrayList<>(patientList);
         patientListPanel.getChildren().clear();
         indexedPatientList.forEach(patient -> {
@@ -54,7 +56,7 @@ public class HomeContextWindow extends ContextWindow {
      * {@inheritDoc}
      */
     @Override
-    public void updateUi() {
+    public void updateUi() throws DukeFatalException {
         fillPatientList();
     }
 

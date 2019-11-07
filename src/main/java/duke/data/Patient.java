@@ -1,6 +1,7 @@
 package duke.data;
 
 import duke.exception.DukeException;
+import duke.exception.DukeFatalException;
 import duke.ui.card.PatientCard;
 import duke.ui.card.UiCard;
 import duke.ui.context.Context;
@@ -412,7 +413,7 @@ public class Patient extends DukeObject {
     }
 
     @Override
-    public UiCard toCard() {
+    public PatientCard toCard() throws DukeFatalException {
         return new PatientCard(this);
     }
 
