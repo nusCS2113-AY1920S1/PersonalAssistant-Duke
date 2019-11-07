@@ -92,7 +92,7 @@ public class MainWindow extends UiManager<Stage> {
         overviewDisplay = new OverviewDisplay(storageManager.getFoodList().size(), Food.getRevenue(), Food.getRevenue());
         overviewDisplayPlaceholder.getChildren().add(overviewDisplay.getRoot());
 
-        listPanel = new ListPanel(storageManager.getFoodList(), this::executeEdit, this::executeDelete);
+        listPanel = new ListPanel(storageManager.getFoodList(), this::executeSell, this::executeDelete);
         listPanelPlaceholder.getChildren().add(listPanel.getRoot());
 
         statusBar = new StatusBar(storage.getFileFullPath());
@@ -164,11 +164,11 @@ public class MainWindow extends UiManager<Stage> {
         }
     }
 
-    private void executeEdit(int index) {
+    private void executeSell(int index) {
         Food food = storageManager.getFoodList().get(index - 1);
 
-        String command = "edit -i %1$s -n %2$s -t %3$s -p %4$s -s %5$s -e %6$s";
-        commandBox.setCommandText(String.format(command, index, food.getName(), food.getType(), food.getPrice(), food.getStock(), food.getExpiryDate()));
+        String command = "sold %1$s -q 1";
+        commandBox.setCommandText(String.format(command, food.getName()));
     }
 
     private void executeDelete(int index) {

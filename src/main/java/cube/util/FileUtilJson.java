@@ -9,7 +9,8 @@ package cube.util;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cube.exception.CubeException;
-import cube.exception.CubeLoadingException;
+import cube.util.exception.CubeUtilException;
+import cube.util.exception.UtilErrorMessage;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class FileUtilJson<Type> extends FileUtil {
      * Loads the serialized object from the JSON file.
      *
      * @return De-serialized object read from the JSON file.
-     * @throws CubeLoadingException exception occurs in reading from data file.
+     * @throws CubeUtilException exception occurs in reading from data file.
      */
     public Type load() throws CubeException {
         if (checkFileAvailable(true)) {
@@ -48,7 +49,7 @@ public class FileUtilJson<Type> extends FileUtil {
                 fileObject = mapper.readValue(file, type);
             } catch (IOException e) {
                 e.printStackTrace();
-                throw new CubeLoadingException(fileFullPath);
+                throw new CubeUtilException(UtilErrorMessage.READ_ERROR + fileFullPath);
             }
         }
         return fileObject;
@@ -66,7 +67,7 @@ public class FileUtilJson<Type> extends FileUtil {
             mapper.writeValue(file, fileObject);
         } catch (IOException e) {
             e.printStackTrace();
-            throw new CubeLoadingException(fileFullPath);
+            throw new CubeUtilException(UtilErrorMessage.WRITE_ERROR + fileFullPath);
         }
     }
 }
