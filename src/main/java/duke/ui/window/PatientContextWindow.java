@@ -54,11 +54,11 @@ public class PatientContextWindow extends ContextWindow {
     @FXML
     private Label allergiesLabel;
     @FXML
-    private JFXListView<Node> impressionListPanel;
+    private JFXListView<ImpressionCard> impressionListPanel;
     @FXML
-    private JFXListView<Node> criticalListPanel;
+    private JFXListView<UiCard> criticalListPanel;
     @FXML
-    private JFXListView<Node> investigationListPanel;
+    private JFXListView<TreatmentCard> investigationListPanel;
 
     private Patient patient;
     private List<DukeObject> indexedImpressionList;
@@ -136,14 +136,14 @@ public class PatientContextWindow extends ContextWindow {
             // Critical list
             for (Treatment treatment : impression.getTreatments()) {
                 if (treatment.getPriority() == 1) {
-                    criticalListPanel.getItems().add(newTreatmentCard(treatment));
+                    criticalListPanel.getItems().add(treatment.toCard());
                     indexedCriticalList.add(treatment);
                 }
             }
 
             for (Evidence evidence : impression.getEvidences()) {
                 if (evidence.getPriority() == 1) {
-                    criticalListPanel.getItems().add(newEvidenceCard(evidence));
+                    criticalListPanel.getItems().add(evidence.toCard());
                     indexedCriticalList.add(evidence);
                 }
             }
@@ -151,60 +151,26 @@ public class PatientContextWindow extends ContextWindow {
             // Investigation list
             for (Treatment treatment : impression.getTreatments()) {
                 if (treatment instanceof Investigation) {
-                    Investigation investigation = (Investigation) treatment;
-                    if (investigation.getPriority() != 1) {
-                        investigationListPanel.getItems().add(new InvestigationCard(investigation));
-                        indexedInvestigationList.add(investigation);
+                    // only display investigations not seen in criticals
+                    if (treatment.getPriority() != 1) {
+                        investigationListPanel.getItems().add(treatment.toCard());
+                        indexedInvestigationList.add(treatment);
                     }
                 }
             }
         }
 
         impressionListPanel.getItems().forEach(card -> {
-            ((ImpressionCard) card).setIndex(impressionListPanel.getItems().indexOf(card) + 1);
+            card.setIndex(impressionListPanel.getItems().indexOf(card) + 1);
         });
 
         criticalListPanel.getItems().forEach(card -> {
-            ((EvidenceCard) card).setIndex(criticalListPanel.getItems().indexOf(card) + 1);
+            card.setIndex(criticalListPanel.getItems().indexOf(card) + 1);
         });
 
         investigationListPanel.getItems().forEach(card -> {
-            ((InvestigationCard) card).setIndex(investigationListPanel.getItems().indexOf(card) + 1);
+            card.setIndex(investigationListPanel.getItems().indexOf(card) + 1);
         });
-    }
-
-    /**
-     * This function returns the new card added dependent on the class instance.
-     *
-     * @param evidence the evidence
-     * @return ObservationCard/ResultCard
-     */
-    private EvidenceCard newEvidenceCard(Evidence evidence) {
-        if (evidence instanceof Observation) {
-            return new ObservationCard((Observation) evidence);
-        } else if (evidence instanceof Result) {
-            return new ResultCard((Result) evidence);
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * This function returns the new card added dependent on the class instance.
-     *
-     * @param treatment the treatment
-     * @return InvestigationCard/MedicineCard/PlanCard
-     */
-    private TreatmentCard newTreatmentCard(Treatment treatment) {
-        if (treatment instanceof Investigation) {
-            return new InvestigationCard((Investigation) treatment);
-        } else if (treatment instanceof Medicine) {
-            return new MedicineCard((Medicine) treatment);
-        } else if (treatment instanceof Plan) {
-            return new PlanCard((Plan) treatment);
-        } else {
-            return null;
-        }
     }
 
     /**
