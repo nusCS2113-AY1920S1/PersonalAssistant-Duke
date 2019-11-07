@@ -51,8 +51,8 @@ This will generate all the resources required by the application and tests.
 
 === Verifying the setup
 
-. Run `Oof` and try a few commands
-. Run tests to ensure they all pass. _(coming soon)_
+. You can run `Oof` and try a few commands
+. You can also run tests using our instructions for manual testing to explore our features.
 
 == Design
 
@@ -72,13 +72,16 @@ Given below is a quick overview of each component.
 
 * `Ui` package is responsible for visual feedback and taking in your input.
 
-* `Command` package contains all of *_OOF's_* commands.
+* `Logic` package contains all of *_OOF's_* commands in the subpackage `command`, the `CommandParser` and `Reminder` classes.
 
 * `Model` package contains all the object containers that are used by our `commands`.
 
 * `Storage` package contains classes to help store all your data to the hard disk.
 
-* `Exception` package contains classes to print customised error messages when things are not going as expected.
+* `Commons` package contains the subpackage `command` which holds all the customised `exception` classes for all our commands, followed by miscellaneous `exception` classes for non-command exceptions. 
+
+[NOTE]
+Logging is implemented in our project to faciliate checking of bugs and error messages. Thus, the `Commons` package that is being utilised by all our classes is linked to the logs center to show that the handled exceptions we have caught are properly logged.
 
 === UI component
 

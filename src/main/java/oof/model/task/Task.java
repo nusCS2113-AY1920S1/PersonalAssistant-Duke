@@ -5,24 +5,11 @@ package oof.model.task;
  */
 public abstract class Task {
 
-    enum Frequency {
-        ONCE,
-        DAILY,
-        WEEKLY,
-        MONTHLY,
-        YEARLY
-    }
-
     static final String DELIMITER = "||";
     static final int INDEX_DATE = 0;
     static final int INDEX_TIME = 1;
-    String description;
+    protected String description;
     private boolean status;
-    private Frequency frequency;
-    private static final int DAILY = 1;
-    private static final int WEEKLY = 2;
-    private static final int MONTHLY = 3;
-    private static final int YEARLY = 4;
 
     /**
      * Constructor for Task.
@@ -32,7 +19,6 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.status = false;
-        this.frequency = Frequency.ONCE;
     }
 
     public void setStatus() {
@@ -48,27 +34,11 @@ public abstract class Task {
     }
 
     /**
-     * Sets the frequency of the recurrence of a task.
-     * @param frequency Frequency of a recurrence in the form of integer from user input.
-     */
-    public void setFrequency(int frequency) {
-        if (frequency == DAILY) {
-            this.frequency = Frequency.DAILY;
-        } else if (frequency == WEEKLY) {
-            this.frequency = Frequency.WEEKLY;
-        } else if (frequency == MONTHLY) {
-            this.frequency = Frequency.MONTHLY;
-        } else if (frequency == YEARLY) {
-            this.frequency = Frequency.YEARLY;
-        }
-    }
-
-    /**
      * Retrieves the status icon of the Task.
      *
      * @return Status icon of the Task.
      */
-    String getStatusIcon() {
+    public String getStatusIcon() {
         return (status ? "Y" : "N"); //return tick or X symbols
     }
 

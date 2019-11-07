@@ -1,12 +1,15 @@
 package oof;
 
-import oof.command.Command;
-import oof.exception.ParserException;
-import oof.exception.StorageFileCorruptedException;
-import oof.exception.command.CommandException;
-import oof.model.module.SemesterList;
+import oof.logic.Reminder;
+import oof.logic.command.Command;
+import oof.commons.exceptions.ParserException;
+import oof.commons.exceptions.StorageFileCorruptedException;
+import oof.commons.exceptions.command.CommandException;
+import oof.logic.CommandParser;
+import oof.model.semester.SemesterList;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
+import oof.ui.Ui;
 
 /**
  * Represents a Personal Assistant bot. An Oof object corresponds to three other classes,
