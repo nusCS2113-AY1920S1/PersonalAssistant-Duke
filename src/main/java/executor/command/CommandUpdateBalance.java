@@ -7,7 +7,6 @@ import java.text.DecimalFormat;
 
 public class CommandUpdateBalance extends Command {
 
-
     private Double newBalance;
 
     /**
@@ -18,8 +17,8 @@ public class CommandUpdateBalance extends Command {
         super();
         this.userInput = userInput;
         this.commandType = CommandType.SETBALANCE;
-        this.description = "Updates current balance to new balance in the wallet \n"
-                + "FORMAT :  ";
+        this.description = "Updates current balance to new balance in the wallet and can only be set once \n"
+                + "FORMAT : setbalance $<amount>";
     }
 
     @Override
