@@ -35,7 +35,11 @@ public class CancelOrderCommand extends Command {
         }
 
         if (orderIndex <= orderList.size() && orderIndex > 0) {
+            
             Order removed = orderList.getEntry(orderIndex-1);
+            if (removed.isDone()) {
+                throw new DukeException("Order "+orderIndex+" has already been done! Cancellation does not make sense!");
+            }
             if (removed.isToday()) {
                 orderList.getTodoList().deleteTodoFromOrder(removed);
             }
