@@ -119,7 +119,7 @@ public class Parser {
         } else if (sentence.equals("priority")) {
             return new ListPriorityCommand();
         } else if (arr.length > Numbers.ZERO.value && (arr[Numbers.ZERO.value].equals("done")
-                || arr[Numbers.ZERO.value].equals("delete") || arr[Numbers.ZERO.value].equals("del"))) {
+                || arr[Numbers.ZERO.value].equals("delete"))) {
             if (arr.length == Numbers.ONE.value) {
                 throw new DukeException(ErrorMessages.TASKNUM_IS_EMPTY.message);
             } else {
@@ -377,7 +377,8 @@ public class Parser {
                 return new SetPriorityCommand(taskNum, priority);
             }
 
-        } else if (arr.length > Numbers.ZERO.value && arr[Numbers.ZERO.value].equals("findpriority")) {
+        } else if (arr.length > Numbers.ZERO.value
+                    && (arr[Numbers.ZERO.value].equals("findpriority") || arr[Numbers.ZERO.value].equals("fp"))) {
             // findpriority <int>
             if (arr.length == Numbers.ONE.value) {
                 throw new DukeException("     (>_<) OOPS!!! The target priority cannot be empty.");
