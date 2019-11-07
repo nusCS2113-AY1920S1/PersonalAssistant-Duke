@@ -1,7 +1,8 @@
 package duke.models.student;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import duke.exceptions.DukeException;
 
 import static java.util.Objects.requireNonNull;
@@ -27,16 +28,13 @@ public class Email {
      * @param email stores the email id of a student
      * @throws DukeException when the user enters invalid email id
      */
-    public Email(String email) throws DukeException {
+    @JsonCreator
+    public Email(@JsonProperty("email") String email) throws DukeException {
         requireNonNull(email);
         if (!checkIsValidEmail(email)) {
             throw new DukeException(ERROR_MESSAGE);
         }
         this.email = email;
-    }
-
-    public Email() {
-
     }
 
     public static boolean checkIsValidEmail(String email) {
@@ -46,11 +44,6 @@ public class Email {
     @JsonGetter("email")
     public String getEmail() {
         return email;
-    }
-
-    @JsonSetter("email")
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     /* We need to override functions equals and hashCode() in order to account

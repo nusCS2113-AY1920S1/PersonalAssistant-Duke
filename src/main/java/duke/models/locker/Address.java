@@ -1,8 +1,9 @@
 package duke.models.locker;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import duke.exceptions.DukeException;
 
 import static java.util.Objects.requireNonNull;
@@ -19,7 +20,8 @@ public class Address {
      * @param address stores the address
      * @throws DukeException when the address is in a invalid format
      */
-    public Address(String address) throws DukeException {
+    @JsonCreator
+    public Address(@JsonProperty("address") String address) throws DukeException {
         requireNonNull(address);
         if (!checkIsValidAddress(address)) {
             throw new DukeException(ERROR_MESSAGE);
@@ -27,22 +29,13 @@ public class Address {
         this.address = address;
     }
 
-    public Address() {
-
-    }
-
     public static boolean checkIsValidAddress(String address) {
         return address.matches(CHECK_REGEX);
     }
 
-    @JsonGetter("lockerAddress")
+    @JsonGetter("address")
     public String getAddress() {
         return address;
-    }
-
-    @JsonSetter("lockerAddress")
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     /*We need to override equals and hashCode in order to account

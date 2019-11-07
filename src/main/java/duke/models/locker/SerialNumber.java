@@ -3,7 +3,6 @@ package duke.models.locker;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSetter;
 import duke.exceptions.DukeException;
 
 import static java.util.Objects.requireNonNull;

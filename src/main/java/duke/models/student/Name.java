@@ -1,7 +1,8 @@
 package duke.models.student;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import duke.exceptions.DukeException;
 
 import static java.util.Objects.requireNonNull;
@@ -19,16 +20,13 @@ public class Name {
      * @param name stores the name of the student
      * @throws DukeException when the name is in invalid format
      */
-    public Name(String name) throws DukeException {
+    @JsonCreator
+    public Name(@JsonProperty("name") String name) throws DukeException {
         requireNonNull(name);
         if (!checkIsValidName(name)) {
             throw new DukeException(ERROR_MESSAGE);
         }
         this.name = name;
-    }
-
-    public Name() {
-
     }
 
     public static boolean checkIsValidName(String name) {
@@ -38,11 +36,6 @@ public class Name {
     @JsonGetter("name")
     public String getName() {
         return name;
-    }
-
-    @JsonSetter("name")
-    public void setName(String name) {
-        this.name = name;
     }
 
     /* We need to override functions equals and hashCode in order to account for

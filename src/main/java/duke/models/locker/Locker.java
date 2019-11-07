@@ -2,9 +2,10 @@ package duke.models.locker;
 
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonSetter;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import duke.exceptions.DukeException;
 import duke.models.tag.Tag;
 
@@ -30,8 +31,12 @@ public class Locker {
      * @param tag          instance of the class Tag that stores the status of the locker
      */
 
-    public Locker(SerialNumber serialNumber, Address address, Zone zone,
-                  Tag tag,Usage usage) {
+    @JsonCreator
+    public Locker(@JsonProperty("LockerSerial") SerialNumber serialNumber,
+                  @JsonProperty("LockerAddress") Address address,
+                  @JsonProperty("LockerZone") Zone zone,
+                  @JsonProperty("LockerTag") Tag tag,
+                  @JsonProperty("Usage") Usage usage) {
         requireNonNull(serialNumber);
         requireNonNull(address);
         requireNonNull(zone);
@@ -43,9 +48,6 @@ public class Locker {
         this.usage = usage;
     }
 
-    public Locker() {
-
-    }
 
     public void setTagAs(String tagName) {
         tag.tagName = tagName;
@@ -140,7 +142,6 @@ public class Locker {
         return tag;
     }
 
-    @JsonSetter("LockerTag")
     public void setTag(Tag tag) {
         this.tag = tag;
     }
@@ -150,7 +151,6 @@ public class Locker {
         return serialNumber;
     }
 
-    @JsonSetter("LockerSerial")
     public void setSerialNumber(SerialNumber serialNumber) {
         this.serialNumber = serialNumber;
     }
@@ -160,7 +160,6 @@ public class Locker {
         return address;
     }
 
-    @JsonSetter("LockerAddress")
     public void setAddress(Address address) {
         this.address = address;
     }
@@ -170,7 +169,7 @@ public class Locker {
         return zone;
     }
 
-    @JsonSetter("LockerZone")
+
     public void setZone(Zone zone) {
         this.zone = zone;
     }
@@ -180,7 +179,6 @@ public class Locker {
         return Optional.ofNullable(usage);
     }
 
-    @JsonSetter("Usage")
     public void setUsage(Usage usage) {
         this.usage = usage;
     }

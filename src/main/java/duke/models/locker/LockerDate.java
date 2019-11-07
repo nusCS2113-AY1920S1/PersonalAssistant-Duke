@@ -1,6 +1,8 @@
 package duke.models.locker;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import duke.exceptions.DukeException;
 
@@ -33,7 +35,8 @@ public class LockerDate {
      * @param date stores the date that is to be assigned to the member field
      * @throws DukeException when the date is in invalid format
      */
-    public LockerDate(String date) throws DukeException {
+    @JsonCreator
+    public LockerDate(@JsonProperty("date") String date) throws DukeException {
         requireNonNull(date);
         if (!checkIsValidDate(date)) {
             throw new DukeException(ERROR_MESSAGE);
@@ -41,9 +44,6 @@ public class LockerDate {
         this.date = date;
     }
 
-    public LockerDate() {
-
-    }
 
     /**
      * This function is used to check whether the date is in correct format or not.

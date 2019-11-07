@@ -1,7 +1,8 @@
 package duke.models.student;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import duke.exceptions.DukeException;
 
 import static java.util.Objects.requireNonNull;
@@ -20,7 +21,8 @@ public class Major {
      * @param course stores the course that the student is currently pursuing
      * @throws DukeException when the course is in invalid format
      */
-    public Major(String course) throws DukeException {
+    @JsonCreator
+    public Major(@JsonProperty("major") String course) throws DukeException {
         requireNonNull(course);
         if (!checkIsValidCourse(course)) {
             throw new DukeException(ERROR_MESSAGE);
@@ -28,18 +30,10 @@ public class Major {
         this.course = course;
     }
 
-    public Major() {
-
-    }
 
     @JsonGetter("major")
     public String getCourse() {
         return course;
-    }
-
-    @JsonSetter("major")
-    public void setCourse(String course) {
-        this.course = course;
     }
 
     public static boolean checkIsValidCourse(String course) {
