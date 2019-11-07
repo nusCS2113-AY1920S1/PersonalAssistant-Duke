@@ -2,19 +2,18 @@ package duke.command.patient;
 
 import duke.DukeCore;
 import duke.command.ArgLevel;
-import duke.command.ArgSpec;
 import duke.command.CommandUtils;
+import duke.command.ObjSpec;
 import duke.command.Switch;
 import duke.data.DukeObject;
-import duke.data.Impression;
 import duke.data.Patient;
+import duke.data.SearchResults;
 import duke.exception.DukeException;
-import duke.ui.context.Context;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class PatientOpenSpec extends ArgSpec {
+public class PatientOpenSpec extends ObjSpec {
     private static final PatientOpenSpec spec = new PatientOpenSpec();
 
     public static PatientOpenSpec getSpec() {
@@ -32,7 +31,7 @@ public class PatientOpenSpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
-    super.execute(core);
+        super.execute(core);
         Map<String, Boolean> conditions = new HashMap<>();
         conditions.put("impression", cmd.isSwitchSet("impression"));
         conditions.put("critical", cmd.isSwitchSet("critical"));
@@ -52,13 +51,18 @@ public class PatientOpenSpec extends ArgSpec {
 
         Patient patient = (Patient) core.uiContext.getObject();
         DukeObject object = CommandUtils.findFromPatient(core, patient, type, cmd.getArg());
-
-        if (object instanceof Impression) {
-            core.uiContext.setContext(Context.IMPRESSION, object);
+        if (object == null) {
+            SearchResults results = CommandUtils.searchFromPatient(patient, type, cmd.getArg());
+            core.search(results, cmd);
         } else {
-            core.uiContext.setContext(Context.IMPRESSION, object.getParent());
+            executeWithObj(core, object);
         }
+   }
 
-        core.updateUi("Accessing " + object.getClass().getName() + " of Bed " + patient.getBedNo());
+    @Override
+    protected void executeWithObj(DukeCore core, DukeObject obj) {
+        Patient patient = (Patient) core.uiContext.getObject();
+        core.uiContext.open(obj);
+        core.updateUi("Accessing " + obj.getClass().getSimpleName() + " of Bed " + patient.getBedNo());
     }
 }

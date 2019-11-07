@@ -32,9 +32,10 @@ public class HomeOpenSpec extends ObjSpec {
         String bed = cmd.getSwitchVal("bed");
         Patient patient = CommandUtils.findFromHome(core, bed, cmd.getArg());
         if (patient == null) {
-            core.search()
+            core.search(core.patientData.findPatients(cmd.getArg()), cmd);
+        } else {
+            executeWithObj(core, patient);
         }
-
     }
 
     @Override

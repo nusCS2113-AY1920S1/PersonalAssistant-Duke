@@ -3,6 +3,7 @@ package duke.command;
 import duke.DukeCore;
 import duke.data.DukeObject;
 import duke.data.Patient;
+import duke.data.SearchResults;
 import duke.exception.DukeException;
 import duke.exception.DukeUtilException;
 
@@ -223,7 +224,6 @@ public class CommandUtils {
      *                       3. 1 unique identifier is provided but said patient does not exist.
      */
     public static Patient findFromHome(DukeCore core, String bedNo, String nameOrIdx) throws DukeException {
-
         if (nameOrIdx == null && bedNo == null) {
             throw new DukeUtilException("Please provide a way to identify the patient! Patients can be searched for"
                     + "by name/index or by bed.");
@@ -246,10 +246,11 @@ public class CommandUtils {
             }
             return (Patient) patientList.get(index - 1);
         } else {
-            // TODO proper searching
             return null;
         }
     }
+
+    // TODO clarify if we are doing get by idx from the UI or from the data
 
     /**
      * Find a {@code DukeObject} with the supplied identifier. Only 1 of either name or displayed index should be used
@@ -269,35 +270,41 @@ public class CommandUtils {
             throws DukeException {
         int index = idxFromString(nameOrIdx);
         if (index != -1) {
+            if (type == null) {
+                throw new DukeUtilException("I don't know which list you want me to get from!");
+            }
             try {
                 return core.ui.getIndexedList(type).get(index - 1);
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("No such " + type + " exists in the list!");
+                throw new DukeException("I don't have a " + type + " of that index!");
             }
         } else {
-            // TODO proper search
-            ArrayList<DukeObject> resultList = new ArrayList<DukeObject>();
-            if (type == null) {
-                resultList.addAll(patient.findImpressionsByName(nameOrIdx));
-                resultList.addAll(patient.findCriticalsByName(nameOrIdx));
-                resultList.addAll(patient.findFollowUpsByName(nameOrIdx));
-            }
-
-            if ("impression".equals(type)) {
-                resultList.addAll(patient.findImpressionsByName(nameOrIdx));
-            } else if ("critical".equals(type)) {
-                resultList.addAll(patient.findCriticalsByName(nameOrIdx));
-            } else {
-                resultList.addAll(patient.findFollowUpsByName(nameOrIdx));
-            }
-
-            if (resultList.size() == 0) {
-                throw new DukeUtilException("Can't find anything with those search parameters!");
-            }
-            return resultList.get(0);
+            return null;
         }
     }
 
+
+    public static SearchResults searchFromPatient(Patient patient, String type, String searchTerm) throws DukeUtilException {
+        SearchResults results = new SearchResults(searchTerm, new ArrayList<DukeObject>(), patient);
+        if (type == null) {
+            results.addAll(patient.findImpressionsByName(searchTerm));
+            results.addAll(patient.findCriticalsByName(searchTerm));
+            results.addAll(patient.findFollowUpsByName(searchTerm));
+        }
+
+        if ("impression".equals(type)) {
+            results.addAll(patient.findImpressionsByName(searchTerm));
+        } else if ("critical".equals(type)) {
+            results.addAll(patient.findCriticalsByName(searchTerm));
+        } else {
+            results.addAll(patient.findFollowUpsByName(searchTerm));
+        }
+
+        if (results.getCount() == 0) {
+            throw new DukeUtilException("Can't find anything with those search parameters!");
+        }
+        return results;
+    }
 
 
     /**
