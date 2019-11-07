@@ -6,6 +6,7 @@ import common.TaskList;
 import payment.Payee;
 import payment.PaymentManager;
 import payment.Payments;
+import payment.Status;
 import project.Fund;
 import project.Project;
 import project.ProjectManager;
@@ -27,6 +28,7 @@ public class Process {
     private SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
     private CommandFormat commandformat = new CommandFormat();
     ProjectManager projectmanager = new ProjectManager();
+    private payment.Status Status;
 
     Process() throws AlphaNUSException {
     }
@@ -327,6 +329,8 @@ public class Process {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         }
     }
+
+
     //===========================* Deadline *================================
 
     /**
@@ -742,6 +746,39 @@ public class Process {
         }
     }
 
+
+    /**
+     * reminder of the payments based on the status and deadline
+     * @param ui Ui that interacts with the user.
+     * @param storage storage of the programme.
+     */
+    public void reminder ( Ui ui, Storage storage) throws AlphaNUSException {
+        ArrayList<Project> projectslist = projectmanager.listProjects();
+        ArrayList<Payments> approved = new ArrayList<>();
+        ArrayList<Payments> overdue = new ArrayList<>();
+        ArrayList<Payments> pending = new ArrayList<>();
+        ArrayList<Payments> tobesorted = new ArrayList<>();
+        if (projectslist.isEmpty()) {
+            ui.printNoProjectMessage();
+            return;
+        }
+        for (Project project:projectslist) {
+            HashMap<String, Payee> managermap = project.managermap;
+            for (Payee payee : managermap.values()) { // iterate through the payees
+                for (Payments payment : payee.payments) { // iterate through the payments
+                    if (payment.getStatus()==Status.APPROVED) {
+                        approved.add(payment);
+                    } else {
+                        tobesorted.add(payment);
+                    }
+                }
+            }
+        }
+        Collections.sort(overdue);
+        Collections.sort(pending);
+        Collections.sort(tobesorted);
+        ui.printReminderMessage(tobesorted);
+    }
     //===========================* Command History *================================
 
     /**

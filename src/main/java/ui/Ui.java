@@ -297,8 +297,8 @@ public class Ui {
         System.out.println("\t" + "Item: " + payment.item);
         System.out.println("\t" + "Cost: " + payment.cost);
         System.out.println("\t" + "Invoice: " + payment.inv);
-        System.out.println("\t" + "Deadline: " + payment.deadline);
-        System.out.println("\t" + "Status: " + payment.status);
+        System.out.println("\t" + "Deadline: " + payment.getDeadline());
+        System.out.println("\t" + "Status: " + payment.getStatus());
         System.out.print(line);
     }
 
@@ -324,8 +324,8 @@ public class Ui {
         System.out.println("\t" + "Item: " + payment.item);
         System.out.println("\t" + "Cost: " + payment.cost);
         System.out.println("\t" + "Invoice: " + payment.inv);
-        System.out.println("\t" + "Deadline: " + payment.deadline);
-        System.out.println("\t" + "Status: " + payment.status);
+        System.out.println("\t" + "Deadline: " + payment.getDeadline());
+        System.out.println("\t" + "Status: " + payment.getStatus());
         System.out.print("\t" + payee + " now has " + size + " payments in project " + currentProjectName + ".\n");
         System.out.print(line);
     }
@@ -451,6 +451,15 @@ public class Ui {
      */
     public void redoMessage() {
         System.out.println("Got it! I have redone the previous command.");
+    }
+
+    public void printReminderMessage(ArrayList<Payments> paymentlist){
+        System.out.print(line);
+        System.out.println("\tYour reminder is as follow:\n");
+        for(Payments p:paymentlist){
+            System.out.println("\t" + p.givePayments() + "\n");
+        }
+        System.out.print(line);
     }
 
     /**

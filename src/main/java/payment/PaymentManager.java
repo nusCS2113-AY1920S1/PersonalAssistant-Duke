@@ -93,9 +93,9 @@ public abstract class PaymentManager {
         Date currDate = new Date();
         for (Payee payee : managermap.values()) {
             for (Payments payment : payee.payments) {
-                if (payment.status == Status.PENDING) {
+                if (payment.getStatus() == Status.PENDING) {
                     pending.add(payment);
-                } else if (payment.status == Status.OVERDUE) {
+                } else if (payment.getStatus() == Status.OVERDUE) {
                     overdue.add(payment);
                 } else {
                     approved.add(payment);
@@ -148,5 +148,22 @@ public abstract class PaymentManager {
         Payee payeeDeleted = managermap.get(payee);
         managermap.remove(payee);
         return payeeDeleted;
+    }
+
+    /**
+     * This function scans through every payment and changes its status if needed.
+     * @param managermap The managermap.
+     */
+    public static void checkStatus(HashMap<String, Payee> managermap){
+        Date dateObj = new Date();
+        for (Payee payee : managermap.values()) { // iterate through the payees
+            for (Payments payment : payee.payments) { // iterate through the payments
+                if( payment.getStatus() == Status.APPROVED || dateObj.compareTo(payment.getDeadline()) >= 0) {
+                    continue;
+                } else {
+                    payment.setStatus(Status.OVERDUE);
+                }
+            }
+        }
     }
 }
