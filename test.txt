@@ -1,5 +1,1 @@
-<<<<<<< HEAD
 [C][âœ—] soccer | 16:00 - 18:00 on MONDAY
-=======
-[C][✗] soccer | 16:00 - 18:00 on MONDAY
->>>>>>> 05df5388fcd2cdaebd805ddf4509cea32d98e10b
