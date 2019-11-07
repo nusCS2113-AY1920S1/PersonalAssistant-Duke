@@ -17,17 +17,15 @@ import java.util.List;
 public class Itinerary {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    private Venue hotelLocation;
     private String name;
     private List<Agenda> list;
 
     /**
      * Constructor to initialise new Itinerary.
      */
-    public Itinerary(LocalDateTime startDate, LocalDateTime endDate, Venue hotelLocation, String name) {
+    public Itinerary(LocalDateTime startDate, LocalDateTime endDate, String name) {
         this.startDate = startDate;
         this.endDate = endDate;
-        this.hotelLocation = hotelLocation;
         this.name = name;
         list = new ArrayList<>();
     }
@@ -67,7 +65,7 @@ public class Itinerary {
         int days = getNumberOfDays();
 
         StringBuilder result = new StringBuilder("Here are the list of Locations in "
-                +  days + " days around " + getHotelLocation().getAddress() + " with name " + this.name + ": \n");
+                +  days + " with name " + this.name + ": \n");
         for (Agenda list1 : this.getList()) {
             result.append("\n");
             result.append("Day ").append(list1.getDay()).append(":").append("\n \n");
@@ -91,7 +89,7 @@ public class Itinerary {
      */
     public void makeAgendaList(String[] itineraryDetails) throws ParseException {
         List<Agenda> agendaList = new ArrayList<>();
-        int i = 4;
+        int i = 3;
         try {
             while (i < itineraryDetails.length) {
                 List<Venue> venueList = new ArrayList<>();
@@ -135,10 +133,6 @@ public class Itinerary {
 
     public LocalDateTime getEndDate() {
         return endDate;
-    }
-
-    public Venue getHotelLocation() {
-        return hotelLocation;
     }
 
     public String getName() {

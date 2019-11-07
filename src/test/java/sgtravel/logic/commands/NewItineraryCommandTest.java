@@ -18,16 +18,16 @@ class NewItineraryCommandTest {
         LocalDateTime endDate = LocalDateTime.of(2020, 9, 13, 9, 9);
 
         String[] itineraryDetails = {
-            "23/04/15","24/04/15", "bedok", "SundayVacay", "1", "/venue", "Bedok",
+            "23/04/20","24/04/20", "SundayVacay", "1", "/venue", "Bedok",
             "/do", "swimming", "/and", "jumping", "/and", "swinging"
         };
 
         NewItineraryCommand newItineraryCommand = new NewItineraryCommand(startDate, endDate,
-                "YEW TEE INDUSTRIAL ESTATE", "SundayPlan",itineraryDetails);
+                "SundayVacay",itineraryDetails);
 
         newItineraryCommand.execute(model);
 
-        assertTrue(model.getItineraryTable().containsKey("SundayPlan"));
+        assertTrue(model.getItineraryTable().containsKey("SundayVacay"));
 
     }
 

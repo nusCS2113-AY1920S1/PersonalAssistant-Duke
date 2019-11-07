@@ -18,7 +18,7 @@ class ShowItineraryCommandTest {
         LocalDateTime startDate = LocalDateTime.of(2020, 9, 9, 9, 9);
         LocalDateTime endDate = LocalDateTime.of(2020, 9, 13, 9, 9);
 
-        String [] itineraryDetails = {"YEW TEE INDUSTRIAL ESTATE", startDate.toString(), endDate.toString()};
+        String [] itineraryDetails = {"itinerary ", startDate.toString(), endDate.toString()};
 
         RecommendationsCommand recommendationsCommand = new RecommendationsCommand(itineraryDetails);
 

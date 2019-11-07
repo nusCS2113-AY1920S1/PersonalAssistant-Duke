@@ -102,8 +102,7 @@ public class Storage {
                 String name = scanner.nextLine();
                 LocalDateTime start = ParserTimeUtil.parseStringToDate(scanner.nextLine());
                 LocalDateTime end = ParserTimeUtil.parseStringToDate(scanner.nextLine());
-                Venue hotel = PlanningStorageParser.getVenueFromStorage(scanner.nextLine());
-                Itinerary itinerary = new Itinerary(start, end, hotel, name);
+                Itinerary itinerary = new Itinerary(start, end, name);
                 List<Agenda> agendaList = new ArrayList<>();
                 String fileLine = scanner.nextLine();
                 while (fileLine.split("\\|")[0].equals("Agenda ")) {
@@ -339,8 +338,7 @@ public class Storage {
             FileWriter writer = new FileWriter(file, false);
             for (Map.Entry<String,Itinerary> entry : itineraryTable.entrySet()) {
                 writer.write(entry.getKey() + "\n" + entry.getValue().getStartDate().toString() + "\n"
-                        + entry.getValue().getEndDate().toString() + "\n"
-                        + entry.getValue().getHotelLocation().toString() + "\n");
+                        + entry.getValue().getEndDate().toString() + "\n");
                 for (Agenda agenda : entry.getValue().getList()) {
                     writer.write(agenda.toString());
                 }
