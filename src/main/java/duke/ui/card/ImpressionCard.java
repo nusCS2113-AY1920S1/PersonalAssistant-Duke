@@ -24,6 +24,8 @@ public class ImpressionCard extends UiCard {
     private final Impression impression;
     private boolean isPrimary;
 
+    // TODO create setPrimary
+
     /**
      * Constructs an ImpressionCard object with the specified {@code Impression}'s details.
      *
@@ -35,6 +37,19 @@ public class ImpressionCard extends UiCard {
 
         this.impression = impression;
         this.isPrimary = isPrimary;
+        fillImpressionCard();
+    }
+
+    /**
+     * Constructs an ImpressionCard object with the specified {@code Impression}'s details.
+     *
+     * @param impression Impression object.
+     */
+    public ImpressionCard(Impression impression) {
+        super(FXML);
+
+        this.impression = impression;
+        this.isPrimary = false;
         fillImpressionCard();
     }
 

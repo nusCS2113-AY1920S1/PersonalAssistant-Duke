@@ -1,5 +1,7 @@
 package duke.data;
 
+import duke.ui.card.UiCard;
+
 /*
  * Highest level of abstraction for all DukeObjects storing Patient related Data
  * A Duke object has a relevant name specifying what it is.
@@ -17,7 +19,7 @@ public abstract class DukeObject {
         this.parent = parent;
     }
 
-    /*
+    /**
      * The toString function returns a String representing the information stored in
      * the `DukeObject`
      *
@@ -27,7 +29,7 @@ public abstract class DukeObject {
         return "Name: " + this.name + "\n";
     }
 
-    /*
+    /**
      * The toReportString function returns a String formatted
      * to be used in a Report about the relevant DukeObject.
      *
@@ -50,4 +52,6 @@ public abstract class DukeObject {
     public DukeObject getParent() {
         return parent;
     }
+
+    public abstract UiCard toCard();
 }

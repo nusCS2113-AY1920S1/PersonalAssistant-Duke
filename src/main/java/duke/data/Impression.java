@@ -1,6 +1,8 @@
 package duke.data;
 
 import duke.exception.DukeException;
+import duke.ui.card.ImpressionCard;
+import duke.ui.card.UiCard;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -354,5 +356,9 @@ public class Impression extends DukeObject {
     public boolean equals(Impression impression) {
         return getName().equals(impression.getName()) && description.equals(impression.description)
                 && getParent() == impression.getParent();
+    }
+
+    public UiCard toCard() {
+        return new ImpressionCard(this);
     }
 }
