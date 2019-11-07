@@ -101,7 +101,7 @@ public class CliLauncher {
             String input = modUi.readInput();
             ModuleCommand c = argparser.parseCommand(input);
             if (c != null) {
-                c.execute(modDetailedMap, modTasks, ccas, modUi, store, jsonWrapper);
+                c.execute(modDetailedMap, modTasks, ccas, modUi, store, jsonWrapper, profile);
                 if (c instanceof EndCommand) {
                     return false;
                 }

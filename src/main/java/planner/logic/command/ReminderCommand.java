@@ -2,6 +2,7 @@
 
 package planner.logic.command;
 
+import planner.credential.user.User;
 import planner.logic.modules.cca.CcaList;
 import planner.util.crawler.JsonWrapper;
 import planner.ui.cli.PlannerUi;
@@ -16,7 +17,6 @@ import planner.util.legacy.reminder.Reminder;
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTasksList;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 
 public class ReminderCommand extends ModuleCommand {
@@ -36,7 +36,8 @@ public class ReminderCommand extends ModuleCommand {
                         CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
-                        JsonWrapper jsonWrapper) {
+                        JsonWrapper jsonWrapper,
+                        User profile) {
 
         switch (arg("toReminder")) {
             case ("list") : {

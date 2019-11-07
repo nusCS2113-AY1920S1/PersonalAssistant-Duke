@@ -6,6 +6,7 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.HashMap;
 
+import planner.credential.user.User;
 import planner.logic.exceptions.legacy.ModCcaScheduleException;
 import planner.logic.exceptions.legacy.ModEmptyListException;
 import planner.logic.exceptions.legacy.ModException;
@@ -33,7 +34,8 @@ public class AddCcaScheduleCommand extends ModuleCommand {
                         CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
-                        JsonWrapper jsonWrapper) throws ModException {
+                        JsonWrapper jsonWrapper,
+                        User profile) throws ModException {
         int index = arg("index", Integer.class) - 1;
         if (ccas.size() == 0) {
             throw new ModEmptyListException("ccas");

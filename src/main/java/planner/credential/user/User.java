@@ -4,6 +4,7 @@ package planner.credential.user;
 
 import planner.logic.command.Arguments;
 import planner.logic.command.ClearCommand;
+import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.planner.ModTamperedUserDataException;
 import planner.logic.modules.cca.CcaList;
 import planner.logic.modules.legacy.task.Task;
@@ -60,7 +61,8 @@ public class User {
                                    CcaList ccas,
                                    PlannerUi plannerUi,
                                    Storage store,
-                                   JsonWrapper jsonWrapper, User profile) {
+                                   JsonWrapper jsonWrapper,
+                                   User profile) {
         User user = User.profile.get("profile");
         if (user == null) {
             return new User();
@@ -238,7 +240,8 @@ public class User {
                               CcaList ccas,
                               PlannerUi plannerUi,
                               Storage store,
-                              JsonWrapper jsonWrapper, User profile) {
+                              JsonWrapper jsonWrapper,
+                              User profile) {
         HashMap<String, Object> argsMap = new HashMap<>();
         argsMap.put("command", "clear");
         argsMap.put("toClear", "data");

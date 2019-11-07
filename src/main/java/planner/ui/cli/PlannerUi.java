@@ -57,9 +57,13 @@ public class PlannerUi {
 
     /**
      * Confirm user's action.
+     * @param message message to display
      * @return true if user confirms else false
      */
-    public boolean confirm() {
+    public boolean confirm(String message) {
+        if (message != null) {
+            print(message);
+        }
         boolean result = true;
         while (result) {
             String input = this.readInput();
@@ -72,6 +76,10 @@ public class PlannerUi {
             }
         }
         return result;
+    }
+
+    public boolean confirm() {
+        return confirm(null);
     }
 
     /**

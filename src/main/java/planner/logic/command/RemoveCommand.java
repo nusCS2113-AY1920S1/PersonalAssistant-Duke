@@ -2,6 +2,7 @@
 
 package planner.logic.command;
 
+import planner.credential.user.User;
 import planner.logic.exceptions.legacy.ModEmptyListException;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.legacy.ModOutOfBoundException;
@@ -28,7 +29,8 @@ public class RemoveCommand extends ModuleCommand {
                         CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
-                        JsonWrapper jsonWrapper) throws ModException {
+                        JsonWrapper jsonWrapper,
+                        User profile) throws ModException {
         int index = arg("index", Integer.class) - 1;
         switch (arg("toRemove")) {
             case "cca": {

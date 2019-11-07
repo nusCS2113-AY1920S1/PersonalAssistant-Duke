@@ -2,6 +2,7 @@
 
 package planner.logic.command;
 
+import planner.credential.user.User;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.planner.ModNotFoundException;
 import planner.logic.modules.module.ModuleInfoDetailed;
@@ -45,7 +46,8 @@ public class GradeCommand extends ModuleCommand {
                         CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
-                        JsonWrapper jsonWrapper) throws ModException {
+                        JsonWrapper jsonWrapper,
+                        User profile) throws ModException {
         if (!detailedMap.containsKey(moduleCode)) {
             throw new ModNotFoundException();
         }

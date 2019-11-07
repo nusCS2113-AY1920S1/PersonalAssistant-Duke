@@ -9,7 +9,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.antlr.runtime.CharStreamState;
+import planner.credential.user.User;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.legacy.ModMissingArgumentException;
 import planner.logic.exceptions.planner.ModBadGradeException;
@@ -128,7 +128,8 @@ public class CapCommand extends ModuleCommand {
                         CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
-                        JsonWrapper jsonWrapper)
+                        JsonWrapper jsonWrapper,
+                        User profile)
         throws ModException {
         Scanner scanner = new Scanner(System.in);
         switch (arg("toCap")) {

@@ -4,7 +4,7 @@ package planner.logic.command;
 
 import java.util.HashMap;
 
-import planner.logic.exceptions.legacy.ModException;
+import planner.credential.user.User;
 import planner.logic.modules.cca.CcaList;
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTasksList;
@@ -24,7 +24,8 @@ public class ClearCommand extends ModuleCommand {
                         CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
-                        JsonWrapper jsonWrapper) {
+                        JsonWrapper jsonWrapper,
+                        User profile) {
         String toClear = arg("toClear");
         plannerUi.clearMsg(toClear);
         boolean confirm = plannerUi.confirm();

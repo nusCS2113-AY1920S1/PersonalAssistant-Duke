@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
+import planner.credential.user.User;
 import planner.logic.modules.cca.Cca;
 import planner.logic.modules.cca.CcaList;
 import planner.logic.modules.legacy.task.TaskWithMultipleWeeklyPeriod;
@@ -40,7 +41,8 @@ public class SortCommand extends ModuleCommand {
                         CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
-                        JsonWrapper jsonWrapper) {
+                        JsonWrapper jsonWrapper,
+                        User profile) {
         String toSort = arg("toSort");
         plannerUi.sortMsg(toSort);
         switch (toSort) {

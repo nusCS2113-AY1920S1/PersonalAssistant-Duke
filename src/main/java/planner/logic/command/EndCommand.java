@@ -4,6 +4,7 @@ package planner.logic.command;
 
 import java.util.HashMap;
 
+import planner.credential.user.User;
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.util.crawler.JsonWrapper;
 import planner.logic.modules.module.ModuleTasksList;
@@ -20,7 +21,8 @@ public class EndCommand extends ModuleCommand {
             CcaList ccas,
             PlannerUi plannerUi,
             Storage store,
-            JsonWrapper jsonWrapper) {
+            JsonWrapper jsonWrapper,
+            User profile) {
         plannerUi.goodbyeMsg();
         //System.exit(0); // Causes test cases to throw exceptions
         //Runtime.getRuntime().halt(0); //Forced kill

@@ -2,6 +2,7 @@
 
 package planner.logic.command;
 
+import planner.credential.user.User;
 import planner.logic.modules.cca.Cca;
 import planner.logic.modules.cca.CcaList;
 import planner.util.crawler.JsonWrapper;
@@ -65,7 +66,8 @@ public class ShowCommand extends ModuleCommand {
                         CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
-                        JsonWrapper jsonWrapper) {
+                        JsonWrapper jsonWrapper,
+                        User profile) {
         switch (arg("toShow")) {
             case "cca": {
                 plannerUi.listCcaMsg();

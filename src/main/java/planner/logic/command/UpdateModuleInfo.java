@@ -3,6 +3,8 @@
 package planner.logic.command;
 
 import java.util.HashMap;
+
+import planner.credential.user.User;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.modules.cca.CcaList;
 import planner.logic.modules.module.ModuleInfoDetailed;
@@ -24,7 +26,8 @@ public class UpdateModuleInfo extends ModuleCommand {
             CcaList ccas,
             PlannerUi plannerUi,
             Storage store,
-            JsonWrapper jsonWrapper) throws ModException {
+            JsonWrapper jsonWrapper,
+            User profile) throws ModException {
 
         String year = arg("academicYear");
         jsonWrapper.runRequests(year, store);

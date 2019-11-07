@@ -5,6 +5,7 @@ package planner.logic.command;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import planner.credential.user.User;
 import planner.logic.exceptions.legacy.ModCcaScheduleException;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.planner.ModNotFoundException;
@@ -30,7 +31,8 @@ public class SearchThenAddCommand extends ModuleCommand {
                         CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
-                        JsonWrapper jsonWrapper) throws ModException {
+                        JsonWrapper jsonWrapper,
+                        User profile) throws ModException {
         switch (arg("toAdd")) {
             case ("cca"): {
                 Cca cca = new Cca(arg("name"), arg("begin"), arg("end"), arg("dayOfWeek"));

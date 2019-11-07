@@ -2,6 +2,7 @@
 
 package planner.logic.command;
 
+import planner.credential.user.User;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.cca.CcaList;
@@ -37,5 +38,6 @@ public abstract class ModuleCommand {
             CcaList ccas,
             PlannerUi plannerUi,
             Storage store,
-            JsonWrapper jsonWrapper) throws ModException;
+            JsonWrapper jsonWrapper,
+            User profile) throws ModException;
 }
