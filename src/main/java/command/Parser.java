@@ -40,6 +40,7 @@ public class Parser {
             if (instr.isBye(input)) {
                 storage.writeToProjectsFile(process.projectmanager.projectmap);
                 storage.writeToFundFile(fund);
+                storage.writeTocurrentprojectnameFile(process.projectmanager.currentprojectname);
                 ui.byeMessage();
                 ui.getIn().close();
                 return true;
