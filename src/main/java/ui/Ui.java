@@ -167,7 +167,19 @@ public class Ui {
      * prints the list of input commands entered by the user.
      * @param list1 list of input commands entered by the user.
      */
-    public void printArrayList(ArrayList<String> list1) {
+    public void printHistoryList(ArrayList<String> list1) {
+        System.out.println("Here is the history of your input commands:");
+        for (int i = 0; i < list1.size(); i = i + 1) {
+            System.out.println(list1.get(i));
+        }
+    }
+
+    /**
+     * prints the list of input commands entered by the user within the given period.
+     * @param list1 list of input commands entered by the user within the given period.
+     */
+    public void printviewHistoryList(ArrayList<String> list1, String date1, String date2) {
+        System.out.println("Here is the history of your input commands from " + date1 + " to " + date2 + ":");
         for (int i = 0; i < list1.size(); i = i + 1) {
             System.out.println(list1.get(i));
         }
@@ -401,17 +413,19 @@ public class Ui {
      */
     public void printAssignFundMessage(Fund fund, double amount, Project project) {
         System.out.print(line);
-        System.out.println("\t" + "Got it. I've assigned " + amount + "to the project:");
+        System.out.println("\t" + "Got it. I've assigned " + amount + " to the project:");
         System.out.print(project.giveProject());
-        System.out.println("\t" + "The new fund is as follow:");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("\t" + "The new fund is as follows:");
         System.out.print(fund.giveFund());
         System.out.print(line);
     }
-
     /**
      * Prints out the statement of accounts.
      * @param managermap managermap containing Payee and Payments information.
      */
+
     public void generateStatementofAccounts(HashMap<String, Payee> managermap) {
         System.out.print("Item\tExpense\n");
         for (Payee payee : managermap.values()) {
@@ -419,6 +433,20 @@ public class Ui {
                 System.out.println(payment.item + "\t" + payment.cost);
             }
         }
+    }
+
+    /**
+     * Prints message to indicate that the previous command has been undone.
+     */
+    public void undoMessage() {
+        System.out.println("Got it! I have undone the previous command.");
+    }
+
+    /**
+     * Prints message to indicate that the previous command has been redone.
+     */
+    public void redoMessage() {
+        System.out.println("Got it! I have redone the previous command.");
     }
 
     /**
@@ -432,12 +460,13 @@ public class Ui {
         System.out.println("\t" + "Delete Project:       " + commandFormat.deleteProjectFormat());
         System.out.println("\t" + "List Projects:        " + commandFormat.listProjectFormat());
         System.out.println("\t" + "Go to a Project:      " + commandFormat.gotoProjectFormat());
-        System.out.println("\t" + "Add Payee:            " + commandFormat.addPayeeFormat());
-        System.out.println("\t" + "Add Payment:          " + commandFormat.addPaymentFormat());
-        System.out.println("\t" + "Delete Payee:         " + commandFormat.deletePayeeFormat());
         System.out.println("\t" + "Set Fund:             " + commandFormat.setFundFormat());
         System.out.println("\t" + "Add Fund:             " + commandFormat.addFundFormat());
         System.out.println("\t" + "Assign Fund:          " + commandFormat.assignFundFormat());
+        System.out.println("\t" + "Add Payee:            " + commandFormat.addPayeeFormat());
+        System.out.println("\t" + "Add Payment:          " + commandFormat.addPaymentFormat());
+        System.out.println("\t" + "Delete Payee:         " + commandFormat.deletePayeeFormat());
+        System.out.println("\t" + "Edit Payment/Payee:   " + commandFormat.editPaymentFormat());
         System.out.println("\t" + "History of Commands:  " + commandFormat.historyFormat());
         System.out.println("\t" + "View History within a certain period:         " + commandFormat.viewhistoryFormat());
         System.out.println("\t" + "Exit:                 " + commandFormat.exitFormat());

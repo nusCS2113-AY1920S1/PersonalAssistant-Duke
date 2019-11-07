@@ -36,6 +36,21 @@ public class ProjectManager {
     }
 
     /**
+     * Adds a new project with budget amount to the project map.
+     * @param projectname Name of the project to add.
+     * @param projectamount Amount of budget for the project.
+     * @return Returns the project object of the added project.
+     */
+    public Project addProject(String projectname, double projectamount) {
+        Project newProject = new Project(projectname, projectamount);
+        projectmap.put(projectname, newProject);
+        if (currentProject == null) {
+            currentProject = newProject;
+        }
+        return newProject;
+    }
+
+    /**
      * Deletes a project in the project map.
      * @param projectname Name of the project to delete.
      * @return Returns the project object of the deleted project.
@@ -63,7 +78,7 @@ public class ProjectManager {
      * Lists all projects in the projectmap.
      * @return Returns an ArrayList of projects.
      */
-    public ArrayList<Project> listProjects() {
+    public ArrayList<Project> listProjects() throws AlphaNUSException {
         ArrayList<Project> projectslist = new ArrayList<>();
         for (Project project: projectmap.values()) {
             projectslist.add(project);
