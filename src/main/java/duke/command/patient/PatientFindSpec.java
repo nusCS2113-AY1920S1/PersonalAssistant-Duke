@@ -2,18 +2,17 @@ package duke.command.patient;
 
 import duke.DukeCore;
 import duke.command.ArgLevel;
-import duke.command.ArgSpec;
+import duke.command.ObjSpec;
 import duke.command.Switch;
 import duke.data.DukeObject;
 import duke.data.Impression;
 import duke.data.Patient;
 import duke.data.SearchResults;
 import duke.exception.DukeException;
-import duke.ui.context.Context;
 
 import java.util.ArrayList;
 
-public class PatientFindSpec extends ArgSpec {
+public class PatientFindSpec extends ObjSpec {
 
     private static final PatientFindSpec spec = new PatientFindSpec();
 
@@ -32,36 +31,31 @@ public class PatientFindSpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
-    super.execute(core);
+        super.execute(core);
         String searchTerm = cmd.getArg();
         Patient patient = (Patient) core.uiContext.getObject();
-        ArrayList<DukeObject> resultList = new ArrayList<>();
-        ArrayList<Impression> impressionResult;
+        SearchResults results = new SearchResults(searchTerm, new ArrayList<DukeObject>(), null);
         if (cmd.hasNoSwitches()) {
-            resultList = patient.searchAll(searchTerm);
+            results = patient.searchAll(searchTerm);
         } else {
-            impressionResult = patient.findImpressions(searchTerm);
+            if (cmd.isSwitchSet("impression")) {
+                results.addAll(patient.findImpressions(searchTerm));
+            }
+            ArrayList<Impression> impressionResult = patient.getImpressionList();
             for (Impression imp : impressionResult) {
-                if (cmd.isSwitchSet("impression")) {
-                    resultList.add(imp);
-                }
                 if (cmd.isSwitchSet("evidence")) {
-                    resultList.addAll(imp.findEvidences(searchTerm));
+                    results.addAll(imp.findEvidences(searchTerm));
                 }
                 if (cmd.isSwitchSet("treatment")) {
-                    resultList.addAll(imp.findTreatments(searchTerm));
+                    results.addAll(imp.findTreatments(searchTerm));
                 }
             }
         }
+        processResults(core, results);
+    }
 
-        if (!resultList.isEmpty()) {
-            SearchResults search = new SearchResults(searchTerm, resultList, patient);
-            core.uiContext.setContext(Context.SEARCH, search);
-            core.updateUi("Returning result of search of " + searchTerm);
-        } else {
-            throw new DukeException("No results found in this patient context.");
-        }
-
-        core.search(result, this);
+    @Override
+    protected void executeWithObj(DukeCore core, DukeObject obj) {
+        core.uiContext.open(obj);
     }
 }
