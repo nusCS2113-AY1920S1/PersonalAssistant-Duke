@@ -19,7 +19,7 @@ public class FileList extends SpinBoxList<File> {
     }
 
     /**
-     * Does not order the files at the moment as not sure how to order yet.
+     * Order the files in alphabetical order.
      */
     static class FileComparator implements Comparator<File> {
         @Override
