@@ -25,6 +25,7 @@ public class ImpressionPrioritySpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
+    super.execute(core);
         DukeData prioData = ImpressionUtils.getData(cmd.getArg(), cmd.getSwitchVal("evidence"),
                 cmd.getSwitchVal("treatment"), ImpressionUtils.getImpression(core));
         int priority = cmd.switchToInt("set");

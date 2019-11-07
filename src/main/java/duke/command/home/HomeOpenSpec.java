@@ -27,6 +27,7 @@ public class HomeOpenSpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
+    super.execute(core);
         String bed = cmd.getSwitchVal("bed");
         Patient patient = CommandUtils.findFromHome(core, bed, cmd.getArg());
 

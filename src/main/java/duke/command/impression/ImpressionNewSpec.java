@@ -49,6 +49,7 @@ public class ImpressionNewSpec extends DukeDataSpec {
     // TODO refactor into 5 different methods for each type
     @Override
     protected void execute(DukeCore core) throws DukeException {
+    super.execute(core);
         String addType = uniqueDataType(cmd);
         if (addType == null) {
             throw new DukeHelpException("No data type specified!", cmd);

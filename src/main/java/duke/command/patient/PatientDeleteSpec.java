@@ -27,6 +27,7 @@ public class PatientDeleteSpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
+    super.execute(core);
         Patient patient = (Patient) core.uiContext.getObject();
         String searchCritical = cmd.getSwitchVal("critical");
         String searchInvestigation = cmd.getSwitchVal("investigation");

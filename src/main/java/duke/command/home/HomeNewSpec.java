@@ -34,6 +34,7 @@ public class HomeNewSpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
+    super.execute(core);
         //ideally, we would pass an array of objects
         cmd.nullToEmptyString(); //set optional string parameters to ""
         Integer height = cmd.switchToInt("height");

@@ -30,6 +30,7 @@ public class HomeReportSpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
+    super.execute(core);
         String header = "PATIENT REPORT";
         String explanation = "This report shows all the data that was stored about a patient at the time the report was"
                 + " created.";

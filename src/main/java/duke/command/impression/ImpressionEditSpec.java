@@ -51,6 +51,7 @@ public class ImpressionEditSpec extends DukeDataSpec {
     // TODO: split method to call one method per editType
     @Override
     protected void execute(DukeCore core) throws DukeException {
+    super.execute(core);
         String editType = uniqueDataType(cmd);
         DukeData editData;
         boolean isAppending = false;

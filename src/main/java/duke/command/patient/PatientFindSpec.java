@@ -32,6 +32,7 @@ public class PatientFindSpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
+    super.execute(core);
         String searchTerm = cmd.getArg();
         Patient patient = (Patient) core.uiContext.getObject();
         ArrayList<DukeObject> resultList = new ArrayList<>();

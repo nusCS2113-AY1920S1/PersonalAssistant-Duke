@@ -32,6 +32,7 @@ public class PatientOpenSpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
+    super.execute(core);
         Map<String, Boolean> conditions = new HashMap<>();
         conditions.put("impression", cmd.isSwitchSet("impression"));
         conditions.put("critical", cmd.isSwitchSet("critical"));

@@ -21,6 +21,7 @@ public class PatientReportSpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
+    super.execute(core);
         DukeObject patient = core.uiContext.getObject();
         HomeReportSpec.createReport((Patient) patient, header, explanation, null);
         core.updateUi("Patient report created for " + patient.getName());

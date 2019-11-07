@@ -34,6 +34,7 @@ public class PatientEditSpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
+    super.execute(core);
         Patient patient = (Patient) core.uiContext.getObject();
         boolean append = cmd.isSwitchSet("append");
 

@@ -30,6 +30,7 @@ public class ImpressionMoveSpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
+    super.execute(core);
         // TODO: query user for correct impression if no impression is given
         Impression impression = ImpressionUtils.getImpression(core);
         String targetImpressionName = cmd.getSwitchVal("impression");

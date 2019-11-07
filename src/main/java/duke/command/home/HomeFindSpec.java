@@ -31,6 +31,7 @@ public class HomeFindSpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
+    super.execute(core);
         String searchTerm = cmd.getArg();
         ArrayList<DukeObject> resultList = new ArrayList<>();
         if (cmd.hasNoSwitches()) {

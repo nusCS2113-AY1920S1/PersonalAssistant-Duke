@@ -27,6 +27,7 @@ public class ImpressionDeleteSpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
+    super.execute(core);
         Impression impression = ImpressionUtils.getImpression(core);
         DukeData delData = ImpressionUtils.getData(cmd.getArg(), cmd.getSwitchVal("evidence"),
                 cmd.getSwitchVal("treatment"), impression);

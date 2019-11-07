@@ -31,6 +31,7 @@ public class PatientDischargeSpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
+    super.execute(core);
         Patient patient = (Patient) core.uiContext.getObject();
 
         HomeReportSpec.createReport(patient, header, explanation, cmd.getSwitchVal("summary"));

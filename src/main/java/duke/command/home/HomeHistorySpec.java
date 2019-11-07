@@ -26,6 +26,7 @@ public class HomeHistorySpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
+    super.execute(core);
         String bed = cmd.getSwitchVal("bed");
         Patient patient = CommandUtils.findFromHome(core, bed, cmd.getArg());
         String patientDetails = cmd.getArg() + ", " + patient.getName();
