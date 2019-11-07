@@ -1,9 +1,7 @@
 package dolla.parser;
 
 import dolla.ModeStringList;
-import dolla.Tag;
 import dolla.Time;
-import dolla.model.Debt;
 import dolla.model.RecordList;
 import dolla.exception.DollaException;
 import dolla.ui.Ui;
@@ -157,12 +155,12 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      */
     public boolean verifyDebtCommand() {
         try {
-            try{
+            try {
                 Integer.parseInt(inputArray[1]);
                 DebtUi.printInvalidNameMessage();
                 return false;
             } catch (Exception ignored) {
-
+                //do nothing
             }
             amount = stringToDouble(inputArray[2]);
             String[] desc = inputLine.split(inputArray[2] + SPACE);
