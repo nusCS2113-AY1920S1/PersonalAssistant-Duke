@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.DukeCore;
 import duke.data.DukeObject;
+import duke.data.SearchResults;
 import duke.exception.DukeException;
 
 public abstract class ObjSpec extends ArgSpec {
@@ -12,6 +13,14 @@ public abstract class ObjSpec extends ArgSpec {
         this.cmd = cmd;
         executeWithObj(core, obj);
         this.cmd = null;
+    }
+
+    protected void processResults(DukeCore core, SearchResults results) throws DukeException {
+        if (results.getCount() == 1) {
+            executeWithObj(core, results.getResult(0));
+        } else {
+            core.search(results, cmd);
+        }
     }
 
     protected abstract void executeWithObj(DukeCore core, DukeObject obj) throws DukeException;

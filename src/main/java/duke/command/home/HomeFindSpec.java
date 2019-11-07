@@ -57,7 +57,8 @@ public class HomeFindSpec extends ObjSpec {
                 }
             }
         }
-        core.search(results, cmd);
+
+        processResults(core, results);
     }
 
     @Override

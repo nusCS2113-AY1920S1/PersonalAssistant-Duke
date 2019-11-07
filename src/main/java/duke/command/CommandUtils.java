@@ -223,6 +223,7 @@ public class CommandUtils {
      *                       3. 1 unique identifier is provided but said patient does not exist.
      */
     public static Patient findFromHome(DukeCore core, String bedNo, String nameOrIdx) throws DukeException {
+
         if (nameOrIdx == null && bedNo == null) {
             throw new DukeUtilException("Please provide a way to identify the patient! Patients can be searched for"
                     + "by name/index or by bed.");
@@ -230,10 +231,10 @@ public class CommandUtils {
         if (nameOrIdx != null && bedNo != null) {
             throw new DukeUtilException("I don't know if you want me to find the patient ");
         }
-
         if (bedNo != null) {
             return core.patientData.getPatientByBed(bedNo);
         }
+
         int index = idxFromString(nameOrIdx);
         if (index != -1) {
             // TODO: Law of demeter
@@ -246,7 +247,7 @@ public class CommandUtils {
             return (Patient) patientList.get(index - 1);
         } else {
             // TODO proper searching
-            return core.patientData.findPatientsByName(nameOrIdx).get(0);
+            return null;
         }
     }
 
@@ -296,6 +297,8 @@ public class CommandUtils {
             return resultList.get(0);
         }
     }
+
+
 
     /**
      * Extracts an index from a string argument.
