@@ -1919,6 +1919,31 @@ Expected: New `savings` account is added into the profile.
 .. Test case: `/add /savings /name JunBank Savings Account /amount 15000 /income 5000` +
 Expected: Error saying that there is already an existing bank account with the same name.
 
+=== Editing a savings account
+
+. Editing the name of a `savings` account
+
+.. Prerequisites: There is an existing `savings` account to be edited.
+
+.. Test case: `/edit /savings /name JunBank Savings Account /newname BunBank Savings Account` +
+Expected: Updated name of the `savings` account being displayed after being edited.
+
+. Editing the amount of a `savings` account
+
+.. Prerequisites: There is an existing `savings` account to be edited.
+
+.. Test case: `/edit /savings /name BunBank Savings Account /amount 21000` +
+Expected: Updated amount of the `savings` account being displayed after being edited.
+
+=== Deleting a savings account
+
+. Deleting the `savings` account with the specified name
+
+.. Prerequisites: There is an existing `savings` account to be deleted.
+
+.. Test case: `/delete /savings /name JunBank Savings Account` +
+Expected: Details of the deleted `savings` account being displayed after being deleted.
+
 === Adding an investment account
 
 . Adding a new `investment` account
@@ -1938,22 +1963,6 @@ Expected: New `investment` is added into the profile.
 .. Test case: `/add /investment /name DBB Vickers Account /amount 20000` +
 Expected: Error saying that there is already an existing bank account with the same name.
 
-=== Editing a savings account
-
-. Editing the name of a `savings` account
-
-.. Prerequisites: There is an existing `savings` account to be edited.
-
-.. Test case: `/edit /savings /name JunBank Savings Account /newname BunBank Savings Account` +
-Expected: Updated name of the `savings` account being displayed after being edited.
-
-. Editing the amount of a `savings` account
-
-.. Prerequisites: There is an existing `savings` account to be edited.
-
-.. Test case: `/edit /savings /name BunBank Savings Account /amount 21000` +
-Expected: Updated amount of the `savings` account being displayed after being edited.
-
 === Editing an investment account
 
 . Editing the name of an `investment` account
@@ -1970,18 +1979,9 @@ Expected: Updated name of the `investment` account being displayed after being e
 .. Test case: `/edit /investment /name BBB Vickers Account /amount 21000` +
 Expected: Updated amount of the `investment` account being displayed after being edited.
 
-=== Deleting a savings account
+=== Deleting an investment account
 
-. Delete the `savings` account with the specified name
-
-.. Prerequisites: There is an existing `savings` account to be deleted.
-
-.. Test case: `/delete /savings /name JunBank Savings Account` +
-Expected: Details of the deleted `savings` account being displayed after being deleted.
-
-=== Delete an investment account
-
-. Delete the `investment` account with the specified name
+. Deleting the `investment` account with the specified name
 
 .. Prerequisites: There is an existing `investment` account to be deleted.
 
