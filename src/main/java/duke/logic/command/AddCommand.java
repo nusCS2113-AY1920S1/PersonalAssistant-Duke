@@ -25,7 +25,7 @@ public class AddCommand extends Command {
     private Optional<String> filter;
     private Optional<LocalDateTime> dateTime;
     private Recurrence recurrence;
-    private int priority;
+    private String priority;
 
     /**
      * Constructor for AddCommand
@@ -40,7 +40,7 @@ public class AddCommand extends Command {
      * @throws DukeException if event has no starting time
      */
     public AddCommand(Optional<String> filter, Optional<LocalDateTime> dateTime, Optional<String> recurrence,
-                      String description, String taskType, int duration, int priority) throws DukeException {
+                      String description, String taskType, int duration, String priority) throws DukeException {
         this.filter = filter;
         this.dateTime = dateTime;
         this.recurrence = new Recurrence(recurrence);
