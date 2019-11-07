@@ -2,7 +2,7 @@ package duke.command.impression;
 
 import duke.DukeCore;
 import duke.command.ArgLevel;
-import duke.command.ArgSpec;
+import duke.command.ObjSpec;
 import duke.command.Switch;
 import duke.data.DukeData;
 import duke.data.Evidence;
@@ -12,7 +12,7 @@ import duke.exception.DukeException;
 
 import java.util.List;
 
-public class ImpressionMoveSpec extends ArgSpec {
+public class ImpressionMoveSpec extends ObjSpec {
     private static final ImpressionMoveSpec spec = new ImpressionMoveSpec();
 
     public static ImpressionMoveSpec getSpec() {

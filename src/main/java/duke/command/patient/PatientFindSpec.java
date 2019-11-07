@@ -34,7 +34,7 @@ public class PatientFindSpec extends ObjSpec {
         super.execute(core);
         String searchTerm = cmd.getArg();
         Patient patient = (Patient) core.uiContext.getObject();
-        SearchResults results = new SearchResults(searchTerm, new ArrayList<DukeObject>(), null);
+        SearchResults results = new SearchResults(searchTerm, new ArrayList<DukeObject>(), patient);
         if (cmd.hasNoSwitches()) {
             results = patient.searchAll(searchTerm);
         } else {

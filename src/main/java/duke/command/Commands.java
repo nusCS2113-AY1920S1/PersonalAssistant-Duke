@@ -66,11 +66,11 @@ public class Commands {
             case "open":
                 return new ObjCommand(HomeOpenSpec.getSpec());
             case "report":
-                return new ArgCommand(HomeReportSpec.getSpec());
+                return new ObjCommand(HomeReportSpec.getSpec());
             case "discharge":
-                return new ArgCommand(HomeDischargeSpec.getSpec());
+                return new ObjCommand(HomeDischargeSpec.getSpec());
             case "history":
-                return new ArgCommand(HomeHistorySpec.getSpec());
+                return new ObjCommand(HomeHistorySpec.getSpec());
             default:
                 return null;
             }
@@ -79,15 +79,15 @@ public class Commands {
             case "new":
                 return new ArgCommand(PatientNewSpec.getSpec());
             case "find":
-                return new ArgCommand(PatientFindSpec.getSpec());
+                return new ObjCommand(PatientFindSpec.getSpec());
             case "report":
                 return new Command(PatientReportSpec.getSpec());
             case "discharge":
                 return new ArgCommand(PatientDischargeSpec.getSpec());
             case "delete":
-                return new ArgCommand(PatientDeleteSpec.getSpec());
+                return new ObjCommand(PatientDeleteSpec.getSpec());
             case "primary":
-                return new ArgCommand(PatientPrimarySpec.getSpec());
+                return new ObjCommand(PatientPrimarySpec.getSpec());
             case "edit":
                 return new ArgCommand(PatientEditSpec.getSpec());
             case "history":
@@ -104,17 +104,17 @@ public class Commands {
             case "edit":
                 return new ArgCommand(ImpressionEditSpec.getSpec());
             case "find":
-                return new ArgCommand(ImpressionFindSpec.getSpec());
+                return new ObjCommand(ImpressionFindSpec.getSpec());
             case "move":
-                return new ArgCommand(ImpressionMoveSpec.getSpec());
+                return new ObjCommand(ImpressionMoveSpec.getSpec());
             case "delete":
-                return new ArgCommand(ImpressionDeleteSpec.getSpec());
+                return new ObjCommand(ImpressionDeleteSpec.getSpec());
             case "result":
-                return new ArgCommand(ImpressionResultSpec.getSpec());
+                return new ObjCommand(ImpressionResultSpec.getSpec());
             case "priority":
-                return new ArgCommand(ImpressionPrioritySpec.getSpec());
+                return new ObjCommand(ImpressionPrioritySpec.getSpec());
             case "status":
-                return new ArgCommand(ImpressionStatusSpec.getSpec());
+                return new ObjCommand(ImpressionStatusSpec.getSpec());
             case "primary":
                 return new Command(ImpressionPrimarySpec.getSpec());
             default:

@@ -2,12 +2,12 @@ package duke.command.impression;
 
 import duke.DukeCore;
 import duke.command.ArgLevel;
-import duke.command.ArgSpec;
 import duke.command.Switch;
 import duke.data.DukeData;
+import duke.data.DukeObject;
 import duke.exception.DukeException;
 
-public class ImpressionPrioritySpec extends ArgSpec {
+public class ImpressionPrioritySpec extends ImpressionObjSpec {
     private static final ImpressionPrioritySpec spec = new ImpressionPrioritySpec();
 
     public static ImpressionPrioritySpec getSpec() {
@@ -28,6 +28,12 @@ public class ImpressionPrioritySpec extends ArgSpec {
     super.execute(core);
         DukeData prioData = ImpressionUtils.getData(cmd.getArg(), cmd.getSwitchVal("evidence"),
                 cmd.getSwitchVal("treatment"), ImpressionUtils.getImpression(core));
+
+    }
+
+    @Override
+    protected void executeWithObj(DukeCore core, DukeObject obj) throws DukeException {
+        DukeData prioData = (DukeData) obj;
         int priority = cmd.switchToInt("set");
         ImpressionUtils.checkPriority(priority);
         prioData.setPriority(priority);

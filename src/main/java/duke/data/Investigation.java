@@ -33,13 +33,12 @@ public class Investigation extends Treatment {
 
     /**
      * This toResult function returns the result or conclusion from the investigation done.
-     * @param resultName name of result
-     * @param resultPriority importance of the result between 1 to 4
      * @param resultSummary description of the result
      * @return the result object
      */
-    public Result toResult(String resultName, int resultPriority, String resultSummary) {
-        return new Result(resultName, (Impression) getParent(), resultPriority, resultSummary);
+    public Result toResult(String resultSummary) {
+        return new Result(getName() + " Result", (Impression) getParent(), getPriority(),
+                (resultSummary == null) ? "" : resultSummary);
     }
 
     @Override
