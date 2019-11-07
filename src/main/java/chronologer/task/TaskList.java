@@ -7,6 +7,7 @@ import javafx.beans.value.ObservableIntegerValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -172,19 +173,27 @@ public class TaskList {
     /**
      * This function allows the user to obtain the tasks on a particular date.
      *
-     * @param dayToFind is of String type which contains the desired date of
-     *                  schedule.
+     * @param dateToFind is the desired date of schedule.
      * @return sortDateList the sorted schedule of all the tasks on a particular date.
      */
-    public ArrayList<Task> schedule(String dayToFind) {
-        ArrayList<Task> sortedDateList = new ArrayList<Task>();
-        for (int i = 0; i < listOfTasks.size(); i++) {
-            if (listOfTasks.get(i).toString().contains(dayToFind)) {
-                sortedDateList.add(listOfTasks.get(i));
+    public ArrayList<Task> schedule(LocalDateTime dateToFind) {
+        ArrayList<Task> sortedDateList = new ArrayList<>();
+        for (Task listOfTask : listOfTasks) {
+            LocalDateTime start = listOfTask.startDate;
+            LocalDateTime end = listOfTask.endDate;
+            if (start == null && end == null) {
+                continue;
+            }
+            if (isWithinDates(dateToFind, start, end)) {
+                sortedDateList.add(listOfTask);
             }
         }
         sortedDateList.sort(DateComparator);
         return sortedDateList;
+    }
+
+    private boolean isWithinDates(LocalDateTime dateToCheck, LocalDateTime startDate, LocalDateTime endDate) {
+        return !(dateToCheck.isBefore(startDate) || dateToCheck.isAfter(endDate));
     }
 
     /**
@@ -271,7 +280,8 @@ public class TaskList {
      * @return sortDateList which contains only the descriptions of the tasks.
      */
     public ArrayList<String> scheduleForDay(String dayToFind) {
-        ArrayList<Task> obtainDescriptions = schedule(dayToFind);
+        LocalDateTime dateToFind = LocalDateTime.parse(dayToFind, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        ArrayList<Task> obtainDescriptions = schedule(dateToFind);
         ArrayList<String> scheduleDescriptionOnly = new ArrayList<>();
         for (int i = 0; i < obtainDescriptions.size(); i++) {
             if (obtainDescriptions.get(i).toString().contains(dayToFind)) {
