@@ -27,10 +27,15 @@ public class CommandCalculatorTest {
         String result1 = div.getInfoCapsule().getOutputStr();
         assertEquals("4 / 2 = 2.0\n", result1);
 
-        CommandMul mul = new CommandMul("3/2");
+        CommandDiv div2 = new CommandDiv("2/0");
+        div2.execute(storageManager);
+        String result3 = div2.getInfoCapsule().getOutputStr();
+        assertEquals("2 / 0 = Infinity\n", result3);
+
+        CommandMul mul = new CommandMul("3/2.0");
         mul.execute(storageManager);
         String output2 = mul.getInfoCapsule().getOutputStr();
-        assertEquals("3 * 2 = 6.0\n", output2);
+        assertEquals("3 * 2.0 = 6.0\n", output2);
 
     }
 
