@@ -27,11 +27,19 @@ public class StatsCommand extends Command {
     /**
      * Priority statistics that are generated from the tasklist.
      */
+    private int numNinePrio = 0;
+    private int numEightPrio = 0;
+    private int numSevenPrio = 0;
+    private int numSixPrio = 0;
     private int numFivePrio = 0;
     private int numFourPrio = 0;
     private int numThreePrio = 0;
     private int numTwoPrio = 0;
     private int numOnePrio = 0;
+    private double percentNinePrio = 0.0;
+    private double percentEightPrio = 0.0;
+    private double percentSevenPrio = 0.0;
+    private double percentSixPrio = 0.0;
     private double percentFivePrio = 0.0;
     private double percentFourPrio = 0.0;
     private double percentThreePrio = 0.0;
@@ -61,6 +69,18 @@ public class StatsCommand extends Command {
         numTasks = taskList.size();
         for (int i = 0 ;i< taskList.size() ; i++ ){
             Task task = taskList.get(i);
+            if(task.getPriority() == 9){
+                numNinePrio++;
+            }
+            if(task.getPriority() == 8){
+                numEightPrio++;
+            }
+            if(task.getPriority() == 7){
+                numSevenPrio++;
+            }
+            if(task.getPriority() == 6){
+                numSixPrio++;
+            }
             if(task.getPriority() == 5){
                 numFivePrio++;
             }
@@ -110,6 +130,10 @@ public class StatsCommand extends Command {
         percentIncompleteEvent = (double) numIncompleteEvent/numEvents * 100;
         percentIncompleteHomework = (double) numIncompleteHomework/numHomework * 100;
         percentIncompleteTodo = (double )numIncompleteTodo/numTodos * 100;
+        percentNinePrio = (double) numNinePrio/numTasks * 100;
+        percentEightPrio = (double) numEightPrio/numTasks * 100;
+        percentSevenPrio = (double) numSevenPrio/numTasks * 100;
+        percentSixPrio = (double) numSixPrio/numTasks * 100;
         percentFivePrio = (double) numFivePrio/numTasks * 100;
         percentFourPrio = (double) numFourPrio/numTasks * 100;
         percentThreePrio = (double) numThreePrio/numTasks * 100;
@@ -188,8 +212,8 @@ public class StatsCommand extends Command {
             }
             //display priority statistics
             else if (flag.equals("-p")) {
-                ui.showPriorityStats(numFivePrio, numFourPrio,
-                        numThreePrio, numTwoPrio, numOnePrio, percentFivePrio,
+                ui.showPriorityStats(numNinePrio, numEightPrio, numSevenPrio, numSixPrio, numFivePrio, numFourPrio,
+                        numThreePrio, numTwoPrio, numOnePrio,percentNinePrio, percentEightPrio, percentSevenPrio, percentSixPrio, percentFivePrio,
                         percentFourPrio, percentThreePrio, percentTwoPrio,
                         percentOnePrio);
             }
