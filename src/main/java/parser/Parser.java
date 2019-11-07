@@ -2,6 +2,10 @@ package parser;
 
 import command.*;
 import exception.DukeException;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -15,7 +19,7 @@ public class Parser {
     public static String recurring = "\\s*/every\\s*";
     public static String after = "\\s*/after\\s*";
     public static String within = "\\s*/between\\s*";
-    public static String fixed = "\\s*/need\\s*";
+    public static String priority = "\\s*/priority\\s*";
     public static String taskSeparator = "\\s*\\|\\s*";
     public static String dateSeparator = "\\s*\\&\\s*";
     public static String postpone = "\\s*/to\\s*";
@@ -24,6 +28,14 @@ public class Parser {
     public static int windowWidth = 80;
     public static String acceptedExtensions = "txt|csv";
     public static String moduleFormat = "[A-Z]{2,3}[1-9]([0-9]{3}|X{3})[A-Z]{0,1}";
+    public static final Map<String, Integer> userPriorityMap;
+    static {
+        Map<String, Integer> aMap = new HashMap<>();
+        aMap.put("high", 0);
+        aMap.put("medium", 1);
+        aMap.put("low", 2);
+        userPriorityMap = Collections.unmodifiableMap(aMap);
+    }
     Parser() {
     }
 
@@ -43,11 +55,11 @@ public class Parser {
         }
 
         String command = temp.next();
-        if (command.matches("list|bye|choices")) {
+        if (command.matches("tasks|bye|choices")) {
             if (temp.hasNextLine()) {
                 throw new DukeException(command + " should not have any other arguments (whitespace acceptable)");
             } else {
-                if (command.matches("list")) {
+                if (command.matches("tasks")) {
                     return new PrintCommand(command) {
                     };
                 } else if (command.matches("bye")) {
@@ -70,7 +82,8 @@ public class Parser {
                             + "Type \"help\" for a full list of available commands");
                 }
             }
-        } else if (command.matches("todo|deadline|event|done|delete|find|select|recurring|after|within|fixed"
+
+        } else if (command.matches("todo|deadline|event|done|delete|find|select"
                 + "|snooze|schedule|add|remove|swap|sort|detail|compare|view_employment|cohort_size")) {
             if (!temp.hasNextLine() && command.matches("detail")) {
                 throw new DukeException("You can try \" detail come \" to show information on Computer Engineering!");
@@ -88,7 +101,7 @@ public class Parser {
                 throw new DukeException("OOPS!!! The description of a " + command + " cannot be empty.");
             } else {
                 //add new tasks
-                if (command.matches("todo|deadline|event|recurring|after|within|fixed|add")) {
+                if (command.matches("todo|deadline|event|add")) {
                     return new AddCommand(command, input);
                 } else if (command.matches("done|delete|select|snooze|remove")) {
                     return new ModCommand(command, input);

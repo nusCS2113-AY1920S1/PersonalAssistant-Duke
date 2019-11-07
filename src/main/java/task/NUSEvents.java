@@ -5,16 +5,17 @@ import list.DegreeList;
 import storage.Storage;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.util.*;
 /*
 @@author woblek
  */
 /**
- * DegreeTask stores an arraylist of tasklists relevant for each degree programme
+ * NUSEvents stores an arraylist of tasklists relevant for each degree programme
  * It adds all relevant tasks related to a particular degree, and puts them into the user's tasklist
  * it removes all tasks from the user's tasklist related to a removed degree
  */
-public class UniversityTaskHandler {
+public class NUSEvents {
     public static ArrayList<TaskList> fullDegreeTasklist = new ArrayList<TaskList>();
 
     // this map relates all the engineering programmes with an arbitrary integer
@@ -34,6 +35,22 @@ public class UniversityTaskHandler {
     }
 
 
+    private static final Map<String, String> aliasMap;
+    static {
+        Map<String, String> aMap = new HashMap<>();
+        aMap.put("Biomedical Engineering", "BME");
+        aMap.put("Chemical Engineering", "CHE");
+        aMap.put("Civil Engineering", "CIV");
+        aMap.put("Computer Engineering", "CEG");
+        aMap.put("Electrical Engineering", "EE");
+        aMap.put("Environmental Engineering", "ENV");
+        aMap.put("Industrial Systems Engineering", "ISE");
+        aMap.put("Mechanical Engineering", "ME");
+        aMap.put("Materials Science Engineering", "MSE");
+        aliasMap = Collections.unmodifiableMap(aMap);
+    }
+
+
     /**
      * takes in a list of strings of raw .txt data from degreeTasks.txt
      * builds an arraylist of Taskslists, each with tasks related to one degree programme
@@ -48,7 +65,6 @@ public class UniversityTaskHandler {
                 TaskList thisList = new TaskList(toTasklist);
                 fullDegreeTasklist.add(thisList);
                 toTasklist = "";
-
             }
             else{
                 toTasklist = toTasklist + taskDataRaw.get(i) + "\n";
@@ -70,11 +86,12 @@ public class UniversityTaskHandler {
         for (int i = 0; i < n; i++) {
             Task toAppend = fullDegreeTasklist.get(degreeMap.get(degreeName)).get(i);
             if (!isDuplicate(toAppend, userTasklist)){
+                toAppend.setNusDegreeName(aliasMap.get(degreeName));
                 userTasklist.add(toAppend);
             }
 
         }
-
+        System.out.println("I've also added tasks related to " + degreeName + "\n");
     }
 
     /**
@@ -85,15 +102,17 @@ public class UniversityTaskHandler {
      * @throws DukeException
      */
     public void removeDegreeTasks(String index, DegreeList userDegreeList, TaskList userTaskList) throws DukeException{
-        String removedDegree =  userDegreeList.get(Integer.parseInt(index));
-        TaskList removedTasklist = new TaskList();
-        for (int i = 0; i < userTaskList.size(); i++){
-            if (userTaskList.get(i).description.toLowerCase().contains(removedDegree)){
-                removedTasklist.add(userTaskList.get(i));
-                userTaskList.banishDelete(Integer.toString(i+1));
+        Integer request = Integer.parseInt(index) - 1;
+        String removedDegreeFull =  userDegreeList.get(request);
+        String removedDegreeAlias = aliasMap.get(removedDegreeFull);
+        for (int i = (userTaskList.size()-1); i >= 0; i--){
+            if(userTaskList.get(i).getNusDegreeName() == null){
+                continue;
+            }
+            if (userTaskList.get(i).getNusDegreeName().matches(removedDegreeAlias)){
+                userTaskList.remove(i);
             }
         }
-
     }
 
     /**
