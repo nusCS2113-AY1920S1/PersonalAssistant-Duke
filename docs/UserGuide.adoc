@@ -87,8 +87,12 @@ image::Ui.png[width="600" height="400"]
 
 === Help: `help`
 
-SGTravel shows the available commands to the user. +
+SGTravel shows the available commands to the user +
 Format: `help`
+
+Examples:
+
+* `help`
 
 === Setting a profile: `profile`
 
@@ -98,6 +102,11 @@ Format: `profile NAME BIRTHDAY`
 Examples:
 
 * `profile James 01/01/00`
+
+[TIP]
+====
+Entering `profile` will initiate the multi-step version of this command
+====
 
 === Showing a profile: `profileShow`
 
@@ -138,16 +147,24 @@ Examples:
 
 * `event Geylang between Mon and Wed`
 
+[NOTE]
+====
+* The Dates should be entered in the following format: `dd/mm/yy`, `dd/MM/yy HHmm`, `HHmm`, `dd/mm/yyyy`, `dd/MM/yyyy HHmm` or `DAY_OF_THE_WEEK`
+* e.g. 12/21/20, Mon, Friday, 11/11/2019 2359, etc
+====
+
 === Deleting an event : `delete`
 
 Deletes the specified event from SGTravel. +
 Format: `delete INDEX`
 
-****
+[NOTE]
+====
 * Deletes the event at the specified `INDEX`.
-* The index refers to the index number shown in the displayed task list.
+* The index refers to the index number shown in the displayed event list.
 * The index *must be a positive integer* 1, 2, 3, ...
-****
+* The index cannot be *ridiculously large* 9999999999999999999999...
+====
 
 Examples:
 
@@ -155,16 +172,23 @@ Examples:
 `delete 2` +
 Deletes the 2nd event in SGTravel.
 
+[TIP]
+====
+Entering `delete` will initiate the multi-step version of this command
+====
+
 === Marking an event : `done`
 
 Mark the specified event as done on SGTravel. +
 Format: `done INDEX`
 
-****
+[NOTE]
+====
 * Marks the event done at the specified `INDEX`.
-* The index refers to the index number shown in the displayed task list.
+* The index refers to the index number shown in the displayed event list.
 * The index *must be a positive integer* 1, 2, 3, ...
-****
+* The index cannot be *ridiculously large* 9999999999999999999999...
+====
 
 Examples:
 
@@ -172,25 +196,52 @@ Examples:
 `done 2` +
 Marks the 2nd event as done in SGTravel.
 
+[TIP]
+====
+Entering `done` will initiate the multi-step version of this command
+====
+
 === Editing places of visit: `edit`
 
-Panel will automatically select an intial location and the current location will be glowing green in color. +
-Users will use `up, down, left, right or ESC and Enter` key to then select the place of visit they want to edit. +
-`Enter` selects and `ESC` deselects. +
+Panel will automatically select an initial location and the current location will be glowing green in color. +
+
+image::edit1.png[width="600" height="400"]
+
+Users will use kbd:[up, down, left, right, ESC, Enter] keys to then select the place of visit they want to edit. +
+kbd:[Enter] selects and kbd:[ESC] deselects. +
 Once an event is selected (orange), simply type in the new `VENUE/DATE` into the CLI depending on what is currently highlighted. +
+
+image::edit2.png[width="600" height="400"]
 
 Examples:
 
 * `Orchard road` if updating the `VENUE`
 * `Mon` or `12/12/12` if updating a `DATE`
 
-+
-image::Ui.png[width="600" height="400"]
+To save the edits, type `save` or `done`. +
+To discard the changes, type `close` or `end`.
 
-To save the edits, type `save` or `done` or `x`. +
-To discard the changes, type `close` or `end` or `X`.+
-Alternatively, user can use `e INDEX LOCATION START_DATE END_DATE` +
-Where `INDEX` is the index of the event, `LOCATION` is the new location of the event, the `START_DATE` is the start date of the event, the `END_DATE` of the end date of the event.
+[TIP]
+====
+* Users can use `x` to save changes.
+* Users can use `X` to discard changes.
+====
+
+[WARNING]
+====
+Changes will not be saved if user attempts to store 2 or more events at the same location
+
+Examples:
+
+* 2 Events sharing the same Venue, Marina Bay Sands
+====
+
+[TIP]
+====
+* Alternatively, user can use the single step command: +
+ `e INDEX LOCATION START_DATE END_DATE`
+* Where `INDEX` is the index of the original event, `LOCATION` is the new location of the event, the `START_DATE` is the start date of the event, the `END_DATE` of the end date of the event.
+====
 
 === Listing all places to visit : `list`
 
@@ -211,6 +262,11 @@ Examples:
 * `find Singapore` +
 Returns `Singapore` and `Singapore Bishan`
 
+[TIP]
+====
+Entering `find` will initiate the multi-step version of this command
+====
+
 === Searching for a location in Singapore: `search`
 
 SGTravel finds the location with the given keywords. +
@@ -219,6 +275,11 @@ Format: `search KEYWORD`
 Examples:
 
 * `find Bishan mrt`
+
+[TIP]
+====
+Entering `search` will initiate the multi-step version of this command
+====
 
 === Searching for the map of a location in Singapore: `map`
 
@@ -256,7 +317,7 @@ Format: `newItinerary START_DATE END_DATE HOTEL_LOCATION ITINERARY_NAME DAY_NUMB
 
 Examples:
 
-An itinerary with muliple days.
+An itinerary with multiple days.
 
 * `newItinerary 23/04/15 25/04/15 MBS TwoDayHoliday 1 /venue Orchard /do dancing /and singing /and swinging 2 /venue Changi /do running /and jumping /and swinging`
 
@@ -291,10 +352,11 @@ Will show the `TwoDayHoliday` Itinerary.
 Adds a new Route to SGTravel. +
 Format: `routeAdd NAME`
 
-****
+[NOTE]
+====
 * Creates a Route with the specified `NAME`.
 * Routes can contain different RouteNodes, which are points on the Route.
-****
+====
 
 Examples:
 
@@ -306,7 +368,8 @@ Examples:
 Adds a new RouteNode to an existing Route. +
 Format: `routeNodeAdd INDEXROUTE INDEXNODE at LOCATION by CONSTRAINT`
 
-****
+[NOTE]
+====
 * Creates a RouteNode with the specified `LOCATION` at the Route with specified 'INDEXROUTE'.
 * RouteNodes can be either of these 3 types: BusStop, TrainStation, CustomNode.
 * RouteNodes are specific bus stops, mrt stations or locations in a Route.
@@ -314,7 +377,7 @@ Format: `routeNodeAdd INDEXROUTE INDEXNODE at LOCATION by CONSTRAINT`
 * If `CONSTRAINT` is `bus`, the `LOCATION` must correspond to the bus stop's number. This creates a BusStop.
 * If `CONSTRAINT` is `mrt` instead, the `LOCATION` must correspond to the name of the MRT station, and is not case-sensitive. This creates a TrainStation.
 * If `CONSTRAINT` is `custom` instead, a CustomNode is created with the specified 'LOCATION'.
-****
+====
 
 Valid CONSTRAINT:
 
@@ -336,10 +399,11 @@ Examples:
 Automatically creates a new Route between 2 given locations with RouteNodes in it. +
 Format: `routeGenerate STARTLOCATION to ENDLOCATION by CONSTRAINT`
 
-****
+[NOTE]
+====
 * Creates a Route between the two locations `STARTLOCATION` and `ENDLOCATION`.
 * `CONSTRAINT` refers to the mode of transport.
-****
+====
 
 Valid CONSTRAINT:
 
@@ -355,9 +419,10 @@ Examples:
 Lists the information about each Route. +
 Format: `routeListAll`
 
-****
+[NOTE]
+====
 * Information includes the name and description of all Routes.
-****
+====
 
 Examples:
 
@@ -368,10 +433,11 @@ Examples:
 Lists the information about a Route. +
 Format: `routeList INDEX_ROUTE`
 
-****
+[NOTE]
+====
 * Lists the information of the Route at index `INDEX_ROUTE`.
 * Information includes the name, description and all RouteNodes in the Route.
-****
+====
 
 Examples:
 
@@ -382,10 +448,11 @@ Examples:
 Lists the information about a RouteNode. +
 Format: `routeNodeList INDEX_ROUTE INDEX_NODE`
 
-****
+[NOTE]
+====
 * Lists the information of the RouteNode at Route `INDEX_ROUTE` and index `INDEX_NODE`.
 * Information includes the name, description and coordinates of the RouteNode.
-****
+====
 
 Examples:
 
@@ -397,9 +464,10 @@ Examples:
 Shows a Route on the Singapore map. +
 Format: `routeShow INDEX_ROUTE`
 
-****
+[NOTE]
+====
 * Shows the map of the Route at `INDEX_ROUTE` in the Singapore Map.
-****
+====
 
 Examples:
 
@@ -410,11 +478,12 @@ Examples:
 Shows information and a map image of a RouteNode. +
 Format: `routeNodeShow INDEX_ROUTE INDEX_NODE`
 
-****
+[NOTE]
+====
 * Shows the information and map of the RouteNode at `INDEX_NODE` in Route at `INDEX_ROUTE`.
 * The RouteNode being shown is colored in green.
 * Nearby RouteNodes in the Route are also shown, and are colored in orange.
-****
+====
 
 Examples:
 
@@ -426,10 +495,11 @@ Examples:
 Shows information of nearby bus stops and MRT stations to a RouteNode, in an image. +
 Format: `routeNodeNearby INDEX_ROUTE INDEX_NODE`
 
-****
+[NOTE]
+====
 * Shows the map of the RouteNode at `INDEX_NODE` in Route at `INDEX_ROUTE` and its nearby neighbours.
 * Nearby neighbours are colored in black.
-****
+====
 
 Examples:
 
@@ -441,9 +511,10 @@ Examples:
 Edits a specific field in a Route. +
 Format: `routeEdit INDEX_ROUTE FIELD VALUE`
 
-****
+[NOTE]
+====
 * Edits `FIELD` in the Route at `INDEX_ROUTE` and sets the new value to `VALUE`.
-****
+====
 
 Valid FIELD:
 
@@ -460,9 +531,10 @@ Examples:
 Deletes a Route. +
 Format: `routeDelete INDEX_ROUTE`
 
-****
+[NOTE]
+====
 * Deletes a Route at `INDEX_ROUTE`.
-****
+====
 
 Examples:
 
@@ -473,9 +545,10 @@ Examples:
 Deletes a RouteNode in a Route. +
 Format: `routeNodeDelete INDEX_ROUTE INDEX_NODE`
 
-****
+[NOTE]
+====
 * Deletes a RouteNode at `INDEX_NODE` in Route at `INDEX_ROUTE`.
-****
+====
 
 Examples:
 
@@ -492,6 +565,11 @@ Examples:
 * `busStop 17009`
 * `busstop 17001`
 
+[TIP]
+====
+Entering `busStop` will initiate the multi-step version of this command
+====
+
 === Shows the bus route of a bus service: `busRoute`
 
 SGTravel finds the bus route of a given bus service given the bus service number. +
@@ -501,10 +579,6 @@ Examples:
 
 * `busRoute 96`
 * `busRoute 193`
-
-Examples:
-
-* `help`
 
 === Exiting the program : `bye`
 
