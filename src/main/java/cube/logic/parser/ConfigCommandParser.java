@@ -23,7 +23,14 @@ public class ConfigCommandParser implements ParserPrototype<ConfigCommand> {
         }
 
         int configTypeIndex = 1;
-        ConfigType configType = ConfigType.valueOf(args[configTypeIndex].toUpperCase());
+        // Sets default action to view all configurations.
+        ConfigType configType = ConfigType.VIEW;
+
+        try {
+            configType = ConfigType.valueOf(args[configTypeIndex].toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new ParserException(ParserErrorMessage.INVALID_PARAMETER);
+        }
 
         switch (configType) {
             case UI:
