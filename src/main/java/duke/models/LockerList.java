@@ -58,12 +58,23 @@ public class LockerList {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * returns a list of lockers that are tagged with availableTag.
+     * @param availableTag tag used to check if the locker is currently not-in-use
+     * @return list of available lockers
+     */
     public List<Locker> getAnyAvailableLocker(Tag availableTag) {
         return lockerList.stream()
                 .filter(locker -> locker.getTag().equals(availableTag))
                 .collect(Collectors.toList());
     }
 
+    /**
+     * returns a locker that is associated with the serialNumber.
+     * @param serialNumber stores the serial number
+     * @return locker with the given serial number
+     * @throws DukeException if there are no lockers associated with the serial number
+     */
     public Locker getLockerToEdit(SerialNumber serialNumber) throws DukeException {
         List<Locker> checkAllLockers = lockerList.stream()
                 .filter(locker -> locker.getSerialNumber().equals(serialNumber))
