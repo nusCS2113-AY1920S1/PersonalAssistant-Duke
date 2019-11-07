@@ -2,7 +2,6 @@ package dolla.parser;
 
 import dolla.Tag;
 import dolla.Time;
-import dolla.exception.DollaException;
 import dolla.ui.DebtUi;
 import dolla.command.AddDebtsCommand;
 import dolla.command.AddEntryCommand;
@@ -24,7 +23,7 @@ public class DollaParser extends Parser {
     }
 
     @Override
-    public Command parseInput() throws DollaException {
+    public Command parseInput() {
 
         if (commandToRun.equals(ENTRY_COMMAND_ADD)) {
             if (verifyAddCommand()) {

@@ -5,7 +5,6 @@ import dolla.Time;
 import dolla.model.RecordList;
 import dolla.exception.DollaException;
 import dolla.ui.EntryUi;
-import dolla.ui.LimitUi;
 import dolla.ui.Ui;
 import dolla.ui.ModifyUi;
 
@@ -47,7 +46,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         this.commandToRun = inputArray[0];
     }
 
-    public abstract Command parseInput() throws DollaException;
+    public abstract Command parseInput();
 
     public static String getInputLine() {
         return inputLine;

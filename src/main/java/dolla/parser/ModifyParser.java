@@ -7,7 +7,6 @@ import dolla.command.modify.FullModifyDebtCommand;
 import dolla.command.modify.FullModifyEntryCommand;
 import dolla.command.modify.FullModifyLimitCommand;
 import dolla.command.modify.RevertFromModifyCommand;
-import dolla.exception.DollaException;
 import dolla.ui.DebtUi;
 import dolla.ui.LimitUi;
 
@@ -23,7 +22,7 @@ public class ModifyParser extends Parser {
     }
 
     @Override
-    public Command parseInput() throws DollaException {
+    public Command parseInput() {
 
         if (checkCancellation()) {
             return new RevertFromModifyCommand();
