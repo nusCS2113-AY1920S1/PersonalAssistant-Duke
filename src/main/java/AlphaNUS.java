@@ -1,15 +1,11 @@
 import command.Parser;
 import command.Storage;
-import command.beforeAftercommand;
 import common.AlphaNUSException;
 import common.TaskList;
 import project.Fund;
-import project.Project;
 import ui.Ui;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 /**
  * <h1>AlphaNUS</h1>
@@ -32,19 +28,19 @@ public class AlphaNUS {
         ui = new Ui();
         storage = new Storage();
         tasklist = new TaskList();
-        fund = new Fund(); //TODO the fund need to be stored in the text file.
+        fund = storage.readFromFundFile();
         commandList = storage.readFromCommandsFile();
-
     }
 
     /**
      * Method to run the AlphaNUS instance and take in the inputs of the user.
      */
-    public void run() throws AlphaNUSException {
+    public void run() {
         ui.startMessage();
 
         boolean isExit = false;
         while (!isExit) {
+
             String input = ui.readInput();
             isExit = Parser.parse(input, tasklist, ui, fund, storage, commandList);
         }

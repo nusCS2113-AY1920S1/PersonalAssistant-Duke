@@ -1,4 +1,5 @@
 package command;
+
 import command.Storage;
 import common.AlphaNUSException;
 import project.Project;
@@ -6,7 +7,7 @@ import project.ProjectManager;
 
 import java.util.LinkedHashMap;
 
-public class beforeAftercommand {
+public class BeforeAfterCommand {
     /**
      * Stores the projectmap before the current command is executed.
      * @param storage Storage that stores the projectmap before the current command is executed.
@@ -15,6 +16,7 @@ public class beforeAftercommand {
     public static void beforedoCommand(Storage storage, ProjectManager projectManager) throws AlphaNUSException {
         storage.writeToUndoFile(projectManager.projectmap);
     }
+
     /**
      * Stores the projectmap after the current command is executed.
      * @param storage Storage that stores the projectmap after the current command is executed.

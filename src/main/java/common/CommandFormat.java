@@ -3,7 +3,7 @@ package common;
 public class CommandFormat {
 
     public String addProjectFormat() {
-        return "add project pr/PROJECT_NAME";
+        return "add project pr/PROJECT_NAME am/AMOUNT_OF_FUND";
     }
 
     public String deleteProjectFormat() {

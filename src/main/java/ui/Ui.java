@@ -183,6 +183,7 @@ public class Ui {
             System.out.println(list1.get(i));
         }
     }
+
     /**
      * Prints dates from which history was cleared.
      * @param date1 from date to delete history.
@@ -401,9 +402,11 @@ public class Ui {
      */
     public void printAssignFundMessage(Fund fund, double amount, Project project) {
         System.out.print(line);
-        System.out.println("\t" + "Got it. I've assigned " + amount + "to the project:");
+        System.out.println("\t" + "Got it. I've assigned " + amount + " to the project:");
         System.out.print(project.giveProject());
-        System.out.println("\t" + "The new fund is as follow:");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("\t" + "The new fund is as follows:");
         System.out.print(fund.giveFund());
         System.out.print(line);
     }
@@ -420,18 +423,21 @@ public class Ui {
             }
         }
     }
+
     /**
      * Prints message to indicate that the previous command has been undone.
      */
-    public void undoMessage(){
+    public void undoMessage() {
         System.out.println("Got it! I have undone the previous command.");
     }
+
     /**
      * Prints message to indicate that the previous command has been redone.
      */
-    public void redoMessage(){
+    public void redoMessage() {
         System.out.println("Got it! I have redone the previous command.");
     }
+
     /**
      * Prints out a help message with command formats.
      */
@@ -443,17 +449,19 @@ public class Ui {
         System.out.println("\t" + "Delete Project:       " + commandFormat.deleteProjectFormat());
         System.out.println("\t" + "List Projects:        " + commandFormat.listProjectFormat());
         System.out.println("\t" + "Go to a Project:      " + commandFormat.gotoProjectFormat());
-        System.out.println("\t" + "Add Payee:            " + commandFormat.addPayeeFormat());
-        System.out.println("\t" + "Add Payment:          " + commandFormat.addPaymentFormat());
-        System.out.println("\t" + "Delete Payee:         " + commandFormat.deletePayeeFormat());
         System.out.println("\t" + "Set Fund:             " + commandFormat.setFundFormat());
         System.out.println("\t" + "Add Fund:             " + commandFormat.addFundFormat());
         System.out.println("\t" + "Assign Fund:          " + commandFormat.assignFundFormat());
+        System.out.println("\t" + "Add Payee:            " + commandFormat.addPayeeFormat());
+        System.out.println("\t" + "Add Payment:          " + commandFormat.addPaymentFormat());
+        System.out.println("\t" + "Delete Payee:         " + commandFormat.deletePayeeFormat());
+        System.out.println("\t" + "Edit Payment/Payee:   " + commandFormat.editPaymentFormat());
         System.out.println("\t" + "History of Commands:  " + commandFormat.historyFormat());
         System.out.println("\t" + "View History within a certain period:         " + commandFormat.viewhistoryFormat());
         System.out.println("\t" + "Exit:                 " + commandFormat.exitFormat());
         System.out.print(line);
     }
+
     /**
      * Returns the scanned input.
      * @return Scanned input.
