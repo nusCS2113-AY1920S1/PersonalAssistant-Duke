@@ -104,10 +104,6 @@ public class Parser {
             moneyCommand = new ViewPastIncomeCommand(cmd);
         } else if (cmd.startsWith("check expenditure")) {
             moneyCommand = new ViewPastExpenditureCommand(cmd);
-        } else if (cmd.startsWith("split")) {
-            moneyCommand = new AddSplitCommand(cmd);
-        } else if (cmd.startsWith("settle")) {
-            moneyCommand = new SettleSplitCommand(cmd);
         } else if (cmd.startsWith("lent") || cmd.startsWith("borrowed")) {
             moneyCommand = new AddLoanCommand(cmd);
         } else if (cmd.startsWith("list") && cmd.contains("loans")) {

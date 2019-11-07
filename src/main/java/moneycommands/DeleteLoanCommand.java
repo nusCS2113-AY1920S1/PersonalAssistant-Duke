@@ -6,7 +6,6 @@ import controlpanel.Ui;
 import money.Account;
 import money.Item;
 import money.Loan;
-import moneycommands.MoneyCommand;
 
 /**
  * This command deletes a loan from the Loans List according to index.

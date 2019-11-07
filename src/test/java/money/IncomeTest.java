@@ -3,10 +3,6 @@ package money;
 import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
 import controlpanel.Ui;
-import money.Account;
-import money.Expenditure;
-import money.Goal;
-import money.Income;
 import moneycommands.*;
 import org.junit.jupiter.api.Test;
 
