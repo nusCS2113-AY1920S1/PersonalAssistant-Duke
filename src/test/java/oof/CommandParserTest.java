@@ -6,22 +6,23 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import oof.command.AddDeadlineCommand;
-import oof.command.AddEventCommand;
-import oof.command.AddToDoCommand;
-import oof.command.ByeCommand;
-import oof.command.CalendarCommand;
-import oof.command.DeleteTaskCommand;
-import oof.command.DoneCommand;
-import oof.command.FindCommand;
-import oof.command.FreeCommand;
-import oof.command.HelpCommand;
-import oof.command.ListCommand;
-import oof.command.RecurringCommand;
-import oof.command.ScheduleCommand;
-import oof.command.SnoozeCommand;
-import oof.exception.command.CommandException;
-import oof.exception.ParserException;
+import oof.logic.command.task.AddDeadlineCommand;
+import oof.logic.command.task.AddEventCommand;
+import oof.logic.command.task.AddToDoCommand;
+import oof.logic.command.ByeCommand;
+import oof.logic.command.productivity.CalendarCommand;
+import oof.logic.command.task.DeleteTaskCommand;
+import oof.logic.command.organization.DoneCommand;
+import oof.logic.command.organization.FindCommand;
+import oof.logic.command.productivity.FreeCommand;
+import oof.logic.command.HelpCommand;
+import oof.logic.command.organization.ListCommand;
+import oof.logic.command.organization.RecurringCommand;
+import oof.logic.command.productivity.ScheduleCommand;
+import oof.logic.command.organization.SnoozeCommand;
+import oof.commons.exceptions.command.CommandException;
+import oof.commons.exceptions.ParserException;
+import oof.logic.CommandParser;
 
 //@@author jasperosy
 

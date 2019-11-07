@@ -5,8 +5,8 @@ package oof.model.task;
  */
 public class Event extends Task {
 
-    String startDateTime;
-    String endDateTime;
+    protected String startDateTime;
+    protected String endDateTime;
 
     /**
      * Constructor for Event.
