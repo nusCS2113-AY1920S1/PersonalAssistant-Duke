@@ -1,10 +1,10 @@
-package oof.command;
+package oof.logic.command;
 
 //@@author debbiextan
 
 import oof.Oof;
-import oof.exception.ParserException;
-import oof.exception.command.CommandException;
+import oof.commons.exceptions.ParserException;
+import oof.commons.exceptions.command.CommandException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 

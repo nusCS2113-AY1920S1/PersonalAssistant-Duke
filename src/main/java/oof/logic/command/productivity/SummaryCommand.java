@@ -5,9 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 import oof.logic.command.Command;
+import oof.logic.command.productivity.exceptions.ScheduleEmptyException;
 import oof.ui.Ui;
 import oof.model.semester.SemesterList;
-import oof.exception.command.ScheduleEmptyException;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;

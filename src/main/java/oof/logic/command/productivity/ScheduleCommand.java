@@ -3,11 +3,11 @@ package oof.logic.command.productivity;
 import java.util.ArrayList;
 
 import oof.logic.command.Command;
+import oof.logic.command.productivity.exceptions.ScheduleEmptyException;
 import oof.ui.Ui;
 import oof.commons.exceptions.command.CommandException;
 import oof.commons.exceptions.command.MissingArgumentException;
 import oof.model.semester.SemesterList;
-import oof.exception.command.ScheduleEmptyException;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;

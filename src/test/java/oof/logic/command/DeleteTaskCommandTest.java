@@ -1,8 +1,8 @@
-package oof.command;
+package oof.logic.command;
 
 import oof.Oof;
-import oof.exception.ParserException;
-import oof.exception.command.CommandException;
+import oof.commons.exceptions.ParserException;
+import oof.commons.exceptions.command.CommandException;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
 import org.junit.jupiter.api.Test;

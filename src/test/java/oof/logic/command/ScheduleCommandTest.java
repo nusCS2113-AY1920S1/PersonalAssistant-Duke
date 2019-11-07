@@ -1,11 +1,11 @@
-package oof.command;
+package oof.logic.command;
 
 import oof.Oof;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import oof.exception.ParserException;
-import oof.exception.command.CommandException;
+import oof.commons.exceptions.ParserException;
+import oof.commons.exceptions.command.CommandException;
 import oof.model.task.TaskList;
 import org.junit.jupiter.api.Test;
 
