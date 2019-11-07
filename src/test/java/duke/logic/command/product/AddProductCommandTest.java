@@ -2,13 +2,9 @@ package duke.logic.command.product;
 
 import duke.model.Model;
 import duke.model.ModelStub;
-import duke.model.exceptions.DuplicateEntityException;
-import duke.testutil.ProductDescriptorBuilder;
 import org.junit.jupiter.api.Test;
 
-import static duke.logic.parser.product.ProductParserUtil.createProductDescriptor;
 import static duke.testutil.Assert.assertThrows;
-import static duke.testutil.TypicalProducts.EGG_TART;
 
 public class AddProductCommandTest {
 

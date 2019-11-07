@@ -1,6 +1,7 @@
 package duke.logic.parser.product;
 
 import duke.commons.core.LogsCenter;
+import duke.commons.util.TestUtil;
 import duke.logic.message.ProductMessageUtils;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.commons.Item;
@@ -15,8 +16,9 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class IngredientItemListParser {
+import static duke.logic.message.ProductMessageUtils.MESSAGE_WRONG_INGREDIENT_FORMAT;
 
+public class IngredientItemListParser {
     private static final Logger logger = LogsCenter.getLogger(ProductParserUtil.class);
 
     private static final Pattern FORMAT_INGREDIENT_INPUT = Pattern.compile("((\\s*\\[\\s*)(?<name>[\\w ]+)"
@@ -30,7 +32,7 @@ public class IngredientItemListParser {
         Matcher matcher = FORMAT_INGREDIENT_INPUT.matcher(input.trim());
 
         if (!matcher.matches()) {
-            throw new ParseException("Wrong ingredient format");
+            throw new ParseException(MESSAGE_WRONG_INGREDIENT_FORMAT);
         }
 
         Map<String, String> params = new Hashtable<>();
@@ -44,7 +46,10 @@ public class IngredientItemListParser {
                 if (matcher.group("quantity") != null) {
                     String s1 = matcher.group("name").strip();
                     String name = StringUtils.capitalize(s1.toLowerCase());
-                    params.put(name, matcher.group("quantity"));
+
+                    if (!params.containsKey(name)) {
+                        params.put(name, matcher.group("quantity"));
+                    }
                 } else {
                     params.put(matcher.group("name"), "");
                 }

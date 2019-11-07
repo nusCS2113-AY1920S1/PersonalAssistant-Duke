@@ -6,6 +6,10 @@ import duke.logic.command.exceptions.CommandException;
 import duke.logic.parser.commons.CliSyntax;
 import duke.logic.parser.commons.Prefix;
 import duke.model.Model;
+import duke.model.product.Product;
+import org.ocpsoft.prettytime.shade.edu.emory.mathcs.backport.java.util.Collections;
+
+import java.util.ArrayList;
 
 import static duke.logic.message.ProductMessageUtils.MESSAGE_SORT_PRODUCT_SUCCESS;
 

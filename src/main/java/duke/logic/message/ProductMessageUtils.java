@@ -23,4 +23,5 @@ public class ProductMessageUtils {
     public static final String MESSAGE_SUCCESS = "Products are listed";
     public static final String MESSAGE_SHOW_PRODUCT_SUCCESS = "Showing product %s";
     public static final String MESSAGE_NON_EMPTY_REVERSE_PARAMETER = "-re should not be followed any value";
+    public static final String MESSAGE_WRONG_INGREDIENT_FORMAT = "Wrong ingredient format";
 }
