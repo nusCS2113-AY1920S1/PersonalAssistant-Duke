@@ -1292,8 +1292,8 @@ your bank account as long as you remember part of your account name.
 
 * `/find /savings /name Jun`
 
-.`/find /savings /name Jun` (Find Savings Account Command)
-image::FindSavingsCommandExample.png[caption="Figure : "]
+Successful search of savings account after `/find /savings`
+image::FindSavings.png[caption="Figure : "]
 
 Finds and lists all savings accounts that have the phrase `Jun` in the account name.
 
@@ -1315,8 +1315,8 @@ your bank account as long as you remember part of your account name.
 
 * `/find /investment /name Vickers`
 
-.`/find /investment /name Vickers` (Find Investment Account Command)
-image::FindInvestmentCommandExample.png[caption="Figure : "]
+.Successful search of investment account after `/find /investment`
+image::FindInvestment.png[caption="Figure : "]
 
 Finds and lists all investment accounts that have the phrase `Vickers` in the account name.
 
@@ -1337,7 +1337,7 @@ Searching for a Credit Card but forgot the name? *OwlMoney* helps you by providi
 
 * `/find /card /name POBB`
 
-.`/find /card /name POBB` (Find Card Command)
+Successful search of card after `/find /card`
 image::FindCardCommandExample.png[caption="Figure : "]
 
 Finds and lists all cards with the name that contains the phrase `POBB`.
@@ -1362,8 +1362,8 @@ you various ways to do it!
 
 * `/find /bonds /name SSB /from DBB Vickers Account`
 
-.`/find /bonds /name SSB /from DBB Vickers Account` (Find Bond Command)
-image::FindBondCommandExample.png[caption="Figure : "]
+.Successful search of bonds after `/find /bonds`
+image::FindBond.png[caption="Figure : "]
 
 Finds and lists all bonds that contain the phrase `SSB` in the name from the investment account called `DBB Vickers`
 Account.
