@@ -10,6 +10,7 @@ import dolla.command.SearchCommand;
 import dolla.command.SortCommand;
 import dolla.command.ActionCommand;
 
+import dolla.exception.DollaException;
 import dolla.ui.LimitUi;
 import dolla.ui.SearchUi;
 
@@ -22,7 +23,7 @@ public class LimitParser extends Parser {
     }
 
     @Override
-    public Command parseInput() {
+    public Command parseInput() throws DollaException {
         if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_LIST)) {
             return new ShowListCommand(mode); //todo: add the bar viewing thing for budgets
         } else if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_SET)) {

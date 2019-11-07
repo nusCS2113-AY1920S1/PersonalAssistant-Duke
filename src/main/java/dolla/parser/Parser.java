@@ -3,6 +3,7 @@ package dolla.parser;
 import dolla.ModeStringList;
 import dolla.Time;
 import dolla.model.RecordList;
+import dolla.exception.DollaException;
 import dolla.ui.EntryUi;
 import dolla.ui.LimitUi;
 import dolla.ui.Ui;
@@ -34,6 +35,8 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     protected String commandToRun;
     protected int modifyRecordNum;
 
+    protected static int maxAmount = 1000000;
+
     /**
      * Creates an instance of a parser.
      * @param inputLine The entire string containing the user's input.
@@ -44,7 +47,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         this.commandToRun = inputArray[0];
     }
 
-    public abstract Command parseInput();
+    public abstract Command parseInput() throws DollaException;
 
     public static String getInputLine() {
         return inputLine;
@@ -87,10 +90,13 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * @param str String (of number) to be converted into integer type.
      * @return Integer type of the specified string.
      */
-    public static double stringToDouble(String str) throws NumberFormatException {
+    public static double stringToDouble(String str) throws Exception {
         double newDouble = 0.0;
         try {
             newDouble = Double.parseDouble(str);
+            if (newDouble <= 0 || newDouble >= maxAmount) {
+                throw new DollaException(DollaException.invalidAmount());
+            }
         } catch (NumberFormatException e) {
             Ui.printInvalidNumberError(str);
             throw new NumberFormatException("Invalid amount");
@@ -463,9 +469,6 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             String typeStr = inputArray[1];
             String durationStr = inputArray[3];
             isValid = verifyLimitType(typeStr) && verifyLimitAmount(amount) && verifyLimitDuration(durationStr);
-        } catch (NumberFormatException e) {
-            LimitUi.invalidAmountPrinter();
-            isValid = false;
         } catch (Exception e) { //index out of bounds here also
             //LimitUi.invalidSetCommandPrinter();
             isValid = false;

@@ -65,6 +65,6 @@ public class RemoveCommand extends Command {
 
     @Override
     public String getCommandInfo() {
-        return null;
+        return mode;
     }
 }

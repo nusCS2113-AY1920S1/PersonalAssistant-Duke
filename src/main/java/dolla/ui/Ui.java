@@ -9,7 +9,7 @@ import static dolla.ModeStringList.MODE_SHORTCUT;
  */
 public abstract class Ui {
 
-    private static final String MSG_MODIFY = "\tPlease use the format 'modify [LIST NUM]' to modify it.";
+    protected static final String MSG_MODIFY = "\tPlease use the format 'modify [LIST NUM]' if you wish to modify it.";
 
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
@@ -224,6 +224,16 @@ public abstract class Ui {
         System.out.println("\tOOPS! You already have the following " + mode + ":");
         System.out.println("\t" + record.getRecordDetail());
         System.out.println(MSG_MODIFY);
+        System.out.println(line);
+    }
+
+    /**
+     * Prints a message reminding user to input a valid amount.
+     * @param msg Message to be printed to user.
+     */
+    public static void invalidAmountPrinter(String msg) {
+        System.out.println(line);
+        System.out.println(msg);
         System.out.println(line);
     }
 }

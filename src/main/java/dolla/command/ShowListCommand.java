@@ -39,8 +39,12 @@ public class ShowListCommand extends Command {
         }
     }
 
+    /**
+     * Returns the mode that Dolla is on, to show the respective records.
+     * @return mode Dolla is on
+     */
     @Override
     public String getCommandInfo() {
-        return null;
+        return mode;
     }
 }

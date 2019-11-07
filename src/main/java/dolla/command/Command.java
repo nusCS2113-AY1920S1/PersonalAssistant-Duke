@@ -4,6 +4,7 @@ import dolla.model.DollaData;
 import dolla.ModeStringList;
 import dolla.model.RecordList;
 import dolla.ui.ListUi;
+import dolla.exception.DollaException;
 import dolla.ui.Ui;
 
 /**
@@ -14,9 +15,9 @@ public abstract class Command implements ModeStringList {
 
     /**
      * This method is called execute the titular command after every user input.
-     * @throws Exception handle exception
+     * @throws DollaException handle exception
      */
-    public abstract void execute(DollaData dollaData) throws Exception;
+    public abstract void execute(DollaData dollaData) throws DollaException;
 
     /**
      * Returns a string containing the data stored in the command.

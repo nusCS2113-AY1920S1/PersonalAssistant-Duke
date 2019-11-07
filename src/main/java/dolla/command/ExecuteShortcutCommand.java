@@ -3,6 +3,7 @@ package dolla.command;
 import dolla.model.DollaData;
 import dolla.Time;
 import dolla.model.Record;
+import dolla.exception.DollaException;
 import dolla.ui.Ui;
 
 import java.time.LocalDate;
@@ -20,7 +21,7 @@ public class ExecuteShortcutCommand extends Command {
     }
 
     @Override
-    public void execute(DollaData dollaData) throws Exception {
+    public void execute(DollaData dollaData) throws DollaException {
         ArrayList<Record> entryList = dollaData.getRecordList(MODE_ENTRY);
         ArrayList<Record> shortcutList = dollaData.getRecordList(MODE_SHORTCUT);
         try {

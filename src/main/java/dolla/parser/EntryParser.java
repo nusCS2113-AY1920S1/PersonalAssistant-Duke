@@ -14,6 +14,7 @@ import dolla.command.SearchCommand;
 import dolla.command.RemoveCommand;
 import dolla.command.modify.PartialModifyEntryCommand;
 import dolla.model.Entry;
+import dolla.exception.DollaException;
 import dolla.ui.SearchUi;
 
 public class EntryParser extends Parser {
@@ -24,7 +25,7 @@ public class EntryParser extends Parser {
     }
 
     @Override
-    public Command parseInput() {
+    public Command parseInput() throws DollaException {
 
         if (commandToRun.equals(ENTRY_COMMAND_LIST)) { //show entry list
             return new ShowListCommand(mode);

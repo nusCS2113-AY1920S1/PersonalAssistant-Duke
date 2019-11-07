@@ -2,6 +2,7 @@ package dolla.command;
 
 import dolla.model.DollaData;
 import dolla.model.RecordList;
+import dolla.exception.DollaException;
 import dolla.ui.ListUi;
 import dolla.ui.SearchUi;
 
@@ -40,7 +41,7 @@ public class SearchCommand extends Command {
      * @throws Exception handle exception
      */
     @Override
-    public void execute(DollaData dollaData) throws Exception {
+    public void execute(DollaData dollaData) throws DollaException {
         RecordList recordList = new RecordList(new ArrayList<>());
 
         switch (mode) {

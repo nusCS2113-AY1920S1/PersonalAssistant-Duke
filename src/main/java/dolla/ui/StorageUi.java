@@ -15,7 +15,7 @@ public class StorageUi extends Ui {
      */
     public static void printCreateFolderMessage() {
         System.out.println(line);
-        System.out.println("Looks like it's your first time, let me create a save file for you :)");
+        System.out.println("\tLooks like it's your first time, let me create a save file for you :)");
     }
 
     /**

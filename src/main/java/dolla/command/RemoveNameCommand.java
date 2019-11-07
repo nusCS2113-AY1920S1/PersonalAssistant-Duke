@@ -3,6 +3,7 @@ package dolla.command;
 import dolla.model.DollaData;
 import dolla.model.Bill;
 import dolla.model.RecordList;
+import dolla.exception.DollaException;
 import dolla.ui.DebtUi;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class RemoveNameCommand extends Command {
     }
 
     @Override
-    public void execute(DollaData dollaData) throws Exception {
+    public void execute(DollaData dollaData) throws DollaException {
         RecordList recordList;
         recordList = dollaData.getBillRecordList();
         int people = recordList.get().get(billNum - 1).getPeople();
