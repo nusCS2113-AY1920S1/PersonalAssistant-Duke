@@ -85,7 +85,7 @@ public class DateTimeHelper {
      * @return : Returns a string representing the current date.
      */
     public String getCurrentDate() {
-        return Integer.toString(this.calender.get(Calendar.DAY_OF_MONTH) + 1);
+        return Integer.toString(this.calender.get(Calendar.DAY_OF_MONTH));
     }
 
     /**
