@@ -24,8 +24,6 @@ public class ImpressionCard extends UiCard {
     private final Impression impression;
     private boolean isPrimary;
 
-    // TODO create setPrimary
-
     /**
      * Constructs an ImpressionCard object with the specified {@code Impression}'s details.
      *
@@ -50,6 +48,15 @@ public class ImpressionCard extends UiCard {
 
         this.impression = impression;
         this.isPrimary = false;
+        fillImpressionCard();
+    }
+
+    /**
+     * Updates the card primary impression status
+     * @param primary if the card is the primary impression
+     */
+    public void setPrimary(boolean primary) {
+        isPrimary = primary;
         fillImpressionCard();
     }
 
