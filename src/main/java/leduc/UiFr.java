@@ -100,15 +100,23 @@ public class UiFr extends Ui {
                 "Pourcentage accomplie: " + percentComplete + "%");
     }
     @Override
-    public void showPriorityStats(int numFivePrio, int numFourPrio, int numThreePrio, int numTwoPrio, int numOnePrio, double percentFivePrio, double percentFourPrio, double percentThreePrio, double percentTwoPrio, double percentOnePrio){
+    public void showPriorityStats(int numNinePrio, int numEightPrio, int numSevenPrio, int numSixPrio, int numFivePrio, int numFourPrio, int numThreePrio, int numTwoPrio, int numOnePrio, double percentNinePrio, double percentEightPrio,double percentSevenPrio, double percentSixPrio, double percentFivePrio, double percentFourPrio, double percentThreePrio, double percentTwoPrio, double percentOnePrio){
         String message = "Voici quelques statistiques prioritaires sur votre liste de tâches: \n" +
                 "---- COMPTE DE PRIORITÉ----" + "\n" +
+                "Nombre de tâches avec priorité 9: " + numNinePrio + "\n" +
+                "Nombre de tâches avec priorité 8: " + numEightPrio + "\n" +
+                "Nombre de tâches avec priorité 7: " + numSevenPrio + "\n" +
+                "Nombre de tâches avec priorité 6: " + numSixPrio + "\n" +
                 "Nombre de tâches avec priorité 5: " + numFivePrio + "\n" +
                 "Nombre de tâches avec priorité 4: " + numFourPrio + "\n" +
                 "Nombre de tâches avec priorité 3: " + numThreePrio + "\n" +
                 "Nombre de tâches avec priorité 2: " + numTwoPrio + "\n" +
                 "Nombre de tâches avec priorité 1: " + numOnePrio + "\n" +
                 "----POURCENTAGE DE PRIORITÉ----" + "\n" +
+                "Pourcentage de tâches de priorité 9: " + percentNinePrio + "%" + "\n" +
+                "Pourcentage de tâches de priorité 8: " + percentEightPrio + "%" + "\n" +
+                "Pourcentage de tâches de priorité 7: " + percentSevenPrio + "%" + "\n" +
+                "Pourcentage de tâches de priorité 6: " + percentSixPrio + "%" + "\n" +
                 "Pourcentage de tâches de priorité 5: " + percentFivePrio + "%" + "\n" +
                 "Pourcentage de tâches de priorité 4: " + percentFourPrio + "%" + "\n" +
                 "Pourcentage de tâches de priorité 3: " + percentThreePrio + "%" + "\n" +
