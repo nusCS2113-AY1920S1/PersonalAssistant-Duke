@@ -452,8 +452,7 @@ ________________________________________________________________________________
 
 #### 3.5.2 Altering Order Serving Date
 
-In pre-order management, it is very likely that the serving date alters. To 
-the serving date information of an order in the order list, the user needs to execute the command following the below format.
+In pre-order management, it is very likely that the serving date alters. To update the serving date information of an order in the order list, the user needs to execute the command following the below format.
 
 Format: `alter ORDER_INDEX ORDER_DATE-(dd/mm/yyyy)`
 
