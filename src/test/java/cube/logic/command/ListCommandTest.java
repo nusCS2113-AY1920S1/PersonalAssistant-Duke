@@ -16,16 +16,17 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static cube.testutil.Assert.assertThrowEquals;
 
 public class ListCommandTest {
-    private class FoodListStub extends FoodList{
+    private class FoodListStub extends FoodList {
     }
 	private class ModelStub extends ModelManager{
         FoodListStub list = new FoodListStub();
+        /*
         @Override
         public FoodListStub getFoodList(){
-            return list;
+                 return list;
         }
+         */
 	}
-
     @Test
     public void construct_sortType_successful() {
         SortType type = SortType.EXPIRY;
@@ -35,7 +36,7 @@ public class ListCommandTest {
 
     /** 
      * Dependent on correct implementation of following class:
-     *	 ModelManager, StorageManager, FoodList, Food, CommandResult 
+     *	 ModelManager, StorageManager, Food.getRevenue(), CommandResult 
      * Storage not tested.
      */
     @Test
@@ -49,5 +50,4 @@ public class ListCommandTest {
     	CommandResult expectedResult = new CommandResult(String.format(ListCommand.MESSAGE_SUCCESS, list, Food.getRevenue()), false, false);
     	assertEquals(result, expectedResult);
     }
-
 }

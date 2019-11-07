@@ -1,7 +1,7 @@
-//@@author LL-Pengfei
+//@@author ZKathrynx
 /**
  * DeleteCommand.java
- * Support commands related to delete.
+ * Support commands related to deletion.
  */
 package cube.logic.command;
 
@@ -21,20 +21,23 @@ public class DeleteCommand extends Command {
 	 * Use enums to specify the states of the food to be deleted.
 	 */
 	public enum DeleteBy {
-		INDEX, NAME, TYPE
+		INDEX, NAME, TYPE, ALL
 	}
 
 	private int deleteIndex;
 	private String deleteDescription;
 	private DeleteBy param;
-	private final String MESSAGE_SUCCESS_SINGLE = "Nice! I've removed this food:\n"
+	public static final String MESSAGE_SUCCESS_SINGLE = "Nice! I've removed this food:\n"
 			+ "%1$s\n"
 		    + "Now you have %2$s food in the list.\n";
-	private final String MESSAGE_SUCCESS_MULTIPLE = "Nice! I've removed this type:\n"
+	public static final String MESSAGE_SUCCESS_MULTIPLE = "Nice! I've removed this type:\n"
 			+ "%1$s\n"
 			+ "This type contains "
 			+ "%2$s food items\n"
 			+ "Now you have %3$s food in the list.\n";
+	public static final String MESSAGE_SUCCESS_ALL = "Nice! I've removed all food from your list.\n"
+			+ "Total number removed is:"
+			+ "%1$s.\n";
 
 	/**
 	 * The default constructor, empty since parameters are required to perform delete command.
@@ -67,7 +70,6 @@ public class DeleteCommand extends Command {
 	/**
 	 * The class removes the food the user wishes to remove.
 	 *
-	 * @param list The food list.
 	 * @param storage The storage we have.
 	 * @return The Feedback to User for Delete Command.
 	 * @throws CommandException If deletion is unsuccessful.
@@ -94,6 +96,11 @@ public class DeleteCommand extends Command {
 				int count = list.removeType(deleteDescription);
 				storage.storeFoodList(list);
 				return new CommandResult(String.format(MESSAGE_SUCCESS_MULTIPLE, deleteDescription, count, list.size()));
+			case ALL:
+				count = list.size();
+				list.clear();
+				storage.storeFoodList(list);
+				return new CommandResult(String.format(MESSAGE_SUCCESS_ALL, count));
 		}
 		return null;
 	}

@@ -1,8 +1,13 @@
+//@@author LL-Pengfei
+/**
+ * Cube.java
+ * The driver file, which is the entry point for Command Line Interface.
+ */
 package cube;
 
-import cube.model.food.Food;
 import cube.model.food.FoodList;
 import cube.model.sale.SalesHistory;
+import cube.model.promotion.PromotionList;
 import cube.model.ModelManager;
 import cube.ui.Ui;
 import cube.logic.parser.Parser;
@@ -15,21 +20,23 @@ import cube.util.LogUtil;
 
 import java.util.logging.Logger;
 
-
+/**
+ * Entry Point for Command Line Interface
+ */
 public class Cube {
-
     private StorageManager storageManager;
     private ModelManager modelManager;
     private FileUtilJson<StorageManager> storage;
     private FoodList foodList;
     private SalesHistory salesHistory;
+    private PromotionList promotionList;
     private Ui ui;
     private final Logger logger = LogUtil.getLogger(Cube.class);
 
     /**
      * Cube constructor with filePath.
      *
-     * @param filePath the file path where duke data is stored.
+     * @param filePath the file path where Cube data is stored.
      */
     public Cube(String filePath) {
         logger.info("=============================[ Initializing Cube ]===========================");
@@ -42,8 +49,8 @@ public class Cube {
             storageManager = storage.load();
             foodList = storageManager.getFoodList();
             salesHistory = storageManager.getSalesHistory();
-            modelManager = new ModelManager(foodList, salesHistory);
-            Food.updateRevenue(storageManager.getRevenue());
+            promotionList = storageManager.getPromotionList();
+            modelManager = new ModelManager(foodList, salesHistory, promotionList);
         } catch (CubeException e) {
             logger.warning(e.getMessage());
             ui.showLoadingError(filePath);
@@ -79,7 +86,8 @@ public class Cube {
     }
 
     /**
-     * Initializes new Duke user and runs the programme.
+     * Initializes new Cube user and runs the programme.
+     *
      * @param args programme arguments.
      */
     public static void main(String[] args) {

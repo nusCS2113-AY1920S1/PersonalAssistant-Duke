@@ -7,7 +7,14 @@ public class FoodList{
 	private ArrayList<Food> foodArrayList;
 
 	public enum SortType {
-		EXPIRY, NAME, STOCK
+		EXPIRY, NAME, STOCK;
+
+        public static boolean IsDefined(String temp){
+            if(temp.equals("EXPIRY")||temp.equals("NAME")||temp.equals("STOCK")) {
+                return true;
+            }
+            return false;
+        }
 	}
 
 	public FoodList() {
@@ -33,7 +40,7 @@ public class FoodList{
 
 	public Food get(String foodName) {
 		for(Food food : foodArrayList) {
-			if (food.getName().equals(foodName)) {
+			if (food.getName().toLowerCase().equals(foodName.toLowerCase())) {
 				return food;
 			}
 		}
@@ -46,7 +53,7 @@ public class FoodList{
 
 	public void removeName(String foodName) {
 		for(int i = 0; i < foodArrayList.size(); i ++) {
-			if (foodArrayList.get(i).getName().equals(foodName)) {
+			if (foodArrayList.get(i).getName().toLowerCase().equals(foodName.toLowerCase())) {
 				foodArrayList.remove(i);
 				break;
 			}
@@ -55,10 +62,12 @@ public class FoodList{
 
 	public int removeType(String foodType) {
 		int count = 0;
-		for(int i = 0; i < foodArrayList.size(); i ++) {
+		for(int i = 0; i < foodArrayList.size();) {
 			if (foodArrayList.get(i).getType()!=null && foodArrayList.get(i).getType().equals(foodType)) {
 				foodArrayList.remove(i);
 				count ++;
+			} else {
+				i ++;
 			}
 		}
 		return count;
@@ -66,7 +75,7 @@ public class FoodList{
 
 	public boolean existsName(String foodName) {
 		for(Food food : foodArrayList) {
-			if (food.getName().equals(foodName)) {
+			if (food.getName().toLowerCase().equals(foodName.toLowerCase())) {
 				return true;
 			}
 		}
@@ -75,7 +84,7 @@ public class FoodList{
 
 	public boolean existsType(String foodType) {
 		for(Food food : foodArrayList) {
-			if (food.getType() != null && food.getType().equals(foodType)) {
+			if (food.getType() != null && food.getType().toLowerCase().equals(foodType.toLowerCase())) {
 				return true;
 			}
 		}
@@ -97,6 +106,10 @@ public class FoodList{
 			case STOCK:
 				Collections.sort(foodArrayList, new SortByStock());
 		}
+	}
+
+	public void clear(){
+		foodArrayList.clear();
 	}
 
 	@Override

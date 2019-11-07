@@ -1,15 +1,8 @@
-//@@author LL-Pengfei
 /**
  * GenerateRevenueCommand.java
  * Support commands related to generating revenue.
  */
 package cube.logic.command;
-
-// need to add support for adding revenue at the start and update revenue later (cmd)
-// need to change the name to revenue for user friendliness
-// updated by LL-Pengfei
-// need to store revenue in persistent storage
-// need to make the revenue (individual rev) updated when selling specific food
 
 import cube.logic.command.exception.CommandException;
 import cube.model.food.FoodList;
@@ -22,17 +15,17 @@ import cube.logic.command.util.CommandUtil;
 /**
  * This class supports commands related to generating revenue.
  */
-public class GenerateRevenueCommand extends Command {
+public class RevenueCommand extends Command {
     /**
      * Use enums to specify the states of the object whose revenue is to be generated.
      */
-    public enum GenerateRevenueBy {
+    public enum GenerateBy {
         INDEX, NAME, TYPE, ALL
     }
 
     private int generateRevenueIndex;
     private String generateRevenueDescription;
-    private GenerateRevenueCommand.GenerateRevenueBy param;
+    private RevenueCommand.GenerateBy param;
     private final String MESSAGE_SUCCESS_ALL = "Nice! I've generated the revenue for all the stocks:\n"
             + "$ %1$s\n"
             + "In total, you have %2$s food in the list.\n";
@@ -48,7 +41,7 @@ public class GenerateRevenueCommand extends Command {
     /**
      * The default constructor, empty since parameters are required to perform generating revenue command.
      */
-    public GenerateRevenueCommand() {
+    public RevenueCommand() {
     }
 
 
@@ -57,8 +50,8 @@ public class GenerateRevenueCommand extends Command {
      *
      * @param param The parameter is used to specify the type of generating revenue.
      */
-    public GenerateRevenueCommand(String param) {
-        this.param = GenerateRevenueCommand.GenerateRevenueBy.valueOf(param);
+    public RevenueCommand(String param) {
+        this.param = RevenueCommand.GenerateBy.valueOf(param);
     }
 
     /**
@@ -67,9 +60,9 @@ public class GenerateRevenueCommand extends Command {
      * @param index The index of the food whose revenue is to be generated.
      * @param param The parameter is used to specify the type of generating revenue.
      */
-    public GenerateRevenueCommand(int index, String param) {
+    public RevenueCommand(int index, String param) {
         this.generateRevenueIndex = index - 1;
-        this.param = GenerateRevenueCommand.GenerateRevenueBy.valueOf(param);
+        this.param = RevenueCommand.GenerateBy.valueOf(param);
     }
     /**
      * The constructor for generating revenue using food name or food type.
@@ -77,16 +70,15 @@ public class GenerateRevenueCommand extends Command {
      * @param GenerateRevenueDescription The food name or food type whose revenue is to be generated.
      * @param param The parameter is used to specify the type of generating revenue.
      */
-    public GenerateRevenueCommand(String GenerateRevenueDescription, String param) {
+    public RevenueCommand(String GenerateRevenueDescription, String param) {
         this.generateRevenueDescription = GenerateRevenueDescription;
-        this.param = GenerateRevenueCommand.GenerateRevenueBy.valueOf(param);
+        this.param = RevenueCommand.GenerateBy.valueOf(param);
     }
 
 
     /**
      * The class generates the revenue for food whose revenue the user wishes to generate.
      *
-     * @param list The food list.
      * @param storage The storage we have.
      * @return The Feedback to User for Generate Revenue Command.
      * @throws CommandException If Generating Revenue is unsuccessful.

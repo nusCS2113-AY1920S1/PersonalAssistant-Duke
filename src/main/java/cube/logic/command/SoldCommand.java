@@ -1,3 +1,9 @@
+/**
+ * SoldCommand.java
+ * This class manages the selling of food.
+ *
+ * @author tygq13
+ */
 package cube.logic.command;
 
 import cube.model.food.FoodList;
@@ -22,13 +28,25 @@ public class SoldCommand extends Command{
 	Food toSold;
 	Promotion promotion;
 
-	private final String MESSAGE_SUCCESS = "%1$d of %2$s have been sold\n"
-		+ "you have earn $%3$f, the total revenue is $%4$f";	
+	public static final String MESSAGE_SUCCESS = "%1$d of %2$s have been sold with $%3$f\n"
+		+ "you have earn $%4$f";
 
+	/**
+	 * Constructor with two arguments.
+	 * Calls another constructor with additional argument Date = current time.
+	 * @param foodName The name of the food to be sold.
+	 * @param quantity The quantity of food sold.
+	 */
 	public SoldCommand(String foodName, int quantity) {
 		this(foodName, quantity, new Date());
 	}
 
+	/**
+	 * Constructor with three arguemtns.
+	 * @param foodName The name of the food to be sold.
+	 * @param quantity The quantity of food sold.
+	 * @param soldDate The date of the food sold.
+	 */
 	public SoldCommand(String foodName, int quantity, Date soldDate) {
 		this.foodName = foodName;
 		this.quantity = quantity;
@@ -49,14 +67,14 @@ public class SoldCommand extends Command{
 	 * If parameters are valid, this method will generate a sale record and adjust the quantity
 	 * of food toSold. Finally, changes sale record and food will be saved in storage.
 	 *
-	 * @param list The food list.
 	 * @param storage The storage we have.
 	 * @return The Feedback to User for Delete Command.
 	 * @throws CommandException If deletion is unsuccessful.
 	 */
 	@Override
 	public CommandResult execute(ModelManager model, StorageManager storage) throws CommandException {
-		FoodList list = model.getFoodList();
+		//TODO: check if the user has set price and cost
+		FoodList list = ModelManager.getFoodList();
 		PromotionList promotionList = model.getPromotionList();
 		SalesHistory salesHistory = model.getSalesHistory();
 		obtainFoodSold(list);
@@ -80,15 +98,18 @@ public class SoldCommand extends Command{
 		int originalQty = toSold.getStock();
 		double revenue = quantity * price;
 		toSold.setStock(originalQty - quantity);
-		// old function
-		Food.updateRevenue(Food.getRevenue() + revenue);
+		// old function Food.updateRevenue(Food.getRevenue() + revenue);
 		// new function
+		double tempRevenue = toSold.getFoodRevenue();
+		tempRevenue += revenue;
+		toSold.setFoodRevenue(tempRevenue);
+
 		double profit = revenue - quantity * toSold.getCost();
 		Sale saleRecord = new Sale(foodName, quantity, revenue, profit, soldDate);
 		salesHistory.add(saleRecord);
 		storage.storeSalesHistory(salesHistory);
 
 		storage.storeRevenue(Food.getRevenue());
-		return new CommandResult(String.format(MESSAGE_SUCCESS, quantity, foodName, revenue, Food.getRevenue()));
+		return new CommandResult(String.format(MESSAGE_SUCCESS, quantity, foodName, revenue, profit));
 	}
 }

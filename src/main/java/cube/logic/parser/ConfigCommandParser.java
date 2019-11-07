@@ -10,13 +10,20 @@ import cube.storage.config.LogConfig;
 public class ConfigCommandParser implements ParserPrototype<ConfigCommand> {
 
     public ConfigCommand parse(String[] args) throws ParserException {
-        if (args.length < 2) {
-            throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
+        String[] params = new String[]{"-h","-w","-s","-c","-l"};
+
+        if(ParserUtil.hasInvalidParameters(args,params)){
+            throw new ParserException(ParserErrorMessage.INVALID_PARAMETER);
+        }
+        if(ParserUtil.hasRepetitiveParameters(args)){
+            throw new ParserException(ParserErrorMessage.REPETITIVE_PARAMETER);
+        }
+        if (args.length == 1) {
+            return new ConfigCommand(ConfigType.VIEW);
         }
 
         int configTypeIndex = 1;
-
-        ConfigType configType = ConfigType.valueOf(args[configTypeIndex]);
+        ConfigType configType = ConfigType.valueOf(args[configTypeIndex].toUpperCase());
 
         switch (configType) {
             case UI:
@@ -33,9 +40,15 @@ public class ConfigCommandParser implements ParserPrototype<ConfigCommand> {
 
                 UiConfig uiConfig = new UiConfig();
                 if (heightIndex != -1) {
+                    if (!ParserUtil.hasField(args,heightIndex+1)) {
+                        throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
+                    }
                     uiConfig.setWindowHeight(Double.parseDouble(args[heightIndex + 1]));
                 }
                 if (widthIndex != -1) {
+                    if (!ParserUtil.hasField(args,widthIndex+1)) {
+                        throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
+                    }
                     uiConfig.setWindowWidth(Double.parseDouble(args[widthIndex + 1]));
                 }
                 return new ConfigCommand(configType, uiConfig);
@@ -57,12 +70,27 @@ public class ConfigCommandParser implements ParserPrototype<ConfigCommand> {
 
                 LogConfig logConfig = new LogConfig();
                 if (maxFileCountIndex != -1) {
+                    if (!ParserUtil.hasField(args,maxFileCountIndex+1)) {
+                        throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
+                    }
+                    if(!ParserUtil.isValidNumber(args[maxFileCountIndex + 1])){
+                        throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
+                    }
                     logConfig.setMaxFileCount(Integer.parseInt(args[maxFileCountIndex + 1]));
                 }
                 if (maxFileSizeIndex != -1) {
+                    if (!ParserUtil.hasField(args,maxFileSizeIndex+1)) {
+                        throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
+                    }
+                    if(!ParserUtil.isValidNumber(args[maxFileSizeIndex + 1])){
+                        throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
+                    }
                     logConfig.setMaxFileSizeMB(Integer.parseInt(args[maxFileSizeIndex + 1]));
                 }
                 if (currentLogLevelIndex != -1) {
+                    if (!ParserUtil.hasField(args,currentLogLevelIndex+1)) {
+                        throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
+                    }
                     logConfig.setCurrentLogLevel(args[currentLogLevelIndex + 1]);
                 }
                 return new ConfigCommand(configType, logConfig);
