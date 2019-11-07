@@ -636,7 +636,7 @@ public class Process {
         String[] split = arr[1].split("p/|i/");
         split = cleanStrStr(split);
         Payments deleted = PaymentManager.deletePayments(split[1], split[2], managermap);
-        ui.printDeletePaymentMessage(split[1], deleted, managermap.get(split[1]).payments.size(), currentProjectName);
+        ui.printDeletePaymentMessage(deleted, managermap.get(split[1]).payments.size(), currentProjectName);
         BeforeAfterCommand.afterCommand(storage, projectmanager);
     }
 
@@ -660,7 +660,7 @@ public class Process {
             String invoice = splitpayments[4];
             Payments payment = PaymentManager.addPayments(payee, item, cost, invoice, managermap);
             int paymentsSize = managermap.get(payee).payments.size();
-            ui.printAddPaymentMessage(splitpayments[1], payment, paymentsSize, currentProjectName);
+            ui.printAddPaymentMessage(payment, paymentsSize, currentProjectName);
             BeforeAfterCommand.afterCommand(storage, projectmanager);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
@@ -695,6 +695,8 @@ public class Process {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException e) {
             ui.exceptionMessage("     ☹ OOPS!!! There is no payee with that name yet, please add the payee first!");
+        } catch (IllegalArgumentException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! There is a payee with that name in the record!");
         } catch (AlphaNUSException e) {
             e.printStackTrace();
         }
@@ -739,6 +741,39 @@ public class Process {
             ui.printPaymentList(paymentsArrayList);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! The content to find cannot be empty.");
+        }
+    }
+
+    /**
+     * Processes the find command and outputs a list of payments from the payee name given.
+     * @param input Input from the user.
+     * @param ui Ui that interacts with the user.
+     */
+    public void listAllPayments(String input, Ui ui) {
+        try {
+            if (input.contains("pr/")) {
+                String[] splitspace = input.split("payments ", 2);
+                String[] splitpayments = splitspace[1].split("pr/");
+                splitpayments = cleanStrStr(splitpayments);
+                projectmanager.gotoProject(splitpayments[1]);
+            } else if (input.contains("p/")) {
+                String[] splitspace = input.split("payments ", 2);
+                String[] splitpayments = splitspace[1].split("p/");
+                splitpayments = cleanStrStr(splitpayments);
+                HashMap<String, Payee> managerMap = projectmanager.getCurrentProjectManagerMap();
+                ui.printPaymentList(managerMap.get(splitpayments[1]).payments);
+                return;
+            }
+            HashMap<String, Payee> managerMap = projectmanager.getCurrentProjectManagerMap();
+            ArrayList<ArrayList<Payments>> listOfPayments = PaymentManager.listPayments(managerMap);
+            for (ArrayList<Payments> lists : listOfPayments) {
+                if (lists.isEmpty()) {
+                    continue;
+                }
+                ui.printPaymentList(lists, lists.get(0).status);
+            }
+        } catch (NullPointerException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! There are no payments to list!");
         }
     }
 

@@ -85,6 +85,9 @@ public class Parser {
                 //storage.save(tasklist.returnArrayList());
             } else if (instr.isFind(input)) {
                 // process.find(input, tasklist, ui);
+                //process.commandHistory(input, ui, storage);
+            } else if (instr.isListPayments(input)) {
+                process.listAllPayments(input, ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isWithinPeriodTask(input)) {
                 process.within(input, tasklist, ui);

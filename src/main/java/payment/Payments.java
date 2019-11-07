@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
  * Payments Class to record details of an item payment.
  */
 public class Payments {
+    public String payee;
     public String item;
     public double cost;
     public String inv;
@@ -20,7 +21,8 @@ public class Payments {
      * @param cost Cost of the item.
      * @param inv Invoice for the payment.
      */
-    public Payments(String item, double cost, String inv) {
+    public Payments(String payee, String item, double cost, String inv) {
+        this.payee = payee;
         this.item = item;
         this.cost = cost;
         this.inv = inv;
@@ -29,8 +31,16 @@ public class Payments {
         this.deadline = new Date(currDate.getTime() + TimeUnit.DAYS.toMillis(30));
     }
 
-    public String givePayments() {
-
-        return item + "/n" + cost + "/n" + inv + "/n" + status + "/n" + deadline;
+    
+    /**
+     * Prints out the details of a Payment object.
+     */
+    public void givePayments() {
+        System.out.println("\t" + "Payee: " + this.payee);
+        System.out.println("\t" + "Item: " + this.item);
+        System.out.println("\t" + "Cost: " + this.cost);
+        System.out.println("\t" + "Invoice: " + this.inv);
+        System.out.println("\t" + "Deadline: " + this.deadline);
+        System.out.println("\t" + "Status: " + this.status);
     }
 }
