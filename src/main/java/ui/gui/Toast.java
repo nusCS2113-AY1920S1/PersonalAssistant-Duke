@@ -1,6 +1,5 @@
 package ui.gui;
 
-
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -52,7 +51,8 @@ public final class Toast {
         });
         popup.show(stage);
         toastedArr.add(popup.toString());
-        new Timeline(new KeyFrame(Duration.millis(TOAST_TIMEOUT), ae -> {
+        int toastedTime = TOAST_TIMEOUT * (1 + message.length() / 40);
+        new Timeline(new KeyFrame(Duration.millis(toastedTime), ae -> {
             popup.hide();
             toastedArr.remove(popup.toString());
         })).play();
