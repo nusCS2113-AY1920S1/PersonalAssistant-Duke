@@ -369,9 +369,9 @@ public class UiEn extends Ui {
             System.out.println("\t UserAnswerException:\n\t\t ☹ OOPS!!! Please answer correctly the question.");
         }
 
-        else if (e instanceof InvalidFlagException){
+        else if (e instanceof InvalidFlagException) {
             System.out.println("\t InvalidFlagException:\n\t\t ☹ Invalid Flag!");
-
+        }
         else if(e instanceof RecurrenceException){
             System.out.println("\t RecurrenceException:\n\t\t ☹ OOPS!!! Please respect the recurrence format" +
                     "\n\t\t\t recu TYPEOFRECURRENCE NBRECURRENCE");
