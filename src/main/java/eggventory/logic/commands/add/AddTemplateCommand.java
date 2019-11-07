@@ -49,7 +49,11 @@ public class AddTemplateCommand extends Command {
         ui.print(output);
 
         return output;
+    }
 
+    //@@author patwaririshab
+    public void executeSaveTemplateList(TemplateList templateList) {
+        templateList.addTemplate(name, loans);
     }
 }
 //@@author

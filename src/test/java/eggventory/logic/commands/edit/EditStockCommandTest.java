@@ -5,6 +5,7 @@ import eggventory.commons.enums.StockProperty;
 import eggventory.commons.exceptions.BadInputException;
 import eggventory.model.StockList;
 import eggventory.storage.Storage;
+import eggventory.stubs.StorageStub;
 import eggventory.stubs.UiStub;
 import eggventory.ui.Ui;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class EditStockCommandTest {
     StockList testStockList = new StockList();
     Ui testCli = new UiStub();
-    Storage testStorage = new Storage("","");
+    Storage testStorage = new StorageStub();
 
     //@@author cyanoei
     @Test

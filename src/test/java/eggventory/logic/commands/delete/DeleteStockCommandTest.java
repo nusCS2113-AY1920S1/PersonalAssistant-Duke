@@ -5,6 +5,7 @@ import eggventory.storage.Storage;
 import eggventory.commons.enums.CommandType;
 import eggventory.commons.exceptions.BadInputException;
 import eggventory.logic.commands.delete.DeleteStockCommand;
+import eggventory.stubs.StorageStub;
 import eggventory.ui.Cli;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class DeleteStockCommandTest {
     StockList testStockList = new StockList();
     Cli testCli = new Cli();
-    Storage testStorage = new Storage("","");
+    Storage testStorage = new StorageStub();
     String testStockType;
     String testStockCode;
     int testQuantity;

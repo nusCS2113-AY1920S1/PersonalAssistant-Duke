@@ -44,4 +44,8 @@ public class Person {
     public String toString() {
         return matricNo + " | " + name;
     }
+
+    public String savedPersonString() {
+        return String.format("%s,%s", matricNo, name);
+    }
 }

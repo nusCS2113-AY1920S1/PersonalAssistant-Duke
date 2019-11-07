@@ -4,6 +4,7 @@ import eggventory.model.StockList;
 import eggventory.storage.Storage;
 import eggventory.commons.enums.CommandType;
 import eggventory.logic.commands.ByeCommand;
+import eggventory.stubs.StorageStub;
 import eggventory.ui.Cli;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class CommandTest {
     StockList newList = new StockList();
     Cli cli = new Cli();
-    Storage storage = new Storage("","");
+    Storage storage = new StorageStub();
 
     @Test
     void getType() {

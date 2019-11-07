@@ -42,4 +42,9 @@ public class AddPersonCommand extends Command {
         ui.print(output);
         return output;
     }
+
+    //Used by load function
+    public void executeLoadPersonList(PersonList personList) throws BadInputException {
+        personList.add(matricNo, name);
+    }
 }

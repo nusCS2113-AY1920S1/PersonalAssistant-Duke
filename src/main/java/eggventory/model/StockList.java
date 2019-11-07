@@ -368,8 +368,6 @@ public class StockList {
         for (StockType stocktype : stockList) {
             stockTypesString.append(stocktype.getName()).append("\n");
         }
-        System.out.println(stockTypesString.toString());
-
         return stockTypesString.toString();
     }
 

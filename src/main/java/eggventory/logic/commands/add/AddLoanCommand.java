@@ -63,6 +63,7 @@ public class AddLoanCommand extends Command {
      * @param storage the storage.
      * @return the print string for assertion in testing.
      */
+    @Override
     public String execute(StockList list, Ui ui, Storage storage) {
         String output = "";
         if (!personExists()) {
@@ -79,6 +80,7 @@ public class AddLoanCommand extends Command {
 
             String personName = PersonList.getName(matricNo);
             String stockDescription = stockCode;  //In future write a method to get the stock description.
+            storage.save(list);
 
             output = (String.format("Nice, I have added this loan for you: \n"
                     + "Person: %s | Stock: %s | Quantity: %d", personName, stockDescription, quantity));
@@ -88,4 +90,10 @@ public class AddLoanCommand extends Command {
 
         return output;
     }
+
+    // Used by load function
+    public void executeLoadLoanList(LoanList savedLoanList) {
+        savedLoanList.addLoan(matricNo, stockCode, quantity);
+    }
+
 }

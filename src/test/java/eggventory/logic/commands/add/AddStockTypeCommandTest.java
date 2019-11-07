@@ -4,6 +4,7 @@ import eggventory.model.StockList;
 import eggventory.storage.Storage;
 import eggventory.commons.exceptions.BadInputException;
 import eggventory.logic.commands.add.AddStockTypeCommand;
+import eggventory.stubs.StorageStub;
 import eggventory.ui.Cli;
 import eggventory.commons.enums.CommandType;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ class AddStockTypeCommandTest {
 
     private StockList testStockList = new StockList();
     private Cli testCli = new Cli();
-    private Storage testStorage = new Storage("", "");
+    private Storage testStorage = new StorageStub();
 
     @Test
     void testExecuteAddStockType_ValidStockType_Succeeds() throws BadInputException {

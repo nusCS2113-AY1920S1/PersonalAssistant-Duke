@@ -6,6 +6,7 @@ import eggventory.logic.commands.add.AddPersonCommand;
 import eggventory.model.PersonList;
 import eggventory.model.StockList;
 import eggventory.storage.Storage;
+import eggventory.stubs.StorageStub;
 import eggventory.stubs.UiStub;
 import eggventory.ui.Cli;
 import eggventory.ui.Ui;
@@ -19,7 +20,7 @@ class AddPersonCommandTest {
 
     private StockList testStockList = new StockList();
     private Ui testCli = new UiStub();
-    private Storage testStorage = new Storage("", "");
+    private Storage testStorage = new StorageStub();
     private PersonList personList = new PersonList();
 
     @Test

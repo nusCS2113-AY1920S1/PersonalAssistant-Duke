@@ -4,6 +4,7 @@ import eggventory.commons.enums.CommandType;
 import eggventory.commons.exceptions.BadInputException;
 import eggventory.model.StockList;
 import eggventory.storage.Storage;
+import eggventory.stubs.StorageStub;
 import eggventory.ui.Cli;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,7 @@ public class DeleteStockTypeCommandTest {
 
     private StockList testStockList = new StockList();
     private Cli testCli = new Cli();
-    private Storage testStorage = new Storage("","");
+    private Storage testStorage = new StorageStub();
 
     @Test
     void testExecute_deleteStocktypeNotFound_errorMessage() {

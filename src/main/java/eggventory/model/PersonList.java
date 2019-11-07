@@ -143,6 +143,23 @@ public final class PersonList {
 
         return sb.toString();
     }
+
+
+    //@@author patwaririshab
+    /**
+     * Saves the stocktypes into a String.
+     * @return The String will be directly saved into a saved_stocktypes file.
+     */
+    public String savePersonListString() {
+        StringBuilder stockTypesString = new StringBuilder();
+
+        for (Person person : personList) {
+            stockTypesString.append(person.savedPersonString()).append("\n");
+        }
+        System.out.println(stockTypesString.toString());
+
+        return stockTypesString.toString();
+    }
     //@@author
 
 }

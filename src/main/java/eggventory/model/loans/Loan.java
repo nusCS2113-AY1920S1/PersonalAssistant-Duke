@@ -148,6 +148,10 @@ public class Loan {
 
         return dataArray;
     }
+
+    public String savedLoanString() {
+        return String.format("%s,%s,%s,%s,%s",matricNo, stockCode,quantity,loanDate, returnDate);
+    }
     //@@author
 
 

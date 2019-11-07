@@ -185,4 +185,25 @@ public class TemplateList {
 
         return template;
     }
+
+    //@@author patwaririshab
+    /**
+     * Creates a string for saving templates to persistent storage.
+     */
+    public String saveTemplateListString() {
+        StringBuilder saveTemplateListString = new StringBuilder();
+
+        for (String name : templates.keySet()) {
+            Loan[] loans = templates.get(name);
+            StringBuilder sb = new StringBuilder();
+            sb.append(name).append(" ");
+            for (Loan loan: loans) {
+                sb.append(" ").append(loan.getStockCode());
+                sb.append(" ").append(loan.getQuantity());
+            }
+            saveTemplateListString.append(sb.toString()).append("\n");
+        }
+        return saveTemplateListString.toString();
+    }
+    //@@ author
 }

@@ -4,10 +4,10 @@ import eggventory.commons.exceptions.BadInputException;
 
 import java.util.ArrayList;
 
+
 //@@author cyanoei
 
 //TODO: Since 5 Nov the quantity-related features have been broken by the sanity check for negatives.
-
 /**
  * A child of the Stock class.
  * A UniqueStock is a group of many items (eg. Arduino Uno) that share the same stockCode, description etc.,

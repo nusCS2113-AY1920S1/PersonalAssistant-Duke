@@ -4,6 +4,7 @@ import eggventory.commons.enums.CommandType;
 import eggventory.commons.exceptions.BadInputException;
 import eggventory.model.StockList;
 import eggventory.storage.Storage;
+import eggventory.stubs.StorageStub;
 import eggventory.stubs.UiStub;
 import eggventory.ui.Ui;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class AddStockCommandTest {
     private StockList testStockList = new StockList();
     private Ui testCli = new UiStub();
-    private Storage testStorage = new Storage("","");
+    private Storage testStorage = new StorageStub();
     String testStockType;
     String testStockCode;
     String testDescription;

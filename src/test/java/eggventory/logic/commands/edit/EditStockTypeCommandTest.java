@@ -4,6 +4,7 @@ import eggventory.commons.enums.CommandType;
 import eggventory.commons.exceptions.DuplicateEntryException;
 import eggventory.model.StockList;
 import eggventory.storage.Storage;
+import eggventory.stubs.StorageStub;
 import eggventory.stubs.UiStub;
 import eggventory.ui.Ui;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class EditStockTypeCommandTest {
     StockList testStockList = new StockList();
     Ui testUi = new UiStub();
-    Storage testStorage = new Storage("", "");
+    Storage testStorage = new StorageStub();
 
     @Test
     public void testExecuteEditStockType_RepeatedStockType_ThrowsDuplicateEntryException() {

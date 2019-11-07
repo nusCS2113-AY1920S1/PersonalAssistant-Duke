@@ -303,6 +303,23 @@ public final class LoanList {
         return dataTable;
     }
 
+
+    //@@author patwaririshab
+    /**
+     * Saves the stocktypes into a String.
+     * @return The String will be directly saved into a saved_stocktypes file.
+     */
+    public String saveLoanListString() {
+        StringBuilder stockTypesString = new StringBuilder();
+
+        for (Loan loan : loansList) {
+            stockTypesString.append(loan.savedLoanString()).append("\n");
+        }
+        System.out.println(stockTypesString.toString());
+
+        return stockTypesString.toString();
+    }
+
     //@@author
 
 }

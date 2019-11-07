@@ -61,6 +61,9 @@ public class ParseAdd {
         return new AddStockTypeCommand(CommandType.ADD, input);
     }
 
+    /**
+     * Processes input sequence for adding a person.
+     */
     private Command processAddPerson(String input) throws BadInputException {
         String[] addInput = input.split(" +", 2); //Permits spaces in names.
 
@@ -72,7 +75,10 @@ public class ParseAdd {
         return new AddPersonCommand(CommandType.ADD, addInput[0], addInput[1]);
     }
 
-    private Command processAddTemplate(String input) throws BadInputException {
+    /**
+     * Processes the input sequence for adding a template.
+     */
+    public Command processAddTemplate(String input) throws BadInputException {
         String[] addInput = input.split(" +");
 
         //Checks if template name is reserved.
@@ -95,7 +101,6 @@ public class ParseAdd {
     }
 
     //@@author cyanoei
-
     /**
      * Processes the user command to add a loan.
      * @param input string in the format matricNo, stockCode and quantity.
