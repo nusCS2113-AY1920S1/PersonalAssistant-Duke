@@ -8,6 +8,7 @@ import wallet.model.contact.ContactList;
 import wallet.model.record.Category;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
+import wallet.model.record.RecurrenceRate;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -24,8 +25,10 @@ public class EditCommandTest {
      */
     @BeforeAll
     public static void setUp() {
-        testWallet.getExpenseList().addExpense(new Expense("Lunch", LocalDate.now(), 3, Category.FOOD, false, null));
-        testWallet.getExpenseList().addExpense(new Expense("Dinner", LocalDate.now(), 5, Category.FOOD, false, null));
+        testWallet.getExpenseList().addExpense(new Expense("Lunch", LocalDate.now(), 3,
+                Category.FOOD, false, RecurrenceRate.NO));
+        testWallet.getExpenseList().addExpense(new Expense("Dinner", LocalDate.now(), 5,
+                Category.FOOD, false, RecurrenceRate.NO));
         Contact person1 = new Contact("Mary", "Friend", "1234 5678");
         Contact person2 = new Contact("Jane", "Girlfriend", "8765 4321");
         testWallet.getContactList().addContact(person1);
@@ -53,7 +56,7 @@ public class EditCommandTest {
             () -> assertEquals(8.0, e.getAmount()),
             () -> assertEquals(Category.FOOD, e.getCategory()),
             () -> assertEquals(false, e.isRecurring()),
-            () -> assertEquals(null, e.getRecFrequency())
+            () -> assertEquals(RecurrenceRate.NO, e.getRecFrequency())
         );
     }
     //@@author

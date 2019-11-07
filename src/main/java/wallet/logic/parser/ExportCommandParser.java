@@ -88,13 +88,12 @@ public class ExportCommandParser implements Parser<ExportCommand> {
                         String amount = Double.toString(e.getAmount());
                         Category category = e.getCategory();
                         String isRecur = (e.isRecurring()) ? "yes" : "no";
-                        String frequency = (e.isRecurring()) ? e.getRecFrequency() : "";
+                        String frequency = (e.isRecurring()) ? e.getRecFrequency().toString() : "";
                         data.add(new String[]{indexOutput, description, amount, date, String.valueOf(category),
                             isRecur, frequency});
                         index++;
                     }
                 }
-
             } else {
                 System.out.println(MESSAGE_ERROR_WRONG_FORMAT);
                 return null;

@@ -10,6 +10,7 @@ import wallet.model.contact.Contact;
 import wallet.model.record.Category;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
+import wallet.model.record.RecurrenceRate;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -23,6 +24,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public static final String MESSAGE_ERROR_EDIT_CONTACT = "Error in input format when editing contact.";
     public static final String MESSAGE_ERROR_NOT_NUMBER = "Error when parsing number, please provide proper input.";
     public static final String MESSAGE_ERROR_WRONG_DATE_FORMAT = "Error when parsing date, format is \"dd/MM/yyyy\".";
+    public static final String MESSAGE_ERROR_INVALID_RECURRENCE_RATE = "Invalid value for rate of recurrence. "
+            + "Acceptable values are: Daily, Weekly, Monthly or No";
 
     @Override
     public EditCommand parse(String input) throws InsufficientParameters {
@@ -214,14 +217,16 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (recIndex != -1) {
             if (recIndex > dateIndex && recIndex > catIndex && recIndex > amtIndex && recIndex > descIndex) {
                 String[] getRecurring = parameters.split("/r");
-                if (getRecurring[1].trim().equalsIgnoreCase("DAILY")
-                        || getRecurring[1].trim().equalsIgnoreCase("WEEKLY")
-                        || getRecurring[1].trim().equalsIgnoreCase("MONTHLY")) {
+                RecurrenceRate rec = RecurrenceRate.getRecurrence(getRecurring[1].trim());
+                if (rec == RecurrenceRate.DAILY || rec == RecurrenceRate.WEEKLY || rec == RecurrenceRate.MONTHLY) {
                     expense.setRecurring(true);
-                    expense.setRecFrequency(getRecurring[1].trim().toUpperCase());
-                } else if (getRecurring[1].trim().equals("no")) {
+                    expense.setRecFrequency(rec);
+                } else if (rec == RecurrenceRate.NO) {
                     expense.setRecurring(false);
-                    expense.setRecFrequency(null);
+                    expense.setRecFrequency(rec);
+                } else {
+                    System.out.println(MESSAGE_ERROR_INVALID_RECURRENCE_RATE);
+                    return null;
                 }
                 parameters = getRecurring[0].trim();
             } else {

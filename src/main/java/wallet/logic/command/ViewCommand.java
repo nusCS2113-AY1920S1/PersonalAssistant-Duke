@@ -2,7 +2,6 @@
 
 package wallet.logic.command;
 
-import wallet.exception.WrongDateTimeFormat;
 import wallet.exception.WrongParameterFormat;
 import wallet.logic.LogicManager;
 import wallet.model.Wallet;
@@ -12,7 +11,6 @@ import wallet.model.record.Expense;
 import wallet.ui.Ui;
 
 import java.text.DateFormatSymbols;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -108,13 +106,13 @@ public class ViewCommand extends Command {
         return false;
     }
 
+    //@@author kyang96
     /**
      * Generate a HashMap containing all expenses of a certain month in each category.
      * @param expenseList The entire list of expenses.
      * @param month The month to filter.
      * @param year The year to filter.
      */
-    //@@author kyang96
     public HashMap<Category, ArrayList<Expense>> getCategoryMap(ArrayList<Expense> expenseList, int month, int year) {
         HashMap<Category, ArrayList<Expense>> categoryMap = new HashMap<>();
         for (Expense expense : expenseList) {

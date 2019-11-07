@@ -1,6 +1,7 @@
 package wallet.logic.command;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -11,6 +12,7 @@ import wallet.model.contact.Contact;
 import wallet.model.record.Category;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
+import wallet.model.record.RecurrenceRate;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -24,11 +26,14 @@ public class DeleteCommandTest {
     /**
      * setUp() method to make dummy objects for testing delete logic.
      */
-    @BeforeAll
-    public static void setUp() {
+    @BeforeEach
+    public void setUp() {
+        testWallet = new Wallet();
         WalletList dummyWalletList = new WalletList();
-        testWallet.getExpenseList().addExpense(new Expense("Lunch", LocalDate.now(), 3, Category.FOOD, false, null));
-        testWallet.getExpenseList().addExpense(new Expense("Dinner", LocalDate.now(), 5, Category.FOOD, false, null));
+        testWallet.getExpenseList().addExpense(new Expense("Lunch", LocalDate.now(), 3,
+                Category.FOOD, false, RecurrenceRate.NO));
+        testWallet.getExpenseList().addExpense(new Expense("Dinner", LocalDate.now(), 5,
+                Category.FOOD, false, RecurrenceRate.NO));
         Contact person1 = new Contact("Mary", "Friend", "1234 5678");
         Contact person2 = new Contact("Jane", "Girlfriend", "8765 4321");
         Contact person3 = new Contact("John", "Boyfriend", "9017 3121");
@@ -83,6 +88,10 @@ public class DeleteCommandTest {
         assertEquals(2, testWallet.getContactList().getContactListSize());
     }
 
+    /**
+     * Testing execute function when deleting contact with invalid ID.
+     * @param input Test inputs.
+     */
     @ParameterizedTest
     @ValueSource(ints = {1, 4})
     public void execute_contact_invalidId_error(int input) {
@@ -91,5 +100,4 @@ public class DeleteCommandTest {
         assertEquals(3, testWallet.getContactList().getContactListSize());
     }
     //@@author
-
 }

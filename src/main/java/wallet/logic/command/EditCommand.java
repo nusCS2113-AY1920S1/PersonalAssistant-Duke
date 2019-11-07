@@ -70,7 +70,7 @@ public class EditCommand extends Command {
                 System.out.println(MESSAGE_ERROR_ID_DOES_NOT_EXIST);
                 return false;
             }
-            if (expense.getRecFrequency() == null || !expense.getRecFrequency().equals("")) {
+            if (expense.getRecFrequency() != null) {
                 currentExpense.setRecurring(expense.isRecurring());
                 currentExpense.setRecFrequency(expense.getRecFrequency());
             }

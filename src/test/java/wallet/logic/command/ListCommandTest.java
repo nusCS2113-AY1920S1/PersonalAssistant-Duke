@@ -9,6 +9,7 @@ import wallet.model.contact.Contact;
 import wallet.model.record.Category;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
+import wallet.model.record.RecurrenceRate;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -35,10 +36,14 @@ public class ListCommandTest {
         LocalDate localDate3 = LocalDate.parse(date3, formatter);
         LocalDate localDate4 = LocalDate.parse(date4, formatter);
 
-        testWallet.getExpenseList().addExpense(new Expense("Lunch", localDate1, 3, Category.FOOD, false, null));
-        testWallet.getExpenseList().addExpense(new Expense("Dinner", localDate2, 5, Category.FOOD, false, null));
-        testWallet.getExpenseList().addExpense(new Expense("Phone", localDate3, 10, Category.OTHERS, true, null));
-        testWallet.getExpenseList().addExpense(new Expense("Card", localDate4, 3, Category.TRANSPORT, true, null));
+        testWallet.getExpenseList().addExpense(new Expense("Lunch", localDate1, 3,
+                Category.FOOD, false, RecurrenceRate.NO));
+        testWallet.getExpenseList().addExpense(new Expense("Dinner", localDate2, 5,
+                Category.FOOD, false, RecurrenceRate.NO));
+        testWallet.getExpenseList().addExpense(new Expense("Phone", localDate3, 10,
+                Category.OTHERS, true, null));
+        testWallet.getExpenseList().addExpense(new Expense("Card", localDate4, 3,
+                Category.TRANSPORT, true, null));
 
         testWallet.getContactList().addContact(new Contact("Dave", "friend", "12345678"));
         testWallet.getContactList().addContact(new Contact("Mary", "friend", "41242131"));
