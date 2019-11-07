@@ -96,13 +96,11 @@ public class GsonStorage {
         ArrayList<Patient> patients = new ArrayList<>();
         try {
             String json = Files.readString(Paths.get(filePath), StandardCharsets.US_ASCII);
-            Patient[] patientList = gson.fromJson(json, Patient[].class);
-            if (patientList == null) {
+            Patient[] patientArr = gson.fromJson(json, Patient[].class);
+            if (patientArr == null) {
                 return patients;
             }
-            for (Patient patient : patientList) {
-                patients.add(patient);
-            }
+            patients.addAll(Arrays.asList(patientArr));
         } catch (IOException e) {
             throw new DukeFatalException("Unable to load data file, try checking your permissions?");
         }
