@@ -4,7 +4,6 @@ import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.ParseException;
 import sgtravel.logic.api.ApiParser;
 import sgtravel.logic.parsers.storageparsers.PlanningStorageParser;
-import sgtravel.model.lists.AgendaList;
 import sgtravel.model.locations.Venue;
 
 import java.time.LocalDateTime;
@@ -15,21 +14,22 @@ import java.util.List;
 /**
  * Represents an Itinerary and its contained information.
  */
-public class Itinerary extends AgendaList {
+public class Itinerary {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private Venue hotelLocation;
     private String name;
+    private List<Agenda> list;
 
     /**
      * Constructor to initialise new Itinerary.
      */
     public Itinerary(LocalDateTime startDate, LocalDateTime endDate, Venue hotelLocation, String name) {
-        super();
         this.startDate = startDate;
         this.endDate = endDate;
         this.hotelLocation = hotelLocation;
         this.name = name;
+        list = new ArrayList<>();
     }
 
     /**
@@ -44,6 +44,19 @@ public class Itinerary extends AgendaList {
         return Integer.parseInt(String.valueOf(days)) + 1;
     }
 
+    public List<Agenda> getList() {
+        return list;
+    }
+
+
+    /**
+     * Replaces the contents of this list with {@code Days}.
+     * {@code Tasks} must not contain duplicate Tasks.
+     */
+    public void setTasks(List<Agenda> agenda) {
+        list = agenda;
+    }
+
     /**
      * Prints the itinerary list in entirety.
      *
@@ -55,7 +68,7 @@ public class Itinerary extends AgendaList {
 
         StringBuilder result = new StringBuilder("Here are the list of Locations in "
                 +  days + " days around " + getHotelLocation().getAddress() + " with name " + this.name + ": \n");
-        for (Agenda list1 : super.getList()) {
+        for (Agenda list1 : this.getList()) {
             result.append("\n");
             result.append("Day ").append(list1.getDay()).append(":").append("\n \n");
             result.append("Venues: ").append("\n");
