@@ -45,10 +45,14 @@ public class HomeWindow extends AnchorPane {
     private ArrayList<String> userInputHistory;
     private ObservableList<PieChart.Data> pieChartData;
 
-    void initialize(ArrayList<String> userInputHistory, Interpreter interpreterLayer) {
+    void initialize(ArrayList<String> userInputHistory, Interpreter interpreterLayer) throws DukeException {
         this.exitRequest = false;
         this.userInputHistory = userInputHistory;
         this.interpreterLayer = interpreterLayer;
+
+        this.displayTasks();
+        this.displayBalanceChart();
+        this.displayBreakdownChart();
     }
 
     private void extractPieChartData() throws DukeException {
