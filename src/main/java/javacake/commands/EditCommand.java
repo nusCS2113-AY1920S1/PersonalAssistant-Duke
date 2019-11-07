@@ -33,10 +33,16 @@ public class EditCommand extends Command {
             System.out.println("Task: " + input);
             String[] buffer = input.split("\\s+");
             System.out.println("Task num: " + buffer[1]);
-            int num = Integer.parseInt(buffer[1]);
-            --num;
+            int taskIndex = Integer.parseInt(buffer[1]);
+            --taskIndex;
             if (!buffer[2].equals("/by")) {
                 throw new CakeException("[!] Wrong format\nPlease input:\n'deadline TASK /by TASK_DATE'");
+            }
+            if (taskIndex >= storageManager.storage.getData().size() || taskIndex <= 0) {
+                throw new CakeException("[!] Task number is out of bounds!\n"
+                        + "Task number must be <= '"
+                        + storageManager.storage.getData().size()
+                        + "'!");
             }
             String newDateString = "";
             for (int i = 0; i < buffer.length; ++i) {
@@ -54,24 +60,13 @@ public class EditCommand extends Command {
                 Parser parser = new Parser();
                 List<DateGroup> groups = parser.parse(newDateString);
                 newDate = groups.get(0).getDates().get(0);
-                storageManager.storage.getData().get(num).changeDate(newDateString);
+                storageManager.storage.getData().get(taskIndex).changeDate(newDateString);
                 System.out.println("Snoozed to: " + newDateString);
                 storageManager.storage.write(storageManager.storage.getData());
                 isInsideData = true;
             } catch (Exception e) {
                 throw new CakeException("[!] Date cannot be parsed: " + newDateString);
             }
-            /*for (int i = 0; i < progressStack.size(); ++i) {
-                if (i == num) {
-                    progressStack.get(i).changeDate(input.substring(2));
-                    String stringBuilder = "Noted. I've rescheduled this task: " + "\n"
-                            + progressStack.get(i).getFullString();
-                    storage.write(progressStack.getData());
-                    ui.showMessage(stringBuilder);
-                    isWithinData = true;
-                    break;
-                }
-            }*/
             if (!isInsideData) {
                 throw new CakeException("[!] Task number is out of bounds [Edit]");
             }
