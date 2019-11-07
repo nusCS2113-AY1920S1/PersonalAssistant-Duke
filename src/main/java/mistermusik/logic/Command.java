@@ -431,12 +431,14 @@ public class Command {
                     if (newEvent.getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) < 0) {
                         ui.printEnteredEventOver();
                     }
-
                 } else { //recurring event
-                    events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
+                    if (entryForEvent.getPeriod() > 0) {
+                      events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
                     ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
-                    if (newEvent.getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) < 0) {
-                        ui.printEnteredEventOver();
+                        if (newEvent.getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) < 0) {
+                            ui.printEnteredEventOver();
+                    } else {
+                          ui.periodNotPositive();
                     }
                 }
 
