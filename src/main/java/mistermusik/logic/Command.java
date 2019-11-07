@@ -39,6 +39,8 @@ public class Command {
      */
     private String continuation;
 
+    private static final int NO_PERIOD = -1;
+
     /**
      * Creates a new command with the command type and specific instructions
      *
@@ -308,7 +310,6 @@ public class Command {
     }
 
     //@@author Ryan-Wong-Ren-Wei
-
     /**
      * passes budget to UI for printing to output
      */
@@ -316,7 +317,6 @@ public class Command {
         if (continuation.isEmpty()) {
             ui.budgetCommandWrongFormat();
         } else if (continuation.substring(0, 3).equals("set")) { //set new budget
-            // budget set <new budget>
             try {
                 int newBudget = Integer.parseInt(continuation.substring(4));
                 events.getBudgeting().setBudget(newBudget);
@@ -409,8 +409,6 @@ public class Command {
         if (continuation.isEmpty()) {
             ui.eventDescriptionEmpty();
         } else {
-            int NO_PERIOD = -1;
-
             try {
                 EntryForEvent entryForEvent = new EntryForEvent().invoke(); //separate all info into relevant details
                 Event newEvent = newEvent(eventType, entryForEvent); //instantiate new event
@@ -425,7 +423,7 @@ public class Command {
                         ui.printEnteredEventOver();
                     }
 
-                } else { //recurring
+                } else { //recurring event
                     events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
                     ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
                     if (newEvent.getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) < 0) {
@@ -438,7 +436,7 @@ public class Command {
             } catch (CostExceedsBudgetException e) { //budget exceeded in attempt to add concert
                 ui.costExceedsBudget(e.getConcert(), e.getBudget());
             } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException
-                    | ParseException | NumberFormatException e) {
+                    | ParseException | NumberFormatException e) { //error interpreting info(wrong user input)
                 ui.newEntryFormatWrong();
             } catch (EndBeforeStartException e) { //start time is after end time
                 ui.eventEndsBeforeStart();
@@ -446,10 +444,8 @@ public class Command {
         }
     }
 
-    //@@author Ryan-Wong-Ren-Wei
-
     /**
-     * Instantiates a new event based on details passed as parameter
+     * Instantiates a new event (excludes to-do) based on details passed as parameter
      *
      * @param entryForEvent contains all necessary info for creating new event
      * @return instantiated event
@@ -481,6 +477,10 @@ public class Command {
         return newEvent;
     }
 
+    //@@author
+    /**
+     * adds a new to-do to the list of events in EventList object.
+     */
     private void addNewTodo(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.eventDescriptionEmpty();

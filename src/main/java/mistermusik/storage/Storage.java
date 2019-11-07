@@ -32,6 +32,8 @@ public class Storage {
         this.file = file;
     }
 
+    //@@author Ryan-Wong-Ren-Wei
+
     /**
      * Reads from the file whenever the program is run.
      * Stores all read information into an array of strings to be returned.
