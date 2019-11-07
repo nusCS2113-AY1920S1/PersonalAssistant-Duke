@@ -72,11 +72,11 @@ class SearchContextWindow extends ContextWindow {
 
     @Override
     public void updateUi() {
-        // TODO
+        setSearchWindow();
     }
 
     @Override
     public List<DukeObject> getIndexedList(String type) {
-        return null;
+        return searchResults.getSearchList();
     }
 }
