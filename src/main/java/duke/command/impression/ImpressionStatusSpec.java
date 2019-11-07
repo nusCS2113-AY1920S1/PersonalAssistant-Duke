@@ -2,8 +2,9 @@ package duke.command.impression;
 
 import duke.DukeCore;
 import duke.command.ArgLevel;
-import duke.command.ArgSpec;
+import duke.command.ObjSpec;
 import duke.command.Switch;
+import duke.data.DukeObject;
 import duke.data.Impression;
 import duke.data.Investigation;
 import duke.data.Medicine;
@@ -14,7 +15,7 @@ import duke.exception.DukeHelpException;
 
 import java.util.List;
 
-public class ImpressionStatusSpec extends ArgSpec {
+public class ImpressionStatusSpec extends ObjSpec {
     private static final ImpressionStatusSpec spec = new ImpressionStatusSpec();
 
     public static ImpressionStatusSpec getSpec() {
@@ -32,8 +33,18 @@ public class ImpressionStatusSpec extends ArgSpec {
     protected void execute(DukeCore core) throws DukeException {
         super.execute(core);
         Impression impression = ImpressionUtils.getImpression(core);
-        Treatment treatment = (Treatment) ImpressionUtils.getData(null, null, cmd.getArg(), impression);
+        DukeObject obj = ImpressionUtils.getData(null, null, cmd.getArg(), impression);
+        if (obj == null) {
+            processResults(core, ImpressionUtils.searchData(null, null, cmd.getArg(), impression));
+        } else {
+            executeWithObj(core, obj);
+        }
+    }
+
+    @Override
+    protected void executeWithObj(DukeCore core, DukeObject obj) throws DukeException {
         List<String> statusList;
+        Treatment treatment = (Treatment) obj;
         Class targetClass = treatment.getClass(); //statics don't play nice with polymorphism
         if (targetClass == Medicine.class) {
             statusList = Medicine.getStatusArr();

@@ -7,7 +7,11 @@ import duke.command.Switch;
 import duke.data.DukeObject;
 import duke.data.Impression;
 import duke.data.Investigation;
+import duke.data.SearchResults;
 import duke.exception.DukeException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ImpressionResultSpec extends ObjSpec {
     private static final ImpressionResultSpec spec = new ImpressionResultSpec();
@@ -29,14 +33,21 @@ public class ImpressionResultSpec extends ObjSpec {
         Impression impression = ImpressionUtils.getImpression(core);
         DukeObject obj = ImpressionUtils.getData(null, null, cmd.getArg(), impression);
         if (obj == null) {
-            processResults(core, ImpressionUtils.searchData(null, null, cmd.getArg(), impression));
+            SearchResults results = ImpressionUtils.searchData(null, null, cmd.getArg(), impression);
+            List<DukeObject> searchList = results.getSearchList();
+            List<DukeObject> invxList = new ArrayList<DukeObject>();
+            for (DukeObject result : searchList) {
+                if (result instanceof Investigation) {
+                    invxList.add(result);
+                }
+            }
+            processResults(core, new SearchResults(results.getName(), invxList, results.getParent()));
         } else if (!(obj instanceof Investigation)) {
             throw new DukeException("Only investigations can be converted into results!");
         } else {
             executeWithObj(core, obj);
         }
     }
-
 
     @Override
     protected void executeWithObj(DukeCore core, DukeObject obj) throws DukeException {
