@@ -1,6 +1,7 @@
 package wallet.logic.parser;
 
 import wallet.exception.InsufficientParameters;
+import wallet.exception.WrongDateTimeFormat;
 import wallet.exception.WrongParameterFormat;
 import wallet.logic.LogicManager;
 import wallet.logic.command.EditCommand;
@@ -9,18 +10,19 @@ import wallet.model.contact.Contact;
 import wallet.model.record.Category;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
-import wallet.ui.Ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * The EditCommandParser class helps to
  * change user input String into appropriate parameters.
  */
 public class EditCommandParser implements Parser<EditCommand> {
-
     public static final String MESSAGE_ERROR_EDIT_CONTACT = "Error in input format when editing contact.";
+    public static final String MESSAGE_ERROR_NOT_NUMBER = "Error when parsing number, please provide proper input.";
+    public static final String MESSAGE_ERROR_WRONG_DATE_FORMAT = "Error when parsing date, format is \"dd/MM/yyyy\".";
 
     @Override
     public EditCommand parse(String input) throws InsufficientParameters {
@@ -32,6 +34,10 @@ public class EditCommandParser implements Parser<EditCommand> {
                 expense = parseExpense(arguments[1]);
             } catch (ArrayIndexOutOfBoundsException err) {
                 throw new InsufficientParameters("There are no arguments when editing the expense!");
+            } catch (NumberFormatException nf) {
+                throw new WrongParameterFormat(MESSAGE_ERROR_NOT_NUMBER);
+            } catch (DateTimeParseException dt) {
+                throw new WrongDateTimeFormat(MESSAGE_ERROR_WRONG_DATE_FORMAT);
             }
             if (expense != null) {
                 return new EditCommand(expense);

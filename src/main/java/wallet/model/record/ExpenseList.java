@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+//@@author kyang96
 /**
  * The ExpenseList Class that maintains a list of Expense objects.
  */
 public class ExpenseList {
-    //author kyang96
     private boolean isModified = false;
     private ArrayList<Expense> expenseList;
 

@@ -2,6 +2,7 @@
 
 package wallet.logic.command;
 
+import wallet.exception.WrongDateTimeFormat;
 import wallet.exception.WrongParameterFormat;
 import wallet.logic.LogicManager;
 import wallet.model.Wallet;
@@ -11,6 +12,7 @@ import wallet.model.record.Expense;
 import wallet.ui.Ui;
 
 import java.text.DateFormatSymbols;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,6 +25,7 @@ public class ViewCommand extends Command {
     public static final String MESSAGE_STATS_CATEGORY = "These are the expenses for ";
     public static final String MESSAGE_NICE_TRY_MONTH = "Nice try, but month runs from 1 to 12 :)";
     public static final String MESSAGE_NICE_TRY_YEAR = "zero or negative years does not exist.";
+    public static final String MESSAGE_NO_EXPENSE_IN_MONTH = "There are no expenses in this month.";
     public static final String MESSAGE_USAGE = "Error in format for command."
             + "\nExample: " + COMMAND_WORD + " budget 01/2019"
             + "\nExample: " + COMMAND_WORD + " stats"
@@ -64,6 +67,10 @@ public class ViewCommand extends Command {
                     //@@author kyang96
                     HashMap<Category, ArrayList<Expense>> categoryMap
                             = getCategoryMap(wallet.getExpenseList().getExpenseList(), month, year);
+                    if (categoryMap.isEmpty()) {
+                        System.out.println(MESSAGE_NO_EXPENSE_IN_MONTH);
+                        return false;
+                    }
                     System.out.println(MESSAGE_VIEW_STATS
                             + new DateFormatSymbols().getMonths()[month - 1]
                             + " " + year);
