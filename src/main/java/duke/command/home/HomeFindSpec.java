@@ -2,16 +2,17 @@ package duke.command.home;
 
 import duke.DukeCore;
 import duke.command.ArgLevel;
-import duke.command.ArgSpec;
+import duke.command.ObjSpec;
 import duke.command.Switch;
 import duke.data.DukeObject;
 import duke.data.Impression;
 import duke.data.Patient;
+import duke.data.SearchResults;
 import duke.exception.DukeException;
 
 import java.util.ArrayList;
 
-public class HomeFindSpec extends ArgSpec {
+public class HomeFindSpec extends ObjSpec {
 
     private static final HomeFindSpec spec = new HomeFindSpec();
 
@@ -31,32 +32,36 @@ public class HomeFindSpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
-    super.execute(core);
+        super.execute(core);
         String searchTerm = cmd.getArg();
-        ArrayList<DukeObject> resultList = new ArrayList<>();
+        SearchResults results = new SearchResults(searchTerm, new ArrayList<DukeObject>(), null);
         if (cmd.hasNoSwitches()) {
-            resultList = core.patientList.searchAll(searchTerm);
+            results.addAll(core.patientData.searchAll(searchTerm));
         } else {
-            ArrayList<Patient> filteredPatients = core.patientList.findPatients(searchTerm);
-            for (Patient patient : filteredPatients) {
-                if (cmd.isSwitchSet("patient")) {
-                    resultList.add(patient);
+            if (cmd.isSwitchSet("patient")) {
+                results.addAll(core.patientData.findPatients(searchTerm));
+            }
+            ArrayList<Patient> patientList = core.patientData.getPatientList();
+            for (Patient patient : patientList) {
+                if (cmd.isSwitchSet("impression")) {
+                    results.addAll(patient.findImpressions(searchTerm));
                 }
-                ArrayList<Impression> impressionResult = patient.findImpressions(searchTerm);
+                ArrayList<Impression> impressionResult = patient.getImpressionList();
                 for (Impression imp : impressionResult) {
-                    if (cmd.isSwitchSet("impression")) {
-                        resultList.add(imp);
-                    }
                     if (cmd.isSwitchSet("evidence")) {
-                        resultList.addAll(imp.findEvidences(searchTerm));
+                        results.addAll(imp.findEvidences(searchTerm));
                     }
                     if (cmd.isSwitchSet("treatment")) {
-                        resultList.addAll(imp.findTreatments(searchTerm));
+                        results.addAll(imp.findTreatments(searchTerm));
                     }
                 }
             }
         }
+        core.search(results, cmd);
+    }
 
-        core.showSearchResults(searchTerm, resultList, null);
+    @Override
+    protected void executeWithObj(DukeCore core, DukeObject obj) {
+        core.uiContext.setContext();
     }
 }

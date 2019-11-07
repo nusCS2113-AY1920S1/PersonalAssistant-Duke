@@ -3,7 +3,7 @@ package duke;
 import duke.command.ObjCommand;
 import duke.data.DukeObject;
 import duke.data.GsonStorage;
-import duke.data.PatientList;
+import duke.data.PatientData;
 import duke.data.SearchResults;
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
@@ -27,7 +27,7 @@ public class DukeCore extends Application {
     public Ui ui;
     public UiContext uiContext;
     public GsonStorage storage;
-    public PatientList patientList;
+    public PatientData patientData;
     public ObjCommand queuedCmd;
 
     /**
@@ -39,7 +39,7 @@ public class DukeCore extends Application {
 
         try {
             storage = new GsonStorage(storagePath);
-            patientList = new PatientList(storage);
+            patientData = new PatientData(storage);
         } catch (DukeException e) {
             ui.showErrorDialogAndShutdown("Error encountered!", e);
         }
@@ -67,12 +67,12 @@ public class DukeCore extends Application {
     }
 
     /**
-     * Writes JSON file using patientList HashMap.
+     * Writes JSON file using patientData HashMap.
      *
      * @throws DukeFatalException If the file writer cannot be setup.
      */
     public void writeJsonFile() throws DukeFatalException {
-        storage.writeJsonFile(patientList.getPatientList());
+        storage.writeJsonFile(patientData.getPatientList());
     }
 
     /**

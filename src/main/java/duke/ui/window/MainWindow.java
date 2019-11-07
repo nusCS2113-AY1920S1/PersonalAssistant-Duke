@@ -60,7 +60,7 @@ public class MainWindow extends UiElement<Stage> {
 
         this.primaryStage = primaryStage;
         this.uiContext = core.uiContext;
-        this.patientList = core.patientList.getPatientList();
+        this.patientList = core.patientData.getPatientList();
         this.executor = new Executor(core);
         this.parser = new Parser(core.uiContext);
         this.storage = core.storage;

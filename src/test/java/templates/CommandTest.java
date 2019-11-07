@@ -2,7 +2,7 @@ package templates;
 
 import duke.DukeCore;
 import duke.data.GsonStorage;
-import duke.data.PatientList;
+import duke.data.PatientData;
 import duke.exception.DukeException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -31,7 +31,7 @@ public abstract class CommandTest {
     public static void setupCore() {
         try {
             core = new DukeCore();
-            core.patientList = new PatientList();
+            core.patientData = new PatientData();
             core.storage = new GsonStorage(testFilePath);
             core.writeJsonFile();
         } catch (DukeException excp) {
@@ -44,7 +44,7 @@ public abstract class CommandTest {
      */
     @AfterEach
     public void clearPatientMap() {
-        core.patientList = new PatientList();
+        core.patientData = new PatientData();
         testPrint.flush();
         testOut.reset();
     }

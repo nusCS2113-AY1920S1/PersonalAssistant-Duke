@@ -6,6 +6,8 @@ import duke.exception.DukeException;
 
 public abstract class ObjSpec extends ArgSpec {
 
+    protected ObjCommand cmd;
+
     public void execute(DukeCore core, ObjCommand cmd, DukeObject obj) throws DukeException {
         this.cmd = cmd;
         executeWithObj(core, obj);

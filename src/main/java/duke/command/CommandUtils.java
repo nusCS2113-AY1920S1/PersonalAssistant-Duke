@@ -232,7 +232,7 @@ public class CommandUtils {
         }
 
         if (bedNo != null) {
-            return core.patientList.getPatientByBed(bedNo);
+            return core.patientData.getPatientByBed(bedNo);
         }
         int index = idxFromString(nameOrIdx);
         if (index != -1) {
@@ -246,7 +246,7 @@ public class CommandUtils {
             return (Patient) patientList.get(index - 1);
         } else {
             // TODO proper searching
-            return core.patientList.findPatientsByName(nameOrIdx).get(0);
+            return core.patientData.findPatientsByName(nameOrIdx).get(0);
         }
     }
 

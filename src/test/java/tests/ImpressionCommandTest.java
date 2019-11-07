@@ -36,7 +36,7 @@ public class ImpressionCommandTest extends CommandTest {
         impression = new Impression("name", "description", patient);
         try {
             patient.addNewImpression(impression);
-            core.patientList.addPatient(patient);
+            core.patientData.addPatient(patient);
         } catch (DukeException excp) {
             fail("Failed to setup patient and impression for testing!");
         }

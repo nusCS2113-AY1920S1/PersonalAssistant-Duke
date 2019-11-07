@@ -6,18 +6,18 @@ import duke.exception.DukeResetException;
 
 import java.util.ArrayList;
 
-public class PatientList {
+public class PatientData {
 
     private ArrayList<Patient> patientList;
 
     /**
-     * Creates a new PatientList, loading data from the Storage object provided.
+     * Creates a new PatientData, loading data from the Storage object provided.
      *
      * @param storage The Storage object pointing to the TSV file containing the data to load.
      * @throws DukeResetException If file is corrupted or the data has been edited to be unreadable.
      * @throws DukeFatalException If unable to write data file.
      */
-    public PatientList(GsonStorage storage) throws DukeFatalException {
+    public PatientData(GsonStorage storage) throws DukeFatalException {
         patientList = storage.loadPatients();
 
         for (Patient patient : patientList) {
@@ -39,7 +39,7 @@ public class PatientList {
     /**
      * Creates a new, empty TaskList.
      */
-    public PatientList() {
+    public PatientData() {
         patientList = new ArrayList<>();
     }
 
@@ -89,10 +89,10 @@ public class PatientList {
     }
 
     /**
-     * PatientList of all patients whose names contain the searchTerm.
+     * PatientData of all patients whose names contain the searchTerm.
      *
      * @param searchTerm String to search through the patients for.
-     * @return PatientList of matching patients.
+     * @return PatientData of matching patients.
      */
     public SearchResults findPatients(String searchTerm) throws DukeException {
         String lowerSearchTerm = searchTerm.toLowerCase();
@@ -106,10 +106,10 @@ public class PatientList {
     }
 
     /**
-     * PatientList of all patients whose names contain the searchTerm.
+     * PatientData of all patients whose names contain the searchTerm.
      *
      * @param searchTerm String to search through the patients for.
-     * @return PatientList of matching patients.
+     * @return PatientData of matching patients.
      */
     public SearchResults findPatientsByName(String searchTerm) {
         String lowerSearchTerm = searchTerm.toLowerCase();

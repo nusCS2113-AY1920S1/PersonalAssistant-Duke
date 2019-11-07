@@ -5,7 +5,7 @@ import duke.data.Investigation;
 import duke.data.Medicine;
 import duke.data.Observation;
 import duke.data.Patient;
-import duke.data.PatientList;
+import duke.data.PatientData;
 import duke.data.Plan;
 import duke.data.Result;
 import duke.exception.DukeException;
@@ -165,15 +165,15 @@ public class GsonStorageTest extends CommandTest {
      */
     @Test
     public void loadPatientHashMapTest() throws DukeException, IOException {
-        core.patientList = core.storage.resetAllData();
+        core.patientData = core.storage.resetAllData();
         FileWriter fileWriter = new FileWriter(testFilePath);
         fileWriter.write(expected);
         fileWriter.close();
-        core.patientList = new PatientList(core.storage);
-        assertTrue(identical(core.patientList.getPatientByBed("A100"), dummy1));
-        assertTrue(identical(core.patientList.getPatientByBed("A200"), dummy2));
-        assertTrue(identical(core.patientList.getPatientByBed("A300"), dummy3));
-        assertTrue(identical(core.patientList.getPatientByBed("C1"), createComplexPatient()));
+        core.patientData = new PatientData(core.storage);
+        assertTrue(identical(core.patientData.getPatientByBed("A100"), dummy1));
+        assertTrue(identical(core.patientData.getPatientByBed("A200"), dummy2));
+        assertTrue(identical(core.patientData.getPatientByBed("A300"), dummy3));
+        assertTrue(identical(core.patientData.getPatientByBed("C1"), createComplexPatient()));
     }
 
     /**
@@ -181,13 +181,13 @@ public class GsonStorageTest extends CommandTest {
      */
     @Test
     public void writeJsonFileTest() throws IOException, DukeException {
-        core.patientList = core.storage.resetAllData();
-        core.patientList = core.storage.resetAllData();
-        core.patientList.addPatient(dummy1);
-        core.patientList.addPatient(dummy2);
-        core.patientList.addPatient(dummy3);
-        core.patientList.addPatient(createComplexPatient());
-        core.storage.writeJsonFile(core.patientList.getPatientList());
+        core.patientData = core.storage.resetAllData();
+        core.patientData = core.storage.resetAllData();
+        core.patientData.addPatient(dummy1);
+        core.patientData.addPatient(dummy2);
+        core.patientData.addPatient(dummy3);
+        core.patientData.addPatient(createComplexPatient());
+        core.storage.writeJsonFile(core.patientData.getPatientList());
         String json = Files.readString(Paths.get(testFilePath), StandardCharsets.US_ASCII);
         for (int i = 0; i < json.length(); i++) {
             if (json.charAt(i) != expected.charAt(i)) {
@@ -206,14 +206,14 @@ public class GsonStorageTest extends CommandTest {
      */
     @Test
     public void identicalDummyPatient() throws IOException, DukeException {
-        core.patientList = core.storage.resetAllData();
-        core.patientList.addPatient(dummy1);
-        core.storage.writeJsonFile(core.patientList.getPatientList());
-        core.patientList = new PatientList(core.storage);
-        Patient dummyPatientRecreated = core.patientList.getPatientByBed(dummy1.getBedNo());
+        core.patientData = core.storage.resetAllData();
+        core.patientData.addPatient(dummy1);
+        core.storage.writeJsonFile(core.patientData.getPatientList());
+        core.patientData = new PatientData(core.storage);
+        Patient dummyPatientRecreated = core.patientData.getPatientByBed(dummy1.getBedNo());
         boolean equals = identical(dummy1, dummyPatientRecreated);
         assertTrue(equals);
-        core.patientList = core.storage.resetAllData();
+        core.patientData = core.storage.resetAllData();
     }
 
     /**
@@ -222,12 +222,12 @@ public class GsonStorageTest extends CommandTest {
      */
     @Test
     public void identicalComplexPatient() throws IOException, DukeException {
-        core.patientList = core.storage.resetAllData();
+        core.patientData = core.storage.resetAllData();
         Patient complexPatient = createComplexPatient();
-        core.patientList.addPatient(complexPatient);
-        core.storage.writeJsonFile(core.patientList.getPatientList());
+        core.patientData.addPatient(complexPatient);
+        core.storage.writeJsonFile(core.patientData.getPatientList());
         core.storage.loadPatients();
-        Patient complexPatientRecreated = core.patientList.getPatientByBed(complexPatient.getBedNo());
+        Patient complexPatientRecreated = core.patientData.getPatientByBed(complexPatient.getBedNo());
         boolean equals = identical(complexPatient, complexPatientRecreated);
         assertTrue(equals);
     }

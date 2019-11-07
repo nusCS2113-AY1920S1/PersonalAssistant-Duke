@@ -45,7 +45,7 @@ public class HomeNewSpec extends ArgSpec {
         String address = cmd.getSwitchVal("address");
         String history = cmd.getSwitchVal("history");
         // TODO: format checks for bed number?
-        for (Patient patient : core.patientList.getPatientList()) {
+        for (Patient patient : core.patientData.getPatientList()) {
             if (patient.getBedNo().equals(bed)) {
                 throw new DukeException("There is already a patient at that bed!");
             }
@@ -54,7 +54,7 @@ public class HomeNewSpec extends ArgSpec {
         Patient patient = new Patient(cmd.getSwitchVal("name"), bed,
                 cmd.getSwitchVal("allergies"), height, weight, age, number,
                 address, history);
-        core.patientList.addPatient(patient);
+        core.patientData.addPatient(patient);
         core.writeJsonFile();
         core.updateUi("Patient added.");
 

@@ -26,7 +26,7 @@ public class PatientCommandTest extends CommandTest {
         patient = new Patient("name", "bedNo", "allergies", 0, 0,
                 0, 0, "", "");
         try {
-            core.patientList.addPatient(patient);
+            core.patientData.addPatient(patient);
         } catch (DukeException excp) {
             fail("Exception thrown while setting up patient! " + excp.getMessage());
         }
