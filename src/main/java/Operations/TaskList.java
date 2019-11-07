@@ -6,6 +6,7 @@ import Enums.Priority;
 import Enums.SortType;
 import Enums.TimeUnit;
 import Model_Classes.Assignment;
+import Model_Classes.Leave;
 import Model_Classes.Task;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.Date;
 public class TaskList {
     private static ArrayList<Task> tasks;
     private static SortType sortType = SortType.priority;
-    public ArrayList<Task> overdueList = new ArrayList<>();
+    public static ArrayList<Task> overdueList = new ArrayList<>();
 
     /**
      * Constructor for the TaskList class.
@@ -64,6 +65,7 @@ public class TaskList {
             }
         }
     }
+
     /**
      * Lists out all tasks in the current list in the order they were added into the list.
      * shows all information related to the tasks
@@ -77,8 +79,8 @@ public class TaskList {
             for(int i=0; i<tasks.size(); i++) {
                 if (new Date().after(tasks.get(i).getDate())) {
                     tasks.get(i).setOverdue(true);
-                    this.overdueList.add(tasks.get(i));
-                    tasks.remove(i);
+                    overdueList.add(tasks.get(i));
+                    tasks.remove(tasks.get(i));
                 }
             }
 
@@ -104,6 +106,13 @@ public class TaskList {
                         }
                     }
                     listCount += 1;
+                }
+            }
+            for(int i=0; i<tasks.size(); i++) {
+                if (tasks.get(i) instanceof Leave) {
+                   if (((Leave) tasks.get(i)).getEndDate().after(new Date())) {
+                        tasks.remove(tasks.get(i));
+                    }
                 }
             }
         } else {
@@ -143,17 +152,18 @@ public class TaskList {
      * @return ArrayList of tasks containing tasks that are overdue.
      * @throws RoomShareException when the list is empty.
      */
-    public ArrayList<Task> getOverdueList() throws RoomShareException {
+    public static ArrayList<Task> getOverdueList() throws RoomShareException {
         if( tasks.size() != 0 ){
-            for (Task output : tasks) {
-                if(new Date().after(output.getDate())) {
-                    this.overdueList.add(output);
+            for (int i=0; i<tasks.size(); i++) {
+                if(new Date().after(tasks.get(i).getDate())) {
+                    overdueList.add(tasks.get(i));
+                    tasks.remove(tasks.get(i));
                 }
             }
         } else {
             throw new RoomShareException(ExceptionType.emptyList);
         }
-        return this.overdueList;
+        return overdueList;
     }
 
     /**

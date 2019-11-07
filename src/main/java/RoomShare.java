@@ -47,6 +47,8 @@ public class RoomShare {
             taskList = new TaskList(emptyList);
         }
         try {
+            ArrayList<Task> overdueAL;
+            overdueAL = TaskList.getOverdueList();
             overdueList = new OverdueList(storage.loadFile("overdue.txt"));
         } catch (RoomShareException e) {
             ui.showError(e);
@@ -90,6 +92,11 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
+                try {
+                    storage.writeFile(TaskList.getOverdueList(), "overdue.txt");
+                } catch (RoomShareException e) {
+                    ui.showError(e);
+                }
                 parser.close();
                 ui.showBye();
                 break;
@@ -127,6 +134,21 @@ public class RoomShare {
                     storage.writeFile(TaskList.currentList(), "data.txt");
                 } catch (RoomShareException e) {
                     storage.writeFile(TaskList.currentList(), "data.txt");
+                    ui.showError(e);
+                }
+                listRoutine.list();
+                break;
+
+            case remove:
+                Ui.clearScreen();
+                ui.startUp();
+                try {
+                    String input = parser.getCommandLine();
+                    int[] index = parser.getIndexRange(input);
+                    overdueList.remove(index, tempDeleteList);
+                    ui.showDeleted(index);
+                    storage.writeFile(TaskList.getOverdueList(), "overdue.txt");
+                } catch (RoomShareException e) {
                     ui.showError(e);
                 }
                 listRoutine.list();
@@ -321,22 +343,19 @@ public class RoomShare {
             case overdue:
                 Ui.clearScreen();
                 ui.startUp();
-                ArrayList<Task> overdueAL;
-                try {
-                    overdueAL = taskList.getOverdueList();
-                    overdueList = new OverdueList(overdueAL);
-                    storage.writeFile(overdueAL, "overdue.txt");
-                } catch (RoomShareException e) {
-                    ui.showError(e);
-                    ArrayList<Task> emptyList = new ArrayList<>();
-                    overdueList = new OverdueList(emptyList);
-                }
                 ui.showOverdueList();
                 try {
                     overdueList.list();
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
+                try {
+                    overdueList = new OverdueList(TaskList.getOverdueList());
+                    storage.writeFile(TaskList.getOverdueList(), "overdue.txt");
+                } catch (RoomShareException e) {
+                    ui.showError(e);
+                }
+
                 listRoutine.list();
                 break;
 
@@ -356,6 +375,11 @@ public class RoomShare {
                     ui.showError(e);
                     storage.writeFile(TaskList.currentList(), "data.txt");
                 }
+                try {
+                    storage.writeFile(TaskList.getOverdueList(), "overdue.txt");
+                } catch (RoomShareException e) {
+                    ui.showError(e);
+                }
                 listRoutine.list();
                 break;
 
@@ -365,6 +389,11 @@ public class RoomShare {
                 listRoutine.list();
                 ui.showCommandError();
                 storage.writeFile(TaskList.currentList(), "data.txt");
+                try {
+                    storage.writeFile(TaskList.getOverdueList(), "overdue.txt");
+                } catch (RoomShareException e) {
+                    ui.showError(e);
+                }
                 break;
             }
         }

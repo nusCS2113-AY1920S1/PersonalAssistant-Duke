@@ -2,5 +2,5 @@ package Enums;
 
 public enum TaskType {
     list, bye, find, done , delete, time, snooze, others, help, priority, reorder,
-    assign, report, restore, add, subtask, update, sort, log, overdue, reschedule, completed
+    assign, report, restore, add, subtask, update, sort, log, overdue, reschedule, remove, completed
 }
