@@ -10,7 +10,7 @@ public class RouteDeleteConversation extends Conversation {
     private String index;
 
     /**
-     * Initialises the Conversation object.
+     * Initialises the RouteDeleteConversation object.
      */
     public RouteDeleteConversation() {
         super();
@@ -19,6 +19,8 @@ public class RouteDeleteConversation extends Conversation {
 
     /**
      * Executes Prompt and returns a String reply.
+     *
+     * @param input The user input.
      */
     @Override
     public void execute(String input) {
@@ -33,9 +35,7 @@ public class RouteDeleteConversation extends Conversation {
     }
 
     /**
-     * Gets result of prompt.
-     *
-     * @return result The result.
+     * Builds the result of the conversation string.
      */
     @Override
     protected void buildResult() {

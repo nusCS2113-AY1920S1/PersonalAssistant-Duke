@@ -7,11 +7,19 @@ public class SetupProfileConversation extends Conversation {
     private String name;
     private String birthday;
 
+    /**
+     * Initialises the SetupProfileConversation object.
+     */
     public SetupProfileConversation() {
         super();
         prompt = Messages.PROMPT_SETUP_PROFILE;
     }
 
+    /**
+     * Executes Prompt and returns a String reply.
+     *
+     * @param input The user input.
+     */
     @Override
     public void execute(String input) {
         switch (state) {
@@ -35,6 +43,9 @@ public class SetupProfileConversation extends Conversation {
         tryCancelConversation(input);
     }
 
+    /**
+     * Builds the result of the conversation string.
+     */
     @Override
     protected void buildResult() {
         if (name != null && birthday != null) {
