@@ -10,6 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UiFrTest {
@@ -28,8 +29,9 @@ public class UiFrTest {
         System.setOut(new PrintStream(outContent));
     }
 
+
     @Test
-    public static void UiFrExecuteTest(){
+    public void UiFrExecuteTest(){
         Task task = new TodoTask("UiFrTest");
         HomeworkTask homeTask = null;
         EventsTask eventTask = null;
@@ -167,7 +169,7 @@ public class UiFrTest {
         assertTrue(outContent.toString().contains("Respectez le format pour la recurrence"));
         ui.showError(new RecurrenceDateException());
         assertTrue(outContent.toString().contains("Vous êtes en train de créer un event récurrent"));
-        ui.showError(new DateComparisonEventException());
+        ui.showError(new ConflictDateException(emptyList));
         assertTrue(outContent.toString().contains("Il y a un conflit de date avec cet event"));
     }
 
