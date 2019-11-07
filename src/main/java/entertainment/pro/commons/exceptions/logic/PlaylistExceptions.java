@@ -85,6 +85,7 @@ public class PlaylistExceptions {
             for (String log : flag.getValue()) {
                 checkIndexInput(log);
                 int index = Integer.parseInt(log.trim()) - 1;
+                System.out.println("ehehehheheeheh" + movies.size());
                 checkIndex(index, movies.size());
             }
         }
