@@ -1,14 +1,12 @@
 package unit;
 
 import spinbox.DateTime;
-import spinbox.exceptions.SpinBoxException;
-import org.junit.jupiter.api.Test;
 
-import java.time.DayOfWeek;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DateTimeTest {
+public class  DateTimeTest {
 
     @Test
     public void dateTimeCreation_variousDateTimeString_successfulCreationAndExpectedStringOutput() {

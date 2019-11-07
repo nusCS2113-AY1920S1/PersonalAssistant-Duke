@@ -62,6 +62,16 @@ public class DateTime implements Comparable<DateTime> {
         return calendar.get(Calendar.HOUR_OF_DAY);
     }
 
+    public String getMonthString() {
+        DateFormat dateFormat = new SimpleDateFormat("MMMMM");
+        return dateFormat.format(dateTime);
+    }
+
+    public String getYearString() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy");
+        return dateFormat.format(dateTime);
+    }
+
     /**
      * Converts the Date object back to the string version in the format of MM/dd/yyyy HH:mm
      * This can be reused to create an identical dateTime object.
@@ -138,6 +148,50 @@ public class DateTime implements Comparable<DateTime> {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(dateTime);
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        return new DateTime(calendar.getTime());
+    }
+
+    /**
+     * Return another DateTime with date
+     * set as next day relative to this DateTime.
+     * @return next day
+     */
+    public DateTime getNextDay() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateTime);
+        calendar.add(Calendar.DATE, 1);
+        return new DateTime(calendar.getTime());
+    }
+
+    /**
+     * Return another DateTime with date
+     * set as start of the day relative to this DateTime.
+     * @return start of the day
+     */
+    public DateTime getStartOfDay() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateTime);
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.HOUR, 0);
+
+        return new DateTime(calendar.getTime());
+    }
+
+    /**
+     * Return another DateTime with date
+     * set as end of day relative to this DateTime.
+     * @return end of the day
+     */
+    public DateTime getEndOfDay() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateTime);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+
         return new DateTime(calendar.getTime());
     }
 }

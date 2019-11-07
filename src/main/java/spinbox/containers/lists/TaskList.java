@@ -133,16 +133,15 @@ public class TaskList extends SpinBoxList<Task> {
      * @param endInterval end of the interval.
      * @return list of task
      */
-    public List<String> viewListInterval(DateTime startInterval, DateTime endInterval) {
+    public List<Task> viewListInterval(DateTime startInterval, DateTime endInterval) {
         Task currentTask;
-        List<String> output = new ArrayList<>();
-        output.add("Here are the task in your module:");
+        List<Task> output = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
             currentTask = list.get(i);
             if (currentTask.isSchedulable()) {
                 Schedulable task = (Schedulable) currentTask;
                 if (task.isOverlapping(startInterval, endInterval)) {
-                    output.add(((i + 1) + ". " + task.toString()));
+                    output.add(task);
                 }
             }
         }
