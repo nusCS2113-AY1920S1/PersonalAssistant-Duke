@@ -61,4 +61,5 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 	// https://mvnrepository.com/artifact/org.controlsfx/controlsfx
 	compile group: 'org.controlsfx', name: 'controlsfx', version: '11.0.0'
+    compile group: 'org.jfree', name: 'jfreechart', version: '1.0.19'
 }

@@ -22,7 +22,10 @@ import java.util.concurrent.TimeUnit;
 public class Task implements Serializable {
     String description;
     boolean isDone;
-    Integer taskPriority;
+    Integer overallPriorityScore;
+    String userDefinedPriority;
+    String nusDegreeName;
+    Integer taskUrgency;
     //protected String dueDate;
     private Date dueDate = null;
     private ArrayList<Date> tentativeDates = new ArrayList<>();
@@ -38,7 +41,7 @@ public class Task implements Serializable {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.taskPriority = 1;
+        this.overallPriorityScore = 1;
 
     }
 
@@ -196,29 +199,27 @@ public class Task implements Serializable {
 
 
 
-    public void setTaskPriority(Integer taskPriority) {
-        this.taskPriority = taskPriority;
+    public void setOverallPriorityScore(Integer overallPriorityScore) {
+        this.overallPriorityScore = overallPriorityScore;
     }
 
 
-    public Integer getTaskPriority() {
-        return taskPriority;
+    public Integer getOverallPriorityScore() {
+        return overallPriorityScore;
     }
 
 
-    public void assignPriority(){
+    public void calculatePriorityScore(){
+        if (this.dueDate == null){
+            this.overallPriorityScore = 1;
+        }
         Integer daysAway = (int)getDifferenceDays(this.dueDate);
-        if (daysAway <= 3){
-            this.taskPriority = 7;
-        }
-        else if(daysAway <= 5){
-            this.taskPriority = 5;
-        }
-        else if (daysAway <= 7){
-            this.taskPriority = 3;
+        if (daysAway < 0){
+            this.overallPriorityScore = -1;
         }
         else{
-            this.taskPriority = 2;
+            Integer urgency = 40 - (daysAway / 7);
+
         }
     }
 
@@ -261,4 +262,28 @@ public class Task implements Serializable {
         return "G";
     }
 
+    /**
+     * Returns the user defined priority level of the task
+     * @return
+     */
+    public String getUserDefinedPriority() {
+        return userDefinedPriority;
+    }
+
+
+    /**
+     * Returns the NUS Degree Name that is related to this task
+     * @return
+     */
+    public String getNusDegreeName() {
+        return nusDegreeName;
+    }
+
+    /**
+     * sets the NUS Degree Name that is related to this task
+     * @param nusDegreeName
+     */
+    public void setNusDegreeName(String nusDegreeName) {
+        this.nusDegreeName = nusDegreeName;
+    }
 }
