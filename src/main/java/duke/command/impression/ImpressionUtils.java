@@ -4,10 +4,10 @@ import duke.DukeCore;
 import duke.data.DukeData;
 import duke.data.Impression;
 import duke.data.Patient;
+import duke.data.SearchResults;
 import duke.exception.DukeException;
 import duke.exception.DukeUtilException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ImpressionUtils {
@@ -52,34 +52,31 @@ public class ImpressionUtils {
      * @throws DukeException If a matching evidence or treatment cannot be found, given the provided search terms, or
      *                       more than one search term was non-null.
      */
-    public static DukeData getData(String allStr, String evidStr, String treatStr, Impression impression)
+    public static SearchResults getData(String allStr, String evidStr, String treatStr, Impression impression)
             throws DukeException {
         DukeData data;
         DukeException dataNotFound;
-        List<DukeData> findList;
+        SearchResults results;
 
         // TODO handle idx
         if (allStr != null && evidStr == null && treatStr == null) {
-            findList = new ArrayList<DukeData>(impression.findByName(allStr));
+            results = impression.findByName(allStr);
             dataNotFound = new DukeException("Can't find any data item with that name!");
         } else if (allStr == null && evidStr != null && treatStr == null) {
-            findList = new ArrayList<DukeData>(impression.findEvidencesByName(evidStr));
+            results = impression.findEvidencesByName(evidStr);
             dataNotFound = new DukeException("Can't find any evidences with that name!");
         } else if (allStr == null && evidStr == null && treatStr != null) {
-            findList = new ArrayList<DukeData>(impression.findTreatmentsByName(treatStr));
+            results = impression.findTreatmentsByName(treatStr);
             dataNotFound = new DukeException("Can't find any treatments with that name!");
         } else {
             throw new DukeUtilException("I don't know what you want me to look for!");
         }
 
-        // TODO proper search
-        if (findList.size() != 0) {
-            data = findList.get(0);
+        if (results.getCount() != 0) {
+            return results;
         } else {
             throw dataNotFound;
         }
-
-        return data;
     }
 
     /**
