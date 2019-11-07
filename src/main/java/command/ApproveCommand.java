@@ -47,6 +47,9 @@ public class ApproveCommand extends Command {
     public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
                         Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage)
             throws DukeException, IOException {
+        if (!userList.getLoginStatus()) {
+            throw new DukeException("Please log in to approve or reject bookings.");
+        }
         if (index < 0 || index >= bookingList.size()) {
             throw new DukeException("OOPS!!! The index you have entered is out of bounds");
         }

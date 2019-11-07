@@ -30,8 +30,7 @@ public class ListBookingMonthCommand extends Command {
      */
     public ListBookingMonthCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length <= 1) {
-            throw new DukeException("☹ OOPS!!! Please create your booking with the following format: "
-                    + "date");
+            throw new DukeException("☹ OOPS!!! Please enter the month you want to view in the format <MM/YYYY>.");
         }
         this.monthStart = Integer.parseInt(input.substring(10));
         /*DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -44,12 +43,15 @@ public class ListBookingMonthCommand extends Command {
     public void execute(UserList userList, Inventory inventory, RoomList roomList, BookingList bookingList, Ui ui,
                         Storage userStorage, Storage inventoryStorage, Storage bookingstorage, Storage roomstorage)
             throws DukeException, IOException, ParseException {
-
+        boolean bookingExists = false;
         for (Booking i : bookingList) {
             if (i.getStartMonth() == this.monthStart) {
                 ui.addToOutput((bookingList.indexOf(i) + 1) + ". " + i.toString() + "\n");
-
+                bookingExists = true;
             }
+        }
+        if (!bookingExists) {
+            throw new DukeException("OOPS!! There are no bookings for this month");
         }
     }
 }

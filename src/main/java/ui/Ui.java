@@ -78,11 +78,14 @@ public class Ui extends AnchorPane {
         );
         userInput.clear();
         switch (splitStr[0]) {
+        case "approve":
+        case "reject":
         case "list":
             listContainer.getChildren().clear();
             BookingList bookingList = duke.getBookingList();
             showList(bookingList);
             break;
+        case "addroom":
         case "listroom":
             listContainer.getChildren().clear();
             RoomList roomList = duke.getRoomList();
@@ -107,10 +110,12 @@ public class Ui extends AnchorPane {
         case "logout":
             UserList userList = duke.getUserList();
             if (userList.getLoginStatus() == true) {
-                userLabel.setText(userList.getCurrentUser());
+                userLabel.setText("Logged in as: " + userList.getCurrentUser());
             } else {
                 userLabel.setText("Not Logged In");
             }
+            break;
+        default:
             break;
         }
     }
@@ -134,7 +139,8 @@ public class Ui extends AnchorPane {
             index++;
         }
     }
-    private void showListDay (BookingList bookingList, String date) throws DukeException {
+
+    private void showListDay(BookingList bookingList, String date) throws DukeException {
         addToList(new ListBox("S/N", "Name", "Venue", "Date", "From",
                 "To", "Status", "Purpose", "Approved/ Rejected By:"));
         Integer index = 1;
@@ -148,7 +154,7 @@ public class Ui extends AnchorPane {
         }
     }
 
-    private void showListYear (BookingList bookingList, String date) throws DukeException {
+    private void showListYear(BookingList bookingList, String date) throws DukeException {
         addToList(new ListBox("S/N", "Name", "Venue", "Date", "From",
                 "To", "Status", "Purpose", "Approved/ Rejected By"));
         Integer index = 1;
@@ -162,7 +168,7 @@ public class Ui extends AnchorPane {
         }
     }
 
-    private void showListMonth (BookingList bookingList, String month) throws DukeException {
+    private void showListMonth(BookingList bookingList, String month) throws DukeException {
         addToList(defaultListBox());
         Integer index = 1;
         int intMonth = Integer.parseInt(month.substring(10));

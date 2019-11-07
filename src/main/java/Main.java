@@ -1,4 +1,5 @@
 import control.Duke;
+import exception.DukeException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -28,6 +29,7 @@ public class Main extends Application {
             fxmlLoader.<Ui>getController().setDuke(duke);
             stage.show();
         } catch (IOException e) {
+            System.out.println("Application cannot be run");
             e.printStackTrace();
         }
     }
