@@ -411,7 +411,7 @@ public class Ui {
         System.out.print(fund.giveFund());
         System.out.print(line);
     }
-    
+
     /**
      * Prints message of adding a fund to all projects.
      * @param fund the fund for all projects.
