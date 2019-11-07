@@ -282,7 +282,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * by valid data relevant to the component.
      */
     private boolean findComponents() {
-        final boolean hasComponents = false;
+        boolean hasComponents = false;
         for (int i = 0; i < inputArray.length; i += 1) {
             String currStr = inputArray[i];
 
