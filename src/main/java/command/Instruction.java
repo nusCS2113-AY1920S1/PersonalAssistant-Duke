@@ -130,6 +130,14 @@ public class Instruction {
         return input.startsWith("delete history"); 
     }
 
+    public boolean isUndo(String input) {
+        return input.startsWith("undo");
+    }
+
+    public boolean isRedo(String input) {
+        return input.startsWith("redo");
+    }
+
     public boolean isHelp(String input) {
         return input.equals("help");
     }

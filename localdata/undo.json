@@ -6,7 +6,15 @@
         "email": "e0373902@u.nus.edu",
         "matricNum": "A0194079R",
         "phoneNum": "86790261",
-        "payments": []
+        "payments": [
+          {
+            "item": "toy",
+            "cost": 10.0,
+            "inv": "a01231",
+            "deadline": "Dec 6, 2019, 10:57:45 PM",
+            "status": "PENDING"
+          }
+        ]
       }
     },
     "budget": 0.0,
