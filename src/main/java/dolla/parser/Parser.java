@@ -156,7 +156,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * @return true if no error occurs.
      */
     public boolean verifyDebtCommand(Tag t) {
-        try{
+        try {
             String name = inputArray[1];
             amount = stringToDouble(inputArray[2]);
             String[] desc = inputLine.split(inputArray[2] + SPACE);

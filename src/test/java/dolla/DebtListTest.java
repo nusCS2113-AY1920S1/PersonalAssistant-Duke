@@ -1,8 +1,8 @@
 package dolla;
 
-import dolla.task.Debt;
-import dolla.task.DebtList;
-import dolla.task.Record;
+import dolla.model.Debt;
+import dolla.model.DebtList;
+import dolla.model.Record;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -14,22 +14,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DebtListTest {
     private Debt newDebt1() {
         return new Debt("owe", "tatayu", 30,
-                "supper", LocalDate.parse("2019-11-01"));
+                "supper", LocalDate.parse("2019-11-01"), "{Tag: }");
     }
 
     private Debt newDebt2() {
         return new Debt("borrow", "xx", 10,
-                "ticket", LocalDate.parse("2019-10-27"));
+                "ticket", LocalDate.parse("2019-10-27"),"{Tag: }");
     }
 
     private Debt newDebt3() {
         return new Debt("borrow", "Eve", 3,
-                "tea", LocalDate.parse("2019-12-02"));
+                "tea", LocalDate.parse("2019-12-02"),"{Tag: }");
     }
 
     private Debt newDebt4() {
         return new Debt("owe", "tata", 50,
-                "lunch", LocalDate.parse("2019-11-29"));
+                "lunch", LocalDate.parse("2019-11-29"), "{Tag: }");
     }
 
     private DebtList newDebtList() {
