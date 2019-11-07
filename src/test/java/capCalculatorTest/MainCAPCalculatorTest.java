@@ -7,6 +7,7 @@ import gazeeebo.parsers.CAPCommandParser;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -50,7 +51,7 @@ public class MainCAPCalculatorTest {
         ByteArrayInputStream in = new ByteArrayInputStream("esc".getBytes());
         System.setIn(in);
         test.execute(list, ui, storage, commandStack, deletedTask, triviaManager);
-        assertEquals("Welcome to your CAP Calculator page! What would you like to do?\n\n"
+        Assertions.assertEquals("Welcome to your CAP Calculator page! What would you like to do?\n\n"
                         + "__________________________________________________________\n"
                         + "1. Add module: add semester number,"
                         + "module's code, module's credit, module's grade\n"
@@ -86,7 +87,7 @@ public class MainCAPCalculatorTest {
         ByteArrayInputStream in = new ByteArrayInputStream("7".getBytes());
         System.setIn(in);
         test.execute(list, ui, storage, commandStack, deletedTask, triviaManager);
-        assertEquals("Welcome to your CAP Calculator page! What would you like to do?\n\n"
+        Assertions.assertEquals("Welcome to your CAP Calculator page! What would you like to do?\n\n"
                         + "__________________________________________________________\n"
                         + "1. Add module: add semester number,"
                         + "module's code, module's credit, module's grade\n"
