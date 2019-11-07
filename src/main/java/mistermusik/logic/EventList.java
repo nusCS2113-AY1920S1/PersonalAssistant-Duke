@@ -339,7 +339,7 @@ public class EventList {
     }
 
     /**
-     * @return String containing events found in the next 3 days
+     * @return String containing events found in the next `days` days
      */
     public String getReminder(int days) {
         Date systemDateAndTime = new Date();

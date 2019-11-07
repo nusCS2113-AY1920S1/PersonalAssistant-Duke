@@ -1,3 +1,4 @@
+import mistermusik.commons.Checklist;
 import mistermusik.commons.Contact;
 import mistermusik.commons.Goal;
 import mistermusik.commons.budgeting.Budgeting;
@@ -14,9 +15,12 @@ import mistermusik.commons.events.formatting.EventDate;
 import mistermusik.logic.ClashException;
 import mistermusik.logic.EndBeforeStartException;
 import mistermusik.logic.EventList;
+import mistermusik.commons.Goal;
+import mistermusik.commons.budgeting.CostExceedsBudgetException;
+import mistermusik.ui.CalendarView;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -410,6 +414,156 @@ public class MainTest {
         assertEquals(true, isTasksFound);
     }
 
+    //@@author ZhangYihanNus
+    @Test
+    public void checkFreeDaysTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
+        ArrayList<String> readFromFile = new ArrayList<String>();
+        String fileContent;
+        fileContent = "XT/fawpeifwe/15-11-2019";
+        readFromFile.add(fileContent);
+        fileContent = "XP/apiejfpwiefw/07-11-2019 1500/03-12-2019 1800";
+        readFromFile.add(fileContent);
+        fileContent = "XC/halloween/08-11-2019 1600/04-12-2019 1930/5";
+        readFromFile.add(fileContent);
+        fileContent = "XP/apiejfpwiefw/09-11-2019 1500/03-12-2019 1800";
+        readFromFile.add(fileContent);
+        fileContent = "XP/apiejfpwiefw/10-11-2019 1500/03-12-2019 1800";
+        readFromFile.add(fileContent);
+        fileContent = "XP/apiejfpwiefw/11-11-2019 1500/03-12-2019 1800";
+        readFromFile.add(fileContent);
+        fileContent = "XP/apiejfpwiefw/12-11-2019 1500/03-12-2019 1800";
+        readFromFile.add(fileContent);
+        fileContent = "XP/apiejfpwiefw/13-11-2019 1500/03-12-2019 1800";
+        readFromFile.add(fileContent);
+        fileContent = "XP/apiejfpwiefw/14-11-2019 1500/03-12-2019 1800";
+        readFromFile.add(fileContent);
+
+        EventList eventListTest = new EventList(readFromFile);
+
+        EventDate dayToCheckIfFreeObject = new EventDate(new Date());
+        dayToCheckIfFreeObject.addDaysAndSetMidnight(0);
+        Queue<String> daysFree = new LinkedList<>();
+        int nextDays = 1;
+        while (daysFree.size() <= 3) {
+            boolean isFree = true;
+            for (Event viewEvent : eventListTest.getEventArrayList()) {
+                if (viewEvent.getStartDate().getFormattedDateString().substring(0, 16).equals(dayToCheckIfFreeObject.getFormattedDateString())) {
+                    isFree = false;
+                    break;
+                }
+            }
+            if (isFree) {
+                daysFree.add(dayToCheckIfFreeObject.getFormattedDateString());
+            }
+            dayToCheckIfFreeObject.addDaysAndSetMidnight(1);
+            nextDays++;
+        }
+
+        boolean checkFreeFlag = true;
+        EventDate eventDateCompare = new EventDate(new Date());
+        eventDateCompare.addDaysAndSetMidnight(0);
+        if (!daysFree.poll().equals("Sat, 16 Nov 2019")) {
+            checkFreeFlag = false;
+        }
+        if (!daysFree.poll().equals("Sun, 17 Nov 2019")) {
+            checkFreeFlag = false;
+        }
+        if (!daysFree.poll().equals("Mon, 18 Nov 2019")) {
+            checkFreeFlag = false;
+        }
+        assertEquals(true, checkFreeFlag);
+    }
+
+    @Test
+    public void checklistAddTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
+        ArrayList<String> testListString = new ArrayList<>();
+        EventList testList = new EventList(testListString);
+        Event practiceTest1 = new Practice("rehearsal No1", "10-12-2019 1800", "10-12-2019 2100");
+        testList.addEvent(practiceTest1);
+
+        testList.getEvent(0).addChecklist("Bring glasses");
+        testList.getEvent(0).addChecklist("Edit DG");
+        int checklistItemIndex = 1;
+        String testOutput = "";
+        for (String checklistItem : practiceTest1.getChecklist()) {
+            testOutput += checklistItemIndex + ". " + checklistItem;
+            checklistItemIndex += 1;
+        }
+        boolean isChecklistFound = !testOutput.isEmpty();
+        assertTrue(isChecklistFound);
+    }
+
+    @Test
+    public void checklistEditTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
+        ArrayList<String> testListString = new ArrayList<>();
+        EventList testList = new EventList(testListString);
+        Event lessonTest1 = new Lesson("CG2271", "10-12-2019 1800", "10-12-2019 2100");
+        testList.addEvent(lessonTest1);
+
+        String itemString1 = "bring glasses";
+        testList.getEvent(0).addChecklist(itemString1);
+        String itemString2 = "bring a pair of glasses";
+        testList.getEvent(0).editChecklist(0, itemString2);
+        boolean isUpdated = false;
+        if (testList.getEvent(0).getChecklist().get(0).equals(itemString2)) {
+            isUpdated = true;
+        }
+        assertTrue(isUpdated);
+    }
+
+    @Test
+    public void checklistDeleteTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
+        ArrayList<String> testListString = new ArrayList<>();
+        EventList testList = new EventList(testListString);
+        Event lessonTest1 = new Lesson("CG2271", "10-12-2019 1800", "10-12-2019 2100");
+        testList.addEvent(lessonTest1);
+
+        String itemString = "bring glasses";
+        testList.getEvent(0).addChecklist(itemString);
+        testList.getEvent(0).deleteChecklist(0);
+        boolean isDeleted = false;
+        if(testList.getEvent(0).getChecklist().isEmpty()) {
+            isDeleted = true;
+        }
+        assertTrue(isDeleted);
+    }
+
+    @Test
+    public void checklistViewTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
+        ArrayList<String> testListString = new ArrayList<>();
+        EventList testList = new EventList(testListString);
+        Event lessonTest1 = new Lesson("CG2271", "10-12-2019 1800", "10-12-2019 2100");
+        testList.addEvent(lessonTest1);
+
+        String itemString = "bring glasses";
+        testList.getEvent(0).addChecklist(itemString);
+        String testChecklistItem = testList.getEvent(0).getChecklist().get(0);
+        assertEquals(itemString, testChecklistItem);
+    }
+
+    @Test
+    public void calendarTest()  throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
+        ArrayList<String> testListString = new ArrayList<>();
+        EventList testList = new EventList(testListString);
+        Event lessonTest1 = new Lesson("CG2271", "12-11-2019 1800", "12-11-2019 2100");
+        testList.addEvent(lessonTest1);
+
+        Date testDate = new GregorianCalendar(2019, Calendar.NOVEMBER, 7).getTime();
+        CalendarView calendarTest = new CalendarView(testList, new EventDate(new Date()));
+        calendarTest.setCalendarInfo();
+        String calendarCompare = "________________________________________________________________________________________________________________________\n" +
+                "|                                                  Events of the week                                                  |\n" +
+                "________________________________________________________________________________________________________________________\n" +
+                "|   <Thursday>   |    <Friday>    |   <Saturday>   |    <Sunday>    |    <Monday>    |   <Tuesday>    |   <Wednesday>  |\n" +
+                "|   07-11-2019   |   08-11-2019   |   09-11-2019   |   10-11-2019   |   11-11-2019   |   12-11-2019   |   13-11-2019   |\n" +
+                "________________________________________________________________________________________________________________________\n" +
+                "|                |                |                |                |                |* 18:00 ~ 21:00 |                |\n" +
+                "|                |                |                |                |                |CG2271          |                |\n" +
+                "|                |                |                |                |                |----------------|                |\n" +
+                "|                |                |                |                |                |                |                |\n" +
+                "________________________________________________________________________________________________________________________"
+        assertEquals(calendarCompare, calendarTest.getStringForOutput());
+
     //@@author YuanJiayi
     @Test
     public void addRecurringEventTest() throws ClashException {
@@ -564,39 +718,6 @@ public class MainTest {
     //@@author
 //
 //
-//    @Test
-//    public void checkFreeDaysTest() {
-//        ArrayList<String> taskListString = new ArrayList<>();
-//        EventList testList = new EventList(taskListString);
-//        Task toDoTest = new ToDo("B-extensions");
-//        testList.addTask(toDoTest);
-//        Task deadlineTest1 = new Deadline("finish extension", "21/09/2019 1900");
-//        testList.addTask(deadlineTest1);
-//        Task deadlineTest2 = new Deadline("submit report", "22/09/2019 2000");
-//        testList.addTask(deadlineTest2);
-//        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-//        EventDate today = new EventDate(f.format(new Date()));
-//        Queue<String> daysFree = new LinkedList<String>();
-//        int nextDays = 1;
-//        while (daysFree.size() <= 3) {
-//            boolean flagFree = true;
-//            for (Task viewTask : testList.getTaskArrayList()) {
-//                if (viewTask.toString().contains(today.toOutputString())) {
-//                    flagFree = false;
-//                    break;
-//                }
-//            }
-//            if (flagFree) {
-//                daysFree.add(today.toOutputString());
-//            }
-//            today.addDays(nextDays);
-//        }
-//        boolean checkFreeFlag = false;
-//        if (daysFree.poll().equals("19 SEP 2019")) {
-//            checkFreeFlag = true;
-//        }
-//        assertEquals(true, checkFreeFlag);
-//    }
 //
 //    @Test
 //    public void reminderTest () {
