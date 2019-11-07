@@ -77,6 +77,7 @@ public class Storage {
             throw new AlphaNUSException("Unable to write to file: " + fundfilepath);
         }
     }
+
     /**
      * Writes the projectmap, before the current command is executed, to local storage.
      * @param projectmap LinkedHashMap of projects.
@@ -100,6 +101,7 @@ public class Storage {
             throw new AlphaNUSException("Unable to write to file: " + undoListFilePath);
         }
     }
+
     /**
      * Writes the projectmap, after current command is executed, to local storage.
      * @param projectmap LinkedHashMap of projects.
@@ -231,6 +233,7 @@ public class Storage {
     public static void remove(String str){
         //TODO
     }
+
     /**
      * Writes the input command entered by the user to the local storage.
      * @param command input command entered by the user
@@ -245,13 +248,14 @@ public class Storage {
                 file.createNewFile();
             }
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
-                bufferedWriter.write(toWriteStr);
-                bufferedWriter.newLine();
-                bufferedWriter.close();
+            bufferedWriter.write(toWriteStr);
+            bufferedWriter.newLine();
+            bufferedWriter.close();
         } catch (IOException e) {
             throw new AlphaNUSException("Unable to write to file: " + CommandListFilePath);
         }
     }
+
     /**
      * Reads array list of input commands from local storage and returns it.
      * @return ArrayList of input commands stored in local storage.
@@ -260,7 +264,7 @@ public class Storage {
     public ArrayList<String> readFromCommandsFile() throws AlphaNUSException {
         //Type commandListtype = new TypeToken<ArrayList<String>>(){}.getType();
         String line = null;
-        ArrayList<String> List = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<String>();
         try {
             File file = new File(CommandListFilePath);
             if (!file.exists()) {
@@ -268,13 +272,13 @@ public class Storage {
                 file.createNewFile();
             }
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-            while((line = bufferedReader.readLine()) != null) {
-               List.add(line);
+            while ((line = bufferedReader.readLine()) != null) {
+                list.add(line);
             }
             bufferedReader.close();
         } catch (Exception e) {
             throw new AlphaNUSException("Unable to read file");
         }
-        return List;
+        return list;
     }
 }

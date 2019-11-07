@@ -79,7 +79,7 @@ public class Process {
      */
     public void addProject(String input, Ui ui, Fund fund, Storage storage) {
         try {
-            beforeAftercommand.beforedoCommand(storage, projectmanager);
+            BeforeAfterCommand.beforedoCommand(storage, projectmanager);
             String[] splitproject = input.split("pr/", 2);
             splitproject = cleanStrStr(splitproject);
             String[] splitamount = splitproject[1].split("am/", 2);
@@ -117,7 +117,7 @@ public class Process {
                     Project newProject = projectmanager.addProject(projectname, projectamount);
                     int projectsize = projectmanager.projectmap.size();
                     ui.printAddProject(newProject, projectsize);
-                    beforeAftercommand.afterCommand(storage, projectmanager);
+                    BeforeAfterCommand.afterCommand(storage, projectmanager);
                 } else {
                     ui.exceptionMessage("\t" + "Not enough funds");
                 }
@@ -133,7 +133,7 @@ public class Process {
      * @param ui    Ui that interacts with the user.
      */
     public void deleteProject(String input, Ui ui, Storage storage) throws AlphaNUSException {
-        beforeAftercommand.beforedoCommand(storage, projectmanager);
+        BeforeAfterCommand.beforedoCommand(storage, projectmanager);
         String[] split = input.split("pr/", 2);
         split = cleanStrStr(split);
         if (split.length != 2) {
@@ -157,7 +157,7 @@ public class Process {
         Project deletedProject = projectmanager.deleteProject(projectname);
         int projectsize = projectmanager.projectmap.size();
         ui.printDeleteProject(deletedProject, projectsize);
-        beforeAftercommand.afterCommand(storage, projectmanager);
+        BeforeAfterCommand.afterCommand(storage, projectmanager);
     }
 
     /**
@@ -581,7 +581,7 @@ public class Process {
      * @param ui    Ui that interacts with the user.
      */
     public void deletePayment(String input, Ui ui, Storage storage) throws AlphaNUSException {
-        beforeAftercommand.beforedoCommand(storage, projectmanager);
+        BeforeAfterCommand.beforedoCommand(storage, projectmanager);
         HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
         String currentProjectName = projectmanager.currentProject.projectname;
         String[] arr = input.split("payment ", 2);
@@ -589,7 +589,7 @@ public class Process {
         split = cleanStrStr(split);
         Payments deleted = PaymentManager.deletePayments(split[1], split[2], managermap);
         ui.printDeletePaymentMessage(split[1], deleted, managermap.get(split[1]).payments.size(), currentProjectName);
-        beforeAftercommand.afterCommand(storage, projectmanager);
+        BeforeAfterCommand.afterCommand(storage, projectmanager);
     }
 
     /**
@@ -600,7 +600,7 @@ public class Process {
      */
     public void addPayment(String input, Ui ui, Storage storage) {
         try {
-            beforeAftercommand.beforedoCommand(storage, projectmanager);
+            BeforeAfterCommand.beforedoCommand(storage, projectmanager);
             HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
             String currentProjectName = projectmanager.currentProject.projectname;
             String[] splitspace = input.split("payment ", 2);
@@ -613,7 +613,7 @@ public class Process {
             Payments payment = PaymentManager.addPayments(payee, item, cost, invoice, managermap);
             int paymentsSize = managermap.get(payee).payments.size();
             ui.printAddPaymentMessage(splitpayments[1], payment, paymentsSize, currentProjectName);
-            beforeAftercommand.afterCommand(storage, projectmanager);
+            BeforeAfterCommand.afterCommand(storage, projectmanager);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException | AlphaNUSException e) {
@@ -629,7 +629,7 @@ public class Process {
      */
     public void addPayee(String input, Ui ui, Storage storage) {
         try {
-            beforeAftercommand.beforedoCommand(storage, projectmanager);
+            BeforeAfterCommand.beforedoCommand(storage, projectmanager);
             HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
             String currentProjectName = projectmanager.currentProject.projectname;
             String[] splitspace = input.split("payee ", 2);
@@ -642,7 +642,7 @@ public class Process {
             Payee payee = PaymentManager.addPayee(payeename, email, matricNum, phoneNum, managermap);
             int payeesize = managermap.size();
             ui.printAddPayeeMessage(splitpayments[1], payee, payeesize, currentProjectName);
-            beforeAftercommand.afterCommand(storage, projectmanager);
+            BeforeAfterCommand.afterCommand(storage, projectmanager);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException e) {
@@ -660,7 +660,7 @@ public class Process {
      */
     public void deletePayee(String input, Ui ui, Storage storage) {
         try {
-            beforeAftercommand.beforedoCommand(storage, projectmanager);
+            BeforeAfterCommand.beforedoCommand(storage, projectmanager);
             HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
             String currentProjectName = projectmanager.currentProject.projectname;
             String[] splitspace = input.split("payee ", 2);
@@ -670,7 +670,7 @@ public class Process {
             Payee payee = PaymentManager.deletePayee(payeename, managermap);
             int payeesize = managermap.size();
             ui.printdeletePayeeMessage(splitpayments[1], payee, payeesize, currentProjectName);
-            beforeAftercommand.afterCommand(storage, projectmanager);
+            BeforeAfterCommand.afterCommand(storage, projectmanager);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException | AlphaNUSException e) {
@@ -729,7 +729,7 @@ public class Process {
      * @param ui Ui that interacts with the user.
      * @param storage Storage that stores the input commands entered by the user.
      */
-    public void viewhistory(String input, Ui ui , Storage storage) throws ParseException, AlphaNUSException {
+    public void viewhistory(String input, Ui ui, Storage storage) throws ParseException, AlphaNUSException {
         ArrayList<String> commandList = new ArrayList<String>();
         String[] splitspace = input.split(" ", 3);
         String[] splitslash = splitspace[2].split("/", 2);
@@ -741,28 +741,29 @@ public class Process {
         Date dateSecond = sdf.parse(date2);
         commandList = storage.readFromCommandsFile();
         ArrayList<String> viewhistory = new ArrayList<String>();
-            for (int i = 0; i < commandList.size(); i = i + 1) {
-                String token = null;
-                String token1 = null;
-                String[] splitDateCommand = commandList.get(i).split("~", 2);
-                for (int j = 0; j < splitDateCommand.length; j = j + 1) {
-                    token = splitDateCommand[j];
-                }
-                String[] splitDateTime = token.split(" ", 3);
-                for (int k = 0; k < splitDateTime.length; k = k + 1) {
-                    if (k == 1) {
-                        token1 = splitDateTime[k];
-                    }
-                }
-                Date dateCommand = sdf.parse(token1);
-                if ((dateCommand.compareTo(dateFirst)) >= 0) {
-                    if ((dateCommand.compareTo(dateSecond)) <= 0) {
-                        viewhistory.add(commandList.get(i));
-                    }
+        for (int i = 0; i < commandList.size(); i = i + 1) {
+            String token = null;
+            String token1 = null;
+            String[] splitDateCommand = commandList.get(i).split("~", 2);
+            for (int j = 0; j < splitDateCommand.length; j = j + 1) {
+                token = splitDateCommand[j];
+            }
+            String[] splitDateTime = token.split(" ", 3);
+            for (int k = 0; k < splitDateTime.length; k = k + 1) {
+                if (k == 1) {
+                    token1 = splitDateTime[k];
                 }
             }
-            ui.printviewHistoryList(viewhistory, date1, date2);
+            Date dateCommand = sdf.parse(token1);
+            if ((dateCommand.compareTo(dateFirst)) >= 0) {
+                if ((dateCommand.compareTo(dateSecond)) <= 0) {
+                    viewhistory.add(commandList.get(i));
+                }
+            }
         }
+        ui.printviewHistoryList(viewhistory, date1, date2);
+    }
+
     /**
      * undoes the previous command entered by the user.
      * @param ui Ui that interacts with the user.
@@ -772,6 +773,7 @@ public class Process {
         projectmanager.projectmap = storage.readFromUndoFile();
         ui.undoMessage();
     }
+
     /**
      * redoes the previous command entered by the user.
      * @param ui Ui that interacts with the user.

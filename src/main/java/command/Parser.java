@@ -30,7 +30,7 @@ public class Parser {
      * @param tasklist Tasklist of the user.
      * @param ui Ui that interacts with the user.
      * @param storage command.Storage for the Tasklist.
-     * @param list
+     * @param list CommandList.
      * @return Returns boolean variable to indicate when to stop parsing for input.
      * @throws AlphaNUSException if input is not valid.
      */

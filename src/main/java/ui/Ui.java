@@ -183,6 +183,7 @@ public class Ui {
             System.out.println(list1.get(i));
         }
     }
+
     /**
      * Prints dates from which history was cleared.
      * @param date1 from date to delete history.
@@ -422,18 +423,21 @@ public class Ui {
             }
         }
     }
+
     /**
      * Prints message to indicate that the previous command has been undone.
      */
-    public void undoMessage(){
+    public void undoMessage() {
         System.out.println("Got it! I have undone the previous command.");
     }
+
     /**
      * Prints message to indicate that the previous command has been redone.
      */
-    public void redoMessage(){
+    public void redoMessage() {
         System.out.println("Got it! I have redone the previous command.");
     }
+
     /**
      * Prints out a help message with command formats.
      */
@@ -457,6 +461,7 @@ public class Ui {
         System.out.println("\t" + "Exit:                 " + commandFormat.exitFormat());
         System.out.print(line);
     }
+
     /**
      * Returns the scanned input.
      * @return Scanned input.
