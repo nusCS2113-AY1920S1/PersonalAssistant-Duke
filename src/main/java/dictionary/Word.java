@@ -16,7 +16,7 @@ public class Word {
     /**
      * Maximum ratio of difference allowed for 2 words to be considered close.
      */
-    private static final double MAX_DIF_ALLOWED = 0.6;
+    private static final double MAX_DIF_ALLOWED = 0.5;
 
     /**
      * Number of times that a word is searched.
@@ -111,8 +111,7 @@ public class Word {
                 }
             }
         }
-        int lengthOfShorterWord = Math.min(another.length(), word.length());
-        return dp[word.length()][another.length()] * 1.0 / lengthOfShorterWord;
+        return dp[word.length()][another.length()] * 1.0 / word.length();
     }
 
     /**
@@ -121,7 +120,7 @@ public class Word {
      * @return true if 2 words are closed with each other
      */
     public boolean isClosed(String another) {
-        return differenceToWord(another) < MAX_DIF_ALLOWED;
+        return differenceToWord(another) <= MAX_DIF_ALLOWED;
     }
 
     @Override
