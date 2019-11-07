@@ -121,7 +121,6 @@ public class RecurringCommand extends Command {
                 startOfFollowingWeek = getFollowingWeekDate(startDate);
                 startDateString = dateFormat.format(startOfFollowingWeek);
                 startDate = startOfFollowingWeek;
-
             }
             while (startOfFollowingWeek.before(endDate) || startOfFollowingWeek.equals(endDate));
         } else {

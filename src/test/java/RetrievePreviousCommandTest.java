@@ -1,50 +1,108 @@
  import Commands.Command;
 import Commands.RetrievePreviousCommand;
-import Commons.LookupTable;
-import Commons.Ui;
-import StubClasses.StorageStub;
+ import Commands.ShowPreviousCommand;
+import Commons.UserInteraction;
+ import DukeExceptions.DukeInvalidFormatException;
+ import Parser.FindFreeTimesParse;
+ import Parser.ShowPreviousParse;
+ import Parser.WeekParse;
+ import StubClasses.StorageStub;
 import Tasks.TaskList;
-import org.junit.jupiter.api.BeforeAll;
+ import org.junit.Before;
+ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class RetrievePreviousCommandTest {
+ public class RetrievePreviousCommandTest {
     private static ArrayList<String> previousInputList;
-    private static int sizeOfList;
     private static String userInputWithInvalidNumber;
     private static String userInputToGetFromEmptyPreviousInputList;
     private static String userInputWithValidNumber;
     private static String userInputToGetFromNonEmptyPreviousInputList;
-    private LookupTable lookupTable = new LookupTable();
     private TaskList events = new TaskList();
     private TaskList deadlines = new TaskList();
     private StorageStub storageStub = new StorageStub();
-    private Ui ui = new Ui();
+    private UserInteraction ui = new UserInteraction();
 
     @BeforeAll
     public static void setAllVariables() {
-        String firstPreviousInput = "add/d CS2100 finish tutorial /by 12/10/2019 1300";
-        String secondPreviousInput = "add/d CS2100 assignment 2 /by 13/10/2019 1400";
-        previousInputList.add(firstPreviousInput);
-        previousInputList.add(secondPreviousInput);
         userInputWithInvalidNumber = "retrieve/previous 3";
         userInputToGetFromEmptyPreviousInputList = "retrieve/previous 1";
         userInputWithValidNumber = "retrieve/previous 2";
         userInputToGetFromNonEmptyPreviousInputList = "retrieve/previous 1";
-        sizeOfList = previousInputList.size();
+    }
+
+    @Before
+    public void runWeekCommand() {
+        String actual = "No error";
+        String validUserInputWithDuration = "Week 3";
+        Command command = null;
+        try {
+            command = new WeekParse(validUserInputWithDuration).parse();
+            actual = command.execute(events, deadlines, ui, storageStub);
+        } catch (DukeInvalidFormatException e) {
+            actual = e.getMessage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assertNotNull(command, actual);
+    }
+
+    @Before
+    public void setRetrievedFreeTimesList() {
+        String actual = "No error";
+        String validUserInputWithDuration = "find 3 hours";
+        Command command = null;
+        try {
+            command = new FindFreeTimesParse(validUserInputWithDuration).parse();
+            actual = command.execute(events, deadlines, ui, storageStub);
+        } catch (DukeInvalidFormatException e) {
+            actual = e.getMessage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assertNotNull(command, actual);
+    }
+
+    @Before
+    public void showPreviousCommandList() {
+        //To facilitate show previous
+        setRetrievedFreeTimesList();
+        runWeekCommand();
+        setRetrievedFreeTimesList();
+        runWeekCommand();
+        String actual = "No error";
+        String validUserInput = "show/previous 2";
+        Command command = null;
+        try {
+            command = new ShowPreviousParse(validUserInput).parse();
+            actual = command.execute(events, deadlines, ui, storageStub);
+        } catch (DukeInvalidFormatException e) {
+            actual = e.getMessage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assertNotNull(command, actual);
     }
 
     @Test
     public void retrievePreviousCommandTestWithInvalidNUmber() {
+        //To facilitate retrieve previous
+        showPreviousCommandList();
+        runWeekCommand();
+
+        previousInputList = ShowPreviousCommand.getOutputList();
+        int sizeOfList = previousInputList.size();
         Command command = new RetrievePreviousCommand(userInputWithInvalidNumber);
         String expected = "There are only " + sizeOfList + " of previous commands." +
                 "Please enter a valid number less than or equal to " + sizeOfList + " .";
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
@@ -58,7 +116,7 @@ public class RetrievePreviousCommandTest {
                 "Format: show previous <num> or show previous <type> <num>";
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
@@ -67,11 +125,18 @@ public class RetrievePreviousCommandTest {
 
     @Test
     public void retrievePreviousCommandTestWithValidNumber() {
+        //To facilitate retrieve previous
+        showPreviousCommandList();
+        runWeekCommand();
+
         Command command = new RetrievePreviousCommand(userInputWithValidNumber);
-        String expected = "Your chosen previous input is: \n add/d CS2100 assignment 2 /by 13/10/2019 1400";
+        previousInputList = ShowPreviousCommand.getOutputList();
+        int index = 1;
+        String chosenInput = previousInputList.get(index);
+        String expected = "Your chosen previous input is: \n" + chosenInput;
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }
@@ -80,11 +145,19 @@ public class RetrievePreviousCommandTest {
 
     @Test
     public void retrievePreviousCommandTestWithNonEmptyList() {
+        //To facilitate retrieve previous
+        showPreviousCommandList();
+        runWeekCommand();
+
+        //For actual testing
         Command command = new RetrievePreviousCommand(userInputToGetFromNonEmptyPreviousInputList);
-        String expected = "Your chosen previous input is: \n add/d CS2100 finish tutorial /by 12/10/2019 1300";
+        previousInputList = ShowPreviousCommand.getOutputList();
+        int index = 0;
+        String chosenInput = previousInputList.get(index);
+        String expected = ui.showChosenPreviousChoice(chosenInput);
         String actual = "";
         try {
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (Exception e) {
             actual = e.getMessage();
         }

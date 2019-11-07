@@ -2,8 +2,7 @@ package RetrieveFreeTimesTest;
 
 import Commands.Command;
 import Commands.FindFreeTimesCommand;
-import Commons.LookupTable;
-import Commons.Ui;
+import Commons.UserInteraction;
 import DukeExceptions.DukeInvalidFormatException;
 import Parser.FindFreeTimesParse;
 import Parser.RetrieveFreeTimesParse;
@@ -12,6 +11,7 @@ import Tasks.TaskList;
 import javafx.util.Pair;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -31,11 +31,10 @@ public class RetrieveFreeTimesCommandTest {
 
     private static ArrayList<Pair<String, String>> retrievedFreeTimesList;
 
-    private LookupTable lookupTable = new LookupTable();
     private TaskList events = new TaskList();
     private TaskList deadlines = new TaskList();
     private StorageStub storageStub = new StorageStub();
-    private Ui ui = new Ui();
+    private UserInteraction ui = new UserInteraction();
 
     @BeforeAll
     public static void setAllVariables() {
@@ -51,7 +50,7 @@ public class RetrieveFreeTimesCommandTest {
         Command command = null;
         try {
             command = new RetrieveFreeTimesParse(userInputWithValidOption).parse();
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
 
         } catch (DukeInvalidFormatException e) {
             actual = e.getMessage();
@@ -84,11 +83,11 @@ public class RetrieveFreeTimesCommandTest {
     @Before
     public void setRetrievedFreeTimesList() {
         String actual = "No error";
-        String validUserInputWithDuration = "find 3 hours";
+        String validUserInputWithDuration = "find/ft 3 hours";
         Command command = null;
         try {
             command = new FindFreeTimesParse(validUserInputWithDuration).parse();
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (DukeInvalidFormatException e) {
             actual = e.getMessage();
         } catch (Exception e) {
@@ -107,7 +106,7 @@ public class RetrieveFreeTimesCommandTest {
         Command command = null;
         try {
             command = new RetrieveFreeTimesParse(userInputWithValidOption).parse();
-            actual = command.execute(lookupTable, events, deadlines, ui, storageStub);
+            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (DukeInvalidFormatException e) {
             actual = e.getMessage();
         } catch (Exception e) {
