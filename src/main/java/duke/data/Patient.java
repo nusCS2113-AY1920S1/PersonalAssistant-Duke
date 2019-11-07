@@ -105,7 +105,7 @@ public class Patient extends DukeObject {
                 return imp;
             }
         }
-        throw new DukeException("I don't have that entry in the list!");
+        return null;
     }
 
     /**
@@ -326,6 +326,7 @@ public class Patient extends DukeObject {
             impressions.remove(primaryImpression);
             impressions.add(0, primaryImpression);
             primaryDiagnosis = primaryImpression;
+            return;
         }
         throw new DukeException("I don't have that entry in the list!");
     }
