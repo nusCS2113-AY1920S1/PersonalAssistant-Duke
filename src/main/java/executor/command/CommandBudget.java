@@ -12,6 +12,10 @@ public class CommandBudget extends Command {
 
     private Double budgetAmount;
 
+    /**
+     * CommandBudget helps user to set the budget.
+     * @param userInput String is the user entered input
+     */
     public CommandBudget(String userInput) {
         super();
         this.userInput = userInput;
@@ -29,7 +33,7 @@ public class CommandBudget extends Command {
             String percentageExceeded = percentageOfBudgetExceeded(storageManager.getWalletExpenses());
             String percentageUsedUp = percentageOfBudgetUsedUp(storageManager.getWalletExpenses());
             this.infoCapsule.setCodeToast();
-            this.infoCapsule.setOutputStr("Budget updated to: $" + decimalFormat.format(this.budgetAmount) +"\n"
+            this.infoCapsule.setOutputStr("Budget updated to: $" + decimalFormat.format(this.budgetAmount) + "\n"
                     + percentageExceeded + "\n"
                     + percentageUsedUp + "\n"
                     + "\n");
@@ -63,8 +67,8 @@ public class CommandBudget extends Command {
             }
 
             Double percent = ((amountSpent - getBudgetAmount()) / getBudgetAmount()) * 100;
-            Double percentage = roundByDecimalPlace(percent , 2);
-            return "Percentage of Budget Exceeded :"+ percentage.toString() + "%";
+            Double percentage = roundByDecimalPlace(percent, 2);
+            return "Percentage of Budget Exceeded :" + percentage.toString() + "%";
         } catch (Exception e) {
             throw new DukeException("Unable to calculate percentage overspent!\n");
         }

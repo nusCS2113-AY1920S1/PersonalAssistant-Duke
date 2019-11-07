@@ -23,20 +23,27 @@ public class CommandUpdateBalance extends Command {
 
     @Override
     public void execute(StorageManager storageManager) {
-        try {
-            this.newBalance = extractAmount();
-        } catch (DukeException e) {
-            this.infoCapsule.setCodeError();
-            this.infoCapsule.setOutputStr(e.getMessage());
-            return;
+        if (this.hasBeenSetAlready()) {
+            this.infoCapsule.setCodeToast();
+            this.infoCapsule.setOutputStr("Setbalance can be only set once !!\n");
+        } else {
+            try {
+                this.newBalance = extractAmount();
+            } catch (DukeException e) {
+                this.infoCapsule.setCodeError();
+                this.infoCapsule.setOutputStr(e.getMessage());
+                return;
+            }
+            DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+            storageManager.setWalletBalance(this.newBalance);
+            this.infoCapsule.setCodeToast();
+            this.infoCapsule.setOutputStr("Balance updated to: $" + decimalFormat.format(this.newBalance) + "\n");
+            getExecutedCommands().add(this.commandType.toString());
         }
-        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-        storageManager.setWalletBalance(this.newBalance);
-        this.infoCapsule.setCodeToast();
-        this.infoCapsule.setOutputStr("Balance updated to: $" + decimalFormat.format(this.newBalance) + "\n");
     }
 
     private Double extractAmount() throws DukeException {
+
         String incomeStr = Parser.parseForPrimaryInput(this.commandType, this.userInput);
         try {
             incomeStr = incomeStr.trim().replace("$", "");
@@ -50,4 +57,9 @@ public class CommandUpdateBalance extends Command {
             + "Please enter an amount greater than or equal to zero in your wallet !\n");
         }
     }
+
+    private boolean hasBeenSetAlready() {
+        return getExecutedCommands().contains(this.commandType.toString());
+    }
+
 }
