@@ -155,7 +155,7 @@
 //        ui.showDone(items, index);
 //    }
 
-//@@author maxxyx96-unused
+//@@author e0318465-unused
 /**
  * Code snippet from DuplicateFoundCommand
  */
