@@ -52,8 +52,8 @@
             <padding>
                 <Insets bottom="5" left="15" right="5" top="5"/>
             </padding>
-            <Button fx:id="edit" prefWidth="60" styleClass="cell_small_label" onAction="#handleSell" text="Sell"/>
-            <Button fx:id="delete" prefWidth="60" styleClass="cell_small_label" onAction="#handleDelete" text="Delete"/>
+            <Button fx:id="edit" prefWidth="60" styleClass="cell_small_label" onAction="#handleEdit" text="Edit"/>
+            <Button fx:id="sell" prefWidth="60" styleClass="cell_small_label" onAction="#handleSell" text="Sell"/>
         </VBox>
         <rowConstraints>
             <RowConstraints/>

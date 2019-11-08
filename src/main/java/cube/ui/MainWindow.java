@@ -2,9 +2,9 @@ package cube.ui;
 
 import cube.exception.CubeException;
 import cube.logic.command.Command;
-import cube.logic.command.exception.CommandException;
 import cube.logic.command.util.CommandResult;
 import cube.logic.parser.Parser;
+import cube.logic.parser.ParserUtil;
 import cube.model.ModelManager;
 import cube.model.food.Food;
 import cube.storage.ConfigStorage;
@@ -94,7 +94,7 @@ public class MainWindow extends UiManager<Stage> {
         overviewDisplay = new OverviewDisplay(storageManager.getFoodList().size(), Food.getRevenue(), Food.getRevenue());
         overviewDisplayPlaceholder.getChildren().add(overviewDisplay.getRoot());
 
-        listPanel = new ListPanel(storageManager.getFoodList(), this::executeSell, this::executeDelete);
+        listPanel = new ListPanel(storageManager.getFoodList(), this::executeSell, this::executeEdit);
         listPanelPlaceholder.getChildren().add(listPanel.getRoot());
 
         statusBar = new StatusBar(storage.getFileFullPath());
@@ -172,16 +172,18 @@ public class MainWindow extends UiManager<Stage> {
         }
     }
 
+    private void executeEdit(int index) {
+        Food food = storageManager.getFoodList().get(index - 1);
+        String command = "update %1$s -t %2$s -p %3$s -s %4$s -e %5$s";
+
+        commandBox.setCommandText(String.format(command, food.getName(), food.getType(), food.getPrice(), food.getStock(), ParserUtil.parseDateToString(food.getExpiryDate())));
+    }
+
     private void executeSell(int index) {
         Food food = storageManager.getFoodList().get(index - 1);
 
         String command = "sold %1$s -q 1";
         commandBox.setCommandText(String.format(command, food.getName()));
-    }
-
-    private void executeDelete(int index) {
-        String command = "delete -i %1$s";
-        commandBox.setCommandText(String.format(command, index));
     }
 
     /**

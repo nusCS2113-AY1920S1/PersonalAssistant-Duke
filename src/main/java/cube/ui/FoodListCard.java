@@ -1,5 +1,6 @@
 package cube.ui;
 
+import cube.logic.parser.ParserUtil;
 import cube.model.food.Food;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,7 +15,7 @@ public class FoodListCard extends UiManager<HBox> {
     private int index;
 
     private final SellExecutor sellExecutor;
-    private final DeleteExecutor deleteExecutor;
+    private final EditExecutor editExecutor;
 
     @FXML
     private HBox cardPane;
@@ -34,9 +35,9 @@ public class FoodListCard extends UiManager<HBox> {
     @FXML
     private Button edit;
     @FXML
-    private Button delete;
+    private Button sell;
 
-    public FoodListCard(Food food, int displayedIndex, SellExecutor sellExecutor, DeleteExecutor deleteExecutor) {
+    public FoodListCard(Food food, int displayedIndex, SellExecutor sellExecutor, EditExecutor editExecutor) {
         super(FXML);
         this.food = food;
         this.index = displayedIndex;
@@ -47,7 +48,7 @@ public class FoodListCard extends UiManager<HBox> {
             tags.getChildren().add(new Label(food.getType()));
             price.setText("Price: $" + food.getPrice());
             stock.setText("Stock: " + food.getStock());
-            expiry.setText("Expiry: " + food.getExpiryDate().toString());
+            expiry.setText("Expiry: " + ParserUtil.parseDateToString(food.getExpiryDate()));
         } catch (NullPointerException e) {
             tags.getChildren().setAll(new Label("Uncategorized"));
             price.setText("Price: $" + "0.00");
@@ -56,7 +57,12 @@ public class FoodListCard extends UiManager<HBox> {
         }
 
         this.sellExecutor = sellExecutor;
-        this.deleteExecutor = deleteExecutor;
+        this.editExecutor = editExecutor;
+    }
+
+    @FXML
+    private void handleEdit() {
+        editExecutor.execute(index);
     }
 
     @FXML
@@ -64,9 +70,15 @@ public class FoodListCard extends UiManager<HBox> {
         sellExecutor.execute(index);
     }
 
-    @FXML
-    private void handleDelete() {
-        deleteExecutor.execute(index);
+    /**
+     * Represents a function that can execute delete commands.
+     */
+    @FunctionalInterface
+    public interface EditExecutor {
+        /**
+         * Executes the command and returns the result.
+         */
+        void execute(int index);
     }
 
     /**
@@ -80,14 +92,4 @@ public class FoodListCard extends UiManager<HBox> {
         void execute(int index);
     }
 
-    /**
-     * Represents a function that can execute delete commands.
-     */
-    @FunctionalInterface
-    public interface DeleteExecutor {
-        /**
-         * Executes the command and returns the result.
-         */
-        void execute(int index);
-    }
 }

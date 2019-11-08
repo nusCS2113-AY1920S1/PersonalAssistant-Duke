@@ -3,7 +3,6 @@ plugins {
     id 'application'
     id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '5.1.0'
-    id "org.openjfx.javafxplugin" version "0.0.8"
 }
 
 group 'cube'
@@ -59,12 +58,6 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
-    implementation group: 'org.openjfx', name: 'javafx-media', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-media', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-media', version: javaFxVersion, classifier: 'linux'
-    implementation group: 'org.openjfx', name: 'javafx-web', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-web', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-web', version: javaFxVersion, classifier: 'linux'
 
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.0'
     implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-csv', version: '2.10.0'
@@ -73,12 +66,6 @@ dependencies {
     
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
-}
-
-javafx {
-    version = "11.0.2"
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
-
 }
 
 checkstyle {
