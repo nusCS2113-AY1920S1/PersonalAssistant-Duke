@@ -80,7 +80,7 @@ public class Project implements IProject {
         for (String taskID: this.taskAndListOfMembersAssigned.keySet()) {
             this.taskAndListOfMembersAssigned.get(taskID).remove(memberToBeRemoved.getMemberID());
         }
-        this.memberAndIndividualListOfTasks.remove(memberToBeRemoved);
+        this.memberAndIndividualListOfTasks.remove(memberToBeRemoved.getMemberID());
         this.memberList.removeMember(memberToBeRemoved);
     }
 
@@ -97,7 +97,7 @@ public class Project implements IProject {
         for (String memberID : this.memberAndIndividualListOfTasks.keySet()) {
             this.memberAndIndividualListOfTasks.get(memberID).remove(taskToRemove.getTaskID());
         }
-        this.taskAndListOfMembersAssigned.remove(taskToRemove);
+        this.taskAndListOfMembersAssigned.remove(taskToRemove.getTaskID());
         this.taskList.removeTask(taskIndexNumber);
     }
 
