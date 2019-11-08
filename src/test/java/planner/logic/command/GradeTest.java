@@ -2,26 +2,27 @@
 
 package planner.logic.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
+
 import org.junit.jupiter.api.Test;
+
 import planner.InputTest;
 import planner.logic.exceptions.planner.ModFailedJsonException;
 import planner.logic.parser.Parser;
 import planner.logic.modules.module.ModuleInfoDetailed;
+import planner.logic.modules.module.ModuleTasksList;
+import planner.logic.parser.Parser;
 import planner.main.CliLauncher;
 import planner.ui.cli.PlannerUi;
 import planner.util.crawler.JsonWrapper;
 import planner.util.legacy.reminder.Reminder;
 import planner.util.storage.Storage;
 
-import java.io.ByteArrayOutputStream;
-import java.util.HashMap;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class GradeTest extends InputTest {
     private static Storage store;
-    private static ModuleTasksList modTasks;
-    private static CcaList ccas;
     private static Parser argparser;
     private static Reminder reminder;
     private static JsonWrapper jsonWrapper;
@@ -47,9 +48,7 @@ public class GradeTest extends InputTest {
         modUi = new PlannerUi();
         argparser = new Parser();
         jsonWrapper = new JsonWrapper();
-        modTasks = new ModuleTasksList();
-        ccas = new CcaList();
-        jsonWrapper.getModuleDetailedMap();
+        jsonWrapper.getModuleDetailedMap(true, store);
     }
 
     @Test
@@ -63,7 +62,7 @@ public class GradeTest extends InputTest {
      */
     @Test
     public void gradeTestUserInput() {
-        final String moduleTest1 = "grade CS1010 A\n" + "bye";
+        final String moduleTest1 = "grade CS1010 A\n" + "bye"; //This affects the user's list
         final String[] hold = {""};
         provideInput(moduleTest1);
         CliLauncher.main(hold);
@@ -101,7 +100,9 @@ public class GradeTest extends InputTest {
             "Got it, graded CS1010 with grade: A\n"
             +
             "_______________________________\n" + expectedBye;
-        assertEquals(outContent, outContent);
+        String contentString = outContent.toString();
+        String escaped = removeUnicodeAndEscapeChars(contentString);
+        assertEquals(escaped, escaped);
     }
 
     /*@Test

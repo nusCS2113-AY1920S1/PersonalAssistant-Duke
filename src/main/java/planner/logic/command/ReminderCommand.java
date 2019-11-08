@@ -3,29 +3,58 @@
 package planner.logic.command;
 
 import planner.credential.user.User;
+import planner.ModTimer;
 import planner.util.crawler.JsonWrapper;
 import planner.ui.cli.PlannerUi;
 import planner.util.storage.Storage;
-
-import planner.util.legacy.reminder.ThirtyMinReminder;
-import planner.util.legacy.reminder.OneHourReminder;
-import planner.util.legacy.reminder.TwevleHourReminder;
-import planner.util.legacy.reminder.OneDayReminder;
-import planner.util.legacy.reminder.Reminder;
 
 import planner.logic.modules.module.ModuleInfoDetailed;
 
 import java.util.HashMap;
 
+import java.util.Timer;
+import planner.util.legacy.schedule.ScheduledTask;
+
 public class ReminderCommand extends ModuleCommand {
-    private ThirtyMinReminder thirtyMinReminder;
-    private OneHourReminder oneHourReminder;
-    private TwevleHourReminder twevleHourReminder;
-    private OneDayReminder oneDayReminder;
-    private Reminder reminder;
 
     public ReminderCommand(Arguments args) {
         super(args);
+    }
+
+    /**
+     * Prints the reminder message every thirty seconds.
+     */
+    public void printEveryThirtySec() throws InterruptedException {
+        Timer time = new ModTimer();
+        ScheduledTask st = new ScheduledTask();
+        time.schedule(st, 0, 30000);
+    }
+
+    /**
+     * Prints the reminder message every one minute.
+     */
+    public void printEveryOneMin() throws InterruptedException {
+        Timer time = new ModTimer();
+        ScheduledTask st = new ScheduledTask();
+        time.schedule(st, 0, 60000);
+    }
+
+    /**
+     * Prints the reminder message every two minutes.
+     */
+    public void printEveryTwoMin() throws InterruptedException {
+        Timer time = new ModTimer();
+        ScheduledTask st = new ScheduledTask();
+        time.schedule(st, 0, 120000);
+    }
+
+    /**
+     * Prints the reminder message every five minutes.
+     */
+    public void printEveryFiveMin() throws InterruptedException {
+        Timer time = new ModTimer();
+        ScheduledTask st = new ScheduledTask();
+        time.schedule(st, 0, 300000);
     }
 
     @Override
@@ -36,30 +65,50 @@ public class ReminderCommand extends ModuleCommand {
                         User profile) {
 
         switch (arg("toReminder")) {
-            case ("list") : {
+            case ("list"): {
                 plannerUi.reminderList();
                 break;
             }
 
-            case ("one") : {
-                thirtyMinReminder.run();
+            case ("one"): {
+                try {
+                    printEveryThirtySec();
+                } catch (InterruptedException e) {
+                    System.out.println(e.getMessage());
+                }
                 break;
             }
 
-            case ("two") : {
-                oneHourReminder.run();
+            case ("two"): {
+                try {
+                    printEveryOneMin();
+                } catch (InterruptedException e) {
+                    System.out.println(e.getMessage());
+                }
                 break;
             }
 
-            case ("three") : {
-                twevleHourReminder.run();
+            case ("three"): {
+                try {
+                    printEveryTwoMin();
+                } catch (InterruptedException e) {
+                    System.out.println(e.getMessage());
+                }
                 break;
             }
 
-            case "four" :
-            default: {
-                oneDayReminder.run();
+            case ("four"): {
+                try {
+                    printEveryFiveMin();
+                } catch (InterruptedException e) {
+                    System.out.println(e.getMessage());
+                }
                 break;
+            }
+
+            case ("others") :
+            default : {
+                plannerUi.reminderWrongCommand();
             }
         }
     }

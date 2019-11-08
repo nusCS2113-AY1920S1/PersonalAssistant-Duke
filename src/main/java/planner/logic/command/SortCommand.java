@@ -4,6 +4,7 @@ package planner.logic.command;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -45,7 +46,15 @@ public class SortCommand extends ModuleCommand {
         switch (toSort) {
             case ("ccas"): {
                 TaskList<Cca> hold = profile.getCcas();
-                hold.sort(Comparator.comparing(Cca::getTask));
+                List<TaskWithMultipleWeeklyPeriod> holdForCcas = new ArrayList<>();
+                hold.sort(Comparator.comparing((Object t) -> ((Cca) t).getTaskToLowerCase()));
+                if (arg("forwardOrReverse").equals("r")) {
+                    for (int i = hold.size() - 1; i >= 0; i--) {
+                        holdForCcas.add(hold.get(i));
+                    }
+                    plannerUi.showSorted(holdForCcas);
+                    break;
+                }
                 plannerUi.showSorted(hold);
                 break;
             }

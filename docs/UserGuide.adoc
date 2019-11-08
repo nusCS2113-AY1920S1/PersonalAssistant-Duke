@@ -218,10 +218,15 @@ Example: +
 
 Sorts out modules and/or ccas accordingly.
 
-==== Sorting and printing the CCAs : `sort ccas`
+==== Sorting and printing the CCAs : `sort ccas f`
 
 Sorts the cca list according to alphabetical order and prints the cca list. + 
-Format: `sort ccas` 
+Format: `sort ccas f` 
+
+==== Sorting and printing the CCAs : `sort ccas r`
+
+Sorts the cca list according to the reverse alphabetical order and prints the cca list. + 
+Format: `sort ccas r` 
 
 ==== Sorting and printing the CCAs and modules of a certain day of the week : `sort times`
 
@@ -433,7 +438,7 @@ This error appears when you input an invalid letter grade.
 Example of error message: `Error: Please enter a valid letter grade!`
 
 > **_Solving the error:_** +
-> Input one of the following grades: "A+, A, A-, B+, B, B-, C+, C, C-, D+, D, F, S or U".
+> Input one of the following grades: "A+, A, A-, B+, B, B-, C+, C, D+, D, F, S or U".
 
 === `ModBadSuException`
 This errors appears when you input an S or U grade for a module that does not have an S/U option.

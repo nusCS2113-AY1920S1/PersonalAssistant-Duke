@@ -5,6 +5,7 @@ package planner.logic.modules.cca;
 import planner.logic.exceptions.legacy.ModInvalidIndexException;
 import planner.logic.exceptions.legacy.ModInvalidTimeException;
 import planner.logic.modules.legacy.task.TaskWithMultipleWeeklyPeriod;
+import planner.util.PrintUtil;
 import planner.util.datetime.NattyWrapper;
 import planner.util.legacy.periods.TimePeriodWeekly;
 import java.time.DayOfWeek;
@@ -64,6 +65,7 @@ public class Cca extends TaskWithMultipleWeeklyPeriod {
                     .append(period.getDayOfWeek())
                     .append(", ");
         }
+        PrintUtil.printToFile(prefix.toString().substring(0, prefix.length() - 2));
         return prefix.toString().substring(0, prefix.length() - 2);
     }
 

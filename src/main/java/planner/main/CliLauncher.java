@@ -3,17 +3,17 @@ package planner.main;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Timer;
 
 import planner.credential.user.User;
 import planner.logic.command.EndCommand;
 import planner.logic.command.ModuleCommand;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.planner.ModFailedJsonException;
-import planner.logic.modules.TaskList;
-import planner.logic.modules.cca.Cca;
 import planner.logic.modules.module.ModuleInfoDetailed;
-import planner.logic.modules.module.ModuleTask;
 import planner.logic.parser.Parser;
 import planner.ui.cli.PlannerUi;
 import planner.util.crawler.JsonWrapper;
@@ -33,6 +33,7 @@ public class CliLauncher {
     private HashMap<String, ModuleInfoDetailed> modDetailedMap;
     private User profile;
     private transient ByteArrayOutputStream output;
+    public static List<Timer> timerPool = new ArrayList<>();
 
 
     /**
