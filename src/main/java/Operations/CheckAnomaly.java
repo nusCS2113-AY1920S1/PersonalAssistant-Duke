@@ -15,7 +15,7 @@ public class CheckAnomaly {
     /**
      * Checks for tasks with the same description when adding a new task
      * @param task task we are checking
-     * @return true if duplicate detected and false if no duplicate detected
+     * @return current index if duplicate detected and -1 if no duplicate detected
      */
     public static int checkDuplicate(Task task) {
         String name = task.getDescription();
@@ -52,7 +52,7 @@ public class CheckAnomaly {
     /**
      * Checks first if the task is a meeting, then decides which check function to use depending on whether the meeting has a fixed duration
      * @param task task we are checking
-     * @return true if there is a time clash, false if there is no clash.
+     * @return current index if there is a time clash, -1 if there is no clash.
      */
     public static int checkTimeClash(Task task) {
         if( task instanceof Meeting ) {
@@ -67,10 +67,8 @@ public class CheckAnomaly {
 
     /**
      * Checks if the Meeting with fixed duration task has any clashes with any other meetings in the task list.
-     * If there is a clash, returns true.
-     * If there is no clash, returns false.
      * @param task task we are checking
-     * @return true if there are time clashes, false if there are no time clashes.
+     * @return current index if there are time clashes, -1 if there are no time clashes.
      */
     private static int checkTimeDuration(Task task) {
         ArrayList<Task> curr = TaskList.currentList();
@@ -88,9 +86,8 @@ public class CheckAnomaly {
 
     /**
      * Checks if the Meeting with no fixed duration has any clashes with any other tasks in the task list.
-     * If there is a clash, returns true. If there is no clash, returns false.
      * @param task task we are checking for time clashes
-     * @return true if there are time clashes, false if there are no time clashes.
+     * @return current index if there are time clashes, -1 if there are no time clashes.
      */
     private static int checkTime(Task task){
         Date at = task.getDate();

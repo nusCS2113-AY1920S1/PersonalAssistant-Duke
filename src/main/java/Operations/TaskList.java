@@ -7,7 +7,6 @@ import Enums.SortType;
 import Enums.TimeUnit;
 import Model_Classes.Assignment;
 import Model_Classes.Leave;
-import Model_Classes.Leave;
 import Model_Classes.Meeting;
 import Model_Classes.Task;
 

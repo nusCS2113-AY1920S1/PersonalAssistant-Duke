@@ -6,6 +6,11 @@ public class TimeClashException extends Exception {
 
     private String message;
 
+    /**
+     * TimeClashException constructor
+     * Adds the appropriate index to the time clash message
+     * @param index index of task with the clash
+     */
     public TimeClashException(int index) {
         message = TIME_CLASH_TEXT + "Task: " + (index+1) + "\n";
     }

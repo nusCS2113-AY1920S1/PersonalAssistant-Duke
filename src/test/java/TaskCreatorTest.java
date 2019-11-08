@@ -25,6 +25,7 @@ public class TaskCreatorTest {
     private static String input3 = "add #leave# (description) &24/12/2019 18:00&25/12/2019 18:00& @Harry@";
     private static String updates = "update 1 (another description) &22/12/2020 19:00& *medium* %day% " +
             "@bob@ ^120 minutes^";
+
     @Test
     void extractDescription() {
         try {
