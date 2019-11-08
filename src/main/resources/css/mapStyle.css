@@ -1,6 +1,7 @@
 .mainPane {
     -fx-background-image: url("../images/SGmap.jpg");
-    -fx-background-size: 1200 900;
+    -fx-background-size: contain;
+	-fx-background-repeat: no-repeat;
 }
 
 #LocationCard {
