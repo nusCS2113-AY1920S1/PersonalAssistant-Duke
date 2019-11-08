@@ -4,20 +4,19 @@ import Commands.AddCommand;
 import Commands.Command;
 import Commons.DukeLogger;
 import DukeExceptions.DukeInvalidCommandException;
-
 import DukeExceptions.DukeInvalidDateTimeException;
 import DukeExceptions.DukeInvalidFormatException;
 import Tasks.Deadline;
 import Tasks.Event;
 import java.text.ParseException;
-import java.util.Arrays;
-import java.util.logging.Level;
+import Commons.DukeConstants;
 import java.util.logging.Logger;
 
 /**
  * Parse Addcommand for event and deadline and return formatted command to Parser
  */
 public class AddParse extends Parse {
+
     private static String[] modCodeAndDescription;
     private static String[] modCodeAndDescriptionSplit;
     private static String fullCommand;
@@ -38,7 +37,8 @@ public class AddParse extends Parse {
      */
     @Override
     public Command parse() throws DukeInvalidFormatException, DukeInvalidCommandException, DukeInvalidDateTimeException {
-        if (fullCommand.trim().substring(0, 5).equals("add/d")) {
+        String fullCommandHeader =fullCommand.trim().substring(0, 5);
+        if (fullCommandHeader.equals(DukeConstants.ADD_DEADLINE_HEADER)) {
             try {
                 String activity = fullCommand.trim().substring(5);
                 modCodeAndDescription = activity.split("/by");
@@ -58,7 +58,7 @@ public class AddParse extends Parse {
                         "add/d mod_code name_of_deadline /by dd/MM/yyyy HHmm\n" +
                         "or add/d mod_code name_of_deadline /by week x day HHmm\n");
             }
-        } else if (fullCommand.trim().substring(0, 5).equals("add/e")) {
+        } else if (fullCommandHeader.equals(DukeConstants.ADD_EVENT_HEADER)) {
             try {
                 String activity = fullCommand.trim().substring(5);
                 modCodeAndDescription = activity.split("/at");
