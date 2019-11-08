@@ -19,7 +19,7 @@ import duke.exception.DukeUtilException;
 import java.util.List;
 import java.util.Map;
 
-public class ImpressionEditSpec extends DukeDataSpec {
+public class ImpressionEditSpec extends ImpressionObjSpec {
 
     private static final ImpressionEditSpec spec = new ImpressionEditSpec();
 
@@ -31,11 +31,8 @@ public class ImpressionEditSpec extends DukeDataSpec {
         cmdArgLevel = ArgLevel.NONE;
         initSwitches(
                 new Switch("append", null, true, ArgLevel.NONE, "a"),
-                new Switch("medicine", null, true, ArgLevel.REQUIRED, "m"),
-                new Switch("investigation", null, true, ArgLevel.REQUIRED, "i", "invx"),
-                new Switch("plan", null, true, ArgLevel.REQUIRED, "p"),
-                new Switch("observation", null, true, ArgLevel.REQUIRED, "o"),
-                new Switch("result", null, true, ArgLevel.NONE, "r"),
+                new Switch("evidence", String.class, true, ArgLevel.REQUIRED, "e"),
+                new Switch("treatment", String.class, true, ArgLevel.REQUIRED, "t"),
                 new Switch("name", String.class, true, ArgLevel.REQUIRED, "n"),
                 new Switch("status", String.class, true, ArgLevel.REQUIRED, "sta"),
                 new Switch("priority", Integer.class, true, ArgLevel.REQUIRED, "pri"),
@@ -52,14 +49,13 @@ public class ImpressionEditSpec extends DukeDataSpec {
     // TODO: split method to call one method per editType
     @Override
     protected void execute(DukeCore core) throws DukeException {
-    super.execute(core);
-        String editType = uniqueDataType(cmd);
         boolean isAppending = false;
         if (cmd.isSwitchSet("append")) {
             isAppending = true;
         }
 
-        if (editType == null) { // edit impression
+        if (cmd.getSwitchVal("evidence") == null
+                && cmd.getSwitchVal("treatment") == null) { // edit impression
             editImpression(ImpressionUtils.getImpression(core), isAppending);
             core.writeJsonFile();
             core.updateUi("Updated details of this Impression!");
@@ -67,10 +63,11 @@ public class ImpressionEditSpec extends DukeDataSpec {
             if (cmd.isSwitchSet("description")) {
                 throw new DukeHelpException("Descriptions are only for impressions!", cmd);
             }
+            super.execute(core); // find specified DukeData
+        }
 
             // find DukeData of editType
             // TODO: proper search with disambiguation
-            // TODO: select by index
 
             // check if these are indices
             String editDataName = cmd.getSwitchVal(editType);
