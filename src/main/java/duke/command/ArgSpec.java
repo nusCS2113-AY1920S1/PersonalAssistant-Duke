@@ -9,6 +9,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+// TODO make specs not singletons
+
 /**
  * Abstract class for the argument specification for a particular class. Although Java does not provide a
  * mechanism to enforce or document this contract, any subclass of ArgSpec must have a private constructor which sets

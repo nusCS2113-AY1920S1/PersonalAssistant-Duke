@@ -71,4 +71,6 @@ public abstract class DukeData extends DukeObject {
                 && ((getSummary() == null && other.getSummary() == null) || getSummary().equals(other.getSummary()));
         // null check required because medicine summary is null
     }
+
+    public void edit(
 }

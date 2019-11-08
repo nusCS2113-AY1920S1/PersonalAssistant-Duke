@@ -4,13 +4,14 @@ import duke.DukeCore;
 import duke.command.ArgLevel;
 import duke.command.Switch;
 import duke.data.DukeData;
+import duke.data.DukeObject;
 import duke.data.Impression;
 import duke.data.Investigation;
 import duke.data.Medicine;
 import duke.data.Observation;
 import duke.data.Patient;
 import duke.data.Plan;
-import duke.data.SearchResults;
+import duke.data.Result;
 import duke.data.Treatment;
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
@@ -65,111 +66,125 @@ public class ImpressionEditSpec extends ImpressionObjSpec {
             }
             super.execute(core); // find specified DukeData
         }
-
-            // find DukeData of editType
-            // TODO: proper search with disambiguation
-
-            // check if these are indices
-            String editDataName = cmd.getSwitchVal(editType);
-
-            SearchResults results = ImpressionUtils.getImpression(core).findByName(editDataName);
+    }
 
 
-            DukeData editData;
-            if (editData == null) {
-                throw new DukeHelpException("I can't find a " + editType + " item named '" + editDataName + "'!", cmd);
+    @Override
+    protected void executeWithObj(DukeCore core, DukeObject obj) throws DukeException {
+        DukeData editData = (DukeData) obj;
+        boolean isAppending = false;
+        if (cmd.isSwitchSet("append")) {
+            isAppending = true;
+        }
+
+        // TODO mention in documentation that -append will append to ALL fields
+
+        // process universal fields
+        String newName = cmd.getSwitchVal("name");
+        int newPriority = cmd.switchToInt("priority");
+        String newSummary = cmd.getSwitchVal("summary");
+        if (newName != null) {
+            editData.setName((isAppending) ? editData.getName() + newName : newName);
+        }
+        if (newPriority != -1) {
+            ImpressionUtils.checkPriority(newPriority);
+            editData.setPriority(newPriority);
+        }
+        if (newSummary != null) {
+            editData.setSummary((isAppending) ? editData.getSummary() + newSummary : newSummary);
+        }
+
+            if (editData instanceof Plan) {
+
+            } else if (editData instanceof Medicine) {
+
+            } else if (editData instanceof Result) {
+
+            } else if (editData instanceof Result) {
+
+            } else if (editData instanceof Observation) {
+
+            } else {
+                throw new ClassCastException("Attempting to edit " + editData.getClass().getName() + "!");
             }
 
-            // process status
-            switch (editType) {
-            case "plan":
-                updateStatus(editData, Plan.getStatusArr());
-                break;
-            case "medicine":
-                updateStatus(editData, Medicine.getStatusArr());
-                break;
-            case "investigation":
-                updateStatus(editData, Investigation.getStatusArr());
-                break;
+        // process status
+        switch (editType) {
+        case "plan":
+            updateStatus(editData, Plan.getStatusArr());
+            break;
+        case "medicine":
+            updateStatus(editData, Medicine.getStatusArr());
+            break;
+        case "investigation":
+            updateStatus(editData, Investigation.getStatusArr());
+            break;
+        default:
+            break;
+        }
+
+        // process remaining switches entered
+            if (ImpressionUtils.getPatient(ImpressionUtils.getImpression(core)).isAllergic();
+        for (Map.Entry<String, String> entry : cmd.getSwitchVals().entrySet()) {
+            String switchName = entry.getKey();
+            String entryStr = entry.getValue();
+            int entryInt = 0;
+            if (Integer.class.equals(getSwitchMap().get(switchName).type)) {
+                entryInt = cmd.switchToInt(switchName);
+            }
+
+            // ignore switches that don't need processing
+            if (switchName.equals(editType)) {
+                continue;
+            }
+
+            // TODO: deal with null
+            switch (switchName) {
+
             default:
-                break;
-            }
-
-            // process remaining switches entered
-            for (Map.Entry<String, String> entry : cmd.getSwitchVals().entrySet()) {
-                String switchName = entry.getKey();
-                String entryStr = entry.getValue();
-                int entryInt = 0;
-                if (Integer.class.equals(getSwitchMap().get(switchName).type)) {
-                    entryInt = cmd.switchToInt(switchName);
-                }
-
-                // ignore switches that don't need processing
-                if (switchName.equals(editType)) {
-                    continue;
-                }
-
-                // TODO: deal with null
-                switch (switchName) {
-                case "name":
-                    //TODO check for allergies for medicine
-                    editData.setName((isAppending) ? editData.getName() + entryStr : entryStr);
-                    break;
-                case "priority":
-                    if (entryInt == -1) {
+                switch (editType) {
+                case "medicine":
+                    Medicine med = (Medicine) editData;
+                    switch (switchName) {
+                    case "dose":
+                        med.setDose((isAppending) ? med.getDose() + entryStr : entryStr);
                         break;
-                    }
-                    ImpressionUtils.checkPriority(entryInt);
-                    editData.setPriority(entryInt);
-                    break;
-                case "summary":
-                    editData.setSummary((isAppending) ? editData.getSummary() + entryStr : entryStr);
-                    break;
-                default:
-                    switch (editType) {
-                    case "medicine":
-                        Medicine med = (Medicine) editData;
-                        switch (switchName) {
-                        case "dose":
-                            med.setDose((isAppending) ? med.getDose() + entryStr : entryStr);
-                            break;
-                        case "date":
-                            med.setStartDate((isAppending) ? med.getStartDate() + entryStr : entryStr);
-                            break;
-                        case "duration":
-                            med.setDuration((isAppending) ? med.getDuration() + entryStr : entryStr);
-                            break;
-                        default:
-                            throw new DukeHelpException("Medicine plans do not have the property: '"
-                                    + entryStr + "'", cmd);
-                        }
+                    case "date":
+                        med.setStartDate((isAppending) ? med.getStartDate() + entryStr : entryStr);
                         break;
-                    case "observation":
-                        Observation obsv = (Observation) editData;
-                        if (cmd.isSwitchSet("objective") && cmd.isSwitchSet("subjective")) {
-                            throw new DukeHelpException("I don't know if you want the observation to be objective"
-                                    + "or subjective!", cmd);
-                        } else if (cmd.isSwitchSet("objective")) {
-                            obsv.setObjective(true);
-                        } else if (cmd.isSwitchSet("subjective")) {
-                            obsv.setObjective(false);
-                        }
-                        break;
-                    case "plan": //fallthrough
-                    case "result": //fallthrough
-                    case "investigation": //all switches should already be handled
+                    case "duration":
+                        med.setDuration((isAppending) ? med.getDuration() + entryStr : entryStr);
                         break;
                     default:
-                        throw new DukeException("Invalid data type found when making edits!");
+                        throw new DukeHelpException("Medicine plans do not have the property: '"
+                                + entryStr + "'", cmd);
                     }
                     break;
+                case "observation":
+                    Observation obsv = (Observation) editData;
+                    if (cmd.isSwitchSet("objective") && cmd.isSwitchSet("subjective")) {
+                        throw new DukeHelpException("I don't know if you want the observation to be objective"
+                                + "or subjective!", cmd);
+                    } else if (cmd.isSwitchSet("objective")) {
+                        obsv.setObjective(true);
+                    } else if (cmd.isSwitchSet("subjective")) {
+                        obsv.setObjective(false);
+                    }
+                    break;
+                case "plan": //fallthrough
+                case "result": //fallthrough
+                case "investigation": //all switches should already be handled
+                    break;
+                default:
+                    throw new DukeException("Invalid data type found when making edits!");
                 }
-
+                break;
             }
+
         }
 
         core.writeJsonFile();
-        core.updateUi("Details updated");
+        core.updateUi("Details of '" + editData + "' updated!");
     }
 
     private void editImpression(Impression impression, boolean isAppending) {
@@ -186,22 +201,9 @@ public class ImpressionEditSpec extends ImpressionObjSpec {
         }
     }
 
-    // TODO proper searching
-    // simply gets the first search result with a matching class
-    // this is a terrible method, kill it and replace it with proper disambiguation as soon as possible
-    private DukeData findDataOfClass(List<DukeData> resultList, Class dataClass) {
-        for (DukeData result : resultList) {
-            if (result.getClass() == dataClass) {
-                return result;
-            }
-        }
-        return null;
-    }
-
-    private void updateStatus(DukeData editData, List<String> statusList) throws DukeUtilException {
+    private void updateStatus(Treatment treatment, List<String> statusList) throws DukeUtilException {
         String statusStr = cmd.getSwitchVal("status");
         if (statusStr != null) {
-            Treatment treatment = (Treatment) editData;
             treatment.setStatusIdx(ImpressionUtils.processStatus(statusStr, statusList));
         }
     }
