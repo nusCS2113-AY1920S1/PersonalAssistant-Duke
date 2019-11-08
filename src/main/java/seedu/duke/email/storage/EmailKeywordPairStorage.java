@@ -3,7 +3,7 @@ package seedu.duke.email.storage;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import seedu.duke.common.storage.Storage;
+import seedu.duke.common.storage.StorageHelper;
 import seedu.duke.common.storage.TimestampHelper;
 import seedu.duke.email.EmailKeywordPairList;
 import seedu.duke.email.entity.KeywordPair;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 /**
  * A helper class to save and read keyword pairs to and from local file.
  */
-public class EmailKeywordPairStorage implements Storage {
+public class EmailKeywordPairStorage {
     private static String keywordPairFilename = "keywords.txt";
 
     /**
@@ -28,8 +28,8 @@ public class EmailKeywordPairStorage implements Storage {
     public static void saveKeywordPairList(EmailKeywordPairList keywordPairList) throws JSONException,
             IOException {
         String content = constructKeywordFileJson(keywordPairList).toString();
-        Path path = Storage.prepareDataPath(keywordPairFilename);
-        Storage.saveToFile(path, content);
+        Path path = StorageHelper.prepareDataPath(keywordPairFilename);
+        StorageHelper.saveToFile(path, content);
     }
 
     /**
@@ -40,8 +40,8 @@ public class EmailKeywordPairStorage implements Storage {
      * @throws JSONException when error occurs at parsing keyword pair json array
      */
     public static EmailKeywordPairList readKeywordPairList() throws IOException, JSONException {
-        Path path = Storage.prepareDataPath(keywordPairFilename);
-        String content = Storage.readFromFile(path);
+        Path path = StorageHelper.prepareDataPath(keywordPairFilename);
+        String content = StorageHelper.readFromFile(path);
         return parseKeywordPairJson(new JSONObject(content));
     }
 
@@ -51,7 +51,7 @@ public class EmailKeywordPairStorage implements Storage {
      * @return whether the keyword pair file already exists
      */
     public static boolean keywordPairFileExists() {
-        return Storage.fileExists(Storage.prepareDataPath(keywordPairFilename));
+        return StorageHelper.fileExists(StorageHelper.prepareDataPath(keywordPairFilename));
     }
 
     private static JSONObject constructKeywordFileJson(EmailKeywordPairList keywordPairList) throws JSONException {
