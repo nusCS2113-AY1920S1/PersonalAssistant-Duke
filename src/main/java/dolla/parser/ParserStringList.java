@@ -11,6 +11,7 @@ public interface ParserStringList {
 
     // Commands specific to Dolla mode
     String DOLLA_VIEW_TODAY = "view today";
+    String DOLLA_VIEW = "view";
 
     // Commands specific to Entry mode
     String ENTRY_COMMAND_ADD = "add";

@@ -240,4 +240,12 @@ public abstract class Ui {
     public static void printSingleOverview(double todayOverview) {
         System.out.println(line);
     }
+
+    public static void printEmptyListError(String mode) {
+        System.out.println(line);
+        System.out.println("\tI'm sorry, but there doesn't seem to be anything in "
+                + mode + "for me to through. ");
+        System.out.println("Try adding a new " + mode + "and try again!");
+        System.out.println(line);
+    }
 }
