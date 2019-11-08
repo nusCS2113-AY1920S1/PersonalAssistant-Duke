@@ -100,7 +100,19 @@ public class IncomeTest {
         Assertions.assertEquals(" Last command undone: \n" + incomeTest.toString() + "\n Now you have "
         + account.getIncomeListTotal().size() + " income sources listed\n", ui.getOutputString());
     }
-    
+
+    @Test
+    void testUndoDeleteIncome() throws DukeException {
+        account.getIncomeListTotal().clear();
+        Income i = new Income(560, "TA ", testDate);
+        account.getIncomeListTotal().add(i);
+        DeleteIncomeCommand deleteIncomeCommand = new DeleteIncomeCommand("delete income 1");
+        deleteIncomeCommand.execute(account, ui, moneyStorage);
+        ui.clearOutputString();
+        deleteIncomeCommand.undo(account, ui, moneyStorage);
+
+    }
+
     @Test
     void testInvalidCommandException() {
         String invalidInput = "add income side job /amt rubbish  ";
