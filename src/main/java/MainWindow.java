@@ -1,6 +1,5 @@
 import controlpanel.DukeException;
 import help.AutoComplete;
-import guicommand.UserIcon;
 import help.History;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -92,18 +91,20 @@ public class MainWindow extends AnchorPane {
 //            userImage = userIcon.getIcon();
         }
 
-        if (input.startsWith("graph")) {
-            GraphSelector graphSelector = new GraphSelector();
-            graphContainer.getChildren().addAll(
-                graphSelector.getTheGraph(input, duke.getAccount())
-            );
-        }
-
         String[] response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response[0], dukeImage)
         );
+
+        if (input.startsWith("graph")) {
+            GraphSelector graphSelector = new GraphSelector();
+            graphContainer.getChildren().addAll(
+                    graphSelector.getTheGraph(input, duke.getAccount())
+            );
+            userInput.clear();
+        }
+
         if (!response[1].equals("")) {
             graphContainer.getChildren().clear();
             graphContainer.getChildren().addAll(
