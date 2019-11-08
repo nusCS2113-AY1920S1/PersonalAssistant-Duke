@@ -2,17 +2,17 @@ package duke.common;
 
 public class RecipeMessages {
     public static final String COMMAND_ADD_RECIPE = "addrecipe";
-    public static final String COMMAND_ADD_RECIPE_INGREDIENT = "addtorecipeingredient";
-    public static final String COMMAND_EDIT_RECIPE = "editrecipe";
-    public static final String COMMAND_LIST_RECIPES = "listallrecipes";
-    public static final String COMMAND_LIST_RECIPES_BY_PREPTIME = "listrecipesbypreptime";
-    public static final String COMMAND_VIEW_RECIPE = "viewrecipe";
-    public static final String COMMAND_VIEW_REQ_INGREDIENT = "viewreqingredient";
+    public static final String COMMAND_DELETE_RECIPE = "deleterecipe";
     public static final String COMMAND_EDIT_REQ_INGREDIENT = "editreqingredient";
     public static final String COMMAND_EDIT_RATING = "editrating";
     public static final String COMMAND_EDIT_FEEDBACK = "editfeedback";
     public static final String COMMAND_EDIT_PREPSTEP = "editprepstep";
     public static final String COMMAND_EDIT_PREPTIME = "editpreptime";
+    public static final String COMMAND_LIST_RECIPE_INGREDIENT = "listingredient";
+    public static final String COMMAND_LIST_RECIPES = "listallrecipes";
+    public static final String COMMAND_LIST_RECIPES_BY_PREPTIME = "listrecipesbypreptime";
+    public static final String COMMAND_VIEW_RECIPE = "viewrecipe";
+    public static final String COMMAND_VIEW_REQ_INGREDIENT = "viewreqingredient";
 
     public static final String LABEL_TITLE = "Title: ";
     public static final String LABEL_RATING = "Rating: ";
@@ -20,19 +20,6 @@ public class RecipeMessages {
     public static final String LABEL_REQ_INGREDIENTS = "Required Ingredients: \n";
     public static final String LABEL_FEEDBACK = "Feedback: \n";
     public static final String LABEL_PREPTIME = "Preparation Time: ";
-
-    public static final String COMMAND_LIST_RECIPE_INGREDIENT = "listingredient";
-    public static final String COMMAND_DELETE_RECIPE = "deleterecipe";
-    public static final String COMMAND_DELETE_RECIPE_INGREDIENT = "delri";
-    public static final String COMMAND_DELETE_RECIPE_TITLE = "delrt";
-    public static final String COMMAND_DELETE_PREPSTEP = "delp";
-
-    public static final String COMMAND_ADD_FEEDBACK = "addfeedback";
-    public static final String COMMAND_ADD_RATING = "addrating";
-    public static final String COMMAND_ADD_PREPSTEP = "addprepstep";
-
-    public static final String MESSAGE_DELETE_PREPSTEP = "     Noted. I've removed this step:\n";
-    public static final String MESSAGE_DELETE_RECIPE = "Noted. I've removed this ingredient:\n";
 
     public static final String MESSAGE_RECIPE_DELETED = "Noted. I've removed this recipe:\n";
     public static final String MESSAGE_RECIPE_ADDED = "Got it. I've added this recipe:\n";
@@ -54,6 +41,7 @@ public class RecipeMessages {
     public static final String ERROR_MESSAGE_RECIPE_ALREADY_EXISTS = "Sorry, the recipe you wish to add already exists.";
     public static final String ERROR_MESSAGE_RECIPE_LIST_IS_EMPTY = "The recipe list is already empty.";
     public static final String ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST = "The recipe list does not contain this recipe.";
+    public static final String ERROR_MESSAGE_INVALID_RECIPE_TITLE = "PLs input recipe title with letters only";
     public static final String ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT = "Please input the command in the following format:\n"
             + "editreqingredient [recipe name] ins/ [position] n/ [ingredient name] q/ [quantity] u/ [unit] a/ [additional information]";
     public static final String ERROR_MESSAGE_EDIT_PREPSTEP_INS_INCORRECT_FORMAT = "Please input the command in the following format:\n"

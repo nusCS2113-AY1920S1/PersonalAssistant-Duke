@@ -13,7 +13,7 @@ import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
 import static duke.common.RecipeMessages.*;
 
 /**
- * Handles the list command and inherits all the fields and methods of Command parent class.
+ * Handles the list all recipe command.
  */
 public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> {
 
@@ -27,11 +27,14 @@ public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage>
     }
 
     /**
-     * Processes the list command to display all recipes in recipe list.
+     * Processes the list recipe command to show a list of the existing recipes in the recipe list.
      *
-     * @param recipeList the list of recipes
-     * @param recipeStorage dealing with loading recipes from the file and saving recipes in the file
+     * @param recipeList    contains the recipe list
+     * @param ui             deals with interactions with the user
+     * @param recipeStorage deals with loading tasks from the file and saving recipes in the file
+     * @return an array list consist of the results or prompts to be displayed to user
      */
+    @Override
     public ArrayList<String> execute(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) {
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_LIST_RECIPES)) {
@@ -59,16 +62,15 @@ public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage>
      * @param map the recipe list
      * @return arrayList containing all the recipes
      */
-    private ArrayList<String> listOfRecipes(LinkedHashMap<String, Recipe> map) {
+    private ArrayList<String> listOfRecipes(TreeMap<String, Recipe> map) {
         Set entries = map.entrySet();
         Iterator entryIter = entries.iterator();
         ArrayList<String> arrayList = new ArrayList<>();
         int i = 0;
         while (entryIter.hasNext()) {
             Map.Entry entry = (Map.Entry) entryIter.next();
-            Object key = entry.getKey();  // Get the key from the entry.
             Recipe value = (Recipe) entry.getValue();  // Get the value.
-            arrayList.add(Integer.toString(i + DISPLAYED_INDEX_OFFSET) + ". " + value.getRecipeTitle().getTitle());
+            arrayList.add((i + DISPLAYED_INDEX_OFFSET) + ". " + value.getRecipeTitle().getTitle());
             i++;
         }
         return arrayList;
@@ -80,7 +82,7 @@ public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage>
      * @param map the recipe list
      * @return arrayList containing all the recipes in th eorder of preparation time
      */
-    private ArrayList<String> listOfRecipesyPrepTime(LinkedHashMap<String, Recipe> map) {
+    private ArrayList<String> listOfRecipesyPrepTime(TreeMap<String, Recipe> map) {
         Set entries = map.entrySet();
         Iterator entryIter = entries.iterator();
         ArrayList<String> arrayList = new ArrayList<>();

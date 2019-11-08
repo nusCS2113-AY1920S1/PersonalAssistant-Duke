@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import static duke.common.InventoryMessages.COMMAND_LIST_INVENTORY;
 import static duke.common.Messages.*;
 import static duke.common.BookingMessages.*;
 import static duke.common.RecipeMessages.COMMAND_LIST_RECIPE_INGREDIENT;
@@ -33,7 +34,7 @@ public class MainWindow extends AnchorPane {
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
-    private ScrollPane scrollPane;
+    private ScrollPane scrollPane, scrollPane2, scrollPane3;
     @FXML
     private VBox dialogContainer;
     @FXML

@@ -49,15 +49,15 @@
             </content>
         </ScrollPane>
 
-        <ScrollPane hbarPolicy="NEVER" hvalue="1.0" layoutX="297.0" layoutY="198.0" prefHeight="225.0" prefWidth="940.0" vvalue="1.0">
+        <ScrollPane fx:id="scrollPane2" hbarPolicy="NEVER" hvalue="1.0" layoutX="297.0" layoutY="198.0" prefHeight="275.0" prefWidth="940.0" vvalue="1.0">
             <content>
-                <ListView fx:id="listView" prefHeight="225.0" prefWidth="940.0" />
+                <ListView fx:id="listView" prefHeight="275.0" prefWidth="940.0" />
             </content>
         </ScrollPane>
 
-        <ScrollPane hbarPolicy="NEVER" hvalue="1.0" layoutX="297.0" layoutY="423.0" prefHeight="225.0" prefWidth="940.0" vvalue="1.0">
+        <ScrollPane fx:id="scrollPane3" hbarPolicy="NEVER" hvalue="1.0" layoutX="297.0" layoutY="473.0" prefHeight="175.0" prefWidth="940.0" vvalue="1.0">
             <content>
-                <ListView fx:id="listViewResult" prefHeight="225.0" prefWidth="940.0" />
+                <ListView fx:id="listViewResult" prefHeight="175.0" prefWidth="940.0" />
             </content>
         </ScrollPane>
     </children>

@@ -4,17 +4,17 @@ import duke.model.task.ingredienttasks.Ingredient;
 import duke.model.task.recipetasks.Recipe;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.TreeMap;
 
 public class RecipeList {
 
-    LinkedHashMap<String, Recipe> recipeLHM;
+    TreeMap<String, Recipe> recipeLHM;
 
     public RecipeList() {
-        this.recipeLHM = new LinkedHashMap<>();
+        this.recipeLHM = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     }
 
-    public RecipeList(LinkedHashMap<String, Recipe> recipeListFromStorage) {
+    public RecipeList(TreeMap<String, Recipe> recipeListFromStorage) {
         this.recipeLHM = recipeListFromStorage;
     }
 
@@ -30,7 +30,7 @@ public class RecipeList {
         return new Recipe(recipeTitle);
     }
 
-    public LinkedHashMap<String, Recipe> getRecipeList() {
+    public TreeMap<String, Recipe> getRecipeList() {
         return this.recipeLHM;
     }
 

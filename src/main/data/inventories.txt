@@ -1,1 +1,1 @@
-sugar | 48.84615384615385 | TABLESPOON | No additional information.
+sugar , 4.9965 , KG , No additional information.

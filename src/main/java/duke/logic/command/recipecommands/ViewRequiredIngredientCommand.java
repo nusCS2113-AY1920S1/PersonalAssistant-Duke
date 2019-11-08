@@ -14,6 +14,9 @@ import static duke.common.Messages.ERROR_MESSAGE_GENERAL;
 import static duke.common.Messages.MESSAGE_FOLLOWUP_NUll;
 import static duke.common.RecipeMessages.*;
 
+/**
+ * Handles the view required ingredient command.
+ */
 public class ViewRequiredIngredientCommand extends Command<RecipeList, Ui, RecipeStorage> {
 
     /**
@@ -25,6 +28,14 @@ public class ViewRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
         this.userInput = userInput;
     }
 
+    /**
+     * Processes the view required ingredient command to view the required ingredients for a range of recipes.
+     *
+     * @param recipeList    contains the recipe list
+     * @param ui             deals with interactions with the user
+     * @param recipeStorage deals with loading tasks from the file and saving recipes in the file
+     * @return an array list consist of the results or prompts to be displayed to user
+     */
     @Override
     public ArrayList<String> execute(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) throws ParseException {
         ArrayList<String> arrayList = new ArrayList<>();

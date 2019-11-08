@@ -27,10 +27,10 @@ public class ListAllRecipeCommandTest {
 
         ArrayList<String> arrayListExpectedOutput = new ArrayList<>();
         arrayListExpectedOutput.add(MESSAGE_HERE_ARE_THE_RECIPES);
-        arrayListExpectedOutput.add("1. duck rice");
-        arrayListExpectedOutput.add("2. chicken rice");
-        arrayListExpectedOutput.add("3. sphagetti");
-        arrayListExpectedOutput.add("4. rice");
+        arrayListExpectedOutput.add("1. chicken rice");
+        arrayListExpectedOutput.add("2. duck rice");
+        arrayListExpectedOutput.add("3. rice");
+        arrayListExpectedOutput.add("4. sphagetti");
 
         ListAllRecipeCommand listAllRecipeCommand = new ListAllRecipeCommand("listallrecipes");
         ArrayList<String> arrayListActualOutput = new ArrayList<>(listAllRecipeCommand.execute(recipeList, ui, recipeStorage));

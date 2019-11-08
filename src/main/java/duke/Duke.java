@@ -10,7 +10,6 @@ import duke.storage.InventoryStorage;
 import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.*;

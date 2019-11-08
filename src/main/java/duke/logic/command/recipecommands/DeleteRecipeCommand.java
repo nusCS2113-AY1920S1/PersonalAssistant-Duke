@@ -6,13 +6,15 @@ import duke.model.task.recipetasks.Recipe;
 import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import static duke.common.Messages.*;
 import static duke.common.RecipeMessages.*;
 
-public class DeleteRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> { // need to settle: if no such recipe is found, tell user.
+/**
+ * Handles the delete recipe command.
+ */
+public class DeleteRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> {
 
     /**
      * Constructor for class DeleteRecipeCommand.
@@ -23,8 +25,16 @@ public class DeleteRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> 
         this.userInput = userInput;
     }
 
+    /**
+     * Processes the delete recipe command to deletes a specific recipe.
+     *
+     * @param recipeList    contains the recipe list
+     * @param ui             deals with interactions with the user
+     * @param recipeStorage deals with loading tasks from the file and saving recipes in the file
+     * @return an array list consist of the results or prompts to be displayed to user
+     */
     @Override
-    public ArrayList<String> execute(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) throws ParseException {
+    public ArrayList<String> execute(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) {
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_DELETE_RECIPE)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);

@@ -1,5 +1,4 @@
 import duke.logic.command.recipecommands.ViewRecipeCommand;
-import duke.logic.command.recipecommands.ViewRequiredIngredientCommand;
 import duke.model.list.recipelist.RecipeList;
 import duke.storage.RecipeStorage;
 import duke.ui.MainWindow;
