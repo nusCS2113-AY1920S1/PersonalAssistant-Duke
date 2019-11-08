@@ -65,8 +65,7 @@ public class TaskSchedulerTest {
     @Test
     public void testTaskSchedulerForEmptySchedule() {
         Long taskDuration = (long) 2;
-        TaskScheduler.scheduleByDeadline(tasks, taskDuration, firstDeadlineStartDate);
-        String testOutput = outContent.toString();
+        String testOutput = TaskScheduler.scheduleByDeadline(tasks, taskDuration, firstDeadlineStartDate);
         String expectedOutput = "You can schedule this task from now till the deadline.\n";
         Assertions.assertTrue(testOutput.contains(expectedOutput));
     }
@@ -74,8 +73,7 @@ public class TaskSchedulerTest {
     @Test
     public void testTaskSchedulerForFilledSchedule() {
         Long taskDuration = (long) 2;
-        TaskScheduler.scheduleByDeadline(tasks, taskDuration, secondDeadlineStartDate);
-        String testOutput = outContent.toString();
+        String testOutput = TaskScheduler.scheduleByDeadline(tasks, taskDuration, secondDeadlineStartDate);
         String expectedOutput = String.format("You can schedule this task from now till %s\n",
                 firstEventStartDate.format(DateTimeExtractor.DATE_FORMATTER))
                 + String.format("You can schedule this task from %s till %s\n",
@@ -90,8 +88,7 @@ public class TaskSchedulerTest {
     @Test
     public void testTaskSchedulerForNoFreeSlots() {
         Long taskDuration = (long) 29;
-        TaskScheduler.scheduleByDeadline(tasks, taskDuration, secondDeadlineStartDate);
-        String testOutput = outContent.toString();
+        String testOutput = TaskScheduler.scheduleByDeadline(tasks, taskDuration, secondDeadlineStartDate);
         String expectedOutput = "There is no free slot to insert the task. Consider freeing up your schedule.\n";
         Assertions.assertTrue(testOutput.contains(expectedOutput));
     }
