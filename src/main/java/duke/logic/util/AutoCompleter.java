@@ -53,11 +53,6 @@ public class AutoCompleter {
     private static final Logger logger = LogsCenter.getLogger(AutoCompleter.class);
 
     /**
-     * The singleton of the AutoCompleter class.
-     */
-    private static AutoCompleter theOne = null;
-
-    /**
      * Three keywords used to decide the purpose of complement.
      **/
     private static final String EMPTY_STRING = "";
@@ -164,7 +159,7 @@ public class AutoCompleter {
      * The {@code complementList} is initialized as an empty ArrayList.
      * The {@code lastComplement} is initialized as an empty String.
      */
-    private AutoCompleter() {
+    public AutoCompleter() {
         allCommandNames = COMMANDS.get().map(Command::getName).collect(Collectors.toList());
 
         allSecondaryParams = new HashMap<String, List<String>>();
@@ -176,18 +171,6 @@ public class AutoCompleter {
 
         complementList = new ArrayList<String>();
         lastComplement = EMPTY_STRING;
-    }
-
-    /**
-     * Provides a singleton of this AutoCompleter class.
-     *
-     * @return The singleton of this AutoCompleter class.
-     */
-    public static AutoCompleter getInstance() {
-        if (theOne == null) {
-            theOne = new AutoCompleter();
-        }
-        return theOne;
     }
 
 

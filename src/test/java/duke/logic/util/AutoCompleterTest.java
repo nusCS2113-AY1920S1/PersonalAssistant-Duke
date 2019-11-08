@@ -3,15 +3,13 @@ package duke.logic.util;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public class AutoCompleterTest {
 
-    private static final String NULL_STRING_INPUT = null;
+    private static final String NULL_OBJECT = null;
     private static final String NOT_NULL_STRING_INPUT = "dummy";
 
     private static final String INPUT_WITH_ADD_PREFIX = "add";
@@ -36,25 +34,20 @@ public class AutoCompleterTest {
     private static final String SPACES_AT_FIRST_NO_PROBLEM = "    addExpense";
 
     @Test
-    public void getInstance() {
-        assertNotEquals(NULL_STRING_INPUT, AutoCompleter.getInstance());
+    public void receiveTest_nullStringInput_throwsNullPointerException() {
+        AutoCompleter autoCompleter = new AutoCompleter();
+        assertThrows(NullPointerException.class, () -> autoCompleter.receiveText(NULL_OBJECT));
     }
 
     @Test
-    public void receiveTest_nullStringInput_throwsNullPointer() {
-        AutoCompleter autoCompleter = AutoCompleter.getInstance();
-        assertThrows(NullPointerException.class, () -> autoCompleter.receiveText(NULL_STRING_INPUT));
-    }
-
-    @Test
-    public void receiveTest_acceptableStringInput_receiveSuccessful() {
-        AutoCompleter autoCompleter = AutoCompleter.getInstance();
+    public void receiveTest_acceptableStringInput_success() {
+        AutoCompleter autoCompleter = new AutoCompleter();
         assertDoesNotThrow(() -> autoCompleter.receiveText(NOT_NULL_STRING_INPUT));
     }
 
     @Test
     public void getFullComplement() {
-        AutoCompleter autoCompleter = AutoCompleter.getInstance();
+        AutoCompleter autoCompleter = new AutoCompleter();
 
         // Completes "add" to "addExpense".
         autoCompleter.receiveText(INPUT_WITH_ADD_PREFIX);
