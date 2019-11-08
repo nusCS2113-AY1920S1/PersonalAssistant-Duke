@@ -2,6 +2,7 @@ package sgtravel.model;
 
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.NoRecentItineraryException;
+import sgtravel.commons.exceptions.NoSuchItineraryException;
 import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.commons.exceptions.ParseException;
 import sgtravel.commons.exceptions.DuplicateRouteException;
@@ -108,4 +109,6 @@ public interface Model {
      * Returns name of the user.
      */
     String getName();
+
+    void doneItinerary(String name) throws NoSuchItineraryException;
 }
