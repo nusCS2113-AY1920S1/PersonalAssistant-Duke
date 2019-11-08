@@ -1,5 +1,6 @@
 package tests;
 
+import duke.data.Evidence;
 import duke.data.Impression;
 import duke.data.Investigation;
 import duke.data.Medicine;
@@ -7,6 +8,7 @@ import duke.data.Observation;
 import duke.data.Patient;
 import duke.data.Plan;
 import duke.data.Result;
+import duke.data.Treatment;
 import duke.exception.DukeException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +34,9 @@ public class ImpressionTest {
         impression = new Impression("testImpression", "Impression Test description", patient);
     }
 
-
+    /**
+     * Test if lists are sorted properly after addition.
+     */
     @Test
     public void addTest() {
         final String addTest = "addTest";
@@ -41,6 +45,26 @@ public class ImpressionTest {
             setupTreatments(addTest, addTest, addTest);
         } catch (DukeException e) {
             fail("Could not add items for testing!");
+        }
+        int highestPri = 0;
+        for (Evidence evidence : impression.getEvidences()) {
+            if (evidence.getPriority() < highestPri) {
+                fail("evidence sorting failed");
+            }
+            highestPri = evidence.getPriority();
+        }
+        highestPri = 0;
+        int highestStatus = 0;
+        for (Treatment treatment : impression.getTreatments()) {
+            if (treatment.getPriority() < highestPri || treatment.getStatusIdx() < highestStatus) {
+                fail("treatment sorting failed");
+            }
+            if (treatment.getPriority() != highestPri) {
+                highestPri = treatment.getPriority();
+                highestStatus = 0;
+            } else {
+                highestStatus = treatment.getStatusIdx();
+            }
         }
     }
 
