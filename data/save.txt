@@ -1,3 +1,2 @@
-D | 0 | kick a ball | 12-12-2019 1500 | low
-D | 0 | kick a ball | 12-12-2019 1500 | high
-T | 0 | kick a ball | low
+E | 0 | [BME] Open House for Prospective Students | 11-05-2020 1030
+E | 0 | [BME] NUS-BME Open House | 18-05-2020 1330

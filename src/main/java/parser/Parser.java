@@ -23,7 +23,7 @@ public class Parser {
     public static String taskSeparator = "\\s*\\|\\s*";
     public static String dateSeparator = "\\s*\\&\\s*";
     public static String postpone = "\\s*/to\\s*";
-    public static String swap = "\\s*\\s*\\s*";
+    //public static String swap = "\\s+\\s+\\s+";
     public static String newLine = "\n";
     public static int windowWidth = 80;
     public static String acceptedExtensions = "txt|csv";
@@ -82,8 +82,9 @@ public class Parser {
                             + "Type \"help\" for a full list of available commands");
                 }
             }
+
         } else if (command.matches("todo|deadline|event|done|delete|find|select"
-                + "|snooze|schedule|add|remove|swap|sort|detail|compare")) {
+                + "|snooze|schedule|add|remove|swap|sort|detail|compare|view_employment|cohort_size")) {
             if (!temp.hasNextLine() && command.matches("detail")) {
                 throw new DukeException("You can try \" detail come \" to show information on Computer Engineering!");
             } else if (!temp.hasNextLine() && command.matches("compare")) {
@@ -112,6 +113,8 @@ public class Parser {
                     return new SwapCommand(command, input);
                 } else if (command.matches("sort")) {
                     return new SortCommand(command, input);
+                } else if (command.matches("view_employment|cohort_size")) {
+                    return new ViewCommand(command, input);
                 }
             }
         }
