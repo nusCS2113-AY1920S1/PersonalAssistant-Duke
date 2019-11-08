@@ -23,10 +23,9 @@ public class WordUp extends Application {
     public WordUp() {
         ui = new Ui();
 
-        storage = new Storage();
-
+        storage = new Storage();                    //setup text file
         storage = new Storage("data/wordup.xlsx");
-        bank = storage.loadExcelFile();
+        bank = storage.loadExcelFile();             //loads value of word bank into bank
 
     }
 

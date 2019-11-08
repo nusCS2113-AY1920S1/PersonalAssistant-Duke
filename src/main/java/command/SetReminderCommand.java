@@ -28,6 +28,10 @@ public class SetReminderCommand extends Command {
      */
     protected static int reminderSetupState;
 
+    /**
+     * Updates the state count of the setup stage.
+     * @param state the number representing the stage the setup is at
+     */
     public SetReminderCommand(int state) {
         reminderSetupState = state;
         if (reminderSetupState == 1) {

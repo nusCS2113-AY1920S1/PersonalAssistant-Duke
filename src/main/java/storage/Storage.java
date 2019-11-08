@@ -42,6 +42,11 @@ public class Storage {
     private static String EXCEL_PATH;
     private File excelFile;
 
+
+    /**
+     * Creates new text file if no such file already exists and sets FILE_PATH to the absolute path of the text file.
+     * Creates new excel file if no such file exists and sets EXCEL_PATH to the absolute path of excel file.
+     */
     public Storage() {
         File currentDir = new File(System.getProperty("user.dir"));
         File filePath = new File(currentDir.toString() + "\\data");
@@ -57,7 +62,6 @@ public class Storage {
         }
         FILE_PATH = dataText.getAbsolutePath();
     }
-
 
     /**
      * Initiates storage with text file path and excel file path.

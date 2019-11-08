@@ -79,7 +79,7 @@ public class MainScene extends NewScene {
                     c = new SetReminderCommand(reminderSetUpState, userInput);
                 }
             } else if (reminderSetUpState == 2) {                       //when user is entering a list of words
-                if (userInput.trim().equals("")) {                             //user enters a blank line; end of list input
+                if (userInput.trim().equals("")) {                      //user enters a blank line; end of list input
                     reminderSetUpState = 3;                             //assert state 3
                     c = new SetReminderCommand(reminderSetUpState);
                 } else {
