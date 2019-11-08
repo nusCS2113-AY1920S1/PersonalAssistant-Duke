@@ -124,14 +124,14 @@ public class GoalsListTest {
             outContent.reset();
             testList.deleteFromGoalList("test", testUi);
             String expectedOutput = "Details of the goal being removed:"
-                    + NEWLINE + "Item No.   To Accomplish                  Amount to save       Saving Account"
-                    + "       Save another         To be achieved by    Goal Achieved        "
-                    + NEWLINE + "-----------------------------------------------------------------------------"
-                    + "--------------------------------------------------------------"
-                    + NEWLINE + "1          test                           $100.00              -NOT TIED-    "
-                    + "       $100.00              10 October 2020      N                    " + NEWLINE + "----"
-                    + "-----------------------------------------------------------------------------------------"
-                    + "----------------------------------------------" + NEWLINE;
+                    + NEWLINE + "Item No.  To Accomplish          Amount to save       Saving Account                 "
+                    + "Save another         To be achieved by    Goal Achieved        "
+                    + NEWLINE + "-----------------------------------------------------------------------------------"
+                    + "---------------------------------------------------------"
+                    + NEWLINE + "1         test                   $100.00              -NOT TIED-                     "
+                    + "$100.00              10 October 2020      N                    "
+                    + NEWLINE + "-----------------------------------------------------------------------------------"
+                    + "---------------------------------------------------------" + NEWLINE;;
             assertEquals(expectedOutput, outContent.toString());
             System.out.println(expectedOutput);
             System.out.println(outContent.toString());
@@ -155,15 +155,14 @@ public class GoalsListTest {
         } catch (GoalsException err) {
             System.out.println("Expect success but error was thrown");
         }
-        String expectedOutput = "Item No.   To Accomplish                  Amount to save       Saving Account"
-                + "       Save another         To be achieved by    Goal Achieved        "
-                + NEWLINE + "-----------------------------------------------------------------------------"
-                + "--------------------------------------------------------------"
-                + NEWLINE + "1          test                           $100.00              -NOT TIED-    "
-                + "       $100.00              10 October 2020      N                    " + NEWLINE + "----"
-                + "-----------------------------------------------------------------------------------------"
-                +
-                "----------------------------------------------" + NEWLINE;
+        String expectedOutput = "Item No.  To Accomplish          Amount to save       Saving Account                 "
+                + "Save another         To be achieved by    Goal Achieved        "
+                + NEWLINE + "-----------------------------------------------------------------------------------"
+                + "---------------------------------------------------------"
+                + NEWLINE + "1         test                   $100.00              -NOT TIED-                     "
+                + "$100.00              10 October 2020      N                    "
+                + NEWLINE + "-----------------------------------------------------------------------------------"
+                + "---------------------------------------------------------" + NEWLINE;
         assertEquals(1,testGoals.getGoalListSize());
         assertEquals(expectedOutput,outContent.toString());
     }

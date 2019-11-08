@@ -45,7 +45,7 @@ public class ParseAddGoals extends ParseGoals {
             if (NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding new goals");
             } else if (NAME.equals(key)) {
-                checkName(NAME, value);
+                checkGoalsName(NAME, value);
             }
             if (AMOUNT.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding new goals");

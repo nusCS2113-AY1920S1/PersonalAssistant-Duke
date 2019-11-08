@@ -110,12 +110,24 @@ public abstract class ParseGoals {
      * @param name Name of goal
      * @throws ParserException If the name is too long or contain special characters.
      */
+    void checkGoalsName(String key, String name) throws ParserException {
+        if (!RegexUtil.regexCheckGoalsName(name)) {
+            throw new ParserException(key + " can only be alphanumeric and at most 20 characters");
+        }
+    }
+
+    /**
+     * Checks if the savings account name entered by the user does not contain special character and not too long.
+     *
+     * @param key  /name or /newname
+     * @param name Name of goal
+     * @throws ParserException If the name is too long or contain special characters.
+     */
     void checkName(String key, String name) throws ParserException {
         if (!RegexUtil.regexCheckName(name)) {
             throw new ParserException(key + " can only be alphanumeric and at most 30 characters");
         }
     }
-
     /**
      * Checks if the date set for the goal is of valid format and not before now.
      *

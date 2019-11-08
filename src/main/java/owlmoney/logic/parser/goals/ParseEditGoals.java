@@ -42,7 +42,7 @@ public class ParseEditGoals extends ParseGoals {
             if (NAME.equals(key) && (value.isEmpty() || value.isBlank())) {
                 throw new ParserException("/name cannot be empty.");
             } else if (NAME.equals(key)) {
-                checkName(NAME, value);
+                checkGoalsName(NAME, value);
             }
             if (AMOUNT.equals(key) && !(value.isEmpty() || value.isBlank())) {
                 checkAmount(value);

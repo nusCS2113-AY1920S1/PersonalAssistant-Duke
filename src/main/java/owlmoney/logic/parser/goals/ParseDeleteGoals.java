@@ -43,7 +43,7 @@ public class ParseDeleteGoals extends ParseGoals {
             if (NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when deleting goals");
             } else if (NAME.equals(key)) {
-                checkName(NAME, value);
+                checkGoalsName(NAME, value);
             }
         }
 
