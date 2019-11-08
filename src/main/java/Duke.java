@@ -77,5 +77,8 @@ public class Duke{
     public Account getAccount() {
         return account;
     }
+    public Ui getUi() {
+        return ui;
+    }
 
 }
