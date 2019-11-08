@@ -80,12 +80,9 @@ public class MainWindow extends AnchorPane {
         try {
             FXMLLoader loaderHomeDisplay = new FXMLLoader(MainGui.class
                     .getResource("/view/HomeWindow.fxml"));
+            AnchorPane homeDisplayRoot = loaderHomeDisplay.load();
             this.homeController = loaderHomeDisplay.<HomeWindow>getController();
             this.homeController.initialize(this.userInputHistory, this.interpreterLayer);
-            this.homeController.displayBalanceChart();
-            this.homeController.displayBreakdownChart();
-            this.homeController.displayTasks();
-            AnchorPane homeDisplayRoot = loaderHomeDisplay.load();
             this.contentPane.getChildren().add(homeDisplayRoot);
             this.displayType = DisplayType.HOME;
         } catch (DukeException e) {

@@ -7,7 +7,6 @@ import java.text.DecimalFormat;
 
 public class CommandUpdateBalance extends Command {
 
-
     private Double newBalance;
 
     /**
@@ -18,26 +17,33 @@ public class CommandUpdateBalance extends Command {
         super();
         this.userInput = userInput;
         this.commandType = CommandType.SETBALANCE;
-        this.description = "Updates current balance to new balance in the wallet \n"
-                + "FORMAT :  ";
+        this.description = "Updates current balance to new balance in the wallet and can only be set once \n"
+                + "FORMAT : setbalance $<amount>";
     }
 
     @Override
     public void execute(StorageManager storageManager) {
-        try {
-            this.newBalance = extractAmount();
-        } catch (DukeException e) {
-            this.infoCapsule.setCodeError();
-            this.infoCapsule.setOutputStr(e.getMessage());
-            return;
+        if (this.hasBeenSetAlready()) {
+            this.infoCapsule.setCodeToast();
+            this.infoCapsule.setOutputStr("Setbalance can be only set once !!\n");
+        } else {
+            try {
+                this.newBalance = extractAmount();
+            } catch (DukeException e) {
+                this.infoCapsule.setCodeError();
+                this.infoCapsule.setOutputStr(e.getMessage());
+                return;
+            }
+            DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+            storageManager.setWalletBalance(this.newBalance);
+            this.infoCapsule.setCodeToast();
+            this.infoCapsule.setOutputStr("Balance updated to: $" + decimalFormat.format(this.newBalance) + "\n");
+            getExecutedCommands().add(this.commandType.toString());
         }
-        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-        storageManager.setWalletBalance(this.newBalance);
-        this.infoCapsule.setCodeToast();
-        this.infoCapsule.setOutputStr("Balance updated to: $" + decimalFormat.format(this.newBalance) + "\n");
     }
 
     private Double extractAmount() throws DukeException {
+
         String incomeStr = Parser.parseForPrimaryInput(this.commandType, this.userInput);
         try {
             incomeStr = incomeStr.trim().replace("$", "");
@@ -51,4 +57,9 @@ public class CommandUpdateBalance extends Command {
             + "Please enter an amount greater than or equal to zero in your wallet !\n");
         }
     }
+
+    private boolean hasBeenSetAlready() {
+        return getExecutedCommands().contains(this.commandType.toString());
+    }
+
 }
