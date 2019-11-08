@@ -3,7 +3,9 @@ package command;
 import dictionary.Bank;
 import dictionary.Word;
 import dictionary.WordBank;
+import dictionary.WordCount;
 import exception.NoWordFoundException;
+import exception.WordAlreadyExistsException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,10 +28,12 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class SearchTest {
     public String filename;
+    public String excelFileName;
     public Storage storage;
     public Bank bank;
     public Ui ui;
     public WordBank wordBank;
+    public WordCount wordCount;
 
     /**
      * Create wordup test file.
@@ -37,18 +41,37 @@ public class SearchTest {
      * @throws UnsupportedEncodingException if encoding is not supported
      */
     @BeforeEach
-    public void createWordUpTestFile() throws FileNotFoundException, UnsupportedEncodingException {
-        filename = "data\\WordUpTest.txt";
+    public void createWordUpTestFile() throws WordAlreadyExistsException, FileNotFoundException, UnsupportedEncodingException {
+
+        filename = "testdata\\WordUp.txt";
+        excelFileName = "testdata\\WordUp.xlsx";
+
         PrintWriter writer = new PrintWriter(filename, "UTF-8");
-        writer.println("APPLE: red fruit");
+        writer.println("apple: red fruit");
         writer.println("orange: orange fruit");
         writer.println("banana: yellow fruit");
         writer.println("kiwi: green fruit");
         writer.close();
-        storage = new Storage(filename);
-        bank = new Bank(storage);
+
+
+        storage = new Storage("\\testdata");
         ui = new Ui();
-        wordBank = new WordBank(storage.loadFile());
+        bank = storage.loadExcelFile();
+
+        wordCount = bank.getWordCountObject();
+        wordBank = bank.getWordBankObject();
+
+        wordBank.addWord(new Word("apple","red fruit"));
+        wordBank.addWord(new Word("orange","orange fruit"));
+        wordBank.addWord(new Word("banana","yellow fruit"));
+        wordBank.addWord(new Word("kiwi","green fruit"));
+
+        wordCount.addWord(new Word("apple","red fruit"));
+        wordCount.addWord(new Word("orange","orange fruit"));
+        wordCount.addWord(new Word("banana","yellow fruit"));
+        wordCount.addWord(new Word("kiwi","green fruit"));
+
+        storage.writeWordBankExcelFile(wordBank);
     }
 
 
@@ -128,8 +151,10 @@ public class SearchTest {
      */
     @AfterEach
     public void deleteWordUpTestFile() {
-        File file = new File(filename);
-        if (file.delete()) {
+        File file1 = new File(filename);
+        File file2 = new File(excelFileName);
+
+        if (file1.delete() && file2.delete()) {
             System.out.println("File deleted successfully"); //note the test/file being used
         } else {
             System.out.println("Failed to delete the file");

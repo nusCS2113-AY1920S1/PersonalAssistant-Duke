@@ -3,10 +3,9 @@ package command;
 import dictionary.Bank;
 import dictionary.Word;
 import dictionary.WordBank;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import dictionary.WordCount;
+import exception.WordAlreadyExistsException;
+import org.junit.jupiter.api.*;
 import storage.Storage;
 import ui.Ui;
 
@@ -15,13 +14,12 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Positive tests on general functions.
  */
-
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CommandTest {
     public String filename;
     public String excelFileName;
@@ -29,17 +27,18 @@ public class CommandTest {
     public Bank bank;
     public Ui ui;
     public WordBank wordBank;
-
+    public WordCount wordCount;
     /**
      * Create wordup test file.
      * @throws FileNotFoundException if filename is not found
      * @throws UnsupportedEncodingException if encoding is not supported
      */
-    @BeforeEach
-    public void createWordUpTestFile() throws FileNotFoundException, UnsupportedEncodingException {
 
-        filename = "data\\WordUpTest.txt";
-        excelFileName = "data\\WordUpTest.xlsx";
+    @BeforeEach
+    public void createWordUpTestFile() throws WordAlreadyExistsException, FileNotFoundException, UnsupportedEncodingException {
+
+        filename = "testdata\\WordUp.txt";
+        excelFileName = "testdata\\WordUp.xlsx";
 
         PrintWriter writer = new PrintWriter(filename, "UTF-8");
         writer.println("apple: red fruit");
@@ -47,10 +46,26 @@ public class CommandTest {
         writer.println("banana: yellow fruit");
         writer.println("kiwi: green fruit");
         writer.close();
-        storage = new Storage(filename, excelFileName);
-        bank = storage.loadExcelFile();
+
+
+        storage = new Storage("\\testdata");
         ui = new Ui();
+        bank = storage.loadExcelFile();
+
+        wordCount = bank.getWordCountObject();
         wordBank = bank.getWordBankObject();
+
+        wordBank.addWord(new Word("apple","red fruit"));
+        wordBank.addWord(new Word("orange","orange fruit"));
+        wordBank.addWord(new Word("banana","yellow fruit"));
+        wordBank.addWord(new Word("kiwi","green fruit"));
+
+        wordCount.addWord(new Word("apple","red fruit"));
+        wordCount.addWord(new Word("orange","orange fruit"));
+        wordCount.addWord(new Word("banana","yellow fruit"));
+        wordCount.addWord(new Word("kiwi","green fruit"));
+
+        storage.writeWordBankExcelFile(wordBank);
     }
 
     /**
@@ -75,7 +90,9 @@ public class CommandTest {
     public void testDeleteCommand() {
         try {
             DeleteCommand deleteCommand = new DeleteCommand("orange");
+            System.out.println(123);
             String delete = deleteCommand.execute(ui, bank, storage);
+            System.out.println("456"+delete);
             Assertions.assertEquals(delete, "Noted. I've removed this word:\n" + "orange: orange fruit");
 
         } catch (Exception e) {
@@ -163,8 +180,10 @@ public class CommandTest {
      */
     @AfterEach
     public void deleteWordUpTestFile() {
-        File file = new File(filename);
-        if (file.delete()) {
+        File file1 = new File(filename);
+        File file2 = new File(excelFileName);
+
+        if (file1.delete() && file2.delete()) {
             System.out.println("File deleted successfully"); //note the test/file being used
         } else {
             System.out.println("Failed to delete the file");
