@@ -284,13 +284,11 @@ public class MainWindow extends BorderPane implements Initializable {
         String response = duke.getResponse(input);
         if (input.startsWith("show/week")) {
             if (WeekParse.isValid(input)) {
-                week = WeekParse.getWeek(input);
-                // //if Week Recess need make till Recess Week normal case: Week 7
-                setWeek(false, week);
+                week = input;
+                setWeek(false, WeekParse.getWeek(input));
             }
         }
         retrieveList();
-        //if(week.contains(" Week")) week = WeekParse.invertWeek(week);
         duke.getResponse(week);
         outputWeekList = WeekCommand.getWeekList();
         updateListView();
@@ -361,12 +359,12 @@ public class MainWindow extends BorderPane implements Initializable {
             String date = dateFormat.format(dateTime);
             selectedWeek = lookupTable.getValue(date);
             currentWeek.setText(selectedWeek + " ( " + lookupTable.getValue(selectedWeek.toLowerCase()) + " )");
-            week = selectedWeek;
+
+            week = WeekParse.getWeekCommandFormat(selectedWeek);
             currentWeek.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.ITALIC,30));
             currentWeek.setTextFill(Color.GOLDENROD);
         } else {
             currentWeek.setText(selectedWeek + " ( " + lookupTable.getValue(selectedWeek.toLowerCase()) + " )");
-            //week = selectedWeek;
         }
     }
 

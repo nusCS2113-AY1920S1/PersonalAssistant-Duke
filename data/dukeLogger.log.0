@@ -478,3 +478,39 @@ SEVERE: DukeExceptions.DukeInvalidFormatException: Invalid input. Please enter t
 find/time 'x' hours , where 'x' is a digit between 1 - 16
 Nov 08, 2019 6:46:18 PM Commons.Duke run
 SEVERE: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commands
+Nov 08, 2019 8:02:55 PM UserInterface.Main start
+SEVERE: MainWindow.fxml cannot be found.
+/C:/Users/Kai/Desktop/main1/build/resources/main/view/MainWindow.fxml
+
+Nov 08, 2019 8:03:46 PM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commands
+Nov 08, 2019 8:04:51 PM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commands
+Nov 08, 2019 8:05:25 PM Commons.Storage stringToTask
+SEVERE: Unable to parse data from event.txt or deadline.txt
+Nov 08, 2019 8:09:05 PM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commands
+Nov 08, 2019 8:12:27 PM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commands
+Nov 08, 2019 8:13:53 PM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commands
+Nov 08, 2019 8:14:28 PM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commands
+Nov 08, 2019 8:16:19 PM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commands
+Nov 08, 2019 8:16:19 PM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commands
+Nov 08, 2019 8:16:29 PM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commands
+Nov 08, 2019 8:16:33 PM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commands
+Nov 08, 2019 8:16:37 PM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commands
+Nov 08, 2019 8:22:09 PM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commands
+Nov 08, 2019 8:22:26 PM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commands
+Nov 08, 2019 8:24:08 PM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commands
+Nov 08, 2019 8:25:44 PM Commons.Duke run
+SEVERE: DukeExceptions.DukeInvalidCommandException: Invalid input. Please type help to see all commands

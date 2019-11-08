@@ -64,7 +64,7 @@ public class DateTimeParser {
         command_split = input.substring(0,input.length()-4);
         weekDate = WeekFormatParse.acadWeekToString(weekDate,command_split.trim());
         String time = input.substring(input.length()- 4).trim();
-        weekDate = weekDate + time;
+        weekDate = weekDate + " " + time;
         Date date = deadlineInputFormat.parse(weekDate);
         String dateString = dateOutputFormat.format(date);
         String timeString = timeOutputFormat.format(date);

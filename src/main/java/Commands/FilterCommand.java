@@ -19,7 +19,7 @@ public class FilterCommand extends Command {
      * @param Command The full command that calls FilterCommand.
      */
     public FilterCommand(String Command) {
-        this.keyword = Command;
+        this.keyword = Command.trim().toLowerCase();
     }
 
     /**
@@ -40,8 +40,8 @@ public class FilterCommand extends Command {
             for (String date : allDates) {
                 ArrayList<Assignment> temp = emap.get(mod).get(date);
                 for (Assignment task : temp) {
-                    if (task.toString().toLowerCase().contains(keyword)
-                            | task.toString().toUpperCase().contains(keyword)) {
+                    String lowerCaseTask = task.toString().toLowerCase();
+                    if (lowerCaseTask.toLowerCase().contains(keyword)) {
                         out.add(task.getType() + task.getDescription() + task.getModCode() + " " + task.getDateTime());
                     }
                 }
@@ -54,8 +54,8 @@ public class FilterCommand extends Command {
             for (String date : allDates) {
                 ArrayList<Assignment> temp = dmap.get(mod).get(date);
                 for (Assignment task : temp) {
-                    if (task.toString().toLowerCase().contains(keyword)
-                            | task.toString().toUpperCase().contains(keyword)) {
+                    String lowerCaseTask = task.toString().toLowerCase();
+                    if (lowerCaseTask.contains(keyword)) {
                         out.add(task.getType() + task.getDescription() + task.getModCode() + " " + task.getDateTime());
                     }
                 }

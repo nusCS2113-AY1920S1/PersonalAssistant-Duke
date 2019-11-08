@@ -1,5 +1,6 @@
 package Parser;
 import Commands.*;
+import Commons.DukeConstants;
 import DukeExceptions.DukeException;
 import DukeExceptions.DukeInvalidCommandException;
 import DukeExceptions.DukeInvalidFormatException;
@@ -8,6 +9,8 @@ import DukeExceptions.DukeInvalidFormatException;
  * This class distinguishes the main command and calls for methods with respect to the main command.
  */
 public class MainParser {
+
+
     public static Command parse(String fullCommand) throws Exception {
         fullCommand = fullCommand.trim();
         if(fullCommand.isEmpty()) {
@@ -16,57 +19,52 @@ public class MainParser {
         String [] stringSplit = fullCommand.split(" ");
         String command = stringSplit[0];
         switch (command) {
-            case "add/e":
-            case "add/d":
+            case DukeConstants.ADD_EVENT_HEADER:
+            case DukeConstants.ADD_DEADLINE_HEADER:
                 return new AddParse(fullCommand).parse();
 
-            case "delete/e":
-            case "delete/d":
+            case DukeConstants.DELETE_EVENT_HEADER:
+            case DukeConstants.DELETE_DEADLINE_HEADER:
                 return new DeleteParse(fullCommand).parse();
 
-            case "done/e":
-            case "done/d":
+            case DukeConstants.DONE_EVENT_HEADER:
+            case DukeConstants.DONE_DEADLINE_HEADER:
                 return new DoneParse(fullCommand).parse();
 
-            case "recur/weekly":
-            case "recur/biweekly":
-            case "recur/rmweekly":
-            case "recur/rmbiweekly":
+            case DukeConstants.RECUR_WEEKLY_HEADER:
+            case DukeConstants.RECUR_BIWEEKLY_HEADER:
+            case DukeConstants.REMOVE_RECUR_WEEKLY_HEADER:
+            case DukeConstants.REMOVE_RECUR_BIWEEKLY_HEADER:
                 return new RecurParse(fullCommand).parse();
 
-            case "remind/check":
-            case "remind/set":
-            case "remind/rm":
+            case DukeConstants.REMIND_CHECK_HEADER:
+            case DukeConstants.REMIND_SET_HEADER:
+            case DukeConstants.REMOVE_REMIND_HEADER:
                 return new RemindParse(fullCommand).parse();
 
-            case "show/workload":
+            case DukeConstants.SHOW_WORKLOAD_HEADER:
                 return new WorkloadParse(fullCommand).parse();
 
-            case "show/filter":
+            case DukeConstants.SHOW_FILTER_HEADER:
                 return new FilterParse(fullCommand).parse();
-            case "help":
+            case DukeConstants.HELP_HEADER:
                 return new HelpCommand();
-
-//            case "list":
-            case "done":
-                return new DoneParse(fullCommand).parse();
-
-            case "find/time":
+            case DukeConstants.FIND_TIME_HEADER:
                 return new FindFreeTimesParse(fullCommand).parse();
 
-            case "show/previous":
+            case DukeConstants.SHOW_PREVIOUS_HEADER:
                 return new ShowPreviousParse(fullCommand).parse();
 
-            case "retrieve/time":
+            case DukeConstants.RETRIEVE_TIME_HEADER:
                 return new RetrieveFreeTimesParse(fullCommand).parse();
 
-            case "retrieve/previous":
+            case DukeConstants.RETRIEVE_PREVIOUS_HEADER:
                 return new RetrievePreviousCommand(fullCommand);
 
-            case "show/week":
+            case DukeConstants.SHOW_WEEK_HEADER:
                 return new WeekParse(fullCommand).parse();
 
-            case "bye":
+            case DukeConstants.BYE_HEADER:
                 return new ByeCommand();
 
             default:
