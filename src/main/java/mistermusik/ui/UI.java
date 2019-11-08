@@ -73,6 +73,8 @@ public class UI {
         System.out.println("1.  \"calendar\"      -- Print the calendar for the current week.");
         System.out.println("2.  \"calendar last\" -- Print the calendar for the last week.");
         System.out.println("3.  \"calendar next\" -- Print the calendar for the next week.");
+        System.out.println("4.  \"calendar on\"   -- Allow printing the calendar after every command.");
+        System.out.println("5.  \"calendar off\"  -- Disable printing the calendar after every command.");
         System.out.print(lineSeparation);
     }
 
