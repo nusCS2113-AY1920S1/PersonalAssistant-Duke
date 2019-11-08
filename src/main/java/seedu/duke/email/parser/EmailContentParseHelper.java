@@ -205,7 +205,7 @@ public class EmailContentParseHelper {
      * @return a relevance score related to both occurrence and relevance
      */
     private static int fuzzySearchInString(String input, String target) {
-        int score = 0;
+        int relevance = 0;
         String[] inputWords = input.split("\\W");
         String[] targetWords = target.split("\\W");
         for (String inputWord : inputWords) {
@@ -215,12 +215,12 @@ public class EmailContentParseHelper {
                 }
                 int distance = editDistance(inputWord, targetWord);
                 if (distance <= FUZZY_LIMIT) {
-                    score += FUZZY_LIMIT - distance + 1;
+                    relevance += FUZZY_LIMIT - distance + 1;
                 }
             }
         }
-        UI.getInstance().showError(score + " : " + input + " <> " + target);
-        return score;
+        UI.getInstance().showError(relevance + " : " + input + " <> " + target);
+        return relevance;
     }
 
 }
