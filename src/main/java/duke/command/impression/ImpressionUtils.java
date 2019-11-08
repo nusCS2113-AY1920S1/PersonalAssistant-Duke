@@ -97,17 +97,6 @@ public class ImpressionUtils {
     }
 
     /**
-     * Checks if an integer is a valid priority value.
-     * @param priority The integer to check.
-     * @throws DukeUtilException If the priority is out of the valid range.
-     */
-    public static void checkPriority(int priority) throws DukeUtilException {
-        if (priority < 0 || priority > DukeData.PRIORITY_MAX) {
-            throw new DukeUtilException("Priority must be between 0 and " + DukeData.PRIORITY_MAX + "!");
-        }
-    }
-
-    /**
      * Checks if a status is a string or an integer, and returns the appropriate integer if it is a string.
      * @param status The String supplied as an argument to the status switch.
      * @param statusList The status descriptions that the numeric value of the status represent. The numeric value of

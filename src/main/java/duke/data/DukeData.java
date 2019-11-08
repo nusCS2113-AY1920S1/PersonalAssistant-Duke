@@ -4,6 +4,8 @@ import duke.exception.DukeException;
 
 public abstract class DukeData extends DukeObject {
 
+    // TODO change priority to primitive int
+
     public static final int PRIORITY_MAX = 4;
     private Integer priority;
     protected String summary;
@@ -18,9 +20,9 @@ public abstract class DukeData extends DukeObject {
      * @param impression the impression object the data is tagged to
      * @param priority the priority level of the investigation
      */
-    public DukeData(String name, Impression impression, Integer priority) {
+    public DukeData(String name, Impression impression, Integer priority) throws DukeException {
         super(name, impression);
-        this.priority = priority;
+        setPriority(priority);
     }
 
 
@@ -38,6 +40,9 @@ public abstract class DukeData extends DukeObject {
      * @return the integer of the updated priority
      */
     public Integer setPriority(Integer priority) throws DukeException {
+        if (priority < 0 || priority > DukeData.PRIORITY_MAX) {
+            throw new DukeException("Priority must be between 0 and " + DukeData.PRIORITY_MAX + "!");
+        }
         this.priority = priority;
         return getPriority();
     }
@@ -72,5 +77,16 @@ public abstract class DukeData extends DukeObject {
         // null check required because medicine summary is null
     }
 
-    public void edit(
+    public void edit(String newName, int newPriority, String newSummary, boolean isAppending)
+            throws DukeException {
+        if (newName != null) {
+            setName((isAppending) ? getName() + newName : newName);
+        }
+        if (newPriority != -1) {
+            setPriority(newPriority);
+        }
+        if (newSummary != null) {
+            setSummary((isAppending) ? getSummary() + newSummary : newSummary);
+        }
+    }
 }

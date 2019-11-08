@@ -83,16 +83,7 @@ public class ImpressionEditSpec extends ImpressionObjSpec {
         String newName = cmd.getSwitchVal("name");
         int newPriority = cmd.switchToInt("priority");
         String newSummary = cmd.getSwitchVal("summary");
-        if (newName != null) {
-            editData.setName((isAppending) ? editData.getName() + newName : newName);
-        }
-        if (newPriority != -1) {
-            ImpressionUtils.checkPriority(newPriority);
-            editData.setPriority(newPriority);
-        }
-        if (newSummary != null) {
-            editData.setSummary((isAppending) ? editData.getSummary() + newSummary : newSummary);
-        }
+
 
             if (editData instanceof Plan) {
 
