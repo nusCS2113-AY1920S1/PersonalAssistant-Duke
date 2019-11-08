@@ -16,7 +16,7 @@ public abstract class HomeObjSpec extends ObjSpec {
         String bed = cmd.getSwitchVal("bed");
         Patient patient = HomeUtils.findFromHome(core, bed, cmd.getArg());
         if (patient == null) {
-            processResults(core, core.patientData.findPatients(cmd.getArg()));
+            processResults(core, core.patientData.findPatientsByName(cmd.getArg()));
         } else {
             executeWithObj(core, patient);
         }
