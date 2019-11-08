@@ -30,6 +30,8 @@ public abstract class Assignment {
     public abstract String getDate();
 
     public abstract String getTime();
+    public abstract String getStartTime();
+    public abstract String getEndTime();
 
     /**
      * Checks whether the task is completed.

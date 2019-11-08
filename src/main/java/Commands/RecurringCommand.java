@@ -64,7 +64,11 @@ public class RecurringCommand extends Command {
         } else {
             for (Assignment taskInList : eventMap.get(modCode).get(dateOfTask)) {
                 if (taskInList.getDateTime().equals(task.getDateTime())) {
-                    return true;
+                    if (!taskInList.getDescription().equals(task.getDescription())) {
+                        throw new DukeException("Sorry, the description of your recurring task mismatches");
+                    } else {
+                        return true;
+                    }
                 }
             }
             throw new DukeException("Sorry, you have no timing of the mod task to be removed");
