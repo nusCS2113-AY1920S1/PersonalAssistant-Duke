@@ -2,7 +2,10 @@ package entertainment.pro.logic.parsers.commands;
 
 import com.fasterxml.jackson.databind.cfg.MutableConfigOverride;
 import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.exceptions.DuplicateGenreException;
+import entertainment.pro.commons.exceptions.GenreDoesNotExistException;
 import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
+import entertainment.pro.commons.exceptions.InvalidGenreNameEnteredException;
 import entertainment.pro.storage.utils.ProfileCommands;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
@@ -68,6 +71,10 @@ public class PreferenceCommand extends CommandSuper {
                 throw new InvalidFormatCommandException();
             }
         }
+        if (getFlagMap().size() == 0) {
+            ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
+            throw new InvalidFormatCommandException();
+        }
         switch (this.getSubRootCommand()) {
         case add:
             executeAddPreference(containsPossibleInputs, movieHandler);
@@ -82,7 +89,7 @@ public class PreferenceCommand extends CommandSuper {
             ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
             throw new InvalidFormatCommandException();
         }
-        movieHandler.clearSearchTextField();
+        //movieHandler.clearSearchTextField();
         System.out.println("this is done1");
         movieHandler.setLabels();
         System.out.println("this is done2");
@@ -101,12 +108,17 @@ public class PreferenceCommand extends CommandSuper {
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
         for (int i = 0; i < containsPossibleInputs.size(); i += 1) {
             if (getFlagMap().containsKey(containsPossibleInputs.get(i))) {
+                System.out.println("ye");
                 try {
                     command.addPreference(this.getFlagMap(), containsPossibleInputs.get(i));
                     movieHandler.setGeneralFeedbackText(PromptMessages.PREFERENCES_SUCCESS);
                 } catch (InvalidFormatCommandException InvalidFormatCommandException) {
                     ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
                     movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
+                } catch (InvalidGenreNameEnteredException e) {
+                    ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_GENRE_NAME);
+                } catch (DuplicateGenreException e) {
+                    ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.REPETITVE_GENRE_NAME);
                 }
             }
         }
@@ -130,6 +142,10 @@ public class PreferenceCommand extends CommandSuper {
                 } catch (InvalidFormatCommandException InvalidFormatCommandException) {
                     ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
                     movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
+                } catch (GenreDoesNotExistException e) {
+                    ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.GENRE_DOES_NOT_EXIST);
+                } catch (InvalidGenreNameEnteredException e) {
+                    ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_GENRE_NAME);
                 }
             }
         }

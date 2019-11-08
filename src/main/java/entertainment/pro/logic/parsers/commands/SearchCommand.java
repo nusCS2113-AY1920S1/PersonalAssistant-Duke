@@ -128,14 +128,6 @@ public class SearchCommand extends CommandSuper {
             logger.log(Level.SEVERE, PromptMessages.EMPTY_PARAM_IN_SEARCH);
             throw new Exceptions(PromptMessages.EMPTY_PARAM_IN_SEARCH);
         }
-        if (payload.equals("create")) {
-            movieHandler.getAPIRequester().create();
-            return;
-        }
-        if (payload.equals("get")) {
-            movieHandler.getAPIRequester().getAllMovies();
-            return;
-        }
         if (payload.equals(GET_CURRENT)) {
             movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.CURRENT_TV);
         } else if (payload.equals(GET_TRENDING)) {

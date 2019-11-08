@@ -1,7 +1,11 @@
 package entertainment.pro.storage.utils;
 
+import entertainment.pro.commons.exceptions.DuplicateGenreException;
+import entertainment.pro.commons.exceptions.GenreDoesNotExistException;
 import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
+import entertainment.pro.commons.exceptions.InvalidGenreNameEnteredException;
 import entertainment.pro.model.UserProfile;
+import entertainment.pro.ui.MovieHandler;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -34,7 +38,9 @@ public class ProfileCommands {
     }
 
     /**
-     * change name in profile.
+     * Responsible for setting the name in the userProfile.
+     * @param name The name to be set in the UserProfile.
+     * @throws IOException
      */
     public void setName(String name) throws IOException {
         userProfile.setUserName(name);
@@ -42,7 +48,9 @@ public class ProfileCommands {
     }
 
     /**
-     * change age in profile.
+     * Responsible for setting the age in the userProfile.
+     * @param age The age to be set in the userProfile.
+     * @throws IOException
      */
     public void setAge(String age) throws IOException {
         userProfile.setUserAge(Integer.parseInt(age));
@@ -50,21 +58,48 @@ public class ProfileCommands {
     }
 
     /**
-     * to add preferences to userprofile.
+     * Responsible for adding new preference and sort options in the userProfile.
+     * @param flagMap The elements to be added under a particular category in the userProfile.
+     * @param getInput String that signifies a particular category in the userProfile.
+     * @throws IOException
+     * @throws InvalidFormatCommandException
+     * @throws InvalidGenreNameEnteredException
+     * @throws DuplicateGenreException
      */
-    public void addPreference(TreeMap<String, ArrayList<String>> flagMap, String getInput) throws IOException, InvalidFormatCommandException {
+    public void addPreference(TreeMap<String, ArrayList<String>> flagMap, String getInput) throws IOException, InvalidFormatCommandException, InvalidGenreNameEnteredException, DuplicateGenreException {
         ArrayList<Integer> genrePreferences = new ArrayList<>(50);
         ArrayList<Integer> genreRestrict = new ArrayList<>(50);
         int sortOption = 0;
         ArrayList<String> listForFlag = flagMap.get(getInput);
+            if (listForFlag.size() == 0) {
+                throw new InvalidFormatCommandException();
+            }
+
         for (String log : flagMap.get(getInput)) {
+            if (log.isEmpty() || log.isBlank()) {
+                throw new InvalidFormatCommandException();
+            }
             if (getInput.equals(GET_NEW_GENRE_PREF)) {
                 System.out.println("ok so far0...");
-                genrePreferences.add(findGenreID(log));
+                int genre = findGenreID(log);
+                if (genre == 0) {
+                    throw new InvalidGenreNameEnteredException();
+                }
+                if (isRepetitiveGenrePreference(genre) || isRepetitiveGenreRestrict(genre)) {
+                    throw new DuplicateGenreException();
+                }
+                genrePreferences.add(genre);
             }
             if (getInput.equals(GET_NEW_GENRE_RESTRICT)) {
                 System.out.println("ok so far1...");
-                genreRestrict.add(findGenreID(log));
+                int genre = findGenreID(log);
+                if (genre == 0) {
+                    throw new InvalidGenreNameEnteredException();
+                }
+                if (isRepetitiveGenrePreference(genre) || isRepetitiveGenreRestrict(genre)) {
+                    throw new DuplicateGenreException();
+                }
+                genreRestrict.add(genre);
             }
             if (getInput.equals(GET_NEW_ADULT_RATING)) {
                 if (listForFlag.size() != 1) {
@@ -104,19 +139,75 @@ public class ProfileCommands {
         System.out.println("ok so far5...");
     }
 
+    /**
+     * Responsible for checking whether a genre exist under genre preference in the database.
+     * @param genreNumber The ID of the genre that needs to be checked.
+     * @return true if genre exist in the database and false otherwise.
+     */
+    private boolean isRepetitiveGenrePreference(int genreNumber) {
+        ArrayList<Integer>genrePref = userProfile.getGenreIdPreference();
+        for (int i = 0; i < genrePref.size(); i += 1) {
+            if (genreNumber == genrePref.get(i)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
-     * to remove preferences from userprofile.
+     * Responsible for checking whether a genre exist under genre restrictions in the database.
+     * @param genreNumber The ID of the genre that needs to be checked.
+     * @return true if genre exist in the database and false otherwise.
      */
-    public void removePreference(TreeMap<String, ArrayList<String>> flagMap, String getInput) throws IOException, InvalidFormatCommandException {
+    private boolean isRepetitiveGenreRestrict(int genreNumber) {
+        ArrayList<Integer>genreRestrict = userProfile.getGenreIdRestriction();
+        for (int i = 0; i < genreRestrict.size(); i += 1) {
+            if (genreNumber == genreRestrict.get(i)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * Responsible for removing preference and sort options in the userProfile.
+     * @param flagMap The elements to be added under a particular category in the userProfile.
+     * @param getInput String that signifies a particular category in the userProfile
+     * @throws IOException
+     * @throws InvalidFormatCommandException
+     */
+    public void removePreference(TreeMap<String, ArrayList<String>> flagMap, String getInput) throws IOException,
+            InvalidFormatCommandException, InvalidGenreNameEnteredException, GenreDoesNotExistException {
         ArrayList<Integer> removeGenrePreferences = new ArrayList<>(50);
         ArrayList<Integer> removeGenreRestrict = new ArrayList<>(50);
         for (String log : flagMap.get(getInput)) {
+            ArrayList<String>listForFlag = flagMap.get(getInput);
             if (getInput.equals(GET_NEW_GENRE_PREF)) {
-                removeGenrePreferences.add(findGenreID(log));
+                if (listForFlag.size() == 0) {
+                    throw new InvalidFormatCommandException();
+                }
+                int genre = findGenreID(log);
+                if (genre == 0) {
+                    throw new InvalidGenreNameEnteredException();
+                }
+                if (!isRepetitiveGenrePreference(genre)) {
+                    throw new GenreDoesNotExistException();
+                }
+                removeGenrePreferences.add(genre);
             }
             if (getInput.equals(GET_NEW_GENRE_RESTRICT)) {
-                removeGenreRestrict.add(findGenreID(log));
+                if (listForFlag.size() == 0) {
+                    throw new InvalidFormatCommandException();
+                }
+                int genre = findGenreID(log);
+                if (genre == 0) {
+                    throw new InvalidGenreNameEnteredException();
+                }
+                if (!isRepetitiveGenreRestrict(genre)) {
+                    throw new GenreDoesNotExistException();
+                }
+                removeGenreRestrict.add(genre);
             }
         }
         if (getInput.equals(GET_NEW_ADULT_RATING)) {
@@ -142,7 +233,6 @@ public class ProfileCommands {
                 throw new InvalidFormatCommandException();
             }
         }
-
         userProfile.removeGenreIdPreference(removeGenrePreferences);
         userProfile.removeGenreIdRestriction(removeGenreRestrict);
         editProfileJson.updateProfile(userProfile);
@@ -151,13 +241,16 @@ public class ProfileCommands {
     }
 
     /**
-     * to clear userprofile preferences.
+     * Responsible for clearing preference and sort options for a particular category in the userProfile.
+     * @param flagMap The elements to be added under a particular category in the userProfile.
+     * @param getInput String that signifies a particular category in the userProfile.
+     * @throws IOException
+     * @throws InvalidFormatCommandException
      */
-    public void clearPreference(TreeMap<String, ArrayList<String>> flagMap, String getInput) throws IOException, InvalidFormatCommandException {
-
+    public void clearPreference(TreeMap<String, ArrayList<String>> flagMap, String getInput) throws IOException,
+            InvalidFormatCommandException {
         ArrayList<String>getFlag = flagMap.get(getInput);
         if (getFlag.isEmpty()) {
-
             if (getInput.equals(GET_NEW_GENRE_PREF)) {
                 clearGenrePreference();
             }
@@ -176,25 +269,43 @@ public class ProfileCommands {
         }
     }
 
+    /**
+     * Responsible for clearing the sort options in the userProfile.
+     * @throws IOException
+     */
     public void clearSortPreference() throws IOException {
         setSort(false, false, false);
     }
 
-    private void clearGenreRestrict() {
+    /**
+     * Responsible for clearing all the genres set under gene restrictions in the userProfile.
+     */
+    public void clearGenreRestrict() {
         userProfile.removeGenreIdRestriction(userProfile.getGenreIdRestriction());
     }
 
 
-    private void clearGenrePreference() throws IOException {
+    /**
+     * Responsible for clearing all the genres set under gene preferences in the userProfile.
+     */
+    public void clearGenrePreference() {
         userProfile.removeGenreIdPreference(userProfile.getGenreIdPreference());
     }
 
 
-    public void clearAdultPreference() throws IOException {
+    /**
+     * Responsible for clearing whether to have search results that conatin adult content in the userProfile.
+     */
+    public void clearAdultPreference() {
         userProfile.setAdult(false);
     }
 
 
+    /**
+     * Responsible for setting sort preferences based on user's input.
+     * @param sortOption A integer that corresponds to the user's input.
+     * @throws IOException
+     */
     private void getSortFromUserInput(int sortOption) throws IOException {
         if (sortOption == 1) {
             setSort(true, false, false);
@@ -202,21 +313,15 @@ public class ProfileCommands {
             setSort(false, true, false);
         } else if (sortOption == 3) {
             setSort(false, false, true);
-        } else {
-            // throw exception
-            //throw new exceptions
         }
     }
 
     /**
      * Updates the components in the SortProfile accordingly.
      *
-     * @param isAlphaOrder    true when user have entered command to
-     *                        sort results in alphabetical order and otherwise false.
-     * @param isLatDatesOrder true when user have entered command to
-     *                        sort results based on release dates and otherwise false.
-     * @param isRatingsOrder  true when user have entered command to
-     *                        sort results based on ratings and otherwise false.
+     * @param isAlphaOrder true when user have entered command to sort results in alphabetical order and otherwise false.
+     * @param isLatDatesOrder true when user have entered command to sort results based on release dates and otherwise false.
+     * @param isRatingsOrder  true when user have entered command to sort results based on ratings and otherwise false.
      */
     public void setSort(boolean isAlphaOrder, boolean isLatDatesOrder, boolean isRatingsOrder) throws IOException {
         userProfile.setSortByAlphabetical(isAlphaOrder);
@@ -227,7 +332,7 @@ public class ProfileCommands {
 
 
     /**
-     * set user preferences.
+     * Responsible for setting user preferences.
      */
     public void setPreference(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
         if (flagMap.containsKey("-g")) {
@@ -328,45 +433,11 @@ public class ProfileCommands {
         editProfileJson.updateProfile(userProfile);
     }
 
-//    public void addPreference(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
-//        ArrayList<Integer> genrePreferences = new ArrayList<>(50);
-//        for (String log : flagMap.get("-g")) {
-//            genrePreferences.add(findGenreID(log));
-//        }
-//        userProfile.addGenreIdPreference(genrePreferences);
-//        editProfileJson.updateProfile(userProfile);
-//    }
-//
-//    public void removePreference(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
-//        ArrayList<Integer> genrePreferences = new ArrayList<>(50);
-//        for (String log : flagMap.get("-g")) {
-//            genrePreferences.add(findGenreID(log));
-//        }
-//        userProfile.removeGenreIdPreference(genrePreferences);
-//        editProfileJson.updateProfile(userProfile);
-//    }
-//
-//    public void clearPreference(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
-//        if (flagMap.containsKey("-g")) {
-//            clearGenrePreference();
-//        }
-//        if (flagMap.containsKey("-a")) {
-//            clearAdultPreference();
-//        }
-//        if (flagMap.containsKey("-g") && flagMap.containsKey("-a")) {
-//            clearAll();
-//        }
-//    }
-//
-//
-//    private void clearAll() throws IOException {
-//        userProfile.removeGenreIdPreference(userProfile.getGenreIdPreference());
-//        userProfile.setAdult(true);
-//        editProfileJson.updateProfile(userProfile);
-//    }
-
     /**
-     * to find genreId for corresponding genre name.
+     * Responsible for returning the genreId for corresponding genre name.
+     * @param genreName A string that correspondes to the genre name.
+     * @return GenreId of the genre name.
+     * @throws IOException
      */
     public static Integer findGenreID(String genreName) throws IOException {
         InputStream inputStream = ProfileCommands.class.getResourceAsStream("/data/GenreId.json");
@@ -380,9 +451,17 @@ public class ProfileCommands {
         bufferedReader.close();
         inputStreamReader.close();
         inputStream.close();
-        return Integer.parseInt(parseToId(genreListString, genreName.trim()));
-    }
+        int genreId = Integer.parseInt(parseToId(genreListString, genreName.trim()));
+        return genreId;
+        }
 
+
+    /**
+     * Responsible for returning the genre name for corresponding genreId.
+     * @param id Integer that corresponds to a genreID.
+     * @return Genre name for corresponding genreId.
+     * @throws IOException
+     */
     public static String findGenreName(int id) throws IOException {
         InputStream inputStream = ProfileCommands.class.getResourceAsStream("/data/GenreId.json");
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -398,6 +477,12 @@ public class ProfileCommands {
         return parseToName(genreListString, Integer.toString(id));
     }
 
+    /**
+     * Responsible for parsing and extracting genre name.
+     * @param genreListString String from which genre name needs to be extracted.
+     * @param id GenreId of the genre name.
+     * @return Genre name.
+     */
     private static String parseToName(String genreListString, String id) {
         JSONParser parser = new JSONParser();
         JSONArray jsonArray = new JSONArray();
