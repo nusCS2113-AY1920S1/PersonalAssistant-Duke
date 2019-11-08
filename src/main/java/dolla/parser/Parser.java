@@ -48,15 +48,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     public Parser(String inputLine) {
         this.inputLine = inputLine;
         this.inputArray = inputLine.split(SPACE);
-        this.commandToRun = getCommandToRun();
-    }
-
-    protected static String getCommandToRun() {
-        try {
-            return inputArray[0];
-        } catch (IndexOutOfBoundsException e) {
-            return "";
-        }
+        this.commandToRun = inputArray[0];
     }
 
     public abstract Command parseInput() throws DollaException;

@@ -1,12 +1,12 @@
 package dolla.parser;
 
 import dolla.ModeStringList;
-//import dolla.exception.DollaException;
-import dolla.command.ExitCommand;
+
 import dolla.ui.Ui;
 
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
+import dolla.command.ExitCommand;
 import dolla.command.SwitchModeCommand;
 
 /**
@@ -21,9 +21,15 @@ public class MainParser implements ParserStringList, ModeStringList {
      */
     public static Command handleInput(String mode, String inputLine) {
 
+        inputLine = inputLine.trim();
+        if (inputLine.isEmpty()) {
+            Ui.printInvalidCommandError();
+            return new ErrorCommand();
+        }
+
         String[] inputArray = inputLine.split(SPACE);
         String command = inputArray[0];
-        //String command = Parser.getCommandToRun();
+
         boolean isExitCommand = isExitCommand(command);
         boolean isSwitchMode = isSwitchModeCommand(command);
         if (isExitCommand) {
