@@ -438,10 +438,14 @@ public class Command {
                     }
 
                 } else { //recurring event
-                    events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
-                    ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
-                    if (newEvent.getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) < 0) {
-                        ui.printEnteredEventOver();
+                    if (entryForEvent.getPeriod() > 0) {
+                        events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
+                        ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
+                        if (newEvent.getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) < 0) {
+                            ui.printEnteredEventOver();
+                        }
+                    } else {
+                        ui.periodNotPositive();
                     }
                 }
 
