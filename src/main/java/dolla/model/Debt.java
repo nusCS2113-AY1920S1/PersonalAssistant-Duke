@@ -10,7 +10,6 @@ import java.time.LocalDate;
  */
 public class Debt extends Record {
 
-    protected String type;
     protected String saveType;
 
     /**

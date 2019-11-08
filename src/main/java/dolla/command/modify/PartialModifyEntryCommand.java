@@ -16,8 +16,6 @@ public class PartialModifyEntryCommand extends Command {
     private LocalDate date;
     private String tagName;
 
-    private static final String MODE_ENTRY = "entry";
-
     /**
      * Instantiates a new PartialModifyEntryCommand.
      * @param recordNum number of entry in list to modify.

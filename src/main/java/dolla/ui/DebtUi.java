@@ -104,4 +104,10 @@ public class DebtUi extends Ui {
         System.out.println("\tPlease input a valid name.");
         System.out.println(line);
     }
+
+    public static void printInvalidDebtType() {
+        System.out.println(line);
+        System.out.println("\tThe type can only be 'owe' or 'borrow'.");
+        System.out.println(line);
+    }
 }

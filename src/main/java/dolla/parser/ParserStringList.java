@@ -50,6 +50,7 @@ public interface ParserStringList {
     String COMPONENT_DATE = "/on";
     String COMPONENT_TAG = "/tag";
     String COMPONENT_DURATION = "/duration";
+    String COMPONENT_NAME = "/name";
 
     //Components used in sort
     String SORT_TYPE_AMOUNT = "amount";
