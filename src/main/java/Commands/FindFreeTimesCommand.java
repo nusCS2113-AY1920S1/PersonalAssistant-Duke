@@ -136,10 +136,10 @@ public class FindFreeTimesCommand extends Command {
      * @param events The list of event tasks in storage
      * @return The Reference Date selected
      */
-    private Date getRefDate(TaskList events) throws ParseException {
+    private Date getRefDate(TaskList events, Date date) throws ParseException {
         Comparator<Pair<Long,Assignment>> startTimeComparator = Comparator.comparing(Pair<Long,Assignment>:: getKey);
 
-        Date date = new Date();
+        //Date date = new Date();
         String strDateDay = dateDayFormat.format(date);
         Date refDate = date;
         ArrayList<Pair<Long, Assignment>> extractedAssignmentsOnDate = new ArrayList<>();
@@ -188,8 +188,8 @@ public class FindFreeTimesCommand extends Command {
             Date date = dateDayFormat.parse(strDate);
             date = increaseToTwoThreeFiveNine(date);
             ArrayList<Pair<String, String>> timeArray = new ArrayList<>();
-            if(strDate.equals(strCurrDateDay)) timeArray.add(new Pair<>(strCurrTime, strCurrTime));
-            if(date.after(refDate)) {
+            if (strDate.equals(strCurrDateDay)) timeArray.add(new Pair<>(strCurrTime, strCurrTime));
+            if (date.after(refDate)) {
                 ArrayList<Assignment> data = moduleValues.get(strDate);
                 for (Assignment task : data) {
                     String startAndEnd = task.getTime();
@@ -210,13 +210,14 @@ public class FindFreeTimesCommand extends Command {
      * @throws ParseException The error when the data provided in invalid
      */
     private void mapDataMap(TaskList events) throws ParseException {
-        Date currDate = getRefDate(events);
-        String strCurrDateDay = dateDayFormat.format(currDate);
-        String strCurrTime = timeFormat12.format(currDate);
+        Date date = new Date();
+        Date refDate = getRefDate(events, date);
+        String strCurrDateDay = dateDayFormat.format(refDate);
+        String strCurrTime = timeFormat12.format(refDate);
 
         for(String module: events.getMap().keySet()) {
             HashMap<String, ArrayList<Assignment>> moduleValues = events.getMap().get(module);
-            mapDataMapSubMethod(currDate, strCurrDateDay, strCurrTime, moduleValues);
+            mapDataMapSubMethod(refDate, strCurrDateDay, strCurrTime, moduleValues);
         }
     }
 
@@ -297,7 +298,7 @@ public class FindFreeTimesCommand extends Command {
                 dateTimeEnd = increaseDateTime(dateTimeStart, duration);
                 newFreeTime = new Pair<>(dateTimeStart, dateTimeEnd);
             }
-            last = newFreeTime;
+            if(newFreeTime != null) last = newFreeTime;
             freeTimeData.add(last);
         }
     }

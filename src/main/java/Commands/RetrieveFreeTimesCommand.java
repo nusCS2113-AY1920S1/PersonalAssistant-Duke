@@ -14,7 +14,7 @@ public class RetrieveFreeTimesCommand extends Command {
     private final String emptyFreeTimeList = "Please find free times by invoking the command shown below\n" +
             "Find 'x' hours, where 'x' is a digit between 1 - 16\n" +
             "Followed by the command\n" +
-            "retrieve/ft 'x', where 'x' is a digit between 1- 5";
+            "retrieve/time 'x', where 'x' is a digit between 1- 5";
 
     public RetrieveFreeTimesCommand(Integer option) {
         this.option = option;

@@ -1,6 +1,8 @@
 package Parser;
 
 import Commons.LookupTable;
+import DukeExceptions.DukeInvalidDateTimeException;
+import DukeExceptions.DukeInvalidFormatException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,15 +29,13 @@ public class DateTimeParser {
      * @return The String array containing all the dates.
      * @throws ParseException On wrong date format to parse.
      */
-    public static String[] EventParse(String input) throws ParseException {
+    public static String[] EventParse(String input) throws ParseException, DukeInvalidDateTimeException {
 
-        // date /from time /to time
         dateTimeStringSplit = input.trim().split("/from");
-        //dateTimeStringSplit[0] is "date" or "week X day", dateTimeStringSplit[1] is "time /to time"
         String weekDate = "";
-        dateStringSplit = dateTimeStringSplit[0].trim().split(" "); //dateStringSplit[0] can be week
+        dateStringSplit = dateTimeStringSplit[0].trim().split(" ");
         weekDate = dateStringSplit[0];
-        weekDate = WeekFormatParse.acadWeekToString(weekDate,dateTimeStringSplit[0]);
+        weekDate = WeekFormatParse.acadWeekToString(weekDate,dateTimeStringSplit[0].trim());
         Date date = eventDateInputFormat.parse(weekDate.trim());
         timeStringSplit = dateTimeStringSplit[1].split("/to");
         Date startTime = eventTimeInputFormat.parse(timeStringSplit[0].trim());
@@ -54,15 +54,15 @@ public class DateTimeParser {
      * @return The String array containing all the dates.
      * @throws ParseException On wrong date format to parse.
      */
-    public static String[] DeadlineParse(String input) throws ParseException {
-        // date time
+    public static String[] DeadlineParse(String input) throws ParseException, DukeInvalidDateTimeException {
+
         dateTimeStringSplit = input.trim().split(" ");
         String weekDate = new String();
         String command_split = new String();
         dateStringSplit = dateTimeStringSplit[0].trim().split(" ");
         weekDate = dateStringSplit[0];
         command_split = input.substring(0,input.length()-4);
-        weekDate = WeekFormatParse.acadWeekToString(weekDate,command_split);
+        weekDate = WeekFormatParse.acadWeekToString(weekDate,command_split.trim());
         String time = input.substring(input.length()- 4).trim();
         weekDate = weekDate + time;
         Date date = deadlineInputFormat.parse(weekDate);
@@ -79,11 +79,11 @@ public class DateTimeParser {
      * @return The String array containing all the dates.
      * @throws ParseException On wrong date format to parse.
      */
-    public static String[] recurringEventParse(String input) throws ParseException {
-        //1/10/2019 /to 15/11/2019 /from 1500 /to 1700"
-        dateTimeStringSplit = input.trim().split("/from"); //dateTimeStringSplit[0] = startDate to endDate
-        dateStringSplit = dateTimeStringSplit[0].split("/to"); //dateStringSplit[0] = startDate (2/2/2019 or week X day)
-        String[] startDateStringSplit = dateStringSplit[0].trim().split(" "); //startDateStringSplit[0] = week
+    public static String[] recurringEventParse(String input) throws ParseException, DukeInvalidDateTimeException {
+
+        dateTimeStringSplit = input.trim().split("/from");
+        dateStringSplit = dateTimeStringSplit[0].split("/to");
+        String[] startDateStringSplit = dateStringSplit[0].trim().split(" ");
         String startWeekDate = startDateStringSplit[0].trim();
 
         startWeekDate = WeekFormatParse.acadWeekToString(startWeekDate, dateStringSplit[0].trim());
@@ -96,7 +96,7 @@ public class DateTimeParser {
         String startDateString = dateOutputFormat.format(startDate);
         String endDateString = dateOutputFormat.format(endDate);
 
-        timeStringSplit = dateTimeStringSplit[1].split("/to"); //timeStringSplit[0] = startTime
+        timeStringSplit = dateTimeStringSplit[1].split("/to");
         Date startTime = eventTimeInputFormat.parse(timeStringSplit[0].trim());
         Date endTime = eventTimeInputFormat.parse(timeStringSplit[1].trim());
         String startTimeString = timeOutputFormat.format(startTime);
@@ -112,16 +112,16 @@ public class DateTimeParser {
      * @return The String array containing all the dates.
      * @throws ParseException On wrong date format to parse.
      */
-    public static String[] remindDateParse(String input) throws ParseException {
-        // week 9 fri 1500 /on week 9 thu 1500"
-        dateTimeStringSplit = input.trim().split(" /on "); //dateTimeStringSplit[0] = week 9 fri 1500
+    public static String[] remindDateParse(String input) throws ParseException, DukeInvalidDateTimeException {
+
+        dateTimeStringSplit = input.trim().split(" /on ");
         String[] taskDateTimeStringSplit = dateTimeStringSplit[0].trim().split(" ");
         String weekDate = taskDateTimeStringSplit[0].trim();
         String deadlineDate = dateTimeStringSplit[0].substring(0, dateTimeStringSplit[0].length() - 4);
         deadlineDate = WeekFormatParse.acadWeekToString(weekDate , deadlineDate);
         String time = dateTimeStringSplit[0].substring(dateTimeStringSplit[0].length()- 4);
         deadlineDate = deadlineDate + time;
-        String[] reminderDateTimeStringSplit = dateTimeStringSplit[1].trim().split(" "); //dateTimeStringSplit[1] = week 9 thu 1500
+        String[] reminderDateTimeStringSplit = dateTimeStringSplit[1].trim().split(" ");
         weekDate = reminderDateTimeStringSplit[0].trim();
         String reminderDate = dateTimeStringSplit[1].substring(0, dateTimeStringSplit[1].length() - 4);
         reminderDate = WeekFormatParse.acadWeekToString(weekDate, reminderDate);

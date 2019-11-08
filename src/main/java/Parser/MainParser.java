@@ -2,12 +2,17 @@ package Parser;
 import Commands.*;
 import DukeExceptions.DukeException;
 import DukeExceptions.DukeInvalidCommandException;
+import DukeExceptions.DukeInvalidFormatException;
 
 /**
  * This class distinguishes the main command and calls for methods with respect to the main command.
  */
 public class MainParser {
     public static Command parse(String fullCommand) throws Exception {
+        fullCommand = fullCommand.trim();
+        if(fullCommand.isEmpty()) {
+            throw new DukeInvalidCommandException("Invalid input the command cannot be blank. Please type help to see all commands");
+        }
         String [] stringSplit = fullCommand.split(" ");
         String command = stringSplit[0];
         switch (command) {
@@ -42,13 +47,17 @@ public class MainParser {
             case "help":
                 return new HelpCommand();
 
-            case "find/ft":
+//            case "list":
+            case "done":
+                return new DoneParse(fullCommand).parse();
+
+            case "find/time":
                 return new FindFreeTimesParse(fullCommand).parse();
 
             case "show/previous":
                 return new ShowPreviousParse(fullCommand).parse();
-            
-            case "retrieve/ft":
+
+            case "retrieve/time":
                 return new RetrieveFreeTimesParse(fullCommand).parse();
 
             case "retrieve/previous":

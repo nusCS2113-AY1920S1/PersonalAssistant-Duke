@@ -4,6 +4,7 @@ import Commands.Command;
 import Commands.DoneCommand;
 import Commons.DukeLogger;
 import DukeExceptions.DukeInvalidCommandException;
+import DukeExceptions.DukeInvalidDateTimeException;
 import DukeExceptions.DukeInvalidFormatException;
 import Tasks.Deadline;
 import Tasks.Event;
@@ -34,18 +35,18 @@ public class DoneParse extends Parse {
      * @throws Exception Returned if command does not adhere to format
      */
     @Override
-    public Command parse() throws DukeInvalidFormatException, DukeInvalidCommandException {
+    public Command parse() throws DukeInvalidFormatException, DukeInvalidCommandException, DukeInvalidDateTimeException {
         if (fullCommand.trim().startsWith("done/e")) {
             try {
                 String activity = fullCommand.trim().replaceFirst("done/e", "");
                 modCodeAndDescription = activity.split("/at");
                 modCodeAndDescriptionSplit = modCodeAndDescription[0].trim().split(" ");
-                if (!isValidModCodeAndDescription(modCodeAndDescription[0].trim())) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode + description of an event cannot be empty.");
+                if (!super.isValidModCodeAndDescription(modCodeAndDescription[0].trim())) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode + description of an event cannot be empty.");
                 if (!super.isModCode(modCodeAndDescriptionSplit[0])) {
                     throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
                 }
-                if(!isValidDescription(modCodeAndDescriptionSplit)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of an event cannot be empty.");
-                if(!isValidTimePeriod(modCodeAndDescription[1])) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The time of an event can only contain digits and the time has to be 4 digits.\n" +
+                if(!super.isValidDescription(modCodeAndDescriptionSplit)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of an event cannot be empty.");
+                if(!super.isValidTimePeriod(modCodeAndDescription[1])) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The time of an event can only contain digits and the time has to be 4 digits.\n" +
                         "Please enter the time in a 24-hour time format");
                 String[] out = DateTimeParser.EventParse(modCodeAndDescription[1]);
                 return new DoneCommand("event", new Event(modCodeAndDescription[0].trim(), out[0],out[1],out[2]));
@@ -60,12 +61,12 @@ public class DoneParse extends Parse {
                 String activity = fullCommand.trim().replaceFirst(("done/d"), "");
                 modCodeAndDescription = activity.split("/by");
                 modCodeAndDescriptionSplit = modCodeAndDescription[0].trim().split(" ");
-                if (!isValidModCodeAndDescription(modCodeAndDescription[0].trim())) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode + description of a deadline cannot be empty.");
+                if (!super.isValidModCodeAndDescription(modCodeAndDescription[0].trim())) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode + description of a deadline cannot be empty.");
                 if (!super.isModCode(modCodeAndDescriptionSplit[0])) {
                     throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
                 }
-                if(!isValidDescription(modCodeAndDescriptionSplit)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
-                if(!isValidTime(modCodeAndDescription[1])) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The time of a deadline can only contain digits and the time has to be 4 digits.\n" +
+                if(!super.isValidDescription(modCodeAndDescriptionSplit)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
+                if(!super.isValidTime(modCodeAndDescription[1])) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The time of a deadline can only contain digits and the time has to be 4 digits.\n" +
                         "Please enter the time in a 24-hour time format");
                 String[] out = DateTimeParser.DeadlineParse(modCodeAndDescription[1]);
                 return new DoneCommand("deadline", new Deadline(modCodeAndDescription[0].trim(), out[0],out[1]));

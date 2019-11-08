@@ -22,14 +22,14 @@
 #### Role: Developer + in charge of Commands
 #### Responsibility: JavaFX GUI + integration
 
-### Michelle Tan
+### Michelle Toh
 #### <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/0325961.png" width="200" height="250">
 #### [Michelle](https://github.com/0325961)
 #### Role: Developer + in charge of Interface
 #### Responsibility: Documentation + Code quality
 
 ### Yang Kai Ze
-#### <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/krazzen.JPG" width="200" height="250">
+#### <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/krazzen.png" width="200" height="250">
 #### [Kai Ze](https://github.com/Krazzen)
 #### Role: Developer + in charge of Commands
 #### Responsibility: Scheduling + tracking
