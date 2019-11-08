@@ -82,7 +82,7 @@ public abstract class ParseCard {
      * @throws ParserException If the string is not a double value.
      */
     void checkCashBack(String valueString) throws ParserException {
-        if (!RegexUtil.regexCheckMoney(valueString)) {
+        if (!RegexUtil.regexCheckCashbackRate(valueString)) {
             throw new ParserException("Cash back can only be positive numbers"
                     + " with at most 2 digits and 2 decimal places and at most 20");
         }
