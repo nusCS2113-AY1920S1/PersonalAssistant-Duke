@@ -7,25 +7,25 @@ import ui.Ui;
 import user.UserList;
 
 import java.io.FileNotFoundException;
-//@@Alex-Teo
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ApproveBookingTest1 {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+//@@Alex-Teo
+public class ApproveBookingTest2 {
     private Storage userStorage;
     private static UserList adminList;
     private Ui ui;
 
     @Test
-    void TestApproveBooking() throws DukeException {
+    void TestApproveBooking(/*String userFile*/) throws DukeException {
         String user = "Bob";
-        String room = "room4";
+        String room = "ST4";
         String description = "study";
-        String dateTimeStart = "22/12/2019 1100";
-        String timeEnd = "1200";
+        String dateTimeStart = "30/12/9999 1400";
+        String timeEnd = "1900";
         Booking newBooking = new Booking(user, room, description, dateTimeStart, timeEnd);
-        assertEquals("Bob room4 22/12/2019 1100 to 1200 P", newBooking.toString());
+        assertEquals("Bob ST4 30/12/9999 1400 to 1900 P", newBooking.toString());
         newBooking.approveStatus("amir");
-        assertEquals( "Bob room4 22/12/2019 1100 to 1200 A", newBooking.toString());
+        assertEquals( "Bob ST4 30/12/9999 1400 to 1900 A", newBooking.toString());
 
 
     }

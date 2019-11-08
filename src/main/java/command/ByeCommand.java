@@ -6,6 +6,7 @@ import inventory.Inventory;
 import exception.DukeException;
 import room.RoomList;
 import storage.Storage;
+import storage.StorageManager;
 import ui.Ui;
 import booking.BookingList;
 import user.UserList;
@@ -27,8 +28,7 @@ public class ByeCommand extends Command {
     @Override
     public void execute(UserList userList, Inventory inventory, RoomList roomList,
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage,
-                        Storage bookingstorage, Storage roomstorage, Storage approvestorage) {
+                        StorageManager allStorage) {
         ui.showBye();
         this.isExit = true;
     }

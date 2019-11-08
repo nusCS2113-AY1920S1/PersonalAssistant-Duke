@@ -10,6 +10,7 @@ import exception.DukeException;
 import room.RoomList;
 import storage.Constants;
 import storage.Storage;
+import storage.StorageManager;
 import ui.Ui;
 import user.UserList;
 
@@ -39,8 +40,7 @@ public class FindBookingCommand extends Command {
     @Override
     public void execute(UserList userList, Inventory inventory, RoomList roomList,
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage,
-                        Storage bookingstorage, Storage roomstorage, Storage approvestorage)
+                        StorageManager allStorage)
             throws DukeException, IOException, ParseException {
         boolean found = false;
         for (int i = 0; i < bookingList.size(); i++) {

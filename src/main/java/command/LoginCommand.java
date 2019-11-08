@@ -8,6 +8,7 @@ import inventory.Inventory;
 import room.RoomList;
 import storage.Constants;
 import storage.Storage;
+import storage.StorageManager;
 import ui.Ui;
 import user.UserList;
 
@@ -32,8 +33,7 @@ public class LoginCommand extends Command {
     @Override
     public void execute(UserList userList, Inventory inventory, RoomList roomList,
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage,
-                        Storage bookingstorage, Storage roomstorage, Storage approvestorage)
+                        StorageManager allStorage)
             throws DukeException {
         if (!userList.getLoginStatus()) {
             boolean isValid = UserList.checkExistence(userList, splitL[1]);
