@@ -27,7 +27,7 @@ MooMooMoney is a money management application written in Java and JavaFx 11.
 7.  Ensure that your src folder is checked. Keep clicking `Next`.
 8.  Click `Finish`.
 
-## Running the project
+## Developing the project
 Gradle is integrated into the project and can be used to run various functions.
 
 **Examples**
@@ -43,3 +43,9 @@ Gradle is integrated into the project and can be used to run various functions.
 5.  To run specific `gradle` commands, click on `Gradle` on the right of IntelliJ, click on the `elephant icon` labeled `Execute Gradle Task`
 6.  Type in any `gradle` command as per the above examples.
 7.  The option should appear in the dropdown box and it can be selected to run that task.
+
+## Running the program
+Java JAR files are regularly released under Releases which can be ran on Windows, Linux and MacOS.
+
+1. Install Java 11 JDK and ensure that `java --version` shows `java 11.0.X`
+2. Open command prompt and run `java -jar MooMooMoney-X.jar`

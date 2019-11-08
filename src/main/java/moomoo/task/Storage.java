@@ -304,4 +304,7 @@ public class Storage {
         }
         return false;
     }
+
+    public void preloadData() {
+    }
 }
