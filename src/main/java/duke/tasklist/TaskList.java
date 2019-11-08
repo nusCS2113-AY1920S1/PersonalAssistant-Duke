@@ -81,6 +81,21 @@ public class TaskList {
         return temp;
     }
 
+    public void clear(Optional<String> filter) {
+        if(filter.isPresent()) {
+            for (int i = 0; i < taskList.size(); i++) {
+                Task t = taskList.get(i);
+                if (t.getFilter().equals(filter)) {
+                    taskList.remove(i);
+                }
+            }
+        } else {
+            for (int i = 0; i<taskList.size(); i++) {
+                taskList.remove(i);
+            }
+        }
+    }
+
     /**
      * returns the number of tasks
      *
