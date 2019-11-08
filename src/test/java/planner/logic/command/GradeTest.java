@@ -105,7 +105,7 @@ public class GradeTest extends InputTest {
         String contentString = outContent.toString();
         String newContentString = contentString.replaceAll("\r", "");
         String escaped = removeUnicodeAndEscapeChars(newContentString);
-//        assertEquals(escaped, removeUnicodeAndEscapeChars(expectedAddModule));
+        //assertEquals(escaped, removeUnicodeAndEscapeChars(expectedAddModule));
         assertEquals(escaped, escaped);
     }
 
