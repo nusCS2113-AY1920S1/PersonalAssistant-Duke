@@ -6,7 +6,6 @@ import duke.storage.BookingStorage;
 import duke.ui.Ui;
 
 import java.util.ArrayList;
-
 import static duke.common.BookingMessages.*;
 
 /**
@@ -24,21 +23,6 @@ public class FindBookingCommand extends Command<BookingList, Ui, BookingStorage>
     }
 
     /**
-     * Validates the input to be alphabets or _.
-     *
-     * @param input String input from user
-     * @return true if the string consist only alphabets or _ and false otherwise
-     */
-    private static boolean isValidName(String input) {
-        for (char c : input.toCharArray()) {
-            if (!Character.isLetter(c) && !(c == '_')) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
      * Processes the find command to search for bookings with specific name keyword from the booking list.
      *
      * @param bookingList    contains the booking list
@@ -51,18 +35,33 @@ public class FindBookingCommand extends Command<BookingList, Ui, BookingStorage>
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_FIND_BOOKING)) {
             arrayList.add(ERROR_MESSAGE_EMPTY_NAME_FIND);
-        } else if (userInput.trim().charAt(11) == ' ') {
+        } else if (userInput.trim().charAt(11) != ' ') {
+            arrayList.add(ERROR_MESSAGE_INVALID_FIND_COMMAND);
+        } else {
             String customerName = userInput.split("\\s", 2)[1].trim().toLowerCase();
-            if (isValidName(customerName)) {
+            if (!isValidName(customerName)) {
+                arrayList.add(ERROR_MESSAGE_INVALID_NAME);
+            } else {
                 arrayList.add(MESSAGE_MATCHING_BOOKINGS);
                 arrayList.addAll(bookingList.findBooking(customerName));
-            } else {
-                arrayList.add(ERROR_MESSAGE_INVALID_NAME);
             }
-        } else {
-            arrayList.add(ERROR_MESSAGE_INVALID_FIND_COMMAND);
         }
         return arrayList;
+    }
+
+    /**
+     * Validates the input to be alphabets or _.
+     *
+     * @param input String input from user
+     * @return true if the string consist only alphabets or _ and false otherwise
+     */
+    private static boolean isValidName(String input) {
+        for (char c : input.toCharArray()) {
+            if (!Character.isLetter(c) && !(c == '_')) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
