@@ -72,7 +72,7 @@ public class CliLauncher {
         try {
             modDetailedMap = jsonWrapper.getModuleDetailedMap(true, store);
            // modTasks.setTasks(jsonWrapper.readJsonTaskList(store));
-            ccas.addAll(jsonWrapper.readJsonCcaList(store));
+            profile.getCcas().addAll(jsonWrapper.readJsonCcaList(store));
             //modTasks.setTasks(jsonWrapper.readJsonTaskList(store));
             profile = User.loadProfile(modDetailedMap, modUi, store, jsonWrapper);
             profile.setSemester(0);
