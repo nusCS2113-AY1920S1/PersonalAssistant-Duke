@@ -25,10 +25,16 @@ El Duque is a desktop task manager made for computing students. More importantly
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `El-Duque.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your personal Task Manager.
-.  Open the command line and navigate to the selected folder and type `java -jar El-Duque.jar` to run El Duque.
+.  Open the command line and navigate to the selected folder and type in the following command.
+
+    java -jar El-Duque.jar
 +
 image::Ui.png[width="790"]
 +
+
+[NOTE]
+If you are running the program for the first time, El Duque will preload 20 tasks to get you started!
+
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will show you a brief summary of commands and their format
 .  Some example commands you can try:
@@ -49,7 +55,7 @@ El Duque relies on a flexible command line syntax to parse in commands. Here is 
     [-FILTER] COMMAND [-MODIFICATIONS]
 
 There are 3 main parts to the syntax and filter and modifications have to be prefixed with `-`. Filter and modifications are optional. They serve to add extra depth to the basic commands.
-You can think of filters as sublists. To learn more filters, go to Section 4.5, “Project Filters”. One very important point to note is that `INDEX` is relative to `FILTER`. 
+You can think of filters as sublists. One very important point to note is that `INDEX` is relative to `FILTER`.
 
 For example: +
  `edit 3 -description do laundry` can be doing exactly the same thing as `-housechores edit 1 -description do laundry` if the first task in housechores filter tasklist is the same as the third task in the overall tasklist.
@@ -255,6 +261,15 @@ The `undo` command fails as there are no undoable commands executed previously.
 This first undo will reverse the `delete 1` command. +
 The second undeo will reverse the `edit 2 -p high` command. +
 // end::undoredo[]
+
+=== Clear: `clear`
+Clears the entire task list.
+
+    clear
+
+This command supports filters as well. Typing the following command will clear the `cs2113` task list
+
+    -CS2113 clear
 
 === Pomodoro Timer
 El Duque includes a pomodoro timer to complement the pomodoro workflow.
