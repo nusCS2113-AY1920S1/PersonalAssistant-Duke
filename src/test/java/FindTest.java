@@ -66,29 +66,29 @@ public class FindTest {
         account.getInstalments().add(instalment);
         account.getInstalments().add(instalment1);
 
-        String testInput = "find a";
+        String testInput = "find# a";
         MoneyCommand FindGoalCommand =  new FindCommand(testInput);
         ui.clearOutputString();
         ui.clearGraphContainerString();
         FindGoalCommand.execute(account, ui, moneyStorage);
         assertEquals( "Goals Found:\n" +
-                        "1.[GS] watch(target: $1000.0)\n" +
+                        "1.[GS] watch(target: $1000.00)\n" +
                         " (to achieve by: 9/10/2050) HIGH\n" +
-                        "2.[GS] car(target: $2000.0)\n" +
+                        "2.[GS] car(target: $2000.00)\n" +
                         " (to achieve by: 9/10/2050) MEDIUM\n" +
                         "\n" +
                         "Income Items Found:\n" +
-                        "1.[I] TA Pay(salary: $2000.0) (Paid On: 9/10/2015)\n" +
+                        "1.[I] TA Pay(salary: $2000.00) (Paid On: 9/10/2015)\n" +
                         "\n" +
                         "Expenditure Items Found:\n" +
-                        "1.[E]$500.0 straw(on: 9/10/2015)\n" +
+                        "1.[E]$500.00 straw(on: 9/10/2015)\n" +
                         "\n" +
                         "Loan Items Found:\n" +
-                        "1.[Outstanding] [I] my daddy(loan: $1000.0) (Lent On: 9/10/2015) Outstanding Amount: $1000.0\n" +
+                        "1.[Outstanding] [I] my daddy(loan: $1000.00) (Lent On: 9/10/2015) Outstanding Amount: $1000.00\n" +
                         "\n" +
                         "Instalment Items Found:\n" +
-                        "1.[INS]$5000.0 car(on: 9/10/2015)\n" +
-                        "2.[INS]$100000.0 mortgage(on: 9/10/2015)\n" +
+                        "1.[INS]$5000.00 car(on: 9/10/2015)\n" +
+                        "2.[INS]$100000.00 mortgage(on: 9/10/2015)\n" +
                         "\n"
                 , ui.getGraphContainerString().split(" Now")[0]);
 
