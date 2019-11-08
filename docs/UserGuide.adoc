@@ -398,10 +398,24 @@ Format: `routeAdd NAME`
 * Routes can contain different RouteNodes, which are points on the Route.
 ====
 
+[WARNING]
+====
+* You cannot create a Route that has the same name as an existing one.
+====
+
++
+image::routeAdd1.png[width="400" height="200"]
++
+
 Examples:
 
 * `routeAdd Day trip to Sentosa`
 * `routeAdd 2 Week staycation at Pulau Tekong`
+
+[TIP]
+====
+Entering `routeAdd` will initiate the multi-step version of this command
+====
 
 === Creating a new RouteNode: `routeNodeAdd`
 
@@ -411,12 +425,18 @@ Format: `routeNodeAdd INDEXROUTE INDEXNODE at LOCATION by CONSTRAINT`
 [NOTE]
 ====
 * Creates a RouteNode with the specified `LOCATION` at the Route with specified 'INDEXROUTE'.
-* RouteNodes can be either of these 3 types: BusStop, TrainStation, CustomNode.
-* RouteNodes are specific bus stops, mrt stations or locations in a Route.
+* Shows the information and an image of the map at the RouteNode upon creation.
+* RouteNodes are specific bus stops (BusStop), mrt stations (TrainStation) or locations in a Route (CustomNode).
 * If `INDEXNODE` is not specified, the RouteNode is added to the end of the Route, else it is added to position `INDEXNODE`.
 * If `CONSTRAINT` is `bus`, the `LOCATION` must correspond to the bus stop's number. This creates a BusStop.
 * If `CONSTRAINT` is `mrt` instead, the `LOCATION` must correspond to the name of the MRT station, and is not case-sensitive. This creates a TrainStation.
 * If `CONSTRAINT` is `custom` instead, a CustomNode is created with the specified 'LOCATION'.
+====
+
+[WARNING]
+====
+* You cannot add duplicate RouteNodes into a Route.
+* If there is no internet connection, the image is not shown.
 ====
 
 Valid CONSTRAINT:
@@ -425,6 +445,9 @@ Valid CONSTRAINT:
 * `mrt`
 * `custom`
 
++
+image::routeNodeAdd1.png[width="400" height="200"]
++
 Examples:
 
 * `routeNodeAdd 1 1 at 17009 by bus`
@@ -433,6 +456,11 @@ Examples:
 * `routeNodeAdd 1 at Bishan by mrt`
 * `routeNodeAdd 1 1 at jurong bird park by custom`
 * `routeNodeAdd 1 at Bishan Park by custom`
+
+[TIP]
+====
+Entering `routeNodeAdd` will initiate the multi-step version of this command
+====
 
 === Automatically generating a Route: `routeGenerate`
 
@@ -450,9 +478,19 @@ Valid CONSTRAINT:
 * `bus`
 * `mrt`
 
++
+image::routeGenerate1.png[width="400" height="200"]
++
+
 Examples:
 
 * `routeGenerate amk hub to clementi by bus`
+* `routeGenerate amk hub to sungei gedong by mrt`
+
+[TIP]
+====
+Entering `routeGenerate` will initiate the multi-step version of this command
+====
 
 === Listing the information of all the Routes: `routeListAll`
 
@@ -463,6 +501,10 @@ Format: `routeListAll`
 ====
 * Information includes the name and description of all Routes.
 ====
+
++
+image::routeListAll1.png[width="400" height="360"]
++
 
 Examples:
 
@@ -479,25 +521,13 @@ Format: `routeList INDEX_ROUTE`
 * Information includes the name, description and all RouteNodes in the Route.
 ====
 
++
+image::routeList1.png[width="400" height="260"]
++
+
 Examples:
 
 * `routeList 1`
-
-=== Listing the information of a RouteNode: `routeNodeList`
-
-Lists the information about a RouteNode. +
-Format: `routeNodeList INDEX_ROUTE INDEX_NODE`
-
-[NOTE]
-====
-* Lists the information of the RouteNode at Route `INDEX_ROUTE` and index `INDEX_NODE`.
-* Information includes the name, description and coordinates of the RouteNode.
-====
-
-Examples:
-
-* `routeNodeList 1 1`
-* `routeNodeList 3 2`
 
 === Showing the map image of a Route: `routeShow`
 
@@ -509,9 +539,22 @@ Format: `routeShow INDEX_ROUTE`
 * Shows the map of the Route at `INDEX_ROUTE` in the Singapore Map.
 ====
 
++
+image::routeShow1.png[width="1000" height="700"]
++
+
++
+image::routeShow2.png[width="400" height="330"]
++
+
 Examples:
 
 * `routeShow 1`
+
+[TIP]
+====
+Entering `routeList` will initiate the multi-step version of this command
+====
 
 === Showing the information of a RouteNode with image: `routeNodeShow`
 
@@ -524,6 +567,10 @@ Format: `routeNodeShow INDEX_ROUTE INDEX_NODE`
 * The RouteNode being shown is colored in green.
 * Nearby RouteNodes in the Route are also shown, and are colored in orange.
 ====
+
++
+image::routeNodeShow1.png[width="400" height="600"]
++
 
 Examples:
 
@@ -540,6 +587,10 @@ Format: `routeNodeNearby INDEX_ROUTE INDEX_NODE`
 * Shows the map of the RouteNode at `INDEX_NODE` in Route at `INDEX_ROUTE` and its nearby neighbours.
 * Nearby neighbours are colored in black.
 ====
+
++
+image::routeNodeNearby1.png[width="400" height="600"]
++
 
 Examples:
 
@@ -561,10 +612,25 @@ Valid FIELD:
 * `name`
 * `description`
 
++
+image::routeEdit1.png[width="400" height="260"]
++
++
+image::routeEdit2.png[width="400" height="190"]
++
++
+image::routeEdit3.png[width="400" height="250"]
++
+
 Examples:
 
 * `routeEdit 1 name Go to Sentosa for the beach`
 * `routeEdit 3 description stop at MBS for lunch`
+
+[TIP]
+====
+Entering `routeEdit` will initiate the multi-step version of this command
+====
 
 === Deleting a Route: `routeDelete`
 
@@ -576,9 +642,19 @@ Format: `routeDelete INDEX_ROUTE`
 * Deletes a Route at `INDEX_ROUTE`.
 ====
 
++
+image::routeDelete1.png[width="400" height="210"]
++
+
 Examples:
 
 * `routeDelete 1`
+
+[TIP]
+====
+Entering `routeDelete` will initiate the multi-step version of this command
+====
+
 
 === Deleting a RouteNode: `routeNodeDelete`
 
@@ -590,6 +666,15 @@ Format: `routeNodeDelete INDEX_ROUTE INDEX_NODE`
 * Deletes a RouteNode at `INDEX_NODE` in Route at `INDEX_ROUTE`.
 ====
 
++
+image::routeNodeDelete1.png[width="400" height="200"]
++
+
+[TIP]
+====
+Entering `routeNodeDelete` will initiate the multi-step version of this command
+====
+
 Examples:
 
 * `routeNodeDelete 1 1`
@@ -599,6 +684,10 @@ Examples:
 
 SGTravel shows the information of a bus stop. +
 Format: `busStop BUSCODE`
+
++
+image::busStop1.png[width="400" height="500"]
++
 
 Examples:
 
@@ -614,6 +703,10 @@ Entering `busStop` will initiate the multi-step version of this command
 
 SGTravel finds the bus route of a given bus service given the bus service number. +
 Format: `busroute BUS_NUMBER`
+
++
+image::busRoute1.png[width="400" height="330"]
++
 
 Examples:
 
