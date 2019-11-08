@@ -49,7 +49,7 @@ public class ViewUi extends Ui {
 
     /**
      * Prints a message to alert user that there are no entries with the requested date.
-     * @param dateStr
+     * @param dateStr String related to the date to be printed
      */
     public static void printNoRelevantExpense(String dateStr) {
         System.out.println("\tI couldn't find any entries from " + dateStr
@@ -68,16 +68,7 @@ public class ViewUi extends Ui {
         System.out.println("\tview [DATE]");
         System.out.println(line);
     }
-
-    public static void printInvalidViewDateError() {
-        System.out.println(line);
-        System.out.println("\tPlease follow the format for view!");
-        System.out.println("\tview today");
-        System.out.println("\tor");
-        System.out.println("\tview [DATE]");
-        System.out.println(line);
-    }
-
+    
     public static void printStartLine() {
         System.out.println(line);
     }

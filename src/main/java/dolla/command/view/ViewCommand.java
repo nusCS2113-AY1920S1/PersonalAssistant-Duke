@@ -13,8 +13,8 @@ public class ViewCommand extends Command {
 
     protected LocalDate cmpDate;
     protected String dateStr;
-    protected final String STR_TODAY = "today";
-    protected final String STR_EXPENSE = "expense";
+    protected final String TODAY = "today";
+    protected final String EXPENSE = "expense";
 
 
     @Override
@@ -62,17 +62,13 @@ public class ViewCommand extends Command {
     }
 
     private boolean isSameDate(LocalDate d1, LocalDate d2) {
-        if (d1.compareTo(d2) == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return d1.compareTo(d2) == 0;
     }
 
     private double getSignedAmount(Record currEntry) {
         String type = currEntry.getType();
         double amount = currEntry.getAmount();
-        if (type.equals(STR_EXPENSE)) {
+        if (type.equals(EXPENSE)) {
             amount *= -1;
         }
         return amount;

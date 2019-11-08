@@ -6,6 +6,6 @@ public class ViewTodayCommand extends ViewCommand {
 
     public ViewTodayCommand() {
         cmpDate = LocalDate.now();
-        dateStr = STR_TODAY;
+        dateStr = TODAY;
     }
 }
