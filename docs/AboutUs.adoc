@@ -17,7 +17,7 @@ image::https://avatars1.githubusercontent.com/u/1023494?s=400&v=4[width="150", a
 Role: Lecturer
 
 === Sai Ganesh Suresh
-image::E0310898.png[width="150" , align="left"]
+image::e0310898.png[width="150" , align="left"]
 {empty}[https://github.com/E0310898[github]] [<<Sai Ganesh Suresh#, portfolio>>]
 
 Role: Team Member +
@@ -53,7 +53,7 @@ Responsibilities:
 '''
 
 === Tan Yi Xiang
-image::TanYiXiang.png[width="150", align="left"]
+image::tanyixiang.png[width="150", align="left"]
 {empty}[https://github.com/TanYiXiang[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Member +
