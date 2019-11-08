@@ -25,7 +25,7 @@ public class LastDay {
         lastDates.put("MONDAYS", "11/11/2019 ");
         lastDates.put("TUESDAYS", "12/11/2019 ");
         lastDates.put("WEDNESDAYS", "13/11/2019 ");
-        lastDates.put("THURDAYS", "14/11/2019 ");
+        lastDates.put("THURSDAYS", "14/11/2019 ");
         lastDates.put("FRIDAYS", "15/11/2019 ");
         lastDates.put("SATURDAYS", "16/11/2019 ");
         lastDates.put("SUNDAYS", "17/11/2019 ");
