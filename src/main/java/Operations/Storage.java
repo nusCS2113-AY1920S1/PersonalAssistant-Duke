@@ -138,14 +138,13 @@ public class Storage {
                     assignment.setAssignee(user);
                     assignment.setRecurrenceSchedule(recurrence);
                     assignment.setDone(done);
-                    if (!scanSubTask.equals("")) assignment.setSubTasks(scanSubTask);
+                    if (!scanSubTask.equals("")) assignment.addSubTasks(scanSubTask);
                     taskArrayList.add(assignment);
                 } else if (type.equals(SaveType.L)) {
                     //Leave type
                     Leave leave = new Leave(description, user, from, to);
                     leave.setPriority(priority);
                     leave.setRecurrenceSchedule(recurrence);
-                    leave.setDone(done);
                     taskArrayList.add(leave);
                 } else {
                     //Meeting type
@@ -327,7 +326,7 @@ public class Storage {
      * @return time A string with the correct formatting to be placed in the data file.
      * @throws RoomShareException If there is any error in parsing the Date information.
      */
-    private String convertForStorageLeave(Task task) throws RoomShareException {
+    public String convertForStorageLeave(Task task) throws RoomShareException {
         try {
             String time;
             String[] prelimSplit = task.toString().split("\\(");

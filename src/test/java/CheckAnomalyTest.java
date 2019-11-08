@@ -1,10 +1,12 @@
 import CustomExceptions.RoomShareException;
 import Enums.TimeUnit;
+import Model_Classes.Assignment;
 import Model_Classes.Meeting;
 import Operations.CheckAnomaly;
 import Operations.Parser;
 import Operations.Storage;
 import Operations.TaskList;
+import com.sun.nio.sctp.AssociationChangeNotification;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
@@ -15,7 +17,8 @@ public class CheckAnomalyTest {
     private static final Parser parser = new Parser();
     private static final Storage storage = new Storage();
     private static Meeting meeting1, meeting2, meeting3, meeting4, meeting5;
-    private static Date at1, at2, at3, at4, at5;
+    private static Assignment assignment1, assignment2;
+    private static Date at1, at2, at3, at4, at5, at6, at7;
     private static TaskList taskList;
 
     static {
@@ -25,12 +28,18 @@ public class CheckAnomalyTest {
             at3 = parser.formatDateCustom_1("12/12/2019 10:00");
             at4 = parser.formatDateCustom_1("12/12/2019 09:00");
             at5 = parser.formatDateCustom_1("21/12/2019 13:00");
+            at6 = parser.formatDateCustom_1("22/12/2019 13:00");
+            at7 = parser.formatDateCustom_1("25/12/2019 13:00");
             taskList = new TaskList(storage.loadFile("test.txt"));
             meeting1 = new Meeting("test1", at1, 2, TimeUnit.hours);
             meeting2 = new Meeting("test2", at2);
             meeting3 = new Meeting("test3", at3);
             meeting4 = new Meeting("test4", at4, 2, TimeUnit.hours);
             meeting5 = new Meeting("test5", at5);
+            assignment1 = new Assignment("test6", at6);
+            assignment1.setAssignee("harry");
+            assignment2 = new Assignment("test6", at7);
+            assignment2.setAssignee("harry");
         } catch (RoomShareException e) {
             e.printStackTrace();
         }
@@ -50,4 +59,11 @@ public class CheckAnomalyTest {
 
     @Test
     public void noClash() { assertEquals(false, new CheckAnomaly().checkTask(meeting5)); }
+
+    @Test
+    public void duplicateClash() { assertEquals(true, new CheckAnomaly().checkTask(assignment1)); }
+
+    @Test
+    public void noDuplicate() { assertEquals(false, new CheckAnomaly().checkTask(assignment2)); }
+
 }

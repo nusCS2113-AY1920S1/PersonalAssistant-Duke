@@ -2,7 +2,6 @@ import CustomExceptions.RoomShareException;
 import Enums.Priority;
 import Enums.TimeUnit;
 import Model_Classes.Assignment;
-import Model_Classes.Task;
 import Operations.TaskList;
 import org.junit.jupiter.api.Test;
 
@@ -14,12 +13,12 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TaskListTest {
-    private static SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-    private static Date date1;
-    private static Date date2;
-    private static Date date3;
-    private static Date date4;
-    static {
+    private  SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    private  Date date1;
+    private  Date date2;
+    private  Date date3;
+    private  Date date4;
+     {
         try {
             date1 = format.parse("22/12/2019 18:00");
             date2 = format.parse("22/12/2019 18:00");
@@ -29,24 +28,24 @@ class TaskListTest {
             e.printStackTrace();
         }
     }
-    private static String description = "task1";
-    private static Assignment ts = new Assignment(description, date1);
-    private static Assignment ts2 = new Assignment("task2", date2);
-    private static Assignment assignment1 = new Assignment ("as1", date3);
-    private static Assignment assignment2 = new Assignment("as2", date4);
-    private static TaskList tl = new TaskList(new ArrayList<Task>());
+
+    private Assignment assignment1 = new Assignment("task1", date1);
+    private Assignment assignment2 = new Assignment("task2", date2);
+    private Assignment assignment3 = new Assignment ("as1", date3);
+    private Assignment assignment4 = new Assignment("as2", date4);
+    private TaskList taskList = new TaskList(new ArrayList<>());
 
     @Test
     void add() {
-        tl.add(ts);
-        tl.add(ts2);
-        tl.add(assignment1);
-        tl.add(assignment2);
+        taskList.add(assignment1);
+        taskList.add(assignment2);
+        taskList.add(assignment3);
+        taskList.add(assignment4);
         try {
-            assertEquals("[A][\u2718] task1 (everyone) (by: Sun Dec 22 18:00:00 SGT 2019)", tl.get(0).toString());
-            assertEquals("[A][\u2718] task2 (everyone) (by: Sun Dec 22 18:00:00 SGT 2019)", tl.get(1).toString());
-            assertEquals("[A][\u2718] as1 (everyone) (by: Sun Dec 22 18:00:00 SGT 2019)", tl.get(2).toString());
-            assertEquals("[A][\u2718] as2 (everyone) (by: Sun Dec 22 18:00:00 SGT 2019)", tl.get(3).toString());
+            assertEquals("[A] task1 (everyone) (by: Sun Dec 22 18:00:00 SGT 2019)", taskList.get(0).toString());
+            assertEquals("[A] task2 (everyone) (by: Sun Dec 22 18:00:00 SGT 2019)", taskList.get(1).toString());
+            assertEquals("[A] as1 (everyone) (by: Sun Dec 22 18:00:00 SGT 2019)", taskList.get(2).toString());
+            assertEquals("[A] as2 (everyone) (by: Sun Dec 22 18:00:00 SGT 2019)", taskList.get(3).toString());
         } catch (RoomShareException e) {
             e.printStackTrace();
         }
@@ -54,14 +53,14 @@ class TaskListTest {
 
     @Test
     void done() {
-        tl.add(ts);
-        tl.add(ts2);
+        taskList.add(assignment1);
+        taskList.add(assignment2);
         int[] array = {0, 1};
         try {
-            tl.done(array);
-            assertEquals("[A][\u2713] task1 (everyone) (by: Sun Dec 22 18:00:00 SGT 2019)\n" +
-                            "[A][\u2713] task2 (everyone) (by: Sun Dec 22 18:00:00 SGT 2019)",
-                    tl.get(0).toString()+ "\n" + tl.get(1).toString());
+            taskList.done(array);
+            assertEquals("[A] task1 (everyone) (by: Sun Dec 22 18:00:00 SGT 2019)\n" +
+                            "[A] task2 (everyone) (by: Sun Dec 22 18:00:00 SGT 2019)",
+                    taskList.get(0).toString()+ "\n" + taskList.get(1).toString());
         } catch (RoomShareException e) {
             e.printStackTrace();
         }
@@ -69,10 +68,10 @@ class TaskListTest {
 
     @Test
     void find() {
-        tl.add(ts);
-        tl.find("task");
+        taskList.add(assignment1);
+        taskList.find("task");
         try {
-            assertEquals("[A][\u2718] task1 (everyone) (by: Sun Dec 22 18:00:00 SGT 2019)", tl.get(0).toString());
+            assertEquals("[A] task1 (everyone) (by: Sun Dec 22 18:00:00 SGT 2019)", taskList.get(0).toString());
         } catch (RoomShareException e) {
             e.printStackTrace();
         }
@@ -80,11 +79,11 @@ class TaskListTest {
 
     @Test
     void setPriority() {
-        tl.add(ts);
+        taskList.add(assignment1);
         String[] array = {"1", "high"};
         try {
-            tl.setPriority(array);
-            assertEquals(tl.get(0).getPriority(), Priority.high);
+            taskList.setPriority(array);
+            assertEquals(taskList.get(0).getPriority(), Priority.high);
         } catch (RoomShareException e) {
             e.printStackTrace();
         }
@@ -92,12 +91,16 @@ class TaskListTest {
 
     @Test
     void reorder() {
-        tl.add(ts);
-        tl.add(ts2);
-        tl.reorder(0, 1);
+        taskList.add(assignment1);
+        taskList.add(assignment2);
         try {
-            assertEquals("[A][\u2718] task2 (everyone) (by: Sun Dec 22 18:00:00 SGT 2019)\n" +
-                    "[A][\u2718] task1 (everyone) (by: Sun Dec 22 18:00:00 SGT 2019)", tl.get(0).toString() + "\n" + tl.get(1).toString());
+            taskList.reorder(0, 1);
+        } catch (RoomShareException e) {
+            e.printStackTrace();
+        }
+        try {
+            assertEquals("[A] task2 (everyone) (by: Sun Dec 22 18:00:00 SGT 2019)\n" +
+                    "[A] task1 (everyone) (by: Sun Dec 22 18:00:00 SGT 2019)", taskList.get(0).toString() + "\n" + taskList.get(1).toString());
         } catch (RoomShareException e) {
             e.printStackTrace();
         }
@@ -105,10 +108,10 @@ class TaskListTest {
 
     @Test
     void replace() {
-        tl.add(ts);
-        tl.replace(0,ts2);
+        taskList.add(assignment1);
+        taskList.replace(0, assignment2);
         try {
-            assertEquals("[A][\u2718] task2 (everyone) (by: Sun Dec 22 18:00:00 SGT 2019)", tl.get(0).toString());
+            assertEquals("[A] task2 (everyone) (by: Sun Dec 22 18:00:00 SGT 2019)", taskList.get(0).toString());
         } catch (RoomShareException e) {
             e.printStackTrace();
         }
@@ -116,16 +119,16 @@ class TaskListTest {
 
     @Test
     void snooze() {
-        tl.add(ts);
-        tl.add(ts2);
-        tl.add(assignment1);
+        taskList.add(assignment1);
+        taskList.add(assignment2);
+        taskList.add(assignment3);
         try {
-            tl.snooze(0, 1, TimeUnit.hours);
-            tl.snooze(1,10, TimeUnit.minutes);
-            tl.snooze(2, 1, TimeUnit.day);
-            assertEquals("[A][\u2718] task1 (everyone) (by: Sun Dec 22 19:00:00 SGT 2019)", tl.get(0).toString());
-            assertEquals("[A][\u2718] task2 (everyone) (by: Sun Dec 22 18:10:00 SGT 2019)", tl.get(1).toString());
-            assertEquals("[A][\u2718] as1 (everyone) (by: Mon Dec 23 18:00:00 SGT 2019)", tl.get(2).toString());
+            taskList.snooze(0, 1, TimeUnit.hours);
+            taskList.snooze(1,10, TimeUnit.minutes);
+            taskList.snooze(2, 1, TimeUnit.day);
+            assertEquals("[A] task1 (everyone) (by: Sun Dec 22 19:00:00 SGT 2019)", taskList.get(0).toString());
+            assertEquals("[A] task2 (everyone) (by: Sun Dec 22 18:10:00 SGT 2019)", taskList.get(1).toString());
+            assertEquals("[A] as1 (everyone) (by: Mon Dec 23 18:00:00 SGT 2019)", taskList.get(2).toString());
         } catch (RoomShareException e) {
             e.printStackTrace();
         }

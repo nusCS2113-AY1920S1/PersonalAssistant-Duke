@@ -6,6 +6,9 @@ import Enums.Priority;
 import Enums.SortType;
 import Enums.TimeUnit;
 import Model_Classes.Assignment;
+import Model_Classes.Leave;
+import Model_Classes.Leave;
+import Model_Classes.Meeting;
 import Model_Classes.Task;
 
 import java.util.ArrayList;
@@ -25,7 +28,7 @@ public class TaskList {
      * @param tasks ArrayList of Task objects to be operated on.
      */
     public TaskList(ArrayList<Task> tasks) {
-        this.tasks = tasks;
+        TaskList.tasks = tasks;
     }
 
     /**
@@ -63,35 +66,57 @@ public class TaskList {
             }
         }
     }
+
     /**
      * Lists out all tasks in the current list in the order they were added into the list.
      * shows all information related to the tasks
      * hides completed tasks
      * @throws RoomShareException when the list is empty
      */
-    public void list() throws RoomShareException {
+    public void list(OverdueList overdueList) throws RoomShareException {
         sortTasks();
-        if( tasks.size() != 0 ){
+        if (tasks.size() != 0) {
             int listCount = 1;
+            for(int i=0; i<tasks.size(); i++) {
+                if (new Date().after(tasks.get(i).getDate()) && !(tasks.get(i) instanceof Leave)){
+                    tasks.get(i).setOverdue(true);
+                    if (!CheckAnomaly.checkDuplicateOverdue(tasks.get(i))) {
+                        // no duplicates in overdue list
+                        overdueList.add(tasks.get(i));
+                    }
+                    tasks.remove(tasks.get(i));
+                }
+            }
+
             for (Task output : tasks) {
-                if( !output.getDone() ) {
+                if (!output.getDone()) {
                     Priority priority = output.getPriority();
                     String priorityLVL;
                     if (priority.equals(Priority.low)) {
                         priorityLVL = " *";
-                    } else if(priority.equals(Priority.medium)) {
+                    } else if (priority.equals(Priority.medium)) {
                         priorityLVL = " **";
                     } else {
                         priorityLVL = " ***";
                     }
-                    System.out.println("\t" + listCount + ". " + output.toString() + priorityLVL);
-                    if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
-                        ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
-                        for(String subtask : subTasks) {
-                            System.out.println("\t" + "\t" + "- " + subtask);
+                  
+                    if (!output.getDone() && !output.getOverdue()) {
+                        System.out.println("\t" + listCount + ". " + output.toString() + priorityLVL);
+                        if (output instanceof Assignment && !(((Assignment) output).getSubTasks() == null)) {
+                            ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
+                            for (String subtask : subTasks) {
+                                System.out.println("\t" + "\t" + "- " + subtask);
+                            }
                         }
                     }
                     listCount += 1;
+                }
+            }
+            for(int i=0; i<tasks.size(); i++) {
+                if (tasks.get(i) instanceof Leave) {
+                   if (((Leave) tasks.get(i)).getEndDate().before(new Date())) {
+                        tasks.remove(tasks.get(i));
+                    }
                 }
             }
         } else {
@@ -113,18 +138,17 @@ public class TaskList {
                     System.out.println("\t" + listCount + ". " + output.toString());
                     if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
                         ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
-                        for(String subtask : subTasks) {
+                        for (String subtask : subTasks) {
                             System.out.println("\t" + "\t" + "- " + subtask);
                         }
                     }
-                    listCount += 1;
                 }
+                listCount += 1;
             }
         } else {
             throw new RoomShareException(ExceptionType.emptyList);
         }
     }
-
 
     /**
      * Sets a task in the list as 'done' to mark that the user has completed the task.
@@ -242,6 +266,9 @@ public class TaskList {
         case deadline:
             compareDeadline();
             break;
+        case type:
+            compareType();
+            break;
         default:
             throw new IllegalStateException("Unexpected value: " + sortType);
         }
@@ -257,7 +284,7 @@ public class TaskList {
             } else if( task2.getDone() && !task1.getDone() ) {
                 return -1;
             } else {
-                return  getValue(task1) - getValue(task2);
+                return getValue(task1) - getValue(task2);
             }
         });
     }
@@ -292,6 +319,31 @@ public class TaskList {
                 Date date1 = task1.getDate();
                 Date date2 = task2.getDate();
                 return (int) (date1.getTime() - date2.getTime());
+            }
+        });
+    }
+
+    /**
+     * Compare tasks based on Type
+     */
+    public static void compareType() {
+        Collections.sort(tasks, (task1, task2) -> {
+            if( task1 instanceof Meeting && !(task2 instanceof Meeting) ) {
+                return -1;
+            } else if( task1 instanceof Assignment ) {
+                if( task2 instanceof Meeting ) {
+                    return 1;
+                } else if( task2 instanceof Leave ) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            } else {
+                if( task2 instanceof Meeting || task2 instanceof Assignment ) {
+                    return 1;
+                } else {
+                    return 0;
+                }
             }
         });
     }
@@ -343,7 +395,13 @@ public class TaskList {
      * @return the number of tasks inside the task list
      */
     public int getSize() {
-        return tasks.size();
+        int count =0;
+        for(Task t : tasks) {
+            if(!t.getOverdue() && !(t instanceof Leave)) {
+                count += 1;
+            }
+        }
+        return count;
     }
 
     /**
@@ -353,7 +411,9 @@ public class TaskList {
     public int getDoneSize(){
         int count = 0;
         for (Task t: tasks){
-            if (t.getDone()) count++;
+            if (t.getDone() && !t.getOverdue() && !(t instanceof Leave)) {
+                count++;
+            }
         }
         return count;
     }
@@ -378,4 +438,49 @@ public class TaskList {
      */
     public static SortType getSortType() { return sortType; }
 
+    /**
+     * lists out all the tasks associated with a certain assignee
+     * will include tasks that are tagged "everyone", since everyone includes the assignee
+     * @param user assignee to the tasks
+     * @throws RoomShareException when the list is empty
+     */
+    public int[] listTagged(String user) throws RoomShareException{
+        int listCount = 1;
+        int belongCount = 0;
+        int doneCount  = 0;
+        for (Task output : tasks) {
+            if (output.getAssignee().equals(user) || output.getAssignee().equals("everyone")) {
+                belongCount += 1;
+                if (output.getDone()) {
+                    doneCount += 1;
+                }
+                System.out.println("\t" + listCount + ". " + output.toString());
+                if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
+                    ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
+                    for (String subtask : subTasks) {
+                        System.out.println("\t" + "\t" + "- " + subtask);
+                    }
+                }
+            }
+            listCount += 1;
+        }
+        if (belongCount == 0) {
+            throw new RoomShareException(ExceptionType.emptyList);
+        }
+        int[] done = {belongCount, doneCount};
+        return done;
+    }
+
+    /**
+     * Overload function for done to complete subTasks
+     * @param index index of task
+     * @param subTaskIndex index of subtask completed
+     */
+    public void done(int index, int subTaskIndex) throws RoomShareException {
+        if( TaskList.get(index) instanceof Assignment ) {
+            ((Assignment) TaskList.get(index)).doneSubtask(subTaskIndex);
+        } else {
+             throw new RoomShareException(ExceptionType.subTaskError);
+        }
+    }
 }

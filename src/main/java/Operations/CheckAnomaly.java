@@ -17,14 +17,36 @@ public class CheckAnomaly {
      * @param task task we are checking
      * @return true if duplicate detected and false if no duplicate detected
      */
-    public static Boolean checkDuplicate(Task task) {
+    public static int checkDuplicate(Task task) {
         String name = task.getDescription();
-        for( Task output : TaskList.currentList() ) {
-            if( output.getDescription().equals(name) ) {
-                return true;
+        String assignee = task.getAssignee();
+        String date = task.getDate().toString();
+        for(int i=0; i<TaskList.currentList().size(); i++) {
+            if( TaskList.currentList().get(i).getDescription().equals(name) && TaskList.currentList().get(i).getAssignee().equals(assignee)
+            && TaskList.currentList().get(i).getDate().toString().equals(date) && TaskList.currentList().get(i).getClass().equals(task.getClass())) {
+                return i;
             }
         }
-        return false;
+        return 0;
+    }
+
+    /**
+     * Checks for tasks in the overdue list for duplicates
+     * @param task task to be checked
+     * @return true if duplicate found in overdue list
+     */
+    public static Boolean checkDuplicateOverdue(Task task) {
+        boolean isDuplicate = false;
+        String name = task.getDescription();
+        String assignee = task.getAssignee();
+        String date = task.getDate().toString();
+        for( Task output : OverdueList.getOverdueList()) {
+            if( output.getDescription().equals(name) && output.getAssignee().equals(assignee)
+                    && output.getDate().toString().equals(date) && output.getClass().equals(task.getClass())) {
+                isDuplicate = true;
+            }
+        }
+        return isDuplicate;
     }
 
     /**
