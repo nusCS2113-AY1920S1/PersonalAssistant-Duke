@@ -60,7 +60,7 @@ public class Logic {
                 processNonJarFile();
             }
         } catch (NullPointerException e) {
-            throw new CakeException("Content not found!" + "\nPls key 'back' or 'list' to view previous content!");
+            throw new CakeException("Content not found!\n" + "Pls key 'back' or 'list' to view previous content!");
         }
     }
 
@@ -184,11 +184,7 @@ public class Logic {
     private void processZipFile(ZipInputStream zip, int currFileSlashCounter) throws CakeException {
         ZipEntry e;
         try {
-            while (true) {
-                e = zip.getNextEntry();
-                if (zipEntryIsNull(e)) {
-                    break;
-                }
+            while ((e = zip.getNextEntry()) != null) {
                 String name = e.getName();
                 updateListOfFiles(name, currFileSlashCounter);
             }
@@ -260,14 +256,6 @@ public class Logic {
         return (listingFiles.length == currFileSlashCounter + 1);
     }
 
-    /**
-     * Checks if the zipentry is null.
-     * @param e ZipEntry when Jar file is running.
-     * @return Null if zip entry is null.
-     */
-    private boolean zipEntryIsNull(ZipEntry e) {
-        return (e == null);
-    }
 
     /**
      * Returns the total number of files.
@@ -357,11 +345,8 @@ public class Logic {
             for (int i = 0; i < filesCapture.length - 1; i++) {
                 reducedFilePath.append(filesCapture[i]).append("/");
             }
-
             String parentFilePath = reducedFilePath.toString();
-            System.out.println(parentFilePath);
             parentFilePath = parentFilePath.substring(0, parentFilePath.length() - 1);
-            System.out.println(parentFilePath);
             return parentFilePath;
         } catch (Exception e) {
             throw new CakeException(e.getMessage());
