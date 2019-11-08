@@ -4,14 +4,14 @@ import duke.model.list.recipelist.RecipeList;
 import duke.model.task.recipetasks.Recipe;
 
 import java.io.*;
-import java.util.LinkedHashMap;
+import java.util.TreeMap;
 
 /**
  * Handles the ability to read and write to the recipe storage location.
  */
 public class RecipeStorage {
 
-    private final LinkedHashMap<String, Recipe> LHMRecipeList = new LinkedHashMap<>();
+    private final TreeMap<String, Recipe> LHMRecipeList = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private final String filePathRecipes;
 
     /**
@@ -51,7 +51,7 @@ public class RecipeStorage {
      *
      * @return the list of recipes in recipe list
      */
-    public LinkedHashMap<String, Recipe> load() {
+    public TreeMap<String, Recipe> load() {
         try {
             FileReader fileReader = new FileReader(filePathRecipes);
             BufferedReader bufferedReader = new BufferedReader(fileReader);

@@ -59,16 +59,15 @@ public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage>
      * @param map the recipe list
      * @return arrayList containing all the recipes
      */
-    private ArrayList<String> listOfRecipes(LinkedHashMap<String, Recipe> map) {
+    private ArrayList<String> listOfRecipes(TreeMap<String, Recipe> map) {
         Set entries = map.entrySet();
         Iterator entryIter = entries.iterator();
         ArrayList<String> arrayList = new ArrayList<>();
         int i = 0;
         while (entryIter.hasNext()) {
             Map.Entry entry = (Map.Entry) entryIter.next();
-            Object key = entry.getKey();  // Get the key from the entry.
             Recipe value = (Recipe) entry.getValue();  // Get the value.
-            arrayList.add(Integer.toString(i + DISPLAYED_INDEX_OFFSET) + ". " + value.getRecipeTitle().getTitle());
+            arrayList.add((i + DISPLAYED_INDEX_OFFSET) + ". " + value.getRecipeTitle().getTitle());
             i++;
         }
         return arrayList;
@@ -80,7 +79,7 @@ public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage>
      * @param map the recipe list
      * @return arrayList containing all the recipes in th eorder of preparation time
      */
-    private ArrayList<String> listOfRecipesyPrepTime(LinkedHashMap<String, Recipe> map) {
+    private ArrayList<String> listOfRecipesyPrepTime(TreeMap<String, Recipe> map) {
         Set entries = map.entrySet();
         Iterator entryIter = entries.iterator();
         ArrayList<String> arrayList = new ArrayList<>();

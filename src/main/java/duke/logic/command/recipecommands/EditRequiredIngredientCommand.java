@@ -5,14 +5,32 @@ import duke.model.list.recipelist.RecipeList;
 import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
-import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 import static duke.common.Messages.*;
 import static duke.common.RecipeMessages.*;
 import static duke.common.InventoryMessages.*;
 
 public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, RecipeStorage> {
+
+    private static final Logger logger = Logger.getLogger(EditRequiredIngredientCommand.class.getName());
+
+    private static void setupLogger() {
+        LogManager.getLogManager().reset();
+        logger.setLevel(Level.INFO);
+
+        try {
+            FileHandler fh = new FileHandler("logFile.log",true);
+            fh.setLevel(Level.INFO);
+            logger.addHandler(fh);
+        } catch (java.io.IOException e){
+            logger.log(Level.SEVERE, "File logger is not working.", e);
+        }
+    }
 
     /**
      * Constructor for class EditRequiredIngredientCommand.
@@ -24,7 +42,8 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
     }
 
     @Override
-    public ArrayList<String> execute(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) throws ParseException {
+    public ArrayList<String> execute(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) {
+        EditRequiredIngredientCommand.setupLogger();
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_EDIT_REQ_INGREDIENT)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
@@ -34,7 +53,7 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
              if (hasOneCommand(description)) {
                  String command = whichCommand(description);
 
-                 if (isIns(command) && hasAllIngredientFields(description)) {
+                 if (isIns(command) && hasAllIngredientFields(description) && hasCorrectOrder(description)) {
                      String[] split = description.split(command, 2);
                      recipeTitle = split[0].trim();
                      remaining = split[1].trim();
@@ -56,30 +75,29 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
                          additionalInfo = NO_ADDITIONAL_INFO;
                      }
                      if (recipeTitle.isEmpty() || position.isEmpty() || ingredientName.isEmpty()) {
-                         arrayList.add(ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCOMPLETE);
+                         arrayList.add(ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCOMPLETE + "\n" + ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT);
                      } else if (!recipeList.containsRecipe(recipeTitle)) {
                          arrayList.add(ERROR_MESSAGE_RECIPE_DOES_NOT_EXIST);
                      } else {
                          if (recipeList.containsRecipeIngredient(recipeTitle, ingredientName).equals("null")) {
                              if ((isParsable(quantity) || isParsableDbl(quantity)) && isKnownUnit(unit) && isParsable(position) && isValidPosition(recipeTitle, position, recipeList)) {
-                                 // what if they anyhow input position?
                                  recipeList.insertReqIngredient(recipeTitle, position, ingredientName, quantity, unit, additionalInfo);
                                  recipeStorage.saveFile(recipeList);
                                  arrayList.add(MESSAGE_ADDED_TO_REQ_INGREDIENTS + "\n" + "       " + ingredientName);
                              } else {
                                  if (!isParsable(quantity) || !isParsableDbl(quantity)) {
-                                     arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY + "\n");
+                                     arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY + "\n" + ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT);
                                  }
                                  if (!isKnownUnit(unit)) {
-                                     arrayList.add(ERROR_MESSAGE_INVALID_UNIT + "\n");
+                                     arrayList.add(ERROR_MESSAGE_INVALID_UNIT + "\n" + ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT);
                                  }
                                  if (!isParsable(position)) {
-                                     arrayList.add(ERROR_MESSAGE_INVALID_INDEX + "\n");
+                                     arrayList.add(ERROR_MESSAGE_INVALID_INDEX + "\n" + ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT);
                                  }
                                  if (!isValidPosition(recipeTitle, position, recipeList)) {
-                                     arrayList.add(ERROR_MESSAGE_REQ_INGREDIENT_INVALID_POSITION);
+                                     arrayList.add(ERROR_MESSAGE_REQ_INGREDIENT_INVALID_POSITION + "\n" + ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT);
                                  } else {
-                                     arrayList.add(ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT + "\n");
+                                     arrayList.add(ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT + "\n" + ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT);
                                  }
                              }
                          } else {
@@ -124,7 +142,7 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
                  }
 
 
-                 else if (isApp(command) && hasAllIngredientFields(description)) {
+                 else if (isApp(command) && hasAllIngredientFields(description) && hasCorrectOrder(description)) {
                      String[] split = description.split(command, 2);
                      recipeTitle = split[0].trim();
                      remaining = split[1].trim();
@@ -159,11 +177,11 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
                                  recipeStorage.saveFile(recipeList);
                                  arrayList.add(MESSAGE_ADDED_TO_REQ_INGREDIENTS + "\n" + "       " + ingredientName);
                              } else if ((!isParsable(quantity) || !isParsableDbl(quantity)) && isKnownUnit(unit)){
-                                 arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY);
+                                 arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY + "\n" + ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT);
                              } else  if (!isKnownUnit(unit) && (isParsable(quantity) || isParsableDbl(quantity))) {
-                                 arrayList.add(ERROR_MESSAGE_INVALID_UNIT);
+                                 arrayList.add(ERROR_MESSAGE_INVALID_UNIT + "\n" + ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT);
                              } else {
-                                 arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY_OR_UNIT);
+                                 arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY_OR_UNIT + "\n" + ERROR_MESSAGE_EDIT_INGREDIENT_INS_INCORRECT_FORMAT);
                              }
                          } else {
                              String prevIngredient = recipeList.containsRecipeIngredient(recipeTitle, ingredientName);
@@ -218,11 +236,11 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
      * @return true if all of the ingredient's name, quantity, unit, and additional information are provided
      */
     private boolean hasAllIngredientFields(String description) {
-        if (description.contains("n/") && description.contains("q/") && description.contains("u/")) {
-            return true;
-        } else {
-            return false;
-        }
+        return description.contains("n/") && description.contains("q/") && description.contains("u/");
+    }
+
+    private boolean hasCorrectOrder(String description) {
+        return (description.indexOf("n/") - description.indexOf("q/") < 0) && (description.indexOf("q/") < description.indexOf("u/"));
     }
 
     /**
@@ -242,12 +260,7 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
         } else if (description.contains("clr/")) {
             ++i;
         }
-
-        if (i == 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return i == 1;
     }
 
     /**
@@ -275,11 +288,7 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
      * @return true if the command type is insert
      */
     private boolean isIns(String command) {
-        if (command.equals("ins/")) {
-            return true;
-        } else {
-            return false;
-        }
+        return command.equals("ins/");
     }
 
     /**
@@ -289,11 +298,7 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
      * @return true if the command type is delete
      */
     private boolean isDel(String command) {
-        if (command.equals("del/")) {
-            return true;
-        } else {
-            return false;
-        }
+        return command.equals("del/");
     }
 
     /**
@@ -303,11 +308,7 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
      * @return true if the command type is append
      */
     private boolean isApp(String command) {
-        if (command.equals("app/")) {
-            return true;
-        } else {
-            return false;
-        }
+        return command.equals("app/");
     }
 
     /**
@@ -317,11 +318,7 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
      * @return true if the command type is clear
      */
     private boolean isClr(String command) {
-        if (command.equals("clr/")) {
-            return true;
-        } else {
-            return false;
-        }
+        return command.equals("clr/");
     }
 
     private static boolean isParsable(String quantity) {
@@ -329,6 +326,7 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
             Integer.parseInt(quantity);
             return true;
         } catch (NumberFormatException e) {
+            logger.warning("Index input is not an integer.");
             return false;
         }
     }
@@ -338,6 +336,7 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
             Double.parseDouble(quantity);
             return true;
         } catch (NumberFormatException e) {
+            logger.warning("Index input is not an integer.");
             return false;
         }
     }
@@ -361,11 +360,7 @@ public class EditRequiredIngredientCommand extends Command<RecipeList, Ui, Recip
      * @return true if the unit is known
      */
     private static boolean isKnownUnit(String unit) { // edit this part.
-        if (unit.equals("g") || unit.equals("kg") || unit.equals("l") || unit.equals("ml") || unit.equals("cup") || unit.equals("teaspoon") || unit.equals("tablespoon")) {
-            return true;
-        } else {
-            return false;
-        }
+        return unit.equals("g") || unit.equals("kg") || unit.equals("l") || unit.equals("ml") || unit.equals("cup") || unit.equals("teaspoon") || unit.equals("tablespoon");
     }
 
     @Override
