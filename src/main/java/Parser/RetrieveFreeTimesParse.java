@@ -3,6 +3,7 @@ package Parser;
 import Commands.Command;
 import Commands.FindFreeTimesCommand;
 import Commands.RetrieveFreeTimesCommand;
+import Commons.DukeConstants;
 import Commons.DukeLogger;
 import DukeExceptions.DukeInvalidFormatException;
 import DukeExceptions.DukeNoValidDataException;
@@ -38,15 +39,15 @@ public class RetrieveFreeTimesParse extends Parse {
     @Override
     public Command parse() throws DukeInvalidFormatException, DukeNoValidDataException {
         ArrayList<Pair<String, String>> retrievedFreeTimes = FindFreeTimesCommand.getCompiledFreeTimesList();
-        if (checkIsEmpty(retrievedFreeTimes)) throw new DukeNoValidDataException(invalidNoFreeTimeFound);//TODO: add DukeNoDataFound
-        fullCommand = fullCommand.replaceFirst("retrieve/time", "");
+        if (checkIsEmpty(retrievedFreeTimes)) throw new DukeNoValidDataException(invalidNoFreeTimeFound);
+        fullCommand = fullCommand.replaceFirst(DukeConstants.RETRIEVE_TIME_HEADER, "");
         fullCommand = fullCommand.trim();
         if(fullCommand.isEmpty()){
             throw new DukeInvalidFormatException(invalidEmptyOption);
         } else {
             try {
                 Integer option = Integer.parseInt(fullCommand);
-                if (option >=1 && option <= 5) return new RetrieveFreeTimesCommand(option);
+                if (option >= DukeConstants.RETRIEVE_TIME_LOWER_BOUNDARY && option <= DukeConstants.RETRIEVE_TIME_UPPER_BOUNDARY) return new RetrieveFreeTimesCommand(option);
                 else throw new DukeInvalidFormatException(invalidOption);
             } catch (NumberFormatException e) {
                 LOGGER.info("Unable to parse string to integer" + e.getMessage());
@@ -56,14 +57,14 @@ public class RetrieveFreeTimesParse extends Parse {
     }
 
     public static boolean isValidOption(String input) {
-        input = input.replace("retrieve/time", "");
+        input = input.replace(DukeConstants.RETRIEVE_TIME_HEADER, "");
         input = input.trim();
         if(input.isEmpty()){
             return false;
         } else {
             try {
                 Integer option = Integer.parseInt(input);
-                if (option >=1 && option <= 5) return true;
+                if (option >= DukeConstants.RETRIEVE_TIME_LOWER_BOUNDARY && option <= DukeConstants.RETRIEVE_TIME_UPPER_BOUNDARY) return true;
                 else return false;
             } catch (NumberFormatException e) {
                 return false;
