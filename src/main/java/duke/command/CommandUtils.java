@@ -101,9 +101,10 @@ public class CommandUtils {
         if (suggestions.size() == 1) { // correction can be unambiguous
             logger.log(Level.INFO, "Corrected " + word + " to " + corrStr);
             return corrStr;
+        } else {
+            return null;
+            //return disambiguateSwitches(word, suggestions, command.getSwitchMap().keySet());
         }
-
-        return disambiguateSwitches(word, suggestions, command.getSwitchMap().keySet());
     }
 
     /**
@@ -156,7 +157,10 @@ public class CommandUtils {
         //setup values
         int len1 = str1.length();
         int len2 = str2.length();
-        int[] d1 = new int[keyboardMap.size()]; //values initialised to 0
+        int[] d1 = new int[keyboardMap.size()];
+        for (int i = 0; i < keyboardMap.size(); ++i) {
+            d1[i] = 2;
+        }
         int[][] d = new int[len1 + 2][len2 + 2];
         int maxdist = len1 + len2;
 
