@@ -1,6 +1,7 @@
 package chronologer.storage;
 
 import chronologer.exception.ChronologerException;
+import chronologer.exception.MyLogger;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
 import chronologer.ui.UiTemporary;
@@ -30,6 +31,7 @@ public class Storage {
     private File file;
     private FileOutputStream fileOutputStream;
     private BufferedReader bufferedReader;
+    private MyLogger logger = new MyLogger(this.getClass().getName(), "StorageErrors");
 
     /**
      * This Storage constructor is used to function is used to assign the different
@@ -60,6 +62,7 @@ public class Storage {
             fileOutputStream.close();
         } catch (IOException e) {
             UiTemporary.printOutput(ChronologerException.unableToWriteFile());
+            logger.writeLog(e.toString(), this.getClass().getName());
             throw new ChronologerException(ChronologerException.unableToWriteFile());
         }
     }
@@ -83,14 +86,16 @@ public class Storage {
             String json = builder.toString();
             Gson gson = new GsonBuilder().registerTypeAdapter(TaskList.class, new TaskListAdapter())
                 .create();
-            TaskList taskList = gson.fromJson(json,TaskList.class);
+            TaskList taskList = gson.fromJson(json, TaskList.class);
             bufferedReader.close();
             return taskList;
         } catch (FileNotFoundException e) {
             UiTemporary.printOutput(ChronologerException.fileDoesNotExist());
+            logger.writeLog(e.toString(), this.getClass().getName());
             throw new ChronologerException(ChronologerException.fileDoesNotExist());
         } catch (IOException e) {
             UiTemporary.printOutput(ChronologerException.unableToReadFile());
+            logger.writeLog(e.toString(), this.getClass().getName());
             throw new ChronologerException(ChronologerException.unableToReadFile());
         }
     }

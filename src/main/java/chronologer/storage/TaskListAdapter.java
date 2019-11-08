@@ -1,10 +1,12 @@
 package chronologer.storage;
 
+import chronologer.exception.ChronologerException;
 import chronologer.task.Deadline;
 import chronologer.task.Event;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
 import chronologer.task.Todo;
+import chronologer.ui.UiTemporary;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
@@ -26,6 +28,12 @@ public class TaskListAdapter implements JsonDeserializer<TaskList> {
 
     private static final String EVENT = "EVENT";
     private static final String DEADLINE = "DEADLINE";
+    private static final String TODO = "TODO";
+    private static final String TODO_DURATION = "TODO DURATION";
+    private static final String TODO_PERIOD = "TODO PERIOD";
+
+    private static final String JSON_ERROR = "OOPS!! There's an invalid task type detected in the save file" + ""
+        +  "This task will be ignored.";
 
     @Override
     public TaskList deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
@@ -43,11 +51,23 @@ public class TaskListAdapter implements JsonDeserializer<TaskList> {
                 listOfTasks.add(new Gson().fromJson(object, Deadline.class));
             } else if (EVENT.equals(type)) {
                 listOfTasks.add(new Gson().fromJson(object, Event.class));
-            } else {
+            } else if (isTodo(type)) {
                 listOfTasks.add(new Gson().fromJson(object, Todo.class));
+            } else {
+                UiTemporary.printOutput(JSON_ERROR);
             }
         }
         taskList = new TaskList(listOfTasks);
         return taskList;
+    }
+
+    /**
+     * Determine if Json type parameter is of Todo task type.
+     *
+     * @param type The Json parameter type
+     * @return True if todo false otherwise
+     */
+    private boolean isTodo(String type) {
+        return TODO.equals(type) || TODO_DURATION.equals(type) || TODO_PERIOD.equals(type);
     }
 }
