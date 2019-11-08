@@ -230,7 +230,7 @@ public class MoneyStorage {
 
     /**
      * method to write the items into the data file.
-     * @param account
+     * @param account items from this account is written into the data file.
      */
 
     public void writeToFile(Account account) {
