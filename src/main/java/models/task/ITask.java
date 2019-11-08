@@ -33,4 +33,6 @@ public interface ITask {
     void removeTaskRequirement(int indexOfTaskRequirement);
 
     void addTaskRequirement(String newTaskRequirement);
+
+    String getDetailsForAssignmentTable();
 }

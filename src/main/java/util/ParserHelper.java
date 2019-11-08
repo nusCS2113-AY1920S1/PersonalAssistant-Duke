@@ -300,8 +300,9 @@ public class ParserHelper {
      * @param sortCriteria Criteria to sort the list of tasks
      * @return An ArrayList with String descriptions of task details sorted by the criteria specified by the user.
      */
-    public ArrayList<String> parseSortTaskDetails(HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers,
-                                                  ArrayList<Task> taskList, String sortCriteria) {
+    public ArrayList<String> parseSortTaskDetails(
+        HashMap<String, ArrayList<String>> tasksAndAssignedMembers, ArrayList<Task> taskList,
+        String sortCriteria, Project project) {
         ArrayList<String> taskDetails = new ArrayList<>();
         if (sortCriteria.length() >= 4) {
             String[] detailedCriteria = sortCriteria.split("-");
@@ -319,7 +320,8 @@ public class ParserHelper {
                 taskDetails = this.sortHelper.sortTaskCredit(taskList);
                 break;
             case "/WHO":
-                taskDetails = this.sortHelper.sortTaskMember(tasksAndAssignedMembers, taskList, detailedCriteria[1]);
+                taskDetails = this.sortHelper.sortTaskMember(tasksAndAssignedMembers, taskList,
+                    detailedCriteria[1], project);
                 break;
             case "/KANBAN":
                 taskDetails = this.sortHelper.sortTaskState(taskList, detailedCriteria[1]);
@@ -344,22 +346,25 @@ public class ParserHelper {
         String allAssigneeIndexes = BLANK;
         String allUnassigneeIndexes = BLANK;
 
-        for (String s : inputParts) {
-            String [] part = s.split(" ");
+        for (String commandPart : inputParts) {
+            String [] part = commandPart.split(" ");
+            if (part.length == 0) {
+                continue;
+            }
             switch (part[0]) {
             case INDEX_NUMBER_MARKER:
-                if (s.length() >= 3) {
-                    allTaskIndexes = s.substring(2).trim();
+                if (commandPart.length() >= 3) {
+                    allTaskIndexes = commandPart.substring(2).trim();
                 }
                 break;
             case ASSIGNEE_MARKER:
-                if (s.length() >= 4) {
-                    allAssigneeIndexes = s.substring(3).trim();
+                if (commandPart.length() >= 4) {
+                    allAssigneeIndexes = commandPart.substring(3).trim();
                 }
                 break;
             case UNASSIGNEE_MARKER:
-                if (s.length() >= 4) {
-                    allUnassigneeIndexes = s.substring(3).trim();
+                if (commandPart.length() >= 4) {
+                    allUnassigneeIndexes = commandPart.substring(3).trim();
                 }
                 break;
             default:

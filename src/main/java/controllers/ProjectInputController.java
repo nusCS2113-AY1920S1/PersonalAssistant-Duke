@@ -470,20 +470,24 @@ public class ProjectInputController implements IController {
             + projectCommand + "'");
         try {
             if (("view tasks").equals(projectCommand)) {
-                HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
+                HashMap<String, ArrayList<String>> tasksAndAssignedMembers
+                    = projectToManage.getTasksAndAssignedMembers();
                 ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
                 ArrayList<String> allTaskDetailsForTable
-                    = projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, "/PRIORITY");
+                    = projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers,
+                    "/PRIORITY", projectToManage);
                 allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getName() + ":");
                 ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
                 tableToPrint.add(allTaskDetailsForTable);
                 return viewHelper.consolePrintTable(tableToPrint, DEFAULT_HORI_BORDER_LENGTH);
             } else if (projectCommand.length() >= 11) {
                 String sortCriteria = projectCommand.substring(11);
-                HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
+                HashMap<String, ArrayList<String>> tasksAndAssignedMembers
+                    = projectToManage.getTasksAndAssignedMembers();
                 ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
                 ArrayList<String> allTaskDetailsForTable =
-                    projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, sortCriteria);
+                    projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, sortCriteria,
+                        projectToManage);
                 ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
                 allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getName() + ":");
                 tableToPrint.add(allTaskDetailsForTable);

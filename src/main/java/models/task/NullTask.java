@@ -92,4 +92,9 @@ public class NullTask implements ITask {
          * Empty method
          */
     }
+
+    @Override
+    public String getDetailsForAssignmentTable() {
+        return null;
+    }
 }
