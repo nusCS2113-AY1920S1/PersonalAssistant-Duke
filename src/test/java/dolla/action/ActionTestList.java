@@ -15,8 +15,6 @@ public interface ActionTestList {
     String DEBT_TEST7 = "[owe] [kexin] [$91.0] [disco] [/due 03/01/2013] {Tag: }";
     String DEBT_TEST8 = "[owe] [xiaoxue] [$1151.0] [wine] [/due 04/01/2014] {Tag: }";
     String DEBT_TEST9 = "[borrow] [bahaba] [$521.0] [rebina] [/due 04/01/2015] {Tag: }";
-//    String TEST1 = "[owe] [tata] [$20.0] [food] [/due 01/01/2019] {Tag: }";
-//    String TEST1 = "[owe] [tata] [$20.0] [food] [/due 01/01/2019] {Tag: }";
 
 
 }

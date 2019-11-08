@@ -11,9 +11,13 @@ import dolla.ui.StorageUi;
 import dolla.ui.Ui;
 import dolla.model.Shortcut;
 
+
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.FileReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -25,9 +29,19 @@ public class StorageRead extends Storage {
     public static void load() {
 
         Ui.showWelcome();
+        BufferedReader inStream;
         try {
-            FileReader inFile = new FileReader(PATH);
-            BufferedReader inStream = new BufferedReader(inFile);
+            File f = new File(DATA);
+            if (!f.exists()) {
+                InputStream inputStream = StorageRead.class.getResourceAsStream(PRELOAD_PATH);
+                InputStreamReader isReader = new InputStreamReader(inputStream);
+                inStream = new BufferedReader(isReader);
+                f.mkdir();
+
+            } else {
+                FileReader inFile = new FileReader(PATH);
+                inStream = new BufferedReader(inFile);
+            }
             StorageUi.printStorageLoadMessage();
             String inLine;
 
@@ -101,7 +115,6 @@ public class StorageRead extends Storage {
 
         } catch (FileNotFoundException e) {
             StorageUi.printCreateFolderMessage();
-            createFolder();
         } catch (IOException e) { // exception handling
             StorageUi.printErrorReadingSaveMessage();
             MainParser.exit(); // TODO: Find out what is supposed to happen here

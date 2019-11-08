@@ -71,17 +71,4 @@ public class Storage implements StorageStringList {
         return shortcuts;
     }
 
-    /**
-     * Create save file called data in root folder.
-     */
-    protected static  void createFolder() {
-        File f = new File(DATA);
-        if (!f.exists()) {
-            try {
-                f.mkdir();
-            } catch (SecurityException e) { //security exception?
-
-            }
-        }
-    }
 }

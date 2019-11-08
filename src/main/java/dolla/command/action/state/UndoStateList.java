@@ -49,6 +49,11 @@ public class UndoStateList implements ModeStringList {
         return null;
     }
 
+    /**
+     * This method will return the size of the Stack of states.
+     * @param mode the mode that the user is in.
+     * @return the size of the stack with respect to the user mode.
+     */
     public static int getSize(String mode) {
         if (mode.equals(MODE_ENTRY)) {
             return entryStateList.size();

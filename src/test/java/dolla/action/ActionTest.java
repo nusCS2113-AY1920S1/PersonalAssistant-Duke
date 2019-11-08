@@ -27,7 +27,7 @@ public class ActionTest implements ActionTestList {
         testList1.add(new Debt(BORROW, "baba", 60, "dinner",
                 LocalDate.parse("2019-01-04"), ""));
         return new DebtState(testList1);
-}
+    }
 
     private State createDebtState2() {
         testList2.add(new Debt(BORROW, "aikpeng", 126, "bushi",
@@ -43,7 +43,7 @@ public class ActionTest implements ActionTestList {
         return new DebtState(testList2);
     }
 
-    
+
 
 
     @Test
@@ -52,28 +52,28 @@ public class ActionTest implements ActionTestList {
         State debtState2 = createDebtState2();
         ArrayList<Record> debtTestList1 = new ArrayList<>(debtState1.getDebtState());
         ArrayList<Record> debtTestList2 = new ArrayList<>(debtState2.getDebtState());
-        Record debtTest1 = debtTestList1.get(0);
-        Record debtTest2 = debtTestList1.get(1);
-        Record debtTest3 = debtTestList1.get(2);
-        Record debtTest4 = debtTestList1.get(3);
-
-        Record debtTest5 = debtTestList2.get(0);
-        Record debtTest6 = debtTestList2.get(1);
-        Record debtTest7 = debtTestList2.get(2);
-        Record debtTest8 = debtTestList2.get(3);
-        Record debtTest9 = debtTestList2.get(4);
 
         assertEquals(4,debtTestList1.size());
+        assertEquals(5, debtTestList2.size());
+
+        Record debtTest1 = debtTestList1.get(0);
         assertEquals(DEBT_TEST1,debtTest1.getRecordDetail());
+        Record debtTest2 = debtTestList1.get(1);
         assertEquals(DEBT_TEST2,debtTest2.getRecordDetail());
+        Record debtTest3 = debtTestList1.get(2);
         assertEquals(DEBT_TEST3,debtTest3.getRecordDetail());
+        Record debtTest4 = debtTestList1.get(3);
         assertEquals(DEBT_TEST4,debtTest4.getRecordDetail());
 
-        assertEquals(5, debtTestList2.size());
+        Record debtTest5 = debtTestList2.get(0);
         assertEquals(DEBT_TEST5, debtTest5.getRecordDetail());
+        Record debtTest6 = debtTestList2.get(1);
         assertEquals(DEBT_TEST6, debtTest6.getRecordDetail());
+        Record debtTest7 = debtTestList2.get(2);
         assertEquals(DEBT_TEST7, debtTest7.getRecordDetail());
+        Record debtTest8 = debtTestList2.get(3);
         assertEquals(DEBT_TEST8, debtTest8.getRecordDetail());
+        Record debtTest9 = debtTestList2.get(4);
         assertEquals(DEBT_TEST9, debtTest9.getRecordDetail());
     }
 
@@ -98,25 +98,22 @@ public class ActionTest implements ActionTestList {
         assertEquals(4,undoDebtTestList2.size());
 
         Record debtTest1 = undoDebtTestList1.get(0);
-        Record debtTest2 = undoDebtTestList1.get(1);
-        Record debtTest3 = undoDebtTestList1.get(2);
-        Record debtTest4 = undoDebtTestList1.get(3);
-        Record debtTest5 = undoDebtTestList1.get(4);
-
-        Record debtTest6 = undoDebtTestList2.get(0);
-        Record debtTest7 = undoDebtTestList2.get(1);
-        Record debtTest8 = undoDebtTestList2.get(2);
-        Record debtTest9 = undoDebtTestList2.get(3);
-
         assertEquals(DEBT_TEST5, debtTest1.getRecordDetail());
+        Record debtTest2 = undoDebtTestList1.get(1);
         assertEquals(DEBT_TEST6, debtTest2.getRecordDetail());
+        Record debtTest3 = undoDebtTestList1.get(2);
         assertEquals(DEBT_TEST7, debtTest3.getRecordDetail());
+        Record debtTest4 = undoDebtTestList1.get(3);
         assertEquals(DEBT_TEST8, debtTest4.getRecordDetail());
+        Record debtTest5 = undoDebtTestList1.get(4);
         assertEquals(DEBT_TEST9, debtTest5.getRecordDetail());
-
+        Record debtTest6 = undoDebtTestList2.get(0);
         assertEquals(DEBT_TEST1, debtTest6.getRecordDetail());
+        Record debtTest7 = undoDebtTestList2.get(1);
         assertEquals(DEBT_TEST2, debtTest7.getRecordDetail());
+        Record debtTest8 = undoDebtTestList2.get(2);
         assertEquals(DEBT_TEST3, debtTest8.getRecordDetail());
+        Record debtTest9 = undoDebtTestList2.get(3);
         assertEquals(DEBT_TEST4, debtTest9.getRecordDetail());
 
         testList1.clear();
