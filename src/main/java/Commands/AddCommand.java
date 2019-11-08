@@ -84,54 +84,5 @@ public class AddCommand extends Command {
         return out;
     }
 
-    /**
-     * This method checks whether there is conflict in the adding of events based on module code, timing.
-     * @param taskList The TaskList object for events
-     * @param t The event task that is added
-     * @return ArrayList containing the assignment that has conflict
-     * @throws ParseException when the format of the time is wrong
-     */
-    public ArrayList<String> checkEventConflict(TaskList taskList, Assignment t) throws ParseException {
-        ArrayList<String> conflict = new ArrayList<>();
-        Date startTime1 = new SimpleDateFormat("hh:mm a").parse(t.getStartTime());
-        Date endTime1 = new SimpleDateFormat("hh:mm a").parse(t.getStartTime());
-        HashMap<String, HashMap<String, ArrayList<Assignment>>> mapObtained = taskList.getMap();
-        if (mapObtained.containsKey(t.getModCode()) && mapObtained.get(t.getModCode()).containsKey(t.getDate())) {
-            ArrayList<Assignment> temp = mapObtained.get(t.getModCode()).get(t.getDate());
-            for (Assignment task : temp) {
-                Date startTime = new SimpleDateFormat("hh:mm a").parse(task.getStartTime());
-                Date endTime = new SimpleDateFormat("hh:mm a").parse(task.getEndTime());
-                if (task.getStartTime().equals(t.getStartTime())) {
-                    conflict.add(task.displayString());
-                } else if (task.getEndTime().equals(t.getEndTime())) {
-                    conflict.add(task.displayString());
-                } else if (startTime.after(startTime1) && startTime.before(endTime1)) {
-                    conflict.add(task.displayString());
-                } else if (startTime1.after(startTime) && startTime1.before(endTime)) {
-                    conflict.add(task.displayString());
-                }
-            }
-        }
-        return conflict;
-    }
 
-    /**
-     * This method checks whether there is a conflict in the adding of deadlines based on module code and timing.
-     * @param taskList The TaskList object for deadlines
-     * @param t The deadline task that is added
-     * @return ArrayList containing the assignment that has conflict
-     */
-    public ArrayList<String> checkDeadlineConflict(TaskList taskList, Assignment t) {
-        ArrayList<String> conflict = new ArrayList<>();
-        HashMap<String, HashMap<String, ArrayList<Assignment>>> mapObtained = taskList.getMap();
-        if (mapObtained.containsKey(t.getModCode()) && mapObtained.get(t.getModCode()).containsKey(t.getDate())) {
-            ArrayList<Assignment> temp = mapObtained.get(t.getModCode()).get(t.getDate());
-            for (Assignment task : temp) {
-                if (task.getTime().equals(t.getTime())) {
-                    conflict.add(task.displayString());
-                }
-            }
-        }
-        return conflict;
-    }
 }
