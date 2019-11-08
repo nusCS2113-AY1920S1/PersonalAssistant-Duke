@@ -1,23 +1,22 @@
 package duke.model.profile;
 
 import duke.commons.exceptions.NoSuchCategoryException;
+import duke.commons.exceptions.NoSuchItineraryException;
 import duke.model.planning.Itinerary;
 
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
 
 public class ProfileCard {
     private Person person;
     private Preference preference = new Preference();
-    private ArrayList<Itinerary> favourite = new ArrayList<>();
+    private HashMap<String, Itinerary> favourite = new HashMap<>();
 
     public ProfileCard() {
         setPerson("User", LocalDateTime.now());
-    }
-
-    public void setPreference(Preference preference) {
-        this.preference = preference;
     }
 
     public void setPreference(String category, Boolean setting) throws NoSuchCategoryException {
@@ -40,12 +39,21 @@ public class ProfileCard {
         return preference.getAllPreference();
     }
 
-    public ArrayList<Itinerary> getFavourite() {
+    public HashMap<String, Itinerary> getFavouriteList() {
         return favourite;
     }
 
-    public void addFavourite(Itinerary fav) {
-        favourite.add(fav);
+    public Itinerary getFavourite(String name) throws NoSuchItineraryException {
+        try {
+            return favourite.get(name);
+        } catch (NullPointerException e) {
+            throw new NoSuchItineraryException();
+        }
+    }
+
+    public void addFavourite(String name, Itinerary fav) {
+        fav.setName(name);
+        favourite.put(name, fav);
     }
 
     public int getAge() {

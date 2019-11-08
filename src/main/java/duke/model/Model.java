@@ -1,9 +1,6 @@
 package duke.model;
 
-import duke.commons.exceptions.FileNotSavedException;
-import duke.commons.exceptions.NoRecentItineraryException;
-import duke.commons.exceptions.ParseException;
-import duke.commons.exceptions.DuplicateRouteException;
+import duke.commons.exceptions.*;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
 import duke.model.lists.VenueList;
@@ -77,7 +74,7 @@ public interface Model {
      */
     VenueList getEventVenues();
 
-    Itinerary getItinerary(String name);
+    Itinerary getItinerary(String name) throws NoSuchItineraryException;
 
     Recommendation getRecommendations();
 
@@ -100,4 +97,6 @@ public interface Model {
      * Returns name of the user.
      */
     String getName();
+
+    void addToFavourite(String name, Itinerary itinerary);
 }

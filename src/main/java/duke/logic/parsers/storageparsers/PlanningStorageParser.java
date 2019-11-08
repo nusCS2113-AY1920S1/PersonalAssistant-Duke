@@ -22,11 +22,24 @@ public class PlanningStorageParser {
         try {
             String[] taskParts = line.split("\\|");
             String address = taskParts[0].strip();
-            double longitude = Double.parseDouble(taskParts[1].strip());
-            double latitude = Double.parseDouble(taskParts[2].strip());
-            double distX = Double.parseDouble(taskParts[3].strip());
-            double distY = Double.parseDouble(taskParts[4].strip());
-            return new Venue(address, latitude, longitude, distX, distY);
+            return getVenue(taskParts, address);
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new ParseException(Messages.ERROR_DATA_CORRUPTED);
+        }
+    }
+
+    private static Venue getVenue(String[] taskParts, String address) {
+        double longitude = Double.parseDouble(taskParts[1].strip());
+        double latitude = Double.parseDouble(taskParts[2].strip());
+        double distX = Double.parseDouble(taskParts[3].strip());
+        double distY = Double.parseDouble(taskParts[4].strip());
+        return new Venue(address, latitude, longitude, distX, distY);
+    }
+
+    public static Venue getVenueFromStorage(String[] line) throws ParseException {
+        try {
+            String address = line[0].strip();
+            return getVenue(line, address);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new ParseException(Messages.ERROR_DATA_CORRUPTED);
         }

@@ -2,22 +2,8 @@ package duke.logic.parsers;
 
 import duke.commons.Messages;
 import duke.commons.exceptions.ParseException;
-import duke.logic.commands.AddSampleItineraryCommand;
-import duke.logic.commands.Command;
-import duke.logic.commands.EditorCommand;
-import duke.logic.commands.ExitCommand;
-import duke.logic.commands.HelpCommand;
-import duke.logic.commands.ListCommand;
-import duke.logic.commands.ListItineraryCommand;
-import duke.logic.commands.ProfileSetPreferenceCommand;
-import duke.logic.commands.ProfileShowCommand;
-import duke.logic.commands.RouteListAllCommand;
-import duke.logic.commands.RouteNodeNeighboursCommand;
-import duke.logic.commands.RouteNodeShowCommand;
-import duke.logic.commands.RouteShowCommand;
-import duke.logic.commands.ShowItineraryCommand;
-import duke.logic.commands.ViewScheduleCommand;
-import duke.logic.parsers.commandparsers.PromptParser;
+import duke.logic.commands.*;
+import duke.logic.commands.results.ProfileAddFavCommand;
 import duke.logic.parsers.commandparsers.AddEventParser;
 import duke.logic.parsers.commandparsers.CreateNewItineraryParser;
 import duke.logic.parsers.commandparsers.DeleteParser;
@@ -27,6 +13,8 @@ import duke.logic.parsers.commandparsers.GetBusRouteParser;
 import duke.logic.parsers.commandparsers.GetBusStopParser;
 import duke.logic.parsers.commandparsers.LocationSearchParser;
 import duke.logic.parsers.commandparsers.ProfileAddParser;
+import duke.logic.parsers.commandparsers.ProfileSetParser;
+import duke.logic.parsers.commandparsers.PromptParser;
 import duke.logic.parsers.commandparsers.QuickEditParser;
 import duke.logic.parsers.commandparsers.RecommendationParser;
 import duke.logic.parsers.commandparsers.RouteAddParser;
@@ -130,8 +118,13 @@ public class Parser {
         case "profileShow":
             return new ProfileShowCommand();
         case "profileSet":
-            return new ProfileSetPreferenceCommand(ParserUtil.getFieldInList(0,2,getWord(input)),
-                        ParserUtil.getFieldInList(1,2,getWord(input)));
+            return new ProfileSetParser(getWord(input)).parse();
+        case "addToFav":
+            return new ProfileAddFavCommand(getWord(input));
+        case "listFav":
+            return new ProfileListFavCommand();
+        case "showFav":
+            return new ProfileShowFavCommand(getWord(input));
         default:
             throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }

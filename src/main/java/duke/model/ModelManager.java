@@ -3,6 +3,7 @@ package duke.model;
 import duke.commons.exceptions.FileNotSavedException;
 import duke.commons.exceptions.NoRecentItineraryException;
 import duke.commons.exceptions.DuplicateRouteException;
+import duke.commons.exceptions.NoSuchItineraryException;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
 import duke.model.lists.VenueList;
@@ -47,6 +48,11 @@ public class ModelManager implements Model {
     @Override
     public String getName() {
         return profileCard.getPersonName();
+    }
+
+    @Override
+    public void addToFavourite(String name, Itinerary itinerary) {
+        profileCard.addFavourite(name, itinerary);
     }
 
     @Override
@@ -128,14 +134,20 @@ public class ModelManager implements Model {
         return profileCard;
     }
 
+
     /**
      * Shows the Itinerary specified by a give name.
      *
      * @param name The serial number of the Itinerary.
      */
     @Override
-    public Itinerary getItinerary(String name) {
-        return itineraryTable.get(name);
+    public Itinerary getItinerary(String name) throws NoSuchItineraryException {
+        try {
+            return itineraryTable.get(name);
+        } catch (NullPointerException e) {
+            throw new NoSuchItineraryException();
+        }
+
     }
 
     /**
