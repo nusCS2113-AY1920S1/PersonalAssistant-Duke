@@ -22,6 +22,7 @@ public class CommandExport extends Command {
 
     @Override
     public void execute(StorageManager storageManager) {
+
         try{
             String fileUserWants = getWhichFileUserWants(this.userInput);
             convertTxtToCsv(fileUserWants);
@@ -34,16 +35,18 @@ public class CommandExport extends Command {
     }
 
     private String getWhichFileUserWants (String userInput) throws DukeException {
-        try {
-            return Parser.parseForPrimaryInput(this.commandType, userInput);
-        } catch (Exception e) {
+
+        String fileType = Parser.parseForPrimaryInput(this.commandType, userInput);
+        if(fileType.equals("task")|fileType.equals("wallet")){
+            return fileType;
+        } else {
             throw new DukeException("Please enter a valid choice : either task or wallet\n");
         }
     }
 
     private void convertTxtToCsv(String dataWanted) throws DukeException {
         if(dataWanted.toLowerCase().equals("wallet")){
-            this.filePath = "testWalletDataSave.txt";
+            this.filePath = "savedWallet.txt";
         } else {
             this.filePath = "savedTask.txt";
         }
@@ -70,7 +73,7 @@ public class CommandExport extends Command {
             }
             writer.close();
         } catch (Exception e) {
-            throw new DukeException("Please enter a choice either : export <wallet> or <task>");
+            throw new DukeException("Unable to write to csv");
         }
     }
 }
