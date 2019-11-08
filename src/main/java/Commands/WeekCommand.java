@@ -13,6 +13,11 @@ import java.util.HashMap;
 import java.util.logging.Logger;
 
 public class WeekCommand extends Command {
+    private static final String twelveHourTimeFormatSeparator = ":";
+    private static final String twelveHourTimeHourBoundary = "12";
+    private static final String twelveHourTimeAMPostFix = "AM";
+    private static final String textStart = "Start: ";
+    private static final String newLine = "\n";
     private LookupTable lookupTable = LookupTable.getInstance();
     private String week;
     private final ObservableList<Text> monList = FXCollections.observableArrayList();
@@ -102,7 +107,7 @@ public class WeekCommand extends Command {
             HashMap<String, ArrayList<Assignment>> moduleValue = eventsList.getMap().get(module);
             ArrayList<String> dates = checkIfExist(moduleValue, weekDates);
             for(String strDate : dates) {
-                String[] spilt = strDate.split(" ", 2);
+                String[] spilt = strDate.split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD, 2);
                 ArrayList<Assignment> data = moduleValue.get(strDate);
                 for(Assignment task: data){
                     Text toShow = generateToShow(task);
@@ -120,38 +125,37 @@ public class WeekCommand extends Command {
      * @return The result of the comparison
      */
     private static int compareByTime(Text lhs, Text rhs) {
-        String left = lhs.getText().replaceFirst("Start: ", "");
-        String[] leftSplit = left.split("\n",2);
-        String[] leftTimeSplit = leftSplit[0].split(" ");
-        String right = rhs.getText().replaceFirst("Start: ", "");
-        String[] rightSplit = right.split("\n",2);
-        String[] rightTimeSplit = rightSplit[0].split(" ");
+        String left = lhs.getText().replaceFirst(textStart, "");
+        String[] leftSplit = left.split(newLine,2);
+        String[] leftTimeSplit = leftSplit[0].split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
+        String right = rhs.getText().replaceFirst(textStart, "");
+        String[] rightSplit = right.split(newLine,2);
+        String[] rightTimeSplit = rightSplit[0].split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
 
-        if(leftTimeSplit[1].equals("AM") && rightTimeSplit[1].equals("AM")){
-            String[]leftTimeSplitHourMinute = leftTimeSplit[0].split(":");
-            String[]rightTimeSplitHourMinute = rightTimeSplit[0].split(":");
-            if(leftTimeSplitHourMinute[0].equals("12") && rightTimeSplitHourMinute[0].equals("12")) {
+        if(leftTimeSplit[1].equals(twelveHourTimeAMPostFix) && rightTimeSplit[1].equals(twelveHourTimeAMPostFix)){
+            String[]leftTimeSplitHourMinute = leftTimeSplit[0].split(twelveHourTimeFormatSeparator);
+            String[]rightTimeSplitHourMinute = rightTimeSplit[0].split(twelveHourTimeFormatSeparator);
+            if(leftTimeSplitHourMinute[0].equals(twelveHourTimeHourBoundary) && rightTimeSplitHourMinute[0].equals(twelveHourTimeHourBoundary)) {
                 return leftTimeSplitHourMinute[1].compareTo(rightTimeSplitHourMinute[1]);
-            } else if(leftTimeSplitHourMinute[0].equals("12")) {
+            } else if(leftTimeSplitHourMinute[0].equals(twelveHourTimeHourBoundary)) {
                 return -1;
-            } else if (rightTimeSplitHourMinute[0].equals("12")) {
+            } else if (rightTimeSplitHourMinute[0].equals(twelveHourTimeHourBoundary)) {
                 return 1;
             } else {
                 return leftTimeSplit[0].compareTo(rightTimeSplit[0]);
             }
-        } else if (leftTimeSplit[1].equals("AM")) {
+        } else if (leftTimeSplit[1].equals(twelveHourTimeAMPostFix)) {
             return -1;
-        } else if (rightTimeSplit[1].equals("AM")) {
+        } else if (rightTimeSplit[1].equals(twelveHourTimeAMPostFix)) {
             return 1;
-        } else {//PM PM situation
-            //return leftSplit[0].compareTo(rightSplit[0]);
-            String[]leftTimeSplitHourMinute = leftTimeSplit[0].split(":");
-            String[]rightTimeSplitHourMinute = rightTimeSplit[0].split(":");
-            if(leftTimeSplitHourMinute[0].equals("12") && rightTimeSplitHourMinute[0].equals("12")) {
+        } else {
+            String[]leftTimeSplitHourMinute = leftTimeSplit[0].split(twelveHourTimeFormatSeparator);
+            String[]rightTimeSplitHourMinute = rightTimeSplit[0].split(twelveHourTimeFormatSeparator);
+            if(leftTimeSplitHourMinute[0].equals(twelveHourTimeHourBoundary) && rightTimeSplitHourMinute[0].equals(twelveHourTimeHourBoundary)) {
                 return leftTimeSplitHourMinute[1].compareTo(rightTimeSplitHourMinute[1]);
-            } else if(leftTimeSplitHourMinute[0].equals("12")) {
+            } else if(leftTimeSplitHourMinute[0].equals(twelveHourTimeHourBoundary)) {
                 return -1;
-            } else if (rightTimeSplitHourMinute[0].equals("12")) {
+            } else if (rightTimeSplitHourMinute[0].equals(twelveHourTimeHourBoundary)) {
                 return 1;
             } else {
                 return leftTimeSplit[0].compareTo(rightTimeSplit[0]);
@@ -165,10 +169,6 @@ public class WeekCommand extends Command {
 
     @Override
     public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) {
-//        String intWeek = week.replaceFirst("Week", "");
-//        intWeek = intWeek.trim();
-//        Integer duration = Integer.parseInt(intWeek);
-//        if(duration < 1 || duration > 13) return ui.showWeeksInvalidEntry();
         setListView(lookupTable, events);
         sortList();
         weekList = new WeekList(monList, tueList, wedList, thuList, friList, satList, sunList);
