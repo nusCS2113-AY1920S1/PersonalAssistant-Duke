@@ -30,8 +30,8 @@ public class ListBondCommand extends Command {
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
-     * @throws BankException if used on savings or bank does not exist.
-     * @throws BondException if there are no bonds.
+     * @throws BankException If used on savings or bank does not exist.
+     * @throws BondException If there are no bonds.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, BondException {
         profile.profileListBonds(bankName, ui, displayNum);

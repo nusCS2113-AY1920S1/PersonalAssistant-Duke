@@ -10,7 +10,7 @@ import owlmoney.logic.parser.exception.ParserException;
  * Parses input by user for editing bonds.
  */
 public class ParseDeleteBond extends ParseBond {
-    private static final String DELETE = "/delete";
+    private static final String DELETE_COMMAND = "/delete";
 
     /**
      * Creates an instance of ParseDeleteBond.
@@ -21,11 +21,11 @@ public class ParseDeleteBond extends ParseBond {
      */
     public ParseDeleteBond(String data, String type) throws ParserException {
         super(data, type);
-        checkRedundantParameter(AMOUNT, DELETE);
-        checkRedundantParameter(RATE, DELETE);
-        checkRedundantParameter(DATE, DELETE);
-        checkRedundantParameter(YEAR, DELETE);
-        checkRedundantParameter(NUM, DELETE);
+        checkRedundantParameter(AMOUNT_PARAMETER, DELETE_COMMAND);
+        checkRedundantParameter(RATE_PARAMETER, DELETE_COMMAND);
+        checkRedundantParameter(DATE_PARAMETER, DELETE_COMMAND);
+        checkRedundantParameter(YEAR_PARAMETER, DELETE_COMMAND);
+        checkRedundantParameter(NUM_PARAMETER, DELETE_COMMAND);
         checkFirstParameter();
     }
 
@@ -40,15 +40,15 @@ public class ParseDeleteBond extends ParseBond {
         while (bondIterator.hasNext()) {
             String key = bondIterator.next();
             String value = bondParameters.get(key);
-            if (NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (NAME_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when deleting a bond");
-            } else if (NAME.equals(key)) {
-                checkName(NAME, value);
+            } else if (NAME_PARAMETER.equals(key)) {
+                checkName(NAME_PARAMETER, value);
             }
-            if (FROM.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (FROM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when deleting a bond");
-            } else if (FROM.equals(key)) {
-                checkName(FROM, value);
+            } else if (FROM_PARAMETER.equals(key)) {
+                checkName(FROM_PARAMETER, value);
             }
         }
     }
@@ -61,7 +61,7 @@ public class ParseDeleteBond extends ParseBond {
     @Override
     public Command getCommand() {
         DeleteBondCommand newDeleteBondCommand =
-                new DeleteBondCommand(bondParameters.get(FROM), bondParameters.get(NAME));
+                new DeleteBondCommand(bondParameters.get(FROM_PARAMETER), bondParameters.get(NAME_PARAMETER));
         return newDeleteBondCommand;
     }
 }

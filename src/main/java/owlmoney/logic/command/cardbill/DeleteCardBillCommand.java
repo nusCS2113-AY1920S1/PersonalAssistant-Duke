@@ -17,6 +17,8 @@ public class DeleteCardBillCommand extends Command {
     private final YearMonth cardDate;
     private final String bank;
     private final String type;
+    private static final String BANK_TYPE = "bank";
+
 
     /**
      * Creates an instance of DeleteCardBillCommand.
@@ -29,7 +31,7 @@ public class DeleteCardBillCommand extends Command {
         this.card = card;
         this.cardDate = date;
         this.bank = bank;
-        this.type = "bank";
+        this.type = BANK_TYPE;
     }
 
     /**

@@ -10,7 +10,7 @@ import owlmoney.ui.Ui;
  * Executes EditDepositCommand to edit a deposit transaction.
  */
 public class EditDepositCommand extends Command {
-    private final String accName;
+    private final String accountName;
     private final String amount;
     private final String date;
     private final String description;
@@ -26,7 +26,7 @@ public class EditDepositCommand extends Command {
      * @param index       Transaction number.
      */
     public EditDepositCommand(String name, String amount, String date, String description, int index) {
-        this.accName = name;
+        this.accountName = name;
         this.amount = amount;
         this.date = date;
         this.description = description;
@@ -43,7 +43,7 @@ public class EditDepositCommand extends Command {
      * @throws TransactionException If incorrect date format.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException {
-        profile.profileEditDeposit(index, accName, description, amount, date, ui);
+        profile.profileEditDeposit(index, accountName, description, amount, date, ui);
         return this.isExit;
     }
 }

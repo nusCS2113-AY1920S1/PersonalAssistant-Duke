@@ -1894,9 +1894,9 @@ Persistent Storage for card related function are not enabled.
 
 . Initial launch
 
-.. Download `OwlMoney-v1.3.jar` file and copy into an empty folder.
-.. Open a *Command Prompt* or *Powershell*, navigate to the folder where you placed `OwlMoney-v1.3.jar`
-in and type `java -jar ./OwlMoney-v1.3.jar` to start *OwlMoney*. +
+.. Download `OwlMoney-v1.4.jar` file and copy into an empty folder.
+.. Open a *Command Prompt* or *Powershell*, navigate to the folder where you placed `OwlMoney-v1.4.jar`
+in and type `java -jar ./OwlMoney-v1.4.jar` to start *OwlMoney*. +
    Expected: Shows the CLI stating that a profile cannot be loaded since this is the first time *OwlMoney* is
 starting up. *Maximise* the *Command Prompt* or *Powershell* to enjoy the best experience *OwlMoney* has to offer.
 .. Enter your name to create your profile for the first time. (e.g. john)
@@ -1905,7 +1905,9 @@ starting up. *Maximise* the *Command Prompt* or *Powershell* to enjoy the best e
 
 . Adding a new `savings` account
 
-.. Prerequisites: There are currently no `savings` or `investment` account with the same name.
+.. Prerequisites: There are currently no `savings` or `investment` account with the same name. +
++
+There are less than 7 existing `savings` account.
 
 .. Test case: `/add /savings /name JunBank Savings Account /amount 15000 /income 5000` +
 Expected: New `savings` account is added into the profile.
@@ -1915,23 +1917,6 @@ Expected: New `savings` account is added into the profile.
 .. Prerequisites: A `savings` or `investment` account with the same name has already been created.
 
 .. Test case: `/add /savings /name JunBank Savings Account /amount 15000 /income 5000` +
-Expected: Error saying that there is already an existing bank account with the same name.
-
-=== Adding an investment account
-
-. Adding a new `investment` account
-
-.. Prerequisites: There are currently no `investment` or `savings` account with the
-same name.
-
-.. Test case: `/add /investment /name DBB Vickers Account /amount 20000` +
-Expected: New `investment` is added into the profile.
-
-. Adding a duplicate `investment` account
-
-.. Prerequisites: A `savings` or `investment` account with the same name has already been created.
-
-.. Test case: `/add /investment /name DBB Vickers Account /amount 20000` +
 Expected: Error saying that there is already an existing bank account with the same name.
 
 === Editing a savings account
@@ -1950,27 +1935,66 @@ Expected: Updated name of the `savings` account being displayed after being edit
 .. Test case: `/edit /savings /name BunBank Savings Account /amount 21000` +
 Expected: Updated amount of the `savings` account being displayed after being edited.
 
+=== Deleting a savings account
+
+. Deleting the `savings` account with the specified name
+
+.. Prerequisites: There is an existing `savings` account to be deleted.
+
+.. Test case: `/delete /savings /name JunBank Savings Account` +
+Expected: Details of the deleted `savings` account being displayed after being deleted.
+
+=== Adding an investment account
+
+. Adding a new `investment` account
+
+.. Prerequisites: There are currently no `investment` or `savings` account with the
+same name. +
++
+There are less than 3 existing `investment` accounts.
+
+.. Test case: `/add /investment /name DBB Vickers Account /amount 20000` +
+Expected: New `investment` is added into the profile.
+
+. Adding a duplicate `investment` account
+
+.. Prerequisites: A `savings` or `investment` account with the same name has already been created.
+
+.. Test case: `/add /investment /name DBB Vickers Account /amount 20000` +
+Expected: Error saying that there is already an existing bank account with the same name.
+
 === Editing an investment account
 
-. Editing the name of a `investment` account
+. Editing the name of an `investment` account
 
 .. Prerequisites: There is an existing `investment` account to be edited.
 
 .. Test case: `/edit /investment /name DBB Vickers Account /newname BBB Vickers Account` +
 Expected: Updated name of the `investment` account being displayed after being edited.
 
-. Editing the amount of a `investment` account
+. Editing the amount of an `investment` account
 
 .. Prerequisites: There is an existing `investment` account to be edited.
 
 .. Test case: `/edit /investment /name BBB Vickers Account /amount 21000` +
 Expected: Updated amount of the `investment` account being displayed after being edited.
 
+=== Deleting an investment account
+
+. Deleting the `investment` account with the specified name
+
+.. Prerequisites: There is an existing `investment` account to be deleted.
+
+.. Test case: `/delete /investment /name DBB Vickers Account` +
+Expected: Details of the deleted `investment` account being displayed after being deleted.
+
 === Adding an investment bond
 
-. Adding a new `investment` `bond` tied to an existing `investment account`
+. Adding a new `investment` `bond` tied to an existing `investment` account
 
-.. Prerequisites: There is an existing `investment` account to tie the `bond` to.
+.. Prerequisites: There is an existing `investment` account to tie the `bond` to. +
++
+There is enough money in the `investment` account to add the `bond`.
 
 .. Test case:
 `/add /bonds /name September SSB /amount 1000 /rate 1.65 /year 7 /date 1/10/2019 /from BBB Vickers Account` +
@@ -1978,7 +2002,7 @@ Expected: New details of the September SSB `bond` being displayed after being ad
 
 === Editing an investment bond
 
-. Editing the rate of an existing `investment` `bond` tied to an existing `investment account`
+. Editing the rate of an existing `investment` `bond` tied to an existing `investment` account
 
 .. Prerequisites: There is an existing `bond` tied to an existing `investment` account.
 
@@ -1986,13 +2010,135 @@ Expected: New details of the September SSB `bond` being displayed after being ad
 `/edit /bonds /from BBB Vickers Account /name September SSB /rate 1.90` +
 Expected: Updated rate of the September SSB `bond` being displayed after being edited.
 
-. Editing the years of an existing `investment` `bond` tied to an existing `investment account`
+. Editing the years of an existing `investment` `bond` tied to an existing `investment` account
 
 .. Prerequisites: There is an existing `bond` tied to an existing `investment` account.
 
 .. Test case:
 `/edit /bonds /from BBB Vickers Account /name September SSB /year 10` +
 Expected: Updated years of the September SSB `bond` being displayed after being edited.
+
+=== Adding a bank expenditure transaction
+. Adding a new bank `expenditure` to a `savings` account
+
+.. Prerequisites: There is an existing `savings` account to add the `expenditure` to. +
++
+There is enough money in the `savings` account to add the expenditure.
+
+.. Test case:
+`/add /bankexpenditure /from JunBank Savings Account /desc Bubble Tea /amount 4.30 /date 02/11/2019 /category Food
+and Drinks` +
+Expected: New details of the Bubble Tea `expenditure` being displayed after being added.
+
+. Adding a new `ank `expenditure` to a `savings` account with insufficient money
+
+.. Prerequisites: There is an existing `savings` account to add the `expenditure` to. +
++
+There is not enough money in the `savings` account to add the expenditure.
+
+.. Test case:
+`/add /bankexpenditure /from JunBank Savings Account /desc car /amount 80000 /date 01/11/2019 /category Transport` +
+Expected: Error saying the bank account cannot have a negative amount.
+
+=== Editing a bank expenditure transaction
+. Editing the amount of an existing bank `expenditure` tied to an existing `savings` account
+
+.. Prerequisites: There is an existing `expenditure` tied to an existing `savings` account. +
++
+There is enough money in the `savings` account for the change of amount.
+
+.. Test case:
+`/edit /bankexpenditure /from JunBank Savings Account /transno 1 /amount 3.70` +
+Expected: Updated the amount of the `expenditure` in index 1 of the `transaction list` in JunBank Savings Account being
+displayed after being edited.
+
+. Editing the description and category of an existing bank `expenditure` tied to an existing `savings` account
+
+.. Prerequisites: There is an existing `expenditure` tied to an existing `savings` account.
+
+.. Test case:
+`/edit /bankexpenditure /from JunBank Savings Account /transno 4 /desc Top Up EZLink Card /category Transport` +
+Expected: Updated the description and category of the `expenditure` in index 1 of the `transaction list` in JunBank
+Savings Account being displayed after being edited.
+
+=== Deleting a bank expenditure transaction
+. Delete an existing bank `expenditure` in a `savings` account.
+
+.. Prerequisites: There is an existing `expenditure` tied to an existing `savings` account.
+
+.. Test case:
+`/delete /bankexpenditure /from JunBank Savings Account /transno 1` +
+Expected: Details of the `expenditure` in index 1 of the `transaction list` in JunBank Savings Account being displayed
+before being deleted.
+
+=== Adding a deposit transaction
+. Adding a new `deposit` to a `savings` account
+
+.. Prerequisites: There is an existing `savings` account to add the `deposit` to.
+
+.. Test case:
+`/add /deposit /to JunBank Savings Account /desc FREELANCE /amount 300 /date 29/10/2019` +
+Expected: New details of the FREELANCE `deposit` being displayed after being added.
+
+=== Editing a deposit transaction
+. Editing the amount and date of an existing `deposit` tied to an existing `savings` account
+
+.. Prerequisites: There is an existing `deposit` tied to and existing `savings` account. +
++
+There is enough money in the bank account to change the amount.
+
+.. Test case:
+`/edit /deposit /from JunBank Savings Account /transno 5 /amount 200 /date 30/10/2019` +
+Expected: Updated amount and date of the `deposit` in index 5 of the `transaction list`  in JunBank Savings Account
+being displayed after being edited.
+
+=== Deleting a deposit transaction
+. Delete an existing bank `deposit` in a `savings` account.
+
+.. Prerequisites: There is an existing `deposit` tied to an existing `savings` account.
+
+.. Test case:
+`/delete /deposit /from JunBank Savings Account /transno 1` +
+Expected: Details of the `deposit` in index 1 of the `transaction list` in JunBank Savings Account being displayed
+before being deleted.
+
+=== Adding a recurring bank expenditure transaction
+. Adding a new bank `expenditure` to a `savings` account
+
+.. Prerequisites: There is an existing `savings` account to add the `expenditure` to.
+
+.. Test case:
+`/add /recurbankexp /from JunBank Savings Account /desc Netflicks /amount 10.98 /category Entertainment` +
+Expected: New details of the Netflicks recurring `expenditure` being displayed after being added.
+
+=== Editing a recurring bank expenditure transaction
+. Editing the amount of an existing bank `expenditure` tied to an existing `savings` account
+
+.. Prerequisites: There is an existing `expenditure` tied to an existing `savings` account. +
+
+.. Test case:
+`/edit /expenditure /from JunBank Savings Account /transno 1 /amount 49.90` +
+Expected: Updated the amount of the `recurring expenditure` in index 1 of the `transaction list` of recurring
+expenditures in JunBank Savings Account being displayed after being edited.
+
+. Editing the description and category of an existing bank `expenditure` tied to an existing `savings` account
+
+.. Prerequisites: There is an existing `recurring expenditure` tied to an existing `savings` account.
+
+.. Test case:
+`/edit /recurbankexp /from JunBank Savings Account /transno 4 /desc Phone bill /category Bills` +
+Expected: Updated the description and category of the `recurring expenditure` in index 1 of the `transaction list` of
+recurring expenditures in JunBank Savings Account being displayed after being edited.
+
+=== Deleting a recurring bank expenditure transaction
+. Delete an existing bank recurring `expenditure` in a `savings` account.
+
+.. Prerequisites: There is an existing recurring `expenditure` tied to an existing `savings` account.
+
+.. Test case:
+`/delete /recurbankexp /from JunBank Savings Account /transno 1` +
+Expected: Details of the recurring `expenditure` in index 1 of the `transaction list` of `recurring expenditure` in
+JunBank Savings Account being displayed before being deleted.
 
 === Adding a credit card
 
@@ -2012,12 +2158,11 @@ Expected: New `card` is added into the profile.
 `/add /card /name POBB Tomorrow Card /limit 10000 /rebate 1.5` +
 Expected: Error saying that there is already an existing card with the same name.
 
-
 === Editing a credit card
 
 . Editing the name of the `card`
 
-.. Prerequisites: There is an existing `card` to be edited.
+.. Prerequisites: There is an existing `card` to be edited and there must be no unpaid card expenditures.
 
 .. Test case:
 `/edit /card /name POBB Tomorrow Card /newname JunBank GoodVibes Card` +
@@ -2025,7 +2170,7 @@ Expected: Updated name of the `card` being displayed after being edited.
 
 . Editing the limit of the `card`
 
-.. Prerequisites: There is an existing `card` to be edited.
+.. Prerequisites: There is an existing `card` to be edited and there must be no unpaid card expenditures.
 
 .. Test case:
 `/edit /card /name POBB Tomorrow Card /limit 10000` +
@@ -2048,6 +2193,71 @@ Expected: Deleted `card` details will be displayed after being deleted.
 .. Test case:
 `/delete /card /name POBB Tomorrow Card` +
 Expected: Error saying `card` to be deleted does not exist.
+
+=== Adding a card expenditure
+
+. Adding a `card expenditure` into a `card`.
+
+.. Prerequisites: `Card expenditure` must be added into a `card` that exist and that month's expenditures +
+must be unpaid.
+
+.. Test case:
+`/add /cardexpenditure /from POBB Tomorrow Card /amount 300 /date 01/11/2019 /desc Chicken Rice` +
+Expected: `Card expenditure` successfully added into `card`.
+
+. Adding a `card expenditure` into a `card` which exceeds the monthly `card` limit.
+
+.. Prerequisites: `Card expenditure` must be added into a `card` that exist and `expenditure amount` must +
+be above `card` limit.
+
+.. Test case:
+`/add /cardexpenditure /from POBB Tomorrow Card /amount 1200 /date 02/11/2019 /desc Fried Rice` +
+Expected: `Card expenditure` failed to be added because amount has exceeded monthly `card` limit.
+
+=== Listing card expenditures
+
+. Listing `card expenditure` from a `card`.
+
+.. Prerequisites: `Card expenditure` must exist inside `card`.
+
+.. Test case:
+`/list /cardexpenditure /from POBB Tomorrow Card` +
+Expected: Paid and unpaid `card expenditure` are being listed.
+
+=== Deleting a card expenditure
+
+. Deleting a `card expenditure` from a `card`.
+
+.. Prerequisites: `Card` must be contain the expenditure to be deleted and expenditure must be unpaid.
+
+.. Test case:
+`/delete /cardexpenditure /from POBB Tomorrow Card /transno 1` +
+Expected: `Card expenditure` #1 successfully deleted from `card`.
+
+=== Adding a card bill
+
+. Adding a `card bill` to `savings` account.
+
+.. Prerequisites: `Card expenditure` for the particular month and `savings` account must exist.
+
+.. Test case:
+`/add /cardbill /card POBB Tomorrow Card /date 10/2019 /bank JunBank Savings Account` +
+Expected: `Card bill` with total amount spent for the specified month added into `savings` expenditure
+and total rebates added into `savings` deposit. When listing `card` expenditures with
+`/list /cardexpenditure /from POBB Tomorrow Card`, expenditures for that particular month will be
+transferred from unpaid to paid.
+
+=== Deleting a card bill
+
+. Deleting a `card bill` from `savings` account.
+
+.. Prerequisites: `Card bill` for the particular month must exist in `savings` account.
+
+.. Test case:
+`/delete /cardbill /card POBB Tomorrow Card /date 10/2019 /bank JunBank Savings Account` +
+Expected: `Card bill` expenditure and deposit in `savings` account will be deleted. When listing `card`
+expenditures with `/list /cardexpenditure /from POBB Tomorrow Card`, expenditures for that particular month
+will be transferred from paid to unpaid.
 
 === Transferring fund
 

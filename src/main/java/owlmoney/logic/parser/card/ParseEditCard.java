@@ -33,20 +33,20 @@ public class ParseEditCard extends ParseCard {
         while (cardIterator.hasNext()) {
             String key = cardIterator.next();
             String value = cardParameters.get(key);
-            if (NAME.equals(key) && (value.isEmpty() || value.isBlank())) {
-                throw new ParserException("/name cannot be empty.");
-            } else if (NAME.equals(key)) {
+            if (NAME_PARAMETER.equals(key) && (value.isEmpty() || value.isBlank())) {
+                throw new ParserException(key + " cannot be empty when editing card");
+            } else if (NAME_PARAMETER.equals(key)) {
                 checkName(value);
             }
-            if (LIMIT.equals(key) && !(value.isEmpty() || value.isBlank())) {
+            if (LIMIT_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
                 checkLimit(value);
                 changeCounter++;
             }
-            if (REBATE.equals(key) && !(value.isEmpty() || value.isBlank())) {
+            if (REBATE_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
                 checkCashBack(value);
                 changeCounter++;
             }
-            if (NEW_NAME.equals(key) && !(value.isEmpty() || value.isBlank())) {
+            if (NEW_NAME_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
                 checkName(value);
                 changeCounter++;
             }
@@ -62,8 +62,9 @@ public class ParseEditCard extends ParseCard {
      * @return Returns EditCardCommand to be executed.
      */
     public Command getCommand() {
-        EditCardCommand newEditCardCommand = new EditCardCommand(cardParameters.get(NAME),
-                cardParameters.get(LIMIT), cardParameters.get(REBATE), cardParameters.get(NEW_NAME));
+        EditCardCommand newEditCardCommand = new EditCardCommand(cardParameters.get(NAME_PARAMETER),
+                cardParameters.get(LIMIT_PARAMETER), cardParameters.get(REBATE_PARAMETER), cardParameters.get(
+                NEW_NAME_PARAMETER));
         return newEditCardCommand;
     }
 }

@@ -23,16 +23,17 @@ public abstract class ParseGoals {
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
 
-    private static final String[] GOALS_KEYWORD = new String[]{"/name", "/amount", "/by",
-        "/newname", "/from", "/num", "/in", "/mark"};
+
+    static final String NAME_PARAMETER = "/name";
+    static final String AMOUNT_PARAMETER = "/amount";
+    static final String BY_PARAMETER = "/by";
+    static final String NEW_NAME_PARAMETER = "/newname";
+    static final String FROM_PARAMETER = "/from";
+    static final String IN_PARAMETER = "/in";
+    static final String MARK_DONE_PARAMETER = "/mark";
+    private static final String[] GOALS_KEYWORD = new String[]{NAME_PARAMETER, AMOUNT_PARAMETER, BY_PARAMETER,
+        NEW_NAME_PARAMETER, FROM_PARAMETER, IN_PARAMETER, MARK_DONE_PARAMETER};
     private static final List<String> GOALS_KEYWORD_LISTS = Arrays.asList(GOALS_KEYWORD);
-    static final String NAME = "/name";
-    static final String AMOUNT = "/amount";
-    static final String BY = "/by";
-    static final String NEW_NAME = "/newname";
-    static final String FROM = "/from";
-    static final String IN = "/in";
-    static final String MARKDONE = "/mark";
 
     /**
      * Creates an instance of any ParseGoals type object.
@@ -74,20 +75,20 @@ public abstract class ParseGoals {
      * @throws ParserException If duplicate parameters are detected.
      */
     public void fillHashTable() throws ParserException {
-        goalsParameters.put(NAME,
-                parseRawData.extractParameter(rawData, NAME, GOALS_KEYWORD).trim());
-        goalsParameters.put(AMOUNT,
-                parseRawData.extractParameter(rawData, AMOUNT, GOALS_KEYWORD).trim());
-        goalsParameters.put(BY,
-                parseRawData.extractParameter(rawData, BY, GOALS_KEYWORD).trim());
-        goalsParameters.put(NEW_NAME,
-                parseRawData.extractParameter(rawData, NEW_NAME, GOALS_KEYWORD).trim());
-        goalsParameters.put(IN,
-                parseRawData.extractParameter(rawData, IN, GOALS_KEYWORD).trim());
-        goalsParameters.put(FROM,
-                parseRawData.extractParameter(rawData, FROM, GOALS_KEYWORD).trim());
-        goalsParameters.put(MARKDONE,
-                parseRawData.extractParameter(rawData, MARKDONE, GOALS_KEYWORD).trim());
+        goalsParameters.put(NAME_PARAMETER,
+                parseRawData.extractParameter(rawData, NAME_PARAMETER, GOALS_KEYWORD).trim());
+        goalsParameters.put(AMOUNT_PARAMETER,
+                parseRawData.extractParameter(rawData, AMOUNT_PARAMETER, GOALS_KEYWORD).trim());
+        goalsParameters.put(BY_PARAMETER,
+                parseRawData.extractParameter(rawData, BY_PARAMETER, GOALS_KEYWORD).trim());
+        goalsParameters.put(NEW_NAME_PARAMETER,
+                parseRawData.extractParameter(rawData, NEW_NAME_PARAMETER, GOALS_KEYWORD).trim());
+        goalsParameters.put(IN_PARAMETER,
+                parseRawData.extractParameter(rawData, IN_PARAMETER, GOALS_KEYWORD).trim());
+        goalsParameters.put(FROM_PARAMETER,
+                parseRawData.extractParameter(rawData, FROM_PARAMETER, GOALS_KEYWORD).trim());
+        goalsParameters.put(MARK_DONE_PARAMETER,
+                parseRawData.extractParameter(rawData, MARK_DONE_PARAMETER, GOALS_KEYWORD).trim());
     }
 
     /**
@@ -151,7 +152,8 @@ public abstract class ParseGoals {
                         + " Date format is dd/mm/yyyy in year range of 1900-2099");
             }
         }
-        throw new ParserException("Incorrect date format." + " Date format is dd/mm/yyyy in year range of 1900-2099");
+        throw new ParserException("Incorrect date format."
+                + " Date format is dd/mm/yyyy in year range of 1900-2099");
     }
 
     /**

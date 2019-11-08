@@ -1062,13 +1062,13 @@ public class BankList {
     /**
      * Finds either the savings or investment account that matches with the name specified by user.
      *
-     * @param accName The name to be matched against.
+     * @param accountName The name to be matched against.
      * @param type    The type of object to find such as savings or investment object.
      * @throws BankException If there is no matches for saving or investment object.
      */
-    public void findBankAccount(String accName, String type, Ui ui) throws BankException {
+    public void findBankAccount(String accountName, String type, Ui ui) throws BankException {
         ArrayList<Bank> tempBankList = new ArrayList<Bank>();
-        String matchingWord = accName.toUpperCase();
+        String matchingWord = accountName.toUpperCase();
 
         for (int i = ISZERO; i < getBankListSize(); i++) {
             if (bankLists.get(i).getAccountName().toUpperCase().contains(matchingWord)
@@ -1078,10 +1078,10 @@ public class BankList {
         }
         if (tempBankList.isEmpty() && SAVING.equals(type)) {
             throw new BankException(
-            "Savings account with the following keyword could not be found: " + accName);
+            "Savings account with the following keyword could not be found: " + accountName);
         } else if (tempBankList.isEmpty() && INVESTMENT.equals(type)) {
             throw new BankException(
-            "Investment account with the following keyword could not be found: " + accName);
+            "Investment account with the following keyword could not be found: " + accountName);
         }
 
         for (int i = ISZERO; i < tempBankList.size(); i++) {

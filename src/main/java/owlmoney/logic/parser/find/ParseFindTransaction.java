@@ -39,27 +39,27 @@ public class ParseFindTransaction extends ParseFind {
         while (findIterator.hasNext()) {
             String key = findIterator.next();
             String value = findParameters.get(key);
-            if (FROM.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (FROM_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
                 fromDate = checkDate(value);
                 isFromExist = true;
                 findCounter++;
             }
-            if (TO.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (TO_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
                 toDate = checkDate(value);
                 isToExist = true;
                 findCounter++;
             }
-            if (DESCRIPTION.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (DESCRIPTION_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
                 checkDescription(value);
                 findCounter++;
             }
-            if (CATEGORY.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (CATEGORY_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
                 checkCategory(value);
                 findCounter++;
             }
-            if (NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (NAME_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when finding transaction");
-            } else if (NAME.equals(key)) {
+            } else if (NAME_PARAMETER.equals(key)) {
                 checkName(value);
             }
         }
@@ -92,9 +92,11 @@ public class ParseFindTransaction extends ParseFind {
      */
     public Command getCommand() {
         FindTransactionCommand newFindTransactionCommand = new FindTransactionCommand(
-            findParameters.get(NAME), findParameters.get(FROM), findParameters.get(TO),
-            findParameters.get(DESCRIPTION),
-            findParameters.get(CATEGORY), this.type);
+            findParameters.get(NAME_PARAMETER), findParameters.get(FROM_PARAMETER),
+            findParameters.get(TO_PARAMETER),
+            findParameters.get(DESCRIPTION_PARAMETER),
+            findParameters.get(CATEGORY_PARAMETER),
+            this.type);
         return newFindTransactionCommand;
 
     }

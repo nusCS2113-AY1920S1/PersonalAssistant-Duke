@@ -12,7 +12,7 @@ import owlmoney.logic.parser.exception.ParserException;
  */
 public class ParseAddSaving extends ParseSaving {
 
-    private static final String ADD = "/add";
+    private static final String ADD_COMMAND = "/add";
 
     /**
      * Creates an instance of ParseAddSaving.
@@ -22,7 +22,7 @@ public class ParseAddSaving extends ParseSaving {
      */
     public ParseAddSaving(String data) throws ParserException {
         super(data);
-        checkRedundantParameter(NEW_NAME, ADD);
+        checkRedundantParameter(NEW_NAME_PARAMETER, ADD_COMMAND);
         checkFirstParameter();
     }
 
@@ -37,16 +37,16 @@ public class ParseAddSaving extends ParseSaving {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = savingsParameters.get(key);
-            if (!NEW_NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (!NEW_NAME_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding savings account");
             }
-            if (NAME.equals(key)) {
-                checkName(NAME, value);
+            if (NAME_PARAMETER.equals(key)) {
+                checkName(NAME_PARAMETER, value);
             }
-            if (INCOME.equals(key)) {
+            if (INCOME_PARAMETER.equals(key)) {
                 checkIncome(value);
             }
-            if (AMOUNT.equals(key)) {
+            if (AMOUNT_PARAMETER.equals(key)) {
                 checkAmount(value);
             }
         }
@@ -58,9 +58,10 @@ public class ParseAddSaving extends ParseSaving {
      * @return AddSavingsCommand to be executed.
      */
     public Command getCommand() {
-        AddSavingsCommand newAddSavingsCommand = new AddSavingsCommand(savingsParameters.get(NAME),
-                Double.parseDouble(savingsParameters.get(INCOME)),
-                Double.parseDouble(savingsParameters.get(AMOUNT)));
+        AddSavingsCommand newAddSavingsCommand = new AddSavingsCommand(
+                savingsParameters.get(NAME_PARAMETER),
+                Double.parseDouble(savingsParameters.get(INCOME_PARAMETER)),
+                Double.parseDouble(savingsParameters.get(AMOUNT_PARAMETER)));
         return newAddSavingsCommand;
     }
 

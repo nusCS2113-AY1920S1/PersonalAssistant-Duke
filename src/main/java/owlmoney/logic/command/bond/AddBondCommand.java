@@ -23,16 +23,18 @@ public class AddBondCommand extends Command {
     private final Date date;
     private final int year;
     private final String type;
-    private static final String BONDS = "bonds";
+    private static final String BONDS_TYPE = "bonds";
 
     /**
      * Creates an instance of AddBondCommand.
      *
-     * @param bondName name of the bond.
-     * @param amount   cost of the bond.
-     * @param rate     interest rate of the bond.
-     * @param date     date the bond was purchased.
-     * @param year     number of years the bond holds.
+     * @param bondName        Name of the bond.
+     * @param bankAccountName Name of bank account.
+     * @param amount          Cost of the bond.
+     * @param rate            Interest rate of the bond.
+     * @param date            Date the bond was purchased.
+     * @param year            Number of years the bond holds.
+     * @param type            Type of expenditure.
      */
     public AddBondCommand(String bondName, String bankAccountName, double amount, double rate, Date date, int year,
             String type) {
@@ -51,14 +53,14 @@ public class AddBondCommand extends Command {
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
-     * @throws BankException if used on savings or bank does not exist.
-     * @throws BondException if there are no bonds.
-     * @throws CardException if card commands are executed in bonds.
+     * @throws BankException If used on savings or bank does not exist.
+     * @throws BondException If there are no bonds.
+     * @throws CardException If card commands are executed in bonds.
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException, BondException, CardException {
         Bond newBond = new Bond(this.bondName, this.amount, this.rate, this.date, this.year);
-        Expenditure newExpenditure = new Expenditure(this.bondName, this.amount, this.date, BONDS);
+        Expenditure newExpenditure = new Expenditure(this.bondName, this.amount, this.date, BONDS_TYPE);
         if (profile.profileIsBondListFull(this.bankAccountName)) {
             throw new BondException("The maximum limit of 20 bonds has been reach for the bank account named: "
                     + this.bankAccountName);

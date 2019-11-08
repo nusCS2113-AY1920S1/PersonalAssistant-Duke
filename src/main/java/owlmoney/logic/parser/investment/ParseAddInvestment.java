@@ -10,7 +10,7 @@ import owlmoney.logic.parser.exception.ParserException;
  * Represents the parsing of inputs for adding a new investment account.
  */
 public class ParseAddInvestment extends ParseInvestment {
-    private static final String ADD = "/add";
+    private static final String ADD_COMMAND = "/add";
 
     /**
      * Creates an instance of ParseAddInvestment.
@@ -20,7 +20,7 @@ public class ParseAddInvestment extends ParseInvestment {
      */
     public ParseAddInvestment(String data) throws ParserException {
         super(data);
-        checkRedundantParameter(NEW_NAME, ADD);
+        checkRedundantParameter(NEW_NAME_PARAMETER, ADD_COMMAND);
         checkFirstParameter();
     }
 
@@ -35,13 +35,13 @@ public class ParseAddInvestment extends ParseInvestment {
         while (investmentIterator.hasNext()) {
             String key = investmentIterator.next();
             String value = investmentParameters.get(key);
-            if (!NEW_NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (!NEW_NAME_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding investment account");
             }
-            if (NAME.equals(key)) {
-                checkName(NAME, value);
+            if (NAME_PARAMETER.equals(key)) {
+                checkName(NAME_PARAMETER, value);
             }
-            if (AMOUNT.equals(key)) {
+            if (AMOUNT_PARAMETER.equals(key)) {
                 checkAmount(value);
             }
         }
@@ -53,8 +53,9 @@ public class ParseAddInvestment extends ParseInvestment {
      * @return AddInvestmentCommand to be executed.
      */
     public Command getCommand() {
-        AddInvestmentCommand newAddInvestmentCommand = new AddInvestmentCommand(investmentParameters.get(NAME),
-                Double.parseDouble(investmentParameters.get(AMOUNT)));
+        AddInvestmentCommand newAddInvestmentCommand =
+                new AddInvestmentCommand(investmentParameters.get(NAME_PARAMETER),
+                Double.parseDouble(investmentParameters.get(AMOUNT_PARAMETER)));
         return newAddInvestmentCommand;
     }
 }

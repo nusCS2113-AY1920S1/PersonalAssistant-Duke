@@ -39,13 +39,13 @@ public class ParseDeleteCardBill extends ParseCardBill {
             if (value.isBlank() || value.isEmpty()) {
                 throw new ParserException(key + " cannot be empty when deleting a card bill payment!");
             }
-            if (CARD.equals(key)) {
+            if (CARD_PARAMETER.equals(key)) {
                 checkName(value, "Card");
             }
-            if (BANK.equals(key)) {
+            if (BANK_PARAMETER.equals(key)) {
                 checkName(value, "Bank");
             }
-            if (DATE.equals(key)) {
+            if (DATE_PARAMETER.equals(key)) {
                 yearMonth = checkDate(value);
             }
         }
@@ -59,8 +59,8 @@ public class ParseDeleteCardBill extends ParseCardBill {
     @Override
     public Command getCommand() {
         DeleteCardBillCommand newDeleteCardBillCommand =
-                new DeleteCardBillCommand(cardBillParameters.get(CARD), yearMonth,
-                        cardBillParameters.get(BANK));
+                new DeleteCardBillCommand(cardBillParameters.get(CARD_PARAMETER), yearMonth,
+                        cardBillParameters.get(BANK_PARAMETER));
         return newDeleteCardBillCommand;
     }
 }

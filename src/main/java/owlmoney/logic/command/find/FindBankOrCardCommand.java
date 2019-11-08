@@ -18,7 +18,7 @@ public class FindBankOrCardCommand extends Command {
      * Creates an instance of FindBankOrCardCommand.
      *
      * @param name The name of either bank or card.
-     * @param type Represents type of object to find.
+     * @param type The type of object to find.
      */
     public FindBankOrCardCommand(String name, String type) {
         this.name = name;

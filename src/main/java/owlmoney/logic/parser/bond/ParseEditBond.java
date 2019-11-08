@@ -10,7 +10,7 @@ import owlmoney.logic.parser.exception.ParserException;
  * Parses input by user for editing bonds.
  */
 public class ParseEditBond extends ParseBond {
-    private static final String EDIT = "/edit";
+    private static final String EDIT_COMMAND = "/edit";
 
     /**
      * Creates an instance of ParseEditBond.
@@ -21,9 +21,9 @@ public class ParseEditBond extends ParseBond {
      */
     public ParseEditBond(String data, String type) throws ParserException {
         super(data, type);
-        checkRedundantParameter(AMOUNT, EDIT);
-        checkRedundantParameter(DATE, EDIT);
-        checkRedundantParameter(NUM, EDIT);
+        checkRedundantParameter(AMOUNT_PARAMETER, EDIT_COMMAND);
+        checkRedundantParameter(DATE_PARAMETER, EDIT_COMMAND);
+        checkRedundantParameter(NUM_PARAMETER, EDIT_COMMAND);
         checkFirstParameter();
     }
 
@@ -39,21 +39,21 @@ public class ParseEditBond extends ParseBond {
         while (bondIterator.hasNext()) {
             String key = bondIterator.next();
             String value = bondParameters.get(key);
-            if (NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (NAME_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when editing a bond");
-            } else if (NAME.equals(key)) {
-                checkName(NAME, value);
+            } else if (NAME_PARAMETER.equals(key)) {
+                checkName(NAME_PARAMETER, value);
             }
-            if (FROM.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (FROM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when editing a bond");
-            } else if (FROM.equals(key)) {
-                checkName(FROM, value);
+            } else if (FROM_PARAMETER.equals(key)) {
+                checkName(FROM_PARAMETER, value);
             }
-            if (RATE.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (RATE_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
                 checkInterestRate(value);
                 changeCounter++;
             }
-            if (YEAR.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (YEAR_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
                 checkYear(value);
                 changeCounter++;
             }
@@ -71,10 +71,10 @@ public class ParseEditBond extends ParseBond {
     @Override
     public Command getCommand() {
         EditBondCommand newEditBondCommand =
-                new EditBondCommand(bondParameters.get(FROM),
-                        bondParameters.get(NAME),
-                        bondParameters.get(RATE),
-                        bondParameters.get(YEAR));
+                new EditBondCommand(bondParameters.get(FROM_PARAMETER),
+                        bondParameters.get(NAME_PARAMETER),
+                        bondParameters.get(RATE_PARAMETER),
+                        bondParameters.get(YEAR_PARAMETER));
         return newEditBondCommand;
     }
 }

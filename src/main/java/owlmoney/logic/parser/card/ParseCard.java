@@ -16,14 +16,14 @@ public abstract class ParseCard {
     HashMap<String, String> cardParameters = new HashMap<String, String>();
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
+    static final String NAME_PARAMETER = "/name";
+    static final String LIMIT_PARAMETER = "/limit";
+    static final String REBATE_PARAMETER = "/rebate";
+    static final String NEW_NAME_PARAMETER = "/newname";
     private static final String[] CARD_KEYWORD = new String[] {
-        "/name", "/limit", "/rebate", "/newname"
+        NAME_PARAMETER, LIMIT_PARAMETER, REBATE_PARAMETER, NEW_NAME_PARAMETER
     };
     private static final List<String> EXPENDITURE_KEYWORD_LISTS = Arrays.asList(CARD_KEYWORD);
-    static final String NAME = "/name";
-    static final String LIMIT = "/limit";
-    static final String REBATE = "/rebate";
-    static final String NEW_NAME = "/newname";
 
     /**
      * Creates an instance of Card object.
@@ -40,14 +40,14 @@ public abstract class ParseCard {
      * @throws ParserException If duplicate parameters are detected.
      */
     public void fillHashTable() throws ParserException {
-        cardParameters.put(NAME,
-                parseRawData.extractParameter(rawData, NAME, CARD_KEYWORD).trim());
-        cardParameters.put(LIMIT,
-                parseRawData.extractParameter(rawData, LIMIT, CARD_KEYWORD).trim());
-        cardParameters.put(REBATE,
-                parseRawData.extractParameter(rawData, REBATE, CARD_KEYWORD).trim());
-        cardParameters.put(NEW_NAME,
-                parseRawData.extractParameter(rawData, NEW_NAME, CARD_KEYWORD).trim());
+        cardParameters.put(NAME_PARAMETER,
+                parseRawData.extractParameter(rawData, NAME_PARAMETER, CARD_KEYWORD).trim());
+        cardParameters.put(LIMIT_PARAMETER,
+                parseRawData.extractParameter(rawData, LIMIT_PARAMETER, CARD_KEYWORD).trim());
+        cardParameters.put(REBATE_PARAMETER,
+                parseRawData.extractParameter(rawData, REBATE_PARAMETER, CARD_KEYWORD).trim());
+        cardParameters.put(NEW_NAME_PARAMETER,
+                parseRawData.extractParameter(rawData, NEW_NAME_PARAMETER, CARD_KEYWORD).trim());
     }
 
     /**
@@ -82,7 +82,7 @@ public abstract class ParseCard {
      * @throws ParserException If the string is not a double value.
      */
     void checkCashBack(String valueString) throws ParserException {
-        if (!RegexUtil.regexCheckMoney(valueString)) {
+        if (!RegexUtil.regexCheckCashbackRate(valueString)) {
             throw new ParserException("Cash back can only be positive numbers"
                     + " with at most 2 digits and 2 decimal places and at most 20");
         }

@@ -20,17 +20,19 @@ public abstract class ParseDeposit {
     HashMap<String, String> depositParameters = new HashMap<String, String>();
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
+
+    static final String AMOUNT_PARAMETER = "/amount";
+    static final String DATE_PARAMETER = "/date";
+    static final String DESCRIPTION_PARAMETER = "/desc";
+    static final String TO_PARAMETER = "/to";
+    static final String TRANSACTION_NUMBER_PARAMETER = "/transno";
+    static final String FROM_PARAMETER = "/from";
+    static final String NUM_PARAMETER = "/num";
     private static final String[] EXPENDITURE_KEYWORD = new String[] {
-        "/amount", "/date", "/desc", "/category", "/to", "/transno", "/from", "/num"
-    };
+        AMOUNT_PARAMETER, DATE_PARAMETER,
+        DESCRIPTION_PARAMETER, TO_PARAMETER,
+        TRANSACTION_NUMBER_PARAMETER, FROM_PARAMETER, NUM_PARAMETER};
     private static final List<String> EXPENDITURE_KEYWORD_LISTS = Arrays.asList(EXPENDITURE_KEYWORD);
-    static final String AMOUNT = "/amount";
-    static final String DATE = "/date";
-    static final String DESCRIPTION = "/desc";
-    static final String TO = "/to";
-    static final String TRANSNO = "/transno";
-    static final String FROM = "/from";
-    static final String NUM = "/num";
 
     /**
      * Creates an instance of any ParseSaving type object.
@@ -72,20 +74,20 @@ public abstract class ParseDeposit {
      * @throws ParserException If duplicate parameters are detected.
      */
     public void fillHashTable() throws ParserException {
-        depositParameters.put(AMOUNT,
-                parseRawData.extractParameter(rawData, AMOUNT, EXPENDITURE_KEYWORD).trim());
-        depositParameters.put(DATE,
-                parseRawData.extractParameter(rawData, DATE, EXPENDITURE_KEYWORD).trim());
-        depositParameters.put(DESCRIPTION,
-                parseRawData.extractParameter(rawData, DESCRIPTION, EXPENDITURE_KEYWORD).trim());
-        depositParameters.put(TO,
-                parseRawData.extractParameter(rawData, TO, EXPENDITURE_KEYWORD).trim());
-        depositParameters.put(TRANSNO,
-                parseRawData.extractParameter(rawData, TRANSNO, EXPENDITURE_KEYWORD).trim());
-        depositParameters.put(FROM,
-                parseRawData.extractParameter(rawData, FROM, EXPENDITURE_KEYWORD).trim());
-        depositParameters.put(NUM,
-                parseRawData.extractParameter(rawData, NUM, EXPENDITURE_KEYWORD).trim());
+        depositParameters.put(AMOUNT_PARAMETER,
+                parseRawData.extractParameter(rawData, AMOUNT_PARAMETER, EXPENDITURE_KEYWORD).trim());
+        depositParameters.put(DATE_PARAMETER,
+                parseRawData.extractParameter(rawData, DATE_PARAMETER, EXPENDITURE_KEYWORD).trim());
+        depositParameters.put(DESCRIPTION_PARAMETER,
+                parseRawData.extractParameter(rawData, DESCRIPTION_PARAMETER, EXPENDITURE_KEYWORD).trim());
+        depositParameters.put(TO_PARAMETER,
+                parseRawData.extractParameter(rawData, TO_PARAMETER, EXPENDITURE_KEYWORD).trim());
+        depositParameters.put(TRANSACTION_NUMBER_PARAMETER,
+                parseRawData.extractParameter(rawData, TRANSACTION_NUMBER_PARAMETER, EXPENDITURE_KEYWORD).trim());
+        depositParameters.put(FROM_PARAMETER,
+                parseRawData.extractParameter(rawData, FROM_PARAMETER, EXPENDITURE_KEYWORD).trim());
+        depositParameters.put(NUM_PARAMETER,
+                parseRawData.extractParameter(rawData, NUM_PARAMETER, EXPENDITURE_KEYWORD).trim());
     }
 
     /**

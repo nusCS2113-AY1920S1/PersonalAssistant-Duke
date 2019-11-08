@@ -139,14 +139,14 @@ public class Card {
     /**
      * Checks if expenditure exceeds remaining card limit.
      *
-     * @param exp Expenditure to be added.
+     * @param expenditure Expenditure to be added.
      * @throws CardException If expenditure exceeds remaining card limit.
      */
-    private void checkExpExceedRemainingLimit(Transaction exp) throws CardException {
-        LocalDate date = exp.getLocalDate();
+    private void checkExpExceedRemainingLimit(Transaction expenditure) throws CardException {
+        LocalDate date = expenditure.getLocalDate();
         double monthAmountSpent = unpaid.getMonthAmountSpent(date.getMonthValue(), date.getYear());
         double remainingMonthAmount = limit - monthAmountSpent;
-        if (exp.getAmount() > remainingMonthAmount) {
+        if (expenditure.getAmount() > remainingMonthAmount) {
             throw new CardException("Expenditure to be added cannot exceed remaining limit of $"
                     + remainingMonthAmount);
         }
@@ -155,27 +155,27 @@ public class Card {
     /**
      * Adds expenditure to the credit card unpaid transaction list.
      *
-     * @param exp  Expenditure to be added.
+     * @param expenditure  Expenditure to be added.
      * @param ui   Ui of OwlMoney.
      * @param type Type of account to add expenditure into
      * @throws CardException If expenditure exceeds card limit.
      */
-    void addInExpenditure(Transaction exp, Ui ui, String type) throws CardException {
-        this.checkExpExceedRemainingLimit(exp);
-        unpaid.addExpenditureToList(exp, ui, type);
+    void addInExpenditure(Transaction expenditure, Ui ui, String type) throws CardException {
+        this.checkExpExceedRemainingLimit(expenditure);
+        unpaid.addExpenditureToList(expenditure, ui, type);
     }
 
     /**
      * Adds expenditure to the credit card paid transaction list.
      *
-     * @param exp  Expenditure to be added.
+     * @param expenditure  Expenditure to be added.
      * @param ui   Ui of OwlMoney.
      * @param type Type of account to add expenditure into
      * @throws CardException If expenditure exceeds card limit.
      */
-    void addInPaidExpenditure(Transaction exp, Ui ui, String type) throws CardException {
-        this.checkExpExceedRemainingLimit(exp);
-        paid.addExpenditureToList(exp, ui, type);
+    void addInPaidExpenditure(Transaction expenditure, Ui ui, String type) throws CardException {
+        this.checkExpExceedRemainingLimit(expenditure);
+        paid.addExpenditureToList(expenditure, ui, type);
     }
 
     /**
@@ -199,21 +199,6 @@ public class Card {
             unpaid.listExpenditure(ui, displayNumHalf);
         } catch (TransactionException e) {
             ui.printMessage("There are no unpaid expenditures in this card.");
-        }
-    }
-
-    /**
-     * Lists all the paid expenditures in the current credit card.
-     *
-     * @param ui         Ui of OwlMoney.
-     * @param displayNum Number of expenditure to list.
-     * @throws TransactionException If no expenditure is found or no expenditure is in the list.
-     */
-    void listAllPaidExpenditure(Ui ui, int displayNum) throws TransactionException {
-        try {
-            paid.listExpenditure(ui, displayNum);
-        } catch (TransactionException e) {
-            throw new TransactionException("There are no expenditures in this card.");
         }
     }
 
@@ -281,7 +266,7 @@ public class Card {
      * @return True if unpaid expenditure list is empty.
      */
     public boolean isEmpty() {
-        return unpaid.expListIsEmpty();
+        return unpaid.expenditureListIsEmpty();
     }
 
     /**
@@ -333,8 +318,8 @@ public class Card {
         for (int i = 0; i < unpaid.getSize(); i++) {
             int id = unpaid.getExpenditureIdByYearMonth(cardDate);
             if (id != OBJ_DOES_NOT_EXIST) {
-                Transaction exp = unpaid.getExpenditureObjectByYearMonth(id);
-                paid.addExpenditureToList(exp, type);
+                Transaction expenditure = unpaid.getExpenditureObjectByYearMonth(id);
+                paid.addExpenditureToList(expenditure, type);
                 unpaid.deleteExpenditureFromList(id + ONE_ARRAY_INDEX);
                 i -= ONE_ARRAY_INDEX;
             }
@@ -352,8 +337,8 @@ public class Card {
         for (int i = 0; i < paid.getSize(); i++) {
             int id = paid.getExpenditureIdByYearMonth(cardDate);
             if (id != OBJ_DOES_NOT_EXIST) {
-                Transaction exp = paid.getExpenditureObjectByYearMonth(id);
-                unpaid.addExpenditureToList(exp, type);
+                Transaction expenditure = paid.getExpenditureObjectByYearMonth(id);
+                unpaid.addExpenditureToList(expenditure, type);
                 paid.deleteExpenditureFromList(id + ONE_ARRAY_INDEX);
                 i -= ONE_ARRAY_INDEX;
             }

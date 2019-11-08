@@ -10,7 +10,7 @@ import owlmoney.logic.parser.exception.ParserException;
  * Represents the parsing of inputs for finding of bonds.
  */
 public class ParseFindBond extends ParseFind {
-    static final String FINDBOND = "/find /bonds";
+    static final String FIND_BOND = "/find /bonds";
 
     /**
      * Creates an instance of ParseFindBond.
@@ -21,9 +21,9 @@ public class ParseFindBond extends ParseFind {
      */
     public ParseFindBond(String data, String type) throws ParserException {
         super(data, type);
-        checkRedundantParameter(DESCRIPTION, FINDBOND);
-        checkRedundantParameter(CATEGORY, FINDBOND);
-        checkRedundantParameter(TO, FINDBOND);
+        checkRedundantParameter(DESCRIPTION_PARAMETER, FIND_BOND);
+        checkRedundantParameter(CATEGORY_PARAMETER, FIND_BOND);
+        checkRedundantParameter(TO_PARAMETER, FIND_BOND);
         checkFirstParameter();
     }
 
@@ -38,14 +38,14 @@ public class ParseFindBond extends ParseFind {
         while (findIterator.hasNext()) {
             String key = findIterator.next();
             String value = findParameters.get(key);
-            if (!DESCRIPTION.equals(key) && !CATEGORY.equals(key) && !TO.equals(key)
-                    && (value.isBlank() || value.isEmpty())) {
+            if (!DESCRIPTION_PARAMETER.equals(key) && !CATEGORY_PARAMETER.equals(key)
+                    && !TO_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when doing a search");
             }
-            if (FROM.equals(key)) {
+            if (FROM_PARAMETER.equals(key)) {
                 checkName(value);
             }
-            if (NAME.equals(key)) {
+            if (NAME_PARAMETER.equals(key)) {
                 checkName(value);
             }
         }
@@ -57,7 +57,8 @@ public class ParseFindBond extends ParseFind {
      * @return Returns FindBondCommand to be executed.
      */
     public Command getCommand() {
-        FindBondCommand newFindBondCommand = new FindBondCommand(findParameters.get(NAME), findParameters.get(FROM));
+        FindBondCommand newFindBondCommand = new FindBondCommand(findParameters.get(NAME_PARAMETER), findParameters.get(
+                FROM_PARAMETER));
         return newFindBondCommand;
     }
 }

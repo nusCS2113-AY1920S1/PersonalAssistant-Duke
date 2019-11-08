@@ -14,12 +14,12 @@ import owlmoney.ui.Ui;
  */
 public class AddDepositCommand extends Command {
 
-    private final String accName;
+    private final String accountName;
     private final double amount;
     private final Date date;
     private final String description;
-    private final String type = "bank";
-    private final String category = "deposit";
+    private static final String BANK_TYPE = "bank";
+    private static final String TRANSACTION_CATEGORY_DEPOSIT = "deposit";
 
     /**
      * Creates an instance of AddDepositCommand.
@@ -30,7 +30,7 @@ public class AddDepositCommand extends Command {
      * @param description Description of deposit.
      */
     public AddDepositCommand(String name, double amount, Date date, String description) {
-        this.accName = name;
+        this.accountName = name;
         this.amount = amount;
         this.date = date;
         this.description = description;
@@ -45,8 +45,9 @@ public class AddDepositCommand extends Command {
      * @throws BankException If bank account does not exist.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException {
-        Transaction newDeposit = new Deposit(this.description, this.amount, this.date, this.category);
-        profile.profileAddNewDeposit(accName, newDeposit, ui, this.type);
+        Transaction newDeposit = new Deposit(this.description, this.amount, this.date,
+                TRANSACTION_CATEGORY_DEPOSIT);
+        profile.profileAddNewDeposit(accountName, newDeposit, ui, BANK_TYPE);
         return this.isExit;
     }
 }

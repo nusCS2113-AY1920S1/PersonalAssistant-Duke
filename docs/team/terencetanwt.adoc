@@ -13,6 +13,73 @@ ifdef::env-github[]
 endif::[]
 
 
-== PROJECT: OwlMoney
+== Terence Tan Wee Theng - Project Portfolio for OwlMoney
 
-Hello there I am Terence.
+Hello there, I am Terence. I am currently pursuing a degree in Information Security at the National University of
+Singapore (NUS). +
+I am an information security enthusiast and also enjoys server administration. +
+This portfolio documents my contributions towards *OwlMoney* for the module CS2113T Software Engineering &
+Object-Oriented Programming.
+
+=== About the project
+
+My team and I were tasked with enhancing the basic command line interface (CLI) personal assistant,
+Duke, for our software engineering project. We choose to morph it into a command line financial tracker called
+OwlMoney. This enhanced application is designed to assist undergraduates and fresh graduates to track and manage
+their finances. OwlMoney provides a simple and minimalistic CLI that presents information in an organized manner.
+It is intuitive so that even users who are unfamiliar with CLI can use it with ease.
+
+My role was to design and write codes for the `card` feature, which allow users to track and manage
+their credit cards. The following sections illustrate the enhancements in detail, and also the relevant
+information that I have added to the user and developer guide with reference to the enhancements.
+
+Note the following symbols and formatting used.
+include::../UserGuide.adoc[tag=user_guide_common_logo]
+
+=== Summary of contributions
+This section shows the summary of my contributions to the project which include the coding, documentation
+and other helpful contributions.
+
+*Features implemented:* I have implemented the ability to manage credit cards
+
+* *What it does*: The `card` feature has `add`, `delete`, `edit`, and `list` commands which helps users manage
+their credit cards.
+* *Justification*: Due to the popularity of credit cards, many people including students owns one.
+Because different cards provide different benefits, some people owns several cards.
+This feature gives users the ability to manage their credit cards.
+* *Highlights*: In line with a real credit card, users will be able to set their monthly limit
+and monthly spending rebates.
+* *Credits*: Collaborated with <<mong-nus#,Mong Zheng Wei>> to implement the /edit function.
+
+*Features implemented:* I have implemented the ability to manage credit card expenditures
+
+* *What it does*: Each `card` is able to `add`, `delete`, `edit`, and `list` card expenditures which
+helps users manage their credit card spending.
+* *Justification*: The convenience of purchasing things on credit and making one payment for all purchases
+at the end of the month is the reason why many people pays for purchases using a credit card.
+In addition, most credit cards come with benefits such as reward points or cash back rebates.
+This feature will allow users to track and manage their credit card expenditures on each of their cards.
+* *Highlights*: In line with a real credit card, users will have to abide by their monthly card limit
+when adding expenditures. When a particular card has reached its limit, the user will no longer be able to
+add any expenditures to the card for the month.
+* *Credits*: Collaborated with <<mong-nus#,Mong Zheng Wei>> to implement the `add` and `list`
+card expenditures function.
+
+*Features implemented:* I have implemented the ability to manage credit card bills
+
+* *What it does*: Each `card` is able to `add` and `delete` credit card bill payment to their bank savings account,
+so that users can keep track of their monthly credit card bill payments in their bank account expenditures.
+* *Justification*: At the end of every month, users are expected to pay their credit card bill.
+Thus, this feature will allow users to keep track of their monthly credit card bills in the savings account
+used to make the bill payment, so that the payment is being reflected as their bank account expenditure.
+* *Highlights*: When making a credit card bill payment using one of the bank savings account,
+the credit card cash back rebates will be automatically deposited back to the savings account to reflect
+the rebates earned for the month.
+* *Credits*: Collaborated with <<briantkm#,Brian Tan Kian Ming>> to move the credit card transactions
+into `bankexpenditure` and `deposit`. I had to edit, write additional, and use some of his methods
+in order to integrate my credit card bill expenditures with his bank expenditures.
+
+*Code contributed:*
+[https://nuscs2113-ay1920s1.github.io/dashboard/#=undefined&search=TerenceTanWT[RepoSense]],
+[link:{repoURL}/commits?author=TerenceTanWT[Commits]],
+[link:{repoURL}/pulls?q=author%3ATerenceTanWT[Pull Requests]]

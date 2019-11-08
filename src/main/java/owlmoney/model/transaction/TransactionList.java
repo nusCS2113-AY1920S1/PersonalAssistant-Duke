@@ -125,13 +125,13 @@ public class TransactionList {
      * Adds an expenditure to the TransactionList and do not print UI.
      * Called by Card transferExpUnpaidToPaid() only.
      *
-     * @param exp an instance of an expenditure.
+     * @param expenditure an instance of an expenditure.
      */
-    public void addExpenditureToList(Transaction exp, String type) {
+    public void addExpenditureToList(Transaction expenditure, String type) {
         if (transactionLists.size() >= MAX_LIST_SIZE) {
             transactionLists.remove(0);
         }
-        transactionLists.add(exp);
+        transactionLists.add(expenditure);
     }
 
     /**
@@ -379,9 +379,9 @@ public class TransactionList {
         double totalAmount = 0;
         for (int i = 0; i < transactionLists.size(); i++) {
             LocalDate date = transactionLists.get(i).getLocalDate();
-            int expMonth = date.getMonthValue();
-            int expYear = date.getYear();
-            if (expMonth == month && expYear == year) {
+            int expenditureMonth = date.getMonthValue();
+            int expenditureYear = date.getYear();
+            if (expenditureMonth == month && expenditureYear == year) {
                 totalAmount += transactionLists.get(i).getAmount();
             }
         }
@@ -391,21 +391,21 @@ public class TransactionList {
     /**
      * Returns the particular transaction month based on transaction number.
      *
-     * @param expNum Transaction number to get the month of.
+     * @param expenditureNumber Transaction number to get the month of.
      * @return Transaction month.
      */
-    public int getTransactionMonthByIndex(int expNum) {
-        return transactionLists.get(expNum - 1).getLocalDate().getMonthValue();
+    public int getTransactionMonthByIndex(int expenditureNumber) {
+        return transactionLists.get(expenditureNumber - 1).getLocalDate().getMonthValue();
     }
 
     /**
      * Returns the particular transaction year based on transaction number.
      *
-     * @param expNum Transaction number to get the year of.
+     * @param expenditureNumber Transaction number to get the year of.
      * @return Transaction year.
      */
-    public int getTransactionYearByIndex(int expNum) {
-        return transactionLists.get(expNum - 1).getLocalDate().getYear();
+    public int getTransactionYearByIndex(int expenditureNumber) {
+        return transactionLists.get(expenditureNumber - 1).getLocalDate().getYear();
     }
 
     /**
@@ -413,7 +413,7 @@ public class TransactionList {
      *
      * @return True if expenditure list is empty.
      */
-    public boolean expListIsEmpty() {
+    public boolean expenditureListIsEmpty() {
         return transactionLists.isEmpty();
     }
 
@@ -429,7 +429,7 @@ public class TransactionList {
      */
     public void findMatchingTransaction(String fromDate, String toDate,
             String description, String category, Ui ui) throws TransactionException {
-        if (expListIsEmpty()) {
+        if (expenditureListIsEmpty()) {
             ui.printMessage("Transaction list is empty.");
             return;
         }
