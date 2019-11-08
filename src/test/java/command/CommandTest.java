@@ -40,6 +40,7 @@ public class CommandTest {
 
         filename = "data\\WordUpTest.txt";
         excelFileName = "data\\WordUpTest.xlsx";
+
         PrintWriter writer = new PrintWriter(filename, "UTF-8");
         writer.println("apple: red fruit");
         writer.println("orange: orange fruit");
