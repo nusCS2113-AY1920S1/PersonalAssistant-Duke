@@ -1,7 +1,7 @@
 package dolla.parser;
 
 import dolla.ModeStringList;
-import dolla.exception.DollaException;
+//import dolla.exception.DollaException;
 import dolla.ui.Ui;
 
 import dolla.command.Command;
