@@ -649,6 +649,20 @@ Extensions 5.1: User inputs an invalid rating.
 . Key in `list` as input +
   Expected: A list of items is printed in stdout.
 
+=== Help list for input format
+. Find help for basic commands' format
+.. Test case: `help` +
+Expected: The whole help list with basic commands will be printed.
+.. Test case: `help list` +
+Expected: The whole help list including list command will be printed.
+.. Test case: `help reminder` +
+Expected: The whole help list including reminder command will be printed.
+
+. Find help for additional commands' format
+.. Test case: `help event` +
+Expected: The list of command formats of adding events will be printed.
+.. Test case: `help done` +
+Expected: The list of command formats of changing event's information including setting a todo as done will be printed.
 
 === Add an Event
 . Add Todo +
@@ -695,6 +709,26 @@ Extensions 5.1: User inputs an invalid rating.
    [x][L] Class  START: Mon, 09 Sep 2019, 09:00 END: Mon, 09 Sep 2019, 01:00 +
    Now you have <previous number of items + 1> tasks in the list.
 
+=== Add recurring events
+. Add lessons and practices within correct period range
+.. Test case: `lesson recurring lesson /01-01-2020 1800 2000 /7` +
+Expected: 17 events with 7 days period are added to the list. And details of the first recurring event will be printed
+out. The number of events in the list printed should be <previous number of items + 17>.
+.. Test case: `practice recurring practice /02-01-2020 0600 0800 /20` +
+Expected: 6 events with 20 days period are added to the list. And details of the first recurring event will be printed
+out. The number of events in the list printed should be <previous number of items + 6>.
+
+. Add recurring events with period larger than default range
+.. Test case: `lesson large period /03-01-2020 1000 1200 /365` +
+Expected: Only one event will be added to the list. And details of it will be printed out. The number of events in the
+list printed should be <previous number of items + 1>.
+
+. Add recurring events with non-positive period
+.. Test case: `practice negative period /04-01-2020 1200 1300 /-4` +
+Expected: A message inform users to ensure the period number is positive integer is printed.
+.. Test case: `lesson zero period /05-01-2020 1200 1300 /0` +
+Expected: A message inform users to ensure the period number is positive integer is printed.
+
 === Set a Task as done
 Key in `done 1` +
 Expected: Prints a message that the first task on the list has been marked as done.
@@ -717,11 +751,21 @@ Key in `<edit> <event index>/<new description>`.+
 Expected: Prints the success of editing event of index `<event index>`.
 
 === Reschedule an event
-Key in `reschedule <event index> <new date> <new start time> <new end time>`,
-where `<new date> <new start time> <new end time>` has the format dd-MM-yyyy HH:mm HH:mm. +
-Expected: Prints the success of rescheduling event of index `<event index>`. +
-e.g `reschedule 3 2-12-2019 1500 1600` will change the third (by list index) event's date and time to
-2nd Dec 2019, starts 1500 ends 1600.
+. Prerequisites: Event list is not empty, and at least has one type of event.
+
+. Reschedule an event in the list
+.. Test case: `reschedule 1 01-01-2020 0000 0100` +
+Expected: If clash with other event in the list, the details of clash will be printed. If the No.1 in the list is a
+Todo, the message of rescheduling only works on events will be printed. If no clash and not Todo, the No.1 event will
+be rescheduled to 01-01-2020 0000 0100, and the successfully rescheduled message will be printed.
+
+. Reschedule an event which is not in the list
+.. Test case: `reschedule 0 01-09-2019 1300 1400` +
+Expected: The message notice users the correct input format of rescheduling will be printed.
+.. Test case: `reschedule -3 01-09-2019 1300 1400` +
+Expected: The message notice users the correct input format of rescheduling will be printed.
+.. Test case: `reschedule abc 01-09-2019 1300 1400` +
+Expected: The message notice users the correct input format of rescheduling will be printed.
 
 === Check the next 3 free days
 Key in `check`. +
@@ -733,21 +777,29 @@ Expected: Prints the calendar table containing all events of the next 7 days,
 where the first column of the table is the current day.
 
 === Contact management
-. Add contact to an event in the list +
-Key in `contact add <event index> /<name>, <email>, <phone number>` +
-Expected: Prints the success of adding the contact.
+. Prerequisites: Event list is not empty, and at least has one type of event.
 
-. Delete contact +
-Key in `contact delete <event index> <contact index> /` +
+. Add contact to an event in the list
+.. Test case: `contact add 1 /name a,email a,phone a` +
+Expected: The contact is added to the contact list under No.1 event. Prints the success of adding the contact.
+.. Test case: `contact add 1 /name c,email c,` +
+Expected: The contact is added to the contact list under No.1 event. Prints the success of adding the contact.
+.. Test case: `contact add 1 /name d, ,` +
+Expected: The contact is added to the contact list under No.1 event. Prints the success of adding the contact.
+
+. View contact of an specified event
+.. Test case: `contact view 1` +
+Expected: Prints all of the contacts information in No.1 event.
+
+. Delete a contact in a specified event
+.. Test case: `contact delete 1 3` +
 Expected: Prints the success of deleting the contact.
 
-. View contact +
-Key in `contact view <event index> /` +
-Expected: Prints the contacts information in the event.
-
-. Edit contact +
-Key in `contact edit <event index> <contact index> <edit type> /<new contact information>` +
-Expected: Prints the success of editing the contact.
+. Edit a contact in a specified event
+.. Test case: `contact edit 1 2 name /new name` +
+Expected: Prints the success of editing the contact, and the contact details.
+.. Test case: `contact edit 1 2 email /new email` +
+Expected: Prints the success of editing the contact, and the contact details.
 
 === Budgeting
 . Each concert added to the list has a cost denoted at the end of the user input.
