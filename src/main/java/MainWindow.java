@@ -38,7 +38,7 @@ public class MainWindow extends AnchorPane {
     private Duke duke;
     //private UserIcon userIcon;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));;
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     private History previousFunctions = new History();
@@ -53,8 +53,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         scrollPane2.vvalueProperty().bind(graphContainer.heightProperty());
 
-//        userIcon = new UserIcon();
-//        userImage = userIcon.getIcon();
+        //userIcon = new UserIcon();
+        //userImage = userIcon.getIcon();
 
         Platform.runLater(new Runnable() {
             @Override
@@ -64,6 +64,10 @@ public class MainWindow extends AnchorPane {
         });
     }
 
+    /**
+     * This connects the respective containers with CLI duke.
+     * @param d the CLI duke
+     */
     public void setDuke(Duke d) {
         duke = d;
         String logo = duke.getUi().getLogo();
@@ -87,8 +91,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         graphContainer.getChildren().clear();
         if (input.equals("change icon")) {
-//            userIcon.changeIcon();
-//            userImage = userIcon.getIcon();
+        //userIcon.changeIcon();
+        //userImage = userIcon.getIcon();
         }
 
         String[] response = duke.getResponse(input);
