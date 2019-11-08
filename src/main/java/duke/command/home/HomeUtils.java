@@ -40,11 +40,11 @@ public class HomeUtils {
             // TODO: Law of demeter
             List<DukeObject> patientList = core.ui.getIndexedList("patient");
             int count = patientList.size();
-            if (index > count) {
-                throw new DukeException("I have only " + ((count == 1) ? ("1 patient") : (count + "patients")) + " in "
+            if (index >= count) {
+                throw new DukeException("I have only " + ((count == 1) ? ("1 patient") : (count + " patients")) + " in "
                         + "my list!");
             }
-            return (Patient) patientList.get(index - 1);
+            return (Patient) patientList.get(index);
         } else {
             return null;
         }

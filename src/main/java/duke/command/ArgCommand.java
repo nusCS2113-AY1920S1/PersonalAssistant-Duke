@@ -231,6 +231,6 @@ public class ArgCommand extends Command {
     }
 
     public boolean hasNoSwitches() {
-        return getSwitchMap().size() == 0;
+        return getSwitchVals().size() == 0;
     }
 }
