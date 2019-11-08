@@ -197,7 +197,7 @@ public class MainWindow extends AnchorPane {
         this.taskList = duke.getTaskList();
         this.degreeList = duke.getDegreeList();
 
-        boolean degreeFoundFlag = degreeManager.getFoundFlag();
+        //boolean degreeFoundFlag = degreeManager.getFoundFlag();
 
         this.dataTask.clear();
         this.dataChoices.clear();
@@ -245,49 +245,51 @@ public class MainWindow extends AnchorPane {
             Scanner temp = new Scanner(input);
             String command = temp.next();
 
-            if (command.matches("detail") && (!typoFlag) && (degreeFoundFlag)) {
+            if (command.matches("detail") && (!typoFlag)) {
                 this.dataDegrees = degreesView.getItems();
                 tabPane.getSelectionModel().select(tabDegrees);
 
                 if (temp.hasNext()) {
                     this.dataDegrees.clear();
-                    String degreeName = temp.next();
-                    tabDegrees.setText("Degree Information: " + this.degreeManager.getFullDegreeName(degreeName)); //use these to change the degree tab name
+                    String degreeName = this.degreeManager.findAnyDegree(temp.next());
+                    if(!degreeName.isBlank()) {
+                        tabDegrees.setText("Degree Information: " + this.degreeManager.getFullDegreeName(degreeName)); //use these to change the degree tab name
 
-                    List<Module> moduleList = new ArrayList<>(this.degreeManager.getModuleList(degreeName).getModules());
-                    moduleList.add(new NonDescriptive("General Education Modules", 20));
+                        List<Module> moduleList = new ArrayList<>(this.degreeManager.getModuleList(degreeName).getModules());
+                        moduleList.add(new NonDescriptive("General Education Modules", 20));
 
-                    Collections.sort(moduleList);
-                    int count = 0;
-                    for(Module mod: moduleList) {
-                        count++;
-                        countString = Integer.toString(count);
+                        Collections.sort(moduleList);
+                        int count = 0;
+                        for (Module mod : moduleList) {
+                            count++;
+                            countString = Integer.toString(count);
 
-                        if (count <= 9) {
-                            countString = "0" + countString;
-                        }
+                            if (count <= 9) {
+                                countString = "0" + countString;
+                            }
 
-                        String mcString = Integer.toString(mod.getMc());
+                            String mcString = Integer.toString(mod.getMc());
 
-                        if (mcString.length() == 1) {
-                            mcString = "0" + mcString;
-                        }
+                            if (mcString.length() == 1) {
+                                mcString = "0" + mcString;
+                            }
 
-                        //for standard modules
-                        if (mod.getClass() == Module.class) {
-                            this.dataDegrees.add(new DegreesFX(countString, mod.getCode(), mod.getName(),
-                                    mcString));
-                        } else if (mod.getClass() == NonDescriptive.class) {
-                            //Non descriptive class has no module code, but the moduleCode property contains the name
-                            this.dataDegrees.add(new DegreesFX(countString, "-", mod.getCode(),
-                                    mcString));
-                        } else if (mod.getClass() == ConjunctiveModule.class) {
-                            this.dataDegrees.add(new DegreesFX(countString, mod.getCode(), mod.getFullModuleName(),
-                                    mcString));
+                            //for standard modules
+                            if (mod.getClass() == Module.class) {
+                                this.dataDegrees.add(new DegreesFX(countString, mod.getCode(), mod.getName(),
+                                        mcString));
+                            } else if (mod.getClass() == NonDescriptive.class) {
+                                //Non descriptive class has no module code, but the moduleCode property contains the name
+                                this.dataDegrees.add(new DegreesFX(countString, "-", mod.getCode(),
+                                        mcString));
+                            } else if (mod.getClass() == ConjunctiveModule.class) {
+                                this.dataDegrees.add(new DegreesFX(countString, mod.getCode(), mod.getFullModuleName(),
+                                        mcString));
+                            }
                         }
                     }
                 }
-            } else if (command.matches("compare") && (!typoFlag) && (degreeFoundFlag)) {
+            } else if (command.matches("compare") && (!typoFlag)) {
                 this.dataDiff1 = diffView1.getItems();
                 this.dataDiff2 = diffView2.getItems();
                 this.dataSimi = simiView.getItems();

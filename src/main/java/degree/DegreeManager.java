@@ -80,6 +80,22 @@ public class DegreeManager {
         throw new DukeException(item + " was not found in our records!");
     }
 
+    public String findAnyDegree(String degreeName)
+    {
+        for(Map.Entry<String, List<String>> aliases: disjointSetFake.entrySet())
+        {
+            String degree = aliases.getKey();
+            List<String> commonNames = aliases.getValue();
+            for(String x : commonNames){
+                if(x.equalsIgnoreCase(degreeName)){
+                    return degree;
+                }
+            }
+        }
+        return "";
+    }
+
+
     /**
      * Clears out the current degreeManager.
      */
