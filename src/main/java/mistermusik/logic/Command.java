@@ -1,5 +1,6 @@
 package mistermusik.logic;
 
+import mistermusik.Main;
 import mistermusik.commons.Contact;
 import mistermusik.commons.events.eventtypes.Event;
 import mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclasses.Exam;
@@ -70,7 +71,7 @@ public class Command {
      * @param ui      Class containing all relevant user interface instructions.
      * @param storage Class containing access to the storage file and related instructions.
      */
-    public void execute(EventList events, UI ui, Storage storage, InstrumentList instruments, EventDate calendarStartDate) {
+    public void execute(EventList events, UI ui, Storage storage, InstrumentList instruments, EventDate calendarStartDate, boolean allowCalendarFrequentPrint) {
         boolean changesMade = true;
         switch (command) {
             case "help":
@@ -175,7 +176,7 @@ public class Command {
             events.sortList();
             storage.saveToFile(events, ui);
         }
-        if (!(command.equals("calendar"))) {
+        if ((!command.equals("calendar")) && allowCalendarFrequentPrint) {
             CalendarView calendarView = null;
             EventDate today = new EventDate(calendarStartDate.getEventJavaDate());
             calendarView = new CalendarView(events, today);
@@ -299,6 +300,10 @@ public class Command {
             calendarView = new CalendarView(events, calendarStartDate);
             calendarView.setCalendarInfo();
             ui.printCalendar(calendarView.getStringForOutput());
+        } else if (continuation.equals("on")) {
+            System.out.println("Allowing printing calendar after every command!");
+        } else if (continuation.equals("off")) {
+            System.out.println("Not allowing printing calendar after every command!");
         } else {
             ui.calendarCommandWrongFormat();
         }
