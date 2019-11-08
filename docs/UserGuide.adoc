@@ -42,14 +42,17 @@ Jump to <<Quick Start>> to get started! Enjoy!
 == Quick Start
 
 .  Ensure you have Java 11 or above installed on your computer.
-.  Download the latest release.  link:{repoURL}/releases[here].
+.  Download the latest release link:{repoURL}/releases[here].
 .  Copy the files to the folder you want to use as the home folder for your Outstanding Organization Friend.
-.  Run the command “java -jar oof.jar”. The application should load within a few seconds.
-+
+.  Run the command “java -jar *_[X]_*.jar”. The application should load within a few seconds.
+
+[NOTE]
+*_[X]_* refers to the name of our latest jar release.
+
 [[OofWelcome]]
 .OOF welcome screen
 image::OofWelcome.png[OofWelcome]
-+
+
 .  Type a task description in the terminal and press kbd:[Enter] to run it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will list the commands present.
 .  Some example commands you can try:
@@ -72,6 +75,8 @@ In this section, the expected command format will be introduced, and you can exp
 e.g. `deadline DESCRIPTION /by DD-MM-YYYY HH:MM`
 
 * The maximum length for a task's description is `20`
+
+* The maximum length for a module code and module name is `100`
 
 [NOTE]
 
