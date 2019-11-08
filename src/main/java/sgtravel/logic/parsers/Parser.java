@@ -1,6 +1,7 @@
 package sgtravel.logic.parsers;
 
 import sgtravel.commons.Messages;
+import sgtravel.commons.exceptions.ItineraryIncorrectDaysException;
 import sgtravel.commons.exceptions.ParseException;
 import sgtravel.logic.commands.AddSampleItineraryCommand;
 import sgtravel.logic.commands.Command;

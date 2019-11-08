@@ -3,17 +3,20 @@ package sgtravel.model.planning;
 import sgtravel.commons.exceptions.ParseException;
 import sgtravel.commons.exceptions.RecommendationFailException;
 import sgtravel.logic.parsers.ParserTimeUtil;
-import sgtravel.logic.parsers.commandparsers.CreateNewItineraryParser;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Represents a recommended itinerary list provided by SGTravel.
  */
 public class Recommendation {
     private List<Agenda> agendaList;
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
 
     /**
      * Constructor to initialise new Recommendation.
@@ -34,12 +37,12 @@ public class Recommendation {
         LocalDateTime start = ParserTimeUtil.parseStringToDate(itineraryDetails[1].strip());
         LocalDateTime end = ParserTimeUtil.parseStringToDate(itineraryDetails[2].strip());
 
-
         Itinerary itinerary = new Itinerary(start, end, "New Recommendation");
         itinerary.checkValidDate();
         int days = itinerary.getNumberOfDays();
+        logger.log(Level.INFO, "number of days" + days);
 
-        if (days > 8) {
+        if (days >= 9) {
             throw new RecommendationFailException();
         }
 

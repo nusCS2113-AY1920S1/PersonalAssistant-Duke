@@ -2,6 +2,7 @@ package sgtravel.logic.commands;
 
 import sgtravel.commons.exceptions.ApiException;
 import sgtravel.commons.exceptions.FileNotSavedException;
+import sgtravel.commons.exceptions.ItineraryIncorrectDaysException;
 import sgtravel.commons.exceptions.ParseException;
 import sgtravel.logic.commands.results.CommandResultText;
 import sgtravel.model.Model;
@@ -32,9 +33,13 @@ public class NewItineraryCommand extends Command {
      * @throws FileNotSavedException If the data cannot be saved.
      */
     @Override
-    public CommandResultText execute(Model model) throws ApiException, ParseException, FileNotSavedException {
+    public CommandResultText execute(Model model) throws ApiException, ParseException, FileNotSavedException,
+            ItineraryIncorrectDaysException {
+        if(itinerary.getList().size()!=itinerary.getNumberOfDays()) {
+            throw new ItineraryIncorrectDaysException();
+        }
         model.setNewItinerary(itinerary);
         model.save();
-        return new CommandResultText("New Itinerary Created with name:" + itinerary.getName());
+        return new CommandResultText("New Itinerary Created with name: " + itinerary.getName());
     }
 }

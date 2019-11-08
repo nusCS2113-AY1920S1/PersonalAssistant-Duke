@@ -2,12 +2,15 @@ package sgtravel.model.planning;
 
 import sgtravel.commons.exceptions.ChronologyBeforePresentException;
 import sgtravel.commons.exceptions.ChronologyInconsistentException;
+import sgtravel.commons.exceptions.RepeatedDayNumberException;
 import sgtravel.model.locations.Venue;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Represents an Itinerary and its contained information.
@@ -20,7 +23,6 @@ public class Itinerary {
 
     /**
      * Constructor to initialise new Itinerary.
-     *
      * @param startDate The first day of the trip.
      * @param endDate The last day of the trip .
      * @param name The name of the itinerary.
@@ -76,7 +78,7 @@ public class Itinerary {
      * Returns number of days of the trip based on entered start and end dates.
      * @return the number of days of a trip (end - start).
      */
-    int getNumberOfDays() {
+    public int getNumberOfDays() {
             LocalDateTime tempDateTime = LocalDateTime.from(startDate);
             long days = tempDateTime.until(endDate, ChronoUnit.DAYS);
             return Integer.parseInt(String.valueOf(days)) + 1;
