@@ -129,6 +129,7 @@ public abstract class ParseGoals {
             throw new ParserException(key + " can only be alphanumeric and at most 30 characters");
         }
     }
+
     /**
      * Checks if the date set for the goal is of valid format and not before now.
      *
