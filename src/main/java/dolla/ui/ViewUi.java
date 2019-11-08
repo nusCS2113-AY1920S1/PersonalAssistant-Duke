@@ -68,7 +68,7 @@ public class ViewUi extends Ui {
         System.out.println("\tview [DATE]");
         System.out.println(line);
     }
-    
+
     public static void printStartLine() {
         System.out.println(line);
     }
