@@ -3,7 +3,6 @@ package compal.logic.parser;
 import compal.commons.LogUtils;
 import compal.logic.command.Command;
 import compal.logic.command.DeadlineCommand;
-import compal.logic.command.exceptions.CommandException;
 import compal.logic.parser.exceptions.ParserException;
 import compal.model.tasks.Task;
 
