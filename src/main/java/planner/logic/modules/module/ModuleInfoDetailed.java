@@ -42,10 +42,6 @@ public class ModuleInfoDetailed {
         return Double.parseDouble(moduleCredit);
     }
 
-    public String getModuleLevel() {
-        return moduleCode.replaceAll("[^0-9]", "");
-    }
-
     public String getDepartment() {
         return department;
     }
@@ -74,14 +70,18 @@ public class ModuleInfoDetailed {
         return semester;
     }
 
-    public String getGrade() {
-        return grade;
-    }
-
     public void setModuleCredit(String moduleCredit) {
         this.moduleCredit = moduleCredit;
     }
 
+    //@@author e0313687
+    public String getGrade() {
+        return grade;
+    }
+
+    public String getModuleLevel() {
+        return moduleCode.replaceAll("[^0-9]", "");
+    }
 
     //@@author andrewleow97
     /**
