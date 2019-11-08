@@ -14,6 +14,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
+
 public class NoteList {
 
     public ArrayList<Note> al = new ArrayList<>();
@@ -49,7 +52,8 @@ public class NoteList {
     private String processFileNames(String resultName) throws CakeException {
         try {
             File file = new File(resultName);
-            return file.getName();
+            String fileName = file.getName();
+            return FilenameUtils.removeExtension(fileName);
         } catch (IndexOutOfBoundsException e) {
             throw new CakeException(e.getMessage());
         }

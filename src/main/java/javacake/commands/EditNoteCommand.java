@@ -28,7 +28,7 @@ public class EditNoteCommand extends Command implements IFileReader {
     private static String headingMessage = "Write your notes below!\n"
             + "To save edited content, type '/save' and enter!\n";
 
-    private static String endingMessage = "Edited file is saved!\n";
+    private static String endingMessage = "has been saved!\n";
 
     /**
      * Constructor for EditNoteCommand.
@@ -128,19 +128,7 @@ public class EditNoteCommand extends Command implements IFileReader {
      * @throws CakeException if the file does not exist.
      */
     private String displayContentInFile() throws CakeException {
-        try {
-            File file = new File(currentFilePath);
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-            StringBuilder sb = new StringBuilder();
-            while ((line = br.readLine()) != null) {
-                sb.append(line).append("\n");
-            }
-            br.close();
-            return sb.toString();
-        } catch (IOException e) {
-            throw new CakeException(e.getMessage());
-        }
+        return IFileReader.readFile(currentFilePath);
     }
 
     /**
@@ -279,6 +267,6 @@ public class EditNoteCommand extends Command implements IFileReader {
      * @return String of message when file is saved.
      */
     public static String successSaveMessage() {
-        return nameOfEditFile + ".txt : " + endingMessage;
+        return "File: [" + nameOfEditFile + "] " + endingMessage;
     }
 }

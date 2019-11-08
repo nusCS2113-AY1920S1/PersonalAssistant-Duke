@@ -65,7 +65,6 @@ public class ViewNoteCommand extends Command implements IFileReader {
         }
     }
 
-
     /**
      * Checks if file specified by user is empty.
      * @param inputCommand View note command by user.
@@ -136,6 +135,7 @@ public class ViewNoteCommand extends Command implements IFileReader {
     @Override
     public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         String filePath = generateCurrentFilePath();
-        return IFileReader.readFile(filePath);
+        return "Below is the file [" + fileName + "] that you want to view!\n" +
+                IFileReader.readFile(filePath);
     }
 }

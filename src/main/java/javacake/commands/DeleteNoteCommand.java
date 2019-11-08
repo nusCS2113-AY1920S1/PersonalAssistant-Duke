@@ -54,9 +54,9 @@ public class DeleteNoteCommand extends Command {
         try {
             File tempFile = new File(fullFilePath);
             if (tempFile.delete()) {
-                return fileName + ".txt has been deleted successfully!";
+                return "File [" + fileName + "] has been deleted successfully!";
             } else {
-                return "Unable to delete " + fileName + ".txt";
+                return "Unable to delete [" + fileName + "]!";
             }
         } catch (Exception e) {
             throw new CakeException(e.getMessage());
@@ -128,7 +128,7 @@ public class DeleteNoteCommand extends Command {
      * @param inputFileName Specified file name by user.
      * @return True if file name contains illegal characters.
      */
-    public static boolean hasIllegalCharacters(String inputFileName) {
+    private static boolean hasIllegalCharacters(String inputFileName) {
         for (char illegalChar : ILLEGAL_CHARACTERS) {
             if (containsIllegal(inputFileName, illegalChar)) {
                 return true;
