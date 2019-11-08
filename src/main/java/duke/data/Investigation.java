@@ -1,5 +1,6 @@
 package duke.data;
 
+import duke.exception.DukeException;
 import duke.ui.card.InvestigationCard;
 import duke.ui.card.UiCard;
 import duke.ui.context.Context;
@@ -26,7 +27,7 @@ public class Investigation extends Treatment {
      * @param summary description of the investigation
      */
     public Investigation(String name, Impression impression, int priority,
-                         int status, String summary) {
+                         int status, String summary) throws DukeException {
         super(name, impression, priority, status);
         this.summary = summary;
     }
@@ -58,7 +59,8 @@ public class Investigation extends Treatment {
         return statusArr.get(getStatusIdx());
     }
 
-    public static List<String> getStatusArr() {
+    @Override
+    public List<String> getStatusArr() {
         return Collections.unmodifiableList(statusArr);
     }
 

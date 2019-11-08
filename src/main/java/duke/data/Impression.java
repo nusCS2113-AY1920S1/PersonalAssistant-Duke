@@ -200,6 +200,15 @@ public class Impression extends DukeObject {
         throw new DukeException("I already have a treatment named that.");
     }
 
+    // TODO create parent reference in object
+    public Medicine addNewMedicine(Medicine newMedicine) throws DukeException {
+        if (((Patient) getParent()).isAllergic(newMedicine.getName())) {
+            throw new DukeException("The patient is allergic to this medicine!");
+        }
+        addNewTreatment(newMedicine);
+        return newMedicine;
+    }
+
     /**
      * This deleteTreatment function deletes a treatment at the specified index from the treatment list.
      *

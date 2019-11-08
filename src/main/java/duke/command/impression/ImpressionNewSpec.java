@@ -64,7 +64,6 @@ public class ImpressionNewSpec extends DukeDataSpec {
         if (priority == -1) {
             priority = 0;
         }
-        ImpressionUtils.checkPriority(priority);
         cmd.nullToEmptyString(); //set optional string parameters to ""
         int status;
         switch (addType) { //isn't polymorphism fun?

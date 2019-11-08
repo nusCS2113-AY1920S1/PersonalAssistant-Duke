@@ -1,5 +1,6 @@
 package duke.data;
 
+import duke.exception.DukeException;
 import duke.ui.card.MedicineCard;
 import duke.ui.card.UiCard;
 import duke.ui.context.Context;
@@ -31,11 +32,15 @@ public class Medicine extends Treatment {
      * @param duration the duration the patient needs to take the medicine
      */
     public Medicine(String name, Impression impression, int priority, int status,
-                    String dose, String startDate, String duration) {
+                    String dose, String startDate, String duration) throws DukeException {
         super(name, impression, priority, status);
         this.dose = dose;
         this.startDate = startDate;
         this.duration = duration;
+    }
+
+    @Override
+    public void setName(String name) {
     }
 
     @Override
@@ -81,7 +86,8 @@ public class Medicine extends Treatment {
         return statusArr.get(getStatusIdx());
     }
 
-    public static List<String> getStatusArr() {
+    @Override
+    public List<String> getStatusArr() {
         return Collections.unmodifiableList(statusArr);
     }
 

@@ -8,8 +8,6 @@ import duke.data.SearchResults;
 import duke.exception.DukeException;
 import duke.exception.DukeUtilException;
 
-import java.util.List;
-
 public class ImpressionUtils {
 
     /**
@@ -93,38 +91,6 @@ public class ImpressionUtils {
             throw dataNotFound;
         } else {
             return results;
-        }
-    }
-
-    /**
-     * Checks if a status is a string or an integer, and returns the appropriate integer if it is a string.
-     * @param status The String supplied as an argument to the status switch.
-     * @param statusList The status descriptions that the numeric value of the status represent. The numeric value of
-     *                  the status is the index of the corresponding description in the array.
-     * @return The Integer that the string represents, or 0 if it is null.
-     * @throws NumberFormatException If the string is not a valid representation of an integer.
-     */
-    public static int processStatus(String status, List<String> statusList)
-            throws DukeUtilException {
-        assert (status != null);
-        if ("".equals(status)) {
-            return 0;
-        } else {
-            try {
-                int convertedStatus = Integer.parseInt(status);
-                if (convertedStatus < 0 || convertedStatus >= statusList.size()) {
-                    throw new DukeUtilException(status + "is not a valid numeric value for the status!");
-                }
-                return convertedStatus;
-            } catch (NumberFormatException excp) { // not numeric
-                // TODO: parse with autocorrect?
-                for (int i = 0; i < statusList.size(); ++i) {
-                    if (statusList.get(i).equalsIgnoreCase(status)) {
-                        return i;
-                    }
-                }
-                throw new DukeUtilException("'" + status + "' is not a valid status name!");
-            }
         }
     }
 }

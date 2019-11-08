@@ -115,7 +115,7 @@ public class ImpressionEditSpec extends ImpressionObjSpec {
         }
 
         // process remaining switches entered
-            if (ImpressionUtils.getPatient(ImpressionUtils.getImpression(core)).isAllergic();
+            if (ImpressionUtils.getPatient(ImpressionUtils.getImpression(core)).;
         for (Map.Entry<String, String> entry : cmd.getSwitchVals().entrySet()) {
             String switchName = entry.getKey();
             String entryStr = entry.getValue();
@@ -195,7 +195,7 @@ public class ImpressionEditSpec extends ImpressionObjSpec {
     private void updateStatus(Treatment treatment, List<String> statusList) throws DukeUtilException {
         String statusStr = cmd.getSwitchVal("status");
         if (statusStr != null) {
-            treatment.setStatusIdx(ImpressionUtils.processStatus(statusStr, statusList));
+            treatment.setStatus(ImpressionUtils.processStatus(statusStr, statusList));
         }
     }
 }

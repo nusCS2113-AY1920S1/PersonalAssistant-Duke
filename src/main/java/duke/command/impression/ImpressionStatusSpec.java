@@ -6,9 +6,6 @@ import duke.command.ObjSpec;
 import duke.command.Switch;
 import duke.data.DukeObject;
 import duke.data.Impression;
-import duke.data.Investigation;
-import duke.data.Medicine;
-import duke.data.Plan;
 import duke.data.Treatment;
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
@@ -45,31 +42,20 @@ public class ImpressionStatusSpec extends ObjSpec {
     protected void executeWithObj(DukeCore core, DukeObject obj) throws DukeException {
         List<String> statusList;
         Treatment treatment = (Treatment) obj;
-        Class targetClass = treatment.getClass(); //statics don't play nice with polymorphism
-        if (targetClass == Medicine.class) {
-            statusList = Medicine.getStatusArr();
-        } else if (targetClass == Investigation.class) {
-            statusList = Investigation.getStatusArr();
-        } else if (targetClass == Plan.class) {
-            statusList = Plan.getStatusArr();
-        } else {
-            throw new DukeException("This is not a recognised treatment!");
-        }
-
         int status;
         String statusStr = cmd.getSwitchVal("set");
         if (statusStr == null) {
             status = treatment.getStatusIdx() + 1;
-            if (status >= statusList.size()) {
+            if (status >= treatment.getStatusArr().size()) {
                 throw new DukeHelpException("This treatment cannot progress any further!", cmd);
             }
+            treatment.setStatus(status);
         } else {
-            status = ImpressionUtils.processStatus(statusStr, statusList);
+            treatment.setStatus(statusStr);
         }
-        treatment.setStatusIdx(status);
 
         core.writeJsonFile();
-        core.updateUi("Status of '" + treatment.getName() + "' updated to '" + statusList.get(status) + "'");
+        core.updateUi("Status of '" + treatment.getName() + "' updated to '" + treatment.getStatusStr() + "'");
     }
 }
 
