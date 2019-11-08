@@ -11,8 +11,11 @@ public class LimitUi extends Ui {
                                                     + "(daily/weekly/monthly).";
     private static final String INVALID_SHOW_FORMAT = "\tOOPS! Please follow the format "
                                                     + "'remaining [DURATION] budget' to view your remaining budget!";
-    private static final String INVALID_LIMIT_TYPE_MSG = "\tOOPS! Please specify the limit duration: "
+
+    /*private static final String INVALID_LIMIT_TYPE_MSG = "\tOOPS! Please specify the limit duration: "
                                                        + "daily/weekly/monthly.";
+
+     */
 
     private static final String GOOD_JOB = "\tKeep up the good work!";
 

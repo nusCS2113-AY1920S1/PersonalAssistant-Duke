@@ -13,12 +13,14 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.YearMonth;
 
+import static java.time.LocalDate.now;
+
 //@@author Weng-Kexin
 public class ShowRemainingBudgetCommand extends Command implements ParserStringList {
 
     private int one = 1;
     private String duration;
-    private LocalDate dateToday = java.time.LocalDate.now();
+    private LocalDate dateToday = now();
     private LocalDate mondayDate = dateToday;
     private LocalDate sundayDate = dateToday;
 

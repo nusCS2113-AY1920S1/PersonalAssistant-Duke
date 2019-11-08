@@ -10,7 +10,6 @@ import dolla.command.Command;
 import dolla.command.ErrorCommand;
 import dolla.model.Debt;
 import dolla.model.Entry;
-import dolla.ui.LimitUi;
 
 import java.time.LocalDate;
 
