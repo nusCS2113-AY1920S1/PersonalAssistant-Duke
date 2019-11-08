@@ -206,6 +206,7 @@ This is followed by the following line indicating the details of the detected cl
 #"Clashes with: [E][X] YST Final project review START: Tue, 03 Dec 2019, 15:00 END: Tue, 03 Dec 2019, 18:00#
 
 === Add recurring events
+
 ==== How it is implemented
 The program is able to detect recurring events and their periods when creating new events.
 When the user enters the command to add a new `Lesson` or `Practice` event with a period (in days) followed,
@@ -231,11 +232,16 @@ Given below is an example usage scenario compared to adding non-recurring event.
 Recurring event: `Lesson` or `Practice` <event description> /dd-MM-yyyy HHmm HHmm `/period(in days)` +
 Non-recurring event: <event type> <event description> /dd-MM-yyyy HHmm HHmm
 
+==== Activity diagram
+The following is the activity diagram for adding recurring events.
+
+image::recurringEventActivityDiagram.png[with="800"]
+
 ==== Sequence diagram
 The following sequence diagram shows how the adding recurring event operation works.
-====
-image::recurringEventSequenceDiagram.png[width = 100%]
-====
+
+image::recurringEventSequenceDiagram.png[width="800"]
+
 
 ==== Why it is implemented this way
 . Whether the input command has a period is considered at the first, so that the dependency between adding
