@@ -68,27 +68,27 @@ public class CreateNoteTest {
         String expectedOutput;
 
         actualOutput = javaCake.getResponse("createnote");
-        expectedOutput = "File 'Notes.txt' has been created successfully!\n";
+        expectedOutput = "File [Notes] has been created successfully!\n";
         assertEquals(expectedOutput, actualOutput);
 
         actualOutput = javaCake.getResponse("createnote ");
-        expectedOutput = "File 'Notes1.txt' has been created successfully!\n";
+        expectedOutput = "File [Notes1] has been created successfully!\n";
         assertEquals(expectedOutput, actualOutput);
 
         actualOutput = javaCake.getResponse("createnote @notes");
-        expectedOutput = "File '@notes.txt' has been created successfully!\n";
+        expectedOutput = "File [@notes] has been created successfully!\n";
         assertEquals(expectedOutput, actualOutput);
 
         actualOutput = javaCake.getResponse("createnote ____");
-        expectedOutput = "File '____.txt' has been created successfully!\n";
+        expectedOutput = "File [____] has been created successfully!\n";
         assertEquals(expectedOutput, actualOutput);
 
         actualOutput = javaCake.getResponse("createnote editnote");
-        expectedOutput = "File 'editnote.txt' has been created successfully!\n";
+        expectedOutput = "File [editnote] has been created successfully!\n";
         assertEquals(expectedOutput, actualOutput);
 
         actualOutput = javaCake.getResponse("createnote 2113rocks!");
-        expectedOutput = "File '2113rocks!.txt' has been created successfully!\n";
+        expectedOutput = "File [2113rocks!] has been created successfully!\n";
         assertEquals(expectedOutput, actualOutput);
     }
 
@@ -97,7 +97,7 @@ public class CreateNoteTest {
         String actualOutput;
         String expectedOutput;
         actualOutput = javaCake.getResponse("createnote Notes");
-        expectedOutput = "File already exists, please type 'editnote Notes.txt' to edit the file instead";
+        expectedOutput = "File already exists, please type 'editnote Notes' to edit the file instead";
         assertEquals(expectedOutput, actualOutput);
     }
 
