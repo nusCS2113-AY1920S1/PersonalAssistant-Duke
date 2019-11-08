@@ -10,6 +10,7 @@ import duke.ui.InputHandler;
 
 import java.util.HashMap;
 
+//@@author Fractalisk
 /**
  * AddGoalCommand is a public class that inherits from abstract class Command.
  * An AddGoalCommand object encapsulates the goal object that is to be added.
@@ -52,68 +53,6 @@ public class AddGoalCommand extends Command {
             if (isDone) {
                 user.setGoal(goal, true);
                 ui.succeedSetGoal();
-            } else {
-                switch (stage) {
-                    case 0:
-                        ui.showQueryStartDate();
-                        break;
-                    case 1:
-                        String startDate = in.getDate();
-                        goal.setStartDate(startDate);
-                        ui.showQueryEndDate();
-                        break;
-                    case 2:
-                        String endDate = in.getDate();
-                        goal.setEndDate(endDate);
-                        ui.showQueryTargetWeight();
-                        break;
-                    case 3:
-                        double weight = in.getDouble();
-                        goal.setWeightTarget(weight);
-                        ui.showQueryTargetLifestyle();
-                        break;
-                    case 4:
-                        if (in.getApproval()) {
-                            ui.showActivityLevel();
-                        } else {
-                            goal.setActivityLevelTarget(5);
-                            if (user.setGoal(goal, false)) {
-                                ui.succeedSetGoal();
-                                isDone = true;
-                            } else {
-                                ui.queryOverrideExistingGoal();
-                                stage++; //skip the next stage
-                            }
-                        }
-                        break;
-                    case 5:
-                        int activityLevel = in.getInt() - 1;
-                        if (activityLevel >= 5 || activityLevel < 0) {
-                            throw new DukeException("Please enter a valid activity level.");
-                        } else {
-                            goal.setActivityLevelTarget(activityLevel);
-                        }
-                        if (user.setGoal(goal, false)) {
-                            ui.succeedSetGoal();
-                            isDone = true;
-                        } else {
-                            ui.queryOverrideExistingGoal();
-                        }
-                        break;
-                    case 6:
-                        if (in.getApproval()) {
-                            user.setGoal(goal, true);
-                            ui.succeedSetGoal();
-                            isDone = true;
-                        } else {
-                            ui.failSetGoal();
-                            isDone = true;
-                        }
-                        break;
-                    default:
-                        isDone = true;
-                        throw new DukeException("There is a problem with the setgoal command.");
-                }
             }
             storage.updateGoal(user);
             ui.showLine();

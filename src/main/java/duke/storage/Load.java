@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+//@@author Fractalisk
 /**
  * This object is in charge of all reading from save operations.
  */
@@ -111,7 +112,7 @@ public class Load {
     public User loadUser() throws DukeException {
         String userFileStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_USER_FILE);
         User data;
-        Type userType = new TypeToken<User>() {}.getType();
+        Type userType = new TypeToken<User>(){}.getType();
         bufferedReader = FileUtil.readFile(userFileStr, useResourceAsBackup);
         try {
             data = gson.fromJson(bufferedReader, userType);

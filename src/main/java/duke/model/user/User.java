@@ -11,11 +11,11 @@ import java.util.HashMap;
  * This is a class that will store user information to be used for processing.
  */
 public class User {
-    private transient LocalDate lastDate = null;
     private transient Goal goal = null;
     private transient Account account;
 
     private HashMap<LocalDate, Double> weight = new HashMap();
+    private  LocalDate lastDate = null;
     private int height = 0;
     private int age = 0;
     private Gender gender = null;
@@ -24,6 +24,7 @@ public class User {
     private int activityLevel = 5;
     private double[] factor = {1.2, 1.375, 1.55, 1.725, 1.9};
     private double originalWeight = 0;
+
 
     /**
      * This is a contructor to create an empty user profile.

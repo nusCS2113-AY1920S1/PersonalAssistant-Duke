@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 import static duke.commons.constants.DateConstants.LOCAL_DATE_FORMATTER;
 
+//@@author
 public class Ui {
     private static final String UI_PADDING = "     ";
     private static final String UI_BOUNDARY = "    ____________________________________________________________";
@@ -263,7 +264,7 @@ public class Ui {
     public void showExerciseRequired(int calories) {
         System.out.println(UI_BOUNDARY);
         System.out.println(UI_PADDING + "To meet your goals, you should do: " + calories + " calories");
-        System.out.println(UI_PADDING + "worth of exercises today. All the best!");
+        System.out.println(UI_PADDING + "worth of exercises today.");
     }
 
     public void showExerciseOptions(HashMap<String, Integer> exerciseHashMap) {

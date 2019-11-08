@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 
 
+//@@author Fractalisk
 /**
  * TODO: analyze the list of SuggestExercise objects as well as the current calorie goal of the
  * user, the date provided and the user meal parameters provided to get the best exercise suggestion.

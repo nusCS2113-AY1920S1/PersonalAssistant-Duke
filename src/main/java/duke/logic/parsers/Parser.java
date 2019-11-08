@@ -25,7 +25,7 @@ import static duke.commons.constants.CommandDefinitions.PARSER_LIST_COMMAND;
 import static duke.commons.constants.CommandDefinitions.PARSER_LUNCH_COMMAND;
 import static duke.commons.constants.CommandDefinitions.PARSER_PAYMENT_COMMAND;
 import static duke.commons.constants.CommandDefinitions.PARSER_STATS_COMMAND;
-import static duke.commons.constants.CommandDefinitions.PARSER_SUGGEST_COMMAND;
+import static duke.commons.constants.CommandDefinitions.PARSER_SUGGEST_MEAL_COMMAND;
 import static duke.commons.constants.CommandDefinitions.PARSER_SUGGEST_EXERCISE_COMMAND;
 import static duke.commons.constants.CommandDefinitions.PARSER_UPDATE_WEIGHT_COMMAND;
 import static duke.commons.exceptions.ExceptionMessages.UNKNOWN_COMMAND;
@@ -103,7 +103,7 @@ public class Parser {
                 return new PaymentCommandParser().parse(argumentStr);
             case PARSER_HISTORY_COMMAND:
                 return parserUtil.getHistory(argumentStr);
-            case PARSER_SUGGEST_COMMAND:
+            case PARSER_SUGGEST_MEAL_COMMAND:
                 return new SuggestMealCommandParser().parse(argumentStr);
             case PARSER_STATS_COMMAND:
                 return new StatsCommand();

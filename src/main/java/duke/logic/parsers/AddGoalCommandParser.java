@@ -12,6 +12,7 @@ import java.util.List;
 
 import static duke.commons.constants.DateConstants.DATE_FORMAT;
 
+//@@author Fractalisk
 /**
  * Parser class to handle setting of goals.
  */
@@ -95,7 +96,7 @@ public class AddGoalCommandParser implements ParserInterface<AddGoalCommand> {
             return new AddGoalCommand(true, "Invalid arguments present"
                     + ". Type `help goal` to get command syntax.");
         } else {
-            return new AddGoalCommand();
+            return new AddGoalCommand(true, "Invalid setgoal command, no arguments present.");
         }
     }
 }

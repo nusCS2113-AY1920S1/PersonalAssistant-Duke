@@ -5,6 +5,7 @@ import javafx.util.Pair;
 import java.time.LocalDate;
 import java.util.HashMap;
 
+//@@author Fractalisk
 public class ExerciseList {
     private HashMap<String, Integer> storedExercises = new HashMap<>();
     private HashMap<LocalDate, Pair<String, Integer>> exercisePlan = new HashMap<>();

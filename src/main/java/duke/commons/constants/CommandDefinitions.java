@@ -19,7 +19,7 @@ public final class CommandDefinitions {
     public static final String PARSER_UPDATE_WEIGHT_COMMAND = "update";
     public static final String PARSER_ADD_GOAL_COMMAND = "setgoal";
     public static final String PARSER_HISTORY_COMMAND = "history";
-    public static final String PARSER_SUGGEST_COMMAND = "suggest";
+    public static final String PARSER_SUGGEST_MEAL_COMMAND = "suggestmeal";
     public static final String PARSER_DEPOSIT_COMMAND = "deposit";
     public static final String PARSER_PAYMENT_COMMAND = "pay";
     public static final String PARSER_STATS_COMMAND = "stats";

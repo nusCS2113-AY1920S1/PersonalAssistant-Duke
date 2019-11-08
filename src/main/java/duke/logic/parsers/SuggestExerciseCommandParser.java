@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 
+//@@author Fractalisk
 public class SuggestExerciseCommandParser implements ParserInterface {
     private static final String dateArgStr = "date";
 

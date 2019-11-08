@@ -1,4 +1,59 @@
 {
+  "2019-11-05": [
+    {
+      "description": "hotcakes",
+      "type": "B",
+      "isDone": false,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 350
+      },
+      "cost": "0"
+    },
+    {
+      "description": "tea",
+      "type": "B",
+      "isDone": false,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 40
+      },
+      "cost": "0"
+    },
+    {
+      "description": "steak",
+      "type": "L",
+      "isDone": false,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "sodium": 10,
+        "fats": 20,
+        "calorie": 600
+      },
+      "cost": "0"
+    },
+    {
+      "description": "cranberry juice",
+      "type": "L",
+      "isDone": false,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "calorie": 30
+      },
+      "cost": "0"
+    },
+    {
+      "description": "mega zinger burger",
+      "type": "D",
+      "isDone": false,
+      "date": "2019-11-05",
+      "nutritionValue": {
+        "fats": 30,
+        "calorie": 1000
+      },
+      "cost": "0"
+    }
+  ],
   "2019-11-03": [
     {
       "description": "hotcakes",

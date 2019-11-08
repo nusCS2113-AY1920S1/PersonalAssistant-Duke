@@ -5,6 +5,7 @@ import duke.model.user.User;
 
 import java.util.HashMap;
 
+//@@author Fractalisk
 /**
  * Exercise is defined in metabolic unit at rest(MET), eg, 1 hr of running which is 14.5 MET
  * is equal to 14.5 hours of static calorie loss.

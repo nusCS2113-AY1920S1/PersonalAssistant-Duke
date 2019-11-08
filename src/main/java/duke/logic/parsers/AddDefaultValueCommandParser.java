@@ -7,6 +7,7 @@ import duke.model.meal.Meal;
 import java.time.LocalDate;
 import java.util.HashMap;
 
+//@@author Fractalisk
 /**
  * Parser class to handle addition of Item object to model.
  */

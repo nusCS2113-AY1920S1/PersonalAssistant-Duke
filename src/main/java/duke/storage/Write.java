@@ -10,6 +10,7 @@ import duke.model.meal.MealList;
 import duke.model.user.User;
 import duke.model.wallet.Wallet;
 
+//@@author Fractalisk
 /**
  * This object is in charge of all writing to save operations.
  */
