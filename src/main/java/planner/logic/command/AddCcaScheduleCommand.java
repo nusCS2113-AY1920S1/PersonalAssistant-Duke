@@ -51,7 +51,7 @@ public class AddCcaScheduleCommand extends ModuleCommand {
         }
         Cca cca = profile.getCcas().get(index);
         cca.addPeriod(timePeriodWeekly);
-        jsonWrapper.storeCcaListAsJson(ccas, store);
+        jsonWrapper.storeCcaListAsJson(profile.getCcas(), store);
         plannerUi.addedMsg(cca);
     }
 }
