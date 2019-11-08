@@ -133,7 +133,7 @@ public class PatientContextWindow extends ContextWindow {
         for (Impression impression : patient.getImpressionList()) {
             // Impression list
             ImpressionCard impressionCard;
-            if (impression.equals(patient.getPrimaryDiagnosis())) {
+            if (patient.getPrimaryDiagnosis() != null && impression.equals(patient.getPrimaryDiagnosis())) {
                 impressionCard = new ImpressionCard(impression, true);
                 impressionListPanel.getItems().add(0, impressionCard);
                 indexedImpressionList.add(0, impression);
