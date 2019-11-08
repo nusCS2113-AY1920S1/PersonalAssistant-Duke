@@ -9,10 +9,8 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,21 +18,18 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
-import planner.logic.exceptions.legacy.ModInvalidTimeException;
 import planner.logic.exceptions.planner.ModBadRequestStatus;
 import planner.logic.exceptions.planner.ModFailedJsonException;
 import planner.logic.modules.cca.Cca;
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleInfoSummary;
 import planner.logic.modules.module.ModuleTask;
-import planner.util.datetime.NattyWrapper;
 import planner.util.logger.PlannerLogger;
 import planner.util.storage.Storage;
 
 public class JsonWrapper {
 
     private Gson gson;
-    private NattyWrapper natty;
     private RequestData requestsData;
     private final String listFile = "data/modsListData.json";
     private final String listDetailedFile = "data/modsDetailedListData.json";
@@ -51,18 +46,8 @@ public class JsonWrapper {
      */
     public JsonWrapper() {
         gson = new Gson();
-        natty = new NattyWrapper();
         requestsData = new RequestData();
     }
-
-    public Date parseStringToDate(String input) throws ModInvalidTimeException {
-        return natty.runParser(input);
-    }
-
-    public LocalDateTime parseStringToLocalDateTime(String input) throws ModInvalidTimeException {
-        return natty.dateToLocalDateTime(input);
-    }
-
 
     private HashMap<String, ModuleInfoDetailed> getMapFromList(List<ModuleInfoDetailed> modsList) {
         HashMap<String, ModuleInfoDetailed> ret = new HashMap<>();

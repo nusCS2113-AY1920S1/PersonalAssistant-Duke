@@ -91,15 +91,13 @@ public abstract class Reminder {
     private void remind() {
         LocalDateTime targetTime = LocalDateTime.now();
         LocalDateTime now;
-        //TimeInterval timeIntervals;
         long sleepSeconds;
         while (!this.kill) {
             now = LocalDateTime.now();
             if (now.isAfter(targetTime)) {
                 targetTime = now.plus(this.checkEvery);
+                TimeInterval.ofSeconds(15);
                 this.execute(now);
-                // timeIntervals = TimeInterval.ofMinutes(timeInterval);
-                TimeInterval.ofMinutes(12);
             }
             sleepSeconds = Math.max(TimeInterval.between(LocalDateTime.now(), targetTime)
                     .toDuration().getSeconds() - 1, 0);
