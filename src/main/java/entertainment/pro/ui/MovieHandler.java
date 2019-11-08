@@ -46,7 +46,7 @@ import java.util.logging.Logger;
 public class MovieHandler extends Controller implements RequestListener {
 
     @FXML
-    private ScrollPane mMoviesScrollPane;
+    public ScrollPane mMoviesScrollPane;
 
     @FXML
     Label userAdultLabel2;
@@ -66,15 +66,15 @@ public class MovieHandler extends Controller implements RequestListener {
     private Label userPlaylistsLabel;
 
     @FXML
-    Text autoCompleteText;
+    public Text autoCompleteText = new Text();
     @FXML
-    Text generalFeedbackText;
+    public Text generalFeedbackText = new Text();
 
     @FXML
     private TextFlow genreListText;
 
     @FXML
-    private TextField mSearchTextField;
+    public TextField mSearchTextField;
 
     @FXML
     private ProgressBar mProgressBar;
@@ -82,15 +82,15 @@ public class MovieHandler extends Controller implements RequestListener {
     private final static Logger LOGGER = Logger.getLogger(MovieHandler.class.getName());
     private boolean isViewMoreInfoPage = false;
     private AnchorPane anchorPane;
-    private static UserProfile userProfile;
+    UserProfile userProfile;
     private ArrayList<String> playlists;
     private String playlistName = "";
     private PageTracker pageTracker = new PageTracker();
-    private FlowPane mMoviesFlowPane;
+    public FlowPane mMoviesFlowPane = new FlowPane();
     private VBox playlistVBox = new VBox();
-    private static ArrayList<MovieInfoObject> mMovies = new ArrayList<>();
+    public static ArrayList<MovieInfoObject> mMovies = new ArrayList<>();
     private double[] mImagesLoadingProgress;
-    private static RetrieveRequest mMovieRequest;
+    public static RetrieveRequest mMovieRequest;
     private static CinemaRetrieveRequest mCinemaRequest;
     private int index = 0;
     static String command = "";
@@ -542,7 +542,7 @@ public class MovieHandler extends Controller implements RequestListener {
            MovieInfoObject movie = mMovies.get(num - 1);
            moviePosterClicked(movie);
            System.out.println("this is it 4");
-       } catch (ArrayIndexOutOfBoundsException e) {
+       } catch (IndexOutOfBoundsException e) {
            setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
            throw new InvalidFormatCommandException(PromptMessages.INVALID_FORMAT);
        }
