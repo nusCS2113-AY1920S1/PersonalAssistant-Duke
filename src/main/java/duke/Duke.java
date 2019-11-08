@@ -13,6 +13,7 @@ import duke.task.FilterList;
 import duke.task.ContactList;
 import duke.task.TaskList;
 import duke.ui.Ui;
+import javafx.scene.layout.Priority;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,21 +44,26 @@ public class Duke {
     private static final String priorityFilePath = "data/priority.txt";
     private static final String budgetFilePath = "data/budget.txt";
     private static final String contactsFilePath = "data/contacts.txt";
+    protected String sampleBudgetFilePath = "sample/budget.txt";
+    protected String sampleContactsFilePath = "sample/contacts.txt";
+    protected String samplePriorityFilePath = "sample/priority.txt";
+    protected String sampleTaskFilePath = "sample/duke.txt";
     private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Creates a duke to initialize storage, task list, and ui.
      */
-    public Duke() {
+    public Duke() throws IOException {
         initialize();
         dukeLogger.setupLogger();
-        checkStorageExist();
         try {
             readStorage();
         } catch (IOException e) {
             ui.showLoadingError();
             logr.log(Level.SEVERE,"Storage text file is not found");
             createEmptyTaskList();
+            Storage.writeSample(sampleTaskFilePath);
+            readStorage();
         }
         try {
             readPriorityStorage();
@@ -65,6 +71,8 @@ public class Duke {
             ui.showLoadingError();
             logr.log(Level.SEVERE,"Priority storage text file is not found");
             createEmptyPriorityList();
+            PriorityStorage.writeSample(samplePriorityFilePath);
+            readPriorityStorage();
         }
         try {
             readContactStorage();
@@ -72,6 +80,8 @@ public class Duke {
             ui.showLoadingError();
             logr.log(Level.SEVERE,"Contact list text file is not found");
             createEmptyContactList();
+            ContactStorage.writeSample(sampleContactsFilePath);
+            readContactStorage();
         }
         try {
             readBudgetStorage();
@@ -79,10 +89,13 @@ public class Duke {
             ui.showLoadingError();
             logr.log(Level.SEVERE,"Budget list text file is not found");
             createEmptyBudgetList();
+            budgetStorage.writeSample(sampleBudgetFilePath);
+            readBudgetStorage();
         }
     }
 
     private void initialize() {
+        checkStorageExist();
         dukeLogger = new DukeLogger();
         ui = new Ui();
         filterList = new FilterList();

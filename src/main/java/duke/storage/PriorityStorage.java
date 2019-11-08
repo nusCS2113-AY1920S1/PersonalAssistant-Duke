@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Representing a class to store the list of priorities.
  */
 public class PriorityStorage {
-    protected String filePath = System.getProperty("user.dir") + "/";
+    protected static String filePath = System.getProperty("user.dir") + "/";
 
     /**
      * Creates a storage with a specified filePath.
@@ -64,5 +64,26 @@ public class PriorityStorage {
         writer.close();
     }
 
+    //@@author maxxyx96
+    /**
+     * Extracts the sample data from jar file and moves it to data folder in the computer.
+     *
+     * @param samplePath path of the sample.
+     * @throws IOException When there is an error writing to the text file.
+     */
+    public static void writeSample(String samplePath) throws IOException {
+        String fileContent = "";
+        ClassLoader classLoader = PriorityStorage.class.getClassLoader();
+        File file = new File(classLoader.getResource(samplePath).getFile());
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+        String input = "";
+        while ((input = bufferedReader.readLine()) != null) {
+            fileContent += input + "\n";
+        }
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+        writer.write(fileContent);
+        writer.close();
+        bufferedReader.close();
+    } //@@author
 }
 //@@author

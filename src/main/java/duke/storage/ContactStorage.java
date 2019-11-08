@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 //@@author e0318465
 public class ContactStorage {
-    protected String filePathForContacts = System.getProperty("user.dir") + "/";
+    protected static String filePathForContacts = System.getProperty("user.dir") + "/";
 
     /**
      * Creates a storage with a specified filePathForContacts.
@@ -77,4 +77,26 @@ public class ContactStorage {
         writer.write(fileContent);
         writer.close();
     }
+
+    /**
+     * Extracts the sample data from jar file and moves it to data folder in the computer.
+     *
+     * @param samplePath path of the sample.
+     * @throws IOException When there is an error writing to the text file.
+     */
+    public static void writeSample(String samplePath) throws IOException {
+        String fileContent = "";
+        ClassLoader classLoader = ContactStorage.class.getClassLoader();
+        File file = new File(classLoader.getResource(samplePath).getFile());
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+        String input = "";
+        while ((input = bufferedReader.readLine()) != null) {
+            fileContent += input + "\n";
+        }
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filePathForContacts));
+        writer.write(fileContent);
+        writer.close();
+        bufferedReader.close();
+    } //@@author
+
 }
