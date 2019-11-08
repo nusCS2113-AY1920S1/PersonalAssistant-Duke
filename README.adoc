@@ -14,8 +14,8 @@ ifndef::env-github[]
 image::docs/images/Ui.png[width="600"]
 endif::[]
 
-* This is an application intended for nurses within hospitals. It has a GUI, but most of the user interactions occurring will be using CLI.
-* The purpose of this application is to provide an organizational tool for nurses, allowing them to categorize tasks/information based on their patients. This encourages timeliness and higher quality of provided care.
+* This is an application intended for nurses within hospitals--particularly nurses with many patients under their care. Users will be able to navigate the program through either the GUI or CLI, according to their own preferences.
+* Dukepital's purpose is to provide an organizational tool for these users, allowing them to categorize tasks/information based on their patients. This encourages timeliness and higher quality of provided care.
 * Dukepital is written in OOP fashion. It provides a reasonably well-written code example that is significantly bigger (around 6 KLoC) than what students usually write in beginner-level SE modules.
 == Site Map
 
@@ -28,5 +28,3 @@ endif::[]
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
-
-== License : link:LICENSE[MIT]
