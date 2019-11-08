@@ -754,7 +754,7 @@ See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build auto
 
 === Continuous Integration
 
-We use https://travis-ci.org/[Travis CI] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
+We use https://travis-ci.org/[Travis CI] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> for more details.
 
 === Coverage Reporting
 
