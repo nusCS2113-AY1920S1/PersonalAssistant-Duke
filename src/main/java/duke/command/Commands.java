@@ -41,7 +41,7 @@ public class Commands {
      */
     public Command getCommand(String cmdStr, Context context) {
         if (context == Context.SEARCH) {
-            return new ArgCommand(SearchSpec.getSpec(cmdStr));
+            return new Command(SearchSpec.getSpec(cmdStr));
         }
 
         // check context-independent switches first

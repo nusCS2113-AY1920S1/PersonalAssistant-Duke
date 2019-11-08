@@ -5,7 +5,7 @@ import duke.data.DukeObject;
 import duke.data.SearchResults;
 import duke.exception.DukeException;
 
-public class SearchSpec extends ArgSpec {
+public class SearchSpec extends CommandSpec {
 
     private static final SearchSpec spec = new SearchSpec();
     private static String input;
@@ -17,11 +17,6 @@ public class SearchSpec extends ArgSpec {
     public static SearchSpec getSpec(String input) {
         SearchSpec.input = input;
         return spec;
-    }
-
-    private SearchSpec() {
-        cmdArgLevel = ArgLevel.REQUIRED;
-        initSwitches();
     }
 
     @Override

@@ -9,6 +9,14 @@ public abstract class ObjSpec extends ArgSpec {
 
     protected ObjCommand cmd;
 
+    @Override
+    public void executeWithCmd(DukeCore core, ArgCommand cmd) throws DukeException {
+        assert (cmd instanceof ObjCommand); // TODO find an elegant way to enforce this
+        this.cmd = (ObjCommand) cmd;
+        execute(core);
+        this.cmd = null;
+    }
+
     public void execute(DukeCore core, ObjCommand cmd, DukeObject obj) throws DukeException {
         this.cmd = cmd;
         executeWithObj(core, obj);
