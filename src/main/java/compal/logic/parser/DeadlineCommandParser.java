@@ -20,6 +20,7 @@ public class DeadlineCommandParser implements CommandParser {
     private static final ArrayList<String> key = new ArrayList<>(Arrays.asList(TOKEN_END_TIME,
             TOKEN_DATE, TOKEN_PRIORITY, TOKEN_FINAL_DATE, TOKEN_INTERVAL));
 
+
     @Override
     public Command parseCommand(String restOfInput) throws ParserException {
         logger.info("Attempting to parse deadline command");

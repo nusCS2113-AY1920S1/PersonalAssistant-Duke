@@ -2,6 +2,7 @@ package compal.logic.command;
 
 import compal.commons.CompalUtils;
 import compal.commons.LogUtils;
+import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.Deadline;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
@@ -40,6 +41,7 @@ public class DeadlineCommand extends Command {
             + "dd a task which ends at 01/01/2019 10:00am with priority high";
 
     private static final String MESSAGE_SUCCESSFULLY_ADDED = "\nThe following deadline were added: \n";
+    private static final String underscoreErrorMsg = "Descriptions should not have underscores!";
     private static final String MESSAGE_REPEATED_DEADLINE = "\nLooks like you already added the task before! \n"
             + "Use the edit command on the task ID given below!";
     private String description;
@@ -70,7 +72,10 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public CommandResult commandExecute(TaskList taskList) {
+    public CommandResult commandExecute(TaskList taskList) throws CommandException {
+        if (description.contains("_")) {
+            throw new CommandException(underscoreErrorMsg);
+        }
         logger.info("Executing deadline command");
         Date finalDate = CompalUtils.stringToDate(finalDateString);
         StringBuilder finalList = new StringBuilder();
