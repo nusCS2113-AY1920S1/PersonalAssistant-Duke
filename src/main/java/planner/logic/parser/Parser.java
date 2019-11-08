@@ -64,7 +64,7 @@ public class Parser {
         mapCommand("grade", GradeCommand.class);
         mapCommand("update", UpdateModuleInfo.class);
         mapCommand("reminder", ReminderCommand.class);
-        mapCommand("passwd", SetPasswordCommand.class);
+        //mapCommand("passwd", SetPasswordCommand.class);
     }
 
     /**
@@ -202,10 +202,10 @@ public class Parser {
                 .addArgument("toReminder")
                 .help("When do you want to set the reminder again");
 
-        getSubParser("passwd")
-                .help("Set or update your password")
-                .addArgument("password")
-                .help("Your new password");
+        //getSubParser("passwd")
+        //        .help("Set or update your password")
+        //        .addArgument("password")
+        //        .help("Your new password");
     }
 
     private void initBuiltinActions() {
