@@ -1,7 +1,10 @@
 package money;
 
 import controlpanel.MoneyStorage;
-import moneycommands.*;
+import moneycommands.MoneyCommand;
+import moneycommands.AddExpenditureCommand;
+import moneycommands.DeleteExpenditureCommand;
+import moneycommands.ListTotalExpenditureCommand;
 import controlpanel.DukeException;
 import controlpanel.Ui;
 import org.junit.jupiter.api.Test;
@@ -38,9 +41,9 @@ public class ExpenditureTest {
         MoneyCommand addExpenditureCommand = new AddExpenditureCommand(testAdd);
         ui.clearOutputString();
         addExpenditureCommand.execute(account, ui, storage);
-        assertEquals(" Got it. I've added this to your total spending: \n" +
-                        "     [E]$30.00 sick sirloin steak (on: 9/10/1997)\n"
-                , ui.getOutputString().split(" Now")[0]);
+        assertEquals(" Got it. I've added this to your total spending: \n"
+                        + "     [E]$30.00 sick sirloin steak (on: 9/10/1997)\n",
+                ui.getOutputString().split(" Now")[0]);
     }
 
     @Test
@@ -54,9 +57,9 @@ public class ExpenditureTest {
         ui.clearOutputString();
         ui.clearGraphContainerString();
         listAllExpenditureCommand.execute(account, ui, storage);
-        assertEquals(" 1.[E]$70.00 Flowers for the lady(on: 9/10/1997)\n" +
-                " 2.[E]$50.00 Lego for the boy(on: 9/10/1997)\n" +
-                "Total expenditure so far: $120.00\n", ui.getGraphContainerString());
+        assertEquals(" 1.[E]$70.00 Flowers for the lady(on: 9/10/1997)\n"
+                + " 2.[E]$50.00 Lego for the boy(on: 9/10/1997)\n"
+                + "Total expenditure so far: $120.00\n", ui.getGraphContainerString());
         assertEquals("Got it, list will be printed in the other pane!\n", ui.getOutputString());
     }
 
@@ -69,8 +72,8 @@ public class ExpenditureTest {
         MoneyCommand deleteExpenditureCommand = new DeleteExpenditureCommand(deleteInput);
         ui.clearOutputString();
         deleteExpenditureCommand.execute(account, ui, storage);
-        assertEquals(" Noted. I've removed this expenditure:\n" +
-                "  [E]$50.00 Doll for the girl(on: 9/10/1997)\n", ui.getOutputString().split(" Now")[0]);
+        assertEquals(" Noted. I've removed this expenditure:\n"
+                + "  [E]$50.00 Doll for the girl(on: 9/10/1997)\n", ui.getOutputString().split(" Now")[0]);
     }
 
     @Test
@@ -82,8 +85,8 @@ public class ExpenditureTest {
             invalidAddCommand.execute(account, ui, storage);
             fail();
         } catch (DukeException | ParseException e) {
-            assertThat(e.getMessage(), is("Please enter in the format: " +
-                    "spent <description> /amt <amount> /cat <category> /on <date>\n"));
+            assertThat(e.getMessage(), is("Please enter in the format: "
+                    + "spent <description> /amt <amount> /cat <category> /on <date>\n"));
         }
     }
 
