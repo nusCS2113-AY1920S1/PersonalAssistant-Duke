@@ -39,9 +39,9 @@ class TimingShortcutTest {
         addNowCommand.execute(account, ui, storage);
         LocalDate currDate = LocalDate.now();
         String nowDate = dateTimeFormatter.format(currDate);
-        assertEquals(" Got it. I've added this income source: \n" +
-                        "     [I] TA (salary: $530.00) (Paid On: " + nowDate + ")\n"
-                , ui.getOutputString().split(" Now")[0]);
+        assertEquals(" Got it. I've added this income source: \n"
+                        + "     [I] TA (salary: $530.00) (Paid On: " + nowDate + ")\n",
+                ui.getOutputString().split(" Now")[0]);
     }
 
     @Test
@@ -52,9 +52,9 @@ class TimingShortcutTest {
         addNowCommand.execute(account, ui, storage);
         LocalDate currDate = LocalDate.now().plusDays(1);
         String tmrDate = dateTimeFormatter.format(currDate);
-        assertEquals(" Got it. I've added this income source: \n" +
-                        "     [I] TA (salary: $530.00) (Paid On: " + tmrDate + ")\n"
-                , ui.getOutputString().split(" Now")[0]);
+        assertEquals(" Got it. I've added this income source: \n"
+                        + "     [I] TA (salary: $530.00) (Paid On: " + tmrDate + ")\n",
+                ui.getOutputString().split(" Now")[0]);
     }
 
     @Test
@@ -65,9 +65,9 @@ class TimingShortcutTest {
         addNowCommand.execute(account, ui, storage);
         LocalDate currDate = LocalDate.now().plusDays(-1);
         String ytdDate = dateTimeFormatter.format(currDate);
-        assertEquals(" Got it. I've added this income source: \n" +
-                        "     [I] TA (salary: $530.00) (Paid On: " + ytdDate + ")\n"
-                , ui.getOutputString().split(" Now")[0]);
+        assertEquals(" Got it. I've added this income source: \n"
+                        + "     [I] TA (salary: $530.00) (Paid On: " + ytdDate + ")\n",
+                ui.getOutputString().split(" Now")[0]);
     }
 
     @Test
@@ -78,9 +78,9 @@ class TimingShortcutTest {
         addNowCommand.execute(account, ui, storage);
         LocalDate currDate = LocalDate.now().plusWeeks(-1);
         String lastWeekDate = dateTimeFormatter.format(currDate);
-        assertEquals(" Got it. I've added this income source: \n" +
-                        "     [I] TA (salary: $530.00) (Paid On: " + lastWeekDate + ")\n"
-                , ui.getOutputString().split(" Now")[0]);
+        assertEquals(" Got it. I've added this income source: \n"
+                        + "     [I] TA (salary: $530.00) (Paid On: " + lastWeekDate + ")\n",
+                ui.getOutputString().split(" Now")[0]);
     }
 
     @Test
@@ -91,9 +91,9 @@ class TimingShortcutTest {
         addNowCommand.execute(account, ui, storage);
         LocalDate currDate = LocalDate.now().plusWeeks(1);
         String nextWeekDate = dateTimeFormatter.format(currDate);
-        assertEquals(" Got it. I've added this income source: \n" +
-                        "     [I] TA (salary: $530.00) (Paid On: " + nextWeekDate + ")\n"
-                , ui.getOutputString().split(" Now")[0]);
+        assertEquals(" Got it. I've added this income source: \n"
+                        + "     [I] TA (salary: $530.00) (Paid On: " + nextWeekDate + ")\n",
+                ui.getOutputString().split(" Now")[0]);
     }
 
     @Test
@@ -104,9 +104,9 @@ class TimingShortcutTest {
         addNowCommand.execute(account, ui, storage);
         LocalDate currDate = LocalDate.now().plusMonths(-1);
         String lastMonthDate = dateTimeFormatter.format(currDate);
-        assertEquals(" Got it. I've added this income source: \n" +
-                        "     [I] TA (salary: $530.00) (Paid On: " + lastMonthDate + ")\n"
-                , ui.getOutputString().split(" Now")[0]);
+        assertEquals(" Got it. I've added this income source: \n"
+                        + "     [I] TA (salary: $530.00) (Paid On: " + lastMonthDate + ")\n",
+                ui.getOutputString().split(" Now")[0]);
     }
 
     @Test
@@ -117,9 +117,9 @@ class TimingShortcutTest {
         addNowCommand.execute(account, ui, storage);
         LocalDate currDate = LocalDate.now().plusMonths(1);
         String nextMonthDate = dateTimeFormatter.format(currDate);
-        assertEquals(" Got it. I've added this income source: \n" +
-                        "     [I] TA (salary: $530.00) (Paid On: " + nextMonthDate + ")\n"
-                , ui.getOutputString().split(" Now")[0]);
+        assertEquals(" Got it. I've added this income source: \n"
+                        + "     [I] TA (salary: $530.00) (Paid On: " + nextMonthDate + ")\n",
+                ui.getOutputString().split(" Now")[0]);
     }
 
     @Test
@@ -130,9 +130,9 @@ class TimingShortcutTest {
         addNowCommand.execute(account, ui, storage);
         LocalDate currDate = LocalDate.now().plusYears(-1);
         String lastYearDate = dateTimeFormatter.format(currDate);
-        assertEquals(" Got it. I've added this income source: \n" +
-                        "     [I] TA (salary: $530.00) (Paid On: " + lastYearDate + ")\n"
-                , ui.getOutputString().split(" Now")[0]);
+        assertEquals(" Got it. I've added this income source: \n"
+                        + "     [I] TA (salary: $530.00) (Paid On: " + lastYearDate + ")\n",
+                ui.getOutputString().split(" Now")[0]);
     }
 
     @Test
@@ -143,8 +143,8 @@ class TimingShortcutTest {
         addNowCommand.execute(account, ui, storage);
         LocalDate currDate = LocalDate.now().plusYears(1);
         String nextYearDate = dateTimeFormatter.format(currDate);
-        assertEquals(" Got it. I've added this income source: \n" +
-                        "     [I] TA (salary: $530.00) (Paid On: " + nextYearDate + ")\n"
-                , ui.getOutputString().split(" Now")[0]);
+        assertEquals(" Got it. I've added this income source: \n"
+                        + "     [I] TA (salary: $530.00) (Paid On: " + nextYearDate + ")\n",
+                ui.getOutputString().split(" Now")[0]);
     }
 }
