@@ -1,12 +1,9 @@
 package dolla.command;
 
+import dolla.command.action.state.*;
 import dolla.model.DollaData;
 
 import dolla.command.action.Redo;
-import dolla.command.action.state.DebtState;
-import dolla.command.action.state.EntryState;
-import dolla.command.action.state.LimitState;
-import dolla.command.action.state.UndoStateList;
 import dolla.model.Record;
 import dolla.ui.RemoveUi;
 
@@ -52,6 +49,8 @@ public class RemoveCommand extends Command {
                 UndoStateList.addState(new DebtState(recordList), mode);
             } else if (mode.equals(MODE_LIMIT)) {
                 UndoStateList.addState(new LimitState(recordList), mode);
+            } else if (mode.equals(MODE_SHORTCUT)) {
+                UndoStateList.addState(new ShortcutState(recordList), mode);
             }
             Redo.clearRedoState(mode);
             recordNumInt = stringToInt(logNumStr) - 1;

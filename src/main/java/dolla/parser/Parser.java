@@ -169,7 +169,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      * @return true is inputArray[1] contain something, false if inputArray[1] is invalid.
      */
     protected boolean verifySort() {
-        if (inputArray.length < 2) {
+        if (inputArray.length != 2) {
             SortUi.printInvalidSort(mode);
             return false;
         } else {
@@ -193,8 +193,9 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                     SortUi.printInvalidSort(mode);
                     return false;
                 }
-            case MODE_LIMIT:
-                if (inputArray[1].equals(SORT_TYPE_DATE)) {
+            case MODE_SHORTCUT:
+                if (inputArray[1].equals(SORT_TYPE_AMOUNT)
+                        || inputArray[1].equals(SORT_TYPE_DESC)) {
                     return true;
                 } else {
                     SortUi.printInvalidSort(mode);

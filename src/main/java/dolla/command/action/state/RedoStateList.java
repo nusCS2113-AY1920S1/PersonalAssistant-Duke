@@ -11,7 +11,7 @@ public class RedoStateList implements ModeStringList {
     private static Stack<State> entryStateList = new Stack<>();
     private static Stack<State> debtStateList = new Stack<>();
     private static Stack<State> limitStateList = new Stack<>();
-    //private static Stack<State> shortcutStateList = new Stack<>();
+    private static Stack<State> shortcutStateList = new Stack<>();
 
     /**
      * This method will push the input state onto the stack of State in this class with respect to the mode.
@@ -25,6 +25,8 @@ public class RedoStateList implements ModeStringList {
             debtStateList.push(state);
         } else if (mode.equals(MODE_LIMIT)) {
             limitStateList.push(state);
+        } else if (mode.equals(MODE_SHORTCUT)) {
+            shortcutStateList.push(state);
         }
     }
 
@@ -42,6 +44,8 @@ public class RedoStateList implements ModeStringList {
                 return debtStateList.pop();
             } else if (mode.equals(MODE_LIMIT)) {
                 return limitStateList.pop();
+            } else if (mode.equals(MODE_SHORTCUT)) {
+                return shortcutStateList.pop();
             }
         } catch (EmptyStackException e) {
             ActionUi.printEmptyStackError(type);
@@ -60,6 +64,8 @@ public class RedoStateList implements ModeStringList {
             debtStateList.clear();
         } else if (mode.equals(MODE_LIMIT)) {
             limitStateList.clear();
+        } else if (mode.equals(MODE_SHORTCUT)) {
+            shortcutStateList.clear();
         }
     }
 
@@ -70,6 +76,8 @@ public class RedoStateList implements ModeStringList {
             return debtStateList.size();
         } else if (mode.equals(MODE_LIMIT)) {
             return limitStateList.size();
+        } else if (mode.equals(MODE_SHORTCUT)) {
+            return shortcutStateList.size();
         }
         return -1;
     }

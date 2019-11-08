@@ -31,20 +31,7 @@ public class SortCommand extends Command {
     public void execute(DollaData dollaData) {
         RecordList recordList = new RecordList(new ArrayList<>());
         ArrayList<Record> list;
-        switch (mode) {
-        case MODE_ENTRY:
-            recordList = dollaData.getRecordListObj(mode);
-            break;
-        case MODE_DEBT:
-            recordList = dollaData.getRecordListObj(mode);
-            break;
-        case MODE_LIMIT:
-            recordList = dollaData.getRecordListObj(mode);
-            break;
-        default:
-            Ui.printInvalidCommandError();
-            break;
-        }
+        recordList = dollaData.getRecordListObj(mode);
 
         try {
             list = recordList.getCloneList();
@@ -85,13 +72,13 @@ public class SortCommand extends Command {
                     break;
                 }
                 break;
-            case MODE_LIMIT:
-                if (type.equals(TYPE_AMOUNT)) {
-                    new SortAmount(list);
-                } else {
-                    SortUi.printInvalidSort(mode);
-                }
-                break;
+                case MODE_SHORTCUT:
+                    if (type.equals(TYPE_AMOUNT)) {
+                        new SortAmount(list);
+                    } else if (type.equals(TYPE_DESC)) {
+                        new SortDescription(list);
+                    }
+                    break;
             default:
                 break;
             }
