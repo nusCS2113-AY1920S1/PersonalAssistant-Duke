@@ -13,8 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
-By: F11-3 +
-Since: Oct 2019
+By: `Team AY1920S1-CS2113T-F11-3`
+
+Since: `Nov 2019`
 
 
 == Introduction
@@ -23,23 +24,29 @@ Since: Oct 2019
 .GUI Interface
 [#gui]
 [caption="Figure 1: GUI interface of Email Manager"]
-image::MainWindow.png[Gui, 800]
+image::Ui.png[Gui, 800]
 
-Email Manager is an email and task manager app, specifically designed for NUS School of Computing students to manage their emails and busy schedules. As a text-based application, it is optimized for those who prefer typing and working with Command Line Interface (CLI). Email Manager also has a developed Graphical User Interface (GUI) that allows users to view email and task details in an appealing, well-organized format. If you can type fast, Email Manager can get your emails and tasks organized quickly and easily.
+Email Manager is an email and task manager app, specifically designed for NUS School of Computing students to manage their emails and busy schedules.
+As a text-based application, it is optimized for those who prefer typing and working with Command Line Interface (CLI).
+Email Manager also has a developed Graphical User Interface (GUI) that allows users to view email and task details in an appealing, well-organized format.
+If you can type fast, Email Manager can get your emails and tasks organized quickly and easily.
 
-If you are a busy computing student who is tired of receiving too many emails, you may find this app useful. Jump to [Quick Start] to get started and enjoy!
+If you are a busy computing student who is tired of receiving too many emails, you may find this app useful. Jump to <<Quick_Start, Quick Start>> to get started and enjoy!
 
 == About User Guide
-This user guide shows you how to get started with Email Manager. It introduces you to the features of Email Manager and provides you with examples, that you will become an expert user very soon! +
+This user guide shows you how to get started with Email Manager.
+It introduces you to the features of Email Manager and provides you with examples, that you will become an expert user very soon! +
 Throughout this user guide, there will be various icons used, as shown below:
 [TIP]
 This is a tip. Following these suggestions will make using Email Manager much simpler!
+
 [NOTE]
 This is a note. Read these for additional information.
+
 [WARNING]
 This is a warning. Heed the warnings for Email Manager to work smoothly!
 
-
+[[Quick_Start]]
 == Quick Start
 
 This section serves as a tutorial for a new user to Email Manager.
@@ -110,7 +117,7 @@ Any hanging or "not responding" when first launch the app is normal, please wait
 .Main Window
 [#main-window]
 [caption="Figure 2: Main window of Email Manager"]
-image::MainWindow.png[Main Window, 800]
+image::annotatedUI.png[Main Window, 800]
 
 As shown in Figure 2, the main window of Email Manager has three sections.
 
@@ -173,13 +180,13 @@ be considered as an invalid command argument in the first place.
 General commands will work in either mode.
 
 ==== Viewing help: `help`
-Format: `help` +
+Format: `help`
 
 A pop up window appears and gives information on what commands are available and its respective format.
 (The help page might be outdated, please use this guide instead.)
 
 ==== Change Mode: `flip`
-Format: `flip` +
+Format: `flip`
 
 Flips/toggles between email mode and task mode. The prefix of the command in the text box will also be
 changed.
@@ -188,12 +195,12 @@ In task mode, the text box will display `task` as a prefix.
 In email mode, the text box will display `email` as a prefix.
 
 ==== Exiting the program: `bye`
-Format: `bye` +
+Format: `bye`
 
 Exits the program and closes the window.
 
 ==== Apply colour code: `colour` (coming in v2.0)
-Format: `colour ITEM_NUMBER COLOUR` +
+Format: `colour ITEM_NUMBER COLOUR`
 
 The specified item will be shown in the colour specified in the command.
 
@@ -204,8 +211,20 @@ To enter task commands, please ensure you are in task mode. If not, see Section 
 command using `flip`.
 
 ==== Add Tasks Commands
+The following commands in this section allows you to add tasks to Email Manager. They will appear in the centre pane.
+
+[NOTE]
+To help you be more organised, each task is able to contain optional parameters.
+These parameters are a 'doafter' task, a priority level and multiple tags.
+To learn more about these parameters, go to their respective sections:
+<<doafter>>, <<priority>>.
+
+[TIP]
+For the following commands, you are able to enter the optional parameters in any order
+as long as they are entered after the compulsory parameters.
+
 ===== Adding a todo: `todo`
-Format: `todo TASK_NAME [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...` +
+Format: `todo TASK_NAME [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...`
 
 Adds a task of todo type.
 
@@ -224,11 +243,11 @@ Parameters other than item number can be entered in any order.
 PRIORITY_LEVEL is restricted to *high*, *med*, *low*. Any other PRIORITY_LEVEL will be invalid.
 
 ===== Adding an deadline: `deadline`
-Format: `deadline TASK_NAME -time dd/mm/yyyy hhMM [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...` +
+Format: `deadline TASK_NAME -time dd/mm/yyyy hhMM [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...`
 
 Adds a task that has a deadline. The task name and deadline are required.
 A doafter task, priority level or any number of tags are all optional.
-Order of the modifiers do not matter. +
+Order of the modifiers do not matter.
 
 Examples:
 
@@ -249,7 +268,7 @@ PRIORITY_LEVEL is restricted to *high*, *med*, *low*. Any other PRIORITY_LEVEL w
 Deadline with time prior to the current time is allowed to be added, but will be marked as *Overdue*.
 
 ===== Adding an event: `event`
-Format: `event TASK_NAME -time dd/mm/yyyy hhMM [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...` +
+Format: `event TASK_NAME -time dd/mm/yyyy hhMM [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...`
 
 Adds a task of event type.
 
@@ -268,44 +287,23 @@ PRIORITY_LEVEL is restricted to *high*, *med*, *low*. Any other PRIORITY_LEVEL w
 [NOTE]
 Similar to the deadline, event with time prior to the current time is allowed to be added, but will be
 marked as *Past*
+
 ==== List Tasks Commands: `list`
-Format: `list` +
+Format: `list`
 
 Gives a complete list of tasks.
 
-==== Update Tasks Commands: `update`
-Format: `update ITEM_NUMBER [-time dd/mm/yyyy hhMM] [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...` +
-
-Updates attributes of the specified task. Requires minimum of one attribute to function.
-
-Example:
-
-`update 1 -time Mon `
-
-`update 1 -priority low -doafter eat dinner -tag food`
-
-[TIP]
-Option parameters starting with `-` can be entered in any order, but all of them must be entered after the
-main command body. +
-For example, `deadline 123 -time 11/11/2020 1100 -tag CS` and `deadline 123 -tag CS
--time 11/11/2020 1100` are both valid, but `deadline -time 11/11/2020 1100 123 -tag CS` is not.
-
-[NOTE]
-If there are more than one `time`, `doafter` or `priority` parameters, only the last one will be valid.
-
-[WARNING]
-Any tags in the command will overwrite *all* current tags in the task
-
 ==== Delete Tasks Commands: `delete`
-Format: `delete ITEM_NUMBER` +
+Format: `delete ITEM_NUMBER`
 
 Deletes the item specified.
 
 Example:
+
 `delete 1`
 
 ==== Find task(s) with keyword: `find`
-Format: `find KEYWORD` +
+Format: `find KEYWORD`
 
 Returns a list of items that contains KEYWORD. This feature will search through the displayed string of
 the task including all the attributes and signifier. (Case insensitive) +
@@ -319,48 +317,46 @@ using `find by:` since all deadlines will contain a `by:` as shown in the list. 
 keywords like `Overdue` and `Past`.
 
 ==== Done a task: `done`
-Format: `done ITEM_NUMBER` +
+Format: `done ITEM_NUMBER`
 
 Marks the item specified as done.
 
 Example:
+
 `done 1`
 
 ==== Reminder for upcoming task(s): `reminder`
-Format: `reminder NO_OF_DAYS` +
+Format: `reminder NO_OF_DAYS`
 
 Shows the deadline or event tasks for the next NO_OF_DAYS days. +
-Only positive integers from 1 to 99999 are accepted for `NO_OF_DAYS`. +
-
-Example: `reminder 4`
-
-==== Do after: `doafter`
-Format: `doafter ITEM_NUMBER -msg DESCRIPTION`  +
-
-Records a task to be done after the original task is done. +
+Only positive integers from 1 to 99999 are accepted for `NO_OF_DAYS`.
 
 Example:
 
-`doafter 2 -msg work on project`
+`reminder 4`
 
-[NOTE]
-Only one doafter task can be added. To modify an existing doafter task, see the update command.
+[[doafter]]
+==== Do after: `doafter`
+Format: `doafter ITEM_NUMBER -msg ACTIVITY`
 
-==== Snooze a task: `snooze`
-Format: `snooze ITEM_NUMBER -by NO_OF_DAYS`
-
-Snoozes the task by the NO_OF_DAYS.
+Records an activity to be done after the original task is completed.
+This parameter will accept any valid string and will not be connected to other tasks in the list.
 
 Examples:
 
-`snooze 1 -by 4`
+`doafter 2 -msg work on project`
 
-`snooze 1`
+`doafter 5 -msg homework`
 
 [NOTE]
-If the NO_OF_DAYS is not input, the `snooze` command will automatically snooze the task by 3 days.
-Only tasks of type `deadline` and `event` can be snoozed.
+Only one 'doafter' task can be added. If you execute another valid `doafter` command
+for the same task, it will overwrite any existing 'doafter' task.
 
+[TIP]
+You can change or add multiple parameters for a single task in one command using the `update` command.
+To learn more, go to <<update>>.
+
+[[priority]]
 ==== Set Priority Command: `set`
 Format: `set ITEM_NUMBER -priority PRIORITY`
 
@@ -380,10 +376,48 @@ Any other PRIORITY inputted will be invalid.
 This command can override the priority set to a task by the command `update ITEM_NUMBER -priority PRIORITY`
 and vice versa.
 
-==== Detect Anomalies (coming in v2.0)
+
+==== Snooze a task: `snooze`
+Format: `snooze ITEM_NUMBER [-by NO_OF_DAYS]`
+
+Snoozes the task by the NO_OF_DAYS.
+
+Examples:
+
+`snooze 3`
+
+`snooze 1 -by 4`
+
+[NOTE]
+If the NO_OF_DAYS is not input, the `snooze` command will automatically snooze the task by 3 days.
+Only tasks of type `deadline` and `event` can be snoozed.
+
+[[update]]
+==== Update Tasks Commands: `update`
+Format: `update ITEM_NUMBER [-time dd/mm/yyyy hhMM] [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...` +
+
+Updates attributes of the specified task. Requires minimum of one attribute to function.
+
+Examples:
+
+`update 1 -time Mon`
+
+`update 1 -priority low -doafter eat dinner -tag food`
+
+[TIP]
+Option parameters starting with `-` can be entered in any order, but all of them must be entered after the
+main command body. +
+For example, `deadline 123 -time 11/11/2020 1100 -tag CS` and `deadline 123 -tag CS
+-time 11/11/2020 1100` are both valid, but `deadline -time 11/11/2020 1100 123 -tag CS` is not.
+
+[NOTE]
+If there are more than one `time`, `doafter` or `priority` parameters, only the last one will be valid.
+
+[WARNING]
+Any tags in the command will overwrite *all* current tags in the task
 
 ==== Linking with emails: `link`
-Format: `link ITEM_NUMBER [-email EMAIL_NUMBER]...` +
+Format: `link ITEM_NUMBER [-email EMAIL_NUMBER]...`
 
 Notes which email is related to the task specified. If there is no email parameter,
 the command will return a list of the emails linked to the task.
@@ -394,10 +428,23 @@ Examples:
 
 `link 2 -email 2 -email 4` will link emails 2 and 4 to task 2.
 
+[NOTE]
+Any links created will only be visible from the task it is added to.
+Emails will not be able to show any links to tasks.
+
 ==== Clear task list: `clear`
-Format: `clear` +
+Format: `clear`
 
 This command deletes all tasks in the list.
+
+[WARNING]
+Once executed, you will not be able to undo this command.
+
+[TIP]
+If you execute this command by accident, you may return to your last saved state
+by closing _Email Manager_ without using the `bye` command.
+
+==== Detect Anomalies (coming in v2.0)
 
 === Email Mode
 
@@ -406,12 +453,12 @@ To enter email commands, please ensure you are in email mode. If not, see Sectio
 command using `flip`.
 
 ==== Listing all emails: `list`
-Format: `list` +
+Format: `list`
 
 Gives a complete list of emails.
 
 ==== Showing an email: `show`
-Format: `show INDEX_NUMBER` +
+Format: `show INDEX_NUMBER`
 
 Show the email content of the email at the index number in the email list.
 
@@ -422,7 +469,7 @@ Example:
 You can press `Esc` key on your keyboard any time to switch display between the list and content view of emails.
 
 ==== Fetching emails from server: `fetch`
-Format: `fetch` +
+Format: `fetch`
 
 Fetches email from Outlook.com.
 
@@ -463,7 +510,7 @@ mailbox. Remember to call `fetch` command after sending and leave a few seconds 
 transmitted before calling the `fetch`.
 
 ==== Add Keyword: `addKeyword`
-Format: `addKeyword KEYWORD -exp EXPRESSION1 [-exp EXPRESSION2]...` +
+Format: `addKeyword KEYWORD -exp EXPRESSION1 [-exp EXPRESSION2]...`
 Adds a keyword or expressions to the keyword list. If the keyword is already in the list, the expression
 will be added to the expressions belonging to that keyword. So this is a command to add both keyword and
 expression.
@@ -498,7 +545,7 @@ Examples:
 `update 2 -tag Tutorial -tag Spam`
 
 ==== Filtering email: `list`
-Format: `list [-tag TAG1] [-tag TAG2]...` +
+Format: `list [-tag TAG1] [-tag TAG2]...`
 
 Gives a list of emails with the tags. Minimum number of tags is 1, and the maximum number of tags is 2.
 

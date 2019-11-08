@@ -20,11 +20,12 @@ Duke will help you to sort, filter and clear you inbox.
 **Getting started**
 
 1. Download and save the jar file.
-1. Open the jar file.
-1. Enjoy using Duke!
-1. Additional info can be found in our user guide.
+2. Open the jar file.
+3. Enjoy using Duke!
+4. Additional info can be found in our user guide.
 
 **Site Map**
 
 * [Developer Guide](https://github.com/AY1920S1-CS2113T-F11-3/main/blob/master/docs/guides/DeveloperGuide.adoc)
 * [User Guide](https://github.com/AY1920S1-CS2113T-F11-3/main/blob/master/docs/guides/UserGuide.adoc)
+* [About Us](https://github.com/AY1920S1-CS2113T-F11-3/main/blob/master/docs/AboutUs.adoc)
