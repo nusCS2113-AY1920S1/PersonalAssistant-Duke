@@ -240,6 +240,10 @@ would need to return a new object containing the relevant data.|
 |=========================================================
 
 === Add recurring events
+==== Activity diagram
+The following is the activity diagram for adding recurring events.
+
+image::recurringEventActivityDiagram.png[with="800"]
 
 ==== How it is implemented
 The program is able to detect recurring events and their periods when creating new events.
@@ -263,19 +267,8 @@ current eventList and then added in a temporary event list one by one. If no cla
 be added to the current `eventList`.
 
 Given below is an example usage scenario compared to adding non-recurring event. +
-Recurring event: `Lesson` or `Practice` <event description> /dd-MM-yyyy HHmm HHmm `/period(in days)` +
+Recurring event: `lesson|practice` <event description> /dd-MM-yyyy HHmm HHmm `/<period(in days)>` +
 Non-recurring event: <event type> <event description> /dd-MM-yyyy HHmm HHmm
-
-==== Activity diagram
-The following is the activity diagram for adding recurring events.
-
-image::recurringEventActivityDiagram.png[with="800"]
-
-==== Sequence diagram
-The following sequence diagram shows how the adding recurring event operation works.
-
-image::recurringEventSequenceDiagram.png[width="800"]
-
 
 ==== Why it is implemented this way
 . Whether the input command has a period is considered at the first, so that the dependency between adding
@@ -288,6 +281,49 @@ current eventList. Hence, before added in the temporary event list, the new even
 happens.
 . To keep the format of creating new events, the format process of changing Java Date to String is done in the
 `EventDate` class instead of messing the `Event` class to accept both Date and String types as input date and time.
+
+==== Sequence diagram
+The following sequence diagram shows how the adding recurring event operation works.
+
+image::recurringEventSequenceDiagram.png[width="800"]
+
+==== Design considerations
+Aspect: How to avoid adding infinite events +
+
+- *Alternative 1 (current choice):* Set a upper limit to ensure the interval between the first and last events added to
+list is not too long.
+    - Pros: Easy to implement. Easy to add lesson and practice in one semester.
+    - Cons: Not agility. May add too many extra events if users want short interval between the first and last
+recurring events.
+- *Alternative 2:* Let users to set the interval between the first and last recurring events.
+    - Pros: Will be more agility and user friendly.
+    - Cons: Hard to unify the command format.
+
+=== Contacts list
+==== How is it implemented
+The contacts list stores a list of contacts contain <name>, <email address>, and <phone number> information added by
+users. The list is stored in each individual event. When the user first creates the event, the event is created with an
+empty contact list. +
+*Users can add, edit, delete a specified contact item, and view the contacts list of a specified event.*
+
+- Given below is an example to adding a contact: +
+`contact add <event number> /<name>, <email address>, <phone number>`
+- To view contact list of an event: +
+`contact view <event number>`
+- To edit a contact in the contact list: +
+`contact edit <event number> <contact number> <name|email|phone> /<new contact>`
+- To delete a contact in the contact list: +
+`contact delete <event number> <contact number>`
+
+==== Why is it implemented this way
+. For different events, users may have different people to contact with. So a empty contact list is created under each
+event. For some events, users may have more than one person to contact with. Hence, users are allowed add more contact
+items under one event.
+. We want to keep the information highly relative to contact, so users just need to add <name>, <email address>, and
+<phone number> for a contact item. Sometimes may not have the email or phone number of a person, so it also allows users
+to add one of <email address> and <phone number>.
+. The main propose of MisterMusik is schedule events, so the contact list is hidden on the basic list viewing. Users can
+use command `contact view <event number>` to see the contact list of the specified event.
 
 === Viewing specific dates
 ==== How is it implemented
