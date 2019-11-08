@@ -75,7 +75,6 @@ public class MainParser implements ParserStringList, ModeStringList {
      * This method will exit the entire program after printing a goodbye message.
      */
     public static void exit() {
-        //TODO: DO SMTH
         Ui.printExitMsg();
     }
 }

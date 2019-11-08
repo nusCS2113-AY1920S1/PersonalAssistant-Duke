@@ -11,8 +11,6 @@ public class ExitCommand extends Command {
     @Override
     public void execute(DollaData dollaData) {
         Ui.printExitMsg();
-        int exitStatus = 0;
-        System.exit(exitStatus);
     }
 
     @Override

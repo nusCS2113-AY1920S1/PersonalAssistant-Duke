@@ -20,16 +20,25 @@ public class Dolla implements ModeStringList, ParserStringList {
 
     private DollaData dollaData = new DollaData();
 
+    private boolean isExit = false;
+
     private Dolla() {
         StorageRead.load();
+    }
+
+    private void verifyIsExit(String string) {
+        if (string.equals(COMMAND_BYE)) {
+            isExit = true;
+        }
     }
 
     private void run() throws DollaException {
         Reminder reminder = new Reminder(MODE_DEBT);
         reminder.showReminder(dollaData);
         Scanner input = new Scanner(System.in); // TODO: Add to Ui or MainParser instead?
-        while (input.hasNextLine()) {
+        while (!isExit) {
             String inputLine = input.nextLine();
+            verifyIsExit(inputLine);
             String mode = dollaData.getMode();
             Command c = MainParser.handleInput(mode, inputLine);
             c.execute(dollaData);

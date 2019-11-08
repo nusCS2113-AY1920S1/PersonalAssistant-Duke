@@ -1,7 +1,6 @@
 package dolla.exception;
 
 import dolla.ui.LimitUi;
-import dolla.ui.Ui;
 
 //@@author Weng-Kexin
 public class DollaException extends Exception {
