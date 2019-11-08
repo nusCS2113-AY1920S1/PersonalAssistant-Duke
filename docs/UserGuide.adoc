@@ -443,7 +443,7 @@ Valid CONSTRAINT:
 * `mrt`
 * `custom`
 
-image::routeNodeAdd1.PNG[width="400" height="200"]
+image::routeNodeAdd1.PNG[width="400" height="600"]
 
 Examples:
 
