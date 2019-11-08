@@ -38,7 +38,7 @@ public class RetrieveFreeTimesCommandTest {
 
     @BeforeAll
     public static void setAllVariables() {
-        userInputWithValidOption = "retrieve/ft 3";
+        userInputWithValidOption = "retrieve/time 3";
         userInputSelectedOption = 3;
         retrievedFreeTimesList = new ArrayList<>();
     }
@@ -57,33 +57,11 @@ public class RetrieveFreeTimesCommandTest {
         }
         assertEquals(expected, actual);
     }
-    /*
-    @Before
-    public void setRetrievedFreeTimesList() {
-        String firstPairKey = "Thu 07/11/2019 02:30 PM until 07:30 PM";
-        String secondPairKey = "Tue 26/11/2019 10:30 AM until 03:30 PM";
-        String thirdPairKey = "Wed 06/11/2019 02:30 PM until 07:30 PM";
-        String fourthPairKey = "Wed 06/11/2019 03:30 PM until 08:30 PM";
-        String fifthPairKey = "Wed 06/11/2019 04:30 PM until 09:30 PM";
-
-        String firstPairValue = "/at 07/11/2019 /from 1430 /to 1930";
-        String secondPairValue = "/at 26/11/2019 /from 1030 /to 1530";
-        String thirdPairValue = "/at 06/11/2019 /from 1430 /to 1930";
-        String fourthPairValue = "/at 06/11/2019 /from 1530 /to 2030";
-        String fifthPairValue = "/at 06/11/2019 /from 1630 /to 2130";
-
-        retrievedFreeTimesList.add(new Pair<>(firstPairKey, firstPairValue));
-        retrievedFreeTimesList.add(new Pair<>(secondPairKey, secondPairValue));
-        retrievedFreeTimesList.add(new Pair<>(thirdPairKey, thirdPairValue));
-        retrievedFreeTimesList.add(new Pair<>(fourthPairKey, fourthPairValue));
-        retrievedFreeTimesList.add(new Pair<>(fifthPairKey, fifthPairValue));
-    }
-    */
 
     @Before
     public void setRetrievedFreeTimesList() {
         String actual = "No error";
-        String validUserInputWithDuration = "find/ft 3 hours";
+        String validUserInputWithDuration = "find/time 3 hours";
         Command command = null;
         try {
             command = new FindFreeTimesParse(validUserInputWithDuration).parse();

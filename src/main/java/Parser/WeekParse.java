@@ -2,14 +2,13 @@ package Parser;
 
 import Commands.Command;
 import Commands.WeekCommand;
-import Commons.DukeLogger;
 import DukeExceptions.DukeInvalidFormatException;
 
-import java.util.logging.Logger;
-
 public class WeekParse extends Parse {
-    private static final Logger LOGGER = DukeLogger.getLogger(WeekParse.class);
     private String fullCommand;
+    private final String invalidInput = "Invalid Input the cannot be blank. Please enter the command as follows. \n" +
+            "show/week 'x' , where 'x' is a digit between 1 - 13 or \n" +
+            "'x' is either 'recess', 'reading', or 'exam'";
     private final String invalidWeek = "Invalid Week. Please enter the command as follows. \n" +
             "show/week 'x' , where 'x' is a digit between 1 - 13 or \n" +
             "'x' is either 'recess', 'reading', or 'exam'";
@@ -24,7 +23,11 @@ public class WeekParse extends Parse {
             fullCommand = getWeek(fullCommand);
             return new WeekCommand(fullCommand);
         }
-        else throw new DukeInvalidFormatException(invalidWeek);
+        fullCommand = fullCommand.replaceFirst("show/week", "");
+        if(fullCommand.trim().isEmpty()) {
+            throw new DukeInvalidFormatException(invalidInput);
+        }
+        throw new DukeInvalidFormatException(invalidWeek);
     }
 
     public static boolean isValid(String fullCommand) {
@@ -44,7 +47,6 @@ public class WeekParse extends Parse {
                 if(week >= 1 && week <= 13) return true;
                 else return false;
             } catch (NumberFormatException e) {
-                LOGGER.severe("Unable to parse string to integer");
                 return false;
             }
         }

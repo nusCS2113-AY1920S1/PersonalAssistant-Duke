@@ -17,9 +17,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  */
 public class RetrieveFreeTimesParseTest {
     private final String invalidInput = "Invalid input. Please enter the command as follows. \n" +
-            "retrieve/ft 'x', where 'x' is a digit between 1 - 5";
+            "retrieve/time 'x', where 'x' is a digit between 1 - 5";
     private final String invalidOption = "Invalid option. Please enter the command as follows. \n" +
-            "retrieve/ft 'x', where 'x' is a digit between 1 - 5";
+            "retrieve/time 'x', where 'x' is a digit between 1 - 5";
 
     private static String validUserInputWithOption;
 
@@ -33,14 +33,14 @@ public class RetrieveFreeTimesParseTest {
 
     @BeforeAll
     public static void setAllVariables() {
-        validUserInputWithOption = "retrieve/ft 5";
+        validUserInputWithOption = "retrieve/time 5";
 
-        userInputWithOptionZero = "retrieve/ft 0";
-        userInputWithOptionSix = "retrieve/ft 6";
-        userInputWithRandomStringOption = "retrieve/ft a0b1c2";
-        userInputWithOptionInDecimal = "retrieve/ft 1.1";
+        userInputWithOptionZero = "retrieve/time 0";
+        userInputWithOptionSix = "retrieve/time 6";
+        userInputWithRandomStringOption = "retrieve/time a0b1c2";
+        userInputWithOptionInDecimal = "retrieve/time 1.1";
 
-        userInputWithoutOption = "retrieve/ft ";
+        userInputWithoutOption = "retrieve/time ";
     }
 
     @Test

@@ -92,9 +92,9 @@ public class UserInteraction {
 
     public String showSelectionOptionEmptyList(){
         return "Please find free times by invoking the command shown below\n" +
-                "Find 'x' hours, where 'x' is a digit between 1 - 16\n" +
+                "find/time 'x' hours, where 'x' is a digit between 1 - 16\n" +
                 "Followed by the command\n" +
-                "retrieve/ft 'x', where 'x' is a digit between 1- 5";
+                "retrieve/time 'x', where 'x' is a digit between 1- 5";
     }
 
     public String showListOfReminder(ArrayList<String> remindList) {
