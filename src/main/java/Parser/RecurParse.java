@@ -14,7 +14,11 @@ import java.util.logging.Logger;
  * This class parses the full command that calls for RecurParse.
  */
 public class RecurParse extends Parse {
-
+    private static final int LENGTH_OF_BIWEEKLY = 9;
+    private static final int LENGTH_OF_RMBIWEEKLY = 11;
+    private static final int LENGTH_OF_RMWEEKLY = 9;
+    private static final int LENGTH_OF_WEEKLY = 7;
+    private static final int LENGTH_OF_RECUR = 5;
     private static String fullCommand;
     private static String[] modCodeAndDescriptionSplit;
     private final Logger LOGGER = DukeLogger.getLogger(RecurParse.class);
@@ -28,23 +32,23 @@ public class RecurParse extends Parse {
         try {
             boolean isBiweekly = false;
             boolean isRecur = false;
-            String activity = fullCommand.trim().substring(5);
+            String activity = fullCommand.trim().substring(LENGTH_OF_RECUR);
             String[] fullCommandSplit = activity.split("/start");
             String modCodeAndDescription = fullCommandSplit[0].trim();
             modCodeAndDescriptionSplit = modCodeAndDescription.trim().split(" ");
             String dateAndTime = fullCommandSplit[1].trim();
 
             if (modCodeAndDescription.contains("/biweekly")) {
-                modCodeAndDescription = modCodeAndDescription.substring(9).trim();
+                modCodeAndDescription = modCodeAndDescription.substring(LENGTH_OF_BIWEEKLY).trim();
                 isRecur = true;
                 isBiweekly = true;
             } else if (modCodeAndDescription.contains("/rmbiweekly")) {
-                modCodeAndDescription = modCodeAndDescription.substring(11).trim();
+                modCodeAndDescription = modCodeAndDescription.substring(LENGTH_OF_RMBIWEEKLY).trim();
                 isBiweekly = true;
             } else if (modCodeAndDescription.contains("/rmweekly")) {
-                modCodeAndDescription = modCodeAndDescription.substring(9).trim();
+                modCodeAndDescription = modCodeAndDescription.substring(LENGTH_OF_RMWEEKLY).trim();
             } else {
-                modCodeAndDescription = modCodeAndDescription.substring(7).trim();
+                modCodeAndDescription = modCodeAndDescription.substring(LENGTH_OF_WEEKLY).trim();
                 isRecur = true;
             }
 

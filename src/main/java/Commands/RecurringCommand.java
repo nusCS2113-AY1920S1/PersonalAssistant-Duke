@@ -23,6 +23,13 @@ public class RecurringCommand extends Command {
     private boolean isBiweekly;
     private boolean isRecur;
     private String startDateString;
+    private static final int HOURS = 24;
+    private static final int MINUTES = 60;
+    private static final int SECONDS = 60;
+    private static final int MILLISECONDS = 1000;
+    private static final int ONE_WEEK = 7;
+    private static final int TWO_WEEKS = 14;
+    ArrayList<String> eventConflict;
 
     /**
      * Creates RecurringCommand object.
@@ -50,7 +57,7 @@ public class RecurringCommand extends Command {
      * @return date of 7 days later
      */
     private Date getNextWeekDate(Date inDate) {
-        Date nextWeek = new Date(inDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+        Date nextWeek = new Date(inDate.getTime() + ONE_WEEK * HOURS * MINUTES * SECONDS * MILLISECONDS);
         return nextWeek;
     }
 
@@ -60,7 +67,7 @@ public class RecurringCommand extends Command {
      * @return date of 14 days later
      */
     private Date getFollowingWeekDate(Date inDate) {
-        Date followingWeek = new Date(inDate.getTime() + 14 * 24 * 60 * 60 * 1000);
+        Date followingWeek = new Date(inDate.getTime() + TWO_WEEKS * HOURS * MINUTES * SECONDS * MILLISECONDS);
         return followingWeek;
     }
 
@@ -80,7 +87,10 @@ public class RecurringCommand extends Command {
         if (isRecur && isBiweekly) {
             do {
                 Assignment task = new Event(description, startDateString, startTimeString, endTimeString);
-                isInsideMapAdd(eventMap, task);
+                eventConflict = super.checkEventConflict(events, task);
+                if (!eventConflict.isEmpty()) {
+                    break;
+                }
                 temp.add(task);
                 startOfFollowingWeek = getFollowingWeekDate(startDate);
                 startDateString = dateFormat.format(startOfFollowingWeek);
@@ -89,7 +99,10 @@ public class RecurringCommand extends Command {
         } else if (isRecur) {
             do {
                 Assignment task = new Event(description, startDateString, startTimeString, endTimeString);
-                isInsideMapAdd(eventMap, task);
+                eventConflict = super.checkEventConflict(events, task);
+                if (!eventConflict.isEmpty()) {
+                    break;
+                }
                 temp.add(task);
                 startOfNextWeek = getNextWeekDate(startDate);
                 startDateString = dateFormat.format(startOfNextWeek);
@@ -98,7 +111,7 @@ public class RecurringCommand extends Command {
         } else if (isBiweekly) {
             do {
                 Assignment task = new Event(description, startDateString, startTimeString, endTimeString);
-                isInsideMap(eventMap, task);
+                super.insideMapChecker(eventMap, task);
                 temp.add(task);
                 startOfFollowingWeek = getFollowingWeekDate(startDate);
                 startDateString = dateFormat.format(startOfFollowingWeek);
@@ -107,7 +120,7 @@ public class RecurringCommand extends Command {
         } else {
             do {
                 Assignment task = new Event(description, startDateString, startTimeString, endTimeString);
-                isInsideMap(eventMap, task);
+                super.insideMapChecker(eventMap, task);
                 temp.add(task);
                 startOfNextWeek = getNextWeekDate(startDate);
                 startDateString = dateFormat.format(startOfNextWeek);
@@ -115,16 +128,20 @@ public class RecurringCommand extends Command {
             } while (startOfNextWeek.before(endDate) || startOfNextWeek.equals(endDate));
         }
 
-        if (isRecur) {
-            for (Assignment taskInList : temp) {
-                events.addTask(taskInList);
-            }
-        } else {
-            for (Assignment taskInList : temp) {
-                events.removeTask(taskInList);
-            }
-        }
-        storage.updateEventList(events);
-        return ui.showRecurring(description, oldStartDateString, endDateString, isBiweekly, isRecur);
+       if (isRecur) {
+           if (eventConflict.isEmpty()) {
+               for (Assignment taskInList : temp) {
+                   events.addTask(taskInList);
+               }
+           } else {
+               return ui.showConflictRecurring(eventConflict);
+           }
+       } else {
+           for (Assignment taskInList : temp) {
+               events.removeTask(taskInList);
+           }
+       }
+       storage.updateEventList(events);
+       return ui.showRecurring(description, oldStartDateString, endDateString, isBiweekly, isRecur);
     }
 }

@@ -26,7 +26,7 @@ public abstract class Command {
      * @param task task to be taken action
      * @throws DukeException on wrong input
      */
-    public void isInsideMap(HashMap<String, HashMap<String, ArrayList<Assignment>>> map, Assignment task) throws DukeException {
+    public void insideMapChecker(HashMap<String, HashMap<String, ArrayList<Assignment>>> map, Assignment task) throws DukeException {
         String modCode = task.getModCode();
         String dateOfTask = task.getDate();
         if (!map.containsKey(modCode)) {
@@ -47,7 +47,7 @@ public abstract class Command {
         }
     }
 
-    public void isInsideMapAdd(HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap, Assignment task) throws DukeException {
+   /* public void addInsideMapChecker(HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap, Assignment task) throws DukeException {
         String modCode = task.getModCode();
         String dateOfTask = task.getDate();
         if (eventMap.containsKey(modCode) && eventMap.get(modCode).containsKey(dateOfTask)) {
@@ -55,10 +55,14 @@ public abstract class Command {
         } else {
             return;
         }
-    }
+    } */
 
-
-
+    /**
+     * This method checks whether there is a conflict in the adding of events based on module code and timing.
+     * @param taskList The TaskList object for events
+     * @param t The event task that is added
+     * @return ArrayList containing the assignment that has conflict
+     */
     public  ArrayList<String> checkEventConflict(TaskList taskList, Assignment t) throws ParseException {
         ArrayList<String> conflict = new ArrayList<>();
         Date startTime1 = new SimpleDateFormat("hh:mm a").parse(t.getStartTime());
@@ -94,8 +98,6 @@ public abstract class Command {
                 }
             }
         }
-
-
         return conflict;
     }
 
