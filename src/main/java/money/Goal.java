@@ -1,9 +1,7 @@
 package money;
 
 import controlpanel.DukeException;
-
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Goal extends Expenditure {
 
@@ -14,7 +12,6 @@ public class Goal extends Expenditure {
     }
 
     private Priority priority;
-
     //@@author therealnickcheong
 
     /**
@@ -54,7 +51,7 @@ public class Goal extends Expenditure {
 
     @Override
     public String toString() {
-        return "[GS]" + " " + super.getDescription() + "(target: $" + super.getPrice() + ")\n (to achieve by: "
+        return "[GS]" + " " + super.getDescription() + "(target: $" + super.getPriceStr() + ")\n (to achieve by: "
                 + getGoalBy() + ") " + getPriorityString();
     }
 
