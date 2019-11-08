@@ -44,7 +44,7 @@ public class RecurParseTest {
    @Test
     public void recurParseTestWIthInvalidDescription() {
         String recurSet = "recur/weekly CS2101 /start " + startDate + " /to " + endDate + " /from " + startTime + " /to " + endTime;
-        String expected = "\u2639" + "  OOPS!!! The description of a event cannot be empty";
+        String expected = "\u2639" + " OOPS!!! The description of an event cannot be empty.";
         String actual = "";
         Command command = null;
         try {
