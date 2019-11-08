@@ -1,0 +1,83 @@
+Bitwise operators are those strange looking operators that may look hard to understand... but not any more! This easy to follow article will help you understand what they are and how to use them, with a couple of practical examples as well to show you when and why you'd need them.
+-
+Bitwise operators are operators (just like +, *, &&, etc.) that operate on ints and uints at the binary level. This means they look directly at the binary digits or bits of an integer. This all sounds scary, but in truth bitwise operators are quite easy to use and also quite useful!
+
+It is important, though, that you have an understanding of binary numbers and hexadecimal numbers. While everyone knows binary is made up of 0s and 1s, it is important to understand that it is no different mathematically than any other base.
+-
+Let's take a look at the bitwise operators that AS3 supplies. Many other languages are quite similar (for example, JavaScript and Java have practically identical operators):
+
+& (bitwise AND)
+| (bitwise OR)
+~ (bitwise NOT)
+^ (bitwise XOR)
+<< (bitwise left shift)
+>> (bitwise right shift)
+>>> (bitwise unsigned right shift)
+&= (bitwise AND assignment)
+|= (bitwise OR assignment)
+^= (bitwise XOR assignment)
+<<= (bitwise left shift and assignment)
+>>= (bitwise right shift and assignment)
+>>>= (bitwise unsigned right shift and assignment)
+-
+There are a couple of things you should take from this: First, some bitwise operators look similar to operators you've used before (& vs. &&, | vs. ||). This is because they are somewhat similar.
+
+Second, most bitwise operators come with a compound assignment form of themselves. This is the same as how you can use + and +=, - and -=, etc.
+-
+The & operator compares each binary digit of two integers and returns a new integer, with a 1 wherever both numbers had a 1 and a 0 anywhere else.
+Notice how each binary digit of 37 and 23 are compared, and the result has a 1 wherever both 37 and 23 had a 1, and the result has a 0 otherwise.
+37 : 00100101
+23 : 00010111
+=5 : 00000101
+-
+A common way of thinking about binary digits is as true or false. That is, 1 is equivalent to true and 0 is equivalent to false. This makes the & operator make more sense.
+-
+When we compare two booleans, we normally do boolean1 && boolean2. That expression is only true if both boolean1 and boolean2 are true. In the same way, integer1 & integer2 is equivalent, as the & operator only outputs a 1 when both binary digits of our two integers are 1.
+-
+A neat little use of the & operator is to check whether a number is even or odd. For integers we can simply check the rightmost bit (also called the least significant bit) to determine if the integer is odd or even. This is because when converting to base 10, the rightmost bit represents pow(2, 0) or 1. When the rightmost bit is 1, we know that our number is odd since we're adding 1 to a bunch of powers of two which will always be even. When the rightmost bit is 0, we know our number will be even, since it simply consists of adding up a bunch of even numbers.
+-
+Up next is the bitwise OR operator, |. As you may have guessed, the | operator is to the || operator as the & operator is to the && operator. The | operator compares each binary digit across two integers and gives back a 1 if either of them are 1. Again, this is similar to the || operator with booleans.
+-
+37 : 00100101
+23 : 00010111
+=55: 00110111
+-
+We're back to the bitwise operators, and up next is the bitwise XOR operator. There is no equivalent boolean operator to this one.
+
+The ^ operator is similar to the & and | operators in that it takes an int or uint on both sides. When it is calculating the resulting number, it again compares the binary digits of these numbers. If one or the other is a 1, it will insert a 1 in to the result, otherwise it will insert a 0. This is where the name XOR, or "exclusive or" comes from.
+-
+37 : 00100101
+23 : 00010111
+=55: 00110010
+-
+We're now on the bitshift operators, specifically the bitwise left shift operator here.
+-
+These work a little differently than before. Instead of comparing two integers like &, |, and ^ did, these operators shift an integer. On the left side of the operator is the integer that is being shifted, and on the right is how much to shift by. So, for example, 37 << 3 is shifting the number 37 to the left by 3 places. Of course, we're working with the binary representation of 37.
+-
+Let's take a look at this example (remember, we're just going to pretend integers only have 8 bits instead of 32). Here we have the number 37 sitting on its nice block of memory 8 bits wide.
+
+00100101
+
+Alright, let's slide all the digits over to the left by 3, as 37 << 3 would do:
+
+00101
+
+But now we have a small problem - what do we do with the 3 open bits of memory where we moved the digits from?
+
+00101000
+-
+Of course! Any empty spots are just replaced with 0s. We end up with 00101000 . And that's all there is to the left bitshift. Keep in mind that Flash always thinks the result of a left bitshift is an int, not a uint. So if you need a uint for some reason, you'll have to cast it to a uint like this: uint(37 << 3). This casting doesn't actually change any of the binary information, just how Flash interprets it (the whole two's complement thing).
+-
+An interesting feature of the left bitshift is that it is the same as multiplying a number by two to the shiftAmount-th power. So, 37 << 3 == 37 * Math.pow(2,3) == 37 * 8. If you can use the left shift instead of Math.pow, you'll see a huge performance increase.
+-
+Now that we understand the left bitshift, the next one, the right bitshift, will be easy. Everything slides to the right the amount we specify. The only slight difference is what the empty bits get filled with.
+-
+If we're starting with a negative number (a binary number where the leftmost bit is a 1), all the empty spaces are filled with a 1. If we're starting with a positive number (where the leftmost bit, or most significant bit, is a 0), then all the empty spaces are filled with a 0. Again, this all goes back to two's complement.
+-
+While this sounds complicated, it basically just preserves the sign of the number we start with. So -8 >> 2 == -2 while 8 >> 2 == 2. I'd recommend trying those out on paper yourself.
+-
+Since >> is the opposite of <<, it's not surprising that shifting a number to the right is the same as dividing it by 2 to the power of shiftAmount. You may have noticed this from the example above. Again, if you can use this to avoid calling Math.pow, you'll get a significant performance boost.
+-
+[End of lecture]
+* Type 'quiz x' where x is a chapter to practise what you learnt.
+* Type 'menu' to see other commands.

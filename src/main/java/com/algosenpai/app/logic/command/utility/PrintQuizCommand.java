@@ -1,4 +1,4 @@
-package com.algosenpai.app.logic.command;
+package com.algosenpai.app.logic.command.utility;
 
 import com.algosenpai.app.logic.models.QuestionModel;
 import com.itextpdf.text.DocumentException;
@@ -6,12 +6,12 @@ import com.itextpdf.text.DocumentException;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-public class PrintArchiveCommand extends PrintCommand {
+public class PrintQuizCommand extends PrintCommand {
 
     /**
      * List of questions and answers.
      */
-    private ArrayList<QuestionModel> archiveList;
+    private ArrayList<QuestionModel> quizList;
 
     /**
      * Paragraphs to write to pdf.
@@ -19,13 +19,13 @@ public class PrintArchiveCommand extends PrintCommand {
     private ArrayList<String> paragraphs;
 
     /**
-     * Initializes command to print archive.
+     * Initializes command to print quiz.
      * @param inputs user inputs.
-     * @param archiveList list of questions to write to pdf.
+     * @param quizList list of questions to write to pdf.
      */
-    public PrintArchiveCommand(ArrayList<String> inputs, ArrayList<QuestionModel> archiveList) {
+    public PrintQuizCommand(ArrayList<String> inputs, ArrayList<QuestionModel> quizList) {
         super(inputs);
-        this.archiveList = archiveList;
+        this.quizList = quizList;
         this.paragraphs = new ArrayList<>();
         this.prepareQuiz();
     }
@@ -35,7 +35,7 @@ public class PrintArchiveCommand extends PrintCommand {
      */
     private void prepareQuiz() {
         int questionCount = 1;
-        for (QuestionModel question: archiveList) {
+        for (QuestionModel question: quizList) {
             paragraphs.add("Q" + questionCount++ + ")");
             paragraphs.add(question.getQuestion());
             paragraphs.add(question.getUserAnswer());
@@ -46,7 +46,7 @@ public class PrintArchiveCommand extends PrintCommand {
 
     /**
      * Writes quiz to pdf and returns status message.
-     * @return status message
+     * @return status message.
      */
     @Override
     public String execute() {
@@ -58,9 +58,9 @@ public class PrintArchiveCommand extends PrintCommand {
         }
         try {
             pdfWriter.saveToPdf(paragraphs, inputs.get(2));
-            return "Successfully write archive to pdf";
+            return "Successfully write quiz to pdf";
         } catch (DocumentException | FileNotFoundException e) {
-            return "Error writing archive to file";
+            return "Error writing quiz to file";
         }
     }
 }

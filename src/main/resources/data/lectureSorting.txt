@@ -1,0 +1,618 @@
+Sorting is a very classic problem of reordering items (that can be compared, e.g. integers, floating-point numbers, strings, etc) of an array (or a list) in a certain order (increasing, non-decreasing, decreasing, non-increasing, lexicographical, etc).
+-
+Sorting problem has a variety of interesting algorithmic solutions that embody many Computer Science ideas:
+
+Comparison versus non-comparison based strategies,
+Iterative versus Recursive implementation,
+Divide-and-Conquer paradigm (this or that),
+Best/Worst/Average-case Time Complexity analysis,
+Randomized Algorithms, etc.
+-
+When an (integer) array A is sorted, many problems involving A become easy (or easier):
+
+Searching for a specific value v in array A,
+Finding the min/max or the k-th smallest/largest value in (static) array A,
+Testing for uniqueness and deleting duplicates in array A,
+Counting how many time a specific value v appear in array A,
+Set intersection/union between array A and another sorted array B,
+-
+The first algorithm we can look at is Bubble Sort.
+Bubble Sort is the simplest sorting algorithm that works by repeatedly swapping the adjacent elements if they are in wrong order.
+Example:
+First Pass:
+( 5 1 4 2 8 ) -> ( 1 5 4 2 8 ), Here, algorithm compares the first two elements, and swaps since 5 > 1.
+( 1 5 4 2 8 ) ->  ( 1 4 5 2 8 ), Swap since 5 > 4
+( 1 4 5 2 8 ) ->  ( 1 4 2 5 8 ), Swap since 5 > 2
+( 1 4 2 5 8 ) -> ( 1 4 2 5 8 ), Now, since these elements are already in order (8 > 5), algorithm does not swap them.
+-
+Second Pass:
+( 1 4 2 5 8 ) -> ( 1 4 2 5 8 )
+( 1 4 2 5 8 ) -> ( 1 2 4 5 8 ), Swap since 4 > 2
+( 1 2 4 5 8 ) -> ( 1 2 4 5 8 )
+( 1 2 4 5 8 ) ->  ( 1 2 4 5 8 )
+Now, the array is already sorted, but our algorithm does not know if it is completed. The algorithm needs one whole pass without any swap to know it is sorted.
+-
+Third Pass:
+( 1 2 4 5 8 ) -> ( 1 2 4 5 8 )
+( 1 2 4 5 8 ) -> ( 1 2 4 5 8 )
+( 1 2 4 5 8 ) -> ( 1 2 4 5 8 )
+( 1 2 4 5 8 ) -> ( 1 2 4 5 8 )
+Now the program terminates and the final array is ( 1 2 4 5 8 ).
+-
+Here is the code for Bubble Sort in C++.
+using namespace std; 
+  
+void swap(int *xp, int *yp)  
+{  
+    int temp = *xp;  
+    *xp = *yp;  
+    *yp = temp;  
+}  
+  
+// A function to implement bubble sort  
+void bubbleSort(int arr[], int n)  
+{  
+    int i, j;  
+    for (i = 0; i < n-1; i++)      
+      
+    // Last i elements are already in place  
+    for (j = 0; j < n-i-1; j++)  
+        if (arr[j] > arr[j+1])  
+            swap(&arr[j], &arr[j+1]);  
+}  
+  
+/* Function to print an array */
+void printArray(int arr[], int size)  
+{  
+    int i;  
+    for (i = 0; i < size; i++)  
+        cout << arr[i] << " ";  
+    cout << endl;  
+}  
+  
+// Driver code  
+int main()  
+{  
+    int arr[] = {64, 34, 25, 12, 22, 11, 90};  
+    int n = sizeof(arr)/sizeof(arr[0]);  
+    bubbleSort(arr, n);  
+    cout<<"Sorted array: \n";  
+    printArray(arr, n);  
+    return 0;  
+}  
+  
+// This code is contributed by rathbhupendra 
+-
+Worst and Average Case Time Complexity: O(n*n). Worst case occurs when array is reverse sorted.
+
+Best Case Time Complexity: O(n). Best case occurs when array is already sorted.
+
+Auxiliary Space: O(1)
+
+Boundary Cases: Bubble sort takes minimum time (Order of n) when elements are already sorted.
+
+Sorting In Place: Yes
+
+Stable: Yes
+-
+Due to its simplicity, bubble sort is often used to introduce the concept of a sorting algorithm.
+In computer graphics it is popular for its capability to detect a very small error (like swap of just two elements) in almost-sorted arrays and fix it with just linear complexity (2n). For example, it is used in a polygon filling algorithm, where bounding lines are sorted by their x coordinate at a specific scan line (a line parallel to x axis) and with incrementing y their order changes (two elements are swapped) only at intersections of two lines (Source: Wikipedia)
+-
+The next algorithm we can look at is Selection Sort.
+The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.
+
+1) The subarray which is already sorted.
+2) Remaining subarray which is unsorted.
+
+In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted subarray.
+-
+Following example explains the above steps:
+
+arr[] = 64 25 12 22 11
+
+// Find the minimum element in arr[0...4]
+// and place it at beginning
+11 25 12 22 64
+
+// Find the minimum element in arr[1...4]
+// and place it at beginning of arr[1...4]
+11 12 25 22 64
+
+// Find the minimum element in arr[2...4]
+// and place it at beginning of arr[2...4]
+11 12 22 25 64
+
+// Find the minimum element in arr[3...4]
+// and place it at beginning of arr[3...4]
+11 12 22 25 64
+-
+// C++ program for implementation of selection sort
+#include <bits/stdc++.h>
+using namespace std;
+
+void swap(int *xp, int *yp)
+{
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
+
+void selectionSort(int arr[], int n)
+{
+    int i, j, min_idx;
+
+    // One by one move boundary of unsorted subarray
+    for (i = 0; i < n-1; i++)
+    {
+        // Find the minimum element in unsorted array
+        min_idx = i;
+        for (j = i+1; j < n; j++)
+        if (arr[j] < arr[min_idx])
+            min_idx = j;
+
+        // Swap the found minimum element with the first element
+        swap(&arr[min_idx], &arr[i]);
+    }
+}
+
+/* Function to print an array */
+void printArray(int arr[], int size)
+{
+    int i;
+    for (i=0; i < size; i++)
+        cout << arr[i] << " ";
+    cout << endl;
+}
+
+// Driver program to test above functions
+int main()
+{
+    int arr[] = {64, 25, 12, 22, 11};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    selectionSort(arr, n);
+    cout << "Sorted array: \n";
+    printArray(arr, n);
+    return 0;
+}
+
+// This is code is contributed by rathbhupendra
+-
+Time Complexity: O(n2) as there are two nested loops.
+
+Auxiliary Space: O(1)
+The good thing about selection sort is it never makes more than O(n) swaps and can be useful when memory write is a costly operation.
+
+Exercise :
+Sort an array of strings using Selection Sort
+
+Stability : The default implementation is not stable. However it can be made stable. Please see stable selection sort for details.
+
+In Place : Yes, it does not require extra space.
+-
+The next algorithm is Insertion Sort.
+Insertion sort is a simple sorting algorithm that works the way we sort playing cards in our hands.
+Algorithm
+// Sort an arr[] of size n
+insertionSort(arr, n)
+Loop from i = 1 to n-1.
+......a) Pick element arr[i] and insert it into sorted sequence arr[0...i-1]
+-
+Another Example:
+12, 11, 13, 5, 6
+
+Let us loop for i = 1 (second element of the array) to 4 (last element of the array)
+
+i = 1. Since 11 is smaller than 12, move 12 and insert 11 before 12
+11, 12, 13, 5, 6
+
+i = 2. 13 will remain at its position as all elements in A[0..I-1] are smaller than 13
+11, 12, 13, 5, 6
+
+i = 3. 5 will move to the beginning and all other elements from 11 to 13 will move one position ahead of their current position.
+5, 11, 12, 13, 6
+
+i = 4. 6 will move to position after 5, and elements from 11 to 13 will move one position ahead of their current position.
+5, 6, 11, 12, 13
+
+-
+// C++ program for insertion sort
+#include <bits/stdc++.h>
+using namespace std;
+
+/* Function to sort an array using insertion sort*/
+void insertionSort(int arr[], int n)
+{
+    int i, key, j;
+    for (i = 1; i < n; i++)
+    {
+        key = arr[i];
+        j = i - 1;
+
+        /* Move elements of arr[0..i-1], that are
+        greater than key, to one position ahead
+        of their current position */
+        while (j >= 0 && arr[j] > key)
+        {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
+
+// A utility function to print an array of size n
+void printArray(int arr[], int n)
+{
+    int i;
+    for (i = 0; i < n; i++)
+        cout << arr[i] << " ";
+    cout << endl;
+}
+
+/* Driver code */
+int main()
+{
+    int arr[] = { 12, 11, 13, 5, 6 };
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    insertionSort(arr, n);
+    printArray(arr, n);
+
+    return 0;
+}
+
+// This is code is contributed by rathbhupendra
+-
+Time Complexity: O(n*2)
+
+Auxiliary Space: O(1)
+
+Boundary Cases: Insertion sort takes maximum time to sort if elements are sorted in reverse order. And it takes minimum time (Order of n) when elements are already sorted.
+
+Algorithmic Paradigm: Incremental Approach
+
+Sorting In Place: Yes
+
+Stable: Yes
+
+Online: Yes
+
+Uses: Insertion sort is used when number of elements is small. It can also be useful when input array is almost sorted, only few elements are misplaced in complete big array.
+-
+The next algorithm we can look at is Merge Sort.
+Like QuickSort, Merge Sort is a Divide and Conquer algorithm. It divides input array in two halves, calls itself for the two halves and then merges the two sorted halves. The merge() function is used for merging two halves. The merge(arr, l, m, r) is key process that assumes that arr[l..m] and arr[m+1..r] are sorted and merges the two sorted sub-arrays into one. See following C implementation for details.
+-
+MergeSort(arr[], l,  r)
+If r > l
+     1. Find the middle point to divide the array into two halves:
+             middle m = (l+r)/2
+     2. Call mergeSort for first half:
+             Call mergeSort(arr, l, m)
+     3. Call mergeSort for second half:
+             Call mergeSort(arr, m+1, r)
+     4. Merge the two halves sorted in step 2 and 3:
+             Call merge(arr, l, m, r)
+-
+/* C program for Merge Sort */
+#include<stdlib.h>
+#include<stdio.h>
+
+// Merges two subarrays of arr[].
+// First subarray is arr[l..m]
+// Second subarray is arr[m+1..r]
+void merge(int arr[], int l, int m, int r)
+{
+	int i, j, k;
+	int n1 = m - l + 1;
+	int n2 = r - m;
+
+	/* create temp arrays */
+	int L[n1], R[n2];
+
+	/* Copy data to temp arrays L[] and R[] */
+	for (i = 0; i < n1; i++)
+		L[i] = arr[l + i];
+	for (j = 0; j < n2; j++)
+		R[j] = arr[m + 1+ j];
+
+	/* Merge the temp arrays back into arr[l..r]*/
+	i = 0; // Initial index of first subarray
+	j = 0; // Initial index of second subarray
+	k = l; // Initial index of merged subarray
+	while (i < n1 && j < n2)
+	{
+		if (L[i] <= R[j])
+		{
+			arr[k] = L[i];
+			i++;
+		}
+		else
+		{
+			arr[k] = R[j];
+			j++;
+		}
+		k++;
+	}
+
+	/* Copy the remaining elements of L[], if there
+	are any */
+	while (i < n1)
+	{
+		arr[k] = L[i];
+		i++;
+		k++;
+	}
+
+	/* Copy the remaining elements of R[], if there
+	are any */
+	while (j < n2)
+	{
+		arr[k] = R[j];
+		j++;
+		k++;
+	}
+}
+
+/* l is for left index and r is right index of the
+sub-array of arr to be sorted */
+void mergeSort(int arr[], int l, int r)
+{
+	if (l < r)
+	{
+		// Same as (l+r)/2, but avoids overflow for
+		// large l and h
+		int m = l+(r-l)/2;
+
+		// Sort first and second halves
+		mergeSort(arr, l, m);
+		mergeSort(arr, m+1, r);
+
+		merge(arr, l, m, r);
+	}
+}
+
+/* UTILITY FUNCTIONS */
+/* Function to print an array */
+void printArray(int A[], int size)
+{
+	int i;
+	for (i=0; i < size; i++)
+		printf("%d ", A[i]);
+	printf("\n");
+}
+
+/* Driver program to test above functions */
+int main()
+{
+	int arr[] = {12, 11, 13, 5, 6, 7};
+	int arr_size = sizeof(arr)/sizeof(arr[0]);
+
+	printf("Given array is \n");
+	printArray(arr, arr_size);
+
+	mergeSort(arr, 0, arr_size - 1);
+
+	printf("\nSorted array is \n");
+	printArray(arr, arr_size);
+	return 0;
+}
+-
+Time Complexity: Sorting arrays on different machines. Merge Sort is a recursive algorithm and time complexity can be expressed as following recurrence relation.
+T(n) = 2T(n/2) + \Theta(n)
+The above recurrence can be solved either using Recurrence Tree method or Master method. It falls in case II of Master Method and solution of the recurrence is \Theta(nLogn).
+Time complexity of Merge Sort is \Theta(nLogn) in all 3 cases (worst, average and best) as merge sort always divides the array into two halves and take linear time to merge two halves.
+
+Auxiliary Space: O(n)
+
+Algorithmic Paradigm: Divide and Conquer
+
+Sorting In Place: No in a typical implementation
+
+Stable: Yes
+-
+Applications of Merge Sort
+
+Merge Sort is useful for sorting linked lists in O(nLogn) time.In the case of linked lists, the case is different mainly due to the difference in memory allocation of arrays and linked lists. Unlike arrays, linked list nodes may not be adjacent in memory. Unlike an array, in the linked list, we can insert items in the middle in O(1) extra space and O(1) time. Therefore merge operation of merge sort can be implemented without extra space for linked lists.
+In arrays, we can do random access as elements are contiguous in memory. Let us say we have an integer (4-byte) array A and let the address of A[0] be x then to access A[i], we can directly access the memory at (x + i*4). Unlike arrays, we can not do random access in the linked list. Quick Sort requires a lot of this kind of access. In linked list to access i’th index, we have to travel each and every node from the head to i’th node as we don’t have a continuous block of memory. Therefore, the overhead increases for quicksort. Merge sort accesses data sequentially and the need of random access is low.
+
+Inversion Count Problem
+Used in External Sorting
+-
+The last algorithm discussed here is Quick Sort.
+Like Merge Sort, QuickSort is a Divide and Conquer algorithm. It picks an element as pivot and partitions the given array around the picked pivot. There are many different versions of quickSort that pick pivot in different ways.
+
+Always pick first element as pivot.
+Always pick last element as pivot (implemented below)
+Pick a random element as pivot.
+Pick median as pivot.
+The key process in quickSort is partition(). Target of partitions is, given an array and an element x of array as pivot, put x at its correct position in sorted array and put all smaller elements (smaller than x) before x, and put all greater elements (greater than x) after x. All this should be done in linear time.
+-
+Pseudo Code for recursive QuickSort function :
+
+/* low  --> Starting index,  high  --> Ending index */
+quickSort(arr[], low, high)
+{
+    if (low < high)
+    {
+        /* pi is partitioning index, arr[pi] is now
+           at right place */
+        pi = partition(arr, low, high);
+
+        quickSort(arr, low, pi - 1);  // Before pi
+        quickSort(arr, pi + 1, high); // After pi
+    }
+}
+-
+Partition Algorithm
+There can be many ways to do partition, following pseudo code adopts the method given in CLRS book. The logic is simple, we start from the leftmost element and keep track of index of smaller (or equal to) elements as i. While traversing, if we find a smaller element, we swap current element with arr[i]. Otherwise we ignore current element.
+-
+/* low  --> Starting index,  high  --> Ending index */
+quickSort(arr[], low, high)
+{
+    if (low < high)
+    {
+        /* pi is partitioning index, arr[pi] is now
+           at right place */
+        pi = partition(arr, low, high);
+
+        quickSort(arr, low, pi - 1);  // Before pi
+        quickSort(arr, pi + 1, high); // After pi
+    }
+}
+-
+/* This function takes last element as pivot, places
+   the pivot element at its correct position in sorted
+    array, and places all smaller (smaller than pivot)
+   to left of pivot and all greater elements to right
+   of pivot */
+partition (arr[], low, high)
+{
+    // pivot (Element to be placed at right position)
+    pivot = arr[high];
+
+    i = (low - 1)  // Index of smaller element
+
+    for (j = low; j <= high- 1; j++)
+    {
+        // If current element is smaller than the pivot
+        if (arr[j] < pivot)
+        {
+            i++;    // increment index of smaller element
+            swap arr[i] and arr[j]
+        }
+    }
+    swap arr[i + 1] and arr[high])
+    return (i + 1)
+}
+-
+arr[] = {10, 80, 30, 90, 40, 50, 70}
+Indexes:  0   1   2   3   4   5   6
+
+low = 0, high =  6, pivot = arr[h] = 70
+Initialize index of smaller element, i = -1
+
+Traverse elements from j = low to high-1
+j = 0 : Since arr[j] <= pivot, do i++ and swap(arr[i], arr[j])
+i = 0
+arr[] = {10, 80, 30, 90, 40, 50, 70} // No change as i and j
+                                     // are same
+
+j = 1 : Since arr[j] > pivot, do nothing
+// No change in i and arr[]
+
+j = 2 : Since arr[j] <= pivot, do i++ and swap(arr[i], arr[j])
+i = 1
+arr[] = {10, 30, 80, 90, 40, 50, 70} // We swap 80 and 30
+
+j = 3 : Since arr[j] > pivot, do nothing
+// No change in i and arr[]
+
+j = 4 : Since arr[j] <= pivot, do i++ and swap(arr[i], arr[j])
+i = 2
+arr[] = {10, 30, 40, 90, 80, 50, 70} // 80 and 40 Swapped
+j = 5 : Since arr[j] <= pivot, do i++ and swap arr[i] with arr[j]
+i = 3
+arr[] = {10, 30, 40, 50, 80, 90, 70} // 90 and 50 Swapped
+
+We come out of loop because j is now equal to high-1.
+Finally we place pivot at correct position by swapping
+arr[i+1] and arr[high] (or pivot)
+arr[] = {10, 30, 40, 50, 70, 90, 80} // 80 and 70 Swapped
+
+Now 70 is at its correct place. All elements smaller than
+70 are before it and all elements greater than 70 are after
+it.
+-
+/* C++ implementation of QuickSort */
+#include <bits/stdc++.h>
+using namespace std;
+
+// A utility function to swap two elements
+void swap(int* a, int* b)
+{
+	int t = *a;
+	*a = *b;
+	*b = t;
+}
+
+/* This function takes last element as pivot, places
+the pivot element at its correct position in sorted
+array, and places all smaller (smaller than pivot)
+to left of pivot and all greater elements to right
+of pivot */
+int partition (int arr[], int low, int high)
+{
+	int pivot = arr[high]; // pivot
+	int i = (low - 1); // Index of smaller element
+
+	for (int j = low; j <= high - 1; j++)
+	{
+		// If current element is smaller than the pivot
+		if (arr[j] < pivot)
+		{
+			i++; // increment index of smaller element
+			swap(&arr[i], &arr[j]);
+		}
+	}
+	swap(&arr[i + 1], &arr[high]);
+	return (i + 1);
+}
+
+/* The main function that implements QuickSort
+arr[] --> Array to be sorted,
+low --> Starting index,
+high --> Ending index */
+void quickSort(int arr[], int low, int high)
+{
+	if (low < high)
+	{
+		/* pi is partitioning index, arr[p] is now
+		at right place */
+		int pi = partition(arr, low, high);
+
+		// Separately sort elements before
+		// partition and after partition
+		quickSort(arr, low, pi - 1);
+		quickSort(arr, pi + 1, high);
+	}
+}
+
+/* Function to print an array */
+void printArray(int arr[], int size)
+{
+	int i;
+	for (i = 0; i < size; i++)
+		cout << arr[i] << " ";
+	cout << endl;
+}
+
+// Driver Code
+int main()
+{
+	int arr[] = {10, 7, 8, 9, 1, 5};
+	int n = sizeof(arr) / sizeof(arr[0]);
+	quickSort(arr, 0, n - 1);
+	cout << "Sorted array: \n";
+	printArray(arr, n);
+	return 0;
+}
+
+// This code is contributed by rathbhupendra
+-
+Analysis of QuickSort
+Time taken by QuickSort in general can be written as following.
+
+ T(n) = T(k) + T(n-k-1) + \theta(n)
+The first two terms are for two recursive calls, the last term is for the partition process. k is the number of elements which are smaller than pivot.
+The time taken by QuickSort depends upon the input array and partition strategy. Following are three cases.
+-
+Worst Case: The worst case occurs when the partition process always picks greatest or smallest element as pivot. If we consider above partition strategy where last element is always picked as pivot, the worst case would occur when the array is already sorted in increasing or decreasing order. Following is recurrence for worst case.
+
+ T(n) = T(0) + T(n-1) + \theta(n)
+which is equivalent to
+ T(n) = T(n-1) + \theta(n)
+The solution of above recurrence is \theta(n2).
+-
+[End of lecture]
+* Type 'quiz x' where x is a chapter to practise what you learnt.
+* Type 'menu' to see other commands.

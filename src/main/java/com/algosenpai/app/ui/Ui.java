@@ -1,11 +1,11 @@
 package com.algosenpai.app.ui;
 
 import com.algosenpai.app.logic.Logic;
-import com.algosenpai.app.logic.command.ByeCommand;
-import com.algosenpai.app.logic.command.ClearCommand;
+import com.algosenpai.app.logic.command.critical.ByeCommand;
+import com.algosenpai.app.logic.command.utility.ClearCommand;
 import com.algosenpai.app.logic.command.Command;
-import com.algosenpai.app.logic.command.SetupCommand;
-import com.algosenpai.app.logic.command.UndoCommand;
+import com.algosenpai.app.logic.command.utility.SetupCommand;
+import com.algosenpai.app.logic.command.utility.UndoCommand;
 import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.logic.parser.Parser;
 import com.algosenpai.app.ui.controller.AnimationTimerController;
@@ -29,7 +29,6 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Set;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -71,11 +70,6 @@ public class Ui extends AnchorPane {
     // Once keyPressed is true, subsequent keypress events are ignored.
     private boolean keyPressed = false;
 
-    private static final String GREETING_MESSAGE = "Welcome to AlgoSenpai Adventures!"
-                                                   + " Type 'hello' followed by your name and gender"
-                                                   + " (boy/girl) to start!\n \n"
-                                                   + "If you have been here before,"
-                                                   + " type 'hello' to load your previous user data!";
     private static final String BOY_PROFILE_PICTURE_PATH = "/images/boychar.jpg";
     private static final String GIRL_PROFILE_PICTURE_PATH = "/images/girlchar.jpg";
     private static final String DEFAULT_PROFILE_PICTURE_PATH = "/images/unknown.png";
@@ -153,23 +147,28 @@ public class Ui extends AnchorPane {
             printToGui(input, response, userImage, senpaiImage);
             exit();
         } else if (commandGenerated instanceof SetupCommand) {
-            setPlayerGender(SetupCommand.getGender());
-            userLevel = SetupCommand.getLevel();
-            maxuserExp = 8 << (userLevel - 1);
-            userExp = SetupCommand.getExpLevel();
-            System.out.println(userLevel);
-            System.out.println(maxuserExp);
-            updateLevelProgress(0);
-            playerName.setText("Username : " + SetupCommand.getUserName());
+            setupPlayer();
             printToGui(input, response, userImage, senpaiImage);
         } else if (response.startsWith("You got ")) {
-            String[] resp = response.split(" ");
-            int expGain = Integer.parseInt(resp[7]);
+            int expGain = Integer.parseInt(response.split(" ")[7]);
             updateLevelProgress(expGain);
             printToGui(input, response, userImage, senpaiImage);
         } else {
             printToGui(input, response, userImage, senpaiImage);
         }
+    }
+
+    /**
+     * Sets up the user's information such as gender, level, exp.
+     * Updates the level on the UI, as well as the username.
+     */
+    private void setupPlayer() {
+        setPlayerGender(SetupCommand.getGender());
+        userLevel = SetupCommand.getLevel();
+        maxuserExp = 8 << (userLevel - 1);
+        userExp = SetupCommand.getExpLevel();
+        updateLevelProgress(0);
+        playerName.setText("Username : " + SetupCommand.getUserName());
     }
 
     /**

@@ -1,11 +1,14 @@
 
-package com.algosenpai.app.logic.command;
+package com.algosenpai.app.logic.command.utility;
+
+import com.algosenpai.app.logic.command.Command;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ResultCommand extends Command {
 
-    private int results;
+    private AtomicInteger results;
 
     /**
      * Create new command.
@@ -16,16 +19,16 @@ public class ResultCommand extends Command {
     }
 
 
-    public ResultCommand(ArrayList<String> inputs, int results) {
+    public ResultCommand(ArrayList<String> inputs, AtomicInteger results) {
         this(inputs);
         this.results = results;
     }
 
     @Override
     public String execute() {
-        if (results == -1) {
+        if (results.get() == -1) {
             return "You have not attempted any quiz yet.";
         }
-        return "You got " + results + "/10 questions correct for the last attempt.";
+        return "You had " + results + "/10 questions correct for the last attempt.";
     }
 }

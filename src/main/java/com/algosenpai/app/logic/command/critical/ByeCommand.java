@@ -1,6 +1,8 @@
 //@@author carrieng0323852
 
-package com.algosenpai.app.logic.command;
+package com.algosenpai.app.logic.command.critical;
+
+import com.algosenpai.app.logic.command.Command;
 
 import java.util.ArrayList;
 

@@ -4,7 +4,6 @@ import com.algosenpai.app.logic.chapters.chapter1.ChapterSorting;
 import com.algosenpai.app.logic.chapters.chapter2.ChapterLinkedList;
 import com.algosenpai.app.logic.chapters.chapter3.ChapterBitmask;
 import com.algosenpai.app.logic.models.QuestionModel;
-import com.itextpdf.text.Chapter;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -14,12 +13,11 @@ public class QuizGenerator {
     /**
      * Generates the quiz according to the chapters specified by the user.
      * By default, all the chapters will be selected.
-     * @param questionList the ArrayList of Questions to be filled.
      * @return the ArrayList with all the questions generated
      */
 
-    public ArrayList<QuestionModel> generateQuiz(int selectedChapters, ArrayList<QuestionModel> questionList) {
-        questionList = new ArrayList<>();
+    public ArrayList<QuestionModel> generateQuiz(int selectedChapters) {
+        ArrayList<QuestionModel> questionList = new ArrayList<>();
         ChapterSorting chapterSorting = new ChapterSorting();
         ChapterLinkedList chapterLinkedList = new ChapterLinkedList();
         ChapterBitmask chapterBitmask = new ChapterBitmask();

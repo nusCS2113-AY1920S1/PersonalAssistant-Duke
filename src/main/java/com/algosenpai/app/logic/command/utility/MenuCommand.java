@@ -1,8 +1,9 @@
 //@@author carrieng0323852
 
-package com.algosenpai.app.logic.command;
+package com.algosenpai.app.logic.command.utility;
 
 import com.algosenpai.app.exceptions.MenuExceptions;
+import com.algosenpai.app.logic.command.Command;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,6 @@ public class MenuCommand extends Command {
                     + "chapters\n"
                     + "help\n"
                     + "quiz\n"
-                    + "select\n"
                     + "result\n"
                     + "history\n"
                     + "undo\n"
@@ -45,11 +45,8 @@ public class MenuCommand extends Command {
                 case "help":
                     return "`help <chapter>` to view the list of problems on kattis "
                             + "that you may wish to solve for the corresponding chapter";
-                case "select":
-                    return "`select <chapter>` to attempt a quiz on that chapter";
                 case "quiz":
-                    return "`quiz` to start quiz || next | back | end | <input your answer> "
-                            + "when you are attempting a quiz";
+                    return "`quiz` to pick a chapter. Type `start` to begin the quiz. ";
                 case "result":
                     return "`result` to view your results of the past quizzes you've attempted before";
                 case "history":

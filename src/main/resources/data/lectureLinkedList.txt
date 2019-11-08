@@ -1,0 +1,165 @@
+Like arrays, Linked List is a linear data structure. Unlike arrays, linked list elements are not stored at a contiguous location; the elements are linked using pointers.
+-
+Why Linked List?
+Arrays can be used to store linear data of similar types, but arrays have the following limitations.
+1) The size of the arrays is fixed: So we must know the upper limit on the number of elements in advance. Also, generally, the allocated memory is equal to the upper limit irrespective of the usage.
+2) Inserting a new element in an array of elements is expensive because the room has to be created for the new elements and to create room existing elements have to be shifted.
+-
+For example, in a system, if we maintain a sorted list of IDs in an array id[].
+
+id[] = [1000, 1010, 1050, 2000, 2040].
+
+And if we want to insert a new ID 1005, then to maintain the sorted order, we have to move all the elements after 1000 (excluding 1000).
+Deletion is also expensive with arrays until unless some special techniques are used. For example, to delete 1010 in id[], everything after 1010 has to be moved.
+-
+Advantages over arrays
+1) Dynamic size
+2) Ease of insertion/deletion
+
+Drawbacks:
+1) Random access is not allowed. We have to access elements sequentially starting from the first node. So we cannot do binary search with linked lists efficiently with its default implementation. Read about it here.
+2) Extra memory space for a pointer is required with each element of the list.
+3) Not cache friendly. Since array elements are contiguous locations, there is locality of reference which is not there in case of linked lists.
+-
+Representation:
+A linked list is represented by a pointer to the first node of the linked list. The first node is called the head. If the linked list is empty, then the value of the head is NULL.
+Each node in a list consists of at least two parts:
+1) data
+2) Pointer (Or Reference) to the next node
+In C, we can represent a node using structures. Below is an example of a linked list node with integer data.
+In Java or C#, LinkedList can be represented as a class and a Node as a separate class. The LinkedList class contains a reference of Node class type.
+-
+class Node {
+public:
+	int data;
+	Node* next;
+};
+-
+In this post, methods to insert a new node in linked list are discussed. A node can be added in three ways
+1) At the front of the linked list
+2) After a given node.
+3) At the end of the linked list.
+-
+Add a node at the front: (A 4 steps process)
+The new node is always added before the head of the given Linked List. And newly added node becomes the new head of the Linked List. For example if the given Linked List is 10->15->20->25 and we add an item 5 at the front, then the Linked List becomes 5->10->15->20->25. Let us call the function that adds at the front of the list is push(). The push() must receive a pointer to the head pointer, because push must change the head pointer to point to the new node
+-
+/* Given a node prev_node, insert a new node after the given
+prev_node */
+void insertAfter(struct Node* prev_node, int new_data)
+{
+	/*1. check if the given prev_node is NULL */
+	if (prev_node == NULL)
+	{
+	printf("the given previous node cannot be NULL");
+	return;
+	}
+
+	/* 2. allocate new node */
+	struct Node* new_node =(struct Node*) malloc(sizeof(struct Node));
+
+	/* 3. put in the data */
+	new_node->data = new_data;
+
+	/* 4. Make next of new node as next of prev_node */
+	new_node->next = prev_node->next;
+
+	/* 5. move the next of prev_node as new_node */
+	prev_node->next = new_node;
+}
+-
+The new node is always added after the last node of the given Linked List. For example if the given Linked List is 5->10->15->20->25 and we add an item 30 at the end, then the Linked List becomes 5->10->15->20->25->30.
+Since a Linked List is typically represented by the head of it, we have to traverse the list till end and then change the next of last node to new node.
+-
+/* Given a reference (pointer to pointer) to the head
+of a list and an int, appends a new node at the end */
+void append(struct Node** head_ref, int new_data)
+{
+	/* 1. allocate node */
+	struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
+
+	struct Node *last = *head_ref; /* used in step 5*/
+
+	/* 2. put in the data */
+	new_node->data = new_data;
+
+	/* 3. This new node is going to be the last node, so make next
+		of it as NULL*/
+	new_node->next = NULL;
+
+	/* 4. If the Linked List is empty, then make the new node as head */
+	if (*head_ref == NULL)
+	{
+	*head_ref = new_node;
+	return;
+	}
+
+	/* 5. Else traverse till the last node */
+	while (last->next != NULL)
+		last = last->next;
+
+	/* 6. Change the next of last node */
+	last->next = new_node;
+	return;
+}
+-
+Time complexity of append is O(n) where n is the number of nodes in linked list. Since there is a loop from head to end, the function does O(n) work.
+This method can also be optimized to work in O(1) by keeping an extra pointer to tail of linked list/
+-
+Let us formulate the problem statement to understand the deletion process. Given a 'key', delete the first occurrence of this key in linked list.
+To delete a node from linked list, we need to do following steps.
+1) Find previous node of the node to be deleted.
+2) Change the next of previous node.
+3) Free memory for the node to be deleted.
+-
+Stack is a linear data structure which follows a particular order in which the operations are performed. The order may be LIFO(Last In First Out) or FILO(First In Last Out).
+-
+There are many real-life examples of a stack. Consider an example of plates stacked over one another in the canteen. The plate which is at the top is the first one to be removed, i.e. the plate which has been placed at the bottommost position remains in the stack for the longest period of time. So, it can be simply seen to follow LIFO(Last In First Out)/FILO(First In Last Out) order.
+-
+Mainly the following three basic operations are performed in the stack:
+
+Push: Adds an item in the stack. If the stack is full, then it is said to be an Overflow condition.
+Pop: Removes an item from the stack. The items are popped in the reversed order in which they are pushed. If the stack is empty, then it is said to be an Underflow condition.
+Peek or Top: Returns top element of stack.
+isEmpty: Returns true if stack is empty, else false.
+-
+Time Complexities of operations on stack:
+
+push(), pop(), isEmpty() and peek() all take O(1) time. We do not run any loop in any of these operations.
+
+Applications of stack:
+
+Balancing of symbols
+Infix to Postfix /Prefix conversion
+Redo-undo features at many places like editors, photoshop.
+Forward and backward feature in web browsers
+Used in many algorithms like Tower of Hanoi, tree traversals, stock span problem, histogram problem.
+Other applications can be Backtracking, Knight tour problem, rat in a maze, N queen problem and sudoku solver
+In Graph Algorithms like Topological Sorting and Strongly Connected Components
+-
+Implementation:
+There are two ways to implement a stack:
+
+Using array
+Using linked list
+-
+A Queue is a linear structure which follows a particular order in which the operations are performed. The order is First In First Out (FIFO). A good example of a queue is any queue of consumers for a resource where the consumer that came first is served first. The difference between stacks and queues is in removing. In a stack we remove the item the most recently added; in a queue, we remove the item the least recently added.
+-
+Operations on Queue:
+Mainly the following four basic operations are performed on queue:
+
+Enqueue: Adds an item to the queue. If the queue is full, then it is said to be an Overflow condition.
+Dequeue: Removes an item from the queue. The items are popped in the same order in which they are pushed. If the queue is empty, then it is said to be an Underflow condition.
+Front: Get the front item from queue.
+Rear: Get the last item from queue.
+-
+Applications of Queue:
+Queue is used when things don’t have to be processed immediately, but have to be processed in First InFirst Out order like Breadth First Search. This property of Queue makes it also useful in following kind of scenarios.
+
+1) When a resource is shared among multiple consumers. Examples include CPU scheduling, Disk Scheduling.
+2) When data is transferred asynchronously (data not necessarily received at same rate as sent) between two processes. Examples include IO Buffers, pipes, file IO, etc.
+-
+Time Complexity: Time complexity of all operations like enqueue(), dequeue(), isFull(), isEmpty(), front() and rear() is O(1). There is no loop in any of the operations.
+-
+[End of lecture]
+* Type 'quiz x' where x is a chapter to practise what you learnt.
+* Type 'menu' to see other commands.

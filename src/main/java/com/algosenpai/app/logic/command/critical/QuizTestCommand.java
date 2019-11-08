@@ -1,5 +1,6 @@
-package com.algosenpai.app.logic.command;
+package com.algosenpai.app.logic.command.critical;
 
+import com.algosenpai.app.logic.command.QuizCommand;
 import com.algosenpai.app.logic.models.QuestionModel;
 import com.algosenpai.app.stats.UserStats;
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ public class QuizTestCommand extends QuizCommand {
 
     private UserStats userStats;
 
+    AtomicInteger prevResult;
+
     /**
      * Create new command.
      * @param inputs input from user.
@@ -38,7 +41,7 @@ public class QuizTestCommand extends QuizCommand {
      */
     public QuizTestCommand(ArrayList<String> inputs, ArrayList<QuestionModel> quizList,
                            AtomicInteger questionNumber, AtomicBoolean isQuizMode, AtomicBoolean isNewQuiz,
-                           int chapterNumber,UserStats userStats) {
+                           int chapterNumber,UserStats userStats, AtomicInteger prevResult) {
         this(inputs);
         this.quizList = quizList;
         this.isQuizMode = isQuizMode;
@@ -46,6 +49,7 @@ public class QuizTestCommand extends QuizCommand {
         this.isNewQuiz = isNewQuiz;
         this.chapterNumber = chapterNumber;
         this.userStats = userStats;
+        this.prevResult = prevResult;
     }
 
 
@@ -111,7 +115,7 @@ public class QuizTestCommand extends QuizCommand {
             }
             counter++;
         }
-
+        prevResult.set(userQuizScore);
         // Updating all the user stats one shot in here
         userStats.updateChapter(chapterNumber,10,userQuizScore);
         //This is the current user exp.
@@ -130,7 +134,6 @@ public class QuizTestCommand extends QuizCommand {
         userStats.setUserLevel(newLevel);
         userStats.saveUserStats("UserData.txt");
         // End of updating
-
         return "You got " + userQuizScore + "/10 questions correct!\n"
                 + "You have gained " + userQuizScore + " EXP points!\n"
                 + "Here are the questions you got wrong : " + wrongQuestions.toString() + ".\n"
@@ -139,4 +142,5 @@ public class QuizTestCommand extends QuizCommand {
                 + "* Type 'select x' where x is a chapter to pick another chapter.\n"
                 + "* Type 'menu' to see other commands.";
     }
+
 }

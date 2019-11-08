@@ -1,7 +1,8 @@
 //@@author carrieng0323852
 
-package com.algosenpai.app.logic.command;
+package com.algosenpai.app.logic.command.errorhandling;
 
+import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.logic.constant.CommandsEnum;
 import com.algosenpai.app.logic.parser.Parser;
 import com.algosenpai.app.stats.UserStats;

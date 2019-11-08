@@ -10,6 +10,6 @@ public class ChaptersCommand extends Command {
 
     @Override
     public String execute() {
-        return "Chapter 1: sorting\n Chapter 2: linkedlist\n Chapter 3: bitmask";
+        return "Chapter 1: sorting\nChapter 2: linkedlist\nChapter 3: bitmask";
     }
 }
