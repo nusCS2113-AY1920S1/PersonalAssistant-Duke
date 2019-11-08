@@ -28,6 +28,12 @@ public class SetReminderCommand extends Command {
      */
     protected static int reminderSetupState;
 
+    /**
+     * Assigns the relevant values for a reminder setup for a single line schedule command.
+     * @param state the state at which to execute the reminder setup (in this case always 4)
+     * @param wordArrayList the list of words to remind the users of
+     * @param dateDetail the date and time of the reminder
+     */
     public SetReminderCommand(int state, ArrayList<String> wordArrayList, String dateDetail) {
         reminderWordList = wordArrayList;
         reminderSetupState = state;
