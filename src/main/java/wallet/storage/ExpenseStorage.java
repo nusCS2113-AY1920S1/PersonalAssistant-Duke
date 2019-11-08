@@ -2,6 +2,7 @@ package wallet.storage;
 
 import wallet.model.record.Category;
 import wallet.model.record.Expense;
+import wallet.model.record.RecurrenceRate;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -36,7 +37,7 @@ public class ExpenseStorage extends Storage<Expense> {
                             Category.getCategory(data[4]), false, null);
                 } else {
                     expense = new Expense(data[1], LocalDate.parse(data[3], formatter), Double.parseDouble(data[2]),
-                            Category.getCategory(data[4]), true, data[5]);
+                            Category.getCategory(data[4]), true, RecurrenceRate.getRecurrence(data[5]));
                 }
 
                 if (expense != null) {

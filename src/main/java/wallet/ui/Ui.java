@@ -35,12 +35,12 @@ public class Ui {
      * Prints the welcome message of the program.
      */
     public void welcomeMsg() {
-        String logo = "__             __       _   _         \n"
-                + "\\ \\    __     / /      | | | |        _\n"
-                + " \\ \\  /  \\   / /___,__ | | | | ______| |_    \n"
-                + "  \\ \\/ /\\  \\/ /  [] | || | | |  []_\\_  __|\n"
-                + "   \\__/  \\___/ \\__,_|_||_| |_|\\___/  |_|\n";
-        System.out.println("Hello from\n" + logo);
+        String logo = " __     __     ______     __         __         ______     ______  \n"
+                    + "/\\ \\  _ \\ \\   /\\  __ \\   /\\ \\       /\\ \\       /\\  ___\\   /\\__  _\\\n"
+                    + "\\ \\ \\/ \".\\ \\  \\ \\  __ \\  \\ \\ \\____  \\ \\ \\____  \\ \\  __\\   \\/_/\\ \\/\n"
+                    + " \\ \\__/\".~\\_\\  \\ \\_\\ \\_\\  \\ \\_____\\  \\ \\_____\\  \\ \\_____\\    \\ \\_\\\n"
+                    + "  \\/_/   \\/_/   \\/_/\\/_/   \\/_____/   \\/_____/   \\/_____/     \\/_/";
+        System.out.println(logo);
 
         printLine();
         System.out.println("Hello! Welcome to the WalletCLi Application!");

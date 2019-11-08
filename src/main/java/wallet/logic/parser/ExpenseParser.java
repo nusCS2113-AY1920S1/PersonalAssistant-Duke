@@ -4,6 +4,7 @@ import wallet.logic.command.AddCommand;
 import wallet.model.Wallet;
 import wallet.model.record.Expense;
 import wallet.model.record.ExpenseList;
+import wallet.model.record.RecurrenceRate;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class ExpenseParser {
                 continue;
             }
 
-            if (e.getRecFrequency().equals("DAILY")) {
+            if (e.getRecFrequency() == RecurrenceRate.DAILY) {
                 if (expenseDate.getYear() == currentYear && expenseDate.getMonthValue() > currentMonth
                         || (expenseDate.getMonthValue() == currentMonth && expenseDate.getDayOfMonth() == lastDay)) {
                     continue;
@@ -61,16 +62,16 @@ public class ExpenseParser {
                     if (expenseDate.getMonthValue() == currentMonth && expenseDate.getDayOfMonth() == lastDay
                         && expenseDate.getYear() == currentYear) {
                         expense = new Expense(e.getDescription(), expenseDate,
-                                e.getAmount(), e.getCategory(), true, "DAILY");
+                                e.getAmount(), e.getCategory(), true, RecurrenceRate.DAILY);
                     } else {
                         expense = new Expense(e.getDescription(), expenseDate,
-                                e.getAmount(), e.getCategory(), false, null);
+                                e.getAmount(), e.getCategory(), false, RecurrenceRate.NO);
                     }
                     new AddCommand(expense).execute(wallet);
 
                     expenseDate = expenseDate.plusDays(1);
                 }
-            } else if (e.getRecFrequency().equals("WEEKLY")) {
+            } else if (e.getRecFrequency() == RecurrenceRate.WEEKLY) {
                 if (expenseDate.getYear() == currentYear && expenseDate.getMonthValue() > currentMonth
                         || (expenseDate.getMonthValue() == currentMonth && expenseDate.getDayOfMonth() > lastDay - 7)) {
                     continue;
@@ -85,17 +86,17 @@ public class ExpenseParser {
                     if (expenseDate.getMonthValue() == currentMonth && expenseDate.getDayOfMonth() > lastDay - 7
                             && expenseDate.getYear() == currentYear) {
                         expense = new Expense(e.getDescription(), expenseDate,
-                                e.getAmount(), e.getCategory(), true, "WEEKLY");
+                                e.getAmount(), e.getCategory(), true, RecurrenceRate.WEEKLY);
                     } else {
                         expense = new Expense(e.getDescription(), expenseDate,
-                                e.getAmount(), e.getCategory(), false, null);
+                                e.getAmount(), e.getCategory(), false, RecurrenceRate.NO);
                     }
 
                     new AddCommand(expense).execute(wallet);
 
                     expenseDate = expenseDate.plusDays(7);
                 }
-            } else if (e.getRecFrequency().equals("MONTHLY")) {
+            } else if (e.getRecFrequency() == RecurrenceRate.MONTHLY) {
                 if (expenseDate.getYear() == currentYear && expenseDate.getMonthValue() >= currentMonth) {
                     continue;
                 }
@@ -108,10 +109,10 @@ public class ExpenseParser {
                     Expense expense = null;
                     if (expenseDate.getMonthValue() == currentMonth && expenseDate.getYear() == currentYear) {
                         expense = new Expense(e.getDescription(), expenseDate,
-                                e.getAmount(), e.getCategory(), true, "MONTHLY");
+                                e.getAmount(), e.getCategory(), true, RecurrenceRate.MONTHLY);
                     } else {
                         expense = new Expense(e.getDescription(), expenseDate,
-                                e.getAmount(), e.getCategory(), false, null);
+                                e.getAmount(), e.getCategory(), false, RecurrenceRate.NO);
                     }
                     new AddCommand(expense).execute(wallet);
                     expenseDate = expenseDate.plusMonths(1);

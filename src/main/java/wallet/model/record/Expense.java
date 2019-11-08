@@ -10,13 +10,12 @@ public class Expense extends Record {
     private double amount;
     private Category category;
     private boolean isRecurring;
-    private String recFrequency;
+    private RecurrenceRate recFrequency;
 
     /**
      * Default constructor.
      */
     public Expense() {
-        this.recFrequency = "";
     }
 
     /**
@@ -27,7 +26,7 @@ public class Expense extends Record {
      * @param isRecurring Whether the expense is recurring.
      */
     public Expense(String description, LocalDate date, double amount,
-                   Category category, boolean isRecurring, String recFrequency) {
+                   Category category, boolean isRecurring, RecurrenceRate recFrequency) {
         super(description, date);
         this.amount = amount;
         this.category = category;
@@ -90,20 +89,20 @@ public class Expense extends Record {
     }
 
     /**
-     * Gets the recurring frequency string.
+     * Gets the recurring frequency enum.
      *
-     * @return A string indicating the recurring frequency.
+     * @return A enum of the recurring frequency.
      */
-    public String getRecFrequency() {
+    public RecurrenceRate getRecFrequency() {
         return recFrequency;
     }
 
     /**
      * Sets the recurring frequency.
      *
-     * @param recFrequency The recurring frequency string.
+     * @param recFrequency The recurring frequency.
      */
-    public void setRecFrequency(String recFrequency) {
+    public void setRecFrequency(RecurrenceRate recFrequency) {
         this.recFrequency = recFrequency;
     }
 

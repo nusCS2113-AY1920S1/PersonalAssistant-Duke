@@ -9,6 +9,7 @@ import wallet.model.contact.ContactList;
 import wallet.model.record.Category;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
+import wallet.model.record.RecurrenceRate;
 
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -102,7 +103,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Category cat;
         LocalDate date = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String freq = null;
+        RecurrenceRate freq = null;
 
         if (arguments[1].contains("/on")) {
             arguments = arguments[1].split(" ", 2);
@@ -115,14 +116,15 @@ public class AddCommandParser implements Parser<AddCommand> {
                 arguments = arguments[1].split("/on");
                 arguments = arguments[1].split("/r");
                 date = LocalDate.parse(arguments[0].trim(), formatter);
-                freq = arguments[1].trim().toUpperCase();
-                if (!freq.equals("DAILY") && !freq.equals("WEEKLY") && !freq.equals("MONTHLY")) {
+                freq = RecurrenceRate.getRecurrence(arguments[1].trim());
+                if (freq == null) {
                     System.out.println(MESSAGE_ERROR_INVALID_RECURRENCE_RATE);
                     return null;
                 }
             } else {
                 arguments = arguments[1].split("/on");
                 date = LocalDate.parse(arguments[1].trim(), formatter);
+                freq = RecurrenceRate.NO;
             }
         } else {
             cat = Category.getCategory(arguments[1].trim());
@@ -130,6 +132,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 System.out.println(MESSAGE_ERROR_INVALID_CATEGORY);
                 return null;
             }
+            freq = RecurrenceRate.NO;
         }
         Expense expense = new Expense(desc, date, amount, cat, isRecurring, freq);
 

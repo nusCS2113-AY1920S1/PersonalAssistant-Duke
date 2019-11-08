@@ -5,11 +5,12 @@ package wallet.logic.parser;
 import com.opencsv.CSVReader;
 import wallet.logic.command.ImportCommand;
 import wallet.model.contact.Contact;
-import wallet.model.record.Loan;
-import wallet.model.record.LoanList;
+import wallet.model.record.Category;
 import wallet.model.record.Expense;
 import wallet.model.record.ExpenseList;
-import wallet.model.record.Category;
+import wallet.model.record.Loan;
+import wallet.model.record.LoanList;
+import wallet.model.record.RecurrenceRate;
 
 import java.io.File;
 import java.io.FileReader;
@@ -190,7 +191,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                         return null;
                     }
                 }
-                Expense expense = new Expense(desc, date, amount, cat, isRecurring, freq);
+                Expense expense = new Expense(desc, date, amount, cat, isRecurring, RecurrenceRate.getRecurrence(freq));
                 data.add(expense);
             }
             csvReader.close();

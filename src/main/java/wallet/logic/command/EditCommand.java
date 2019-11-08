@@ -24,6 +24,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_SUCCESS_EDIT_LOAN = "Successfully edited this loan:";
     public static final String MESSAGE_ERROR_FORMAT = "Your format for edit command is wrong.";
     public static final String MESSAGE_ERROR_COMMAND = "An error encountered while executing command.";
+    public static final String MESSAGE_ERROR_ID_DOES_NOT_EXIST = "The ID given does not exist.";
+
 
     private Expense expense;
     private Contact contact;
@@ -61,8 +63,14 @@ public class EditCommand extends Command {
         if (expense != null) {
             //@@author kyang96
             int index = wallet.getExpenseList().findIndexWithId(expense.getId());
-            Expense currentExpense = wallet.getExpenseList().getExpense(index);
-            if (expense.getRecFrequency() == null || !expense.getRecFrequency().equals("")) {
+            Expense currentExpense = new Expense();
+            try {
+                currentExpense = wallet.getExpenseList().getExpense(index);
+            } catch (IndexOutOfBoundsException ex) {
+                System.out.println(MESSAGE_ERROR_ID_DOES_NOT_EXIST);
+                return false;
+            }
+            if (expense.getRecFrequency() != null) {
                 currentExpense.setRecurring(expense.isRecurring());
                 currentExpense.setRecFrequency(expense.getRecFrequency());
             }
