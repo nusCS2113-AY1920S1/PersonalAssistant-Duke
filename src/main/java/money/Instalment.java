@@ -97,7 +97,7 @@ public class Instalment extends Expenditure {
     }
 
     public String toString() {
-        return "[INS]" + "$" + getPrice() + " "
+        return "[INS]" + "$" + getPriceStr() + " "
             + getDescription() + "(on: " + getBoughtDate() + ")";
     }
 
