@@ -70,9 +70,8 @@ public class MainWindow extends UiPart<Stage> {
         fillInnerPart();
 
 
-        inputHistory = InputHistory.getInstance();
-        logger.info("The inputHistory Singleton in given.");
-        autoCompleter = AutoCompleter.getInstance();
+        inputHistory = new InputHistory();
+        autoCompleter = new AutoCompleter();
 
         this.userInput.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.TAB) {
@@ -176,15 +175,15 @@ public class MainWindow extends UiPart<Stage> {
     private void handleKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
         case UP:
-            if (inputHistory.isAbleToLast()) {
-                userInput.setText(inputHistory.getLastInput());
-            }
+            userInput.setText(inputHistory.getLastInput());
             break;
 
         case DOWN:
-            if (inputHistory.isAbleToNext()) {
-                userInput.setText(inputHistory.getNextInput());
-            }
+            userInput.setText(inputHistory.getNextInput());
+            break;
+
+        default:
+            // other key events will be ignored.
             break;
         }
     }
