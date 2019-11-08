@@ -24,7 +24,7 @@ public class DoneCommand extends Command {
     }
 
     /**
-     * Change the mark of a task to done ("[✓]").
+     * Change the mark of a task to done ("[V]").
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.

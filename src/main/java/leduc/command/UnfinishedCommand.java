@@ -38,7 +38,7 @@ public class UnfinishedCommand extends Command {
             Task task = tasks.get(i);
             String mark = task.getMark();
             //check if the task is unfinished
-            if(mark.equals("[✗]")) {
+            if(mark.equals("[X]")) {
                 unfinishedTaskList.add(task);
             }
         }

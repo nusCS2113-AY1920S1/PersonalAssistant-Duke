@@ -127,9 +127,9 @@ Examples:
 find sci
         ---------------------------------------------------------------------------------
          Here are the most relevant tasks in your list:
-         7. [H][✓] science by: 05/05/2005 05:05 [Priority: 2]
-         8. [H][✗] test by: 01/01/2001 01:01 [Priority: 5]
-         6. [H][✓] homeworktest by: 04/04/2004 04:04 [Priority: 5]
+         7. [H][V] science by: 05/05/2005 05:05 [Priority: 2]
+         8. [H][X] test by: 01/01/2001 01:01 [Priority: 5]
+         6. [H][V] homeworktest by: 04/04/2004 04:04 [Priority: 5]
 
         ---------------------------------------------------------------------------------
 
@@ -140,10 +140,10 @@ find sci
 find homewqeuktest
         ---------------------------------------------------------------------------------
          Here are the most relevant tasks in your list:
-         6. [H][✓] homeworktest by: 04/04/2004 04:04 [Priority: 5]
-         5. [H][✗] math by: 11/11/2011 01:01 [Priority: 5]
-         7. [H][✓] science by: 05/05/2005 05:05 [Priority: 2]
-         8. [H][✗] test by: 01/01/2001 01:01 [Priority: 5]
+         6. [H][V] homeworktest by: 04/04/2004 04:04 [Priority: 5]
+         5. [H][X] math by: 11/11/2011 01:01 [Priority: 5]
+         7. [H][V] science by: 05/05/2005 05:05 [Priority: 2]
+         8. [H][X] test by: 01/01/2001 01:01 [Priority: 5]
 
         ---------------------------------------------------------------------------------
 
@@ -218,9 +218,9 @@ Example:
 * `remind`
 ```
 remind
-         1. [H][✗] test by: 01/01/2001 01:01 [Priority: 5]
-         4. [H][✗] math by: 11/11/2011 01:01 [Priority: 5]
-         5. [E][✗] e at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
+         1. [H][X] test by: 01/01/2001 01:01 [Priority: 5]
+         4. [H][X] math by: 11/11/2011 01:01 [Priority: 5]
+         5. [E][X] e at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
 
 ```
 
@@ -527,11 +527,11 @@ Example:
 * Output:
 
  Here are the unfinished tasks in your list:
-         1. [T][✗] td1 [Priority: 5]
-         2. [H][✗] h1 by: 14/09/2019 22:33 [Priority: 5]
-         3. [E][✗] e1 at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
-         4. [T][✗] td4 [Priority: 5]
-         5. [T][✗] td5 [Priority: 5]
+         1. [T][X] td1 [Priority: 5]
+         2. [H][X] h1 by: 14/09/2019 22:33 [Priority: 5]
+         3. [E][X] e1 at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
+         4. [T][X] td4 [Priority: 5]
+         5. [T][X] td5 [Priority: 5]
         ---------------------------------------------------------------------------------
 
 

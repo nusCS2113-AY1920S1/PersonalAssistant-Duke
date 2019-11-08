@@ -96,7 +96,7 @@ public class StatsCommand extends Command {
             if(task.getPriority() == 1){
                 numOnePrio++;
             }
-            if(task.getMark().equals("[✓]")){
+            if(task.getMark().equals("[V]")){
                 numComplete++;
             }
             else{

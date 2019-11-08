@@ -16,7 +16,7 @@ public abstract class Task {
      */
     protected Task (String task){
         this.task = task;
-        this.mark = "[✗]";
+        this.mark = "[X]";
     }
 
     /**
@@ -26,7 +26,7 @@ public abstract class Task {
      */
     protected Task(String task, int priority){
         this.task = task;
-        this.mark = "[✗]";
+        this.mark = "[X]";
         this.priority = priority;
     }
 
@@ -80,7 +80,7 @@ public abstract class Task {
      * Set the task to done
      */
     public void taskDone(){
-        this.mark = "[✓]";
+        this.mark = "[V]";
     }
 
     /**
