@@ -8,6 +8,7 @@ import booking.BookingList;
 import exception.DukeException;
 import room.RoomList;
 import storage.Storage;
+import storage.StorageManager;
 import ui.Ui;
 import user.UserList;
 
@@ -25,8 +26,7 @@ public class ListCommand extends Command {
     @Override
     public void execute(UserList userList, Inventory inventory, RoomList roomList,
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage,
-                        Storage bookingstorage, Storage roomstorage, Storage approvestorage)
+                        StorageManager allStorage)
             throws DukeException {
         if (bookingList.isEmpty()) {
             throw new DukeException("OOPS! There are no bookings in your list");

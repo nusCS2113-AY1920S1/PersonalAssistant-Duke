@@ -11,6 +11,7 @@ import exception.DukeException;
 import room.RoomList;
 import storage.Constants;
 import storage.Storage;
+import storage.StorageManager;
 import ui.Ui;
 import user.UserList;
 
@@ -35,7 +36,7 @@ public class ApproveCommand extends Command {
         if (splitStr.length <= 1) {
             throw new DukeException("☹ OOPS!!! Please create the booking you want to approve"
                     + " with the following format: "
-                    + "name, roomcode, start date and time");
+                    + "index");
         }
         try {
             index = Integer.parseInt(splitStr[1]);
@@ -48,8 +49,7 @@ public class ApproveCommand extends Command {
     @Override
     public void execute(UserList userList, Inventory inventory, RoomList roomList,
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage,
-                        Storage bookingstorage, Storage roomstorage, Storage approvestorage)
+                        StorageManager allStorage)
             throws DukeException, IOException {
         if (!userList.getLoginStatus()) {
             throw new DukeException("Please log in to approve or reject bookings.");
@@ -61,7 +61,7 @@ public class ApproveCommand extends Command {
         ui.addToOutput("This request has been approved");
         ui.addToOutput(bookingList.get(index).toString());
         //bookingstorage.saveToFile(approvedList);
-        bookingstorage.saveToFile(bookingList);
+        allStorage.getBookingStorage().saveToFile(bookingList);
 
     }
 }

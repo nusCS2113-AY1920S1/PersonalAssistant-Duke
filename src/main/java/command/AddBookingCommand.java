@@ -6,6 +6,7 @@ import exception.DukeException;
 import room.RoomList;
 import storage.Constants;
 import storage.Storage;
+import storage.StorageManager;
 import ui.Ui;
 import booking.Booking;
 import booking.BookingList;
@@ -51,7 +52,7 @@ public class AddBookingCommand extends Command {
                     + "OOPS!!! Please create your booking with the following format: "
                     + "description, roomcode, date and time");
         }
-        splitE = splitC[0].split(" ");
+        splitE = splitC[0].split(" ", 2);
         this.name = splitE[0].trim();
         this.description = splitE[1]; // description
         splitD = splitC[1].split("/from", 2);
@@ -66,16 +67,14 @@ public class AddBookingCommand extends Command {
      * @param roomList room list
      * @param bookingList bookings list
      * @param ui user interface
-     * @param bookingstorage booking storage in command execution
-     * @param roomstorage room storage in command execution
+     * @param allStorage all the storage in command execution
      * @throws DukeException if a clash in booking is found
      * @throws IOException if input entry is incorrect
      */
     @Override
     public void execute(UserList userList, Inventory inventory, RoomList roomList,
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage, Storage bookingstorage,
-                        Storage roomstorage, Storage approvestorage)
+                        StorageManager allStorage)
             throws DukeException, IOException, ParseException {
         Booking newBooking = new Booking(name, room, description, timeStart, timeEnd);
         boolean clash = BookingList.checkBooking(bookingList, room, timeStart, timeEnd);
@@ -88,7 +87,7 @@ public class AddBookingCommand extends Command {
             throw new DukeException(Constants.UNHAPPY + " OOPS!!! This room doesn't exist!");
         }
         bookingList.add(newBooking);
-        bookingstorage.saveToFile(bookingList);
+        allStorage.getBookingStorage().saveToFile(bookingList);
         ui.addToOutput("Got it. I've added this request:\n"
                 + newBooking.toString() + "\n"
                 + "Now there are " + bookingList.size() + " request(s) in the list.");
