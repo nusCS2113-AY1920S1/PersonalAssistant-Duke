@@ -241,6 +241,10 @@ public class JsonWrapper {
         return new TaskList<>();
     }
 
+    /**
+     * Returns ccaList after reading json file.
+     * @return List of ccas of the read was successful, null if otherwise.
+     */
     public TaskList<Cca> readJsonCcaList(Storage store) {
         try {
             store.setDataPath(Paths.get(userCcaFile));
