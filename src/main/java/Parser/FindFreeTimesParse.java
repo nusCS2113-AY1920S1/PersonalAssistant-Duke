@@ -43,7 +43,7 @@ public class FindFreeTimesParse extends Parse {
                 if (duration >= 1 && duration <= 16) return new FindFreeTimesCommand(duration);
                 else throw new DukeInvalidFormatException(invalidDuration);
             } catch (NumberFormatException e) {
-                LOGGER.info("Unable to parse string to integer" + e.getMessage());
+                LOGGER.severe("Unable to parse string to integer");
                 throw new DukeInvalidFormatException(invalidDuration);
             }
         }

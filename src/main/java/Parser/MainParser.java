@@ -42,10 +42,6 @@ public class MainParser {
             case "help":
                 return new HelpCommand();
 
-//            case "list":
-            case "done":
-                return new DoneParse(fullCommand).parse();
-
             case "find/ft":
                 return new FindFreeTimesParse(fullCommand).parse();
 

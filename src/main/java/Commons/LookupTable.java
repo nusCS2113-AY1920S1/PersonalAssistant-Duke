@@ -37,7 +37,7 @@ public class LookupTable {
             isr.close();
             is.close();
         } catch (IOException e) {
-            LOGGER.severe("Lookup.txt not found" + e.getMessage());
+            LOGGER.severe("Lookup.txt not found");
         }
     }
 

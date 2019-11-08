@@ -3,11 +3,11 @@ package Parser;
 import Commands.Command;
 import Commands.RecurringCommand;
 import Commons.DukeLogger;
+import DukeExceptions.DukeInvalidCommandException;
+import DukeExceptions.DukeInvalidDateTimeException;
 import DukeExceptions.DukeInvalidFormatException;
-import Commons.LookupTable;
 
 import java.text.ParseException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -24,18 +24,14 @@ public class RecurParse extends Parse {
     }
 
     @Override
-    public Command parse() throws Exception {
+    public Command parse() throws DukeInvalidFormatException, DukeInvalidDateTimeException {
         try {
-            // (CS1231 project meeting) /start (1/10/2019 to 15/11/2019 /from 1500 /to 1700)
             boolean isBiweekly = false;
             boolean isRecur = false;
             String activity = fullCommand.trim().substring(5);
             String[] fullCommandSplit = activity.split("/start");
             String modCodeAndDescription = fullCommandSplit[0].trim();
             modCodeAndDescriptionSplit = modCodeAndDescription.trim().split(" ");
-            if (!super.isModCode(modCodeAndDescriptionSplit[1])) {
-                throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
-            }
             String dateAndTime = fullCommandSplit[1].trim();
 
             if (modCodeAndDescription.contains("/biweekly")) {
@@ -51,9 +47,15 @@ public class RecurParse extends Parse {
                 modCodeAndDescription = modCodeAndDescription.substring(7).trim();
                 isRecur = true;
             }
-            if (modCodeAndDescription.isEmpty()) {
-                throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of a event cannot be empty.");
+
+            if (!super.isValidModCodeAndDescription(modCodeAndDescription)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode + description of an event cannot be empty.");
+            if (!super.isModCode(modCodeAndDescription)) {
+                throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
             }
+            String[] checkSplit = modCodeAndDescription.trim().split(" ");
+            if (!super.isValidDescription(checkSplit)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of an event cannot be empty.");
+            if(!super.isValidTimePeriod(dateAndTime)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The time of an event can only contain digits and the time has to be 4 digits.\n" +
+                    "Please enter the time in a 24-hour time format");
             String[] in = DateTimeParser.recurringEventParse(dateAndTime);
             String startDateString = in[0];
             String endDateString = in[1];
@@ -61,7 +63,7 @@ public class RecurParse extends Parse {
             String endTimeString = in[3];
             return new RecurringCommand(modCodeAndDescription, startDateString, endDateString, startTimeString, endTimeString, isBiweekly, isRecur);
         } catch (ParseException | ArrayIndexOutOfBoundsException e) {
-            LOGGER.info("Invalid recur format" + e.getMessage());
+            LOGGER.severe("Invalid recur format");
             throw new DukeInvalidFormatException("OOPS!!! Please enter recurring event as follows:\n" +
                     "recur/(fill) modCode name_of_event /start dd/MM/yyyy to dd/MM/yyyy /from HHmm /to HHmm\n" +
                     "Note: replace (fill) with either: weekly, biweekly, rmweekly, rmbiweekly\n" +

@@ -66,7 +66,7 @@ public class Storage {
         try {
             outputStream = new PrintWriter(filePathEvent, StandardCharsets.UTF_8);
         } catch (IOException e) {
-            LOGGER.severe("event.txt file not found" + e.getMessage());
+            LOGGER.severe("event.txt file not found");
         }
         map = list.getMap();
         Set<String> allMods = map.keySet();
@@ -89,7 +89,7 @@ public class Storage {
             eventFile.createNewFile();
             temp = new ArrayList<>(Files.readAllLines(Paths.get(filePathEvent)));
         } catch (IOException e) {
-            LOGGER.severe("There is no event.txt to read from" + e.getMessage());
+            LOGGER.severe("There is no event.txt to read from");
             throw new DukeIOException("There is no event.txt file to read from. Please create one.");
         }
         for (String string : temp) {
@@ -106,8 +106,7 @@ public class Storage {
         try {
             outputStream = new PrintWriter(filePathDeadline, StandardCharsets.UTF_8);
         } catch (IOException e) {
-            LOGGER.severe("deadline.txt not found" + e.getMessage());
-            LOGGER.log(Level.SEVERE, e.toString(), e);
+            LOGGER.severe("deadline.txt not found");
         }
         map = list.getMap();
         Set<String> allMods = map.keySet();
@@ -130,7 +129,7 @@ public class Storage {
             deadlineFile.createNewFile();
             temp = new ArrayList<>(Files.readAllLines(Paths.get(filePathDeadline)));
         } catch (IOException e) {
-            LOGGER.severe("There is no deadline.txt to read from" + e.getMessage());
+            LOGGER.severe("There is no deadline.txt to read from");
             throw new DukeIOException("There is no deadline.txt file to read from. Please create one.");
         }
         for (String string : temp) {
@@ -142,7 +141,7 @@ public class Storage {
                 try {
                     date = dateFormat.parse(task.getRemindTime());
                 } catch (ParseException e) {
-                    LOGGER.severe("Reminder time is wrongly recorded" + e.getMessage());
+                    LOGGER.severe("Reminder time is wrongly recorded");
                 }
                 reminderMap.put(date, task);
             }
@@ -192,7 +191,7 @@ public class Storage {
                 line.setReminder(true);
             }
         } catch (ParseException | StringIndexOutOfBoundsException | NullPointerException e) {
-            LOGGER.severe("Unable to parse data from event.txt or deadline.txt" + e.getMessage());
+            LOGGER.severe("Unable to parse data from event.txt or deadline.txt");
         }
         return line;
     }
@@ -212,7 +211,7 @@ public class Storage {
             try {
                 remindDate = dateFormat.parse(remindTime);
             } catch (ParseException e) {
-                LOGGER.severe("Reminder date is wrong in deadline.txt. Unable to parse" + e.getMessage());
+                LOGGER.severe("Reminder date is wrong in deadline.txt. Unable to parse");
             }
             if(remindDate.after(currentDate)) {
                 reminder.setReminderThread(remindDate, task);

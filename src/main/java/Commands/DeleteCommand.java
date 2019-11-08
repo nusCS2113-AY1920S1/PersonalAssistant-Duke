@@ -28,22 +28,6 @@ public class DeleteCommand extends Command {
         this.list = list;
     }
 
-    private boolean isInsideMapDone (HashMap<String, HashMap<String, ArrayList<Assignment>>> map, Assignment task) throws DukeException {
-        String modCode = task.getModCode();
-        String dateOfTask = task.getDate();
-        if (!map.containsKey(modCode)) {
-            throw new DukeException("Sorry, you have no such mod task to be removed");
-        } else if (!map.get(modCode).containsKey(dateOfTask)) {
-            throw new DukeException("Sorry, you have no such date of the mod task to be removed");
-        } else {
-            for (Assignment taskInList : map.get(modCode).get(dateOfTask)) {
-                if (taskInList.getDateTime().equals(task.getDateTime())) {
-                   return true;
-                }
-            }
-            throw new DukeException("Sorry, you have no timing of the mod task to be removed");
-        }
-    }
 
     /**
      * Executes the deletion of a task inside the TaskList object with the given index.
@@ -59,12 +43,12 @@ public class DeleteCommand extends Command {
         HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap = events.getMap();
         HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();
         if (list.equals("event")) {
-            isInsideMapDone(eventMap, task);
+            isInsideMap(eventMap, task);
             events.removeTask(task);
             storage.updateEventList(events);
             listToChange = events;
         } else if (list.equals("deadline")) {
-            isInsideMapDone(deadlineMap, task);
+            isInsideMap(deadlineMap, task);
             deadlines.removeTask(task);
             storage.updateDeadlineList(deadlines);
             listToChange = deadlines;
