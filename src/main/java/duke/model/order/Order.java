@@ -22,15 +22,7 @@ import static duke.commons.util.CollectionUtil.requireAllNonNull;
  * Represents an order in order list.
  */
 public class Order {
-    /**
-     * Makes the order's {@code isIngredientEnough} property changes dynamically with the change of {@code inventory}.
-     */
-    public void listenToInventory(ObservableList<Item<Ingredient>> inventory) {
-        requireAllNonNull(inventory);
-
-        updateIsIngredientEnough(inventory);
-        inventory.addListener((ListChangeListener<Item<Ingredient>>) c -> updateIsIngredientEnough(inventory));
-    }
+    private BooleanProperty isIngredientEnough;
 
     //Identity field
     private final OrderId id;
@@ -43,34 +35,17 @@ public class Order {
     private final Set<Item<Product>> items;
     private final TotalPrice total;
     private final Status status;
-    private BooleanProperty isIngredientEnough = new SimpleBooleanProperty();
 
     /**
-     * Creates an order.
+     * Creates an {@code Order}.
      * Every field must be present and not null.
-     */
-    public Order(Customer customer,
-                 Date deliveryDate,
-                 Status status,
-                 Remark remarks,
-                 Set<Item<Product>> items,
-                 TotalPrice total) {
-        requireAllNonNull(customer, deliveryDate, status, remarks, items, total);
-
-        this.id = OrderId.getOrderId();
-        this.creationDate = generateCreationDate();
-
-        this.customer = customer;
-        this.deliveryDate = deliveryDate;
-        this.status = status;
-        this.remarks = remarks;
-        this.items = items;
-        this.total = total;
-    }
-
-    /**
-     * Creates an order.
-     * Every field must be present and not null.
+     *
+     * @param customer of the order.
+     * @param deliveryDate date of delivery. Can be
+     * @param status Status of an order. see {@link Order.Status}.
+     * @param remarks additional notes regarding the order.
+     * @param items Products ordered in the order.
+     * @param total total price of the order.
      */
     public Order(Customer customer,
                  Date deliveryDate,
@@ -93,6 +68,24 @@ public class Order {
         this.total = total;
 
         this.isIngredientEnough = new SimpleBooleanProperty();
+    }
+
+    /**
+     * Creates an {@code Order}.
+     * Every field must be present and not null.
+     * Order id and creation date are generated based on current system time.
+     */
+    public Order(Customer customer,
+                 Date deliveryDate,
+                 Status status,
+                 Remark remarks,
+                 Set<Item<Product>> items,
+                 TotalPrice total) {
+        this(customer, deliveryDate, status, remarks, items, total, OrderId.getOrderId(), generateCreationDate());
+    }
+
+    private static Date generateCreationDate() {
+        return new Date(System.currentTimeMillis());
     }
 
     public OrderId getId() {
@@ -136,6 +129,16 @@ public class Order {
     }
 
     /**
+     * Makes the order's {@code isIngredientEnough} property changes dynamically with the change of {@code inventory}.
+     */
+    public void listenToInventory(ObservableList<Item<Ingredient>> inventory) {
+        requireAllNonNull(inventory);
+
+        updateIsIngredientEnough(inventory);
+        inventory.addListener((ListChangeListener<Item<Ingredient>>) c -> updateIsIngredientEnough(inventory));
+    }
+
+    /**
      * Updates the {@code isIngredientEnough} property based on {@code inventory}.
      */
     private void updateIsIngredientEnough(ObservableList<Item<Ingredient>> inventory) {
@@ -146,8 +149,13 @@ public class Order {
         );
     }
 
-    private Date generateCreationDate() {
-        return new Date(System.currentTimeMillis());
+    /**
+     * Status of an order.
+     */
+    public enum Status {
+        ACTIVE,
+        COMPLETED,
+        CANCELED
     }
 
     private Map<Ingredient, Double> getRequiredIngredients(ObservableList<Item<Ingredient>> inventory) {
@@ -206,15 +214,6 @@ public class Order {
         });
 
         return isEnough.get();
-    }
-
-    /**
-     * Status of an order.
-     */
-    public enum Status {
-        ACTIVE,
-        COMPLETED,
-        CANCELED
     }
 
     @Override

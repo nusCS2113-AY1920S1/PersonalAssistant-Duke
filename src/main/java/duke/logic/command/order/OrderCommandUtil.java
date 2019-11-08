@@ -20,11 +20,11 @@ import java.util.Set;
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
 class OrderCommandUtil {
-    private static final String MESSAGE_ITEM_NOT_FOUND = "[%s] is not found in the filtered product list. "
-        + "Add it to Product List first or change Product List's viewing scope first?";
+    public static final String MESSAGE_ITEM_NOT_FOUND = "[%s] is not an active product or is not in Product list. "
+        + "Add it to Product List or change Product List's viewing scope first?";
 
     /**
-     * Returns a set of product items from product names.
+     * Returns a set of product items based on product names.
      * @param allProducts that are available.
      * @param items containing the name of the products.
      * @throws CommandException if one or more product names in {@code items} are not found in {@code allProducts}

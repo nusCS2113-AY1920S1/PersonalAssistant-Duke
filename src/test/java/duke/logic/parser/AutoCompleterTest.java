@@ -3,6 +3,7 @@ package duke.logic.parser;
 import duke.logic.command.Command;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
+import duke.logic.command.order.AddOrderCommand;
 import duke.logic.parser.commons.AutoCompleter;
 import duke.logic.parser.commons.Prefix;
 import duke.logic.parser.exceptions.ParseException;
@@ -10,6 +11,7 @@ import duke.model.Model;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 
 /**
  * A test class for AutoCompleter.
@@ -20,7 +22,7 @@ public class AutoCompleterTest {
     //---------------- Tests for addCommandClass -------------------------------
     @Test
     public void addCommandClass_commandClass_success() {
-        Assertions.assertAll(() -> completer.addCommandClass(CommandStub.class));
+        Assertions.assertAll(() -> completer.addCommandClass(AddOrderCommandStub.class));
     }
 
     @Test
@@ -28,120 +30,115 @@ public class AutoCompleterTest {
         Assertions.assertThrows(NullPointerException.class, () -> completer.addCommandClass(null));
     }
 
-    //---------------- Tests for isAutoCompletable -------------------------------
+    @Test
+    public void addCommandClass_duplicate_throwsParseException() {
+        completer.addCommandClass(AddOrderCommandStub.class);
+        Assertions.assertThrows(ParseException.class, () -> completer.addCommandClass(AddOrderCommandStub.class));
+    }
+
+    //---------------- Tests for isAutoCompletable(Input) -------------------------------
 
     /**
      * Equivalence partitions for input:
      * - null
-     * - not null, cannot find a match
-     * - not null, matched
-     * - blank
-     * - empty
+     * - not null and not completable
+     * - not null and completable
      */
 
     @Test
     public void isAutoCompletable_null_throwsNullPointerException() {
-        Assertions.assertAll(() -> completer.addCommandClass(CommandStub.class));
-
-        Assertions.assertThrows(NullPointerException.class,
-            () -> completer.isAutoCompletable(null));
+        Assertions.assertThrows(NullPointerException.class, () -> completer.isAutoCompletable(null));
     }
 
     @Test
-    public void isAutoCompletable_noMatchInput_returnsFalse() {
-        Assertions.assertAll(() -> completer.addCommandClass(CommandStub.class));
+    public void isAutoCompletable_notCompletable_returnsFalse() {
+        Assertions.assertAll(() -> completer.addCommandClass(AddOrderCommandStub.class));
 
-        Assertions.assertEquals(
-            false,
+        //Unknown input
+        Assertions.assertEquals(false,
             completer.isAutoCompletable(new AutoCompleter.Input("unknown", 0))
         );
-    }
 
-    @Test
-    public void isAutoCompletable_matchedInput_returnsTrue() {
-        completer.addCommandClass(CommandStub.class);
-
-        Assertions.assertEquals(
-            true,
-            completer.isAutoCompletable(new AutoCompleter.Input("St", 0))
-        );
-    }
-
-    @Test
-    public void isAutoCompletable_blankInput_returnsFalse() {
-        completer.addCommandClass(CommandStub.class);
-
-        Assertions.assertEquals(
-            false,
+        //Blank input
+        Assertions.assertEquals(false,
             completer.isAutoCompletable(new AutoCompleter.Input("  ", 0))
         );
-    }
 
-    @Test
-    public void isAutoCompletable_emptyInput_returnsFalse() {
-        completer.addCommandClass(CommandStub.class);
-
-        Assertions.assertEquals(
-            false,
+        //Empty input
+        Assertions.assertEquals(false,
             completer.isAutoCompletable(new AutoCompleter.Input("", 0))
         );
+
+        //input is the same as the command word
+        Assertions.assertEquals(
+            false,
+            completer.isAutoCompletable(new AutoCompleter.Input(AddOrderCommand.COMMAND_WORD, 0))
+        );
     }
 
-    //---------------- Tests for complete ------------------------
-
     @Test
-    public void complete_matchedCommandWord_success() {
-        completer.addCommandClass(CommandStub.class);
+    public void isAutoCompletable_completable_returnsTrue() {
+        Assertions.assertAll(() -> completer.addCommandClass(AddOrderCommandStub.class));
+
+        //input contains the first character of command word
         Assertions.assertEquals(
             true,
-            completer.isAutoCompletable(new AutoCompleter.Input("St", 1))
+            completer.isAutoCompletable(new AutoCompleter.Input(AddOrderCommand.COMMAND_WORD.substring(0, 1), 0))
+        );
+
+        //input contains the first two characters of command word
+        Assertions.assertEquals(
+            true,
+            completer.isAutoCompletable(new AutoCompleter.Input(AddOrderCommand.COMMAND_WORD.substring(0, 2), 0))
+        );
+    }
+
+    //---------------- Tests for complete() method ------------------------
+    @Test
+    public void complete_notCompletable_throwsParseException() {
+        Assertions.assertThrows(ParseException.class, completer::complete);
+    }
+
+    @Test
+    public void complete_completableCommandWord_success() {
+        completer.addCommandClass(AddOrderCommandStub.class);
+        Assertions.assertEquals(
+            true,
+            completer.isAutoCompletable(new AutoCompleter.Input("order a", 7))
         );
 
         Assertions.assertEquals(
-            "Stub",
+            AddOrderCommandStub.AUTO_COMPLETE_INDICATOR,
             completer.complete().text
         );
     }
 
     @Test
-    public void complete_noMatchedCommand_throwsParseException() {
-        Assertions.assertThrows(ParseException.class, completer::complete);
-    }
+    public void complete_completablePrefix_success() {
+        completer.addCommandClass(AddOrderCommandStub.class);
 
-    /**
-     * Tests an input that has only one available suggestion.
-     */
-    @Test
-    public void complete_singleSuggestion_success() {
-        completer.addCommandClass(CommandStub.class);
-
+        //input only has one prefix suggestion
         Assertions.assertEquals(
             true,
-            completer.isAutoCompletable(new AutoCompleter.Input("Stub stub -b", 10))
+            completer.isAutoCompletable(new AutoCompleter.Input("order add -s", 12))
         );
+        Assertions.assertEquals("order add -status", completer.complete().text);
 
-        Assertions.assertEquals("Stub stub -bb", completer.complete().text);
-
-    }
-
-    /**
-     * Tests an input that has more than one available suggestion.
-     */
-    @Test
-    public void complete_multipleSuggestions_success() {
-        completer.addCommandClass(CommandStub.class);
-
+        //input has multiple prefix suggestions.
         Assertions.assertEquals(
             true,
-            completer.isAutoCompletable(new AutoCompleter.Input("Stub stub -", 11))
+            completer.isAutoCompletable(new AutoCompleter.Input("order add -", 11))
         );
 
-        Assertions.assertEquals("Stub stub -bb", completer.complete().text);
-        Assertions.assertEquals("Stub stub -cc", completer.complete().text);
-        Assertions.assertEquals("Stub stub -aa", completer.complete().text);
+        Assertions.assertEquals("order add -contact", completer.complete().text);
+        Assertions.assertEquals("order add -by", completer.complete().text);
+        Assertions.assertEquals("order add -status", completer.complete().text);
+        Assertions.assertEquals("order add -item", completer.complete().text);
+        Assertions.assertEquals("order add -rmk", completer.complete().text);
+        Assertions.assertEquals("order add -total", completer.complete().text);
+        Assertions.assertEquals("order add -name", completer.complete().text);
+        Assertions.assertEquals("order add -contact", completer.complete().text); //go cyclic to the first suggestion
 
-        //Should go cyclic to the first suggestion
-        Assertions.assertEquals("Stub stub -bb", completer.complete().text);
 
     }
 
@@ -154,94 +151,70 @@ public class AutoCompleterTest {
     }
 
 
-    //--------------Tests for  UserInputState constructor ----------------
+    //--------------Tests for Input constructor ----------------
 
     /*
-     * EP for userInput string:
-     * - null string (invalid)
-     * - non-null string (valid)
+     * EP for text:
+     * - null string
+     * - empty string
+     * - non-empty string
      *
      * EP for caretPosition:
-     * - negative numbers (invalid, below range)
-     * - within 0 and userInput.length() (valid)
-     * - larger than userInput.length() (invalid, above range)
+     * - negative numbers
+     * - between 0 and text.length()
+     * - larger than text.length()
      *
-     * Applying Heuristic, we get four test cases:
-     *      userInput  |   caretPosition
-     * 1.   not null   |   within 0 and userInput.length()
-     * 2.   null       |   within 0 and userInput.length()
-     * 3.   not null   |   negative number
-     * 4.   not null   |   larger than userInput.length()
-     *
-     * Applying boundary value analysis (BVA), we have 6 more:
-     * 5.   not null   |   -1
-     * 6.   not null   |   0
-     * 7.   not null   |   1
-     * 8    length n   |   n-1
-     * 9.   length n   |   n
-     * 10.   length n   |   n+1
+     * The following two test methods test all of the above with a reasonably low number of test cases
+     * by applying the Heuristic principle.
      */
 
     @Test
-    public void constructor_validInputAndValidCaretPosition_success() {
-        Assertions.assertAll(() -> new AutoCompleter.Input("hello", 2));
-    }
+    public void constructor_validInput_success() {
+        //Non-empty text and caret position between 0 and text.length
+        Assertions.assertAll(() -> new AutoCompleter.Input("order", 2));
 
-    @Test
-    public void constructor_nullInput_throwsNullPointerException() {
-        Assertions.assertThrows(NullPointerException.class,
-            () -> new AutoCompleter.Input(null, 0));
-    }
+        //empty text and caret position between 0 and text.length
+        Assertions.assertAll(() -> new AutoCompleter.Input("", 0));
 
-    @Test
-    public void constructor_negativeCaretPosition_throwsNullPointerException() {
-        Assertions.assertThrows(ParseException.class,
-            () -> new AutoCompleter.Input("order", -10));
-    }
-
-    @Test
-    public void constructor_invalidCaretPosition_throwsNullPointerException() {
-        Assertions.assertThrows(ParseException.class,
-            () -> new AutoCompleter.Input("order", 10));
-    }
-
-    @Test
-    public void constructor_validBoundaryCaretPositions_success() {
-        //Boundaries near zero (BVA cases 6, 7)
-        Assertions.assertAll(() -> new AutoCompleter.Input("hello", 1));
-        Assertions.assertAll(() -> new AutoCompleter.Input("hello", 0));
-
-        //Boundaries near string.length(BVA cases 8, 9)
-        Assertions.assertAll(() -> new AutoCompleter.Input("hello", 4));
-        Assertions.assertAll(() -> new AutoCompleter.Input("hello", 5));
+        //Boundary cases
+        Assertions.assertAll(() -> new AutoCompleter.Input("order", 0));
+        Assertions.assertAll(() -> new AutoCompleter.Input("order", 5));
 
     }
 
     @Test
-    public void constructor_inValidBoundaryCaretPositions_throwsParseException() {
-        //negative position (BVA case 5)
-        Assertions.assertThrows(ParseException.class,
-            () -> new AutoCompleter.Input("order", -1));
+    public void constructor_invalidInput_failure() {
+        //Non-empty text and negative caret position, throws ParseException
+        Assertions.assertThrows(ParseException.class, () -> new AutoCompleter.Input("test", -6));
+        Assertions.assertThrows(ParseException.class, () -> new AutoCompleter.Input("test", -1)); //Boundary case
 
-        //More than string.length() (BVA case 10)
-        Assertions.assertThrows(ParseException.class,
-            () -> new AutoCompleter.Input("order", 6));
+        //Non-empty text and caret position larger than text.length(), throws ParseException
+        Assertions.assertThrows(ParseException.class, () -> new AutoCompleter.Input("abcd", 10));
+        Assertions.assertThrows(ParseException.class, () -> new AutoCompleter.Input("abcd", 5)); //Boundary case
 
+        //Null text, throws NullPointerException
+        Assertions.assertThrows(NullPointerException.class, () -> new AutoCompleter.Input(null, 0));
     }
+
 
     /**
-     * A stub for {@code Command}.
+     * A stub for {@code AddOrderCommand}.
      *
      * The class is declared as public so that its fields can be fetched by AutoCompleter
      * using Reflection API.
      */
-    public static class CommandStub extends Command {
-        public static final String COMMAND_WORD = "Stub";
-        public static final String AUTO_COMPLETE_INDICATOR = "Stub stub";
+    public static class AddOrderCommandStub extends Command {
+        public static final String COMMAND_WORD = "add";
+
+        public static final String AUTO_COMPLETE_INDICATOR = "order add";
         public static final Prefix[] AUTO_COMPLETE_PARAMETERS = {
-            new Prefix("-aa"),
-            new Prefix("-bb"),
-            new Prefix("-cc")
+            new Prefix("-name"),
+            new Prefix("-contact"),
+            new Prefix("-by"),
+            new Prefix("-status"),
+            new Prefix("-item"),
+            new Prefix("-rmk"),
+            new Prefix("-total")
         };
 
         @Override
@@ -249,4 +222,6 @@ public class AutoCompleterTest {
             throw new CommandException("This method should not be called in testing");
         }
     }
+
+
 }

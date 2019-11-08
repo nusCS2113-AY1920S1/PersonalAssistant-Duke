@@ -52,7 +52,7 @@ public class CompleteOrderCommand extends OrderCommand {
         //Check complete eligibility
         for (Index index : indices) {
             if (index.getZeroBased() >= model.getFilteredOrderList().size()) {
-                logger.warning(String.format("Index [%d] out of bound", index.getOneBased()));
+                logger.warning(String.format("Index [%d] does not exist", index.getOneBased()));
                 throw new CommandException(Message.MESSAGE_INDEX_OUT_OF_BOUND);
             }
 
@@ -66,12 +66,12 @@ public class CompleteOrderCommand extends OrderCommand {
             descriptor.setStatus(Order.Status.COMPLETED);
 
             //deducts ingredients used in this order from inventory.
-            boolean isIngredientsUsedUp = deductInventory(
+            deductInventory(
                 model.getFilteredOrderList().get(index.getZeroBased()),
                 model
             );
 
-            if (isIngredientsUsedUp) {
+            if (!model.getFilteredOrderList().get(index.getZeroBased()).isIsIngredientEnough()) {
                 executeResult = MESSAGE_COMPLETE_INSUFFICIENT_INVENTORY;
             }
 

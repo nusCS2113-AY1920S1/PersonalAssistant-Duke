@@ -41,13 +41,10 @@ public class OrderPage extends UiPart<AnchorPane> {
         super(FXML);
 
         logger.info("Initializing Order Page");
-        orderListView.setItems(orderList);
-        orderListView.setCellFactory(listView -> new OrderListViewCell());
 
-        updateStatistics(orderList);
-        orderList.addListener((ListChangeListener<Order>) change ->
-            updateStatistics(orderList)
-        );
+        initializeListView(orderList);
+
+        initializeListener(orderList);
 
         //Since clicking on ListView results in unwanted changed of colors
         //of list cell elements (for example, label colors),
@@ -55,18 +52,16 @@ public class OrderPage extends UiPart<AnchorPane> {
         disableMouseClick();
     }
 
-    static class OrderListViewCell extends ListCell<Order> {
-        @Override
-        protected void updateItem(Order order, boolean empty) {
-            super.updateItem(order, empty);
-            updateSelected(false);
-            if (empty || order == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new OrderCard(order, getIndex() + 1).getRoot());
-            }
-        }
+    private void initializeListView(ObservableList<Order> orderList) {
+        orderListView.setItems(orderList);
+        orderListView.setCellFactory(listView -> new OrderListViewCell());
+    }
+
+    private void initializeListener(ObservableList<Order> orderList) {
+        updateStatistics(orderList);
+        orderList.addListener((ListChangeListener<Order>) change ->
+            updateStatistics(orderList)
+        );
     }
 
     private void updateStatistics(ObservableList<Order> orders) {
@@ -91,5 +86,19 @@ public class OrderPage extends UiPart<AnchorPane> {
 
     private void disableMouseClick() {
         orderListView.addEventFilter(MouseEvent.MOUSE_PRESSED, Event::consume);
+    }
+
+    static class OrderListViewCell extends ListCell<Order> {
+        @Override
+        protected void updateItem(Order order, boolean empty) {
+            super.updateItem(order, empty);
+            updateSelected(false);
+            if (empty || order == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(new OrderCard(order, getIndex() + 1).getRoot());
+            }
+        }
     }
 }

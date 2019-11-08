@@ -106,7 +106,7 @@ public class AddOrderCommandParserTest {
 
         //Invalid quantity
         CommandParserTestUtil.assertParseFailure(parser, DESC_INVALID_QUANTITY, Quantity.MESSAGE_LIMIT_QUANTITY); //too big
-        CommandParserTestUtil.assertParseFailure(parser, DESC_INVALID_QUANTITY_BOUNDARY, Quantity.MESSAGE_LIMIT_QUANTITY); //boundary
+        CommandParserTestUtil.assertParseFailure(parser, DESC_INVALID_QUANTITY_BOUNDARY, Quantity.MESSAGE_LIMIT_QUANTITY); //boundary， too big
 
         //Invalid status
         CommandParserTestUtil.assertParseFailure(parser, DESC_INVALID_STATUS, Message.MESSAGE_INVALID_STATUS); //unknown status
