@@ -1,10 +1,13 @@
 package duke.logic.parser.product;
 
+import duke.logic.parser.exceptions.ParseException;
 import duke.model.product.IngredientItemList;
 import duke.testutil.IngredientItemListBuilder;
 import org.junit.jupiter.api.Test;
 
+import static duke.logic.message.ProductMessageUtils.MESSAGE_INVALID_INGREDIENT_FORMAT;
 import static duke.logic.parser.product.IngredientItemListParser.getIngredientsInInput;
+import static duke.testutil.Assert.assertThrows;
 import static duke.testutil.TypicalIngredientItems.CREAM_CHEESE_3;
 import static duke.testutil.TypicalIngredientItems.EGG_2;
 import static duke.testutil.TypicalIngredientItems.BUTTER_0;
@@ -20,7 +23,11 @@ public class IngredientItemListParserTest {
     @Test
     public void parseIngredient_standardInput_success() {
         //standard input -> return true
-        assertTrue(getIngredientsInInput("[Cream cheese, 3] [Egg, 2] [Butter, 0]").listEquals
+        assertTrue(getIngredientsInInput("[Cream cheese,3] [Egg,2] [Butter,0]").listEquals
+                (REFERENCE_LIST));
+
+        //input with leading and trailing spaces -> return true
+        assertTrue(getIngredientsInInput("[     Cream cheese, 3] [Egg     , 2] [Butter, 0      ]").listEquals
                 (REFERENCE_LIST));
 
         //standard but with duplicate -> return true
@@ -38,6 +45,7 @@ public class IngredientItemListParserTest {
         // Input with no quantity are set to default quantity 0.0 -> returns true
         assertTrue(getIngredientsInInput("[Cream cheese, 3] [Egg, 2] [Butter]").listEquals
                 (REFERENCE_LIST));
+
         //Input with no different capitalization are standardized -> returns true
         assertTrue(getIngredientsInInput("[Cream CheeSe, 3] [eGG, 2] [bUtter, 0]").listEquals
                 (REFERENCE_LIST));
@@ -51,7 +59,7 @@ public class IngredientItemListParserTest {
                 (REFERENCE_LIST));
 
         //Input with spaces in between entries -> returns true
-        assertTrue(getIngredientsInInput("[Cream cheese, 3]         [Butter, 0][Egg, 2] ").listEquals
+        assertTrue(getIngredientsInInput("   [Cream cheese, 3]         [Butter, 0][Egg, 2] ").listEquals
                 (REFERENCE_LIST));
 
         //Input with different name -> returns false
@@ -63,10 +71,46 @@ public class IngredientItemListParserTest {
     }
 
     @Test
-    public void parseIngredient_invalidInput_throwCommandException() {
-        //input with  -> return true
-        //assertThrows(ParseException.class, () -> {
-        //    getIngredientsInInput("-er, 2]----[Egg, 2] ");
-        //});
+    public void parseIngredient_invalidInput_throwParseExceptionWithMessage() {
+        //invalid input that can't be matched due to:
+        //wrong format
+        assertThrows(ParseException.class, MESSAGE_INVALID_INGREDIENT_FORMAT, () -> {
+            getIngredientsInInput("-------------");
+        });
+
+        //missing brackets
+        assertThrows(ParseException.class, MESSAGE_INVALID_INGREDIENT_FORMAT, () -> {
+            getIngredientsInInput("[Cream cheese, 2] Butter, 2][Egg, 2]");
+        });
+
+        //missing name
+        assertThrows(ParseException.class, MESSAGE_INVALID_INGREDIENT_FORMAT, () -> {
+            getIngredientsInInput("[, 2] [Butter, 2][Egg, 2]");
+        });
+
+        //portion not number
+        assertThrows(ParseException.class, MESSAGE_INVALID_INGREDIENT_FORMAT, () -> {
+            getIngredientsInInput("[Cream cheese, 2.2.0.][Butter, 2][Egg, 2]");
+        });
+
+        //extra leading characters
+        assertThrows(ParseException.class, MESSAGE_INVALID_INGREDIENT_FORMAT, () -> {
+            getIngredientsInInput("--[Cream cheese, 2] [Butter, 2][Egg, 2]");
+        });
+
+        //extra trailing characters
+        assertThrows(ParseException.class, MESSAGE_INVALID_INGREDIENT_FORMAT, () -> {
+            getIngredientsInInput("[Cream cheese, 2] [Butter, 2][Egg, 2]--");
+        });
+
+        //extra separator
+        assertThrows(ParseException.class, MESSAGE_INVALID_INGREDIENT_FORMAT, () -> {
+            getIngredientsInInput("[Cream cheese, 2],[Butter, 2],[Egg, 2]");
+        });
+
+        //invalid brackets
+        assertThrows(ParseException.class, MESSAGE_INVALID_INGREDIENT_FORMAT, () -> {
+            getIngredientsInInput("{Cream cheese, 2}{Butter, 2}{Egg, 2}");
+        });
     }
 }

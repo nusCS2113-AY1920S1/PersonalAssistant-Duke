@@ -112,7 +112,6 @@ public class Product {
      * @return true if the provided product has the same information for all fields
      */
     public boolean hasSameInfo(Product p) {
-        TestUtil.printToFile(toString() + System.lineSeparator() +"/////////////////////" + System.lineSeparator() + p.toString());
         return toString().equals(p.toString());
     }
     @Override

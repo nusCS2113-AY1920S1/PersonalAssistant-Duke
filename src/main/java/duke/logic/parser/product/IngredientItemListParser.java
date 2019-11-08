@@ -1,7 +1,6 @@
 package duke.logic.parser.product;
 
 import duke.commons.core.LogsCenter;
-import duke.commons.util.TestUtil;
 import duke.logic.message.ProductMessageUtils;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.commons.Item;
@@ -16,7 +15,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static duke.logic.message.ProductMessageUtils.MESSAGE_WRONG_INGREDIENT_FORMAT;
+import static duke.logic.message.ProductMessageUtils.MESSAGE_INVALID_INGREDIENT_FORMAT;
 
 public class IngredientItemListParser {
     private static final Logger logger = LogsCenter.getLogger(ProductParserUtil.class);
@@ -32,7 +31,7 @@ public class IngredientItemListParser {
         Matcher matcher = FORMAT_INGREDIENT_INPUT.matcher(input.trim());
 
         if (!matcher.matches()) {
-            throw new ParseException(MESSAGE_WRONG_INGREDIENT_FORMAT);
+            throw new ParseException(MESSAGE_INVALID_INGREDIENT_FORMAT);
         }
 
         Map<String, String> params = new Hashtable<>();
@@ -61,7 +60,7 @@ public class IngredientItemListParser {
         return params;
     }
 
-    private static Item<Ingredient> constructNewIngredientItem(Map.Entry<String, String> entry) throws ParseException{
+    private static Item<Ingredient> constructNewIngredientItem(Map.Entry<String, String> entry) {
         String ingredientName = entry.getKey();
         String portionString = entry.getValue();
         Ingredient newIngredient = new Ingredient(ingredientName);
@@ -72,8 +71,8 @@ public class IngredientItemListParser {
             try {
                 portion = Double.parseDouble(portionString);
             } catch (NumberFormatException e) {
-                logger.info(ProductMessageUtils.MESSAGE_PORTION_NOT_NUMBER);
-                throw new ParseException(ProductMessageUtils.MESSAGE_PORTION_NOT_NUMBER);
+                logger.info(ProductMessageUtils.MESSAGE_INVALID_INGREDIENT_FORMAT);
+                throw new ParseException(ProductMessageUtils.MESSAGE_INVALID_INGREDIENT_FORMAT);
             }
         }
 
@@ -87,7 +86,7 @@ public class IngredientItemListParser {
      * @param input user input containing ingredient and portion
      * @return the IngredientItemList that contains the ingredients
      */
-    public static IngredientItemList getIngredientsInInput(String input) throws ParseException {
+    public static IngredientItemList getIngredientsInInput(String input) {
         IngredientItemList ingredientItemList = new IngredientItemList();
         Map<String, String> ingredientAndPortion = getIngredientPortionMap(input);
         for (Map.Entry<String, String> entry : ingredientAndPortion.entrySet()) {
