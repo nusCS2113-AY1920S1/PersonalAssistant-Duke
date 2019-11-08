@@ -5,10 +5,11 @@ public class RemoveUi extends Ui {
     /**
      * The method will print the message of the removal of a user defined record.
      * @param record the record to be removed
+     * @param mode the mode dolla is on
      */
-    public static void echoRemove(String record) {
+    public static void echoRemove(String record, String mode) {
         System.out.println(line);
-        System.out.println("\tNoted. I've removed this record: ");
+        System.out.println("\tNoted. I've removed this " + mode + ": ");
         System.out.println("\t" + record);
         System.out.println(line);
     }

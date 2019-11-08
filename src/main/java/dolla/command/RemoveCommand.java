@@ -56,7 +56,7 @@ public class RemoveCommand extends Command {
             Redo.clearRedoState(mode);
             recordNumInt = stringToInt(logNumStr) - 1;
             Record record = recordList.get(recordNumInt);
-            RemoveUi.echoRemove(record.getRecordDetail());
+            RemoveUi.echoRemove(record.getRecordDetail(), mode);
             dollaData.removeFromRecordList(mode, recordNumInt);
         } catch (IndexOutOfBoundsException e) {
             RemoveUi.printNumberOfRecords(recordList.size());
