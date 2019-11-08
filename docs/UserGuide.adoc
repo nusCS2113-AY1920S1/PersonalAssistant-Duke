@@ -99,11 +99,11 @@ typing your `USERNAME` *(e.g. John)* when prompted and pressing kbd:[Enter]
 +
 .Successful start-up of *OwlMoney*
 ifdef::env-github[]
-image::Ui.png[width="800"]
+image::UiStartUp.png[width="800"]
 endif::[]
 
 ifndef::env-github[]
-image::Ui.png[width="970"]
+image::UiStartUp.png[width="970"]
 endif::[]
 +
 . You can now try entering commands in the *command box* and press kbd:[Enter] to execute it! +
