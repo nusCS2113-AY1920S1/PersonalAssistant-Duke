@@ -85,6 +85,7 @@ public class ListCommand extends Command {
         }
         ui.showMealList(currentMeals);
         ui.showCaloriesLeft(currentMeals, user, currentDate);
+        ui.showExerciseOnDate(meals.getExerciseList(), currentDate);
         ui.showLine();
     }
 }

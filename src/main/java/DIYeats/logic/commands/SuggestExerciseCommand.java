@@ -1,5 +1,6 @@
 package DIYeats.logic.commands;
 
+import DIYeats.commons.exceptions.DukeException;
 import DIYeats.logic.suggestion.ExerciseSuggestionHandler;
 import DIYeats.model.meal.MealList;
 import DIYeats.model.user.User;
@@ -46,7 +47,7 @@ public class SuggestExerciseCommand extends Command {
                 stage++;
                 break;
             case 1:
-                execute_stage_1(meals, storage, user, wallet);
+                execute_stage_1(meals, storage);
                 break;
             default:
                 isDone = true;
@@ -74,7 +75,7 @@ public class SuggestExerciseCommand extends Command {
         }
     }
 
-    private void execute_stage_1(MealList meals, Storage storage, User user, Wallet wallet) {
+    private void execute_stage_1(MealList meals, Storage storage) {
         int exerciseIdx;
         try {
             exerciseIdx = Integer.parseInt(this.responseStr);
@@ -90,7 +91,15 @@ public class SuggestExerciseCommand extends Command {
             return;
         }
         exerciseSuggestionHandler.addChosenExercise(exerciseIdx - 1, meals, date);
-        ui.showMessage("Got it!, I have set the exercise for the date " + date.format(LOCAL_DATE_FORMATTER) + ".");
+        ui.showMessage("Got it!, I have set the chosen exercise for the date "
+                + date.format(LOCAL_DATE_FORMATTER) + ".");
+
+        try {
+            storage.updateExercises(meals);
+        } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+        }
+
         isDone = true;
     }
 }

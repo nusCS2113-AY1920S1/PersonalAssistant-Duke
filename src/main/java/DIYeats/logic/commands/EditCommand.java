@@ -6,6 +6,7 @@ import DIYeats.model.meal.MealList;
 import DIYeats.model.user.User;
 import DIYeats.model.wallet.Wallet;
 import DIYeats.storage.Storage;
+
 import java.time.LocalDate;
 
 //@@author HashirZahir

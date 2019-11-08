@@ -1,13 +1,13 @@
 package DIYeats.storage;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import DIYeats.commons.exceptions.DukeException;
 import DIYeats.commons.file.LocalDateAdapter;
 import DIYeats.logic.autocorrect.Autocorrect;
 import DIYeats.model.meal.MealList;
 import DIYeats.model.user.User;
 import DIYeats.model.wallet.Wallet;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,6 +19,8 @@ import java.util.ArrayList;
 public class Storage {
     private Load loader;
     private Write writer;
+    private int stage = 0;
+    private boolean mealIsDone = false;
 
     public Storage() {
         Gson gson = new GsonBuilder().setPrettyPrinting()
@@ -32,8 +34,24 @@ public class Storage {
      * This is a function that will load all info required to initialize a MealList object.
      */
     public void loadMealInfo(MealList meals) throws DukeException {
-        loader.loadMealListData(meals);
-        loader.loadDefaultMealData(meals);
+        switch (stage) {
+            case 0:
+                stage++;
+                mealIsDone = false;
+                loader.loadMealListData(meals);
+                break;
+            case 1:
+                stage++;
+                loader.loadDefaultMealData(meals);
+                break;
+            case 2:
+                mealIsDone = true;
+                loader.loadExercises(meals);
+                break;
+            default:
+                mealIsDone = true;
+                throw new DukeException("The storage function has entered an invalid state");
+        }
     }
 
     /**
@@ -62,18 +80,22 @@ public class Storage {
 
     /**
      * This is a function that will update the input/output file from the current arraylist of meals.
-     * @param mealData the structure that will store the tasks from the input file
+     * @param meals the structure that will store the tasks from the input file
      */
     //TODO: maybe we can put the errors in the ui file
-    public void updateFile(MealList mealData) throws DukeException {
-        writer.writeFile(mealData);
+    public void updateFile(MealList meals) throws DukeException {
+        writer.writeFile(meals);
+    }
+
+    public void updateExercises(MealList meals) throws DukeException {
+        writer.writeExercises(meals);
     }
 
     /**
      * This is a function that will write data from a MealList object to the defaultitems save file.
      */
-    public void updateDefaults(MealList mealData) throws DukeException {
-        writer.writeDefaults(mealData);
+    public void updateDefaults(MealList meals) throws DukeException {
+        writer.writeDefaults(meals);
     }
 
     /**
@@ -93,5 +115,9 @@ public class Storage {
 
     public void updateTransaction(Wallet wallet) throws DukeException {
         writer.writeTransaction(wallet);
+    }
+
+    public boolean getMealIsDone() {
+        return this.mealIsDone;
     }
 }

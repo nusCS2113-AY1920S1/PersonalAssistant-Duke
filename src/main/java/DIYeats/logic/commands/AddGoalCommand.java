@@ -1,8 +1,8 @@
 package DIYeats.logic.commands;
 
 import DIYeats.commons.exceptions.DukeException;
-import DIYeats.model.user.Goal;
 import DIYeats.model.meal.MealList;
+import DIYeats.model.user.Goal;
 import DIYeats.model.user.User;
 import DIYeats.model.wallet.Wallet;
 import DIYeats.storage.Storage;

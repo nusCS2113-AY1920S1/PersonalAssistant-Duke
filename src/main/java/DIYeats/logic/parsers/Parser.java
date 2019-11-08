@@ -2,7 +2,9 @@ package DIYeats.logic.parsers;
 
 import DIYeats.commons.exceptions.DukeException;
 import DIYeats.logic.autocorrect.Autocorrect;
-import DIYeats.logic.commands.*;
+import DIYeats.logic.commands.Command;
+import DIYeats.logic.commands.ExitCommand;
+import DIYeats.logic.commands.StatsCommand;
 
 import static DIYeats.commons.constants.CommandDefinitions.PARSER_ADD_COMMAND;
 import static DIYeats.commons.constants.CommandDefinitions.PARSER_ADD_GOAL_COMMAND;
@@ -22,8 +24,8 @@ import static DIYeats.commons.constants.CommandDefinitions.PARSER_LIST_COMMAND;
 import static DIYeats.commons.constants.CommandDefinitions.PARSER_LUNCH_COMMAND;
 import static DIYeats.commons.constants.CommandDefinitions.PARSER_PAYMENT_COMMAND;
 import static DIYeats.commons.constants.CommandDefinitions.PARSER_STATS_COMMAND;
-import static DIYeats.commons.constants.CommandDefinitions.PARSER_SUGGEST_MEAL_COMMAND;
 import static DIYeats.commons.constants.CommandDefinitions.PARSER_SUGGEST_EXERCISE_COMMAND;
+import static DIYeats.commons.constants.CommandDefinitions.PARSER_SUGGEST_MEAL_COMMAND;
 import static DIYeats.commons.constants.CommandDefinitions.PARSER_UPDATE_COMMAND;
 import static DIYeats.commons.exceptions.ExceptionMessages.UNKNOWN_COMMAND;
 

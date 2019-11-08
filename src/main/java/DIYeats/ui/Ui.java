@@ -1,7 +1,8 @@
 package DIYeats.ui;
 
-import DIYeats.model.user.Goal;
+import DIYeats.model.meal.ExerciseList;
 import DIYeats.model.meal.Meal;
+import DIYeats.model.user.Goal;
 import DIYeats.model.user.User;
 import DIYeats.model.wallet.Payment;
 import DIYeats.model.wallet.Transaction;
@@ -263,6 +264,16 @@ public class Ui {
         System.out.println(UI_BOUNDARY);
     }
 
+    public void showExerciseOnDate(ExerciseList exerciseList, LocalDate date) {
+        Pair<String, Integer> exerciseOnDate = exerciseList.getExerciseAtDate(date);
+        if (exerciseOnDate == null) {
+            System.out.println(UI_PADDING + "You have not set an exercise routine for this day yet\n"
+                    + UI_PADDING + "Use the suggestexercise command to choose an exercise routine!");
+        } else {
+            System.out.println(UI_PADDING + "Exercise planed for the day:\n" + UI_PADDING
+                    + exerciseOnDate.getKey() + " for " + exerciseOnDate.getValue() + " mins.");
+        }
+    }
     public void showPayment(Payment payment) {
         System.out.println(UI_PADDING + "You have paid " + payment.getTransactionAmount() + "SGD. "
                             + "The amount has been deducted from your account.");

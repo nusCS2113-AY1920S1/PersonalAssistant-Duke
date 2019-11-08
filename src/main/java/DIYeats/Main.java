@@ -37,12 +37,13 @@ public class Main {
         user = new User();
         autocorrect = new Autocorrect();
         wallet = new Wallet();
-        try {
-            storage = new Storage();
-            storage.loadMealInfo(meals);
-        } catch (DukeException e) {
-            ui.showMessage(e.getMessage());
-            meals = new MealList();
+        storage = new Storage();
+        while (!storage.getMealIsDone()) {
+            try {
+                storage.loadMealInfo(meals);
+            } catch (DukeException e) {
+                ui.showMessage(e.getMessage());
+            }
         }
         try {
             user = storage.loadUser(); //load user info

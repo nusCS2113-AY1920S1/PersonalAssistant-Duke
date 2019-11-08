@@ -1,17 +1,18 @@
 package DIYeats.storage;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import DIYeats.commons.exceptions.DukeException;
 import DIYeats.commons.file.FilePathNames;
 import DIYeats.commons.file.FilePaths;
 import DIYeats.commons.file.FileUtil;
 import DIYeats.logic.autocorrect.Autocorrect;
-import DIYeats.model.user.Goal;
+import DIYeats.model.meal.ExerciseList;
 import DIYeats.model.meal.Meal;
 import DIYeats.model.meal.MealList;
+import DIYeats.model.user.Goal;
 import DIYeats.model.user.User;
 import DIYeats.model.wallet.Wallet;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -75,6 +76,21 @@ public class Load {
         } catch (Exception e) {
             throw new DukeException("It appears the savefile has been corrupted. "
                     + "Default meal values will not be loaded.");
+        }
+    }
+
+    public void loadExercises(MealList meals) throws DukeException {
+        String exercisesFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_EXERCISES_FILE);
+        Type exerciseListType = new TypeToken<ExerciseList>(){}.getType();
+        bufferedReader = FileUtil.readFile(exercisesFilePathStr, useResourceAsBackup);
+        try {
+            ExerciseList data = gson.fromJson(bufferedReader, exerciseListType);
+            if (data != null) {
+                meals.setExerciseList(data);
+            }
+        } catch (Exception e) {
+            throw new DukeException("It appears the savefile has been corrupted. "
+                    + "Exercise history will not be loaded.");
         }
     }
 

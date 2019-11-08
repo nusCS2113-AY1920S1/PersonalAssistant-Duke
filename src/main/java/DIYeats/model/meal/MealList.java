@@ -149,6 +149,10 @@ public class MealList {
         this.defaultValues = defaultValues;
     }
 
+    public void setExerciseList(ExerciseList exerciseList) {
+        this.exerciseList = exerciseList;
+    }
+
     public ArrayList<Meal> getMealsList(LocalDate inputDate) {
         if (mealTracker.containsKey(inputDate)) {
             return mealTracker.get(inputDate);

@@ -1,14 +1,14 @@
 package DIYeats.storage;
 
-import com.google.gson.Gson;
 import DIYeats.commons.exceptions.DukeException;
 import DIYeats.commons.file.FilePathNames;
 import DIYeats.commons.file.FilePaths;
 import DIYeats.commons.file.FileUtil;
-import DIYeats.model.user.Goal;
 import DIYeats.model.meal.MealList;
+import DIYeats.model.user.Goal;
 import DIYeats.model.user.User;
 import DIYeats.model.wallet.Wallet;
+import com.google.gson.Gson;
 
 //@@author Fractalisk
 /**
@@ -36,6 +36,11 @@ public class Write {
     public void writeDefaults(MealList meals) throws DukeException {
         String toWriteStr = gson.toJson(meals.getDefaultValues());
         FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePathNames.FILE_PATH_DEFAULT_MEAL_FILE));
+    }
+
+    public void writeExercises(MealList meals) throws DukeException {
+        String toWriteStr = gson.toJson(meals.getExerciseList());
+        FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePathNames.FILE_PATH_EXERCISES_FILE));
     }
 
     public void writeGoal(User user) throws DukeException {
