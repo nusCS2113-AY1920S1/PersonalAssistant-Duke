@@ -124,8 +124,9 @@ public class Storage {
                 return scheduleMap;
             } else {
                 Ui.setOutput("Schedule File not found. New file will be created");
+                createFileAndDirectory(this.scheduleFilePath);
             }
-        } catch (IOException e) {
+        } catch (IOException | MooMooException e) {
             Ui.setOutput("Unable to read file. Please retry again.");
         }
         return null;

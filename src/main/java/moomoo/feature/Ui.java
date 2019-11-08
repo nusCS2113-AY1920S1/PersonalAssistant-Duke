@@ -57,6 +57,7 @@ public class Ui {
                 + "Your one-stop budgeting and expenses tracker!\n"
                 + "What can MooMoo do for you today?");
     }
+    
 
     /**
      * Used to read input from the user.

@@ -2,7 +2,6 @@ package moomoo;
 
 import moomoo.command.Command;
 import moomoo.feature.Budget;
-
 import moomoo.feature.MooMooException;
 import moomoo.feature.ScheduleList;
 import moomoo.feature.Ui;
@@ -10,6 +9,7 @@ import moomoo.feature.category.CategoryList;
 import moomoo.feature.parser.Parser;
 import moomoo.feature.storage.ExpenditureStorage;
 import moomoo.feature.storage.Storage;
+import moomoo.task.Cow;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,6 +58,10 @@ public class MooMoo {
      */
     private void run() {
         Ui.showWelcome();
+        Cow moo = new Cow();
+        Ui.setOutput(moo.getHappyCow());
+        Ui.showResponse();
+        
         String date = Ui.showDate();
         String todaySchedule = calendar.showSchedule(date);
         Ui.setOutput(todaySchedule);

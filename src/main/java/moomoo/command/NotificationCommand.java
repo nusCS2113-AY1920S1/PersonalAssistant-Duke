@@ -1,10 +1,10 @@
 package moomoo.command;
 
 import moomoo.feature.Budget;
-import moomoo.feature.Ui;
-import moomoo.feature.category.CategoryList;
 import moomoo.feature.MooMooException;
 import moomoo.feature.ScheduleList;
+import moomoo.feature.Ui;
+import moomoo.feature.category.CategoryList;
 import moomoo.feature.storage.Storage;
 
 public class NotificationCommand extends Command {
@@ -48,9 +48,18 @@ public class NotificationCommand extends Command {
         for (int i = 0; i < blank; i++) {
             blank2 += " ";
         }
-        String colour = ANSI_RED;
-        if (alert.length() < 1) {
-            colour = ANSI_GREEN;
+
+        DetectOsCommand getOS = new DetectOsCommand();
+        String osName = getOS.osName;
+        String colour = "";
+        String reset = "";
+        if (!osName.contains("win")) {
+            if (alert.length() < 1) {
+                colour = ANSI_GREEN;
+            } else {
+                colour = ANSI_RED;
+            }
+            reset = ANSI_RESET;
         }
         String cow = colour
                 + "                     .-------------------------------------------------.\n"
@@ -60,7 +69,7 @@ public class NotificationCommand extends Command {
                 + " `~~` d\\ /b `~~`     | |_|  |_|\\___/ \\___/                             |\n"
                 + "     |     |         | " + alert + blankSpace + "|\n"
                 + "     (6___6)         | " + "Budget remaining : " + balance + blank2 + "|\n"
-                + "      `---`          .-------------------------------------------------." + ANSI_RESET;
+                + "      `---`          .-------------------------------------------------." + reset;
 
         Ui.setOutput(cow);
     }
