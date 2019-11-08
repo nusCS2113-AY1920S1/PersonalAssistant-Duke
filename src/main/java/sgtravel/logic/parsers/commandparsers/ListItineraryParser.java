@@ -28,7 +28,7 @@ public class ListItineraryParser extends CommandParser {
      */
     @Override
     public Command parse() throws ParseException {
-        if(input.contains(" ")) {
+        if (input.contains(" ")) {
             throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
         } else {
             return new ListItineraryCommand();

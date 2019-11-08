@@ -65,8 +65,7 @@ public class Itinerary {
      * @throws ChronologyBeforePresentException If start and end date are in the past.
      * @throws ChronologyInconsistentException If start ad end date are invalid.
      */
-    public void checkValidDate()
-            throws ChronologyBeforePresentException, ChronologyInconsistentException {
+    public void checkValidDate() throws ChronologyBeforePresentException, ChronologyInconsistentException {
         if (startDate.isBefore(LocalDateTime.now()) || endDate.isBefore(LocalDateTime.now())) {
             throw new ChronologyBeforePresentException();
         } else if (endDate.isBefore(startDate) || startDate.isAfter(endDate)) {
@@ -79,9 +78,9 @@ public class Itinerary {
      * @return the number of days of a trip (end - start).
      */
     public int getNumberOfDays() {
-            LocalDateTime tempDateTime = LocalDateTime.from(startDate);
-            long days = tempDateTime.until(endDate, ChronoUnit.DAYS);
-            return Integer.parseInt(String.valueOf(days)) + 1;
+        LocalDateTime tempDateTime = LocalDateTime.from(startDate);
+        long days = tempDateTime.until(endDate, ChronoUnit.DAYS);
+        return Integer.parseInt(String.valueOf(days)) + 1;
     }
 
     /**

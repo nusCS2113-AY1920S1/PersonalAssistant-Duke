@@ -126,7 +126,7 @@ public class CreateNewItineraryParser extends CommandParser {
      */
     private void checkForRepeatedDayNumber(Set<Integer> numbers, int number) throws RepeatedDayNumberException {
         if (numbers.contains(number)) {
-            logger.log(Level.WARNING, "Do not enter a day number more than once");
+            logger.log(Level.WARNING, "Day number entered more than once");
             throw new RepeatedDayNumberException();
         }
     }

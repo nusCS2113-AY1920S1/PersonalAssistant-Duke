@@ -15,6 +15,6 @@ class RecommendationTest {
         Model model = new ModelStub();
         Recommendation recommendation = model.getRecommendations();
         String[] itineraryDetails = {"itinerary ", "23/04/28", "24/05/28"};
-        assertThrows(RecommendationFailException.class, () -> { recommendation.makeItinerary(itineraryDetails); });
+        assertThrows(RecommendationFailException.class, () -> recommendation.makeItinerary(itineraryDetails));
     }
 }
