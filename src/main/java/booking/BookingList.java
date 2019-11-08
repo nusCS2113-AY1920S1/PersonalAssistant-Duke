@@ -3,6 +3,7 @@ package booking;
 import exception.DukeException;
 import storage.BookingConstants;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -42,14 +43,25 @@ public class BookingList extends ArrayList<Booking> {
         boolean found = false;
         DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
-        LocalDateTime startTime = LocalDateTime.parse(timeStart, formatterStart);
+        LocalDateTime startDateTime = LocalDateTime.parse(timeStart, formatterStart);
+        LocalDate dateStart = startDateTime.toLocalDate();
+        LocalTime startTime = startDateTime.toLocalTime();
         LocalTime endTime = LocalTime.parse(timeEnd, formatterEnd);
+        boolean startAfter = false;
+        boolean startBefore = false;
+        boolean endAfter = false;
+        boolean endBefore = false;
         for (int i = 0; i < bookinglist.size(); i++) {
-            if (bookinglist.get(i).venue.equals(roomcode)) {
-                if ((bookinglist.get(i).dateTimeStart.isBefore(startTime)
-                        || bookinglist.get(i).dateTimeStart.isEqual(startTime))
-                        && ((bookinglist.get(i).timeEnd.isAfter(endTime))
-                        && (bookinglist.get(i).timeEnd.isBefore(endTime)))) {
+            startAfter = bookinglist.get(i).getTimeStart().isAfter(startTime);
+            startBefore = bookinglist.get(i).getTimeStart().isBefore(startTime);
+            endAfter = bookinglist.get(i).getTimeEnd().isAfter(endTime);
+            endBefore = bookinglist.get(i).getTimeEnd().isBefore(endTime);
+            if ((bookinglist.get(i).venue.equals(roomcode)) && (bookinglist.get(i).getDateStart().equals(dateStart))) {
+                if ((!startAfter && !startBefore) && (!endAfter && !endBefore)) {
+                    found = true;
+                } else if ((startAfter || startBefore) && endBefore) {
+                    found = true;
+                } else if ((startBefore) && (endAfter || endBefore)) {
                     found = true;
                 }
             }

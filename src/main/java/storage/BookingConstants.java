@@ -12,4 +12,6 @@ public class BookingConstants {
     public static final String DATETIMEERROR = "Not able to parse the date for all patterns given, "
             + "please use this format: add NAME DESCRIPTION /at ROOM_CODE /from DATE TIMESTART /to TIMEEND"
             + ", DATE TIMESTART format is dd/mm/yyyy HHMM, TIMEEND is HHMM";
+    public static final String DATEERROR = "Not able to parse the date for all patterns given, "
+            + "please use this format: DATE" + ", DATE format is dd/mm/yyyy";
 }

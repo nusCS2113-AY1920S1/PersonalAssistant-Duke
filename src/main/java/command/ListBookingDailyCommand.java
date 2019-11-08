@@ -8,6 +8,7 @@ import booking.Booking;
 import booking.BookingList;
 import exception.DukeException;
 import room.RoomList;
+import storage.BookingConstants;
 import storage.Storage;
 import storage.StorageManager;
 import ui.Ui;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class ListBookingDailyCommand extends Command {
 
@@ -34,8 +36,12 @@ public class ListBookingDailyCommand extends Command {
                     + "date");
         }
         String date = input.substring(8);
-        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        this.dateStart = LocalDate.parse(date, formatterStart);
+        try {
+            DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            this.dateStart = LocalDate.parse(date, formatterStart);
+        } catch (DateTimeParseException error) {
+            throw new DukeException(BookingConstants.DATEERROR);
+        }
     }
 
 
@@ -47,8 +53,8 @@ public class ListBookingDailyCommand extends Command {
         //int n = 1;
         ui.addToOutput("Here are the bookings: ");
         for (Booking i : bookingList) {
-            if (i.getDateStart() == this.dateStart) {
-                ui.addToOutput(bookingList.indexOf(i) + ". " + i.toString());
+            if (i.getDateStart().equals(this.dateStart)) {
+                ui.addToOutput((bookingList.indexOf(i) + 1) + ". " + i.toString());
             }
         }
     }
