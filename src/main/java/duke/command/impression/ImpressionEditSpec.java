@@ -6,19 +6,8 @@ import duke.command.Switch;
 import duke.data.DukeData;
 import duke.data.DukeObject;
 import duke.data.Impression;
-import duke.data.Investigation;
-import duke.data.Medicine;
-import duke.data.Observation;
-import duke.data.Patient;
-import duke.data.Plan;
-import duke.data.Result;
-import duke.data.Treatment;
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
-import duke.exception.DukeUtilException;
-
-import java.util.List;
-import java.util.Map;
 
 public class ImpressionEditSpec extends ImpressionObjSpec {
 
@@ -78,98 +67,18 @@ public class ImpressionEditSpec extends ImpressionObjSpec {
         }
 
         // TODO mention in documentation that -append will append to ALL fields
+        // TODO: check for illegal switches, remove checked switches from map
 
         // process universal fields
         String newName = cmd.getSwitchVal("name");
         int newPriority = cmd.switchToInt("priority");
         String newSummary = cmd.getSwitchVal("summary");
-        editData.edit
-
-
-            if (editData instanceof Plan) {
-
-            } else if (editData instanceof Medicine) {
-
-            } else if (editData instanceof Result) {
-
-            } else if (editData instanceof Result) {
-
-            } else if (editData instanceof Observation) {
-
-            } else {
-                throw new ClassCastException("Attempting to edit " + editData.getClass().getName() + "!");
-            }
-
-        // process status
-        switch (editType) {
-        case "plan":
-            updateStatus(editData, Plan.getStatusArr());
-            break;
-        case "medicine":
-            updateStatus(editData, Medicine.getStatusArr());
-            break;
-        case "investigation":
-            updateStatus(editData, Investigation.getStatusArr());
-            break;
-        default:
-            break;
-        }
-
-        // process remaining switches entered
-        for (Map.Entry<String, String> entry : cmd.getSwitchVals().entrySet()) {
-            String switchName = entry.getKey();
-            String entryStr = entry.getValue();
-            int entryInt = 0;
-            if (Integer.class.equals(getSwitchMap().get(switchName).type)) {
-                entryInt = cmd.switchToInt(switchName);
-            }
-
-            // ignore switches that don't need processing
-            if (switchName.equals(editType)) {
-                continue;
-            }
-
-            // TODO: check for illegal switches, remove checked switches from map
-            switch (switchName) {
-
-            default:
-                switch (editType) {
-                case "medicine":
-                    Medicine med = (Medicine) editData;
-                    switch (switchName) {
-                    case "dose":
-                        med.setDose((isAppending) ? med.getDose() + entryStr : entryStr);
-                        break;
-                    case "date":
-                        med.setStartDate((isAppending) ? med.getStartDate() + entryStr : entryStr);
-                        break;
-                    case "duration":
-                        med.setDuration((isAppending) ? med.getDuration() + entryStr : entryStr);
-                        break;
-                    default:
-                        throw new DukeHelpException("Medicine plans do not have the property: '"
-                                + entryStr + "'", cmd);
-                    }
-                    break;
-                case "plan": //fallthrough
-                case "result": //fallthrough
-                case "investigation": //all switches should already be handled
-                    break;
-                default:
-                    throw new DukeException("Invalid data type found when making edits!");
-                }
-                break;
-            }
-
-        }
-
+        editData.edit(newName, newPriority, newSummary, cmd.getSwitchVals(), isAppending);
         core.writeJsonFile();
         core.updateUi("Details of '" + editData + "' updated!");
     }
 
     private void editImpression(Impression impression, boolean isAppending) {
-        Patient patient = (Patient) impression.getParent();
-
         String newName = cmd.getSwitchVal("name");
         if (newName != null) {
             impression.setName((isAppending) ? impression.getName() + newName : newName);
