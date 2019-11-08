@@ -2,6 +2,7 @@ package duke.ui;
 
 import duke.DukeCore;
 import duke.data.DukeObject;
+import duke.exception.DukeFatalException;
 import duke.ui.window.MainWindow;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -55,7 +56,7 @@ public class UiManager implements Ui {
     }
 
     @Override
-    public void updateUi(String message) {
+    public void updateUi(String message) throws DukeFatalException {
         if (mainWindow != null) {
             mainWindow.updateUi(message);
         }
@@ -109,7 +110,7 @@ public class UiManager implements Ui {
      *
      * @param primaryStage Main stage for the application.
      */
-    private void showMainWindow(Stage primaryStage) {
+    private void showMainWindow(Stage primaryStage) throws DukeFatalException {
         mainWindow = new MainWindow(primaryStage, core);
         mainWindow.show();
     }

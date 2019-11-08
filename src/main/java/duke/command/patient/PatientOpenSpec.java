@@ -6,6 +6,7 @@ import duke.command.ObjSpec;
 import duke.command.Switch;
 import duke.data.DukeObject;
 import duke.data.Patient;
+import duke.exception.DukeFatalException;
 
 public class PatientOpenSpec extends ObjSpec {
     private static final PatientOpenSpec spec = new PatientOpenSpec();
@@ -24,7 +25,7 @@ public class PatientOpenSpec extends ObjSpec {
     }
 
     @Override
-    protected void executeWithObj(DukeCore core, DukeObject obj) {
+    protected void executeWithObj(DukeCore core, DukeObject obj) throws DukeFatalException {
         Patient patient = (Patient) core.uiContext.getObject();
         core.uiContext.open(obj);
         core.updateUi("Accessing " + obj.getClass().getSimpleName() + " of Bed " + patient.getBedNo());
