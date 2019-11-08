@@ -2,14 +2,13 @@
 
 package planner.logic.command;
 
+import planner.credential.user.User;
 import planner.ModTimer;
-import planner.logic.modules.cca.CcaList;
 import planner.util.crawler.JsonWrapper;
 import planner.ui.cli.PlannerUi;
 import planner.util.storage.Storage;
 
 import planner.logic.modules.module.ModuleInfoDetailed;
-import planner.logic.modules.module.ModuleTasksList;
 
 import java.util.HashMap;
 
@@ -60,11 +59,10 @@ public class ReminderCommand extends ModuleCommand {
 
     @Override
     public void execute(HashMap<String, ModuleInfoDetailed> detailedMap,
-                        ModuleTasksList tasks,
-                        CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
-                        JsonWrapper jsonWrapper) {
+                        JsonWrapper jsonWrapper,
+                        User profile) {
 
         switch (arg("toReminder")) {
             case ("list"): {

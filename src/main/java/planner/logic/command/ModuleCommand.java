@@ -2,13 +2,12 @@
 
 package planner.logic.command;
 
+import planner.credential.user.User;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.modules.module.ModuleInfoDetailed;
-import planner.logic.modules.cca.CcaList;
 import planner.util.crawler.JsonWrapper;
 import planner.ui.cli.PlannerUi;
 import planner.util.storage.Storage;
-import planner.logic.modules.module.ModuleTasksList;
 
 import java.util.HashMap;
 
@@ -33,9 +32,18 @@ public abstract class ModuleCommand {
 
     public abstract void execute(
             HashMap<String, ModuleInfoDetailed> detailedMap,
-            ModuleTasksList tasks,
-            CcaList ccas,
             PlannerUi plannerUi,
             Storage store,
-            JsonWrapper jsonWrapper) throws ModException;
+            JsonWrapper jsonWrapper,
+            User profile) throws ModException;
+
+    public void call(
+            HashMap<String, ModuleInfoDetailed> detailedMap,
+            PlannerUi plannerUi,
+            Storage store,
+            JsonWrapper jsonWrapper,
+            User profile) throws ModException {
+        execute(detailedMap, plannerUi, store, jsonWrapper, profile);
+        profile.saveProfile();
+    }
 }

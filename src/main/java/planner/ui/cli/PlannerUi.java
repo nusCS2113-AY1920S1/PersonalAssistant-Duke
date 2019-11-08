@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
+import planner.logic.modules.TaskList;
 import planner.logic.modules.legacy.task.Task;
 import planner.logic.modules.legacy.task.TaskWithMultipleWeeklyPeriod;
 import planner.logic.modules.module.ModuleTask;
@@ -56,9 +57,13 @@ public class PlannerUi {
 
     /**
      * Confirm user's action.
+     * @param message message to display
      * @return true if user confirms else false
      */
-    public boolean confirm() {
+    public boolean confirm(String message) {
+        if (message != null) {
+            println(message);
+        }
         boolean result = true;
         while (result) {
             String input = this.readInput();
@@ -71,6 +76,10 @@ public class PlannerUi {
             }
         }
         return result;
+    }
+
+    public boolean confirm() {
+        return confirm(null);
     }
 
     /**
@@ -166,11 +175,11 @@ public class PlannerUi {
     }
 
     /**
-     * Helper function to print any Task object.
-     * @param task to be printed.
+     * Helper function to print any object.
+     * @param object to be printed.
      */
-    public void showObject(Task task) {
-        println(task);
+    public void showObject(Object object) {
+        println(object);
     }
 
     /**
@@ -250,7 +259,7 @@ public class PlannerUi {
     /**
      * Prints the module task list with which to calculate CAP from.
      */
-    public void capListStartMsg(List<ModuleTask> moduleTasksList) {
+    public void capListStartMsg(TaskList<ModuleTask> moduleTasksList) {
         System.out.println("Here is your list of modules to calculate CAP from.");
         int counter = 1;
         for (ModuleTask temp : moduleTasksList) {

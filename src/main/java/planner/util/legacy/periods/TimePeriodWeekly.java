@@ -84,8 +84,9 @@ public class TimePeriodWeekly implements TimePeriod {
                 || this.isUntilNextDay
                     && ((dayOfWeek == null || this.dayOfWeek.equals(dayOfWeek)) && afterBegin && afterEnd
                         || (dayOfWeek == null || this.dayOfWeek.plus(1).equals(dayOfWeek)) && beforeBegin && beforeEnd)
-                || strictBegin && localTime.equals(this.begin)
-                || strictEnd && localTime.equals(this.end);
+                || ((dayOfWeek == null || this.dayOfWeek.equals(dayOfWeek))
+                && (strictBegin && localTime.equals(this.begin)
+                || strictEnd && localTime.equals(this.end)));
     }
 
     public boolean isClashing(LocalDateTime localDateTime, boolean strictBegin, boolean strictEnd) {
@@ -190,10 +191,10 @@ public class TimePeriodWeekly implements TimePeriod {
     // TODO: Combine the isClashing of TimePeriods
     @Override
     public boolean isClashing(TimePeriod other) {
-        if (other instanceof TimePeriodSpanning) {
-            return this.isClashing((TimePeriodSpanning) other);
-        } else if (other instanceof  TimePeriodWeekly) {
+        if (TimePeriodWeekly.class.isAssignableFrom(other.getClass())) {
             return this.isClashing((TimePeriodWeekly) other);
+        } else if (TimePeriodSpanning.class.isAssignableFrom(other.getClass())) {
+            return this.isClashing((TimePeriodSpanning) other);
         }
         return false;
     }

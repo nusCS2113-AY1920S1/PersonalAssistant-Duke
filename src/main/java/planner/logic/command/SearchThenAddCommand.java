@@ -5,18 +5,18 @@ package planner.logic.command;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import planner.credential.user.User;
 import planner.logic.exceptions.legacy.ModCcaScheduleException;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.planner.ModNotFoundException;
 import planner.logic.exceptions.planner.ModClashesException;
 import planner.logic.modules.cca.Cca;
+import planner.logic.modules.legacy.task.TaskWithMultipleWeeklyPeriod;
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTask;
-import planner.logic.modules.cca.CcaList;
 import planner.util.crawler.JsonWrapper;
 import planner.ui.cli.PlannerUi;
 import planner.util.storage.Storage;
-import planner.logic.modules.module.ModuleTasksList;
 
 public class SearchThenAddCommand extends ModuleCommand {
 
@@ -26,18 +26,17 @@ public class SearchThenAddCommand extends ModuleCommand {
 
     @Override
     public void execute(HashMap<String, ModuleInfoDetailed> detailedMap,
-                        ModuleTasksList tasks,
-                        CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
-                        JsonWrapper jsonWrapper) throws ModException {
+                        JsonWrapper jsonWrapper,
+                        User profile) throws ModException {
         switch (arg("toAdd")) {
             case ("cca"): {
                 Cca cca = new Cca(arg("name"), arg("begin"), arg("end"), arg("dayOfWeek"));
-                if (ccas.clashes(cca)) {
+                if (profile.getCcas().clashes(cca)) {
                     throw new ModCcaScheduleException();
                 }
-                ccas.add(cca);
+                profile.getCcas().add(cca);
                 plannerUi.addedMsg(cca);
                 jsonWrapper.storeCcaListAsJson(ccas, store);
                 break;
@@ -56,13 +55,12 @@ public class SearchThenAddCommand extends ModuleCommand {
                     } else {
                         temp = new ModuleTask(upperModuleCode, mod);
                     }
-                    HashSet<ModuleTask> checkSet = tasks.getSetModuleTask();
+                    HashSet<TaskWithMultipleWeeklyPeriod> checkSet = profile.getModules().getSetModuleTask();
                     if (checkSet.contains(temp)) {
                         throw new ModClashesException();
                     }
-                    tasks.getTasks().add(temp);
+                    profile.getModules().add(temp);
                     plannerUi.addedMsg(temp);
-                    jsonWrapper.storeTaskListAsJson(tasks.getTasks(), store);
                 } else {
                     throw new ModNotFoundException();
                 }

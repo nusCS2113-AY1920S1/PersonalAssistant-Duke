@@ -2,11 +2,11 @@
 
 package planner.logic.command;
 
+import planner.credential.user.User;
 import planner.logic.exceptions.legacy.ModEmptyListException;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.legacy.ModOutOfBoundException;
-import planner.logic.modules.cca.Cca;
-import planner.logic.modules.cca.CcaList;
+import planner.logic.modules.legacy.task.TaskWithMultipleWeeklyPeriod;
 import planner.util.crawler.JsonWrapper;
 import planner.ui.cli.PlannerUi;
 import planner.util.storage.Storage;
@@ -14,7 +14,6 @@ import java.util.HashMap;
 
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTask;
-import planner.logic.modules.module.ModuleTasksList;
 
 public class RemoveCommand extends ModuleCommand {
 
@@ -24,35 +23,33 @@ public class RemoveCommand extends ModuleCommand {
 
     @Override
     public void execute(HashMap<String, ModuleInfoDetailed> detailedMap,
-                        ModuleTasksList tasks,
-                        CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
-                        JsonWrapper jsonWrapper) throws ModException {
+                        JsonWrapper jsonWrapper,
+                        User profile) throws ModException {
         int index = arg("index", Integer.class) - 1;
         switch (arg("toRemove")) {
             case "cca": {
-                if (ccas.size() == 0) {
+                if (profile.getCcas().size() == 0) {
                     throw new ModEmptyListException("ccas");
                 }
-                if (index < 0 || index >= ccas.size()) {
+                if (index < 0 || index >= profile.getCcas().size()) {
                     throw new ModOutOfBoundException();
                 }
-                Cca delCca = ccas.get(index);
+                TaskWithMultipleWeeklyPeriod delCca = profile.getCcas().get(index);
                 plannerUi.deleteMsg(delCca);
-                ccas.remove(index);
+                profile.getCcas().remove(index);
                 break;
             }
 
             case "module":
             default: {
-                if (index < 0 || index >= tasks.getSize() || tasks.getTasks().isEmpty()) {
+                if (index < 0 || index >= profile.getModules().size() || profile.getModules().isEmpty()) {
                     throw new ModOutOfBoundException();
                 }
-                ModuleTask delMod = tasks.getTasks().get(index);
+                ModuleTask delMod = profile.getModules().get(index);
                 plannerUi.deleteMsg(delMod);
-                tasks.delete(index);
-                jsonWrapper.storeTaskListAsJson(tasks.getTasks(), store);
+                profile.getModules().remove(index);
                 break;
             }
         }

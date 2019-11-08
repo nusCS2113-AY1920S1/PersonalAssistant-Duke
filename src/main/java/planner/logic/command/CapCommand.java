@@ -5,21 +5,19 @@ package planner.logic.command;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.antlr.runtime.CharStreamState;
+import planner.credential.user.User;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.legacy.ModMissingArgumentException;
 import planner.logic.exceptions.planner.ModBadGradeException;
 import planner.logic.exceptions.planner.ModNoPrerequisiteException;
 import planner.logic.exceptions.planner.ModNotFoundException;
+import planner.logic.modules.TaskList;
 import planner.logic.modules.module.ModuleInfoDetailed;
-import planner.logic.modules.cca.CcaList;
 import planner.logic.modules.module.ModuleTask;
-import planner.logic.modules.module.ModuleTasksList;
 import planner.util.crawler.JsonWrapper;
 import planner.ui.cli.PlannerUi;
 import planner.util.storage.Storage;
@@ -127,26 +125,25 @@ public class CapCommand extends ModuleCommand {
      */
     @Override
     public void execute(HashMap<String, ModuleInfoDetailed> detailedMap,
-                        ModuleTasksList moduleTasksList,
-                        CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
-                        JsonWrapper jsonWrapper)
+                        JsonWrapper jsonWrapper,
+                        User profile)
         throws ModException {
         Scanner scanner = new Scanner(System.in);
         switch (arg("toCap")) {
             case "overall":
                 plannerUi.capStartMsg();
-                calculateOverallCap(moduleTasksList, detailedMap, plannerUi, store, scanner);
+                calculateOverallCap(profile.getModules(), detailedMap, plannerUi, store, scanner);
                 break;
             case "module":
                 plannerUi.capModStartMsg();
-                calculateModuleCap(moduleTasksList, detailedMap, plannerUi, store, scanner);
+                calculateModuleCap(profile.getModules(), detailedMap, plannerUi, store, scanner);
                 break;
             case "list":
-                List<ModuleTask> hold = moduleTasksList.getTasks();
+                TaskList<ModuleTask> hold = profile.getModules();
                 plannerUi.capListStartMsg(hold);
-                calculateListCap(moduleTasksList, detailedMap, plannerUi, store, scanner, hold);
+                calculateListCap(profile.getModules(), detailedMap, plannerUi, store, scanner, hold);
                 break;
             default:
                 throw new ModCommandException();
@@ -157,7 +154,7 @@ public class CapCommand extends ModuleCommand {
      * User will keep inputting "[moduleCode] [letterGrade]" until satisfied.
      * Then user inputs "done" and the user's CAP will be calculated and printed.
      */
-    public void calculateOverallCap(ModuleTasksList moduleTasksList,
+    public void calculateOverallCap(TaskList<ModuleTask> moduleTasksList,
                                     HashMap<String, ModuleInfoDetailed> detailedMap,
                                     PlannerUi plannerUi,
                                     Storage store,
@@ -200,7 +197,7 @@ public class CapCommand extends ModuleCommand {
     /**
      * Calculates a predicted CAP for a module based on the grades attained for it's prerequisites.
      */
-    public void calculateModuleCap(ModuleTasksList moduleTasksList,
+    public void calculateModuleCap(TaskList<ModuleTask> moduleTasksList,
                                     HashMap<String, ModuleInfoDetailed> detailedMap,
                                     PlannerUi plannerUi,
                                     Storage store,
@@ -217,11 +214,11 @@ public class CapCommand extends ModuleCommand {
         if (!detailedMap.containsKey(moduleCode)) {
             throw new ModNotFoundException();
         }
-        if (moduleTasksList.getTasks().isEmpty()) {
+        if (moduleTasksList.isEmpty()) {
             throw new ModEmptyListException();
         }
         ArrayList<String> prunedModules = parsePrerequisiteTree(detailedMap.get(moduleCode).getPrerequisites());
-        for (ModuleTask x : moduleTasksList.getTasks()) {
+        for (ModuleTask x : moduleTasksList) {
             if (prunedModules.contains(x.getModuleCode())) {
                 if (letterGradeToCap(x.getGrade()) != 0.00) {
                     mcCount += x.getModuleCredit();
@@ -233,7 +230,7 @@ public class CapCommand extends ModuleCommand {
         if (!prunedModules.isEmpty()) {
             for (String module : prunedModules) {
                 boolean hasPreclusions = false;
-                for (ModuleTask x : moduleTasksList.getTasks()) {
+                for (ModuleTask x : moduleTasksList) {
                     if (detailedMap.get(module).getPreclusion().contains(x.getModuleCode())) {
                         hasPreclusions = true;
                         mcCount += x.getModuleCredit();
@@ -261,16 +258,16 @@ public class CapCommand extends ModuleCommand {
     /**
      * Calculates CAP according to the modules with grades in the ModuleTaskList.
      */
-    public void calculateListCap(ModuleTasksList moduleTasksList,
+    public void calculateListCap(TaskList<ModuleTask> moduleTasksList,
                                  HashMap<String, ModuleInfoDetailed> detailedMap,
                                  PlannerUi plannerUi,
                                  Storage store,
                                  Scanner scanner,
-                                 List<ModuleTask> moduleList) {
-        for (ModuleTask module : moduleList) {
-            if (letterGradeToCap(module.getGrade()) != 0.00) {
-                mcCount += module.getModuleCredit();
-                projectedCap += (letterGradeToCap(module.getGrade()) * module.getModuleCredit());
+                                 TaskList<ModuleTask> moduleList) {
+        for (ModuleTask task : moduleList) {
+            if (letterGradeToCap(task.getGrade()) != 0.00) {
+                mcCount += task.getModuleCredit();
+                projectedCap += (letterGradeToCap(task.getGrade()) * task.getModuleCredit());
             }
         }
         double averageCap = projectedCap / mcCount;
