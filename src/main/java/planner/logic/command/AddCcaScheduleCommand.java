@@ -49,11 +49,11 @@ public class AddCcaScheduleCommand extends ModuleCommand {
         if (cca.isClashing(new TimePeriodWeekly(begin, end, dayOfWeek))) {
             throw new ModCcaScheduleException();
         }
-        cca.addPeriod(begin, end, dayOfWeek);
         if (ccas.clashes(cca)) {
             cca.removePeriod(cca.getPeriods().size() - 1);
             throw new ModCcaScheduleException();
         }
+        cca.addPeriod(begin, end, dayOfWeek);
         plannerUi.addedMsg(cca);
     }
 }
