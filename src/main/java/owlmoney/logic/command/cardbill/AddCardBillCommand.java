@@ -22,11 +22,12 @@ import owlmoney.ui.Ui;
 public class AddCardBillCommand extends Command {
     private final String card;
     private final YearMonth cardDate;
-    private final Date expDate;
+    private final Date expenditureDate;
     private final String bank;
     private final String type;
-    private final String expDescription;
+    private final String expenditureDescription;
     private static final int PERCENTAGE_TO_DECIMAL = 100;
+    private static final String BANK_TYPE = "bank";
 
     /**
      * Creates an instance of AddExpenditureCommand.
@@ -38,10 +39,10 @@ public class AddCardBillCommand extends Command {
     public AddCardBillCommand(String card, YearMonth date, String bank) {
         this.card = card;
         this.cardDate = date;
-        this.expDate = getCurrentDate();
+        this.expenditureDate = getCurrentDate();
         this.bank = bank;
-        this.type = "bank";
-        this.expDescription = "Payment for Credit Card Bill - " + card + " " + date;
+        this.type = BANK_TYPE;
+        this.expenditureDescription = "Payment for Credit Card Bill - " + card + " " + date;
     }
 
     private Date getCurrentDate() {
@@ -50,7 +51,7 @@ public class AddCardBillCommand extends Command {
         Date currentDate = null;
         try {
             currentDate = dateFormat.parse(dateString);
-        } catch (ParseException e) {
+        } catch (ParseException exceptionMessage) {
             // Error will never happen as there is no user input
         }
         return currentDate;
@@ -91,8 +92,8 @@ public class AddCardBillCommand extends Command {
         double rebateAmount = (profile.getCardRebateAmount(card) / PERCENTAGE_TO_DECIMAL) * billAmount;
         checkBillAmountZero(billAmount, card, cardDate);
         Expenditure newExpenditure =
-                new Expenditure(this.expDescription, billAmount, this.expDate, cardId, this.cardDate);
-        Deposit newDeposit = new Deposit(depDescription, rebateAmount, this.expDate, cardId, this.cardDate);
+                new Expenditure(this.expenditureDescription, billAmount, this.expenditureDate, cardId, this.cardDate);
+        Deposit newDeposit = new Deposit(depDescription, rebateAmount, this.expenditureDate, cardId, this.cardDate);
         profile.addCardBill(card, bank, newExpenditure, newDeposit, cardDate, ui, type);
         return this.isExit;
     }

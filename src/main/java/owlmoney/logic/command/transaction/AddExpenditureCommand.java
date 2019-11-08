@@ -15,7 +15,7 @@ import owlmoney.ui.Ui;
  */
 public class AddExpenditureCommand extends Command {
 
-    private final String accName;
+    private final String accountName;
     private final double amount;
     private final Date date;
     private final String description;
@@ -34,7 +34,7 @@ public class AddExpenditureCommand extends Command {
      */
     public AddExpenditureCommand(String name, double amount, Date date, String description,
             String category, String type) {
-        this.accName = name;
+        this.accountName = name;
         this.amount = amount;
         this.date = date;
         this.description = description;
@@ -53,7 +53,7 @@ public class AddExpenditureCommand extends Command {
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, CardException {
         Transaction newExpenditure = new Expenditure(this.description, this.amount, this.date, this.category);
-        profile.profileAddNewExpenditure(accName, newExpenditure, ui, this.type);
+        profile.profileAddNewExpenditure(accountName, newExpenditure, ui, this.type);
         return this.isExit;
     }
 }

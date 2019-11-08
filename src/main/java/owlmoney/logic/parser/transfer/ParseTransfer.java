@@ -23,11 +23,12 @@ public class ParseTransfer {
     private HashMap<String, String> transferParameters = new HashMap<String, String>();
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
-    private static final String[] TRANSFER_KEYWORD = new String[] {"/amount", "/from", "/to", "/date"};
-    private static final String AMOUNT = "/amount";
-    private static final String FROM = "/from";
-    private static final String TO = "/to";
-    private static final String DATE = "/date";
+    private static final String AMOUNT_PARAMETER = "/amount";
+    private static final String FROM_PARAMETER = "/from";
+    private static final String TO_PARAMETER = "/to";
+    private static final String DATE_PARAMETER = "/date";
+    private static final String[] TRANSFER_KEYWORD = new String[] {AMOUNT_PARAMETER,
+        FROM_PARAMETER, TO_PARAMETER, DATE_PARAMETER};
     private static final List<String> TRANSFER_KEYWORD_LISTS = Arrays.asList(TRANSFER_KEYWORD);
 
     private Date date;
@@ -60,14 +61,14 @@ public class ParseTransfer {
      * @throws ParserException If duplicate parameters are detected.
      */
     public void fillHashTable() throws ParserException {
-        transferParameters.put(AMOUNT,
-                parseRawData.extractParameter(rawData, AMOUNT, TRANSFER_KEYWORD).trim());
-        transferParameters.put(FROM,
-                parseRawData.extractParameter(rawData, FROM, TRANSFER_KEYWORD).trim());
-        transferParameters.put(TO,
-                parseRawData.extractParameter(rawData, TO, TRANSFER_KEYWORD).trim());
-        transferParameters.put(DATE,
-                parseRawData.extractParameter(rawData, DATE, TRANSFER_KEYWORD).trim());
+        transferParameters.put(AMOUNT_PARAMETER,
+                parseRawData.extractParameter(rawData, AMOUNT_PARAMETER, TRANSFER_KEYWORD).trim());
+        transferParameters.put(FROM_PARAMETER,
+                parseRawData.extractParameter(rawData, FROM_PARAMETER, TRANSFER_KEYWORD).trim());
+        transferParameters.put(TO_PARAMETER,
+                parseRawData.extractParameter(rawData, TO_PARAMETER, TRANSFER_KEYWORD).trim());
+        transferParameters.put(DATE_PARAMETER,
+                parseRawData.extractParameter(rawData, DATE_PARAMETER, TRANSFER_KEYWORD).trim());
     }
 
     /**
@@ -135,16 +136,16 @@ public class ParseTransfer {
             if ((value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when transferring fund.");
             }
-            if (FROM.equals(key)) {
-                checkName(FROM, value);
+            if (FROM_PARAMETER.equals(key)) {
+                checkName(FROM_PARAMETER, value);
             }
-            if (TO.equals(key)) {
-                checkName(TO, value);
+            if (TO_PARAMETER.equals(key)) {
+                checkName(TO_PARAMETER, value);
             }
-            if (AMOUNT.equals(key)) {
+            if (AMOUNT_PARAMETER.equals(key)) {
                 checkAmount(value);
             }
-            if (DATE.equals(key)) {
+            if (DATE_PARAMETER.equals(key)) {
                 date = checkDate(value);
             }
         }
@@ -156,8 +157,10 @@ public class ParseTransfer {
      * @return Returns newTransferCommand to be executed.
      */
     public Command getCommand() {
-        TransferCommand newTransferCommand = new TransferCommand(transferParameters.get(FROM),
-                transferParameters.get(TO), Double.parseDouble(transferParameters.get(AMOUNT)), date);
+        TransferCommand newTransferCommand = new TransferCommand(transferParameters.get(FROM_PARAMETER),
+                transferParameters.get(TO_PARAMETER),
+                Double.parseDouble(transferParameters.get(AMOUNT_PARAMETER)),
+                date);
         return newTransferCommand;
     }
 }

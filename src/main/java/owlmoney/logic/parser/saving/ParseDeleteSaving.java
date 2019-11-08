@@ -12,7 +12,7 @@ import owlmoney.logic.parser.exception.ParserException;
  */
 public class ParseDeleteSaving extends ParseSaving {
 
-    private static final String DELETE = "/delete";
+    private static final String DELETE_COMMAND = "/delete";
 
     /**
      * Creates an instance of ParseDeleteSaving.
@@ -22,9 +22,9 @@ public class ParseDeleteSaving extends ParseSaving {
      */
     public ParseDeleteSaving(String data) throws ParserException {
         super(data);
-        checkRedundantParameter(AMOUNT, DELETE);
-        checkRedundantParameter(INCOME, DELETE);
-        checkRedundantParameter(NEW_NAME, DELETE);
+        checkRedundantParameter(AMOUNT_PARAMETER, DELETE_COMMAND);
+        checkRedundantParameter(INCOME_PARAMETER, DELETE_COMMAND);
+        checkRedundantParameter(NEW_NAME_PARAMETER, DELETE_COMMAND);
         checkFirstParameter();
     }
 
@@ -38,10 +38,10 @@ public class ParseDeleteSaving extends ParseSaving {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = savingsParameters.get(key);
-            if (NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (NAME_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when deleting savings account");
-            } else if (NAME.equals(key)) {
-                checkName(NAME, value);
+            } else if (NAME_PARAMETER.equals(key)) {
+                checkName(NAME_PARAMETER, value);
             }
         }
     }
@@ -52,7 +52,8 @@ public class ParseDeleteSaving extends ParseSaving {
      * @return DeleteSavingsCommand to be executed.
      */
     public Command getCommand() {
-        DeleteSavingsCommand newDeleteSavingsCommand = new DeleteSavingsCommand(savingsParameters.get(NAME));
+        DeleteSavingsCommand newDeleteSavingsCommand = new DeleteSavingsCommand(
+                savingsParameters.get(NAME_PARAMETER));
         return newDeleteSavingsCommand;
     }
 

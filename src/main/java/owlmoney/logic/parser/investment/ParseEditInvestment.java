@@ -32,17 +32,17 @@ public class ParseEditInvestment extends ParseInvestment {
         while (investmentIterator.hasNext()) {
             String key = investmentIterator.next();
             String value = investmentParameters.get(key);
-            if (NAME.equals(key) && (value.isEmpty() || value.isBlank())) {
+            if (NAME_PARAMETER.equals(key) && (value.isEmpty() || value.isBlank())) {
                 throw new ParserException("/name cannot be empty.");
-            } else if (NAME.equals(key)) {
-                checkName(NAME, value);
+            } else if (NAME_PARAMETER.equals(key)) {
+                checkName(NAME_PARAMETER, value);
             }
-            if (AMOUNT.equals(key) && !(value.isEmpty() || value.isBlank())) {
+            if (AMOUNT_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
                 checkAmount(value);
                 changeCounter++;
             }
-            if (NEW_NAME.equals(key) && !(value.isEmpty() || value.isBlank())) {
-                checkName(NEW_NAME, value);
+            if (NEW_NAME_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
+                checkName(NEW_NAME_PARAMETER, value);
                 changeCounter++;
             }
         }
@@ -57,8 +57,9 @@ public class ParseEditInvestment extends ParseInvestment {
      * @return Returns EditInvestmentCommand to be executed.
      */
     public Command getCommand() {
-        EditInvestmentCommand newEditInvestmentCommand = new EditInvestmentCommand(investmentParameters.get(NAME),
-                investmentParameters.get(AMOUNT), investmentParameters.get(NEW_NAME));
+        EditInvestmentCommand newEditInvestmentCommand = new EditInvestmentCommand(investmentParameters.get(
+                NAME_PARAMETER),
+                investmentParameters.get(AMOUNT_PARAMETER), investmentParameters.get(NEW_NAME_PARAMETER));
         return newEditInvestmentCommand;
     }
 }

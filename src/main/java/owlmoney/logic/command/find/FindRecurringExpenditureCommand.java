@@ -36,7 +36,7 @@ public class FindRecurringExpenditureCommand extends Command {
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
-     * @throws BankException        If bank name specified does not exist.
+     * @throws BankException If bank name specified does not exist.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException {
         profile.findRecurringExpenditure(this.name, this.description, this.category, this.type, ui);

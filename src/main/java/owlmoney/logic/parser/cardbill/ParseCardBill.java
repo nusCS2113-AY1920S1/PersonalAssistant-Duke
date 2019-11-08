@@ -20,14 +20,14 @@ public abstract class ParseCardBill {
     HashMap<String, String> cardBillParameters = new HashMap<String, String>();
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
-    private static final String[] CARDBILL_KEYWORD = new String[] {
-        "/card", "/date", "/bank"
+    static final String CARD_PARAMETER = "/card";
+    static final String BANK_PARAMETER = "/bank";
+    static final String DATE_PARAMETER = "/date";
+    private static final String FIRST_DAY = "01/";
+    private static final String[] CARD_BILL_KEYWORD = new String[] {
+        CARD_PARAMETER, BANK_PARAMETER, DATE_PARAMETER
     };
-    private static final List<String> CARDBILL_KEYWORD_LISTS = Arrays.asList(CARDBILL_KEYWORD);
-    static final String CARD = "/card";
-    static final String BANK = "/bank";
-    static final String DATE = "/date";
-    static final String FIRST_DAY = "01/";
+    private static final List<String> CARD_BILL_KEYWORD_LISTS = Arrays.asList(CARD_BILL_KEYWORD);
 
     /**
      * Creates an instance of CardBill object.
@@ -44,12 +44,12 @@ public abstract class ParseCardBill {
      * @throws ParserException If duplicate parameters are detected.
      */
     public void fillHashTable() throws ParserException {
-        cardBillParameters.put(CARD,
-                parseRawData.extractParameter(rawData, CARD, CARDBILL_KEYWORD).trim());
-        cardBillParameters.put(BANK,
-                parseRawData.extractParameter(rawData, BANK, CARDBILL_KEYWORD).trim());
-        cardBillParameters.put(DATE,
-                parseRawData.extractParameter(rawData, DATE, CARDBILL_KEYWORD).trim());
+        cardBillParameters.put(CARD_PARAMETER,
+                parseRawData.extractParameter(rawData, CARD_PARAMETER, CARD_BILL_KEYWORD).trim());
+        cardBillParameters.put(BANK_PARAMETER,
+                parseRawData.extractParameter(rawData, BANK_PARAMETER, CARD_BILL_KEYWORD).trim());
+        cardBillParameters.put(DATE_PARAMETER,
+                parseRawData.extractParameter(rawData, DATE_PARAMETER, CARD_BILL_KEYWORD).trim());
     }
 
     /**
@@ -59,7 +59,7 @@ public abstract class ParseCardBill {
      */
     void checkFirstParameter() throws ParserException {
         String[] rawDateSplit = rawData.split(" ", 2);
-        if (!CARDBILL_KEYWORD_LISTS.contains(rawDateSplit[0])) {
+        if (!CARD_BILL_KEYWORD_LISTS.contains(rawDateSplit[0])) {
             throw new ParserException("Incorrect parameter " + rawDateSplit[0]);
         }
     }

@@ -21,22 +21,24 @@ public abstract class ParseBond {
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
     String type;
+    static final String AMOUNT_PARAMETER = "/amount";
+    static final String NAME_PARAMETER = "/name";
+    static final String RATE_PARAMETER = "/rate";
+    static final String DATE_PARAMETER = "/date";
+    static final String YEAR_PARAMETER = "/year";
+    static final String FROM_PARAMETER = "/from";
+    static final String NUM_PARAMETER = "/num";
     private static final String[] BOND_KEYWORD = new String[] {
-        "/amount", "/name", "/rate", "/date", "/year", "/from", "/num"
+        AMOUNT_PARAMETER, NAME_PARAMETER, RATE_PARAMETER, DATE_PARAMETER,
+        YEAR_PARAMETER, FROM_PARAMETER, NUM_PARAMETER
     };
-    static final String AMOUNT = "/amount";
-    static final String NAME = "/name";
-    static final String RATE = "/rate";
-    static final String DATE = "/date";
-    static final String YEAR = "/year";
-    static final String FROM = "/from";
-    static final String NUM = "/num";
     private static final List<String> BOND_KEYWORD_LISTS = Arrays.asList(BOND_KEYWORD);
 
     /**
      * Creates an instance of any ParseBond type object.
      *
      * @param data Raw user input date.
+     * @param type Bank type since bonds can only be added to savings account.
      */
     ParseBond(String data, String type) {
         this.rawData = data;
@@ -74,20 +76,20 @@ public abstract class ParseBond {
      * @throws ParserException If duplicate parameters are detected.
      */
     public void fillHashTable() throws ParserException {
-        bondParameters.put(AMOUNT,
-                parseRawData.extractParameter(rawData, AMOUNT, BOND_KEYWORD).trim());
-        bondParameters.put(NAME,
-                parseRawData.extractParameter(rawData, NAME, BOND_KEYWORD).trim());
-        bondParameters.put(DATE,
-                parseRawData.extractParameter(rawData, DATE, BOND_KEYWORD).trim());
-        bondParameters.put(RATE,
-                parseRawData.extractParameter(rawData, RATE, BOND_KEYWORD).trim());
-        bondParameters.put(YEAR,
-                parseRawData.extractParameter(rawData, YEAR, BOND_KEYWORD).trim());
-        bondParameters.put(FROM,
-                parseRawData.extractParameter(rawData, FROM, BOND_KEYWORD).trim());
-        bondParameters.put(NUM,
-                parseRawData.extractParameter(rawData, NUM, BOND_KEYWORD).trim());
+        bondParameters.put(AMOUNT_PARAMETER,
+                parseRawData.extractParameter(rawData, AMOUNT_PARAMETER, BOND_KEYWORD).trim());
+        bondParameters.put(NAME_PARAMETER,
+                parseRawData.extractParameter(rawData, NAME_PARAMETER, BOND_KEYWORD).trim());
+        bondParameters.put(DATE_PARAMETER,
+                parseRawData.extractParameter(rawData, DATE_PARAMETER, BOND_KEYWORD).trim());
+        bondParameters.put(RATE_PARAMETER,
+                parseRawData.extractParameter(rawData, RATE_PARAMETER, BOND_KEYWORD).trim());
+        bondParameters.put(YEAR_PARAMETER,
+                parseRawData.extractParameter(rawData, YEAR_PARAMETER, BOND_KEYWORD).trim());
+        bondParameters.put(FROM_PARAMETER,
+                parseRawData.extractParameter(rawData, FROM_PARAMETER, BOND_KEYWORD).trim());
+        bondParameters.put(NUM_PARAMETER,
+                parseRawData.extractParameter(rawData, NUM_PARAMETER, BOND_KEYWORD).trim());
     }
 
     /**

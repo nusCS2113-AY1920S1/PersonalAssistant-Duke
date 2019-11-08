@@ -21,17 +21,18 @@ public abstract class ParseExpenditure {
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
     String type;
+    static final String AMOUNT_PARAMETER = "/amount";
+    static final String DATE_PARAMETER = "/date";
+    static final String DESCRIPTION_PARAMETER = "/desc";
+    static final String CATEGORY_PARAMETER = "/category";
+    static final String FROM_PARAMETER = "/from";
+    static final String TRANSACTION_NUMBER_PARAMETER = "/transno";
+    static final String NUM_PARAMETER = "/num";
     private static final String[] EXPENDITURE_KEYWORD = new String[] {
-        "/amount", "/date", "/desc", "/category", "/from", "/transno", "/num"
+        AMOUNT_PARAMETER, DATE_PARAMETER, DESCRIPTION_PARAMETER,
+        CATEGORY_PARAMETER, FROM_PARAMETER, TRANSACTION_NUMBER_PARAMETER, NUM_PARAMETER
     };
     private static final List<String> EXPENDITURE_KEYWORD_LISTS = Arrays.asList(EXPENDITURE_KEYWORD);
-    static final String AMOUNT = "/amount";
-    static final String DATE = "/date";
-    static final String DESCRIPTION = "/desc";
-    static final String CATEGORY = "/category";
-    static final String FROM = "/from";
-    static final String TRANSNO = "/transno";
-    static final String NUM = "/num";
 
     /**
      * Creates an instance of any ParseExpenditure type object.
@@ -75,20 +76,20 @@ public abstract class ParseExpenditure {
      * @throws ParserException If duplicate parameters are detected.
      */
     public void fillHashTable() throws ParserException {
-        expendituresParameters.put(AMOUNT,
-                parseRawData.extractParameter(rawData, AMOUNT, EXPENDITURE_KEYWORD).trim());
-        expendituresParameters.put(DATE,
-                parseRawData.extractParameter(rawData, DATE, EXPENDITURE_KEYWORD).trim());
-        expendituresParameters.put(DESCRIPTION,
-                parseRawData.extractParameter(rawData, DESCRIPTION, EXPENDITURE_KEYWORD).trim());
-        expendituresParameters.put(CATEGORY,
-                parseRawData.extractParameter(rawData, CATEGORY, EXPENDITURE_KEYWORD).trim());
-        expendituresParameters.put(FROM,
-                parseRawData.extractParameter(rawData, FROM, EXPENDITURE_KEYWORD).trim());
-        expendituresParameters.put(TRANSNO,
-                parseRawData.extractParameter(rawData, TRANSNO, EXPENDITURE_KEYWORD).trim());
-        expendituresParameters.put(NUM,
-                parseRawData.extractParameter(rawData, NUM, EXPENDITURE_KEYWORD).trim());
+        expendituresParameters.put(AMOUNT_PARAMETER,
+                parseRawData.extractParameter(rawData, AMOUNT_PARAMETER, EXPENDITURE_KEYWORD).trim());
+        expendituresParameters.put(DATE_PARAMETER,
+                parseRawData.extractParameter(rawData, DATE_PARAMETER, EXPENDITURE_KEYWORD).trim());
+        expendituresParameters.put(DESCRIPTION_PARAMETER,
+                parseRawData.extractParameter(rawData, DESCRIPTION_PARAMETER, EXPENDITURE_KEYWORD).trim());
+        expendituresParameters.put(CATEGORY_PARAMETER,
+                parseRawData.extractParameter(rawData, CATEGORY_PARAMETER, EXPENDITURE_KEYWORD).trim());
+        expendituresParameters.put(FROM_PARAMETER,
+                parseRawData.extractParameter(rawData, FROM_PARAMETER, EXPENDITURE_KEYWORD).trim());
+        expendituresParameters.put(TRANSACTION_NUMBER_PARAMETER,
+                parseRawData.extractParameter(rawData, TRANSACTION_NUMBER_PARAMETER, EXPENDITURE_KEYWORD).trim());
+        expendituresParameters.put(NUM_PARAMETER,
+                parseRawData.extractParameter(rawData, NUM_PARAMETER, EXPENDITURE_KEYWORD).trim());
     }
 
     /**

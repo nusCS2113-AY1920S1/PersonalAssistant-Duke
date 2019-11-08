@@ -16,11 +16,12 @@ public abstract class ParseSaving {
     HashMap<String, String> savingsParameters = new HashMap<String, String>();
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
-    private static final String[] SAVINGS_KEYWORD = new String[] {"/amount", "/income", "/name", "/newname"};
-    static final String AMOUNT = "/amount";
-    static final String INCOME = "/income";
-    static final String NAME = "/name";
-    static final String NEW_NAME = "/newname";
+    static final String AMOUNT_PARAMETER = "/amount";
+    static final String INCOME_PARAMETER = "/income";
+    static final String NAME_PARAMETER = "/name";
+    static final String NEW_NAME_PARAMETER = "/newname";
+    private static final String[] SAVINGS_KEYWORD = new String[] {AMOUNT_PARAMETER, INCOME_PARAMETER,
+        NAME_PARAMETER, NEW_NAME_PARAMETER};
     private static final List<String> SAVINGS_KEYWORD_LISTS = Arrays.asList(SAVINGS_KEYWORD);
 
     /**
@@ -63,14 +64,14 @@ public abstract class ParseSaving {
      * @throws ParserException If duplicate parameters are detected.
      */
     public void fillHashTable() throws ParserException {
-        savingsParameters.put(AMOUNT,
-                parseRawData.extractParameter(rawData, AMOUNT, SAVINGS_KEYWORD).trim());
-        savingsParameters.put(INCOME,
-                parseRawData.extractParameter(rawData, INCOME, SAVINGS_KEYWORD).trim());
-        savingsParameters.put(NAME,
-                parseRawData.extractParameter(rawData, NAME, SAVINGS_KEYWORD).trim());
-        savingsParameters.put(NEW_NAME,
-                parseRawData.extractParameter(rawData, NEW_NAME, SAVINGS_KEYWORD).trim());
+        savingsParameters.put(AMOUNT_PARAMETER,
+                parseRawData.extractParameter(rawData, AMOUNT_PARAMETER, SAVINGS_KEYWORD).trim());
+        savingsParameters.put(INCOME_PARAMETER,
+                parseRawData.extractParameter(rawData, INCOME_PARAMETER, SAVINGS_KEYWORD).trim());
+        savingsParameters.put(NAME_PARAMETER,
+                parseRawData.extractParameter(rawData, NAME_PARAMETER, SAVINGS_KEYWORD).trim());
+        savingsParameters.put(NEW_NAME_PARAMETER,
+                parseRawData.extractParameter(rawData, NEW_NAME_PARAMETER, SAVINGS_KEYWORD).trim());
     }
 
     /**

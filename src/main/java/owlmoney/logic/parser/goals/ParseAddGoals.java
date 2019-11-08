@@ -12,7 +12,7 @@ import java.util.Iterator;
  */
 public class ParseAddGoals extends ParseGoals {
 
-    private static final String ADD = "/add";
+    private static final String ADD_COMMAND = "/add";
     private Date by;
 
     /**
@@ -23,7 +23,7 @@ public class ParseAddGoals extends ParseGoals {
      */
     public ParseAddGoals(String data) throws ParserException {
         super(data);
-        checkRedundantParameter(NEW_NAME, ADD);
+        checkRedundantParameter(NEW_NAME_PARAMETER, ADD_COMMAND);
         //check wrong parameter e.g. if user accidentally keys in /date instead of by
         checkFirstParameter();
     }
@@ -37,32 +37,32 @@ public class ParseAddGoals extends ParseGoals {
     public void checkParameter() throws ParserException {
         Iterator<String> goalsIterator = goalsParameters.keySet().iterator();
 
-        checkOptionalParameter(goalsParameters.get(BY), goalsParameters.get(IN));
+        checkOptionalParameter(goalsParameters.get(BY_PARAMETER), goalsParameters.get(IN_PARAMETER));
 
         while (goalsIterator.hasNext()) {
             String key = goalsIterator.next();
             String value = goalsParameters.get(key);
-            if (NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (NAME_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding new goals");
-            } else if (NAME.equals(key)) {
-                checkName(NAME, value);
+            } else if (NAME_PARAMETER.equals(key)) {
+                checkName(NAME_PARAMETER, value);
             }
-            if (AMOUNT.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (AMOUNT_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding new goals");
-            } else if (AMOUNT.equals(key)) {
+            } else if (AMOUNT_PARAMETER.equals(key)) {
                 checkAmount(value);
             }
-            if (BY.equals(key) && (!value.isBlank())) {
+            if (BY_PARAMETER.equals(key) && (!value.isBlank())) {
                 by = checkDate(value);
             }
 
-            if (IN.equals(key) && (!value.isBlank())) {
-                checkDay(IN, value);
+            if (IN_PARAMETER.equals(key) && (!value.isBlank())) {
+                checkDay(IN_PARAMETER, value);
                 by = convertDaysToDate(Integer.parseInt(value));
             }
 
-            if (FROM.equals(key) && (!value.isBlank())) {
-                checkName(FROM, value);
+            if (FROM_PARAMETER.equals(key) && (!value.isBlank())) {
+                checkName(FROM_PARAMETER, value);
             }
         }
     }
@@ -89,8 +89,8 @@ public class ParseAddGoals extends ParseGoals {
      */
     @Override
     public Command getCommand() {
-        AddGoalsCommand newAddGoalsCommand = new AddGoalsCommand(goalsParameters.get(NAME),
-                Double.parseDouble(goalsParameters.get(AMOUNT)), by, goalsParameters.get(FROM));
+        AddGoalsCommand newAddGoalsCommand = new AddGoalsCommand(goalsParameters.get(NAME_PARAMETER),
+                Double.parseDouble(goalsParameters.get(AMOUNT_PARAMETER)), by, goalsParameters.get(FROM_PARAMETER));
         return newAddGoalsCommand;
     }
 }

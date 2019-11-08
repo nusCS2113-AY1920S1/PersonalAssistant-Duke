@@ -8,7 +8,7 @@ import owlmoney.ui.Ui;
  * Executes UpdateCommand and prints the result.
  */
 public class UpdateCommand extends Command {
-    Boolean manualCall;
+    private Boolean manualCall;
 
     public UpdateCommand(boolean manualCall) {
         this.manualCall = manualCall;

@@ -10,7 +10,7 @@ import owlmoney.logic.parser.exception.ParserException;
  * Represents the parsing of inputs for deleting an investment account..
  */
 public class ParseDeleteInvestment extends ParseInvestment {
-    private static final String DELETE = "/delete";
+    private static final String DELETE_COMMAND = "/delete";
 
     /**
      * Creates an instance of ParseDeleteInvestment.
@@ -20,8 +20,8 @@ public class ParseDeleteInvestment extends ParseInvestment {
      */
     public ParseDeleteInvestment(String data) throws ParserException {
         super(data);
-        checkRedundantParameter(AMOUNT, DELETE);
-        checkRedundantParameter(NEW_NAME, DELETE);
+        checkRedundantParameter(AMOUNT_PARAMETER, DELETE_COMMAND);
+        checkRedundantParameter(NEW_NAME_PARAMETER, DELETE_COMMAND);
         checkFirstParameter();
     }
 
@@ -35,10 +35,10 @@ public class ParseDeleteInvestment extends ParseInvestment {
         while (investmentIterator.hasNext()) {
             String key = investmentIterator.next();
             String value = investmentParameters.get(key);
-            if (NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (NAME_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when deleting an investment account");
-            } else if (NAME.equals(key)) {
-                checkName(NAME, value);
+            } else if (NAME_PARAMETER.equals(key)) {
+                checkName(NAME_PARAMETER, value);
             }
         }
     }
@@ -50,7 +50,7 @@ public class ParseDeleteInvestment extends ParseInvestment {
      */
     public Command getCommand() {
         DeleteInvestmentCommand newDeleteInvestmentCommand =
-                new DeleteInvestmentCommand(investmentParameters.get(NAME));
+                new DeleteInvestmentCommand(investmentParameters.get(NAME_PARAMETER));
         return newDeleteInvestmentCommand;
     }
 }

@@ -9,7 +9,7 @@ import owlmoney.ui.Ui;
  * Executes ListInvestmentCommand to list investment objects.
  */
 public class ListInvestmentCommand extends Command {
-    private static final String INVESTMENT = "investment";
+    private static final String INVESTMENT_BANK_TYPE = "investment";
 
     /**
      * Executes the function to list savings in the profile.
@@ -21,7 +21,7 @@ public class ListInvestmentCommand extends Command {
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException {
-        profile.profileListBanks(INVESTMENT, ui);
+        profile.profileListBanks(INVESTMENT_BANK_TYPE, ui);
         return this.isExit;
     }
 }

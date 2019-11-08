@@ -39,13 +39,13 @@ public class ParseAddCardBill extends ParseCardBill {
             if (value.isBlank() || value.isEmpty()) {
                 throw new ParserException(key + " cannot be empty when adding making a card bill payment!");
             }
-            if (CARD.equals(key)) {
+            if (CARD_PARAMETER.equals(key)) {
                 checkName(value, "Card");
             }
-            if (BANK.equals(key)) {
+            if (BANK_PARAMETER.equals(key)) {
                 checkName(value, "Bank");
             }
-            if (DATE.equals(key)) {
+            if (DATE_PARAMETER.equals(key)) {
                 yearMonth = checkDate(value);
             }
         }
@@ -58,8 +58,8 @@ public class ParseAddCardBill extends ParseCardBill {
      */
     @Override
     public Command getCommand() {
-        AddCardBillCommand newAddCardBillCommand = new AddCardBillCommand(cardBillParameters.get(CARD),
-                yearMonth, cardBillParameters.get(BANK));
+        AddCardBillCommand newAddCardBillCommand = new AddCardBillCommand(cardBillParameters.get(CARD_PARAMETER),
+                yearMonth, cardBillParameters.get(BANK_PARAMETER));
         return newAddCardBillCommand;
     }
 }

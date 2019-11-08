@@ -20,11 +20,11 @@ public class ParseListExpenditure extends ParseExpenditure {
      */
     public ParseListExpenditure(String data, String type) throws ParserException {
         super(data, type);
-        checkRedundantParameter(TRANSNO, LIST);
-        checkRedundantParameter(AMOUNT, LIST);
-        checkRedundantParameter(DATE, LIST);
-        checkRedundantParameter(DESCRIPTION, LIST);
-        checkRedundantParameter(CATEGORY, LIST);
+        checkRedundantParameter(TRANSACTION_NUMBER_PARAMETER, LIST);
+        checkRedundantParameter(AMOUNT_PARAMETER, LIST);
+        checkRedundantParameter(DATE_PARAMETER, LIST);
+        checkRedundantParameter(DESCRIPTION_PARAMETER, LIST);
+        checkRedundantParameter(CATEGORY_PARAMETER, LIST);
     }
 
     /**
@@ -38,15 +38,15 @@ public class ParseListExpenditure extends ParseExpenditure {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = expendituresParameters.get(key);
-            if (FROM.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (FROM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding a new expenditure");
-            } else if (FROM.equals(key)) {
+            } else if (FROM_PARAMETER.equals(key)) {
                 checkName(value);
             }
-            if (NUM.equals(key) && (value.isBlank() || value.isEmpty())) {
-                expendituresParameters.put(NUM, "30");
-            } else if (NUM.equals(key)) {
-                checkInt(NUM, value);
+            if (NUM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+                expendituresParameters.put(NUM_PARAMETER, "30");
+            } else if (NUM_PARAMETER.equals(key)) {
+                checkInt(NUM_PARAMETER, value);
             }
         }
     }
@@ -57,8 +57,9 @@ public class ParseListExpenditure extends ParseExpenditure {
      * @return ListExpendituresCommand to be executed.
      */
     public Command getCommand() {
-        ListExpenditureCommand newListExpenditureCommand = new ListExpenditureCommand(expendituresParameters.get(FROM),
-                Integer.parseInt(expendituresParameters.get(NUM)), this.type);
+        ListExpenditureCommand newListExpenditureCommand = new ListExpenditureCommand(expendituresParameters.get(
+                FROM_PARAMETER),
+                Integer.parseInt(expendituresParameters.get(NUM_PARAMETER)), this.type);
         return newListExpenditureCommand;
     }
 }

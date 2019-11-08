@@ -12,7 +12,7 @@ import owlmoney.ui.Ui;
  */
 public class EditExpenditureCommand extends Command {
 
-    private final String accName;
+    private final String accountName;
     private final String amount;
     private final String date;
     private final String description;
@@ -33,7 +33,7 @@ public class EditExpenditureCommand extends Command {
      */
     public EditExpenditureCommand(String name, String amount, String date,
             String description, String category, int index, String type) {
-        this.accName = name;
+        this.accountName = name;
         this.amount = amount;
         this.date = date;
         this.description = description;
@@ -53,7 +53,7 @@ public class EditExpenditureCommand extends Command {
      * @throws CardException        If card does not exist.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException, CardException {
-        profile.profileEditExpenditure(index, accName, description, amount, date, category, ui, this.type);
+        profile.profileEditExpenditure(index, accountName, description, amount, date, category, ui, this.type);
         return this.isExit;
     }
 }

@@ -10,17 +10,17 @@ import owlmoney.ui.Ui;
  * Executes ListRecurringExpenditureCommand to list expenditures.
  */
 public class ListRecurringExpenditureCommand extends Command {
-    private final String accName;
+    private final String accountName;
     private final String type;
 
     /**
      * Creates an instance of ListRecurringExpenditureCommand.
      *
-     * @param name       Bank account name.
-     * @param type       Represents type of expenditure to be listed.
+     * @param name Bank account name.
+     * @param type Represents type of expenditure to be listed.
      */
     public ListRecurringExpenditureCommand(String name, String type) {
-        this.accName = name;
+        this.accountName = name;
         this.type = type;
     }
 
@@ -34,7 +34,7 @@ public class ListRecurringExpenditureCommand extends Command {
      * @throws TransactionException If there are no recurring expenditures.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException {
-        profile.profileListRecurringExpenditure(accName, ui, this.type);
+        profile.profileListRecurringExpenditure(accountName, ui, this.type);
         return this.isExit;
     }
 }

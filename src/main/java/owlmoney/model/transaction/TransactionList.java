@@ -125,13 +125,13 @@ public class TransactionList {
      * Adds an expenditure to the TransactionList and do not print UI.
      * Called by Card transferExpUnpaidToPaid() only.
      *
-     * @param exp an instance of an expenditure.
+     * @param expenditure an instance of an expenditure.
      */
-    public void addExpenditureToList(Transaction exp, String type) {
+    public void addExpenditureToList(Transaction expenditure, String type) {
         if (transactionLists.size() >= MAX_LIST_SIZE) {
             transactionLists.remove(0);
         }
-        transactionLists.add(exp);
+        transactionLists.add(expenditure);
     }
 
     /**

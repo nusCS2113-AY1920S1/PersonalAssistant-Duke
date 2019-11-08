@@ -15,12 +15,12 @@ import java.util.List;
  * Represents the parsing of inputs for editing a profile name.
  */
 public class ParseEditProfile {
-    HashMap<String, String> profileParameters = new HashMap<String, String>();
+    private HashMap<String, String> profileParameters = new HashMap<String, String>();
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
-    private static final String[] PROFILE_KEYWORD = new String[] {"/name", "/newname"};
-    static final String NAME = "/name";
-    static final String NEW_NAME = "/newname";
+    private static final String NAME_PARAMETER = "/name";
+    private static final String NEW_NAME_PARAMETER = "/newname";
+    private static final String[] PROFILE_KEYWORD = new String[] {NAME_PARAMETER, NEW_NAME_PARAMETER};
     private static final List<String> PROFILE_KEYWORD_LISTS = Arrays.asList(PROFILE_KEYWORD);
 
     /**
@@ -42,7 +42,7 @@ public class ParseEditProfile {
     void checkFirstParameter() throws ParserException {
         String[] rawDateSplit = rawData.split(" ", 2);
         if (!PROFILE_KEYWORD_LISTS.contains(rawDateSplit[0])) {
-            throw new ParserException("Incorrect parameter + rawDateSplit[0]");
+            throw new ParserException("Incorrect parameter: " + rawDateSplit[0]);
         }
     }
 
@@ -52,8 +52,10 @@ public class ParseEditProfile {
      * @throws ParserException If duplicate parameters are detected.
      */
     public void fillHashTable() throws ParserException {
-        profileParameters.put(NAME, parseRawData.extractParameter(rawData, NAME, PROFILE_KEYWORD).trim());
-        profileParameters.put(NEW_NAME, parseRawData.extractParameter(rawData, NEW_NAME, PROFILE_KEYWORD).trim());
+        profileParameters.put(NAME_PARAMETER,
+                parseRawData.extractParameter(rawData, NAME_PARAMETER, PROFILE_KEYWORD).trim());
+        profileParameters.put(NEW_NAME_PARAMETER,
+                parseRawData.extractParameter(rawData, NEW_NAME_PARAMETER, PROFILE_KEYWORD).trim());
     }
 
     /**
@@ -81,13 +83,13 @@ public class ParseEditProfile {
             String key = profileIterator.next();
             String value = profileParameters.get(key);
 
-            if (NAME.equals(key) && (value.isEmpty() || value.isBlank())) {
+            if (NAME_PARAMETER.equals(key) && (value.isEmpty() || value.isBlank())) {
                 throw new ParserException("/name cannot be empty.");
-            } else if (NAME.equals(key)) {
-                checkName(NAME, value);
+            } else if (NAME_PARAMETER.equals(key)) {
+                checkName(NAME_PARAMETER, value);
             }
-            if (NEW_NAME.equals(key) && !(value.isEmpty() || value.isBlank())) {
-                checkName(NEW_NAME, value);
+            if (NEW_NAME_PARAMETER.equals(key) && !(value.isEmpty() || value.isBlank())) {
+                checkName(NEW_NAME_PARAMETER, value);
                 changeCounter++;
             }
         }
@@ -102,8 +104,8 @@ public class ParseEditProfile {
      * @return EditProfileCommand to be executed.
      */
     public Command getCommand() {
-        EditProfileCommand newEditProfileCommand = new EditProfileCommand(profileParameters.get(NAME),
-                profileParameters.get(NEW_NAME));
+        EditProfileCommand newEditProfileCommand = new EditProfileCommand(profileParameters.get(NAME_PARAMETER),
+                profileParameters.get(NEW_NAME_PARAMETER));
         return newEditProfileCommand;
     }
 }

@@ -20,11 +20,11 @@ public class ParseDeleteDeposit extends ParseDeposit {
      */
     public ParseDeleteDeposit(String data) throws ParserException {
         super(data);
-        checkRedundantParameter(TO, DELETE);
-        checkRedundantParameter(NUM, DELETE);
-        checkRedundantParameter(AMOUNT, DELETE);
-        checkRedundantParameter(DESCRIPTION, DELETE);
-        checkRedundantParameter(DATE, DELETE);
+        checkRedundantParameter(TO_PARAMETER, DELETE);
+        checkRedundantParameter(NUM_PARAMETER, DELETE);
+        checkRedundantParameter(AMOUNT_PARAMETER, DELETE);
+        checkRedundantParameter(DESCRIPTION_PARAMETER, DELETE);
+        checkRedundantParameter(DATE_PARAMETER, DELETE);
         checkFirstParameter();
     }
 
@@ -39,14 +39,15 @@ public class ParseDeleteDeposit extends ParseDeposit {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = depositParameters.get(key);
-            if ((TRANSNO.equals(key) || FROM.equals(key)) && (value.isEmpty() || value.isBlank())) {
+            if ((TRANSACTION_NUMBER_PARAMETER.equals(key) || FROM_PARAMETER.equals(key))
+                    && (value.isEmpty() || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when adding a new deposit");
             }
-            if (TRANSNO.equals(key)) {
-                checkInt(TRANSNO, value);
+            if (TRANSACTION_NUMBER_PARAMETER.equals(key)) {
+                checkInt(TRANSACTION_NUMBER_PARAMETER, value);
             }
-            if (FROM.equals(key)) {
-                checkName(value, FROM);
+            if (FROM_PARAMETER.equals(key)) {
+                checkName(value, FROM_PARAMETER);
             }
         }
     }
@@ -57,8 +58,8 @@ public class ParseDeleteDeposit extends ParseDeposit {
      * @return Returns DeletionDepositCommand to be executed.
      */
     public Command getCommand() {
-        DeleteDepositCommand newDeleteDepositCommand = new DeleteDepositCommand((depositParameters.get(FROM)),
-                Integer.parseInt(depositParameters.get(TRANSNO)));
+        DeleteDepositCommand newDeleteDepositCommand = new DeleteDepositCommand((depositParameters.get(FROM_PARAMETER)),
+                Integer.parseInt(depositParameters.get(TRANSACTION_NUMBER_PARAMETER)));
         return newDeleteDepositCommand;
     }
 }

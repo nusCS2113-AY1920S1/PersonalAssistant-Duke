@@ -12,8 +12,8 @@ import owlmoney.logic.parser.exception.ParserException;
  */
 public class ParseAddRecurringExpenditure extends ParseRecurringExpenditure {
 
-    private static final String ADD = "/add";
-    private static final String RESERVEDCATEGORY = "deposit";
+    private static final String ADD_COMMAND = "/add";
+    private static final String RESERVED_CATEGORY = "deposit";
 
     /**
      * Creates an instance of ParseAddRecurringExpenditure.
@@ -24,7 +24,7 @@ public class ParseAddRecurringExpenditure extends ParseRecurringExpenditure {
      */
     public ParseAddRecurringExpenditure(String data, String type) throws ParserException {
         super(data, type);
-        checkRedundantParameter(TRANSNO, ADD);
+        checkRedundantParameter(TRANSACTION_NUMBER_PARAMETER, ADD_COMMAND);
         checkFirstParameter();
     }
 
@@ -38,26 +38,26 @@ public class ParseAddRecurringExpenditure extends ParseRecurringExpenditure {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = expendituresParameters.get(key);
-            if (CATEGORY.equals(key) && RESERVEDCATEGORY.equals(value)) {
+            if (CATEGORY_PARAMETER.equals(key) && RESERVED_CATEGORY.equals(value)) {
                 throw new ParserException(key + " cannot be deposit when adding a new recurring expenditure");
-            } else if (CATEGORY.equals(key) && (value.isBlank() || value.isEmpty())) {
-                expendituresParameters.put(CATEGORY, "Miscellaneous");
-            } else if (CATEGORY.equals(key)) {
+            } else if (CATEGORY_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+                expendituresParameters.put(CATEGORY_PARAMETER, "Miscellaneous");
+            } else if (CATEGORY_PARAMETER.equals(key)) {
                 checkCategory(value);
             }
-            if (AMOUNT.equals(key) && value.isBlank()) {
+            if (AMOUNT_PARAMETER.equals(key) && value.isBlank()) {
                 throw new ParserException(key + " cannot be deposit when adding a new recurring expenditure");
-            } else if (AMOUNT.equals(key)) {
+            } else if (AMOUNT_PARAMETER.equals(key)) {
                 checkAmount(value);
             }
-            if (DESCRIPTION.equals(key) && value.isBlank()) {
+            if (DESCRIPTION_PARAMETER.equals(key) && value.isBlank()) {
                 throw new ParserException(key + " cannot be deposit when adding a new recurring expenditure");
-            } else if (DESCRIPTION.equals(key)) {
+            } else if (DESCRIPTION_PARAMETER.equals(key)) {
                 checkDescription(value, key);
             }
-            if (FROM.equals(key) && value.isBlank()) {
+            if (FROM_PARAMETER.equals(key) && value.isBlank()) {
                 throw new ParserException(key + " cannot be deposit when adding a new recurring expenditure");
-            } else if (FROM.equals(key)) {
+            } else if (FROM_PARAMETER.equals(key)) {
                 checkName(value);
             }
         }
@@ -76,9 +76,11 @@ public class ParseAddRecurringExpenditure extends ParseRecurringExpenditure {
         calendar.set(Calendar.SECOND, 0);
         calendar.add(Calendar.MONTH, 1);
         AddRecurringExpenditureCommand newAddRecurringExpenditureCommand = new AddRecurringExpenditureCommand(
-                expendituresParameters.get(FROM), Double.parseDouble(expendituresParameters.get(AMOUNT)),
-                calendar.getTime(), (expendituresParameters.get(DESCRIPTION)),
-                (expendituresParameters.get(CATEGORY)), this.type);
+                expendituresParameters.get(FROM_PARAMETER),
+                Double.parseDouble(expendituresParameters.get(AMOUNT_PARAMETER)),
+                calendar.getTime(),
+                (expendituresParameters.get(DESCRIPTION_PARAMETER)),
+                (expendituresParameters.get(CATEGORY_PARAMETER)), this.type);
         return newAddRecurringExpenditureCommand;
     }
 }

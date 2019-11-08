@@ -16,7 +16,7 @@ public class EditProfileCommand extends Command {
      * Creates an instance of EditProfileCommand.
      *
      * @param name    Name of goal object.
-     * @param newName  New name of object.
+     * @param newName New name of object.
      */
     public EditProfileCommand(String name, String newName) {
         this.name = name;

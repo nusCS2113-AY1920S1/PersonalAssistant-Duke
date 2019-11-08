@@ -10,7 +10,7 @@ import owlmoney.logic.parser.exception.ParserException;
  * Parses the inputs for listing deposits.
  */
 public class ParseListDeposit extends ParseDeposit {
-    private static final String LIST = "/list";
+    private static final String LIST_COMMAND = "/list";
 
     /**
      * Creates an instance of ParseListDeposit.
@@ -20,11 +20,11 @@ public class ParseListDeposit extends ParseDeposit {
      */
     public ParseListDeposit(String data) throws ParserException {
         super(data);
-        checkRedundantParameter(TO, LIST);
-        checkRedundantParameter(AMOUNT, LIST);
-        checkRedundantParameter(DATE, LIST);
-        checkRedundantParameter(DESCRIPTION, LIST);
-        checkRedundantParameter(TRANSNO, LIST);
+        checkRedundantParameter(TO_PARAMETER, LIST_COMMAND);
+        checkRedundantParameter(AMOUNT_PARAMETER, LIST_COMMAND);
+        checkRedundantParameter(DATE_PARAMETER, LIST_COMMAND);
+        checkRedundantParameter(DESCRIPTION_PARAMETER, LIST_COMMAND);
+        checkRedundantParameter(TRANSACTION_NUMBER_PARAMETER, LIST_COMMAND);
     }
 
     /**
@@ -38,15 +38,15 @@ public class ParseListDeposit extends ParseDeposit {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = depositParameters.get(key);
-            if (FROM.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (FROM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when listing deposits from a bank");
-            } else if (FROM.equals(key)) {
-                checkName(value, FROM);
+            } else if (FROM_PARAMETER.equals(key)) {
+                checkName(value, FROM_PARAMETER);
             }
-            if (NUM.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (NUM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 depositParameters.put(key, "30");
-            } else if (NUM.equals(key)) {
-                checkInt(NUM, value);
+            } else if (NUM_PARAMETER.equals(key)) {
+                checkInt(NUM_PARAMETER, value);
             }
         }
     }
@@ -57,8 +57,8 @@ public class ParseListDeposit extends ParseDeposit {
      * @return ListDepositCommand to be executed.
      */
     public Command getCommand() {
-        ListDepositCommand newListDepositCommand = new ListDepositCommand(depositParameters.get(FROM),
-                Integer.parseInt(depositParameters.get(NUM)));
+        ListDepositCommand newListDepositCommand = new ListDepositCommand(depositParameters.get(FROM_PARAMETER),
+                Integer.parseInt(depositParameters.get(NUM_PARAMETER)));
         return newListDepositCommand;
     }
 }

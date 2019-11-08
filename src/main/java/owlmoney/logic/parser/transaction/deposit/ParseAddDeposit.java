@@ -11,7 +11,7 @@ import owlmoney.logic.parser.exception.ParserException;
  * Parses the inputs for adding a deposit.
  */
 public class ParseAddDeposit extends ParseDeposit {
-    private static final String ADD = "/add";
+    private static final String ADD_COMMAND = "/add";
     private Date date;
 
     /**
@@ -22,9 +22,9 @@ public class ParseAddDeposit extends ParseDeposit {
      */
     public ParseAddDeposit(String data) throws ParserException {
         super(data);
-        checkRedundantParameter(TRANSNO, ADD);
-        checkRedundantParameter(FROM, ADD);
-        checkRedundantParameter(NUM, ADD);
+        checkRedundantParameter(TRANSACTION_NUMBER_PARAMETER, ADD_COMMAND);
+        checkRedundantParameter(FROM_PARAMETER, ADD_COMMAND);
+        checkRedundantParameter(NUM_PARAMETER, ADD_COMMAND);
         checkFirstParameter();
     }
 
@@ -39,19 +39,20 @@ public class ParseAddDeposit extends ParseDeposit {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = depositParameters.get(key);
-            if (!(TRANSNO.equals(key) || NUM.equals(key) || FROM.equals(key)) && (value.isBlank() || value.isEmpty())) {
+            if (!(TRANSACTION_NUMBER_PARAMETER.equals(key) || NUM_PARAMETER.equals(key) || FROM_PARAMETER.equals(key))
+                    && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding a new deposit");
             }
-            if (AMOUNT.equals(key)) {
+            if (AMOUNT_PARAMETER.equals(key)) {
                 checkAmount(value);
             }
-            if (DATE.equals(key)) {
+            if (DATE_PARAMETER.equals(key)) {
                 date = checkDate(value);
             }
-            if (TO.equals(key)) {
-                checkName(value, TO);
+            if (TO_PARAMETER.equals(key)) {
+                checkName(value, TO_PARAMETER);
             }
-            if (DESCRIPTION.equals(key)) {
+            if (DESCRIPTION_PARAMETER.equals(key)) {
                 checkDescription(value);
             }
         }
@@ -63,9 +64,9 @@ public class ParseAddDeposit extends ParseDeposit {
      * @return Returns AddDepositCommand to be executed.
      */
     public Command getCommand() {
-        AddDepositCommand newAddDepositCommand = new AddDepositCommand(depositParameters.get(TO),
-                Double.parseDouble(depositParameters.get(AMOUNT)), date,
-                (depositParameters.get(DESCRIPTION)));
+        AddDepositCommand newAddDepositCommand = new AddDepositCommand(depositParameters.get(TO_PARAMETER),
+                Double.parseDouble(depositParameters.get(AMOUNT_PARAMETER)), date,
+                (depositParameters.get(DESCRIPTION_PARAMETER)));
         return newAddDepositCommand;
     }
 }

@@ -10,7 +10,7 @@ import owlmoney.logic.parser.exception.ParserException;
  * Parses input by user for listing bonds.
  */
 public class ParseListBond extends ParseBond {
-    private static final String LIST = "/list";
+    private static final String LIST_COMMAND = "/list";
 
     /**
      * Creates an instance of ParseDeleteBond.
@@ -21,11 +21,11 @@ public class ParseListBond extends ParseBond {
      */
     public ParseListBond(String data, String type) throws ParserException {
         super(data, type);
-        checkRedundantParameter(NAME, LIST);
-        checkRedundantParameter(AMOUNT, LIST);
-        checkRedundantParameter(RATE, LIST);
-        checkRedundantParameter(DATE, LIST);
-        checkRedundantParameter(YEAR, LIST);
+        checkRedundantParameter(NAME_PARAMETER, LIST_COMMAND);
+        checkRedundantParameter(AMOUNT_PARAMETER, LIST_COMMAND);
+        checkRedundantParameter(RATE_PARAMETER, LIST_COMMAND);
+        checkRedundantParameter(DATE_PARAMETER, LIST_COMMAND);
+        checkRedundantParameter(YEAR_PARAMETER, LIST_COMMAND);
         checkFirstParameter();
     }
 
@@ -40,15 +40,15 @@ public class ParseListBond extends ParseBond {
         while (bondIterator.hasNext()) {
             String key = bondIterator.next();
             String value = bondParameters.get(key);
-            if (NUM.equals(key) && (value.isBlank() || value.isEmpty())) {
-                bondParameters.put(NUM, "30");
-            } else if (NUM.equals(key)) {
-                checkInt(NUM, value);
+            if (NUM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+                bondParameters.put(NUM_PARAMETER, "30");
+            } else if (NUM_PARAMETER.equals(key)) {
+                checkInt(NUM_PARAMETER, value);
             }
-            if (FROM.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (FROM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when deleting a bond");
-            } else if (FROM.equals(key)) {
-                checkName(FROM, value);
+            } else if (FROM_PARAMETER.equals(key)) {
+                checkName(FROM_PARAMETER, value);
             }
         }
     }
@@ -61,7 +61,8 @@ public class ParseListBond extends ParseBond {
     @Override
     public Command getCommand() {
         ListBondCommand newListBondCommand =
-                new ListBondCommand(bondParameters.get(FROM), Integer.parseInt(bondParameters.get(NUM)));
+                new ListBondCommand(bondParameters.get(FROM_PARAMETER), Integer.parseInt(bondParameters.get(
+                        NUM_PARAMETER)));
         return newListBondCommand;
     }
 }
