@@ -35,7 +35,7 @@ public class ImpressionMoveSpec extends ObjSpec {
         // TODO: query user for correct impression if no impression is given
         Impression impression = ImpressionUtils.getImpression(core);
         String targetImpressionName = cmd.getSwitchVal("impression");
-        SearchResults results = ImpressionUtils.getPatient(impression).findImpressionsByName(targetImpressionName);
+        SearchResults results = impression.getParent().findImpressionsByName(targetImpressionName);
         processResults(core, results);
     }
 

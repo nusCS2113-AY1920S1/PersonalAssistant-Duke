@@ -3,7 +3,6 @@ package duke.command.impression;
 import duke.DukeCore;
 import duke.data.DukeData;
 import duke.data.Impression;
-import duke.data.Patient;
 import duke.data.SearchResults;
 import duke.exception.DukeException;
 import duke.exception.DukeUtilException;
@@ -21,20 +20,6 @@ public class ImpressionUtils {
             return (Impression) core.uiContext.getObject();
         } catch (ClassCastException excp) {
             throw new DukeException("The current context is not an Impression!");
-        }
-    }
-
-    /**
-     * Gets the Patient that is the parent of an Impression.
-     * @param impression The impression whose parent we are trying to get.
-     * @return The parent Patient of an Impression.
-     * @throws DukeException If the parent of the Impression is not a Patient, should not happen.
-     */
-    public static Patient getPatient(Impression impression) throws DukeException {
-        try {
-            return (Patient) impression.getParent();
-        } catch (ClassCastException excp) {
-            throw new DukeException("This Impression is not attached to a Patient!");
         }
     }
 

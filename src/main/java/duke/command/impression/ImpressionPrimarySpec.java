@@ -16,7 +16,7 @@ public class ImpressionPrimarySpec extends CommandSpec {
     @Override
     protected void execute(DukeCore core) throws DukeException {
         Impression impression = ImpressionUtils.getImpression(core);
-        Patient patient = ImpressionUtils.getPatient(impression);
+        Patient patient = impression.getParent();
         patient.setPrimaryDiagnosis(impression.getName());
         core.writeJsonFile();
         core.updateUi("Updated " + patient.getName() + "'s primary diagnosis to '" + impression.getName() + "'!");

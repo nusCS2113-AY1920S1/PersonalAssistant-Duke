@@ -115,7 +115,6 @@ public class ImpressionEditSpec extends ImpressionObjSpec {
         }
 
         // process remaining switches entered
-            if (ImpressionUtils.getPatient(ImpressionUtils.getImpression(core)).;
         for (Map.Entry<String, String> entry : cmd.getSwitchVals().entrySet()) {
             String switchName = entry.getKey();
             String entryStr = entry.getValue();
