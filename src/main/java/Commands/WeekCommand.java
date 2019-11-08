@@ -33,7 +33,7 @@ public class WeekCommand extends Command {
         String[] days = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
         ArrayList<String> temp = new ArrayList<>();
         for (String day : days) {
-            String dateOut = day + " " + LT.getValue(date + " " + day);
+            String dateOut = day + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + LT.getValue(date + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + day);
             temp.add(dateOut);
         }
         return temp;

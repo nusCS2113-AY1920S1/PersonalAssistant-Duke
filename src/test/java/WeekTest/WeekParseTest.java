@@ -13,6 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * This class tests WeekParse.
  */
 public class WeekParseTest {
+    private final String invalidEmptyWeek = "Invalid Input.\n" +
+            "The week cannot be blank.\nPlease enter the command as follows.\n" +
+            "show/week 'x' , where 'x' is a digit between 1 - 13 or \n" +
+            "'x' is either 'recess', 'reading', or 'exam'";
     private final String invalidWeek = "Invalid Week. Please enter the command as follows. \n" +
             "show/week 'x' , where 'x' is a digit between 1 - 13 or \n" +
             "'x' is either 'recess', 'reading', or 'exam'";
@@ -99,7 +103,7 @@ public class WeekParseTest {
 
     @Test
     public void weekWithoutWeek(){
-        String expected = invalidWeek;
+        String expected = invalidEmptyWeek;
         String actual = null;
         Command command = null;
         try {
