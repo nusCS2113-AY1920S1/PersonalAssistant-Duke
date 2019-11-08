@@ -531,7 +531,7 @@ Format: `routeShow INDEX_ROUTE`
 ====
 
 image::routeShow1.PNG[width="1000" height="700"]
-image::routeShow2.PNG[width="400" height="330"]
+image::routeShow2.png[width="400" height="330"]
 
 Examples:
 
