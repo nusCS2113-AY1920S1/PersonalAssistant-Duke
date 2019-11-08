@@ -27,6 +27,5 @@ public class SearchCommandTest {
         } catch (IOException | EmptyCommandException | MissingInfoException | Exceptions e) {
             e.printStackTrace();
         }
-
     }
 }
