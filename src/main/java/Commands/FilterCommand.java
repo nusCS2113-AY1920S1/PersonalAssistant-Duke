@@ -9,23 +9,21 @@ import java.util.HashMap;
 import java.util.Set;
 
 /**
- * Represents the command to show the list of tasks corresponding to a keyword
+ * Represents the command to show the list of tasks corresponding to a keyword.
  */
-public class FilterCommand extends Command{
+public class FilterCommand extends Command {
     private String keyword;
-
 
     /**
      * Creates FilterCommand object.
      * @param Command The full command that calls FilterCommand.
      */
-    public FilterCommand(String Command)
-    {
+    public FilterCommand(String Command) {
         this.keyword = Command;
     }
 
     /**
-     * Execute the displaying of all task the contains a certain keyword
+     * Execute the displaying of all task the contains a certain keyword.
      * @param events The TaskList object for events
      * @param deadlines The TaskList object for deadlines
      * @param ui The Ui object to display the list message
@@ -41,10 +39,10 @@ public class FilterCommand extends Command{
             Set<String> allDates = emap.get(mod).keySet();
             for (String date : allDates) {
                 ArrayList<Assignment> temp = emap.get(mod).get(date);
-                for(Assignment task : temp) {
-                    if (task.toString().toLowerCase().contains(keyword)|
-                            task.toString().toUpperCase().contains(keyword) ){
-                        out.add(task.getType()  +task.getDescription() +task.getModCode() + " " + task.getDateTime() );
+                for (Assignment task : temp) {
+                    if (task.toString().toLowerCase().contains(keyword)
+                            | task.toString().toUpperCase().contains(keyword)) {
+                        out.add(task.getType() + task.getDescription() + task.getModCode() + " " + task.getDateTime());
                     }
                 }
             }
@@ -55,17 +53,14 @@ public class FilterCommand extends Command{
             Set<String> allDates = dmap.get(mod).keySet();
             for (String date : allDates) {
                 ArrayList<Assignment> temp = dmap.get(mod).get(date);
-                for(Assignment task : temp) {
-                    if (task.toString().toLowerCase().contains(keyword)|
-                            task.toString().toUpperCase().contains(keyword) ){
-
-                        out.add(task.getType() + task.getDescription() +task.getModCode() + " " + task.getDateTime() );
+                for (Assignment task : temp) {
+                    if (task.toString().toLowerCase().contains(keyword)
+                            | task.toString().toUpperCase().contains(keyword)) {
+                        out.add(task.getType() + task.getDescription() + task.getModCode() + " " + task.getDateTime());
                     }
                 }
             }
         }
-
-
         return ui.showFilter(out,this.keyword);
     }
 }
