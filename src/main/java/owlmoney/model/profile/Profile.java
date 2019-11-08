@@ -215,18 +215,23 @@ public class Profile {
     /**
      * Adds a new expenditure tied to a specific bank account or credit card.
      *
-     * @param bankName The name of the bank account or credit card.
+     * @param accountName The name of the bank account or credit card.
      * @param expenditure     An expenditure object.
      * @param ui      required for printing.
      * @param type    Represents type of expenditure to be added.
      * @throws BankException If bank amount becomes negative after adding expenditure.
+     * @throws CardException If card bill for the expenditure's month has already been paid.
      */
-    public void profileAddNewExpenditure(String bankName, Transaction expenditure, Ui ui, String type)
+    public void profileAddNewExpenditure(String accountName, Transaction expenditure, Ui ui, String type)
             throws BankException, CardException {
         if (CARD.equals(type)) {
-            cardList.cardListAddExpenditure(bankName, expenditure, ui, type);
+            if (getCardPaidBillAmount(accountName, expenditure.getYearMonthDate()) != 0) {
+                throw new CardException("You cannot add an expenditure with month that the card bill "
+                + "has already been paid for!");
+            }
+            cardList.cardListAddExpenditure(accountName, expenditure, ui, type);
         } else if (BANK.equals(type) || BONDS.equals(type)) {
-            bankList.bankListAddExpenditure(bankName, expenditure, ui, type);
+            bankList.bankListAddExpenditure(accountName, expenditure, ui, type);
         }
     }
 
@@ -1223,7 +1228,6 @@ public class Profile {
             ui.printMessage(error.getMessage());
             throw new CardException("Paying of card bill failed! Your data may potentially be corrupted!");
         }
-
     }
 
     /** Deletes the YearMonth's card bill expenditure and rebates deposit from savings account,
