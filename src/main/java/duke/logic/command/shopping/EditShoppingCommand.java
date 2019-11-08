@@ -9,6 +9,7 @@ import duke.logic.parser.commons.CliSyntax;
 import duke.logic.parser.commons.Prefix;
 import duke.model.Model;
 import duke.model.commons.Item;
+import duke.model.exceptions.DuplicateEntityException;
 import duke.model.inventory.Ingredient;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class EditShoppingCommand extends ShoppingCommand {
 
     public static final String COMMAND_WORD = "edit";
 
-    private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index [%d] is out of bound.";
+    private static final String MESSAGE_INGREDIENT_NOT_FOUND = "No ingredient found at index [%d].";
 
     public static final String AUTO_COMPLETE_INDICATOR = ShoppingCommand.COMMAND_WORD + " " + COMMAND_WORD;
     public static final Prefix[] AUTO_COMPLETE_PARAMETERS = {
@@ -47,13 +48,18 @@ public class EditShoppingCommand extends ShoppingCommand {
         List<Item<Ingredient>> lastShownList = model.getFilteredShoppingList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_BOUND, index.getOneBased()));
+            throw new CommandException(String.format(MESSAGE_INGREDIENT_NOT_FOUND, index.getOneBased()));
         }
 
         Item<Ingredient> toEdit = lastShownList.get(index.getZeroBased());
 
         Item<Ingredient> edited = ShoppingCommandUtil.createNewIngredient(toEdit, shoppingDescriptor);
-
+        try {
+            model.setShoppingList(toEdit, edited);
+        } catch (DuplicateEntityException e) {
+            throw new CommandException(String.format(ShoppingMessageUtils.MESSAGE_DUPLICATE_SHOPPING,
+                    edited.getItem().getName()));
+        }
         model.setShoppingList(toEdit, edited);
         model.commit(ShoppingMessageUtils.MESSAGE_COMMIT_EDIT_SHOPPING);
 

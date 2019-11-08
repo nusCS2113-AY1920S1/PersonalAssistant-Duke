@@ -19,7 +19,7 @@ public class BuyShoppingCommand extends ShoppingCommand {
 
     public static final String COMMAND_WORD = "buy";
 
-    private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index [%d] is out of bound.";
+    private static final String MESSAGE_INGREDIENT_NOT_FOUND = "No ingredient found at index [%d].";
 
     private static final Double ZERO_QUANTITY = 0.00;
     private final Set<Index> indices;
@@ -41,7 +41,7 @@ public class BuyShoppingCommand extends ShoppingCommand {
 
         for (Index index : indices) {
             if (index.getZeroBased() >= shoppingList.size()) {
-                throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_BOUND, index.getOneBased()));
+                throw new CommandException(String.format(MESSAGE_INGREDIENT_NOT_FOUND, index.getOneBased()));
             }
         }
 
