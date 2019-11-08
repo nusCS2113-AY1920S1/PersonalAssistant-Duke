@@ -72,9 +72,9 @@ public class CliLauncher {
         try {
             modDetailedMap = jsonWrapper.getModuleDetailedMap(true, store);
            // modTasks.setTasks(jsonWrapper.readJsonTaskList(store));
-            profile.getCcas().addAll(jsonWrapper.readJsonCcaList(store));
             //modTasks.setTasks(jsonWrapper.readJsonTaskList(store));
             profile = User.loadProfile(modDetailedMap, modUi, store, jsonWrapper);
+            profile.setCcas(jsonWrapper.readJsonCcaList(store));
             profile.setSemester(0);
             PlannerLogger.setLogFile(store);
         } catch (ModFailedJsonException ej) {

@@ -241,12 +241,12 @@ public class JsonWrapper {
         return new TaskList<>();
     }
 
-    public List<Cca> readJsonCcaList(Storage store) {
+    public TaskList<Cca> readJsonCcaList(Storage store) {
         try {
             store.setDataPath(Paths.get(userCcaFile));
             if (store.getDataPathExists()) {
                 JsonReader reader = new JsonReader(new FileReader(userCcaFile));
-                Type listType = new TypeToken<List<Cca>>() {
+                Type listType = new TypeToken<TaskList>() {
                 }.getType();
                 return gson.fromJson(reader, listType);
             }
@@ -257,7 +257,7 @@ public class JsonWrapper {
             System.out.println(Arrays.toString(ei.getStackTrace()));
             PlannerLogger.log(ei);
         }
-        return new ArrayList<>();
+        return new TaskList<>();
     }
 
 }
