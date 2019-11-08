@@ -564,12 +564,10 @@ public class Parser {
                 && (arr[Numbers.ZERO.value].equals("deletecontact") || arr[Numbers.ZERO.value].equals("dc")
                 || arr[Numbers.ZERO.value].equals("deletecontacts"))) {
             try {
-                if (arr.length==Numbers.ONE.value) {
+                if (arr.length == Numbers.ONE.value) {
                     throw new DukeException(ErrorMessages.CONTACT_INDEX.message);
                 }
-                Integer.parseInt(arr[Numbers.ONE.value]); //Catches for non integer value
-                return new DeleteContactCommand(
-                        Integer.parseInt(arr[Numbers.ONE.value]) - Numbers.ONE.value, contactList);
+                return new DeleteContactCommand(Integer.parseInt(arr[Numbers.ONE.value]), contactList);
             } catch (NumberFormatException e) {
                 throw new DukeException(ErrorMessages.NON_INTEGER_ALERT.message);
             }

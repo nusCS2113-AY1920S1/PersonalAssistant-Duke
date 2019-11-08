@@ -17,18 +17,16 @@ public class ListContactsCommand extends Command {
         this.contactList = contactList;
     }
 
-
     /**
-     * Executes a command that gathers all contacts from contact list and outputs the list (GUI).
+     * Executes a command that gathers all contacts from contact list.
      *
      * @param items The task list that contains a list of tasks.
      * @param ui To tell the user the list of tasks stored in task list.
-     * @return List of contacts.
+     * @return A string with the list of contacts to be output to the GUI.
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        String str = ui.showContactListGui(contactList);
-        return str;
+        return ui.showContactListGui(contactList);
     }
 
     /**

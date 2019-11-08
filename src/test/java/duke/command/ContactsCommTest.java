@@ -42,16 +42,16 @@ public class ContactsCommTest {
         assertEquals("Now you have 1 contact(s). I've removed this contact:\n"
                 + "     Name: Prof Tan\n"
                 + "     Number: 91234567\n"
-                + "     Email: tancc@nus.edu.sg\n"
+                + "     Email: \n"
                 + "     Office: E1-08-11", cmd3.executeGui(items, ui));
 
         Command cmd4 = new ListContactsCommand(contactList);
         assertEquals("Here are all your contacts:\n"
-                + "     1. Name: Prof Tan, 91234567, , E1-08-11\n", cmd4.executeGui(items, ui));
+                + "     1. Name: Prof Tan, 91234567, tancc@nus.edu.sg, E1-08-11\n", cmd4.executeGui(items, ui));
 
         Command cmd5 = new FindContactCommand("prof tan", contactList);
         assertEquals("     Here are the matching contacts in your list:\n"
-                + "     Name: Prof Tan, 91234567, , E1-08-11\n", cmd5.executeGui(items, ui));
+                + "     Name: Prof Tan, 91234567, tancc@nus.edu.sg, E1-08-11\n", cmd5.executeGui(items, ui));
 
         Command cmd6 = new FindContactCommand("Lester", contactList);
         assertEquals("     Here are the matching contacts in your list:\n"
@@ -69,7 +69,7 @@ public class ContactsCommTest {
                     contactDetails[Numbers.THREE.value]);
             new AddContactsCommand(contactObj, contactList);
         } catch (Exception e) {
-            assertEquals("Format is in: addcontact <name>, <contact>, <email>, <office>",
+            assertEquals("Format is in: addcontact <name>, <contact>, <email>, <office>, put 'nil' if field is empty",
                     ErrorMessages.CONTACT_FORMAT.message);
         }
 
