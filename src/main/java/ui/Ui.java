@@ -261,6 +261,9 @@ public class Ui {
             return "Show the list of words in wordbank.\n"
                     + "Format: list [o/ORDER]\n"
                     + "(ORDER can be \"asc\" for ascending and \"desc\" for descending)";
+        } else if (instruction.equals("list_tags")) {
+            return "Show the list of all tags in tagbank.\n"
+                    + "Format: list_tags\n";
         } else if (instruction.equals("history")) {
             return "View recent search history.\n"
                     + "Format: history {int value}";
@@ -288,10 +291,15 @@ public class Ui {
         } else if (instruction.equals("search_begin")) {
             return "Search for words with their prefix.\n"
                     + "Format: search_begin w/d";
+        } else if (instruction.equals("search_tag")) {
+            return "Search for all words of a specific tag or all tags of a specific word.\n"
+                    + "Format:\n"
+                    + "Searching for words of a tag: search_tag t/TAG\n"
+                    + "Searching for tags of a word: search_tag w/WORD";
         } else {
             return "Here are the commands for WordUp.\n"
-                    + "add, delete, edit, exit, freq, help, history, list,"
-                    + " schedule, search, search_begin, tag, addsyn, quiz\n"
+                    + "add, delete, edit, exit, freq, help, history, list, list_tag"
+                    + " schedule, search, search_begin, search_tag, tag, addsyn, quiz\n"
                     + "Enter \"help [command]\" for more details.";
         }
     }
@@ -365,6 +373,49 @@ public class Ui {
         stringBuilder.append("the same meaning as " + begin + "\n");
         for (String s : wordWithBegins) {
             stringBuilder.append(s + "\n");
+        }
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Shows to user all words of a specific tag.
+     * @param searchTag tag to be searched
+     * @param words array of words belong to the tag
+     * @return string shown to user
+     */
+    public String showSearchTag(String searchTag, String[] words) {
+        StringBuilder stringBuilder = new StringBuilder("Your tag \"" + searchTag + "\" has " + words.length
+                + (words.length == 1 ? " word:\n" : " words:\n"));
+        for (int i = 0; i < words.length; i++) {
+            stringBuilder.append(words[i] + "\n");
+        }
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Shows all tags in TagBank.
+     * @param tagList array of all tags in the TagBank
+     * @return string shown to user
+     */
+    public String showAllTags(String[] tagList) {
+        StringBuilder stringBuilder = new StringBuilder("Here are all of your tags:\n");
+        for (String tag : tagList) {
+            stringBuilder.append(tag + "\n");
+        }
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Shows all tags belong to a specific word.
+     * @param searchTerm word to be searched for tags
+     * @param allTags all of tags belong to the word
+     * @return string shown to user
+     */
+    public String showTagsOfWord(String searchTerm, HashSet<String> allTags) {
+        StringBuilder stringBuilder = new StringBuilder("Your word \"" + searchTerm + "\" has " + allTags.size()
+                + (allTags.size() == 1 ? " tag:\n" : " tags:\n"));
+        for (String tag : allTags) {
+            stringBuilder.append(tag + "\n");
         }
         return stringBuilder.toString();
     }
