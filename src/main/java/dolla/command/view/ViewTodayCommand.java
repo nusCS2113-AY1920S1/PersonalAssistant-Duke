@@ -1,5 +1,11 @@
 package dolla.command.view;
 
-public class ViewTodayCommand {
-    
+import java.time.LocalDate;
+
+public class ViewTodayCommand extends ViewCommand {
+
+    public ViewTodayCommand(LocalDate date) {
+        cmpDate = date;
+        dateStr = "today";
+    }
 }

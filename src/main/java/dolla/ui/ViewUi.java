@@ -3,21 +3,27 @@ package dolla.ui;
 public class ViewUi extends Ui {
 
     private static String AnsiColor;
+    private static String sign = "";
+    private static double absAmount;
 
     public static void printViewSingleExpense(double amount, String desc) {
         AnsiColor = setColor(amount);
-        System.out.println("\t[" + AnsiColor +  amount + "] [" + desc + "]"
+        absAmount = Math.abs(amount);
+        System.out.println(AnsiColor + "\t[" + sign + absAmount + "] [" + desc + "]"
                 + ANSI_RESET);
     }
 
     public static void printOverallExpense(double sum, String date) {
-        System.out.println(AnsiColor + "\n\t Overall Expense for " + date + ": " + sum);
+        System.out.println(AnsiColor + "\n\t==Overall Expense for " + date + ": " + sum
+                + ANSI_RESET);
     }
 
     private static String setColor(double amount) {
         if (amount < 0) {
+            sign = "-";
             return ANSI_RED;
         } else if (amount > 0) {
+            sign = "+";
             return ANSI_GREEN;
         } else {
             return ANSI_RESET;
