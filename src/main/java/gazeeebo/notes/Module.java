@@ -2,6 +2,7 @@
 package gazeeebo.notes;
 
 import gazeeebo.UI.Ui;
+import gazeeebo.exception.DukeException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class Module {
     public String name;
     public ArrayList<Assessment> assessments;
     public ArrayList<String> miscellaneousInfo;
+    private static final String EMPTY_DESCRIPTION = "The description of the command cannot be empty.";
 
     /**
      * Constructor that creates a module given the module name.
@@ -48,16 +50,19 @@ public class Module {
      * @param ui to read the user's input
      * @throws IOException if the command input by the user cannot be read
      */
-    public void editName(Ui ui) throws IOException {
-        System.out.println("What do you want to edit the name to?");
-        ui.readCommand();
+    public void editName(String newName) throws DukeException {
+        //System.out.println("What do you want to edit the name to?");
+        //ui.readCommand();
+        if (newName.isEmpty()) {
+            throw new DukeException(EMPTY_DESCRIPTION);
+        }
         for (Module m: GeneralNotePage.modules) {
-            if (m.name.equals(ui.fullCommand) && !ui.fullCommand.equals(this.name)) {
+            if (m.name.equals(newName) && !newName.equals(this.name)) {
                 System.out.println("You already have a module with the same name. Please use a different name.");
                 return;
             }
         }
-        name = ui.fullCommand;
+        name = newName;
         System.out.println("Okay we have successfully updated the module name to:");
         System.out.println(name);
     }
@@ -70,17 +75,29 @@ public class Module {
      * @param ui to read the user's input
      * @throws IOException if the command input by the user cannot be read
      */
-    public void addAssessment(Ui ui) throws IOException {
-        System.out.println("What assessment do you want to add?");
-        ui.readCommand();
-        String name = ui.fullCommand;
-        System.out.println("What is the weightage of the assessment?");
+    public void addAssessment(String assmt) throws DukeException {
+        //System.out.println("What assessment do you want to add?");
+        //ui.readCommand();
+        //String name = ui.fullCommand;
+        //System.out.println("What is the weightage of the assessment?");
+        if (assmt.isEmpty()) {
+            throw new DukeException(EMPTY_DESCRIPTION);
+        }
+        String[] assmtDetails = assmt.split(" /w", 2);
+        try {
+            if (assmtDetails[1].trim().isEmpty()) {
+                throw new DukeException("Please input a weightage.");
+            }
+        } catch (IndexOutOfBoundsException i) {
+            throw new DukeException("Please input the command in the format \'add assmt /n ASSESSMENT_NAME" +
+                    " /w ASSESSMENT_WEIGHTAGE\'.");
+        }
         boolean isInt = false;
         int percentage = -1;
         do {
-            ui.readCommand();
+            //ui.readCommand();
             try {
-                percentage = Integer.parseInt(ui.fullCommand);
+                percentage = Integer.parseInt(assmtDetails[1].trim());
                 if (percentage >= 0) {
                     isInt = true;
                 } else {
@@ -90,7 +107,7 @@ public class Module {
                 System.out.println("Please input a number.");
             }
         } while (!isInt);
-        Assessment newAssessment = new Assessment(name, percentage);
+        Assessment newAssessment = new Assessment(assmtDetails[0], percentage);
         assessments.add(newAssessment);
         System.out.println("Okay we have successfully added this assessment:");
         System.out.println(newAssessment.toString());

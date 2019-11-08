@@ -1,5 +1,5 @@
 //@@author yueyuu
-package gazeeebo.commands.note;
+package gazeeebo.parsers;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
@@ -21,7 +21,7 @@ import java.util.Stack;
 /**
  * Deals with the commands input on the module page.
  */
-public class ModuleCommand extends Command {
+public class ModuleCommandParser extends Command {
 
     private static final String VIEW = "view";
     private static final String EDIT_NAME = "edit name";
@@ -56,7 +56,7 @@ public class ModuleCommand extends Command {
         System.out.println("__________________________________________________________");
         System.out.println("1. View module notes: " + VIEW);
         System.out.println("2. Edit module name: " + EDIT_NAME);
-        System.out.println("3. Add an assessment: " + ADD_ASSMT);
+        System.out.println("3. Add an assessment: " + ADD_ASSMT); //add assmt /n nameofassmt /w weightage
         System.out.println("4. Edit an assessment name: " + EDIT_ASSMT);
         System.out.println("5. Edit an assessment's weightage: " + EDIT_WEIGHTAGE);
         System.out.println("6. Delete an assessment: " + DELETE_ASSMT);
@@ -88,38 +88,59 @@ public class ModuleCommand extends Command {
         showListOfCommands();
         ui.readCommand();
         while (!ui.fullCommand.equals(ESC)) {
-            if (ui.fullCommand.equals(VIEW)) {
-                module.viewModule();
-            } else if (ui.fullCommand.equals(EDIT_NAME)) {
-                module.editName(ui);
-                NotePageStorage.writeToModulesFile();
-            } else if (ui.fullCommand.equals(ADD_ASSMT)) {
-                module.addAssessment(ui);
-                NotePageStorage.writeToModulesFile();
-            } else if (ui.fullCommand.equals(EDIT_ASSMT)) {
-                module.editAssessmentName(ui);
-                NotePageStorage.writeToModulesFile();
-            } else if (ui.fullCommand.equals(EDIT_WEIGHTAGE)) {
-                module.editAssessmentWeightage(ui);
-                NotePageStorage.writeToModulesFile();
-            } else if (ui.fullCommand.equals(DELETE_ASSMT)) {
-                module.deleteAssessment(ui);
-                NotePageStorage.writeToModulesFile();
-            } else if (ui.fullCommand.equals(ADD_MSC)) {
-                module.addMiscellaneous(ui);
-                NotePageStorage.writeToModulesFile();
-            } else if (ui.fullCommand.equals(EDIT_MSC)) {
-                module.editMiscellaneous(ui);
-                NotePageStorage.writeToModulesFile();
-            } else if (ui.fullCommand.equals(DELETE_MSC)) {
-                module.deleteMiscellaneous(ui);
-                NotePageStorage.writeToModulesFile();
-            } else if (ui.fullCommand.equals(COMMANDS)) {
-                showListOfCommands();
-            } else if (ui.fullCommand.split(" ")[0].equals(HELP)) {
-                (new HelpCommand()).execute(null, ui, null, null, null, null);
-            } else {
-                ui.showDontKnowErrorMessage();
+            String[] commands = ui.fullCommand.split(" /n", 2);
+            try {
+                if (ui.fullCommand.equals(VIEW)) {
+                    module.viewModule();
+                } else if (commands[0].equals(EDIT_NAME)) {
+                    module.editName(commands[1].trim());
+                    NotePageStorage.writeToModulesFile();
+                } else if (commands[0].equals(ADD_ASSMT)) {
+                    module.addAssessment(commands[1].trim());
+                    NotePageStorage.writeToModulesFile();
+                } else if (commands[0].equals(EDIT_ASSMT)) {
+                    module.editAssessmentName(ui);
+                    NotePageStorage.writeToModulesFile();
+                } else if (commands[0].equals(EDIT_WEIGHTAGE)) {
+                    module.editAssessmentWeightage(ui);
+                    NotePageStorage.writeToModulesFile();
+                } else if (commands[0].equals(DELETE_ASSMT)) {
+                    module.deleteAssessment(ui);
+                    NotePageStorage.writeToModulesFile();
+                } else if (commands[0].equals(ADD_MSC)) {
+                    module.addMiscellaneous(ui);
+                    NotePageStorage.writeToModulesFile();
+                } else if (commands[0].equals(EDIT_MSC)) {
+                    module.editMiscellaneous(ui);
+                    NotePageStorage.writeToModulesFile();
+                } else if (commands[0].equals(DELETE_MSC)) {
+                    module.deleteMiscellaneous(ui);
+                    NotePageStorage.writeToModulesFile();
+                } else if (commands[0].equals(COMMANDS)) {
+                    showListOfCommands();
+                } else if (commands[0].equals(HELP)) {
+                    (new HelpCommand()).execute(null, ui, null, null, null, null);
+                } else {
+                    ui.showDontKnowErrorMessage();
+                }
+            } catch (IndexOutOfBoundsException i) {
+                switch (commands[0]) {
+                case EDIT_GOAL:
+                    System.out.println("Please input the command " +
+                            "in the format \'edit /n NEW_GOAL\'.");
+                    break;
+                case ADD_MODULE:
+                    System.out.println("Please input the command " +
+                            "in the format \'add /n MODULE_CODE\'.");
+                    break;
+                case DELETE_MODULE:
+                    System.out.println("Please input the command " +
+                            "in the format \'delete /n MODULE_CODE\'.");
+                    break;
+                default:
+                    ui.showDontKnowErrorMessage();
+                    break;
+                }
             }
             ui.readCommand();
         }
