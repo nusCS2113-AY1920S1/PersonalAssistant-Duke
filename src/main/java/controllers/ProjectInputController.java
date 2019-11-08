@@ -637,7 +637,7 @@ public class ProjectInputController implements IController {
      * View reminder to the default list list of tasks and the members assigned to them.
      * @param projectToManage The project to manage.
      */
-    private String [] projectViewReminder(Project projectToManage) {
+    public String [] projectViewReminder(Project projectToManage) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectViewReminder]");
         DateTimeHelper dateTimeHelper = new DateTimeHelper();
         ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
