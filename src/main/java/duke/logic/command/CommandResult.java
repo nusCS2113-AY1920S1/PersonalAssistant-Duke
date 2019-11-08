@@ -7,15 +7,11 @@ import static java.util.Objects.requireNonNull;
  * Represents the result of a command execution.
  */
 public class CommandResult {
-    public CommandResult(boolean isExiting) {
-
-        //Dummy values to word around the field not declared exception.
-        this("", DisplayedPage.ORDER, true);
-
-        if (isExiting) {
-            exit();
-        }
-    }
+    private final String feedbackToUser;
+    /**
+     * The page that should be displayed to the user.
+     */
+    private final DisplayedPage displayedPage;
 
     /**
      * Constructs a {@code CommandResult}.
@@ -26,11 +22,29 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser, DisplayedPage displayedPage, boolean isExiting) {
         if (isExiting) {
-            System.exit(0);
+            exit();
         }
 
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.displayedPage = requireNonNull(displayedPage);
+    }
+
+    public CommandResult(boolean isExiting) {
+
+        //Dummy values to word around the field not declared exception.
+        this("", DisplayedPage.ORDER, true);
+    }
+
+    /**
+     * The page shown to the user.
+     */
+    public enum DisplayedPage {
+        PRODUCT,
+        ORDER,
+        INVENTORY,
+        SHOPPING,
+        SALE,
+        SAME
     }
 
     public CommandResult(String feedbackToUser, DisplayedPage displayedPage) {
@@ -52,27 +66,5 @@ public class CommandResult {
     public DisplayedPage getDisplayedPage() {
         return displayedPage;
     }
-
-    /**
-     * The page shown to the user.
-     */
-    public enum DisplayedPage {
-        PRODUCT,
-        ORDER,
-        INVENTORY,
-        SHOPPING,
-        SALE,
-        SAME
-    }
-
-    private final String feedbackToUser;
-
-    /**
-     * The page that should be displayed to the user.
-     */
-    private final DisplayedPage displayedPage;
-
-
-
 
 }
