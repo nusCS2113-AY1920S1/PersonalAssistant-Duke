@@ -13,6 +13,8 @@ import java.text.SimpleDateFormat;
 
 public class ParserUtil {
 
+	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+
 	/**
 	 * Returns the string of date by parsing a date.
 	 * @param date the date to be parsed.
@@ -22,9 +24,8 @@ public class ParserUtil {
 		if (date == null) {
 			return "";
 		}
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
-		formatter.setTimeZone(TimeZone.getTimeZone("GMT-8:00"));
-		return formatter.format(date);
+		DATE_FORMAT.setTimeZone(TimeZone.getTimeZone("GMT-8:00"));
+		return DATE_FORMAT.format(date);
 	}
 
 	/**
@@ -152,5 +153,13 @@ public class ParserUtil {
 		}catch (Exception e) {
 			return false;
 		}
+	}
+
+	/**
+	 * Retrieve the DATE FORMAT that is used in Cube.
+	 * @return Date Formatter specified for Cube.
+	 */
+	public static SimpleDateFormat getDateFormat() {
+		return DATE_FORMAT;
 	}
 }
