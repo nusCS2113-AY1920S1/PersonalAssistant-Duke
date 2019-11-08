@@ -465,22 +465,34 @@ public class ProjectInputController implements IController {
             if (("view tasks").equals(projectCommand)) {
                 HashMap<String, ArrayList<String>> tasksAndAssignedMembers
                     = projectToManage.getTasksAndAssignedMembers();
-                ArrayList<String> allTaskDetailsForTable
+                ArrayList<ArrayList<String>> allTaskDetailsForTable
                     = projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers,
                     "/PRIORITY", projectToManage);
-                allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getName() + ":");
                 ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
-                return viewHelper.consolePrintTable(allTaskDetailsForTable, DEFAULT_HORI_BORDER_LENGTH);
+                if (allTaskDetailsForTable.size() == 1 && allTaskDetailsForTable.get(0).size() == 1) {
+                    ArrayList<String> taskTable = new ArrayList<>();
+                    taskTable.add("Tasks of " + projectToManage.getName() + ":");
+                    taskTable.add(allTaskDetailsForTable.get(0).get(0));
+                    return viewHelper.consolePrintTable(taskTable, DEFAULT_HORI_BORDER_LENGTH);
+                }
+                return viewHelper.consolePrintMultipleTables(allTaskDetailsForTable, DEFAULT_HORI_BORDER_LENGTH, 2,
+                        "Tasks of " + projectToManage.getName() + ":");
             } else if (projectCommand.length() >= 11) {
                 String sortCriteria = projectCommand.substring(11);
                 HashMap<String, ArrayList<String>> tasksAndAssignedMembers
                     = projectToManage.getTasksAndAssignedMembers();
-                ArrayList<String> allTaskDetailsForTable =
+                ArrayList<ArrayList<String>> allTaskDetailsForTable =
                     projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, sortCriteria,
                         projectToManage);
                 ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
-                allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getName() + ":");
-                return viewHelper.consolePrintTable(allTaskDetailsForTable, DEFAULT_HORI_BORDER_LENGTH);
+                if (allTaskDetailsForTable.size() == 1 && allTaskDetailsForTable.get(0).size() == 1) {
+                    ArrayList<String> taskTable = new ArrayList<>();
+                    taskTable.add("Tasks of " + projectToManage.getName() + ":");
+                    taskTable.add(allTaskDetailsForTable.get(0).get(0));
+                    return viewHelper.consolePrintTable(taskTable, DEFAULT_HORI_BORDER_LENGTH);
+                }
+                return viewHelper.consolePrintMultipleTables(allTaskDetailsForTable, DEFAULT_HORI_BORDER_LENGTH, 2,
+                        "Tasks of " + projectToManage.getName() + ":");
             }
         } catch (IndexOutOfBoundsException e) {
             ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectAssignTask] "
