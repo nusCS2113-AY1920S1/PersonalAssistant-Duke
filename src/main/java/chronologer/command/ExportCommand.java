@@ -8,7 +8,9 @@ import chronologer.task.Task;
 import chronologer.task.TaskList;
 import chronologer.ui.UiTemporary;
 import net.fortuna.ical4j.model.Calendar;
+import net.fortuna.ical4j.model.Component;
 import net.fortuna.ical4j.model.DateTime;
+import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.property.CalScale;
 import net.fortuna.ical4j.model.property.Description;
@@ -17,6 +19,7 @@ import net.fortuna.ical4j.model.property.ProdId;
 import net.fortuna.ical4j.model.property.Version;
 import net.fortuna.ical4j.util.RandomUidGenerator;
 import net.fortuna.ical4j.util.UidGenerator;
+import net.fortuna.ical4j.validate.ValidationException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -56,7 +59,7 @@ public class ExportCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage) throws ChronologerException {
+    public void execute(TaskList tasks, Storage storage) throws ChronologerException, ValidationException {
         Calendar calendar = initializeCalendar();
         ArrayList<Task> taskList = tasks.getTasks();
         checkEmptyList(taskList);
@@ -74,7 +77,13 @@ public class ExportCommand extends Command {
             extractEvent(taskList, calendar);
             extractTodoPeriod(taskList, calendar);
         }
-        CalendarOutput.outputCalendar(fileName.trim(), calendar);
+
+        if (checkCalendarEmpty(calendar)) {
+            CalendarOutput.outputCalendar(fileName.trim(), calendar);
+        } else {
+            UiTemporary.printOutput(ChronologerException.emptyCalendar());
+            throw new ChronologerException(ChronologerException.emptyCalendar());
+        }
     }
 
     private Calendar initializeCalendar() {
@@ -194,6 +203,16 @@ public class ExportCommand extends Command {
             UiTemporary.printOutput(ChronologerException.emptyExport());
             throw new ChronologerException(ChronologerException.emptyExport());
         }
+    }
+
+    private boolean checkCalendarEmpty(Calendar calendar) {
+        try {
+            calendar.validate(true);
+            return true;
+        } catch (ValidationException e) {
+            return false;
+        }
+
     }
 
     private boolean isDeadline(Task task) {
