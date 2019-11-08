@@ -25,13 +25,13 @@ By: `Team W17-4`      Since: `Aug 2019`      Licence: `MIT`
 image::OofWelcome.png[OofWelcome]
 
 === What is *OOF*?
-*OOF* (Oustanding Organisational Friend) is a Command Line Interface (CLI) program that allows you  to save your tasks, assignments, modules taken, etc. *OOF* is catered towards university students who want to use a desktop application to manage their tasks in a friendly and efficient manner. *OOF* is optimized for users who prefer to work with the CLI while still reaping the benefits of a Graphical User Interface (GUI).
+*OOF* (Oustanding Organisational Friend) is a Command Line Interface (CLI) program that allows you to save your tasks, assignments, modules taken, etc. *OOF* is catered towards university students who want to use a desktop application to manage their tasks in a friendly and efficient manner. *OOF* is optimized for users who prefer to work with the CLI.
 
 === What can *OOF* do?
-Besides saving your tasks very effectively in persistent storage, *OOF* allows your tasks to be displayed in friendly formats such as calendar format or a tabular format where your tasks are sorted chronologically for any particular week. You can also let *OOF* remind you of tasks that are expiring based on a customisable threshold. On top of that, you can track your progress and see if you are on track by using our tracking feature.
+Besides saving your tasks very effectively in persistent storage, *OOF* allows your tasks to be displayed in friendly formats such as calendar format or a tabular format where your tasks are sorted chronologically for any particular week. You can also allow *OOF* to remind you of tasks that are expiring based on a customisable threshold. On top of that, you can track your progress and see if you are on track by using our tracking feature.
 
 === How does *OOF* address our target audience?
-Most university students are often busy and *OOF* aims to reduce the time students spend on managing their tasks. *OOF* allows students to enter one-liner commands quickly into our program and hence spend less time logging down the tasks to be done. Furthermore, *OOF* allows tasks to be viewed in insightful formats and also provides timely reminders for tasks with their deadline nearing.
+Most university students are often busy and *OOF* aims to reduce the time students spend on managing their tasks. *OOF* allows students to enter one-liner commands quickly into our program and hence spend less time logging down the tasks to be done. Furthermore, *OOF* allows tasks to be viewed in insightful formats and also provides timely reminders for tasks with their deadlines nearing.
 
 === What is this guide for?
 This guide aims to educate you on how to use our application by providing example usages of all its features. The features can be found in <<Features>> section.
@@ -247,7 +247,7 @@ Selects the 1st module in the list of modules.
 Keep track of your lessons for each module with the use of lesson commands!
 
 [NOTE]
-All command under lesson requires a module to be selected using `module /select`.
+All commands under lesson require a module to be selected using `module /select`.
 
 ==== Viewing lesson data: `lesson`
 You can display all the lessons you have added if you wish to view all lessons for a module.
@@ -277,7 +277,7 @@ Adds a lecture on Wednesday from 14:00 to 16:00 for the selected module.
 image::LessonAdd.png[LessonAdd]
 
 ==== Removing lesson data: `lesson /delete`
-You can remove unwanted data if you have addded the wrong date for a lesson.
+You can remove unwanted data if you have added the wrong date for a lesson.
 
 Format: `lesson /delete INDEX`
 
@@ -441,7 +441,7 @@ image::Done.png[Done]
 Marks the 2nd task in the list of tasks as done.
 
 ==== Deleting a task: `delete`
-You can delete tasks that you have completed or no longer valid.
+You can delete tasks that you have completed or are no longer valid.
 
 Format: `delete INDEX`
 
@@ -477,7 +477,7 @@ image::Find.png[Find]
 Finds tasks with `complete` in the description.
 
 ==== Viewing free time slots: `free`
-You can view the time slots you are available on a specific day so that you can plan project meetings with your friends.
+You can view the time slots you are available on a specific day so that you can plan project meetings with your friends. You can also receive suggestions on which deadlines to complete in your free time if they are due one week from the date specified. 
 
 Format: `free DATE`
 
@@ -491,7 +491,7 @@ Example:
 .Typing free 08-11-2019 into OOF
 image::FreeTimeExample.png[FreeTimeExample, width="890"]
 
-+2.+ `OOF` displays all the free time slots that you have.
++2.+ `OOF` displays all the free time slots that you have followed by a suggestion if there are upcoming deadlines due.
 
 [[FreeTimeDisplay]]
 .Typing free with a valid date in the valid format of DD-MM-YYYY
