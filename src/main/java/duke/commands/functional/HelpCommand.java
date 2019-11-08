@@ -24,9 +24,9 @@ public class HelpCommand implements Command {
         userCommandList.add("Create a patient profile:\n `add patient "
                 + ":<patient name> :<patient NRIC> :<patient room> :<patient remark>`");
         userCommandList.add("Assign a patient to a deadline task:\n `assign deadline task "
-                + ":<patient ID> :<task ID> :<dd/MM/yyyy HHmm>`");
+                + ":#<patient ID> :#<task ID> :<dd/MM/yyyy HHmm>`");
         userCommandList.add("Assign a patient to a period task:\n `assign period task task "
-                + ":<patient ID> :<task ID> :<dd/MM/yyyy HHmm> :<dd/MM/yyyy HHmm>`");
+                + ":#<patient ID> :#<task ID> :<dd/MM/yyyy HHmm> :<dd/MM/yyyy HHmm>`");
         userCommandList.add("List patients:\n `list patients`");
         userCommandList.add("List tasks:\n `list tasks`");
         userCommandList.add("Delete a patient:\n `delete patient :#<patient ID>`");
@@ -38,9 +38,10 @@ public class HelpCommand implements Command {
                 + ":#<patient ID>");
         userCommandList.add("Update a patient's data:\n `update patient :#<patient id> "
                 + ":<name/NRIC/room/remark> :<new information>`");
-        userCommandList.add("Update a task's description:\n `update task :#<task id>"
-                + ":<new description>`");
+        userCommandList.add("Update a task's description:\n `update task :#<task id> "
+                + ":description :<new description>`");
         userCommandList.add("Undo an action:\n `undo`");
+        userCommandList.add("Show upcoming tasks for the week:\n `show upcoming tasks`");
         userCommandList.add("View help guide:\n `help`");
         userCommandList.add("Exit the program:\n `bye`");
 

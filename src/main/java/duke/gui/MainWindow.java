@@ -477,11 +477,11 @@ public class MainWindow extends UiPart<Stage> {
         boolean isException = false;
         try {
             dukeResponses = duke.run(inputCommand);
+            updateTableViews();
         } catch (DukeException de) {
             dukeResponses = de.getMessage();
             isException = true;
         }
-        updateTableViews();
         dialogContainer.getChildren().addAll(
             DialogBox.getUserDialog(inputCommand, userImage),
             DialogBox.getDukeDialog(dukeResponses, dukeImage, isException)
@@ -546,7 +546,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * .
      */
-    public void updateTableViews() {
+    public void updateTableViews() throws DukeException {
         assignedTaskData.clear();
         taskData.clear();
         patientData.clear();
@@ -559,6 +559,12 @@ public class MainWindow extends UiPart<Stage> {
         patientSearchBarListener();
         assignedTaskSearchBarListener();
         taskSearchBarListener();
+
+        try {
+            showUpcomingTasks();
+        } catch (Exception e) {
+            throw new DukeException("Failed to update Upcoming Tasks tab.");
+        }
     }
 
     private void patientSearchBarListener() {
