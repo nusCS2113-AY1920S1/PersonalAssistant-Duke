@@ -41,7 +41,7 @@ public class RetrieveFreeTimesParse extends Parse {
                 if (option >=1 && option <= 5) return new RetrieveFreeTimesCommand(option);
                 else throw new DukeInvalidFormatException(invalidOption);
             } catch (NumberFormatException e) {
-                LOGGER.info("Unable to parse string to integer" + e.getMessage());
+                LOGGER.severe("Unable to parse string to integer");
                 throw new DukeInvalidFormatException(invalidInput);
             }
         }

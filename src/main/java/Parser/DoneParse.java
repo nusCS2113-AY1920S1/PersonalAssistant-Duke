@@ -8,6 +8,7 @@ import DukeExceptions.DukeInvalidFormatException;
 import Tasks.Deadline;
 import Tasks.Event;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,7 +49,7 @@ public class DoneParse extends Parse {
                 String[] out = DateTimeParser.EventParse(split[1]);
                 return new DoneCommand("event", new Event(split[0].trim(), out[0],out[1],out[2]));
             } catch (ParseException | ArrayIndexOutOfBoundsException e) {
-                LOGGER.info("Invalid format for setting done on event" + e.getMessage());
+                LOGGER.severe("Invalid format for setting done on event" + Arrays.toString(e.getStackTrace()));
                 throw new DukeInvalidFormatException("OOPS!!! Please enter in the format as follows:\n" +
                         "done/e mod_code name_of_event /at dd/MM/yyyy /from HHmm /to HHmm\n" +
                         "or done/e mod_code name_of_event /at week x day /from HHmm /to HHmm\n");
@@ -68,7 +69,7 @@ public class DoneParse extends Parse {
                 return new DoneCommand("deadline", new Deadline(split[0].trim(), out[0],out[1]));
 
             } catch (ParseException | ArrayIndexOutOfBoundsException e) {
-                LOGGER.info("Invalid format for setting done on deadline" + e.getMessage());
+                LOGGER.severe("Invalid format for setting done on deadline" + Arrays.toString(e.getStackTrace()));
                 throw new DukeInvalidFormatException("OOPS!!! Please enter in the format as follows:\n" +
                         "done/d mod_code name_of_event /by dd/MM/yyyy HHmm\n" +
                         "or done/d mod_code name_of_event /by week x day HHmm\n");
