@@ -115,7 +115,6 @@ public class Venue implements Serializable {
         if (otherVenue == this) {
             return true;
         }
-
         try {
             return getLatitude() == otherVenue.getLatitude() && getLongitude() == otherVenue.getLongitude()
                     && getDistX() == otherVenue.getDistX() && getDistY() == otherVenue.getDistY();

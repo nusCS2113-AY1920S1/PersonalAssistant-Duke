@@ -86,19 +86,53 @@ public interface Model {
      */
     VenueList getEventVenues();
 
+    /**
+     * Shows the Itinerary specified by a give name.
+     * @param name The serial number of the Itinerary.
+     */
     Itinerary getItinerary(String name);
 
+    /**
+     * Returns the recommendation list object.
+     * @return recommendations The requested recommendations list.
+     */
     Recommendation getRecommendations();
 
+    /**
+     * Returns the itinerary hash-map keyed by their names.
+     * @return itineraryTable The list of saved itineraries.
+     */
     HashMap<String,Itinerary> getItineraryTable();
 
+    /**
+     * Saves the most recent recommendation.
+     * @param itinerary The recent recommendation.
+     */
     void setRecentItinerary(Itinerary itinerary);
 
+    /**
+     * Returns the recently recommended itinerary.
+     * @return recentItinerary The recent recommendation.
+     */
     Itinerary getRecentItinerary() throws NoRecentItineraryException;
 
+    /**
+     * Stores a new itinerary to storage.
+     * @param itinerary The itinerary to be saved.
+     */
     void setNewItinerary(Itinerary itinerary) throws ParseException;
 
+    /**
+     * Stores recently recommended itinerary.
+     * @param newName The new name for the itinerary.
+     */
     void confirmRecentItinerary(String newName);
+
+    /**
+     * Deletes the requested itinerary from storage.
+     * @param name The name of the itinerary to be "done" (deleted).
+     */
+    void doneItinerary(String name) throws NoSuchItineraryException;
 
     /**
      * Returns profile of user.
@@ -109,6 +143,4 @@ public interface Model {
      * Returns name of the user.
      */
     String getName();
-
-    void doneItinerary(String name) throws NoSuchItineraryException;
 }

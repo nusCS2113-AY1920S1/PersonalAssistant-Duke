@@ -52,14 +52,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void doneItinerary(String name) throws NoSuchItineraryException {
-        if (itineraryTable.get(name) == null) {
-            throw new NoSuchItineraryException();
-        }
-        this.itineraryTable.remove(name);
-    }
-
-    @Override
     public TransportationMap getMap() {
         return map;
     }
@@ -103,21 +95,54 @@ public class ModelManager implements Model {
         return null;
     }
 
+    /**
+     * Returns the recommendation list object.
+     *
+     * @return recommendations The requested recommendations list.
+     */
     @Override
     public Recommendation getRecommendations() {
         return recommendations;
     }
 
+    /**
+     * Returns the itinerary hash-map keyed by their names.
+     *
+     * @return itineraryTable The list of saved itineraries.
+     */
     @Override
     public HashMap<String, Itinerary> getItineraryTable() {
         return itineraryTable;
     }
 
+    /**
+     * Deletes the requested itinerary from storage.
+     *
+     * @param name The name of the itinerary to be "done" (deleted).
+     */
+    @Override
+    public void doneItinerary(String name) throws NoSuchItineraryException {
+        if (itineraryTable.get(name) == null) {
+            throw new NoSuchItineraryException();
+        }
+        this.itineraryTable.remove(name);
+    }
+
+    /**
+     * Saves the most recent recommendation.
+     *
+     * @param recentItinerary The recent recommendation.
+     */
     @Override
     public void setRecentItinerary(Itinerary recentItinerary) {
         this.recentItinerary = recentItinerary;
     }
 
+    /**
+     * Returns the "recently recommended itinerary".
+     *
+     * @return recentItinerary The recent recommendation.
+     */
     @Override
     public Itinerary getRecentItinerary() throws NoRecentItineraryException {
         if (recentItinerary == null) {
@@ -126,11 +151,21 @@ public class ModelManager implements Model {
         return recentItinerary;
     }
 
+    /**
+     * Stores a new itinerary to storage.
+     *
+     * @param itinerary The itinerary to be saved.
+     */
     @Override
     public void setNewItinerary(Itinerary itinerary) {
         this.itineraryTable.put(itinerary.getName(), itinerary);
     }
 
+    /**
+     * Stores the "recently recommended itinerary" into storage.
+     *
+     * @param name The new name for the itinerary list.
+     */
     @Override
     public void confirmRecentItinerary(String name) {
         recentItinerary.setName(name);

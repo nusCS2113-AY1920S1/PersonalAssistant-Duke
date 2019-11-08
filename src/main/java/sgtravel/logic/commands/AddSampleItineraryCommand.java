@@ -12,8 +12,12 @@ import sgtravel.model.planning.Itinerary;
 public class AddSampleItineraryCommand extends Command {
     private String newName;
 
-    public AddSampleItineraryCommand(String word) {
-        newName = word;
+    /**
+     * Creates a new AddSampleItinerary with the given newName.
+     * @param newName The new name of the itinerary.
+     */
+    public AddSampleItineraryCommand(String newName) {
+        this.newName = newName;
     }
 
     /**
@@ -25,7 +29,6 @@ public class AddSampleItineraryCommand extends Command {
      */
     @Override
     public CommandResultText execute(Model model) throws FileNotSavedException, NoRecentItineraryException {
-        // Add to the list of Itineraries
         Itinerary itinerary = model.getRecentItinerary();
         model.confirmRecentItinerary(newName);
         model.save();

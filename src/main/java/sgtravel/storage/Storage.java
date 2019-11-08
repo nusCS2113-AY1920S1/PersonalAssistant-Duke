@@ -132,7 +132,7 @@ public class Storage {
     /**
      * Reads events from filepath. Creates empty events if file cannot be read.
      *
-     * @throws FileLoadFailException If file cannot be loaded.
+     * @throws FileLoadFailException If events file cannot be loaded.
      */
     private void readEvents() throws FileLoadFailException {
         List<Event> events = new ArrayList<>();
@@ -184,6 +184,8 @@ public class Storage {
 
     /**
      * Reads the profile from filepath. Creates new empty profile if file doesn't exist.
+     *
+     * @throws FileLoadFailException If the profile file is not found.
      */
     private void readProfile() throws FileLoadFailException {
         profileCard = new ProfileCard();
@@ -202,7 +204,9 @@ public class Storage {
     }
 
     /**
-     * Returns Venues fetched from stored memory.
+     * Reads recommendations from storage and creates a new recommendation object.
+     *
+     * @throws ParseException If the venue cannot be retrieved from storage.
      */
     private void readRecommendations() throws ParseException {
         List<Agenda> agendaList = new ArrayList<>();
@@ -222,9 +226,9 @@ public class Storage {
     }
 
     /**
-     * Reads the itinerary hash map from storage.
+     * Sets the itinerary hash-map in the Storage class.
      *
-     * @throws FileLoadFailException If the file cannot be loaded.
+     * @throws FileLoadFailException If the itneraries file cannot be loaded.
      */
     private void readItineraryTable() throws FileLoadFailException {
         try {
@@ -348,7 +352,7 @@ public class Storage {
     }
 
     /**
-     * Writes recommendations to filepath.
+     * Writes recommendations to local storage.
      *
      * @throws FileNotSavedException If the file cannot be saved.
      */
@@ -386,10 +390,16 @@ public class Storage {
         return profileCard;
     }
 
+    /**
+     * Returns the recommendations object created by the recommendations command.
+     */
     public Recommendation getRecommendations() {
         return recommendation;
     }
 
+    /**
+     * Returns the itinerary hash-map.
+     */
     public HashMap<String, Itinerary> getItineraryTable() {
         return this.itineraryTable;
     }

@@ -11,10 +11,14 @@ import sgtravel.model.planning.Recommendation;
  * Recommends an itinerary based on number of trip days entered by user.
  */
 public class RecommendationsCommand extends Command {
-    private String[] itineraryDetails;
+    private String[] recommendationDetails;
 
-    public RecommendationsCommand(String... itineraryDetails) {
-        this.itineraryDetails = itineraryDetails;
+    /**
+     * Constructs a RecommendationsCommand with the users dates.
+     * @param recommendationDetails The details of the recommendation.
+     */
+    public RecommendationsCommand(String... recommendationDetails) {
+        this.recommendationDetails = recommendationDetails;
     }
 
     /**
@@ -29,7 +33,7 @@ public class RecommendationsCommand extends Command {
 
         Recommendation recommendation = model.getRecommendations();
 
-        Itinerary recentItinerary = recommendation.makeItinerary(itineraryDetails);
+        Itinerary recentItinerary = recommendation.makeItinerary(recommendationDetails);
 
         model.setRecentItinerary(recentItinerary);
 

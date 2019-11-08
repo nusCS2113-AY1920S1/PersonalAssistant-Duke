@@ -22,6 +22,7 @@ public class Itinerary {
 
     /**
      * Constructor to initialise new Itinerary.
+     *
      * @param startDate The first day of the trip.
      * @param endDate The last day of the trip .
      * @param name The name of the itinerary.
@@ -34,9 +35,9 @@ public class Itinerary {
     }
 
     /**
-     * Prints the itinerary list in entirety.
+     * Prints the itinerary list in entirety to show on the UI.
      *
-     * @return The String which lists the itinerary in full
+     * @return result The String which shows the itinerary in full
      */
     public String printItinerary() {
 
@@ -60,9 +61,9 @@ public class Itinerary {
     }
 
     /**
-     * This makes the agenda list of a new Itinerary entered.
-     *
+     * This makes the list of agendas for a newly entered Itinerary.
      * @param itineraryDetails is the details of the itinerary to make.
+     * @throws ParseException if the incorrect format is used in entering the itnerary.
      */
     public void makeAgendaList(String[] itineraryDetails) throws ParseException {
         List<Agenda> agendaList = new ArrayList<>();
@@ -103,37 +104,53 @@ public class Itinerary {
             throw new ParseException(Messages.ERROR_ITINERARY_INCORRECT_COMMAND);
         }
     }
+
     /**
      * Returns number of days of the trip based on entered start and end dates.
-     *
      * @return The number of days of the trip
      */
-
     public int getNumberOfDays() {
         LocalDateTime tempDateTime = LocalDateTime.from(startDate);
         long days = tempDateTime.until(endDate, ChronoUnit.DAYS);
         return Integer.parseInt(String.valueOf(days)) + 1;
     }
 
+    /**
+     * Returns the list of agendas associated with the itinerary.
+     * @return list The agenda list.
+     */
     public List<Agenda> getList() {
         return list;
     }
 
     /**
-     * Replaces the contents of this list with {@code Agenda}.
+     * Replaces the contents of the current list with the updated one.
+     * @param agenda The agenda list to replace the current one.
      */
     public void setTasks(List<Agenda> agenda) {
         list = agenda;
     }
 
+    /**
+     * Returns the start date of the trip.
+     * @return endDate The first date of the trip
+     */
     public LocalDateTime getStartDate() {
         return startDate;
     }
 
+    /**
+     * Returns the end date of the trip.
+     * @return endDate The last date of the trip
+     */
     public LocalDateTime getEndDate() {
         return endDate;
     }
 
+    /**
+     * Returns the name of the itinerary.
+     * @return name Users name of the itinerary
+     */
     public String getName() {
         return name;
     }

@@ -19,7 +19,7 @@ public class NewItineraryCommand extends Command {
     private String[] itineraryDetails;
 
     /**
-     * Constructs a NewItineraryCommand.
+     * Constructs a NewItineraryCommand with the users details.
      * @param start The start date.
      * @param end The end date.
      * @param name The name of the itinerary.

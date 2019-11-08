@@ -12,8 +12,8 @@ public class ShowItineraryCommand extends Command {
     private String name;
 
     /**
-     * Constructs the command with the given itinerary name.
-     *
+     * Constructs a ShowItineraryCommand with the requested names.
+     * @param name The name of the itinerary to be shown.
      */
     public ShowItineraryCommand(String name) {
         this.name = name;

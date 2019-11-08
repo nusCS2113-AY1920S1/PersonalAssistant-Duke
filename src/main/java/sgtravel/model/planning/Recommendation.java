@@ -12,13 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents an Itinerary and its contained information.
+ * Represents a recommended itinerary list provided by SGTravel.
  */
 public class Recommendation {
     private List<Agenda> agendaList;
 
     /**
-     * Constructor to initialise new Itinerary.
+     * Constructor to initialise new Recommendation.
+     *
      * @param agendaList The list containing all venues and todos for the itinerary.
      */
     public Recommendation(List<Agenda> agendaList) {
@@ -29,7 +30,7 @@ public class Recommendation {
      * Returns a recommended itinerary by combining results from the user and recommendation storage.
      *
      * @param itineraryDetails contains all info to make an itinerary.
-     * @return The itinerary based on the number of days of the trip.
+     * @return itinerary The recommended list based on the number of days of travel.
      */
     public Itinerary makeItinerary(String[] itineraryDetails) throws ParseException, RecommendationFailException {
         LocalDateTime start = ParserTimeUtil.parseStringToDate(itineraryDetails[1].strip());
