@@ -125,6 +125,7 @@ public class TaskScheduleCommand extends Command {
             todo = (Todo) list.get(indexOfTask);
         } catch (ClassCastException e) {
             UiTemporary.printOutput(NOT_TODO);
+            logger.writeLog(e.toString(), this.getClass().getName());
             throw new ChronologerException(NOT_TODO);
         }
         return todo.duration;
@@ -144,6 +145,7 @@ public class TaskScheduleCommand extends Command {
             deadline = (Deadline) list.get(indexOfDeadline);
         } catch (ClassCastException e) {
             UiTemporary.printOutput(NOT_DEADLINE);
+            logger.writeLog(e.toString(), this.getClass().getName());
             throw new ChronologerException(NOT_DEADLINE);
         }
         return deadline.getStartDate();
