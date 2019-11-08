@@ -3,6 +3,11 @@
 package planner.util.storage;
 
 import com.google.gson.Gson;
+import planner.logic.exceptions.planner.ModTamperedUserDataException;
+import planner.credential.cryptography.Cipher;
+import planner.credential.cryptography.CipherState;
+import planner.credential.user.CredentialManager;
+import planner.util.cryptography.CryptographyUtils;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -28,6 +33,8 @@ public class Storage {
     private boolean fileExists = false;
 
     private static Gson gson = new Gson();
+    private static CredentialManager credential = new CredentialManager();
+    private static Cipher cipher = new Cipher();
 
     /**
      * Default Constructor for storage class.
@@ -118,6 +125,22 @@ public class Storage {
     }
 
     /**
+     * Write an object to file but encrypted.
+     * @param object object to write
+     * @param path file path
+     */
+    public void writeGsonSecure(Object object, String path) {
+        byte[] message = gson.toJson(object).getBytes(StandardCharsets.UTF_8);
+        CipherState state = new CipherState(message);
+        try {
+            state = cipher.encode(state, credential.getEncryptionLayers(), true);
+        } catch (Throwable ex) {
+            ex.printStackTrace();
+        }
+        this.writeGson(state, path);
+    }
+
+    /**
      * Read an object from file.
      * @param path file path
      * @param clazz Class of object
@@ -130,5 +153,27 @@ public class Storage {
             return null;
         }
         return gson.fromJson(reader, clazz);
+    }
+
+    /**
+     * Read an object from encrypted file.
+     * @param path file path
+     * @param clazz Class of object
+     */
+    public <E> E readGsonSecure(String path, Class<E> clazz) throws ModTamperedUserDataException {
+        CipherState state = this.readGson(path, CipherState.class);
+        if (state == null) {
+            return null;
+        }
+        try {
+            state = cipher.decode(state, credential.getEncryptionLayers());
+        } catch (Throwable ex) {
+            ex.printStackTrace();
+        }
+        int hashLength = credential.getHashLength();
+        if (!CryptographyUtils.isOriginal(state.getMessage(), hashLength)) {
+            throw new ModTamperedUserDataException();
+        }
+        return gson.fromJson(CryptographyUtils.removeTrailingHash(state.getMessage(), hashLength), clazz);
     }
 }
