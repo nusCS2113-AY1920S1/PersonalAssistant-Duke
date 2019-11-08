@@ -150,7 +150,7 @@ public class CapCommand extends ModuleCommand {
             if (userInfo.length <= 1) {
                 throw new ModBadGradeException();
             }
-            if (!validGrades.contains(userInfo[1])) {
+            if (!validGrades.contains(userInfo[1].toUpperCase())) {
                 throw new ModBadGradeException();
             }
             if (!detailedMap.containsKey(userInfo[0].toUpperCase())) {
