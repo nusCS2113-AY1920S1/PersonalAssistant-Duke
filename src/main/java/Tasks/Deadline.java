@@ -43,12 +43,14 @@ public class Deadline extends Assignment {
     public String getTime() {
         return time;
     }
+
     @Override
-    public String getStartTime(){
+    public String getStartTime() {
         return time;
     }
+
     @Override
-    public String getEndTime(){
+    public String getEndTime() {
         return time;
     }
 }
