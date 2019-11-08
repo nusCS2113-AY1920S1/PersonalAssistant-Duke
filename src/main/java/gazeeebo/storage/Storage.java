@@ -387,7 +387,7 @@ public class Storage {
             System.out.println("File exists and it is read only, making it writable");
             file.setWritable(true);
         }
-        FileWriter fileWriter = new FileWriter(relativePathTriviaResource);
+        FileWriter fileWriter = new FileWriter(relativePathTriviaResource,true);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         bufferedWriter.newLine();
         bufferedWriter.write(fileContent);
