@@ -1,4 +1,4 @@
-package diyeats.model.user;
+package diyeats.commons.datatypes;
 
 /**
  * This is a class that will store weight at a specific date.

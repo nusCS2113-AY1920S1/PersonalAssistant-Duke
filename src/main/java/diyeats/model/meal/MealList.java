@@ -42,7 +42,7 @@ public class MealList {
             }
         }
         if (data.getNutritionalValue().size() == 0) {
-            throw new ProgramException("\u2639 OOPS!!! It appears there are no default values associated with this meal\n"
+            throw new ProgramException("It appears there are no default values associated with this meal\n"
                     + "     Please set a default value for this meal using the \"add\" command, or manually\n"
                     + "     specify nutritional values for this meal");
         }
