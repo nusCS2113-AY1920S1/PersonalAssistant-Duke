@@ -111,7 +111,7 @@ public class Ui {
 
     public void helpReorder() {
         System.out.println("Reorder 2 different tasks in the task list");
-        System.out.println("\teg. reorder 1 - 3");
+        System.out.println("\teg. reorder 1 3");
         System.out.println("\tThis will swap the order task 1 and task 3");
     }
 
