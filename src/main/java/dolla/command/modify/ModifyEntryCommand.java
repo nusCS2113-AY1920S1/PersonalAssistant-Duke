@@ -2,26 +2,24 @@ package dolla.command.modify;
 
 import dolla.command.Command;
 import dolla.command.action.Redo;
-import dolla.command.action.state.DebtState;
+import dolla.command.action.state.EntryState;
 import dolla.command.action.state.UndoStateList;
-import dolla.model.DebtList;
 import dolla.model.DollaData;
+import dolla.model.EntryList;
 
 import java.time.LocalDate;
 
-public abstract class ModifyDebtCommand extends Command {
+public abstract class ModifyEntryCommand extends Command {
     protected String type;
-    protected String name;
     protected double amount;
     protected String description;
     protected LocalDate date;
     protected String tagName = "";
-    protected static final String mode = MODE_DEBT;
+    protected String mode = MODE_ENTRY;
 
     protected void updateUndoState(DollaData dollaData) {
-        DebtList debtList = (DebtList) dollaData.getRecordListObj(mode);
-        UndoStateList.addState(new DebtState(debtList.get()), mode);
+        EntryList entryList = (EntryList) dollaData.getRecordListObj(mode);
+        UndoStateList.addState(new EntryState(entryList.get()), mode);///////////////////////////////////////
         Redo.clearRedoState(mode);
     }
-
 }
