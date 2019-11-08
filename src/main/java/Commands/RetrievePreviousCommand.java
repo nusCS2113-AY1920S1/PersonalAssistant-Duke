@@ -30,7 +30,6 @@ public class RetrievePreviousCommand extends Command {
     @Override
     public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws DukeInvalidCommandException {
         fullCommand = fullCommand.replace("retrieve/previous", "");
-        //fullCommand = fullCommand.trim();
 
         if (!fullCommand.isEmpty()) {
             char checkSpace = fullCommand.charAt(0);
@@ -61,11 +60,13 @@ public class RetrievePreviousCommand extends Command {
         } catch (NumberFormatException e) {
             LOGGER.severe("Unable to parse string to integer");
             isNumber = false;
-            throw new DukeInvalidCommandException("Unable to parse string. <x> must be an integer and not string.");
+            throw new DukeInvalidCommandException("Unable to parse string. retrieve/previous <x>, where x must be an integer and not string.");
         }
 
         if (isNumber) {
-            if (intFullCommand > size) {
+            if (intFullCommand <= 0 ) {
+                throw new DukeInvalidCommandException("Please enter a valid integer that is greater than 0");
+            } else if (intFullCommand > size) {
                 throw new DukeInvalidCommandException("There are only " + size + " of previous commands."
                         + "Please enter a valid number less than or equal to " + size + " .");
             }

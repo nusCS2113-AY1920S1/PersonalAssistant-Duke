@@ -34,6 +34,9 @@ public class Storage {
     private HashMap<String, HashMap<String, ArrayList<Assignment>>> map;
     private HashMap<Date, Assignment> reminderMap;
 
+    public final String[] deadlineDelimiter = {"[D]", "by:", "[<R", "/R>]"};
+    public final String[] eventDelimiter = {"[E]", "at:", "time:", "[<R", "/R>]", "to:"};
+
     /**
      * Creates Storage object.
      */
@@ -96,8 +99,17 @@ public class Storage {
             if (string.isEmpty()) {
                 continue;
             }
-            Assignment task = stringToTask(string);
-            list.addTask(task);
+            boolean isValid = true;
+            for(int i = 0; i < eventDelimiter.length; i++) {
+                if (!string.contains(eventDelimiter[i])) {
+                    isValid = false;
+                    break;
+                }
+            }
+            if(isValid) {
+                Assignment task = stringToTask(string);
+                list.addTask(task);
+            }
         }
     }
 
@@ -134,16 +146,25 @@ public class Storage {
         }
         for (String string : temp) {
             DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
-            Assignment task = stringToTask(string);
-            list.addTask(task);
-            if (task.getIsReminder()) {
-                Date date = null;
-                try {
-                    date = dateFormat.parse(task.getRemindTime());
-                } catch (ParseException e) {
-                    LOGGER.severe("Reminder time is wrongly recorded");
+            boolean isValid = true;
+            for(int i = 0; i < deadlineDelimiter.length; i++) {
+                if (!string.contains(deadlineDelimiter[i])) {
+                    isValid = false;
+                    break;
                 }
-                reminderMap.put(date, task);
+            }
+            if(isValid) {
+                Assignment task = stringToTask(string);
+                list.addTask(task);
+                if (task.getIsReminder()) {
+                    Date date = null;
+                    try {
+                        date = dateFormat.parse(task.getRemindTime());
+                    } catch (ParseException e) {
+                        LOGGER.severe("Reminder time is wrongly recorded");
+                    }
+                    reminderMap.put(date, task);
+                }
             }
         }
     }
@@ -165,7 +186,7 @@ public class Storage {
                 String dateString = dateFormat.format(date);
                 String timeString = timeFormat.format(date);
                 String modCode = string.substring(0, string.indexOf("[D]") - 1);
-                String description = string.substring(string.indexOf("/R>]") + 5, string.indexOf("by:") - 2);
+                String description = string.substring(string.indexOf("/R>] ") + 5, string.indexOf("by:") - 2);
                 line = new Deadline(modCode + " " + description, dateString, timeString);
                 line.setRemindTime(remindTime);
             } else {
