@@ -38,7 +38,7 @@ public class RemindParseTest {
     }
 
     @Test
-    public void RemindParseWithEmptyModCodeAndDescription() {
+    public void remindParseWithEmptyModCodeAndDescription() {
         String remindSet = "remind/set  /by " + taskDate + " /on " + reminderDate;
         String expected = "\u2639" + " OOPS!!! The ModCode and description of a deadline cannot be empty.";
         Command command = null;
@@ -101,9 +101,9 @@ public class RemindParseTest {
     @Test
     public void setRemindParseTestWithInvalidFormat() {
         String remindSet = "remind/set CS2100 " + taskDate + " /on " + reminderDate;
-        String expected = "OOPS!!! Please enter remind as follows:\n" +
-                "remind/(set/rm) mod_code description /by week n.o day time /on week n.o day time\n" +
-                "For example: remind/set cs2100 hand in homework /by week 9 fri 1500 /on week 9 thu 1500";
+        String expected = "OOPS!!! Please enter remind as follows:\n"
+                + "remind/(set/rm) mod_code description /by week n.o day time /on week n.o day time\n"
+                + "For example: remind/set cs2100 hand in homework /by week 9 fri 1500 /on week 9 thu 1500";
         String actual = "";
         Command command = null;
         try {
@@ -118,9 +118,9 @@ public class RemindParseTest {
     @Test
     public void setRemindParseTestWithInvalidDate() {
         String remindSet = "remind/set CS2100 " + "week 14 mon" + " /on " + reminderDate;
-        String expected = "OOPS!!! Please enter remind as follows:\n" +
-                "remind/(set/rm) mod_code description /by week n.o day time /on week n.o day time\n" +
-                "For example: remind/set cs2100 hand in homework /by week 9 fri 1500 /on week 9 thu 1500";
+        String expected = "OOPS!!! Please enter remind as follows:\n"
+                + "remind/(set/rm) mod_code description /by week n.o day time /on week n.o day time\n"
+                + "For example: remind/set cs2100 hand in homework /by week 9 fri 1500 /on week 9 thu 1500";
         String actual = "";
         Command command = null;
         try {
