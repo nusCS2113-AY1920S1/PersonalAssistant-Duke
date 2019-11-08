@@ -22,6 +22,7 @@ public final class TaskScheduler {
 
     private static ArrayList<Event> eventList;
     private static LocalDateTime hardLimitDeadlineDate = LocalDateTime.now().plusDays(SEARCH_HARD_LIMIT);
+    private static boolean isFreeBetweenEvents;
 
     /**
      * Finds a free period of time within the user's schedule for a given duration by a given deadline.
@@ -63,17 +64,18 @@ public final class TaskScheduler {
     }
 
     private static void searchFreePeriodsInEventList(Long durationToSchedule, LocalDateTime deadlineDate) {
-        boolean isFreeBetweenEvents;
-        LocalDateTime currentEndDate;
-        LocalDateTime nextStartDate;
+        assert eventList.size() != 0;
 
-        isFreeBetweenEvents = isFreeFromNowTillFirstEvent(durationToSchedule);
-
-        for (int i = 0; i < eventList.size(); i++) {
-            currentEndDate = getCurrentEndDate(deadlineDate, i);
-            nextStartDate = getNextStartDate(deadlineDate, i);
-            isFreeBetweenEvents = isFreeBetweenThisEventTillNextEvent(durationToSchedule, isFreeBetweenEvents,
-                    nextStartDate, currentEndDate);
+        if (isFreeFromNowTillFirstEvent(durationToSchedule)) {
+            loadResult();
+        }
+        for (int i = 0; i < eventList.size() - 1; i++) {
+            if (isFreeBetweenThisEventTillNextEvent(durationToSchedule, i)) {
+                loadResult(i);
+            }
+        }
+        if (isFreeBetweenLastEventTillDeadline(durationToSchedule, deadlineDate)) {
+            loadResult(deadlineDate);
         }
 
         if (!isFreeBetweenEvents) {
@@ -82,51 +84,57 @@ public final class TaskScheduler {
     }
 
     private static boolean isFreeFromNowTillFirstEvent(Long durationToSchedule) {
-        boolean isFreeBetweenEvents = false;
-        Long duration;
-
         LocalDateTime nextStartDate = eventList.get(0).getStartDate();
-        duration = ChronoUnit.HOURS.between(LocalDateTime.now(), nextStartDate);
+        Long duration = ChronoUnit.HOURS.between(LocalDateTime.now(), nextStartDate);
         if (durationToSchedule <= duration) {
             isFreeBetweenEvents = true;
-            String formattedNextStartDate = nextStartDate.format(DateTimeExtractor.DATE_FORMATTER);
-            MessageBuilder.loadMessage(String.format(SCHEDULE_NOW_TILL_FORMAT, formattedNextStartDate));
+            return true;
         }
-        return isFreeBetweenEvents;
+        return false;
     }
 
-    private static LocalDateTime getNextStartDate(LocalDateTime deadlineDate, int i) {
-        LocalDateTime nextStartDate;
-        if (isLastEvent(i)) {
-            nextStartDate = deadlineDate;
-        } else {
-            nextStartDate = eventList.get(i + 1).getStartDate();
-        }
-        return nextStartDate;
-    }
-
-    private static LocalDateTime getCurrentEndDate(LocalDateTime deadlineDate, int i) {
+    private static boolean isFreeBetweenThisEventTillNextEvent(Long durationToSchedule, int i) {
         LocalDateTime currentEndDate = eventList.get(i).getEndDate();
-        if (i == eventList.size() - 1 && currentEndDate.isAfter(deadlineDate)) {
-                currentEndDate = deadlineDate;
-        }
-        return currentEndDate;
-    }
-
-    private static boolean isFreeBetweenThisEventTillNextEvent(Long durationToSchedule, boolean isFreeBetweenEvents, LocalDateTime nextStartDate, LocalDateTime currentEndDate) {
-        Long duration;
-        duration = ChronoUnit.HOURS.between(currentEndDate, nextStartDate);
+        LocalDateTime nextStartDate = eventList.get(i + 1).getStartDate();
+        Long duration = ChronoUnit.HOURS.between(currentEndDate, nextStartDate);
         if (durationToSchedule <= duration) {
             isFreeBetweenEvents = true;
-            String formattedCurrentEndDate = currentEndDate.format(DateTimeExtractor.DATE_FORMATTER);
-            String formattedNextStartDate = nextStartDate.format(DateTimeExtractor.DATE_FORMATTER);
-            MessageBuilder.loadMessage(String.format(SCHEDULE_FROM_TILL_FORMAT, formattedCurrentEndDate,
-                    formattedNextStartDate));
+            return true;
         }
-        return isFreeBetweenEvents;
+        return false;
     }
 
-    private static boolean isLastEvent(int index) {
-        return index == eventList.size() - 1;
+    private static boolean isFreeBetweenLastEventTillDeadline(Long durationToSchedule, LocalDateTime deadlineDate) {
+        LocalDateTime currentEndDate = eventList.get(eventList.size() - 1).getEndDate();
+        if (currentEndDate.isAfter(deadlineDate)) {
+            return false;
+        }
+        Long duration = ChronoUnit.HOURS.between(currentEndDate, deadlineDate);
+        if (durationToSchedule <= duration) {
+            isFreeBetweenEvents = true;
+            return true;
+        }
+        return false;
+    }
+
+    private static void loadResult() {
+        String formattedNextStartDate = eventList.get(0).getStartDate().format(DateTimeExtractor.DATE_FORMATTER);
+        MessageBuilder.loadMessage(String.format(SCHEDULE_NOW_TILL_FORMAT, formattedNextStartDate));
+    }
+
+    private static void loadResult(int index) {
+        String formattedCurrentEndDate = eventList.get(index).getEndDate().format(DateTimeExtractor.DATE_FORMATTER);
+        String formattedNextStartDate = eventList.get(index + 1).getStartDate()
+                .format(DateTimeExtractor.DATE_FORMATTER);
+        MessageBuilder.loadMessage(String.format(SCHEDULE_FROM_TILL_FORMAT, formattedCurrentEndDate,
+                formattedNextStartDate));
+    }
+
+    private static void loadResult(LocalDateTime deadlineDate) {
+        String formattedCurrentEndDate = eventList.get(eventList.size() - 1).getEndDate()
+                .format(DateTimeExtractor.DATE_FORMATTER);
+        String formattedDeadlineDate = deadlineDate.format(DateTimeExtractor.DATE_FORMATTER);
+        MessageBuilder.loadMessage(String.format(SCHEDULE_FROM_TILL_FORMAT, formattedCurrentEndDate,
+                formattedDeadlineDate));
     }
 }
