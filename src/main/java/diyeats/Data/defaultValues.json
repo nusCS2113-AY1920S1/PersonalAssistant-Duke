@@ -1,0 +1,17 @@
+{
+  "burger": {
+    "sodium": 20,
+    "fats": 20,
+    "calorie": 500
+  },
+  "steak": {
+    "sodium": 10,
+    "fats": 20,
+    "calorie": 600
+  },
+  "Tomato Pasta": {
+    "sodium": 10,
+    "fats": 10,
+    "calorie": 450
+  }
+}

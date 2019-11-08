@@ -1,0 +1,20 @@
+{
+  "weight": {
+    "2019-11-08": 70.0
+  },
+  "lastDate": "2019-11-08",
+  "height": 175,
+  "age": 22,
+  "gender": "MALE",
+  "isSetup": true,
+  "name": "Hashir",
+  "activityLevel": 2,
+  "factor": [
+    1.2,
+    1.375,
+    1.55,
+    1.725,
+    1.9
+  ],
+  "originalWeight": 70.0
+}
