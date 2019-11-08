@@ -13,7 +13,7 @@ public abstract class ImpressionObjSpec extends ObjSpec {
     protected void execute(DukeCore core) throws DukeException {
         super.execute(core);
         Impression impression = ImpressionUtils.getImpression(core);
-        DukeData data = ImpressionUtils.getData(cmd.getArg(), cmd.getSwitchVal("evidence"),
+        DukeData data = ImpressionUtils.getDataByIdx(cmd.getArg(), cmd.getSwitchVal("evidence"),
                 cmd.getSwitchVal("treatment"), impression);
         if (data == null) {
             SearchResults results = ImpressionUtils.searchData(cmd.getArg(), cmd.getSwitchVal("evidence"),

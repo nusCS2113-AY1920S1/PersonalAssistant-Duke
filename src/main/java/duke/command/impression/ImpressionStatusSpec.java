@@ -33,7 +33,7 @@ public class ImpressionStatusSpec extends ObjSpec {
     protected void execute(DukeCore core) throws DukeException {
         super.execute(core);
         Impression impression = ImpressionUtils.getImpression(core);
-        DukeObject obj = ImpressionUtils.getData(null, null, cmd.getArg(), impression);
+        DukeObject obj = ImpressionUtils.getDataByIdx(null, null, cmd.getArg(), impression);
         if (obj == null) {
             processResults(core, ImpressionUtils.searchData(null, null, cmd.getArg(), impression));
         } else {

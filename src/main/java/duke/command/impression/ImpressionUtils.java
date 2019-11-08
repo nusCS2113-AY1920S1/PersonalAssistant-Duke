@@ -40,7 +40,7 @@ public class ImpressionUtils {
         }
     }
 
-    public static DukeData getData(String allStr, String evidStr, String treatStr, Impression impression)
+    public static DukeData getDataByIdx(String allStr, String evidStr, String treatStr, Impression impression)
             throws DukeException {
         if (allStr != null) {
             return null;

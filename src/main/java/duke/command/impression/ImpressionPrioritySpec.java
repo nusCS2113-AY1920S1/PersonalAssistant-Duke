@@ -24,14 +24,6 @@ public class ImpressionPrioritySpec extends ImpressionObjSpec {
     }
 
     @Override
-    protected void execute(DukeCore core) throws DukeException {
-    super.execute(core);
-        DukeData prioData = ImpressionUtils.getData(cmd.getArg(), cmd.getSwitchVal("evidence"),
-                cmd.getSwitchVal("treatment"), ImpressionUtils.getImpression(core));
-
-    }
-
-    @Override
     protected void executeWithObj(DukeCore core, DukeObject obj) throws DukeException {
         DukeData prioData = (DukeData) obj;
         int priority = cmd.switchToInt("set");

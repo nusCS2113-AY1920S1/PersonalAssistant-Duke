@@ -45,7 +45,7 @@ public class ImpressionMoveSpec extends ObjSpec {
         Impression currImpression = ImpressionUtils.getImpression(core);
         if (newImpression == null) {
             newImpression = (Impression) obj;
-            moveData = ImpressionUtils.getData(cmd.getArg(), cmd.getSwitchVal("evidence"),
+            moveData = ImpressionUtils.getDataByIdx(cmd.getArg(), cmd.getSwitchVal("evidence"),
                     cmd.getSwitchVal("treatment"), currImpression);
 
             if (moveData == null) {
@@ -65,6 +65,7 @@ public class ImpressionMoveSpec extends ObjSpec {
                 newImpression.addNewTreatment(treatment);
                 currImpression.deleteTreatment(treatment.getName());
             }
+            core.writeJsonFile();
             core.updateUi("'" + moveData.getName() + "' moved from '" + currImpression.getName() + "' to '"
                     + newImpression.getName() + "'");
             newImpression = null;

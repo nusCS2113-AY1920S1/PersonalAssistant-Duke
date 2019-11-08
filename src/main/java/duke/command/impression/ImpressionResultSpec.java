@@ -31,7 +31,7 @@ public class ImpressionResultSpec extends ObjSpec {
     protected void execute(DukeCore core) throws DukeException {
         super.execute(core);
         Impression impression = ImpressionUtils.getImpression(core);
-        DukeObject obj = ImpressionUtils.getData(null, null, cmd.getArg(), impression);
+        DukeObject obj = ImpressionUtils.getDataByIdx(null, null, cmd.getArg(), impression);
         if (obj == null) {
             SearchResults results = ImpressionUtils.searchData(null, null, cmd.getArg(), impression);
             List<DukeObject> searchList = results.getSearchList();
@@ -55,6 +55,7 @@ public class ImpressionResultSpec extends ObjSpec {
         Investigation invx = (Investigation) obj;
         impression.addNewEvidence(invx.toResult(cmd.getSwitchVal("summary")));
         impression.deleteTreatment(obj.getName());
+        core.writeJsonFile();
         core.ui.updateUi("Converted the '" + obj.getName() + "' investigation to a report!");
     }
 }

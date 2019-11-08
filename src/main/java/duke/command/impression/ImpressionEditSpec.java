@@ -10,6 +10,7 @@ import duke.data.Medicine;
 import duke.data.Observation;
 import duke.data.Patient;
 import duke.data.Plan;
+import duke.data.SearchResults;
 import duke.data.Treatment;
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
@@ -53,7 +54,6 @@ public class ImpressionEditSpec extends DukeDataSpec {
     protected void execute(DukeCore core) throws DukeException {
     super.execute(core);
         String editType = uniqueDataType(cmd);
-        DukeData editData;
         boolean isAppending = false;
         if (cmd.isSwitchSet("append")) {
             isAppending = true;
@@ -61,6 +61,8 @@ public class ImpressionEditSpec extends DukeDataSpec {
 
         if (editType == null) { // edit impression
             editImpression(ImpressionUtils.getImpression(core), isAppending);
+            core.writeJsonFile();
+            core.updateUi("Updated details of this Impression!");
         } else {
             if (cmd.isSwitchSet("description")) {
                 throw new DukeHelpException("Descriptions are only for impressions!", cmd);
@@ -70,10 +72,13 @@ public class ImpressionEditSpec extends DukeDataSpec {
             // TODO: proper search with disambiguation
             // TODO: select by index
 
+            // check if these are indices
             String editDataName = cmd.getSwitchVal(editType);
-            List<DukeData> resultList = ImpressionUtils.getImpression(core).searchAll(editDataName);
-            editData = findDataOfClass(resultList, getDataClass(editType));
 
+            SearchResults results = ImpressionUtils.getImpression(core).findByName(editDataName);
+
+
+            DukeData editData;
             if (editData == null) {
                 throw new DukeHelpException("I can't find a " + editType + " item named '" + editDataName + "'!", cmd);
             }
