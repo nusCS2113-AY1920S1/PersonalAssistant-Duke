@@ -403,7 +403,7 @@ Format: `routeAdd NAME`
 * You cannot create a Route that has the same name as an existing one.
 ====
 
-image::routeAdd1.png[width="400" height="200"]
+image::routeAdd1.PNG[width="400" height="200"]
 
 Examples:
 
@@ -443,7 +443,7 @@ Valid CONSTRAINT:
 * `mrt`
 * `custom`
 
-image::routeNodeAdd1.png[width="400" height="200"]
+image::routeNodeAdd1.PNG[width="400" height="200"]
 
 Examples:
 
@@ -475,7 +475,7 @@ Valid CONSTRAINT:
 * `bus`
 * `mrt`
 
-image::routeGenerate1.png[width="400" height="200"]
+image::routeGenerate1.PNG[width="400" height="200"]
 
 Examples:
 
@@ -497,7 +497,7 @@ Format: `routeListAll`
 * Information includes the name and description of all Routes.
 ====
 
-image::routeListAll1.png[width="400" height="360"]
+image::routeListAll1.PNG[width="400" height="360"]
 
 Examples:
 
@@ -514,7 +514,7 @@ Format: `routeList INDEX_ROUTE`
 * Information includes the name, description and all RouteNodes in the Route.
 ====
 
-image::routeList1.png[width="400" height="260"]
+image::routeList1.PNG[width="400" height="260"]
 
 Examples:
 
@@ -530,8 +530,8 @@ Format: `routeShow INDEX_ROUTE`
 * Shows the map of the Route at `INDEX_ROUTE` in the Singapore Map.
 ====
 
-image::routeShow1.png[width="1000" height="700"]
-image::routeShow2.png[width="400" height="330"]
+image::routeShow1.PNG[width="1000" height="700"]
+image::routeShow2.PNG[width="400" height="330"]
 
 Examples:
 
@@ -554,7 +554,7 @@ Format: `routeNodeShow INDEX_ROUTE INDEX_NODE`
 * Nearby RouteNodes in the Route are also shown, and are colored in orange.
 ====
 
-image::routeNodeShow1.png[width="400" height="600"]
+image::routeNodeShow1.PNG[width="400" height="600"]
 
 Examples:
 
@@ -572,7 +572,7 @@ Format: `routeNodeNearby INDEX_ROUTE INDEX_NODE`
 * Nearby neighbours are colored in black.
 ====
 
-image::routeNodeNearby1.png[width="400" height="600"]
+image::routeNodeNearby1.PNG[width="400" height="600"]
 
 Examples:
 
@@ -594,9 +594,9 @@ Valid FIELD:
 * `name`
 * `description`
 
-image::routeEdit1.png[width="400" height="260"]
-image::routeEdit2.png[width="400" height="190"]
-image::routeEdit3.png[width="400" height="250"]
+image::routeEdit1.PNG[width="400" height="260"]
+image::routeEdit2.PNG[width="400" height="190"]
+image::routeEdit3.PNG[width="400" height="250"]
 
 Examples:
 
@@ -618,7 +618,7 @@ Format: `routeDelete INDEX_ROUTE`
 * Deletes a Route at `INDEX_ROUTE`.
 ====
 
-image::routeDelete1.png[width="400" height="210"]
+image::routeDelete1.PNG[width="400" height="210"]
 
 Examples:
 
@@ -640,7 +640,7 @@ Format: `routeNodeDelete INDEX_ROUTE INDEX_NODE`
 * Deletes a RouteNode at `INDEX_NODE` in Route at `INDEX_ROUTE`.
 ====
 
-image::routeNodeDelete1.png[width="400" height="200"]
+image::routeNodeDelete1.PNG[width="400" height="200"]
 
 [TIP]
 ====
@@ -657,7 +657,7 @@ Examples:
 SGTravel shows the information of a bus stop. +
 Format: `busStop BUSCODE`
 
-image::busStop1.png[width="400" height="500"]
+image::busStop1.PNG[width="400" height="500"]
 
 Examples:
 
@@ -674,7 +674,7 @@ Entering `busStop` will initiate the multi-step version of this command
 SGTravel finds the bus route of a given bus service given the bus service number. +
 Format: `busroute BUS_NUMBER`
 
-image::busRoute1.png[width="400" height="330"]
+image::busRoute1.PNG[width="400" height="330"]
 
 Examples:
 
