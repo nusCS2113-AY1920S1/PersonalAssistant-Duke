@@ -14,7 +14,7 @@ import java.util.Date;
  * Stores the description and when the task should be done by.
  */
 public class Assignment extends Task {
-    private ArrayList<String> subTasks;
+    private ArrayList<String> subTasks = new ArrayList<String>();
     /**
      * Constructor for the Assignment object.
      * Takes in inputs for description and date/time the tasks should be done by.
@@ -27,11 +27,11 @@ public class Assignment extends Task {
 
     /**
      * Takes in arraylist of subtasks and sets it as this assignment's subtasks
-     * @param subTasks array list containing subtasks
+     * @param addList array list containing subtasks
      */
-    public void addSubTasks(ArrayList<String> subTasks) {
-        for(String output : subTasks) {
-            this.subTasks.add(output);
+    public void addSubTasks(ArrayList<String> addList) {
+        for(String output : addList) {
+            subTasks.add(output);
         }
     }
 
@@ -50,7 +50,7 @@ public class Assignment extends Task {
     public void doneSubtask(int index) throws RoomShareException {
         try {
             subTasks.remove(index);
-        } catch (ArrayIndexOutOfBoundsException a) {
+        } catch (IndexOutOfBoundsException a) {
             throw new RoomShareException(ExceptionType.noSubtask);
         }
     }

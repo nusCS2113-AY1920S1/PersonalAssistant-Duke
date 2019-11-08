@@ -80,7 +80,7 @@ public class TaskList {
             for(int i=0; i<tasks.size(); i++) {
                 if (new Date().after(tasks.get(i).getDate()) && !(tasks.get(i) instanceof Leave)){
                     tasks.get(i).setOverdue(true);
-                    if (!CheckAnomaly.checkDuplicateOverdue(tasks.get(i))) {
+                    if (CheckAnomaly.checkDuplicateOverdue(tasks.get(i))) {
                         // no duplicates in overdue list
                         overdueList.add(tasks.get(i));
                     }
@@ -170,6 +170,19 @@ public class TaskList {
             for (int i = index[0]; i <= index[1]; i++){
                 tasks.get(i).setDone(true);
             }
+        }
+    }
+
+    /**
+     * Overload function for done to complete subTasks
+     * @param index index of task
+     * @param subTaskIndex index of subtask completed
+     */
+    public void done(int index, int subTaskIndex) throws RoomShareException {
+        if( TaskList.get(index) instanceof Assignment ) {
+            ((Assignment) TaskList.get(index-1)).doneSubtask(subTaskIndex-1);
+        } else {
+            throw new RoomShareException(ExceptionType.subTaskError);
         }
     }
 
@@ -469,18 +482,5 @@ public class TaskList {
         }
         int[] done = {belongCount, doneCount};
         return done;
-    }
-
-    /**
-     * Overload function for done to complete subTasks
-     * @param index index of task
-     * @param subTaskIndex index of subtask completed
-     */
-    public void done(int index, int subTaskIndex) throws RoomShareException {
-        if( TaskList.get(index) instanceof Assignment ) {
-            ((Assignment) TaskList.get(index)).doneSubtask(subTaskIndex);
-        } else {
-             throw new RoomShareException(ExceptionType.subTaskError);
-        }
     }
 }

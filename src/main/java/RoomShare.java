@@ -1,4 +1,6 @@
+import CustomExceptions.DuplicateException;
 import CustomExceptions.RoomShareException;
+import CustomExceptions.TimeClashException;
 import Enums.ExceptionType;
 import Enums.SortType;
 import Enums.TaskType;
@@ -110,7 +112,7 @@ public class RoomShare {
                 ui.startUp();
                 try {
                     String input = parser.getCommandLine();
-                    if(input.length() != 1 && input.split(" ", 1).equals("subtask")) {
+                    if(input.length() != 1 && input.split(" ")[0].equals("subtask")) {
                        String info[] = input.split(" ");
                         taskList.done(Integer.parseInt(info[1]), Integer.parseInt(info[2]));
                     } else {
@@ -221,7 +223,7 @@ public class RoomShare {
                     String input = parser.getCommandLine();
                     taskList.add(taskCreator.create(input));
                     ui.showAdd();
-                } catch (RoomShareException e) {
+                } catch (RoomShareException | DuplicateException | TimeClashException e) {
                     ui.showError(e);
                 } finally {
                     storage.writeFile(TaskList.currentList(), "data.txt");

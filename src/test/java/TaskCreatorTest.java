@@ -1,4 +1,6 @@
+import CustomExceptions.DuplicateException;
 import CustomExceptions.RoomShareException;
+import CustomExceptions.TimeClashException;
 import Enums.Priority;
 import Enums.RecurrenceScheduleType;
 import Enums.TimeUnit;
@@ -150,6 +152,10 @@ public class TaskCreatorTest {
             assertEquals(meeting1.getDescription(), "description");
         } catch (RoomShareException e) {
             e.printStackTrace();
+        } catch (DuplicateException e) {
+            e.printStackTrace();
+        } catch (TimeClashException e) {
+            e.printStackTrace();
         }
 
         try {
@@ -163,7 +169,7 @@ public class TaskCreatorTest {
             assertEquals(meeting2.getTimeUnit(), TimeUnit.unDefined);
             assertEquals(meeting2.getDuration(), "0");
             assertEquals(meeting2.getRecurrenceSchedule(), RecurrenceScheduleType.none);
-        } catch (RoomShareException e) {
+        } catch (RoomShareException | DuplicateException | TimeClashException e) {
             e.printStackTrace();
         }
 
@@ -177,7 +183,7 @@ public class TaskCreatorTest {
             assertEquals(leave.getDescription(), "description");
             assertEquals(leave.getPriority(), Priority.low);
             assertEquals(leave.getRecurrenceSchedule(), RecurrenceScheduleType.none);
-        } catch (RoomShareException e) {
+        } catch (RoomShareException | DuplicateException | TimeClashException e) {
             e.printStackTrace();
         }
     }
@@ -199,6 +205,10 @@ public class TaskCreatorTest {
             assertEquals(meeting.getTimeUnit(), TimeUnit.minutes);
             assertEquals(meeting.getRecurrenceSchedule(), RecurrenceScheduleType.day);
         } catch (RoomShareException | ParseException e) {
+            e.printStackTrace();
+        } catch (DuplicateException e) {
+            e.printStackTrace();
+        } catch (TimeClashException e) {
             e.printStackTrace();
         }
     }

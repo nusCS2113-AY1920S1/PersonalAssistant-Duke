@@ -11,7 +11,6 @@ public enum ExceptionType {
     negativeTimeAmount,
 
     timeClash,
-    duplicateTask,
     emptyList,
     emptyUser,
     outOfBounds,
