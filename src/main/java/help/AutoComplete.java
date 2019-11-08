@@ -26,7 +26,7 @@ public class AutoComplete {
             "list goals",
             "done goal [index]",
             "commit goal [index 1, index 2,...]",
-            "add instalment [desc] /amt [cost] /within [number of months] months /from [d/M/yyyy] @[annual interest rate]%",
+            "add instalment [desc] /amt [cost] /within [number of months] months /from [d/M/yyyy] /percentage [annual interest rate]",
             "delete instalment [index]",
             "list all instalments",
             "lent [other party] /amt [cost] /on [date]",
@@ -45,9 +45,21 @@ public class AutoComplete {
             "deposit [amount] [desc] /at [date]",
             "withdraw [amount] [desc] /at [date]",
             "list bank trackers",
-            "graph monthly report [histogram/line_graph/pie_chart]",
-            "graph income/expenditure trend [histogram/line_graph/pie_chart]",
+
+            "graph monthly report",
+            "graph monthly report histogram",
+            "graph monthly report line_graph",
+            "graph monthly report pie_chart",
+            "graph income trend",
+            "graph income trend histogram",
+            "graph income trend line_graph",
+            "graph income trend pie_chart",
+            "graph expenditure trend",
+            "graph expenditure trend histogram",
+            "graph expenditure trend line_graph",
+            "graph expenditure trend pie_chart",
             "graph finance status /until [date]",
+
             "undo",
             "bye"
     };

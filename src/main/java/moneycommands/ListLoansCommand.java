@@ -6,6 +6,7 @@ import controlpanel.Ui;
 import money.Account;
 import money.Loan;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 
 /**
@@ -15,6 +16,9 @@ import java.text.ParseException;
 public class ListLoansCommand extends MoneyCommand {
 
     private String inputString;
+
+    private DecimalFormat decimalFormat = new DecimalFormat("#.00");
+
 
     //@@author chengweixuan
     /**
@@ -39,7 +43,7 @@ public class ListLoansCommand extends MoneyCommand {
      * @param account Account object containing all financial info of user saved on the programme
      * @return Float monetary amount of the type of loan
      */
-    private float totalLoanAmount(Loan.Type type, Account account) {
+    private String totalLoanAmount(Loan.Type type, Account account) {
         float total = 0;
         switch (type) {
         case OUTGOING:
@@ -61,7 +65,7 @@ public class ListLoansCommand extends MoneyCommand {
             total = -1;
             break;
         }
-        return total;
+        return decimalFormat.format(total);
     }
 
     /**

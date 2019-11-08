@@ -17,15 +17,23 @@ import java.text.ParseException;
 public class DeleteGoalCommand extends MoneyCommand {
 
     private int serialNo;
+    private String inputString;
 
     //@@author therealnickcheong
     /**
      * Constructor of the command which initialises the delete goal command.
      * with the index of the item to be deleted within the user input.
-     * @param index delete command inputted from user.
+     * @param cmd delete command inputted from user.
      */
-    public DeleteGoalCommand(int index) {
-        serialNo = index;
+    public DeleteGoalCommand(String cmd) throws DukeException {
+        inputString = cmd;
+        try{
+            String temp = inputString.replaceAll("[^-?0-9]", "");
+            serialNo = Integer.parseInt(temp);
+        }catch(NumberFormatException e){
+            throw new DukeException("Please enter in the format: " +
+                    "done goal <index>\n");
+        }
     }
 
     @Override
@@ -44,7 +52,7 @@ public class DeleteGoalCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
-        if (serialNo > account.getShortTermGoals().size()) {
+        if (serialNo > account.getShortTermGoals().size() || serialNo <= 0) {
             throw new DukeException("The serial number of the task is Out Of Bounds!");
         }
         Goal deletedEntryG = account.getShortTermGoals().get(serialNo - 1);

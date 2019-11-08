@@ -17,6 +17,10 @@ public class MoneyStorage {
     private static Stack<Item> deletedEntries;
     private static Stack<BankTracker> deletedBanks;
 
+    /**
+     * Constructor for the MoneyStorage Object
+     * @param filePath FilePath of the data text file
+     */
     public MoneyStorage(String filePath) {
         fileName = filePath;
         dateTimeFormatter  = DateTimeFormatter.ofPattern("d/M/yyyy");
@@ -34,25 +38,6 @@ public class MoneyStorage {
         Expenditure exp = new Expenditure(Float.parseFloat(info[1]), info[2], info[3],
                 LocalDate.parse(info[4], dateTimeFormatter));
         account.getExpListTotal().add(exp);
-    }
-
-    private void parseSplitExpenditure(String[] info, Account account) {
-        String[] names = info[5].split(" ! ");
-        ArrayList<Pair<String, Boolean>> parties = new ArrayList<>();
-        for (String name : names) {
-            name = name.replaceAll(" ", "");
-            String[] splitStr = name.split("&", 2);
-            boolean status = false;
-            if (splitStr[1].equals("1")) {
-                status = true;
-            }
-
-            Pair<String, Boolean> temp = new Pair<>(splitStr[0], status);
-            parties.add(temp);
-        }
-        Split spiltExp = new Split(Float.parseFloat(info[1]), info[2], info[3],
-                LocalDate.parse(info[4], dateTimeFormatter), parties);
-        account.getExpListTotal().add(spiltExp);
     }
 
     private void parseGoal(String[] info, Account account) throws DukeException {
@@ -92,7 +77,7 @@ public class MoneyStorage {
                 //if (line.contains("#")) { continue; }
                 String[] info = line.split(" @ ");
 
-                switch(info[0]) {
+                switch (info[0]) {
                 case "INIT":
                     account.setToInitialize(Boolean.parseBoolean(info[1]));
                     break;
@@ -104,9 +89,6 @@ public class MoneyStorage {
                     break;
                 case "EXP":
                     parseExpenditure(info, account);
-                    break;
-                case "SEX":
-                    parseSplitExpenditure(info, account);
                     break;
                 case "G":
                     parseGoal(info, account);
@@ -131,8 +113,8 @@ public class MoneyStorage {
             final String hash = "moneyAccount";
             final String fileName = hash + ".txt";
             final File file = new File(parentDir, fileName);
-            file.createNewFile(); // Creates file crawl_html/abc.txt
-        }catch(IOException | DateTimeParseException | DukeException e){
+            file.createNewFile();
+        } catch (IOException | DateTimeParseException | DukeException e) {
             e.printStackTrace();
         }
         return account;
@@ -143,12 +125,6 @@ public class MoneyStorage {
     public void writeIncome(Income i , BufferedWriter bufferedWriter) throws IOException {
         bufferedWriter.write("INC @ " + i.getPrice() + " @ " + i.getDescription() +
                 " @ " + i.getPaidTime() + "\n");
-    }
-
-    public void writeSplit(Split exp, BufferedWriter bufferedWriter) throws IOException {
-        bufferedWriter.write("SEX @ " + exp.getPrice() + " @ " + exp.getDescription() + " @ " +
-                exp.getCategory() + " @ " + exp.getBoughtDate() + " @ " +
-                ((Split) exp).getNamesOfPeople() + "\n");
     }
 
     public void writeExp(Expenditure exp, BufferedWriter bufferedWriter) throws IOException {
@@ -199,11 +175,7 @@ public class MoneyStorage {
             }
 
             for (Expenditure exp : account.getExpListTotal()) {
-                if (exp instanceof Split) {
-                    writeSplit((Split) exp, bufferedWriter);
-                } else {
-                    writeExp(exp, bufferedWriter);
-                }
+                writeExp(exp, bufferedWriter);
             }
 
             for (Goal g : account.getShortTermGoals()) {

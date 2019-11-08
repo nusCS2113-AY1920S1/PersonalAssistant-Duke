@@ -23,6 +23,8 @@ public class AddLoanCommand extends MoneyCommand {
     private String description;
     private LocalDate startDate;
 
+    private static final int PLACEHOLDER_INT = -1;
+
     //@@author chengweixuan
     /**
      * Constructor of the command which initialises the add loan command
@@ -63,11 +65,9 @@ public class AddLoanCommand extends MoneyCommand {
             String[] furSplit = splitStr[1].split("/on ", 2);
             amount = Float.parseFloat(furSplit[0]);
             startDate = Parser.shortcutTime(furSplit[1]);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("Please enter in the format: " +
-                    "lent/borrowed <person> /amt <amount> /on <date>\n");
-        } catch (NumberFormatException e) {
-            throw new DukeException("Please enter the amount in numbers!\n");
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            throw new DukeException("Please enter in the format: "
+                    + "lent/borrowed <person> /amt <amount> /on <date>\n");
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid date! Please enter date in the format: d/m/yyyy\n");
         }
@@ -75,8 +75,13 @@ public class AddLoanCommand extends MoneyCommand {
         account.getLoans().add(l);
         storage.writeToFile(account);
 
-        int loanTypeSize = l.getType() == Loan.Type.INCOMING ? account.getIncomingLoans().size() :
-                l.getType() == Loan.Type.OUTGOING ? account.getOutgoingLoans().size() : -1;
+        int loanTypeSize = PLACEHOLDER_INT;
+        if (type == Loan.Type.INCOMING) {
+            loanTypeSize = account.getIncomingLoans().size();
+        } else if (type == Loan.Type.OUTGOING) {
+            loanTypeSize = account.getOutgoingLoans().size();
+        }
+
         ui.appendToOutput(" Got it. I've added this " + l.getType().toString().toLowerCase() + " loan: \n");
         ui.appendToOutput("     ");
         ui.appendToOutput(account.getLoans().get(account.getLoans().size() - 1).toString()

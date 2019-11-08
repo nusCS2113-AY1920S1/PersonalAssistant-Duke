@@ -176,8 +176,8 @@ public class MainWindow extends AnchorPane {
             }
             return suggestedCommands;
         });
-        suggestions.setVisibleRowCount(3);
-        suggestions.setPrefWidth(200);
+        suggestions.setVisibleRowCount(4);
+        suggestions.setPrefWidth(700);
     }
 
     /**
