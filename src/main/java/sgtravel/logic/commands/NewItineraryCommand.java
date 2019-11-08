@@ -13,24 +13,14 @@ import java.time.LocalDateTime;
  * Creates a new custom itinerary.
  */
 public class NewItineraryCommand extends Command {
-    private LocalDateTime start;
-    private LocalDateTime end;
-    private String name;
-    private String[] itineraryDetails;
+    private Itinerary itinerary;
 
     /**
      * Constructs a NewItineraryCommand with the users details.
-     * @param start The start date.
-     * @param end The end date.
-     * @param name The name of the itinerary.
-     * @param itineraryDetails The details of the itinerary.
+     * @param itinerary The itinerary to add.
      */
-    public NewItineraryCommand(LocalDateTime start, LocalDateTime end, String name,
-                               String[] itineraryDetails) {
-        this.start = start;
-        this.end = end;
-        this.name = name;
-        this.itineraryDetails = itineraryDetails;
+    public NewItineraryCommand(Itinerary itinerary) {
+        this.itinerary = itinerary;
     }
 
     /**
@@ -43,9 +33,6 @@ public class NewItineraryCommand extends Command {
      */
     @Override
     public CommandResultText execute(Model model) throws ApiException, ParseException, FileNotSavedException {
-        Itinerary itinerary = new Itinerary(start, end, name);
-        itinerary.getNumberOfDays();
-        itinerary.makeAgendaList(itineraryDetails);
         model.setNewItinerary(itinerary);
         model.save();
         return new CommandResultText("New Itinerary Created with name:" + itinerary.getName());

@@ -27,7 +27,7 @@ public class Recommendation {
     }
 
     /**
-     * Returns a recommended itinerary by combining results from the user and recommendation storage.
+     * Returns an itinerary by combining number of days entered by the user and this recommendation object.
      *
      * @param itineraryDetails contains all info to make an itinerary.
      * @return itinerary The recommended list based on the number of days of travel.
@@ -35,12 +35,14 @@ public class Recommendation {
     public Itinerary makeItinerary(String[] itineraryDetails) throws ParseException, RecommendationFailException {
         LocalDateTime start = ParserTimeUtil.parseStringToDate(itineraryDetails[1].strip());
         LocalDateTime end = ParserTimeUtil.parseStringToDate(itineraryDetails[2].strip());
+
         Itinerary itinerary = new Itinerary(start, end, "New Recommendation");
 
         int days = getNumberOfDays(start, end);
         if (days > 8) {
             throw new RecommendationFailException();
         }
+
         List<Agenda> agendaList1 = new ArrayList<>(agendaList.subList(0, days));
 
         assert (!agendaList1.isEmpty()) : "list should not be null";
