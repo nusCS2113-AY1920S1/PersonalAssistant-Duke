@@ -55,10 +55,10 @@ functions
 
 . *JDK `11`* or above is required
 . *IntelliJ* IDE is recommended
-+
-// [NOTE]
-// IntelliJ by default has Gradle and JavaFx plugins installed. +
-// Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+
+ [NOTE]
+ IntelliJ by default has Gradle plugin installed. +
+ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 === 1.2. Setting up the project environment on your local machine.
 
@@ -78,42 +78,29 @@ It should finish with the `BUILD SUCCESSFUL` message. This will generate the res
 
 === 1.3. Verifying the setup
 
-. Run Duke to verify and try a few commands. (Refer here {insert link to the command page} the commands)
+. Run ArchDuke to verify and try a few commands. (Refer here {insert link to the command page} the commands)
 . Run the JUNIT Test/gradlew test command to ensure that all the test case passes.
-// . <<Testing#,Run the tests>> to ensure they all pass.
 
-// === 1.4. Configurations to do before writing code
+=== 1.4. Configurations to do before writing code
 
-// ==== Configuring the coding style
+==== Configuring the coding style
+- ArchDuke uses CheckStyle to check for code quality violations.
+- To configure your project to use CheckStyle, add `id 'checkstyle'` under plugins for your `build.gradle` file.
+- Ensure that your CheckStyle toolVersion is 8.23 by adding `toolVersion = '8.23'` into your `build.gradle` file.
 
-// This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
+You may refer to ArchDuke's `build.gradlew` file as a reference on how to set up CheckStyle correctly.
 
-// . Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS)
-// . Select `Editor` > `Code Style` > `Java`
-// . Click on the `Imports` tab to set the order
+==== Setting up CI
 
-// * For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
-// * For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
+ArchDuke utilizes Travis to perform Continuous Integration (CI). Other CI tools available are AppVeyor, GitLab CI or
+Github Actions. ArchDuke has decided on using Travis CI due to its ease of configurations.
 
-// Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
+After setting up Travis, you can set up coverage reporting for your team fork.
 
-// ==== Setting up CI
+==== Getting started with coding
 
-// Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
-
-// After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
-
-// [NOTE]
-// Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
-
-// Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
-
-// [NOTE]
-// Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
-
-// ==== Getting started with coding
-
-// When you are ready to start coding, we recommend that you get some sense of the overall design by reading about <<DeveloperGuide#Design-Architecture, Duke's architecture>>.
+When you are ready to start coding, we recommend that you get some sense of the overall design by reading about
+ArchDuke's architecture in the next section.
 
 == 2. Design
 
@@ -186,14 +173,8 @@ information for CLIView to display.
 
 === 2.2. Controller Layer
 
-// [[fig-LogicClassDiagram]]
-// .Structure of the Logic Component
-// image::LogicClassDiagram.png[]
-// *API* :
-// link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
-
 ==== 2.2.1. ConsoleInputController
-`ConsoleInputController` is the class which deals with the CRUD functionalities for all the projects of the user.
+`ConsoleInputController` is the class which deals with the CRUD functionality for all the projects of the user.
 
 *Rationale for implementation*
 
