@@ -538,16 +538,16 @@ public class Parser {
             String[] userInput = sentence.split(" ",Numbers.TWO.value);
             String[] contactDetails = userInput[Numbers.ONE.value].split(",");
             try {
-                if (contactDetails[Numbers.ZERO.value].trim().equals("")) {
+                if (contactDetails[Numbers.ZERO.value].trim().isEmpty()) {
                     contactDetails[Numbers.ZERO.value] = "Nil";
                 }
-                if (contactDetails[Numbers.ONE.value].trim().equals("")) {
+                if (contactDetails[Numbers.ONE.value].trim().isEmpty()) {
                     contactDetails[Numbers.ONE.value] = "Nil";
                 }
-                if (contactDetails[Numbers.TWO.value].trim().equals("")) {
+                if (contactDetails[Numbers.TWO.value].trim().isEmpty()) {
                     contactDetails[Numbers.TWO.value] = "Nil";
                 }
-                if (contactDetails[Numbers.THREE.value].trim().equals("")) {
+                if (contactDetails[Numbers.THREE.value].trim().isEmpty()) {
                     contactDetails[Numbers.THREE.value] = "Nil";
                 }
                 Contacts contactObj = new Contacts(contactDetails[Numbers.ZERO.value],
@@ -563,16 +563,15 @@ public class Parser {
         } else if (arr.length > Numbers.ZERO.value
                 && (arr[Numbers.ZERO.value].equals("deletecontact") || arr[Numbers.ZERO.value].equals("dc")
                 || arr[Numbers.ZERO.value].equals("deletecontacts"))) {
-            if (arr.length == Numbers.ONE.value) {
-                throw new DukeException(ErrorMessages.CONTACT_INDEX.message);
-            } else {
-                try {
-                    Integer.parseInt(arr[Numbers.ONE.value]); //Catches for non integer value
-                    return new DeleteContactCommand(
-                            Integer.parseInt(arr[Numbers.ONE.value]) - Numbers.ONE.value, contactList);
-                } catch (NumberFormatException e) {
-                    throw new DukeException(ErrorMessages.NON_INTEGER_ALERT.message);
+            try {
+                if (arr.length==Numbers.ONE.value) {
+                    throw new DukeException(ErrorMessages.CONTACT_INDEX.message);
                 }
+                Integer.parseInt(arr[Numbers.ONE.value]); //Catches for non integer value
+                return new DeleteContactCommand(
+                        Integer.parseInt(arr[Numbers.ONE.value]) - Numbers.ONE.value, contactList);
+            } catch (NumberFormatException e) {
+                throw new DukeException(ErrorMessages.NON_INTEGER_ALERT.message);
             }
         } else if (arr.length > Numbers.ZERO.value
                 && (arr[Numbers.ZERO.value].equals("findcontact") || arr[Numbers.ZERO.value].equalsIgnoreCase("fc")

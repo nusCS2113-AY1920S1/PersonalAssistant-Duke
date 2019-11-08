@@ -10,7 +10,6 @@ public enum ErrorMessages {
     PRIORITY_FORMAT("     (>_<) OOPS!!! Format is in: setpriority <taskNum> <Priority>"),
     CONTACT_FORMAT("Format is in: addcontact <name>, <contact>, <email>, <office>, put 'nil' if field is empty"),
     CONTACT_INDEX("     (>_<) OOPS!!! The contact index cannot be empty."),
-    INVALID_EMAIL_ALERT("     Email needs to have '@'"),
     NON_INTEGER_ALERT("     Input is not an integer value!"),
     UNKNOWN_COMMAND("     (>_<) OoPS!!! I'm sorry, but I don't know what that means :-("),
     AVOID_PIPELINE("     (>_<) OoPS!!! I'm sorry, but please do not add | , thanks.");
