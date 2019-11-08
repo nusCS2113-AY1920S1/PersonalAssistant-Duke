@@ -42,9 +42,14 @@ public class AddCardBillCommand extends Command {
         this.expenditureDate = getCurrentDate();
         this.bank = bank;
         this.type = BANK_TYPE;
-        this.expenditureDescription = "Payment for Credit Card Bill - " + card + " " + date;
+        this.expenditureDescription = "Bill - " + card + " " + date;
     }
 
+    /**
+     * Returns current date.
+     *
+     * @return Current date.
+     */
     private Date getCurrentDate() {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String dateString = dateFormat.format(new Date());
@@ -73,6 +78,22 @@ public class AddCardBillCommand extends Command {
     }
 
     /**
+     * Throws CardException if card bill for a specified month has already been paid.
+     *
+     * @param profile   The user profile.
+     * @param card      The card which the bill is going to be paid.
+     * @param cardDate  The YearMonth date of the card bill.
+     * @throws CardException    If card bill for the specified month has already been paid.
+     */
+    private void checkIfBillPaidBefore(Profile profile, String card, YearMonth cardDate)
+            throws CardException {
+        if (profile.getCardPaidBillAmount(card, cardDate) != 0) {
+            throw new CardException("You cannot add a card bill for " + cardDate
+            + " because you have already done so!");
+        }
+    }
+
+    /**
      * Executes the function to add a new credit card bill in bank expenditure, card rebate in bank deposit,
      * and transfers the card expenditures from unpaid to paid transaction list.
      *
@@ -85,15 +106,18 @@ public class AddCardBillCommand extends Command {
      */
     public boolean execute(Profile profile, Ui ui) throws CardException, BankException, TransactionException {
         profile.checkCardExists(card);
+        checkIfBillPaidBefore(profile, card, cardDate);
         UUID cardId = profile.getCardId(card);
-        String depDescription = "Rebate for Credit Card (" + profile.getCardRebateAmount(card) + "%) - "
+        String depDescription = "Rebate " + profile.getCardRebateAmount(card) + "% - "
                 + card + " " + cardDate;
         double billAmount = profile.getCardUnpaidBillAmount(card, cardDate);
         double rebateAmount = (profile.getCardRebateAmount(card) / PERCENTAGE_TO_DECIMAL) * billAmount;
         checkBillAmountZero(billAmount, card, cardDate);
         Expenditure newExpenditure =
-                new Expenditure(this.expenditureDescription, billAmount, this.expenditureDate, cardId, this.cardDate);
-        Deposit newDeposit = new Deposit(depDescription, rebateAmount, this.expenditureDate, cardId, this.cardDate);
+                new Expenditure(this.expenditureDescription, billAmount, this.expenditureDate,
+                cardId, this.cardDate);
+        Deposit newDeposit = new Deposit(depDescription, rebateAmount, this.expenditureDate, cardId,
+                this.cardDate);
         profile.addCardBill(card, bank, newExpenditure, newDeposit, cardDate, ui, type);
         return this.isExit;
     }
