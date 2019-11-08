@@ -2,12 +2,14 @@ package eggventory.logic.parsers;
 
 import eggventory.logic.commands.Command;
 import eggventory.logic.commands.CommandDictionary;
-import eggventory.logic.commands.delete.DeleteLoanCommand;
-import eggventory.logic.commands.delete.DeleteStockCommand;
-import eggventory.logic.commands.delete.DeleteStockTypeCommand;
 import eggventory.commons.enums.CommandType;
 import eggventory.commons.exceptions.BadInputException;
 import eggventory.commons.exceptions.InsufficientInfoException;
+import eggventory.logic.commands.delete.DeleteLoanCommand;
+import eggventory.logic.commands.delete.DeletePersonCommand;
+import eggventory.logic.commands.delete.DeleteTemplateCommand;
+import eggventory.logic.commands.delete.DeleteStockCommand;
+import eggventory.logic.commands.delete.DeleteStockTypeCommand;
 
 //@@author cyanoei
 public class ParseDelete {
@@ -20,6 +22,14 @@ public class ParseDelete {
     private Command processDeleteLoan(String input) {
         String[] deleteInput = input.split(" +");
         return new DeleteLoanCommand(CommandType.DELETE, deleteInput[0], deleteInput[1]);
+    }
+
+    private Command processDeletePerson(String input) {
+        return new DeletePersonCommand(CommandType.DELETE, input);
+    }
+
+    private Command processDeleteTemplate(String input) {
+        return new DeleteTemplateCommand(CommandType.DELETE, input);
     }
 
     /**
@@ -63,6 +73,22 @@ public class ParseDelete {
                 throw new InsufficientInfoException(CommandDictionary.getCommandUsage("delete loan"));
             }
             deleteCommand = processDeleteLoan(deleteInput[1]);
+            break;
+
+        case "person":
+            //Required: person <matric>
+            if (!Parser.isCommandComplete(inputString, 1)) {
+                throw new InsufficientInfoException(CommandDictionary.getCommandUsage("delete person"));
+            }
+            deleteCommand = processDeletePerson(deleteInput[1]);
+            break;
+
+        case "template":
+            //Required: template <templateName>
+            if (!Parser.isCommandComplete(inputString, 1)) {
+                throw new InsufficientInfoException(CommandDictionary.getCommandUsage("delete template"));
+            }
+            deleteCommand = processDeleteTemplate(deleteInput[1]);
             break;
 
         default:

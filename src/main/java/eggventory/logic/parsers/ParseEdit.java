@@ -9,7 +9,7 @@ import eggventory.commons.enums.StockProperty;
 import eggventory.commons.exceptions.BadInputException;
 import eggventory.commons.exceptions.InsufficientInfoException;
 
-//@@author patwaririshab
+
 public class ParseEdit {
 
     //@@author cyanoei
@@ -20,7 +20,6 @@ public class ParseEdit {
     }
 
     //@@author patwaririshab
-
     private Command processEditStock(String input) throws BadInputException {
         String[] editInput = input.split(" +", 3); //<stockCode> <property> <newValue>
 
