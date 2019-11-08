@@ -13,7 +13,6 @@ import duke.task.FilterList;
 import duke.task.ContactList;
 import duke.task.TaskList;
 import duke.ui.Ui;
-import javafx.scene.layout.Priority;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,7 +47,7 @@ public class Duke {
     protected String sampleContactsFilePath = "sample/contacts.txt";
     protected String samplePriorityFilePath = "sample/priority.txt";
     protected String sampleTaskFilePath = "sample/duke.txt";
-    private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Creates a duke to initialize storage, task list, and ui.
@@ -60,7 +59,7 @@ public class Duke {
             readStorage();
         } catch (IOException e) {
             ui.showLoadingError();
-            logr.log(Level.SEVERE,"Storage text file is not found");
+            logger.log(Level.SEVERE,"Storage text file is not found");
             createEmptyTaskList();
             Storage.writeSample(sampleTaskFilePath);
             readStorage();
@@ -69,7 +68,7 @@ public class Duke {
             readPriorityStorage();
         } catch (IOException e) {
             ui.showLoadingError();
-            logr.log(Level.SEVERE,"Priority storage text file is not found");
+            logger.log(Level.SEVERE,"Priority storage text file is not found");
             createEmptyPriorityList();
             PriorityStorage.writeSample(samplePriorityFilePath);
             readPriorityStorage();
@@ -78,7 +77,7 @@ public class Duke {
             readContactStorage();
         } catch (IOException e) {
             ui.showLoadingError();
-            logr.log(Level.SEVERE,"Contact list text file is not found");
+            logger.log(Level.SEVERE,"Contact list text file is not found");
             createEmptyContactList();
             ContactStorage.writeSample(sampleContactsFilePath);
             readContactStorage();
@@ -87,7 +86,7 @@ public class Duke {
             readBudgetStorage();
         } catch (IOException e) {
             ui.showLoadingError();
-            logr.log(Level.SEVERE,"Budget list text file is not found");
+            logger.log(Level.SEVERE,"Budget list text file is not found");
             createEmptyBudgetList();
             budgetStorage.writeSample(sampleBudgetFilePath);
             readBudgetStorage();

@@ -5,12 +5,19 @@ import duke.dukeexception.DukeException;
 import duke.enums.Numbers;
 import duke.task.BudgetList;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 //@@author maxxyx96
 public class BudgetStorage {
-    protected String filePath = System.getProperty("user.dir") + "/";
+    protected static String filePath = System.getProperty("user.dir") + "/";
 
     /**
      * Creates a storage with path pointing to the file in the system.
@@ -105,19 +112,19 @@ public class BudgetStorage {
         writer.close();
     }
 
-    //@@author maxxyx96
-
     /**
      * Extracts the sample data from jar file and moves it to data folder in the computer.
      *
-     * @param samplePath path of the sample.
+     * @param samplePath path of the sample data set for budget.
      * @throws IOException When there is an error writing to the text file.
      */
-    public void writeSample(String samplePath) throws IOException {
+    public static void writeSample(String samplePath) throws IOException {
         String fileContent = "";
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource(samplePath).getFile());
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+        InputStream in = BudgetStorage.class.getResourceAsStream(samplePath);
+        if (in == null) {
+            in = BudgetStorage.class.getClassLoader().getResourceAsStream(samplePath);
+        }
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
         String input = "";
         while ((input = bufferedReader.readLine()) != null) {
             fileContent += input + "\n";
@@ -126,6 +133,7 @@ public class BudgetStorage {
         writer.write(fileContent);
         writer.close();
         bufferedReader.close();
-    } //@@author
+        in.close();
+    }
 }
 //@@author
