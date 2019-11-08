@@ -8,9 +8,6 @@ import Tasks.Assignment;
 import Tasks.TaskList;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Logger;
 
 /**
@@ -40,7 +37,7 @@ public class AddCommand extends Command {
      * @return This returns the method in the Ui object which returns the string to display add task message
      */
     @Override
-    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws ParseException, DukeInvalidFormatException {
+    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws DukeInvalidFormatException {
         String out = "";
 
         ArrayList<String> eventConflict;
@@ -64,7 +61,7 @@ public class AddCommand extends Command {
             } else {
                 out = "Sorry, you have conflicting events \n";
                 for (int i = 0; i < eventConflict.size(); i++) {
-                    out += (i + 1) + ". " + eventConflict.get(0) + "\n";
+                    out += (i + 1) + ". " + eventConflict.get(i) + "\n";
                 }
             }
         } else if (task.getType().equals("[D]")) {
@@ -77,7 +74,7 @@ public class AddCommand extends Command {
             } else {
                 out = "Sorry, you have conflicting deadlines \n";
                 for (int i = 0; i < deadlineConflict.size();i++) {
-                    out += (i + 1) + ". " + deadlineConflict.get(0) + "\n";
+                    out += (i + 1) + ". " + deadlineConflict.get(i) + "\n";
                 }
             }
         }
