@@ -2,18 +2,17 @@
 
 package planner.logic.command;
 
+import planner.credential.user.User;
 import planner.logic.modules.cca.Cca;
-import planner.logic.modules.cca.CcaList;
 import planner.util.crawler.JsonWrapper;
 import planner.ui.cli.PlannerUi;
 import planner.util.storage.Storage;
 
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTask;
-import planner.logic.modules.module.ModuleTasksList;
+
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class ShowCommand extends ModuleCommand {
@@ -62,16 +61,15 @@ public class ShowCommand extends ModuleCommand {
 
     @Override
     public void execute(HashMap<String, ModuleInfoDetailed> detailedMap,
-                        ModuleTasksList tasks,
-                        CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
-                        JsonWrapper jsonWrapper) {
+                        JsonWrapper jsonWrapper,
+                        User profile) {
         switch (arg("toShow")) {
             case "cca": {
                 plannerUi.listCcaMsg();
                 int count = 1;
-                for (Cca cca : ccas) {
+                for (Cca cca : profile.getCcas()) {
                     plannerUi.println(count++ + ". " + cca);
                 }
                 break;
@@ -81,11 +79,10 @@ public class ShowCommand extends ModuleCommand {
                 plannerUi.coreModReport();
                 int count = 1;
                 Set<String> coreModList = getCoreModList();
-                for (int i = 0; i < tasks.getTasks().size(); i++) {
-                    String moduleCode = tasks.getTasks().get(i).getModuleCode();
+                for (ModuleTask task : profile.getModules()) {
+                    String moduleCode = task.getModuleCode();
                     if (coreModList.contains(moduleCode)) {
-                        ModuleTask temp = tasks.getTasks().get(i);
-                        System.out.println(count++ + ". " + temp);
+                        System.out.println(count++ + ". " + task);
                     }
                 }
                 plannerUi.coreModLeft();
@@ -97,11 +94,10 @@ public class ShowCommand extends ModuleCommand {
             case ("ge"): {
                 plannerUi.geModReport();
                 int count = 1;
-                for (int i = 0; i < tasks.getTasks().size(); i++) {
-                    String moduleCode = tasks.getTasks().get(i).getModuleInfoDetailed().getModuleCode();
+                for (ModuleTask task : profile.getModules()) {
+                    String moduleCode = task.getModuleInfoDetailed().getModuleCode();
                     if (moduleCode.startsWith("GE")) {
-                        ModuleTask temp = tasks.getTasks().get(i);
-                        System.out.println(count++ + ". " + temp);
+                        System.out.println(count++ + ". " + task);
                     }
                 }
                 plannerUi.geModLeft();
@@ -114,11 +110,10 @@ public class ShowCommand extends ModuleCommand {
                 plannerUi.ueModReport();
                 int count = 1;
                 Set<String> coreModList = getCoreModList();
-                for (int i = 0; i < tasks.getTasks().size(); i++) {
-                    String moduleCode = tasks.getTasks().get(i).getModuleInfoDetailed().getModuleCode();
+                for (ModuleTask task : profile.getModules()) {
+                    String moduleCode = task.getModuleInfoDetailed().getModuleCode();
                     if ((!coreModList.contains(moduleCode)) && !moduleCode.startsWith("GE")) {
-                        ModuleTask temp = tasks.getTasks().get(i);
-                        System.out.println(count++ + ". " + temp);
+                        System.out.println(count++ + ". " + task);
                     }
                 }
                 plannerUi.ueModLeft();
@@ -131,8 +126,7 @@ public class ShowCommand extends ModuleCommand {
             default: {
                 plannerUi.listMsg();
                 int count = 1;
-                List<ModuleTask> hold = tasks.getTasks();
-                for (ModuleTask temp : hold) {
+                for (ModuleTask temp : profile.getModules()) {
                     System.out.print(count++ + ". ");
                     plannerUi.showObject(temp);
                 }

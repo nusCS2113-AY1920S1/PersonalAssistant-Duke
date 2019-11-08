@@ -218,10 +218,15 @@ Example: +
 
 Sorts out modules and/or ccas accordingly.
 
-==== Sorting and printing the CCAs : `sort ccas`
+==== Sorting and printing the CCAs : `sort ccas f`
 
 Sorts the cca list according to alphabetical order and prints the cca list. + 
-Format: `sort ccas` 
+Format: `sort ccas f` 
+
+==== Sorting and printing the CCAs : `sort ccas r`
+
+Sorts the cca list according to the reverse alphabetical order and prints the cca list. + 
+Format: `sort ccas r` 
 
 ==== Sorting and printing the CCAs and modules of a certain day of the week : `sort times`
 
@@ -250,7 +255,9 @@ Format: `sort modules mc`
 
 === Clearing the data : `clear`
 
-Clears the specified data.
+Clears the specified data. After inputting the parameter that you want to clear, ModPlan will prompt you again to reconfirm that you want to clear your data. +
+[TIP]
+You should type either `y` or `n` to confirm or deny ModPlan's request to clear your module/cca data.
 
 ==== Clearing the modules data : `clear modules`
 
