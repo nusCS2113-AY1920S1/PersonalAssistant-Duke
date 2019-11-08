@@ -119,10 +119,6 @@ public class RoomShareException extends Exception {
         case duplicateSubtask:
             message = DUPLICATE_SUB;
             break;
-
-        case duplicateTask:
-            message = DUPLICATE_TASK;
-            break;
             
         case leaveDone:
             message = LEAVE_DONE;
@@ -156,6 +152,15 @@ public class RoomShareException extends Exception {
             message = ANOMALY_TEXT;
             break;
         }
+    }
+
+    /**
+     * Overload constructor for RoomShareException
+     */
+    public RoomShareException() { }
+
+    public Throwable duplicateException(int index) {
+        message = DUPLICATE_TASK + "Task: " + index;
     }
 
     /**
