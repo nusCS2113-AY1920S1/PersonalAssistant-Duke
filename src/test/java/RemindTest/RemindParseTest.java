@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-//@@author lionlim97
 /**
  * This class tests RemindParse.
  */
@@ -39,9 +38,24 @@ public class RemindParseTest {
     }
 
     @Test
-    public void remindParseTestWithInvalidModCode() {
-        String remindSet = "remind/set 2100 exam /by " + taskDate + " /to " + reminderDate;
-        String expected = "\u2639" + " OOPS!!! The ModCode is invalid";
+    public void RemindParseWithEmptyModCodeAndDescription() {
+        String remindSet = "remind/set  /by " + taskDate + " /on " + reminderDate;
+        String expected = "\u2639" + " OOPS!!! The ModCode and description of a deadline cannot be empty.";
+        Command command = null;
+        String actual = "";
+        try {
+            command = new RemindParse(remindSet).parse();
+        } catch (Exception e) {
+            actual = e.getMessage();
+        }
+        assertEquals(expected, actual);
+        assertNull(command);
+    }
+
+    @Test
+    public void setRemindParseTestWithInvalidModCode() {
+        String remindSet = "remind/set 2100 exam /by " + taskDate + " /on " + reminderDate;
+        String expected = "\u2639" + " OOPS!!! The ModCode is invalid.";
         String actual = "";
         Command command = null;
         try {
@@ -55,7 +69,7 @@ public class RemindParseTest {
 
     @Test
     public void setRemindParseTestWithInvalidDescription() {
-        String remindSet = "remind/set CS2100 /by " + taskDate + " /to " + reminderDate;
+        String remindSet = "remind/set CS2100 /by " + taskDate + " /on " + reminderDate;
         String expected = "\u2639" + " OOPS!!! The description of a deadline cannot be empty.";
         String actual = "";
         Command command = null;
@@ -70,7 +84,7 @@ public class RemindParseTest {
 
     @Test
     public void removeRemindParseTestWithInvalidDescription() {
-        String remindSet = "remind/rm CS2100 /by " + taskDate + " /to " + reminderDate;
+        String remindSet = "remind/rm CS2100 /by " + taskDate + " /on " + reminderDate;
         String expected = "\u2639" + " OOPS!!! The description of a deadline cannot be empty.";
         String actual = "";
         Command command = null;
@@ -83,12 +97,13 @@ public class RemindParseTest {
         assertNull(command);
     }
 
+
     @Test
     public void setRemindParseTestWithInvalidFormat() {
-        String remindSet = "remind/set CS2100 " + taskDate + " /to " + reminderDate;
+        String remindSet = "remind/set CS2100 " + taskDate + " /on " + reminderDate;
         String expected = "OOPS!!! Please enter remind as follows:\n" +
-                "remind/(set/rm) mod_code description /by week n.o day time /to week n.o day time\n" +
-                "For example: remind/set cs2100 hand in homework /by week 9 fri 1500 /to week 9 thu 1500";
+                "remind/(set/rm) mod_code description /by week n.o day time /on week n.o day time\n" +
+                "For example: remind/set cs2100 hand in homework /by week 9 fri 1500 /on week 9 thu 1500";
         String actual = "";
         Command command = null;
         try {
@@ -102,10 +117,10 @@ public class RemindParseTest {
 
     @Test
     public void setRemindParseTestWithInvalidDate() {
-        String remindSet = "remind/set CS2100 " + "week 14 mon" + " /to " + reminderDate;
+        String remindSet = "remind/set CS2100 " + "week 14 mon" + " /on " + reminderDate;
         String expected = "OOPS!!! Please enter remind as follows:\n" +
-                "remind/(set/rm) mod_code description /by week n.o day time /to week n.o day time\n" +
-                "For example: remind/set cs2100 hand in homework /by week 9 fri 1500 /to week 9 thu 1500";
+                "remind/(set/rm) mod_code description /by week n.o day time /on week n.o day time\n" +
+                "For example: remind/set cs2100 hand in homework /by week 9 fri 1500 /on week 9 thu 1500";
         String actual = "";
         Command command = null;
         try {
@@ -119,7 +134,7 @@ public class RemindParseTest {
 
     @Test
     public void setRemindParseWithValidFormat() {
-        String remindSet = "remind/set CS2100 exam /by " + taskDate + " /to " + reminderDate;
+        String remindSet = "remind/set CS2100 exam /by " + taskDate + " /on " + reminderDate;
         Command command = null;
         String actual = "No error";
         try {
