@@ -112,7 +112,7 @@ public class MainWindow extends BorderPane implements Initializable {
             setDeadlineTableContents();
             setProgressContainer();
         } catch (NullPointerException | IOException | ParseException e) {
-            LOGGER.severe("Unable to initialise main window GUI.");
+            LOGGER.severe("Unable to initialise main window GUI." + e.getMessage());
         }
     }
 
@@ -136,7 +136,7 @@ public class MainWindow extends BorderPane implements Initializable {
             inputStreamReader.close();
             inputStream.close();
         } catch (IOException e) {
-            LOGGER.severe("quotes.txt not found. Unable to load quote of the day.");
+            LOGGER.severe("quotes.txt not found. Unable to load quote of the day." + e.getMessage());
         }
     }
 
@@ -159,7 +159,7 @@ public class MainWindow extends BorderPane implements Initializable {
             try {
                 loads = fxmlLoad.load();
             } catch (IOException e) {
-                LOGGER.severe("ProgressIndicator.fxml not found.");
+                LOGGER.severe("ProgressIndicator.fxml not found." + e.getMessage());
             }
             int totalNumOfTasks = progressIndicatorValues.get(module).getKey();
             int completedValue = progressIndicatorValues.get(module).getValue();
@@ -283,7 +283,6 @@ public class MainWindow extends BorderPane implements Initializable {
         if(input.startsWith("show/week")) {
             if(WeekParse.isValid(input)) {
                 week = WeekParse.getWeek(input);
-                // //if Week Recess need make till Recess Week normal case: Week 7
                 setWeek(false, week);
             }
         }
@@ -295,7 +294,6 @@ public class MainWindow extends BorderPane implements Initializable {
 
         outputList = ShowPreviousCommand.getOutputList();
 
-
         overdueTable.getColumns().clear();
         overdueDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         overdueTaskColumn.setCellValueFactory(new PropertyValueFactory<>("task"));
@@ -303,8 +301,6 @@ public class MainWindow extends BorderPane implements Initializable {
         overdueTable.getColumns().addAll(overdueTaskColumn,overdueDateColumn, overdueDaysColumn);
         overdueTable.setItems(setDeadlineTable());
 
-
-        //add/d CS1000 mod /by 01/11/2019 1500
         setProgressContainer();
         if(!response.isEmpty()) {
             Text temp = new Text(response);
