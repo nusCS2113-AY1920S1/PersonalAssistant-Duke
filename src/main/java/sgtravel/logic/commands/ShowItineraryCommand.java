@@ -5,10 +5,14 @@ import sgtravel.logic.commands.results.CommandResultText;
 import sgtravel.model.Model;
 import sgtravel.model.planning.Itinerary;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Shows the requested Itinerary.
  */
 public class ShowItineraryCommand extends Command {
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private String name;
 
     /**
@@ -31,6 +35,7 @@ public class ShowItineraryCommand extends Command {
         if (itinerary == null) {
             throw new NoSuchItineraryException();
         }
+        logger.log(Level.FINE, "Itinerary Found!");
         return new CommandResultText(itinerary.printItinerary());
     }
 }

@@ -20,11 +20,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Parses the user inputs into suitable format for CreateNewItineraryCommand.
  */
 public class CreateNewItineraryParser extends CommandParser {
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
     private String input;
     private static final int ZERO = 0;
     private static final int ONE = 1;
@@ -95,6 +99,8 @@ public class CreateNewItineraryParser extends CommandParser {
             numbers.add(number);
             agendaList.add(getAgendaFromMap(venueMap, todoList, number));
         }
+        logger.log(Level.FINE, "No repeated day numbers");
+
         return agendaList;
     }
 
@@ -119,7 +125,8 @@ public class CreateNewItineraryParser extends CommandParser {
      * @throws RepeatedDayNumberException if a day number is repeated.
      */
     private void checkForRepeatedDayNumber(Set<Integer> numbers, int number) throws RepeatedDayNumberException {
-        if(numbers.contains(number)) {
+        if (numbers.contains(number)) {
+            logger.log(Level.WARNING, "Do not enter a day number more than once");
             throw new RepeatedDayNumberException();
         }
     }
@@ -142,6 +149,7 @@ public class CreateNewItineraryParser extends CommandParser {
         Itinerary itinerary = new Itinerary(start, end, name);
 
         itinerary.checkValidDate();
+        logger.log(Level.FINE, "Entered Dates are valid!");
 
         List<Agenda> agendaList = getAgendaList(itineraryDetails);
 

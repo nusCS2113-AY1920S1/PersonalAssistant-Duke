@@ -9,11 +9,14 @@ import sgtravel.model.Model;
 import sgtravel.model.planning.Itinerary;
 
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Creates a new custom itinerary.
  */
 public class NewItineraryCommand extends Command {
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private Itinerary itinerary;
 
     /**
@@ -35,10 +38,11 @@ public class NewItineraryCommand extends Command {
     @Override
     public CommandResultText execute(Model model) throws ApiException, ParseException, FileNotSavedException,
             ItineraryIncorrectDaysException {
-        if(itinerary.getList().size()!=itinerary.getNumberOfDays()) {
+        if (itinerary.getList().size() != itinerary.getNumberOfDays()) {
             throw new ItineraryIncorrectDaysException();
         }
         model.setNewItinerary(itinerary);
+        logger.log(Level.FINE, "New itinerary is saved");
         model.save();
         return new CommandResultText("New Itinerary Created with name: " + itinerary.getName());
     }

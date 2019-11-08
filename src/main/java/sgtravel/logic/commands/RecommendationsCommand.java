@@ -7,10 +7,14 @@ import sgtravel.model.Model;
 import sgtravel.model.planning.Itinerary;
 import sgtravel.model.planning.Recommendation;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Recommends an itinerary based on number of trip days entered by user.
  */
 public class RecommendationsCommand extends Command {
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private String[] recommendationDetails;
 
     /**
@@ -32,6 +36,7 @@ public class RecommendationsCommand extends Command {
     public CommandResultText execute(Model model) throws ParseException, RecommendationFailException {
 
         Recommendation recommendation = model.getRecommendations();
+        logger.log(Level.FINE, "Recommendations have been received");
 
         Itinerary recentItinerary = recommendation.makeItinerary(recommendationDetails);
 
