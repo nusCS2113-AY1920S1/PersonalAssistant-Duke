@@ -169,7 +169,7 @@ public class ModelManager implements Model {
      */
     @Override
     public void confirmRecentItinerary(String name) throws AddListFailException {
-        if (name.equals("")) {
+        if ("".equals(name)) {
             throw new AddListFailException();
         }
         recentItinerary.setName(name);

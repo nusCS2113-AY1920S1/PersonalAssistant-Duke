@@ -8,7 +8,6 @@ import sgtravel.logic.commands.results.CommandResultText;
 import sgtravel.model.Model;
 import sgtravel.model.planning.Itinerary;
 
-import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
