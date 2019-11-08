@@ -4,18 +4,18 @@ import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.NoSuchItineraryException;
 import sgtravel.logic.commands.results.CommandResultText;
 import sgtravel.model.Model;
-import sgtravel.model.planning.Itinerary;
 
 /**
- * Adds the favourite itinerary to profile.
+ * Deletes itinerary from favourite.
  */
-public class ProfileAddFavCommand extends Command {
-    private String name;
+public class ProfileDeleteFavCommand extends Command {
+
+    private final String name;
 
     /**
      * Constructs the ProfileSetParser.
      */
-    public ProfileAddFavCommand(String word) {
+    public ProfileDeleteFavCommand(String word) {
         name = word;
     }
 
@@ -28,11 +28,8 @@ public class ProfileAddFavCommand extends Command {
      */
     @Override
     public CommandResultText execute(Model model) throws FileNotSavedException, NoSuchItineraryException {
-        // Add to the list of Itineraries
-        Itinerary itinerary = model.getItinerary(name);
-        model.addToFavourite(name, itinerary);
+        model.deleteFavourite(name);
         model.save();
-        return new CommandResultText("Successfully added this itinerary to favourite: " + "\n" + name);
-
+        return new CommandResultText("Successfully deleted this itinerary from favourite: " + "\n" + name);
     }
 }

@@ -112,5 +112,7 @@ public interface Model {
 
     void addToFavourite(String name, Itinerary itinerary);
 
+    void deleteFavourite(String name) throws NoSuchItineraryException;
+
     void doneItinerary(String name) throws NoSuchItineraryException;
 }

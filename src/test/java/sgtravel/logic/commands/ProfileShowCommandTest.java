@@ -17,7 +17,7 @@ public class ProfileShowCommandTest {
         CommandResultText resultText = profileShowCommand.execute(modelStub);
         assertEquals(resultText.getMessage(), "PROFILE:\n"
                 + "\n"
-                + "Name: User\n"
+                + "Name: New User\n"
                 + "Age: 0\n"
                 + "\n"
                 + "Likes:\n"

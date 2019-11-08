@@ -9,13 +9,16 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Contains information of user.
+ */
 public class ProfileCard {
     private Person person;
     private Preference preference = new Preference();
     private HashMap<String, Itinerary> favourite = new HashMap<>();
 
     public ProfileCard() {
-        setPerson("User", LocalDateTime.now());
+        setPerson("New User", LocalDateTime.now());
     }
 
     public void setPreference(String category, Boolean setting) throws NoSuchCategoryException {
@@ -59,6 +62,7 @@ public class ProfileCard {
 
     /**
      * Adds the itinerary of given name to favourite.
+     *
      * @param name Name of itinerary.
      * @param fav Itinerary object.
      */
@@ -78,5 +82,19 @@ public class ProfileCard {
 
     public void setFavourite(HashMap<String, Itinerary> itinerary) {
         this.favourite = itinerary;
+    }
+
+    /**
+     * Deletes the itinerary of given name from favourite list.
+     *
+     * @param name Name of favourite itinerary to delete.
+     * @throws NoSuchItineraryException If there is no itinerary of given name.
+     */
+    public void deleteFavourite(String name) throws NoSuchItineraryException {
+        try {
+            favourite.remove(name);
+        } catch (NullPointerException e) {
+            throw new NoSuchItineraryException();
+        }
     }
 }
