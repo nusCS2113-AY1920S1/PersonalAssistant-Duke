@@ -1,18 +1,20 @@
 package dolla.command;
 
 import dolla.model.DollaData;
+import dolla.ui.Ui;
 
 /**
- * A command that is generated if a proper command could not be produced (as a result of invalid inputs).
+ * Command to exit the program.
  */
-public class ErrorCommand extends Command {
+public class ExitCommand extends Command {
 
     @Override
     public void execute(DollaData dollaData) {
+        Ui.printExitMsg();
     }
 
     @Override
     public String getCommandInfo() {
-        return "ErrorCommand";
+        return "Exit";
     }
 }
