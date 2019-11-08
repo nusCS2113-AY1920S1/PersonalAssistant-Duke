@@ -22,13 +22,19 @@ public class LastDay {
      * @return date of the last day
      */
     public static String getDate(String dayFromUser) {
-        lastDates.put("MONDAYS", "11/11/2019 ");
-        lastDates.put("TUESDAYS", "12/11/2019 ");
-        lastDates.put("WEDNESDAYS", "13/11/2019 ");
-        lastDates.put("THURSDAYS", "14/11/2019 ");
-        lastDates.put("FRIDAYS", "15/11/2019 ");
-        lastDates.put("SATURDAYS", "16/11/2019 ");
-        lastDates.put("SUNDAYS", "17/11/2019 ");
-        return lastDates.get(dayFromUser);
+        lastDates.put("MON", "11/11/2019 ");
+        lastDates.put("TUE", "12/11/2019 ");
+        lastDates.put("WED", "13/11/2019 ");
+        lastDates.put("THU", "14/11/2019 ");
+        lastDates.put("FRI", "15/11/2019 ");
+        lastDates.put("SAT", "16/11/2019 ");
+        lastDates.put("SUN", "17/11/2019 ");
+
+        String formattedDay = formatDay(dayFromUser);
+        return lastDates.get(formattedDay);
+    }
+
+    private static String formatDay(String dayFromUser) {
+        return dayFromUser.substring(0, 3);
     }
 }

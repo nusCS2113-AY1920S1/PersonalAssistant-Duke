@@ -42,7 +42,6 @@ public class AddRecurringCommand extends AddCommand {
         while (this.formattedStartDate.isAfter(timeNow)) {
             task = new Event(taskDescription, formattedStartDate, formattedEndDate, modCode);
             tasks.add(task);
-            System.out.println(formattedEndDate + " ------------------------------ " + formattedEndDate);
             this.formattedEndDate = this.formattedEndDate.minusWeeks(1);
             this.formattedStartDate = this.formattedStartDate.minusWeeks(1);
         }

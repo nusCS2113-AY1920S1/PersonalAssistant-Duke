@@ -33,7 +33,6 @@ public class RecurringEventParser extends EventParser {
         LocalDateTime toDate;
         String date = extractDate(taskFeatures);
         String dateTimeFromUser = formatDateTime(date, taskFeatures);
-        System.out.println("------------------------------------>" + date);
         fromDate = super.extractFromDate(dateTimeFromUser);
         toDate = super.extractToDate(dateTimeFromUser);
         assert toDate != null;
