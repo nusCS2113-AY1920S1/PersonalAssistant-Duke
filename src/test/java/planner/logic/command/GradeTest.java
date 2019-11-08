@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import planner.InputTest;
 import planner.logic.exceptions.planner.ModFailedJsonException;
-import planner.logic.modules.cca.CcaList;
+import planner.logic.parser.Parser;
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTasksList;
 import planner.logic.parser.Parser;
@@ -23,8 +23,6 @@ import planner.util.storage.Storage;
 
 public class GradeTest extends InputTest {
     private static Storage store;
-    private static ModuleTasksList modTasks;
-    private static CcaList ccas;
     private static Parser argparser;
     private static Reminder reminder;
     private static JsonWrapper jsonWrapper;
@@ -50,8 +48,6 @@ public class GradeTest extends InputTest {
         modUi = new PlannerUi();
         argparser = new Parser();
         jsonWrapper = new JsonWrapper();
-        modTasks = new ModuleTasksList();
-        ccas = new CcaList();
         jsonWrapper.getModuleDetailedMap(true, store);
     }
 

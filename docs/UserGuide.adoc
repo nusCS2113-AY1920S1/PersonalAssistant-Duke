@@ -255,7 +255,9 @@ Format: `sort modules mc`
 
 === Clearing the data : `clear`
 
-Clears the specified data.
+Clears the specified data. After inputting the parameter that you want to clear, ModPlan will prompt you again to reconfirm that you want to clear your data. +
+[TIP]
+You should type either `y` or `n` to confirm or deny ModPlan's request to clear your module/cca data.
 
 ==== Clearing the modules data : `clear modules`
 
