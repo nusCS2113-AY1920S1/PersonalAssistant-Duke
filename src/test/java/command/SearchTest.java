@@ -41,7 +41,8 @@ public class SearchTest {
      * @throws UnsupportedEncodingException if encoding is not supported
      */
     @BeforeEach
-    public void createWordUpTestFile() throws WordAlreadyExistsException, FileNotFoundException, UnsupportedEncodingException {
+    public void createWordUpTestFile() throws WordAlreadyExistsException, FileNotFoundException,
+            UnsupportedEncodingException {
 
         filename = "testdata\\WordUp.txt";
         excelFileName = "testdata\\WordUp.xlsx";

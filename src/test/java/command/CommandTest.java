@@ -5,7 +5,10 @@ import dictionary.Word;
 import dictionary.WordBank;
 import dictionary.WordCount;
 import exception.WordAlreadyExistsException;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import storage.Storage;
 import ui.Ui;
 
@@ -19,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 /**
  * Positive tests on general functions.
  */
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CommandTest {
     public String filename;
     public String excelFileName;
@@ -35,7 +37,8 @@ public class CommandTest {
      */
 
     @BeforeEach
-    public void createWordUpTestFile() throws WordAlreadyExistsException, FileNotFoundException, UnsupportedEncodingException {
+    public void createWordUpTestFile() throws WordAlreadyExistsException, FileNotFoundException,
+            UnsupportedEncodingException {
 
         filename = "testdata\\WordUp.txt";
         excelFileName = "testdata\\WordUp.xlsx";
@@ -90,9 +93,7 @@ public class CommandTest {
     public void testDeleteCommand() {
         try {
             DeleteCommand deleteCommand = new DeleteCommand("orange");
-            System.out.println(123);
             String delete = deleteCommand.execute(ui, bank, storage);
-            System.out.println("456"+delete);
             Assertions.assertEquals(delete, "Noted. I've removed this word:\n" + "orange: orange fruit");
 
         } catch (Exception e) {
