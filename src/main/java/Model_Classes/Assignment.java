@@ -47,6 +47,11 @@ public class Assignment extends Task {
      */
     public ArrayList<String> getSubTasks() { return subTasks; }
 
+    /**
+     * Removes completed Subtask
+     * @param index index of completed subtask
+     * @throws RoomShareException when there is no subtask at that index
+     */
     public void doneSubtask(int index) throws RoomShareException {
         try {
             subTasks.remove(index);
