@@ -22,7 +22,7 @@ import java.time.LocalDate;
 //@@author omupenguin
 public class DollaParser extends Parser {
 
-    protected final String TODAY = "today";
+    static protected final String TODAY = "today";
 
     public DollaParser(String inputLine) {
         super(inputLine);
