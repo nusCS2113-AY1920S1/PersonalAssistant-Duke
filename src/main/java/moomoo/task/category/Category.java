@@ -62,6 +62,10 @@ public class Category {
         return getTotal(LocalDate.now().getMonthValue(), LocalDate.now().getYear());
     }
 
+    /**
+     * Return the overall amount from every Category.
+     * @return the overall amount from every Category as a double.
+     */
     public double getOverallAmount() {
         double overallAmount = 0.0;
         for (Expenditure currExpenditure : category) {
@@ -70,6 +74,7 @@ public class Category {
 
         return overallAmount;
     }
+
     /**
      * Return the expenditure with the largest value.
      * @return expenditure The value of the largest expenditure

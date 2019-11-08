@@ -1,11 +1,9 @@
 package moomoo.task;
 
-import moomoo.task.category.Category;
 import moomoo.task.category.CategoryList;
-import moomoo.task.category.Expenditure;
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.util.Iterator;
+
 
 
 public class MainDisplay {
@@ -32,7 +30,7 @@ public class MainDisplay {
     private static final String BUDGET_LEFT = "|" + ANSI_CYAN + "Budget" + ANSI_RESET + ":            |";
     private static final String SAVINGS_LEFT = "|" + ANSI_YELLOW + "Savings" + ANSI_RESET + ":           |";
     private static final String TOTAL_LEFT = "|" + ANSI_GREEN + "Total" + ANSI_RESET + ":             |";
-    private final String MISC_TITLES = "|" + TOP_BORDERRIGHT + ".\n"
+    private static final String MISC_TITLES = "|" + TOP_BORDERRIGHT + ".\n"
             + BORDER_LEFT + "misc                      |\n"
             + BORDER_LEFT + TOP_BORDERRIGHT + ".\n"
             + BORDER_LEFT + "              |           |\n"
@@ -69,7 +67,7 @@ public class MainDisplay {
                 }
             }
             if (catGotExp >= 1) {
-                    monthsCatSize += 1;      // if this Category has an expenditure, it is valid so count it
+                monthsCatSize += 1;      // if this Category has an expenditure, it is valid so count it
             }
         }
         return monthsCatSize;
@@ -161,6 +159,17 @@ public class MainDisplay {
     private String blankSpaceTot = "";
 
 
+    /**
+     * This function takes in several parameters in order to append together a final string to be printed out as a
+     * table as final output.
+     * @param month month that the user wants to view
+     * @param year year that the user wants to view
+     * @param rows rows corresponds to the max number of expenditures under a category
+     * @param cols cols corresponds to the total number of categories in categoryList
+     * @param categoryList categoryList is an array list that stores all the categories
+     * @param budget budget stores all the individual budgets of each categories
+     * @return returns a string to be printed out as the main display
+     */
     public String newToPrint(int month, int year, int rows, int cols, CategoryList categoryList, Budget budget) {
         String output = "";
 
@@ -239,9 +248,7 @@ public class MainDisplay {
                 for (int i = 0; i < rows; i++) {
                     output += BORDER_LEFT;
                     for (int j = 0; j < cols; j++) {
-
                         if (i < categoryList.get(j).size()) {
-                        //if (categoryList.get(j).get(i) != null) {
                             // prints out each individual expenditureName if it exists
                             blankSpaceExp = "";
                             for (int h = 0; h < (17 - categoryList.get(j).get(i).toString().length()); h++) {
@@ -253,7 +260,7 @@ public class MainDisplay {
                                 blankSpaceCost += " ";
                             }
                             output += categoryList.get(j).get(i).toString() + blankSpaceExp + "|$"
-                            + categoryList.get(j).get(i).getCostString() + blankSpaceCost + "|";
+                                + categoryList.get(j).get(i).getCostString() + blankSpaceCost + "|";
                         } else {
                             // if expenditure dosen't exist, print out the filler space
                             output += "                 |        |";
@@ -265,11 +272,11 @@ public class MainDisplay {
                 output += TOP_BORDERLEFT + openCloseLines + "\n";
                 output += TOTAL_LEFT;
                 for (int i = 0; i < categoryList.size(); i++) {
-                   blankSpaceTot = "";
-                   for (int j = 0; j < (25 - Double.toString(categoryList.get(i).getOverallAmount()).length()); j++) {
-                       blankSpaceTot += " ";
-                   }
-                   output += "$" + categoryList.get(i).getOverallAmount() + blankSpaceTot + "|";
+                    blankSpaceTot = "";
+                    for (int j = 0; j < (25 - Double.toString(categoryList.get(i).getOverallAmount()).length()); j++) {
+                        blankSpaceTot += " ";
+                    }
+                    output += "$" + categoryList.get(i).getOverallAmount() + blankSpaceTot + "|";
                 }
 
                 output += "\n" + TOP_BORDERLEFT + openCloseLines + "\n";
@@ -330,7 +337,6 @@ public class MainDisplay {
                     newCategoryList.put(categoryList.get(i).toString(), stringList);
                 }
 
-
                 output += MONTH_LEFT + monthsInYear[month - 1] + blankSpaceMth + "|" + blankSpaceCat
                         + "<" + ANSI_BLUE + "Categories" + ANSI_RESET + ">";
 
@@ -346,7 +352,6 @@ public class MainDisplay {
                 for (int i = 0; i < cols; i++) {
                     output += TOP_BORDERRIGHT + ".";
                 }
-
                 output += "\n" + BORDER_LEFT;
 
                 // Printing out the line with all the categories
@@ -359,36 +364,41 @@ public class MainDisplay {
                 }
                 output += "\n" + BORDER_LEFT + openCloseLines + "\n";
 
+                System.out.println(rows);
+                System.out.println(cols);
+
                 // Printing out the lines corresponding to number of rows with both expenditureName and Amount
                 for (int i = 0; i < rows; i++) {
                     output += BORDER_LEFT;
                     for (int j = 0; j < cols; j++) {
                         //if (i < categoryList.get(j).size()) {
                         String categoryName = categoryList.get(j).toString();
-                        if (i < (newCategoryList.get(categoryName).size() / 2)) {
-
-                            // for nth row, nth category, extract the expenditure name (odd no in array list)
-                            String expenditureName = newCategoryList.get(categoryName).get(0);
-                            // for nth row, nth category, extract the expenditure cost (even no in array list)
-                            String amountString = newCategoryList.get(categoryName).get(1);
+                        //if (i < (newCategoryList.get(categoryName).size() / 2)) {
+                        if (i < categoryList.get(j).size()) {
+                            String expenditureName = "";
+                            String amountString = "";
+                            if (!newCategoryList.get(categoryName).isEmpty()) {
+                                // for nth row, nth category, extract the expenditure name (odd no in array list)
+                                expenditureName = newCategoryList.get(categoryName).get(0);
+                                // for nth row, nth category, extract the expenditure cost (even no in array list)
+                                amountString = newCategoryList.get(categoryName).get(1);
+                            }
                             for (int k = 0; k < 2; k++) {
                                 if (!newCategoryList.get(categoryName).isEmpty()) {
                                     newCategoryList.get(categoryName).remove(0);
                                 }
                             }
+                            blankSpaceExp = "";
+                            for (int h = 0; h < (17 - expenditureName.length()); h++) {
+                                blankSpaceExp += " ";
+                            }
+                            blankSpaceCost = "";
+                            // prints out each individual expenditure Cost if it exists
+                            for (int g = 0; g < (7 - amountString.length()); g++) {
+                                blankSpaceCost += " ";
+                            }
 
-                                blankSpaceExp = "";
-                                for (int h = 0; h < (17 - expenditureName.length()); h++) {
-                                    blankSpaceExp += " ";
-                                }
-                                blankSpaceCost = "";
-                                // prints out each individual expenditure Cost if it exists
-                                for (int g = 0; g < (7 - amountString.length()); g++) {
-                                    blankSpaceCost += " ";
-                                }
-
-                                output += expenditureName + blankSpaceExp + "|$"
-                                        + amountString + blankSpaceCost + "|";
+                            output += expenditureName + blankSpaceExp + "|$" + amountString + blankSpaceCost + "|";
                         } else {
                             // if expenditure dosen't exist, print out the filler space
                             output += "                 |        |";
@@ -402,8 +412,8 @@ public class MainDisplay {
                 output += TOTAL_LEFT;
                 for (int i = 0; i < categoryList.size(); i++) {
                     blankSpaceTot = "";
-
-                    for (int j = 0; j < (25 - Double.toString(categoryList.get(i).getTotal(month, year)).length()); j++) {
+                    int totalLen = Double.toString(categoryList.get(i).getTotal(month, year)).length();
+                    for (int j = 0; j < (25 - totalLen); j++) {
                         blankSpaceTot += " ";
                     }
                     output += "$" + categoryList.get(i).getTotal(month, year) + blankSpaceTot + "|";
@@ -427,7 +437,7 @@ public class MainDisplay {
                 output += SAVINGS_LEFT;
                 for (int i = 0; i < categoryList.size(); i++) {
                     blankSpaceSav = "";
-                    double tot = categoryList.get(i).getOverallAmount();
+                    double tot = categoryList.get(i).getTotal(month, year);
                     double bud = budget.getBudgetFromCategory(categoryList.get(i).toString());
                     double sav = bud - tot;
                     for (int j = 0; j < (25 - Double.toString(sav).length()); j++) {
@@ -440,7 +450,6 @@ public class MainDisplay {
                     }
                 }
                 output += "\n" + TOP_BORDERLEFT + openCloseLines + "\n";
-
             }
         }
         return output;
