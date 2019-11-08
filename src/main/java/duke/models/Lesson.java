@@ -26,6 +26,14 @@ public class Lesson {
     }
 
     /**
+     * Prints a line.
+     */
+    public void showLessonLine() {
+        System.out.println("________________________________"
+            + "________________________________");
+    }
+
+    /**
      * Shows all lessons learnt for a specific day.
      *
      * @param day The day to view all lessons learnt.
