@@ -1,7 +1,5 @@
 package dolla.command.modify;
 
-import dolla.Time;
-import dolla.command.Command;
 import dolla.model.Debt;
 import dolla.model.DollaData;
 import dolla.model.Record;
@@ -9,14 +7,7 @@ import dolla.ui.ModifyUi;
 
 import java.time.LocalDate;
 
-public class PartialModifyDebtCommand extends Command {
-
-    private String type;
-    private String name;
-    private double amount;
-    private String description;
-    private LocalDate date;
-    private String tagName;
+public class PartialModifyDebtCommand extends ModifyDebtCommand {
 
     public PartialModifyDebtCommand(int recordNum, String type, String name,
                                     double amount, String description, LocalDate date) {
@@ -33,6 +24,7 @@ public class PartialModifyDebtCommand extends Command {
         dollaData.prepForModify(MODE_DEBT, index);
 
         if (isIndexInList(dollaData.getRecordListObj(MODE_DEBT), MODE_DEBT)) {
+            updateUndoState(dollaData);
             Record originalDebt = dollaData.getRecordFromList(MODE_DEBT, index);
             overwriteComponents(originalDebt);
             Debt newDebt = new Debt(type, name, amount, description, date, tagName);

@@ -14,6 +14,7 @@ public class FullModifyEntryCommand extends Command {
     private double amount;
     private String description;
     private LocalDate date;
+    private String mode = MODE_ENTRY;
 
     /**
      * Instantiates a new FullModifyEntryCommand.
@@ -36,7 +37,7 @@ public class FullModifyEntryCommand extends Command {
         Entry newEntry = new Entry(type, amount, description, date, "");
         dollaData.modifyRecordList(newEntry);
         ModifyUi.echoModifyRecord(newEntry);
-        dollaData.updateMode("entry");
+        dollaData.updateMode(mode);
     }
 
     @Override

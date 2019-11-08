@@ -1,8 +1,13 @@
 package dolla.command.modify;
 
 import dolla.command.Command;
+import dolla.command.action.Redo;
+import dolla.command.action.state.LimitState;
+import dolla.command.action.state.UndoStateList;
+import dolla.model.DollaData;
+import dolla.model.LimitList;
 
-public abstract class ModifyLimitCommand  extends Command {
+public abstract class ModifyLimitCommand extends Command {
 
     protected String type;
     protected double amount;
@@ -28,5 +33,11 @@ public abstract class ModifyLimitCommand  extends Command {
      */
     protected boolean isSameIndex(int duplicateLimitIndex, int indexToModify) {
         return (duplicateLimitIndex == indexToModify);
+    }
+
+    protected void updateUndoState(DollaData dollaData) {
+        LimitList limitList = (LimitList) dollaData.getRecordListObj(mode);
+        UndoStateList.addState(new LimitState(limitList.get()), mode);///////////////////////////////////////
+        Redo.clearRedoState(mode);
     }
 }

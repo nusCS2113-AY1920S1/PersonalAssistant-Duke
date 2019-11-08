@@ -30,6 +30,7 @@ public class FullModifyLimitCommand extends ModifyLimitCommand {
         int indexToModify = dollaData.getModifyIndex();
 
         if (isNewLimitValid(duplicateLimitIndex, indexToModify)) {
+            updateUndoState(dollaData);
             dollaData.modifyRecordList(newLimit);
             ModifyUi.echoModifyRecord(newLimit);
             dollaData.updateMode("limit");

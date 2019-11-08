@@ -1,22 +1,13 @@
 package dolla.command.modify;
 
-import dolla.model.DollaData;
-import dolla.command.Command;
 import dolla.model.Debt;
+import dolla.model.DollaData;
 import dolla.ui.ModifyUi;
 
 import java.time.LocalDate;
 
 //@@author omupenguin
-public class FullModifyDebtCommand extends Command {
-
-    private String type;
-    private String name;
-    private double amount;
-    private String description;
-    private LocalDate date;
-    private int prevPosition;
-    //private String mode = "debt";
+public class FullModifyDebtCommand extends ModifyDebtCommand {
 
     /**
      * Instantiates a new FullModifyDebtCommand.
@@ -33,15 +24,15 @@ public class FullModifyDebtCommand extends Command {
         this.amount = amount;
         this.description = description;
         this.date = date;
-        this.prevPosition = prevPosition;
     }
 
     @Override
     public void execute(DollaData dollaData) {
-        Debt newDebt = new Debt(type, name, amount, description, date, "");
+        updateUndoState(dollaData);
+        Debt newDebt = new Debt(type, name, amount, description, date, tagName);
         dollaData.modifyRecordList(newDebt);
         ModifyUi.echoModifyRecord(newDebt);
-        dollaData.updateMode("debt");
+        dollaData.updateMode(mode);
     }
 
     @Override
