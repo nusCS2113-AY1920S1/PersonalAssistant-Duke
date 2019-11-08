@@ -9,7 +9,7 @@
 :table-caption: Table
 :imagesDir: images
 :stylesDir: stylesheets
-:xrefstyle: fullThe task is then added to calendarTask using the addEntry() method. After iterating through the current list of tasks, the same logic is applied to the semesterList to retrieve appropriate lesson timings via the parseLessons() method which calls queryModules() and addLesson() methods. The printViewWeek() method in the Ui class is then called to print the tasks for the current week.
+:xrefstyle: full
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -21,7 +21,12 @@ endif::[]
 By: `Team W17-4`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
-OOF, short for Outstanding Organisation Friend, is a command line interface dekstop application built to improve University Students productivity and efficiency by reducing the need to manually organise tasks. This guide aims to provide information not just to new contributors of OOF but also to current contributors so that it can serve as an easy reference for understanding the features implemented in OOF.
+
+=== What is *_OOF_*?
+*_OOF_*, short for Outstanding Organisation Friend, is a command line interface dekstop application built to improve University Students productivity and efficiency by reducing the need to manually organise tasks. 
+
+=== What is the purpose of this guide?
+This guide aims to provide information for you, who are the future contributors of *_OOF_*, so that you can have an easy reference for understanding the features implemented in *_OOF_*.
 
 == Setting up
 This section will show you the steps that you need to quickly start contributing to this project in no time!
@@ -39,7 +44,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 === Setting up the project in your computer
 . Fork this repo, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
-. Set up the correct JDK version for Gradle
+. You should set up the correct JDK version for Gradle
 .. Click `Configure` > `Project Defaults` > `Project Structure`
 .. Click `New...` and find the directory of the JDK
 . Click `Import Project`
@@ -591,15 +596,145 @@ By splitting the `timeTaken` property in `ModuleTrackerList` into blocks of ten 
 Without the splitting of the `timeTaken` property of `ModuleTracker` objects in the `ModuleTrackerList`, an additional variable `segmentedTimeTaken` will not be required and the user will be able to see a more accurate histogram
 as it will be printing one `#` to represent one minute instead.
 
-=== Logging
-
-=== Configuration
-
 == Documentation
 
+=== Introduction
+We use asciidoc for writing documentation.
+
+[NOTE]
+We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+
+=== Editing Documentation
+
+* **`asciidoctor`** +
+Converts AsciiDoc files in `docs` to HTML format. Generated HTML files can be found in `build/docs`.
+* **`deployOfflineDocs`** +
+Updates the offline user guide, and its associated files, used by the Help window in the application. Deployed HTML files and images can be found in `src/main/resources/docs`.
+
+[NOTE]
+You can also choose to download Intellij's adoc plugin to edit and render adoc files locally.
+
+=== Editing diagrams
+We use link:https://lucidchart.com/[LucidChart] to create and edit our UML diagrams in the developer guide.
+
+=== Publishing Documentation
+
+==== Setting up Travis CI
+
+. Fork the repo to your own organization.
+. Go to https://travis-ci.org/ and click `Sign in with GitHub`, then enter your GitHub account details if needed.
++
+. Head to the https://travis-ci.org/profile[Accounts] page, and find the switch for the forked repository.
+* If the organization is not shown, click `Review and add`
++
+This should bring you to a GitHub page that manages the access of third-party applications. Depending on whether you are the owner of the repository, you can either grant access or request access to Travis CI so that it can access your commits and build your code.
+* If repository cannot be found, click `Sync account`
+. Activate the switch.
++
+.  This repo comes with a link that tells Travis what to do. So there is no need for you to create one yourself.
+.  To see the CI in action, push a commit to the master branch!
+* Go to the repository and see the pushed commit. There should be an icon which will link you to the Travis build.
++
+* As the build is run on a provided remote machine, we can only examine the logs it produces:
++
+. If the build is successful, you should be able to check the coverage details of the tests.
+. Update the link to the 'build status' badge at the top of the `README.adoc` to point to the build status of your own repo.
+
+==== Enabling auto-publishing of documentation
+
+. Ensure that you have followed the steps above to set up Travis CI.
+. On GitHub, create a new user account and give this account collaborator and admin access to the repo. +
+   Using this account, generate a personal access token https://github.com/settings/tokens/new[here].
++
+[NOTE]
+Personal access tokens are like passwords so make sure you keep them secret! If the personal access token is leaked, please delete it and generate a new one.
++
+[NOTE]
+If you are the only one with write access to the repo, you can use your own account to generate the token.
++
+--
+* Add a description for the token. (e.g. `Travis CI - deploy docs to gh-pages`)
+* Check the `public_repo` checkbox.
+* Click `Generate Token` and copy your new personal access token.
+--
+You will use this token to grant Travis access to the repo.
++
+. Head to the https://travis-ci.org/profile[Accounts] page, and find the switch for the forked repository.
++
+. Click on the settings button next to the switch. In the Environment Variables section, add a new environment variable with
++
+--
+* name: `GITHUB_TOKEN`
+* value: personal access token copied in step 1
+* Display value in build log: `OFF`
+--
++
+[NOTE]
+*Make sure you set `Display value in build log` to `OFF`.* +
+Otherwise, other people will be able to see the personal access token and thus have access this repo. +
+Similarly, make sure you *do not print `$GITHUB_TOKEN` to the logs* in Travis scripts as the logs are viewable by the public.
+
+. Now, whenever there's a new commit to master branch, Travis will push the latest documentation to gh-pages branch.
+
+**To verify that it works,**
+
+. Trigger Travis to regenerate documentation. To do so, you need to push a new commit to the master branch of the fork. +
+   Suggested change: Remove the codacy badge from `README`.
+. Wait for Travis CI to finish running the build on your new commit.
+. You should see your `README` file displayed on your team repository.
+
+==== Converting Documentation to PDF format
+Follow the instructions for asciidoc conversion on this link:https://asciidoctor.org/docs/asciidoctor-pdf/[page] to set up `asciidoctor-pdf` for converting adoc files to PDF. 
+
 == Testing
+Testing is vital to ensure that the code you will be contributing in the future does not cause existing features to fail. There are *2* ways to run tests.
+
+*Method 1: Using IntelliJ JUnit test runner*
+
+* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
+
+*Method 2: Using Gradle*
+
+* Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
+
+=== Troubleshooting Testing
+**Problem: `HelpWindowTest` fails with a `NullPointerException`.**
+
+* Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
+* Solution: Execute Gradle task `processResources`.
+
+**Problem: Keyboard and mouse movements are not simulated on macOS Mojave, resulting in GUI Tests failure.**
+
+* Reason: From macOS Mojave onwards, applications without `Accessibility` permission cannot simulate certain keyboard and mouse movements.
+* Solution: Open `System Preferences`, click `Security and Privacy` -> `Privacy` -> `Accessibility`, and check the box beside `Intellij IDEA`.
 
 == Dev Ops
+
+=== Build Automation
+
+See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
+
+=== Continuous Integration
+
+We use https://travis-ci.org/[Travis CI] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
+
+=== Coverage Reporting
+
+We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
+
+=== Documentation Previews
+
+When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+
+=== Making a Release
+
+Here are the steps to create a new release.
+
+.  Update the version number in `build.gradle`.
+.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
+.  Tag the repo with the version number. e.g. `v0.1`
+.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
 [appendix]
 == Product Scope 
