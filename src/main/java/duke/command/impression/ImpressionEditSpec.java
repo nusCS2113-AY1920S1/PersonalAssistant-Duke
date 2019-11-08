@@ -83,6 +83,7 @@ public class ImpressionEditSpec extends ImpressionObjSpec {
         String newName = cmd.getSwitchVal("name");
         int newPriority = cmd.switchToInt("priority");
         String newSummary = cmd.getSwitchVal("summary");
+        editData.edit
 
 
             if (editData instanceof Plan) {
@@ -188,13 +189,6 @@ public class ImpressionEditSpec extends ImpressionObjSpec {
         String newDesc = cmd.getSwitchVal("description");
         if (newDesc != null) {
             impression.setDescription((isAppending) ? impression.getDescription() + newDesc : newDesc);
-        }
-    }
-
-    private void updateStatus(Treatment treatment, List<String> statusList) throws DukeUtilException {
-        String statusStr = cmd.getSwitchVal("status");
-        if (statusStr != null) {
-            treatment.setStatus(ImpressionUtils.processStatus(statusStr, statusList));
         }
     }
 }

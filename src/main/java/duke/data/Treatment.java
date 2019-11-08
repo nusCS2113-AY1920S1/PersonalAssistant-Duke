@@ -4,6 +4,7 @@ import duke.exception.DukeException;
 import duke.exception.DukeUtilException;
 
 import java.util.List;
+import java.util.Map;
 
 public abstract class Treatment extends DukeData {
 
@@ -49,6 +50,16 @@ public abstract class Treatment extends DukeData {
         informationString = "Status of treatment: " + this.statusIdx + "\n";
         informationString += "Status Description: " + getStatusStr() + "\n";
         return informationString;
+    }
+
+    @Override
+    public void edit(String newName, int newPriority, String newSummary, Map<String, String> editVals,
+                     boolean isAppending) throws DukeException {
+        super.edit(newName, newPriority, newSummary, editVals, isAppending);
+        String status = editVals.get("status");
+        if (status != null) {
+            setStatus(status);
+        }
     }
 
     /**

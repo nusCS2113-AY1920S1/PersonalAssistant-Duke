@@ -2,6 +2,8 @@ package duke.data;
 
 import duke.exception.DukeException;
 
+import java.util.Map;
+
 public abstract class DukeData extends DukeObject {
 
     // TODO change priority to primitive int
@@ -83,7 +85,8 @@ public abstract class DukeData extends DukeObject {
         // null check required because medicine summary is null
     }
 
-    public void edit(String newName, int newPriority, String newSummary, boolean isAppending)
+    public void edit(String newName, int newPriority, String newSummary, Map<String, String> editVals,
+                     boolean isAppending)
             throws DukeException {
         if (newName != null) {
             setName((isAppending) ? getName() + newName : newName);

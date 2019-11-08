@@ -8,6 +8,7 @@ import duke.ui.context.Context;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class Medicine extends Treatment {
 
@@ -39,11 +40,6 @@ public class Medicine extends Treatment {
         this.duration = duration;
     }
 
-    @Override
-    public void setName(String name) {
-    }
-
-    @Override
     public String toString() {
         String informationString;
         informationString = "Dose: " + this.dose + "\n";
@@ -84,6 +80,13 @@ public class Medicine extends Treatment {
 
     public String getStatusStr() {
         return statusArr.get(getStatusIdx());
+    }
+
+    @Override
+    public void edit(String newName, int newPriority, String newSummary, Map<String, String> editVals,
+                     boolean isAppending) throws DukeException {
+        super.edit(newName, newPriority, newSummary, editVals, isAppending);
+
     }
 
     @Override
