@@ -46,9 +46,9 @@ public interface IProject {
 
     boolean containsAssignment(Task task, Member member);
 
-    HashMap<Member, ArrayList<Task>> getMembersIndividualTaskList();
+    HashMap<String, ArrayList<String>> getMembersIndividualTaskList();
 
-    HashMap<Task, ArrayList<Member>> getTasksAndAssignedMembers();
+    HashMap<String, ArrayList<String>> getTasksAndAssignedMembers();
 
     void addReminderToList(Reminder reminder);
 

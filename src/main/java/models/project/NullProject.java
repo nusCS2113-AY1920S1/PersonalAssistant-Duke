@@ -119,12 +119,12 @@ public class NullProject implements IProject {
     }
 
     @Override
-    public HashMap<Member, ArrayList<Task>> getMembersIndividualTaskList() {
+    public HashMap<String, ArrayList<String>> getMembersIndividualTaskList() {
         return null;
     }
 
     @Override
-    public HashMap<Task, ArrayList<Member>> getTasksAndAssignedMembers() {
+    public HashMap<String, ArrayList<String>> getTasksAndAssignedMembers() {
         return null;
     }
 

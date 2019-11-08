@@ -9,7 +9,6 @@ import static util.constant.ConstantHelper.UNASSIGNEE_MARKER;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import models.member.Member;
 import models.project.Project;
 import models.task.Task;
 
@@ -299,8 +298,9 @@ public class ParserHelper {
      * @param sortCriteria Criteria to sort the list of tasks
      * @return An ArrayList with String descriptions of task details sorted by the criteria specified by the user.
      */
-    public ArrayList<String> parseSortTaskDetails(HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers,
-                                                  ArrayList<Task> taskList, String sortCriteria) {
+    public ArrayList<String> parseSortTaskDetails(
+        HashMap<String, ArrayList<String>> tasksAndAssignedMembers, ArrayList<Task> taskList,
+        String sortCriteria, Project project) {
         ArrayList<String> taskDetails = new ArrayList<>();
         if (sortCriteria.length() >= 4) {
             String[] detailedCriteria = sortCriteria.split("-");
@@ -318,7 +318,7 @@ public class ParserHelper {
                 taskDetails = this.sortHelper.sortTaskCredit(taskList);
                 break;
             case "/WHO":
-                taskDetails = this.sortHelper.sortTaskMember(tasksAndAssignedMembers, taskList, detailedCriteria[1]);
+                taskDetails = this.sortHelper.sortTaskMember(tasksAndAssignedMembers, taskList, detailedCriteria[1], project);
                 break;
             case "/KANBAN":
                 taskDetails = this.sortHelper.sortTaskState(taskList, detailedCriteria[1]);

@@ -1,15 +1,14 @@
 package models.task;
 
-import models.member.Member;
-import util.ParserHelper;
-import util.SortHelper;
-import util.date.DateTimeHelper;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import models.project.Project;
+import util.ParserHelper;
+import util.SortHelper;
+import util.date.DateTimeHelper;
 
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -48,9 +47,10 @@ public class TaskList {
      * @param tasksAndAssignedMembers HashMap containing tasks with assigned members.
      * @return An ArrayList with String descriptions of task details sorted by name by default.
      */
-    public ArrayList<String> getAllTaskDetails(HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers) {
+    public ArrayList<String> getAllTaskDetails(
+        HashMap<String, ArrayList<String>> tasksAndAssignedMembers, Project project) {
         // after implementing task index, change "/PRIORITY" to "/INDEX"
-        return this.parserHelper.parseSortTaskDetails(tasksAndAssignedMembers,taskList,"/PRIORITY");
+        return this.parserHelper.parseSortTaskDetails(tasksAndAssignedMembers,taskList,"/PRIORITY", project);
     }
 
     /**
@@ -59,14 +59,15 @@ public class TaskList {
      * @return An ArrayList with String descriptions of task details sorted by name by default to be presented in table
      *         format.
      */
-    public ArrayList<String> getAllTaskDetailsForTable(HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers,
-                                                       String sortCriteria) {
+    public ArrayList<String> getAllTaskDetailsForTable(
+        HashMap<String, ArrayList<String>> tasksAndAssignedMembers,
+                                                       String sortCriteria, Project project) {
         ArrayList<String> allTaskDetailsForTable = new ArrayList<>();
         if (this.taskList.size() == 0) {
             allTaskDetailsForTable.add(" - There are currently no tasks! -");
         } else {
             ArrayList<String> allTaskDetails = this.parserHelper.parseSortTaskDetails(tasksAndAssignedMembers,
-                    taskList, sortCriteria);
+                    taskList, sortCriteria, project);
             if (sortCriteria.substring(0, 5).equals("/WHO-") && allTaskDetails.size() == 0) {
                 allTaskDetailsForTable.add(" - There are no tasks assigned to " + sortCriteria.substring(5) + "! -");
             } else if ("/DATE".equals(sortCriteria) && allTaskDetails.size() == 0) {
@@ -93,9 +94,10 @@ public class TaskList {
      * @param sortCriteria Criteria to sort chosen by user.
      * @return An ArrayList with String descriptions of task details sorted by the criteria specified by the user.
      */
-    public ArrayList<String> getAllSortedTaskDetails(HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers,
-                                                     String sortCriteria) {
-        return this.parserHelper.parseSortTaskDetails(tasksAndAssignedMembers, taskList, sortCriteria);
+    public ArrayList<String> getAllSortedTaskDetails(
+        HashMap<String, ArrayList<String>> tasksAndAssignedMembers,
+                                                     String sortCriteria, Project project) {
+        return this.parserHelper.parseSortTaskDetails(tasksAndAssignedMembers, taskList, sortCriteria, project);
     }
 
     /**

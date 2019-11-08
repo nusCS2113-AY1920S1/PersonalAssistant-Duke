@@ -183,4 +183,8 @@ public class Task implements ITask {
     public void addTaskRequirement(String newTaskRequirement) {
         this.taskRequirements.add(newTaskRequirement);
     }
+
+    public String getTaskID() {
+        return this.taskID;
+    }
 }

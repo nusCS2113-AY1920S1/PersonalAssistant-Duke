@@ -56,4 +56,9 @@ public class NullMember implements IMember {
         return null;
     }
 
+    @Override
+    public String getMemberID() {
+        return null;
+    }
+
 }

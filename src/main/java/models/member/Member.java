@@ -92,4 +92,9 @@ public class Member implements IMember {
         this.phone = phone;
         this.email = email;
     }
+
+    @Override
+    public String getMemberID() {
+        return this.memberID;
+    }
 }

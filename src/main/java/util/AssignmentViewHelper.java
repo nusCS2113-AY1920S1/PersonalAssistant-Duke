@@ -1,14 +1,13 @@
 package util;
 
-import models.member.IMember;
-import models.project.Project;
-import models.member.Member;
-import models.task.Task;
+import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
+import models.member.IMember;
+import models.project.Project;
+import models.task.ITask;
+import models.task.Task;
 
 //@@author sinteary
 public class AssignmentViewHelper {
@@ -24,7 +23,7 @@ public class AssignmentViewHelper {
         Project project) {
         ArrayList<ArrayList<String>> totalOutputToPrint = new ArrayList<>();
 
-        HashMap<Member, ArrayList<Task>> memberAndIndividualTasks = project.getMembersIndividualTaskList();
+        HashMap<String, ArrayList<String>> memberAndIndividualTasks = project.getMembersIndividualTaskList();
         if (memberAndIndividualTasks.keySet().isEmpty()) {
             ArrayList<String> outputToPrint = new ArrayList<>();
             outputToPrint.add("No members in project yet.");
@@ -33,13 +32,14 @@ public class AssignmentViewHelper {
         }
         for (Integer index : membersToView) {
             ArrayList<String> outputToPrint = new ArrayList<>();
-            IMember member = project.getMembers().getMember(index);
+            IMember member = project.getMember(index);
             outputToPrint.add(member.getName());
-            if (memberAndIndividualTasks.get(member).size() == 0) {
+            if (memberAndIndividualTasks.get(member.getMemberID()).size() == 0) {
                 outputToPrint.add("No tasks assigned yet.");
             } else {
                 int currentNumber = 1;
-                for (Task task : memberAndIndividualTasks.get(member)) {
+                for (String taskID : memberAndIndividualTasks.get(member.getMemberID())) {
+                    ITask task = project.getTaskFromID(taskID);
                     outputToPrint.add(currentNumber + ". " + task.getDetailsForAssignmentTable());
                     outputToPrint.add("");
                     currentNumber++;
@@ -60,7 +60,7 @@ public class AssignmentViewHelper {
      */
     public static String[] getTaskOutput(ArrayList<Integer> tasksToView, Project project) {
 
-        HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = project.getTasksAndAssignedMembers();
+        HashMap<String, ArrayList<String>> tasksAndAssignedMembers = project.getTasksAndAssignedMembers();
         if (tasksAndAssignedMembers.keySet().isEmpty()) {
             ArrayList<String> outputToPrint = new ArrayList<>();
             outputToPrint.add("No tasks in project yet.");
@@ -72,11 +72,12 @@ public class AssignmentViewHelper {
             Task task = project.getTask(index);
             ArrayList<String> outputToPrint = new ArrayList<>();
             outputToPrint.add(task.getDetailsForAssignmentTable());
-            if (tasksAndAssignedMembers.get(task).size() == 0) {
+            if (tasksAndAssignedMembers.get(task.getTaskID()).size() == 0) {
                 outputToPrint.add("No members assigned yet.");
             } else {
                 int currentNumber = 1;
-                for (Member member : tasksAndAssignedMembers.get(task)) {
+                for (String memberID : tasksAndAssignedMembers.get(task.getTaskID())) {
+                    IMember member = project.getMemberFromID(memberID);
                     outputToPrint.add(currentNumber + ". " + member.getName());
                     currentNumber++;
                 }
