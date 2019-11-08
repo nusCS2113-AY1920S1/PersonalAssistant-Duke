@@ -2,11 +2,7 @@ package dolla.command.action;
 
 import dolla.ModeStringList;
 
-import dolla.command.action.state.LimitState;
-import dolla.command.action.state.DebtState;
-import dolla.command.action.state.EntryState;
-import dolla.command.action.state.RedoStateList;
-import dolla.command.action.state.State;
+import dolla.command.action.state.*;
 import dolla.model.Record;
 import java.util.ArrayList;
 
@@ -35,6 +31,8 @@ public class Redo implements ModeStringList {
             RedoStateList.addState(new DebtState(currStatelist), mode);
         } else if (mode.equals(MODE_LIMIT)) {
             RedoStateList.addState(new LimitState(currStatelist), mode);
+        } else if (mode.equals(MODE_SHORTCUT)) {
+            RedoStateList.addState(new ShortcutState(currStatelist), mode);
         }
     }
 
@@ -52,6 +50,8 @@ public class Redo implements ModeStringList {
                 list = state.getDebtState();
             } else if (mode.equals(MODE_LIMIT)) {
                 list = state.getLimitState();
+            } else if (mode.equals(MODE_SHORTCUT)) {
+                list = state.getShortcutState();
             }
             return list;
         } else {

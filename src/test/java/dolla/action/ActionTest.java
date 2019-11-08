@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ActionTest implements ActionTestList {
+public class ActionTest implements ActionTestStringList {
     private ArrayList<Record> testList1 = new ArrayList<>();
     private ArrayList<Record> testList2 = new ArrayList<>();
 

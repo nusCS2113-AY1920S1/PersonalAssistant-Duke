@@ -5,6 +5,7 @@ import dolla.command.action.Redo;
 import dolla.command.action.Undo;
 import dolla.model.Record;
 import dolla.exception.DollaException;
+import dolla.ui.ActionUi;
 
 import java.util.ArrayList;
 
@@ -33,6 +34,7 @@ public class ActionCommand extends Command {
             if (recordList != null) {
                 Redo.addToStateList(mode, dollaData.getRecordList(mode));
                 dollaData.setRecordList(recordList);
+                ActionUi.printActionMessage(UNDO);
             }
             break;
         case REDO:
@@ -40,6 +42,7 @@ public class ActionCommand extends Command {
             if (recordList != null) {
                 Undo.addToStateList(mode, dollaData.getRecordList(mode));
                 dollaData.setRecordList(recordList);
+                ActionUi.printActionMessage(REDO);
             }
             break;
         default:
