@@ -1,4 +1,5 @@
 package duke.storage;
+
 import duke.model.task.bookingtasks.Booking;
 import duke.model.list.bookinglist.BookingList;
 

@@ -13,7 +13,7 @@ import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
 import static duke.common.RecipeMessages.*;
 
 /**
- * Handles the list command and inherits all the fields and methods of Command parent class.
+ * Handles the list all recipe command.
  */
 public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> {
 
@@ -27,11 +27,14 @@ public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage>
     }
 
     /**
-     * Processes the list command to display all recipes in recipe list.
+     * Processes the list recipe command to show a list of the existing recipes in the recipe list.
      *
-     * @param recipeList the list of recipes
-     * @param recipeStorage dealing with loading recipes from the file and saving recipes in the file
+     * @param recipeList    contains the recipe list
+     * @param ui             deals with interactions with the user
+     * @param recipeStorage deals with loading tasks from the file and saving recipes in the file
+     * @return an array list consist of the results or prompts to be displayed to user
      */
+    @Override
     public ArrayList<String> execute(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) {
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_LIST_RECIPES)) {

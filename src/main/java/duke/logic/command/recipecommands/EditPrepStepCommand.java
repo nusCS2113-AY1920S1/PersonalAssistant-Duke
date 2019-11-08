@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import static duke.common.Messages.*;
 import static duke.common.RecipeMessages.*;
 
+/**
+ * Handles the edit preparation step command.
+ */
 public class EditPrepStepCommand extends Command<RecipeList, Ui, RecipeStorage> {
 
     /**
@@ -22,6 +25,14 @@ public class EditPrepStepCommand extends Command<RecipeList, Ui, RecipeStorage> 
         this.userInput = userInput;
     }
 
+    /**
+     * Processes the edit preparation step command to edit the details of the preparation steps of a specific recipe.
+     *
+     * @param recipeList    contains the recipe list
+     * @param ui             deals with interactions with the user
+     * @param recipeStorage deals with loading tasks from the file and saving recipes in the file
+     * @return an array list consist of the results or prompts to be displayed to user
+     */
     @Override
     public ArrayList<String> execute(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) throws ParseException {
         ArrayList<String> arrayList = new ArrayList<>();
@@ -138,11 +149,7 @@ public class EditPrepStepCommand extends Command<RecipeList, Ui, RecipeStorage> 
      * @return true if all of the ingredient's name, quantity, unit, and additional information are provided
      */
     private boolean hasAllIngredientFields(String description) {
-        if (description.contains("n/") && description.contains("q/") && description.contains("u/")) {
-            return true;
-        } else {
-            return false;
-        }
+        return description.contains("n/") && description.contains("q/") && description.contains("u/");
     }
 
     /**
@@ -195,11 +202,7 @@ public class EditPrepStepCommand extends Command<RecipeList, Ui, RecipeStorage> 
      * @return true if the command type is insert
      */
     private boolean isIns(String command) {
-        if (command.equals("ins/")) {
-            return true;
-        } else {
-            return false;
-        }
+        return command.equals("ins/");
     }
 
     /**
@@ -209,11 +212,7 @@ public class EditPrepStepCommand extends Command<RecipeList, Ui, RecipeStorage> 
      * @return true if the command type is delete
      */
     private boolean isDel(String command) {
-        if (command.equals("del/")) {
-            return true;
-        } else {
-            return false;
-        }
+        return command.equals("del/");
     }
 
     /**
@@ -223,11 +222,7 @@ public class EditPrepStepCommand extends Command<RecipeList, Ui, RecipeStorage> 
      * @return true if the command type is append
      */
     private boolean isApp(String command) {
-        if (command.equals("app/")) {
-            return true;
-        } else {
-            return false;
-        }
+        return command.equals("app/");
     }
 
     /**
@@ -237,13 +232,15 @@ public class EditPrepStepCommand extends Command<RecipeList, Ui, RecipeStorage> 
      * @return true if the command type is clear
      */
     private boolean isClr(String command) {
-        if (command.equals("clr/")) {
-            return true;
-        } else {
-            return false;
-        }
+        return command.equals("clr/");
     }
 
+    /**
+     * Validates the quantity is an integer.
+     *
+     * @param quantity String input from user
+     * @return true if the user inputs an integer and false otherwise
+     */
     private static boolean isParsable(String quantity) {
         try {
             Integer.parseInt(quantity);
@@ -272,11 +269,7 @@ public class EditPrepStepCommand extends Command<RecipeList, Ui, RecipeStorage> 
      * @return true if the unit is known
      */
     private static boolean isKnownUnit(String unit) { // edit this part.
-        if (unit.equals("g") || unit.equals("kg") || unit.equals("l") || unit.equals("ml") || unit.equals("cup") || unit.equals("teaspoon") || unit.equals("tablespoon")) {
-            return true;
-        } else {
-            return false;
-        }
+        return unit.equals("g") || unit.equals("kg") || unit.equals("l") || unit.equals("ml") || unit.equals("cup") || unit.equals("teaspoon") || unit.equals("tablespoon");
     }
 
     @Override

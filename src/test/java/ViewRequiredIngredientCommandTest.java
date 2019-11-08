@@ -25,7 +25,6 @@ public class ViewRequiredIngredientCommandTest {
         recipeStorage = new RecipeStorage(filePathRecipesTest);
         recipeList = new RecipeList(recipeStorage.load());
 
-
         ArrayList<String> arrayListExpectedOutput = new ArrayList<>();
         String expected1 = "Recipe Title: chicken rice\n" +
                 "Required Ingredients: \n" +
