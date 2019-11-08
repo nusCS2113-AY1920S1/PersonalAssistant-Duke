@@ -2,6 +2,7 @@ package Parser;
 
 import Commands.Command;
 import Commands.RecurringCommand;
+import Commons.DukeConstants;
 import Commons.DukeLogger;
 import DukeExceptions.DukeInvalidCommandException;
 import DukeExceptions.DukeInvalidDateTimeException;
@@ -33,19 +34,19 @@ public class RecurParse extends Parse {
             boolean isBiweekly = false;
             boolean isRecur = false;
             String activity = fullCommand.trim().substring(LENGTH_OF_RECUR);
-            String[] fullCommandSplit = activity.split("/start");
+            String[] fullCommandSplit = activity.split(DukeConstants.RECUR_DATE_DESCRIPTION_SPLIT_KEYWORD);
             String modCodeAndDescription = fullCommandSplit[0].trim();
-            modCodeAndDescriptionSplit = modCodeAndDescription.trim().split(" ");
+            modCodeAndDescriptionSplit = modCodeAndDescription.trim().split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
             String dateAndTime = fullCommandSplit[1].trim();
 
-            if (modCodeAndDescription.contains("/biweekly")) {
+            if (modCodeAndDescription.contains(DukeConstants.RECUR_BIWEEKLY_KEYWORD)) {
                 modCodeAndDescription = modCodeAndDescription.substring(LENGTH_OF_BIWEEKLY).trim();
                 isRecur = true;
                 isBiweekly = true;
-            } else if (modCodeAndDescription.contains("/rmbiweekly")) {
+            } else if (modCodeAndDescription.contains(DukeConstants.RECUR_RMBIWEEKLY_KEYWORD)) {
                 modCodeAndDescription = modCodeAndDescription.substring(LENGTH_OF_RMBIWEEKLY).trim();
                 isBiweekly = true;
-            } else if (modCodeAndDescription.contains("/rmweekly")) {
+            } else if (modCodeAndDescription.contains(DukeConstants.RECUR_RMWEEKLY_KEYWORD)) {
                 modCodeAndDescription = modCodeAndDescription.substring(LENGTH_OF_RMWEEKLY).trim();
             } else {
                 modCodeAndDescription = modCodeAndDescription.substring(LENGTH_OF_WEEKLY).trim();
@@ -56,7 +57,7 @@ public class RecurParse extends Parse {
             if (!super.isModCode(modCodeAndDescription)) {
                 throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
             }
-            String[] checkSplit = modCodeAndDescription.trim().split(" ");
+            String[] checkSplit = modCodeAndDescription.trim().split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
             if (!super.isValidDescription(checkSplit)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of an event cannot be empty.");
             if(!super.isValidTimePeriod(dateAndTime)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The time of an event can only contain digits and the time has to be 4 digits.\n" +
                     "Please enter the time in a 24-hour time format");
