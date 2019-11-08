@@ -43,11 +43,11 @@ public class AutoComplete {
             "delete bank-account [index of the tracker]",
             "check-balance [desc] /at [the future date]",
             "deposit [amount] [desc] /at [date]",
-            "withdraw[amount] [desc] /at [date]",
+            "withdraw [amount] [desc] /at [date]",
             "list bank trackers",
             "graph monthly report [histogram/line_graph/pie_chart]",
             "graph income/expenditure trend [histogram/line_graph/pie_chart]",
-            "graph financial status /until [date]",
+            "graph finance status /until [date]",
             "undo",
             "bye"
     };
