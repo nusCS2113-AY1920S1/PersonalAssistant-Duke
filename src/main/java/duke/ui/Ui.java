@@ -94,10 +94,12 @@ public class Ui {
         int totalActualConsume = 0;
         int totalPossibleConsume = 0;
         for (int i = 0; i < meals.size(); i += 1) {
-            int currentMealCalorie = meals.get(i).getNutritionalValue().get("calorie");
-            totalPossibleConsume += currentMealCalorie;
-            if (meals.get(i).getIsDone()) {
-                totalActualConsume += currentMealCalorie;
+            if (meals.get(i).getNutritionalValue().containsKey("calorie")) {
+                int currentMealCalorie = meals.get(i).getNutritionalValue().get("calorie");
+                totalPossibleConsume += currentMealCalorie;
+                if (meals.get(i).getIsDone()) {
+                    totalActualConsume += currentMealCalorie;
+                }
             }
         }
         System.out.println(UI_PADDING + "On " + dateStr.format(LOCAL_DATE_FORMATTER) + ", you have:");

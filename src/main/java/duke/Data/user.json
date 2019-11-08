@@ -1,15 +1,12 @@
 {
   "weight": {
-    "2019-11-06": 100.0,
-    "2019-11-05": 75.0,
-    "2019-11-04": 100.0,
-    "2019-11-03": 111.0
+    "2019-11-08": 100.0
   },
-  "height": 180,
-  "age": 23,
+  "height": 100,
+  "age": 22,
   "gender": "MALE",
   "isSetup": true,
-  "name": "Ivan Andika",
+  "name": "Foo Chi Hen",
   "activityLevel": 1,
   "factor": [
     1.2,
@@ -18,5 +15,5 @@
     1.725,
     1.9
   ],
-  "originalWeight": 75.0
+  "originalWeight": 0.0
 }

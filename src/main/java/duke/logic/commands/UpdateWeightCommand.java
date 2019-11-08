@@ -64,28 +64,31 @@ public class UpdateWeightCommand extends Command {
 
     public void stage0(User user, Storage storage) {
         ui.showLine();
-        HashMap<LocalDate, Double> allWeight = user.getAllWeight();
-        if (!allWeight.containsKey(currentDate)) {
+        if (Integer.parseInt(weight) > 2) {
+            HashMap<LocalDate, Double> allWeight = user.getAllWeight();
+            if (!allWeight.containsKey(currentDate)) {
+                try {
+                    user.setWeight(Integer.parseInt(weight), currentDate);
+                    ui.showWeightUpdate(user, Integer.parseInt(weight), currentDate);
+                } catch (NumberFormatException e) {
+                    ui.showMessage("Please input a proper number for weight");
+                }
+            } else {
+                try {
+                    int temp = Integer.parseInt(weight);
+                    isDone = false;
+                    ui.showConfirmation(weight, currentDate);
+                } catch (NumberFormatException e) {
+                    ui.showMessage("Please input a proper number for weight");
+                }
+            }
             try {
-                user.setWeight(Integer.parseInt(weight), currentDate);
-                ui.showWeightUpdate(user, Integer.parseInt(weight), currentDate);
-                ui.showLine();
-            } catch (NumberFormatException e) {
-                ui.showMessage("Please input a proper number for weight");
+                storage.updateUser(user);
+            } catch (DukeException e) {
+                ui.showMessage(e.getMessage());
             }
         } else {
-            try {
-                int temp = Integer.parseInt(weight);
-                isDone = false;
-                ui.showConfirmation(weight, currentDate);
-            } catch (NumberFormatException e) {
-                ui.showMessage("Please input a proper number for weight");
-            }
-        }
-        try {
-            storage.updateUser(user);
-        } catch (DukeException e) {
-            ui.showMessage(e.getMessage());
+            ui.showMessage("Weight cannot be less than 2kg(Unless you really are the lightest man on earth!)");
         }
         ui.showLine();
     }
@@ -94,8 +97,12 @@ public class UpdateWeightCommand extends Command {
         ui.showLine();
         if (this.responseStr.equals("y")) {
             try {
-                user.setWeight(Integer.parseInt(weight), currentDate);
-                ui.showWeightUpdate(user, Integer.parseInt(weight), currentDate);
+                if (Integer.parseInt(weight) >= 2) {
+                    user.setWeight(Integer.parseInt(weight), currentDate);
+                    ui.showWeightUpdate(user, Integer.parseInt(weight), currentDate);
+                } else {
+                    ui.showMessage("Weight cannot be less than 2kg(Unless you really are the lightest man on earth!)");
+                }
             } catch (Exception e) {
                 ui.showMessage(e.getMessage());
             }
@@ -117,5 +124,20 @@ public class UpdateWeightCommand extends Command {
 
     public void setResponseStr(String response) {
         this.responseStr = response.toLowerCase().substring(0,1);
+    }
+
+    public void updateUser(User user) {
+        ui.showLine();
+        try {
+            if (Integer.parseInt(weight) >= 2) {
+                user.setWeight(Integer.parseInt(weight), currentDate);
+                ui.showWeightUpdate(user, Integer.parseInt(weight), currentDate);
+            } else {
+                ui.showMessage("Weight cannot be less than 2kg(Unless you really are the lightest man on earth!)");
+            }
+        } catch (NumberFormatException e) {
+            ui.showMessage("Please input a proper number for weight");
+        }
+        ui.showLine();
     }
 }

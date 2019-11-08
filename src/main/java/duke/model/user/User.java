@@ -17,8 +17,8 @@ public class User {
     private transient Account account;
 
     private HashMap<LocalDate, Double> weight = new HashMap();
-    private int height = 0;
-    private int age = 0;
+    private int height = -1;
+    private int age = -1;
     private Gender gender = null;
     private boolean isSetup;
     private String name = null;
