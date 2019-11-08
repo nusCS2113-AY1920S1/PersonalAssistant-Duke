@@ -19,6 +19,9 @@ public class Main extends Application {
     private Duke duke = new Duke();
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
+    public Main() throws IOException {
+    }
+
     @Override
     public void start(Stage stage) {
         try {
