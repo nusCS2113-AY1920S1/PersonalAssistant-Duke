@@ -1,12 +1,15 @@
 package eggventory.logic.commands.add;
 
 import eggventory.commons.enums.CommandType;
+import eggventory.commons.enums.StockProperty;
 import eggventory.commons.exceptions.BadInputException;
+import eggventory.logic.QuantityManager;
 import eggventory.logic.commands.Command;
 import eggventory.model.StockList;
 import eggventory.model.items.DateTime;
 import eggventory.storage.Storage;
 import eggventory.ui.Ui;
+
 
 /**
  * Command objects for adding Stocks.
@@ -17,6 +20,7 @@ public class AddStockCommand extends Command {
     private String stockCode;
     private int quantity;
     private String description;
+    private int minimumQuantity;
     private String details;
     private DateTime[] dateTimes = new DateTime[2];
 
@@ -27,13 +31,25 @@ public class AddStockCommand extends Command {
      * @param stockCode The unique identifier code for the stock.
      * @param quantity The total quantity of the stock.
      * @param description User input description of the task to add.
+     * @param minimumQuantity The minimum quantity of stock to maintain.
      */
-    public AddStockCommand(CommandType type, String stockType, String stockCode, int quantity, String description) {
+    public AddStockCommand(CommandType type, String stockType, String stockCode,
+                           int quantity, String description, int minimumQuantity) {
         super(type);
         this.stockType = stockType;
         this.stockCode = stockCode;
         this.quantity = quantity;
         this.description = description;
+        this.minimumQuantity = minimumQuantity;
+    }
+
+    private String addMinQuantity(StockList list, int minimumQuantity) throws BadInputException {
+        String output = "";
+        list.setStock(stockCode, StockProperty.MINIMUM, Integer.toString(minimumQuantity));
+        output += String.format("\nOptional parameter used: "
+                + "The minimum quantity has been set to %d.", minimumQuantity);
+        output += QuantityManager.checkMinimum(list.findStock(stockCode));
+        return output;
     }
 
     /**
@@ -52,9 +68,14 @@ public class AddStockCommand extends Command {
                     + " assigned to a stock in the system. Please enter a different stock code.", stockCode));
         } else {
             list.addStock(stockType, stockCode, quantity, description);
-            storage.save(list);
             output = String.format("Nice! I have successfully added the stock: StockType: %s StockCode: %s "
                     + "Quantity: %d Description: %s", stockType, stockCode, quantity, description);
+
+            if (minimumQuantity > 0) {
+                output += addMinQuantity(list, minimumQuantity);
+            }
+
+            storage.save(list);
         }
 
         ui.print(output);
@@ -71,5 +92,6 @@ public class AddStockCommand extends Command {
      */
     public void execute(StockList list) throws BadInputException {
         list.addStock(stockType, stockCode, quantity, description);
+        list.setStock(stockCode, StockProperty.MINIMUM, Integer.toString(minimumQuantity));
     }
 }

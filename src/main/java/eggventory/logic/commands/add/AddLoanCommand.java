@@ -1,10 +1,12 @@
 package eggventory.logic.commands.add;
 
 import eggventory.commons.enums.CommandType;
+import eggventory.logic.QuantityManager;
 import eggventory.logic.commands.Command;
 import eggventory.model.LoanList;
 import eggventory.model.PersonList;
 import eggventory.model.StockList;
+import eggventory.model.items.Stock;
 import eggventory.storage.Storage;
 import eggventory.ui.Ui;
 
@@ -78,12 +80,16 @@ public class AddLoanCommand extends Command {
         } else {
             LoanList.addLoan(matricNo, stockCode, quantity);
 
+            Stock stock = list.findStock(stockCode);
+
             String personName = PersonList.getName(matricNo);
-            String stockDescription = stockCode;  //In future write a method to get the stock description.
+            String stockDescription = stock.getDescription();
             storage.save(list);
 
             output = (String.format("Nice, I have added this loan for you: \n"
                     + "Person: %s | Stock: %s | Quantity: %d", personName, stockDescription, quantity));
+
+            output += QuantityManager.checkMinimum(stock);
         }
 
         ui.print(output);

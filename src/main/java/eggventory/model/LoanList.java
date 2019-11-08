@@ -144,11 +144,11 @@ public final class LoanList {
     /**
      * Returns the total quantity of a certain Stock has been loaned out.
      * @param stockCode stockCode of the queried Stock.
-     * @return The total quantity currently loaned out.
+     * @return The total quantity currently loaned out. Or 0 if the stock has not be loaned before.
      */
     public static int getStockLoanedQuantity(String stockCode) {
         if (stockLoaned.get(stockCode) == null) {
-            return -1;
+            return 0;
         }
         return stockLoaned.get(stockCode);
     }

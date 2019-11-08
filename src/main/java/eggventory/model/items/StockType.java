@@ -161,7 +161,7 @@ public class StockType {
      * @param quantity The new minimum quantity to change to
      * @return Stock if stockCode is found, else null
      */
-    public Stock setStockMinimum(String stockCode, int quantity) {
+    public Stock setStockMinimum(String stockCode, int quantity) throws BadInputException {
         for (Stock stock : stocks) {
             if (stock.getStockCode().equals(stockCode)) {
                 stock.setMinimum(quantity);

@@ -1,16 +1,14 @@
-package eggventory.logic;
+package eggventory.logic.commands;
+
+import eggventory.commons.enums.CommandType;
+import eggventory.model.StockList;
+import eggventory.storage.Storage;
+import eggventory.ui.Ui;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.IOException;
-
-
-import eggventory.logic.commands.Command;
-import eggventory.ui.Ui;
-import eggventory.storage.Storage;
-import eggventory.model.StockList;
-import eggventory.commons.enums.CommandType;
 
 //@@author yanprosobo
 

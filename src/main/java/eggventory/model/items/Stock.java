@@ -44,7 +44,7 @@ public class Stock {
         this.stockCode = stockCode;
         this.quantity = quantity;
         this.description = description;
-        this.loaned = 0;
+        this.loaned = 0; //TODO: Determine whether to remove this attribute or update it from the LoanList.
         this.lost = 0;
         this.minimum = 0;
     }
@@ -126,7 +126,7 @@ public class Stock {
     public void quantityLoanCheck(int newTotal) throws BadInputException {
         int loanedQuantity = LoanList.getStockLoanedQuantity(stockCode);
 
-        if (loanedQuantity == -1) { //This means none of that stock has been loaned out, and this check doesn't matter.
+        if (loanedQuantity == 0) { //This means none of that stock has been loaned out, and this check doesn't matter.
             return;
         }
 
@@ -150,8 +150,6 @@ public class Stock {
             throw new BadInputException("Sorry, the quantity cannot be greater than 1 000 000!");
         }
     }
-
-    //@@author
 
     /**
      * Gets the number of this stock that is on loan.
@@ -197,12 +195,15 @@ public class Stock {
 
 
     /**
-     * Updates the minimum quantity of stock that the lab wishes to maintain. To be implemented in the future.
+     * Updates the minimum quantity of stock that the lab wishes to maintain.
      * @param minimum The minimum quantity.
      */
-    public void setMinimum(int minimum) {
+    public void setMinimum(int minimum) throws BadInputException {
+        quantitySanityCheck(minimum);
         this.minimum = minimum;
     }
+
+    //@@author
 
     /**
      * Calculates and returns the number of this stock available to the lab (not lost, not on loan).

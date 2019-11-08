@@ -82,7 +82,7 @@ class StockTest {
     }
 
     @Test
-    void testSetMinimum_ValidNewMinimum_success() {
+    void testSetMinimum_ValidNewMinimum_success() throws BadInputException {
         assertEquals(0,testStock.getMinimum());
         testStock.setMinimum(500);
         assertEquals(500,testStock.getMinimum());

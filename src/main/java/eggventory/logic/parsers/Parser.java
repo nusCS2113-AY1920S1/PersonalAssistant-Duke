@@ -1,15 +1,17 @@
 package eggventory.logic.parsers;
 
-import eggventory.logic.commands.Command;
-import eggventory.logic.commands.CommandDictionary;
-import eggventory.logic.HelpCommand;
-import eggventory.logic.commands.ByeCommand;
 import eggventory.commons.enums.CommandType;
 import eggventory.commons.exceptions.BadInputException;
 import eggventory.commons.exceptions.InsufficientInfoException;
+import eggventory.logic.commands.HelpCommand;
+import eggventory.logic.commands.ByeCommand;
+import eggventory.logic.commands.Command;
+import eggventory.logic.commands.CommandDictionary;
 
 import java.util.Arrays;
 import java.util.HashSet;
+
+;
 
 //@@author cyanoei
 /**
@@ -66,6 +68,18 @@ public class Parser {
         return commandArr.length - 1 >= reqArguments;
     }
     //@@author cyanoei
+
+    /**
+     * Checks if a string input is an integer.
+     * @param testInteger the input to test.
+     */
+    public static void isCheckIsInteger(String testInteger, String inputName) throws BadInputException {
+        try {
+            Integer.parseInt(testInteger);
+        } catch (NumberFormatException e) {
+            throw new BadInputException(String.format("Sorry, the input for %s has to be an integer!", inputName));
+        }
+    }
 
     /**
      * Checks if the command keyword (first word is valid).

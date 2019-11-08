@@ -27,7 +27,7 @@ public class AddStockCommandTest {
     void testExecuteAddStock_ValidStock_Succeeds() throws BadInputException {
         testStockList.addStockType("testStockType");
         String output = new AddStockCommand(CommandType.ADD, "testStockType", "t0000", 100,
-                "testDescription").execute(testStockList, testCli, testStorage);
+                "testDescription", 0).execute(testStockList, testCli, testStorage);
 
         //Check whether a stock is added to the list correctly
         assertEquals("testStockType", testStockList.getStockType("testStockType").getName());
@@ -48,8 +48,8 @@ public class AddStockCommandTest {
 
         testStockList.addStock(testStockType, testStockCode, testQuantity, testDescription);
         Exception exception = assertThrows(BadInputException.class, () -> new AddStockCommand(CommandType.ADD,
-                testStockType, testStockCode, 10, "Another resistor").execute(testStockList,
-                testCli, testStorage));
+                testStockType, testStockCode, 10, "Another resistor", 0)
+                .execute(testStockList, testCli, testStorage));
 
         //Check whether execute prints the error message to CLI.
         assertEquals(String.format("Sorry, the stock code \"%s\" is already assigned to a stock in the system. "

@@ -1,6 +1,7 @@
 package eggventory.logic.commands.edit;
 
 import eggventory.commons.exceptions.BadInputException;
+import eggventory.logic.QuantityManager;
 import eggventory.model.StockList;
 import eggventory.storage.Storage;
 import eggventory.logic.commands.Command;
@@ -59,6 +60,7 @@ public class EditStockCommand extends Command {
                         + "available: %s",
                 edited.getStockType(), edited.getStockCode(), edited.getQuantity(), edited.getDescription(),
                 edited.getMinimum(), edited.getLost(), edited.getLoaned(), edited.numAvailable());
+        output += QuantityManager.checkMinimum(edited);
         storage.save(list);
         ui.print(output);
         // Drawing stock data in GUI table.
