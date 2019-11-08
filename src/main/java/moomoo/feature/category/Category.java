@@ -115,8 +115,13 @@ public class Category {
         population.add("Far:Automata");
         population.add("League of Mobile Legends");
         for (int i = 0; i < 5; i += 1) {
-            Expenditure newExp = new Expenditure(population.get(i), i * 100 / (i + 3), LocalDate.now());
+            Expenditure newExp = new Expenditure(population.get(i), i * 100 / (i + 3), LocalDate.now(),
+                    "population");
             category.add(newExp);
         }
+    }
+
+    public ArrayList<Expenditure> getCategory() {
+        return category;
     }
 }

@@ -131,10 +131,11 @@ public class BudgetCommandTest {
         EditBudgetCommand editBudget = new EditBudgetCommand(false, categories, budgets);
         editBudget.execute(newCalendar, newBudget, newCatList, newStorage);
 
+        UiStub newUi = new UiStub();
         assertEquals("You have changed the budget for shoes from $123.45 to $300.00\n"
                 + "Please set your budget for window to a value more than 0\n"
                 + "You have changed the budget for sweets from $217.00 to $675.00\n"
-                + "invalid value category does not exist. Please add it first.\n", UiStub.returnResponse());
+                + "invalid value category does not exist. Please add it first.\n", newUi.returnResponse());
     }
 
     @Test
@@ -186,11 +187,12 @@ public class BudgetCommandTest {
         ListBudgetCommand listBudget = new ListBudgetCommand(false, listCategories);
         listBudget.execute(newCalendar, newBudget, newCatList, newStorage);
 
+        UiStub newUi = new UiStub();
         assertEquals("Budget for shoes is $183.00\n"
                 + "Budget for food is $128.00\n"
                 + "Budget for places to go is $527.00\n"
                 + "test value category does not exist. Please add it first.\n"
-                + "Budget for sweets is $105.00\n", UiStub.returnResponse());
+                + "Budget for sweets is $105.00\n", newUi.returnResponse());
     }
 
     @Test

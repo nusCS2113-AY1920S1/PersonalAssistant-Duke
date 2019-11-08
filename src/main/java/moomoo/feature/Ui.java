@@ -14,7 +14,7 @@ import java.util.Scanner;
  */
 public class Ui {
     private static final String ANSI_RED = "\u001B[31m";
-    private static final String ANSI_WHITE = "\u001B[37m";
+    private static final String ANSI_RESET = "\u001B[0m";
     private static String output = null;
     private static Scanner inputScanner;
 
@@ -91,7 +91,7 @@ public class Ui {
      */
     public static String printException(MooMooException e) {
         if (!e.getMessage().isBlank()) {
-            output = ANSI_RED + e.getMessage() + ANSI_WHITE;
+            output = ANSI_RED + e.getMessage() + ANSI_RESET;
         }
         return output;
     }
@@ -138,7 +138,7 @@ public class Ui {
         for (int i = 0; i < blanks; i++) {
             blankSpace += " ";
         }
-        String output =
+        output =
                 " ____________________________________________________\n"
                 + "/ Mooo.                                              \\\n"
                 + "\\ " + categoryName + blankSpace + "/\n"
@@ -148,7 +148,6 @@ public class Ui {
                 + "            (__)\\       )\\/\\\n"
                 + "                ||----w |\n"
                 + "                ||     ||\n";
-        print(output);
     }
 
     /**

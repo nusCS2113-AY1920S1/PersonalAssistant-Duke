@@ -8,7 +8,7 @@ import moomoo.feature.ScheduleList;
 import moomoo.feature.Ui;
 import moomoo.feature.category.CategoryList;
 import moomoo.feature.parser.Parser;
-import moomoo.feature.storage.CategoryStorage;
+import moomoo.feature.storage.ExpenditureStorage;
 import moomoo.feature.storage.Storage;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class MooMoo {
     private MooMoo() {
         storage = new Storage("data/budget.txt","data/schedule.txt");
         try {
-            categoryList = CategoryStorage.loadFromFile();
+            categoryList = ExpenditureStorage.loadFromFile();
         } catch (MooMooException e) {
             Ui.printException(e);
             Ui.showResponse();

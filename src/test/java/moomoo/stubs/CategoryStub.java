@@ -45,13 +45,20 @@ public class CategoryStub extends Category {
 
     @Override
     public void add(Expenditure newExpenditure) {
-        this.category.add(new ExpenditureStub("Value 1",100, LocalDate.of(2017, Month.DECEMBER, 20)));
-        this.category.add(new ExpenditureStub("Value 2", 100, LocalDate.of(2018, Month.DECEMBER, 20)));
-        this.category.add(new ExpenditureStub("Value 3", 100, LocalDate.of(2019, Month.JANUARY, 20)));
+        this.category.add(new ExpenditureStub("Value 1",100, LocalDate.of(2017, Month.DECEMBER,
+                20), name));
+        this.category.add(new ExpenditureStub("Value 2", 100, LocalDate.of(2018, Month.DECEMBER,
+                20), name));
+        this.category.add(new ExpenditureStub("Value 3", 100, LocalDate.of(2019, Month.JANUARY,
+                20), name));
 
-        this.category.add(new ExpenditureStub("Value 4", 200, LocalDate.of(2019, Month.AUGUST, 20)));
-        this.category.add(new ExpenditureStub("Value 5", 150, LocalDate.of(2019, Month.SEPTEMBER, 20)));
-        this.category.add(new ExpenditureStub("Value 6", 50, LocalDate.of(2019, Month.OCTOBER, 25)));
-        this.category.add(new ExpenditureStub("Value 7", 65, LocalDate.of(2019, Month.NOVEMBER, 21)));
+        this.category.add(new ExpenditureStub("Value 4", 200, LocalDate.of(2019, Month.AUGUST,
+                20), name));
+        this.category.add(new ExpenditureStub("Value 5", 150, LocalDate.of(2019, Month.SEPTEMBER,
+                20), name));
+        this.category.add(new ExpenditureStub("Value 6", 50, LocalDate.of(2019, Month.OCTOBER,
+                25), name));
+        this.category.add(new ExpenditureStub("Value 7", 65, LocalDate.of(2019, Month.NOVEMBER,
+                21), name));
     }
 }

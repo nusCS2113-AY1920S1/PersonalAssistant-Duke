@@ -7,7 +7,7 @@ import moomoo.feature.ScheduleList;
 import moomoo.feature.Ui;
 import moomoo.feature.category.Category;
 import moomoo.feature.category.CategoryList;
-import moomoo.feature.storage.CategoryStorage;
+import moomoo.feature.storage.ExpenditureStorage;
 import moomoo.feature.storage.Storage;
 
 public class AddCategoryCommand extends Command {
@@ -31,8 +31,8 @@ public class AddCategoryCommand extends Command {
             throw new MooMooException("Please do not use | in your category name");
         } else {
             categoryList.add(newCategory);
-            CategoryStorage.saveToFile(input);
-            Ui.showCategoryMessage("New category named " + input + " added. ");
+            ExpenditureStorage.saveToFile(input);
+            Ui.showCategoryMessage("New category named <" + input + "> added. ");
         }
     }
 }

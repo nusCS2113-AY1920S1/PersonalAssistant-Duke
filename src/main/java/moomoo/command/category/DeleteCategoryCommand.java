@@ -6,7 +6,7 @@ import moomoo.feature.MooMooException;
 import moomoo.feature.ScheduleList;
 import moomoo.feature.Ui;
 import moomoo.feature.category.CategoryList;
-import moomoo.feature.storage.CategoryStorage;
+import moomoo.feature.storage.ExpenditureStorage;
 import moomoo.feature.storage.Storage;
 
 public class DeleteCategoryCommand extends Command {
@@ -44,9 +44,9 @@ public class DeleteCategoryCommand extends Command {
             this.input = categoryList.get(categoryIndex).name();
         }
         try {
-            CategoryStorage.deleteFromFile(input);
+            ExpenditureStorage.deleteFromFile(input);
             categoryList.delete(categoryIndex);
-            Ui.showCategoryMessage("Category named " + input + " re-MOOO-ved. ");
+            Ui.showCategoryMessage("Category named <" + input + "> re-MOOO-ved. ");
         } catch (IndexOutOfBoundsException e) {
             throw new MooMooException("Please enter a valid category name.");
         }

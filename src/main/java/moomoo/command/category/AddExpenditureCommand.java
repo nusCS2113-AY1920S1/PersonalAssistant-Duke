@@ -11,7 +11,7 @@ import moomoo.feature.Ui;
 import moomoo.feature.category.Category;
 import moomoo.feature.category.CategoryList;
 import moomoo.feature.category.Expenditure;
-import moomoo.feature.storage.CategoryStorage;
+import moomoo.feature.storage.ExpenditureStorage;
 import moomoo.feature.storage.Storage;
 
 public class AddExpenditureCommand extends Command {
@@ -45,11 +45,11 @@ public class AddExpenditureCommand extends Command {
             throw new MooMooException("Sorry I could not find a category named " + categoryName);
         }
 
-        Expenditure newExpenditure = new Expenditure(expenditureName, amount, date);
+        Expenditure newExpenditure = new Expenditure(expenditureName, amount, date, categoryName);
         cat.add(newExpenditure);
         NotificationCommand alert = new NotificationCommand(categoryName, cat.getTotal());
         alert.execute(calendar, budget, categoryList, storage);
-        CategoryStorage.saveToFile(newExpenditure, categoryName);
+        ExpenditureStorage.saveToFile(newExpenditure.toString());
         Ui.showNewExpenditure(expenditureName, categoryName);
     }
 }

@@ -15,8 +15,8 @@ public class ExpenditureStub extends Expenditure {
      * @param cost Given cost of expenditure.
      * @param date Date and time of expenditure.
      */
-    public ExpenditureStub(String name, double cost, LocalDate date) {
-        super(name, cost, date);
+    public ExpenditureStub(String name, double cost, LocalDate date, String category) {
+        super(name, cost, date, category);
         this.name = name;
         this.cost = cost;
         this.date = date;

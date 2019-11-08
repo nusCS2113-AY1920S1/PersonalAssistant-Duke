@@ -75,7 +75,7 @@ public class Parser {
             return scanner.nextLine().trim();
         } else {
             Ui.showPrompt(text);
-            return Ui.readCommand();
+            return Ui.readCommand().trim();
         }
     }
 

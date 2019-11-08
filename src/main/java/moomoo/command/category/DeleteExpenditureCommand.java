@@ -7,7 +7,8 @@ import moomoo.feature.MooMooException;
 import moomoo.feature.ScheduleList;
 import moomoo.feature.Ui;
 import moomoo.feature.category.CategoryList;
-import moomoo.feature.storage.CategoryStorage;
+import moomoo.feature.category.Expenditure;
+import moomoo.feature.storage.ExpenditureStorage;
 import moomoo.feature.storage.Storage;
 
 public class DeleteExpenditureCommand extends Command {
@@ -31,8 +32,9 @@ public class DeleteExpenditureCommand extends Command {
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
                         Storage storage) throws MooMooException {
         try {
-            String name = categoryList.get(categoryName).get(expenditureIndex).toString();
-            CategoryStorage.deleteFromFile(categoryName);
+            Expenditure expenditure = categoryList.get(categoryName).get(expenditureIndex);
+            String name = expenditure.getName();
+            ExpenditureStorage.deleteFromFile(expenditure.toString());
             categoryList.get(categoryName).delete(expenditureIndex);
             Ui.setOutput("Expenditure named " + name + " re-MOOO-ved\n"
                 + "From category: " + categoryName);
