@@ -45,6 +45,7 @@ public class ChronologerException extends Exception {
     private static final String END_DATE_EARLIER_MSG = "OOPS!! Your end date is earlier than your start date";
     private static final String INVALID_WEEK = "OOPS!! Your week is invalid!";
     private static final String INVALID_VERSION = "OOPS!! Your version is invalid!";
+    private static final String INVALID_DURATION = "OOPS!! The duration given is invalid!";
 
 
     /**
@@ -221,6 +222,10 @@ public class ChronologerException extends Exception {
 
     public static String emptyCalendar() {
         return EMPTY_CALENDAR;
+    }
+
+    public static String invalidDuration() {
+        return INVALID_DURATION;
     }
 
     public ChronologerException(String message) {
