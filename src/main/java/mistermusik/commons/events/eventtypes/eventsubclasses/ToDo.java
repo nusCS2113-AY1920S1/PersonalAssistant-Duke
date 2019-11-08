@@ -17,6 +17,9 @@ public class ToDo extends Event {
         super(description, false, dateAndTime);
     }
 
+    /**
+     * @return String containing information for user.
+     */
     @Override
     public String toString() {
         return "[" + getDoneSymbol() + "][T] " + getDescription() + " BY: " + this.getStartDate().getFormattedDateString();

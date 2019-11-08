@@ -10,15 +10,15 @@ public class Predicate<T> {
     /**
      * compare_func codes
      */
-    static final int EQUAL = 0;
-    static final int GREATER_THAN = 1;
-    static final int SMALLER_THAN = 2;
+    private static final int EQUAL = 0;
+    private static final int GREATER_THAN = 1;
+    private static final int SMALLER_THAN = 2;
 
     /**
      * compare_type codes
      */
-    static final int JAVA_DATE = 0;
-    static final int STRING = 1;
+    private static final int JAVA_DATE = 0;
+    private static final int STRING = 1;
 
     /**
      * The item used as the reference to check if the predicate is true
@@ -109,6 +109,5 @@ public class Predicate<T> {
         }
         return false;
     }
-
 }
 

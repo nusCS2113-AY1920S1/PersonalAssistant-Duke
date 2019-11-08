@@ -16,6 +16,7 @@ import mistermusik.commons.Instruments.InstrumentList;
 import mistermusik.commons.budgeting.CostExceedsBudgetException;
 import mistermusik.commons.Goal;
 import mistermusik.ui.UI;
+
 import java.text.ParseException;
 import java.util.*;
 
@@ -37,6 +38,8 @@ public class Command {
      * Contains further specific instructions about the command passed e.g which event to add or delete
      */
     private String continuation;
+
+    private static final int NO_PERIOD = -1;
 
     /**
      * Creates a new command with the command type and specific instructions
@@ -224,6 +227,13 @@ public class Command {
 
     }
 
+    //@@author ZhangYihanNus
+
+    /**
+     * Add, view, edit or delete checklist items for an event.
+     * @param events The event list
+     * @param ui UI
+     */
     private void checklistManagement(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.checklistCommandWrongFormat();
@@ -291,6 +301,7 @@ public class Command {
         ui.printCalendar(calendarView.getStringForOutput());
     }
 
+
     /**
      * Command to edit an event in the list.
      */
@@ -307,7 +318,6 @@ public class Command {
     }
 
     //@@author Ryan-Wong-Ren-Wei
-
     /**
      * passes budget to UI for printing to output
      */
@@ -315,7 +325,6 @@ public class Command {
         if (continuation.isEmpty()) {
             ui.budgetCommandWrongFormat();
         } else if (continuation.substring(0, 3).equals("set")) { //set new budget
-            // budget set <new budget>
             try {
                 int newBudget = Integer.parseInt(continuation.substring(4));
                 events.getBudgeting().setBudget(newBudget);
@@ -354,6 +363,7 @@ public class Command {
         }
     }
 
+    //@@author ZhangYihanNus
     /**
      * Finds the next 3 free days in the schedule and passes them to UI class to be printed.
      */
@@ -380,6 +390,7 @@ public class Command {
     }
 
     //@@author yenpeichih
+
     /**
      * Searches list for events found in a singular date, passes to UI for printing.
      */
@@ -407,8 +418,6 @@ public class Command {
         if (continuation.isEmpty()) {
             ui.eventDescriptionEmpty();
         } else {
-            int NO_PERIOD = -1;
-
             try {
                 EntryForEvent entryForEvent = new EntryForEvent().invoke(); //separate all info into relevant details
                 Event newEvent = newEvent(eventType, entryForEvent); //instantiate new event
@@ -422,12 +431,15 @@ public class Command {
                     if (newEvent.getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) < 0) {
                         ui.printEnteredEventOver();
                     }
-
-                } else { //recurring
-                    events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
-                    ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
-                    if (newEvent.getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) < 0) {
-                        ui.printEnteredEventOver();
+                } else { //recurring event
+                    if (entryForEvent.getPeriod() > 0) {
+                        events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
+                        ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
+                        if (newEvent.getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) < 0) {
+                            ui.printEnteredEventOver();
+                        }
+                    } else {
+                        ui.periodNotPositive();
                     }
                 }
 
@@ -435,7 +447,8 @@ public class Command {
                 ui.scheduleClash(e.getClashEvent());
             } catch (CostExceedsBudgetException e) { //budget exceeded in attempt to add concert
                 ui.costExceedsBudget(e.getConcert(), e.getBudget());
-            } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | ParseException e) {
+            } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException
+                    | ParseException | NumberFormatException e) { //error interpreting info(wrong user input)
                 ui.newEntryFormatWrong();
             } catch (EndBeforeStartException e) { //start time is after end time
                 ui.eventEndsBeforeStart();
@@ -443,10 +456,8 @@ public class Command {
         }
     }
 
-    //@@author Ryan-Wong-Ren-Wei
-
     /**
-     * Instantiates a new event based on details passed as parameter
+     * Instantiates a new event (excludes to-do) based on details passed as parameter
      *
      * @param entryForEvent contains all necessary info for creating new event
      * @return instantiated event
@@ -478,6 +489,10 @@ public class Command {
         return newEvent;
     }
 
+    //@@author
+    /**
+     * adds a new to-do to the list of events in EventList object.
+     */
     private void addNewTodo(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.eventDescriptionEmpty();
@@ -769,23 +784,23 @@ public class Command {
     }
 
     //@@author Dng132FEI
-    
+
     private void remindEvents(EventList events, UI ui) {
-    	if (continuation.isEmpty()) {
-    		ui.printReminderDays(events, 3);
-    		return;
-    	}
-    	String instrumentCommand[] = continuation.split(" ");
-    	if (instrumentCommand.length > 1) {
-    		ui.printInvalidCommand();
-    		return;
-    	}
+        if (continuation.isEmpty()) {
+            ui.printReminderDays(events, 3);
+            return;
+        }
+        String instrumentCommand[] = continuation.split(" ");
+        if (instrumentCommand.length > 1) {
+            ui.printInvalidCommand();
+            return;
+        }
         try {
-    		int days = Integer.parseInt(instrumentCommand[0]);
-    		ui.printReminderDays(events, days);
-    	} catch (NumberFormatException e) {
-    		ui.printInvalidCommand();
-    	}
+            int days = Integer.parseInt(instrumentCommand[0]);
+            ui.printReminderDays(events, days);
+        } catch (NumberFormatException e) {
+            ui.printInvalidCommand();
+        }
     }
 
 
@@ -828,9 +843,9 @@ public class Command {
         /**
          * contains all info regarding an entry for a non-recurring event
          *
-         * @return organized entryForEvent information
+         * @return organized entryForEvent object containing information required for a new event.
          */
-        private EntryForEvent invoke() throws ParseException {
+        private EntryForEvent invoke() throws NumberFormatException, ParseException {
             int NON_RECURRING = -1;
             String[] splitEvent = continuation.split("/");
             description = splitEvent[0];

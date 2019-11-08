@@ -6,7 +6,7 @@ public class Concert extends Event {
     private int cost;
 
     /**
-     * creates new lesson class with boolean to read from file
+     * creates new concert class with boolean to read from file
      */
     public Concert(String description, boolean isDone, String startDateAndTime, String endDateAndTime, int cost) {
         super(description, isDone, startDateAndTime, endDateAndTime, 'C');
@@ -14,17 +14,23 @@ public class Concert extends Event {
     }
 
     /**
-     * creates new lesson class without boolean to read from user input (assumes incomplete)
+     * creates new concert class without boolean to read from user input (assumes incomplete)
      */
     public Concert(String description, String startDateAndTime, String endDateAndTime, int cost) {
         super(description, false, startDateAndTime, endDateAndTime, 'C');
         this.cost = cost;
     }
 
+    /**
+     * @return concert cost.
+     */
     public int getCost() {
         return this.cost;
     }
 
+    /**
+     * @return string containing info to be stored in txt file.
+     */
     @Override
     public String toStringForFile() {
         return getDoneSymbol() + getType() + "/" + getDescription() + "/" +
@@ -32,6 +38,9 @@ public class Concert extends Event {
                 this.cost;
     }
 
+    /**
+     * @return String containing info to be printed for user interaction.
+     */
     @Override
     public String toString() {
         return "[" + getDoneSymbol() + "][" + getType() + "] " +

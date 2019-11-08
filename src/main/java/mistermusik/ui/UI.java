@@ -152,6 +152,12 @@ public class UI {
         System.out.print(lineSeparation);
     }
 
+    public void periodNotPositive() {
+        System.out.print(lineSeparation);
+        System.out.println("Please ensure that the period is positive number.");
+        System.out.print(lineSeparation);
+    }
+
     /**
      * Obtains the current date and prints the events to be completed within the next
      * input number of days as a reminder.
