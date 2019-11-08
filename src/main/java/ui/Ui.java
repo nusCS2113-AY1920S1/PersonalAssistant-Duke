@@ -489,6 +489,8 @@ public class Ui {
         System.out.println("\t" + "Add Fund:             " + commandFormat.addFundFormat());
         System.out.println("\t" + "Assign Fund:          " + commandFormat.assignFundFormat());
         System.out.println("\t" + "Reset Fund:           " + commandFormat.resetFundFormat());
+        System.out.println("\t" + "Show Fund:            " + commandFormat.showFundFormat());
+        System.out.println("\t" + "Show Budget:          " + commandFormat.showBudgetFormat());
         System.out.println("\t" + "Add Payee:            " + commandFormat.addPayeeFormat());
         System.out.println("\t" + "Add Payment:          " + commandFormat.addPaymentFormat());
         System.out.println("\t" + "Delete Payee:         " + commandFormat.deletePayeeFormat());

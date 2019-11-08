@@ -134,7 +134,7 @@ public class Process {
      * @param input Input from the user.
      * @param ui    Ui that interacts with the user.
      */
-    public void deleteProject(String input, Ui ui, Storage storage) throws AlphaNUSException {
+    public void deleteProject(String input, Ui ui, Storage storage, Fund fund) throws AlphaNUSException {
         BeforeAfterCommand.beforedoCommand(storage, projectmanager);
         String[] split = input.split("pr/", 2);
         split = cleanStrStr(split);
@@ -155,7 +155,8 @@ public class Process {
             System.out.println("\t" + "Project does not exist!");
             return;
         } //TODO refactor
-
+        double budget = projectmanager.projectmap.get(projectname).budget;
+        fund.addFund(budget);//TODO change according to new budget class.
         Project deletedProject = projectmanager.deleteProject(projectname);
         int projectsize = projectmanager.projectmap.size();
         ui.printDeleteProject(deletedProject, projectsize);
@@ -264,7 +265,7 @@ public class Process {
      * @param ui    Ui that interacts with the user.
      * @param fund  the total fund the that the organisation owns
      */
-    public void assignFund(String input, Ui ui, Fund fund) {
+    public void assignFund(String input, Ui ui, Fund fund) {//TODO REDUCE BUDGET
         try {
             String[] split = input.split("pr/| am/");
             String projectname = split[1];
@@ -647,6 +648,15 @@ public class Process {
         String[] arr = input.split("payment ", 2);
         String[] split = arr[1].split("p/|i/");
         split = cleanStrStr(split);
+        String payeename = split[1];
+        String itemname = split[2];
+        Payee payee = managermap.get(payeename);
+        for (Payments p: payee.payments){
+            if (p.getItem() == itemname) {
+               projectmanager.currentProject.addBudget( p.getCost() );
+               break;
+            }
+        }
         Payments deleted = PaymentManager.deletePayments(split[1], split[2], managermap, currentProjectName);
         ui.printDeletePaymentMessage(deleted, managermap.get(split[1]).payments.size(), currentProjectName);
         BeforeAfterCommand.afterCommand(storage, projectmanager);
@@ -669,6 +679,17 @@ public class Process {
             String payee = splitpayments[1];
             String item = splitpayments[2];
             double cost = Double.parseDouble(splitpayments[3]);
+
+            if (cost < 0) {
+                ui.exceptionMessage("     ☹ OOPS!!! The cost should be a positive number.");
+            }
+            if (cost > projectmanager.currentProject.getRemaining()) {
+                ui.exceptionMessage("     ☹ OOPS!!! There is not enough budget left.\n"
+                        + " Total budget: " + projectmanager.currentProject.getBudget() + "\n"
+                        + " Budget spent: " + projectmanager.currentProject.getSpending() + "\n"
+                        + " Budget remaining: " + projectmanager.currentProject.getRemaining() + "\n");
+            }
+            projectmanager.currentProject.addPayment(cost);
             String invoice = splitpayments[4];
             Payments payment = PaymentManager.addPayments(payee, item, cost, invoice, managermap, currentProjectName);
             int paymentsSize = managermap.get(payee).payments.size();
@@ -733,6 +754,12 @@ public class Process {
             int payeesize = managermap.size();
             ui.printdeletePayeeMessage(splitpayments[1], payee, payeesize, currentProjectName);
             BeforeAfterCommand.afterCommand(storage, projectmanager);
+
+            double totalspending = 0;
+            for(Payments p:payee.payments) {
+                totalspending += p.getCost();
+            }
+            projectmanager.currentProject.addBudget(totalspending);//the total spending paid by a payee is released as budget
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException | AlphaNUSException e) {
@@ -824,7 +851,22 @@ public class Process {
         }
     }
 
-
+    /**
+     *
+     * Input Format: show budget pr/PROJECT_NAME
+     * @param input
+     * @param ui
+     */
+    public void showBudget(String input, Ui ui) {
+        String[] split = input.split("pr/ ");
+        String projectname = split[1];
+        projectmanager.gotoProject(projectname);
+        Project p = projectmanager.currentProject;
+        System.out.println("\t The budget for this project is as follows:");
+        System.out.println("\t Total budget: " + p.getBudget());
+        System.out.println("\t Spent budget: " + p.getSpending());
+        System.out.println("\t Remaining budget: " +p.getRemaining());
+    }
     //===========================* Command History *================================
 
     /**

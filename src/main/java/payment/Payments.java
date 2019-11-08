@@ -45,6 +45,22 @@ public class Payments implements Comparable<Payments>{
     }
 
     /**
+     * return the cost of the payment
+     * @return The cost of the payment
+     */
+    public Double getCost(){
+        return this.cost;
+    }
+
+    /**
+     * return the cost of the payment
+     * @return The cost of the payment
+     */
+    public String getItem(){
+        return this.item;
+    }
+
+    /**
      * return the status of the payment
      * @return The current status of the payment
      */

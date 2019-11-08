@@ -54,6 +54,14 @@ public class CommandFormat {
         return "reminder";
     }
 
+    public String showFundFormat() {
+        return "show fund";
+    }
+
+    public String showBudgetFormat() {
+        return "show budget pr/PROJECT_NAME";
+    }
+
     public String historyFormat() {
         return "history";
     }

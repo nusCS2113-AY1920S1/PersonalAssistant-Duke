@@ -60,7 +60,7 @@ public class Parser {
                 process.commandHistory(input, ui, storage);
                 process.addProject(input, ui, fund, storage);
             } else if (instr.isDeleteProject(input)) {
-                process.deleteProject(input, ui, storage);
+                process.deleteProject(input, ui, storage, fund);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isGoToProject(input)) {
                 process.goToProject(input, ui);
@@ -146,6 +146,9 @@ public class Parser {
                 process.commandHistory(input, ui, storage);
             } else if (instr.isResetFund(input)) {
                 process.resetFund(input, ui, fund);
+                process.commandHistory(input, ui, storage);
+            } else if (instr.isShowBudget(input)) {
+                process.showBudget(input, ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isHelp(input)) {
                 ui.printHelpMessage();
