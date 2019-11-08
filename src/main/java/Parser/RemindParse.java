@@ -16,7 +16,6 @@ import java.util.logging.Logger;
  * This class parses the full command that calls for RemindParse.
  */
 public class RemindParse extends Parse {
-    private static final String NO_FIELD = "void";
     private static final Integer LENGTH_OF_SET = 4;
     private static final Integer LENGTH_OF_RM = 3;
     private static final Integer LENGTH_OF_SPACE = 1;
@@ -44,7 +43,7 @@ public class RemindParse extends Parse {
         try {
             if (fullCommand.contains(DukeConstants.REMIND_CHECK_KEYWORD)) {
                 Date dummyDate = new Date();
-                return new RemindCommand(new Deadline(NO_FIELD, NO_FIELD, NO_FIELD), dummyDate, false);
+                return new RemindCommand(new Deadline(DukeConstants.NO_FIELD, DukeConstants.NO_FIELD, DukeConstants.NO_FIELD), dummyDate, false);
             }
             boolean isRemind = false;
             String description;

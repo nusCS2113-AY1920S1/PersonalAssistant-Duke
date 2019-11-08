@@ -35,7 +35,7 @@ public class RetrievePreviousCommand extends Command {
             char checkSpace = fullCommand.charAt(0);
             if (checkSpace != ' ') {
                 throw new DukeInvalidCommandException("There should be a space between the command retrieve/previous"
-                + " and <x>, where x is an integer");
+                        + " and <x>, where x is an integer");
             }
         }
 
@@ -60,7 +60,8 @@ public class RetrievePreviousCommand extends Command {
         } catch (NumberFormatException e) {
             LOGGER.severe("Unable to parse string to integer");
             isNumber = false;
-            throw new DukeInvalidCommandException("Unable to parse string. retrieve/previous <x>, where x must be an integer and not string.");
+            throw new DukeInvalidCommandException("Unable to parse string. retrieve/previous <x>, where "
+                     + "x must be an integer and not string.");
         }
 
         if (isNumber) {

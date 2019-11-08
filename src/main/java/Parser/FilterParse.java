@@ -2,6 +2,7 @@ package Parser;
 
 import Commands.Command;
 import Commands.FilterCommand;
+import Commons.DukeConstants;
 import Commons.DukeLogger;
 import DukeExceptions.DukeInvalidCommandException;
 import DukeExceptions.DukeInvalidFormatException;
@@ -29,9 +30,9 @@ public class FilterParse extends Parse{
      */
     @Override
     public Command parse() throws DukeInvalidFormatException, DukeInvalidCommandException {
-        if(fullCommand.trim().startsWith("show/filter")){
+        if(fullCommand.trim().startsWith(DukeConstants.SHOW_FILTER_HEADER)){
            try {
-               String keyword = fullCommand.trim().substring(11);
+               String keyword = fullCommand.trim().replaceFirst(DukeConstants.SHOW_FILTER_HEADER, "");
                if(keyword.trim().equals("")){
                    throw new DukeInvalidFormatException(" OOPS!!! Please enter filter command as follows\n" +
                            "show/filter keyword\n");
