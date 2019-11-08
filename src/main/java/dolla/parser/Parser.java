@@ -32,6 +32,8 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     protected String type;
     protected double amount;
     protected static String[] inputArray;
+    protected String duration;
+
     protected String commandToRun;
     protected int modifyRecordNum;
 
@@ -301,12 +303,12 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      */
     public boolean verifyPartialModifyCommand() {
 
-        boolean hasComponents = false;
         //ArrayList<String> errorList = new ArrayList<String>();
         type = null;
         amount = -1;
         description = null;
         date = null;
+        duration = null;
 
         try {
             modifyRecordNum = Integer.parseInt(inputArray[1]);
@@ -315,27 +317,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             return false;
         }
 
-        switch (mode) {
-        case MODE_ENTRY:
-            hasComponents = findEntryComponents();
-            break;
-        case MODE_LIMIT:
-            // TODO
-            Ui.printUpcomingFeature();
-            return false;
-            //break;
-        case MODE_DEBT:
-            // TODO
-            Ui.printUpcomingFeature();
-            return false;
-            //break;
-        case MODE_SHORTCUT:
-            // TODO
-            break;
-        default:
-            break;
-        }
-
+        boolean hasComponents = findComponents();
 
         if (!hasComponents) {
             ModifyUi.printInvalidPartialModifyFormatError();
@@ -347,37 +329,32 @@ public abstract class Parser implements ParserStringList, ModeStringList {
 
     /**
      * Returns true if the input contains a component to be edited in the current mode,
-     * demarcated with strings like "/type".
+     * demarcated with strings like "/type", and the entered data is valid.
      * Also designates the correct information to the relevant variables.
-     * @return true if the input contains a component to be edited in the current mode.
+     * @return true if the input contains a component to be edited in the current mode, and is followed
+     *         by valid data relevant to the component.
      */
-    private boolean findEntryComponents() {
-        boolean hasComponents = false;
+    private boolean findComponents() {
+        boolean hasComponents;
+        hasComponents = false;
         for (int i = 0; i < inputArray.length; i += 1) {
             String currStr = inputArray[i];
 
             if (isComponent(currStr)) {
                 try {
                     String nextStr = inputArray[i + 1];
-                    switch (currStr) {
-                    case COMPONENT_TYPE:
-                        type = verifyAddType(nextStr);
+
+                    switch (mode) {
+                    case MODE_ENTRY:
+                        verifyEntryComponents(currStr, nextStr, i);
                         break;
-                    case COMPONENT_AMOUNT:
-                        amount = stringToDouble(nextStr);
-                        break;
-                    case COMPONENT_DESC:
-                        description = parseDesc(i + 1);
-                        break;
-                    case COMPONENT_DATE:
-                        date = Time.readDate(nextStr);
-                        break;
-                    case COMPONENT_TAG:
-                        //TODO
+                    case MODE_LIMIT:
+                        verifyLimitComponents(currStr, nextStr);
                         break;
                     default:
                         break;
                     }
+
                 } catch (ArrayIndexOutOfBoundsException e) {
                     ModifyUi.printMissingComponentInfoError(currStr);
                     return false;
@@ -387,10 +364,85 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                 } catch (Exception e) {
                     return false;
                 }
+
                 hasComponents = true;
             }
         }
         return hasComponents;
+    }
+
+    /**
+     * Checks if the string from input (currStr) represents a component of limit. If so, verify and assign
+     * the components of limit with the new data (nextStr).
+     * @param currStr to be checked if it's a component (ie. /type).
+     * @param nextStr the new data to be used for the specified component.
+     * @throws Exception when the nextStr is not a valid input for component from currStr.
+     */
+    private void verifyLimitComponents(String currStr, String nextStr) throws Exception {
+        try {
+            switch (currStr) {
+            case COMPONENT_TYPE:
+                if (verifyLimitType(nextStr)) {
+                    type = nextStr;
+                } else {
+                    throw new DollaException("invalid type");
+                }
+                break;
+            case COMPONENT_AMOUNT:
+                amount = stringToDouble(nextStr);
+                if (verifyLimitAmount(stringToDouble(nextStr))) {
+                    amount = stringToDouble(nextStr);
+                } else {
+                    throw new DollaException("invalid amount");
+                }
+                break;
+            case COMPONENT_DURATION:
+                if (verifyLimitDuration(nextStr)) {
+                    duration = nextStr;
+                } else {
+                    throw new DollaException("invalid duration");
+                }
+                break;
+            default:
+                break;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    /**
+     * Checks if the string from input (currStr) represents a component of entry. If so, verify and assign
+     * the components of entry with the new data (nextStr).
+     * @param currStr to be checked if it's a component (ie. /type).
+     * @param nextStr the new data to be used for the specified component.
+     * @param index the index of currStr in the input array.
+     * @throws Exception when the nextStr is not a valid input for component from currStr.
+     */
+    private void verifyEntryComponents(String currStr, String nextStr, int index) throws Exception {
+        try {
+            switch (currStr) {
+            case COMPONENT_TYPE:
+                type = verifyAddType(nextStr);
+                break;
+            case COMPONENT_AMOUNT:
+                amount = stringToDouble(nextStr);
+                break;
+            case COMPONENT_DESC:
+                description = parseDesc(index + 1);
+                break;
+            case COMPONENT_DATE:
+                date = Time.readDate(nextStr);
+                break;
+            case COMPONENT_TAG:
+                //TODO
+                break;
+            default:
+                break;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     /**
@@ -412,12 +464,18 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                 break;
             }
             break;
-        /*
         case MODE_LIMIT:
             switch (s) {
-                // TODO
+            case COMPONENT_TYPE:
+            case COMPONENT_AMOUNT:
+            case COMPONENT_DURATION:
+            case COMPONENT_TAG:
+                return true;
+            default:
+                break;
             }
             break;
+        /*
         case MODE_DEBT:
             switch (s) {
                 // TODO

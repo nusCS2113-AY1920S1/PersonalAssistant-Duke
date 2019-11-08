@@ -10,6 +10,7 @@ import dolla.command.SearchCommand;
 import dolla.command.SortCommand;
 import dolla.command.ActionCommand;
 
+import dolla.command.modify.PartialModifyLimitCommand;
 import dolla.ui.LimitUi;
 import dolla.ui.SearchUi;
 
@@ -44,8 +45,7 @@ public class LimitParser extends Parser {
             if (verifyFullModifyCommand()) {
                 return new InitialModifyCommand(inputArray[1]);
             } else if (verifyPartialModifyCommand()) {
-                // TODO:
-                return new ErrorCommand();
+                return new PartialModifyLimitCommand(modifyRecordNum, type, amount, duration);
             } else {
                 return new ErrorCommand();
             }

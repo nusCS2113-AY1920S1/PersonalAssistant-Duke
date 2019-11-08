@@ -19,7 +19,7 @@ public class PartialModifyEntryCommand extends Command {
     private static final String MODE_ENTRY = "entry";
 
     /**
-     *  Instantiates a new FullModifyDebtCommand.
+     * Instantiates a new PartialModifyEntryCommand.
      * @param recordNum number of entry in list to modify.
      * @param type type of entry.
      * @param amount of money.
