@@ -33,7 +33,6 @@ public class SearchThenAddCommand extends ModuleCommand {
         switch (arg("toAdd")) {
             case ("cca"): {
                 Cca cca = new Cca(arg("name"), arg("begin"), arg("end"), arg("dayOfWeek"));
-                System.out.println(cca);
                 if (profile.getCcas().clashes(cca)) {
                     throw new ModCcaScheduleException();
                 }
