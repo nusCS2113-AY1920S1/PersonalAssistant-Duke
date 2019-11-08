@@ -2,6 +2,8 @@ package executor.command;
 
 import interpreter.Parser;
 import storage.StorageManager;
+import ui.UiCode;
+
 import java.time.Year;
 
 public class CommandGetSpendingByYear extends Command {
@@ -48,7 +50,7 @@ public class CommandGetSpendingByYear extends Command {
                 return;
             }
             Double totalMoney = storageManager.getReceiptsByYear(year).getTotalCashSpent();
-            this.infoCapsule.setCodeToast();
+            this.infoCapsule.setUiCode(UiCode.CLI);
             this.infoCapsule.setOutputStr("The total amount of money spent in " + year + " : $" + totalMoney + "\n");
 
         } catch (Exception e) {
