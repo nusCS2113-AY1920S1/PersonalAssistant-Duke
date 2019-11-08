@@ -44,46 +44,26 @@ public class RecurringCommand extends Command {
         this.isRecur = isRecur;
     }
 
+    /**
+     * This method gets the date of 7 days later.
+     * @param inDate date
+     * @return date of 7 days later
+     */
     private Date getNextWeekDate(Date inDate) {
         Date nextWeek = new Date(inDate.getTime() + 7 * 24 * 60 * 60 * 1000);
         return nextWeek;
     }
 
+    /**
+     * This method gets the date of 14 days later
+     * @param inDate date
+     * @return date of 14 days later
+     */
     private Date getFollowingWeekDate(Date inDate) {
         Date followingWeek = new Date(inDate.getTime() + 14 * 24 * 60 * 60 * 1000);
         return followingWeek;
     }
 
-    private boolean isInsideMapRemove(HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap, Assignment task) throws DukeException {
-        String modCode = task.getModCode();
-        String dateOfTask = task.getDate();
-        if (!eventMap.containsKey(modCode)) {
-            throw new DukeException("Sorry, you have no such recurring mod task to be removed");
-        } else if (!eventMap.get(modCode).containsKey(dateOfTask)) {
-            throw new DukeException("Sorry, you have no such date of the recurring task to be removed");
-        } else {
-            for (Assignment taskInList : eventMap.get(modCode).get(dateOfTask)) {
-                if (taskInList.getDateTime().equals(task.getDateTime())) {
-                    if (!taskInList.getDescription().equals(task.getDescription())) {
-                        throw new DukeException("Sorry, the description of your recurring task mismatches");
-                    } else {
-                        return true;
-                    }
-                }
-            }
-            throw new DukeException("Sorry, you have no timing of the mod task to be removed");
-        }
-    }
-
-    private boolean isInsideMapAdd(HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap, Assignment task) throws DukeException {
-        String modCode = task.getModCode();
-        String dateOfTask = task.getDate();
-        if (eventMap.containsKey(modCode) && eventMap.get(modCode).containsKey(dateOfTask)) {
-            throw new DukeException("Sorry, you have similar event at the same time on the same day");
-        } else {
-            return true;
-        }
-    }
 
     @Override
     public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws Exception {
@@ -118,7 +98,7 @@ public class RecurringCommand extends Command {
         } else if (isBiweekly) {
             do {
                 Assignment task = new Event(description, startDateString, startTimeString, endTimeString);
-                isInsideMapRemove(eventMap, task);
+                isInsideMap(eventMap, task);
                 temp.add(task);
                 startOfFollowingWeek = getFollowingWeekDate(startDate);
                 startDateString = dateFormat.format(startOfFollowingWeek);
@@ -127,7 +107,7 @@ public class RecurringCommand extends Command {
         } else {
             do {
                 Assignment task = new Event(description, startDateString, startTimeString, endTimeString);
-                isInsideMapRemove(eventMap, task);
+                isInsideMap(eventMap, task);
                 temp.add(task);
                 startOfNextWeek = getNextWeekDate(startDate);
                 startDateString = dateFormat.format(startOfNextWeek);

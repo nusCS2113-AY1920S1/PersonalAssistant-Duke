@@ -2,14 +2,16 @@ package Commands;
 
 import Commons.Storage;
 import Commons.UserInteraction;
+import DukeExceptions.DukeException;
 import Tasks.Assignment;
 import Tasks.TaskList;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 /**
  * Abstract class Command with methods representing all the Command subclasses to be
@@ -18,16 +20,56 @@ import java.util.HashMap;
 public abstract class Command {
     public abstract String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws Exception;
 
-    public  ArrayList<String> checkEventConflict(TaskList taskList, Assignment taskToAdd) throws ParseException {
+    /**
+     * This method checks if task already exist.
+     * @param map Map of events or deadlines
+     * @param task task to be taken action
+     * @throws DukeException on wrong input
+     */
+    public void isInsideMap(HashMap<String, HashMap<String, ArrayList<Assignment>>> map, Assignment task) throws DukeException {
+        String modCode = task.getModCode();
+        String dateOfTask = task.getDate();
+        if (!map.containsKey(modCode)) {
+            throw new DukeException("Sorry, you have no such mod in the system");
+        } else if (!map.get(modCode).containsKey(dateOfTask)) {
+            throw new DukeException("Sorry, you have no such date of the mod in the system");
+        } else {
+            for (Assignment taskInList : map.get(modCode).get(dateOfTask)) {
+                if (taskInList.getDateTime().equals(task.getDateTime())) {
+                    if (!taskInList.getDescription().equals(task.getDescription())) {
+                        throw new DukeException("Sorry, the description of your task mismatches");
+                    } else {
+                        return;
+                    }
+                }
+            }
+            throw new DukeException("Sorry, you have no timing of the task in the system");
+        }
+    }
+
+    public void isInsideMapAdd(HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap, Assignment task) throws DukeException {
+        String modCode = task.getModCode();
+        String dateOfTask = task.getDate();
+        if (eventMap.containsKey(modCode) && eventMap.get(modCode).containsKey(dateOfTask)) {
+            throw new DukeException("Sorry, you have similar event at the same time on the same day");
+        } else {
+            return;
+        }
+    }
+
+
+
+    public  ArrayList<String> checkEventConflict(TaskList taskList, Assignment t) throws ParseException {
         ArrayList<String> conflict = new ArrayList<>();
-        Date startTime1 = new SimpleDateFormat("hh:mm a").parse(taskToAdd.getStartTime());
-        Date endTime1 = new SimpleDateFormat("hh:mm a").parse(taskToAdd.getEndTime());
+        Date startTime1 = new SimpleDateFormat("hh:mm a").parse(t.getStartTime());
+        Date endTime1 = new SimpleDateFormat("hh:mm a").parse(t.getEndTime());
         HashMap<String, HashMap<String, ArrayList<Assignment>>> mapObtained = taskList.getMap();
 
         for (String modCode : mapObtained.keySet()) {
             for (String date : mapObtained.get(modCode).keySet()) {
                 for (Assignment task : mapObtained.get(modCode).get(date)) {
-                    if (date.equals(taskToAdd.getDate())) {
+
+                    if (date.equals(t.getDate())) {
                         Date taskStartTime = new SimpleDateFormat("hh:mm a").parse(task.getStartTime());
                         Date taskEndTime = new SimpleDateFormat("hh:mm a").parse(task.getEndTime());
                         //start time is the same
