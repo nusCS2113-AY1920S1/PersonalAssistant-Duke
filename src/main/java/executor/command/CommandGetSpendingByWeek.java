@@ -68,7 +68,7 @@ public class CommandGetSpendingByWeek extends Command {
      * @param day is the string input of the current day of the week
      * @return is the number value of the day of the week
      */
-    public int dayStrToInt(String day) {
+    public static int dayStrToInt(String day) {
         switch (day) {
         case "monday":
             return 1;
