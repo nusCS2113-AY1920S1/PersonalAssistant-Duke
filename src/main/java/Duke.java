@@ -1,9 +1,13 @@
-import controlpanel.*;
+import controlpanel.MoneyStorage;
+import controlpanel.Parser;
+import controlpanel.Ui;
+import controlpanel.DukeException;
+import controlpanel.UndoCommandHandler;
+
 import money.Account;
 import moneycommands.AutoUpdateInstalmentCommand;
 import moneycommands.MoneyCommand;
 import moneycommands.UndoCommand;
-
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,7 +16,7 @@ import java.text.ParseException;
 /**
  * The main class which controls the overall flow, run the program.
  */
-public class Duke{
+public class Duke {
 
     private Ui ui;
     private MoneyStorage moneyStorage;
@@ -77,6 +81,7 @@ public class Duke{
     public Account getAccount() {
         return account;
     }
+
     public Ui getUi() {
         return ui;
     }

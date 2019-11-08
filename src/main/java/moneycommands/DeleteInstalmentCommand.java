@@ -22,7 +22,7 @@ public class DeleteInstalmentCommand extends MoneyCommand {
      * with the index of the item to be deleted within the user input
      * @param command delete command inputted from user
      */
-    public DeleteInstalmentCommand(String command) throws DukeException{
+    public DeleteInstalmentCommand(String command) throws DukeException {
         try {
             inputString = command;
             String temp = inputString.replaceAll("delete instalment ", "");
