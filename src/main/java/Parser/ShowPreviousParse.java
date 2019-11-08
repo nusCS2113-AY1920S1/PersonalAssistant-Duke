@@ -2,9 +2,9 @@ package Parser;
 
 import Commands.Command;
 import Commands.ShowPreviousCommand;
+import Commons.DukeConstants;
 import Commons.DukeLogger;
 import DukeExceptions.DukeInvalidFormatException;
-
 import java.util.logging.Logger;
 
 /**
@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  */
 public class ShowPreviousParse extends Parse{
     private final Logger LOGGER = DukeLogger.getLogger(ShowPreviousParse.class);
-    private final Integer TOTALNUMOFCOMMANDS = 15;
+    private final Integer TOTAL_NUM_OF_COMMANDS = 22;
     private String fullCommand;
 
     public ShowPreviousParse(String fullCommand) {
@@ -42,16 +42,20 @@ public class ShowPreviousParse extends Parse{
             isNumber = false;
         }
 
-        String[] listOfAllCommands = { "add/d","add/e", "delete/d", "delete/e", "recur/weekly",
-                "recur/biweekly", "recur/rmweekly", "recur/rmbiweekly", "remind/set",
-                "remind/rm", "remind/check", "/show", "filter", "help", "list", "done", "find",
-                "show/previous", "retrieve/ft", "retrieve/previous", "Week" };
+        String[] listOfAllCommands = {DukeConstants.ADD_DEADLINE_HEADER, DukeConstants.ADD_EVENT_HEADER,
+                DukeConstants.DELETE_DEADLINE_HEADER, DukeConstants.DELETE_EVENT_HEADER, DukeConstants.RECUR_WEEKLY_HEADER,
+                DukeConstants.RECUR_BIWEEKLY_HEADER, DukeConstants.REMOVE_RECUR_WEEKLY_HEADER, DukeConstants.REMOVE_RECUR_BIWEEKLY_HEADER,
+                DukeConstants.REMIND_SET_HEADER, DukeConstants.REMIND_CHECK_HEADER, DukeConstants.REMOVE_REMIND_HEADER,
+                DukeConstants.SHOW_WEEK_HEADER, DukeConstants.SHOW_FILTER_HEADER, DukeConstants.HELP_HEADER,
+                DukeConstants.DONE_EVENT_HEADER, DukeConstants.DONE_DEADLINE_HEADER, DukeConstants.FIND_TIME_HEADER,
+                DukeConstants.SHOW_PREVIOUS_HEADER, DukeConstants.RETRIEVE_PREVIOUS_HEADER,
+                DukeConstants.RETRIEVE_TIME_HEADER, DukeConstants.SHOW_WORKLOAD_HEADER, DukeConstants.BYE_HEADER,};
       
         boolean isValid = false;
         if (isNumber && number < 0) {
-            throw new DukeInvalidFormatException("Invalid Input. Cannot enter negative number");
+            throw new DukeInvalidFormatException("Invalid Input. Cannot enter negative number. Please enter a valid integer greater than 0");
         } else if (!isNumber) {
-            for (int i = 0; i < TOTALNUMOFCOMMANDS; i++) {
+            for (int i = 0; i < TOTAL_NUM_OF_COMMANDS; i++) {
                 String currCommand = listOfAllCommands[i];
                 if (entireCommand.equals(currCommand)) {
                     isValid = true;
@@ -61,6 +65,8 @@ public class ShowPreviousParse extends Parse{
             if (isValid == false) {
                 throw new DukeInvalidFormatException("Invalid Input. There is no such command type in previous input");
             }
+        } else if (number == 0) {
+            throw new DukeInvalidFormatException("Please enter a valid integer greater than 0");
         }
         return new ShowPreviousCommand(entireCommand);
     }
