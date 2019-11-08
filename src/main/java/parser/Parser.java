@@ -28,12 +28,13 @@ public class Parser {
     public static int windowWidth = 80;
     public static String acceptedExtensions = "txt|csv";
     public static String moduleFormat = "[A-Z]{2,3}[1-9]([0-9]{3}|X{3})[A-Z]{0,1}";
-    public static final Map<String, Integer> userPriorityMap;
+    public static final Map<String, String> userPriorityMap;
     static {
-        Map<String, Integer> aMap = new HashMap<>();
-        aMap.put("high", 0);
-        aMap.put("medium", 1);
-        aMap.put("low", 2);
+        Map<String, String> aMap = new HashMap<>();
+        aMap.put("very high", "Very High");
+        aMap.put("high", "High");
+        aMap.put("normal", "Normal");
+        aMap.put("low", "Low");
         userPriorityMap = Collections.unmodifiableMap(aMap);
     }
     Parser() {

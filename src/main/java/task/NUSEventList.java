@@ -15,7 +15,7 @@ import java.util.*;
  * It adds all relevant tasks related to a particular degree, and puts them into the user's tasklist
  * it removes all tasks from the user's tasklist related to a removed degree
  */
-public class NUSEvents {
+public class NUSEventList {
     public static ArrayList<TaskList> fullDegreeTasklist = new ArrayList<TaskList>();
 
     // this map relates all the engineering programmes with an arbitrary integer
@@ -56,7 +56,7 @@ public class NUSEvents {
      * builds an arraylist of Taskslists, each with tasks related to one degree programme
      * @throws DukeException
      */
-    public void loadDegreeTasks(List<String> taskDataRaw) throws DukeException {
+    public void loadEventLists(List<String> taskDataRaw) throws DukeException {
         if(taskDataRaw == null)
             throw new DukeException("degreeTasks.txt file not found");
         String toTasklist = "";
