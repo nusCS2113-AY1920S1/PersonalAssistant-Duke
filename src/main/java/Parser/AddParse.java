@@ -48,8 +48,7 @@ public class AddParse extends Parse {
                     throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
                 }
                 if(!super.isValidDescription(modCodeAndDescriptionSplit)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
-                if(!super.isValidTime(modCodeAndDescription[1])) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The time of a deadline can only contain digits and the time has to be 4 digits.\n" +
-                        "Please enter the time in a 24-hour time format");
+                if(!super.isValidTime(modCodeAndDescription[1])) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The time of a deadline can only contain digits and the time has to be 4 digits \nand in a 24-hour time format");
                 String[] out = DateTimeParser.DeadlineParse(modCodeAndDescription[1].trim());
                 return new AddCommand(new Deadline(modCodeAndDescription[0].trim(), out[0], out[1]));
             } catch (ParseException | ArrayIndexOutOfBoundsException e) {
@@ -69,6 +68,7 @@ public class AddParse extends Parse {
                 }
                 if(!super.isValidDescription(modCodeAndDescriptionSplit)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of an event cannot be empty.");
                 if(!super.isValidTimePeriod(modCodeAndDescription[1])) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The time of an event can only contain digits and the time has to be 4 digits.\n" +
+                        "and the start time has to be before the end." +
                         "Please enter the time in a 24-hour time format");
                 String[] out = DateTimeParser.EventParse(modCodeAndDescription[1].trim());
                 return new AddCommand(new Event(modCodeAndDescription[0].trim(),out[0],out[1],out[2]));
