@@ -169,6 +169,7 @@ public class ProjectInputController implements IController {
         return new String[] {selectedMember.getDetails()};
     }
 
+    //@@author iamabhishek98
     /**
      * Adds a member to the current project.
      * @param projectToManage The project specified by the user.
@@ -201,6 +202,7 @@ public class ProjectInputController implements IController {
         }
     }
 
+    //@@author iamabhishek98
     /**
      * Updates the details of a given member in the current project.
      * @param projectToManage The project specified by the user.
@@ -225,6 +227,7 @@ public class ProjectInputController implements IController {
         }
     }
 
+    //@@author iamabhishek98
     /**
      * Deletes a member from the current project.
      * @param projectToManage The project specified by the user.
@@ -258,6 +261,7 @@ public class ProjectInputController implements IController {
         return outputMessages.toArray(new String[0]);
     }
 
+    //@@author iamabhishek98
     /**
      * Displays all the members in the current project.
      * Can be updated later on to include more information (tasks etc).
@@ -274,6 +278,7 @@ public class ProjectInputController implements IController {
         return viewHelper.consolePrintTable(tablesToPrint, DEFAULT_HORI_BORDER_LENGTH);
     }
 
+    //@@author iamabhishek98
     /**
      * Displays the members’ credits, their index number, name, and name of tasks completed.
      * @param projectToManage The project specified by the user.
@@ -285,7 +290,7 @@ public class ProjectInputController implements IController {
         if (allCredits.isEmpty()) {
             allCredits.add(0, "There are no members in this project.");
         } else {
-            allCredits.add(0, "Here are all the member credits: ");
+            allCredits.add(0, "Here are the credits earned by the members of this project: ");
         }
         return allCredits.toArray(new String[0]);
     }
@@ -355,6 +360,7 @@ public class ProjectInputController implements IController {
         }
     }
 
+    //@@author iamabhishek98
     /**
      * Deletes a task from the project.
      * @param projectToManage The project specified by the user.
@@ -446,6 +452,7 @@ public class ProjectInputController implements IController {
         }
     }
 
+    //@@author iamabhishek98
     /**
      * Displays all the tasks in the given project.
      * @param projectToManage The project specified by the user.

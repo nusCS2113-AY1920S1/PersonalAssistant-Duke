@@ -1,9 +1,10 @@
 package models.task;
 
+import util.date.DateTimeHelper;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
-import util.date.DateTimeHelper;
 
 public class Task implements ITask {
     private String taskName;

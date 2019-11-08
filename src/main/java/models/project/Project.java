@@ -8,6 +8,7 @@ import models.reminder.ReminderList;
 import models.task.ITask;
 import models.task.Task;
 import models.task.TaskList;
+import models.task.TaskState;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,17 +59,20 @@ public class Project implements IProject {
         return this.taskList.getTaskList().size();
     }
 
+    //@@author iamabhishek98
     @Override
     public void addMember(Member newMember) {
         this.memberList.addMember(newMember);
         this.memberAndIndividualListOfTasks.put(newMember, new ArrayList<>());
     }
 
+    //@@author iamabhishek98
     @Override
     public String editMember(int memberIndexNumber, String updatedMemberDetails) {
         return this.memberList.editMember(memberIndexNumber, updatedMemberDetails);
     }
 
+    //@@author iamabhishek98
     @Override
     public void removeMember(Member memberToBeRemoved) {
         for (Task task : this.taskAndListOfMembersAssigned.keySet()) {
@@ -84,6 +88,7 @@ public class Project implements IProject {
         this.taskAndListOfMembersAssigned.put(newTask, new ArrayList<>());
     }
 
+    //@@author iamabhishek98
     @Override
     public void removeTask(int taskIndexNumber) {
         Task taskToRemove = this.getTask(taskIndexNumber);
@@ -104,6 +109,7 @@ public class Project implements IProject {
         return this.taskList.getTask(taskIndex);
     }
 
+    //@@author iamabhishek98
     @Override
     public String[] editTask(int taskIndexNumber, String updatedTaskDetails) {
         return this.taskList.editTask(taskIndexNumber, updatedTaskDetails);
@@ -114,22 +120,45 @@ public class Project implements IProject {
         return this.taskList.editTaskRequirements(taskIndexNumber, updatedTaskRequirements);
     }
 
+    //@@author iamabhishek98
     /**
      * Returns the member names with the credits of their assigned tasks.
      * @return The member names with the credits of their assigned tasks.
      */
     @Override
     public ArrayList<String> getCredits() {
+        /*
+        *
+        *       THIS METHOD IS TO BE REFACTORED
+        *
+         */
         ArrayList<String> allMemberCredits = new ArrayList<>();
         ArrayList<Member> allMembers = this.getMembers().getMemberList();
         HashMap<Member, ArrayList<Task>> assignedMembers = this.getMembersIndividualTaskList();
         int count = 1;
         for (Member member : allMembers) {
-            int credits = 0;
+            int totalCredits = 0;
+            int doneCredits = 0;
             for (Task assignedTask : assignedMembers.get(member)) {
-                credits += assignedTask.getTaskCredit();
+                // credits are split equally between members
+                int taskCredit = (assignedTask.getTaskCredit()) / (assignedMembers.size());
+                totalCredits += taskCredit;
+                // members only get credits if the task is "DONE"
+                if (assignedTask.getTaskState() == TaskState.DONE) {
+                    doneCredits += taskCredit;
+                }
             }
-            allMemberCredits.add(count + ". " + member.getName() + " | Credits: " + credits);
+            int scale = 20;
+            int percentDone = (int) ((doneCredits / (float) totalCredits) * scale);
+            String progress = "";
+            for (int i = 0; i < percentDone; i++) {
+                progress += "#";
+            }
+            for (int i = percentDone; i < scale; i++) {
+                progress += ".";
+            }
+            allMemberCredits.add(count + ". " + member.getName() + ": " + doneCredits + " credits");
+            allMemberCredits.add("   Progress: " + progress + " (" + percentDone * (100 / scale) + "%)");
             count++;
         }
         return allMemberCredits;
@@ -215,7 +244,6 @@ public class Project implements IProject {
     public boolean taskExists(ITask task) {
         return this.taskList.contains((Task) task);
     }
-
 
     /**
      * Set the status of the Reminder.
