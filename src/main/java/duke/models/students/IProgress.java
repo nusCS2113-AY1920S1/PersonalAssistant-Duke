@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public interface IProgress {
 
-    ArrayList<Progress> listProgress();
+    ArrayList<Student> listProgress();
 
-    void addProgress(Progress progress);
+    void addProgress(Student progress);
 
     void deleteProgress(int index);
 
