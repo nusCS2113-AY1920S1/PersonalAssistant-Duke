@@ -2,6 +2,7 @@ package duke.ui.card;
 
 import duke.data.Investigation;
 import duke.data.Treatment;
+import duke.exception.DukeFatalException;
 
 /**
  * A UI card that displays the basic information of an {@code Investigation}.
@@ -16,7 +17,7 @@ public class InvestigationCard extends TreatmentCard {
      *
      * @param investigation Investigation object.
      */
-    public InvestigationCard(Investigation investigation) {
+    public InvestigationCard(Investigation investigation) throws DukeFatalException {
         super(FXML, investigation);
 
         this.investigation = investigation;

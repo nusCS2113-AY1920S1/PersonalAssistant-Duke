@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXMasonryPane;
 import com.jfoenix.controls.JFXScrollPane;
 import duke.data.DukeObject;
 import duke.data.Patient;
+import duke.exception.DukeFatalException;
 import duke.ui.card.PatientCard;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
@@ -23,14 +24,14 @@ public class HomeContextWindow extends ContextWindow {
     private ScrollPane scrollPane;
 
     private ArrayList<Patient> patientList;
-    private List<DukeObject> indexedPatientList;
+    private List<Patient> indexedPatientList;
 
     /**
      * Constructs the Home UI window.
      *
      * @param patientList List of {@code Patient} objects.
      */
-    public HomeContextWindow(ArrayList<Patient> patientList) {
+    public HomeContextWindow(ArrayList<Patient> patientList) throws DukeFatalException {
         super(FXML);
         this.patientList = patientList;
         JFXScrollPane.smoothScrolling(scrollPane);
@@ -40,21 +41,21 @@ public class HomeContextWindow extends ContextWindow {
     /**
      * Fills {@code indexedPatientList} and {@code patientListPanel}.
      */
-    private void fillPatientList() {
+    private void fillPatientList() throws DukeFatalException {
         indexedPatientList = new ArrayList<>(patientList);
         patientListPanel.getChildren().clear();
-        indexedPatientList.forEach(patient -> {
-            PatientCard patientCard = new PatientCard((Patient) patient);
-            patientCard.setIndex(patientList.indexOf(patient) + 1);
-            patientListPanel.getChildren().add(patientCard);
-        });
+        for (Patient patient : indexedPatientList) {
+            PatientCard newCard = patient.toCard();
+            newCard.setIndex(patientList.indexOf(patient) + 1);
+            patientListPanel.getChildren().add(newCard);
+        }
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void updateUi() {
+    public void updateUi() throws DukeFatalException {
         fillPatientList();
     }
 
@@ -64,7 +65,8 @@ public class HomeContextWindow extends ContextWindow {
      */
     @Override
     public List<DukeObject> getIndexedList(String type) {
-        return indexedPatientList;
+        List<DukeObject> returnList = new ArrayList<>(indexedPatientList);
+        return returnList;
     }
 
     /**

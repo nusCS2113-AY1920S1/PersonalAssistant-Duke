@@ -1,6 +1,8 @@
 package duke.data;
 
 import duke.exception.DukeException;
+import duke.exception.DukeFatalException;
+import duke.ui.card.TreatmentCard;
 
 public abstract class Treatment extends DukeData {
 
@@ -71,4 +73,7 @@ public abstract class Treatment extends DukeData {
             return false;
         }
     }
+
+    @Override
+    public abstract TreatmentCard toCard() throws DukeFatalException;
 }

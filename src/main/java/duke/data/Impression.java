@@ -1,8 +1,8 @@
 package duke.data;
 
 import duke.exception.DukeException;
+import duke.exception.DukeFatalException;
 import duke.ui.card.ImpressionCard;
-import duke.ui.card.UiCard;
 import duke.ui.context.Context;
 
 import java.util.ArrayList;
@@ -352,7 +352,7 @@ public class Impression extends DukeObject {
                 && getParent() == impression.getParent();
     }
 
-    public UiCard toCard() {
+    public ImpressionCard toCard() throws DukeFatalException {
         return new ImpressionCard(this);
     }
 
