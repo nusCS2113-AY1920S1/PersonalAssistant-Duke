@@ -85,6 +85,16 @@ public abstract class DukeData extends DukeObject {
         // null check required because medicine summary is null
     }
 
+    /**
+     * This function updates DukeData attributes if there is changes.
+     * Utilises isAppending to determine whether to append or replace the attribute.
+     * @param newName the name entered by the user, null if not applicable
+     * @param newPriority the priority specified by user, -1 if not applicable
+     * @param newSummary the summary entered by the user, null if not applicable
+     * @param editVals unused in this method, used in overridden method
+     * @param isAppending true if not a replacement
+     * @throws DukeException if priority specified by user is invalid
+     */
     public void edit(String newName, int newPriority, String newSummary, Map<String, String> editVals,
                      boolean isAppending)
             throws DukeException {

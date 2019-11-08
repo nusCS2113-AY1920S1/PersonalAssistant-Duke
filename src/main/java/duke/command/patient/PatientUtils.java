@@ -58,6 +58,15 @@ public class PatientUtils {
         }
     }
 
+    /**
+     * This function builds a SearchResult based on a searchTerm from the patient context.
+     * Seach dependent on the type specified to filter the search.
+     * @param patient The patient object to search in
+     * @param type To determine what kind of objects in the patient to search about
+     * @param searchTerm the substring that the objects should contain
+     * @return the results in a SearchResult object
+     * @throws DukeUtilException if no search results exist for the specified term
+     */
     public static SearchResults searchFromPatient(Patient patient, String type, String searchTerm)
             throws DukeUtilException {
         SearchResults results = new SearchResults(searchTerm, new ArrayList<DukeObject>(), patient);

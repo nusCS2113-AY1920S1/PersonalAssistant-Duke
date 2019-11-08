@@ -393,6 +393,13 @@ public class Patient extends DukeObject {
         }
     }
 
+    /**
+     * This function determines if the patient contains the searchTerm in specific fields.
+     * Does not include personal biometric data such as height, weight, number, bedNo, age.
+     * Does not include Impressions of the patient.
+     * @param searchTerm the substring to be checked
+     * @return true if it is contained
+     */
     public boolean contains(String searchTerm) {
         String lowerSearchTerm = searchTerm.toLowerCase();
         return allergies.toLowerCase().contains(lowerSearchTerm)

@@ -29,8 +29,15 @@ public class SearchResults extends DukeObject {
         this.searchList = new ArrayList<DukeObject>(searchList);
     }
 
+    /**
+     * This returns the DukeObject in the SearchResult list at an particular index.
+     * Ensures index is within bounds.
+     * @param idx the index in the list, 1 based indexing
+     * @return the DukeObject in the list
+     * @throws DukeException if the index specified is not within the bounds of the list
+     */
     public DukeObject getResult(int idx) throws DukeException {
-        if (idx > searchList.size()) {
+        if (idx > 0 && idx > searchList.size()) {
             throw new DukeException("I don't have a search result with that number!");
         } else {
             return searchList.get(idx - 1);
