@@ -14,7 +14,7 @@ public class FoodListCard extends UiManager<HBox> {
     private int index;
 
     private final SellExecutor sellExecutor;
-    private final DeleteExecutor deleteExecutor;
+    private final EditExecutor editExecutor;
 
     @FXML
     private HBox cardPane;
@@ -34,9 +34,9 @@ public class FoodListCard extends UiManager<HBox> {
     @FXML
     private Button edit;
     @FXML
-    private Button delete;
+    private Button sell;
 
-    public FoodListCard(Food food, int displayedIndex, SellExecutor sellExecutor, DeleteExecutor deleteExecutor) {
+    public FoodListCard(Food food, int displayedIndex, SellExecutor sellExecutor, EditExecutor editExecutor) {
         super(FXML);
         this.food = food;
         this.index = displayedIndex;
@@ -56,7 +56,12 @@ public class FoodListCard extends UiManager<HBox> {
         }
 
         this.sellExecutor = sellExecutor;
-        this.deleteExecutor = deleteExecutor;
+        this.editExecutor = editExecutor;
+    }
+
+    @FXML
+    private void handleEdit() {
+        editExecutor.execute(index);
     }
 
     @FXML
@@ -64,9 +69,15 @@ public class FoodListCard extends UiManager<HBox> {
         sellExecutor.execute(index);
     }
 
-    @FXML
-    private void handleDelete() {
-        deleteExecutor.execute(index);
+    /**
+     * Represents a function that can execute delete commands.
+     */
+    @FunctionalInterface
+    public interface EditExecutor {
+        /**
+         * Executes the command and returns the result.
+         */
+        void execute(int index);
     }
 
     /**
@@ -80,14 +91,4 @@ public class FoodListCard extends UiManager<HBox> {
         void execute(int index);
     }
 
-    /**
-     * Represents a function that can execute delete commands.
-     */
-    @FunctionalInterface
-    public interface DeleteExecutor {
-        /**
-         * Executes the command and returns the result.
-         */
-        void execute(int index);
-    }
 }
