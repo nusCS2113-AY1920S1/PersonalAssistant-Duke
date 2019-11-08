@@ -74,7 +74,7 @@ public class AddToDoCommandTest {
             new Oof().executeCommand("todo imonlyonecallawayillbetheretosavetheday /on 31-12-2019");
             fail();
         } catch (CommandException | ParserException e) {
-            assertEquals("Task exceeds maximum description length!", e.getMessage());
+            assertEquals("OOPS!!! Task description exceeds maximum length of 20!", e.getMessage());
         }
     }
 

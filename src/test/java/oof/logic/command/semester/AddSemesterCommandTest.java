@@ -123,7 +123,7 @@ public class AddSemesterCommandTest {
                     + " /from 05-01-2020 /to 05-05-2020");
             fail();
         } catch (CommandException | ParserException e) {
-            assertEquals("Task exceeds maximum description length!", e.getMessage());
+            assertEquals("OOPS!!! Semester Name exceeds maximum length of 100!", e.getMessage());
         }
     }
 

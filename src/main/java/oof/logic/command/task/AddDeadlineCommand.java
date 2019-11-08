@@ -23,6 +23,7 @@ public class AddDeadlineCommand extends Command {
     static final int INDEX_DESCRIPTION = 0;
     protected static final int INDEX_DATE = 1;
     static final int ARRAY_SIZE_DATE = 2;
+    static final int DESCRIPTION_LENGTH_MAX = 20;
 
 
     /**
@@ -55,8 +56,9 @@ public class AddDeadlineCommand extends Command {
         }
         String description = arguments.get(INDEX_DESCRIPTION);
         String date = parseDateTime(arguments.get(INDEX_DATE));
-        if (exceedsMaxLength(description)) {
-            throw new InvalidArgumentException("Task exceeds maximum description length!");
+        if (exceedsMaxLength(description, DESCRIPTION_LENGTH_MAX)) {
+            throw new InvalidArgumentException("OOPS!!! Task description exceeds maximum length of "
+                    + DESCRIPTION_LENGTH_MAX + "!");
         } else if (!isDateValid(date)) {
             throw new InvalidArgumentException("OOPS!!! The due date is invalid.");
         } else {

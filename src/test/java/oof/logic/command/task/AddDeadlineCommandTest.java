@@ -76,7 +76,7 @@ public class AddDeadlineCommandTest {
             new Oof().executeCommand("deadline abcdefghijklmnopqrstuvwxyz /by 11-11-2020 23:59");
             fail();
         } catch (CommandException | ParserException e) {
-            assertEquals("Task exceeds maximum description length!", e.getMessage());
+            assertEquals("OOPS!!! Task description exceeds maximum length of 20!", e.getMessage());
         }
     }
 

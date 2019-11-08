@@ -130,6 +130,9 @@ Format: `semester /add YEAR /name SEMESTER /from START_DATE /to END_DATE`
 
 * `YEAR` represents name of the academic year, `SEMESTER` represents name of the semester, `START_DATE` and `END_DATE` represents the start and end date in `dd-MM-yyyy HH:mm` format.
 
+[NOTE]
+`YEAR` and `SEMESTER` have a character limit of 10 and 100 characters respectively.
+
 Example:
 
 * `semester /add 19/20 /name Semester 2 /from 01-01-2020 /to 05-05-2020`
@@ -158,7 +161,7 @@ Format: `semester /delete INDEX`
 
 Example:
 
-* `semester delete 2`
+* `semester /delete 2`
 
 [[SemesterDelete]]
 .Deleting a Semester.
@@ -195,15 +198,18 @@ Format: `module /add MODULE_CODE /name MODULE_NAME`
 
 * `MODULE_CODE` represents the module code and `MODULE_NAME` represents the module name.
 
+[NOTE]
+`MODULE_CODE` and `MODULE_NAME` have a character limit of 10 and 100 characters respectively.
+
 Example:
 
-* `module /add CS2107 /name Introduction to Information Security`
+* `module /add CS1010 /name Programming Methodology`
 
 [[ModuleAdd]]
 .Adding a module
 image::ModuleAdd.png[ModuleAdd]
 
-Adds a module with module code "CS2107" and name as "Introduction to Information Security".
+Adds a module with module code "CS1010" and name as "Programming Methodology".
 
 ==== Viewing module data: `module /view`
 You can display all modules in order to have a quick overview of the modules you are taking this semester.
@@ -223,7 +229,7 @@ Format: `module /delete INDEX`
 
 Example:
 
-* `module /delete 4`
+* `module /delete 6`
 
 [[ModuleDelete]]
 .Deleting a module
@@ -259,14 +265,17 @@ You can display all the lessons you have added if you wish to view all lessons f
 
 Format: `lesson`
 
-[[LessonView]]
+[[Lesson]]
 .Viewing list of modules
-image::LessonView.png[LessonView]
+image::Lesson.png[Lesson]
 
 ==== Adding lesson data: `lesson /add`
 You can add a lesson into `Oof`.
 
 Format: `lesson /add NAME /day DAY /from START_TIME /to END_TIME`
+
+[NOTE]
+`NAME` has a character limit of 20 characters.
 
 * `NAME` of the lesson can have multiple words, not just limited to single-word descriptions.
 * `DAY` of the lesson ranges from `MONDAY` to `SUNDAY`.
@@ -274,8 +283,8 @@ Format: `lesson /add NAME /day DAY /from START_TIME /to END_TIME`
 
 Example:
 
-* `lesson /add lecture /day WEDNESDAY /from 14:00 /to 16:00` +
-Adds a lecture on Wednesday from 14:00 to 16:00 for the selected module.
+* `lesson /add lecture /day FRIDAY /from 14:00 /to 16:00` +
+Adds a lecture on Friday from 14:00 to 16:00 for the selected module.
 
 [[LessonAdd]]
 .Adding a lesson
@@ -290,32 +299,36 @@ Format: `lesson /delete INDEX`
 
 Example:
 
-* `lesson /delete 1`
+* `lesson /delete 4`
 
 [[LessonDelete]]
 .Deleting a lesson
 image::LessonDelete.png[LessonDelete]
 
-Deletes the 1st lesson in the list of lessons.
+Deletes the 4th lesson in the list of lessons.
 
 === Adding tasks
 
 ==== Adding assessment data: `assessment`
 You can keep track of assessments by adding assessments.
 
+[NOTE]
+Requires a module to be selected using `module /select`.
+
 Format: `assessment DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
 
 [NOTE]
-Requires a module to be selected using `module /select`.
+`DESCRIPTION` has a character limit of 20 characters.
 
 * `Description` of the assessment can have multiple words, not just limited to single-word descriptions.
 * `Date and time` have to *strictly* be in the format as stated above.
 
+
 Example:
 
-* `assessment final examination /from 31-10-2019 16:00 /to 31-10-2019 18:00`
+* `assessment Finals /from 31-10-2019 16:00 /to 31-10-2019 18:00`
 
-Adds an assessment with name, start and end time as `final examination`, `25-11-2019 13:00`, `25-11-2019 15:00` respectively.
+Adds an assessment for current selected `Module` (`CS2106` in the example) with name, start and end time as `Finals`, `31-10-2019 13:00`, `31-10-2019 15:00` respectively.
 
 [[AssessmentAdd]]
 .Adding an assessment
@@ -324,29 +337,34 @@ image::AssessmentAdd.png[AssessmentAdd]
 ==== Adding assignment data: `assignment`
 You can use this command to keep track of an assignment for a particular module.
 
-Format: `assignment DESCRIPTION /by DD-MM-YYYY HH:MM`
-
 [NOTE]
 Requires a module to be selected using `module /select`.
 
+Format: `assignment DESCRIPTION /by DD-MM-YYYY HH:MM`
+
+[NOTE]
+`DESCRIPTION` has a character limit of 20 characters.
 
 * `Description` of the assessment can have multiple words, not just limited to single-word descriptions.
 * `Date and time` have to *strictly* be in the format as stated above.
 
 Example:
 
-* `assignment lab /by 23-11-2019 23:59`
+* `assignment Lab /by 23-11-2019 23:59`
 
 [[AssignmentAdd]]
 .Adding an assignment
 image::AssignmentAdd.png[AssignmentAdd]
 
-Adds an assignment `lab` for the selected module with the due date as `23-11-2019 23:59`.
+Adds an assignment `Lab` for the selected module with the due date as `23-11-2019 23:59`.
 
 ==== Adding a deadline: `deadline`
 You can choose to add a task with a deadline. +
 
 Format: `deadline DESCRIPTION /by DD-MM-YYYY HH:MM`
+
+[NOTE]
+`DESCRIPTION` has a character limit of 20 characters.
 
 * `Description` of the task to be done can have multiple words, not just limited to single-word descriptions.
 * `Date and time` have to *strictly* be in the format as stated above.
@@ -366,6 +384,9 @@ You can add an event with a scheduled starting and ending time. +
 
 Format: `event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM`
 
+[NOTE]
+`DESCRIPTION` has a character limit of 20 characters.
+
 * `Description` of the task to be done can have multiple words, not just limited to single-word descriptions.
 * `Date and time` have to *strictly* be in the format as stated above.
 
@@ -383,6 +404,9 @@ Adds an event with description, start and end time to be `project meeting`, `20-
 You can choose to add a task to be done on a specific day.
 
 Format: `todo DESCRIPTION /on DD-MM-YYYY`
+
+[NOTE]
+`DESCRIPTION` has a character limit of 20 characters.
 
 * `Description` of the task to be done can have multiple words, not just limited to single-word descriptions.
 * `Date` has to *strictly* be in the format as stated above.
@@ -685,7 +709,11 @@ Format: `calendar MM YYYY`
 * `MONTH` is an integer from 1-12 (representing January to December).
 * `YEAR` is an integer greater than or equal to 0.
 
-Example: `calendar 10 2019`
+Example: `calendar 11 2019`
+
+[[Calendar]]
+.Viewing Calendar for month of November 2019
+image::Calendar.png[Calendar]
 
 === _Coming soon in v2.0_
 

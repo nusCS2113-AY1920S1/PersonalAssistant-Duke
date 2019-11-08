@@ -31,6 +31,10 @@ public class Lesson {
         this.endTime = endTime;
     }
 
+    public String getModuleCode() {
+        return moduleCode;
+    }
+
     public String getLessonTimeString() {
         return startTime + " to " + endTime;
     }
