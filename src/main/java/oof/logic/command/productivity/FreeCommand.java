@@ -49,8 +49,8 @@ public class FreeCommand extends Command {
         "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
     private String[] endingTimeSlots = {"08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00",
         "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "23:59"};
-    private ArrayList<Date> eventStartTimes = new ArrayList<>();
-    private ArrayList<Date> eventEndTimes = new ArrayList<>();
+    private ArrayList<Date> startTimes = new ArrayList<>();
+    private ArrayList<Date> endTimes = new ArrayList<>();
     private ArrayList<Date> deadlinesDue = new ArrayList<>();
     private ArrayList<String> deadlineNames = new ArrayList<>();
     private ArrayList<String> sortedDeadlineNames = new ArrayList<>();
@@ -80,6 +80,10 @@ public class FreeCommand extends Command {
     public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager)
         throws CommandException {
         Date current = new Date();
+        String freeDate = parseDate(dateWanted);
+        if (!isDateValid(freeDate)) {
+            throw new InvalidArgumentException("OOPS!!! The date is invalid.");
+        }
         try {
             if (isDateAfterCurrentDate(current, dateWanted) || isDateSame(current, dateWanted)) {
                 findFreeTime(semesterList, ui, taskList, this.dateWanted);
@@ -121,8 +125,8 @@ public class FreeCommand extends Command {
             }
         }
         parseSemesterList(semesterList, freeDate);
-        eventStartTimes.sort(new SortByTime());
-        eventEndTimes.sort(new SortByTime());
+        startTimes.sort(new SortByTime());
+        endTimes.sort(new SortByTime());
         deadlinesDue.sort(new SortByTime());
         sortDeadlineNames();
         ui.printFreeTimeHeader(freeDate, getDayOfTheWeek(freeDate));
@@ -173,8 +177,8 @@ public class FreeCommand extends Command {
             Date lessonStart = convertStringToTime(lesson.getStartTime());
             Date lessonEnd = convertStringToTime(lesson.getEndTime());
             if (getDayOfTheWeek(freeSlotsDate).equals(dayOfWeek) && !isDuplicateEvent(lessonStart, lessonEnd)) {
-                eventStartTimes.add(lessonStart);
-                eventEndTimes.add(lessonEnd);
+                startTimes.add(lessonStart);
+                endTimes.add(lessonEnd);
             }
         }
     }
@@ -189,10 +193,10 @@ public class FreeCommand extends Command {
             for (int i = 0; i < TOTAL_TIME_SLOTS; i++) {
                 Date slotStart = convertStringToTime(startingTimeSlots[i]);
                 Date slotEnd = convertStringToTime(endingTimeSlots[i]);
-                if (eventStartTimes.isEmpty()) {
+                if (startTimes.isEmpty()) {
                     slotStates.add(SLOT_FREE);
-                } else if (isClash(slotStart, slotEnd, eventStartTimes.get(INDEX_TIME),
-                        eventEndTimes.get(INDEX_TIME))) {
+                } else if (isClash(slotStart, slotEnd, startTimes.get(INDEX_TIME),
+                        endTimes.get(INDEX_TIME))) {
                     slotStates.add(SLOT_BUSY);
                     removeEventTimes(slotEnd);
                 } else {
@@ -210,9 +214,9 @@ public class FreeCommand extends Command {
      * @param endTimeSlot The end timing of the time slot.
      */
     private void removeEventTimes(Date endTimeSlot) {
-        if (isEventEndTimeWithinSlot(endTimeSlot, eventEndTimes.get(INDEX_TIME))) {
-            eventStartTimes.remove(INDEX_TIME);
-            eventEndTimes.remove(INDEX_TIME);
+        if (isEventEndTimeWithinSlot(endTimeSlot, endTimes.get(INDEX_TIME))) {
+            startTimes.remove(INDEX_TIME);
+            endTimes.remove(INDEX_TIME);
         }
     }
 
@@ -278,14 +282,14 @@ public class FreeCommand extends Command {
             Date eventEndDate = convertStringToDate(dateEnd);
             if (isEventDateWithin(dateStart, dateEnd, freeDate) && !isDuplicateEvent(eventStartTime, eventEndTime)) {
                 if (isDateAfterCurrentDate(eventStartDate, freeSlotsDate)) {
-                    eventStartTimes.add(convertStringToTime(FIRST_START_SLOT));
-                    eventEndTimes.add(eventEndTime);
+                    startTimes.add(convertStringToTime(FIRST_START_SLOT));
+                    endTimes.add(eventEndTime);
                 } else if (isDateBeforeCurrentDate(eventEndDate, freeDate)) {
-                    eventStartTimes.add(eventStartTime);
-                    eventEndTimes.add(convertStringToTime(LAST_END_SLOT));
+                    startTimes.add(eventStartTime);
+                    endTimes.add(convertStringToTime(LAST_END_SLOT));
                 } else {
-                    eventStartTimes.add(eventStartTime);
-                    eventEndTimes.add(eventEndTime);
+                    startTimes.add(eventStartTime);
+                    endTimes.add(eventEndTime);
                 }
             }
 
@@ -324,10 +328,10 @@ public class FreeCommand extends Command {
      * @return true if the list contains the same start and end time, false otherwise.
      */
     private boolean isDuplicateEvent(Date startTime, Date endTime) {
-        if (eventStartTimes.isEmpty()) {
+        if (startTimes.isEmpty()) {
             return false;
         } else {
-            return eventStartTimes.contains(startTime) && eventEndTimes.contains(endTime);
+            return startTimes.contains(startTime) && endTimes.contains(endTime);
         }
     }
 
