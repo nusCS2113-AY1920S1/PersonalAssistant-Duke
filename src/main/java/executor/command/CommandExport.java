@@ -4,7 +4,6 @@ import com.opencsv.CSVWriter;
 import duke.exception.DukeException;
 import interpreter.Parser;
 import storage.StorageManager;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Scanner;
@@ -17,8 +16,8 @@ public class CommandExport extends Command {
     public CommandExport(String userInput) {
         this.userInput = userInput;
         this.commandType = CommandType.EXPORT;
-        this.description = "Exports txt into CSV"
-                            + "FORMAT : export <wallet or task>";
+        this.description = "Exports txt into CSV\n"
+                            + "FORMAT : export <wallet or task>\n";
     }
 
     @Override
@@ -50,8 +49,8 @@ public class CommandExport extends Command {
         }
         try{
             // access the file for which user wants the csv
-            File file = new File(this.filePath);
-            Scanner scanner = new Scanner(file);
+            File txtFile = new File(this.filePath);
+            Scanner scanner = new Scanner(txtFile);
 
             //Now create the csv
             // first create file object for file placed at location
@@ -61,8 +60,6 @@ public class CommandExport extends Command {
             FileWriter outputFile = new FileWriter(csv);
             // create CSVWriter object filewriter object as parameter
             CSVWriter writer = new CSVWriter(outputFile);
-
-
             while (scanner.hasNextLine()) {
                 String loadedInput = scanner.nextLine();
                 if (loadedInput.equals("")) {
