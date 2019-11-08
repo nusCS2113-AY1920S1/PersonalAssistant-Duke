@@ -144,7 +144,6 @@ public class UiFr extends Ui {
         String result = "";
         TaskList unfinishedTaskList = new TaskList(unfinishedTasks);
         for(int i = 0; i < unfinishedTaskList.size(); i++){
-            Task task = unfinishedTaskList.get(i);
             result += unfinishedTaskList.displayOneElementList(i);
         }
         if(result.equals("")){
