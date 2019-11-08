@@ -19,8 +19,12 @@ public class ShowWorkloadCommand extends Command {
     private String week;
     private Integer[] counter = {0,0,0,0,0,0,0};
     private LookupTable lookupTable = LookupTable.getInstance();
-    SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-    SimpleDateFormat dayFormatter = new SimpleDateFormat("E");
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+    private SimpleDateFormat dayFormatter = new SimpleDateFormat("E");
+    private static final int HOURS = 24;
+    private static final int MINUTES = 60;
+    private static final int SECONDS = 60;
+    private static final int MILLISECONDS = 1000;
 
     /**
      * Show recommended weekly workload.
@@ -51,10 +55,10 @@ public class ShowWorkloadCommand extends Command {
         for (Map.Entry<String, ArrayList<Assignment>> date: workloadMap.entrySet()) {
             Date tempDate = dateFormatter.parse(date.getKey());
             String tempDay = dayFormatter.format(tempDate);
-            Integer index = dayToInt(tempDay);
+            int index = dayToInt(tempDay);
             counter[index - 1]++;
         }
-        Integer num = findMinimum(counter, limit) + 1;
+        int num = findMinimum(counter, limit) + 1;
         return num;
     }
 
@@ -77,30 +81,31 @@ public class ShowWorkloadCommand extends Command {
     }
 
     /**
-     * This method converts day to integer format.
+     * This method converts day to integer.
      * @param day Day of task
-     * @return Integer format of day of task
+     * @return Integer of day of task
      */
     private int dayToInt(String day) {
-        if (day.equals("Mon")) {
-            return 1;
-        } else if (day.equals("Tue")) {
-            return 2;
-        } else if (day.equals("Wed")) {
-            return 3;
-        } else if (day.equals("Thu")) {
-            return 4;
-        } else if (day.equals("Fri")) {
-            return 5;
-        } else if (day.equals("Sat")) {
-            return 6;
-        } else {
-            return 7;
+        switch (day) {
+            case "Mon":
+                return 1;
+            case "Tue":
+                return 2;
+            case "Wed":
+                return 3;
+            case "Thu":
+                return 4;
+            case "Fri":
+                return 5;
+            case "Sat":
+                return 6;
+            default:
+                return 7;
         }
     }
 
     @Override
-    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws ParseException, FileNotFoundException {
+    public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws ParseException {
         String workloadWeek = lookupTable.getValue(week);
         HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap = events.getMap();
         HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();
@@ -129,7 +134,7 @@ public class ShowWorkloadCommand extends Command {
                     int limit = dayToInt(tempDay);
                     int freeDay = findBestDay(workloadMap, limit - 1);
                     int bestDay = dayToInt(tempDay) - freeDay;
-                    tempDate = new Date(tempDate.getTime() - bestDay * 24 * 60 * 60 * 1000);
+                    tempDate = new Date(tempDate.getTime() - bestDay * HOURS * MINUTES * SECONDS * MILLISECONDS);
                     String newDate = dateFormatter.format(tempDate).trim();
                     if (workloadMap.containsKey(newDate)) {
                         for (int i = 0; i < deadlineItem.getValue().size(); i++) {

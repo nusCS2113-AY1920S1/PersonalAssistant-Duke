@@ -45,7 +45,7 @@ public class DateTimeParser {
         String endTimeString = timeOutputFormat.format(endTime);
         String[] out = {dateString,startTimeString,endTimeString};
 
-        return  out;
+        return out;
     }
 
     /**

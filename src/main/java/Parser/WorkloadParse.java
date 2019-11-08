@@ -16,6 +16,11 @@ import java.util.logging.Logger;
  */
 public class WorkloadParse extends Parse{
     private static String fullCommand;
+    private static final int HOURS = 24;
+    private static final int MINUTES = 60;
+    private static final int SECONDS = 60;
+    private static final int MILLISECONDS = 1000;
+    private static final int ONE_WEEK = 7;
     private final Logger LOGGER = DukeLogger.getLogger(WorkloadParse.class);
 
     /**
@@ -26,8 +31,13 @@ public class WorkloadParse extends Parse{
         this.fullCommand = fullCommand;
     }
 
+    /**
+     * This method gets the date of 7 days later.
+     * @param inDate date
+     * @return date of 7 days later
+     */
     private Date getNextWeekDate (Date inDate) {
-        Date nextWeek = new Date(inDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+        Date nextWeek = new Date(inDate.getTime() + ONE_WEEK * HOURS * MINUTES * SECONDS * MILLISECONDS);
         return nextWeek;
     }
 
