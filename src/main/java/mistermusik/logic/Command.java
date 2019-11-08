@@ -151,19 +151,19 @@ public class Command {
                 break;
 
             case "goal":
-                goalsManagement(events, ui);
+                manageGoals(events, ui);
                 break;
 
             case "contact":
-                contactManagement(events, ui);
+                manageContacts(events, ui);
                 break;
 
             case "checklist":
-                checklistManagement(events, ui);
+                manageChecklist(events, ui);
                 break;
 
             case "instrument":
-                instrumentManagement(instruments, ui);
+                manageInstruments(instruments, ui);
                 break;
 
             default:
@@ -234,7 +234,7 @@ public class Command {
      * @param events The event list
      * @param ui UI
      */
-    private void checklistManagement(EventList events, UI ui) {
+    private void manageChecklist(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.checklistCommandWrongFormat();
         } else {
@@ -287,18 +287,23 @@ public class Command {
         if (continuation.isEmpty()) {
             EventDate today = new EventDate(calendarStartDate.getEventJavaDate());
             calendarView = new CalendarView(events, today);
+            calendarView.setCalendarInfo();
+            ui.printCalendar(calendarView.getStringForOutput());
         } else if (continuation.equals("next")) {
             calendarStartDate.addDaysAndSetMidnight(7);
             calendarView = new CalendarView(events, calendarStartDate);
+            calendarView.setCalendarInfo();
+            ui.printCalendar(calendarView.getStringForOutput());
         } else if (continuation.equals("last")) {
             calendarStartDate.addDaysAndSetMidnight(-7);
             calendarView = new CalendarView(events, calendarStartDate);
+            calendarView.setCalendarInfo();
+            ui.printCalendar(calendarView.getStringForOutput());
         } else {
             ui.calendarCommandWrongFormat();
         }
 
-        calendarView.setCalendarInfo();
-        ui.printCalendar(calendarView.getStringForOutput());
+
     }
 
 
@@ -431,6 +436,7 @@ public class Command {
                     if (newEvent.getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) < 0) {
                         ui.printEnteredEventOver();
                     }
+
                 } else { //recurring event
                     if (entryForEvent.getPeriod() > 0) {
                         events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
@@ -604,7 +610,7 @@ public class Command {
      *
      * @param events The event list.
      */
-    private void goalsManagement(EventList events, UI ui) {
+    private void manageGoals(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.goalCommandWrongFormat();
             return;
@@ -622,7 +628,7 @@ public class Command {
                             events.getEvent(eventIndex).removeGoal(goalIndex - 1);
                             ui.goalDeleted(deletedGoal);
                         } else {
-                            ui.noSuchGoal();
+                            ui.printNoSuchGoal();
                         }
                         break;
 
@@ -632,7 +638,7 @@ public class Command {
                             events.getEvent(eventIndex).editGoalList(newGoal, goalIndex - 1);
                             ui.goalUpdated(events, eventIndex, goalIndex - 1);
                         } else {
-                            ui.noSuchGoal();
+                            ui.printNoSuchGoal();
                         }
                         break;
 
@@ -641,7 +647,7 @@ public class Command {
                             events.getEvent(eventIndex).updateGoalAchieved(goalIndex - 1);
                             ui.goalSetAsAchieved(events.getEvent(eventIndex).getGoalObject(goalIndex - 1));
                         } else {
-                            ui.noSuchGoal();
+                            ui.printNoSuchGoal();
                         }
                         break;
 
@@ -680,7 +686,7 @@ public class Command {
      *
      * @param events The event list.
      */
-    private void contactManagement(EventList events, UI ui) {
+    private void manageContacts(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.contactCommandWrongFormat();
             return;
@@ -739,7 +745,7 @@ public class Command {
     }
 
     //@@author Dng132FEI
-    public void instrumentManagement(InstrumentList instruments, UI ui) {
+    public void manageInstruments(InstrumentList instruments, UI ui) {
         try {
             if (continuation.isEmpty()) {
                 ui.noSuchEvent();

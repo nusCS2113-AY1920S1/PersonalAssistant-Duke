@@ -545,7 +545,7 @@ public class UI {
         System.out.println(lineSeparation);
     }
 
-    public void noSuchGoal() {
+    public void printNoSuchGoal() {
         System.out.println("Sorry, the specified goal does not exist!");
         System.out.println(lineSeparation);
     }

@@ -1,4 +1,3 @@
-import mistermusik.commons.Checklist;
 import mistermusik.commons.Contact;
 import mistermusik.commons.Goal;
 import mistermusik.commons.budgeting.Budgeting;
@@ -15,8 +14,6 @@ import mistermusik.commons.events.formatting.EventDate;
 import mistermusik.logic.ClashException;
 import mistermusik.logic.EndBeforeStartException;
 import mistermusik.logic.EventList;
-import mistermusik.commons.Goal;
-import mistermusik.commons.budgeting.CostExceedsBudgetException;
 import mistermusik.ui.CalendarView;
 import org.junit.jupiter.api.Test;
 
@@ -549,7 +546,7 @@ public class MainTest {
         testList.addEvent(lessonTest1);
 
         Date testDate = new GregorianCalendar(2019, Calendar.NOVEMBER, 7).getTime();
-        CalendarView calendarTest = new CalendarView(testList, new EventDate(new Date()));
+        CalendarView calendarTest = new CalendarView(testList, new EventDate(testDate));
         calendarTest.setCalendarInfo();
         String calendarCompare = "________________________________________________________________________________________________________________________\n" +
                 "|                                                  Events of the week                                                  |\n" +
@@ -563,6 +560,7 @@ public class MainTest {
                 "|                |                |                |                |                |                |                |\n" +
                 "________________________________________________________________________________________________________________________";
         assertEquals(calendarCompare, calendarTest.getStringForOutput());
+    }
 
     //@@author YuanJiayi
     @Test
