@@ -10,9 +10,6 @@ import storage.Storage;
 import task.TaskList;
 import ui.UI;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-
 public class SortCommand extends Command {
     private String arguments;
     private String command;
@@ -35,11 +32,18 @@ public class SortCommand extends Command {
 
         tasksBuffer = tasks.deepClone();
         memento = new Memento(tasksBuffer);
-        if (this.arguments.matches("priority")){
-            tasks.sortPriority();
+        if (this.arguments.matches("by priority")){
+            tasks.sortbyPriority();
+        }
+        else if (this.arguments.matches("by date")){
+            tasks.sortbyDate();
         }
         else{
-            throw new DukeException("That is not a valid way to sort your tasks!\n\n\n");
+            throw new DukeException("That is not a valid way to sort your tasks!\n" +
+                    "Try typing:\n" +
+                    "   sort by priority\n" +
+                    "   sort by date\n" +
+                    "   sort by degree" );
         }
     }
 

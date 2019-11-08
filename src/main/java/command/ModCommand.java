@@ -3,7 +3,7 @@ package command;
 import degree.DegreeManager;
 import exception.DukeException;
 import storage.Storage;
-import task.NUSEvents;
+import task.NUSEventList;
 import ui.UI;
 import task.TaskList;
 import list.DegreeList;
@@ -48,8 +48,8 @@ public class ModCommand extends Command {
 
             degreesBuffer = lists.deepClone();
             memento = new Memento(degreesBuffer);
-            NUSEvents NUSEvents = new NUSEvents();
-            NUSEvents.removeDegreeTasks(this.input, lists, tasks);
+            NUSEventList NUSEventList = new NUSEventList();
+            NUSEventList.removeDegreeTasks(this.input, lists, tasks);
             lists.delete(this.input, this.dd);
             break;
         case "done":
