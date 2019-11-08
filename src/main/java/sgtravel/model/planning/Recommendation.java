@@ -1,13 +1,11 @@
 package sgtravel.model.planning;
 
-import sgtravel.commons.exceptions.ChronologyBeforePresentException;
-import sgtravel.commons.exceptions.ChronologyInconsistentException;
 import sgtravel.commons.exceptions.ParseException;
 import sgtravel.commons.exceptions.RecommendationFailException;
 import sgtravel.logic.parsers.ParserTimeUtil;
+import sgtravel.logic.parsers.commandparsers.CreateNewItineraryParser;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,9 +34,11 @@ public class Recommendation {
         LocalDateTime start = ParserTimeUtil.parseStringToDate(itineraryDetails[1].strip());
         LocalDateTime end = ParserTimeUtil.parseStringToDate(itineraryDetails[2].strip());
 
-        Itinerary itinerary = new Itinerary(start, end, "New Recommendation");
 
-        int days = getNumberOfDays(start, end);
+        Itinerary itinerary = new Itinerary(start, end, "New Recommendation");
+        itinerary.checkValidDate();
+        int days = itinerary.getNumberOfDays();
+
         if (days > 8) {
             throw new RecommendationFailException();
         }
@@ -50,25 +50,4 @@ public class Recommendation {
 
         return itinerary;
     }
-
-    /**
-     * Returns number of days of the trip based on entered start and end dates.
-     *
-     * @param start The start date of the trip.
-     * @param end The end date of a a trip.
-     * @return the number of days of a trip (end - start).
-     */
-    private int getNumberOfDays(LocalDateTime start, LocalDateTime end) throws
-            ChronologyBeforePresentException, ChronologyInconsistentException {
-        if (start.isBefore(LocalDateTime.now()) || end.isBefore(LocalDateTime.now())) {
-            throw new ChronologyBeforePresentException();
-        } else if (end.isBefore(start) || start.isAfter(end)) {
-            throw new ChronologyInconsistentException();
-        } else {
-            LocalDateTime tempDateTime = LocalDateTime.from(start);
-            long days = tempDateTime.until(end, ChronoUnit.DAYS);
-            return Integer.parseInt(String.valueOf(days)) + 1;
-        }
-    }
-
 }

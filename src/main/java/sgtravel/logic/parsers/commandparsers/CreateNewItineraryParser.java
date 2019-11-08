@@ -82,20 +82,6 @@ public class CreateNewItineraryParser extends CommandParser {
     }
 
     /**
-     * Checks if the dates entered by the user are valid.
-     *
-     * @throws ChronologyBeforePresentException If start and end date are in the past.
-     * @throws ChronologyInconsistentException If start ad end date are invalid.
-     */
-    private void checkValidDate(LocalDateTime start, LocalDateTime end)
-            throws ChronologyBeforePresentException, ChronologyInconsistentException {
-        if (start.isBefore(LocalDateTime.now()) || end.isBefore(LocalDateTime.now())) {
-            throw new ChronologyBeforePresentException();
-        } else if (end.isBefore(start) || start.isAfter(end)) {
-            throw new ChronologyInconsistentException();
-        }
-    }
-    /**
      * Parses user input and constructs an NewItineraryCommand object.
      *
      * @return NewItineraryCommand object.
@@ -109,9 +95,9 @@ public class CreateNewItineraryParser extends CommandParser {
         LocalDateTime end = ParserTimeUtil.parseStringToDate(itineraryDetails[ONE].strip());
         String name = itineraryDetails[TWO].strip();
 
-        checkValidDate(start, end);
-
         Itinerary itinerary = new Itinerary(start, end, name);
+        itinerary.checkValidDate();
+
         List<Agenda> agendaList = makeAgendaList(itineraryDetails);
         itinerary.setTasks(agendaList);
 

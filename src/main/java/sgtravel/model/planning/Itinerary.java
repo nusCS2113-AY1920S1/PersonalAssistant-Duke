@@ -1,9 +1,7 @@
 package sgtravel.model.planning;
 
-import sgtravel.commons.Messages;
-import sgtravel.commons.exceptions.ParseException;
-import sgtravel.logic.api.ApiParser;
-import sgtravel.logic.parsers.storageparsers.PlanningStorageParser;
+import sgtravel.commons.exceptions.ChronologyBeforePresentException;
+import sgtravel.commons.exceptions.ChronologyInconsistentException;
 import sgtravel.model.locations.Venue;
 
 import java.time.LocalDateTime;
@@ -40,7 +38,6 @@ public class Itinerary {
      * @return result The String which shows the itinerary in full
      */
     public String printItinerary() {
-
         int days = getNumberOfDays();
         StringBuilder result = new StringBuilder("Here are the list of Locations in "
                 +  days + "trip days with name " + this.name + ": \n");
@@ -61,58 +58,28 @@ public class Itinerary {
     }
 
     /**
-     * This makes the list of agendas for a newly entered Itinerary.
-     * @param itineraryDetails is the details of the itinerary to make.
-     * @throws ParseException if the incorrect format is used in entering the itnerary.
+     * Checks if the dates of the itinerary are valid.
+     *
+     * @throws ChronologyBeforePresentException If start and end date are in the past.
+     * @throws ChronologyInconsistentException If start ad end date are invalid.
      */
-    public void makeAgendaList(String[] itineraryDetails) throws ParseException {
-        List<Agenda> agendaList = new ArrayList<>();
-        int i = 3;
-        try {
-            while (i < itineraryDetails.length) {
-                List<Venue> venueList = new ArrayList<>();
-                List<Todo> todoList = new ArrayList<>();
-                final int number = Integer.parseInt(itineraryDetails[i++]);
-                while (itineraryDetails[i].equals("/venue")) {
-                    i++;
-                    venueList.add(ApiParser.getLocationSearch(itineraryDetails[i++]));
-                    StringBuilder todos = new StringBuilder();
-                    if (i == itineraryDetails.length - 1 || itineraryDetails[i].matches("-?\\d+")) {
-                        throw new ParseException(Messages.ERROR_ITINERARY_EMPTY_TODOLIST);
-                    }
-                    todos.append(itineraryDetails[++i]).append("|");
-                    i++;
-                    while (itineraryDetails[i].equals("/and")) {
-                        i++;
-                        todos.append(itineraryDetails[i++]).append("|");
-                        if (i >= itineraryDetails.length) {
-                            break;
-                        }
-                    }
-                    todoList = PlanningStorageParser.getTodoListFromStorage(todos.toString());
-                    if (i >= itineraryDetails.length) {
-                        break;
-                    }
-                }
-                Agenda agenda = new Agenda(todoList, venueList, number);
-                agendaList.add(agenda);
-                this.setTasks(agendaList);
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ParseException(Messages.ERROR_ITINERARY_FAIL_CREATION);
-        } catch (NumberFormatException e) {
-            throw new ParseException(Messages.ERROR_ITINERARY_INCORRECT_COMMAND);
+    public void checkValidDate()
+            throws ChronologyBeforePresentException, ChronologyInconsistentException {
+        if (startDate.isBefore(LocalDateTime.now()) || endDate.isBefore(LocalDateTime.now())) {
+            throw new ChronologyBeforePresentException();
+        } else if (endDate.isBefore(startDate) || startDate.isAfter(endDate)) {
+            throw new ChronologyInconsistentException();
         }
     }
 
     /**
      * Returns number of days of the trip based on entered start and end dates.
-     * @return The number of days of the trip
+     * @return the number of days of a trip (end - start).
      */
-    public int getNumberOfDays() {
-        LocalDateTime tempDateTime = LocalDateTime.from(startDate);
-        long days = tempDateTime.until(endDate, ChronoUnit.DAYS);
-        return Integer.parseInt(String.valueOf(days)) + 1;
+    int getNumberOfDays() {
+            LocalDateTime tempDateTime = LocalDateTime.from(startDate);
+            long days = tempDateTime.until(endDate, ChronoUnit.DAYS);
+            return Integer.parseInt(String.valueOf(days)) + 1;
     }
 
     /**
