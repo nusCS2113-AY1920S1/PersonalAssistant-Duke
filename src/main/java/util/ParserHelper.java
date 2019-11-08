@@ -345,6 +345,9 @@ public class ParserHelper {
 
         for (String s : inputParts) {
             String [] part = s.split(" ");
+            if (part.length == 0) {
+                continue;
+            }
             switch (part[0]) {
             case INDEX_NUMBER_MARKER:
                 if (s.length() >= 3) {
