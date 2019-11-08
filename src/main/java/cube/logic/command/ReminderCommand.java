@@ -1,3 +1,8 @@
+/**
+ * The command adds a new reminder to the reminder list.
+ *
+ * @author parvathi14
+ */
 package cube.logic.command;
 
 import cube.logic.command.exception.CommandException;
