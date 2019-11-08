@@ -287,18 +287,23 @@ public class Command {
         if (continuation.isEmpty()) {
             EventDate today = new EventDate(calendarStartDate.getEventJavaDate());
             calendarView = new CalendarView(events, today);
+            calendarView.setCalendarInfo();
+            ui.printCalendar(calendarView.getStringForOutput());
         } else if (continuation.equals("next")) {
             calendarStartDate.addDaysAndSetMidnight(7);
             calendarView = new CalendarView(events, calendarStartDate);
+            calendarView.setCalendarInfo();
+            ui.printCalendar(calendarView.getStringForOutput());
         } else if (continuation.equals("last")) {
             calendarStartDate.addDaysAndSetMidnight(-7);
             calendarView = new CalendarView(events, calendarStartDate);
+            calendarView.setCalendarInfo();
+            ui.printCalendar(calendarView.getStringForOutput());
         } else {
             ui.calendarCommandWrongFormat();
         }
 
-        calendarView.setCalendarInfo();
-        ui.printCalendar(calendarView.getStringForOutput());
+
     }
 
 
@@ -431,6 +436,7 @@ public class Command {
                     if (newEvent.getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) < 0) {
                         ui.printEnteredEventOver();
                     }
+
                 } else { //recurring event
                     if (entryForEvent.getPeriod() > 0) {
                         events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
