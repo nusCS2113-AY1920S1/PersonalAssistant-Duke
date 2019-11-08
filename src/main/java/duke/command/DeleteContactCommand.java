@@ -36,8 +36,6 @@ public class DeleteContactCommand extends Command {
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        String str;
-        String deletedContact;
         if (contactList.size() == Numbers.ZERO.value) {
             return ui.showErrorMsgGui("No contacts to be deleted!");
         }
@@ -47,9 +45,9 @@ public class DeleteContactCommand extends Command {
                     + ((contactList.size() == Numbers.ONE.value) ? "" : "to " + contactList.size()));
         }
 
-        deletedContact = contactList.getAndDisplay(indexOfContactToDelete);
+        String deletedContact = contactList.getAndDisplay(indexOfContactToDelete);
         contactList.remove(indexOfContactToDelete);
-        str = ui.showContactDeletedGui(contactList, deletedContact);
+        String str = ui.showContactDeletedGui(contactList, deletedContact);
         return str;
     }
 

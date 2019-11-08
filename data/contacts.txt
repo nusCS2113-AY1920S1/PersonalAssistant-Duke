@@ -18,7 +18,3 @@ Singtel Balance Check,*139#,Nil,Nil
 Rahman (IBM),Nil,Nil,Nil
 Jeffrey (NUS),87678872,Nil,Nil
 Jeffrey (Poly),88456670,Nil,Nil
-Nil,Nil,Nil,Nil
-f,Nil,Nil,Nil
-f,f,Nil,Nil
-f,f,f@,Nil
