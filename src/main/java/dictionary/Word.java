@@ -108,7 +108,7 @@ public class Word {
                 }
             }
         }
-        return dp[word.length()][another.length()] ;
+        return dp[word.length()][another.length()];
     }
 
     /**

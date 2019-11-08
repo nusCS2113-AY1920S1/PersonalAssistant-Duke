@@ -115,7 +115,7 @@ public class WordBank {
     public Word editWordMeaningAndGetWord(String wordToBeEdited, String newMeaning) throws NoWordFoundException {
         Word word;
         if (wordBank.containsKey(wordToBeEdited)) {
-             word = wordBank.get(wordToBeEdited);
+            word = wordBank.get(wordToBeEdited);
             word.editMeaning(newMeaning);
         } else {
             throw new NoWordFoundException(wordToBeEdited);

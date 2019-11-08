@@ -51,10 +51,10 @@ public class Storage {
         File currentDir = new File(System.getProperty("user.dir"));
         File filePath = new File(currentDir.toString() + "\\data");
         File dataText = new File(filePath, "wordup.txt");
-        File dataExcel = new File(filePath, "wordup.xlsx");
         if (!filePath.exists()) {
             filePath.mkdir();
         }
+        File dataExcel = new File(filePath, "wordup.xlsx");
         if (!dataText.exists()) {
             try {
                 dataText.createNewFile();
