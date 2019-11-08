@@ -71,8 +71,8 @@ public class IngredientItemListParser {
             try {
                 portion = Double.parseDouble(portionString);
             } catch (NumberFormatException e) {
-                logger.info(ProductMessageUtils.MESSAGE_INVALID_INGREDIENT_FORMAT);
-                throw new ParseException(ProductMessageUtils.MESSAGE_INVALID_INGREDIENT_FORMAT);
+                logger.info(MESSAGE_INVALID_INGREDIENT_FORMAT);
+                throw new ParseException(MESSAGE_INVALID_INGREDIENT_FORMAT);
             }
         }
 
