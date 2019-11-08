@@ -1,6 +1,7 @@
 package models.member;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class Member implements IMember {
     private String name;
@@ -8,6 +9,7 @@ public class Member implements IMember {
     private String email;
     private int indexNumber;
     private String role;
+    private String memberID;
 
     /**
      * Class representing a member in a project team.
@@ -22,6 +24,7 @@ public class Member implements IMember {
         this.email = email;
         this.indexNumber = indexNumber;
         this.role = role;
+        this.memberID = UUID.randomUUID().toString();
     }
 
     @Override
@@ -32,13 +35,13 @@ public class Member implements IMember {
             return false;
         } else {
             Member other = (Member) obj;
-            return this.name.equals(other.name);
+            return this.memberID.equals(other.memberID);
         }
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.name);
+        return Objects.hash(this.memberID);
     }
 
 
