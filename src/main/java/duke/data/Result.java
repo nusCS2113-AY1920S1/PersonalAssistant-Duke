@@ -1,5 +1,6 @@
 package duke.data;
 
+import duke.exception.DukeException;
 import duke.ui.card.ResultCard;
 import duke.ui.card.UiCard;
 import duke.ui.context.Context;
@@ -17,7 +18,7 @@ public class Result extends Evidence {
      * @param summary a summary of the result
      * @param priority the priority level of the evidence
     */
-    public Result(String name, Impression impression, int priority, String summary) {
+    public Result(String name, Impression impression, int priority, String summary) throws DukeException {
         super(name, impression, priority, summary);
     }
 

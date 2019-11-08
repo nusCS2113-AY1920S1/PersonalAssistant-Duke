@@ -34,7 +34,7 @@ public class MedicineCard extends TreatmentCard {
 
         String statusText = String.valueOf(medicine.getStatusIdx());
         if (medicine.getStatusIdx() >= 0
-                && medicine.getStatusIdx() < Medicine.getStatusArr().size()) {
+                && medicine.getStatusIdx() < medicine.getStatusArr().size()) {
             statusText += " - " + medicine.getStatusStr();
         } else if (medicine.getStatusIdx() >= 0 && medicine.getStatusIdx() < statuses.length) {
             statusText += " - Default " + statuses[medicine.getStatusIdx()];

@@ -30,7 +30,7 @@ public class InvestigationCard extends TreatmentCard {
         nameLabel.setText(investigation.getName());
 
         String statusText = String.valueOf(investigation.getStatusIdx());
-        if (investigation.getStatusIdx() >= 0 && investigation.getStatusIdx() < Investigation.getStatusArr().size()) {
+        if (investigation.getStatusIdx() >= 0 && investigation.getStatusIdx() < investigation.getStatusArr().size()) {
             statusText += " - " + investigation.getStatusStr();
         }
         statusLabel.setText(statusText);

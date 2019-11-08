@@ -23,7 +23,8 @@ public class Observation extends Evidence {
      * @param isObjective whether the observation has physical evidence or is a symptom reported by the patient
      * @param priority the priority level of the evidence
      */
-    public Observation(String name, Impression impression, int priority, String summary, boolean isObjective) {
+    public Observation(String name, Impression impression, int priority, String summary, boolean isObjective)
+            throws DukeException {
         super(name, impression, priority, summary);
         this.isObjective = isObjective;
     }

@@ -37,8 +37,8 @@ public class Investigation extends Treatment {
      * @param resultSummary description of the result
      * @return the result object
      */
-    public Result toResult(String resultSummary) {
-        return new Result(getName() + " Result", (Impression) getParent(), getPriority(),
+    public Result toResult(String resultSummary) throws DukeException {
+        return new Result(getName() + " Result", getParent(), getPriority(),
                 (resultSummary == null) ? "" : resultSummary);
     }
 

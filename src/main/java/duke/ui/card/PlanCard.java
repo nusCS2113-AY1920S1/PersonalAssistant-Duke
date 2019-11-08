@@ -24,7 +24,7 @@ public class PlanCard extends TreatmentCard {
         nameLabel.setText(plan.getName());
 
         String statusText = String.valueOf(plan.getStatusIdx());
-        if (plan.getStatusIdx() >= 0 && plan.getStatusIdx() < Plan.getStatusArr().size()) {
+        if (plan.getStatusIdx() >= 0 && plan.getStatusIdx() < plan.getStatusArr().size()) {
             statusText += " - " + plan.getStatusStr();
         }
         statusLabel.setText(statusText);

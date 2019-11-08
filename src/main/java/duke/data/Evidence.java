@@ -16,7 +16,7 @@ import duke.exception.DukeException;
  */
 public abstract class Evidence extends DukeData {
 
-    public Evidence(String name, Impression impression, Integer priority, String summary) {
+    public Evidence(String name, Impression impression, Integer priority, String summary) throws DukeException {
         super(name, impression, priority);
         this.summary = summary;
     }

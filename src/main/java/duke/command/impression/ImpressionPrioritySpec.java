@@ -27,7 +27,6 @@ public class ImpressionPrioritySpec extends ImpressionObjSpec {
     protected void executeWithObj(DukeCore core, DukeObject obj) throws DukeException {
         DukeData prioData = (DukeData) obj;
         int priority = cmd.switchToInt("set");
-        ImpressionUtils.checkPriority(priority);
         prioData.setPriority(priority);
         core.writeJsonFile();
         core.updateUi("Updated '" + prioData.getName() + "' priority to " + priority + "!");
