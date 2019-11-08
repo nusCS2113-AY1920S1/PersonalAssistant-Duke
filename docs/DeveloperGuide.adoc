@@ -28,8 +28,12 @@ By: `Team W17-4`      Since: `Aug 2019`      Licence: `MIT`
 === What is the purpose of this guide?
 This guide aims to provide information for you, who are the future contributors of *_OOF_*, so that you can have an easy reference for understanding the features implemented in *_OOF_*.
 
+=== Acknowledgements
+Original source: https://github.com/nusCS2113-AY1920S1/PersonalAssistant-Duke[PersonalAssistant-Duke]
+created by https://github.com/se-edu/[SE-EDU initiative]
+
 == Setting up
-This section will show you the steps that you need to quickly start contributing to this project in no time!
+This section will show you the requirements that you need to fulfill in order to quickly start contributing to this project in no time!
 
 [[Prerequisites]]
 === Prerequisites
@@ -139,7 +143,6 @@ The `setRecurringTask` method in `RecurringCommand` class is then called by `exe
 
 * Calls `getTask` method from `TaskList` class to get the user selected `Task`.
 * Updates the `Task` to a `recurring Task` by: +
-** Calling `setFrequency` method in `Task` class to set `Frequency` to `DAILY`
 ** Calling `deleteTask` and `addTaskToIndex` methods in `TaskList` class to update the selected `Task`.
 * Calls `recurInstances` method in `RecurringCommand` class to set upcoming recurring `Tasks` based on user selected `Number of recurrences` and `Frequency` by:
 ** `recurInstances` method calls `dateTimeIncrement` method in `RecurringCommand` class to increment the `DateTime` based on the user input `Frequency`.
@@ -775,13 +778,20 @@ Here are the steps to create a new release.
 
 *Target User Profile*: 
 
-* Needs to manage multiple tasks at once
+* University students
 * Prefer desktop Command-Line-Interface (CLI) over other types
 * Able to type on the keyboard fast
 * Prefers typing over mouse input
 * Proficient in using CLI applications
 
-*Value proposition*: manage tasks faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+* Helps you plan your tasks, modules and lessons more effectively
+* Helps you coordinate common free time slots with other people
+* Automatically reminds you of upcoming deadlines
+* Automatically organizing your tasks for viewing in calendar, tabular and list format
+* Allows you to plan your semester in advance
+* Works offline
 
 [appendix]
 == Requirements
