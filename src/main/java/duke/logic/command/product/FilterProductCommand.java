@@ -49,7 +49,6 @@ public class FilterProductCommand extends ProductCommand {
         default:
             break;
         }
-        //model.getFilteredProductList();
         return new CommandResult(String.format(ProductMessageUtils.MESSAGE_LIST_SCOPE, scope),
             CommandResult.DisplayedPage.PRODUCT);
     }

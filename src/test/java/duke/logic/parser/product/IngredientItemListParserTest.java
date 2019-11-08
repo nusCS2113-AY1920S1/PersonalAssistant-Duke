@@ -1,20 +1,15 @@
 package duke.logic.parser.product;
 
-import duke.logic.command.product.AddProductCommand;
-import duke.logic.parser.exceptions.ParseException;
 import duke.model.product.IngredientItemList;
-import duke.testutil.IngredientBuilder;
 import duke.testutil.IngredientItemListBuilder;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-
-import static duke.logic.message.ProductMessageUtils.MESSAGE_WRONG_INGREDIENT_FORMAT;
 import static duke.logic.parser.product.IngredientItemListParser.getIngredientsInInput;
 import static duke.testutil.TypicalIngredientItems.CREAM_CHEESE_3;
 import static duke.testutil.TypicalIngredientItems.EGG_2;
 import static duke.testutil.TypicalIngredientItems.BUTTER_0;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class IngredientItemListParserTest {
     private static final IngredientItemList REFERENCE_LIST =
@@ -70,9 +65,8 @@ public class IngredientItemListParserTest {
     @Test
     public void parseIngredient_invalidInput_throwCommandException() {
         //input with  -> return true
-        //Throwable throwable = Assertions.assertThrows(ParseException.class, () -> {
-        //    assertFalse(getIngredientsInInput("[Cream cheese, 3][Butter, 2][Egg, 2] ");
+        //assertThrows(ParseException.class, () -> {
+        //    getIngredientsInInput("-er, 2]----[Egg, 2] ");
         //});
     }
-
 }

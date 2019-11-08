@@ -61,7 +61,7 @@ public class IngredientItemListParser {
         return params;
     }
 
-    private static Item<Ingredient> constructNewIngredientItem(Map.Entry<String, String> entry) {
+    private static Item<Ingredient> constructNewIngredientItem(Map.Entry<String, String> entry) throws ParseException{
         String ingredientName = entry.getKey();
         String portionString = entry.getValue();
         Ingredient newIngredient = new Ingredient(ingredientName);
@@ -87,7 +87,7 @@ public class IngredientItemListParser {
      * @param input user input containing ingredient and portion
      * @return the IngredientItemList that contains the ingredients
      */
-    public static IngredientItemList getIngredientsInInput(String input) {
+    public static IngredientItemList getIngredientsInInput(String input) throws ParseException {
         IngredientItemList ingredientItemList = new IngredientItemList();
         Map<String, String> ingredientAndPortion = getIngredientPortionMap(input);
         for (Map.Entry<String, String> entry : ingredientAndPortion.entrySet()) {
