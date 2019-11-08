@@ -5,14 +5,16 @@ import Model_Classes.ProgressBar;
 
 public class ListRoutine {
     private TaskList taskList;
+    private OverdueList overdueList;
     private Ui ui = new Ui();
 
     /**
      * constructor for the ListRoutine
      * @param taskList the task list to be listed using the list routine
      */
-    public ListRoutine(TaskList taskList) {
+    public ListRoutine(TaskList taskList, OverdueList overdueList) {
         this.taskList = taskList;
+        this.overdueList = overdueList;
     }
 
     /**
@@ -23,7 +25,7 @@ public class ListRoutine {
         ui.showSort();
         ui.showList();
         try {
-            taskList.list();
+            taskList.list(overdueList);
         } catch (RoomShareException e) {
             ui.showError(e);
         }
