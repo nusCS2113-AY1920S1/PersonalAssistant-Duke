@@ -3,13 +3,13 @@ BS @ 0.0
 INC @ 100.0 @ Initialize account: DBS @ 14/8/2018
 INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
 INC @ 100.0 @ Initialize account: DBS @ 14/8/2018
-INC @ 200.0 @ Deposit to OCBC @ 3/3/2018
+INC @ 2000.0 @ Deposit to OCBC @ 3/3/2018
 INC @ 20.0 @ From my friends @ 23/10/2019
 EXP @ 70.0 @ Flowers for the lady  @ present  @ 9/10/1997
 EXP @ 50.0 @ Lego for the boy  @ toy  @ 9/10/1997
 EXP @ 50.0 @ Doll for the girl  @ t @ 9/10/1997
 EXP @ 100.0 @ Treated BIAP @ food @ 1/11/2019
-EXP @ 1000000.0 @ balled out LOL @ ball @ 2/11/2019
+EXP @ 100.0 @ balled out LOL @ ball @ 2/11/2019
 EXP @ 70.0 @ Flowers for the lady  @ present  @ 9/10/1997
 EXP @ 50.0 @ Lego for the boy  @ toy  @ 9/10/1997
 EXP @ 50.0 @ Doll for the girl  @ t @ 9/10/1997
