@@ -1,6 +1,7 @@
+package FilterTest;
+
 import Commands.Command;
 import Commands.FilterCommand;
-import Commons.LookupTable;
 import Commons.UserInteraction;
 import StubClasses.StorageStub;
 import Tasks.Assignment;
@@ -12,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FilterTest {
+public class FilterCommandTest {
     private static Assignment eventWithoutKeyword;
     private static Assignment deadlineWithoutKeyword;
     private static Assignment eventWithKeyword;
