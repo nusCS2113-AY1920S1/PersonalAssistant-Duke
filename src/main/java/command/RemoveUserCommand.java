@@ -37,7 +37,7 @@ public class RemoveUserCommand extends Command {
             throws DukeException, IOException {
         boolean isValid = UserList.checkExistence(userList, splitL[1]);
         if (isValid) {
-            if (userList.getCurrentUser().equals(splitL[1])) {
+            if (splitL[1].equals(userList.getCurrentUser())) {
                 throw new DukeException("OOPS! You are currently logged in as " + userList.getCurrentUser() + "!");
             } else {
                 UserList.removeUser(userList, splitL[1]);
