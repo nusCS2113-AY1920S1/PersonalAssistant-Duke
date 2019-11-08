@@ -214,7 +214,8 @@ public class CapCommand extends ModuleCommand {
                 boolean hasPreclusions = false;
                 for (ModuleTask x : profile.getModules()) {
                     if (detailedMap.get(module).getPreclusion().contains(x.getModuleCode())
-                    || (detailedMap.get(x.getModuleCode()).getPreclusion().contains(module))) {
+                        ||
+                        (detailedMap.get(x.getModuleCode()).getPreclusion().contains(module))) {
                         hasPreclusions = true;
                         mcCount += x.getModuleCredit();
                         projectedModuleCap += letterGradeToCap(x.getGrade()) * x.getModuleCredit();
@@ -222,14 +223,13 @@ public class CapCommand extends ModuleCommand {
                     }
                 }
                 if (hasPreclusions) {
-//                    prunedModules.remove(module);
                     toBeRemoved.add(module);
                 }
             }
         }
         for (String x : toBeRemoved) {
             prunedModules.remove(x);
-            }
+        }
         if (prunedModules.isEmpty()) {
             if (projectedModuleCap == 0 && mcCount == 0) {
                 plannerUi.capModMsg(0.00, moduleCode);
