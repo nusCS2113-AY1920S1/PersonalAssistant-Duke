@@ -7,7 +7,6 @@ import duke.data.DukeObject;
 import duke.data.Impression;
 import duke.data.Patient;
 import duke.exception.DukeException;
-import duke.ui.context.Context;
 
 public class HomeOpenSpec extends HomeObjSpec {
     private static final HomeOpenSpec spec = new HomeOpenSpec();
@@ -31,14 +30,14 @@ public class HomeOpenSpec extends HomeObjSpec {
             Impression primaryDiagnosis = patient.getPrimaryDiagnosis();
 
             if (primaryDiagnosis != null) {
-                core.uiContext.setContext(Context.PATIENT, patient);
-                core.uiContext.setContext(Context.IMPRESSION, primaryDiagnosis);
+                core.uiContext.open(patient);
+                core.uiContext.open(primaryDiagnosis);
                 core.updateUi("Accessing primary diagnosis of " + patient.getName());
             } else {
                 throw new DukeException(patient.getName() + " has no primary diagnosis at the moment!");
             }
         } else {
-            core.uiContext.setContext(Context.PATIENT, patient);
+            core.uiContext.open(patient);
             core.updateUi("Accessing details of " + patient.getName());
         }
     }

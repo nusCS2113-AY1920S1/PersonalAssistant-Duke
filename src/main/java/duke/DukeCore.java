@@ -9,7 +9,6 @@ import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
 import duke.ui.Ui;
 import duke.ui.UiManager;
-import duke.ui.context.Context;
 import duke.ui.context.UiContext;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -56,7 +55,8 @@ public class DukeCore extends Application {
      */
     public void search(SearchResults results, ObjCommand objCmd) throws DukeException {
         queuedCmd = objCmd;
-        uiContext.setContext(Context.SEARCH, results);
+        ui.print("Couldn't identify '" + results.getName() + "', displaying objects with matching names.");
+        uiContext.open(results);
     }
 
     /**

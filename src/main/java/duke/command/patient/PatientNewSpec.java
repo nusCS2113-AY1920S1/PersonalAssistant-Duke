@@ -7,7 +7,6 @@ import duke.command.Switch;
 import duke.data.Impression;
 import duke.data.Patient;
 import duke.exception.DukeException;
-import duke.ui.context.Context;
 
 public class PatientNewSpec extends ArgSpec {
 
@@ -35,7 +34,7 @@ public class PatientNewSpec extends ArgSpec {
         core.updateUi("Impression added:\n" + patient.getImpression(impression.getName()).toString());
 
         if (cmd.isSwitchSet("go")) {
-            core.uiContext.setContext(Context.IMPRESSION, impression);
+            core.uiContext.open(impression);
         }
     }
 }

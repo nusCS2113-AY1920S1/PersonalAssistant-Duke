@@ -6,7 +6,6 @@ import duke.command.ArgSpec;
 import duke.command.Switch;
 import duke.data.Patient;
 import duke.exception.DukeException;
-import duke.ui.context.Context;
 
 public class HomeNewSpec extends ArgSpec {
     private static final HomeNewSpec spec = new HomeNewSpec();
@@ -59,7 +58,7 @@ public class HomeNewSpec extends ArgSpec {
         core.updateUi("Patient added.");
 
         if (cmd.isSwitchSet("go")) {
-            core.uiContext.setContext(Context.PATIENT, patient);
+            core.uiContext.open(patient);
         }
     }
 }

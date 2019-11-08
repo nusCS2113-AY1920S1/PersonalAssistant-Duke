@@ -6,7 +6,6 @@ import duke.command.ArgSpec;
 import duke.command.home.HomeReportSpec;
 import duke.data.Patient;
 import duke.exception.DukeException;
-import duke.ui.context.Context;
 
 public class PatientDischargeSpec extends ArgSpec {
     private static final PatientDischargeSpec spec = new PatientDischargeSpec();
@@ -31,7 +30,7 @@ public class PatientDischargeSpec extends ArgSpec {
         Patient patient = (Patient) core.uiContext.getObject();
         HomeReportSpec.createReport(patient, header, explanation, arg);
         core.patientData.deletePatient(patient.getBedNo());
-        core.uiContext.setContext(Context.HOME, null);
+        core.uiContext.open(null);
         core.writeJsonFile();
         core.updateUi(result);
     }

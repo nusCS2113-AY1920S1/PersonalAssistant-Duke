@@ -12,7 +12,6 @@ import duke.data.Plan;
 import duke.data.Result;
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
-import duke.ui.context.Context;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -122,21 +121,7 @@ public class ImpressionNewSpec extends DukeDataSpec {
         core.updateUi(newStr);
 
         if (cmd.isSwitchSet("go")) {
-            switch (addType) {
-            case "plan": //fallthrough
-            case "medicine":
-                core.uiContext.setContext(Context.TREATMENT, newData);
-                break;
-            case "investigation":
-                core.uiContext.setContext(Context.INVESTIGATION, newData);
-                break;
-            case "result": //fallthrough
-            case "observation":
-                core.uiContext.setContext(Context.EVIDENCE, newData);
-                break;
-            default:
-                throw new DukeException("Invalid data type!");
-            }
+            core.uiContext.open(newData);
         }
         core.writeJsonFile();
     }
