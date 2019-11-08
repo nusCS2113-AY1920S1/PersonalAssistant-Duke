@@ -46,7 +46,7 @@ public class AddCommand extends Command {
     @Override
     public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws ParseException, DukeInvalidFormatException {
         String out = "";
-        AlertBox alertBox = new AlertBox();
+
         ArrayList<String> eventConflict;
         ArrayList<String> deadlineConflict;
         if (task.getType().equals("[E]")) {
@@ -67,11 +67,9 @@ public class AddCommand extends Command {
                 storage.updateEventList(events);
             }else{
                 out = "Sorry, you have conflicting events \n";
-                String show = "";
                 for (int i = 0; i< eventConflict.size();i++){
-                    show += eventConflict.get(0);
+                    out += (i+ 1) + ". " + eventConflict.get(0) +"\n";
                 }
-                alertBox.display("Warning", out, show, Alert.AlertType.WARNING);
             }
         } else if (task.getType().equals("[D]")) {
             deadlineConflict = checkDeadlineConflict(deadlines, this.task);
@@ -82,11 +80,10 @@ public class AddCommand extends Command {
                 storage.updateDeadlineList(deadlines);
             }else{
                 out = "Sorry, you have conflicting deadlines \n";
-                String show = "";
                 for (int i = 0; i< deadlineConflict.size();i++){
-                    show += deadlineConflict.get(0) +"\n";
+                    out += (i+ 1) + ". " +deadlineConflict.get(0) +"\n";
                 }
-                alertBox.display("Warning", out, show, Alert.AlertType.WARNING);
+
             }
 
         }
