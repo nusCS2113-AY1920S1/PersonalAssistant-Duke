@@ -1,4 +1,4 @@
-T|1|read a book|read page 578
+T|1|read a book|empty
 D|0|submit homework|k-pop is so great man i love it.|01/10/2019 2359
 F|1|take computing class|empty|2 hours
 T|0|dance|empty
