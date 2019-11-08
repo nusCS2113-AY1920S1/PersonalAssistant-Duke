@@ -9,7 +9,7 @@ import duke.model.product.Product;
  * A utility class to help with building Product objects.
  */
 public class ProductBuilder {
-    //public static final String DEFAULT_NAME = "Cheese cake";
+    public static final String DEFAULT_NAME = "_name";
     public static final Double DEFAULT_COST = 0.0;
     public static final Double DEFAULT_PRICE = 0.0;
     public static final Product.Status DEFAULT_STATUS = Product.Status.valueOf("ACTIVE");
@@ -25,7 +25,15 @@ public class ProductBuilder {
     private Double retailPrice;
     private Product.Status status;
 
+    /**
+     * Builds an empty product.
+     */
     public ProductBuilder() {
+        this.productName = DEFAULT_NAME;
+        ingredients = new IngredientItemList();
+        ingredientCost = DEFAULT_COST;
+        retailPrice = DEFAULT_PRICE;
+        status = DEFAULT_STATUS;
     }
 
     public ProductBuilder(String productName) {

@@ -59,7 +59,6 @@ public class JsonAdaptedProduct {
         IngredientItemList ingredientItemList = new IngredientItemList();
         for (JsonAdaptedIngredientItem jsonAdaptedIngredientItem : ingredientItems) {
             ingredientItemList.add(jsonAdaptedIngredientItem.toModelType());
-
         }
 
         Product product = new Product(productName, retailPrice, ingredientCost, ingredientItemList, status);
