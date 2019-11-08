@@ -3,7 +3,7 @@ package project;
 import payment.Payee;
 
 import java.util.HashMap;
-
+import java.util.LinkedHashMap;
 
 
 public class Project {
@@ -19,7 +19,7 @@ public class Project {
      * Instantiates Project object without a budget allocated.
      */
     public Project(String projectname) {
-        this.managermap = new HashMap<>();
+        this.managermap = new LinkedHashMap<>();
         this.budget = NOBUDGET;
         this.spending = NOSPENDING;
         this.projectname = projectname;

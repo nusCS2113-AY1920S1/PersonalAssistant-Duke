@@ -146,4 +146,8 @@ public class Instruction {
         return input.equals("help");
     }
 
+    public boolean isLoad(String input) {
+        return input.equals("load");
+    }
+
 }

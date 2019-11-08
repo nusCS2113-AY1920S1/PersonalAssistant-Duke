@@ -1,5 +1,6 @@
 package command;
 
+import Storage.Storage;
 import common.AlphaNUSException;
 import common.TaskList;
 import project.Fund;
@@ -12,15 +13,10 @@ import java.util.ArrayList;
  * Parser that parses input from the user.
  */
 public class Parser {
-    private static Instruction instr = new Instruction();
-    private static Process process;
+    public static Instruction instr = new Instruction();
+    public Process process = new Process();
 
-    static {
-        try {
-            process = new Process();
-        } catch (AlphaNUSException e) {
-            e.printStackTrace();
-        }
+    public Parser() throws AlphaNUSException {
     }
 
 
@@ -29,12 +25,12 @@ public class Parser {
      * @param input Input from the user.
      * @param tasklist Tasklist of the user.
      * @param ui Ui that interacts with the user.
-     * @param storage command.Storage for the Tasklist.
+     * @param storage Storage.Storage for the Tasklist.
      * @param list CommandList.
      * @return Returns boolean variable to indicate when to stop parsing for input.
      * @throws AlphaNUSException if input is not valid.
      */
-    public static boolean parse(String input, TaskList tasklist, Ui ui, Fund fund,
+    public boolean parse(String input, TaskList tasklist, Ui ui, Fund fund,
                                 Storage storage, ArrayList<String> list) {
         try {
             if (instr.isBye(input)) {
@@ -47,6 +43,8 @@ public class Parser {
             } else if (instr.isUndo(input)) {
                 process.commandHistory(input, ui, storage);
                 process.undo(storage, ui);
+            } else if (instr.isLoad(input)) {
+                process.backupProjects(ui, fund, storage, list);
             } else if (instr.isRedo(input)) {
                 process.commandHistory(input, ui, storage);
                 process.redo(storage, ui);
@@ -79,7 +77,7 @@ public class Parser {
             } else if (instr.isDoAfter(input)) {
                 process.doAfter(input, tasklist, ui);
                 process.commandHistory(input, ui, storage);
-                //command.Storage.save(tasklist.returnArrayList());
+                //Storage.Storage.save(tasklist.returnArrayList());
             } else if (instr.isDeletePayment(input)) {
                 process.deletePayment(input, ui, storage);
                 process.commandHistory(input, ui, storage);

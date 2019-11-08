@@ -1,6 +1,6 @@
 package project;
 
-import command.Storage;
+import Storage.Storage;
 import common.AlphaNUSException;
 import payment.Payee;
 
@@ -132,5 +132,15 @@ public class ProjectManager {
 
     public HashMap<String, Payee> getCurrentProjectManagerMap() {
         return projectmap.get(currentprojectname).managermap;
+    }
+
+    /**
+     * Load backup projects and removes previously added projects.
+     * Also sets currentproject to null.
+     * @param projectmap HashMap of projects from backup.
+     */
+    public void loadBackup(LinkedHashMap<String, Project> projectmap) {
+        this.projectmap = projectmap;
+        this.currentprojectname = null;
     }
 }

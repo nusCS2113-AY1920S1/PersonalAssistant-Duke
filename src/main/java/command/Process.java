@@ -1,12 +1,12 @@
 package command;
 
+import Storage.Storage;
 import common.AlphaNUSException;
 import common.CommandFormat;
 import common.TaskList;
 import payment.Payee;
 import payment.PaymentManager;
 import payment.Payments;
-import payment.Status;
 import project.Fund;
 import project.Project;
 import project.ProjectManager;
@@ -15,19 +15,17 @@ import task.DoAfterTasks;
 import task.Task;
 import task.WithinPeriodTask;
 import ui.Ui;
+
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Calendar;
+import java.util.*;
 
 public class Process {
     private SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
     private CommandFormat commandformat = new CommandFormat();
-    ProjectManager projectmanager = new ProjectManager();
+    public ProjectManager projectmanager = new ProjectManager();
     private payment.Status Status;
 
     Process() throws AlphaNUSException {
@@ -127,7 +125,8 @@ public class Process {
         } catch (NumberFormatException | AlphaNUSException e) {
             ui.exceptionMessage("\t" + "Amount of funds should be a number!");
         } catch (IndexOutOfBoundsException e) {
-            ui.exceptionMessage(e.getMessage());
+            ui.exceptionMessage("\t" + "Incorrect input format\n" + "\t" +
+                    "Correct Format: " + commandformat.addProjectFormat());
         }
     }
 
@@ -347,6 +346,17 @@ public class Process {
         } catch (NumberFormatException e) {
             ui.exceptionMessage("     ☹ OOPS!!! The amount of fund must be a positive number and mustser not be empty!");
         }
+    }
+
+    public void backupProjects(Ui ui, Fund fund, Storage storage, ArrayList<String> commandlist) throws AlphaNUSException {
+        Fund backupfund = storage.readFromBackupFundFile();
+        fund.loadFund(backupfund.getFund(), backupfund.getFundTaken(), backupfund.getFundRemaining());
+        LinkedHashMap<String, Project> projectmap = storage.readFromBackupProjectsFile();
+        projectmanager.loadBackup(projectmap);
+        ArrayList<String> backupcommandlist = storage.readFromBackupCommandsFile();
+        commandlist.clear();
+        commandlist.addAll(backupcommandlist);
+        System.out.println("Load Complete!");
     }
 
 

@@ -79,4 +79,10 @@ public class Fund {
             + "Allocated Fund = " + getFundTaken() + "\n" + "\t" 
             + "Remaining Fund = " + getFundRemaining() + "\n";
     }
+
+    public void loadFund(double fund, double fundTaken, double fundRemaining) {
+        this.fund = fund;
+        this.fundTaken = fundTaken;
+        this.fundRemaining = fundRemaining;
+    }
 }
