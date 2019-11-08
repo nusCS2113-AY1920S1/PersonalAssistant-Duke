@@ -10,7 +10,7 @@ import java.util.HashMap;
  */
 public class FilePaths {
 
-    protected static HashMap<FilePathNames, String> filePathsConfigMap = new HashMap<FilePathNames, String>();
+    private static HashMap<FilePathNames, String> filePathsConfigMap = new HashMap<FilePathNames, String>();
 
     public FilePaths() {
         setFilePathsConfigMap();
@@ -32,5 +32,13 @@ public class FilePaths {
 
     public String getFilePathStr(FilePathNames filePathName) {
         return filePathsConfigMap.get(filePathName);
+    }
+
+    public void setTestPathConfigMap() {
+        for (FilePathNames pathName : filePathsConfigMap.keySet()) {
+            String defaultPathStr = filePathsConfigMap.get(pathName);
+            String crossCompatiblePathStr = FileUtil.getSystemFilePathStr(defaultPathStr);
+            filePathsConfigMap.replace(pathName, crossCompatiblePathStr.replace("main", "test"));
+        }
     }
 }

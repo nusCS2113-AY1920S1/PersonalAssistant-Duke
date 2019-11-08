@@ -167,4 +167,8 @@ public class Load {
             throw new ProgramException("Error reading help file");
         }
     }
+
+    public void test() {
+        filePaths.setTestPathConfigMap();
+    }
 }

@@ -95,8 +95,10 @@ public class User {
             return false;
         } else {
             this.goal = goal;
-            this.goal.setOriginalWeight(originalWeight);
-            calculateTargetCalories();
+            if (isSetup) {
+                this.goal.setOriginalWeight(originalWeight);
+                calculateTargetCalories();
+            }
             return true;
         }
     }
@@ -239,5 +241,11 @@ public class User {
      */
     public boolean getIsSetup() {
         return this.isSetup;
+    }
+
+    @Override
+    public String toString() {
+        return this.name + "|" + this.height + "|" + this.age + "|" + this.gender  + "|" + this.isSetup
+                + "|" + this.activityLevel + "|" + this.originalWeight + "|" + this.lastDate;
     }
 }

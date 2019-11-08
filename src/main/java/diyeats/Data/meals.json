@@ -1,0 +1,15 @@
+{
+  "2019-11-08": [
+    {
+      "description": "prata",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-08",
+      "nutritionValue": {
+        "calorie": 600
+      },
+      "costStr": "0"
+    }
+  ]
+}

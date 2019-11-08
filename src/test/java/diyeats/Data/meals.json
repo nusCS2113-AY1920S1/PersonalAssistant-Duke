@@ -1,0 +1,41 @@
+{
+  "2019-11-08": [
+    {
+      "description": "burger",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-08",
+      "nutritionValue": {
+        "sodium": 20,
+        "fats": 20,
+        "calorie": 1000
+      },
+      "costStr": "0"
+    },
+    {
+      "description": "mac \u0026 cheese",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": true,
+      "date": "2019-11-08",
+      "nutritionValue": {
+        "sodium": 20,
+        "fats": 30,
+        "calorie": 500
+      },
+      "costStr": "0"
+    },
+    {
+      "description": "pizza",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-08",
+      "nutritionValue": {
+        "calorie": 800
+      },
+      "costStr": "0"
+    }
+  ]
+}

@@ -68,4 +68,7 @@ public class Write {
         FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePathNames.FILE_PATH_TRANSACTION_FILE));
     }
 
+    public void test() {
+        filePaths.setTestPathConfigMap();
+    }
 }

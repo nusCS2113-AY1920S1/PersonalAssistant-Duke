@@ -37,8 +37,9 @@ interface to use our application.
 1. Ensure that your src folder is checked. Keep clicking `Next`.
 1. Click `Finish`.
 
-# Site Map 
+# Acknowledgements
 
+# Site Map 
 
 * [About Us](docs/AboutUs.adoc)
 * [User Guide](docs/UserGuide.adoc)

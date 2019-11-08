@@ -20,8 +20,8 @@ group 'diyeats'
 version '1.3'
 
 shadowJar {
-    archiveBaseName = "diyeats"
-    archiveVersion = "1.3"
+    archiveBaseName = "DIYeats"
+    archiveVersion = "1.4"
     archiveClassifier = null
     archiveAppendix = null
     archiveAppendix = null
@@ -30,7 +30,8 @@ shadowJar {
 sourceSets {
     main {
         resources {
-            srcDirs = ['src/main/java/']
+            srcDirs = ['./src']
+            exclude './src/test'
         }
     }
 }
