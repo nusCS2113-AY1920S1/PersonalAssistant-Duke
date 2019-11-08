@@ -39,7 +39,7 @@ public class AssignmentController {
         if (input.length() < ASSIGN_TASK_COMMAND.length()) {
             errorMessages.add("Insufficient parameters!"
                 + "Indicate the tasks and members whom you wish to assign or remove!");
-            errorMessages.add("Format is \"assign task -i TASK_INDEX -to [MEMBER_INDEX] -rm [MEMBER_INDEX]\"");
+            errorMessages.add("Format is \"assign task -i TASK_INDEX [-to MEMBER_INDEX] [-rm MEMBER_INDEX]\"");
             errorMessages.add("You must either assign a task to someone, or remove, or both!");
             return;
         }
@@ -51,15 +51,17 @@ public class AssignmentController {
         ArrayList<Integer> validUnassignees = assignmentParams.get(2);
 
         if (validTaskIndexes.size() == 0) {
-            errorMessages.add("No valid task numbers detected. Cannot assign any tasks.");
-            errorMessages.add("Please input valid task numbers in this format: -i TASK_INDEX");
+            errorMessages.add("No valid task numbers detected. Cannot assign/unassign any tasks.");
+            errorMessages.add("Please check that the task index number(s) are valid, and input them in "
+                + "this format: -i TASK_INDEX1 [TASK_INDEX2]");
             return;
         }
 
         if (validAssignees.size() == 0 && validUnassignees.size() == 0) {
-            errorMessages.add("Insufficient parameters! Indicate the members whom you wish to assign or remove!");
-            errorMessages.add("Format is \"assign task -i TASK_INDEX -to [MEMBER_INDEX] -rm [MEMBER_INDEX]\"");
-            errorMessages.add("You must either assign a task to someone, or remove, or both!");
+            errorMessages.add("No valid member indexes detected. No tasks can be assigned.");
+            errorMessages.add("Please check that you are using valid member indexes.");
+            errorMessages.add("Also ensure that the correct flags are used: "
+                + "'-to' for assignees, '-rm' for unassignees.");
             return;
         }
 
