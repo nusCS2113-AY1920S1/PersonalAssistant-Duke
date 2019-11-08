@@ -3,6 +3,7 @@ package dolla.parser;
 import dolla.Tag;
 import dolla.Time;
 import dolla.command.view.ViewCommand;
+import dolla.command.view.ViewDateCommand;
 import dolla.command.view.ViewTodayCommand;
 import dolla.ui.DebtUi;
 import dolla.command.AddDebtsCommand;
@@ -13,7 +14,10 @@ import dolla.command.ErrorCommand;
 import dolla.model.Debt;
 import dolla.model.Entry;
 import dolla.ui.LimitUi;
+import dolla.ui.Ui;
+import dolla.ui.ViewUi;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 
 //@@author omupenguin
@@ -28,7 +32,13 @@ public class DollaParser extends Parser {
     public Command parseInput() {
 
         if (commandToRun.equals(DOLLA_VIEW)) {
-            return new ViewTodayCommand(date);
+            if (verifyViewTodayCommand()) {
+                return new ViewTodayCommand();
+            } else if (verifyViewDateCommand()) {
+                return new ViewDateCommand(date);
+            } else {
+                return new ErrorCommand();
+            }
         } else if (commandToRun.equals(ENTRY_COMMAND_ADD)) {
             if (verifyAddCommand()) {
                 Tag tag = new Tag();
@@ -88,8 +98,34 @@ public class DollaParser extends Parser {
                 LimitUi.invalidSetCommandPrinter();
                 return new ErrorCommand();
             }
-        } else {
-            return invalidCommand();
         }
+        return invalidCommand();
+    }
+
+    private boolean verifyViewTodayCommand() {
+        try {
+            if (inputArray[1].equals("today")) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            ViewUi.printInvalidViewFormatError();
+            return false;
+        }
+    }
+
+    private boolean verifyViewDateCommand() {
+        try {
+            date = Time.readDate(inputArray[1]);
+        } catch (IndexOutOfBoundsException e) {
+            //ViewUi.printInvalidViewFormatError();
+            return false;
+        } catch (DateTimeException e) {
+            Ui.printDateFormatError();
+            ViewUi.printInvalidViewFormatError();
+            return false;
+        }
+        return true;
     }
 }

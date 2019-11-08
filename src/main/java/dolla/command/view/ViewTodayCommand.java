@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 public class ViewTodayCommand extends ViewCommand {
 
-    public ViewTodayCommand(LocalDate date) {
-        cmpDate = date;
+    public ViewTodayCommand() {
+        cmpDate = LocalDate.now();
         dateStr = "today";
     }
 }

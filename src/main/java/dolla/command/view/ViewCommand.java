@@ -17,8 +17,6 @@ public class ViewCommand extends Command {
     @Override
     public void execute(DollaData dollaData) {
 
-        cmpDate = LocalDate.now(); // to change
-
         double sum = 0;
         RecordList entryList = dollaData.getRecordListObj(MODE_ENTRY);
         boolean hasRelevantEntries = false;
@@ -28,6 +26,7 @@ public class ViewCommand extends Command {
             return;
         }
 
+        ViewUi.printStartLine();
         for (int i = 0; i < entryList.size(); i += 1) {
             Record currEntry = entryList.getFromList(i);
             LocalDate currDate = currEntry.getDate();
