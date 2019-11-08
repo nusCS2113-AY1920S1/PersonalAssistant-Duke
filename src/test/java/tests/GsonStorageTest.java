@@ -112,21 +112,21 @@ public class GsonStorageTest extends CommandTest {
         impression1.addNewEvidence(result2);
         complexPatient.addNewImpression(impression1);
         complexPatient.addNewImpression(impression2);
-        Plan plan1 = new Plan("test plan 1", impression1, 0, 1,
+        Plan plan1 = new Plan("test plan 1", impression1, 0, "1",
                 "test summary 2");
-        Plan plan2 = new Plan("test plan 2", impression2, 1, 2,
+        Plan plan2 = new Plan("test plan 2", impression2, 1, "2",
                 "test summary 2");
         impression1.addNewTreatment(plan1);
         impression2.addNewTreatment(plan2);
         Investigation investigation1 = new Investigation("test inv 1", impression1,
-                0, 1, "test summary 1");
+                0, "1", "test summary 1");
         Investigation investigation2 = new Investigation("test inv 2", impression2,
-                2, 3, "test summary 2");
+                2, "3", "test summary 2");
         impression1.addNewTreatment(investigation1);
         impression2.addNewTreatment(investigation2);
-        Medicine medicine1 = new Medicine("test medicine 2", impression1, 0, 1,
+        Medicine medicine1 = new Medicine("test medicine 2", impression1, 0, "1",
                 "test dose 1", "test start date", "test duration");
-        Medicine medicine2 = new Medicine("test medicine 1", impression2, 2, 3,
+        Medicine medicine2 = new Medicine("test medicine 1", impression2, 2, "3",
                 "test dose 2", "test start date", "test duration");
         impression2.addNewTreatment(medicine1);
         impression2.addNewTreatment(medicine2);
