@@ -1209,22 +1209,19 @@ public class Profile {
      * @param cardDate  The YearMonth date of the card bill.
      * @param ui        The Ui of OwlMoney.
      * @param type      Type of expenditure (card or bank).
-     * @throws BankException        If bank account does not exist.
-     * @throws TransactionException If invalid transaction when transferring transaction.
+     * @throws BankException    If bank account does not exist.
+     * @throws CardException    If invalid transaction when transferring transaction between paid and unpaid.
      */
-    public void addCardBill(String card, String bank, Expenditure expenditure, Deposit deposit, YearMonth cardDate,
-            Ui ui, String type) throws CardException {
+    public void addCardBill(String card, String bank, Expenditure expenditure, Deposit deposit,
+            YearMonth cardDate, Ui ui, String type) throws CardException, BankException {
+        bankList.bankListAddExpenditure(bank, expenditure, ui, type);
+        ui.printMessage("\n");
+        bankList.bankListAddDeposit(bank, deposit, ui, type);
         try {
-            bankList.bankListAddExpenditure(bank, expenditure, ui, type);
-            ui.printMessage("\n");
-            bankList.bankListAddDeposit(bank, deposit, ui, type);
             cardList.transferExpUnpaidToPaid(card, cardDate, type);
             ui.printMessage("Credit Card bill for " + card + " for the month of " + cardDate
                     + " have been successfully paid!");
-        } catch (BankException | TransactionException error) {
-            // Exception should not occur here because this method does not directly receive user inputs.
-            // If exception is thrown, the expenditure list could potentially be corrupted
-            // because some transactions have been transferred and some have not.
+        } catch (TransactionException error) {
             ui.printMessage(error.getMessage());
             throw new CardException("Paying of card bill failed! Your data may potentially be corrupted!");
         }
