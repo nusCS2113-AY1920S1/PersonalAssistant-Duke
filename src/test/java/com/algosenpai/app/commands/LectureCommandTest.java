@@ -46,7 +46,7 @@ public class LectureCommandTest extends ApplicationTest {
     void testLectureWrongFormat() throws IOException {
         UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
-        logic.executeCommand("hello Sim boy");
+        logic.executeCommand("hello Sim boy").execute();
         Command command = logic.executeCommand("lecture");
         String actualText = command.execute();
         String expectedText = "No such chapter found. Please select the following:\n"
