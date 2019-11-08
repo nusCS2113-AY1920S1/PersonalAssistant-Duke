@@ -9,7 +9,6 @@ public class ErrorCommand extends Command {
 
     @Override
     public void execute(DollaData dollaData) {
-        return;
     }
 
     @Override
