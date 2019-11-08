@@ -35,7 +35,7 @@ public class Member implements IMember {
             return false;
         } else {
             Member other = (Member) obj;
-            return this.memberID.equals(other.memberID);
+            return this.name.equals(other.name);
         }
     }
 
