@@ -27,7 +27,7 @@ public class CommandDateList extends Command {
     @Override
     public void execute(StorageManager storageManager) {
         String outputStr = "You have the following receipts for" + " " + date + "\n";
-        if (!isDate(this.date)) {
+        if (!isDateFormat(this.date)) {
             this.infoCapsule.setCodeError();
             this.infoCapsule.setOutputStr("Invalid date input. FORMAT : datelist yyyy-mm-dd");
             return;
@@ -48,10 +48,10 @@ public class CommandDateList extends Command {
      *
      * @param dateString String is date input from the CLI
      */
-    public boolean isDate(String dateString) {
+    public boolean isDateFormat(String dateString) {
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
-            return dateFormat.parse(dateString) != null;
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+            return format.parse(dateString) != null;
         } catch (ParseException e) {
             return false;
         }
