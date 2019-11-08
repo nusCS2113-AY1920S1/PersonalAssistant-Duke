@@ -21,8 +21,8 @@ public class CommandDelete extends Command {
     @Override
     public void execute(StorageManager storageManager) {
         String outputStr;
+        int index = Integer.parseInt(userInput.replace("delete", "").trim()) - 1;
         try {
-            int index = Integer.parseInt(userInput.replace("delete", "").trim()) - 1;
             outputStr = ("Task '"
                     + (index + 1)
                     + ") "

@@ -32,6 +32,7 @@ public class CommandPercentTest {
         percentTwo.execute(storageManager);
         String result = percentTwo.getInfoCapsule().getOutputStr();
         assertEquals("Tag input is missing. FORMAT : percent <tag>", result);
+
     }
 
 }
