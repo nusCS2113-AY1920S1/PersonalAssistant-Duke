@@ -2152,7 +2152,7 @@ Expected: New `card` is added into the profile.
 
 . Adding a duplicate `card`
 
-.. Prerequisites: There are currently a `card` with the same name.
+.. Prerequisites: There is currently a `card` with the same name.
 
 .. Test case:
 `/add /card /name POBB Tomorrow Card /limit 10000 /rebate 1.5` +
@@ -2268,22 +2268,22 @@ transfer.
 
 .. Test case:
 `/transfer /fund /from JunBank Savings Account /to POBB Savings Account /amount 500 /date 1/1/2019` +
-Expected: Fund successfully transfer between the `bank` account with the transaction being displayed.
+Expected: Fund successfully transfers between the `bank` account with the transaction being displayed.
 
 . Transferring fund between `bank` account (insufficient fund for transfer)
 
-.. Prerequisites: There are at least two existing `bank` accounts, and the sender account do not have sufficient fund
+.. Prerequisites: There are at least two existing `bank` accounts, and the sender account does not have sufficient fund
 for the transfer.
 
 .. Test case:
 `/transfer /fund /from JunBank Savings Account /to POBB Savings Account /amount 500 /date 1/1/2019` +
-Expected: Error saying that sender account has insufficient fund to be transferred.
+Expected: Error saying that the sender account has insufficient funds to be transferred.
 
 === Finding savings accounts
 
 . Searching for existing `savings` account
 
-.. Prerequisites: There are at least one existing `savings` accounts.
+.. Prerequisites: There is at least one existing `savings` accounts.
 
 .. Test case:
 `/find /savings /name Jun` +
@@ -2295,13 +2295,13 @@ Expected: Found matching `savings` account and displays the results.
 
 .. Test case:
 `/find /savings /name Jun` +
-Expected: Error sayings that there is no `savings` account found.
+Expected: Error saying that there is no `savings` account found.
 
 === Finding investment accounts
 
 . Searching for existing `investment` account
 
-.. Prerequisites: There are at least one existing `investment` accounts.
+.. Prerequisites: There is at least one existing `investment` accounts.
 
 .. Test case:
 `/find /investment /name Vickers` +
@@ -2313,13 +2313,13 @@ Expected: Found matching `investment` account and displays the results.
 
 .. Test case:
 `/find /investment /name Vickers` +
-Expected: Error sayings that there is no `investment` account found.
+Expected: Error saying that there is no `investment` account found.
 
 === Finding cards
 
 . Searching for existing `card`
 
-.. Prerequisites: There are at least one existing `card`.
+.. Prerequisites: There is at least one existing `card`.
 
 .. Test case:
 `/find /card /name POBB` +
@@ -2331,13 +2331,13 @@ Expected: Found matching `card` and displays the results.
 
 .. Test case:
 `/find /card /name POBB` +
-Expected: Error sayings that there is no `card` found.
+Expected: Error saying that there is no `card` found.
 
 === Finding bonds
 
 . Searching for existing `bond`
 
-.. Prerequisites: There are at least one existing `bond` within the `investment` account.
+.. Prerequisites: There is at least one existing `bond` within the `investment` account.
 
 .. Test case:
 `/find /bonds /name SSB /from DBB Vickers Account` +
@@ -2349,13 +2349,13 @@ Expected: Found matching `bond` and displays the results.
 
 .. Test case:
 `/find /bonds /name SSB /from DBB Vickers Account` +
-Expected: Error sayings that there is no `bond` found.
+Expected: Error saying that there is no `bond` found.
 
 === Finding bank transactions
 
-. Searching for existing transaction records based on description
+. Searching for existing transaction records based on the description
 
-.. Prerequisites: There are at least one transaction record and the `bank` to be search must exist.
+.. Prerequisites: There is at least one transaction record and the `bank` to be searched must exist.
 
 .. Test case:
 `/find /banktransaction /name JunBank Savings Account /desc bubble tea` +
@@ -2363,7 +2363,7 @@ Expected: Found matching `bank` transaction record and displays the results.
 
 . Searching for existing transaction records based on category
 
-.. Prerequisites: There are at least one transaction record and the `bank` to be search must exist.
+.. Prerequisites: There is at least one transaction record and the `bank` to be searched must exist.
 
 .. Test case:
 `/find /banktransaction /name JunBank Savings Account /category food` +
@@ -2371,9 +2371,9 @@ Expected: Found matching `bank` transaction record and displays the results.
 
 === Finding card transactions
 
-. Searching for existing transaction records based on description
+. Searching for existing transaction records based on the description
 
-.. Prerequisites: There are at least one transaction record and the `card` to be search must exist.
+.. Prerequisites: There is at least one transaction record and the `card` to be searched must exist.
 
 .. Test case:
 `/find /cardtransaction /name POBB Tomorrow Card /desc bubble tea` +
@@ -2381,26 +2381,26 @@ Expected: Found matching `card` transaction record and displays the results.
 
 . Searching for existing transaction records based on category
 
-.. Prerequisites: There are at least one transaction record and the `card` to be search must exist.
+.. Prerequisites: There is at least one transaction record and the `card` to be searched must exist.
 
 .. Test case:
 `/find /cardtransaction /name POBB Tomorrow Card /category food` +
 Expected: Found matching `card` transaction record and displays the results.
 
-=== Finding recurring expenditure in savings account
+=== Finding recurring expenditure in a savings account
 
-. Searching for existing recurring expenditure based on description
+. Searching for existing recurring expenditure based on the description
 
-.. Prerequisites: There are at least one recurring expenditure and the `savings` account to be search must exist.
+.. Prerequisites: There is at least one recurring expenditure and the `savings` account to be searched must exist.
 
 .. Test case:
-`/find /recurbankexp /name JunBank Savings Account /desc bubble tea` +
+`/find /recurbankexp /name JunBank Savings Account /desc spotif` +
 Expected: Found matching recurring expenditure in `savings` account and displays the results.
 
 . Searching for existing recurring expenditure based on category
 
-.. Prerequisites: There are at least one recurring expenditure and the `savings` account to be search must exist.
+.. Prerequisites: There is at least one recurring expenditure and the `savings` account to be searched must exist.
 
 .. Test case:
-`/find /recurbankexp /name JunBank Savings Account /category food` +
+`/find /recurbankexp /name JunBank Savings Account /category bills` +
 Expected: Found matching recurring expenditure in `savings` account and displays the results.
