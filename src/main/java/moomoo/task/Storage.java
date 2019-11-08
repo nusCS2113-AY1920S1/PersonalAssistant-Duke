@@ -73,7 +73,7 @@ public class Storage {
                 }
                 return categoryList;
             } else {
-                ui.setOutput("Category/Expenditure File not found. New file will be created");
+                ui.setOutput("Category/Expenditure File not found. New file with default categories will be created");
                 ui.showResponse();
                 createFileAndDirectory(this.expenditureFilePath);
                 return populateDefaultCategories(categoryList);
@@ -172,8 +172,9 @@ public class Storage {
                 return scheduleMap;
             } else {
                 ui.setOutput("Schedule File not found. New file will be created");
+                createFileAndDirectory(this.scheduleFilePath);
             }
-        } catch (IOException e) {
+        } catch (IOException | MooMooException e) {
             ui.setOutput("Unable to read file. Please retry again.");
         }
         return null;

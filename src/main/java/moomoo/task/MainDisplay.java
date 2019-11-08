@@ -1,5 +1,6 @@
 package moomoo.task;
 
+import moomoo.command.DetectOsCommand;
 import moomoo.task.category.CategoryList;
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -205,6 +206,7 @@ public class MainDisplay {
                 output += MONTH_LEFT + monthsInYear[month - 1] + blankSpaceMth + "|" + blankSpaceCat
                         + "<" + ANSI_BLUE + "Categories" + ANSI_RESET + ">" + blankSpaceCat + "|\n" + YEAR_LEFT
                         + year + blankSpaceYr + MISC_TITLES;
+
             }
         } else {            // Scenario where there are Categories in the specified periods
             output += TOP_BORDERLEFT + openCloseLines + "\n";
