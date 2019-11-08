@@ -3,13 +3,16 @@ package executor.command;
 import duke.exception.DukeException;
 import interpreter.Parser;
 import storage.StorageManager;
-import java.time.format.DateTimeParseException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 
 public class CommandDateList extends Command {
     private String date;
 
     /**
      * Constructor for CommandDateList subCommand Class.
+     *
      * @param userInput String is the user input from the CLI
      */
     public CommandDateList(String userInput) {
@@ -24,6 +27,11 @@ public class CommandDateList extends Command {
     @Override
     public void execute(StorageManager storageManager) {
         String outputStr = "You have the following receipts for" + " " + date + "\n";
+        if (!isDate(this.date)) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr("Invalid date input. FORMAT : datelist yyyy-mm-dd");
+            return;
+        }
         try {
             outputStr += storageManager.getReceiptsByDate(this.date).getPrintableReceipts();
         } catch (DukeException e) {
@@ -34,5 +42,20 @@ public class CommandDateList extends Command {
         this.infoCapsule.setCodeCli();
         this.infoCapsule.setOutputStr(outputStr);
     }
+
+    /**
+     * Boolean function for checking date format of input.
+     *
+     * @param dateString String is date input from the CLI
+     */
+    public boolean isDate(String dateString) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+            return dateFormat.parse(dateString) != null;
+        } catch (ParseException e) {
+            return false;
+        }
+    }
+
 }
 
