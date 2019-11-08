@@ -22,12 +22,12 @@ public class WordUp extends Application {
      */
     public WordUp() {
         ui = new Ui();
-<<<<<<< HEAD
+
         storage = new Storage();
-=======
-        storage = new Storage("C:\\Users\\user\\gitclones\\main\\src\\data\\wordup.txt");
->>>>>>> 63e9851863fa771e183d6acbb5e9401803a3cfc8
-        bank = new Bank(storage);
+
+        storage = new Storage("data/wordup.xlsx");
+        bank = storage.loadExcelFile();
+
     }
 
     @Override
