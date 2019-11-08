@@ -1,14 +1,15 @@
-package util;
+package util.uiformatter;
+
+import util.date.DateTimeHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 
-import static util.constant.ConstantHelper.HORI_BORDER_UNIT;
-import static util.constant.ConstantHelper.BORDER_CORNER;
-import static util.constant.ConstantHelper.VERTI_BORDER_UNIT;
-import static util.constant.ConstantHelper.LONGEST_WORD_LIMIT_BEFORE_BREAKING_WITH_HYPHEN;
+import static util.constant.ConstantHelper.*;
 
+//@@author seanlimhx
 public class ViewHelper {
 
     /**
@@ -203,5 +204,60 @@ public class ViewHelper {
         }
         String borderString = new String(border);
         return BORDER_CORNER + borderString + BORDER_CORNER;
+    }
+
+    //@@author Lucria
+    /**
+     * Method that returns an array of strings representing a calender for printing to the console line.
+     * @param currentMonthTasks : All dates in the current month and the number of tasks that are due then
+     * @return : Returns an array of strings for View layer to print to the console line.
+     */
+    public String[] consolePrintCalender(HashMap<Integer, Integer> currentMonthTasks) {
+        StringBuilder dateLine = new StringBuilder();
+        StringBuilder taskLine = new StringBuilder();
+        ArrayList<String> consoleCalender = new ArrayList<>();
+        DateTimeHelper dateTimeHelper = new DateTimeHelper();
+        consoleCalender.add("    Today's date is " + dateTimeHelper.getCurrentDate() + " "
+                            + dateTimeHelper.getCurrentMonth() + " " + dateTimeHelper.getCurrentYear());
+        consoleCalender.add("        U        M        T        W        R        F        S");
+        int emptySpaces = dateTimeHelper.getDayAtStartOfMonth();
+        for (int i = 1; i < emptySpaces; i++) {
+            dateLine.append(SPACING).append("  ");
+            taskLine.append(SPACING).append("  ");
+        }
+
+        int [] daysPerMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        for (int i = 1; i <= daysPerMonth[Integer.parseInt(dateTimeHelper.getCurrentMonth()) - 1]; i++) {
+            if (dateLine.length() == 63) {
+                consoleCalender.add(dateLine.toString());
+                consoleCalender.add(taskLine.toString());
+                dateLine.setLength(0);
+                taskLine.setLength(0);
+            }
+            if (i / 10 == 0) {
+                dateLine.append(SPACING).append(" ").append(i);
+            } else {
+                dateLine.append(SPACING).append(i);
+            }
+            if (currentMonthTasks.get(i) != null) {
+                if (i / 10 == 0) {
+                    taskLine.append(SPACING).append(" ");
+                    taskLine.append("X".repeat(Math.max(0, currentMonthTasks.get(i))));
+                } else {
+                    taskLine.append(SPACING);
+                    taskLine.append("X".repeat(Math.max(0, currentMonthTasks.get(i))));
+                }
+            } else {
+                if (i / 10 == 0) {
+                    taskLine.append(SPACING).append("  ");
+                } else {
+                    taskLine.append(SPACING).append(" ");
+                }
+            }
+        }
+        consoleCalender.add(dateLine.toString());
+        ArrayList<ArrayList<String>> responseModel = new ArrayList<>();
+        responseModel.add(consoleCalender);
+        return consolePrintTable(responseModel, DEFAULT_HORI_BORDER_LENGTH);
     }
 }

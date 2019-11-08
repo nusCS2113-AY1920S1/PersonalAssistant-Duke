@@ -1,8 +1,10 @@
 package models.project;
 
+import models.member.IMember;
 import models.member.Member;
 import models.member.MemberList;
 import models.reminder.Reminder;
+import models.task.ITask;
 import models.task.Task;
 import models.task.TaskList;
 
@@ -149,6 +151,16 @@ public class NullProject implements IProject {
 
     @Override
     public Reminder getReminder(int index) {
+        return null;
+    }
+
+    @Override
+    public IMember getMemberFromID(String memberID) {
+        return null;
+    }
+
+    @Override
+    public ITask getTaskFromID(String taskID) {
         return null;
     }
 

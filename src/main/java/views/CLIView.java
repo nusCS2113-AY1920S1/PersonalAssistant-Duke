@@ -1,13 +1,14 @@
 package views;
 
+import static util.constant.ConstantHelper.HELLO_MESSAGE;
+import static util.constant.ConstantHelper.HORILINE;
+import static util.constant.ConstantHelper.INDENTATION;
+
 import controllers.ConsoleInputController;
 import controllers.ProjectInputController;
+import java.util.Scanner;
 import repositories.ProjectRepository;
 import util.log.ArchDukeLogger;
-
-import java.util.Scanner;
-
-import static util.constant.ConstantHelper.*;
 
 public class CLIView {
     private ConsoleInputController consoleInputController;
@@ -25,7 +26,7 @@ public class CLIView {
         ArchDukeLogger.logInfo(CLIView.class.getName(), "ArchDuke have started.");
         Scanner sc = new Scanner(System.in);
         boolean isDukeRunning = true;
-        consolePrint(HELLO_MESSAGE);
+        System.out.println(String.join("\n", HELLO_MESSAGE));
         while (isDukeRunning) {
             String commandInput = sc.nextLine();
             ArchDukeLogger.logInfo(CLIView.class.getName(), "User input: " + commandInput);

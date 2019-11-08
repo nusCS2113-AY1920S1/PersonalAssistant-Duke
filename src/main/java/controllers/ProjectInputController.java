@@ -15,10 +15,10 @@ import models.reminder.Reminder;
 import models.task.ITask;
 import models.task.Task;
 import repositories.ProjectRepository;
-import util.AssignmentViewHelper;
-import util.CommandHelper;
+import util.uiformatter.AssignmentViewHelper;
+import util.uiformatter.CommandHelper;
 import util.ParserHelper;
-import util.ViewHelper;
+import util.uiformatter.ViewHelper;
 import util.date.DateTimeHelper;
 import util.factories.MemberFactory;
 import util.factories.ReminderFactory;
@@ -123,6 +123,8 @@ public class ProjectInputController implements IController {
             responseToView = projectSetReminderStatus(this.projectToManage,projectFullCommand);
         } else if (projectFullCommand.matches("view")) {
             responseToView = projectViewSelf(this.projectToManage);
+        } else if (projectFullCommand.matches("agenda")) {
+            responseToView = projectViewCalender(this.projectToManage);
         } else if (projectFullCommand.matches("help")) {
             responseToView = projectHelp();
         } else if (projectFullCommand.matches("bye")) {
@@ -132,6 +134,11 @@ public class ProjectInputController implements IController {
         }
         jsonConverter.saveProject(this.projectToManage);
         return responseToView;
+    }
+
+    private String[] projectViewCalender(Project projectToManage) {
+        HashMap<Integer, Integer> currentMonthTasks = projectRepository.getAllTasksInCurrentMonth(projectToManage);
+        return viewHelper.consolePrintCalender(currentMonthTasks);
     }
 
     private String[] projectViewSelf(Project projectToManage) {
@@ -267,7 +274,7 @@ public class ProjectInputController implements IController {
      * Can be updated later on to include more information (tasks etc).
      * @param projectToManage The project specified by the user.
      */
-    public String[] projectViewMembers(Project projectToManage) {
+    private String[] projectViewMembers(Project projectToManage) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectViewMembers]");
         ArrayList<String> allMemberDetailsForTable = projectToManage.getMembers().getAllMemberDetailsForTable();
         String header = "Members of " + projectToManage.getName() + ":";
@@ -283,7 +290,7 @@ public class ProjectInputController implements IController {
      * Displays the members’ credits, their index number, name, and name of tasks completed.
      * @param projectToManage The project specified by the user.
      */
-    public String[] projectViewCredits(Project projectToManage) {
+    private String[] projectViewCredits(Project projectToManage) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectViewCredits]");
         ArrayList<String> allCredits = projectToManage.getCredits();
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "allCredits: " + allCredits.toString());
@@ -424,7 +431,7 @@ public class ProjectInputController implements IController {
      * @param projectToManage The project specified by the user.
      * @param projectCommand The user input.
      */
-    public String[] projectViewTaskRequirements(Project projectToManage, String projectCommand) {
+    private String[] projectViewTaskRequirements(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(),
                 "[projectViewTaskRequirements] User input: '" + projectCommand + "'");
         if (projectCommand.length() < 23) {
@@ -458,25 +465,29 @@ public class ProjectInputController implements IController {
      * @param projectToManage The project specified by the user.
      * @param projectCommand The user input.
      */
-    public String[] projectViewTasks(Project projectToManage, String projectCommand) {
+    private String[] projectViewTasks(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectViewTasks] User input: '"
             + projectCommand + "'");
         try {
             if (("view tasks").equals(projectCommand)) {
-                HashMap<String, ArrayList<String>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
+                HashMap<String, ArrayList<String>> tasksAndAssignedMembers
+                    = projectToManage.getTasksAndAssignedMembers();
                 ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
                 ArrayList<String> allTaskDetailsForTable
-                    = projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, "/PRIORITY", projectToManage);
+                    = projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers,
+                    "/PRIORITY", projectToManage);
                 allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getName() + ":");
                 ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
                 tableToPrint.add(allTaskDetailsForTable);
                 return viewHelper.consolePrintTable(tableToPrint, DEFAULT_HORI_BORDER_LENGTH);
             } else if (projectCommand.length() >= 11) {
                 String sortCriteria = projectCommand.substring(11);
-                HashMap<String, ArrayList<String>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
+                HashMap<String, ArrayList<String>> tasksAndAssignedMembers
+                    = projectToManage.getTasksAndAssignedMembers();
                 ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
                 ArrayList<String> allTaskDetailsForTable =
-                    projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, sortCriteria, projectToManage);
+                    projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, sortCriteria,
+                        projectToManage);
                 ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
                 allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getName() + ":");
                 tableToPrint.add(allTaskDetailsForTable);
@@ -549,7 +560,7 @@ public class ProjectInputController implements IController {
      * @param projectToManage the project being managed.
      * @param projectCommand The command by the user containing index numbers of the members to view.
      */
-    public String[] projectViewMembersAssignments(Project projectToManage, String projectCommand) {
+    private String[] projectViewMembersAssignments(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(),
                 "[projectViewMembersAssignments] User input: '" + projectCommand + "'");
         ParserHelper parserHelper = new ParserHelper();
@@ -586,7 +597,7 @@ public class ProjectInputController implements IController {
      * @param projectToManage The project specified by the user.
      * @return Boolean variable specifying the exit status.
      */
-    public String[] projectExit(Project projectToManage) {
+    private String[] projectExit(Project projectToManage) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectExit]");
         return new String[] {"Exited project: " + projectToManage.getName()};
     }
@@ -595,7 +606,7 @@ public class ProjectInputController implements IController {
         return isManagingAProject;
     }
 
-    public String[] end() {
+    private String[] end() {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[end]");
         return new String[] {"Bye. Hope to see you again soon!"};
     }

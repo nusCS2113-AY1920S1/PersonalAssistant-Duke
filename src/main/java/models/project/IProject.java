@@ -1,8 +1,10 @@
 package models.project;
 
+import models.member.IMember;
 import models.member.IMemberList;
 import models.member.Member;
 import models.reminder.Reminder;
+import models.task.ITask;
 import models.task.Task;
 import models.task.TaskList;
 
@@ -57,5 +59,9 @@ public interface IProject {
     void markReminder(Boolean isDone, int index);
 
     Reminder getReminder(int index);
+
+    IMember getMemberFromID(String memberID);
+
+    ITask getTaskFromID(String taskID);
 
 }

@@ -1,14 +1,14 @@
 package helpertests;
 
 import org.junit.jupiter.api.Test;
-import util.CommandHelper;
+import util.uiformatter.CommandHelper;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CommandHelperTest {
+class CommandHelperTest {
     private CommandHelper commandHelper = new CommandHelper();
     private ArrayList<String> simulatedOutput;
     private String[] expectedOutput;

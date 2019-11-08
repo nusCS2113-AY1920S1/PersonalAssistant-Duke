@@ -221,6 +221,7 @@ public class Project implements IProject {
         return this.taskAndListOfMembersAssigned;
     }
 
+    @Override
     public IMember getMemberFromID(String memberID) {
         for (Member member : this.memberList.getMemberList()) {
             if (memberID.equals(member.getMemberID())) {
@@ -230,6 +231,7 @@ public class Project implements IProject {
         return new NullMember("Unable to find this member.");
     }
 
+    @Override
     public ITask getTaskFromID(String taskID) {
         for (Task task : this.taskList.getTaskList()) {
             if (taskID.equals(task.getTaskID())) {

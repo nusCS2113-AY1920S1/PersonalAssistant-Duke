@@ -66,7 +66,8 @@ class TaskListTest {
                 + "2. task2 | Priority: 2 | Due: -- | Credit: 100 | State: OPEN, "
                 + "3. task3 | Priority: 3 | Due: -- | Credit: 100 | State: OPEN, "
                 + "4. task4 | Priority: 4 | Due: -- | Credit: 100 | State: OPEN]";
-        assertEquals(testTaskListString,taskList.getAllTaskDetails(project.getTasksAndAssignedMembers(), project).toString());
+        assertEquals(testTaskListString,taskList.getAllTaskDetails(project.getTasksAndAssignedMembers(),
+            project).toString());
 
         String testRemoveTaskListString = "[1. task1 | Priority: 1 | Due: -- | Credit: 100 | State: OPEN, "
                 + "2. task3 | Priority: 3 | Due: -- | Credit: 100 | State: OPEN, "

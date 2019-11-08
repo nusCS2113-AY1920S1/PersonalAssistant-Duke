@@ -1,4 +1,4 @@
-package util;
+package util.uiformatter;
 
 import java.util.ArrayList;
 

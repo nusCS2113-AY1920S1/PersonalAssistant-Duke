@@ -1,4 +1,4 @@
-package util;
+package util.uiformatter;
 
 import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
 
