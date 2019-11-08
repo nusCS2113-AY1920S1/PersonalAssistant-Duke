@@ -34,8 +34,7 @@ public class ViewHelper {
                 if (toPrintAll.size() == 0) {
                     break;
                 }
-                ArrayList<ArrayList<String>> tableToBePrinted
-                        = new ArrayList<>(Collections.singleton(toPrintAll.get(0)));
+                ArrayList<String> tableToBePrinted = toPrintAll.get(0);
                 String[] individualTableContent = consolePrintTable(tableToBePrinted, individualTableWidth);
                 int columnToBeAdded = findColumnWithMinNumOfRows(columnsOfTableContent);
                 columnsOfTableContent.get(columnToBeAdded).addAll(Arrays.asList(individualTableContent));
@@ -62,9 +61,7 @@ public class ViewHelper {
             line.append(" ");
             overallTableContent.add(line.toString());
         }
-        ArrayList<ArrayList<String>> overallTableContentDummy = new ArrayList<>();
-        overallTableContentDummy.add(overallTableContent);
-        return consolePrintTable(overallTableContentDummy, tableWidth);
+        return consolePrintTable(overallTableContent, tableWidth);
     }
 
     private int findMaxNumOfRows(ArrayList<ArrayList<String>> columnsOfTableContent) {
@@ -96,33 +93,33 @@ public class ViewHelper {
      * @param tableWidth Desired width of the table.
      * @return A String array that contains input in table form.
      */
-    public String[] consolePrintTable(ArrayList<ArrayList<String>> toPrintAll, int tableWidth) {
+    public String[] consolePrintTable(ArrayList<String> toPrintAll, int tableWidth) {
         ArrayList<String> tableContent = new ArrayList<>();
-        for (ArrayList<String> toPrint : toPrintAll) {
-            tableContent.add(consolePrintTableHoriBorder(tableWidth));
-            boolean hasPrintedTableHeader = false;
-            for (String s : toPrint) {
-                if (s.length() <= tableWidth) {
-                    String line = VERTI_BORDER_UNIT + s
-                            + getRemainingSpaces(tableWidth - s.length())
+
+        tableContent.add(consolePrintTableHoriBorder(tableWidth));
+        boolean hasPrintedTableHeader = false;
+        for (String s : toPrintAll) {
+            if (s.length() <= tableWidth) {
+                String line = VERTI_BORDER_UNIT + s
+                        + getRemainingSpaces(tableWidth - s.length())
+                        + VERTI_BORDER_UNIT;
+                tableContent.add(line);
+            } else {
+                String[] splitStrings = getArrayOfSplitStrings(s, tableWidth);
+                for (String s1 : splitStrings) {
+                    String line = VERTI_BORDER_UNIT + s1
+                            + getRemainingSpaces(tableWidth - s1.length())
                             + VERTI_BORDER_UNIT;
                     tableContent.add(line);
-                } else {
-                    String[] splitStrings = getArrayOfSplitStrings(s, tableWidth);
-                    for (String s1 : splitStrings) {
-                        String line = VERTI_BORDER_UNIT + s1
-                                + getRemainingSpaces(tableWidth - s1.length())
-                                + VERTI_BORDER_UNIT;
-                        tableContent.add(line);
-                    }
-                }
-                if (!hasPrintedTableHeader) {
-                    tableContent.add(consolePrintTableHoriBorder(tableWidth));
-                    hasPrintedTableHeader = true;
                 }
             }
-            tableContent.add(consolePrintTableHoriBorder(tableWidth));
+            if (!hasPrintedTableHeader) {
+                tableContent.add(consolePrintTableHoriBorder(tableWidth));
+                hasPrintedTableHeader = true;
+            }
         }
+        tableContent.add(consolePrintTableHoriBorder(tableWidth));
+
 
         return tableContent.toArray(new String[0]);
     }
@@ -256,8 +253,6 @@ public class ViewHelper {
             }
         }
         consoleCalender.add(dateLine.toString());
-        ArrayList<ArrayList<String>> responseModel = new ArrayList<>();
-        responseModel.add(consoleCalender);
-        return consolePrintTable(responseModel, DEFAULT_HORI_BORDER_LENGTH);
+        return consolePrintTable(consoleCalender, DEFAULT_HORI_BORDER_LENGTH);
     }
 }

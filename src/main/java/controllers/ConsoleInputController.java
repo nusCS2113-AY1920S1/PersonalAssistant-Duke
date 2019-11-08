@@ -153,10 +153,7 @@ public class ConsoleInputController implements IController {
      * Displays the set of the commands which can be used.
      */
     private String[] commandHelp() {
-        ArrayList<ArrayList<String>> toPrintAll = new ArrayList<>();
-        toPrintAll.add(commandHelper.getCommandsForConsole());
-
-        return viewHelper.consolePrintTable(toPrintAll, DEFAULT_HORI_BORDER_LENGTH);
+        return viewHelper.consolePrintTable(commandHelper.getCommandsForConsole(), DEFAULT_HORI_BORDER_LENGTH);
     }
 
     //@@author Lucria
