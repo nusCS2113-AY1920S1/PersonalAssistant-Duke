@@ -39,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
     @Before
     public void runWeekCommand() {
         String actual = "No error";
-        String validUserInputWithDuration = "Week 3";
+        String validUserInputWithDuration = "show/week 3";
         Command command = null;
         try {
             command = new WeekParse(validUserInputWithDuration).parse();
@@ -55,7 +55,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
     @Before
     public void setRetrievedFreeTimesList() {
         String actual = "No error";
-        String validUserInputWithDuration = "find 3 hours";
+        String validUserInputWithDuration = "find/ft 3 hours";
         Command command = null;
         try {
             command = new FindFreeTimesParse(validUserInputWithDuration).parse();

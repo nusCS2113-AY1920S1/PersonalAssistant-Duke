@@ -7,7 +7,7 @@ import DukeExceptions.DukeInvalidCommandException;
 import Tasks.TaskList;
 import java.util.ArrayList;
 
-public class ShowPreviousCommand extends Command{
+public class ShowPreviousCommand extends Command {
 
     private final String fullCommand;
 
@@ -29,7 +29,7 @@ public class ShowPreviousCommand extends Command{
     public ArrayList<String> previousCommandsHandler(ArrayList<String> userInputList, ArrayList<String> outputList, String string) {
         int size = userInputList.size() - 1;
         String userInput;
-        for (int j = 0; j < size; j ++) {
+        for (int j = 0; j < size; j++) {
             userInput = userInputList.get(j);
             if (userInput.startsWith(string)) {
                 outputList.add(userInput + " \n");
@@ -45,13 +45,11 @@ public class ShowPreviousCommand extends Command{
     /**
      * Shows the previous user inputs that user requested.
      * @param ui The Ui object to display the message to display all the inputs
-     * @return This returns the method in the Ui object which returns the string to display the lists
-     * of user inputs
+     * @return This returns the method in the Ui object which returns the string to display the lists of user inputs
      * @throws DukeInvalidCommandException when user request to show more
      */
     @Override
     public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws DukeInvalidCommandException {
-
         boolean isNumber = true;
         int number = 0;
         try {
@@ -64,7 +62,7 @@ public class ShowPreviousCommand extends Command{
         userInputsList = Duke.getUserInputs();
         int size = userInputsList.size();
 
-        for (int i = 0; i < size; i ++) {
+        for (int i = 0; i < size; i++) {
             if (i % 2 == 0) {
                 String userInput = userInputsList.get(i);
                 updatedUserInputList.add(userInput);
@@ -75,18 +73,17 @@ public class ShowPreviousCommand extends Command{
         int sizeOfPreviousList = sizeOfUpdatedList - 1;
 
         if (sizeOfPreviousList < number) {
-            throw new DukeInvalidCommandException("There are only " + sizeOfPreviousList + " previous commands. " +
-                    "Please enter a valid number less than or equal to " + sizeOfPreviousList + " .");
+            throw new DukeInvalidCommandException("There are only " + sizeOfPreviousList + " previous commands. "
+                    + "Please enter a valid number less than or equal to " + sizeOfPreviousList + " .");
         }
 
         if (isNumber) {
             int startIndex = sizeOfPreviousList - 1;
-            for (int i = 0; i < number; i ++) {
+            for (int i = 0; i < number; i++) {
                 outputList.add(updatedUserInputList.get(startIndex) + " \n");
                 startIndex -= 1;
             }
             result = outputList;
-
         } else if (fullCommand.equals("add/d")) {
             result = previousCommandsHandler(updatedUserInputList, outputList,"add/d");
         } else if (fullCommand.equals("add/e")) {
