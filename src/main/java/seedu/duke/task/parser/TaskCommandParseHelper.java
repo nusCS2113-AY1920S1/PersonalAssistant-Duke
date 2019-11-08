@@ -9,6 +9,7 @@ import seedu.duke.common.command.Command;
 import seedu.duke.common.command.FlipCommand;
 import seedu.duke.common.command.ExitCommand;
 import seedu.duke.common.model.Model;
+import seedu.duke.task.TaskList;
 import seedu.duke.task.command.TaskAddCommand;
 import seedu.duke.task.command.TaskClearListCommand;
 import seedu.duke.task.command.TaskDeleteCommand;
@@ -20,6 +21,7 @@ import seedu.duke.task.command.TaskParseNaturalDateHelper;
 import seedu.duke.task.command.TaskReminderCommand;
 import seedu.duke.task.command.TaskSetPriorityCommand;
 import seedu.duke.task.command.TaskSnoozeCommand;
+import seedu.duke.task.command.TaskSortCommand;
 import seedu.duke.task.command.TaskUpdateCommand;
 import seedu.duke.task.entity.Task;
 import seedu.duke.ui.UI;
@@ -79,6 +81,8 @@ public class TaskCommandParseHelper {
             return parseLinkCommand(input, optionList);
         } else if ("clear".equals(input)) {
             return new TaskClearListCommand();
+        } else if (input.startsWith("sort")) {
+            return parseSortCommand(input);
         }
         return new InvalidCommand("Invalid command word. Please enter \'help\' for more information");
     }
@@ -175,6 +179,23 @@ public class TaskCommandParseHelper {
         }
         return dayLimit;
     }
+
+    private static Command parseSortCommand(String input) {
+        Matcher sortCommandMatcher = prepareCommandMatcher(input, "^sort\\s+(?<sortBy>[\\w]*)\\s*");
+        if (!sortCommandMatcher.matches()) {
+            return new InvalidCommand("Please enter how you want the task list to be sorted after \'sort\'");
+        }
+        String sortBy = sortCommandMatcher.group("sortBy").strip();
+        TaskList.SortBy sortType = TaskSortCommand.getSortType(sortBy);
+        if ("".equals(sortBy)) {
+            return new InvalidCommand("Please enter \'TIME\', \'PRIORITY\' or \'STATUS\' after "
+                    + "\'sort\' command");
+        } else if (sortType == null) {
+            return new InvalidCommand("Invalid sorting type");
+        }
+        return new TaskSortCommand(sortType);
+    }
+
 
     /**
      * Extracts linked emails from the option list.
@@ -352,7 +373,8 @@ public class TaskCommandParseHelper {
         return doafter;
     }
 
-    private static String extractPriority(ArrayList<Command.Option> optionList) throws TaskParseException {
+    private static String extractPriority(ArrayList<Command.Option> optionList) throws
+            TaskParseException {
         String priority = "";
         for (Command.Option option : optionList) {
             if (option.getKey().equals("priority")) {
@@ -427,7 +449,8 @@ public class TaskCommandParseHelper {
      * @param optionList contains all options specified in input command
      * @return time in LocalDateTime format
      */
-    public static LocalDateTime parseTaskTime(ArrayList<Command.Option> optionList) throws TaskParseException {
+    public static LocalDateTime parseTaskTime(ArrayList<Command.Option> optionList) throws
+            TaskParseException {
         try {
             String timeString = extractTime(optionList);
             LocalDateTime dateTime = TaskParseNaturalDateHelper.getDate(timeString);

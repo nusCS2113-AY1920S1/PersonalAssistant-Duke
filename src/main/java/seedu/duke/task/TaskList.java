@@ -2,6 +2,7 @@ package seedu.duke.task;
 
 import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.task.command.TaskParseNaturalDateHelper;
+import seedu.duke.task.command.TaskSortCommand;
 import seedu.duke.task.entity.Deadline;
 import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
@@ -14,6 +15,8 @@ import java.util.Comparator;
  * manipulate the tasks in this list.
  */
 public class TaskList extends ArrayList<Task> {
+
+    private SortBy sortType = SortBy.PRIORITY;
 
     /**
      * Converts the task list to a string of the pre-determined format that is ready to be displayed by the
@@ -234,6 +237,15 @@ public class TaskList extends ArrayList<Task> {
         return "Priority of task " + size + " is set to " + priority.name();
     }
 
+    public String setSortType(SortBy sortType) {
+        this.sortType = sortType;
+        return constructSortMessage(sortType);
+    }
+
+    private String constructSortMessage(SortBy sortType) {
+        return "Task List is now sorted by " + sortType.name();
+    }
+
     /**
      * Adds or modifies tags of a task.
      *
@@ -289,7 +301,23 @@ public class TaskList extends ArrayList<Task> {
         return "Task List has been cleared";
     }
 
-    public void sortListByPriority() {
-        sort(Comparator.comparing(Task::getPriority));
+    public void sortByType() {
+        switch (sortType) {
+        case PRIORITY:
+            sort(Comparator.comparing(Task::getPriority));
+            break;
+        case STATUS:
+            sort(Comparator.comparing(Task::getDone));
+            break;
+        default:
+            return;
+        }
+    }
+
+    /**
+     * The enumeration of types of sorting.
+     */
+    public enum SortBy {
+        PRIORITY, TIME, STATUS
     }
 }
