@@ -1,5 +1,6 @@
 package cube.ui;
 
+import cube.logic.parser.ParserUtil;
 import cube.model.food.Food;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -47,7 +48,7 @@ public class FoodListCard extends UiManager<HBox> {
             tags.getChildren().add(new Label(food.getType()));
             price.setText("Price: $" + food.getPrice());
             stock.setText("Stock: " + food.getStock());
-            expiry.setText("Expiry: " + food.getExpiryDate().toString());
+            expiry.setText("Expiry: " + ParserUtil.parseDateToString(food.getExpiryDate()));
         } catch (NullPointerException e) {
             tags.getChildren().setAll(new Label("Uncategorized"));
             price.setText("Price: $" + "0.00");
