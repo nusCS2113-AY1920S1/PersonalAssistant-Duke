@@ -561,11 +561,14 @@ public class MainWindow extends UiPart<Stage> {
         assignedTaskSearchBarListener();
         taskSearchBarListener();
 
+        //@@author lmtaek
         try {
             showUpcomingTasks();
         } catch (Exception e) {
             throw new DukeException("Failed to update Upcoming Tasks tab.");
         }
+        
+        //@@author
     }
 
     private void patientSearchBarListener() {
@@ -680,7 +683,7 @@ public class MainWindow extends UiPart<Stage> {
         assignedTaskTable.setItems(sortedAssignedTaskData);
     }
 
-    //@@lmtaek
+    //@@author lmtaek
 
     /**
      * Handler for HelpGuide tab.

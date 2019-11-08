@@ -1,4 +1,4 @@
-//@@lmtaek
+//@@author lmtaek
 
 package duke.commands.functional;
 
