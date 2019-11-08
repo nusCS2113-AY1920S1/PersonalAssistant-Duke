@@ -1,5 +1,6 @@
 package sgtravel.logic.commands;
 
+import sgtravel.commons.exceptions.AddListFailException;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.NoRecentItineraryException;
 import sgtravel.logic.commands.results.CommandResultText;
@@ -28,7 +29,8 @@ public class AddSampleItineraryCommand extends Command {
      * @throws NoRecentItineraryException If there is no recent itinerary.
      */
     @Override
-    public CommandResultText execute(Model model) throws FileNotSavedException, NoRecentItineraryException {
+    public CommandResultText execute(Model model) throws FileNotSavedException, NoRecentItineraryException,
+            AddListFailException {
         Itinerary itinerary = model.getRecentItinerary();
         model.confirmRecentItinerary(newName);
         model.save();

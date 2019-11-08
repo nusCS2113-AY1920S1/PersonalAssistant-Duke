@@ -40,7 +40,7 @@ public class Itinerary {
     public String printItinerary() {
         int days = getNumberOfDays();
         StringBuilder result = new StringBuilder("Here are the list of Locations in "
-                +  days + "trip days with name " + this.name + ": \n");
+                +  days + " trip days with name " + this.name + ": \n");
         for (Agenda list1 : this.getList()) {
             result.append("\n");
             result.append("Day ").append(list1.getDay()).append(":").append("\n \n");

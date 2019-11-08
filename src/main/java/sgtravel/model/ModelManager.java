@@ -1,5 +1,6 @@
 package sgtravel.model;
 
+import sgtravel.commons.exceptions.AddListFailException;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.NoRecentItineraryException;
 import sgtravel.commons.exceptions.DuplicateRouteException;
@@ -167,7 +168,10 @@ public class ModelManager implements Model {
      * @param name The new name for the itinerary list.
      */
     @Override
-    public void confirmRecentItinerary(String name) {
+    public void confirmRecentItinerary(String name) throws AddListFailException {
+        if(name.equals("")) {
+            throw new AddListFailException();
+        }
         recentItinerary.setName(name);
         this.itineraryTable.put(name, recentItinerary);
     }

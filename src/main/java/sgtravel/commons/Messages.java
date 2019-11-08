@@ -53,6 +53,9 @@ public class Messages {
     public static final String ERROR_DATE_INCONSISTENT = "Im sorry, there is some discrepancy between your dates";
     public static final String ERROR_DATE_BEFORE_NOW = "Im sorry, your dates must be in the future";
     public static final String ERROR_DATE_AFTER_NOW = "Im sorry, your dates must be in the past";
+
+    public static final String ERROR_ADDLIST_NAME_EMPTY = "I'm sorry, you need to add an itinerary name";
+
     public static final String ERROR_ITINERARY_EMPTY_TODOLIST = "I'm sorry, but entering todos for a day is compulsory";
     public static final String ERROR_ITINERARY_FAIL_CREATION = "I'm sorry, but you have not entered your "
             + "itinerary properly";

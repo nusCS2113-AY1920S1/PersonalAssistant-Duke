@@ -1,5 +1,6 @@
 package sgtravel.model;
 
+import sgtravel.commons.exceptions.AddListFailException;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.NoRecentItineraryException;
 import sgtravel.commons.exceptions.NoSuchItineraryException;
@@ -108,7 +109,7 @@ public interface Model {
      * Saves the most recent recommendation.
      * @param itinerary The recent recommendation.
      */
-    void setRecentItinerary(Itinerary itinerary);
+    void setRecentItinerary(Itinerary itinerary) throws AddListFailException;
 
     /**
      * Returns the recently recommended itinerary.
@@ -126,7 +127,7 @@ public interface Model {
      * Stores recently recommended itinerary.
      * @param newName The new name for the itinerary.
      */
-    void confirmRecentItinerary(String newName);
+    void confirmRecentItinerary(String newName) throws AddListFailException;
 
     /**
      * Deletes the requested itinerary from storage.
