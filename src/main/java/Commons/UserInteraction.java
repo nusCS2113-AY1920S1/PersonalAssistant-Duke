@@ -180,6 +180,19 @@ public class UserInteraction {
     }
 
     /**
+     * Displays conflicting task
+     * @param conflictList
+     * @return
+     */
+    public String showConflictRecurring(ArrayList<String> conflictList) {
+        String out = "Sorry, you have conflicting events \n";
+        for (int i = 0; i < conflictList.size(); i++) {
+            out += (i + 1) + ". " + conflictList.get(i) + "\n";
+        }
+        return out;
+    }
+
+    /**
      * Display task with instance of keyword.
      * @param list List of task with keyword
      * @param keyword keyword entered by user

@@ -43,12 +43,12 @@ public class DeleteCommand extends Command {
         HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap = events.getMap();
         HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();
         if (list.equals("event")) {
-            isInsideMap(eventMap, task);
+            super.insideMapChecker(eventMap, task);
             events.removeTask(task);
             storage.updateEventList(events);
             listToChange = events;
         } else if (list.equals("deadline")) {
-            isInsideMap(deadlineMap, task);
+            super.insideMapChecker(deadlineMap, task);
             deadlines.removeTask(task);
             storage.updateDeadlineList(deadlines);
             listToChange = deadlines;
