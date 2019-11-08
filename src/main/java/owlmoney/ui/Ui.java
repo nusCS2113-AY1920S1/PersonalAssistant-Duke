@@ -12,30 +12,30 @@ public class Ui {
     private static final String AMOUNT = "Amount";
     private static final String DATE = "Date";
     private static final String CATEGORY = "Category";
-    private static final String TRANSACTIONNO = "Transaction No.";
-    private static final String TRANSTYPE = "transaction";
-    private static final String ITEMTYPE = "item";
-    private static final String CARDNAME = "Card Name";
-    private static final String MONLIMIT = "Monthly Limit";
-    private static final String REMLIMIT = "Remaining Limit";
-    private static final String REBATE = "Rebate";
-    private static final String ACCNAME = "Account Name";
-    private static final String ACCTYPE = "Account Type";
-    private static final String CURRAMOUNT = "Current Amount";
+    private static final String TRANSACTION_NUMBER = "Transaction No.";
+    private static final String TRANSACTION_TYPE = "transaction";
+    private static final String ITEM_TYPE = "item";
+    private static final String CARD_NAME = "Card Name";
+    private static final String MONTHLY_LIMIT = "Monthly Limit";
+    private static final String REMAINING_LIMIT = "Remaining Limit";
+    private static final String REBATE_RATE = "Rebate";
+    private static final String ACCOUNT_NAME = "Account Name";
+    private static final String ACCOUNT_TYPE = "Account Type";
+    private static final String CURRENT_AMOUNT = "Current Amount";
     private static final String INCOME = "Income";
-    private static final String GOALNAME = "To Accomplish";
-    private static final String GOALAMOUNT = "Amount to save";
-    private static final String GOALDATE = "To be achieved by";
-    private static final String BONDNAME = "Bond Name";
-    private static final String BONDRATE = "Rate";
-    private static final String BONDDATE = "Date of Purchase";
-    private static final String BONDYEAR = "Number of Years";
-    private static final String GOALPROGRESS = "Save another";
-    private static final String GOALBANKNAME = "Saving Account";
-    private static final String GOALACHIEVED = "Goal Achieved";
-    private static final String RECURTRANSTYPE = "recurTransaction";
-    private static final String NEXTEXPENSE = "Next Expense Date";
-    private static final String RECURITEMTYPE = "recurItem";
+    private static final String GOAL_NAME = "To Accomplish";
+    private static final String GOAL_AMOUNT = "Amount to save";
+    private static final String GOAL_DATE = "To be achieved by";
+    private static final String BOND_NAME = "Bond Name";
+    private static final String BOND_RATE = "Rate";
+    private static final String BOND_DATE = "Date of Purchase";
+    private static final String BOND_YEAR = "Number of Years";
+    private static final String GOAL_PROGRESS = "Save another";
+    private static final String GOAL_BANK_NAME = "Saving Account";
+    private static final String GOAL_ACHIEVED = "Goal Achieved";
+    private static final String RECURRING_TRANSACTION_TYPE = "recurTransaction";
+    private static final String NEXT_EXPENSE_DATE = "Next Expense Date";
+    private static final String RECURRING_ITEM_TYPE = "recurItem";
     private static final String NEWLINE = System.lineSeparator();
 
     /**
@@ -51,15 +51,19 @@ public class Ui {
      * Prints the transaction header.
      */
     public void printTransactionHeader(String type) {
-        if (ITEMTYPE.equals(type)) {
-            System.out.printf("%-20s %-55s %-15s %-20s %-20s %n", ITEMNO, DESCRIPTION, AMOUNT, DATE, CATEGORY);
-        } else if (TRANSTYPE.equals(type)) {
-            System.out.printf("%-20s %-55s %-15s %-20s %-20s %n", TRANSACTIONNO, DESCRIPTION, AMOUNT, DATE, CATEGORY);
-        } else if (RECURITEMTYPE.equals(type)) {
-            System.out.printf("%-20s %-55s %-15s %-20s %-20s %n", ITEMNO, DESCRIPTION, AMOUNT, NEXTEXPENSE, CATEGORY);
-        } else if (RECURTRANSTYPE.equals(type)) {
+        if (ITEM_TYPE.equals(type)) {
+            System.out.printf("%-20s %-55s %-15s %-20s %-20s %n", ITEMNO, DESCRIPTION,
+                    AMOUNT, DATE, CATEGORY);
+        } else if (TRANSACTION_TYPE.equals(type)) {
+            System.out.printf("%-20s %-55s %-15s %-20s %-20s %n", TRANSACTION_NUMBER,
+                    DESCRIPTION, AMOUNT, DATE, CATEGORY);
+        } else if (RECURRING_ITEM_TYPE.equals(type)) {
+            System.out.printf("%-20s %-55s %-15s %-20s %-20s %n", ITEMNO, DESCRIPTION,
+                    AMOUNT, NEXT_EXPENSE_DATE, CATEGORY);
+        } else if (RECURRING_TRANSACTION_TYPE.equals(type)) {
             System.out.printf(
-                    "%-20s %-55s %-15s %-20s %-20s %n", TRANSACTIONNO, DESCRIPTION, AMOUNT, NEXTEXPENSE, CATEGORY);
+                    "%-20s %-55s %-15s %-20s %-20s %n", TRANSACTION_NUMBER, DESCRIPTION,
+                    AMOUNT, NEXT_EXPENSE_DATE, CATEGORY);
         }
         System.out.println("-----------------------------------------------------------------------------"
                 + "----------------------------------------------------");
@@ -83,7 +87,8 @@ public class Ui {
      * Prints the card header.
      */
     public void printCardHeader() {
-        System.out.printf("%-20s %-30s %-15s %-20s %-15s %n", ITEMNO, CARDNAME, MONLIMIT, REMLIMIT, REBATE);
+        System.out.printf("%-20s %-30s %-15s %-20s %-15s %n", ITEMNO, CARD_NAME, MONTHLY_LIMIT,
+                REMAINING_LIMIT, REBATE_RATE);
 
         System.out.println("-----------------------------------------------------------------------------"
                 + "----------------------------------------------------");
@@ -106,7 +111,8 @@ public class Ui {
      * Prints the bank header.
      */
     public void printBankHeader() {
-        System.out.printf("%-20s %-35s %-15s %-15s %-15s %n", ITEMNO, ACCNAME, ACCTYPE, CURRAMOUNT, INCOME);
+        System.out.printf("%-20s %-35s %-15s %-15s %-15s %n", ITEMNO, ACCOUNT_NAME, ACCOUNT_TYPE,
+                CURRENT_AMOUNT, INCOME);
 
         System.out.println("-----------------------------------------------------------------------------"
                 + "----------------------------------------------------");
@@ -141,8 +147,9 @@ public class Ui {
      * Prints the goal header.
      */
     public void printGoalHeader() {
-        System.out.printf("%-10s %-30s %-20s %-20s %-20s %-20s %-20s %n", ITEMNO, GOALNAME, GOALAMOUNT, GOALBANKNAME,
-                GOALPROGRESS, GOALDATE, GOALACHIEVED);
+        System.out.printf("%-10s %-30s %-20s %-20s %-20s %-20s %-20s %n", ITEMNO, GOAL_NAME, GOAL_AMOUNT,
+                GOAL_BANK_NAME,
+                GOAL_PROGRESS, GOAL_DATE, GOAL_ACHIEVED);
 
         System.out.println("-----------------------------------------------------------------------------"
                 + "--------------------------------------------------------------");
@@ -156,18 +163,19 @@ public class Ui {
      * @param amount Represents the amount to save up in the goal.
      * @param date   Represents the date to accomplish the goal.
      */
-    public void printGoal(int num, String name, String amount, String bankName, String progress, String date,
-            String achieved) {
-        System.out.printf("%-10s %-30s %-20s %-20s %-20s %-20s %-20s %n", num, name, amount, bankName, progress,
-                date, achieved);
+    public void printGoal(int num, String name, String amount, String bankName, String progress,
+            String date, String achieved) {
+        System.out.printf("%-10s %-30s %-20s %-20s %-20s %-20s %-20s %n", num, name, amount,
+                bankName, progress, date, achieved);
     }
 
     /**
      * Prints the bond header.
      */
     public void printBondHeader() {
-        System.out.printf("%-20s %-30s %-15s %-10s %-20s %-10s %n", ITEMNO, BONDNAME, AMOUNT, BONDRATE, BONDDATE,
-                BONDYEAR);
+        System.out.printf("%-20s %-30s %-15s %-10s %-20s %-10s %n", ITEMNO, BOND_NAME, AMOUNT,
+                BOND_RATE, BOND_DATE,
+                BOND_YEAR);
 
         System.out.println("-----------------------------------------------------------------------------"
                 + "----------------------------------------------------");

@@ -4,8 +4,6 @@ import owlmoney.logic.command.Command;
 import owlmoney.logic.command.goals.DeleteGoalsCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
-import javax.swing.text.html.parser.Parser;
-
 import java.util.Iterator;
 
 /**
@@ -23,9 +21,9 @@ public class ParseDeleteGoals extends ParseGoals {
      */
     public ParseDeleteGoals(String data) throws ParserException {
         super(data);
-        checkRedundantParameter(AMOUNT, DELETE);
-        checkRedundantParameter(NEW_NAME, DELETE);
-        checkRedundantParameter(BY, DELETE);
+        checkRedundantParameter(AMOUNT_PARAMETER, DELETE);
+        checkRedundantParameter(NEW_NAME_PARAMETER, DELETE);
+        checkRedundantParameter(BY_PARAMETER, DELETE);
         checkFirstParameter();
     }
 
@@ -40,10 +38,10 @@ public class ParseDeleteGoals extends ParseGoals {
         while (goalsIterator.hasNext()) {
             String key = goalsIterator.next();
             String value = goalsParameters.get(key);
-            if (NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (NAME_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when deleting goals");
-            } else if (NAME.equals(key)) {
-                checkName(NAME, value);
+            } else if (NAME_PARAMETER.equals(key)) {
+                checkName(NAME_PARAMETER, value);
             }
         }
 
@@ -56,7 +54,7 @@ public class ParseDeleteGoals extends ParseGoals {
      */
     @Override
     public Command getCommand() {
-        DeleteGoalsCommand newDeleteGoalsCommand = new DeleteGoalsCommand(goalsParameters.get(NAME));
+        DeleteGoalsCommand newDeleteGoalsCommand = new DeleteGoalsCommand(goalsParameters.get(NAME_PARAMETER));
         return newDeleteGoalsCommand;
     }
 }

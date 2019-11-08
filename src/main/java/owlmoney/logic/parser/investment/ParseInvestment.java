@@ -16,10 +16,11 @@ public abstract class ParseInvestment {
     HashMap<String, String> investmentParameters = new HashMap<String, String>();
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
-    private static final String[] INVESTMENT_KEYWORD = new String[] {"/amount", "/name", "/newname"};
-    static final String AMOUNT = "/amount";
-    static final String NAME = "/name";
-    static final String NEW_NAME = "/newname";
+    static final String AMOUNT_PARAMETER = "/amount";
+    static final String NAME_PARAMETER = "/name";
+    static final String NEW_NAME_PARAMETER = "/newname";
+    private static final String[] INVESTMENT_KEYWORD = new String[] {AMOUNT_PARAMETER,
+        NAME_PARAMETER, NEW_NAME_PARAMETER};
     private static final List<String> INVESTMENT_KEYWORD_LISTS = Arrays.asList(INVESTMENT_KEYWORD);
 
     /**
@@ -62,12 +63,12 @@ public abstract class ParseInvestment {
      * @throws ParserException If duplicate parameters are detected.
      */
     public void fillHashTable() throws ParserException {
-        investmentParameters.put(AMOUNT,
-                parseRawData.extractParameter(rawData, AMOUNT, INVESTMENT_KEYWORD).trim());
-        investmentParameters.put(NAME,
-                parseRawData.extractParameter(rawData, NAME, INVESTMENT_KEYWORD).trim());
-        investmentParameters.put(NEW_NAME,
-                parseRawData.extractParameter(rawData, NEW_NAME, INVESTMENT_KEYWORD).trim());
+        investmentParameters.put(AMOUNT_PARAMETER,
+                parseRawData.extractParameter(rawData, AMOUNT_PARAMETER, INVESTMENT_KEYWORD).trim());
+        investmentParameters.put(NAME_PARAMETER,
+                parseRawData.extractParameter(rawData, NAME_PARAMETER, INVESTMENT_KEYWORD).trim());
+        investmentParameters.put(NEW_NAME_PARAMETER,
+                parseRawData.extractParameter(rawData, NEW_NAME_PARAMETER, INVESTMENT_KEYWORD).trim());
     }
 
     /**

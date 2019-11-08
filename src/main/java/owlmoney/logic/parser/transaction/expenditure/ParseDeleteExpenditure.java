@@ -11,7 +11,7 @@ import owlmoney.logic.parser.exception.ParserException;
  */
 public class ParseDeleteExpenditure extends ParseExpenditure {
 
-    private static final String DELETE = "/delete";
+    private static final String DELETE_COMMAND = "/delete";
 
     /**
      * Creates an instance of ParseDeleteExpenditure.
@@ -21,11 +21,11 @@ public class ParseDeleteExpenditure extends ParseExpenditure {
      */
     public ParseDeleteExpenditure(String data, String type) throws ParserException {
         super(data, type);
-        checkRedundantParameter(AMOUNT, DELETE);
-        checkRedundantParameter(CATEGORY, DELETE);
-        checkRedundantParameter(DESCRIPTION, DELETE);
-        checkRedundantParameter(DATE, DELETE);
-        checkRedundantParameter(NUM, DELETE);
+        checkRedundantParameter(AMOUNT_PARAMETER, DELETE_COMMAND);
+        checkRedundantParameter(CATEGORY_PARAMETER, DELETE_COMMAND);
+        checkRedundantParameter(DESCRIPTION_PARAMETER, DELETE_COMMAND);
+        checkRedundantParameter(DATE_PARAMETER, DELETE_COMMAND);
+        checkRedundantParameter(NUM_PARAMETER, DELETE_COMMAND);
         checkFirstParameter();
     }
 
@@ -40,13 +40,14 @@ public class ParseDeleteExpenditure extends ParseExpenditure {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = expendituresParameters.get(key);
-            if ((TRANSNO.equals(key) || FROM.equals(key)) && (value.isBlank() || value.isEmpty())) {
+            if ((TRANSACTION_NUMBER_PARAMETER.equals(key) || FROM_PARAMETER.equals(key))
+                    && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding a new expenditure");
             }
-            if (TRANSNO.equals(key)) {
-                checkInt(TRANSNO, value);
+            if (TRANSACTION_NUMBER_PARAMETER.equals(key)) {
+                checkInt(TRANSACTION_NUMBER_PARAMETER, value);
             }
-            if (FROM.equals(key)) {
+            if (FROM_PARAMETER.equals(key)) {
                 checkName(value);
             }
         }
@@ -59,8 +60,8 @@ public class ParseDeleteExpenditure extends ParseExpenditure {
      */
     public Command getCommand() {
         DeleteExpenditureCommand newDeleteExpenditureCommand =
-                new DeleteExpenditureCommand(Integer.parseInt(expendituresParameters.get(TRANSNO)),
-                        expendituresParameters.get(FROM), this.type);
+                new DeleteExpenditureCommand(Integer.parseInt(expendituresParameters.get(TRANSACTION_NUMBER_PARAMETER)),
+                        expendituresParameters.get(FROM_PARAMETER), this.type);
         return newDeleteExpenditureCommand;
     }
 }

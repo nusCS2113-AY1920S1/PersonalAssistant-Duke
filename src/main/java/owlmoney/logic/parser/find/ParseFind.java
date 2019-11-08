@@ -21,15 +21,15 @@ public abstract class ParseFind {
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
     String type;
+    static final String NAME_PARAMETER = "/name";
+    static final String DESCRIPTION_PARAMETER = "/desc";
+    static final String CATEGORY_PARAMETER = "/category";
+    static final String FROM_PARAMETER = "/from";
+    static final String TO_PARAMETER = "/to";
     private static final String[] FIND_KEYWORD = new String[] {
-        "/name", "/desc", "/category", "/from", "/to"
+        NAME_PARAMETER, DESCRIPTION_PARAMETER, CATEGORY_PARAMETER, FROM_PARAMETER, TO_PARAMETER
     };
     private static final List<String> FIND_KEYWORD_LISTS = Arrays.asList(FIND_KEYWORD);
-    static final String NAME = "/name";
-    static final String DESCRIPTION = "/desc";
-    static final String CATEGORY = "/category";
-    static final String FROM = "/from";
-    static final String TO = "/to";
 
     /**
      * Creates an instance of any ParseFind object.
@@ -73,16 +73,16 @@ public abstract class ParseFind {
      * @throws ParserException If duplicate parameters are detected.
      */
     public void fillHashTable() throws ParserException {
-        findParameters.put(DESCRIPTION,
-                parseRawData.extractParameter(rawData, DESCRIPTION, FIND_KEYWORD).trim());
-        findParameters.put(CATEGORY,
-                parseRawData.extractParameter(rawData, CATEGORY, FIND_KEYWORD).trim());
-        findParameters.put(FROM,
-                parseRawData.extractParameter(rawData, FROM, FIND_KEYWORD).trim());
-        findParameters.put(TO,
-                parseRawData.extractParameter(rawData, TO, FIND_KEYWORD).trim());
-        findParameters.put(NAME,
-                parseRawData.extractParameter(rawData, NAME, FIND_KEYWORD).trim());
+        findParameters.put(DESCRIPTION_PARAMETER,
+                parseRawData.extractParameter(rawData, DESCRIPTION_PARAMETER, FIND_KEYWORD).trim());
+        findParameters.put(CATEGORY_PARAMETER,
+                parseRawData.extractParameter(rawData, CATEGORY_PARAMETER, FIND_KEYWORD).trim());
+        findParameters.put(FROM_PARAMETER,
+                parseRawData.extractParameter(rawData, FROM_PARAMETER, FIND_KEYWORD).trim());
+        findParameters.put(TO_PARAMETER,
+                parseRawData.extractParameter(rawData, TO_PARAMETER, FIND_KEYWORD).trim());
+        findParameters.put(NAME_PARAMETER,
+                parseRawData.extractParameter(rawData, NAME_PARAMETER, FIND_KEYWORD).trim());
     }
 
     /**

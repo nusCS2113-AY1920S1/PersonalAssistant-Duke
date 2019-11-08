@@ -1,7 +1,7 @@
 package owlmoney.logic.parser.exception;
 
 /**
- * ParserException that extends Exception and handles all exception that parser would throw.
+ * Handles all exceptions that parser would throw.
  */
 public class ParserException extends Exception {
     private String message;

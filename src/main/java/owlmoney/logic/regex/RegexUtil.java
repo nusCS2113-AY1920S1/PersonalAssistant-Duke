@@ -4,6 +4,9 @@ package owlmoney.logic.regex;
  * RegexUtil is used to validate user input to make sure it satisfies constraints set for user input.
  */
 public final class RegexUtil {
+
+    private static final String INTERSET_RATE_REGEX = "^\\s*(?=.*[1-9])\\d{1,2}(\\.\\d{1,2})?$";
+
     /**
      * Checks whether amount input by user is within the 9 digit constraints with a max of 2 decimal places.
      *
@@ -35,8 +38,7 @@ public final class RegexUtil {
      * @return the result of the check on whether it fulfills the criteria.
      */
     public static boolean regexCheckInterestRate(String input) {
-        final String interestRegex = "^\\s*(?=.*[1-9])\\d{1,2}(\\.\\d{1,2})?$";
-        if (input.matches(interestRegex)) {
+        if (input.matches(INTERSET_RATE_REGEX)) {
             double parsedInput = Double.parseDouble(input);
             return (parsedInput < 100.00);
         } else {
@@ -53,8 +55,7 @@ public final class RegexUtil {
      * @return the result of the check on whether it fulfills the criteria.
      */
     public static boolean regexCheckCashbackRate(String input) {
-        final String interestRegex = "^\\s*(?=.*[1-9])\\d{1,2}(\\.\\d{1,2})?$";
-        if (input.matches(interestRegex)) {
+        if (input.matches(INTERSET_RATE_REGEX)) {
             double parsedInput = Double.parseDouble(input);
             return (parsedInput <= 20.00);
         } else {

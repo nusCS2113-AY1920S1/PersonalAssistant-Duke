@@ -10,7 +10,7 @@ import owlmoney.ui.Ui;
  */
 public class DeleteSavingsCommand extends Command {
     private final String bankName;
-    private static final String SAVING = "saving";
+    private static final String SAVING_BANK_TYPE = "saving";
 
     /**
      * Creates an instance of DeleteSavingCommand.
@@ -31,7 +31,7 @@ public class DeleteSavingsCommand extends Command {
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException {
-        profile.profileDeleteBank(this.bankName, SAVING, ui);
+        profile.profileDeleteBank(this.bankName, SAVING_BANK_TYPE, ui);
         return this.isExit;
     }
 }

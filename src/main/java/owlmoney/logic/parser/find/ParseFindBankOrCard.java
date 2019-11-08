@@ -10,7 +10,7 @@ import owlmoney.logic.parser.exception.ParserException;
  * Represents the parsing of inputs for finding of bank or card.
  */
 public class ParseFindBankOrCard extends ParseFind {
-    static final String FINDBANKORCARD = "/find /savings or /find /investment or /find /card";
+    private static final String FIND_BANK_OR_CARD = "/find /savings or /find /investment or /find /card";
 
     /**
      * Creates an instance of ParseFindBankOrCard.
@@ -21,10 +21,10 @@ public class ParseFindBankOrCard extends ParseFind {
      */
     public ParseFindBankOrCard(String data, String type) throws ParserException {
         super(data, type);
-        checkRedundantParameter(DESCRIPTION, FINDBANKORCARD);
-        checkRedundantParameter(CATEGORY, FINDBANKORCARD);
-        checkRedundantParameter(FROM, FINDBANKORCARD);
-        checkRedundantParameter(TO, FINDBANKORCARD);
+        checkRedundantParameter(DESCRIPTION_PARAMETER, FIND_BANK_OR_CARD);
+        checkRedundantParameter(CATEGORY_PARAMETER, FIND_BANK_OR_CARD);
+        checkRedundantParameter(FROM_PARAMETER, FIND_BANK_OR_CARD);
+        checkRedundantParameter(TO_PARAMETER, FIND_BANK_OR_CARD);
         checkFirstParameter();
     }
 
@@ -39,11 +39,12 @@ public class ParseFindBankOrCard extends ParseFind {
         while (findIterator.hasNext()) {
             String key = findIterator.next();
             String value = findParameters.get(key);
-            if (!DESCRIPTION.equals(key) && !CATEGORY.equals(key) && !FROM.equals(key) && !TO.equals(key)
+            if (!DESCRIPTION_PARAMETER.equals(key) && !CATEGORY_PARAMETER.equals(key)
+                    && !FROM_PARAMETER.equals(key) && !TO_PARAMETER.equals(key)
                     && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when doing a search");
             }
-            if (NAME.equals(key)) {
+            if (NAME_PARAMETER.equals(key)) {
                 checkName(value);
             }
         }
@@ -55,7 +56,8 @@ public class ParseFindBankOrCard extends ParseFind {
      * @return Returns FindBankOrCardCommand to be executed.
      */
     public Command getCommand() {
-        FindBankOrCardCommand newFindBankOrCardCommand = new FindBankOrCardCommand(findParameters.get(NAME), this.type);
+        FindBankOrCardCommand newFindBankOrCardCommand =
+                new FindBankOrCardCommand(findParameters.get(NAME_PARAMETER), this.type);
         return newFindBankOrCardCommand;
     }
 }

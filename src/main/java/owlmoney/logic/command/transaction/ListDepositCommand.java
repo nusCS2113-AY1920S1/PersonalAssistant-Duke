@@ -10,7 +10,7 @@ import owlmoney.ui.Ui;
  * Executes ListDepositCommand to list deposits.
  */
 public class ListDepositCommand extends Command {
-    private final String accName;
+    private final String accountName;
     private final int displayNum;
 
     /**
@@ -20,7 +20,7 @@ public class ListDepositCommand extends Command {
      * @param displayNum Number of deposits to display.
      */
     public ListDepositCommand(String name, int displayNum) {
-        this.accName = name;
+        this.accountName = name;
         this.displayNum = displayNum;
     }
 
@@ -34,7 +34,7 @@ public class ListDepositCommand extends Command {
      * @throws TransactionException If invalid transaction
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException {
-        profile.profileListDeposit(accName, ui, displayNum);
+        profile.profileListDeposit(accountName, ui, displayNum);
         return this.isExit;
     }
 }

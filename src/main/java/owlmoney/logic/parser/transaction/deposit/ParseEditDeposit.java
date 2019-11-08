@@ -20,8 +20,8 @@ public class ParseEditDeposit extends ParseDeposit {
      */
     public ParseEditDeposit(String data) throws ParserException {
         super(data);
-        checkRedundantParameter(TO, EDIT);
-        checkRedundantParameter(NUM, EDIT);
+        checkRedundantParameter(TO_PARAMETER, EDIT);
+        checkRedundantParameter(NUM_PARAMETER, EDIT);
         checkFirstParameter();
     }
 
@@ -36,25 +36,25 @@ public class ParseEditDeposit extends ParseDeposit {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = depositParameters.get(key);
-            if (TRANSNO.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (TRANSACTION_NUMBER_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when editing a deposit");
-            } else if (TRANSNO.equals(key)) {
-                checkInt(TRANSNO, value);
+            } else if (TRANSACTION_NUMBER_PARAMETER.equals(key)) {
+                checkInt(TRANSACTION_NUMBER_PARAMETER, value);
             }
-            if (FROM.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (FROM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when editing a deposit");
-            } else if (FROM.equals(key)) {
-                checkName(value, FROM);
+            } else if (FROM_PARAMETER.equals(key)) {
+                checkName(value, FROM_PARAMETER);
             }
-            if (DESCRIPTION.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (DESCRIPTION_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
                 checkDescription(value);
                 changeCounter++;
             }
-            if (AMOUNT.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (AMOUNT_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
                 checkAmount(value);
                 changeCounter++;
             }
-            if (DATE.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (DATE_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
                 checkDate(value);
                 changeCounter++;
             }
@@ -70,9 +70,10 @@ public class ParseEditDeposit extends ParseDeposit {
      * @return EditDepositCommand to be executed.
      */
     public Command getCommand() {
-        EditDepositCommand newEditDepositCommand = new EditDepositCommand(depositParameters.get(FROM),
-                depositParameters.get(AMOUNT), depositParameters.get(DATE),
-                depositParameters.get(DESCRIPTION), Integer.parseInt(depositParameters.get(TRANSNO)));
+        EditDepositCommand newEditDepositCommand = new EditDepositCommand(depositParameters.get(FROM_PARAMETER),
+                depositParameters.get(AMOUNT_PARAMETER), depositParameters.get(DATE_PARAMETER),
+                depositParameters.get(DESCRIPTION_PARAMETER), Integer.parseInt(depositParameters.get(
+                TRANSACTION_NUMBER_PARAMETER)));
         return newEditDepositCommand;
     }
 }
