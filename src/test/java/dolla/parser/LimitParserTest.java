@@ -30,7 +30,7 @@ public class LimitParserTest {
     @Test
     public void parseValidSetFormatTest() {
         String inputLine = "set budget 10 daily";
-        String expected = "AddLimitCommand";
+        String expected = "budget 10.0 daily";
         LimitParser limitParser = new LimitParser(inputLine);
         Command command = limitParser.parseInput();
         assertEquals(expected, command.getCommandInfo());
