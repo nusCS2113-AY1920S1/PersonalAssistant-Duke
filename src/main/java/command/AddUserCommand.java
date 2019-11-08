@@ -8,6 +8,7 @@ import inventory.Inventory;
 import room.RoomList;
 import storage.Constants;
 import storage.Storage;
+import storage.StorageManager;
 import ui.Ui;
 import user.User;
 import user.UserList;
@@ -34,15 +35,14 @@ public class AddUserCommand extends Command {
     @Override
     public void execute(UserList userList, Inventory inventory, RoomList roomList,
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage,
-                        Storage bookingstorage, Storage roomstorage, Storage approvestorage)
+                        StorageManager allStorage)
             throws DukeException, IOException {
         if (UserList.checkExistence(userList, splitL[1])) {
             throw new DukeException("Sorry, that user already exists!");
         } else {
             User user = new User(splitL[1]);
             userList.add(user);
-            userStorage.saveToFile(userList);
+            allStorage.getUserStorage().saveToFile(userList);
             ui.addToOutput("You have successfully created an account: " + user.getUsername());
         }
     }
