@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Functions for command autocompletion and autocorrection.
@@ -16,6 +18,7 @@ public class CommandUtils {
      * For autocorrect, do not consider strings whose lengths differ from the input by more than this value.
      */
     private static final int MAX_LEN_DIFF = 2;
+    private static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private static final Map<Character, Coord> keyboardMap =
             Map.ofEntries(Map.entry('q', new Coord(0, 1)), Map.entry('w', new Coord(1, 1)),
                     Map.entry('e', new Coord(2, 1)), Map.entry('r', new Coord(3, 1)),
@@ -89,10 +92,15 @@ public class CommandUtils {
                     suggestions.clear();
                     suggestions.put(entry.getValue(), entry.getKey());
                     minDist = dist;
+                    corrStr = entry.getValue(); // potential candidate for unambiguous correction
                 } else if (dist == minDist) {
                     suggestions.put(entry.getValue(), entry.getKey());
                 } //ignore if dist > minDist
             }
+        }
+        if (suggestions.size() == 1) { // correction can be unambiguous
+            logger.log(Level.INFO, "Corrected " + word + " to " + corrStr);
+            return corrStr;
         }
 
         return disambiguateSwitches(word, suggestions, command.getSwitchMap().keySet());
