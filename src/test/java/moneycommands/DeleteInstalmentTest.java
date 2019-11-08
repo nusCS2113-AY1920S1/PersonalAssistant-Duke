@@ -42,7 +42,7 @@ public class DeleteInstalmentTest {
         account.getInstalments().add(instalment);
         account.getInstalments().add(instalment1);
 
-        String deleteFirstInput = "delete instalments 2";
+        String deleteFirstInput = "delete instalment 2";
         MoneyCommand deleteInstalmentCommand = new DeleteInstalmentCommand(deleteFirstInput);
         assertEquals(false, deleteInstalmentCommand.isExit());
         ui.clearOutputString();
@@ -53,7 +53,7 @@ public class DeleteInstalmentTest {
                         + "Got it, list will be printed in the other pane!\n"
                 , ui.getOutputString());
 
-        String deleteSecondInput = "delete instalments 1";
+        String deleteSecondInput = "delete instalment 1";
         MoneyCommand deleteSecondInstalmentCommand = new DeleteInstalmentCommand(deleteSecondInput);
         ui.clearOutputString();
         deleteSecondInstalmentCommand.execute(account, ui, moneyStorage);
@@ -71,7 +71,7 @@ public class DeleteInstalmentTest {
     public void testDeleteInstalmentException() throws ParseException, DukeException {
         account.getInstalments().clear();
 
-        String deleteEmptyInstalmentList = "delete instalments 1";
+        String deleteEmptyInstalmentList = "delete instalment 1";
         MoneyCommand deleteInstalmentCommand = new DeleteInstalmentCommand(deleteEmptyInstalmentList);
         ui.clearOutputString();
         try {
@@ -86,7 +86,7 @@ public class DeleteInstalmentTest {
         account.getInstalments().add(instalment);
         account.getInstalments().add(instalment1);
 
-        String deleteFirstInput = "delete instalments 3";
+        String deleteFirstInput = "delete instalment 3";
         MoneyCommand deleteInstalmentCommand1 = new DeleteInstalmentCommand(deleteFirstInput);
         ui.clearOutputString();
         try {

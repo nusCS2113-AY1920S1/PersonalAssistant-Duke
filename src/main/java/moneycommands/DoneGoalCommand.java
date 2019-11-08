@@ -38,15 +38,15 @@ public class DoneGoalCommand extends MoneyCommand {
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
 
-    try{
-        String temp = inputString.replaceAll("[^0-9]", "");
-        indexNo = Integer.parseInt(temp);
-    }catch(NumberFormatException e){
-        throw new DukeException("Please enter in the format: " +
-                "done goal <index>\n");
-    }
+        try {
+            String temp = inputString.replaceAll("[^-?0-9]", "");
+            indexNo = Integer.parseInt(temp);
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter in the format: "
+                    + "done goal <index>\n");
+        }
 
-        if (indexNo > account.getShortTermGoals().size() || (indexNo < 1) ) {
+        if (indexNo > account.getShortTermGoals().size() || (indexNo < 1)) {
             throw new DukeException("The serial number of the Goal is Out Of Bounds!");
         }
 
@@ -56,7 +56,7 @@ public class DoneGoalCommand extends MoneyCommand {
         String category = doneGoal.getCategory();
         LocalDate doneDate = LocalDate.now();
 
-        if(account.getGoalSavings() < price){
+        if (account.getGoalSavings() < price) {
             throw new DukeException("Goal Price exceeds Goal Savings");
         }
 
@@ -87,8 +87,9 @@ public class DoneGoalCommand extends MoneyCommand {
             account.getShortTermGoals().add(indexNo - 1, (Goal)deletedEntry);
             ui.appendToOutput(" Last command undone: \n");
             ui.appendToOutput(account.getShortTermGoals().get(indexNo - 1).toString() + " added to goals\n");
-            ui.appendToOutput(" Now you have " + account.getShortTermGoals().size() + " goals listed\nand " +
-                    account.getExpListTotal().size() + "expenses listed\n");
+            ui.appendToOutput(" Now you have " + account.getShortTermGoals().size() + " goals listed\nand "
+                    + account.getExpListTotal().size()
+                    + " expenses listed\n");
         } else {
             throw new DukeException("Messed up (DoneGoal)");
         }

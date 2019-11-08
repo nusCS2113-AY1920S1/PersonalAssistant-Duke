@@ -2,11 +2,9 @@ package moneycommands;
 
 import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
-import controlpanel.Parser;
 import controlpanel.Ui;
 import money.Account;
 import money.Goal;
-
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -15,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.text.DecimalFormat;
 
 
 public class CommitGoalCommand extends MoneyCommand {
@@ -23,6 +22,8 @@ public class CommitGoalCommand extends MoneyCommand {
     private DateTimeFormatter dateTimeFormatter;
     private ArrayList<Goal> goalsAfterCommit;
     private float goalSavingsAfterCommit;
+    private DecimalFormat decimalFormat = new DecimalFormat("#.00");
+
 
     //@@author therealnickcheong
 
@@ -57,18 +58,6 @@ public class CommitGoalCommand extends MoneyCommand {
     }
 
     /**
-     * method to do decimal point rounding.
-     * @param f float to round.
-     * @return String of the rounded off float.
-     */
-
-    public String dpRounding(float f) {
-        DecimalFormat df = new DecimalFormat("#.##");
-        df.setRoundingMode(RoundingMode.CEILING);
-        return df.format(f);
-    }
-
-    /**
      * method to calculate the savings per month to achieve the set goal.
      * @param goalSavings current goal savings.
      * @param currGoalPrice price of the goal.
@@ -98,7 +87,7 @@ public class CommitGoalCommand extends MoneyCommand {
             ArrayList<Integer> indexOfCommittedGoals = new ArrayList<>();
             try {
                 for (String i: indivArgs) {
-                    int index = Integer.parseInt(i.replaceAll("[^0-9]+", ""));
+                    int index = Integer.parseInt(i.replaceAll("[^-?0-9]+", ""));
                     indexOfCommittedGoals.add(index);
                 }
             } catch (NumberFormatException e) {
@@ -140,9 +129,9 @@ public class CommitGoalCommand extends MoneyCommand {
 
                 ui.appendToOutput(" " + i + "." + goalProgress + goalsAfterCommit.get(i - 1).toString() + "\n");
             }
-            String savingsPerMonth = dpRounding(savingsReqPerMonth);
-            ui.appendToOutput("Goal Savings after commit: $" + goalSavingsAfterCommit + "\n");
-            ui.appendToOutput("Target Savings for the Month after commit: $" + savingsPerMonth + "\n");
+            ui.appendToOutput("Goal Savings after commit: $" + decimalFormat.format(goalSavingsAfterCommit) + "\n");
+            ui.appendToOutput("Target Savings for the Month after commit: $"
+                    + decimalFormat.format(savingsReqPerMonth) + "\n");
 
             MoneyCommand list = new ListGoalsCommand();
             list.execute(account,ui,storage);

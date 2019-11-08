@@ -48,7 +48,7 @@ public class GoalsTest {
         ui.clearOutputString();
         addGoalCommand.execute(account, ui, moneyStorage);
         assertEquals(" Got it. I've added this Goal: \n"
-                + "     [GS] buy Motorbike (target: $10000.0)\n (to achieve by: 15/1/2050) HIGH\n"
+                + "     [GS] buy Motorbike (target: $10000.00)\n (to achieve by: 15/1/2050) HIGH\n"
                 , ui.getOutputString().split(" Now")[0]);
         account.getShortTermGoals().clear();
         MoneyCommand exitCommand =  new ExitMoneyCommand();
@@ -61,11 +61,11 @@ public class GoalsTest {
         account.getShortTermGoals().clear();
         Goal g = new Goal(1000, "watch", "GS", testDate, "HIGH");
         account.getShortTermGoals().add(g);
-        MoneyCommand deleteGoalCommand =  new DeleteGoalCommand(1);
+        MoneyCommand deleteGoalCommand =  new DeleteGoalCommand("delete goal 1");
         ui.clearOutputString();
         deleteGoalCommand.execute(account, ui, moneyStorage);
         assertEquals(" Noted. I've removed this Goal:\n"
-                        + "  [GS] watch(target: $1000.0)\n (to achieve by: 9/10/2015) HIGH\n"
+                        + "  [GS] watch(target: $1000.00)\n (to achieve by: 9/10/2015) HIGH\n"
                 , ui.getOutputString().split(" Now")[0]);
         account.getShortTermGoals().clear();
         MoneyCommand exitCommand =  new ExitMoneyCommand();
@@ -85,11 +85,15 @@ public class GoalsTest {
         MoneyCommand doneGoalCommand =  new DoneGoalCommand(testInput);
         ui.clearOutputString();
         doneGoalCommand.execute(account, ui, moneyStorage);
+
+        LocalDate doneDate = LocalDate.now();
+        dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        String todayDate = doneDate.format(dateTimeFormatter);
         assertEquals(" Nice! This Goal is Completed:\n"
-                        + "  [GS] watch(target: $1000.0)\n (to achieve by: 9/10/2015) HIGH\n"
+                        + "  [GS] watch(target: $1000.00)\n (to achieve by: 9/10/2015) HIGH\n"
                 , ui.getOutputString().split(" Now")[0]);
 
-        assertEquals("[E]$1000.0 watch(on: 25/10/2019)", account.getExpListTotal().get(0).toString());
+        assertEquals("[E]$1000.00 watch(on: " + todayDate + ")", account.getExpListTotal().get(0).toString());
         account.getShortTermGoals().clear();
         account.getIncomeListTotal().clear();
         account.getExpListTotal().clear();
@@ -114,8 +118,8 @@ public class GoalsTest {
         ui.clearOutputString();
         ui.clearGraphContainerString();
         listGoalCommand.execute(account, ui, moneyStorage);
-        assertEquals( " 1.[\u2713][GS] watch(target: $1000.0)\n (to achieve by: 9/10/2015) HIGH\n"
-                        + " 2.[50%][GS] car(target: $2000.0)\n (to achieve by: 9/10/2015) MEDIUM\n"
+        assertEquals( " 1.[\u2713][GS] watch(target: $1000.00)\n (to achieve by: 9/10/2015) HIGH\n"
+                        + " 2.[50%][GS] car(target: $2000.00)\n (to achieve by: 9/10/2015) MEDIUM\n"
                 , ui.getGraphContainerString().split(" Now")[0]);
 
         account.getShortTermGoals().clear();
@@ -145,16 +149,16 @@ public class GoalsTest {
         ui.clearOutputString();
         ui.clearGraphContainerString();
         commitGoalCommand.execute(account, ui, moneyStorage);
-        assertEquals( " 1.[\u2713][GS] watch(target: $1000.0)\n (to achieve by: 9/10/2015) HIGH\n"
-                        + " 2.[75%][GS] car(target: $2000.0)\n (to achieve by: 9/10/2015) MEDIUM\n"
-                        + " 3.[\u2713][GS] pen(target: $100.0)\n (to achieve by: 9/10/2015) LOW\n"
+        assertEquals( " 1.[\u2713][GS] watch(target: $1000.00)\n (to achieve by: 9/10/2015) HIGH\n"
+                        + " 2.[75%][GS] car(target: $2000.00)\n (to achieve by: 9/10/2015) MEDIUM\n"
+                        + " 3.[\u2713][GS] pen(target: $100.00)\n (to achieve by: 9/10/2015) LOW\n"
                 , ui.getGraphContainerString().split(" Now")[0]);
 
-        assertEquals( " 1.[20%][GS] car(target: $2000.0)\n (to achieve by: 9/10/2015) MEDIUM\n"
-                + "Goal Savings after commit: $400.0\n" +
-                        "Target Savings for the Month after commit: $1600\n" +
-                        "current Goal Savings: $1500.0\n" +
-                        "Target Savings for the Month: $500\n" +
+        assertEquals( " 1.[20%][GS] car(target: $2000.00)\n (to achieve by: 9/10/2015) MEDIUM\n"
+                + "Goal Savings after commit: $400.00\n" +
+                        "Target Savings for the Month after commit: $1600.00\n" +
+                        "current Goal Savings: $1500.00\n" +
+                        "Target Savings for the Month: $500.00\n" +
                         "Got it, list will be printed in the other pane!\n"
                 , ui.getOutputString().split(" Now")[0]);
 
@@ -187,18 +191,18 @@ public class GoalsTest {
         ui.clearOutputString();
         ui.clearGraphContainerString();
         commitGoalCommand.execute(account, ui, moneyStorage);
-        assertEquals( " 1.[\u2713][GS] watch(target: $1000.0)\n (to achieve by: 9/10/2050) HIGH\n"
-                        + " 2.[75%][GS] car(target: $2000.0)\n (to achieve by: 9/10/2050) MEDIUM\n"
-                        + " 3.[\u2713][GS] pen(target: $100.0)\n (to achieve by: 9/10/2050) LOW\n"
-                        + " 4.[\u2713][GS] computer(target: $300.0)\n (to achieve by: 9/10/2050) LOW\n"
+        assertEquals( " 1.[\u2713][GS] watch(target: $1000.00)\n (to achieve by: 9/10/2050) HIGH\n"
+                        + " 2.[75%][GS] car(target: $2000.00)\n (to achieve by: 9/10/2050) MEDIUM\n"
+                        + " 3.[\u2713][GS] pen(target: $100.00)\n (to achieve by: 9/10/2050) LOW\n"
+                        + " 4.[\u2713][GS] computer(target: $300.00)\n (to achieve by: 9/10/2050) LOW\n"
                 , ui.getGraphContainerString().split(" Now")[0]);
 
-        assertEquals( " 1.[20%][GS] car(target: $2000.0)\n (to achieve by: 9/10/2050) MEDIUM\n"
-                        + " 2.[\u2713][GS] computer(target: $300.0)\n" +
+        assertEquals( " 1.[20%][GS] car(target: $2000.00)\n (to achieve by: 9/10/2050) MEDIUM\n"
+                        + " 2.[\u2713][GS] computer(target: $300.00)\n" +
                         " (to achieve by: 9/10/2050) LOW\n"
-                        + "Goal Savings after commit: $400.0\n" +
-                        "Target Savings for the Month after commit: $4.32\n" +
-                        "current Goal Savings: $1500.0\n" +
+                        + "Goal Savings after commit: $400.00\n" +
+                        "Target Savings for the Month after commit: $4.31\n" +
+                        "current Goal Savings: $1500.00\n" +
                         "Target Savings for the Month: $1.35\n" +
                         "Got it, list will be printed in the other pane!\n"
                 , ui.getOutputString().split(" Now")[0]);
@@ -265,31 +269,12 @@ public class GoalsTest {
     }
 
     @Test
-    public void testInvalidPriority()throws ParseException, DukeException {
-
-        String testInput = "goal buy Motorbike /amt 1000 /by 15/1/2050 /priority high";
-        MoneyCommand addGoalCommand =  new AddGoalCommand(testInput);
-        ui.clearOutputString();
-
-        try {
-            addGoalCommand.execute(account, ui, moneyStorage);
-            fail();
-        } catch (DukeException e) {
-            assertThat(e.getMessage(), is("Please enter in the format: " +
-                    "goal <desc> /amt <amount> /by <date> /priority <HIGH/MEDIUM/LOW>\n"));
-        }
-        account.getShortTermGoals().clear();
-        MoneyCommand exitCommand =  new ExitMoneyCommand();
-        exitCommand.execute(account, ui, moneyStorage);
-    }
-
-    @Test
     public void testDeleteExceedSerial()throws ParseException, DukeException {
 
         account.getShortTermGoals().clear();
         Goal g = new Goal(1000, "watch", "GS", testDate, "HIGH");
         account.getShortTermGoals().add(g);
-        MoneyCommand deleteGoalCommand =  new DeleteGoalCommand(2);
+        MoneyCommand deleteGoalCommand =  new DeleteGoalCommand("delete goal 2");
         ui.clearOutputString();
 
         try {
