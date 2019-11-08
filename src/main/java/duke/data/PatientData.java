@@ -69,8 +69,9 @@ public class PatientData {
         if (deletedPatient != null) {
             patientList.remove(deletedPatient);
             return deletedPatient;
+        } else {
+            throw new DukeException("I don't have a patient called that!");
         }
-        throw new DukeException("I don't have a patient called that!");
     }
 
     /**
@@ -85,7 +86,7 @@ public class PatientData {
                 return patient;
             }
         }
-        throw new DukeException("I don't have a patient called that!");
+        return null;
     }
 
     /**

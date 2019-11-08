@@ -170,9 +170,13 @@ public class Impression extends DukeObject {
      */
     public Evidence deleteEvidence(String keyIdentifier) throws DukeException {
         Evidence deletedEvidence = getEvidence(keyIdentifier);
-        evidences.remove(deletedEvidence);
-        sortEvidences();
-        return deletedEvidence;
+        if (deletedEvidence != null) {
+            evidences.remove(deletedEvidence);
+            sortEvidences();
+            return deletedEvidence;
+        } else {
+            throw new DukeException("I don't have an evidence named that!");
+        }
     }
 
     /**
@@ -181,7 +185,7 @@ public class Impression extends DukeObject {
      * @param keyIdentifier name of the evidence
      * @return the evidence specified by the index
      */
-    public Evidence getEvidence(String keyIdentifier) throws DukeException {
+    public Evidence getEvidence(String keyIdentifier) {
         String lowerKey = keyIdentifier.toLowerCase();
         for (Evidence evidence : evidences) {
             String dataName = evidence.getName().toLowerCase();
@@ -189,7 +193,7 @@ public class Impression extends DukeObject {
                 return evidence;
             }
         }
-        throw new DukeException("I don't have an evidence named that!");
+        return null;
     }
 
     /**
@@ -209,7 +213,7 @@ public class Impression extends DukeObject {
 
     // TODO create parent reference in object
     public Medicine addNewMedicine(Medicine newMedicine) throws DukeException {
-        if (((Patient) getParent()).isAllergic(newMedicine.getName())) {
+        if (parent.isAllergic(newMedicine.getName())) {
             throw new DukeException("The patient is allergic to this medicine!");
         }
         addNewTreatment(newMedicine);
@@ -224,9 +228,12 @@ public class Impression extends DukeObject {
      */
     public Treatment deleteTreatment(String keyIdentifier) throws DukeException {
         Treatment deletedTreatment = getTreatment(keyIdentifier);
-        treatments.remove(deletedTreatment);
-        sortEvidences();
-        return deletedTreatment;
+        if (deletedTreatment != null) {
+            treatments.remove(deletedTreatment);
+            sortEvidences();
+            return deletedTreatment;
+        }
+        throw new DukeException("I don't have a treatment named that!");
     }
 
     /**
@@ -243,7 +250,7 @@ public class Impression extends DukeObject {
                 return treatment;
             }
         }
-        throw new DukeException("I don't have a treatment named that!");
+        return null;
     }
 
     @Override

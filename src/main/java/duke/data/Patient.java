@@ -52,7 +52,6 @@ public class Patient extends DukeObject {
         this.primaryDiagnosis = null;
     }
 
-
     /**
      * This addNewImpression function adds a new impression to the impressions list.
      *
@@ -98,7 +97,7 @@ public class Patient extends DukeObject {
                 return imp;
             }
         }
-        throw new DukeException("I don't have an Impression called that!");
+        return null;
     }
 
     /**
