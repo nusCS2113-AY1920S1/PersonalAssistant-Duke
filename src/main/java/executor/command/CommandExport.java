@@ -2,7 +2,9 @@ package executor.command;
 
 import com.opencsv.CSVWriter;
 import duke.exception.DukeException;
+import interpreter.Parser;
 import storage.StorageManager;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,6 +12,7 @@ import java.util.Scanner;
 
 public class CommandExport extends Command {
 
+    // filepath of either taskData or WalletData
     private String filePath;
 
     public CommandExport(String userInput) {
@@ -21,10 +24,32 @@ public class CommandExport extends Command {
 
     @Override
     public void execute(StorageManager storageManager) {
+        try{
+            writeCSV(getWhichFileUserWants(this.userInput));
+        } catch (DukeException e) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr(e.getMessage());
+            return;
+        }
 
+        this.infoCapsule.setCodeCli();
+        this.infoCapsule.setOutputStr("data.csv has been created");
     }
 
-    public void convertTxtToCsv(String data) throws DukeException {
+
+    private String getWhichFileUserWants (String userInput) throws DukeException {
+        String fileUserWants = Parser.parseForPrimaryInput(this.commandType, userInput);
+        try {
+            return fileUserWants;
+        } catch (Exception e) {
+            throw new DukeException("Please enter a valid amount\n");
+        }
+    }
+
+
+
+
+    private void convertTxtToCsv(String data) throws DukeException {
         if(data.toLowerCase().equals("wallet")){
             this.filePath = "savedWallet.txt";
         } else {
