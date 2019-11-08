@@ -416,7 +416,7 @@ public class Impression extends DukeObject {
      * @throws DukeException if the index is out of bounds
      */
     public Treatment getTreatmentAtIdx(int idx) throws DukeException {
-        if (idx < treatments.size()) {
+        if (idx >= 0 && idx < treatments.size()) {
             return treatments.get(idx);
         } else {
             throw new DukeException("I don't have an treatment at that index!");

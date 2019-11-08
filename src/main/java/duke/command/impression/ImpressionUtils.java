@@ -1,6 +1,7 @@
 package duke.command.impression;
 
 import duke.DukeCore;
+import duke.command.CommandUtils;
 import duke.data.DukeData;
 import duke.data.Impression;
 import duke.data.SearchResults;
@@ -41,9 +42,19 @@ public class ImpressionUtils {
 
         try {
             if (evidStr != null && treatStr == null) {
-                return impression.getEvidenceAtIdx(Integer.parseInt(evidStr));
+                int evidIdx = CommandUtils.idxFromString(evidStr);
+                if (evidIdx == -1) {
+                    return null;
+                } else {
+                    return impression.getEvidenceAtIdx(evidIdx);
+                }
             } else if (evidStr == null && treatStr != null) {
-                return impression.getTreatmentAtIdx(Integer.parseInt(treatStr));
+                int treatIdx = CommandUtils.idxFromString(treatStr);
+                if (treatIdx == -1) {
+                    return null;
+                } else {
+                    return impression.getTreatmentAtIdx(treatIdx);
+                }
             } else {
                 throw new DukeUtilException("I don't know what index you want me to access!");
             }

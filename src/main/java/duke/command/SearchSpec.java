@@ -23,10 +23,8 @@ public class SearchSpec extends CommandSpec {
     protected void execute(DukeCore core) throws DukeException {
         assert (core.queuedCmd != null);
         SearchResults results;
-        int idx;
-        try {
-            idx = Integer.parseInt(input);
-        } catch (NumberFormatException excp) {
+        int idx = CommandUtils.idxFromString(input);
+        if (idx == -1) {
             throw new DukeException("Please enter the index of a search result!");
         }
         try {

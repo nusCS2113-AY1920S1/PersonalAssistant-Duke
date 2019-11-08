@@ -211,7 +211,12 @@ public class CommandUtils {
      */
     public static int idxFromString(String inputStr) {
         try {
-            return Integer.parseInt(inputStr);
+            int idx = Integer.parseInt(inputStr) - 1;
+            if (idx < 0) {
+                return -1;
+            } else {
+                return idx;
+            }
         } catch (NumberFormatException excp) {
             return -1;
         }
