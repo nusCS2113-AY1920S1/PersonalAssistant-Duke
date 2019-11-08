@@ -14,6 +14,9 @@ public class Agenda extends VenueList {
 
     /**
      * Constructor to initialise new Day object.
+     * @param todoList The list of things to do in a day.
+     * @param venueList The list of places to go in a ay .
+     * @param day The day's serial number.
      */
     public Agenda(List<Todo> todoList, List<Venue> venueList, int day) {
         super(venueList);

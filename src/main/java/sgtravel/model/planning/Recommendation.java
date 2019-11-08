@@ -19,18 +19,18 @@ public class Recommendation {
 
     /**
      * Constructor to initialise new Itinerary.
+     * @param agendaList The list containing all venues and todos for the itinerary.
      */
     public Recommendation(List<Agenda> agendaList) {
         this.agendaList = agendaList;
     }
 
     /**
-     * Returns number of days of the trip based on entered start and end dates.
+     * Returns a recommended itinerary by combining results from the user and recommendation storage.
      *
      * @param itineraryDetails contains all info to make an itinerary.
      * @return The itinerary based on the number of days of the trip.
      */
-
     public Itinerary makeItinerary(String[] itineraryDetails) throws ParseException, RecommendationFailException {
         LocalDateTime start = ParserTimeUtil.parseStringToDate(itineraryDetails[1].strip());
         LocalDateTime end = ParserTimeUtil.parseStringToDate(itineraryDetails[2].strip());
@@ -48,6 +48,13 @@ public class Recommendation {
         return itinerary;
     }
 
+    /**
+     * Returns number of days of the trip based on entered start and end dates.
+     *
+     * @param start The start date of the trip.
+     * @param end The end date of a a trip.
+     * @return the number of days of a trip (end - start).
+     */
     private int getNumberOfDays(LocalDateTime start, LocalDateTime end) throws
             ChronologyBeforePresentException, ChronologyInconsistentException {
         if (start.isBefore(LocalDateTime.now()) || end.isBefore(LocalDateTime.now())) {

@@ -13,7 +13,7 @@ public class DoneItineraryCommand extends Command {
 
     /**
      * Constructs the command with the given itinerary name.
-     *
+     * @param name The name of the itinerary to mark as done (delete).
      */
     public DoneItineraryCommand(String name) {
         this.name = name;

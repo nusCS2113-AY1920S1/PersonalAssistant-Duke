@@ -22,6 +22,9 @@ public class Itinerary {
 
     /**
      * Constructor to initialise new Itinerary.
+     * @param startDate The first day of the trip.
+     * @param endDate The last day of the trip .
+     * @param name The name of the itinerary.
      */
     public Itinerary(LocalDateTime startDate, LocalDateTime endDate, String name) {
         this.startDate = startDate;
@@ -117,8 +120,7 @@ public class Itinerary {
     }
 
     /**
-     * Replaces the contents of this list with {@code Days}.
-     * {@code Tasks} must not contain duplicate Tasks.
+     * Replaces the contents of this list with {@code Agenda}.
      */
     public void setTasks(List<Agenda> agenda) {
         list = agenda;
