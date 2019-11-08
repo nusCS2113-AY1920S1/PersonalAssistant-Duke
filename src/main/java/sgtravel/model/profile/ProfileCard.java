@@ -44,6 +44,7 @@ public class ProfileCard {
 
     /**
      * Returns the favourite itinerary of given name.
+     *
      * @param name Name of favourite itinerary to return.
      * @return Itinerary of given name.
      * @throws NoSuchItineraryException If there is no itinerary of given name.
@@ -56,12 +57,26 @@ public class ProfileCard {
         }
     }
 
+    /**
+     * Adds the itinerary of given name to favourite.
+     * @param name Name of itinerary.
+     * @param fav Itinerary object.
+     */
     public void addFavourite(String name, Itinerary fav) {
         fav.setName(name);
         favourite.put(name, fav);
     }
 
+    /**
+     * Returns the age of user.
+     *
+     * @return Age of user.
+     */
     public int getAge() {
         return Period.between(person.getBirthday().toLocalDate(), LocalDateTime.now().toLocalDate()).getYears();
+    }
+
+    public void setFavourite(HashMap<String, Itinerary> itinerary) {
+        this.favourite = itinerary;
     }
 }

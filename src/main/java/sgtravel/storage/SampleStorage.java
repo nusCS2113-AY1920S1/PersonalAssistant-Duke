@@ -4,20 +4,14 @@ import sgtravel.commons.exceptions.DuplicateRouteException;
 import sgtravel.commons.exceptions.DuplicateRouteNodeException;
 import sgtravel.commons.exceptions.DuplicateTaskException;
 import sgtravel.commons.exceptions.ParseException;
-import sgtravel.logic.parsers.ParserTimeUtil;
 import sgtravel.logic.parsers.storageparsers.EventStorageParser;
-import sgtravel.logic.parsers.storageparsers.PlanningStorageParser;
 import sgtravel.logic.parsers.storageparsers.TransportStorageParser;
 import sgtravel.model.Event;
 import sgtravel.model.lists.EventList;
 import sgtravel.model.lists.RouteList;
-import sgtravel.model.locations.Venue;
-import sgtravel.model.planning.Agenda;
 import sgtravel.model.planning.Itinerary;
-import sgtravel.model.planning.Todo;
 import sgtravel.model.transports.Route;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,36 +51,7 @@ public class SampleStorage {
     private void readItineraryTable() {
         try {
             Scanner scanner = new Scanner(getClass().getResourceAsStream(ITINERARIES_FILE_PATH));
-            while (scanner.hasNextLine()) {
-                String name = scanner.nextLine();
-                LocalDateTime start = ParserTimeUtil.parseStringToDate(scanner.nextLine());
-                LocalDateTime end = ParserTimeUtil.parseStringToDate(scanner.nextLine());
-                Venue hotel = PlanningStorageParser.getVenueFromStorage(scanner.nextLine());
-                Itinerary itinerary = new Itinerary(start, end, hotel, name);
-                List<Agenda> agendaList = new ArrayList<>();
-                String fileLine = scanner.nextLine();
-                while (fileLine.split("\\|")[0].equals("Agenda ")) {
-                    List<Venue> venueList = new ArrayList<>();
-                    List<Todo> todoList;
-                    final int number2 = Integer.parseInt(fileLine.split("\\|")[1]);
-                    String newVenue = scanner.nextLine();
-                    while (newVenue.contains(" | ")) {
-                        venueList.add(PlanningStorageParser.getVenueFromStorage(newVenue));
-                        newVenue = scanner.nextLine();
-                    }
-                    todoList = PlanningStorageParser.getTodoListFromStorage(newVenue);
-                    Agenda agenda = new Agenda(todoList, venueList, number2);
-                    agendaList.add(agenda);
-                    if (scanner.hasNextLine()) {
-                        fileLine = scanner.nextLine();
-                    } else {
-                        break;
-                    }
-                }
-                itinerary.setTasks(agendaList);
-                itineraryTable.put(itinerary.getName(), itinerary);
-            }
-            scanner.close();
+            this.itineraryTable = Storage.makeItineraryTable(scanner);
         } catch (ParseException e) {
             logger.log(Level.INFO, "Sample data not found.");
         }

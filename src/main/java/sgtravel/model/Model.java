@@ -111,4 +111,6 @@ public interface Model {
     String getName();
 
     void addToFavourite(String name, Itinerary itinerary);
+
+    void doneItinerary(String name) throws NoSuchItineraryException;
 }

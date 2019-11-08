@@ -3,10 +3,8 @@ package sgtravel.logic.commands;
 import sgtravel.commons.exceptions.ApiException;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.ParseException;
-import sgtravel.logic.api.ApiParser;
 import sgtravel.logic.commands.results.CommandResultText;
 import sgtravel.model.Model;
-import sgtravel.model.locations.Venue;
 import sgtravel.model.planning.Itinerary;
 
 import java.time.LocalDateTime;
@@ -17,7 +15,6 @@ import java.time.LocalDateTime;
 public class NewItineraryCommand extends Command {
     private LocalDateTime start;
     private LocalDateTime end;
-    private String hotel;
     private String name;
     private String[] itineraryDetails;
 
@@ -25,15 +22,13 @@ public class NewItineraryCommand extends Command {
      * Constructs a NewItineraryCommand.
      * @param start The start date.
      * @param end The end date.
-     * @param hotel The hotel name.
      * @param name The name of the itinerary.
      * @param itineraryDetails The details of the itinerary.
      */
-    public NewItineraryCommand(LocalDateTime start, LocalDateTime end, String hotel, String name,
+    public NewItineraryCommand(LocalDateTime start, LocalDateTime end, String name,
                                String[] itineraryDetails) {
         this.start = start;
         this.end = end;
-        this.hotel = hotel;
         this.name = name;
         this.itineraryDetails = itineraryDetails;
     }
@@ -48,8 +43,7 @@ public class NewItineraryCommand extends Command {
      */
     @Override
     public CommandResultText execute(Model model) throws ApiException, ParseException, FileNotSavedException {
-        Venue hotelLocation = ApiParser.getLocationSearch(hotel);
-        Itinerary itinerary = new Itinerary(start, end, hotelLocation, name);
+        Itinerary itinerary = new Itinerary(start, end, name);
         itinerary.getNumberOfDays();
         itinerary.makeAgendaList(itineraryDetails);
         model.setNewItinerary(itinerary);

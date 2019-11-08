@@ -4,7 +4,6 @@ import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.ParseException;
 import sgtravel.logic.api.ApiParser;
 import sgtravel.logic.parsers.storageparsers.PlanningStorageParser;
-import sgtravel.model.lists.AgendaList;
 import sgtravel.model.locations.Venue;
 
 import java.time.LocalDateTime;
@@ -15,33 +14,23 @@ import java.util.List;
 /**
  * Represents an Itinerary and its contained information.
  */
-public class Itinerary extends AgendaList {
+public class Itinerary {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    private Venue hotelLocation;
     private String name;
+    private List<Agenda> list;
 
     /**
      * Constructor to initialise new Itinerary.
+     * @param startDate The first day of the trip.
+     * @param endDate The last day of the trip .
+     * @param name The name of the itinerary.
      */
-    public Itinerary(LocalDateTime startDate, LocalDateTime endDate, Venue hotelLocation, String name) {
-        super();
+    public Itinerary(LocalDateTime startDate, LocalDateTime endDate, String name) {
         this.startDate = startDate;
         this.endDate = endDate;
-        this.hotelLocation = hotelLocation;
         this.name = name;
-    }
-
-    /**
-     * Returns number of days of the trip based on entered start and end dates.
-     *
-     * @return The number of days of the trip
-     */
-
-    public int getNumberOfDays() {
-        LocalDateTime tempDateTime = LocalDateTime.from(startDate);
-        long days = tempDateTime.until(endDate, ChronoUnit.DAYS);
-        return Integer.parseInt(String.valueOf(days)) + 1;
+        list = new ArrayList<>();
     }
 
     /**
@@ -52,10 +41,9 @@ public class Itinerary extends AgendaList {
     public String printItinerary() {
 
         int days = getNumberOfDays();
-
         StringBuilder result = new StringBuilder("Here are the list of Locations in "
-                +  days + " days around " + getHotelLocation().getAddress() + " with name " + this.name + ": \n");
-        for (Agenda list1 : super.getList()) {
+                +  days + "trip days with name " + this.name + ": \n");
+        for (Agenda list1 : this.getList()) {
             result.append("\n");
             result.append("Day ").append(list1.getDay()).append(":").append("\n \n");
             result.append("Venues: ").append("\n");
@@ -78,7 +66,7 @@ public class Itinerary extends AgendaList {
      */
     public void makeAgendaList(String[] itineraryDetails) throws ParseException {
         List<Agenda> agendaList = new ArrayList<>();
-        int i = 4;
+        int i = 3;
         try {
             while (i < itineraryDetails.length) {
                 List<Venue> venueList = new ArrayList<>();
@@ -115,6 +103,28 @@ public class Itinerary extends AgendaList {
             throw new ParseException(Messages.ERROR_ITINERARY_INCORRECT_COMMAND);
         }
     }
+    /**
+     * Returns number of days of the trip based on entered start and end dates.
+     *
+     * @return The number of days of the trip
+     */
+
+    public int getNumberOfDays() {
+        LocalDateTime tempDateTime = LocalDateTime.from(startDate);
+        long days = tempDateTime.until(endDate, ChronoUnit.DAYS);
+        return Integer.parseInt(String.valueOf(days)) + 1;
+    }
+
+    public List<Agenda> getList() {
+        return list;
+    }
+
+    /**
+     * Replaces the contents of this list with {@code Agenda}.
+     */
+    public void setTasks(List<Agenda> agenda) {
+        list = agenda;
+    }
 
     public LocalDateTime getStartDate() {
         return startDate;
@@ -122,10 +132,6 @@ public class Itinerary extends AgendaList {
 
     public LocalDateTime getEndDate() {
         return endDate;
-    }
-
-    public Venue getHotelLocation() {
-        return hotelLocation;
     }
 
     public String getName() {

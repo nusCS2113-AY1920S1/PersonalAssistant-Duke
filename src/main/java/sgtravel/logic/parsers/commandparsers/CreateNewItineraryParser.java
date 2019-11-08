@@ -17,7 +17,6 @@ public class CreateNewItineraryParser extends CommandParser {
     private static final int ZERO = 0;
     private static final int ONE = 1;
     private static final int TWO = 2;
-    private static final int THREE = 3;
 
     /**
      * Constructs the CreateNewItineraryParser.
@@ -45,9 +44,8 @@ public class CreateNewItineraryParser extends CommandParser {
         } else if (end.isBefore(start) || start.isAfter(end)) {
             throw new ChronologyInconsistentException();
         }
+        String name = itineraryDetails[TWO].strip();
+        return new NewItineraryCommand(start, end, name, itineraryDetails);
 
-        String hotelLocation = itineraryDetails[TWO].strip();
-        String name = itineraryDetails[THREE].strip();
-        return new NewItineraryCommand(start, end, hotelLocation, name, itineraryDetails);
     }
 }

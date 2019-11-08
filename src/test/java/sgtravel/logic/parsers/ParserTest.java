@@ -56,9 +56,9 @@ class ParserTest {
 
         assertTrue(Parser.parseComplexCommand("addThisList SundayList") instanceof AddSampleItineraryCommand);
         assertTrue(Parser.parseComplexCommand("listItinerary") instanceof ListItineraryCommand);
-        assertTrue(Parser.parseComplexCommand("recommend orchard "
-                + "between 23/04/19 and 25/04/19") instanceof RecommendationsCommand);
-        assertTrue(Parser.parseComplexCommand("newItinerary 23/04/20 25/04/20 MBS "
+        assertTrue(Parser.parseComplexCommand("recommend itinerary between 23/04/20 and 25/04/20")
+                instanceof RecommendationsCommand);
+        assertTrue(Parser.parseComplexCommand("newItinerary 23/04/20 25/04/20 "
                 + "TwoDayHoliday 1 /venue Orchard /do dancing /and singing /and swinging 2 "
                 + "/venue Changi /do running /and jumping /and swinging") instanceof NewItineraryCommand);
         assertTrue(Parser.parseComplexCommand("showItinerary 1") instanceof ShowItineraryCommand);

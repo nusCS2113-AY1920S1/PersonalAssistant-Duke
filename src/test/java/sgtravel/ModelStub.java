@@ -3,6 +3,7 @@ package sgtravel;
 import sgtravel.commons.exceptions.FileLoadFailException;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.DuplicateRouteException;
+import sgtravel.commons.exceptions.NoSuchItineraryException;
 import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.model.Model;
 import sgtravel.model.lists.EventList;
@@ -53,6 +54,14 @@ public class ModelStub implements Model {
     @Override
     public void addToFavourite(String name, Itinerary itinerary) {
         profileCard.addFavourite(name, itinerary);
+    }
+
+    @Override
+    public void doneItinerary(String name) throws NoSuchItineraryException {
+        if (itineraryTable.get(name) == null) {
+            throw new NoSuchItineraryException();
+        }
+        this.itineraryTable.remove(name);
     }
 
     @Override

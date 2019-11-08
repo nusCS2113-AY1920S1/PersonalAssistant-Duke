@@ -4,6 +4,7 @@ import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.ParseException;
 import sgtravel.logic.commands.AddSampleItineraryCommand;
 import sgtravel.logic.commands.Command;
+import sgtravel.logic.commands.DoneItineraryCommand;
 import sgtravel.logic.commands.EditorCommand;
 import sgtravel.logic.commands.ExitCommand;
 import sgtravel.logic.commands.HelpCommand;
@@ -122,6 +123,8 @@ public class Parser {
             return new ListItineraryCommand();
         case "showItinerary":
             return new ShowItineraryCommand(getWord(input));
+        case "doneItinerary":
+            return new DoneItineraryCommand(getWord(input));
         case "profile":
             return new ProfileAddParser(getWord(input)).parse();
         case "profileShow":

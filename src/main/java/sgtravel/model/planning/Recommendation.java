@@ -1,13 +1,10 @@
 package sgtravel.model.planning;
 
-import sgtravel.commons.exceptions.ApiException;
-import sgtravel.commons.exceptions.ParseException;
 import sgtravel.commons.exceptions.ChronologyBeforePresentException;
 import sgtravel.commons.exceptions.ChronologyInconsistentException;
+import sgtravel.commons.exceptions.ParseException;
 import sgtravel.commons.exceptions.RecommendationFailException;
-import sgtravel.logic.api.ApiParser;
 import sgtravel.logic.parsers.ParserTimeUtil;
-import sgtravel.model.locations.Venue;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -22,34 +19,22 @@ public class Recommendation {
 
     /**
      * Constructor to initialise new Itinerary.
+     * @param agendaList The list containing all venues and todos for the itinerary.
      */
     public Recommendation(List<Agenda> agendaList) {
         this.agendaList = agendaList;
     }
 
     /**
-     * Returns number of days of the trip based on entered start and end dates.
+     * Returns a recommended itinerary by combining results from the user and recommendation storage.
      *
      * @param itineraryDetails contains all info to make an itinerary.
      * @return The itinerary based on the number of days of the trip.
      */
-
     public Itinerary makeItinerary(String[] itineraryDetails) throws ParseException, RecommendationFailException {
         LocalDateTime start = ParserTimeUtil.parseStringToDate(itineraryDetails[1].strip());
         LocalDateTime end = ParserTimeUtil.parseStringToDate(itineraryDetails[2].strip());
-        try {
-            Venue hotelLocation = ApiParser.getLocationSearch(itineraryDetails[0].strip());
-            return getAgenda(start, end, hotelLocation);
-        } catch (ApiException e) {
-            Venue hotelLocation = new Venue("DUMMY LOCATION", 1.3973210291170202,
-                    103.753758637401, 0, 0);
-            return getAgenda(start, end, hotelLocation);
-        }
-    }
-
-    private Itinerary getAgenda(LocalDateTime start, LocalDateTime end, Venue hotelLocation) throws
-            ChronologyBeforePresentException, ChronologyInconsistentException, RecommendationFailException {
-        Itinerary itinerary = new Itinerary(start, end, hotelLocation, "New Recommendation");
+        Itinerary itinerary = new Itinerary(start, end, "New Recommendation");
 
         int days = getNumberOfDays(start, end);
         if (days > 8) {
@@ -63,6 +48,13 @@ public class Recommendation {
         return itinerary;
     }
 
+    /**
+     * Returns number of days of the trip based on entered start and end dates.
+     *
+     * @param start The start date of the trip.
+     * @param end The end date of a a trip.
+     * @return the number of days of a trip (end - start).
+     */
     private int getNumberOfDays(LocalDateTime start, LocalDateTime end) throws
             ChronologyBeforePresentException, ChronologyInconsistentException {
         if (start.isBefore(LocalDateTime.now()) || end.isBefore(LocalDateTime.now())) {
