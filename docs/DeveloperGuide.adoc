@@ -140,7 +140,7 @@ responsible for,
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
 The following class plays an important role at the architecture level:
 
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `LogsCenter` : Used by many classes to write log messages to *OwlMoney's* log file.
 
 The rest of the App consists of four components.
 
@@ -293,11 +293,19 @@ transactions *will be deleted* along with it given that it has a *composite rela
 
 === Storage Component
 
-To be added in v1.4.
+The `Storage` component:
+
+* can save user data in `.csv` format and read it back.
+
+*OwlMoney* uses http://opencsv.sourceforge.net/[OpenCSV] during both importing and exporting data when acting on
+`.csv` files.
+
+This allows user to see and modify saved data easily, with the use of clearly defined columns.
 
 === Common Classes
 
-To be added in v1.4.
+Classes used by multiple components are in stored in the `commons` package. For example, the `logging` feature of
+*OwlMoney* has its logging features centralised in `owlmoney.commons`.
 
 == Implementation
 
