@@ -1,3 +1,5 @@
+//@@author qjie7
+
 package duke.gui;
 
 import javafx.collections.FXCollections;
@@ -12,6 +14,8 @@ import java.util.ArrayList;
 public class PieChartBox {
     /**
      * Show PieChart.
+     * @param frequencyList   a list of command frequency
+     * @param commandNameList a list of command name
      */
     public static void showPieChartBox(ArrayList<Integer> frequencyList, ArrayList<String> commandNameList) {
         final Scene scene = new Scene(new Group());

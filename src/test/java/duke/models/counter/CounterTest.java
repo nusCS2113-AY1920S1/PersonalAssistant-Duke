@@ -1,6 +1,7 @@
+//@@author qjie7
+
 package duke.models.counter;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import duke.commands.Command;

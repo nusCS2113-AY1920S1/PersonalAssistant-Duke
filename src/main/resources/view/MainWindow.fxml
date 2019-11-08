@@ -225,7 +225,7 @@
                                                     <Text layoutX="15.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task ID:" wrappingWidth="49.22900390625" />
                                                     <TextField fx:id="assignTaskIdField" layoutX="94.0" layoutY="93.0" promptText="Enter Task ID Here" />
                                                     <Text layoutX="17.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Assign to:" wrappingWidth="63.0" />
-                                                    <TextField fx:id="assignTaskPatientIdField" layoutX="94.0" layoutY="132.0" promptText="Enter Patient Name Here" />
+                                                    <TextField fx:id="assignTaskPatientIdField" layoutX="94.0" layoutY="132.0" promptText="Enter Patient ID Here" />
                                                     <Text layoutX="8.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start:" wrappingWidth="43.376953125" />
                                                     <Text layoutX="15.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End:" />
                                                     <TextField fx:id="assignTaskStartTimeField" layoutX="191.0" layoutY="207.0" prefHeight="27.0" prefWidth="63.0" promptText="Time" />

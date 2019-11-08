@@ -1,6 +1,9 @@
+//@@author qjie7
+
 package duke.models.counter;
 
 import duke.commands.Command;
+import duke.commands.functional.BarChartCommand;
 import duke.commands.functional.DukeCommand;
 import duke.commands.functional.ExitCommand;
 import duke.commands.functional.HelpCommand;
@@ -11,7 +14,6 @@ import duke.storages.StorageManager;
 
 import java.util.Map;
 
-//@@author qjie7
 
 /**
  * This is a Counter class that mainly used for counting purpose.
@@ -41,8 +43,9 @@ public class Counter {
 
     public void runCommandCounter(Command command, StorageManager storageManager,
                                   Counter counter) throws DukeException {
-        if (!(command instanceof ExitCommand || command instanceof DukeCommand || command instanceof UndoCommand
-            || command instanceof HelpCommand || command instanceof PieChartCommand)) {
+        if (!(command instanceof ExitCommand || command instanceof DukeCommand
+                || command instanceof UndoCommand || command instanceof HelpCommand
+                || command instanceof PieChartCommand || command instanceof BarChartCommand)) {
             String commandName = command.getClass().getSimpleName();
             runCounterLogic(commandName);
             storageManager.saveCounters(counter.getCommandTable());
@@ -58,8 +61,7 @@ public class Counter {
      */
     public void runCounterLogic(String commandName) {
         int count = commandTable.containsKey(commandName)
-                    ? commandTable.get(commandName) : 0;
+                ? commandTable.get(commandName) : 0;
         commandTable.put(commandName, count + 1);
     }
 }
-//@author
