@@ -18,7 +18,7 @@ public class ViewReminderCommandParser implements CommandParser {
     public Command parseCommand(String restOfInput) throws ParserException {
         logger.info("Attempting to parse view-reminder command");
 
-        if (!(restOfInput == null) && !restOfInput.trim().isEmpty()) {
+        if (restOfInput != null && !restOfInput.trim().isEmpty()) {
             throw new ParserException(MESSAGE_INVALID_PARAM);
         }
 
