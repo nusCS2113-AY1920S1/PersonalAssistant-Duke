@@ -4,9 +4,9 @@ import com.opencsv.CSVWriter;
 import duke.exception.DukeException;
 import interpreter.Parser;
 import storage.StorageManager;
+
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class CommandExport extends Command {
@@ -23,12 +23,11 @@ public class CommandExport extends Command {
 
     @Override
     public void execute(StorageManager storageManager) {
-
         try{
             String fileUserWants = getWhichFileUserWants(this.userInput);
             convertTxtToCsv(fileUserWants);
             this.infoCapsule.setCodeCli();
-            this.infoCapsule.setOutputStr("data.csv has been created");
+            this.infoCapsule.setOutputStr("data.csv has been created ! Please check the project folder \n");
         } catch (DukeException e) {
             this.infoCapsule.setCodeError();
             this.infoCapsule.setOutputStr(e.getMessage());
@@ -45,42 +44,36 @@ public class CommandExport extends Command {
 
     private void convertTxtToCsv(String dataWanted) throws DukeException {
         if(dataWanted.toLowerCase().equals("wallet")){
-            this.filePath = "savedWallet.txt";
+            this.filePath = "testWalletDataSave.txt";
         } else {
             this.filePath = "savedTask.txt";
         }
         try{
+            // access the file for which user wants the csv
             File file = new File(this.filePath);
             Scanner scanner = new Scanner(file);
+
+            //Now create the csv
+            // first create file object for file placed at location
+            // specified by filepath
+            File csv = new File("data.csv");
+            // create FileWriter object with file as parameter
+            FileWriter outputFile = new FileWriter(csv);
+            // create CSVWriter object filewriter object as parameter
+            CSVWriter writer = new CSVWriter(outputFile);
+
+
             while (scanner.hasNextLine()) {
                 String loadedInput = scanner.nextLine();
                 if (loadedInput.equals("")) {
                     break;
                 }
-                writeCSV(loadedInput);
+                String[] eachRowOfData = {loadedInput.replace(" ", ",")};
+                writer.writeNext(eachRowOfData);
             }
+            writer.close();
         } catch (Exception e) {
             throw new DukeException("Please enter a choice either : export <wallet> or <task>");
-        }
-    }
-
-    private void writeCSV(String line) throws DukeException {
-        // first create file object for file placed at location
-        // specified by filepath
-        File file = new File("data.csv");
-        try {
-            // create FileWriter object with file as parameter
-            FileWriter outputFile = new FileWriter(file);
-            // create CSVWriter object filewriter object as parameter
-            CSVWriter writer = new CSVWriter(outputFile);
-            // add data to csv
-            String[] eachRowOfData = {line.replace(" ", ",")};
-            writer.writeNext(eachRowOfData);
-            // closing writer connection
-            writer.close();
-        }
-        catch (IOException e) {
-            throw new DukeException("Unable to convert txt into csv");
         }
     }
 }

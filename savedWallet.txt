@@ -1,8 +1,4 @@
-
-1000.0
-out $250.0 /date 2019-11-07 /tags 
-out $100.0 /date 2019-11-07 /tags 
-in $100.0 /date 2019-11-07 /tags 
-out $5.0 /date 2019-11-07 /tags food
-out $-0.0 /date 2019-11-07 /tags 
-
+2000.0
+in $300.0 /date 2019-11-08 /tags freeMoney
+out $30.0 /date 2019-11-08 /tags movie
+out $30.0 /date 2019-11-08 /tags shirt
