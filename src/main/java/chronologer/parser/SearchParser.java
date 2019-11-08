@@ -1,3 +1,4 @@
+//@@author hanskw4267
 package chronologer.parser;
 
 import chronologer.command.Command;
@@ -22,7 +23,7 @@ public class SearchParser extends DescriptionParser {
         Long duration;
         try {
             duration = Long.parseLong(taskDescription);
-        }  catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.invalidDuration());
         }
