@@ -16,11 +16,11 @@ checkstyle {
     toolVersion "8.23"
 }
 
-group 'DIYeats'
+group 'diyeats'
 version '1.3'
 
 shadowJar {
-    archiveBaseName = "DIYeats"
+    archiveBaseName = "diyeats"
     archiveVersion = "1.3"
     archiveClassifier = null
     archiveAppendix = null
@@ -68,5 +68,5 @@ test {
 
 application {
     // Change this to your main class.
-    mainClassName = "DIYeats.Main"
+    mainClassName = "diyeats.Main"
 }
