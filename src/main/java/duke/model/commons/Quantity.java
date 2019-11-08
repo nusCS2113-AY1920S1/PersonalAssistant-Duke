@@ -1,5 +1,7 @@
 package duke.model.commons;
 
+import duke.logic.parser.exceptions.ParseException;
+
 import java.text.DecimalFormat;
 
 import static duke.commons.util.AppUtil.checkNegativeDouble;
@@ -37,7 +39,7 @@ public class Quantity {
 
     private void checkUpperLimit(double number, String messageLimitQuantity) {
         if (number > 50000) {
-            throw new IllegalArgumentException(messageLimitQuantity);
+            throw new ParseException(messageLimitQuantity);
         }
     }
 }
