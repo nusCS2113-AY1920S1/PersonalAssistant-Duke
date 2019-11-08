@@ -3,8 +3,8 @@ booking | John_Lim | 82738364 | 6 | 1/1/2019 | chicken rice, fish and chips
 booking | Jack | 94847291 | 2 | 13/5/2019 | beef pasta
 booking | Alex | 84726384 | 4 | 30/10/2019 | chicken rice, beef bolognese
 booking | james | 8376324 | 4 | 3/3/2019 | steak, rice
-booking | zihan | 9153174 | 4 | 9/2/2022 | steak, fish, chicken
 booking | Johnny | 9153174 | 4 | 9/2/2002 | steak, fish, chicken
 booking | zihan | 9153174 | 4 | 29/2/2000 | steak, fish, chicken
 booking | John | 845638575 | 7 | 28/2/2017 | fish fillet, seafood pasta, steak
 booking | Kelvin | 81234567 | 8 | 1/1/2000 | beef burger
+booking | Zihan_li | 91520567 | 5 | 8/11/2019 | fish burger, steak, seafood pasta

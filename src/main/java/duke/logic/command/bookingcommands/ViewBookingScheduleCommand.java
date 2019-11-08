@@ -51,6 +51,52 @@ public class ViewBookingScheduleCommand extends Command<BookingList, Ui, Booking
     }
 
     /**
+     * Processes the view booking schedule command to check the availability of a particular date.
+     *
+     * @param bookingList    contains the booking list
+     * @param ui             deals with interactions with the user
+     * @param bookingStorage deals with loading tasks from the file and saving bookings in the file
+     * @return an array list consist of the results or prompts to be displayed to user
+     */
+    @Override
+    public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) throws ParseException {
+        ViewBookingScheduleCommand.setupLogger();
+        ArrayList<String> arrayList = new ArrayList<>();
+        if (userInput.trim().equals(COMMAND_VIEW_BOOKING_SCHEDULE)) {
+            arrayList.add(ERROR_MESSAGE_EMPTY_DATE);
+        } else if (userInput.trim().charAt(19) != ' ') {
+            arrayList.add(ERROR_MESSAGE_INVALID_VIEWBOOKINGSCHEDULE_COMMAND);
+        } else {
+            String inputDate = userInput.substring(20).trim();
+            if (!isDateParsable(inputDate)) {
+                arrayList.add(ERROR_MESSAGE_INVALID_DATE);
+            } else if (!isValidDate(inputDate)) {
+                arrayList.add(ERROR_MESSAGE_OVERFLOW_DATE);
+            } else {
+                Date currDate = new SimpleDateFormat("dd/MM/yyyy").parse(inputDate);
+
+                ArrayList<Booking> scheduleList = new ArrayList<>();
+                for (Booking booking : bookingList.getBookingList()) {
+                    Date bookingDate = booking.getDateTime();
+                    if (isCurrentTime(currDate, bookingDate)) {
+                        scheduleList.add(booking);
+                    }
+                }
+                String outputDate = new SimpleDateFormat("dd MMMM yyyy").format(currDate);
+                if (scheduleList.isEmpty()) {
+                    arrayList.add(MESSAGE_NO_BOOKING + outputDate + MESSAGE_PROMPT_ADDBOOKING);
+                } else {
+                    arrayList.add(MESSAGE_BOOKING_ON + outputDate);
+                    for (int i = 0; i < scheduleList.size(); i++) {
+                        arrayList.add("      " + (i + 1) + ". " + scheduleList.get(i));
+                    }
+                }
+            }
+        }
+        return arrayList;
+    }
+
+    /**
      * Validates the date to be in required format .
      *
      * @param bookingDate String of date input by user
@@ -130,54 +176,6 @@ public class ViewBookingScheduleCommand extends Command<BookingList, Ui, Booking
         } else {
             return false;
         }
-    }
-
-    /**
-     * Processes the view booking schedule command to check the availability of a particular date.
-     *
-     * @param bookingList    contains the booking list
-     * @param ui             deals with interactions with the user
-     * @param bookingStorage deals with loading tasks from the file and saving bookings in the file
-     * @return an array list consist of the results or prompts to be displayed to user
-     */
-    @Override
-    public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) throws ParseException {
-        ViewBookingScheduleCommand.setupLogger();
-        ArrayList<String> arrayList = new ArrayList<>();
-        if (userInput.trim().equals(COMMAND_VIEW_BOOKING_SCHEDULE)) {
-            arrayList.add(ERROR_MESSAGE_EMPTY_DATE);
-        } else if (userInput.trim().charAt(19) == ' ') {
-            String inputDate = userInput.substring(20).trim();
-            if (isDateParsable(inputDate)) {
-                if (isValidDate(inputDate)) {
-                    Date currDate = new SimpleDateFormat("dd/MM/yyyy").parse(inputDate);
-
-                    ArrayList<Booking> scheduleList = new ArrayList<>();
-                    for (Booking booking : bookingList.getBookingList()) {
-                        Date bookingDate = booking.getDateTime();
-                        if (isCurrentTime(currDate, bookingDate)) {
-                            scheduleList.add(booking);
-                        }
-                    }
-                    String outputDate = new SimpleDateFormat("dd MMMM yyyy").format(currDate);
-                    if (scheduleList.isEmpty()) {
-                        arrayList.add(MESSAGE_NO_BOOKING + outputDate + MESSAGE_PROMPT_ADDBOOKING);
-                    } else {
-                        arrayList.add(MESSAGE_BOOKING_ON + outputDate);
-                        for (int i = 0; i < scheduleList.size(); i++) {
-                            arrayList.add("      " + (i + 1) + ". " + scheduleList.get(i));
-                        }
-                    }
-                } else {
-                    arrayList.add(ERROR_MESSAGE_OVERFLOW_DATE);
-                }
-            } else {
-                arrayList.add(ERROR_MESSAGE_INVALID_DATE);
-            }
-        } else {
-            arrayList.add(ERROR_MESSAGE_INVALID_VIEWBOOKINGSCHEDULE_COMMAND);
-        }
-        return arrayList;
     }
 
     @Override

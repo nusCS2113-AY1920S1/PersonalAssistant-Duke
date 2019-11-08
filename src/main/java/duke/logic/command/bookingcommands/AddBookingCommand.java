@@ -47,6 +47,69 @@ public class AddBookingCommand extends Command<BookingList, Ui, BookingStorage> 
     }
 
     /**
+     * Processes the add command to add a new booking into booking list.
+     *
+     * @param bookingList    contains the booking list
+     * @param ui             deals with interactions with the user
+     * @param bookingStorage deals with loading tasks from the file and saving bookings in the file
+     * @return an array list consist of the results or prompts to be displayed to user
+     * @throws ParseException if input booking date is not parsable.
+     */
+    @Override
+    public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) throws ParseException {
+        AddBookingCommand.setupLogger();
+        ArrayList<String> arrayList = new ArrayList<>();
+        if (userInput.trim().equals(COMMAND_ADD_BOOKING)) {
+            arrayList.add(ERROR_MESSAGE_EMPTY_BOOKING_DETAILS);
+        } else if (!userInput.contains("orders/")) {
+            arrayList.add(ERROR_MESSAGE_INVALID_BOOKING_DETAILS);
+        } else {
+            String[] temp = userInput.split("orders/", 2);
+            String[] details = temp[0].split("\\s+");
+            if (userInput.trim().charAt(10) != ' ' || details.length != 5) {
+                arrayList.add(ERROR_MESSAGE_INVALID_BOOKING_DETAILS);
+            } else {
+                String customerName = details[1].trim();
+                String customerContact = details[2].trim();
+                String numberOfPax = details[3].trim();
+                String bookingDate = details[4].trim();
+                String orderName = temp[1].trim();
+
+                if (!isValidName(customerName)) {
+                    arrayList.add(ERROR_MESSAGE_INVALID_NAME);
+                } else if (!isValidContactNo((customerContact))) {
+                    arrayList.add(ERROR_MESSAGE_INVALID_CONTACT_NO);
+                } else if (!isParsable(numberOfPax)) {
+                    arrayList.add(ERROR_MESSAGE_UNKNOWN_PAX);
+                } else if (!isValidPax(numberOfPax)) {
+                    arrayList.add(ERROR_MESSAGE_INVALID_PAX);
+                } else if (!isDateParsable(bookingDate)) {
+                    arrayList.add(ERROR_MESSAGE_INVALID_DATE);
+                } else if (!isValidDate(bookingDate)) {
+                    arrayList.add(ERROR_MESSAGE_OVERFLOW_DATE);
+                } else if (!isAvailableDate(bookingDate, bookingList)) {
+                    arrayList.add(ERROR_MESSAGE_UNAVAILABLE_DATE);
+                } else if (orderName.isEmpty()) {
+                    arrayList.add(ERROR_MESSAGE_EMPTY_ORDERS);
+                } else {
+                    bookingList.addBooking(customerName, customerContact, numberOfPax, bookingDate, orderName);
+                    bookingStorage.saveFile(bookingList);
+
+                    int size = bookingList.getSize();
+
+                    if (size == 1) {
+                        msg = " booking in the list.";
+                    } else {
+                        msg = " bookings in the list.";
+                    }
+                    arrayList.add(MESSAGE_BOOKING_ADDED + "       " + bookingList.getBookingList().get(size - 1) + "\n" + "Now you have " + size + msg);
+                }
+            }
+        }
+        return arrayList;
+    }
+
+    /**
      * Validates the input to be alphabets or _.
      *
      * @param input String input from user
@@ -100,11 +163,7 @@ public class AddBookingCommand extends Command<BookingList, Ui, BookingStorage> 
      */
     private static boolean isValidPax(String input) {
         int pax = Integer.parseInt(input);
-        if (pax > 0 && pax < 10) {
-            return true;
-        } else {
-            return false;
-        }
+        return pax > 0 && pax < 10;
     }
 
     /**
@@ -170,82 +229,6 @@ public class AddBookingCommand extends Command<BookingList, Ui, BookingStorage> 
             }
         }
         return true;
-    }
-
-    /**
-     * Processes the add command to add a new booking into booking list.
-     *
-     * @param bookingList    contains the booking list
-     * @param ui             deals with interactions with the user
-     * @param bookingStorage deals with loading tasks from the file and saving bookings in the file
-     * @return an array list consist of the results or prompts to be displayed to user
-     * @throws ParseException if input booking date is not parsable.
-     */
-    @Override
-    public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) throws ParseException {
-        AddBookingCommand.setupLogger();
-        ArrayList<String> arrayList = new ArrayList<>();
-        if (userInput.trim().equals(COMMAND_ADD_BOOKING)) {
-            arrayList.add(ERROR_MESSAGE_EMPTY_BOOKING_DETAILS);
-        } else if (userInput.contains("orders/")) {
-            String[] temp = userInput.split("orders/", 2);
-            String[] details = temp[0].split("\\s+");
-            if (userInput.trim().charAt(10) == ' ' && details.length == 5) {
-                String customerName = details[1].trim();
-                String customerContact = details[2].trim();
-                String numberOfPax = details[3].trim();
-                String bookingDate = details[4].trim();
-                String orderName = temp[1].trim();
-
-                if (isValidName(customerName)) {
-                    if (isValidContactNo((customerContact))) {
-                        if (isParsable(numberOfPax)) {
-                            if (isValidPax(numberOfPax)) {
-                                if (isDateParsable(bookingDate)) {
-                                    if (isValidDate(bookingDate)) {
-                                        if (isAvailableDate(bookingDate, bookingList)) {
-                                            if (!orderName.isEmpty()) {
-                                                bookingList.addBooking(customerName, customerContact, numberOfPax, bookingDate, orderName);
-                                                bookingStorage.saveFile(bookingList);
-
-                                                int size = bookingList.getSize();
-                                                if (size == 1) {
-                                                    msg = " booking in the list.";
-                                                } else {
-                                                    msg = " bookings in the list.";
-                                                }
-                                                arrayList.add(MESSAGE_BOOKING_ADDED + "       " + bookingList.getBookingList().get(size - 1) + "\n" + "Now you have " + size + msg);
-                                            } else {
-                                                arrayList.add(ERROR_MESSAGE_EMPTY_ORDERS);
-                                            }
-                                        } else {
-                                            arrayList.add(ERROR_MESSAGE_UNAVAILABLE_DATE);
-                                        }
-                                    } else {
-                                        arrayList.add(ERROR_MESSAGE_OVERFLOW_DATE);
-                                    }
-                                } else {
-                                    arrayList.add(ERROR_MESSAGE_INVALID_DATE);
-                                }
-                            } else {
-                                arrayList.add(ERROR_MESSAGE_INVALID_PAX);
-                            }
-                        } else {
-                            arrayList.add(ERROR_MESSAGE_UNKNOWN_PAX);
-                        }
-                    } else {
-                        arrayList.add(ERROR_MESSAGE_INVALID_CONTACT_NO);
-                    }
-                } else {
-                    arrayList.add(ERROR_MESSAGE_INVALID_NAME);
-                }
-            } else {
-                arrayList.add(ERROR_MESSAGE_INVALID_BOOKING_DETAILS);
-            }
-        } else {
-            arrayList.add(ERROR_MESSAGE_INVALID_BOOKING_DETAILS);
-        }
-        return arrayList;
     }
 
     @Override
