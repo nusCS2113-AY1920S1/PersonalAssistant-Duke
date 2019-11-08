@@ -25,32 +25,35 @@ public abstract class Command {
         HashMap<String, HashMap<String, ArrayList<Assignment>>> mapObtained = taskList.getMap();
 
         for (String modCode : mapObtained.keySet()) {
-            //for (String date : mapObtained.get(modCode).keySet()) {
-                for (Assignment task : mapObtained.get(modCode).get(t.getDate())) {
-                    Date taskStartTime = new SimpleDateFormat("hh:mm a").parse(task.getStartTime());
-                    Date taskEndTime = new SimpleDateFormat("hh:mm a").parse(task.getEndTime());
-                    //start time is the same
-                    if (taskStartTime.equals(startTime1) ||taskStartTime.equals(endTime1) ) {
-                        conflict.add(task.displayString());
-                    //end time is the same
-                    }else if(taskEndTime.equals(endTime1)||taskEndTime.equals(startTime1)) {
-                        conflict.add(task.displayString());
-                     //new task start time overlaps with existing task
-                     //new task is in existing task period
-                    }else if (startTime1.after(taskStartTime) && startTime1.before(taskEndTime)) {
-                        conflict.add(task.displayString());
-                     //new task end time overlaps with existing task
-                    }else if( endTime1.after(taskEndTime) && endTime1.before(taskEndTime)){
-                        conflict.add(task.displayString());
-                    //existing task in new task period
-                    }else if(taskStartTime.after(startTime1) && taskStartTime.before(endTime1)){
-                        conflict.add(task.displayString());
-                    }else if(taskEndTime.after(startTime1) && taskEndTime.before(endTime1)){
-                        conflict.add(task.displayString());
+            for (String date : mapObtained.get(modCode).keySet()) {
+                for (Assignment task : mapObtained.get(modCode).get(date)) {
+
+                    if (date.equals(t.getDate())) {
+                        Date taskStartTime = new SimpleDateFormat("hh:mm a").parse(task.getStartTime());
+                        Date taskEndTime = new SimpleDateFormat("hh:mm a").parse(task.getEndTime());
+                        //start time is the same
+                        if (taskStartTime.equals(startTime1) || taskStartTime.equals(endTime1)) {
+                            conflict.add(task.displayString());
+                            //end time is the same
+                        } else if (taskEndTime.equals(endTime1) || taskEndTime.equals(startTime1)) {
+                            conflict.add(task.displayString());
+                            //new task start time overlaps with existing task
+                        } else if (startTime1.after(taskStartTime) && startTime1.before(taskEndTime)) {
+                            conflict.add(task.displayString());
+                            //new task end time overlaps with existing task
+                        } else if (endTime1.after(taskEndTime) && endTime1.before(taskEndTime)) {
+                            conflict.add(task.displayString());
+                            //existing task in new task period
+                        } else if (taskStartTime.after(startTime1) && taskStartTime.before(endTime1)) {
+                            conflict.add(task.displayString());
+                        } else if (taskEndTime.after(startTime1) && taskEndTime.before(endTime1)) {
+                            conflict.add(task.displayString());
+                        }
                     }
                 }
-           // }
+            }
         }
+
 
         return conflict;
     }
