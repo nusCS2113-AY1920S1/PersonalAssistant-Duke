@@ -23,9 +23,6 @@ public class ExitCommand extends Command {
     }
 
     @Override
-//    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryListList,
-//                        Storage storage) {
-//        Ui.showGoodbye();
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList, Storage storage)
             throws MooMooException {
         try {
