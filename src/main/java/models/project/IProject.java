@@ -14,9 +14,13 @@ import java.util.HashMap;
 public interface IProject {
     String getName();
 
-    IMemberList getMembers();
+    IMemberList getMemberList();
 
-    TaskList getTasks();
+    TaskList getTaskList();
+
+    boolean taskExists(ITask task);
+
+    String getTaskIndexName(Integer index);
 
     int getNumOfMembers();
 
@@ -28,15 +32,18 @@ public interface IProject {
 
     void removeMember(Member toBeRemoved);
 
+    Member getMember(int indexNumber);
+
+    boolean memberExists(IMember newMember);
+
     void addTask(Task newTask);
 
     void removeTask(int taskIndexNumber);
 
-    boolean memberIndexExists(int indexNumber);
-
     Task getTask(int taskIndex);
 
     String[] editTask(int taskIndexNumber, String updatedTaskDetails);
+
 
     String[] editTaskRequirements(int taskIndexNumber, String updatedTaskRequirements);
 
@@ -52,6 +59,10 @@ public interface IProject {
 
     HashMap<String, ArrayList<String>> getTasksAndAssignedMembers();
 
+    IMember getMemberFromID(String memberID);
+
+    ITask getTaskFromID(String taskID);
+
     void addReminderToList(Reminder reminder);
 
     ArrayList<Reminder> getReminderList();
@@ -60,8 +71,8 @@ public interface IProject {
 
     Reminder getReminder(int index);
 
-    IMember getMemberFromID(String memberID);
+    void removeReminder(int index);
 
-    ITask getTaskFromID(String taskID);
+    int getReminderListSize();
 
 }

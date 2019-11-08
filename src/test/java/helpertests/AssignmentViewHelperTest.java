@@ -58,10 +58,10 @@ public class AssignmentViewHelperTest {
         assertEquals("3. Harry (Phone: -- | Email: -- | Role: member)",
             member3.getDetails());
         assertEquals(3, project.getNumOfMembers());
-        assertEquals("Tom", project.getMembers().getMember(1).getName());
-        assertEquals("Dick", project.getMembers().getMember(2).getName());
-        assertEquals("Harry", project.getMembers().getMember(3).getName());
-        assertEquals(2, project.getTasks().getSize());
+        assertEquals("Tom", project.getMemberList().getMember(1).getName());
+        assertEquals("Dick", project.getMemberList().getMember(2).getName());
+        assertEquals("Harry", project.getMemberList().getMember(3).getName());
+        assertEquals(2, project.getTaskList().getSize());
         assertEquals("Documentation", project.getTask(1).getTaskName());
         assertEquals("JUnit tests", project.getTask(2).getTaskName());
     }

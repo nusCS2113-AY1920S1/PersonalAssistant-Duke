@@ -39,7 +39,7 @@ class ProjectInputControllerTest {
         String simulatedUserInput = "add member -n Jerry Zhang -i 9123456 -e jerryzhang@gmail.com";
         projectInputController.projectAddMember(project,simulatedUserInput);
         actualOutput = "";
-        for (String message : project.getMembers().getAllMemberDetails().toArray(new String[0])) {
+        for (String message : project.getMemberList().getAllMemberDetails().toArray(new String[0])) {
             actualOutput += message;
         }
         expectedOutput = "1. Jerry Zhang (Phone: 9123456 | Email: jerryzhang@gmail.com | Role: member)";
@@ -82,7 +82,7 @@ class ProjectInputControllerTest {
         simulatedUserInput = "edit member 1 -n Dillen -i 9123456 -e dillen@gmail.com";
         projectInputController.projectEditMember(project, simulatedUserInput);
         actualOutput = "";
-        for (String message : project.getMembers().getAllMemberDetails().toArray(new String[0])) {
+        for (String message : project.getMemberList().getAllMemberDetails().toArray(new String[0])) {
             actualOutput += message;
         }
         expectedOutput = "1. Dillen (Phone: 9123456 | Email: dillen@gmail.com | Role: member)";
@@ -91,7 +91,7 @@ class ProjectInputControllerTest {
         simulatedUserInput = "edit member 1 -n Jerry";
         projectInputController.projectEditMember(project, simulatedUserInput);
         actualOutput = "";
-        for (String message : project.getMembers().getAllMemberDetails().toArray(new String[0])) {
+        for (String message : project.getMemberList().getAllMemberDetails().toArray(new String[0])) {
             actualOutput += message;
         }
         expectedOutput = "1. Jerry (Phone: 9123456 | Email: dillen@gmail.com | Role: member)";
@@ -100,7 +100,7 @@ class ProjectInputControllerTest {
         simulatedUserInput = "edit member 1 -i 911";
         projectInputController.projectEditMember(project, simulatedUserInput);
         actualOutput = "";
-        for (String message : project.getMembers().getAllMemberDetails().toArray(new String[0])) {
+        for (String message : project.getMemberList().getAllMemberDetails().toArray(new String[0])) {
             actualOutput += message;
         }
         expectedOutput = "1. Jerry (Phone: 911 | Email: dillen@gmail.com | Role: member)";
@@ -109,7 +109,7 @@ class ProjectInputControllerTest {
         simulatedUserInput = "edit member 1 -e jerry@gmail.com -n Thanos Endgame";
         projectInputController.projectEditMember(project, simulatedUserInput);
         actualOutput = "";
-        for (String message : project.getMembers().getAllMemberDetails().toArray(new String[0])) {
+        for (String message : project.getMemberList().getAllMemberDetails().toArray(new String[0])) {
             actualOutput += message;
         }
         expectedOutput = "1. Thanos Endgame (Phone: 911 | Email: jerry@gmail.com | Role: member)";
@@ -222,7 +222,7 @@ class ProjectInputControllerTest {
             projectInputController.projectAddTask(project, simulatedUserInput);
 
             actualOutput = "";
-            for (String message : project.getTasks().getAllTaskDetails(
+            for (String message : project.getTaskList().getAllTaskDetails(
                     project.getTasksAndAssignedMembers(), project).toArray(new String[0])) {
                 actualOutput += message;
             }
@@ -255,7 +255,7 @@ class ProjectInputControllerTest {
                         + "-r do nothing -r do another thing";
             projectInputController.projectEditTask(project,simulatedUserInput);
             actualOutput = "";
-            for (String message : project.getTasks().getAllTaskDetails(
+            for (String message : project.getTaskList().getAllTaskDetails(
                     project.getTasksAndAssignedMembers(), project).toArray(new String[0])) {
                 actualOutput += message;
             }
@@ -267,7 +267,7 @@ class ProjectInputControllerTest {
             simulatedUserInput = "edit task 1 -p 5 -t Infinity War -d 22/09/2019 -c 40 -s todo";
             projectInputController.projectEditTask(project,simulatedUserInput);
             actualOutput = "";
-            for (String message : project.getTasks().getAllTaskDetails(
+            for (String message : project.getTaskList().getAllTaskDetails(
                     project.getTasksAndAssignedMembers(), project).toArray(new String[0])) {
                 actualOutput += message;
             }
@@ -280,7 +280,7 @@ class ProjectInputControllerTest {
             simulatedUserInput = "edit task 1 -t Infinity War -p 1 -c 30";
             projectInputController.projectEditTask(project,simulatedUserInput);
             actualOutput = "";
-            for (String message : project.getTasks().getAllTaskDetails(
+            for (String message : project.getTaskList().getAllTaskDetails(
                     project.getTasksAndAssignedMembers(), project).toArray(new String[0])) {
                 actualOutput += message;
             }
@@ -292,7 +292,7 @@ class ProjectInputControllerTest {
             simulatedUserInput = "edit task 1 -c 20 -p 2";
             projectInputController.projectEditTask(project,simulatedUserInput);
             actualOutput = "";
-            for (String message : project.getTasks().getAllTaskDetails(
+            for (String message : project.getTaskList().getAllTaskDetails(
                     project.getTasksAndAssignedMembers(), project).toArray(new String[0])) {
                 actualOutput += message;
             }
@@ -306,7 +306,7 @@ class ProjectInputControllerTest {
             dueDate = dateTimeHelper.formatDate("12/12/2020");
             projectInputController.projectEditTask(project,simulatedUserInput);
             actualOutput = "";
-            for (String message : project.getTasks().getAllTaskDetails(
+            for (String message : project.getTaskList().getAllTaskDetails(
                     project.getTasksAndAssignedMembers(), project).toArray(new String[0])) {
                 actualOutput += message;
             }
@@ -342,7 +342,7 @@ class ProjectInputControllerTest {
             Date dueDate1 = dateTimeHelper.formatDate("12/12/2021");
             Date dueDate2 = dateTimeHelper.formatDate("1/1/2020");
             actualOutput = "";
-            for (String message : project.getTasks().getAllTaskDetails(
+            for (String message : project.getTaskList().getAllTaskDetails(
                     project.getTasksAndAssignedMembers(), project).toArray(new String[0])) {
                 actualOutput += message;
             }
@@ -356,7 +356,7 @@ class ProjectInputControllerTest {
             assertEquals(expectedOutput, actualOutput);
 
             actualOutput = "";
-            for (String message : project.getTasks().getAllSortedTaskDetails(
+            for (String message : project.getTaskList().getAllSortedTaskDetails(
                     project.getTasksAndAssignedMembers(), "/PRIORITY", project).toArray(new String[0])) {
                 actualOutput += message;
             }
@@ -370,7 +370,7 @@ class ProjectInputControllerTest {
             assertEquals(expectedOutput, actualOutput);
 
             actualOutput = "";
-            for (String message : project.getTasks().getAllSortedTaskDetails(
+            for (String message : project.getTaskList().getAllSortedTaskDetails(
                     project.getTasksAndAssignedMembers(), "/NAME", project).toArray(new String[0])) {
                 actualOutput += message;
             }
@@ -384,7 +384,7 @@ class ProjectInputControllerTest {
             assertEquals(expectedOutput, actualOutput);
 
             actualOutput = "";
-            for (String message : project.getTasks().getAllSortedTaskDetails(
+            for (String message : project.getTaskList().getAllSortedTaskDetails(
                     project.getTasksAndAssignedMembers(), "/DATE", project).toArray(new String[0])) {
                 actualOutput += message;
             }
@@ -397,7 +397,7 @@ class ProjectInputControllerTest {
             assertEquals(expectedOutput, actualOutput);
 
             actualOutput = "";
-            for (String message : project.getTasks().getAllSortedTaskDetails(
+            for (String message : project.getTaskList().getAllSortedTaskDetails(
                     project.getTasksAndAssignedMembers(), "/CREDIT", project).toArray(new String[0])) {
                 actualOutput += message;
             }
@@ -411,7 +411,7 @@ class ProjectInputControllerTest {
             assertEquals(expectedOutput, actualOutput);
 
             actualOutput = "";
-            for (String message : project.getTasks().getAllSortedTaskDetails(
+            for (String message : project.getTaskList().getAllSortedTaskDetails(
                     project.getTasksAndAssignedMembers(), "/WHO-Dillen", project).toArray(new String[0])) {
                 actualOutput += message;
             }
@@ -434,7 +434,7 @@ class ProjectInputControllerTest {
         simulatedUserInput = "delete task 1";
         projectInputController.projectDeleteTask(project, simulatedUserInput);
         actualOutput = "";
-        for (String message : project.getTasks().getAllTaskDetails(
+        for (String message : project.getTaskList().getAllTaskDetails(
                 project.getTasksAndAssignedMembers(), project).toArray(new String[0])) {
             actualOutput += message;
         }
@@ -536,11 +536,11 @@ class ProjectInputControllerTest {
         projectInputController.projectAddMember(project, simulatedUserInput);
         simulatedUserInput = "role 1 -n IronMan";
         projectInputController.projectRoleMembers(project, simulatedUserInput);
-        actualOutput = project.getMembers().getMember(1).getRole();
+        actualOutput = project.getMemberList().getMember(1).getRole();
         expectedOutput = "IronMan";
         assertEquals(expectedOutput, actualOutput);
-        assertEquals("SmartGuy", project.getMembers().getMember(2).getRole());
-        assertEquals("StrongGuy", project.getMembers().getMember(3).getRole());
+        assertEquals("SmartGuy", project.getMemberList().getMember(2).getRole());
+        assertEquals("StrongGuy", project.getMemberList().getMember(3).getRole());
     }
 
     //@@author Dkenobi

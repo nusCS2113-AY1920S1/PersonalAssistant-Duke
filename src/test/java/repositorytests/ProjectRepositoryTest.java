@@ -40,11 +40,11 @@ class ProjectRepositoryTest {
         assertEquals(expectedProject.getName(), simulatedProject.getName());
         assertEquals(expectedProject.getNumOfMembers(), simulatedProject.getNumOfMembers());
         assertEquals(expectedProject.getNumOfTasks(), simulatedProject.getNumOfTasks());
-        assertEquals(expectedProject.getMembers().getAllMemberDetails(),
-                simulatedProject.getMembers().getAllMemberDetails());
-        assertEquals(expectedProject.getTasks().getAllTaskDetails(expectedProject.getTasksAndAssignedMembers(),
+        assertEquals(expectedProject.getMemberList().getAllMemberDetails(),
+                simulatedProject.getMemberList().getAllMemberDetails());
+        assertEquals(expectedProject.getTaskList().getAllTaskDetails(expectedProject.getTasksAndAssignedMembers(),
             projectRepository.getItem(1)),
-                simulatedProject.getTasks().getAllTaskDetails(simulatedProject.getTasksAndAssignedMembers(),
+                simulatedProject.getTaskList().getAllTaskDetails(simulatedProject.getTasksAndAssignedMembers(),
                     projectRepository.getItem(1)));
     }
 
@@ -69,11 +69,11 @@ class ProjectRepositoryTest {
         assertEquals(expectedProject.getName(), simulatedProject.getName());
         assertEquals(expectedProject.getNumOfMembers(), simulatedProject.getNumOfMembers());
         assertEquals(expectedProject.getNumOfTasks(), simulatedProject.getNumOfTasks());
-        assertEquals(expectedProject.getMembers().getAllMemberDetails(),
-                simulatedProject.getMembers().getAllMemberDetails());
-        assertEquals(expectedProject.getTasks().getAllTaskDetails(expectedProject.getTasksAndAssignedMembers(),
+        assertEquals(expectedProject.getMemberList().getAllMemberDetails(),
+                simulatedProject.getMemberList().getAllMemberDetails());
+        assertEquals(expectedProject.getTaskList().getAllTaskDetails(expectedProject.getTasksAndAssignedMembers(),
             projectRepository.getItem(1)),
-                simulatedProject.getTasks().getAllTaskDetails(simulatedProject.getTasksAndAssignedMembers(),
+                simulatedProject.getTaskList().getAllTaskDetails(simulatedProject.getTasksAndAssignedMembers(),
                     projectRepository.getItem(1)));
     }
 

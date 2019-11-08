@@ -167,7 +167,7 @@ public class ProjectInputController implements IController {
             return new String[] {"Wrong command format! Please enter role INDEX -n ROLE_NAME"};
         }
         int memberIndex = Integer.parseInt(commandOptions[0]);
-        IMember selectedMember = projectToManage.getMembers().getMember(memberIndex);
+        IMember selectedMember = projectToManage.getMemberList().getMember(memberIndex);
         if (selectedMember.getClass() != NullMember.class) {
             selectedMember.setRole(commandOptions[1]);
             return new String[] {"Successfully changed the role of " + selectedMember.getName() + " to "
@@ -276,7 +276,7 @@ public class ProjectInputController implements IController {
      */
     private String[] projectViewMembers(Project projectToManage) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectViewMembers]");
-        ArrayList<String> allMemberDetailsForTable = projectToManage.getMembers().getAllMemberDetailsForTable();
+        ArrayList<String> allMemberDetailsForTable = projectToManage.getMemberList().getAllMemberDetailsForTable();
         String header = "Members of " + projectToManage.getName() + ":";
         allMemberDetailsForTable.add(0, header);
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allMemberDetailsForTable.toString());
@@ -474,7 +474,7 @@ public class ProjectInputController implements IController {
                     = projectToManage.getTasksAndAssignedMembers();
                 ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
                 ArrayList<String> allTaskDetailsForTable
-                    = projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers,
+                    = projectToManage.getTaskList().getAllTaskDetailsForTable(tasksAndAssignedMembers,
                     "/PRIORITY", projectToManage);
                 allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getName() + ":");
                 ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
@@ -486,7 +486,7 @@ public class ProjectInputController implements IController {
                     = projectToManage.getTasksAndAssignedMembers();
                 ArrayList<ArrayList<String>> tableToPrint = new ArrayList<>();
                 ArrayList<String> allTaskDetailsForTable =
-                    projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, sortCriteria,
+                    projectToManage.getTaskList().getAllTaskDetailsForTable(tasksAndAssignedMembers, sortCriteria,
                         projectToManage);
                 ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
                 allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getName() + ":");

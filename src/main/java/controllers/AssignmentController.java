@@ -111,7 +111,7 @@ public class AssignmentController {
     private void unassign(ArrayList<Integer> validUnassignees, Task task) {
         ArrayList<String> unassignMessages = new ArrayList<>();
         for (Integer unassigneeIndex : validUnassignees) {
-            IMember member = project.getMembers().getMember(unassigneeIndex);
+            IMember member = project.getMemberList().getMember(unassigneeIndex);
             if (!project.containsAssignment(task, (Member)member)) {
                 unassignMessages.add("Task cannot be unassigned from member "
                     + unassigneeIndex + " (" + member.getName() + ") as it was "

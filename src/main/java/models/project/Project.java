@@ -42,13 +42,28 @@ public class Project implements IProject {
     }
 
     @Override
-    public MemberList getMembers() {
+    public MemberList getMemberList() {
         return this.memberList;
     }
 
     @Override
-    public TaskList getTasks() {
+    public TaskList getTaskList() {
         return this.taskList;
+    }
+
+    /**
+     * Checks if a task already exists in a project.
+     * @param task The task to be checked.
+     * @return true if the task already exists, false otherwise.
+     */
+    @Override
+    public boolean taskExists(ITask task) {
+        return this.taskList.contains((Task) task);
+    }
+
+    @Override
+    public String getTaskIndexName(Integer index) {
+        return getTask(index).getTaskName();
     }
 
     @Override
@@ -85,6 +100,16 @@ public class Project implements IProject {
     }
 
     @Override
+    public Member getMember(int indexNumber) {
+        return (Member) this.memberList.getMember(indexNumber);
+    }
+
+    @Override
+    public boolean memberExists(IMember newMember) {
+        return this.memberList.contains(newMember);
+    }
+
+    @Override
     public void addTask(Task newTask) {
         this.taskList.addTask(newTask);
         this.taskAndListOfMembersAssigned.put(newTask.getTaskID(), new ArrayList<>());
@@ -102,14 +127,10 @@ public class Project implements IProject {
     }
 
     @Override
-    public boolean memberIndexExists(int indexNumber) {
-        return (indexNumber > 0 && indexNumber <= getNumOfMembers());
-    }
-
-    @Override
     public Task getTask(int taskIndex) {
         return this.taskList.getTask(taskIndex);
     }
+
 
     //@@author iamabhishek98
     @Override
@@ -135,7 +156,7 @@ public class Project implements IProject {
         *
          */
         ArrayList<String> allMemberCredits = new ArrayList<>();
-        ArrayList<Member> allMembers = this.getMembers().getMemberList();
+        ArrayList<Member> allMembers = this.getMemberList().getMemberList();
         HashMap<String, ArrayList<String>> memberIDAndTaskIDs = this.getMembersIndividualTaskList(); //memberID_taskIDs
         int count = 1;
         for (Member member : allMembers) {
@@ -252,21 +273,6 @@ public class Project implements IProject {
         return reminderList.getReminderList();
     }
 
-    public String getTaskIndexName(Integer index) {
-        return getTask(index).getTaskName();
-    }
-
-    public boolean memberExists(IMember newMember) {
-        return this.memberList.contains(newMember);
-    }
-
-    public Member getMember(int indexNumber) {
-        return (Member) this.memberList.getMember(indexNumber);
-    }
-
-    public boolean taskExists(ITask task) {
-        return this.taskList.contains((Task) task);
-    }
 
     /**
      * Set the status of the Reminder.
@@ -288,10 +294,12 @@ public class Project implements IProject {
         return reminderList.getReminderList().get(index - 1);
     }
 
+    @Override
     public void removeReminder(int index) {
         reminderList.getReminderList().remove(index - 1);
     }
 
+    @Override
     public int getReminderListSize() {
         return reminderList.getReminderList().size();
     }
