@@ -39,19 +39,18 @@ public class AddCcaScheduleCommand extends ModuleCommand {
         if (index < 0 || index >= profile.getCcas().size()) {
             throw new ModOutOfBoundException();
         }
-        Cca cca = profile.getCcas().get(index);
         NattyWrapper natty = new NattyWrapper();
         LocalTime begin = natty.dateToLocalDateTime(arg("begin")).toLocalTime();
         LocalTime end = natty.dateToLocalDateTime(arg("end")).toLocalTime();
-        DayOfWeek dayOfWeek = DayOfWeek.valueOf(arg("dayOfWeek").toUpperCase());
-        if (cca.isClashing(new TimePeriodWeekly(begin, end, dayOfWeek))) {
-            throw new ModCcaScheduleException();
+        DayOfWeek dayOfWeek = DayOfWeek.valueOf(arg("dayOfWeek").toUpperCase());     
+        TimePeriodWeekly timePeriodWeekly = new TimePeriodWeekly(begin, end, dayOfWeek);
+        for (Cca cca: profile.getCcas()) {
+            if (cca.isClashing(timePeriodWeekly)) {
+                throw new ModCcaScheduleException();
+            }
         }
-        if (profile.getCcas().clashes(cca)) {
-            cca.removePeriod(cca.getPeriods().size() - 1);
-            throw new ModCcaScheduleException();
-        }
-        cca.addPeriod(begin, end, dayOfWeek);
+        Cca cca = profile.getCcas().get(index);
+        cca.addPeriod(timePeriodWeekly);
         jsonWrapper.storeCcaListAsJson(ccas, store);
         plannerUi.addedMsg(cca);
     }

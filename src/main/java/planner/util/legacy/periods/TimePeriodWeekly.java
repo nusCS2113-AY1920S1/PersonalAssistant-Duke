@@ -124,7 +124,7 @@ public class TimePeriodWeekly implements TimePeriod {
     }
 
     public boolean isClashing(LocalTime begin, LocalTime end) {
-        return this.begin == begin && this.end == end || this.isClashing(begin) || this.isClashing(end);
+        return this.begin.equals(begin) && this.end.equals(end) || this.isClashing(begin) || this.isClashing(end);
     }
 
     /**
@@ -181,7 +181,8 @@ public class TimePeriodWeekly implements TimePeriod {
      */
     public boolean isClashing(TimePeriodWeekly other) {
         return other != null
-                && (this.begin == other.begin && this.end == other.end
+                && (this.begin.equals(other.begin) && this.end.equals(other.end)
+                    && this.dayOfWeek.equals(other.dayOfWeek)
                     || this.isClashing(other.begin, other.dayOfWeek)
                     || this.isClashing(other.end, other.dayOfWeek)
                     || other.isClashing(this.begin, this.dayOfWeek)

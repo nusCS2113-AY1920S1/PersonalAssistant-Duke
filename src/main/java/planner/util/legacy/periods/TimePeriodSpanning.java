@@ -160,7 +160,7 @@ public class TimePeriodSpanning implements TimePeriod {
      */
     public boolean isClashing(TimePeriodSpanning other) {
         return other != null
-                && (this.begin == other.begin && this.end == other.end
+                && (this.begin.equals(other.begin) && this.end.equals(other.end)
                     || other.isClashing(this.begin)
                     || other.isClashing(this.end)
                     || this.isClashing(other.begin)
