@@ -499,12 +499,16 @@ public class ProjectInputController implements IController {
         AssignmentController assignmentController = new AssignmentController(projectToManage);
         assignmentController.assignAndUnassign(projectCommand);
         ArrayList<String> errorMessages = assignmentController.getErrorMessages();
-        ArrayList<String> successMessages = assignmentController.getSuccessMessages();
-        errorMessages.addAll(successMessages);
-        if (errorMessages.isEmpty()) {
+        ArrayList<ArrayList<String>> successMessages = assignmentController.getSuccessMessages();
+        if (!errorMessages.isEmpty()) {
+            errorMessages.add(0, "Errors...");
+            successMessages.add(errorMessages);
+        }
+        if (successMessages.isEmpty()) {
             return new String[]{"No valid assignment input detected! Please refer to the user guide for help."};
         }
-        return errorMessages.toArray(new String[0]);
+        return viewHelper.consolePrintMultipleTables(successMessages,
+                DEFAULT_HORI_BORDER_LENGTH, 1, "Results from task assignments:");
     }
 
     /**
