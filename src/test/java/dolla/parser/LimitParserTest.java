@@ -87,7 +87,7 @@ public class LimitParserTest {
 
     @Test
     public void parseInvalidInputTest2() {
-        String inputLine = "          ";
+        String inputLine = "     set     ";
         LimitParser limitParser = new LimitParser(inputLine);
         Command command = limitParser.parseInput();
         assertEquals(expectedInvalidResult, command.getCommandInfo());
