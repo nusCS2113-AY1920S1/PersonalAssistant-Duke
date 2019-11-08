@@ -19,6 +19,13 @@ public class ListPromotionCommand extends Command{
      */
     public ListPromotionCommand() {}
 
+    /**
+     * Shows the list of promotion.
+     *
+     * @param model
+     * @param storage The storage we have.
+     * @return Message feedback to user.
+     */
     @Override
     public CommandResult execute(ModelManager model, StorageManager storage) {
         PromotionList list = model.getPromotionList();

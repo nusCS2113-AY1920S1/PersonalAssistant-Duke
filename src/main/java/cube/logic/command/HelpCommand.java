@@ -24,7 +24,7 @@ public class HelpCommand extends Command {
 			+ "Show inventory:\n"
 			+ String.format("%1$-50s", "  'list -sort <sort type>'") + "shows the list of food products, sort type can be expiry/name/stock\n"
 			+ String.format("%1$-50s", "  'find -i <number> OR -n <food name> OR -t <food type> -sort <sort type>'") + "find specific food using index/name/type, sort type is only available when finding by type, it can be expiry/name/stock\n"
-			+ String.format("%1$-50s", "  'reminder'") + "show the list of food products that are low on stock and/or are approaching its expiry date\n"
+			+ String.format("%1$-50s", "  'reminder -d <days to expiry> -s <low stock value>'") + "show the list of food products that are low on stock and/or are approaching its expiry date\n"
 			+ String.format("%1$-50s", "  'promotion <food name> -% <discount> -s <start date> -e <end date>'") + "adds a new promotion item\n"
 			+ String.format("%1$-50s", "  'promotion -delete <index>'") + "deletes the specified promotion in the list \n"
 			+ String.format("%1$-50s", "  'promotion -list'") + "shows the list of promotions\n"

@@ -1,3 +1,5 @@
+// @@author parvathi14
+
 package cube.logic.parser;
 
 import cube.logic.command.ReminderCommand;
@@ -35,7 +37,7 @@ public class ReminderCommandParser implements ParserPrototype<ReminderCommand> {
                 throw new ParserException(ParserErrorMessage.INVALID_NUMBER);
             }
             return new ReminderCommand(7, Integer.parseInt(args[stockIndex+1]));
-        }else if (stockIndex == -1 && daysToExpiryIndex != -1) {
+        } else if (stockIndex == -1 && daysToExpiryIndex != -1) {
             if (!ParserUtil.hasField(args,daysToExpiryIndex+1)) {
                 throw new ParserException(ParserErrorMessage.EMPTY_FIELD);
             }

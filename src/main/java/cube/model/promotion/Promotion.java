@@ -1,3 +1,5 @@
+// @@author parvathi14
+
 package cube.model.promotion;
 
 import java.util.Date;
