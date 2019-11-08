@@ -75,7 +75,7 @@ public class BookingList {
     public ArrayList<String> findBooking(String customerName) {
         ArrayList<String> arrFind = new ArrayList<>();
         for (int i = 0; i < getSize(); i++) {
-            if (bookingList.get(i).getCustomerName().toLowerCase().equals(customerName)) {
+            if (bookingList.get(i).getCustomerName().toLowerCase().contains(customerName)) {
                 final int displayIndex = i + DISPLAYED_INDEX_OFFSET;
                 arrFind.add("     " + displayIndex + ". " + bookingList.get(i).toString());
             }
