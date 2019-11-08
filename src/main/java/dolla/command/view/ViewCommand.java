@@ -13,8 +13,8 @@ public class ViewCommand extends Command {
 
     protected LocalDate cmpDate;
     protected String dateStr;
-    static protected final String TODAY = "today";
-    static protected final String EXPENSE = "expense";
+    protected static final String TODAY = "today";
+    protected static final String EXPENSE = "expense";
 
 
     @Override
