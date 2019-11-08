@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 /**
- * The SetCommand Class deals with the 'set' command.
+ * The SetBudgetCommand Class deals with the 'budget' command.
  */
 public class SetBudgetCommand extends Command {
     public static final String COMMAND_WORD = "budget";
@@ -29,6 +29,8 @@ public class SetBudgetCommand extends Command {
     public static final String MESSAGE_EXISTING_EXPENSES = "There are existing expenses for ";
     public static final String MESSAGE_ADD_EXISTING_EXPENSES = "Would you like to add them into the budget? (Yes/No)";
     public static final String MESSAGE_YES_OR_NO = "Please reply with a Yes or No (Not case sensitive)";
+    public static final String MESSAGE_CURRENT_BUDGET = "Your budget set for ";
+    public static final String MESSAGE_REMAINING_BUDGET = "Your remaining budget for ";
 
     private Budget budget = null;
 
@@ -125,22 +127,41 @@ public class SetBudgetCommand extends Command {
         String reply = scanner.nextLine().toLowerCase();
         while (!"yes".equals(reply) || !"no".equals(reply)) {
             if ("yes".equals(reply)) {
-                budget.setAmount(budget.getAmount()
-                        - wallet.getExpenseList().getMonthExpenses(budget.getMonth(),
-                        budget.getYear()));
-                if (budget.getAmount() < 0) {
+                double remainingBudget = budget.getAmount()
+                        - wallet.getExpenseList().getMonthExpenses(budget.getMonth(), budget.getYear());
+                if (remainingBudget < 0) {
                     System.out.println(AddCommand.MESSAGE_EXCEED_BUDGET);
-                } else if (budget.getAmount() == 0) {
+                    System.out.println(MESSAGE_CURRENT_BUDGET
+                            + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
+                            + " " + budget.getYear() + " is " + "$" + budget.getAmount());
+                    System.out.println(MESSAGE_REMAINING_BUDGET
+                            + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
+                            + " " + budget.getYear() + " is " + "$" + remainingBudget);
+                } else if (remainingBudget == 0) {
                     System.out.println(AddCommand.MESSAGE_REACH_BUDGET);
+                    System.out.println(MESSAGE_CURRENT_BUDGET
+                            + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
+                            + " " + budget.getYear() + " is " + "$" + budget.getAmount());
+                    System.out.println(MESSAGE_REMAINING_BUDGET
+                            + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
+                            + " " + budget.getYear() + " is " + "$" + remainingBudget);
+                } else {
+                    System.out.println("Budget updated.");
+                    System.out.println(MESSAGE_CURRENT_BUDGET
+                            + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
+                            + " " + budget.getYear() + " is " + "$" + budget.getAmount());
+                    System.out.println(MESSAGE_REMAINING_BUDGET
+                            + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
+                            + " " + budget.getYear() + " is " + "$" + remainingBudget);
                 }
-                System.out.println("Alright, " + budget.getAmount() + MESSAGE_SET_BUDGET
-                        + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
-                        + " " + budget.getYear());
                 break;
             } else if ("no".equals(reply)) {
-                System.out.println(budget.getAmount() + MESSAGE_SET_BUDGET
+                System.out.println(MESSAGE_CURRENT_BUDGET
                         + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
-                        + " " + budget.getYear());
+                        + " " + budget.getYear() + " is " + "$" + budget.getAmount());
+                System.out.println(MESSAGE_REMAINING_BUDGET
+                        + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
+                        + " " + budget.getYear() + " is " + "$" + budget.getAmount());
                 break;
             } else {
                 System.out.println(MESSAGE_YES_OR_NO);
