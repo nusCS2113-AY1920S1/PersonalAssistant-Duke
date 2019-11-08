@@ -633,13 +633,18 @@ public class ProjectInputController implements IController {
 
         int index = 1;
         allTaskDetailsForTable.add(0, "Reminder of " + projectToManage.getName() + ":");
-        for (Reminder reminder: projectToManage.getReminderList()) {
-            allTaskDetailsForTable.add(index + ". " + reminder.getStatus() + " " + reminder.getReminderName());
-            allTaskDetailsForTable.add("   - Remarks: " + reminder.getReminderRemarks());
-            allTaskDetailsForTable.add("   - " + dateTimeHelper.formatDateForDisplay(reminder.getReminderDate())
-                    + dateTimeHelper.getDifferenceDays(reminder.getReminderDate()));
-            allTaskDetailsForTable.add(" ");
-            index++;
+        if (projectToManage.getReminderListSize() == 0) {
+            allTaskDetailsForTable.add(" - There are currently no reminders! -");
+        } else {
+            for (Reminder reminder: projectToManage.getReminderList()) {
+                allTaskDetailsForTable.add(index + ". " + reminder.getStatus() + " " + reminder.getReminderName());
+                allTaskDetailsForTable.add("   - Remarks: " + reminder.getReminderRemarks());
+                allTaskDetailsForTable.add("   - " + dateTimeHelper.formatDateForDisplay(reminder.getReminderDate())
+                        + dateTimeHelper.getDifferenceDays(reminder.getReminderDate()));
+                allTaskDetailsForTable.add(" ");
+                index++;
+            }
+            allTaskDetailsForTable.remove(allTaskDetailsForTable.size() - 1);
         }
         return viewHelper.consolePrintTable(allTaskDetailsForTable, DEFAULT_HORI_BORDER_LENGTH);
     }
