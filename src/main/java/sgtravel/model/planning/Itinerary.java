@@ -2,15 +2,12 @@ package sgtravel.model.planning;
 
 import sgtravel.commons.exceptions.ChronologyBeforePresentException;
 import sgtravel.commons.exceptions.ChronologyInconsistentException;
-import sgtravel.commons.exceptions.RepeatedDayNumberException;
 import sgtravel.model.locations.Venue;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Represents an Itinerary and its contained information.
@@ -41,8 +38,8 @@ public class Itinerary {
      */
     public String printItinerary() {
         int days = getNumberOfDays();
-        StringBuilder result = new StringBuilder("Here are the list of Locations in "
-                +  days + " trip days with name " + this.name + ": \n");
+        StringBuilder result = new StringBuilder("Here are the list of locations for a "
+                +  days + " day trip. This itinerary has the name : \n" + this.name + "\n");
         for (Agenda list1 : this.getList()) {
             result.append("\n");
             result.append("Day ").append(list1.getDay()).append(":").append("\n \n");
