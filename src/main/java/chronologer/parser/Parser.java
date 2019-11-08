@@ -19,7 +19,7 @@ public abstract class Parser {
     String taskFeatures;
     String checkType;
     boolean hasModCode;
-    MyLogger logger = new MyLogger(this.getClass().getName(), "Parser_errors");
+    MyLogger logger = new MyLogger(this.getClass().getName(), "ParserErrors");
 
     /**
      * contructs a parser object and initializes a logger.
