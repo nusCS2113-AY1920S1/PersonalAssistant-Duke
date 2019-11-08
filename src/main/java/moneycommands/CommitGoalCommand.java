@@ -130,7 +130,8 @@ public class CommitGoalCommand extends MoneyCommand {
                 ui.appendToOutput(" " + i + "." + goalProgress + goalsAfterCommit.get(i - 1).toString() + "\n");
             }
             ui.appendToOutput("Goal Savings after commit: $" + decimalFormat.format(goalSavingsAfterCommit) + "\n");
-            ui.appendToOutput("Target Savings for the Month after commit: $" + decimalFormat.format(savingsReqPerMonth) + "\n");
+            ui.appendToOutput("Target Savings for the Month after commit: $"
+                    + decimalFormat.format(savingsReqPerMonth) + "\n");
 
             MoneyCommand list = new ListGoalsCommand();
             list.execute(account,ui,storage);
