@@ -78,6 +78,8 @@ public class Ui extends AnchorPane {
         );
         userInput.clear();
         switch (splitStr[0]) {
+        case "add":
+        case "delete":
         case "approve":
         case "reject":
         case "list":
@@ -109,7 +111,7 @@ public class Ui extends AnchorPane {
         case "login":
         case "logout":
             UserList userList = duke.getUserList();
-            if (userList.getLoginStatus() == true) {
+            if (userList.getLoginStatus()) {
                 userLabel.setText("Logged in as: " + userList.getCurrentUser());
             } else {
                 userLabel.setText("Not Logged In");

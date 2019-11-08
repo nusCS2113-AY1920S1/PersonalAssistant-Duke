@@ -45,7 +45,7 @@ public class BookingList extends ArrayList<Booking> {
         LocalDateTime startTime = LocalDateTime.parse(timeStart, formatterStart);
         LocalTime endTime = LocalTime.parse(timeEnd, formatterEnd);
         for (int i = 0; i < bookinglist.size(); i++) {
-            if (bookinglist.get(i).venue == roomcode) {
+            if (bookinglist.get(i).venue.equals(roomcode)) {
                 if ((bookinglist.get(i).dateTimeStart.isBefore(startTime)
                         || bookinglist.get(i).dateTimeStart.isEqual(startTime))
                         && ((bookinglist.get(i).timeEnd.isAfter(endTime))
