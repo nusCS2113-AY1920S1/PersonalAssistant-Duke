@@ -24,13 +24,12 @@ import owlmoney.ui.Ui;
  */
 public class Investment extends Bank {
 
-    private static final String INVESTMENT = "investment";
     private BondList bonds;
-    private static final String INVESTMENT_BOND_LIST_FILE_NAME = "_investment_bondList.csv";
-    private static final String INVESTMENT_TRANSACTION_LIST_FILE_NAME = "_investment_transactionList.csv";
     private Storage storage;
     private static final String FILE_PATH = "data/";
-
+    private static final String INVESTMENT = "investment";
+    private static final String INVESTMENT_BOND_LIST_FILE_NAME = "_investment_bondList.csv";
+    private static final String INVESTMENT_TRANSACTION_LIST_FILE_NAME = "_investment_transactionList.csv";
 
     /**
      * Creates an instance of an investment account.
