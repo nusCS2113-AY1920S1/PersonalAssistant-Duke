@@ -32,6 +32,25 @@ public class CheckAnomaly {
     }
 
     /**
+     * Checks for tasks in the overdue list for duplicates
+     * @param task task to be checked
+     * @return true if duplicate found in overdue list
+     */
+    public static Boolean checkDuplicateOverdue(Task task) {
+        boolean isDuplicate = false;
+        String name = task.getDescription();
+        String assignee = task.getAssignee();
+        String date = task.getDate().toString();
+        for( Task output : OverdueList.getOverdueList()) {
+            if( output.getDescription().equals(name) && output.getAssignee().equals(assignee)
+                    && output.getDate().toString().equals(date) && output.getClass().equals(task.getClass())) {
+                isDuplicate = true;
+            }
+        }
+        return isDuplicate;
+    }
+
+    /**
      * Checks first if the task is a meeting, then decides which check function to use depending on whether the meeting has a fixed duration
      * @param task task we are checking
      * @return true if there is a time clash, false if there is no clash.
