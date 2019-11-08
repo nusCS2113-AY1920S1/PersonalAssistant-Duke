@@ -1,0 +1,65 @@
+{
+  "2019-11-09": [
+    {
+      "description": "steak",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-09",
+      "nutritionValue": {
+        "sodium": 10,
+        "fats": 20,
+        "calorie": 500
+      },
+      "costStr": "0"
+    }
+  ],
+  "2019-11-08": [
+    {
+      "description": "roti",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-08",
+      "nutritionValue": {
+        "calorie": 500
+      },
+      "costStr": "0"
+    },
+    {
+      "description": "bun",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-08",
+      "nutritionValue": {
+        "calorie": 200
+      },
+      "costStr": "1.5"
+    },
+    {
+      "description": "laksa",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-08",
+      "nutritionValue": {
+        "calorie": 300
+      },
+      "costStr": "2.56"
+    }
+  ],
+  "2019-11-20": [
+    {
+      "description": "caviar",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-20",
+      "nutritionValue": {
+        "calorie": 200
+      },
+      "costStr": "200"
+    }
+  ]
+}
