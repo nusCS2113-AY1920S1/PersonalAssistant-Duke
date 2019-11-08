@@ -4,7 +4,6 @@ import com.opencsv.CSVWriter;
 import duke.exception.DukeException;
 import interpreter.Parser;
 import storage.StorageManager;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -24,33 +23,28 @@ public class CommandExport extends Command {
 
     @Override
     public void execute(StorageManager storageManager) {
+
         try{
-            writeCSV(getWhichFileUserWants(this.userInput));
+            String fileUserWants = getWhichFileUserWants(this.userInput);
+            convertTxtToCsv(fileUserWants);
+            this.infoCapsule.setCodeCli();
+            this.infoCapsule.setOutputStr("data.csv has been created");
         } catch (DukeException e) {
             this.infoCapsule.setCodeError();
             this.infoCapsule.setOutputStr(e.getMessage());
-            return;
         }
-
-        this.infoCapsule.setCodeCli();
-        this.infoCapsule.setOutputStr("data.csv has been created");
     }
-
 
     private String getWhichFileUserWants (String userInput) throws DukeException {
-        String fileUserWants = Parser.parseForPrimaryInput(this.commandType, userInput);
         try {
-            return fileUserWants;
+            return Parser.parseForPrimaryInput(this.commandType, userInput);
         } catch (Exception e) {
-            throw new DukeException("Please enter a valid amount\n");
+            throw new DukeException("Please enter a valid choice : either task or wallet\n");
         }
     }
 
-
-
-
-    private void convertTxtToCsv(String data) throws DukeException {
-        if(data.toLowerCase().equals("wallet")){
+    private void convertTxtToCsv(String dataWanted) throws DukeException {
+        if(dataWanted.toLowerCase().equals("wallet")){
             this.filePath = "savedWallet.txt";
         } else {
             this.filePath = "savedTask.txt";
@@ -66,10 +60,9 @@ public class CommandExport extends Command {
                 writeCSV(loadedInput);
             }
         } catch (Exception e) {
-            throw new DukeException("No Previously Saved Wallet Data.");
+            throw new DukeException("Please enter a choice either : export <wallet> or <task>");
         }
     }
-
 
     private void writeCSV(String line) throws DukeException {
         // first create file object for file placed at location
