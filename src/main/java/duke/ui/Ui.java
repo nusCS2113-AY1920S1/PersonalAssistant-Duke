@@ -489,7 +489,7 @@ public class Ui {
      * Outputs the error when loading the file to the user.
      */
     public void showLoadingError() {
-        out.println("File not found, creating an empty list");
+        out.println("File not found, creating a sample list");
     }
 
     /**
