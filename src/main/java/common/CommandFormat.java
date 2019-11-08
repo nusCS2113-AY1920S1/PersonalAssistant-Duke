@@ -15,7 +15,7 @@ public class CommandFormat {
     }
 
     public String gotoProjectFormat() {
-        return "goto project pr/PROJECT_NAME";
+        return "goto PROJECT_INDEX_IN_LIST";
     }
 
     public String addPayeeFormat() {

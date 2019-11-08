@@ -103,7 +103,7 @@ public class Instruction {
     }
 
     public boolean isGoToProject(String input) {
-        return input.startsWith("goto project");
+        return input.startsWith("goto");
     }
 
     public boolean isSetFund(String input) {

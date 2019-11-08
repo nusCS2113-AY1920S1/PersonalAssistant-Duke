@@ -30,12 +30,13 @@ public class AlphaNUS {
         tasklist = new TaskList();
         fund = storage.readFromFundFile();
         commandList = storage.readFromCommandsFile();
+
     }
 
     /**
      * Method to run the AlphaNUS instance and take in the inputs of the user.
      */
-    public void run() {
+    public void run(){
         ui.startMessage();
 
         boolean isExit = false;
@@ -44,7 +45,6 @@ public class AlphaNUS {
             String input = ui.readInput();
             isExit = Parser.parse(input, tasklist, ui, fund, storage, commandList);
         }
-
     }
 
     /**
