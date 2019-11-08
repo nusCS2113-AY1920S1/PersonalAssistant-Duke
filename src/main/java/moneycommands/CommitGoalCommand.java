@@ -23,6 +23,8 @@ public class CommitGoalCommand extends MoneyCommand {
     private ArrayList<Goal> goalsAfterCommit;
     private float goalSavingsAfterCommit;
     private DecimalFormat decimalFormat = new DecimalFormat("#.00");
+    private static final int TICK_NO = 0x2713;
+
 
 
     //@@author therealnickcheong
@@ -121,7 +123,7 @@ public class CommitGoalCommand extends MoneyCommand {
                 String goalProgress = "";
 
                 if (goalSavingsAfterCommit >= currGoalPrice) {
-                    goalProgress = "[\u2713]";
+                    goalProgress = "[" + Character.toString((char)TICK_NO) + "]";
                 } else {
                     goalProgress = percentageProgress(goalSavingsAfterCommit, currGoalPrice);
                     savingsReqPerMonth += savingsPerGoal(goalSavingsAfterCommit, currGoalPrice, monthsBetween);
