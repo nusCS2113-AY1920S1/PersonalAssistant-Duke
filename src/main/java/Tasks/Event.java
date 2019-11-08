@@ -52,4 +52,15 @@ public class Event extends Assignment{
     public String getTime() {
         return start + " to " + end;
     }
+
+    @Override
+    public String getStartTime(){
+        return start;
+    }
+    @Override
+    public String getEndTime(){
+        return end;
+    }
+
+
 }
