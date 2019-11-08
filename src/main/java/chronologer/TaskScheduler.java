@@ -64,30 +64,16 @@ public final class TaskScheduler {
 
     private static void searchFreePeriodsInEventList(Long durationToSchedule, LocalDateTime deadlineDate) {
         boolean isFreeBetweenEvents;
-        Long duration;
-
-        isFreeBetweenEvents = isFreeFromNowTillFirstEvent(durationToSchedule);
+        LocalDateTime currentEndDate;
         LocalDateTime nextStartDate;
 
-        for (int i = 0; i < eventList.size(); i++) {
-            LocalDateTime currentEndDate = eventList.get(i).getEndDate();
-            if (i == eventList.size() - 1) {
-                nextStartDate = deadlineDate;
-                if (currentEndDate.isAfter(deadlineDate)) {
-                    currentEndDate = deadlineDate;
-                }
-            } else {
-                nextStartDate = eventList.get(i + 1).getStartDate();
-            }
+        isFreeBetweenEvents = isFreeFromNowTillFirstEvent(durationToSchedule);
 
-            duration = ChronoUnit.HOURS.between(currentEndDate, nextStartDate);
-            if (durationToSchedule <= duration) {
-                isFreeBetweenEvents = true;
-                String formattedCurrentEndDate = currentEndDate.format(DateTimeExtractor.DATE_FORMATTER);
-                String formattedNextStartDate = nextStartDate.format(DateTimeExtractor.DATE_FORMATTER);
-                MessageBuilder.loadMessage(String.format(SCHEDULE_FROM_TILL_FORMAT, formattedCurrentEndDate,
-                        formattedNextStartDate));
-            }
+        for (int i = 0; i < eventList.size(); i++) {
+            currentEndDate = getCurrentEndDate(deadlineDate, i);
+            nextStartDate = getNextStartDate(deadlineDate, i);
+            isFreeBetweenEvents = isFreeBetweenThisEventTillNextEvent(durationToSchedule, isFreeBetweenEvents,
+                    nextStartDate, currentEndDate);
         }
 
         if (!isFreeBetweenEvents) {
@@ -107,5 +93,40 @@ public final class TaskScheduler {
             MessageBuilder.loadMessage(String.format(SCHEDULE_NOW_TILL_FORMAT, formattedNextStartDate));
         }
         return isFreeBetweenEvents;
+    }
+
+    private static LocalDateTime getNextStartDate(LocalDateTime deadlineDate, int i) {
+        LocalDateTime nextStartDate;
+        if (isLastEvent(i)) {
+            nextStartDate = deadlineDate;
+        } else {
+            nextStartDate = eventList.get(i + 1).getStartDate();
+        }
+        return nextStartDate;
+    }
+
+    private static LocalDateTime getCurrentEndDate(LocalDateTime deadlineDate, int i) {
+        LocalDateTime currentEndDate = eventList.get(i).getEndDate();
+        if (i == eventList.size() - 1 && currentEndDate.isAfter(deadlineDate)) {
+                currentEndDate = deadlineDate;
+        }
+        return currentEndDate;
+    }
+
+    private static boolean isFreeBetweenThisEventTillNextEvent(Long durationToSchedule, boolean isFreeBetweenEvents, LocalDateTime nextStartDate, LocalDateTime currentEndDate) {
+        Long duration;
+        duration = ChronoUnit.HOURS.between(currentEndDate, nextStartDate);
+        if (durationToSchedule <= duration) {
+            isFreeBetweenEvents = true;
+            String formattedCurrentEndDate = currentEndDate.format(DateTimeExtractor.DATE_FORMATTER);
+            String formattedNextStartDate = nextStartDate.format(DateTimeExtractor.DATE_FORMATTER);
+            MessageBuilder.loadMessage(String.format(SCHEDULE_FROM_TILL_FORMAT, formattedCurrentEndDate,
+                    formattedNextStartDate));
+        }
+        return isFreeBetweenEvents;
+    }
+
+    private static boolean isLastEvent(int index) {
+        return index == eventList.size() - 1;
     }
 }
