@@ -205,6 +205,38 @@ in the pre-existing list, the following output should be printed: +
 This is followed by the following line indicating the details of the detected clash: +
 #"Clashes with: [E][X] YST Final project review START: Tue, 03 Dec 2019, 15:00 END: Tue, 03 Dec 2019, 18:00#
 
+==== Design considerations
+While designing the clash handling system, i had to decide how best to: +
+1. Detect a clash. +
+2. Pass relevant information back to the caller class for further usage. +
+
+|=========================================================
+|Aspect |Alternative 1 |Alternative 2
+
+|How clashes were detected |
+Simple if-else statements instead of using exception handling. +
+
+Pros: Much easier to implement and simpler to work with. +
+
+Cons: Less scalability as it would be harder to integrate the functionality into new features.|
+Have a specific command/method so that the current list can be checked for a clash at will.
+
+Pros: Much more flexible, and even more scalable than the current implementation as it would be possible
+to do anything regarding changes to the list, and then later check for clashes.
+
+Cons: Much more room for error, since clashes are allowed to exist within the list normally, and are not
+automatically detected. This could lead to major bugs related to events that overlap eac other.
+
+|How relevant information is passed up the chain|
+Simply returning the relevant event that caused the clash as a part of the method call. +
+
+Pros: Extremely simple to understand. Easy to implement. No need to deal with exception handling, just
+code for specific case in the event of a clash. +
+
+Cons: Less scalable. If a developer wants to add more functionality to the clash handling(e.g return more data), he/she
+would need to return a new object containing the relevant data.|
+|=========================================================
+
 === Add recurring events
 ==== How it is implemented
 The program is able to detect recurring events and their periods when creating new events.
