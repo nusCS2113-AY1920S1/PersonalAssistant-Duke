@@ -27,13 +27,13 @@ public class ClearCommand extends ModuleCommand {
         boolean confirm = plannerUi.confirm();
         if (confirm) {
             switch (toClear) {
-                case ("modules"): {
-                    profile.getModules().clear();
+                case ("module"): {
+                    tasks.clearAll();
                     break;
                 }
 
-                case ("ccas"): {
-                    profile.getCcas().clear();
+                case ("cca"): {
+                    ccas.clear();
                     break;
                 }
 

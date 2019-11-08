@@ -142,7 +142,7 @@ public class Parser {
         getSubParser("clear")
                 .help("Clear your data as specified")
                 .addArgument("toClear")
-                .choices("modules", "ccas", "data")
+                .choices("module", "cca", "data")
                 .help("What to clear");
 
         Subparsers sortParsers = getSubParser("sort")
