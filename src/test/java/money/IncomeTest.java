@@ -4,6 +4,7 @@ import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
 import controlpanel.Ui;
 import moneycommands.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -89,6 +90,17 @@ public class IncomeTest {
         exitCommand.execute(account, ui, moneyStorage);
     }
 
+    @Test
+    void testUndoAddIncome() throws ParseException, DukeException {
+        AddIncomeCommand test = new AddIncomeCommand("add income TA /amt 560 /on 9/10/2015");
+        Income incomeTest = new Income(560, "TA ", testDate);
+        test.execute(account, ui, moneyStorage);
+        ui.clearOutputString();
+        test.undo(account, ui, moneyStorage);
+        Assertions.assertEquals(" Last command undone: \n" + incomeTest.toString() + "\n Now you have "
+        + account.getIncomeListTotal().size() + " income sources listed\n", ui.getOutputString());
+    }
+    
     @Test
     void testInvalidCommandException() {
         String invalidInput = "add income side job /amt rubbish  ";
