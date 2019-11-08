@@ -322,7 +322,7 @@ public class Logic {
     public void backToPreviousPath() throws CakeException {
         if (isNotAFileOrMainList()) { // if it is not a file or main list
             currentFilePath = gotoParentFilePath(currentFilePath);
-        } else if (isATextFile()){  // if it is a text file
+        } else if (isATextFile()) {  // if it is a text file
             currentFilePath = gotoParentFilePath(gotoParentFilePath(currentFilePath));
         }
     }

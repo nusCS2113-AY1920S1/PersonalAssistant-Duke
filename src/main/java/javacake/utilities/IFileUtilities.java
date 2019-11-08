@@ -29,6 +29,13 @@ public interface IFileUtilities {
         }
     }
 
+    /**
+     * Converts input file name by user with the actual case sensitive file name in system.
+     * @param defaultDirectoryPath Default file path to the directory of the notes file.
+     * @param fileName Name of the file to be edited or deleted.
+     * @return String of original file name.
+     * @throws CakeException If file does not exist.
+     */
     static String returnOriginalFileName(String defaultDirectoryPath, String fileName) throws CakeException {
         try {
             File file = new File(defaultDirectoryPath + fileName + ".txt");
