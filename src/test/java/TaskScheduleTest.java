@@ -133,7 +133,7 @@ public class TaskScheduleTest {
     @Test
     public void testDateException() {
         Assertions.assertThrows(ChronologerException.class, () -> {
-            LocalDateTime exceptionDate = LocalDateTime.of(2001, 1, 1, 1, 0);
+            LocalDateTime exceptionDate = LocalDateTime.now().minusMinutes(1);
             Command test = new TaskScheduleCommand(1, exceptionDate);
             test.execute(tasks, storage);
         });

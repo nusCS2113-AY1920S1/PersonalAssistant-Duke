@@ -4,7 +4,6 @@ import chronologer.parser.DateTimeExtractor;
 import chronologer.task.Event;
 import chronologer.task.TaskList;
 import chronologer.ui.MessageBuilder;
-import chronologer.ui.UiTemporary;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -21,20 +20,23 @@ public final class TaskScheduler {
     private static final String NO_FREE_SLOTS =
             "There is no free slot to insert the task. Consider freeing up your schedule.\n";
 
+    private static ArrayList<Event> eventList;
+    private static LocalDateTime hardLimitDeadlineDate = LocalDateTime.now().plusDays(SEARCH_HARD_LIMIT);
+
     /**
      * Finds a free period of time within the user's schedule for a given duration by a given deadline.
      * @param tasks is the master task list in the program
      * @param durationToSchedule is the minimum duration to find a large enough period that is free
      * @param deadlineDate is the date to find any periods by
      */
-    public static void scheduleByDeadline(TaskList tasks, Long durationToSchedule, LocalDateTime deadlineDate) {
-        ArrayList<Event> dateList = tasks.obtainEventList(deadlineDate);
-        if (dateList.size() == 0) {
-            UiTemporary.printOutput(SCHEDULE_ANYTIME_BY_DEADLINE);
-            return;
+    public static String scheduleByDeadline(TaskList tasks, Long durationToSchedule, LocalDateTime deadlineDate) {
+        setupEventList(tasks, deadlineDate);
+        if (isEventListEmpty()) {
+            return SCHEDULE_ANYTIME_BY_DEADLINE;
         }
-
-        searchFreePeriodsInEventList(durationToSchedule, deadlineDate, dateList);
+        MessageBuilder.initialiseMessage();
+        searchFreePeriodsInEventList(durationToSchedule, deadlineDate);
+        return MessageBuilder.getMessage();
     }
 
     /**
@@ -42,24 +44,29 @@ public final class TaskScheduler {
      * @param tasks is the master task list in the program
      * @param durationToSchedule is the minimum duration to find a large enough period that is free
      */
-    public static void scheduleTask(TaskList tasks, Long durationToSchedule) {
-        LocalDateTime deadlineDate = LocalDateTime.now().plusDays(SEARCH_HARD_LIMIT);
-        ArrayList<Event> eventList = tasks.obtainEventList(deadlineDate);
-        if (eventList.size() == 0) {
-            UiTemporary.printOutput(SCHEDULE_ANYTIME);
-            return;
+    public static String scheduleTask(TaskList tasks, Long durationToSchedule) {
+        setupEventList(tasks, hardLimitDeadlineDate);
+        if (isEventListEmpty()) {
+            return SCHEDULE_ANYTIME;
         }
-
-        searchFreePeriodsInEventList(durationToSchedule, deadlineDate, eventList);
+        MessageBuilder.initialiseMessage();
+        searchFreePeriodsInEventList(durationToSchedule, hardLimitDeadlineDate);
+        return MessageBuilder.getMessage();
     }
 
-    private static void searchFreePeriodsInEventList(Long durationToSchedule, LocalDateTime deadlineDate,
-                                                     ArrayList<Event> eventList) {
+    private static void setupEventList(TaskList tasks, LocalDateTime deadlineDate) {
+        eventList = tasks.obtainEventList(deadlineDate);
+    }
+
+    private static boolean isEventListEmpty() {
+        return eventList.size() == 0;
+    }
+
+    private static void searchFreePeriodsInEventList(Long durationToSchedule, LocalDateTime deadlineDate) {
         boolean isFreeBetweenEvents;
         Long duration;
 
-        MessageBuilder.initialiseMessage();
-        isFreeBetweenEvents = checkPeriodFromNowTillFirstEvent(durationToSchedule, eventList);
+        isFreeBetweenEvents = isFreeFromNowTillFirstEvent(durationToSchedule);
         LocalDateTime nextStartDate;
 
         for (int i = 0; i < eventList.size(); i++) {
@@ -84,15 +91,11 @@ public final class TaskScheduler {
         }
 
         if (!isFreeBetweenEvents) {
-            UiTemporary.printOutput(NO_FREE_SLOTS);
-            return;
+            MessageBuilder.loadMessage(NO_FREE_SLOTS);
         }
-
-        String output = MessageBuilder.getMessage();
-        UiTemporary.printOutput(output);
     }
 
-    private static boolean checkPeriodFromNowTillFirstEvent(Long durationToSchedule, ArrayList<Event> eventList) {
+    private static boolean isFreeFromNowTillFirstEvent(Long durationToSchedule) {
         boolean isFreeBetweenEvents = false;
         Long duration;
 
