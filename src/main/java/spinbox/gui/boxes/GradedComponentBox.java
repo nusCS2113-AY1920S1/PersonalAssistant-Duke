@@ -15,7 +15,7 @@ public class GradedComponentBox extends VBox {
     @FXML
     private Label gradedComponentDetails;
 
-    private GradedComponentBox(GradedComponent gradedComponent) {
+    private GradedComponentBox(GradedComponent gradedComponent, int index) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource(
                     "/view/itemBoxes/GradedComponentBox.fxml"));
@@ -32,10 +32,10 @@ public class GradedComponentBox extends VBox {
         setMargin(this, new Insets(10, 10, 10, 10));
         this.gradedComponentDetails.setStyle("-fx-font-weight: bold");
         this.gradedComponentDetails.setTextFill(Color.WHITE);
-        this.gradedComponentDetails.setText(gradedComponent.toString());
+        this.gradedComponentDetails.setText(index + ". " + gradedComponent.toString());
     }
 
-    public static GradedComponentBox getGradedComponentsBox(GradedComponent gradedComponent) {
-        return new GradedComponentBox(gradedComponent);
+    public static GradedComponentBox getGradedComponentsBox(GradedComponent gradedComponent, int index) {
+        return new GradedComponentBox(gradedComponent, index);
     }
 }

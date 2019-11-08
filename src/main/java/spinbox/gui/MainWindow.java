@@ -411,8 +411,10 @@ public class MainWindow extends GridPane {
         modulesTabContainer.add(scrollPane, 1, 1, 1, 1);
 
         VBox gradesList = new VBox();
-        for (GradedComponent gradedComponent : gradedComponents) {
-            GradedComponentBox wrappedGradedComponent = GradedComponentBox.getGradedComponentsBox(gradedComponent);
+        for (int i = 0; i < gradedComponents.size(); i += 1) {
+            GradedComponent gradedComponent = gradedComponents.get(i);
+            GradedComponentBox wrappedGradedComponent = GradedComponentBox.getGradedComponentsBox(gradedComponent,
+                    (i + 1));
             gradesList.getChildren().add(wrappedGradedComponent);
         }
 
@@ -464,8 +466,9 @@ public class MainWindow extends GridPane {
 
         FileList fileList = currModule.getFiles();
         List<File> files = fileList.getList();
-        for (File file : files) {
-            FileBox wrappedFile = FileBox.getFileBox(file);
+        for (int i = 0; i < files.size(); i += 1) {
+            File file = files.get(i);
+            FileBox wrappedFile = FileBox.getFileBox(file, (i + 1));
             filesList.getChildren().add(wrappedFile);
         }
     }

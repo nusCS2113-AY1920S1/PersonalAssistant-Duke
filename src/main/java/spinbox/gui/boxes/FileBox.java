@@ -15,7 +15,7 @@ public class FileBox extends VBox {
     @FXML
     private Label fileDetails;
 
-    private FileBox(File file) {
+    private FileBox(File file, int index) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/itemBoxes/FileBox.fxml"));
             fxmlLoader.setController(this);
@@ -32,11 +32,10 @@ public class FileBox extends VBox {
         this.fileDetails.setStyle("-fx-font-weight: bold");
         this.fileDetails.setTextFill(Color.WHITE);
 
-
-        this.fileDetails.setText(file.toString());
+        this.fileDetails.setText(index + ". " + file.toString());
     }
 
-    public static FileBox getFileBox(File file) {
-        return new FileBox(file);
+    public static FileBox getFileBox(File file, int index) {
+        return new FileBox(file, index);
     }
 }
