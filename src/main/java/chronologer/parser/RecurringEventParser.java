@@ -51,11 +51,7 @@ public class RecurringEventParser extends EventParser {
             String dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
             String dayFromUser = dateTimeFromUser.split(" ", 2)[0].trim().toUpperCase();
             return LastDay.getDate(dayFromUser);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            logger.writeLog(e.toString(), this.getClass().getName(), userInput);
-            UiTemporary.printOutput(ChronologerException.emptyDateOrTime());
-            throw new ChronologerException(ChronologerException.emptyDateOrTime());
-        } catch (PatternSyntaxException e) {
+        } catch (ArrayIndexOutOfBoundsException | PatternSyntaxException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             UiTemporary.printOutput(ChronologerException.emptyDateOrTime());
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
@@ -68,11 +64,7 @@ public class RecurringEventParser extends EventParser {
             String startDate = date + timeFromUser.split("-")[0];
             String endDate = date + timeFromUser.split("-")[1];
             return startDate + "-" + endDate;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            logger.writeLog(e.toString(), this.getClass().getName(), userInput);
-            UiTemporary.printOutput(ChronologerException.emptyDateOrTime());
-            throw new ChronologerException(ChronologerException.emptyDateOrTime());
-        } catch (PatternSyntaxException e) {
+        } catch (ArrayIndexOutOfBoundsException | PatternSyntaxException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             UiTemporary.printOutput(ChronologerException.emptyDateOrTime());
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
