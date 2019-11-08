@@ -28,6 +28,12 @@ public class SetReminderCommand extends Command {
      */
     protected static int reminderSetupState;
 
+    public SetReminderCommand(int state, ArrayList<String> wordArrayList, String dateDetail) {
+        reminderWordList = wordArrayList;
+        reminderSetupState = state;
+        userResponse = dateDetail;
+    }
+
     /**
      * Updates the state count of the setup stage.
      * @param state the number representing the stage the setup is at
@@ -55,12 +61,12 @@ public class SetReminderCommand extends Command {
             case 1: //ask for a list of words
                 return ui.showReminderSetup(ASK_FOR_WORDS);
             case 2: //take in the words
-                reminderWordList.add(userResponse);
+                reminderWordList.add(userResponse.trim());
                 return ui.showReminderSetup(ASK_FOR_NEW_WORD);
             case 3: //ask for reminder date
                 return ui.showReminderSetup(ASK_FOR_REMINDER_DATE);
             case 4:
-                Date date = Parser.parseDate(userResponse);
+                Date date = Parser.parseDate(userResponse.trim());
                 new Reminder(date);
                 return ui.showReminderSummary(reminderWordList, date);
             default:
