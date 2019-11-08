@@ -18,17 +18,16 @@ import java.util.HashMap;
 public abstract class Command {
     public abstract String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws Exception;
 
-    public  ArrayList<String> checkEventConflict(TaskList taskList, Assignment t) throws ParseException {
+    public  ArrayList<String> checkEventConflict(TaskList taskList, Assignment taskToAdd) throws ParseException {
         ArrayList<String> conflict = new ArrayList<>();
-        Date startTime1 = new SimpleDateFormat("hh:mm a").parse(t.getStartTime());
-        Date endTime1 = new SimpleDateFormat("hh:mm a").parse(t.getEndTime());
+        Date startTime1 = new SimpleDateFormat("hh:mm a").parse(taskToAdd.getStartTime());
+        Date endTime1 = new SimpleDateFormat("hh:mm a").parse(taskToAdd.getEndTime());
         HashMap<String, HashMap<String, ArrayList<Assignment>>> mapObtained = taskList.getMap();
 
         for (String modCode : mapObtained.keySet()) {
             for (String date : mapObtained.get(modCode).keySet()) {
                 for (Assignment task : mapObtained.get(modCode).get(date)) {
-
-                    if (date.equals(t.getDate())) {
+                    if (date.equals(taskToAdd.getDate())) {
                         Date taskStartTime = new SimpleDateFormat("hh:mm a").parse(task.getStartTime());
                         Date taskEndTime = new SimpleDateFormat("hh:mm a").parse(task.getEndTime());
                         //start time is the same
