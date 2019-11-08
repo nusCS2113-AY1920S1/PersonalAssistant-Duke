@@ -37,12 +37,12 @@ public class ClearCommand extends ModuleCommand {
                     break;
                 }
 
-                 case ("data"): {
-                     profile.getModules().clear();
-                     profile.getCcas().clear();
-                     profile.clear();
-                 break;
-                 }
+                case ("data"): {
+                    profile.getModules().clear();
+                    profile.getCcas().clear();
+                    profile.clear();
+                    break;
+                }
 
                 default: {
                     break;

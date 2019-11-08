@@ -103,8 +103,8 @@ public class User {
                 plannerUi.println("That did not work, please try again");
                 ++counter;
                 if (counter > LOGIN_LIMITS) {
-                    boolean reset = plannerUi.confirm("You are entering wrong passwords too many times!" +
-                            "\nDo you want me to reset the password? (ALL user data will be wiped!)");
+                    boolean reset = plannerUi.confirm("You are entering wrong passwords too many times!"
+                            + "\nDo you want me to reset the password? (ALL user data will be wiped!)");
                     if (reset) {
                         User.reset(detailedMap, plannerUi, store, jsonWrapper, profile);
                         return true;

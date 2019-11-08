@@ -84,6 +84,20 @@ public class TaskWithMultipleWeeklyPeriod extends TaskWithMultiplePeriods<TimePe
         return this.getPeriod(index).getDayOfWeek();
     }
 
+    /**
+     * Get DayOfWeek object from String.
+     * @param dayOfWeek input dayOfWeek
+     * @return corresponding dayOfWeek object
+     * @throws ModInvalidTimeException if input dayOfWeek is invalid
+     */
+    public static DayOfWeek getDayOfWeek(String dayOfWeek) throws ModInvalidTimeException {
+        try {
+            return DayOfWeek.valueOf(dayOfWeek.toUpperCase());
+        } catch (IllegalArgumentException ex) {
+            throw new ModInvalidTimeException();
+        }
+    }
+
     //@@author e0313687
     public boolean happensOnThisDayOfWeek(DayOfWeek dayOfWeek) {
         return this.getDaysOfWeek().contains(dayOfWeek);
@@ -115,13 +129,5 @@ public class TaskWithMultipleWeeklyPeriod extends TaskWithMultiplePeriods<TimePe
     public String onWeekDayToString(DayOfWeek day) {
         List<TimePeriodWeekly> list = this.getTimePeriodOfTheDay(day);
         return list.toString();
-    }
-
-    public static DayOfWeek getDayOfWeek(String dayOfWeek) throws ModInvalidTimeException {
-        try {
-            return DayOfWeek.valueOf(dayOfWeek.toUpperCase());
-        } catch (IllegalArgumentException ex) {
-            throw new ModInvalidTimeException();
-        }
     }
 }

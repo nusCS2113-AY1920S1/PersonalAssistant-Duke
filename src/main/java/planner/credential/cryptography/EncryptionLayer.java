@@ -59,6 +59,13 @@ public class EncryptionLayer {
         this(encryptionAlgorithm, key, null);
     }
 
+    /**
+     * Constructor for EncryptionLayer.
+     * @param encryptionAlgorithm algorithm to use
+     * @param publicKey public key
+     * @param privateKey private key
+     * @param hashAlgorithm hash algorithm to use
+     */
     public EncryptionLayer(String encryptionAlgorithm, String publicKey, String privateKey, String hashAlgorithm) {
         this(encryptionAlgorithm,
                 CryptographyUtils.toKey(publicKey, encryptionAlgorithm),
@@ -70,6 +77,13 @@ public class EncryptionLayer {
         this(encryptionAlgorithm, key, key, hashAlgorithm);
     }
 
+    /**
+     * Constructor for EncryptionLayer.
+     * @param encryptionAlgorithm algorithm to use
+     * @param publicKey public key
+     * @param privateKey private key
+     * @param hashAlgorithm hash algorithm to use
+     */
     public EncryptionLayer(String encryptionAlgorithm, byte[] publicKey, byte[] privateKey, String hashAlgorithm) {
         this(encryptionAlgorithm,
                 CryptographyUtils.toKey(publicKey, encryptionAlgorithm),
