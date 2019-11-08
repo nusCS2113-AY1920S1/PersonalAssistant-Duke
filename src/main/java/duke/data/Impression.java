@@ -139,12 +139,39 @@ public class Impression extends DukeObject {
     }
 
     private void sortEvidences() {
-        evidences.sort(Comparator.comparing(Evidence::getPriority));
+        evidences.sort(((Comparator<Evidence>) (a1, a2) -> {
+            int a1Priority = a1.getPriority();
+            int a2Priority = a2.getPriority();
+            if (a1Priority != 0 && a2Priority != 0) {
+                if (a1Priority == a2Priority) {
+                    return 0;
+                }
+                return (a1Priority < a2Priority) ? -1 : 1;
+            } else if (a1Priority == 0 && a2Priority == 0) {
+                return 0;
+            } else {
+                return (a1Priority == 0) ? 1 : -1;
+            }
+        }
+            ));
     }
 
     private void sortTreatments() {
-        treatments.sort(Comparator.comparing(Treatment::getPriority)
-                        .thenComparing(Treatment::getStatusIdx));
+        treatments.sort(((Comparator<Treatment>) (a1, a2) -> {
+                    int a1Priority = a1.getPriority();
+                    int a2Priority = a2.getPriority();
+                    if (a1Priority != 0 && a2Priority != 0) {
+                        if (a1Priority == a2Priority) {
+                            return 0;
+                        }
+                        return (a1Priority < a2Priority) ? -1 : 1;
+                    } else if (a1Priority == 0 && a2Priority == 0) {
+                        return 0;
+                    } else {
+                        return (a1Priority == 0) ? 1 : -1;
+                    }
+                }
+            ).thenComparing(Treatment::getStatusIdx));
     }
 
     /**
