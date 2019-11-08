@@ -292,14 +292,101 @@ them as mentioned above.
 === Goals List
 ==== How is it implemented
 The goals list is an array list type that stores a list of goals to be achieved by the user for each individual event, particularly
-for Lesson and Practice type events. When the user first creates the event, the event is created without a goal list. Only
-when the user types in "goal add <event ID>" then a goal list is created for the specified event. The user can then manipulate
-the goal list by using "goal edit", "goal delete" or "goal view" commands.
+for Lesson and Practice type events. When the user first creates the event, the event is created with an empty goal list. Only
+when the user types in "goal add <event ID>" then the goal list will be updated with the particular goal. The user can then
+manipulate the goal list by using "goal edit", "goal delete" or "goal view" commands.
 
 ===== Adding a goal
-Step 1: When the command "goal add <event ID>" is entered, the goalsManagement() function will be called.
+Step 1: When the command "goal add <event ID>/<goal description>" is entered, the goalsManagement() method will be called.
 
-Step 2: The command will be split up into separate strings
+Step 2: The command description will be split up into separate strings. The string for event ID will be parsed into an
+integer type.
+
+Step 3: The method will check the string for the goal command description. In this case it will be "add" and execute the
+code for this case.
+
+Step 4: A new Goal class instance will be created with the goal description string. Its achieved status set as false.
+
+Step 5: The event corresponding to the ID entered along with its method addGoal() will be called to add the goal instance
+into the goal list.
+
+Step 6: The goalAdded() method of the UI class will be called to reflect the change to the user.
+
+==== Editing a goal
+Step 1: The user will enter the command "goal edit <event ID> <goal ID>/<new goal description>". The goalsManagement() method
+is called.
+
+Step 2: The command description will be split up into separate strings. The strings for event ID and goal ID will be parsed
+into an integer type.
+
+Step 3: The method will check the string for the goal command description. In this case it will be "edit" and execute the
+code for this case.
+
+Step 4: A new Goal class instance will be created for the new goal description.
+
+Step 5: The method editGoalList() of the event corresponding to the input ID will be called. The method will set the goal indicated
+as the new Goal instance.
+
+Step 6: The goalUpdated() method of the UI class will be called to reflect the change to the user.
+
+==== Deleting a goal
+Step 1: When the user enters the command "goal delete <event ID> <goal ID>", the goalsManagement() method will be called.
+
+Step 2: The command description will be split up into separate strings. The strings for event ID and goal ID will be parsed
+into an integer type.
+
+Step 3: The method will check the string for the goal command description. In this case it will be "delete" and execute the
+code for this case.
+
+Step 4: The corresponding event will have its removeGoal() method called which removes the indicated goal from the list.
+
+Step 5: The goalDeleted() method of the UI class will be called to reflect the change to the user.
+
+==== Setting the goal as achieved
+Step 1: When the command "goal achieved <event ID> <goal ID>" is given, the goalsManagement() method will be called.
+
+Step 2: The command description will be split up into separate strings. The strings for event ID and goal ID will be parsed
+into an integer type.
+
+Step 3: The method will check the string for the goal command description. In this case it will be "achieved" and execute the
+code for this case.
+
+Step 4: The method updateGoalAchieved() for the corresponding event will be called.
+
+Step 5: The goals list within the event is called with the indicated goal.
+
+Step 6: The indicated goal will then call its setAchieved() method that assigns the boolean isAchieved attribute of that
+particular goal to "true".
+
+Step 7: The goalSetAsAchieved() method of the UI class will be called to reflect the change to the user.
+
+==== Viewing the goal list
+Step 1: The user will enter the command "goal view <event ID>". The goalsManagement() method will be called.
+
+Step 2: Command description will be split and the string for event ID will be parsed into an integer type.
+
+Step 3: The printEventGoals() method will be called to check the contents of the goal list for the indicated event.
+
+Step 4: If the goals list is not empty, it will print out the contents of the list using a for loop. Otherwise it will
+print a message to the user to reflect that the goal list is empty.
+
+==== Why is it implemented this way
+The goal managing function is implemented as a separate list within an event in order to utilise the indexing of the list
+elements. This way, a particular goal for a particular event can be easily accessed and manipulated via the input of an
+integer.
+
+==== Alternatives considered
+An alternate method considered was to implement the goals list as a separate class of its own. Each goal within this list
+will then be mapped to their corresponding events. This implementation method would cause difficulties on the users' part
+in identifying the ID of a particular goal and would generally makes the goal list less organised.
+
+=== Past event management
+This functionality basically tracks which tasks in the list have already passed, and subsequently only displaying future
+tasks when the user uses the "list" command to view the list. This function is linked with the goals management function
+as it also detects unachieved goals in events that are already over.
+
+==== How is it implemented
+
 
 === Reminders
 

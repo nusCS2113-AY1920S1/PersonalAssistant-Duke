@@ -1,4 +1,3 @@
-import mistermusik.commons.Checklist;
 import mistermusik.commons.Contact;
 import mistermusik.commons.Goal;
 import mistermusik.commons.budgeting.Budgeting;
@@ -15,8 +14,6 @@ import mistermusik.commons.events.formatting.EventDate;
 import mistermusik.logic.ClashException;
 import mistermusik.logic.EndBeforeStartException;
 import mistermusik.logic.EventList;
-import mistermusik.commons.Goal;
-import mistermusik.commons.budgeting.CostExceedsBudgetException;
 import mistermusik.ui.CalendarView;
 import org.junit.jupiter.api.Test;
 
