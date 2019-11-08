@@ -1,5 +1,6 @@
 package diyeats.logic.parsers;
 
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.commands.ListCommand;
 
 import java.time.LocalDate;
@@ -17,10 +18,10 @@ public class ListCommandParser implements ParserInterface<ListCommand> {
      * @return <code>ListCommand</code>
      */
     @Override
-    public ListCommand parse(String userInputStr) {
+    public ListCommand parse(String userInputStr) throws ProgramException {
         HashMap<String, String> argumentInfoMap;
         LocalDate localDate = LocalDate.now();
-
+        String sortArgStr = "";
         if (userInputStr.isBlank()) {
             return new ListCommand();
         }
@@ -36,14 +37,12 @@ public class ListCommandParser implements ParserInterface<ListCommand> {
                 }
             }
             if (details.equals("sort")) {
-                String sortArgStr = argumentInfoMap.get(details).trim();
-                if (sortArgStr.equals("cost")) {
-                    return new ListCommand(localDate, sortArgStr);
-                } else if (sortArgStr.equals("calorie")) {
-                    return new ListCommand(localDate, sortArgStr);
+                sortArgStr = argumentInfoMap.get(details).trim();
+                if (!(sortArgStr.equals("cost") || sortArgStr.equals("calorie"))) {
+                    throw new ProgramException("The only valid sorting arguments are cost or calorie.");
                 }
             }
         }
-        return new ListCommand();
+        return new ListCommand(localDate, sortArgStr);
     }
 }
