@@ -470,7 +470,6 @@ public interface CommandParser {
     }
 
     //@@author yueyeah
-
     /**
      * Parses through the user input for /final-date token and return the final date of iteration of events/deadline.
      * The presence of the /final-date token must be checked first in the specialised
@@ -479,7 +478,6 @@ public interface CommandParser {
      * @param restOfInput String input of user after command word
      * @return Final date of iteration in the form of a String
      * @throws ParserException if final date is not entered after the /final-date token
-     * @author Yue Jun Yi, yueyeah
      */
     default String getTokenFinalDate(String restOfInput) throws ParserException {
         int startPoint = restOfInput.indexOf(TOKEN_FINAL_DATE);
@@ -504,7 +502,6 @@ public interface CommandParser {
     }
 
     //@@author SholihinK
-
     /**
      * check if file name to read/write is valid and if file-name tag exist.
      *
@@ -540,7 +537,6 @@ public interface CommandParser {
      */
 
     //@@author SholihinK
-
     /**
      * Checks if input date and time is after current date time.
      *
@@ -565,7 +561,6 @@ public interface CommandParser {
     }
 
     //@@author SholihinK
-
     /**
      * Check if the date input is of valid format.
      *
@@ -595,7 +590,6 @@ public interface CommandParser {
     }
 
     //@@author yueyeah
-
     /**
      * Check if the time input is of valid format.
      *
@@ -610,7 +604,6 @@ public interface CommandParser {
     }
 
     //@@author yueyeah
-
     /**
      * Check if the priority input is valid.
      *
