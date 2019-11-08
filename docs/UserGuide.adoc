@@ -218,10 +218,15 @@ Example: +
 
 Sorts out modules and/or ccas accordingly.
 
-==== Sorting and printing the CCAs : `sort ccas`
+==== Sorting and printing the CCAs : `sort ccas f`
 
 Sorts the cca list according to alphabetical order and prints the cca list. + 
-Format: `sort ccas` 
+Format: `sort ccas f` 
+
+==== Sorting and printing the CCAs : `sort ccas r`
+
+Sorts the cca list according to the reverse alphabetical order and prints the cca list. + 
+Format: `sort ccas r` 
 
 ==== Sorting and printing the CCAs and modules of a certain day of the week : `sort times`
 
