@@ -38,7 +38,7 @@ checkstyle {
 
 shadowJar {
     archiveBaseName = "FG"
-    archiveVersion = "v1.3.1"
+    archiveVersion = "v1.4-test"
     archiveClassifier = null
     archiveAppendix = null
     from('src/main/resoources'){
