@@ -85,10 +85,10 @@ public class OverviewCommand extends Command {
             result = processFileNames(collectionOfNames);
             sb.append(String.join("\n", result)).append("\n");
             sb.append(getEndingMessage());
+            return sb.toString();
         } catch (IOException e) {
             throw new CakeException(e.getMessage());
         }
-        return sb.toString();
     }
 
     /**

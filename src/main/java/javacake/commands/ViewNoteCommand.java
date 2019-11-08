@@ -5,13 +5,11 @@ import javacake.exceptions.CakeException;
 import javacake.storage.Storage;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
+import javacake.utilities.IFileUtilities;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 
-public class ViewNoteCommand extends Command {
+public class ViewNoteCommand extends Command implements IFileUtilities {
 
     private String fileName;
     private static String defaultFilePath = Storage.returnNotesDefaultFilePath();
@@ -67,7 +65,6 @@ public class ViewNoteCommand extends Command {
         }
     }
 
-
     /**
      * Checks if file specified by user is empty.
      * @param inputCommand View note command by user.
@@ -119,24 +116,11 @@ public class ViewNoteCommand extends Command {
     }
 
     /**
-     * Reads the file specified by the user.
-     * @return String of the content in the file specified by the user.
-     * @throws CakeException If file does not exist.
+     * Returns the full path to the note file to be viewed.
+     * @return Full path to the note file to be viewed.
      */
-    private String readFromFile() throws CakeException {
-        String currentFilePath = defaultFilePath + fileName + ".txt";
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(new File(currentFilePath)));
-            String line;
-            StringBuilder sb = new StringBuilder();
-            while ((line = br.readLine()) != null) {
-                sb.append(line).append("\n");
-            }
-            br.close();
-            return sb.toString();
-        } catch (IOException e) {
-            throw new CakeException(e.getMessage());
-        }
+    private String generateCurrentFilePath() {
+        return defaultFilePath + fileName + ".txt";
     }
 
     /**
@@ -150,6 +134,8 @@ public class ViewNoteCommand extends Command {
      */
     @Override
     public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
-        return readFromFile();
+        String filePath = generateCurrentFilePath();
+        return "Below is the file [" + fileName + "] that you want to view!\n"
+                + IFileUtilities.readFile(filePath);
     }
 }
