@@ -136,6 +136,21 @@ public class StorageManager {
     }
 
     /**
+     * Gets all receipts that have cash spent attribute more than or equal to user input.
+     * Used by CommandMajorExpense
+     * @param amount String that represents the user input
+     * @return ReceiptTracker containing all the major expense receipts
+     * @throws DukeException Error occurred when getting major expenses
+     */
+    public String getMajorExpense(String amount) throws DukeException {
+        try {
+            return this.wallet.getReceipts().getmajorExpense(amount).getPrintableReceipts();
+        } catch (Exception e) {
+            throw new DukeException("Unable to get major expenses");
+        }
+    }
+
+    /**
      * Deletes Task by Index in TaskList Object.
      * Used in CommandDelete.
      * @param index int of Task to be deleted

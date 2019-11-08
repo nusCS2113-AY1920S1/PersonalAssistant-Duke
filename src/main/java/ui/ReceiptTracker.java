@@ -92,6 +92,22 @@ public class ReceiptTracker extends ArrayList<Receipt> {
     }
 
     /**
+     * Find all the expenses more than or equal to the cash input.
+     * @param amount Specific String to be filtered with.
+     * @return ArrayList containing all the Receipts with all the major expenses
+     */
+    public ReceiptTracker getmajorExpense(String amount) {
+        int input = Integer.parseInt(amount);
+        ReceiptTracker expenseReceipts = new ReceiptTracker();
+        for (Receipt receipt : this) {
+            if (receipt.getCashSpent() >= input) {
+                expenseReceipts.addReceipt(receipt);
+            }
+        }
+        return expenseReceipts;
+    }
+
+    /**
      * Find all receipts that corresponds to the specific date.
      * @param date Specific String to be filtered with
      * @return ArrayList containing all the Receipts with the specific date
