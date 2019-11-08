@@ -38,9 +38,11 @@ import java.util.Stack;
  */
 public class Storage {
 
-    private static String FILE_PATH;
+    private static String REMINDER_FILE_PATH;
+    private static String DATA_FILE_PATH;
     private static String EXCEL_PATH;
     private File excelFile;
+
 
 
     /**
@@ -51,6 +53,7 @@ public class Storage {
         File currentDir = new File(System.getProperty("user.dir"));
         File filePath = new File(currentDir.toString() + "\\data");
         File dataText = new File(filePath, "wordup.txt");
+        File reminderText = new File(filePath, "reminder.txt");
         if (!filePath.exists()) {
             filePath.mkdir();
         }
@@ -61,7 +64,15 @@ public class Storage {
                 e.printStackTrace();
             }
         }
-        FILE_PATH = dataText.getAbsolutePath();
+        if (!reminderText.exists()) {
+            try {
+                reminderText.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        DATA_FILE_PATH = dataText.getAbsolutePath();
+        REMINDER_FILE_PATH = reminderText.getAbsolutePath();
     }
 
     /**
@@ -79,7 +90,7 @@ public class Storage {
      * @return a stack containing all input words ordered by SEQUENCE OF ENTRY
      */
     public Stack<Word> loadHistoryFromFile() {
-        File file = new File(FILE_PATH);
+        File file = new File(DATA_FILE_PATH);
         FileReader fr = null;
         BufferedReader br = null;
         try {
@@ -120,7 +131,7 @@ public class Storage {
      * @param append return true if the file can be appended
      */
     public void writeFile(String s, boolean append) {
-        File file = new File(FILE_PATH);
+        File file = new File(DATA_FILE_PATH);
         FileWriter fw = null;
         BufferedWriter bw = null;
         try {
@@ -146,7 +157,7 @@ public class Storage {
      * @param newString value of word after updated
      */
     public void updateFile(String oldString, String newString) {
-        File file = new File(FILE_PATH);
+        File file = new File(DATA_FILE_PATH);
         FileReader fr = null;
         BufferedReader br = null;
         try {
