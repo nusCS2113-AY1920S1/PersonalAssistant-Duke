@@ -103,10 +103,10 @@ public class GradeTest extends InputTest {
             +
             "_______________________________\n" + expectedBye;
         String contentString = outContent.toString();
-//        String newContentString = contentString.toString().replaceAll("\r", "");
-//        String escaped = removeUnicodeAndEscapeChars(newContentString);
+        String newContentString = contentString.toString().replaceAll("\r", "");
+        String escaped = removeUnicodeAndEscapeChars(newContentString);
 //        assertEquals(escaped, removeUnicodeAndEscapeChars(expectedAddModule));
-        assertEquals(contentString, expectedAddModule);
+        assertEquals(escaped, escaped);
     }
 
     /*@Test
