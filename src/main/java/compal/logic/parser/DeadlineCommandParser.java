@@ -3,6 +3,7 @@ package compal.logic.parser;
 import compal.commons.LogUtils;
 import compal.logic.command.Command;
 import compal.logic.command.DeadlineCommand;
+import compal.logic.command.exceptions.CommandException;
 import compal.logic.parser.exceptions.ParserException;
 import compal.model.tasks.Task;
 
@@ -19,6 +20,7 @@ public class DeadlineCommandParser implements CommandParser {
     private static final Logger logger = LogUtils.getLogger(DeadlineCommand.class);
     private static final ArrayList<String> key = new ArrayList<>(Arrays.asList(TOKEN_END_TIME,
             TOKEN_DATE, TOKEN_PRIORITY, TOKEN_FINAL_DATE, TOKEN_INTERVAL));
+
 
     @Override
     public Command parseCommand(String restOfInput) throws ParserException {

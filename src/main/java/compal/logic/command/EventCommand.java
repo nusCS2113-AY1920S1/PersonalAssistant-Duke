@@ -42,6 +42,7 @@ public class EventCommand extends Command {
         + "event cs2106as /date 01/01/2019 /start 0800 /end 1000 /priority high\n\t\t"
         + "add a task which last from 01/01/2019 8am to 10am with default priority high";
     private static final String MESSAGE_GREETING = "\nThe following tasks were added: \n";
+    private static final String underscoreErrorMsg = "Descriptions should not have underscores!";
     private static final String MESSAGE_REPEATED_EVENT = "\nLooks like you already added the task before! \n"
         + "Use the edit command on the task ID given below:";
     private static final int DEFAULT_DAY_INTERVAL = 1;
@@ -78,6 +79,9 @@ public class EventCommand extends Command {
 
     @Override
     public CommandResult commandExecute(TaskList taskList) throws CommandException {
+        if (description.contains("_")) {
+            throw new CommandException(underscoreErrorMsg);
+        }
         boolean isInOneDay = CompalUtils.isTimeInSequence(startTime, endTime);
         String finalList = "";
         Date finalDate = CompalUtils.stringToDate(finalDateString);
