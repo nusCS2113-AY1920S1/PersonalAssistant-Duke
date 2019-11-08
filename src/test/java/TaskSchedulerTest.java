@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 public class TaskSchedulerTest {
 
-    private static ArrayList<Task> list;
     private static TaskList tasks;
 
     private ByteArrayOutputStream outContent;
@@ -35,7 +34,7 @@ public class TaskSchedulerTest {
      */
     @BeforeAll
     public static void setup() {
-        list = new ArrayList<>();
+        ArrayList<Task> list = new ArrayList<>();
         tasks = new TaskList(list);
 
         Event firstEvent = new Event("first event", firstEventStartDate, firstEventEndDate);
@@ -90,7 +89,7 @@ public class TaskSchedulerTest {
 
     @Test
     public void testTaskSchedulerForNoFreeSlots() {
-        Long taskDuration = (long) 28;
+        Long taskDuration = (long) 29;
         TaskScheduler.scheduleByDeadline(tasks, taskDuration, secondDeadlineStartDate);
         String testOutput = outContent.toString();
         String expectedOutput = "There is no free slot to insert the task. Consider freeing up your schedule.\n";

@@ -3,6 +3,7 @@ package chronologer.command;
 import chronologer.exception.ChronologerException;
 import chronologer.storage.CalendarOutput;
 import chronologer.storage.Storage;
+import chronologer.task.Priority;
 import chronologer.task.Task;
 import chronologer.task.TaskList;
 import chronologer.ui.UiTemporary;
@@ -73,7 +74,7 @@ public class ExportCommand extends Command {
             extractEvent(taskList, calendar);
             extractTodoPeriod(taskList, calendar);
         }
-        CalendarOutput.outputCalendar(fileName, calendar);
+        CalendarOutput.outputCalendar(fileName.trim(), calendar);
     }
 
     private Calendar initializeCalendar() {
@@ -130,6 +131,7 @@ public class ExportCommand extends Command {
         VEvent deadline = new VEvent(currentDate, deadlineDate, title);
         createDescription(task, deadline);
         createLocation(task, deadline);
+        setPriority(task, deadline);
         UidGenerator generator = new RandomUidGenerator();
         deadline.getProperties().add(generator.generateUid());
         return deadline;
@@ -144,6 +146,7 @@ public class ExportCommand extends Command {
         VEvent event = new VEvent(startEventDate, endEventDate, title);
         createDescription(task, event);
         createLocation(task, event);
+        setPriority(task, event);
         UidGenerator generator = new RandomUidGenerator();
         event.getProperties().add(generator.generateUid());
         return event;
@@ -173,6 +176,16 @@ public class ExportCommand extends Command {
     private void createLocation(Task task, VEvent event) {
         if (task.getLocation() != null) {
             event.getProperties().add(new Location(task.getLocation()));
+        }
+    }
+
+    private void setPriority(Task task, VEvent event) {
+        if (task.getPriority() == Priority.HIGH) {
+            event.getProperties().add(net.fortuna.ical4j.model.property.Priority.HIGH);
+        } else if (task.getPriority() == Priority.MEDIUM) {
+            event.getProperties().add(net.fortuna.ical4j.model.property.Priority.MEDIUM);
+        } else {
+            event.getProperties().add(net.fortuna.ical4j.model.property.Priority.LOW);
         }
     }
 
