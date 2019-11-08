@@ -3,7 +3,6 @@ package dolla.command;
 import dolla.model.DollaData;
 import dolla.model.Record;
 import dolla.model.Shortcut;
-import dolla.exception.DollaException;
 import dolla.ui.Ui;
 
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ public class AddShortcutCommand extends Command {
     }
 
     @Override
-    public void execute(DollaData dollaData) throws DollaException {
+    public void execute(DollaData dollaData) {
         ArrayList<Record> recordList = dollaData.getRecordList(MODE_ENTRY);
         ArrayList<Record> shortcutList = dollaData.getRecordList(MODE_SHORTCUT);
         try {

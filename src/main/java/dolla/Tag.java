@@ -50,7 +50,7 @@ public class Tag {
     public void handleTag(Record record) {
         if (hasTag()) {
             extractTagName();
-            record.setTagName(tagName);
+            //record.setTagName(tagName);
         }
     }
 }

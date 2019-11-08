@@ -20,7 +20,7 @@ public class RemoveNameCommand extends Command {
     }
 
     @Override
-    public void execute(DollaData dollaData) throws DollaException {
+    public void execute(DollaData dollaData) {
         RecordList recordList;
         recordList = dollaData.getBillRecordList();
         int people = recordList.get().get(billNum - 1).getPeople();
