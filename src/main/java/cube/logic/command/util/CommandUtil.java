@@ -9,6 +9,8 @@ import cube.model.food.Food;
 import cube.model.food.FoodList;
 import cube.logic.command.exception.CommandException;
 import cube.logic.command.exception.CommandErrorMessage;
+import cube.model.promotion.PromotionList;
+
 import java.util.Date;
 import java.util.Calendar;
 
@@ -91,6 +93,19 @@ public class CommandUtil {
         cal.setTime(date);
         if (cal.before(Calendar.getInstance())) {
             throw new CommandException(CommandErrorMessage.INVALID_EXPIRY_DATE);
+        }
+    }
+
+    /**
+     * Checks that a given index is valid in the promotion list.
+     *
+     * @param list The promotion list.
+     * @param index The promotion index to check.
+     * @throws CommandException If the given index is invalid.
+     */
+    public static void requireValidIndexPromotion(PromotionList list, int index) throws CommandException {
+        if (index < 0 || index >= list.size()) {
+            throw new CommandException(CommandErrorMessage.INVALID_INDEX);
         }
     }
 }

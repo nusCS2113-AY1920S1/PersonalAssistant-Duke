@@ -62,7 +62,13 @@ public class Parser {
 			case "help":
 				return new HelpCommand();
 			case "promotion":
-				return new PromotionCommandParser().parse(inputs);
+				if (inputs[1] == "-list") {
+					return new ListPromotionCommand();
+				} else if (inputs[1] == "-delete") {
+					return new DeletePromotionCommandParser().parse(inputs);
+				} else {
+					return new PromotionCommandParser().parse(inputs);
+				}
 			case "reminder":
 				return new ReminderCommandParser().parse(inputs);
 			case "revenue" :

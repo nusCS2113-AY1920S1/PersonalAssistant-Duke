@@ -1,7 +1,7 @@
 /**
  * The command adds a new reminder to the reminder list.
  *
- * @author parvathi14
+ * @@author parvathi14
  */
 package cube.logic.command;
 
@@ -20,12 +20,23 @@ public class ReminderCommand extends Command{
     int daysToExpiry;
     int stockIndex;
 
+    /**
+     * Constructor for setting a new reminder.
+     * @param daysToExpiry Number of days to expiry date.
+     * @param stockIndex Value for low stock.
+     */
+
     public ReminderCommand(int daysToExpiry, int stockIndex) {
         this.daysToExpiry = daysToExpiry;
         this.stockIndex = stockIndex;
     }
 
     private String MESSAGE_SUCCESS = "";
+
+    /**
+     * Creates the list of reminders based on items nearing its expiry date.
+     * @param list The list of expiry date reminders.
+     */
 
     private void buildExpiryReminder(FoodList list) {
         MESSAGE_SUCCESS += "Here are the upcoming expiry dates:\n";
@@ -36,6 +47,11 @@ public class ReminderCommand extends Command{
         MESSAGE_SUCCESS += "\n";
     }
 
+    /**
+     * Creates the list of reminders based on items that are low in stock.
+     * @param list The list of low stock reminders.
+     */
+
     private void buildStockReminder(FoodList list) {
         MESSAGE_SUCCESS += "Here are the food products that are low in stock:\n";
         for(int i = 0; i < list.size(); i++) {
@@ -45,11 +61,13 @@ public class ReminderCommand extends Command{
     }
 
     /**
-     * Shows the list of food products that are low on stock (less than quantity of 5)
-     * or approaching/nearing its expiry date (by a week or lesser).
+     * Shows the list of food products that are low on stock (Default: less than quantity of 5)
+     * or approaching/nearing its expiry date (Default: by a week or lesser).
      *
-     * @param list the list of food products
+     * @param model
      * @param storage storage of Cube
+     * @return Message feedback to user
+     * @throws CommandException
      */
 
     @Override
