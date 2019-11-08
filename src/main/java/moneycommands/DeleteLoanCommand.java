@@ -6,7 +6,6 @@ import controlpanel.Ui;
 import money.Account;
 import money.Item;
 import money.Loan;
-import moneycommands.MoneyCommand;
 
 /**
  * This command deletes a loan from the Loans List according to index.
@@ -25,7 +24,8 @@ public class DeleteLoanCommand extends MoneyCommand {
     public DeleteLoanCommand(String command) throws DukeException {
         try {
             inputString = command;
-            String temp = inputString.replaceAll("[^0-9]", "");
+            String temp = inputString.replaceFirst("delete loan ", "");
+            temp = temp.replaceAll(" ", "");
             serialNo = Integer.parseInt(temp);
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter a numerical number as the index of the loan to be deleted\n");
@@ -50,7 +50,7 @@ public class DeleteLoanCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException {
-        if (serialNo > account.getLoans().size()) {
+        if (serialNo > account.getLoans().size() || serialNo <= 0) {
             throw new DukeException("The serial number of the loan is Out Of Bounds!");
         }
         Loan deletedEntryLoan = account.getLoans().get(serialNo - 1);
@@ -68,7 +68,7 @@ public class DeleteLoanCommand extends MoneyCommand {
     //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         Item deletedEntry = storage.getDeletedEntry();
-        if (deletedEntry instanceof Loan){
+        if (deletedEntry instanceof Loan) {
             account.getLoans().add(serialNo - 1, (Loan)deletedEntry);
             storage.writeToFile(account);
             ui.appendToOutput(" Last command undone: \n");

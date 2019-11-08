@@ -53,8 +53,5 @@ paid 200 /to mah parents
 received 300 /from mah bros
 spent ice-cream /amt 3 /cat food /on 10/12/2040
 start (only works if is a new user)
-split Mala /amt 48 /cat food /on lstwk /with Max and Nic and Daniel
-settle 10 1
-settle 10 Nic
 Shortcuts for all add commands: now, tmr, ytd, lstwk, nxtwk, lstmth, nxtmth, lstyr, nxtyr
 withdraw 10 DBS /at 5/5/2020

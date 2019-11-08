@@ -37,7 +37,7 @@ public class AddInstalmentTest {
 
     @Test
     public void testAddInstalmentCommand() throws ParseException, DukeException {
-        String testInput = "add instalment mortgage /amt 100000 /within 200 months /from 12/12/2010 @6%";
+        String testInput = "add instalment mortgage /amt 100000 /within 200 months /from 12/12/2010 /percentage 6";
         MoneyCommand addInstalmentCommand =  new AddInstalmentCommand(testInput);
 
         assertEquals(false, addInstalmentCommand.isExit());
@@ -66,9 +66,9 @@ public class AddInstalmentTest {
 
     @Test
     public void testAddInvalidNumbers()throws ParseException, DukeException {
-        String testInvalidAmount = "add instalment mortgage /amt 100gse2 /within 200 months /from 12/12/2010 @6%";
-        String testInvalidNoOfMonths = "add instalment mortgage /amt 100000 /within 2e0 months /from 12/12/2010 @6%";
-        String testInvalidInterestRate = "add instalment mortgage /amt 100000 /within 200 months /from 12/12/2010 @f%";
+        String testInvalidAmount = "add instalment mortgage /amt 100gse2 /within 200 months /from 12/12/2010 /percentage 6";
+        String testInvalidNoOfMonths = "add instalment mortgage /amt 100000 /within 2e0 months /from 12/12/2010 /percentage 6";
+        String testInvalidInterestRate = "add instalment mortgage /amt 100000 /within 200 months /from 12/12/2010 /percentage f";
         MoneyCommand addInstalmentCommand1 =  new AddInstalmentCommand(testInvalidAmount);
         MoneyCommand addInstalmentCommand2 =  new AddInstalmentCommand(testInvalidNoOfMonths);
         MoneyCommand addInstalmentCommand3 =  new AddInstalmentCommand(testInvalidInterestRate);
@@ -92,7 +92,7 @@ public class AddInstalmentTest {
 
     @Test
     public void testInvalidDate()throws ParseException, DukeException {
-        String testInput = "add instalment mortgage /amt 100000 /within 200 months /from 12/12201 @6%\n";
+        String testInput = "add instalment mortgage /amt 100000 /within 200 months /from 12/12201 /percentage 6\n";
         MoneyCommand addInstalmentCommand =  new AddInstalmentCommand(testInput);
         ui.clearOutputString();
 

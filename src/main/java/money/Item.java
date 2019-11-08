@@ -1,8 +1,12 @@
 package money;
 
+import java.text.DecimalFormat;
+
 public class Item {
     private float price;
     private String description;
+
+    private DecimalFormat decimalFormat = new DecimalFormat("#.00");
 
     //@@author chengweixuan
     public Item(float price, String description) {
@@ -14,12 +18,16 @@ public class Item {
         return this.price;
     }
 
+    public String getPriceStr() {
+        return decimalFormat.format(price);
+    }
+
     public String getDescription() {
         return this.description;
     }
 
     public String toString() {
-        return "$" + price + " " + description;
+        return "$" + getPriceStr() + " " + description;
     }
 
 }

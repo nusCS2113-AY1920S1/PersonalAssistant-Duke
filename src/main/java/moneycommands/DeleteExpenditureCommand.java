@@ -24,8 +24,9 @@ public class DeleteExpenditureCommand extends MoneyCommand {
     public DeleteExpenditureCommand(String command) throws DukeException {
         try {
             inputString = command;
-            String temp = inputString.replaceAll("[^0-9]", "");
-            serialNo = Integer.parseInt(temp);
+            String tempStr = inputString.replaceFirst("delete expenditure ", "");
+            String tempStr1 = tempStr.replaceAll(" ", "");
+            serialNo = Integer.parseInt(tempStr1);
         } catch (NumberFormatException e) {
             throw new DukeException("Please enter a numerical number as the index of the expenditure to be deleted\n");
         }
@@ -47,14 +48,14 @@ public class DeleteExpenditureCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException {
-        if (serialNo > account.getExpListTotal().size()) {
+        if (serialNo > account.getExpListTotal().size() || serialNo <= 0) {
             throw new DukeException("The serial number of the expenditure is Out Of Bounds!");
         }
         Expenditure deletedEntryExp = account.getExpListTotal().get(serialNo - 1);
         ui.appendToOutput(" Noted. I've removed this expenditure:\n");
         ui.appendToOutput("  " + deletedEntryExp.toString() + "\n");
-        ui.appendToOutput(" Now you have " + (account.getExpListTotal().size() - 1) +
-                " expenses in the list.\n");
+        ui.appendToOutput(" Now you have " + (account.getExpListTotal().size() - 1)
+                + " expenses in the list.\n");
 
         account.getExpListTotal().remove(serialNo - 1);
         storage.addDeletedEntry(deletedEntryExp);

@@ -31,7 +31,7 @@ public class GraphSelector implements DataTransfer {
             String dateString = input.split(" /until ")[1];
             return  DataTransfer.getCurrFinance(account, Parser.shortcutTime(dateString));
         } else {
-            throw new DukeException("Check the commands! The input is not valid.");
+            return null;
         }
     }
 }

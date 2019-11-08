@@ -50,14 +50,12 @@ public class AddIncomeCommand extends MoneyCommand {
         try {
             String[] splitStr = inputString.split("/amt ", 2);
             description = splitStr[0];
-            String[] furSplit = splitStr[1].split("/payday ", 2);
+            String[] furSplit = splitStr[1].split("/on ", 2);
             salary = Float.parseFloat(furSplit[0]);
             payDay = Parser.shortcutTime(furSplit[1]);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("Please enter in the format: " +
-                    "add income <description> /amt <amount> /on <date>\n");
-        } catch (NumberFormatException e) {
-            throw new DukeException("Please enter the amount in numbers!\n");
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            throw new DukeException("Please enter in the format: "
+                    + "add income <description> /amt <amount> /on <date>\n");
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid date! Please enter date in the format: d/m/yyyy\n");
         }

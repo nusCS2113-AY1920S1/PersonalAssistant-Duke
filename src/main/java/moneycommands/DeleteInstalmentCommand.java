@@ -22,9 +22,15 @@ public class DeleteInstalmentCommand extends MoneyCommand {
      * with the index of the item to be deleted within the user input
      * @param command delete command inputted from user
      */
-    public DeleteInstalmentCommand(String command) {
-        inputString = command;
-        serialNo = Integer.parseInt(inputString.replaceAll("[^0-9]", ""));
+    public DeleteInstalmentCommand(String command) throws DukeException {
+        try {
+            inputString = command;
+            String temp = inputString.replaceAll("delete instalment ", "");
+            serialNo = Integer.parseInt(temp);
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter a numerical number as the index of the instalment to be deleted\n");
+
+        }
     }
 
     @Override
@@ -43,13 +49,14 @@ public class DeleteInstalmentCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
-        if (serialNo > account.getInstalments().size()) {
+        if (serialNo > account.getInstalments().size() || serialNo <= 0) {
             throw new DukeException("The serial number of the Instalments is Out Of Bounds!");
         }
         Instalment deletedEntryIns = account.getInstalments().get(serialNo - 1);
         ui.appendToOutput(" Noted. I've removed this Instalment:\n");
         ui.appendToOutput("  " + deletedEntryIns.toString() + "\n");
-        ui.appendToOutput(" Now you have " + (account.getInstalments().size() - 1) + " instalments in the list.\n");
+        ui.appendToOutput(" Now you have " + (account.getInstalments().size() - 1)
+                + " instalments in the list.\n");
 
         account.getInstalments().remove(serialNo - 1);
         storage.addDeletedEntry(deletedEntryIns);

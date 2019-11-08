@@ -1,6 +1,5 @@
 import controlpanel.DukeException;
 import help.AutoComplete;
-import guicommand.UserIcon;
 import help.History;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -39,38 +38,11 @@ public class MainWindow extends AnchorPane {
     private Duke duke;
     //private UserIcon userIcon;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));;
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     private History previousFunctions = new History();
 
-    private String display =
-            " _______      __     __     _         _        __      _    _____    __       _           _\n" +
-            "|   _____/    |  |   |   \\   |  |       /_\\      |  \\   |  |  |  ___|   |  |      /_\\        |  |    \n" +
-            "|  |____      |  |   |     \\|   |      /|  |\\     |    \\|  |   | |        |  |     /|  |\\       |  |\n" +
-            "|   ____/     |  |    |  \\  \\   |    /  |_|  \\   |  \\  \\  |   | |        |  |    /  |_|  \\    |  |\n" +
-            "|  |            |  |    |  | \\    |   |  |   |   |  |  | \\  |    | |__    |  |    | |    |  |    |  |___\n" +
-            "|_|             |_|    |_|   \\_|    |_|    |_|  |_|  \\_|    |____|  |_|    |_|    |_|    |____|\n" +
-            " ______    _        _    ______      _____     _______\n" +
-            "|   ____|   | |    | |   |  ___  |    |  ___|    |__    __|                 .-\"\"\"\"-.\n" +
-            "|  |   __    | |__|  |   | |    | |    | |___          | |                      / -   -  \\\n" +
-            "|  |  |_ |   |  __    |  | |     | |    |___  |        | |                      |  .-. .- |\n" +
-            "|  |__| |   |  |   |  |  | |___|  |    ___|  |        | |                     |  \\o| |o(\n" +
-            "|_____|    |_|   |_|   |______|    |____|        |_|                    \\     ^    \\\n" +
-            "                                                                                     |'.  )--'  /|\n" +
-            "             .-.                                                                   / / '-. .-'`\\ \\   \n" +
-            "           .'   `.                                                                / /'---` `---'\\ \\\n" +
-            "           :g g   :                                                               '.__.       .__.'\n" +
-            "           : o    `.                                                                   `|     |`\n" +
-            "           :         ``.                                                                |     \\\n" +
-            "           :             `.                                                             \\      '--.\n" +
-            "          :  :         .   `.                                                             '.        `\\\n" +
-            "          :   :          ` . `.                                                             '---.    |\n" +
-            "           `.. :            `. ``;                                                             ,__) /\n" +
-            "             `:;             `:'                                                                `..'\n" +
-            "               :              `.               \n" +
-            "                `.              `.....        \n" +
-            "                  `'`'`'`---..,___`;.-'         \n";
 
     /**
      * Initialises scroll bar and outputs Duke Welcome message on startup of GUI.
@@ -81,8 +53,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         scrollPane2.vvalueProperty().bind(graphContainer.heightProperty());
 
-//        userIcon = new UserIcon();
-//        userImage = userIcon.getIcon();
+        //userIcon = new UserIcon();
+        //userImage = userIcon.getIcon();
 
         Platform.runLater(new Runnable() {
             @Override
@@ -92,15 +64,20 @@ public class MainWindow extends AnchorPane {
         });
     }
 
+    /**
+     * This connects the respective containers with CLI duke.
+     * @param d the CLI duke
+     */
     public void setDuke(Duke d) {
         duke = d;
+        String logo = duke.getUi().getLogo();
         boolean isNewUser = duke.getAccount().isToInitialize();
         if (isNewUser) {
             dialogContainer.getChildren().addAll(
                     DialogBox.getDukeDialog("enter start to begin", dukeImage));
         } else {
             dialogContainer.getChildren().addAll(
-                    DialogBox.getDukeDialog(display, dukeImage));
+                    DialogBox.getDukeDialog(logo, dukeImage));
         }
     }
 
@@ -114,15 +91,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         graphContainer.getChildren().clear();
         if (input.equals("change icon")) {
-//            userIcon.changeIcon();
-//            userImage = userIcon.getIcon();
-        }
-
-        if (input.startsWith("graph")) {
-            GraphSelector graphSelector = new GraphSelector();
-            graphContainer.getChildren().addAll(
-                graphSelector.getTheGraph(input, duke.getAccount())
-            );
+        //userIcon.changeIcon();
+        //userImage = userIcon.getIcon();
         }
 
         String[] response = duke.getResponse(input);
@@ -130,6 +100,15 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response[0], dukeImage)
         );
+
+        if (input.startsWith("graph")) {
+            GraphSelector graphSelector = new GraphSelector();
+            graphContainer.getChildren().addAll(
+                    graphSelector.getTheGraph(input, duke.getAccount())
+            );
+            userInput.clear();
+        }
+
         if (!response[1].equals("")) {
             graphContainer.getChildren().clear();
             graphContainer.getChildren().addAll(
@@ -175,8 +154,8 @@ public class MainWindow extends AnchorPane {
             }
             return suggestedCommands;
         });
-        suggestions.setVisibleRowCount(3);
-        suggestions.setPrefWidth(200);
+        suggestions.setVisibleRowCount(4);
+        suggestions.setPrefWidth(700);
     }
 
     /**

@@ -1,6 +1,8 @@
 package moneycommands;
 
-import controlpanel.*;
+import controlpanel.DukeException;
+import controlpanel.MoneyStorage;
+import controlpanel.Ui;
 import money.Account;
 
 public class ExitMoneyCommand extends MoneyCommand {

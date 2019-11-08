@@ -25,10 +25,12 @@ public class DeleteIncomeCommand extends MoneyCommand {
     public DeleteIncomeCommand(String command) throws DukeException {
         try {
             inputString = command;
-            String temp = inputString.replaceAll("[^0-9]", "");
-            serialNo = Integer.parseInt(temp);
+            String temp = inputString.replaceFirst("delete income ", "");
+            String tempStr = temp.replaceAll(" ", "");
+            serialNo = Integer.parseInt(tempStr);
         } catch (NumberFormatException e) {
-            throw new DukeException("Please enter a numerical number as the index of the income source to be deleted\n");
+            throw new DukeException("Please enter a numerical number as "
+                    + "the index of the income source to be deleted\n");
         }
     }
 
@@ -48,7 +50,7 @@ public class DeleteIncomeCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException {
-        if (serialNo > account.getIncomeListTotal().size()) {
+        if (serialNo > account.getIncomeListTotal().size() || serialNo <= 0) {
             throw new DukeException("The serial number of the income is Out Of Bounds!");
         }
         Income deletedEntryInc = account.getIncomeListTotal().get(serialNo - 1);
@@ -57,7 +59,6 @@ public class DeleteIncomeCommand extends MoneyCommand {
         ui.appendToOutput(" Now you have " + (account.getIncomeListTotal().size() - 1));
         ui.appendToOutput(" income sources in the list.\n");
 
-        //storage.markDeletedEntry("INC", serialNo);
         account.getIncomeListTotal().remove(serialNo - 1);
         storage.addDeletedEntry(deletedEntryInc);
         storage.writeToFile(account);
@@ -72,7 +73,8 @@ public class DeleteIncomeCommand extends MoneyCommand {
             storage.writeToFile(account);
             ui.appendToOutput(" Last command undone: \n");
             ui.appendToOutput(account.getIncomeListTotal().get(serialNo - 1).toString() + "\n");
-            ui.appendToOutput(" Now you have " + account.getIncomeListTotal().size() + " income sources listed\n");
+            ui.appendToOutput(" Now you have " + account.getIncomeListTotal().size()
+                    + " income sources listed\n");
         } else {
             throw new DukeException("Wah u messed up at income\n");
         }

@@ -25,8 +25,10 @@ public class GraphCommand extends MoneyCommand {
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
         if (cmd.equals("change icon")) {
             ui.appendToOutput("Done.\n");
-        } else {
+        } else if (cmd.startsWith("graph monthly report ") || cmd.startsWith("graph income trend ") || cmd.startsWith("graph expenditure trend ") || cmd.startsWith("graph finance status /until ")){
             ui.appendToOutput("Got it, graph will be printed in the other pane!\n");
+        } else {
+            throw new DukeException("Check your command. This input graph command is invalid.");
         }
     }
 

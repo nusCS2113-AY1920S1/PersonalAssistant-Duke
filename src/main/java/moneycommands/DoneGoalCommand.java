@@ -39,7 +39,7 @@ public class DoneGoalCommand extends MoneyCommand {
     public void execute(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
 
     try{
-        String temp = inputString.replaceAll("[^0-9]", "");
+        String temp = inputString.replaceAll("[^-?0-9]", "");
         indexNo = Integer.parseInt(temp);
     }catch(NumberFormatException e){
         throw new DukeException("Please enter in the format: " +
@@ -88,7 +88,7 @@ public class DoneGoalCommand extends MoneyCommand {
             ui.appendToOutput(" Last command undone: \n");
             ui.appendToOutput(account.getShortTermGoals().get(indexNo - 1).toString() + " added to goals\n");
             ui.appendToOutput(" Now you have " + account.getShortTermGoals().size() + " goals listed\nand " +
-                    account.getExpListTotal().size() + "expenses listed\n");
+                    account.getExpListTotal().size() + " expenses listed\n");
         } else {
             throw new DukeException("Messed up (DoneGoal)");
         }

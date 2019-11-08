@@ -2,6 +2,7 @@ package money;
 
 import controlpanel.Parser;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -21,6 +22,8 @@ public class Loan extends Item {
     Type type;
 
     private DateTimeFormatter dateTimeFormatter;
+    private DecimalFormat decimalFormat = new DecimalFormat("#.00");
+
 
     //@@author chengweixuan
     /**
@@ -42,7 +45,7 @@ public class Loan extends Item {
     }
 
     /**
-     * This method returns a String with the information of the loan.
+     * Method returns a String with the information of the loan.
      * String contains the type of loan, whether the loan is settled or outstanding,
      * and the endDate if the loan is settled, or the outstanding amount if the loan is outstanding.
      * @return String containing information of the loan
@@ -58,22 +61,18 @@ public class Loan extends Item {
             typeStr = null;
         }
         String status = isSettled ? "[Settled]" : "[Outstanding]";
-        return status + typeStr + " " + super.getDescription() + "(loan: $" + super.getPrice() + ") (Lent On: "
+        return status + typeStr + " " + super.getDescription() + "(loan: $" + super.getPriceStr() + ") (Lent On: "
                 + getStartDate() + ")" + getEndDateString();
-    }
-
-    public LocalDate getDateStartDate() {
-        return startDate;
-    }
-
-    public LocalDate getDateEndDate() {
-        return endDate;
     }
 
     public boolean getStatus() {
         return isSettled;
     }
 
+    /**
+     * Returns the status of the Loan as either 1 or 0.
+     * @return Integer 1 or 0
+     */
     public int getStatusInt() {
         if (isSettled) {
             return 1;
@@ -108,6 +107,11 @@ public class Loan extends Item {
         return startDate.format(dateTimeFormatter);
     }
 
+    /**
+     * Returns the formatted endDate if the loan has been settled. Returns an
+     * empty String if otherwise.
+     * @return String representing the endDate of the Loan
+     */
     public String getEndDate() {
         if (endDate == null) {
             return "";
@@ -123,7 +127,7 @@ public class Loan extends Item {
      */
     private String getEndDateString() {
         if (endDate == null) {
-            return " Outstanding Amount: $" + outstandingLoan;
+            return " Outstanding Amount: $" + decimalFormat.format(outstandingLoan);
         } else {
             return " (Paid Back On: " + getEndDate() + ")";
 
