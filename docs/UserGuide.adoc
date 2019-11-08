@@ -25,7 +25,6 @@ allowing the students to focus more on the important aspects of their education.
 
 == Quick Start
 
-. Friendly notice: currently the writing to file is not fully completed, please ignore the error message.
 . Ensure you have Java `11` or above installed in your computer
 . Download the latest `mistermusik.jar`
 . Copy the file to the folder you want to use as the home folder for your MisterMusik
@@ -104,7 +103,7 @@ The input format is as per normal with an extra recurring period input.
 This only works with lesson and practice type events. Concerts, exams and
 recitals cannot be entered as recurring events.
 
-Format: `<lesson|practice> <event description> /dd-MM-yyyy HHmm HHmm /<period(in days)>` +
+Format: `lesson|practice <event description> /dd-MM-yyyy HHmm HHmm /<period(in days)>` +
 Note: The number of days must be an integer.
 
 E.g. “lesson Theory class /18-09-2019 0900 1030 /7”
@@ -139,7 +138,7 @@ as events.
 Format: `check`
 
 
-=== Marking a task as done : `done`
+=== Marking a todo as done : `done`
 
 Marks a ToDo in the list as completed, denoted by a tick when displaying the task.
 This functionality does not work for events that are not ToDos. +
@@ -171,19 +170,22 @@ The user is able to add, delete, view, and edit contacts information of an event
 A contact includes name, email address, and phone number.
 
 ==== Add contact item
-Format: `contact add <event index> /<name>, [<email>], [<phone number>]` +
+Format: `contact add <event index> /<name>, [<email>], [<phone number>]` This adds a contact to a specific event. +
 Users can type kbd:[Space] instead of `<name>` or `<email>` or `<phone number>` if the user do not want to write in one
 or two type of information. (e.g. `contact add 1 /name, ,12345678` adds a contact set without email address to the
 first event)
 
 ==== Delete contact item
 Format: `contact delete <event index> <contact index>`
+This deletes a specified contact.
 
 ==== View contact
 Format: `contact view <event index>`
+This displays the contacts list of a specified event.
 
 ==== Edit contact item
-Format: `contact edit <event index> <contact index> <edit type> /<new contact information>` +
+Format: `contact edit <event index> <contact index> <edit type> /<new contact information>` This edits an existing
+contact. +
 The edit types are name, email, and phone.
 
 === Goals list : `goal`
@@ -218,11 +220,11 @@ Checklist implementation contains 4 operations:
 
 ==== add checklist item
 `checklist add <event index>/<checklist item>`
-This adds an item into a specific event's checklist.
+This adds an item to a specific event's checklist.
 
 ==== view checklist
 `checklist view <event index>`
-This prints on the screen the checklist of an event.
+This displays the checklist of a specified event.
 
 ==== edit checklist item
 `checklist edit <event index> <item index>/<new item>`
@@ -300,7 +302,7 @@ entering a new concert that costs more than a dollar would causes the system to 
 operation as it would lead to monthly costs of $51 that exceeds the monthly budget of $50.
 
 The user also has the ability to change the stipulated budget for each month or universally if
-he/she wishes to (Coming in v1.4).
+he/she wishes to.
 
 === Reminder for specific task types : `[coming v2.0]`
 
