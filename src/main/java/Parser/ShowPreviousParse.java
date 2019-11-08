@@ -50,7 +50,7 @@ public class ShowPreviousParse extends Parse{
                 DukeConstants.DONE_EVENT_HEADER, DukeConstants.DONE_DEADLINE_HEADER, DukeConstants.FIND_TIME_HEADER,
                 DukeConstants.SHOW_PREVIOUS_HEADER, DukeConstants.RETRIEVE_PREVIOUS_HEADER,
                 DukeConstants.RETRIEVE_TIME_HEADER, DukeConstants.SHOW_WORKLOAD_HEADER, DukeConstants.BYE_HEADER,};
-      
+
         boolean isValid = false;
         if (isNumber && number < 0) {
             throw new DukeInvalidFormatException("Invalid Input. Cannot enter negative number. Please enter a valid integer greater than 0");
