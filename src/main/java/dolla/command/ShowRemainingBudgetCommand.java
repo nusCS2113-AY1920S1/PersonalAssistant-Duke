@@ -28,6 +28,11 @@ public class ShowRemainingBudgetCommand extends Command implements ParserStringL
     private LocalDate startOfMonth = month.atDay(one);
     private LocalDate endOfMonth = month.atEndOfMonth();
 
+    private RecordList entryList;
+    private RecordList limitList;
+    private double budget;
+    private double expenses;
+
     /**
      * Instantiates a new ShowRemainingBudgetCommand.
      * @param duration Duration of the budget to show.
@@ -39,22 +44,22 @@ public class ShowRemainingBudgetCommand extends Command implements ParserStringL
 
     @Override
     public void execute(DollaData dollaData) {
-        RecordList entryList = dollaData.getRecordListObj(MODE_ENTRY);
-        RecordList limitList = dollaData.getRecordListObj(MODE_LIMIT);
-        double budget = getBudget(limitList);
         try {
+            entryList = dollaData.getRecordListObj(MODE_ENTRY);
+            limitList = dollaData.getRecordListObj(MODE_LIMIT);
+            findBudget();
             if (budget == 0) {
                 throw new DollaException(getCommandInfo());
             } else {
-                double expenses = getTotalExpenses(entryList);
-                processRemainingBudget(budget, expenses);
+                findTotalExpenses();
+                processRemainingBudget();
             }
         } catch (DollaException e) {
             DollaException.noExistingBudget(duration);
         }
     }
 
-    private void processRemainingBudget(double budget, double expenses) {
+    private void processRemainingBudget() {
         double remainingBudget = budget - expenses;
         if (remainingBudget == 0) {
             LimitUi.reachedBudgetPrinter(duration);
@@ -66,33 +71,33 @@ public class ShowRemainingBudgetCommand extends Command implements ParserStringL
         }
     }
 
-    private double getBudget(RecordList limitList) {
+    private void findBudget() {
         for (int i = 0; i < limitList.size(); i++) {
             Record limit = limitList.getFromList(i);
             String limitType = limit.getType();
             String limitDuration = limit.getDuration();
             if (budgetIsFound(limitType, limitDuration)) {
-                return limit.getAmount();
+                budget = limit.getAmount();
+                break;
             }
         }
-        return 0;
     }
 
     private Boolean budgetIsFound(String limitType, String limitDuration) {
         return (limitType.equals(LIMIT_TYPE_B) && limitDuration.equals(duration));
     }
 
-    private double getTotalExpenses(RecordList entryList) {
+    private void findTotalExpenses() {
         if (duration.equals(LIMIT_DURATION_D)) {
-            return getDailyExpense(entryList);
+            expenses = getDailyExpense();
         } else if (duration.equals(LIMIT_DURATION_W)) {
-            return getWeeklyExpense(entryList);
+            expenses = getWeeklyExpense();
         } else {
-            return getMonthlyExpense(entryList);
+            expenses = getMonthlyExpense();
         }
     }
 
-    private double getDailyExpense(RecordList entryList) {
+    private double getDailyExpense() {
         double expenses = 0;
         for (int i = 0; i < entryList.size(); i++) {
             Record entry = entryList.getFromList(i);
@@ -104,7 +109,7 @@ public class ShowRemainingBudgetCommand extends Command implements ParserStringL
         return expenses;
     }
 
-    private double getWeeklyExpense(RecordList entryList) {
+    private double getWeeklyExpense() {
         double expenses = 0;
         for (int i = 0; i < entryList.size(); i++) {
             Record entry = entryList.getFromList(i);
@@ -116,7 +121,7 @@ public class ShowRemainingBudgetCommand extends Command implements ParserStringL
         return expenses;
     }
 
-    private double getMonthlyExpense(RecordList entryList) {
+    private double getMonthlyExpense() {
         double expenses = 0;
         for (int i = 0; i < entryList.size(); i++) {
             Record entry = entryList.getFromList(i);
@@ -149,6 +154,6 @@ public class ShowRemainingBudgetCommand extends Command implements ParserStringL
 
     @Override
     public String getCommandInfo() {
-        return MODE_LIMIT;
+        return LIMIT_COMMAND_REMAINING + SPACE + duration;
     }
 }
