@@ -33,7 +33,7 @@ public class LectureCommand extends Command {
         String currentSlide = getcurrentSlide();
         switch (inputs.get(0)) {
         case "start":
-            lectureSlideNumber.getAndIncrement();
+            lectureSlideNumber.get();
             return currentSlide;
         case "end":
             currentSlide = currentTopicSlides.get(currentTopicSlides.size() - 1);
