@@ -99,7 +99,7 @@ public class EventCommand extends Command {
      * Abstracts out the handling of events that drag over the end of the first day into the start of second day.
      *
      * @param isInOneDay True if duration of event is within one day, False if drags on to next day.
-     * @param taskList   The list of tasks, where the event will be added to.
+     * @param taskList   The list of tasks, which the event will be added to.
      * @param startDate  The start date of the task, in the form of a Date object.
      * @return The string output of the addition of the task, to be returned to logic manager as a command result.
      */

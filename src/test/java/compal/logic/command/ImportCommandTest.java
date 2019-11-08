@@ -77,7 +77,7 @@ class ImportCommandTest {
         new ExportCommand("testExport").commandExecute(taskListMain);
         CommandResult test = new ImportCommand("testExport").commandExecute(taskListEmpty);
         String status = "\u2718";
-        String expectedString = "I have tried importing the given File!\n" + "The results are below:\n" + "\n"
+        String expectedString = "I have successfully imported the given file!\n" + "The results are below:\n" + "\n"
             + "The following tasks were added: \n" + "\n" + " \n"
             + "Task ID:0\n" + "[E][" + status + "] CS2105 Lecture \n" + "Date: 01/10/2019 \n" + "Start Time: 1400 \n"
             + "End Time: 1500 \n" + "Priority: medium\n" + "***************\n" + "\n\n"

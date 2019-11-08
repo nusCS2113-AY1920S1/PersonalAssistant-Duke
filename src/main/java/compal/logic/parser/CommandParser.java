@@ -71,6 +71,7 @@ public interface CommandParser {
     String MESSAGE_MISSING_FILE_NAME_ARG = "ArgumentError: Missing /file-name";
     String MESSAGE_MISSING_FILE_NAME = "Error: Missing file name input!";
     String MESSAGE_INVALID_INTERVAL = "Invalid interval input";
+    String MESSAGE_INVALID_PARAM = "Looks like there's an invalid parameter inserted!";
 
     /**
      * Method specification for different command parsers to parse user input.
@@ -148,7 +149,6 @@ public interface CommandParser {
         }
     }
 
-    //@@author LTPZ
     /**
      * Returns the hour in the String input.
      *
@@ -307,7 +307,14 @@ public interface CommandParser {
                 throw new ParserException(MESSAGE_MISSING_INPUT);
             } else {
                 try {
-                    interval = scanner.nextInt();
+                    String stringInterval = scanner.next();
+                    interval = Integer.parseInt(stringInterval);
+                    if (scanner.hasNext()) {
+                        String leftInput = scanner.next();
+                        if (!leftInput.substring(0, 1).equals(TOKEN_SLASH)) {
+                            throw new ParserException(MESSAGE_INVALID_PARAM);
+                        }
+                    }
                 } catch (Exception e) {
                     //float number
                     throw new ParserException(MESSAGE_INVALID_INTERVAL);
@@ -387,6 +394,12 @@ public interface CommandParser {
             } else {
                 throw new ParserException(MESSAGE_INVALID_PRIORITY);
             }
+            if (scanner.hasNext()) {
+                String leftInput = scanner.next();
+                if (!leftInput.substring(0, 1).equals(TOKEN_SLASH)) {
+                    throw new ParserException(MESSAGE_INVALID_PARAM);
+                }
+            }
         } else {
             priorityField = Task.Priority.low;
         }
@@ -441,6 +454,12 @@ public interface CommandParser {
             }
             String endTimeField = scanner.next();
             if (isTimeValid(endTimeField)) {
+                if (scanner.hasNext()) {
+                    String leftInput = scanner.next();
+                    if (!leftInput.substring(0, 1).equals(TOKEN_SLASH)) {
+                        throw new ParserException(MESSAGE_INVALID_PARAM);
+                    }
+                }
                 return endTimeField;
             } else {
                 throw new ParserException(MESSAGE_INVALID_TIME_FORMAT);
@@ -451,7 +470,6 @@ public interface CommandParser {
     }
 
     //@@author yueyeah
-
     /**
      * Parses through the user input for /final-date token and return the final date of iteration of events/deadline.
      * The presence of the /final-date token must be checked first in the specialised
@@ -460,7 +478,6 @@ public interface CommandParser {
      * @param restOfInput String input of user after command word
      * @return Final date of iteration in the form of a String
      * @throws ParserException if final date is not entered after the /final-date token
-     * @author Yue Jun Yi, yueyeah
      */
     default String getTokenFinalDate(String restOfInput) throws ParserException {
         int startPoint = restOfInput.indexOf(TOKEN_FINAL_DATE);
@@ -472,6 +489,12 @@ public interface CommandParser {
         }
         String finalDateField = scanner.next();
         if (isDateValid(finalDateField)) {
+            if (scanner.hasNext()) {
+                String leftInput = scanner.next();
+                if (!leftInput.substring(0, 1).equals(TOKEN_SLASH)) {
+                    throw new ParserException(MESSAGE_INVALID_PARAM);
+                }
+            }
             return finalDateField;
         } else {
             throw new ParserException(MESSAGE_INVALID_DATE_FORMAT);
@@ -479,7 +502,6 @@ public interface CommandParser {
     }
 
     //@@author SholihinK
-
     /**
      * check if file name to read/write is valid and if file-name tag exist.
      *
@@ -515,7 +537,6 @@ public interface CommandParser {
      */
 
     //@@author SholihinK
-
     /**
      * Checks if input date and time is after current date time.
      *
@@ -540,7 +561,6 @@ public interface CommandParser {
     }
 
     //@@author SholihinK
-
     /**
      * Check if the date input is of valid format.
      *
@@ -570,7 +590,6 @@ public interface CommandParser {
     }
 
     //@@author yueyeah
-
     /**
      * Check if the time input is of valid format.
      *
@@ -585,7 +604,6 @@ public interface CommandParser {
     }
 
     //@@author yueyeah
-
     /**
      * Check if the priority input is valid.
      *
@@ -630,6 +648,24 @@ public interface CommandParser {
     default void isValidInterval(int interval) throws ParserException {
         if (interval <= 0) {
             throw new ParserException(MESSAGE_INVALID_INTERVAL);
+        }
+    }
+
+    //@author LTPZ
+    /**
+     * Check if there is any invalid key.
+     *
+     * @param key The set of valid keys of the command
+     * @param restOfInput The input command
+     * @throws ParserException if the command contains invalid keys
+     */
+    default void isValidKey(ArrayList<String> key, String restOfInput) throws ParserException {
+        Scanner scanner = new Scanner(restOfInput);
+        while (scanner.hasNext()) {
+            String param = scanner.next();
+            if (param.substring(0, 1).equals(TOKEN_SLASH) && !key.contains(param)) {
+                throw new ParserException(MESSAGE_INVALID_PARAM);
+            }
         }
     }
 
