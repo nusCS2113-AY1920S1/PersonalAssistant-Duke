@@ -1,31 +1,26 @@
 package com.algosenpai.app.logic;
 
 import com.algosenpai.app.logic.chapters.QuizGenerator;
-import com.algosenpai.app.logic.command.ArchiveCommand;
-import com.algosenpai.app.logic.command.BlockedCommand;
-import com.algosenpai.app.logic.command.ByeCommand;
 import com.algosenpai.app.logic.command.ChaptersCommand;
-import com.algosenpai.app.logic.command.ClearCommand;
 import com.algosenpai.app.logic.command.Command;
+import com.algosenpai.app.logic.command.critical.ByeCommand;
+import com.algosenpai.app.logic.command.critical.QuizTestCommand;
+import com.algosenpai.app.logic.command.critical.ResetCommand;
 import com.algosenpai.app.logic.command.HelpCommand;
-import com.algosenpai.app.logic.command.HistoryCommand;
 import com.algosenpai.app.logic.command.InvalidCommand;
-import com.algosenpai.app.logic.command.LectureCommand;
-import com.algosenpai.app.logic.command.MenuCommand;
-import com.algosenpai.app.logic.command.PrintArchiveCommand;
-import com.algosenpai.app.logic.command.PrintCommand;
-import com.algosenpai.app.logic.command.PrintQuizCommand;
-import com.algosenpai.app.logic.command.PrintUserCommand;
-import com.algosenpai.app.logic.command.QuizCommand;
+import com.algosenpai.app.logic.command.QuizBlockedCommand;
 import com.algosenpai.app.logic.command.QuizNextCommand;
-import com.algosenpai.app.logic.command.QuizTestCommand;
-import com.algosenpai.app.logic.command.ResetCommand;
-import com.algosenpai.app.logic.command.ResultCommand;
-import com.algosenpai.app.logic.command.ReviewCommand;
-import com.algosenpai.app.logic.command.SelectCommand;
-import com.algosenpai.app.logic.command.SetupCommand;
-import com.algosenpai.app.logic.command.ShowStatsCommand;
-import com.algosenpai.app.logic.command.UndoCommand;
+import com.algosenpai.app.logic.command.utility.ArchiveCommand;
+import com.algosenpai.app.logic.command.utility.ClearCommand;
+import com.algosenpai.app.logic.command.utility.HistoryCommand;
+import com.algosenpai.app.logic.command.utility.MenuCommand;
+import com.algosenpai.app.logic.command.utility.PrintCommand;
+import com.algosenpai.app.logic.command.utility.ResultCommand;
+import com.algosenpai.app.logic.command.utility.ReviewCommand;
+import com.algosenpai.app.logic.command.utility.SelectQuizChapterCommand;
+import com.algosenpai.app.logic.command.utility.SetupCommand;
+import com.algosenpai.app.logic.command.utility.ShowStatsCommand;
+import com.algosenpai.app.logic.command.utility.UndoCommand;
 import com.algosenpai.app.logic.command.VolumeCommand;
 import com.algosenpai.app.logic.constant.CommandsEnum;
 import com.algosenpai.app.logic.models.QuestionModel;
@@ -38,32 +33,30 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Logic {
-    private UserStats userStats;
-    private QuizGenerator quizMaker = new QuizGenerator();
 
-    //All variables for the quiz function
-    private AtomicInteger chapterNumber = new AtomicInteger(-1);
-    //Check if currently in quiz mode.
+    //Checks if in quiz mode
     private AtomicBoolean isQuizMode = new AtomicBoolean(false);
-    //Check if currently in reset Confirmation mode
+    //Checks if in reset confirmation mode
     private AtomicBoolean isResetMode = new AtomicBoolean(false);
-    //Checks if it is a new quiz.
-    private AtomicBoolean isNewQuiz = new AtomicBoolean(true);
-    //The arraylist containing the questions.
-    private ArrayList<QuestionModel> quizList = new ArrayList<>();
-    //The current question number.
-    private AtomicInteger questionNumber = new AtomicInteger(0);
-    private AtomicInteger prevResult = new AtomicInteger(-1);
+    //Checks if in lecture mode
+    private AtomicBoolean isLectureMode = new AtomicBoolean(false);
 
-    // VariabReview features;
+    private HashSet<String> quizBlockedCommands = new HashSet<>(CommandsEnum.getBlockedNames());
+    private HashSet<String> lectureBlockedCommands = new HashSet<>(CommandsEnum.getBlockedNames());
+
+    private UserStats userStats;
+    private AtomicInteger prevResults = new AtomicInteger(-1);
+    private ArrayList<String> parsedUserInputs = new ArrayList<>();
+    private String userCommand;
+
+    private ArrayList<QuestionModel> quizList = new ArrayList<>();
+    private AtomicInteger quizChapterNumber = new AtomicInteger(-1);
+    private AtomicInteger quizQuestionNumber = new AtomicInteger(0);
+    private AtomicBoolean isNewQuiz = new AtomicBoolean(true);
+
     private ArrayList<QuestionModel> archiveList = new ArrayList<>();
 
-    //private HashSet<String> quizBlockedCommands = new HashSet<>(CommandsEnum.getNames());
-    private HashSet<String> quizBlockedCommands = new HashSet<>(CommandsEnum.getBlockedNames(CommandsEnum.getNames()));
-    // History features;
     private ArrayList<String> historyList = new ArrayList<>();
-    // Used to get the past commands, using arrow keys. Stores the number of elements from the back of historyList
-    // That the user wants to get. E.g. if user presses arrow UP, historyListOffset is incremented, DOWN -> decremented.
     private int historyListOffset = 0;
 
     /**
@@ -74,116 +67,124 @@ public class Logic {
     }
 
     /**
-     * Executes the command.
-     * @param input user input.
-     * @return the command object to be executed.
+     * Executes the command corresponding to the user's input.
+     * @param input The user's input.
+     * @return The command executeed.
      */
     public Command executeCommand(String input) {
-        // reset the offset whenever the user executes a command
-        historyListOffset = 0;
-        ArrayList<String> inputs = Parser.parseInput(input);
-        historyList.add(input);
-        String userInput = inputs.get(0);
-        //If the user quits, it has the highest priority and he can quit from any case.
-        if (userInput.equals("bye")) {
-            return new ByeCommand(inputs);
-        }
-        //Next priority is the quiz. When it is under quiz mode, no other commands can happen.
-        if (isQuizMode.get()) {
-            //If it is a new quiz
-            if (isNewQuiz.get() && userInput.equals("quiz")) {
-                return setupNewQuiz(inputs);
-            } else if (isNewQuiz.get() && userInput.equals("select")) {
-                return new SelectCommand(inputs, chapterNumber, userStats, isQuizMode);
-            } else if ("volume".equals(userInput)) {
-                return new VolumeCommand(inputs);
-            } else if (quizBlockedCommands.contains(userInput)) {
-                return new BlockedCommand(inputs);
-            } else {
-                return determineQuizAction(inputs);
-            }
-        } else if (isResetMode.get() || userInput.equals("reset")) {
-            return new ResetCommand(inputs,userStats,isResetMode);
+        addCommandHistory(input);
+        parsedUserInputs = Parser.parseInput(input);
+        userCommand = parsedUserInputs.get(0);
+
+        if (userCommand.equals("exit")) {
+            return executeBye();
+        } else if (isResetMode.get() || userCommand.equals("reset")) {
+            return executeReset();
+        } else if (isQuizMode.get()) {
+            return executeQuiz();
+        } else if (isLectureMode.get()) {
+            return executeLecture();
         } else {
-            switch (userInput) {
-            case "hello":
-                return new SetupCommand(inputs, userStats);
-            case "chapters":
-                return new ChaptersCommand(inputs);
-            case "help":
-                return new HelpCommand(inputs, userStats);
-            case "menu":
-                return new MenuCommand(inputs);
-            case "select":
-                return new SelectCommand(inputs, chapterNumber, userStats, isQuizMode);
-            case "result":
-                return new ResultCommand(inputs, prevResult);
-            case "history":
-                return new HistoryCommand(inputs, historyList);
-            case "undo":
-                return new UndoCommand(inputs);
-            case "clear":
-                return new ClearCommand(inputs);
-            case "stats":
-                return new ShowStatsCommand(inputs,userStats);
-            case "exit":
-                return new ByeCommand(inputs);
-            case "print":
-                return getPrintCommand(inputs);
-            case "archive":
-                return new ArchiveCommand(inputs, quizList, archiveList);
-            case "review":
-                return new ReviewCommand(inputs, quizList);
-            case "volume":
-                return new VolumeCommand(inputs);
-            case "lecture":
-                return new LectureCommand(inputs);
-            default:
-                return new InvalidCommand(inputs);
-            }
+            return executeOthers();
         }
     }
 
-    private Command determineQuizAction(ArrayList<String> inputs) {
-        //if users do not enter anything.
-        if (inputs.size() < 1) {
-            return new QuizCommand(inputs);
-        } else if (inputs.get(0).equals("next") || inputs.get(0).equals("back")) {
-            return new QuizNextCommand(inputs, quizList, questionNumber);
-        } else {
-            return new QuizTestCommand(
-                    inputs, quizList, questionNumber, isQuizMode, isNewQuiz, chapterNumber.get(),userStats, prevResult);
+    private Command executeOthers() {
+        switch (userCommand) {
+        case "quiz":
+            return new SelectQuizChapterCommand(parsedUserInputs, quizChapterNumber, userStats, isQuizMode);
+        case "chapters":
+            return new ChaptersCommand(parsedUserInputs);
+        case "help":
+            return new HelpCommand(parsedUserInputs, userStats);
+        case "menu":
+            return new MenuCommand(parsedUserInputs);
+        case "result":
+            return new ResultCommand(parsedUserInputs, prevResults);
+        case "history":
+            return new HistoryCommand(parsedUserInputs, historyList);
+        case "undo":
+            return new UndoCommand(parsedUserInputs);
+        case "clear":
+            return new ClearCommand(parsedUserInputs);
+        case "stats":
+            return new ShowStatsCommand(parsedUserInputs, userStats);
+        case "print":
+            return new PrintCommand(parsedUserInputs, userStats, archiveList, quizList);
+        case "archive":
+            return new ArchiveCommand(parsedUserInputs, quizList, archiveList);
+        case "review":
+            return new ReviewCommand(parsedUserInputs, quizList);
+        case "volume":
+            return new VolumeCommand(parsedUserInputs);
+        case "hello":
+            return new SetupCommand(parsedUserInputs, userStats);
+        default:
+            return new InvalidCommand(parsedUserInputs);
         }
     }
 
-    private Command setupNewQuiz(ArrayList<String> inputs) {
-        quizList = quizMaker.generateQuiz(chapterNumber.get(), quizList);
-        isNewQuiz.set(false);
-        isQuizMode.set(true);
-        return new QuizTestCommand(inputs, quizList, questionNumber, isQuizMode,
-                isNewQuiz, chapterNumber.get(), userStats, prevResult);
+    private Command executeLecture() {
+        return null;
     }
 
     /**
-     * Returns the type of print commands.
-     * @param inputs user inputs.
-     * @return type of print commands.
+     * Determines action to be taken for the quiz.
+     * @return The command given.
      */
-    private Command getPrintCommand(ArrayList<String> inputs) {
-        try {
-            switch (inputs.get(1)) {
-            case "user":
-                return new PrintUserCommand(inputs, userStats);
-            case "archive":
-                return new PrintArchiveCommand(inputs, archiveList);
-            case "quiz":
-                return new PrintQuizCommand(inputs, quizList);
-            default:
-                return new PrintCommand(inputs);
-            }
-        } catch (IndexOutOfBoundsException e) {
-            return new PrintCommand(inputs);
+    private Command executeQuiz() {
+        System.out.println("Here");
+        if (isNewQuiz.get() && userCommand.equals("start")) {
+            return setupNewQuiz();
+        } else if (isNewQuiz.get() && userCommand.equals("quiz")) {
+            return new SelectQuizChapterCommand(parsedUserInputs, quizChapterNumber, userStats, isQuizMode);
+        } else if (userCommand.equals("volume")) {
+            return new VolumeCommand(parsedUserInputs);
+        } else if (userCommand.equals("next") || userCommand.equals("back")) {
+            return new QuizNextCommand(parsedUserInputs, quizList, quizQuestionNumber);
+        } else if (quizBlockedCommands.contains(userCommand) || isNewQuiz.get()) {
+            return new QuizBlockedCommand(parsedUserInputs);
+        } else {
+            return new QuizTestCommand(parsedUserInputs, quizList, quizQuestionNumber,
+                    isQuizMode, isNewQuiz, quizChapterNumber.get(), userStats, prevResults);
         }
+    }
+
+    /**
+     * Executes the reset Command.
+     * @return The command reset.
+     */
+    private Command executeReset() {
+        return new ResetCommand(parsedUserInputs, userStats, isResetMode);
+    }
+
+    /**
+     * Executes the bye command.
+     * @return The command bye.
+     */
+    private Command executeBye() {
+        return new ByeCommand(parsedUserInputs);
+    }
+
+    /**
+     * Sets up a new quiz.
+     * @return The command for the quiz.
+     */
+    private Command setupNewQuiz() {
+        quizList = new QuizGenerator().generateQuiz(quizChapterNumber.get());
+        isNewQuiz.set(false);
+        isQuizMode.set(true);
+        return new QuizTestCommand(parsedUserInputs, quizList, quizQuestionNumber, isQuizMode,
+                isNewQuiz, quizChapterNumber.get(), userStats, prevResults);
+    }
+
+    /**
+     * Appends the last command given by the user to a historylist.
+     * @param input The user's input.
+     */
+    private void addCommandHistory(String input) {
+        historyListOffset = 0;
+        historyList.add(input);
     }
 
     /**
@@ -218,4 +219,5 @@ public class Logic {
         }
         return historyList.get(historyList.size() - historyListOffset);
     }
+
 }

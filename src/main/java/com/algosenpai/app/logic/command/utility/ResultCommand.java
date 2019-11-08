@@ -1,5 +1,7 @@
 
-package com.algosenpai.app.logic.command;
+package com.algosenpai.app.logic.command.utility;
+
+import com.algosenpai.app.logic.command.Command;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;

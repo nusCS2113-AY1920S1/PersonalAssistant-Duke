@@ -62,11 +62,11 @@ public class TabAutoCompleteTest extends ApplicationTest {
     @Test
     void testTab_matchFound() {
         clickOn("#userInput")
-                .write("sel")
+                .write("qui")
                 .press(KeyCode.TAB);
 
         TextField userInput = lookup("#userInput").query();
-        Assertions.assertEquals("select", userInput.getText());
+        Assertions.assertEquals("quiz", userInput.getText());
 
     }
 

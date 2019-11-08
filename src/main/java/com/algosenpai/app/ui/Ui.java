@@ -1,11 +1,11 @@
 package com.algosenpai.app.ui;
 
 import com.algosenpai.app.logic.Logic;
-import com.algosenpai.app.logic.command.ByeCommand;
-import com.algosenpai.app.logic.command.ClearCommand;
+import com.algosenpai.app.logic.command.critical.ByeCommand;
+import com.algosenpai.app.logic.command.utility.ClearCommand;
 import com.algosenpai.app.logic.command.Command;
-import com.algosenpai.app.logic.command.SetupCommand;
-import com.algosenpai.app.logic.command.UndoCommand;
+import com.algosenpai.app.logic.command.utility.SetupCommand;
+import com.algosenpai.app.logic.command.utility.UndoCommand;
 import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.logic.parser.Parser;
 import com.algosenpai.app.ui.controller.AnimationTimerController;

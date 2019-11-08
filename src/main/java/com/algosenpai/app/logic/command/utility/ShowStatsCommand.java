@@ -1,9 +1,9 @@
-package com.algosenpai.app.logic.command;
+package com.algosenpai.app.logic.command.utility;
 
+import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.stats.ChapterStat;
 import com.algosenpai.app.stats.UserStats;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class ShowStatsCommand extends Command {

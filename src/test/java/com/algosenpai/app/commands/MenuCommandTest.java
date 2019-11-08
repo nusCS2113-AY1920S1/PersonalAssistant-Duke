@@ -84,7 +84,6 @@ public class MenuCommandTest extends ApplicationTest {
                 + "chapters\n"
                 + "help\n"
                 + "quiz\n"
-                + "select\n"
                 + "result\n"
                 + "history\n"
                 + "undo\n"

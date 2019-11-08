@@ -1,5 +1,6 @@
-package com.algosenpai.app.logic.command;
+package com.algosenpai.app.logic.command.critical;
 
+import com.algosenpai.app.logic.command.QuizCommand;
 import com.algosenpai.app.logic.models.QuestionModel;
 import com.algosenpai.app.stats.UserStats;
 import java.util.ArrayList;

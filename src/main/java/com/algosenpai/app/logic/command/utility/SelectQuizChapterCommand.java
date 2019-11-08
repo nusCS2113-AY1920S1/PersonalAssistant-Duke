@@ -1,12 +1,13 @@
-package com.algosenpai.app.logic.command;
+package com.algosenpai.app.logic.command.utility;
 
+import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.stats.UserStats;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class SelectCommand extends Command {
+public class SelectQuizChapterCommand extends Command {
 
     private AtomicInteger chapterNumber;
     private UserStats userStats;
@@ -16,8 +17,8 @@ public class SelectCommand extends Command {
      * Create new command.
      * @param inputs input from user.
      */
-    public SelectCommand(ArrayList<String> inputs, AtomicInteger chapterNumber, UserStats userStats,
-                         AtomicBoolean isQuizMode) {
+    public SelectQuizChapterCommand(ArrayList<String> inputs, AtomicInteger chapterNumber, UserStats userStats,
+                                    AtomicBoolean isQuizMode) {
         super(inputs);
         this.chapterNumber = chapterNumber;
         this.userStats = userStats;
@@ -35,7 +36,7 @@ public class SelectCommand extends Command {
         }
         chapterNumber.set(index - 1);
         this.isQuizMode.set(true);
-        return "You have selected Chapter " + chapterNumber.incrementAndGet() + ". Type 'quiz' to begin.";
+        return "You have selected Chapter " + chapterNumber.incrementAndGet() + ". Type 'start' to begin.";
     }
 
     /**
@@ -44,7 +45,7 @@ public class SelectCommand extends Command {
      */
     private String getDefaultMessage() {
         StringBuilder str = new StringBuilder(
-                "No such chapter found. Please select the following:\nselect <chapter name>\n");
+                "No such chapter found. Please select the following:\nquiz <chapter name>\n");
         for (String chapter: userStats.getChapters()) {
             str.append(chapter).append("\n");
         }

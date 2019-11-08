@@ -3,14 +3,14 @@ package com.algosenpai.app.logic.command;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class BlockedCommand extends Command {
+public class QuizBlockedCommand extends Command {
 
     /**
      * Create new command.
      *
      * @param inputs The user's inputs.
      */
-    public BlockedCommand(ArrayList<String> inputs) {
+    public QuizBlockedCommand(ArrayList<String> inputs) {
         super(inputs);
     }
 

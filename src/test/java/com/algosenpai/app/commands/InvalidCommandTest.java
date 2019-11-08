@@ -74,7 +74,7 @@ public class InvalidCommandTest extends ApplicationTest {
     void testInvalidMultipleSpaces() throws IOException {
         UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
         Logic logic = new Logic(previousStats);
-        Command command = logic.executeCommand("se le ct");
+        Command command = logic.executeCommand("qu iz");
         String actualText = command.execute();
         if (previousStats.getUsername().equals("Default")) {
             Assertions.assertEquals("Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
@@ -82,7 +82,7 @@ public class InvalidCommandTest extends ApplicationTest {
                     + "'hello NAME GENDER (boy/girl)' please.", actualText);
         } else if (!previousStats.getUsername().equals("Default")) {
             Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. "
-                    + "Did you mean... select?", actualText);
+                    + "Did you mean... quiz?", actualText);
         }
     }
 
@@ -130,8 +130,8 @@ public class InvalidCommandTest extends ApplicationTest {
                     + "'hello NAME GENDER (boy/girl)' please.", actualText);
         } else if (!previousStats.getUsername().equals("Default")) {
             Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
-                    + "menu, quiz, select, result, review, reset, history, undo, clear, help, "
-                    + "volume, print, archive, save, exit?", actualText);
+                    + "menu, quiz, result, review, reset, history, undo, clear, help, "
+                    + "volume, print, archive, save, stats, exit?", actualText);
         }
     }
 
