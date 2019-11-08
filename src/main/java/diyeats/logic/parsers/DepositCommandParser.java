@@ -1,6 +1,6 @@
 package diyeats.logic.parsers;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.commands.AddTransactionCommand;
 import diyeats.model.wallet.Deposit;
 
@@ -33,7 +33,7 @@ public class DepositCommandParser implements ParserInterface<AddTransactionComma
             }
 
             return new AddTransactionCommand(new Deposit(amountAndDate[0], localDate));
-        } catch (DukeException e) {
+        } catch (ProgramException e) {
             return new AddTransactionCommand(false,"Please enter the amount to deposit "
                     + "for today's date or date and amount to be deposited");
         }

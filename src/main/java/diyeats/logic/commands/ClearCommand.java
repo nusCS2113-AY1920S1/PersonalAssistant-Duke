@@ -1,6 +1,6 @@
 package diyeats.logic.commands;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.MealList;
 import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
@@ -49,7 +49,7 @@ public class ClearCommand extends Command {
         ui.showCleared(dateFormat.format(startDate), dateFormat.format(endDate));
         try {
             storage.updateFile(meals);
-        } catch (DukeException e) {
+        } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }
         ui.showLine();

@@ -1,6 +1,6 @@
 package diyeats.logic.parsers;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.commands.HelpCommand;
 
 /**
@@ -12,7 +12,7 @@ public class HelpCommandParser implements ParserInterface<HelpCommand> {
      * Parse user input and return HelpCommand.
      * @param userInputStr String input by user.
      * @return <code>HelpCommand</code> Command object containing the type of help sought by the user
-     * @throws DukeException If the userInput cannot be parsed
+     * @throws ProgramException If the userInput cannot be parsed
      */
     @Override
 

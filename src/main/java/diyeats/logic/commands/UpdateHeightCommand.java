@@ -1,6 +1,6 @@
 package diyeats.logic.commands;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.MealList;
 import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
@@ -47,7 +47,7 @@ public class UpdateHeightCommand extends Command {
                 ui.showSuccess("height", description);
                 try {
                     storage.updateUser(user);
-                } catch (DukeException e) {
+                } catch (ProgramException e) {
                     ui.showMessage(e.getMessage());
                 }
             }

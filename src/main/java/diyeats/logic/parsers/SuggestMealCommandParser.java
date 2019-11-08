@@ -1,6 +1,6 @@
 package diyeats.logic.parsers;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.commands.SuggestMealCommand;
 
 import java.time.LocalDate;
@@ -25,7 +25,7 @@ public class SuggestMealCommandParser implements ParserInterface<SuggestMealComm
      * Parse user input and return SuggestCommand.
      * @param userInputStr String input by user
      * @return <code>SuggestCommand</code> Command object that will process meal suggestions.
-     * @throws DukeException If the userInput cannot be parsed
+     * @throws ProgramException If the userInput cannot be parsed
      */
     @Override
     public SuggestMealCommand parse(String userInputStr) {

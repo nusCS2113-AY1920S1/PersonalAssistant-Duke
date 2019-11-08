@@ -1,6 +1,6 @@
 package diyeats.logic.parsers;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.commands.CGraphCommand;
 
 //@@author koushireo
@@ -14,7 +14,7 @@ public class CGraphCommandParser implements ParserInterface<CGraphCommand> {
      * Parses user input and returns an AddCommand encapsulating a Lunch object.
      * @param userInputStr String input by user.
      * @return <code>AddCommand</code> Command object encapsulating a breakfast object
-     * @throws DukeException when the user input cannot be parsed
+     * @throws ProgramException when the user input cannot be parsed
      */
     @Override
 
@@ -22,7 +22,7 @@ public class CGraphCommandParser implements ParserInterface<CGraphCommand> {
         int month = 0;
         try {
             InputValidator.validate(userInputStr);
-        } catch (DukeException e) {
+        } catch (ProgramException e) {
             return new CGraphCommand(false, e.getMessage());
         }
         String[] lineSplit = ArgumentSplitter.splitArguments(userInputStr," ");

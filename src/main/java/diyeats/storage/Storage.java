@@ -1,6 +1,6 @@
 package diyeats.storage;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.commons.file.LocalDateAdapter;
 import diyeats.logic.autocorrect.Autocorrect;
 import diyeats.model.meal.MealList;
@@ -33,7 +33,7 @@ public class Storage {
     /**
      * This is a function that will load all info required to initialize a MealList object.
      */
-    public void loadMealInfo(MealList meals) throws DukeException {
+    public void loadMealInfo(MealList meals) throws ProgramException {
         switch (stage) {
             case 0:
                 stage++;
@@ -50,14 +50,14 @@ public class Storage {
                 break;
             default:
                 mealIsDone = true;
-                throw new DukeException("The storage function has entered an invalid state");
+                throw new ProgramException("The storage function has entered an invalid state");
         }
     }
 
     /**
      * This is a function that will load user info from user.txt.
      */
-    public User loadUser() throws DukeException {
+    public User loadUser() throws ProgramException {
         User user = loader.loadUser();
         loader.loadGoals(user);
         return user;
@@ -66,15 +66,15 @@ public class Storage {
     /**
      * This is a function that will load all the words to be autocorrected to.
      */
-    public void loadWord(Autocorrect autocorrect) throws DukeException {
+    public void loadWord(Autocorrect autocorrect) throws ProgramException {
         loader.loadAutoCorrect(autocorrect);
     }
 
-    public void loadHelp(ArrayList<String> lines, String specifiedHelp) throws DukeException {
+    public void loadHelp(ArrayList<String> lines, String specifiedHelp) throws ProgramException {
         loader.loadHelp(lines, specifiedHelp);
     }
 
-    public void loadTransactions(Wallet wallet) throws DukeException {
+    public void loadTransactions(Wallet wallet) throws ProgramException {
         loader.loadTransactions(wallet);
     }
 
@@ -83,25 +83,25 @@ public class Storage {
      * @param meals the structure that will store the tasks from the input file
      */
     //TODO: maybe we can put the errors in the ui file
-    public void updateFile(MealList meals) throws DukeException {
+    public void updateFile(MealList meals) throws ProgramException {
         writer.writeFile(meals);
     }
 
-    public void updateExercises(MealList meals) throws DukeException {
+    public void updateExercises(MealList meals) throws ProgramException {
         writer.writeExercises(meals);
     }
 
     /**
      * This is a function that will write data from a MealList object to the defaultitems save file.
      */
-    public void updateDefaults(MealList meals) throws DukeException {
+    public void updateDefaults(MealList meals) throws ProgramException {
         writer.writeDefaults(meals);
     }
 
     /**
      * This is a function that will write data from a MealList object to the goals save file.
      */
-    public void updateGoal(User user) throws DukeException {
+    public void updateGoal(User user) throws ProgramException {
         writer.writeGoal(user);
     }
 
@@ -109,11 +109,11 @@ public class Storage {
      * This is a function that will store the user information into a file.
      * @param user the user class that contains all personal information to be stored.
      */
-    public void updateUser(User user) throws DukeException {
+    public void updateUser(User user) throws ProgramException {
         writer.writeUser(user);
     }
 
-    public void updateTransaction(Wallet wallet) throws DukeException {
+    public void updateTransaction(Wallet wallet) throws ProgramException {
         writer.writeTransaction(wallet);
     }
 

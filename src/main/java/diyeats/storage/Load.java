@@ -1,6 +1,6 @@
 package diyeats.storage;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.commons.file.FilePathNames;
 import diyeats.commons.file.FilePaths;
 import diyeats.commons.file.FileUtil;
@@ -40,9 +40,9 @@ public class Load {
     /**
      * The function will act to load txt file specified by the filepath, parse it and store it in a new task ArrayList
      * to be added in that MealList.
-     * @throws DukeException if either the object is unable to open file or it is unable to read the file
+     * @throws ProgramException if either the object is unable to open file or it is unable to read the file
      */
-    public void loadMealListData(MealList meals) throws DukeException {
+    public void loadMealListData(MealList meals) throws ProgramException {
         String userMealFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_USER_MEALS_FILE);
         Type mealListHashMap = new TypeToken<HashMap<LocalDate, ArrayList<Meal>>>(){}.getType();
         bufferedReader = FileUtil.readFile(userMealFilePathStr, useResourceAsBackup);
@@ -53,7 +53,7 @@ public class Load {
                 bufferedReader.close();
             }
         } catch (Exception e) {
-            throw new DukeException("It appears the savefile has been corrupted. "
+            throw new ProgramException("It appears the savefile has been corrupted. "
                     + "Previously recorded meals will not be loaded.");
         }
     }
@@ -61,9 +61,9 @@ public class Load {
     /**
      * The function will act to load txt file specified by the filepath, parse it and store it in a new task ArrayList
      * to be added in that MealList.
-     * @throws DukeException if either the object is unable to open file or it is unable to read the file
+     * @throws ProgramException if either the object is unable to open file or it is unable to read the file
      */
-    public void loadDefaultMealData(MealList meals) throws DukeException {
+    public void loadDefaultMealData(MealList meals) throws ProgramException {
         String defaultMealFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_DEFAULT_MEAL_FILE);
         Type defaultItemHashMap = new TypeToken<HashMap<String, HashMap<String, Integer>>>(){}.getType();
         bufferedReader = FileUtil.readFile(defaultMealFilePathStr, useResourceAsBackup);
@@ -74,12 +74,12 @@ public class Load {
                 bufferedReader.close();
             }
         } catch (Exception e) {
-            throw new DukeException("It appears the savefile has been corrupted. "
+            throw new ProgramException("It appears the savefile has been corrupted. "
                     + "Default meal values will not be loaded.");
         }
     }
 
-    public void loadExercises(MealList meals) throws DukeException {
+    public void loadExercises(MealList meals) throws ProgramException {
         String exercisesFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_EXERCISES_FILE);
         Type exerciseListType = new TypeToken<ExerciseList>(){}.getType();
         bufferedReader = FileUtil.readFile(exercisesFilePathStr, useResourceAsBackup);
@@ -89,12 +89,12 @@ public class Load {
                 meals.setExerciseList(data);
             }
         } catch (Exception e) {
-            throw new DukeException("It appears the savefile has been corrupted. "
+            throw new ProgramException("It appears the savefile has been corrupted. "
                     + "Exercise history will not be loaded.");
         }
     }
 
-    public void loadGoals(User user) throws DukeException {
+    public void loadGoals(User user) throws ProgramException {
         String goalFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_GOAL_FILE);
         Type goalType = new TypeToken<Goal>(){}.getType();
         bufferedReader = FileUtil.readFile(goalFilePathStr, useResourceAsBackup);
@@ -105,12 +105,12 @@ public class Load {
                 user.setGoal(goal, true);
             }
         } catch (Exception e) {
-            throw new DukeException("Error reading goal file" + e.getMessage());
+            throw new ProgramException("Error reading goal file" + e.getMessage());
         }
     }
 
 
-    public void loadTransactions(Wallet wallet) throws DukeException {
+    public void loadTransactions(Wallet wallet) throws ProgramException {
         String transactionsFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_TRANSACTION_FILE);
         Type walletType = new TypeToken<Wallet>(){}.getType();
         bufferedReader = FileUtil.readFile(transactionsFilePathStr, useResourceAsBackup);
@@ -121,11 +121,11 @@ public class Load {
                 wallet.updateAccountBalance(data);
             }
         } catch (Exception e) {
-            throw new DukeException("Error reading transactions file");
+            throw new ProgramException("Error reading transactions file");
         }
     }
 
-    public User loadUser() throws DukeException {
+    public User loadUser() throws ProgramException {
         String userFileStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_USER_FILE);
         User data;
         Type userType = new TypeToken<User>(){}.getType();
@@ -139,11 +139,11 @@ public class Load {
                 return new User();
             }
         } catch (Exception e) {
-            throw new DukeException("Error reading user file.");
+            throw new ProgramException("Error reading user file.");
         }
     }
 
-    public void loadAutoCorrect(Autocorrect autocorrect) throws DukeException {
+    public void loadAutoCorrect(Autocorrect autocorrect) throws ProgramException {
         try {
             String autocorrectFileStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_AUTOCORRECT_FILE);
             bufferedReader = FileUtil.readFile(autocorrectFileStr, useResourceAsBackup);
@@ -152,11 +152,11 @@ public class Load {
             }
             bufferedReader.close();
         } catch (Exception e) {
-            throw new DukeException(e.getMessage());
+            throw new ProgramException(e.getMessage());
         }
     }
 
-    public void loadHelp(ArrayList<String> lines, String specifiedHelp) throws DukeException {
+    public void loadHelp(ArrayList<String> lines, String specifiedHelp) throws ProgramException {
         BufferedReader bufferedReader = LoadHelpUtil.load(specifiedHelp);
         try {
             while ((lineStr = bufferedReader.readLine()) != null) {
@@ -164,7 +164,7 @@ public class Load {
             }
             bufferedReader.close();
         } catch (IOException e) {
-            throw new DukeException("Error reading help file");
+            throw new ProgramException("Error reading help file");
         }
     }
 }

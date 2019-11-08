@@ -1,6 +1,6 @@
 package diyeats.ui;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -22,34 +22,34 @@ public class InputHandler {
         }
     }
 
-    public String getString() throws DukeException {
+    public String getString() throws ProgramException {
         try {
             String string = in.nextLine();
             return string;
         } catch (Exception e) {
-            throw new DukeException(e.getMessage());
+            throw new ProgramException(e.getMessage());
         }
     }
 
-    public int getInt() throws DukeException {
+    public int getInt() throws ProgramException {
         try {
             int value = Integer.parseInt(in.nextLine());
             return value;
         } catch (NumberFormatException e) {
-            throw new DukeException(e.getMessage());
+            throw new ProgramException(e.getMessage());
         }
     }
 
-    public double getDouble() throws DukeException {
+    public double getDouble() throws ProgramException {
         try {
             double value = Double.parseDouble(in.nextLine());
             return value;
         } catch (NumberFormatException e) {
-            throw new DukeException(e.getMessage());
+            throw new ProgramException(e.getMessage());
         }
     }
 
-    public String getDate() throws DukeException {
+    public String getDate() throws ProgramException {
         SimpleDateFormat dateparser = new SimpleDateFormat("dd/MM/yyyy");
         String date;
         try {
@@ -58,18 +58,18 @@ public class InputHandler {
             date = dateparser.format(day);
             return date;
         } catch (Exception e) {
-            throw new DukeException(e.getMessage());
+            throw new ProgramException(e.getMessage());
         }
     }
 
-    public boolean getApproval() throws DukeException {
+    public boolean getApproval() throws ProgramException {
         String userInput = getString();
         if (userInput.equalsIgnoreCase("y") || userInput.equalsIgnoreCase("yes")) {
             return true;
         } else if (userInput.equalsIgnoreCase("n") || userInput.equalsIgnoreCase("no")) {
             return false;
         } else {
-            throw new DukeException("Sorry, but DIYeats was unable to understand your command");
+            throw new ProgramException("Sorry, but DIYeats was unable to understand your command");
         }
     }
 

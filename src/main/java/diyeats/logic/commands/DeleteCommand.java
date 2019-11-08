@@ -1,6 +1,6 @@
 package diyeats.logic.commands;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.Meal;
 import diyeats.model.meal.MealList;
 import diyeats.model.user.User;
@@ -70,7 +70,7 @@ public class DeleteCommand extends Command {
             ui.showDeleted(currentMeal, meals.getMealsList(parsedDate));
             try {
                 storage.updateFile(meals);
-            } catch (DukeException e) {
+            } catch (ProgramException e) {
                 ui.showMessage(e.getMessage());
             }
 

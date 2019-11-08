@@ -1,6 +1,6 @@
 package diyeats.logic.parsers;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.commands.AddDefaultValueCommand;
 import diyeats.model.meal.Meal;
 
@@ -29,7 +29,7 @@ public class AddDefaultValueCommandParser implements ParserInterface<AddDefaultV
             InputValidator.validate(userInputStr);
             mealNameAndInfo = ArgumentSplitter.splitMealArguments(userInputStr);
             nutritionInfoMap = ArgumentSplitter.splitForwardSlashArguments(mealNameAndInfo[1]);
-        } catch (DukeException e) {
+        } catch (ProgramException e) {
             return new AddDefaultValueCommand(true, e.getMessage());
         }
 

@@ -1,6 +1,6 @@
 package diyeats.logic.parsers;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.commands.ClearCommand;
 
 import java.time.LocalDate;
@@ -27,7 +27,7 @@ public class ClearCommandParser implements ParserInterface<ClearCommand> {
         try {
             InputValidator.validate(userInputStr);
             startAndEndDates = ArgumentSplitter.splitArguments(userInputStr, " ");
-        } catch (DukeException e) {
+        } catch (ProgramException e) {
             return new ClearCommand(false, "Please enter 2 dates; "
                     + "Start and End dates to clear meals from.");
         }

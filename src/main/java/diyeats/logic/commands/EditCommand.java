@@ -1,6 +1,6 @@
 package diyeats.logic.commands;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.Meal;
 import diyeats.model.meal.MealList;
 import diyeats.model.user.User;
@@ -41,7 +41,7 @@ public class EditCommand extends Command {
             LocalDate date = updatedMeal.getDate();
             ui.showUpdated(this.updatedMeal, meals.getMealsList(this.updatedMeal.getDate()), user, date);
             storage.updateFile(meals);
-        } catch (DukeException e) {
+        } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }
         ui.showLine();

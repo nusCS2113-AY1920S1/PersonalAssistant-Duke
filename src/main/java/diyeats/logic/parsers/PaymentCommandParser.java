@@ -1,6 +1,6 @@
 package diyeats.logic.parsers;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.commands.AddTransactionCommand;
 import diyeats.model.wallet.Payment;
 
@@ -19,7 +19,7 @@ public class PaymentCommandParser implements ParserInterface<AddTransactionComma
      * @return <code>AddTransactionCommand</code> Command object encapsulating the details of the transaction
      */
     @Override
-    public AddTransactionCommand parse(String userInputStr) throws DukeException {
+    public AddTransactionCommand parse(String userInputStr) throws ProgramException {
         try {
             InputValidator.validate(userInputStr);
             String[] amountAndDate = ArgumentSplitter.splitArguments(userInputStr, "/date");
@@ -33,7 +33,7 @@ public class PaymentCommandParser implements ParserInterface<AddTransactionComma
             }
 
             return new AddTransactionCommand(new Payment(amountAndDate[0], localDate));
-        } catch (DukeException e) {
+        } catch (ProgramException e) {
             return new AddTransactionCommand(false, e.getMessage());
         }
     }

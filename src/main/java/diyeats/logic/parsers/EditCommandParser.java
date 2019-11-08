@@ -1,6 +1,6 @@
 package diyeats.logic.parsers;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.commands.EditCommand;
 import diyeats.model.meal.Meal;
 
@@ -34,7 +34,7 @@ public class EditCommandParser implements ParserInterface<EditCommand> {
             InputValidator.validate(userInputStr);
             mealNameAndInfo = ArgumentSplitter.splitMealArguments(userInputStr);
             nutritionInfoMap = ArgumentSplitter.splitForwardSlashArguments(mealNameAndInfo[1]);
-        } catch (DukeException e) {
+        } catch (ProgramException e) {
             return new EditCommand(true, e.getMessage());
         }
 

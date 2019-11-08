@@ -1,6 +1,6 @@
 package diyeats.logic.parsers;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.commands.Command;
 import diyeats.ui.Ui;
 
@@ -22,8 +22,8 @@ public interface ParserInterface<T extends Command> {
      * Parses user input into a Command of type T and returns it.
      * @param userInputStr String input by user.
      * @return Command Returns a Command.
-     * @throws DukeException If the user input has syntactic errors.
+     * @throws ProgramException If the user input has syntactic errors.
      */
-    T parse(String userInputStr) throws DukeException;
+    T parse(String userInputStr) throws ProgramException;
 }
 

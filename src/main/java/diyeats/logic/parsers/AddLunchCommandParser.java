@@ -1,6 +1,6 @@
 package diyeats.logic.parsers;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.commands.AddCommand;
 import diyeats.model.meal.Lunch;
 
@@ -17,7 +17,7 @@ public class AddLunchCommandParser implements ParserInterface<AddCommand> {
      * Parses user input and returns an AddCommand encapsulating a Lunch object.
      * @param userInputStr String input by user.
      * @return <code>AddCommand</code> Command object encapsulating a breakfast object
-     * @throws DukeException when the user input cannot be parsed
+     * @throws ProgramException when the user input cannot be parsed
      */
     @Override
 
@@ -31,7 +31,7 @@ public class AddLunchCommandParser implements ParserInterface<AddCommand> {
             InputValidator.validate(userInputStr);
             mealNameAndInfo = ArgumentSplitter.splitMealArguments(userInputStr);
             nutritionInfoMap = ArgumentSplitter.splitForwardSlashArguments(mealNameAndInfo[1]);
-        } catch (DukeException e) {
+        } catch (ProgramException e) {
             return new AddCommand(false, e.getMessage());
         }
 
