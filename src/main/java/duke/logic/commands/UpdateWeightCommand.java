@@ -64,9 +64,9 @@ public class UpdateWeightCommand extends Command {
 
     public void stage0(User user, Storage storage) {
         ui.showLine();
-        HashMap<LocalDate, Double> allWeight = user.getAllWeight();
-        if (!allWeight.containsKey(currentDate)) {
-            if (Integer.parseInt(weight) > 2) {
+        if (Integer.parseInt(weight) > 2) {
+            HashMap<LocalDate, Double> allWeight = user.getAllWeight();
+            if (!allWeight.containsKey(currentDate)) {
                 try {
                     user.setWeight(Integer.parseInt(weight), currentDate);
                     ui.showWeightUpdate(user, Integer.parseInt(weight), currentDate);
@@ -74,10 +74,6 @@ public class UpdateWeightCommand extends Command {
                     ui.showMessage("Please input a proper number for weight");
                 }
             } else {
-                ui.showMessage("Weight cannot be less than 2kg(Unless you really are the lightest man on earth!)");
-            }
-        } else {
-            if (Integer.parseInt(weight) > 2) {
                 try {
                     int temp = Integer.parseInt(weight);
                     isDone = false;
@@ -85,14 +81,14 @@ public class UpdateWeightCommand extends Command {
                 } catch (NumberFormatException e) {
                     ui.showMessage("Please input a proper number for weight");
                 }
-            } else {
-                ui.showMessage("Weight cannot be less than 2kg(Unless you really are the lightest man on earth!)");
             }
-        }
-        try {
-            storage.updateUser(user);
-        } catch (DukeException e) {
-            ui.showMessage(e.getMessage());
+            try {
+                storage.updateUser(user);
+            } catch (DukeException e) {
+                ui.showMessage(e.getMessage());
+            }
+        } else {
+            ui.showMessage("Weight cannot be less than 2kg(Unless you really are the lightest man on earth!)");
         }
         ui.showLine();
     }

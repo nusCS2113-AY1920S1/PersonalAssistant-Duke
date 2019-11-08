@@ -38,41 +38,41 @@ public class UserSetup {
      */
 
     public void initialise(String info) {
-        HashMap<String, String> temp = ArgumentSplitter.splitForwardSlashArguments(info);
-        if (temp.containsKey("name")) {
-            UpdateNameCommand update = new UpdateNameCommand(temp.get("name"));
+        HashMap<String, String> userInfo = ArgumentSplitter.splitForwardSlashArguments(info);
+        if (userInfo.containsKey("name")) {
+            UpdateNameCommand update = new UpdateNameCommand(userInfo.get("name"));
             update.updateUser(user);
         } else if (user.getName() == null) {
             ui.showLackName();
         }
-        if (temp.containsKey("age")) {
-            UpdateAgeCommand update = new UpdateAgeCommand(temp.get("age"));
+        if (userInfo.containsKey("age")) {
+            UpdateAgeCommand update = new UpdateAgeCommand(userInfo.get("age"));
             update.updateUser(user);
         } else if (user.getAge() == -1) {
             ui.showLackAge();
         }
-        if (temp.containsKey("weight")) {
-            UpdateWeightCommand update = new UpdateWeightCommand(temp.get("weight"));
+        if (userInfo.containsKey("weight")) {
+            UpdateWeightCommand update = new UpdateWeightCommand(userInfo.get("weight"));
             update.updateUser(user);
         } else if (user.getAllWeight().size() == 0) {
             ui.showLackWeight();
         }
-        if (temp.containsKey("height")) {
-            UpdateHeightCommand update = new UpdateHeightCommand(temp.get("height"));
+        if (userInfo.containsKey("height")) {
+            UpdateHeightCommand update = new UpdateHeightCommand(userInfo.get("height"));
             update.updateUser(user);
         } else if (user.getHeight() == -1) {
             ui.showLackHeight();
         }
-        if (temp.containsKey("activity")) {
-            UpdateActivityCommand update = new UpdateActivityCommand(temp.get("activity"));
+        if (userInfo.containsKey("activity")) {
+            UpdateActivityCommand update = new UpdateActivityCommand(userInfo.get("activity"));
             update.updateUser(user);
         } else if (user.getActivityLevel() == 5) {
             ui.showLackActivity();
         }
-        if (temp.containsKey("gender")) {
-            if (temp.get("gender").toLowerCase().charAt(0) == 'm') {
+        if (userInfo.containsKey("gender")) {
+            if (userInfo.get("gender").toLowerCase().charAt(0) == 'm') {
                 user.setGender(Gender.MALE);
-            } else if (temp.get("gender").toLowerCase().charAt(0) == 'f') {
+            } else if (userInfo.get("gender").toLowerCase().charAt(0) == 'f') {
                 user.setGender(Gender.FEMALE);
             } else if (user.getGender() == null) {
                 ui.showWrongGenderInfo();

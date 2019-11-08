@@ -44,6 +44,8 @@ public class UpdateAgeCommand extends Command {
             ageInt = Integer.parseInt(description);
             if (ageInt < 0) {
                 ui.showMessage("Age cannot be less than 0");
+            } else if (ageInt > 122) {
+                ui.showMessage("Age cannot be more than 122(Unless you really are the oldest person in the world!");
             } else {
                 user.setAge(ageInt);
                 ui.showSuccess("age", description);
@@ -66,6 +68,8 @@ public class UpdateAgeCommand extends Command {
             ageInt = Integer.parseInt(description);
             if (ageInt < 0) {
                 ui.showMessage("Age cannot be less than 0");
+            } else if (ageInt > 122) {
+                ui.showMessage("Age cannot be more than 122(Unless you really are the oldest person in the world!");
             } else {
                 user.setAge(ageInt);
                 ui.showSuccess("age", description);

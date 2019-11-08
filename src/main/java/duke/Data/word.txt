@@ -5,11 +5,14 @@ lunch
 dinner
 exit
 update
-height
-weight
-name
 date
 month
 year
 cgraph
 wallet
+name
+age
+weight
+height
+activity
+gender
