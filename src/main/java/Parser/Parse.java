@@ -52,6 +52,11 @@ public abstract class Parse {
         return false;
     }
 
+    /**
+     * This method checks if the user input time actually fits the characteristics of a 24-hour time format.
+     * @param input The string that contains the date and time field
+     * @return true if it matches the characteristics of a 24-hour time format
+     */
     public boolean isValidTime(String input) {
         String[] spiltInput = input.split(" ");
         String time = spiltInput[spiltInput.length-1];
@@ -64,13 +69,25 @@ public abstract class Parse {
         return false;
     }
 
-    /*
-    This method checks if the user input description is blank.
+    /**
+     * This method checks if the description of task if valid
+     * @param input String array of ModCode and description
+     * @return true if description of task is valid
      */
-    public boolean isValidDescription(String[]spilt1) {//later change to take in description part alone
-        if(spilt1.length == 1) return false;
-        String description = spilt1[1].trim();
+    public boolean isValidDescription(String[] input) {
+        if(input.length == 1) return false;
+        String description = input[1].trim();
         if(description.isEmpty()) return false;
+        else return true;
+    }
+
+    /**
+     * This method checks if both the ModCode and description of the task is valid
+     * @param input String of ModCode and description
+     * @return true if ModCode and description of the task is valid
+     */
+    public boolean isValidModCodeAndDescription(String input) {
+        if (input.isEmpty()) return false;
         else return true;
     }
 }
