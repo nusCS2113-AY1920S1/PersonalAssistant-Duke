@@ -368,6 +368,7 @@ public class RoomShare {
      * @throws RoomShareException Custom exception class within RoomShare program
      */
     public static void main(String[] args) throws RoomShareException, IOException, InterruptedException {
+
         new RoomShare().run();
         System.exit(0);
     }
