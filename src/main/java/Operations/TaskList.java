@@ -471,4 +471,16 @@ public class TaskList {
         return done;
     }
 
+    /**
+     * Overload function for done to complete subTasks
+     * @param index index of task
+     * @param subTaskIndex index of subtask completed
+     */
+    public void done(int index, int subTaskIndex) throws RoomShareException {
+        if( TaskList.get(index) instanceof Assignment ) {
+            ((Assignment) TaskList.get(index)).doneSubtask(subTaskIndex);
+        } else {
+             throw new RoomShareException(ExceptionType.subTaskError);
+        }
+    }
 }

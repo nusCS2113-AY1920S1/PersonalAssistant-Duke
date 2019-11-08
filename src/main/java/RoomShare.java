@@ -110,9 +110,14 @@ public class RoomShare {
                 ui.startUp();
                 try {
                     String input = parser.getCommandLine();
-                    int[] index = parser.getIndexRange(input);
-                    taskList.done(index);
-                    ui.showDone();
+                    if(input.length() != 1 && input.split(" ", 1).equals("subtask")) {
+                       String info[] = input.split(" ");
+                        taskList.done(Integer.parseInt(info[1]), Integer.parseInt(info[2]));
+                    } else {
+                        int[] index = parser.getIndexRange(input);
+                        taskList.done(index);
+                        ui.showDone();
+                    }
                     storage.writeFile(TaskList.currentList(), "data.txt");
                     storage.writeFile(OverdueList.getOverdueList(), "overdue.txt");
                 } catch (RoomShareException e) {

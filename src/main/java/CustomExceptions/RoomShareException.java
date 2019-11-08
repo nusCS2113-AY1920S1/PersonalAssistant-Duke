@@ -33,7 +33,7 @@ public class RoomShareException extends Exception {
     public static final String WRONG_DATE_FORMAT_TEXT = "\tYou've entered invalid date or time\n";
     public static final String EMPTY_INDEX = "\tPlease enter a valid index within the range of the list! Eg. restore 1\n";
     private static final String INVALID_LEAVE_DATE_MESSAGE = "\tPlease check your dates for your leave!\n";
-
+    private static final String NO_SUCH_SUBTASK = "\tSubtask does not exist!\n";
 
     private String message;
     /**
@@ -146,6 +146,10 @@ public class RoomShareException extends Exception {
 
         case emptyIndex:
             message = EMPTY_INDEX;
+            break;
+
+        case noSubtask:
+            message = NO_SUCH_SUBTASK;
             break;
 
         default:

@@ -1,5 +1,8 @@
 package Model_Classes;
 
+import CustomExceptions.RoomShareException;
+import Enums.ExceptionType;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -26,19 +29,31 @@ public class Assignment extends Task {
      * Takes in arraylist of subtasks and sets it as this assignment's subtasks
      * @param subTasks array list containing subtasks
      */
-    public void setSubTasks(ArrayList<String> subTasks) { this.subTasks =  subTasks; }
+    public void addSubTasks(ArrayList<String> subTasks) {
+        for(String output : subTasks) {
+            this.subTasks.add(output);
+        }
+    }
 
     /**
      * Takes in a String, splits it by "," and sets each new String as a subtask of current Task
      * @param subTasks string containing subtasks
      */
-    public void setSubTasks(String subTasks) { this.subTasks = new ArrayList<>(Arrays.asList(subTasks.trim().split(","))); }
+    public void addSubTasks(String subTasks) { this.subTasks = new ArrayList<>(Arrays.asList(subTasks.trim().split(","))); }
 
     /**
      * Returns the ArrayList containing the Assignment's subtasks
      * @return ArrayList<String> subtasks.
      */
     public ArrayList<String> getSubTasks() { return subTasks; }
+
+    public void doneSubtask(int index) throws RoomShareException {
+        try {
+            subTasks.remove(index);
+        } catch (ArrayIndexOutOfBoundsException a) {
+            throw new RoomShareException(ExceptionType.noSubtask);
+        }
+    }
 
     /**
      * Returns the full description including of the assignment.

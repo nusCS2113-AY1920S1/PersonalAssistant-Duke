@@ -32,5 +32,5 @@ public enum ExceptionType {
     invalidInputString,
     invalidDateRange,
     emptyIndex,
-    invalidDateError
+    noSubtask, invalidDateError
     }
