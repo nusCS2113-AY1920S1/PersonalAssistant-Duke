@@ -86,7 +86,18 @@ public class Medicine extends Treatment {
     public void edit(String newName, int newPriority, String newSummary, Map<String, String> editVals,
                      boolean isAppending) throws DukeException {
         super.edit(newName, newPriority, newSummary, editVals, isAppending);
-
+        String dose = editVals.get("dose");
+        String date = editVals.get("date");
+        String duration = editVals.get("duration");
+        if (dose != null) {
+            setDose((isAppending) ? getDose() + dose : dose);
+        }
+        if (date != null) {
+            setStartDate((isAppending) ? getStartDate() + date : date);
+        }
+        if (duration != null) {
+            setDuration((isAppending) ? getDuration() + duration : duration);
+        }
     }
 
     @Override

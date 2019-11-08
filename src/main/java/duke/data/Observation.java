@@ -1,8 +1,11 @@
 package duke.data;
 
+import duke.exception.DukeException;
 import duke.ui.card.ObservationCard;
 import duke.ui.card.UiCard;
 import duke.ui.context.Context;
+
+import java.util.Map;
 
 public class Observation extends Evidence {
 
@@ -23,6 +26,22 @@ public class Observation extends Evidence {
     public Observation(String name, Impression impression, int priority, String summary, boolean isObjective) {
         super(name, impression, priority, summary);
         this.isObjective = isObjective;
+    }
+
+    @Override
+    public void edit(String newName, int newPriority, String newSummary, Map<String, String> editVals,
+                     boolean isAppending) throws DukeException {
+        super.edit(newName, newPriority, newSummary, editVals, isAppending);
+        boolean obj = editVals.containsKey("objective");
+        boolean subj = editVals.containsKey("subjective");
+        if (obj && subj) {
+            throw new DukeException("I don't know if you want the observation to be objective"
+                    + "or subjective!");
+        } else if (obj) {
+            setObjective(true);
+        } else if (subj) {
+            setObjective(false);
+        }
     }
 
     @Override

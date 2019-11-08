@@ -129,7 +129,7 @@ public class ImpressionEditSpec extends ImpressionObjSpec {
                 continue;
             }
 
-            // TODO: deal with null
+            // TODO: check for illegal switches, remove checked switches from map
             switch (switchName) {
 
             default:
@@ -149,17 +149,6 @@ public class ImpressionEditSpec extends ImpressionObjSpec {
                     default:
                         throw new DukeHelpException("Medicine plans do not have the property: '"
                                 + entryStr + "'", cmd);
-                    }
-                    break;
-                case "observation":
-                    Observation obsv = (Observation) editData;
-                    if (cmd.isSwitchSet("objective") && cmd.isSwitchSet("subjective")) {
-                        throw new DukeHelpException("I don't know if you want the observation to be objective"
-                                + "or subjective!", cmd);
-                    } else if (cmd.isSwitchSet("objective")) {
-                        obsv.setObjective(true);
-                    } else if (cmd.isSwitchSet("subjective")) {
-                        obsv.setObjective(false);
                     }
                     break;
                 case "plan": //fallthrough
