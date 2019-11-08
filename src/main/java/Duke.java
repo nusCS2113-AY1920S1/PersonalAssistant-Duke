@@ -2,8 +2,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 
-import duke.logic.command.Command;
 import duke.exception.DukeException;
+import duke.logic.command.Command;
 import duke.logic.parser.DuqueParser;
 import duke.storage.Storage;
 import duke.storage.UndoStack;
@@ -19,12 +19,17 @@ public class Duke {
     private TaskList tasks;
     private UndoStack undoStack;
 
-    public Duke(String filepath){
+    public Duke(String filepath) {
         ui = new Ui();
         undoStack = new UndoStack();
         storage = new Storage(filepath);
         try {
             tasks = new TaskList(storage.load());
+        } catch (FileNotFoundException e) {
+            ui.showLine("I see this is your first time running this program! I've taken the " +
+                    "liberty to create a default task list for you!");
+            tasks = new TaskList();
+            tasks.preLoadTasks();
         } catch (Exception e) {
             ui.showLoadingError();
             tasks = new TaskList();

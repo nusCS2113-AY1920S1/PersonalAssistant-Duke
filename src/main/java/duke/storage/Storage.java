@@ -11,7 +11,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
-
 import duke.task.Event;
 import duke.task.Task;
 import duke.tasklist.TaskList;
@@ -52,16 +51,13 @@ public class Storage {
                         .registerSubtype(Task.class)
                         .registerSubtype(Event.class))
                 .create();
-        try {
-            JsonReader reader = new JsonReader(new FileReader(filePath));
-            Type type = new TypeToken<ArrayList<Task>>() {
-            }.getType();
-            ArrayList<Task> tasks = gson.fromJson(reader, type);
-            return tasks;
-        } catch (Exception e) {
-            ArrayList<Task> tasks = new ArrayList<>();
-            return tasks;
-        }
+
+        JsonReader reader = new JsonReader(new FileReader(filePath));
+        Type type = new TypeToken<ArrayList<Task>>() {
+        }.getType();
+        ArrayList<Task> tasks = gson.fromJson(reader, type);
+        return tasks;
+
     }
 
     /**
