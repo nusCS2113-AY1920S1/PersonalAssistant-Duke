@@ -1,5 +1,6 @@
 package compal.logic.command;
 
+import compal.commons.LogUtils;
 import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
@@ -7,9 +8,12 @@ import compal.model.tasks.TaskList;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Logger;
 
 //@@author Catherinetan99
 public class ViewReminderCommand extends Command {
+
+    private static final Logger logger = LogUtils.getLogger(ViewReminderCommand.class);
 
     public static final String MESSAGE_USAGE = "view-reminder\n\t"
         + "Format: view-reminder\n\n\t"
@@ -22,9 +26,13 @@ public class ViewReminderCommand extends Command {
 
     @Override
     public CommandResult commandExecute(TaskList taskList) throws CommandException {
+
+        logger.info("Attempting to execute for view-reminder command");
+
         String taskReminders;
         try {
             taskReminders = getTaskReminders(taskList.getArrList());
+            logger.info("Successfully executed view-reminder command");
         } catch (Exception e) {
             throw new CommandException(MESSAGE_UNABLE_TO_EXECUTE);
         }

@@ -1,11 +1,16 @@
 package compal.logic.command;
 
+import compal.commons.LogUtils;
 import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 
+import java.util.logging.Logger;
+
 //@@author Catherinetan99
 public class SetReminderCommand extends Command {
+
+    private static final Logger logger = LogUtils.getLogger(SetReminderCommand.class);
 
     public static final String MESSAGE_USAGE = "set-reminder\n\t"
             + "Format: set-reminder /id <num> /status <Y|N>\n\n\t"
@@ -32,6 +37,9 @@ public class SetReminderCommand extends Command {
 
     @Override
     public CommandResult commandExecute(TaskList taskList) throws CommandException {
+
+        logger.info("Attempting to execute for set-reminder command");
+
         Task task;
 
         try {
@@ -49,6 +57,7 @@ public class SetReminderCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_STATUS_INPUT);
         }
         task.setHasReminder(state);
+        logger.info("Successfully executed set-reminder command");
         return new CommandResult(COMMAND_PREFIX.concat(task.toString()), true);
     }
 }

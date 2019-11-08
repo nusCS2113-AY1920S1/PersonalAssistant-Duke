@@ -1,5 +1,6 @@
 package compal.logic.command;
 
+import compal.commons.LogUtils;
 import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
@@ -9,9 +10,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Logger;
 
 //@@author Catherinetan99
 public class FindFreeSlotCommand extends Command {
+    private static final Logger logger = LogUtils.getLogger(FindFreeSlotCommand.class);
 
     public static final String MESSAGE_USAGE = "findfreeslot\n\t"
             + "Format: findfreeslot /date <dd/mm/yyyy> /hour <num> /min <num>\n\n\t"
@@ -51,6 +54,8 @@ public class FindFreeSlotCommand extends Command {
      */
     @Override
     public CommandResult commandExecute(TaskList taskList) throws CommandException {
+
+        logger.info("Attempting to execute for findfreeslot command");
 
         Date startPointer;
         Date oneDayAfter;
@@ -117,8 +122,10 @@ public class FindFreeSlotCommand extends Command {
         finalList = getFreeSlots(arrayList, startPointer, oneDayAfter, duration);
         String result = printResult(finalList);
 
-        arrayList.clear();
-        finalList.clear();
+        //arrayList.clear();
+        //finalList.clear();
+
+        logger.info("Successfully executed findfreeslot command");
 
         return new CommandResult(result, false);
     }
