@@ -72,10 +72,16 @@ public class SetReminderCommand extends Command {
             case 3: //ask for reminder date
                 return ui.showReminderSetup(ASK_FOR_REMINDER_DATE);
             case 4:
-                Date date = Parser.parseDate(userResponse.trim());
-                new Reminder(date, reminderWordList);
+                String dateString = userResponse.trim();
+                Date date = Parser.parseDate(dateString);
+
                 //write words into reminder file
-                storage.writeFile(reminderWordList.toString(), true, "reminder");
+                String wordsForReminder =
+                        reminderWordList.toString().substring(1, reminderWordList.toString().length() - 1).trim();
+                String reminderInfo = dateString + " | " + wordsForReminder;
+                storage.writeFile(reminderInfo,
+                        true, "reminder");
+                new Reminder(date, reminderWordList, reminderInfo);
                 return ui.showReminderSummary(reminderWordList, date);
             default:
                 throw new ReminderSetupException();
@@ -84,4 +90,7 @@ public class SetReminderCommand extends Command {
             return e.showError();
         }
     }
+
+
+
 }

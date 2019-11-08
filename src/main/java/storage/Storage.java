@@ -4,6 +4,7 @@ import dictionary.Bank;
 import dictionary.TagBank;
 import dictionary.Word;
 import dictionary.WordBank;
+import exception.ReminderWrongDateFormatException;
 import exception.UnableToWriteFileException;
 import exception.WordAlreadyExistsException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -18,6 +19,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import parser.Parser;
+import reminder.Reminder;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -33,6 +36,7 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Stack;
 
@@ -122,7 +126,7 @@ public class Storage {
         }
     }
 
-    public ArrayList<String> loadReminderWords() {
+    public void loadReminders() {
         File file = new File(REMINDER_FILE_PATH);
         FileReader fr = null;
         BufferedReader br = null;
@@ -135,19 +139,17 @@ public class Storage {
             while (line != null) {
                 if (line.equals("")) {
                     line = br.readLine();
-                } else {
-                    break;
+                    continue;
                 }
+                String[] reminderInfo = line.split(" \\| ");
+                String[] wordList = reminderInfo[1].split(",");
+                reminderWordList.addAll(Arrays.asList(wordList));
+                Date date = Parser.parseDate(reminderInfo[0]);
+                new Reminder(date, reminderWordList, line);
+                line = br.readLine();
             }
-            String[] wordList = line.substring(0, line.length() - 1).split(",");
-            reminderWordList.addAll(Arrays.asList(wordList));
-
-            updateFile(line, "", "reminder");           //delete this line
-
-            return reminderWordList;
-        } catch (IOException e) {
+        } catch (IOException | ReminderWrongDateFormatException e) {
             e.printStackTrace();
-            return null;
         } finally {
             try {
                 br.close();
