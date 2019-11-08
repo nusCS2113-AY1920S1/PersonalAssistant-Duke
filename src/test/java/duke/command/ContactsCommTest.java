@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.enums.ErrorMessages;
+import duke.enums.Numbers;
 import duke.task.ContactList;
 import duke.task.Contacts;
 import duke.task.TaskList;
@@ -61,7 +62,19 @@ public class ContactsCommTest {
         ContactList contactList = new ContactList();
         Contacts contactObj1 = new Contacts("Alexa", "", "", "");
         new AddContactsCommand(contactObj1, contactList);
-
+        String[] contactDetails = {"Albert", "91234567"};
+        try {
+            Contacts contactObj = new Contacts(contactDetails[Numbers.ZERO.value],
+                    contactDetails[Numbers.ONE.value],
+                    contactDetails[Numbers.TWO.value],
+                    contactDetails[Numbers.THREE.value]);
+            new AddContactsCommand(contactObj, contactList);
+        } catch (Exception e) {
+            assertEquals("Format is in: addcontact <name>, <contact>, <email>, <office>\n"
+                            + "Put 'Nil' if field is empty\n"
+                            + "Check that email has an '@'",
+                    ErrorMessages.CONTACT_FORMAT.message);
+        }
         String nonIntegerInput = "abc";
         try {
             new DeleteContactCommand(Integer.parseInt(nonIntegerInput), contactList);

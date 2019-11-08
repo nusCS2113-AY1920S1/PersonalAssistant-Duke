@@ -159,7 +159,7 @@ public class Storage {
             in = Storage.class.getClassLoader().getResourceAsStream(samplePath);
         }
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
-        String input = "";
+        String input;
         while ((input = bufferedReader.readLine()) != null) {
             fileContent += input + "\n";
         }

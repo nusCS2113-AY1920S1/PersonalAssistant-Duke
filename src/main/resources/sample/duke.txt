@@ -1,7 +1,20 @@
 T|1|read a book|read page 578
-D|0|submit homework|k-pop is so great man i love it.|01/10/2019 2359
+D|0|submit homework|cs1010|10/11/2019 1800
 F|1|take computing class|empty|2 hours
 T|0|dance|empty
 F|0|build a robot|empty|3 hours
-D|0|dance|empty|02/11/2019 2000
-D|0|CS2113 proj|empty|02/11/2019 0000
+D|1|dance two|SAMPLE|02/11/2019 2000
+D|1|CS2113 proj|empty|02/11/2019 0000
+D|0|cs3230 exam|empty|09/11/2019 1900
+T|0|go to supermarket|empty
+F|0|nap|empty|4 hours
+T|1|running|five laps
+D|0|apply scholarship|Look for NUS Merit ones|15/11/2019 1800
+F|0|learn Python|empty|7 hours
+T|0|pay phone bills|Singtel
+D|0|ges1012|essay|14/11/2019 2350
+D|0|CS2028 demo|empty|08/11/2019 1500
+F|0|shop online|clothes|2 hours
+D|0|prepare cheat sheet|ma1508e|17/11/2019 0000
+T|0|st2334 revision|do tutorial 5
+F|0|meet friends for lunch|empty|1 hour
