@@ -1,30 +1,21 @@
-
 package command;
 
 import booking.ApprovedList;
 import inventory.Inventory;
-
-import booking.Booking;
 import booking.BookingList;
 import exception.DukeException;
 import room.RoomList;
-import storage.Constants;
 import storage.Storage;
 import ui.Ui;
 import user.UserList;
-
 import java.io.IOException;
 import java.text.ParseException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class RejectCommand extends Command {
 
     private int index;
-    private LocalDateTime dateTimeStart;
-    private String datetimeStartString;
 
-    //@@author Alex-Teo
+    //@@author AmosChan97
     /**
      * Approve a request.
      * format is reject name roomcode date time
@@ -53,6 +44,9 @@ public class RejectCommand extends Command {
                         Storage userStorage, Storage inventoryStorage,
                         Storage bookingstorage, Storage roomstorage, Storage approvestorage)
             throws DukeException, IOException, ParseException {
+        if (!userList.getLoginStatus()) {
+            throw new DukeException("Please log in to approve or reject bookings.");
+        }
         if (index < 0 || index >= bookingList.size()) {
             throw new DukeException("OOPS!!! The index you have entered is out of bounds");
         }
