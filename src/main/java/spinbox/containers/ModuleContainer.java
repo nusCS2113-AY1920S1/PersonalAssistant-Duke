@@ -7,6 +7,7 @@ import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
 import spinbox.storage.StorageContainer;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +16,10 @@ import java.util.Map;
 public class ModuleContainer implements StorageContainer {
     private static final String DIRECTORY_NAME = "SpinBoxData/";
     private static final String MODULES_FILE_NAME = "modules.txt";
+    private static final String FILES_DIRECTORY = "/files.txt";
+    private static final String GRADES_DIRECTORY = "/grades.txt";
+    private static final String TASKS_DIRECTORY = "/tasks.txt";
+    private static final String NOTES_DIRECTORY = "/notes.txt";
 
     private HashMap<String, Module> modules;
     private Storage localStorage;
@@ -62,6 +67,27 @@ public class ModuleContainer implements StorageContainer {
         this.getModules().put(module.getModuleCode(), module);
         this.saveData();
         return module;
+    }
+
+    /**
+     * Removes a module from the module container.
+     * @param moduleCode ModuleCode of the module to be removed.
+     * @param module Module object to be removed.
+     * @throws DataReadWriteException I/O Error.
+     */
+    public void removeModule(String moduleCode, Module module) throws DataReadWriteException {
+        this.getModules().remove(module.getModuleCode());
+        File file1 = new File(DIRECTORY_NAME + moduleCode + FILES_DIRECTORY);
+        file1.delete();
+        File file2 = new File(DIRECTORY_NAME + moduleCode + GRADES_DIRECTORY);
+        file2.delete();
+        File file3 = new File(DIRECTORY_NAME + moduleCode + NOTES_DIRECTORY);
+        file3.delete();
+        File file4 = new File(DIRECTORY_NAME + moduleCode + TASKS_DIRECTORY);
+        file4.delete();
+        File file5 = new File(DIRECTORY_NAME + moduleCode);
+        file5.delete();
+        this.saveData();
     }
 
     /**

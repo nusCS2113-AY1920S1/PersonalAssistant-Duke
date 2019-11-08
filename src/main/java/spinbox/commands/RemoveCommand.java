@@ -18,12 +18,17 @@ import java.util.HashMap;
 
 public class RemoveCommand extends Command {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
-    private static final String NON_EXISTENT_MODULE = "This module does not exist.";
+    private static final String NON_EXISTENT_MODULE = "This module does not exist. Please ensure that the "
+            + "module code and module name are exactly the same as what is listed in the modules page.";
     private static final String NOTE_REMOVED = "A note has been successfully removed from ";
     private static final String PROVIDE_INDEX = "Please provide an index to be removed.";
     private static final String INVALID_REMOVE_FORMAT = "Please use valid remove format:\n"
-            + "remove <pageContent> / <type> <index>";
+            + "\t1. To remove a module: remove / module <moduleCode> <moduleName>\n"
+            + "\t2. To remove an item from a module component: remove <pageContent> / <type> <index>";
     private static final String INVALID_INDEX = "Please enter a valid index.";
+    private static final String MODULE_REMOVED = "The following module has been removed: ";
+    private static final String MODULE_REMOVE_FORMAT = "Please provide the remove module command in this format:\n"
+            + "remove / module <moduleCode> <moduleName>";
     private String type;
 
     private String moduleCode;
@@ -134,6 +139,28 @@ public class RemoveCommand extends Command {
                 }
             } else {
                 return NON_EXISTENT_MODULE;
+            }
+
+        case "module":
+            try {
+                String[] contentComponents = content.split(" ", 3);
+                moduleCode = contentComponents[1].toUpperCase();
+                String moduleName = contentComponents[2].toUpperCase();
+                Module moduleToBeRemoved = moduleContainer.getModule(moduleCode);
+                String toBeRemovedModuleName = moduleToBeRemoved.getModuleName().toUpperCase();
+                if (moduleContainer.checkModuleExists(moduleCode)
+                        && toBeRemovedModuleName.equals(moduleName)) {
+                    Module module = new Module(moduleCode, moduleName);
+                    moduleContainer.removeModule(moduleCode, module);
+                    return HORIZONTAL_LINE + "\n" + MODULE_REMOVED + moduleCode + " " + moduleName + "\n"
+                            + HORIZONTAL_LINE;
+                } else {
+                    return HORIZONTAL_LINE + "\n" + NON_EXISTENT_MODULE + "\n" + HORIZONTAL_LINE;
+                }
+            } catch (IndexOutOfBoundsException e) {
+                throw new InputException(MODULE_REMOVE_FORMAT);
+            } catch (NullPointerException e) {
+                throw new InputException(NON_EXISTENT_MODULE);
             }
 
         default:

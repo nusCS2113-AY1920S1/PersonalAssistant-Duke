@@ -56,11 +56,11 @@ public class HelpList {
 
     public final String remove = helpOutput.concat(horizontalLine + "\n" + "Command: remove\n"
             + "Function: To remove a module/task/grade/file/note component\n"
-            + "Format:\n" + "\t1. Remove a module: remove / module <module code>\n"
+            + "Format:\n" + "\t1. Remove a module: remove / module <module code> <module name>\n"
             + "\t2. Remove items for a specific module: remove <module code> / <item type> <item index>\n"
             + "Example:\n"
             + "\t* Removing a module *\n"
-            + "\t1. Remove a module CG1111: remove / module CG1111\n\n"
+            + "\t1. Remove a module CG1111: remove / module CG1111 EPP1\n\n"
             + "\t* Removing an item for a specific module (omit module code if current page is the specific module "
             + "page) *\n"
             + "\t2. Remove the first file under module CG1111: remove CG1111 / file 1\n"

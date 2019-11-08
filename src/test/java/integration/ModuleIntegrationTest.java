@@ -6,9 +6,12 @@ import spinbox.entities.Module;
 import spinbox.entities.items.File;
 import spinbox.entities.items.GradedComponent;
 import spinbox.entities.items.tasks.Todo;
+import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.StorageException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class ModuleIntegrationTest {
     @Test
@@ -38,5 +41,19 @@ public class ModuleIntegrationTest {
                 new Todo("test todo").storeString());
 
         assertEquals(testModuleOne.getNotepad().getNotes().remove(0), "hello123");
+    }
+
+    @Test
+    public void moduleRemoval_removeOneModule_expectedModuleRemoved() throws SpinBoxException {
+        ModuleContainer testContainer = new ModuleContainer();
+        String moduleCode = "testModule";
+        String moduleName = "test";
+        Module testModuleOne = new Module(moduleCode, moduleName);
+
+        testContainer.addModule(testModuleOne);
+        assertTrue(testContainer.checkModuleExists(moduleCode));
+
+        testContainer.removeModule(moduleCode, testModuleOne);
+        assertFalse(testContainer.checkModuleExists(moduleCode));
     }
 }
