@@ -264,39 +264,59 @@ public class CliView {
      * Prints message when quitting goal of the day.
      */
     public void showQuitGoal() {
+        System.out.println("________________________________"
+            + "________________________________");
         System.out.println(
             "You have quit the goal of the day.");
+        System.out.println("________________________________"
+            + "________________________________");
     }
 
     /**
      * Prints message asking for full command.
      */
     public void showFullCommand() {
+        System.out.println("________________________________"
+            + "________________________________");
         System.out.println("Please enter the full command.");
+        System.out.println("________________________________"
+            + "________________________________");
     }
 
     /**
      * Prints message asking for correct format.
      */
     public void showCorrectFormat() {
+        System.out.println("________________________________"
+            + "________________________________");
         System.out.println(
             "Please enter the details in the correct format.");
+        System.out.println("________________________________"
+            + "________________________________");
     }
 
     /**
      * Prints message asking for correct format.
      */
     public void showCorrectCommand() {
+        System.out.println("________________________________"
+            + "________________________________");
         System.out.println(
                 "Please enter the correct command.");
+        System.out.println("________________________________"
+            + "________________________________");
     }
 
     /**
      * Prints message showing don't know what it means.
      */
     public void showDontKnow() {
+        System.out.println("________________________________"
+            + "________________________________");
         System.out.println("OOPS!!! I'm sorry,"
             + "but I don't know what that means :-(");
+        System.out.println("________________________________"
+            + "________________________________");
     }
 
     /**
@@ -346,8 +366,12 @@ public class CliView {
      * Prints message when quitting lesson of the day.
      */
     public void showQuitLesson() {
+        System.out.println("________________________________"
+            + "________________________________");
         System.out.println(
             "You have quit the lesson of the day.");
+        System.out.println("________________________________"
+            + "________________________________");
     }
 
     /**
