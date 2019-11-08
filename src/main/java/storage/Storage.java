@@ -53,7 +53,8 @@ public class Storage {
         File dataText = new File(filePath, "wordup.txt");
         if (!filePath.exists()) {
             filePath.mkdir();
-        }  if (!dataText.exists()) {
+        }
+        if (!dataText.exists()) {
             try {
                 dataText.createNewFile();
             } catch (IOException e) {
