@@ -26,8 +26,9 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_SUCCESS_PARTIAL = "I have tried importing the given file!\n"
         + "However some of the events could not be ported over! \nThe results are below:\n";
     public static final String MESSAGE_FILE_NON_EXIST = "Error: File specified to import does not exist!";
-    public static final String MESSAGE_FILE_ICS_INCOMPATIBLE = "I have tried importing the given file!\n"
-        + "However it seems like it the given iCalendar file is fully incompatible with COMPal currently!\n";
+    public static final String MESSAGE_FILE_ICS_INCOMPATIBLE = "I have tried importing the given file!\n\n"
+        + "However it seems like it the given iCalendar file is fully incompatible"
+        + "\nto port over the schedule with COMPal currently!\n";
     public static final String MESSAGE_FILE_NON_ICS = "Error: File is not a ICS file format that can be read from!";
 
 
@@ -59,9 +60,9 @@ public class ImportCommand extends Command {
         }
         logger.info("Successfully executed import command");
 
-        if(successfulImport == attemptedImport){
+        if (successfulImport == attemptedImport) {
             return new CommandResult(MESSAGE_SUCCESS.concat(finalList), true);
-        }else{
+        } else {
             return new CommandResult(MESSAGE_SUCCESS_PARTIAL.concat(finalList), true);
         }
 
