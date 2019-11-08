@@ -15,6 +15,21 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class    StudyAssistCommandParser extends Command {
+    /** This method allows user to enter the module planner page,
+     * Delete/shift/add/view their 4 year study plan, view prerequisite tree of modules
+     * the method keeps repeating in while loop unless esc command is given.
+     *
+     * @param list          list of all tasks
+     * @param ui            the object that deals with
+     *                      printing things to the user
+     * @param storage       the object that deals with storing data
+     * @param commandStack
+     * @param deletedTask
+     * @param triviaManager
+     * @throws IOException   Catch error if the read file fails
+     * @throws DukeException throws a custom exception if
+     *                       module index does not exist.
+     */
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException, DukeException, ParseException {
         System.out.println("Welcome to Module Planner!");
@@ -49,6 +64,8 @@ public class    StudyAssistCommandParser extends Command {
                 new checkPrerequisiteCommand().execute(ui, storage);
             } else if (ui.fullCommand.equals("undo")) {
                StudyPlan.StudyPlan = new UndoStudyPlannerCommand().undoStudyPlanner(oldStudyPlan,StudyPlan.StudyPlan, storage);
+            } else if(!ui.fullCommand.equals("moduleplanner")){
+                System.out.println("Invalid input that i could not understand~");
             }
             ui.readCommand();
         }
