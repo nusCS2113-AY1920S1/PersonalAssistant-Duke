@@ -86,15 +86,18 @@ public class RemindCommand extends Command {
         }
         if (this.time.before(currentDate)) {
             throw new DukeInvalidDateTimeException("Sorry, you cannot set a time that has already passed!");
-        }
-        if (remindMap.containsKey(time)) {
-            Assignment remindedTask = remindMap.get(time);
-            throw new DukeInvalidDateTimeException("Sorry, you have a reminder set for " + remindedTask.getModCode() + " " + remindedTask.getDescription() + " by: " + task.getDateTime());
         } else if (!deadlineMap.containsKey(task.getModCode())) {
             throw new DukeException("Sorry, you have no such mod entered in your deadline table!");
         } else if (!deadlineMap.get(task.getModCode()).containsKey(task.getDate())) {
             throw new DukeException("Sorry, you have no such timing entered in your deadline table!");
+        } else if (remindMap.containsKey(time)) {
+            Assignment remindedTask = remindMap.get(time);
+            throw new DukeInvalidDateTimeException("Sorry, you have a reminder set for " + remindedTask.getModCode() + " " + remindedTask.getDescription() + " by: " + task.getDateTime());
         } else {
+            Date inputTaskDate = dateFormat.parse(task.getDateTime());
+            if (inputTaskDate.before(time)) {
+                throw new DukeInvalidDateTimeException("Sorry, you cannot set a reminder after the date of the task.");
+            }
             ArrayList<Assignment> allTaskInDate = deadlineMap.get(task.getModCode()).get(task.getDate());
             boolean hasTask = false;
             for (Assignment taskInList : allTaskInDate) {

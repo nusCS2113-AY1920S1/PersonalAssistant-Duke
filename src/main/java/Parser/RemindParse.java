@@ -45,22 +45,27 @@ public class RemindParse extends Parse {
             String activity = fullCommand.trim().substring(6);
             dateDescriptionSplit = activity.trim().split("/by");
             modDescriptionsplit = dateDescriptionSplit[0].trim().split(" ");
-            if (!super.isModCode(modDescriptionsplit[1])) {
-                throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
-            }
             if (dateDescriptionSplit[0].contains("/set")) {
                 description = dateDescriptionSplit[0].substring(4).trim();
-                if (description.isEmpty()) {
-                    throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
-                }
                 isRemind = true;
             } else {
                 description = dateDescriptionSplit[0].substring(3).trim();
-                if (description.isEmpty()) {
-                    throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
-                }
             }
-
+            if (description.isEmpty()) {
+                throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode and description of a deadline cannot be empty.");
+            } else if (!super.isModCode(modDescriptionsplit[1])) {
+                throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid.");
+            }
+            String modCode = modDescriptionsplit[1];
+            String taskDescription = NO_FIELD;
+            if (isRemind) {
+                taskDescription = dateDescriptionSplit[0].substring(4 + modCode.length() + 1).trim();
+            } else {
+                taskDescription = dateDescriptionSplit[0].substring(3 + modCode.length() + 1).trim();
+            }
+            if (taskDescription.isEmpty()) {
+                throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
+            }
             String[] dateTime = DateTimeParser.remindDateParse(dateDescriptionSplit[1].trim());
             Date remindDate = DateTimeParser.deadlineInputStringToDate(dateTime[2]);
             return new RemindCommand(new Deadline(description, dateTime[0], dateTime[1]), remindDate, isRemind);
