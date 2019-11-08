@@ -61,7 +61,7 @@ public class LectureCommandTest extends ApplicationTest {
     void testLectureSorting() throws IOException {
         UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
-        logic.executeCommand("hello Sim boy");
+        logic.executeCommand("hello Sim boy").execute();
 
         //Selects topic for lecture.
         testLectureSortingSelect(logic);
