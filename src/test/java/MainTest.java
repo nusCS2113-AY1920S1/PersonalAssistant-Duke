@@ -563,6 +563,7 @@ public class MainTest {
                 "|                |                |                |                |                |                |                |\n" +
                 "________________________________________________________________________________________________________________________";
         assertEquals(calendarCompare, calendarTest.getStringForOutput());
+    }
 
     //@@author YuanJiayi
     @Test
