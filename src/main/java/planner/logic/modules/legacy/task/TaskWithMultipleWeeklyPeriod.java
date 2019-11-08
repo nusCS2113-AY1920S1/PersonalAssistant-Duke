@@ -3,6 +3,7 @@
 package planner.logic.modules.legacy.task;
 
 import planner.logic.exceptions.legacy.ModInvalidIndexException;
+import planner.logic.exceptions.legacy.ModInvalidTimeException;
 import planner.util.legacy.periods.TimeInterval;
 import planner.util.legacy.periods.TimePeriod;
 import planner.util.legacy.periods.TimePeriodWeekly;
@@ -81,6 +82,20 @@ public class TaskWithMultipleWeeklyPeriod extends TaskWithMultiplePeriods<TimePe
 
     public DayOfWeek getDayOfWeek(int index) throws ModInvalidIndexException {
         return this.getPeriod(index).getDayOfWeek();
+    }
+
+    /**
+     * Get DayOfWeek object from String.
+     * @param dayOfWeek input dayOfWeek
+     * @return corresponding dayOfWeek object
+     * @throws ModInvalidTimeException if input dayOfWeek is invalid
+     */
+    public static DayOfWeek getDayOfWeek(String dayOfWeek) throws ModInvalidTimeException {
+        try {
+            return DayOfWeek.valueOf(dayOfWeek.toUpperCase());
+        } catch (IllegalArgumentException ex) {
+            throw new ModInvalidTimeException();
+        }
     }
 
     //@@author e0313687
