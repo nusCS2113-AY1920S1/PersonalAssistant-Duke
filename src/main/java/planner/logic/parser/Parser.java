@@ -10,19 +10,20 @@ import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
 import net.sourceforge.argparse4j.inf.Subparser;
 import net.sourceforge.argparse4j.inf.Subparsers;
-import planner.logic.command.GradeCommand;
 import planner.logic.command.AddCcaScheduleCommand;
 import planner.logic.command.Arguments;
 import planner.logic.command.CapCommand;
 import planner.logic.command.ClearCommand;
 import planner.logic.command.EndCommand;
+import planner.logic.command.GradeCommand;
 import planner.logic.command.ModuleCommand;
+import planner.logic.command.ReminderCommand;
 import planner.logic.command.RemoveCommand;
 import planner.logic.command.SearchThenAddCommand;
+import planner.logic.command.SetPasswordCommand;
 import planner.logic.command.ShowCommand;
 import planner.logic.command.SortCommand;
 import planner.logic.command.UpdateModuleInfo;
-import planner.logic.command.ReminderCommand;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.parser.action.Join;
 import planner.util.logger.PlannerLogger;
@@ -63,6 +64,7 @@ public class Parser {
         mapCommand("grade", GradeCommand.class);
         mapCommand("update", UpdateModuleInfo.class);
         mapCommand("reminder", ReminderCommand.class);
+        mapCommand("passwd", SetPasswordCommand.class);
     }
 
     /**
@@ -153,7 +155,7 @@ public class Parser {
         getSubParser("clear")
                 .help("Clear your data as specified")
                 .addArgument("toClear")
-                .choices("modules", "ccas", "data")
+                .choices("module", "cca", "data")
                 .help("What to clear");
 
         Subparsers sortParsers = getSubParser("sort")
@@ -200,6 +202,10 @@ public class Parser {
                 .addArgument("toReminder")
                 .help("When do you want to set the reminder again");
 
+        getSubParser("passwd")
+                .help("Set or update your password")
+                .addArgument("password")
+                .help("Your new password");
     }
 
     private void initBuiltinActions() {

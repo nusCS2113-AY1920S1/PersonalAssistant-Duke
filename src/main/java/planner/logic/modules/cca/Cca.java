@@ -27,7 +27,7 @@ public class Cca extends TaskWithMultipleWeeklyPeriod {
      * @throws ModInvalidTimeException when input time is invalid
      */
     public Cca(String task, String beginString, String endString, String dayOfWeek) throws ModInvalidTimeException {
-        super(task, DayOfWeek.valueOf(dayOfWeek.toUpperCase()));
+        super(task, TaskWithMultipleWeeklyPeriod.getDayOfWeek(dayOfWeek));
         NattyWrapper natty = new NattyWrapper();
         LocalTime begin = natty.dateToLocalDateTime(beginString).toLocalTime();
         LocalTime end = natty.dateToLocalDateTime(endString).toLocalTime();

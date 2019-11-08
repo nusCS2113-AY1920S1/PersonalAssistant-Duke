@@ -84,8 +84,9 @@ public class TimePeriodWeekly implements TimePeriod {
                 || this.isUntilNextDay
                     && ((dayOfWeek == null || this.dayOfWeek.equals(dayOfWeek)) && afterBegin && afterEnd
                         || (dayOfWeek == null || this.dayOfWeek.plus(1).equals(dayOfWeek)) && beforeBegin && beforeEnd)
-                || strictBegin && localTime.equals(this.begin)
-                || strictEnd && localTime.equals(this.end);
+                || ((dayOfWeek == null || this.dayOfWeek.equals(dayOfWeek))
+                && (strictBegin && localTime.equals(this.begin)
+                || strictEnd && localTime.equals(this.end)));
     }
 
     public boolean isClashing(LocalDateTime localDateTime, boolean strictBegin, boolean strictEnd) {
@@ -123,7 +124,7 @@ public class TimePeriodWeekly implements TimePeriod {
     }
 
     public boolean isClashing(LocalTime begin, LocalTime end) {
-        return this.begin == begin && this.end == end || this.isClashing(begin) || this.isClashing(end);
+        return this.begin.equals(begin) && this.end.equals(end) || this.isClashing(begin) || this.isClashing(end);
     }
 
     /**
@@ -180,7 +181,8 @@ public class TimePeriodWeekly implements TimePeriod {
      */
     public boolean isClashing(TimePeriodWeekly other) {
         return other != null
-                && (this.begin == other.begin && this.end == other.end
+                && (this.begin.equals(other.begin) && this.end.equals(other.end)
+                    && this.dayOfWeek.equals(other.dayOfWeek)
                     || this.isClashing(other.begin, other.dayOfWeek)
                     || this.isClashing(other.end, other.dayOfWeek)
                     || other.isClashing(this.begin, this.dayOfWeek)
@@ -190,10 +192,10 @@ public class TimePeriodWeekly implements TimePeriod {
     // TODO: Combine the isClashing of TimePeriods
     @Override
     public boolean isClashing(TimePeriod other) {
-        if (other instanceof TimePeriodSpanning) {
-            return this.isClashing((TimePeriodSpanning) other);
-        } else if (other instanceof  TimePeriodWeekly) {
+        if (TimePeriodWeekly.class.isAssignableFrom(other.getClass())) {
             return this.isClashing((TimePeriodWeekly) other);
+        } else if (TimePeriodSpanning.class.isAssignableFrom(other.getClass())) {
+            return this.isClashing((TimePeriodSpanning) other);
         }
         return false;
     }
