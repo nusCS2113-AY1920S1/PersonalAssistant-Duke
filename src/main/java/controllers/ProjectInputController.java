@@ -485,6 +485,11 @@ public class ProjectInputController implements IController {
                     projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, sortCriteria,
                         projectToManage);
                 ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
+                if (allTaskDetailsForTable.size() == 0) {
+                    ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectAssignTask] "
+                            + "Currently there are no tasks with the specified attribute.");
+                    return (new String[] {"Currently there are no tasks with the specified attribute."});
+                }
                 if (allTaskDetailsForTable.size() == 1 && allTaskDetailsForTable.get(0).size() == 1) {
                     ArrayList<String> taskTable = new ArrayList<>();
                     taskTable.add("Tasks of " + projectToManage.getName() + ":");
