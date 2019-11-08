@@ -145,8 +145,8 @@ public class PlannerUi {
     }
 
     public String loginPrompt() {
-        return this.prompt("Please login to continue! Enter 'login' to login"
-                + "\nNot registered? Just enter 'register' and I will help you setup!");
+        return this.prompt("Please login to continue! Enter 'login' to login\n"
+                + "Not registered? Just enter 'register' and I will help you setup!");
     }
 
     public String userExistPrompt() {
@@ -356,7 +356,9 @@ public class PlannerUi {
      * Message to print out the number of core modules left to take.
      */
     public void coreModLeft() {
-        System.out.println("\n" + "Number of core modules required to take for graduation:");
+        System.out.println("\n"
+                            +
+                            "Number of core modules required to take for graduation:");
     }
 
     /**
@@ -370,7 +372,9 @@ public class PlannerUi {
      * Message to print out the number of ge modules left to take.
      */
     public void geModLeft() {
-        System.out.println("\n" + "Number of general education modules required to take for graduation:");
+        System.out.println("\n"
+                            +
+                            "Number of general education modules required to take for graduation:");
     }
 
     /**
@@ -384,7 +388,9 @@ public class PlannerUi {
      * Message to print out the number of ue modules left to take.
      */
     public void ueModLeft() {
-        System.out.println("\n" + "Number of unrestricted elective modules required to take for graduation:");
+        System.out.println("\n"
+                            +
+                            "Number of unrestricted elective modules required to take for graduation:");
     }
 
     /**
@@ -394,7 +400,13 @@ public class PlannerUi {
      */
     public void printUpcomingTasks(List<Task> upcomingTasksList) {
         if (upcomingTasksList.size() > 0) {
-            System.out.println(LINE + "You have " + upcomingTasksList.size() + " upcoming tasks!\nHere's the list:");
+            System.out.println(LINE
+                                +
+                                "You have "
+                                +
+                                upcomingTasksList.size()
+                                +
+                                " upcoming tasks!\nHere's the list:");
             this.printTaskList(upcomingTasksList);
             System.out.println(LINE);
         }
@@ -423,8 +435,10 @@ public class PlannerUi {
     public void reminderMsg() {
         showLine();
         System.out.println("Please remember to update your module information!\n"
-                            + "To do so, you can input the update command in the following format:\n"
-                            + "update YEAR_SEM_1-YEAR_SEM_2 ");
+                            +
+                            "To do so, you can input the update command in the following format:\n"
+                            +
+                            "update YEAR_SEM_1-YEAR_SEM_2 ");
         showLine();
     }
 
@@ -434,20 +448,16 @@ public class PlannerUi {
     public void reminderList() {
         showLine();
         System.out.println("Would you like to set your reminder to every:\n"
-                            + "1) for 30 seconds\n"
-                            + "2) for 1 minute\n"
-                            + "3) for 2 minutes\n"
-                            + "4) for 5 minutes\n"
-                            + "*helpline* : for 1), enter 'reminder one'");
+                            +
+                            "1) for 30 seconds\n"
+                            +
+                            "2) for 1 minute\n"
+                            +
+                            "3) for 2 minutes\n"
+                            +
+                            "4) for 5 minutes\n"
+                            +
+                            "*helpline* : for 1), enter 'reminder one'");
     }
 
-    /**
-     * Message to print if a wrong reminder command is being print.
-     */
-    public void reminderWrongCommand() {
-        showLine();
-        System.out.println("Please enter the correct reminder command in the following format:\n"
-                            + "reminder NUMBER\n"
-                            + "eg. reminder one");
-    }
 }

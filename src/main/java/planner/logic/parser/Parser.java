@@ -198,6 +198,7 @@ public class Parser {
         getSubParser("reminder")
                 .help("Setting reminders")
                 .addArgument("toReminder")
+                .choices("list", "one", "two", "three", "four", "stop")
                 .help("When do you want to set the reminder again");
 
     }
