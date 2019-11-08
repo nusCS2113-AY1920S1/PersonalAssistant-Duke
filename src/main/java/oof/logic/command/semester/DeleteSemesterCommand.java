@@ -1,10 +1,11 @@
 package oof.logic.command.semester;
 
 import oof.logic.command.Command;
+import oof.model.university.SelectedInstance;
 import oof.ui.Ui;
 import oof.commons.exceptions.command.InvalidArgumentException;
-import oof.model.semester.Semester;
-import oof.model.semester.SemesterList;
+import oof.model.university.Semester;
+import oof.model.university.SemesterList;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
 
@@ -41,10 +42,12 @@ public class DeleteSemesterCommand extends Command {
     public void execute(SemesterList semesterList, TaskList tasks, Ui ui, StorageManager storageManager)
             throws InvalidArgumentException {
         if (!semesterList.isIndexValid(index)) {
-            throw new InvalidArgumentException("OOPS!!! Invalid number!");
+            throw new InvalidArgumentException("OOPS!!! The index is invalid.");
         }
         Semester semester = semesterList.getSemester(this.index);
         semesterList.deleteSemester(this.index);
+        SelectedInstance selectedInstance  = SelectedInstance.getInstance();
+        selectedInstance.resetSemester();
         ui.printSemesterRemovalMessage(semester);
         storageManager.writeSemesterList(semesterList);
     }

@@ -8,7 +8,7 @@ import java.util.Date;
 
 import oof.ui.Ui;
 import oof.commons.exceptions.command.CommandException;
-import oof.model.semester.SemesterList;
+import oof.model.university.SemesterList;
 import oof.model.task.Deadline;
 import oof.model.task.Event;
 import oof.model.task.Task;

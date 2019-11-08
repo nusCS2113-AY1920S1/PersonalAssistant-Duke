@@ -1,4 +1,4 @@
-package oof.logic.command;
+package oof.logic.command.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -19,7 +19,7 @@ import oof.storage.StorageManager;
 public class AddEventCommandTest {
 
     /**
-     * Tests the behaviour when description of deadline is not found.
+     * Tests the behaviour when description of event is not found.
      */
     @Test
     public void execute_DescriptionNotFound_ThrowsException() {
@@ -30,6 +30,35 @@ public class AddEventCommandTest {
             fail();
         } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! The event needs a description.", e.getMessage());
+        }
+    }
+
+    /**
+     * Tests the behaviour when description of event exceeds max length.
+     */
+    @Test
+    public void execute_DescriptionExceedsMaxLength_ThrowsException() {
+        try {
+            ByteArrayInputStream in = new ByteArrayInputStream("1".getBytes());
+            System.setIn(in);
+            new Oof().executeCommand("event iwontbesilencedyoucantkeepmequietwonttremblewhenyoutryit "
+                    + "/from 31-12-2019 20:00 /to 31-12-2019 21:00");
+            fail();
+        } catch (CommandException | ParserException e) {
+            assertEquals("Task exceeds maximum description length!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void execute_StartDateAfterEndDate_ThrowsException() {
+        try {
+            ByteArrayInputStream in = new ByteArrayInputStream("1".getBytes());
+            System.setIn(in);
+            new Oof().executeCommand("event a /from 31-12-2019 22:00 /to 31-12-2019 21:00");
+            fail();
+
+        } catch (CommandException | ParserException e) {
+            assertEquals("OOPS!!! The start date cannot be after the end date.", e.getMessage());
         }
     }
 
@@ -97,7 +126,28 @@ public class AddEventCommandTest {
      * Tests the behaviour of adding an event task.
      *
      * @throws CommandException if command given is invalid.
-     * @throws ParserException if command cannot be parsed.
+     * @throws ParserException  if command cannot be parsed.
+     */
+    @Test
+    public void execute_CorrectCommandEnteredWithClash_AddEventWithWarningMessage() throws CommandException,
+            ParserException {
+        ByteArrayInputStream in = new ByteArrayInputStream("1".getBytes());
+        System.setIn(in);
+        Oof oof = new Oof();
+        oof.executeCommand("event date /from 29-10-2019 18:00 /to 29-10-2019 23:00");
+        TaskList taskList = oof.getTaskList();
+        Task task = taskList.getTask(taskList.getSize() - 1);
+        assertEquals("[E][N] date (from: 29-10-2019 18:00 to: 29-10-2019 23:00)", task.toString());
+        taskList.deleteTask(taskList.getSize() - 1);
+        StorageManager storageManager = oof.getStorageManager();
+        storageManager.writeTaskList(taskList);
+    }
+
+    /**
+     * Tests the behaviour of adding an event task.
+     *
+     * @throws CommandException if command given is invalid.
+     * @throws ParserException  if command cannot be parsed.
      */
     @Test
     public void execute_CorrectCommandEntered_AddEvent() throws CommandException, ParserException {

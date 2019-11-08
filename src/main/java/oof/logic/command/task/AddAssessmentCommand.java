@@ -2,13 +2,13 @@ package oof.logic.command.task;
 
 import java.util.ArrayList;
 
-import oof.model.semester.SelectedInstance;
+import oof.model.university.SelectedInstance;
 import oof.ui.Ui;
 import oof.commons.exceptions.command.CommandException;
 import oof.commons.exceptions.command.InvalidArgumentException;
 import oof.commons.exceptions.command.MissingArgumentException;
-import oof.model.semester.Module;
-import oof.model.semester.SemesterList;
+import oof.model.university.Module;
+import oof.model.university.SemesterList;
 import oof.model.task.Assessment;
 import oof.model.task.Event;
 import oof.model.task.TaskList;

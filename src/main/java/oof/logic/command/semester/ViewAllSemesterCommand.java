@@ -4,7 +4,7 @@ import oof.logic.command.Command;
 import oof.ui.Ui;
 import oof.commons.exceptions.command.CommandException;
 import oof.logic.command.organization.exceptions.EmptyListException;
-import oof.model.semester.SemesterList;
+import oof.model.university.SemesterList;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
 
@@ -40,10 +40,5 @@ public class ViewAllSemesterCommand extends Command {
         } else {
             ui.printSemesterList(semesterList);
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

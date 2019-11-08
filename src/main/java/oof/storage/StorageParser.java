@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import oof.commons.exceptions.StorageFileCorruptedException;
-import oof.model.semester.Lesson;
-import oof.model.semester.Module;
-import oof.model.semester.Semester;
-import oof.model.semester.SemesterList;
+import oof.model.university.Lesson;
+import oof.model.university.Module;
+import oof.model.university.Semester;
+import oof.model.university.SemesterList;
 import oof.model.task.Assessment;
 import oof.model.task.Assignment;
 import oof.model.task.Deadline;

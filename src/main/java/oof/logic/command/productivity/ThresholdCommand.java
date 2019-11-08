@@ -3,7 +3,7 @@ package oof.logic.command.productivity;
 import oof.logic.command.Command;
 import oof.ui.Ui;
 import oof.commons.exceptions.command.InvalidArgumentException;
-import oof.model.semester.SemesterList;
+import oof.model.university.SemesterList;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
 

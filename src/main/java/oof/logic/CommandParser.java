@@ -2,7 +2,7 @@ package oof.logic;
 
 import java.util.ArrayList;
 
-import oof.model.semester.SelectedInstance;
+import oof.model.university.SelectedInstance;
 import oof.logic.command.task.AddAssessmentCommand;
 import oof.logic.command.task.AddAssignmentCommand;
 import oof.logic.command.task.AddDeadlineCommand;
@@ -45,8 +45,8 @@ import oof.commons.exceptions.command.InvalidArgumentException;
 import oof.commons.exceptions.command.MissingArgumentException;
 import oof.logic.command.module.exceptions.ModuleNotSelectedException;
 import oof.logic.command.semester.exceptions.SemesterNotSelectedException;
-import oof.model.semester.Module;
-import oof.model.semester.Semester;
+import oof.model.university.Module;
+import oof.model.university.Semester;
 
 //@@author KahLokKee
 
@@ -55,7 +55,7 @@ import oof.model.semester.Semester;
  */
 public class CommandParser {
 
-    private static final String DELIMITER = "||";
+    private static final String DELIMITER = "|";
 
     /**
      * Parses the input given by user and calls specific Commands
