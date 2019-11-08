@@ -138,7 +138,7 @@ public class Storage {
                     assignment.setAssignee(user);
                     assignment.setRecurrenceSchedule(recurrence);
                     assignment.setDone(done);
-                    if (!scanSubTask.equals("")) assignment.setSubTasks(scanSubTask);
+                    if (!scanSubTask.equals("")) assignment.addSubTasks(scanSubTask);
                     taskArrayList.add(assignment);
                 } else if (type.equals(SaveType.L)) {
                     //Leave type
