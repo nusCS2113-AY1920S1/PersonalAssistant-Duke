@@ -30,7 +30,8 @@ public class ListPriorityCommand extends Command {
      * @return String to be outputted to the user.
      */
     public String executeGui(TaskList items, Ui ui) {
-        String str = Ui.showTaskListGui(items);
+        //String str = Ui.showTaskListGui(items);
+        String str = "Null";
         return str;
     }
 

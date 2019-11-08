@@ -69,7 +69,7 @@ public class ContactsCommTest {
                     contactDetails[Numbers.THREE.value]);
             new AddContactsCommand(contactObj, contactList);
         } catch (Exception e) {
-            assertEquals("Format is in: addcontact <name>, <contact>, <email>, <office>",
+            assertEquals("Format is in: addcontact <name>, <contact>, <email>, <office>, put 'nil' if field is empty",
                     ErrorMessages.CONTACT_FORMAT.message);
         }
 

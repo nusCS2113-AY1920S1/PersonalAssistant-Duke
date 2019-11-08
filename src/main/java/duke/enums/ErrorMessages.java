@@ -13,7 +13,11 @@ public enum ErrorMessages {
     INVALID_EMAIL_ALERT("     Email needs to have '@'"),
     NON_INTEGER_ALERT("     Input is not an integer value!"),
     UNKNOWN_COMMAND("     (>_<) OoPS!!! I'm sorry, but I don't know what that means :-("),
-    AVOID_PIPELINE("     (>_<) OoPS!!! I'm sorry, but please do not add | , thanks.");
+    AVOID_PIPELINE("     (>_<) OoPS!!! I'm sorry, but please do not add | , thanks."),
+    MISSING_TASKFILE("     Task file is not found, creating sample data...\n"),
+    MISSING_PRIORITYFILE("     Priority task file is not found, creating sample data...\n"),
+    MISSING_CONTACTSFILE("     Contacts file is not found, creating sample data...\n"),
+    MISSING_BUDGETFILE("     Budget file is not found, creating sample data...\n");
 
     public final String message;
     ErrorMessages(String message) {
