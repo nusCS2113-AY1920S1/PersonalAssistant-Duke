@@ -1,6 +1,6 @@
 package seedu.duke.common.logger;
 
-import seedu.duke.common.storage.Storage;
+import seedu.duke.common.storage.StorageHelper;
 
 import java.io.File;
 import java.io.IOException;
@@ -130,7 +130,7 @@ public class LogsCenter {
      * Gets the filepath to save logs data.
      */
     private static String getLogFileName() {
-        Path logPath = Storage.prepareLogFolderPath();
+        Path logPath = StorageHelper.prepareLogFolderPath();
         File logDir = new File(logPath.toString());
         if (!(logDir.exists())) {
             logDir.mkdir();

@@ -44,7 +44,7 @@ public class EmailList extends ArrayList<Email> {
      */
     public String[] show(int index) {
         Email email = this.get(index);
-        String emailContent = email.highlightBodyOnTag();
+        String emailContent = email.highlightOnTag();
         String responseMsg = "Showing email in browser: " + email.getSubject();
         String[] responseArray = {responseMsg, emailContent};
         return responseArray;
@@ -59,11 +59,18 @@ public class EmailList extends ArrayList<Email> {
      */
     public String addTags(int index, ArrayList<String> tags) {
         Email email = this.get(index);
+        ArrayList<String> successList = new ArrayList<>();
         for (String tag : tags) {
-            email.addTag(tag);
+            boolean success = email.addTag(tag);
+            if (success) {
+                successList.add(tag);
+            }
         }
-        String responseMsg =
-                "Tags added: " + tags.toString() + System.lineSeparator() + "to email: " + email.getSubject();
+        String responseMsg = "";
+        if (successList.size() > 0) {
+            responseMsg =
+                    "Tags added: " + tags.toString() + System.lineSeparator() + "to email: " + email.getSubject();
+        }
         return responseMsg;
     }
 

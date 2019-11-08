@@ -4,23 +4,24 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 
-public interface TimestampHelper {
-    DateTimeFormatter timestampFormatter = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss'Z'")
+public class TimestampHelper {
+    public static DateTimeFormatter timestampFormatter = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss"
+            + "'Z'")
             .withResolverStyle(ResolverStyle.STRICT);
     /**
      * Gets a timestamp to be used in file.
      *
      * @return timestamp in string
      */
-    static String getTimestamp() {
+    public static String getTimestamp() {
         return LocalDateTime.now().format(timestampFormatter);
     }
 
-    static String formatDateTime(LocalDateTime dateTime) {
+    public static String formatDateTime(LocalDateTime dateTime) {
         return dateTime.format(timestampFormatter);
     }
 
-    static LocalDateTime getDateTime() {
+    public static LocalDateTime getDateTime() {
         return LocalDateTime.now();
     }
 
@@ -30,7 +31,7 @@ public interface TimestampHelper {
      * @param timestamp timestamp stored in file in string
      * @return LocalDateTime parsed from timestamp
      */
-    static LocalDateTime parseTimestamp(String timestamp) {
+    public static LocalDateTime parseTimestamp(String timestamp) {
         return LocalDateTime.parse(timestamp, timestampFormatter);
     }
 }

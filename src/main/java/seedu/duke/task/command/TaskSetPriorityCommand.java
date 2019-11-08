@@ -11,7 +11,6 @@ import seedu.duke.ui.UI;
  * Adds a priority level for a task.
  */
 public class TaskSetPriorityCommand extends Command {
-
     private int index;
     private Task.Priority priorityLevel;
 

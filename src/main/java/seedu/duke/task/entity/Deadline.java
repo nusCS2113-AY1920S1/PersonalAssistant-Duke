@@ -34,7 +34,6 @@ public class Deadline extends Task {
      * @param tags         tag associated with the task
      * @param priority     priority level of the task
      * @param linkedEmails emails to be linked to the task
-     *
      */
     public Deadline(String name, LocalDateTime time, String doAfter, ArrayList<String> tags,
                     Priority priority, ArrayList<String> linkedEmails) {
@@ -44,7 +43,6 @@ public class Deadline extends Task {
         setDoAfterDescription(doAfter);
         setTags(tags);
         setPriorityLevelTo(priority);
-        setPriorityTo(priority);
         for (String email : linkedEmails) {
             addLinkedEmails(email);
         }
@@ -67,15 +65,15 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String output = "";
-        output = "[D]" + this.getStatus() + " (by: " + formatDate() + ")";
+        output = "[D]" + this.getStatus() + " (by: " + formatDate() + ")" + overdueString();
         if (this.doAfterDescription != null && !this.doAfterDescription.equals("")) {
             output += System.lineSeparator() + "\tAfter which: " + doAfterDescription;
         }
         for (String tagName : tags) {
             output += " #" + tagName;
         }
-        if (this.priority != null && !this.priority.equals("")) {
-            output += " Priority: " + priority;
+        if (this.level != Priority.NULL) {
+            output += " Priority: " + level.name();
         }
         return output;
     }
@@ -99,8 +97,8 @@ public class Deadline extends Task {
         for (String email : linkedEmails) {
             output += " -link " + email;
         }
-        if (this.priority != null && !this.priority.equals("")) {
-            output += " -priority " + priority;
+        if (this.level != Priority.NULL) {
+            output += " -priority " + level.name();
         }
         return output;
     }
@@ -113,6 +111,17 @@ public class Deadline extends Task {
      */
     private String formatDate() {
         return format.format(this.time);
+    }
+
+    private String overdueString() {
+        if (isOverdue()) {
+            return "(Overdue)";
+        }
+        return "";
+    }
+
+    private boolean isOverdue() {
+        return this.time.compareTo(LocalDateTime.now()) < 0;
     }
 
     /**

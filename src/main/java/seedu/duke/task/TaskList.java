@@ -5,9 +5,9 @@ import seedu.duke.task.command.TaskParseNaturalDateHelper;
 import seedu.duke.task.entity.Deadline;
 import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
-import seedu.duke.ui.UI;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * TaskList class is the special type of ArrayList that contains Task and has some special functions used to
@@ -26,7 +26,7 @@ public class TaskList extends ArrayList<Task> {
         if (this.size() == 0) {
             return "There is nothing in your task list.";
         }
-        String msg = this.size() + "Here are the tasks in your task list:";
+        String msg = "Here are the tasks in your task list (total of " + this.size() + "):";
         for (int i = 0; i < this.size(); i++) {
             msg += System.lineSeparator() + (i + 1);
             msg += ". " + this.get(i);
@@ -147,7 +147,6 @@ public class TaskList extends ArrayList<Task> {
             task.snooze(duration);
             return "Noted. I've snoozed task " + (index + 1) + " by " + duration + " days";
         } else {
-            UI.getInstance().showError("This task cannot be snoozed");
             return "This task cannot be snoozed";
         }
     }
@@ -221,7 +220,7 @@ public class TaskList extends ArrayList<Task> {
     public String setPriority(int index, Task.Priority priority) throws CommandParseHelper.CommandParseException {
         validateIndex(index);
         Task task = this.get(index);
-        task.setPriorityTo(priority);
+        task.setPriorityLevelTo(priority);
         return constructSetPriorityMessage(priority, index + 1);
     }
 
@@ -288,5 +287,9 @@ public class TaskList extends ArrayList<Task> {
 
     private String constructClearListMessage() {
         return "Task List has been cleared";
+    }
+
+    public void sortListByPriority() {
+        sort(Comparator.comparing(Task::getPriority));
     }
 }

@@ -33,6 +33,8 @@ public class EmailAddKeywordCommand extends Command {
             UI.getInstance().showError("Keyword pairs save to file fails");
             return false;
         }
+        responseMsg = "Keyword add successful!";
+        UI.getInstance().showResponse(responseMsg);
         return true;
     }
 

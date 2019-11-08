@@ -29,7 +29,6 @@ public class UI {
     // to output result to GUI
     private MainWindow mainWindow;
     private String input = "";
-    private String command = "";
     // variable returned to GUI
     private String emailContent = "";
     private String responseMsg = "";
@@ -95,7 +94,10 @@ public class UI {
      * @param msg the message that is to be shown
      */
     public void showMessage(String msg) {
-        System.out.println(msg);
+        if ("".equals(msg)) {
+            return;
+        }
+        System.out.println(ANSI_RESET + msg);
         showGui(msg);
         logger.info("[Message] " + msg);
     }
@@ -106,8 +108,11 @@ public class UI {
      * @param msg the message that is to be shown
      */
     public void showResponse(String msg) {
+        if ("".equals(msg)) {
+            return;
+        }
         this.responseMsg = msg;
-        System.out.println("------------------------------");
+        System.out.println(ANSI_RESET + "------------------------------");
         System.out.println(msg);
         System.out.println("------------------------------" + System.lineSeparator());
         showGui(msg);
@@ -120,6 +125,9 @@ public class UI {
      * @param msg the error message that is to be shown
      */
     public void showError(String msg) {
+        if ("".equals(msg)) {
+            return;
+        }
         String errorMsg = ANSI_RED + msg + ANSI_RESET;
         System.out.println(errorMsg);
         showGui(msg);
@@ -203,12 +211,11 @@ public class UI {
      * @param msg input
      */
     public void showGui(String msg) {
-        if (mainWindow == null) {
+        if (mainWindow == null || "".equals(msg)) {
             return;
         }
-        mainWindow.showGuiMessage(msg, input, command);
+        mainWindow.showGuiMessage(msg, input);
         input = "";
-        command = "";
     }
 
     /**
@@ -222,10 +229,6 @@ public class UI {
 
     public void setInput(String input) {
         this.input = input;
-    }
-
-    public void setCommand(String command) {
-        this.command = command;
     }
 
     public String getPrefix() {

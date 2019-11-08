@@ -27,7 +27,7 @@ image::Ui.png[Gui, 800]
 
 Email Manager is an email and task manager app, specifically designed for NUS School of Computing students to manage their emails and busy schedules. As a text-based application, it is optimized for those who prefer typing and working with Command Line Interface (CLI). Email Manager also has a developed Graphical User Interface (GUI) that allows users to view email and task details in an appealing, well-organized format. If you can type fast, Email Manager can get your emails and tasks organized quickly and easily.
 
-If you are a busy computing student who is tired of receiving too many emails, you may find this app useful. Jump to [Quick Start] to get started and enjoy!
+If you are a busy computing student who is tired of receiving too many emails, you may find this app useful. Jump to <<Quick_Start, Quick Start>> to get started and enjoy!
 
 == About User Guide
 This user guide shows you how to get started with Email Manager. It introduces you to the features of Email Manager and provides you with examples, that you will become an expert user very soon! +
@@ -39,7 +39,7 @@ This is a note. Read these for additional information.
 [WARNING]
 This is a warning. Heed the warnings for Email Manager to work smoothly!
 
-
+[[Quick_Start]]
 == Quick Start
 
 This section serves as a tutorial for a new user to Email Manager.
@@ -165,6 +165,10 @@ You can press `UP` key to show previous input in the text box.
 
 === General Commands
 
+[NOTE]
+Any negative input of number will not be accepted, but since it will contain the negative sign `-`, it will
+be considered as an invalid command argument in the first place.
+
 [INFO]
 General commands will work in either mode.
 
@@ -206,7 +210,7 @@ The following commands in this section allows you to add tasks to Email Manager.
 To help you be more organised, each task is able to contain optional parameters.
 These parameters are a 'doafter' task, a priority level and multiple tags.
 To learn more about these parameters, go to their respective sections:
-<<doafter>>, <<priority>>, <<tag>>.
+<<doafter>>, <<priority>>.
 
 [TIP]
 For the following commands, you are able to enter the optional parameters in any order
@@ -215,11 +219,14 @@ as long as they are entered after the compulsory parameters.
 ===== Adding a todo: `todo`
 Format: `todo TASK_NAME [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...` +
 
-Adds a task of todo type. +
+Adds a task of todo type.
 
-Examples: +
-`todo buy milk` +
-`todo take cat to vet -priority High -tag pet` +
+Examples:
+
+`todo buy milk`
+
+`todo take cat to vet -priority High -tag pet`
+
 `todo coding -doafter math -priority high -tag fun`
 
 [TIP]
@@ -235,9 +242,12 @@ Adds a task that has a deadline. The task name and deadline are required.
 A doafter task, priority level or any number of tags are all optional.
 Order of the modifiers do not matter. +
 
-Examples: +
-`deadline categorise -time` +
-`deadline submission -time 31/10/2019 2359 -doafter coding -priority high -tag fun` +
+Examples:
+
+`deadline categorise -time`
+
+`deadline submission -time 31/10/2019 2359 -doafter coding -priority high -tag fun`
+
 `deadline submission -time Thu 2359`
 
 [TIP]
@@ -247,13 +257,18 @@ Natural date format can be used instead of ISO date format.
 [NOTE]
 PRIORITY_LEVEL is restricted to *high*, *med*, *low*. Any other PRIORITY_LEVEL will be invalid.
 
+[NOTE]
+Deadline with time prior to the current time is allowed to be added, but will be marked as *Overdue*.
+
 ===== Adding an event: `event`
 Format: `event TASK_NAME -time dd/mm/yyyy hhMM [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...` +
 
 Adds a task of event type.
 
-Examples: +
-`event PE -time 31/10/2019 2359 -doafter coding -priority high -tag fun` +
+Example:
+
+`event PE -time 31/10/2019 2359 -doafter coding -priority high -tag fun`
+
 `event PE -time Thu 2359`
 
 [TIP]
@@ -261,6 +276,10 @@ Parameters other than item number can be entered in any order.
 
 [NOTE]
 PRIORITY_LEVEL is restricted to *high*, *med*, *low*. Any other PRIORITY_LEVEL will be invalid.
+
+[NOTE]
+Similar to the deadline, event with time prior to the current time is allowed to be added, but will be
+marked as *Past*
 
 ==== List Tasks Commands: `list`
 Format: `list` +
@@ -272,29 +291,36 @@ Format: `delete ITEM_NUMBER` +
 
 Deletes the item specified.
 
-Example: +
+Example:
 `delete 1`
 
 ==== Find task(s) with keyword: `find`
 Format: `find KEYWORD` +
 
-Returns a list of items that contains KEYWORD. This feature will search all the attributes of a task. +
+Returns a list of items that contains KEYWORD. This feature will search through the displayed string of
+the task including all the attributes and signifier. (Case insensitive) +
 
-Example: +
+Example:
 `find cat` will return `cat`, `tabby #cat`, `SoCcat`, `concatenation`
+
+[TIP]
+`find` command has a lot of flexibility in usage. If the user wants to find all deadlines, they can search
+using `find by:` since all deadlines will contain a `by:` as shown in the list. This is also applicable to
+keywords like `Overdue` and `Past`.
 
 ==== Done a task: `done`
 Format: `done ITEM_NUMBER` +
 
 Marks the item specified as done.
 
-Example: +
+Example:
 `done 1`
 
 ==== Reminder for upcoming task(s): `reminder`
 Format: `reminder NO_OF_DAYS` +
 
 Shows the deadline or event tasks for the next NO_OF_DAYS days. +
+Only positive integers from 1 to 99999 are accepted for `NO_OF_DAYS`. +
 
 Example: +
 `reminder 4`
@@ -308,9 +334,9 @@ This parameter will accept any valid string and will not be connected to other t
 
 Examples:
 
-`doafter 5 -msg homework`
-
 `doafter 2 -msg work on project`
+
+`doafter 5 -msg homework`
 
 [NOTE]
 Only one 'doafter' task can be added. If you execute another valid `doafter` command
@@ -425,8 +451,8 @@ Format: `show INDEX_NUMBER` +
 
 Show the email content of the email at the index number in the email list.
 
-Example: +
-`show 3`: show the 3rd email in the list.
+Example:
+`show 3`
 
 [TIP]
 You can press `Esc` key on your keyboard any time to switch display between the list and content view of emails.
@@ -440,7 +466,7 @@ Fetches email from Outlook.com.
 The window might freeze for a while as it is fetching and parsing emails. Please wait patiently.
 
 ==== Auto parsing and tagging of emails
-This feature is automatically triggered by fetching emails from Outlook Server and adding new kayword. It
+This feature is automatically triggered by fetching emails from Outlook Server and adding new keyword. It
 will automatically parse "keywords" that might be  shown in your emails in different forms/expressions.
 
 For example, the keyword `CS2113T` might be in the expression of `CS2113T`, `CS2113`, `Akshay Narayan`,
@@ -457,7 +483,7 @@ image::defaultKeywords.png[Default Keywords, 400]
 
 If the email contains some expressions, the respective keyword will be used to tag that email. It can be
 seen from the `#` sign on the email list. When showing the email using `show` command, the parsed
-expressions will also be highlighted in yellow.
+expressions will also be highlighted in yellow (except for SPAMs).
 
 [NOTE]
 The parsing only allows exact matching of words, which means expression `2113` will not be matched with
@@ -478,10 +504,17 @@ Adds a keyword or expressions to the keyword list. If the keyword is already in 
 will be added to the expressions belonging to that keyword. So this is a command to add both keyword and
 expression.
 
+Examples:
+
+`addKeyword School -exp luminus -exp op`
+
+`addKeyword ICM -exp ICM Career`
+
 [TIP]
 The easiest way to verify whether this command is working properly is to check whether the email
 containing the expression has a tag of this keyword in the email list, or just use `show ITEM_NUMBER`
-command to see whether the expressions are correctly highlighted.
+command to see whether the expressions are correctly highlighted. Please call the `show` command again
+after adding the keyword if you have already opened an email.
 
 [NOTE]
 All emails will be parsed again upon the updates in keyword and expression, so the window might freeze for
@@ -492,10 +525,12 @@ a while. Please wait patiently.
 ==== Tagging Email: `update`
 Format: `update ITEM_NUMBER -tag TAG1 [-tag TAG2]...`
 
-Tags the specified item with the tag(s) minimum number of tags is 1.
+Tags the specified item with the tag(s) minimum number of tags is 1. Tags without duplication will be added.
 
-Examples: +
-`update 1 -tag CS2113T` +
+Examples:
+
+`update 1 -tag CS2113T`
+
 `update 2 -tag Tutorial -tag Spam`
 
 ==== Filtering email: `list`
@@ -503,8 +538,10 @@ Format: `list [-tag TAG1] [-tag TAG2]...` +
 
 Gives a list of emails with the tags. Minimum number of tags is 1, and the maximum number of tags is 2.
 
-Examples: +
-`list -tag CS2113T -tag Tutorial` +
+Examples:
+
+`list -tag CS2113T -tag Tutorial`
+
 `list -tag Spam`
 
 ==== Sending Email (coming in v2.0)

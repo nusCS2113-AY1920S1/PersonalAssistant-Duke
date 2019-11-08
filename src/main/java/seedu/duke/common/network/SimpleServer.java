@@ -75,7 +75,8 @@ public class SimpleServer {
          */
         @Override
         public void handle(HttpExchange exchange) throws IOException {
-            String response = "Authorization/Authentication finished";
+            String response = "Authorization/Authentication Successful! Please return back to the Email "
+                    + "Manager.";
             exchange.sendResponseHeaders(200, response.length());
             writeExchangeResponseBody(exchange, response);
             parseAuthCode(exchange.getRequestURI().getQuery());
