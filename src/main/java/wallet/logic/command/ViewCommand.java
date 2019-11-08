@@ -18,7 +18,8 @@ public class ViewCommand extends Command {
     public static final String COMMAND_WORD = "view";
 
     public static final String MESSAGE_EMPTY_BUDGET = "There is no budget set for ";
-    public static final String MESSAGE_VIEW_BUDGET = "This is the budget left for ";
+    public static final String MESSAGE_VIEW_BUDGET = "This is the budget set for ";
+    public static final String MESSAGE_REMAINING_BUDGET = "This is the budget left for ";
     public static final String MESSAGE_VIEW_STATS = "This is the statistics for ";
     public static final String MESSAGE_STATS_CATEGORY = "These are the expenses for ";
     public static final String MESSAGE_NICE_TRY_MONTH = "Nice try, but month runs from 1 to 12 :)";
@@ -56,6 +57,12 @@ public class ViewCommand extends Command {
                             System.out.println(MESSAGE_VIEW_BUDGET
                                     + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
                             System.out.println("$" + b.getAmount());
+
+                            double remainingBudget = b.getAmount()
+                                    - wallet.getExpenseList().getMonthExpenses(b.getMonth(), b.getYear());
+                            System.out.println(MESSAGE_REMAINING_BUDGET
+                                    + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
+                            System.out.println("$" + remainingBudget);
                             return false;
                         }
                     }
