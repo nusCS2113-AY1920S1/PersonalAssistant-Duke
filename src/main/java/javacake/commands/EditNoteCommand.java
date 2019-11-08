@@ -6,6 +6,7 @@ import javacake.exceptions.CakeException;
 import javacake.storage.Storage;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
+import javacake.utilities.IFileReader;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -17,7 +18,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 
-public class EditNoteCommand extends Command {
+public class EditNoteCommand extends Command implements IFileReader {
 
     private static String defaultDirectoryPath = "data/notes/";
 
@@ -247,18 +248,7 @@ public class EditNoteCommand extends Command {
      * @throws CakeException File does not exist.
      */
     private static String readTextFileContent() throws CakeException {
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(new File(currentFilePath)));
-            String line;
-            StringBuilder sb = new StringBuilder();
-            while ((line = br.readLine()) != null) {
-                sb.append(line).append("\n");
-            }
-            br.close();
-            return sb.toString();
-        } catch (IOException e) {
-            throw new CakeException(e.getMessage());
-        }
+        return IFileReader.readFile(currentFilePath);
     }
 
     /**
