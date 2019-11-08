@@ -93,7 +93,7 @@ public class CommandManager {
             try {
                 return new DeleteAssignedTaskCommand(parser.parseUserInput()[0]);
             } catch (Exception e) {
-                throw new DukeException("Please follow the "
+                throw new DukeException(CommandManager.class, "Please follow the "
                         + " `delete assigned task :#<unique assigned task id>` format.");
             }
         case "delete patient":
@@ -140,7 +140,7 @@ public class CommandManager {
             try {
                 return new UpdateTaskCommand(parser.parseUserInput());
             } catch (Exception e) {
-                throw new DukeException("Please use the `update task :#<task id>"
+                throw new DukeException(CommandManager.class, "Please use the `update task :#<task id>"
                         + " :description :<updated description>` format.");
             }
         case "show upcoming tasks":
