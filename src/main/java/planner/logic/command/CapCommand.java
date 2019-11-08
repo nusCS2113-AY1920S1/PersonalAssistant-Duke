@@ -2,6 +2,7 @@
 
 package planner.logic.command;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -118,7 +119,7 @@ public class CapCommand extends ModuleCommand {
                 break;
             case "module":
                 plannerUi.capModStartMsg();
-                calculateModuleCap(profile.getModules(), detailedMap, plannerUi, store, scanner);
+                calculateModuleCap(detailedMap, plannerUi, store, scanner, profile);
                 break;
             case "list":
                 TaskList<ModuleTask> hold = profile.getModules();
@@ -177,28 +178,28 @@ public class CapCommand extends ModuleCommand {
     /**
      * Calculates a predicted CAP for a module based on the grades attained for it's prerequisites.
      */
-    public void calculateModuleCap(TaskList<ModuleTask> moduleTasksList,
-                                    HashMap<String, ModuleInfoDetailed> detailedMap,
+    public void calculateModuleCap(HashMap<String, ModuleInfoDetailed> detailedMap,
                                     PlannerUi plannerUi,
                                     Storage store,
-                                    Scanner scanner)
+                                    Scanner scanner,
+                                    User profile)
         throws ModNotFoundException,
         ModNoPrerequisiteException,
         ModEmptyListException {
         String moduleCode = scanner.next().toUpperCase();
+        if (!detailedMap.containsKey(moduleCode)) {
+            throw new ModNotFoundException();
+        }
         if (detailedMap.get(moduleCode).getPrerequisites().isEmpty()
             ||
             detailedMap.get(moduleCode).getPrerequisites().isBlank()) {
             throw new ModNoPrerequisiteException();
         }
-        if (!detailedMap.containsKey(moduleCode)) {
-            throw new ModNotFoundException();
-        }
-        if (moduleTasksList.isEmpty()) {
+        if (profile.getModules().isEmpty()) {
             throw new ModEmptyListException();
         }
         ArrayList<String> prunedModules = parsePrerequisiteTree(detailedMap.get(moduleCode).getPrerequisites());
-        for (ModuleTask x : moduleTasksList) {
+        for (ModuleTask x : profile.getModules()) {
             if (prunedModules.contains(x.getModuleCode())) {
                 if (letterGradeToCap(x.getGrade()) != 0.00) {
                     mcCount += x.getModuleCredit();
@@ -207,11 +208,13 @@ public class CapCommand extends ModuleCommand {
                 prunedModules.remove(x.getModuleCode());
             }
         }
+        ArrayList<String> toBeRemoved = new ArrayList<>();
         if (!prunedModules.isEmpty()) {
             for (String module : prunedModules) {
                 boolean hasPreclusions = false;
-                for (ModuleTask x : moduleTasksList) {
-                    if (detailedMap.get(module).getPreclusion().contains(x.getModuleCode())) {
+                for (ModuleTask x : profile.getModules()) {
+                    if (detailedMap.get(module).getPreclusion().contains(x.getModuleCode())
+                    || (detailedMap.get(x.getModuleCode()).getPreclusion().contains(module))) {
                         hasPreclusions = true;
                         mcCount += x.getModuleCredit();
                         projectedModuleCap += letterGradeToCap(x.getGrade()) * x.getModuleCredit();
@@ -219,10 +222,14 @@ public class CapCommand extends ModuleCommand {
                     }
                 }
                 if (hasPreclusions) {
-                    prunedModules.remove(module);
+//                    prunedModules.remove(module);
+                    toBeRemoved.add(module);
                 }
             }
         }
+        for (String x : toBeRemoved) {
+            prunedModules.remove(x);
+            }
         if (prunedModules.isEmpty()) {
             if (projectedModuleCap == 0 && mcCount == 0) {
                 plannerUi.capModMsg(0.00, moduleCode);
@@ -277,3 +284,4 @@ public class CapCommand extends ModuleCommand {
         return prerequisiteModules;
     }
 }
+

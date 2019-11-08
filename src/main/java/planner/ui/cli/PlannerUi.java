@@ -309,9 +309,9 @@ public class PlannerUi {
             System.out.println(toCalculate.get(i));
             i++;
         }
-        System.out.println("If you have completed any of these modules preclusions/co-requisites/equivalents,"
+        System.out.println("If you have completed any of these modules preclusions/co-requisites/equivalents, "
             +
-                "please add them to your module list with the appropriate grade and try again.");
+                "please add them to your module list with the same grade and try again.");
     }
 
     /**

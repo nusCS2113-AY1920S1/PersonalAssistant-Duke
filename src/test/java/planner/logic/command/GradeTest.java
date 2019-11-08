@@ -103,7 +103,7 @@ public class GradeTest extends InputTest {
             +
             "_______________________________\n" + expectedBye;
         String contentString = outContent.toString();
-        String newContentString = contentString.toString().replaceAll("\r", "");
+        String newContentString = contentString.replaceAll("\r", "");
         String escaped = removeUnicodeAndEscapeChars(newContentString);
 //        assertEquals(escaped, removeUnicodeAndEscapeChars(expectedAddModule));
         assertEquals(escaped, escaped);
@@ -128,6 +128,5 @@ public class GradeTest extends InputTest {
         provideInput("bye");
         CliLauncher.main(hold);
     }*/
-
 
 }
