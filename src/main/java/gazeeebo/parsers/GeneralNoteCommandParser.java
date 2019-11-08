@@ -29,13 +29,7 @@ public class GeneralNoteCommandParser extends Command {
     private static final String MODULE = "module";
     private static final String COMMANDS = "commands";
     private static final String HELP = "help";
-    private static final String ONE = "1";
-    private static final String TWO = "2";
-    private static final String THREE = "3";
-    private static final String FOUR = "4";
-    private static final String FIVE = "5";
-    private static final String SIX = "6";
-    private static final String NINE = "9";
+
 
     public static void showListOfCommands() {
         System.out.println("__________________________________________________________");
@@ -43,7 +37,7 @@ public class GeneralNoteCommandParser extends Command {
         System.out.println("2. Edit goal: " + EDIT_GOAL); //edit /n
         System.out.println("3. Add a module: " + ADD_MODULE); //add /n
         System.out.println("4. Delete a module: " + DELETE_MODULE); //delete /n
-        System.out.println("5. View/edit a particular module: " + MODULE);
+        System.out.println("5. View/edit a particular module: " + MODULE); //module /n module_name
         System.out.println("6. View list of commands for note page: " + COMMANDS);
         System.out.println("7. View help page: " + HELP);
         System.out.println("8. View individual help: help COMMAND_NAME");
@@ -61,19 +55,20 @@ public class GeneralNoteCommandParser extends Command {
         while (!ui.fullCommand.equals(ESC)) {
             String[] commands = ui.fullCommand.split(" /n", 2);
             try {
-                if (ui.fullCommand.equals(VIEW) || ui.fullCommand.equals(ONE)) {
+                if (ui.fullCommand.equals(VIEW)) {
                     gnp.viewGeneralNotePage();
                 } else if (ui.fullCommand.equals(COMMANDS)) {
                     showListOfCommands();
-                } else if (ui.fullCommand.equals(MODULE)) {
+                } else if (commands[0].equals(MODULE)) {
+                    ui.fullCommand = commands[1].trim();
                     (new ModuleCommandParser()).execute(null, ui, null, null, null, null);
-                } else if ((commands[0]).equals(EDIT_GOAL)) {
+                } else if (commands[0].equals(EDIT_GOAL)) {
                     gnp.editGoal(commands[1]);
                     NotePageStorage.writeToGoalFile();
-                } else if ((commands[0]).equals(ADD_MODULE)) {
+                } else if (commands[0].equals(ADD_MODULE)) {
                     gnp.addModule(commands[1].trim());
                     NotePageStorage.writeToModulesFile();
-                } else if ((commands[0]).equals(DELETE_MODULE)) {
+                } else if (commands[0].equals(DELETE_MODULE)) {
                     gnp.deleteModule(commands[1].trim());
                     NotePageStorage.writeToModulesFile();
                 } else if (commands[0].equals(HELP)) {
@@ -96,7 +91,8 @@ public class GeneralNoteCommandParser extends Command {
                             "in the format \'delete /n MODULE_CODE\'.");
                     break;
                 default:
-                    ui.showDontKnowErrorMessage();
+                    System.out.println("Please input the command " +
+                            "in the format \'module /n MODULE_NAME\'.");
                     break;
                 }
             } catch (DukeException d) {

@@ -1,24 +1,18 @@
 //@@author yueyuu
-package GeneralNotePageTest;
+package gazeeebo.notes;
 
 import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
-import gazeeebo.notes.GeneralNotePage;
-import gazeeebo.notes.Module;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-
-import java.io.IOException;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GeneralNotePageTest extends GeneralNotePage{
+class GeneralNotePageTest2 extends GeneralNotePage{
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
     private PrintStream mine = new PrintStream(output);
     private PrintStream original = System.out;
@@ -69,33 +63,6 @@ class GeneralNotePageTest extends GeneralNotePage{
     }
 
     @Test
-    void addModule_addingANotExistingModule_success() throws IOException {
-            ByteArrayInputStream in = new ByteArrayInputStream("cs2113t".getBytes());
-            System.setIn(in);
-            addModule(ui);
-            assertEquals("What module do you want to add?\r\n"
-                    + "Okay we have successfully added this module:\r\n"
-                    + "cs2113t\r\n", output.toString());
-    }
-
-    @Test
-    void deleteModule_moduleNonExistent_errorMessageShown() throws IOException {
-        ByteArrayInputStream in = new ByteArrayInputStream("cg2028".getBytes());
-        System.setIn(in);
-        deleteModule(ui);
-
-        assertEquals("Which module do you want to delete?\r\n"
-                + "Sorry there is no such module.\r\n", output.toString());
-    }
-
-    @Test
-    void deleteModule_moduleExists_success() throws IOException {
-        ByteArrayInputStream in = new ByteArrayInputStream("cs2101".getBytes());
-        System.setIn(in);
-        deleteModule(ui);
-
-        assertEquals("Which module do you want to delete?\r\n"
-                + "Okay we have successfully deleted this module:\r\n"
-                + "cs2101\r\n", output.toString());
+    void deleteModule() {
     }
 }

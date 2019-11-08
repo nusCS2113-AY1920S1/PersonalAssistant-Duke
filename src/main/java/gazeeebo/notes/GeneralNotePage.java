@@ -34,8 +34,6 @@ public class GeneralNotePage {
      * @throws DukeException if the command inputted is in the wrong format
      */
     public void editGoal(String userGoal) throws DukeException {
-        //System.out.println("What is your new goal?");
-        //ui.readCommand();
         if (userGoal.isEmpty()) {
             throw new DukeException(EMPTY_DESCRIPTION);
         }
@@ -51,8 +49,6 @@ public class GeneralNotePage {
      * @throws DukeException if the command inputted is in the wrong format
      */
     public void addModule(String moduleName) throws DukeException {
-        //System.out.println("What module do you want to add?");
-        //ui.readCommand();
         if (moduleName.isEmpty()) {
             throw new DukeException(EMPTY_DESCRIPTION);
         }

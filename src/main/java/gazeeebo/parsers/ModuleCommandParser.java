@@ -73,18 +73,14 @@ public class ModuleCommandParser extends Command {
     /** Decodes the commands input on the module page. */
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
-        System.out.println("Welcome to your module page! Which module do you want to view/edit?");
-        ui.readCommand();
+        //System.out.println("Welcome to your module page! Which module do you want to view/edit?");
+        //ui.readCommand();
         Module module;
-        try {
-            module = findModule(ui.fullCommand);
-        } catch (DukeException d) {
-            ui.showErrorMessage(d);
-            System.out.println("Going back to notes page...");
-            GeneralNoteCommandParser.showListOfCommands();
-            return;
+        if (ui.fullCommand.isEmpty()) {
+            throw new DukeException("Please input a module name.");
         }
-        System.out.println("What would you like to do?\n");
+        module = findModule(ui.fullCommand);
+        System.out.println("Welcome to your module page! What would you like to do?\n");
         showListOfCommands();
         ui.readCommand();
         while (!ui.fullCommand.equals(ESC)) {
@@ -99,22 +95,22 @@ public class ModuleCommandParser extends Command {
                     module.addAssessment(commands[1].trim());
                     NotePageStorage.writeToModulesFile();
                 } else if (commands[0].equals(EDIT_ASSMT)) {
-                    module.editAssessmentName(ui);
+                    module.editAssessmentName(commands[1].trim());
                     NotePageStorage.writeToModulesFile();
                 } else if (commands[0].equals(EDIT_WEIGHTAGE)) {
-                    module.editAssessmentWeightage(ui);
+                    module.editAssessmentWeightage(commands[1].trim());
                     NotePageStorage.writeToModulesFile();
                 } else if (commands[0].equals(DELETE_ASSMT)) {
-                    module.deleteAssessment(ui);
+                    module.deleteAssessment(commands[1].trim());
                     NotePageStorage.writeToModulesFile();
                 } else if (commands[0].equals(ADD_MSC)) {
-                    module.addMiscellaneous(ui);
+                    module.addMiscellaneous(commands[1].trim());
                     NotePageStorage.writeToModulesFile();
                 } else if (commands[0].equals(EDIT_MSC)) {
-                    module.editMiscellaneous(ui);
+                    module.editMiscellaneous(commands[1].trim());
                     NotePageStorage.writeToModulesFile();
                 } else if (commands[0].equals(DELETE_MSC)) {
-                    module.deleteMiscellaneous(ui);
+                    module.deleteMiscellaneous(commands[1].trim());
                     NotePageStorage.writeToModulesFile();
                 } else if (commands[0].equals(COMMANDS)) {
                     showListOfCommands();
@@ -124,6 +120,7 @@ public class ModuleCommandParser extends Command {
                     ui.showDontKnowErrorMessage();
                 }
             } catch (IndexOutOfBoundsException i) {
+                /*
                 switch (commands[0]) {
                 case EDIT_GOAL:
                     System.out.println("Please input the command " +
@@ -141,6 +138,11 @@ public class ModuleCommandParser extends Command {
                     ui.showDontKnowErrorMessage();
                     break;
                 }
+
+                 */
+                System.out.println("format error message.");
+            } catch (DukeException d) {
+                ui.showErrorMessage(d);
             }
             ui.readCommand();
         }
