@@ -1,5 +1,5 @@
 //@@author yueyuu
-package gazeeebo.parsers;
+package gazeeebo.parser;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
@@ -12,7 +12,6 @@ import gazeeebo.storage.NotePageStorage;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 
-import javax.swing.text.View;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;

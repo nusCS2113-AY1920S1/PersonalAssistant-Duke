@@ -8,7 +8,7 @@ import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.notes.GeneralNotePage;
 import gazeeebo.notes.Module;
-import gazeeebo.parsers.GeneralNoteCommandParser;
+import gazeeebo.parser.GeneralNoteCommandParser;
 import gazeeebo.storage.NotePageStorage;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;

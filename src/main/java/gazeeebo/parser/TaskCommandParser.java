@@ -1,4 +1,4 @@
-package gazeeebo.parsers;
+package gazeeebo.parser;
 
 import gazeeebo.commands.Command;
 import gazeeebo.commands.tasks.*;

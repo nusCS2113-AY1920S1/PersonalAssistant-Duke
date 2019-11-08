@@ -17,9 +17,9 @@ public class UndoStudyPlannerCommand {
                 toStore += "\n";
             }
             storage.Storage_StudyPlan(toStore);
-            System.out.println("I've undo your previous command");
+            System.out.println("You have undo the previous command.");
         } else {
-            System.out.println("The previous command cannot be undo");
+            System.out.println("The previous command cannot be undo.");
         }
         return currentPlan;
     }

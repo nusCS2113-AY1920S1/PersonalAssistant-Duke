@@ -1,5 +1,5 @@
 import gazeeebo.TriviaManager.TriviaManager;
-import gazeeebo.parsers.PlacesCommandParser;
+import gazeeebo.parser.PlacesCommandParser;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.UI.Ui;

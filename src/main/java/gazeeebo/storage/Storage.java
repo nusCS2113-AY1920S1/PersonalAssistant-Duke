@@ -10,7 +10,7 @@ import java.io.BufferedWriter;
 
 
 import gazeeebo.commands.specialization.ModuleCategory;
-import gazeeebo.parsers.CAPCommandParser;
+import gazeeebo.parser.CAPCommandParser;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.DoAfter;
 import gazeeebo.tasks.Event;

@@ -1,4 +1,4 @@
-package gazeeebo.parsers;
+package gazeeebo.parser;
 
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
@@ -14,7 +14,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class studyassistCommandParser extends Command {
+public class    StudyAssistCommandParser extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException, DukeException, ParseException {
         System.out.println("Welcome to Module Planner!");
@@ -40,8 +40,10 @@ public class studyassistCommandParser extends Command {
                 copyStudyPlan(oldStudyPlan,StudyPlan.StudyPlan);
                 new addModuleCommand().execute(StudyPlan,storage,ui);
             } else if (splitCommand[0].equals("delete")) {
+                copyStudyPlan(oldStudyPlan,StudyPlan.StudyPlan);
                 new deleteModuleCommand().execute(StudyPlan,storage,ui);
             } else if (splitCommand[0].equals("shift")) {
+                copyStudyPlan(oldStudyPlan,StudyPlan.StudyPlan);
                 new shiftModuleCommand().execute(StudyPlan,storage,ui);
             } else if (splitCommand[0].equals("prerequisite")) {
                 new checkPrerequisiteCommand().execute(ui, storage);

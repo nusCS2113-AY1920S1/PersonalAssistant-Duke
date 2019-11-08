@@ -1,4 +1,4 @@
-package gazeeebo.parsers;
+package gazeeebo.parser;
 
 import gazeeebo.commands.expenses.*;
 import gazeeebo.storage.Storage;

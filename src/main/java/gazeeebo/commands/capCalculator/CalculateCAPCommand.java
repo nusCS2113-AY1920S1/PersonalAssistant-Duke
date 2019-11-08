@@ -1,6 +1,6 @@
 package gazeeebo.commands.capCalculator;
 
-import gazeeebo.parsers.CAPCommandParser;
+import gazeeebo.parser.CAPCommandParser;
 
 import java.util.ArrayList;
 import java.util.Map;
