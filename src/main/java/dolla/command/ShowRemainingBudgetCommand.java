@@ -141,11 +141,9 @@ public class ShowRemainingBudgetCommand extends Command implements ParserStringL
         while (mondayDate.getDayOfWeek() != DayOfWeek.MONDAY) {
             mondayDate = mondayDate.minusDays(one);
         }
-
         while (sundayDate.getDayOfWeek() != DayOfWeek.SUNDAY) {
             sundayDate = sundayDate.plusDays(one);
         }
-
         mondayDate = mondayDate.minusDays(one);
         sundayDate = sundayDate.plusDays(one);
         startOfMonth = startOfMonth.minusDays(one);

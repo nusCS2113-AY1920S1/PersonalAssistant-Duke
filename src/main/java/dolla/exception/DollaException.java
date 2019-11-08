@@ -1,6 +1,7 @@
 package dolla.exception;
 
 import dolla.ui.LimitUi;
+import dolla.ui.Ui;
 
 //@@author Weng-Kexin
 public class DollaException extends Exception {
@@ -15,6 +16,8 @@ public class DollaException extends Exception {
 
     private static final String INVALID_LIMIT_DURATION_MSG = "\tOOPS! Please specify the limit duration: "
                                                            + "daily/weekly/monthly.";
+
+    private static final String INVALID_COMMAND_MSG = "\tOOPS! The command is invalid. Please enter a valid command!";
 
     /**
      * Prints a non existing budget error.
@@ -50,6 +53,11 @@ public class DollaException extends Exception {
     public static String invalidLimitDuration() {
         LimitUi.messagePrinter(INVALID_LIMIT_DURATION_MSG);
         return INVALID_LIMIT_DURATION_MSG;
+    }
+
+    public static String invalidInput() {
+        Ui.printInvalidCommandError();
+        return INVALID_COMMAND_MSG;
     }
 
     /**

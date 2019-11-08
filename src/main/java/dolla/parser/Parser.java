@@ -33,7 +33,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     protected static String inputLine;
     protected String type;
     protected double amount;
-    protected static String[] inputArray;
+    protected static String[] inputArray = {" "};
     protected String commandToRun;
     protected int modifyRecordNum;
     protected String duration;
@@ -47,7 +47,15 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     public Parser(String inputLine) {
         this.inputLine = inputLine;
         this.inputArray = inputLine.split(SPACE);
-        this.commandToRun = inputArray[0];
+        this.commandToRun = getCommandToRun();
+    }
+
+    protected static String getCommandToRun() {
+        try {
+            return inputArray[0];
+        } catch (IndexOutOfBoundsException e) {
+            return " ";
+        }
     }
 
     public abstract Command parseInput() throws DollaException;
