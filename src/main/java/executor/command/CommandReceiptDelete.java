@@ -15,7 +15,7 @@ public class CommandReceiptDelete extends Command {
         super();
         this.userInput = userInput;
         this.description = "Deletes the specific entry that the user wants to remove. \n"
-                + "FORMAT: deletereceipt <Index_of_Entry>";
+                + "FORMAT: receiptdelete <Index_of_Entry>";
         this.commandType = CommandType.RECEIPTDELETE;
     }
 
@@ -24,15 +24,18 @@ public class CommandReceiptDelete extends Command {
     public void execute(StorageManager storageManager) {
         String outputStr;
         String integer = Parser.parseForPrimaryInput(this.commandType, userInput);
+        if (integer.isEmpty()) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr("Index input is missing. FORMAT : receiptdelete <Index_of_Entry>");
+            return;
+        }
         try {
             int index = Integer.parseInt(integer) - 1;
-            outputStr = ("Receipt '"
-                    + (index + 1)
-                    + ") "
-                    + "Receipt at index"
-                    + index
+            outputStr = ("Receipt"
                     + " "
-                    + "'has been deleted. \n");
+                    + (index + 1)
+                    + " "
+                    + "has been deleted\n");
             storageManager.deleteReceiptByIndex(index);
         } catch (DukeException e) {
             this.infoCapsule.setCodeError();

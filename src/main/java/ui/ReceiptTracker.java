@@ -9,6 +9,7 @@ import java.util.HashMap;
 public class ReceiptTracker extends ArrayList<Receipt> {
     private HashMap<String, ReceiptTracker> folders;
     private Double nettCashSpent;
+    private Double budget;
 
     /**
      * Overloaded Constructor for ReceiptTracker.
@@ -270,5 +271,12 @@ public class ReceiptTracker extends ArrayList<Receipt> {
         } else {
             return 0.0;
         }
+      
+    public Double getBudget() {
+        return budget;
+    }
+
+    public void setBudget(Double budget) {
+        this.budget = budget;
     }
 }

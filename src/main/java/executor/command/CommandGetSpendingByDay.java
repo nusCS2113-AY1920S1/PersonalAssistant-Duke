@@ -2,6 +2,8 @@ package executor.command;
 
 import duke.exception.DukeException;
 import storage.StorageManager;
+import ui.UiCode;
+
 import java.time.LocalDate;
 
 public class CommandGetSpendingByDay extends Command {
@@ -30,7 +32,7 @@ public class CommandGetSpendingByDay extends Command {
             this.infoCapsule.setOutputStr(e.getMessage());
             return;
         }
-        this.infoCapsule.setCodeToast();
+        this.infoCapsule.setUiCode(UiCode.CLI);
         this.infoCapsule.setOutputStr("The total amount of money spent today"
                 + "(" + currDate + ") " + "is $" + totalMoney);
     }

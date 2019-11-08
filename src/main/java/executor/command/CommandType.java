@@ -1,7 +1,5 @@
 package executor.command;
 
-import ui.gui.CommandLineDisplay;
-
 public enum CommandType {
     TASK(CommandNewTask.class),
     BYE(CommandBye.class),
@@ -19,6 +17,7 @@ public enum CommandType {
     IN(CommandAddIncomeReceipt.class),
     OUT(CommandAddSpendingReceipt.class),
     SETBALANCE(CommandUpdateBalance.class),
+    BUDGET(CommandBudget.class),
     EXPENSES(CommandDisplayExpenditure.class),
     HELP(CommandHelp.class),
     DEADLINE(CommandNewTask.class),
@@ -28,6 +27,7 @@ public enum CommandType {
     FDURATION(CommandNewTask.class),
     TAGLIST(CommandTagList.class),
     EXPENDEDDAY(CommandGetSpendingByDay.class),
+    EXPENDEDWEEK(CommandGetSpendingByWeek.class),
     EXPENDEDMONTH(CommandGetSpendingByMonth.class),
     EXPENDEDYEAR(CommandGetSpendingByYear.class),
     CONVERT(CommandConvert.class),
