@@ -16,10 +16,9 @@ public class ReminderPopup extends NewScene {
     protected Scene reminderScene;
     protected Stage reminderPopup;
     protected ArrayList<String> wordArrayList;
-    protected Storage storage;
 
     public ReminderPopup(ArrayList<String> wordList, String remindInfo) {
-        Storage storage = new Storage();
+        storage = new Storage();
         storage.updateFile(remindInfo, "", "reminder");
         wordArrayList = wordList;
         makeReminderPopup();

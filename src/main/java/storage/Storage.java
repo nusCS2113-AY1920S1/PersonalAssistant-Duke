@@ -142,7 +142,7 @@ public class Storage {
                     continue;
                 }
                 String[] reminderInfo = line.split(" \\| ");
-                String[] wordList = reminderInfo[1].split(",");
+                String[] wordList = reminderInfo[1].split(","); //catch exception here
                 reminderWordList.addAll(Arrays.asList(wordList));
                 Date date = Parser.parseDate(reminderInfo[0]);
                 new Reminder(date, reminderWordList, line);
@@ -203,10 +203,18 @@ public class Storage {
      * @param fileType
      */
     public void updateFile(String oldString, String newString, String fileType) {
-        File file = new File(DATA_FILE_PATH);
+        File file;
         FileReader fr = null;
         BufferedReader br = null;
         try {
+            if (fileType.equals("wordup")) {
+                file = new File(DATA_FILE_PATH);
+            } else if (fileType.equals("reminder")) {
+                file = new File(REMINDER_FILE_PATH);
+            } else {
+                throw new UnableToWriteFileException();
+            }
+
             fr = new FileReader(file);
             br = new BufferedReader(fr);
             String oldContent = "";
@@ -220,7 +228,7 @@ public class Storage {
             String newContent = oldContent.replace(oldString, newString).trim();
             Storage writer = new Storage();
             writer.writeFile(newContent,false, fileType);
-        } catch (IOException e) {
+        } catch (IOException | UnableToWriteFileException e) {
             e.printStackTrace();
         } finally {
             try {
