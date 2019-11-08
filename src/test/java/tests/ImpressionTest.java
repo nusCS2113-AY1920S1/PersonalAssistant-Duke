@@ -46,18 +46,23 @@ public class ImpressionTest {
         } catch (DukeException e) {
             fail("Could not add items for testing!");
         }
-        int highestPri = 0;
+        int highestPri = 1;
         for (Evidence evidence : impression.getEvidences()) {
-            if (evidence.getPriority() < highestPri) {
+            if (evidence.getPriority() < highestPri && evidence.getPriority() != 0) {
                 fail("evidence sorting failed");
+            } else if (highestPri == 0 && evidence.getPriority() != 0) {
+                fail("evidence failed to sort 0 behind");
             }
             highestPri = evidence.getPriority();
         }
-        highestPri = 0;
+        highestPri = 1;
         int highestStatus = 0;
         for (Treatment treatment : impression.getTreatments()) {
-            if (treatment.getPriority() < highestPri || treatment.getStatusIdx() < highestStatus) {
+            if (treatment.getPriority() != 0 &&
+                    (treatment.getPriority() < highestPri || treatment.getStatusIdx() < highestStatus)) {
                 fail("treatment sorting failed");
+            } else if (highestPri == 0 && treatment.getPriority() != 0) {
+                fail("treatment failed to sort 0 behind");
             }
             if (treatment.getPriority() != highestPri) {
                 highestPri = treatment.getPriority();
@@ -81,9 +86,9 @@ public class ImpressionTest {
      * @throws DukeException duplicate names found
      */
     public void setupTreatments(String invName, String planName, String medName) throws DukeException {
+        impression.addNewTreatment(createPlan(planName));
         impression.addNewTreatment(createInvestigation(invName));
         impression.addNewMedicine(createMedicine(medName));
-        impression.addNewTreatment(createPlan(planName));
     }
 
     /**
@@ -102,12 +107,12 @@ public class ImpressionTest {
     }
 
     private Medicine createMedicine(String name) throws DukeException {
-        return new Medicine("med " + name, impression, 3, "1", "333",
+        return new Medicine("med " + name, impression, 0, "1", "333",
                 LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy")), "14");
     }
 
     private Investigation createInvestigation(String name) throws DukeException {
-        return new Investigation("inv " + name, impression, 2, "0", "sum of " + name);
+        return new Investigation("inv " + name, impression, 1, "0", "sum of " + name);
     }
 
     private Result createResult(String name) throws DukeException {
