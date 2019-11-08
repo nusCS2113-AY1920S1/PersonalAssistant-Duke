@@ -2,6 +2,7 @@ package ui;
 
 import duke.exception.DukeException;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -224,14 +225,19 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      */
     public String getPrintableReceipts() {
         StringBuilder outputStr = new StringBuilder();
+        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
         for (int index = 0; index < this.size(); ++index) {
             try {
                 outputStr.append(index + 1)
                         .append(". ")
                         .append(this.get(index).getTags())
-                        .append(" ")
-                        .append(this.get(index).getCashSpent())
-                        .append(" ")
+                        .append(" $");
+                if (this.get(index).getCashSpent() >= 0) {
+                    outputStr.append(decimalFormat.format(this.get(index).getCashSpent()));
+                } else {
+                    outputStr.append(decimalFormat.format(-this.get(index).getCashSpent()));
+                }
+                outputStr.append(" ")
                         .append(this.get(index).getDate())
                         .append("\n")
                 ;
@@ -248,7 +254,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
     public Double getTotalIncome() {
         if (this.getFolders().containsKey("Income")) {
             return -this.getFolders().get("Income").getNettCashSpent();
-        } else if (this.nettCashSpent < 0){
+        } else if (this.nettCashSpent < 0) {
             return -this.nettCashSpent;
         } else {
             return 0.0;

@@ -4,6 +4,8 @@ import duke.exception.DukeException;
 import storage.StorageManager;
 import ui.IncomeReceipt;
 
+import java.text.DecimalFormat;
+
 public class CommandAddIncomeReceipt extends CommandAddReceipt {
 
     /**
@@ -25,12 +27,13 @@ public class CommandAddIncomeReceipt extends CommandAddReceipt {
     @Override
     public void execute(StorageManager storageManager) {
         IncomeReceipt r = new IncomeReceipt(this.cash, this.date, this.tags);
+        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
         try {
             storageManager.addReceipt(r);
             this.infoCapsule.setCodeToast();
             this.infoCapsule.setOutputStr("Added Receipt: $"
-                    + r.getCashGained().toString()
-                    + "with tags: "
+                    + decimalFormat.format(r.getCashGained())
+                    + " with tags: "
                     + r.getTags().toString());
         } catch (DukeException e) {
             this.infoCapsule.setCodeError();

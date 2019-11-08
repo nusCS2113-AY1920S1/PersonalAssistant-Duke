@@ -106,7 +106,11 @@ public class MainWindow extends AnchorPane {
         } catch (DukeException e) {
             this.displayToast(e.getMessage());
         }
-
+        try {
+            this.homeController.updateBreakdownData();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateGui(InfoCapsule infoCapsule) {

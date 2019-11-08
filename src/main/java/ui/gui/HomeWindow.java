@@ -42,11 +42,21 @@ public class HomeWindow extends AnchorPane {
     private Interpreter interpreterLayer;
     private ArrayList<String> userInputHistory;
     private ObservableList<PieChart.Data> pieChartData;
+    private XYChart.Series<String, Double> expenditureSeries;
+    private XYChart.Series<String, Double> incomeSeries;
+    private XYChart.Series<String, Double> backdrop;
 
     void initialize(ArrayList<String> userInputHistory, Interpreter interpreterLayer) throws DukeException {
         this.exitRequest = false;
         this.userInputHistory = userInputHistory;
         this.interpreterLayer = interpreterLayer;
+
+        this.expenditureSeries = new XYChart.Series<>();
+        this.expenditureSeries.setName("Expenditure");
+        this.incomeSeries = new XYChart.Series<>();
+        this.incomeSeries.setName("Income");
+        this.backdrop = new XYChart.Series<>();
+        this.backdrop.setName("Backdrop");
 
         this.displayTasks();
         this.displayBalanceChart();
@@ -75,7 +85,8 @@ public class HomeWindow extends AnchorPane {
         this.pieChartData.get(1).setPieValue(balanceCapsule.getOutputDouble()
                 - expensesCapsule.getOutputDouble());
         DecimalFormat decimalFormat = new DecimalFormat("$#0");
-        this.balanceFigure.setText(decimalFormat.format(balanceCapsule.getOutputDouble()));
+        this.balanceFigure.setText(decimalFormat.format(balanceCapsule.getOutputDouble()
+                - expensesCapsule.getOutputDouble()));
     }
 
     private void displayBalanceChart() throws DukeException {
@@ -94,8 +105,9 @@ public class HomeWindow extends AnchorPane {
 
     private Double getWalletBalance() throws DukeException {
         InfoCapsule infoCapsule = this.interpreterLayer.request(AccessType.BALANCE, null);
+        InfoCapsule infoCapsule1 = this.interpreterLayer.request(AccessType.EXPENSES, null);
         if (infoCapsule.getUiCode() == UiCode.UPDATE) {
-            return infoCapsule.getOutputDouble();
+            return infoCapsule.getOutputDouble() - infoCapsule1.getOutputDouble();
         } else if (infoCapsule.getUiCode() == UiCode.ERROR) {
             throw new DukeException(infoCapsule.getOutputStr());
         } else {
@@ -122,46 +134,78 @@ public class HomeWindow extends AnchorPane {
     }
 
     private void displayBreakdownChart() {
-        XYChart.Series<String, Double> expenditureSeries = new XYChart.Series<>();
-        expenditureSeries.setName("Expenditure");
-        XYChart.Series<String, Double> incomeSeries = new XYChart.Series<>();
-        incomeSeries.setName("Income");
+        updateBreakdownData();
 
-        InfoCapsule infoCapsule = this.interpreterLayer.request(AccessType.WALLET, null);
-        Wallet wallet = infoCapsule.getWallet();
-        updateBreakdownData(wallet, expenditureSeries, incomeSeries);
-
-        XYChart.Series<String, Double> backdrop = new XYChart.Series<>();
-        backdrop.setName("Backdrop");
-
-        Double backdropValue = this.getBackdropValue(wallet);
-        HashMap<String, Double> backdropData = this.getBackdropData(backdropValue, expenditureSeries, incomeSeries);
-
-        for (Map.Entry<String, Double> data : backdropData.entrySet()) {
-            backdrop.getData().add(new XYChart.Data<String, Double>(data.getKey(), data.getValue()));
-        }
-
-        this.breakdownChart.getData().add(expenditureSeries);
-        this.breakdownChart.getData().add(incomeSeries);
-        this.breakdownChart.getData().add(backdrop);
+        this.breakdownChart.getData().add(this.expenditureSeries);
+        this.breakdownChart.getData().add(this.incomeSeries);
+        this.breakdownChart.getData().add(this.backdrop);
         this.breakdownChart.setScaleY(1.1);
         String css = this.getClass().getResource("/css/BreakdownChart.css").toExternalForm();
         this.breakdownChart.getStylesheets().add(css);
     }
 
-    private void updateBreakdownData(Wallet wallet, XYChart.Series<String, Double> expenditureSeries,
-                                     XYChart.Series<String, Double> incomeSeries) {
+    void updateBreakdownData() {
+        //this.incomeSeries.getData().clear();
+        //this.expenditureSeries.getData().clear();
+
+        InfoCapsule infoCapsule = this.interpreterLayer.request(AccessType.WALLET, null);
+        Wallet wallet = infoCapsule.getWallet();
         for (Map.Entry<String, ReceiptTracker> folder : wallet.getFolders().entrySet()) {
             if (isFolderValid(folder)) {
-                expenditureSeries.getData().add(new XYChart.Data<String, Double>(
-                        folder.getKey(),
-                        folder.getValue().getTotalExpenses()
-                ));
-                incomeSeries.getData().add(new XYChart.Data<String, Double>(
-                        folder.getKey(),
-                        folder.getValue().getTotalIncome()
-                ));
+                help(folder);
             }
+        }
+//        this.backdrop.getData().clear();
+
+//        for (Map.Entry<String, Double> data : backdropData.entrySet()) {
+//            backdrop.getData().add(new XYChart.Data<String, Double>(data.getKey(), data.getValue()));
+//        }
+    }
+
+    private void help(Map.Entry<String, ReceiptTracker> folder) {
+        boolean found = false;
+        for (XYChart.Data<String, Double> data : this.expenditureSeries.getData()) {
+            if (data.getXValue().equals(folder.getKey())) {
+                data.setYValue(folder.getValue().getTotalExpenses());
+                found = true;
+            }
+        }
+        if (!found) {
+            this.expenditureSeries.getData().add(new XYChart.Data<String, Double>(
+                    folder.getKey(),
+                    folder.getValue().getTotalExpenses()
+            ));
+        }
+        found = false;
+        for (XYChart.Data<String, Double> data : this.incomeSeries.getData()) {
+            if (data.getXValue().equals(folder.getKey())) {
+                data.setYValue(folder.getValue().getTotalIncome());
+                found = true;
+            }
+        }
+        if (!found) {
+            this.incomeSeries.getData().add(new XYChart.Data<String, Double>(
+                    folder.getKey(),
+                    folder.getValue().getTotalIncome()
+            ));
+        }
+
+        InfoCapsule infoCapsule = this.interpreterLayer.request(AccessType.WALLET, null);
+        Wallet wallet = infoCapsule.getWallet();
+        Double backdropValue = this.getBackdropValue(wallet);
+        HashMap<String, Double> backdropData = this.getBackdropData(backdropValue, expenditureSeries, incomeSeries);
+        found = false;
+        for (XYChart.Data<String, Double> data : this.backdrop.getData()) {
+            if (data.getXValue().equals(folder.getKey())) {
+                data.setYValue(backdropData.get(folder.getKey()));
+                found = true;
+            }
+        }
+        if (!found) {
+            this.backdrop.getData().add(new XYChart.Data<String, Double>(
+                    folder.getKey(),
+                    backdropData.get(folder.getKey())
+            ));
         }
     }
 
@@ -178,9 +222,13 @@ public class HomeWindow extends AnchorPane {
 
     private Double getBackdropValue(Wallet wallet) {
         double maxValue = 100.0;
-        for (ReceiptTracker folderContent : wallet.getFolders().values()) {
-            if (folderContent.getTotalExpenses() + folderContent.getTotalIncome() > maxValue) {
-                maxValue = folderContent.getTotalExpenses() + folderContent.getTotalIncome();
+        for (Map.Entry<String, ReceiptTracker> folder : wallet.getFolders().entrySet()) {
+            if (!folder.getKey().equals("Income") && !folder.getKey().equals("Expenses")) {
+                if (folder.getValue().getTotalExpenses() > maxValue) {
+                    maxValue = folder.getValue().getTotalExpenses();
+                } else if (-folder.getValue().getTotalIncome() > maxValue) {
+                    maxValue = -folder.getValue().getTotalIncome();
+                }
             }
         }
         return maxValue;
