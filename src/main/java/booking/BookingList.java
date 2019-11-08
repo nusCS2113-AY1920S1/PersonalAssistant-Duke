@@ -51,17 +51,29 @@ public class BookingList extends ArrayList<Booking> {
         boolean startBefore = false;
         boolean endAfter = false;
         boolean endBefore = false;
+        boolean startBetween = false;
+        boolean endBetween = false;
         for (int i = 0; i < bookinglist.size(); i++) {
             startAfter = bookinglist.get(i).getTimeStart().isAfter(startTime);
             startBefore = bookinglist.get(i).getTimeStart().isBefore(startTime);
             endAfter = bookinglist.get(i).getTimeEnd().isAfter(endTime);
             endBefore = bookinglist.get(i).getTimeEnd().isBefore(endTime);
+            startBetween = (bookinglist.get(i).getTimeStart().isAfter(startTime)
+                    && bookinglist.get(i).getTimeStart().isBefore(endTime))
+                    || (startTime.isAfter(bookinglist.get(i).getTimeStart())
+                    && startTime.isBefore(bookinglist.get(i).getTimeEnd()));
+            endBetween = (bookinglist.get(i).getTimeEnd().isAfter(startTime)
+                    && bookinglist.get(i).getTimeEnd().isBefore(endTime))
+                    || (endTime.isAfter(bookinglist.get(i).getTimeStart())
+                    && endTime.isBefore(bookinglist.get(i).getTimeEnd()));
             if ((bookinglist.get(i).venue.equals(roomcode)) && (bookinglist.get(i).getDateStart().equals(dateStart))) {
                 if ((!startAfter && !startBefore) && (!endAfter && !endBefore)) {
                     found = true;
-                } else if ((startAfter || startBefore) && endBefore) {
+                } else if (startAfter && endBefore) {
                     found = true;
-                } else if ((startBefore) && (endAfter || endBefore)) {
+                } else if (startBefore && endAfter) {
+                    found = true;
+                } else if (startBetween || endBetween) {
                     found = true;
                 }
             }
