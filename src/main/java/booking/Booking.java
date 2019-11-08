@@ -1,6 +1,9 @@
 package booking;
 
 import exception.DukeException;
+import storage.BookingConstants;
+import user.UserList;
+
 import java.time.ZoneId;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -43,9 +46,7 @@ public class Booking {
             this.status = "P";
             this.approvedBy = null;
         } catch (DateTimeParseException error) {
-            throw new DukeException("Not able to parse the date for all patterns given, "
-        + "please use this format: add NAME DESCRIPTION /at ROOM_CODE /from DATE TIMESTART /to TIMEEND"
-        + ", DATE TIMESTART format is dd/mm/yyyy HHMM, TIMEEND is HHMM");
+            throw new DukeException(BookingConstants.DATETIMEERROR);
         }
     }
 

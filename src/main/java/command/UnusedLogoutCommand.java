@@ -8,6 +8,7 @@ import booking.BookingList;
 import exception.DukeException;
 import room.RoomList;
 import storage.Storage;
+import storage.StorageManager;
 import ui.Ui;
 import user.UnusedLogin;
 import user.UserList;
@@ -33,8 +34,7 @@ public class UnusedLogoutCommand extends Command {
     @Override
     public void execute(UserList userList, Inventory inventory, RoomList roomList,
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage,
-                        Storage bookingstorage, Storage roomstorage, Storage approvestorage) {
+                        StorageManager allStorage) {
         UnusedLogin.setCurrentUser(" ");
         ui.addToOutput("You have succesfully logged out!");
     }

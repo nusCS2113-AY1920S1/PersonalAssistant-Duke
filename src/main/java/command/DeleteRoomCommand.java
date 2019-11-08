@@ -7,6 +7,7 @@ import booking.BookingList;
 import exception.DukeException;
 import room.RoomList;
 import room.Room;
+import storage.StorageManager;
 import ui.Ui;
 import storage.Storage;
 import user.UserList;
@@ -41,15 +42,12 @@ public class DeleteRoomCommand extends Command {
      * @param roomList list of rooms
      * @param bookingList bookings list
      * @param ui user interface
-     * @param bookingStorage handles read write of text file
-     * @param roomStorage file storage for room list
-     * @throws DukeException invalid entry
+     * @param allStorage all the storage related places
      */
     @Override
     public void execute(UserList userList, Inventory inventory, RoomList roomList,
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage,
-                        Storage bookingStorage, Storage roomStorage, Storage approvestorage)
+                        StorageManager allStorage)
             throws DukeException {
         if (index < 0 || index > roomList.size() - 1) {
             throw new DukeException("OOPS!!! You have entered an index that is out of bounds.");
@@ -57,7 +55,7 @@ public class DeleteRoomCommand extends Command {
         deletedRoom = roomList.get(index);
         roomList.remove(index);
         try {
-            roomStorage.saveToFile(roomList);
+            allStorage.getRoomStorage().saveToFile(roomList);
         } catch (IOException e) {
             throw new DukeException("OOPS!!! An error occurred while deleting your booking!");
         }

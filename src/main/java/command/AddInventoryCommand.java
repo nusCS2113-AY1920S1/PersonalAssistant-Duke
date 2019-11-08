@@ -10,6 +10,7 @@ import exception.DukeException;
 import room.RoomList;
 import booking.BookingList;
 import storage.Storage;
+import storage.StorageManager;
 import ui.Ui;
 import user.UserList;
 
@@ -63,23 +64,21 @@ public class AddInventoryCommand extends Command {
      * //@param roomList room list
      * @param inventory bookings list
      * @param ui user interface
-     * @param inventoryStorage inventory storage in command execution
-     * @param roomstorage room storage in command execution
+     * @param allStorage all the storage in command execution
      * @throws DukeException if a clash in booking is found
      * @throws IOException if input entry is incorrect
      */
     @Override
     public void execute(UserList userList, Inventory inventory, RoomList roomList,
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage,
-                        Storage bookingstorage, Storage roomstorage, Storage approvestorage)
+                        StorageManager allStorage)
             throws DukeException, IOException, ParseException {
         boolean clash = Inventory.checkInventory(inventory, name); //make this function in Inventory class
         if (clash) {
             throw new DukeException("☹ OOPS!!! ITEM ALREADY EXISTS ");
         }
         inventory.add(newItem);
-        inventoryStorage.saveToFile(inventory);
+        allStorage.getInventoryStorage().saveToFile(inventory);
         ui.addToOutput("Got it, I've added this to inventory.\n"
                 + newItem.toString() + "\n" + "Now you have " + inventory.size() + " item(s) in the inventory.");
     }

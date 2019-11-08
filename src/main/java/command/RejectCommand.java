@@ -6,6 +6,7 @@ import booking.BookingList;
 import exception.DukeException;
 import room.RoomList;
 import storage.Storage;
+import storage.StorageManager;
 import ui.Ui;
 import user.UserList;
 import java.io.IOException;
@@ -41,8 +42,7 @@ public class RejectCommand extends Command {
     @Override
     public void execute(UserList userList, Inventory inventory, RoomList roomList,
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage,
-                        Storage bookingstorage, Storage roomstorage, Storage approvestorage)
+                        StorageManager allStorage)
             throws DukeException, IOException, ParseException {
         if (!userList.getLoginStatus()) {
             throw new DukeException("Please log in to approve or reject bookings.");
@@ -53,6 +53,6 @@ public class RejectCommand extends Command {
         bookingList.get(index).rejectStatus(userList.getCurrentUser());
         ui.addToOutput("This request has been rejected");
         ui.addToOutput(bookingList.get(index).toString());
-        bookingstorage.saveToFile(bookingList);
+        allStorage.getBookingStorage().saveToFile(bookingList);
     }
 }
