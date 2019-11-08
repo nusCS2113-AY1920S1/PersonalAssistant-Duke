@@ -113,8 +113,12 @@ public class MainWindow extends GridPane {
         showListNotesBox();
         showRemindersBox();
         playGuiModeLoop();
+
+        //Resize contentDialog to fit the current scrollpane
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(25), ev -> {
             dialogContainer.setPrefWidth(scrollPane.getWidth() - 15);
+            taskContainer.setPrefWidth(taskScreen.getWidth() - 15);
+            noteContainer.setPrefWidth(noteScreen.getWidth() - 15);
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();

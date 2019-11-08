@@ -80,7 +80,7 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //this.setPrefWidth(282);
+        this.setPrefWidth(290);
         //dialog.setPrefWidth(280);
         setStyleLoop();
 

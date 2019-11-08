@@ -67,7 +67,7 @@ public class Deadline extends Task {
 
     @Override
     public String getFullString() {
-        return "[D][" + getStatusIcon() + "] " + description + " (by: " + dateString + ")";
+        return "[" + getStatusIcon() + "] " + description + "\n(by: " + dateString + ")";
     }
 
     /**

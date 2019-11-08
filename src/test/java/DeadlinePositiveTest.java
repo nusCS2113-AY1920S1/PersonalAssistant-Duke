@@ -41,12 +41,12 @@ public class DeadlinePositiveTest {
     public void test1() {
         String actualOut = javaCake.getResponse("deadline a /by 02/01/2019");
         String expOut = "Got it. I've added this task:\n"
-                + "[D][✗] a (by: 02/01/2019)\n"
+                + "[✗] a\n(by: 02/01/2019)\n"
                 + "Now you have 1 tasks in the list.";
         assertEquals(expOut, actualOut);
         actualOut = javaCake.getResponse("reminder");
         expOut = "~~Upcoming Deadlines!~~\n"
-                + "1.[D][✗] a (by: 02/01/2019)\n";
+                + "1.[✗] a\n(by: 02/01/2019)\n";
         assertEquals(expOut, actualOut);
     }
 
@@ -54,12 +54,12 @@ public class DeadlinePositiveTest {
     public void test2() {
         String actualOut = javaCake.getResponse("deadline a /by 01/02/2019");
         String expOut = "Got it. I've added this task:\n"
-                + "[D][✗] a (by: 01/02/2019)\n"
+                + "[✗] a\n(by: 01/02/2019)\n"
                 + "Now you have 1 tasks in the list.";
         assertEquals(expOut, actualOut);
         actualOut = javaCake.getResponse("reminder");
         expOut = "~~Upcoming Deadlines!~~\n"
-                + "1.[D][✗] a (by: 01/02/2019)\n";
+                + "1.[✗] a\n(by: 01/02/2019)\n";
         assertEquals(expOut, actualOut);
     }
 
@@ -67,12 +67,12 @@ public class DeadlinePositiveTest {
     public void test3() {
         String actualOut = javaCake.getResponse("deadline a b /by 03-01-2019");
         String expOut = "Got it. I've added this task:\n"
-                + "[D][✗] a b (by: 03-01-2019)\n"
+                + "[✗] a b\n(by: 03-01-2019)\n"
                 + "Now you have 1 tasks in the list.";
         assertEquals(expOut, actualOut);
         actualOut = javaCake.getResponse("reminder");
         expOut = "~~Upcoming Deadlines!~~\n"
-                + "1.[D][✗] a b (by: 03-01-2019)\n";
+                + "1.[✗] a b\n(by: 03-01-2019)\n";
         assertEquals(expOut, actualOut);
     }
 
@@ -83,9 +83,9 @@ public class DeadlinePositiveTest {
         actualOut = javaCake.getResponse("deadline a b /by 03-01-2019");
         actualOut = javaCake.getResponse("reminder");
         String expOut = "~~Upcoming Deadlines!~~\n"
-                + "1.[D][✗] a (by: 02/01/2019)\n"
-                + "2.[D][✗] a b (by: 03-01-2019)\n"
-                + "3.[D][✗] a (by: 01/02/2019)\n";
+                + "1.[✗] a\n(by: 02/01/2019)\n"
+                + "2.[✗] a b\n(by: 03-01-2019)\n"
+                + "3.[✗] a\n(by: 01/02/2019)\n";
         assertEquals(expOut, actualOut);
     }
 }

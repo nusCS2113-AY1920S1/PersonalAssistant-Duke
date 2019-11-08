@@ -48,18 +48,18 @@
             <Insets bottom="8.0" />
          </GridPane.margin>
       </TextField>
-      <ScrollPane fx:id="taskScreen" minHeight="0.0" minWidth="0.0" prefHeight="200.0" style="-fx-background: pink;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+      <ScrollPane fx:id="taskScreen" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="300.0" style="-fx-background: pink;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
          <content>
-            <VBox fx:id="taskContainer" prefWidth="260.0" style="-fx-background-color: pink;">
+            <VBox fx:id="taskContainer" style="-fx-background-color: pink;">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </VBox>
          </content>
       </ScrollPane>
-      <ScrollPane fx:id="noteScreen" minHeight="0.0" minWidth="0.0" prefHeight="200.0" style="-fx-background: pink;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.rowSpan="2">
+      <ScrollPane fx:id="noteScreen" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="300.0" style="-fx-background: pink;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.rowSpan="2">
          <content>
-            <VBox fx:id="noteContainer" prefWidth="260.0" style="-fx-background-color: pink;">
+            <VBox fx:id="noteContainer" style="-fx-background-color: pink;">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
