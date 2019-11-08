@@ -14,7 +14,7 @@ Event                       event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-Y
 
 Todo                        todo DESCRIPTION /on DD-MM-YYYY
 
-Recurring                   recurring INDEX NUMBER_OF_OCCURRENCES
+Recurring                   recurring INDEX NUMBER_OF_OCCURRENCES FREQUENCY
 
 List                        list
 
@@ -32,7 +32,7 @@ Summary                     summary
 
 Free                        free DD-MM-YYYY
 
-ViewWeek                    viewweek DD MM YYYY e.g. viewweek 30 10 2019
+ViewWeek                    viewweek DD MM YYYY
 
 Calendar                    calendar MM YYYY
 
@@ -66,12 +66,16 @@ Add Assessment              assessment DESCRIPTION /from DD-MM-YYYY HH:MM /to DD
 
 Add Assignment              assignment DESCRIPTION /by DD-MM-YYYY HH:MM
 
-Start Assignment Tracker    tracker /start TASK_INDEX MODULE_CODE
+Start Task Tracker          tracker /start TASK_INDEX MODULE_CODE
 
-Pause Assignment Tracker    tracker /pause TASK_INDEX MODULE_CODE
+Pause Task Tracker          tracker /pause TASK_INDEX MODULE_CODE
 
-Stop Assignment Tracker     tracker /stop TASK_INDEX MODULE_CODE
+Stop Task Tracker           tracker /stop TASK_INDEX MODULE_CODE
 
-View Assignment Tracker     tracker /view TIME_PERIOD
+View Task Tracker           tracker /view TIME_PERIOD
+
+List Task Tracker           tracker /list
+
+Delete Task Tracker         tracker /delete TRACKER_INDEX
 
 Exit                        bye

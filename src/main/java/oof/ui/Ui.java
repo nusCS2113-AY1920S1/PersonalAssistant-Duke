@@ -19,6 +19,8 @@ import oof.model.task.TaskList;
 import oof.model.tracker.Tracker;
 import oof.storage.StorageManager;
 
+import javax.sound.midi.Track;
+
 /**
  * Represents a Ui class that is responsible for Input/Output operations.
  */
@@ -631,15 +633,6 @@ public class Ui {
     }
 
     /**
-     * Prints message if there are no Tasks scheduled on a date.
-     *
-     * @param date Date where no task has been scheduled.
-     */
-    public void printNoTaskScheduled(String date) {
-        System.out.println("There are no Tasks scheduled on " + date + ".");
-    }
-
-    /**
      * Print when Start Tracker Command is completed.
      *
      * @param tracker  description of Tracker object.
@@ -1078,5 +1071,34 @@ public class Ui {
      */
     public void printUpcomingDeadline(int count, Task task) {
         System.out.println(" \t" + count + "." + task);
+    }
+
+    /**
+     * Prints the details of the deleted Tracker entry.
+     *
+     * @param size          number of Tracker objects in ArrayList trackerList
+     * @param description   description of Task where Tracker is to be deleted.
+     * @param timeTaken     amount of time spent on the Task to be deleted.
+     */
+    public void printTrackerDelete(int size, String description, long timeTaken) {
+        printLine();
+        System.out.println(" Deleting tracker: " + description + " -- " + timeTaken + " minutes");
+        System.out.println(" Now you have " + size + " trackers in your list.");
+    }
+
+    /**
+     * Prints a list of Tracker objects saved in trackerList.
+     *
+     * @param trackerList   ArrayList of Tracker objects.
+     */
+    public void printTrackerList(ArrayList<Tracker> trackerList) {
+        printLine();
+        int index = 1;
+        for (Tracker tracker : trackerList) {
+            String description = tracker.getDescription();
+            long timeTaken = tracker.getTimeTaken();
+            System.out.println(" " + index + ". " + description + " -- " + timeTaken + " minutes");
+            index++;
+        }
     }
 }

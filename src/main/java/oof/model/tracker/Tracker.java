@@ -96,6 +96,14 @@ public class Tracker {
         setStartDate(null);
     }
 
+    /**
+     * Check if tracker has started.
+     * @return true if tracker start date equals null.
+     */
+    public boolean isNotStarted() {
+        return getStartDate() == null;
+    }
+
     public String getModuleCode() {
         return moduleCode;
     }

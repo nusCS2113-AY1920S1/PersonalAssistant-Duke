@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 import oof.logic.command.Command;
+import oof.logic.command.productivity.exceptions.ScheduleEmptyException;
 import oof.ui.Ui;
 import oof.model.semester.SemesterList;
 import oof.model.task.Task;
@@ -28,20 +29,41 @@ public class SummaryCommand extends Command {
     }
 
     /**
+     * Gets a summary of tomorrow's Tasks.
+     *
+     * @param semesterList   Instance of SemesterList that stores Semester objects.
+     * @param taskList       Instance of TaskList that stores Task objects.
+     * @param ui             Instance of Ui that is responsible for visual feedback.
+     * @param storageManager Instance of Storage that enables the reading and writing of Task
+     *                       objects to hard disk.
+     */
+    @Override
+    public void execute(SemesterList semesterList, TaskList taskList, Ui ui,
+                        StorageManager storageManager) throws ScheduleEmptyException {
+        String tomorrow = getTomorrowDate();
+        TaskList summary = getSummary(tomorrow, taskList);
+        if (summary.isEmpty()) {
+            throw new ScheduleEmptyException("There are no Tasks scheduled on " + tomorrow + ".");
+        }
+        ui.printTasksByDate(summary, tomorrow);
+    }
+
+    /**
      * Get a summary of tomorrow's tasks.
      *
      * @param input LocalDateTime of a day after today.
-     * @param arr   TaskList of all tasks
+     * @param taskList   TaskList of all tasks
      * @return a TaskList of tomorrow's tasks.
      */
-    private TaskList getSummary(String input, TaskList arr) {
-        for (int i = 0; i < arr.getSize(); i++) {
-            Task t = arr.getTask(i);
+    private TaskList getSummary(String input, TaskList taskList) {
+        for (int i = 0; i < taskList.getSize(); i++) {
+            Task t = taskList.getTask(i);
             String date = getDate(t);
             if (input.equals(date)) {
                 summary.addTask(t);
             }
         }
+
         return summary;
     }
 
@@ -55,24 +77,5 @@ public class SummaryCommand extends Command {
         LocalDateTime ldt = LocalDateTime.now().plusDays(ADD_A_DAY);
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH);
         return format.format(ldt);
-    }
-
-    /**
-     * Gets a summary of tomorrow's Tasks.
-     *
-     * @param semesterList   Instance of SemesterList that stores Semester objects.
-     * @param taskList       Instance of TaskList that stores Task objects.
-     * @param ui             Instance of Ui that is responsible for visual feedback.
-     * @param storageManager Instance of Storage that enables the reading and writing of Task
-     *                       objects to hard disk.
-     */
-    @Override
-    public void execute(SemesterList semesterList, TaskList taskList, Ui ui, StorageManager storageManager) {
-        String tomorrow = getTomorrowDate();
-        TaskList summary = getSummary(tomorrow, taskList);
-        if (summary.isEmpty()) {
-            ui.printNoTaskScheduled(tomorrow);
-        }
-        ui.printTasksByDate(summary, tomorrow);
     }
 }

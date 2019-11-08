@@ -3,6 +3,7 @@ package oof.logic.command.productivity;
 import java.util.ArrayList;
 
 import oof.logic.command.Command;
+import oof.logic.command.productivity.exceptions.ScheduleEmptyException;
 import oof.ui.Ui;
 import oof.commons.exceptions.command.CommandException;
 import oof.commons.exceptions.command.MissingArgumentException;
@@ -46,20 +47,9 @@ public class ScheduleCommand extends Command {
         }
         TaskList scheduledTasks = scheduleByDate(taskList);
         if (scheduledTasks.isEmpty()) {
-            ui.printNoTaskScheduled(date);
+            throw new ScheduleEmptyException("There are no Tasks scheduled on " + date + ".");
         }
         ui.printTasksByDate(scheduledTasks, date);
-    }
-
-    /**
-     * Checks if input date and date of Task are equal.
-     *
-     * @param input date from user input.
-     * @param date  date from existing Task.
-     * @return true if they are equal, false otherwise.
-     */
-    private boolean compareDate(String input, String date) {
-        return input.equals(date);
     }
 
     /**
@@ -71,8 +61,8 @@ public class ScheduleCommand extends Command {
     private TaskList scheduleByDate(TaskList taskList) {
         ArrayList<Task> scheduledTasks = new ArrayList<>();
         for (Task task : taskList.getTaskList()) {
-            String date = getDate(task);
-            if (compareDate(this.date, date)) {
+            String currDate = getDate(task);
+            if (currDate.equals(date)) {
                 scheduledTasks.add(task);
             }
         }
