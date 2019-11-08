@@ -53,7 +53,7 @@ public class ImpressionCard extends UiCard {
     }
 
     /**
-     * Updates the card primary impression status
+     * Updates the card primary impression status.
      * @param primary if the card is the primary impression
      */
     public void setPrimary(boolean primary) {

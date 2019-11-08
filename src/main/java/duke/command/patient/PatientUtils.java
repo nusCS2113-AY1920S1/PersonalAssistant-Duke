@@ -58,7 +58,8 @@ public class PatientUtils {
         }
     }
 
-    public static SearchResults searchFromPatient(Patient patient, String type, String searchTerm) throws DukeUtilException {
+    public static SearchResults searchFromPatient(Patient patient, String type, String searchTerm)
+            throws DukeUtilException {
         SearchResults results = new SearchResults(searchTerm, new ArrayList<DukeObject>(), patient);
         if (type == null) {
             results.addAll(patient.findImpressionsByName(searchTerm));

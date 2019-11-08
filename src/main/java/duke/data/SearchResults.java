@@ -29,7 +29,7 @@ public class SearchResults extends DukeObject {
         this.searchList = new ArrayList<DukeObject>(searchList);
     }
 
-    public DukeObject getResult(int idx) throws DukeException{
+    public DukeObject getResult(int idx) throws DukeException {
         if (idx > searchList.size()) {
             throw new DukeException("I don't have a search result with that number!");
         } else {

@@ -49,7 +49,7 @@ public class ImpressionNewSpec extends DukeDataSpec {
     // TODO refactor into 5 different methods for each type
     @Override
     protected void execute(DukeCore core) throws DukeException {
-    super.execute(core);
+        super.execute(core);
         String addType = uniqueDataType(cmd);
         if (addType == null) {
             throw new DukeHelpException("No data type specified!", cmd);
@@ -91,8 +91,8 @@ public class ImpressionNewSpec extends DukeDataSpec {
             break;
 
         case "investigation":
-            Investigation invx = new Investigation(cmd.getSwitchVal("name"), impression, priority, cmd.getSwitchVal("status"),
-                    cmd.getSwitchVal("summary"));
+            Investigation invx = new Investigation(cmd.getSwitchVal("name"), impression, priority,
+                    cmd.getSwitchVal("status"), cmd.getSwitchVal("summary"));
             impression.addNewTreatment(invx);
             newData = invx;
             newStr = "New investigation being tracked:\n" + invx.toString();
