@@ -10,6 +10,7 @@ import duke.storage.Storage;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+//@@author HashirZahir
 /**
  * DeleteCommand is a public class that inherits from abstract class Command.
  * A DeleteCommand object encapsulates the index of meal and date of the meal that is to be deleted.
@@ -41,6 +42,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(String indexStr) {
         try {
             this.index = Integer.parseInt(indexStr.trim());
+            parsedDate = currentDate;
         } catch (NumberFormatException nfe) {
             ui.showMessage("Unable to parse input " + indexStr + " as integer index. " + helpText);
         }

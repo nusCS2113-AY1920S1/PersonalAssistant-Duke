@@ -4,6 +4,7 @@ import duke.commons.exceptions.DukeException;
 import duke.model.meal.Meal;
 import duke.model.meal.MealList;
 import duke.model.user.User;
+import duke.model.wallet.Payment;
 import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 
@@ -27,7 +28,7 @@ public class MarkDoneCommand extends Command {
         this(indexStr);
         if (!dateStr.isBlank()) {
             try {
-                currentDate = LocalDate.parse(dateStr,dateFormat);
+                currentDate = LocalDate.parse(dateStr, dateFormat);
             } catch (DateTimeParseException e) {
                 ui.showMessage("Unable to parse input" + dateStr + " as a date. ");
             }
@@ -64,18 +65,33 @@ public class MarkDoneCommand extends Command {
         ui.showLine();
         if (index <= 0 || index > meals.getMealsList(currentDate).size()) {
             ui.showMessage("Index provided out of bounds for list of meals on " + currentDate);
-        } else {
-            Meal currentMeal = meals.markDone(currentDate, index);
+            ui.showLine();
+            return;
+        }
+        Meal currentMeal = meals.getMeal(currentDate, index);
+        String foodCostStr = currentMeal.getCostStr();
+        Payment payment = new Payment(foodCostStr, currentMeal.getDate());
+
+        if (currentMeal.getIsDone()) {
+            ui.showAlreadyMarkedDone(currentMeal);
+        } else if (wallet.addPaymentTransaction(payment)) {
+            Meal markedDoneMeal = meals.markDone(currentDate, index);
             try {
                 storage.updateFile(meals);
+                storage.updateTransaction(wallet);
             } catch (DukeException e) {
                 ui.showMessage(e.getMessage());
             }
-
-            ui.showDone(currentMeal, meals.getMealsList(currentDate));
+            ui.showDone(markedDoneMeal);
             ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);
             ui.showCaloriesLeft(currentMeals, user, currentDate);
-            ui.showLine();
+            ui.showPayment(payment);
+            ui.showAccountBalance(wallet);
+        } else {
+            ui.showInsufficientBalance(payment);
+            ui.showNotDone(currentMeal);
+            ui.showAccountBalance(wallet);
         }
+        ui.showLine();
     }
 }

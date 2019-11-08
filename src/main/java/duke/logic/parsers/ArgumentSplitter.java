@@ -42,9 +42,11 @@ public class ArgumentSplitter {
         if (splitStrings.length < 2) {
             return new String[] {splitStrings[0], ""};
         }
+        splitStrings[1] = splitStrings[1].trim();
         return new String[] {splitStrings[0], splitStrings[1]};
     }
 
+    //@@author HashirZahir
     /**
      * Split commands based on forward slash separated arguments (eg: /date 1 /calorie 2 ..)
      * @param userInputStr String input by user.
@@ -57,7 +59,7 @@ public class ArgumentSplitter {
         String[] tempSplitStrings = userInputStr.split(argPatternStr);
         ArrayList<String> valueStrings = new ArrayList<>();
 
-        /**
+        /*
          * Necessary filtering of empty strings as matching the regex
          * produces leading empty string.
          */

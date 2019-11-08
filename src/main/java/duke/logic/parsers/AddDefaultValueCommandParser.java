@@ -21,6 +21,7 @@ public class AddDefaultValueCommandParser implements ParserInterface<AddDefaultV
     @Override
     public AddDefaultValueCommand parse(String userInputStr) {
         String[] mealNameAndInfo;
+        String foodCostStr = "0";
         HashMap<String, String> nutritionInfoMap;
         LocalDate dateArgStr = null;
 
@@ -33,6 +34,9 @@ public class AddDefaultValueCommandParser implements ParserInterface<AddDefaultV
         }
 
         for (String details : nutritionInfoMap.keySet()) {
+            if (details.equals("cost")) {
+                foodCostStr = nutritionInfoMap.get(details);
+            }
             String intArgStr = nutritionInfoMap.get(details);
             try {
                 int value = Integer.parseInt(intArgStr);
@@ -41,6 +45,6 @@ public class AddDefaultValueCommandParser implements ParserInterface<AddDefaultV
                         + " as an integer. ");
             }
         }
-        return new AddDefaultValueCommand(new Meal(mealNameAndInfo[0], dateArgStr, nutritionInfoMap));
+        return new AddDefaultValueCommand(new Meal(mealNameAndInfo[0], dateArgStr, nutritionInfoMap, foodCostStr));
     }
 }

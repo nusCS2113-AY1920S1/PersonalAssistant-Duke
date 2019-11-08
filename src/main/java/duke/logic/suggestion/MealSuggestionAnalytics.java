@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+//@@author HashirZahir
 /**
  * This class handles all the data analytics aspect of the meal suggestion feature.
  * It calculates the meal preference score based on the meal parameters to be considered

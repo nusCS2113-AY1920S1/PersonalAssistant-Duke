@@ -62,4 +62,5 @@ public class Write {
         String toWriteStr = gson.toJson(wallet);
         FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePathNames.FILE_PATH_TRANSACTION_FILE));
     }
+
 }

@@ -3,6 +3,7 @@ package duke.commons.file;
 import java.util.EnumSet;
 import java.util.HashMap;
 
+//@@author HashirZahir
 /**
  * This class file defines all the resource config file path helper functions that
  * will be used in the storage component.

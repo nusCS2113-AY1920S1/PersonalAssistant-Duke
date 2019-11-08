@@ -10,7 +10,7 @@ import duke.storage.Storage;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-
+//@@author HashirZahir
 /**
  * Class to handle suggestion command arguments from the user and pass them to the analytic module.
  */
@@ -108,7 +108,7 @@ public class SuggestMealCommand extends Command {
 
         Meal chosenMeal = suggestedMealList.get(mealSelectedIndex - 1);
         // TODO: Fix cost of meal
-        addCommand = new AddCommand(chosenMeal, "0");
+        addCommand = new AddCommand(chosenMeal);
         addCommand.execute(meals, storage, user, wallet);
         isDone = true;
     }

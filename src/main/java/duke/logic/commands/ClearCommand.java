@@ -7,8 +7,8 @@ import duke.model.wallet.Wallet;
 import duke.storage.Storage;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
+//@@author HashirZahir
 /**
  * ClearCommand is a public class that inherits from abstract class Command.
  * A ClearCommand object encapsulates the 2 dates between which all meal data will be cleared.
@@ -19,19 +19,15 @@ public class ClearCommand extends Command {
 
     /**
      * Constructor for ClearCommand.
-     * @param startDateStr the start of the time period to be cleared, inclusive
-     * @param endDateStr the end of the time period to be cleared, inclusive
-     * @throws DukeException if the inputs cannot be parsed
+     * @param startDate the start of the time period to be cleared, inclusive.
+     * @param endDate the end of the time period to be cleared, inclusive.
      */
-    public ClearCommand(String startDateStr, String endDateStr) {
-        try {
-            startDate = LocalDate.parse(startDateStr, dateFormat);
-            endDate = LocalDate.parse(endDateStr, dateFormat);
-        } catch (DateTimeParseException e) {
-            ui.showMessage("Unable to parse input " + startDateStr + " and " + endDateStr + " as dates.");
-        }
+    public ClearCommand(LocalDate startDate, LocalDate endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
+    // This constructor called if there are issues parsing user input as dates.
     public ClearCommand(boolean flag, String messageStr) {
         this.isFail = true;
         this.errorStr = messageStr;

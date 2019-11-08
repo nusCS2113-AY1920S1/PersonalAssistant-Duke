@@ -5,6 +5,8 @@ import duke.model.user.User;
 import duke.ui.InputHandler;
 import duke.ui.UserUi;
 
+//@@author koushireo
+
 /**
  * UserSetup is a public class that facilitates user profile creation.
  */
@@ -69,7 +71,7 @@ public class UserSetup {
             }
             setGender(sex);
         } else if (user.getActivityLevel() == 5) {
-            int activity = 0;
+            int activity = 5;
             try {
                 activity = Integer.parseInt(info) - 1;
             } catch (Exception e) {

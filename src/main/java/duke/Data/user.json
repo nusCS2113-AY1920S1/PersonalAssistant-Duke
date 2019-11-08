@@ -1,5 +1,6 @@
 {
   "weight": {
+<<<<<<< HEAD
     "2019-11-05": 70.0
   },
   "lastDate": "2019-11-05",
@@ -9,6 +10,19 @@
   "isSetup": true,
   "name": "hashir",
   "activityLevel": 2,
+=======
+    "2019-11-06": 100.0,
+    "2019-11-05": 75.0,
+    "2019-11-04": 100.0,
+    "2019-11-03": 111.0
+  },
+  "height": 180,
+  "age": 23,
+  "gender": "MALE",
+  "isSetup": true,
+  "name": "Ivan Andika",
+  "activityLevel": 1,
+>>>>>>> origin/master
   "factor": [
     1.2,
     1.375,
@@ -16,5 +30,5 @@
     1.725,
     1.9
   ],
-  "originalWeight": 70.0
+  "originalWeight": 75.0
 }

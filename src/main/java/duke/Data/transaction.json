@@ -1,46 +1,149 @@
 {
   "transactions": {
-    "calendarDate": {
-      "year": 2019,
-      "month": 9,
-      "dayOfMonth": 31,
-      "hourOfDay": 17,
-      "minute": 7,
-      "second": 16
-    },
-    "currentDate": "31/10/2019",
     "transactionTracker": {
-      "": [
+      "2019-11-06": [
         {
           "transactionAmount": 200,
           "type": "DEP",
-          "date": ""
+          "date": "2019-11-06"
         },
         {
-          "transactionAmount": 2000,
+          "transactionAmount": 0,
+          "type": "PAY",
+          "date": "2019-11-06"
+        },
+        {
+          "transactionAmount": 0,
+          "type": "PAY",
+          "date": "2019-11-06"
+        },
+        {
+          "transactionAmount": 200,
           "type": "DEP",
-          "date": ""
+          "date": "2019-11-06"
         },
         {
-          "transactionAmount": 500,
+          "transactionAmount": 0,
           "type": "PAY",
-          "date": ""
+          "date": "2019-11-06"
         },
         {
-          "transactionAmount": 500,
+          "transactionAmount": 2.5,
           "type": "PAY",
-          "date": ""
+          "date": "2019-11-06"
+        },
+        {
+          "transactionAmount": 200,
+          "type": "DEP",
+          "date": "2019-11-06"
+        },
+        {
+          "transactionAmount": 0.5,
+          "type": "PAY",
+          "date": "2019-11-06"
+        },
+        {
+          "transactionAmount": 1.5,
+          "type": "PAY",
+          "date": "2019-11-06"
+        }
+      ],
+      "2019-11-05": [
+        {
+          "transactionAmount": 200,
+          "type": "PAY",
+          "date": "2019-11-05"
         },
         {
           "transactionAmount": 200,
           "type": "PAY",
-          "date": ""
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 200,
+          "type": "PAY",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 200,
+          "type": "DEP",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 200,
+          "type": "DEP",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 300.5,
+          "type": "DEP",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 2.5,
+          "type": "PAY",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 3.5,
+          "type": "PAY",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 2.5,
+          "type": "PAY",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 200,
+          "type": "DEP",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 200,
+          "type": "DEP",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 20000,
+          "type": "PAY",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 2.55,
+          "type": "PAY",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 2.55,
+          "type": "PAY",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 10,
+          "type": "PAY",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 10,
+          "type": "PAY",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 123,
+          "type": "PAY",
+          "date": "2019-11-05"
+        },
+        {
+          "transactionAmount": 1143.90,
+          "type": "PAY",
+          "date": "2019-11-05"
         }
       ]
     }
   },
   "account": {
-    "amount": 1000,
+    "amount": 395.50,
     "currency": "SGD"
   }
 }

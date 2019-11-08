@@ -16,7 +16,7 @@ public final class CommandDefinitions {
     public static final String PARSER_EDIT_COMMAND = "edit";
     public static final String PARSER_CLEAR_COMMAND = "clear";
     public static final String PARSER_EXIT_COMMAND = "exit";
-    public static final String PARSER_UPDATE_WEIGHT_COMMAND = "update";
+    public static final String PARSER_UPDATE_COMMAND = "update";
     public static final String PARSER_ADD_GOAL_COMMAND = "setgoal";
     public static final String PARSER_HISTORY_COMMAND = "history";
     public static final String PARSER_SUGGEST_MEAL_COMMAND = "suggestmeal";
