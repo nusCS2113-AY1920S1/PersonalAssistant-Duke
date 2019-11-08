@@ -343,25 +343,25 @@ public class ParserHelper {
         String allAssigneeIndexes = BLANK;
         String allUnassigneeIndexes = BLANK;
 
-        for (String s : inputParts) {
-            String [] part = s.split(" ");
+        for (String commandPart : inputParts) {
+            String [] part = commandPart.split(" ");
             if (part.length == 0) {
                 continue;
             }
             switch (part[0]) {
             case INDEX_NUMBER_MARKER:
-                if (s.length() >= 3) {
-                    allTaskIndexes = s.substring(2).trim();
+                if (commandPart.length() >= 3) {
+                    allTaskIndexes = commandPart.substring(2).trim();
                 }
                 break;
             case ASSIGNEE_MARKER:
-                if (s.length() >= 4) {
-                    allAssigneeIndexes = s.substring(3).trim();
+                if (commandPart.length() >= 4) {
+                    allAssigneeIndexes = commandPart.substring(3).trim();
                 }
                 break;
             case UNASSIGNEE_MARKER:
-                if (s.length() >= 4) {
-                    allUnassigneeIndexes = s.substring(3).trim();
+                if (commandPart.length() >= 4) {
+                    allUnassigneeIndexes = commandPart.substring(3).trim();
                 }
                 break;
             default:
