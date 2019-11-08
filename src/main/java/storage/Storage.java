@@ -20,13 +20,16 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+
 import java.io.File;
 import java.io.FileInputStream;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.Iterator;
 import java.util.Stack;
 
@@ -39,17 +42,33 @@ public class Storage {
     private static String EXCEL_PATH;
     private File excelFile;
 
+
+    /**
+     * Creates new text file if no such file already exists and sets FILE_PATH to the absolute path of the text file.
+     * Creates new excel file if no such file exists and sets EXCEL_PATH to the absolute path of excel file.
+     */
     public Storage() {
-        excelFile = new File(EXCEL_PATH);
+        File currentDir = new File(System.getProperty("user.dir"));
+        File filePath = new File(currentDir.toString() + "\\data");
+        File dataText = new File(filePath, "wordup.txt");
+        if (!filePath.exists()) {
+            filePath.mkdir();
+        }
+        if (!dataText.exists()) {
+            try {
+                dataText.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        FILE_PATH = dataText.getAbsolutePath();
     }
 
     /**
      * Initiates storage with text file path and excel file path.
-     * @param filePath relative path of text file
      * @param excelPath relative path of excel file
      */
-    public Storage(String filePath, String excelPath) {
-        FILE_PATH = filePath;
+    public Storage(String excelPath) {
         EXCEL_PATH = excelPath;
         excelFile = new File(EXCEL_PATH);
     }
