@@ -52,7 +52,7 @@ repositories {
 }
 
 application {
-    mainClassName = "duke.launcher.Duke"
+    mainClassName = "duke.launcher.Main"
 }
 
 
