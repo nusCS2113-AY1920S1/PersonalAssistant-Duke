@@ -11,8 +11,8 @@ checkstyle {
 }
 
 shadowJar {
-    archiveBaseName = "chefduke"
-    archiveVersion = "v1.3.2"
+    archiveBaseName = "chefduketest"
+    archiveVersion = "v1.4"
     archiveClassifier = null
     archiveAppendix = null
 }

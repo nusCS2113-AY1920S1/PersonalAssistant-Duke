@@ -9,6 +9,8 @@ import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -52,6 +54,13 @@ public class BookingStorage {
      * @return the list of bookings in booking list
      */
     public ArrayList<Booking> load() {
+//        if (Files.notExists(Paths.get(filePath))) {
+//            try {
+//                Files.createDirectory(Paths.get("\\data"));
+//            } catch (IOException e) {
+//                System.out.println("Unknown IO error when creating 'data/' folder.");
+//            }
+//        }
         try {
             FileReader fileReader = new FileReader(filePath);
             BufferedReader bufferedReader = new BufferedReader(fileReader);

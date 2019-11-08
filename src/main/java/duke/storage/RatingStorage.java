@@ -4,6 +4,8 @@ import duke.model.list.recipelist.RatingList;
 import duke.model.task.recipetasks.Rating2;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
@@ -46,6 +48,13 @@ public class RatingStorage {
      * @return the list of ratings in rating list
      */
     public ArrayList<Rating2> load() {
+        if (Files.notExists(Paths.get(filePathRating))) {
+            try {
+                Files.createDirectory(Paths.get("\\data"));
+            } catch (IOException e) {
+                System.out.println("Unknown IO error when creating 'data/' folder.");
+            }
+        }
         try {
             FileReader fileReader = new FileReader(filePathRating);
             BufferedReader bufferedReader = new BufferedReader(fileReader);

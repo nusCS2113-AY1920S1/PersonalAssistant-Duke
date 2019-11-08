@@ -4,6 +4,10 @@ import duke.model.list.recipelist.RecipeList;
 import duke.model.task.recipetasks.Recipe;
 
 import java.io.*;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.TreeMap;
 
 /**
@@ -12,7 +16,7 @@ import java.util.TreeMap;
 public class RecipeStorage {
 
     private final TreeMap<String, Recipe> LHMRecipeList = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
-    private final String filePathRecipes;
+    private String filePathRecipes;
 
     /**
      * Constructor for the class RecipeStorage.
@@ -52,6 +56,14 @@ public class RecipeStorage {
      * @return the list of recipes in recipe list
      */
     public TreeMap<String, Recipe> load() {
+
+        if (Files.notExists(Paths.get(filePathRecipes))) {
+            try {
+                Files.createDirectory(Paths.get("data/"));
+            } catch (IOException e) {
+                System.out.println("Unknown IO error when creating 'data/' folder.");
+            }
+        }
         try {
             FileReader fileReader = new FileReader(filePathRecipes);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -67,7 +79,7 @@ public class RecipeStorage {
                     if (split2.length == 2) {
                         prepTime = split2[0].trim();
                         remaining2 = split2[1].trim();
-                        String[] split3 = remaining2.split( "\\|", 2);
+                        String[] split3 = remaining2.split("\\|", 2);
                         if (split3.length == 2) {
                             rating = split3[0].trim();
                             remaining3 = split3[1].trim();

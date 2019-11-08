@@ -4,6 +4,8 @@ import duke.model.list.recipelist.PrepStepList;
 import duke.model.task.recipetasks.PrepStep;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
@@ -46,6 +48,13 @@ public class PrepStepStorage {
      * @return the list of preparation steps in preparation step list
      */
     public ArrayList<PrepStep> load() {
+        if (Files.notExists(Paths.get(filePathPrepStep))) {
+            try {
+                Files.createDirectory(Paths.get("\\data"));
+            } catch (IOException e) {
+                System.out.println("Unknown IO error when creating 'data/' folder.");
+            }
+        }
         try {
             FileReader fileReader = new FileReader(filePathPrepStep);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
