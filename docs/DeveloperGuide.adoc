@@ -223,9 +223,9 @@ The `execute` method of `HelpCommand` calls `printHelpCommand` in `Ui` class wit
 
 The following activity diagram summarises what will happen when a user executes a `Help` command:
 
-[[HelpCommandActivityDiagram]]
-.Activity diagram for Help Command
-image::HelpCommandActivityDiagram.png[HelpCommandActivityDiagram]
+[[HelpSequenceDiagram]]
+.Sequence diagram for Help Command
+image::HelpSequenceDiagram.png[HelpSequenceDiagram]
 
 ==== Design Considerations
 * Created `manual.txt` to store available commands and their instructions
@@ -492,9 +492,9 @@ This would allow the users to view the suggestions easily without having to scro
 Show suggestions directly in the 4 consecutive free time slots instead. This alternative would inhibit users in optimally viewing their free time since the free time slot will be replaced with the suggested deadline to complete. 
 Thus, showing suggestions in the current implementation gives the user the freedom to plan what to do with their free time. 
 
-=== Time Tracker feature
+=== Task Tracker feature
 ==== Implementation
-The `ViewTrackerCommand` class extends the `Command` class by providing functions to display a histogram
+The `TrackerCommand` class extends the `Command` class by providing functions to display a histogram
 visualising the amount of time spent on each `Module`.
 
 Also, it contains the following feature:
@@ -561,8 +561,9 @@ This is where the tracker diagram will be printed.
 
 The following activity diagram summarises what will happen when a user executes a `ViewTracker` command:
 
-.Activity Diagram for ViewTrackerCommand
-image::ViewTrackerCommandActivityDiagram.png[]
+[[TrackerActivityDiagram]]
+.Activity Diagram for TrackerCommand
+image::TrackerActivityDiagram.png[]
 
 ==== Design Considerations
 * *Creating `tracker.csv` to store past entries and their associated information*
