@@ -15,6 +15,9 @@ import java.text.ParseException;
  * <p>
  * This is done by reloading a screenshot of the previous state of Model from
  * the external .txt files.
+ *
+ * Current list of commands supported:
+ * Add, Delete, Loan, Reserve, Return
  */
 public class UndoCommand extends Command {
 
