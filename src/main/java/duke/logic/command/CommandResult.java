@@ -53,6 +53,26 @@ public class CommandResult {
         return displayedPage;
     }
 
+    @Override
+    public String toString() {
+        return "Feedback: " + feedbackToUser + "; " + "Display Page: " + displayedPage;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof CommandResult)) {
+            return false;
+        }
+
+        CommandResult other = (CommandResult) o;
+        return feedbackToUser.equals(other.getFeedbackToUser()) &&
+                displayedPage.equals(other.getDisplayedPage());
+    }
+
     /**
      * The page shown to the user.
      */

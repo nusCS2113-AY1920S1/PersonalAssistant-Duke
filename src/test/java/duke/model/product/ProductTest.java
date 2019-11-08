@@ -21,14 +21,9 @@ public class ProductTest {
 
     @Test
     public void createNewProduct_emptyName_throwsParseExceptionWithMessage() {
-        Model model = new ModelManager();
-        model.addProduct(CHEESE_CAKE);
+
         assertThrows(IllegalArgumentException.class, ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME,
                 () -> new ProductBuilder("").build());
-
-        assertThrows(DuplicateEntityException.class, ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME,
-                () -> new AddProductCommand(new ProductDescriptorBuilder(CHEESE_CAKE).build()));
-
     }
 
     @Test

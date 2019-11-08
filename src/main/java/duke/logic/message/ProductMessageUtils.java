@@ -11,7 +11,7 @@ public class ProductMessageUtils {
     public static final String MESSAGE_INVALID_SCOPE_VALUE = "-scope can only take active/archive/all";
     public static final String MESSAGE_COMMIT_ADD_PRODUCT = "Add product";
     public static final String MESSAGE_COMMIT_DELETE_PRODUCT = "Delete product(s)";
-    public static final String MESSAGE_COMMIT_EDIT_PRODUCT = "Edit product(s)";
+    public static final String MESSAGE_COMMIT_EDIT_PRODUCT = "Edit product";
     public static final String MESSAGE_PORTION_NOT_NUMBER = "Ingredient portion must be a number";
     public static final String MESSAGE_MISSING_KEYWORD = "A keyword must be specified";
     public static final String MESSAGE_MISSING_SEARCH_PREFIX = "You can use -include prefix to specify a "
@@ -22,6 +22,7 @@ public class ProductMessageUtils {
     public static final String MESSAGE_SORT_PRODUCT_SUCCESS = "Product successfully sorted by %s";
     public static final String MESSAGE_SUCCESS = "Products are listed";
     public static final String MESSAGE_SHOW_PRODUCT_SUCCESS = "Showing product %s";
-    public static final String MESSAGE_NON_EMPTY_REVERSE_PARAMETER = "-re should not be followed any value";
-    public static final String MESSAGE_WRONG_INGREDIENT_FORMAT = "Wrong ingredient format";
+    public static final String MESSAGE_NON_EMPTY_REVERSE_PARAMETER = "-re should not take any value";
+    public static final String MESSAGE_WRONG_INGREDIENT_FORMAT = "Wrong ingredient format, please use "
+            + "[INGREDIENT_NAME, PORTION]";
 }
