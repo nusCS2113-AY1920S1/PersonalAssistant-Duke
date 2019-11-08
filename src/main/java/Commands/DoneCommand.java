@@ -28,7 +28,7 @@ public class DoneCommand extends Command {
         this.list = list;
     }
 
-    private boolean isInsideMapRemove (HashMap<String, HashMap<String, ArrayList<Assignment>>> map, Assignment task) throws DukeException {
+    private boolean isInsideMapDone (HashMap<String, HashMap<String, ArrayList<Assignment>>> map, Assignment task) throws DukeException {
         String modCode = task.getModCode();
         String dateOfTask = task.getDate();
         if (!map.containsKey(modCode)) {
@@ -38,7 +38,11 @@ public class DoneCommand extends Command {
         } else {
             for (Assignment taskInList : map.get(modCode).get(dateOfTask)) {
                 if (taskInList.getDateTime().equals(task.getDateTime())) {
-                    return true;
+                    if (!taskInList.getDescription().equals(task.getDescription())) {
+                        throw new DukeException("Sorry, the description of your recurring task mismatches");
+                    } else {
+                        return true;
+                    }
                 }
             }
             throw new DukeException("Sorry, you have no timing of the mod task to be mark done");
@@ -60,11 +64,11 @@ public class DoneCommand extends Command {
         HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();
 
         if (list.equals("event")) {
-            isInsideMapRemove(eventMap, task);
+            isInsideMapDone(eventMap, task);
             events.updateTask(task);
             storage.updateEventList(events);
         } else if (list.equals("deadline")) {
-            isInsideMapRemove(deadlineMap, task);
+            isInsideMapDone(deadlineMap, task);
             deadlines.updateTask(task);
             storage.updateDeadlineList(deadlines);
         }
