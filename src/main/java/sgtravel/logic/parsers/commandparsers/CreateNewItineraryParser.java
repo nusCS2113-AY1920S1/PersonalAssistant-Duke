@@ -101,7 +101,7 @@ public class CreateNewItineraryParser extends CommandParser {
     /**
      * Takes the VenueMap, todoList as well as number and returns an Agenda.
      * @param venueMap is the hash-map containing all the Venues for the day.
-     * @param todoList is the list of todos for the day
+     * @param todoList is the list of todo's for the day
      * @param number is the day number
      */
     private Agenda getAgendaFromMap(HashMap<String, Venue> venueMap, List<Todo> todoList, int number) {

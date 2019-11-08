@@ -19,6 +19,7 @@ import sgtravel.logic.commands.RouteNodeShowCommand;
 import sgtravel.logic.commands.RouteShowCommand;
 import sgtravel.logic.commands.ShowItineraryCommand;
 import sgtravel.logic.commands.ViewScheduleCommand;
+import sgtravel.logic.parsers.commandparsers.ListItineraryParser;
 import sgtravel.logic.parsers.commandparsers.PromptParser;
 import sgtravel.logic.parsers.commandparsers.AddEventParser;
 import sgtravel.logic.parsers.commandparsers.CreateNewItineraryParser;
@@ -118,7 +119,7 @@ public class Parser {
         case "newItinerary":
             return new CreateNewItineraryParser(input).parse();
         case "listItinerary":
-            return new ListItineraryCommand();
+            return new ListItineraryParser(input).parse();
         case "showItinerary":
             return new ShowItineraryCommand(getWord(input));
         case "doneItinerary":
