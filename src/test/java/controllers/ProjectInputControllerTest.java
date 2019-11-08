@@ -488,14 +488,32 @@ class ProjectInputControllerTest {
         simulatedUserInput = "add member -n Dillen -i 911 -e dillen@hotmail.com";
         projectInputController.projectAddMember(project, simulatedUserInput);
         simulatedUserInput = "assign task -i 1 -to 1 2";
-        String[] output = projectInputController.projectAssignTask(project, simulatedUserInput);
-        assertEquals("For task 1 (Documentation for product):", output[0]);
-        assertEquals("Assigned to member 1 (Jerry Zhang).", output[1]);
-        assertEquals("Assigned to member 2 (Dillen).", output[2]);
+        String[] actualOutput = projectInputController.projectAssignTask(project, simulatedUserInput);
+        String[] expectedOutput = new String[] {
+            "+----------------------------------------------------------------------+",
+            "|Results from task assignments:                                        |",
+            "+----------------------------------------------------------------------+",
+            "| +------------------------------------------------------------------+ |",
+            "| |For task 1 (Documentation for product):                           | |",
+            "| +------------------------------------------------------------------+ |",
+            "| |Assigned to member 1 (Jerry Zhang).                               | |",
+            "| |Assigned to member 2 (Dillen).                                    | |",
+            "| +------------------------------------------------------------------+ |",
+            "+----------------------------------------------------------------------+"};
+        assertArrayEquals(expectedOutput, actualOutput);
         simulatedUserInput = "assign task -i 1 -rm 1";
-        output = projectInputController.projectAssignTask(project, simulatedUserInput);
-        assertEquals("For task 1 (Documentation for product):", output[0]);
-        assertEquals("Unassigned task from member 1 (Jerry Zhang).", output[1]);
+        actualOutput = projectInputController.projectAssignTask(project, simulatedUserInput);
+        expectedOutput = new String[] {
+            "+----------------------------------------------------------------------+",
+            "|Results from task assignments:                                        |",
+            "+----------------------------------------------------------------------+",
+            "| +------------------------------------------------------------------+ |",
+            "| |For task 1 (Documentation for product):                           | |",
+            "| +------------------------------------------------------------------+ |",
+            "| |Unassigned task from member 1 (Jerry Zhang).                      | |",
+            "| +------------------------------------------------------------------+ |",
+            "+----------------------------------------------------------------------+"};
+        assertArrayEquals(expectedOutput, actualOutput);
     }
 
     //@@author sinteary
@@ -580,7 +598,6 @@ class ProjectInputControllerTest {
             "|   - 10 Oct 2019"
                     + dateTimeHelper.getDifferenceDays(dateTimeHelper.formatDate("10/10/2019"))
                     + "                                   |",
-            "|                                                                      |",
             "+----------------------------------------------------------------------+"};
         assertArrayEquals(expectedOutputArray,actualOutputArray);
     }
