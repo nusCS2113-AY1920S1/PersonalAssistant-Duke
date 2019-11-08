@@ -8,14 +8,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 
-import planner.credential.CredentialManager;
+import planner.credential.user.User;
 import planner.logic.command.EndCommand;
 import planner.logic.command.ModuleCommand;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.planner.ModFailedJsonException;
-import planner.logic.modules.cca.CcaList;
 import planner.logic.modules.module.ModuleInfoDetailed;
-import planner.logic.modules.module.ModuleTasksList;
 import planner.logic.parser.Parser;
 import planner.ui.cli.PlannerUi;
 import planner.util.crawler.JsonWrapper;
@@ -29,13 +27,11 @@ public class CliLauncher {
      * active tasks in TaskList and reminder.
      */
     private Storage store;
-    private ModuleTasksList modTasks;
-    private CcaList ccas;
     private Parser argparser;
     private JsonWrapper jsonWrapper;
     private PlannerUi modUi;
     private HashMap<String, ModuleInfoDetailed> modDetailedMap;
-    private CredentialManager credential;
+    private User profile;
     private transient ByteArrayOutputStream output;
     public static List<Timer> timerPool = new ArrayList<>();
 
@@ -48,9 +44,6 @@ public class CliLauncher {
         modUi = new PlannerUi();
         argparser = new Parser();
         jsonWrapper = new JsonWrapper();
-        modTasks = new ModuleTasksList();
-        ccas = new CcaList();
-        credential = new CredentialManager();
         if (gui) {
             this.redirectOutput();
             //credential.prompt(modUi);
@@ -78,7 +71,9 @@ public class CliLauncher {
     public void modSetup() {
         try {
             modDetailedMap = jsonWrapper.getModuleDetailedMap(true, store);
-            modTasks.setTasks(jsonWrapper.readJsonTaskList(store));
+            //modTasks.setTasks(jsonWrapper.readJsonTaskList(store));
+            profile = User.loadProfile(modDetailedMap, modUi, store, jsonWrapper);
+            profile.setSemester(0);
             PlannerLogger.setLogFile(store);
         } catch (ModFailedJsonException ej) {
             ej.getMessage();
@@ -90,8 +85,8 @@ public class CliLauncher {
     }
 
     private void modRunArgparse4j() {
-        modUi.helloMsg();
         modSetup();
+        modUi.helloMsg();
         boolean isExit = true;
         while (isExit) {
             isExit = this.handleInput();
@@ -103,7 +98,7 @@ public class CliLauncher {
             String input = modUi.readInput();
             ModuleCommand c = argparser.parseCommand(input);
             if (c != null) {
-                c.execute(modDetailedMap, modTasks, ccas, modUi, store, jsonWrapper);
+                c.call(modDetailedMap, modUi, store, jsonWrapper, profile);
                 if (c instanceof EndCommand) {
                     return false;
                 }
@@ -137,7 +132,6 @@ public class CliLauncher {
     public static void main(String[] args) {
         //TODO: args flag could be passed into program for optional runs
         CliLauncher planner = new CliLauncher();
-        //planner.credential.prompt(planner.modUi);
         planner.modRunArgparse4j();
     }
 }

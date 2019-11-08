@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import planner.InputTest;
 import planner.logic.exceptions.planner.ModFailedJsonException;
-import planner.logic.modules.cca.CcaList;
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTasksList;
 import planner.logic.parser.Parser;
@@ -22,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ShowCommandTest extends InputTest {
     private static Storage store;
     private static ModuleTasksList modTasks;
-    private static CcaList ccas;
     private static Parser argparser;
     private static Reminder reminder;
     private static JsonWrapper jsonWrapper;
@@ -50,7 +48,6 @@ public class ShowCommandTest extends InputTest {
         argparser = new Parser();
         jsonWrapper = new JsonWrapper();
         modTasks = new ModuleTasksList();
-        ccas = new CcaList();
         jsonWrapper.getModuleDetailedMap();
     }
 
