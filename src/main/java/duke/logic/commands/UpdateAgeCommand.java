@@ -58,4 +58,21 @@ public class UpdateAgeCommand extends Command {
         }
         ui.showLine();
     }
+
+    public void updateUser(User user) {
+        ui.showLine();
+        int ageInt = 0;
+        try {
+            ageInt = Integer.parseInt(description);
+            if (ageInt < 0) {
+                ui.showMessage("Age cannot be less than 0");
+            } else {
+                user.setAge(ageInt);
+                ui.showSuccess("age", description);
+            }
+        } catch (NumberFormatException e) {
+            ui.showMessage("Please input a proper number for age");
+        }
+        ui.showLine();
+    }
 }

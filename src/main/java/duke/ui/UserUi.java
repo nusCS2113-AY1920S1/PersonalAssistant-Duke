@@ -2,85 +2,111 @@ package duke.ui;
 
 import duke.model.user.User;
 
+//@@author-koushireo
+
 /** UserUi is a public class that facilitates the output of User info.
  */
 public class UserUi {
     private static final String padding = "     ";
     private static final String boundary = "    ____________________________________________________________";
 
-    public void showName() {
-        System.out.println(boundary);
-        System.out.println(padding + "Input name");
-        System.out.println(boundary);
-    }
-
-    public void showAge() {
-        System.out.println(boundary);
-        System.out.println(padding + "Input age");
-        System.out.println(boundary);
-    }
-
-    public void showWeight() {
-        System.out.println(boundary);
-        System.out.println(padding + "Input weight");
-        System.out.println(boundary);
-    }
-
-    public void showHeight() {
-        System.out.println(boundary);
-        System.out.println(padding + "Input height");
-        System.out.println(boundary);
-    }
-
-    public void showGender() {
-        System.out.println(boundary);
-        System.out.println(padding + "Input gender(Male/Female)");
-        System.out.println(boundary);
-    }
-
-    public void showActivity() {
-        System.out.println(boundary);
-        System.out.println(padding + "Input Activity Level");
-        System.out.println(padding + "1) Sedentary (Little or no exercise, desk job");
-        System.out.println(padding + "2) Lightly active (Light exercise/ sports 1-3 days/week");
-        System.out.println(padding + "3) Moderately active (Moderate exercise/ sports 6-7 days/week)");
-        System.out.println(padding + "4) Very active (Hard exercise every day, or exercising 2 xs/day) ");
-        System.out.println(padding + "5) Extra active (Hard exercise 2 or more times per day, or training for\n"
-                + "marathon, or triathlon, etc. )");
-        System.out.println(boundary);
-    }
-
-    public void showWelcome() {
-        System.out.println(boundary);
-        System.out.println(padding + "Hello! I'm DIYeats");
-        System.out.println(padding + "What can I do for you?");
-        System.out.println(boundary);
-        System.out.println();
-    }
-
-    public void showWelcomeNew() {
-        System.out.println(boundary);
-        System.out.println(padding + "Welcome!");
-        System.out.println(padding + "I see that you're new.");
-        System.out.println(padding + "Please enter your particulars to get started!");
-        System.out.println(boundary);
-    }
-
-    public void showWelcomeBack(User user) {
-        System.out.println(boundary);
-        System.out.println(padding + "Welcome back, "  + user.getName());
-        System.out.println(boundary);
-    }
-
-    public void showUserSetupDone(User user) {
-        System.out.println(boundary);
-        System.out.println(padding + "Thanks, " + user.getName() + "!");
-        System.out.println(padding + "We are done setting up!");
+    public void showLine() {
         System.out.println(boundary);
     }
 
     public void showMessage(String messageStr) {
         System.out.println(padding + messageStr);
     }
+
+    public void showWelcome() {
+        showLine();
+        showMessage("Hello! I'm DIYeats");
+        showMessage("What can I do for you?");
+        showLine();
+    }
+
+    public void showWelcomeNew() {
+        showLine();
+        showMessage("Welcome!");
+        showMessage("I see that you're new.");
+        showMessage("Please enter your particulars to get started!");
+        showLine();
+    }
+
+    public void showActivityLevel() {
+        showMessage("Input Activity Level");
+        showMessage("1) Sedentary (Little or no exercise, desk job");
+        showMessage("2) Lightly active (Light exercise/ sports 1-3 days/week");
+        showMessage("3) Moderately active (Moderate exercise/ sports 6-7 days/week)");
+        showMessage("4) Very active (Hard exercise every day, or exercising 2 xs/day) ");
+        showMessage("5) Extra active (Hard exercise 2 or more times per day, or training for\n"
+                + padding + "   marathon, or triathlon, etc. )");
+    }
+
+    public void showWelcomeBack(User user) {
+        showLine();
+        showMessage("Welcome back, "  + user.getName());
+        showLine();
+    }
+
+    public void showUserSetupDone(User user) {
+        showLine();
+        showMessage("Thanks, " + user.getName() + "!");
+        showMessage("We are done setting up!");
+        showLine();
+    }
+
+    public void showSetupMessage() {
+        showLine();
+        showMessage("Please enter the user info.");
+        showLine();
+    }
+
+    public void showLackAge() {
+        showLine();
+        showMessage("Please enter an age using /age.");
+        showLine();
+    }
+
+    public void showLackName() {
+        showLine();
+        showMessage("Please enter a name using /name.");
+        showLine();
+    }
+
+    public void showLackWeight() {
+        showLine();
+        showMessage("Please enter a weight(cannot be less than 2kg)");
+        showMessage("using /weight/.");
+        showLine();
+    }
+
+    public void showLackHeight() {
+        showLine();
+        showMessage("Please enter a height(cannot be less than 54cm");
+        showMessage("or more than 272cm) using /height.");
+        showLine();
+    }
+
+    public void showLackActivity() {
+        showLine();
+        showMessage("Please enter an activity level using /activity.");
+        showActivityLevel();
+        showLine();
+    }
+
+    public void showLackGender() {
+        showLine();
+        showMessage("Please enter a gender(M/F) using /gender.");
+        showLine();
+    }
+
+    public void showWrongGenderInfo() {
+        showLine();
+        showMessage("Please enter either M/F for gender.");
+        showActivityLevel();
+        showLine();
+    }
+
 }
 

@@ -59,4 +59,23 @@ public class UpdateHeightCommand extends Command {
         }
         ui.showLine();
     }
+
+    public void updateUser(User user) {
+        ui.showLine();
+        int heightInt = 0;
+        try {
+            heightInt = Integer.parseInt(description);
+            if (heightInt < 54) {
+                ui.showMessage("Height cannot be less than 54cm(Unless you really are the shortest man on earth!)");
+            } else if (heightInt > 272) {
+                ui.showMessage("Height cannot be more than 272cm(Unless you really are the tallest man on earth!)");
+            } else {
+                user.setHeight(heightInt);
+                ui.showSuccess("height", description);
+            }
+        } catch (NumberFormatException e) {
+            ui.showMessage("Please input a proper number for height");
+        }
+        ui.showLine();
+    }
 }

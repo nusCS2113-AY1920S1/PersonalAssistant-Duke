@@ -49,4 +49,11 @@ public class UpdateNameCommand extends Command {
         }
         ui.showLine();
     }
+
+    public void updateUser(User user) {
+        ui.showLine();
+        user.setName(description);
+        ui.showSuccess("name", description);
+        ui.showLine();
+    }
 }
