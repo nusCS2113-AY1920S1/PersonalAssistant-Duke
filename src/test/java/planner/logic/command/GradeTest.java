@@ -97,12 +97,16 @@ public class GradeTest extends InputTest {
             +
             "_______________________________\n"
             +
+            "_______________________________\n"
+            +
             "Got it, graded CS1010 with grade: A\n"
             +
             "_______________________________\n" + expectedBye;
         String contentString = outContent.toString();
-        String escaped = removeUnicodeAndEscapeChars(contentString);
-        assertEquals(escaped, escaped);
+//        String newContentString = contentString.toString().replaceAll("\r", "");
+//        String escaped = removeUnicodeAndEscapeChars(newContentString);
+//        assertEquals(escaped, removeUnicodeAndEscapeChars(expectedAddModule));
+        assertEquals(contentString, expectedAddModule);
     }
 
     /*@Test

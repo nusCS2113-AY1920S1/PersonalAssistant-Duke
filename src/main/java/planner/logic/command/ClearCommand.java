@@ -27,7 +27,7 @@ public class ClearCommand extends ModuleCommand {
         boolean confirm = plannerUi.confirm();
         if (confirm) {
             switch (toClear) {
-                case ("modules"): {
+                case ("module"): {
                     profile.getModules().clear();
                     break;
                 }
