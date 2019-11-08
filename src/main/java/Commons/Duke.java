@@ -3,12 +3,12 @@ package Commons;
 import Commands.Command;
 import Commands.RetrieveFreeTimesCommand;
 import Commands.RetrievePreviousCommand;
-import DukeExceptions.DukeIOException;
-import DukeExceptions.DukeInvalidDateTimeException;
+import DukeExceptions.*;
 import Tasks.TaskList;
 
 import Parser.MainParser;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,7 +43,7 @@ public class Duke  {
             reminder.setDeadlines(deadlines);
             storage.setReminderOnStart();
         } catch (DukeIOException | DukeInvalidDateTimeException e) {
-            LOGGER.severe(ui.showLoadingError(e) + e.getMessage());
+            LOGGER.severe(ui.showLoadingError(e));
         }
     }
 
@@ -57,7 +57,7 @@ public class Duke  {
             Command c = MainParser.parse(input);
             return c.execute(events, deadlines, ui, storage);
         } catch (Exception e) {
-            LOGGER.info(e.toString() + e.getMessage());
+            LOGGER.severe(e.toString());
             return ui.getError(e);
         }
     }

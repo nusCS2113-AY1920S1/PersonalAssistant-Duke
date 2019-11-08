@@ -207,16 +207,16 @@ public class UserInteraction {
      * @return This returns the string of workload
      * @throws ParseException
      */
-    public String showWorkload(TreeMap<String, ArrayList<Assignment>> workloadMap) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat formatter1 = new SimpleDateFormat("E");
-        String workloadSchedule = "Here is your recommended schedule for next week:\n";
+    public String showWorkload(TreeMap<String, ArrayList<Assignment>> workloadMap, String workloadWeek) throws ParseException {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dayFormatter = new SimpleDateFormat("E");
+        String workloadSchedule = "Here is your recommended schedule for " + workloadWeek + ":\n";
         if (workloadMap.isEmpty()) {
             return "You have no tasks scheduled for next week! \n";
         } else {
             for (Map.Entry<String, ArrayList<Assignment>> workload: workloadMap.entrySet()) {
-                Date tempDay = formatter.parse(workload.getKey());
-                String day = formatter1.format(tempDay);
+                Date tempDay = dateFormatter.parse(workload.getKey());
+                String day = dayFormatter.format(tempDay);
                 workloadSchedule = workloadSchedule + day + ": \n";
                 for (Assignment task: workload.getValue()) {
                     workloadSchedule = workloadSchedule + task.getType() + " " + task.getModCode() + " "

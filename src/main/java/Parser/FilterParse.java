@@ -13,7 +13,7 @@ public class FilterParse extends Parse{
     private static String[] split;
     private static String[] split1;
     private static String fullCommand;
-    private final Logger LOGGER = DukeLogger.getLogger(AddParse.class);
+    private final Logger LOGGER = DukeLogger.getLogger(FilterParse.class);
 
     /**
      * Creates FilterParse object.
@@ -40,7 +40,7 @@ public class FilterParse extends Parse{
                    return new FilterCommand(keyword);
                }
            }catch (ArrayIndexOutOfBoundsException e){
-               LOGGER.info("Invalid format for filter" + e.getMessage());
+               LOGGER.severe("Invalid format for filter" + e.getMessage());
                throw new DukeInvalidFormatException(" OOPS!!! Please enter filter command as follows\n" +
                        "show/filter keyword\n");
            }
