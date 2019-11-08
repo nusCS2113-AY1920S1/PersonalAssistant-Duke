@@ -58,13 +58,16 @@ public class DeleteCommand extends Command {
             ui.print(thisResource.toString());
             ui.printLine();
         } else if (resourceType.equals("item")) {
-            ui.printLine();
             ArrayList<Resource> allOfItem = resources.getAllOfResource(resourceName);
+            if (allOfItem.isEmpty()) {
+                throw new RimsException("This resource does not exist in your inventory!");
+            }
+            ui.printLine();
             for (int i = 0; i < allOfItem.size(); i++) {
                 Resource thisResource = allOfItem.get(i);
                 ReservationList thisResourceReservations = thisResource.getReservations();
                 ui.printDash();
-                ui.print(thisResource.toString() + " (ID: " + thisResource.getResourceId() + ")");
+                ui.print(thisResource.toString() + " (resource ID: " + thisResource.getResourceId() + ")");
                 if (!thisResourceReservations.isEmpty()) {
                     for (int j = 0; j < thisResourceReservations.size(); j++) {
                         ui.print("\t" + thisResourceReservations.getReservationByIndex(j).toString());
@@ -75,7 +78,6 @@ public class DeleteCommand extends Command {
             }
             // @@author rabhijit
             ui.printDash();
-            ui.printLine();
             String idInput = ui.getInput(
                     "Type in the resource ID(s) (separated by a space for multiple IDs) that you wish to delete:");
             String[] splitIdInput = idInput.split(" ");
@@ -95,7 +97,7 @@ public class DeleteCommand extends Command {
             ui.print("The following item(s) have been successfully deleted:");
             for (int k = 0; k < deletedResources.size(); k++) {
                 Resource thisDeletedResource = deletedResources.get(k);
-                ui.print(thisDeletedResource.toString() + " (ID: " + thisDeletedResource.getResourceId() + ")");
+                ui.print(thisDeletedResource.toString() + " (resource ID: " + thisDeletedResource.getResourceId() + ")");
             }
             ui.printLine();
 
