@@ -13,6 +13,7 @@ public class EmailList extends ArrayList<Email> {
 
     public void setOrder(SortOrder order) {
         this.order = order;
+        sortByGivenOrder();
     }
 
     /**
@@ -32,6 +33,24 @@ public class EmailList extends ArrayList<Email> {
             listOfEmails += System.lineSeparator() + (++index) + ". " + email.toGuiString();
         }
         return listOfEmails;
+    }
+
+    public String toString(ArrayList<Integer> indexes) {
+        if (this.size() == 0) {
+            return "There is nothing in your email list.";
+        }
+        if (indexes.size() == 0) {
+            return "There is nothing to be shown.";
+        }
+        try {
+            String listOfEmails = "";
+            for (int i = 0; i < indexes.size(); i++) {
+                listOfEmails += indexes.get(i) + this.get(indexes.get(i)).toGuiString();
+            }
+            return listOfEmails;
+        } catch (IndexOutOfBoundsException e) {
+            return "Some index provided is out of bounds.";
+        }
     }
 
     /**

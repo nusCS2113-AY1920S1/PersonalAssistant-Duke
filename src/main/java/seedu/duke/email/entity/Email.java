@@ -351,7 +351,6 @@ public class Email {
             }
             int relevance = json.getInt("relevance");
 
-
             this.keywordPair = new KeywordPair(keyword, expressionList);
             this.relevance = relevance;
         }
