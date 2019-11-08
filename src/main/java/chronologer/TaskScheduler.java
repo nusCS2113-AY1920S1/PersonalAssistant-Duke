@@ -31,6 +31,10 @@ public final class TaskScheduler {
      * @param deadlineDate is the date to find any periods by
      */
     public static String scheduleByDeadline(TaskList tasks, Long durationToSchedule, LocalDateTime deadlineDate) {
+        assert tasks != null;
+        assert durationToSchedule != null;
+        assert deadlineDate != null;
+
         setupEventList(tasks, deadlineDate);
         if (isEventListEmpty()) {
             return SCHEDULE_ANYTIME_BY_DEADLINE;
@@ -46,6 +50,9 @@ public final class TaskScheduler {
      * @param durationToSchedule is the minimum duration to find a large enough period that is free
      */
     public static String scheduleTask(TaskList tasks, Long durationToSchedule) {
+        assert tasks != null;
+        assert durationToSchedule != null;
+
         setupEventList(tasks, hardLimitDeadlineDate);
         if (isEventListEmpty()) {
             return SCHEDULE_ANYTIME;
