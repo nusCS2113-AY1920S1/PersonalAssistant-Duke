@@ -539,9 +539,8 @@ public class UI {
         System.out.println(lineSeparation);
     }
 
-    public void goalSetAsAchieved(EventList events, int eventID, int goalID) {
+    public void goalSetAsAchieved(Goal goal) {
         System.out.println("Ok, the goal has been set as achieved. Congratulations for achieving the goal!");
-        Goal goal = new Goal(events.getEvent(eventID).getGoalObject(goalID).getGoal());
         System.out.println(goal.getGoal() + " - " + goal.getStatus());
         System.out.println(lineSeparation);
     }

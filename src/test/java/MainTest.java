@@ -549,7 +549,7 @@ public class MainTest {
         testList.addEvent(lessonTest1);
 
         Date testDate = new GregorianCalendar(2019, Calendar.NOVEMBER, 7).getTime();
-        CalendarView calendarTest = new CalendarView(testList, new EventDate(new Date()));
+        CalendarView calendarTest = new CalendarView(testList, new EventDate(testDate));
         calendarTest.setCalendarInfo();
         String calendarCompare = "________________________________________________________________________________________________________________________\n" +
                 "|                                                  Events of the week                                                  |\n" +
@@ -563,6 +563,7 @@ public class MainTest {
                 "|                |                |                |                |                |                |                |\n" +
                 "________________________________________________________________________________________________________________________";
         assertEquals(calendarCompare, calendarTest.getStringForOutput());
+    }
 
     //@@author YuanJiayi
     @Test
