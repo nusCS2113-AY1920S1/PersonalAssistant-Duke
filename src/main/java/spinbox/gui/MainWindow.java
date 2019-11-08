@@ -479,6 +479,7 @@ public class MainWindow extends GridPane {
 
     private void updateCalendar() throws CalendarSelectorException {
         CalendarMonthBox monthBox = new CalendarMonthBox("today", allTasks);
+        calendarView.getChildren().clear();
         calendarView.getChildren().add(monthBox);
     }
 

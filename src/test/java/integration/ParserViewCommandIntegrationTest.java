@@ -73,6 +73,7 @@ public class ParserViewCommandIntegrationTest {
         command.execute(testContainer, pageTrace, ui, false);
         checkTrace.addFirst("modules");
         checkTrace.addFirst("CG1112");
+        checkTrace.addFirst("tasks");
 
         assertTrue(Arrays.equals(checkTrace.toArray(), pageTrace.toArray()));
 
@@ -180,6 +181,7 @@ public class ParserViewCommandIntegrationTest {
         ArrayDeque<String> checkTrace = new ArrayDeque<>();
         checkTrace.addFirst("modules");
         checkTrace.addFirst("CG1112");
+        checkTrace.addFirst("tasks");
 
         Ui ui = new Ui(true);
 

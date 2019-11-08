@@ -11,8 +11,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
+
 <GridPane prefHeight="750.0" prefWidth="1000.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
           minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="spinbox.gui.MainWindow" hgap="10.0" style="-fx-background-color: #464866">
@@ -30,7 +30,7 @@
     </rowConstraints>
 
     <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE"
-             GridPane.columnSpan="3" GridPane.rowSpan="3">
+             GridPane.columnSpan="3" GridPane.rowSpan="3" stylesheets="@MainWindow.css">
 
         <!--Start of Main tab-->
         <Tab text="Main">

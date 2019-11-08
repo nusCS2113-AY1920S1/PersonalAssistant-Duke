@@ -69,12 +69,14 @@ public class ViewCommand extends Command {
             default:
                 page = "modules";
                 moduleCode = contentComponents[0];
+                tab = "tasks";
             }
         // can be 'modules <moduleCode>' or '<moduleCode> tab'
         } else if (contentComponents.length == 2) {
             if (contentComponents[0].equals("modules")) {
                 page = "modules";
                 moduleCode = contentComponents[1];
+                tab = "tasks";
             } else if (contentComponents[1].equals("tasks") || contentComponents[1].equals("files")
                     || contentComponents[1].equals("grades")) {
                 page = "modules";

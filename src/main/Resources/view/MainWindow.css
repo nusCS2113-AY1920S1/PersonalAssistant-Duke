@@ -1,12 +1,11 @@
 .tab {
-    -fx-pref-width: 250
-}
-.tab-header-background {
-    -fx-background-color:#25274D
+    -fx-pref-width: 328;
+    -fx-background-color:#AAABB8;
 }
 
 .tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
+    -fx-text-alignment: CENTER;
     -fx-alignment: CENTER;
-    -fx-pref-width: 230;
-    -fx-text-fill: -fx-text-base-color;
+    -fx-pref-width: 328;
+    -fx-text-fill: #464866;
 }
