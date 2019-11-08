@@ -96,9 +96,18 @@ public class TaskCommandsIntegrationTest {
         Task testTask1 = new Todo("Test 1");
         Task testTask2 = new Lab("Test 2", new DateTime("01/04/2019 10:00"),
                 new DateTime("01/04/2019 12:00"));
+        Task testTask3 = new Tutorial("Test 3", new DateTime("01/05/2020 10:00"),
+                new DateTime("01/05/2020 12:00"));
+        Task testTask4 = new Event("Test 4", new DateTime("01/05/2021 10:00"),
+                new DateTime("01/05/2021 12:00"));
+        Task testTask5 = new Exam("Test 5", new DateTime("01/03/2022 10:00"),
+                new DateTime("01/03/2022 12:00"));
 
         taskList.add(testTask1);
         taskList.add(testTask2);
+        taskList.add(testTask3);
+        taskList.add(testTask4);
+        taskList.add(testTask5);
 
         pageTrace = new ArrayDeque<>();
         ui = new Ui(true);
@@ -108,14 +117,35 @@ public class TaskCommandsIntegrationTest {
         command = Parser.parse(setNameForTask1);
         command.execute(testContainer, pageTrace, ui, false);
 
-        String setNameForTask2 = "set-name CG1112 / task 2 to: Todo";
+        String setNameForTask3 = "set-name CG1112 / task 2 to: Tutorial";
+        Parser.setPageTrace(pageTrace);
+        command = Parser.parse(setNameForTask3);
+        command.execute(testContainer, pageTrace, ui, false);
+
+        String setNameForTask4 = "set-name CG1112 / task 3 to: Event";
+        Parser.setPageTrace(pageTrace);
+        command = Parser.parse(setNameForTask4);
+        command.execute(testContainer, pageTrace, ui, false);
+
+        String setNameForTask5 = "set-name CG1112 / task 4 to: Exam";
+        Parser.setPageTrace(pageTrace);
+        command = Parser.parse(setNameForTask5);
+        command.execute(testContainer, pageTrace, ui, false);
+
+        String setNameForTask2 = "set-name CG1112 / task 5 to: Todo";
         Parser.setPageTrace(pageTrace);
         command = Parser.parse(setNameForTask2);
         command.execute(testContainer, pageTrace, ui, false);
 
         assertEquals(taskList.get(0).toString(), "[LAB][NOT DONE] Lab (at: 01/04/2019 10:00"
                 + " to 01/04/2019 12:00)");
-        assertEquals(taskList.get(1).toString(), "[T][NOT DONE] Todo");
+        assertEquals(taskList.get(1).toString(), "[TUT][NOT DONE] Tutorial (at: 01/05/2020 10:00"
+                + " to 01/05/2020 12:00)");
+        assertEquals(taskList.get(2).toString(), "[E][NOT DONE] Event (at: 01/05/2021 10:00"
+                + " to 01/05/2021 12:00)");
+        assertEquals(taskList.get(3).toString(), "[EXAM][NOT DONE] Exam (at: 01/03/2022 10:00"
+                + " to 01/03/2022 12:00)");
+        assertEquals(taskList.get(4).toString(), "[T][NOT DONE] Todo");
     }
 
     @Test
@@ -161,9 +191,15 @@ public class TaskCommandsIntegrationTest {
         Task testTask1 = new Deadline("Test 1", new DateTime("01/01/2019 10:00"));
         Task testTask2 = new Exam("Test 2", new DateTime("12/12/2019 10:00"),
                 new DateTime("01/03/2019 12:00"));
+        Task testTask3 = new Lab("Test 3", new DateTime("01/01/2020 10:00"),
+                new DateTime("01/01/2020 12:00"));
+        Task testTask4 = new Tutorial("Test 4", new DateTime("01/01/2021 10:00"),
+                new DateTime("01/01/2021 12:00"));
 
         taskList.add(testTask1);
         taskList.add(testTask2);
+        taskList.add(testTask3);
+        taskList.add(testTask4);
   
         pageTrace = new ArrayDeque<>();
         ui = new Ui(true);
@@ -178,9 +214,23 @@ public class TaskCommandsIntegrationTest {
         command = Parser.parse(setDateForTask2);
         command.execute(testContainer, pageTrace, ui, false);
 
+        String setDateForTask3 = "set-date CG1112 / task 3 to: 03/02/2020 16:00 to 03/02/2020 19:00";
+        Parser.setPageTrace(pageTrace);
+        command = Parser.parse(setDateForTask3);
+        command.execute(testContainer, pageTrace, ui, false);
+
+        String setDateForTask4 = "set-date CG1112 / task 4 to: 01/02/2021 16:00 to 01/02/2021 19:00";
+        Parser.setPageTrace(pageTrace);
+        command = Parser.parse(setDateForTask4);
+        command.execute(testContainer, pageTrace, ui, false);
+
         assertEquals(taskList.get(0).toString(), "[D][NOT DONE] Test 1 (by: 02/01/2019 12:00)");
         assertEquals(taskList.get(1).toString(), "[EXAM][NOT DONE] Test 2 (at: 02/05/2019 16:00"
                 + " to 02/05/2019 19:00)");
+        assertEquals(taskList.get(2).toString(), "[LAB][NOT DONE] Test 3 (at: 03/02/2020 16:00 "
+                + "to 03/02/2020 19:00)");
+        assertEquals(taskList.get(3).toString(), "[TUT][NOT DONE] Test 4 (at: 01/02/2021 16:00 "
+                + "to 01/02/2021 19:00)");
     }
       
     @Test

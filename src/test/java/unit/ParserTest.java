@@ -1,33 +1,25 @@
 package unit;
 
-import java.util.ArrayDeque;
-import java.util.Stack;
-
 import org.junit.jupiter.api.Test;
 import spinbox.Parser;
+import spinbox.commands.Command;
+import spinbox.exceptions.InputException;
+import spinbox.exceptions.SpinBoxException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class ParserTest {
 
     @Test
-    void testCommandBuilder_prependInformationToUserInput_fullUserInputAttained() {
-        Stack<String> inputInformation = new Stack<>();
-        inputInformation.push("modules");
-        inputInformation.push("CG1111");
-        inputInformation.push("files");
-        StringBuilder fullUserInput = new StringBuilder();
-        fullUserInput.append("1");
-        Stack<String> cloneLog = new Stack<>();
-        cloneLog.addAll(inputInformation);
-        while (!cloneLog.empty()) {
-            String individualInput = cloneLog.peek();
-            fullUserInput.insert(0, " ");
-            fullUserInput.insert(0, individualInput);
-            cloneLog.pop();
+    void testParser_passValidCommands_parserReturnsValidCommandAfterBuildingCommand() throws SpinBoxException {
+        try {
+            String userInput1 = "random";
+            Command command = Parser.parse(userInput1);
+            fail();
+        } catch (InputException e) {
+            assertEquals("Invalid Input\n\nPlease provide a valid command:\n"
+                    + "'<action> <page> / <content>' or 'bye'", e.getMessage());
         }
-        fullUserInput.insert(0, " ");
-        fullUserInput.insert(0, "delete");
-        assertEquals("delete modules CG1111 files 1", fullUserInput.toString());
     }
 }
