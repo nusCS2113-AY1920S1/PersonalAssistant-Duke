@@ -371,14 +371,14 @@ public class TaskCommandsIntegrationTest {
         pageTrace = new ArrayDeque<>();
         ui = new Ui(true);
 
-        String updateOneTask = "update CG1112 / task 1 true";
+        String updateOneTask = "update CG1112 / task 1 done";
         Parser.setPageTrace(pageTrace);
         command = Parser.parse(updateOneTask);
         command.execute(testContainer, pageTrace, ui, false);
 
         assertEquals(taskList.get(4).toString(), "[E][DONE] Test 1 (at: 01/02/2019 10:00 to 01/02/2019 12:00)");
 
-        String updateMultipleTasks = "update-* CG1112 / task 1,2,3,4 true";
+        String updateMultipleTasks = "update-* CG1112 / task 1,2,3,4 done";
         Parser.setPageTrace(pageTrace);
         command = Parser.parse(updateMultipleTasks);
         command.execute(testContainer, pageTrace, ui, false);
@@ -390,6 +390,28 @@ public class TaskCommandsIntegrationTest {
         assertEquals(taskList.get(3).toString(), "[LEC][DONE] Test 4 (at: 01/05/2019 10:00"
                 + " to 01/05/2019 12:00)");
         assertEquals(taskList.get(4).toString(), "[TUT][DONE] Test 5 (at: 01/06/2019 10:00"
+                + " to 01/06/2019 12:00)");
+
+        String updateOneTaskNotDone = "update CG1112 / task 1 notdone";
+        Parser.setPageTrace(pageTrace);
+        command = Parser.parse(updateOneTaskNotDone);
+        command.execute(testContainer, pageTrace, ui, false);
+
+        assertEquals(taskList.get(0).toString(), "[E][NOT DONE] Test 1 (at: 01/02/2019 10:00 to "
+                + "01/02/2019 12:00)");
+
+        String updateMultipleTasksNotDone = "update-* CG1112 / task 2,3,4,5 notdone";
+        Parser.setPageTrace(pageTrace);
+        command = Parser.parse(updateMultipleTasksNotDone);
+        command.execute(testContainer, pageTrace, ui, false);
+
+        assertEquals(taskList.get(1).toString(), "[EXAM][NOT DONE] Test 2 (at: 01/03/2019 10:00"
+                + " to 01/03/2019 12:00)");
+        assertEquals(taskList.get(2).toString(), "[LAB][NOT DONE] Test 3 (at: 01/04/2019 10:00"
+                + " to 01/04/2019 12:00)");
+        assertEquals(taskList.get(3).toString(), "[LEC][NOT DONE] Test 4 (at: 01/05/2019 10:00"
+                + " to 01/05/2019 12:00)");
+        assertEquals(taskList.get(4).toString(), "[TUT][NOT DONE] Test 5 (at: 01/06/2019 10:00"
                 + " to 01/06/2019 12:00)");
     }
 

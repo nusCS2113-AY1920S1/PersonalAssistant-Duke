@@ -147,6 +147,4 @@ public class Module implements Storable {
     private void setModuleName(String moduleName) {
         this.moduleName = moduleName;
     }
-
-
 }

@@ -23,15 +23,15 @@ public class UpdateMultipleCommand extends Command {
     private static final String PROVIDE_INDEX = "Please provide the indexes to be updated.";
     private static final String INVALID_INDEX = "Please enter a valid index.";
     private static final String UPDATE_SINGLE_TASK = "To update a single task, provide the input in this "
-            + "format instead: update <pageContent> / <type> <one index in integer form> <boolean value>";
+            + "format instead: update <pageContent> / <type> <one index in integer form> <done status>";
     private static final String INVALID_UPDATE_FORMAT = "Please use valid multiple update format:\n"
-            + "update-* <pageContent> / <type> <indexes separated by ',' without any spacing> <boolean value>\n"
-            + "E.g. update-* CG1111 / task 1,2,3 true";
+            + "update-* <pageContent> / <type> <indexes separated by ',' without any spacing> <done status>\n"
+            + "E.g. update-* CG1111 / task 1,2,3 done";
     private static final String INCORRECT_TAB = "Please specify a valid tab to carry out multiple updates.\n"
             + "List of tabs available: task, note, file";
     private static final String UPDATED_MULTIPLE_FILES = "Noted. I've updated these files:";
     private static final String UPDATED_MULTIPLE_TASKS = "Noted. I've updated these tasks:";
-    private static final String INVALID_BOOLEAN_VALUE = "Please provide a valid boolean value to be updated to.";
+    private static final String INVALID_DONE_VALUE = "Please provide a valid done status to be updated to.";
 
     private String type;
 
@@ -53,25 +53,25 @@ public class UpdateMultipleCommand extends Command {
     }
 
     /**
-     * Method to update multiple files with the new boolean value.
+     * Method to update multiple files with the new done status.
      * @param finalIndexes Indexes of the files to be updated.
-     * @param updateValue Boolean value of the value to be updated to.
+     * @param updateValue done status of the value to be updated to.
      * @param files The list of files in the storage.
      * @param outputMessage The message to be output to the screen.
      * @return outputMessage to be printed to the screen.
-     * @throws InputException If boolean value is not either true or false.
+     * @throws InputException If done status is not either done or notdone.
      * @throws DataReadWriteException If there is an error reading/writing to the file.
      */
     private String updateMultipleFile(List<Integer> finalIndexes, String updateValue, FileList files, String
             outputMessage) throws InputException, DataReadWriteException {
         for (int i = 0; i < finalIndexes.size(); i++) {
             File fileUpdated = files.get(finalIndexes.get(i));
-            if (updateValue.equals("true")) {
+            if (updateValue.equals("done")) {
                 files.update(finalIndexes.get(i), true);
-            } else if (updateValue.equals("false")) {
+            } else if (updateValue.equals("notdone")) {
                 files.update(finalIndexes.get(i), false);
             } else {
-                throw new InputException(INVALID_BOOLEAN_VALUE);
+                throw new InputException(INVALID_DONE_VALUE);
             }
             if (i == 0) {
                 outputMessage = outputMessage.concat(HORIZONTAL_LINE + "\n" + UPDATED_MULTIPLE_FILES + "\n");
@@ -82,18 +82,18 @@ public class UpdateMultipleCommand extends Command {
     }
 
     /**
-     * Method to update multiple tasks with the new boolean value.
+     * Method to update multiple tasks with the new done status.
      * @param finalIndexes Indexes of the tasks to be updated.
-     * @param updateValue Boolean value of the value to be updated to.
+     * @param updateValue Done status of the tasks to be updated to.
      * @param tasks The list of tasks in the storage.
      * @param outputMessage The message to be output to the screen.
      * @return outputMessage to be printed to the screen.
-     * @throws InputException If boolean value is not either true or false.
+     * @throws InputException If the done status is not either done or notdone.
      * @throws DataReadWriteException If there is an error reading/writing to the file.
      */
     private String updateMultipleTask(List<Integer> finalIndexes, String updateValue, TaskList tasks, String
             outputMessage) throws InputException, DataReadWriteException {
-        if (updateValue.equals("false")) {
+        if (updateValue.equals("notdone")) {
             for (int i = finalIndexes.size() - 1; i >= 0; i--) {
                 tasks.update(finalIndexes.get(i), false);
                 if (i == finalIndexes.size() - 1) {
@@ -102,7 +102,7 @@ public class UpdateMultipleCommand extends Command {
                 Task taskUpdated = tasks.get(finalIndexes.get(i));
                 outputMessage = outputMessage.concat(taskUpdated.toString() + "\n");
             }
-        } else if (updateValue.equals("true")) {
+        } else if (updateValue.equals("done")) {
             for (int i = 0; i < finalIndexes.size(); i++) {
                 tasks.update(finalIndexes.get(i), true);
                 if (i == 0) {
@@ -112,7 +112,7 @@ public class UpdateMultipleCommand extends Command {
                 outputMessage = outputMessage.concat(taskUpdated.toString() + "\n");
             }
         } else {
-            throw new InputException(INVALID_BOOLEAN_VALUE);
+            throw new InputException(INVALID_DONE_VALUE);
         }
         return outputMessage;
     }
