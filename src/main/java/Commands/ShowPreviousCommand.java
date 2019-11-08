@@ -1,6 +1,7 @@
 package Commands;
 
 import Commons.Duke;
+import Commons.DukeConstants;
 import Commons.Storage;
 import Commons.UserInteraction;
 import DukeExceptions.DukeInvalidCommandException;
@@ -84,44 +85,50 @@ public class ShowPreviousCommand extends Command {
                 startIndex -= 1;
             }
             result = outputList;
-        } else if (fullCommand.equals("add/d")) {
-            result = previousCommandsHandler(updatedUserInputList, outputList,"add/d");
-        } else if (fullCommand.equals("add/e")) {
-            result = previousCommandsHandler(updatedUserInputList, outputList,"add/e");
-        } else if (fullCommand.equals("delete/d")) {
-            result = previousCommandsHandler(updatedUserInputList, outputList,"delete/d");
-        } else if (fullCommand.equals("delete/e")) {
-            result = previousCommandsHandler(updatedUserInputList, outputList, "delete/e");
-        } else if (fullCommand.equals("recur/weekly")) {
-            result = previousCommandsHandler(updatedUserInputList, outputList, "recur/weekly");
-        } else if (fullCommand.equals("recur/biweekly")) {
-            result = previousCommandsHandler(updatedUserInputList, outputList, "recur/biweekly");
-        } else if (fullCommand.equals("recur/rmweekly")) {
-            result = previousCommandsHandler(updatedUserInputList, outputList, "recur/rmweekly");
-        } else if (fullCommand.equals("recur/rmbiweekly")) {
-            result = previousCommandsHandler(updatedUserInputList, outputList, "recur/rmbiweekly");
-        } else if (fullCommand.equals("remind/set")) {
-            result = previousCommandsHandler(updatedUserInputList, outputList, "remind/set");
-        } else if (fullCommand.equals("remind/rm")) {
-            result = previousCommandsHandler(updatedUserInputList, outputList, "remind/rm");
-        } else if (fullCommand.equals("/show")) {
-            result = previousCommandsHandler(updatedUserInputList, outputList, "/show");
-        } else if (fullCommand.equals("filter")) {
-            result = previousCommandsHandler(updatedUserInputList, outputList, "filter");
-        } else if (fullCommand.equals("help")) {
-            result = previousCommandsHandler(updatedUserInputList, outputList, "help");
-        } else if (fullCommand.equals("list")) {
-            result = previousCommandsHandler(updatedUserInputList, outputList, "list");
-        } else if (fullCommand.equals("done")) {
-            result = previousCommandsHandler(updatedUserInputList, outputList, "done");
-        } else if (fullCommand.equals("find")) {
-            result = previousCommandsHandler(updatedUserInputList, outputList, "find");
-        } else if (fullCommand.equals("show/previous")) {
-            result = previousCommandsHandler(updatedUserInputList, outputList, "show/previous");
-        } else if (fullCommand.equals("retrieve/ft")) {
-            result = previousCommandsHandler(updatedUserInputList, outputList, "retrieve/ft");
-        } else if (fullCommand.equals("Week")) {
-            result = previousCommandsHandler(updatedUserInputList, outputList, "Week");
+        } else if (fullCommand.equals(DukeConstants.ADD_DEADLINE_HEADER)) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.ADD_DEADLINE_HEADER);
+        } else if (fullCommand.equals(DukeConstants.ADD_EVENT_HEADER)) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.ADD_EVENT_HEADER);
+        } else if (fullCommand.equals(DukeConstants.DELETE_DEADLINE_HEADER)) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.DELETE_DEADLINE_HEADER);
+        } else if (fullCommand.equals(DukeConstants.DELETE_EVENT_HEADER)) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.DELETE_EVENT_HEADER);
+        } else if (fullCommand.equals(DukeConstants.RECUR_WEEKLY_HEADER)) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.RECUR_WEEKLY_HEADER);
+        } else if (fullCommand.equals(DukeConstants.RECUR_BIWEEKLY_HEADER)) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.RECUR_BIWEEKLY_HEADER);
+        } else if (fullCommand.equals(DukeConstants.REMOVE_RECUR_WEEKLY_HEADER)) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.REMOVE_RECUR_WEEKLY_HEADER);
+        } else if (fullCommand.equals(DukeConstants.REMOVE_RECUR_BIWEEKLY_HEADER)) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.REMOVE_RECUR_BIWEEKLY_HEADER);
+        } else if (fullCommand.equals(DukeConstants.REMIND_SET_HEADER)) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.REMIND_SET_HEADER);
+        } else if (fullCommand.equals(DukeConstants.REMOVE_REMIND_HEADER)) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.REMOVE_REMIND_HEADER);
+        } else if (fullCommand.equals(DukeConstants.REMIND_CHECK_HEADER)) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.REMIND_CHECK_HEADER);
+        } else if (fullCommand.equals(DukeConstants.SHOW_WORKLOAD_HEADER)) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.SHOW_WORKLOAD_HEADER);
+        } else if (fullCommand.equals(DukeConstants.SHOW_FILTER_HEADER)) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.SHOW_FILTER_HEADER);
+        } else if (fullCommand.equals(DukeConstants.HELP_HEADER)) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.HELP_HEADER);
+        } else if (fullCommand.equals(DukeConstants.DONE_EVENT_HEADER)) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.DONE_EVENT_HEADER);
+        } else if (fullCommand.equals(DukeConstants.DONE_DEADLINE_HEADER)) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.DONE_DEADLINE_HEADER);
+        } else if (fullCommand.equals(DukeConstants.FIND_TIME_HEADER)) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.FIND_TIME_HEADER);
+        } else if (fullCommand.equals(DukeConstants.RETRIEVE_PREVIOUS_HEADER)) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.RETRIEVE_PREVIOUS_HEADER);
+        } else if (fullCommand.equals(DukeConstants.SHOW_PREVIOUS_HEADER)) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.SHOW_PREVIOUS_HEADER);
+        } else if (fullCommand.equals(DukeConstants.RETRIEVE_TIME_HEADER)) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.RETRIEVE_TIME_HEADER);
+        } else if (fullCommand.equals(DukeConstants.SHOW_WEEK_HEADER)) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.SHOW_WEEK_HEADER);
+        } else if (fullCommand.equals(DukeConstants.BYE_HEADER)) {
+            result = previousCommandsHandler(updatedUserInputList, outputList, DukeConstants.BYE_HEADER);
         }
         return ui.showPrevious(result);
     }
