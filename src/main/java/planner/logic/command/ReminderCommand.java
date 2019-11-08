@@ -99,14 +99,18 @@ public class ReminderCommand extends ModuleCommand {
                 break;
             }
 
-            case ("four"):
-            default : {
+            case ("four"): {
                 try {
                     printEveryFiveMin();
                 } catch (InterruptedException e) {
                     System.out.println(e.getMessage());
                 }
                 break;
+            }
+
+            case ("others") :
+            default : {
+                plannerUi.reminderWrongCommand();
             }
         }
     }

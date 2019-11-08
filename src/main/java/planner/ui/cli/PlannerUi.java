@@ -432,12 +432,22 @@ public class PlannerUi {
      * Message to print the list of reminder options.
      */
     public void reminderList() {
-        showLine();;
+        showLine();
         System.out.println("Would you like to set your reminder to every:\n"
                             + "1) for 30 seconds\n"
                             + "2) for 1 minute\n"
                             + "3) for 2 minutes\n"
                             + "4) for 5 minutes\n"
                             + "*helpline* : for 1), enter 'reminder one'");
+    }
+
+    /**
+     * Message to print if a wrong reminder command is being print.
+     */
+    public void reminderWrongCommand() {
+        showLine();
+        System.out.println("Please enter the correct reminder command in the following format:\n"
+                            + "reminder NUMBER\n"
+                            + "eg. reminder one");
     }
 }
