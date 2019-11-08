@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public abstract class Command {
 
-    MyLogger logger = new MyLogger(this.getClass().getName(), "Command_errors");
+    MyLogger logger = new MyLogger(this.getClass().getName(), "CommandErrors");
 
     /**
      * Checks if the index of a Task provided by the user is within the TaskList.
