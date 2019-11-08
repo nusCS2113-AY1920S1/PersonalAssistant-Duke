@@ -128,6 +128,9 @@ public class Parser {
             } else if (instr.isDeletePayee(input)) {
                 process.deletePayee(input, ui, storage);
                 process.commandHistory(input, ui, storage);
+            } else if (instr.istotalcost(input)) {
+                process.totalCost(input, ui, storage);
+                process.commandHistory(input, ui, storage);
             } else if (instr.isInvoice(input)) {
                 process.inVoice(input, tasklist, ui);
                 process.commandHistory(input, ui, storage);

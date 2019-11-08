@@ -82,6 +82,10 @@ public class Instruction {
         return input.startsWith("getpayee");
     }
 
+    public boolean istotalcost(String input)  {
+        return input.startsWith("total cost");
+    }
+
     public boolean isInvoice(String input) {
         return input.startsWith("invoice");
     }
