@@ -56,18 +56,51 @@ class SellSeatCommandTest {
     }
 
     @Test
+    @DisplayName("Sell available seats")
+    void testSellAvailableSeat() {
+        new AddCommand("Test Show|20|10/10/2030").execute(model, ui, storage);
+        new SellSeatCommand("Test Show|10/10/2030|A1 B3").execute(model, ui, storage);
+        String expected = "You have successfully purchased the following seats: \n"
+                + "[A1, B3]\n"
+                + "The total cost of the tickets are $60.00\n";
+        assertEquals(expected, ui.getMessage());
+    }
+
+    @Test
     @DisplayName("Valid Execute")
     void testSellSeat() {
         new AddCommand("Test Show|20|10/10/2030").execute(model, ui, storage);
         new SellSeatCommand("Test Show|10/10/2030|A1").execute(model, ui, storage);
-        new SellSeatCommand("Test Show|10/10/2030|A1 A2 A3").execute(model, ui, storage);
+        new SellSeatCommand("Test Show|10/10/2030|A1 A2 A3 A11").execute(model, ui, storage);
         String expected = "You have successfully purchased the following seats: \n"
                 + "[A2, A3]\n"
                 + "The total cost of the tickets are $60.00\n"
                 + "The following seats are unavailable: \n"
-                + "[A1]\n";
+                + "[A1]\n"
+                + "The following seats do not exist: \n"
+                + "[A11]\n";
         assertEquals(expected, ui.getMessage());
     }
+
+    @Test
+    @DisplayName("Unavailable Seats")
+    void testSellUnavailableSeats() {
+        new AddCommand("Test Show|20|10/10/2030").execute(model, ui, storage);
+        new SellSeatCommand("Test Show|10/10/2030|A1").execute(model, ui, storage);
+        new SellSeatCommand("Test Show|10/10/2030|A1").execute(model, ui, storage);
+        String expected = "☹ OOPS!!! All of the seats [A1] are unavailable.\n";
+        assertEquals(expected, ui.getMessage());
+    }
+
+    @Test
+    @DisplayName("Non-existent seats")
+    void testSellSeatsNotExist() {
+        new AddCommand("Test Show|20|10/10/2030").execute(model, ui, storage);
+        new SellSeatCommand("Test Show|10/10/2030|A11").execute(model, ui, storage);
+        String expected = "☹ OOPS!!! All of the seats [A11] do not exist.\n";
+        assertEquals(expected, ui.getMessage());
+    }
+
 
     @AfterAll
     static void cleanUp() {

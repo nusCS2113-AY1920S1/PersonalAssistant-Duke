@@ -41,7 +41,7 @@ public class DeleteCommand extends Command {
         }
 
         String[] showDates = detailsArray[1].split("\\|");
-        String showName = detailsArray[0];
+        String showName = detailsArray[0].trim();
 
         StringBuilder message = new StringBuilder(MESSAGE_SUCCESSFUL);
         ArrayList<String> missingShows = new ArrayList<>();

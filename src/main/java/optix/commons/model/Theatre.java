@@ -153,9 +153,9 @@ public class Theatre {
     }
 
     private String getSeatsLeft() {
-        return "\nTier 1 Seats: " + tierOneSeats + "\n"
-                + "Tier 2 Seats: " + tierTwoSeats + "\n"
-                + "Tier 3 Seats: " + tierThreeSeats + "\n";
+        return "\nTier 1 Seats (rows E and F): " + tierOneSeats + "\n"
+                + "Tier 2 Seats (rows C and D): " + tierTwoSeats + "\n"
+                + "Tier 3 Seats (rows A and B): " + tierThreeSeats + "\n";
     }
 
 
@@ -173,6 +173,7 @@ public class Theatre {
 
         //This needs to be changed in the event that the theatre dont have fixed seats for each row
         if (row == -1 || col == -1) {
+            costOfSeat = -1;
             return costOfSeat;
         }
 
@@ -199,32 +200,46 @@ public class Theatre {
         double totalCost = 0;
         ArrayList<String> seatsSold = new ArrayList<>();
         ArrayList<String> seatsNotSold = new ArrayList<>();
-        String message;
+        ArrayList<String> seatsNotExist = new ArrayList<>();
+        StringBuilder message = new StringBuilder();
         for (String seatNumber : seats) {
             double costOfSeat = sellSeats(seatNumber);
 
-            if (costOfSeat != 0) {
+            if (costOfSeat > 0) {
                 totalCost += costOfSeat;
                 seatsSold.add(seatNumber);
-            } else {
+            } else if (costOfSeat == 0) {
                 seatsNotSold.add(seatNumber);
+            } else {
+                seatsNotExist.add(seatNumber);
             }
         }
 
-        if (seatsSold.isEmpty()) {
-            message = String.format("☹ OOPS!!! All of the seats %s are unavailable\n", seatsNotSold);
-        } else if (seatsNotSold.isEmpty()) {
-            message = "You have successfully purchased the following seats: \n"
+        if (seatsSold.isEmpty()) { //all seats are unavailable or does not exist
+            if (!seatsNotSold.isEmpty()) {
+                message.append(String.format("☹ OOPS!!! All of the seats %s are unavailable.\n", seatsNotSold));
+            }
+            if (!seatsNotExist.isEmpty()) {
+                message.append(String.format("☹ OOPS!!! All of the seats %s do not exist.\n", seatsNotExist));
+            }
+        } else if (seatsNotSold.isEmpty() && seatsNotExist.isEmpty()) { //all seats are valid
+            message.append("You have successfully purchased the following seats: \n"
                     + seatsSold + "\n"
-                    + String.format(MESSAGE_TICKET_COST, totalCost);
-        } else {
-            message = "You have successfully purchased the following seats: \n"
+                    + String.format(MESSAGE_TICKET_COST, totalCost));
+        } else { //combination of all
+            message.append("You have successfully purchased the following seats: \n"
                     + seatsSold + "\n"
-                    + String.format(MESSAGE_TICKET_COST, totalCost)
-                    + "The following seats are unavailable: \n"
-                    + seatsNotSold + "\n";
+                    + String.format(MESSAGE_TICKET_COST, totalCost));
+            if (!seatsNotSold.isEmpty()) {
+                message.append("The following seats are unavailable: \n"
+                        + seatsNotSold + "\n");
+            }
+            if (!seatsNotExist.isEmpty()) {
+                message.append("The following seats do not exist: \n"
+                        + seatsNotExist + "\n");
+            }
         }
-        return message;
+        return message.toString();
     }
 
     /**

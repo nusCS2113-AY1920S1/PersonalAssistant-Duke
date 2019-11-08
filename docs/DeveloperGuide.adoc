@@ -706,7 +706,7 @@ Use case resumes from step 2.
 
 Use case resumes from step 2.
 
-=== Use Case: UC12 - View profit of a certain month
+=== Use Case: UC13 - Reassign seat
 *Actor*: User
 
 *MSS*:
