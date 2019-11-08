@@ -25,6 +25,10 @@ public class Attributes {
         return fyp;
     }
 
+    public String convertSu() {
+        return (su ? " can S/U" : " cannot S/U");
+    }
+
     @Override
     public String toString() {
         return "SU: " + ((su) ? "True" : "False");

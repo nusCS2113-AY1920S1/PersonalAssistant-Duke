@@ -22,7 +22,7 @@ public class ModuleInfoDetailed {
     private String grade = "";
     private ExamInfo[] semesterData = new ExamInfo[0];
     private String[] semester = {""};
-    private ArrayList<String> validGrades = new ArrayList<String>(Arrays.asList("A+", "A", "A-", "B+", "B",
+    private ArrayList<String> validGrades = new ArrayList<>(Arrays.asList("A+", "A", "A-", "B+", "B",
         "B-", "C+", "C", "D+", "D", "F", "S", "U", "CS", "CU"));
 
 
@@ -111,7 +111,7 @@ public class ModuleInfoDetailed {
                 + ", MC:"
                 + getModuleCredit()
                 + ", SU:"
-                + getAttributes().isSu()
+                + getAttributes().convertSu()
                 + ", grade:"
                 + getGrade();
     }
