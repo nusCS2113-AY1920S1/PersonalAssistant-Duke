@@ -90,13 +90,31 @@ Given below is a quick overview of each component.
 * `Commons` package contains the subpackage `command` which holds all the customised `exception` classes for all our commands, followed by miscellaneous `exception` classes for non-command exceptions. 
 
 [NOTE]
-Logging is implemented in our project to faciliate checking of bugs and error messages. Thus, the `Commons` package that is being utilised by all our classes is linked to the logs center to show that the handled exceptions we have caught are properly logged.
+Logging is implemented in our project to facilitate checking of bugs and error messages. Thus, the `Commons` package that is being utilised by all our classes is linked to the logs center to show that the handled exceptions we have caught are properly logged.
 
 === UI component
 
 === Logic component
 
 === Model component
+
+The `Model` component consists of the `task` and `university` packages and shows how they are associated with each other.
+
+The class diagram below illustrates the relationship between the individual components of the `Model` component.
+
+[[ModelClassDiagram]]
+.Structure of the Model Component
+image::ModelClassDiagram.png[ModuleClassDiagram]
+
+The figure shows the the individual components of the `Model` component. The `University` component is modelled after real world university curriculum structure.
+
+The `Model` stores: +
+
+* a `SemesterList` object that contains individual `Semester` objects. Each `Semester` object consists of `Module` objects that represents a module that a University student takes and each `Module` object can contain any number of `Lesson`, `Assignment` and `Assessment` objects.
+
+* a `TaskList` object that contains `Task` objects. A `Task` object can be any of `Deadline`, `Event` and `Todo` as they represent different categories of tasks. `Assignment` and `Assessment` inherits from `Deadline` and `Event` respectively and represent the tasks that University student will have.
+
+When either `SemesterList` or `TaskList` is changed, the system will update the persistent storage via the `Storage component`, which will be explained in the next section.
 
 === Storage component
 

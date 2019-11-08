@@ -15,7 +15,7 @@ import oof.commons.exceptions.command.MissingArgumentException;
 import oof.logic.command.organization.exceptions.TaskAlreadyCompletedException;
 import oof.logic.command.productivity.exceptions.TrackerNotFoundException;
 import oof.commons.exceptions.StorageFileCorruptedException;
-import oof.model.semester.SemesterList;
+import oof.model.university.SemesterList;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.model.tracker.Tracker;

@@ -1,13 +1,13 @@
 package oof;
 
-import oof.logic.Reminder;
-import oof.logic.command.Command;
 import oof.commons.exceptions.ParserException;
 import oof.commons.exceptions.StorageFileCorruptedException;
 import oof.commons.exceptions.command.CommandException;
 import oof.logic.CommandParser;
-import oof.model.semester.SemesterList;
+import oof.logic.Reminder;
+import oof.logic.command.Command;
 import oof.model.task.TaskList;
+import oof.model.university.SemesterList;
 import oof.storage.StorageManager;
 import oof.ui.Ui;
 
@@ -91,5 +91,9 @@ public class Oof {
      */
     public static void main(String[] args) {
         new Oof().run();
+    }
+
+    public SemesterList getSemesterList() {
+        return semesterList;
     }
 }

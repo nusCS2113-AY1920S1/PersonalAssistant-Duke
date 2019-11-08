@@ -1,4 +1,4 @@
-package oof.logic.command;
+package oof.logic.command.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -8,8 +8,8 @@ import java.io.ByteArrayInputStream;
 import org.junit.jupiter.api.Test;
 
 import oof.Oof;
-import oof.commons.exceptions.command.CommandException;
 import oof.commons.exceptions.ParserException;
+import oof.commons.exceptions.command.CommandException;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
@@ -45,6 +45,38 @@ public class AddDeadlineCommandTest {
             fail();
         } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! The deadline needs a due date.", e.getMessage());
+        }
+    }
+
+
+    /**
+     * Tests the behaviour when due date of deadline is invalid.
+     */
+    @Test
+    public void execute_DueDateInvalid_ThrowsException() {
+        try {
+            ByteArrayInputStream in = new ByteArrayInputStream("1".getBytes());
+            System.setIn(in);
+            new Oof().executeCommand("deadline lab /by a");
+            fail();
+        } catch (CommandException | ParserException e) {
+            assertEquals("OOPS!!! The due date is invalid.", e.getMessage());
+        }
+    }
+
+
+    /**
+     * Tests the behaviour when the description is too long.
+     */
+    @Test
+    public void execute_DescriptionExceedsMaxLength_ThrowsException() {
+        try {
+            ByteArrayInputStream in = new ByteArrayInputStream("1".getBytes());
+            System.setIn(in);
+            new Oof().executeCommand("deadline abcdefghijklmnopqrstuvwxyz /by 11-11-2020 23:59");
+            fail();
+        } catch (CommandException | ParserException e) {
+            assertEquals("Task exceeds maximum description length!", e.getMessage());
         }
     }
 

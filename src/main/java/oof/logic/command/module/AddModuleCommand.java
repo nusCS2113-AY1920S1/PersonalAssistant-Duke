@@ -3,14 +3,14 @@ package oof.logic.command.module;
 import java.util.ArrayList;
 
 import oof.logic.command.Command;
-import oof.model.semester.SelectedInstance;
+import oof.model.university.SelectedInstance;
 import oof.ui.Ui;
 import oof.commons.exceptions.command.CommandException;
 import oof.commons.exceptions.command.InvalidArgumentException;
 import oof.commons.exceptions.command.MissingArgumentException;
-import oof.model.semester.Module;
-import oof.model.semester.Semester;
-import oof.model.semester.SemesterList;
+import oof.model.university.Module;
+import oof.model.university.Semester;
+import oof.model.university.SemesterList;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
 

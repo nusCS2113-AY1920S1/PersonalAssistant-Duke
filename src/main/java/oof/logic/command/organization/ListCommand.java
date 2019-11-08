@@ -1,7 +1,7 @@
 package oof.logic.command.organization;
 
 import oof.logic.command.Command;
-import oof.model.semester.SemesterList;
+import oof.model.university.SemesterList;
 import oof.ui.Ui;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;

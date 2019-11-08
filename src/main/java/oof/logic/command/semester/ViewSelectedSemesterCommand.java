@@ -1,11 +1,11 @@
 package oof.logic.command.semester;
 
 import oof.logic.command.Command;
-import oof.model.semester.SelectedInstance;
+import oof.model.university.SelectedInstance;
 import oof.ui.Ui;
 import oof.logic.command.semester.exceptions.SemesterNotSelectedException;
-import oof.model.semester.Semester;
-import oof.model.semester.SemesterList;
+import oof.model.university.Semester;
+import oof.model.university.SemesterList;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
 

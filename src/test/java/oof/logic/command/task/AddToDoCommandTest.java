@@ -1,4 +1,4 @@
-package oof.logic.command;
+package oof.logic.command.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -60,6 +60,21 @@ public class AddToDoCommandTest {
             fail();
         } catch (CommandException | ParserException e) {
             assertEquals("OOPS!!! The date is invalid.", e.getMessage());
+        }
+    }
+
+    /**
+     * Tests the behaviour when description of todo exceeds max length.
+     */
+    @Test
+    public void execute_DescriptionExceedsMaxLength_ThrowsException() {
+        try {
+            ByteArrayInputStream in = new ByteArrayInputStream("1".getBytes());
+            System.setIn(in);
+            new Oof().executeCommand("todo imonlyonecallawayillbetheretosavetheday /on 31-12-2019");
+            fail();
+        } catch (CommandException | ParserException e) {
+            assertEquals("Task exceeds maximum description length!", e.getMessage());
         }
     }
 

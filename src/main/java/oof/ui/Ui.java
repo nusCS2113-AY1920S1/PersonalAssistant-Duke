@@ -9,17 +9,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
-import oof.model.semester.Lesson;
-import oof.model.semester.Module;
-import oof.model.semester.Semester;
-import oof.model.semester.SemesterList;
 import oof.model.task.Event;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.model.tracker.Tracker;
+import oof.model.university.Lesson;
+import oof.model.university.Module;
+import oof.model.university.Semester;
+import oof.model.university.SemesterList;
 import oof.storage.StorageManager;
-
-import javax.sound.midi.Track;
 
 /**
  * Represents a Ui class that is responsible for Input/Output operations.

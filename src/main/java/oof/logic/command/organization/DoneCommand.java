@@ -4,7 +4,7 @@ import oof.commons.exceptions.command.CommandException;
 import oof.commons.exceptions.command.InvalidArgumentException;
 import oof.logic.command.organization.exceptions.TaskAlreadyCompletedException;
 import oof.logic.command.Command;
-import oof.model.semester.SemesterList;
+import oof.model.university.SemesterList;
 import oof.ui.Ui;
 import oof.model.task.Task;
 import oof.model.task.TaskList;

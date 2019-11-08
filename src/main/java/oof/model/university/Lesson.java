@@ -1,4 +1,4 @@
-package oof.model.semester;
+package oof.model.university;
 
 import java.time.DayOfWeek;
 
