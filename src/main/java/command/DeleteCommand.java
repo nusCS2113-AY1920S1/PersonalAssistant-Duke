@@ -15,10 +15,17 @@ public class DeleteCommand extends Command {
 
     protected String deletedWord;
     protected ArrayList<String> tags;
+    protected ArrayList<String> synonyms;
 
+    /**
+     * Sets the string for deletion.
+     * @param deletedWord
+     * Will delete Word Object of deletedWord
+     */
     public DeleteCommand(String deletedWord) {
         this.deletedWord = deletedWord;
         this.tags = new ArrayList<>();
+        this.synonyms = new ArrayList<>();
     }
 
     public DeleteCommand(String deletedWord, ArrayList<String> tags) {

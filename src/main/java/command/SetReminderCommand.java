@@ -2,7 +2,6 @@ package command;
 
 import dictionary.Bank;
 import exception.ReminderSetupException;
-import exception.ReminderWrongDateFormatException;
 import parser.Parser;
 import reminder.Reminder;
 import storage.Storage;

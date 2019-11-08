@@ -28,7 +28,7 @@ WordUp (WU) is a desktop-based application for english language learners who pre
 .  Ensure that you have `JavaFX` installed.
 .  [Windows] Open command prompt by typing cmd in the start bar. 
 .  Enter the following command: `java --module-path [path to javafx lib folder]C:\Java\javafx-sdk-11.0.2\lib --add-modules=javafx.controls -jar [path to home folder of WordUp]C:\home\wordup-v1.3.jar`
-.  If you encounter a `Module Not Found` error, please check that you do not have a spacing in your file path to `javafx\lib`. 
+.  If you encounter a `Module Not Found` error, please check that you do not have a spacing in your file path to `javafx\lib`.
 .  Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing `Enter` opens up the window showing a list of commands available. +
 .  Some example commands you can try:
 
@@ -44,6 +44,8 @@ WordUp (WU) is a desktop-based application for english language learners who pre
 
 ====
 *Command Format*
+
+*Caution*: The tags and synonyms are currently not written to the storage file due to some issues on our side, so we have disabled the writing, all tags and synonyms will be cleared when the program is closed. We will fix this issue by Week 12 after we re-enable the saving
 
 * Words in `UPPER_CASE` are parameter values to be supplied by the user e.g. in `add w/WORD m/MEANING`, `WORD` and `MEANING` are parameters to be replaced by user input, such as in the form of `w/life` and `m/the existence of an individual human being or animal`.
 * Items in square brackets are optional e.g. `r/REMINDERDATE [TIME]` can be used as `r/24/02/2300 0900` or `r/24/02/2300`.
@@ -62,8 +64,8 @@ Examples:
 === Adding a word: `add`
 
 Adds a word to the Word Bank. +
-Format: `add w/WORD w/MEANING [t/TAG]...`
 
+Format: `add w/WORD w/MEANING [t/TAG]...`
 
 Examples:
 
@@ -142,6 +144,7 @@ Format: `search_begin w/WORD`
 Examples:
 
 * `search  w/d` +
+* `search_begin  w/d` +
 Returns `drink, dog, do, etc`
 
 
@@ -193,7 +196,7 @@ Examples:
 
 * Enter `schedule` +
 Enter a list of 'enter key' separated words: `life[Enter] is[Enter] great[Enter][Enter]` +
-Enter a date and time for the reminder: `31/10/2019 2359` +
+Enter a date and time for the reminder: `31-10-2019 2359` +
 Reminder is set. Summary of reminder details is shown. Reminder pop up will be shown at time set.
 // end::schedule[]
 
@@ -215,20 +218,24 @@ Examples:
 Shows the list of the last 5 words added, with the latest entry first.
 // end::history[]
 
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
-=== Adding synonyms of a word : `addsym`
+// tag::synonyms[]
+=== Adding synonyms of a word : `addsyn`
+*Caution*: The synonyms are currently not written to the storage file due to some issues on our side, so we have disabled the writing, all synonyms will be cleared when the program is closed. We will fix this issue by Week 12 after we re-enable the saving
 
 Adds one or many synonyms to an existing word in the database. +
-Format: `addsyn w/WORD_TO_BE_TAGGED s/SYNONYM`
+Format: `addsyn w/WORD_TO_BE_TAGGED s/SYNONYM1 SYNONYM2` +
+
+If there are more than one synonym to be added, please separate them by spaces.
+
+//end::synonyms[]
 
 === Adding tags to a word : `tag`
+*Caution*: The tags are currently not written to the storage file due to some issues on our side, so we have disabled the writing, all tags will be cleared when the program is closed. We will fix this issue by Week 12 after we re-enable the saving
 
 Assigns a tag to an existing word in the database. +
 Format: `tag w/WORD_TO_BE_TAGGED t/NEW_TAG`
+
+If there are more than one tag to be added, please use `t/` for each tag
 
 Examples:
 
@@ -245,6 +252,13 @@ Format: `history INTEGER`
 Shows search frequency of each word in specified order. +
 Format: `freq o/ORDER`
 
+=======
+
+=== Exiting the program : `exit`
+
+Exits the program. +
+Format: `exit`
+
 === Saving the data
 
 Dictionary data are saved in the hard disk automatically after any command that changes the data. +
@@ -253,7 +267,7 @@ There is no need to save manually.
 // tag::Excel Integration[]
 === Full integration into Excel/CSV `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
+_{}_
 // end::Excel Integration[]
 
 == FAQ
@@ -269,8 +283,6 @@ e.g. `add w/life m/the existence of an individual human being or animal.`
 e.g. `addsyn w/water s/liquid beverage drink`
 * *Delete* : `delete w/word` +
 e.g. `delete w/life`
-* *Add Synonym* : `addsyn w/WORD s/SYNONYM1 SYNONYM2 SYNONYM3 ...` +
-e.g. `addsyn w/water s/liquid beverage drink`* 
 * *Edit* : `edit w/WORD m/NEW_MEANGING` +
 e.g. `edit w/life m/the existence of a living thing.`
 * *Help* : `help [COMMAND]`
