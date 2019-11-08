@@ -53,7 +53,7 @@ public class InstalmentTest {
         assertEquals(120, instalment.getNumOfPayments());
         assertEquals("9/10/1997", instalment.getBoughtDate());
         assertEquals("9/10/2007", instalment.getDateEndDate());
-        assertEquals("[INS]" + "$" + instalment.getPrice() + " "
+        assertEquals("[INS]" + "$" + instalment.getPriceStr() + " "
                 + instalment.getDescription() + "(on: " + instalment.getBoughtDate() + ")", instalment.toString());
 
         MoneyCommand exitCommand =  new ExitMoneyCommand();
