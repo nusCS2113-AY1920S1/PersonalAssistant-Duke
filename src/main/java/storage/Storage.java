@@ -51,6 +51,7 @@ public class Storage {
         File currentDir = new File(System.getProperty("user.dir"));
         File filePath = new File(currentDir.toString() + "\\data");
         File dataText = new File(filePath, "wordup.txt");
+        File dataExcel = new File(filePath, "wordup.xlsx");
         if (!filePath.exists()) {
             filePath.mkdir();
         }
@@ -62,14 +63,7 @@ public class Storage {
             }
         }
         FILE_PATH = dataText.getAbsolutePath();
-    }
-
-    /**
-     * Initiates storage with text file path and excel file path.
-     * @param excelPath relative path of excel file
-     */
-    public Storage(String excelPath) {
-        EXCEL_PATH = excelPath;
+        EXCEL_PATH = dataExcel.getAbsolutePath();
         excelFile = new File(EXCEL_PATH);
     }
 
