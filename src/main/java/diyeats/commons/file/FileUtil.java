@@ -1,6 +1,6 @@
 package diyeats.commons.file;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -29,9 +29,9 @@ public class FileUtil {
      * @param useResourceAsBackup Allows file to be loaded from jar resource if
      *                            not found in user's local filesystem.
      * @return BufferedReader instance of the file.
-     * @throws DukeException If file cannot be read as a resource or as a file on local filesystem.
+     * @throws ProgramException If file cannot be read as a resource or as a file on local filesystem.
      */
-    public static BufferedReader readFile(String fileStr, boolean useResourceAsBackup) throws DukeException {
+    public static BufferedReader readFile(String fileStr, boolean useResourceAsBackup) throws ProgramException {
         File file = new File(fileStr);
         if (file.exists()) {
             return readUserFile(fileStr);
@@ -50,7 +50,7 @@ public class FileUtil {
      * Reads config file loaded from user file system rather than inside the jar file.
      * @param fileStr File location of user config file
      * @return BufferedReader object with contents of resource.
-     * @throws DukeException If unable to find file in user's file system or incorrect
+     * @throws ProgramException If unable to find file in user's file system or incorrect
      *                       file directory syntax in filepaths config file.
      */
     public static BufferedReader readResourceFile(String fileStr) {
@@ -67,20 +67,20 @@ public class FileUtil {
      * Reads config file stored in jar package of this application.
      * @param fileStr File location of config file in jar.
      * @return BufferedReader object with contents of resource
-     * @throws DukeException If unable to find file in jar package.
+     * @throws ProgramException If unable to find file in jar package.
      */
-    public static BufferedReader readUserFile(String fileStr) throws DukeException {
+    public static BufferedReader readUserFile(String fileStr) throws ProgramException {
         File file = new File(fileStr);
         return getReaderFromFile(file);
     }
 
-    private static BufferedReader getReaderFromFile(File file) throws DukeException {
+    private static BufferedReader getReaderFromFile(File file) throws ProgramException {
         BufferedReader bufferedReader;
         try {
             bufferedReader = new BufferedReader(new FileReader(file));
         } catch (FileNotFoundException e) {
             createMissingFile(file);
-            throw new DukeException("File " + file + " does not exist. Failed to load file.");
+            throw new ProgramException("File " + file + " does not exist. Failed to load file.");
         }
 
         return bufferedReader;
@@ -89,9 +89,9 @@ public class FileUtil {
     /**
      * Create missing parent folders and copy missing file to host system.
      * @param file File that is missing.
-     * @throws DukeException if application has difficulty creating new file in host system.
+     * @throws ProgramException if application has difficulty creating new file in host system.
      */
-    private static void createMissingFile(File file) throws DukeException {
+    private static void createMissingFile(File file) throws ProgramException {
         if (file.exists()) {
             return;
         }
@@ -99,7 +99,7 @@ public class FileUtil {
             file.getParentFile().mkdirs();
             file.createNewFile();
         } catch (IOException e) {
-            throw new DukeException("Create missing file error : " + e.toString());
+            throw new ProgramException("Create missing file error : " + e.toString());
         }
     }
 
@@ -107,9 +107,9 @@ public class FileUtil {
      * Writes text to file given a newline separated string.
      * @param textStr Input newline separated string to be written to file.
      * @param fileStr File to be written to.
-     * @throws DukeException If unable to write to file.
+     * @throws ProgramException If unable to write to file.
      */
-    public static void writeFile(String textStr, String fileStr) throws DukeException {
+    public static void writeFile(String textStr, String fileStr) throws ProgramException {
         try {
             File file = new File(fileStr);
             if (!file.exists()) {
@@ -124,7 +124,7 @@ public class FileUtil {
             }
             bufferedWriter.close();
         } catch (IOException e) {
-            throw new DukeException("Unable to write to file: " + fileStr);
+            throw new ProgramException("Unable to write to file: " + fileStr);
         }
     }
 

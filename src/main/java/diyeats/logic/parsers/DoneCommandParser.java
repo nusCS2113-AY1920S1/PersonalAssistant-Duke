@@ -1,6 +1,6 @@
 package diyeats.logic.parsers;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.commands.MarkDoneCommand;
 
 /**
@@ -18,7 +18,7 @@ public class DoneCommandParser implements ParserInterface<MarkDoneCommand> {
     public MarkDoneCommand parse(String userInputStr) {
         try {
             InputValidator.validate(userInputStr);
-        } catch (DukeException e) {
+        } catch (ProgramException e) {
             return new MarkDoneCommand(false, "Please enter index of meal to be marked done on today's list or "
                     + "date and index of meal to be marked done");
         }

@@ -1,6 +1,6 @@
 package diyeats;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.autocorrect.Autocorrect;
 import diyeats.logic.commands.Command;
 import diyeats.logic.commands.UserSetup;
@@ -41,25 +41,25 @@ public class Main {
         while (!storage.getMealIsDone()) {
             try {
                 storage.loadMealInfo(meals);
-            } catch (DukeException e) {
+            } catch (ProgramException e) {
                 ui.showMessage(e.getMessage());
             }
         }
         try {
             user = storage.loadUser(); //load user info
-        } catch (DukeException e) {
+        } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
             ui.showUserLoadingError();
         }
         setup = new UserSetup(user);
         try {
             storage.loadWord(autocorrect);
-        } catch (DukeException e) {
+        } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }
         try {
             storage.loadTransactions(wallet);
-        } catch (DukeException e) {
+        } catch (ProgramException e) {
             ui.showLoadingTransactionError();
         }
     }
@@ -76,7 +76,7 @@ public class Main {
         user = setup.getUser();
         try {
             storage.updateUser(user);
-        } catch (DukeException e) {
+        } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }
         boolean isExit = false;
@@ -96,7 +96,7 @@ public class Main {
                     }
                 }
                 isExit = c.isExit();
-            } catch (DukeException e) {
+            } catch (ProgramException e) {
                 ui.showMessage(e.getMessage());
             }
         }

@@ -1,6 +1,6 @@
 package diyeats.logic.commands;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.MealList;
 import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
@@ -31,9 +31,9 @@ public abstract class Command {
      * This class is an abstract class that will change according to the inheritor.
      * @param meals the MealList object in which the meals are supposed to be added
      * @param user the object that handles all user data
-     * @throws DukeException when there is an error
+     * @throws ProgramException when there is an error
      */
-    public abstract void execute(MealList meals, Storage storage, User user, Wallet wallet) throws DukeException;
+    public abstract void execute(MealList meals, Storage storage, User user, Wallet wallet) throws ProgramException;
 
     public void setResponseStr(String responseStr) {
         this.responseStr = responseStr;

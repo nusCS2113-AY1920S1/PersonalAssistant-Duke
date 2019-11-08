@@ -1,6 +1,6 @@
 package diyeats.logic.commands;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.MealList;
 import diyeats.model.user.Goal;
 import diyeats.model.user.User;
@@ -57,7 +57,7 @@ public class AddGoalCommand extends Command {
             storage.updateGoal(user);
             ui.showLine();
             stage++;
-        } catch (DukeException e) {
+        } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }
     }

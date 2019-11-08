@@ -1,6 +1,6 @@
 package diyeats.logic.autocorrect;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.storage.Storage;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +14,7 @@ public class AutocorrectTest {
     void autocorrectTest() {
         try {
             storage.loadWord(autocorrect);
-        } catch (DukeException e) {
+        } catch (ProgramException e) {
             System.out.println("Error");
         }
         autocorrect.setWord("calorei");

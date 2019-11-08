@@ -1,7 +1,7 @@
 package diyeats.logic.commands;
 
 import diyeats.commons.datatypes.Pair;
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.suggestion.ExerciseSuggestionHandler;
 import diyeats.model.meal.MealList;
 import diyeats.model.user.User;
@@ -96,7 +96,7 @@ public class SuggestExerciseCommand extends Command {
 
         try {
             storage.updateExercises(meals);
-        } catch (DukeException e) {
+        } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }
 

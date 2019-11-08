@@ -1,6 +1,6 @@
 package diyeats.logic.parsers;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.autocorrect.Autocorrect;
 import diyeats.logic.commands.Command;
 import diyeats.logic.commands.ExitCommand;
@@ -59,9 +59,9 @@ public class Parser {
      *         "find" followed by the string that needs to be added
      *         <code>new DeleteCommand(index) </code> if the sure input
      *         "delete" followed by the index of the task to be deleted
-     * @throws DukeException when the command is not recognized or command syntax is invalid
+     * @throws ProgramException when the command is not recognized or command syntax is invalid
      */
-    public Command parse(String fullCommandStr) throws DukeException {
+    public Command parse(String fullCommandStr) throws ProgramException {
 
         this.parserUtil.parse(fullCommandStr.trim());
         String commandStr = this.parserUtil.getCommand();
@@ -111,7 +111,7 @@ public class Parser {
             case PARSER_SUGGEST_EXERCISE_COMMAND:
                 return new SuggestExerciseCommandParser().parse(argumentStr);
             default:
-                throw new DukeException(UNKNOWN_COMMAND);
+                throw new ProgramException(UNKNOWN_COMMAND);
         }
     }
 }

@@ -1,6 +1,6 @@
 package diyeats.logic.commands;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.MealList;
 import diyeats.model.user.User;
 import diyeats.model.wallet.Transaction;
@@ -37,7 +37,7 @@ public class AddTransactionCommand extends Command {
      * @param wallet the wallet object that stores transaction information
      */
     @Override
-    public void execute(MealList meals, Storage storage, User user, Wallet wallet) throws DukeException {
+    public void execute(MealList meals, Storage storage, User user, Wallet wallet) throws ProgramException {
         ui.showLine();
         wallet.getTransactions().addTransaction(this.transaction);
         wallet.updateAccountBalance(this.transaction);

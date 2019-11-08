@@ -1,6 +1,6 @@
 package diyeats.logic.parsers;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.autocorrect.Autocorrect;
 import diyeats.logic.commands.HistoryCommand;
 
@@ -25,9 +25,9 @@ public class ParserUtil {
     /**
      * Parse fullCommand into command and arguments.
      * @param fullCommand the full command entered by the user
-     * @throws DukeException if the full command cannot be parsed
+     * @throws ProgramException if the full command cannot be parsed
      */
-    public void parse(String fullCommand) throws DukeException {
+    public void parse(String fullCommand) throws ProgramException {
         argument = "";
         try {
             String[] splitCommand = fullCommand.split(" ", 2);
@@ -37,7 +37,7 @@ public class ParserUtil {
             command = splitCommand[0];
             argument = splitCommand[1];
         } catch (Exception e) {
-            throw new DukeException("A parser error has been encountered.");
+            throw new ProgramException("A parser error has been encountered.");
         }
         command = autocorrect.runOnCommand(command);
         argument = autocorrect.runOnArgument(argument);

@@ -1,6 +1,6 @@
 package diyeats.logic.commands;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.Meal;
 import diyeats.model.meal.MealList;
 import diyeats.model.user.User;
@@ -44,7 +44,7 @@ public class AddCommand extends Command {
             ArrayList<Meal> mealData = meals.getMealTracker().get(this.meal.getDate());
             ui.showAdded(this.meal, mealData, user, this.meal.getDate());
             storage.updateFile(meals);
-        } catch (DukeException e) {
+        } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }
         ui.showLine();

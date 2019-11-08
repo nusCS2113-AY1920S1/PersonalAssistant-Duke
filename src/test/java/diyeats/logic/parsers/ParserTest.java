@@ -1,6 +1,6 @@
 package diyeats.logic.parsers;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.autocorrect.Autocorrect;
 import diyeats.logic.commands.AddCommand;
 import diyeats.logic.commands.AddDefaultValueCommand;
@@ -38,7 +38,7 @@ class ParserTest {
             assertTrue(parser.parse("done 1") instanceof MarkDoneCommand);
             assertTrue(parser.parse("help") instanceof HelpCommand);
             assertTrue(parser.parse("help breakfast") instanceof HelpCommand);
-        } catch (DukeException e) {
+        } catch (ProgramException e) {
             System.out.println("Something is wrong with the parser");
         }
     }

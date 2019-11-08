@@ -1,6 +1,6 @@
 package diyeats.logic.commands;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.MealList;
 import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
@@ -49,7 +49,7 @@ public class HelpCommand extends Command {
         ArrayList<String> helpLines = new ArrayList<>();
         try {
             storage.loadHelp(helpLines, specifiedHelp);
-        } catch (DukeException e) {
+        } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }
         ui.showHelp(helpLines);

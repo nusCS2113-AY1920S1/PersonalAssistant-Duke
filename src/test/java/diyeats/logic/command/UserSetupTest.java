@@ -1,6 +1,5 @@
 package diyeats.logic.command;
 
-import diyeats.commons.exceptions.DukeException;
 import diyeats.logic.commands.UserSetup;
 import diyeats.model.user.Gender;
 import diyeats.model.user.User;

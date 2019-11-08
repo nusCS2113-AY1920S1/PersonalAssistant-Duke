@@ -1,6 +1,6 @@
 package diyeats.model.meal;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class MealList {
     public MealList() {
     }
 
-    public void addMeals(Meal data) throws DukeException {
+    public void addMeals(Meal data) throws ProgramException {
         ArrayList<Meal> mealList;
         if (mealTracker.containsKey(data.getDate())) {
             mealList = mealTracker.get(data.getDate());
@@ -42,7 +42,7 @@ public class MealList {
             }
         }
         if (data.getNutritionalValue().size() == 0) {
-            throw new DukeException("\u2639 OOPS!!! It appears there are no default values associated with this meal\n"
+            throw new ProgramException("It appears there are no default values associated with this meal\n"
                     + "     Please set a default value for this meal using the \"add\" command, or manually\n"
                     + "     specify nutritional values for this meal");
         }
@@ -102,9 +102,9 @@ public class MealList {
      * Update existing meal from mealList based on date and description given.
      * @param newMeal Meal to be updated.
      * @return Returns updated meal information.
-     * @throws DukeException Exception thrown if meal description or date not found in current list.
+     * @throws ProgramException Exception thrown if meal description or date not found in current list.
      */
-    public Meal updateMeal(Meal newMeal) throws DukeException {
+    public Meal updateMeal(Meal newMeal) throws ProgramException {
         LocalDate mealDate = newMeal.getDate();
         if (mealTracker.containsKey(mealDate)) {
             ArrayList<Meal> meals = getMealsList(mealDate);
@@ -121,10 +121,10 @@ public class MealList {
                     return newMeal;
                 }
             }
-            throw new DukeException("No meal matches description of " + newMeal.getDescription() + " on "
+            throw new ProgramException("No meal matches description of " + newMeal.getDescription() + " on "
                     + newMeal.getDate());
         } else {
-            throw new DukeException("No meal found on " + newMeal.getDate());
+            throw new ProgramException("No meal found on " + newMeal.getDate());
         }
     }
 

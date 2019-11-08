@@ -1,6 +1,6 @@
 package diyeats.logic.commands;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.Meal;
 import diyeats.model.meal.MealList;
 import diyeats.model.user.User;
@@ -38,7 +38,7 @@ public class MarkDoneCommand extends Command {
     /**
      * Constructor for MarkDoneCommand.
      * @param indexStr the index of meal on the today to be marked as done.
-     * @throws DukeException when parseInt is unable to parse the index.
+     * @throws ProgramException when parseInt is unable to parse the index.
      */
     public MarkDoneCommand(String indexStr) {
         try {
@@ -79,7 +79,7 @@ public class MarkDoneCommand extends Command {
             try {
                 storage.updateFile(meals);
                 storage.updateTransaction(wallet);
-            } catch (DukeException e) {
+            } catch (ProgramException e) {
                 ui.showMessage(e.getMessage());
             }
             ui.showDone(markedDoneMeal);

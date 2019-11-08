@@ -1,6 +1,6 @@
 package diyeats.logic.parsers;
 
-import diyeats.commons.exceptions.DukeException;
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.logic.commands.DeleteCommand;
 
 //@@author HashirZahir
@@ -25,7 +25,7 @@ public class DeleteCommandParser implements ParserInterface<DeleteCommand> {
             } else {
                 return new DeleteCommand(indexAndDate[0], indexAndDate[1]);
             }
-        } catch (DukeException e) {
+        } catch (ProgramException e) {
             return new DeleteCommand(false,"Please enter index of meal to delete on today's list or "
                     + "date and index of meal to delete");
         }
