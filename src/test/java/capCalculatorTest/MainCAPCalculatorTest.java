@@ -62,7 +62,7 @@ public class MainCAPCalculatorTest {
                         + "6. Help page: help\n"
                         + "7. Exit CAP page: esc\n"
                         + "__________________________________________________________\n"
-                        + "\nGo back to Main Menu...\n" +
+                        + "\nGoing back to Main Menu...\n" +
                         "Content Page:\n" +
                         "------------------ \n" +
                         "1. help\n" +
@@ -73,7 +73,8 @@ public class MainCAPCalculatorTest {
                         "6. cap\n" +
                         "7. spec\n" +
                         "8. moduleplanner\n" +
-                        "9. notes\n"
+                        "9. notes\n" +
+                        "To exit: bye\n"
                 , output.toString()
         );
     }
@@ -98,7 +99,7 @@ public class MainCAPCalculatorTest {
                         + "6. Help page: help\n"
                         + "7. Exit CAP page: esc\n"
                         + "__________________________________________________________\n"
-                        + "\nGo back to Main Menu...\n" +
+                        + "\nGoing back to Main Menu...\n" +
                         "Content Page:\n" +
                         "------------------ \n" +
                         "1. help\n" +
@@ -109,7 +110,7 @@ public class MainCAPCalculatorTest {
                         "6. cap\n" +
                         "7. spec\n" +
                         "8. moduleplanner\n" +
-                        "9. notes\n"
+                        "9. notes\n" + "To exit: bye\n"
                 , output.toString()
         );
     }
