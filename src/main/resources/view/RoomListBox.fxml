@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="297.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="404.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="indexLabel" alignment="CENTER" prefHeight="62.0" prefWidth="34.0" text="Label" />
-      <Label fx:id="roomLabel" alignment="CENTER" prefHeight="118.0" prefWidth="64.0" text="Label" />
+      <Label fx:id="roomLabel" alignment="CENTER" prefHeight="35.0" prefWidth="151.0" text="Label" />
       <Label fx:id="dateLabel" alignment="CENTER" prefHeight="118.0" prefWidth="64.0" text="Label" />
       <Label fx:id="timeStartLabel" alignment="CENTER" prefHeight="118.0" prefWidth="64.0" text="Label" />
       <Label fx:id="timeEndLabel" alignment="CENTER" prefHeight="118.0" prefWidth="64.0" text="Label" />
    </children>
+   <stylesheets><URL value="@../css/ListBox.css" />
+   </stylesheets>
 </fx:root>

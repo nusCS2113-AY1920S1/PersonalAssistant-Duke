@@ -1,9 +1,7 @@
-
 package command;
 
 import booking.ApprovedList;
 import inventory.Inventory;
-
 import booking.Booking;
 import booking.BookingList;
 import exception.DukeException;
@@ -11,12 +9,9 @@ import room.RoomList;
 import storage.Storage;
 import ui.Ui;
 import user.UserList;
-
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.Month;
-import java.time.format.DateTimeFormatter;
 
 public class ListBookingMonthCommand extends Command {
 
