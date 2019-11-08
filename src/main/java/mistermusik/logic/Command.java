@@ -624,10 +624,14 @@ public class Command {
                     case "achieved":
                         if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
                             events.getEvent(eventIndex).updateGoalAchieved(goalIndex - 1);
-                            ui.goalSetAsAchieved(events, eventIndex, goalIndex - 1);
+                            ui.goalSetAsAchieved(events.getEvent(eventIndex).getGoalObject(goalIndex - 1));
                         } else {
                             ui.noSuchGoal();
                         }
+                        break;
+
+                    default:
+                        ui.goalCommandWrongFormat();
                         break;
                 }
             } else {
@@ -640,6 +644,10 @@ public class Command {
 
                     case "view":
                         ui.printEventGoals(events.getEvent(eventIndex));
+                        break;
+
+                    default:
+                        ui.goalCommandWrongFormat();
                         break;
                 }
             }
