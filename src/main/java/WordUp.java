@@ -23,8 +23,7 @@ public class WordUp extends Application {
     public WordUp() {
         ui = new Ui();
 
-        storage = new Storage();                    //setup text file
-        storage = new Storage("data/wordup.xlsx");
+        storage = new Storage();
         bank = storage.loadExcelFile();             //loads value of word bank into bank
 
     }
