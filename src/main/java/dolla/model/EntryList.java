@@ -66,6 +66,7 @@ public class EntryList extends RecordList {
         StorageWrite.setEntries(get());
     }
 
+    /*
     public double dateOverallExpense(LocalDate cmpDate) {
         double sum = 0;
         for (int i = 0; i < list.size(); i += 1) {
@@ -79,6 +80,7 @@ public class EntryList extends RecordList {
         }
         return sum;
     }
+    */
 
     private boolean isSameDate(LocalDate d1, LocalDate d2) {
         if (d1.compareTo(d2) == 0) {
