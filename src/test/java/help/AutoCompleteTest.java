@@ -25,7 +25,8 @@ public class AutoCompleteTest {
             "list goals",
             "done goal [index]",
             "commit goal [index 1, index 2,...]",
-            "add instalment [desc] /amt [cost] /within [number of months] months /from [d/M/yyyy] /percentage [annual interest rate]",
+            "add instalment [desc] /amt [cost] /within [number of months] months "
+                    + "/from [d/M/yyyy] /percentage [annual interest rate]",
             "delete instalment [index]",
             "list all instalments",
             "lent [other party] /amt [cost] /on [date]",
@@ -42,7 +43,7 @@ public class AutoCompleteTest {
             "delete bank-account [index of the tracker]",
             "check-balance [desc] /at [the future date]",
             "deposit [amount] [desc] /at [date]",
-            "withdraw[amount] [desc] /at [date]",
+            "withdraw [amount] [desc] /at [date]",
             "list bank trackers",
             "graph monthly report",
             "graph monthly report histogram",
@@ -56,7 +57,7 @@ public class AutoCompleteTest {
             "graph expenditure trend histogram",
             "graph expenditure trend line_graph",
             "graph expenditure trend pie_chart",
-            "graph financial status /until [date]",
+            "graph finance status /until [date]",
             "undo",
             "bye"
     };
