@@ -21,7 +21,7 @@ import java.io.StringReader;
 
 public class FileUtil {
 
-    private static final String systemFileSep = System.getProperty("file.separator");
+    private static final String systemFileSep = "/";
 
     /**
      * Reads file from jar resource or user filesystem.
