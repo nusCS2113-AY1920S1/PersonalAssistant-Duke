@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
-import planner.logic.exceptions.legacy.ModInvalidIndexException;
+import planner.logic.modules.TaskList;
 import planner.logic.modules.legacy.task.Task;
 import planner.logic.modules.legacy.task.TaskWithMultipleWeeklyPeriod;
 import planner.logic.modules.module.ModuleTask;
@@ -62,7 +62,7 @@ public class PlannerUi {
      */
     public boolean confirm(String message) {
         if (message != null) {
-            print(message);
+            println(message);
         }
         boolean result = true;
         while (result) {
@@ -175,11 +175,11 @@ public class PlannerUi {
     }
 
     /**
-     * Helper function to print any Task object.
-     * @param task to be printed.
+     * Helper function to print any object.
+     * @param object to be printed.
      */
-    public void showObject(Task task) {
-        println(task);
+    public void showObject(Object object) {
+        println(object);
     }
 
     /**
@@ -259,7 +259,7 @@ public class PlannerUi {
     /**
      * Prints the module task list with which to calculate CAP from.
      */
-    public void capListStartMsg(List<ModuleTask> moduleTasksList) {
+    public void capListStartMsg(TaskList<ModuleTask> moduleTasksList) {
         System.out.println("Here is your list of modules to calculate CAP from.");
         int counter = 1;
         for (ModuleTask temp : moduleTasksList) {

@@ -1,8 +1,6 @@
 package planner.logic.command;
 
-import planner.logic.modules.cca.CcaList;
 import planner.logic.modules.module.ModuleInfoDetailed;
-import planner.logic.modules.module.ModuleTasksList;
 import planner.credential.user.CredentialManager;
 import planner.credential.user.User;
 import planner.ui.cli.PlannerUi;
@@ -19,8 +17,6 @@ public class SetPasswordCommand extends ModuleCommand {
 
     @Override
     public void execute(HashMap<String, ModuleInfoDetailed> detailedMap,
-                        ModuleTasksList tasks,
-                        CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
                         JsonWrapper jsonWrapper, User profile) {

@@ -5,9 +5,7 @@ package planner.logic.command;
 import java.util.HashMap;
 
 import planner.credential.user.User;
-import planner.logic.modules.cca.CcaList;
 import planner.logic.modules.module.ModuleInfoDetailed;
-import planner.logic.modules.module.ModuleTasksList;
 import planner.ui.cli.PlannerUi;
 import planner.util.crawler.JsonWrapper;
 import planner.util.storage.Storage;
@@ -20,8 +18,6 @@ public class ClearCommand extends ModuleCommand {
 
     @Override
     public void execute(HashMap<String, ModuleInfoDetailed> detailedMap,
-                        ModuleTasksList tasks,
-                        CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
                         JsonWrapper jsonWrapper,
@@ -32,26 +28,27 @@ public class ClearCommand extends ModuleCommand {
         if (confirm) {
             switch (toClear) {
                 case ("modules"): {
-                    tasks.clearAll();
+                    profile.getModules().clear();
                     break;
                 }
 
                 case ("ccas"): {
-                    ccas.clear();
+                    profile.getCcas().clear();
                     break;
                 }
 
-                // TODO: Add clear data capability
-                // case ("data"): {
-                // break;
-                // }
+                 case ("data"): {
+                     profile.getModules().clear();
+                     profile.getCcas().clear();
+                     profile.clear();
+                 break;
+                 }
 
                 default: {
                     break;
                 }
             }
             plannerUi.clearedMsg(toClear);
-            jsonWrapper.storeTaskListAsJson(tasks.getTasks(), store);
         } else {
             plannerUi.abortMsg();
         }

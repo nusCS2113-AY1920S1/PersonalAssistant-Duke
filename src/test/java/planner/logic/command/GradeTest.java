@@ -2,20 +2,11 @@
 
 package planner.logic.command;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import planner.InputTest;
-import planner.logic.command.Arguments;
-import planner.logic.command.GradeCommand;
-import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.planner.ModFailedJsonException;
-import planner.logic.modules.cca.CcaList;
 import planner.logic.parser.Parser;
-import planner.logic.command.SearchThenAddCommand;
 import planner.logic.modules.module.ModuleInfoDetailed;
-import planner.logic.modules.module.ModuleTasksList;
-import planner.logic.modules.module.ModuleTask;
 import planner.main.CliLauncher;
 import planner.ui.cli.PlannerUi;
 import planner.util.crawler.JsonWrapper;

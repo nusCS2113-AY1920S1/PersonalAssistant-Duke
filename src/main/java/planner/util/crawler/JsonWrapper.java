@@ -23,6 +23,7 @@ import com.google.gson.stream.JsonReader;
 import planner.logic.exceptions.legacy.ModInvalidTimeException;
 import planner.logic.exceptions.planner.ModBadRequestStatus;
 import planner.logic.exceptions.planner.ModFailedJsonException;
+import planner.logic.modules.TaskList;
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleInfoSummary;
 import planner.logic.modules.module.ModuleTask;
@@ -214,7 +215,7 @@ public class JsonWrapper {
      * @param tasksList List of module tasks.
      * @param store object which handles file storing.
      */
-    public void storeTaskListAsJson(List<ModuleTask> tasksList, Storage store) {
+    public void storeTaskListAsJson(TaskList<ModuleTask> tasksList, Storage store) {
         String jsonString = gson.toJson(tasksList);
         List<String> stringsList = requestsData.getResponseList(jsonString);
         store.setDataPath(Paths.get(userModuleFile));
@@ -225,12 +226,12 @@ public class JsonWrapper {
      * Returns taskList after reading json file.
      * @return List of tasks of the read was successful, null if otherwise.
      */
-    public List<ModuleTask> readJsonTaskList(Storage store) {
+    public TaskList<ModuleTask> readJsonTaskList(Storage store) {
         try {
             store.setDataPath(Paths.get(userModuleFile));
             if (store.getDataPathExists()) {
                 JsonReader reader = new JsonReader(new FileReader(userModuleFile));
-                Type listType = new TypeToken<List<ModuleTask>>() {}.getType();
+                Type listType = new TypeToken<TaskList>() {}.getType();
                 return gson.fromJson(reader, listType);
             }
         } catch (IllegalStateException e) {
@@ -240,7 +241,7 @@ public class JsonWrapper {
             System.out.println(Arrays.toString(ei.getStackTrace()));
             PlannerLogger.log(ei);
         }
-        return new ArrayList<>();
+        return new TaskList<>();
     }
 
 }

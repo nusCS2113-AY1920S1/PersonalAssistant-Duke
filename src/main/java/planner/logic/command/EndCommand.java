@@ -7,18 +7,14 @@ import java.util.HashMap;
 import planner.credential.user.User;
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.util.crawler.JsonWrapper;
-import planner.logic.modules.module.ModuleTasksList;
 import planner.ui.cli.PlannerUi;
 import planner.util.storage.Storage;
-import planner.logic.modules.cca.CcaList;
 
 public class EndCommand extends ModuleCommand {
 
     @Override
     public void execute(
             HashMap<String, ModuleInfoDetailed> detailedMap,
-            ModuleTasksList tasks,
-            CcaList ccas,
             PlannerUi plannerUi,
             Storage store,
             JsonWrapper jsonWrapper,

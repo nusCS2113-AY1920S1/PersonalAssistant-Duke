@@ -31,7 +31,7 @@ public class ModuleTask extends TaskWithMultipleWeeklyPeriod {
      */
     public ModuleTask(String code, ModuleInfoDetailed moduleInfoDetailed,
                       String beginString, String endString, String dayOfWeek) throws ModInvalidTimeException {
-        super(code, DayOfWeek.valueOf(dayOfWeek.toUpperCase()));
+        super(code, TaskWithMultipleWeeklyPeriod.getDayOfWeek(dayOfWeek));
         this.moduleInfoDetailed = moduleInfoDetailed;
         NattyWrapper natty = new NattyWrapper();
         LocalTime begin = natty.dateToLocalDateTime(beginString).toLocalTime();
