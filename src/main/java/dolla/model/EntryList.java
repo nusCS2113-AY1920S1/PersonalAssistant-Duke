@@ -80,7 +80,6 @@ public class EntryList extends RecordList {
         }
         return sum;
     }
-    */
 
     private boolean isSameDate(LocalDate d1, LocalDate d2) {
         if (d1.compareTo(d2) == 0) {
@@ -89,4 +88,5 @@ public class EntryList extends RecordList {
             return false;
         }
     }
+    */
 }

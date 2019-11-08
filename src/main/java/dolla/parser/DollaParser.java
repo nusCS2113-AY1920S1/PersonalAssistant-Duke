@@ -2,17 +2,16 @@ package dolla.parser;
 
 import dolla.Tag;
 import dolla.Time;
-import dolla.command.view.ViewCommand;
-import dolla.command.view.ViewDateCommand;
-import dolla.command.view.ViewTodayCommand;
-import dolla.ui.DebtUi;
 import dolla.command.AddDebtsCommand;
 import dolla.command.AddEntryCommand;
 import dolla.command.AddLimitCommand;
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
+import dolla.command.view.ViewDateCommand;
+import dolla.command.view.ViewTodayCommand;
 import dolla.model.Debt;
 import dolla.model.Entry;
+import dolla.ui.DebtUi;
 import dolla.ui.LimitUi;
 import dolla.ui.Ui;
 import dolla.ui.ViewUi;
@@ -22,6 +21,8 @@ import java.time.LocalDate;
 
 //@@author omupenguin
 public class DollaParser extends Parser {
+
+    protected final String STR_TODAY = "today";
 
     public DollaParser(String inputLine) {
         super(inputLine);
@@ -104,11 +105,7 @@ public class DollaParser extends Parser {
 
     private boolean verifyViewTodayCommand() {
         try {
-            if (inputArray[1].equals("today")) {
-                return true;
-            } else {
-                return false;
-            }
+            return inputArray[1].equals(STR_TODAY);
         } catch (IndexOutOfBoundsException e) {
             ViewUi.printInvalidViewFormatError();
             return false;

@@ -246,7 +246,8 @@ public class DollaData implements ModeStringList {
     }
 
     public double dateOverallExpense(LocalDate cmpDate) {
-        return entryList.dateOverallExpense(cmpDate);
+        //return entryList.dateOverallExpense(cmpDate);
+        return 0;
     }
 
 }

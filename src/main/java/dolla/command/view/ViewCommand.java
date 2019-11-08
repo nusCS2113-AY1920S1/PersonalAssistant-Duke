@@ -11,8 +11,11 @@ import java.time.LocalDate;
 
 public class ViewCommand extends Command {
 
-    LocalDate cmpDate;
-    String dateStr;
+    protected LocalDate cmpDate;
+    protected String dateStr;
+    protected final String STR_TODAY = "today";
+    protected final String STR_EXPENSE = "expense";
+
 
     @Override
     public void execute(DollaData dollaData) {
@@ -69,7 +72,7 @@ public class ViewCommand extends Command {
     private double getSignedAmount(Record currEntry) {
         String type = currEntry.getType();
         double amount = currEntry.getAmount();
-        if (type.equals("expense")) {
+        if (type.equals(STR_EXPENSE)) {
             amount *= -1;
         }
         return amount;
