@@ -78,11 +78,14 @@ public class Ui extends AnchorPane {
         );
         userInput.clear();
         switch (splitStr[0]) {
+        case "approve":
+        case "reject":
         case "list":
             listContainer.getChildren().clear();
             BookingList bookingList = duke.getBookingList();
             showList(bookingList);
             break;
+        case "addroom":
         case "listroom":
             listContainer.getChildren().clear();
             RoomList roomList = duke.getRoomList();
@@ -107,16 +110,13 @@ public class Ui extends AnchorPane {
         case "logout":
             UserList userList = duke.getUserList();
             if (userList.getLoginStatus() == true) {
-                userLabel.setText(userList.getCurrentUser());
+                userLabel.setText("Logged in as: " + userList.getCurrentUser());
             } else {
                 userLabel.setText("Not Logged In");
             }
             break;
-            /*
-            case "listapprove":
-                listContainer.getChildren().clear();
-                BookingList approveList = duke.getBookingList();
-                showList(listApprove);*/
+        default:
+            break;
         }
     }
 

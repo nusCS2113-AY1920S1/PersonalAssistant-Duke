@@ -1,8 +1,6 @@
 package booking;
 
 import exception.DukeException;
-import user.UserList;
-
 import java.time.ZoneId;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -21,7 +19,6 @@ public class Booking {
     protected String name;
     private String description;
     private String status;
-    //private String currentUser;
     private String approvedBy;
 
     /**
@@ -72,7 +69,6 @@ public class Booking {
         this.timeEnd = storedEnd.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
         this.name = username;
         this.status = status;
-        //this.currentUser = currentuSer;
         this.approvedBy = approvedBy;
     }
 
@@ -147,16 +143,6 @@ public class Booking {
     public String getDescription() {
         return description;
     }
-
-    /*
-    public void setCurrentUser(String currentUser) {
-        this.currentUser = currentUser;
-    }
-
-    public String getCurrentUser() {
-        return currentUser;
-    }*/
-
 
     public void approveStatus(String username) {
         status = "A";

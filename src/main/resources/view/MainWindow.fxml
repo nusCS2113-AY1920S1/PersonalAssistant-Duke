@@ -30,7 +30,7 @@
                         </content>
                     </ScrollPane>
                     <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="1.0" />
-                  <Label fx:id="userLabel" layoutX="6.0" text="Label" AnchorPane.bottomAnchor="570.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Label fx:id="userLabel" layoutX="6.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
         </items>
