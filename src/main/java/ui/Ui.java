@@ -364,6 +364,20 @@ public class Ui {
     }
 
     /**
+     * Prints message to indicate a the total amount paid by a payee in a certain project.
+     * @param payee name of the payee.
+     * @param amount total amount paid by the payee.
+     * @param project the current project name.
+     */
+    public void printTotalCostMessage(String payee, double amount, String project) {
+        System.out.print(line);
+        System.out.println("\t" + "Current project is " + project + ".");
+        System.out.println("\t" + "The total cost paid by " + payee + " is: " + amount + " dollars.");
+        System.out.println("\t" + "use `find payee " + payee + "` command to see the detail of the payee's payments.");
+        System.out.print(line);
+    }
+
+    /**
      * Prints message to indicate a deadline with an invoice added.
      * @param task Task to be edited.
      */
@@ -407,7 +421,7 @@ public class Ui {
      */
     public void printAddFundMessage(Fund fund, double amount) {
         System.out.print(line);
-        System.out.println("\t" + "Got it. I've add " + amount + "to the fund. The new fund is as follow:");
+        System.out.println("\t" + "Got it. I've added " + amount + " dollars to the fund. The new fund is as follow:");
         System.out.print(fund.giveFund());
         System.out.print(line);
     }
@@ -495,6 +509,8 @@ public class Ui {
         System.out.println("\t" + "Add Fund:             " + commandFormat.addFundFormat());
         System.out.println("\t" + "Assign Fund:          " + commandFormat.assignFundFormat());
         System.out.println("\t" + "Reset Fund:           " + commandFormat.resetFundFormat());
+        System.out.println("\t" + "Show Fund:            " + commandFormat.showFundFormat());
+        System.out.println("\t" + "Show Budget:          " + commandFormat.showBudgetFormat());
         System.out.println("\t" + "Add Payee:            " + commandFormat.addPayeeFormat());
         System.out.println("\t" + "Add Payment:          " + commandFormat.addPaymentFormat());
         System.out.println("\t" + "Delete Payee:         " + commandFormat.deletePayeeFormat());

@@ -135,7 +135,7 @@ public class Process {
      * @param input Input from the user.
      * @param ui    Ui that interacts with the user.
      */
-    public void deleteProject(String input, Ui ui, Storage storage) throws AlphaNUSException {
+    public void deleteProject(String input, Ui ui, Storage storage, Fund fund) throws AlphaNUSException {
         BeforeAfterCommand.beforedoCommand(storage, projectmanager);
         String[] split = input.split("pr/", 2);
         split = cleanStrStr(split);
@@ -156,7 +156,8 @@ public class Process {
             System.out.println("\t" + "Project does not exist!");
             return;
         } //TODO refactor
-
+        double budget = projectmanager.projectmap.get(projectname).budget;
+        fund.addFund(budget);
         Project deletedProject = projectmanager.deleteProject(projectname);
         int projectsize = projectmanager.projectmap.size();
         ui.printDeleteProject(deletedProject, projectsize);
@@ -274,7 +275,7 @@ public class Process {
      * @param ui    Ui that interacts with the user.
      * @param fund  the total fund the that the organisation owns
      */
-    public void assignFund(String input, Ui ui, Fund fund) {
+    public void assignFund(String input, Ui ui, Fund fund) {//TODO REDUCE BUDGET
         try {
             String[] split = input.split("pr/| am/");
             String projectname = split[1];
@@ -649,6 +650,9 @@ public class Process {
                     splitpayments[3], splitpayments[4], managermap, ui);
         } catch (IllegalArgumentException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format"
+                    + "The input format is: edit p/PAYEE v/INVOICE f/FIELD r/REPLACEMENT");
         }
     }
 
@@ -664,10 +668,22 @@ public class Process {
     public void deletePayment(String input, Ui ui, Storage storage) throws AlphaNUSException {
         BeforeAfterCommand.beforedoCommand(storage, projectmanager);
         HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
+        String currentProjectName = projectmanager.currentprojectname;
         String currentprojectname = projectmanager.currentprojectname;
         String[] arr = input.split("payment ", 2);
         String[] split = arr[1].split("p/|i/");
         split = cleanStrStr(split);
+
+        String payeename = split[1];
+        String itemname = split[2];
+        Payee payee = managermap.get(payeename);
+        for (Payments p: payee.payments){
+            if (p.getItem() == itemname) {
+               projectmanager.projectmap.get(currentprojectname).addBudget( p.getCost() );
+               break;
+            }
+        }
+
         Payments deleted = PaymentManager.deletePayments(split[1], split[2], managermap, currentprojectname);
         ui.printDeletePaymentMessage(deleted, managermap.get(split[1]).payments.size(), currentprojectname);
         BeforeAfterCommand.afterCommand(storage, projectmanager);
@@ -690,11 +706,23 @@ public class Process {
             String payee = splitpayments[1];
             String item = splitpayments[2];
             double cost = Double.parseDouble(splitpayments[3]);
-            String invoice = splitpayments[4];
-            Payments payment = PaymentManager.addPayments(payee, item, cost, invoice, managermap, currentprojectname);
-            int paymentsSize = managermap.get(payee).payments.size();
-            ui.printAddPaymentMessage(payment, paymentsSize, currentprojectname);
-            BeforeAfterCommand.afterCommand(storage, projectmanager);
+
+            if (cost < 0) {
+                ui.exceptionMessage("     ☹ OOPS!!! The cost should be a positive number.");
+            }
+            if (cost > projectmanager.projectmap.get(currentprojectname).getRemaining()) {
+                ui.exceptionMessage("     ☹ OOPS!!! There is not enough budget left.\n"
+                        + " Total budget: " + projectmanager.projectmap.get(currentprojectname).getBudget() + "\n"
+                        + " Budget spent: " + projectmanager.projectmap.get(currentprojectname).getSpending() + "\n"
+                        + " Budget remaining: " + projectmanager.projectmap.get(currentprojectname).getRemaining() + "\n");
+            } else {
+                projectmanager.projectmap.get(currentprojectname).addPayment(cost);
+                String invoice = splitpayments[4];
+                Payments payment = PaymentManager.addPayments(payee, item, cost, invoice, managermap, currentprojectname);
+                int paymentsSize = managermap.get(payee).payments.size();
+                ui.printAddPaymentMessage(payment, paymentsSize, currentprojectname);
+                BeforeAfterCommand.afterCommand(storage, projectmanager);
+            }
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException | AlphaNUSException e) {
@@ -754,6 +782,12 @@ public class Process {
             int payeesize = managermap.size();
             ui.printdeletePayeeMessage(splitpayments[1], payee, payeesize, currentprojectname);
             BeforeAfterCommand.afterCommand(storage, projectmanager);
+
+            double totalspending = 0;
+            for(Payments p:payee.payments) {
+                totalspending += p.getCost();
+            }
+            projectmanager.projectmap.get(currentprojectname).addBudget(totalspending);//the total spending paid by a payee is released as budget
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException | AlphaNUSException e) {
@@ -777,7 +811,28 @@ public class Process {
         }
     }
 
-
+    /**
+     *
+     * Command format: total cost p/PAYEE_NAME
+     * @param input input from the user
+     * @param ui
+     * @param storage
+     */
+    public void totalCost ( String input, Ui ui, Storage storage) {
+        try {
+            String[] split = input.split("p/", 2);
+            String payeeName = split[1];
+            HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
+            String currentprojectname = projectmanager.currentprojectname;
+            double totalcost = 0;
+            for(Payments p:PaymentManager.findPayee(payeeName, managermap)) {
+                totalcost += p.getCost();
+            }
+            ui.printTotalCostMessage(payeeName, totalcost, currentprojectname);
+        } catch ( ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Wrong input format. Correct input format: total cost p/PAYEE_NAME");
+        }
+    }
 
     /**
      * reminder of the payments based on the status and deadline
@@ -845,7 +900,30 @@ public class Process {
         }
     }
 
-
+    /**
+     *
+     * Input Format: show budget pr/PROJECT_NAME
+     * @param input
+     * @param ui
+     */
+    public void showBudget(String input, Ui ui) {
+        try {
+            String[] split = input.split("pr/");
+            String projectname = split[1];
+            projectmanager.gotoProject(projectname);
+            String currentproject = projectmanager.currentprojectname;
+            Project p = projectmanager.projectmap.get(currentproject);
+            System.out.print(Ui.line);
+            System.out.println("\t The budget for this project is as follows:");
+            System.out.println("\t Total budget: " + p.getBudget());
+            System.out.println("\t Spent budget: " + p.getSpending());
+            System.out.println("\t Remaining budget: " + p.getRemaining());
+            System.out.print(Ui.line);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Wrong input error!"
+                    + "The correct input format is: show budget pr/PROJECT_NAME");
+        }
+    }
     //===========================* Command History *================================
 
     /**
