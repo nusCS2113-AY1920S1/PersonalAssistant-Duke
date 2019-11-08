@@ -6,14 +6,24 @@ import spinbox.containers.lists.FileList;
 import spinbox.containers.lists.GradeList;
 import spinbox.containers.lists.TaskList;
 import spinbox.entities.Module;
+import spinbox.entities.items.tasks.Deadline;
+import spinbox.entities.items.tasks.Task;
+import spinbox.entities.items.tasks.TaskType;
 import spinbox.exceptions.InputException;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exporter.Exporter;
 
 import java.util.ArrayDeque;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExportCommand extends Command {
     private static final String EXPORT_LOCATION = "SpinBoxData/exports/";
+    private static final String COMMON_DEADLINES = "deadlines.txt";
+    private static final String DEADLINES_HEADER = "These are your upcoming deadlines";
     private static final String FILE_HEADER = "These are your files for ";
     private static final String GRADED_COMPONENTS_HEADER = "These are your graded components for ";
     private static final String TASKS_HEADER = "These are your tasks for ";
@@ -44,7 +54,7 @@ public class ExportCommand extends Command {
     public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui, boolean guiMode) throws
             SpinBoxException {
 
-        if (!moduleContainer.checkModuleExists(moduleCode)) {
+        if (this.moduleCode != null && !moduleContainer.checkModuleExists(moduleCode)) {
             throw new InputException(NON_EXISTENT_MODULE);
         }
         Module module = moduleContainer.getModule(moduleCode);
@@ -70,6 +80,24 @@ public class ExportCommand extends Command {
                     TASKS_HEADER + moduleCode);
             TaskList taskList = module.getTasks();
             exporter.writeData(taskList.getList());
+            break;
+
+        case "deadlines":
+            exporter = new Exporter(EXPORT_LOCATION + COMMON_DEADLINES, DEADLINES_HEADER);
+            SortedSet<Deadline> deadlinesList = new TreeSet<>(new TaskList.TaskComparator());
+
+            for (HashMap.Entry<String, Module> entry : moduleContainer.getModules().entrySet()) {
+                Module currentModule = entry.getValue();
+                TaskList currentTasks = currentModule.getTasks();
+                List<Task> tasks = currentTasks.getList();
+
+                for (Task task : tasks) {
+                    if (task.getTaskType() == TaskType.DEADLINE) {
+                        deadlinesList.add((Deadline) task);
+                    }
+                }
+            }
+            exporter.writeData(new ArrayList<>(deadlinesList));
             break;
 
         default:

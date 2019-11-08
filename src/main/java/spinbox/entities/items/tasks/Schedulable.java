@@ -1,7 +1,6 @@
 package spinbox.entities.items.tasks;
 
 import spinbox.DateTime;
-import spinbox.exceptions.CorruptedDataException;
 
 public abstract class Schedulable extends Task {
     DateTime startDate;

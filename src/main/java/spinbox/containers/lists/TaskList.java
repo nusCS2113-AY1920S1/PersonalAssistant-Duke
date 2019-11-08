@@ -28,7 +28,7 @@ public class TaskList extends SpinBoxList<Task> {
         localStorage = new Storage(DIRECTORY_NAME + this.getParentCode() + TASK_LIST_FILE_NAME);
     }
 
-    static class TaskComparator implements Comparator<Task> {
+    public static class TaskComparator implements Comparator<Task> {
         @Override
         public int compare(Task a, Task b) {
             DateTime startDateA = null;
