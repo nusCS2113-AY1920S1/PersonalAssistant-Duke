@@ -1,6 +1,7 @@
 # Eggventory User Guide
 By: Team F09-03  
-Dated: 7 November 2019  
+Dated: 8 November 2019  
+
 ## Table of contents  
 ### [1. Introduction ](#introduction)  
 ### [2. Quick Start ](#quickstart)  
@@ -58,9 +59,11 @@ Eggventory is an inventory management system targeted towards engineering labora
   
 The following section describes the command line interface commands that Eggventory recognises. Each command you input has to follow a specific format of words and parameters.  
   
-Command Format    Text in <Angled Brackets> are mandatory parameter to be supplied by the user. E.g. add stocktype <Stock Type> , <Stock Type> is a parameter which is the name of the stocktype the user wishes to add.  
+Command Format    
+
+- Text in \<Angled Brackets\> are mandatory parameter to be supplied by the user. E.g. `add stocktype <Stock Type>` , \<Stock Type\> is a parameter which is the name of the stocktype the user wishes to add.  
   
-- Parameters in {Braces} can be repeated multiple times in the same command, separated by a space. E.g. loan add <Matric. No> {<Stock Code> <Quantity>} , more <Stock Code> <Quantity> pairs can be added after the first pair as such: `loan add A0191234A R500 20 R250 10 R100 5`  
+- Parameters in {Braces} can be repeated multiple times in the same command, separated by a space. E.g. `add template <TemplateName>  {<Stock Code> <Quantity>}` , more \<Stock Code\> \<Quantity\> pairs can be added after the first pair as such: `loan add A0191234A R500 20 R250 10 R100 5`  
   
 -   [coming in v2.0] Some commands have optional parameters available. Optional parameters are added to the end of the corresponding command, after all mandatory parameters. E.g. `add stock R500 50 “500-ohm Resistors” -st Resistors` , will create a new stock, and placed under the “Resistors” Stock Type with the “-st” tag.  
   
@@ -275,36 +278,34 @@ Format: `list loan`
 ---  
 ### 3.6 Loaning using Templates
     
-To speed up the loaning process, Eggventory allows you to create loan templates. These templates are simply lists of
- stocks and quantity to be loaned out all at once. 
+To speed up the loaning process, Eggventory allows you to create loan templates. These templates are simply lists of stocks and quantity to be loaned out all at once. Loans added via templates are not special in any way. As such, you will have to delete each loan added by a template individually.
   
 #### 3.6.1 Adding loan templates: `add template`  
-This creates a new template of Loans. 
-  
+This creates a new template of loans which can be assigned to a person.
+
 Format: `add template <TemplateName> {<StockCode> <Quantity>}`  
   
 e.g. `add template CG1112_Alex R500 5 A123 1`  
  
- Note: The name of each template must be unique, or it will not be added. 
+Note: The name of each template must be unique, or it will not be added. 
   
 #### 3.6.2  Deleting a Template: `delete template`  
 
-  This deletes a loan template.  
-  
-  Format: `delete template <Template Name>`  
+This deletes a loan template. It does not delete any loans assigned to people using the template.
+
+Format: `delete template <Template Name>`  
   
 eg. `delete template CG1112_Alex`  
   
 #### 3.6.3 Making a Loan from a template: `add loan`
 
-This adds a Loan to a Person from a Template. Every loan in the template will be added to the person as if you added
- them individually. 
+This adds a loan to a person from a template. Every loan in the template will be added to the person as if you added them individually. 
 
 Format: `add loan <Matric. No> <Template Name>`  
   
 eg. `add loan A0187654 CG1112_Alex`  
   
-Note: Additional Loans can still be added on to the same Person afterwards using the loan add command.  
+Note: Additional Loans can still be added on to the same Person afterwards using the `add loan` command.  
 
 #### 3.6.4 Listing Loan Templates: `list template` 
   
