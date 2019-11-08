@@ -5,11 +5,11 @@ import javacake.exceptions.CakeException;
 import javacake.storage.Storage;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
-import javacake.utilities.IFileReader;
+import javacake.utilities.IFileUtilities;
 
 import java.io.File;
 
-public class ViewNoteCommand extends Command implements IFileReader {
+public class ViewNoteCommand extends Command implements IFileUtilities {
 
     private String fileName;
     private static String defaultFilePath = Storage.returnNotesDefaultFilePath();
@@ -136,6 +136,6 @@ public class ViewNoteCommand extends Command implements IFileReader {
     public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         String filePath = generateCurrentFilePath();
         return "Below is the file [" + fileName + "] that you want to view!\n"
-                + IFileReader.readFile(filePath);
+                + IFileUtilities.readFile(filePath);
     }
 }

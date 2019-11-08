@@ -1,12 +1,13 @@
 package javacake.utilities;
 
 import javacake.exceptions.CakeException;
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 
-public interface IFileReader {
+public interface IFileUtilities {
 
     /**
      * Reads the file specified by the user.
@@ -23,6 +24,15 @@ public interface IFileReader {
             }
             br.close();
             return sb.toString();
+        } catch (IOException e) {
+            throw new CakeException(e.getMessage());
+        }
+    }
+
+    static String returnOriginalFileName(String defaultDirectoryPath, String fileName) throws CakeException {
+        try {
+            File file = new File(defaultDirectoryPath + fileName + ".txt");
+            return FilenameUtils.removeExtension(file.getCanonicalFile().getName());
         } catch (IOException e) {
             throw new CakeException(e.getMessage());
         }

@@ -5,13 +5,15 @@ import javacake.exceptions.CakeException;
 import javacake.storage.Storage;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
+import javacake.utilities.IFileUtilities;
 
 import java.io.File;
 
-public class DeleteNoteCommand extends Command {
+public class DeleteNoteCommand extends Command implements IFileUtilities {
 
     private String fileName;
     private static String fullFilePath;
+    private static String defaultFilePath;
 
     private static final char[] ILLEGAL_CHARACTERS = { '/', '\n', '\r', '\t',
         '\0', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':', '.', ','};
@@ -26,7 +28,9 @@ public class DeleteNoteCommand extends Command {
     public DeleteNoteCommand(String inputCommand) throws CakeException {
         validateFileName(inputCommand);
         type = CmdType.DELETE_NOTE;
-        this.fileName = returnFileName(inputCommand);
+        String nameOfFile = returnFileName(inputCommand);
+        this.fileName = IFileUtilities.returnOriginalFileName(defaultFilePath, nameOfFile);
+        System.out.println("fileName is:" + fileName);
     }
 
     /**
@@ -54,9 +58,9 @@ public class DeleteNoteCommand extends Command {
         try {
             File tempFile = new File(fullFilePath);
             if (tempFile.delete()) {
-                return "File [" + fileName + "] has been deleted successfully!";
+                return "File [" + fileName + "] has been deleted successfully!\n";
             } else {
-                return "Unable to delete [" + fileName + "]!";
+                return "Unable to delete [" + fileName + "]!\n";
             }
         } catch (Exception e) {
             throw new CakeException(e.getMessage());
@@ -111,6 +115,8 @@ public class DeleteNoteCommand extends Command {
      */
     private String processFilePath(String inputFileName) {
         String filePath = updateDefaultDirectoryPath();
+        System.out.println(filePath);
+        defaultFilePath = filePath;
         fullFilePath = filePath + inputFileName + ".txt" + "/";
         return fullFilePath;
     }
