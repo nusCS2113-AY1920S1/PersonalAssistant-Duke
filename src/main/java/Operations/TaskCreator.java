@@ -152,7 +152,6 @@ public class TaskCreator {
                     // date of the leave
                     throw new RoomShareException(ExceptionType.invalidDateRange);
                 }
-                dates.add(parser.formatDate(toInput));
             }
         } else
             throw new RoomShareException(ExceptionType.emptyDate);
@@ -432,7 +431,7 @@ public class TaskCreator {
         }
 
         if (input.contains("&")) {
-            ArrayList<Date> dates = this.extractDate(input);
+            ArrayList<Date> dates = extractDate(input);
             if (oldTask instanceof Leave && dates.size() == 2) {
                 Leave oldLeave = (Leave) oldTask;
                 Date start = dates.get(0);
@@ -442,7 +441,12 @@ public class TaskCreator {
                 oldLeave.setEndDate(end);
             } else {
                 Date date = dates.get(0);
-                oldTask.setDate(date);
+                if (oldTask instanceof Leave) {
+                    Leave oldLeave = (Leave)oldTask;
+                    oldLeave.setEndDate(date);
+                } else {
+                    oldTask.setDate(date);
+                }
             }
         }
 

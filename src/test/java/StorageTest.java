@@ -11,15 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import CustomExceptions.RoomShareException;
-import Enums.*;
-import Model_Classes.*;
-
-import java.io.*;
-import java.text.DateFormat;
-import java.text.ParseException;
-
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StorageTest {
@@ -33,9 +24,7 @@ public class StorageTest {
             e.printStackTrace();
         }
     }
-    private String fileName = "testdata.txt";
 
-    private ArrayList<Task> altest = new ArrayList<>();
     private ArrayList<Task> al = new ArrayList<>();
 //    private static TaskList tl1 = new TaskList(new ArrayList<Task>());
     private Assignment ts = new Assignment("assign", date);
@@ -60,7 +49,8 @@ public class StorageTest {
     }
     @Test
     void loadFile() throws RoomShareException {
-        altest = storage.loadFile(fileName);
+        String fileName = "test.txt";
+        ArrayList<Task> altest = storage.loadFile(fileName);
         al.add(ts);
         al.add(ts1);
         al.add(ts2);

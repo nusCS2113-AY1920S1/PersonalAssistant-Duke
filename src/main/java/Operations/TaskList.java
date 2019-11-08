@@ -6,6 +6,7 @@ import Enums.Priority;
 import Enums.SortType;
 import Enums.TimeUnit;
 import Model_Classes.Assignment;
+import Model_Classes.Leave;
 import Model_Classes.Task;
 
 import java.util.ArrayList;
@@ -18,7 +19,6 @@ import java.util.Date;
 public class TaskList {
     private static ArrayList<Task> tasks;
     private static SortType sortType = SortType.priority;
-    public ArrayList<Task> overdueList = new ArrayList<>();
 
     /**
      * Constructor for the TaskList class.
@@ -26,7 +26,7 @@ public class TaskList {
      * @param tasks ArrayList of Task objects to be operated on.
      */
     public TaskList(ArrayList<Task> tasks) {
-        this.tasks = tasks;
+        TaskList.tasks = tasks;
     }
 
     /**
@@ -64,21 +64,25 @@ public class TaskList {
             }
         }
     }
+
     /**
      * Lists out all tasks in the current list in the order they were added into the list.
      * shows all information related to the tasks
      * hides completed tasks
      * @throws RoomShareException when the list is empty
      */
-    public void list() throws RoomShareException {
+    public void list(OverdueList overdueList) throws RoomShareException {
         sortTasks();
         if (tasks.size() != 0) {
             int listCount = 1;
             for(int i=0; i<tasks.size(); i++) {
-                if (new Date().after(tasks.get(i).getDate())) {
+                if (new Date().after(tasks.get(i).getDate()) && !(tasks.get(i) instanceof Leave)){
                     tasks.get(i).setOverdue(true);
-                    this.overdueList.add(tasks.get(i));
-                    tasks.remove(i);
+                    if (!CheckAnomaly.checkDuplicateOverdue(tasks.get(i))) {
+                        // no duplicates in overdue list
+                        overdueList.add(tasks.get(i));
+                    }
+                    tasks.remove(tasks.get(i));
                 }
             }
 
@@ -104,6 +108,13 @@ public class TaskList {
                         }
                     }
                     listCount += 1;
+                }
+            }
+            for(int i=0; i<tasks.size(); i++) {
+                if (tasks.get(i) instanceof Leave) {
+                   if (((Leave) tasks.get(i)).getEndDate().before(new Date())) {
+                        tasks.remove(tasks.get(i));
+                    }
                 }
             }
         } else {
@@ -135,25 +146,6 @@ public class TaskList {
         } else {
             throw new RoomShareException(ExceptionType.emptyList);
         }
-    }
-
-    /**
-     * Adds the overdue tasks that a currently in the task list to another task list
-     * which contains stores tasks that are overdue.
-     * @return ArrayList of tasks containing tasks that are overdue.
-     * @throws RoomShareException when the list is empty.
-     */
-    public ArrayList<Task> getOverdueList() throws RoomShareException {
-        if( tasks.size() != 0 ){
-            for (Task output : tasks) {
-                if(new Date().after(output.getDate())) {
-                    this.overdueList.add(output);
-                }
-            }
-        } else {
-            throw new RoomShareException(ExceptionType.emptyList);
-        }
-        return this.overdueList;
     }
 
     /**
@@ -375,7 +367,7 @@ public class TaskList {
     public int getSize() {
         int count =0;
         for(Task t : tasks) {
-            if(!t.getOverdue()) {
+            if(!t.getOverdue() && !(t instanceof Leave)) {
                 count += 1;
             }
         }
@@ -389,7 +381,9 @@ public class TaskList {
     public int getDoneSize(){
         int count = 0;
         for (Task t: tasks){
-            if (t.getDone() && !t.getOverdue()) count++;
+            if (t.getDone() && !t.getOverdue() && !(t instanceof Leave)) {
+                count++;
+            }
         }
         return count;
     }
@@ -413,5 +407,38 @@ public class TaskList {
      * @return current sort type of list
      */
     public static SortType getSortType() { return sortType; }
+
+    /**
+     * lists out all the tasks associated with a certain assignee
+     * will include tasks that are tagged "everyone", since everyone includes the assignee
+     * @param user assignee to the tasks
+     * @throws RoomShareException when the list is empty
+     */
+    public int[] listTagged(String user) throws RoomShareException{
+        int listCount = 1;
+        int belongCount = 0;
+        int doneCount  = 0;
+        for (Task output : tasks) {
+            if (output.getAssignee().equals(user) || output.getAssignee().equals("everyone")) {
+                belongCount += 1;
+                if (output.getDone()) {
+                    doneCount += 1;
+                }
+                System.out.println("\t" + listCount + ". " + output.toString());
+                if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
+                    ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
+                    for (String subtask : subTasks) {
+                        System.out.println("\t" + "\t" + "- " + subtask);
+                    }
+                }
+            }
+            listCount += 1;
+        }
+        if (belongCount == 0) {
+            throw new RoomShareException(ExceptionType.emptyList);
+        }
+        int[] done = {belongCount, doneCount};
+        return done;
+    }
 
 }

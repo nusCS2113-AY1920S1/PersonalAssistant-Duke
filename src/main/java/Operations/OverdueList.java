@@ -8,7 +8,7 @@ import Model_Classes.Task;
 import java.util.ArrayList;
 
 public class OverdueList {
-    private ArrayList<Task> Overdue;
+    private static ArrayList<Task> Overdue;
 
     /**
      * A constructor for the overdueList class.
@@ -43,7 +43,7 @@ public class OverdueList {
         } else {
             taskList.add(Overdue.get(index));
             Overdue.get(index).setOverdue(false);
-            this.Overdue.remove(index);
+            Overdue.remove(index);
         }
     }
 
@@ -81,5 +81,29 @@ public class OverdueList {
         } catch (IndexOutOfBoundsException e) {
             throw new RoomShareException(ExceptionType.outOfBounds);
         }
+    }
+
+    public void remove(int[] index, TempDeleteList deletedList) throws RoomShareException {
+        int[] idx = index.clone();
+        if (idx.length == 1) {
+            if (idx[0] < 0 || idx[0] >= Overdue.size()) {
+                throw new RoomShareException(ExceptionType.outOfBounds);
+            }
+            deletedList.add(Overdue.get(idx[0]));
+            Overdue.remove(idx[0]);
+        }
+        else {
+            if (idx[0] < 0 || idx[0] >= Overdue.size() || idx[1] < 0 || idx[1] >= Overdue.size()) {
+                throw new RoomShareException(ExceptionType.outOfBounds);
+            }
+            for (int i = idx[0]; idx[1] >= idx[0]; idx[1]--) {
+                deletedList.add(Overdue.get(i));
+                Overdue.remove(i);
+            }
+        }
+    }
+
+    public static ArrayList<Task> getOverdueList() {
+        return Overdue;
     }
 }

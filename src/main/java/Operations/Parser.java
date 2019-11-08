@@ -4,7 +4,6 @@ import CustomExceptions.RoomShareException;
 import Enums.ExceptionType;
 import Enums.SortType;
 import Enums.TimeUnit;
-import javafx.util.Pair;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -245,7 +244,7 @@ public class Parser {
                 return null;
 
             if (temp[0].toLowerCase().equals("this")) {
-                date = date.with(TemporalAdjusters.next(dayOfWeek));
+                date = date.with(TemporalAdjusters.nextOrSame(dayOfWeek));
             }
             else {
                 if (currentDayOfWeek.getValue() < dayOfWeek.getValue()) {
