@@ -71,7 +71,7 @@ public class UserSetup {
             }
             setGender(sex);
         } else if (user.getActivityLevel() == 5) {
-            int activity = 0;
+            int activity = 5;
             try {
                 activity = Integer.parseInt(info) - 1;
             } catch (Exception e) {

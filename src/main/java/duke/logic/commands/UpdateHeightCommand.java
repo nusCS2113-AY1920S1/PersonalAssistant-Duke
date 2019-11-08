@@ -37,6 +37,7 @@ public class UpdateHeightCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
+        ui.showLine();
         int heightInt = 0;
         try {
             heightInt = Integer.parseInt(description);
@@ -54,7 +55,8 @@ public class UpdateHeightCommand extends Command {
                 }
             }
         } catch (NumberFormatException e) {
-            ui.showMessage("Please input a proper number");
+            ui.showMessage("Please input a proper number for height");
         }
+        ui.showLine();
     }
 }

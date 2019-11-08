@@ -71,18 +71,23 @@ public class UpdateWeightCommand extends Command {
                 ui.showWeightUpdate(user, Integer.parseInt(weight), currentDate);
                 ui.showLine();
             } catch (NumberFormatException e) {
-                ui.showMessage(e.getMessage());
+                ui.showMessage("Please input a proper number for weight");
             }
         } else {
-            isDone = false;
-            ui.showConfirmation(weight, currentDate);
-            ui.showLine();
+            try {
+                int temp = Integer.parseInt(weight);
+                isDone = false;
+                ui.showConfirmation(weight, currentDate);
+            } catch (NumberFormatException e) {
+                ui.showMessage("Please input a proper number for weight");
+            }
         }
         try {
             storage.updateUser(user);
         } catch (DukeException e) {
             ui.showMessage(e.getMessage());
         }
+        ui.showLine();
     }
 
     public void stage1(User user, Storage storage) {
