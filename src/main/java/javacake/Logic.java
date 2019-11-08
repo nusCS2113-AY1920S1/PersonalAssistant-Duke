@@ -320,11 +320,19 @@ public class Logic {
      * Used for BackCommand.
      */
     public void backToPreviousPath() throws CakeException {
-        if (isNotAFileOrMainList()) {
+        if (isNotAFileOrMainList()) { // if it is not a file or main list
             currentFilePath = gotoParentFilePath(currentFilePath);
-        } else {
+        } else if (isATextFile()){  // if it is a text file
             currentFilePath = gotoParentFilePath(gotoParentFilePath(currentFilePath));
         }
+    }
+
+    /**
+     * Checks if current file path contains a text file.
+     * @return True if current file path contains a text file.
+     */
+    private boolean isATextFile() {
+        return (currentFilePath.contains(".txt"));
     }
 
     /**
@@ -332,7 +340,7 @@ public class Logic {
      * @return True if current file path is not main list and not a text file.
      */
     private boolean isNotAFileOrMainList() {
-        return (!currentFilePath.equals(defaultFilePath) && !currentFilePath.contains("txt"));
+        return (!currentFilePath.equals(defaultFilePath) && !currentFilePath.contains(".txt"));
     }
 
     /**
@@ -349,11 +357,14 @@ public class Logic {
             for (int i = 0; i < filesCapture.length - 1; i++) {
                 reducedFilePath.append(filesCapture[i]).append("/");
             }
+
             String parentFilePath = reducedFilePath.toString();
+            System.out.println(parentFilePath);
             parentFilePath = parentFilePath.substring(0, parentFilePath.length() - 1);
+            System.out.println(parentFilePath);
             return parentFilePath;
         } catch (Exception e) {
-            throw new CakeException("File path does not exist!");
+            throw new CakeException(e.getMessage());
         }
     }
 

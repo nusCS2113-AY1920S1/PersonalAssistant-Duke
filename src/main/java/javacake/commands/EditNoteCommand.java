@@ -7,6 +7,8 @@ import javacake.storage.Storage;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 import javacake.utilities.IFileReader;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -80,13 +82,22 @@ public class EditNoteCommand extends Command implements IFileReader {
      * @throws CakeException If input file name contains illegal characters.
      */
     private void checkIfFileExist(String fileName) throws CakeException {
-        if (fileExist(fileName)) {
-            nameOfEditFile = fileName;
-            createCurrentFilePath();
-        } else {
-            JavaCake.logger.log(Level.INFO, fileName + " contains illegal file name.");
-            throw new CakeException("Pls enter a valid file name! Type 'listnote' to view available notes!");
+        try {
+            if (fileExist(fileName)) {
+                nameOfEditFile = returnCaseSensitiveFileName(fileName);
+                createCurrentFilePath();
+            } else {
+                JavaCake.logger.log(Level.INFO, fileName + " contains illegal file name.");
+                throw new CakeException("Pls enter a valid file name! Type 'listnote' to view available notes!");
+            }
+        } catch (IOException e) {
+            throw new CakeException("File is not found!");
         }
+    }
+
+    private String returnCaseSensitiveFileName(String fileName) throws IOException {
+        File file = new File(defaultDirectoryPath + fileName + ".txt");
+        return FilenameUtils.removeExtension(file.getCanonicalFile().getName());
     }
 
     /**
