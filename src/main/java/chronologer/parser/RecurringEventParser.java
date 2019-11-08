@@ -1,4 +1,3 @@
-//@@author hanskw4267
 package chronologer.parser;
 
 import java.time.LocalDateTime;
@@ -9,6 +8,7 @@ import chronologer.command.Command;
 import chronologer.exception.ChronologerException;
 import chronologer.ui.UiTemporary;
 
+//@@author hanskw4267
 /**
  * Processes input for recurring events.
  * 

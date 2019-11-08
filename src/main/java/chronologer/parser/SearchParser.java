@@ -1,10 +1,10 @@
-//@@author hanskw4267
 package chronologer.parser;
 
 import chronologer.command.Command;
 import chronologer.command.SearchCommand;
 import chronologer.exception.ChronologerException;
 
+//@@author hanskw4267
 /**
  * Extract the components required for the search command from the user input.
  *

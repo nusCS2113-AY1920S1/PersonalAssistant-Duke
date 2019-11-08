@@ -1,8 +1,8 @@
-//@@author hanskw4267
 package chronologer.parser;
 
 import java.util.HashMap;
 
+//@@author hanskw4267
 /**
  * Contains the dates of the last days of the semester.
  * 

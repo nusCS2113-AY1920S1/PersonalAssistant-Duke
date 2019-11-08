@@ -80,7 +80,7 @@ public class Event extends Task implements Serializable, Comparable<Event> {
             message = message + "\nNote to self: " + comment;
         }
         // @@author
-        return message.concat(message);
+        return message;
     }
 
     @Override

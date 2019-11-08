@@ -1,4 +1,3 @@
-//@@author hanskw4267
 package chronologer.command;
 
 import chronologer.task.Event;
@@ -12,6 +11,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 
+//@@author hanskw4267
 /**
  * Finds the next free time slot of a duration of user's choosing.
  *

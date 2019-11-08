@@ -1,4 +1,3 @@
-//@@author hanskw4267
 package chronologer.command;
 
 import chronologer.exception.ChronologerException;
@@ -8,6 +7,7 @@ import chronologer.task.Task;
 import chronologer.task.TaskList;
 import chronologer.ui.UiTemporary;
 
+//@@author hanskw4267
 /**
  * Adds a comment to an existing task.
  * 
