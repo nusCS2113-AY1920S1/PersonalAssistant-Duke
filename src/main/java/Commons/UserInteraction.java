@@ -1,7 +1,7 @@
 package Commons;
+
 import Tasks.Assignment;
 import Tasks.TaskList;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,17 +20,17 @@ public class UserInteraction {
     /**
      * Displays the exit message when Duke Program ends.
      */
-    public String showBye(){
+    public String showBye() {
         return byeMessage;
     }
 
     /**
      * Displays the list message when user inputs list.
      */
-    public String showList(TaskList list){
+    public String showList(TaskList list) {
         String listMessage = "Here are the tasks in your list:\n";
         for (int i = 1; i <= list.taskListSize(); i++) {
-            listMessage = listMessage + i + "." + list.taskToString(i-1) + "\n";
+            listMessage = listMessage + i + "." + list.taskToString(i - 1) + "\n";
         }
         return listMessage;
     }
@@ -38,7 +38,7 @@ public class UserInteraction {
     /**
      * Displays add task message when user wants to add a task.
      */
-    public String showAdd(Assignment task, int listSize){
+    public String showAdd(Assignment task, int listSize) {
         return "Got it. I've added this task:\n" + task.toString() + "\n"
                 + "Now you have " + listSize + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
     }
@@ -46,14 +46,14 @@ public class UserInteraction {
     /**
      * Displays done task message when user marks a task as done.
      */
-    public String showDone(Assignment task){
+    public String showDone(Assignment task) {
         return "Nice! I've marked this task as done:\n" + task.toString() + "\n";
     }
 
     /**
      * Displays the delete task message when user wants to delete a task.
      */
-    public String showDelete(Assignment task, int listSize){
+    public String showDelete(Assignment task, int listSize) {
         return "Noted. I've removed this task:\n" + task.toString() + "\n" + "Now you have "
                 + listSize  + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
     }
@@ -63,7 +63,7 @@ public class UserInteraction {
      * @param message The free times found
      * @return The output to be shown to the user
      */
-    public String showFreeTimes(String message){
+    public String showFreeTimes(String message) {
         return ("You are available at: \n" + message);
     }
 
@@ -72,31 +72,37 @@ public class UserInteraction {
      * @param message The chosen free time
      * @return The invalid free time with the proper format
      */
-    public String showFreeTimesInvalidDuration(String message){
-        return "Invalid duration\n" + "Please enter the command in the format:\n" +
-                "find 'x' hours, where 'x' is between 1 - 16";
+    public String showFreeTimesInvalidDuration(String message) {
+        return "Invalid duration\n" + "Please enter the command in the format:\n"
+                + "find 'x' hours, where 'x' is between 1 - 16";
     }
 
     /**
      * Displays the invalid chosen week message.
      * @return The invalid week entry with the proper format
      */
-    public String showWeeksInvalidEntry(){
-        return "Invalid week\n" + "Please enter the command in the format:\n" +
-                "Week 'x', where 'x' is a digit between 1 - 13";
+    public String showWeeksInvalidEntry() {
+        return "Invalid week\n" + "Please enter the command in the format:\n"
+                + "Week 'x', where 'x' is a digit between 1 - 13";
     }
 
-    public String showSelectionOption(Integer option, String selectedOption ) {
+    public String showSelectionOption(Integer option, String selectedOption) {
         return "Selected option " + option + "\n" + selectedOption;
     }
 
-    public String showSelectionOptionEmptyList(){
-        return "Please find free times by invoking the command shown below\n" +
-                "find/time 'x' hours, where 'x' is a digit between 1 - 16\n" +
-                "Followed by the command\n" +
-                "retrieve/time 'x', where 'x' is a digit between 1- 5";
+    /**
+     * Displays the message if the list is empty when retrieve/ft is entered.
+     */
+    public String showSelectionOptionEmptyList() {
+        return "Please find free times by invoking the command shown below\n"
+                + "Find 'x' hours, where 'x' is a digit between 1 - 16\n"
+                + "Followed by the command\n"
+                + "retrieve/ft 'x', where 'x' is a digit between 1- 5";
     }
 
+    /**
+     * Displays the message which shows the list of reminders for all the tasks.
+     */
     public String showListOfReminder(ArrayList<String> remindList) {
         if (remindList.isEmpty()) {
             return "There are no reminders set.";
@@ -127,41 +133,39 @@ public class UserInteraction {
     /**
      * Displays the error message if a file is not found.
      */
-    public String showLoadingError(Exception e){
+    public String showLoadingError(Exception e) {
         return "File not found" + e.getMessage() + "\n";
     }
 
     /**
      * Displays any of the DukeException error message caught throughout the program.
      */
-    public String getError(Exception e){
+    public String getError(Exception e) {
         return e.getMessage() + "\n";
     }
 
     /**
-     * Displays the show reminder message when user enter a task with a period to do within
-     * @param TaskDescription The description of the task entered
+     * Displays the show reminder message when user enter a task with a period to do within.
+     * @param taskDescription The description of the task entered
      * @param startDate The start date for task
      * @param endDate The end date for task
      * @param isValid determine if user's input date is entered correctly
-     * @return This returns the reminder message which contain the task description and the start
-     * and end date
+     * @return This returns the reminder message which contain the task description and the start and end date
      */
-    public String showReminder(String TaskDescription, String startDate, String endDate, boolean isValid) {
+    public String showReminder(String taskDescription, String startDate, String endDate, boolean isValid) {
         if (!isValid) {
             return "Please enter another valid date in format of DD/MM/yyyy";
         } else {
-            return "Reminder have been set for: " + TaskDescription + "." + " Start Date: " + startDate +
-                    " End Date: " + endDate + "\n";
+            return "Reminder have been set for: " + taskDescription + "." + " Start Date: " + startDate
+                    + " End Date: " + endDate + "\n";
         }
     }
 
     /**
-     * Display recurring tasks that are added
+     * Display recurring tasks that are added.
      * @param description description of recurring task
-     * @param startDate  start of recurrence
-     * @param endDate   end of recurrence
-     *
+     * @param startDate start of recurrence
+     * @param endDate end of recurrence
      */
     public String showRecurring(String description, String startDate, String endDate, boolean isBiweekly, boolean isRecur) {
         if (isRecur && isBiweekly) {
@@ -176,14 +180,13 @@ public class UserInteraction {
     }
 
     /**
-     * Display task with instance of keyword
+     * Display task with instance of keyword.
      * @param list List of task with keyword
      * @param keyword keyword entered by user
-     *
      */
-    public String showFilter(ArrayList<String> list,String keyword){
+    public String showFilter(ArrayList<String> list,String keyword) {
 
-        if(list.size() == 0) {
+        if (list.size() == 0) {
             return "There are no task(s) matching your keyword.";
         } else {
             String message = "Here are the following events/deadline with the keyword " + keyword + "\n";
@@ -195,17 +198,17 @@ public class UserInteraction {
     }
 
     /**
-     *Display a guide to commands
+     * Display a guide to commands.
      */
-    public String showHelp(String help){
+    public String showHelp(String help) {
         return help;
     }
 
     /**
-     * Display recommended weekly workload
+     * Display recommended weekly workload.
      * @param workloadMap map of weekly workload
      * @return This returns the string of workload
-     * @throws ParseException
+     * @throws ParseException on wrong date format
      */
     public String showWorkload(TreeMap<String, ArrayList<Assignment>> workloadMap, String workloadWeek) throws ParseException {
         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -228,7 +231,7 @@ public class UserInteraction {
     }
 
     /**
-     * Display the previous list of commands requested by the user
+     * Display the previous list of commands requested by the user.
      * @param outputList list of all the commands user request
      * @return the list requested by user
      */
@@ -238,11 +241,11 @@ public class UserInteraction {
             String message = "There are no such input type in previous command";
             return message;
         } else {
-        String output = "";
-        for (int i = 0; i < size; i++) {
-            output += (i + 1) + ". " + outputList.get(i);
-        }
-        return output;
+            String output = "";
+            for (int i = 0; i < size; i++) {
+                output += (i + 1) + ". " + outputList.get(i);
+            }
+            return output;
         }
     }
 

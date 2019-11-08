@@ -1,14 +1,12 @@
 package Commons;
 
-
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Lookup table that provides date given week and day
+ * Lookup table that provides date given week and day.
  */
 public class LookupTable {
     private static Map<String, String> map = new HashMap<>();
@@ -16,8 +14,8 @@ public class LookupTable {
     private static LookupTable lookupTable;
 
     /**
-     * Creates a lookup table object and read from Lookup.txt file
-     * @throws IOException
+     * Creates a lookup table object and read from Lookup.txt file.
+     * @throws IOException when the Lookup.txt is not found
      */
     private LookupTable() {
         try {
@@ -42,14 +40,17 @@ public class LookupTable {
     }
 
     /**
-     * Translate week,day to date
-     * @param week_day week and day of activity in academic calender
+     * Translate week,day to date.
+     * @param weekAndDay week and day of activity in academic calender
      * @return date of activity
      */
-    public String getValue(String week_day){
-       return map.get(week_day.toLowerCase().trim());//week_day in the format of (week x day x)
+    public String getValue(String weekAndDay) {
+       return map.get(weekAndDay.toLowerCase().trim());//week_day in the format of (week x day x)
     }
 
+    /**
+     * Creates a single instance of LookupTable object.
+     */
     public static LookupTable getInstance() {
         if (lookupTable == null) {
             synchronized (LookupTable.class) {
