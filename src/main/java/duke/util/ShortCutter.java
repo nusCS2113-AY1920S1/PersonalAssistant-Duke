@@ -1,3 +1,5 @@
+//@@author qjie7
+
 package duke.util;
 
 import duke.commands.patient.AddPatientCommand;
@@ -19,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-//@@author qjie7
+
 
 /**
  * This is a ShortCutter class to provide short cut implementation
@@ -34,9 +36,6 @@ import java.util.TreeMap;
 public class ShortCutter {
     private Counter counter;
     private DukeUi dukeUi;
-
-    public ShortCutter() {
-    }
 
     /**
      * A constructor for ShortCutter class.
@@ -59,6 +58,8 @@ public class ShortCutter {
      *            as the command type and value as the command frequency.
      * @return a Map structure that is sorted according to param's value
      *         which is the used command frequency.
+     * @author QIAN JIE
+     * @version 1.3
      */
 
     public static <K, V extends Comparable<V>> Map<K, V> sortByValues(final Map<K, V> map) {
@@ -70,9 +71,8 @@ public class ShortCutter {
             } else {
                 return compare;
             }
-
-
         };
+
         Map<K, V> sortedByValues = new TreeMap<K, V>(valueComparator);
         sortedByValues.putAll(map);
         return sortedByValues;
@@ -85,6 +85,8 @@ public class ShortCutter {
      *                           as the command type and value as the command frequency.
      * @return a Map structure with key being the index number for user to choose
      *         and value be the command type.
+     * @author QIAN JIE
+     * @version 1.3
      */
 
     public Map<Integer, String> mapSorter(Map<String, Integer> sortedCommandTable) throws DukeException {
@@ -116,6 +118,7 @@ public class ShortCutter {
      * @return command the command that is to be executed.
      * @throws DukeException throw a dukeException with error message for debugging.
      * @author QIAN JIE
+     * @version 1.3
      */
     public Command runShortCut() throws DukeException {
         sortedCommandTable = sortByValues(counter.getCommandTable());
@@ -158,6 +161,8 @@ public class ShortCutter {
      *
      * @return command the command that is to be executed.
      * @throws DukeException throw a dukeException with error message for debugging.
+     * @author QIAN JIE
+     * @version 1.3
      */
     public Command shortCutChecker(String commandName) throws DukeException {
         if (commandName.equals("AddPatientCommand")) {
@@ -212,6 +217,8 @@ public class ShortCutter {
      * @param commandClassName the command class name chosen by the user
      * @return a String that is easy to read by the user.
      * @throws DukeException throw a dukeException with error message for debugging.
+     * @author QIAN JIE
+     * @version 1.3
      */
     public static String commandNameConverter(String commandClassName) throws DukeException {
         String convertedName;

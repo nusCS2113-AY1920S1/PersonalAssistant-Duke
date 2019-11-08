@@ -6,6 +6,7 @@ import duke.commands.assignedtask.AssignDeadlineTaskCommand;
 import duke.commands.assignedtask.AssignPeriodTaskCommand;
 import duke.commands.assignedtask.DeleteAssignedTaskCommand;
 import duke.commands.assignedtask.FindAssignedTaskCommand;
+import duke.commands.functional.BarChartCommand;
 import duke.commands.functional.DukeCommand;
 import duke.commands.functional.ExitCommand;
 import duke.commands.functional.HelpCommand;
@@ -155,6 +156,8 @@ public class CommandManager {
             return new HelpCommand();
         case "piechart":
             return new PieChartCommand();
+        case "barchart":
+            return new BarChartCommand();
         default:
             throw new DukeException(CommandManager.class, "Could not understand user input.");
         }

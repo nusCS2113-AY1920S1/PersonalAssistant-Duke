@@ -230,10 +230,10 @@ public class MainWindow extends UiPart<Stage> {
         initializeTableViews();
 
         //@@author qjie7
-        String[] possibleWords = {"add task :", "add patient :", "assign period task :", "list patient",
-                                  "list tasks","delete patient :", "delete task :", "delete assigned task :",
-                                  "find patient :", "find task :", "find assigned tasks", "update patient :",
-                                  "update task :", "help", "piechart","bye", "undo", "help"};
+        String[] possibleWords = {"add task :", "add patient :", "assign period task :", "list patients",
+                                  "list tasks","delete patient :", "delete task :#", "delete assigned task :#",
+                                  "find patient :#", "find task :#", "find assigned tasks :#", "update patient :#",
+                                  "update task :#", "help", "piechart","bye", "undo", "help"};
         TextFields.bindAutoCompletion(userInput, possibleWords);
         //@@lmtaek
         showHelpGuide();
@@ -296,6 +296,7 @@ public class MainWindow extends UiPart<Stage> {
      * Event handler of BarCharPopUpButton.
      */
     public void handleBarChartPopUpButton() throws DukeException {
+
         Map<String, Integer> counterMap;
         counterMap = duke.getStorageManager().loadCommandFrequency();
         final ArrayList<Integer> frequencyList = new ArrayList<Integer>(counterMap.values());
@@ -464,7 +465,7 @@ public class MainWindow extends UiPart<Stage> {
 
     }
 
-    
+
     //@@author
 
 
