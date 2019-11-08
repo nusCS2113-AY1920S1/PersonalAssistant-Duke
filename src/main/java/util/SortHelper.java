@@ -1,12 +1,12 @@
 package util;
 
-import models.member.Member;
-import models.task.Task;
-
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import models.member.IMember;
+import models.project.Project;
+import models.task.Task;
 
 public class SortHelper {
     //@@author iamabhishek98
@@ -91,12 +91,13 @@ public class SortHelper {
      * @param taskList The list of tasks.
      * @return The list of tasks sorted by the name of the members assigned to the tasks in alphabetical order.
      */
-    public ArrayList<String> sortTaskMember(HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers,
-                                            ArrayList<Task> taskList, String memberName) {
+    public ArrayList<String> sortTaskMember(HashMap<String, ArrayList<String>> tasksAndAssignedMembers,
+                                            ArrayList<Task> taskList, String memberName, Project project) {
         ArrayList<Task> allAssignedTasks = new ArrayList<>();
         // to be made more efficient
         for (Task task: taskList) {
-            for (Member member : tasksAndAssignedMembers.get(task)) {
+            for (String memberID : tasksAndAssignedMembers.get(task.getTaskID())) {
+                IMember member = project.getMemberFromID(memberID);
                 if (member.getName().equals(memberName)) {
                     allAssignedTasks.add(task);
                     break;

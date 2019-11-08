@@ -1,12 +1,12 @@
 package repositorytests;
 
-import models.project.Project;
-import org.junit.jupiter.api.Test;
-import repositories.ProjectRepository;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import models.project.Project;
+import org.junit.jupiter.api.Test;
+import repositories.ProjectRepository;
 
 //@@author Lucria
 class ProjectRepositoryTest {
@@ -42,8 +42,10 @@ class ProjectRepositoryTest {
         assertEquals(expectedProject.getNumOfTasks(), simulatedProject.getNumOfTasks());
         assertEquals(expectedProject.getMembers().getAllMemberDetails(),
                 simulatedProject.getMembers().getAllMemberDetails());
-        assertEquals(expectedProject.getTasks().getAllTaskDetails(expectedProject.getTasksAndAssignedMembers()),
-                simulatedProject.getTasks().getAllTaskDetails(simulatedProject.getTasksAndAssignedMembers()));
+        assertEquals(expectedProject.getTasks().getAllTaskDetails(expectedProject.getTasksAndAssignedMembers(),
+            projectRepository.getItem(1)),
+                simulatedProject.getTasks().getAllTaskDetails(simulatedProject.getTasksAndAssignedMembers(),
+                    projectRepository.getItem(1)));
     }
 
     @Test
@@ -69,8 +71,10 @@ class ProjectRepositoryTest {
         assertEquals(expectedProject.getNumOfTasks(), simulatedProject.getNumOfTasks());
         assertEquals(expectedProject.getMembers().getAllMemberDetails(),
                 simulatedProject.getMembers().getAllMemberDetails());
-        assertEquals(expectedProject.getTasks().getAllTaskDetails(expectedProject.getTasksAndAssignedMembers()),
-                simulatedProject.getTasks().getAllTaskDetails(simulatedProject.getTasksAndAssignedMembers()));
+        assertEquals(expectedProject.getTasks().getAllTaskDetails(expectedProject.getTasksAndAssignedMembers(),
+            projectRepository.getItem(1)),
+                simulatedProject.getTasks().getAllTaskDetails(simulatedProject.getTasksAndAssignedMembers(),
+                    projectRepository.getItem(1)));
     }
 
     @Test

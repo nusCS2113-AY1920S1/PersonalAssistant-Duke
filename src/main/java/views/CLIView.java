@@ -1,13 +1,14 @@
 package views;
 
+import static util.constant.ConstantHelper.HELLO_MESSAGE;
+import static util.constant.ConstantHelper.HORILINE;
+import static util.constant.ConstantHelper.INDENTATION;
+
 import controllers.ConsoleInputController;
 import controllers.ProjectInputController;
+import java.util.Scanner;
 import repositories.ProjectRepository;
 import util.log.ArchDukeLogger;
-
-import java.util.Scanner;
-
-import static util.constant.ConstantHelper.*;
 
 public class CLIView {
     private ConsoleInputController consoleInputController;

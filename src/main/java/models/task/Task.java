@@ -1,5 +1,6 @@
 package models.task;
 
+import java.util.UUID;
 import util.date.DateTimeHelper;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class Task implements ITask {
     private TaskState taskState;
     private ArrayList<String> taskRequirements;
     private DateTimeHelper dateTimeHelper;
+    private String taskID;
 
     @Override
     public boolean equals(Object obj) {
@@ -23,13 +25,13 @@ public class Task implements ITask {
             return false;
         } else {
             Task other = (Task) obj;
-            return this.taskName.equals(other.taskName);
+            return this.taskID.equals(other.taskID);
         }
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.taskName);
+        return Objects.hash(this.taskID);
     }
 
     /**
@@ -51,6 +53,7 @@ public class Task implements ITask {
         this.taskState = taskState;
         this.taskRequirements = taskRequirements;
         this.dateTimeHelper = new DateTimeHelper();
+        this.taskID = UUID.randomUUID().toString();
     }
 
     public String getTaskName() {
@@ -179,5 +182,9 @@ public class Task implements ITask {
 
     public void addTaskRequirement(String newTaskRequirement) {
         this.taskRequirements.add(newTaskRequirement);
+    }
+
+    public String getTaskID() {
+        return this.taskID;
     }
 }

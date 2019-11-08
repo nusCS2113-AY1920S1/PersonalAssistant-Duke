@@ -463,17 +463,21 @@ public class ProjectInputController implements IController {
             + projectCommand + "'");
         try {
             if (("view tasks").equals(projectCommand)) {
-                HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
+                HashMap<String, ArrayList<String>> tasksAndAssignedMembers
+                    = projectToManage.getTasksAndAssignedMembers();
                 ArrayList<String> allTaskDetailsForTable
-                    = projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, "/PRIORITY");
+                    = projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers,
+                    "/PRIORITY", projectToManage);
                 allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getName() + ":");
                 ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
                 return viewHelper.consolePrintTable(allTaskDetailsForTable, DEFAULT_HORI_BORDER_LENGTH);
             } else if (projectCommand.length() >= 11) {
                 String sortCriteria = projectCommand.substring(11);
-                HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers = projectToManage.getTasksAndAssignedMembers();
+                HashMap<String, ArrayList<String>> tasksAndAssignedMembers
+                    = projectToManage.getTasksAndAssignedMembers();
                 ArrayList<String> allTaskDetailsForTable =
-                    projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, sortCriteria);
+                    projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, sortCriteria,
+                        projectToManage);
                 ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
                 allTaskDetailsForTable.add(0, "Tasks of " + projectToManage.getName() + ":");
                 return viewHelper.consolePrintTable(allTaskDetailsForTable, DEFAULT_HORI_BORDER_LENGTH);

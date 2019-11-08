@@ -18,4 +18,6 @@ public interface IMember {
     String getRole();
 
     String setRole(String input);
+
+    String getMemberID();
 }
