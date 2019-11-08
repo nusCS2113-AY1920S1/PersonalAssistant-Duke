@@ -34,6 +34,7 @@ public class RemindCommandTest {
     private static Date oneMinBeforeCurrentDate;
     private static Date oneMinAfterCurrentDate;
     private static Date tenMinAfterCurrentDate;
+    private static Date threeDaysAfterCurrentDate;
     private static SimpleDateFormat dateOutputFormat = new SimpleDateFormat("E dd/MM/yyyy");
     private static SimpleDateFormat timeOutputFormat = new SimpleDateFormat("hh:mm a");
     private static SimpleDateFormat deadlineDateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
@@ -46,7 +47,7 @@ public class RemindCommandTest {
         Date dayAfter = new Date(System.currentTimeMillis() + 86400000);
         Date dayBefore = new Date(System.currentTimeMillis() - 86400000);
         Date dayAfterTomorrow = new Date(System.currentTimeMillis() + 172800000);
-        Date threeDaysAfterCurrentDate = new Date(System.currentTimeMillis() + 259200000);
+        threeDaysAfterCurrentDate = new Date(System.currentTimeMillis() + 259200000);
         String dateAfter = dateOutputFormat.format(dayAfter);
         String timeAfter = timeOutputFormat.format(dayAfter);
         String dateBefore = dateOutputFormat.format(dayBefore);
@@ -67,6 +68,7 @@ public class RemindCommandTest {
         taskWithInvalidDate = new Deadline("CS2100 exam", dateDayAfterTomorrow, timeDayAfterTomorrow);
         taskWithReminder = new Deadline("CS2100 exam", dateThreeDaysAfter, timeThreeDaysAfter);
         deadlines.addTask(taskAfterCurrentDate);
+        deadlines.addTask(taskWithReminder);
         ReminderStub.setReminderTask(taskWithReminder);
         ReminderStub.setReminderTime(tenMinAfterCurrentDate);
     }
@@ -139,7 +141,7 @@ public class RemindCommandTest {
     @Test
     public void remindDateExistsTest() {
         Command command = new RemindCommand(taskWithReminder, tenMinAfterCurrentDate,true);
-        String expected = "Sorry, you have a reminder set for " + taskWithReminder.getDescription() + " at: " + taskWithReminder.getDateTime();
+        String expected = "Sorry, you have a reminder set for " + taskWithReminder.getModCode() + " " + taskWithReminder.getDescription() + " by: " + taskWithReminder.getDateTime();
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);
@@ -163,9 +165,22 @@ public class RemindCommandTest {
     }
 
     @Test
+    public void setReminderAfterDateOfTask() {
+        Command command = new RemindCommand(taskAfterCurrentDate, threeDaysAfterCurrentDate, true);
+        String expected = "Sorry, you cannot set a reminder after the date of the task.";
+        String actual = "";
+        try {
+            actual = command.execute(events, deadlines, ui, storageStub);
+        } catch (Exception e) {
+            actual = e.getMessage();
+        }
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void removeReminderInvalidDescription() {
         Command command = new RemindCommand(taskWithInvalidDescription, tenMinAfterCurrentDate,false);
-        String expected = "Sorry, you have no such reminder with inputted description at that time";
+        String expected = "Sorry, you have no such reminder with inputted description at that time.";
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);
@@ -191,7 +206,7 @@ public class RemindCommandTest {
     @Test
     public void removeReminderValidFormat() {
         Command command = new RemindCommand(taskWithReminder, tenMinAfterCurrentDate,false);
-        String expected = "Reminder has been removed for " + taskWithReminder.getModCode() + " " + taskWithReminder.getDescription() + "at: " + reminderRemoveDateString;
+        String expected = "Reminder has been removed for " + taskWithReminder.getModCode() + " " + taskWithReminder.getDescription() + "on: " + reminderRemoveDateString;
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);

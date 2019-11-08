@@ -112,7 +112,7 @@ public class MainWindow extends BorderPane implements Initializable {
             setDeadlineTableContents();
             setProgressContainer();
         } catch (NullPointerException | IOException | ParseException e) {
-            LOGGER.severe("Unable to initialise main window GUI." + e.getMessage());
+            LOGGER.severe("Unable to initialise main window GUI.");
         }
     }
 
@@ -136,7 +136,7 @@ public class MainWindow extends BorderPane implements Initializable {
             inputStreamReader.close();
             inputStream.close();
         } catch (IOException e) {
-            LOGGER.severe("quotes.txt not found. Unable to load quote of the day." + e.getMessage());
+            LOGGER.severe("quotes.txt not found. Unable to load quote of the day.");
         }
     }
 
@@ -159,7 +159,7 @@ public class MainWindow extends BorderPane implements Initializable {
             try {
                 loads = fxmlLoad.load();
             } catch (IOException e) {
-                LOGGER.severe("ProgressIndicator.fxml not found." + e.getMessage());
+                LOGGER.severe("ProgressIndicator.fxml not found.");
             }
             int totalNumOfTasks = progressIndicatorValues.get(module).getKey();
             int completedValue = progressIndicatorValues.get(module).getValue();

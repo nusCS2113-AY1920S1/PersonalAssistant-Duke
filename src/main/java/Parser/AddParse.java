@@ -10,6 +10,7 @@ import DukeExceptions.DukeInvalidFormatException;
 import Tasks.Deadline;
 import Tasks.Event;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -52,7 +53,7 @@ public class AddParse extends Parse {
                 String[] out = DateTimeParser.DeadlineParse(modCodeAndDescription[1]);
                 return new AddCommand(new Deadline(modCodeAndDescription[0].trim(), out[0], out[1]));
             } catch (ParseException | ArrayIndexOutOfBoundsException e) {
-                LOGGER.info("Invalid format for adding deadline" + e.getMessage());
+                LOGGER.severe("Invalid format for adding deadline");
                 throw new DukeInvalidFormatException(" OOPS!!! Please enter deadline as follows:\n" +
                         "add/d mod_code name_of_deadline /by dd/MM/yyyy HHmm\n" +
                         "or add/d mod_code name_of_deadline /by week x day HHmm\n");
@@ -72,7 +73,7 @@ public class AddParse extends Parse {
                 String[] out = DateTimeParser.EventParse(modCodeAndDescription[1]);
                 return new AddCommand(new Event(modCodeAndDescription[0].trim(),out[0],out[1],out[2]));
             } catch (ParseException | ArrayIndexOutOfBoundsException e ) {
-                LOGGER.info("Invalid format for adding event" + e.getMessage());
+                LOGGER.severe("Invalid format for adding event");
                 throw new DukeInvalidFormatException("OOPS!!! Please enter event as follows:\n" +
                         "add/e modCode name_of_event /at dd/MM/yyyy /from HHmm /to HHmm\n" +
                         "or add/e modCode name_of_event /at week x day /from HHmm /to HHmm\n " +

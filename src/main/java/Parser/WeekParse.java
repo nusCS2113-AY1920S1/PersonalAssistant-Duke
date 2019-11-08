@@ -2,9 +2,13 @@ package Parser;
 
 import Commands.Command;
 import Commands.WeekCommand;
+import Commons.DukeLogger;
 import DukeExceptions.DukeInvalidFormatException;
 
+import java.util.logging.Logger;
+
 public class WeekParse extends Parse {
+    private static final Logger LOGGER = DukeLogger.getLogger(WeekParse.class);
     private String fullCommand;
     private final String invalidWeek = "Invalid Week. Please enter the command as follows. \n" +
             "show/week 'x' , where 'x' is a digit between 1 - 13 or \n" +
@@ -40,6 +44,7 @@ public class WeekParse extends Parse {
                 if(week >= 1 && week <= 13) return true;
                 else return false;
             } catch (NumberFormatException e) {
+                LOGGER.severe("Unable to parse string to integer");
                 return false;
             }
         }

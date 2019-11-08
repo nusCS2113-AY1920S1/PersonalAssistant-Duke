@@ -4,10 +4,8 @@ import Commands.Command;
 import Commands.RecurringCommand;
 import Commons.DukeLogger;
 import DukeExceptions.DukeInvalidFormatException;
-import Commons.LookupTable;
 
 import java.text.ParseException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -63,7 +61,7 @@ public class RecurParse extends Parse {
             String endTimeString = in[3];
             return new RecurringCommand(modCodeAndDescription, startDateString, endDateString, startTimeString, endTimeString, isBiweekly, isRecur);
         } catch (ParseException | ArrayIndexOutOfBoundsException e) {
-            LOGGER.info("Invalid recur format" + e.getMessage());
+            LOGGER.severe("Invalid recur format");
             throw new DukeInvalidFormatException("OOPS!!! Please enter recurring event as follows:\n" +
                     "recur/(fill) modCode name_of_event /start dd/MM/yyyy to dd/MM/yyyy /from HHmm /to HHmm\n" +
                     "Note: replace (fill) with either: weekly, biweekly, rmweekly, rmbiweekly\n" +

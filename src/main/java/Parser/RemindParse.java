@@ -8,7 +8,6 @@ import Tasks.Deadline;
 
 import java.text.ParseException;
 import java.util.Date;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -19,7 +18,7 @@ public class RemindParse extends Parse {
     private String[] modDescriptionsplit;
     private String fullCommand;
     private String[] dateDescriptionSplit;
-    private static final Logger LOGGER = DukeLogger.getLogger(RemindCommand.class);
+    private static final Logger LOGGER = DukeLogger.getLogger(RemindParse.class);
 
     /**
      * Creates RemindParse object.
@@ -46,27 +45,32 @@ public class RemindParse extends Parse {
             String activity = fullCommand.trim().substring(6);
             dateDescriptionSplit = activity.trim().split("/by");
             modDescriptionsplit = dateDescriptionSplit[0].trim().split(" ");
-            if (!super.isModCode(modDescriptionsplit[1])) {
-                throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
-            }
             if (dateDescriptionSplit[0].contains("/set")) {
                 description = dateDescriptionSplit[0].substring(4).trim();
-                if (description.isEmpty()) {
-                    throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
-                }
                 isRemind = true;
             } else {
                 description = dateDescriptionSplit[0].substring(3).trim();
-                if (description.isEmpty()) {
-                    throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
-                }
             }
-
+            if (description.isEmpty()) {
+                throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode and description of a deadline cannot be empty.");
+            } else if (!super.isModCode(modDescriptionsplit[1])) {
+                throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid.");
+            }
+            String modCode = modDescriptionsplit[1];
+            String taskDescription = NO_FIELD;
+            if (isRemind) {
+                taskDescription = dateDescriptionSplit[0].substring(4 + modCode.length() + 1).trim();
+            } else {
+                taskDescription = dateDescriptionSplit[0].substring(3 + modCode.length() + 1).trim();
+            }
+            if (taskDescription.isEmpty()) {
+                throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
+            }
             String[] dateTime = DateTimeParser.remindDateParse(dateDescriptionSplit[1].trim());
             Date remindDate = DateTimeParser.deadlineInputStringToDate(dateTime[2]);
             return new RemindCommand(new Deadline(description, dateTime[0], dateTime[1]), remindDate, isRemind);
         } catch (ParseException | ArrayIndexOutOfBoundsException e) {
-            LOGGER.info("Invalid remind format" + e.getMessage());
+            LOGGER.severe("Invalid remind format");
             throw new DukeInvalidFormatException("OOPS!!! Please enter remind as follows:\n" +
                     "remind/(set/rm) mod_code description /by week n.o day time /on week n.o day time\n" +
                     "For example: remind/set cs2100 hand in homework /by week 9 fri 1500 /on week 9 thu 1500");

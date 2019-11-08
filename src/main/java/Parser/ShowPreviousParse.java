@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  * This class parses the full command that calls for ShowPreviousParse.
  */
 public class ShowPreviousParse extends Parse{
-    private final Logger LOGGER = DukeLogger.getLogger(ShowPreviousCommand.class);
+    private final Logger LOGGER = DukeLogger.getLogger(ShowPreviousParse.class);
     private final Integer TOTALNUMOFCOMMANDS = 15;
     private String fullCommand;
 
@@ -38,7 +38,7 @@ public class ShowPreviousParse extends Parse{
         try {
             number = Integer.parseInt(entireCommand);
         } catch (NumberFormatException e) {
-            LOGGER.info("Unable to parse string to integer" + e.getMessage());
+            LOGGER.severe("Unable to parse string to integer");
             isNumber = false;
         }
 
