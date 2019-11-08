@@ -42,7 +42,7 @@ public class WorkloadParse extends Parse{
         } catch (ArrayIndexOutOfBoundsException e) {
             LOGGER.severe("Invalid show workload format");
             throw new DukeInvalidFormatException("OOPS!!! Please enter show workload as follows:\n" +
-                    "/show workload");
+                    "show/workload");
         }
     }
 }
