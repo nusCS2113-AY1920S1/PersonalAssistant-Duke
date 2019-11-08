@@ -77,6 +77,9 @@ public class Ui {
         System.out.println("\t" + "Here is the list of projects:");
         for (Project project: projectslist) {
             System.out.println("\t" + index + ". " + project.projectname);
+            System.out.println("\t\t" + "Budget: " + project.budget);
+            System.out.println("\t\t" + "Spending: " + project.spending);
+            System.out.println("");
             index++;
         }
         System.out.println("\t" + "There are " + projectslist.size() + " projects in the record.");
@@ -116,15 +119,15 @@ public class Ui {
     /**
      * Prints the number of projects in the projectmap and the current project
      * that is being worked on.
-     * @param currentprojectname Name of the current project.
+     * @param currentprojectnamename Name of the current project.
      * @param projectsize The current number of projects in the projectmap.
      */
-    public void printProjectStatus(String currentprojectname, int projectsize) {
+    public void printProjectStatus(String currentprojectnamename, int projectsize) {
         System.out.print(line);
-        if (currentprojectname == null) {
+        if (currentprojectnamename == null) {
             System.out.println("\t" + "There are no projects in the record.");
         } else {
-            System.out.println("\t" + "Current Project: " + currentprojectname);
+            System.out.println("\t" + "Current Project: " + currentprojectnamename);
             System.out.println("\t" + "There are " + projectsize + " projects in the record.");
         }
         System.out.print(line);
@@ -233,11 +236,11 @@ public class Ui {
      * @param payment Representation of the Payment that is deleted.
      * @param size the number of payments in the record for this Payee after deletion
      */
-    public void printDeletePaymentMessage(Payments payment, int size, String currentProjectName) {
+    public void printDeletePaymentMessage(Payments payment, int size, String currentprojectnameName) {
         System.out.print(line + "     Noted. I've removed this payment: \n");
         payment.givePayments();
         System.out.print("\t" + payment.payee + " now has " + size 
-            + " payments in project " + currentProjectName + ".\n");
+            + " payments in project " + currentprojectnameName + ".\n");
         System.out.print(line);
     }
 
@@ -332,12 +335,12 @@ public class Ui {
      * Prints message to indicate a Payment being added to a certain Payee.
      * @param payment the new Payment containing the relevant information added to Payee object.
      */
-    public void printAddPaymentMessage(Payments payment, int size, String currentProjectName) {
+    public void printAddPaymentMessage(Payments payment, int size, String currentprojectname) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've added this payment:");
         payment.givePayments();
         System.out.print("\t" + payment.payee + " now has " + size 
-            + " payments in project " + currentProjectName + ".\n");
+            + " payments in project " + currentprojectname + ".\n");
         System.out.print(line);
     }
 
@@ -346,14 +349,14 @@ public class Ui {
      * @param payee Payee containing identification information of Payee.
      * @param name the name of Payee to make Payments to.
      */
-    public void printAddPayeeMessage(String name, Payee payee, int payeesize, String currentProjectName) {
+    public void printAddPayeeMessage(String name, Payee payee, int payeesize, String currentprojectnameName) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've added this payee:");
         System.out.println("\t" + "Payee: " + name);
         System.out.println("\t" + "Email: " + payee.email);
         System.out.println("\t" + "Matric No: " + payee.matricNum);
         System.out.println("\t" + "Phone No: " + payee.phoneNum);
-        System.out.print("\t" + "There are " + payeesize + " payees in project " + currentProjectName + ".\n");
+        System.out.print("\t" + "There are " + payeesize + " payees in project " + currentprojectnameName + ".\n");
         System.out.print(line);
     }
 
@@ -372,14 +375,14 @@ public class Ui {
      * @param payee Payee containing identification information of Payee.
      * @param name the name of Payee to make Payments to.
      */
-    public void printdeletePayeeMessage(String name, Payee payee, int payeesize, String currentProjectName) {
+    public void printdeletePayeeMessage(String name, Payee payee, int payeesize, String currentprojectnameName) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've deleted this payee:");
         System.out.println("\t" + "Payee: " + name);
         System.out.println("\t" + "Email: " + payee.email);
         System.out.println("\t" + "Matric No: " + payee.matricNum);
         System.out.println("\t" + "Phone No: " + payee.phoneNum);
-        System.out.print("\t" + "There are " + payeesize + " payees in project " + currentProjectName + ".\n");
+        System.out.print("\t" + "There are " + payeesize + " payees in project " + currentprojectnameName + ".\n");
         System.out.print(line);
     }
 
