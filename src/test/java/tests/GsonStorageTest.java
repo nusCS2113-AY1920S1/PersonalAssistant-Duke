@@ -52,41 +52,37 @@ public class GsonStorageTest extends CommandTest {
      * the createComplexPatient method.
      */
     private String expected =
-            "[{\"bedNo\":\"A100\",\"allergies\":\"nuts\",\"impressions\":[],\"height\":0,\"weight\":0,\"age\":0,"
-            + "\"number\":0,\"address\":\"\",\"history\":\"\",\"name\":\"dummy1\"},"
-            + "{\"bedNo\":\"A200\",\"allergies\":\"\",\"impressions\":[],\"height\":0,\"weight\":0,\"age\":0,"
-            + "\"number\":0,\"address\":\"\",\"history\":\"\",\"name\":\"dummy2\"},"
-            + "{\"bedNo\":\"A300\",\"allergies\":\"cats\",\"impressions\":[],\"height\":0,\"weight\":0,\"age\":0,"
-            + "\"number\":0,\"address\":\"\",\"history\":\"\",\"name\":\"dummy3\"},"
-            + "{\"bedNo\":\"C1\",\"allergies\":\"test allergies\","
-            + "\"primaryDiagnosis\":{\"description\":\"test description 1\","
-            + "\"evidences\":[{\"type\":\"Observation\",\"properties\":{\"isObjective\":false,\"priority\":0,"
-            + "\"summary\":\"test summary 1\",\"name\":\"test obs 1\"}},{\"type\":\"Observation\",\"properties\":{"
-            + "\"isObjective\":true,\"priority\":1,\"summary\":\"test summary 2\",\"name\":\"test obs 2\"}},{\"type\":"
-            + "\"Result\",\"properties\":{\"priority\":2,\"summary\":\"test summary 1\",\"name\":\"test result 1\"}},"
-            + "{\"type\":\"Result\",\"properties\":{\"priority\":3,\"summary\":\"test summary 2\",\"name\":"
-            + "\"test result 2\"}}],\"treatments\":[{\"type\":\"Plan\",\"properties\":{\"statusIdx\":1,\"priority\":0,"
-            + "\"summary\":\"test summary 2\",\"name\":\"test plan 1\"}},{\"type\":\"Investigation\",\"properties\":{"
-            + "\"statusIdx\":1,\"priority\":0,\"summary\":\"test summary 1\",\"name\":\"test inv 1\"}}],\"name\":"
-            + "\"test imp 1\"},\"impressions\":[{\"description\":\"test description 1\",\"evidences\":[{\"type\":"
-            + "\"Observation\",\"properties\":{\"isObjective\":false,\"priority\":0,\"summary\":\"test summary 1\","
-            + "\"name\":\"test obs 1\"}},{\"type\":\"Observation\",\"properties\":{\"isObjective\":true,\"priority\":1,"
-            + "\"summary\":\"test summary 2\",\"name\":\"test obs 2\"}},{\"type\":\"Result\",\"properties\":{"
-            + "\"priority\":2,\"summary\":\"test summary 1\",\"name\":\"test result 1\"}},{\"type\":\"Result\","
-            + "\"properties\":{\"priority\":3,\"summary\":\"test summary 2\",\"name\":\"test result 2\"}}],"
-            + "\"treatments\":[{\"type\":\"Plan\",\"properties\":{\"statusIdx\":1,\"priority\":0,\"summary\":"
-            + "\"test summary 2\",\"name\":\"test plan 1\"}},{\"type\":\"Investigation\",\"properties\":{\"statusIdx\":"
-            + "1,\"priority\":0,\"summary\":\"test summary 1\",\"name\":\"test inv 1\"}}],\"name\":\"test imp 1\"},"
-            + "{\"description\":\"test description 2\",\"evidences\":[],\"treatments\":[{\"type\":\"Medicine\","
-            + "\"properties\":{\"dose\":\"test dose 1\",\"startDate\":\"test start date\",\"duration\":"
-            + "\"test duration\",\"statusIdx\":1,\"priority\":0,\"name\":\"test medicine 2\"}},{\"type\":\"Plan\","
-            + "\"properties\":{\"statusIdx\":2,\"priority\":1,\"summary\":\"test summary 2\",\"name\":\"test plan 2\"}"
-            + "},{\"type\":\"Investigation\",\"properties\":{\"statusIdx\":3,\"priority\":2,\"summary\":"
-            + "\"test summary 2\",\"name\":\"test inv 2\"}},{\"type\":\"Medicine\",\"properties\":{\"dose\":"
-            + "\"test dose 2\",\"startDate\":\"test start date\",\"duration\":\"test duration\",\"statusIdx\":3,"
-            + "\"priority\":2,\"name\":\"test medicine 1\"}}],\"name\":\"test imp 2\"}],\"height\":123,\"weight\":456,"
-            + "\"age\":100,\"number\":6582447,\"address\":\"test address\",\"history\":\"test history\","
-            + "\"name\":\"testCPatient\"}]\n";
+            "[{\"bedNo\":\"A100\",\"allergies\":\"nuts\",\"impressionList\":[],\"height\":0,\"weight\":0,\"age\":0,"
+        + "\"number\":0,\"address\":\"\",\"history\":\"\",\"name\":\"dummy1\"},{\"bedNo\":\"A200\",\"allergies\":\"\","
+        + "\"impressionList\":[],\"height\":0,\"weight\":0,\"age\":0,\"number\":0,\"address\":\"\",\"history\":\"\","
+        + "\"name\":\"dummy2\"},{\"bedNo\":\"A300\",\"allergies\":\"cats\",\"impressionList\":[],\"height\":0,"
+        + "\"weight\":0,\"age\":0,\"number\":0,\"address\":\"\",\"history\":\"\",\"name\":\"dummy3\"},{\"bedNo\":"
+        + "\"C1\",\"allergies\":\"test allergies\",\"primaryDiagnosis\":{\"description\":\"test description 1\","
+        + "\"evidences\":[{\"type\":\"Observation\",\"properties\":{\"isObjective\":false,\"priority\":0,\"summary\":"
+        + "\"test summary 1\",\"name\":\"test obs 1\"}},{\"type\":\"Observation\",\"properties\":{\"isObjective\":true,"
+        + "\"priority\":1,\"summary\":\"test summary 2\",\"name\":\"test obs 2\"}},{\"type\":\"Result\",\"properties\":"
+        + "{\"priority\":2,\"summary\":\"test summary 1\",\"name\":\"test result 1\"}},{\"type\":\"Result\","
+        + "\"properties\":{\"priority\":3,\"summary\":\"test summary 2\",\"name\":\"test result 2\"}}],\"treatments\":"
+        + "[{\"type\":\"Plan\",\"properties\":{\"statusIdx\":1,\"priority\":0,\"summary\":\"test summary 2\",\"name\":"
+        + "\"test plan 1\"}},{\"type\":\"Investigation\",\"properties\":{\"statusIdx\":1,\"priority\":0,\"summary\":"
+        + "\"test summary 1\",\"name\":\"test inv 1\"}}],\"name\":\"test imp 1\"},\"impressionList\":[{\"description\":"
+        + "\"test description 1\",\"evidences\":[{\"type\":\"Observation\",\"properties\":{\"isObjective\":false,"
+        + "\"priority\":0,\"summary\":\"test summary 1\",\"name\":\"test obs 1\"}},{\"type\":\"Observation\","
+        + "\"properties\":{\"isObjective\":true,\"priority\":1,\"summary\":\"test summary 2\",\"name\":\"test obs 2\"}}"
+        + ",{\"type\":\"Result\",\"properties\":{\"priority\":2,\"summary\":\"test summary 1\",\"name\":"
+        + "\"test result 1\"}},{\"type\":\"Result\",\"properties\":{\"priority\":3,\"summary\":\"test summary 2\","
+        + "\"name\":\"test result 2\"}}],\"treatments\":[{\"type\":\"Plan\",\"properties\":{\"statusIdx\":1,"
+        + "\"priority\":0,\"summary\":\"test summary 2\",\"name\":\"test plan 1\"}},{\"type\":\"Investigation\","
+        + "\"properties\":{\"statusIdx\":1,\"priority\":0,\"summary\":\"test summary 1\",\"name\":\"test inv 1\"}}],"
+        + "\"name\":\"test imp 1\"},{\"description\":\"test description 2\",\"evidences\":[],\"treatments\":[{\"type\":"
+        + "\"Medicine\",\"properties\":{\"dose\":\"test dose 1\",\"startDate\":\"test start date\",\"duration\":"
+        + "\"test duration\",\"statusIdx\":1,\"priority\":0,\"name\":\"test medicine 2\"}},{\"type\":\"Plan\","
+        + "\"properties\":{\"statusIdx\":2,\"priority\":1,\"summary\":\"test summary 2\",\"name\":\"test plan 2\"}},"
+        + "{\"type\":\"Investigation\",\"properties\":{\"statusIdx\":0,\"priority\":2,\"summary\":\"test summary 2\","
+        + "\"name\":\"test inv 2\"}},{\"type\":\"Medicine\",\"properties\":{\"dose\":\"test dose 2\",\"startDate\":"
+        + "\"test start date\",\"duration\":\"test duration\",\"statusIdx\":2,\"priority\":2,\"name\":"
+        + "\"test medicine 1\"}}],\"name\":\"test imp 2\"}],\"height\":123,\"weight\":456,\"age\":100,\"number\":"
+        + "6582447,\"address\":\"test address\",\"history\":\"test history\",\"name\":\"testCPatient\"}]\n";
 
     /**
      * Creates a patient object and assign values to all of its attributes - used to test if the nesting works.
@@ -189,14 +185,17 @@ public class GsonStorageTest extends CommandTest {
         core.patientData.addPatient(createComplexPatient());
         core.storage.writeJsonFile(core.patientData.getPatientList());
         String json = Files.readString(Paths.get(testFilePath), StandardCharsets.US_ASCII);
+        /*
         for (int i = 0; i < json.length() && i < expected.length(); i++) {
             if (json.charAt(i) != expected.charAt(i)) {
                 System.out.println("index" + i);
+                System.out.println(json.charAt(i) + "  " + expected.charAt(i));
             }
         }
         if (json.length() != expected.length()) {
             System.out.println("json " + json.length() + " expected " + expected.length());
-        }
+            System.out.println(json);
+        }*/
         int i = json.length() / 2;
         assertEquals(expected.substring(0, i), json.substring(0, i));
         assertEquals(expected.substring(i, json.length() - 1), json.substring(i, json.length() - 1));
