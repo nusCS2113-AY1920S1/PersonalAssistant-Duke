@@ -26,25 +26,25 @@ public class FreeCommandTest {
             oof.executeCommand("free");
             fail();
         } catch (CommandException | ParserException e) {
-            assertEquals("OOPS!!! Please enter the date in the following format: DD-MM-YYYY", e.getMessage());
+            assertEquals("OOPS!!! The date is invalid.", e.getMessage());
         }
         try {
             oof.executeCommand("free 08/11/2019");
             fail();
         } catch (CommandException | ParserException  e) {
-            assertEquals("OOPS!!! Please enter the date in the following format: DD-MM-YYYY", e.getMessage());
+            assertEquals("OOPS!!! The date is invalid.", e.getMessage());
         }
         try {
             oof.executeCommand("free 08 11 2019");
             fail();
         } catch (CommandException | ParserException e) {
-            assertEquals("OOPS!!! Please enter the date in the following format: DD-MM-YYYY", e.getMessage());
+            assertEquals("OOPS!!! The date is invalid.", e.getMessage());
         }
         try {
             oof.executeCommand("free 2019-11-08");
             fail();
         } catch (CommandException | ParserException e) {
-            assertEquals("OOPS!!! Please enter either today's date or a date in the future!", e.getMessage());
+            assertEquals("OOPS!!! The date is invalid.", e.getMessage());
         }
     }
 
@@ -57,13 +57,13 @@ public class FreeCommandTest {
             oof.executeCommand("free abc");
             fail();
         } catch (CommandException | ParserException e) {
-            assertEquals("OOPS!!! Please enter the date in the following format: DD-MM-YYYY", e.getMessage());
+            assertEquals("OOPS!!! The date is invalid.", e.getMessage());
         }
         try {
             oof.executeCommand("free aa-bb-cc");
             fail();
         } catch (CommandException | ParserException e) {
-            assertEquals("OOPS!!! Please enter the date in the following format: DD-MM-YYYY", e.getMessage());
+            assertEquals("OOPS!!! The date is invalid.", e.getMessage());
         }
     }
 
@@ -76,7 +76,7 @@ public class FreeCommandTest {
             oof.executeCommand("free -1-11-2019");
             fail();
         } catch (CommandException | ParserException e) {
-            assertEquals("OOPS!!! Please enter either today's date or a date in the future!", e.getMessage());
+            assertEquals("OOPS!!! The date is invalid.", e.getMessage());
         }
     }
 
