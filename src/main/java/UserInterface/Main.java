@@ -1,8 +1,8 @@
 package UserInterface;
+
 import Commons.Duke;
 import java.io.IOException;
 import java.util.logging.Logger;
-
 import Commons.DukeLogger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +18,7 @@ public class Main extends Application {
     private final Logger logger = DukeLogger.getLogger(Main.class);
 
     /**
-     * This method sets the platform of the GUI
+     * This method sets the platform of the GUI.
      * @param stage The window on which the Duke program will appear on.
      */
     @Override

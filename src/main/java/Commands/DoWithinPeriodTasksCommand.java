@@ -45,7 +45,6 @@ public class DoWithinPeriodTasksCommand extends Command {
             AlertBox.display("Reminder Alert", "You have a task to do within a period.",
                     taskDescription + " (from " + startDate + " to " + endDate + ")", Alert.AlertType.INFORMATION);
         }
-
         return ui.showReminder(taskDescription, startDate, endDate, isValid);
     }
 }
