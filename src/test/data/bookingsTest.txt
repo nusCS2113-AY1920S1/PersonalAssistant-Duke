@@ -1,0 +1,3 @@
+booking | Zihan | 91520567 | 4 | 12/12/2019 | prawn pasta, chicken pie
+booking | John_Lim | 82738364 | 6 | 30/6/2019 | chicken rice, fish and chips
+booking | Jack | 94847291 | 2 | 13/5/2019 | beef pasta

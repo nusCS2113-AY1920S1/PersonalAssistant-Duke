@@ -44,7 +44,7 @@ public class BookingMessages {
 
     public static final String ERROR_MESSAGE_INVALID_DATE = "Invalid booking date entered.\n Please enter date again in this format: dd/MM/yyyy";
 
-    public static final String ERROR_MESSAGE_OVERFLOW_DATE = "No such date!.\n Please enter a valid date input.";
+    public static final String ERROR_MESSAGE_OVERFLOW_DATE = "No such date!\n Please enter a valid date after 1/1/2000";
 
     public static final String ERROR_MESSAGE_UNAVAILABLE_DATE = "Date entered is unavailable due to existing booking:(\n Please enter another date!";
 

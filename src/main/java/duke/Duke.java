@@ -10,7 +10,6 @@ import duke.storage.InventoryStorage;
 import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.*;
@@ -65,7 +64,7 @@ public class Duke {
         return ui.showWelcome();
     }
 
-    public ArrayList<String> runProgram(String userInput) throws ParseException, IOException {
+    public ArrayList<String> runProgram(String userInput) throws ParseException {
         Duke.setupLogger();
         ArrayList<String> arrayList = new ArrayList<>();
 
