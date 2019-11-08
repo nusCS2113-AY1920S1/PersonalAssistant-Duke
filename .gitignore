@@ -15,6 +15,7 @@ bin/
 
 # Generated Data File
 data/baking.json
+test.txt
 
 # Log file
 BakingHome.log.0
