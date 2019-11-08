@@ -111,8 +111,11 @@ public class SetBudgetTest {
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
 
+        double remainingBudget = budget.getAmount()
+                - testWallet.getExpenseList().getMonthExpenses(budget.getMonth(), budget.getYear());
         budgetCommand.execute(testWallet);
-        assertEquals(97, budget.getAmount());
+        assertEquals(100, budget.getAmount());
+        assertEquals(97, remainingBudget);
     }
 
     /**
