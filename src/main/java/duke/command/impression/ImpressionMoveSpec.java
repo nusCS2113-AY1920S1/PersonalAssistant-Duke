@@ -5,15 +5,16 @@ import duke.command.ArgLevel;
 import duke.command.ObjSpec;
 import duke.command.Switch;
 import duke.data.DukeData;
+import duke.data.DukeObject;
 import duke.data.Evidence;
 import duke.data.Impression;
+import duke.data.SearchResults;
 import duke.data.Treatment;
 import duke.exception.DukeException;
 
-import java.util.List;
-
 public class ImpressionMoveSpec extends ObjSpec {
     private static final ImpressionMoveSpec spec = new ImpressionMoveSpec();
+    private Impression newImpression = null;
 
     public static ImpressionMoveSpec getSpec() {
         return spec;
@@ -30,39 +31,43 @@ public class ImpressionMoveSpec extends ObjSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
-    super.execute(core);
+        super.execute(core);
         // TODO: query user for correct impression if no impression is given
         Impression impression = ImpressionUtils.getImpression(core);
         String targetImpressionName = cmd.getSwitchVal("impression");
-        Impression newImpression;
-        if ("".equals(targetImpressionName)) {
-            // TODO ask user to pick
-            newImpression = null;
-        } else {
-            // TODO: proper search
-            List<Impression> newImpressionList = ImpressionUtils.getPatient(impression)
-                    .findImpressionsByName(targetImpressionName);
-            if (newImpressionList.size() == 0) {
-                throw new DukeException("Can't find an impression with that name!");
+        SearchResults results = ImpressionUtils.getPatient(impression).findImpressionsByName(targetImpressionName);
+        processResults(core, results);
+    }
+
+    @Override
+    protected void executeWithObj(DukeCore core, DukeObject obj) throws DukeException {
+        DukeData moveData;
+        Impression currImpression = ImpressionUtils.getImpression(core);
+        if (newImpression == null) {
+            newImpression = (Impression) obj;
+            moveData = ImpressionUtils.getData(cmd.getArg(), cmd.getSwitchVal("evidence"),
+                    cmd.getSwitchVal("treatment"), currImpression);
+
+            if (moveData == null) {
+                SearchResults results = ImpressionUtils.searchData(cmd.getArg(), cmd.getSwitchVal("evidence"),
+                        cmd.getSwitchVal("treatment"), ImpressionUtils.getImpression(core));
+                processResults(core, results);
             }
-            newImpression = newImpressionList.get(0);
+        } else {
+            moveData = (DukeData) obj;
+            moveData.setParent(newImpression);
+            if (moveData instanceof Evidence) {
+                Evidence evidence = (Evidence) moveData;
+                newImpression.addNewEvidence(evidence);
+                currImpression.deleteEvidence(evidence.getName());
+            } else if (moveData instanceof Treatment) {
+                Treatment treatment = (Treatment) moveData;
+                newImpression.addNewTreatment(treatment);
+                currImpression.deleteTreatment(treatment.getName());
+            }
+            core.updateUi("'" + moveData.getName() + "' moved from '" + currImpression.getName() + "' to '"
+                    + newImpression.getName() + "'");
+            newImpression = null;
         }
-
-        DukeData moveData = ImpressionUtils.getData(cmd.getArg(), cmd.getSwitchVal("evidence"),
-                cmd.getSwitchVal("treatment"), ImpressionUtils.getImpression(core));
-
-        moveData.setParent(newImpression);
-        if (moveData instanceof Evidence) {
-            Evidence evidence = (Evidence) moveData;
-            newImpression.addNewEvidence(evidence);
-            impression.deleteEvidence(evidence.getName());
-        } else if (moveData instanceof Treatment) {
-            Treatment treatment = (Treatment) moveData;
-            newImpression.addNewTreatment(treatment);
-            impression.deleteTreatment(treatment.getName());
-        }
-
-        core.updateUi("'" + moveData.getName() + "' moved from '" + impression.getName() + "' to '"
-                + newImpression.getName() + "'");
     }
 }
