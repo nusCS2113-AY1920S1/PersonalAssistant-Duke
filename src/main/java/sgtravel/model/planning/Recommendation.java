@@ -40,9 +40,9 @@ public class Recommendation {
         Itinerary itinerary = new Itinerary(start, end, "New Recommendation");
         itinerary.checkValidDate();
         int days = itinerary.getNumberOfDays();
-        logger.log(Level.INFO, "number of days" + days);
 
         if (days >= 9) {
+            logger.log(Level.INFO, "Requested for " + days + " days itinerary but app can only give up to 8 days");
             throw new RecommendationFailException();
         }
 
