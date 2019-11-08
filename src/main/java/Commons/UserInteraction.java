@@ -180,7 +180,7 @@ public class UserInteraction {
     }
 
     /**
-     * Displays conflicting task
+     * Displays conflicting recurring task
      * @param conflictList
      * @return
      */

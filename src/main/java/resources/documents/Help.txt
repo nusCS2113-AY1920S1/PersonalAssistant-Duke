@@ -3,34 +3,40 @@ Here is a guide of how to use the different commands
 add/e modCode Description /at (date) /from HHmm /to HHmm
 2) To add deadlines, enter command in the format below
 add/d modCode Description /by (date) HHmm
-3) To delete events, enter command in the format below
+3) To complete event, enter command in the format below
+done/e modCode Description /at (date) /from HHmm /to HHmm
+4) To complete deadline, enter command in the format below
+done/d modCode Description /by (date) HHmm
+5) To delete events, enter command in the format below
 delete/e modCode Description /at (date) /from HHmm /to HHmm
-4) To delete deadlines, enter command in the format below
+6) To delete deadlines, enter command in the format below
 delete/d modCode Description /by (date) HHmm
-5) To filter keywords, enter command in the format below
-filter (keyword)
-6)To set a reminder, enter command in the format below
-remind/set modCode Description /by (date) HHmm /to (date) HHmm
-7)To delete a reminder, enter command in the format below
-remind/rm modCode Description /by (date) HHmm /to (date) HHmm
-8)To show next's week workload, enter command in the format below
-/show workload
-9)To add a recurring event, enter command in the format below
+7) To filter keywords, enter command in the format below
+show/filter (keyword)
+8) To set a reminder, enter command in the format below
+remind/set modCode Description /by (date) HHmm /on (date) HHmm
+9) To delete a reminder, enter command in the format below
+remind/rm modCode Description /by (date) HHmm /on (date) HHmm
+10) To check your list of reminders, enter command in the format below
+remind/check
+11) To show next's week workload, enter command in the format below
+show/workload
+12) To add or remove a recurring event, enter command in the format below
 recur/(fill) modCode Description /start (date) /to (date) /from HHmm /to HHmm
 replace (fill) with either: weekly, biweekly, rmweekly, rmbiweekly
-10)To show previous 3 commands, enter command in the format below
-show/previous 3
-11)To find free time, enter command in the format below
-find 'x' hours, where 'x' is between 1 - 16
-12)To retrieve a free time found by 'find' command, enter command in the format below
-retrieve/ft 'x', where 'x' is between 1 - 5
-13)To complete event, enter command in the format below
-done/e modCode Description /at (date) /from HHmm /to HHmm
-14)To deadline, enter command in the format below
-done/d modCode Description /by (date) HHmm
-15) To select the week, enter the command in the format below
-Week 'x', where 'x' is a digit between 1 - 13 or
+13) To show previous 'x' commands, enter command in the format below
+show/previous 'x', where 'x' > 0
+14) To retrieve previous 'x'-th command, enter command in the format below
+retrieve/previous 'x', where 'x' > 0
+15) To find free time, enter command in the format below
+find/time 'x' hours, where 'x' is between 1 - 16
+16) To retrieve a free time found by 'find' command, enter command in the format below
+retrieve/time 'x', where 'x' is between 1 - 5
+17) To select the week, enter the command in the format below
+show/week 'x', where 'x' is a digit between 1 - 13 or
 'x' is either 'recess', 'reading', or 'exam'
+18) To end the program, enter the command in the format below
+bye
 
 
 Note: date format can be in the form dd/mm/yyyy or week X day according to NUS academic calender

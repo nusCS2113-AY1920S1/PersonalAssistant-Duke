@@ -27,7 +27,13 @@ public class DukeConstants {
     public static final String REMIND_CHECK_KEYWORD = "/check";
     public static final String DEADLINE_DATE_DESCRIPTION_SPLIT_KEYWORD = "/by";
     public static final String EVENT_DATE_DESCRIPTION_SPLIT_KEYWORD = "/at";
-    public static final String REMIND_DATE_DEADLINE_DATE_SPLIT_KEYWORD = "/on";
+    public static final String EVENT_DATE_SPLIT_KEYWORD = "/from";
+    public static final String EVENT_TIME_SPLIT_KEYWORD = "/to";
+    public static final String REMIND_DATE_DEADLINE_DATE_SPLIT_KEYWORD = " /on ";
     public static final String STRING_SPACE_SPLIT_KEYWORD = " ";
     public static final String NO_FIELD = "void";
+    public static final String RECUR_DATE_DESCRIPTION_SPLIT_KEYWORD = "/start";
+    public static final String RECUR_BIWEEKLY_KEYWORD = "/biweekly";
+    public static final String RECUR_RMBIWEEKLY_KEYWORD = "/rmbiweekly";
+    public static final String RECUR_RMWEEKLY_KEYWORD = "/rmweekly";
 }
