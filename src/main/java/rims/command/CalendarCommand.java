@@ -17,8 +17,10 @@ public abstract class CalendarCommand extends Command {
     private static int cellHeight = 6;
     private static int CalHeight = 5;
     private static int CalWidth = 7;
+    private static int minHeight = 5;
 
     private static int DaysInMonth = getDaysInMonth(LocalDateTime.now());
+
 
     public CalendarCommand(ResourceList resources, Ui ui) throws ParseException, RimsException {
         //Date day = stringToDate("31/10/2019 1200");
@@ -30,20 +32,6 @@ public abstract class CalendarCommand extends Command {
     // public void execute(Ui ui, Storage storage, ResourceList resources) {
 
 
-
-    /*
-    private static String Vert = "║";
-    private static String Horz = "=";
-    private static String TopLeft = "╔";
-    private static String TopRight = "╗";
-    private static String BotRight = "*";
-    private static String BotLeft = "╚";
-    private static String Centre = "╬";
-    private static String TopCentre = "╦";
-    private static String BotCentre = "╩";
-    private static String MidRight = "╣";
-    private static String MidLeft = "╠";
-*/
      private static String Vert = "|";
      private static String Horz = "-";
      private static String TopLeft = "+";
@@ -56,14 +44,14 @@ public abstract class CalendarCommand extends Command {
      private static String MidRight = "+";
      private static String MidLeft = "+";
 
-    private static String[][] data =
-            { { "frisbee (2)", "rugby ball", "SR2","frisbee (2)", "SR2","frisbee (2)", "rugby ball", "SR2", "rugby ball", "SR2"  }, { "Table tennis table" },
+    private static String[][] data = {};
+           /* { { "frisbee (2)", "rugby ball", "SR2","frisbee (2)", "SR2","frisbee (2)", "rugby ball", "SR2", "rugby ball", "SR2"  }, { "Table tennis table" },
             { "frisbee (1)", "SR2", "SR3","SR4" }, { "ball", "SR2","SR3" }, {}, {}, { "MPSH" }, { "markers (5)" }, { "pen (1)" },
             { "Basketball court" }, { "frisbee (2)", "ball", "SR2","frisbee (2)", "rugby ball", "SR2", "SR4" }, { "SR1", "SR3" }, {}, {},
             { "MPSH", "Volleyball (1)" }, {}, { "MPSH", "Dodgeball(6)" }, { "MPSH" }, {},
             { "Badminton Racket (4)", "Shuttlecock (10)", "SR2","frisbee (2)", "rugby ball", "SR2", "Badminton Court 1" }, {}, { "MPSH" }, { "Games Room" }, {},
             { "soccer ball (1)", "SR2","frisbee (2)", "rugby ball", "SR2", "basketball (3)", "SR1" }, {}, {}, { "MPSH", "Dodgeball(6)" }, { "MPSH" }, {},
-            { "MPSH" }, {} };
+            { "MPSH" }, {} };*/
 
     // todo: check and align days of the week / offset from first box (mon)
     // todo: highlight box of today's date
@@ -79,7 +67,10 @@ public abstract class CalendarCommand extends Command {
     // todo: make headings - month and year as well as days of the week as the axis
     // todo: add "X more..." for when cell cannot display all rows
 
+
     public static void printCal(ResourceList resources, Ui ui) throws ParseException, RimsException {
+
+
         getData(resources,ui);
         printTopCells();
         for (int row = 2; row < CalHeight; row++) {
@@ -310,13 +301,19 @@ public abstract class CalendarCommand extends Command {
         }
         public static void increaseSize(ResourceList resources, Ui ui) throws ParseException, RimsException {
             cellHeight ++;
-            cellLength ++;
+            cellLength += 3;
             printCal(resources,ui);
         }
 
         public static void decreaseSize(ResourceList resources, Ui ui) throws ParseException, RimsException {
-        cellHeight --;
-        cellLength --;
+        if (!(cellHeight <= minHeight)) {
+            cellHeight--;
+            cellLength -= 3;
+        }
+        else {
+            System.out.println("You have reached the minimum calendar size! \n" +
+                    "The calender will be printed at this minimum size.");
+        }
         printCal(resources,ui);
     }
 }
