@@ -3,7 +3,7 @@
 package planner.logic.command;
 
 import planner.credential.user.User;
-import planner.ModTimer;
+import planner.util.legacy.schedule.ModTimer;
 import planner.logic.modules.cca.CcaList;
 import planner.main.CliLauncher;
 import planner.util.crawler.JsonWrapper;
@@ -24,7 +24,7 @@ public class ReminderCommand extends ModuleCommand {
     }
 
     /**
-     * Prints the reminder message every five minutes.
+     * Prints the reminder message every ten seconds.
      */
     private void printEveryTenSec() throws InterruptedException {
         Timer time = new ModTimer();
