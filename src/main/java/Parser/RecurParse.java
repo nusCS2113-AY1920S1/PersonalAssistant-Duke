@@ -3,6 +3,8 @@ package Parser;
 import Commands.Command;
 import Commands.RecurringCommand;
 import Commons.DukeLogger;
+import DukeExceptions.DukeInvalidCommandException;
+import DukeExceptions.DukeInvalidDateTimeException;
 import DukeExceptions.DukeInvalidFormatException;
 
 import java.text.ParseException;
@@ -22,7 +24,7 @@ public class RecurParse extends Parse {
     }
 
     @Override
-    public Command parse() throws Exception {
+    public Command parse() throws DukeInvalidFormatException, DukeInvalidDateTimeException {
         try {
             boolean isBiweekly = false;
             boolean isRecur = false;
@@ -46,13 +48,13 @@ public class RecurParse extends Parse {
                 isRecur = true;
             }
 
-            if (!isValidModCodeAndDescription(modCodeAndDescription)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode + description of an event cannot be empty.");
+            if (!super.isValidModCodeAndDescription(modCodeAndDescription)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode + description of an event cannot be empty.");
             if (!super.isModCode(modCodeAndDescription)) {
                 throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
             }
             String[] checkSplit = modCodeAndDescription.trim().split(" ");
-            if (!isValidDescription(checkSplit)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of an event cannot be empty.");
-            if(!isValidTimePeriod(dateAndTime)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The time of an event can only contain digits and the time has to be 4 digits.\n" +
+            if (!super.isValidDescription(checkSplit)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of an event cannot be empty.");
+            if(!super.isValidTimePeriod(dateAndTime)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The time of an event can only contain digits and the time has to be 4 digits.\n" +
                     "Please enter the time in a 24-hour time format");
             String[] in = DateTimeParser.recurringEventParse(dateAndTime);
             String startDateString = in[0];
