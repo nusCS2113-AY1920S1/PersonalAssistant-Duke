@@ -17,7 +17,7 @@ import java.util.TreeMap;
  */
 public class ProfileCommands {
     //    private File genreList;
-    private UserProfile userProfile;
+    UserProfile userProfile;
     private EditProfileJson editProfileJson;
     private static String GET_NEW_GENRE_PREF = "-g";
     private static String GET_NEW_GENRE_RESTRICT = "-r";
@@ -56,11 +56,7 @@ public class ProfileCommands {
         ArrayList<Integer> genrePreferences = new ArrayList<>(50);
         ArrayList<Integer> genreRestrict = new ArrayList<>(50);
         int sortOption = 0;
-        if (getInput.equals(GET_NEW_SORT) || getInput.equals(GET_NEW_ADULT_RATING)) {
-            if (flagMap.size() != 1) {
-                throw new InvalidFormatCommandException();
-            }
-        }
+        ArrayList<String> listForFlag = flagMap.get(getInput);
         for (String log : flagMap.get(getInput)) {
             if (getInput.equals(GET_NEW_GENRE_PREF)) {
                 System.out.println("ok so far0...");
@@ -71,6 +67,9 @@ public class ProfileCommands {
                 genreRestrict.add(findGenreID(log));
             }
             if (getInput.equals(GET_NEW_ADULT_RATING)) {
+                if (listForFlag.size() != 1) {
+                    throw new InvalidFormatCommandException();
+                }
                 if (log.equals("true")) {
                     userProfile.setAdult(true);
                 } else if (log.equals("false")){
@@ -82,6 +81,9 @@ public class ProfileCommands {
             }
             if (getInput.equals(GET_NEW_SORT)) {
                 System.out.println("ok so far..." + log);
+                if (listForFlag.size() != 1) {
+                    throw new InvalidFormatCommandException();
+                }
                 try {
                     sortOption = Integer.parseInt(log);
                     if (sortOption <= 0 || sortOption > 3) {

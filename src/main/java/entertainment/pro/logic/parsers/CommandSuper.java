@@ -1,6 +1,7 @@
 package entertainment.pro.logic.parsers;
 
 import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
@@ -217,8 +218,8 @@ public abstract class CommandSuper {
                 continue;
             }
             String[] flagsIndividualValues = flagValues.split(",");
-
-            ArrayList<String> listOfString = flagMap.get(flagOrder.get(counter));
+            ArrayList<String> listOfString = new ArrayList<>();
+            listOfString = flagMap.get(flagOrder.get(counter));
             if (listOfString == null) {
                 listOfString = new ArrayList<String>();
             }
