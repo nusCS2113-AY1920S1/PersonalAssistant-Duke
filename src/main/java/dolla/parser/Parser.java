@@ -54,7 +54,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         try {
             return inputArray[0];
         } catch (IndexOutOfBoundsException e) {
-            return " ";
+            return "";
         }
     }
 
