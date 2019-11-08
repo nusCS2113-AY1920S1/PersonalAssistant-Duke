@@ -35,9 +35,8 @@ public class EditCommand extends Command {
     private static final Logger logger = LogUtils.getLogger(EditCommand.class);
     private static final String deadlineStartDateMsg = "Deadline has no start time! Please omit /start <date>!";
     private static final String invalidTaskIdMsg = "Task ID invalid! Please try again!";
-    private static final String noValidEditsMsg = "No valid editable fields found! Please include one of the "
-            + "following:"
-            + "/description , /date . /start, /end , /priority";
+    private static final String noValidEditsMsg = "Whoops! Looks like there's an invalid parameter inserted!\n"
+        + "This is how you use the edit command:\n\n" + MESSAGE_USAGE;
 
     //@@author jaedonkey
 

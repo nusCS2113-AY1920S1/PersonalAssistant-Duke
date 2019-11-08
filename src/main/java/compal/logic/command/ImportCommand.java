@@ -21,13 +21,22 @@ public class ImportCommand extends Command {
         + "Examples:\n\t"
         + "import /file-name cal\n\t\t"
         + "import cal.ics schedule to COMPal.";
-    public static final String MESSAGE_SUCCESS = "I have tried importing the given File!\nThe results are below:\n";
+    public static final String MESSAGE_SUCCESS = "I have successfully imported the given file!"
+        + "\nThe results are below:\n";
+    public static final String MESSAGE_SUCCESS_PARTIAL = "I have tried importing the given file!\n"
+        + "However some of the events could not be ported over! \nThe results are below:\n";
     public static final String MESSAGE_FILE_NON_EXIST = "Error: File specified to import does not exist!";
+    public static final String MESSAGE_FILE_ICS_INCOMPATIBLE = "I have tried importing the given file!\n\n"
+        + "However it seems like it the given iCalendar file is fully incompatible"
+        + "\nto port over the schedule with COMPal currently!\n";
     public static final String MESSAGE_FILE_NON_ICS = "Error: File is not a ICS file format that can be read from!";
+
 
     private String fileName;
     private static final Logger logger = LogUtils.getLogger(ImportCommand.class);
     private String finalList = "";
+    private int attemptedImport = 0;
+    private int successfulImport = 0;
 
     /**
      * Construct the ExportCommand class.
@@ -46,8 +55,17 @@ public class ImportCommand extends Command {
 
         readFromFile(taskList);
 
+        if (finalList.isEmpty()) {
+            return new CommandResult(MESSAGE_FILE_ICS_INCOMPATIBLE, false);
+        }
         logger.info("Successfully executed import command");
-        return new CommandResult(MESSAGE_SUCCESS.concat(finalList), true);
+
+        if (successfulImport == attemptedImport) {
+            return new CommandResult(MESSAGE_SUCCESS.concat(finalList), true);
+        } else {
+            return new CommandResult(MESSAGE_SUCCESS_PARTIAL.concat(finalList), true);
+        }
+
     }
 
     /**
@@ -71,8 +89,10 @@ public class ImportCommand extends Command {
                         eventString.append(line).append("\n");
                         line = reader.readLine();
                     }
+                    attemptedImport += 1;
                 }
                 createTasks(eventString.toString(), taskList);
+
                 eventString.delete(0, eventString.length());
                 line = reader.readLine();
             }
@@ -158,6 +178,7 @@ public class ImportCommand extends Command {
             startDateList.add(taskStartDate);
             DeadlineCommand deadline = new DeadlineCommand(taskDesc, taskPriority, startDateList,
                 taskEndTime, taskEndDate, interval);
+            successfulImport += 1;
             finalList += deadline.commandExecute(taskList).feedbackToUser + "\n";
 
             if (hasReminder) {
@@ -171,14 +192,16 @@ public class ImportCommand extends Command {
                     }
                 }
             }
-
         } else {
             int interval = 7;
             ArrayList<String> startDateList = new ArrayList<>();
             startDateList.add(taskStartDate);
             EventCommand event = new EventCommand(taskDesc, startDateList, taskPriority, taskStartTime,
                 taskEndTime, taskEndDate, interval);
+            successfulImport += 1;
+
             finalList += event.commandExecute(taskList).feedbackToUser + "\n";
+
 
             if (hasReminder) {
                 for (Task t : taskList.getArrList()) {
@@ -194,6 +217,7 @@ public class ImportCommand extends Command {
                 }
             }
         }
+
     }
 
     private Boolean getReminder(String eventString) {

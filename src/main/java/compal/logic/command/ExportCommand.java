@@ -92,7 +92,7 @@ public class ExportCommand extends Command {
     private static Calendar createIcsCal(TaskList taskList) {
 
         Calendar calendar = new Calendar();
-        calendar.getProperties().add(new ProdId("-//Ben Fortuna//iCal4j 1.0//EN"));
+        calendar.getProperties().add(new ProdId("-//COMPal Inc//COMPal Calendar//EN"));
         calendar.getProperties().add(Version.VERSION_2_0);
         calendar.getProperties().add(CalScale.GREGORIAN);
 
