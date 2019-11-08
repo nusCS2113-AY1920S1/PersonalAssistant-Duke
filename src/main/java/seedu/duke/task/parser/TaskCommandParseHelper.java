@@ -244,7 +244,7 @@ public class TaskCommandParseHelper {
         }
         try {
             String snooze = extractSnooze(optionList);
-            if (snooze.equals("")) {
+            if ("".equals(snooze)) {
                 snooze = "3";
             }
             int index = parseTaskIndex(snoozeCommandMatcher.group("index"));
@@ -285,8 +285,8 @@ public class TaskCommandParseHelper {
                                                ArrayList<TaskUpdateCommand.Attributes> attributes,
                                                ArrayList<String> descriptions)
             throws CommandParseHelper.CommandParseException {
-        if (!"".equals(CommandParseHelper.extractTime(optionList))) {
-            descriptions.add(CommandParseHelper.extractTime(optionList));
+        if (!"".equals(extractTime(optionList))) {
+            descriptions.add(extractTime(optionList));
             attributes.add(TaskUpdateCommand.Attributes.TIME);
         }
     }
@@ -330,7 +330,7 @@ public class TaskCommandParseHelper {
         String doafter = "";
         for (Command.Option option : optionList) {
             if (option.getKey().equals("doafter")) {
-                if (doafter.equals("")) {
+                if ("".equals(doafter)) {
                     doafter = option.getValue();
                 } else {
                     throw new TaskParseException("Each task can have only one doafter option");
@@ -344,7 +344,7 @@ public class TaskCommandParseHelper {
         String priority = "";
         for (Command.Option option : optionList) {
             if (option.getKey().equals("priority")) {
-                if (priority.equals("")) {
+                if ("".equals(priority)) {
                     priority = option.getValue();
                 } else {
                     throw new TaskParseException("Each task can have only one priority");
@@ -391,7 +391,7 @@ public class TaskCommandParseHelper {
     private static String extractSnooze(ArrayList<Command.Option> optionList) {
         String snooze = "";
         for (Command.Option option : optionList) {
-            if (option.getKey().equals("by") && snooze.equals("")) {
+            if ("by".equals(option.getKey()) && "".equals(snooze)) {
                 snooze = option.getValue();
             }
         }
