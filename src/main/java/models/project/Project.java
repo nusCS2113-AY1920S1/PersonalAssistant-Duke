@@ -3,9 +3,11 @@ package models.project;
 import models.member.IMember;
 import models.member.Member;
 import models.member.MemberList;
+import models.member.NullMember;
 import models.reminder.Reminder;
 import models.reminder.ReminderList;
 import models.task.ITask;
+import models.task.NullTask;
 import models.task.Task;
 import models.task.TaskList;
 import models.task.TaskState;
@@ -18,8 +20,8 @@ public class Project implements IProject {
     private MemberList memberList;
     private TaskList taskList;
     private ReminderList reminderList;
-    private HashMap<Task, ArrayList<Member>> taskAndListOfMembersAssigned; //task_membersAssigned
-    private HashMap<Member, ArrayList<Task>> memberAndIndividualListOfTasks; //member_individualTaskList
+    private HashMap<String, ArrayList<String>> taskAndListOfMembersAssigned; //taskID_listOfMemberIDs
+    private HashMap<String, ArrayList<String>> memberAndIndividualListOfTasks; //memberID_listOfTaskIDs
 
     /**
      * Class representing a task in a project.
@@ -63,7 +65,7 @@ public class Project implements IProject {
     @Override
     public void addMember(Member newMember) {
         this.memberList.addMember(newMember);
-        this.memberAndIndividualListOfTasks.put(newMember, new ArrayList<>());
+        this.memberAndIndividualListOfTasks.put(newMember.getMemberID(), new ArrayList<>());
     }
 
     //@@author iamabhishek98
@@ -75,27 +77,27 @@ public class Project implements IProject {
     //@@author iamabhishek98
     @Override
     public void removeMember(Member memberToBeRemoved) {
-        for (Task task : this.taskAndListOfMembersAssigned.keySet()) {
-            this.taskAndListOfMembersAssigned.get(task).remove(memberToBeRemoved);
+        for (String taskID: this.taskAndListOfMembersAssigned.keySet()) {
+            this.taskAndListOfMembersAssigned.get(taskID).remove(memberToBeRemoved.getMemberID());
         }
-        this.memberAndIndividualListOfTasks.remove(memberToBeRemoved);
+        this.memberAndIndividualListOfTasks.remove(memberToBeRemoved.getMemberID());
         this.memberList.removeMember(memberToBeRemoved);
     }
 
     @Override
     public void addTask(Task newTask) {
         this.taskList.addTask(newTask);
-        this.taskAndListOfMembersAssigned.put(newTask, new ArrayList<>());
+        this.taskAndListOfMembersAssigned.put(newTask.getTaskID(), new ArrayList<>());
     }
 
     //@@author iamabhishek98
     @Override
     public void removeTask(int taskIndexNumber) {
         Task taskToRemove = this.getTask(taskIndexNumber);
-        for (Member member : this.memberAndIndividualListOfTasks.keySet()) {
-            this.memberAndIndividualListOfTasks.get(member).remove(taskToRemove);
+        for (String memberID : this.memberAndIndividualListOfTasks.keySet()) {
+            this.memberAndIndividualListOfTasks.get(memberID).remove(taskToRemove.getTaskID());
         }
-        this.taskAndListOfMembersAssigned.remove(taskToRemove);
+        this.taskAndListOfMembersAssigned.remove(taskToRemove.getTaskID());
         this.taskList.removeTask(taskIndexNumber);
     }
 
@@ -134,14 +136,15 @@ public class Project implements IProject {
          */
         ArrayList<String> allMemberCredits = new ArrayList<>();
         ArrayList<Member> allMembers = this.getMembers().getMemberList();
-        HashMap<Member, ArrayList<Task>> assignedMembers = this.getMembersIndividualTaskList();
+        HashMap<String, ArrayList<String>> memberIDAndTaskIDs = this.getMembersIndividualTaskList(); //memberID_taskIDs
         int count = 1;
         for (Member member : allMembers) {
             int totalCredits = 0;
             int doneCredits = 0;
-            for (Task assignedTask : assignedMembers.get(member)) {
+            for (String taskID : memberIDAndTaskIDs.get(member.getMemberID())) {
                 // credits are split equally between members
-                int taskCredit = (assignedTask.getTaskCredit()) / (assignedMembers.size());
+                ITask assignedTask = getTaskFromID(taskID);
+                int taskCredit = (assignedTask.getTaskCredit()) / (memberIDAndTaskIDs.size());
                 totalCredits += taskCredit;
                 // members only get credits if the task is "DONE"
                 if (assignedTask.getTaskState() == TaskState.DONE) {
@@ -173,8 +176,8 @@ public class Project implements IProject {
      */
     @Override
     public void createAssignment(Task task, Member member) {
-        taskAndListOfMembersAssigned.get(task).add(member);
-        memberAndIndividualListOfTasks.get(member).add(task);
+        taskAndListOfMembersAssigned.get(task.getTaskID()).add(member.getMemberID());
+        memberAndIndividualListOfTasks.get(member.getMemberID()).add(task.getTaskID());
     }
 
     /**
@@ -184,8 +187,8 @@ public class Project implements IProject {
      */
     @Override
     public void removeAssignment(Member member, Task task) {
-        taskAndListOfMembersAssigned.get(task).remove(member);
-        memberAndIndividualListOfTasks.get(member).remove(task);
+        taskAndListOfMembersAssigned.get(task.getTaskID()).remove(member.getMemberID());
+        memberAndIndividualListOfTasks.get(member.getMemberID()).remove(task.getTaskID());
     }
 
     /**
@@ -196,8 +199,8 @@ public class Project implements IProject {
      */
     @Override
     public boolean containsAssignment(Task task, Member member) {
-        return memberAndIndividualListOfTasks.get(member).contains(task)
-            && taskAndListOfMembersAssigned.get(task).contains(member);
+        return memberAndIndividualListOfTasks.get(member.getMemberID()).contains(task.getTaskID())
+            && taskAndListOfMembersAssigned.get(task.getTaskID()).contains(member.getMemberID());
     }
 
     /**
@@ -205,7 +208,7 @@ public class Project implements IProject {
      * @return hashmap with member as key and accompanying task list.
      */
     @Override
-    public HashMap<Member, ArrayList<Task>> getMembersIndividualTaskList() {
+    public HashMap<String, ArrayList<String>> getMembersIndividualTaskList() {
         return this.memberAndIndividualListOfTasks;
     }
 
@@ -214,8 +217,28 @@ public class Project implements IProject {
      * @return hashmap with task as key and accompanying list of assigned members.
      */
     @Override
-    public HashMap<Task, ArrayList<Member>> getTasksAndAssignedMembers() {
+    public HashMap<String, ArrayList<String>> getTasksAndAssignedMembers() {
         return this.taskAndListOfMembersAssigned;
+    }
+
+    @Override
+    public IMember getMemberFromID(String memberID) {
+        for (Member member : this.memberList.getMemberList()) {
+            if (memberID.equals(member.getMemberID())) {
+                return member;
+            }
+        }
+        return new NullMember("Unable to find this member.");
+    }
+
+    @Override
+    public ITask getTaskFromID(String taskID) {
+        for (Task task : this.taskList.getTaskList()) {
+            if (taskID.equals(task.getTaskID())) {
+                return task;
+            }
+        }
+        return new NullTask();
     }
     //@@author
 
@@ -272,4 +295,5 @@ public class Project implements IProject {
     public int getReminderListSize() {
         return reminderList.getReminderList().size();
     }
+
 }
