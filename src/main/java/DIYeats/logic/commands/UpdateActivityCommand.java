@@ -58,4 +58,25 @@ public class UpdateActivityCommand extends Command {
         }
         ui.showLine();
     }
+
+    public void updateUser(User user) {
+        ui.showLine();
+        int activityInt = 0;
+        try {
+            activityInt = Integer.parseInt(description);
+            if (activityInt < 1) {
+                ui.showMessage("Activity Level cannot be less than 1");
+                ui.showActivityLevel();
+            } else if (activityInt > 5) {
+                ui.showMessage("Activity Level cannot be more than 5");
+                ui.showActivityLevel();
+            } else {
+                user.setActivityLevel(activityInt);
+                ui.showSuccess("Activity Level", description);
+            }
+        } catch (NumberFormatException e) {
+            ui.showMessage("Please input a proper number for activity level");
+        }
+        ui.showLine();
+    }
 }

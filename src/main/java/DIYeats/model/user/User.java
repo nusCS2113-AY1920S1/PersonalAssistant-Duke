@@ -16,8 +16,8 @@ public class User {
 
     private HashMap<LocalDate, Double> weight = new HashMap();
     private  LocalDate lastDate = null;
-    private int height = 0;
-    private int age = 0;
+    private int height = -1;
+    private int age = -1;
     private Gender gender = null;
     private boolean isSetup;
     private String name = null;
@@ -56,8 +56,8 @@ public class User {
     }
 
     public boolean valid() {
-        if (name != null && age != 0 && getAllWeight().size() != 0
-                && height != 0 && gender != null && activityLevel != 5) {
+        if (name != null && age != -1 && getAllWeight().size() != 0
+                && height != -1 && gender != null && activityLevel != 5) {
             isSetup = true;
             return true;
         } else {

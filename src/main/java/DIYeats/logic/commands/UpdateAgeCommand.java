@@ -41,6 +41,8 @@ public class UpdateAgeCommand extends Command {
             ageInt = Integer.parseInt(description);
             if (ageInt < 0) {
                 ui.showMessage("Age cannot be less than 0");
+            } else if (ageInt > 122) {
+                ui.showMessage("Age cannot be more than 122(Unless you really are the oldest person in the world!");
             } else {
                 user.setAge(ageInt);
                 ui.showSuccess("age", description);
@@ -49,6 +51,25 @@ public class UpdateAgeCommand extends Command {
                 } catch (DukeException e) {
                     ui.showMessage(e.getMessage());
                 }
+            }
+        } catch (NumberFormatException e) {
+            ui.showMessage("Please input a proper number for age");
+        }
+        ui.showLine();
+    }
+
+    public void updateUser(User user) {
+        ui.showLine();
+        int ageInt = 0;
+        try {
+            ageInt = Integer.parseInt(description);
+            if (ageInt < 0) {
+                ui.showMessage("Age cannot be less than 0");
+            } else if (ageInt > 122) {
+                ui.showMessage("Age cannot be more than 122(Unless you really are the oldest person in the world!");
+            } else {
+                user.setAge(ageInt);
+                ui.showSuccess("age", description);
             }
         } catch (NumberFormatException e) {
             ui.showMessage("Please input a proper number for age");

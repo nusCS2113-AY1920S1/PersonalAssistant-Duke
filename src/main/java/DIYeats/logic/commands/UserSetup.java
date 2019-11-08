@@ -1,14 +1,16 @@
 package DIYeats.logic.commands;
 
+import DIYeats.logic.parsers.ArgumentSplitter;
 import DIYeats.model.user.Gender;
 import DIYeats.model.user.User;
-import DIYeats.ui.InputHandler;
 import DIYeats.ui.UserUi;
+
+import java.util.HashMap;
 
 //@@author koushireo
 
 /**
- * UserSetup is a public class that facilitates user profile creation.
+ * UserSetup is a public class that facilitates user profile creation using single line.
  */
 
 public class UserSetup {
@@ -27,92 +29,61 @@ public class UserSetup {
             this.isDone = true;
         } else {
             ui.showWelcomeNew();
-            ui.showName();
         }
     }
 
+    /**This is the class that helps user to split the info they input.
+     * @param info the single line info that the user input to append the information
+     */
+
     public void initialise(String info) {
-        InputHandler in = new InputHandler(info);
-        if (user.getName() == null) {
-            setName(info);
-        } else if (user.getAge() == 0) {
-            int age = 0;
-            try {
-                age = in.getInt();
-            } catch (Exception e) {
-                ui.showMessage(e.getMessage());
-            }
-            setAge(age);
+        HashMap<String, String> userInfo = ArgumentSplitter.splitForwardSlashArguments(info);
+        if (userInfo.containsKey("name")) {
+            UpdateNameCommand update = new UpdateNameCommand(userInfo.get("name"));
+            update.updateUser(user);
+        } else if (user.getName() == null) {
+            ui.showLackName();
+        }
+        if (userInfo.containsKey("age")) {
+            UpdateAgeCommand update = new UpdateAgeCommand(userInfo.get("age"));
+            update.updateUser(user);
+        } else if (user.getAge() == -1) {
+            ui.showLackAge();
+        }
+        if (userInfo.containsKey("weight")) {
+            UpdateWeightCommand update = new UpdateWeightCommand(userInfo.get("weight"));
+            update.updateUser(user);
         } else if (user.getAllWeight().size() == 0) {
-            int weight = 0;
-            try {
-                weight = in.getInt();
-            } catch (Exception e) {
-                ui.showMessage(e.getMessage());
-            }
-            setWeight(weight);
-            user.setOriginalWeight(weight);
-        } else if (user.getHeight() == 0) {
-            int height = 0;
-            try {
-                height = in.getInt();
-            } catch (Exception e) {
-                ui.showMessage(e.getMessage());
-            }
-            setHeight(height);
-        } else if (user.getGender() == null) {
-            Gender sex = null;
-            if (info.charAt(0) == 'M' || info.charAt(0) == 'm') {
-                sex = Gender.MALE;
-            } else if (info.charAt(0) == 'F' || info.charAt(0) == 'f') {
-                sex = Gender.FEMALE;
-            } else {
-                ui.showMessage("Invalid gender info");
-            }
-            setGender(sex);
+            ui.showLackWeight();
+        }
+        if (userInfo.containsKey("height")) {
+            UpdateHeightCommand update = new UpdateHeightCommand(userInfo.get("height"));
+            update.updateUser(user);
+        } else if (user.getHeight() == -1) {
+            ui.showLackHeight();
+        }
+        if (userInfo.containsKey("activity")) {
+            UpdateActivityCommand update = new UpdateActivityCommand(userInfo.get("activity"));
+            update.updateUser(user);
         } else if (user.getActivityLevel() == 5) {
-            int activity = 5;
-            try {
-                activity = Integer.parseInt(info) - 1;
-            } catch (Exception e) {
-                ui.showMessage(e.getMessage());
+            ui.showLackActivity();
+        }
+        if (userInfo.containsKey("gender")) {
+            if (userInfo.get("gender").toLowerCase().charAt(0) == 'm') {
+                user.setGender(Gender.MALE);
+            } else if (userInfo.get("gender").toLowerCase().charAt(0) == 'f') {
+                user.setGender(Gender.FEMALE);
+            } else if (user.getGender() == null) {
+                ui.showWrongGenderInfo();
             }
-            setActivity(activity);
+        } else {
+            ui.showLackGender();
         }
         if (user.valid()) {
             isDone = true;
             ui.showUserSetupDone(user);
             ui.showWelcome();
         }
-    }
-
-    public void setName(String name) {
-        this.user.setName(name);
-        ui.showAge();
-    }
-
-    public void setAge(int age) {
-        this.user.setAge(age);
-        ui.showWeight();
-    }
-
-    public void setWeight(int weight) {
-        this.user.setWeight(weight);
-        ui.showHeight();
-    }
-
-    public void setHeight(int height) {
-        this.user.setHeight(height);
-        ui.showGender();
-    }
-
-    public void setGender(Gender gender) {
-        this.user.setGender(gender);
-        ui.showActivity();
-    }
-
-    public void setActivity(int level) {
-        user.setActivityLevel(level);
     }
 
     public User getUser() {

@@ -90,7 +90,7 @@ public class Autocorrect {
      */
 
     public void execute() {
-        int currentDistance = 3;
+        int currentDistance = 5;
         int distance = 0 + this.nonAlphabet;
         String likelyWord = word;
         for (int i = 0; i < words.size(); i += 1) {
