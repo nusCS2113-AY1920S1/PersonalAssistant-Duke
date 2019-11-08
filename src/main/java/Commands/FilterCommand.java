@@ -41,7 +41,7 @@ public class FilterCommand extends Command {
                 ArrayList<Assignment> temp = emap.get(mod).get(date);
                 for (Assignment task : temp) {
                     String lowerCaseTask = task.toString().toLowerCase();
-                    if (lowerCaseTask.toString().toLowerCase().contains(keyword)) {
+                    if (lowerCaseTask.toLowerCase().contains(keyword)) {
                         out.add(task.getType() + task.getDescription() + task.getModCode() + " " + task.getDateTime());
                     }
                 }

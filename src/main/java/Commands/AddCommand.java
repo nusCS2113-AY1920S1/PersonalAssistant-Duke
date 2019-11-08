@@ -61,7 +61,7 @@ public class AddCommand extends Command {
             } else {
                 out = "Sorry, you have conflicting events \n";
                 for (int i = 0; i < eventConflict.size(); i++) {
-                    out += (i + 1) + ". " + eventConflict.get(0) + "\n";
+                    out += (i + 1) + ". " + eventConflict.get(i) + "\n";
                 }
             }
         } else if (task.getType().equals("[D]")) {
@@ -74,7 +74,7 @@ public class AddCommand extends Command {
             } else {
                 out = "Sorry, you have conflicting deadlines \n";
                 for (int i = 0; i < deadlineConflict.size();i++) {
-                    out += (i + 1) + ". " + deadlineConflict.get(0) + "\n";
+                    out += (i + 1) + ". " + deadlineConflict.get(i) + "\n";
                 }
             }
         }
