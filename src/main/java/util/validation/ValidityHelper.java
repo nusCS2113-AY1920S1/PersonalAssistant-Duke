@@ -1,4 +1,4 @@
-package util;
+package util.validation;
 
 import java.util.regex.Pattern;
 
@@ -9,7 +9,7 @@ public class ValidityHelper {
      * @param email The entered email address.
      * @return Boolean value indicating validity of email address.
      */
-    public boolean emailChecker(String email) {
+    private boolean emailChecker(String email) {
         Pattern validEmailAddressRegex =
                 Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
         return validEmailAddressRegex.matcher(email).find();
@@ -21,7 +21,7 @@ public class ValidityHelper {
      * @param phoneNumber The entered phone number.
      * @return Boolean value indicating validity of phoneNumber.
      */
-    public boolean phoneChecker(String phoneNumber) {
+    private boolean phoneChecker(String phoneNumber) {
         if (phoneNumber.length() > 8) {
             return false;
         }

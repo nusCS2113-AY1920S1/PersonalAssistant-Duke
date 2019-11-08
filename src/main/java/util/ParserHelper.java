@@ -1,5 +1,9 @@
 package util;
 
+import models.member.Member;
+import models.project.Project;
+import models.task.Task;
+import util.validation.ValidityHelper;
 import static util.constant.ConstantHelper.ALL_MARKER;
 import static util.constant.ConstantHelper.ASSIGNEE_MARKER;
 import static util.constant.ConstantHelper.BLANK;
@@ -9,9 +13,6 @@ import static util.constant.ConstantHelper.UNASSIGNEE_MARKER;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import models.member.Member;
-import models.project.Project;
-import models.task.Task;
 
 public class ParserHelper {
     private SortHelper sortHelper;
@@ -458,8 +459,8 @@ public class ParserHelper {
         }
 
         for (Integer index: repeated) {
-            assignees.remove(assignees.indexOf(index));
-            unassignees.remove(unassignees.indexOf(index));
+            assignees.remove(index);
+            unassignees.remove(index);
         }
     }
 

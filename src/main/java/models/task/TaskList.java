@@ -110,7 +110,7 @@ public class TaskList {
         return this.taskList.get(taskIndex - 1);
     }
 
-
+    //@@author seanlimhx
     /**
      * Edits details of a task excluding task requirements.
      * @param taskIndexNumber Index of task to be edited
@@ -365,5 +365,23 @@ public class TaskList {
         String percentageNotDone = Integer.toString((int)((creditsTodo + creditsOpen) / totalCredits * 100));
         progressDetails.add("Not Done: " + percentageNotDone + "%");
         return progressDetails.toArray(new String[0]);
+    }
+
+    //@@author Lucria
+    /**
+     * Method that will get all tasks that are in the current month.
+     * @return : Returns a hashmap typing the task name with date in the current month.
+     */
+    public HashMap<Integer, Integer> getTasksWithinCurrentMonth() {
+        HashMap<Integer, Integer> allTasksWithinCurrentMonth = new HashMap<>();
+        String currentMonth = dateTimeHelper.getCurrentMonth();
+        for (Task task : this.taskList) {
+            Date taskDate = task.getDueDate();
+            if (dateTimeHelper.getMonthFromDateObject(taskDate).equals(currentMonth)) {
+                int dayOfTaskDueDate = dateTimeHelper.getDayFromDateObject(taskDate);
+                allTasksWithinCurrentMonth.merge(dayOfTaskDueDate, 1, Integer::sum);
+            }
+        }
+        return allTasksWithinCurrentMonth;
     }
 }

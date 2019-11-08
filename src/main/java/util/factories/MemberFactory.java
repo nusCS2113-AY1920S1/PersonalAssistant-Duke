@@ -7,7 +7,7 @@ import models.member.IMember;
 import models.member.Member;
 import models.member.NullMember;
 import util.ParserHelper;
-import util.ValidityHelper;
+import util.validation.ValidityHelper;
 
 public class MemberFactory implements IArchDukeFactory<IMember> {
     private ParserHelper parserHelper;

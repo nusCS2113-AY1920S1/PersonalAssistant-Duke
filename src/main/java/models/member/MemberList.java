@@ -1,7 +1,7 @@
 package models.member;
 
 import util.ParserHelper;
-import util.ValidityHelper;
+import util.validation.ValidityHelper;
 
 import java.util.ArrayList;
 
@@ -139,5 +139,4 @@ public class MemberList implements IMemberList {
     public boolean contains(IMember newMember) {
         return this.memberList.contains(newMember);
     }
-
 }
