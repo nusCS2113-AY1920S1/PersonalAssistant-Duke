@@ -5,6 +5,8 @@ import duke.exception.DukeUtilException;
 
 import java.util.List;
 import java.util.Map;
+import duke.exception.DukeFatalException;
+import duke.ui.card.TreatmentCard;
 
 public abstract class Treatment extends DukeData {
 
@@ -114,4 +116,7 @@ public abstract class Treatment extends DukeData {
             return false;
         }
     }
+
+    @Override
+    public abstract TreatmentCard toCard() throws DukeFatalException;
 }

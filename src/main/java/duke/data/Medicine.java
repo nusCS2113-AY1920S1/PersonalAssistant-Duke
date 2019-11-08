@@ -1,8 +1,8 @@
 package duke.data;
 
 import duke.exception.DukeException;
+import duke.exception.DukeFatalException;
 import duke.ui.card.MedicineCard;
-import duke.ui.card.UiCard;
 import duke.ui.context.Context;
 
 import java.util.Arrays;
@@ -131,7 +131,7 @@ public class Medicine extends Treatment {
         }
     }
 
-    public UiCard toCard() {
+    public MedicineCard toCard() throws DukeFatalException {
         return new MedicineCard(this);
     }
 

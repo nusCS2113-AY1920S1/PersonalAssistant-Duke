@@ -1,6 +1,7 @@
 package duke.ui.card;
 
 import duke.data.Patient;
+import duke.exception.DukeFatalException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -26,7 +27,7 @@ public class PatientCard extends UiCard {
      *
      * @param patient Patient object.
      */
-    public PatientCard(Patient patient) {
+    public PatientCard(Patient patient) throws DukeFatalException {
         super(FXML);
 
         this.patient = patient;

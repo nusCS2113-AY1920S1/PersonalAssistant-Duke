@@ -1,8 +1,8 @@
 package duke.data;
 
 import duke.exception.DukeException;
+import duke.exception.DukeFatalException;
 import duke.ui.card.ObservationCard;
-import duke.ui.card.UiCard;
 import duke.ui.context.Context;
 
 import java.util.Map;
@@ -67,7 +67,7 @@ public class Observation extends Evidence {
     }
 
     @Override
-    public UiCard toCard() {
+    public ObservationCard toCard() throws DukeFatalException {
         return new ObservationCard(this);
     }
 

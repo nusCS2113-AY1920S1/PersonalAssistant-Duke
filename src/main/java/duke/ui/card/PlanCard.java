@@ -2,6 +2,7 @@ package duke.ui.card;
 
 import duke.data.Plan;
 import duke.data.Treatment;
+import duke.exception.DukeFatalException;
 
 public class PlanCard extends TreatmentCard {
     private static final String FXML = "PlanCard.fxml";
@@ -13,7 +14,7 @@ public class PlanCard extends TreatmentCard {
      *
      * @param plan  Plan object.
      */
-    public PlanCard(Plan plan) {
+    public PlanCard(Plan plan) throws DukeFatalException {
         super(FXML, plan);
 
         this.plan = plan;

@@ -5,23 +5,14 @@ import duke.data.DukeObject;
 import duke.data.Evidence;
 import duke.data.Impression;
 import duke.data.Investigation;
-import duke.data.Medicine;
-import duke.data.Observation;
 import duke.data.Patient;
-import duke.data.Plan;
-import duke.data.Result;
 import duke.data.Treatment;
+import duke.exception.DukeFatalException;
 import duke.ui.UiStrings;
-import duke.ui.card.EvidenceCard;
 import duke.ui.card.ImpressionCard;
-import duke.ui.card.InvestigationCard;
-import duke.ui.card.MedicineCard;
-import duke.ui.card.ObservationCard;
-import duke.ui.card.PlanCard;
-import duke.ui.card.ResultCard;
 import duke.ui.card.TreatmentCard;
+import duke.ui.card.UiCard;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 
 import java.util.ArrayList;
@@ -52,11 +43,11 @@ public class PatientContextWindow extends ContextWindow {
     @FXML
     private Label allergiesLabel;
     @FXML
-    private JFXListView<Node> impressionListPanel;
+    private JFXListView<ImpressionCard> impressionListPanel;
     @FXML
-    private JFXListView<Node> criticalListPanel;
+    private JFXListView<UiCard> criticalListPanel;
     @FXML
-    private JFXListView<Node> investigationListPanel;
+    private JFXListView<TreatmentCard> investigationListPanel;
 
     private Patient patient;
     private List<DukeObject> indexedImpressionList;
@@ -66,7 +57,7 @@ public class PatientContextWindow extends ContextWindow {
     /**
      * Constructs the patient UI window.
      */
-    public PatientContextWindow(Patient patient) {
+    public PatientContextWindow(Patient patient) throws DukeFatalException {
         super(FXML);
 
         this.patient = patient;
@@ -81,8 +72,14 @@ public class PatientContextWindow extends ContextWindow {
         updateUi();
     }
 
-    private void updatePatientWindow() {
-        // TODO: clean up
+    private void updatePatientWindow() throws DukeFatalException {
+        fillPatientDetails();
+        clearLists();
+        fillLists();
+        indexLists();
+    }
+
+    private void fillPatientDetails() {
         nameLabel.setText(String.valueOf(patient.getName()));
         bedLabel.setText(String.valueOf(patient.getBedNo()));
         int ageNum = patient.getAge();
@@ -97,9 +94,7 @@ public class PatientContextWindow extends ContextWindow {
         addressLabel.setText(("".equals(addressStr)) ? UiStrings.DISPLAY_ADDRESS_NOT_SET : addressStr);
         String historyStr = patient.getHistory();
         historyLabel.setText(("".equals(historyStr)) ? UiStrings.DISPLAY_HISTORY_NOT_SET : historyStr);
-
         StringBuilder allergies = new StringBuilder();
-
         if ("".equals(patient.getAllergies())) {
             allergiesLabel.setText(UiStrings.DISPLAY_ALLERGIES_NONE);
         } else {
@@ -109,15 +104,32 @@ public class PatientContextWindow extends ContextWindow {
             }
             allergiesLabel.setText(allergies.toString());
         }
+    }
 
-
+    private void clearLists() {
         indexedImpressionList.clear();
         indexedCriticalList.clear();
         indexedInvestigationList.clear();
         impressionListPanel.getItems().clear();
         criticalListPanel.getItems().clear();
         indexedInvestigationList.clear();
+    }
 
+    private void indexLists() {
+        impressionListPanel.getItems().forEach(card -> {
+            card.setIndex(impressionListPanel.getItems().indexOf(card) + 1);
+        });
+
+        criticalListPanel.getItems().forEach(card -> {
+            card.setIndex(criticalListPanel.getItems().indexOf(card) + 1);
+        });
+
+        investigationListPanel.getItems().forEach(card -> {
+            card.setIndex(investigationListPanel.getItems().indexOf(card) + 1);
+        });
+    }
+
+    private void fillLists() throws DukeFatalException {
         for (Impression impression : patient.getImpressionList()) {
             // Impression list
             ImpressionCard impressionCard;
@@ -134,81 +146,33 @@ public class PatientContextWindow extends ContextWindow {
             // Critical list
             for (Treatment treatment : impression.getTreatments()) {
                 if (treatment.getPriority() == 1) {
-                    criticalListPanel.getItems().add(newTreatmentCard(treatment));
+                    criticalListPanel.getItems().add(treatment.toCard());
                     indexedCriticalList.add(treatment);
                 }
             }
 
             for (Evidence evidence : impression.getEvidences()) {
                 if (evidence.getPriority() == 1) {
-                    criticalListPanel.getItems().add(newEvidenceCard(evidence));
+                    criticalListPanel.getItems().add(evidence.toCard());
                     indexedCriticalList.add(evidence);
                 }
             }
 
             // Investigation list
             for (Treatment treatment : impression.getTreatments()) {
-                if (treatment instanceof Investigation) {
-                    Investigation investigation = (Investigation) treatment;
-                    if (investigation.getPriority() != 1) {
-                        investigationListPanel.getItems().add(new InvestigationCard(investigation));
-                        indexedInvestigationList.add(investigation);
-                    }
+                if (treatment instanceof Investigation && treatment.getPriority() != 1) {
+                    // only display investigations not seen in criticals
+                    investigationListPanel.getItems().add(treatment.toCard());
+                    indexedInvestigationList.add(treatment);
                 }
             }
-        }
-
-        impressionListPanel.getItems().forEach(card -> {
-            ((ImpressionCard) card).setIndex(impressionListPanel.getItems().indexOf(card) + 1);
-        });
-
-        criticalListPanel.getItems().forEach(card -> {
-            ((EvidenceCard) card).setIndex(criticalListPanel.getItems().indexOf(card) + 1);
-        });
-
-        investigationListPanel.getItems().forEach(card -> {
-            ((InvestigationCard) card).setIndex(investigationListPanel.getItems().indexOf(card) + 1);
-        });
-    }
-
-    /**
-     * This function returns the new card added dependent on the class instance.
-     *
-     * @param evidence the evidence
-     * @return ObservationCard/ResultCard
-     */
-    private EvidenceCard newEvidenceCard(Evidence evidence) {
-        if (evidence instanceof Observation) {
-            return new ObservationCard((Observation) evidence);
-        } else if (evidence instanceof Result) {
-            return new ResultCard((Result) evidence);
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * This function returns the new card added dependent on the class instance.
-     *
-     * @param treatment the treatment
-     * @return InvestigationCard/MedicineCard/PlanCard
-     */
-    private TreatmentCard newTreatmentCard(Treatment treatment) {
-        if (treatment instanceof Investigation) {
-            return new InvestigationCard((Investigation) treatment);
-        } else if (treatment instanceof Medicine) {
-            return new MedicineCard((Medicine) treatment);
-        } else if (treatment instanceof Plan) {
-            return new PlanCard((Plan) treatment);
-        } else {
-            return null;
         }
     }
 
     /**
      * {@inheritDoc}
      */
-    public void updateUi() {
+    public void updateUi() throws DukeFatalException {
         updatePatientWindow();
     }
 

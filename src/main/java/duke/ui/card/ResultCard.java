@@ -2,6 +2,7 @@ package duke.ui.card;
 
 import duke.data.Evidence;
 import duke.data.Result;
+import duke.exception.DukeFatalException;
 
 /**
  * A UI card that displays the basic information of a {@code Result}.
@@ -16,7 +17,7 @@ public class ResultCard extends EvidenceCard {
      *
      * @param result Result object.
      */
-    public ResultCard(Result result) {
+    public ResultCard(Result result) throws DukeFatalException {
         super(FXML, result);
 
         this.result = result;

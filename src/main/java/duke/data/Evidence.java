@@ -1,6 +1,8 @@
 package duke.data;
 
 import duke.exception.DukeException;
+import duke.exception.DukeFatalException;
+import duke.ui.card.EvidenceCard;
 
 /**
  * Abstraction of evidence supporting a medical diagnosis.
@@ -30,6 +32,9 @@ public abstract class Evidence extends DukeData {
             throw new DukeException("The priority must be within 0 to 4!");
         }
     }
+
+    @Override
+    public abstract EvidenceCard toCard() throws DukeFatalException;
 
     @Override
     public String toString() {

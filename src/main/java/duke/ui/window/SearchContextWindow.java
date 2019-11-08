@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXListView;
 import duke.DukeCore;
 import duke.data.DukeObject;
 import duke.data.SearchResults;
+import duke.exception.DukeFatalException;
 import duke.ui.UiStrings;
 import duke.ui.card.UiCard;
 import javafx.fxml.FXML;
@@ -40,7 +41,7 @@ class SearchContextWindow extends ContextWindow {
     /**
      * Constructs the search UI window.
      */
-    SearchContextWindow(SearchResults searchResults) {
+    SearchContextWindow(SearchResults searchResults) throws DukeFatalException {
         super(FXML);
 
         if (searchResults != null) {
@@ -50,7 +51,7 @@ class SearchContextWindow extends ContextWindow {
         }
     }
 
-    private void setSearchWindow() {
+    private void setSearchWindow() throws DukeFatalException {
         setParent();
         searchTermLabel.setText(searchResults.getName());
         searchDetailsLabel.setText(searchResults.toString());
@@ -71,7 +72,7 @@ class SearchContextWindow extends ContextWindow {
     }
 
     @Override
-    public void updateUi() {
+    public void updateUi() throws DukeFatalException {
         setSearchWindow();
     }
 

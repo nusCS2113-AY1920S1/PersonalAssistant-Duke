@@ -1,6 +1,7 @@
 package duke.ui.card;
 
 import duke.data.Treatment;
+import duke.exception.DukeFatalException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -25,7 +26,7 @@ public abstract class TreatmentCard extends UiCard {
      * @param fxmlFileName Name of FXML file.
      * @param treatment    Treatment object.
      */
-    TreatmentCard(String fxmlFileName, Treatment treatment) {
+    TreatmentCard(String fxmlFileName, Treatment treatment) throws DukeFatalException {
         super(fxmlFileName);
 
         this.treatment = treatment;

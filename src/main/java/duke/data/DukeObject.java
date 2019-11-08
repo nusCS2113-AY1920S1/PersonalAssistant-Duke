@@ -1,5 +1,6 @@
 package duke.data;
 
+import duke.exception.DukeFatalException;
 import duke.ui.card.UiCard;
 import duke.ui.context.Context;
 
@@ -54,7 +55,7 @@ public abstract class DukeObject {
         return parent;
     }
 
-    public abstract UiCard toCard();
+    public abstract UiCard toCard() throws DukeFatalException;
 
     public abstract Context toContext();
 }

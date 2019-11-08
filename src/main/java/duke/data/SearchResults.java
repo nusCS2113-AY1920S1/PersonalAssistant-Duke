@@ -14,14 +14,15 @@ public class SearchResults extends DukeObject {
     private List<DukeObject> searchList;
 
     /**
-     * TODO fix documentation
-     * Abstraction of the evidence or treatment data of a patient.
-     * A DukeData object corresponds to the evidence or treatment a doctor has,
-     * the impression that led to that data as well as an integer
-     * between 1-4 representing the priority or significance of the investigation.
+     * The SearchResult object represents a list of DukeObjects.
+     * It corresponds to the DukeObjects which string representation,
+     * contain a particular SearchTerm. The name stores the searchTerm,
+     * and the parent the context it was called from.
+     * This is used when the user finds a particular string or when the
+     * string entered to reference an object by the user is ambiguous.
      * Attributes:
-     * @param name the list of DukeObjects
-     * @param parent the impression object the data is tagged to
+     * @param name the search term
+     * @param parent the DukeObject object the search is tagged to
      */
     public SearchResults(String name, List<? extends DukeObject> searchList, DukeObject parent) {
         super(name, parent);

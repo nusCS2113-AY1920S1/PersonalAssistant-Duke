@@ -1,8 +1,8 @@
 package duke.data;
 
 import duke.exception.DukeException;
+import duke.exception.DukeFatalException;
 import duke.ui.card.PatientCard;
-import duke.ui.card.UiCard;
 import duke.ui.context.Context;
 
 import java.util.ArrayList;
@@ -402,8 +402,7 @@ public class Patient extends DukeObject {
     }
 
     public boolean equals(Patient other) {
-        // todo
-        return this.getName().equals(other.getName());
+        return this.getBedNo().equals(other.getBedNo());
     }
 
     public ArrayList<Impression> getImpressionList() {
@@ -411,7 +410,7 @@ public class Patient extends DukeObject {
     }
 
     @Override
-    public UiCard toCard() {
+    public PatientCard toCard() throws DukeFatalException {
         return new PatientCard(this);
     }
 
