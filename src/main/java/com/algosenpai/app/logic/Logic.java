@@ -89,6 +89,10 @@ public class Logic {
         }
     }
 
+    /**
+     * Determines actions to be taken in normal mode.
+     * @return The command given by the user, or invalid command is invalid.
+     */
     private Command executeOthers() {
         switch (userCommand) {
         case "quiz":
@@ -124,6 +128,10 @@ public class Logic {
         }
     }
 
+    /**
+     * Determines actions to be taken in quiz mode.
+     * @return The command given by the user.
+     */
     private Command executeLecture() {
         return null;
     }
