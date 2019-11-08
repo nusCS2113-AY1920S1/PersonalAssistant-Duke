@@ -19,7 +19,9 @@ public class StatsCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
-        user.updateStats(meals);
+        if (user.getGoal() != null) {
+            user.updateStats(meals);
+        }
         ui.showStats(user);
     }
 }

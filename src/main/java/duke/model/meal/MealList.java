@@ -64,6 +64,10 @@ public class MealList {
         }
     }
 
+    public Meal getMeal(LocalDate date, int index) {
+        return this.mealTracker.get(date).get(index - 1);
+    }
+
     /**
      * This function is used to delete the task of a particular index.
      * @param date date of the meal to be deleted.
