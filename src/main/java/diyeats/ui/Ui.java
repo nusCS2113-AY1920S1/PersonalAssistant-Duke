@@ -7,7 +7,7 @@ import diyeats.model.user.User;
 import diyeats.model.wallet.Payment;
 import diyeats.model.wallet.Transaction;
 import diyeats.model.wallet.Wallet;
-import javafx.util.Pair;
+import diyeats.commons.datatypes.Pair;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -255,10 +255,10 @@ public class Ui {
         }
     }
 
-    public void showExerciseOptions(ArrayList<Pair<String, Integer>> exerciseArrayList) {
+    public void showExerciseOptions(ArrayList<Pair> exerciseArrayList) {
         System.out.println(UI_PADDING + "Here are the exercise options available to you:");
         int counter = 1;
-        for (Pair<String, Integer> itr : exerciseArrayList) {
+        for (Pair itr : exerciseArrayList) {
             System.out.print(UI_PADDING + counter + ". ");
             System.out.print(itr.getKey() + ": " + itr.getValue() + " mins \n");
             counter++;
@@ -267,7 +267,7 @@ public class Ui {
     }
 
     public void showExerciseOnDate(ExerciseList exerciseList, LocalDate date) {
-        Pair<String, Integer> exerciseOnDate = exerciseList.getExerciseAtDate(date);
+        Pair exerciseOnDate = exerciseList.getExerciseAtDate(date);
         if (exerciseOnDate == null) {
             System.out.println(UI_PADDING + "You have not set an exercise routine for this day yet\n"
                     + UI_PADDING + "Use the suggestexercise command to choose an exercise routine!");
@@ -276,6 +276,7 @@ public class Ui {
                     + exerciseOnDate.getKey() + " for " + exerciseOnDate.getValue() + " mins.");
         }
     }
+
     public void showPayment(Payment payment) {
         System.out.println(UI_PADDING + "You have paid " + payment.getTransactionAmount() + "SGD. "
                             + "The amount has been deducted from your account.");

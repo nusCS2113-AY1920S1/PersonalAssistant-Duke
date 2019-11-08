@@ -1,10 +1,10 @@
-package duke.logic.command;
+package diyeats.logic.command;
 
-import duke.commons.exceptions.DukeException;
-import duke.logic.commands.UserSetup;
-import duke.model.user.Gender;
-import duke.model.user.User;
-import duke.storage.Storage;
+import diyeats.commons.exceptions.DukeException;
+import diyeats.logic.commands.UserSetup;
+import diyeats.model.user.Gender;
+import diyeats.model.user.User;
+import diyeats.storage.Storage;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

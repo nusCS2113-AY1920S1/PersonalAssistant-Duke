@@ -1,9 +1,9 @@
 package diyeats.logic.suggestion;
 
+import diyeats.commons.datatypes.Pair;
 import diyeats.model.meal.ExerciseList;
 import diyeats.model.meal.MealList;
 import diyeats.model.user.User;
-import javafx.util.Pair;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import java.util.HashMap;
  * is equal to 14.5 hours of static calorie loss.
  */
 public class ExerciseSuggestionHandler {
-    private ArrayList<Pair<String, Integer>> exerciseArrayList = new ArrayList<>();
+    private ArrayList<Pair> exerciseArrayList = new ArrayList<>();
     private User user;
 
     public ExerciseSuggestionHandler(User user) {
@@ -23,7 +23,7 @@ public class ExerciseSuggestionHandler {
     }
 
     public float calculateStaticCalorieExpenditure() {
-        float minsInDay = 24*60;
+        float minsInDay = 24 * 60;
         return user.getDailyCalorie() / minsInDay;
     }
 
@@ -41,7 +41,7 @@ public class ExerciseSuggestionHandler {
         meals.getExerciseList().addExerciseAtDate(date, exerciseName, exerciseReps);
     }
 
-    public ArrayList<Pair<String, Integer>> compute(MealList meals, int calorieToExercise) {
+    public ArrayList<Pair> compute(MealList meals, int calorieToExercise) {
         ExerciseList exerciseList = meals.getExerciseList();
         HashMap<String, Integer> exerciseHashMap = exerciseList.getStoredExercises();
         float staticCalorieExpenditure = calculateStaticCalorieExpenditure();
@@ -51,7 +51,7 @@ public class ExerciseSuggestionHandler {
         for (String itr : exerciseHashMap.keySet()) {
             int met = exerciseHashMap.get(itr);
             met = minsToBurnCalories / met;
-            Pair exerciseDurationPair = new Pair<>(itr, met);
+            Pair exerciseDurationPair = new Pair(itr, met);
             this.exerciseArrayList.add(exerciseDurationPair);
         }
         return this.exerciseArrayList;

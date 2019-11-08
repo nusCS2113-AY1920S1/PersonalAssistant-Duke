@@ -40,13 +40,13 @@ public class MealSuggestionTest {
 
     // Populate default meals with some sample data
     private void setupNormalDefaultMealList() {
-        meals.addStoredItem(createMeal("coke", 150));
-        meals.addStoredItem(createMeal("biryani", 800));
-        meals.addStoredItem(createMeal("prata", 350));
-        meals.addStoredItem(createMeal("kopi", 100));
-        meals.addStoredItem(createMeal("banana", 100));
-        meals.addStoredItem(createMeal("chicken-fried-rice", 450));
-        meals.addStoredItem(createMeal("chicken-chop", 550));
+        meals.addDefaultValues(createMeal("coke", 150));
+        meals.addDefaultValues(createMeal("biryani", 800));
+        meals.addDefaultValues(createMeal("prata", 350));
+        meals.addDefaultValues(createMeal("kopi", 100));
+        meals.addDefaultValues(createMeal("banana", 100));
+        meals.addDefaultValues(createMeal("chicken-fried-rice", 450));
+        meals.addDefaultValues(createMeal("chicken-chop", 550));
     }
 
     /*

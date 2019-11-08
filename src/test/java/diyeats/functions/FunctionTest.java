@@ -1,24 +1,16 @@
-/**package duke.functions;
-
-import duke.logic.autocorrect.Autocorrect;
-import duke.logic.commands.*;
-import duke.commons.exceptions.DukeException;
-import duke.logic.parsers.Parser;
-import duke.model.wallet.Wallet;
-import duke.storage.Storage;
-import duke.model.user.User;
-<<<<<<< HEAD
-import duke.model.MealList;
-import duke.ui.InputHandler;
-=======
-import duke.model.meal.MealList;
->>>>>>> origin/master
-import duke.ui.Ui;
-import duke.model.wallet.TransactionList;
-
+/*
+import diyeats.commons.exceptions.DukeException;
+import diyeats.logic.autocorrect.Autocorrect;
+import diyeats.logic.commands.Command;
+import diyeats.logic.parsers.Parser;
+import diyeats.model.meal.MealList;
+import diyeats.model.user.User;
+import diyeats.model.wallet.TransactionList;
+import diyeats.model.wallet.Wallet;
+import diyeats.storage.Storage;
+import diyeats.ui.InputHandler;
+import diyeats.ui.Ui;
 import org.junit.jupiter.api.Test;
-
-import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -82,5 +74,5 @@ public class FunctionTest {
         assertFalse(exceptionThrown1);
         assertTrue(exceptionThrown2);
     }
-}**/
+}*/
 

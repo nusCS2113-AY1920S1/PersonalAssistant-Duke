@@ -1,12 +1,12 @@
 package diyeats.logic.commands;
 
+import diyeats.commons.datatypes.Pair;
 import diyeats.commons.exceptions.DukeException;
 import diyeats.logic.suggestion.ExerciseSuggestionHandler;
 import diyeats.model.meal.MealList;
 import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
 import diyeats.storage.Storage;
-import javafx.util.Pair;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -69,7 +69,7 @@ public class SuggestExerciseCommand extends Command {
                 calorieToElevateActivityLevel -= excessCalorie;
             }
             ui.showExerciseRequired(calorieToElevateActivityLevel, date);
-            ArrayList<Pair<String, Integer>> exerciseArrayList =
+            ArrayList<Pair> exerciseArrayList =
                     this.exerciseSuggestionHandler.compute(meals, calorieToElevateActivityLevel);
             ui.showExerciseOptions(exerciseArrayList);
         }
