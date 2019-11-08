@@ -82,9 +82,7 @@ public class Parser {
         } else if (cmd.equals("list goals")) {
             moneyCommand = new ListGoalsCommand();
         } else if (cmd.startsWith("delete goal")) {
-            String temp = cmd.replaceAll("[^0-9]", "");
-            int serialNo = Integer.parseInt(temp);
-            moneyCommand = new DeleteGoalCommand(serialNo);
+            moneyCommand = new DeleteGoalCommand(cmd);
         } else if (cmd.startsWith("commit goal")) {
             moneyCommand = new CommitGoalCommand(cmd);
         } else if (cmd.startsWith("done goal")) {

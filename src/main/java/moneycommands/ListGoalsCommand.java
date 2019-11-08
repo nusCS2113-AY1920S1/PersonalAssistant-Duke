@@ -11,11 +11,13 @@ import java.text.DecimalFormat;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.text.DecimalFormat;
 
 /**
  * This command lists all short-term goals within the Short-Term Goal List to the user.
  */
 public class ListGoalsCommand extends MoneyCommand {
+    private DecimalFormat decimalFormat = new DecimalFormat("#.00");
 
     //@@author therealnickcheong
     /**
@@ -98,8 +100,8 @@ public class ListGoalsCommand extends MoneyCommand {
                     + account.getShortTermGoals().get(i - 1).toString() + "\n");
         }
         String savingsPerMonth = dpRounding(savingsReqPerMonth);
-        ui.appendToOutput("current Goal Savings: $" + account.getGoalSavings() + "\n");
-        ui.appendToOutput("Target Savings for the Month: $" + savingsPerMonth + "\n");
+        ui.appendToOutput("current Goal Savings: $" + decimalFormat.format(account.getGoalSavings()) + "\n");
+        ui.appendToOutput("Target Savings for the Month: $" + decimalFormat.format(savingsReqPerMonth) + "\n");
         ui.appendToOutput("Got it, list will be printed in the other pane!\n");
 
     }
