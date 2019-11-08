@@ -9,6 +9,7 @@ public abstract class DukeData extends DukeObject {
     public static final int PRIORITY_MAX = 4;
     private Integer priority;
     protected String summary;
+    private transient Impression parent;
 
     /**
      * Abstraction of the evidence or treatment data of a patient.
@@ -22,9 +23,14 @@ public abstract class DukeData extends DukeObject {
      */
     public DukeData(String name, Impression impression, Integer priority) throws DukeException {
         super(name, impression);
+        parent = impression;
         setPriority(priority);
     }
 
+    @Override
+    public Impression getParent() {
+        return parent;
+    }
 
     public void setName(String name) {
         super.setName(name);

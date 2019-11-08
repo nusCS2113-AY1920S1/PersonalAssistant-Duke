@@ -8,7 +8,6 @@ import java.util.List;
 public abstract class Treatment extends DukeData {
 
     private Integer statusIdx;
-    private transient Impression parent;
 
     /**
      * Abstraction of the actions taken to treat an impression the Doctor has about a patient.
@@ -23,16 +22,10 @@ public abstract class Treatment extends DukeData {
      */
     public Treatment(String name, Impression impression, int priority, int statusIdx) throws DukeException {
         super(name, impression, priority);
-        parent = impression;
         this.statusIdx = statusIdx;
     }
 
-    @Override
-    public Impression getParent() {
-        return parent;
-    }
-
-    @Override
+   @Override
     public Integer setPriority(Integer priorityVal) throws DukeException {
         if (priorityVal >= 0 && priorityVal < 5) {
             super.setPriority(priorityVal);

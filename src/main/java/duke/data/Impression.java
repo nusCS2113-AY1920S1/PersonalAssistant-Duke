@@ -13,6 +13,7 @@ public class Impression extends DukeObject {
     private String description;
     private ArrayList<Evidence> evidences;
     private ArrayList<Treatment> treatments;
+    private transient Patient parent;
 
     // TODO: integrate finding with autocorrect?
 
@@ -32,9 +33,15 @@ public class Impression extends DukeObject {
      */
     public Impression(String name, String description, Patient patient) {
         super(name, patient);
+        parent = patient;
         this.description = description;
         this.evidences = new ArrayList<>();
         this.treatments = new ArrayList<>();
+    }
+
+    @Override
+    public Patient getParent() {
+        return parent;
     }
 
     /**
