@@ -1,4 +1,5 @@
 //@@author yueyuu
+
 package gazeeebo.notes;
 
 /**
@@ -7,7 +8,7 @@ package gazeeebo.notes;
 public class Assessment {
     public String name;
 
-    /** Must be a positive number*/
+    /** Must be a positive number. */
     public int weightage; //as a percentage
 
     public Assessment(String name, int percentage) {

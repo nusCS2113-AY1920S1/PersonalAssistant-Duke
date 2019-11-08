@@ -1,7 +1,7 @@
 //@@author yueyuu
+
 package gazeeebo.notes;
 
-import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class GeneralNotePage {
      * Edits the goal to what the user specifies.
      *
      * @param userGoal the new goal the user want to use
-     * @throws DukeException if the command inputted is in the wrong format
+     * @throws DukeException if the command's description is empty
      */
     public void editGoal(String userGoal) throws DukeException {
         if (userGoal.isEmpty()) {
@@ -46,7 +46,7 @@ public class GeneralNotePage {
      * Adds a module to the general note page. Prevents duplicate modules from being added.
      *
      * @param moduleName the module that the user wants to add
-     * @throws DukeException if the command inputted is in the wrong format
+     * @throws DukeException if the command's description is empty
      */
     public void addModule(String moduleName) throws DukeException {
         if (moduleName.isEmpty()) {
@@ -54,7 +54,8 @@ public class GeneralNotePage {
         }
         for (Module m : modules) {
             if (m.name.equals(moduleName)) {
-                System.out.println("You already have a module with the same name. Please add a module with a different name.");
+                System.out.println("You already have a module with the same name. "
+                        + "Please add a module with a different name.");
                 return;
             }
         }
@@ -66,12 +67,10 @@ public class GeneralNotePage {
     /**
      * Deletes a module and all its content, if it exists, from the general note page.
      *
-     * @param ui to read the user's input
+     * @param moduleName the module that the user wants to delete
      * @throws DukeException if the command inputted by the user is in the wrong format
      */
     public void deleteModule(String moduleName) throws DukeException {
-        //System.out.println("Which module do you want to delete?");
-        //ui.readCommand(); //input module name here
         if (moduleName.isEmpty()) {
             throw new DukeException(EMPTY_DESCRIPTION);
         }

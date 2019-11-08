@@ -1,4 +1,5 @@
 //@@author yueyuu
+
 package gazeeebo.parsers;
 
 import gazeeebo.TriviaManager.TriviaManager;
@@ -72,7 +73,9 @@ public class ModuleCommandParser extends Command {
 
     /** Decodes the commands input on the module page. */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack,
+                        ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException,
+            ParseException, IOException, NullPointerException {
         //System.out.println("Welcome to your module page! Which module do you want to view/edit?");
         //ui.readCommand();
         Module module;

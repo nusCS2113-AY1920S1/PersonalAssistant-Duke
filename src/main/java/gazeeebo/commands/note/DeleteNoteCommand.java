@@ -1,4 +1,5 @@
 //@@author yueyuu
+
 package gazeeebo.commands.note;
 
 import gazeeebo.storage.NoteStorage;
@@ -31,12 +32,12 @@ public class DeleteNoteCommand extends EditNoteCommand {
      * @throws DukeException if the note to delete does not exist
      */
     private String deleteNoteInList(int noteNumber, ArrayList<Note> listToEdit, LocalDate dateToEdit,
-                                String period, String fileName) throws DukeException{
+                                String period, String fileName) throws DukeException {
         for (Note n: listToEdit) {
             if (n.noteDate.equals(dateToEdit)) {
                 try {
-                    String deletedNote = n.notes.get(noteNumber-1);
-                    n.notes.remove(noteNumber-1);
+                    final String deletedNote = n.notes.get(noteNumber - 1);
+                    n.notes.remove(noteNumber - 1);
                     if (n.notes.isEmpty()) {
                         listToEdit.remove(n);
                     }
@@ -65,7 +66,8 @@ public class DeleteNoteCommand extends EditNoteCommand {
 
     /** The main method that executes all the sub methods. */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack,
+                        ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
         //deleteNote day/week/month yyyy-MM-dd <note_num>
         String[] command = ui.fullCommand.split(" ");
         LocalDate userDate;

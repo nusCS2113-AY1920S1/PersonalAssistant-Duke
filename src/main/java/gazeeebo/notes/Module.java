@@ -1,4 +1,5 @@
 //@@author yueyuu
+
 package gazeeebo.notes;
 
 import gazeeebo.UI.Ui;
@@ -34,12 +35,12 @@ public class Module {
         System.out.println("[ " + name + " ]");
         System.out.println("Assessments:");
         for (int i = 0; i < assessments.size(); i++) {
-            System.out.println((i+1) + ". " + assessments.get(i).toString());
+            System.out.println((i + 1) + ". " + assessments.get(i).toString());
         }
         System.out.print("\n");
         System.out.println("Miscellaneous:");
         for (int i = 0; i < miscellaneousInfo.size(); i++) {
-            System.out.println((i+1) + ". " + miscellaneousInfo.get(i));
+            System.out.println((i + 1) + ". " + miscellaneousInfo.get(i));
         }
     }
 
@@ -47,12 +48,10 @@ public class Module {
      * Edits the name of the module to that specified by the user if the name is not already used.
      * The name of the module can be changed to the name that is currently being used for the module.
      *
-     * @param
-     * @throws IOException if the command input by the user cannot be read
+     * @param newName the new name the user wants to edit the existing name of the module to
+     * @throws DukeException if the command's description is empty
      */
     public void editName(String newName) throws DukeException {
-        //System.out.println("What do you want to edit the name to?");
-        //ui.readCommand();
         if (newName.isEmpty()) {
             throw new DukeException(EMPTY_DESCRIPTION);
         }
@@ -72,14 +71,10 @@ public class Module {
     /**
      * Adds an assessment to the module being viewed/edited.
      *
-     * @param
-     * @throws IOException if the command input by the user cannot be read
+     * @param assmt contains the name and weightage of the assessment
+     * @throws DukeException if the command's description is empty
      */
     public void addAssessment(String assmt) throws DukeException {
-        //System.out.println("What assessment do you want to add?");
-        //ui.readCommand();
-        //String name = ui.fullCommand;
-        //System.out.println("What is the weightage of the assessment?");
         if (assmt.isEmpty()) {
             throw new DukeException(EMPTY_DESCRIPTION);
         }
@@ -89,22 +84,18 @@ public class Module {
                 throw new DukeException("Please input a weightage.");
             }
         } catch (IndexOutOfBoundsException i) {
-            throw new DukeException("Please input the command in the format \'add assmt /n ASSESSMENT_NAME" +
-                    " /a ASSESSMENT_WEIGHTAGE\'.");
+            throw new DukeException("Please input the command in the format \'add assmt /n ASSESSMENT_NAME"
+                    + " /a ASSESSMENT_WEIGHTAGE\'.");
         }
-        //boolean isInt = false;
-        int percentage = -1;
-        //do {
-            //ui.readCommand();
-            try {
-                percentage = Integer.parseInt(assmtDetails[1].trim());
-                if (percentage < 0) {
-                    throw new DukeException("Please input a positive number.");
-                }
-            } catch (NumberFormatException n) {
-                throw new DukeException("Please input a number.");
+        int percentage;
+        try {
+            percentage = Integer.parseInt(assmtDetails[1].trim());
+            if (percentage < 0) {
+                throw new DukeException("Please input a positive number.");
             }
-        //} while (!isInt);
+        } catch (NumberFormatException n) {
+            throw new DukeException("Please input a number.");
+        }
         Assessment newAssessment = new Assessment(assmtDetails[0], percentage);
         assessments.add(newAssessment);
         System.out.println("Okay we have successfully added this assessment:");
@@ -114,11 +105,10 @@ public class Module {
     /**
      * Edits the name of an existing assessment.
      *
-     * @param
-     * @throws IOException if the command input by the user cannot be read
+     * @param assmtDetails contains the index and the new assessment name
+     * @throws DukeException if the command's description is empty or the index is invalid
      */
     public void editAssessmentName(String assmtDetails) throws DukeException {
-        //System.out.println("Which assessment do you want to edit?");
         if (assmtDetails.isEmpty()) {
             throw new DukeException(EMPTY_DESCRIPTION);
         }
@@ -128,33 +118,31 @@ public class Module {
                 throw new DukeException(EMPTY_DESCRIPTION);
             }
         } catch (IndexOutOfBoundsException i) {
-            throw new DukeException("Please input the command in the format \'edit assmt /n ASSESSMENT_INDEX" +
-                    " /a NEW_ASSESSMENT_NAME\'.");
+            throw new DukeException("Please input the command in the format \'edit assmt /n ASSESSMENT_INDEX"
+                    + " /a NEW_ASSESSMENT_NAME\'.");
         }
         String[] indexAndOldName = checkIfValidIndexAssmt(details[0].trim());
         int assmtNum = Integer.parseInt(indexAndOldName[0]);
         String oldName = indexAndOldName[1];
-        assert oldName != null: "Bug in notes.Module: editAssessment: oldName";
+        assert oldName != null : "Bug in notes.Module: editAssessment: oldName";
         assert assmtNum != -1 : "Bug in notes.Module: editAssessment: assmtNum";
-        //System.out.println("What do you want to change the name to?");
-        //ui.readCommand();
         assessments.get(assmtNum).name = details[1].trim();
         System.out.println("Okay we have successfully changed the name of \"" + oldName + "\" to:");
         System.out.println(details[1].trim());
     }
 
     /**
-     * Makes the user input a valid index in the assessments list.
+     * Checks if the index specified is in the assessments list.
      *
-     * @param
+     * @param index the index to be checked
      * @return String[] which contains the valid index and the name of the assessment that corresponds to that index
-     * @throws IOException if the command input by the user cannot be read
+     * @throws DukeException if the index is invalid
      */
     private String[] checkIfValidIndexAssmt(String index) throws DukeException {
         int assmtNum;
         String assmtName;
         try {
-            assmtNum = Integer.parseInt(index)-1;
+            assmtNum = Integer.parseInt(index) - 1;
             try {
                 assmtName = assessments.get(assmtNum).toString();
 
@@ -170,10 +158,10 @@ public class Module {
     /**
      * Edits the weightage of the assessment corresponding to the index specified by the user.
      *
-     * @param
-     * @throws IOException if the command input by the user cannot be read
+     * @param assmtDetails contains the index and the new weightage
+     * @throws DukeException if the command's description is empty or if the index is invalid
      */
-    public void editAssessmentWeightage(String assmtDetails) throws IOException, DukeException {
+    public void editAssessmentWeightage(String assmtDetails) throws DukeException {
         if (assmtDetails.isEmpty()) {
             throw new DukeException(EMPTY_DESCRIPTION);
         }
@@ -183,13 +171,13 @@ public class Module {
                 throw new DukeException("Please input a weightage.");
             }
         } catch (IndexOutOfBoundsException i) {
-            throw new DukeException("Please input the command in the format \'edit weightage /n ASSESSMENT_INDEX" +
-                    " /a NEW_ASSESSMENT_WEIGHTAGE\'.");
+            throw new DukeException("Please input the command in the format \'edit weightage /n ASSESSMENT_INDEX"
+                    + " /a NEW_ASSESSMENT_WEIGHTAGE\'.");
         }
         String[] indexAndOldName = checkIfValidIndexAssmt(details[0].trim());
         int assmtNum = Integer.parseInt(indexAndOldName[0]);
         String oldName = indexAndOldName[1];
-        assert oldName != null: "Bug in notes.Module: editAssessment: oldName";
+        assert oldName != null : "Bug in notes.Module: editAssessment: oldName";
         assert assmtNum != -1 : "Bug in notes.Module: editAssessment: assmtNum";
         try {
             assessments.get(assmtNum).weightage = Integer.parseInt(details[1].trim());
@@ -206,10 +194,10 @@ public class Module {
     /**
      * Deletes an assessment corresponding to the index specified by the user.
      *
-     * @param
-     * @throws IOException if the command input by the user cannot be read
+     * @param index the index of the assessment to be deleted
+     * @throws DukeException if the command's description is empty or the index is invalid
      */
-    public void deleteAssessment(String index) throws IOException, DukeException {
+    public void deleteAssessment(String index) throws DukeException {
         if (index.isEmpty()) {
             throw new DukeException(EMPTY_DESCRIPTION);
         }
@@ -226,12 +214,10 @@ public class Module {
     /**
      * Adds a miscellaneous information to the module being edited/viewed.
      *
-     * @param
-     * @throws IOException if the command input by the user cannot be read
+     * @param msc the miscellaneous information to be added
+     * @throws DukeException if the command's description is empty
      */
     public void addMiscellaneous(String msc) throws DukeException {
-        //System.out.println("What miscellaneous information do you want to add?");
-        //ui.readCommand();
         if (msc.isEmpty()) {
             throw new DukeException(EMPTY_DESCRIPTION);
         }
@@ -241,41 +227,36 @@ public class Module {
     }
 
     /**
-     * Makes the user input a valid index in the miscellaneous information list.
+     * Checks if the index specified is a valid index in the miscellaneous information list.
      *
-     * @param
-     * @return String[] which contains the valid index and the name of the miscellaneous information that corresponds to that index
-     * @throws IOException if the command input by the user cannot be read
+     * @param index the index to be checked
+     * @return String[] which contains the valid index and the name of the miscellaneous information
+     *     that corresponds to that index
+     * @throws DukeException if the index is invalid
      */
     private String[] checkIfValidIndexMsc(String index) throws DukeException {
         int mscNum;
         String mscName;
-        //boolean isValidIndex = false;
-        //do {
-            //ui.readCommand();
+        try {
+            mscNum = Integer.parseInt(index) - 1;
             try {
-                mscNum = Integer.parseInt(index)-1;
-                try {
-                    mscName = miscellaneousInfo.get(mscNum);
-                    //isValidIndex = true;
-                } catch (IndexOutOfBoundsException e) {
-                    throw new DukeException("Sorry there is no such index.");
-                }
-            } catch (NumberFormatException n) {
-                throw new DukeException("Please input a number for the index.");
+                mscName = miscellaneousInfo.get(mscNum);
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("Sorry there is no such index.");
             }
+        } catch (NumberFormatException n) {
+            throw new DukeException("Please input a number for the index.");
+        }
         return new String[]{Integer.toString(mscNum), mscName};
     }
 
     /**
      * Edits a miscellaneous information corresponding to the index specified by the user.
      *
-     * @param
-     * @throws IOException if the command input by the user cannot be read
+     * @param mscDetails contains the index and updated miscellaneous information
+     * @throws DukeException if the command's description is empty or the index is invalid
      */
-    public void editMiscellaneous(String mscDetails) throws IOException, DukeException {
-        //System.out.println("Which miscellaneous information do you want to edit?");
-        //ui.readCommand();
+    public void editMiscellaneous(String mscDetails) throws DukeException {
         if (mscDetails.isEmpty()) {
             throw new DukeException(EMPTY_DESCRIPTION);
         }
@@ -285,16 +266,14 @@ public class Module {
                 throw new DukeException("Please input a new miscellaneous information.");
             }
         } catch (IndexOutOfBoundsException i) {
-            throw new DukeException("Please input the command in the format \'edit msc /n MISCELLANEOUS_INDEX" +
-                    " /a NEW_DESCRIPTION\'.");
+            throw new DukeException("Please input the command in the format \'edit msc /n MISCELLANEOUS_INDEX"
+                    + " /a NEW_DESCRIPTION\'.");
         }
         String[] indexAndMscToEdit = checkIfValidIndexMsc(details[0].trim());
         int mscNum = Integer.parseInt(indexAndMscToEdit[0]);
         String mscToEdit = indexAndMscToEdit[1];
-        assert mscToEdit != null: "Bug in notes.Module: editMiscellaneous: mscToEdit";
+        assert mscToEdit != null : "Bug in notes.Module: editMiscellaneous: mscToEdit";
         assert mscNum != -1 : "Bug in notes.Module: editMiscellaneous: mscNum";
-        //System.out.println("What do you want to change the miscellaneous information to?");
-        //ui.readCommand();
         miscellaneousInfo.set(mscNum, details[1].trim());
         System.out.println("Okay we have successfully changed \"" + mscToEdit + "\" to:");
         System.out.println(details[1].trim());
@@ -303,8 +282,8 @@ public class Module {
     /**
      * Deletes a miscellaneous information corresponding to the index specified by the user.
      *
-     * @param
-     * @throws IOException if the command input by the user cannot be read
+     * @param index the index of the miscellaneous information to be deleted
+     * @throws DukeException if the command's description is empty or the index is invalid
      */
     public void deleteMiscellaneous(String index) throws DukeException {
         if (index.isEmpty()) {
@@ -313,7 +292,7 @@ public class Module {
         String[] indexAndMscToDelete = checkIfValidIndexMsc(index);
         int mscNum = Integer.parseInt(indexAndMscToDelete[0]);
         String mscToDelete = indexAndMscToDelete[1];
-        assert mscToDelete != null: "Bug in notes.Module: deleteMiscellaneous: mscToDelete";
+        assert mscToDelete != null : "Bug in notes.Module: deleteMiscellaneous: mscToDelete";
         assert mscNum != -1 : "Bug in notes.Module: deleteMiscellaneous: mscNum";
         miscellaneousInfo.remove(mscNum);
         System.out.println("Okay we have successfully deleted this miscellaneous information:");

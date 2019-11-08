@@ -1,4 +1,5 @@
 //@@author yueyuu
+
 package gazeeebo.parsers;
 
 import gazeeebo.TriviaManager.TriviaManager;
@@ -30,7 +31,7 @@ public class GeneralNoteCommandParser extends Command {
     private static final String COMMANDS = "commands";
     private static final String HELP = "help";
 
-
+    /** Prints out a summary of the list of commands that can be used in the note page. */
     public static void showListOfCommands() {
         System.out.println("__________________________________________________________");
         System.out.println("1. View goal and list of modules: " + VIEW);
@@ -47,7 +48,9 @@ public class GeneralNoteCommandParser extends Command {
 
     /** Decodes the command input in the note page. */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack,
+                        ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException,
+            ParseException, IOException, NullPointerException {
         System.out.println("Welcome to your note page! What would you like to do?\n");
         showListOfCommands();
         ui.readCommand();
@@ -79,20 +82,20 @@ public class GeneralNoteCommandParser extends Command {
             } catch (IndexOutOfBoundsException i) {
                 switch (commands[0]) {
                 case EDIT_GOAL:
-                    System.out.println("Please input the command " +
-                            "in the format \'edit /n NEW_GOAL\'.");
+                    System.out.println("Please input the command "
+                            + "in the format \'edit /n NEW_GOAL\'.");
                     break;
                 case ADD_MODULE:
-                    System.out.println("Please input the command " +
-                            "in the format \'add /n MODULE_CODE\'.");
+                    System.out.println("Please input the command "
+                            + "in the format \'add /n MODULE_CODE\'.");
                     break;
                 case DELETE_MODULE:
-                    System.out.println("Please input the command " +
-                            "in the format \'delete /n MODULE_CODE\'.");
+                    System.out.println("Please input the command "
+                            + "in the format \'delete /n MODULE_CODE\'.");
                     break;
                 default:
-                    System.out.println("Please input the command " +
-                            "in the format \'module /n MODULE_NAME\'.");
+                    System.out.println("Please input the command "
+                            + "in the format \'module /n MODULE_NAME\'.");
                     break;
                 }
             } catch (DukeException d) {
@@ -100,19 +103,19 @@ public class GeneralNoteCommandParser extends Command {
             }
             ui.readCommand();
         }
-        System.out.println("Going back to Main Menu...\n" +
-                "Content Page:\n" +
-                "------------------ \n" +
-                "1. help\n" +
-                "2. contacts\n" +
-                "3. expenses\n" +
-                "4. places\n" +
-                "5. tasks\n" +
-                "6. cap\n" +
-                "7. spec\n" +
-                "8. moduleplanner\n" +
-                "9. notes\n" +
-                "To exit: bye\n");
+        System.out.println("Going back to Main Menu...\n"
+                + "Content Page:\n"
+                + "------------------ \n"
+                + "1. help\n"
+                + "2. contacts\n"
+                + "3. expenses\n"
+                + "4. places\n"
+                + "5. tasks\n"
+                + "6. cap\n"
+                + "7. spec\n"
+                + "8. moduleplanner\n"
+                + "9. notes\n"
+                + "To exit: bye\n");
     }
 
     @Override
