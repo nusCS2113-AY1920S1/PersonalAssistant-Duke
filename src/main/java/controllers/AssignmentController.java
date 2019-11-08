@@ -12,7 +12,7 @@ import util.ParserHelper;
 //@@author sinteary
 public class AssignmentController {
     private ArrayList<String> errorMessages;
-    private ArrayList<String> successMessages;
+    private ArrayList<ArrayList<String>> successMessages;
     private ParserHelper parserHelper;
     private Project project;
 
@@ -65,15 +65,19 @@ public class AssignmentController {
 
         for (Integer taskIndex : validTaskIndexes) {
             Task task = project.getTask(taskIndex);
-            successMessages.add("For task " + taskIndex + " (" + task.getTaskName() + "):");
+            ArrayList<String> successMessagesForEachTask = new ArrayList<>();
+            successMessagesForEachTask.add("For task " + taskIndex + " (" + task.getTaskName() + "):");
             //assigning tasks
             if (!validAssignees.isEmpty()) {
-                assign(validAssignees, task);
+                ArrayList<String> assignMessages = assign(validAssignees, task);
+                successMessagesForEachTask.addAll(assignMessages);
             }
             //unassigning tasks
             if (!validUnassignees.isEmpty()) {
-                unassign(validUnassignees, task);
+                ArrayList<String> unassignMessages = unassign(validUnassignees, task);
+                successMessagesForEachTask.addAll(unassignMessages);
             }
+            successMessages.add(successMessagesForEachTask);
         }
     }
 
@@ -83,8 +87,9 @@ public class AssignmentController {
      * relating to the assignment.
      * @param validAssignees ArrayList containing valid member index numbers, for assignees.
      * @param task Task to be assigned to members.
+     * @return ArrayList of messages from task assignments.
      */
-    private void assign(ArrayList<Integer> validAssignees, Task task) {
+    private ArrayList<String> assign(ArrayList<Integer> validAssignees, Task task) {
         ArrayList<String> assignMessages = new ArrayList<>();
         for (Integer assigneeIndex : validAssignees) {
             IMember member = project.getMember(assigneeIndex);
@@ -99,7 +104,7 @@ public class AssignmentController {
                     + member.getName() + ").");
             }
         }
-        successMessages.addAll(assignMessages);
+        return assignMessages;
     }
 
     /**
@@ -107,8 +112,9 @@ public class AssignmentController {
      * relating to the removal of assignment.
      * @param validUnassignees ArrayList containing valid member index numbers, for unassignees.
      * @param task Task to be unassigned.
+     * @return ArrayList of messages from task assignments.
      */
-    private void unassign(ArrayList<Integer> validUnassignees, Task task) {
+    private ArrayList<String> unassign(ArrayList<Integer> validUnassignees, Task task) {
         ArrayList<String> unassignMessages = new ArrayList<>();
         for (Integer unassigneeIndex : validUnassignees) {
             IMember member = project.getMemberList().getMember(unassigneeIndex);
@@ -121,8 +127,8 @@ public class AssignmentController {
                 unassignMessages.add("Unassigned task from member " + unassigneeIndex
                     + " (" + member.getName() + ").");
             }
-            successMessages.addAll(unassignMessages);
         }
+        return unassignMessages;
     }
 
     /**
@@ -137,7 +143,7 @@ public class AssignmentController {
      * Returns messages about successful assignments to be shown to the user.
      * @return an ArrayList of success messages indicating successful assignment.
      */
-    public ArrayList<String> getSuccessMessages() {
+    public ArrayList<ArrayList<String>> getSuccessMessages() {
         return successMessages;
     }
 }

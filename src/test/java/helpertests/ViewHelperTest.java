@@ -36,9 +36,8 @@ class ViewHelperTest {
         sampleTableContent.add("line 3");
         sampleTableContent.add("line 4");
         sampleTableContent.add("");
-        ArrayList<ArrayList<String>> input = new ArrayList<>();
-        input.add(sampleTableContent);
-        String[] actualOutput = viewHelper.consolePrintTable(input, DEFAULT_HORI_BORDER_LENGTH_70_FOR_TEST);
+        String[] actualOutput = viewHelper.consolePrintTable(sampleTableContent,
+                DEFAULT_HORI_BORDER_LENGTH_70_FOR_TEST);
         String[] expectedOutput = new String[] {
             "+----------------------------------------------------------------------+",
             "|Project Header                                                        |",
