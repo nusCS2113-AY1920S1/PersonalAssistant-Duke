@@ -31,7 +31,7 @@ public class Medicine extends Treatment {
      * @param startDate the starting date when the patient should be on the medicine
      * @param duration the duration the patient needs to take the medicine
      */
-    public Medicine(String name, Impression impression, int priority, int status,
+    public Medicine(String name, Impression impression, int priority, String status,
                     String dose, String startDate, String duration) throws DukeException {
         super(name, impression, priority, status);
         this.dose = dose;

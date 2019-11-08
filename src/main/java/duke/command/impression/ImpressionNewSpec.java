@@ -68,24 +68,22 @@ public class ImpressionNewSpec extends DukeDataSpec {
         int status;
         switch (addType) { //isn't polymorphism fun?
         case "medicine":
-            //TODO check for allergies
-            status = ImpressionUtils.processStatus(cmd.getSwitchVal("status"), Medicine.getStatusArr());
             //TODO proper date parsing
             String startDate = cmd.getSwitchVal("date");
             if ("".equals(startDate)) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
                 startDate = LocalDate.now().format(formatter);
             }
-            Medicine medicine = new Medicine(cmd.getSwitchVal("name"), impression, priority, status,
-                    cmd.getSwitchVal("dose"), startDate, cmd.getSwitchVal("duration"));
+            Medicine medicine = new Medicine(cmd.getSwitchVal("name"), impression, priority,
+                    cmd.getSwitchVal("status"), cmd.getSwitchVal("dose"), startDate,
+                    cmd.getSwitchVal("duration"));
             impression.addNewTreatment(medicine);
             newData = medicine;
             newStr = "New medicine course added:\n" + medicine.toString();
             break;
 
         case "plan":
-            status = ImpressionUtils.processStatus(cmd.getSwitchVal("status"), Plan.getStatusArr());
-            Plan plan = new Plan(cmd.getSwitchVal("name"), impression, priority, status,
+            Plan plan = new Plan(cmd.getSwitchVal("name"), impression, priority, cmd.getSwitchVal("status"),
                     cmd.getSwitchVal("summary"));
             impression.addNewTreatment(plan);
             newData = plan;
@@ -93,8 +91,7 @@ public class ImpressionNewSpec extends DukeDataSpec {
             break;
 
         case "investigation":
-            status = ImpressionUtils.processStatus(cmd.getSwitchVal("status"), Investigation.getStatusArr());
-            Investigation invx = new Investigation(cmd.getSwitchVal("name"), impression, priority, status,
+            Investigation invx = new Investigation(cmd.getSwitchVal("name"), impression, priority, cmd.getSwitchVal("status"),
                     cmd.getSwitchVal("summary"));
             impression.addNewTreatment(invx);
             newData = invx;

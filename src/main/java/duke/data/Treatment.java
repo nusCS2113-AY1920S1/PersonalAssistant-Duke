@@ -20,9 +20,9 @@ public abstract class Treatment extends DukeData {
      * - status: the current status of the treatment
      * - priority: the priority level of the treatment
      */
-    public Treatment(String name, Impression impression, int priority, int statusIdx) throws DukeException {
+    public Treatment(String name, Impression impression, int priority, String status) throws DukeException {
         super(name, impression, priority);
-        this.statusIdx = statusIdx;
+        setStatus(status);
     }
 
    @Override

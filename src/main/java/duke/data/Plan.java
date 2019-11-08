@@ -26,7 +26,7 @@ public class Plan extends Treatment {
      * @param status the current status of the plan
      * @param summary the summary of what the plan entails
      */
-    public Plan(String name, Impression impression, int priority, int status, String summary) throws DukeException {
+    public Plan(String name, Impression impression, int priority, String status, String summary) throws DukeException {
         super(name, impression, priority, status);
         this.summary = summary;
     }

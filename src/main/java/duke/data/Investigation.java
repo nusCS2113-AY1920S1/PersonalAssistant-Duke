@@ -27,7 +27,7 @@ public class Investigation extends Treatment {
      * @param summary description of the investigation
      */
     public Investigation(String name, Impression impression, int priority,
-                         int status, String summary) throws DukeException {
+                         String status, String summary) throws DukeException {
         super(name, impression, priority, status);
         this.summary = summary;
     }
