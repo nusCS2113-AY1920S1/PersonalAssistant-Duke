@@ -1,15 +1,19 @@
 package com.algosenpai.app.logic;
 
+import com.algosenpai.app.logic.chapters.LectureGenerator;
 import com.algosenpai.app.logic.chapters.QuizGenerator;
 import com.algosenpai.app.logic.command.ChaptersCommand;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.logic.command.critical.ByeCommand;
+import com.algosenpai.app.logic.command.critical.LectureCommand;
 import com.algosenpai.app.logic.command.critical.QuizTestCommand;
 import com.algosenpai.app.logic.command.critical.ResetCommand;
 import com.algosenpai.app.logic.command.HelpCommand;
-import com.algosenpai.app.logic.command.InvalidCommand;
-import com.algosenpai.app.logic.command.QuizBlockedCommand;
+import com.algosenpai.app.logic.command.errorhandling.InvalidCommand;
+import com.algosenpai.app.logic.command.errorhandling.LectureBlockedCommand;
+import com.algosenpai.app.logic.command.errorhandling.QuizBlockedCommand;
 import com.algosenpai.app.logic.command.QuizNextCommand;
+import com.algosenpai.app.logic.command.VolumeCommand;
 import com.algosenpai.app.logic.command.utility.ArchiveCommand;
 import com.algosenpai.app.logic.command.utility.ClearCommand;
 import com.algosenpai.app.logic.command.utility.HistoryCommand;
@@ -17,11 +21,11 @@ import com.algosenpai.app.logic.command.utility.MenuCommand;
 import com.algosenpai.app.logic.command.utility.PrintCommand;
 import com.algosenpai.app.logic.command.utility.ResultCommand;
 import com.algosenpai.app.logic.command.utility.ReviewCommand;
+import com.algosenpai.app.logic.command.utility.SelectLectureChapterCommand;
 import com.algosenpai.app.logic.command.utility.SelectQuizChapterCommand;
 import com.algosenpai.app.logic.command.utility.SetupCommand;
 import com.algosenpai.app.logic.command.utility.ShowStatsCommand;
 import com.algosenpai.app.logic.command.utility.UndoCommand;
-import com.algosenpai.app.logic.command.VolumeCommand;
 import com.algosenpai.app.logic.constant.CommandsEnum;
 import com.algosenpai.app.logic.models.QuestionModel;
 import com.algosenpai.app.logic.parser.Parser;
@@ -54,6 +58,12 @@ public class Logic {
     private AtomicInteger quizQuestionNumber = new AtomicInteger(0);
     private AtomicBoolean isNewQuiz = new AtomicBoolean(true);
 
+    private ArrayList<String> lectureSlides = new ArrayList<>();
+    private AtomicInteger lectureChapterNumber = new AtomicInteger(-1);
+    private AtomicInteger lectureSlideNumber = new AtomicInteger(0);
+    private AtomicBoolean isNewLecture = new AtomicBoolean(true);
+
+
     private ArrayList<QuestionModel> archiveList = new ArrayList<>();
 
     private ArrayList<String> historyList = new ArrayList<>();
@@ -82,7 +92,7 @@ public class Logic {
             return executeReset();
         } else if (isQuizMode.get()) {
             return executeQuiz();
-        } else if (isLectureMode.get()) {
+        } else if (isLectureMode.get() || userCommand.equals("lecture")) {
             return executeLecture();
         } else {
             return executeOthers();
@@ -133,7 +143,24 @@ public class Logic {
      * @return The command given by the user.
      */
     private Command executeLecture() {
-        return null;
+        if (isNewLecture.get() && userCommand.equals("start")) {
+            return setupNewLecture();
+        } else if (isNewLecture.get() && userCommand.equals("lecture")) {
+            return new SelectLectureChapterCommand(parsedUserInputs, lectureChapterNumber, isLectureMode, userStats);
+        } else if (userCommand.equals("volume")) {
+            return new VolumeCommand(parsedUserInputs);
+        } else if (lectureBlockedCommands.contains(userCommand) || isNewLecture.get()) {
+            return new LectureBlockedCommand(parsedUserInputs);
+        } else {
+            return new LectureCommand(parsedUserInputs, lectureSlides, isLectureMode, lectureSlideNumber, isNewLecture);
+        }
+    }
+
+    private Command setupNewLecture() {
+        lectureSlides = new LectureGenerator().generateLecture(lectureChapterNumber.get());
+        isNewLecture.set(false);
+        isLectureMode.set(true);
+        return new LectureCommand(parsedUserInputs, lectureSlides, isLectureMode,lectureSlideNumber, isNewLecture);
     }
 
     /**
@@ -141,7 +168,6 @@ public class Logic {
      * @return The command given.
      */
     private Command executeQuiz() {
-        System.out.println("Here");
         if (isNewQuiz.get() && userCommand.equals("start")) {
             return setupNewQuiz();
         } else if (isNewQuiz.get() && userCommand.equals("quiz")) {

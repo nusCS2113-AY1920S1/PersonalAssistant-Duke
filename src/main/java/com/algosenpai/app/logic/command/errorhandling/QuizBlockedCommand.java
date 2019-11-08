@@ -1,6 +1,7 @@
-package com.algosenpai.app.logic.command;
+package com.algosenpai.app.logic.command.errorhandling;
 
-import java.io.IOException;
+import com.algosenpai.app.logic.command.Command;
+
 import java.util.ArrayList;
 
 public class QuizBlockedCommand extends Command {
@@ -15,7 +16,7 @@ public class QuizBlockedCommand extends Command {
     }
 
     @Override
-    public String execute() throws IOException {
+    public String execute() {
         return "This command is invalid during the quiz! >.<";
     }
 }

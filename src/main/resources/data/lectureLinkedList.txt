@@ -1,2 +1,7 @@
 Hello this is the chapter on linkedlist. We hope you learn something new from this lecture.
 ll is a fundamental topic in data structures and algorithms.
+Wow this is so cool.
+-
+[End of lecture]
+* Type 'quiz x' where x is a chapter to practise what you learnt.
+* Type 'menu' to see other commands.
