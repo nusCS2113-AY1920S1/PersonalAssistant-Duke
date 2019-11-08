@@ -10,7 +10,7 @@ public class DeadlineView {
     /**
      * This creates DeadlineView object.
      */
-    public DeadlineView(Text task, Text date, Text overDays){
+    public DeadlineView(Text task, Text date, Text overDays) {
         this.date = date;
         this.task = task;
         this.overDays = overDays;

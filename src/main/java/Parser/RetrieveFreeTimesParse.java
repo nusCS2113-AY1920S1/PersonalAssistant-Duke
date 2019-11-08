@@ -17,9 +17,9 @@ public class RetrieveFreeTimesParse extends Parse {
     private final Logger LOGGER = DukeLogger.getLogger(FindFreeTimesParse.class);
     private String fullCommand;
     private final String invalidInput = "Invalid input. Please enter the command as follows. \n" +
-            "retrieve/ft 'x', where 'x' is a digit between 1 - 5";
+            "retrieve/time 'x', where 'x' is a digit between 1 - 5";
     private final String invalidOption = "Invalid option. Please enter the command as follows. \n" +
-            "retrieve/ft 'x', where 'x' is a digit between 1 - 5";
+            "retrieve/time 'x', where 'x' is a digit between 1 - 5";
 
     /**
      * Creates RetrieveFreeTimesParse object.
@@ -31,7 +31,7 @@ public class RetrieveFreeTimesParse extends Parse {
 
     @Override
     public Command parse() throws DukeInvalidFormatException {
-        fullCommand = fullCommand.replaceFirst("retrieve/ft ", "");
+        fullCommand = fullCommand.replaceFirst("retrieve/time ", "");
         fullCommand = fullCommand.trim();
         if(fullCommand.isEmpty()){
             throw new DukeInvalidFormatException(invalidInput);
@@ -41,7 +41,7 @@ public class RetrieveFreeTimesParse extends Parse {
                 if (option >=1 && option <= 5) return new RetrieveFreeTimesCommand(option);
                 else throw new DukeInvalidFormatException(invalidOption);
             } catch (NumberFormatException e) {
-                LOGGER.severe("Unable to parse string to integer");
+                LOGGER.info("Unable to parse string to integer" + e.getMessage());
                 throw new DukeInvalidFormatException(invalidInput);
             }
         }

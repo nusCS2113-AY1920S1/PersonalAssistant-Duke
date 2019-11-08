@@ -1,4 +1,5 @@
 package Commons;
+
 import DukeExceptions.DukeException;
 import DukeExceptions.DukeInvalidDateTimeException;
 import UserInterface.AlertBox;
@@ -22,7 +23,6 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.HashMap;
 import java.util.TimerTask;
-import java.util.logging.Logger;
 
 /**
  * This class sets or removes a reminder thread.
@@ -30,7 +30,6 @@ import java.util.logging.Logger;
 public class Reminder {
 
     private Timer timer;
-
     private HashMap<Date, Timer> timerMap;
     private HashMap<Date, Assignment> remindMap;
     private Storage storage;
@@ -55,7 +54,7 @@ public class Reminder {
     public void removeTimerTask(Assignment task, Date date, String reminderTime) {
         timerMap.get(date).cancel();
         timerMap.remove(date);
-        deadlines.setReminder(task , reminderTime, false);
+        deadlines.setReminder(task, reminderTime, false);
         storage.updateDeadlineList(deadlines);
         remindMap.remove(date);
     }
@@ -64,7 +63,7 @@ public class Reminder {
         this.deadlines = deadlines;
     }
 
-    public HashMap<Date, Assignment> getRemindMap(){
+    public HashMap<Date, Assignment> getRemindMap() {
         return this.remindMap;
     }
 
@@ -73,6 +72,7 @@ public class Reminder {
                 "Your previous reminders have been automatically set. To see more, please type remind/check",
                 Alert.AlertType.INFORMATION);
     }
+
     /**
      * Creates a new thread when a reminder is set.
      * @param date The time set for the thread to run
@@ -88,7 +88,7 @@ public class Reminder {
         DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
         String reminderTime = dateFormat.format(date);
         long seconds = date.getTime() - currentDate.getTime();
-        deadlines.setReminder(task , reminderTime, true);
+        deadlines.setReminder(task, reminderTime, true);
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -119,7 +119,7 @@ public class Reminder {
                             "Please be reminded you have this task: " + task.getDescription() + " For mod: " + task.getModCode() + " by: " + task.getDateTime(),
                             Alert.AlertType.INFORMATION);
                     timer.cancel();
-                    deadlines.setReminder(task , reminderTime, false);
+                    deadlines.setReminder(task, reminderTime, false);
                     remindMap.remove(date);
                     storage.updateDeadlineList(deadlines);
                 });
