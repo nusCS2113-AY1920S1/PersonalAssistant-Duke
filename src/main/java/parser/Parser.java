@@ -170,7 +170,7 @@ public class Parser {
                 wordArrayList.add(wordList[i].trim());
             }
         }
-        if (wordList.length < 2) {
+        if (wordList.length < 1) {
             throw new WrongReminderFormatException();           //zero words entered
         }
         String dateDetail = wordDetail[1].trim();

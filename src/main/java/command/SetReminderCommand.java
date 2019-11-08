@@ -73,7 +73,9 @@ public class SetReminderCommand extends Command {
                 return ui.showReminderSetup(ASK_FOR_REMINDER_DATE);
             case 4:
                 Date date = Parser.parseDate(userResponse.trim());
-                new Reminder(date);
+                new Reminder(date, reminderWordList);
+                //write words into reminder file
+                storage.writeFile(reminderWordList.toString(), true, "reminder");
                 return ui.showReminderSummary(reminderWordList, date);
             default:
                 throw new ReminderSetupException();

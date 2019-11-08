@@ -1,18 +1,25 @@
 package reminder;
 
+import dictionary.Word;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import scene.NewScene;
+import storage.Storage;
+
+import java.util.ArrayList;
 
 //@@author tessa-z
 public class ReminderPopup extends NewScene {
 
     protected Scene reminderScene;
     protected Stage reminderPopup;
+    protected ArrayList<String> wordArrayList;
+    protected Storage storage;
 
-    public ReminderPopup() {
+    public ReminderPopup(ArrayList<String> wordList) {
+        wordArrayList = wordList;
         makeReminderPopup();
         reminderPopup.show();
     }
@@ -27,7 +34,11 @@ public class ReminderPopup extends NewScene {
      * @return reminder scene with initialised values
      */
     public Scene setReminderScene() {
-        Label secondLabel = new Label("Remember to study these words:");
+        String displayText = "Remember to study these words:\n";
+        for (String word: wordArrayList) {
+            displayText += word + "\n";
+        }
+        Label secondLabel = new Label(displayText);
 
         StackPane secondaryLayout = new StackPane();
         secondaryLayout.getChildren().add(secondLabel);

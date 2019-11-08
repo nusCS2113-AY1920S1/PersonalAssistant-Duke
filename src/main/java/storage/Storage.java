@@ -4,6 +4,7 @@ import dictionary.Bank;
 import dictionary.TagBank;
 import dictionary.Word;
 import dictionary.WordBank;
+import exception.UnableToWriteFileException;
 import exception.WordAlreadyExistsException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
@@ -30,6 +31,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Stack;
 
@@ -54,6 +57,7 @@ public class Storage {
         File filePath = new File(currentDir.toString() + "\\data");
         File dataText = new File(filePath, "wordup.txt");
         File reminderText = new File(filePath, "reminder.txt");
+        File dataExcel = new File(filePath, "wordup.xlsx");
         if (!filePath.exists()) {
             filePath.mkdir();
         }
@@ -64,6 +68,7 @@ public class Storage {
                 e.printStackTrace();
             }
         }
+
         if (!reminderText.exists()) {
             try {
                 reminderText.createNewFile();
@@ -73,14 +78,7 @@ public class Storage {
         }
         DATA_FILE_PATH = dataText.getAbsolutePath();
         REMINDER_FILE_PATH = reminderText.getAbsolutePath();
-    }
-
-    /**
-     * Initiates storage with text file path and excel file path.
-     * @param excelPath relative path of excel file
-     */
-    public Storage(String excelPath) {
-        EXCEL_PATH = excelPath;
+        EXCEL_PATH = dataExcel.getAbsolutePath();
         excelFile = new File(EXCEL_PATH);
     }
 
@@ -124,22 +122,67 @@ public class Storage {
         }
     }
 
+    public ArrayList<String> loadReminderWords() {
+        File file = new File(REMINDER_FILE_PATH);
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
+            ArrayList<String> reminderWordList = new ArrayList<>();
+
+            String line = br.readLine();
+            while (line != null) {
+                if (line.equals("")) {
+                    line = br.readLine();
+                } else {
+                    break;
+                }
+            }
+            String[] wordList = line.substring(0, line.length() - 1).split(",");
+            reminderWordList.addAll(Arrays.asList(wordList));
+
+            updateFile(line, "", "reminder");           //delete this line
+
+            return reminderWordList;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                br.close();
+                fr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     /**
      * Writes data to an extracted file.
      * @param s new word to be added
      * @param append return true if the file can be appended
+     * @param fileType
      */
-    public void writeFile(String s, boolean append) {
-        File file = new File(DATA_FILE_PATH);
+    public void writeFile(String s, boolean append, String fileType) {
+        File file;
         FileWriter fw = null;
         BufferedWriter bw = null;
         try {
+            if (fileType.equals("wordup")) {
+                file = new File(DATA_FILE_PATH);
+            } else if (fileType.equals("reminder")) {
+                file = new File(REMINDER_FILE_PATH);
+            } else {
+                throw new UnableToWriteFileException();
+            }
+
             fw = new FileWriter(file, append);
             bw = new BufferedWriter(fw);
             bw.write(s);
             bw.newLine();
-        } catch (IOException e) {
+        } catch (IOException | UnableToWriteFileException e) {
             e.printStackTrace();
         } finally {
             try {
@@ -155,8 +198,9 @@ public class Storage {
      * Updates a word in extracted file.
      * @param oldString value of old word
      * @param newString value of word after updated
+     * @param fileType
      */
-    public void updateFile(String oldString, String newString) {
+    public void updateFile(String oldString, String newString, String fileType) {
         File file = new File(DATA_FILE_PATH);
         FileReader fr = null;
         BufferedReader br = null;
@@ -173,7 +217,7 @@ public class Storage {
             oldContent = oldContent.substring(0, oldContent.length() - 1);
             String newContent = oldContent.replace(oldString, newString).trim();
             Storage writer = new Storage();
-            writer.writeFile(newContent,false);
+            writer.writeFile(newContent,false, fileType);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

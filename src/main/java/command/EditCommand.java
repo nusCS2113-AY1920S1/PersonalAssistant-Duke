@@ -27,7 +27,7 @@ public class EditCommand extends Command {
             bank.editWordMeaning(wordToBeEdited, newMeaning); //edit the word in the wordBank
             Word newWord = bank.getWordFromWordBank(wordToBeEdited); //get the new edited word
             storage.writeWordBankExcelFile(bank.getWordBankObject());
-            storage.updateFile(oldWord.toString(), newWord.toString());
+            storage.updateFile(oldWord.toString(), newWord.toString(), "wordup");
             return ui.showEdited(newWord);
 
         } catch (NoWordFoundException e) {
