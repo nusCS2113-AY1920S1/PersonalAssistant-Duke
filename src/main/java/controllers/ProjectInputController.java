@@ -1,5 +1,11 @@
 package controllers;
 
+import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import models.member.IMember;
 import models.member.Member;
 import models.member.NullMember;
@@ -19,13 +25,6 @@ import util.factories.ReminderFactory;
 import util.factories.TaskFactory;
 import util.json.JsonConverter;
 import util.log.ArchDukeLogger;
-
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-
-import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
 
 public class ProjectInputController implements IController {
     private ProjectRepository projectRepository;
@@ -177,6 +176,7 @@ public class ProjectInputController implements IController {
         return new String[] {selectedMember.getDetails()};
     }
 
+    //@@author iamabhishek98
     /**
      * Adds a member to the current project.
      * @param projectToManage The project specified by the user.
@@ -209,6 +209,7 @@ public class ProjectInputController implements IController {
         }
     }
 
+    //@@author iamabhishek98
     /**
      * Updates the details of a given member in the current project.
      * @param projectToManage The project specified by the user.
@@ -233,6 +234,7 @@ public class ProjectInputController implements IController {
         }
     }
 
+    //@@author iamabhishek98
     /**
      * Deletes a member from the current project.
      * @param projectToManage The project specified by the user.
@@ -263,17 +265,10 @@ public class ProjectInputController implements IController {
         if (!validMemberIndexes.isEmpty()) {
             outputMessages.add("Take note that the member indexes might have changed after deleting!");
         }
-        //Shift this logger statement into ParserHelper to detect anytime there is incorrect input
-        /*
-        try {
-        } catch (IndexOutOfBoundsException e) {
-            ArchDukeLogger.logError(ProjectInputController.class.getName(), "[projectEditMember] "
-                    + "Please enter the index number of the member to be deleted correctly.");
-            return new String[] {"Please enter the index number of the member to be deleted correctly."};
-        }*/
         return outputMessages.toArray(new String[0]);
     }
 
+    //@@author iamabhishek98
     /**
      * Displays all the members in the current project.
      * Can be updated later on to include more information (tasks etc).
@@ -290,6 +285,7 @@ public class ProjectInputController implements IController {
         return viewHelper.consolePrintTable(tablesToPrint, DEFAULT_HORI_BORDER_LENGTH);
     }
 
+    //@@author iamabhishek98
     /**
      * Displays the members’ credits, their index number, name, and name of tasks completed.
      * @param projectToManage The project specified by the user.
@@ -301,7 +297,7 @@ public class ProjectInputController implements IController {
         if (allCredits.isEmpty()) {
             allCredits.add(0, "There are no members in this project.");
         } else {
-            allCredits.add(0, "Here are all the member credits: ");
+            allCredits.add(0, "Here are the credits earned by the members of this project: ");
         }
         return allCredits.toArray(new String[0]);
     }
@@ -371,6 +367,7 @@ public class ProjectInputController implements IController {
         }
     }
 
+    //@@author iamabhishek98
     /**
      * Deletes a task from the project.
      * @param projectToManage The project specified by the user.
@@ -447,7 +444,9 @@ public class ProjectInputController implements IController {
                         return new String[] {"This task has no specific requirements."};
                     } else {
                         ArrayList<String> taskRequirements = projectToManage.getTask(taskIndex).getTaskRequirements();
-                        return taskRequirements.toArray(new String[0]);
+                        ArrayList<ArrayList<String>> toPrintTable = new ArrayList<>();
+                        toPrintTable.add(taskRequirements);
+                        return viewHelper.consolePrintTable(toPrintTable, DEFAULT_HORI_BORDER_LENGTH);
                     }
                 }
                 return new String[] {"The task index entered is invalid."};
@@ -460,6 +459,7 @@ public class ProjectInputController implements IController {
         }
     }
 
+    //@@author iamabhishek98
     /**
      * Displays all the tasks in the given project.
      * @param projectToManage The project specified by the user.
@@ -667,9 +667,6 @@ public class ProjectInputController implements IController {
     public String[] projectDeleteReminder(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectDeleteReminder] User input: '"
                 + projectCommand + "'");
-        if (projectCommand.length() <= 12) {
-            return new String[] {"No reminder index number detected! Please enter the reminder index number."};
-        }
         ParserHelper parserHelper = new ParserHelper();
         int index = parserHelper.parseDeleteReminder(projectCommand);
         if (index == 0) {

@@ -141,7 +141,8 @@ public class ViewHelper {
         int indexOfStringSplitEnd = tableWidth;
         boolean isLastLine = false;
         while (!isLastLine) {
-            if (toPrint.substring(indexOfStringSplitStart, indexOfStringSplitEnd).contains(" ")) {
+            if (toPrint.substring(indexOfStringSplitStart, indexOfStringSplitEnd).lastIndexOf(" ")
+                    > (tableWidth - LONGEST_WORD_LIMIT_BEFORE_BREAKING_WITH_HYPHEN)) {
                 while (toPrint.charAt(indexOfStringSplitEnd - 1) != ' ') {
                     indexOfStringSplitEnd--;
                 }

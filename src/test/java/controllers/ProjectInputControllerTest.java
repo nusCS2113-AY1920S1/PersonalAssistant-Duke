@@ -1,13 +1,15 @@
 package controllers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.text.ParseException;
-import java.util.Date;
 import models.project.Project;
 import org.junit.jupiter.api.Test;
 import repositories.ProjectRepository;
 import util.date.DateTimeHelper;
+
+import java.text.ParseException;
+import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ProjectInputControllerTest {
     private ProjectRepository projectRepository;
@@ -166,30 +168,34 @@ class ProjectInputControllerTest {
         simulatedUserInput = "add member -n Sean";
         projectInputController.projectAddMember(project, simulatedUserInput);
 
-        simulatedUserInput = "add task -t task1 -p 1 -c 10 -s todo";
+        simulatedUserInput = "add task -t task1 -p 1 -c 10 -s doing";
         projectInputController.projectAddTask(project, simulatedUserInput);
 
-        simulatedUserInput = "add task -t task2 -p 5 -c 10 -s doing";
+        simulatedUserInput = "add task -t task2 -p 5 -c 10 -s done";
         projectInputController.projectAddTask(project, simulatedUserInput);
 
         actualOutput = "";
         for (String message : project.getCredits().toArray(new String[0])) {
             actualOutput += message;
         }
-        expectedOutput = "1. Dillen | Credits: 02. Jerry | Credits: 03. Sean | Credits: 0";
+        expectedOutput = "1. Dillen: 0 credits   Progress: .................... (0%)"
+                + "2. Jerry: 0 credits   Progress: .................... (0%)"
+                + "3. Sean: 0 credits   Progress: .................... (0%)";
         assertEquals(expectedOutput, actualOutput);
 
         simulatedUserInput = "assign task -i 1 -to 1 2";
         projectInputController.projectAssignTask(project, simulatedUserInput);
 
-        simulatedUserInput = "assign task -i 2 -to 1";
+        simulatedUserInput = "assign task -i 2 -to 1 3";
         projectInputController.projectAssignTask(project, simulatedUserInput);
 
         actualOutput = "";
         for (String message : project.getCredits().toArray(new String[0])) {
             actualOutput += message;
         }
-        expectedOutput = "1. Dillen | Credits: 202. Jerry | Credits: 103. Sean | Credits: 0";
+        expectedOutput = "1. Dillen: 3 credits   Progress: ##########.......... (50%)"
+                + "2. Jerry: 0 credits   Progress: .................... (0%)"
+                + "3. Sean: 3 credits   Progress: #################### (100%)";
         assertEquals(expectedOutput, actualOutput);
     }
 
@@ -453,9 +459,7 @@ class ProjectInputControllerTest {
             for (String message : project.getTask(1).getTaskRequirements().toArray(new String[0])) {
                 actualOutput += message;
             }
-            expectedOutput = "Documentation for product | Priority: 2 | Due: 21 Sep 2019"
-                    + dateTimeHelper.getDifferenceDays(dueDate)
-                    + " | Credit: 40 | State: TODO"
+            expectedOutput = "Requirements for the task 'Documentation for product':"
                     + "1. do something2. do another thing3. do nothing";
             assertEquals(expectedOutput, actualOutput);
 
@@ -465,9 +469,7 @@ class ProjectInputControllerTest {
             for (String message : project.getTask(1).getTaskRequirements().toArray(new String[0])) {
                 actualOutput += message;
             }
-            expectedOutput = "Documentation for product | Priority: 2 | Due: 21 Sep 2019"
-                    + dateTimeHelper.getDifferenceDays(dueDate)
-                    + " | Credit: 40 | State: TODO"
+            expectedOutput = "Requirements for the task 'Documentation for product':"
                     + "1. do nothing2. do everything";
             assertEquals(expectedOutput, actualOutput);
         } catch (ParseException e) {
@@ -542,6 +544,7 @@ class ProjectInputControllerTest {
         assertEquals("StrongGuy", project.getMembers().getMember(3).getRole());
     }
 
+    //@@author Dkenobi
     @Test
     void testAddReminder_correctInput() {
         Project project = new Project("Infinity_Gauntlet");
@@ -552,4 +555,94 @@ class ProjectInputControllerTest {
         assertEquals(expectedOutput,actualOutput);
     }
 
+    @Test
+    void testAddReminder_invalidInput() {
+        Project project = new Project("Infinity_Gauntlet");
+        simulatedUserInput = "add reminder Make new suit for the team may be try using pink 10/10/2019";
+        String [] invalid = projectInputController.projectAddReminder(project,simulatedUserInput);
+        String [] expectedOutputArray = new String[] {"Failed to create new task. "
+                + "Please ensure all necessary parameters are given"};
+        assertArrayEquals(expectedOutputArray, invalid);
+    }
+
+    @Test
+    void testViewReminder() throws ParseException {
+        Project project = new Project("Infinity_Gauntlet");
+        simulatedUserInput = "add reminder -n Make new suit for the team -r may be try using pink -d 10/10/2019";
+        projectInputController.projectAddReminder(project,simulatedUserInput);
+        String[] actualOutputArray = projectInputController.projectViewReminder(project);
+        String[] expectedOutputArray = new String[] {
+            "+----------------------------------------------------------------------+",
+            "|Reminder of Infinity_Gauntlet:                                        |",
+            "+----------------------------------------------------------------------+",
+            "|1. [X] Make new suit for the team                                     |",
+            "|   - Remarks: may be try using pink                                   |",
+            "|   - 10 Oct 2019"
+                    + dateTimeHelper.getDifferenceDays(dateTimeHelper.formatDate("10/10/2019"))
+                    + "                                   |",
+            "|                                                                      |",
+            "+----------------------------------------------------------------------+"};
+        assertArrayEquals(expectedOutputArray,actualOutputArray);
+    }
+
+    @Test
+    void testDeleteReminder() {
+        Project project = new Project("Infinity_Gauntlet");
+        simulatedUserInput = "add reminder -n Make new suit for the team -r may be try using pink -d 10/10/2019";
+        projectInputController.projectAddReminder(project,simulatedUserInput);
+        simulatedUserInput = "add reminder -n System integration with system team "
+                + "-r Need to bring along thumbdrive -d 10/10/2019";
+        projectInputController.projectAddReminder(project,simulatedUserInput);
+        simulatedUserInput = "delete reminder 1";
+        projectInputController.projectDeleteReminder(project,simulatedUserInput);
+        int reminderListSize = project.getReminderListSize();
+        assertEquals(1,reminderListSize);
+    }
+
+    @Test
+    void testDeleteReminder_invalidIndex() {
+        Project project = new Project("Infinity_Gauntlet");
+        simulatedUserInput = "add reminder -n Make new suit for the team -r may be try using pink -d 10/10/2019";
+        projectInputController.projectAddReminder(project,simulatedUserInput);
+        simulatedUserInput = "delete reminder 100";
+        String[] invalidArray = projectInputController.projectDeleteReminder(project,simulatedUserInput);
+        String [] expectedArray = {"No reminder index number found in the list! "
+                + "Please enter the correct reminder index number."};
+        assertArrayEquals(expectedArray,invalidArray);
+    }
+
+    @Test
+    void testEditReminder() {
+        Project project = new Project("Infinity_Gauntlet");
+        simulatedUserInput = "add reminder -n Make new suit for the team -r may be try using pink -d 10/10/2019";
+        projectInputController.projectAddReminder(project,simulatedUserInput);
+        simulatedUserInput = "edit reminder 1 -n new reminder name";
+        projectInputController.projectEditReminder(project,simulatedUserInput);
+        actualOutput = project.getReminderList().get(0).getReminderName();
+        expectedOutput = "new reminder name";
+        assertEquals(expectedOutput,actualOutput);
+    }
+
+    @Test
+    void testEditReminder_invalidIndex() {
+        Project project = new Project("Infinity_Gauntlet");
+        simulatedUserInput = "add reminder -n Make new suit for the team -r may be try using pink -d 10/10/2019";
+        projectInputController.projectAddReminder(project,simulatedUserInput);
+        simulatedUserInput = "edit reminder 100 -n new reminder name";
+        String[] invalidArray = projectInputController.projectEditReminder(project,simulatedUserInput);
+        String [] expectedArray = {"No reminder index number found in the list! "
+                + "Please enter the correct reminder index number."};
+        assertEquals(expectedOutput,actualOutput);
+    }
+
+    @Test
+    void testSetReminderStatus() {
+        Project project = new Project("Infinity_Gauntlet");
+        simulatedUserInput = "add reminder -n Make new suit for the team -r may be try using pink -d 10/10/2019";
+        projectInputController.projectAddReminder(project,simulatedUserInput);
+        simulatedUserInput = "mark reminder 1";
+        projectInputController.projectSetReminderStatus(project,simulatedUserInput);
+        Boolean reminderStatus = project.getReminder(1).getIsDone();
+        assertEquals(true,reminderStatus);
+    }
 }

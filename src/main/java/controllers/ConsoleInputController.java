@@ -91,8 +91,8 @@ public class ConsoleInputController implements IController {
         if (allProjectsDetails.size() == 0) {
             return new String[] {"You currently have no projects!"};
         } else {
-            System.out.println("Here are all the Projects you are managing:"); // Need to change this out.
-            return viewHelper.consolePrintTable(allProjectsDetails, DEFAULT_HORI_BORDER_LENGTH);
+            return viewHelper.consolePrintMultipleTables(allProjectsDetails, DEFAULT_HORI_BORDER_LENGTH,
+                    1, "Here are all the Projects you are managing:");
         }
     }
 

@@ -3,6 +3,7 @@ package util.validation;
 import java.util.regex.Pattern;
 
 public class ValidityHelper {
+    //@@author iamabhishek98
     /**
      * Checks validity of the email address.
      * @param email The entered email address.
@@ -14,6 +15,7 @@ public class ValidityHelper {
         return validEmailAddressRegex.matcher(email).find();
     }
 
+    //@@author iamabhishek98
     /**
      * Checks validity of the phone number.
      * @param phoneNumber The entered phone number.
@@ -31,6 +33,7 @@ public class ValidityHelper {
         return true;
     }
 
+    //@@author iamabhishek98
     /**
      * Returns an error message if either phone number or email address are not valid.
      * @param email The entered email address..

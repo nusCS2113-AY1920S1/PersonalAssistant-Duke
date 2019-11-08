@@ -1,9 +1,10 @@
 package models.task;
 
+import util.date.DateTimeHelper;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
-import util.date.DateTimeHelper;
 
 public class Task implements ITask {
     private String taskName;
@@ -28,7 +29,7 @@ public class Task implements ITask {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.taskName, this.taskPriority, this.taskCredit);
+        return Objects.hash(this.taskName);
     }
 
     /**
@@ -113,7 +114,8 @@ public class Task implements ITask {
      */
     public ArrayList<String> getTaskRequirements() {
         ArrayList<String> taskRequirements = new ArrayList<>();
-        taskRequirements.add(getDetails());
+        taskRequirements.add(0, "Requirements for the task '"
+                + this.taskName + "':");
         int index = 1;
         for (String s : this.taskRequirements) {
             taskRequirements.add(index + ". " + s);
