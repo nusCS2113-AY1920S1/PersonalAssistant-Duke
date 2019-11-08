@@ -53,7 +53,10 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addToFavourite(String name, Itinerary itinerary) {
+    public void addToFavourite(String name, Itinerary itinerary) throws NoSuchItineraryException {
+        if (itinerary == null) {
+            throw new NoSuchItineraryException();
+        }
         profileCard.addFavourite(name, itinerary);
     }
 
@@ -164,13 +167,8 @@ public class ModelManager implements Model {
      * @param name The serial number of the Itinerary.
      */
     @Override
-    public Itinerary getItinerary(String name) throws NoSuchItineraryException {
-        try {
-            return itineraryTable.get(name);
-        } catch (NullPointerException e) {
-            throw new NoSuchItineraryException();
-        }
-
+    public Itinerary getItinerary(String name) {
+        return itineraryTable.get(name);
     }
 
     /**

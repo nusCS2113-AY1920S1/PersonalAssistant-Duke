@@ -53,10 +53,11 @@ public class ProfileCard {
      * @throws NoSuchItineraryException If there is no itinerary of given name.
      */
     public Itinerary getFavourite(String name) throws NoSuchItineraryException {
-        try {
-            return favourite.get(name);
-        } catch (NullPointerException e) {
+        Itinerary itinerary = favourite.get(name);
+        if (itinerary == null) {
             throw new NoSuchItineraryException();
+        } else {
+            return itinerary;
         }
     }
 
@@ -91,10 +92,11 @@ public class ProfileCard {
      * @throws NoSuchItineraryException If there is no itinerary of given name.
      */
     public void deleteFavourite(String name) throws NoSuchItineraryException {
-        try {
-            favourite.remove(name);
-        } catch (NullPointerException e) {
+        Itinerary itinerary = favourite.get(name);
+        if (itinerary == null) {
             throw new NoSuchItineraryException();
+        } else {
+            favourite.remove(name);
         }
     }
 }

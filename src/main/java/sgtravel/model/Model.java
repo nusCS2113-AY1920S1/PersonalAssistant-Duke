@@ -86,7 +86,7 @@ public interface Model {
      */
     VenueList getEventVenues();
 
-    Itinerary getItinerary(String name) throws NoSuchItineraryException;
+    Itinerary getItinerary(String name);
 
     Recommendation getRecommendations();
 
@@ -110,7 +110,7 @@ public interface Model {
      */
     String getName();
 
-    void addToFavourite(String name, Itinerary itinerary);
+    void addToFavourite(String name, Itinerary itinerary) throws NoSuchItineraryException;
 
     void deleteFavourite(String name) throws NoSuchItineraryException;
 
