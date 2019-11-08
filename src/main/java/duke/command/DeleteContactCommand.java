@@ -38,16 +38,18 @@ public class DeleteContactCommand extends Command {
     public String executeGui(TaskList items, Ui ui) {
         String str;
         String deletedContact;
-        if (indexOfContactToDelete >= Numbers.ZERO.value && indexOfContactToDelete < contactList.size()) {
-            deletedContact = contactList.getAndDisplay(indexOfContactToDelete);
-            contactList.remove(indexOfContactToDelete);
-            str = ui.showContactDeletedGui(contactList, deletedContact);
-        } else if (contactList.size() == Numbers.ZERO.value) {
-            str = ui.showErrorMsgGui("No contacts to be deleted!");
-        } else {
-            str = ui.showErrorMsgGui("Invalid index! Please choose 1 "
+        if (contactList.size() == Numbers.ZERO.value) {
+            return ui.showErrorMsgGui("No contacts to be deleted!");
+        }
+
+        if (indexOfContactToDelete < Numbers.ZERO.value || indexOfContactToDelete >= contactList.size()) {
+            return ui.showErrorMsgGui("Invalid index! Please choose 1 "
                     + ((contactList.size() == Numbers.ONE.value) ? "" : "to " + contactList.size()));
         }
+
+        deletedContact = contactList.getAndDisplay(indexOfContactToDelete);
+        contactList.remove(indexOfContactToDelete);
+        str = ui.showContactDeletedGui(contactList, deletedContact);
         return str;
     }
 
