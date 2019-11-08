@@ -15,10 +15,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 import room.Room;
 import room.RoomList;
+import storage.BookingConstants;
 import user.UserList;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Controller for ui.MainWindow. Provides the layout for the other controls.
@@ -78,6 +80,8 @@ public class Ui extends AnchorPane {
         );
         userInput.clear();
         switch (splitStr[0]) {
+        case "add":
+        case "delete":
         case "approve":
         case "reject":
         case "list":
@@ -109,7 +113,7 @@ public class Ui extends AnchorPane {
         case "login":
         case "logout":
             UserList userList = duke.getUserList();
-            if (userList.getLoginStatus() == true) {
+            if (userList.getLoginStatus()) {
                 userLabel.setText("Logged in as: " + userList.getCurrentUser());
             } else {
                 userLabel.setText("Not Logged In");
@@ -144,13 +148,17 @@ public class Ui extends AnchorPane {
         addToList(new ListBox("S/N", "Name", "Venue", "Date", "From",
                 "To", "Status", "Purpose", "Approved/ Rejected By:"));
         Integer index = 1;
-        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate dateStart = LocalDate.parse(date, formatterStart);
-        for (Booking i : bookingList) {
-            if (i.getDateStart() == dateStart) {
-                addToList(customListBox(bookingList, i, index));
-                index++;
+        try {
+            DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate dateStart = LocalDate.parse(date, formatterStart);
+            for (Booking i : bookingList) {
+                if (i.getDateStart().equals(dateStart)) {
+                    addToList(customListBox(bookingList, i, index));
+                    index++;
+                }
             }
+        } catch (DateTimeParseException error) {
+            //new DukeException (BookingConstants.DATEERROR);
         }
     }
 
@@ -158,13 +166,17 @@ public class Ui extends AnchorPane {
         addToList(new ListBox("S/N", "Name", "Venue", "Date", "From",
                 "To", "Status", "Purpose", "Approved/ Rejected By"));
         Integer index = 1;
-        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate dateStart = LocalDate.parse(date, formatterStart);
-        for (Booking i : bookingList) {
-            if (i.getStartYear() == dateStart.getYear()) {
-                addToList(customListBox(bookingList, i, index));
-                index++;
+        try {
+            DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate dateStart = LocalDate.parse(date, formatterStart);
+            for (Booking i : bookingList) {
+                if (i.getStartYear() == dateStart.getYear()) {
+                    addToList(customListBox(bookingList, i, index));
+                    index++;
+                }
             }
+        } catch (DateTimeParseException error) {
+            //new DukeException (BookingConstants.DATEERROR);
         }
     }
 
