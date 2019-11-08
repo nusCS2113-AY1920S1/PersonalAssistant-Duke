@@ -17,6 +17,13 @@ public abstract class ObjSpec extends ArgSpec {
         this.cmd = null;
     }
 
+    /**
+     * todo write documention.
+     * @param core program core to execute command
+     * @param cmd the command used to execute with object
+     * @param obj the DukeObject context the command is executed within.
+     * @throws DukeException if the command cannot be executed
+     */
     public void execute(DukeCore core, ObjCommand cmd, DukeObject obj) throws DukeException {
         this.cmd = cmd;
         executeWithObj(core, obj);

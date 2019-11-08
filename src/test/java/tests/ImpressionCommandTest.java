@@ -47,10 +47,10 @@ public class ImpressionCommandTest extends CommandTest {
         //TODO test other DukeData
         String[] switchNames = {"medicine", "name", "priority", "status", "dose", "date", "duration"};
         String[] switchVals = {null, "test", "2", "1", "test dose", "today", "next two weeks"};
-        Medicine testMed = new Medicine("test", impression, 2, 1, "test dose",
-                "today", "next two weeks");
 
         try {
+            Medicine testMed = new Medicine("test", impression, 2, "1", "test dose",
+                    "today", "next two weeks");
             ArgCommand newMedCmd = new ArgCommand(ImpressionNewSpec.getSpec(), null, switchNames, switchVals);
             newMedCmd.execute(core);
             assertTrue(testMed.equals(impression.getTreatment("test")));
@@ -64,9 +64,10 @@ public class ImpressionCommandTest extends CommandTest {
         //TODO test other DukeData
         String[] switchNames = {"medicine", "name", "dose", "duration"};
         String[] switchVals = {null, "test", "test dose", "next two weeks"};
-        Medicine testMed = new Medicine("test", impression, 0, 0, "test dose",
-                LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy")), "next two weeks");
+
         try {
+            Medicine testMed = new Medicine("test", impression, 0, "0", "test dose",
+                    LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy")), "next two weeks");
             ArgCommand newMedCmd = new ArgCommand(ImpressionNewSpec.getSpec(), null, switchNames, switchVals);
             newMedCmd.execute(core);
             assertTrue(testMed.equals(impression.getTreatment("test")));

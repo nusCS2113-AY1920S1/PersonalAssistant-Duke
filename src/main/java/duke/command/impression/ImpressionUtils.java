@@ -23,6 +23,16 @@ public class ImpressionUtils {
         }
     }
 
+    /**
+     * Gets the DukeData object specified by the index.
+     * Determines if it is in evidence list or treatment list by checking nullity of strings.
+     * @param allStr Not applicable in this context
+     * @param evidStr if the DukeData is in the evidence list
+     * @param treatStr if the DukeData is in the treatment list
+     * @param impression The impression object containing the lists
+     * @return the DukeData object if method call is valid
+     * @throws DukeException if the index is not valid or invalid parameters used
+     */
     public static DukeData getDataByIdx(String allStr, String evidStr, String treatStr, Impression impression)
             throws DukeException {
         if (allStr != null) {

@@ -40,6 +40,7 @@ public class Medicine extends Treatment {
         this.duration = duration;
     }
 
+    @Override
     public String toString() {
         String informationString;
         informationString = "Dose: " + this.dose + "\n";

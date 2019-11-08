@@ -39,7 +39,7 @@ public class PatientDeleteSpec extends PatientObjSpec {
             } else if (obj instanceof Treatment) {
                 impression.deleteTreatment(obj.getName());
             } else { // should not happen
-               throw new ClassCastException();
+                throw new ClassCastException();
             }
         }
     }

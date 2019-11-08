@@ -132,26 +132,26 @@ public class MainWindow extends UiElement<Stage> {
         contextWindowHolder.getTabs().remove(currentTab);
         try {
             switch ((Context) event.getNewValue()) {
-                case HOME:
-                    currentContextWindow = new HomeContextWindow(patientList);
-                    currentTab = new Tab("Home", currentContextWindow.getRoot());
-                    break;
-                case PATIENT:
-                    currentContextWindow = new PatientContextWindow((Patient) uiContext.getObject());
-                    currentTab = new Tab("Patient", currentContextWindow.getRoot());
-                    break;
-                case IMPRESSION:
-                    Impression impression = (Impression) uiContext.getObject();
-                    currentContextWindow = new ImpressionContextWindow(impression, (Patient) impression.getParent());
-                    currentTab = new Tab("Impression", currentContextWindow.getRoot());
-                    break;
-                case SEARCH:
-                    SearchResults searchResults = (SearchResults) uiContext.getObject();
-                    currentContextWindow = new SearchContextWindow(searchResults);
-                    currentTab = new Tab("Search", currentContextWindow.getRoot());
-                    break;
-                default:
-                    return;
+            case HOME:
+                currentContextWindow = new HomeContextWindow(patientList);
+                currentTab = new Tab("Home", currentContextWindow.getRoot());
+                break;
+            case PATIENT:
+                currentContextWindow = new PatientContextWindow((Patient) uiContext.getObject());
+                currentTab = new Tab("Patient", currentContextWindow.getRoot());
+                break;
+            case IMPRESSION:
+                Impression impression = (Impression) uiContext.getObject();
+                currentContextWindow = new ImpressionContextWindow(impression, (Patient) impression.getParent());
+                currentTab = new Tab("Impression", currentContextWindow.getRoot());
+                break;
+            case SEARCH:
+                SearchResults searchResults = (SearchResults) uiContext.getObject();
+                currentContextWindow = new SearchContextWindow(searchResults);
+                currentTab = new Tab("Search", currentContextWindow.getRoot());
+                break;
+            default:
+                return;
             }
         } catch (DukeFatalException e) {
             // todo check

@@ -29,7 +29,7 @@ public class ImpressionFindSpec extends ObjSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
-    super.execute(core);
+        super.execute(core);
         String searchTerm = cmd.getArg();
         ArrayList<DukeObject> searchResult = new ArrayList<>();
         Impression impression = (Impression) core.uiContext.getObject();

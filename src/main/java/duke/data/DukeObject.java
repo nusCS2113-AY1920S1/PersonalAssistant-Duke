@@ -23,7 +23,7 @@ public abstract class DukeObject {
 
     /**
      * The toString function returns a String representing the information stored in
-     * the `DukeObject`
+     * the `DukeObject`.
      *
      * @return the String representation of the object
      */

@@ -212,6 +212,13 @@ public class Impression extends DukeObject {
     }
 
     // TODO create parent reference in object
+
+    /**
+     * This function only allows medicine to be added if the patient is not allergic.
+     * @param newMedicine the medicine to be added
+     * @return the medicine added if successful
+     * @throws DukeException if the patient is allergic or if the medicine is a duplicate entry
+     */
     public Medicine addNewMedicine(Medicine newMedicine) throws DukeException {
         if (parent.isAllergic(newMedicine.getName())) {
             throw new DukeException("The patient is allergic to this medicine!");
@@ -388,14 +395,26 @@ public class Impression extends DukeObject {
         return Context.IMPRESSION;
     }
 
+    /**
+     * This functions returns the evidence at a specified index.
+     * @param idx the zero based index
+     * @return the evidence at the index
+     * @throws DukeException if the index is out of bounds
+     */
     public Evidence getEvidenceAtIdx(int idx) throws DukeException {
-        if (idx < evidences.size()) {
+        if (idx >= 0 && idx < evidences.size()) {
             return evidences.get(idx);
         } else {
             throw new DukeException("I don't have an evidence at that index!");
         }
     }
 
+    /**
+     * This functions returns the treatment at a specified index.
+     * @param idx the zero based index
+     * @return the treatment at the index
+     * @throws DukeException if the index is out of bounds
+     */
     public Treatment getTreatmentAtIdx(int idx) throws DukeException {
         if (idx < treatments.size()) {
             return treatments.get(idx);

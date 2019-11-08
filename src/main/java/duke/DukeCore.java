@@ -88,7 +88,7 @@ public class DukeCore extends Application {
     /**
      * Update UI.
      */
-    public void updateUi(String message) {
+    public void updateUi(String message) throws DukeFatalException {
         ui.updateUi(message);
     }
 

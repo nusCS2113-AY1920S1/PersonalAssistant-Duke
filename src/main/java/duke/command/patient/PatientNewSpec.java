@@ -27,7 +27,7 @@ public class PatientNewSpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
-    super.execute(core);
+        super.execute(core);
         Patient patient = (Patient) core.uiContext.getObject();
         Impression impression = new Impression(cmd.getSwitchVal("name"), cmd.getSwitchVal("description"), patient);
         patient.addNewImpression(impression);

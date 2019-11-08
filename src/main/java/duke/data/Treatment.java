@@ -28,7 +28,7 @@ public abstract class Treatment extends DukeData {
         setStatus(status);
     }
 
-   @Override
+    @Override
     public Integer setPriority(Integer priorityVal) throws DukeException {
         if (priorityVal >= 0 && priorityVal < 5) {
             super.setPriority(priorityVal);
@@ -67,7 +67,6 @@ public abstract class Treatment extends DukeData {
     /**
      * Checks if a status is a string or an integer, and sets this Treatment's status accordingly, if it is valid.
      * @param status The String supplied representing either a status index or name.
-     * @return The Integer that the string represents, or 0 if it is null.
      * @throws NumberFormatException If the string is not a valid representation of an integer.
      */
     public void setStatus(String status) throws DukeException {
@@ -88,6 +87,11 @@ public abstract class Treatment extends DukeData {
         }
     }
 
+    /**
+     * This function sets the status of the treatment.
+     * @param status the new status set
+     * @throws DukeException if the status index is not valid.
+     */
     public void setStatus(int status) throws DukeException {
         if (status < 0 || status >= getStatusArr().size()) {
             throw new DukeException(status + "is not a valid numeric value for the status!");
