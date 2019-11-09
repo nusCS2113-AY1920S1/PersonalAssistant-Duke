@@ -2,6 +2,7 @@ package seedu.hustler.data;
 
 import seedu.hustler.Hustler;
 import seedu.hustler.game.achievement.AchievementList;
+import seedu.hustler.game.achievement.FirstLogin;
 import seedu.hustler.logic.parser.DateTimeParser;
 import java.io.BufferedWriter;
 import java.io.File;
