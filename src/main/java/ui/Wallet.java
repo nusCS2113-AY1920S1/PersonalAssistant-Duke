@@ -1,5 +1,7 @@
 package ui;
 
+import duke.exception.DukeException;
+
 import java.util.HashMap;
 
 public class Wallet {
@@ -31,6 +33,7 @@ public class Wallet {
     public Wallet() {
         this.setBalance(0.00);
         this.setReceipts(new ReceiptTracker());
+        this.getReceipts().initializeMainReceiptTracker();
     }
 
     /**
@@ -89,7 +92,7 @@ public class Wallet {
      * @return Double representing the total cash spent as recorded by the ReceiptTracker
      */
     public double getTotalExpenses() {
-        return this.receipts.getTotalCashSpent();
+        return this.receipts.getNettCashSpent();
     }
 
     /**
@@ -126,5 +129,23 @@ public class Wallet {
      */
     public ReceiptTracker getReceiptsByYear(int year) {
         return this.receipts.getReceiptsByYear(year);
+    }
+
+    /**
+     * Accessor for method getFolder in ReceiptTracker.
+     * @param tag String to track by
+     * @throws DukeException Error creating a folder to track tag.
+     */
+    public void addFolder(String tag) throws DukeException {
+        this.receipts.addFolder(tag);
+    }
+
+    /**
+     * Accessor for method removeFolder in ReceiptTracker.
+     * @param tag String to be unregistered
+     * @throws DukeException Error untracking a tag.
+     */
+    public void removeFolder(String tag) throws DukeException {
+        this.receipts.removeFolder(tag);
     }
 }

@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import main.Duke;
 import storage.StorageTask;
 import storage.StorageWallet;
 import ui.UiCode;
@@ -51,8 +52,7 @@ public class MainWindow extends AnchorPane {
 
         this.fetchStoredImages();
         this.showHomeDisplay();
-        this.displayToast("test");
-
+        this.refresh();
     }
 
     @FXML
@@ -62,7 +62,8 @@ public class MainWindow extends AnchorPane {
         InfoCapsule infoCapsule = this.interpreterLayer.interpret(input);
         this.updateGui(infoCapsule);
         if (this.displayType == DisplayType.HOME) {
-            updateHomeDisplay();
+            this.updateHomeDisplay();
+            this.refresh(); // Javafx won't update completely
         }
         this.userInput.clear();
         if (this.exitRequest) {
@@ -75,6 +76,7 @@ public class MainWindow extends AnchorPane {
      */
     private void showHomeDisplay() {
         if (this.displayType == DisplayType.HOME) {
+            this.updateHomeDisplay();
             return;
         }
         try {
@@ -88,7 +90,7 @@ public class MainWindow extends AnchorPane {
         } catch (DukeException e) {
             this.displayToast(e.getMessage());
         } catch (Exception e) {
-            e.printStackTrace();
+            // Catch Error
         }
         if (this.contentPane.getChildren().size() > 1) {
             this.contentPane.getChildren().remove(0);
@@ -105,6 +107,11 @@ public class MainWindow extends AnchorPane {
             this.homeController.displayTasks();
         } catch (DukeException e) {
             this.displayToast(e.getMessage());
+        }
+        try {
+            this.homeController.updateBreakdownData();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -144,6 +151,9 @@ public class MainWindow extends AnchorPane {
         this.interpreterLayer.requestSave();
     }
 
+    void refresh() {
+        this.updateHomeDisplay();
+    }
 
     /**
      * Fetches Images stored in application for display in slots for features yet to be developed.

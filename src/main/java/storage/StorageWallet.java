@@ -32,6 +32,14 @@ public class StorageWallet {
         try {
             FileWriter writer = new FileWriter(this.filePath);
             writer.write(wallet.getBalance().toString() + "\n");
+
+            StringBuilder folderNames = new StringBuilder();
+            for (String folderName : wallet.getFolders().keySet()) {
+                if (!folderName.equals("Income") && !folderName.equals("Expenses")) {
+                    folderNames.append(folderName).append("-");
+                }
+            }
+            writer.write(folderNames.toString() + "\n");
             for (Receipt receipt : wallet.getReceipts()) {
                 String strSave = Parser.encodeReceipt(receipt);
                 writer.write(strSave);
@@ -58,12 +66,16 @@ public class StorageWallet {
                 throw new DukeException("Balance cannot be read");
             }
             wallet.setBalance(storedBalanceDouble);
+            String folderNames = scanner.nextLine();
             while (scanner.hasNextLine()) {
                 String loadedInput = scanner.nextLine();
                 if (loadedInput.equals("")) {
                     break;
                 }
                 parseAddReceiptFromStorageString(wallet, loadedInput);
+            }
+            for (String folderName : folderNames.split("-")) {
+                wallet.addFolder(folderName);
             }
         } catch (Exception e) {
             throw new DukeException("No Previously Saved Wallet Data.");
