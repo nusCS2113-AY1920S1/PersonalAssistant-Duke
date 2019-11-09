@@ -43,6 +43,7 @@ class CategoryCommandTest {
                 + " --------------------------------------------------\n", Ui.getTestOutput());
     }
 
+    /*
     @Test
     void testDeleteCategoryCommand() throws MooMooException {
         ScheduleListStub calendar = new ScheduleListStub();
@@ -69,6 +70,8 @@ class CategoryCommandTest {
                 + "\\ Re-MOOO-ved category named : 2271    CG          /\n"
                 + " --------------------------------------------------\n", Ui.getTestOutput());
     }
+
+     */
 
     @Test
     void testAddExpenditureCommand() throws MooMooException {
