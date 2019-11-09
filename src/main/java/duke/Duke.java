@@ -269,5 +269,21 @@ public class Duke {
     public FilterList getFilterList() {
         return filterList;
     }
+    //@@author
 
+    //@@author maxxyx96
+    /**
+     * Forces the saving of current lists upon external exiting such as clicking on "X".
+     *
+     */
+    public void suddenStop() {
+        try {
+            priorityStorage.write(priorityList);
+            contactStorage.write(contactList);
+            budgetStorage.write(budgetList);
+            storage.write(items);
+        } catch (IOException i) {
+            logger.severe("OH NO CANT SAVE WHEN EXITING OH GOD WHY");
+        }
+    } //@@author
 }
