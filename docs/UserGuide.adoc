@@ -2141,6 +2141,9 @@ specified by the user*
 
 | *Update outdated profile*
 | Checks all recurring transactions and update the profile if needed.
+
+This includes income, recurring expenditures, interests from bonds.
+
 | `/update`
 | `/update`
 
