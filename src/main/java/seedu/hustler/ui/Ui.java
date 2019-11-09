@@ -1,6 +1,7 @@
 package seedu.hustler.ui;
 
 import seedu.hustler.Hustler;
+import seedu.hustler.game.achievement.Achievement;
 import seedu.hustler.game.achievement.Achievements;
 import seedu.hustler.game.avatar.Avatar;
 import seedu.hustler.game.shop.items.ShopItem;
@@ -302,7 +303,7 @@ public class Ui {
      *
      * @param achievement newly unlocked achievement
      */
-    public void showAchievementUnlocked(Achievements achievement) {
+    public void showAchievementUnlocked(Achievement achievement) {
         System.out.println("Congratulations, you have unlocked this achievement!\n" + achievement.toString());
     }
 
@@ -311,7 +312,7 @@ public class Ui {
      *
      * @param achievementList list of achievements
      */
-    public void showAchievementList(ArrayList<Achievements> achievementList) {
+    public void showAchievementList(ArrayList<Achievement> achievementList) {
         System.out.println("****************** Here is the list of your achievements ******************");
         System.out.println("\n\t\t\t====== UNLOCKED ACHIEVEMENTS ======");
         if (!achievementList.isEmpty()) {

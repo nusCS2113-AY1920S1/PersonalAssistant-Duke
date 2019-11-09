@@ -20,7 +20,7 @@ public class AchievementList {
     /**
      * List of all unlocked and locked achievements.
      */
-    private ArrayList<Achievements> achievementList;
+    private ArrayList<Achievement> achievementList;
 
     /**
      * Creates a new instance of achievement list and populates
@@ -68,7 +68,7 @@ public class AchievementList {
      * and updates status of achievement accordingly.
      * @return updated version of achievement list.
      */
-    public ArrayList<Achievements> updateBusyBee() {
+    public ArrayList<Achievement> updateBusyBee() {
         Ui ui = new Ui();
         for (int i = 0; i < this.achievementList.size(); i += 1) {
             if (this.achievementList.get(i).getDescription().equals("Busybee")
@@ -87,7 +87,7 @@ public class AchievementList {
      * and updates status of achievement accordingly.
      * @return updated version of achievement list.
      */
-    public ArrayList<Achievements> updateCompletionist() {
+    public ArrayList<Achievement> updateCompletionist() {
         Ui ui = new Ui();
         for (int i = 0; i < achievementList.size(); i += 1) {
             if (achievementList.get(i).getDescription().equals("Completionist")
@@ -106,7 +106,7 @@ public class AchievementList {
      * and updates status of achievement accordingly.
      * @return updated version of achievement list.
      */
-    public ArrayList<Achievements> updateDedicated() {
+    public ArrayList<Achievement> updateDedicated() {
         Ui ui = new Ui();
         for (int i = 0; i < achievementList.size(); i += 1) {
             if (achievementList.get(i).getDescription().equals("Dedicated to the art")
@@ -124,7 +124,7 @@ public class AchievementList {
      * Adds achievements to achievement list.
      * @param achievements achievement to be added to achievement list.
      */
-    public void add(Achievements achievements) {
+    public void add(Achievement achievements) {
         achievementList.add(achievements);
     }
 
@@ -133,7 +133,7 @@ public class AchievementList {
      * @param i index of achievement.
      * @return an achievement.
      */
-    public Achievements get(int i) {
+    public Achievement get(int i) {
         return achievementList.get(i);
     }
 
@@ -141,7 +141,7 @@ public class AchievementList {
      * Gets achievement list.
      * @return current achievement list.
      */
-    public ArrayList<Achievements> getAchievementList() {
+    public ArrayList<Achievement> getAchievementList() {
         return achievementList;
     }
 
@@ -157,8 +157,8 @@ public class AchievementList {
      * Creates a duplicate of achievement list.
      * @return array of achievements.
      */
-    public ArrayList<Achievements> createCopy() {
-        ArrayList<Achievements> copy = new ArrayList<>();
+    public ArrayList<Achievement> createCopy() {
+        ArrayList<Achievement> copy = new ArrayList<>();
         for (int i = 0; i < achievementList.size(); i += 1) {
             copy.add(achievementList.get(i));
         }

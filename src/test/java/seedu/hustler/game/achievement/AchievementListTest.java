@@ -26,6 +26,55 @@ public class AchievementListTest {
      * Checks if the number of achievement available is correct.
      */
     @Test
-    public void checkFixedAchievementListSize() { assertEquals(10,new AchievementList().size()); }
+    public void checkFixedAchievementListSize() {
+        AchievementList fiftyAchievementsList = new AchievementList();
+        for(int i = 0; i < 40; i += 1) {
+            fiftyAchievementsList.add(new AchievementsStub());
+        }
+        assertEquals(50,new AchievementList().size());
+    }
+
+
+    private class AchievementsStub implements Achievement {
+
+        int points = 0;
+
+        @Override
+        public String getAchievementLevel() {
+            return "Bronze";
+        }
+
+        @Override
+        public String getDescription() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getInformation() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getPoints() {
+            return this.points;
+        }
+
+        @Override
+        public int setPoints(int points) {
+            this.points = points;
+            return this.points;
+        }
+
+        @Override
+        public Boolean checkLock() {
+
+            return true;
+        }
+
+        @Override
+        public Boolean setLock(Boolean lock) {
+            return true;
+        }
+    }
 
 }
