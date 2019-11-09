@@ -53,13 +53,13 @@ public class RecurParse extends Parse {
                 isRecur = true;
             }
 
-            if (!super.isValidModCodeAndDescription(modCodeAndDescription)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode + description of an event cannot be empty.");
+            if (!super.isValidModCodeAndDescription(modCodeAndDescription)) throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + " OOPS!!! The ModCode + description of an event cannot be empty.");
             if (!super.isModCode(modCodeAndDescription)) {
-                throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
+                throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + " OOPS!!! The ModCode is invalid");
             }
             String[] checkSplit = modCodeAndDescription.trim().split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
-            if (!super.isValidDescription(checkSplit)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of an event cannot be empty.");
-            if(!super.isValidTimePeriod(dateAndTime)) throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The time of an event can only contain digits and the time has to be 4 digits.\n" +
+            if (!super.isValidDescription(checkSplit)) throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + " OOPS!!! The description of an event cannot be empty.");
+            if(!super.isValidTimePeriod(dateAndTime)) throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + " OOPS!!! The time of an event can only contain digits and the time has to be 4 digits.\n" +
                     "Please enter the time in a 24-hour time format");
             String[] in = DateTimeParser.recurringEventParse(dateAndTime);
             String startDateString = in[0];

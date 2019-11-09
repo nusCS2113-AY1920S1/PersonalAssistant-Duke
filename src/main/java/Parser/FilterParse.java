@@ -6,13 +6,9 @@ import Commons.DukeConstants;
 import Commons.DukeLogger;
 import DukeExceptions.DukeInvalidCommandException;
 import DukeExceptions.DukeInvalidFormatException;
-
-import java.text.ParseException;
 import java.util.logging.Logger;
 
 public class FilterParse extends Parse{
-    private static String[] split;
-    private static String[] split1;
     private static String fullCommand;
     private final Logger LOGGER = DukeLogger.getLogger(FilterParse.class);
 
@@ -47,7 +43,7 @@ public class FilterParse extends Parse{
            }
         }
         else {
-            throw new DukeInvalidCommandException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeInvalidCommandException(DukeConstants.SAD_FACE + " OOPS!!! I'm sorry, but I don't know what that means :-(");
 
         }
     }

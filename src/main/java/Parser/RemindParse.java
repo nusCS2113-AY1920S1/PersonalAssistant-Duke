@@ -58,11 +58,11 @@ public class RemindParse extends Parse {
                 description = modDescriptionCommand.substring(LENGTH_OF_RM).trim();
             }
             if (!isValidModCodeAndDescription(description)) {
-                throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode and description of a deadline cannot be empty.");
+                throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + " OOPS!!! The ModCode and description of a deadline cannot be empty.");
             }
             String checkModCodeString = modDescriptionCommandsplit[1];
             if (!isModCode(checkModCodeString)) {
-                throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid.");
+                throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + " OOPS!!! The ModCode is invalid.");
             }
             String taskDescription;
             if (isRemind) {
@@ -71,7 +71,7 @@ public class RemindParse extends Parse {
                 taskDescription = dateDescriptionSplit[0].substring(LENGTH_OF_RM + checkModCodeString.length() + LENGTH_OF_SPACE).trim();
             }
             if (taskDescription.isEmpty()) {
-                throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
+                throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + " OOPS!!! The description of a deadline cannot be empty.");
             }
             String deadlineDateRemindDateString = dateDescriptionSplit[1].trim();
             String[] dateTime = DateTimeParser.remindDateParse(deadlineDateRemindDateString);

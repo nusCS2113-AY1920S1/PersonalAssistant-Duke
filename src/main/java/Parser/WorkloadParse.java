@@ -2,6 +2,7 @@ package Parser;
 
 import Commands.Command;
 import Commands.ShowWorkloadCommand;
+import Commons.DukeConstants;
 import Commons.DukeLogger;
 import DukeExceptions.DukeInvalidFormatException;
 import Commons.LookupTable;
@@ -51,7 +52,7 @@ public class WorkloadParse extends Parse{
             return new ShowWorkloadCommand(nextWeekDate);
         } catch (ArrayIndexOutOfBoundsException e) {
             LOGGER.severe("Invalid show workload format");
-            throw new DukeInvalidFormatException("OOPS!!! Please enter show workload as follows:\n" +
+            throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + "OOPS!!! Please enter show workload as follows:\n" +
                     "show/workload");
         }
     }
