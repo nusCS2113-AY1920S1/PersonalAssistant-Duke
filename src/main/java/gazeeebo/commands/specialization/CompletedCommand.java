@@ -135,7 +135,7 @@ public class CompletedCommand {
 
             for (String key : completedEMap.keySet()) {
                 if (key.equals("Communications & Networking")) {
-                    for (int i = 0; i < completedEMap.get("Communications"
+                    for (int i = 0; i < completedEMap.get("Communications "
                             + "& Networking").size(); i++) {
                         toStoreCN = toStoreCN.concat("Communications "
                                 + "& Networking"
@@ -145,51 +145,51 @@ public class CompletedCommand {
                     }
                 } else if (key.equals("Embedded Computing")) {
                     for (int i = 0; i < completedEMap.get("Embedded"
-                            + "Computing").size(); i++) {
+                            + " Computing").size(); i++) {
                         toStoreEC = toStoreEC.concat("Embedded Computing"
                                 + "|"
                                 + completedEMap.get("Embedded"
-                                + "Computing").get(i));
+                                + " Computing").get(i));
                     }
                 } else if (key.equals("Intelligent"
-                        + "Systems")) {
+                        + " Systems")) {
                     for (int i = 0; i < completedEMap.get("Intelligent"
-                            + "Systems").size(); i++) {
+                            + " Systems").size(); i++) {
                         toStoreIS = toStoreIS.concat("Intelligent"
-                                + "Systems"
+                                + " Systems"
                                 + "|"
                                 + completedEMap.get("Intelligent"
-                                + "Systems").get(i));
+                                + " Systems").get(i));
                     }
                 } else if (key.equals("Interactive"
-                        + "Digital Media")) {
+                        + " Digital Media")) {
                     for (int i = 0; i < completedEMap.get("Interactive"
-                            + "Digital Media").size(); i++) {
+                            + " Digital Media").size(); i++) {
                         toStoreIS = toStoreIS.concat("Interactive"
-                                + "Digital Media"
+                                + " Digital Media"
                                 + "|"
                                 + completedEMap.get("Interactive"
-                                + "Digital Media").get(i));
+                                + " Digital Media").get(i));
                     }
                 } else if (key.equals("Large-Scale"
-                        + "Computing")) {
+                        + " Computing")) {
                     for (int i = 0; i < completedEMap.get("Large-Scale"
-                            + "Computing").size(); i++) {
+                            + " Computing").size(); i++) {
                         toStoreIS = toStoreIS.concat("Large-Scale"
-                                + "Computing"
+                                + " Computing"
                                 + "|"
                                 + completedEMap.get("Large-Scale"
-                                + "Computing").get(i));
+                                + " Computing").get(i));
                     }
                 } else if (key.equals("System-On-A-Chip"
-                        + "Design")) {
+                        + " Design")) {
                     for (int i = 0; i < completedEMap.get("System-On-A-Chip"
-                            + "Design").size(); i++) {
+                            + " Design").size(); i++) {
                         toStoreIS = toStoreIS.concat("System-On-A-Chip"
-                                + "Design"
+                                + " Design"
                                 + "|"
                                 + completedEMap.get("System-On-A-Chip"
-                                + "Design").get(i));
+                                + " Design").get(i));
                     }
                 }
                 String allCompletedE = toStoreCN

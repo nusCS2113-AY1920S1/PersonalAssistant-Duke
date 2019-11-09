@@ -1,1 +1,3 @@
-T|ND| study
+D|ND|yearly assignment|by: 2020-01-01 01:01:01
+T|ND| watch lecture #school
+D|ND|project #school |by: 2019-09-09 12:12:12

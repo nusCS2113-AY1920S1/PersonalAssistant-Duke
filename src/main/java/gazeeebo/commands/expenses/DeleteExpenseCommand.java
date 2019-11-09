@@ -1,12 +1,12 @@
 package gazeeebo.commands.expenses;
 
-import gazeeebo.storage.Storage;
 import gazeeebo.UI.Ui;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Map;
 
 /**
@@ -35,38 +35,91 @@ public class DeleteExpenseCommand {
                         + key);
             }
         }
-        for (int j = 0; j < expenseList.size(); j++) {
-            System.out.println((j + 1) + ". " + expenseList.get(j));
-        }
+
         try {
-            ui.readCommand();
-            String expenseIndex = ui.fullCommand;
-            int index = Integer.parseInt(expenseIndex) - 1;
-            System.out.println("Successfully deleted: "
-                    + expenseList.get(index));
+            String nameToDelete = "";
 
-            String getKeyFromList = expenseList.get(index).split("on ")[1];
-            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate getKey = LocalDate.parse(getKeyFromList, fmt);
+            if (ui.fullCommand.split(" ").length == 1) {
 
-            String getValueFromList = expenseList.get(index)
-                    .split(" | ")[0].trim();
-            for (LocalDate key : expenses.keySet()) {
-                if (key.equals(getKey)) {
-                    for (int i = 0;
-                         i < expenses.get(key).size(); i++) {
-                        if (expenses.get(key).get(i)
-                                .contains(getValueFromList)) {
-                            expenses.get(key).remove(i);
+                System.out.println("What is the index of the item you want to delete?\n");
+                for (int j = 0; j < expenseList.size(); j++) {
+                    System.out.println((j + 1) + ". " + expenseList.get(j));
+                }
+                ui.readCommand();
+                nameToDelete = ui.fullCommand;
+                int index = Integer.parseInt(nameToDelete) - 1;
+                System.out.println("Successfully deleted: "
+                        + expenseList.get(index));
+
+                String getKeyFromList = expenseList.get(index).split("on ")[1];
+                DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate getKey = LocalDate.parse(getKeyFromList, fmt);
+
+                String getValueFromList = expenseList.get(index)
+                        .split(" | ")[0].trim();
+
+                for (LocalDate key : expenses.keySet()) {
+                    if (key.equals(getKey)) {
+                        for (int i = 0;
+                             i < expenses.get(key).size(); i++) {
+                            if (expenses.get(key).get(i)
+                                    .contains(getValueFromList)) {
+                                expenses.get(key).remove(i);
+                            }
                         }
                     }
                 }
+
+            } else if (ui.fullCommand.split(" ").length > 1) {
+                for (int i = 1; i < ui.fullCommand.split(" ").length; i++) {
+                    nameToDelete = nameToDelete.
+                            concat(ui.fullCommand.split(" ")[i] + " ");
+                }
+                nameToDelete = nameToDelete.trim();
+                boolean isInList = false;
+                for (int k = 0; k < expenseList.size(); k++) {
+                    String item = expenseList.get(k).split(", ")[0];
+                    if (item.equals(nameToDelete)) {
+                        isInList = true;
+                    }
+                }
+                if(isInList == true) {
+                    for (int i = 0; i < expenseList.size(); i++) {
+                        String item = expenseList.get(i).split(", ")[0];
+                        if (item.equals(nameToDelete)) {
+                            String getKeyFromList = expenseList.get(i).split("on ")[1];
+                            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                            LocalDate getKey = LocalDate.parse(getKeyFromList, fmt);
+
+                            String getValueFromList = expenseList.get(i)
+                                    .split(" | ")[0].trim();
+                            for (LocalDate key : expenses.keySet()) {
+                                if (key.equals(getKey)) {
+                                    for (int j = 0;
+                                         j < expenses.get(key).size(); j++) {
+                                        if (expenses.get(key).get(j)
+                                                .contains(getValueFromList)) {
+                                            expenses.get(key).remove(j);
+                                        }
+                                    }
+                                }
+                            }
+                            System.out.println("Successfully deleted: "
+                                    + expenseList.get(i));
+                        }
+                    }
+                } else {
+                    System.out.println("Item not found!");
+                }
+
             }
-            expenseList.remove(index);
+
         } catch (NumberFormatException e) {
-            System.out.println("Wrong input for delete command");
+            System.out.print("Wrong input for delete command\n");
+        } catch (IOException | ArrayIndexOutOfBoundsException e) {
+            System.out.print("Please Input in the correct format\n");
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Expenses number not found");
+            System.out.print("Index does not exist\n");
         }
 
     }
