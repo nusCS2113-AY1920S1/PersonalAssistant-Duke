@@ -4,6 +4,7 @@ import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
 import controlpanel.Ui;
 import money.Account;
+import money.Instalment;
 import org.junit.jupiter.api.Test;
 
 import java.math.RoundingMode;
@@ -102,6 +103,23 @@ public class AddInstalmentTest {
         } catch (DukeException e) {
             assertThat(e.getMessage(), is("Invalid date! Please enter date in the format: d/m/yyyy\n"));
         }
+        account.getInstalments().clear();
+        MoneyCommand exitCommand =  new ExitMoneyCommand();
+        exitCommand.execute(account, ui, moneyStorage);
+    }
+
+    @Test
+    void testUndoAddInstalment() throws ParseException, DukeException {
+        account.getInstalments().clear();
+        Instalment instalment = new Instalment(100000, "mortgage", "instalments",
+                dateTestDate, 200, 6);
+        AddInstalmentCommand cmd = new AddInstalmentCommand("add instalment mortgage /amt 100000 " +
+                "/within 200 months /from 9/10/1997 /percentage 6");
+        cmd.execute(account, ui, moneyStorage);
+        ui.clearOutputString();
+        cmd.undo(account, ui, moneyStorage);
+        assertEquals(" Last command undone: \n" + instalment.toString() + "\n Now you have "
+                + account.getInstalments().size() + " instalments listed\n", ui.getOutputString());
         account.getInstalments().clear();
         MoneyCommand exitCommand =  new ExitMoneyCommand();
         exitCommand.execute(account, ui, moneyStorage);

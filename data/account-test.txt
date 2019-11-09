@@ -2,6 +2,15 @@ INIT @ true
 BS @ 0.0
 INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
 INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
+INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
+INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
+INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
+INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
+INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
+INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
+INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
+INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
 INC @ 200.0 @ Deposit to OCBC @ 3/3/2018
 EXP @ 200.0 @ Withdraw from OCBC @ withdraw from bank @ 3/3/2019
+INS @ 100000.0 @ mortgage @ INS @ 12/12/2010 @ 200 @ 0.06
 BAN @ 30.0 @ OCBC @ 2019-03-03 @ 0.0
