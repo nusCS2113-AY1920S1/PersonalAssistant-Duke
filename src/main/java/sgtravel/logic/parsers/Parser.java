@@ -9,7 +9,6 @@ import sgtravel.logic.commands.EditorCommand;
 import sgtravel.logic.commands.ExitCommand;
 import sgtravel.logic.commands.HelpCommand;
 import sgtravel.logic.commands.ListCommand;
-import sgtravel.logic.commands.ProfileSetPreferenceCommand;
 import sgtravel.logic.commands.ListItineraryCommand;
 import sgtravel.logic.commands.ProfileAddFavCommand;
 import sgtravel.logic.commands.ProfileDeleteFavCommand;
