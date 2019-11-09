@@ -70,9 +70,13 @@ public class Main extends Application {
             + "/final-date 14/11/2019 /priority high");
         logicManager.logicExecute("event CS2106 Lab /date 30/09/2019 /start 1600 "
             + "/end 1700 /final-date 14/11/2019 /priority medium");
+        logicManager.logicExecute("event Lunch Appointment /date 18/11/2019 /start 1200 /end 1400 "
+            + "/priority medium");
 
         logicManager.logicExecute("event ST2334 Lecture /date 01/10/2019 03/10/2019"
             + " /start 1000 /end 1200 /final-date 14/11/2019");
+        logicManager.logicExecute("event CCA Training /date 01/10/2019 03/10/2019"
+            + " /start 1900 /end 2200 /final-date 14/11/2019 /priority medium");
 
         logicManager.logicExecute("event CS2106 TUT /date 02/10/2019 /start 1000 "
             + "/end 1100 /final-date 13/11/2019 /priority medium");
@@ -80,9 +84,14 @@ public class Main extends Application {
             + "/final-date 13/11/2019 /priority low");
         logicManager.logicExecute("event CS2113T TUT /date 02/10/2019 /start 1700 "
             + "/end 1800 /final-date 13/11/2019 /priority high");
+        logicManager.logicExecute("event Lunch Appointment /date 20/11/2019 /start 1330 /end 1430 "
+                + "/priority medium");
 
         logicManager.logicExecute("event CS2113T Lecture /date 04/10/2019 /start 1600 /end 1800"
             + " /final-date 15/11/2019 /priority high");
+
+        logicManager.logicExecute("event Part-time Job /date 10/08/2019 /start 0800 /end 1600"
+                + " /final-date 23/11/2019 /priority medium");
 
         logicManager.logicExecute("deadline CS2106 Assignment 3 /date 16/10/2019 /end 1400 /priority low");
         logicManager.logicExecute("deadline CS2106 Assignment 4 /date 02/10/2019 /end 1400 /priority low");
@@ -93,6 +102,22 @@ public class Main extends Application {
         logicManager.logicExecute("deadline CS2105 Assignment 1 /date 09/10/2019 /end 2359 /priority high");
         logicManager.logicExecute("deadline CS2105 Assignment 2 /date 30/10/2019 /end 2359 /priority high");
         logicManager.logicExecute("deadline CS2105 Assignment 3 /date 13/11/2019 /end 2359 /priority high");
+        logicManager.logicExecute("deadline GEQ1000 Philosophy Quiz /date 08/09/2019 /end 2359 /priority low");
+        logicManager.logicExecute("deadline GEQ1000 Physics Quiz /date 22/09/2019 /end 2359 /priority low");
+        logicManager.logicExecute("deadline GEQ1000 Computational Thinking Quiz /date 13/10/2019 /end 2359 "
+            + "/priority low");
+        logicManager.logicExecute("deadline GEQ1000 Engineering Quiz /date 27/10/2019 /end 2359 /priority low");
+        logicManager.logicExecute("deadline GEQ1000 Economics Quiz /date 10/11/2019 /end 2359 /priority low");
+        logicManager.logicExecute("deadline GEQ1000 Design Quiz /date 17/11/2019 /end 2359 /priority low");
+        logicManager.logicExecute("deadline GEQ1000 Design Wallet /date 17/11/2019 /end 2359 /priority low");
+        logicManager.logicExecute("deadline GEQ1000 Final Reflection Draft /date 20/10/2019 /end 2359 /priority low");
+        logicManager.logicExecute("deadline GEQ1000 Final Reflection Paper /date 17/11/2019 /end 2359 "
+            + "/priority low");
+        logicManager.logicExecute("deadline CS2101 Prepare OP2 Slides & Script /date 02/11/2019 /end 2359 "
+            + "/priority high");
+        logicManager.logicExecute("deadline CS2101/CS2113T PPP Submission /date 11/11/2019 /end 2359 /priority high");
+        logicManager.logicExecute("deadline CS2101/CS2113T UG Submission /date 11/11/2019 /end 2359 /priority high");
+        logicManager.logicExecute("deadline CS2101/CS2113T DG Submission /date 11/11/2019 /end 2359 /priority high");
 
         logicManager.logicExecute(" event CS2113T Exam /date 23/11/2019"
             + " /start 1300 /end 1500 /priority high");
