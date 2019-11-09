@@ -19,8 +19,8 @@ import static java.util.Objects.requireNonNull;
 
 public class ProductPage extends UiPart<AnchorPane> {
     private static final String FXML = "ProductPage.fxml";
-    private final Double FULL_PAGE = 1.0;
-    private final Double HALF_PAGE = 0.5;
+    private static final Double FULL_PAGE = 1.0;
+    private static final Double HALF_PAGE = 0.5;
     private final Logger logger = LogsCenter.getLogger(ProductPage.class);
 
     @FXML
@@ -32,6 +32,9 @@ public class ProductPage extends UiPart<AnchorPane> {
 
     private ObservableList<Product> productList;
 
+    /**
+     * Creates a product page displaying products.
+     */
     public ProductPage(ObservableList<Product> productList) {
         super(FXML);
         logger.info("Initializing Product Page");
@@ -40,11 +43,16 @@ public class ProductPage extends UiPart<AnchorPane> {
         showProductList();
     }
 
+
+    /**
+     * Shows the productList.
+     */
     public void showProductList() {
         listPane.getChildren().add(setUpListTable());
         splitPane.setDividerPositions(FULL_PAGE);
     }
 
+    /** Shows the ingredients needed to make the product at the given index. */
     public void showProductDetail(Index index) {
         Product product = productList.get(index.getZeroBased());
         IngredientCard ingredientCard = new IngredientCard(product);

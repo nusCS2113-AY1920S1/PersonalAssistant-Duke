@@ -425,4 +425,23 @@ public class ModelManager implements Model {
         return bakingHome.getShortcutList();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof ModelManager)) {
+            return false;
+        }
+
+        ModelManager other = (ModelManager) o;
+        return bakingHome.equals(other.getBakingHome())
+            && filteredInventory.equals(other.getFilteredInventoryList())
+            && filteredShoppingList.equals(other.getFilteredShoppingList())
+            && filteredProducts.equals(other.getFilteredProductList())
+            && filteredOrders.equals(other.getFilteredOrderList())
+            && filteredSales.equals(other.getFilteredSaleList());
+    }
+
 }

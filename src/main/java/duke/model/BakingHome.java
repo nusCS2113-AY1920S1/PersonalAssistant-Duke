@@ -188,11 +188,12 @@ public class BakingHome implements ReadOnlyBakingHome {
     //============Product operations==============
 
     /**
-     * Removes a given product from product List
+     * Removes a given product from product List.
      */
     public void removeProduct(Product product) {
         products.remove(product);
     }
+
     /**
      * Adds an product to products.
      * The order must not already exist in orders.

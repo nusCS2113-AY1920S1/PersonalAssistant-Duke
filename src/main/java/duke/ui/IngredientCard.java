@@ -28,8 +28,7 @@ public class IngredientCard extends AnchorPane {
     private AnchorPane tablePane;
 
     /**
-     * Creates an Ingredient Card with the given product, to show the ingredients in the product
-     * @param product
+     * Creates an Ingredient Card with the given product, to show the ingredients in the product.
      */
     public IngredientCard(Product product) {
         try {
@@ -61,7 +60,8 @@ public class IngredientCard extends AnchorPane {
         javafx.scene.control.TableView<Item<Ingredient>> ingredientTable = new javafx.scene.control.TableView<>();
         config(ingredientTable);
         ingredientTable.setColumnResizePolicy(javafx.scene.control.TableView.CONSTRAINED_RESIZE_POLICY);
-        ObservableList<Item<Ingredient>> ingredientObservableList = FXCollections.observableList(product.getIngredients());
+        ObservableList<Item<Ingredient>> ingredientObservableList =
+            FXCollections.observableList(product.getIngredients());
         ingredientTable.setItems(ingredientObservableList);
         TableUtil.setUpIndexColumn(ingredientTable);
 
@@ -73,7 +73,8 @@ public class IngredientCard extends AnchorPane {
         TableColumn<Item<Ingredient>, String> quantityColumn = new TableColumn<>("Quantity");
         quantityColumn.setResizable(true);
         quantityColumn.setCellValueFactory(itemStringCellDataFeatures ->
-                new SimpleStringProperty(String.valueOf(itemStringCellDataFeatures.getValue().getQuantity().getNumber())));
+            new SimpleStringProperty(
+                String.valueOf(itemStringCellDataFeatures.getValue().getQuantity().getNumber())));
 
         ingredientTable.getColumns().addAll(ingredientColumn, quantityColumn);
         return ingredientTable;

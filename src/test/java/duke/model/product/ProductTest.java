@@ -16,6 +16,7 @@ public class ProductTest {
 
     @Test
     public void createNewProduct_emptyName_throwsParseExceptionWithMessage() {
+
         assertThrows(IllegalArgumentException.class, ProductMessageUtils.MESSAGE_MISSING_PRODUCT_NAME,
                 () -> new ProductBuilder("").build());
     }

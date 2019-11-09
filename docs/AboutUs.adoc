@@ -16,11 +16,9 @@ image::liujiajun.png[width="150", align="left"]
 {empty}[http://github.com/liujiajun[github]] [<<liujiajun#, portfolio>>]
 
 Role and responsibilities: 
-Team Leader 
-In charge of parser and storage 
-Java and Intellij expert
+Team Leader In charge of UI, logic, parser, and storage
 
-Feature: Order management
+Feature: Order management, AutoComplete, Shortcut, Undo and Redo
 
 '''
 

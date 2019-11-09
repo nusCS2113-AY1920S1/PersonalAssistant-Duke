@@ -19,7 +19,9 @@ public class ProductParserUtil {
 
     private static final Logger logger = LogsCenter.getLogger(ProductParserUtil.class);
 
-
+    /**
+     * Creates a ProductDescriptor from the given {@code ArgumentMultimap}.
+     */
     public static ProductDescriptor createProductDescriptor(ArgumentMultimap map) {
         ProductDescriptor productDescriptor = new ProductDescriptor();
 
@@ -37,7 +39,8 @@ public class ProductParserUtil {
                 productDescriptor.setRetailPrice(Double.parseDouble(map.getValue(PREFIX_PRODUCT_RETAIL_PRICE).get()));
             }
             if (map.getValue(PREFIX_PRODUCT_INGREDIENT_COST).isPresent()) {
-                productDescriptor.setIngredientCost(Double.parseDouble(map.getValue(PREFIX_PRODUCT_INGREDIENT_COST).get()));
+                productDescriptor.setIngredientCost(
+                    Double.parseDouble(map.getValue(PREFIX_PRODUCT_INGREDIENT_COST).get()));
             }
         } catch (NumberFormatException e) {
             throw new ParseException(ProductMessageUtils.MESSAGE_INVALID_NUMBER_FORMAT);

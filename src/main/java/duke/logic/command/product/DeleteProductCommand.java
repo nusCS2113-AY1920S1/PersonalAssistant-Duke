@@ -22,8 +22,7 @@ public class DeleteProductCommand extends ProductCommand {
 
     private final Set<Index> indices;
 
-    /** Creates a DeleteProductCommand
-     *
+    /** Creates a DeleteProductCommand.
      * @param indices of the products to delete
      * */
 

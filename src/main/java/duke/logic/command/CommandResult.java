@@ -7,6 +7,11 @@ import static java.util.Objects.requireNonNull;
  * Represents the result of a command execution.
  */
 public class CommandResult {
+    @Override
+    public String toString() {
+        return "Feedback: " + feedbackToUser + "; " + "Display Page: " + displayedPage;
+    }
+
     private final String feedbackToUser;
     /**
      * The page that should be displayed to the user.
@@ -30,21 +35,8 @@ public class CommandResult {
     }
 
     public CommandResult(boolean isExiting) {
-
         //Dummy values to word around the field not declared exception.
         this("", DisplayedPage.ORDER, true);
-    }
-
-    /**
-     * The page shown to the user.
-     */
-    public enum DisplayedPage {
-        PRODUCT,
-        ORDER,
-        INVENTORY,
-        SHOPPING,
-        SALE,
-        SAME
     }
 
     public CommandResult(String feedbackToUser, DisplayedPage displayedPage) {
@@ -65,6 +57,33 @@ public class CommandResult {
 
     public DisplayedPage getDisplayedPage() {
         return displayedPage;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof CommandResult)) {
+            return false;
+        }
+
+        CommandResult other = (CommandResult) o;
+        return feedbackToUser.equals(other.getFeedbackToUser())
+            && displayedPage.equals(other.getDisplayedPage());
+    }
+
+    /**
+     * The page shown to the user.
+     */
+    public enum DisplayedPage {
+        PRODUCT,
+        ORDER,
+        INVENTORY,
+        SHOPPING,
+        SALE,
+        SAME
     }
 
 }

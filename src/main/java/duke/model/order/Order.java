@@ -37,6 +37,27 @@ public class Order {
     private final Status status;
 
     /**
+     * Status of an order.
+     */
+    public enum Status {
+        /**
+         * Active status. The order is still being prepared in the bakery.
+         */
+        ACTIVE,
+
+        /**
+         * Completed status. The products are delivered and transaction is added.
+         * Once marked as this status, the order's status cannot be further modified.
+         */
+        COMPLETED,
+
+        /**
+         * Canceled status. The order is canceled by the customer or the bakery.
+         */
+        CANCELED
+    }
+
+    /**
      * Creates an {@code Order}.
      * Every field must be present and not null.
      *
@@ -147,15 +168,6 @@ public class Order {
         isIngredientEnough.setValue(
             isRequiredIngredientSufficient(inventory, getRequiredIngredients(inventory))
         );
-    }
-
-    /**
-     * Status of an order.
-     */
-    public enum Status {
-        ACTIVE,
-        COMPLETED,
-        CANCELED
     }
 
     private Map<Ingredient, Double> getRequiredIngredients(ObservableList<Item<Ingredient>> inventory) {
