@@ -2,22 +2,19 @@ package entertainment.pro.storage.utils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import entertainment.pro.model.MovieModel;
 import entertainment.pro.model.UserProfile;
-import entertainment.pro.storage.user.Blacklist;
-import entertainment.pro.ui.MovieHandler;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.*;
-import java.lang.reflect.Array;
-import java.lang.reflect.Type;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * class that deals with editing the UserProfile.json file.
@@ -38,7 +35,6 @@ public class EditProfileJson {
             this.inputStream = new FileInputStream(file);
         } else {
             file.createNewFile();
-//            UserProfile userProfile = null;
             UserProfile userProfile = new UserProfile();
             mapper.writeValue(file, userProfile);
             this.inputStream = new FileInputStream(file);
@@ -49,7 +45,6 @@ public class EditProfileJson {
      * Responsible for loading UserProfile object from userProfile.json.
      */
     public static UserProfile load() throws IOException {
-//        InputStream inputStream = getClass().getResourceAsStream("./userProfile.json");
         InputStream inputStream = new FileInputStream("./userProfile.json");
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -61,18 +56,9 @@ public class EditProfileJson {
         bufferedReader.close();
         inputStreamReader.close();
         inputStream.close();
-
-        JSONParser parser = new JSONParser();
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject = (JSONObject) parser.parse(new FileReader("./userProfile.json"));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         UserProfile userProfile = new UserProfile();
         parse(userProfileString, userProfile);
         return userProfile;
-//        return mapper.readValue(inputStream, typeReference);
     }
 
 
