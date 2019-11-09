@@ -37,17 +37,17 @@ public class EditTaskNameCommandTest {
         assertThrows(DukeException.class, () -> command.execute(model));
     }
 
-//    @Test
-//    public void editTaskNameCommand_alreadyInTaskList_throwsException() throws DukeException {
-//        Model model = new ModelController();
-//        for (int i = model.getTaskListSize() - 1; i >= 0; i--)  {
-//            model.deleteTask(i);
-//        }
-//        model.addTask("Create event poster");
-//        model.addTask("Create swimming event poster");
-//        Command command = EditTaskNameParser.parseEditTaskName("1 /to Create swimming event poster");
-//        assertThrows(DukeException.class, () -> command.execute(model));
-//    }
+    @Test
+    public void editTaskNameCommand_alreadyInTaskList_throwsException() throws DukeException {
+        Model model = new ModelController();
+        for (int i = model.getTaskListSize() - 1; i >= 0; i--)  {
+            model.deleteTask(i);
+        }
+        model.addTask("Create event poster");
+        model.addTask("Create swimming event poster");
+        Command command = EditTaskNameParser.parseEditTaskName("1 /to Create swimming event poster");
+        assertThrows(DukeException.class, () -> command.execute(model));
+    }
 
     @Test
     public void editTaskNameCommand_success() throws DukeException {

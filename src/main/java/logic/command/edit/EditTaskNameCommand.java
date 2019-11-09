@@ -30,9 +30,8 @@ public class EditTaskNameCommand extends Command {
 
         if (!model.isInTaskList(taskIndex)) {
             throw new DukeException("Index: " + taskIndex + INPUT_INDEX_NOT_WITHIN_TASK_lIST_MESSAGE);
-        } else if (model.getTaskList().contains(newTask)) {
-            String oldName = model.getTaskList().get(taskIndex - 1).getName();
-            throw new DukeException("Task: " + oldName + INPUT_NAME_ALREADY_IN_TASK_lIST_MESSAGE);
+        } else if (model.hasTask(newName)) {
+            throw new DukeException("Task: " + newName + INPUT_NAME_ALREADY_IN_TASK_lIST_MESSAGE);
         } else {
             String oldName = model.getTaskList().get(taskIndex - 1).getName();
 
