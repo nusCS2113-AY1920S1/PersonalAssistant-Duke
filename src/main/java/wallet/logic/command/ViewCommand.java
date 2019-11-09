@@ -3,7 +3,6 @@
 package wallet.logic.command;
 
 import wallet.exception.WrongParameterFormat;
-import wallet.logic.LogicManager;
 import wallet.model.Wallet;
 import wallet.model.record.Budget;
 import wallet.model.record.Category;
@@ -79,9 +78,9 @@ public class ViewCommand extends Command {
                     System.out.println(MESSAGE_VIEW_STATS
                             + new DateFormatSymbols().getMonths()[month - 1]
                             + " " + year);
-                    //double total = wallet.getExpenseList().getMonthExpenses(month, year);
-                    //double budget = wallet.getBudgetList().getBudget(month, year);
-                    //ui.drawBarChart(total, budget);
+                    double total = wallet.getExpenseList().getMonthExpenses(month, year);
+                    double budget = wallet.getBudgetList().getBudget(month, year);
+                    ui.drawBarChart(total, budget);
                     for (Category category : Category.values()) {
                         ArrayList<Expense> expenseList = categoryMap.get(category);
                         if (expenseList != null) {

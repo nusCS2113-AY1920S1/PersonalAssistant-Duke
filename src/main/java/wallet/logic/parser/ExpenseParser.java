@@ -54,7 +54,7 @@ public class ExpenseParser {
                 }
                 int index = expenseList.findExpenseIndex(e);
                 e.setRecurring(false);
-                e.setRecFrequency(null);
+                e.setRecFrequency(RecurrenceRate.NO);
                 expenseList.editExpense(index, e);
                 expenseDate = expenseDate.plusDays(1);
                 while (expenseDate.getMonthValue() <= currentMonth || expenseDate.getYear() < currentYear) {
@@ -78,7 +78,7 @@ public class ExpenseParser {
                 }
                 int index = expenseList.findExpenseIndex(e);
                 e.setRecurring(false);
-                e.setRecFrequency(null);
+                e.setRecFrequency(RecurrenceRate.NO);
                 expenseList.editExpense(index, e);
                 expenseDate = expenseDate.plusDays(7);
                 while (expenseDate.getMonthValue() <= currentMonth || expenseDate.getYear() < currentYear) {
@@ -102,7 +102,7 @@ public class ExpenseParser {
                 }
                 int index = expenseList.findExpenseIndex(e);
                 e.setRecurring(false);
-                e.setRecFrequency(null);
+                e.setRecFrequency(RecurrenceRate.NO);
                 expenseList.editExpense(index, e);
                 expenseDate = expenseDate.plusMonths(1);
                 while (expenseDate.getMonthValue() <= currentMonth || expenseDate.getYear() < currentYear) {

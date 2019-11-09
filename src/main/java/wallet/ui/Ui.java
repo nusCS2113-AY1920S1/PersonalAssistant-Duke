@@ -80,25 +80,25 @@ public class Ui {
      */
     public static void printExpenseTable(ArrayList<Expense> expenseList) {
         System.out.println("-----------------------------------------------------"
-                + "-------------------------------------------------\n"
+                + "---------------------------------------------------\n"
                 + "|  ID  |              Description                 |"
-                + "  Category  |    Date    |   Amount   | Recurring |\n"
+                + "  Category  |    Date    |    Amount    | Recurring |\n"
                 + "|---------------------------------------------------------------"
-                + "-------------------------------------|");
+                + "---------------------------------------|");
         double total = 0;
         for (Expense e : expenseList) {
             if (e.isRecurring()) {
-                System.out.printf("| %-4d | %-40s | %-10s | %-10s |  $%-7.2f  |  %-7s  |\n", e.getId(),
+                System.out.printf("| %-4d | %-40s | %-10s | %-10s |  $%-9.2f  |  %-7s  |\n", e.getId(),
                         e.getDescription(), e.getCategory(), e.getDate(), e.getAmount(), e.getRecFrequency());
             } else {
-                System.out.printf("| %-4d | %-40s | %-10s | %-10s |  $%-7.2f  |  %-7s  |\n",
+                System.out.printf("| %-4d | %-40s | %-10s | %-10s |  $%-9.2f  |  %-7s  |\n",
                         e.getId(), e.getDescription(), e.getCategory(), e.getDate(), e.getAmount(), "No");
 
             }
             total += e.getAmount();
         }
         System.out.println("-----------------------------------------------------"
-                + "-------------------------------------------------");
+                + "---------------------------------------------------");
         System.out.printf("Total amount spent: $%.2f\n", total);
     }
 
@@ -109,20 +109,20 @@ public class Ui {
      */
     public static void printExpense(Expense e) {
         System.out.println("-----------------------------------------------------"
-                + "-------------------------------------------------\n"
+                + "---------------------------------------------------\n"
                 + "|  ID  |              Description                 |"
                 + "  Category  |    Date    |   Amount   | Recurring |\n"
                 + "|---------------------------------------------------------------"
-                + "-------------------------------------|");
+                + "---------------------------------------|");
         if (e.isRecurring()) {
-            System.out.printf("| %-4d | %-40s | %-10s | %-10s |  $%-7.2f  |  %-7s  |\n", e.getId(),
+            System.out.printf("| %-4d | %-40s | %-10s | %-10s |  $%-9.2f  |  %-7s  |\n", e.getId(),
                     e.getDescription(), e.getCategory(), e.getDate(), e.getAmount(), e.getRecFrequency());
         } else {
-            System.out.printf("| %-4d | %-40s | %-10s | %-10s |  $%-7.2f  |  %-7s  |\n",
+            System.out.printf("| %-4d | %-40s | %-10s | %-10s |  $%-9.2f  |  %-7s  |\n",
                     e.getId(), e.getDescription(), e.getCategory(), e.getDate(), e.getAmount(), "No");
         }
         System.out.println("-----------------------------------------------------"
-                + "-------------------------------------------------");
+                + "---------------------------------------------------");
     }
 
     /**
