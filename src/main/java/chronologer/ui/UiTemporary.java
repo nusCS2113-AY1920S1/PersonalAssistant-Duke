@@ -22,7 +22,7 @@ public class UiTemporary {
         TODO("1. Todo - todo<space>your task description eg. todo borrow books\n"),
         DEADLINE("2. Deadline - deadline<space>your deadline description<space>/by<space> date-time\n"),
         EVENT("3. Event - event<space>your event description<space>/at<space> date-time-date-time\n"),
-        ASSIGNMENT("4. Assignments - assignment<space>/m<space>module code<space>/by<space>date-time"),
+        ASSIGNMENT("4. Assignments - assignment<space>/m<space>module code<space>/by<space>date-time\n"),
         LECTURE("5. Lectures - lecture<space>/m<space>module code<space>/at<space>day of week<space>"
                 + "starttime-endtime\n"),
         TUTORIAL("6. Tutorials - tutorial<space>/m<space>module code<space>/at<space>day of week<space>"
