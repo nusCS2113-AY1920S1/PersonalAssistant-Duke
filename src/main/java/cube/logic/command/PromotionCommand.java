@@ -54,6 +54,8 @@ public class PromotionCommand extends Command{
         FoodList list = model.getFoodList();
         PromotionList promotionList = model.getPromotionList();
         obtainPromotionFood(list);
+        CommandUtil.requirePromotionNotExists(promotionList, newPromotion.getName());
+        CommandUtil.requireValidPromotionDates(newPromotion.getStartDate(), newPromotion.getEndDate());
         double tempPrice = promotionFood.getPrice();
         double newPrice;
         newPrice = (newPromotion.getDiscount()/100)*tempPrice;

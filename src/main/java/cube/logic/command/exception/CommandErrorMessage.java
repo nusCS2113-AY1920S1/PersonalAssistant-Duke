@@ -16,4 +16,10 @@ public class CommandErrorMessage {
     public static final String INVALID_COMMAND_FORMAT
         = "OOPS!!! There are some issues with the command format.\n" +
         "Please view 'help' or our user guide for more info!";
+    public static final String INVALID_PROMOTION_PERIOD
+            = "OOPS!!! The end date cannot be before the start date";
+    public static final String INVALID_PROMOTION_DATES
+            = "OOPS!!! The dates cannot be before today";
+    public static final String PROMOTION_ALREADY_EXISTS
+            = "OOPS!!! A promotion for the food already exists";
 }
