@@ -34,9 +34,17 @@ public class TimerAnomaly extends DetectAnomaly {
         //detects whether the relevant arguments are non-integers. For example, 'timer winter cheese sofa' is a invalid input.
         for (int i = 0; i < 3; i += 1) {
             try {
-                int numberOfCommandsToUndo = Integer.parseInt(timeParts[i]);
+                int timeparts = Integer.parseInt(timeParts[i]);
             } catch (NumberFormatException e) {
                 throw new CommandLineException("Timer format should be: 'timer <integer> <integer> <integer>'!");
+            }
+        }
+
+        //detects if the arguments are neagtive integers.
+        for (int i = 0; i < 3; i += 1) {
+            int timeparts = Integer.parseInt(timeParts[i]);
+            if (timeparts < 0) {
+                throw new CommandLineException("Timer only accepts positive integers as arguments!");
             }
         }
     }
