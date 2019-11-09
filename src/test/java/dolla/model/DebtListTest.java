@@ -39,6 +39,7 @@ public class DebtListTest {
         newRecordList.add(newDebt2());
         newRecordList.add(newDebt3());
         newRecordList.add(newDebt4());
+        assertEquals(4,newRecordList.size());
         return new DebtList(newRecordList);
     }
 
