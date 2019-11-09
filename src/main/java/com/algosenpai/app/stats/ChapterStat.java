@@ -78,15 +78,29 @@ public class ChapterStat {
      */
     public void recalculateStats() {
         if (totalAnswered == 0) {
-            return; // to avoid division by 0
+            percentage = 0;
+            correctAnswers = wrongAnswers = 0;
+        } else {
+            percentage = 100.0 * correctAnswers / (double) totalAnswered;
+            wrongAnswers = totalAnswered - correctAnswers;
         }
-        percentage = 100.0 * correctAnswers / (double) totalAnswered;
-        wrongAnswers = totalAnswered - correctAnswers;
+
+        // Set comments based on how proficient the user is.
+        if (totalAnswered == 0) {
+            comments = "You have not attempted this chapter yet";
+        } else if (percentage <= 50) {
+            comments = "You need more practice. Keep trying!";
+        } else if (percentage <= 75) {
+            comments = "Keep it up! You are almost there!";
+        } else if (percentage <= 90) {
+            comments = "Well done, you are proficient at this chapter!";
+        } else {
+            comments = "Congratulations, you are an expert at this chapter";
+        }
     }
 
     /**
      * Given the string representation, it returns the ChapterStat object.
-     * TODO Handle invalid string.
      * @param string The string version of the ChapterStat (obtained by calling toString()).
      * @return The ChapterStat object.
      */
@@ -110,7 +124,6 @@ public class ChapterStat {
             return new ChapterStat(chapterName,chapterNumber,attempts,
                     totalAnswered,correctAnswers,wrongAnswers,percentage,comments);
         } catch (Exception e) {
-            e.printStackTrace();
             ChapterStat c = getDefaultChapter();
             c.chapterName = "Chapter parsing error";
             return c;
@@ -120,7 +133,7 @@ public class ChapterStat {
 
     private static ChapterStat getDefaultChapter() {
 
-        return new ChapterStat("DEFAULT CHAPTER",0,0,0,0,0,0,"");
+        return new ChapterStat("DEFAULT CHAPTER",0,0,0,0,0,0,"You have not attempted this chapter yet.");
     }
 
     /**
