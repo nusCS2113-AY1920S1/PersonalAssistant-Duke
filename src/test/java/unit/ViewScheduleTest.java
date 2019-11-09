@@ -5,12 +5,13 @@ import spinbox.DateTime;
 import spinbox.entities.items.tasks.Deadline;
 import spinbox.entities.items.tasks.Event;
 import spinbox.entities.items.tasks.Schedulable;
+import spinbox.exceptions.ScheduleDateException;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class ViewScheduleTest {
 
@@ -45,14 +46,18 @@ public class ViewScheduleTest {
         DateTime startDate = new DateTime(inputTwo.getTime());
         DateTime endDate = new DateTime(inputThree.getTime());
 
-        Schedulable task = new Event("Test", startDate, endDate);
-        assertTrue(task.compareEquals(inputDate));
-        assertTrue(task.compareEquals(startDate));
-        assertTrue(task.compareEquals(endDate));
+        try {
+            Schedulable task = new Event("Test", startDate, endDate);
+            assertTrue(task.compareEquals(inputDate));
+            assertTrue(task.compareEquals(startDate));
+            assertTrue(task.compareEquals(endDate));
 
-        Calendar inputFour = Calendar.getInstance();
-        inputFour.set(2019, 9, 23);
-        DateTime inputDateTwo = new DateTime(inputFour.getTime());
-        assertFalse(task.compareEquals(inputDateTwo));
+            Calendar inputFour = Calendar.getInstance();
+            inputFour.set(2019, 9, 23);
+            DateTime inputDateTwo = new DateTime(inputFour.getTime());
+            assertFalse(task.compareEquals(inputDateTwo));
+        } catch (ScheduleDateException ede) {
+            fail(ede.getMessage());
+        }
     }
 }

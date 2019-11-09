@@ -21,6 +21,7 @@ import spinbox.exceptions.InputException;
 import spinbox.exceptions.InvalidIndexException;
 import spinbox.exceptions.StorageException;
 import spinbox.exceptions.SpinBoxException;
+import spinbox.exceptions.ScheduleDateException;
 
 import java.util.ArrayDeque;
 
@@ -37,7 +38,7 @@ public class TaskCommandsIntegrationTest {
   
     @Test
     public void loadDataSuccessful_AddTasksThenManualClear_successfulRepopulationOfData() throws
-            StorageException, InvalidIndexException {
+            StorageException, InvalidIndexException, ScheduleDateException {
         Module testModuleOne = new Module("testMod6", "Engineering Principles & Practice IV");
 
         taskList = testModuleOne.getTasks();
@@ -190,7 +191,7 @@ public class TaskCommandsIntegrationTest {
         }
         Task testTask1 = new Deadline("Test 1", new DateTime("01/01/2019 10:00"));
         Task testTask2 = new Exam("Test 2", new DateTime("12/12/2019 10:00"),
-                new DateTime("01/03/2019 12:00"));
+                new DateTime("01/03/2020 12:00"));
         Task testTask3 = new Lab("Test 3", new DateTime("01/01/2020 10:00"),
                 new DateTime("01/01/2020 12:00"));
         Task testTask4 = new Tutorial("Test 4", new DateTime("01/01/2021 10:00"),

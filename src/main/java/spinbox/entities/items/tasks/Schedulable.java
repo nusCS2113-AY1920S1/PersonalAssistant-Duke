@@ -1,6 +1,7 @@
 package spinbox.entities.items.tasks;
 
 import spinbox.DateTime;
+import spinbox.exceptions.ScheduleDateException;
 
 public abstract class Schedulable extends Task {
     DateTime startDate;
@@ -17,7 +18,17 @@ public abstract class Schedulable extends Task {
     }
 
     public Schedulable() {
+    }
 
+    /**
+     * Check if Start Date is before End Date,
+     * if not, throws exception.
+     * @throws ScheduleDateException Exception of Schedule.
+     */
+    public void checkValidEndDate() throws ScheduleDateException {
+        if (endDate.before(startDate) || endDate.equals(startDate)) {
+            throw new ScheduleDateException("End Date cannot be earlier or equal to Start Date");
+        }
     }
 
     @Override

@@ -1,6 +1,7 @@
 package spinbox.entities.items.tasks;
 
 import spinbox.DateTime;
+import spinbox.exceptions.ScheduleDateException;
 
 public class Lecture extends Schedulable {
     /**
@@ -9,10 +10,11 @@ public class Lecture extends Schedulable {
      * @param startDate Date object for start DateTime.
      * @param endDate Date object for end DateTime.
      */
-    public Lecture(String description, DateTime startDate, DateTime endDate) {
+    public Lecture(String description, DateTime startDate, DateTime endDate) throws ScheduleDateException {
         super(description);
         this.startDate = startDate;
         this.endDate = endDate;
+        checkValidEndDate();
         taskType = TaskType.LECTURE;
     }
 
@@ -23,11 +25,12 @@ public class Lecture extends Schedulable {
      * @param startDate Date object for start DateTime.
      * @param endDate Date object for end DateTime.
      */
-    public Lecture(int done, String description, DateTime startDate, DateTime endDate) {
+    public Lecture(int done, String description, DateTime startDate, DateTime endDate) throws ScheduleDateException {
         super(description);
         this.updateDone(done == 1);
         this.startDate = startDate;
         this.endDate = endDate;
+        checkValidEndDate();
         taskType = TaskType.LECTURE;
     }
 

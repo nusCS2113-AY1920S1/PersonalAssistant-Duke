@@ -9,8 +9,10 @@ import spinbox.entities.items.tasks.Lab;
 import spinbox.entities.items.tasks.Lecture;
 import spinbox.entities.items.tasks.Todo;
 import spinbox.entities.items.tasks.Tutorial;
+import spinbox.exceptions.ScheduleDateException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskTest {
     private DateTime startDateTime = new DateTime("01/01/2019 00:00");
@@ -41,71 +43,95 @@ public class TaskTest {
 
     @Test
     public void createEventSuccessful_createNewEventTask_eventSuccessfullyCreated() {
-        Event event = new Event("Test 3", startDateTime, endDateTime);
-        assertEquals(event.getTaskType().toString(), "EVENT");
-        assertEquals(event.getStartDate(), startDateTime);
-        assertEquals(event.getEndDate(), endDateTime);
-        assertEquals(event.isOverlapping(startDateTime, endDateTime), true);
-        assertEquals(event.storeString(), "E | 0 | Test 3 | 01/01/2019 00:00 | 01/01/2019 01:00");
-        assertEquals(event.toString(), "[E][NOT DONE] Test 3 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
-        event.markDone();
-        assertEquals(event.storeString(), "E | 1 | Test 3 | 01/01/2019 00:00 | 01/01/2019 01:00");
-        assertEquals(event.toString(), "[E][DONE] Test 3 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+        try {
+            Event event = new Event("Test 3", startDateTime, endDateTime);
+            assertEquals(event.getTaskType().toString(), "EVENT");
+            assertEquals(event.getStartDate(), startDateTime);
+            assertEquals(event.getEndDate(), endDateTime);
+            assertEquals(event.isOverlapping(startDateTime, endDateTime), true);
+            assertEquals(event.storeString(), "E | 0 | Test 3 | 01/01/2019 00:00 | 01/01/2019 01:00");
+            assertEquals(event.toString(), "[E][NOT DONE] Test 3 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+            event.markDone();
+            assertEquals(event.storeString(), "E | 1 | Test 3 | 01/01/2019 00:00 | 01/01/2019 01:00");
+            assertEquals(event.toString(), "[E][DONE] Test 3 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+        } catch (ScheduleDateException ede) {
+            fail(ede.getMessage());
+        }
     }
 
     @Test
     public void createExamSuccessful_createNewExamTask_examSuccessfullyCreated() {
-        Exam exam = new Exam("Test 4", startDateTime, endDateTime);
-        assertEquals(exam.getTaskType().toString(), "EXAM");
-        assertEquals(exam.getStartDate(), startDateTime);
-        assertEquals(exam.getEndDate(), endDateTime);
-        assertEquals(exam.isOverlapping(startDateTime, endDateTime), true);
-        assertEquals(exam.storeString(), "EXAM | 0 | Test 4 | 01/01/2019 00:00 | 01/01/2019 01:00");
-        assertEquals(exam.toString(), "[EXAM][NOT DONE] Test 4 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
-        exam.markDone();
-        assertEquals(exam.storeString(), "EXAM | 1 | Test 4 | 01/01/2019 00:00 | 01/01/2019 01:00");
-        assertEquals(exam.toString(), "[EXAM][DONE] Test 4 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+        try {
+            Exam exam = new Exam("Test 4", startDateTime, endDateTime);
+            assertEquals(exam.getTaskType().toString(), "EXAM");
+            assertEquals(exam.getStartDate(), startDateTime);
+            assertEquals(exam.getEndDate(), endDateTime);
+            assertEquals(exam.isOverlapping(startDateTime, endDateTime), true);
+            assertEquals(exam.storeString(), "EXAM | 0 | Test 4 | 01/01/2019 00:00 | 01/01/2019 01:00");
+            assertEquals(exam.toString(), "[EXAM][NOT DONE] Test 4 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+            exam.markDone();
+            assertEquals(exam.storeString(), "EXAM | 1 | Test 4 | 01/01/2019 00:00 | 01/01/2019 01:00");
+            assertEquals(exam.toString(), "[EXAM][DONE] Test 4 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+        } catch (ScheduleDateException ede) {
+            fail(ede.getMessage());
+        }
+
     }
 
     @Test
     public void createLabSuccessful_createNewLabTask_labSuccessfullyCreated() {
-        Lab lab = new Lab("Test 5", startDateTime, endDateTime);
-        assertEquals(lab.getTaskType().toString(), "LAB");
-        assertEquals(lab.getStartDate(), startDateTime);
-        assertEquals(lab.getEndDate(), endDateTime);
-        assertEquals(lab.isOverlapping(startDateTime, endDateTime), true);
-        assertEquals(lab.storeString(), "LAB | 0 | Test 5 | 01/01/2019 00:00 | 01/01/2019 01:00");
-        assertEquals(lab.toString(), "[LAB][NOT DONE] Test 5 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
-        lab.markDone();
-        assertEquals(lab.storeString(), "LAB | 1 | Test 5 | 01/01/2019 00:00 | 01/01/2019 01:00");
-        assertEquals(lab.toString(), "[LAB][DONE] Test 5 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+        try {
+            Lab lab = new Lab("Test 5", startDateTime, endDateTime);
+            assertEquals(lab.getTaskType().toString(), "LAB");
+            assertEquals(lab.getStartDate(), startDateTime);
+            assertEquals(lab.getEndDate(), endDateTime);
+            assertEquals(lab.isOverlapping(startDateTime, endDateTime), true);
+            assertEquals(lab.storeString(), "LAB | 0 | Test 5 | 01/01/2019 00:00 | 01/01/2019 01:00");
+            assertEquals(lab.toString(), "[LAB][NOT DONE] Test 5 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+            lab.markDone();
+            assertEquals(lab.storeString(), "LAB | 1 | Test 5 | 01/01/2019 00:00 | 01/01/2019 01:00");
+            assertEquals(lab.toString(), "[LAB][DONE] Test 5 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+        } catch (ScheduleDateException ede) {
+            fail(ede.getMessage());
+        }
     }
 
     @Test
     public void createLectureSuccessful_createNewLectureTask_lectureSuccessfullyCreated() {
-        Lecture lecture = new Lecture("Test 6", startDateTime, endDateTime);
-        assertEquals(lecture.getTaskType().toString(), "LECTURE");
-        assertEquals(lecture.getStartDate(), startDateTime);
-        assertEquals(lecture.getEndDate(), endDateTime);
-        assertEquals(lecture.isOverlapping(startDateTime, endDateTime), true);
-        assertEquals(lecture.storeString(), "LEC | 0 | Test 6 | 01/01/2019 00:00 | 01/01/2019 01:00");
-        assertEquals(lecture.toString(), "[LEC][NOT DONE] Test 6 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
-        lecture.markDone();
-        assertEquals(lecture.storeString(), "LEC | 1 | Test 6 | 01/01/2019 00:00 | 01/01/2019 01:00");
-        assertEquals(lecture.toString(), "[LEC][DONE] Test 6 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+        try {
+            Lecture lecture = new Lecture("Test 6", startDateTime, endDateTime);
+            assertEquals(lecture.getTaskType().toString(), "LECTURE");
+            assertEquals(lecture.getStartDate(), startDateTime);
+            assertEquals(lecture.getEndDate(), endDateTime);
+            assertEquals(lecture.isOverlapping(startDateTime, endDateTime), true);
+            assertEquals(lecture.storeString(), "LEC | 0 | Test 6 | 01/01/2019 00:00 | 01/01/2019 01:00");
+            assertEquals(lecture.toString(), "[LEC][NOT DONE] Test 6 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+            lecture.markDone();
+            assertEquals(lecture.storeString(), "LEC | 1 | Test 6 | 01/01/2019 00:00 | 01/01/2019 01:00");
+            assertEquals(lecture.toString(), "[LEC][DONE] Test 6 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+        } catch (ScheduleDateException ede) {
+            fail(ede.getMessage());
+        }
+
     }
 
     @Test
     public void createTutorialSuccessful_createNewTutorialTask_tutorialSuccessfullyCreated() {
-        Tutorial tutorial = new Tutorial("Test 7", startDateTime, endDateTime);
-        assertEquals(tutorial.getTaskType().toString(), "TUTORIAL");
-        assertEquals(tutorial.isOverlapping(startDateTime, endDateTime), true);
-        assertEquals(tutorial.getStartDate(), startDateTime);
-        assertEquals(tutorial.getEndDate(), endDateTime);
-        assertEquals(tutorial.storeString(), "TUT | 0 | Test 7 | 01/01/2019 00:00 | 01/01/2019 01:00");
-        assertEquals(tutorial.toString(), "[TUT][NOT DONE] Test 7 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
-        tutorial.markDone();
-        assertEquals(tutorial.storeString(), "TUT | 1 | Test 7 | 01/01/2019 00:00 | 01/01/2019 01:00");
-        assertEquals(tutorial.toString(), "[TUT][DONE] Test 7 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+        try {
+            Tutorial tutorial = new Tutorial("Test 7", startDateTime, endDateTime);
+            assertEquals(tutorial.getTaskType().toString(), "TUTORIAL");
+            assertEquals(tutorial.isOverlapping(startDateTime, endDateTime), true);
+            assertEquals(tutorial.getStartDate(), startDateTime);
+            assertEquals(tutorial.getEndDate(), endDateTime);
+            assertEquals(tutorial.storeString(), "TUT | 0 | Test 7 | 01/01/2019 00:00 | 01/01/2019 01:00");
+            assertEquals(tutorial.toString(), "[TUT][NOT DONE] Test 7 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+            tutorial.markDone();
+            assertEquals(tutorial.storeString(), "TUT | 1 | Test 7 | 01/01/2019 00:00 | 01/01/2019 01:00");
+            assertEquals(tutorial.toString(), "[TUT][DONE] Test 7 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+        } catch (ScheduleDateException ede) {
+            fail(ede.getMessage());
+        }
+
+
     }
 }

@@ -8,6 +8,7 @@ import spinbox.entities.items.tasks.Lecture;
 import spinbox.entities.items.tasks.Task;
 import spinbox.exceptions.CalendarSelectorException;
 import spinbox.exceptions.DataReadWriteException;
+import spinbox.exceptions.ScheduleDateException;
 import spinbox.exceptions.FileCreationException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -112,7 +113,7 @@ public class CalendarTest {
             testTaskList.add(new Lecture("lecture 2",
                     new DateTime("11/09/2019 14:00"), new DateTime("11/09/2019 18:00")));
             testTaskList.add(new Lecture("lecture 3",
-                    new DateTime("11/09/2019 14:00"), new DateTime("10/09/2019 18:00")));
+                    new DateTime("11/09/2019 14:00"), new DateTime("12/09/2019 18:00")));
             testTaskList.add(new Lecture("lecture 4",
                     new DateTime("11/09/2019 14:00"), new DateTime("12/09/2019 18:00")));
             Task lectureOne = testCalendar.taskInCalendarByDayInMonth(testTaskList).get(7).getValue().get(0);
@@ -123,7 +124,7 @@ public class CalendarTest {
                     lectureTwo.toString());
             Boolean overlap = testCalendar.taskInCalendarByDayInMonth(testTaskList).get(9).getValue().isEmpty();
             assertEquals(false, overlap);
-        } catch (FileCreationException | DataReadWriteException | CalendarSelectorException e) {
+        } catch (FileCreationException | DataReadWriteException | CalendarSelectorException | ScheduleDateException e) {
             fail(e.getMessage());
         }
 
