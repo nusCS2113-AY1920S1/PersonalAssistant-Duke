@@ -12,14 +12,13 @@ import seedu.duke.email.command.EmailAddKeywordCommand;
 import seedu.duke.email.command.EmailClearCommand;
 import seedu.duke.email.command.EmailDeleteCommand;
 import seedu.duke.email.command.EmailFetchCommand;
+import seedu.duke.email.command.EmailFilterByTagCommand;
+import seedu.duke.email.command.EmailListAllTagsCommand;
 import seedu.duke.email.command.EmailListCommand;
 import seedu.duke.email.command.EmailListKeywordCommand;
-import seedu.duke.email.command.EmailListTagCommand;
 import seedu.duke.email.command.EmailShowCommand;
 import seedu.duke.email.command.EmailTagCommand;
 import seedu.duke.email.entity.KeywordPair;
-import seedu.duke.task.command.TaskDeleteCommand;
-import seedu.duke.task.parser.TaskCommandParseHelper;
 import seedu.duke.ui.UI;
 
 import java.util.ArrayList;
@@ -63,6 +62,8 @@ public class EmailCommandParseHelper {
             return new EmailFetchCommand();
         case "listKeyword":
             return new EmailListKeywordCommand();
+        case "listTag":
+            return new EmailListAllTagsCommand();
         case "clear":
             return new EmailClearCommand();
         default:
@@ -123,7 +124,7 @@ public class EmailCommandParseHelper {
         if (!tagsNotEmpty(tags)) {
             return new InvalidCommand("Please enter a tag name after \'-tag\' option");
         }
-        return new EmailListTagCommand(tags);
+        return new EmailFilterByTagCommand(tags);
     }
 
     private static Command parseShowEmailCommand(String input) throws EmailParseException {
@@ -192,9 +193,13 @@ public class EmailCommandParseHelper {
             throw new EmailParseException("Invalid index. Index of range 1 ~ 99999 is accepted.");
         }
         int index = Integer.parseInt(input) - 1;
-        if (index < 0 || index >= Model.getInstance().getEmailListLength()) {
+        int emailListLength = Model.getInstance().getEmailListLength();
+        if (emailListLength == 0) {
+            throw new EmailParseException("email list is empty");
+        }
+        if (index < 0 || index >= emailListLength) {
             throw new EmailParseException("Index " + (index + 1) + " out of bounds of 1 to "
-                    + Model.getInstance().getEmailListLength());
+                    + emailListLength);
         }
         return index;
     }

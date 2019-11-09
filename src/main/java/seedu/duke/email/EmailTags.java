@@ -7,6 +7,24 @@ import java.util.HashMap;
 
 public class EmailTags {
     private static TagMap tagMap = new TagMap();
+    private static ArrayList<String> emailTagList = new ArrayList<>();
+
+    public static ArrayList<String> updateEmailTagList(EmailList emailList) {
+        for (Email email : emailList) {
+            ArrayList<Email.Tag> tags = email.getTags();
+            for (Email.Tag tag : tags) {
+                String tagName = tag.getKeywordPair().getKeyword();
+                if (! emailTagList.contains(tagName)) {
+                    emailTagList.add(tagName);
+                }
+            }
+        }
+        return emailTagList;
+    }
+
+    public static ArrayList<String> getEmailTagList() {
+        return emailTagList;
+    }
 
     /**
      * Construct a HashMap to store the index of emails under the category of tags.
@@ -15,6 +33,7 @@ public class EmailTags {
      * @return HashMap of tags with their associated emails.
      */
     public static HashMap<String, SubTagMap> updateTagMap(EmailList emailList) {
+        updateEmailTagList(emailList);
         tagMap.clear();
         for (int index = 0; index < emailList.size(); index ++) {
             Email email = emailList.get(index);
@@ -168,7 +187,7 @@ public class EmailTags {
             String subTagName = entry.getKey();
             ArrayList<Integer> indexList = entry.getValue();
             responseMsg += "[" + subTagName + "]" + System.lineSeparator() + emailList.toString(indexList)
-                    + "" + System.lineSeparator();
+                    + System.lineSeparator();
         }
         return responseMsg;
     }
