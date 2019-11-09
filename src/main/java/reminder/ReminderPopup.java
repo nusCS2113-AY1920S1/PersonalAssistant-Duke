@@ -1,18 +1,31 @@
 package reminder;
 
+import dictionary.Word;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import scene.NewScene;
+import storage.Storage;
+
+import java.util.ArrayList;
 
 //@@author tessa-z
 public class ReminderPopup extends NewScene {
 
     protected Scene reminderScene;
     protected Stage reminderPopup;
+    protected ArrayList<String> wordArrayList;
 
-    public ReminderPopup() {
+    /**
+     * Creates a reminder popup that sets up the scene and window properties, and deletes the reminder from text file.
+     * @param wordList the ArrayList of words containing words tagged to the reminder
+     * @param remindInfo the String matching the text stored in reminder.txt for deletion by storage
+     */
+    public ReminderPopup(ArrayList<String> wordList, String remindInfo) {
+        storage = new Storage("\\data");
+        storage.updateFile(remindInfo, "", "reminder");
+        wordArrayList = wordList;
         makeReminderPopup();
         reminderPopup.show();
     }
@@ -27,7 +40,11 @@ public class ReminderPopup extends NewScene {
      * @return reminder scene with initialised values
      */
     public Scene setReminderScene() {
-        Label secondLabel = new Label("Remember to study these words:");
+        String displayText = "Remember to study these words:\n";
+        for (String word: wordArrayList) {
+            displayText += word + "\n";
+        }
+        Label secondLabel = new Label(displayText);
 
         StackPane secondaryLayout = new StackPane();
         secondaryLayout.getChildren().add(secondLabel);

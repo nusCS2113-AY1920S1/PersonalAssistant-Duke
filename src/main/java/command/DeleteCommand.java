@@ -45,7 +45,7 @@ public class DeleteCommand extends Command {
             word = bank.getWordFromWordBank(this.deletedWord);
             if (tags.size() == 0) {                     //delete word
                 bank.deleteWordFromBank(word);
-                storage.updateFile(word.toString() + "\r","");
+                storage.updateFile(word.toString() + "\r","", "wordup");
 
                 int initWordBankSize = bank.getWordBankSize();
                 int initTagBankSize = bank.getTagBankSize();

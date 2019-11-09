@@ -3,6 +3,8 @@ package command;
 import dictionary.Bank;
 import dictionary.Word;
 import dictionary.WordBank;
+import dictionary.WordCount;
+import exception.WordAlreadyExistsException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,13 +17,11 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Positive tests on general functions.
  */
-
 public class CommandTest {
     public String filename;
     public String excelFileName;
@@ -29,26 +29,45 @@ public class CommandTest {
     public Bank bank;
     public Ui ui;
     public WordBank wordBank;
-
+    public WordCount wordCount;
     /**
      * Create wordup test file.
      * @throws FileNotFoundException if filename is not found
      * @throws UnsupportedEncodingException if encoding is not supported
      */
+
     @BeforeEach
-    public void createWordUpTestFile() throws FileNotFoundException, UnsupportedEncodingException {
-        filename = "C:\\Users\\zyueh\\Documents\\Y2S2_CS2113\\main\\data\\WordUpTest.txt";
-        excelFileName = "C:\\Users\\zyueh\\Documents\\Y2S2_CS2113\\main\\data\\WordUpTest.xlsx";
+    public void createWordUpTestFile() throws WordAlreadyExistsException, FileNotFoundException,
+            UnsupportedEncodingException {
+
+        filename = "testdata\\WordUp.txt";
+        excelFileName = "testdata\\WordUp.xlsx";
+
         PrintWriter writer = new PrintWriter(filename, "UTF-8");
         writer.println("apple: red fruit");
         writer.println("orange: orange fruit");
         writer.println("banana: yellow fruit");
         writer.println("kiwi: green fruit");
         writer.close();
-        storage = new Storage(filename, excelFileName);
-        bank = storage.loadExcelFile();
+
+        storage = new Storage("\\testdata");
         ui = new Ui();
+        bank = storage.loadExcelFile();
+
+        wordCount = bank.getWordCountObject();
         wordBank = bank.getWordBankObject();
+
+        wordBank.addWord(new Word("apple","red fruit"));
+        wordBank.addWord(new Word("orange","orange fruit"));
+        wordBank.addWord(new Word("banana","yellow fruit"));
+        wordBank.addWord(new Word("kiwi","green fruit"));
+
+        wordCount.addWord(new Word("apple","red fruit"));
+        wordCount.addWord(new Word("orange","orange fruit"));
+        wordCount.addWord(new Word("banana","yellow fruit"));
+        wordCount.addWord(new Word("kiwi","green fruit"));
+
+        storage.writeWordBankExcelFile(wordBank);
     }
 
     /**
@@ -60,7 +79,7 @@ public class CommandTest {
             Word word = new Word("hello", "greeting word");
             AddCommand addCommand = new AddCommand(word);
             String add = addCommand.execute(ui, bank, storage);
-            assertNotEquals(add, "Got it. I've added this word:\n" + "hello: greeting word\n");
+            Assertions.assertEquals(add, "Got it. I've added this word:\n" + "hello: greeting word");
         } catch (Exception e) {
             fail("execute() in AddCommand failed: " + e.getMessage());
         }
@@ -74,7 +93,7 @@ public class CommandTest {
         try {
             DeleteCommand deleteCommand = new DeleteCommand("orange");
             String delete = deleteCommand.execute(ui, bank, storage);
-            assertNotEquals(delete, "Noted. I've removed this word:\n" + "orange: orange fruit\n");
+            Assertions.assertEquals(delete, "Noted. I've removed this word:\n" + "orange: orange fruit");
 
         } catch (Exception e) {
             fail("execute() in DeleteCommand failed: " + e.getMessage());
@@ -89,7 +108,7 @@ public class CommandTest {
         try {
             EditCommand editCommand = new EditCommand("kiwi", "a kind of bird");
             String edit = editCommand.execute(ui, bank, storage);
-            assertNotEquals(edit, "Got it. I've edited this word:\n" + "kiwi: a kind of bird\n");
+            Assertions.assertEquals(edit, "Got it. I've edited this word:\n" + "kiwi: a kind of bird");
         } catch (Exception e) {
             fail("execute() in EditCommand failed: " + e.getMessage());
         }
@@ -103,8 +122,9 @@ public class CommandTest {
         try {
             HistoryCommand historyCommand = new HistoryCommand(2);
             String history = historyCommand.execute(ui, bank, storage);
-            assertNotEquals(history,
-                    "Here are the last 2 words you have added:\nkiwi: green fruit\nbanana: yellow fruit");
+            System.out.println(history);
+            Assertions.assertEquals(history,
+                    "Here are the last 2 words you have added:\nkiwi: green fruit\nbanana: yellow fruit\n");
         } catch (Exception e) {
             fail("execute() in HistoryCommand failed: " + e.getMessage());
         }
@@ -118,8 +138,9 @@ public class CommandTest {
         try {
             ListCommand listCommand = new ListCommand("asc");
             String list = listCommand.execute(ui, bank, storage);
-            Assertions.assertNotEquals(list,
-                    "apple: red fruit\nbanana: yellow fruit\nkiwi: green fruit\norange: orange: fruit\n");
+            Assertions.assertEquals(list,
+                    "Here are your words:\napple: red fruit\nbanana: yellow fruit\n"
+                            + "kiwi: green fruit\norange: orange fruit\n");
         } catch (Exception e) {
             fail("execute() in HistoryCommand failed: " + e.getMessage());
         }
@@ -148,7 +169,7 @@ public class CommandTest {
         try {
             SearchCommand searchCommand = new SearchCommand("banana");
             String search = searchCommand.execute(ui, bank, storage);
-            Assertions.assertNotEquals(search, "Here is the meaning of banana: yellow fruit");
+            Assertions.assertEquals(search, "Here is the meaning of banana: yellow fruit\n");
         } catch (Exception e) {
             fail("execute() in SearchCommand failed: " + e.getMessage());
         }
@@ -159,8 +180,10 @@ public class CommandTest {
      */
     @AfterEach
     public void deleteWordUpTestFile() {
-        File file = new File(filename);
-        if (file.delete()) {
+        File file1 = new File(filename);
+        File file2 = new File(excelFileName);
+
+        if (file1.delete() && file2.delete()) {
             System.out.println("File deleted successfully"); //note the test/file being used
         } else {
             System.out.println("Failed to delete the file");
