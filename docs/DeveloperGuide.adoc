@@ -23,10 +23,10 @@ By: `Team W17-4`      Since: `Aug 2019`      Licence: `MIT`
 == Introduction
 
 === What is *_OOF_*?
-*_OOF_*, short for Outstanding Organisation Friend, is a command line interface dekstop application built to improve University Students productivity and efficiency by reducing the need to manually organise tasks. 
+*_OOF_*, short for Outstanding Organisation Friend, is a command-line interface dekstop application built to improve University Students' productivity and efficiency by reducing the need to manually organise tasks. 
 
 === What is the purpose of this guide?
-This guide aims to provide information for you, who are the future contributors of *_OOF_*, so that you can have an easy reference for understanding the features implemented in *_OOF_*.
+This guide aims to provide information for you, who are the future contributors of *_OOF_* so that you can have an easy reference for understanding the features implemented in *_OOF_*.
 
 === Acknowledgements
 Original source: https://github.com/nusCS2113-AY1920S1/PersonalAssistant-Duke[PersonalAssistant-Duke]
@@ -42,7 +42,7 @@ This section will show you the requirements that you need to fulfill in order to
 The `oof.jar` file is compiled using the Java version mentioned above. +
 . *IntelliJ* IDE
 [NOTE]
-IntelliJ by default has Gradle and JavaFx plugins installed.
+IntelliJ has Gradle and JavaFx plugins installed by default.
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 === Setting up the project in your computer
@@ -79,18 +79,18 @@ Given below is a quick overview of each component.
 ** Bootstrapping process for initialising instances of classes in the `Ui`, `Storage` and `Command` packages.
 ** Handling your input during runtime and terminating the program when you wish to exit from *_OOF_*.
 
-* `Ui` package is responsible for visual feedback and taking in your input.
+* The `Ui` package is responsible for visual feedback and taking in your input.
 
-* `Logic` package contains all of *_OOF's_* commands in the subpackage `command`, the `CommandParser` and `Reminder` classes.
+* The `Logic` package contains all of *_OOF's_* commands in the subpackage `command`, the `CommandParser` and `Reminder` classes.
 
-* `Model` package contains all the object containers that are used by our `commands`.
+* The `Model` package contains all the object containers that are used by our `commands`.
 
-* `Storage` package contains classes to help store all your data to the hard disk.
+* The `Storage` package contains classes to help store all your data to the hard disk.
 
-* `Commons` package contains the subpackage `command` which holds all the customised `exception` classes for all our commands, followed by miscellaneous `exception` classes for non-command exceptions. 
+* The `Commons` package contains the subpackage `command` which holds all the customised `exception` classes for all our commands, followed by miscellaneous `exception` classes for non-command exceptions. 
 
 [NOTE]
-Logging is implemented in our project to facilitate checking of bugs and error messages. Thus, the `Commons` package that is being utilised by all our classes is linked to the logs center to show that the handled exceptions we have caught are properly logged.
+Logging is implemented in our project to facilitate the checking of bugs and error messages. Thus, the `Commons` package that is being utilised by all our classes is linked to the logs center to show that the handled exceptions we have caught are properly logged.
 
 === UI component
 
@@ -100,7 +100,7 @@ image::UiClassDiagram.png[UiClassDiagram]
 
 The *_Class Diagram_* above shows the different interactions of the `Ui` component when printing output.  
 
-The `Ui` component is resposible for: +
+The `Ui` component is responsible for: +
 
 * Taking in and executing user commands via the `Logic` component
 * Listening for changes to `Model` data so that the `UI` component can be updated with the latest data.
@@ -118,7 +118,7 @@ The class diagram below illustrates the relationship between the individual comp
 .Structure of the Model Component
 image::ModelClassDiagram.png[ModuleClassDiagram]
 
-The figure shows the the individual components of the `Model` component. The `University` component is modelled after real world university curriculum structure.
+The figure shows the individual components of the `Model` component. The `University` component is modelled after real-world university curriculum structure.
 
 The `Model` stores: +
 
@@ -138,16 +138,16 @@ When either `SemesterList` or `TaskList` is changed, the system will update the 
 
 ==== Implementation
 
-The `RecurringCommand` class extends `Command` by providing methods to set a current `Task` in the persistent `TaskList` of the main program `OOF` as a recurring task. It also generates future instances of `Task` as indicated by the user.
+The `RecurringCommand` class extends `Command` by providing methods to set a current `Task` in the persistent `TaskList` of the main program `OOF` as a recurring task. It also generates future instances of `Tasks` as indicated by the user.
 
 [NOTE]
 `TaskList` is stored internally as an `ArrayList` in the Oof Program as well as externally in persistent storage in `output.txt`.
 
 Additionally, it consists of the following features:
 
-* User can select a `Task` in the `TaskList` to be a recurring task.
-* User can choose an integer between `1 - 10` inclusive for the number of times the task should recur.
-* User can choose an integer between `1 - 4` inclusive for the `Frequency` of recurrence.
+* You can select a `Task` in the `TaskList` to be a recurring task.
+* You can choose an integer between `1 - 10` inclusive for the number of times the task should recur.
+* You can choose an integer between `1 - 4` inclusive for the `Frequency` of recurrence.
 
 The choices are as follows: +
 +1.+ DAILY +
@@ -166,19 +166,19 @@ The user types in `recurring 1 1 1`. The `parse` method in `CommandParser` class
 Customised `MissingArgumentException` and `InvalidArgumentException` will be thrown if the user enters invalid commands.
 
 *Step 2.* +
-A new instance of `RecurringCommand` class is returned to the main `Oof` program with the parameters `1, 1, 1` as described above. The `execute` method of `RecurringCommand` class is then called.
+A new instance of `RecurringCommand` class is returned to the main `Oof` program with parameters `1, 1, 1` as described above. The `execute` method of `RecurringCommand` class is then called.
 
 *Step 3.* +
-The `setRecurringTask` method in `RecurringCommand` class is then called by `execute` method. This method does three main things: 
+The `setRecurringTask` method in `RecurringCommand` class is then called by the `execute` method. This method does three main things: 
 
-* Calls `getTask` method from `TaskList` class to get the user selected `Task`.
+* Calls `getTask` method from `TaskList` class to get the user-selected `Task`.
 * Updates the `Task` to a `recurring Task` by: +
 ** Calling `deleteTask` and `addTaskToIndex` methods in `TaskList` class to update the selected `Task`.
 * Calls `recurInstances` method in `RecurringCommand` class to set upcoming recurring `Tasks` based on user selected `Number of recurrences` and `Frequency` by:
 ** `recurInstances` method calls `dateTimeIncrement` method in `RecurringCommand` class to increment the `DateTime` based on the user input `Frequency`.
 
 *Step 4.* +
-After `setRecurring` method finishes its execution, the `execute` method continues on to print the updated `TaskList` by calling `printRecurringMessage` method in `Ui` class and saves the new `Tasks` into persistent storage by calling `writeToFile` method in `Storage` class.
+After `setRecurring` method finishes its execution, the `execute` method continues to print the updated `TaskList` by calling the `printRecurringMessage` method in the `Ui` class and saves the new `Tasks` into persistent storage by calling `writeToFile` method in `Storage` class.
 
 The following sequence diagram summarises what happens when a user executes a new command:
 
@@ -192,7 +192,7 @@ image::RecurringCommandSequenceDiagram.png[RecurringCommandSequenceDiagram]
 ** Rationale: +
 It allows the `RecurringCommand` class to capitalise on the existing features of adding `Deadlines` and `Events`.
 ** Alternatives considered: +
-Allow users to add new `recurring Task` instead of selecting from existing `Tasks`. Allowing users to add new recurring tasks strongly overlaps with existing features and this increase coupling in the `OOF` program.
+Allow users to add new `recurring Tasks` instead of selecting from existing `Tasks`. Allowing users to add new recurring tasks strongly overlaps with existing features and this increases coupling in the `OOF` program.
 * *Fixing lower bound and upper bound of the `Number of recurrences` to be `1` and `10` respectively*
 ** Rationale: + 
 It ensures a controlled number of recurrences are added to the `TaskList` instead of being a variable amount as a user may unintentionally break the `TaskList`.
@@ -202,7 +202,7 @@ Insert an upcoming recurring task when the `recurring Task` is nearing. There ma
 ** Rationale: + 
 It requires significantly less effort to choose from a default list of four options than to manually type in customised time ranges.
 ** Alternatives considered: +
-Users can enter a customised `Frequency` for the `recurring Task`. It may be a viable option to allow users to set such parameters. However, since the `OOF` program is solely a Command Line Interface program, it may not be user friendly for users to enter so many details just to set a customised `Frequency` for the `recurring Task`.
+Users can enter a customised `Frequency` for the `recurring Task`. It may be a viable option to allow users to set such parameters. However, since the `OOF` program is solely a Command Line Interface program, it may not be user-friendly for users to enter so many details just to set a customised `Frequency` for the `recurring Task`.
 
 === Help feature
 ==== Implementation
@@ -215,12 +215,12 @@ Additionally, it contains the following feature:
 
 * User may request for `Help` with a specific command.
 
-All `Help` features are implemented in the `parse` method of `CommandParser` class that parses user input.
+All `Help` features are implemented in the `parse` method of the `CommandParser` class that parses user input.
 
 Provided below is an example scenario of use and how `HelpCommand` class behaves and interacts with other relevant classes.
 
 *Step 1:* +
-The user enters the `help Deadline`. The `parse` method in `CommandParser` class is called to parse the user input to obtain the String `Deadline` as the `keyword` that the user requires `Help` for.
+The user enters the `help Deadline`. The `parse` method in the `CommandParser` class is called to parse the user input to obtain the String `Deadline` as the `keyword` that the user requires `Help` for.
 
 [WARNING]
 `InvalidArgumentException` will be thrown is the user enters an invalid command.
@@ -292,7 +292,7 @@ The command can be run in the `OOF` program without a specific `date` e.g. `view
 
 Features elaborated:
 
-* The output of the `ViewWeekCommand` is ANSI colour enabled.This distinguishes the different days of the week in the output.
+* The output of the `ViewWeekCommand` is ANSI colour enabled. This distinguishes the different days of the week in the output.
 
 * The output of `ViewWeekCommand` resizes automatically based on the length of the `description` of tasks.
 
@@ -312,7 +312,7 @@ The user types in `viewweek`. The `parse` method in the `CommandParser` class re
 Since no date is passed by the user, the constructor for `ViewWeekCommand` class retrieves the current date using the `calendar.get()` methods. The `execute` method in `ViewWeekCommand` class is then called by the `Oof.run()` method in the main class `Oof`.
 
 *Step 3.* +
-In the `execute` method, the first day of the week is retrieved using the `getStartDate()` method in  the current class for indexing purposes. Tasks are to be sorted into the data structure of `ArrayList<ArrayList<String[]>>` called `calendarTasks`. The size of `calendarTasks` is `7` which represents each day in the current week. Each index in `calendarTasks` is an `arrayList`of `string[]` which represents the tasks in that respective day of the week in the form of `{TIME, DESCRIPTION}`.
+In the `execute` method, the first day of the week is retrieved using the `getStartDate()` method in  the current class for indexing purposes. Tasks are to be sorted into the data structure of `ArrayList<ArrayList<String[]>>` called `calendarTasks`. The size of `calendarTasks` is `7` which represents each day in the current week. Each index in `calendarTasks` is an `arrayList` of `string[]` which represents the tasks in that respective day of the week in the form of `{TIME, DESCRIPTION}`.
 
 *Step 4.* +
 The `execute` method iterates through the current list of tasks and parses the `date`, `time` and `description` of each task. The `dateMatches()` method is then called to verify if the task falls in the same week as the current week. If the current task falls in the current week, the `date` of the task is compared with the first day of the week to obtain an `index` to slot the task into calendarTasks.
@@ -400,7 +400,7 @@ image::CalendarSequenceDiagram.png[CalendarSequenceDiagram, width="890"]
 
 * Extending row size instead of limiting the number of tasks displayed
 ** Rationale: +
-Limiting the number of tasks displayed might misrepresent the number of `Task` a person has for that day.
+Limiting the number of tasks displayed might misrepresent the number of `Tasks` a person has for that day.
 ** Alternatives considered: +
 Implementing a GUI which includes a scroll pane for each day such that calendar size can be fixed.
 * Truncation of task name instead of extending column size
@@ -441,13 +441,13 @@ In the `execute` method, the `isDateAfterCurrentDate()` and `isDateSame()` metho
 `InvalidArgumentException` will be thrown if the user enters a date that has passed.
 
 *Step 4.* + 
-The `findFreeTime()` method iterates through the current list of `Task` from the `TaskList` class and checks for both `Event` and `Deadline` tasks. If an `Event` or `Deadline` is found, the `populateEventTimes` or `populateDeadlines` method is then called respectively. 
+The `findFreeTime()` method iterates through the current list of `Tasks` from the `TaskList` class and checks for both `Event` and `Deadline` tasks. If an `Event` or `Deadline` is found, the `populateEventTimes` or `populateDeadlines` method is then called respectively. 
 
 *Step 5.* +
-The `populateEventTimes` method calls the `isEventDateWithin()` and `isDuplicateEvent()` methods to check if the `Event` date lie within the input date and if they are a duplicate `Event` respectively. If the `Event` date lie within the input date and is not a duplicate entry, its start and end times will be added to an `ArrayList` corresponding to `startTimes` and `endTimes` respectively.  
+The `populateEventTimes` method calls the `isEventDateWithin()` and `isDuplicateEvent()` methods to check if the `Event` date lies within the input date and if they are a duplicate `Event` respectively. If the `Event` date lies within the input date and is not a duplicate entry, its start and end times will be added to an `ArrayList` corresponding to `startTimes` and `endTimes` respectively.  
 
 *Step 6.* + 
-The `populateDeadlines` method calls the `isDeadlineDueNextWeek()`, `isDuplicateDeadline()` and `isCompleted()` methods to check if the `Deadline` due date lie within one week from the input date, whether they are a duplicate `Deadline` and if they have already been completed respectively. If the `Deadline` due date lie within one week from the input date, is not a duplicate entry and has not been completed yet, its due date will be added to an `ArrayList` corresponding to `deadlinesDue` while its name will be added to both `deadlineNames` and `sortedDeadlineNames`. 
+The `populateDeadlines` method calls the `isDeadlineDueNextWeek()`, `isDuplicateDeadline()` and `isCompleted()` methods to check if the `Deadline` due date lies within one week from the input date, whether they are a duplicate `Deadline` and if they have already been completed respectively. If the `Deadline` due date lies within one week from the input date given that is not a duplicate entry and has not been completed yet, its due date will be added to an `ArrayList` corresponding to `deadlinesDue` while its name will be added to both `deadlineNames` and `sortedDeadlineNames`. 
 
 *Step 7.* + 
 The `findFreetime()` method then calls the `parseSemesterList` method, which uses the same logic in Step 4 to obtain the lesson start and end times if the lesson day coincides with the input day. The lesson start and end times are then added into an existing `ArrayList` called `startTimes` and `endTimes` respectively after checking that it is not a duplicate.  
@@ -456,10 +456,10 @@ The `findFreetime()` method then calls the `parseSemesterList` method, which use
 All `startTimes`, `endTimes` and `deadlinesDue` are sorted in ascending order by calling the `sort` method in the `SortByTime` class. The `sortDeadlineNames()` method is then called to sort the deadline names according to their due dates. 
 
 *Step 9.* + 
-The `printFreeTimeHeader` method in `Ui` class is then called to display to the user the header of the input date. 
+The `printFreeTimeHeader` method in the `Ui` class is then called to display to the user the header of the input date. 
 
 *Step 10.* + 
-The `parseSlotStates` method is then called to determine if the time slot is `free` if `Event` does not coincide with the time slot or `BUSY` if `Event` coincides with the time slot.
+The `parseSlotStates` method is then called to determine if the time slot is `free` if the `Event` does not coincide with the time slot or `BUSY` if the `Event` coincides with the time slot.
 
 *Step 11.* +
 The `parseOutput` method is then called to print the time slots with the relevant details by:
@@ -506,14 +506,14 @@ visualising the amount of time spent on each `Module`. `TrackerCommand` class al
 
 Also, it contains the following features:
 
-* User may `tracker /start` by  `taskListIndex` with a specific command.
-* User may `tracker /stop` by  `taskListIndex` with a specific command.
-* User may `tracker /pause` by  `taskListIndex` with a specific command.
-* User may `tracker /view` by `day` with a specific command.
-* User may `tracker /view` by `week` with a specific command.
-* User may `tracker /view` by `all` with a specific command.
-* User may `tracker /delete` by `taskListIndex` with a specific command.
-* User may `tracker /list` with a specific command.
+* You may `tracker /start` by  `taskListIndex` with a specific command.
+* You may `tracker /stop` by  `taskListIndex` with a specific command.
+* You may `tracker /pause` by  `taskListIndex` with a specific command.
+* You may `tracker /view` by `day` with a specific command.
+* You may `tracker /view` by `week` with a specific command.
+* You may `tracker /view` by `all` with a specific command.
+* You may `tracker /delete` by `taskListIndex` with a specific command.
+* You may `tracker /list` with a specific command.
 
 Provided below is an example scenario of use and how `TrackerCommand` class behaves and interacts with other relevant classes.
 
@@ -522,13 +522,13 @@ The user enters `tracker`.
 The `execute` method of `TrackerCommand` class will read and save all `TrackerList` objects saved in persistent storage, `tracker.csv` through the `Storage.readTrackerList()` method in the `Storage` class.
 
 * *Step 1a:* +
-The `readTrackerList` method in `Storage` class will retrieve and read `tracker.csv` from persisitent storage by using `FileReader` on `File`.
+The `readTrackerList` method in `Storage` class will retrieve and read `tracker.csv` from persistent storage by using `FileReader` on `File`.
 
 * *Step 1b:* +
 The `BufferedReader` will then be performed upon `FileReader` to allow `tracker.csv` to be read line-by-line, calling the `processLine` method each time.
 
 * *Step 1c:* +
-The `processLine` method of `Storage` class will split each line into its respective fields through the use of a `,` delimiter before parsing and assign them into the correct fields.
+The `processLine` method of `Storage` class will split each line into its respective fields through the use of `,` delimiters before parsing and assign them into the correct fields.
 A new `Tracker` object will be created with the processed data and returned to the `readTrackerList` method.
 
 * *Step 1d:* +
@@ -540,7 +540,7 @@ The `execute` method of `TrackerCommand` class will then detect what instruction
 
 *Step 2:* +
 If the user given instruction is `/view`, the `execute` method of `TrackerCommand` will get the `period` indicated by the user.
-The `execute` method of `TrackerCommand` calls `processModuleTrackerList` method.
+The `execute` method of `TrackerCommand` calls the `processModuleTrackerList` method.
 
 [WARNING]
 `InvalidArgumentException` will be thrown if the instruction given by the user is invalid.
@@ -565,7 +565,7 @@ The `processModuleTrackerList` method calls `sortAscending` method. This is wher
 The `execute` method of `TrackerCommand` calls `printTrackerDiagram` from the `Ui` class.
 
 *Step 3:* +
-If the user given instruction is `/list`, the `execute` method of `TrackerCommand` calls `printTrackerList` method in the `Ui` class.
+If the user given instruction is `/list`, the `execute` method of `TrackerCommand` calls the `printTrackerList` method in the `Ui` class.
 Else, the next input field will be retrieved.
 
 [WARNING]
@@ -596,13 +596,13 @@ If the `Task` has been previously tracked, the `updatedTrackerList` method is ca
 
 [WARNING]
 `InvalidArgumentException` will be thrown if the instruction given by the user is invalid.
-`InvalidArgumentException` will be thrown if the saved `Tracker` object `description` do not match the `Task` object `description` where they are of the same `TaskList` index.
+`InvalidArgumentException` will be thrown if the saved `Tracker` object `description` does not match the `Task` object `description` where they are of the same `TaskList` index.
 
 * *Step 6a:* +
-The `updatedTrackerList` searches for the matching `Tracker` object in the ArrayList of `Tracker` objects before updating the `lastUpdated` and `startDate` with current `Date`.
+The `updatedTrackerList` searches for the matching `Tracker` object in the ArrayList of `Tracker` objects before updating the `lastUpdated` and `startDate` with the current `Date`.
 
 * *Step 6b:* +
-The `execute` method of `TrackerCommand` calls `writeTrackerList` method of `StorageManager` class to update `tracker.csv`.
+The `execute` method of `TrackerCommand` calls the `writeTrackerList` method of `StorageManager` class to update `tracker.csv`.
 
 * *Step 6c:* +
 The `execute` method of `TrackerCommand` calls `printStartAtCurrent` method of `Ui` class.
@@ -613,13 +613,13 @@ If the user given instruction is `/stop`, the `execute` method of `TrackerComman
 [WARNING]
 `InvalidArgumentException` will be thrown if the instruction given by the user is invalid.
 `TrackerNotFoundException` will be thrown if the `Tracker` has no `startDate` or cannot be found.
-`InvalidArgumentException` will be thrown if the saved `Tracker` object `description` do not match the `Task` object `description` where they are of the same `TaskList` index.
+`InvalidArgumentException` will be thrown if the saved `Tracker` object `description` does not match the `Task` object `description` where they are of the same `TaskList` index.
 
 * *Step 7a:* +
 This is where the `timeTaken` of the matching `Tracker` object will be updated, calculating the time difference between `startDate` and current `Date`.
 
 * *Step 7b:* +
-The `execute` method of `TrackerCommand` calls `setStatus` method in `Task` class to mark the `Task` as completed.
+The `execute` method of `TrackerCommand` calls the `setStatus` method in `Task` class to mark the `Task` as completed.
 
 * *Step 7c:* +
 The `execute` method of `TrackerCommand` calls `writeTrackerList` and `writeTaskList` methods in `Storagemanager` class to update the ArrayList of `Tracker` objects and `TaskList`.
@@ -633,7 +633,7 @@ If the user given instruction is `/stop`, the `execute` method of `TrackerComman
 [WARNING]
 `InvalidArgumentException` will be thrown if the instruction given by the user is invalid.
 `TrackerNotFoundException` will be thrown if the `Tracker` has no `startDate` or cannot be found.
-`InvalidArgumentException` will be thrown if the saved `Tracker` object `description` do not match the `Task` object `description` where they are of the same `TaskList` index.
+`InvalidArgumentException` will be thrown if the saved `Tracker` object `description` does not match the `Task` object `description` where they are of the same `TaskList` index.
 
 * *Step 8a:* +
 This is where the `timeTaken` of the matching `Tracker` object will be updated, calculating the time difference between `startDate` and current `Date`.
@@ -665,7 +665,7 @@ However, the use of a tab may interfere with the processing algorithm should the
 * *Splitting the `timeTaken` property in ArrayList of `Tracker` objects sorted by `moduleCode` into blocks of ten minutes in the histogram*
 ** Rationale: +
 As more tasks get completed over time, the `timeTaken` property in `Tracker` objects will increase exponentially.
-With the estimated ten work hours weekly on each module, this may result in hundreds of minutes spent on `Task` for each `moduleCode`.
+With the estimated ten work hours weekly on each module, this may result in hundreds of minutes spent on `Tasks` for each `moduleCode`.
 By splitting the `timeTaken` property in the ArrayList of `Tracker` object sorted by `moduleCode` into blocks of ten minutes, the number of `#` printed will reduce drastically and allow a more compact diagram to be printed without compromising its accuracy beyond tolerance.
 
 ** Alternatives Considered: +
@@ -728,14 +728,14 @@ image::flick_repository_switch.png[Activate the switch]
 +
 .  This repo comes with a link that tells Travis what to do. So there is no need for you to create one yourself.
 .  To see the CI in action, push a commit to the master branch!
-* Go to the repository and see the pushed commit. There should be an icon which will link you to the Travis build.
+* Go to the repository and see the pushed commit. There should be an icon that will link you to the Travis build.
 +
 .Travis build progress
 image::build_pending.png[Commit build]
 +
 * As the build is run on a provided remote machine, we can only examine the logs it produces:
 +
-.Checking travis logs
+.Checking Travis logs
 image::travis_build.png[Travis build]
 +
 . If the build is successful, you should be able to check the coverage details of the tests at http://coveralls.io/[Coveralls]
@@ -780,10 +780,10 @@ image::travis_add_token.png[Travis add token]
 +
 [NOTE]
 *Make sure you set `Display value in build log` to `OFF`.* +
-Otherwise, other people will be able to see the personal access token and thus have access this repo. +
+Otherwise, other people will be able to see the personal access token and thus have access to this repo. +
 Similarly, make sure you *do not print `$GITHUB_TOKEN` to the logs* in Travis scripts as the logs are viewable by the public.
 
-. Now, whenever there's a new commit to master branch, Travis will push the latest documentation to gh-pages branch.
+. Now, whenever there's a new commit to the master branch, Travis will push the latest documentation to gh-pages branch.
 
 **To verify that it works,**
 
@@ -816,7 +816,7 @@ Testing is vital to ensure that the code you will be contributing in the future 
 **Problem: Keyboard and mouse movements are not simulated on macOS Mojave, resulting in GUI Tests failure.**
 
 * Reason: From macOS Mojave onwards, applications without `Accessibility` permission cannot simulate certain keyboard and mouse movements.
-* Solution: Open `System Preferences`, click `Security and Privacy` -> `Privacy` -> `Accessibility`, and check the box beside `Intellij IDEA`.
+* Solution: Open `System Preferences`, click `Security and Privacy` -> `Privacy` -> `Accessibility` and check the box beside `Intellij IDEA`.
 
 == Dev Ops
 
@@ -834,7 +834,7 @@ We use https://coveralls.io/[Coveralls] to track the code coverage of our projec
 
 === Documentation Previews
 
-When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+If a pull request contains changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
 === Making a Release
 
@@ -917,7 +917,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 *MSS:*
 
 . User wants to add a task.
-. OOF requests for description of the task.
+. OOF requests for a description of the task.
 . User enters the description of the task.
 . OOF records the task and displays the description.
 
@@ -925,20 +925,20 @@ Use case ends.
 
 *Extensions:*
 
-* 3a. OOF detects empty date and time in description of task.
+* 3a. OOF detects empty date and time in the description of the task.
 ** 3a1. OOF requests for date and time of task.
-** 3a2. User enters required data.
+** 3a2. User enters the required data.
 ** Steps 3a1-3a2 are repeated until the correct data is entered.
 ** Use case resumes from step 4.
 * 3b. OOF detects a clash in date and time with another task.
-** 3b1. OOF warns the User of such a clah by displaying the task(s) that clash(es)    	and prompts for continuation or cancellation.
+** 3b1. OOF warns the User of such a clash by displaying the task(s) that clash(es)    	and prompts for continuation or cancellation.
 ** 3b2. User decides for continuation or cancellation.
-** 3b3. OOF requests to confirm decision.
+** 3b3. OOF requests to confirm the decision.
 ** 3b4. User confirms decision.
 ** Use case ends if the User decides to cancel the action. Use case resumes from 		step 4 otherwise.
-* *a. At any time, User chooses to re-enter task description.
+* *a. At any time, User chooses to re-enter the task description.
 ** *a1. OOF requests confirmation to re-enter task description.
-** *a2. User confirms to re-enter task description.
+** *a2. User confirms to re-enter the task description.
 ** Use case resumes from step 3.
 
 *System: Outstanding Organization Friend (OOF)* +
@@ -955,9 +955,9 @@ Use case ends.
 
 *Extensions:*
 
-* 3a. OOF detects non-existent index of task.
+* 3a. OOF detects a non-existent task index.
 ** 3a1. OOF requests for existent index and displays a range of indexes to choose from.
-** 3a2. User enters required data.
+** 3a2. User enters the required data.
 ** Use case resumes from step 4. 
 
 *System: Outstanding Organization Friend (OOF)* +
@@ -966,17 +966,17 @@ Use case ends.
 *MSS:* 
 
 . User wants to view tasks in calendar format.
-. OOF requests for range of index of the tasks the user wishes to view in calendar format.
-. User enters the range of index of the task to view in calendar format.
+. OOF requests for the month and year the user wishes to view in calendar format.
+. User enters a month and year. 
 . OOF displays the tasks requested in calendar format.
 
 Use case ends.   
 
 *Extensions:*
 
-* 3a. OOF detects non-existent index of task in the range.
-** 3a1. OOF requests for existent index and displays a range of indexes to choose from.
-** 3a2. User enters required data.
+* 3a. OOF detects an invalid date.
+** 3a1. OOF requests for a valid month and year.
+** 3a2. User enters the required data.
 ** Use case resumes from step 4. 
 
 *System: Outstanding Organization Friend (OOF)* +
@@ -1013,10 +1013,10 @@ Use case ends.
 
 * 3a. OOF detects an error with the entered data.
 ** 3a1. OOF requests for the correct data.
-** 3a2. User enters new data.
+** 3a2. User enters the new data.
 ** Steps 3a1-3a2 are repeated until the data entered are correct.
 ** Use case resumes from step 4.
-* *a. At any time, User choose to stop adding a task.
+* *a. At any time, User chooses to stop adding a task.
 ** *a1. OOF requests to confirm the cancellation.
 ** *a2. User confirms the cancellation.
 ** Use case ends.
@@ -1029,7 +1029,7 @@ Use case ends.
 . User chooses to activate the reminder for expiring tasks.
 . OOF requests for confirmation of this action.
 . User confirms the action.
-. OOF displays the expiring tasks everytime OOF is started.
+. OOF displays the expiring tasks every time OOF is started.
 
 Use case ends.
 
@@ -1141,18 +1141,18 @@ Use case ends.
 *MSS:*
 
 . User requests to find free time slots.
-. OOF requests for the time period from the User.
-. User enters in the time period of interest.
-. OOF displays the free time slots within the time period.
+. OOF requests for a date from the User.
+. User enters in the date of interest.
+. OOF displays the free time slots for that particular day.
 
 Use case ends.
 
 *Extensions:*
 
-* 3a. OOF detects that the time period entered is invalid.
-** 3a1. OOF requests for the User to input a valid time period.
-** 3a2. User enters a valid time period.
-** Steps 3a1-3a2 are repeated until a valid time period is entered.
+* 3a. OOF detects that the date entered is invalid.
+** 3a1. OOF requests for the User to input a valid date.
+** 3a2. User enters a valid date.
+** Steps 3a1-3a2 are repeated until a valid date is entered.
 ** Use case resumes from step 4.
 * *a. At any time, User chooses to cancel the action.
 ** *a1. OOF requests for confirmation.
@@ -1279,7 +1279,7 @@ Windows, Linux, Unix, OS-X
 == Instructions for Manual Testing
 
 [NOTE]
-The instructions and sample test cases only act as a guidance for you to start testing on some of our application features. You are free to test our features with more test cases of your own. Refer to <<Prerequisites>> for the instructions to set up our program on your computer.
+The instructions and sample test cases only act as a guide for you to start testing on some of our application features. You are free to test our features with more test cases of your own. Refer to <<Prerequisites>> for the instructions to set up our program on your computer.
 
 === Managing Semesters
 
@@ -1290,7 +1290,7 @@ The instructions and sample test cases only act as a guidance for you to start t
 Expected: Using the `semester /view` command will display `Academic Year 19/20, Semester 2 (05-01-2020 to 05-12-2020)` at the latest index.
 
 . Test case: `semester /add 19/20 /name Semester 2 /from 05-01-2020 /to 05-05-2020` after running the same command above +
-Expected: An error would be displayed regarding adding of a semester that clashes with an existing semester. Using `semester /view` will not show a second copy of the semester added above.
+Expected: An error would be displayed regarding the adding of a semester that clashes with an existing semester. `semester /view` will not show a second copy of the semester added above.
 
 . Test case: `semester /add 19/20 /name Semester 2 /from a /to 05-05-2020` +
 Expected: An error would be displayed regarding an invalid command argument.
@@ -1305,7 +1305,7 @@ Expected: An error would be displayed regarding a missing and an invalid command
 In the provided `.jar` file, the semester at index 1 has been rigorously populated with test data for testing purposes. You are recommended to add your own semester before testing the `semester /delete` command to prevent the deletion of the populated semester.
 
 . Test case: `semester /delete 2` +
-Expected: Second semester is deleted from the list. Details of semester being deleted is echoed as an acknowledgement message.
+Expected: The second semester is deleted from the list. Details of the semester being deleted will be echoed as an acknowledgement message.
 
 . Test case: `semester /delete 0` +
 Expected: Error displayed regarding an invalid index.
@@ -1340,10 +1340,10 @@ Expected: Error displayed about requiring a module code argument.
 Expected: Error displayed about requiring a module name argument.
 
 ==== Deleting a `module`
-. Prerequisites: Semester has been selected using the `semester /select` command. List all module using the `module /view` command. At least 1 module is on the list.
+. Prerequisites: Semester has been selected using the `semester /select` command. List all modules using the `module /view` command. At least 1 module is on the list.
 
 . Test case: `module /delete 2` +
-Expected: Second module is deleted from the list. Details of module being deleted is echoed as an acknowledgement message.
+Expected: The second module is deleted from the list. Details of the module being deleted will be echoed as an acknowledgement message.
 
 . Test case: `module /delete 0` +
 Expected: Error displayed regarding an invalid index.
@@ -1454,7 +1454,7 @@ The `date` has to strictly be in the format `DD-MM-YYYY`. +
 You must enter either today's date or a date in the future. 
 
 ==== Testing the command 
-You can enter the command `free DD-MM-YYYY` to view your free time slots in the given date as well as suggestions for upcoming deadlines to complete. 
+You can enter the command `free DD-MM-YYYY` to view your free time slots on the given date as well as suggestions for upcoming deadlines to complete. 
 
 === Viewing your tasks in a calendar format 
 
@@ -1464,7 +1464,7 @@ You can enter the command `free DD-MM-YYYY` to view your free time slots in the 
 The `viewweek` command syntax is as such: `viewweek DD MM YYYY`.
 
 [NOTE]
-The `date` parameters `DD`, `MM` and `YYYY` are optional. If the `date` is not entered, the current week will be selected. Similarly, if there is an error in the `date` supplied, the feature will ignore the the inputted `date` and print `tasks` for the current week.
+The `date` parameters `DD`, `MM` and `YYYY` are optional. If the `date` is not entered, the current week will be selected. Similarly, if there is an error in the `date` supplied, the feature will ignore the inputted `date` and print `tasks` for the current week.
 
 ==== Testing the command
 You can enter the command `viewweek` to view `tasks` for the current week. +
