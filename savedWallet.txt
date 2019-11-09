@@ -1,3 +1,4 @@
+
 2000.0
 in $300.0 /date 2019-11-08 /tags freeMoney
 out $30.0 /date 2019-11-08 /tags movie
@@ -7,3 +8,4 @@ out $90.0 /date 2019-11-09 /tags lost
 out $0.0 /date 2019-11-08 /tags pay back,aunty
 in $20000.0 /date 2019-11-09 /tags won the cash price
 out $300.0 /date 2019-11-09 /tags lost a bet
+
