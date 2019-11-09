@@ -1,6 +1,5 @@
 package duke.logic.parser.inventory;
 
-import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.logic.command.inventory.DeleteInventoryCommand;
 import duke.logic.parser.commons.ArgumentMultimap;
