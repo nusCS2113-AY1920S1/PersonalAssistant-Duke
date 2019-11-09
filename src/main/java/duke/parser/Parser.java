@@ -93,10 +93,9 @@ public class Parser {
         String[] part = fullCommand.split(" ", 2);
         switch (part[0]) {
             case "add":
-                if(part.length < 2) {
+                if (part.length < 2) {
                     throw new DukeException("specify dish name");
-                }
-                else {
+                } else {
                     part[1] = part[1].replaceAll("\\s+", " ");
                 }
                 return new AddDishCommand(new Dish(part[1]));
@@ -143,20 +142,47 @@ public class Parser {
         }
     }
 
+
+    /**
+     * commands for Ingredient
+     * add: adds an ingredient to the fridge, by adding more to an existing ingredient or creating a new one
+     * remove: removes an ingredient from the fridge
+     * use: uses a certain amount of the ingredient if available
+     * find: returns the ingredient if found in the fridge
+     * listtoday: lists all of the ingredients expiring today
+     * changename: changes the name of the ingredient
+     * changeamount: changes the amount of the ingredient
+     *
+     * @param fullCommand command from the user
+     * @return a command to be executed
+     * @throws DukeException
+     * @author Hafidz
+     */
+
     //@@author x3chillax
+
     private static Command ingredient(String fullCommand) throws DukeException {
         String[] part = fullCommand.split(" ");
         switch (part[0]) {
             case "add":
-                if (part.length != 4)
-                    throw new DukeException("must specify ingredient name, amount and/or expiry date");
-                return new AddCommand(new Ingredient(part[1], checkInt(part[2]), part[3]));
+                switch (part.length) {        // input error handling for add ingredient!
+                    case 1:
+                        throw new DukeException("must specify ingredient name (no spaces, use underscore '_'), amount and expiry date");
+                    case 2:
+                        throw new DukeException("must specify amount and expiry date as well, eg: add " + part[1] + " 3 12/2/2020");
+                    case 3:
+                        throw new DukeException("must specify expiry date as well, eg: add chicken 3 12/2/2020");
+                    case 4:
+                        return new AddCommand(new Ingredient(part[1], checkInt(part[2]), part[3]));
+                    default:
+                        throw new DukeException("must specify ingredient name (no spaces, use underscore '_'), amount and expiry date,\n\t add only takes 3 arguments!");
+                }
             case "remove":
-                if (part.length != 2)
-                    throw new DukeException("must specify a index");
+                if (part.length != 2)           // input error handling for remove ingredient!
+                    throw new DukeException("follow the template: remove <ingredient index> \n\t must specify only an index of the ingredient to be removed!");
                 return new DeleteCommand(checkInt(part[1]));
             case "use":
-                if (part.length != 3)           //use something 23
+                if (part.length != 3)           // input error handling for use ingredient!
                     throw new DukeException("follow the template: use <ingredient name> <amount>");
                 return new UseCommand(new Ingredient(part[1], checkInt(part[2]), new Date()));
             case "listtoday":
@@ -172,9 +198,9 @@ public class Parser {
                     throw new DukeException("follow the template: change <ingredient index> <new ingredient name>");
                 return new ChangeNameCommand(checkInt(part[1]), part[2]);       //change 2 beef
             case "changeamount":
-            if (part.length != 3)
-                throw new DukeException("follow the template: change <ingredient index> <new ingredient amount");
-            return new ChangeAmountCommand(checkInt(part[1]), checkInt(part[2]));       //change 2 70
+                if (part.length != 3)
+                    throw new DukeException("follow the template: change <ingredient index> <new ingredient amount");
+                return new ChangeAmountCommand(checkInt(part[1]), checkInt(part[2]));       //change 2 70
             default:
                 throw new DukeException("not a valid command for an Ingredient");
         }
@@ -212,7 +238,7 @@ public class Parser {
             //Throws NumberFormatException
             x = Integer.parseInt(str);
         } catch (Exception e) {
-            throw new DukeException(e.getMessage());
+            throw new DukeException(e.getMessage() + " enter a valid number as an index!");
         }
         if (x < 0 || x >= size) {
             throw new DukeException("Index is out of bounds.");
@@ -231,25 +257,33 @@ public class Parser {
         Date orderDate;
         String[] orderedDishes;
         if (splitter[1].startsWith("-n ")) {
-            if (splitter[1].length()<4) { throw new DukeException("Must specify dishes name"); }
+            if (splitter[1].length() < 4) {
+                throw new DukeException("Must specify dishes name");
+            }
             newOrder = new Order();
             orderedDishes = splitter[1].substring(3).split(", ");
-        } else if (splitter[1].startsWith("-d ")&&splitter[1].length()>20) {
-            String[] dateAndDish = splitter[1].substring(3).split(" -n ",2);
-            if (dateAndDish[0].length()!=10) { throw new DukeException("Must enter a valid order date: dd/mm/yyyy"); }
+        } else if (splitter[1].startsWith("-d ") && splitter[1].length() > 20) {
+            String[] dateAndDish = splitter[1].substring(3).split(" -n ", 2);
+            if (dateAndDish[0].length() != 10) {
+                throw new DukeException("Must enter a valid order date: dd/mm/yyyy");
+            }
             orderDate = Convert.stringToDate(dateAndDish[0]);
             newOrder = new Order();
             newOrder.setDate(orderDate);
             orderedDishes = dateAndDish[1].split(", ");
-        } else { throw new DukeException("must enter a valid order date or specify dishes"); }
-        for (String dishes: orderedDishes) {
+        } else {
+            throw new DukeException("must enter a valid order date or specify dishes");
+        }
+        for (String dishes : orderedDishes) {
             String[] dishesSplit = dishes.split("\\*", 2);
-            if (dishesSplit.length==1) newOrder.addDish(dishesSplit[0], 1);
+            if (dishesSplit.length == 1) newOrder.addDish(dishesSplit[0], 1);
             else {
                 int dishAmount;
-                try{
+                try {
                     dishAmount = checkInt(dishesSplit[1]);
-                    if (dishAmount<=0) {throw new DukeException("Must enter a dishes amount larger than 1");}
+                    if (dishAmount <= 0) {
+                        throw new DukeException("Must enter a dishes amount larger than 1");
+                    }
                 } catch (NumberFormatException e) {
                     throw new DukeException("cannot resolve non-integer or too large dishes amount");
                 }
@@ -273,12 +307,15 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new DukeException("Must enter a valid order index");
         }
-        if (indexAndDate.length == 1) { orderDate = new Date(); }
-        else {
+        if (indexAndDate.length == 1) {
+            orderDate = new Date();
+        } else {
             orderDate = Convert.stringToDate(indexAndDate[1]);
-            if (orderDate==null) {throw new DukeException("Error when converting order date");}
+            if (orderDate == null) {
+                throw new DukeException("Error when converting order date");
+            }
         }
-        return new AlterDateCommand(orderIndex-1, orderDate);
+        return new AlterDateCommand(orderIndex - 1, orderDate);
     }
 
     //@@author VirginiaYu
