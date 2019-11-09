@@ -13,6 +13,5 @@ src/main/resources/docs/
 *.iml
 bin/
 
-# Data file
-
-/data/songlist.txt
+# Data directory
+/data
