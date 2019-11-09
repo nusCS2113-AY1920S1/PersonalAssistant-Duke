@@ -25,9 +25,10 @@ public class UpdateMultipleCommand extends Command {
             + "format instead: update <pageContent> / <type> <one index in integer form> <done status>";
     private static final String INVALID_UPDATE_FORMAT = "Please use valid multiple update format:\n"
             + "update-* <pageContent> / <type> <indexes separated by ',' without any spacing> <done status>\n"
-            + "E.g. update-* CG1111 / task 1,2,3 done";
+            + "E.g. update-* CG1111 / task 1,2,3 done\n"
+            + "Note: update-* is only available for the file/task tab.";
     private static final String INCORRECT_TAB = "Please specify a valid tab to carry out multiple updates.\n"
-            + "List of tabs available: task, note, file";
+            + "List of tabs available: task, file";
     private static final String UPDATED_MULTIPLE_FILES = "Noted. I've updated these files:";
     private static final String UPDATED_MULTIPLE_TASKS = "Noted. I've updated these tasks:";
     private static final String INVALID_DONE_VALUE = "Please provide a valid done status to be updated to.";
@@ -126,13 +127,13 @@ public class UpdateMultipleCommand extends Command {
         }
         try {
             String[] splitIndexes = content.split(" ")[1].split(",");
-            if ((type.equals("file") || type.equals("note") || type.equals("task")) && (splitIndexes.length == 1)
+            if ((type.equals("file") || type.equals("task")) && (splitIndexes.length == 1)
                     && splitIndexes[0].matches("\\d+")) {
                 throw new InputException(UPDATE_SINGLE_TASK);
-            } else if ((type.equals("file") || type.equals("note") || type.equals("task"))
+            } else if ((type.equals("file") || type.equals("task"))
                     && (splitIndexes.length == 1)) {
                 throw new InputException(PROVIDE_INDEX);
-            } else if (!type.equals("file") && !type.equals("note") && !type.equals("task")) {
+            } else if (!type.equals("file") && !type.equals("task")) {
                 throw new InputException(INCORRECT_TAB);
             }
             List<Integer> finalIndexes = new ArrayList<>();

@@ -25,11 +25,13 @@ public class RemoveMultipleCommand extends Command {
     private static final String PROVIDE_INDEX = "Please provide the indexes to be removed.";
     private static final String INVALID_INDEX = "Please enter a valid index.";
     private static final String REMOVE_SINGLE_TASK = "To remove a single task, provide the input in this "
-            + "format instead: remove <pageContent> / <type> <one index in integer form>.";
+            + "format instead: remove <pageContent> / <type> <one index in integer form>";
     private static final String INDEX_SEPARATION = "Ensure that the indexes are separated by ',' without any spacing. "
             + "E.g. remove-* <pageContent> / <type> 2,3,4";
     private static final String INVALID_REMOVE_FORMAT = "Please use valid multiple removal format:\n"
-            + "remove-* <pageContent> : <type> <index>";
+            + "remove-* <pageContent> / <type> <index>.\n"
+            + "E.g. remove-* CG1111 / task 1,2,3\n"
+            + "Note: remove-* is only available for the file/note/task tab.";
     private static final String REMOVED_MULTIPLE_FILES = "Noted. I've removed these files:";
     private static final String REMOVED_MULTIPLE_TASKS = "Noted. I've removed these tasks:";
 

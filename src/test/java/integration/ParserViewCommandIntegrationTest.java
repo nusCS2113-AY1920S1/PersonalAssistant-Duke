@@ -59,7 +59,7 @@ public class ParserViewCommandIntegrationTest {
         ArrayDeque<String> pageTrace = new ArrayDeque<>();
 
         ModuleContainer testContainer = new ModuleContainer();
-        Module testModule = new Module("CG1112", "Engineering Principles & Practice III");
+        Module testModule = new Module("TESTMOD", "Test Module");
         testContainer.addModule(testModule);
         Ui ui = new Ui(true);
 
@@ -67,12 +67,12 @@ public class ParserViewCommandIntegrationTest {
 
         ArrayDeque<String> checkTrace = new ArrayDeque<>();
 
-        String toModule = "view / CG1112";
+        String toModule = "view / TESTMOD";
         Parser.setPageTrace(pageTrace);
         Command command = Parser.parse(toModule);
         command.execute(testContainer, pageTrace, ui, false);
         checkTrace.addFirst("modules");
-        checkTrace.addFirst("CG1112");
+        checkTrace.addFirst("TESTMOD");
         checkTrace.addFirst("tasks");
 
         assertTrue(Arrays.equals(checkTrace.toArray(), pageTrace.toArray()));
@@ -95,13 +95,14 @@ public class ParserViewCommandIntegrationTest {
 
         assertTrue(Arrays.equals(checkTrace.toArray(), pageTrace.toArray()));
 
-        pageTrace.add("CG1112");
+        pageTrace.add("TESTMOD");
 
         Parser.setPageTrace(pageTrace);
         command = Parser.parse(toModule);
         command.execute(testContainer, pageTrace, ui, false);
 
         assertTrue(Arrays.equals(checkTrace.toArray(), pageTrace.toArray()));
+        testContainer.removeModule(testModule.getModuleCode(),testModule);
     }
 
     @Test
@@ -109,19 +110,19 @@ public class ParserViewCommandIntegrationTest {
         ArrayDeque<String> pageTrace = new ArrayDeque<>();
 
         ModuleContainer testContainer = new ModuleContainer();
-        Module testModule = new Module("CG1112", "Engineering Principles & Practice III");
+        Module testModule = new Module("TESTMOD", "Engineering Principles & Practice III");
         testContainer.addModule(testModule);
 
         pageTrace.add("main");
 
         ArrayDeque<String> checkTrace = new ArrayDeque<>();
         checkTrace.addFirst("modules");
-        checkTrace.addFirst("CG1112");
+        checkTrace.addFirst("TESTMOD");
         checkTrace.addFirst("tasks");
 
         Ui ui = new Ui(true);
 
-        String toModulesThenTasks = "view / modules CG1112 tasks";
+        String toModulesThenTasks = "view / modules TESTMOD tasks";
         Parser.setPageTrace(pageTrace);
         Command command = Parser.parse(toModulesThenTasks);
         command.execute(testContainer, pageTrace, ui, false);
@@ -131,7 +132,7 @@ public class ParserViewCommandIntegrationTest {
         pageTrace.clear();
         pageTrace.add("main");
 
-        String toModuleTasks = "view / CG1112 tasks";
+        String toModuleTasks = "view / TESTMOD tasks";
         Parser.setPageTrace(pageTrace);
         command = Parser.parse(toModuleTasks);
         command.execute(testContainer, pageTrace, ui, false);
@@ -158,7 +159,7 @@ public class ParserViewCommandIntegrationTest {
 
         pageTrace.clear();
         pageTrace.addFirst("modules");
-        pageTrace.addFirst("CG1112");
+        pageTrace.addFirst("TESTMOD");
 
         String toTasks = "view / tasks";
         Parser.setPageTrace(pageTrace);
@@ -166,6 +167,7 @@ public class ParserViewCommandIntegrationTest {
         command.execute(testContainer, pageTrace, ui, false);
 
         assertTrue(Arrays.equals(checkTrace.toArray(), pageTrace.toArray()));
+        testContainer.removeModule(testModule.getModuleCode(),testModule);
     }
 
     @Test
@@ -173,19 +175,19 @@ public class ParserViewCommandIntegrationTest {
         ArrayDeque<String> pageTrace = new ArrayDeque<>();
 
         ModuleContainer testContainer = new ModuleContainer();
-        Module testModule = new Module("CG1112", "Engineering Principles & Practice III");
+        Module testModule = new Module("TESTMOD", "Engineering Principles & Practice III");
         testContainer.addModule(testModule);
 
         pageTrace.add("main");
 
         ArrayDeque<String> checkTrace = new ArrayDeque<>();
         checkTrace.addFirst("modules");
-        checkTrace.addFirst("CG1112");
+        checkTrace.addFirst("TESTMOD");
         checkTrace.addFirst("tasks");
 
         Ui ui = new Ui(true);
 
-        String toModule = "view / cg1112";
+        String toModule = "view / testmod";
         Parser.setPageTrace(pageTrace);
         Command command = Parser.parse(toModule);
         command.execute(testContainer, pageTrace, ui, false);
@@ -195,11 +197,12 @@ public class ParserViewCommandIntegrationTest {
         pageTrace.clear();
         pageTrace.add("main");
 
-        toModule = "view / CG1112";
+        toModule = "view / TESTMOD";
         Parser.setPageTrace(pageTrace);
         command = Parser.parse(toModule);
         command.execute(testContainer, pageTrace, ui, false);
 
         assertTrue(Arrays.equals(checkTrace.toArray(), pageTrace.toArray()));
+        testContainer.removeModule(testModule.getModuleCode(),testModule);
     }
 }

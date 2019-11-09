@@ -22,10 +22,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class NotepadIntegrationTest {
+    private ModuleContainer testContainer;
+    private Module testModule;
+    private Notepad testPad;
+    private ArrayDeque<String> pageTrace;
+    private Command command;
+    private Ui ui;
+
     @Test
     public void loadDataSuccessful_AddLinesThenManualClear_successfulRepopulationOfData() throws
             DataReadWriteException, FileCreationException, CorruptedDataException {
-        ModuleContainer testContainer = new ModuleContainer();
         Notepad testPad = new Notepad("notesTest5");
         testPad.addLine("test line0");
         testPad.addLine("test line1");
@@ -44,52 +50,54 @@ public class NotepadIntegrationTest {
     @Test
     public void setNameSuccessful_setNameOfNoteToANewName_noteDescriptionSuccessfullySet() throws
             SpinBoxException {
-        ModuleContainer testContainer = new ModuleContainer();
-        Module testModule = new Module("CG1112", "Engineering Principles & Practice III");
+        testContainer = new ModuleContainer();
+        testModule = new Module("TESTMOD", "Test Module");
         testContainer.addModule(testModule);
 
-        Notepad testPad = testModule.getNotepad();
+        testPad = testModule.getNotepad();
         List<String> notes = testPad.getNotes();
         while (notes.size() > 0) {
             testPad.removeLine(0);
         }
         testPad.addLine("test line0");
 
-        ArrayDeque<String> pageTrace = new ArrayDeque<>();
-        Ui ui = new Ui(true);
+        pageTrace = new ArrayDeque<>();
+        ui = new Ui(true);
 
-        String setNameForNote1 = "set-name CG1112 / note 1 to: test line1";
+        String setNameForNote1 = "set-name TESTMOD / note 1 to: test line1";
         Parser.setPageTrace(pageTrace);
-        Command command = Parser.parse(setNameForNote1);
+        command = Parser.parse(setNameForNote1);
         command.execute(testContainer, pageTrace, ui, false);
 
         assertEquals(testPad.getLine(0), "test line1");
+        testContainer.removeModule(testModule.getModuleCode(),testModule);
     }
 
     @Test
     public void setNameUnsuccessful_invalidIndexUsed_exceptionThrown() throws
             SpinBoxException {
-        ModuleContainer testContainer = new ModuleContainer();
-        Module testModule = new Module("CG1112", "Engineering Principles & Practice III");
+        testContainer = new ModuleContainer();
+        testModule = new Module("TESTMOD", "Test Module");
         testContainer.addModule(testModule);
 
-        Notepad testPad = testModule.getNotepad();
+        testPad = testModule.getNotepad();
         List<String> notes = testPad.getNotes();
         while (notes.size() > 0) {
             testPad.removeLine(0);
         }
         testPad.addLine("test line0");
 
-        ArrayDeque<String> pageTrace = new ArrayDeque<>();
-        Ui ui = new Ui(true);
+        pageTrace = new ArrayDeque<>();
+        ui = new Ui(true);
 
         try {
-            String setNameForNote1 = "set-name CG1112 / note 2 to: test line1";
+            String setNameForNote1 = "set-name TESTMOD / note 2 to: test line1";
             Parser.setPageTrace(pageTrace);
-            Command command = Parser.parse(setNameForNote1);
+            command = Parser.parse(setNameForNote1);
             command.execute(testContainer, pageTrace, ui, false);
             fail();
         } catch (InvalidIndexException e) {
+            testContainer.removeModule(testModule.getModuleCode(),testModule);
             assertEquals("Invalid Input\n\nYou have entered an invalid index.", e.getMessage());
         }
     }
@@ -97,27 +105,28 @@ public class NotepadIntegrationTest {
     @Test
     public void setDateUnsuccessful_setDateUsedOnNonSchedulableItems_exceptionThrown() throws
             SpinBoxException {
-        ModuleContainer testContainer = new ModuleContainer();
-        Module testModule = new Module("CG1112", "Engineering Principles & Practice III");
+        testContainer = new ModuleContainer();
+        testModule = new Module("TESTMOD", "Test Module");
         testContainer.addModule(testModule);
 
-        Notepad testPad = testModule.getNotepad();
+        testPad = testModule.getNotepad();
         List<String> notes = testPad.getNotes();
         while (notes.size() > 0) {
             testPad.removeLine(0);
         }
         testPad.addLine("test line0");
 
-        ArrayDeque<String> pageTrace = new ArrayDeque<>();
-        Ui ui = new Ui(true);
+        pageTrace = new ArrayDeque<>();
+        ui = new Ui(true);
 
         try {
-            String setDateForNote1 = "set-date CG1112 / note 1 to: tomorrow";
+            String setDateForNote1 = "set-date TESTMOD / note 1 to: tomorrow";
             Parser.setPageTrace(pageTrace);
-            Command command = Parser.parse(setDateForNote1);
+            command = Parser.parse(setDateForNote1);
             command.execute(testContainer, pageTrace, ui, false);
             fail();
         } catch (InputException e) {
+            testContainer.removeModule(testModule.getModuleCode(),testModule);
             assertEquals("Invalid Input\n\nSorry, set-date is not available for the selected tab.",
                     e.getMessage());
         }
