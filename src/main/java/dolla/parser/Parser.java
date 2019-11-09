@@ -32,19 +32,20 @@ import static dolla.parser.LimitParser.verifyLimitDuration;
 public abstract class Parser implements ParserStringList, ModeStringList {
 
     protected String mode;
-    protected LocalDate date;
-    protected String description;
+
     protected static String inputLine;
-    protected String type;
-    protected double amount;
     protected static String[] inputArray;
-    protected String duration;
+    protected String commandToRun;
+
+    protected String type;
     protected String name;
+    protected String description;
+    protected double amount;
+    protected String duration;
+    protected LocalDate date;
     protected String tagName;
 
-    protected String commandToRun;
     protected int modifyRecordNum;
-
     protected static int maxAmount = 1000000;
 
     protected static final String TYPE_OWE = "owe";
@@ -72,15 +73,11 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      */
     public void extractDescTime() throws Exception {
         // dataArray[0] is command, amount and description, dataArray[1] is time and tag
-        String[] dataArray = inputLine.split(" /on ");
-        String dateString = (dataArray[1].split(" /tag"))[0];
+        String[] dataArray = inputLine.split(" " + COMPONENT_DATE + " ");
+        String dateString = (dataArray[1].split(" " + COMPONENT_TAG))[0];
         description = dataArray[0].split(inputArray[2] + " ")[1];
         try {
             date = Time.readDate(dateString.trim());
-        } catch (ArrayIndexOutOfBoundsException e) {
-            // TODO: Shouldn't happen anymore, need to test if this will happen still
-            Ui.printMsg("Please add '/at <date>' after your task to specify the entry date.");
-            throw new Exception("missing date");
         } catch (DateTimeParseException e) {
             Ui.printDateFormatError();
             throw new Exception("invalid date");
@@ -209,23 +206,6 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         }
     }
 
-    /**
-     * Returns true if the only element in the input that follows 'modify' is a number.
-     * @return true if the only element in the input that follows 'modify' is a number.
-     */
-    public boolean verifyFullModifyCommand() {
-        if (inputArray.length != 2) {
-            return false;
-        }
-        try {
-            Integer.parseInt(inputArray[1]);
-        } catch (Exception e) {
-            ModifyUi.printInvalidFullModifyFormatError();
-            return false;
-        }
-        return true;
-    }
-
     //@@author yetong1895
     /**
      * This method will check if the input contain an type to sort.
@@ -304,13 +284,29 @@ public abstract class Parser implements ParserStringList, ModeStringList {
 
     //@@author omupenguin
     /**
+     * Returns true if the only element in the input that follows 'modify' is a number.
+     * @return true if the only element in the input that follows 'modify' is a number.
+     */
+    public boolean verifyFullModifyCommand() {
+        if (inputArray.length != 2) {
+            return false;
+        }
+        try {
+            Integer.parseInt(inputArray[1]);
+        } catch (Exception e) {
+            ModifyUi.printInvalidFullModifyFormatError();
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Returns true if the input has no formatting issues.
      * Also designates the correct information to the relevant variables.
      * @return true if the input has no formatting issues.
      */
     public boolean verifyPartialModifyCommand() {
 
-        //ArrayList<String> errorList = new ArrayList<String>();
         type = null;
         amount = -1;
         description = null;
@@ -384,6 +380,37 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     }
 
     /**
+     * Checks if the string from input (currStr) represents a component of entry. If so, verify and assign
+     * the components of entry with the new data (nextStr).
+     * @param currStr to be checked if it's a component (ie. /type).
+     * @param nextStr the new data to be used for the specified component.
+     * @param index the index of currStr in the input array.
+     * @throws Exception when the nextStr is not a valid input for component from currStr.
+     */
+    private void verifyEntryComponents(String currStr, String nextStr, int index) throws Exception {
+        try {
+            switch (currStr) {
+                case COMPONENT_TYPE:
+                    type = verifyAddType(nextStr);
+                    break;
+                case COMPONENT_AMOUNT:
+                    amount = stringToDouble(nextStr);
+                    break;
+                case COMPONENT_DESC:
+                    description = parseDesc(index + 1);
+                    break;
+                case COMPONENT_DATE:
+                    date = Time.readDate(nextStr);
+                    break;
+                default:
+                    break;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    /**
      * Checks if the string from input (currStr) represents a component of limit. If so, verify and assign
      * the components of limit with the new data (nextStr).
      * @param currStr to be checked if it's a component (ie. /type).
@@ -439,40 +466,6 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             case COMPONENT_DATE:
                 date = Time.readDate(nextStr);
                 break;
-            case COMPONENT_TAG:
-                // TODO
-            default:
-                break;
-            }
-        } catch (Exception e) {
-            throw e;
-        }
-    }
-
-
-    /**
-     * Checks if the string from input (currStr) represents a component of entry. If so, verify and assign
-     * the components of entry with the new data (nextStr).
-     * @param currStr to be checked if it's a component (ie. /type).
-     * @param nextStr the new data to be used for the specified component.
-     * @param index the index of currStr in the input array.
-     * @throws Exception when the nextStr is not a valid input for component from currStr.
-     */
-    private void verifyEntryComponents(String currStr, String nextStr, int index) throws Exception {
-        try {
-            switch (currStr) {
-            case COMPONENT_TYPE:
-                type = verifyAddType(nextStr);
-                break;
-            case COMPONENT_AMOUNT:
-                amount = stringToDouble(nextStr);
-                break;
-            case COMPONENT_DESC:
-                description = parseDesc(index + 1);
-                break;
-            case COMPONENT_DATE:
-                date = Time.readDate(nextStr);
-                break;
             default:
                 break;
             }
@@ -494,7 +487,6 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             case COMPONENT_AMOUNT:
             case COMPONENT_DESC:
             case COMPONENT_DATE:
-            case COMPONENT_TAG:
                 return true;
             default:
                 break;
@@ -505,7 +497,6 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             case COMPONENT_TYPE:
             case COMPONENT_AMOUNT:
             case COMPONENT_DURATION:
-            case COMPONENT_TAG:
                 return true;
             default:
                 break;
@@ -518,19 +509,11 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             case COMPONENT_AMOUNT:
             case COMPONENT_DESC:
             case COMPONENT_DATE:
-            case COMPONENT_TAG:
                 return true;
             default:
                 break;
             }
             break;
-        /*
-        case MODE_SHORTCUT:
-            switch (s) {
-                // TODO
-            }
-            break;
-        */
         default:
             break;
         }
