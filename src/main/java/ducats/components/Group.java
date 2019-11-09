@@ -57,6 +57,7 @@ public class Group implements Serializable {
         return bars.get(i);
     }
 
+    //@@author rohan-av
     /**
      * Returns a String representation of the group to be used in persistent storage.
      *

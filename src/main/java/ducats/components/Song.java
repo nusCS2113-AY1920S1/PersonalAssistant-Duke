@@ -167,7 +167,6 @@ public class Song implements Serializable {
     }
 
     //@@author rohan-av
-
     /**
      * Returns a one-line String representation of the song, meant for viewing in a list.
      *
@@ -215,6 +214,11 @@ public class Song implements Serializable {
         return result;
     }
 
+    /**
+     * Adds the provided Group to the Song.
+     *
+     * @param group the Group object to be added
+     */
     public void addGroup(Group group) {
         groups.add(group);
     }
