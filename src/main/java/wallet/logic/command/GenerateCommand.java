@@ -103,7 +103,7 @@ public class GenerateCommand extends Command {
         return false;
     }
 
-    void deleteAllFiles() {
+    public void deleteAllFiles() {
         File file = new File("./data/contact.txt");
         if (file.delete()) {
             System.out.println("contact.txt deleted successfully");

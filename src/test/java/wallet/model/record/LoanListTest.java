@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LoanListTest {
     LoanList loanList = new LoanList();
-    Contact person = new Contact("mary", "friend", "92737231");
+    private Contact person = new Contact("mary", "friend", "92737231");
 
     @Test
     public void addLoan_notSettled_borrow_success() {
