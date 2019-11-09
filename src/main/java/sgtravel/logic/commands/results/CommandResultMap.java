@@ -9,15 +9,15 @@ import java.util.ArrayList;
  * Defines the command result of a command needing a map.
  */
 public class CommandResultMap extends CommandResult implements Routeable {
-    private ArrayList<RouteNode> route;
+    private ArrayList<RouteNode> routes;
 
     /**
      * Constructs a basic CommandResultMap object.
      *
-     * @param route The route object.
+     * @param routes The route object.
      */
-    public CommandResultMap(Route route) {
-        this.route = route.getNodes();
+    public CommandResultMap(Route routes) {
+        this.routes = routes.getNodes();
     }
 
     /**
@@ -26,17 +26,17 @@ public class CommandResultMap extends CommandResult implements Routeable {
      * @return route The Route represented by the Map.
      */
     @Override
-    public ArrayList<RouteNode> getRoute() {
-        return route;
+    public ArrayList<RouteNode> getRoutes() {
+        return routes;
     }
 
     /**
      * Sets the Route in the Map.
      *
-     * @param route The Route to set.
+     * @param routes The Route to set.
      */
     @Override
-    public void setRoute(ArrayList<RouteNode> route) {
-        this.route = route;
+    public void setRoutes(ArrayList<RouteNode> routes) {
+        this.routes = routes;
     }
 }

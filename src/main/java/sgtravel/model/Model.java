@@ -12,12 +12,10 @@ import sgtravel.model.locations.BusStop;
 import sgtravel.model.planning.Itinerary;
 import sgtravel.model.planning.Recommendation;
 import sgtravel.model.profile.ProfileCard;
-import sgtravel.model.transports.BusService;
 import sgtravel.model.transports.Route;
 import sgtravel.model.transports.TransportationMap;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Interface which grants other components access to information from persistent storage.
@@ -30,6 +28,7 @@ public interface Model {
 
     /**
      * Replaces the events of this model with the new one.
+     *
      * @param events The new events.
      */
     void setEvents(EventList events);
@@ -40,19 +39,9 @@ public interface Model {
     TransportationMap getMap();
 
     /**
-     * Returns the list of events that is sorted chronologically.
-     */
-    EventList getSortedList();
-
-    /**
      * Returns the map of all bus stops.
      */
     HashMap<String, BusStop> getBusStops();
-
-    /**
-     * Returns the list of all bus routes.
-     */
-    List<BusService> getBusService();
 
     /**
      * Returns the list of Routes.
@@ -85,18 +74,56 @@ public interface Model {
      */
     VenueList getEventVenues();
 
+    /**
+     * Gets an itinerary with the given name.
+     *
+     * @param name The name of the itinerary.
+     * @return The itinerary.
+     */
     Itinerary getItinerary(String name);
 
+    /**
+     * Gets a Recommendation.
+     *
+     * @return The Recommendation.
+     */
     Recommendation getRecommendations();
 
+    /**
+     * Gets the Itinerary table.
+     *
+     * @return The Itinerary table.
+     */
     HashMap<String,Itinerary> getItineraryTable();
 
+    /**
+     * Sets the most recent Itinerary.
+     *
+     * @param itinerary The most recent Itinerary.
+     */
     void setRecentItinerary(Itinerary itinerary);
 
+    /**
+     * Gets the most recent Itinerary.
+     *
+     * @return The most recent Itinerary.
+     * @throws NoRecentItineraryException If there is no recent Itinerary.
+     */
     Itinerary getRecentItinerary() throws NoRecentItineraryException;
 
+    /**
+     * Sets a new Itinerary.
+     *
+     * @param itinerary The new Itinerary.
+     * @throws ParseException If there is an issue parsing.
+     */
     void setNewItinerary(Itinerary itinerary) throws ParseException;
 
+    /**
+     * Confirms the most recent Itinerary.
+     *
+     * @param newName The new name of the itinerary.
+     */
     void confirmRecentItinerary(String newName);
 
     /**

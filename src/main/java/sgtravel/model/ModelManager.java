@@ -11,13 +11,11 @@ import sgtravel.model.locations.BusStop;
 import sgtravel.model.planning.Itinerary;
 import sgtravel.model.planning.Recommendation;
 import sgtravel.model.profile.ProfileCard;
-import sgtravel.model.transports.BusService;
 import sgtravel.model.transports.Route;
 import sgtravel.model.transports.TransportationMap;
 import sgtravel.storage.Storage;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Implements the methods defined in the Model Interface.
@@ -45,31 +43,53 @@ public class ModelManager implements Model {
         itineraryTable = storage.getItineraryTable();
     }
 
+    /**
+     * Returns name of the user.
+     */
     @Override
     public String getName() {
         return profileCard.getPersonName();
     }
 
+    /**
+     * Returns map object.
+     */
     @Override
     public TransportationMap getMap() {
         return map;
     }
 
+    /**
+     * Returns the list of events.
+     */
     @Override
     public EventList getEvents() {
         return events;
     }
 
+    /**
+     * Replaces the events of this model with the new one.
+     *
+     * @param events The new events.
+     */
     @Override
     public void setEvents(EventList events) {
         this.events = events;
     }
 
+    /**
+     * Returns the list of Routes.
+     */
     @Override
     public RouteList getRoutes() {
         return routes;
     }
 
+    /**
+     * Gets a specified Route.
+     *
+     * @param index The index of the Route.
+     */
     @Override
     public Route getRoute(int index) throws OutOfBoundsException {
         try {
@@ -79,36 +99,50 @@ public class ModelManager implements Model {
         }
     }
 
-    @Override
-    public EventList getSortedList() {
-        return events.getSortedList();
-    }
-
+    /**
+     * Returns the map of all bus stops.
+     */
     @Override
     public HashMap<String, BusStop> getBusStops() {
         return map.getBusStopMap();
     }
 
-    @Override
-    public List<BusService> getBusService() {
-        return null;
-    }
-
+    /**
+     * Gets a Recommendation.
+     *
+     * @return The Recommendation.
+     */
     @Override
     public Recommendation getRecommendations() {
         return recommendations;
     }
 
+    /**
+     * Gets the Itinerary table.
+     *
+     * @return The Itinerary table.
+     */
     @Override
     public HashMap<String, Itinerary> getItineraryTable() {
         return itineraryTable;
     }
 
+    /**
+     * Sets the most recent Itinerary.
+     *
+     * @param recentItinerary The most recent Itinerary.
+     */
     @Override
     public void setRecentItinerary(Itinerary recentItinerary) {
         this.recentItinerary = recentItinerary;
     }
 
+    /**
+     * Gets the most recent Itinerary.
+     *
+     * @return The most recent Itinerary.
+     * @throws NoRecentItineraryException If there is no recent Itinerary.
+     */
     @Override
     public Itinerary getRecentItinerary() throws NoRecentItineraryException {
         if (recentItinerary == null) {
@@ -117,22 +151,42 @@ public class ModelManager implements Model {
         return recentItinerary;
     }
 
+    /**
+     * Sets a new Itinerary.
+     *
+     * @param itinerary The new Itinerary.
+     */
     @Override
     public void setNewItinerary(Itinerary itinerary) {
         this.itineraryTable.put(itinerary.getName(), itinerary);
     }
 
+    /**
+     * Confirms the most recent Itinerary.
+     *
+     * @param name The name of the itinerary.
+     */
     @Override
     public void confirmRecentItinerary(String name) {
         recentItinerary.setName(name);
         this.itineraryTable.put(name, recentItinerary);
     }
 
+    /**
+     * Gets the VenueList of events.
+     *
+     * @return The VenueList of events.
+     */
     @Override
     public VenueList getEventVenues() {
         return new VenueList(events);
     }
 
+    /**
+     * Gets the ProfileCard.
+     *
+     * @return profileCard The ProfileCard.
+     */
     @Override
     public ProfileCard getProfileCard() {
         return profileCard;

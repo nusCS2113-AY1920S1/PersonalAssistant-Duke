@@ -212,7 +212,7 @@ public class Storage {
                     }
                     newRoute = TransportStorageParser.createRouteFromStorage(input);
                 } else {
-                    newRoute.add(TransportStorageParser.createNodeFromStorage(input));
+                    newRoute.addNode(TransportStorageParser.createNodeFromStorage(input));
                 }
             }
             if (!newRoute.getName().equals("")) {

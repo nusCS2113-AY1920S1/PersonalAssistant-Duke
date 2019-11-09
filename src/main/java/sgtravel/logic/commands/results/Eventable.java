@@ -7,7 +7,17 @@ import sgtravel.model.lists.EventList;
  */
 public interface Eventable {
 
+    /**
+     * Gets the EventList.
+     *
+     * @return The EventList.
+     */
     EventList getEvents();
 
+    /**
+     * Sets the EventList.
+     *
+     * @param events The EventList to set.
+     */
     void setEvents(EventList events);
 }

@@ -25,7 +25,7 @@ class RouteShowCommandTest {
         BusStop v1 = new BusStop("45039","Opp Yew Tee Ind Est", "Woodlands Rd",
                 1.39585817355572, 103.75427816224409);
 
-        model.getRoutes().get(0).add(v1);
+        model.getRoutes().get(0).addNode(v1);
         command = new RouteShowCommand(0);
         command.execute(model);
 

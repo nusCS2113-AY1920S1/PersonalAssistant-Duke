@@ -23,7 +23,7 @@ class RouteNodeNeighboursCommandTest {
         ModelStub model = new ModelStub();
         Route route = new Route("To Clementi", "by bus!");
         BusStop busStop = new BusStop("17009", model);
-        route.add(busStop);
+        route.addNode(busStop);
         model.addRoute(route);
 
         RouteNodeNeighboursCommand command1 = new RouteNodeNeighboursCommand(0, 0);
@@ -46,7 +46,7 @@ class RouteNodeNeighboursCommandTest {
         assertEquals(expectedError, command5.execute(model).getMessage());
 
         TrainStation trainStation = new TrainStation("Ang Mo Kio", model);
-        model.getRoutes().get(0).add(trainStation);
+        model.getRoutes().get(0).addNode(trainStation);
 
         RouteNodeNeighboursCommand command6 = new RouteNodeNeighboursCommand(0, 1);
         assertThrows(NoClassDefFoundError.class, () -> {

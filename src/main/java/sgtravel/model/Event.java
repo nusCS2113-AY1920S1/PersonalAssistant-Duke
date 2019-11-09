@@ -18,8 +18,8 @@ public class Event extends TaskWithDates implements Serializable {
      * Initializes a event task with location.
      *
      * @param locationDescription A description of this task.
-     * @param startDate Starting date of task
-     * @param endDate Ending date of task
+     * @param startDate Starting date of task.
+     * @param endDate Ending date of task.
      */
     public Event(String locationDescription, LocalDateTime startDate, LocalDateTime endDate) throws ApiException {
         super(locationDescription, startDate, endDate);
@@ -30,9 +30,9 @@ public class Event extends TaskWithDates implements Serializable {
      * Initializes a event task from persistent storage.
      *
      * @param locationDescription A description of this task.
-     * @param startDate Starting date of task
-     * @param endDate Ending date of task
-     * @param venue location of the holiday object
+     * @param startDate Starting date of task.
+     * @param endDate Ending date of task.
+     * @param venue location of the holiday object.
      */
     public Event(String locationDescription, LocalDateTime startDate, LocalDateTime endDate, Venue venue) {
         super(locationDescription, startDate, endDate);

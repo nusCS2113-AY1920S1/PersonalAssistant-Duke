@@ -55,7 +55,7 @@ public class LocationSearchUrlRequest extends UrlRequest {
             }
         }
 
-        throw new ApiException();
+        return localSearch.search(param);
     }
 
     /**

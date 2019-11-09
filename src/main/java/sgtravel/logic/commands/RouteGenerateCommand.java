@@ -115,9 +115,9 @@ public class RouteGenerateCommand extends Command {
      */
     private void addEndingNode(Route route, Venue venue) throws DuplicateRouteNodeException {
         if (venue instanceof BusStop || venue instanceof TrainStation) {
-            route.add((RouteNode) venue);
+            route.addNode((RouteNode) venue);
         } else {
-            route.add(PathFinder.generateCustomRouteNode(venue));
+            route.addNode(PathFinder.generateCustomRouteNode(venue));
         }
     }
 
@@ -209,7 +209,7 @@ public class RouteGenerateCommand extends Command {
                 node.setAddress(node.getDescription());
             }
             updateRouteNode(node, model);
-            route.add(node);
+            route.addNode(node);
         }
     }
 }

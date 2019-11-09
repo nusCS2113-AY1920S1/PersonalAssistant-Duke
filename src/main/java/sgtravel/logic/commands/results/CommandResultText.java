@@ -50,7 +50,7 @@ public class CommandResultText extends CommandResult {
         int index = 1;
         message = "Here is the information of Routes:\nThere are " + routes.size() + " Routes.\n";
         for (Route route: routes.getRoutes()) {
-            message += "(" + index + ") " + route.getName() + "\n" + route.getDescription() + "\n";
+            message += "\n(" + index + ") " + route.getName() + "\nDescription:\n" + route.getDescription() + "\n";
             index++;
         }
     }

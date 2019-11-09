@@ -45,7 +45,7 @@ public class MapWindow extends UiPart<Stage> {
      * @param commandResultMap The CommandResult that contains a Route.
      */
     public MapWindow(CommandResultMap commandResultMap) {
-        this(new Stage(), commandResultMap.getRoute());
+        this(new Stage(), commandResultMap.getRoutes());
     }
 
     /**

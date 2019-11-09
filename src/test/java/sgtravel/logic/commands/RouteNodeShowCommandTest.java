@@ -21,7 +21,7 @@ class RouteNodeShowCommandTest {
         ModelStub model = new ModelStub();
         Route route = new Route("To Clementi", "by bus!");
         BusStop busStop = new BusStop("17009", model);
-        route.add(busStop);
+        route.addNode(busStop);
         model.addRoute(route);
 
         //NoClassDefFoundError thrown when image is created
@@ -52,7 +52,7 @@ class RouteNodeShowCommandTest {
         });
 
         TrainStation trainStation = new TrainStation("Ang Mo Kio", model);
-        model.getRoutes().get(0).add(trainStation);
+        model.getRoutes().get(0).addNode(trainStation);
 
         //NoClassDefFoundError thrown when image is created
         RouteNodeShowCommand command6 = new RouteNodeShowCommand(0, 1);

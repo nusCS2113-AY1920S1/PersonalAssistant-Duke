@@ -45,10 +45,10 @@ class ApiParserTest {
             DuplicateRouteNodeException {
         ModelStub model = new ModelStub();
         Route route = new Route("Test route", "");
-        route.add(new BusStop("17009", model));
-        route.add(new BusStop("18339", model));
-        route.add(new BusStop("12209", model));
-        route.add(new BusStop("94071", model));
+        route.addNode(new BusStop("17009", model));
+        route.addNode(new BusStop("18339", model));
+        route.addNode(new BusStop("12209", model));
+        route.addNode(new BusStop("94071", model));
 
         RouteNode node = route.getNode(0);
         ArrayList<String> points = ApiParser.generateOtherPoints(route, node, 0);
@@ -70,14 +70,14 @@ class ApiParserTest {
     void getStaticMapNeighbours() throws QueryFailedException, FileLoadFailException, DuplicateRouteNodeException {
         ModelStub model = new ModelStub();
         Route route = new Route("Test route", "");
-        route.add(new BusStop("17009", model));
-        route.add(new BusStop("18339", model));
-        route.add(new BusStop("12209", model));
-        route.add(new BusStop("94071", model));
+        route.addNode(new BusStop("17009", model));
+        route.addNode(new BusStop("18339", model));
+        route.addNode(new BusStop("12209", model));
+        route.addNode(new BusStop("94071", model));
 
         //ExceptionInInitializerError is thrown when image is generated
         assertThrows(NoClassDefFoundError.class, () -> {
-            Image actual = ApiParser.generateStaticMapNeighbours(model, route, route.getStartNode(), 0);
+            Image actual = ApiParser.generateStaticMapNeighbours(model, route, route.getNode(0), 0);
             assert (actual != null);
         });
     }
@@ -87,10 +87,10 @@ class ApiParserTest {
             DuplicateRouteNodeException {
         ModelStub model = new ModelStub();
         Route route = new Route("Test route", "");
-        route.add(new BusStop("17009", model));
-        route.add(new BusStop("18339", model));
-        route.add(new BusStop("12209", model));
-        route.add(new BusStop("94071", model));
+        route.addNode(new BusStop("17009", model));
+        route.addNode(new BusStop("18339", model));
+        route.addNode(new BusStop("12209", model));
+        route.addNode(new BusStop("94071", model));
 
         RouteNode node = route.getNode(0);
         ArrayList<String> points = ApiParser.generateOtherPoints(route, node, 0);
@@ -117,10 +117,10 @@ class ApiParserTest {
     void generateStaticMapLines() throws QueryFailedException, FileLoadFailException, DuplicateRouteNodeException {
         ModelStub model = new ModelStub();
         Route route = new Route("Test route", "");
-        route.add(new BusStop("17009", model));
-        route.add(new BusStop("18339", model));
-        route.add(new BusStop("12209", model));
-        route.add(new BusStop("94071", model));
+        route.addNode(new BusStop("17009", model));
+        route.addNode(new BusStop("18339", model));
+        route.addNode(new BusStop("12209", model));
+        route.addNode(new BusStop("94071", model));
 
         ArrayList<String> points = ApiParser.generateOtherPoints(route, route.getNode(0), 0);
         String rgb = RED_VALUE_OTHER + "," + GREEN_VALUE_OTHER + "," + BLUE_VALUE_OTHER;
@@ -139,12 +139,12 @@ class ApiParserTest {
         ModelStub model = new ModelStub();
         Route route = new Route("Test route", "");
 
-        route.add(new BusStop("17009", model));
-        route.add(new BusStop("18339", model));
-        route.add(new BusStop("12209", model));
-        route.add(new BusStop("94071", model));
+        route.addNode(new BusStop("17009", model));
+        route.addNode(new BusStop("18339", model));
+        route.addNode(new BusStop("12209", model));
+        route.addNode(new BusStop("94071", model));
 
-        assertEquals(3, ApiParser.generateOtherPoints(route, route.getStartNode(), 0).size());
+        assertEquals(3, ApiParser.generateOtherPoints(route, route.getNode(0), 0).size());
     }
 
     @Test

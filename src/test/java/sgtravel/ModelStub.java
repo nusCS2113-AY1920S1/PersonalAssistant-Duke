@@ -80,18 +80,8 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public EventList getSortedList() {
-        return events.getSortedList();
-    }
-
-    @Override
     public HashMap<String, BusStop> getBusStops() {
         return map.getBusStopMap();
-    }
-
-    @Override
-    public List<BusService> getBusService() {
-        return null;
     }
 
     @Override

@@ -81,7 +81,7 @@ public class RouteNodeAddCommand extends Command {
     private void addToRoute(Model model) throws OutOfBoundsException, DuplicateRouteNodeException {
         Route route = model.getRoute(indexRoute);
         if (isEmptyIndexNode) {
-            route.add(node);
+            route.addNode(node);
             indexNode = route.size() - 1;
         } else if (indexNode >= 0) {
             route.addNode(node, indexNode);

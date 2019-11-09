@@ -18,6 +18,6 @@ public class AddProfileCommandTest {
         Model modelStub = new ModelStub();
         ProfileAddCommand profileCommand = new ProfileAddCommand("name", LocalDateTime.now());
         CommandResultText resultText = profileCommand.execute(modelStub);
-        assertEquals(resultText.getMessage(), "Welcome to SGTravel\nname\n");
+        assertEquals(resultText.getMessage(), "Welcome to SGTravel!\nname\n");
     }
 }

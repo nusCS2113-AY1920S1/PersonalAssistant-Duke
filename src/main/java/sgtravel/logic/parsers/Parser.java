@@ -1,6 +1,7 @@
 package sgtravel.logic.parsers;
 
 import sgtravel.commons.Messages;
+import sgtravel.commons.exceptions.NullResultException;
 import sgtravel.commons.exceptions.ParseException;
 import sgtravel.logic.commands.AddSampleItineraryCommand;
 import sgtravel.logic.commands.Command;
@@ -50,8 +51,9 @@ public class Parser {
      * @param input Input created by the ConversationManager object or user input.
      * @return The corresponding Command object.
      * @throws ParseException If userInput is undefined.
+     * @throws NullResultException If the result cannot be found.
      */
-    public static Command parseComplexCommand(String input) throws ParseException {
+    public static Command parseComplexCommand(String input) throws ParseException, NullResultException {
         String commandWord = getCommandWord(input);
 
         switch (commandWord) {

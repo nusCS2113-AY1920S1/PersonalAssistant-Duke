@@ -69,7 +69,7 @@ public class Route {
      * @param newNode The new node to add.
      * @exception DuplicateRouteNodeException If the route is a duplicate.
      */
-    public void add(RouteNode newNode) throws DuplicateRouteNodeException {
+    public void addNode(RouteNode newNode) throws DuplicateRouteNodeException {
         for (RouteNode node: nodes) {
             if (node.equals(newNode)) {
                 throw new DuplicateRouteNodeException();
@@ -129,41 +129,6 @@ public class Route {
      */
     public ArrayList<RouteNode> getNodes() {
         return nodes;
-    }
-
-    /**
-     * Gets the Arraylist of Route Nodes as Venues instead.
-     *
-     * @return nodes The ArrayList of Route Nodes.
-     */
-    public ArrayList<Venue> getNodesAsVenue() {
-        return new ArrayList<>(nodes);
-    }
-
-    /**
-     * Gets the starting node of the route.
-     *
-     * @return node The start node.
-     */
-    public RouteNode getStartNode() {
-        if (nodes.size() > 0) {
-            return nodes.get(0);
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * Gets the starting node of the route.
-     *
-     * @return node The start node.
-     */
-    public RouteNode getEndNode() {
-        if (nodes.size() > 0) {
-            return nodes.get(nodes.size() - 1);
-        } else {
-            return null;
-        }
     }
 
     public String getName() {

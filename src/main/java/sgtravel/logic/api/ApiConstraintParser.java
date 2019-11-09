@@ -58,14 +58,14 @@ public class ApiConstraintParser {
      * @return The nearest Train Station.
      */
     public static TrainStation getNearestTrainStation(Venue place, HashMap<String, TrainStation> trainMap) {
-        double minimumDisplacement = 1000;
+        double curMinDisplacement = 1000;
         TrainStation nearestTrainStation = null;
 
         for (Map.Entry mapElement : trainMap.entrySet()) {
             TrainStation cur = (TrainStation)mapElement.getValue();
             double displacement = getDisplacement(place, cur);
-            if (displacement < minimumDisplacement) {
-                minimumDisplacement = displacement;
+            if (displacement < curMinDisplacement) {
+                curMinDisplacement = displacement;
                 nearestTrainStation = cur;
             }
         }
@@ -76,9 +76,9 @@ public class ApiConstraintParser {
     /**
      * Return the nearest transportation from the starting location.
      *
-     * @param start The starting location
-     * @param map All transportation location
-     * @return Nearest transportation
+     * @param start The starting location.
+     * @param map All transportation location.
+     * @return Nearest transportation.
      */
     public static Venue getNearestTransport(Venue start, TransportationMap map) {
         TrainStation nearestTrain = getNearestTrainStation(start, map.getTrainMap());
