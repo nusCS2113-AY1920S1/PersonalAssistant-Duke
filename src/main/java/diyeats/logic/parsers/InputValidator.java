@@ -7,6 +7,8 @@ import diyeats.commons.exceptions.ProgramException;
  */
 public class InputValidator {
 
+    private static final String numericValidator = "-?\\d+(\\.\\d+)?";
+
     /**
      * validate the user input to check whether it's empty.
      * @param userInput String input by user.
@@ -24,7 +26,7 @@ public class InputValidator {
      * @throws ProgramException If the userInput is not numeric.
      */
     public static void validateAmount(String userInput) throws ProgramException {
-        if (!userInput.matches("-?\\d+(\\.\\d+)?")) {
+        if (!userInput.matches(numericValidator)) {
             throw new ProgramException("The nutritional value or food cost must be numeric.");
         }
     }
