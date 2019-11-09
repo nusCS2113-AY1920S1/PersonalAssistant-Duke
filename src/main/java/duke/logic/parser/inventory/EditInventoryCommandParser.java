@@ -1,6 +1,5 @@
 package duke.logic.parser.inventory;
 
-import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.logic.command.inventory.EditInventoryCommand;
 import duke.logic.parser.commons.ArgumentMultimap;
@@ -16,6 +15,9 @@ import static duke.logic.parser.inventory.InventoryParserUtil.createInventoryDes
 
 public class EditInventoryCommandParser implements Parser<EditInventoryCommand> {
 
+    private static final String MESSAGE_EMPTY_INDEX = "Index cannot be empty.";
+    private static final String MESSAGE_INVALID_INDEX = "Please enter a valid index in the list";
+
     @Override
     public EditInventoryCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
@@ -26,10 +28,14 @@ public class EditInventoryCommandParser implements Parser<EditInventoryCommand> 
 
         Index index;
 
+        if (map.getPreamble().isBlank()) {
+            throw new ParseException(MESSAGE_EMPTY_INDEX);
+        }
+
         try {
             index = ParserUtil.parseIndex(map.getPreamble());
         } catch (ParseException e) {
-            throw new ParseException(Message.MESSAGE_INVALID_INDEX);
+            throw new ParseException(MESSAGE_INVALID_INDEX);
         }
 
         return new EditInventoryCommand(index, createInventoryDescriptor(map));
