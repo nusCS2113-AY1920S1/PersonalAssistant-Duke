@@ -1,5 +1,7 @@
 package sgtravel.model;
 
+
+import sgtravel.commons.exceptions.AddListFailException;
 import sgtravel.commons.exceptions.DuplicateRouteException;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.NoRecentItineraryException;
@@ -86,19 +88,53 @@ public interface Model {
      */
     VenueList getEventVenues();
 
+    /**
+     * Shows the Itinerary specified by a give name.
+     * @param name The serial number of the Itinerary.
+     */
     Itinerary getItinerary(String name);
 
+    /**
+     * Returns the recommendation list object.
+     * @return recommendations The requested recommendations list.
+     */
     Recommendation getRecommendations();
 
+    /**
+     * Returns the itinerary hash-map keyed by their names.
+     * @return itineraryTable The list of saved itineraries.
+     */
     HashMap<String,Itinerary> getItineraryTable();
 
-    void setRecentItinerary(Itinerary itinerary);
+    /**
+     * Saves the most recent recommendation.
+     * @param itinerary The recent recommendation.
+     */
+    void setRecentItinerary(Itinerary itinerary) throws AddListFailException;
 
+    /**
+     * Returns the recently recommended itinerary.
+     * @return recentItinerary The recent recommendation.
+     */
     Itinerary getRecentItinerary() throws NoRecentItineraryException;
 
+    /**
+     * Stores a new itinerary to storage.
+     * @param itinerary The itinerary to be saved.
+     */
     void setNewItinerary(Itinerary itinerary) throws ParseException;
 
-    void confirmRecentItinerary(String newName);
+    /**
+     * Stores recently recommended itinerary.
+     * @param newName The new name for the itinerary.
+     */
+    void confirmRecentItinerary(String newName) throws AddListFailException;
+
+    /**
+     * Deletes the requested itinerary from storage.
+     * @param name The name of the itinerary to be "done" (deleted).
+     */
+    void doneItinerary(String name) throws NoSuchItineraryException;
 
     /**
      * Returns profile of user.
@@ -113,6 +149,4 @@ public interface Model {
     void addToFavourite(String name, Itinerary itinerary) throws NoSuchItineraryException;
 
     void deleteFavourite(String name) throws NoSuchItineraryException;
-
-    void doneItinerary(String name) throws NoSuchItineraryException;
 }

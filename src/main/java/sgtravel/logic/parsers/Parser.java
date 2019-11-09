@@ -25,8 +25,10 @@ import sgtravel.logic.parsers.commandparsers.DoneParser;
 import sgtravel.logic.parsers.commandparsers.FindParser;
 import sgtravel.logic.parsers.commandparsers.GetBusRouteParser;
 import sgtravel.logic.parsers.commandparsers.GetBusStopParser;
+import sgtravel.logic.parsers.commandparsers.ListItineraryParser;
 import sgtravel.logic.parsers.commandparsers.LocationSearchParser;
 import sgtravel.logic.parsers.commandparsers.ProfileAddParser;
+
 import sgtravel.logic.parsers.commandparsers.ProfileSetParser;
 import sgtravel.logic.parsers.commandparsers.PromptParser;
 import sgtravel.logic.parsers.commandparsers.QuickEditParser;
@@ -119,7 +121,7 @@ public class Parser {
         case "newItinerary":
             return new CreateNewItineraryParser(input).parse();
         case "listItinerary":
-            return new ListItineraryCommand();
+            return new ListItineraryParser(input).parse();
         case "showItinerary":
             return new ShowItineraryCommand(getWord(input));
         case "doneItinerary":

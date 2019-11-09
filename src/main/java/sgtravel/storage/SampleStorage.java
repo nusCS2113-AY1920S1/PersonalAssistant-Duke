@@ -111,6 +111,9 @@ public class SampleStorage {
         return routes;
     }
 
+    /**
+     * Returns the itinerary hash-map.
+     */
     public HashMap<String, Itinerary> getItineraryTable() {
         return this.itineraryTable;
     }

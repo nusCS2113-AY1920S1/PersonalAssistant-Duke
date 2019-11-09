@@ -25,7 +25,7 @@ public class RecommendationParser extends CommandParser {
     }
 
     /**
-     * Parses the input and return a new Itinerary constructed from it.
+     * Returns a String[] containing start and end dates.
      *
      * @return The Itinerary object.
      * @throws ParseException If Itinerary object cannot be created.
@@ -33,6 +33,7 @@ public class RecommendationParser extends CommandParser {
     private String[] createRecommendation() throws ParseException {
 
         String[] itineraryDetails = input.substring("recommend".length()).strip().split("between|and");
+
         if (itineraryDetails.length != THREE || itineraryDetails[ONE] == null || itineraryDetails[TWO] == null) {
             throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }
@@ -51,7 +52,7 @@ public class RecommendationParser extends CommandParser {
      */
     @Override
     public Command parse() throws ParseException {
-        String[] itineraryDetails = createRecommendation();
-        return new RecommendationsCommand(itineraryDetails);
+        String[] recommendationDetails = createRecommendation();
+        return new RecommendationsCommand(recommendationDetails);
     }
 }

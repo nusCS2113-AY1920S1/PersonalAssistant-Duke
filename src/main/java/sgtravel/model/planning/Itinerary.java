@@ -1,9 +1,7 @@
 package sgtravel.model.planning;
 
-import sgtravel.commons.Messages;
-import sgtravel.commons.exceptions.ParseException;
-import sgtravel.logic.api.ApiParser;
-import sgtravel.logic.parsers.storageparsers.PlanningStorageParser;
+import sgtravel.commons.exceptions.ChronologyBeforePresentException;
+import sgtravel.commons.exceptions.ChronologyInconsistentException;
 import sgtravel.model.locations.Venue;
 
 import java.time.LocalDateTime;
@@ -34,15 +32,14 @@ public class Itinerary {
     }
 
     /**
-     * Prints the itinerary list in entirety.
+     * Prints the itinerary list in entirety to show on the UI.
      *
-     * @return The String which lists the itinerary in full
+     * @return result The String which shows the itinerary in full
      */
     public String printItinerary() {
-
         int days = getNumberOfDays();
-        StringBuilder result = new StringBuilder("Here are the list of Locations in "
-                +  days + "trip days with name " + this.name + ": \n");
+        StringBuilder result = new StringBuilder("Here are the list of locations for a "
+                +  days + " day trip. This itinerary has the name : \n" + this.name + "\n");
         for (Agenda list1 : this.getList()) {
             result.append("\n");
             result.append("Day ").append(list1.getDay()).append(":").append("\n \n");
@@ -60,80 +57,65 @@ public class Itinerary {
     }
 
     /**
-     * This makes the agenda list of a new Itinerary entered.
+     * Checks if the dates of the itinerary are valid.
      *
-     * @param itineraryDetails is the details of the itinerary to make.
+     * @throws ChronologyBeforePresentException If start and end date are in the past.
+     * @throws ChronologyInconsistentException If start ad end date are invalid.
      */
-    public void makeAgendaList(String[] itineraryDetails) throws ParseException {
-        List<Agenda> agendaList = new ArrayList<>();
-        int i = 3;
-        try {
-            while (i < itineraryDetails.length) {
-                List<Venue> venueList = new ArrayList<>();
-                List<Todo> todoList = new ArrayList<>();
-                final int number = Integer.parseInt(itineraryDetails[i++]);
-                while (itineraryDetails[i].equals("/venue")) {
-                    i++;
-                    venueList.add(ApiParser.getLocationSearch(itineraryDetails[i++]));
-                    StringBuilder todos = new StringBuilder();
-                    if (i == itineraryDetails.length - 1 || itineraryDetails[i].matches("-?\\d+")) {
-                        throw new ParseException(Messages.ERROR_ITINERARY_EMPTY_TODOLIST);
-                    }
-                    todos.append(itineraryDetails[++i]).append("|");
-                    i++;
-                    while (itineraryDetails[i].equals("/and")) {
-                        i++;
-                        todos.append(itineraryDetails[i++]).append("|");
-                        if (i >= itineraryDetails.length) {
-                            break;
-                        }
-                    }
-                    todoList = PlanningStorageParser.getTodoListFromStorage(todos.toString());
-                    if (i >= itineraryDetails.length) {
-                        break;
-                    }
-                }
-                Agenda agenda = new Agenda(todoList, venueList, number);
-                agendaList.add(agenda);
-                this.setTasks(agendaList);
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ParseException(Messages.ERROR_ITINERARY_FAIL_CREATION);
-        } catch (NumberFormatException e) {
-            throw new ParseException(Messages.ERROR_ITINERARY_INCORRECT_COMMAND);
+    public void checkValidDate() throws ChronologyBeforePresentException, ChronologyInconsistentException {
+        if (startDate.isBefore(LocalDateTime.now()) || endDate.isBefore(LocalDateTime.now())) {
+            throw new ChronologyBeforePresentException();
+        } else if (endDate.isBefore(startDate) || startDate.isAfter(endDate)) {
+            throw new ChronologyInconsistentException();
         }
     }
+
     /**
      * Returns number of days of the trip based on entered start and end dates.
-     *
-     * @return The number of days of the trip
+     * @return the number of days of a trip (end - start).
      */
-
     public int getNumberOfDays() {
         LocalDateTime tempDateTime = LocalDateTime.from(startDate);
         long days = tempDateTime.until(endDate, ChronoUnit.DAYS);
         return Integer.parseInt(String.valueOf(days)) + 1;
     }
 
+    /**
+     * Returns the list of agendas associated with the itinerary.
+     * @return list The agenda list.
+     */
     public List<Agenda> getList() {
         return list;
     }
 
     /**
-     * Replaces the contents of this list with {@code Agenda}.
+     * Replaces the contents of the current list with the updated one.
+     * @param agenda The agenda list to replace the current one.
      */
     public void setTasks(List<Agenda> agenda) {
         list = agenda;
     }
 
+    /**
+     * Returns the start date of the trip.
+     * @return endDate The first date of the trip
+     */
     public LocalDateTime getStartDate() {
         return startDate;
     }
 
+    /**
+     * Returns the end date of the trip.
+     * @return endDate The last date of the trip
+     */
     public LocalDateTime getEndDate() {
         return endDate;
     }
 
+    /**
+     * Returns the name of the itinerary.
+     * @return name Users name of the itinerary
+     */
     public String getName() {
         return name;
     }

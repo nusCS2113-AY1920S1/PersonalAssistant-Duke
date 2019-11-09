@@ -1,5 +1,6 @@
 package sgtravel.logic.parsers.commandparsers;
 
+import sgtravel.commons.exceptions.ItineraryIncorrectDaysException;
 import sgtravel.commons.exceptions.ParseException;
 import sgtravel.logic.commands.Command;
 
@@ -17,5 +18,5 @@ public abstract class CommandParser<T extends Command> {
      * @return Command object.
      * @throws ParseException If data cannot be parsed.
      */
-    public abstract T parse() throws ParseException;
+    public abstract T parse() throws ParseException, ItineraryIncorrectDaysException;
 }
