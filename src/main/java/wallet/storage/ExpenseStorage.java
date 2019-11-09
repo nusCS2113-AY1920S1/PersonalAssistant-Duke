@@ -34,7 +34,7 @@ public class ExpenseStorage extends Storage<Expense> {
                 Expense expense = null;
                 if (data.length == 5) {
                     expense = new Expense(data[1], LocalDate.parse(data[3], formatter), Double.parseDouble(data[2]),
-                            Category.getCategory(data[4]), false, null);
+                            Category.getCategory(data[4]), false, RecurrenceRate.NO);
                 } else {
                     expense = new Expense(data[1], LocalDate.parse(data[3], formatter), Double.parseDouble(data[2]),
                             Category.getCategory(data[4]), true, RecurrenceRate.getRecurrence(data[5]));
