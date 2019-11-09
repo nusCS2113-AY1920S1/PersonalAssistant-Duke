@@ -87,4 +87,8 @@ public class LogicManager implements Logic {
     public String getName() {
         return model.getName();
     }
+
+    public Model getModel() {
+        return model;
+    }
 }

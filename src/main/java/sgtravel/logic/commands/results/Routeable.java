@@ -9,7 +9,17 @@ import java.util.ArrayList;
  */
 public interface Routeable {
 
-    ArrayList<RouteNode> getRoute();
+    /**
+     * Gets the ArrayList of Routes.
+     *
+     * @return The ArrayList of Routes.
+     */
+    ArrayList<RouteNode> getRoutes();
 
-    void setRoute(ArrayList<RouteNode> route);
+    /**
+     * Sets the ArrayList of Routes.
+     *
+     * @param routes The ArrayList of Routes.
+     */
+    void setRoutes(ArrayList<RouteNode> routes);
 }

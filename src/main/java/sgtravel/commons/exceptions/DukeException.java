@@ -1,9 +1,15 @@
 package sgtravel.commons.exceptions;
 
 /**
- * Displays an error when an operation fails in SGTravel.
+ * Exception thrown when an operation fails in SGTravel.
  */
 public class DukeException extends Exception {
+
+    /**
+     * Constructs the Exception.
+     *
+     * @param message The message to display.
+     */
     public DukeException(String message) {
         super(message);
     }

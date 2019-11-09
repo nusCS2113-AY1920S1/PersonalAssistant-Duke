@@ -6,7 +6,7 @@ import sgtravel.commons.Messages;
  * Handles the conversation occurring when a busStop command is entered.
  */
 public class GetBusStopConversation extends Conversation {
-    private static final String command = "busStop";
+    private static final String COMMAND = "busStop";
     private String busCode;
 
     /**
@@ -38,6 +38,6 @@ public class GetBusStopConversation extends Conversation {
      */
     @Override
     protected void buildResult() {
-        result = command + " " + busCode;
+        result = COMMAND + " " + busCode;
     }
 }

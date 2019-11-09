@@ -14,6 +14,7 @@ public class Agenda extends VenueList {
 
     /**
      * Constructor to initialise new Agenda object.
+     *
      * @param todoList The list of things to do in a day.
      * @param venueList The list of places to go in a ay .
      * @param dayNumber The agenda's serial number.
@@ -26,6 +27,7 @@ public class Agenda extends VenueList {
 
     /**
      * This makes the list of agendas for a newly entered Itinerary.
+     *
      * @return result The Agenda represented as a String
      */
     @Override
@@ -46,6 +48,7 @@ public class Agenda extends VenueList {
 
     /**
      * Returns the day number of the specific agenda.
+     *
      * @return dayNumber The serial number of the agenda.
      */
     public int getDay() {
@@ -54,6 +57,7 @@ public class Agenda extends VenueList {
 
     /**
      * Returns the todo list of an agenda.
+     *
      * @return todoList The list containing all of the things to do.
      */
     public List<Todo> getTodoList() {
@@ -62,6 +66,7 @@ public class Agenda extends VenueList {
 
     /**
      * Updates the value of day.
+     *
      * @param dayNumber The new day number to be set.
      */
     public void setDay(int dayNumber) {

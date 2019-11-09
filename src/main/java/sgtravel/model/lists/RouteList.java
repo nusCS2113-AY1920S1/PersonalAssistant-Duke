@@ -1,6 +1,5 @@
 package sgtravel.model.lists;
 
-import sgtravel.commons.exceptions.NoSuchRouteException;
 import sgtravel.commons.exceptions.DuplicateRouteException;
 import sgtravel.model.transports.Route;
 
@@ -15,7 +14,7 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
     private List<Route> list;
 
     /**
-     * Constructs a RouteList object.
+     * Constructs an empty RouteList object.
      */
     public RouteList() {
         list = new ArrayList<>();
@@ -48,18 +47,6 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
     }
 
     /**
-     * Removes an existing Route from the list.
-     *
-     * @param toRemove The route to remove.
-     * @exception NoSuchRouteException If the route is not found.
-     */
-    public void remove(Route toRemove) throws NoSuchRouteException {
-        if (!list.remove(toRemove)) {
-            throw new NoSuchRouteException();
-        }
-    }
-
-    /**
      * Removes an existing Route from the list and returns it.
      *
      * @param index The index of the Route.
@@ -72,28 +59,6 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
 
     public List<Route> getRoutes() {
         return list;
-    }
-
-    /**
-     * Replaces an existing Route with a new different Route.
-     *
-     * @param target The existing route.
-     * @param editedRoute The new route.
-     * @exception DuplicateRouteException If there is a duplicate route.
-     * @exception NoSuchRouteException If the route is not found.
-     */
-    public void setRoute(Route target, Route editedRoute) throws DuplicateRouteException,
-            NoSuchRouteException {
-        int index = list.indexOf(target);
-        if (index == -1) {
-            throw new NoSuchRouteException();
-        }
-
-        if (target.isSameRoute(editedRoute) || contains(editedRoute)) {
-            throw new DuplicateRouteException();
-        }
-
-        list.set(index, editedRoute);
     }
 
     /**

@@ -7,5 +7,10 @@ import javafx.scene.image.Image;
  */
 public interface Imageable {
 
+    /**
+     * Gets the Image shown.
+     *
+     * @return The Image.
+     */
     Image getImage();
 }

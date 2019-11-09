@@ -18,6 +18,9 @@ import java.util.stream.Collectors;
 public class EventList implements Iterable<Event>, Listable<Event>, Serializable {
     private List<Event> events;
 
+    /**
+     * Constructs the empty EventList.
+     */
     public EventList() {
         events = new ArrayList<>();
     }
@@ -80,6 +83,8 @@ public class EventList implements Iterable<Event>, Listable<Event>, Serializable
 
     /**
      * Returns a shallow copy of the sorted EventList.
+     *
+     * @return The sorted EventList.
      */
     public EventList getSortedList() {
         return new EventList(events.stream().sorted(
@@ -88,8 +93,10 @@ public class EventList implements Iterable<Event>, Listable<Event>, Serializable
     }
 
     /**
-     * Replaces the contents of this list with {@code Events}.
-     * {@code Events} must not contain duplicate Events.
+     * Sets the contents of this list with a given list of events.
+     *
+     * @param events The List of Events to set to.
+     * @throws DuplicateTaskException If there is a duplicate Event.
      */
     public void setEvents(List<Event> events) throws DuplicateTaskException {
         if (!eventsAreUnique(events)) {

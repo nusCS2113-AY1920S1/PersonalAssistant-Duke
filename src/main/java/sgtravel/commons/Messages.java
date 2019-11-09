@@ -18,6 +18,9 @@ public class Messages {
     public static final String ROUTE_NODE_DELETE_SUCCESS = "Got it. I've deleted this Route Node:\n";
     public static final String ROUTE_NODE_EDIT_SUCCESS = "Edited the Route!\n";
     public static final String ROUTE_NODE_NEIGHBOURS_SUCCESS = "Here are some Nodes that are close to this:\n";
+    public static final String ROUTE_DELETE_SUCCESS = "Got it. I've deleted this Route:\n";
+    public static final String STATIC_MAP_SUCCESS = "Showing map of :";
+    public static final String STATIC_MAP_FAILURE = "I'm sorry, but nothing was found...\n";
 
     /**
      * Error messages.
@@ -40,10 +43,10 @@ public class Messages {
     public static final String ERROR_ROUTE_NODE_DUPLICATE = "Node already exists! :-(";
     public static final String ERROR_ROUTE_GENERATE_FAIL = "The Route failed to generate, try other locations :-(";
     public static final String ERROR_CATEGORY_NOT_FOUND = "Category does not exists! :-(";
-    public static final String ERROR_API_FAIL = "I'm sorry, but nothing could be found. :-(";
+    public static final String ERROR_API_FAIL = "I'm sorry, but nothing could be found. :-(\n";
     public static final String ERROR_VENUE_EMPTY = "There are no Venues. VenueList is empty.";
     public static final String ERROR_EVENT_NOT_SELECTED = "There are no events selected.";
-    public static final String ERROR_RESULT_NOT_FOUND = "Nothing could be found.";
+    public static final String ERROR_RESULT_NOT_FOUND = "I'm sorry, but nothing could be found for your input. :-(";
     public static final String ERROR_BUS_SERVICE_NOT_FOUND = "I'm sorry, there is no such bus service.";
     public static final String ERROR_BUS_STOP_NOT_FOUND = "I'm sorry, the bus stop does not exist! :-(";
     public static final String ERROR_BUS_STOP_NOT_FOUND_STARTER = "I'm sorry, the bus stop ";
@@ -106,11 +109,6 @@ public class Messages {
     public static final String PROMPT_ROUTENODE_DELETE_STARTER = "Which route does the node belong to?";
     public static final String PROMPT_ROUTENODE_DELETE_NODEINDEX = "What is the index of the node?";
     public static final String PROMPT_ROUTENODE_DELETE_SUCCESS = "Route node deleted successfully!";
-    public static final String PROMPT_ROUTENODE_EDIT_STARTER = "Which route does the edited node belong to?";
-    public static final String PROMPT_ROUTENODE_EDIT_NODEINDEX = "What is the index of the node?";
-    public static final String PROMPT_ROUTENODE_EDIT_FIELD = "What is the field that you want to edit?";
-    public static final String PROMPT_ROUTENODE_EDIT_VALUE = "What would you want to change it to?";
-    public static final String PROMPT_ROUTENODE_EDIT_SUCCESS = "Route node edited successfully!";
     public static final String PROMPT_ROUTENODE_SHOW_STARTER = "Which route does the node belong to?";
     public static final String PROMPT_ROUTENODE_SHOW_NODEINDEX = "What is the index of the node?";
     public static final String PROMPT_ROUTENODE_SHOW_SUCCESS = "Here is the route node";
@@ -118,5 +116,11 @@ public class Messages {
     public static final String PROMPT_ROUTE_SELECTOR_DISPLAY = "Showing node:\n";
     public static final String PROMPT_CANCEL = "Current conversation has ended.";
 
-    public static final String STARTUP_WELCOME_MESSAGE = "Welcome to SGTravel\n";
+    public static final String STARTUP_WELCOME_MESSAGE = "Welcome to SGTravel!\n";
+    public static final String STARTUP_WELCOME_MESSAGE_ITINERARY_START = "You currently have ";
+    public static final String STARTUP_WELCOME_MESSAGE_ITINERARY_END = " itineraries.\n\n";
+    public static final String STARTUP_WELCOME_MESSAGE_ROUTE_START = "You also have ";
+    public static final String STARTUP_WELCOME_MESSAGE_ROUTE_END = " Routes currently stored.\n\n";
+    public static final String STARTUP_WELCOME_MESSAGE_HELP = "If you need any help, please type in \"help\"!\n"
+            + "Have a good day planning your trip!";
 }

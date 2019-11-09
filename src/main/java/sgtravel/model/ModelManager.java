@@ -13,13 +13,11 @@ import sgtravel.model.locations.BusStop;
 import sgtravel.model.planning.Itinerary;
 import sgtravel.model.planning.Recommendation;
 import sgtravel.model.profile.ProfileCard;
-import sgtravel.model.transports.BusService;
 import sgtravel.model.transports.Route;
 import sgtravel.model.transports.TransportationMap;
 import sgtravel.storage.Storage;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Implements the methods defined in the Model Interface.
@@ -47,11 +45,23 @@ public class ModelManager implements Model {
         itineraryTable = storage.getItineraryTable();
     }
 
+    /**
+     * Returns name of the user.
+     *
+     * @return The name of the user.
+     */
     @Override
     public String getName() {
         return profileCard.getPersonName();
     }
 
+    /**
+     * Adds an Itinerary to the profile card.
+     *
+     * @param name The name of the Itinerary.
+     * @param itinerary The Itinerary.
+     * @throws NoSuchItineraryException If the Itinerary does not exist.
+     */
     @Override
     public void addToFavourite(String name, Itinerary itinerary) throws NoSuchItineraryException {
         if (itinerary == null) {
@@ -60,31 +70,63 @@ public class ModelManager implements Model {
         profileCard.addFavourite(name, itinerary);
     }
 
+    /**
+     * Deletes the Itinerary from the profile card.
+     *
+     * @param name The name of the Itinerary.
+     * @throws NoSuchItineraryException If the Itinerary does not exist.
+     */
     @Override
     public void deleteFavourite(String name) throws NoSuchItineraryException {
         profileCard.deleteFavourite(name);
     }
 
+    /**
+     * Returns the TransportationMap.
+     *
+     * @return The TransportationMap.
+     */
     @Override
     public TransportationMap getMap() {
         return map;
     }
 
+    /**
+     * Returns the list of Events.
+     *
+     * @return events The list of Events.
+     */
     @Override
     public EventList getEvents() {
         return events;
     }
 
+    /**
+     * Replaces the Events of this model with the new one.
+     *
+     * @param events The new Events.
+     */
     @Override
     public void setEvents(EventList events) {
         this.events = events;
     }
 
+    /**
+     * Returns the list of Routes.
+     *
+     * @return routes The list of Routes.
+     */
     @Override
     public RouteList getRoutes() {
         return routes;
     }
 
+    /**
+     * Gets a specified Route.
+     *
+     * @param index The index of the Route.
+     * @return The Route at the index.
+     */
     @Override
     public Route getRoute(int index) throws OutOfBoundsException {
         try {
@@ -94,19 +136,14 @@ public class ModelManager implements Model {
         }
     }
 
-    @Override
-    public EventList getSortedList() {
-        return events.getSortedList();
-    }
-
+    /**
+     * Returns the map of all bus stops.
+     *
+     * @return The HashMap of all bus stops.
+     */
     @Override
     public HashMap<String, BusStop> getBusStops() {
         return map.getBusStopMap();
-    }
-
-    @Override
-    public List<BusService> getBusService() {
-        return null;
     }
 
     /**
@@ -133,6 +170,7 @@ public class ModelManager implements Model {
      * Deletes the requested itinerary from storage.
      *
      * @param name The name of the itinerary to be "done" (deleted).
+     * @throws NoSuchItineraryException If the Itinerary does not exist.
      */
     @Override
     public void doneItinerary(String name) throws NoSuchItineraryException {
@@ -156,6 +194,7 @@ public class ModelManager implements Model {
      * Returns the "recently recommended itinerary".
      *
      * @return recentItinerary The recent recommendation.
+     * @throws NoRecentItineraryException If there is no recently added Itinerary.
      */
     @Override
     public Itinerary getRecentItinerary() throws NoRecentItineraryException {
@@ -179,6 +218,7 @@ public class ModelManager implements Model {
      * Stores the "recently recommended itinerary" into storage.
      *
      * @param name The new name for the itinerary list.
+     * @throws AddListFailException If the Itinerary fails to be added.
      */
     @Override
     public void confirmRecentItinerary(String name) throws AddListFailException {
@@ -189,11 +229,21 @@ public class ModelManager implements Model {
         this.itineraryTable.put(name, recentItinerary);
     }
 
+    /**
+     * Gets the VenueList of events.
+     *
+     * @return The VenueList of events.
+     */
     @Override
     public VenueList getEventVenues() {
         return new VenueList(events);
     }
 
+    /**
+     * Gets the ProfileCard.
+     *
+     * @return profileCard The ProfileCard.
+     */
     @Override
     public ProfileCard getProfileCard() {
         return profileCard;

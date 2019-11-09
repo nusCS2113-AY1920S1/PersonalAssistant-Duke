@@ -37,6 +37,7 @@ public class RouteGenerateCommand extends Command {
      *
      * @param startPoint The starting point of the route.
      * @param endPoint The ending point of the route.
+     * @param type The type of RouteNodes the Route should have.
      */
     public RouteGenerateCommand(String startPoint, String endPoint, Constraint type) {
         this.startPoint = startPoint;
@@ -55,8 +56,8 @@ public class RouteGenerateCommand extends Command {
      * @throws FileNotSavedException If the file cannot be saved.
      */
     @Override
-    public CommandResultText execute(Model model) throws UnknownConstraintException,
-            RouteGenerateFailException, DuplicateRouteException, FileNotSavedException {
+    public CommandResultText execute(Model model) throws UnknownConstraintException, RouteGenerateFailException,
+            DuplicateRouteException, FileNotSavedException {
         try {
             ArrayList<Venue> venueList = generateRoute(model);
 
@@ -78,6 +79,13 @@ public class RouteGenerateCommand extends Command {
                 }
             } catch (QueryFailedException | DuplicateRouteNodeException e) {
                 throw new RouteGenerateFailException();
+            }
+
+            for (RouteNode node : route.getNodes()) {
+                if (node instanceof TrainStation && node.getAddress() == null) {
+                    node.setAddress(node.getDescription());
+                    updateRouteNode(node, model);
+                }
             }
 
             RouteList routes = model.getRoutes();
@@ -115,9 +123,9 @@ public class RouteGenerateCommand extends Command {
      */
     private void addEndingNode(Route route, Venue venue) throws DuplicateRouteNodeException {
         if (venue instanceof BusStop || venue instanceof TrainStation) {
-            route.add((RouteNode) venue);
+            route.addNode((RouteNode) venue);
         } else {
-            route.add(PathFinder.generateCustomRouteNode(venue));
+            route.addNode(PathFinder.generateCustomRouteNode(venue));
         }
     }
 
@@ -209,7 +217,7 @@ public class RouteGenerateCommand extends Command {
                 node.setAddress(node.getDescription());
             }
             updateRouteNode(node, model);
-            route.add(node);
+            route.addNode(node);
         }
     }
 }

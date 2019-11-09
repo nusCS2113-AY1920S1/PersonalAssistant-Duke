@@ -19,12 +19,16 @@ public class PanelResult {
     private boolean isReady;
     private int field;
 
+    /**
+     * Constructs a PanelResult object.
+     */
     public PanelResult() {
         isReady = false;
     }
 
     /**
-     * Constructs a PanelResult object.
+     * Alternative constructor for a PanelResult object.
+     *
      * @param event The event to be displayed.
      * @param venues The venues to be displayed.
      * @param isLock Whether an event is locked on.
@@ -49,6 +53,8 @@ public class PanelResult {
 
     /**
      * Tries to get the description of the event.
+     *
+     * @return The description of an event.
      */
     public String getDescription() {
         assert (event != null) : "This method should only be called if its isReady.";
@@ -57,6 +63,8 @@ public class PanelResult {
 
     /**
      * Returns the start date of the Event.
+     *
+     * @return The start date of the Event.
      */
     public String getStartDate() {
         return ParserTimeUtil.stringify(event.getStartDate());
@@ -64,13 +72,17 @@ public class PanelResult {
 
     /**
      * Returns the end date of the Event.
+     *
+     * @return The end date of the Event.
      */
     public String getEndDate() {
         return ParserTimeUtil.stringify(event.getEndDate());
     }
 
     /**
-     * Gets the color of the venues.
+     * Gets the color of the Venue.
+     *
+     * @return The color of the Venue.
      */
     public Paint getVenueColor(int index) {
         if (this.index == index) {
@@ -82,10 +94,21 @@ public class PanelResult {
         return Paint.valueOf("blue");
     }
 
+    /**
+     * Gets the Venue at a specified index.
+     *
+     * @param index The index for the Venue.
+     * @return The venue at index.
+     */
     public Venue getVenue(int index) {
         return venues.get(index);
     }
 
+    /**
+     * Returns the size of the VenueList.
+     *
+     * @return The size of the VenueList.
+     */
     public int size() {
         return venues.size();
     }

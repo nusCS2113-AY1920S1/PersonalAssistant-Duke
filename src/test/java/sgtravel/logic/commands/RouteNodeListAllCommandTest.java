@@ -21,9 +21,10 @@ class RouteNodeListAllCommandTest {
         model.getRoutes().add(route2);
         model.getRoutes().add(route3);
 
-        String expected = "Here is the information of Routes:\nThere are 3 Routes.\n" + "(1) Go to NUS\n"
-                + "by SGTRavel\n" + "(2) Go to MBS\n" + "take the train\n" + "(3) Go to Pulau Tekong\n"
-                + "I like the ferry\n";
+        String expected = "Here is the information of Routes:\n"
+                + "There are 3 Routes.\n" + "\n" + "(1) Go to NUS\n" + "Description:\n" + "by SGTRavel\n"
+                + "\n" + "(2) Go to MBS\n" + "Description:\n" + "take the train\n" + "\n" + "(3) Go to Pulau Tekong\n"
+                + "Description:\n" + "I like the ferry\n";
         RouteListAllCommand command = new RouteListAllCommand();
         assertEquals(expected, command.execute(model).getMessage());
     }

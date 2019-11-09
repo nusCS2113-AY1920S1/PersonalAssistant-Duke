@@ -6,7 +6,7 @@ import sgtravel.commons.Messages;
  * Handles the conversation occurring when a RouteNodeAddCommand is entered.
  */
 public class RouteNodeAddConversation extends Conversation {
-    private static final String command = "routeNodeAdd";
+    private static final String COMMAND = "routeNodeAdd";
     private String routeIndex;
     private String nodeIndex;
     private String name;
@@ -71,9 +71,9 @@ public class RouteNodeAddConversation extends Conversation {
     @Override
     protected void buildResult() {
         if (!"0".equals(nodeIndex)) {
-            result = command + " " + routeIndex + " " + nodeIndex + " at " + name + " by " + constraint;
+            result = COMMAND + " " + routeIndex + " " + nodeIndex + " at " + name + " by " + constraint;
         } else {
-            result = command + " " + routeIndex + " at " + name + " by " + constraint;
+            result = COMMAND + " " + routeIndex + " at " + name + " by " + constraint;
         }
     }
 }

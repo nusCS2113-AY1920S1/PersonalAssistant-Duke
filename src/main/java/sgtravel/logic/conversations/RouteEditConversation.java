@@ -6,7 +6,7 @@ import sgtravel.commons.Messages;
  * Handles the conversation occurring when a RouteEdit command is entered.
  */
 public class RouteEditConversation extends Conversation {
-    private static final String command = "routeEdit";
+    private static final String COMMAND = "routeEdit";
     private String index;
     private String field;
     private String newValue;
@@ -64,6 +64,6 @@ public class RouteEditConversation extends Conversation {
      */
     @Override
     protected void buildResult() {
-        result = command + " " + index + " " + field + " " + newValue;
+        result = COMMAND + " " + index + " " + field + " " + newValue;
     }
 }

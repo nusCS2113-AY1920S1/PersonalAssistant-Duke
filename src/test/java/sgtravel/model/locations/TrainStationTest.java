@@ -118,7 +118,7 @@ class TrainStationTest {
                 0, 0);
         trainStation.fetchData(model);
 
-        String expected = "Woodlands MRT\n\n(1.437094, 103.786483)";
+        String expected = "Woodlands Station\n\n(1.437094, 103.786483)";
         assertEquals(expected, trainStation.getDisplayInfo());
     }
 }

@@ -2,6 +2,9 @@ package sgtravel.logic.conversations;
 
 import sgtravel.commons.Messages;
 
+/**
+ * Handles the conversation occurring when a profile setup command is entered.
+ */
 public class SetupProfileConversation extends Conversation {
     private static final String COMMAND = "profile";
     private String name;

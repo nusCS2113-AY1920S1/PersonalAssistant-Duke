@@ -2,6 +2,7 @@ package sgtravel.logic.parsers.commandparsers;
 
 import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.ApiException;
+import sgtravel.commons.exceptions.NullResultException;
 import sgtravel.commons.exceptions.ParseException;
 import sgtravel.logic.api.requests.LocationSearchRequest;
 import sgtravel.logic.api.requests.LocationSearchUrlRequest;
@@ -40,8 +41,9 @@ public class RouteNodeAddParser extends CommandParser {
      *
      * @return The RouteNode object.
      * @throws ParseException If RouteNode object cannot be created from user input.
+     * @throws NullResultException If the result cannot be found.
      */
-    private static RouteNode createRouteNode(String userInput) throws ParseException {
+    private static RouteNode createRouteNode(String userInput) throws ParseException, NullResultException {
         try {
             String[] withinDetails = userInput.strip().split("at", TWO);
             if (withinDetails.length != TWO) {
@@ -69,8 +71,9 @@ public class RouteNodeAddParser extends CommandParser {
      * @param input The parsed input.
      * @return The RouteNode created.
      * @throws ParseException If the parsing fails.
+     * @throws NullResultException If the result cannot be found.
      */
-    private static RouteNode getRouteNode(String input) throws ParseException {
+    private static RouteNode getRouteNode(String input) throws ParseException, NullResultException {
         String[] details;
         details = input.strip().split("by ");
         switch (details[ONE].toUpperCase()) {
@@ -79,7 +82,11 @@ public class RouteNodeAddParser extends CommandParser {
         case "MRT":
             return new TrainStation(new ArrayList<>(), details[ZERO].strip(), null, ZERO, ZERO);
         case "CUSTOM":
-            return createCustomNode(details[ZERO].strip());
+            try {
+                return createCustomNode(details[ZERO].strip());
+            } catch (ApiException e) {
+                throw new NullResultException();
+            }
         default:
             throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
         }
@@ -109,9 +116,10 @@ public class RouteNodeAddParser extends CommandParser {
      *
      * @return The RouteNodeAddCommand object.
      * @throws ParseException If RouteNodeAddCommand object cannot be created.
+     * @throws NullResultException If the result cannot be found.
      */
     @Override
-    public Command parse() throws ParseException {
+    public Command parse() throws ParseException, NullResultException {
         RouteNode routeNode = createRouteNode(input);
         int firstIndex = ParserUtil.getIntegerIndexInList(ZERO, FOUR, input);
         try {

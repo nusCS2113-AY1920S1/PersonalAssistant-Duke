@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -44,11 +42,11 @@ class RouteTest {
         BusStop v1 = new BusStop("45039","Opp Yew Tee Ind Est", "Woodlands Rd",
                 1.39585817355572, 103.75427816224409);
 
-        route.add(v1);
+        route.addNode(v1);
         assertEquals(1, route.size());
 
         assertThrows(DuplicateRouteNodeException.class, () -> {
-            route.add(v1);
+            route.addNode(v1);
         });
 
         assertThrows(DuplicateRouteNodeException.class, () -> {
@@ -82,7 +80,7 @@ class RouteTest {
             route.addNode(v1, -2);
         });
 
-        route.add(v1);
+        route.addNode(v1);
         assertThrows(DuplicateRouteNodeException.class, () -> {
             route.addNode(v1, 1);
         });
@@ -106,7 +104,7 @@ class RouteTest {
 
         BusStop v1 = new BusStop("45039","Opp Yew Tee Ind Est", "Woodlands Rd",
                 1.39585817355572, 103.75427816224409);
-        route.add(v1);
+        route.addNode(v1);
 
         assertThrows(IndexOutOfBoundsException.class, () -> {
             route.remove(1);
@@ -126,7 +124,7 @@ class RouteTest {
         Route route = new Route("To Sentosa", "tomorrow");
         BusStop v1 = new BusStop("45039","Opp Yew Tee Ind Est", "Woodlands Rd",
                 1.39585817355572, 103.75427816224409);
-        route.add(v1);
+        route.addNode(v1);
 
         assertEquals(v1, route.getNode(0));
 
@@ -156,51 +154,13 @@ class RouteTest {
         Route route = new Route("To Sentosa", "tomorrow");
         BusStop v1 = new BusStop("45039","Opp Yew Tee Ind Est", "Woodlands Rd",
                 1.39585817355572, 103.75427816224409);
-        route.add(v1);
+        route.addNode(v1);
 
         assertEquals(v1, route.getNodeByName("Opp Yew Tee Ind Est"));
 
         assertThrows(NullResultException.class, () -> {
             route.getNodeByName("Not Yew Tee!");
         });
-    }
-
-    @Test
-    void getNodesAsVenue() {
-        Route route = new Route("To Sentosa", "tomorrow");
-        assertNotNull(route.getNodesAsVenue());
-    }
-
-    @Test
-    void getStartNode() throws DuplicateRouteNodeException {
-        Route route = new Route("To Sentosa", "tomorrow");
-        BusStop v1 = new BusStop("45039","Opp Yew Tee Ind Est", "Woodlands Rd",
-                1.39585817355572, 103.75427816224409);
-        assertNull(route.getStartNode());
-
-        route.add(v1);
-        BusStop v2 = new BusStop("25269", "Tuas Checkpoint", "Bus stop 2",
-                1.34942405517095, 103.636127935782);
-        route.add(v2);
-
-        assertEquals(v1, route.getStartNode());
-        assertNotEquals(v2, route.getStartNode());
-    }
-
-    @Test
-    void getEndNode() throws DuplicateRouteNodeException {
-        Route route = new Route("To Sentosa", "tomorrow");
-        BusStop v1 = new BusStop("45039","Opp Yew Tee Ind Est", "Woodlands Rd",
-                1.39585817355572, 103.75427816224409);
-        assertNull(route.getEndNode());
-
-        route.add(v1);
-        BusStop v2 = new BusStop("25269", "Tuas Checkpoint", "Bus stop 2",
-                1.34942405517095, 103.636127935782);
-        route.add(v2);
-
-        assertEquals(v2, route.getEndNode());
-        assertNotEquals(v1, route.getEndNode());
     }
 
     @Test
@@ -212,7 +172,7 @@ class RouteTest {
 
         BusStop v1 = new BusStop("45039","Opp Yew Tee Ind Est", "Woodlands Rd",
                 1.39585817355572, 103.75427816224409);
-        route.add(v1);
+        route.addNode(v1);
 
         assertFalse(route.isSameRoute(route2));
     }
@@ -246,12 +206,12 @@ class RouteTest {
         Route route = new Route("To Sentosa", "tomorrow");
         BusStop v1 = new BusStop("45039","Opp Yew Tee Ind Est", "Woodlands Rd",
                 1.39585817355572, 103.75427816224409);
-        route.add(v1);
+        route.addNode(v1);
         assertEquals(1, route.getNodes().size());
 
         BusStop v2 = new BusStop("25269", "Tuas Checkpoint", "Bus stop 2",
                 1.34942405517095, 103.636127935782);
-        route.add(v2);
+        route.addNode(v2);
         assertEquals(2, route.getNodes().size());
     }
 }

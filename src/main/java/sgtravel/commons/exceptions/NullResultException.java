@@ -3,7 +3,7 @@ package sgtravel.commons.exceptions;
 import sgtravel.commons.Messages;
 
 /**
- * Displays an error when nothing is found.
+ * Exception thrown when no result can be found.
  */
 public class NullResultException extends DukeException {
 

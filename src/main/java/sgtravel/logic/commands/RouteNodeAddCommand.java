@@ -26,6 +26,9 @@ public class RouteNodeAddCommand extends Command {
      * Creates a new RouteNodeAddCommand with the given node.
      *
      * @param node The node to add.
+     * @param indexRoute The index of the Route.
+     * @param indexNode The index of the RouteNode.
+     * @param isEmptyIndexNode If the index of the RouteNode exists or not.
      */
     public RouteNodeAddCommand(RouteNode node, int indexRoute, int indexNode, boolean isEmptyIndexNode) {
         this.node = node;
@@ -81,7 +84,7 @@ public class RouteNodeAddCommand extends Command {
     private void addToRoute(Model model) throws OutOfBoundsException, DuplicateRouteNodeException {
         Route route = model.getRoute(indexRoute);
         if (isEmptyIndexNode) {
-            route.add(node);
+            route.addNode(node);
             indexNode = route.size() - 1;
         } else if (indexNode >= 0) {
             route.addNode(node, indexNode);

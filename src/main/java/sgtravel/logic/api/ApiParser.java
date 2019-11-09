@@ -52,8 +52,8 @@ public class ApiParser {
     /**
      * Gets Static Map from StaticMap API.
      *
-     * @param param String formatted parameters
-     * @return result The image from API
+     * @param param String formatted parameters.
+     * @return result The image from API.
      * @throws ApiException If there is an issue with the request.
      */
     public static Image getStaticMap(String param) throws ApiException {
@@ -278,9 +278,7 @@ public class ApiParser {
 
         for (int i = startIndex; i <= endIndex; i++) {
             RouteNode newNode = route.getNode(i);
-            if (!newNode.equals(query)) {
-                points.add(newNode.getLatitude() + "," + newNode.getLongitude());
-            }
+            points.add(newNode.getLatitude() + "," + newNode.getLongitude());
         }
 
         return points;
@@ -354,7 +352,6 @@ public class ApiParser {
             index++;
         }
     }
-
 
     /**
      * Checks if a node is close enough to appear in the StaticMap image of the query.

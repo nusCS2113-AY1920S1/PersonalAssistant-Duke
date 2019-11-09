@@ -18,8 +18,8 @@ public class Event extends TaskWithDates implements Serializable {
      * Initializes a event task with location.
      *
      * @param locationDescription A description of this task.
-     * @param startDate Starting date of task
-     * @param endDate Ending date of task
+     * @param startDate Starting date of task.
+     * @param endDate Ending date of task.
      */
     public Event(String locationDescription, LocalDateTime startDate, LocalDateTime endDate) throws ApiException {
         super(locationDescription, startDate, endDate);
@@ -30,15 +30,20 @@ public class Event extends TaskWithDates implements Serializable {
      * Initializes a event task from persistent storage.
      *
      * @param locationDescription A description of this task.
-     * @param startDate Starting date of task
-     * @param endDate Ending date of task
-     * @param venue location of the holiday object
+     * @param startDate Starting date of task.
+     * @param endDate Ending date of task.
+     * @param venue location of the holiday object.
      */
     public Event(String locationDescription, LocalDateTime startDate, LocalDateTime endDate, Venue venue) {
         super(locationDescription, startDate, endDate);
         this.venue = venue;
     }
 
+    /**
+     * Converts the Event to a String.
+     *
+     * @return The Event as a String.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " between " + ParserTimeUtil.stringify(getStartDate())
@@ -57,6 +62,12 @@ public class Event extends TaskWithDates implements Serializable {
         this.venue = venue;
     }
 
+    /**
+     * Returns whether this Event is the same as another Event.
+     *
+     * @param otherTask The other Event.
+     * @return true If the Events are the same.
+     */
     @Override
     public boolean isSameTask(Task otherTask) {
         if (otherTask == this) {

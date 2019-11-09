@@ -13,6 +13,11 @@ import java.util.HashMap;
 public class GetBusStopCommand extends Command {
     private String buscode;
 
+    /**
+     * Creates a new GetBusStopCommand with the given bus stop number.
+     *
+     * @param busCode The bus stop number.
+     */
     public GetBusStopCommand(String busCode) {
         this.buscode = busCode;
     }
@@ -31,6 +36,7 @@ public class GetBusStopCommand extends Command {
 
     /**
      * Gets the result of the bus stop query.
+     *
      * @param allBus Hash map that stores all bus stops in Singapore.
      * @return The result of the query in String.
      * @throws NoSuchBusStopException If no such bus stop exists.
@@ -44,7 +50,10 @@ public class GetBusStopCommand extends Command {
     }
 
     /**
-     * Gets the information of a bus stop.
+     * Gets the information of a Bus Stop.
+     *
+     * @param busStop The Bus Stop.
+     * @return result The information of the Bus Stop.
      */
     private String getBusStopInformation(BusStop busStop) {
         String result = "This is the information for this Bus Stop:\n"

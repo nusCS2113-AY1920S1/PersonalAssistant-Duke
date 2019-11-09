@@ -1,5 +1,6 @@
 package sgtravel.logic.commands;
 
+import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.logic.commands.results.CommandResultText;
@@ -12,7 +13,6 @@ import sgtravel.model.transports.Route;
  */
 public class RouteDeleteCommand extends Command {
     private int index;
-    private static final String MESSAGE_DELETION = "Got it. I've deleted this Route:\n  ";
 
     /**
      * Deletes a Route at the given index in Route List.
@@ -32,15 +32,14 @@ public class RouteDeleteCommand extends Command {
      * @throws OutOfBoundsException If the query is out of bounds.
      */
     @Override
-    public CommandResultText execute(Model model) throws FileNotSavedException,
-            OutOfBoundsException {
+    public CommandResultText execute(Model model) throws FileNotSavedException, OutOfBoundsException {
         try {
             RouteList routes = model.getRoutes();
             Route route = routes.get(index);
             String routeName = route.getName();
             routes.remove(index);
             model.save();
-            return new CommandResultText(MESSAGE_DELETION + routeName);
+            return new CommandResultText(Messages.ROUTE_DELETE_SUCCESS + routeName);
         } catch (IndexOutOfBoundsException e) {
             throw new OutOfBoundsException();
         }

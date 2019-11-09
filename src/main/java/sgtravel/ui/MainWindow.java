@@ -10,6 +10,9 @@ import sgtravel.logic.commands.results.CommandResultMap;
 import sgtravel.commons.exceptions.DukeException;
 import sgtravel.logic.LogicManager;
 import sgtravel.logic.commands.results.PanelResult;
+import sgtravel.model.Model;
+import sgtravel.model.lists.RouteList;
+import sgtravel.model.planning.Itinerary;
 import sgtravel.ui.calendar.CalendarWindow;
 import sgtravel.ui.dialogbox.DialogBox;
 import sgtravel.ui.dialogbox.DialogBoxImage;
@@ -26,6 +29,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,6 +43,9 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Main main;
 
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duke.png"));
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -50,11 +57,10 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private AnchorPane sidePanel;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duke.png"));
-
     /**
      * Initialises the MainWindow.
+     *
+     * @param primaryStage The stage for the MainWindow.
      */
     public MainWindow(Stage primaryStage) {
         super(FXML, primaryStage);
@@ -74,11 +80,13 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Initialises the logic and Ui component of Duke.
+     *
+     * @param main The main object.
      */
     public void initialise(Main main) {
         this.main = main;
         logic = new LogicManager();
-        sgTravelShow(Messages.STARTUP_WELCOME_MESSAGE + logic.getName());
+        sgTravelShowWelcome();
     }
 
     /**
@@ -94,16 +102,31 @@ public class MainWindow extends UiPart<Stage> {
         sgTravelResponse(input);
     }
 
+    /**
+     * Handles the event of a key press.
+     *
+     * @param keyEvent The event of a key press.
+     */
     @FXML
     private void handleKeyPress(KeyEvent keyEvent) {
         panelResponse(keyEvent);
     }
 
+    /**
+     * Handles the event which triggers a PanelResult.
+     *
+     * @param keyEvent The event which triggers a PanelResult.
+     */
     private void panelResponse(KeyEvent keyEvent) {
         PanelResult result = logic.execute(keyEvent.getCode());
         panelShow(result);
     }
 
+    /**
+     * Handles the response that SGTravel should do from a user input.
+     *
+     * @param input The user input.
+     */
     private void sgTravelResponse(String input) {
         Platform.runLater(() -> {
             try {
@@ -128,6 +151,8 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Shows message(s) to the user.
+     *
+     * @param commandResult The CommandResult from the user input.
      */
     private void sgTravelShow(CommandResult commandResult) {
         if (commandResult instanceof CommandResultImage) {
@@ -138,6 +163,11 @@ public class MainWindow extends UiPart<Stage> {
         sgTravelShow(commandResult.getMessage());
     }
 
+    /**
+     * Alternative method to show message(s) to the user.
+     *
+     * @param msg The String message to show.
+     */
     private void sgTravelShow(String msg) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDialog(msg, dukeImage)
@@ -146,6 +176,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Shows an image in dialogBoxImage to the user.
+     *
      * @param message The message to show.
      * @param image The image to show.
      */
@@ -155,11 +186,37 @@ public class MainWindow extends UiPart<Stage> {
         );
     }
 
+    /**
+     * Shows the PanelResult for the SidePanel.
+     *
+     * @param result The PanelResult to display.
+     */
     private void panelShow(PanelResult result) {
         sidePanel.getChildren().clear();
         sidePanel.getChildren().add(SidePanel.getPanel(result));
     }
 
+    /**
+     * Shows the welcome message.
+     */
+    private void sgTravelShowWelcome() {
+        Model model = logic.getModel();
+        HashMap<String, Itinerary> itineraries = model.getItineraryTable();
+        RouteList routes = model.getRoutes();
+
+        String message = Messages.STARTUP_WELCOME_MESSAGE + logic.getName() + "\n\n";
+        message += Messages.STARTUP_WELCOME_MESSAGE_ITINERARY_START + itineraries.size()
+                + Messages.STARTUP_WELCOME_MESSAGE_ITINERARY_END;
+        message += Messages.STARTUP_WELCOME_MESSAGE_ROUTE_START + routes.size()
+                + Messages.STARTUP_WELCOME_MESSAGE_ROUTE_END;
+        message += Messages.STARTUP_WELCOME_MESSAGE_HELP;
+
+        sgTravelShow(message);
+    }
+
+    /**
+     * Tries to exit SGTravel.
+     */
     private void tryExitApp() {
         try {
             main.stop();
@@ -168,18 +225,34 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Echos user input and displays it.
+     *
+     * @param input The user input.
+     */
     private void echoUserInput(String input) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage)
         );
     }
 
+    /**
+     * Gets the user input from the TextField.
+     *
+     * @return input The user input.
+     */
     private String getUserInput() {
         String input = userInput.getText().strip();
         userInput.clear();
         return input;
     }
 
+    /**
+     * Checks whether a String is empty.
+     *
+     * @param input The String to check.
+     * @return true If the String is empty.
+     */
     private boolean isEmpty(String input) {
         return "".equals(input);
     }
