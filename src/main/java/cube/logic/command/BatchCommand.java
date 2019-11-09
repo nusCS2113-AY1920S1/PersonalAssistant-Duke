@@ -31,14 +31,14 @@ public class BatchCommand extends Command {
     private BatchCommand.OperationType operationType;
     private FileUtilCSV<Food> batchUtil;
 
-    private final String MESSAGE_SUCCESS = "The product list has been successfully %1$s as file:\n"
+    public static final String MESSAGE_SUCCESS = "The product list has been successfully %1$s as file:\n"
         + "%2$s\n";
-    private final String MESSAGE_EXPORT = "exported";
-    private final String MESSAGE_IMPORT = "imported";
-    private final String MESSAGE_SUCCESS_TEMPLATE = "An empty template has been successfully generated as file:\n"
+    public static final String MESSAGE_EXPORT = "exported";
+    public static final String MESSAGE_IMPORT = "imported";
+    public static final String MESSAGE_SUCCESS_TEMPLATE = "An empty template has been successfully generated as file:\n"
         + "%1$s\n";
 
-    private final String MESSAGE_FILE_NOT_FOUND = "The file that you are importing cannot be found:\n"
+    public static final String MESSAGE_FILE_NOT_FOUND = "The file that you are importing cannot be found:\n"
         + "%1$s\n";
 
     /**
