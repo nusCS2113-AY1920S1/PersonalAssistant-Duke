@@ -60,9 +60,10 @@ public class UserStats {
             this.gender = "???";
             this.level = 1;
             this.expLevel = 0;
-            chapterData.add(new ChapterStat("Sorting",1,0,0,0,0,0,""));
-            chapterData.add(new ChapterStat("Linked List",2,0,0,0,0,0,""));
-            chapterData.add(new ChapterStat("Bitmask",3,0,0,0,0,0,""));
+            final String INIT_COMMENT = "You have not attempted this chapter yet";
+            chapterData.add(new ChapterStat("Sorting",1,0,0,0,0,0,INIT_COMMENT));
+            chapterData.add(new ChapterStat("Linked List",2,0,0,0,0,0,INIT_COMMENT));
+            chapterData.add(new ChapterStat("Bitmask",3,0,0,0,0,0,INIT_COMMENT));
             Storage.saveData("./UserData.txt", this.toString());
         } else {
             String fileContents = Storage.loadData("./UserData.txt");
@@ -333,9 +334,10 @@ public class UserStats {
      */
     public static UserStats getDefaultUserStats() {
         ArrayList<ChapterStat> chapters = new ArrayList<>();
-        chapters.add(new ChapterStat("Sorting",1,0,0,0,0,0,""));
-        chapters.add(new ChapterStat("Linked List",2,0,0,0,0,0,""));
-        chapters.add(new ChapterStat("Bitmask",3,0,0,0,0,0,""));
+        final String INIT_COMMENT = "You have not attempted this chapter yet";
+        chapters.add(new ChapterStat("Sorting",1,0,0,0,0,0,INIT_COMMENT));
+        chapters.add(new ChapterStat("Linked List",2,0,0,0,0,0,INIT_COMMENT));
+        chapters.add(new ChapterStat("Bitmask",3,0,0,0,0,0,INIT_COMMENT));
         return new UserStats("Default", "????", 1, 0, chapters);
     }
 

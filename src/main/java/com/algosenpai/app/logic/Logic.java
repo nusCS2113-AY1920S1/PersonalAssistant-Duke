@@ -119,7 +119,7 @@ public class Logic {
     }
 
     private Command executeArcade() {
-        if (arcadeBlockedCommands.contains("userCommand")) {
+        if (arcadeBlockedCommands.contains(userCommand)) {
             return new ArcadeBlockedCommand(parsedUserInputs);
         } else {
             return new ArcadeCommand(parsedUserInputs, isArcadeMode);
