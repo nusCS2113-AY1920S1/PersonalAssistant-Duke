@@ -1,6 +1,6 @@
 package entertainment.pro.logic.parsers;
 
-import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.assertions.CommandAssertions;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
@@ -203,7 +203,6 @@ public abstract class CommandSuper {
      */
     public void processFlags(String command) throws InvalidFormatCommandException {
 
-
         String[] commandArr = command.split(" ");
 
         String f = "";
@@ -247,7 +246,6 @@ public abstract class CommandSuper {
             }
 
             flagMap.put(flagOrder.get(counter), listOfString);
-            System.out.println("checkpoint " + counter + listOfString.size());
             counter++;
         }
 

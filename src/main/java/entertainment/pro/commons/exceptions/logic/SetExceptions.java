@@ -1,7 +1,6 @@
 package entertainment.pro.commons.exceptions.logic;
 
-import com.fasterxml.jackson.core.util.RequestPayload;
-import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.commons.exceptions.InvalidParameterException;
 import entertainment.pro.commons.exceptions.NoPermissionException;

@@ -1,6 +1,6 @@
 package entertainment.pro.commons.exceptions;
 
-import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.strings.PromptMessages;
 
 /**
  * Exception thrown when parse exception detected when extracting data.

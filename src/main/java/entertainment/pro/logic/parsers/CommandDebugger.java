@@ -1,6 +1,6 @@
 package entertainment.pro.logic.parsers;
 
-import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.assertions.CommandAssertions;
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.commons.exceptions.MissingInfoException;
