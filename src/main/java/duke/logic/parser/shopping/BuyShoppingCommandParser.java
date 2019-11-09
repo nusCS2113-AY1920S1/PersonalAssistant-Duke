@@ -1,6 +1,5 @@
 package duke.logic.parser.shopping;
 
-import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.logic.command.shopping.BuyShoppingCommand;
 import duke.logic.parser.commons.ArgumentMultimap;

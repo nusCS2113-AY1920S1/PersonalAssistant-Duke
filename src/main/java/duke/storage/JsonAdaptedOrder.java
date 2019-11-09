@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import duke.model.commons.Item;
 import duke.model.order.Customer;
 import duke.model.order.Order;
+import duke.model.order.OrderId;
+import duke.model.order.Remark;
+import duke.model.order.TotalPrice;
 import duke.model.product.Product;
 
 import java.util.ArrayList;
@@ -57,14 +60,14 @@ public class JsonAdaptedOrder {
      * Converts a given {@code Order} into this class for Jackson use.
      */
     public JsonAdaptedOrder(Order source) {
-        this.id = source.getId();
+        this.id = source.getId().value;
         this.creationDate = source.getCreationDate();
         this.name = source.getCustomer().name;
         this.contact = source.getCustomer().contact;
-        this.remarks = source.getRemarks();
+        this.remarks = source.getRemarks().value;
         this.deliveryDate = source.getDeliveryDate();
         this.status = source.getStatus();
-        this.total = source.getTotal();
+        this.total = source.getTotal().value;
 
         for (Item<Product> productItem : source.getItems()) {
             this.items.add(
@@ -90,10 +93,10 @@ public class JsonAdaptedOrder {
                 new Customer(name, contact),
                 deliveryDate,
                 status,
-                remarks,
+            new Remark(remarks),
                 productSet,
-                total,
-                id,
+            new TotalPrice(total),
+            new OrderId(id),
                 creationDate
         );
     }

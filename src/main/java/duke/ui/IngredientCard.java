@@ -73,8 +73,8 @@ public class IngredientCard extends AnchorPane {
         TableColumn<Item<Ingredient>, String> quantityColumn = new TableColumn<>("Quantity");
         quantityColumn.setResizable(true);
         quantityColumn.setCellValueFactory(itemStringCellDataFeatures ->
-                new SimpleStringProperty(
-                    String.valueOf(itemStringCellDataFeatures.getValue().getQuantity().getNumber())));
+            new SimpleStringProperty(
+                String.valueOf(itemStringCellDataFeatures.getValue().getQuantity().getNumber())));
 
         ingredientTable.getColumns().addAll(ingredientColumn, quantityColumn);
         return ingredientTable;

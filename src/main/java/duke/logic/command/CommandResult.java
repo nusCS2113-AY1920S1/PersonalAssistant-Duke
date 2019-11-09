@@ -7,20 +7,16 @@ import static java.util.Objects.requireNonNull;
  * Represents the result of a command execution.
  */
 public class CommandResult {
-
-    /**
-     * Constructs an default CommandResult, with no feedback to user, and showing order page.
-     * @param isExiting true if this is a exiting command
-     */
-    public CommandResult(boolean isExiting) {
-
-        //Dummy values to word around the field not declared exception.
-        this("", DisplayedPage.ORDER, true);
-
-        if (isExiting) {
-            exit();
-        }
+    @Override
+    public String toString() {
+        return "Feedback: " + feedbackToUser + "; " + "Display Page: " + displayedPage;
     }
+
+    private final String feedbackToUser;
+    /**
+     * The page that should be displayed to the user.
+     */
+    private final DisplayedPage displayedPage;
 
     /**
      * Constructs a {@code CommandResult}.
@@ -31,11 +27,16 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser, DisplayedPage displayedPage, boolean isExiting) {
         if (isExiting) {
-            System.exit(0);
+            exit();
         }
 
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.displayedPage = requireNonNull(displayedPage);
+    }
+
+    public CommandResult(boolean isExiting) {
+        //Dummy values to word around the field not declared exception.
+        this("", DisplayedPage.ORDER, true);
     }
 
     public CommandResult(String feedbackToUser, DisplayedPage displayedPage) {
@@ -56,11 +57,6 @@ public class CommandResult {
 
     public DisplayedPage getDisplayedPage() {
         return displayedPage;
-    }
-
-    @Override
-    public String toString() {
-        return "Feedback: " + feedbackToUser + "; " + "Display Page: " + displayedPage;
     }
 
     @Override
@@ -89,15 +85,5 @@ public class CommandResult {
         SALE,
         SAME
     }
-
-    private final String feedbackToUser;
-
-    /**
-     * The page that should be displayed to the user.
-     */
-    private final DisplayedPage displayedPage;
-
-
-
 
 }

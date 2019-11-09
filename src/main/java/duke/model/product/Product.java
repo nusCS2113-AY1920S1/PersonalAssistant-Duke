@@ -1,6 +1,5 @@
 package duke.model.product;
 
-import duke.commons.util.TestUtil;
 import duke.logic.message.ProductMessageUtils;
 
 import java.util.Objects;
@@ -26,7 +25,9 @@ public class Product {
     private Status status;
 
 
-    /** Constructor for ProductParserUtil.*/
+    /**
+     * Constructor for ProductParserUtil.
+     */
     public Product(String productName) {
         this.productName = productName;
         this.ingredients = new IngredientItemList();

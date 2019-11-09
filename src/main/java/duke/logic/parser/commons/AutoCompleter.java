@@ -20,14 +20,10 @@ import static java.util.Objects.requireNonNull;
 public class AutoCompleter {
     private List<Class<? extends Command>> commandClasses;
 
-    /**
-     * All the suggestions.
-     */
-    private List<UserInputState> suggestions;
+    //All the suggestions generated.
+    private List<Input> suggestions;
 
-    /**
-     * A pointer to the index of the currently proposed suggestion.
-     */
+    //A pointer to the currently used suggestion.
     private int suggestionPointer;
 
     private static final Logger logger = LogsCenter.getLogger(AutoCompleter.class);
@@ -37,94 +33,72 @@ public class AutoCompleter {
      */
     public AutoCompleter() {
         logger.info("Initializing AutoCompleter...");
-        commandClasses = new ArrayList<>();
 
+        commandClasses = new ArrayList<>();
         suggestions = new ArrayList<>();
         suggestionPointer = 0;
     }
 
     /**
-     * Returns true if the current state has one or more auto-complete suggestion(s).
-     * @param currentState the detail of current input state.
+     * Returns true if the current input has one or more auto-complete suggestion(s).
+     * @param input the detail of current input.
      */
-    public Boolean isAutoCompletable(UserInputState currentState) {
-        requireNonNull(currentState);
-
-        String commandText = currentState.userInputString;
-        int caretPosition = currentState.caretPosition;
-        String currentWord = getCurrentWord(commandText, caretPosition);
+    public Boolean isAutoCompletable(Input input) {
+        requireNonNull(input);
 
         //Blank text cannot be auto-completed.
-        if (commandText.isBlank() || currentWord.isBlank()) {
+        if (isBlank(input)) {
             return false;
         }
 
-        if (!suggestions.isEmpty() && currentState.equals(suggestions.get(suggestionPointer))) {
+        //If the current input is the same as the input pointed by suggestionPointer, it is guaranteed
+        //to be auto-completable.
+        if (isSameAsPrevious(input)) {
             return true;
         }
 
-        List<String> suggestions = generateSuggestions(commandText, currentWord);
+        List<String> suggestionWords = generateSuggestedWords(input.text, input.getCurrentWord());
 
-        //If there is no available suggestion words
-        if (suggestions.isEmpty()) {
+        logger.info(String.format("Found %s suggestion(s)", suggestions.size()));
+
+        //No available suggestions.
+        if (suggestionWords.isEmpty()) {
             return false;
-        } else {
-            //Convert the suggestion words to a user input state and set pointer to zero
-            this.suggestions = suggestions.stream().distinct().map(
-                suggestionWord -> new UserInputState(replaceWord(commandText, caretPosition, suggestionWord),
-                    getNewCaretPosition(caretPosition, currentWord, suggestionWord)))
-                    .collect(Collectors.toList());
-            suggestionPointer = 0;
-
-            logger.info(String.format("Found %s suggestion(s)", suggestions.size()));
-
-            return true;
         }
+
+        generateSuggestionInputs(input, suggestionWords);
+
+        return true;
     }
 
     /**
-     * Returns possible suggestion(s) in the form of {@code UserInputState}.
+     * Returns possible suggestion(s) in the form of {@code Input}.
      *
      * <p>
-     * If there is only one available suggestion, returns that state.
+     * If there is only one available suggestion, returns that suggestion.
      * If there are multiple available suggestions, returns the next possible one,
      * and goes cyclic to the first one if there are no more new suggestions.
-     * For example, if the current input state has two suggestions "add" and "all",
-     * first call to the method returns the "add" state and second call returns "all" state.
-     * The third call returns "add" state again.
+     *
+     * For example, if the current input has two suggestions "add" and "all" (caret positions omitted),
+     * first call to the method returns the "add" input and second call returns "all" input.
+     * The third call returns "add" input again.
      *</p>
      *
      * @throws ParseException if there is no suggestion
      */
-    public UserInputState complete() throws ParseException {
+    public Input complete() throws ParseException {
         if (suggestions.isEmpty()) {
             logger.warning("No suggestions are available for user input.");
             throw new ParseException();
         }
 
         logger.info(String.format("New suggestion [%s] found for user input.",
-            suggestions.get(suggestionPointer).userInputString
+            suggestions.get(suggestionPointer).text
         ));
 
-        suggestionPointer = (suggestionPointer + 1) % suggestions.size();
+        moveForwardSuggestionPointer();
+
         return suggestions.get(suggestionPointer);
-    }
-
-    /**
-     * Returns the available suggested words for {@code currentWord} based on {@code userInput}.
-     * If there is no available suggestions, returns an empty list.
-     */
-    private List<String> generateSuggestions(String userInput, String currentWord) {
-        assert (userInput != null);
-
-        List<String> suggestions = new ArrayList<>();
-        Optional<Class<? extends Command>> matchedCommandClass = getMatchedCommandClass(userInput);
-        matchedCommandClass.ifPresent(matchedClass ->
-            suggestions.addAll(generateParameterSuggestions(currentWord, matchedClass)));
-
-        suggestions.addAll(generateCommandWordSuggestions(currentWord));
-
-        return suggestions;
     }
 
     /**
@@ -153,16 +127,42 @@ public class AutoCompleter {
             throw new ParseException();
         }
 
-
         this.commandClasses.add(commandClass);
-
     }
 
     /**
-     * Remove all command classes.
+     * Removes all command classes.
      */
     public void clearCommandClasses() {
         this.commandClasses.clear();
+    }
+
+    private void moveForwardSuggestionPointer() {
+        suggestionPointer = (suggestionPointer + 1) % suggestions.size();
+    }
+
+    /**
+     * Returns the available suggested words for {@code currentWord} based on {@code userInput}.
+     * If there is no available suggestions, returns an empty list.
+     */
+    private List<String> generateSuggestedWords(String userInput, String currentWord) {
+        assert (userInput != null);
+
+        List<String> suggestions = new ArrayList<>();
+        Optional<Class<? extends Command>> matchedCommandClass = getMatchedCommandClass(userInput);
+        matchedCommandClass.ifPresent(matchedClass ->
+            suggestions.addAll(generateParameterSuggestions(currentWord, matchedClass)));
+
+        suggestions.addAll(generateCommandWordSuggestions(currentWord));
+
+        return suggestions;
+    }
+
+    private void generateSuggestionInputs(Input input, List<String> suggestionWords) {
+        this.suggestions = suggestionWords.stream().distinct().map(
+            input::replaceCurrentWord)
+            .collect(Collectors.toList());
+        suggestionPointer = 0;
     }
 
     /**
@@ -201,61 +201,16 @@ public class AutoCompleter {
         return suggestions;
     }
 
-    /*============== String parsing utilities ================
-      Used to parse the user input string and caret position.
-     */
-
-    /**
-     * Returns the starting index of the word at {@code caretPosition} in {@code commandText}.
-     * For example, if the text is "I am a bad guy" and caret is at position 3, the method returns 2,
-     * the starting index of "am"
-     */
-    private int getSelectionStart(String commandText, int caretPosition) {
-        int selectionStart = commandText.lastIndexOf(" ", caretPosition - 1);
-        if (selectionStart == -1) {
-            selectionStart = 0;
-        } else {
-            selectionStart += 1;
-        }
-        return selectionStart;
+    private boolean isBlank(Input input) {
+        return input.text.isBlank()
+            || input.getCurrentWord().isBlank();
     }
 
-    /**
-     * Returns the ending index of the word at {@code caretPosition} in {@code commandText}.
-     * For example, if the text is "I am a bad guy" and caret is at position 3, the method returns 3,
-     * the ending index of "am"
-     */
-    private int getSelectionEnd(String commandText, int caretPosition) {
-        int selectionEnd = commandText.indexOf(" ", caretPosition);
-        if (selectionEnd == -1) {
-            selectionEnd = commandText.length() - 1;
-        } else {
-            selectionEnd -= 1;
-        }
-        return selectionEnd;
+    private boolean isSameAsPrevious(Input input) {
+        return !suggestions.isEmpty() && input.equals(suggestions.get(suggestionPointer));
     }
-
-
-    private String getCurrentWord(String commandText, int caretPosition) {
-        return commandText.substring(getSelectionStart(commandText, caretPosition),
-            getSelectionEnd(commandText, caretPosition) + 1);
-    }
-
-    /**
-     * Replaces the word at {code caretPosition} in {@code cmmandText} with {@code newWord}.
-     * @return the new command text after replacement.
-     */
-    private String replaceWord(String commandText, int caretPosition, String newWord) {
-        String beforeCurrent = commandText.substring(0, getSelectionStart(commandText, caretPosition));
-        String afterCurrent = commandText.substring(getSelectionEnd(commandText, caretPosition) + 1);
-        return beforeCurrent + newWord + afterCurrent;
-    }
-
-    private int getNewCaretPosition(int oldPosition, String oldWord, String newWord) {
-        return oldPosition - oldWord.length() + newWord.length();
-    }
-
-    /*=============== Field utilities ================
+    //=============== Field utilities ================
+    /*
       Used to retrieve field values from command classes using Reflection API.
      */
 
@@ -322,13 +277,18 @@ public class AutoCompleter {
     }
 
     /**
-     * Represents the details of a user input, including the text and caret position.
+     * Represents the details of a user input, including the text and caret position. Also contains some
+     * utility methods.
+     * Guarantees: immutable; is valid as declared in {@link #isValidInput(String, int)}
      */
-    public static class UserInputState {
+    public static class Input {
+        public static final String MESSAGE_CONSTRAINS = "Input text should be non-null "
+            + "and caret position should be between 0 and input text's length";
+
         /**
          * The text input from user.
          */
-        public final String userInputString;
+        public final String text;
 
         /**
          * The position of the text insertion point.
@@ -336,20 +296,57 @@ public class AutoCompleter {
         public final int caretPosition;
 
         /**
-         * Creates a {@code UserInputState}.
+         * Creates a {@code Input}.
          *
-         * @param userInputString The text input from user. Empty input is acceptable.
-         * @param caretPosition An integer between 0 and the length of {@code userInputString}
-         * @throws ParseException if caret position is invalid
+         * @param text The text input from user. Empty input is acceptable.
+         * @param caretPosition An integer between 0 and the length of {@code userInputString}。
+         * @throws ParseException if caret position is invalid。
          */
-        public UserInputState(String userInputString, int caretPosition) throws ParseException {
-            requireNonNull(userInputString);
-            if (caretPosition < 0 || caretPosition > userInputString.length()) {
-                throw new ParseException();
+        public Input(String text, int caretPosition) throws ParseException {
+            requireNonNull(text);
+            if (!isValidInput(text, caretPosition)) {
+                throw new ParseException(MESSAGE_CONSTRAINS);
             }
 
-            this.userInputString = userInputString;
+            this.text = text;
             this.caretPosition = caretPosition;
+        }
+
+        /**
+         * Returns true if the given {@code text} and {@code caretPosition} is a valid {@code Input}.
+         */
+        public boolean isValidInput(String text, int caretPosition) {
+            requireNonNull(text);
+            return caretPosition >= 0 && caretPosition <= text.length();
+        }
+
+        /**
+         * Returns the word at {@code caretPosition} in input text. If no word is present, returns an empty string.
+         * <p>
+         * Words are substrings of the inout text separated by one or more spaces. They can contain any characters
+         * (including escape characters) except spaces.
+         * <p>
+         * For example, "order add   -name    " is made up of three words: "order", "add" and "-name".
+         * At caret positions 0~5, returns "order";
+         * At caret positions 6~9, returns "add"
+         * At caret positions 12~17, returns "-name",
+         * At other positions, returns "".
+         */
+        public String getCurrentWord() {
+            return text.substring(getSelectionStart(text, caretPosition),
+                getSelectionEnd(text, caretPosition) + 1);
+        }
+
+        /**
+         * Returns a {@code Input} that replaces the word in {@link #getCurrentWord()} with {@code newWord}.
+         * Also updates caret position to the end of the new word.
+         */
+        public Input replaceCurrentWord(String newWord) {
+            requireNonNull(newWord);
+            String beforeCurrent = text.substring(0, getSelectionStart(text, caretPosition));
+            String afterCurrent = text.substring(getSelectionEnd(text, caretPosition) + 1);
+            return new Input(beforeCurrent + newWord + afterCurrent,
+                caretPosition - getCurrentWord().length() + newWord.length());
         }
 
         @Override
@@ -360,14 +357,44 @@ public class AutoCompleter {
             if (o == null || getClass() != o.getClass()) {
                 return false;
             }
-            UserInputState that = (UserInputState) o;
+            Input that = (Input) o;
             return caretPosition == that.caretPosition
-                    && Objects.equals(userInputString, that.userInputString);
+                && Objects.equals(text, that.text);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(userInputString, caretPosition);
+            return Objects.hash(text, caretPosition);
+        }
+
+        /**
+         * Returns the starting index of the word at {@code caretPosition} in {@code commandText}.
+         * For example, if the text is "I am a bad guy" and caret is at position 3, the method returns 2,
+         * the starting index of "am"
+         */
+        private int getSelectionStart(String commandText, int caretPosition) {
+            int selectionStart = commandText.lastIndexOf(" ", caretPosition - 1);
+            if (selectionStart == -1) {
+                selectionStart = 0;
+            } else {
+                selectionStart += 1;
+            }
+            return selectionStart;
+        }
+
+        /**
+         * Returns the ending index of the word at {@code caretPosition} in {@code commandText}.
+         * For example, if the text is "I am a bad guy" and caret is at position 3, the method returns 3,
+         * the ending index of "am"
+         */
+        private int getSelectionEnd(String commandText, int caretPosition) {
+            int selectionEnd = commandText.indexOf(" ", caretPosition);
+            if (selectionEnd == -1) {
+                selectionEnd = commandText.length() - 1;
+            } else {
+                selectionEnd -= 1;
+            }
+            return selectionEnd;
         }
     }
 }

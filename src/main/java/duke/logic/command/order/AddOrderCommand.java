@@ -10,14 +10,16 @@ import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 import duke.model.order.Customer;
 import duke.model.order.Order;
+import duke.model.order.Remark;
+import duke.model.order.TotalPrice;
 import duke.model.product.Product;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -46,7 +48,7 @@ public class AddOrderCommand extends OrderCommand {
 
     private static final String DEFAULT_CUSTOMER_NAME = "customer";
     private static final String DEFAULT_CUSTOMER_CONTACT = "N/A";
-    private static final String DEFAULT_REMARKS = "N/A";
+    private static final Remark DEFAULT_REMARKS = new Remark("N/A");
     private static final Order.Status DEFAULT_STATUS = Order.Status.ACTIVE;
 
     private final OrderDescriptor addOrderDescriptor;
@@ -63,6 +65,18 @@ public class AddOrderCommand extends OrderCommand {
         this.addOrderDescriptor = addOrderDescriptor;
     }
 
+    /**
+     * Returns the total retail price of {@code productItems}.
+     */
+    private static TotalPrice calculateTotal(Set<Item<Product>> productItems) {
+        requireNonNull(productItems);
+
+        double total = 0;
+        for (Item<Product> productItem : productItems) {
+            total += productItem.getItem().getRetailPrice() * productItem.getQuantity().getNumber();
+        }
+        return new TotalPrice(total);
+    }
 
     /**
      * Executes the add order command and returns the result message.
@@ -76,11 +90,13 @@ public class AddOrderCommand extends OrderCommand {
         Order toAdd = createOrder(addOrderDescriptor,
             model.getActiveProductList(),
             model.getFilteredInventoryList());
+
         model.addOrder(toAdd);
 
         model.commit(MESSAGE_COMMIT);
 
         logger.info(String.format("Added new order [%s]", toAdd.getId()));
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getId()), CommandResult.DisplayedPage.ORDER);
     }
 
@@ -94,7 +110,7 @@ public class AddOrderCommand extends OrderCommand {
         throws CommandException {
         Set<Item<Product>> productItems = OrderCommandUtil.getProductItems(productList,
                 descriptor.getItems().orElse(new HashSet<>()));
-        double total = descriptor.getTotal().orElse(calculateTotal(productItems));
+        TotalPrice total = descriptor.getTotal().orElse(calculateTotal(productItems));
         Order order = new Order(
             new Customer(descriptor.getCustomerName().orElse(DEFAULT_CUSTOMER_NAME),
                 descriptor.getCustomerContact().orElse(DEFAULT_CUSTOMER_CONTACT)
@@ -109,20 +125,6 @@ public class AddOrderCommand extends OrderCommand {
         return order;
     }
 
-
-    /**
-     * Returns the total retail price of {@code productItems}.
-     */
-    private static double calculateTotal(Set<Item<Product>> productItems) {
-        requireNonNull(productItems);
-
-        double total = 0;
-        for (Item<Product> productItem : productItems) {
-            total += productItem.getItem().getRetailPrice() * productItem.getQuantity().getNumber();
-        }
-        return total;
-    }
-
     /**
      * Returns the default delivery date.
      */
@@ -130,4 +132,24 @@ public class AddOrderCommand extends OrderCommand {
         return Calendar.getInstance().getTime();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        AddOrderCommand command = (AddOrderCommand) o;
+        return Objects.equals(addOrderDescriptor, command.addOrderDescriptor);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(addOrderDescriptor);
+    }
+
+    public OrderDescriptor getAddOrderDescriptor() {
+        return addOrderDescriptor;
+    }
 }

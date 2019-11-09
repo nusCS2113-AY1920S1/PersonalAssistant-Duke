@@ -4,11 +4,9 @@ import duke.logic.command.CommandResult;
 
 public class CommandResultBuilder {
 
+    public static final CommandResult.DisplayedPage PAGE_PRODUCT = CommandResult.DisplayedPage.PRODUCT;
     private static final String DEFAULT_FEEDBACK = "";
     private static final CommandResult.DisplayedPage DEFAULT_PAGE = CommandResult.DisplayedPage.INVENTORY;
-
-    public static final CommandResult.DisplayedPage PAGE_PRODUCT = CommandResult.DisplayedPage.PRODUCT;
-
     private String feedbackToUser;
 
     /**

@@ -10,7 +10,9 @@ public class ShowProductCommandResult extends CommandResult {
 
     private Index index;
 
-    /** Construct a ShowProductCommandResult. */
+    /**
+     * Construct a ShowProductCommandResult.
+     */
     public ShowProductCommandResult(String feedbackToUser, DisplayedPage displayedPage, Index index) {
         super(feedbackToUser, displayedPage);
         this.index = index;

@@ -36,20 +36,20 @@ public class AddProductCommandIntegrationTest {
         expectedModel.addProduct(validProduct);
         expectedModel.commit(ProductMessageUtils.MESSAGE_COMMIT_ADD_PRODUCT);
         CommandResult expectedCommandResult =
-                new CommandResultBuilder()
-                        .withMessage(String.format(ProductMessageUtils.MESSAGE_ADD_PRODUCT_SUCCESS,validProduct.getProductName()))
-                        .withPage(PAGE_PRODUCT)
-                        .build();
+            new CommandResultBuilder()
+                .withMessage(String.format(ProductMessageUtils.MESSAGE_ADD_PRODUCT_SUCCESS, validProduct.getProductName()))
+                .withPage(PAGE_PRODUCT)
+                .build();
 
         assertCommandSuccess(new AddProductCommand(new ProductDescriptorBuilder(validProduct).build()),
-                model, expectedCommandResult, expectedModel);
+            model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void execute_duplicateProduct_throwsCommandException() {
         Product productInList = model.getBakingHome().getProductList().get(0);
         assertCommandFailure(new AddProductCommand(new ProductDescriptorBuilder(productInList).build()),
-                model, String.format(ProductMessageUtils.MESSAGE_DUPLICATE_PRODUCT,
-                        productInList.getProductName()));
+            model, String.format(ProductMessageUtils.MESSAGE_DUPLICATE_PRODUCT,
+                productInList.getProductName()));
     }
 }

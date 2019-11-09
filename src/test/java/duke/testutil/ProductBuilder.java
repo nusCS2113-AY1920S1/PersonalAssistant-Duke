@@ -20,7 +20,7 @@ public class ProductBuilder {
             new IngredientItemList();
 
     private String productName;
-    private IngredientItemList ingredients = new IngredientItemList();;
+    private IngredientItemList ingredients = new IngredientItemList();
     private Double ingredientCost;
     private Double retailPrice;
     private Product.Status status;

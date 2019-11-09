@@ -23,5 +23,5 @@ public class ProductMessageUtils {
     public static final String MESSAGE_SHOW_PRODUCT_SUCCESS = "Showing product %s";
     public static final String MESSAGE_NON_EMPTY_REVERSE_PARAMETER = "-re should not take any value";
     public static final String MESSAGE_INVALID_INGREDIENT_FORMAT = "Invalid input, please use "
-            + "[INGREDIENT_NAME, PORTION_NUMBER] format";
+        + "[INGREDIENT_NAME, PORTION_NUMBER] format";
 }

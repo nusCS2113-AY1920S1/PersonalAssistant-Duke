@@ -20,6 +20,7 @@ public class SearchProductCommand extends ProductCommand {
 
     /**
      * Creates a SearchProductCommand with the given keyword.
+     *
      * @param keyword the given keyword
      */
     public SearchProductCommand(String keyword) {

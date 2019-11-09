@@ -9,8 +9,6 @@ import duke.logic.parser.commons.Prefix;
 import duke.model.Model;
 import duke.model.order.Order;
 
-import java.util.List;
-
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 import static duke.logic.command.order.OrderCommandUtil.deductInventory;
 import static java.util.Objects.requireNonNull;
@@ -57,13 +55,12 @@ public class EditOrderCommand extends OrderCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Order> lastShownList = model.getFilteredOrderList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (index.getZeroBased() >= model.getFilteredOrderList().size()) {
             throw new CommandException(Message.MESSAGE_INVALID_INDEX);
         }
 
-        Order orderToEdit = lastShownList.get(index.getZeroBased());
+        Order orderToEdit = model.getFilteredOrderList().get(index.getZeroBased());
 
         //Completed order cannot be modified.
         if (orderToEdit.getStatus().equals(Order.Status.COMPLETED)) {

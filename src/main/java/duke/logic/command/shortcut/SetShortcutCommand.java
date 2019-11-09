@@ -39,13 +39,13 @@ public class SetShortcutCommand extends Command {
         if (isEmptyShortcut && model.hasShortcut(shortcut)) {
             model.removeShortcut(shortcut);
             return new CommandResult(String.format(MESSAGE_REMOVE_SUCCESS, shortcut.getName()));
+
         } else if (isEmptyShortcut) {
             return new CommandResult(MESSAGE_EMPTY_SHORTCUT);
+
         } else {
-            checkShortcut();
-
+            checkShortcutEligibility();
             model.setShortcut(shortcut);
-
             model.commit(MESSAGE_COMMIT);
 
             return new CommandResult(String.format(MESSAGE_SET_SUCCESS, shortcut.getName()));
@@ -56,7 +56,7 @@ public class SetShortcutCommand extends Command {
      * Prevents possible dead loops when a shortcut has a reference to another shortcut command in its user inputs.
      * @throws CommandException if the shortcut has a reference to another shortcut command.
      */
-    private void checkShortcut() throws CommandException {
+    private void checkShortcutEligibility() throws CommandException {
         for (String line : shortcut.getUserInputs()) {
             if (line.split(" ")[0].equals(ExecuteShortcutCommand.COMMAND_WORD)) {
                 throw new CommandException(MESSAGE_CANNOT_CONTAIN_DO_COMMAND);

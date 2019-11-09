@@ -15,7 +15,6 @@ import java.util.List;
 
 import static duke.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Contains helper methods for testing commands.
@@ -37,7 +36,7 @@ public class CommandTestUtil {
                                             String expectedMessage) {
         BakingHome expectedBakingHome = new BakingHome((actualModel.getBakingHome()));
         List<Item<Ingredient>> expectedFilteredInventoryList =
-                new ArrayList<>(actualModel.getFilteredInventoryList());
+            new ArrayList<>(actualModel.getFilteredInventoryList());
         // Can add more lists here if needed
         List<Product> expectedFilteredProductList = new ArrayList<>(actualModel.getFilteredProductList());
 
