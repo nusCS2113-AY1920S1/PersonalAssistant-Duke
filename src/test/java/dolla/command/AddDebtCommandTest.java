@@ -18,7 +18,8 @@ public class AddDebtCommandTest implements ParserStringList {
 
     @Test
     public void addDebtCommandTest2() {
-        Command commandTest = new AddDebtsCommand(DEBT_COMMAND_BORROW, "xx", 200, "fish", LocalDate.parse("2019-11-11"));
+        Command commandTest = new AddDebtsCommand(DEBT_COMMAND_BORROW, "xx", 200,
+                "fish", LocalDate.parse("2019-11-11"));
         String expected = "borrow xx 200.0 fish 2019-11-11";
         assertEquals(expected, commandTest.getCommandInfo());
     }
