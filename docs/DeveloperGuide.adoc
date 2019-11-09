@@ -173,7 +173,7 @@ If there is any overlap, the `timeClash` method will return *_true_* as a boolea
 The `clashEvent` method then throws an exception `ClashException`, indicating that there was indeed a schedule
 clash between the desired new entry and some pre-existing Event.
 
-The details of the clashing Event are passed back to `Command` object so that it can be used to inform the
+The details of the clashing Event are passed back to `Command` object via the exception so that it can be used to inform the
 user about the clashing event. The user is then required to fix the conflict before continuing,
 either by rescheduling or deleting the pre-existing event, or by choosing a different date/time for
 the new Event entry.
