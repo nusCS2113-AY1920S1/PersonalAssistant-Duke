@@ -1,14 +1,13 @@
+/* @@author rshah918 */
 package leduc.command;
 
-import leduc.UiEn;
-import leduc.UiFr;
 import leduc.exception.EmptyArgumentException;
 import leduc.storage.Storage;
 import leduc.Ui;
+import leduc.task.Task;
 import leduc.task.TaskList;
 import java.lang.*;
 import java.util.ArrayList;
-
 /**
  * Represents a Find Command.
  * Allow to find a specific task from the task list.
@@ -31,11 +30,13 @@ public class FindCommand extends Command {
      * @return returns index of the index of the maximum score in the list.
      */
     public int findMaxIndex(ArrayList<Double> scores){
-        //index of scores correspond to tasks in TaskList. To preserve index, processed scores are assigned a null Value
+        //index of scores correspond to the index of tasks in TaskList. To preserve indices,
+            //processed scores are assigned a null value
         double nullDouble = -99.0;
         int nullInt = -99;
         double max = 0.0;
         int max_index = nullInt;
+
         for (int j = 0; j < scores.size(); j++) {
             if(scores.get(j) == 0.0){//tasks with no common characters will be flagged as null
                 scores.set(j, nullDouble);
@@ -58,21 +59,23 @@ public class FindCommand extends Command {
         double relevanceScore = 0.0;
         for (int i = 0; i < tasks.size(); i++) {
             double numMatches = 0;
-            double shortestStringLength = Math.min(tasks.get(i).getTask().length(), find.length());
-            double longestStringLength = Math.max(tasks.get(i).getTask().length(), find.length());
+            Task task = tasks.get(i);
+            String description = task.getTask();
+            double shortestStringLength = Math.min(description.length(), find.length());
+            double longestStringLength = Math.max(description.length(), find.length());
             //use nested for loop to compare query and task description elementwise
             for (int j = 0; j < shortestStringLength; j++) {
-                for (int k = 0; k < tasks.get(i).getTask().length(); k++) {
+                for (int k = 0; k < description.length(); k++) {
                     //compare characters, if they match, increment nummatches then break
-                    if (find.charAt(j) == tasks.get(i).getTask().charAt(k)) {
+                    if (find.charAt(j) == description.charAt(k)) {
                         numMatches += 1.0;
                         break;
                     }
-
                 }
             }
             relevanceScore = numMatches / longestStringLength;
-            if(relevanceScore <= 0.5){
+            int matchThreshold = 0.5;
+            if(relevanceScore <= matchThreshold){
                 relevanceScore = 0.0;
             }
             scores.add(relevanceScore);
@@ -88,8 +91,6 @@ public class FindCommand extends Command {
      */
 
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyArgumentException {
-        UiEn uien = new UiEn();
-        UiFr uifr = new UiFr();
         String userSubstring;
         if(callByShortcut){
             userSubstring = user.substring(FindCommand.findShortcut.length());
@@ -106,8 +107,9 @@ public class FindCommand extends Command {
         scores = generateRelevanceScores(find, tasks);
 
         String result = "";
+        int numResults = 5;
         //Add tasks to "String result" in the order of relevance.
-        for(int i = 0; i < scores.size() && i < 5; i++) {
+        for(int i = 0; i < scores.size() && i < numResults; i++) {
             double nullDouble = -99.0;
             //find the index of the task that is most similar to the user query
             int max_index = findMaxIndex(scores);
@@ -127,6 +129,7 @@ public class FindCommand extends Command {
             ui.showFindMatching(result);
         }
     }
+/* @@author */
     /**
      * getter because the shortcut is private
      * @return the shortcut name
@@ -134,7 +137,6 @@ public class FindCommand extends Command {
     public static String getFindShortcut() {
         return findShortcut;
     }
-
     /**
      * used when the user want to change the shortcut
      * @param findShortcut the new shortcut

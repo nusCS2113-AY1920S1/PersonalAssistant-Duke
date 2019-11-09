@@ -32,10 +32,10 @@ public class LanguageCommand extends Command {
             throw new EmptyArgumentException();
         }
         if(userSubstring.equals("fr")){
-            storage.setLanguage(userSubstring);
+            storage.setLanguage("fr");
             ui.showLanguage("French");
         }
-        else if(userSubstring.equals("fr")){
+        else if(userSubstring.equals("en")){
             storage.setLanguage("en");
             ui.showLanguage("English");
         }

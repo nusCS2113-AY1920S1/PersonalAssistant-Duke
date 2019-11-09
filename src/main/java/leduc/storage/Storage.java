@@ -7,9 +7,6 @@ import leduc.exception.MeaninglessException;
 import leduc.task.*;
 
 import java.io.*;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
