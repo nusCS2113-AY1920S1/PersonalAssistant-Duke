@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 public class ParserUtil {
 
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+	private static final TimeZone TIME_ZONE = TimeZone.getTimeZone("GMT+8:00");
 
 	/**
 	 * Returns the string of date by parsing a date.
@@ -24,7 +25,7 @@ public class ParserUtil {
 		if (date == null) {
 			return "";
 		}
-		DATE_FORMAT.setTimeZone(TimeZone.getTimeZone("GMT-8:00"));
+		DATE_FORMAT.setTimeZone(TIME_ZONE);
 		return DATE_FORMAT.format(date);
 	}
 
@@ -40,9 +41,9 @@ public class ParserUtil {
 		if (dateString == null) {
 			return null;
 		}
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+		SimpleDateFormat formatter = DATE_FORMAT;
 		formatter.setLenient(false);
-		formatter.setTimeZone(TimeZone.getTimeZone("GMT-8:00"));
+		formatter.setTimeZone(TIME_ZONE);
 		Date date;
 		try {
 			date = formatter.parse(dateString);
@@ -161,5 +162,13 @@ public class ParserUtil {
 	 */
 	public static SimpleDateFormat getDateFormat() {
 		return DATE_FORMAT;
+	}
+
+	/**
+	 * Retrieve the TIME ZONE that is used in Cube.
+	 * @return TimeZone specified for Cube.
+	 */
+	public static TimeZone getTimeZone() {
+		return TIME_ZONE;
 	}
 }
