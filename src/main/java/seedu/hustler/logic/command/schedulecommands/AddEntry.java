@@ -3,8 +3,9 @@ package seedu.hustler.logic.command.schedulecommands;
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.logic.parser.anomaly.AddEntryAnomaly;
-import seedu.hustler.schedule.RecommendedSchedule;
+import seedu.hustler.schedule.Scheduler;
 import seedu.hustler.ui.Ui;
+import seedu.hustler.Hustler;
 
 /**
  * Adds an entry to recommended schedule.
@@ -39,8 +40,8 @@ public class AddEntry extends Command {
             anomaly.detect(userInput);
             int index = Integer.parseInt(this.userInput[1]);
             index--;
-            RecommendedSchedule.addFromTaskList(index);
-            RecommendedSchedule.displayRecommendedSchedule();
+            Scheduler.addToRecommended(Hustler.list.get(index));
+            Scheduler.displayRecommendedSchedule();
         } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
         }

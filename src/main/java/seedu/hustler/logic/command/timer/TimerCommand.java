@@ -4,7 +4,7 @@ import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.logic.parser.anomaly.TimerAnomaly;
 import seedu.hustler.ui.Ui;
-import seedu.hustler.schedule.RecommendedSchedule;
+import seedu.hustler.schedule.Scheduler;
 import seedu.hustler.ui.timer.TimerManager;
 
 /**
@@ -43,8 +43,8 @@ public class TimerCommand extends Command {
             int hours = Integer.parseInt(timerSplit[0]);
             int minutes = Integer.parseInt(timerSplit[1]);
             int seconds = Integer.parseInt(timerSplit[2]);
-            RecommendedSchedule.recommend(hours * 3600 + minutes * 60 + seconds);
-            RecommendedSchedule.displayRecommendedSchedule();
+            Scheduler.recommend(hours * 3600 + minutes * 60 + seconds);
+            Scheduler.displayRecommendedSchedule();
         } catch (CommandLineException e) {
             ui.showMessage(e.getMessage());
             return;

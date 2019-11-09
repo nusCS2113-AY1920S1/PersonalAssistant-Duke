@@ -1,6 +1,6 @@
 package seedu.hustler.logic.parser.anomaly;
 
-import seedu.hustler.schedule.RecommendedSchedule;
+import seedu.hustler.schedule.Scheduler;
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.Hustler;
 
@@ -27,7 +27,7 @@ public class UpdateEntryAnomaly extends DetectAnomaly {
             int index = -1;
             index = Integer.parseInt(numbers[0]);
             index--;
-            RecommendedSchedule.recommended.get(index);
+            Scheduler.recommended.get(index);
             String[] times = numbers[1].split(":");
             Integer.parseInt(times[0]);
             Integer.parseInt(times[1]);
