@@ -49,6 +49,6 @@ public class DeleteCommand extends Command {
         }
         String finalString = MESSAGE_OUTPUT + task.toString();
         taskList.removeTaskById(taskID);
-        return new CommandResult(finalString, false);
+        return new CommandResult(finalString, true);
     }
 }
