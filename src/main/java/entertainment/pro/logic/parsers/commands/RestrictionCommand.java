@@ -1,6 +1,6 @@
 package entertainment.pro.logic.parsers.commands;
 
-import entertainment.pro.storage.utils.ProfileCommands;
+import entertainment.pro.storage.user.ProfileCommands;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 import entertainment.pro.commons.enums.COMMANDKEYS;

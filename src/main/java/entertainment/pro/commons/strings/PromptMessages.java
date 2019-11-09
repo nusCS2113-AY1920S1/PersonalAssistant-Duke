@@ -217,6 +217,8 @@ public class PromptMessages {
             "> is an invalid sort option. Please try again with 1 / 2 / 3";
     public static final String AGE_IS_NEGATIVE =
             "☹ I'm sorry, but age needs to be a positive integer. Please try again";
+    public static final String INVALID_PAYLOAD  =
+            "☹ I'm sorry, but payload can't start with '-'. Please try again";
 
     // cache related messages
     public static final String READING_CACHE_FILES = "Reading cache files";
@@ -228,5 +230,4 @@ public class PromptMessages {
     public static final String IO_EXCEPTION_CACHE_DATA = "IO Exception happened when reading data";
     public static final String CLASS_EXCEPTION_CACHE_DATA = "Class exception happened when reading data";
     public static final String WRITING_CACHE_DATA = "Reading cache data";
-
 }
