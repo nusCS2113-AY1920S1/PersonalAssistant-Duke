@@ -12,6 +12,7 @@ import seedu.duke.task.command.TaskDoneCommand;
 import seedu.duke.task.command.TaskFindCommand;
 import seedu.duke.task.command.TaskReminderCommand;
 import seedu.duke.task.command.TaskSnoozeCommand;
+import seedu.duke.task.command.TaskUpdateCommand;
 import seedu.duke.task.entity.Task;
 import seedu.duke.task.parser.TaskCommandParseHelper;
 
@@ -419,5 +420,52 @@ public class TaskCommandParseHelperTest {
         assertEquals(null, TaskCommandParseHelper.checkTimeString("").getKey());
         assertEquals("1212", TaskCommandParseHelper.checkTimeString("1212 1212").getKey());
         assertEquals("1212", TaskCommandParseHelper.checkTimeString("1212").getKey());
+    }
+
+    @Test
+    public void parseUpdateCommandTest() {
+        try {
+            Class<?> parser = Class.forName("seedu.duke.task.parser.TaskCommandParseHelper");
+            Method method = parser.getDeclaredMethod("parseUpdateCommand", String.class, ArrayList.class);
+            method.setAccessible(true);
+
+            ArrayList<Command.Option> optionListCorrect = new ArrayList<>(Arrays.asList(new Command.Option(
+                    "doafter", "do after description")));
+
+            ArrayList<Command.Option> optionListExtra = new ArrayList<>(Arrays.asList(new Command.Option(
+                            "priority", " high"), new Command.Option("tag ", "123"),
+                    new Command.Option("doafter ", "description"), new Command.Option("time", "Mon"),
+                    new Command.Option("tag", "efg ")));
+
+            ArrayList<Command.Option> optionListExtra2 = new ArrayList<>(Arrays.asList(new Command.Option(
+                    "doafter", "do after description"), new Command.Option("msg", "something")));
+
+            //positive cases
+            assertTrue(method.invoke(null, "update 1", optionListCorrect) instanceof TaskUpdateCommand);
+            assertTrue(method.invoke(null, "update 1 ", optionListExtra) instanceof TaskUpdateCommand);
+            assertTrue(method.invoke(null, "update  1", optionListExtra) instanceof TaskUpdateCommand);
+            assertTrue(method.invoke(null, "update 1", optionListExtra2) instanceof TaskUpdateCommand);
+
+            //negative cases
+            //no index
+            assertTrue(method.invoke(null, "update ", optionListCorrect) instanceof InvalidCommand);
+            //no index or space
+            assertTrue(method.invoke(null, "update", optionListCorrect) instanceof InvalidCommand);
+            //non-integer index
+            assertTrue(method.invoke(null, "update 123abc", optionListCorrect) instanceof InvalidCommand);
+            //more than 1 integer
+            assertTrue(method.invoke(null, "update 1 23", optionListCorrect) instanceof InvalidCommand);
+            ArrayList<Command.Option> optionListEmpty = new ArrayList<>();
+            //no description
+            assertTrue(method.invoke(null, "update 1", optionListEmpty) instanceof InvalidCommand);
+        } catch (ClassNotFoundException e) {
+            fail("No such class");
+        } catch (NoSuchMethodException e) {
+            fail("No such method");
+        } catch (InvocationTargetException e) {
+            fail(e.getMessage());
+        } catch (IllegalAccessException e) {
+            fail("No Access");
+        }
     }
 }
