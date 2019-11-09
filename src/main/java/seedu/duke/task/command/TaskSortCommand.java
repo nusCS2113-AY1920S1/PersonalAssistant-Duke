@@ -12,10 +12,18 @@ public class TaskSortCommand extends Command {
 
     private TaskList.SortBy sortType;
 
+    /**
+     * Instantiation of the SortCommand which sorts the task list.
+     */
     public TaskSortCommand(TaskList.SortBy sortBy) {
         this.sortType = sortBy;
     }
 
+    /**
+     * Executes sort command to sort the task list.
+     *
+     * @return true when task list is sorted.
+     */
     @Override
     public boolean execute(Model model) {
         TaskList taskList = model.getTaskList();

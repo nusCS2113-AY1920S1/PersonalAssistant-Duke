@@ -11,7 +11,9 @@ import seedu.duke.task.command.TaskDoAfterCommand;
 import seedu.duke.task.command.TaskDoneCommand;
 import seedu.duke.task.command.TaskFindCommand;
 import seedu.duke.task.command.TaskReminderCommand;
+import seedu.duke.task.command.TaskSetPriorityCommand;
 import seedu.duke.task.command.TaskSnoozeCommand;
+import seedu.duke.task.command.TaskSortCommand;
 import seedu.duke.task.entity.Task;
 import seedu.duke.task.parser.TaskCommandParseHelper;
 
@@ -66,6 +68,7 @@ public class TaskCommandParseHelperTest {
         assertTrue(CommandParseHelper.isCommandFormat("task done 1"));
         assertTrue(CommandParseHelper.isCommandFormat("task deadline 123 -time 11/11/1111 1111"));
         assertTrue(CommandParseHelper.isCommandFormat("task bye"));
+        assertTrue(CommandParseHelper.isCommandFormat("task clear"));
 
         //negative cases
         //not starting with email/task
@@ -264,11 +267,17 @@ public class TaskCommandParseHelperTest {
             Class<?> parser = Class.forName("seedu.duke.task.parser.TaskCommandParseHelper");
             Method method = parser.getDeclaredMethod("parseSnoozeCommand", String.class, ArrayList.class);
             method.setAccessible(true);
-            ArrayList<Command.Option> optionList = new ArrayList<Command.Option>();
+
+            ArrayList<Command.Option> optionList = new ArrayList<>();
+
             //positive cases
+            assertTrue(method.invoke(null, "snooze 1 ", optionList) instanceof TaskSnoozeCommand);
             assertTrue(method.invoke(null, "snooze 1", optionList) instanceof TaskSnoozeCommand);
-            assertTrue(method.invoke(null, "snooze 1", optionList) instanceof TaskSnoozeCommand);
-            assertTrue(method.invoke(null, "snooze 1  ", optionList) instanceof TaskSnoozeCommand);
+
+            ArrayList<Command.Option> optionListExtra = new ArrayList<>(Arrays.asList(new Command.Option(
+                    "by", "2")));
+
+            assertTrue(method.invoke(null, "snooze 1", optionListExtra) instanceof TaskSnoozeCommand);
 
             //negative cases
             //no index
@@ -277,6 +286,12 @@ public class TaskCommandParseHelperTest {
             assertTrue(method.invoke(null, "snooze 1  a", optionList) instanceof InvalidCommand);
             //random character after index
             assertTrue(method.invoke(null, "snooze 1a", optionList) instanceof InvalidCommand);
+
+            ArrayList<Command.Option> optionListWrong = new ArrayList<>(Arrays.asList(new Command.Option(
+                    "by", "abc")));
+
+            //snooze duration not valid
+            assertTrue(method.invoke(null, "snooze 1", optionListWrong) instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {
@@ -419,5 +434,93 @@ public class TaskCommandParseHelperTest {
         assertEquals(null, TaskCommandParseHelper.checkTimeString("").getKey());
         assertEquals("1212", TaskCommandParseHelper.checkTimeString("1212 1212").getKey());
         assertEquals("1212", TaskCommandParseHelper.checkTimeString("1212").getKey());
+    }
+
+    @Test
+    public void parsePriorityCommandTest() {
+        try {
+            Class<?> parser = Class.forName("seedu.duke.task.parser.TaskCommandParseHelper");
+            Method method = parser.getDeclaredMethod("parsePriorityCommand", String.class, ArrayList.class);
+            method.setAccessible(true);
+
+            ArrayList<Command.Option> optionList = new ArrayList<>(Arrays.asList(new Command.Option(
+                    "priority", "high")));
+
+            //positive cases
+            assertTrue(method.invoke(null, "set 1", optionList) instanceof TaskSetPriorityCommand);
+            assertTrue(method.invoke(null, "set 1 ", optionList) instanceof TaskSetPriorityCommand);
+            assertTrue(method.invoke(null, "set   1", optionList) instanceof TaskSetPriorityCommand);
+
+            ArrayList<Command.Option> optionListExtra = new ArrayList<>(Arrays.asList(new Command.Option(
+                    "priority", "hIGh")));
+            ArrayList<Command.Option> optionListExtra1 = new ArrayList<>(Arrays.asList(new Command.Option(
+                    "priority", "HIGH")));
+
+            assertTrue(method.invoke(null, "set 1", optionListExtra) instanceof TaskSetPriorityCommand);
+            assertTrue(method.invoke(null, "set 1", optionListExtra1) instanceof TaskSetPriorityCommand);
+
+            //negative cases
+            //no input
+            assertTrue(method.invoke(null, "", optionList) instanceof InvalidCommand);
+            //random character after index with space
+            assertTrue(method.invoke(null, "set 1 / ", optionList) instanceof InvalidCommand);
+            //no index
+            assertTrue(method.invoke(null, "set ", optionList) instanceof InvalidCommand);
+
+            ArrayList<Command.Option> optionListWrong = new ArrayList<>(Arrays.asList(new Command.Option(
+                    "priority", "random")));
+            ArrayList<Command.Option> optionListWrongExtra = new ArrayList<>(Arrays.asList(new Command.Option(
+                    "priority", "")));
+            ArrayList<Command.Option> optionListEmpty = new ArrayList<>();
+
+            //invalid priority
+            assertTrue(method.invoke(null, "set 1", optionListWrong) instanceof InvalidCommand);
+            //no priority level
+            assertTrue(method.invoke(null, "set 1", optionListWrongExtra) instanceof InvalidCommand);
+            //no priority and priority level
+            assertTrue(method.invoke(null, "set 1", optionListEmpty) instanceof InvalidCommand);
+        } catch (ClassNotFoundException e) {
+            fail("No such class");
+        } catch (NoSuchMethodException e) {
+            fail("No such method");
+        } catch (InvocationTargetException e) {
+            fail(e.getMessage());
+        } catch (IllegalAccessException e) {
+            fail("No Access");
+        }
+    }
+
+    @Test
+    public void parseSortCommandTest() {
+        try {
+            Class<?> parser = Class.forName("seedu.duke.task.parser.TaskCommandParseHelper");
+            Method method = parser.getDeclaredMethod("parseSortCommand", String.class);
+            method.setAccessible(true);
+
+            ArrayList<Command.Option> optionList = new ArrayList<>();
+
+            //positive cases
+            assertTrue(method.invoke(null, "sort status") instanceof TaskSortCommand);
+            assertTrue(method.invoke(null, "sort time") instanceof TaskSortCommand);
+            assertTrue(method.invoke(null, "sort priority") instanceof TaskSortCommand);
+            assertTrue(method.invoke(null, "sort   priority") instanceof TaskSortCommand);
+            assertTrue(method.invoke(null, "sort priority  ") instanceof TaskSortCommand);
+
+            //negative cases
+            //no input
+            assertTrue(method.invoke(null, "") instanceof InvalidCommand);
+            //empty sort type
+            assertTrue(method.invoke(null, "sort ") instanceof InvalidCommand);
+            //invalid sort type
+            assertTrue(method.invoke(null, "sort abc") instanceof InvalidCommand);
+        } catch (ClassNotFoundException e) {
+            fail("No such class");
+        } catch (NoSuchMethodException e) {
+            fail("No such method");
+        } catch (InvocationTargetException e) {
+            fail(e.getMessage());
+        } catch (IllegalAccessException e) {
+            fail("No Access");
+        }
     }
 }
