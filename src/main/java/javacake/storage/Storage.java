@@ -25,6 +25,7 @@ public class Storage {
     private static String defaultFilePath = "data";
     private String filepath;
     private TaskType dataType;
+    private static boolean isResetFresh = false;
 
 
     public enum TaskType {
@@ -55,21 +56,23 @@ public class Storage {
         generateFolder(notesFile);
         JavaCake.logger.log(Level.INFO,"Filepath: " + filepath);
         try {
-            if (!tasksFile.getParentFile().getParentFile().exists()) {
-                tasksFile.getParentFile().getParentFile().mkdir();
-                tasksFile.getParentFile().mkdir();
-                tasksFile.createNewFile();
-                //System.out.println("A" + tasksFile.getParentFile().getParentFile().getPath());
-            } else if (!tasksFile.getParentFile().exists()) {
-                tasksFile.getParentFile().mkdir();
-                tasksFile.createNewFile();
-                //System.out.println("B" + tasksFile.getParentFile().getPath());
-            } else if (!tasksFile.exists()) {
-                tasksFile.createNewFile();
-                //System.out.println("C" + tasksFile.getPath());
-            } else {
-                JavaCake.logger.log(Level.INFO, filepath + " is found!");
-            }
+            initialiseStorage(tasksFile, altPath);
+            //            if (!tasksFile.getParentFile().getParentFile().exists()) {
+            //                tasksFile.getParentFile().getParentFile().mkdir();
+            //                tasksFile.getParentFile().mkdir();
+            //                tasksFile.createNewFile();
+            //                //System.out.println("A" + tasksFile.getParentFile().getParentFile().getPath());
+            //            } else if (!tasksFile.getParentFile().exists()) {
+            //                tasksFile.getParentFile().mkdir();
+            //                tasksFile.createNewFile();
+            //                //System.out.println("B" + tasksFile.getParentFile().getPath());
+            //            } else if (!tasksFile.exists()) {
+            //                tasksFile.createNewFile();
+            //                //System.out.println("C" + tasksFile.getPath());
+            //            } else {
+            //                JavaCake.logger.log(Level.INFO, filepath + " is found!");
+            //            }
+
         } catch (IOException e) {
             JavaCake.logger.log(Level.WARNING, "Unable to create deadline file");
             throw new CakeException("Failed to create storage.");
@@ -121,6 +124,34 @@ public class Storage {
 
     }
 
+    private void initialiseStorage(File tasksFile, String altPath) throws IOException {
+        boolean isCleanSlate = true;
+        if (!tasksFile.getParentFile().getParentFile().exists()) {
+            tasksFile.getParentFile().getParentFile().mkdir();
+            JavaCake.logger.log(Level.INFO, "StoreGrandpa");
+        }
+        if (!tasksFile.getParentFile().exists()) {
+            tasksFile.getParentFile().mkdir();
+            JavaCake.logger.log(Level.INFO, "StorePapa");
+        }
+        if (!tasksFile.exists()) {
+            tasksFile.createNewFile();
+            JavaCake.logger.log(Level.INFO, "StoreP");
+        } else {
+            isCleanSlate = false;
+            JavaCake.logger.log(Level.INFO, filepath + " is found!");
+        }
+
+        //populate with testing trash
+        if (!isResetFresh && isCleanSlate && altPath.equals("data")) {
+            PrintWriter out = new PrintWriter(filepath);
+            out.println("D|✗|testmessage to show the39characterlimit|01 01 2019 0001");
+            out.println("D|✗|finish javacake|31-12-19 23:59");
+            out.println("D|✗|start dieting on java|01/01/2019");
+            out.close();
+        }
+    }
+
     public static String returnNotesDefaultFilePath() {
         return defaultFilePath + "/notes/";
     }
@@ -129,6 +160,7 @@ public class Storage {
      * Method to hard reset profile.
      */
     public static void resetStorage() throws CakeException {
+        isResetFresh = true;
         try {
             FileUtils.deleteDirectory(new File(defaultFilePath));
             tempTaskData.clear();

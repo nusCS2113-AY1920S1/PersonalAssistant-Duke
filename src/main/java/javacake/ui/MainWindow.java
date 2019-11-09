@@ -15,11 +15,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -30,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
 
 import static javacake.quiz.QuestionList.MAX_QUESTIONS;
@@ -113,11 +112,9 @@ public class MainWindow extends GridPane {
         showListNotesBox();
         showRemindersBox();
         playGuiModeLoop();
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(25), ev -> {
-            dialogContainer.setPrefWidth(scrollPane.getWidth() - 15);
-        }));
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
+
+        //Resize contentDialog to fit the current scrollpane
+        playResizeLoop();
 
     }
 
@@ -182,7 +179,7 @@ public class MainWindow extends GridPane {
     private void handleGuiMode() {
         if (isLightMode) { //switches to Dark theme
             isLightMode = false;
-            mainGrid.setStyle("-fx-background-color: grey");
+            mainGrid.setStyle("-fx-background-color: grey;");
             topBar.setStyle("-fx-background-color: #BBB; -fx-border-color: grey;");
             userInput.setStyle("-fx-background-color: #555; -fx-background-radius: 10;");
             dialogContainer.setStyle("-fx-background-color: grey;");
@@ -195,7 +192,7 @@ public class MainWindow extends GridPane {
             noteScreen.setStyle("-fx-background: grey;");
         } else { //switches to Light theme
             isLightMode = true;
-            mainGrid.setStyle("-fx-background-color: pink");
+            mainGrid.setStyle("-fx-background-color: pink;");
             topBar.setStyle("-fx-background-color: #EE8EC7; -fx-border-color: white;");
             userInput.setStyle("-fx-background-color: #EE8EC7;"
                     + " -fx-background-radius: 10;");
@@ -384,6 +381,7 @@ public class MainWindow extends GridPane {
             Profile.resetProfile();
             Storage.resetStorage();
             this.javaCake = new JavaCake();
+            javaCake.storageManager.profile.writeColorConfig(isLightMode);
             JavaCake.userProgress = JavaCake.storageManager.profile.getTotalProgress();
             JavaCake.userName = JavaCake.storageManager.profile.getUsername();
             JavaCake.isFirstTimeUser = true;
@@ -489,6 +487,33 @@ public class MainWindow extends GridPane {
         timeline.play();
     }
 
+    private void playResizeLoop() {
+        AtomicReference<Double> prevDialogWidth = new AtomicReference<>(dialogContainer.getWidth());
+        AtomicReference<Double> prevTaskWidth = new AtomicReference<>(taskContainer.getWidth());
+        AtomicReference<Double> prevNoteWidth = new AtomicReference<>(noteContainer.getWidth());
+        AtomicReference<Double> prevAvatarWidth = new AtomicReference<>(noteContainer.getWidth());
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), ev -> {
+            if (Math.abs(scrollPane.getWidth() - prevDialogWidth.get()) > 5) {
+                dialogContainer.setPrefWidth(scrollPane.getWidth() - 15);
+                prevDialogWidth.set(dialogContainer.getWidth());
+            }
+            if (Math.abs(taskScreen.getWidth() - prevTaskWidth.get()) > 5) {
+                taskContainer.setPrefWidth(taskScreen.getWidth() - 20);
+                prevTaskWidth.set(taskContainer.getWidth());
+            }
+            if (Math.abs(noteScreen.getWidth() - prevNoteWidth.get()) > 5) {
+                noteContainer.setPrefWidth(noteScreen.getWidth() - 20);
+                prevNoteWidth.set(noteContainer.getWidth());
+            }
+            if (Math.abs(noteScreen.getWidth() - prevAvatarWidth.get()) > 5) {
+                avatarDialog.setPrefWidth(noteScreen.getWidth() - 15);
+                prevAvatarWidth.set(noteContainer.getWidth());
+            }
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+    }
+
 
     private boolean isColorRelated() throws CakeException {
         if (input.equals("change")) {
@@ -547,8 +572,8 @@ public class MainWindow extends GridPane {
             }
             return true;
         } else if (input.equals("reminder")) {
-            response = "Reminders are shown over there! ================>>>\n";
-            showContentContainer();
+            //response = "Reminders are shown over there! ================>>>\n";
+            //showContentContainer();
             showRemindersBox();
             JavaCake.logger.log(Level.INFO, "Reminder setting");
             return true;
@@ -633,8 +658,8 @@ public class MainWindow extends GridPane {
     private void setList(ArrayList<String> list) {
         list.add("Hi, Welcome to JavaCake!\nWant sum cake?\nAll you have to do is get 100%!");
         list.add("Akshay-sensei is my favourite prof!!!");
-        list.add("Learning Java\nis a piece of cake with JavaCake!!\nuWu");
-        list.add("Learning Cake\nis a piece of java with CakeJava!!\nwUw");
+        list.add("Learning Java\nis a piece of cake with JavaCake!! uWu");
+        list.add("Learning Cake\nis a piece of java with CakeJava!! wUw");
         list.add("I rather get Akshay than an A!\n");
         list.add("I LOVE BIG CAKES AND I CANNOT LIE!");
         list.add("CAAAAAAAAAaaaaakkkke!");

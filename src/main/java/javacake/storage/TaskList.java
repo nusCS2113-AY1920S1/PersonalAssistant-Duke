@@ -144,6 +144,9 @@ public class TaskList {
         }
         System.out.println("Task: " + taskInput);
         System.out.println("Date: " + argumentDate);
+        if (taskInput.length() > 39) {
+            throw new CakeException("[!] Task length too long\nPlease input task with < 40 characters!");
+        }
         Task tempTask = new Deadline(taskInput, argumentDate);
         return getString(data, state, tempTask);
     }
