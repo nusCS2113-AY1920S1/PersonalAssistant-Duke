@@ -1,4 +1,5 @@
 //@@author yueyuu
+
 package gazeeebo.commands.note;
 
 import gazeeebo.storage.Storage;
@@ -23,12 +24,12 @@ public class ListNoteCommand extends AddNoteCommand {
     /**
      * Prints out the notes with indexes from a given list of notes.
      *
-     * @param listOFNotes the list of notes for the specified period
+     * @param listOfNotes the list of notes for the specified period
      */
-    public void printOutNoteList(ArrayList<String> listOFNotes) {
-        assert !listOFNotes.isEmpty() : "there is an empty note section of a date (bug in DeleteNoteCommand)";
-        for (int i = 0; i < listOFNotes.size(); i++) {
-            System.out.println((i+1) + ". " + listOFNotes.get(i));
+    public void printOutNoteList(ArrayList<String> listOfNotes) {
+        assert !listOfNotes.isEmpty() : "there is an empty note section of a date (bug in DeleteNoteCommand)";
+        for (int i = 0; i < listOfNotes.size(); i++) {
+            System.out.println((i + 1) + ". " + listOfNotes.get(i));
         }
     }
 
@@ -53,7 +54,8 @@ public class ListNoteCommand extends AddNoteCommand {
 
     /** The main method that executes all the sub methods. */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack,
+                        ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
         String[] command = ui.fullCommand.split(" ");
         LocalDate userDate;
         try {
