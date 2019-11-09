@@ -52,6 +52,7 @@ public class MainWindow extends AnchorPane {
 
         this.fetchStoredImages();
         this.showHomeDisplay();
+        this.refresh();
     }
 
     @FXML
@@ -62,7 +63,7 @@ public class MainWindow extends AnchorPane {
         this.updateGui(infoCapsule);
         if (this.displayType == DisplayType.HOME) {
             this.updateHomeDisplay();
-            this.updateHomeDisplay(); // Javafx won't update completely
+            this.refresh(); // Javafx won't update completely
         }
         this.userInput.clear();
         if (this.exitRequest) {
@@ -150,6 +151,9 @@ public class MainWindow extends AnchorPane {
         this.interpreterLayer.requestSave();
     }
 
+    void refresh() {
+        this.updateHomeDisplay();
+    }
 
     /**
      * Fetches Images stored in application for display in slots for features yet to be developed.

@@ -1,8 +1,5 @@
 1000.0
-out $4.5 /date 2019-11-01 /tags food
-out $120.0 /date 2019-11-01 /tags travel
-out $5.0 /date 2019-11-01 /tags food
-out $30.0 /date 2019-11-01 /tags dating
+angbao-dating-travel-food-
 out $20.0 /date 2010-11-01 /tags gift
 out $3.0 /date 2019-11-02 /tags food
 out $25.0 /date 2019-11-02 /tags groceries

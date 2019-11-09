@@ -1,8 +1,6 @@
 package ui;
 
 import duke.exception.DukeException;
-import main.Duke;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -99,7 +97,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      */
     public void removeFolder(String tag) throws DukeException {
         if (!isRegisteredTag(tag)) {
-            throw new DukeException("This tag is not being tracked!");
+            throw new DukeException("<" + tag + "> is not being tracked!");
         }
         this.getFolders().remove(tag);
     }

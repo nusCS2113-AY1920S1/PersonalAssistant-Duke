@@ -5,6 +5,8 @@ import interpreter.Parser;
 import storage.StorageManager;
 import ui.UiCode;
 
+import java.util.ArrayList;
+
 public class CommandTrackTag extends Command {
     private String inputStr;
 
@@ -22,7 +24,13 @@ public class CommandTrackTag extends Command {
 
     @Override
     public void execute(StorageManager storageManager) {
-        for (String tag : this.inputStr.split(" ")) {
+        String[] tagsToTrack = this.inputStr.split(" ");
+        if (tagsToTrack[0].equals("")) {
+            this.infoCapsule.setUiCode(UiCode.ERROR);
+            this.infoCapsule.setOutputStr("Please enter a tag to track");
+            return;
+        }
+        for (String tag : tagsToTrack) {
             try {
                 storageManager.trackTag(tag);
             } catch (DukeException e) {
