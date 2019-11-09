@@ -579,21 +579,53 @@
   "shoppingList": [
     {
       "ingredient": {
-        "name": "Anb",
+        "name": "Egg",
         "unitPrice": 0.0,
         "remarks": ""
       },
-      "amount": 0.0
+      "amount": 10.0
     },
     {
       "ingredient": {
-        "name": "Anbb",
+        "name": "Sugar",
         "unitPrice": 0.0,
         "remarks": ""
       },
-      "amount": 0.0
+      "amount": 10.0
     }
   ],
-  "sales": [],
-  "shortcuts": []
+  "sales": [
+    {
+      "id": 1573223337165,
+      "description": "N/A",
+      "value": 20.0,
+      "isSpend": false,
+      "saleDate": "2019-11-08T14:28:57.165+0000",
+      "remarks": "N/A"
+    },
+    {
+      "id": 1573223385587,
+      "description": "N/A",
+      "value": 100.0,
+      "isSpend": false,
+      "saleDate": "2019-11-08T14:29:45.587+0000",
+      "remarks": "Event revenue"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "order",
+      "userInputs": [
+        "add",
+        " order add"
+      ]
+    },
+    {
+      "name": "o",
+      "userInputs": [
+        "order add",
+        " order add"
+      ]
+    }
+  ]
 }

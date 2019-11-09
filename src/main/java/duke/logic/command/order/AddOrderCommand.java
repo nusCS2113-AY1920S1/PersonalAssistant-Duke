@@ -90,11 +90,13 @@ public class AddOrderCommand extends OrderCommand {
         Order toAdd = createOrder(addOrderDescriptor,
             model.getActiveProductList(),
             model.getFilteredInventoryList());
+
         model.addOrder(toAdd);
 
         model.commit(MESSAGE_COMMIT);
 
         logger.info(String.format("Added new order [%s]", toAdd.getId()));
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getId()), CommandResult.DisplayedPage.ORDER);
     }
 

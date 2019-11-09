@@ -120,7 +120,7 @@ public class Order {
         return status;
     }
 
-    public boolean isIsIngredientEnough() {
+    public boolean isIngredientEnough() {
         return isIngredientEnough.get();
     }
 

@@ -53,7 +53,7 @@ public class AutoCompleter {
 
         //If the current input is the same as the input pointed by suggestionPointer, it is guaranteed
         //to be auto-completable.
-        if (!suggestions.isEmpty() && input.equals(suggestions.get(suggestionPointer))) {
+        if (isSameAsPrevious(input)) {
             return true;
         }
 
@@ -67,6 +67,7 @@ public class AutoCompleter {
         }
 
         generateSuggestionInputs(input, suggestionWords);
+
         return true;
     }
 
@@ -95,7 +96,7 @@ public class AutoCompleter {
             suggestions.get(suggestionPointer).text
         ));
 
-        suggestionPointer = (suggestionPointer + 1) % suggestions.size();
+        moveForwardSuggestionPointer();
 
         return suggestions.get(suggestionPointer);
     }
@@ -134,6 +135,10 @@ public class AutoCompleter {
      */
     public void clearCommandClasses() {
         this.commandClasses.clear();
+    }
+
+    private void moveForwardSuggestionPointer() {
+        suggestionPointer = (suggestionPointer + 1) % suggestions.size();
     }
 
     /**
@@ -201,6 +206,9 @@ public class AutoCompleter {
             || input.getCurrentWord().isBlank();
     }
 
+    private boolean isSameAsPrevious(Input input) {
+        return !suggestions.isEmpty() && input.equals(suggestions.get(suggestionPointer));
+    }
     //=============== Field utilities ================
     /*
       Used to retrieve field values from command classes using Reflection API.

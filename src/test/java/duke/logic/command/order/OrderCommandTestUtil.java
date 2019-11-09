@@ -60,7 +60,6 @@ public class OrderCommandTestUtil {
     public static final String DESC_DATE_RORY = " " + PREFIX_ORDER_DEADLINE + " " + convertToValidDateString(VALID_DELIVERY_DATE_RORY);
 
     public static final String DESC_ITEMS_ALICE = convertToValidItemsString(VALID_ITEMS_ALICE);
-    public static final String DESC_ITEMS_RORY = convertToValidItemsString(VALID_ITEMS_RORY);
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

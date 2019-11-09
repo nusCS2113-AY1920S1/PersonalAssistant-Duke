@@ -93,7 +93,7 @@ public class OrderCard extends UiPart<AnchorPane> {
 
     private void initializedListener(Order order) {
         //Setup listener to update inventory status
-        updateInventoryStatus(order.isIsIngredientEnough(), order.getStatus());
+        updateInventoryStatus(order.isIngredientEnough(), order.getStatus());
         order.isIngredientEnoughProperty().addListener((observable, oldValue, newValue)
             -> updateInventoryStatus(newValue, order.getStatus()));
     }
