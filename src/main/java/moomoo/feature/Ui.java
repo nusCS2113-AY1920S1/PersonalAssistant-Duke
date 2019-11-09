@@ -27,6 +27,17 @@ public class Ui {
     }
 
     /**
+     * Clears the screen.
+     * @param shouldClearScreen if true, clear the screen, else don't.
+     */
+    public static void clearScreen(boolean shouldClearScreen) {
+        if (shouldClearScreen) {
+            System.out.print("\u001b[2J");
+            System.out.flush();
+        }
+    }
+
+    /**
      * Returns the value to be printed to the GUI.
      * @return String to be printed on the GUI
      */

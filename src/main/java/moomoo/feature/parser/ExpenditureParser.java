@@ -37,17 +37,21 @@ class ExpenditureParser extends Parser {
         String dateString = "";
         double amount = 0;
         LocalDate date;
-        String[] tokens = input.split("/|\\s+");
+        input = input.replace("c/", "/c/");
+        input = input.replace("a/", "/a/");
+        input = input.replace("n/", "/n/");
+        input = input.replace("d/", "/d/");
+        String[] tokens = input.split("/");
         int tokenCount = tokens.length;
         for (int i = 0; i < tokenCount; i++) {
             if (tokens[i].equals("c")) {
-                categoryName = tokens[i + 1];
+                categoryName = tokens[i + 1].toLowerCase().trim();
             } else if (tokens[i].equals("n")) {
-                expenditureName = tokens[i + 1];
+                expenditureName = tokens[i + 1].trim();
             } else if (tokens[i].equals("a")) {
-                amountString = tokens[i + 1];
+                amountString = tokens[i + 1].trim();
             } else if (tokens[i].equals("d")) {
-                dateString = tokens[i + 1];
+                dateString = tokens[i + 1].trim();
             }
         }
 
@@ -65,8 +69,6 @@ class ExpenditureParser extends Parser {
                     + "please use an double value e.g. 9.90.");
         } catch (DateTimeException e) {
             date = LocalDate.now();
-            Ui.showPrompt("Oops, the date you entered was not recognized and has been set to today's date,"
-                    + "you can still edit the date using the command <edit expenditure> with the format YYYY-MM-DD.");
         }
         if (amount > 0) {
             return new AddExpenditureCommand(expenditureName, amount, date, categoryName);
@@ -81,13 +83,15 @@ class ExpenditureParser extends Parser {
 
         String categoryName = "";
         String indexString = "";
-        String[] tokens = input.split("/|\\s+");
+        input = input.replace("c/", "/c/");
+        input = input.replace("i/", "/i/");
+        String[] tokens = input.split("/");
         int tokenCount = tokens.length;
         for (int i = 0; i < tokenCount; i++) {
             if (tokens[i].equals("c")) {
-                categoryName = tokens[i + 1];
+                categoryName = tokens[i + 1].toLowerCase().trim();
             } else if (tokens[i].equals("i")) {
-                indexString = tokens[i + 1];
+                indexString = tokens[i + 1].trim();
             }
         }
         try {

@@ -72,10 +72,10 @@ public class Parser {
 
     static String parseInput(Scanner scanner, String text) {
         if (scanner.hasNextLine()) {
-            return scanner.nextLine().trim();
+            return scanner.nextLine().trim().toLowerCase();
         } else {
             Ui.showPrompt(text);
-            return Ui.readCommand().trim();
+            return Ui.readCommand().trim().toLowerCase();
         }
     }
 

@@ -1,5 +1,6 @@
 package moomoo.command;
 
+import moomoo.feature.MooMooException;
 import moomoo.feature.ScheduleList;
 import moomoo.feature.Budget;
 import moomoo.feature.Ui;
@@ -16,7 +17,7 @@ public class TotalCommand extends Command {
 
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
-                        Storage storage) {
+                        Storage storage) throws MooMooException {
         list(categoryList);
         Ui.showEnterCategoryMessage();
         int cat = Ui.readNumber() - 1;
@@ -30,7 +31,7 @@ public class TotalCommand extends Command {
      * Prints the current list of categories.
      * @param categoryList list
      */
-    public void list(CategoryList categoryList) {
+    public void list(CategoryList categoryList) throws MooMooException {
         String categoryString = "";
         for (int i = 0; i < categoryList.size(); i++) {
             Category category = categoryList.get(i);

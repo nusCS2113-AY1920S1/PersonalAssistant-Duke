@@ -52,7 +52,7 @@ public class MainDisplay {
      * @param categoryList The CategoryList containing all the categories.
      * @return the maximum category size.
      */
-    public int getMaxCatSize(CategoryList categoryList) {
+    public int getMaxCatSize(CategoryList categoryList) throws MooMooException {
         int maxCatSize = 0;
         for (int i = 0; i < categoryList.size(); i++) {
             int newCatSize = 0;
@@ -99,7 +99,8 @@ public class MainDisplay {
      * @param budget       Budget to be passed into the function.
      * @return a string corresponding to the final output that is being displayed.
      */
-    public String toPrint(int month, int year, int rows, int cols, CategoryList categoryList, Budget budget) {
+    public String toPrint(int month, int year, int rows, int cols, CategoryList categoryList, Budget budget)
+            throws MooMooException {
 
         int expGap = 76;
         if (cols != 0) {

@@ -31,7 +31,7 @@ public class MainDisplayCommand extends Command {
      * @param storage Storage object for interaction with filesystem.
      */
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
-                        Storage storage) {
+                        Storage storage) throws MooMooException {
         MainDisplay newMainDisplay = new MainDisplay();
         int rows = newMainDisplay.getCatListSize(categoryList);
         int cols = newMainDisplay.getMaxCatSize(categoryList);

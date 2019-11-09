@@ -5,8 +5,10 @@ import moomoo.feature.Budget;
 import moomoo.feature.MooMooException;
 import moomoo.feature.ScheduleList;
 import moomoo.feature.Ui;
+import moomoo.feature.category.Category;
 import moomoo.feature.category.CategoryList;
 import moomoo.feature.parser.Parser;
+import moomoo.feature.storage.CategoryStorage;
 import moomoo.feature.storage.ExpenditureStorage;
 import moomoo.feature.storage.Storage;
 import moomoo.task.Cow;
@@ -22,14 +24,18 @@ public class MooMoo {
     private CategoryList categoryList;
     private Budget budget;
     public ScheduleList calendar;
+    private boolean shouldClearScreen;
 
     /**
      * Initializes different Category, Expenditures, Budget, Storage and Ui.
      */
     private MooMoo() {
+        shouldClearScreen = true;
+
         storage = new Storage("data/budget.txt","data/schedule.txt");
         try {
-            categoryList = ExpenditureStorage.loadFromFile();
+            categoryList = CategoryStorage.loadFromFile();
+            ExpenditureStorage.loadFromFile(categoryList);
         } catch (MooMooException e) {
             Ui.printException(e);
             Ui.showResponse();
@@ -70,8 +76,8 @@ public class MooMoo {
         while (!isExit) {
             try {
                 String fullCommand = Ui.readCommand();
-                System.out.print("\u001b[2J");
-                System.out.flush();
+                Ui.clearScreen(shouldClearScreen);
+                this.shouldClearScreen = true;
                 Command c = Parser.parse(fullCommand);
                 c.execute(calendar, budget, categoryList, storage);
 
@@ -83,6 +89,7 @@ public class MooMoo {
             } catch (MooMooException e) {
                 Ui.printException(e);
                 Ui.showResponse();
+                this.shouldClearScreen = false;
             }
         }
     }

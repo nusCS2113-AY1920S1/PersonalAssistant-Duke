@@ -3,19 +3,17 @@ package moomoo.feature;
 import moomoo.command.Command;
 import moomoo.feature.parser.Parser;
 import moomoo.stubs.CategoryListStub;
-import moomoo.stubs.CategoryStub;
 import moomoo.stubs.ScheduleListStub;
 import moomoo.stubs.StorageStub;
-import moomoo.stubs.UiStub;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ParserTest {
+class ParserTest {
     @Test
-    public void testParseSavingsBudgetCommand() {
+    void testParseSavingsBudgetCommand() {
         CategoryListStub newCatList = new CategoryListStub();
         newCatList.add(null);
 
@@ -37,9 +35,7 @@ public class ParserTest {
             newCatList.getCategoryList().get(i).add(null);
         }
 
-        CategoryStub newCategory = new CategoryStub();
         ScheduleListStub newCalendar = new ScheduleListStub();
-        UiStub newUi = new UiStub();
         StorageStub newStorage = new StorageStub();
         Budget newBudget = new Budget();
         Parser newParser = new Parser();
@@ -75,10 +71,8 @@ public class ParserTest {
     }
 
     @Test
-    public void testParseSetBudgetCommand() throws MooMooException {
-        CategoryStub newCategory = new CategoryStub();
+    void testParseSetBudgetCommand() throws MooMooException {
         ScheduleListStub newCalendar = new ScheduleListStub();
-        UiStub newUi = new UiStub();
         StorageStub newStorage = new StorageStub();
         Budget newBudget = new Budget();
         Parser newParser = new Parser();
@@ -129,7 +123,7 @@ public class ParserTest {
                 + "         \\  (oo)\\_______\n"
                 + "            (__)\\       )\\/\\\n"
                 + "                ||----w |\n"
-                + "                ||     ||\n", newUi.returnResponse());
+                + "                ||     ||\n", Ui.returnResponse());
 
         try {
             c = newParser.parse("budget set b/100 c/places to go b/150");
@@ -141,24 +135,22 @@ public class ParserTest {
     }
 
     @Test
-    public void testParseEditBudgetCommand() throws MooMooException {
+    void testParseEditBudgetCommand() throws MooMooException {
         CategoryListStub newCatList = new CategoryListStub();
         newCatList.add(null);
         Budget newBudget = new Budget();
         Parser newParser = new Parser();
-        CategoryStub newCategory = new CategoryStub();
         ScheduleListStub newCalendar = new ScheduleListStub();
         StorageStub newStorage = new StorageStub();
 
         Command c = newParser.parse("budget set c/food b/100 c/laptop b/125 c/places to go b/123");
         c.execute(newCalendar, newBudget, newCatList, newStorage);
 
-        UiStub newUi = new UiStub();
         c = newParser.parse("budget edit c/food c/laptop b/100 c/places to go b/150");
         c.execute(newCalendar, newBudget, newCatList, newStorage);
         assertEquals("The budget for food is the same.\n"
             + "You have changed the budget for laptop from $125.00 to $100.00\n"
-            + "You have changed the budget for places to go from $123.00 to $150.00\n", newUi.returnResponse());
+            + "You have changed the budget for places to go from $123.00 to $150.00\n", Ui.returnResponse());
 
         try {
             c = newParser.parse("budget edit b/100 c/places to go b/150");

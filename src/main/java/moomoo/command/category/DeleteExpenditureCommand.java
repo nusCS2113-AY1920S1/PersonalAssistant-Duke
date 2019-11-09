@@ -6,6 +6,7 @@ import moomoo.feature.Budget;
 import moomoo.feature.MooMooException;
 import moomoo.feature.ScheduleList;
 import moomoo.feature.Ui;
+import moomoo.feature.category.Category;
 import moomoo.feature.category.CategoryList;
 import moomoo.feature.category.Expenditure;
 import moomoo.feature.storage.ExpenditureStorage;
@@ -31,8 +32,13 @@ public class DeleteExpenditureCommand extends Command {
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
                         Storage storage) throws MooMooException {
+
+        Category cat = categoryList.get(categoryName);
+        if (cat == null) {
+            throw new MooMooException("Sorry I could not find a category named " + categoryName);
+        }
         try {
-            Expenditure expenditure = categoryList.get(categoryName).get(expenditureIndex);
+            Expenditure expenditure = cat.get(expenditureIndex);
             String name = expenditure.getName();
             ExpenditureStorage.deleteFromFile(expenditure.toString());
             categoryList.get(categoryName).delete(expenditureIndex);

@@ -1,74 +1,56 @@
 package moomoo.feature.storage;
 
 import moomoo.feature.MooMooException;
+import moomoo.feature.category.Category;
 import moomoo.feature.category.CategoryList;
-import moomoo.feature.category.Expenditure;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 
-public class ExpenditureStorage extends Storage {
+public class CategoryStorage extends Storage {
 
-    private static String filePath = "data/expenditure.txt";
+    private static String filePath = "data/category.txt";
 
     /**
      * Initializes storage and the filepath for each file.
      *
      * @param filePath category file path
      */
-    public ExpenditureStorage(String filePath) {
+    public CategoryStorage(String filePath) {
         super(filePath, filePath);
     }
 
     /**
      * Reads from a text file and loads data into a category list.
+     * @return category with data read from file
      * @throws MooMooException if unable to read file
      */
-    public static void loadFromFile(CategoryList categoryList) throws MooMooException {
+    public static CategoryList loadFromFile() throws MooMooException {
+        CategoryList categoryList = new CategoryList();
         try {
             File myNewFile = new File(filePath);
-            if (!myNewFile.createNewFile()) {
-                populateExpenditures(categoryList);
+            if (myNewFile.createNewFile()) {
+                return populateDefaultCategories(categoryList);
+            } else {
+                return populateDataCategories(categoryList);
             }
         } catch (IOException e) {
             throw new MooMooException("Sorry your data could not be loaded, but you may continue using the app.");
         }
     }
 
-    private static void populateExpenditures(CategoryList categoryList) throws IOException, MooMooException {
+    private static CategoryList populateDataCategories(CategoryList categoryList) throws IOException {
         List<String> input = Files.readAllLines(Paths.get(filePath));
         for (String line : input) {
-            String[] entry = line.split(" \\| ");
-            if (entry.length == 4) {
-                loadExpenditure(categoryList, entry, line);
-            } else {
-                deleteFromFile(line);
+            String categoryName = line.trim();
+            if (!categoryList.hasCategory(categoryName)) {
+                categoryList.add(new Category(categoryName));
             }
         }
-    }
-
-    private static void loadExpenditure(CategoryList categoryList, String[] entry, String line) throws MooMooException {
-        String category = entry[0];
-        String name = entry[1];
-        double cost;
-        LocalDate date;
-        try {
-            cost = Double.parseDouble(entry[2]);
-            date = LocalDate.parse(entry[3]);
-            Expenditure expenditure = new Expenditure(name, cost, date, category);
-            if (categoryList.hasCategory(category)) {
-                categoryList.get(category).add(expenditure);
-            } else {
-                deleteFromFile(line);
-            }
-        } catch (NumberFormatException | DateTimeParseException e) {
-            deleteFromFile(line);
-        }
+        return categoryList;
     }
 
     /**
@@ -83,7 +65,7 @@ public class ExpenditureStorage extends Storage {
             readString += (entry + "\n");
             Files.writeString(Paths.get(filePath), readString);
         } catch (IOException e) {
-            throw new MooMooException("Unable to write to file. Expenditure will not be saved.");
+            throw new MooMooException("Unable to write to file. Category will not be saved.");
         }
     }
 
@@ -96,14 +78,34 @@ public class ExpenditureStorage extends Storage {
         try {
             List<String> data = Files.readAllLines(Paths.get(filePath));
             for (String line : data) {
-                if (line.startsWith(entry)) {
+                if (line.contentEquals(entry)) {
                     data.remove(line);
                     break;
                 }
             }
             Files.write(Paths.get(filePath), data);
         } catch (IOException e) {
-            throw new MooMooException("Unable to write to file. But you may continue using the app.");
+            throw new MooMooException("Unable to write to file. Please retry again.");
         }
+    }
+
+
+    /**
+     * Creates a populated array of default categories.
+     * @param categoryList category list
+     * @return populated category list
+     * @throws MooMooException throws exception if file cannot be found
+     */
+    private static CategoryList populateDefaultCategories(CategoryList categoryList)
+            throws MooMooException {
+        categoryList.add(new Category("misc"));
+        categoryList.add(new Category("food"));
+        categoryList.add(new Category("transportation"));
+        categoryList.add(new Category("shopping"));
+        saveToFile("misc");
+        saveToFile("food");
+        saveToFile("transportation");
+        saveToFile("shopping");
+        return categoryList;
     }
 }

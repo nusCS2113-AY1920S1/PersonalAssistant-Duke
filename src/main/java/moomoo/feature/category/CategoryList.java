@@ -35,17 +35,28 @@ public class CategoryList {
      * @return The category with name equal to value, or null if it is not found.
      */
     public Category get(String value) throws MooMooException {
-        for (Category iterCategory : categoryList) {
-            if (iterCategory.name().equalsIgnoreCase(value)) {
-                return iterCategory;
+        for (Category category : categoryList) {
+            String name = category.name();
+            if (name.contentEquals(value)) {
+                return category;
             }
         }
         return null;
 
     }
 
-    public Category get(int i) throws IndexOutOfBoundsException {
-        return categoryList.get(i);
+    /**
+     * Returns the category at the specified index of a category list, throws exception if not found.
+     * @param i index of the category list
+     * @return category at the specified index
+     * @throws MooMooException if the index does not exist in the list
+     */
+    public Category get(int i) throws MooMooException {
+        try {
+            return categoryList.get(i);
+        } catch (IndexOutOfBoundsException e) {
+            throw new MooMooException("Sorry I couldn't find a category with that index.");
+        }
     }
 
     public ArrayList<Category> getCategoryList() {
