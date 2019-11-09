@@ -27,7 +27,7 @@ public class PartialModifyDebtCommand extends ModifyDebtCommand {
             updateUndoState(dollaData);
             Record originalDebt = dollaData.getRecordFromList(MODE_DEBT, index);
             overwriteComponents(originalDebt);
-            Debt newDebt = new Debt(type, name, amount, description, date, tagName);
+            Debt newDebt = new Debt(type, name, amount, description, date);
             dollaData.modifyRecordList(newDebt);
             ModifyUi.echoModifyRecord(newDebt);
             dollaData.updateMode(MODE_DEBT);
