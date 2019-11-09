@@ -451,12 +451,61 @@ will then be mapped to their corresponding events. This implementation method wo
 in identifying the ID of a particular goal and would generally makes the goal list less organised.
 
 === Past event management
-This functionality basically tracks which tasks in the list have already passed, and subsequently only displaying future
+This functionality basically tracks which tasks in the list have already passed, and subsequently only displays future
 tasks when the user uses the "list" command to view the list. This function is linked with the goals management function
 as it also detects unachieved goals in events that are already over.
 
 ==== How is it implemented
+The EventList class contains an integer attribute called currentDateIndex, which will be initialised to 0. The system will
+then compare the current date with the start dates of each of the events in the event list. Once an event that is in the
+future has been reached, the index of the event will be assigned to the currentDateIndex. After this has been done, the
+"list" command will only list out events starting from that particular index.
 
+Step 1: The integer attribute currentDateIndex in the EventList class instance will be initialised to 0 and the Date class
+currentDate attribute will be initialised to the system date and time of that instance
+
+Step 2: Whenever the user inputs the "list" command, the listOfEvents_String() method is called which will in turn call the
+findNextEventAndSetBoolean() method which takes in the Date class that has been initialised in step 1.
+
+Step 3: In the findNextEventAndSetBoolean() method, the start dates of each event are compared to the current date using
+Date class's compareTo() method using a for loop.
+
+Step 4: The moment the loop reaches an event that has not happened yet i.e. its start date is later than the current date,
+the index of the event in the list will be assigned to the currentDateIndex and the loop terminates.
+
+Step 5: Back in the listOfEvents_String() method, the list of events starting from the one with the same index integer as
+currentDateIndex will be returned to the UI class to be printed out.
+
+==== Why is it implemented this way
+This function is implemented this way to maximise the usefulness of the indexing nature of ArrayList. Even if an
+event has passed and the list no longer shows it, the indexes of all the events are kept constant. This is crucial as the
+commands for most of our functions require the user to indicate the index of an event they want to manipulate, and keeping
+them constant makes it very easy for the user to input commands without having to take note of the change in the event indexes
+after making any changes to the list.
+
+==== Alternatives considered
+We have considered the possibility of deleting the past events that are over. However, as mentioned above we require the indexing
+of the events to stay constant and by deleting the past events, the event indexes will change as well.
+
+==== Integration with goal list management
+===== Implementation
+The management of goals list can be integrated with the ability to track past events. This is done through a boolean attribute
+gotPastUnachieved in the EventList class. If true, there are unachieved goals for past events and vice versa.
+
+Step 1: User enters the "list" command. The listOfEvents_String() method is called which then calls the findNextEventAndSetBoolean() method.
+
+Step 1: Within the findNextEventAndSetBoolean() method, the attribute currentDateIndex is checked to see if it is more than 0. If it
+is, that means there are past events.
+
+Step 2: If there are past events, the method will enter a nest of two for loops. The outer loop runs through all the past events,
+while the inner loop iterates through the goal list for each individual past event.
+
+Step 3: Each time an inner loop is iterated through, the getBooleanStatus() method for the particular event will be called. If returns
+true, gotPastUnachieved will be assigned as true and the method will break out of the loop.
+
+Step 4: After the event list has been printed out, the method getPastEventsWithUnachievedGoals() is called. This method utilises two
+nested for loops to identify the unachieved goals among all the past events and passes both the past events along with all their
+unachieved goals to the UI class to be printed out below the event list.
 
 === Reminders
 

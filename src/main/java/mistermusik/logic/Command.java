@@ -416,21 +416,27 @@ public class Command {
      * Searches list for events found in a singular date, passes to UI for printing.
      */
     private void viewEvents(EventList events, UI ui) {
+        boolean isEventsFound;
         if (continuation.isEmpty()) {
             ui.printViewCommandInvalid();
         } else {
             String dateToView = continuation;
-            String foundEvent = "";
-            int viewIndex = 1;
+            ArrayList<String> eventsOnASpecificDate = new ArrayList<>();
             EventDate findDate = new EventDate(dateToView);
-            for (Event viewEvent : events.getEventArrayList()) {
+            for (int i = 0; i < events.getEventArrayList().size(); i += 1) {
+                Event viewEvent = events.getEvent(i);
+                String eventStringWithIndex = "";
                 if (viewEvent.toString().contains(findDate.getFormattedDateString())) {
-                    foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";
+                    eventStringWithIndex += i + 1 + ". " + viewEvent.toString();
+                    eventsOnASpecificDate.add(eventStringWithIndex);
                 }
-                viewIndex++;
             }
-            boolean isEventsFound = !foundEvent.isEmpty();
-            ui.printFoundEvents(foundEvent, isEventsFound);
+            if (eventsOnASpecificDate.isEmpty()) {
+                isEventsFound = false;
+            } else {
+                isEventsFound = true;
+            }
+            ui.printEventsOnASpecificDate(eventsOnASpecificDate, isEventsFound);
         }
     }
 
@@ -673,7 +679,6 @@ public class Command {
                         ui.printNoSuchGoal();
                     }
                     break;
-
                 default:
                     ui.printGoalCommandInvalid();
                     break;
