@@ -46,7 +46,12 @@ public class CreateNoteCommand extends Command {
         String bySpaces = "\\s+";
         String[] wordsInInputCommand = inputCommand.split(bySpaces);
 
-        if (createNoteCommandHasSpecifiedFileName(inputCommand) && !Command.containsIllegalCharacter(inputCommand)) {
+        if (commandHasMultipleParameters(wordsInInputCommand)) {
+            throw new CakeException("Additional Parameters in command detected!\n"
+                    + "Please type 'createnote [desired file name]'\n"
+                    + "Or simply 'createnote' for JavaCake for generate yummy file name for you!");
+        } else if (createNoteCommandHasSpecifiedFileName(inputCommand)) {
+            validateFileName(inputCommand);
             userGivenFileName = wordsInInputCommand[1];
         } else if (validCommandWithNoSpecifiedFileName(inputCommand)) {
             generateFileName();
@@ -54,6 +59,43 @@ public class CreateNoteCommand extends Command {
             throw new CakeException("Invalid command: To write notes, "
                     + "type 'createnote' followed by desired (optional) filename.");
         }
+    }
+
+    /**
+     * Checks if create command contains additional parameters appended to command.
+     * @param parameters Parameters within the createnote command.
+     * @return True if there are multiple parameters.
+     */
+    private boolean commandHasMultipleParameters(String[] parameters) {
+        return (parameters.length > 2);
+    }
+
+    /**
+     * Checks the validity of file name.
+     * Checks for illegal characters.
+     * Checks for length of file name.
+     * @param inputCommand CreateNoteCommand by user.
+     * @throws CakeException If user fails the checks listed above.
+     */
+    private void validateFileName(String inputCommand) throws CakeException {
+        String bySpaces = "\\s+";
+        String[] parameters = inputCommand.split(bySpaces);
+        String fileName = parameters[1];
+
+        if (Command.containsIllegalCharacter(inputCommand)) {
+            throw new CakeException("Special Character(s) detected! Please use another file name!");
+        } else if (fileNameExceedsWordLimit(fileName)) {
+            throw new CakeException("File name exceeds word limit! Maximum length for file name is 20");
+        }
+    }
+
+    /**
+     * Checks if file name has length more than 20.
+     * @param fileName Name of file from the user.
+     * @return True if file name exceeds word limit of 20.
+     */
+    private boolean fileNameExceedsWordLimit(String fileName) {
+        return (fileName.length() > 20);
     }
 
     /**

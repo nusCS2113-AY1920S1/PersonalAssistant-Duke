@@ -15,10 +15,6 @@ public class DeleteNoteCommand extends Command implements IFileUtilities {
     private static String fullFilePath;
     private static String defaultFilePath;
 
-    private static final char[] ILLEGAL_CHARACTERS = { '/', '\n', '\r', '\t',
-        '\0', '\f', '`', '?', '*', '\\', '<', '>', '|', '\"', ':', '.', ','};
-
-
     /**
      * Constructor for DeleteNoteCommand.
      * Command used to delete a specific existing notes.
@@ -82,7 +78,7 @@ public class DeleteNoteCommand extends Command implements IFileUtilities {
             throw new CakeException("Please indicate the file name you wish to delete");
         } else if (hasMultipleParams(parameters)) {
             throw new CakeException("Please only enter one file name! E.g. deletenote [name of file]");
-        } else if (hasIllegalCharacters(parameters[1])) {
+        } else if (Command.containsIllegalCharacter(inputCommand)) {
             throw new CakeException("Invalid file name: Illegal character in file name detected!");
         } else if (fileDoesNotExist(parameters[1])) {
             throw new CakeException("Invalid file name: No such file!");
@@ -129,29 +125,6 @@ public class DeleteNoteCommand extends Command implements IFileUtilities {
         return Storage.returnNotesDefaultFilePath();
     }
 
-    /**
-     * Checks if the input file name contains any illegal characters.
-     * @param inputFileName Specified file name by user.
-     * @return True if file name contains illegal characters.
-     */
-    private static boolean hasIllegalCharacters(String inputFileName) {
-        for (char illegalChar : ILLEGAL_CHARACTERS) {
-            if (containsIllegal(inputFileName, illegalChar)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Checks if file name contains illegal characters.
-     * @param inputFileName Name of input file.
-     * @param illegalChar Characters that are not allowed in file name.
-     * @return True if file name contains illegal character.
-     */
-    private static boolean containsIllegal(String inputFileName, char illegalChar) {
-        return inputFileName.indexOf(illegalChar) >= 0;
-    }
 
     /**
      * Checks if file exists in the note storage.
