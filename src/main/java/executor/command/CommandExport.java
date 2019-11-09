@@ -3,6 +3,7 @@ package executor.command;
 import com.opencsv.CSVWriter;
 import duke.exception.DukeException;
 import storage.StorageManager;
+import ui.Receipt;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -28,11 +29,20 @@ public class CommandExport extends Command {
             String[] header = {"ID", "Tag", "Amount", "Date"};
             writer.writeNext(header);
             storageManager.saveAllData();
-            String receipts = storageManager.getWallet().getReceipts().getPrintableReceipts();
-            String[] AllRowOfData  = receipts.split("\n");
-            for( String row : AllRowOfData) {
-                convertReceiptsToCsv(row, writer);
+//            String receipts = storageManager.getWallet().getReceipts().getPrintableReceipts();
+            int i = 0;
+            for(Receipt receipt :storageManager.getWallet().getReceipts()){
+                String eachRowOfData = (i + 1) + ". "
+                        + receipt.getTags().toString().replaceAll(" ", "") + " "
+                        + receipt.getCashSpent() + " " 
+                        + receipt.getDate();
+                convertReceiptsToCsv(eachRowOfData,writer);
+                i++;
             }
+//            String[] AllRowOfData  = receipts.split("\n");
+//            for( String row : AllRowOfData) {
+//                convertReceiptsToCsv(row, writer);
+//            }
             writer.close();
             this.infoCapsule.setCodeCli();
             this.infoCapsule.setOutputStr("data.csv has been created ! Please check the project folder \n");
