@@ -18,7 +18,7 @@ public class Task {
      * The enumeration of priority level.
      */
     public enum Priority {
-        HIGH, MEDIUM, MED, LOW
+        HIGH, MEDIUM, MED, LOW, NULL
     }
 
     /**
@@ -62,11 +62,6 @@ public class Task {
     protected ArrayList<String> linkedEmails;
 
     /**
-     * The priority assigned to the task.
-     */
-    protected String priority;
-
-    /**
      * The level of priority.
      */
     protected Priority level;
@@ -81,7 +76,6 @@ public class Task {
         this.isDone = false;
         this.doAfterDescription = null;
         this.tags = new ArrayList<>();
-        this.priority = null;
         this.linkedEmails = new ArrayList<>();
         this.level = null;
     }
@@ -169,8 +163,8 @@ public class Task {
     }
 
     /**
-     * The function checks whether this task, when converted to string, contains the keyword specified.
-     * Case ignored.
+     * The function checks whether this task, when converted to string, contains the keyword specified. Case
+     * ignored.
      *
      * @param keyword search target string
      * @return a flag whether the keyword is found in the task string
@@ -214,24 +208,38 @@ public class Task {
         this.tags = tags;
     }
 
+    public ArrayList<String> getTags() {
+        return tags;
+    }
+
     public void setDoAfterDescription(String description) {
         this.doAfterDescription = description;
     }
 
-    /**
-     * Set priority of task.
-     *
-     * @param priority priority level of task.
-     */
-    public void setPriorityTo(Priority priority) {
-        if (priority == null) {
-            this.priority = "";
-        } else {
-            this.priority = priority.name();
-        }
-    }
-
     public void setPriorityLevelTo(Priority level) {
         this.level = level;
+    }
+
+    public Priority getPriority() {
+        return this.level;
+    }
+
+    /**
+     * Get the priority level of task by user input.
+     *
+     * @param input user input
+     * @return priority level of task.
+     */
+    public static Priority getPriorityLevel(String input) {
+        Priority level = null;
+        if (level.HIGH.name().equals(input)) {
+            return level.HIGH;
+        } else if (level.MEDIUM.name().equals(input) || level.MED.name().equals(input)) {
+            return level.MEDIUM;
+        } else if (level.LOW.name().equals(input)) {
+            return level.LOW;
+        } else {
+            return level.NULL;
+        }
     }
 }

@@ -6,6 +6,8 @@ import javafx.util.Duration;
 import seedu.duke.common.model.Model;
 import seedu.duke.common.network.Http;
 import seedu.duke.common.network.SimpleServer;
+import seedu.duke.common.storage.ResourceHelper;
+import seedu.duke.common.storage.StorageHelper;
 import seedu.duke.ui.UI;
 
 import java.util.logging.Logger;
@@ -53,6 +55,10 @@ public class Duke {
      * Main function of the GUI program.
      */
     private void run() {
+        logger.info("preparing data files");
+        StorageHelper.constructDataDirectory();
+        //ResourceHelper.prepareTestFile();
+        ResourceHelper.applyTestData();
         logger.info("initializing UI");
         UI.getInstance().initUi();
         logger.info("initializing Model");
