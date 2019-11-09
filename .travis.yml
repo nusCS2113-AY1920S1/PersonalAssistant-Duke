@@ -18,6 +18,10 @@ before_deploy:
   - git config --local user.name "jwyf"
   - git config --local user.email "e0311252@u.nus.edu"
 
+env:
+  global:
+    - COVERALLS_REPO_TOKEN=REPO_TOKEN
+
 deploy:
   provider: releases
   api_key:
@@ -30,3 +34,6 @@ deploy:
     on_success: always
     on_failure: never
     tags: true
+
+after_success:
+  - ./gradlew test jacocoTestReport coveralls
