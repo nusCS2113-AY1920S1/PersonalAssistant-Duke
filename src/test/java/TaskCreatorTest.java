@@ -1,4 +1,6 @@
+import CustomExceptions.DuplicateException;
 import CustomExceptions.RoomShareException;
+import CustomExceptions.TimeClashException;
 import Enums.Priority;
 import Enums.RecurrenceScheduleType;
 import Enums.TimeUnit;
@@ -23,6 +25,7 @@ public class TaskCreatorTest {
     private static String input3 = "add #leave# (description) &24/12/2019 18:00&25/12/2019 18:00& @Harry@";
     private static String updates = "update 1 (another description) &22/12/2020 19:00& *medium* %day% " +
             "@bob@ ^120 minutes^";
+
     @Test
     void extractDescription() {
         try {
@@ -150,6 +153,10 @@ public class TaskCreatorTest {
             assertEquals(meeting1.getDescription(), "description");
         } catch (RoomShareException e) {
             e.printStackTrace();
+        } catch (DuplicateException e) {
+            e.printStackTrace();
+        } catch (TimeClashException e) {
+            e.printStackTrace();
         }
 
         try {
@@ -163,7 +170,7 @@ public class TaskCreatorTest {
             assertEquals(meeting2.getTimeUnit(), TimeUnit.unDefined);
             assertEquals(meeting2.getDuration(), "0");
             assertEquals(meeting2.getRecurrenceSchedule(), RecurrenceScheduleType.none);
-        } catch (RoomShareException e) {
+        } catch (RoomShareException | DuplicateException | TimeClashException e) {
             e.printStackTrace();
         }
 
@@ -177,7 +184,7 @@ public class TaskCreatorTest {
             assertEquals(leave.getDescription(), "description");
             assertEquals(leave.getPriority(), Priority.low);
             assertEquals(leave.getRecurrenceSchedule(), RecurrenceScheduleType.none);
-        } catch (RoomShareException e) {
+        } catch (RoomShareException | DuplicateException | TimeClashException e) {
             e.printStackTrace();
         }
     }
@@ -199,6 +206,10 @@ public class TaskCreatorTest {
             assertEquals(meeting.getTimeUnit(), TimeUnit.minutes);
             assertEquals(meeting.getRecurrenceSchedule(), RecurrenceScheduleType.day);
         } catch (RoomShareException | ParseException e) {
+            e.printStackTrace();
+        } catch (DuplicateException e) {
+            e.printStackTrace();
+        } catch (TimeClashException e) {
             e.printStackTrace();
         }
     }

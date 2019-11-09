@@ -7,7 +7,7 @@ public class RoomShareException extends Exception {
     private static final String OUT_OF_BOUNDS_TEXT = "\tIndex is out of Bounds!\n";
     private static final String ANOMALY_TEXT = "\tAnomaly Detected\n";
     private static final String EMPTY_LIST_TEXT = "\tList is empty\n";
-    private static final String TIME_CLASH_TEXT = "\tTime Clash Detected\n";
+
     private static final String WRONG_FORMAT_TEXT = "\tWrong Format Detected\n";
     private static final String WRONG_PRIORITY_TEXT = "\tYou've entered wrong format of priority\n";
     private static final String SUB_TASK_TEXT = "\tOnly Assignments are supported with Subtasks\n";
@@ -24,7 +24,6 @@ public class RoomShareException extends Exception {
     public static final String NEGATIVE_AMOUNT_TEXT = "\tThe amount of time cannot be negative.\n";
     public static final String EMPTY_SUB_TASK = "\tYou haven't included your list of sub-tasks\n";
     public static final String DUPLICATE_SUB = "\tDuplicate subtask detected\n";
-    public static final String DUPLICATE_TASK = "\tDuplicate task detected\n";
     public static final String LEAVE_DONE = "\tLeave cannot be set to done\n";
     public static final String INVALID_INPUT_TEXT = "\tYour input String seems to be wrong.\n"
             +"\tPlease check your formatting and ensure that the use of special characters are correct!\n";
@@ -33,7 +32,7 @@ public class RoomShareException extends Exception {
     public static final String WRONG_DATE_FORMAT_TEXT = "\tYou've entered invalid date or time\n";
     public static final String EMPTY_INDEX = "\tPlease enter a valid index within the range of the list! Eg. restore 1\n";
     private static final String INVALID_LEAVE_DATE_MESSAGE = "\tPlease check your dates for your leave!\n";
-
+    private static final String NO_SUCH_SUBTASK = "\tSubtask does not exist!\n";
 
     private String message;
     /**
@@ -62,10 +61,6 @@ public class RoomShareException extends Exception {
 
         case wrongTimeFormat:
             message = WRONG_TIME_FORMAT_TEXT;
-            break;
-
-        case timeClash:
-            message = TIME_CLASH_TEXT;
             break;
 
         case wrongFormat:
@@ -119,10 +114,6 @@ public class RoomShareException extends Exception {
         case duplicateSubtask:
             message = DUPLICATE_SUB;
             break;
-
-        case duplicateTask:
-            message = DUPLICATE_TASK;
-            break;
             
         case leaveDone:
             message = LEAVE_DONE;
@@ -150,6 +141,10 @@ public class RoomShareException extends Exception {
 
         case emptyIndex:
             message = EMPTY_INDEX;
+            break;
+
+        case noSubtask:
+            message = NO_SUCH_SUBTASK;
             break;
 
         default:
