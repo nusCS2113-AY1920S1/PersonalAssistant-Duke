@@ -323,9 +323,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |Archive a product |In case my business has evolved but I do not want to lose an older product
 
-|`* *` |user |Have a default ingredient cost calculated for me even if I don't enter the cost |Have something to refer to when deciding the cost
+|`* *` |user |Have a default ingredient cost calculated for me even if I don't enter the cost |Have
+something to refer to when deciding the retail price
 
-|`*` |user |Have my ingredient information in product automatically when the corresponding ingredient is changed |Cut back on have to do duplicate work by re-entering the new information
+|`* *` |user | Search for a product through keywords| find a product easily when the list gets long.
+
+|`* *`|user | Sort products through name, cost, price, profit| find a product easily when the list gets long.
 
 |`* * *` |user |Add new orders |Track the orders that have been placed
 
@@ -418,13 +421,14 @@ _{More to be added}_
 == Non Functional Requirements
 
 . Should be an open-source project.
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` installed.
 . Should be able to hold up to 100 orders without a noticeable sluggishness in performance for typical usage.
-. Should be able to hold up to 300 recipes without a noticeable sluggishness in performance for typical usage.
+. Should be able to hold up to 300 products without a noticeable sluggishness in performance for typical
+usage.
 . Should be able to hold up to 300 sales entries without a noticeable sluggishness in performance for typical usage.
 . Should have a low response time of not more than 2 seconds.
-.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. A user would be able to execute every operation with typing only, and without the assist of a mouse.
 
 _{More to be added}_
 
