@@ -53,7 +53,7 @@ public class DebtUi extends Ui {
     public static void printInvalidBillFormatError() {
         System.out.println(line);
         System.out.println("\tplease follow the format "
-                + "'bill [NUMBER OF PEOPLE] [TOTAL AMOUNT] [NAME1] [NAME2]...'");
+                + "'bill [NUMBER OF PEOPLE] [TOTAL AMOUNT] [NAME 1] [NAME 2]...[NAME NUMBER OF PEOPLE]");
         System.out.println(line);
     }
 
@@ -79,6 +79,15 @@ public class DebtUi extends Ui {
     }
 
     /**
+     * Print invalid bill number message.
+     */
+    public static void printInvalidBillNumberError() {
+        System.out.println(line);
+        System.out.println("\tPlease input a valid bill number.");
+        System.out.println(line);
+    }
+
+    /**
      * Print message to notify a bill that has been paid by everyone.
      */
     public static void printFinishMessage() {
@@ -97,7 +106,15 @@ public class DebtUi extends Ui {
     }
 
     /**
-     * Pritn invalid name message.
+     * print wrong number of people for bill message.
+     */
+    public static void printWrongPeopleNumberMessage(int people) {
+        System.out.println(line);
+        System.out.println("\tPlease enter " + people + " names.");
+    }
+
+    /**
+     * Print invalid name message.
      */
     public static void printInvalidNameMessage() {
         System.out.println(line);
@@ -105,6 +122,19 @@ public class DebtUi extends Ui {
         System.out.println(line);
     }
 
+    /**
+     * print name not found message.
+     */
+    public static void printNameNotFound() {
+        System.out.println(line);
+        System.out.println("\tThis name is not found in the list.");
+        System.out.println(line);
+    }
+
+    //@@ author: omupenguin
+    /**
+     * Prints an error message informing the user that the type of debt entered is invalid.
+     */
     public static void printInvalidDebtType() {
         System.out.println(line);
         System.out.println("\tThe type can only be 'owe' or 'borrow'.");

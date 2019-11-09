@@ -1,4 +1,4 @@
-package dolla;
+package dolla.model;
 
 import dolla.model.Debt;
 import dolla.model.DebtList;

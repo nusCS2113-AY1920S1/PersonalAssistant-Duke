@@ -1,12 +1,12 @@
 package dolla.parser;
 
-
-import dolla.command.AddShortcutCommand;
 import dolla.command.Command;
-import dolla.command.ErrorCommand;
 import dolla.command.ShowListCommand;
-import dolla.command.ExecuteShortcutCommand;
+import dolla.command.SearchCommand;
 import dolla.command.RemoveCommand;
+import dolla.command.ErrorCommand;
+import dolla.command.AddShortcutCommand;
+import dolla.command.ExecuteShortcutCommand;
 
 public class ShortcutParser extends Parser {
 
@@ -42,6 +42,12 @@ public class ShortcutParser extends Parser {
         case SHORTCUT_COMMAND_EXECUTE:
             if (verifyShortcut()) {
                 return new ExecuteShortcutCommand(inputArray[1]);
+            } else {
+                return new ErrorCommand();
+            }
+        case COMMAND_SEARCH:
+            if (verifyShortcutSearchCommand()) {
+                return new SearchCommand(mode, inputArray[1], inputArray[2]);
             } else {
                 return new ErrorCommand();
             }
