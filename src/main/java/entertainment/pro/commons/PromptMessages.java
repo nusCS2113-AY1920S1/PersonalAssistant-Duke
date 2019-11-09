@@ -158,15 +158,7 @@ public class PromptMessages {
     public static final String EXECUTING_MISTYPED_COMMAND = "Executing mistyped command";
 
 
-    //API Messages
-    public static final String RECACHING_DATA_API_ERROR = "Sorry, but something went wrong when recaching data";
-    public static final String API_FAIL_GENERAL = "I'sorry, but something went wrong when fetching data. Please specify your search request clearly...";
-    public static final String API_NULL_DATA = "Null data in API";
-    public static final String API_TIME_OUT = "☹ I'sorry, but your request took so long";
-    public static final String API_MALFORMED_URL = "Malformed URL in fetching data";
-    public static final String SOCKET_TIMEOUT_URL = "Socket Timeout in fetching data";
-    public static final String IO_ERROR_URL = "I/O Exception in fetching data";
-    public static final String API_INVALID_REQUEST = "☹ I'sorry, but your request is either unclear or invalid";
+    
 
     // file related messages
     public static final String FILE_NOT_FOUND = "File not found!";
