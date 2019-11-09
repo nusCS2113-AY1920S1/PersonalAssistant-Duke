@@ -74,6 +74,10 @@ public class Instruction {
         return input.startsWith("list payments");
     }
 
+    public boolean isListPayees(String input) {
+        return input.startsWith("list payees");
+    }
+
     public boolean isDeletePayee(String input) {
         return input.startsWith("delete payee");
     }

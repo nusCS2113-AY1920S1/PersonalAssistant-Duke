@@ -1,6 +1,22 @@
 {
   "rag": {
     "managermap": {
+      "p": {
+        "payee": "p",
+        "email": "e",
+        "matricNum": "m",
+        "phoneNum": "ph",
+        "payments": [
+          {
+            "payee": "p",
+            "item": "i",
+            "cost": 1.0,
+            "inv": "v",
+            "deadline": "Dec 8, 2019, 1:55:23 AM",
+            "status": "PENDING"
+          }
+        ]
+      },
       "Karan Sarat": {
         "payee": "Karan Sarat",
         "email": "karansarat@u.nus.edu",
@@ -12,8 +28,8 @@
             "item": "Venue Rental",
             "cost": 2345.0,
             "inv": "INV-01",
-            "deadline": "Dec 7, 2019, 7:21:15 PM",
-            "status": "APPROVED"
+            "deadline": "Dec 8, 2019, 1:54:08 AM",
+            "status": "PENDING"
           }
         ]
       }

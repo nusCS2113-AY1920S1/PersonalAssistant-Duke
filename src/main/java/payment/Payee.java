@@ -29,4 +29,11 @@ public class Payee {
         this.payments = new ArrayList<Payments>();
     }
 
+    public void printPayee() {
+        System.out.println("\t" + "Payee: " + this.payee);
+        System.out.println("\t" + "Email: " + this.email);
+        System.out.println("\t" + "Matric No: " + this.matricNum);
+        System.out.println("\t" + "Phone No: " + this.phoneNum);
+    }
+
 }

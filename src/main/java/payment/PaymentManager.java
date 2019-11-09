@@ -5,10 +5,13 @@ import ui.Ui;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Set;
 
+import common.AlphaNUSException;
 
 /**
- * PaymentManager for managing Payments objects and PaymentForms from the PaymentsList.
+ * PaymentManager for managing Payments objects and PaymentForms from the
+ * PaymentsList.
  */
 public abstract class PaymentManager {
 
@@ -38,7 +41,8 @@ public abstract class PaymentManager {
     }
 
     /**
-     * Finds the Payments objects containing a payee name and returns a list of Payments.
+     * Finds the Payments objects containing a payee name and returns a list of
+     * Payments.
      *
      * @param payee Payee of the item.
      */
@@ -49,10 +53,11 @@ public abstract class PaymentManager {
     }
 
     /**
-     * Edits the Payments object details, may overload string to take different ways of inputs.
+     * Edits the Payments object details, may overload string to take different ways
+     * of inputs.
      */
-    public static void editPayee(String payee, String inv, String fieldToAmend, 
-        String replace, HashMap<String, Payee> managermap, Ui ui) {
+    public static void editPayee(String payee, String inv, String fieldToAmend, String replace,
+            HashMap<String, Payee> managermap, Ui ui) {
         Field field = strToField(fieldToAmend);
         if (inv.isEmpty()) {
             if (field == Field.PAYEE) {
@@ -87,14 +92,15 @@ public abstract class PaymentManager {
                     break;
                 }
             }
-            assert (false); //Invalid invoice number <-- TODO : Raise error
+            assert (false); // Invalid invoice number <-- TODO : Raise error
         }
     }
 
     /**
-     * List the Payments object details, may extend to generate statement of accounts.
+     * List the Payments object details, may extend to generate statement of
+     * accounts.
      */
-    public static ArrayList<ArrayList<Payments>> listPayments(HashMap<String, Payee> managermap) {
+    public static ArrayList<ArrayList<Payments>> listOfPayments(HashMap<String, Payee> managermap) {
         ArrayList<ArrayList<Payments>> listOfPayments = new ArrayList<>();
         ArrayList<Payments> overdue = new ArrayList<>();
         ArrayList<Payments> pending = new ArrayList<>();
@@ -116,8 +122,10 @@ public abstract class PaymentManager {
         return listOfPayments;
     }
 
+
     /**
      * Deletes the Payments object details.
+     * 
      */
     public static Payments deletePayments(String payee, String item, HashMap<String, Payee> managermap) {
         int i = 0;
@@ -134,10 +142,13 @@ public abstract class PaymentManager {
 
     /**
      * Add the Payments object details to PaymentsList.
+     * 
+     * @throws AlphaNUSException
      */
     public static Payments addPayments(String payee, String item, double cost, String inv,
-                                       HashMap<String, Payee> managermap) {
+            HashMap<String, Payee> managermap, Set<String> dict) throws AlphaNUSException {
         Payments pay = new Payments(payee, item, cost, inv);
+        pay.paymentToDict(dict);
         managermap.get(payee).payments.add(pay);
         return pay;
     }

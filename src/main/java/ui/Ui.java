@@ -1,5 +1,6 @@
 package ui;
 
+import common.AlphaNUSException;
 import common.CommandFormat;
 import common.TaskList;
 import payment.Payee;
@@ -8,10 +9,12 @@ import payment.Status;
 import project.Fund;
 import project.Project;
 import task.Task;
+import ui.Suggest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * Ui to interact with the user.
@@ -30,6 +33,7 @@ public class Ui {
 
     /**
      * Reads input from the user.
+     * 
      * @return Input from the user.
      */
     public String readInput() {
@@ -69,13 +73,14 @@ public class Ui {
 
     /**
      * Prints a message to list all projects in the record.
+     * 
      * @param projectslist ArrayList containing all projects in record.
      */
     public void printProjectsList(ArrayList<Project> projectslist) {
         int index = 1;
         System.out.print(line);
         System.out.println("\t" + "Here is the list of projects:");
-        for (Project project: projectslist) {
+        for (Project project : projectslist) {
             System.out.println("\t" + index + ". " + project.projectname);
             index++;
         }
@@ -85,7 +90,8 @@ public class Ui {
 
     /**
      * Prints a message to indicate that a project has been added.
-     * @param newProject The project that was added.
+     * 
+     * @param newProject  The project that was added.
      * @param projectsize The current number of projects in the projectmap.
      */
     public void printAddProject(Project newProject, int projectsize) {
@@ -100,8 +106,9 @@ public class Ui {
 
     /**
      * Prints a message to indicate that a project has been deleted.
+     * 
      * @param deletedProject The project that was deleted.
-     * @param projectsize The current number of projects in the projectmap.
+     * @param projectsize    The current number of projects in the projectmap.
      */
     public void printDeleteProject(Project deletedProject, int projectsize) {
         System.out.print(line);
@@ -114,10 +121,11 @@ public class Ui {
     }
 
     /**
-     * Prints the number of projects in the projectmap and the current project
-     * that is being worked on.
+     * Prints the number of projects in the projectmap and the current project that
+     * is being worked on.
+     * 
      * @param currentprojectname Name of the current project.
-     * @param projectsize The current number of projects in the projectmap.
+     * @param projectsize        The current number of projects in the projectmap.
      */
     public void printProjectStatus(String currentprojectname, int projectsize) {
         System.out.print(line);
@@ -132,6 +140,7 @@ public class Ui {
 
     /**
      * Prints message to indicate the project that is gone to.
+     * 
      * @param projectname Name of project that is gone to.
      */
     public void printGoToProject(String projectname) {
@@ -141,8 +150,10 @@ public class Ui {
     }
 
     /**
-     * Prints the list of tasks or the matching list of tasks depending on the command.
-     * @param list TaskList of the user.
+     * Prints the list of tasks or the matching list of tasks depending on the
+     * command.
+     * 
+     * @param list    TaskList of the user.
      * @param command Command given by the user.
      */
     public void printList(TaskList list, String command) {
@@ -165,6 +176,7 @@ public class Ui {
 
     /**
      * prints the list of input commands entered by the user.
+     * 
      * @param list1 list of input commands entered by the user.
      */
     public void printHistoryList(ArrayList<String> list1) {
@@ -175,8 +187,11 @@ public class Ui {
     }
 
     /**
-     * prints the list of input commands entered by the user within the given period.
-     * @param list1 list of input commands entered by the user within the given period.
+     * prints the list of input commands entered by the user within the given
+     * period.
+     * 
+     * @param list1 list of input commands entered by the user within the given
+     *              period.
      */
     public void printviewHistoryList(ArrayList<String> list1, String date1, String date2) {
         System.out.println("Here is the history of your input commands from " + date1 + " to " + date2 + ":");
@@ -187,33 +202,36 @@ public class Ui {
 
     /**
      * Prints dates from which history was cleared.
+     * 
      * @param date1 from date to delete history.
      * @param date2 to date to delete history.
      */
     public void printdeletehistory(String date1, String date2) {
-        System.out.println("Got it. The input commands from " + date1 + " to " 
-            + date2 + " have been deleted from the history");
+        System.out.println(
+                "Got it. The input commands from " + date1 + " to " + date2 + " have been deleted from the history");
     }
-
 
     /**
      * Prints the list of payments of a payee.
+     * 
      * @param paymentList paymentList of the payee.
      */
-    public void printPaymentList(ArrayList<Payments> paymentList) {
-        System.out.println("Here are your payments:");
+    public void printPaymentList(String name, ArrayList<Payments> paymentList) {
+        System.out.println("Here are your payments in" + name + ":");
         int i = 0;
         for (Payments payments : paymentList) {
             System.out.println("Payment " + ++i + ":");
-            payments.givePayments();
+            payments.printPayment();
         }
     }
 
     /**
      * Prints the list of payments of a payee.
+     * 
      * @param paymentList paymentList of the payee.
      */
-    public void printPaymentList(ArrayList<Payments> paymentList, Status status) {
+    public void printPaymentList(String name, ArrayList<Payments> paymentList, Status status) {
+        System.out.println("In Project " + name + ";");
         if (status == Status.PENDING) {
             System.out.println("Here are your pending payments:");
         } else if (status == Status.OVERDUE) {
@@ -224,18 +242,35 @@ public class Ui {
         int i = 0;
         for (Payments payments : paymentList) {
             System.out.println("Payment " + ++i + ":");
-            payments.givePayments();
+            payments.printPayment();
         }
     }
 
     /**
-     * Prints message to indicate deletion of a Payment from the Payee and the number of Payments left.
+     * Prints the list of payees of a project.
+     * @param prName the name of the project
+     * @param managerMap a HashMap of the payees in a project.
+     */
+    public void printPayeeList(String prName, HashMap<String, Payee> managerMap) {
+        System.out.println("Here are your payees in Project " + prName + ":");
+        int i = 0;   
+        for (Payee payee : managerMap.values()) {
+            System.out.println("Payee " + ++i + ":");
+            payee.printPayee();
+        }
+    }
+
+    /**
+     * Prints message to indicate deletion of a Payment from the Payee and the
+     * number of Payments left.
+     * 
      * @param payment Representation of the Payment that is deleted.
-     * @param size the number of payments in the record for this Payee after deletion
+     * @param size    the number of payments in the record for this Payee after
+     *                deletion
      */
     public void printDeletePaymentMessage(Payments payment, int size, String currentProjectName) {
         System.out.print(line + "     Noted. I've removed this payment: \n");
-        payment.givePayments();
+        payment.printPayment();
         System.out.print("\t" + payment.payee + " now has " + size 
             + " payments in project " + currentProjectName + ".\n");
         System.out.print(line);
@@ -243,7 +278,8 @@ public class Ui {
 
     /**
      * Prints message to indicate a Task is done.
-     * @param numdone Index of the Task in the TaskList.
+     * 
+     * @param numdone  Index of the Task in the TaskList.
      * @param tasklist TaskList of the user.
      */
     public void printDoneMessage(int numdone, TaskList tasklist) {
@@ -254,7 +290,8 @@ public class Ui {
 
     /**
      * Prints message to indicate a task being added.
-     * @param task Task.
+     * 
+     * @param task     Task.
      * @param tasklist Tasklist.
      */
     public void printAddedMessage(Task task, TaskList tasklist) {
@@ -267,6 +304,7 @@ public class Ui {
 
     /**
      * Prints message to indicate a Task being snoozed.
+     * 
      * @param task Task to be snoozed.
      */
     public void printSnoozeMessage(Task task) {
@@ -277,6 +315,7 @@ public class Ui {
 
     /**
      * Prints message to indicate a Task being postponed.
+     * 
      * @param task Task to be postponed.
      */
     public void printPostponeMessage(Task task) {
@@ -287,6 +326,7 @@ public class Ui {
 
     /**
      * Prints message to indicate a Task being rescheduled.
+     * 
      * @param task Task to be snoozed.
      */
     public void printRescheduleMessage(Task task) {
@@ -297,29 +337,29 @@ public class Ui {
 
     /**
      * Prints message to indicate a payee has been edited.
+     * 
      * @param payee Payee that had been edited.
      */
     public void printEditMessage(Payee payee) {
         System.out.print(line + "     Got it. I've edited this payee:  \n");
-        System.out.println("\t" + "Payee: " + payee.payee);
-        System.out.println("\t" + "Email: " + payee.email);
-        System.out.println("\t" + "Matric No: " + payee.matricNum);
-        System.out.println("\t" + "Phone No: " + payee.phoneNum);
+        payee.printPayee();
         System.out.print(line);
     }
-    
+
     /**
      * Prints message to indicate a payment has been edited.
+     * 
      * @param payment Payment that had been edited
      */
     public void printEditMessage(Payments payment, String name) {
         System.out.print(line + "     Got it. I've edited this payment:  \n");
-        payment.givePayments();
+        payment.printPayment();
         System.out.print(line);
     }
 
     /**
      * Prints the message for the exception thrown.
+     * 
      * @param message Exception message.
      */
     public void exceptionMessage(String message) {
@@ -330,35 +370,36 @@ public class Ui {
 
     /**
      * Prints message to indicate a Payment being added to a certain Payee.
-     * @param payment the new Payment containing the relevant information added to Payee object.
+     * 
+     * @param payment the new Payment containing the relevant information added to
+     *                Payee object.
      */
     public void printAddPaymentMessage(Payments payment, int size, String currentProjectName) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've added this payment:");
-        payment.givePayments();
-        System.out.print("\t" + payment.payee + " now has " + size 
-            + " payments in project " + currentProjectName + ".\n");
+        payment.printPayment();
+        System.out.print(
+                "\t" + payment.payee + " now has " + size + " payments in project " + currentProjectName + ".\n");
         System.out.print(line);
     }
 
     /**
      * Prints message to indicate a Payment being added to a certain Payee.
+     * 
      * @param payee Payee containing identification information of Payee.
-     * @param name the name of Payee to make Payments to.
+     * @param name  the name of Payee to make Payments to.
      */
     public void printAddPayeeMessage(String name, Payee payee, int payeesize, String currentProjectName) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've added this payee:");
-        System.out.println("\t" + "Payee: " + name);
-        System.out.println("\t" + "Email: " + payee.email);
-        System.out.println("\t" + "Matric No: " + payee.matricNum);
-        System.out.println("\t" + "Phone No: " + payee.phoneNum);
+        payee.printPayee();
         System.out.print("\t" + "There are " + payeesize + " payees in project " + currentProjectName + ".\n");
         System.out.print(line);
     }
 
     /**
      * Prints message to indicate a deadline with an invoice added.
+     * 
      * @param task Task to be edited.
      */
     public void printAddInvoiceMessage(Task task) {
@@ -369,19 +410,26 @@ public class Ui {
 
     /**
      * Prints message to indicate a Payment being deleted.
+     * 
      * @param payee Payee containing identification information of Payee.
-     * @param name the name of Payee to make Payments to.
+     * @param name  the name of Payee to make Payments to.
      */
     public void printdeletePayeeMessage(String name, Payee payee, int payeesize, String currentProjectName) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've deleted this payee:");
-        System.out.println("\t" + "Payee: " + name);
-        System.out.println("\t" + "Email: " + payee.email);
-        System.out.println("\t" + "Matric No: " + payee.matricNum);
-        System.out.println("\t" + "Phone No: " + payee.phoneNum);
+        payee.printPayee();
         System.out.print("\t" + "There are " + payeesize + " payees in project " + currentProjectName + ".\n");
         System.out.print(line);
     }
+
+    public void printSuggestion(Set<String> dict, String input, String word) throws AlphaNUSException {
+        
+        Suggest suggest = new Suggest();
+        String suggestion = suggest.guess(dict, word);
+        String replacement = input.replaceFirst(word, suggestion);
+        exceptionMessage("Maybe you meant: " + replacement);
+    }
+
 
     /**
      * Prints message of adding a fund to all projects.
