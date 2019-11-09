@@ -8,14 +8,14 @@ import java.io.IOException;
 import java.util.Map;
 
 public class FindPlacesCommand {
+    private static final String LINE_BREAK = "------------------------------------------\n";
     /**
      * Search for a place prints places that you searched for.
      *
      * @param ui the object that deals with printing things to the user.
      * @param places Map each place to a location
-     * @param lineBreak String separator
-     */
-    public FindPlacesCommand(Ui ui, Map<String,String> places, String lineBreak) throws ArrayIndexOutOfBoundsException, IOException {
+\     */
+    public FindPlacesCommand(Ui ui, Map<String,String> places) throws ArrayIndexOutOfBoundsException, IOException {
         String placeSearchingFor;
         if (ui.fullCommand.equals("2")) {
             System.out.println("Input what you want to find");
@@ -34,7 +34,7 @@ public class FindPlacesCommand {
                     System.out.print(" ");
                 }
                 System.out.print("| ");
-                System.out.print(places.get(keys) + "\n" + lineBreak);
+                System.out.print(places.get(keys) + "\n" + LINE_BREAK);
             }
         }
         if (!isFound) {

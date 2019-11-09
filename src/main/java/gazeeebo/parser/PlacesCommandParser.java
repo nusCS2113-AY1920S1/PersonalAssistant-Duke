@@ -20,7 +20,34 @@ import java.util.HashMap;
 import java.util.logging.Logger;
 
 public class PlacesCommandParser extends Command {
-    private final static Logger LOGGER = Logger.getLogger(PlacesCommandParser.class.getName());
+    private final static String PLACES_COMMANDS = "__________________________________________________________\n"
+            + "1. Add location: add-room,location\n"
+            + "2. Find a place in SOC: find-place\n"
+            + "3. Delete a place: delete-place\n"
+            + "4. See all places in SOC: list\n"
+            + "5. Undo previous command: undo\n"
+            + "6. See all commands: commands\n"
+            + "7. Help command: help\n"
+            + "8. Exit places: esc\n"
+            + "__________________________________________________________\n\n";
+    private final static String MAIN_MENU_PAGE = "Going back to Main Menu...\n"
+            + "Content Page:\n"
+            + "------------------ \n"
+            + "1. help\n"
+            + "2. contacts\n"
+            + "3. expenses\n"
+            + "4. places\n"
+            + "5. tasks\n"
+            + "6. cap\n"
+            + "7. spec\n"
+            + "8. moduleplanner\n"
+            + "9. notes\n"
+            + "To exit: bye\n";
+    private final static String INVALID_COMMAND = "There is no such command in Places.\nWhat do you want to do next ?";
+    private final static String WELCOME_MESSAGE = "Welcome to your places in SOC! What would you like to do?";
+    private final static String INVALID_INPUT = "Check input format again";
+
+
     /**
      * Parses the user input and return a command object.
      *
@@ -38,23 +65,12 @@ public class PlacesCommandParser extends Command {
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack,
                         ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException,
             IOException {
-        String helpPlaces = "__________________________________________________________\n"
-                + "1. Add location: add-room,location\n"
-                + "2. Find a place in SOC: find-place\n"
-                + "3. Delete a place: delete-place\n"
-                + "4. See all places in SOC: list\n"
-                + "5. Undo previous command: undo\n"
-                + "6. See all commands: commands\n"
-                + "7. Help command: help\n"
-                + "8. Exit places: esc\n"
-                + "__________________________________________________________\n\n";
-        System.out.println("Welcome to your places in SOC! What would you like to do?");
-        System.out.println(helpPlaces);
+        System.out.println(WELCOME_MESSAGE);
+        System.out.println(PLACES_COMMANDS);
         try {
             HashMap<String, String> map = storage.readPlaces();
             Map<String, String> places = new TreeMap<String, String>(map);
             Stack<Map<String, String>> oldplaces = new Stack<>();
-            String lineBreak = "------------------------------------------\n";
             boolean isExitFromPlaces = false;
             while (!isExitFromPlaces) {
                 ui.readCommand();
@@ -62,45 +78,32 @@ public class PlacesCommandParser extends Command {
                     copyMap(places,oldplaces);
                     new AddPlacesCommand(ui, places);
                 } else if (ui.fullCommand.equals("find-") || ui.fullCommand.equals("2")) {
-                    new FindPlacesCommand(ui, places, lineBreak);
+                    new FindPlacesCommand(ui, places);
                 } else if (ui.fullCommand.equals("list") || ui.fullCommand.equals("4")) {
-                    new ListPlacesCommand(places, lineBreak);
+                    new ListPlacesCommand(places);
                 } else if (ui.fullCommand.contains("delete-") || ui.fullCommand.equals("3")) {
                     copyMap(places,oldplaces);
                     new DeletePlacesCommand(ui, places);
                 } else if (ui.fullCommand.equals("commands") || ui.fullCommand.equals("6")) {
-                    System.out.println(helpPlaces);
+                    System.out.println(PLACES_COMMANDS);
                 } else if (ui.fullCommand.equals("help") || ui.fullCommand.equals("7")) {
                     new HelpCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
                 } else if (ui.fullCommand.equals("esc") || ui.fullCommand.equals("8")) {
-                    System.out.println("Going back to Main Menu...\n"
-                            + "Content Page:\n"
-                            + "------------------ \n"
-                            + "1. help\n"
-                            + "2. contacts\n"
-                            + "3. expenses\n"
-                            + "4. places\n"
-                            + "5. tasks\n"
-                            + "6. cap\n"
-                            + "7. spec\n"
-                            + "8. moduleplanner\n"
-                            + "9. notes\n"
-                            + "To exit: bye\n");
+                    System.out.println(MAIN_MENU_PAGE);
                     isExitFromPlaces = true;
                 } else if (ui.fullCommand.equals("undo") || ui.fullCommand.equals("5")) {
                     places = UndoPlacesCommand.undoPlaces(places,oldplaces);
                 } else {
-                    System.out.println("There is no such command in Places.");
-                    System.out.println("What do you want to do next ?");
+                    System.out.println(INVALID_COMMAND);
                 }
                 String toStore = "";
                 for (String key : places.keySet()) {
                     toStore = toStore.concat(key + "|" + places.get(key) + "\n");
                 }
-                storage.storagesPlaces(toStore);
+                storage.writePlacesFile(toStore);
             }
         } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
-            System.out.println("Check input format again");
+            System.out.println(INVALID_INPUT);
         }
     }
 
