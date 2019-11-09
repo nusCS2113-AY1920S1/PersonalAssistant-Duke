@@ -83,10 +83,10 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         } catch (ArrayIndexOutOfBoundsException e) {
             // TODO: Shouldn't happen anymore, need to test if this will happen still
             Ui.printMsg("Please add '/at <date>' after your task to specify the entry date.");
-            throw new Exception(INVALID_DATE_EXCEPTION);
+            throw new DollaException(INVALID_DATE_EXCEPTION);
         } catch (DateTimeParseException e) {
             Ui.printDateFormatError();
-            throw new Exception(INVALID_DATE_EXCEPTION);
+            throw new DollaException(INVALID_DATE_EXCEPTION);
         }
     }
 
