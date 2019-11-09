@@ -48,7 +48,6 @@ public class ImpressionFindSpec extends ObjSpec {
         processResults(core, results);
     }
 
-
     @Override
     protected void executeWithObj(DukeCore core, DukeObject obj) {
         core.uiContext.open(obj);

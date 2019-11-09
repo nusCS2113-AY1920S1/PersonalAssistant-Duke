@@ -99,4 +99,16 @@ public class ImpressionCommandTest extends CommandTest {
         }
         assertEquals(impression, patient.getPrimaryDiagnosis());
     }
+
+    // assume user manages to identify an object unambiguously for ObjCommands
+
+    /*
+    @Test
+    public void impressionEditCommand_fullCommand_dataEdited() {
+        ObjCommand editCmd = new ObjCommand(ImpressionEditSpec.getSpec());
+        Result origData = new Result()
+
+        editCmd.execute(core);
+        assertEquals(impression, patient.getPrimaryDiagnosis());
+    }*/
 }
