@@ -23,7 +23,7 @@ Responsibilities: Data
 === Glen Wong
 
 image::glenwong97.png[width="150", align="left"]
-{empty}[http://github.com/rusdihaizim[github]]
+{empty}[http://github.com/glenwong97[github]]
 
 Role: Developer +
 Responsibilities: UI
@@ -33,7 +33,7 @@ Responsibilities: UI
 === Kishore R
 
 image::kishore03109.png[width="150", align="left"]
-{empty}[http://github.com/rusdihaizim[github]]
+{empty}[http://github.com/kishore03109[github]]
 
 Role: Developer +
 Responsibilities: Data
@@ -43,7 +43,7 @@ Responsibilities: Data
 === Claire Chan
 
 image::claysmilesoil.png[width="150", align="left"]
-{empty}[http://github.com/rusdihaizim[github]]
+{empty}[http://github.com/claysmilesoil[github]]
 
 Role: Developer +
 Responsibilities: UI
