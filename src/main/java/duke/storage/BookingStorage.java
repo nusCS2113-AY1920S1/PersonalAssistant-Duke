@@ -54,13 +54,13 @@ public class BookingStorage {
      * @return the list of bookings in booking list
      */
     public ArrayList<Booking> load() {
-//        if (Files.notExists(Paths.get(filePath))) {
-//            try {
-//                Files.createDirectory(Paths.get("\\data"));
-//            } catch (IOException e) {
-//                System.out.println("Unknown IO error when creating 'data/' folder.");
-//            }
-//        }
+        if (Files.notExists(Paths.get(filePath))) {
+            try {
+                Files.createDirectory(Paths.get("data/"));
+            } catch (IOException e) {
+                System.out.println("Unknown IO error when creating 'data/' folder.");
+            }
+        }
         try {
             FileReader fileReader = new FileReader(filePath);
             BufferedReader bufferedReader = new BufferedReader(fileReader);

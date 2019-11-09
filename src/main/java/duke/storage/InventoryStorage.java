@@ -5,7 +5,6 @@ import duke.model.task.ingredienttasks.Ingredient;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 
@@ -55,19 +54,13 @@ public class InventoryStorage {
      * @return the list of inventory in inventory list
      */
     public HashMap<String, Ingredient> load() {
-//        Path path = Paths.get("data/");
-//        try {
-//            Path newDir = Files.createDirectory(path);
-//        } catch (IOException e) {
-//            System.out.println("Unknown IO error when creating 'data/' folder.");
-//        }
-//        if (Files.notExists(Paths.get(filePathInventory))) {
-//            try {
-//                Files.createDirectory(Paths.get("\\data"));
-//            } catch (IOException e) {
-//                System.out.println("Unknown IO error when creating 'data/' folder.");
-//            }
-//        }
+        if (Files.notExists(Paths.get(filePathInventory))) {
+        try {
+            Files.createDirectory(Paths.get("data/"));
+        } catch (IOException e) {
+            System.out.println("Unknown IO error when creating 'data/' folder.");
+        }
+    }
         try {
             FileReader fileReader = new FileReader(filePathInventory);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
