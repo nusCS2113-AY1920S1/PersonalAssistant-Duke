@@ -10,28 +10,38 @@ import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
 import duke.ui.Ui;
 
-import java.io.IOException;
-
+/**
+ * Represents a specific {@link Command} for Ingredients to facilitate removing an ingredient
+ * from the {@link Fridge}
+ *
+ * @author Sara Djambazovska
+ */
 public class DeleteCommand extends Command {
 
-    private int taskNb;
+    private int ingredientIndex;
 
-    public DeleteCommand(int taskNb) {
-        this.taskNb = taskNb;
+    /**
+     * Constructor of the class {@link DeleteCommand}
+     * Creates a new {@link DeleteCommand} command to remove an ingredient
+     * from the {@link Fridge}
+     *
+     * @param ingredientIndex the index of the ingredient to be removed
+     */
+    public DeleteCommand(int ingredientIndex) {
+        this.ingredientIndex = ingredientIndex;
     }
 
     @Override
     public void execute(Fridge fridge, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
-        if (taskNb <= fridge.numberOfIngredients() && taskNb > 0) {
-            Ingredient removed = fridge.removeIngredient(taskNb - 1);
-            try {
-                fs.removeFromFile(taskNb - 1);
-            } catch (IOException e) {
-                throw new DukeException("Error while deleting the ingredient from the hard disc");
-            }
+        if (fridge.isEmpty())
+            throw new DukeException("The fridge is empty, there is nothing to remove!");
+        if (ingredientIndex <= fridge.numberOfIngredients() && ingredientIndex > 0) {
+            Ingredient removed = fridge.useIngredient(ingredientIndex - 1);
+            fs.update(); // updating the fridge storage
             ui.showRemovedIngredient(removed.toString(), fridge.numberOfIngredients());
         } else {
-            throw new DukeException("Enter a valid ingredient index number after delete, between 1 and " + fridge.numberOfIngredients());
+            String errorMessage = "Enter a valid ingredient index number after delete, between 1 and " + fridge.numberOfIngredients();
+            throw new DukeException(errorMessage);
         }
     }
 }

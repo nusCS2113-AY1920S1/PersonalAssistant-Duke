@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a storage used to load {@link Ingredient}s from a text {@link File} and store {@link Ingredient}s in it.
+ * Represents a storage used to load entries from a text {@link File} and store entries in it.
  */
 public abstract class Storage<T> {
 
@@ -38,7 +38,7 @@ public abstract class Storage<T> {
     /**
      * Load tasks from file.
      *
-     * @return an {@link ArrayList} of {@link Ingredient}s read from the text file indicated by the {@link Path}.
+     * @return an {@link GenericList} of entries read from the text file indicated by the {@link Path}.
      */
     public GenericList<T> load() throws DukeException {
         try {
@@ -79,24 +79,28 @@ public abstract class Storage<T> {
     }
 
     /**
-     * Updates the content in the text file, by changing the specific {@link Ingredient} indicated by the taskNb.
+     * Updates the content in the text file, by changing the specific entry indicated by the index.
      *
-     * @param taskNb Positive integer indicating the number of the {@link Ingredient} in the {@link IngredientsList} to be updated
-     * @throws DukeException if the taskNb is invalid or there was an I/O Exception
+     * @param index Positive integer indicating the number of the entry in the {@link GenericList} to be updated
+     * @throws DukeException if the index is invalid or there was an I/O Exception
      */
-    public void changeContent(int taskNb) throws DukeException {
-        if (taskNb < 0) {
-            throw new DukeException("The task number should be positive, task number entered was: " + taskNb);
+    public void changeContent(int index) throws DukeException {
+        if (index < 0) {
+            throw new DukeException("The task number should be positive, task number entered was: " + index);
         }
         try {
             contentSoFar = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
-            contentSoFar.set(taskNb, ((Printable) entries.getEntry(taskNb)).printInFile()); // changing the file content
+            contentSoFar.set(index, ((Printable) entries.getEntry(index)).printInFile()); // changing the file content
             Files.write(path, contentSoFar, StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new DukeException("Error while updating the file");
         }
     }
-
+    /**
+     * Updates the content in the text file, by changing the specific {@link Ingredient} indicated by the taskNb.
+     *
+     * @throws DukeException if the taskNb is invalid or there was an I/O Exception
+     */
     public void update() throws DukeException {
         try {
             contentSoFar = new ArrayList<String>(entries.size());
@@ -111,15 +115,14 @@ public abstract class Storage<T> {
     public void removeFromFile(int index) throws IOException {
         contentSoFar = new ArrayList<>(Files.readAllLines(getPath(), StandardCharsets.UTF_8));
         contentSoFar.remove(index); // changing the file content
-        //System.out.println("removing index"+index);
         Files.write(getPath(), contentSoFar, StandardCharsets.UTF_8);
     }
 
     /**
-     * Used to add a {@link Ingredient} by writing to {@link File}.
+     * Used to add an entry by writing to {@link File}.
      *
-     * @param task {@link Ingredient} to be written
-     * @throws IOException whatever that is
+     * @param task entry to be written
+     * @throws IOException
      */
     public void addInFile(String task) throws IOException {
         contentSoFar = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));

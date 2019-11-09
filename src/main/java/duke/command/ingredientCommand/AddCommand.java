@@ -9,19 +9,30 @@ import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
 import duke.ui.Ui;
-
+/**
+ * Represents a specific {@link Command} for Ingredients to facilitate adding an ingredient
+ * to the {@link Fridge}
+ * @author Sara Djambazovska
+ */
 public class AddCommand extends Command {
 
     private Ingredient ingredient;
-
-    public AddCommand(Ingredient i) {
-        ingredient = i;
+    /**
+     * Constructor of the class {@link AddCommand}
+     * Creates a new {@link AddCommand} with the indicated ingredient to be added,
+     * if there is an ingredient in the {@link Fridge} with the same name and expiry date, only the amount is increased by the ingredient's amount,
+     * otherwise, the ingredient is added as a new entry in the fridge
+     * @param ingredient the ingredient to be added, specified by the name, amount and date
+     */
+    public AddCommand(Ingredient ingredient) {
+        this.ingredient = ingredient;
     }
 
     @Override
-    public void execute(Fridge fridge, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+    public void execute(Fridge fridge, DishList dishList, OrderList orderList, Ui ui, FridgeStorage fridgeStorage,
+                        OrderStorage orderStorage) throws DukeException {
         fridge.addIngredient(ingredient);
-        ui.showAddCommand(fridge.getIngredient(ingredient).toString(), fridge.numberOfIngredients());
-        fs.update();
+        ui.showAddedIngredient(fridge.getIngredient(ingredient));
+        fridgeStorage.update();
     }
 }

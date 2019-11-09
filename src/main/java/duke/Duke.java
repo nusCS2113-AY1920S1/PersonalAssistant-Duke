@@ -69,7 +69,7 @@ public class Duke {
             fullCommand = ui.readCommand();
             ui.showLine();
             if (fullCommand.equalsIgnoreCase("yes")) {
-                ui.show(fridge.getExpiredIngredients().toString());
+                ui.showExpiredIngredients(fridge.getExpiredIngredients());
             }
         }
 
@@ -107,7 +107,6 @@ public class Duke {
                         break;
                     }
                     case "b": {
-                        // ui.showIngredientsInFridge(fridge.getAllIngredients());
                         ui.showIngredientTask();
                         while (true) {
                             try {
@@ -133,7 +132,6 @@ public class Duke {
                                 command.execute(fridge, dish, order, ui, fridgeStorage, orderStorage);
                             } catch (DukeException e) {
                                 System.out.println(e.getLocalizedMessage());
-                                // e.printStackTrace();
                             }
                         }
                         break;
@@ -144,7 +142,9 @@ public class Duke {
                         while (true) {
                             try {
                                 fullCommand = ui.readCommand();
-                                if (fullCommand.trim().equals("back")) { break; }
+                                if (fullCommand.trim().equals("back")) {
+                                    break;
+                                }
                                 if (fullCommand.trim().equals("q")) {
                                     Command command = new ExitCommand();
                                     command.execute(null, dish, order, ui, fridgeStorage, orderStorage);
@@ -164,20 +164,20 @@ public class Duke {
                         break;
                     }
                     case "d": {
-                        while(true) {
+                        while (true) {
                             try {
                                 ui.showDishTemplate();
                                 fullCommand = ui.readCommand();
-                                if(fullCommand.trim().equals("q")) {
+                                if (fullCommand.trim().equals("q")) {
                                     Command command = new ExitCommand();
                                     command.execute(null, dish, order, ui, fridgeStorage, orderStorage);
                                     isExit = command.isExit();
                                     break;
                                 }
-                                if(fullCommand.trim().equals("back")) {
+                                if (fullCommand.trim().equals("back")) {
                                     break;
                                 }
-                                if(fullCommand.trim().equals("template")) {
+                                if (fullCommand.trim().equals("template")) {
                                     continue;
                                 }
                                 Command command = Parser.parse(fullCommand, Type.DISH);

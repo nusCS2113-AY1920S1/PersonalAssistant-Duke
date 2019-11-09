@@ -66,11 +66,11 @@ public class Ingredient implements Printable {
         return expiryDate.after(new Date()) ? name + ", amount is: " + amount + " expiring on " + Convert.getDateString(expiryDate, dateAsString) : "WARNING! expired ingredient: " + name + ", amount is: " + amount + " expired on " + Convert.getDateString(expiryDate, dateAsString);
     }
     public String toStringNoWarning(){
-        return name + ", amount is: " + amount + " expired on " + Convert.getDateString(expiryDate, dateAsString);
+        return name + ", amount: " + amount + ", expiring on " + Convert.getDateString(expiryDate, dateAsString);
     }
 
     public String toStringWithoutDate() {
-        return name + " amount: " + amount;
+        return name + ", amount: " + amount;
     }
 
     public boolean isExpired() {
