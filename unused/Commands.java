@@ -263,6 +263,18 @@
 //        ui.showErrorMsg(String.format("You will get a reminder for this task in %d days", reminder));
 //        ui.showErrorMsg(" " + task.toString());
 //    }
+//    /**
+//     * Executes a command that gathers all tasks from task list and outputs the result (GUI).
+//     *
+//     * @param items The task list that contains a list of tasks.
+//     * @param ui To tell the user the list of tasks stored in task list.
+//     * @return List of tasks.
+//     */
+//    @Override
+//    public String executeGui(TaskList items, Ui ui) {
+//            String str = ui.showReminderGui(items, taskIndex);
+//            return str;
+//    }
 
 //@@author maxxyx96-unused
 /**
