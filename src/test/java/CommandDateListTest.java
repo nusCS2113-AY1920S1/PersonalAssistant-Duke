@@ -20,8 +20,18 @@ public class CommandDateListTest {
         CommandDateList dateOne = new CommandDateList("datelist 2019-02-01");
         dateOne.execute(storageManager);
         String output = dateOne.getInfoCapsule().getOutputStr();
+        assertEquals("You have the following receipts for 2019-02-01\n1. [transport] $3.0 2019-02-01\n", output);
 
-        assertEquals("You have the following receipts for 2019-02-01\n1. [transport] 3.0 2019-02-01\n", output);
+        CommandDateList d1 = new CommandDateList("datelist 123cwv");
+        d1.execute(storageManager);
+        String result = d1.getInfoCapsule().getOutputStr();
+        assertEquals("Invalid date input. FORMAT : datelist yyyy-mm-dd", result);
+
+        CommandDateList d2 = new CommandDateList("datelist");
+        d2.execute(storageManager);
+        String result2 = d2.getInfoCapsule().getOutputStr();
+        assertEquals("Invalid date input. FORMAT : datelist yyyy-mm-dd", result2);
+
 
     }
 

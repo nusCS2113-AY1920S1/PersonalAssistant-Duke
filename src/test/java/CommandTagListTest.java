@@ -20,8 +20,12 @@ public class CommandTagListTest {
         CommandTagList dateOne = new CommandTagList("taglist food");
         dateOne.execute(storageManager);
         String output = dateOne.getInfoCapsule().getOutputStr();
+        assertEquals("You spent a total of $3.00 on food\n" + "1. [food] $3.0 2019-02-01\n\n", output);
 
-        assertEquals("You spent a total of $3.00 on food\n" + "1. [food] 3.0 2019-02-01\n\n", output);
+        CommandTagList d1 = new CommandTagList("taglist");
+        d1.execute(storageManager);
+        String result = d1.getInfoCapsule().getOutputStr();
+        assertEquals("Tag input is missing. FORMAT : taglist <tag>", result);
     }
 
 }
