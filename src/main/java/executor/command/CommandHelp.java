@@ -57,6 +57,11 @@ public class CommandHelp extends Command {
         }
     }
 
+    /**
+     * Function to get the description of the specific command input by user.
+     * @param b is the command that the user inputs
+     * @return is the description of the command
+     */
     private StringBuilder getDescriptionOfSpecificCommand(String b) {
         StringBuilder out = new StringBuilder();
         CommandType specificCommandType = CommandType.valueOf(b);
@@ -67,6 +72,11 @@ public class CommandHelp extends Command {
         return out;
     }
 
+    /**
+     * Function to get all the descriptions of the commands available for the user.
+     * @param s is the String to compare against all the available commands
+     * @param newOut is the description of the current command
+     */
     private void getDescriptionOfAllCommands(String s, ArrayList<String> newOut) {
         CommandType commandType = CommandType.valueOf(s);
         Command c = Executor.createCommand(commandType, "null");
