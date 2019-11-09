@@ -1,4 +1,4 @@
-package oof.model.semester;
+package oof.model.university;
 
 import java.time.DayOfWeek;
 
@@ -29,6 +29,10 @@ public class Lesson {
         this.day = day;
         this.startTime = startTime;
         this.endTime = endTime;
+    }
+
+    public String getModuleCode() {
+        return moduleCode;
     }
 
     public String getLessonTimeString() {

@@ -10,10 +10,10 @@ import java.util.Date;
 
 import oof.logic.command.Command;
 import oof.ui.Ui;
-import oof.model.semester.Lesson;
-import oof.model.semester.Module;
-import oof.model.semester.Semester;
-import oof.model.semester.SemesterList;
+import oof.model.university.Lesson;
+import oof.model.university.Module;
+import oof.model.university.Semester;
+import oof.model.university.SemesterList;
 import oof.model.task.Deadline;
 import oof.model.task.Event;
 import oof.model.task.Task;

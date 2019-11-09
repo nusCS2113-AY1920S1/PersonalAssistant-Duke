@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import oof.logic.command.Command;
 import oof.ui.Ui;
 import oof.commons.exceptions.command.MissingArgumentException;
-import oof.model.semester.SemesterList;
+import oof.model.university.SemesterList;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;

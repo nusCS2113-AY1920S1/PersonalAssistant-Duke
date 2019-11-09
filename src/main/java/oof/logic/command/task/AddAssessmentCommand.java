@@ -2,13 +2,13 @@ package oof.logic.command.task;
 
 import java.util.ArrayList;
 
-import oof.model.semester.SelectedInstance;
+import oof.model.university.SelectedInstance;
 import oof.ui.Ui;
 import oof.commons.exceptions.command.CommandException;
 import oof.commons.exceptions.command.InvalidArgumentException;
 import oof.commons.exceptions.command.MissingArgumentException;
-import oof.model.semester.Module;
-import oof.model.semester.SemesterList;
+import oof.model.university.Module;
+import oof.model.university.SemesterList;
 import oof.model.task.Assessment;
 import oof.model.task.Event;
 import oof.model.task.TaskList;
@@ -63,8 +63,9 @@ public class AddAssessmentCommand extends AddEventCommand {
             ui.printClashWarning(eventClashes);
             String moduleCode = module.getModuleCode();
             Assessment assessment = new Assessment(moduleCode, description, startDateTime, endDateTime);
-            if (exceedsMaxLength(assessment.getDescription())) {
-                throw new InvalidArgumentException("Task exceeds maximum description length!");
+            if (exceedsMaxLength(assessment.getDescription(), DESCRIPTION_LENGTH_MAX)) {
+                throw new InvalidArgumentException("OOPS!!! Assessment Name exceeds maximum length of "
+                        + DESCRIPTION_LENGTH_MAX + "!");
             }
             taskList.addTask(assessment);
             module.addAssessment(assessment);

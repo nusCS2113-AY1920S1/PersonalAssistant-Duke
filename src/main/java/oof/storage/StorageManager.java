@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import oof.commons.exceptions.StorageFileCorruptedException;
-import oof.model.semester.Semester;
-import oof.model.semester.SemesterList;
+import oof.model.university.Semester;
+import oof.model.university.SemesterList;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.model.tracker.Tracker;

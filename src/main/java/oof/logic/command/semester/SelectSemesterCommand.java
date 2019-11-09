@@ -1,11 +1,11 @@
 package oof.logic.command.semester;
 
 import oof.logic.command.Command;
-import oof.model.semester.SelectedInstance;
+import oof.model.university.SelectedInstance;
 import oof.ui.Ui;
 import oof.commons.exceptions.command.InvalidArgumentException;
-import oof.model.semester.Semester;
-import oof.model.semester.SemesterList;
+import oof.model.university.Semester;
+import oof.model.university.SemesterList;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
 
@@ -47,7 +47,7 @@ public class SelectSemesterCommand extends Command {
             selectedInstance.selectSemester(semester);
             ui.printSelectSemesterMessage(semester);
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidArgumentException("OOPS!! The index is out of bounds.");
+            throw new InvalidArgumentException("OOPS!! The index is invalid.");
         }
     }
 }

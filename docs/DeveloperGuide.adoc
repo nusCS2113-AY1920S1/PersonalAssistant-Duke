@@ -28,8 +28,12 @@ By: `Team W17-4`      Since: `Aug 2019`      Licence: `MIT`
 === What is the purpose of this guide?
 This guide aims to provide information for you, who are the future contributors of *_OOF_*, so that you can have an easy reference for understanding the features implemented in *_OOF_*.
 
+=== Acknowledgements
+Original source: https://github.com/nusCS2113-AY1920S1/PersonalAssistant-Duke[PersonalAssistant-Duke]
+created by https://github.com/se-edu/[SE-EDU initiative]
+
 == Setting up
-This section will show you the steps that you need to quickly start contributing to this project in no time!
+This section will show you the requirements that you need to fulfill in order to quickly start contributing to this project in no time!
 
 [[Prerequisites]]
 === Prerequisites
@@ -86,13 +90,31 @@ Given below is a quick overview of each component.
 * `Commons` package contains the subpackage `command` which holds all the customised `exception` classes for all our commands, followed by miscellaneous `exception` classes for non-command exceptions. 
 
 [NOTE]
-Logging is implemented in our project to faciliate checking of bugs and error messages. Thus, the `Commons` package that is being utilised by all our classes is linked to the logs center to show that the handled exceptions we have caught are properly logged.
+Logging is implemented in our project to facilitate checking of bugs and error messages. Thus, the `Commons` package that is being utilised by all our classes is linked to the logs center to show that the handled exceptions we have caught are properly logged.
 
 === UI component
 
 === Logic component
 
 === Model component
+
+The `Model` component consists of the `task` and `university` packages and shows how they are associated with each other.
+
+The class diagram below illustrates the relationship between the individual components of the `Model` component.
+
+[[ModelClassDiagram]]
+.Structure of the Model Component
+image::ModelClassDiagram.png[ModuleClassDiagram]
+
+The figure shows the the individual components of the `Model` component. The `University` component is modelled after real world university curriculum structure.
+
+The `Model` stores: +
+
+* a `SemesterList` object that contains individual `Semester` objects. Each `Semester` object consists of `Module` objects that represents a module that a University student takes and each `Module` object can contain any number of `Lesson`, `Assignment` and `Assessment` objects.
+
+* a `TaskList` object that contains `Task` objects. A `Task` object can be any of `Deadline`, `Event` and `Todo` as they represent different categories of tasks. `Assignment` and `Assessment` inherits from `Deadline` and `Event` respectively and represent the tasks that University student will have.
+
+When either `SemesterList` or `TaskList` is changed, the system will update the persistent storage via the `Storage component`, which will be explained in the next section.
 
 === Storage component
 
@@ -139,7 +161,6 @@ The `setRecurringTask` method in `RecurringCommand` class is then called by `exe
 
 * Calls `getTask` method from `TaskList` class to get the user selected `Task`.
 * Updates the `Task` to a `recurring Task` by: +
-** Calling `setFrequency` method in `Task` class to set `Frequency` to `DAILY`
 ** Calling `deleteTask` and `addTaskToIndex` methods in `TaskList` class to update the selected `Task`.
 * Calls `recurInstances` method in `RecurringCommand` class to set upcoming recurring `Tasks` based on user selected `Number of recurrences` and `Frequency` by:
 ** `recurInstances` method calls `dateTimeIncrement` method in `RecurringCommand` class to increment the `DateTime` based on the user input `Frequency`.
@@ -342,7 +363,7 @@ The tasks each day can be classified into visual blocks to aid the users into vi
 
 [[calendar]]
 .Sample output of Calendar Command
-image::calendar.png[calendar]
+image::Calendar.png[calendar]
 
 ==== Implementation
 The `CalendarCommand` class extends `Command` by providing methods to display tasks for a particular month.
@@ -404,7 +425,7 @@ image::FreeTimeDisplay.png[FreeTimeDisplay]
 
 ==== Implementation
 
-The `FreeCommand` class extends `Command` by providing methods to search for free time slots by determining if `Event` times stored in the persistent `TaskList` of the main program `OOF` clashes with a default time slot of 07:00 to 00:00 in the user-specified date. At the same time, this command provides methods to suggest deadlines to complete if `Deadline` due dates stored in the persistent `TaskList` of the main program `OOF` are within one week from the user entered date.
+The `FreeCommand` class extends `Command` by providing methods to search for free time slots by determining if `Event` and `Lesson` times stored in the persistent `TaskList` and `SemesterList` of the main program `OOF` respectively, clashes with a default time slot of 07:00 to 00:00 in the user-specified date. At the same time, this command provides methods to suggest deadlines to complete if `Deadline` due dates stored in the persistent `TaskList` of the main program `OOF` are within one week from the user entered date.
 
 [NOTE]
 `TaskList` is stored internally as an `ArrayList` in the Oof Program as well as externally in persistent storage in `output.txt`.
@@ -437,16 +458,16 @@ In the `execute` method, the `isDateAfterCurrentDate()` and `isDateSame()` metho
 The `findFreeTime()` method iterates through the current list of `Task` from the `TaskList` class and checks for both `Event` and `Deadline` tasks. If an `Event` or `Deadline` is found, the `populateEventTimes` or `populateDeadlines` method is then called respectively. 
 
 *Step 5.* +
-The `populateEventTimes` method calls the `isEventDateWithin()` and `isDuplicateEvent()` methods to check if the `Event` date lie within the input date and if they are a duplicate `Event` respectively. If the `Event` date lie within the input date and is not a duplicate entry, its start and end times will be added to an `ArrayList` corresponding to `eventStartTimes` and `eventEndTimes` respectively.  
+The `populateEventTimes` method calls the `isEventDateWithin()` and `isDuplicateEvent()` methods to check if the `Event` date lie within the input date and if they are a duplicate `Event` respectively. If the `Event` date lie within the input date and is not a duplicate entry, its start and end times will be added to an `ArrayList` corresponding to `startTimes` and `endTimes` respectively.  
 
 *Step 6.* + 
 The `populateDeadlines` method calls the `isDeadlineDueNextWeek()`, `isDuplicateDeadline()` and ``isCompleted()` methods to check if the `Deadline` due date lie within one week from the input date, whether they are a duplicate `Deadline` and if they have already been completed respectively. If the `Deadline` due date lie within one week from the input date, is not a duplicate entry and has not been completed yet, its due date will be added to an `ArrayList` corresponding to `deadlinesDue` while its name will be added to both `deadlineNames` and `sortedDeadlineNames`. 
 
 *Step 7.* + 
-The `findFreetime()` method then calls the `parseSemesterList` method, which uses the same logic in Step 4 to obtain the lesson start and end times if the lesson day coincides with the input day. The lesson start and end times are then added into an existing `ArrayList` called `eventStartTimes` and `eventEndTimes` respectively after checking that it is not a duplicate.  
+The `findFreetime()` method then calls the `parseSemesterList` method, which uses the same logic in Step 4 to obtain the lesson start and end times if the lesson day coincides with the input day. The lesson start and end times are then added into an existing `ArrayList` called `startTimes` and `endTimes` respectively after checking that it is not a duplicate.  
 
 *Step 8.* + 
-All `eventStartTimes`, `eventEndTimes` and `deadlinesDue` are sorted in ascending order by calling the `sort` method in the `SortByTime` class. The `sortDeadlineNames()` method is then called to sort the deadline names according to their due dates. 
+All `startTimes`, `endTimes` and `deadlinesDue` are sorted in ascending order by calling the `sort` method in the `SortByTime` class. The `sortDeadlineNames()` method is then called to sort the deadline names according to their due dates. 
 
 *Step 9.* + 
 The `printFreeTimeHeader` method in `Ui` class is then called to display to the user the header of the input date. 
@@ -819,7 +840,7 @@ See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build auto
 
 === Continuous Integration
 
-We use https://travis-ci.org/[Travis CI] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
+We use https://travis-ci.org/[Travis CI] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> for more details.
 
 === Coverage Reporting
 
@@ -843,13 +864,20 @@ Here are the steps to create a new release.
 
 *Target User Profile*: 
 
-* Needs to manage multiple tasks at once
+* University students
 * Prefer desktop Command-Line-Interface (CLI) over other types
 * Able to type on the keyboard fast
 * Prefers typing over mouse input
 * Proficient in using CLI applications
 
-*Value proposition*: manage tasks faster than a typical mouse/GUI driven app
+*Value proposition*:
+
+* Helps you plan your tasks, modules and lessons more effectively
+* Helps you coordinate common free time slots with other people
+* Automatically reminds you of upcoming deadlines
+* Automatically organizing your tasks for viewing in calendar, tabular and list format
+* Allows you to plan your semester in advance
+* Works offline
 
 [appendix]
 == Requirements
@@ -1292,6 +1320,16 @@ The command is in the format `recurring INDEX NUMBER_OF_RECURRENCES FREQUENCY`. 
 You are free to test out this command with variations of the three parameters.
 
 === Finding free time slots
+
+==== Understanding the parameters 
+The `free` command syntax is as such: `free DD-MM-YYYY`.
+
+[NOTE]
+The `date` has to strictly be in the format `DD-MM-YYYY`. +
+You must enter either today's date or a date in the future. 
+
+==== Testing the command 
+You can enter the command `free DD-MM-YYYY` to view your free time slots in the given date as well as suggestions for upcoming deadlines to complete. 
 
 === Viewing your tasks in a calendar format 
 

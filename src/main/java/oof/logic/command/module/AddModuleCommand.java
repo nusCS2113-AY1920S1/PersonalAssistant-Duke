@@ -3,14 +3,14 @@ package oof.logic.command.module;
 import java.util.ArrayList;
 
 import oof.logic.command.Command;
-import oof.model.semester.SelectedInstance;
+import oof.model.university.SelectedInstance;
 import oof.ui.Ui;
 import oof.commons.exceptions.command.CommandException;
 import oof.commons.exceptions.command.InvalidArgumentException;
 import oof.commons.exceptions.command.MissingArgumentException;
-import oof.model.semester.Module;
-import oof.model.semester.Semester;
-import oof.model.semester.SemesterList;
+import oof.model.university.Module;
+import oof.model.university.Semester;
+import oof.model.university.SemesterList;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
 
@@ -23,7 +23,8 @@ public class AddModuleCommand extends Command {
     private static final int INDEX_CODE = 0;
     private static final int INDEX_NAME = 1;
     private static final int ARRAY_SIZE_NAME = 2;
-    private static final int DESCRIPTION_LENGTH_MAX = 100;
+    private static final int MODULE_CODE_LENGTH_MAX = 10;
+    private static final int MODULE_NAME_LENGTH_MAX = 100;
 
 
     /**
@@ -56,9 +57,10 @@ public class AddModuleCommand extends Command {
         }
         String moduleName = arguments.get(INDEX_NAME);
         String moduleCode = arguments.get(INDEX_CODE);
-        String description = moduleCode + " " + moduleName;
-        if (exceedsMaxLength(description)) {
-            throw new InvalidArgumentException("Task exceeds maximum description length!");
+        if (exceedsMaxLength(moduleCode, MODULE_CODE_LENGTH_MAX)) {
+            throw new InvalidArgumentException("Module Code exceeds maximum length of: " + MODULE_CODE_LENGTH_MAX);
+        } else if (exceedsMaxLength(moduleName, MODULE_NAME_LENGTH_MAX)) {
+            throw new InvalidArgumentException("Module name exceeds maximum length of: " + MODULE_NAME_LENGTH_MAX);
         }
         SelectedInstance selectedInstance = SelectedInstance.getInstance();
         Semester semester = selectedInstance.getSemester();
@@ -75,7 +77,7 @@ public class AddModuleCommand extends Command {
      * @return True if maximum description length is exceeded, false otherwise.
      */
     @Override
-    public boolean exceedsMaxLength(String description) {
-        return description.length() >= DESCRIPTION_LENGTH_MAX;
+    public boolean exceedsMaxLength(String description, int limit) {
+        return description.length() >= limit;
     }
 }

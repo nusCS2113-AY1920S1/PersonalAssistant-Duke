@@ -2,13 +2,13 @@ package oof.logic.command.task;
 
 import java.util.ArrayList;
 
-import oof.model.semester.SelectedInstance;
+import oof.model.university.SelectedInstance;
 import oof.ui.Ui;
 import oof.commons.exceptions.command.CommandException;
 import oof.commons.exceptions.command.InvalidArgumentException;
 import oof.commons.exceptions.command.MissingArgumentException;
-import oof.model.semester.Module;
-import oof.model.semester.SemesterList;
+import oof.model.university.Module;
+import oof.model.university.SemesterList;
 import oof.model.task.Assignment;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
@@ -56,8 +56,9 @@ public class AddAssignmentCommand extends AddDeadlineCommand {
             throw new InvalidArgumentException("OOPS!!! The due date is invalid.");
         } else {
             Assignment assignment = new Assignment(moduleCode, description, date);
-            if (exceedsMaxLength(assignment.getDescription())) {
-                throw new InvalidArgumentException("OOPS!!! Task exceeds maximum description length!");
+            if (exceedsMaxLength(assignment.getDescription(), DESCRIPTION_LENGTH_MAX)) {
+                throw new InvalidArgumentException("OOPS!!! Assignment Name exceeds maximum length of "
+                        + DESCRIPTION_LENGTH_MAX + "!");
             }
             taskList.addTask(assignment);
             module.addAssignment(assignment);

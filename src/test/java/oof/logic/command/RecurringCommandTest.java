@@ -264,7 +264,7 @@ class RecurringCommandTest {
      * @throws ParserException  if command cannot be parsed.
      */
     @Test
-    void execute_CorrectCommandAndRecurMoreThanOnce_AddTasks() throws CommandException, ParserException {
+    void execute_CorrectCommandAndRecurMoreThanOnce_AddTasks() throws Exception {
         oof.executeCommand("recurring 1 2 1");
         int lastIndex = taskList.getSize() - 1;
         Task task = taskList.getTask(lastIndex);

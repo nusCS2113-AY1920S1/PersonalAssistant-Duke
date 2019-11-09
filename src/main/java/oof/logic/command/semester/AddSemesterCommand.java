@@ -10,8 +10,8 @@ import oof.ui.Ui;
 import oof.commons.exceptions.command.CommandException;
 import oof.commons.exceptions.command.InvalidArgumentException;
 import oof.commons.exceptions.command.MissingArgumentException;
-import oof.model.semester.Semester;
-import oof.model.semester.SemesterList;
+import oof.model.university.Semester;
+import oof.model.university.SemesterList;
 import oof.model.task.TaskList;
 import oof.storage.StorageManager;
 
@@ -28,7 +28,8 @@ public class AddSemesterCommand extends Command {
     private static final int SIZE_NAME = 2;
     private static final int SIZE_DATE_START = 3;
     private static final int SIZE_DATE_END = 4;
-    private static final int DESCRIPTION_LENGTH_MAX = 100;
+    private static final int SEMESTER_YEAR_LENGTH_MAX = 10;
+    private static final int SEMESTER_NAME_LENGTH_MAX = 100;
 
 
     /**
@@ -97,9 +98,12 @@ public class AddSemesterCommand extends Command {
         String name = arguments.get(INDEX_NAME);
         String startDate = arguments.get(INDEX_DATE_START);
         String endDate = arguments.get(INDEX_DATE_END);
-        String description = year + " " + name;
-        if (exceedsMaxLength(description)) {
-            throw new InvalidArgumentException("Task exceeds maximum description length!");
+        if (exceedsMaxLength(year, SEMESTER_YEAR_LENGTH_MAX)) {
+            throw new InvalidArgumentException("OOPS!!! Semester Year exceeds maximum length of "
+                    + SEMESTER_YEAR_LENGTH_MAX + "!");
+        } else if (exceedsMaxLength(name, SEMESTER_NAME_LENGTH_MAX)) {
+            throw new InvalidArgumentException("OOPS!!! Semester Name exceeds maximum length of "
+                    + SEMESTER_NAME_LENGTH_MAX + "!");
         }
         if (isDateValid(startDate) && isDateValid(endDate) && (hasClashes(semesterList, startDate, endDate))) {
             throw new InvalidArgumentException("OOPS!! The semester clashes with another semester.");
@@ -141,7 +145,7 @@ public class AddSemesterCommand extends Command {
      * @return True if maximum description length is exceeded, false otherwise.
      */
     @Override
-    public boolean exceedsMaxLength(String description) {
-        return description.length() >= DESCRIPTION_LENGTH_MAX;
+    public boolean exceedsMaxLength(String description, int limit) {
+        return description.length() >= limit;
     }
 }

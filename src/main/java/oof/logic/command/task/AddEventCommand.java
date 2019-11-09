@@ -10,7 +10,7 @@ import oof.ui.Ui;
 import oof.commons.exceptions.command.CommandException;
 import oof.commons.exceptions.command.InvalidArgumentException;
 import oof.commons.exceptions.command.MissingArgumentException;
-import oof.model.semester.SemesterList;
+import oof.model.university.SemesterList;
 import oof.model.task.Event;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
@@ -29,6 +29,7 @@ public class AddEventCommand extends Command {
     static final int INDEX_DATE_TIME_END = 2;
     static final int ARRAY_SIZE_DATE_TIME_START = 2;
     static final int ARRAY_SIZE_DATE_TIME_END = 3;
+    static final int DESCRIPTION_LENGTH_MAX = 20;
 
     /**
      * Constructor for AddEventCommand.
@@ -62,8 +63,9 @@ public class AddEventCommand extends Command {
         String description = arguments.get(INDEX_DESCRIPTION);
         String startDateTime = parseDateTime(arguments.get(INDEX_DATE_TIME_START));
         String endDateTime = parseDateTime(arguments.get(INDEX_DATE_TIME_END));
-        if (exceedsMaxLength(description)) {
-            throw new InvalidArgumentException("Task exceeds maximum description length!");
+        if (exceedsMaxLength(description, DESCRIPTION_LENGTH_MAX)) {
+            throw new InvalidArgumentException("OOPS!!! Task description exceeds maximum length of "
+                    + DESCRIPTION_LENGTH_MAX + "!");
         } else if (!isDateValid(startDateTime)) {
             throw new InvalidArgumentException("OOPS!!! The start date is invalid.");
         } else if (!isDateValid(endDateTime)) {

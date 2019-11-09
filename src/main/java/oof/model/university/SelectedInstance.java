@@ -1,4 +1,4 @@
-package oof.model.semester;
+package oof.model.university;
 
 public class SelectedInstance {
 
@@ -7,6 +7,8 @@ public class SelectedInstance {
     private Module module;
 
     private SelectedInstance() {
+        this.semester = null;
+        this.module = null;
     }
 
     /**
@@ -36,5 +38,14 @@ public class SelectedInstance {
 
     public Module getModule() {
         return this.module;
+    }
+
+    public void resetModule() {
+        this.module = null;
+    }
+
+    public void resetSemester() {
+        this.semester = null;
+        this.module = null;
     }
 }

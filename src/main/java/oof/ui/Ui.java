@@ -9,17 +9,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
-import oof.model.semester.Lesson;
-import oof.model.semester.Module;
-import oof.model.semester.Semester;
-import oof.model.semester.SemesterList;
 import oof.model.task.Event;
 import oof.model.task.Task;
 import oof.model.task.TaskList;
 import oof.model.tracker.Tracker;
+import oof.model.university.Lesson;
+import oof.model.university.Module;
+import oof.model.university.Semester;
+import oof.model.university.SemesterList;
 import oof.storage.StorageManager;
-
-import javax.sound.midi.Track;
 
 /**
  * Represents a Ui class that is responsible for Input/Output operations.
@@ -904,7 +902,8 @@ public class Ui {
      */
     public void printSemesterRemovalMessage(Semester semester) {
         printLine();
-        System.out.println(" " + semester.getAcademicYear() + " " + semester.getSemesterName() + " has been removed.");
+        System.out.println(" \"" + semester.getAcademicYear() + " " + semester.getSemesterName()
+                + "\" has been removed!");
     }
 
     /**
@@ -924,46 +923,64 @@ public class Ui {
      */
     public void printModuleRemovalMessage(Module module) {
         printLine();
-        System.out.println(" " + module.getModuleCode() + " " + module.getModuleName() + " has been removed.");
+        System.out.println(" \"" + module.getModuleCode() + " " + module.getModuleName() + "\" has been removed!");
     }
 
     /**
      * Prints notification for added Lesson.
      *
-     * @param moduleCode Module code of Lesson being added.
-     * @param lesson     Lesson object being added.
+     * @param lesson Lesson object being added.
      */
-    public void printLessonAddedMessage(String moduleCode, Lesson lesson) {
+    public void printLessonAddedMessage(Lesson lesson) {
         printLine();
-        System.out.println(" \"" + moduleCode + " " + lesson.getLessonName() + "\" has been added!");
+        System.out.println(" \"" + lesson.getModuleCode() + " " + lesson.getLessonName() + "\" has been added!");
     }
 
     /**
      * Prints notification for removed Lesson.
      *
-     * @param moduleCode Module code of Lesson being removed.
-     * @param lesson     Lesson object being removed.
+     * @param lesson Lesson object to be removed.
      */
-    public void printLessonRemovalMessage(String moduleCode, Lesson lesson) {
+    public void printLessonRemovalMessage(Lesson lesson) {
         printLine();
-        System.out.println(" " + moduleCode + " " + lesson.getLessonName() + " has been removed.");
+        System.out.println(" \"" + lesson.getModuleCode() + " " + lesson.getLessonName() + "\" has been removed.");
     }
 
+    /**
+     * Prints notification for removed Semester.
+     *
+     * @param semester Semester object to be removed.
+     */
     public void printSelectSemesterMessage(Semester semester) {
         printLine();
         System.out.println(" \"" + semester.toString() + "\" has been selected!");
     }
 
+    /**
+     * Prints notification for removed Module.
+     *
+     * @param module Module object to be removed.
+     */
     public void printSelectModuleMessage(Module module) {
         printLine();
         System.out.println(" \"" + module.toString() + "\" has been selected!");
     }
 
+    /**
+     * Prints currently selected Semester.
+     *
+     * @param semester Currently selected Semester.
+     */
     public void printCurrentlySelectedSemester(Semester semester) {
         printLine();
         System.out.println(" Currently Selected: " + semester.toString());
     }
 
+    /**
+     * Prints currently selected Module.
+     *
+     * @param module Currently selected Module.
+     */
     public void printCurrentlySelectedModule(Module module) {
         printLine();
         System.out.println(" Currently Selected: " + module.toString());
@@ -1076,9 +1093,9 @@ public class Ui {
     /**
      * Prints the details of the deleted Tracker entry.
      *
-     * @param size          number of Tracker objects in ArrayList trackerList
-     * @param description   description of Task where Tracker is to be deleted.
-     * @param timeTaken     amount of time spent on the Task to be deleted.
+     * @param size        number of Tracker objects in ArrayList trackerList
+     * @param description description of Task where Tracker is to be deleted.
+     * @param timeTaken   amount of time spent on the Task to be deleted.
      */
     public void printTrackerDelete(int size, String description, long timeTaken) {
         printLine();
@@ -1089,7 +1106,7 @@ public class Ui {
     /**
      * Prints a list of Tracker objects saved in trackerList.
      *
-     * @param trackerList   ArrayList of Tracker objects.
+     * @param trackerList ArrayList of Tracker objects.
      */
     public void printTrackerList(ArrayList<Tracker> trackerList) {
         printLine();
