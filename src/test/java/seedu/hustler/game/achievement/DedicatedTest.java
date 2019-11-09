@@ -8,30 +8,30 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 public class DedicatedTest {
 
     /**
-     * Checks if Busybee can be unlock.
+     * Checks if Dedicated to the art can be unlock.
      */
     @Test
-    public void checkUnlockBusyBee() {
-        AddTask addTask = new AddTask("Bronze");
-        addTask.setLock(false);
-        assertEquals(false, addTask.checkLock());
+    public void checkUnlockDedicated() {
+        ConsecutiveLogin consecutiveLogin = new ConsecutiveLogin("Bronze");
+        consecutiveLogin.setLock(false);
+        assertEquals(false, consecutiveLogin.checkLock());
     }
 
     /**
      * Checks if the condition for unlocking each achievement level is correct.
      */
     @Test
-    public void checkBusyBeeInformation() {
-        AddTask bronze = new AddTask("Bronze");
-        AddTask silver = new AddTask("Silver");
-        AddTask gold = new AddTask("Gold");
+    public void checDedicatedInformation() {
+        ConsecutiveLogin bronze = new ConsecutiveLogin("Bronze");
+        ConsecutiveLogin silver = new ConsecutiveLogin("Silver");
+        ConsecutiveLogin gold = new ConsecutiveLogin("Gold");
 
         //checks if the condition for getting bronze achievement level is correct
-        assertEquals("(User adds 5 tasks)", bronze.getInformation());
+        assertEquals("(User logs in 5 days consecutively)", bronze.getInformation());
         //checks if the condition for getting silver achievement level is correct
-        assertEquals("(User adds 10 tasks)", silver.getInformation());
+        assertEquals("(User logs in 10 days consecutively)", silver.getInformation());
         //checks if the condition for getting gold achievement level is correct
-        assertEquals("(User adds 15 tasks)", gold.getInformation());
+        assertEquals("(User logs in 15 days consecutively)", gold.getInformation());
 
         //checks if the condition for getting bronze achievement level is different from silver
         assertNotEquals(bronze.getInformation(),silver.getInformation());
@@ -43,15 +43,15 @@ public class DedicatedTest {
     @Test
     public void checkPrintingToTxt() {
 
-        AddTask lockedBronze = new AddTask("Bronze");
-        AddTask unlockedBronze = new AddTask("Bronze");
+        ConsecutiveLogin lockedBronze = new ConsecutiveLogin("Bronze");
+        ConsecutiveLogin unlockedBronze = new ConsecutiveLogin("Bronze");
 
         unlockedBronze.setLock(false);
         unlockedBronze.setPoints(5);
 
         //String should represents the current status of Busybee.
-        assertEquals("true|0|Bronze|Busybee|(User adds 5 tasks)", lockedBronze.toTxt());
-        assertEquals("false|5|Bronze|Busybee|(User adds 5 tasks)", unlockedBronze.toTxt());
+        assertEquals("true|0|Bronze|Dedicated to the art|(User logs in 5 days consecutively)", lockedBronze.toTxt());
+        assertEquals("false|5|Bronze|Dedicated to the art|(User logs in 5 days consecutively)", unlockedBronze.toTxt());
 
     }
 
