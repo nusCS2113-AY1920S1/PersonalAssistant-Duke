@@ -112,7 +112,7 @@ public class ImpressionCommandTest extends CommandTest {
 
     @Test
     public void impressionEditCommand_editData_dataEdited() {
-        ObjCommand editCmd = null;;
+        ObjCommand editCmd = null;
         Result origData = null;
         Result newData = null;
         String[] switchNames = {"evidence", "name", "priority", "summary"};
