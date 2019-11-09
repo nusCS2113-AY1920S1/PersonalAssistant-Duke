@@ -25,6 +25,7 @@ public abstract class Bank {
     private String accountName;
     private double currentAmount;
     TransactionList transactions;
+    static final double MAX_AMOUNT = 999999999.99;
 
     /**
      * Allows the child class to create an instance with name and current amount.
@@ -115,10 +116,12 @@ public abstract class Bank {
      *
      * @param expenditureIndex Transaction number.
      * @param ui    Ui of OwlMoney.
+     * @param isCreditCardBill Is the command affecting a credit card bill.
      * @throws TransactionException If invalid transaction.
      * @throws BankException        If used on investment account.
      */
-    public void deleteExpenditure(int expenditureIndex, Ui ui) throws TransactionException, BankException {
+    public void deleteExpenditure(int expenditureIndex, Ui ui, boolean isCreditCardBill)
+            throws TransactionException, BankException {
         throw new BankException("This account does not support this feature");
     }
 
@@ -204,10 +207,11 @@ public abstract class Bank {
      *
      * @param index Transaction number.
      * @param ui    Ui of OwlMoney.
+     * @param isCardBill Is affecting credit card bill deposit.
      * @throws TransactionException If transaction is not a deposit.
      * @throws BankException        If amount becomes negative after deleting deposit.
      */
-    void deleteDepositTransaction(int index, Ui ui) throws TransactionException, BankException {
+    void deleteDepositTransaction(int index, Ui ui, boolean isCardBill) throws TransactionException, BankException {
         throw new BankException("This account does not support this feature");
     }
 
@@ -371,17 +375,6 @@ public abstract class Bank {
     public void findRecurringExpenditure(String description, String category, Ui ui)
             throws BankException {
         throw new BankException("This account does not support this feature");
-    }
-
-    /**
-     * Returns expenditure amount based on the specified expenditure id.
-     *
-     * @param expno Expenditure id of the expenditure to be searched.
-     * @return Expenditure amount based on the specified expenditure id.
-     * @throws TransactionException If transaction is not an expenditure.
-     */
-    double getExpAmountById(int expno) throws TransactionException {
-        throw new TransactionException("This account does not support this feature");
     }
 
     /**
@@ -571,5 +564,17 @@ public abstract class Bank {
      */
     public int getCardBillDepositId(UUID cardId, YearMonth billDate) throws BankException {
         throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Checks if the receiving bank account will exceed 9 digits after transfer.
+     *
+     * @param amount Amount to receive.
+     * @throws BankException If the bank amount exceeds 9 digits.
+     */
+    public void enoughForTransfer(double amount) throws BankException {
+        if (this.currentAmount + amount > MAX_AMOUNT) {
+            throw new BankException("The amount in the receiving bank account cannot exceed 9 digits");
+        }
     }
 }

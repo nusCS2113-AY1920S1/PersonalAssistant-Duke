@@ -1,6 +1,8 @@
 package owlmoney.logic.parser.transaction.expenditure;
 
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.transaction.EditExpenditureCommand;
@@ -11,7 +13,13 @@ import owlmoney.logic.parser.exception.ParserException;
  */
 public class ParseEditExpenditure extends ParseExpenditure {
     private static final String EDIT_COMMAND = "/edit";
-    private static final String RESERVED_CATEGORY = "deposit";
+    private static final String DEPOSIT_CATEGORY = "DEPOSIT";
+    private static final String BONDS_CATEGORY = "BONDS";
+    private static final String TRANSFER_CATEGORY = "FUND TRANSFER";
+    private static final String CARD_CATEGORY = "CREDIT CARD";
+    private static final String[] RESERVED_CATEGORY = new String[] {
+        DEPOSIT_CATEGORY, BONDS_CATEGORY, TRANSFER_CATEGORY, CARD_CATEGORY};
+    private static final List<String> RESERVED_CATEGORY_LISTS = Arrays.asList(RESERVED_CATEGORY);
 
     /**
      * Creates an instance of ParseEditExpenditure.
@@ -36,31 +44,32 @@ public class ParseEditExpenditure extends ParseExpenditure {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = expendituresParameters.get(key);
-            if (TRANSACTION_NUMBER_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (TRANSACTION_NUMBER_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when editing an expenditure");
             } else if (TRANSACTION_NUMBER_PARAMETER.equals(key)) {
                 checkInt(TRANSACTION_NUMBER_PARAMETER, value);
             }
-            if (FROM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (FROM_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when editing an expenditure");
             } else if (FROM_PARAMETER.equals(key)) {
                 checkName(value);
             }
-            if (CATEGORY_PARAMETER.equals(key) && RESERVED_CATEGORY.equals(value)) {
-                throw new ParserException(key + " cannot be deposit when editing an expenditure");
-            } else if (CATEGORY_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (CATEGORY_PARAMETER.equals(key) && value != null
+                    && RESERVED_CATEGORY_LISTS.contains(value.toUpperCase())) {
+                throw new ParserException(key + " cannot be " + value + " when editing an expenditure");
+            } else if (CATEGORY_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkCategory(value);
                 changeCounter++;
             }
-            if (AMOUNT_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (AMOUNT_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkAmount(value);
                 changeCounter++;
             }
-            if (DESCRIPTION_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (DESCRIPTION_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkDescription(value, key);
                 changeCounter++;
             }
-            if (DATE_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (DATE_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkDate(value);
                 changeCounter++;
             }

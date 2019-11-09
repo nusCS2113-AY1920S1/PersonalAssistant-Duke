@@ -201,11 +201,11 @@ public class GoalsList {
                     throw new GoalsException("Sorry, you cannot edit a goal that's already achieved! "
                             + "Try creating a new goal instead!");
                 }
-                if (!(newName.isEmpty() || newName.isBlank())) {
+                if (!(newName == null || newName.isBlank())) {
                     compareGoals(currentGoal, newName);
                     currentGoal.setGoalsName(newName);
                 }
-                if (!(amount.isBlank() || amount.isEmpty())) {
+                if (!(amount == null || amount.isBlank())) {
                     currentGoal.setGoalsAmount(Double.parseDouble(amount));
                 }
                 if (date != null) {

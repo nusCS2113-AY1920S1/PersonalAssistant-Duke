@@ -39,7 +39,7 @@ public class ParseFindBond extends ParseFind {
             String key = findIterator.next();
             String value = findParameters.get(key);
             if (!DESCRIPTION_PARAMETER.equals(key) && !CATEGORY_PARAMETER.equals(key)
-                    && !TO_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+                    && !TO_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when doing a search");
             }
             if (FROM_PARAMETER.equals(key)) {

@@ -97,7 +97,7 @@ public final class RegexUtil {
      * @return the result of the check on whether it fulfills the criteria.
      */
     public static boolean regexCheckName(String input) {
-        if (input.isBlank() || input.isEmpty()) {
+        if (input == null || input.isBlank()) {
             return false;
         }
         final String nameRegex = "^[a-zA-Z0-9 ]{1,30}$";
@@ -111,7 +111,7 @@ public final class RegexUtil {
      * @return the result of the check on whether it fulfills the criteria.
      */
     public static boolean regexCheckDescription(String input) {
-        if (input.isBlank() || input.isEmpty()) {
+        if (input == null || input.isBlank()) {
             return false;
         }
         final String descriptionRegex = "^[a-zA-Z0-9 ]{1,50}$";
@@ -126,7 +126,7 @@ public final class RegexUtil {
      * @return the result of the check on whether it fulfills the criteria.
      */
     public static boolean regexCheckCategory(String input) {
-        if (input.isBlank() || input.isEmpty()) {
+        if (input == null || input.isBlank()) {
             return false;
         }
         final String categoryRegex = "^[a-zA-Z ]{1,15}$";

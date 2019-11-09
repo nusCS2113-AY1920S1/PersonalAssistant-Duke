@@ -36,7 +36,7 @@ public class ParseDeleteCard extends ParseCard {
         while (cardIterator.hasNext()) {
             String key = cardIterator.next();
             String value = cardParameters.get(key);
-            if ((NAME_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty()))) {
+            if (NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when deleting a card");
             }
             if (NAME_PARAMETER.equals(key)) {

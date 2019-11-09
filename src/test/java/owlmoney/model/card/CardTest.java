@@ -17,7 +17,7 @@ import owlmoney.model.transaction.Expenditure;
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
-public class CardTest {
+class CardTest {
     private static final String NEWLINE = System.lineSeparator();
     private static final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     private static final String DIVIDER =

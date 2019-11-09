@@ -206,15 +206,15 @@ public class CardList {
             String currentCardName = currentCard.getName();
             String capitalCurrentCardName = currentCardName.toUpperCase();
             if (capitalCardName.equals(capitalCurrentCardName)) {
-                if (!(newName.isEmpty() || newName.isBlank())) {
+                if (!(newName == null || newName.isBlank())) {
                     compareCard(currentCard, newName);
                     currentCard.setName(newName);
                 }
-                if (!(limit.isEmpty() || limit.isBlank())) {
+                if (!(limit == null || limit.isBlank())) {
                     this.checkUnpaidCannotEditLimit(currentCard);
                     currentCard.setLimit(Double.parseDouble(limit));
                 }
-                if (!(rebate.isEmpty() || rebate.isBlank())) {
+                if (!(rebate == null || rebate.isBlank())) {
                     currentCard.setRebate(Double.parseDouble(rebate));
                 }
                 ui.printMessage("New details of the cards: ");

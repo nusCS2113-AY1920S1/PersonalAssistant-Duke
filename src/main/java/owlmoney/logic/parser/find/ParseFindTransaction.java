@@ -39,25 +39,25 @@ public class ParseFindTransaction extends ParseFind {
         while (findIterator.hasNext()) {
             String key = findIterator.next();
             String value = findParameters.get(key);
-            if (FROM_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (FROM_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 fromDate = checkDate(value);
                 isFromExist = true;
                 findCounter++;
             }
-            if (TO_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (TO_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 toDate = checkDate(value);
                 isToExist = true;
                 findCounter++;
             }
-            if (DESCRIPTION_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (DESCRIPTION_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkDescription(value);
                 findCounter++;
             }
-            if (CATEGORY_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (CATEGORY_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkCategory(value);
                 findCounter++;
             }
-            if (NAME_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when finding transaction");
             } else if (NAME_PARAMETER.equals(key)) {
                 checkName(value);
