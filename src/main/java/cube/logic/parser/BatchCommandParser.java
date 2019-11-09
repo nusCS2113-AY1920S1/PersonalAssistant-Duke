@@ -21,11 +21,11 @@ public class BatchCommandParser implements ParserPrototype<BatchCommand> {
 
         switch (args[1]) {
         case "-o":
-            return new BatchCommand(args[2], "EXPORT");
+            return new BatchCommand(args[2], BatchCommand.OperationType.EXPORT);
         case "-i":
-            return new BatchCommand(args[2], "IMPORT");
+            return new BatchCommand(args[2], BatchCommand.OperationType.IMPORT);
         case "-e":
-            return new BatchCommand(args[2], "EMPTY");
+            return new BatchCommand(args[2], BatchCommand.OperationType.EMPTY);
         }
         throw new ParserException(ParserErrorMessage.INVALID_COMMAND_FORMAT);
     }

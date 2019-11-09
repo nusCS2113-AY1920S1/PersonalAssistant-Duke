@@ -68,7 +68,7 @@ public class BatchCommandTest {
     public void export_file() throws CommandException {
         String fileName = "test_export_file.csv";
         storage.storeFoodList(foodList);
-        BatchCommand command = new BatchCommand(fileName, "EXPORT");
+        BatchCommand command = new BatchCommand(fileName, BatchCommand.OperationType.EXPORT);
         CommandResult result = command.execute(model, storage);
 
         CommandResult expectedResult = new CommandResult(String.format(BatchCommand.MESSAGE_SUCCESS, BatchCommand.MESSAGE_EXPORT, fileName));
@@ -83,7 +83,7 @@ public class BatchCommandTest {
     @Order(2)
     public void import_file() throws CommandException {
         String fileName = "test_export_file.csv";
-        BatchCommand command = new BatchCommand(fileName, "IMPORT");
+        BatchCommand command = new BatchCommand(fileName, BatchCommand.OperationType.IMPORT);
         CommandResult result = command.execute(model, storage);
 
         CommandResult expectedResult = new CommandResult(String.format(BatchCommand.MESSAGE_SUCCESS, BatchCommand.MESSAGE_IMPORT, fileName));
@@ -98,7 +98,7 @@ public class BatchCommandTest {
     @Order(3)
     public void import_non_existing_file() throws CommandException {
         String fileName = "test_import_non_existing_file.csv";
-        BatchCommand command = new BatchCommand(fileName, "IMPORT");
+        BatchCommand command = new BatchCommand(fileName, BatchCommand.OperationType.IMPORT);
         CommandResult result = command.execute(model, storage);
 
         CommandResult expectedResult = new CommandResult(String.format(BatchCommand.MESSAGE_FILE_NOT_FOUND, fileName));
@@ -112,7 +112,7 @@ public class BatchCommandTest {
     @Order(4)
     public void create_empty_template() throws CommandException {
         String fileName = "test_create_empty_template.csv";
-        BatchCommand command = new BatchCommand(fileName, "EMPTY");
+        BatchCommand command = new BatchCommand(fileName, BatchCommand.OperationType.EMPTY);
         CommandResult result = command.execute(model, storage);
 
         CommandResult expectedResult = new CommandResult(String.format(BatchCommand.MESSAGE_SUCCESS_TEMPLATE, fileName));

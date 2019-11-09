@@ -47,9 +47,9 @@ public class BatchCommand extends Command {
      * @param fileName      Sets the filename of the CSV file to be loaded/saved from.
      * @param operationType Specifies to either IMPORT or EXPORT operation.
      */
-    public BatchCommand(String fileName, String operationType) {
+    public BatchCommand(String fileName, OperationType operationType) {
         this.fileName = fileName;
-        this.operationType = OperationType.valueOf(operationType);
+        this.operationType = operationType;
         this.batchUtil = new FileUtilCSV<>("data", fileName, new Food());
     }
 
