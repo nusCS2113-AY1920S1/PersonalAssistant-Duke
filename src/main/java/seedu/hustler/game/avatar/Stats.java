@@ -12,22 +12,22 @@ public class Stats implements Convertible {
     /**
      * Stat that deals damage.
      */
-    private int damage;
+    private final int damage;
 
     /**
      * Stat that blocks damage.
      */
-    private int defence;
+    private final int defence;
 
     /**
      * Stat that represents stamina.
      */
-    private int stamina;
+    private final int stamina;
 
     /**
      * Stat that represents speed.
      */
-    private int speed;
+    private final int speed;
 
     /**
      * Constructs the default Stats values.
@@ -60,11 +60,43 @@ public class Stats implements Convertible {
      * @return the updated stats after increment.
      */
     public Stats upStats(int level) {
-        this.damage += (level % 2 == 0) ? 2 : 1;
-        this.defence += (level % 3 == 0) ? 2 : 1;
-        this.stamina += 2;
-        this.speed += (level % 3 == 0) ? 1 : 0;
-        return this;
+        int newDamage = this.damage + (level % 2 == 0 ? 2 : 1);
+        int newDefence = this.defence + (level % 3 == 0 ? 2 : 1);
+        int newStamina = this.stamina + 2;
+        int newSpeed = this.speed + 1;
+        return new Stats(newDamage, newDefence, newStamina, newSpeed);
+    }
+
+    /**
+     * Gets the damage.
+     * @return the damage stat value.
+     */
+    public int getDamage() {
+        return this.damage;
+    }
+
+    /**
+     * Gets the defence.
+     * @reutrn the defence stat value.
+     */
+    public int getDefence() {
+        return this.defence;
+    }
+
+    /**
+     * Gets the speed.
+     * @return the speed stat value.
+     */
+    public int getSpeed() {
+        return this.speed;
+    }
+
+    /**
+     * Gets the stamina.
+     * @return the stamina stat value.
+     */
+    public int getStamina() {
+        return this.stamina;
     }
 
     /**
@@ -74,15 +106,24 @@ public class Stats implements Convertible {
      * @return the String consisting of the stats.
      */
     public String getStats(Optional<Weapon> weapon, Optional<Armor> armor) {
-        return "Damage: "  + (this.damage + (weapon.map(value -> + value.getDamageIncr()).orElse(0))) + "\n"
-            + "Defence: " + (this.defence + (armor.map(value -> + value.getDefenceIncr()).orElse(0))) + "\n"
-            + "Stamina: " + (this.stamina + (armor.map(value -> + value.getStaminaIncr()).orElse(0))) + "\n"
-            + "Speed: " + this.speed;
+        return "\tDamage: "  + (this.damage + (weapon.map(value -> + value.getDamageIncr()).orElse(0))) + "\n"
+            + "\tDefence: " + (this.defence + (armor.map(value -> + value.getDefenceIncr()).orElse(0))) + "\n"
+            + "\tStamina: " + (this.stamina + (armor.map(value -> + value.getStaminaIncr()).orElse(0))) + "\n"
+            + "\tSpeed: " + this.speed;
     }
 
     @Override
     public String toTxt() {
         return this.damage + " " + this.defence + " "
             + this.stamina + " " + this.speed;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj == this || (obj instanceof Stats
+                && this.getDamage() == ((Stats) obj).getDamage()
+                && this.getDefence() == ((Stats) obj).getDefence()
+                && this.getSpeed() == ((Stats) obj).getSpeed()
+                && this.getStamina() == ((Stats) obj).getStamina());
     }
 }

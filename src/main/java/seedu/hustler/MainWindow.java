@@ -167,14 +167,14 @@ public class MainWindow extends AnchorPane{
      */
     @FXML
     public void handleUserInput() {
-        String input = userInput.getText();
         String[] timerModeCommands = {"/timer", "/resumertimer", "/stoptimer", "/pausetimer", "/update",
                                       "/resumetimer", "/showtimer", "/addfromlist", "/remove"};
 
-        String[] avatarModeCommands = {"/setname", "/avatar", "/equip"};
+        String[] avatarModeCommands = {"/setname", "/avatar", "/equip", "/inventory"};
 
         String[] shopModeCommands = {"/shop", "/buy"};
 
+        String input = userInput.getText();
         String command = input.split(" ")[0].toLowerCase();
 
         if (!input.isBlank()) {
