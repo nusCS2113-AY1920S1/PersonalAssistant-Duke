@@ -1,6 +1,5 @@
 package duke.logic.command.shopping;
 
-import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;

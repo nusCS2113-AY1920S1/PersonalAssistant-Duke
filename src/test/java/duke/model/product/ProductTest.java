@@ -1,12 +1,7 @@
 package duke.model.product;
 
-import duke.logic.command.product.AddProductCommand;
 import duke.logic.message.ProductMessageUtils;
-import duke.model.Model;
-import duke.model.ModelManager;
-import duke.model.exceptions.DuplicateEntityException;
 import duke.testutil.ProductBuilder;
-import duke.testutil.ProductDescriptorBuilder;
 import org.junit.jupiter.api.Test;
 
 import static duke.logic.command.product.ProductCommandTestUtil.VALID_COST;

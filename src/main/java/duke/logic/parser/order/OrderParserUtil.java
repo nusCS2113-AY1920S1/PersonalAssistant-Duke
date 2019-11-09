@@ -8,6 +8,8 @@ import duke.logic.parser.exceptions.ParseException;
 import duke.model.commons.Item;
 import duke.model.commons.Quantity;
 import duke.model.order.Order;
+import duke.model.order.Remark;
+import duke.model.order.TotalPrice;
 
 import java.util.HashSet;
 import java.util.List;
@@ -25,18 +27,6 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_TOTAL;
  * A utility class for order parser.
  */
 class OrderParserUtil {
-    private static final double MAX_NUMBER = 50000.0;
-    private static final int MAX_NAME_LENGTH = 20;
-    private static final int MAX_CONTACT_LENGTH = 20;
-    private static final int MAX_REMARKS_LENGTH = 50;
-    private static final String MESSAGE_NUMBER_EXCEED_LIMIT = "Numbers should be a positive double no more than "
-        + MAX_NUMBER;
-    private static final String MESSAGE_NAME_EXCEED_LIMIT = "Name should be less than "
-        + MAX_NAME_LENGTH + " characters.";
-    private static final String MESSAGE_CONTACT_EXCEED_LIMIT = "Contact should be less than "
-        + MAX_CONTACT_LENGTH + " characters.";
-    private static final String MESSAGE_REMARKS_EXCEED_LIMIT = "Remarks should be less than "
-        + MAX_REMARKS_LENGTH + " characters.";
 
     /**
      * Returns an {@code OrderDescriptor} from the given {@code ArgumentMultimap}.
@@ -46,12 +36,10 @@ class OrderParserUtil {
 
         if (map.getValue(PREFIX_CUSTOMER_NAME).isPresent()) {
             String value = map.getValue(PREFIX_CUSTOMER_NAME).get();
-            checkStringLength(value, MAX_NAME_LENGTH, MESSAGE_NAME_EXCEED_LIMIT);
             descriptor.setCustomerName(value);
         }
         if (map.getValue(PREFIX_CUSTOMER_CONTACT).isPresent()) {
             String value = map.getValue(PREFIX_CUSTOMER_CONTACT).get();
-            checkStringLength(value, MAX_CONTACT_LENGTH, MESSAGE_CONTACT_EXCEED_LIMIT);
             descriptor.setCustomerContact(value);
         }
         if (map.getValue(PREFIX_ORDER_DEADLINE).isPresent()) {
@@ -60,8 +48,7 @@ class OrderParserUtil {
         }
         if (map.getValue(PREFIX_ORDER_REMARKS).isPresent()) {
             String value = map.getValue(PREFIX_ORDER_REMARKS).get();
-            checkStringLength(value, MAX_REMARKS_LENGTH, MESSAGE_REMARKS_EXCEED_LIMIT);
-            descriptor.setRemarks(value);
+            descriptor.setRemarks(new Remark(value));
         }
         if (map.getValue(PREFIX_ORDER_ITEM).isPresent()) {
             descriptor.setItems(parseItems(map.getAllValues(PREFIX_ORDER_ITEM)));
@@ -88,13 +75,12 @@ class OrderParserUtil {
 
             try {
                 double amount = Double.parseDouble(itemAndQty[1].strip());
-                checkNumber(amount);
 
                 Item<String> item = new Item<>(itemAndQty[0].strip(),
                     new Quantity(amount));
                 items.add(item);
             } catch (NumberFormatException e) {
-                throw new ParseException(Message.MESSAGE_INVALID_NUMBER_FORMAT);
+                throw new ParseException(Message.MESSAGE_INVALID_QUANTITY);
             }
         }
         return items;
@@ -109,33 +95,12 @@ class OrderParserUtil {
         }
     }
 
-    private static double parseTotal(String totalString) throws ParseException {
+    private static TotalPrice parseTotal(String totalString) throws ParseException {
         try {
-            double result = Double.parseDouble(totalString);
-            checkNumber(result);
-            return result;
+            return new TotalPrice(Double.parseDouble(totalString));
         } catch (NumberFormatException e) {
             throw new ParseException(Message.MESSAGE_INVALID_NUMBER_FORMAT);
         }
     }
 
-    /**
-     * Checks if number is within limit.
-     * @throws ParseException if number is greater than {@code MAX_NUMBER} or smaller than zero.
-     */
-    private static void checkNumber(double toCheck) throws ParseException {
-        if (toCheck < 0 || toCheck > MAX_NUMBER) {
-            throw new ParseException(MESSAGE_NUMBER_EXCEED_LIMIT);
-        }
-    }
-
-    /**
-     * Checks if a {@code toCheck}'s length is no more than {@code max}.
-     * @throws ParseException if the string's is more than {@code max}
-     */
-    private static void checkStringLength(String toCheck, int max, String message) throws ParseException {
-        if (toCheck.length() > max) {
-            throw new ParseException(message);
-        }
-    }
 }

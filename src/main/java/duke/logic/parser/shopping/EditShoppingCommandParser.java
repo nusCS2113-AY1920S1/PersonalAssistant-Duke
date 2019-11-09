@@ -1,6 +1,5 @@
 package duke.logic.parser.shopping;
 
-import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.logic.command.shopping.EditShoppingCommand;
 import duke.logic.parser.commons.ArgumentMultimap;
@@ -17,6 +16,9 @@ import static duke.logic.parser.shopping.ShoppingParserUtil.createShoppingDescri
 
 public class EditShoppingCommandParser implements Parser<EditShoppingCommand> {
 
+    private static final String MESSAGE_EMPTY_INDEX = "Index cannot be empty.";
+    private static final String MESSAGE_INVALID_INDEX = "Please enter a valid index in the list";
+
     @Override
     public EditShoppingCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
@@ -28,10 +30,14 @@ public class EditShoppingCommandParser implements Parser<EditShoppingCommand> {
 
         Index index;
 
+        if (map.getPreamble().isBlank()) {
+            throw new ParseException(MESSAGE_EMPTY_INDEX);
+        }
+
         try {
             index = ParserUtil.parseIndex(map.getPreamble());
         } catch (ParseException e) {
-            throw new ParseException(Message.MESSAGE_INVALID_INDEX);
+            throw new ParseException(MESSAGE_INVALID_INDEX);
         }
 
         return new EditShoppingCommand(index, createShoppingDescriptor(map));

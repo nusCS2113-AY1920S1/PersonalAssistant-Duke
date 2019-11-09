@@ -9,7 +9,6 @@ import duke.logic.message.ShoppingMessageUtils;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.Model;
 import duke.model.ModelManager;
-import duke.model.product.Product;
 import duke.storage.JsonBakingHomeStorage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -72,7 +71,7 @@ public class LogicManagerTest {
 
         assertCommandSuccess("inv clear", InventoryMessageUtils.MESSAGE_SUCCESS_CLEAR_INVENTORY, model);
         assertCommandSuccess("product sort -by name -scope active -re",
-            String.format(ProductMessageUtils.MESSAGE_SORT_PRODUCT_SUCCESS, "NAME"), model );
+            String.format(ProductMessageUtils.MESSAGE_SORT_PRODUCT_SUCCESS, "NAME"), model);
         assertCommandSuccess("product add -name _name",
             String.format(ProductMessageUtils.MESSAGE_ADD_PRODUCT_SUCCESS, "_name"), model);
         assertCommandSuccess("product search -include a",

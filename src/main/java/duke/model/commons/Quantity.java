@@ -1,5 +1,7 @@
 package duke.model.commons;
 
+import duke.logic.parser.exceptions.ParseException;
+
 import java.text.DecimalFormat;
 
 import static duke.commons.util.AppUtil.checkNegativeDouble;
@@ -9,7 +11,7 @@ public class Quantity {
     private static final Double DEFAULT_NUMBER = 0.0;
 
     private static final String MESSAGE_CONSTRAINTS_QUANTITY = "Quantity must be a valid non-negative number";
-    private static final String MESSAGE_LIMIT_QUANTITY = "Upper limit of quantity is 50000";
+    public static final String MESSAGE_LIMIT_QUANTITY = "Upper limit of quantity is 50000";
 
     private Double number;
 
@@ -37,7 +39,7 @@ public class Quantity {
 
     private void checkUpperLimit(double number, String messageLimitQuantity) {
         if (number > 50000) {
-            throw new IllegalArgumentException(messageLimitQuantity);
+            throw new ParseException(messageLimitQuantity);
         }
     }
 }

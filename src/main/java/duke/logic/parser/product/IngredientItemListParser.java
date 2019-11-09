@@ -1,7 +1,6 @@
 package duke.logic.parser.product;
 
 import duke.commons.core.LogsCenter;
-import duke.logic.message.ProductMessageUtils;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.commons.Item;
 import duke.model.commons.Quantity;

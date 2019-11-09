@@ -74,7 +74,7 @@ public class ParserUtil {
             start = Integer.parseInt(startAndEndIndices[0].strip());
             end = Integer.parseInt(startAndEndIndices[1].strip());
         } catch (NumberFormatException e) {
-            throw new ParseException(Message.MESSAGE_INVALID_NUMBER_FORMAT);
+            throw new ParseException(Message.MESSAGE_INVALID_INDEX);
         }
         if (start > end) {
             throw new ParseException(Message.MESSAGE_INVALID_RANGE);
@@ -96,7 +96,7 @@ public class ParserUtil {
             try {
                 result.add(Index.fromOneBased(Integer.parseInt(indexString.strip())));
             } catch (NumberFormatException e) {
-                throw new ParseException(Message.MESSAGE_INVALID_NUMBER_FORMAT);
+                throw new ParseException(Message.MESSAGE_INVALID_INDEX);
             } catch (IndexOutOfBoundsException i) {
                 throw new ParseException(MESSAGE_INVALID_INDEX);
             }

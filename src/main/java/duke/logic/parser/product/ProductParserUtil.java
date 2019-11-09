@@ -19,7 +19,9 @@ public class ProductParserUtil {
 
     private static final Logger logger = LogsCenter.getLogger(ProductParserUtil.class);
 
-    /** Creates a ProductDescriptor from the given {@code ArgumentMultimap}. */
+    /**
+     * Creates a ProductDescriptor from the given {@code ArgumentMultimap}.
+     */
     public static ProductDescriptor createProductDescriptor(ArgumentMultimap map) {
         ProductDescriptor productDescriptor = new ProductDescriptor();
 

@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -21,46 +22,60 @@ import static duke.commons.util.CollectionUtil.requireAllNonNull;
  * Represents an order in order list.
  */
 public class Order {
+    private BooleanProperty isIngredientEnough;
 
     //Identity field
-    private final long id;
+    private final OrderId id;
+    private final Remark remarks;
 
     //Data fields
     private final Date creationDate;
     private final Customer customer;
     private final Date deliveryDate;
     private final Set<Item<Product>> items;
-    private final String remarks;
+    private final TotalPrice total;
     private final Status status;
-    private final double total;
-    private BooleanProperty isIngredientEnough = new SimpleBooleanProperty();
 
     /**
-     * Creates an order.
-     * Every field must be present and not null.
+     * Status of an order.
      */
-    public Order(Customer customer, Date deliveryDate, Status status,
-                 String remarks, Set<Item<Product>> items, double total) {
-        requireAllNonNull(customer, deliveryDate, status, remarks, items, total);
+    public enum Status {
+        /**
+         * Active status. The order is still being prepared in the bakery.
+         */
+        ACTIVE,
 
-        this.id = generateId();
-        this.creationDate = generateCreationDate();
+        /**
+         * Completed status. The products are delivered and transaction is added.
+         * Once marked as this status, the order's status cannot be further modified.
+         */
+        COMPLETED,
 
-        this.customer = customer;
-        this.deliveryDate = deliveryDate;
-        this.status = status;
-        this.remarks = remarks;
-        this.items = items;
-        this.total = total;
+        /**
+         * Canceled status. The order is canceled by the customer or the bakery.
+         */
+        CANCELED
     }
 
     /**
-     * Creates an order.
+     * Creates an {@code Order}.
      * Every field must be present and not null.
+     *
+     * @param customer of the order.
+     * @param deliveryDate date of delivery. Can be
+     * @param status Status of an order. see {@link Order.Status}.
+     * @param remarks additional notes regarding the order.
+     * @param items Products ordered in the order.
+     * @param total total price of the order.
      */
-    public Order(Customer customer, Date deliveryDate, Status status,
-                 String remarks, Set<Item<Product>> items, double total,
-                 Long id, Date creationDate) {
+    public Order(Customer customer,
+                 Date deliveryDate,
+                 Status status,
+                 Remark remarks,
+                 Set<Item<Product>> items,
+                 TotalPrice total,
+                 OrderId id,
+                 Date creationDate) {
         requireAllNonNull(customer, deliveryDate, status, remarks, items, total, id);
 
         this.id = id;
@@ -77,28 +92,33 @@ public class Order {
     }
 
     /**
-     * Makes the order's {@code isIngredientEnough} property changes dynamically with the change of {@code inventory}.
+     * Creates an {@code Order}.
+     * Every field must be present and not null.
+     * Order id and creation date are generated based on current system time.
      */
-    public void listenToInventory(ObservableList<Item<Ingredient>> inventory) {
-        updateIsIngredientEnough(inventory);
-        inventory.addListener((ListChangeListener<Item<Ingredient>>) c -> updateIsIngredientEnough(inventory));
+    public Order(Customer customer,
+                 Date deliveryDate,
+                 Status status,
+                 Remark remarks,
+                 Set<Item<Product>> items,
+                 TotalPrice total) {
+        this(customer, deliveryDate, status, remarks, items, total, OrderId.getOrderId(), generateCreationDate());
     }
 
-    /**
-     * Status of an order.
-     */
-    public enum Status {
-        ACTIVE,
-        COMPLETED,
-        CANCELED
+    private static Date generateCreationDate() {
+        return new Date(System.currentTimeMillis());
+    }
+
+    public OrderId getId() {
+        return id;
     }
 
     public Customer getCustomer() {
         return customer;
     }
 
-    public long getId() {
-        return id;
+    public Remark getRemarks() {
+        return remarks;
     }
 
     public Date getCreationDate() {
@@ -113,19 +133,15 @@ public class Order {
         return Collections.unmodifiableSet(items);
     }
 
-    public String getRemarks() {
-        return remarks;
+    public TotalPrice getTotal() {
+        return total;
     }
 
     public Status getStatus() {
         return status;
     }
 
-    public double getTotal() {
-        return total;
-    }
-
-    public boolean isIsIngredientEnough() {
+    public boolean isIngredientEnough() {
         return isIngredientEnough.get();
     }
 
@@ -133,19 +149,28 @@ public class Order {
         return isIngredientEnough;
     }
 
-    private long generateId() {
-        return System.currentTimeMillis();
-    }
+    /**
+     * Makes the order's {@code isIngredientEnough} property changes dynamically with the change of {@code inventory}.
+     */
+    public void listenToInventory(ObservableList<Item<Ingredient>> inventory) {
+        requireAllNonNull(inventory);
 
-    private Date generateCreationDate() {
-        return new Date(System.currentTimeMillis());
+        updateIsIngredientEnough(inventory);
+        inventory.addListener((ListChangeListener<Item<Ingredient>>) c -> updateIsIngredientEnough(inventory));
     }
-
 
     /**
      * Updates the {@code isIngredientEnough} property based on {@code inventory}.
      */
     private void updateIsIngredientEnough(ObservableList<Item<Ingredient>> inventory) {
+        requireAllNonNull(inventory);
+
+        isIngredientEnough.setValue(
+            isRequiredIngredientSufficient(inventory, getRequiredIngredients(inventory))
+        );
+    }
+
+    private Map<Ingredient, Double> getRequiredIngredients(ObservableList<Item<Ingredient>> inventory) {
         requireAllNonNull(inventory);
 
         //Key: the ingredient needed;
@@ -169,7 +194,14 @@ public class Order {
             }
         }
 
-        isIngredientEnough.setValue(true);
+        return requiredIngredients;
+    }
+
+    private boolean isRequiredIngredientSufficient(ObservableList<Item<Ingredient>> inventory,
+                                                   Map<Ingredient, Double> requiredIngredients) {
+        requireAllNonNull(inventory, requiredIngredients);
+
+        AtomicBoolean isEnough = new AtomicBoolean(true);
 
         //Iterate through all ingredients needed.
         requiredIngredients.forEach((requiredIngredient, requiredAmount) -> {
@@ -181,7 +213,7 @@ public class Order {
                 if (requiredIngredient.equals(inventoryIngredient)) {
                     isFound = true;
                     if (requiredAmount > inventoryAmount) {
-                        isIngredientEnough.setValue(false);
+                        isEnough.set(false);
                         break;
                     }
                 }
@@ -189,9 +221,11 @@ public class Order {
 
             //If ingredient needed is not in inventory
             if (!isFound) {
-                isIngredientEnough.setValue(false);
+                isEnough.set(false);
             }
         });
+
+        return isEnough.get();
     }
 
     @Override

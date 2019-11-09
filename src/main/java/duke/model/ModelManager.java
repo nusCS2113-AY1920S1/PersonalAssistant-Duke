@@ -199,9 +199,9 @@ public class ModelManager implements Model {
     @Override
     public void addSaleFromOrder(Order order) {
         String description = "Order " + order.getId() + " completed.";
-        double value = order.getTotal();
+        double value = order.getTotal().value;
         Date deliveryDate = order.getDeliveryDate();
-        String remarks = order.getRemarks();
+        String remarks = order.getRemarks().value;
         bakingHome.addSale(new Sale(description, value, false, deliveryDate, remarks));
         updateFilteredSaleList(PREDICATE_SHOW_ALL_SALES);
     }
@@ -267,10 +267,9 @@ public class ModelManager implements Model {
     @Override
     public void getProductWithKeyword(String keyword) {
         Predicate<Product> containsKeyword =
-                product -> product.getProductName().toLowerCase().contains(keyword);
+            product -> product.getProductName().toLowerCase().contains(keyword);
         updateFilteredProductList(containsKeyword);
     }
-
 
 
     //========Inventory operations==========

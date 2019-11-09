@@ -25,8 +25,6 @@ public class CompleteOrderCommand extends OrderCommand {
 
     private static final String MESSAGE_COMMIT = "Complete order";
     private static final String MESSAGE_COMPLETE_SUCCESS = "%s order(s) completed.";
-    private static final String MESSAGE_COMPLETE_INSUFFICIENT_INVENTORY = "%s order(s) completed. "
-        + "Insufficient ingredients are deducted to zero in inventory.";
     private final Set<Index> indices;
 
     public static final String AUTO_COMPLETE_INDICATOR = OrderCommand.COMMAND_WORD + " " + COMMAND_WORD;
@@ -47,12 +45,23 @@ public class CompleteOrderCommand extends OrderCommand {
 
 
     public CommandResult execute(Model model) throws CommandException {
-        String executeResult = MESSAGE_COMPLETE_SUCCESS;
+        checkCompleteEligibility(model);
 
-        //Check complete eligibility
+        completeOrders(model);
+
+        model.commit(MESSAGE_COMMIT);
+
+        logger.info(String.format("Completed %d order(s)", indices.size()));
+
+        return new CommandResult(String.format(MESSAGE_COMPLETE_SUCCESS, indices.size()),
+            CommandResult.DisplayedPage.ORDER);
+
+    }
+
+    private void checkCompleteEligibility(Model model) throws CommandException {
         for (Index index : indices) {
             if (index.getZeroBased() >= model.getFilteredOrderList().size()) {
-                logger.warning(String.format("Index [%d] out of bound", index.getOneBased()));
+                logger.warning(String.format("Index [%d] does not exist", index.getOneBased()));
                 throw new CommandException(Message.MESSAGE_INDEX_OUT_OF_BOUND);
             }
 
@@ -60,20 +69,18 @@ public class CompleteOrderCommand extends OrderCommand {
                 throw new CommandException(String.format(Message.MESSAGE_ORDER_ALREADY_COMPLETED, index.getOneBased()));
             }
         }
+    }
 
+    private void completeOrders(Model model) throws CommandException {
         for (Index index : indices) {
             OrderDescriptor descriptor = new OrderDescriptor();
             descriptor.setStatus(Order.Status.COMPLETED);
 
             //deducts ingredients used in this order from inventory.
-            boolean isIngredientsUsedUp = deductInventory(
+            deductInventory(
                 model.getFilteredOrderList().get(index.getZeroBased()),
                 model
             );
-
-            if (isIngredientsUsedUp) {
-                executeResult = MESSAGE_COMPLETE_INSUFFICIENT_INVENTORY;
-            }
 
             model.setOrder(index,
                 OrderCommandUtil.modifyOrder(
@@ -86,15 +93,6 @@ public class CompleteOrderCommand extends OrderCommand {
 
             //Add new sale entry
             model.addSaleFromOrder(model.getFilteredOrderList().get(index.getZeroBased()));
-
         }
-
-        model.commit(MESSAGE_COMMIT);
-
-        logger.info(String.format("Completed %d order(s)", indices.size()));
-
-        return new CommandResult(String.format(executeResult, indices.size()),
-                CommandResult.DisplayedPage.ORDER);
-
     }
 }

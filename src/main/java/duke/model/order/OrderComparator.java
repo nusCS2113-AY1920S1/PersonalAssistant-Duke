@@ -74,6 +74,6 @@ public class OrderComparator implements Comparator<Order> {
     }
 
     private int compareTotal(Order o1, Order o2) {
-        return Double.compare(o1.getTotal(), o2.getTotal());
+        return Double.compare(o1.getTotal().value, o2.getTotal().value);
     }
 }

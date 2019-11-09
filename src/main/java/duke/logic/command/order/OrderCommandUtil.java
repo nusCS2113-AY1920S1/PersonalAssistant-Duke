@@ -6,6 +6,8 @@ import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 import duke.model.order.Customer;
 import duke.model.order.Order;
+import duke.model.order.Remark;
+import duke.model.order.TotalPrice;
 import duke.model.product.Product;
 import javafx.collections.ObservableList;
 import org.ocpsoft.prettytime.shade.org.apache.commons.lang.StringUtils;
@@ -18,11 +20,10 @@ import java.util.Set;
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
 class OrderCommandUtil {
-    private static final String MESSAGE_ITEM_NOT_FOUND = "[%s] is not found in the filtered product list. "
-        + "Add it to Product List first or change Product List's viewing scope first?";
+    public static final String MESSAGE_ITEM_NOT_FOUND = "[%s] is not an active product or is not in Product list. ";
 
     /**
-     * Returns a set of product items from product names.
+     * Returns a set of product items based on product names.
      * @param allProducts that are available.
      * @param items containing the name of the products.
      * @throws CommandException if one or more product names in {@code items} are not found in {@code allProducts}
@@ -73,10 +74,11 @@ class OrderCommandUtil {
             newItems = original.getItems();
         }
 
-        String newRemarks = orderDescriptor.getRemarks().orElse(original.getRemarks());
+        Remark newRemarks = orderDescriptor.getRemarks().orElse(original.getRemarks());
         Order.Status newStatus = orderDescriptor.getStatus().orElse(original.getStatus());
-        double newTotal = orderDescriptor.getTotal().orElse(original.getTotal());
-        Order order = new Order(newCustomer, newDate, newStatus, newRemarks, newItems, newTotal);
+        TotalPrice newTotal = orderDescriptor.getTotal().orElse(original.getTotal());
+        Order order = new Order(newCustomer, newDate, newStatus,
+            newRemarks, newItems, newTotal);
         order.listenToInventory(inventoryList);
         return order;
     }

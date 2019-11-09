@@ -1,6 +1,5 @@
 package duke.logic.parser.shopping;
 
-import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.logic.command.shopping.BuyShoppingCommand;
 import duke.logic.parser.commons.ArgumentMultimap;
@@ -14,7 +13,7 @@ import java.util.Set;
 public class BuyShoppingCommandParser implements Parser<BuyShoppingCommand> {
 
     private static final String MESSAGE_EMPTY_INDICES = "Indices cannot be empty.";
-    private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index 0 is out of bound";
+    private static final String MESSAGE_INVALID_INDEX = "Please enter a valid index in the list";
 
     @Override
     public BuyShoppingCommand parse(String args) throws ParseException {
@@ -29,7 +28,7 @@ public class BuyShoppingCommandParser implements Parser<BuyShoppingCommand> {
         try {
             indices = ParserUtil.getIndices(map.getPreamble());
         } catch (ParseException e) {
-            throw new ParseException(MESSAGE_INDEX_OUT_OF_BOUND);
+            throw new ParseException(MESSAGE_INVALID_INDEX);
         }
 
         return new BuyShoppingCommand(indices);
