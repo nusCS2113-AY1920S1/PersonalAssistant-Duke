@@ -70,8 +70,8 @@ image::menuexample.png[width="650"]
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `select CHAPTER`, `CHAPTER` is a parameter
-which can be used as `select Sorting`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `quiz CHAPTER`, `CHAPTER` is a parameter
+which can be used as `quiz sorting`.
 ====
 
 === Setting up of user profile : `hello`
@@ -98,7 +98,7 @@ Format: `menu`
 
 image::menu.png[width="650"]
 
-You can check each command out by typing *`menu`* *`command`*. +
+You can check each command out by typing *`menu`* *`COMMAND`*. +
 
 Example: `menu lecture`
 =====
@@ -112,16 +112,9 @@ image::menuexample.png[width="650"]
 === Start a lecture : `lecture`
 This command allows you to pick a chapter that you are interested in revising.
 The lecture ends after all the slides are done or if you type `end`. +
-`lecture` will list all the chapters that are available in the program. +
-Format : `lecture`
+Format : `lecture CHAPTER`
 
 ====
-*Expected outcome*
-
-image::lecture.png[width="650"]
-
-You can start the lecture by typing *`lecture`* *`chapter`*. +
-
 Example: `lecture sorting`
 =====
 *Expected outcome*
@@ -132,30 +125,22 @@ image::lecturesorting.png[width="650"]
 * You can progress to the next slide by typing `next`.
 * You can return to the previous slide by typing `back`.
 * You can end the lecture by typing `end`.
-
 =====
 ====
 
 === Start a quiz : `quiz`
 This command allows you to pick a chapter that you are interested in practising. +
 The quiz ends after 10 questions or if you type `end`. +
-`quiz` will list all the chapters that are available in the program. +
-Format : `quiz`
+Format : `quiz CHAPTER`
 
 ====
-*Expected outcome*
-
-image::quiz.png[width="650"]
-
-You can start the quiz by typing *`quiz`* *`chapter`*. +
-
 Example: `quiz sorting`
 =====
 *Expected outcome*
 
 image::quizsorting.png[width="650"]
 
-* You can start the lecture by typing `start`.
+* You can start the quiz by typing `start`.
 * You can progress to the next slide by typing `next`.
 * You can return to the previous slide by typing `back`.
 * You can end the lecture by typing `end`.
@@ -207,21 +192,14 @@ image::exit.png[width="650"]
 
 === Review your quiz questions : `review`
 This command allows you to review the questions which has went wrong during your quiz.
-Format : `review`
+Format : `review NUMBER`
 
 ====
-*Expected outcome*
-
-image::review.png[width="650"]
-
-You can review a particular question by typing *`review`* *`number`*. +
-
 Example: `review 3`
-======
+=====
 *Expected outcome*
 
 image::review3.png[width="650"]
-
 
 =====
 ====
@@ -242,14 +220,13 @@ Example : +
 
 image::history.png[width="650"]
 
-
 =====
 * NUMBER should be a positive number that is greater than 0
 * NUMBER must be smaller than the number of past commands made
 
 ====
 
-=== Delete chat bubbles in the chatbox : `undo`
+=== Delete chat bubbles in the chat-box : `undo`
 
 This command allows users to delete the previous chat bubbles in the chat. +
 If `NUMBER` is not specified, the number of messages removes from chat is default to 1. +
@@ -413,7 +390,7 @@ Format : `save`
 *A*: The report generated will give a good indication on the chapters that you are weak at, based on the time taken to solve the questions, as well as the number of question you gotten correct. As such, more effort can be placed into practicing the chapters which are deemed “weak” by the reports as it indicates a lack of conceptual understanding.
 
 *Q*: Is there a time limit to the questions given? +
-*A*: There is a time limit for each question, but it is gradual. Users are expected to improve with more practice and as such they should be able to answer questions within the stipulated time. Questions at the beginning are generally given more time than questions towards the ending of the chapter.
+*A*: There is no time limit for each question currently. Users are expected to improve with more practice and as such they should be able to answer questions within the stipulated time. Questions at the beginning are generally given more time than questions towards the ending of the chapter.
 
 *Q*: I made an accidental mistake in my answer for the previous question. Is there a way for me to undo it? +
 *A*: Yes. You can enter the command `back` to redo the last question.
