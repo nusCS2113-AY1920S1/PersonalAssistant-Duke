@@ -8,8 +8,6 @@ import javacake.quiz.QuestionList;
 import javacake.quiz.QuestionType;
 import javacake.quiz.QuizSession;
 import javacake.quiz.ReviewSession;
-import javacake.storage.Profile;
-import javacake.storage.Storage;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;

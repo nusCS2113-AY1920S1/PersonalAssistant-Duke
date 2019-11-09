@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
 
 public class Profile {
@@ -61,6 +62,19 @@ public class Profile {
                 ++count;
             }
             reader.close();
+
+            if (!isResetFresh) {
+                try {
+                    File logFile = new File("cakeLog/javaCakeLogFiles.txt");
+                    logFile.getParentFile().mkdir();
+                    FileHandler fileHandler = new FileHandler(logFile.getPath());
+                    JavaCake.logger.addHandler(fileHandler);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("Unable to create log file");
+                }
+            }
+
         } catch (IOException e) {
             System.out.println("after reader");
             throw new CakeException("Failed to close reader");
