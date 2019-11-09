@@ -1,21 +1,20 @@
 package mistermusik.logic;
 
-import mistermusik.Main;
 import mistermusik.commons.Contact;
-import mistermusik.commons.events.eventtypes.Event;
-import mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclasses.Exam;
-import mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclasses.Recital;
-import mistermusik.commons.events.eventtypes.eventsubclasses.Concert;
-import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Lesson;
-import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Practice;
-import mistermusik.commons.events.eventtypes.eventsubclasses.ToDo;
-import mistermusik.ui.CalendarView;
-import mistermusik.commons.events.formatting.DateStringValidator;
-import mistermusik.commons.events.formatting.EventDate;
-import mistermusik.storage.*;
+import mistermusik.commons.Goal;
 import mistermusik.commons.Instruments.InstrumentList;
 import mistermusik.commons.budgeting.CostExceedsBudgetException;
-import mistermusik.commons.Goal;
+import mistermusik.commons.events.eventtypes.Event;
+import mistermusik.commons.events.eventtypes.eventsubclasses.Concert;
+import mistermusik.commons.events.eventtypes.eventsubclasses.ToDo;
+import mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclasses.Exam;
+import mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclasses.Recital;
+import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Lesson;
+import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Practice;
+import mistermusik.commons.events.formatting.DateStringValidator;
+import mistermusik.commons.events.formatting.EventDate;
+import mistermusik.storage.Storage;
+import mistermusik.ui.CalendarView;
 import mistermusik.ui.UI;
 
 import java.text.ParseException;
@@ -185,6 +184,10 @@ public class Command {
         }
     }
 
+    //@@author YuanJiayi
+    /**
+     * check help command for printing the correct commands
+     */
     private void findHelp(UI ui) {
         if (continuation.isEmpty()) {
             ui.printHelpList();
@@ -229,7 +232,6 @@ public class Command {
     }
 
     //@@author ZhangYihanNus
-
     /**
      * Add, view, edit or delete checklist items for an event.
      * @param events The event list
@@ -237,7 +239,7 @@ public class Command {
      */
     private void manageChecklist(EventList events, UI ui) {
         if (continuation.isEmpty()) {
-            ui.checklistCommandWrongFormat();
+            ui.printChecklistCommandInvalid();
         } else {
             try {
                 String[] splitChecklist = continuation.split("/");
@@ -305,7 +307,7 @@ public class Command {
         } else if (continuation.equals("off")) {
             System.out.println("Not allowing printing calendar after every command!");
         } else {
-            ui.calendarCommandWrongFormat();
+            ui.printInvalidCalendarCommand();
         }
 
 
@@ -333,7 +335,7 @@ public class Command {
      */
     private void showOrSetBudget(EventList events, UI ui) {
         if (continuation.isEmpty()) {
-            ui.budgetCommandWrongFormat();
+            ui.printBudgetCommandInvalid();
         } else if (continuation.substring(0, 3).equals("set")) { //set new budget
             try {
                 int newBudget = Integer.parseInt(continuation.substring(4));
@@ -406,7 +408,7 @@ public class Command {
      */
     private void viewEvents(EventList events, UI ui) {
         if (continuation.isEmpty()) {
-            ui.viewCommandWrongFormat();
+            ui.printViewCommandInvalid();
         } else {
             String dateToView = continuation;
             String foundEvent = "";
@@ -445,12 +447,12 @@ public class Command {
                 } else { //recurring event
                     if (entryForEvent.getPeriod() > 0) {
                         events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
-                        ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
+                        ui.printRecurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
                         if (newEvent.getStartDate().getEventJavaDate().compareTo(currentDate.getTime()) < 0) {
                             ui.printEnteredEventOver();
                         }
                     } else {
-                        ui.periodNotPositive();
+                        throw new PeriodRangeException();
                     }
                 }
 
@@ -463,6 +465,8 @@ public class Command {
                 ui.newEntryFormatWrong();
             } catch (EndBeforeStartException e) { //start time is after end time
                 ui.eventEndsBeforeStart();
+            } catch (PeriodRangeException e) {
+                ui.printPeriodNotPositive();
             }
         }
     }
@@ -555,7 +559,6 @@ public class Command {
     }
 
     //@@author YuanJiayi
-
     /**
      * Reschedules the date and time of an existing event.
      *
@@ -568,6 +571,10 @@ public class Command {
         try {
             String[] rescheduleDetail = continuation.split(" "); //split details by space (dd-MM-yyyy HHmm HHmm)
             int eventIndex = Integer.parseInt(rescheduleDetail[0]) - 1;
+
+            if (events.getEvent(eventIndex).getType() == 'T') { //reschedule does not work for Todo type
+                throw new UnsupportedOperationException();
+            }
 
             newEvent = events.getEvent(eventIndex); //event to be used as a replacement.
 
@@ -582,14 +589,14 @@ public class Command {
             newEvent.rescheduleStartDate(newStartDate); //reschedule start date & time
             newEvent.rescheduleEndDate(newEndDate); //reschedule end date & time
 
-        } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            ui.rescheduleFormatWrong();
+        } catch (NumberFormatException | IndexOutOfBoundsException | UnsupportedOperationException e) {
+            ui.printRescheduleInvalidCommand();
             return;
         }
 
         try {
             events.addEvent(newEvent);
-            ui.rescheduleEvent(newEvent);
+            ui.printEventRescheduled(newEvent);
         } catch (ClashException clashE) {
             ui.scheduleClash(clashE.getClashEvent());
             newEvent.rescheduleStartDate(copyOfStartDate);
@@ -609,7 +616,6 @@ public class Command {
     }
 
     //@@author yenpeichih
-
     /**
      * Manages the goals of an existing event.
      *
@@ -617,7 +623,7 @@ public class Command {
      */
     private void manageGoals(EventList events, UI ui) {
         if (continuation.isEmpty()) {
-            ui.goalCommandWrongFormat();
+            ui.printGoalCommandInvalid();
             return;
         }
         try {
@@ -657,7 +663,7 @@ public class Command {
                         break;
 
                     default:
-                        ui.goalCommandWrongFormat();
+                        ui.printGoalCommandInvalid();
                         break;
                 }
             } else {
@@ -673,7 +679,7 @@ public class Command {
                         break;
 
                     default:
-                        ui.goalCommandWrongFormat();
+                        ui.printGoalCommandInvalid();
                         break;
                 }
             }
@@ -685,7 +691,6 @@ public class Command {
     }
 
     //@@author YuanJiayi
-
     /**
      * Manage the contacts of an existing event.
      *
@@ -693,39 +698,55 @@ public class Command {
      */
     private void manageContacts(EventList events, UI ui) {
         if (continuation.isEmpty()) {
-            ui.contactCommandWrongFormat();
+            ui.printContactCommandInvalid();
             return;
         }
         try {
             String[] splitContact = continuation.split("/");
             String[] contactCommand = splitContact[0].split(" ");
+            if (!(contactCommand[0].equals("add") || contactCommand[0].equals("delete") ||
+                    contactCommand[0].equals("view") || contactCommand[0].equals("edit"))) {
+                throw new UnsupportedOperationException();
+            }
             int eventIndex = Integer.parseInt(contactCommand[1]) - 1;
             if (contactCommand.length == 2) {
                 switch (contactCommand[0]) {
                     case "add":
+                        if (!continuation.contains("/")) {
+                            throw new UnsupportedOperationException();
+                        }
                         String[] contactDetails = splitContact[1].split(",");
                         Contact newContact = new Contact(contactDetails[0], contactDetails[1], contactDetails[2]);
                         events.getEvent(eventIndex).addContact(newContact);
-                        ui.contactAdded();
+                        ui.printContactAdded();
                         break;
 
                     case "view":
                         if (events.getEvent(eventIndex).getContactList().isEmpty()) {
-                            ui.noContactInEvent();
+                            ui.printNoContactInEvent();
                         } else {
                             ui.printEventContacts(events.getEvent(eventIndex));
                         }
                         break;
+                    default:
+                        throw new UnsupportedOperationException();
                 }
             } else {
                 int contactIndex = Integer.parseInt(contactCommand[2]) - 1;
                 switch (contactCommand[0]) {
                     case "delete":
-                        events.getEvent(eventIndex).removeContact(contactIndex);
-                        ui.contactDeleted();
+                        try {
+                            events.getEvent(eventIndex).removeContact(contactIndex);
+                            ui.printContactDeleted();
+                        } catch (IndexOutOfBoundsException e) {
+                            ui.printNoSuchContact();
+                        }
                         break;
                     case "edit":
-                        char editType = ' ';
+                        if (!continuation.contains("/")) {
+                            throw new UnsupportedOperationException();
+                        }
+                        char editType;
                         switch (contactCommand[3]) {
                             case "name":
                                 editType = 'N';
@@ -736,16 +757,26 @@ public class Command {
                             case "phone":
                                 editType = 'P';
                                 break;
+                            default:
+                                throw new UnsupportedOperationException();
                         }
-                        events.getEvent(eventIndex).editContact(contactIndex, editType, splitContact[1]);
-                        ui.contactEdited(events.getEvent(eventIndex).getContactList().get(contactIndex));
+                        try {
+                            events.getEvent(eventIndex).editContact(contactIndex, editType, splitContact[1]);
+                            ui.printContactEdited(events.getEvent(eventIndex).getContactList().get(contactIndex));
+                        } catch (IndexOutOfBoundsException e) {
+                            ui.printNoSuchContact();
+                        }
                         break;
+                    default:
+                        throw new UnsupportedOperationException();
                 }
             }
         } catch (IndexOutOfBoundsException e) {
             ui.noSuchEvent();
         } catch (NumberFormatException en) {
             ui.notAnInteger();
+        } catch (UnsupportedOperationException e) {
+            ui.printContactCommandInvalid();
         }
     }
 
@@ -820,7 +851,6 @@ public class Command {
     }
 
     //@@author Ryan-Wong-Ren-Wei
-
     /**
      * Contains all info concerning a new entry an event.
      */
