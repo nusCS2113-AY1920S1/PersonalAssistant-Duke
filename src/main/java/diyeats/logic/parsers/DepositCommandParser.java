@@ -7,6 +7,7 @@ import diyeats.model.wallet.Deposit;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+//@@author GaryStu
 /**
  * Parser class to handle deposits to the wallet.
  */

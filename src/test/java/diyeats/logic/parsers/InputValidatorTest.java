@@ -8,6 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.fail;
 
+//@@author GaryStu
+/**
+ * Test regarding the functionality of InputValidator.
+ */
 public class InputValidatorTest {
 
     private final String emptyInput = "   ";
@@ -18,8 +22,11 @@ public class InputValidatorTest {
     private final String nonNumercInput2 = "1bcjeu";
     private final String numericInput = "1.23";
     private final String numericInput2 = "12345678";
+    private final String negativeInput = "-1.23";
 
-    //test whether exception is thrown if user input is empty
+    /**
+     * test whether exception is thrown if user input is empty.
+     */
     @Test
     public void emptyInputTest() {
         try {
@@ -31,30 +38,49 @@ public class InputValidatorTest {
         }
     }
 
-    //test that exception is not thrown if user input is not empty
+    /**
+     * test that exception is not thrown if user input is not empty.
+     */
     @Test
     public void nonEmptyInputTest() {
         try {
             InputValidator.validate(nonEmptyInput1);
             InputValidator.validate(nonEmptyInput2);
         } catch (ProgramException e) {
-            fail("Exception is thrown although user input is not empty");
+            fail("Exception is thrown although user input is not empty.");
         }
     }
 
-    //test whether exception is thrown if the input is not numeric
+    /**
+     * test whether exception is thrown if the input is not numeric.
+     */
     @Test
     public void nonNumericInputTest() {
         try {
             InputValidator.validateAmount(nonNumericInput);
             InputValidator.validateAmount(nonNumercInput2);
-            fail("No nonNumeric exception is thrown");
+            fail("No nonNumeric exception is thrown.");
         } catch (ProgramException e) {
             assertTrue(true);
         }
     }
 
-    //test that exception is not thrown if the input is numeric
+    /**
+     * test whether exception is thrown if the input is negative.
+     */
+    @Test
+    public void negativeInvalidInputTest() {
+        try {
+            InputValidator.validateAmount(negativeInput);
+            fail("No negative exception is thrown.");
+        } catch (ProgramException e) {
+            assertTrue(true);
+        }
+    }
+
+    /**
+     * test that exception is not thrown if the input is numeric.
+     */
     @Test
     public void numericInputTest() {
         try {
