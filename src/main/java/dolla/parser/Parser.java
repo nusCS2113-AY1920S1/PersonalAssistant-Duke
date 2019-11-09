@@ -12,6 +12,7 @@ import dolla.command.ErrorCommand;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 //@@author omupenguin
 /**
@@ -606,12 +607,51 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     }
 
     /**
-     * check if the component is valid
-     * @param s string at the component position
+     * check if the component is valid.
+     * @param s string at the component position.
      * @return true if it is a valid component.
      */
     protected Boolean verifyShortcutSearchComponent(String s) {
         return s.equals(SEARCH_DESCRIPTION);
+    }
+
+    /**
+     *
+     * @return
+     */
+    protected Boolean verifyBillPeopleAndAmount() {
+        try {
+            Integer.parseInt(inputArray[1]);
+            stringToDouble(inputArray[2]);
+        } catch (Exception e) {
+            DebtUi.printInvalidBillFormatError();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * check if the add bill command is valid.
+     * @param nameList the array list to store the names.
+     * @return true if the command is valid.
+     */
+    protected Boolean verifyAddBillCommand(ArrayList<String> nameList) {
+        try {
+            if(verifyBillPeopleAndAmount()) {
+                for (int i = 3; i < 3 + Integer.parseInt(inputArray[1]); i++) {
+                    String name = inputArray[i];
+                    nameList.add(name);
+                }
+            } else {
+                return false;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            DebtUi.printWrongPeopleNumberMessage(Integer.parseInt(inputArray[1]));
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     //@@author Weng-Kexin
