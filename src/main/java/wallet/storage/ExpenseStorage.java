@@ -47,7 +47,7 @@ public class ExpenseStorage extends Storage<Expense> {
             }
             raf.close();
         } catch (FileNotFoundException e) {
-            //System.out.println("No saved expenses found.");
+            System.out.println("No saved expenses found.");
         } catch (IOException e) {
             System.out.println("End of file.");
         }

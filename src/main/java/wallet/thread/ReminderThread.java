@@ -44,7 +44,7 @@ public class ReminderThread implements Runnable {
             try {
                 ArrayList<Loan> loanList = LogicManager.getWalletList().getWalletList()
                         .get(LogicManager.getWalletList().getState()).getLoanList().getLoanList();
-                System.out.println("Reminder to settle your loans soon!");
+                System.out.println("Remember to settle your loans soon!");
                 Ui.printLoanTableHeaders();
                 for (Loan l : loanList) {
                     if (!l.getIsLend() && !l.getIsSettled()) {
