@@ -1281,99 +1281,86 @@ Windows, Linux, Unix, OS-X
 [NOTE]
 The instructions and sample test cases only act as a guidance for you to start testing on some of our application features. You are free to test our features with more test cases of your own. Refer to <<Prerequisites>> for the instructions to set up our program on your computer.
 
-=== Adding a Semester
+=== Managing Semesters
 
-. Adding a new `semester`
-[lowerroman]
-.. Prerequisites: List all semesters using the `semester /view` command.
+==== Adding a `semester`
+. Prerequisites: List all semesters using the `semester /view` command.
 
-.. Test case: `semester /add 19/20 /name Semester 2 /from 05-01-2020 /to 05-05-2020` +
+. Test case: `semester /add 19/20 /name Semester 2 /from 05-01-2020 /to 05-05-2020` +
 Expected: Using the `semester /view` command will display `Academic Year 19/20, Semester 2 (05-01-2020 to 05-12-2020)` at the latest index.
 
-.. Test case: `semester /add 19/20 /name Semester 2 /from 05-01-2020 /to 05-05-2020` after running the same command above +
+. Test case: `semester /add 19/20 /name Semester 2 /from 05-01-2020 /to 05-05-2020` after running the same command above +
 Expected: An error would be displayed regarding adding of a semester that clashes with an existing semester. Using `semester /view` will not show a second copy of the semester added above.
 
-.. Test case: `semester /add 19/20 /name Semester 2 /from a /to 05-05-2020` +
+. Test case: `semester /add 19/20 /name Semester 2 /from a /to 05-05-2020` +
 Expected: An error would be displayed regarding an invalid command argument.
 
-.. Other incorrect commands to try: `semester /add /name Semester 2 /from 05-01-2020 /to 05-05-2020`, `semester /add 19/20 /name Semester 2 /from 32-01-2020 /to 05-05-2020` +
+. Other incorrect commands to try: `semester /add /name Semester 2 /from 05-01-2020 /to 05-05-2020`, `semester /add 19/20 /name Semester 2 /from 32-01-2020 /to 05-05-2020` +
 Expected: An error would be displayed regarding a missing and an invalid command argument respectively.
 
-=== Deleting a Semester
-
-. Deleting a semester
-[lowerroman]
-.. Prerequisites: List all semesters using the `semester /view` command. At least 1 semester is on the list.
+==== Deleting a `semester`
+. Prerequisites: List all semesters using the `semester /view` command. At least 1 semester is on the list.
 
 [NOTE]
 In the provided `.jar` file, the semester at index 1 has been rigorously populated with test data for testing purposes. You are recommended to add your own semester before testing the `semester /delete` command to prevent the deletion of the populated semester.
 
-.. Test case: `semester /delete 2` +
+. Test case: `semester /delete 2` +
 Expected: Second semester is deleted from the list. Details of semester being deleted is echoed as an acknowledgement message.
 
-.. Test case: `semester /delete 0` +
+. Test case: `semester /delete 0` +
 Expected: Error displayed regarding an invalid index.
 
-.. Other incorrect delete commands to try: `semester /delete a`, `semester /delete -1` +
+. Other incorrect delete commands to try: `semester /delete a`, `semester /delete -1` +
 Expected: Similar to previous.
 
-=== Selecting a Semester
+==== Selecting a `semester`
+. Prerequisites: List all semesters using the `semester /view` command. At least 1 semester is on the list.
 
-. Selecting a semester
-[lowerroman]
-.. Prerequisites: List all semesters using the `semester /view` command. At least 1 semester is on the list.
-
-.. Test case: `semester /select 1` +
+. Test case: `semester /select 1` +
 Expected: An acknowledgement message displayed regarding the first semester being selected.
 
-.. Test case: `semester /select 0` +
+. Test case: `semester /select 0` +
 Expected: Error displayed regarding an invalid index.
 
-.. Other incorrect select commands to try: `semester /select a`, `semester /select -1` +
+. Other incorrect select commands to try: `semester /select a`, `semester /select -1` +
 Expected: Similar to previous.
 
-=== Adding a Module
-. Adding a new `module`
-[lowerroman]
-.. Prerequisites: Semester has been selected using the `semester /select` command.
+=== Managing Modules
 
-.. Test case: `module /add CS1010 /name Programming Methodology` +
+==== Adding a `module`
+. Prerequisites: Semester has been selected using the `semester /select` command.
+
+. Test case: `module /add CS1010 /name Programming Methodology` +
 Expected: Acknowledgement message displayed regarding the successful addition of `CS1010 Programming Methodology`. Using `module /view` will show `CS1010 Programming Methodology` on the list of `modules`.
 
-.. Test case: `module /add /name Programming Methodology` +
+. Test case: `module /add /name Programming Methodology` +
 Expected: Error displayed about requiring a module code argument.
 
-.. Test case: `module /add CS1010 /name` +
+. Test case: `module /add CS1010 /name` +
 Expected: Error displayed about requiring a module name argument.
 
-=== Deleting a Module
+==== Deleting a `module`
+. Prerequisites: Semester has been selected using the `semester /select` command. List all module using the `module /view` command. At least 1 module is on the list.
 
-. Deleting a module
-[lowerroman]
-.. Prerequisites: Semester has been selected using the `semester /select` command. List all module using the `module /view` command. At least 1 module is on the list.
-
-.. Test case: `module /delete 2` +
+. Test case: `module /delete 2` +
 Expected: Second module is deleted from the list. Details of module being deleted is echoed as an acknowledgement message.
 
-.. Test case: `module /delete 0` +
+. Test case: `module /delete 0` +
 Expected: Error displayed regarding an invalid index.
 
-.. Other incorrect delete commands to try: `module /delete a`, `module /delete -1` +
+. Other incorrect delete commands to try: `module /delete a`, `module /delete -1` +
 Expected: Similar to previous.
 
-=== Selecting a Module
+==== Selecting a `module`
+. Prerequisites: Semester has been selected using the `semester /select` command. List all modules using the `module /view` command. At least 1 module is on the list.
 
-. Selecting a module
-[lowerroman]
-.. Prerequisites: Semester has been selected using the `semester /select` command. List all modules using the `module /view` command. At least 1 module is on the list.
-
-.. Test case: `module /select 1` +
+. Test case: `module /select 1` +
 Expected: An acknowledgement message displayed regarding the first module being selected.
 
-.. Test case: `module /select 0` +
+. Test case: `module /select 0` +
 Expected: Error displayed regarding an invalid index.
 
-.. Other incorrect select commands to try: `module /select a`, `module /select -1` +
+. Other incorrect select commands to try: `module /select a`, `module /select -1` +
 Expected: Similar to previous.
 
 === Starting Task Tracker
