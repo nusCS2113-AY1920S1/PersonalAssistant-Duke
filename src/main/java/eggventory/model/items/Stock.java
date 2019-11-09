@@ -254,6 +254,9 @@ public class Stock {
         dataArray.add(stockCode);
         dataArray.add(String.valueOf(quantity));
         dataArray.add(description);
+        dataArray.add(String.valueOf(minimum));
+        dataArray.add(String.valueOf(LoanList.getStockLoanedQuantity(stockCode)));
+
         return dataArray;
     }
     //@@author

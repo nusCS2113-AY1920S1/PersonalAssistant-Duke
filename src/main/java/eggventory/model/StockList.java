@@ -379,7 +379,7 @@ public class StockList {
      */
     public TableStruct getAllStocksStruct() {
         TableStruct tableStruct = new TableStruct("Stock List");
-        tableStruct.setTableColumns("Stock Type", "Stock Code", "Quantity", "Description");
+        tableStruct.setTableColumns("Stock Type", "Stock Code", "Total", "Description", "Minimum", "Loaned");
 
         ArrayList<ArrayList<String>> dataArray = new ArrayList<>();
         for (StockType stockType : stockList) {
@@ -416,7 +416,7 @@ public class StockList {
      */
     public TableStruct getAllStocksInStockTypeStruct(String stockTypeName) {
         TableStruct tableStruct = new TableStruct("Stock List: " + stockTypeName);
-        tableStruct.setTableColumns("Stock Type", "Stock Code", "Quantity", "Description");
+        tableStruct.setTableColumns("Stock Type", "Stock Code", "Quantity", "Description", "Minimum", "Loaned");
 
         ArrayList<ArrayList<String>> dataArray = new ArrayList<>();
         for (StockType stockType : stockList) {
