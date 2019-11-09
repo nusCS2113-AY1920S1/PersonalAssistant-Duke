@@ -100,6 +100,8 @@ Examples:
 Setup a profile in SGTravel +
 Format: `profile NAME BIRTHDAY`
 
+image::profile.png[width="400" height="200"]
+
 Examples:
 
 * `profile James 01/01/00`
@@ -108,11 +110,12 @@ Examples:
 ====
 Entering `profile` will initiate the multi-step version of this command
 ====
-
 === Showing a profile: `profileShow`
 
 SGTravel shows the current profile +
 Format: `profileShow`
+
+image::profileShow.png[width="400" height="200"]
 
 Examples:
 
@@ -123,6 +126,10 @@ Examples:
 SGTravel set the preferences of activity the users prefer to do in profile
 Format: `profileSet CATEGORY STATE`
 
+image::profileSet.png[width="400" height="200"]
+
+[NOTE]
+====
 Vaild CATEGORY:
 
 * `sports`
@@ -134,7 +141,7 @@ Vaild STATE:
 
 * `true`
 * `false`
-
+====
 Examples:
 
 * `profileSet sports true`
@@ -452,6 +459,57 @@ If you wish to see an itinerary even after entering this command, consider addin
 
 The addToFav command will archive your favourite itineraries.
 ====
+=== Add favourite itinerary: `addToFav`
+
+Adds an itinerary to favourite list in profile. +
+Format: `addToFav ITIERARY_NAME`
+
+image::addToFav.PNG[width="400" height="200"]
+
+Examples:
+
+* `addToFav SundayVacay`
+
+[NOTE]
+====
+Itinerary must exist in itinerary list before it can be added to favourite list
+====
+=== Delete favourite itinerary: `deleteFav`
+
+Removes itinerary from favourite list in profile. +
+Format: `deleteFav ITIERARY_NAME`
+
+image::deleteFav.PNG[width="400" height="200"]
+
+Examples:
+
+* `deleteFav SundayVacay`
+=== List favourite itineraries: `listFav`
+
+Shows the list of itinerary in favourite list. +
+Format: `listFav`
+
+image::listFav.PNG[width="400" height="200"]
+
+Examples:
+
+* `listFav`
+
+[TIP]
+====
+List of favourite itinerary can also be found in profile by using `profileShow`
+====
+=== Show favourite itinerary: `showFav`
+
+Shows the details of itinerary in favourite list. +
+Format: `showFav ITINERARY_NAME`
+
+image::showFav.PNG[width="400" height="200"]
+
+Examples:
+
+* `showFav my3DayTrip`
+* `showFav SundayVacay`
 
 === Creating a new Route: `routeAdd`
 
