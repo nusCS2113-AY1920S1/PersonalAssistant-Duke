@@ -1,6 +1,5 @@
 package dolla.parser;
 
-import dolla.Tag;
 import dolla.command.ActionCommand;
 import dolla.command.AddShortcutCommand;
 import dolla.command.ExecuteShortcutCommand;
@@ -13,7 +12,6 @@ import dolla.command.SortCommand;
 import dolla.command.SearchCommand;
 import dolla.command.RemoveCommand;
 import dolla.command.modify.PartialModifyEntryCommand;
-import dolla.model.Entry;
 import dolla.ui.SearchUi;
 
 public class EntryParser extends Parser {
@@ -30,11 +28,7 @@ public class EntryParser extends Parser {
             return new ShowListCommand(mode);
         } else if (commandToRun.equals(ENTRY_COMMAND_ADD)) {
             if (verifyAddCommand()) {
-                Tag t = new Tag();
-                Entry entry = new Entry(inputArray[1], amount, description, date, EMPTY_STR);
-                t.handleTag(entry);
-                return new AddEntryCommand(inputArray[1], amount,
-                        description, date, t.getTagName());
+                return new AddEntryCommand(inputArray[1], amount, description, date);
             } else {
                 return new ErrorCommand();
             }

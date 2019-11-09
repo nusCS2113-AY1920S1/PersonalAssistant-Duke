@@ -419,9 +419,6 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             case COMPONENT_DATE:
                 date = Time.readDate(nextStr);
                 break;
-            case COMPONENT_TAG:
-                //TODO
-                break;
             default:
                 break;
             }
