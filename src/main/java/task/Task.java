@@ -1,6 +1,7 @@
 package task;
 
 import exception.DukeException;
+import list.DegreeList;
 import parser.Parser;
 
 import java.io.Serializable;
@@ -199,8 +200,8 @@ public class Task implements Serializable {
 
 
     /**
-     * this function considers the current date, the user's defined priority
-     * and the user's degree list to assign a Priority score to a task
+     * this function considers the user's defined priority
+     *  assign a Priority score to a task
      */
     public void calculatePriorityScore(){
         this.sortingScore = 0;
@@ -219,17 +220,43 @@ public class Task implements Serializable {
         }
     }
 
+    /**
+     * calculates the sorting score using the current date
+     * and how far in the future or past the task is
+     */
     public void calculateDateScore(){
         this.sortingScore = 0;
         Integer daysAway = (int)getDifferenceDays(this.dueDate);
         if (this.dueDate == null){
             this.sortingScore += 1;
         }
-        if (daysAway < 0){
-            this.sortingScore -= 1;
-        }
+//        if (daysAway < 0){
+//            this.sortingScore -= 1;
+//        }
         else {
             this.sortingScore = 100*650 - daysAway;
+        }
+    }
+
+    /**
+     * calculates the sorting score using the user's
+     * degree list, and sorts the degrees in that order
+     * @param list
+     * @throws DukeException
+     */
+    public void calculateDegreeScore(DegreeList list) throws DukeException {
+        if(list.size() < 1){
+            throw new DukeException("There are no degrees in the Degree List, I cannot sort by degree!");
+        }
+        if (this.nusDegreeName == null){
+            this.sortingScore = 1;
+            return;
+        }
+        String fulldegreeName = Parser.degreeFullNameMap.get(this.nusDegreeName.toLowerCase());
+        for (int i = 0; i < list.size(); i++){
+            if (fulldegreeName.matches(list.get(i))){
+                this.sortingScore = 100 - i;
+            }
         }
     }
 
@@ -300,6 +327,22 @@ public class Task implements Serializable {
      */
     public void setNusDegreeName(String nusDegreeName) {
         this.nusDegreeName = nusDegreeName;
+    }
+
+    /**
+     * sets the NUS Degree Name that is related to this task by reading the description,
+     * usually called to read data from a save file
+     * @param
+     */
+    public void setNusDegreeName() {
+        String stringToCheck = this.description;
+        String[] splitString = stringToCheck.split("]");
+        if (splitString[0] != null){
+            String wordToCheck = splitString[0].replace("[","");
+            if (wordToCheck.matches("BME|CHE|CIV|CEG|EE|ENV|ISE|ME|MSE")){
+                setNusDegreeName(wordToCheck);
+            }
+        }
     }
 
 

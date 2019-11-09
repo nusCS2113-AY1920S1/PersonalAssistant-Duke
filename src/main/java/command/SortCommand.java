@@ -6,6 +6,7 @@ package command;
 import degree.DegreeManager;
 import exception.DukeException;
 import list.DegreeList;
+import main.Duke;
 import storage.Storage;
 import task.TaskList;
 import ui.UI;
@@ -28,6 +29,12 @@ public class SortCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists, DegreeManager mydegrees) throws DukeException {
+        if (tasks.size() < 1){
+            throw new DukeException("There are no tasks to sort!\n");
+        }
+        else if (tasks.size() < 2){
+            throw new DukeException("There are not enough tasks to sort!\n");
+        }
         TaskList tasksBuffer;
 
         tasksBuffer = tasks.deepClone();
@@ -38,6 +45,11 @@ public class SortCommand extends Command {
         else if (this.arguments.matches("by date")){
             tasks.sortbyDate();
         }
+
+        else if (this.arguments.matches("by degree")){
+            tasks.sortbyDegree(lists);
+        }
+
         else{
             throw new DukeException("That is not a valid way to sort your tasks!\n" +
                     "Try typing:\n" +
