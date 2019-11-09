@@ -69,7 +69,7 @@ image::logic_diagram.png[]
 *API* :
 link:https://github.com/AY1920S1-CS2113T-T12-3/main/blob/master/src/main/java/duke/logic/Logic.java[`Logic.java`]
 
-. `LogicManager` uses the `Parser` class to parse the user command.
+. `LogicManager` uses the `BakingHomeParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 . The command execution can affect the `Model` (for example, deleting an order).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -131,47 +131,54 @@ Auto-complete mechanism is facilitated by `AutoCompleter` in `Logic` component.
 
 * `AutoCompleter#addCommandClass(Class<? extends Command>)` -- Adds a command class for `AutoCompleter` to complete.
 
-* `AutoCompleter#isAutoCompletable(UserInputState)` -- Returns true if the current user input can be completed by `AutoCompleter`.
+* `AutoCompleter#isAutoCompletable(Input)` -- Returns true if the current user input can be completed by `AutoCompleter`.
 
 * `AutoCompleter#complete()` -- Returns a  `UserInputState` that specifies the details of the user input after auto-completion.
 
 The last two operations are exposed in the `Model` interface as `Model#isAutoCompletable(UserInputState)()` and `Model#complete()` respectively.
 
-In addition, `AutoCompleter` has a nested class `UserInputState`, which reprsents the details of a user input status, including the text and the position of the caret.
+In addition, `AutoCompleter` has a nested class `Input`, which represents the details of a user input, including the `text` and the `caretPosition`.
 
 ===== Workflow
 
-When the user presses a key in `UserInputTextField`, `UserInputTextField` checks if the key pressed is `Tab`. If `Tab` is pressed, the text field checks with `AutoCompleter` to verify if the current state is auto-completable. If the state is auto-completable, `UserInputTextField` will request for a suggestion by calling `Model#complete()` and set itself (including the text and caret position) accordingly. The workflow is illustrated in the diagram below:
+When the user presses a key in the command box, command box checks if the key pressed is `Tab`.
+If `Tab` is pressed, the text field checks with `AutoCompleter` to verify if the current input is auto-completable.
+If the state is eligible for auto-completion, command box will request for a suggestion by calling `Model#complete()` and set its text and caret position accordingly.
+The workflow is illustrated in the diagram below:
 
+
+.Workflow of AutoCompleter
 image::auto_complete_activity_diagram.png[]
 
-//TODO: Add figure X
 
 ===== Navigating among suggestions
 
 The auto-complete feature allows the user to navigate among possible suggestions by repeatedly pressing `Tab`.
 
-Internally, `AutoCompleter` maintains a cyclic list `SuggestionList` containing possible suggestions and a  `suggestionPointer` pointing to the current suggestion:
+Internally, `AutoCompleter` maintains a list `suggestionList` containing all possible `Input` suggestions. `suggestionList` is implemented as a cyclic list by maintaining a `suggestionPointer`:
 
- * `suggestionPointer` moves to the next position and the suggestion when `AutoCompleter#complete()` is called.
+* When `AutoCompleter#complete()` is called, the `Input` object pointed by `suggestionPointer` in `suggestionList` is returned, and `suggestionPointer` is set to `(suggestionPointer + 1) % suggestionList.size()`.
 
- * `SuggestionList` is updated if the user input no longer matches any of the suggestions in `SuggestionList`.
+* `suggestionList` is updated if the user input no longer matches any of the suggestions in `suggestionList`.
 
 ===== Extending Auto-Complete to More Commands
 
-Following Open-Closed Principle, the Auto-Complete feature is designed to be extensible. You can add a command to support auto-completion by taking the following steps:
+Following the Open-Closed Principle, the Auto-Complete feature is highly extensible.
+You can add a command to support auto-completion by taking the following steps:
 
-*Step 1.* Declare `COMMAND_WORD`, `AUTO_COMPLETE_INDICATOR`(optional) and `AUTO_COMPLETE_PARAMETERS` (optional) in your command class.
+*Step 1.* Declare `AUTO_COMPLETE_INDICATOR` and `AUTO_COMPLETE_PARAMETERS` fields in your command class.
 
-[NOTE] 
-`AUTO_COMPLETE_INDICATOR` is a string specifying when should the arguments be completed. Auto-complete only completes the arguments when this field is present in the beginning of user input;
-`AUTO_COMPLETE_PARAMETERS` is an array of `Prefix` that that you want to auto-complete.
+[NOTE]
+`AUTO_COMPLETE_INDICATOR` is a string specifying when the arguments should be completed.
+Auto-complete only completes the arguments of a command when the text in command box with that command's `AUTO_COMPLETE_INDICATOR`.
+`AUTO_COMPLETE_PARAMETERS` is an array of `Prefix` that you want to auto-complete.
 
 An example is shown below:
-
 ```java
-public static final String AUTO_COMPLETE_INDICATOR = "order add";
-public static final Prefix[] AUTO_COMPLETE_PARAMETERS = { new Prefix("by"), new Prefix("name")};
+public class AddOrderCommand extends Command {
+    public static final String AUTO_COMPLETE_INDICATOR = "order add"; // This tells AutoCompleter that  if  user input begins with "order add", it should be recognized as an AddOrderCommand by AutoCompleter.
+    public static final Prefix[] AUTO_COMPLETE_PARAMETERS = new Prefix("by"), new Prefix("name"); //This tells AutoCompleter that  AddOrderCommand has these parameters.
+}
 ```
 
 *Step 2.* Add the command to `AutoCompleter` by calling `AutoCompleter#addCommandClass(Class<? extends Command>)`
@@ -184,20 +191,23 @@ public static final Prefix[] AUTO_COMPLETE_PARAMETERS = { new Prefix("by"), new 
  
  ** Pros: Easy to implement.
  
- ** Cons: Violates the Open-Closed Principle. Makes AutoCompleter more error-prone.
+ ** Cons: Violates the Open-Closed Principle because developers need to modify AutoCompleter's internal structure to add new commands.
+ Also, it makes code more coupled since if we change parameters of a command, we need to change corresponding fields in AutoCompleter as well.
 
  * Alternative 2 (Current choice): Use Reflection API to obtain command words and arguments from CommandClass at runtime.
  
  ** Pros: Avoids modification to the internal structure of AutoCompleter class
  
  ** Cons: Since Reflection allows code to perform operations that would be illegal in non-reflective code,
-it could lead to unexpected side-effects if implemented wrongly.
+
+It could lead to unexpected side-effects if implemented wrongly.
 
 ===== Aspect 2: Displaying multiple suggestions
 
 * Alternative 1: Use a drop-down list to display all possible suggestions.
 ** Pros: Intuitive and allows users to see all possible commands in one place.
 * Cons: Hard to implement.
+May require additional components other than JavaFx's built-in components.
 May require additional components other than JavaFx's built-in components.
 * Alternative 2 (Current choice): Navigate between possible suggestions by repeatedly pressing `Tab` key.
 ** Pros: Easier to implement since no additional components are needed
@@ -211,29 +221,33 @@ May require additional components other than JavaFx's built-in components.
 
 === Buy Shopping List Feature
 
-BakingHome comes with a `shop buy` command in its shopping list feature. This command transfers ingredients and its respective quantity from the shopping list to the inventory list. It will then also generate a sales transaction automatically in the Sales page.
+BakingHome comes with a `shop buy` command in its shopping list feature.
+This command transfers ingredients and its respective quantity from the shopping list to the inventory list.
+It will then also generate a sales transaction automatically in the Sales page.
 
 ==== Implementation
 
-The `shop buy` feature is facilitated by the `UniqueEntityLists` initialized in BakingHome, which is an implementation of `Iterable` and contains an `ObservableList`. There are 3 `UniqueEntityLists`, `inventory`, `shoppingList` and `sales`, which are involved in this feature and each of them has an `add` and `set` operation.
+The `shop buy` feature is facilitated by the `UniqueEntityLists` initialized in BakingHome, which is an implementation of `Iterable` and contains an `ObservableList`.
+There are 3 `UniqueEntityLists`, `inventory`, `shoppingList` and `sales`, which are involved in this feature and each of them has an `add` and `set` operation.
 
 * `UniqueEntityList<class>#add(toAdd)` - Adds object `toAdd` into the `ObservableList` stored in the `UniqueEntityList`.
 
-* `UniqueEntityList<class>#set(toEdit, edited)` - Replaces object `toEdit` with the
-new object `edited` in the `ObservableList` stored in the `UniqueEntityList`. Object
+* `UniqueEntityList<class>#set(toEdit, edited)` - Replaces object `toEdit` with the new object `edited` in the `ObservableList` stored in the `UniqueEntityList`.
+Object
 `edited` will take the index position of object `toEdit` in the `ObservableList`.
 
-These operations are exposed in the `Model` interface as `Model#addInventory`, `Model#setInventory`, `Model#setShoppingList`, and `Model#addSaleFromShopping`. The `UniqueEntityLists` are also exposed in the `Model` as `FilteredLists`, which wraps an `ObservableList` and filters
-using the provided `Predicate`.
+These operations are exposed in the `Model` interface as `Model#addInventory`, `Model#setInventory`, `Model#setShoppingList`, and `Model#addSaleFromShopping`.
+The `UniqueEntityLists` are also exposed in the `Model` as `FilteredLists`, which wraps an `ObservableList` and filters using the provided `Predicate`.
 
 ==== Workflow
 
 Given below is an example usage scenario and how the `shop buy` mechanism works.
 
-*Step 1.* The user launches the application for the first time. The `UniqueEntityLists` `inventory`, `shoppingList`, and `sales` are initialized in BakingHome with the initial data stored in the `Storage`.
+*Step 1.* The user launches the application for the first time.
+The `UniqueEntityLists` `inventory`, `shoppingList`, and `sales` are initialized in BakingHome with the initial data stored in the `Storage`.
 
-*Step 2.* The user inputs `shop buy 1,2` command to buy the first and second ingredient in the shopping list. This command goes through the `Parser` to get the
-indices of the ingredients that is to be bought and executes the `BuyShoppingCommand`.
+*Step 2.* The user inputs `shop buy 1,2` command to buy the first and second ingredient in the shopping list.
+This command goes through the `Parser` to get the indices of the ingredients that is to be bought and executes the `BuyShoppingCommand`.
 
 *Step 3.* The `BuyShoppingCommand` calls the `FilteredLists` stored in the `Model`
 through `Model#getFilteredInventoryList()`, `Model#getFilteredShoppingList()` and stores them in `ArrayLists<Item<Ingredient>>` `inventoryList` and `shoppingList` respectively.
@@ -242,15 +256,14 @@ through `Model#getFilteredInventoryList()`, `Model#getFilteredShoppingList()` an
 Each ingredient is checked whether `inventoryList` already contains it using
 `inventoryList#contain(Item<Ingredient> toBuy)`.
 
-* If `inventoryList` contains it, a new `Item<Ingredient>` constructor is created with the
-added quantities of both lists. The new constructor then replaces the current one in `inventoryList` using the `inventoryList#set()` method.
+* If `inventoryList` contains it, a new `Item<Ingredient>` constructor is created with the added quantities of both lists.
+The new constructor then replaces the current one in `inventoryList` using the `inventoryList#set()` method.
 
 * Else, the `Item<Ingredient>` object in `shoppingList` is just added to `inventoryList` using the `inventoryList#add()` method.
 
-*Step 6.* For every ingredient that is bought in the shopping list, a new `Item<Ingredient>` constructor is
-created using the original ingredient’s data but with quantity = 0. This new constructor then replaces the current one in `shoppingList` using the `shoppingList#set()` method.
+*Step 6.* For every ingredient that is bought in the shopping list, a new `Item<Ingredient>` constructor is created using the original ingredient’s data but with quantity = 0. This new constructor then replaces the current one in `shoppingList` using the `shoppingList#set()` method.
 
-*Step 7.* `BuyShoppingCommand` will calculate the total cost of the ingredients bought and pass it as parameters to `AddSaleFromShopping` method in `Model`, along with an `ArrayList` of the bought ingredients. `AddSaleFromShopping` will then create a `Sale` constructor with these values and add it to `sales`. 
+*Step 7.* `BuyShoppingCommand` will calculate the total cost of the ingredients bought and pass it as parameters to `AddSaleFromShopping` method in `Model`, along with an `ArrayList` of the bought ingredients. `AddSaleFromShopping` will then create a `Sale` constructor with these values and add it to `sales`.
 
 *Step 8.* These will be updated in the `UI` automatically as these objects are stored in `ObservableLists`.
 
@@ -266,7 +279,8 @@ created using the original ingredient’s data but with quantity = 0. This new c
 
 ** Pros: There is a saved template of the shopping list with past costs and remarks of the ingredients, making it convenient for the user to just edit the quantity to the quantity he needs to buy.
 
-** Cons: The shopping list may become very cluttered with too many ingredients. Hence, a `shop list` command can be executed in the command line to filter out ingredients that have 0 quantity.
+** Cons: The shopping list may become very cluttered with too many ingredients.
+Hence, a `shop list` command can be executed in the command line to filter out ingredients that have 0 quantity.
 
 === Logging
 
@@ -395,7 +409,33 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a.
+The list is empty.
++
+Use case ends.
+
+* 3a.
+The given index(indices) is(are) invalid.
++
+[none]
+** 3a1. BakingHome shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Buying an ingredient in the shopping list
+
+*MSS*
+
+1. User requests to list all ingredients in the shopping list.
+2. BakingHome shows a list of ingredients.
+3. User requests to buy a specific ingredient or multiple ingredients in the shopping list.
+4. BakingHome transfers these ingredients from the shopping list to the inventory list and adds a sales transaction with the total cost of the bought ingredients to the Sales page.
+
+*Extensions*
+
+[none]
+* 2a.The list is empty.
 +
 Use case ends.
 
