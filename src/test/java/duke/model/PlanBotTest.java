@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class PlanBotTest {
     @Test
-    public void PlanBotTest() {
+    public void testPositive() {
         Map<String, String> knownAttributes = new HashMap<>();
         PlanBot planBot = new PlanBot(knownAttributes);
         Assertions.assertNotNull(planBot.getDialogObservableList());
