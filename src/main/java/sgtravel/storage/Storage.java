@@ -212,7 +212,7 @@ public class Storage {
         try {
             File itinerariesFile = new File(FAVOURITE_FILE_PATH);
             Scanner scanner = new Scanner(itinerariesFile);
-            HashMap<String, Itinerary> itinerary = makeItineraryTable(scanner, profileCard.getFavouriteList());
+            HashMap<String, Itinerary> itinerary = makeItineraryTable(scanner);
             profileCard.setFavourite(itinerary);
         } catch (FileNotFoundException | ParseException e) {
             writeFavItinerary();
@@ -250,7 +250,7 @@ public class Storage {
         try {
             File itinerariesFile = new File(ITINERARIES_FILE_PATH);
             Scanner scanner = new Scanner(itinerariesFile);
-            this.itineraryTable = makeItineraryTable(scanner, this.itineraryTable);
+            this.itineraryTable = makeItineraryTable(scanner);
         } catch (FileNotFoundException | ParseException e) {
             throw new FileLoadFailException(ITINERARIES_FILE_PATH);
         }
@@ -261,8 +261,8 @@ public class Storage {
      *
      * @throws ParseException If the file cannot be parsed correctly.
      */
-    static HashMap<String, Itinerary> makeItineraryTable(Scanner scanner, HashMap<String, Itinerary> itineraryTable)
-            throws ParseException {
+    static HashMap<String, Itinerary> makeItineraryTable(Scanner scanner) throws ParseException {
+        HashMap<String, Itinerary> itineraryTable = new HashMap<>();
         while (scanner.hasNextLine()) {
             String name = scanner.nextLine();
             LocalDateTime start = ParserTimeUtil.parseStringToDate(scanner.nextLine());

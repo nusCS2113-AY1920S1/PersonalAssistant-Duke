@@ -56,7 +56,7 @@ public class SampleStorage {
     private void readFavourite() {
         try {
             Scanner scanner = new Scanner(getClass().getResourceAsStream(FAVOURITE_FILE_PATH));
-            this.profileCard.setFavourite(Storage.makeItineraryTable(scanner, profileCard.getFavouriteList()));
+            this.profileCard.setFavourite(Storage.makeItineraryTable(scanner));
         } catch (ParseException e) {
             logger.log(Level.INFO, "Sample data not found.");
         }
@@ -68,7 +68,7 @@ public class SampleStorage {
     private void readItineraryTable() {
         try {
             Scanner scanner = new Scanner(getClass().getResourceAsStream(ITINERARIES_FILE_PATH));
-            this.itineraryTable = Storage.makeItineraryTable(scanner, this.itineraryTable);
+            this.itineraryTable = Storage.makeItineraryTable(scanner);
         } catch (ParseException e) {
             logger.log(Level.INFO, "Sample data not found.");
         }
