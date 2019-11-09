@@ -38,22 +38,13 @@ public class DollaParser extends Parser {
             } else {
                 return new ErrorCommand();
             }
+
         } else if (commandToRun.equals(ENTRY_COMMAND_ADD)) {
             if (verifyAddCommand()) {
-                return new AddEntryCommand(inputArray[1], amount, description, date);
+                return new AddEntryCommand(type, amount, description, date);
             } else {
                 return new ErrorCommand();
             }
-            
-            /*
-            switch(commandToRun) {
-                case "income":
-                case "expense":
-                    return new AddExpenseCommand();
-                default:
-                    return new ErrorCommand();
-            }
-            */
 
         } else if (commandToRun.equals(DEBT_COMMAND_OWE) || commandToRun.equals(DEBT_COMMAND_BORROW)) {
             String type = commandToRun;

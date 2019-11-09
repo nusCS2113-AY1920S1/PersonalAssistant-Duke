@@ -37,25 +37,14 @@ public class ModifyParser extends Parser {
             } else {
                 return new ErrorCommand();
             }
+
         case MODE_DEBT:
-            // need to compress
-            String type = commandToRun;
-            String name;
-            double amount;
-            try {
-                name = inputArray[1];
-                amount = stringToDouble(inputArray[2]);
-                String[] desc = inputLine.split(inputArray[2] + " ");
-                String[] dateString = desc[1].split(" /due ");
-                description = dateString[0];
-                date = Time.readDate(dateString[1]);
-            } catch (IndexOutOfBoundsException e) {
-                DebtUi.printInvalidDebtFormatError();
-                return new ErrorCommand();
-            } catch (Exception e) {
+            if (verifyDebtCommand()) {
+                return new FullModifyDebtCommand(type, name, amount, description, date);
+            } else {
                 return new ErrorCommand();
             }
-            return new FullModifyDebtCommand(type, name, amount, description, date);
+
         case MODE_LIMIT:
             if (verifySetCommand()) {
                 String typeStr = inputArray[1];

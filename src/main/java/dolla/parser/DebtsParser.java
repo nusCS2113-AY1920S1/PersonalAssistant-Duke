@@ -36,14 +36,17 @@ public class DebtsParser extends Parser {
     public Command parseInput() {
         if (commandToRun.equals(DEBT_COMMAND_LIST)) { //show debt list
             return new ShowListCommand(mode);
+
         } else if (commandToRun.equals(BILL_COMMAND_LIST)) { //show bill list
             return new ShowBillListCommand(mode);
+
         } else if (commandToRun.equals(DEBT_COMMAND_OWE) || commandToRun.equals(DEBT_COMMAND_BORROW)) {
             if (verifyDebtCommand()) {
                 return new AddDebtsCommand(commandToRun, inputArray[1], amount, description, date);
             } else {
                 return new ErrorCommand();
             }
+            
         } else if (commandToRun.equals(BILL_COMMAND_BILL)) {
             ArrayList<String> nameList = new ArrayList<>();
             if (verifyAddBillCommand(nameList)) {
@@ -66,6 +69,7 @@ public class DebtsParser extends Parser {
                     return new ErrorCommand();
                 }
             }
+
         } else if (commandToRun.equals(COMMAND_MODIFY)) {
             if (verifyFullModifyCommand()) {
                 return new InitialModifyCommand(inputArray[1]);
@@ -74,28 +78,33 @@ public class DebtsParser extends Parser {
             } else {
                 return new ErrorCommand();
             }
+
         } else if (commandToRun.equals(COMMAND_SEARCH)) {
             if (verifyDebtSearchCommand()) {
                 return new SearchCommand(mode, inputArray[1], inputArray[2]);
             } else {
                 return new ErrorCommand();
             }
+
         } else if (commandToRun.equals(COMMAND_SORT)) {
             if (verifySort()) {
                 return new SortCommand(mode, inputArray[1]);
             } else {
                 return new ErrorCommand();
             }
+
         } else if (commandToRun.equals(COMMAND_REMOVE)) {
             if (verifyRemove()) {
                 return new RemoveCommand(mode, inputArray[1]);
             } else {
                 return new ErrorCommand();
             }
+
         } else if (commandToRun.equals(COMMAND_REDO)
                 || commandToRun.equals(COMMAND_UNDO)
                 || commandToRun.equals(COMMAND_REPEAT)) {
             return new ActionCommand(mode, commandToRun);
+
         } else {
             return invalidCommand();
         }
