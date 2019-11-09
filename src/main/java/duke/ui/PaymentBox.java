@@ -46,6 +46,12 @@ public class PaymentBox extends UiPart<AnchorPane> {
     @FXML
     private Label overdueLabel;
 
+    /**
+     *
+     *
+     * @param payment
+     * @param displayedIndex
+     */
     public PaymentBox(Payment payment, int displayedIndex) {
         super(FXML_FILE_NAME, null);
         this.payment = payment;
@@ -60,22 +66,22 @@ public class PaymentBox extends UiPart<AnchorPane> {
         Priority priority = payment.getPriority();
         BackgroundFill backgroundFill;
         switch (priority) {
-            case HIGH:
-                backgroundFill = new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY);
-                break;
-            case MEDIUM:
-                backgroundFill = new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY);
-                break;
-            case LOW:
-                backgroundFill = new BackgroundFill(Color.GREENYELLOW, CornerRadii.EMPTY, Insets.EMPTY);
-                break;
-            default:
-                backgroundFill = new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY);
+        case HIGH:
+            backgroundFill = new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY);
+            break;
+        case MEDIUM:
+            backgroundFill = new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY);
+            break;
+        case LOW:
+            backgroundFill = new BackgroundFill(Color.GREENYELLOW, CornerRadii.EMPTY, Insets.EMPTY);
+            break;
+        default:
+            backgroundFill = new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY);
         }
         priorityLabel.setBackground(new Background(backgroundFill));
         priorityLabel.setText(PRIORITY_PREFIX + priority.toString());
         tagLabel.setText(payment.getTag());
-        if(payment.getDue().isBefore(LocalDate.now())) {
+        if (payment.getDue().isBefore(LocalDate.now())) {
             overdueLabel.setVisible(true);
         }
     }

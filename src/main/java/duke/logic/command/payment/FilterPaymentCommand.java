@@ -47,27 +47,27 @@ public class FilterPaymentCommand extends Command {
 
     @Override
     public CommandResult execute(CommandParams commandParams, Model model, Storage storage) throws DukeException {
-        if(!commandParams.containsMainParam()) {
+        if (!commandParams.containsMainParam()) {
             throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING, "timeScope"));
         }
 
         String timeScope = commandParams.getMainParam().toLowerCase();
 
         switch (timeScope) {
-            case OVERDUE_SCOPE:
-                model.setOverduePredicate();
-                break;
-            case WEEK_SCOPE:
-                model.setWeekPredicate();
-                break;
-            case MONTH_SCOPE:
-                model.setMonthPredicate();
-                break;
-            case ALL_SCOPE:
-                model.setAllPredicate();
-                break;
-            default:
-                throw new DukeException(String.format(DukeException.MESSAGE_PAYMENT_SCOPE_INVALID, timeScope));
+        case OVERDUE_SCOPE:
+            model.setOverduePredicate();
+            break;
+        case WEEK_SCOPE:
+            model.setWeekPredicate();
+            break;
+        case MONTH_SCOPE:
+            model.setMonthPredicate();
+            break;
+        case ALL_SCOPE:
+            model.setAllPredicate();
+            break;
+        default:
+            throw new DukeException(String.format(DukeException.MESSAGE_PAYMENT_SCOPE_INVALID, timeScope));
         }
 
         return new CommandResult(COMPLETE_MESSAGE, CommandResult.DisplayedPane.PAYMENT);

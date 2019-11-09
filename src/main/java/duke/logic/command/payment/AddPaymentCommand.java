@@ -49,33 +49,33 @@ public class AddPaymentCommand extends Command {
     public CommandResult execute(CommandParams commandParams, Model model, Storage storage) throws DukeException {
         Payment.Builder paymentBuilder = new Payment.Builder();
 
-        if(!commandParams.containsMainParam()) {
+        if (!commandParams.containsMainParam()) {
             throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING, "amount"));
         }
 
         paymentBuilder.setAmount(commandParams.getMainParam());
 
-        if(!commandParams.containsParams(SecondaryParam.DESCRIPTION.name)) {
+        if (!commandParams.containsParams(SecondaryParam.DESCRIPTION.name)) {
             throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING, "description"));
         }
 
         paymentBuilder.setDescription(commandParams.getParam(SecondaryParam.DESCRIPTION.name));
 
-        if(!commandParams.containsParams(SecondaryParam.DUE.name)) {
+        if (!commandParams.containsParams(SecondaryParam.DUE.name)) {
             throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING, "due"));
         }
 
         paymentBuilder.setDue(commandParams.getParam(SecondaryParam.DUE.name));
 
-        if(commandParams.containsParams(SecondaryParam.PRIORITY.name)) {
+        if (commandParams.containsParams(SecondaryParam.PRIORITY.name)) {
             paymentBuilder.setPriority(commandParams.getParam(SecondaryParam.PRIORITY.name));
         }
 
-        if(commandParams.containsParams(SecondaryParam.RECEIVER.name)) {
+        if (commandParams.containsParams(SecondaryParam.RECEIVER.name)) {
             paymentBuilder.setReceiver(commandParams.getParam(SecondaryParam.RECEIVER.name));
         }
 
-        if(commandParams.containsParams(SecondaryParam.TAG.name)) {
+        if (commandParams.containsParams(SecondaryParam.TAG.name)) {
             paymentBuilder.setTag(commandParams.getParam(SecondaryParam.TAG.name));
         }
 

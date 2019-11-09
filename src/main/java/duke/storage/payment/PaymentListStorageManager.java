@@ -34,14 +34,14 @@ public class PaymentListStorageManager implements PaymentListStorage {
 
         logger.info("Entered the JsonStorageManager");
 
-        if(PAYMENTS_FILE.length() == 0) {
+        if (PAYMENTS_FILE.length() == 0) {
             return Optional.of(new PaymentList(new ArrayList<Payment>()));
         }
 
         Optional<JsonSerializablePaymentList> jsonPaymentList = JsonUtil.readJsonFile(
                 filePath, JsonSerializablePaymentList.class);
         logger.info("Json file is read");
-        if(!jsonPaymentList.isPresent()) {
+        if (!jsonPaymentList.isPresent()) {
             return Optional.empty();
         }
 

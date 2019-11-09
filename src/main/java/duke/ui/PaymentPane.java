@@ -1,12 +1,13 @@
 package duke.ui;
 
 import duke.commons.LogsCenter;
-import duke.model.payment.*;
+import duke.model.payment.Payment;
+import duke.model.payment.PaymentList;
+import duke.model.payment.PaymentInMonthPredicate;
+import duke.model.payment.PaymentInWeekPredicate;
+import duke.model.payment.PaymentOverduePredicate;
+import duke.model.payment.SearchKeywordPredicate;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -115,6 +116,10 @@ public class PaymentPane extends UiPart<AnchorPane> {
             timeLabel.setOpacity(FADED_OPACITY);
             amountLabel.setOpacity(FADED_OPACITY);
             priorityLabel.setOpacity(FULL_OPACITY);
+            break;
+
+        default:
+            logger.warning("Sorting Criteria takes unexpected value.");
             break;
         }
     }

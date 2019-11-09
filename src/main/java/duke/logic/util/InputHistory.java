@@ -51,11 +51,11 @@ public class InputHistory {
      * @return The earlier command as {@code String}
      */
     public String getLastInput() {
-        if(inputHistory.isEmpty()) {
+        if (inputHistory.isEmpty()) {
             return EMPTY_STRING;
         }
 
-        if(isAbleToLast()) {
+        if (isAbleToLast()) {
             iteratingIndex = iteratingIndex - 1;
         }
         return inputHistory.get(iteratingIndex);
@@ -67,16 +67,16 @@ public class InputHistory {
      * @return The later command as {@code String}
      */
     public String getNextInput() {
-        if(inputHistory.isEmpty()) {
+        if (inputHistory.isEmpty()) {
             return EMPTY_STRING;
         }
 
-        if(isAbleToNext()) {
+        if (isAbleToNext()) {
             iteratingIndex = iteratingIndex + 1;
         }
 
-        if(iteratingIndex == inputHistory.size()) {
-           return EMPTY_STRING;
+        if (iteratingIndex == inputHistory.size()) {
+            return EMPTY_STRING;
         }
 
         return inputHistory.get(iteratingIndex);

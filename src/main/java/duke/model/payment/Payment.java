@@ -107,6 +107,13 @@ public class Payment {
             priority = payment.priority;
         }
 
+        /**
+         * Sets the description in builder.
+         * The {@code description} cannot be empty.
+         *
+         * @param description the description to set
+         * @return The builder with the description set
+         */
         public Builder setDescription(String description) {
             requireNonNull(description);
             assert !description.isEmpty();
@@ -115,6 +122,13 @@ public class Payment {
             return this;
         }
 
+        /**
+         * Sets the receiver in builder.
+         * The {@code receiver} cannot be empty.
+         *
+         * @param receiver the receiver to set
+         * @return The builder with the receiver set
+         */
         public Builder setReceiver(String receiver) {
             requireNonNull(receiver);
             assert !receiver.isEmpty();
@@ -142,6 +156,13 @@ public class Payment {
             return this;
         }
 
+        /**
+         * Sets the tag in builder.
+         * The {@code tag} cannot be empty.
+         *
+         * @param tag the tag to set
+         * @return The builder with the tag set
+         */
         public Builder setTag(String tag) {
             requireNonNull(tag);
             assert !tag.isEmpty();

@@ -75,7 +75,7 @@ public class LogicManager implements Logic {
     @Override
     public BigDecimal getRemaining(BigDecimal total) {
         return model.getRemaining(total);
-    };
+    }
 
     @Override
     public Map<Integer, String> getBudgetViewCategory() {

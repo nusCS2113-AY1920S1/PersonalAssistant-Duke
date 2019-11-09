@@ -271,7 +271,12 @@ public class AutoCompleter {
         case NOT_DOABLE:
             complementList.clear();
             break;
+
+        default:
+            logger.warning("Purpose takes unexpected value.");
         }
+
+
 
         if (complementList.isEmpty()) { // return original last token if there's no suitable complement
             return getLastToken();
@@ -365,7 +370,7 @@ public class AutoCompleter {
     private String getLastToken() {
         int index = fromInput.length() - ZERO_BASED_CONVERSION;
         while (index >= INITIAL_INDEX && SPACE.charAt(INITIAL_INDEX) != fromInput.charAt(index)) {
-            index --;
+            index--;
         }
         startIndexOfLastToken = index + ZERO_BASED_CONVERSION;
         return fromInput.substring(startIndexOfLastToken);
@@ -409,7 +414,7 @@ public class AutoCompleter {
      * This is called when {@code purpose} is {@code ITERATE}.
      */
     private void iterateIndex() {
-        iteratingIndex ++;
+        iteratingIndex++;
         if (iteratingIndex >= complementList.size()) {
             iteratingIndex = INITIAL_INDEX;
         }

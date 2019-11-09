@@ -12,6 +12,12 @@ public class SearchKeywordPredicate implements Predicate<Payment> {
 
     private String keyword;
 
+    /**
+     * Constructs an object of {@code SearchKeywordPredicate}
+     * with the keyword set as the given {@code keyword}.
+     *
+     * @param keyword the keyword used for searching
+     */
     public SearchKeywordPredicate(String keyword) {
         requireNonNull(keyword);
 

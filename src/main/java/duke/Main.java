@@ -8,7 +8,16 @@ import duke.model.DukePP;
 import duke.model.Expense;
 import duke.model.ExpenseList;
 import duke.model.Model;
-import duke.storage.*;
+import duke.storage.IncomeListStorage;
+import duke.storage.ExpenseListStorage;
+import duke.storage.PlanAttributesStorage;
+import duke.storage.IncomeListStorageManager;
+import duke.storage.ExpenseListStorageManager;
+import duke.storage.Storage;
+import duke.storage.StorageManager;
+import duke.storage.BudgetViewStorage;
+import duke.storage.BudgetStorage;
+import duke.storage.PlanAttributesStorageManager;
 import duke.storage.payment.PaymentListStorage;
 import duke.storage.payment.PaymentListStorageManager;
 import duke.ui.Ui;
@@ -53,14 +62,21 @@ public class Main extends Application {
 
 
         //Demo Code, loads demo data on first boot
-        if(storage.loadExpenseList().internalSize() == 0 || storage.loadExpenseList() == null) {
+        if (storage.loadExpenseList().internalSize() == 0 || storage.loadExpenseList() == null) {
             loadListDemoData(storage);
         }
-
-        if(!storage.loadPaymentList().isPresent()) logger.info("PaymentList is not loaded");
-        if(storage.loadExpenseList() == null) logger.info("expenseList is not loaded");
-        if(storage.loadIncomeList() == null) logger.info("incomeList is not loaded");
-        if(storage.loadBudget() == null) logger.info("budgetList is not loaded");
+        if (storage.loadPaymentList().isEmpty()) {
+                logger.warning("PaymentList is not loaded");
+        }
+        if (storage.loadExpenseList() == null) {
+            logger.warning("expenseList is not loaded");
+        }
+        if (storage.loadIncomeList() == null) {
+            logger.warning("incomeList is not loaded");
+        }
+        if (storage.loadBudget() == null) {
+            logger.warning("budgetList is not loaded");
+        }
 
 
 
@@ -92,7 +108,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setResizable(false);
         ui.start(primaryStage);
-
     }
 
     public static void main(String[] args) {
@@ -102,11 +117,11 @@ public class Main extends Application {
     private final Storage loadListDemoData(Storage storage) {
         Expense.Builder builder = new Expense.Builder();
         try {
-            ExpenseList expenseList = storage.loadExpenseList();
             builder.setAmount("3.50");
             builder.setDescription("chicken rice");
             builder.setTag("food");
             builder.setTime("18:00 09/11/2019");
+            ExpenseList expenseList = storage.loadExpenseList();
             expenseList.add(builder.build());
 
             builder.setAmount("5.50");
@@ -142,11 +157,11 @@ public class Main extends Application {
             storage.saveExpenseList(expenseList);
 
             Map<String, String> planAttributes = storage.loadPlanAttributes();
-            planAttributes.put("NUS_STUDENT" , "TRUE");
-            planAttributes.put("ONLINE_SHOPPING" , "100");
-            planAttributes.put("MUSIC_SUBSCRIPTION" , "TRUE");
-            planAttributes.put("PHONE_BILL" , "30.00");
-            planAttributes.put("NETFLIX" , "TRUE");
+            planAttributes.put("NUS_STUDENT", "TRUE");
+            planAttributes.put("ONLINE_SHOPPING", "100");
+            planAttributes.put("MUSIC_SUBSCRIPTION", "TRUE");
+            planAttributes.put("PHONE_BILL", "30.00");
+            planAttributes.put("NETFLIX", "TRUE");
             storage.savePlanAttributes(planAttributes);
 
 

@@ -1,4 +1,4 @@
-package duke.logic.Parser;
+package duke.logic.parser;
 
 import duke.exception.DukeException;
 
@@ -45,7 +45,7 @@ public class Parser {
      * Returns a formatted BigDecimal representing Money.
      * @param string String we want to format
      * @return a formatted BigDecimal representing Money.
-     * @throws DukeException
+     * @throws DukeException if {@code string} is null or has invalid format
      */
     public static BigDecimal parseMoney(String string) throws DukeException {
         try {

@@ -1,7 +1,7 @@
 package duke.storage;
 
 import duke.exception.DukeException;
-import duke.logic.Parser.Parser;
+import duke.logic.parser.Parser;
 import duke.model.Budget;
 
 import java.io.File;

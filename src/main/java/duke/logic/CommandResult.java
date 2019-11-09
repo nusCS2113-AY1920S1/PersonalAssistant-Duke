@@ -21,6 +21,13 @@ public class CommandResult {
 
     private boolean isExit;
 
+    /**
+     *
+     *
+     * @param consoleInfo
+     * @param displayedPane
+     * @param isExit
+     */
     public CommandResult(String consoleInfo, DisplayedPane displayedPane, boolean isExit) {
         this.consoleInfo = consoleInfo;
         this.displayedPane = displayedPane;
