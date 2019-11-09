@@ -6,11 +6,15 @@ import duchess.storage.Store;
 import duchess.ui.Ui;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Redo feature.
  */
 public class RedoCommand extends Command {
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
     private int redoCounter;
     private static final String REDO_USAGE_ERROR_MESSAGE = "Usage: redo [number]";
     private static final String NEGATIVE_NUMBER_ERROR_MESSAGE
@@ -54,6 +58,8 @@ public class RedoCommand extends Command {
      */
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
+        logger.log(Level.INFO, "Redo is executed.");
+
         if (storage.getRedoStack().size() == 0) {
             redoCounter = 0;
         } else if (storage.getRedoStack().size() > 0 && redoCounter > 1) {

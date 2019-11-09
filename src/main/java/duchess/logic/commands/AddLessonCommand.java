@@ -57,6 +57,7 @@ public class AddLessonCommand extends Command {
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
         AcademicYear academicYear = new AcademicYear();
+        assert (academicYear != null);
 
         if (store.findModuleByCode(moduleCode).isEmpty()) {
             // Throws an exception if module was not present before.
@@ -111,6 +112,7 @@ public class AddLessonCommand extends Command {
      */
     private void addLessons(Store store, Storage storage) throws DuchessException {
         Event task = new Event(description, endCopy, startCopy);
+        assert (task != null);
 
         if (!store.isClashing(task)) {
             store.getTaskList().add(task);

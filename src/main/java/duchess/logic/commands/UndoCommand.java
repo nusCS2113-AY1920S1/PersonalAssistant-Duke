@@ -6,11 +6,15 @@ import duchess.storage.Store;
 import duchess.ui.Ui;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Undo feature.
  */
 public class UndoCommand extends Command {
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
     private int undoCounter;
     private static final String UNDO_USAGE_ERROR_MESSAGE = "Usage: undo [number]";
     private static final String NEGATIVE_NUMBER_ERROR_MESSAGE
@@ -55,6 +59,8 @@ public class UndoCommand extends Command {
      */
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
+        logger.log(Level.INFO, "Undo is executed.");
+
         if (storage.getUndoStack().size() == 1) {
             undoCounter = 0;
         } else if (storage.getUndoStack().size() > 1 && undoCounter > 1) {

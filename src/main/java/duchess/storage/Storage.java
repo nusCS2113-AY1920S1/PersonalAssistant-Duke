@@ -14,8 +14,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Storage {
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
     private String fileName;
     private Deque<String> undoStack;
     private Deque<String> redoStack;
@@ -75,6 +79,7 @@ public class Storage {
      * @throws DuchessException an error if unable to write to file
      */
     public void save(Store store) throws DuchessException {
+        logger.log(Level.INFO, "Saves to file.");
         try {
             FileOutputStream fileStream = new FileOutputStream(this.fileName);
             getObjectMapper().writeValue(fileStream, store);
@@ -161,6 +166,7 @@ public class Storage {
 
         // Add this string to undoStack
         undoStack.addLast(jsonVal);
+        assert (undoStack.size() != 0);
 
         deleteExcessUndoStack();
 
@@ -181,10 +187,20 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns an undoStack.
+     *
+     * @return undoStack
+     */
     public Deque<String> getUndoStack() {
         return this.undoStack;
     }
 
+    /**
+     * Returns a redoStack.
+     *
+     * @return redoStack
+     */
     public Deque<String> getRedoStack() {
         return this.redoStack;
     }
@@ -239,13 +255,18 @@ public class Storage {
         deleteExcessRedoStack();
     }
 
-
+    /**
+     * Sets redoStack to specified size.
+     */
     private void deleteExcessRedoStack() {
         while (redoStack.size() > storageSize) {
             redoStack.pollLast();
         }
     }
 
+    /**
+     * Sets undoStack to specified size.
+     */
     private void deleteExcessUndoStack() {
         while (undoStack.size() > storageSize) {
             undoStack.pollFirst();
