@@ -1,7 +1,7 @@
 package leduc.command;
 
 import leduc.Date;
-import leduc.Ui;
+import leduc.ui.Ui;
 import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.task.HomeworkTask;
@@ -20,17 +20,17 @@ public class PostponeCommand extends Command {
     private static String postponeShortcut = "postpone";
     /**
      * Constructor of PostponeCommand.
-     * @param user String which represent the input string of the user.
+     * @param userInput String which represent the input string of the user.
      *
      */
-    public PostponeCommand(String user){
-        super(user);
+    public PostponeCommand(String userInput){
+        super(userInput);
     }
 
     /**
      * Allows to postpone the deadline of a deadline task.
      * @param tasks leduc.task.TaskList which is the list of task.
-     * @param ui leduc.Ui which deals with the interactions with the user.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws NonExistentTaskException Exception caught when the task does not exist.
      * @throws HomeworkTypeException Exception caught when the task is not a deadline task.
@@ -43,11 +43,11 @@ public class PostponeCommand extends Command {
             HomeworkTypeException, FileException, EmptyHomeworkDateException, NonExistentDateException,
             PostponeHomeworkException {
         String userSubstring;
-        if(callByShortcut){
-            userSubstring = user.substring(PostponeCommand.postponeShortcut.length() + 1);
+        if(isCalledByShortcut){
+            userSubstring = userInput.substring(PostponeCommand.postponeShortcut.length() + 1);
         }
         else {
-            userSubstring = user.substring(9);
+            userSubstring = userInput.substring(9);
         }
         String[] postponeString = userSubstring.split("/by");
         if (postponeString.length == 1) { // no /by in input

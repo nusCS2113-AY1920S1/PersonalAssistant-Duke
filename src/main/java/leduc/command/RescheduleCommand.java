@@ -1,7 +1,7 @@
 package leduc.command;
 
 import leduc.Date;
-import leduc.Ui;
+import leduc.ui.Ui;
 import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.task.EventsTask;
@@ -19,19 +19,17 @@ public class RescheduleCommand extends Command {
     private static String rescheduleShortcut = "reschedule";
     /**
      * Constructor of RescheduleCommand.
-     * @param user String which represent the input string of the user.
+     * @param userInput String which represent the input string of the user.
      *
      */
-    public RescheduleCommand(String user){
-        super(user);
+    public RescheduleCommand(String userInput){
+        super(userInput);
     }
 
     /**
-     *
      * Allows to reschedule the period of a event task.
-     *
      * @param tasks leduc.task.TaskList which is the list of task.
-     * @param ui leduc.Ui which deals with the interactions with the user.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws EmptyEventDateException Exception caught when the period of the event task is not given by the user.
      * @throws NonExistentTaskException Exception caught when the task does not exist.
@@ -45,11 +43,11 @@ public class RescheduleCommand extends Command {
             NonExistentTaskException, EventTypeException, NonExistentDateException,
             DateComparisonEventException, FileException, ConflictDateException, EmptyArgumentException {
         String userSubstring;
-        if(callByShortcut){
-            userSubstring = user.substring(RescheduleCommand.rescheduleShortcut.length());
+        if(isCalledByShortcut){
+            userSubstring = userInput.substring(RescheduleCommand.rescheduleShortcut.length());
         }
         else {
-            userSubstring = user.substring(10);
+            userSubstring = userInput.substring(10);
         }
         if(userSubstring.isBlank()){
             throw new EmptyArgumentException();

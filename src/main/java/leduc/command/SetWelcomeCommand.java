@@ -1,7 +1,7 @@
 /* @@author rshah918 */
 package leduc.command;
 
-import leduc.Ui;
+import leduc.ui.Ui;
 import leduc.exception.FileException;
 import leduc.storage.Storage;
 import leduc.task.TaskList;
@@ -14,8 +14,12 @@ import java.util.Arrays;
 
 public class SetWelcomeCommand extends Command{
 
-    public SetWelcomeCommand(String user){
-       super(user);
+    /**
+     * Contructor of SetWelcomeCommand
+     * @param userInput String that represent the input of the user
+     */
+    public SetWelcomeCommand(String userInput){
+       super(userInput);
     }
 
     /**
@@ -26,7 +30,7 @@ public class SetWelcomeCommand extends Command{
     /**
      * Allow to change the welcome message.
      * @param tasks leduc.task.TaskList which is the list of task.
-     * @param ui leduc.Ui which deals with the interactions with the user.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws FileException Exception caught when the file can't be open or read or modify.
      */
@@ -39,7 +43,7 @@ public class SetWelcomeCommand extends Command{
             fileWriter = new FileWriter(file);
             try {
                 //removes the first word of the user input
-                welcomeMessage = String.join(" ", Arrays.copyOfRange(user.split(" "), 1, user.split( " ").length));
+                welcomeMessage = String.join(" ", Arrays.copyOfRange(userInput.split(" "), 1, userInput.split( " ").length));
                 fileWriter.write(welcomeMessage);
             }
             finally{

@@ -6,6 +6,8 @@ import leduc.exception.FileException;
 import leduc.exception.MeaninglessException;
 import leduc.storage.Storage;
 import leduc.task.TaskList;
+import leduc.ui.Ui;
+import leduc.ui.UiEn;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

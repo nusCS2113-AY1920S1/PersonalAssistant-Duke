@@ -4,6 +4,8 @@ import leduc.command.HomeworkCommand;
 import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.task.TaskList;
+import leduc.ui.Ui;
+import leduc.ui.UiEn;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -111,6 +113,134 @@ public class DeadlineCommandTest {
             assertTrue(e instanceof PrioritizeLimitException);
         }
         assertTrue(tasks.size()==2);
+
+        HomeworkCommand deadlineCommand8 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 recu");
+        try{
+            deadlineCommand8.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        HomeworkCommand deadlineCommand9 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 recu day");
+        try{
+            deadlineCommand9.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        HomeworkCommand deadlineCommand10 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 recu week");
+        try{
+            deadlineCommand10.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        HomeworkCommand deadlineCommand11 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 recu month");
+        try{
+            deadlineCommand11.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        HomeworkCommand deadlineCommand12 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 recu day a");
+        try{
+            deadlineCommand12.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        HomeworkCommand deadlineCommand13 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 recu week a");
+        try{
+            deadlineCommand13.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        HomeworkCommand deadlineCommand14 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 recu month a");
+        try{
+            deadlineCommand14.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        HomeworkCommand deadlineCommand15 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 recu eazea 1");
+        try{
+            deadlineCommand15.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        HomeworkCommand deadlineCommand16 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 6 recu");
+        try{
+            deadlineCommand16.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        HomeworkCommand deadlineCommand17 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 6 recu day");
+        try{
+            deadlineCommand17.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        HomeworkCommand deadlineCommand18 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 6 recu week");
+        try{
+            deadlineCommand18.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        HomeworkCommand deadlineCommand19 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 6 recu month");
+        try{
+            deadlineCommand19.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        HomeworkCommand deadlineCommand20 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 6 recu day a");
+        try{
+            deadlineCommand20.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        HomeworkCommand deadlineCommand21 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 6 recu week a");
+        try{
+            deadlineCommand21.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        HomeworkCommand deadlineCommand22 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 6 recu month a");
+        try{
+            deadlineCommand22.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        HomeworkCommand deadlineCommand23 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 6 recu eazea 1");
+        try{
+            deadlineCommand23.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof RecurrenceException);
+        }
     }
 
     /**
