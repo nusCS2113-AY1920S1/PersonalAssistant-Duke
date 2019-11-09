@@ -6,6 +6,7 @@ import Commands.UpdateProgressIndicatorCommand;
 import Commons.*;
 import DukeExceptions.DukeIOException;
 import DukeExceptions.DukeInvalidFormatException;
+import Parser.RetrieveFreeTimesParse;
 import Parser.WeekParse;
 import Tasks.Assignment;
 import Tasks.TaskList;
@@ -279,10 +280,10 @@ public class MainWindow extends BorderPane implements Initializable {
     }
 
     @FXML
-    private void handleUserInput() throws IOException, DukeInvalidFormatException, ParseException {
+    private void handleUserInput() throws IOException, ParseException {
         String input = userInput.getText();
         String response = duke.getResponse(input);
-        if (input.startsWith("show/week")) {
+        if (input.startsWith(DukeConstants.SHOW_WEEK_HEADER)) {
             if (WeekParse.isValid(input)) {
                 week = input;
                 setWeek(false, WeekParse.getWeek(input));
@@ -306,7 +307,7 @@ public class MainWindow extends BorderPane implements Initializable {
 
         //add/d CS1000 mod /by 01/11/2019 1500
         setProgressContainer();
-        if (!response.isEmpty()) {
+        if (!response.isEmpty() || !response.equals(NO_FIELD)) {
             Text temp = new Text(response);
             temp.setWrappingWidth(dukeResponseColumn.getWidth() - 20);
             Integer index = betterDukeResponse.size() + 1;
@@ -321,10 +322,10 @@ public class MainWindow extends BorderPane implements Initializable {
         }
         userInput.clear();
 
-        if (input.contains("retrieve/previous")) {
+        if (!input.contains("show/previous") && input.contains("retrieve/previous")) {
             String previousInput = Duke.getPreviousInput();
             userInput.setText(previousInput);
-        } else if (input.startsWith("retrieve/ft ")) {
+        } else if (input.startsWith("retrieve/time") && RetrieveFreeTimesParse.isValidOption(input)) {
             String selectedOption = Duke.getSelectedOption();
             userInput.setText(selectedOption);
         }

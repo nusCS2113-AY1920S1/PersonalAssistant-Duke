@@ -44,19 +44,18 @@ public class AddParse extends Parse {
                 modCodeAndDescriptionSplit = modCodeAndDescriptionAndDate[0].trim().split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
                 String fullDescriptionAndModCode = modCodeAndDescriptionAndDate[0].trim();
                 if (!super.isValidModCodeAndDescription(fullDescriptionAndModCode)) {
-                    throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode + description of a deadline cannot be empty.");
+                    throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.DEADLINE_EMPTY_MODCODE_DESCRIPTION_ERROR);
                 }
                 String modCode = modCodeAndDescriptionSplit[0];
                 if (!super.isModCode(modCode)) {
-                    throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
+                    throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.INVALID_MODCODE_ERROR);
                 }
                 if(!super.isValidDescription(modCodeAndDescriptionSplit)) {
-                    throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
+                    throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.DEADLINE_EMPTY_DESCRIPTION_ERROR);
                 }
                 String timePeriod = modCodeAndDescriptionAndDate[1];
                 if(!super.isValidTime(timePeriod)) {
-                    throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The time of a deadline can only contain digits and the time has to be 4 digits.\n" +
-                            "Please enter the time in a 24-hour time format");
+                    throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.DEADLINE_TIME_FORMAT_ERROR);
                 }
                 String deadlineDate = modCodeAndDescriptionAndDate[1];
                 String[] out = DateTimeParser.DeadlineParse(deadlineDate);
@@ -65,9 +64,7 @@ public class AddParse extends Parse {
                 return new AddCommand(new Deadline(fullDescriptionAndModCode, date, time));
             } catch (ParseException | ArrayIndexOutOfBoundsException e) {
                 LOGGER.severe("Invalid format for adding deadline");
-                throw new DukeInvalidFormatException(" OOPS!!! Please enter deadline as follows:\n" +
-                        "add/d mod_code name_of_deadline /by dd/MM/yyyy HHmm\n" +
-                        "or add/d mod_code name_of_deadline /by week x day HHmm\n");
+                throw new DukeInvalidFormatException(DukeConstants.DEADLINE_FORMAT);
             }
         } else if (fullCommand.trim().startsWith(DukeConstants.ADD_EVENT_HEADER)) {
             try {
@@ -76,19 +73,18 @@ public class AddParse extends Parse {
                 modCodeAndDescriptionSplit = modCodeAndDescriptionAndDate[0].trim().split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
                 String fullDescriptionAndModCode = modCodeAndDescriptionAndDate[0].trim();
                 if (!super.isValidModCodeAndDescription(fullDescriptionAndModCode)) {
-                    throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode + description of an event cannot be empty.");
+                    throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.EVENT_EMPTY_MODCODE_DESCRIPTION_ERROR);
                 }
                 String modCode = modCodeAndDescriptionSplit[0];
                 if (!super.isModCode(modCode)) {
-                    throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The ModCode is invalid");
+                    throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.INVALID_MODCODE_ERROR);
                 }
                 if(!super.isValidDescription(modCodeAndDescriptionSplit)) {
-                    throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The description of an event cannot be empty.");
+                    throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.EVENT_EMPTY_DESCRIPTION_ERROR);
                 }
                 String timePeriod = modCodeAndDescriptionAndDate[1];
                 if(!super.isValidTimePeriod(timePeriod)) {
-                    throw new DukeInvalidFormatException("\u2639" + " OOPS!!! The time of an event can only contain digits and the time has to be 4 digits.\n" +
-                            "Please enter the time in a 24-hour time format");
+                    throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.EVENT_TIME_FORMAT_ERROR);
                 }
                 String eventDate = modCodeAndDescriptionAndDate[1];
                 String[] out = DateTimeParser.EventParse(eventDate);
@@ -98,13 +94,10 @@ public class AddParse extends Parse {
                 return new AddCommand(new Event(fullDescriptionAndModCode, date, startTime, endTime));
             } catch (ParseException | ArrayIndexOutOfBoundsException e) {
                 LOGGER.severe("Invalid format for adding event");
-                throw new DukeInvalidFormatException("OOPS!!! Please enter event as follows:\n" +
-                        "add/e modCode name_of_event /at dd/MM/yyyy /from HHmm /to HHmm\n" +
-                        "or add/e modCode name_of_event /at week x day /from HHmm /to HHmm\n " +
-                        "For example: add/e CS1231 project meeting /at 1/1/2020 /from 1500 /to 1700");
+                throw new DukeInvalidFormatException(DukeConstants.EVENT_FORMAT);
             }
         }else {
-            throw new DukeInvalidCommandException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeInvalidCommandException(DukeConstants.SAD_FACE + DukeConstants.UNKNOWN_MEANING);
         }
     }
 
