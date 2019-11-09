@@ -80,7 +80,7 @@ class OrderParserUtil {
                     new Quantity(amount));
                 items.add(item);
             } catch (NumberFormatException e) {
-                throw new ParseException(Message.MESSAGE_INVALID_NUMBER_FORMAT);
+                throw new ParseException(Message.MESSAGE_INVALID_QUANTITY);
             }
         }
         return items;
