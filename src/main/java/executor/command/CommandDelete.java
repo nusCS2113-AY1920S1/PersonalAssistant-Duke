@@ -23,15 +23,21 @@ public class CommandDelete extends Command {
         String outputStr;
         try {
             int index = Integer.parseInt(userInput.replace("delete", "").trim()) - 1;
-            outputStr = ("Task '"
+            outputStr = ("Task"
+                    + " "
                     + (index + 1)
-                    + ") "
+                    + ")"
                     + storageManager.getTaskNameByIndex(index)
-                    + "' deleted. \n");
+                    + " "
+                    + "has been deleted. \n");
             storageManager.deleteTaskByIndex(index);
         } catch (DukeException e) {
             this.infoCapsule.setCodeError();
             this.infoCapsule.setOutputStr(e.getMessage());
+            return;
+        } catch (NumberFormatException e) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr("Invalid index input. Please enter an integer");
             return;
         }
         this.infoCapsule.setCodeToast();
