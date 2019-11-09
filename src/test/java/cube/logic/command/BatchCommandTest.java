@@ -124,7 +124,9 @@ public class BatchCommandTest {
     }
 
     /**
-     * Creates a sample test JSON file to test Cube.
+     * Generates some sample Food Products for testing.
+     * @param NUM_OF_PRODUCTS Number of sample Food Products to store in Foodlist.
+     * @return Generated FoodList of size NUM_OF_PRODUCTS
      */
     private static FoodList generateSampleData(int NUM_OF_PRODUCTS) throws ParserException {
         FoodList foodList = new FoodList();

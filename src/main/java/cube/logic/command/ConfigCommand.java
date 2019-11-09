@@ -28,10 +28,10 @@ public class ConfigCommand extends Command {
     private UiConfig uiConfig;
     private LogConfig logConfig;
 
-    private final String MESSAGE_SUCCESS = "The %1$s settings has been configured successfully.\n"
+    public static final String MESSAGE_SUCCESS = "The %1$s settings has been configured successfully.\n"
         + "Settings will be applied when you restart the program.\n";
 
-    private String MESSAGE_VIEW = "All the saved configurations are as below:\n";
+    public static String MESSAGE_VIEW = "All the saved configurations are as below:\n";
 
     /**
      * Default Constructor for listing all configs.
