@@ -2,13 +2,13 @@ package seedu.hustler.data;
 
 import seedu.hustler.Hustler;
 import seedu.hustler.game.achievement.AchievementList;
-import seedu.hustler.game.achievement.FirstLogin;
 import seedu.hustler.logic.parser.DateTimeParser;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
@@ -50,7 +50,6 @@ public class AchievementStorage {
      * Attempts to load the status.txt file and initialises
      * @return progress with updated statistics.
      * @throws IOException throws an error if there is no status.txt file.
-     * Creates a new instance and initialises all status.
      */
     public static AchievementList loadStatus() throws IOException {
         try {
@@ -92,16 +91,16 @@ public class AchievementStorage {
             Scanner scanner = new Scanner(new File(STATUS_FILEPATH_BACKUP));
             while (scanner.hasNextLine()) {
                 String[] txt = scanner.nextLine().split(" ");
-                if(txt[0].equals("Add:")) {
+                if (txt[0].equals("Add:")) {
                     numberOfTasks = Integer.parseInt(txt[1]);
-                } else if(txt[0].equals("Done:")) {
+                } else if (txt[0].equals("Done:")) {
                     numberOfDone = Integer.parseInt(txt[1]);
-                } else if(txt[0].equals("TotalPoints:")) {
+                } else if (txt[0].equals("TotalPoints:")) {
                     totalPoints = Integer.parseInt(txt[1]);
-                } else if(txt[0].equals("LastLogin:")) {
+                } else if (txt[0].equals("LastLogin:")) {
                     storedDateTime = DateTimeParser.getDateTime(txt[1] + " " + txt[2]);
-                } else if(txt[0].equals("ConsecutiveCount:")) {
-                   consecutiveCount = Integer.parseInt(txt[1]);
+                } else if (txt[0].equals("ConsecutiveCount:")) {
+                    consecutiveCount = Integer.parseInt(txt[1]);
                 }
             }
             return Hustler.achievementList;
@@ -139,7 +138,7 @@ public class AchievementStorage {
      * points gained.
      * @return achievement list with updated status.
      */
-    public static AchievementList loadAchievements() throws IOException{
+    public static AchievementList loadAchievements() throws IOException {
         try {
             int index = 0;
             Scanner scanner = new Scanner(new File(ACHIEVEMENT_FILEPATH));
@@ -171,14 +170,13 @@ public class AchievementStorage {
             int index = 0;
             Scanner scanner = new Scanner(new File(ACHIEVEMENT_FILEPATH_BACKUP));
             Hustler.achievementList = new AchievementList();
-
             while (scanner.hasNextLine()) {
                 String[] txt = scanner.nextLine().split("\\|");
                 Hustler.achievementList.updateStatus(Boolean.parseBoolean(txt[0]),index,Integer.parseInt(txt[1]));
                 index += 1;
-                }
+            }
             return Hustler.achievementList;
-        } catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             return Hustler.achievementList;
         }
     }
@@ -187,10 +185,9 @@ public class AchievementStorage {
      * Saves all achievement progress.
      * @param achievementList current achievement list.
      * @return current achievement list.
-     * @throws IOException throws ann error if achievement.txt
-     * is not found.
+     * @throws IOException throws ann error if achievement.txt is not found.
      */
-    public static AchievementList saveAchievements(AchievementList achievementList) throws IOException{
+    public static AchievementList saveAchievements(AchievementList achievementList) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(new File(ACHIEVEMENT_FILEPATH)));
         for (int i = 0; i < achievementList.size(); i += 1) {
             writer.write(achievementList.get(i).toTxt());
@@ -205,8 +202,7 @@ public class AchievementStorage {
      * Creates backup text file for achievements and status.
      * @param achievementList current achievement list.
      * @return returns achievement list.
-     * @throws IOException throws an error if statusBackup.txt
-     * or achievementBackup.txt.
+     * @throws IOException throws an error if statusBackup.txt or achievementBackup.txt.
      */
     public static AchievementList createBackup(AchievementList achievementList) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(new File(STATUS_FILEPATH_BACKUP)));
@@ -215,7 +211,7 @@ public class AchievementStorage {
         writer.write("Done: " + numberOfDone);
         writer.write("\n");
         writer.write("TotalPoints: " + totalPoints);
-        if(reset() || checkLogin()) {
+        if (reset() || checkLogin()) {
             writer.write("\n");
             writer.write("LastLogin: " + DateTimeParser.convertDateTime(LocalDateTime.now()));
             writer.write("\n");
@@ -228,7 +224,7 @@ public class AchievementStorage {
         writer.close();
 
         writer = new BufferedWriter(new FileWriter(new File(ACHIEVEMENT_FILEPATH_BACKUP)));
-        for(int i = 0; i < achievementList.size(); i += 1) {
+        for (int i = 0; i < achievementList.size(); i += 1) {
             writer.write(achievementList.get(i).toTxt());
             writer.write("\n");
         }
