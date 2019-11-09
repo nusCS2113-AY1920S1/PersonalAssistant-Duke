@@ -8,6 +8,7 @@ import diyeats.storage.Storage;
 
 import java.util.ArrayList;
 
+//@@author GaryStu
 /**
  * The HelpCommand is a public class that extends from the abstract class Command.
  * It finds and shows to the UI the required help file by the user
