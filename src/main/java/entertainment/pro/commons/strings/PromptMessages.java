@@ -1,4 +1,4 @@
-package entertainment.pro.commons;
+package entertainment.pro.commons.strings;
 
 /**
  * Contains and defines messages printed by the app.
@@ -158,7 +158,7 @@ public class PromptMessages {
     public static final String EXECUTING_MISTYPED_COMMAND = "Executing mistyped command";
 
 
-    
+
 
     // file related messages
     public static final String FILE_NOT_FOUND = "File not found!";

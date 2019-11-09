@@ -1,7 +1,6 @@
 package entertainment.pro.ui;
 
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
-import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.exceptions.*;
 import entertainment.pro.logic.cinemaRequesterAPI.CinemaRetrieveRequest;
 import entertainment.pro.logic.contexts.CommandContext;

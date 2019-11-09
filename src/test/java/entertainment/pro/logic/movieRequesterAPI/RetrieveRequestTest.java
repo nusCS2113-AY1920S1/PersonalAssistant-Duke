@@ -1,11 +1,10 @@
 package entertainment.pro.logic.movieRequesterAPI;
 
-import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.model.SearchProfile;
 import entertainment.pro.storage.utils.OfflineSearchStorage;
-import entertainment.pro.ui.MovieHandler;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -13,13 +12,9 @@ import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
-import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static entertainment.pro.ui.MovieHandler.mMovieRequest;
-import static javafx.scene.input.KeyCode.A;
-import static javafx.scene.input.KeyCode.R;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RetrieveRequestTest {

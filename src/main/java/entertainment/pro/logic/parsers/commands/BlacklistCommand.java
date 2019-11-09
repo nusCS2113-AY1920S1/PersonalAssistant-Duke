@@ -1,5 +1,5 @@
 package entertainment.pro.logic.parsers.commands;
-import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.commons.exceptions.DuplicateEntryException;
 import entertainment.pro.logic.contexts.SearchResultContext;

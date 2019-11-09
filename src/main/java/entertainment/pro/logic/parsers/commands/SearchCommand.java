@@ -1,6 +1,6 @@
 package entertainment.pro.logic.parsers.commands;
 
-import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.exceptions.*;
 import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
 import entertainment.pro.model.SearchProfile;
@@ -11,7 +11,6 @@ import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.logic.parsers.CommandStructure;
 import entertainment.pro.logic.parsers.CommandSuper;
 
-import javax.print.DocFlavor;
 import java.util.*;
 import java.io.IOException;
 import java.util.logging.Level;
