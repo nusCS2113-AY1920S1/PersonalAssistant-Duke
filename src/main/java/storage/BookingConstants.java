@@ -9,4 +9,9 @@ public class BookingConstants {
     public static final int TIMEEND = 4;
     public static final int STATUS = 5;
     public static final int APPROVEDBY = 6;
+    public static final String DATETIMEERROR = "Not able to parse the date for all patterns given, "
+            + "please use this format: add NAME DESCRIPTION /at ROOM_CODE /from DATE TIMESTART /to TIMEEND"
+            + ", DATE TIMESTART format is dd/mm/yyyy HHMM, TIMEEND is HHMM";
+    public static final String DATEERROR = "Not able to parse the date for all patterns given, "
+            + "please use this format: DATE" + ", DATE format is dd/mm/yyyy";
 }

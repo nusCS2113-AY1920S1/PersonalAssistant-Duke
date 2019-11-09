@@ -9,6 +9,7 @@ import booking.BookingList;
 import exception.DukeException;
 import room.RoomList;
 import storage.Storage;
+import storage.StorageManager;
 import ui.Ui;
 import storage.Constants;
 import user.UserList;
@@ -51,12 +52,11 @@ public class EditBookingCommand extends Command {
     @Override
     public void execute(UserList userList, Inventory inventory, RoomList roomList,
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage,
-                        Storage bookingstorage, Storage roomstorage, Storage approvestorage)
+                        StorageManager allStorage)
             throws DukeException, IOException, ParseException {
         bookingList.get(index).setDescription(textToEdit);
         ui.addToOutput("The description of this request has been changed!");
         ui.addToOutput(bookingList.get(index).toString());
-        bookingstorage.saveToFile(bookingList);
+        allStorage.getBookingStorage().saveToFile(bookingList);
     }
 }

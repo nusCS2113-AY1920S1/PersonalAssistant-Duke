@@ -7,6 +7,7 @@ import inventory.Inventory;
 import room.RoomList;
 import storage.Constants;
 import storage.Storage;
+import storage.StorageManager;
 import ui.Ui;
 import user.UserList;
 
@@ -32,16 +33,15 @@ public class RemoveUserCommand extends Command {
     @Override
     public void execute(UserList userList, Inventory inventory, RoomList roomList,
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage,
-                        Storage bookingstorage, Storage roomstorage, Storage approvestorage)
+                        StorageManager allStorage)
             throws DukeException, IOException {
         boolean isValid = UserList.checkExistence(userList, splitL[1]);
         if (isValid) {
-            if (userList.getCurrentUser().equals(splitL[1])) {
+            if (splitL[1].equals(userList.getCurrentUser())) {
                 throw new DukeException("OOPS! You are currently logged in as " + userList.getCurrentUser() + "!");
             } else {
                 UserList.removeUser(userList, splitL[1]);
-                userStorage.saveToFile(userList);
+                allStorage.getUserStorage().saveToFile(userList);
                 ui.addToOutput("You have successfully removed user: " + splitL[1]);
             }
         } else {

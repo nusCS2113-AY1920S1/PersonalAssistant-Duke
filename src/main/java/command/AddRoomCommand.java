@@ -9,6 +9,7 @@ import exception.DukeException;
 import storage.Storage;
 import room.Room;
 import room.RoomList;
+import storage.StorageManager;
 import ui.Ui;
 import user.UserList;
 
@@ -55,20 +56,18 @@ public class AddRoomCommand extends Command {
      * @param roomList room list
      * @param bookingList bookings list
      * @param ui user interface
-     * @param bookingstorage booking storage in command execution
-     * @param roomstorage room storage in command execution
+     * @param allStorage booking storage in command execution
      * @throws IOException if input entry is incorrect
      */
     @Override
 
     public void execute(UserList userList, Inventory inventory, RoomList roomList,
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage,
-                        Storage bookingstorage, Storage roomstorage, Storage approvestorage)
+                        StorageManager allStorage)
             throws IOException {
         Room addroom = new Room(roomcode, dateStartTime, endTime);
         roomList.add(addroom);
-        roomstorage.saveToFile(roomList);
+        allStorage.getRoomStorage().saveToFile(roomList);
         ui.addToOutput("Got it, I've added this room.\n"
             + addroom.toString() + "\n" + "Now you have " + roomList.size() + " room(s) in the list.");
     }

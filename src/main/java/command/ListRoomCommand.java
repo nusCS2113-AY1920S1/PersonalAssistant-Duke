@@ -9,6 +9,7 @@ import booking.BookingList;
 import exception.DukeException;
 import room.RoomList;
 import storage.Storage;
+import storage.StorageManager;
 import ui.Ui;
 import user.UserList;
 
@@ -21,16 +22,14 @@ public class ListRoomCommand extends Command {
      * @param roomList list of rooms
      * @param bookingList bookings list
      * @param ui user interface
-     * @param bookingstorage booking storage in command execution
-     * @param roomstorage room storage in command execution
+     * @param allStorage all storages in command execution
      * @throws DukeException when entry is invalid due to formatting
      */
 
     @Override
     public void execute(UserList userList, Inventory inventory, RoomList roomList,
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage,
-                        Storage bookingstorage, Storage roomstorage, Storage approvestorage)
+                        StorageManager allStorage)
             throws DukeException {
         if (roomList.isEmpty()) {
             throw new DukeException("The room list is empty. Please add a room.");

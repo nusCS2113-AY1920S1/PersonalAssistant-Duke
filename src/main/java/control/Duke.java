@@ -7,6 +7,7 @@ import inventory.Inventory;
 import room.RoomList;
 import storage.Constants;
 import storage.Storage;
+import storage.StorageManager;
 import ui.Ui;
 import booking.BookingList;
 import user.User;
@@ -34,7 +35,7 @@ public class Duke {
     private Inventory inventory;
     private Storage inventoryStorage;
     private Storage userStorage;
-    private Storage approveStorage;
+    private StorageManager allStorages;
 
 
     /**
@@ -48,6 +49,7 @@ public class Duke {
         roomStorage = new Storage(roomListFile);
         inventoryStorage = new Storage(inventoryFile);
         userStorage = new Storage(userFile);
+        allStorages = new StorageManager(userStorage, bookingStorage, roomStorage, inventoryStorage);
         user = new User("null");
 
         File dir = new File(Constants.DIRECTORY);
@@ -97,7 +99,7 @@ public class Duke {
             ui.setOutput("");
             Command c = Parser.parse(input);
             c.execute(userList, inventory, roomList, bookingList, approveList, ui,
-                    userStorage, inventoryStorage, bookingStorage, roomStorage, approveStorage);
+                    allStorages);
             System.out.println(ui.getOutput());
             return ui.getOutput();
         } catch (DukeException | IOException | ParseException e) {

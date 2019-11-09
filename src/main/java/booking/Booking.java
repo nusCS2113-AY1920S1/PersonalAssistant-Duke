@@ -1,6 +1,7 @@
 package booking;
 
 import exception.DukeException;
+import storage.BookingConstants;
 import user.UserList;
 
 import java.time.ZoneId;
@@ -21,7 +22,6 @@ public class Booking {
     protected String name;
     private String description;
     private String status;
-    //private String currentUser;
     private String approvedBy;
 
     /**
@@ -46,9 +46,7 @@ public class Booking {
             this.status = "P";
             this.approvedBy = null;
         } catch (DateTimeParseException error) {
-            throw new DukeException("Not able to parse the date for all patterns given, "
-        + "please use this format: add NAME DESCRIPTION /at ROOM_CODE /from DATE TIMESTART /to TIMEEND"
-        + ", DATE TIMESTART format is dd/mm/yyyy HHMM, TIMEEND is HHMM");
+            throw new DukeException(BookingConstants.DATETIMEERROR);
         }
     }
 
@@ -72,7 +70,6 @@ public class Booking {
         this.timeEnd = storedEnd.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
         this.name = username;
         this.status = status;
-        //this.currentUser = currentuSer;
         this.approvedBy = approvedBy;
     }
 
@@ -147,16 +144,6 @@ public class Booking {
     public String getDescription() {
         return description;
     }
-
-    /*
-    public void setCurrentUser(String currentUser) {
-        this.currentUser = currentUser;
-    }
-
-    public String getCurrentUser() {
-        return currentUser;
-    }*/
-
 
     public void approveStatus(String username) {
         status = "A";

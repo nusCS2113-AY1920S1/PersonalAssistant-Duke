@@ -1,22 +1,18 @@
-
 package command;
 
 import booking.ApprovedList;
 import inventory.Inventory;
-
 import booking.Booking;
 import booking.BookingList;
 import exception.DukeException;
 import room.RoomList;
 import storage.Storage;
+import storage.StorageManager;
 import ui.Ui;
 import user.UserList;
-
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.Month;
-import java.time.format.DateTimeFormatter;
 
 public class ListBookingMonthCommand extends Command {
 
@@ -41,16 +37,19 @@ public class ListBookingMonthCommand extends Command {
     @Override
     public void execute(UserList userList, Inventory inventory, RoomList roomList,
                         BookingList bookingList, ApprovedList approvedList, Ui ui,
-                        Storage userStorage, Storage inventoryStorage,
-                        Storage bookingstorage, Storage roomstorage, Storage approvestorage)
+                        StorageManager allStorage)
             throws DukeException, IOException, ParseException {
+        boolean bookingExists = false;
 
         ui.addToOutput("Here are the bookings: ");
         for (Booking i : bookingList) {
             if (i.getStartMonth() == this.monthStart) {
                 ui.addToOutput((bookingList.indexOf(i) + 1) + ". " + i.toString() + "\n");
-
+                bookingExists = true;
             }
+        }
+        if (!bookingExists) {
+            throw new DukeException("OOPS!! There are no bookings for this month");
         }
     }
 }

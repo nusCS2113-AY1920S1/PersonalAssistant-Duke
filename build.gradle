@@ -48,7 +48,7 @@ dependencies {
 
 shadowJar {
     archiveBaseName = "HallBooker"
-    archiveVersion = "1.3"
+    archiveVersion = "1.4"
     archiveClassifier = null
     archiveAppendix = null
 }
