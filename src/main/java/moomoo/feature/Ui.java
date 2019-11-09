@@ -14,7 +14,9 @@ import java.util.Scanner;
 public class Ui {
     private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_RESET = "\u001B[0m";
+    private static final int DEFAULT_BOX = 45;
     private static String output = null;
+    private static String testOutput = null;
 
     /**
      * Prints out a message.
@@ -22,6 +24,22 @@ public class Ui {
      */
     private static void print(String text) {
         System.out.println(text);
+    }
+
+    /**
+     * Returns the value to be printed to the GUI.
+     * @return String to be printed on the GUI
+     */
+    public static String returnResponse() {
+        return output;
+    }
+
+    /**
+     * Sets the myOutput to be printed.
+     * @param myOutput Input value to be printed.
+     */
+    public static void setOutput(String myOutput) {
+        output = myOutput;
     }
 
     /**
@@ -33,14 +51,6 @@ public class Ui {
             System.out.print("\u001b[2J");
             System.out.flush();
         }
-    }
-
-    /**
-     * Returns the value to be printed to the GUI.
-     * @return String to be printed on the GUI
-     */
-    public static String returnResponse() {
-        return output;
     }
 
     /**
@@ -113,19 +123,13 @@ public class Ui {
     }
 
     /**
-     * Sets the myOutput to be printed.
-     * @param myOutput Input value to be printed.
-     */
-    public static void setOutput(String myOutput) {
-        output = myOutput;
-    }
-
-    /**
      * Prints out when a new category is created.
      * @param categoryName name of the new category
      */
     public static void showCategoryMessage(String categoryName) {
-        int boxLength = 51;
+        int boxLength = Math.max(DEFAULT_BOX, categoryName.length());
+        boxLength += 5;
+
         String box = " ";
         box = addChars(boxLength, box, "_");
         box = box.concat("\n/ Mooo.");
@@ -134,13 +138,7 @@ public class Ui {
         box = addChars(blanks1, box, " ");
         box = box.concat("\\\n\\ " + categoryName);
 
-        int blanks2 = 50 - categoryName.length();
-        box = addChars(blanks2, box, " ");
-        box = box.concat("/\n ");
-        box = addChars(boxLength, box, "-");
-        box = box.concat("\n" + getCow());
-
-        setOutput(box);
+        getBoxBottom(categoryName, boxLength, box, "/\n ");
     }
 
     /**
@@ -149,7 +147,9 @@ public class Ui {
      * @param categoryName category containing expenditure
      */
     public static void showExpenditureMessage(String expenditureName, String categoryName) {
-        int boxLength = 51;
+        int boxLength = Math.max(expenditureName.length(), categoryName.length());
+        boxLength = Math.max(boxLength, DEFAULT_BOX);
+        boxLength += 5;
 
         String box = "  ";
         box = addChars(boxLength, box, "_");
@@ -163,11 +163,18 @@ public class Ui {
         box = addChars(blanks2, box, " ");
         box = box.concat("|\n \\ " + categoryName);
 
-        int blanks3 = boxLength - 1 - categoryName.length();
-        box = addChars(blanks3, box, " ");
-        box = box.concat("/\n  ");
+        getBoxBottom(categoryName, boxLength, box, "/\n  ");
+    }
+
+    private static void getBoxBottom(String categoryName, int boxLength, String box, String lineEnding) {
+        int blanks = boxLength - 1 - categoryName.length();
+        box = addChars(blanks, box, " ");
+        box = box.concat(lineEnding);
         box = addChars(boxLength, box, "-");
-        box = box.concat("\n" + getCow());
+        box = box.concat("\n");
+        testOutput = box;
+
+        box = box.concat(getCow());
         setOutput(box);
     }
 
@@ -177,10 +184,8 @@ public class Ui {
      * @param longestCategory number of characters in the longest category name
      */
     public static void showList(ArrayList<String> namesOfCategories, int longestCategory) {
-        int boxLength = 40;
-        if (longestCategory > boxLength - 5) {
-            boxLength = longestCategory + 5;
-        }
+        int boxLength = Math.max(DEFAULT_BOX, longestCategory);
+        boxLength += 5;
         int blankSpace = boxLength - 33;
 
         String list =  ".";
@@ -198,8 +203,10 @@ public class Ui {
 
         list = list.concat(".");
         list = addChars(boxLength, list, "-");
-        list = list.concat(".\n" + getCow());
+        list = list.concat(".\n");
+        testOutput = list;
 
+        list = list.concat(getCow());
         setOutput(list);
     }
 
