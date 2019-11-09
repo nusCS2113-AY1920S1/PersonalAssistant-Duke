@@ -4,6 +4,12 @@ import spinbox.DateTime;
 import spinbox.exceptions.ScheduleDateException;
 
 public abstract class Schedulable extends Task {
+    private static final String EXCEPTION_MESSAGE_END_DATE_TIME =
+            "End date and time cannot be earlier or equal to start date and time.";
+    private static final String EXCEPTION_MESSAGE_START_DATE_TIME =
+            "Start Date cannot be earlier than the current date and time.";
+    private static final String TODAY_STRING = "today";
+
     DateTime startDate;
     DateTime endDate;
 
@@ -23,11 +29,23 @@ public abstract class Schedulable extends Task {
     /**
      * Check if Start Date is before End Date,
      * if not, throws exception.
-     * @throws ScheduleDateException Exception of Schedule.
+     * @throws ScheduleDateException Exception of Schedulable.
      */
     public void checkValidEndDate() throws ScheduleDateException {
         if (endDate.before(startDate) || endDate.equals(startDate)) {
-            throw new ScheduleDateException("End Date cannot be earlier or equal to Start Date");
+            throw new ScheduleDateException(EXCEPTION_MESSAGE_END_DATE_TIME);
+        }
+    }
+
+    /**
+     * Check if Start Date is before current Date,
+     * and if it is, throw exception.
+     * @throws ScheduleDateException Exception of Schedulable.
+     */
+    public void checkValidStartDate() throws ScheduleDateException {
+        DateTime now = new DateTime(TODAY_STRING);
+        if (startDate.before(now)) {
+            throw new ScheduleDateException(EXCEPTION_MESSAGE_START_DATE_TIME);
         }
     }
 

@@ -1,6 +1,7 @@
 package spinbox.entities.items.tasks;
 
 import spinbox.DateTime;
+import spinbox.exceptions.ScheduleDateException;
 
 public class Deadline extends Schedulable {
     /**
@@ -8,9 +9,10 @@ public class Deadline extends Schedulable {
      * @param description the name or description of the deadline.
      * @param startDate the due date/time of the deadline.
      */
-    public Deadline(String description, DateTime startDate) {
+    public Deadline(String description, DateTime startDate) throws ScheduleDateException {
         super(description);
         this.startDate = startDate;
+        checkValidStartDate();
         taskType = TaskType.DEADLINE;
     }
 
@@ -20,10 +22,11 @@ public class Deadline extends Schedulable {
      * @param description the name or description of the deadline.
      * @param startDate the due date/time of the deadline.
      */
-    public Deadline(int done, String description, DateTime startDate) {
+    public Deadline(int done, String description, DateTime startDate) throws ScheduleDateException {
         super(description);
         this.updateDone(done == 1);
         this.startDate = startDate;
+        checkValidStartDate();
         taskType = TaskType.DEADLINE;
     }
 

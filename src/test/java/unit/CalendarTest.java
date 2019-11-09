@@ -27,23 +27,23 @@ public class CalendarTest {
         Calendar test3 = null;
 
         try {
-            test1 = new Calendar(1,"12/07/2019");
-            test2 = new Calendar(2,"11/07/2019");
-            test3 = new Calendar(3,"11/04/2019");
+            test1 = new Calendar(1,"12/07/2029");
+            test2 = new Calendar(2,"11/07/2029");
+            test3 = new Calendar(3,"11/04/2029");
         } catch (CalendarSelectorException cse) {
             fail(cse.getMessage());
         }
-        assertEquals(7, test1.getStartDateDay());
+        assertEquals(6, test1.getStartDateDay());
         assertEquals(1, test2.getStartDateDay());
-        assertEquals(6, test3.getStartDateDay());
+        assertEquals(5, test3.getStartDateDay());
     }
 
     @Test
     public void dateTimeCreation_wrongModifierAndDateTimeString_ExceptionThrown() {
         try {
-            new Calendar(0,"12/07/2019");
-            new Calendar(4,"11/07/2019");
-            new Calendar(5,"11/04/2019");
+            new Calendar(0,"12/07/2029");
+            new Calendar(4,"11/07/2029");
+            new Calendar(5,"11/04/2029");
             fail("Exception not Thrown");
         } catch (CalendarSelectorException cse) {
             assertTrue(true);
@@ -57,9 +57,9 @@ public class CalendarTest {
         Calendar test3 = null;
 
         try {
-            test1 = new Calendar(3,"02/07/2019");
-            test2 = new Calendar(3,"11/07/2019");
-            test3 = new Calendar(3,"08/04/2019");
+            test1 = new Calendar(3,"02/07/2029");
+            test2 = new Calendar(3,"11/07/2029");
+            test3 = new Calendar(3,"08/04/2029");
         } catch (CalendarSelectorException cse) {
             fail("Unable to create Calendar Object");
         }
@@ -75,14 +75,14 @@ public class CalendarTest {
         Calendar test3 = null;
 
         try {
-            test1 = new Calendar(2,"02/01/2019");
+            test1 = new Calendar(2,"02/01/2029");
             test2 = new Calendar(3,"11/07/2010");
             test3 = new Calendar(1,"08/04/2011");
         } catch (CalendarSelectorException cse) {
             fail(cse.getMessage());
         }
 
-        assertEquals("2019", test1.getYearString());
+        assertEquals("2029", test1.getYearString());
         assertEquals("2010", test2.getYearString());
         assertEquals("2011", test3.getYearString());
     }
@@ -94,7 +94,7 @@ public class CalendarTest {
         Calendar test3 = null;
 
         try {
-            test1 = new Calendar(2,"02/01/2019");
+            test1 = new Calendar(2,"02/01/2029");
             test2 = new Calendar(3,"11/07/2010");
             test3 = new Calendar(1,"08/04/2011");
         } catch (CalendarSelectorException cse) {
@@ -111,20 +111,20 @@ public class CalendarTest {
 
         try {
             List<Pair<String, Task>> testTaskList = new ArrayList<>();
-            Calendar testCalendar = new Calendar(3, "11/07/2019");
+            Calendar testCalendar = new Calendar(3, "11/07/2029");
             testTaskList.add(new Pair<>("CS1231", new Lecture("lecture 1",
-                    new DateTime("11/08/2019 14:00"), new DateTime("11/08/2019 18:00"))));
+                    new DateTime("11/08/2029 14:00"), new DateTime("11/08/2029 18:00"))));
             testTaskList.add(new Pair<>("CS2040C", new Lecture("lecture 2",
-                    new DateTime("11/09/2019 14:00"), new DateTime("11/09/2019 18:00"))));
+                    new DateTime("11/09/2029 14:00"), new DateTime("11/09/2029 18:00"))));
             testTaskList.add(new Pair<>("GET1101", new Lecture("lecture 3",
-                    new DateTime("11/09/2019 14:00"), new DateTime("12/09/2019 18:00"))));
+                    new DateTime("11/09/2029 14:00"), new DateTime("12/09/2029 18:00"))));
             testTaskList.add(new Pair<>("MA1511",new Lecture("lecture 4",
-                    new DateTime("11/09/2019 14:00"), new DateTime("12/09/2019 18:00"))));
+                    new DateTime("11/09/2029 14:00"), new DateTime("12/09/2029 18:00"))));
             Task lectureOne = testCalendar.taskInCalendarByDayInMonth(testTaskList).get(7).getValue().get(0).getValue();
             Task lectureTwo = testCalendar.taskInCalendarByDayInMonth(testTaskList).get(8).getValue().get(0).getValue();
-            assertEquals("[LEC][NOT DONE] lecture 1 (at: 11/08/2019 14:00 to 11/08/2019 18:00)",
+            assertEquals("[LEC][NOT DONE] lecture 1 (at: 11/08/2029 14:00 to 11/08/2029 18:00)",
                     lectureOne.toString());
-            assertEquals("[LEC][NOT DONE] lecture 2 (at: 11/09/2019 14:00 to 11/09/2019 18:00)",
+            assertEquals("[LEC][NOT DONE] lecture 2 (at: 11/09/2029 14:00 to 11/09/2029 18:00)",
                     lectureTwo.toString());
             Boolean overlap = testCalendar.taskInCalendarByDayInMonth(testTaskList).get(9).getValue().isEmpty();
             assertEquals(false, overlap);

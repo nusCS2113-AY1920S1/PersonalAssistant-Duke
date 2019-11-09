@@ -14,6 +14,7 @@ public class Lecture extends Schedulable {
         super(description);
         this.startDate = startDate;
         this.endDate = endDate;
+        checkValidStartDate();
         checkValidEndDate();
         taskType = TaskType.LECTURE;
     }
@@ -30,6 +31,7 @@ public class Lecture extends Schedulable {
         this.updateDone(done == 1);
         this.startDate = startDate;
         this.endDate = endDate;
+        checkValidStartDate();
         checkValidEndDate();
         taskType = TaskType.LECTURE;
     }

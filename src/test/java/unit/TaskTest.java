@@ -15,8 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskTest {
-    private DateTime startDateTime = new DateTime("01/01/2019 00:00");
-    private DateTime endDateTime = new DateTime("01/01/2019 01:00");
+    private DateTime startDateTime = new DateTime("01/01/2030 00:00");
+    private DateTime endDateTime = new DateTime("01/01/2030 01:00");
 
     @Test
     public void createTodoSuccessful_createNewTodoTask_todoSuccessfullyCreated() {
@@ -31,14 +31,18 @@ public class TaskTest {
 
     @Test
     public void createDeadlineSuccessful_createNewDeadlineTask_deadlineSuccessfullyCreated() {
-        Deadline deadline = new Deadline("Test 2", startDateTime);
-        assertEquals(deadline.getTaskType().toString(), "DEADLINE");
-        assertEquals(deadline.getStartDate(), startDateTime);
-        assertEquals(deadline.storeString(), "D | 0 | Test 2 | 01/01/2019 00:00");
-        assertEquals(deadline.toString(), "[D][NOT DONE] Test 2 (by: 01/01/2019 00:00)");
-        deadline.markDone();
-        assertEquals(deadline.storeString(), "D | 1 | Test 2 | 01/01/2019 00:00");
-        assertEquals(deadline.toString(), "[D][DONE] Test 2 (by: 01/01/2019 00:00)");
+        try {
+            Deadline deadline = new Deadline("Test 2", startDateTime);
+            assertEquals(deadline.getTaskType().toString(), "DEADLINE");
+            assertEquals(deadline.getStartDate(), startDateTime);
+            assertEquals(deadline.storeString(), "D | 0 | Test 2 | 01/01/2030 00:00");
+            assertEquals(deadline.toString(), "[D][NOT DONE] Test 2 (by: 01/01/2030 00:00)");
+            deadline.markDone();
+            assertEquals(deadline.storeString(), "D | 1 | Test 2 | 01/01/2030 00:00");
+            assertEquals(deadline.toString(), "[D][DONE] Test 2 (by: 01/01/2030 00:00)");
+        } catch (ScheduleDateException ede) {
+            fail(ede.getMessage());
+        }
     }
 
     @Test
@@ -49,11 +53,11 @@ public class TaskTest {
             assertEquals(event.getStartDate(), startDateTime);
             assertEquals(event.getEndDate(), endDateTime);
             assertEquals(event.isOverlapping(startDateTime, endDateTime), true);
-            assertEquals(event.storeString(), "E | 0 | Test 3 | 01/01/2019 00:00 | 01/01/2019 01:00");
-            assertEquals(event.toString(), "[E][NOT DONE] Test 3 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+            assertEquals(event.storeString(), "E | 0 | Test 3 | 01/01/2030 00:00 | 01/01/2030 01:00");
+            assertEquals(event.toString(), "[E][NOT DONE] Test 3 (at: 01/01/2030 00:00 to 01/01/2030 01:00)");
             event.markDone();
-            assertEquals(event.storeString(), "E | 1 | Test 3 | 01/01/2019 00:00 | 01/01/2019 01:00");
-            assertEquals(event.toString(), "[E][DONE] Test 3 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+            assertEquals(event.storeString(), "E | 1 | Test 3 | 01/01/2030 00:00 | 01/01/2030 01:00");
+            assertEquals(event.toString(), "[E][DONE] Test 3 (at: 01/01/2030 00:00 to 01/01/2030 01:00)");
         } catch (ScheduleDateException ede) {
             fail(ede.getMessage());
         }
@@ -67,11 +71,11 @@ public class TaskTest {
             assertEquals(exam.getStartDate(), startDateTime);
             assertEquals(exam.getEndDate(), endDateTime);
             assertEquals(exam.isOverlapping(startDateTime, endDateTime), true);
-            assertEquals(exam.storeString(), "EXAM | 0 | Test 4 | 01/01/2019 00:00 | 01/01/2019 01:00");
-            assertEquals(exam.toString(), "[EXAM][NOT DONE] Test 4 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+            assertEquals(exam.storeString(), "EXAM | 0 | Test 4 | 01/01/2030 00:00 | 01/01/2030 01:00");
+            assertEquals(exam.toString(), "[EXAM][NOT DONE] Test 4 (at: 01/01/2030 00:00 to 01/01/2030 01:00)");
             exam.markDone();
-            assertEquals(exam.storeString(), "EXAM | 1 | Test 4 | 01/01/2019 00:00 | 01/01/2019 01:00");
-            assertEquals(exam.toString(), "[EXAM][DONE] Test 4 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+            assertEquals(exam.storeString(), "EXAM | 1 | Test 4 | 01/01/2030 00:00 | 01/01/2030 01:00");
+            assertEquals(exam.toString(), "[EXAM][DONE] Test 4 (at: 01/01/2030 00:00 to 01/01/2030 01:00)");
         } catch (ScheduleDateException ede) {
             fail(ede.getMessage());
         }
@@ -86,11 +90,11 @@ public class TaskTest {
             assertEquals(lab.getStartDate(), startDateTime);
             assertEquals(lab.getEndDate(), endDateTime);
             assertEquals(lab.isOverlapping(startDateTime, endDateTime), true);
-            assertEquals(lab.storeString(), "LAB | 0 | Test 5 | 01/01/2019 00:00 | 01/01/2019 01:00");
-            assertEquals(lab.toString(), "[LAB][NOT DONE] Test 5 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+            assertEquals(lab.storeString(), "LAB | 0 | Test 5 | 01/01/2030 00:00 | 01/01/2030 01:00");
+            assertEquals(lab.toString(), "[LAB][NOT DONE] Test 5 (at: 01/01/2030 00:00 to 01/01/2030 01:00)");
             lab.markDone();
-            assertEquals(lab.storeString(), "LAB | 1 | Test 5 | 01/01/2019 00:00 | 01/01/2019 01:00");
-            assertEquals(lab.toString(), "[LAB][DONE] Test 5 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+            assertEquals(lab.storeString(), "LAB | 1 | Test 5 | 01/01/2030 00:00 | 01/01/2030 01:00");
+            assertEquals(lab.toString(), "[LAB][DONE] Test 5 (at: 01/01/2030 00:00 to 01/01/2030 01:00)");
         } catch (ScheduleDateException ede) {
             fail(ede.getMessage());
         }
@@ -104,11 +108,11 @@ public class TaskTest {
             assertEquals(lecture.getStartDate(), startDateTime);
             assertEquals(lecture.getEndDate(), endDateTime);
             assertEquals(lecture.isOverlapping(startDateTime, endDateTime), true);
-            assertEquals(lecture.storeString(), "LEC | 0 | Test 6 | 01/01/2019 00:00 | 01/01/2019 01:00");
-            assertEquals(lecture.toString(), "[LEC][NOT DONE] Test 6 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+            assertEquals(lecture.storeString(), "LEC | 0 | Test 6 | 01/01/2030 00:00 | 01/01/2030 01:00");
+            assertEquals(lecture.toString(), "[LEC][NOT DONE] Test 6 (at: 01/01/2030 00:00 to 01/01/2030 01:00)");
             lecture.markDone();
-            assertEquals(lecture.storeString(), "LEC | 1 | Test 6 | 01/01/2019 00:00 | 01/01/2019 01:00");
-            assertEquals(lecture.toString(), "[LEC][DONE] Test 6 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+            assertEquals(lecture.storeString(), "LEC | 1 | Test 6 | 01/01/2030 00:00 | 01/01/2030 01:00");
+            assertEquals(lecture.toString(), "[LEC][DONE] Test 6 (at: 01/01/2030 00:00 to 01/01/2030 01:00)");
         } catch (ScheduleDateException ede) {
             fail(ede.getMessage());
         }
@@ -123,11 +127,11 @@ public class TaskTest {
             assertEquals(tutorial.isOverlapping(startDateTime, endDateTime), true);
             assertEquals(tutorial.getStartDate(), startDateTime);
             assertEquals(tutorial.getEndDate(), endDateTime);
-            assertEquals(tutorial.storeString(), "TUT | 0 | Test 7 | 01/01/2019 00:00 | 01/01/2019 01:00");
-            assertEquals(tutorial.toString(), "[TUT][NOT DONE] Test 7 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+            assertEquals(tutorial.storeString(), "TUT | 0 | Test 7 | 01/01/2030 00:00 | 01/01/2030 01:00");
+            assertEquals(tutorial.toString(), "[TUT][NOT DONE] Test 7 (at: 01/01/2030 00:00 to 01/01/2030 01:00)");
             tutorial.markDone();
-            assertEquals(tutorial.storeString(), "TUT | 1 | Test 7 | 01/01/2019 00:00 | 01/01/2019 01:00");
-            assertEquals(tutorial.toString(), "[TUT][DONE] Test 7 (at: 01/01/2019 00:00 to 01/01/2019 01:00)");
+            assertEquals(tutorial.storeString(), "TUT | 1 | Test 7 | 01/01/2030 00:00 | 01/01/2030 01:00");
+            assertEquals(tutorial.toString(), "[TUT][DONE] Test 7 (at: 01/01/2030 00:00 to 01/01/2030 01:00)");
         } catch (ScheduleDateException ede) {
             fail(ede.getMessage());
         }

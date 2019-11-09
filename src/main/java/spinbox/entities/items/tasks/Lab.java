@@ -14,6 +14,7 @@ public class Lab extends Schedulable {
         super(description);
         this.startDate = startDate;
         this.endDate = endDate;
+        checkValidStartDate();
         checkValidEndDate();
         taskType = TaskType.LAB;
     }
@@ -30,6 +31,7 @@ public class Lab extends Schedulable {
         this.updateDone(done == 1);
         this.startDate = startDate;
         this.endDate = endDate;
+        checkValidStartDate();
         checkValidEndDate();
         taskType = TaskType.LAB;
     }
