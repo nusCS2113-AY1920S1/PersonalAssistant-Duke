@@ -24,6 +24,8 @@ import javafx.stage.Screen;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 
+import javafx.util.Pair;
+import spinbox.DateTime;
 import spinbox.SpinBox;
 import spinbox.containers.ModuleContainer;
 import spinbox.containers.lists.FileList;
@@ -79,7 +81,7 @@ public class MainWindow extends GridPane {
     private Popup popup = new Popup();
     private ArrayList<String> commandHistory = new ArrayList<>();
     private int commandCount = 0;
-    private TaskList allTasks;
+    private List<Pair<String, Task>> allTasks;
 
     /**
      * FXML method that is used as a post-constructor function to initialize variables and tabbed views.
@@ -232,7 +234,7 @@ public class MainWindow extends GridPane {
 
     private void updateOverallTasksView() throws DataReadWriteException, InvalidIndexException, FileCreationException {
 
-        allTasks = new TaskList("Main");
+        allTasks = new ArrayList<>();
         overallTasksView.getChildren().clear();
         ModuleContainer moduleContainer = spinBox.getModuleContainer();
         HashMap<String, Module> modules = moduleContainer.getModules();
@@ -242,12 +244,41 @@ public class MainWindow extends GridPane {
             TaskList tasks = moduleObject.getTasks();
             for (Task task : tasks.getList()) {
                 if (!task.getDone()) {
-                    allTasks.add(task);
+                    allTasks.add(new Pair<>(moduleCode, task));
                 }
             }
         }
 
-        allTasks.sort();
+        allTasks.sort((o1, o2) -> {
+            Task a = o1.getValue();
+            Task b = o2.getValue();
+
+            DateTime startDateA = null;
+            DateTime startDateB = null;
+
+            if (!a.getDone() && b.getDone()) {
+                return -1;
+            } else if (a.getDone() && !b.getDone()) {
+                return 1;
+            }
+
+            if (a.isSchedulable()) {
+                startDateA = ((Schedulable) a).getStartDate();
+            }
+            if (b.isSchedulable()) {
+                startDateB = ((Schedulable) b).getStartDate();
+            }
+
+            if (startDateA == null && startDateB == null) {
+                return a.getName().compareToIgnoreCase(b.getName());
+            } else if (startDateA == null) {
+                return 1;
+            } else if (startDateB == null) {
+                return -1;
+            } else {
+                return startDateA.compareTo(startDateB);
+            }
+        });
 
         int boxes;
         if (allTasks.size() < 5) {
@@ -256,7 +287,8 @@ public class MainWindow extends GridPane {
             boxes = 5;
         }
         for (int i = 0; i < boxes; i++) {
-            Task addTask = allTasks.get(i);
+            Task addTask = allTasks.get(i).getValue();
+            String moduleCode = allTasks.get(i).getKey();
             String description = addTask.getTaskType().name();
             description += ": " + addTask.getName();
             String dates = "";
@@ -270,7 +302,6 @@ public class MainWindow extends GridPane {
                     dates = "By: " + dates;
                 }
             }
-            String moduleCode = "";
             overallTasksView.getChildren().add(TaskBox.getTaskBox(description, moduleCode, dates));
         }
     }
@@ -515,7 +546,6 @@ public class MainWindow extends GridPane {
         if (displayText.contains(HELP_POPUP) || displayText.contains(HELP_PAGE_POPUP)) {
             popup.setX(primaryScreenBounds.getMinX());
             popup.setY(primaryScreenBounds.getMinY());
-
         } else {
             popup.setX(((primaryScreenBounds.getMaxX() + primaryScreenBounds.getMinX()) / 2) - 200);
             popup.setY(primaryScreenBounds.getMaxY());

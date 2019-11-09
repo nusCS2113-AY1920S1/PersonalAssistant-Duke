@@ -1,5 +1,6 @@
 package unit;
 
+import javafx.util.Pair;
 import org.junit.jupiter.api.Test;
 import spinbox.DateTime;
 import spinbox.containers.lists.TaskList;
@@ -10,6 +11,9 @@ import spinbox.exceptions.CalendarSelectorException;
 import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.ScheduleDateException;
 import spinbox.exceptions.FileCreationException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -106,25 +110,25 @@ public class CalendarTest {
     public void getTaskWithinCalendar_TaskListAndDateTimeString_returnCorrectTask() {
 
         try {
-            TaskList testTaskList = new TaskList("main");
+            List<Pair<String, Task>> testTaskList = new ArrayList<>();
             Calendar testCalendar = new Calendar(3, "11/07/2019");
-            testTaskList.add(new Lecture("lecture 1",
-                    new DateTime("11/08/2019 14:00"), new DateTime("11/08/2019 18:00")));
-            testTaskList.add(new Lecture("lecture 2",
-                    new DateTime("11/09/2019 14:00"), new DateTime("11/09/2019 18:00")));
-            testTaskList.add(new Lecture("lecture 3",
-                    new DateTime("11/09/2019 14:00"), new DateTime("12/09/2019 18:00")));
-            testTaskList.add(new Lecture("lecture 4",
-                    new DateTime("11/09/2019 14:00"), new DateTime("12/09/2019 18:00")));
-            Task lectureOne = testCalendar.taskInCalendarByDayInMonth(testTaskList).get(7).getValue().get(0);
-            Task lectureTwo = testCalendar.taskInCalendarByDayInMonth(testTaskList).get(8).getValue().get(0);
+            testTaskList.add(new Pair<>("CS1231", new Lecture("lecture 1",
+                    new DateTime("11/08/2019 14:00"), new DateTime("11/08/2019 18:00"))));
+            testTaskList.add(new Pair<>("CS2040C", new Lecture("lecture 2",
+                    new DateTime("11/09/2019 14:00"), new DateTime("11/09/2019 18:00"))));
+            testTaskList.add(new Pair<>("GET1101", new Lecture("lecture 3",
+                    new DateTime("11/09/2019 14:00"), new DateTime("12/09/2019 18:00"))));
+            testTaskList.add(new Pair<>("MA1511",new Lecture("lecture 4",
+                    new DateTime("11/09/2019 14:00"), new DateTime("12/09/2019 18:00"))));
+            Task lectureOne = testCalendar.taskInCalendarByDayInMonth(testTaskList).get(7).getValue().get(0).getValue();
+            Task lectureTwo = testCalendar.taskInCalendarByDayInMonth(testTaskList).get(8).getValue().get(0).getValue();
             assertEquals("[LEC][NOT DONE] lecture 1 (at: 11/08/2019 14:00 to 11/08/2019 18:00)",
                     lectureOne.toString());
             assertEquals("[LEC][NOT DONE] lecture 2 (at: 11/09/2019 14:00 to 11/09/2019 18:00)",
                     lectureTwo.toString());
             Boolean overlap = testCalendar.taskInCalendarByDayInMonth(testTaskList).get(9).getValue().isEmpty();
             assertEquals(false, overlap);
-        } catch (FileCreationException | DataReadWriteException | CalendarSelectorException | ScheduleDateException e) {
+        } catch (CalendarSelectorException | ScheduleDateException e) {
             fail(e.getMessage());
         }
 

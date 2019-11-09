@@ -28,7 +28,7 @@ public class CalendarMonthBox extends AnchorPane {
     private Calendar calendarMonth;
 
 
-    CalendarMonthBox(String date, TaskList taskList) throws CalendarSelectorException {
+    CalendarMonthBox(String date, List<Pair<String, Task>> taskList) throws CalendarSelectorException {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(CalendarMonthBox.class.getResource("/view/CalendarMonthBox.fxml"));
             fxmlLoader.setController(this);
@@ -51,16 +51,17 @@ public class CalendarMonthBox extends AnchorPane {
         this.year.setTextFill(Color.web("#FFFFFF"));
     }
 
-    private void setMonthBox(TaskList taskList) {
+    private void setMonthBox(List<Pair<String, Task>> taskList) {
         int i;
         int j;
         int day = calendarMonth.getStartDateDay();
         int lastDay = calendarMonth.getEndOfMonthDay();
         int dateCount = 1;
+        List<Pair<Integer, List<Pair<String, Task>>>> taskInMonthBox;
 
         Label label;
 
-        List<Pair<Integer, List<Task>>> taskInMonthBox = calendarMonth.taskInCalendarByDayInMonth(taskList);
+        taskInMonthBox = calendarMonth.taskInCalendarByDayInMonth(taskList);
         for (i = 1; i < lastDay + 1; i++) {
             VBox temp = new VBox();
             label = new Label(" " + dateCount);
@@ -68,10 +69,12 @@ public class CalendarMonthBox extends AnchorPane {
             int row = ((i + day - 2) / 7) + 1;
             int col = (i + day - 2) % 7;
             if (!taskInMonthBox.isEmpty()) {
-                Pair<Integer, List<Task>> pair = taskInMonthBox.get(i - 1);
-                List<Task> tasksOnDay = pair.getValue();
-                for (Task task : tasksOnDay) {
-                    label = new Label(" " + task.getTaskType() + " : " + task.getName());
+                Pair<Integer, List<Pair<String, Task>>> pair = taskInMonthBox.get(i - 1);
+                List<Pair<String, Task>> tasksOnDay = pair.getValue();
+                for (Pair item : tasksOnDay) {
+                    Task task = (Task) item.getValue();
+                    String moduleCode = (String) item.getKey();
+                    label = new Label(moduleCode + " " + task.getTaskType() + " : " + task.getName());
                     temp.getChildren().add(label);
                 }
             }

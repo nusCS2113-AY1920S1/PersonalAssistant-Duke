@@ -127,27 +127,6 @@ public class TaskList extends SpinBoxList<Task> {
         return output;
     }
 
-    /**
-     * Return list of task that overlaps with start and end interval.
-     * @param startInterval start of the interval.
-     * @param endInterval end of the interval.
-     * @return list of task
-     */
-    public List<Task> viewListInterval(DateTime startInterval, DateTime endInterval) {
-        Task currentTask;
-        List<Task> output = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            currentTask = list.get(i);
-            if (currentTask.isSchedulable()) {
-                Schedulable task = (Schedulable) currentTask;
-                if (task.isOverlapping(startInterval, endInterval)) {
-                    output.add(task);
-                }
-            }
-        }
-        return output;
-    }
-
     @Override
     public List<String> containsKeyword(String keyword) {
         List<Task> contains = new ArrayList<>();
