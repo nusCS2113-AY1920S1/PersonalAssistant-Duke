@@ -1,21 +1,11 @@
 package ducats;
 
-import ducats.components.Bar;
-import ducats.components.Chord;
-import ducats.components.Group;
-import ducats.components.Note;
-import ducats.components.Pitch;
 import ducats.components.Song;
 import ducats.components.SongList;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -147,12 +137,6 @@ public class Storage {
         }
     }
 
-    /**
-     * If the file is not found, creates the file according to the filepath provided.
-     *
-     * @param filepath the filepath of the file to be created, as a String
-     * @throws DucatsException in the case of IO exceptions
-     */
     private void createFile(String filepath) throws DucatsException {
         File file = new File(filepath);
         try {
