@@ -13,10 +13,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 
-public class FileHandling {
+public class FileStorage {
     private String file;
 
-    public FileHandling(String file) {
+    public FileStorage(String file) {
         this.file = file;
     }
 

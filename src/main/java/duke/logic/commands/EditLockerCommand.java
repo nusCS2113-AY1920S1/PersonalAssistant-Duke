@@ -10,7 +10,7 @@ import duke.models.locker.Locker;
 import duke.models.locker.SerialNumber;
 import duke.models.locker.Zone;
 import duke.models.tag.Tag;
-import duke.storage.FileHandling;
+import duke.storage.Storage;
 import duke.ui.Ui;
 
 import java.util.List;
@@ -48,7 +48,7 @@ public class EditLockerCommand extends Command {
     }
 
     @Override
-    public void execute(LockerList lockerList, Ui ui, FileHandling storage) throws DukeException {
+    public void execute(LockerList lockerList, Ui ui, Storage storage) throws DukeException {
         Locker editedLocker = editLockerDetails(lockerList,ui);
         ui.showSuccessfullyEdited(editedLocker.toString());
         storage.saveData(lockerList);

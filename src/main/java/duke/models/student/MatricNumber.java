@@ -44,7 +44,7 @@ public class MatricNumber {
         return matricId.matches(CHECK_REGEX);
     }
 
-    public String getStudentCourse() {
+    public String getStudentId() {
         return matricId;
     }
 

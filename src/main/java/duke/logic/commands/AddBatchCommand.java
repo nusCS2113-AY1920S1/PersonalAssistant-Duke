@@ -3,7 +3,7 @@ package duke.logic.commands;
 import duke.exceptions.DukeException;
 import duke.models.locker.Locker;
 import duke.models.LockerList;
-import duke.storage.FileHandling;
+import duke.storage.Storage;
 import duke.ui.Ui;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public class AddBatchCommand extends Command {
     }
 
     @Override
-    public void execute(LockerList lockerList, Ui ui, FileHandling storage) throws DukeException {
+    public void execute(LockerList lockerList, Ui ui, Storage storage) throws DukeException {
 
         if (lockerList.areLockersPresent(batchOfLockers)) {
             throw new DukeException("Duplicate entries not allowed. Serial number "

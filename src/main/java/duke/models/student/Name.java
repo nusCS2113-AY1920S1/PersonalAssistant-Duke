@@ -45,7 +45,7 @@ public class Name {
     public boolean equals(Object other) {
         return other == this //checks whether the two objects are the same and short circuit
                 || (other instanceof Name //checks for null references and other irrelevant cases
-                && name.equalsIgnoreCase(((Name) other).name)); //checks for the equality
+                && name.trim().equalsIgnoreCase(((Name) other).name.trim())); //checks for the equality
     }
 
     @Override

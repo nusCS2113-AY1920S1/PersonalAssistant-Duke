@@ -11,7 +11,7 @@ import duke.models.student.Major;
 import duke.models.student.MatricNumber;
 import duke.models.student.Name;
 import duke.models.student.Student;
-import duke.storage.FileHandling;
+import duke.storage.Storage;
 import duke.ui.Ui;
 
 import java.util.Optional;
@@ -41,7 +41,7 @@ public class EditUsageCommand extends Command {
     }
 
     @Override
-    public void execute(LockerList lockerList, Ui ui, FileHandling storage) throws DukeException {
+    public void execute(LockerList lockerList, Ui ui, Storage storage) throws DukeException {
         Locker editedLocker = editUsageDetails(lockerList);
         ui.showSuccessfullyEdited(editedLocker.toString());
         storage.saveData(lockerList);

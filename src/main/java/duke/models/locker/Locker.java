@@ -1,14 +1,10 @@
 package duke.models.locker;
 
-
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import duke.exceptions.DukeException;
 import duke.models.tag.Tag;
-
 
 import java.util.Objects;
 import java.util.Optional;
@@ -45,23 +41,6 @@ public class Locker {
         this.zone = zone;
         this.tag = tag;
         this.usage = usage;
-    }
-
-
-    public void setTagAs(String tagName) {
-        tag.tagName = tagName;
-    }
-
-    public void setStatusAsBroken() {
-        tag.tagName = Tag.BROKEN;
-    }
-
-    public void setStatusAsUnAuthorized() {
-        tag.tagName = Tag.UNAUTHORIZED;
-    }
-
-    public void setStatusAsNotInUse() {
-        tag.tagName = Tag.NOT_IN_USE;
     }
 
     public void setStatusAsInUse() {

@@ -4,14 +4,14 @@ import duke.logic.commands.Command;
 import duke.exceptions.DukeException;
 import duke.models.LockerList;
 import duke.parser.Parser;
-import duke.storage.FileHandling;
+import duke.storage.FileStorage;
+import duke.storage.Storage;
+import duke.storage.StorageManager;
 import duke.ui.Ui;
-
-import java.io.IOException;
 
 public class Duke {
     private Ui ui;
-    private FileHandling storage;
+    private Storage storage;
     private LockerList lockers;
     private Parser parser;
 
@@ -23,7 +23,7 @@ public class Duke {
         try {
             ui = new Ui();
             parser = new Parser();
-            storage = new FileHandling(filename);
+            storage = new StorageManager(filename);
             lockers = new LockerList(storage.retrieveData().getAllLockers());
         } catch (DukeException e) {
             ui.showLoadingError(e.getMessage());
