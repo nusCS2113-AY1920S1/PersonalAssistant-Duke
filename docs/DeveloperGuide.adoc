@@ -121,7 +121,7 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Recives commannd results from `Logic` component so that the `UI` can be updated with the modified data.
 
-Given below is the simplified activity diagram for the workflow of the `UI`. Upon the start of the `UI`, it would request for user input. Then, it would process the user input and execute the input. It would show the respective response after execution of the input. If the response requires calendar or map, it would show it to the user. Subsequently, it would loop back to request for user input again. Else, if the response is exit type, it would exit the app. 
+Given below is the simplified activity diagram for the workflow of the `UI`. Upon the start of the `UI`, it would request for user input. Then, it would process the user input and execute the input. It would show the respective response after execution of the input. If the response requires calendar or map, it would show it to the user. Subsequently, it would loop back to request for user input again. Else, if the response is exit type, it would exit the app.
 
 .Activity Diagram of the UI Component
 image::UiActivityDiagram.png[]
@@ -141,12 +141,15 @@ link:{repoURL}/src/main/java/sgtravel/logic/Logic.java[`Logic.java`]
 .  The command execution can affect the `Model` (e.g. adding an event).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying calendar to the user.
-. Furthermore, the `EditorManager` is allowed to "snatch" the user inputs from the `Parser` when it is activated. 
+. Furthermore, the `EditorManager` is allowed to "snatch" the user inputs from the `Parser` when it is activated.
 
 Given below is the diagram illustrating the workflow of the `Logic` component. The user input is passed to `Logic` component. Then, it would determine the input is of single line type or complex multiple line type. If it is a multiple line type, it would start a `Conversation` with the user to prompt for more input. Then, using the input, it would build it to become a single line input to be passed to create a `Command`. In create command, figure on the right, the input is parsed to determine which command is to be built. Subsequently, the `Command` would be executed to create `CommandResult` which contains the response and result of the execution of the `Command`.
 
-.Logic Activity diagram(left) and CreateCommand Activity diagram(right)
+.Logic Activity diagram
 image::LogicActivityDiagram.png[]
+
+.CreateCommand Activity diagram
+image::CreateCommandActivityDiagram.png[]
 
 [[Design-Model]]
 === Model component
@@ -212,10 +215,13 @@ image::ParseCommandDiagram.png[]
 Given below is an example usage scenario of how user input is handled:
 
 .  If the input is identified as a single line command (e.g. `help`, `list`), the appropriate command is returned.
-.  Else, call `getCommandFromConversationManager(userInput)`, which will cause the `ConversationManager` to call `converse(userInput)`. 
+.  Else, call `getCommandFromConversationManager(userInput)`, which will cause the `ConversationManager` to call `converse(userInput)`.
 .  In `ConversationManager`, `converse(userInput)` will check for the presence of a `Conversation`, and process the given user input to see if it is what the `Conversation` wants. For example, a `isDateInput(userInput)` will check if the given user input is a date, whereas an `isIntInput(userInput)` will check to see if it is an `Integer`). If it matches, an appropriate prompt is returned as a message, and the appropriate fields of the conversation is updated.
 .  By checking if the `Conversation` in `ConversationManager` has ended, `parseComplexCommand(userInput)` will be called to try to parse the entire user input into a `Command`. Whereas if the `Conversation` has not ended, a `PromptCommand` is created by the `ConversationManager` using the `Conversation` and shown to the user.
 .  The `LogicManager` will then execute the `Command` and return a `CommandResult` to the `Ui`.
+
+.Sequence diagram of how Command is created by ConversationManager
+image::ConversationDiagram.png
 
 ==== Design Considerations
 
@@ -238,7 +244,7 @@ Given below is an example usage scenario of how user input is handled:
 .Class diagram of QuickEditCommand
 image::QuickEditCommandDiagram.png[]
 
-The naive editing mechanism is facilitated by the `QuickEditCommand` from the `Logic` component. 
+The naive editing mechanism is facilitated by the `QuickEditCommand` from the `Logic` component.
 
 Given below is an example usage scenario and how the editing mechanism behaves at each step:
 
@@ -305,7 +311,7 @@ Step 5. The user now inputs: `09/11/20`. The `EditorManager` will now call `Edit
 ===== Aspect:  How edit executes
 
 * **Alternative 1:** The user inputs a specific command instruction and SGTravel executes it
-** Pros: Easy to implement 
+** Pros: Easy to implement
 ** Cons: Difficult for user to learn, hard to make mass edits
 * **Alternative 2:** The user use arrow, enter keys to navigate around the events and edit directly
 ** Pros: Straightforward to use, allow mass edits
@@ -320,7 +326,7 @@ Step 5. The user now inputs: `09/11/20`. The `EditorManager` will now call `Edit
 * **Alternative 2:** Using `EditorManager` to edit
 ** Pros: Does not violate separation of concerns and Single responsibility principle as it only deals with edit operation
 ** Cons: Require many accessory classes to reduce coupling and increase cohesion within the `EditorManager` itself
- 
+
 ===== Aspect:  Integration of the data structures into the architecture
 
 * **Alternative 1:** `EditCommand`
@@ -379,7 +385,7 @@ Our application, SGTravel, is for tourists and citizens who are looking to trave
 
 *Value proposition*:
 
-* By using this application, users gain access to all relevant travel information within Singapore (costs, time taken, attractions) without the need to download other desktop applications. 
+* By using this application, users gain access to all relevant travel information within Singapore (costs, time taken, attractions) without the need to download other desktop applications.
 * Our application simplifies the process of trip planning by showing the user the shortest path between their starting place and their ending destination.
 * Our application provides supporting information to the user such as the currency exchange rate, the weather forecast and flight information to other countries out of Singapore.
 * Our application will also provide travel itineraries for tourists in Singapore with limited days stay.
@@ -411,7 +417,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |Tourist |Be able to convert my home currency into Singaporean dollar / other currencies |I can view Singapore's currency value and other countries I may be connecting to
 |`* *` |Local |Be able to see the <<psi, PSI>> index |Plan my activities to be indoors or outdoors
 |`* *` |Tourist |Be able to see a list of hotels |Choose the best hotel
-|`* *` |User |Be able to choose my preferred mode of transportation 
+|`* *` |User |Be able to choose my preferred mode of transportation
 |Have it as my default option. While displaying destination request put preferred mode first
 |`* *` |Tourist |Be able to get a list of attractions along a specific travel path |See the attractions while on the way / during layovers
 |`* *` |User |Be able to see a list of closest / recommended restaurant to my location |Choose places to eat with ease
@@ -493,7 +499,7 @@ Use case resumes at step 2.
 2. SGTravel asks for start and end location.
 3. User inputs start and end location.
 4. User requests to filter travel paths with `filter:<constraint>` .
-5. SGTravel shows the filtered list. 
+5. SGTravel shows the filtered list.
 6. User chooses the desired travel path based on the constraints
 7. SGTravel shows the travel path between 2 locations on a map.
 
@@ -580,10 +586,10 @@ Use case resumes at step 5.
 1. User enters the convert currency command.
 2. SGTravel shows all of the possible currencies to convert.
 3. SGTravel requests user to enter home currency and foreign currency.
-4. User enters home currency and foreign currency. 
-5. SGTravel requests to enter home currency amount. 
+4. User enters home currency and foreign currency.
+5. SGTravel requests to enter home currency amount.
 6. User enters home currency amount.
-7. SGTravel shows the converted currency amount. 
+7. SGTravel shows the converted currency amount.
 
 +
 Use case ends.
@@ -614,7 +620,7 @@ Use case resumes at step 5.
 ** SGTravel goes back to home page.
 
 [discrete]
-=== Use case: Flight Options 
+=== Use case: Flight Options
 
 *MSS*
 
@@ -622,7 +628,7 @@ Use case resumes at step 5.
 2. SGTravel requests the user to enter the destination country.
 3. User enters destination country.
 4. SGTravel shows the user all of the flights sorted according to costs.
-5. User enters command to filter flights with “filter:<constraint> ” 6. (constraints based on for example : Airline type, Number of destination etc.) 
+5. User enters command to filter flights with “filter:<constraint> ” 6. (constraints based on for example : Airline type, Number of destination etc.)
 6. SGTravel shows the filtered list of flight options.
 7. User enters preferred flight plan.
 8. SGTravel stores flight plan in memory to display on dashboard and notification center.
@@ -732,7 +738,7 @@ We also recommend testers to have a stable internet connection throughout the te
 .. Put the jar file into an empty directory
 .. Re-launch the app by double-clicking the jar file. +
    Expected: Sample data should be displayed in the application on start up.
-   
+
 . Shutting down
 
 .. Prerequisites: Ensure that you are not in editing mode. Type `close` followed by the kbd:[enter] key to exit edit mode without saving.
@@ -746,37 +752,37 @@ We also recommend testers to have a stable internet connection throughout the te
 
 .. Test case: `profile Tom 25/12/1997` +
    Expected: Profile is updated. Name of user is now `Tom` and date of birth is now `25/12/1997`.
-   
+
 .. Test case: `profile Moo 21/12/9999` +
    Expected: Profile is not updated. Error status is shown by SGTravel as date has yet to happen.
-   
+
 .. Type `profile` followed by the kbd:[enter] key +
    Expected: Profile is not updated. SGTravel prompts user to input his/her name.
 .. Type `Alexander the Great` followed by the kbd:[enter] key +
    Expected: Profile is not updated SGTravel prompts for user to input date of birth.
 .. Type `09/09/1997` followed by the kbd:[enter] key +
    Expected: Profile is updated. Name of the user is now `Alexander the Great` and date of birth is `09/09/1997`.
-   
-   
+
+
 . Setting your hobbies
 
 .. Test case: `profileSet arts true` +
    Expected: Profile is updated and the user now likes arts.
-   
+
 .. Test case: `profileSet dance true` +
    Expected: Pofile is not updated. Error invalid format status is shown by SGTravel as there are only 4 options to set currently: `arts, lifestyle, sports, entertainment`.
-   
-   
+
+
 === Searching bus routes
 
 . Searching for the route of a bus service
 
 .. Test case: `busRoute 96` +
    Expected: Bus route of the bus service is shown by SGTravel.
-   
+
 .. Test case: `busRoute CS3243` +
    Expected: No bus route is shown. Error details shown by SGTravel as there is no such bus service.
-   
+
 .. Other incorrect bus route commands to try: `busRoute boomboom`, `busRoute 1231231231231` +
    Expected: Similar to previous.
 
@@ -788,13 +794,13 @@ We also recommend testers to have a stable internet connection throughout the te
 
 .. Test case: `event Bishan between 24/02/24 and 26/02/24` +
    Expected: Event is added to the list. Details of added event is shown by SGTravel.
-   
+
 .. Test case: `event Mxwglht between 05/04/28 and 07/04/28` +
    Expected: Event is not added. Error details shown by SGTravel as location does not exist.
-   
+
 .. Test case: `event Prison between 30/04/18 and 06/05/19` +
    Expected: Event is not added. Error details shown by SGTravel as dates are already in the past.
-   
+
 .. Other incorrect add commands to try: `event`, `event moo`, `event orchard between 20/09/29 and 25/09/28`, `event between and`, `event park between and`, `event park between Mon and`, `event park between and Mon` +
    Expected: Similar to the previous.
 
@@ -806,10 +812,10 @@ We also recommend testers to have a stable internet connection throughout the te
 
 .. Test case: `delete 1` +
    Expected: First event is deleted from the list. Details of the deleted event is shown by SGTravel.
-   
+
 .. Test case: `delete 0` +
    Expected: No event is deleted. Error details shown by SGTravel.
-   
+
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size), `delete 999999999999999999999` (where 999999999999999999999 is larger than an `Integer`) +
    Expected: Similar to previous.
 
@@ -821,13 +827,13 @@ We also recommend testers to have a stable internet connection throughout the te
 
 .. Test case: `e 1 Changi 20/09/25 25/09/25` +
    Expected: First event is edited from the list. Details of the new event is shown by SGTravel.
-   
+
 .. Test case: `e 1 xxxxzwyx 09/08/28 10/08/28` +
    Expected: No event is edited. Error details shown by SGTravel as there is no such location.
-   
+
 .. Test case: `e 0 Changi 27/08/25 14/10/25` +
    Expected: No event is edited. Error details shown by SGTravel.
-   
+
 .. Other incorrect delete commands to try: `e`, `e x Changi 20/09/25 25/09/25` (where x is larger than the list size), `e Changi Mon Wed`, `e 1 09/08/28 10/08/28` +
    Expected: Similar to previous.
 
@@ -837,24 +843,24 @@ We also recommend testers to have a stable internet connection throughout the te
 
 .. Test case: `recommend itinerary between 21/04/20 and 25/04/20` +
    Expected: A recommended holiday plan is shown by SGTravel.
-   
+
 .. Test case: `recommend itinerary between 19/06/19 and 24/06/19` +
    Expected: No recommended holiday plan is shown. Error details shown by SGTravel as dates are already in the past.
-   
+
 .. Test case: `recommend itinerary between 21/04/20 and 25/09/20` +
    Expected: No recommended holiday plan is shown. Error details shown by SGTravel as SGTravel is unable to come up with such a long travel plan.
-   
-   .. Other incorrect itinerary commands to try: `recommend between 21/04/20 and 25/09/20`, `recommend`, `recommend between and`, `recommend between`, `recommend and`, `recommend between and 12/12/21`, `recommend between 12/12/21 and` +
+
+.. Other incorrect itinerary commands to try: `recommend between 21/04/20 and 25/09/20`, `recommend`, `recommend between and`, `recommend between`, `recommend and`, `recommend between and 12/12/21`, `recommend between 12/12/21 and` +
    Expected: Similar to previous.
-   
+
 .. Prerequisites: Have used the recommend command at least once successfully upon application start up. And must not have used the `addThisList` command previously.
 
 .. Test case: `addThisList myHolidayTrip` +
    Expected: MyHolidayTrip is added to the list of itineraries. The details of the trip is shown by SGTravel.
-   
+
 .. Test case: `addThisList` +
    Expected: No itineraries is added. Error details is shown by SGTravel as there is no name provided for the new itinerary.
-   
+
 === Adding routes
 
 . Add travelling routes for user to use whilst travelling
@@ -863,22 +869,22 @@ We also recommend testers to have a stable internet connection throughout the te
 
 .. Test case: `routeAdd NUS to NTU` +
    Expected: Adds a route to the list of routes. The details of the route is shown by SGTravel.
-   
+
 .. Test case: `routeAdd` +
    Exepcted: No routes is added. Error details is show by SGTravel as there is no name provided for the new route.
-   
+
 .. Prerequisites: List all routes using the `routeListAll` command. Multiples routes in the list. Must not add route node that is already existing in the route.
 
 .. Test case: `routeNodeAdd 1 1 at 17009 by bus` +
    Expected: Route node is successfully added to the first route in the list. The location of the node is shown by SGTravel.
-   
+
 .. Test case: `routeNodeAdd 0 0 at 17009 by bus` +
    Expected: No route node is added. Error details is shown by SGTravel.
-   
+
 .. Other incorrect add route commands to try: `routeNodeAdd x 1 at 17009 by bus` (where x is larger than the list size), `routeNodeAdd 1 1 at`, `routeNodeAdd 0`, `routeNodeAdd 1 1`, `routeNodeAdd 1 1 17009`, `routeNodeAdd 1 1 at 17009 by moo`, `routeNodeAdd 1 1 at by` +
    Expected: Similar to previous.
-   
-   
+
+
 === Deleting routes
 
 . Delete travelling routes while all routes are listed
@@ -887,21 +893,21 @@ We also recommend testers to have a stable internet connection throughout the te
 
 .. Test case: `routeDelete 1` +
    Expected: First route is deleted from the list. Details of the deleted routes is shown by SGTravel.
-   
+
 .. Test case: `routeDelete 0` +
    Expected: No route is deleted. Error details shown by SGTravel.
-   
+
 .. Other incorrect delete commands to try: `routeDelete mopi`, `routeDelete x` (where x is larger than the list size), `routeDelete 999999999999999999999` (where 999999999999999999999 is larger than an `Integer`) +
    Expected: Similar to previous.
-   
+
 .. Prerequisites: List all routes using the `routeListAll` command. Multiples routes in the list. List all route nodes using `routeShow x` (where x is the index of the route) Listed routes must consist of multiple nodes.
 
 .. Test case: `routeNodeDelete 1 1` +
    Expected: First route node of the first route node is deleted from the list. Details of the deleted node is shown by SGTravel.
-   
+
 .. Test case: `routeNodeDelete 0 1` +
    Expected: No route is deleted. Error details shown by SGTravel.
-   
+
 .. Other incorrect delete commands to try: `routeNodeDelete vrift`, `routeNodeDelete 1 x` (where x is larger than the list size), `routeNodeDelete 1 999999999999999999999` (where 999999999999999999999 is larger than an `Integer`) +
    Expected: Similar to previous.
 
@@ -913,11 +919,11 @@ We also recommend testers to have a stable internet connection throughout the te
 .. Removing all `.txt` files in the same directory +
 .. Re-launch the app by double-clicking the jar file. +
    Expected: All sample data should be displayed in the application on start up.
-   
+
 .. Removing or corrupting only the `profile.txt` files in the same directory +
 .. Re-launch the app by double-clicking the jar file. +
    Expected: Sample profile and itinerary data should be loaded and the other contents still remain intact.
-   
+
 .. Removing or corrupting only the `events.txt` files in the same directory +
 .. Re-launch the app by double-clicking the jar file. +
    Expected: All sample data should be displayed in the application on start up.
@@ -925,11 +931,11 @@ We also recommend testers to have a stable internet connection throughout the te
 .. Removing or corrupting only the `routes.txt` files in the same directory +
 .. Re-launch the app by double-clicking the jar file. +
    Expected: Sample itinerary data should be displayed in the application on start up.
-   
+
 .. Removing or corrupting only the `favourite.txt` files in the same directory +
 .. Re-launch the app by double-clicking the jar file. +
    Expected: Sample itinerary data should be displayed in the application on start up.
-   
+
 .. Removing or corrupting only the `itineraries.txt` files in the same directory +
 .. Re-launch the app by double-clicking the jar file. +
    Expected: Sample itinerary data should be displayed in the application on start up.
