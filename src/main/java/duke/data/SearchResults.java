@@ -56,6 +56,7 @@ public class SearchResults extends DukeObject {
         return searchList.size();
     }
 
+    // TODO keep track of each type individually
     @Override
     public String toString() {
         StringBuilder searchDetails = new StringBuilder();

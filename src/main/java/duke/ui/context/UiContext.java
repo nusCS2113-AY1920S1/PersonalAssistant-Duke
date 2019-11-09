@@ -56,7 +56,7 @@ public class UiContext {
         } else {
             DukeObject parent = object.getParent();
             open(parent);
-            return "You are now viewing '" + parent.getName() + "' in the " + context.toString() + " context";
+            return getViewingStr(context, parent);
         }
     }
 
@@ -71,8 +71,8 @@ public class UiContext {
         Pair<Context, DukeObject> pair = contexts.pop();
         Context newContext = pair.getKey();
         DukeObject newObj = pair.getValue();
-        updateContext(pair.getKey(), pair.getValue());
-        return "You are now viewing '" + newObj.getName() + "' in the " + newContext.toString() + " context";
+        updateContext(newContext, newObj);
+        return getViewingStr(newContext, newObj);
     }
 
     private void updateContext(Context newContext, DukeObject object) {
@@ -88,5 +88,13 @@ public class UiContext {
 
     public DukeObject getObject() {
         return object;
+    }
+
+    private String getViewingStr(Context context, DukeObject obj) {
+        if (obj != null) {
+            return "You are now viewing '" + obj.getName() + "' in the " + context.toString() + " context";
+        } else {
+            return "You are now in the home context!";
+        }
     }
 }

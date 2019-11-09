@@ -209,11 +209,10 @@ public class Patient extends DukeObject {
     public SearchResults searchAll(String searchTerm) throws DukeException {
         String lowerSearchTerm = searchTerm.toLowerCase();
         SearchResults results = findImpressions(lowerSearchTerm);
-        ArrayList<DukeObject> resultList = new ArrayList<>();
         for (Impression imp : impressionList) {
             results.addAll(imp.searchAll(searchTerm));
         }
-        return new SearchResults(searchTerm, resultList, this);
+        return results;
     }
 
     /**
