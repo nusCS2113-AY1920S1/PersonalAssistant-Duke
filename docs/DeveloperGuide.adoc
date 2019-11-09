@@ -78,19 +78,17 @@ Step 1. User enters `calendar` to start the initialization process of a calendar
 
 Step 2. The program checks the date of the given start day to generate a list of 7 days, starting from given day.
 It also gets the day of the 7 days (e.g. Monday, Tuesday, etc). This sets the dates info of the table.
-====
+
 E.g. Example of a day and dates list
 
-image::DGCalendarTableDaysList.png[width = 75%]
-====
+image::DGCalendarTableDaysList.png[width = "600"]
 
 Step 3. The program find all events in the `EventList` that is within the 7 days,
 and store them correspondingly into 7 queues, representing the 7 days. This is for further printing.
-====
+
 E.g. Example of an event list of 7 days
 
-image::DGCalendarTableExample.png[width = 75%]
-====
+image::DGCalendarTableExample.png[width = "600"]
 
 Step 4. The program now have all the information of these 7 days and is then able to print the calendar table.
 
@@ -101,11 +99,10 @@ Step 4. The program now have all the information of these 7 days and is then abl
 there can be at most 7 events. The events are added per 3 rows. For each 3 rows, the program creates an array of 3 * 7
 to store the details. Whenever there exists an event at the position of a day, details of the event will be added to
 the corresponding 3 rows (1 column) of the array. The array is then added by rows into the string.
-====
+
 E.g. Example of a row of events stored for printing
 
-image::DGCalendarTableRow.png[width = 75%]
-====
+image::DGCalendarTableRow.png[width = "600"]
 
 ==== Commands for CalendarView
 - `calendar` This prints the calendar table of this 7 days.
@@ -122,11 +119,10 @@ events (except ToDos). +
 checks all the events whether any is in this day.
 . If not, this day will be added into a list.
 . Above process will continue until the list has 3 days, which will then be printed.
-====
+
 The following logic diagram shows how check free days is implemented.
 
-image::DGCheck.png[width = 100%]
-====
+image::DGCheck.png[width = "800"]
 
 === Checklists
 Checklist of each event can be used to remind users of certain items (e.g. bring glasses to concert).
