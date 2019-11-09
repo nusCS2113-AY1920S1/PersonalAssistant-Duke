@@ -32,8 +32,8 @@ public class ListCommand extends Command {
     private String type = "";
     private String listPrefixTwo;
     private String status = "";
-    boolean isDue = false;
-    boolean isOngoing = false;
+    private boolean isDue = false;
+    private boolean isOngoing = false;
 
     private static final Logger logger = LogUtils.getLogger(ListCommand.class);
 
@@ -74,11 +74,11 @@ public class ListCommand extends Command {
         } else if ("ongoing".equalsIgnoreCase(status)) {
             this.status = "false";
             isOngoing = true;
-            listPrefixTwo += " which are on going:\n\n";
+            listPrefixTwo += " which are not completed and not due:\n\n";
         } else if ("due".equalsIgnoreCase(status)) {
             this.status = "false";
             isDue = true;
-            listPrefixTwo += " which are due:\n\n";
+            listPrefixTwo += " which are overdue:\n\n";
         } else {
             throw new ParserException(MESSAGE_INVALID_INPUT);
         }
@@ -99,10 +99,6 @@ public class ListCommand extends Command {
         }
 
         Date currentDate = Calendar.getInstance().getTime();
-        Calendar calendar = Calendar.getInstance();
-
-        calendar.setTime(currentDate);
-        Date dateToday = calendar.getTime();
 
 
         for (Task t : toList) {
