@@ -7,6 +7,11 @@ import static java.util.Objects.requireNonNull;
  * Represents the result of a command execution.
  */
 public class CommandResult {
+
+    /**
+     * Constructs an default CommandResult, with no feedback to user, and showing order page.
+     * @param isExiting true if this is a exiting command
+     */
     public CommandResult(boolean isExiting) {
 
         //Dummy values to word around the field not declared exception.
@@ -69,8 +74,8 @@ public class CommandResult {
         }
 
         CommandResult other = (CommandResult) o;
-        return feedbackToUser.equals(other.getFeedbackToUser()) &&
-                displayedPage.equals(other.getDisplayedPage());
+        return feedbackToUser.equals(other.getFeedbackToUser())
+            && displayedPage.equals(other.getDisplayedPage());
     }
 
     /**

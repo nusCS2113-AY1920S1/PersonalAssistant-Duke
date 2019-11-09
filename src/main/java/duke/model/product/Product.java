@@ -26,7 +26,7 @@ public class Product {
     private Status status;
 
 
-    /** Constructor for ProductParserUtil*/
+    /** Constructor for ProductParserUtil.*/
     public Product(String productName) {
         this.productName = productName;
         this.ingredients = new IngredientItemList();
@@ -96,13 +96,26 @@ public class Product {
 
     @Override
     public String toString() {
-        return "{" +
-                "Product Name: " + productName + "," + System.lineSeparator() +
-                "Retail Price: $" + retailPrice  + "," + System.lineSeparator() +
-                "Cost: $" + ingredientCost + "," + System.lineSeparator() +
-                "Ingredients: " + ingredients.toString() + System.lineSeparator() +
-                "Status: " + status +
-                "}";
+        return "Product Name: "
+            + productName
+            + ","
+            + System.lineSeparator()
+
+            + "Retail Price: $"
+            + retailPrice
+            + ","
+            + System.lineSeparator()
+
+            + "Cost: $"
+            + ingredientCost
+            + "," + System.lineSeparator()
+
+            + "Ingredients: "
+            + ingredients.toString()
+            + System.lineSeparator()
+
+            + "Status: "
+            + status;
     }
 
     /**
@@ -114,6 +127,7 @@ public class Product {
     public boolean hasSameInfo(Product p) {
         return toString().equals(p.toString());
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

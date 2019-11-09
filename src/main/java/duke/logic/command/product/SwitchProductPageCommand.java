@@ -7,7 +7,7 @@ import duke.model.Model;
 
 import java.util.logging.Logger;
 
-import static duke.logic.message.ProductMessageUtils.MESSAGE_SUCCESS;
+import static duke.logic.message.ProductMessageUtils.MESSAGE_SUCCESS_SHOW_PRODUCT;
 
 public class SwitchProductPageCommand extends ProductCommand {
 
@@ -17,7 +17,7 @@ public class SwitchProductPageCommand extends ProductCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         model.getFilteredProductList();
-        logger.fine(MESSAGE_SUCCESS);
-        return new CommandResult(MESSAGE_SUCCESS, CommandResult.DisplayedPage.PRODUCT);
+        logger.fine(MESSAGE_SUCCESS_SHOW_PRODUCT);
+        return new CommandResult(MESSAGE_SUCCESS_SHOW_PRODUCT, CommandResult.DisplayedPage.PRODUCT);
     }
 }
