@@ -1,0 +1,935 @@
+= SGTravel - Developer Guide
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:warning-caption: :warning:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-W13-3/main
+
+By: `Team SGTravel`      Since: `Aug 2019`      Licence: `MIT`
+
+== Setting up
+
+=== Prerequisites
+
+. *JDK `11`* or above
+. *IntelliJ* IDE
++
+[NOTE]
+IntelliJ by default has Gradle and JavaFx plugins installed. +
+Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+
+=== Setting up the project in your computer
+
+. Fork this repo, and clone the fork to your computer
+. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
+. Set up the correct JDK version for Gradle
+.. Click `Configure` > `Project Defaults` > `Project Structure`
+.. Click `New...` and find the directory of the JDK
+. Click `Import Project`
+. Locate the `build.gradle` file and select it. Click `OK`
+. Click `Open as Project`
+. Click `OK` to accept the default settings
+. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
+This will generate all resources required by the application and tests.
+
+=== Verifying the setup
+
+. Run the `main` and try a few commands
+. <<Testing#,Run the tests>> to ensure they all pass.
+
+=== Configurations to do before writing code
+
+==== Configuring the coding style
+
+This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
+
+. Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS)
+. Select `Editor` > `Code Style` > `Java`
+. Click on the `Imports` tab to set the order
+
+* For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
+* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
+
+Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
+
+==== Updating documentation to match your fork
+
+After forking the repo, the documentation will still have the SGTravel branding and refer to the `AY1920S1-CS2113T-W13-3/main` repo.
+
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `AY1920S1-CS2113T-W13-3/main`), you should do the following:
+
+. Configure the <<Documentation#Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
+
+. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
+
+==== Setting up CI
+
+Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
+
+After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
+
+[NOTE]
+Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
+
+Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
+
+[NOTE]
+Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
+
+==== Getting started with coding
+
+When you are ready to start coding, we recommend that you get some sense of the overall design by reading about <<DeveloperGuide#Design-Architecture, SGTravel's architecture>>.
+
+== Design
+
+[[Design-Architecture]]
+=== Architecture
+
+.Architecture Diagram
+image::ArchitectureDiagram.png[]
+
+The *_Architecture Diagram_* given above explains the high-level design of SGTravel. SGTravel adopts a n-tier style architecture where higher layers make use of services provided by lower layers. Here is a quick overview of each layer/component:
+
+* <<Design-Ui,*`UI`*>>: The user interface of the application
+* <<Design-Commons,*`Commons`*>>: A collection of classes used by multiple other components
+* <<Design-Logic,*`Logic`*>>: The main controller of the entire application
+* <<Design-Model,*`Model`*>>: Holds the data of the application in-memory
+* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk
+
+[[Design-Ui]]
+=== UI component
+
+.Structure of the UI Component
+image::UiClassDiagram.png[]
+
+The `UI` consists of a `MainWindow` that is made up of parts e.g.`SidePanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+
+The `UI` component uses JavaFx UI framework. The layout of these `UI` parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/sgtravel/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+
+The `UI` component,
+
+* Executes user commands using the `Logic` component.
+* Recives commannd results from `Logic` component so that the `UI` can be updated with the modified data.
+
+Given below is the simplified activity diagram for the workflow of the `UI`. Upon the start of the `UI`, it would request for user input. Then, it would process the user input and execute the input. It would show the respective response after execution of the input. If the response requires calendar or map, it would show it to the user. Subsequently, it would loop back to request for user input again. Else, if the response is exit type, it would exit the app. 
+
+.Activity Diagram of the UI Component
+image::UiActivityDiagram.png[]
+
+[[Design-Logic]]
+=== Logic component
+
+[[fig-LogicClassDiagram]]
+.Structure of the Logic Component
+image::LogicClassDiagram.png[]
+
+*API* :
+link:{repoURL}/src/main/java/sgtravel/logic/Logic.java[`Logic.java`]
+
+.  `Logic` uses the `Parser` and `ConversationManager` class to parse the user command.
+.  This results in a `Command` object which is executed by the `LogicManager`.
+.  The command execution can affect the `Model` (e.g. adding an event).
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying calendar to the user.
+. Furthermore, the `EditorManager` is allowed to "snatch" the user inputs from the `Parser` when it is activated. 
+
+Given below is the diagram illustrating the workflow of the `Logic` component. The user input is passed to `Logic` component. Then, it would determine the input is of single line type or complex multiple line type. If it is a multiple line type, it would start a `Conversation` with the user to prompt for more input. Then, using the input, it would build it to become a single line input to be passed to create a `Command`. In create command, figure on the right, the input is parsed to determine which command is to be built. Subsequently, the `Command` would be executed to create `CommandResult` which contains the response and result of the execution of the `Command`.
+
+.Logic Activity diagram(left) and CreateCommand Activity diagram(right)
+image::LogicActivityDiagram.png[]
+
+[[Design-Model]]
+=== Model component
+
+.Structure of the Model Component
+image::ModelClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/sgtravel/model/Model.java[`Model.java`]
+
+The `Model`,
+
+* stores a `ProfileCard` object that represents the user's profile.
+* stores the SGTravel data.
+* the only class that is exposed to `Storage` component
+
+[[Design-Storage]]
+=== Storage component
+
+.Structure of the Storage Component
+image::StorageClassDiagram.png[]
+
+The `Storage` component,
+
+* can save `ProfileCard` objects in `.txt` format and read it back.
+* can save the SGTravel data in `.txt` format and read it back.
+
+The figure below shows some parts of the activity of `Storage` when it is initialised when SGTravel is start up. It will first read from event file and parse it into `EventList` for `Storage`. Then it will read bus transport information and train transport information and parse it into transportation map for `Storage`.
+
+.Activity diagram for the Storage Component
+image::StorageActivityDiagram.png[]
+
+[[Design-Commons]]
+=== Common classes
+
+Classes used by multiple components are in the `sgtravel.commons` package.
+
+== Implementation
+
+This section describes some noteworthy details on how certain features are implemented.
+
+=== Handling user input
+
+==== Implementation
+
+.Sequence diagram of how user input is handled
+image::HandleUserInputDiagram.png[]
+
+Given below is an example usage scenario of how user input is handled:
+
+.  The user types in a command into the terminal, and clicks on the kbd:[Enter] button.
+.  Upon button press, the text in the input is read, if it is non-empty, the application will echo back the user’s input.
+.  The `MainWindow` will then call `dukeResponse(input)`, which creates a thread using the `Platform` class.
+.  A `CommandResult` object is created, and `dukeShow(result)` is called using this object.
+.  If the result is of `CommandResultExit`, call `tryExitApp()`. Else if result is of `CommandResultCalender`, make a new `CalenderWindow` object with the result. Else if the result is of `CommandResultMap`, make a new `MapWindow` object.
+
+=== Parsing of user input into command
+
+==== Implementation
+
+.Sequence diagram of how user input is parsed into a command
+image::ParseCommandDiagram.png[]
+
+Given below is an example usage scenario of how user input is handled:
+
+.  If the input is identified as a single line command (e.g. `help`, `list`), the appropriate command is returned.
+.  Else, call `getCommandFromConversationManager(userInput)`, which will cause the `ConversationManager` to call `converse(userInput)`. 
+.  In `ConversationManager`, `converse(userInput)` will check for the presence of a `Conversation`, and process the given user input to see if it is what the `Conversation` wants. For example, a `isDateInput(userInput)` will check if the given user input is a date, whereas an `isIntInput(userInput)` will check to see if it is an `Integer`). If it matches, an appropriate prompt is returned as a message, and the appropriate fields of the conversation is updated.
+.  By checking if the `Conversation` in `ConversationManager` has ended, `parseComplexCommand(userInput)` will be called to try to parse the entire user input into a `Command`. Whereas if the `Conversation` has not ended, a `PromptCommand` is created by the `ConversationManager` using the `Conversation` and shown to the user.
+.  The `LogicManager` will then execute the `Command` and return a `CommandResult` to the `Ui`.
+
+==== Design Considerations
+
+===== Aspect: How to allow both Single and Multi-step commands
+* **Alternative 1 (current choice):** Using `ConversationManager` to "accumulate" user input first before passing to `LogicManager` as a single step command when the accumulation is ready.
+** Pros: No need to create new command classes.
+** Pros: Can use the same key word to trigger both the single and multi-step commands based o the context.
+** Pros: Does not block out single-step command even when the multi-step command is ongoing.
+** Cons: Challenging to implement, exceptions need to be handled carefully.
+* **Alternative 2:** Single and Multi-step commands are considered as different commands.
+** Pros: Easy to implement.
+** Cons: We cannot use the same keywords to trigger both the multi-step and single-step command.
+** Cons: There will be many different commands with overlapping code which violates DRY principle.
+** Cons: Blocks out other commands while multi-step command is triggered.
+
+=== Edit feature
+
+==== Implementation
+
+.Class diagram of QuickEditCommand
+image::QuickEditCommandDiagram.png[]
+
+The naive editing mechanism is facilitated by the `QuickEditCommand` from the `Logic` component. 
+
+Given below is an example usage scenario and how the editing mechanism behaves at each step:
+
+. The user calls the edit command with its relevant parameters. +
+e.g. `e 1 Bukit Batok 12/02/29 14/02/29`
+
+. The `LogicManager` parses the user input using the `Parser`.
+. The `Parser` calls `QuickEditParser` and returns an `QuickEditCommand` Object.
+. The `LogicManager` will call `execute()` on the `QuickEditCommand` object which interacts with and updates the `Model` component and return a `CommandResult` Object containing a message. If no `Event` of the corresponding index is found, it would return a string of message `MESSAGE_INVALID_EVENT_INDEX`.
+. The `CommandResult` Object will then be given back to the `Ui` component which displays the success message.
+
+Alternatively, the editing mechanism can be facilitated by the `EditorManager` and `Selectors` in the `Logic` Component. +
+
+.Activity diagram for how Editing Mechanism works
+image::EditActivityDiagram.png[]
+
+The `EditorManager` object oversees the edit operation with the help of `Selectors` class which selects the `Event` and the components to be updated. The `EditorManager` contains an instance of `LocationSelector` and an `EventFieldSelector` which selects the index of the `Event` and the components of the `Event` respectively. +
+
+The `EditorManager` object implements the following operations:
+
+* `EditorManager+activate(EventList events, VenueList venues)` - Activates the `EditorManager`
+* `EditorManager+isActive()` - Check if the `EditorManager` is active
+* `EditorManager-deactivate()` - Deactivates the `EditorManager`
+* `EditorManager+edit(String userInput)` - Updates the state of the editing process based on user input
+* `EditorManager+edit(KeyEvent keyInput)` - Updates the state of the editing process based on user key press
+* `EditorManager-selectEventField()` - Uses the `EventFieldSelector` to select a field within the `Event`
+* `EditorManager-selectEvent()` - Uses the `LocationSelector` to select an `Event`
+
+.Sequence diagram for how Editing Mechanism works
+image::EditSequenceDiagram.png[]
+
+Given below is an example usage scenario and how the editing mechanism behaves at each step. +
+
+. The user invokes the `EditorManager` by typing `edit` followed by the kbd:[enter] key.
+. The `LogicManager` parses the user input using the `Parser`.
+. The `Parser` breakdowns the user input into and returns an `EditorCommand` Object.
+. The `LogicManager` will call `execute()` on the `EditorCommand` object which return a `CommandResult` Object containing a message and the `EventList` in the `Model` component.
+. The `LogicManager` will then call `activate()` on the `EditorManager` object inside the `LogicManager` class. Upon activation, the user inputs will be passed to the `EditorManager` object through `edit()` instead until it is deactivated.
+. The `EditorManager` will deactivate itself once the user input: `save` or `close`, which updates or discard the edits that were made respectively
+
+Given below here is an example of how the `EditorManager` manages which `Event` and the corresponding field it should select:
+
+Step 1. The user launches edit mode, the `EditorManager` is in a clean state and will simply select index 0 of the `Event` in the `EventList`.
+
+.Diagram for edit state
+image::EditState0.png[]
+
+Step 2. User presses the kbd:[up] key. The `EditorManager` calls `feedKeyCode()` on the `LocationSelector` which will then find the nearest `Event` in the up direction and updates the index.
+
+.Diagram for edit state
+image::EditState1.png[]
+
+Step 3. User presses the kbd:[enter] key which locks in on the `Event`. The `EditorManager` will again call `LocationSelector+feedKeyCode()`, and the `LocationSelector` will now lock itself, meaning that the arrow keys will no longer change the index.
+
+Step 4. User presses the kbd:[down] key. The `EditorManager` will now call `EventFieldSelector+feedKeyCode()`, and the `EventFieldSelector` will return an index pointing to a field within the `Event`.
+
+.Diagram for edit state
+image::EditState2.png[]
+
+Step 5. The user now inputs: `09/11/20`. The `EditorManager` will now call `Editor+edit()` which edits the event2’s startDate from `30/10/19` to `09/11/20`.
+
+==== Design Considerations
+
+===== Aspect:  How edit executes
+
+* **Alternative 1:** The user inputs a specific command instruction and SGTravel executes it
+** Pros: Easy to implement 
+** Cons: Difficult for user to learn, hard to make mass edits
+* **Alternative 2:** The user use arrow, enter keys to navigate around the events and edit directly
+** Pros: Straightforward to use, allow mass edits
+** Cons: Difficult to implement
+
+===== Aspect:  Data structures to support edit operation
+
+* **Alternative 1:** An `EditCommand` to edit
+** Pros: No changes are required on Logic and easy for anyone with knowledge of OOP to understand
+** Cons: Does not allow for flexibility on the user’s end as it takes in only strict inputs that adhered to the format
+
+* **Alternative 2:** Using `EditorManager` to edit
+** Pros: Does not violate separation of concerns and Single responsibility principle as it only deals with edit operation
+** Cons: Require many accessory classes to reduce coupling and increase cohesion within the `EditorManager` itself
+ 
+===== Aspect:  Integration of the data structures into the architecture
+
+* **Alternative 1:** `EditCommand`
+** Pros: Require minimal changes to the code
+** Cons: Does not demonstrate student’s understanding of software engineering
+
+* **Alternative 2:** `EditManager`
+** Pros: Requires much more data structures, where SOLID principles can be demonstrated
+** Cons: Changes need to be made to entire architecture
+
+
+=== [Proposed] Data Encryption
+
+_{Explain here how the data encryption feature will be implemented}_
+
+// end::dataencryption[]
+
+=== Logging
+
+We are using `java.util.logging` package for logging.
+
+* The `Logger` for a class can be obtained using `Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME)`
+* Log level can be indicated using `logger.log(Level.INFO, MESSAGE)` which logs messages according to the log level
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+== Documentation
+
+Refer to the guide <<Documentation#, here>>.
+
+== Testing
+
+Refer to the guide <<Testing#, here>>.
+
+== Dev Ops
+
+Refer to the guide <<DevOps#, here>>.
+
+[appendix]
+== Product Scope
+
+Our application, SGTravel, is for tourists and citizens who are looking to travel within Singapore. It allows the user to compare travel timings and provides information on attractions, amenities and costs of travel.
+
+*Target user profile*:
+
+* Our application is for those users who are comfortable using CLI apps and prefer desktop apps rather than using phone applications.
+* Our application focuses on users who want to ease their travelling process.
+* Our application takes in the users constraints and plans their trip accordingly.
+* Our application suggests excursion destinations, routes and provides guidance for tourists as well.
+
+
+*Value proposition*:
+
+* By using this application, users gain access to all relevant travel information within Singapore (costs, time taken, attractions) without the need to download other desktop applications. 
+* Our application simplifies the process of trip planning by showing the user the shortest path between their starting place and their ending destination.
+* Our application provides supporting information to the user such as the currency exchange rate, the weather forecast and flight information to other countries out of Singapore.
+* Our application will also provide travel itineraries for tourists in Singapore with limited days stay.
+
+
+[appendix]
+== User Stories
+
+Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* * *` |New user |See usage instructions |Refer to instructions when I forget how to use the application
+|`* * *` |User |See a dashboard with all of my travels itineraries, destinations and suggestions |Be updated of my schedule
+|`* * *` |User |To create new destination request |Be presented with the shortest time to reach my destination
+|`* * *` |User |Be able to filter travel paths based on different constraints |Plan an efficient trip based on my needs
+|`* * *` | User| Be able to see the cost to get to destination depending on mode of transportation| Plan the mode of transportation
+|`* * *` | User |To update destination requests |Update my trips
+|`* * *` | User |To delete destination requests |Mark my trips as complete
+|`* * *` |Tourist |Be able to see at least 3 different itineraries when I enter number of days I am in Singapore |Choose one according to my liking
+|`* * *` |user | Notification alert |Reminded of my flights and travel plans
+|`* * *` |user | Be able to put reminders for events |Remember my reservations/plans
+|`* *` |User |Be able to search for a destination by using a search bar |Can search for destinations before making a new request
+|`* *` |User |Be able to see taxis nearby my location |Quickly locate a ride
+|`* *` |Local |Be able to find information on parking spaces and <<erp, ERP>> |Travel by car in the most cost effective way
+|`* *` |Tourist |Be able to see famous tourist destinations on a map |Plan where to travel
+|`* *` |User |Be able to learn about the weather forecast of the day/week |Be prepared while commuting
+|`* *` |Tourist |Be able to convert my home currency into Singaporean dollar / other currencies |I can view Singapore's currency value and other countries I may be connecting to
+|`* *` |Local |Be able to see the <<psi, PSI>> index |Plan my activities to be indoors or outdoors
+|`* *` |Tourist |Be able to see a list of hotels |Choose the best hotel
+|`* *` |User |Be able to choose my preferred mode of transportation 
+|Have it as my default option. While displaying destination request put preferred mode first
+|`* *` |Tourist |Be able to get a list of attractions along a specific travel path |See the attractions while on the way / during layovers
+|`* *` |User |Be able to see a list of closest / recommended restaurant to my location |Choose places to eat with ease
+|`* *` |Exchange Student |Be able to have access to information about student prices for various attractions |Be aware of discounts
+|`* *` |User |Be able to access more websites / tourist booking sites |Make bookings with the relevant authorities in the country
+|`* *` |User |Be able to gain information about events in and around Singapore |Visit time specific events
+|`* *` |User |Be able to interact with the app through a graphical user interface |Interact with the application more easily
+|`*` |New User (Tourist) |Have  recommendations for attraction and travel tips for tourists (getting around, food culture etc) |Read about Singapore before going there
+|`*` |User |Inform me of road hazards and delays along the way |Avoid traffic congestion and be careful while driving/travelling
+|`*` |Tourist |Rate my favourite attractions and write reviews of my experience |Record a brief summary of my travels
+|`*` |Tourist |Be able to get flight information to and out of Singapore |Choose the best flight option
+|`*` |New user |Have a natural language-like CLI |So that I can use the app with greater ease
+|`*` |Exchange students |Be able to see destinations around my hostel |Plan weekend trips around my station
+|`*` |User |Able to access reviews about different destinations by giving relevant links |Pick my destination of choice with second opinions of people who went there
+|`*` |User |Have different view mode (night/day) |To customise my
+App to my liking
+|`*` |Elderly User |Be able to increase font size |See the content more easily
+|=======================================================================
+
+_{More to be added in v2.0}_
+
+[appendix]
+== Use Cases
+
+(For all use cases below, the *System* is the `SGTravel` and the *Actor* is the `user`, unless specified otherwise)
+
+[discrete]
+=== Use case: See Usage Instructions
+
+*MSS*
+
+1. User requests to see instruction manual with the command `help`
+2. SGTravel shows a list of possible commands
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User input invalid.
++
+[none]
++
+** 1a1. SGTravel shows an error message “Enter help to see all possible commands”.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: New Destination Request
+
+*MSS*
+
+1. User selects new destination option.
+2. SGTravel asks for start and end location.
+3. User inputs start and end location.
+4. SGTravel shows the shortest path between 2 locations on a map.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The user enters an invalid location
++
+[none]
++
+** 3a1. SGTravel shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Filter Travel Paths on Constraints
+
+*MSS*
+
+1. User enters the `choose destination` mode
+2. SGTravel asks for start and end location.
+3. User inputs start and end location.
+4. User requests to filter travel paths with `filter:<constraint>` .
+5. SGTravel shows the filtered list. 
+6. User chooses the desired travel path based on the constraints
+7. SGTravel shows the travel path between 2 locations on a map.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The given constraint is not valid
++
+[none]
++
+** 3a1. SGTravel shows an error message containing the valid constraint options.
++
+Use case resumes at step 2.
+[none]
+* *a. User request to exit choose destination mode
++
+[none]
++
+** SGTravel exit choose destination mode and goes back to home page.
+[none]
+* *b. User request to analysis the cost of current travel path
++
+[none]
++
+** SGTravel shows the cost of current travel path
+[none]
+* *c. User request to change the mode of transportation
++
+[none]
++
+** *c1. SGTravel shows the list of available transportation
+** *c2. User input the choice of transportation
+** *c3. SGTravel shows the path based on chosen transportation
+
+[discrete]
+=== Use case: Itinerary based on Days of Travel
+
+*MSS*
+
+1. User enters the create itinerary mode
+2. SGTravel request start and end date of the itinerary
+3. User Enters start and end date.
+4. SGTravel shows different options of itineraries
+5. SGTravel requests user to enter their choice
+6. User enters their choice of itinerary
+7. SGTravel saves this to the itineraries list to display on the dashboard
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The input is not valid
++
+[none]
++
+** 3a1. SGTravel shows invaild input error message.
++
+Use case resumes at step 2.
+[none]
+* 6a. The input is not valid
++
+[none]
++
+** 6a1. SGTravel shows invaild input error message.
++
+Use case resumes at step 5.
+[none]
+* *a. User request to exit create itinerary mode
++
+[none]
++
+** SGTravel exit’s create itinerary mode and goes back to home page.
+
+[discrete]
+=== Use case: Convert Currency
+
+*MSS*
+
+1. User enters the convert currency command.
+2. SGTravel shows all of the possible currencies to convert.
+3. SGTravel requests user to enter home currency and foreign currency.
+4. User enters home currency and foreign currency. 
+5. SGTravel requests to enter home currency amount. 
+6. User enters home currency amount.
+7. SGTravel shows the converted currency amount. 
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 4a. The input currency is not valid
++
+[none]
++
+** 4a1. SGTravel shows an error message.
++
+Use case resumes at step 2.
+[none]
+* 6a. The user input is invaild
++
+[none]
++
+** 6a1. SGTravel shows invaild error message.
++
+Use case resumes at step 5.
+[none]
+* *a. User request to exit convert currency
++
+[none]
++
+** SGTravel goes back to home page.
+
+[discrete]
+=== Use case: Flight Options 
+
+*MSS*
+
+1. User enters the flight option mode.
+2. SGTravel requests the user to enter the destination country.
+3. User enters destination country.
+4. SGTravel shows the user all of the flights sorted according to costs.
+5. User enters command to filter flights with “filter:<constraint> ” 6. (constraints based on for example : Airline type, Number of destination etc.) 
+6. SGTravel shows the filtered list of flight options.
+7. User enters preferred flight plan.
+8. SGTravel stores flight plan in memory to display on dashboard and notification center.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The input destination is not valid
++
+[none]
++
+** 3a1. SGTravel shows an error message containing the valid country.
++
+Use case resumes at step 2.
+[none]
+* 5a. The given constraint is not valid
++
+[none]
++
+** 5a1. SGTravel shows an error message containing the valid constraint options.
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case: Check <<psi, PSI>> level
+
+*MSS*
+
+1. User request for <<psi, PSI>> Level
+2. SGTravel shows <<psi, PSI>> Level for past 24hr
+
++
+Use case ends.
+
+[discrete]
+=== Use case: Check weather forecast
+
+*MSS*
+
+1. User requests for weather forecast
+2. SGTravel shows weather forecast for the week
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* *a. User requests for weather forecast with specific date
++
+[none]
++
+** SGTravel shows weather forecast for specific date
+
+
+_{More to be added in v2.0}_
+
+[appendix]
+== Non Functional Requirements
+
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  Should be able to hold up to 1000 travel plans without a noticeable sluggishness in performance for typical usage.
+. A user with above average typing (65 wpm) speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most tasks faster using commands than using a mouse.
+. Should come with automated unit tests and open source code.
+. Should work on both 32-bit and 64-bit environments.
+. Should not exceed 200MB in size.
+. Should not use any words deemed offensive to English speakers.
+
+
+_{More to be added in v2.0}_
+
+[appendix]
+== Glossary
+
+[[mainstream-os]] Mainstream OS::
+Windows, Linux, Unix, OS-X
+
+[[erp]] ERP::
+Electronic Road Pricing
+
+[[psi]] PSI::
+Pollutant Standards Index
+
+[appendix]
+== Instructions for Manual Testing
+
+Given below are instructions to test the app manually.
+
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+[NOTE]
+We also recommend testers to have a stable internet connection throughout the tests.
+
+=== Launch and Shutdown
+
+. Initial launch
+
+.. Download the jar file and copy into an empty folder
+.. Double-click the jar file +
+   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+
+. Loading sample data
+
+.. Put the jar file into an empty directory
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: Sample data should be displayed in the application on start up.
+   
+. Shutting down
+
+.. Prerequisites: Ensure that you are not in editing mode. Type `close` followed by the kbd:[enter] key to exit edit mode without saving.
+
+.. Type `bye` followed by the kbd:[enter] key
+.. Expected: Application should shut down.
+
+=== Setting up profile
+
+. Set up or change your current profile
+
+.. Test case: `profile Tom 25/12/1997` +
+   Expected: Profile is updated. Name of user is now `Tom` and date of birth is now `25/12/1997`.
+   
+.. Test case: `profile Moo 21/12/9999` +
+   Expected: Profile is not updated. Error status is shown by SGTravel as date has yet to happen.
+   
+.. Type `profile` followed by the kbd:[enter] key +
+   Expected: Profile is not updated. SGTravel prompts user to input his/her name.
+.. Type `Alexander the Great` followed by the kbd:[enter] key +
+   Expected: Profile is not updated SGTravel prompts for user to input date of birth.
+.. Type `09/09/1997` followed by the kbd:[enter] key +
+   Expected: Profile is updated. Name of the user is now `Alexander the Great` and date of birth is `09/09/1997`.
+   
+   
+. Setting your hobbies
+
+.. Test case: `profileSet arts true` +
+   Expected: Profile is updated and the user now likes arts.
+   
+.. Test case: `profileSet dance true` +
+   Expected: Pofile is not updated. Error invalid format status is shown by SGTravel as there are only 4 options to set currently: `arts, lifestyle, sports, entertainment`.
+   
+   
+=== Searching bus routes
+
+. Searching for the route of a bus service
+
+.. Test case: `busRoute 96` +
+   Expected: Bus route of the bus service is shown by SGTravel.
+   
+.. Test case: `busRoute CS3243` +
+   Expected: No bus route is shown. Error details shown by SGTravel as there is no such bus service.
+   
+.. Other incorrect bus route commands to try: `busRoute boomboom`, `busRoute 1231231231231` +
+   Expected: Similar to previous.
+
+=== Adding an event to your plans
+
+. Adding an event
+
+.. Prerequisites: List all events using the `list` command. There should be no `Bishan` within the list.
+
+.. Test case: `event Bishan between 24/02/24 and 26/02/24` +
+   Expected: Event is added to the list. Details of added event is shown by SGTravel.
+   
+.. Test case: `event Mxwglht between 05/04/28 and 07/04/28` +
+   Expected: Event is not added. Error details shown by SGTravel as location does not exist.
+   
+.. Test case: `event Prison between 30/04/18 and 06/05/19` +
+   Expected: Event is not added. Error details shown by SGTravel as dates are already in the past.
+   
+.. Other incorrect add commands to try: `event`, `event moo`, `event orchard between 20/09/29 and 25/09/28`, `event between and`, `event park between and`, `event park between Mon and`, `event park between and Mon` +
+   Expected: Similar to the previous.
+
+=== Deleting an event from your plans
+
+. Deleting an event while all events are listed
+
+.. Prerequisites: List all events using the `list` command. Multiple events in the list.
+
+.. Test case: `delete 1` +
+   Expected: First event is deleted from the list. Details of the deleted event is shown by SGTravel.
+   
+.. Test case: `delete 0` +
+   Expected: No event is deleted. Error details shown by SGTravel.
+   
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size), `delete 999999999999999999999` (where 999999999999999999999 is larger than an `Integer`) +
+   Expected: Similar to previous.
+
+=== Editing an event in your plans
+
+. Editing and changing the information of the events.
+
+.. Prerequisites: List all events using the `list` command. Multiple events in the list.
+
+.. Test case: `e 1 Changi 20/09/25 25/09/25` +
+   Expected: First event is edited from the list. Details of the new event is shown by SGTravel.
+   
+.. Test case: `e 1 xxxxzwyx 09/08/28 10/08/28` +
+   Expected: No event is edited. Error details shown by SGTravel as there is no such location.
+   
+.. Test case: `e 0 Changi 27/08/25 14/10/25` +
+   Expected: No event is edited. Error details shown by SGTravel.
+   
+.. Other incorrect delete commands to try: `e`, `e x Changi 20/09/25 25/09/25` (where x is larger than the list size), `e Changi Mon Wed`, `e 1 09/08/28 10/08/28` +
+   Expected: Similar to previous.
+
+=== Recommend and adding travel plans
+
+. Recommend new itineraries for users to use as a travel plan
+
+.. Test case: `recommend itinerary between 21/04/20 and 25/04/20` +
+   Expected: A recommended holiday plan is shown by SGTravel.
+   
+.. Test case: `recommend itinerary between 19/06/19 and 24/06/19` +
+   Expected: No recommended holiday plan is shown. Error details shown by SGTravel as dates are already in the past.
+   
+.. Test case: `recommend itinerary between 21/04/20 and 25/09/20` +
+   Expected: No recommended holiday plan is shown. Error details shown by SGTravel as SGTravel is unable to come up with such a long travel plan.
+   
+   .. Other incorrect itinerary commands to try: `recommend between 21/04/20 and 25/09/20`, `recommend`, `recommend between and`, `recommend between`, `recommend and`, `recommend between and 12/12/21`, `recommend between 12/12/21 and` +
+   Expected: Similar to previous.
+   
+.. Prerequisites: Have used the recommend command at least once successfully upon application start up. And must not have used the `addThisList` command previously.
+
+.. Test case: `addThisList myHolidayTrip` +
+   Expected: MyHolidayTrip is added to the list of itineraries. The details of the trip is shown by SGTravel.
+   
+.. Test case: `addThisList` +
+   Expected: No itineraries is added. Error details is shown by SGTravel as there is no name provided for the new itinerary.
+   
+=== Adding routes
+
+. Add travelling routes for user to use whilst travelling
+
+.. Prerequisites: Must not add routes that has the same name as an existing one.
+
+.. Test case: `routeAdd NUS to NTU` +
+   Expected: Adds a route to the list of routes. The details of the route is shown by SGTravel.
+   
+.. Test case: `routeAdd` +
+   Exepcted: No routes is added. Error details is show by SGTravel as there is no name provided for the new route.
+   
+.. Prerequisites: List all routes using the `routeListAll` command. Multiples routes in the list. Must not add route node that is already existing in the route.
+
+.. Test case: `routeNodeAdd 1 1 at 17009 by bus` +
+   Expected: Route node is successfully added to the first route in the list. The location of the node is shown by SGTravel.
+   
+.. Test case: `routeNodeAdd 0 0 at 17009 by bus` +
+   Expected: No route node is added. Error details is shown by SGTravel.
+   
+.. Other incorrect add route commands to try: `routeNodeAdd x 1 at 17009 by bus` (where x is larger than the list size), `routeNodeAdd 1 1 at`, `routeNodeAdd 0`, `routeNodeAdd 1 1`, `routeNodeAdd 1 1 17009`, `routeNodeAdd 1 1 at 17009 by moo`, `routeNodeAdd 1 1 at by` +
+   Expected: Similar to previous.
+   
+   
+=== Deleting routes
+
+. Delete travelling routes while all routes are listed
+
+.. Prerequisites: List all routes using the routeListAll command. Multiples routes in the list.
+
+.. Test case: `routeDelete 1` +
+   Expected: First route is deleted from the list. Details of the deleted routes is shown by SGTravel.
+   
+.. Test case: `routeDelete 0` +
+   Expected: No route is deleted. Error details shown by SGTravel.
+   
+.. Other incorrect delete commands to try: `routeDelete mopi`, `routeDelete x` (where x is larger than the list size), `routeDelete 999999999999999999999` (where 999999999999999999999 is larger than an `Integer`) +
+   Expected: Similar to previous.
+   
+.. Prerequisites: List all routes using the `routeListAll` command. Multiples routes in the list. List all route nodes using `routeShow x` (where x is the index of the route) Listed routes must consist of multiple nodes.
+
+.. Test case: `routeNodeDelete 1 1` +
+   Expected: First route node of the first route node is deleted from the list. Details of the deleted node is shown by SGTravel.
+   
+.. Test case: `routeNodeDelete 0 1` +
+   Expected: No route is deleted. Error details shown by SGTravel.
+   
+.. Other incorrect delete commands to try: `routeNodeDelete vrift`, `routeNodeDelete 1 x` (where x is larger than the list size), `routeNodeDelete 1 999999999999999999999` (where 999999999999999999999 is larger than an `Integer`) +
+   Expected: Similar to previous.
+
+
+=== Saving data
+
+. Dealing with missing/corrupted data files
+
+.. Removing all `.txt` files in the same directory +
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: All sample data should be displayed in the application on start up.
+   
+.. Removing or corrupting only the `profile.txt` files in the same directory +
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: Sample profile and itinerary data should be loaded and the other contents still remain intact.
+   
+.. Removing or corrupting only the `events.txt` files in the same directory +
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: All sample data should be displayed in the application on start up.
+
+.. Removing or corrupting only the `routes.txt` files in the same directory +
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: Sample itinerary data should be displayed in the application on start up.
+   
+.. Removing or corrupting only the `favourite.txt` files in the same directory +
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: Sample itinerary data should be displayed in the application on start up.
+   
+.. Removing or corrupting only the `itineraries.txt` files in the same directory +
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: Sample itinerary data should be displayed in the application on start up.
