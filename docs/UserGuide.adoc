@@ -62,7 +62,7 @@ e.g. `orders/ <order_name_1>...` can be in `orders/ Chicken rice, Seafood pasta,
 
 === Managing Bookings
 
- Managing booking is a feature that allows the user to do operations such as adding & deleting a booking to booking list, filter out booking based on search date or customer name, and extract the orders for a specific booking.
+Managing booking is a feature that allows the user to do operations such as adding & deleting a booking to booking list, filter out booking based on search date or customer name, and extract the orders for a specific booking.
 
 ====  Adding a new booking: `addbooking`
 
@@ -74,7 +74,7 @@ Format: `addbooking <customer_name e.g. John_Lim> <customer_contact> <number_of_
 * Customer contact number: Contains only digits.
 * Number of pax: Contains only digits from 1 - 9.
 * Booking date: Input format day/month/year. E.g 25/12/2019.
-* Orders: Key orders/ with _{whitspace}_ followed by the name of the orders, separated with comma “,”. E.g orders/ garlic prawn, ribeye steak
+* Orders: Enter orders/ plus _{whitspace}_ followed by the name of the orders, separated with comma “,”. E.g orders/ garlic prawn, ribeye steak
 
 All 5 fields are compulsory and separated by _{whitspace}_.
 
@@ -88,7 +88,7 @@ Examples:
 
 Format: `deletebooking <booking_list_index*>` +
 
-*booking list index can be found by using the command `listallbookings`.
+_*booking list index can be found by using the command `listallbookings`._
 
 Examples:
 
@@ -96,7 +96,7 @@ Examples:
 
 ====  View all current bookings: `listallbookings`
 
- Shows all current bookings in the booking list. All details including customer name, contact number, number of pax, booking date and orders will be displayed.
+ Shows all current bookings in the booking list.
 
 Format: `listallbookings`
 
@@ -138,7 +138,7 @@ Here are your bookings for 12 December 2019
 
 . [Customer name: James] [Contact No.: 8371638] [No. of pax: 3] [Booking on: 12 December 2019] [Orders: fish & chip, pasta]
 
-==== View orders for a specific booking: `vieworders`
+==== View orders from a customer: `vieworders`
 
  Shows the orders made by a customer on a specific booking.
 
@@ -159,7 +159,7 @@ Here are your orders for: John
 
 ====  Adding a new recipe: `addrecipe`
 
-Adds a new recipe into the recipe list. Duplicate recipes are not allowed. +
+ Adds a new recipe into the recipe list. Duplicate recipes are not allowed.
 
 Format:
 
@@ -170,7 +170,7 @@ Examples: `addrecipe garlic prawn`
 
 ====  Deleting a recipe: `deleterecipe`
 
-Deletes a new recipe in the recipe list +
+ Deletes a new recipe in the recipe list.
 
 Format:
 
@@ -182,7 +182,7 @@ Examples:
 
 ====  Editing required recipe ingredient:  `editreqingredient`
 
-===== Edits the details and information of a recipe. Users can input which information they would like to edit such as rating, ingredients required, cooking steps, and feedback for that recipe. +
+Edits the details and information of a recipe. Users can input which information they would like to edit such as rating, ingredients required, cooking steps, and feedback for that recipe. +
 
 * `ins/` : insert at a certain position in the recipe ingredient list
 * `<positon>` : the position of which the recipe ingredient will be inserted
@@ -207,7 +207,8 @@ Examples:
 * `editreqingredient fried rice app/ n/ oil q/1 u/kg`
 * `editreqingredient fried clr/`
 
-===== Individual parts can be left empty when editing existing recipe ingredient
+
+ Individual parts can be left empty when editing existing recipe ingredient
 
 Format:
 
@@ -221,7 +222,7 @@ Example:
 
 ==== Editing a recipe rating: `editrating`
 
-Edits the rating of a recipe +
+ Edits the rating of a recipe.
 
 Format: `editrating [recipe name] r/ [rating]`
 
@@ -233,7 +234,7 @@ Output Result:
 
 ==== Editing a recipe feedback: `editfeedback`
 
-Edits the feedback of a recipe +
+ Edits the feedback of a recipe.
 
 Format: `editfeedback [recipe name] f/ [feedback]`
 
@@ -244,6 +245,8 @@ Output Result:
 * `The feedback of 'chicken rice' has been edited to: too salty`
 
 ==== Editing a recipe preparation steps: `editprepstep`
+
+ Edits the preparation steps of a recipe.
 
 Format:
 
@@ -261,7 +264,7 @@ Example:
 
 ====  Listing all recipes: `listallrecipes`
 
-Shows all current recipes in the recipe list. Only the <recipe_number>, <recipe_name> will be displayed. +
+Shows all current recipes in the recipe list. Only the <recipe_number>, <recipe_name> will be displayed.
 
 Format: `listallrecipes`
 
@@ -272,7 +275,7 @@ Output Result:
 
 ====  Viewing a specific recipe: `viewrecipe`
 
-Shows the additional information such as rating, ingredients required, cooking steps, and feedback for that recipe. +
+Shows the additional information such as rating, ingredients required, cooking steps, and feedback for that recipe.
 
 Format: `viewrecipe <recipe_name>`
 
@@ -289,7 +292,7 @@ Output Result:
 
 ==== Viewing required recipe ingredient: `viewreqingredient`
 
-Shows a lists of required ingredients of the different recipes and a combined list of ingredients with its respective amount. +
+Shows a lists of required ingredients of the different recipes and a combined list of ingredients with its respective amount.
 
 Format: `viewreqingredient <recipe_name>, ………, <recipe_name>`
 
