@@ -1,4 +1,5 @@
 //@@author yueyuu
+
 package note;
 
 import gazeeebo.exception.DukeException;
@@ -13,7 +14,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class EditNoteCommandTest extends EditNoteCommand {
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -27,7 +29,7 @@ class EditNoteCommandTest extends EditNoteCommand {
     }
 
     @AfterEach
-    void restoreStream(){
+    void restoreStream() {
         System.out.flush();
         System.setOut(original);
     }

@@ -1,6 +1,8 @@
 //@@author yueyuu
+
 package gazeeebo.storage;
 
+import gazeeebo.logger.LogCenter;
 import gazeeebo.notes.Assessment;
 import gazeeebo.notes.GeneralNotePage;
 import gazeeebo.notes.Module;
@@ -8,21 +10,37 @@ import gazeeebo.notes.Module;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class NotePageStorage {
+
+    private static final Logger logger = Logger.getLogger(NotePageStorage.class.getName());
 
     private static final String FILE_GOAL = "goal.txt";
     private static final String FILE_MODULES = "modules.txt";
 
+    /**
+     * Write data to the goal file.
+     * @throws IOException if the file cannot be written to
+     */
     public static void writeToGoalFile() throws IOException {
-        FileWriter file = new FileWriter(FILE_GOAL);
-        file.write(GeneralNotePage.goal);
-        file.flush();
-        file.close();
+        LogCenter.setUpLogger(logger);
+        try {
+            FileWriter file = new FileWriter(FILE_GOAL);
+            file.write(GeneralNotePage.goal);
+            file.flush();
+            file.close();
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Can't write to goal file", e);
+        }
     }
 
+    /**
+     * Reads data from the goal file.
+     * @throws IOException if the file cannot be read
+     */
     public static void readFromGoalFile() throws IOException {
         File f = new File(FILE_GOAL);
         Scanner txtFile = new Scanner(f);
@@ -31,6 +49,10 @@ public class NotePageStorage {
         }
     }
 
+    /**
+     * Writes data to the modules file.
+     * @throws IOException if the file cannot be written to
+     */
     public static void writeToModulesFile() throws IOException {
         FileWriter file = new FileWriter(FILE_MODULES);
         for (Module m : GeneralNotePage.modules) {
@@ -49,6 +71,10 @@ public class NotePageStorage {
         file.close();
     }
 
+    /**
+     * Reads data from the modules file.
+     * @throws IOException if the file cannot be read
+     */
     public static void readFromModulesFile() throws IOException {
         File f = new File(FILE_MODULES);
         Scanner txtFile = new Scanner(f);

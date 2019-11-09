@@ -1,6 +1,6 @@
-package gazeeebo.commands.expenses;
+//@@author e0323290
 
-import gazeeebo.UI.Ui;
+package gazeeebo.commands.expenses;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,12 +13,10 @@ public class ExpenseListCommand {
     /**
      * This method prints the list of all the expenses.
      *
-     * @param ui       the object that deals with printing things to the user.
      * @param expenses the map that maps each expenses to its date
      */
-    public ExpenseListCommand(final Ui ui,
-                              final Map<LocalDate,
-                                      ArrayList<String>> expenses) {
+    public ExpenseListCommand(final Map<LocalDate,
+            ArrayList<String>> expenses) {
         ArrayList<String> expenseList
                 = new ArrayList<>();
 

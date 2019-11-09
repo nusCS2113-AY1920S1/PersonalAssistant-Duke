@@ -5,8 +5,30 @@ finals
 1
 need to release jar file this week
 cg2028
-0
-0
+4
+project
+45
+pair work
+29
+cortex-m3 project
+68
+final quiz
+47
+2
+wear covered shoes for lab
+no webcasts for this lecture
 CG1112
+0
+0
+add module /m ee2026
+0
+0
+ee2026
+0
+0
+easy module
+0
+0
+CG2028
 0
 0
