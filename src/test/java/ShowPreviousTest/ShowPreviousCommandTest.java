@@ -3,8 +3,6 @@ package ShowPreviousTest;
 import Commands.Command;
 import Commands.ShowPreviousCommand;
 import Commons.Duke;
-import Commons.LookupTable;
-import Commons.UserInteraction;
 import Commons.UserInteraction;
 import DukeExceptions.DukeInvalidFormatException;
 import Parser.FindFreeTimesParse;
@@ -76,7 +74,8 @@ public class ShowPreviousCommandTest {
         String t = userInputWithInvalidNumber.replaceFirst("show/previous", "");
         String showPreviousNumber = t.trim();
         Command command = new ShowPreviousCommand(showPreviousNumber);
-        String expected = "There are only " + (sizeOfList-1) + " previous commands. Please enter a valid number less than or equal to " + (sizeOfList-1) + " .";
+        String expected = "There are only " + (sizeOfList - 1) + " previous commands. Please enter a valid number "
+                + "less than or equal to " + (sizeOfList - 1) + " .";
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);
