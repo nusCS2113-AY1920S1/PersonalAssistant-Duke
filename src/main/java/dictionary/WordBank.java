@@ -165,7 +165,7 @@ public class WordBank {
      * @return tags lists of that word
      * @throws NoWordFoundException if the word doesn't exist in the word bank
      */
-    public HashSet<String> addSynonym(String wordToAddSynonym, ArrayList<String> synonyms) throws NoWordFoundException {
+    public HashSet<String> addWordToSomeSynonym(String wordToAddSynonym, ArrayList<String> synonyms) throws NoWordFoundException {
         if (!wordBank.containsKey(wordToAddSynonym)) {
             throw new NoWordFoundException(wordToAddSynonym);
         }
@@ -231,6 +231,8 @@ public class WordBank {
     public void addTagToWord(String word, String tag) {
         wordBank.get(word).addTag(tag);
     }
+
+    public void addSynonymToWord(String word, String synonym) { wordBank.get(word).addSynonym(synonym); }
 
     public Word[] getAllWordsAsList() {
         return wordBank.values().toArray(new Word[wordBank.size()]);

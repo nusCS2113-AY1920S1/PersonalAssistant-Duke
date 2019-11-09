@@ -4,6 +4,7 @@ import dictionary.Bank;
 import dictionary.TagBank;
 import dictionary.Word;
 import dictionary.WordBank;
+import dictionary.SynonymBank;
 import exception.WordAlreadyExistsException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
@@ -272,6 +273,20 @@ public class Storage {
         tagBankSheet.autoSizeColumn(0);
         tagBankSheet.autoSizeColumn(1);
 
+        Sheet synonymBankSheet = workbook.createSheet("SynonymBank");
+        headerRow = synonymBankSheet.createRow(0);
+
+        cell = headerRow.createCell(0);
+        cell.setCellValue("Synonym");
+        cell.setCellStyle(headerCellStyle);
+
+        cell = headerRow.createCell(1);
+        cell.setCellValue("Word with same meaning");
+        cell.setCellStyle(headerCellStyle);
+
+        synonymBankSheet.autoSizeColumn(0);
+        synonymBankSheet.autoSizeColumn(1);
+
         try {
             FileOutputStream fileOut = new FileOutputStream(EXCEL_PATH);
             workbook.write(fileOut);
@@ -370,6 +385,55 @@ public class Storage {
                     cell = row.createCell(1);
                 }
                 cell.setCellValue(String.join(", ", allWordsOfTag));
+            }
+
+            sheet.autoSizeColumn(0);
+            sheet.autoSizeColumn(1);
+
+            fileOut = new FileOutputStream(EXCEL_PATH);
+            workbook.write(fileOut);
+            fileInputStream.close();
+            fileOut.close();
+            workbook.close();
+        } catch (FileNotFoundException e) {
+            createExcelFile();
+        } catch (IOException | InvalidFormatException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeSynonymBankExcelFile(SynonymBank synonymBank) {
+        FileInputStream fileInputStream;
+        FileOutputStream fileOut;
+        try {
+            fileInputStream = new FileInputStream(excelFile);
+            Workbook workbook = WorkbookFactory.create(fileInputStream);
+
+            Sheet sheet = workbook.getSheetAt(2);
+            String[] allSynonyms = synonymBank.getAllSynonymsAsList();
+            String[] allWordsOfSynonym;
+            for (int i = 1; i <= allSynonyms.length; i++) {
+                Row row = sheet.getRow(i);
+                if (row == null) {
+                    row = sheet.createRow(i);
+                }
+
+                Cell cell = row.getCell(0);
+                if (cell == null) {
+                    cell = row.createCell(0);
+                }
+
+                cell.setCellType(CellType.STRING);
+                String synonym = allSynonyms[i - 1];
+                cell.setCellValue(synonym);
+
+                allWordsOfSynonym = synonymBank.getAllWordsOfSynonym(synonym);
+
+                cell = row.getCell(1);
+                if (cell == null) {
+                    cell = row.createCell(1);
+                }
+                cell.setCellValue(String.join(", ", allWordsOfSynonym));
             }
 
             sheet.autoSizeColumn(0);

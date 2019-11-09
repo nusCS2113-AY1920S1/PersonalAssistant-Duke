@@ -405,6 +405,14 @@ public class Ui {
         return stringBuilder.toString();
     }
 
+    public String showAllSynonyms(String[] synonymList) {
+        StringBuilder stringBuilder = new StringBuilder("Here are all your synonyms:\n");
+        for (String synonym : synonymList){
+            stringBuilder.append(synonym + "\n");
+        }
+        return stringBuilder.toString();
+    }
+
     /**
      * Shows all tags belong to a specific word.
      * @param searchTerm word to be searched for tags
