@@ -76,7 +76,7 @@ public class GraphCategoryCommand extends Command {
         output += topSpace + horizontalAxisTop + "\n";
         
         for (int i = 0; i < cat.size(); i += 1) {
-            String expenditureName = cat.get(i).toString();
+            String expenditureName = cat.get(i).getName();
             if (expenditureName.length() > 14) {
                 expenditureName = expenditureName.substring(0, 11) + "...";
 

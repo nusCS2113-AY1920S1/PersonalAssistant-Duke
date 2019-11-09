@@ -12,7 +12,6 @@ import moomoo.command.MooCommand;
 import moomoo.command.SavingsBudgetCommand;
 import moomoo.command.ScheduleCommand;
 import moomoo.command.SetBudgetCommand;
-import moomoo.command.TotalCommand;
 import moomoo.command.category.ListCategoryCommand;
 import moomoo.feature.MooMooException;
 import moomoo.feature.Ui;
@@ -57,8 +56,6 @@ public class Parser {
             return new ListCategoryCommand();
         case ("graph"):
             return parseGraph(scanner);
-        case ("total"):
-            return new TotalCommand();
         case ("help"):
             return new HelpCommand();
         case ("moo"):

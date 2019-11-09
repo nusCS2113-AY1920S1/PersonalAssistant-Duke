@@ -238,10 +238,10 @@ public class MainDisplay {
                 // Printing out the line with all the categories
                 for (int i = 0; i < cols; i++) {
                     blankSpaceCat = "";
-                    for (int j = 0; j < (26 - categoryList.get(i).toString().length()); j++) {
+                    for (int j = 0; j < (26 - categoryList.get(i).name().length()); j++) {
                         blankSpaceCat += " ";
                     }
-                    output += ANSI_BLACK + categoryList.get(i).toString() + ANSI_RESET + blankSpaceCat + "|";
+                    output += ANSI_BLACK + categoryList.get(i).name() + ANSI_RESET + blankSpaceCat + "|";
                 }
                 output += "\n" + BORDER_LEFT + openCloseLines + "\n";
 
@@ -252,7 +252,7 @@ public class MainDisplay {
                         if (i < categoryList.get(j).size()) {
                             // prints out each individual expenditureName if it exists
                             blankSpaceExp = "";
-                            for (int h = 0; h < (17 - categoryList.get(j).get(i).toString().length()); h++) {
+                            for (int h = 0; h < (17 - categoryList.get(j).get(i).getName().length()); h++) {
                                 blankSpaceExp += " ";
                             }
                             blankSpaceCost = "";
@@ -260,7 +260,7 @@ public class MainDisplay {
                             for (int k = 0; k < (7 - categoryList.get(j).get(i).getCostString().length()); k++) {
                                 blankSpaceCost += " ";
                             }
-                            output += categoryList.get(j).get(i).toString() + blankSpaceExp + "|$"
+                            output += categoryList.get(j).get(i).getName() + blankSpaceExp + "|$"
                                 + categoryList.get(j).get(i).getCostString() + blankSpaceCost + "|";
                         } else {
                             // if expenditure dosen't exist, print out the filler space
@@ -283,7 +283,7 @@ public class MainDisplay {
                 output += BUDGET_LEFT;
                 for (int i = 0; i < categoryList.size(); i++) {
                     blankSpaceBud = "";
-                    String budName = Double.toString(budget.getBudgetFromCategory(categoryList.get(i).toString()));
+                    String budName = Double.toString(budget.getBudgetFromCategory(categoryList.get(i).name()));
                     int budLen = 25 - budName.length();
                     for (int j = 0; j < budLen; j++) {
                         blankSpaceBud += " ";
@@ -297,7 +297,7 @@ public class MainDisplay {
                 for (int i = 0; i < categoryList.size(); i++) {
                     blankSpaceSav = "";
                     double tot = categoryList.get(i).getOverallAmount();
-                    double bud = budget.getBudgetFromCategory(categoryList.get(i).toString());
+                    double bud = budget.getBudgetFromCategory(categoryList.get(i).name());
                     double sav = bud - tot;
                     for (int j = 0; j < (25 - Double.toString(sav).length()); j++) {
                         blankSpaceSav += " ";
@@ -330,11 +330,11 @@ public class MainDisplay {
                         // Add to array list only if it matches the month and year user is looking for
                         if (categoryList.get(i).get(j).getDate().getMonthValue() == month
                                 && categoryList.get(i).get(j).getDate().getYear() == year) {
-                            stringList.add(categoryList.get(i).get(j).toString());
+                            stringList.add(categoryList.get(i).get(j).getName());
                             stringList.add(categoryList.get(i).get(j).getCostString());
                         }
                     }
-                    newCategoryList.put(categoryList.get(i).toString(), stringList);
+                    newCategoryList.put(categoryList.get(i).name(), stringList);
                 }
 
                 output += MONTH_LEFT + monthsInYear[month - 1] + blankSpaceMth + "|" + blankSpaceCat
@@ -357,22 +357,19 @@ public class MainDisplay {
                 // Printing out the line with all the categories
                 for (int i = 0; i < cols; i++) {
                     blankSpaceCat = "";
-                    for (int j = 0; j < (26 - categoryList.get(i).toString().length()); j++) {
+                    for (int j = 0; j < (26 - categoryList.get(i).name().length()); j++) {
                         blankSpaceCat += " ";
                     }
-                    output += ANSI_BLACK + categoryList.get(i).toString() + ANSI_RESET + blankSpaceCat + "|";
+                    output += ANSI_BLACK + categoryList.get(i).name() + ANSI_RESET + blankSpaceCat + "|";
                 }
                 output += "\n" + BORDER_LEFT + openCloseLines + "\n";
-
-                System.out.println(rows);
-                System.out.println(cols);
 
                 // Printing out the lines corresponding to number of rows with both expenditureName and Amount
                 for (int i = 0; i < rows; i++) {
                     output += BORDER_LEFT;
                     for (int j = 0; j < cols; j++) {
                         //if (i < categoryList.get(j).size()) {
-                        String categoryName = categoryList.get(j).toString();
+                        String categoryName = categoryList.get(j).name();
                         //if (i < (newCategoryList.get(categoryName).size() / 2)) {
                         if (i < categoryList.get(j).size()) {
                             String expenditureName = "";
@@ -424,7 +421,7 @@ public class MainDisplay {
                 output += BUDGET_LEFT;
                 for (int i = 0; i < categoryList.size(); i++) {
                     blankSpaceBud = "";
-                    String budName = Double.toString(budget.getBudgetFromCategory(categoryList.get(i).toString()));
+                    String budName = Double.toString(budget.getBudgetFromCategory(categoryList.get(i).name()));
                     int budLen = 25 - budName.length();
                     for (int j = 0; j < budLen; j++) {
                         blankSpaceBud += " ";
@@ -438,7 +435,7 @@ public class MainDisplay {
                 for (int i = 0; i < categoryList.size(); i++) {
                     blankSpaceSav = "";
                     double tot = categoryList.get(i).getTotal(month, year);
-                    double bud = budget.getBudgetFromCategory(categoryList.get(i).toString());
+                    double bud = budget.getBudgetFromCategory(categoryList.get(i).name());
                     double sav = bud - tot;
                     for (int j = 0; j < (25 - Double.toString(sav).length()); j++) {
                         blankSpaceSav += " ";

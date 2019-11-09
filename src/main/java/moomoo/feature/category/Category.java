@@ -96,8 +96,8 @@ public class Category {
     public int getLongestExpenditure() {
         int longestName = 0;
         for (Expenditure exp : category) {
-            if (exp.toString().length() > longestName) {
-                longestName = exp.toString().length();
+            if (exp.getName().length() > longestName) {
+                longestName = exp.getName().length();
             }
             if (longestName >= 14) {
                 longestName = 14;
@@ -109,7 +109,7 @@ public class Category {
 
     void sort(String type) {
         if ("name".equals(type)) {
-            category.sort(Comparator.comparing(Expenditure::toString));
+            category.sort(Comparator.comparing(Expenditure::getName));
         } else if ("cost".equals(type)) {
             category.sort(Comparator.comparing(Expenditure::costToString));
         } else if ("date".equals(type)) {
