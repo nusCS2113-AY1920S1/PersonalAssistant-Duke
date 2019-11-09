@@ -46,7 +46,7 @@ public class SortPaymentCommand extends Command {
             throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING, "sortCriteria"));
         }
 
-        model.setPaymentSortCriteria(commandParams.getMainParam());
+        model.setPaymentSortingCriteria(commandParams.getMainParam());
 
         return new CommandResult(COMPLETE_MESSAGE, CommandResult.DisplayedPane.PAYMENT);
     }
