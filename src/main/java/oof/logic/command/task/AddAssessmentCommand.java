@@ -63,8 +63,9 @@ public class AddAssessmentCommand extends AddEventCommand {
             ui.printClashWarning(eventClashes);
             String moduleCode = module.getModuleCode();
             Assessment assessment = new Assessment(moduleCode, description, startDateTime, endDateTime);
-            if (exceedsMaxLength(assessment.getDescription())) {
-                throw new InvalidArgumentException("Task exceeds maximum description length!");
+            if (exceedsMaxLength(assessment.getDescription(), DESCRIPTION_LENGTH_MAX)) {
+                throw new InvalidArgumentException("OOPS!!! Assessment Name exceeds maximum length of "
+                        + DESCRIPTION_LENGTH_MAX + "!");
             }
             taskList.addTask(assessment);
             module.addAssessment(assessment);

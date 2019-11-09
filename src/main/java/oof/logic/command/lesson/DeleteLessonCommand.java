@@ -49,7 +49,7 @@ public class DeleteLessonCommand extends Command {
         }
         Lesson lesson = module.getLesson(this.index);
         module.deleteLesson(this.index);
-        ui.printLessonRemovalMessage(module.getModuleCode(), lesson);
+        ui.printLessonRemovalMessage(lesson);
         storageManager.writeSemesterList(semesterList);
     }
 

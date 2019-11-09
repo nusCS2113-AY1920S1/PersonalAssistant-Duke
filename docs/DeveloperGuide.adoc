@@ -363,7 +363,7 @@ The tasks each day can be classified into visual blocks to aid the users into vi
 
 [[calendar]]
 .Sample output of Calendar Command
-image::calendar.png[calendar]
+image::Calendar.png[calendar]
 
 ==== Implementation
 The `CalendarCommand` class extends `Command` by providing methods to display tasks for a particular month.

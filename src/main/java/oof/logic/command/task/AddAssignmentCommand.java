@@ -56,8 +56,9 @@ public class AddAssignmentCommand extends AddDeadlineCommand {
             throw new InvalidArgumentException("OOPS!!! The due date is invalid.");
         } else {
             Assignment assignment = new Assignment(moduleCode, description, date);
-            if (exceedsMaxLength(assignment.getDescription())) {
-                throw new InvalidArgumentException("OOPS!!! Task exceeds maximum description length!");
+            if (exceedsMaxLength(assignment.getDescription(), DESCRIPTION_LENGTH_MAX)) {
+                throw new InvalidArgumentException("OOPS!!! Assignment Name exceeds maximum length of "
+                        + DESCRIPTION_LENGTH_MAX + "!");
             }
             taskList.addTask(assignment);
             module.addAssignment(assignment);

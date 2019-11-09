@@ -31,6 +31,7 @@ public class AddLessonCommand extends Command {
     private static final int ARRAY_SIZE_DAY = 2;
     private static final int ARRAY_SIZE_START_TIME = 3;
     private static final int ARRAY_SIZE_END_TIME = 4;
+    private static final int LESSON_NAME_LENGTH_MAX = 20;
 
     /**
      * Constructor for AddLessonCommand.
@@ -86,13 +87,13 @@ public class AddLessonCommand extends Command {
         String name = arguments.get(INDEX_NAME);
         String moduleCode = module.getModuleCode();
         String description = moduleCode + " " + name;
-        if (exceedsMaxLength(description)) {
-            throw new InvalidArgumentException("Task exceeds maximum description length!");
+        if (exceedsMaxLength(description, LESSON_NAME_LENGTH_MAX)) {
+            throw new InvalidArgumentException("Lesson Name exceeds maximum length of: " + LESSON_NAME_LENGTH_MAX);
         }
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(arguments.get(INDEX_DAY).toUpperCase());
         Lesson lesson = new Lesson(moduleCode, name, dayOfWeek, startTime, endTime);
         module.addLesson(lesson);
-        ui.printLessonAddedMessage(module.getModuleCode(), lesson);
+        ui.printLessonAddedMessage(lesson);
         storageManager.writeSemesterList(semesterList);
     }
 

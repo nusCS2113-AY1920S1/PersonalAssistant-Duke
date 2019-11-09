@@ -23,7 +23,6 @@ import oof.storage.StorageManager;
  */
 public abstract class Command {
 
-    private static final int DESCRIPTION_LENGTH_MAX = 20;
 
     /**
      * Invokes other Command subclasses based on the input given by the user.
@@ -43,8 +42,8 @@ public abstract class Command {
      *
      * @return True if maximum description length is exceeded, false otherwise.
      */
-    public boolean exceedsMaxLength(String description) {
-        return description.length() >= DESCRIPTION_LENGTH_MAX;
+    public boolean exceedsMaxLength(String description, int limit) {
+        return description.length() >= limit;
     }
 
     /**

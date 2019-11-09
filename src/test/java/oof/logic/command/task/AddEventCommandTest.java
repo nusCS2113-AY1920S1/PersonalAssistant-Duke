@@ -45,7 +45,7 @@ public class AddEventCommandTest {
                     + "/from 31-12-2019 20:00 /to 31-12-2019 21:00");
             fail();
         } catch (CommandException | ParserException e) {
-            assertEquals("Task exceeds maximum description length!", e.getMessage());
+            assertEquals("OOPS!!! Task description exceeds maximum length of 20!", e.getMessage());
         }
     }
 
