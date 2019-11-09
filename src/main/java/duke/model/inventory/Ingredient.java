@@ -4,17 +4,13 @@ import java.text.DecimalFormat;
 import java.util.Objects;
 
 import static duke.commons.util.AppUtil.checkArgument;
-import static duke.commons.util.AppUtil.checkEmpty;
-import static duke.commons.util.AppUtil.checkNegativeDouble;
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
 public class Ingredient {
-    private static final String VALIDATION_FLOAT_NUMBER_REGEX = "^[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?$";
     private static DecimalFormat df2 = new DecimalFormat("#.##");
 
-    private static final String MESSAGE_CONSTRAINTS_NAME = "Ingredient name can take any values, "
-            + "and should not be blank";
-    private static final String MESSAGE_CONSTRAINTS_PRICE = "Price must be a valid non-negative number";
+    private static final String MESSAGE_CONSTRAINTS_NAME = "Ingredient's name cannot be blank and must be "
+            + "20 characters or less";
     public static final String MESSAGE_CONSTRAINTS_REMARKS = "Remarks should be no more than 50 characters";
 
     private static final Double DEFAULT_PRICE = 0.00;
@@ -33,9 +29,7 @@ public class Ingredient {
      */
     public Ingredient(String name, Double unitPrice, String remarks) {
         requireAllNonNull(name, unitPrice, remarks);
-        checkEmpty(name, MESSAGE_CONSTRAINTS_NAME);
-        checkNegativeDouble(unitPrice, MESSAGE_CONSTRAINTS_PRICE);
-        checkArgument(String.valueOf(unitPrice).matches(VALIDATION_FLOAT_NUMBER_REGEX), MESSAGE_CONSTRAINTS_PRICE);
+        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS_NAME);
         checkArgument(isValidRemark(remarks), MESSAGE_CONSTRAINTS_REMARKS);
 
         this.name = name;
@@ -53,6 +47,10 @@ public class Ingredient {
 
     public static boolean isValidRemark(String remark) {
         return remark.length() <= 50;
+    }
+
+    public static boolean isValidName(String name) {
+        return !name.isBlank() && name.length() <= 20;
     }
 
     @Override
