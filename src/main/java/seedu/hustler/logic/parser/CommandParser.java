@@ -87,6 +87,8 @@ public class CommandParser extends Parser {
             return new AddEntry(userInput);
         } else if (command.equals("/sort")) {
             return new SortCommand(userInput);
+        } else if (command.equals("/edit")) {
+            return new EditCommand(userInput); 
         } else if (command.equals("/bye")) {
             return new ByeCommand(userInput);
         } else {
