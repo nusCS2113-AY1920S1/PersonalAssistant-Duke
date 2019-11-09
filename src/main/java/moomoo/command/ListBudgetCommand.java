@@ -29,13 +29,13 @@ public class ListBudgetCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryListList,
+    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
                         Storage storage) throws MooMooException {
         String outputValue = "";
         double currentBudget = 0;
         if (categories.size() == 0) {
-            for (int i = 0; i < categoryListList.getCategoryList().size(); ++i) {
-                String categoryName = categoryListList.getCategoryList().get(i).name().toLowerCase();
+            for (int i = 0; i < categoryList.getCategoryList().size(); ++i) {
+                String categoryName = categoryList.getCategoryList().get(i).name().toLowerCase();
                 currentBudget = budget.getBudgetFromCategory(categoryName);
                 if (currentBudget == 0) {
                     outputValue += "Budget for " + categoryName + " has not been set\n";
@@ -55,7 +55,7 @@ public class ListBudgetCommand extends Command {
         for (int i = 0; i < categories.size(); ++i) {
             String categoryName = categories.get(i).toLowerCase();
 
-            if (categoryListList.get(categoryName) != null) {
+            if (categoryList.get(categoryName) != null) {
                 currentBudget = budget.getBudgetFromCategory(categoryName);
                 if (currentBudget == 0) {
                     outputValue += "Budget for " + categoryName + " has not been set.\n";

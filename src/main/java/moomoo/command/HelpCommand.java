@@ -16,7 +16,7 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryListList,
+    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
                         Storage storage) {
         String text = "Try one of these commands:\n"
                 + "bye\n"

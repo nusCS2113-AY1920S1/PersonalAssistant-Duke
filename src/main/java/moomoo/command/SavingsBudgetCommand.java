@@ -39,20 +39,20 @@ public class SavingsBudgetCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryListList,
+    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
                         Storage storage) throws MooMooException {
         String[] outputArray;
         String outputValue = "";
         double totalSavings = 0;
         if (categories.size() == 0) {
-            for (int i = 0; i < categoryListList.getCategoryList().size(); ++i) {
-                categories.add(categoryListList.getCategoryList().get(i).name());
+            for (int i = 0; i < categoryList.getCategoryList().size(); ++i) {
+                categories.add(categoryList.getCategoryList().get(i).name());
             }
         }
 
         for (String iteratorCategory : categories) {
             iteratorCategory = iteratorCategory.toLowerCase();
-            Category currentCategory = categoryListList.get(iteratorCategory);
+            Category currentCategory = categoryList.get(iteratorCategory);
 
             if (currentCategory == null) {
                 outputValue += iteratorCategory + " category does not exist."

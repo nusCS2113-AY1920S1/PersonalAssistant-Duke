@@ -27,7 +27,7 @@ public class NotificationCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryListList,
+    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
                         Storage storage) throws MooMooException {
         String alert = "";
         if (expenditure > budget.getBudgetFromCategory(cat)) {

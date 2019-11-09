@@ -49,12 +49,12 @@ public class GraphCategoryCommand extends Command {
     }
     
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryListList,
+    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
                         Storage storage)
             throws MooMooException {
         Category cat;
         try {
-            cat = categoryListList.get(categoryName);
+            cat = categoryList.get(categoryName);
         } catch (Exception e) {
             throw new MooMooException("OH NO! No such category exists!");
         }

@@ -32,7 +32,7 @@ public class SetBudgetCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryListList,
+    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
                         Storage storage) throws MooMooException {
         String outputValue = "";
         boolean isUpdated = false;
@@ -40,7 +40,7 @@ public class SetBudgetCommand extends Command {
         for (int i = 0; i < categories.size(); ++i) {
             String categoryName = categories.get(i).toLowerCase();
             double categoryBudget = budgets.get(i);
-            if (categoryListList.get(categoryName) != null) {
+            if (categoryList.get(categoryName) != null) {
                 if (categoryBudget <= 0) {
                     outputValue += "Please set your budget for " + categoryName + " to a value more than 0\n";
                     continue;

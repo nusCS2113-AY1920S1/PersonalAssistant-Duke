@@ -23,7 +23,7 @@ public class ScheduleCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryListList,
+    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
                         Storage storage) throws MooMooException {
         if (input.length() < 8) {
             throw new MooMooException("OOPS!!! To create a schedule payment, "
