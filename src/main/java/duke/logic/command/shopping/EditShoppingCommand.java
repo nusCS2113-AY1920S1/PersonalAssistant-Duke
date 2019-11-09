@@ -1,6 +1,5 @@
 package duke.logic.command.shopping;
 
-import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
@@ -58,7 +57,7 @@ public class EditShoppingCommand extends ShoppingCommand {
             model.setShoppingList(toEdit, edited);
         } catch (DuplicateEntityException e) {
             throw new CommandException(String.format(ShoppingMessageUtils.MESSAGE_DUPLICATE_SHOPPING,
-                    edited.getItem().getName()));
+                edited.getItem().getName()));
         }
         model.setShoppingList(toEdit, edited);
         model.commit(ShoppingMessageUtils.MESSAGE_COMMIT_EDIT_SHOPPING);

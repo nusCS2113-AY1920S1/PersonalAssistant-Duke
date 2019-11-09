@@ -18,4 +18,7 @@ public class Message {
     public static final String MESSAGE_ORDER_ALREADY_COMPLETED = "Order at index [%d] has already been completed.";
     public static final String MESSAGE_INVALID_PREFIX_VALUE = "[%s] is an invalid parameter value.";
 
+    private Message() {
+
+    }// prevent initialization
 }

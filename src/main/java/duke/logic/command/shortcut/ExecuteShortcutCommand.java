@@ -42,17 +42,9 @@ public class ExecuteShortcutCommand extends Command {
         //Disable version control so that commands executed are not added to undo/redo list.
         model.setVersionControl(false);
 
-        BakingHomeParser parser = new BakingHomeParser();
-        for (String line : toExecute.getUserInputs()) {
-            try {
-                Command command = parser.parseCommand(line);
-                command.execute(model);
-            } catch (CommandException | ParseException e) {
-                throw new CommandException(String.format(MESSAGE_EXECUTION_FAILED, line, e.getMessage()));
-            }
-        }
+        executeCommand(model);
 
-        //Enable version control.
+        //Re-enable version control.
         model.setVersionControl(true);
 
         model.commit(MESSAGE_COMMIT);
@@ -69,5 +61,17 @@ public class ExecuteShortcutCommand extends Command {
         }
 
         throw new CommandException(MESSAGE_SHORTCUT_NOT_FOUND);
+    }
+
+    private void executeCommand(Model model) throws CommandException {
+        BakingHomeParser parser = new BakingHomeParser();
+        for (String line : toExecute.getUserInputs()) {
+            try {
+                Command command = parser.parseCommand(line);
+                command.execute(model);
+            } catch (CommandException | ParseException e) {
+                throw new CommandException(String.format(MESSAGE_EXECUTION_FAILED, line, e.getMessage()));
+            }
+        }
     }
 }

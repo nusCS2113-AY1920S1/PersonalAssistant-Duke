@@ -57,15 +57,20 @@ public class OrderCard extends UiPart<AnchorPane> {
     public OrderCard(Order order, int displayedIndex) {
         super(FXML);
 
-        //Fill order details
-        id.setText(Long.toString(order.getId()));
+        fillInDetails(order, displayedIndex);
+        initializedListener(order);
+        initializeClock(order);
+    }
+
+    private void fillInDetails(Order order, int displayedIndex) {
+        id.setText(Long.toString(order.getId().value));
         creationDate.setText(order.getCreationDate().toString());
         index.setText(displayedIndex + ".");
         deadline.setText(TimeParser.convertDateToString(order.getDeliveryDate()));
         name.setText(order.getCustomer().name);
         contact.setText(order.getCustomer().contact);
-        remarks.setText(order.getRemarks());
-        total.setText(Double.toString(order.getTotal()));
+        remarks.setText(order.getRemarks().value);
+        total.setText(Double.toString(order.getTotal().value));
 
         status.setText(order.getStatus().toString().toLowerCase());
         status.getStyleClass().clear();
@@ -73,19 +78,9 @@ public class OrderCard extends UiPart<AnchorPane> {
 
         for (Item<Product> item : order.getItems()) {
             itemFlow.getChildren().add(
-                    new OrderItemBox(item.getItem().getProductName(), item.getQuantity().getNumber())
+                (new OrderItemBox(item.getItem().getProductName(), item.getQuantity().getNumber()).getRoot())
             );
         }
-
-        //Setup listener to update inventory status
-        updateInventoryStatus(order.isIsIngredientEnough(), order.getStatus());
-        order.isIngredientEnoughProperty().addListener(((observable, oldValue, newValue) -> {
-            updateInventoryStatus(newValue, order.getStatus());
-        }));
-
-        //Clock to update deadline
-        initializeClock(order);
-
     }
 
     private void updateInventoryStatus(boolean isIngredientEnough, Order.Status status) {
@@ -94,6 +89,13 @@ public class OrderCard extends UiPart<AnchorPane> {
         } else {
             inventoryStatus.setVisible(false);
         }
+    }
+
+    private void initializedListener(Order order) {
+        //Setup listener to update inventory status
+        updateInventoryStatus(order.isIngredientEnough(), order.getStatus());
+        order.isIngredientEnoughProperty().addListener((observable, oldValue, newValue)
+            -> updateInventoryStatus(newValue, order.getStatus()));
     }
 
     private void initializeClock(Order order) {

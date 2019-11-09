@@ -12,9 +12,9 @@ import java.util.Date;
  * Parser to parse time.
  */
 public class TimeParser {
+    public static SimpleDateFormat displayDateFormat = new SimpleDateFormat("EEE, MMM d, yyyy HH:mm");
+    public static SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     private static PrettyTime prettyTime = new PrettyTime();
-    private static SimpleDateFormat displayDateFormat = new SimpleDateFormat("EEE, MMM d, yyyy HH:mm");
-    private static SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
     /**
      * If the difference (in absolute number) between the time given and current dime is within

@@ -62,7 +62,7 @@
                                 </Label>
                                 <Label fx:id="inventoryStatus" alignment="CENTER"
                                        style="-fx-background-color: rgb(237,108,97); -fx-background-radius: 5; -fx-padding: 4;"
-                                       text="Insuffcient Ingredients" textAlignment="CENTER" textFill="WHITE"
+                                       text="Insufficient Ingredients" textAlignment="CENTER" textFill="WHITE"
                                        visible="false">
                                     <font>
                                         <Font name="Arial" size="18.0"/>

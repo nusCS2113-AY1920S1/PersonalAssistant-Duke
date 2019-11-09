@@ -11,4 +11,8 @@ public class Config {
      * Path of BakingHome data.
      */
     public static final Path BAKING_HOME_DATA_PATH = Paths.get("data", "baking.json");
+
+    private Config() {
+
+    } // prevent initialization
 }

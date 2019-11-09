@@ -1,6 +1,5 @@
 package duke.logic.command.product;
 
-import duke.logic.parser.product.IngredientItemListParser;
 import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 import duke.model.product.IngredientItemList;
@@ -14,7 +13,8 @@ import org.junit.jupiter.api.Test;
 import static duke.logic.command.product.ProductCommandUtil.getEditedProductFromDescriptor;
 import static duke.testutil.TypicalProducts.CHEESE_CAKE;
 import static duke.testutil.TypicalProducts.EGG_TART;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProductCommandUtilTest {
     public static final Product.Status STATUS_ACTIVE =  Product.Status.valueOf("ACTIVE");
@@ -74,21 +74,21 @@ class ProductCommandUtilTest {
 
         //change status -> success
         edited = getEditedProductFromDescriptor(toEdit,
-                new ProductDescriptorBuilder().withStatus(STATUS_ACTIVE).build());
+            new ProductDescriptorBuilder().withStatus(STATUS_ACTIVE).build());
         afterEdition = new ProductBuilder(CHEESE_CAKE).build();
         afterEdition.setStatus(STATUS_ARCHIVE);
         assertTrue(edited.equals(afterEdition));
 
         //change cost -> success
         edited = getEditedProductFromDescriptor(toEdit, new ProductDescriptorBuilder().withIngredientCost(
-                1000.0).build());
+            1000.0).build());
         afterEdition = new ProductBuilder(CHEESE_CAKE).build();
         afterEdition.setIngredientCost(1000.0);
         assertTrue(edited.equals(afterEdition));
 
         //change price -> success
         edited = getEditedProductFromDescriptor(toEdit, new ProductDescriptorBuilder().withRetailPrice(
-                1000.0).build());
+            1000.0).build());
         afterEdition = new ProductBuilder(CHEESE_CAKE).build();
         afterEdition.setRetailPrice(1000.0);
         assertTrue(edited.equals(afterEdition));

@@ -25,9 +25,9 @@ public interface Logic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
-    Boolean isAutoCompletable(AutoCompleter.UserInputState currentState);
+    Boolean isAutoCompletable(AutoCompleter.Input currentState);
 
-    AutoCompleter.UserInputState complete();
+    AutoCompleter.Input complete();
 
     ObservableList<Order> getFilteredOrderList();
 

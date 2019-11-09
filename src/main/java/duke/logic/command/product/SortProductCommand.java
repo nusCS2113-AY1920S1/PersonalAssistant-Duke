@@ -1,8 +1,8 @@
 package duke.logic.command.product;
 
-import duke.logic.command.product.FilterProductCommand.Scope;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
+import duke.logic.command.product.FilterProductCommand.Scope;
 import duke.logic.parser.commons.CliSyntax;
 import duke.logic.parser.commons.Prefix;
 import duke.model.Model;

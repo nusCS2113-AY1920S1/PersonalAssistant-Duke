@@ -1,9 +1,9 @@
 package duke.logic.parser;
 
-import duke.logic.command.Command;
 import duke.logic.command.order.AddOrderCommand;
 import duke.logic.parser.commons.BakingHomeParser;
 import duke.logic.parser.exceptions.ParseException;
+import duke.testutil.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -14,24 +14,31 @@ public class BakingHomeParserTest {
     private BakingHomeParser parser = new BakingHomeParser();
 
     @Test
-    public void parseCommand_addOrderCommand_success() {
-        Command command = parser.parseCommand("order add");
-        Assertions.assertEquals(AddOrderCommand.class, command.getClass());
+    public void parse_knownCommand_success() {
+        Assertions.assertEquals(AddOrderCommand.class,
+            parser.parseCommand("order add").getClass());
+
+        // with trailing spaces
+        Assertions.assertEquals(AddOrderCommand.class,
+            parser.parseCommand("  order add   ").getClass());
     }
 
     @Test
-    public void parseCommand_emptyInput_throwsParseException() {
-        Throwable throwable = Assertions.assertThrows(ParseException.class, () -> {
+    public void parse_invalidCommand_throwsParseException() {
+        //Empty input
+        Assert.assertThrows(ParseException.class, MESSAGE_INVALID_COMMAND_FORMAT, () -> {
             parser.parseCommand("");
         });
-        Assertions.assertEquals(MESSAGE_INVALID_COMMAND_FORMAT, throwable.getMessage());
-    }
 
-    @Test
-    public void parseCommand_unknownCommand_throwsParseException() {
-        Throwable throwable = Assertions.assertThrows(ParseException.class, () -> {
+        //Blank input
+        Assert.assertThrows(ParseException.class, MESSAGE_INVALID_COMMAND_FORMAT, () -> {
+            parser.parseCommand("\n \t  \r");
+        });
+
+        //Unknown command
+        Assert.assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> {
             parser.parseCommand("unknown");
         });
-        Assertions.assertEquals(MESSAGE_UNKNOWN_COMMAND, throwable.getMessage());
     }
+
 }

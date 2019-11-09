@@ -43,4 +43,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_SHOPPING_QUANTITY = new Prefix("-qty");
     public static final Prefix PREFIX_SHOPPING_REMARKS = new Prefix("-rmk");
     public static final Prefix PREFIX_SHOPPING_COST = new Prefix("-cost");
+
+    private CliSyntax() {
+    } // prevents instantiation
 }

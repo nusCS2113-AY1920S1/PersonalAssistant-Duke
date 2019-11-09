@@ -44,7 +44,9 @@ public class ProductPage extends UiPart<AnchorPane> {
     }
 
 
-    /** Shows the productList. */
+    /**
+     * Shows the productList.
+     */
     public void showProductList() {
         listPane.getChildren().add(setUpListTable());
         splitPane.setDividerPositions(FULL_PAGE);
