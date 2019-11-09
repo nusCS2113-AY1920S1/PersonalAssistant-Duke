@@ -106,7 +106,7 @@ public class Parser {
             case PARSER_PAYMENT_COMMAND:
                 return new PaymentCommandParser().parse(argumentStr);
             case PARSER_HISTORY_COMMAND:
-                return parserUtil.getHistory(argumentStr);
+                return new HistoryCommandParser().parse(argumentStr);
             case PARSER_SUGGEST_MEAL_COMMAND:
                 return new SuggestMealCommandParser().parse(argumentStr);
             case PARSER_STATS_COMMAND:

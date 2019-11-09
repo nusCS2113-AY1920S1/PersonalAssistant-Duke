@@ -13,20 +13,17 @@ import java.util.ArrayList;
  * Tracks the history of all commands executed in the current session
  */
 public class HistoryCommand extends Command {
-    private ArrayList<String> historyCommandsList;
+    private static ArrayList<String> historyCommandsList = new ArrayList<String>();
 
     /**
      * Constructor for HistoryCommand.
      */
-
-    public HistoryCommand() {
-        historyCommandsList = new ArrayList<String>();
+    public HistoryCommand(boolean isClear) {
+        if (isClear) {
+            clearHistory();
+        }
     }
 
-    public HistoryCommand(boolean flag, String messageStr) {
-        this.isFail = true;
-        this.errorStr = messageStr;
-    }
     /**
      * Add command to history of commands.
      * @param commandStr the command to be added to the list of executed commands thus far

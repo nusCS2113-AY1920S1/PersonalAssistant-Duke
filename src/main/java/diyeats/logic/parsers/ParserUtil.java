@@ -10,7 +10,7 @@ import diyeats.logic.commands.HistoryCommand;
  */
 public class ParserUtil {
     private Autocorrect autocorrect;
-    private HistoryCommand history = new HistoryCommand();
+    private static HistoryCommand history = new HistoryCommand(true);
     private String command;
     private String argument;
 
@@ -58,18 +58,5 @@ public class ParserUtil {
      */
     public String getArgument() {
         return argument;
-    }
-
-    /**
-     * Getter for history.
-     * @param userInput the user input to be parsed
-     * @return <code>history</code> the object containing records of all the past commands taken
-     */
-    public HistoryCommand getHistory(String userInput) {
-        // clear history if requested
-        if (!userInput.isEmpty() && userInput.equals("clear")) {
-            history.clearHistory();
-        }
-        return history;
     }
 }
