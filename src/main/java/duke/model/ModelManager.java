@@ -437,12 +437,12 @@ public class ModelManager implements Model {
         }
 
         ModelManager other = (ModelManager) o;
-        return bakingHome.equals(other.getBakingHome()) &&
-                filteredInventory.equals(other.getFilteredInventoryList()) &&
-                filteredShoppingList.equals(other.getFilteredShoppingList()) &&
-                filteredProducts.equals(other.getFilteredProductList()) &&
-                filteredOrders.equals(other.getFilteredOrderList()) &&
-                filteredSales.equals(other.getFilteredSaleList());
+        return bakingHome.equals(other.getBakingHome())
+            && filteredInventory.equals(other.getFilteredInventoryList())
+            && filteredShoppingList.equals(other.getFilteredShoppingList())
+            && filteredProducts.equals(other.getFilteredProductList())
+            && filteredOrders.equals(other.getFilteredOrderList())
+            && filteredSales.equals(other.getFilteredSaleList());
     }
 
 }

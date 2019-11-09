@@ -25,7 +25,7 @@ public class ProductCommandUtil {
         assert toEdit != null;
 
         String newProductName =
-        StringUtils.capitalize((productDescriptor.getProductName().orElse(toEdit.getProductName())).toLowerCase());
+            StringUtils.capitalize((productDescriptor.getProductName().orElse(toEdit.getProductName())).toLowerCase());
 
         Double newRetailPrice = productDescriptor.getRetailPrice().orElse(toEdit.getRetailPrice());
         Double newIngredientCost =
@@ -65,8 +65,6 @@ public class ProductCommandUtil {
     /**
      * Verifies whether the Ingredient already exists in the InventoryList. If not, adds a new Inventory
      * containing the ingredient to the model.
-     *
-     * @return true if new Ingredient is added to the inventory
      */
     public static void verifyNewIngredients(Model model, Product product) {
         IngredientItemList ingredients = product.getIngredients();
