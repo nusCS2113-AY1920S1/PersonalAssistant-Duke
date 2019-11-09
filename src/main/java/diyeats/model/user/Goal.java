@@ -40,22 +40,6 @@ public class Goal {
         activityLevelTarget = Integer.parseInt(argumentsMap.get(ACTIVITY_ARG_STR));
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = LocalDate.parse(startDate, LOCAL_DATE_FORMATTER);
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = LocalDate.parse(endDate, LOCAL_DATE_FORMATTER);
-    }
-
-    public void setWeightTarget(double weight) {
-        this.weightTarget = weight;
-    }
-
-    public void setActivityLevelTarget(int level) {
-        this.activityLevelTarget = level;
-    }
-
     public void setOriginalWeight(double originalWeight) {
         this.originalWeight = originalWeight;
     }
@@ -64,28 +48,16 @@ public class Goal {
         this.calorieTarget = calorieTarget;
     }
 
+    public int getAverageCalorieBalance() {
+        return getCaloriesConsumed() / (daysElapsedSinceStart() + 1);
+    }
+
     /**
      * This is a getter for date.
      * @return description of the task
      */
-    public LocalDate getEndDate() {
-        return this.endDate;
-    }
-
-    public LocalDate getStartDate() {
-        return this.startDate;
-    }
-
     public double getWeightTarget() {
         return this.weightTarget;
-    }
-
-    public int getCalorieTarget() {
-        return this.calorieTarget;
-    }
-
-    public int getCaloriesLeft() {
-        return this.caloriesLeft;
     }
 
     public int getCaloriesConsumed() {
@@ -94,10 +66,6 @@ public class Goal {
 
     public int getActivityLevelTarget() {
         return this.activityLevelTarget;
-    }
-
-    public double getWeightDifference() {
-        return this.weightTarget - this.originalWeight;
     }
 
     public void updateStats(MealList meals) {

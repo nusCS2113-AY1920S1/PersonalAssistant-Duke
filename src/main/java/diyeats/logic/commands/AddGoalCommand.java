@@ -49,12 +49,17 @@ public class AddGoalCommand extends Command {
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();
-        InputHandler in = new InputHandler(responseStr);
         try {
-            user.setGoal(goal);
-            ui.showMessage("The setGoal Command is successful!");
-            storage.updateGoal(user);
-            stage++;
+            //check whether goal set is reasonable
+            if (goal.getAverageCalorieBalance() > 0.6 * user.getDailyCalorie()) {
+                user.setGoal(goal);
+                ui.showMessage("The setGoal Command is successful!");
+                storage.updateGoal(user);
+                stage++;
+            } else {
+                ui.showMessage("The setGoal Command is unsuccessful. Average calorie loss in a day\n"
+                        + "     must not exceed 40% of your current calorie expenditure!");
+            }
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }

@@ -230,7 +230,7 @@ public class Ui {
         if (user.getDaysLeftToGoal() >= 0) {
             System.out.println(UI_PADDING + "Days left to end of diet plan: " + user.getDaysLeftToGoal());
             System.out.println(UI_PADDING + "Avg current calorie balance: "
-                    + user.getAverageCalorieBalance() + " calories");
+                    + user.getGoal().getAverageCalorieBalance() + " calories");
             System.out.println(UI_PADDING + "Avg calorie balance that must be maintained to reach goal: "
                     + user.getCalorieBalance() + " calories");
             showOnTrack(user);

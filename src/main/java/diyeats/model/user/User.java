@@ -12,7 +12,7 @@ import java.util.HashMap;
  * This is a class that will store user information to be used for processing.
  */
 public class User {
-    private transient Goal goal = null;
+    public transient Goal goal = null;
     private transient Account account;
 
     private HashMap<LocalDate, Double> weight = new HashMap();
@@ -103,15 +103,6 @@ public class User {
             }
             return true;
         }
-    }
-
-    //TODO: might want to refactor this to make it more cohesive (1 degree of separation only)
-    public void depositToAccount(BigDecimal depositAmount) {
-        this.account.deposit(depositAmount);
-    }
-
-    public void setOriginalWeight(double originalWeight) {
-        this.originalWeight = originalWeight;
     }
 
     public void setName(String name) {
@@ -225,11 +216,7 @@ public class User {
     public double getActivityLevelDifference() {
         return this.factor[goal.getActivityLevelTarget()] - this.factor[this.activityLevel];
     }
-
-    public int getAverageCalorieBalance() {
-        return goal.getCaloriesConsumed() / (goal.daysElapsedSinceStart() + 1);
-    }
-
+    
     public Goal getGoal() {
         return goal;
     }
