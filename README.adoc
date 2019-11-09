@@ -30,7 +30,10 @@ endif::[]
 
 == Acknowledgements
 
-* Libraries used: https://github.com/johnrengelman/shadow[shadowJar], https://github.com/junit-team/junit5[JUnit5]
+* Libraries used: https://github.com/johnrengelman/shadow[shadowJar], https://github.com/junit-team/junit5[JUnit5], https://github.com/fusesource/jansi[Jansi]
+** We use `shadowJar` to assemble our `Jar` file.
+** We use `Junit5` for running our test codes.
+** We use `Jansi` to emulate terminal colours.
 
 * Original source: https://github.com/nusCS2113-AY1920S1/PersonalAssistant-Duke[PersonalAssistant-Duke]
 created by https://github.com/se-edu/[SE-EDU initiative]
