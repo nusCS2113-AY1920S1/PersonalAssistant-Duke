@@ -18,8 +18,8 @@ public class Meal {
     protected String costStr;
 
     /**
-     * This is the constructor of Task object.
-     * @param description the description of the task
+     * This is the constructor of Meal object.
+     * @param description the description of the meal
      * @param date the date the meal is associated with
      * @param details the nutritional data associated with the meal
      */
@@ -50,16 +50,16 @@ public class Meal {
     }
 
     /**
-     * This is the no argument constructor for meal task object.
+     * This is the no argument constructor for meal object.
      * used to satisfy requirement for default constructor, not used otherwise
      */
     public Meal() {
     }
 
     /**
-     * This function checks whether the particular task object is done and return the string accordingly.
-     * @return <code>[\u2713]</code> if the task is done
-     *          <code>[\u2718]</code> if the task is not done
+     * This function checks whether the particular meal object is done and return the string accordingly.
+     * @return <code>[\u2713]</code> if the meal is done
+     *          <code>[\u2718]</code> if the meal is not done
      */
     public String getStatusIcon() {
         return (isDone ? "[YES]" : "[NO]"); //return tick or X symbols
@@ -67,7 +67,7 @@ public class Meal {
 
     /**
      * This is a getter for description.
-     * @return description of the task
+     * @return description of the meal
      */
     public String getDescription() {
         return this.description;
@@ -82,7 +82,7 @@ public class Meal {
 
     /**
      * This is a getter for isDone.
-     * @return isDone status of the task
+     * @return isDone status of the meal
      */
     public boolean getIsDone() {
         return this.isDone;
@@ -90,7 +90,7 @@ public class Meal {
 
     /**
      * This is a getter for the type.
-     * @return type of the task
+     * @return type of the meal
      */
     public String getType() {
         return this.type;
@@ -126,7 +126,7 @@ public class Meal {
 
     /**
      * This function overrides the toString() function in the object class.
-     * @return the status icon and the description of the task
+     * @return the status icon and the description of the meal
      */
     @Override
     public String toString() {
