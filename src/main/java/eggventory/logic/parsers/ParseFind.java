@@ -21,7 +21,7 @@ public class ParseFind {
      * and create a Command object to execute the finding of the query.
      * @param inputString String input that was given after the word "find".
      *        Describes what the user wants to filter, and the word query to search for.
-     *        This param can only have "description" because other filters are redundant.
+     *        This param can only have "description" now.
      * @return a Command object which will execute the desired command.
      * @throws BadInputException If the input format was not adhered to.
      */
