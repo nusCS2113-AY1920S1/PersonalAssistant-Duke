@@ -30,7 +30,7 @@ public class Ui {
      * Returns the value to be printed to the GUI.
      * @return String to be printed on the GUI
      */
-    public static String returnResponse() {
+    public static String getOutput() {
         return output;
     }
 
@@ -40,6 +40,10 @@ public class Ui {
      */
     public static void setOutput(String myOutput) {
         output = myOutput;
+    }
+
+    public static String getTestOutput() {
+        return testOutput;
     }
 
     /**
@@ -232,7 +236,7 @@ public class Ui {
     }
 
     public static void printMainDisplay(String newMainDisplay) {
-        print(newMainDisplay);
+        setOutput(newMainDisplay);
     }
 
     private static String getCow() {

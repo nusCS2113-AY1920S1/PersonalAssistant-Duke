@@ -98,7 +98,10 @@ class ExpenditureParser extends Parser {
     }
 
     private static Command parseSort(Scanner scanner) {
-        String text = "parse sort error";
+        String text = "How would you like to sort your expenditures:"
+                    + "\n<name>"
+                    + "\n<cost>"
+                    + "\n<date>";
         String sortType = parseInput(scanner, text);
         return new SortCategoryCommand(sortType);
     }

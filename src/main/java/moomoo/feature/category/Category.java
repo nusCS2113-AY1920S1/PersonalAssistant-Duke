@@ -5,8 +5,12 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class Category {
+    private static final String DATE = "date";
+    private static final String NAME = "name";
+    private static final String COST = "cost";
     private String categoryName;
     private ArrayList<Expenditure> category;
+    private String sortOrder;
 
     /**
      * Initializes a new category with a name, an empty list of expenditures, and a monthly total.
@@ -15,10 +19,12 @@ public class Category {
     public Category(String name) {
         this.categoryName = name;
         this.category = new ArrayList<>();
+        this.sortOrder = DATE;
     }
 
     public void add(Expenditure newExpenditure) {
         category.add(newExpenditure);
+        sort(sortOrder);
     }
 
     public void delete(int expenditureNumber) {
@@ -54,7 +60,7 @@ public class Category {
         return totalCost;
     }
 
-    public double getTotal(int month) {
+    double getTotal(int month) {
         return getTotal(month, LocalDate.now().getYear());
     }
 
@@ -107,13 +113,16 @@ public class Category {
         return longestName;
     }
 
-    void sort(String type) {
+    public void sort(String type) {
         if ("name".equals(type)) {
             category.sort(Comparator.comparing(Expenditure::getName));
+            sortOrder = NAME;
         } else if ("cost".equals(type)) {
-            category.sort(Comparator.comparing(Expenditure::costToString));
+            category.sort(Comparator.comparingDouble(Expenditure::getCost).reversed());
+            sortOrder = COST;
         } else if ("date".equals(type)) {
             category.sort(Comparator.comparing(Expenditure::dateToString));
+            sortOrder = DATE;
         }
     }
 

@@ -82,7 +82,7 @@ public class CategoryList {
      * Return the total sum of all expenditure across all categories for the current month.
      * @return total The total sum
      */
-    public double getTotal(int month, int year) {
+    private double getTotal(int month, int year) {
         double total = 0;
         for (Category category : categoryList) {
             total += category.getTotal(month, year);
@@ -90,37 +90,10 @@ public class CategoryList {
         return total;
     }
 
-    public double getTotal(int month) {
-        return getTotal(month, LocalDate.now().getYear());
-    }
-
     public double getTotal() {
         return getTotal(LocalDate.now().getMonthValue(), LocalDate.now().getYear());
     }
 
-    /**
-     * Gets the total expenditure of a single category.
-     * @param month specified month
-     * @param year specified year
-     * @return total expenditure of the category from specified month and year
-     */
-    private double getCategoryTotal(String categoryName, int month, int year) throws MooMooException {
-        Category newCategory = get(categoryName);
-        if (newCategory != null) {
-            return newCategory.getTotal(month, year);
-        } else {
-            throw new MooMooException("Sorry I could not find a category named " + categoryName);
-        }
-    }
-
-    public double getCategoryTotal(String categoryName, int month) throws MooMooException {
-        return getCategoryTotal(categoryName, month, LocalDate.now().getYear());
-    }
-
-    public double getCategoryTotal(String categoryName) throws MooMooException {
-        return getCategoryTotal(categoryName, LocalDate.now().getMonthValue(), LocalDate.now().getYear());
-    }
-    
     /**
      * Find the category with the largest total expenditure and return the value of that expenditure.
      *
@@ -166,33 +139,6 @@ public class CategoryList {
             return true;
         } catch (MooMooException e) {
             return false;
-        }
-    }
-
-    /**
-     * Sorts the category list in alphabetical order.
-     */
-    public void sortByName() {
-        for (Category category : categoryList) {
-            category.sort("name");
-        }
-    }
-
-    /**
-     * Sorts the category list from largest to smallest total expenditure for the month.
-     */
-    public void sortByValue() {
-        for (Category category : categoryList) {
-            category.sort("value");
-        }
-    }
-
-    /**
-     * Sorts the category list in chronological order.
-     */
-    public void sortByTime() {
-        for (Category category : categoryList) {
-            category.sort("date");
         }
     }
 

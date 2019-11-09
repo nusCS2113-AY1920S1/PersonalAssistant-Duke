@@ -22,16 +22,13 @@ public class HelpCommand extends Command {
                 + "bye\n"
                 + "list\n"
                 + "category add [CATEGORY NAME]\n"
-                + "category edit o/[OLD CATEGORY NAME] n/[NEW CATEGORY NAME]\n"
                 + "category delete [CATEGORY NAME or CATEGORY INDEX NUMBER]\n"
                 + "add n/[NAME] a/[AMOUNT SPENT] c/[CATEGORY] (optional: d/[YYYY-MM-DD])\n"
-                + "edit i/[INDEX] (at least one of: n/[NAME] a/[AMOUNT SPENT] c/[CATEGORY] d/[YYYY-MM-DD])\n"
                 + "delete i/[INDEX] c/[Category]\n"
                 + "sort [TYPE]\n"
                 + "budget\n"
                 + "schedule\n"
-                + "graph\n"
-                + "total";
+                + "graph\n";
         Ui.setOutput(text);
     }
 }
