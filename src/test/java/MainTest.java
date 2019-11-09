@@ -380,11 +380,13 @@ public class MainTest {
         Goal futureGoal1 = new Goal("finish chapter 9");
         testList.getEvent(2).addGoal(futureGoal1);
         testList.findNextEventAndSetBoolean(currentDate1.getEventJavaDate());
+        assertFalse(testList.gotPastUnachieved);
         assertEquals("\n" + "Below lists all the unachieved goal for past events. Please be reminded to add them to the future events." + "\n" + "You do not have any unachieved goals for past events! Yay!" + "\n", testList.getPastEventsWithUnachievedGoals());
     }
 
     @Test
     public void viewScheduleTest() throws CostExceedsBudgetException, EndBeforeStartException, ClashException {
+        boolean isEventsFound;
         ArrayList<String> testListString = new ArrayList<>();
         EventList testList = new EventList(testListString);
         Event toDoTest = new ToDo("cheese", "19-09-2019");
@@ -398,17 +400,22 @@ public class MainTest {
         Event eventTest = new Recital("band recital", "20-09-2019 2100", "20-09-2019 2200");
         testList.addEvent(eventTest);
         String dateToView = "19-09-2019";
-        String foundTask = "";
-        int viewIndex = 1;
+        ArrayList<String> eventsOnASpecificDate = new ArrayList<>();
         EventDate findDate = new EventDate(dateToView);
-        for (Event testViewTask : testList.getEventArrayList()) {
-            if (testViewTask.toString().contains(findDate.getFormattedDateString())) {
-                foundTask += viewIndex + ". " + testViewTask.toString() + "\n";
-                viewIndex++;
+        for (int i = 0; i < testList.getEventArrayList().size(); i += 1) {
+            Event viewEvent = testList.getEvent(i);
+            String eventStringWithIndex = "";
+            if (viewEvent.toString().contains(findDate.getFormattedDateString())) {
+                eventStringWithIndex += i + 1 + ". " + viewEvent.toString();
+                eventsOnASpecificDate.add(eventStringWithIndex);
             }
         }
-        boolean isTasksFound = !foundTask.isEmpty();
-        assertEquals(true, isTasksFound);
+        if (eventsOnASpecificDate.isEmpty()) {
+            isEventsFound = false;
+        } else {
+            isEventsFound = true;
+        }
+        assertEquals(true, isEventsFound);
     }
 
     //@@author ZhangYihanNus

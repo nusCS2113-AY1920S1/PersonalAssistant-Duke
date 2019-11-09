@@ -1,21 +1,20 @@
 package mistermusik.logic;
 
-import mistermusik.Main;
 import mistermusik.commons.Contact;
-import mistermusik.commons.events.eventtypes.Event;
-import mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclasses.Exam;
-import mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclasses.Recital;
-import mistermusik.commons.events.eventtypes.eventsubclasses.Concert;
-import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Lesson;
-import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Practice;
-import mistermusik.commons.events.eventtypes.eventsubclasses.ToDo;
-import mistermusik.ui.CalendarView;
-import mistermusik.commons.events.formatting.DateStringValidator;
-import mistermusik.commons.events.formatting.EventDate;
-import mistermusik.storage.*;
+import mistermusik.commons.Goal;
 import mistermusik.commons.Instruments.InstrumentList;
 import mistermusik.commons.budgeting.CostExceedsBudgetException;
-import mistermusik.commons.Goal;
+import mistermusik.commons.events.eventtypes.Event;
+import mistermusik.commons.events.eventtypes.eventsubclasses.Concert;
+import mistermusik.commons.events.eventtypes.eventsubclasses.ToDo;
+import mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclasses.Exam;
+import mistermusik.commons.events.eventtypes.eventsubclasses.assessmentsubclasses.Recital;
+import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Lesson;
+import mistermusik.commons.events.eventtypes.eventsubclasses.recurringeventsubclasses.Practice;
+import mistermusik.commons.events.formatting.DateStringValidator;
+import mistermusik.commons.events.formatting.EventDate;
+import mistermusik.storage.Storage;
+import mistermusik.ui.CalendarView;
 import mistermusik.ui.UI;
 
 import java.text.ParseException;
@@ -405,21 +404,27 @@ public class Command {
      * Searches list for events found in a singular date, passes to UI for printing.
      */
     private void viewEvents(EventList events, UI ui) {
+        boolean isEventsFound;
         if (continuation.isEmpty()) {
             ui.viewCommandWrongFormat();
         } else {
             String dateToView = continuation;
-            String foundEvent = "";
-            int viewIndex = 1;
+            ArrayList<String> eventsOnASpecificDate = new ArrayList<>();
             EventDate findDate = new EventDate(dateToView);
-            for (Event viewEvent : events.getEventArrayList()) {
+            for (int i = 0; i < events.getEventArrayList().size(); i += 1) {
+                Event viewEvent = events.getEvent(i);
+                String eventStringWithIndex = "";
                 if (viewEvent.toString().contains(findDate.getFormattedDateString())) {
-                    foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";
+                    eventStringWithIndex += i + 1 + ". " + viewEvent.toString();
+                    eventsOnASpecificDate.add(eventStringWithIndex);
                 }
-                viewIndex++;
             }
-            boolean isEventsFound = !foundEvent.isEmpty();
-            ui.printFoundEvents(foundEvent, isEventsFound);
+            if (eventsOnASpecificDate.isEmpty()) {
+                isEventsFound = false;
+            } else {
+                isEventsFound = true;
+            }
+            ui.printEventsOnASpecificDate(eventsOnASpecificDate, isEventsFound);
         }
     }
 
@@ -631,7 +636,7 @@ public class Command {
                         if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
                             String deletedGoal = events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getGoal();
                             events.getEvent(eventIndex).removeGoal(goalIndex - 1);
-                            ui.goalDeleted(deletedGoal);
+                            ui.printGoalDeleted(deletedGoal);
                         } else {
                             ui.printNoSuchGoal();
                         }
@@ -641,7 +646,7 @@ public class Command {
                         if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
                             Goal newGoal = new Goal(splitGoal[1]);
                             events.getEvent(eventIndex).editGoalList(newGoal, goalIndex - 1);
-                            ui.goalUpdated(events, eventIndex, goalIndex - 1);
+                            ui.printGoalUpdated(events, eventIndex, goalIndex - 1);
                         } else {
                             ui.printNoSuchGoal();
                         }
@@ -649,8 +654,12 @@ public class Command {
 
                     case "achieved":
                         if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
-                            events.getEvent(eventIndex).updateGoalAchieved(goalIndex - 1);
-                            ui.goalSetAsAchieved(events.getEvent(eventIndex).getGoalObject(goalIndex - 1));
+                            if (events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getBooleanStatus()) {
+                                ui.printGoalAlreadyAchieved();
+                            } else {
+                                events.getEvent(eventIndex).updateGoalAchieved(goalIndex - 1);
+                                ui.printGoalSetAsAchieved(events.getEvent(eventIndex).getGoalObject(goalIndex - 1));
+                            }
                         } else {
                             ui.printNoSuchGoal();
                         }
@@ -665,7 +674,7 @@ public class Command {
                     case "add":
                         Goal newGoal = new Goal(splitGoal[1]);
                         events.getEvent(eventIndex).addGoal(newGoal);
-                        ui.goalAdded(newGoal.getGoal());
+                        ui.printGoalAdded(newGoal.getGoal());
                         break;
 
                     case "view":

@@ -391,6 +391,7 @@ public class EventList {
                 for (int j = 0; j < eventToCheck.getGoalList().size(); j += 1) {
                     if (!eventToCheck.getGoalObject(j).getBooleanStatus()) {
                         gotPastUnachieved = true;
+                        break;
                     }
                 }
             }
