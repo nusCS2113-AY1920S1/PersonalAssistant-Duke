@@ -397,7 +397,7 @@ public class Storage {
     /**
      * Performs the writing of an itineraryTable or favoriteList to specified filepath.
      *
-     * @throws FileNotSavedException If the file cannot be saved.
+     * @throws IOException If the file cannot be saved.
      */
     private void saveEntireItineraryList(String file, HashMap<String, Itinerary> itineraryTable) throws IOException {
         FileWriter writer = new FileWriter(file, false);
