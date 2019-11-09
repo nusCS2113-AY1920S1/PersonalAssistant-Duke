@@ -30,3 +30,6 @@ deploy:
     on_success: always
     on_failure: never
     tags: true
+
+after_success:
+  - ./gradlew jacocoTestReport coveralls
