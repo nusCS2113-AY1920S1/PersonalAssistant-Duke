@@ -1,5 +1,6 @@
 package entertainment.pro.logic.parsers.commands;
 
+import com.fasterxml.jackson.databind.cfg.MutableConfigOverride;
 import entertainment.pro.commons.PromptMessages;
 import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.storage.utils.ProfileCommands;
@@ -11,7 +12,14 @@ import entertainment.pro.logic.parsers.CommandSuper;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
+/**
+ * This class is called when user wants to edit preferences.
+ * Input entered by the user starts with 'preference'
+ */
 public class PreferenceCommand extends CommandSuper {
 
     private static String GET_NEW_GENRE_PREF = "-g";
@@ -19,23 +27,47 @@ public class PreferenceCommand extends CommandSuper {
     private static String GET_NEW_SORT = "-s";
     private static String GET_NEW_ADULT_RATING = "-a";
     ArrayList<String> containsPossibleInputs = new ArrayList<>();
+    List<String> flagList = Arrays.asList( GET_NEW_GENRE_PREF, GET_NEW_GENRE_RESTRICT, GET_NEW_SORT, GET_NEW_ADULT_RATING);
 
 
+    /**
+     * Constructor for Command Super class.
+     * @param uiController Controller Class.
+     */
     public PreferenceCommand(Controller uiController) {
         super(COMMANDKEYS.preference, CommandStructure.cmdStructure.get(COMMANDKEYS.preference), uiController);
     }
 
+    /**
+     * Responsible for adding possible valid user inputs to the arraylist.
+     */
     private void setContainsInputs() {
-        containsPossibleInputs.add(GET_NEW_GENRE_PREF);
-        containsPossibleInputs.add(GET_NEW_GENRE_RESTRICT);
-        containsPossibleInputs.add(GET_NEW_ADULT_RATING);
-        containsPossibleInputs.add(GET_NEW_SORT);
+        containsPossibleInputs.addAll(flagList);
     }
 
+    /**
+     * Called when user wants to edit preferences set on the app.
+     * @throws InvalidFormatCommandException when the input entered by the user is invalid.
+     * @throws IOException
+     */
     @Override
-    public void executeCommands() throws IOException {
+    public void executeCommands() throws InvalidFormatCommandException, IOException {
         setContainsInputs();
         MovieHandler movieHandler = ((MovieHandler) this.getUiController());
+        for (Map.Entry<String, ArrayList<String>> entry : getFlagMap().entrySet()) {
+            boolean isValidFlag = false;
+            String k = entry.getKey();
+            for (int i = 0; i < containsPossibleInputs.size(); i += 1) {
+                if (k.equals(containsPossibleInputs.get(i))) {
+                    isValidFlag = true;
+                    break;
+                }
+            }
+            if (!isValidFlag) {
+                ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
+                throw new InvalidFormatCommandException();
+            }
+        }
         switch (this.getSubRootCommand()) {
         case add:
             executeAddPreference(containsPossibleInputs, movieHandler);
@@ -47,7 +79,8 @@ public class PreferenceCommand extends CommandSuper {
             executeClearPreference(containsPossibleInputs, movieHandler);
             break;
         default:
-            break;
+            ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
+            throw new InvalidFormatCommandException();
         }
         movieHandler.clearSearchTextField();
         System.out.println("this is done1");
@@ -57,14 +90,14 @@ public class PreferenceCommand extends CommandSuper {
 
 
     /**
-     * add to user preference.
-     * root: preference
-     * sub: add
-     * payload: none
-     * flag: -g (genre name -- not genre ID)
+     * Called when user wants to add elements to preference categories.
+     * @param containsPossibleInputs ArrayList containing the possible categories, user want to add elements.
+     * @param movieHandler MovieHandler class
+     * @throws IOException
+     * @throws InvalidFormatCommandException when the input entered by the user is invalid.
      */
-    private void executeAddPreference(ArrayList<String> containsPossibleInputs,
-                                      MovieHandler movieHandler) throws IOException {
+    private void executeAddPreference(ArrayList<String> containsPossibleInputs, MovieHandler movieHandler)
+            throws IOException {
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
         for (int i = 0; i < containsPossibleInputs.size(); i += 1) {
             if (getFlagMap().containsKey(containsPossibleInputs.get(i))) {
@@ -72,6 +105,7 @@ public class PreferenceCommand extends CommandSuper {
                     command.addPreference(this.getFlagMap(), containsPossibleInputs.get(i));
                     movieHandler.setGeneralFeedbackText(PromptMessages.PREFERENCES_SUCCESS);
                 } catch (InvalidFormatCommandException InvalidFormatCommandException) {
+                    ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
                     movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
                 }
             }
@@ -79,14 +113,14 @@ public class PreferenceCommand extends CommandSuper {
     }
 
     /**
-     * remove from user preference.
-     * root: preference
-     * sub: remove
-     * payload: none
-     * flag: -g (genre name -- not genre ID)
+     * Called when user wants to remove elements from preference categories.
+     * @param containsPossibleInputs ArrayList containing the possible categories, user want to remove elements.
+     * @param movieHandler MovieHandler class
+     * @throws IOException
+     * @throws InvalidFormatCommandException when the input entered by the user is invalid.
      */
-    private void executeRemovePreference(ArrayList<String> containsPossibleInputs,
-                                         MovieHandler movieHandler) throws IOException {
+    private void executeRemovePreference(ArrayList<String> containsPossibleInputs, MovieHandler movieHandler)
+            throws IOException {
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
         for (int i = 0; i < containsPossibleInputs.size(); i += 1) {
             if (getFlagMap().containsKey(containsPossibleInputs.get(i))) {
@@ -94,20 +128,19 @@ public class PreferenceCommand extends CommandSuper {
                     command.removePreference(this.getFlagMap(), containsPossibleInputs.get(i));
                     movieHandler.setGeneralFeedbackText(PromptMessages.PREFERENCES_SUCCESS);
                 } catch (InvalidFormatCommandException InvalidFormatCommandException) {
+                    ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
                     movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
                 }
             }
         }
-
     }
 
     /**
-     * clear all preference that was set previously.
-     * root: preference
-     * sub: clear
-     * payload: none
-     * flag: -g (genre name -- not genre ID)
-     *       -a (adult -- yes to allow adult content, no to restrict, set to yes by default)
+     * Called when user wants to clear elements from preference categories.
+     * @param containsPossibleInputs ArrayList containing the possible categories, user want to clear elements.
+     * @param movieHandler MovieHandler class
+     * @throws IOException
+     * @throws InvalidFormatCommandException when the input entered by the user is invalid.
      */
     private void executeClearPreference(ArrayList<String> containsPossibleInputs,
                                         MovieHandler movieHandler) throws IOException {
@@ -118,10 +151,10 @@ public class PreferenceCommand extends CommandSuper {
                     command.clearPreference(this.getFlagMap(), containsPossibleInputs.get(i));
                     movieHandler.setGeneralFeedbackText(PromptMessages.PREFERENCES_SUCCESS);
                 } catch (InvalidFormatCommandException InvalidFormatCommandException) {
+                    ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
                     movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
                 }
             }
         }
-
     }
 }

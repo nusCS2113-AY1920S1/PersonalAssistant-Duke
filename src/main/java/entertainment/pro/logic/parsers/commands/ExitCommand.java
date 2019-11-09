@@ -9,7 +9,7 @@ import entertainment.pro.ui.Controller;
 import java.io.IOException;
 
 /**
- * Exit Class to exit the program.
+ * This class is responsible for exiting the program.
  */
 public class ExitCommand extends CommandSuper {
 
@@ -17,10 +17,11 @@ public class ExitCommand extends CommandSuper {
         super(COMMANDKEYS.exit, CommandStructure.cmdStructure.get(COMMANDKEYS.exit), uicontroller);
     }
 
+    /**
+     * Responsible for exiting from the app.
+     */
     @Override
-    public void executeCommands() throws IOException, Exceptions {
-
+    public void executeCommands() {
         System.exit(0);
-
     }
 }

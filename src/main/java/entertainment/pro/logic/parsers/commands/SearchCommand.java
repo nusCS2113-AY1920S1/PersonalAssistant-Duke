@@ -51,7 +51,7 @@ public class SearchCommand extends CommandSuper {
     }
 
     /**
-     * Responible for extracting user preferences from the command and storing it in a SearchProfile object.
+     * Responsible for extracting user preferences from the command and storing it in a SearchProfile object.
      * Also responsible for extracting whether the search request is for movies or TV shows.
      * And then call the approriate function to further extract the exact search request.
      * @throws Exceptions
@@ -127,6 +127,14 @@ public class SearchCommand extends CommandSuper {
             movieHandler.setGeneralFeedbackText(PromptMessages.EMPTY_PARAM_IN_SEARCH);
             logger.log(Level.SEVERE, PromptMessages.EMPTY_PARAM_IN_SEARCH);
             throw new Exceptions(PromptMessages.EMPTY_PARAM_IN_SEARCH);
+        }
+        if (payload.equals("create")) {
+            movieHandler.getAPIRequester().create();
+            return;
+        }
+        if (payload.equals("get")) {
+            movieHandler.getAPIRequester().getAllMovies();
+            return;
         }
         if (payload.equals(GET_CURRENT)) {
             movieHandler.getAPIRequester().beginSearchRequest(RetrieveRequest.MoviesRequestType.CURRENT_TV);

@@ -37,8 +37,7 @@ public class MovieInfoFetcher implements Runnable {
         try {
             json = URLRetriever.readURLAsString(movieRequestUrl);
             movieRequestListener.fetchedJSON(json);
-            //System.out.println("passed");
-        } catch (Exceptions ex) {
+        } catch (NullPointerException | Exceptions e) {
             movieRequestListener.fetchOfflineData();
             }
         }
