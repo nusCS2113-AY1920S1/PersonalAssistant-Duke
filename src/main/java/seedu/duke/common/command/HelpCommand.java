@@ -73,7 +73,6 @@ public class HelpCommand extends Command {
                 + "commands. "));
         commandInfoList.add(new CommandInfo("Common", "flip", "Change between task or email commands"));
         commandInfoList.add(new CommandInfo("Common", "bye", "Safely exits the program"));
-        commandInfoList.add(new CommandInfo("Common", "clear chat", "Clear dialogue box"));
 
         commandInfoList.add(new CommandInfo("Task", "list", "List all tasks"));
         commandInfoList.add(new CommandInfo("Task", "done \'index\'", "Mark a task at the given index as "
@@ -98,23 +97,32 @@ public class HelpCommand extends Command {
                 + "\t[-tag \'tag content\']\t\t(Optional) Add a tag to the task created. Multiple tags can "
                 + "be added to a single todo. "
                 + System.lineSeparator() + "\t[-doafter \'message\']\t\t(Optional) Add the event/time after "
-                + "which the task should be done", "Create a todo. "));
+                + "which the task should be done."
+                + System.lineSeparator() + "\t[-priority \'priority level\']\t\t(Optional) Add a priority "
+                + "level to the task.", "Create a todo. "));
         commandInfoList.add(new CommandInfo("Task", "deadline \'name\'" + System.lineSeparator()
                 + "\t-time \'dd/MM/uuuu HHmm\'\t\t (Must) The time of the deadline" + System.lineSeparator()
                 + "or\t-time \'day HHmm\'\t\t (Optional) The time of the deadline" + System.lineSeparator()
                 + "\t[-tag \'tag content\']\t\t(Optional) Add a tag to the task created. Multiple tags "
                 + "can be added to a single deadline. "
                 + System.lineSeparator() + "\t[-doafter \'message\']\t\t(Optional) Add the event/time after "
-                + "which the task should be done", "Create a deadline."));
+                + "which the task should be done."
+                + System.lineSeparator() + "\t[-priority \'priority level\']\t\t(Optional) Add a priority "
+                + "level to the task.", "Create a deadline."));
         commandInfoList.add(new CommandInfo("Task", "event \'name\'" + System.lineSeparator()
                 + "\t-time \'dd/MM/uuuu HHmm\'\t\t (Must) The time of the event" + System.lineSeparator()
                 + "or\t-time \'day HHmm\'\t\t (Optional) The time of the event" + System.lineSeparator()
                 + "\t[-tag \'tag content\']\t\t(Optional) Add a tag to the task created. Multiple tags "
                 + "can be added to a single event. "
                 + System.lineSeparator() + "\t[-doafter \'message\']\t\t(Optional) Add the event/time after "
-                + "which the task should be done", "Create a event."));
+                + "which the task should be done."
+                + System.lineSeparator() + "\t[-priority \'priority level\']\t\t(Optional) Add a priority "
+                + "level to the task.", "Create a event."));
         commandInfoList.add(new CommandInfo("Task", "clear", "Clear task list"));
-
+        commandInfoList.add(new CommandInfo("Task", "sort \'type\'" + System.lineSeparator()
+                + "\ttype can be \'status\', \'time\' or \'priority\'" + System.lineSeparator() + "\tTask "
+                + "list is sorted by time by default if sorting type is not changed.", "Sort task "
+                + "list"));
 
         commandInfoList.add(new CommandInfo("Email", "list", "List all the emails."));
         commandInfoList.add(new CommandInfo("Email", "show \'index\'", "Show a email content at the given "
