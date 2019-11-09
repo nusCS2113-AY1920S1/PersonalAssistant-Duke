@@ -1,5 +1,6 @@
 package Commands;
 
+import Commons.DukeConstants;
 import Commons.DukeLogger;
 import Commons.Storage;
 import Commons.UserInteraction;
@@ -47,10 +48,7 @@ public class AddCommand extends Command {
                 eventConflict = checkEventConflict(events, this.task);
             } catch (ParseException e) {
                 LOGGER.severe("Invalid format for adding event");
-                throw new DukeInvalidFormatException("OOPS!!! Please enter event as follows:\n"
-                        + "add/e modCode name_of_event /at dd/MM/yyyy /from HHmm /to HHmm\n"
-                        + "or add/e modCode name_of_event /at week x day /from HHmm /to HHmm\n "
-                        + "For example: add/e CS1231 project meeting /at 1/1/2020 /from 1500 /to 1700");
+                throw new DukeInvalidFormatException(DukeConstants.SAD_FACE +DukeConstants.EVENT_FORMAT);
             }
             int size = events.taskListSize() + 1;
 
