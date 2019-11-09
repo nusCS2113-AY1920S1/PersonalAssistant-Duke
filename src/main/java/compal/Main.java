@@ -104,14 +104,17 @@ public class Main extends Application {
         logicManager.logicExecute("deadline CS2105 Assignment 3 /date 13/11/2019 /end 2359 /priority high");
         logicManager.logicExecute("deadline GEQ1000 Philosophy Quiz /date 08/09/2019 /end 2359 /priority low");
         logicManager.logicExecute("deadline GEQ1000 Physics Quiz /date 22/09/2019 /end 2359 /priority low");
-        logicManager.logicExecute("deadline GEQ1000 Computational Thinking Quiz /date 13/10/2019 /end 2359 /priority low");
+        logicManager.logicExecute("deadline GEQ1000 Computational Thinking Quiz /date 13/10/2019 /end 2359 "
+            + "/priority low");
         logicManager.logicExecute("deadline GEQ1000 Engineering Quiz /date 27/10/2019 /end 2359 /priority low");
         logicManager.logicExecute("deadline GEQ1000 Economics Quiz /date 10/11/2019 /end 2359 /priority low");
         logicManager.logicExecute("deadline GEQ1000 Design Quiz /date 17/11/2019 /end 2359 /priority low");
         logicManager.logicExecute("deadline GEQ1000 Design Wallet /date 17/11/2019 /end 2359 /priority low");
         logicManager.logicExecute("deadline GEQ1000 Final Reflection Draft /date 20/10/2019 /end 2359 /priority low");
-        logicManager.logicExecute("deadline GEQ1000 Final Reflection Paper /date 17/11/2019 /end 2359 /priority low");
-        logicManager.logicExecute("deadline CS2101 Prepare OP2 Slides & Script /date 02/11/2019 /end 2359 /priority high");
+        logicManager.logicExecute("deadline GEQ1000 Final Reflection Paper /date 17/11/2019 /end 2359 "
+            + "/priority low");
+        logicManager.logicExecute("deadline CS2101 Prepare OP2 Slides & Script /date 02/11/2019 /end 2359 "
+            + "/priority high");
         logicManager.logicExecute("deadline CS2101/CS2113T PPP Submission /date 11/11/2019 /end 2359 /priority high");
         logicManager.logicExecute("deadline CS2101/CS2113T UG Submission /date 11/11/2019 /end 2359 /priority high");
         logicManager.logicExecute("deadline CS2101/CS2113T DG Submission /date 11/11/2019 /end 2359 /priority high");
