@@ -35,6 +35,7 @@ public class StudentList implements IStudentList {
      * Method to list all the names of the students in the list.
      */
     public void listAllStudents() {
+        System.out.println("Here are your list of students: ");
         int index = 1;
         for (Student i : getStudentList()) {
             System.out.println(index++ + ". " + i.getName());
@@ -93,9 +94,9 @@ public class StudentList implements IStudentList {
                 + getStudentList().get(index - 1).getName()
                 + " has been removed from the list.");
             if ((getStudentListSize() - 1) == 0) {
-                System.out.println("Now you have no student in your list.");
+                System.out.println("\nNow you have no student in your list.");
             } else {
-                System.out.println("Now you have "
+                System.out.println("\nNow you have "
                     + (getStudentListSize() - 1)
                     + " students in your list.");
             }
