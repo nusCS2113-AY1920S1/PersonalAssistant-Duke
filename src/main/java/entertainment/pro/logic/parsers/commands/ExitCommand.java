@@ -10,6 +10,10 @@ import entertainment.pro.ui.Controller;
  */
 public class ExitCommand extends CommandSuper {
 
+    /**
+     * Constructor for Command Super class.
+     * @param uicontroller Controller class.
+     */
     public ExitCommand(Controller uicontroller) {
         super(COMMANDKEYS.EXIT, CommandStructure.cmdStructure.get(COMMANDKEYS.EXIT), uicontroller);
     }

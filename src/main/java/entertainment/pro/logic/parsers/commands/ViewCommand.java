@@ -13,10 +13,17 @@ import entertainment.pro.logic.parsers.CommandSuper;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ViewCommand extends CommandSuper {
+/**
+ * This class is responsible for calling the appropriate functions when the root command is 'view'.
+ */
+ public class ViewCommand extends CommandSuper {
     private Controller controller;
     private int constant = 5;
 
+    /**
+     * Constructor for Command Super class.
+     * @param uicontroller Ui controller class.
+     */
     public ViewCommand(Controller uicontroller) {
         super(COMMANDKEYS.VIEW, CommandStructure.cmdStructure.get(COMMANDKEYS.VIEW), uicontroller);
     }
@@ -39,7 +46,6 @@ public class ViewCommand extends CommandSuper {
                 break;
                 case BACK:
                     executeBackCommands();
-
             default:
                 break;
         }

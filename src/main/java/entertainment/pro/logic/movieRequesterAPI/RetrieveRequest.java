@@ -846,20 +846,19 @@ public class RetrieveRequest implements InfoFetcher {
      * @return true if the movie/TV show meets users' preferences and requirements.
      */
     public static boolean checkCondition(JSONObject entryInfo) {
-        //System.out.println(searchProfile.getName());
         if (isOffline) {
+            System.out.println(entryInfo.get("name"));
             if ((!(searchProfile.isAdult())) && (entryInfo.get(TO_SPECIFY_ADULT).equals(TO_SPECIFY_TRUE))) {
                 return false;
             }
-            if (getType.equals(MoviesRequestType.SEARCH_MOVIES)) {
+            if ((getType.equals(MoviesRequestType.SEARCH_MOVIES)) ||
+                    (getType.equals(MoviesRequestType.SEARCH_TV))) {
                 String searchName = searchProfile.getName().toLowerCase();
-                String entryInfoName = ((String) entryInfo.get(MOVIE_TITLE)).toLowerCase();
-                //  if (searchName.indexOf(entryInfoName) == -1) {
-                if (!(searchName.contains(entryInfoName))) {
+                String entryInfoName = extractName(entryInfo);
+                  if (entryInfoName.indexOf(searchName) == -1) {
+                //if (!(searchName.contains(entryInfoName))) {
                     return false;
                 }
-                //if (!(searchName.equals(entryInfoName))) {
-                //  return false;
             }
         }
         Set<Long> genrePref = new HashSet<>();
@@ -883,11 +882,11 @@ public class RetrieveRequest implements InfoFetcher {
         } catch (NullPointerException e) {
             haveGenreRestrict = false;
         }
+        if (genreRestric.size() == 0) {
+            haveGenreRestrict = false;
+        }
         JSONArray jsonArray = (JSONArray) entryInfo.get(GENRES);
         boolean containPrefGenre = false;
-
-        //   System.out.println("this is set " + genrePref);
-
         for (int i = 0; i < jsonArray.size(); i += 1) {
             // System.out.println(jsonArray.get(i));
             if (genreRestric.contains((long) jsonArray.get(i))) {
@@ -899,14 +898,21 @@ public class RetrieveRequest implements InfoFetcher {
             }
         }
         if ((containPrefGenre) || !(haveGenrePref)) {
-            // System.out.println("ahh");
             return true;
-
         } else {
-            // System.out.println("afff");
             return false;
 
         }
+    }
+
+    private static String extractName(JSONObject entryInfo) {
+        String filename = "";
+        if (searchProfile.isMovie()) {
+            filename = ((String) entryInfo.get(MOVIE_TITLE)).toLowerCase();
+        } else {
+            filename = ((String) entryInfo.get(TV_TITLE)).toLowerCase();
+        }
+        return filename;
     }
 
 }

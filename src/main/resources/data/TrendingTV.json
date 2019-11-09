@@ -205,28 +205,6 @@
     },
     {
       "adult": false,
-      "first_air_date": "2019-10-29",
-      "overview": "Set in contemporary Europe, the reimagining follows the pockets of humanity left on earth following an apocalyptic extra-terrestrial strike.",
-      "cert": "N\/A",
-      "genre_ids": [
-        18,
-        10765
-      ],
-      "cast": [
-        "Gabriel Byrne",
-        "Natasha Little",
-        "Daisy Edgar-Jones",
-        "Elizabeth McGovern",
-        "Stéphane Caillard"
-      ],
-      "media_type": "tv",
-      "original_name": "War of the Worlds",
-      "vote_average": 0.0,
-      "name": "War of the Worlds",
-      "id": 86374
-    },
-    {
-      "adult": false,
       "first_air_date": "2018-10-12",
       "overview": "A team of young superheroes led by Nightwing (formerly Batman's first Robin) form to combat evil and other perils.",
       "cert": "N\/A",
@@ -362,6 +340,7 @@
       "id": 1399
     },
     {
+      "adult": false,
       "first_air_date": "2019-10-06",
       "overview": "In Edwardian England, George and his partner Amy attempt to defy society and start a life together as they face the escalating terror of an alien invasion, fighting for their lives against an enemy beyond their comprehension.",
       "cert": "N\/A",

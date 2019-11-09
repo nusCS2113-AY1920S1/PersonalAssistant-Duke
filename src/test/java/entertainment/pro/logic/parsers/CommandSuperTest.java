@@ -3,6 +3,8 @@ package entertainment.pro.logic.parsers;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
+import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.logic.parsers.commands.SearchCommand;
 import org.junit.jupiter.api.Test;
 
@@ -54,7 +56,7 @@ public class CommandSuperTest {
 
 
     @Test
-    public void processFlags_validInputs_success() {
+    public void processFlags_validInputs_success() throws InvalidFormatCommandException {
 
         SearchCommand sc = new SearchCommand(null);
 
@@ -91,7 +93,7 @@ public class CommandSuperTest {
 
 
     @Test
-    public void processFlags_invalidInputs_failure() {
+    public void processFlags_invalidInputs_failure() throws InvalidFormatCommandException {
 
         SearchCommand sc2 = new SearchCommand(null);
         String command2 = "search movies joker";

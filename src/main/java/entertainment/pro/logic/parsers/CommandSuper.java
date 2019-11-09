@@ -3,6 +3,7 @@ package entertainment.pro.logic.parsers;
 import entertainment.pro.commons.PromptMessages;
 import entertainment.pro.commons.assertions.CommandAssertions;
 import entertainment.pro.commons.exceptions.Exceptions;
+import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
@@ -104,7 +105,12 @@ public abstract class CommandSuper {
         if (!subCommand(commandArr)) {
             return false;
         }
-        processFlags(command);
+
+        try {
+            processFlags(command);
+        } catch (InvalidFormatCommandException e) {
+            ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
+        }
         processPayload(commandArr);
 
         return true;
@@ -121,7 +127,12 @@ public abstract class CommandSuper {
     public void initCommand(String[] commandArr, String command, COMMANDKEYS subRootCommand) {
 
         this.subRootCommand = subRootCommand;
-        processFlags(command);
+
+        try {
+            processFlags(command);
+        } catch (InvalidFormatCommandException e) {
+            ((MovieHandler) this.getUiController()).setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
+        }
         processPayload(commandArr);
         setExecute(false);
 
@@ -190,7 +201,7 @@ public abstract class CommandSuper {
      *
      * @param command   command that was entered by the user.
      */
-    public void processFlags(String command) {
+    public void processFlags(String command) throws InvalidFormatCommandException {
 
 
         String[] commandArr = command.split(" ");
@@ -223,13 +234,16 @@ public abstract class CommandSuper {
             }
             String[] flagsIndividualValues = flagValues.split(",");
             ArrayList<String> listOfString = new ArrayList<>();
-            listOfString = flagMap.get(flagOrder.get(counter));
+            try {
+                listOfString = flagMap.get(flagOrder.get(counter));
+            } catch (IndexOutOfBoundsException e) {
+                throw new InvalidFormatCommandException();
+            }
             if (listOfString == null) {
                 listOfString = new ArrayList<String>();
             }
             for (String individualFlags: flagsIndividualValues) {
                 listOfString.add(individualFlags.toLowerCase().trim());
-
             }
 
             flagMap.put(flagOrder.get(counter), listOfString);
