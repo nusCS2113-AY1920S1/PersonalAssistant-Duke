@@ -14,8 +14,8 @@ checkstyle {
 }
 
 shadowJar {
-    archiveBaseName = "Dukepital"
-    archiveVersion = "v1.3.2"
+    archiveBaseName = "[CS2113-T13-2][Dukepital]"
+    archiveVersion = "v1.4"
     archiveClassifier = null
     archiveAppendix = null
 }
