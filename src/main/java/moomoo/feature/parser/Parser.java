@@ -145,6 +145,10 @@ public class Parser {
             int month = now.getMonth().getValue();
             int year = now.getYear();
             return new MainDisplayCommand(month, year);
+        } else if (input.equals("all")) {
+            int month = 0;
+            int year = 0;
+            return new MainDisplayCommand(month, year);
         }
         throw new MooMooException("Sorry i did not recognize that command.");
     }

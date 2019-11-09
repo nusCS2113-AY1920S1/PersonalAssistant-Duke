@@ -33,9 +33,16 @@ public class MainDisplayCommand extends Command {
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
                         Storage storage) throws MooMooException {
         MainDisplay newMainDisplay = new MainDisplay();
-        int rows = newMainDisplay.getCatListSize(categoryList);
-        int cols = newMainDisplay.getMaxCatSize(categoryList);
-        String output = newMainDisplay.toPrint(month,year,rows,cols,categoryList,budget);
+        int rows;
+        int cols;
+        if (this.month != 0 && this.year != 0) {      // means user did specify a valid month and year
+            rows = newMainDisplay.getMonthsExpSize(categoryList, month, year);
+            cols = newMainDisplay.getCatListSize(categoryList);
+        } else {
+            cols = newMainDisplay.getCatListSize(categoryList);
+            rows = newMainDisplay.getMaxCatSize(categoryList);
+        }
+        String output = newMainDisplay.newToPrint(month,year,rows,cols,categoryList,budget);
         Ui.printMainDisplay(output);
     }
 }
