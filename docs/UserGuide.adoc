@@ -61,8 +61,9 @@ Examples:
 * `help`
 
 === Adding a project: `add project`
-Adds a project called `PROJECT_NAME` to the record. +
-Format: `add project pr/PROJECT_NAME`
+Adds a project called `PROJECT_NAME` to the record with budget `AMOUNT`.
+If `AMOUNT` is empty, the budget will be set to 0. +
+Format: `add project pr/PROJECT_NAME am/AMOUNT`
 
 [TIP]
 You can use more than one word for `PROJECT_NAME`.
@@ -70,11 +71,10 @@ You can use more than one word for `PROJECT_NAME`.
 [TIP]
 You may not add a new project with `PROJECT_NAME` if a project named `PROJECT_NAME` already exists.
 
-
 Examples:
 
-* `add project pr/Rag`
-* `add project pr/Arts Night`
+* `add project pr/Rag am/`
+* `add project pr/Arts Night am/100`
 
 === Deleting a project: `delete project`
 
@@ -88,13 +88,12 @@ Examples:
 
 === Going to a project to edit it: `goto project`
 
-Goes to a project called `PROJECT_NAME` in the record +
-Format: `goto project pr/PROJECT_NAME`
+Goes to a project with `PROJECT_INDEX` in the record +
+Format: `goto PROJECT_INDEX`
 
 Examples:
 
-* `goto project pr/Rag`
-* `goto project pr/Arts Night`
+* `goto 1`
 
 === List all projects: `list projects`
 
@@ -350,9 +349,9 @@ There is no need to save manually.
 
 
 * *Command Help*: `help`
-* *Add Project*: `add project pr/PROJECT_NAME`
+* *Add Project*: `add project pr/PROJECT_NAME am/AMOUNT`
 * *Delete Project*: `delete project pr/PROJECT_NAME`
-* *Go to Project*: `goto project pr/PROJECT_NAME`
+* *Go to Project*: `goto PROJECT_INDEX`
 * *List Projects*: `list projects`
 * *Set Total Fund*: `set fund am/AMOUNT`
 * *Add to Fund*: `add fund add/500`

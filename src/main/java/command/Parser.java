@@ -42,6 +42,7 @@ public class Parser {
                 storage.writeToProjectsFile(process.projectmanager.projectmap);
                 storage.writeToFundFile(fund);
                 storage.writeToDictFile(dict);
+                storage.writeTocurrentprojectnameFile(process.projectmanager.currentprojectname);
                 ui.byeMessage();
                 ui.getIn().close();
                 return true;
@@ -62,7 +63,7 @@ public class Parser {
                 process.commandHistory(input, ui, storage);
                 process.addProject(input, ui, fund, storage);
             } else if (instr.isDeleteProject(input)) {
-                process.deleteProject(input, ui, storage);
+                process.deleteProject(input, ui, storage, fund);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isGoToProject(input)) {
                 process.goToProject(input, ui);
@@ -117,9 +118,6 @@ public class Parser {
                 process.viewSchedule(input, tasklist, ui);
                 process.commandHistory(input, ui, storage);
                 //storage.save(tasklist.returnArrayList());
-            } else if (instr.isReminder(input)) {
-                //process.reminder(input, tasklist, ui);
-                process.commandHistory(input, ui, storage);
             } else if (instr.isEdit(input)) {
                 process.edit(input,ui);
                 process.commandHistory(input, ui, storage);
@@ -131,6 +129,9 @@ public class Parser {
                 process.commandHistory(input, ui, storage);
             } else if (instr.isDeletePayee(input)) {
                 process.deletePayee(input, ui, storage);
+                process.commandHistory(input, ui, storage);
+            } else if (instr.istotalcost(input)) {
+                process.totalCost(input, ui, storage);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isInvoice(input)) {
                 process.inVoice(input, tasklist, ui);
@@ -149,8 +150,17 @@ public class Parser {
             } else if (instr.isShowFund(input)) {
                 process.showFund(input, ui, fund);
                 process.commandHistory(input, ui, storage);
+            } else if (instr.isResetFund(input)) {
+                process.resetFund(input, ui, fund);
+                process.commandHistory(input, ui, storage);
+            } else if (instr.isShowBudget(input)) {
+                process.showBudget(input, ui);
+                process.commandHistory(input, ui, storage);
             } else if (instr.isHelp(input)) {
                 ui.printHelpMessage();
+            } else if (instr.isReminder(input)) {
+                process.reminder( ui, storage);
+                process.commandHistory(input, ui, storage);
             } else {
                 throw new AlphaNUSException("\t" + "OOPS!!! I'm sorry, but I don't know what that means :-(");
             }

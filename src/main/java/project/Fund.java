@@ -25,7 +25,7 @@ public class Fund {
      */
     public void setFund(double fund) {
         this.fund = fund;
-        this.fundRemaining = fund;
+        this.fundRemaining = fund - this.fundTaken;
     }
 
     /**

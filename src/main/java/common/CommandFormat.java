@@ -15,7 +15,7 @@ public class CommandFormat {
     }
 
     public String gotoProjectFormat() {
-        return "goto project pr/PROJECT_NAME";
+        return "goto PROJECT_INDEX_IN_LIST";
     }
 
     public String addPayeeFormat() {
@@ -44,6 +44,22 @@ public class CommandFormat {
 
     public String assignFundFormat() {
         return "assign fund pr/PROJECT_NAME am/AMOUNT";
+    }
+
+    public String resetFundFormat() {
+        return "reset fund am/AMOUNT";
+    }
+
+    public String reminderFormat() {
+        return "reminder";
+    }
+
+    public String showFundFormat() {
+        return "show fund";
+    }
+
+    public String showBudgetFormat() {
+        return "show budget pr/PROJECT_NAME";
     }
 
     public String historyFormat() {

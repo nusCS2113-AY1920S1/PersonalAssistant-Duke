@@ -82,6 +82,10 @@ public class Instruction {
         return input.startsWith("delete payee");
     }
 
+    public boolean istotalcost(String input)  {
+        return input.startsWith("total cost");
+    }
+
     public boolean isInvoice(String input) {
         return input.startsWith("invoice");
     }
@@ -103,7 +107,7 @@ public class Instruction {
     }
 
     public boolean isGoToProject(String input) {
-        return input.startsWith("goto project");
+        return input.startsWith("goto");
     }
 
     public boolean isSetFund(String input) {
@@ -120,6 +124,14 @@ public class Instruction {
 
     public boolean isShowFund(String input) { 
         return input.startsWith("show fund"); 
+    }
+
+    public boolean isResetFund(String input) {
+        return input.startsWith("reset fund");
+    }
+
+    public boolean isShowBudget(String input) {
+        return input.startsWith("show budget");
     }
 
     public boolean isViewhistory(String input) { 

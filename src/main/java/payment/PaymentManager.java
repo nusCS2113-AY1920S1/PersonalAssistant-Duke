@@ -2,6 +2,7 @@ package payment;
 
 import ui.Ui;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -49,11 +50,8 @@ public abstract class PaymentManager {
      */
     public static Payee findPayee(ProjectManager projectManager, String name) {
         Set<String> projectnames = projectManager.projectmap.keySet();
-        if (projectManager.currentProject == null) {
-            projectManager.gotoProject(projectnames.iterator().next());
-        }
-        String currProject = projectManager.currentProject.projectname;
-        while (!projectManager.currentProject.managermap.containsKey(name)) {
+        String currProject = projectManager.currentprojectname;
+        while (!projectManager.projectmap.get(currProject).managermap.containsKey(name)) {
             projectnames.remove(currProject);
             if (projectnames.isEmpty()) {
                 throw new IllegalArgumentException();
@@ -61,7 +59,7 @@ public abstract class PaymentManager {
             currProject = projectnames.iterator().next();
             projectManager.gotoProject(currProject);
         }
-        return projectManager.currentProject.managermap.get(name);
+        return projectManager.projectmap.get(currProject).managermap.get(name);
     }
 
     /**
@@ -119,9 +117,9 @@ public abstract class PaymentManager {
         ArrayList<Payments> approved = new ArrayList<>();
         for (Payee payee : managermap.values()) {
             for (Payments payment : payee.payments) {
-                if (payment.status == Status.PENDING) {
+                if (payment.getStatus() == Status.PENDING) {
                     pending.add(payment);
-                } else if (payment.status == Status.OVERDUE) {
+                } else if (payment.getStatus() == Status.OVERDUE) {
                     overdue.add(payment);
                 } else {
                     approved.add(payment);
@@ -139,11 +137,11 @@ public abstract class PaymentManager {
      * Deletes the Payments object details.
      * 
      */
-    public static Payments deletePayments(String payee, String item, HashMap<String, Payee> managermap) {
+    public static Payments deletePayments(String payee, String item, HashMap<String, Payee> managermap, String projectname) {
         int i = 0;
         while (i < managermap.get(payee).payments.size()) {
-            if (managermap.get(payee).payments.get(i++).item.equals(item)) {
-                Payments deleted = new Payments(payee, item, managermap.get(payee).payments.get(--i).cost,
+                    if (managermap.get(payee).payments.get(i++).item.equals(item)) {
+                        Payments deleted = new Payments(projectname, payee, item, managermap.get(payee).payments.get(--i).cost,
                         managermap.get(payee).payments.get(i).inv);
                 managermap.get(payee).payments.remove(i);
                 return deleted;
@@ -157,9 +155,9 @@ public abstract class PaymentManager {
      * 
      * @throws AlphaNUSException
      */
-    public static Payments addPayments(String payee, String item, double cost, String inv,
+    public static Payments addPayments(String project, String payee, String item, double cost, String inv, 
             HashMap<String, Payee> managermap, Set<String> dict) throws AlphaNUSException {
-        Payments pay = new Payments(payee, item, cost, inv);
+        Payments pay = new Payments(project, payee, item, cost, inv);
         pay.paymentToDict(dict);
         managermap.get(payee).payments.add(pay);
         return pay;
@@ -185,5 +183,22 @@ public abstract class PaymentManager {
         Payee payeeDeleted = managermap.get(payee);
         managermap.remove(payee);
         return payeeDeleted;
+    }
+
+    /**
+     * This function scans through every payment and changes its status if needed.
+     * @param managermap The managermap.
+     */
+    public static void checkStatus(HashMap<String, Payee> managermap){
+        Date dateObj = new Date(2019, 1, 1);
+        for (Payee payee : managermap.values()) { // iterate through the payees
+            for (Payments payment : payee.payments) { // iterate through the payments
+                if( payment.getStatus() == Status.APPROVED || dateObj.compareTo(payment.getDeadline()) >= 0) {
+                    continue;
+                } else {
+                    payment.setStatus(Status.OVERDUE);
+                }
+            }
+        }
     }
 }
