@@ -114,8 +114,8 @@ public class RoomShare {
                 try {
                     String input = parser.getCommandLine();
                     if(input.length() != 1 && input.split(" ")[0].equals("subtask")) {
-                       String info[] = input.split(" ");
-                        taskList.done(Integer.parseInt(info[1]), Integer.parseInt(info[2]));
+                       String[] info = input.split(" ");
+                       taskList.done(Integer.parseInt(info[1]), Integer.parseInt(info[2]));
                     } else {
                         int[] index = parser.getIndexRange(input);
                         taskList.done(index);

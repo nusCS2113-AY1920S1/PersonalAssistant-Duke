@@ -178,7 +178,11 @@ public class TaskList {
      */
     public void done(int index, int subTaskIndex) throws RoomShareException {
         if( TaskList.get(index) instanceof Assignment ) {
-            ((Assignment) TaskList.get(index-1)).doneSubtask(subTaskIndex-1);
+            try {
+                ((Assignment) TaskList.get(index - 1)).doneSubtask(subTaskIndex - 1);
+            } catch (ClassCastException e) {
+                throw new RoomShareException(ExceptionType.subTaskError);
+            }
         } else {
             throw new RoomShareException(ExceptionType.subTaskError);
         }
