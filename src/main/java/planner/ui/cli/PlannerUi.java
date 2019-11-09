@@ -48,7 +48,10 @@ public class PlannerUi {
     }
 
     public String readInput() {
-        return scan.nextLine().strip();
+        if (scan.hasNextLine()) {
+            return scan.nextLine().strip();
+        }
+        return null;
     }
 
     public String readPassword() {

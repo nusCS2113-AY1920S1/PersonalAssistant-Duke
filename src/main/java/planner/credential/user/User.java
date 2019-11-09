@@ -25,6 +25,7 @@ public class User {
     private static CredentialManager credentialManager = new CredentialManager();
     private static int LOGIN_LIMITS = 5;
     private static final String defaultPath = "data/userProfile.json";
+    private static String path = "data/userProfile.json";
 
     private User(int semester) {
         currentSemester = semester;
@@ -46,9 +47,17 @@ public class User {
         this.init(currentSemester);
     }
 
+    public static void setPath(String path) {
+        User.path = path;
+    }
+
+    public static void restoreDefaultPath() {
+        User.path = User.defaultPath;
+    }
+
     private static Profile readUserData() {
         try {
-            return User.storage.readGsonSecure(User.defaultPath, Profile.class);
+            return User.storage.readGsonSecure(User.path, Profile.class);
         } catch (ModTamperedDataException ex) {
             System.out.println(ex.getMessage());
             return null;
@@ -123,7 +132,7 @@ public class User {
     public void saveProfile() {
         Profile profile = new Profile();
         profile.put("profile", this);
-        User.storage.writeGsonSecure(profile, User.defaultPath);
+        User.storage.writeGsonSecure(profile, User.path);
     }
 
     public int getSemester() {

@@ -358,6 +358,9 @@ public class Parser {
      * @return parsed ModuleCommand if input is valid else null
      */
     public ModuleCommand parseCommand(String userInput) throws ModException {
+        if (userInput == null) {
+            return null;
+        }
         Namespace parsedInput = this.parse(userInput);
         if (parsedInput != null) {
             String command = parsedInput.get("command");
