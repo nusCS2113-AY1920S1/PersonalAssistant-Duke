@@ -10,7 +10,6 @@ import leduc.task.TaskList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
@@ -34,22 +33,6 @@ public abstract class Ui {
         return this.sc.nextLine();
     }
 
-    /**
-     * Returns a File object
-     * @return a file object containing the welcome message
-     */
-    public static File openFile(String filepath) throws FileException {
-        //open file, throw exception if the file doesnt exist.
-        File file;
-        file = new File(filepath);
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return file;
-    }
 
     /**
      * Display the duke logo.

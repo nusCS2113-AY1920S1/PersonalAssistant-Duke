@@ -435,7 +435,7 @@ Giving priority to task: `prioritize INDEX prio INDEX`
 
 The first INDEX is the task index
 
-The second INDEX is the priority (goes from 0 to 9)
+The second INDEX is the priority (goes from 1 to 9)
 
 Be careful:
 
