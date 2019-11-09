@@ -1,4 +1,4 @@
-package junittesting.quizTest;
+package junittesting.quiztest;
 
 import javacake.JavaCake;
 import javacake.exceptions.CakeException;
@@ -10,7 +10,7 @@ import javacake.quiz.QuizSession;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
+
 import java.util.HashSet;
 import java.util.Set;
 

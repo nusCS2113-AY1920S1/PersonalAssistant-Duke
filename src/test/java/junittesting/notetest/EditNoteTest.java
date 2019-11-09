@@ -1,4 +1,4 @@
-package junittesting.noteTest;
+package junittesting.notetest;
 
 public class EditNoteTest {
 }

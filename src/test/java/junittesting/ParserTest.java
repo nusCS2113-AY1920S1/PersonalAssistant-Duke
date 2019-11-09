@@ -1,4 +1,4 @@
-package unittesting;
+package junittesting;
 
 import javacake.JavaCake;
 import org.junit.jupiter.api.Test;

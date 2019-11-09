@@ -1,3 +1,5 @@
+package junittesting;
+
 import javacake.exceptions.CakeException;
 import javacake.Logic;
 import javacake.storage.StorageManager;

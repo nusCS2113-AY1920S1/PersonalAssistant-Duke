@@ -1,3 +1,5 @@
+package junittesting;
+
 import javacake.Logic;
 import javacake.exceptions.CakeException;
 import org.junit.jupiter.api.AfterAll;

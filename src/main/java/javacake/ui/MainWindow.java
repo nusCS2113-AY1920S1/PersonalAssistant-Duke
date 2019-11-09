@@ -139,16 +139,15 @@ public class MainWindow extends GridPane {
      */
     @FXML
     private void handleUserInput() {
-        //CHECKSTYLE:OFF
         if (!isExit) {
             try {
                 input = userInput.getText();
-                String[] inputDivider = input.split("\\s+");
                 // get input first, don't get response first...
                 userInput.clear();
                 JavaCake.logger.log(Level.INFO, "INPUT: " + input);
                 DialogBox.isScrollingText = true;
                 AvatarScreen.avatarMode = AvatarScreen.AvatarMode.HAPPY;
+                String[] inputDivider = input.split("\\s+");
                 if ("exit".equals(input)) {
                     handleExit();
                 } else if (isQuiz) {
@@ -177,7 +176,6 @@ public class MainWindow extends GridPane {
                 showContentContainer();
                 JavaCake.logger.log(Level.WARNING, e.getMessage());
             }
-            //CHECKSTYLE:ON
         }
     }
 

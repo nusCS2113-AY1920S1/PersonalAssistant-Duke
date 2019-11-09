@@ -1,4 +1,4 @@
-package junittesting.deadlineTest;
+package junittesting.deadlinetest;
 
 import javacake.JavaCake;
 import org.apache.commons.io.FileUtils;
