@@ -1,7 +1,6 @@
 package unittesting;
 
 import javacake.JavaCake;
-import javacake.Parser;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

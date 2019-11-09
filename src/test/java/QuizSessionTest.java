@@ -15,6 +15,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+
 public class QuizSessionTest {
 
     private static JavaCake javacake;
@@ -35,6 +36,7 @@ public class QuizSessionTest {
         response = javacake.getResponse("list");
         topics = response.split("\\r?\\n");
     }
+
 
     @Test
     void levelsOfDifficulity() {
@@ -106,4 +108,32 @@ public class QuizSessionTest {
         Set<Question> set = new HashSet<>(testQuesions.getQuestionList());
         assertEquals(set.size(), testQuesions.getQuestionList().size());
     }
+
+    //TODO add test for other commands not working when quiz session is active
+
+    /*@Test
+    void testOtherCommands() throws CakeException {
+        for (int i = 1; i < topics.length; i++) {
+            if (topics[i].contains("Test")) {
+                response = javacake.getResponse("goto " + i + ".1");
+                break;
+            }
+            //QuizSession quizSession = new QuizSession(QuestionType.ALL, QuestionDifficulty.EASY, false);
+            String[] commands = {"list", "back", "help", "score", "reset", "goto",
+                    "overview", "deadline", "editnote", "createnote", "listnote", "deletenote",
+                    "change", "reminder", "viewnote", "done", "delete", "snooze"};
+
+            for (int j = 0; j < commands.length; j++) {
+                response = javacake.getResponse(commands[j]);
+                if
+
+
+
+
+
+            }
+
+        }
+
+    }*/
 }
