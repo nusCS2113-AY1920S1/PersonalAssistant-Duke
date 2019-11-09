@@ -545,21 +545,21 @@ Step 2) User enters a command to view assignments. This can be in one of the fol
 
 Each command is accompanied with a suffix `all`, or selected index numbers of members or tasks.
 
-Step 3) The `ProjectInputController.manageProject()` will call `projectViewAssignments()` to validate the
-input by checking that there are sufficient parameters by checking input length, and ensuring that there is
-a valid flag (`-m` or `-t`).
+Step 3) The `ProjectInputController.manageProject()` will call `projectViewAssignments()`.
 
-Step 4) Depending on the flag in the user input, `projectViewAssignments()` calls 1 of 2 the helper methods:
-
-* Member flag `-m`: projectViewMembersAssignments() is called.
-** `ParserHelper.parseMemberIndexes` is called to parse the valid member indexes.
-** `AssignmentViewHelper.getMemberOutput` is called to access the HashMap `memberAndIndividualListOfTasks`
-to retrieve the assignments for the selected members.
+Step 4) `AssignmentViewHelper` is created, and calls `viewAssignments()` to to retrieve the necessary
+assignment information. The input length is checked to ensure that there are sufficient parameters.
+Depending on the flag in the user input, `viewAssignments()` calls 1 of 2 the helper methods:
 
 * Task flag `-t`: projectViewTasksAssignments() is called.
-** `ParserHelper.parseTaskIndexes` is called to parse the valid task indexes.
-** `AssignmentViewHelper.getTaskOutput` is called to access the HashMap to retrieve the assigned members
-for selected tasks.
+** `ParserHelper.parseTaskIndexes()` is called to parse and retrieve valid task indexes.
+** `AssignmentViewHelper.getTaskOutput()` is called to access the HashMap `taskAndListOfMembersAssigned`
+to retrieve the assigned members for selected tasks.
+
+* Member flag `-m`: projectViewMembersAssignments() is called.
+** `ParserHelper.parseMemberIndexes()` is called to parse and retrieve valid member indexes.
+** `AssignmentViewHelper.getMemberOutput()` is called to access the HashMap `memberAndIndividualListOfTasks`
+to retrieve the assignments for the selected members.
 
 The necessary information is stored in an ArrayList of String `totalOutputToPrint` in both cases.
 

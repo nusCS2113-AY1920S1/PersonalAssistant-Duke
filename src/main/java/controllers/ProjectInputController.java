@@ -532,56 +532,10 @@ public class ProjectInputController implements IController {
                 "You may refer to the user guide or enter \"help\" for the list of possible commands."
                 });
         }
-
         AssignmentViewHelper assignmentViewHelper = new AssignmentViewHelper();
         return assignmentViewHelper.viewAssignments(projectCommand, projectToManage);
-//        if (COMMAND_VIEW_ASSIGNMENTS_MEMBER_FLAG.equals(input.substring(0,2))) {
-//            return projectViewMembersAssignments(projectToManage, projectCommand.substring(VALID_VIEW_ASSIGNMENT_LENGTH));
-//        } else if (COMMAND_VIEW_ASSIGNMENTS_TASK_FLAG.equals(input.substring(0,2))) {
-//            return projectViewTasksAssignments(projectToManage, projectCommand.substring(VALID_VIEW_ASSIGNMENT_LENGTH));
-//        } else {
-//            return (new String[]
-//            {"Could not understand your command! Please use:",
-//             "**\t-m for viewing by member, -t for viewing by task.",});
-//        }
     }
-
-//    /**
-//     * Returns a list of members' individual list of tasks.
-//     * @param projectToManage the project being managed.
-//     * @param projectCommand The command by the user containing index numbers of the members to view.
-//     */
-//    private String[] projectViewMembersAssignments(Project projectToManage, String projectCommand) {
-//        ArchDukeLogger.logDebug(ProjectInputController.class.getName(),
-//                "[projectViewMembersAssignments] User input: '" + projectCommand + "'");
-//        ParserHelper parserHelper = new ParserHelper();
-//        ArrayList<Integer> validMembers = parserHelper.parseMembersIndexes(projectCommand,
-//            projectToManage.getNumOfMembers());
-//        if (!parserHelper.getErrorMessages().isEmpty()) {
-//            return parserHelper.getErrorMessages().toArray(new String[0]);
-//        }
-//        return AssignmentViewHelper.getMemberOutput(validMembers,
-//            projectToManage);
-//    }
-//
-//    /**
-//     * Returns a list of tasks and the members assigned to them.
-//     * @param projectToManage The project to manage.
-//     * @param projectCommand The user input.
-//     */
-//    private String[] projectViewTasksAssignments(Project projectToManage, String projectCommand) {
-//        ArchDukeLogger.logDebug(ProjectInputController.class.getName(),
-//                "[projectViewTasksAssignments] User input: '" + projectCommand + "'");
-//        ParserHelper parserHelper = new ParserHelper();
-//        ArrayList<Integer> validTasks = parserHelper.parseTasksIndexes(projectCommand,
-//            projectToManage.getNumOfTasks());
-//        if (!parserHelper.getErrorMessages().isEmpty()) {
-//            return parserHelper.getErrorMessages().toArray(new String[0]);
-//        }
-//        return AssignmentViewHelper.getTaskOutput(validTasks,
-//            projectToManage);
-//    }
-//    //@@author
+    //@@author
 
     /**
      * Exits the current project.
