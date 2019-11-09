@@ -80,22 +80,31 @@ public class MenuCommandTest extends ApplicationTest {
         VBox container = find();
         DialogBox dialogBox = (DialogBox) container.getChildren().get(2);
         String actualText = dialogBox.getDialog().getText();
-        Assertions.assertEquals("Senpai will teach you! Try these commands\n"
-                + "chapters\n"
-                + "help\n"
-                + "quiz\n"
-                + "result\n"
-                + "history\n"
-                + "undo\n"
-                + "clear\n"
-                + "save\n"
-                + "reset\n"
-                + "exit\n"
-                + "print\n"
-                + "archive\n"
-                + "review\n"
-                + "volume \n"
-                + "menu <command>\n", actualText);
+        Assertions.assertEquals("Senpai will teach you! Try these commands :\n"
+                + "Critical : \n"
+                + "*\tlecture\n"
+                + "*\tquiz\n"
+                + "*\tarcade\n"
+                + "*\treset\n"
+                + "*\texit\n"
+                +  "\n"
+                + "Utility : \n"
+                + "*\tmenu\n"
+                + "*\treview\n"
+                + "*\thistory\n"
+                + "*\tundo\n"
+                + "*\thelp\n"
+                + "*\tprint\n"
+                + "*\tarchive\n"
+                + "*\tsave\n"
+                + "\n"
+                + "Misc : \n"
+                + "*\tchapters\n"
+                + "*\tclear\n"
+                + "*\tvolume\n"
+                + "*\tresult\n"
+                + "*\tstats\n"
+                + "Type `menu <command> to see how to use certain commands.\n", actualText);
     }
 
     @Test

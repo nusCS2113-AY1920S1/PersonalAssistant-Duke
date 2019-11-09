@@ -3,7 +3,7 @@ package com.algosenpai.app.exceptions;
 import java.util.ArrayList;
 
 public class MenuExceptions extends SenpaiExceptions {
-    public MenuExceptions(String message) {
+    private MenuExceptions(String message) {
         super(message);
     }
 

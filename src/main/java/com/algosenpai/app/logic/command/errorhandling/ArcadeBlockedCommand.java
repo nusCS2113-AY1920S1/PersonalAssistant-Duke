@@ -4,20 +4,18 @@ import com.algosenpai.app.logic.command.Command;
 
 import java.util.ArrayList;
 
-public class LectureBlockedCommand extends Command {
-
+public class ArcadeBlockedCommand extends Command {
 
     /**
      * Create new command.
-     *
-     * @param inputs The user's input.
+     * @param inputs User's input.
      */
-    public LectureBlockedCommand(ArrayList<String> inputs) {
+    public ArcadeBlockedCommand(ArrayList<String> inputs) {
         super(inputs);
     }
 
     @Override
     public String execute() {
-        return "This command is invalid during the lecture! >.<";
+        return "This command is invalid during the lecture >.<";
     }
 }

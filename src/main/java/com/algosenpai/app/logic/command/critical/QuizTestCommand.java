@@ -9,19 +9,19 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class QuizTestCommand extends QuizCommand {
 
-    ArrayList<QuestionModel> quizList;
+    private ArrayList<QuestionModel> quizList;
 
-    AtomicInteger questionNumber;
+    private AtomicInteger questionNumber;
 
-    AtomicBoolean isQuizMode;
+    private AtomicBoolean isQuizMode;
 
-    AtomicBoolean isNewQuiz;
+    private AtomicBoolean isNewQuiz;
 
-    int chapterNumber;
+    private int chapterNumber;
 
     private UserStats userStats;
 
-    AtomicInteger prevResult;
+    private AtomicInteger prevResult;
 
     /**
      * Create new command.
