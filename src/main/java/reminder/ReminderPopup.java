@@ -17,6 +17,11 @@ public class ReminderPopup extends NewScene {
     protected Stage reminderPopup;
     protected ArrayList<String> wordArrayList;
 
+    /**
+     * Creates a reminder popup that sets up the scene and window properties, and deletes the reminder from text file.
+     * @param wordList the ArrayList of words containing words tagged to the reminder
+     * @param remindInfo the String matching the text stored in reminder.txt for deletion by storage
+     */
     public ReminderPopup(ArrayList<String> wordList, String remindInfo) {
         storage = new Storage();
         storage.updateFile(remindInfo, "", "reminder");

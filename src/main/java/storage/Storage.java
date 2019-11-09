@@ -61,7 +61,6 @@ public class Storage {
         File filePath = new File(currentDir.toString() + "\\data");
         File dataText = new File(filePath, "wordup.txt");
         File reminderText = new File(filePath, "reminder.txt");
-        File dataExcel = new File(filePath, "wordup.xlsx");
         if (!filePath.exists()) {
             filePath.mkdir();
         }
@@ -72,7 +71,6 @@ public class Storage {
                 e.printStackTrace();
             }
         }
-
         if (!reminderText.exists()) {
             try {
                 reminderText.createNewFile();
@@ -82,6 +80,8 @@ public class Storage {
         }
         DATA_FILE_PATH = dataText.getAbsolutePath();
         REMINDER_FILE_PATH = reminderText.getAbsolutePath();
+
+        File dataExcel = new File(filePath, "wordup.xlsx");
         EXCEL_PATH = dataExcel.getAbsolutePath();
         excelFile = new File(EXCEL_PATH);
     }
@@ -126,6 +126,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Checks the reminders.txt file and creates reminders from the data stored.
+     */
     public void loadReminders() {
         File file = new File(REMINDER_FILE_PATH);
         FileReader fr = null;
@@ -165,7 +168,7 @@ public class Storage {
      * Writes data to an extracted file.
      * @param s new word to be added
      * @param append return true if the file can be appended
-     * @param fileType
+     * @param fileType indicates the file to be edited, reminders.txt or wordup.txt
      */
     public void writeFile(String s, boolean append, String fileType) {
         File file;
@@ -200,7 +203,7 @@ public class Storage {
      * Updates a word in extracted file.
      * @param oldString value of old word
      * @param newString value of word after updated
-     * @param fileType
+     * @param fileType indicates the file to be edited, reminders.txt or wordup.txt
      */
     public void updateFile(String oldString, String newString, String fileType) {
         File file;
