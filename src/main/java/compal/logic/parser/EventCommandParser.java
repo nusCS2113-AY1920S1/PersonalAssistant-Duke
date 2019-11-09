@@ -2,7 +2,6 @@ package compal.logic.parser;
 
 import compal.commons.LogUtils;
 import compal.logic.command.Command;
-import compal.logic.command.DeadlineCommand;
 import compal.logic.command.EventCommand;
 import compal.logic.parser.exceptions.ParserException;
 import compal.model.tasks.Task;
@@ -16,9 +15,12 @@ import java.util.logging.Logger;
  * Command parser that parses arguments given by the user when adding event or recurring events.
  */
 public class EventCommandParser implements CommandParser {
-    private static final Logger logger = LogUtils.getLogger(DeadlineCommand.class);
+    private static final Logger logger = LogUtils.getLogger(EventCommand.class);
     private static final ArrayList<String> key = new ArrayList<>(Arrays.asList(TOKEN_END_TIME, TOKEN_START_TIME,
             TOKEN_DATE, TOKEN_PRIORITY, TOKEN_FINAL_DATE, TOKEN_INTERVAL));
+
+    public static final String MESSAGE_INVALID_PARAM = "Whoops! Looks like there's an invalid parameter inserted!\n"
+        + "This is how you use the event command:\n\n" + EventCommand.MESSAGE_USAGE;
 
     @Override
     public Command parseCommand(String restOfInput) throws ParserException {
@@ -38,7 +40,7 @@ public class EventCommandParser implements CommandParser {
         }
         isFinalDateAfterStartDate(startDateList.get(INDEX_ZERO), finalDate);
         isValidInterval(interval);
-        isValidKey(key, restOfInput);
+        isValidKey(key, restOfInput,MESSAGE_INVALID_PARAM);
         logger.info("Successfully parse event command");
         return new EventCommand(description, startDateList, priority, startTime, endTime, finalDate, interval);
     }
