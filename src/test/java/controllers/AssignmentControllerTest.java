@@ -45,10 +45,10 @@ public class AssignmentControllerTest {
         assertEquals("3. Harry (Phone: NIL | Email: NIL | Role: member)",
             member3.getDetails());
         assertEquals(3, project.getNumOfMembers());
-        assertEquals("Tom", project.getMembers().getMember(1).getName());
-        assertEquals("Dick", project.getMembers().getMember(2).getName());
-        assertEquals("Harry", project.getMembers().getMember(3).getName());
-        assertEquals(1, project.getTasks().getSize());
+        assertEquals("Tom", project.getMemberList().getMember(1).getName());
+        assertEquals("Dick", project.getMemberList().getMember(2).getName());
+        assertEquals("Harry", project.getMemberList().getMember(3).getName());
+        assertEquals(1, project.getTaskList().getSize());
         assertEquals("Test task", project.getTask(1).getTaskName());
     }
 

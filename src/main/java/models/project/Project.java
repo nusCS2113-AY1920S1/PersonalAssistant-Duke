@@ -42,13 +42,28 @@ public class Project implements IProject {
     }
 
     @Override
-    public MemberList getMembers() {
+    public MemberList getMemberList() {
         return this.memberList;
     }
 
     @Override
-    public TaskList getTasks() {
+    public TaskList getTaskList() {
         return this.taskList;
+    }
+
+    /**
+     * Checks if a task already exists in the task list of a project.
+     * @param task The task to be checked.
+     * @return true if the task already exists, false otherwise.
+     */
+    @Override
+    public boolean taskExists(ITask task) {
+        return this.taskList.contains((Task) task);
+    }
+
+    @Override
+    public String getTaskIndexName(Integer index) {
+        return getTask(index).getTaskName();
     }
 
     @Override
@@ -84,6 +99,23 @@ public class Project implements IProject {
         this.memberList.removeMember(memberToBeRemoved);
     }
 
+    //@@author sinteary
+    @Override
+    public Member getMember(int indexNumber) {
+        return (Member) this.memberList.getMember(indexNumber);
+    }
+
+    /**
+     * Checks if a member exists in the member list of a project.
+     * @param member the member to be checked
+     * @return true if the member already exists in the project, false otherwise.
+     */
+    @Override
+    public boolean memberExists(IMember member) {
+        return this.memberList.contains(member);
+    }
+    //@@author
+
     @Override
     public void addTask(Task newTask) {
         this.taskList.addTask(newTask);
@@ -102,14 +134,10 @@ public class Project implements IProject {
     }
 
     @Override
-    public boolean memberIndexExists(int indexNumber) {
-        return (indexNumber > 0 && indexNumber <= getNumOfMembers());
-    }
-
-    @Override
     public Task getTask(int taskIndex) {
         return this.taskList.getTask(taskIndex);
     }
+
 
     //@@author iamabhishek98
     @Override
@@ -135,7 +163,7 @@ public class Project implements IProject {
         *
          */
         ArrayList<String> allMemberCredits = new ArrayList<>();
-        ArrayList<Member> allMembers = this.getMembers().getMemberList();
+        ArrayList<Member> allMembers = this.getMemberList().getMemberList();
         HashMap<String, ArrayList<String>> memberIDAndTaskIDs = this.getMembersIndividualTaskList(); //memberID_taskIDs
         int count = 1;
         for (Member member : allMembers) {
@@ -169,8 +197,9 @@ public class Project implements IProject {
 
     //@@author sinteary
     /**
-     * This method assigns a task to a member by adding the task to a member's individual
-     * task list - tasksAssignedToMembers.
+     * This method assigns a task to a member by mapping the task's unique ID to the assigned member's
+     * unique ID. This association is stored in the 2 HashMaps: taskAndListOfMembersAssigned and
+     * memberAndIndividualListOfTasks.
      * @param task the task which you wish to assign to the member.
      * @param member the member you wish to assign the task to.
      */
@@ -181,7 +210,9 @@ public class Project implements IProject {
     }
 
     /**
-     * Removes the assignment between member and task.
+     * Removes the assignment between a task and member by removing the mapping between the task's unique
+     * ID and the member's unique ID. The association is removed from the 2 HashMaps:
+     * taskAndListOfMembersAssigned and memberAndIndividualListOfTasks.
      * @param member the member to unassign the task from.
      * @param task the task to be unassigned.
      */
@@ -192,7 +223,8 @@ public class Project implements IProject {
     }
 
     /**
-     * Checks if assignment exists between a member and task.
+     * Checks if assignment exists between a member and task by ensuring that the association exists
+     * in the 2 HashMaps: taskAndListOfMembersAssigned and memberAndIndividualListOfTasks.
      * @param task The task in question.
      * @param member The member in question.
      * @return true task has already been assigned to a member.
@@ -221,6 +253,11 @@ public class Project implements IProject {
         return this.taskAndListOfMembersAssigned;
     }
 
+    /**
+     * Returns a member object based on the unique member ID.
+     * @param memberID The member ID associated with a member.
+     * @return The member object with the matching member ID.
+     */
     @Override
     public IMember getMemberFromID(String memberID) {
         for (Member member : this.memberList.getMemberList()) {
@@ -231,6 +268,11 @@ public class Project implements IProject {
         return new NullMember("Unable to find this member.");
     }
 
+    /**
+     * Returns a task object based on the unique task ID.
+     * @param taskID The task ID associated with a task.
+     * @return The task object with the matching task ID.
+     */
     @Override
     public ITask getTaskFromID(String taskID) {
         for (Task task : this.taskList.getTaskList()) {
@@ -252,21 +294,6 @@ public class Project implements IProject {
         return reminderList.getReminderList();
     }
 
-    public String getTaskIndexName(Integer index) {
-        return getTask(index).getTaskName();
-    }
-
-    public boolean memberExists(IMember newMember) {
-        return this.memberList.contains(newMember);
-    }
-
-    public Member getMember(int indexNumber) {
-        return (Member) this.memberList.getMember(indexNumber);
-    }
-
-    public boolean taskExists(ITask task) {
-        return this.taskList.contains((Task) task);
-    }
 
     /**
      * Set the status of the Reminder.
@@ -288,10 +315,12 @@ public class Project implements IProject {
         return reminderList.getReminderList().get(index - 1);
     }
 
+    @Override
     public void removeReminder(int index) {
         reminderList.getReminderList().remove(index - 1);
     }
 
+    @Override
     public int getReminderListSize() {
         return reminderList.getReminderList().size();
     }

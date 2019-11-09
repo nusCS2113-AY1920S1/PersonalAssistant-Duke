@@ -18,12 +18,22 @@ public class NullProject implements IProject {
     }
 
     @Override
-    public MemberList getMembers() {
+    public MemberList getMemberList() {
         return null;
     }
 
     @Override
-    public TaskList getTasks() {
+    public TaskList getTaskList() {
+        return null;
+    }
+
+    @Override
+    public boolean taskExists(ITask task) {
+        return false;
+    }
+
+    @Override
+    public String getTaskIndexName(Integer index) {
         return null;
     }
 
@@ -60,6 +70,16 @@ public class NullProject implements IProject {
     }
 
     @Override
+    public Member getMember(int indexNumber) {
+        return null;
+    }
+
+    @Override
+    public boolean memberExists(IMember newMember) {
+        return false;
+    }
+
+    @Override
     public void addTask(Task newTask) {
         /*
         Empty method
@@ -71,11 +91,6 @@ public class NullProject implements IProject {
         /*
         Empty method
          */
-    }
-
-    @Override
-    public boolean memberIndexExists(int indexNumber) {
-        return false;
     }
 
     @Override
@@ -131,6 +146,16 @@ public class NullProject implements IProject {
     }
 
     @Override
+    public IMember getMemberFromID(String memberID) {
+        return null;
+    }
+
+    @Override
+    public ITask getTaskFromID(String taskID) {
+        return null;
+    }
+
+    @Override
     public void addReminderToList(Reminder reminder) {
         /*
         Empty method
@@ -155,13 +180,16 @@ public class NullProject implements IProject {
     }
 
     @Override
-    public IMember getMemberFromID(String memberID) {
-        return null;
+    public void removeReminder(int index) {
+        /*
+         * Empty method
+         */
     }
 
     @Override
-    public ITask getTaskFromID(String taskID) {
-        return null;
+    public int getReminderListSize() {
+        return 0;
     }
+
 
 }

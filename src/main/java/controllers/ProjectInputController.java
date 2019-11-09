@@ -15,16 +15,16 @@ import models.reminder.Reminder;
 import models.task.ITask;
 import models.task.Task;
 import repositories.ProjectRepository;
-import util.uiformatter.AssignmentViewHelper;
-import util.uiformatter.CommandHelper;
 import util.ParserHelper;
-import util.uiformatter.ViewHelper;
 import util.date.DateTimeHelper;
 import util.factories.MemberFactory;
 import util.factories.ReminderFactory;
 import util.factories.TaskFactory;
 import util.json.JsonConverter;
 import util.log.ArchDukeLogger;
+import util.uiformatter.AssignmentViewHelper;
+import util.uiformatter.CommandHelper;
+import util.uiformatter.ViewHelper;
 
 public class ProjectInputController implements IController {
     private ProjectRepository projectRepository;
@@ -164,7 +164,7 @@ public class ProjectInputController implements IController {
             return new String[] {"Wrong command format! Please enter role INDEX -n ROLE_NAME"};
         }
         int memberIndex = Integer.parseInt(commandOptions[0]);
-        IMember selectedMember = projectToManage.getMembers().getMember(memberIndex);
+        IMember selectedMember = projectToManage.getMemberList().getMember(memberIndex);
         if (selectedMember.getClass() != NullMember.class) {
             selectedMember.setRole(commandOptions[1]);
             return new String[] {"Successfully changed the role of " + selectedMember.getName() + " to "
@@ -273,7 +273,7 @@ public class ProjectInputController implements IController {
      */
     private String[] projectViewMembers(Project projectToManage) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectViewMembers]");
-        ArrayList<String> allMemberDetailsForTable = projectToManage.getMembers().getAllMemberDetailsForTable();
+        ArrayList<String> allMemberDetailsForTable = projectToManage.getMemberList().getAllMemberDetailsForTable();
         String header = "Members of " + projectToManage.getName() + ":";
         allMemberDetailsForTable.add(0, header);
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allMemberDetailsForTable.toString());
@@ -466,7 +466,7 @@ public class ProjectInputController implements IController {
                 HashMap<String, ArrayList<String>> tasksAndAssignedMembers
                     = projectToManage.getTasksAndAssignedMembers();
                 ArrayList<ArrayList<String>> allTaskDetailsForTable
-                    = projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers,
+                    = projectToManage.getTaskList().getAllTaskDetailsForTable(tasksAndAssignedMembers,
                     "/PRIORITY", projectToManage);
                 ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
                 if (allTaskDetailsForTable.size() == 1 && allTaskDetailsForTable.get(0).size() == 1) {
@@ -482,7 +482,7 @@ public class ProjectInputController implements IController {
                 HashMap<String, ArrayList<String>> tasksAndAssignedMembers
                     = projectToManage.getTasksAndAssignedMembers();
                 ArrayList<ArrayList<String>> allTaskDetailsForTable =
-                    projectToManage.getTasks().getAllTaskDetailsForTable(tasksAndAssignedMembers, sortCriteria,
+                    projectToManage.getTaskList().getAllTaskDetailsForTable(tasksAndAssignedMembers, sortCriteria,
                         projectToManage);
                 ArchDukeLogger.logDebug(ProjectInputController.class.getName(), allTaskDetailsForTable.toString());
                 if (allTaskDetailsForTable.size() == 0) {
@@ -533,72 +533,15 @@ public class ProjectInputController implements IController {
     }
 
     /**
-     * Displays list of assignments according to specifications of user.
+     * Returns a list of assignments according to specifications of user.
      * @param projectToManage The project to manage.
      * @param projectCommand The full command by the user.
      */
     public String[] projectViewAssignments(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(),
                 "[projectViewAssignments] User input: '" + projectCommand + "'");
-        String errorMessageInsufficientParams = "Please input the parameters to view assignments:";
-        String errorMessageNoSymbol = "**\t-m for viewing by member, -t for viewing by task.";
-        String errorMessageNoSuffix = "**\t\"all\" to view all assignments,"
-            + "or enter selected task/member index numbers.";
-        String errorMessageGuide = "You may refer to the user guide or enter \"help\""
-            + "for the list of possible commands.";
-
-        if (projectCommand.length() <= 20) {
-            return (new String[] {errorMessageInsufficientParams, errorMessageNoSymbol, errorMessageNoSuffix,
-                errorMessageGuide});
-        } else {
-            String input = projectCommand.substring(17);
-            if (input.charAt(0) == '-' && input.charAt(1) == 'm') {
-                return projectViewMembersAssignments(projectToManage,
-                        projectCommand.substring(20));
-            } else if (input.charAt(0) == '-' && input.charAt(1) == 't') {
-                return projectViewTasksAssignments(projectToManage,
-                        projectCommand.substring(20));
-            } else {
-                return (new String[]
-                {"Could not understand your command! Please use:", errorMessageNoSymbol});
-            }
-        }
-    }
-
-    /**
-     * Prints a list of members' individual list of tasks.
-     * @param projectToManage the project being managed.
-     * @param projectCommand The command by the user containing index numbers of the members to view.
-     */
-    private String[] projectViewMembersAssignments(Project projectToManage, String projectCommand) {
-        ArchDukeLogger.logDebug(ProjectInputController.class.getName(),
-                "[projectViewMembersAssignments] User input: '" + projectCommand + "'");
-        ParserHelper parserHelper = new ParserHelper();
-        ArrayList<Integer> validMembers = parserHelper.parseMembersIndexes(projectCommand,
-            projectToManage.getNumOfMembers());
-        if (!parserHelper.getErrorMessages().isEmpty()) {
-            return parserHelper.getErrorMessages().toArray(new String[0]);
-        }
-        return AssignmentViewHelper.getMemberOutput(validMembers,
-            projectToManage);
-    }
-
-    /**
-     * Prints a list of tasks and the members assigned to them.
-     * @param projectToManage The project to manage.
-     * @param projectCommand The user input.
-     */
-    private String[] projectViewTasksAssignments(Project projectToManage, String projectCommand) {
-        ArchDukeLogger.logDebug(ProjectInputController.class.getName(),
-                "[projectViewTasksAssignments] User input: '" + projectCommand + "'");
-        ParserHelper parserHelper = new ParserHelper();
-        ArrayList<Integer> validTasks = parserHelper.parseTasksIndexes(projectCommand,
-            projectToManage.getNumOfTasks());
-        if (!parserHelper.getErrorMessages().isEmpty()) {
-            return parserHelper.getErrorMessages().toArray(new String[0]);
-        }
-        return AssignmentViewHelper.getTaskOutput(validTasks,
-            projectToManage);
+        AssignmentViewHelper assignmentViewHelper = new AssignmentViewHelper();
+        return assignmentViewHelper.viewAssignments(projectCommand, projectToManage);
     }
     //@@author
 
