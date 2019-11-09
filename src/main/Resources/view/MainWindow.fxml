@@ -13,7 +13,7 @@
 
 <?import javafx.scene.layout.StackPane?>
 
-<GridPane prefHeight="750.0" prefWidth="1000.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+<GridPane prefHeight="675.0" prefWidth="900.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
           minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="spinbox.gui.MainWindow" hgap="10.0" style="-fx-background-color: #464866">
     <columnConstraints>

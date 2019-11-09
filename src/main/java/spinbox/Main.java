@@ -16,6 +16,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
+            stage.setTitle("SpinBox v1.4");
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             GridPane gridPane = fxmlLoader.load();
             Scene scene = new Scene(gridPane);

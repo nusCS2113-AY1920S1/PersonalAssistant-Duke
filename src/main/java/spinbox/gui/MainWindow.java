@@ -3,6 +3,7 @@ package spinbox.gui;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
@@ -18,6 +19,7 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Popup;
 import javafx.stage.PopupWindow;
 import javafx.stage.Window;
+import javafx.stage.Screen;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
@@ -55,6 +57,8 @@ public class MainWindow extends GridPane {
     private static final String TASKS = "Tasks";
     private static final String FILES = "Files";
     private static final String GRADES = "Grades";
+    private static final String HELP_POPUP = "Welcome to the help page.";
+    private static final String HELP_PAGE_POPUP = "Example:";
 
     @FXML
     private TabPane tabPane;
@@ -506,8 +510,16 @@ public class MainWindow extends GridPane {
         grid.getChildren().add(response);
         popup.getContent().add(grid);
         Window window = tabPane.getScene().getWindow();
-        popup.setX(600);
-        popup.setY(788);
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+
+        if (displayText.contains(HELP_POPUP) || displayText.contains(HELP_PAGE_POPUP)) {
+            popup.setX(primaryScreenBounds.getMinX());
+            popup.setY(primaryScreenBounds.getMinY());
+
+        } else {
+            popup.setX(((primaryScreenBounds.getMaxX() + primaryScreenBounds.getMinX()) / 2) - 200);
+            popup.setY(primaryScreenBounds.getMaxY());
+        }
         popup.show(window);
     }
 
