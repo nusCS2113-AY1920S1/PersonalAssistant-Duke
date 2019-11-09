@@ -3,20 +3,13 @@ package duke.task;
 //@@author gervaiseang
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Represents a reminder class.
  */
 public class Reminders implements Serializable {
-    //protected SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
-    //private ArrayList<String> reminderList;
-
     /**
      * Retrieves rem checks for tasks that are due soon.
      * @param remindDaysFrom gets the remind by that date time.
