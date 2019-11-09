@@ -337,4 +337,8 @@ public class Ui {
     public void showDeletedList() {
         System.out.println("Here are the tasks that you have deleted and are in temporary storage");
     }
+
+    public void showDoneList() {
+        System.out.println("These are the tasks that you have already done:");
+    }
 }

@@ -468,12 +468,12 @@ public class TaskCreator {
             }
         }
 
-        else if (input.contains("*")) {
+        if (input.contains("*")) {
             Priority priority = this.extractPriority(input);
             oldTask.setPriority(priority);
         }
 
-        else if (input.contains("@")) {
+        if (input.contains("@")) {
             String assignee = null;
             try {
                 assignee = this.extractAssignee(input);
@@ -481,9 +481,13 @@ public class TaskCreator {
                 assignee = "everyone";
             }
             oldTask.setAssignee(assignee);
+            if (oldTask instanceof Leave) {
+                Leave oldLeave = (Leave) oldTask;
+                oldLeave.setUser(assignee);
+            }
         }
 
-        else if (input.contains("^") && oldTask instanceof Meeting) {
+        if (input.contains("^") && oldTask instanceof Meeting) {
             Pair<Integer, TimeUnit> durationAndUnit = this.extractDuration(input);
             int duration = durationAndUnit.getKey();
             TimeUnit unit = durationAndUnit.getValue();
@@ -491,12 +495,12 @@ public class TaskCreator {
             oldMeeting.setDuration(duration,unit);
         }
 
-        else if (input.contains("%")) {
+        if (input.contains("%")) {
             RecurrenceScheduleType recurrence = this.extractRecurrence(input);
             oldTask.setRecurrenceSchedule(recurrence);
         }
 
-        else if(input.contains("uncheck") && !(oldTask instanceof Leave)) {
+        if(input.contains("uncheck") && !(oldTask instanceof Leave)) {
             boolean checked = oldTask.getDone();
             oldTask.setDone(!checked);
         }
