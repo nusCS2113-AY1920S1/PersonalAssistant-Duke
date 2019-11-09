@@ -55,7 +55,7 @@ public class Duke {
         String filePathInventory = currentDir + "\\data\\inventories.txt";
         String filePathBookings = currentDir + "\\data\\bookings.txt";
         String filePathRecipes = currentDir + "\\data\\recipes.txt";
-//        String filePathInventoryTest = currentDir + "\\datainventorytest\\inventoriesTest.txt";
+//        String filePathInventoryTest = currentDir + "\\data\\inventoriesTest.txt";
 //        String filePathBookingTest = currentDir + "\\data\\bookingsTest.txt";
 //        String filePathRecipesTest = currentDir + "\\data\\recipesTest.txt";
         inventoryStorage = new InventoryStorage(filePathInventory);

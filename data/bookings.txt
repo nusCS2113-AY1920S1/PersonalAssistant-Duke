@@ -1,0 +1,1 @@
+booking | John_Lim | 91234567 | 2 | 2/2/2019 | rice
