@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 import javax.swing.*;
 import java.math.BigDecimal;
@@ -95,8 +96,11 @@ public class BudgetBar extends UiPart<Region> {
 
             if(!logic.getBudgetViewCategory().containsKey(viewPane)) {
                 bar.setVisible(false);
-                category.setVisible(false);
                 remaining.setVisible(false);
+                category.setText("Type \"viewBudget " + viewPane + " /tag #category\" to add a budget view in this pane.");
+                category.setWrappingWidth(140);
+                category.setStyle("-fx-font-size: 12px;");
+                category.setTextAlignment(TextAlignment.CENTER);
             } else {
                 String tag = logic.getBudgetViewCategory().get(viewPane);
                 category.setText(tag.toUpperCase());

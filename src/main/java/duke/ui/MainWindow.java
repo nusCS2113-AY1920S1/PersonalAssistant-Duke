@@ -97,7 +97,7 @@ public class MainWindow extends UiPart<Stage> {
         logger.info("trendingPane is constructed.");
         planPane = new PlanPane(logic.getDialogObservableList());
         logger.info("planPane is constructed." + logic.getDialogObservableList().size());
-        budgetPane = new BudgetPane(logic.getExternalIncomeList(),logic);
+        budgetPane = new BudgetPane(logic.getExternalIncomeList(),logic,logic.getIncomeListTotalString());
         paymentPane = new PaymentPane(logic.getFilteredPaymentList(),
                 logic.getSortIndicator(),
                 logic.getPredicateIndicator());

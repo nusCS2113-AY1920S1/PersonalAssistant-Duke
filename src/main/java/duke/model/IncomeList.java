@@ -2,6 +2,8 @@ package duke.model;
 
 import duke.commons.LogsCenter;
 import duke.exception.DukeException;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -137,6 +139,7 @@ public class IncomeList extends DukeList<Income> {
     private List<Income> filteredSortedViewedList;
     private ObservableList<Income> internalFinalList;
     private ObservableList<Income> externalFinalList;
+    private StringProperty totalString;
 
     /**
      * Creates a new income list using a file for storage.
@@ -158,6 +161,7 @@ public class IncomeList extends DukeList<Income> {
         sortCriteria = SortCriteria.TIME;
         externalList = FXCollections.observableArrayList();
         externalFinalList = FXCollections.unmodifiableObservableList(externalList);
+        totalString = new SimpleStringProperty();
         updateExternalList();
     }
 
@@ -165,6 +169,7 @@ public class IncomeList extends DukeList<Income> {
         filteredSortedViewedList = filter(sort(view(internalList)));
         internalFinalList = FXCollections.observableArrayList(filteredSortedViewedList);
         externalList.setAll(internalFinalList);
+        totalString.setValue("Total Income: $" + getTotalExternalAmount());
     }
 
     @Override
@@ -331,4 +336,9 @@ public class IncomeList extends DukeList<Income> {
                 .map(Income::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
+
+    public StringProperty getTotalString() {
+        return totalString;
+    }
+
 }

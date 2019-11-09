@@ -2,24 +2,18 @@ package duke.ui;
 
 import duke.commons.LogsCenter;
 import duke.logic.Logic;
-import duke.model.BudgetView;
 import duke.model.Income;
-import javafx.beans.binding.Bindings;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.chart.PieChart;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
-
-import javax.swing.*;
-import java.util.Map;
-import java.util.Set;
+import javafx.scene.text.TextAlignment;
 import java.util.logging.Logger;
 
 public class BudgetPane extends UiPart<AnchorPane>  {
@@ -33,31 +27,41 @@ public class BudgetPane extends UiPart<AnchorPane>  {
     ListView<Income> incomeListView;
 
     @FXML
+    private
     Label incomeLabel;
 
     @FXML
+    Label totalIncomeLabel;
+
+    @FXML
+    private
     Pane paneView;
 
     @FXML
+    private
     Pane paneBudgetView;
 
     @FXML
+    private
     ListView<String> budgetListView;
 
     public Logic logic;
 
-    public BudgetPane(ObservableList<Income> incomeList, Logic logic) {
+    BudgetPane(ObservableList<Income> incomeList, Logic logic, StringProperty totalIncome) {
         super(FXML_FILE_NAME, null);
         logger.info("incomeList has length " + incomeList.size());
         Label emptyIncomeListPlaceholder = new Label();
-        emptyIncomeListPlaceholder.setText("No Income yet!");
+        emptyIncomeListPlaceholder.setText("No income entered yet! " +
+                "Type \"addIncome #amount /d #source\" to add.");
+        emptyIncomeListPlaceholder.setWrapText(true);
+        emptyIncomeListPlaceholder.setTextAlignment(TextAlignment.CENTER);
         incomeListView.setPlaceholder(emptyIncomeListPlaceholder);
         incomeListView.setItems(incomeList);
         logger.info("Items are set.");
         incomeListView.setCellFactory(incomeListView -> new IncomeListViewCell());
         logger.info("cell factory is set.");
         incomeLabel.setText("Income");
-        incomeLabel.setFont(new Font("Arial", 20));
+        incomeLabel.setStyle("-fx-text-fill:gold; -fx-font-size: 20px;");
 
         this.logic = logic;
 
@@ -81,7 +85,7 @@ public class BudgetPane extends UiPart<AnchorPane>  {
         overallBudget.setPrefWidth(500);
         overallBudget.setPrefHeight(30);
         text.setLayoutX(300);
-        text.setLayoutY(50);
+        text.setLayoutY(60);
         paneView.getChildren().clear();
         paneView.getChildren().add(overallBudget);
         paneView.getChildren().add(text);
@@ -90,6 +94,7 @@ public class BudgetPane extends UiPart<AnchorPane>  {
         paneBudgetView.getChildren().add(new BudgetBar(logic).getRoot());
 
         budgetListView.setItems(logic.getBudgetObservableList());
+        totalIncomeLabel.textProperty().bindBidirectional(totalIncome);
     }
 
     class IncomeListViewCell extends ListCell<Income> {

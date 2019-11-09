@@ -211,6 +211,12 @@ public class DukePP implements Model {
     }
 
     //************************************************************ IncomeList operations
+
+    @Override
+    public StringProperty getIncomeListTotalString() {
+        return incomeList.getTotalString();
+    }
+
     public void addIncome(Income income) {
         incomeList.add(income);
         logger.info("Model's income externalList length now is "
