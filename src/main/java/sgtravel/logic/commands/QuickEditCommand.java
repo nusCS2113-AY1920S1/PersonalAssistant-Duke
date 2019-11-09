@@ -55,7 +55,7 @@ public class QuickEditCommand extends Command {
             model.save();
             return new CommandResultText(MESSAGE_EDIT_SUCCESS + event);
         } catch (IndexOutOfBoundsException e) {
-            throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
+            throw new OutOfBoundsException();
         }
     }
 }
