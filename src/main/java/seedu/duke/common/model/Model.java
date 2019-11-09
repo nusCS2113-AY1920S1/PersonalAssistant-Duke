@@ -82,7 +82,7 @@ public class Model {
      */
     public void updateGuiTaskList() {
         if (isUpdateGui) {
-            taskList.sortListByPriority();
+            taskList.sortByType();
             UI.getInstance().updateTaskList(taskList.getTaskGuiStringList());
         }
     }

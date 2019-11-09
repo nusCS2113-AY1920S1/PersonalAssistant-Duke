@@ -15,6 +15,8 @@ import java.util.Comparator;
  */
 public class TaskList extends ArrayList<Task> {
 
+    private SortBy sortType = SortBy.TIME;
+
     /**
      * Converts the task list to a string of the pre-determined format that is ready to be displayed by the
      * UI.
@@ -234,6 +236,15 @@ public class TaskList extends ArrayList<Task> {
         return "Priority of task " + size + " is set to " + priority.name();
     }
 
+    public String setSortType(SortBy sortType) {
+        this.sortType = sortType;
+        return constructSortMessage(sortType);
+    }
+
+    private String constructSortMessage(SortBy sortType) {
+        return "Task List is now sorted by " + sortType.name();
+    }
+
     /**
      * Adds or modifies tags of a task.
      *
@@ -289,7 +300,26 @@ public class TaskList extends ArrayList<Task> {
         return "Task List has been cleared";
     }
 
-    public void sortListByPriority() {
-        sort(Comparator.comparing(Task::getPriority));
+    public void sortByType() {
+        switch (sortType) {
+        case PRIORITY:
+            sort(Comparator.comparing(Task::getPriority));
+            break;
+        case STATUS:
+            sort(Comparator.comparing(Task::getDone));
+            break;
+        case TIME:
+            sort(Comparator.comparing(Task::getTime, Comparator.nullsLast(Comparator.naturalOrder())));
+            break;
+        default:
+            return;
+        }
+    }
+
+    /**
+     * The enumeration of types of sorting.
+     */
+    public enum SortBy {
+        PRIORITY, TIME, STATUS
     }
 }
