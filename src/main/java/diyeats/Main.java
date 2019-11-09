@@ -30,7 +30,7 @@ public class Main {
     private Wallet wallet;
 
     /**
-     * This is a constructor of Duke to start the program.
+     * This is a constructor of DIYeats to start the program.
      */
     public Main() {
         ui = new Ui();
@@ -65,7 +65,7 @@ public class Main {
     }
 
     /**
-     *  Run is a function that generate the flow of duke program from beginning until the end.
+     *  Run is a function that generate the flow of DIYeats program from beginning until the end.
      */
     public void run() {
         setup.start();

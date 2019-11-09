@@ -1,4 +1,4 @@
-Suggest meals from default items list of Duke.
+Suggest meals from default items list of DIYeats.
 Various optional parameters exist to customize the suggestions.
 
     suggest [/date] <DATE> [/type] <MealType> [/display] <Integer>

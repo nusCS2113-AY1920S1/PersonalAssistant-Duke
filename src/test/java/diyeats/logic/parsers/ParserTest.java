@@ -39,6 +39,8 @@ class ParserTest {
             assertTrue(parser.parse("pay 80 /date 1/1/2019") instanceof AddTransactionCommand);
             assertTrue(parser.parse("deposit 200") instanceof  AddTransactionCommand);
             assertTrue(parser.parse("deposit 100 /date 1/1/2019") instanceof AddTransactionCommand);
+            assertTrue(parser.parse("help") instanceof HelpCommand);
+            assertTrue(parser.parse("help breakfast") instanceof HelpCommand);
         } catch (ProgramException e) {
             System.out.println("Something is wrong with the parser");
         }
