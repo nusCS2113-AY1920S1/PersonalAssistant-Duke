@@ -37,14 +37,30 @@ time you start it.
 +
 image::Ui.png[width="650"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-   e.g. typing *`menu`* and pressing kbd:[Enter] will list out all the commands that are recognised in the
-   program.
-.  Some example commands you can try:
 
-* *`menu`* : lists all the commands supported in the program.
-* **`select`**`linkedlist` : selects Chapter 2 (Linked List) to be included in the game.
-* *`exit`* : exits the app
+.  To begin, just type in `hello name gender` to put in your username and gender and press kbd:[Enter] to start your adventure.
+
++
+image::Start.PNG[width="650"]
++
+.  To see a list of commands you can use, just type `menu` and press kbd:[Enter].
+
++
+image::menu.png[width="650]
++
+
+.  To explore the syntax of each command, simply type `menu command` and press kbd:[Enter].
+
++
+image::menuexample.png[width="650"]
++
+
+.  You are now ready to start your adventure. +
+    Some example commands you can try:
+
+* *`lecture`* *`sorting`* : starts a lecture on sorting.
+* *`quiz`* *`linkedlist`* : starts quiz on linked lists.
+* *`exit`* : exits the game.
 
 .  Refer to <<Features>> for details of each command.
 
@@ -78,34 +94,140 @@ It can also be used should you forget the list of commands or the command for a 
 Format: `menu`
 
 ====
-*Expected outcome* +
-`Senpai will teach you! Try these commands:` +
-`help +
- quiz +
- select +
- result +
- history +
- undo +
- clear +
- save +
- reset +
- exit +
- print +
- archive +
- review +
- volume +
- menu COMMAND`
-where `menu COMMAND` returns the syntax to use each command +
+*Expected outcome*
 
-Example: `menu print`
+image::menu.png[width="650"]
+
+You can check each command out by typing *`menu`* *`command`*. +
+
+Example: `menu lecture`
 =====
 *Expected Outcome*
 
-`'print <archive | quiz | user> <filename>.pdf' to print the selected pdf file`
+image::menuexample.png[width="650"]
+
+=====
+====
+
+=== Lectures: `lecture`
+This command allows you to pick a chapter that you are interested in revising.
+The lecture ends after all the slides are done or if you type `end`. +
+`lecture` will list all the chapters that are available in the program. +
+Format : `lecture`
+
+====
+*Expected outcome*
+
+image::lecture.png[width="650"]
+
+You can start the lecture by typing *`lecture`* *`chapter`*. +
+
+Example: `lecture sorting`
+=====
+*Expected outcome*
+
+image::lecturesorting.png[width="650"]
+
+* You can start the lecture by typing `start`.
+* You can progress to the next slide by typing `next`.
+* You can return to the previous slide by typing `back`.
+* You can end the lecture by typing `end`.
+
+=====
+====
+
+=== Quiz: `quiz`
+This command allows you to pick a chapter that you are interested in practising. +
+The quiz ends after 10 questions or if you type `end`. +
+`quiz` will list all the chapters that are available in the program. +
+Format : `quiz`
+
+====
+*Expected outcome*
+
+image::quiz.png[width="650"]
+
+You can start the quiz by typing *`quiz`* *`chapter`*. +
+
+Example: `quiz sorting`
+=====
+*Expected outcome*
+
+image::quizsorting.png[width="650"]
+
+* You can start the lecture by typing `start`.
+* You can progress to the next slide by typing `next`.
+* You can return to the previous slide by typing `back`.
+* You can end the lecture by typing `end`.
+
+=====
+====
+
+=== Arcade: `arcade`
+This command allows you to play the arcade version of the quiz. +
+The game ends only when you get a wrong answer. +
+Format : `arcade`
+
+====
+*Expected outcome*
+
+image::arcade.png[width="650"]
+
+====
+
+
+
+=== Reset: `reset`
+This command allows you to reset all the progress you have made. +
+This is for users who wish to achieve higher stats after clearing all the chapters. +
+Format : `reset`
+
+====
+*Expected outcome*
+
+image::reset.png[width="650"]
+
+* Type `y` to reset the progress.
+* Type anything else to cancel.
+
+====
+
+=== Exit: `exit`
+This command allows you to exit the game, and can be done anytime in the game. +
+Format : `reset`
+
+====
+*Expected outcome*
+
+image::exit.png[width="650"]
+
+* Program will terminate after a second.
+
+====
+
+=== Review: `review`
+This command allows you to review the questions which has went wrong during your quiz.
+Format : `review`
+
+====
+*Expected outcome*
+
+image::review.png[width="650"]
+
+You can review a particular question by typing *`review`* *`number`*. +
+
+Example: `review 3`
+======
+*Expected outcome*
+
+image::review3.png[width="650"]
+
+
 =====
 
-- `COMMAND` must be one of the console commands
 ====
+
+
 
 === Chapters: `chapters`
 This command allows you to see the chapters available to choose from. +
@@ -118,19 +240,6 @@ Format: `chapters`
 - Chapter 3: bitmask
 ====
 
-=== Select the chapter: `select`
-This command allows you to choose the chapter of the game that you'd like to attempt a quiz on. +
-Format: `select CHAPTER` +
-
-Example : +
-`select sorting` will select the chapter on Sorting for the quiz.
-
-====
-*Expected Outcome*
-
-`You have selected Chapter 1. Type 'quiz' to begin.`,
-where the chapter number will depend on your chapter chosen (refer to 3.3).
-====
 
 === Start the quiz : `quiz`
 This command allows you to start the quiz and only works after you have selected a particular chapter. +

@@ -25,7 +25,13 @@ public class ReviewCommand extends Command {
         if (this.quizList.isEmpty()) {
             return "There is no current quiz available!";
         }
+        if (inputs.size() != 2) {
+            return "Please use the proper format. Try `review x` where x is a number between 1 and 10.";
+        }
         int index = Integer.parseInt(inputs.get(1)) - 1;
+        if (index < 0 || index > 10) {
+            return "Please use the proper format. Try `review x` where x is a number between 1 and 10.";
+        }
         return quizList.get(index).getQuestion() + "\n"
                 + "Correct answer : " + quizList.get(index).getAnswer() + "\n"
                 + "Your answer : " + quizList.get(index).getUserAnswer() + "\n"

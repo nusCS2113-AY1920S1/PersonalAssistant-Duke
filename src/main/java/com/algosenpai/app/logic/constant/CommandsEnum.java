@@ -72,6 +72,7 @@ public enum CommandsEnum {
         List<String> blockedNames = new LinkedList<>(enumNames);
         blockedNames.remove(16); //exit
         blockedNames.remove(11); //volume
+        blockedNames.remove(3); //arcade
         return blockedNames;
     }
 
