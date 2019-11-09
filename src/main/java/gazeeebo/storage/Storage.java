@@ -358,6 +358,11 @@ public class Storage {
         return placesList;
     }
 
+    /**
+     * This method read Trivia.txt, get users' past inputs from the file.
+     * @return hash-map of keywords and inputs
+     * @throws FileNotFoundException
+     */
     public Map<String, ArrayList<String>> Read_Trivia() throws FileNotFoundException {
         Map<String, ArrayList<String>> CommandMemory = new HashMap<>();
 
@@ -381,18 +386,27 @@ public class Storage {
         return CommandMemory;
     }
 
+    /**
+     * This method writes to Trivia.txt file, record down updates in record of user inputs.
+     * @param fileContent
+     * @throws IOException
+     */
     public void Storage_Trivia(String fileContent) throws IOException {
         File file = new File(relativePathTriviaResource);
         if (file.exists() && !file.canWrite()) {
             System.out.println("File exists and it is read only, making it writable");
             file.setWritable(true);
         }
-        FileWriter fileWriter = new FileWriter(relativePathTriviaResource,true);
-        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-        bufferedWriter.newLine();
-        bufferedWriter.write(fileContent);
-        bufferedWriter.flush();
-        bufferedWriter.close();
+        try {
+            FileWriter fileWriter = new FileWriter(relativePathTriviaResource, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.newLine();
+            bufferedWriter.write(fileContent);
+            bufferedWriter.flush();
+            bufferedWriter.close();
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -504,6 +518,11 @@ public class Storage {
         return completedEMap;
     }
 
+    /**
+     * This method reads from Study_Plan.txt, get users' current module plan
+     * @return double ArrayList storing the table.
+     * @throws IOException
+     */
     public ArrayList<ArrayList<String>> Read_StudyPlan() throws IOException {
         ArrayList<ArrayList<String>> studyplan = new ArrayList<ArrayList<String>>();
 //        InputStream inputStream = Storage.class.getResourceAsStream(relativePath_StudyPlanner);
@@ -526,6 +545,11 @@ public class Storage {
         return studyplan;
     }
 
+    /**
+     * This method writes to Study_Plan.txt, updates changes in module plan.
+     * @param fileContent
+     * @throws IOException
+     */
     public void Storage_StudyPlan(String fileContent) throws IOException {
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(relativePathStudyPlannerResource));
         fileWriter.write(fileContent);
@@ -533,6 +557,11 @@ public class Storage {
         fileWriter.close();
     }
 
+    /**
+     * This method reads from prerequisite txt file, gets information about courses' prerequisites.
+     * @return
+     * @throws IOException
+     */
     public HashMap<String, ArrayList<String>> readFromPrerequisiteFile() throws IOException {
         HashMap<String, ArrayList<String>> PrerequisiteList = new HashMap<String, ArrayList<String>>();
 
