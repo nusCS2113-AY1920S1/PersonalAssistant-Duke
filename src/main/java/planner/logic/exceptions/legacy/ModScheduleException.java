@@ -3,7 +3,7 @@ package planner.logic.exceptions.legacy;
 public class ModScheduleException extends ModException {
 
     public ModScheduleException(String type1, String type2) {
-        super("This " + type1 + " clashes with existing " + type2 + "!");
+        super(type1 + " clashes with existing " + type2 + "!");
     }
 
     public ModScheduleException(String type1) {
@@ -11,6 +11,6 @@ public class ModScheduleException extends ModException {
     }
 
     public ModScheduleException() {
-        this("module");
+        this("Module");
     }
 }

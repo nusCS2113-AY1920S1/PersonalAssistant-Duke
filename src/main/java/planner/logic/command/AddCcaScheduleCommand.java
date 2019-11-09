@@ -44,10 +44,8 @@ public class AddCcaScheduleCommand extends ModuleCommand {
         LocalTime end = natty.dateToLocalDateTime(arg("end")).toLocalTime();
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(arg("dayOfWeek").toUpperCase());
         TimePeriodWeekly timePeriodWeekly = new TimePeriodWeekly(begin, end, dayOfWeek);
-        for (Cca cca: profile.getCcas()) {
-            if (cca.isClashing(timePeriodWeekly)) {
-                throw new ModScheduleException();
-            }
+        if (profile.getAllTasks().clashes(timePeriodWeekly)) {
+            throw new ModScheduleException("Time period");
         }
         Cca cca = profile.getCcas().get(index);
         cca.addPeriod(timePeriodWeekly);

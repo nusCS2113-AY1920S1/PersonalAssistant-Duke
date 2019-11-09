@@ -1,6 +1,7 @@
 package planner.logic.modules;
 
 import planner.logic.modules.legacy.task.TaskWithMultipleWeeklyPeriod;
+import planner.util.legacy.periods.TimePeriodWeekly;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -67,6 +68,10 @@ public class TaskList<E extends TaskWithMultipleWeeklyPeriod> extends ArrayList<
             }
         }
         return false;
+    }
+
+    public boolean clashes(TimePeriodWeekly timePeriodWeekly) {
+        return this.clashes(new TaskWithMultipleWeeklyPeriod("tempName", timePeriodWeekly));
     }
 
     public HashSet<TaskWithMultipleWeeklyPeriod> getSetTasks() {
