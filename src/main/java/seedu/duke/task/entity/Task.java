@@ -67,7 +67,7 @@ public class Task {
     protected Priority level;
 
     /**
-     * The time set to the task if applicable
+     * The time set to the task if applicable.
      */
     protected LocalDateTime time;
 

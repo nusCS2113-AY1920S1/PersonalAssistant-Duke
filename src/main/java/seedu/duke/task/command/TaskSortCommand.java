@@ -26,6 +26,12 @@ public class TaskSortCommand extends Command {
         return true;
     }
 
+    /**
+     * Gets the sort type according to the input.
+     *
+     * @param input the input sort type to sort the task
+     * @return
+     */
     public static TaskList.SortBy getSortType(String input) {
         TaskList.SortBy sortType = null;
         input = input.toUpperCase();
@@ -39,5 +45,4 @@ public class TaskSortCommand extends Command {
             return null;
         }
     }
-
 }

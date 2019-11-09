@@ -1,8 +1,5 @@
 package seedu.duke.task.entity;
 
-import javafx.util.converter.LocalDateTimeStringConverter;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 

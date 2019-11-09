@@ -144,7 +144,7 @@ public class TaskList extends ArrayList<Task> {
         Task task = this.get(index);
         return constructSnoozeMessage(task, duration, index);
     }
-    
+
     private String constructSnoozeMessage(Task task, int duration, int index) {
         String msg = "";
         if (task.getTaskType() != Task.TaskType.TODO) {
