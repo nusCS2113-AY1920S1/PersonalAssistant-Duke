@@ -32,6 +32,7 @@ public class CommandTestUtil {
         }
     }
 
+
     public static void assertCommandFailure(Command command, Model actualModel,
                                             String expectedMessage) {
         BakingHome expectedBakingHome = new BakingHome((actualModel.getBakingHome()));
