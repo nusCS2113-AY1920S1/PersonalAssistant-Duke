@@ -22,6 +22,8 @@ public class ModCommand extends Command {
     private String input;
     private DegreeListStorage dd = new DegreeListStorage();
     private int listType = 0;
+    private Memento memento1;
+    private Memento memento2;
 
     public ModCommand(String command, String input) {
         this.command = command;
@@ -44,10 +46,12 @@ public class ModCommand extends Command {
 
         switch (this.command) {
         case "remove":
-            this.listType = 1;
+            this.listType = 2;
 
             degreesBuffer = lists.deepClone();
-            memento = new Memento(degreesBuffer);
+            tasksBuffer = tasks.deepClone();
+            memento1 = new Memento(tasksBuffer);
+            memento2 = new Memento(degreesBuffer);
             NUSEventList NUSEventList = new NUSEventList();
             NUSEventList.removeDegreeTasks(this.input, lists, tasks);
             lists.delete(this.input, this.dd);
@@ -115,11 +119,24 @@ public class ModCommand extends Command {
             for (int i = 0; i < tasksBuffer.size(); i++) {
                 tasks.add(tasksBuffer.get(i));
             }
-        } else {
+        } else if (this.listType == 1) {
             DegreeList degreesBuffer = memento.getDegreeState();
             lists.clear();
             for (int i = 0; i < degreesBuffer.size(); i++) {
                 lists.add(degreesBuffer.get(i));
+            }
+        } else {
+            DegreeList degreesBuffer = memento2.getDegreeState();
+            TaskList tasksBuffer = memento1.getTaskState();
+            tasks.clear();
+            lists.clear();
+
+            for (int i = 0; i < degreesBuffer.size(); i++) {
+                lists.add(degreesBuffer.get(i));
+            }
+
+            for (int i = 0; i < tasksBuffer.size(); i++) {
+                tasks.add(tasksBuffer.get(i));
             }
         }
     }

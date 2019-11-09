@@ -99,8 +99,8 @@ public class Duke extends Application {
             System.out.println(e.getLocalizedMessage());
         }
         this.lists = new DegreeList();
+        DegreeListStorage.setDegreeList(lists);
         DegreeListStorage.ReadFile(storage.fetchListOutput("savedegree"));
-
     }
 
 

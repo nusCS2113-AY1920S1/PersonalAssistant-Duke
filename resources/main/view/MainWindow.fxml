@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="javafx.MainWindow">
     <children>
         <Button fx:id="sendButton" layoutX="574.0" layoutY="678.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" AnchorPane.bottomAnchor="1.0" />
         <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutY="-2.0" prefHeight="680.0" prefWidth="650.0" vbarPolicy="ALWAYS" vvalue="1.0" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-2.0">
@@ -259,7 +259,7 @@
                            <children>
                               <TableView fx:id="helpView" prefHeight="690.0" prefWidth="650.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <columns>
-                                    <TableColumn fx:id="helpCommandCol" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Command">
+                                    <TableColumn fx:id="helpCommandCol" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" resizable="false" text="Command">
                                        <cellValueFactory>
                                           <PropertyValueFactory property="command" />
                                        </cellValueFactory>

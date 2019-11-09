@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UpdateFile {
-    private static final String filename = "../data/savedegree.txt"; //text file that stores all the information
+    private final String filename = "../data/savedegree.txt"; //text file that stores all the information
     File file = new File(filename);
-    private static List<String> lines;
-    private static ArrayList<String> list = DegreeList.getDegrees();
+    private List<String> lines;
+    //private ArrayList<String> list = DegreeList.getDegrees();
 
     /**
      * The method changes the value of the ranks of the degrees after a degree has been removed from the list.
@@ -20,7 +20,7 @@ public class UpdateFile {
      * @param degree
      * @return newLines
      */
-    private static List<String> changeValueOf(String degree){
+    private List<String> changeValueOf(String degree){
         List<String> newLines = new ArrayList<String>();
         for(String line: lines){
             String [] vals = line.split("-");
@@ -35,7 +35,7 @@ public class UpdateFile {
         return newLines;
     }
 
-    private static List<String> swapValue(String degree){
+    private List<String> swapValue(String degree){
         List<String> newLines = new ArrayList<String>();
         for(String line: lines){
             String [] vals = line.split("-");

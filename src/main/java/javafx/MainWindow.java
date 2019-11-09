@@ -454,6 +454,24 @@ public class MainWindow extends AnchorPane {
                 + "Will also switch to the \"Degree Information\" tab.\n\n"
                 + "Examples: detail bme | detail Biomedical Engineering";
         this.dataHelp.add(new HelpFX("detail <degree>", description));
+
+        //swap Command.
+        description = "Swaps 2 degrees with the given IDs in your degree choices.\n"
+                + "Accepts only integers. \n\n"
+                + "Examples: swap 1 2";
+        this.dataHelp.add(new HelpFX("swap <ID> <ID>", description));
+
+        //delete Command.
+        description = "Deletes a task from the task list corresponding to the ID of the task.\n"
+                + "Accepts only integers. \n\n"
+                + "Examples: delete 1";
+        this.dataHelp.add(new HelpFX("delete <ID>", description));
+
+        //remove Command.
+        description = "Removes a degree corresponding to the ID from your choice of degrees.\n"
+                + "Accepts only integers. \n\n"
+                + "Examples: remove 1";
+        this.dataHelp.add(new HelpFX("remove <ID>", description));
     }
 }
 

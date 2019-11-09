@@ -57,17 +57,17 @@ public class AddCommand extends Command {
         else if (this.command.matches("add")) {
             this.listType = 2; //2 for both degree list and task list
 
-            degreesBuffer = lists.deepClone();
-            tasksBuffer = tasks.deepClone();
-            memento1 = new Memento(degreesBuffer);
-            memento2 = new Memento(tasksBuffer);
-
 
             if(this.arguments.matches("Materials Science and Engineering|Biomedical Engineering|Chemical Engineering|Civil Engineering|"
                     + "Computer Engineering|Electrical Engineering|Environmental Engineering|"
                     + "Industrial and Systems Engineering|Mechanical Engineering|"
                     + "BME|BioMed|Bio Eng|BM|ChE|Chem Eng|CivE|Civil E|Civil|CEG|Com E|EE|ElecE|ENVE|Mech Eng|ME|ISE|"
                     + "IE|Industrial Systems|Materials Science Engineering|MSE")) {
+                degreesBuffer = lists.deepClone();
+                tasksBuffer = tasks.deepClone();
+                memento1 = new Memento(degreesBuffer);
+                memento2 = new Memento(tasksBuffer);
+
                 lists.add_custom(this.arguments, storage);
                 NUSEventList NUSEventList = new NUSEventList();
                 NUSEventList.addDegreeTasks(this.arguments, tasks);

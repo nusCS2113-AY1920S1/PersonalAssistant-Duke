@@ -75,8 +75,7 @@ public class Parser {
             } else { //if the user wants to display help for only one command
                 String input = temp.nextLine();
                 input = input.strip();
-                if (input.matches("help|detail|compare|add|swap|replace|delete|clear|custom"
-                        + "|bye|undo|redo")) {
+                if (input.matches("help|detail|compare|add|swap|delete|bye|undo|redo")) {
                     return new HelpCommand(command, input);
                 } else {
                     throw new DukeException("I do not understand that command. "

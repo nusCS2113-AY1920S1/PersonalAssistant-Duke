@@ -11,10 +11,7 @@ import java.util.Collections;
 
 
 public class DegreeList implements Serializable, Cloneable {
-    private static ArrayList<String> list = new ArrayList<>();
-    public static ArrayList<String> getDegrees(){
-        return list;
-    }
+    private ArrayList<String> list = new ArrayList<>();
 
     //private static final String filename = "../data/savedegree.txt";
 
@@ -30,11 +27,11 @@ public class DegreeList implements Serializable, Cloneable {
     }
 
     /**
-     * Method to facilitate the deep cloning of this taskList.
+     * Method to facilitate the deep cloning of this degreeList.
      * Returns a copy of this taskList, but with different references.
-     * This is to avoid shallow copying, which will also modify the saved state of the taskList.
+     * This is to avoid shallow copying, which will also modify the saved state of the degreeList.
      *
-     * @return A copy of this taskList with different references to objects.
+     * @return A copy of this degreeList with different references to objects.
      */
     public DegreeList deepClone() {
         try {
@@ -241,7 +238,9 @@ public class DegreeList implements Serializable, Cloneable {
         }
     }
 
-
+    public ArrayList<String> getDegrees(){
+        return this.list;
+    }
 
     /**
      * Deletes the entire degree list.
