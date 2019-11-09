@@ -164,7 +164,7 @@ public class PrioritizeCommandTest {
         }
 
         for ( int i = 0 ; i< tasks.getList().size() ; i++){
-            int j = i *2;
+            int j = i *2 +1 ;
             PrioritizeCommand prioritizeCommand = new PrioritizeCommand("prioritize " + (i+1) + " prio " + j);
             if (j< 9) {
                 try {
@@ -184,11 +184,11 @@ public class PrioritizeCommandTest {
 
         assertTrue(tasks.size()==6);
 
-        assertTrue(tasks.get(0).getPriority() == 0);
-        assertTrue(tasks.get(1).getPriority()==2);
-        assertTrue(tasks.get(2).getPriority()== 4);
-        assertTrue(tasks.get(3).getPriority()==6);
-        assertTrue(tasks.get(4).getPriority()==8);
+        assertTrue(tasks.get(0).getPriority() == 1);
+        assertTrue(tasks.get(1).getPriority()==3);
+        assertTrue(tasks.get(2).getPriority()== 5);
+        assertTrue(tasks.get(3).getPriority()==7);
+        assertTrue(tasks.get(4).getPriority()==9);
         assertTrue(tasks.get(5).getPriority()==5);
 
         for ( int i = 0 ; i< tasks.getList().size() ; i++){

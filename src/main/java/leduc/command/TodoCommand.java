@@ -49,7 +49,7 @@ public class TodoCommand extends Command {
         int priority = -1 ;
         if (prioritySplit.length != 1 && prioritySplit[1].trim().matches("\\d+")){
             priority = Integer.parseInt(prioritySplit[1].trim());
-            if (priority < 0 || priority > 9) {
+            if (priority < 1 || priority > 9) {
                 throw new PrioritizeLimitException();
             }
             if (prioritySplit[0].isBlank()){

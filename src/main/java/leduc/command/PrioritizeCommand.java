@@ -64,7 +64,7 @@ public class PrioritizeCommand extends Command {
         catch (Exception e ){
             throw new PrioritizeFormatException();
         }
-        if (priority < 0 || priority > 9) {
+        if (priority < 1 || priority > 9) {
             throw new PrioritizeLimitException();
         }
         Task t = tasks.get(taskIndex);
