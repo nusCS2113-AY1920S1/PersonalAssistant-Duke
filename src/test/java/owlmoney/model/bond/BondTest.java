@@ -9,8 +9,6 @@ import java.util.Date;
 import org.junit.jupiter.api.Test;
 
 class BondTest {
-    private static final String NEWLINE = System.lineSeparator();
-
     @Test
     void bondStub_normalBondStub_success() throws ParseException {
         BondStub testBond = new BondStub();
@@ -100,11 +98,11 @@ class BondTest {
         assertEquals(expectedCategory,actualCategory);
 
         String actualResultOfBondDescription = testBond.getBondDescription();
-        String expectedResultOfBondDescription = "Name: TEST BOND" + NEWLINE
-                + "Amount: $1000.00" + NEWLINE
-                + "Rate: 1.80" + NEWLINE
-                + "Date Purchased: 03 January 2019" + NEWLINE
-                + "Number of years: 3" + NEWLINE;
+        String expectedResultOfBondDescription = "Name: TEST BOND" + "\n"
+                + "Amount: $1000.00" + "\n"
+                + "Rate: 1.80" + "\n"
+                + "Date Purchased: 03 January 2019" + "\n"
+                + "Number of years: 3" + "\n";
         assertEquals(expectedResultOfBondDescription,actualResultOfBondDescription);
     }
 
