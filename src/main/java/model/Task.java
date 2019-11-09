@@ -4,6 +4,7 @@ import common.LoggerController;
 import model.Member;
 import common.DukeException;
 
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
@@ -63,6 +64,10 @@ public class Task {
         isDone = true;
     }
 
+    public void markAsUndone() {
+        isDone = false;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -93,7 +98,9 @@ public class Task {
      * @return string of task
      */
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.name + (time == null ? "" : (" (at: " + time + ")"));
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE dd-MM-yyyy HH:mm'H'");
+        return "[" + this.getStatusIcon() + "] " + this.name + (time == null ? "" : (" (due: "
+                + sdf.format(time) + ")"));
     }
 
     /**

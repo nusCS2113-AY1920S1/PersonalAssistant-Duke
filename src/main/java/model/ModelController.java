@@ -217,8 +217,11 @@ public class ModelController implements Model {
     }
 
     @Override
-    public void unlink(int taskIndex, String memberName) {
+    public void unlink(int taskIndex, String memberName) throws DukeException {
         Task task = tasksManager.getTaskById(taskIndex);
+        if (!task.hasMember(memberName)) {
+            throw new DukeException("Warning: no link between " + task.getName() + " and " + memberName);
+        }
         task.deleteMember(memberName);
         memberManager.getMemberByName(memberName).deleteTask(task.getName());
     }

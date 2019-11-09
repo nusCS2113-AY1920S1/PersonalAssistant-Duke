@@ -54,7 +54,7 @@ public class AddTaskCommand extends Command {
             String[] membersString = members.split(" ");
             for (int i = 0; i < membersString.length; i++) {
                 if (model.getMemberManager().hasMember(membersString[i])) {
-                    newTask.addMember(membersString[i]);
+                    model.link(model.getTaskListSize() - 1, membersString[i]);
                 } else {
                     memberMissingMessage += "Warning: member " + membersString[i] + " do not exist.\n";
                 }

@@ -85,7 +85,7 @@ public interface Model {
     //==================Task and Member Interface======================
     void link(int tasksIndexes, String memberNames);
 
-    void unlink(int tasksIndexes, String memberNames);
+    void unlink(int tasksIndexes, String memberNames) throws DukeException;
 
     String deleteTask(int index) throws DukeException;
 
