@@ -1,3 +1,5 @@
+//@@author e0323290
+
 package gazeeebo.commands.expenses;
 
 import gazeeebo.storage.Storage;
@@ -9,13 +11,18 @@ import java.util.Map;
 import java.util.Stack;
 
 /**
- * Undo previous commands.
- *
- * @param
- * @return
- * @throws IOException
+ * Undo previous expenses commands (e.g. add, delete)
  */
 public class UndoExpenseCommand {
+    /**
+     * Undo the previous expenses command.
+     *
+     * @param expenses    the map that maps each expenses to its date
+     * @param oldExpenses keep the previous expenses command
+     * @param storage     the object that deals with storing data
+     * @return return the expenses map
+     * @throws IOException Catch error if the read file fails
+     */
     public static Map<LocalDate, ArrayList<String>> undoExpenses(
             Map<LocalDate, ArrayList<String>> expenses,
             final Stack<Map<LocalDate,
@@ -39,11 +46,11 @@ public class UndoExpenseCommand {
                             + "\n");
                 }
             }
-            storage.Storages_Expenses(toStore);
+            storage.writeToExpensesFile(toStore);
             oldExpenses.pop();
-            System.out.println("You have undo the previous command.");
+            System.out.println("You have undone the previous command.");
         } else {
-            System.out.println("The previous command cannot be undo");
+            System.out.println("The previous command cannot be undone");
         }
         return expenses;
     }

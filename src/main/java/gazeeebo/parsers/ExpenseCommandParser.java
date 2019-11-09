@@ -1,6 +1,13 @@
 package gazeeebo.parsers;
 
-import gazeeebo.commands.expenses.*;
+
+import gazeeebo.commands.expenses.AddExpenseCommand;
+import gazeeebo.commands.expenses.DeleteExpenseCommand;
+import gazeeebo.commands.expenses.ExpenseListCommand;
+import gazeeebo.commands.expenses.FindExpenseCommand;
+import gazeeebo.commands.expenses.UndoExpenseCommand;
+import gazeeebo.commands.help.HelpCommand;
+import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
@@ -42,44 +49,52 @@ public class ExpenseCommandParser extends Command {
                         final Stack<ArrayList<Task>> commandStack,
                         final ArrayList<Task> deletedTask,
                         final TriviaManager triviaManager)
-            throws IOException, ParseException {
+            throws IOException, ParseException, DukeException {
         /*Read file from storage*/
-        HashMap<LocalDate, ArrayList<String>> map = storage.Expenses();
+        HashMap<LocalDate, ArrayList<String>> map
+                = storage.readFromExpensesFile();
         Map<LocalDate, ArrayList<String>> expenses =
                 new TreeMap<LocalDate, ArrayList<String>>(map);
         Stack<Map<LocalDate, ArrayList<String>>> oldExpenses = new Stack<>();
         boolean isExitExpenses = false;
 
-        System.out.print("Welcome to your expenses record!"
+        System.out.println("Welcome to your expenses record!"
                 + " What would you like to do?\n\n");
-        System.out.println("_________________________"
-                + "_________________________________");
-        System.out.println("1. Add expenses command: add");
-        System.out.println("2. Find expenses on a certain date: "
-                + "find yyyy-MM-dd");
-        System.out.println("3. Delete a certain expense: delete");
-        System.out.println("4. See your expense list: list");
-        System.out.println("5. Exit Expense page: esc");
+        String helpExpenses = "_________________________"
+                + "_________________________________\n"
+                + "1. Add expenses command: add item, price, date\n"
+                + "2. Find expenses on a certain date: "
+                + "find yyyy-MM-dd\n"
+                + "3. Delete a certain expense: delete OR delete ITEM_NAME\n"
+                + "4. See your expense list: list\n"
+                + "5. Undo Command: undo\n"
+                + "6. List of commands for expenses page: commands\n"
+                + "7. Help page: help\n"
+                + "8. Exit Expense page: esc\n"
+                + "_________________________"
+                + "_________________________________";
 
-        System.out.println("_________________________"
-                + "_________________________________");
-
-
+        System.out.println(helpExpenses);
         while (!isExitExpenses) {
             ui.readCommand();
-            if (ui.fullCommand.equals("add")) {
+            if (ui.fullCommand.split(" ")[0].equals("add")) {
                 copyMap(expenses, oldExpenses);
-                new AddExpenseCommand(ui, storage, expenses);
+                new AddExpenseCommand(ui, expenses);
             } else if (ui.fullCommand.split(" ")[0].equals("find")) {
                 new FindExpenseCommand(ui, expenses);
-            } else if (ui.fullCommand.equals("delete")) {
+            } else if (ui.fullCommand.split(" ")[0].equals("delete")) {
                 copyMap(expenses, oldExpenses);
-                new DeleteExpenseCommand(ui, storage, expenses);
+                new DeleteExpenseCommand(ui, expenses);
             } else if (ui.fullCommand.equals("list")) {
-                new ExpenseListCommand(ui, expenses);
+                new ExpenseListCommand(expenses);
             } else if (ui.fullCommand.equals("undo")) {
                 expenses = UndoExpenseCommand.undoExpenses(expenses,
                         oldExpenses, storage);
+            } else if (ui.fullCommand.equals("commands")) {
+                System.out.println(helpExpenses);
+            } else if (ui.fullCommand.equals("help")) {
+                (new HelpCommand()).execute(null, ui, null,
+                        null, null, null);
             } else if (ui.fullCommand.equals("esc")) {
                 isExitExpenses = true;
                 System.out.println("Going back to Main Menu...\n"
@@ -96,8 +111,25 @@ public class ExpenseCommandParser extends Command {
                         + "9. notes\n"
                         + "To exit: bye\n"
                 );
+            } else {
+                System.out.println("Command not found, please re-enter!");
             }
-            System.out.println("Command not found, please re-enter!");
+            String toStore = "";
+            for (LocalDate key : expenses.keySet()) {
+                if (expenses.get(key).size() > 1) {
+                    for (int i = 0; i < expenses.get(key).size(); i++) {
+                        toStore = toStore.concat(key + "|"
+                                + expenses.get(key).get(i)
+                                + "\n");
+                    }
+                } else if (expenses.get(key).size() == 1) {
+
+                    toStore = toStore.concat(key + "|"
+                            + expenses.get(key).get(0)
+                            + "\n");
+                }
+            }
+            storage.writeToExpensesFile(toStore);
         }
     }
 

@@ -306,7 +306,7 @@ public class Storage {
         return contactList;
     }
 
-    public void Storages_Expenses(String fileContent) throws IOException {
+    public void writeToExpensesFile(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(relativePathExpensesResource);
         fileWriter.write(fileContent);
         fileWriter.flush();
@@ -320,7 +320,7 @@ public class Storage {
         fileWriter.close();
     }
 
-    public HashMap<LocalDate, ArrayList<String>> Expenses() throws FileNotFoundException {
+    public HashMap<LocalDate, ArrayList<String>> readFromExpensesFile() throws FileNotFoundException {
         HashMap<LocalDate, ArrayList<String>> expenses = new HashMap<LocalDate, ArrayList<String>>();
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -444,14 +444,14 @@ public class Storage {
         return caplist;
     }
 
-    public void specializationStorage(String fileContent) throws IOException {
+    public void writeToSpecializationFile(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(relativePathSpecializationResource);
         fileWriter.write(fileContent);
         fileWriter.flush();
         fileWriter.close();
     }
 
-    public HashMap<String, ArrayList<ModuleCategory>> Specialization() throws IOException {
+    public HashMap<String, ArrayList<ModuleCategory>> readFromSpecializationFile() throws IOException {
         HashMap<String, ArrayList<ModuleCategory>> specMap = new HashMap<>();
 
         File file = new File(relativePathSpecializationResource);
@@ -469,14 +469,14 @@ public class Storage {
         return specMap;
     }
 
-    public void completedElectivesStorage(String fileContent) throws IOException {
+    public void writeToCompletedElectivesFile(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(relativePathCompletedElectivesResource);
         fileWriter.write(fileContent);
         fileWriter.flush();
         fileWriter.close();
     }
 
-    public HashMap<String, ArrayList<String>> completedElectives() throws IOException {
+    public HashMap<String, ArrayList<String>> readFromCompletedElectivesFile() throws IOException {
         HashMap<String, ArrayList<String>> completedEMap = new HashMap<>();
 //        InputStream inputStream = Storage.class.getResourceAsStream(relativePathCompletedElectives);
 //        Scanner sc = new Scanner(inputStream);
