@@ -35,15 +35,15 @@ public class ParseFindRecurring extends ParseFind {
         while (findIterator.hasNext()) {
             String key = findIterator.next();
             String value = findParameters.get(key);
-            if (DESCRIPTION_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (DESCRIPTION_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkDescription(value);
                 findCounter++;
             }
-            if (CATEGORY_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (CATEGORY_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkCategory(value);
                 findCounter++;
             }
-            if (NAME_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when finding recurring expenditure");
             } else if (NAME_PARAMETER.equals(key)) {
                 checkName(value);

@@ -37,7 +37,7 @@ public class ParseAddBond extends ParseBond {
         while (bondIterator.hasNext()) {
             String key = bondIterator.next();
             String value = bondParameters.get(key);
-            if (!NUM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (!NUM_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when adding bond");
             }
             if (NAME_PARAMETER.equals(key)) {

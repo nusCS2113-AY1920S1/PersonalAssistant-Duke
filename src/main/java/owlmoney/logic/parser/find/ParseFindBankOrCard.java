@@ -41,7 +41,7 @@ public class ParseFindBankOrCard extends ParseFind {
             String value = findParameters.get(key);
             if (!DESCRIPTION_PARAMETER.equals(key) && !CATEGORY_PARAMETER.equals(key)
                     && !FROM_PARAMETER.equals(key) && !TO_PARAMETER.equals(key)
-                    && (value.isBlank() || value.isEmpty())) {
+                    && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when doing a search");
             }
             if (NAME_PARAMETER.equals(key)) {

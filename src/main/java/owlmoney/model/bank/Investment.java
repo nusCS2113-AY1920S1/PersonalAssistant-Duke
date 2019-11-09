@@ -24,13 +24,12 @@ import owlmoney.ui.Ui;
  */
 public class Investment extends Bank {
 
-    private static final String INVESTMENT = "investment";
     private BondList bonds;
-    private static final String INVESTMENT_BOND_LIST_FILE_NAME = "_investment_bondList.csv";
-    private static final String INVESTMENT_TRANSACTION_LIST_FILE_NAME = "_investment_transactionList.csv";
     private Storage storage;
     private static final String FILE_PATH = "data/";
-
+    private static final String INVESTMENT = "investment";
+    private static final String INVESTMENT_BOND_LIST_FILE_NAME = "_investment_bondList.csv";
+    private static final String INVESTMENT_TRANSACTION_LIST_FILE_NAME = "_investment_transactionList.csv";
 
     /**
      * Creates an instance of an investment account.
@@ -117,6 +116,9 @@ public class Investment extends Bank {
     void investmentDeleteBond(String bondName, Ui ui) throws BondException {
         Bond targetBond = bonds.getBond(bondName);
         Calendar calendar = Calendar.getInstance();
+        if (this.getCurrentAmount() + targetBond.getAmount() > MAX_AMOUNT) {
+            throw new BondException("The amount in the bank cannot exceed 9 digits");
+        }
         Transaction newDeposit = createNewDeposit(bondName,targetBond.getAmount(),calendar.getTime());
         transactions.addDepositToList(newDeposit, ui, "bonds");
         addToAmount(targetBond.getAmount());
@@ -182,8 +184,11 @@ public class Investment extends Bank {
      * @param bond the bond that generated the interest.
      * @param ui   required for printing.
      */
-    private void addBondInterestDeposit(Bond bond, Ui ui) {
+    private void addBondInterestDeposit(Bond bond, Ui ui) throws BankException {
         double interestAmount = bond.getAmount() * bond.getHalfYearlyCouponRate() / 100;
+        if (this.getCurrentAmount() + interestAmount > MAX_AMOUNT) {
+            throw new BankException("The amount in the bank cannot exceed 9 digits");
+        }
         Transaction newDeposit = createNewDeposit(bond.getName(), interestAmount, bond.getNextDateToCreditInterest());
         transactions.addDepositToList(newDeposit, ui, "bonds");
         addToAmount(interestAmount);
@@ -235,14 +240,22 @@ public class Investment extends Bank {
             Calendar calendarCurrentDate = Calendar.getInstance();
             Date currentDate = calendarCurrentDate.getTime();
             Date nextDateToCreditInterest = targetBond.getNextDateToCreditInterest();
-            while (currentDate.compareTo(nextDateToCreditInterest) >= 0) {
-                addBondInterestDeposit(targetBond,ui);
-                nextDateToCreditInterest = calculateNextInterestDate(nextDateToCreditInterest);
-                targetBond.setNextDateToCreditInterest(nextDateToCreditInterest);
-                if (removeBondIfMature(ui, targetBond, endDate)) {
-                    i--;
+            while (currentDate.compareTo(nextDateToCreditInterest) >= 0 && !targetBond.getMature()) {
+                try {
+                    addBondInterestDeposit(targetBond, ui);
+                    nextDateToCreditInterest = calculateNextInterestDate(nextDateToCreditInterest);
+                    targetBond.setNextDateToCreditInterest(nextDateToCreditInterest);
+                    if (nextDateToCreditInterest.compareTo(endDate) > 0) {
+                        targetBond.setMature();
+                    }
+                } catch (BankException errorMessage) {
+                    ui.printError(errorMessage.toString());
+                    ui.printMessage("Unable to add the interest for: " + targetBond.getName());
                     break;
                 }
+            }
+            if (removeBondIfMature(ui, targetBond, endDate)) {
+                i--;
             }
         }
     }
@@ -294,7 +307,7 @@ public class Investment extends Bank {
         decimalFormat.setRoundingMode(RoundingMode.DOWN);
         SimpleDateFormat exportDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         exportArrayList.add(new String[]{"bondName","amount","rate","boughtDate","year",
-            "nextDateToCreditInterest"});
+            "nextDateToCreditInterest", "isMature"});
         for (int i = 0; i < bonds.getSize(); i++) {
             String bondName = bonds.get(i).getName();
             double amount = bonds.get(i).getAmount();
@@ -305,8 +318,10 @@ public class Investment extends Bank {
             String stringAmount = decimalFormat.format(amount);
             String stringRate = decimalFormat.format(rate);
             String stringYear = Integer.toString(year);
+            boolean mature = bonds.get(i).getMature();
+            String stringMature = String.valueOf(mature);
             exportArrayList.add(new String[]
-                {bondName, stringAmount, stringRate, boughtDate, stringYear, nextDateToCreditInterest});
+                {bondName, stringAmount, stringRate, boughtDate, stringYear, nextDateToCreditInterest, stringMature});
         }
         return exportArrayList;
     }
