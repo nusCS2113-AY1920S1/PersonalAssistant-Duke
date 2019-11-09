@@ -1,5 +1,6 @@
 package gazeeebo.UI;
 
+import gazeeebo.storage.PasswordStorage;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Event;
@@ -42,10 +43,10 @@ public class Ui {
                 + "\n__________________________________________\n";
         while (true) {
             readCommand();
-            ArrayList<StringBuilder> password_list;
-            Storage store = new Storage();
-            password_list = store.readFromPasswordFile();
-            if (fullCommand.equals(password_list.get(0).toString())) {
+            ArrayList<StringBuilder> passwordList;
+            PasswordStorage store = new PasswordStorage();
+            passwordList = store.readFromPasswordFile();
+            if (fullCommand.equals(passwordList.get(0).toString())) {
                 System.out.println(welcomemessage);
                 LocalDate a = LocalDate.now();
                 System.out.println("Today is " + a.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
@@ -59,9 +60,9 @@ public class Ui {
     }
 
     /**
-     * List of major features
+     * List of major features.
      */
-    public void MajorCategories() {
+    public void majorCategories() {
         ArrayList<String> majorCategories = new ArrayList<>();
         majorCategories.add("help");
         majorCategories.add("contacts");

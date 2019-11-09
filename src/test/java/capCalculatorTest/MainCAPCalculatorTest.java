@@ -1,3 +1,4 @@
+//@@author JasonLeeWeiHern
 package capCalculatorTest;
 
 import gazeeebo.TriviaManager.TriviaManager;
@@ -17,8 +18,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.text.ParseException;
 import java.util.*;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MainCAPCalculatorTest {
     private Ui ui = new Ui();

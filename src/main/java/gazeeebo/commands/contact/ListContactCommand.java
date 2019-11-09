@@ -1,3 +1,4 @@
+//@@author JasonLeeWeiHern
 package gazeeebo.commands.contact;
 
 
@@ -27,19 +28,19 @@ public class ListContactCommand {
                 + "| Number:\n" + LINEBREAK);
         for (String key : contactList.keySet()) {
             if (!key.contains("NUS") || !key.contains("CEG")) {
-                forPrint(contactList, LINEBREAK, key);
+                forPrint(contactList, key);
             }
         }
         System.out.print("\nCEG CONTACTS:\n");
         for (String key : contactList.keySet()) {
             if (key.contains("CEG")) {
-                forPrint(contactList, LINEBREAK, key);
+                forPrint(contactList, key);
             }
         }
         System.out.print("\nNUS CONTACTS:\n");
         for (String key : contactList.keySet()) {
             if (key.contains("NUS")) {
-                forPrint(contactList, LINEBREAK, key);
+                forPrint(contactList, key);
             }
         }
     }
@@ -47,18 +48,16 @@ public class ListContactCommand {
     /**
      * To print the contact list.
      *
-     * @param contact   Map each name to its phone number.
-     * @param lineBreak print out a separator to separate each line in the list.
+     * @param contactList   Map each name to its phone number.
      * @param key       gets the key of the contact.
      */
-    private void forPrint(final Map<String, String> contact,
-                          final String lineBreak, final String key) {
+    private void forPrint(final Map<String, String> contactList, final String key) {
         System.out.print(key);
         int l = SPACE_NUMBER - key.length();
         for (int i = 0; i < l; i++) {
             System.out.print(" ");
         }
         System.out.print("| ");
-        System.out.print(contact.get(key) + "\n" + lineBreak);
+        System.out.print(contactList.get(key) + "\n" + LINEBREAK);
     }
 }

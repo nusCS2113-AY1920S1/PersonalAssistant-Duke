@@ -7,6 +7,7 @@ import gazeeebo.commands.Command;
 import gazeeebo.commands.capCalculator.*;
 import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.exception.DukeException;
+import gazeeebo.storage.CAPPageStorage;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 
@@ -49,6 +50,21 @@ public class CAPCommandParser extends Command {
         this.grade = grade;
     }
 
+    public static void showListOfCommands() {
+        System.out.print("__________________"
+                + "________________________________________\n"
+                + "1. Add module: add semester number,"
+                + "module's code, module's credit, module's grade\n"
+                + "2. Find module: find moduleCode\n"
+                + "3. Delete a module: delete module\n"
+                + "4. See your CAP list: list all/semester number\n"
+                + "5. List of commands for CAP page: commands\n"
+                + "6. Help page: help\n"
+                + "7. Exit CAP page: esc\n"
+                + "_________________"
+                + "_________________________________________\n\n");
+    }
+
     /**
      * Decodes the command input in the CAP page.
      */
@@ -60,28 +76,17 @@ public class CAPCommandParser extends Command {
                         final TriviaManager triviaManager)
             throws DukeException, ParseException,
             IOException, NullPointerException {
-        String helpCAP = "__________________"
-                + "________________________________________\n"
-                + "1. Add module: add semester number,"
-                + "module's code, module's credit, module's grade\n"
-                + "2. Find module: find moduleCode\n"
-                + "3. Delete a module: delete module\n"
-                + "4. See your CAP list: list all/semester number\n"
-                + "5. List of commands for CAP page: commands\n"
-                + "6. Help page: help\n"
-                + "7. Exit CAP page: esc\n"
-                + "_________________"
-                + "_________________________________________\n\n";
-        System.out.print("Welcome to your CAP Calculator page! "
-                + "What would you like to do?\n\n");
-        System.out.print(helpCAP);
-        HashMap<String, ArrayList<CAPCommandParser>> map
-                = storage.readFromCAPFile(); //Read the file
-        Map<String, ArrayList<CAPCommandParser>> caplist = new TreeMap<>(map);
-        String lineBreak = "------------------------------\n";
-        ui.readCommand();
-        while (!(ui.fullCommand.equals("esc") || ui.fullCommand.equals("7"))) {
-            try {
+        try {
+            CAPPageStorage capPageStorage = new CAPPageStorage();
+            HashMap<String, ArrayList<CAPCommandParser>> map
+                    = capPageStorage.readFromCAPFile(); //Read the file
+            Map<String, ArrayList<CAPCommandParser>> caplist = new TreeMap<>(map);
+            System.out.print("Welcome to your CAP Calculator page! "
+                    + "What would you like to do?\n\n");
+            showListOfCommands();
+            String lineBreak = "------------------------------\n";
+            ui.readCommand();
+            while (!(ui.fullCommand.equals("esc") || ui.fullCommand.equals("7"))) {
                 double cap = new CalculateCAPCommand().calculateCAP(caplist);
                 if (ui.fullCommand.split(" ")[0].equals("add")
                         || ui.fullCommand.equals("1")) {
@@ -95,19 +100,16 @@ public class CAPCommandParser extends Command {
                 } else if (ui.fullCommand.split(" ")[0].equals("delete")
                         || ui.fullCommand.equals("3")) {
                     new DeleteCAPCommand(ui, caplist);
-                } else if (ui.fullCommand.equals("help")
+                } else if (ui.fullCommand.split(" ")[0].equals("help")
                         || ui.fullCommand.equals("6")) {
                     (new HelpCommand()).execute(null, ui, null,
                             null, null, null);
                 } else if (ui.fullCommand.equals("commands")
                         || ui.fullCommand.equals("5")) {
-                    System.out.println(helpCAP);
+                    showListOfCommands();
                 } else {
-                    throw new ArrayIndexOutOfBoundsException();
+                    ui.showDontKnowErrorMessage();
                 }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Command not found:\n" + helpCAP);
-            } finally {
                 String toStore = "";
                 for (String key : caplist.keySet()) {
                     for (int i = 0; i < caplist.get(key).size(); i++) {
@@ -116,31 +118,33 @@ public class CAPCommandParser extends Command {
                                 + "|" + caplist.get(key).get(i).moduleCredit
                                 + "|" + caplist.get(key).get(i).grade + "\n");
 
-                    }
 
+                    }
+                    capPageStorage.writeToCAPFile(toStore);
+                    System.out.println("What do you want to do next ?");
+                    ui.readCommand();
                 }
-                storage.writeToCAPFile(toStore);
-                System.out.println("What do you want to do next ?");
-                ui.readCommand();
             }
+            System.out.print("Going back to Main Menu...\n"
+                    + "Content Page:\n"
+                    + "------------------ \n"
+                    + "1. help\n"
+                    + "2. contacts\n"
+                    + "3. expenses\n"
+                    + "4. places\n"
+                    + "5. tasks\n"
+                    + "6. cap\n"
+                    + "7. spec\n"
+                    + "8. moduleplanner\n"
+                    + "9. notes\n"
+                    + "To exit: bye\n");
+        } catch (IOException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            System.out.println("Error in CAP.txt");
         }
-        System.out.print("Going back to Main Menu...\n"
-                + "Content Page:\n"
-                + "------------------ \n"
-                + "1. help\n"
-                + "2. contacts\n"
-                + "3. expenses\n"
-                + "4. places\n"
-                + "5. tasks\n"
-                + "6. cap\n"
-                + "7. spec\n"
-                + "8. moduleplanner\n"
-                + "9. notes\n"
-                + "To exit: bye\n");
     }
 
     /**
-     *
+     * Method determine if the system exit.
      */
     @Override
     public boolean isExit() {

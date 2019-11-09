@@ -38,7 +38,7 @@ public class Gazeeebo {
             NotePageStorage.readFromGoalFile();
             NotePageStorage.readFromModulesFile();
             ui.upcomingTask(list);
-            ui.MajorCategories();
+            ui.majorCategories();
             while (!isExit) {
                 ui.readCommand();
                 String command = ui.fullCommand;

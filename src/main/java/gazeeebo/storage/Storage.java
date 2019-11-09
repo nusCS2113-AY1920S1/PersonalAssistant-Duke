@@ -26,18 +26,6 @@ import java.util.stream.Collectors;
 
 public class Storage {
 
-//    private String relative_Path = "Save.txt";
-//    private String relativePath_password = "Password.txt";
-//    private String relativePath_Contact = "Contact.txt";
-//    private String relativePath_Expenses = "Expenses.txt";
-//    private String relativePath_Places = "Places.txt";
-//    private String relativePath_Trivia = "Trivia.txt";
-//    private String relativePath_CAP = "CAP.txt";
-//    private String relativePath_Specialization = "Specialization.txt";
-//    private String relativePath_StudyPlanner = "Study_Plan.txt";
-//    private String relativePath_CompletedElectives = "CompletedElectives.txt";
-//    private String relativePath_Prerequisite = "Prerequisite.txt";
-
     private String[] relativePath
             = {"Save.txt", "/Save.txt"};
     private String[] relativePathPassword
@@ -72,18 +60,13 @@ public class Storage {
             = {"NoteWeekly.txt", "/NoteWeekly.txt"};
     private String relativePathResource
             = "Save.txt";
-    private String relativePathPasswordResource
-            = "Password.txt";
-    private String relativePathContactResource
-            = "Contact.txt";
     private String relativePathExpensesResource
             = "Expenses.txt";
     private String relativePathPlacesResource
             = "Places.txt";
     private String relativePathTriviaResource
             = "Trivia.txt";
-    private String relativePathCAPResource
-            = "CAP.txt";
+
     private String relativePathSpecializationResource
             = "Specialization.txt";
     private String relativePathStudyPlannerResource
@@ -236,76 +219,6 @@ public class Storage {
         return tList;
     }
 
-    /**
-     * Write the encoded password into the Password.txt file.
-     *
-     * @param fileContent string to put into the txt file.
-     * @throws IOException catch the error if the read file fails.
-     */
-    public void writeToPasswordFile(final String fileContent) throws IOException {
-        FileWriter fileWriter = new FileWriter(relativePathPasswordResource);
-        fileWriter.write(fileContent);
-        fileWriter.flush();
-        fileWriter.close();
-    }
-
-    /**
-     * Read from the Password.txt file, decode the passwords and put it into an array.
-     *
-     * @return the arrays of password
-     * @throws FileNotFoundException catch the error if the read file fails.
-     */
-    public ArrayList<StringBuilder> readFromPasswordFile()
-            throws FileNotFoundException {
-        ArrayList<StringBuilder> passwordList = new ArrayList<>();
-
-        File f = new File(relativePathPasswordResource);
-        Scanner sc = new Scanner(f);
-        while (sc.hasNext()) {
-            String decodedPassword = sc.nextLine();
-            char[] decryption = decodedPassword.toCharArray();
-            StringBuilder realPassword = new StringBuilder();
-            for (int i = decodedPassword.length() - 1; i >= 0; i--) {
-                realPassword.append(decryption[i]);
-            }
-            passwordList.add(realPassword);
-        }
-        return passwordList;
-    }
-
-    /**
-     * THis method writes to the file Contact.txt.
-     *
-     * @param fileContent save the contact information into this file
-     * @throws IOException catch the error if the read file fails.
-     */
-    public void writeToContactFile(final String fileContent) throws IOException {
-        FileWriter fileWriter = new FileWriter(relativePathContactResource);
-        fileWriter.write(fileContent);
-        fileWriter.flush();
-        fileWriter.close();
-    }
-
-    /**
-     * This method read from the file Contact.txt and put the details into a HashMap
-     *
-     * @return Returns the HashMap of contacts, key is the contact name and the value is the phone number.
-     * @throws FileNotFoundException catch the error if the read file fails.
-     */
-    public HashMap<String, String> readFromContactFile()
-            throws FileNotFoundException {
-        HashMap<String, String> contactList = new HashMap<String, String>();
-
-
-        File f = new File(relativePathContactResource);
-        Scanner sc = new Scanner(f);
-        while (sc.hasNext()) {
-            String[] split = sc.nextLine().split("\\|");
-            contactList.put(split[0], split[1]);
-        }
-        return contactList;
-    }
-
     public void Storages_Expenses(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(relativePathExpensesResource);
         fileWriter.write(fileContent);
@@ -393,55 +306,6 @@ public class Storage {
         bufferedWriter.write(fileContent);
         bufferedWriter.flush();
         bufferedWriter.close();
-    }
-
-    /**
-     * Write to the CAP.txt file (save in the file).
-     *
-     * @param fileContent string to put into the file.
-     * @throws IOException catch the error if the read file fails.
-     */
-    public void writeToCAPFile(final String fileContent) throws IOException {
-        FileWriter fileWriter = new FileWriter(relativePathCAPResource);
-        fileWriter.write(fileContent);
-        fileWriter.flush();
-        fileWriter.close();
-    }
-
-    /**
-     * Read from the file CAP.txt and put the details into a HashMap
-     *
-     * @return Returns the HashMap of contacts, key is the contact name and the value is the phone number
-     * @throws IOException catch the error if the read file fails.
-     */
-    public HashMap<String, ArrayList<CAPCommandParser>> readFromCAPFile()
-            throws IOException {
-        HashMap<String, ArrayList<CAPCommandParser>> caplist = new HashMap<String, ArrayList<CAPCommandParser>>();
-
-        File f = new File(relativePathCAPResource);
-        Scanner sc = new Scanner(f);
-        while (sc.hasNext()) {
-            ArrayList<CAPCommandParser> moduleList = new ArrayList<>();
-            String[] splitStringTxtFile = sc.nextLine().split("\\|");
-            String semNumber = splitStringTxtFile[0];
-            String moduleCode = splitStringTxtFile[1];
-            int mc = Integer.parseInt(splitStringTxtFile[2]);
-            String grade = splitStringTxtFile[3];
-            CAPCommandParser newCAP = new CAPCommandParser(moduleCode, mc, grade);
-            boolean isEqual = false;
-            for (String key : caplist.keySet()) {
-                if (semNumber.equals(key)) {
-                    caplist.get(key).add(newCAP);
-                    isEqual = true;
-                }
-            }
-            /* semNumber doesn't exist in the list */
-            if (!isEqual) {
-                moduleList.add(newCAP);
-                caplist.put(semNumber, moduleList);
-            }
-        }
-        return caplist;
     }
 
     public void specializationStorage(String fileContent) throws IOException {

@@ -1,4 +1,4 @@
-
+//@@author JasonLeeWeiHern
 package gazeeebo.commands.capCalculator;
 
 import gazeeebo.UI.Ui;
@@ -37,10 +37,11 @@ public class ListCAPCommand {
      * @throws IOException catch the error if the read file fails.
      */
     public ListCAPCommand(final Ui ui,
-                          final Map<String, ArrayList<CAPCommandParser>> caplist,
+                          final Map<String,
+                                  ArrayList<CAPCommandParser>> caplist,
                           final String lineBreak) throws IOException {
         try {
-            CalculateCAPCommand calculatedGPA = new CalculateCAPCommand();
+            CalculateCAPCommand calculatedCAP = new CalculateCAPCommand();
             String listWhat = "";
             double cap;
             switch (ui.fullCommand.split(" ").length) {
@@ -57,12 +58,12 @@ public class ListCAPCommand {
                     throw new ArrayIndexOutOfBoundsException();
             }
             if ("all".equals(listWhat)) {
-                cap = calculatedGPA.calculateCAP(caplist);
+                cap = calculatedCAP.calculateCAP(caplist);
                 listAll(caplist, lineBreak, cap);
             } else if (Integer.parseInt(listWhat) <= UPPER_BOUNDARY
                     && Integer.parseInt(listWhat) >= LOWER_BOUNDARY) {
-                cap = calculatedGPA.calculateCAPPerSem(caplist, listWhat);
-                listSem(caplist, ui, lineBreak, cap, listWhat);
+                cap = calculatedCAP.calculateCAPPerSem(caplist, listWhat);
+                listSem(caplist, lineBreak, cap, listWhat);
             } else {
                 throw new ArrayIndexOutOfBoundsException();
             }
@@ -111,7 +112,7 @@ public class ListCAPCommand {
      * @param semNumber semester that user input
      */
     private void listSem(final Map<String, ArrayList<CAPCommandParser>> caplist,
-                         final Ui ui, final String lineBreak,
+                         final String lineBreak,
                          final double cap, final String semNumber) {
         try {
             System.out.print("Sem | Module code | MC | CAP\n" + lineBreak);

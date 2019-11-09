@@ -1,4 +1,4 @@
-
+//@@author JasonLeeWeiHern
 package gazeeebo.commands.capCalculator;
 
 import gazeeebo.UI.Ui;
@@ -47,7 +47,8 @@ public class AddCAPCommand {
             String moduleCode = splitAddInput[1];
             int moduleCredit = Integer.parseInt(splitAddInput[2]);
             String grade = splitAddInput[GRADE_INDEX];
-            CAPCommandParser newCAP = new CAPCommandParser(moduleCode, moduleCredit, grade);
+            CAPCommandParser newCAP =
+                    new CAPCommandParser(moduleCode, moduleCredit, grade);
             if (caplist.containsKey(semNumber)) {
                 caplist.get(semNumber).add(newCAP);
             } else {
