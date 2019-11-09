@@ -241,13 +241,17 @@ public class MainWindow extends AnchorPane {
             this.dataChoices.add(new ChoicesFX(countString, newChoice));
         }
 
-        //Forces a tab to open corresponding to the list being displayed
+        //Forces a tab to open corresponding to the input
         if (input.matches("tasks")) {
             tabPane.getSelectionModel().select(tabTask);
         } else if (input.matches("choices")) {
             tabPane.getSelectionModel().select(tabChoices);
         } else if (input.matches("help")) {
             tabPane.getSelectionModel().select(tabHelp);
+        } else if (input.matches("detail")) {
+            tabPane.getSelectionModel().select(tabDegrees);
+        } else if (input.matches("compare")) {
+            tabPane.getSelectionModel().select(tabDiff);
         } else if (input.matches("bye")) { //If user wants to end program, create a separate thread with a timer to exit
             // delay & exit on other thread
             new Thread(() -> {
@@ -257,24 +261,18 @@ public class MainWindow extends AnchorPane {
                 }
                 System.exit(0);
             }).start();
-        } else { //Now for commands with multiple inputs
+        } else { //Now for commands with multiple inputs, to swap tabs when the user has modified something in that tab
             Scanner temp = new Scanner(input);
             String command = temp.next();
 
-            if (command.matches("detail") && (!typoFlag)) {
-                if (!temp.hasNext()) {
-                    tabPane.getSelectionModel().select(tabDegrees);
-                }
-                else if (degreeFoundFlag && command.matches("detail")) {
-                    handleDetail(temp);
-                }
-            } else if (command.matches("compare") && (!typoFlag)) {
-                if (!temp.hasNext()) {
-                    tabPane.getSelectionModel().select(tabDiff);
-                }
-                else if (degreeFoundFlag) {
-                    handleCompare(temp);
-                }
+            if (command.matches("done|event|todo") && (!typoFlag)) {
+                tabPane.getSelectionModel().select(tabTask);
+            } else if (command.matches("swap|remove|add") && (!typoFlag)) {
+                tabPane.getSelectionModel().select(tabChoices);
+            } else if (command.matches("detail") && (!typoFlag) && (degreeFoundFlag)) {
+                handleDetail(temp);
+            } else if (command.matches("compare") && (!typoFlag) && (degreeFoundFlag)) {
+                handleCompare(temp);
             }
         }
 
@@ -418,7 +416,7 @@ public class MainWindow extends AnchorPane {
     }
 
     private void handleHelp() {
-        helpCommandCol.setStyle("-fx-alignment: CENTER;");
+        helpCommandCol.setStyle("-fx-alignment: CENTER-LEFT;");
 
         this.dataHelp = helpView.getItems();
         String description;
@@ -445,15 +443,17 @@ public class MainWindow extends AnchorPane {
 
         //help Command.
         description = "Displays help for all commands, or a certain command.\n"
-                + "Will also switch to the \"Help\" tab. This tab contains all the commands compatible with help.\n\n"
+                + "Will also switch to the \"Help\" tab containing all the commands compatible with help.\n"
+                + "Can be used on its own to simply switch tabs and display help for all commands.\n\n"
                 + "Examples: help tasks | help add | help choices";
-        this.dataHelp.add(new HelpFX("help\nhelp <command>", description));
+        this.dataHelp.add(new HelpFX("help\n\nhelp <command>", description));
 
         //detail Command.
         description = "Displays all modules and their module credits related to the given degree.\n"
-                + "Will also switch to the \"Degree Information\" tab.\n\n"
+                + "Will also switch to the \"Degree Information\" tab.\n"
+                + "Can be used on its own to simply switch tabs. \n\n"
                 + "Examples: detail bme | detail Biomedical Engineering";
-        this.dataHelp.add(new HelpFX("detail <degree>", description));
+        this.dataHelp.add(new HelpFX("detail\n\ndetail <degree>", description));
 
         //swap Command.
         description = "Swaps 2 degrees with the given IDs in your degree choices.\n"
@@ -462,7 +462,7 @@ public class MainWindow extends AnchorPane {
         this.dataHelp.add(new HelpFX("swap <ID> <ID>", description));
 
         //delete Command.
-        description = "Deletes a task from the task list corresponding to the ID of the task.\n"
+        description = "Deletes a task from your task list corresponding to the ID of the task.\n"
                 + "Accepts only integers. \n\n"
                 + "Examples: delete 1 | delete 02";
         this.dataHelp.add(new HelpFX("delete <ID>", description));
@@ -474,10 +474,69 @@ public class MainWindow extends AnchorPane {
         this.dataHelp.add(new HelpFX("remove <ID>", description));
 
         //done Command.
-        description = "Marks the task corresponding to the ID as done.\n"
+        description = "Marks a task corresponding to the ID as done.\n"
                 + "Accepts only integers. \n\n"
                 + "Examples: done 1 | done 02";
         this.dataHelp.add(new HelpFX("done <ID>", description));
+
+        //sort Command.
+        description = "Sorts your tasks according to a given category.\n"
+                + "Accepted categories are: priority, date, degree. \n\n"
+                + "Examples: sort by priority | sort by date | sort by degree";
+        this.dataHelp.add(new HelpFX("sort by <Category>", description));
+
+        //view_employment Command.
+        description = "Displays employment rate for a given degree.\n"
+                + "This produces a bar graph in a separate window. \n\n"
+                + "Examples: view_employment bme | view_employment ise";
+        this.dataHelp.add(new HelpFX("view_employment <Degree>", description));
+
+        //compare Command.
+        description = "Compares 2 degrees together and displays the differences in modules and their credits.\n"
+                + "Will also switch to the \"Degree Differences\" tab.\n"
+                + "Can be used on its own to simply switch tabs.\n\n"
+                + "Examples: compare bme come | compare ise ee";
+        this.dataHelp.add(new HelpFX("compare\n\ncompare <Degree> <Degree>", description));
+
+        //Todoo Command.
+        description = "Adds a Todo task to your list of tasks.\n"
+                + "Todo tasks do not require deadlines.\n"
+                + "Optional priorities can be set when adding tasks from: low, normal, high, very high.\n"
+                + "This is done by adding /priority <priority> behind the task.\n\n"
+                + "Examples: todo Sleep | todo Eat /priority high";
+        this.dataHelp.add(new HelpFX("todo <Description>\n\ntodo <Description> /priority\n<priority>", description));
+
+        //event Command.
+        description = "Adds an event task to your list of tasks.\n"
+                + "Event tasks require deadlines in the following format: DD-MM-YYYY HHmm.\n"
+                + "Optional priorities can be set when adding tasks from: low, normal, high, very high.\n"
+                + "This is done by adding /priority <priority> behind the task.\n\n"
+                + "Examples: event Sleep /at 01-01-1970 2359 | event Eat /at 01-02-2019 1500 /priority very high";
+        this.dataHelp.add(new HelpFX("event <Description> /at \n<DD-MM-YYYY HHmm>\n\n"
+                + "event <Description> /at \n<DD-MM-YYYY HHmm> \n/priority <priority>", description));
+
+        //deadline Command.
+        description = "Adds a deadline task to your list of tasks.\n"
+                + "Deadline tasks require deadlines in the following format: DD-MM-YYYY HHmm.\n"
+                + "Optional priorities can be set when adding tasks from: low, normal, high, very high.\n"
+                + "This is done by adding /priority <priority> behind the task.\n\n"
+                + "Examples: deadline Sleep /by 01-01-1970 2359 | deadline Eat /by 01-02-2019 1500 /priority very high";
+        this.dataHelp.add(new HelpFX("deadline <Description> /by \n<DD-MM-YYYY HHmm>\n\n"
+                + "deadline <Description> /by \n<DD-MM-YYYY HHmm> \n/priority <priority>", description));
+
+        //cohort_size Command.
+        description = "Displays cohort size for a given degree.\n"
+                + "This produces a bar graph in a separate window. \n\n"
+                + "Examples: cohort_size bme | cohort_size ise";
+        this.dataHelp.add(new HelpFX("cohort_size <Degree>", description));
+
+        //find Command.
+        description = "Checks your task list and searches for a tasks matching the input string.\n"
+                + "This command is case sensitive. \n\n"
+                + "Examples: find application | find Sleep";
+        this.dataHelp.add(new HelpFX("find <String>", description));
+
+        helpView.sort();
     }
 }
 
