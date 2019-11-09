@@ -319,7 +319,7 @@ public class MainWindow extends BorderPane implements Initializable {
         }
         userInput.clear();
 
-        if (input.contains("retrieve/previous")) {
+        if (!input.contains("show/previous") && input.contains("retrieve/previous")) {
             String previousInput = Duke.getPreviousInput();
             userInput.setText(previousInput);
         } else if (input.startsWith("retrieve/time") && RetrieveFreeTimesParse.isValidOption(input)) {

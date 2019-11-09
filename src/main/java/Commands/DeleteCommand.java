@@ -1,5 +1,6 @@
 package Commands;
 
+import Commons.DukeConstants;
 import DukeExceptions.DukeException;
 import Commons.Storage;
 import Commons.UserInteraction;
@@ -13,7 +14,6 @@ import java.util.HashMap;
  * Represents the command to delete a Task object from a TaskList object.
  */
 public class DeleteCommand extends Command {
-
     private Assignment task;
     private final String list;
     private TaskList listToChange;
@@ -42,12 +42,12 @@ public class DeleteCommand extends Command {
     public String execute(TaskList events, TaskList deadlines, UserInteraction ui, Storage storage) throws DukeException {
         HashMap<String, HashMap<String, ArrayList<Assignment>>> eventMap = events.getMap();
         HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();
-        if (list.equals("event")) {
+        if (list.equals(DukeConstants.EVENT_LIST)) {
             super.insideMapChecker(eventMap, task);
             events.removeTask(task);
             storage.updateEventList(events);
             listToChange = events;
-        } else if (list.equals("deadline")) {
+        } else if (list.equals(DukeConstants.DEADLINE_LIST)) {
             super.insideMapChecker(deadlineMap, task);
             deadlines.removeTask(task);
             storage.updateDeadlineList(deadlines);

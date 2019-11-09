@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+/**
+ * This class tests RetrievePreviousCommand.
+ */
 public class RetrievePreviousCommandTest {
     private static ArrayList<String> previousInputList;
     private static String userInputWithInvalidNumber;
