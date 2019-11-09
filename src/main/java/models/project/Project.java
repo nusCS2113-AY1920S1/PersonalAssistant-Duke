@@ -22,7 +22,6 @@ public class Project implements IProject {
     private ReminderList reminderList;
     private HashMap<String, ArrayList<String>> taskAndListOfMembersAssigned; //taskID_listOfMemberIDs
     private HashMap<String, ArrayList<String>> memberAndIndividualListOfTasks; //memberID_listOfTaskIDs
-    private HashMap<String, ArrayList<Reminder>> categoryReminderList;
 
     /**
      * Class representing a task in a project.
@@ -35,7 +34,6 @@ public class Project implements IProject {
         this.reminderList = new ReminderList();
         this.taskAndListOfMembersAssigned = new HashMap<>();
         this.memberAndIndividualListOfTasks = new HashMap<>();
-        this.categoryReminderList = new HashMap<>();
     }
 
     @Override
@@ -327,37 +325,21 @@ public class Project implements IProject {
         return reminderList.getReminderList().size();
     }
 
-    /**
-     * Add reminder to the hashmap base on the category.
-     * @param category of the reminder
-     * @param reminder the reminder name.
-     */
-    public void addReminderToCategory(String category, Reminder reminder) {
-        ArrayList<Reminder> reminders = new ArrayList<>();
-        if (categoryReminderList.get(category) == null) {
-            reminders.add(reminder);
-            categoryReminderList.put(category,reminders);
-        } else if (categoryReminderList.containsKey(category)) {
-            categoryReminderList.get(category).add(reminder);
-        }
-    }
+    public HashMap<String,ArrayList<Reminder>> getCategoryReminderList() {
 
-    /**
-     * Remove the reminder from the hashmap.
-     * @param category of the reminder
-     * @param reminder the reminder name.
-     */
-    public void removeReminderFromCategory(String category, Reminder reminder) {
-        if (categoryReminderList.get(category).contains(reminder)) {
-            if (categoryReminderList.get(category).size() == 1) {
-                categoryReminderList.remove(category);
+        HashMap<String,ArrayList<Reminder>> reminderCategoryList = new HashMap<>();
+
+        ArrayList<Reminder> remindersLists = reminderList.getReminderList();
+        for (Reminder reminder : remindersLists) {
+            if (!(reminderCategoryList.containsKey(reminder.getCategory()))) {
+                ArrayList<Reminder> reminderL = new ArrayList<>();
+                reminderL.add(reminder);
+                reminderCategoryList.put(reminder.getCategory(),reminderL);
             } else {
-                categoryReminderList.get(category).remove(reminder);
+                reminderCategoryList.get(reminder.getCategory()).add(reminder);
             }
         }
-    }
 
-    public void getCategoryReminderList() {
-
+        return reminderCategoryList;
     }
 }
