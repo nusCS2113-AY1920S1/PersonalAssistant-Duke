@@ -169,9 +169,9 @@ public class Song implements Serializable {
     //@@author rohan-av
 
     /**
-     * Returns a String representation of the Song to be used for persistent storage.
+     * Returns a one-line String representation of the song, meant for viewing in a list.
      *
-     * @return a storage-friendly String representation
+     * @return a one-line String representation of the song
      */
     public String toString() {
         StringBuilder result = new StringBuilder();
@@ -185,5 +185,37 @@ public class Song implements Serializable {
             result.append(bar.toString()).append(" ");
         }
         return result.toString();
+    }
+
+    /**
+     * Returns an ArrayList of Strings to be used in persistent storage in the form of a .txt file, with each element
+     * in the ArrayList corresponding to a line in the .txt file.
+     *
+     * @return a storage-friendly ArrayList of Strings to be used for storage in a .txt file
+     */
+    public ArrayList<String> toStringArrayList() {
+        ArrayList<String> result = new ArrayList<>();
+        StringBuilder attributes = new StringBuilder();
+        attributes.append(name)
+                .append(" ")
+                .append(key)
+                .append(" ")
+                .append(tempo)
+                .append(" ");
+        result.add(attributes.toString());
+        for (Bar bar: bars) {
+            result.add(bar.toString());
+        }
+        if (groups.size() > 0) {
+            result.add("groups:");
+            for (Group group: groups) {
+                result.add(group.toString());
+            }
+        }
+        return result;
+    }
+
+    public void addGroup(Group group) {
+        groups.add(group);
     }
 }
