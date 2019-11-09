@@ -56,14 +56,15 @@ public class Storage {
      * Creates new text file if no such file already exists and sets FILE_PATH to the absolute path of the text file.
      * Creates new excel file if no such file exists and sets EXCEL_PATH to the absolute path of excel file.
      */
-    public Storage() {
+    public Storage(String path) {
         File currentDir = new File(System.getProperty("user.dir"));
-        File filePath = new File(currentDir.toString() + "\\data");
+        File filePath = new File(currentDir.toString() + path);
         File dataText = new File(filePath, "wordup.txt");
         File reminderText = new File(filePath, "reminder.txt");
         if (!filePath.exists()) {
             filePath.mkdir();
         }
+        File dataExcel = new File(filePath, "wordup.xlsx");
         if (!dataText.exists()) {
             try {
                 dataText.createNewFile();
@@ -229,8 +230,7 @@ public class Storage {
             }
             oldContent = oldContent.substring(0, oldContent.length() - 1);
             String newContent = oldContent.replace(oldString, newString).trim();
-            Storage writer = new Storage();
-            writer.writeFile(newContent,false, fileType);
+            this.writeFile(newContent,false);
         } catch (IOException | UnableToWriteFileException e) {
             e.printStackTrace();
         } finally {

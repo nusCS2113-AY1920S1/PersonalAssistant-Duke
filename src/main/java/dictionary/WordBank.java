@@ -109,14 +109,18 @@ public class WordBank {
     /**
      * Updates the meaning of a specific word.
      * @param wordToBeEdited word whose meaning is updated
+     * @return word object which just be edited
      * @throws NoWordFoundException if the word doesn't exist in the word bank
      */
-    public void editWordMeaning(String wordToBeEdited, String newMeaning) throws NoWordFoundException {
+    public Word editWordMeaningAndGetWord(String wordToBeEdited, String newMeaning) throws NoWordFoundException {
+        Word word;
         if (wordBank.containsKey(wordToBeEdited)) {
-            wordBank.get(wordToBeEdited).editMeaning(newMeaning);
+            word = wordBank.get(wordToBeEdited);
+            word.editMeaning(newMeaning);
         } else {
             throw new NoWordFoundException(wordToBeEdited);
         }
+        return word;
     }
 
     /**

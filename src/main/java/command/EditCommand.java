@@ -23,13 +23,11 @@ public class EditCommand extends Command {
     @Override
     public String execute(Ui ui, Bank bank, Storage storage) {
         try {
-            Word oldWord = bank.getWordFromWordBank(wordToBeEdited); //get the original word
-            bank.editWordMeaning(wordToBeEdited, newMeaning); //edit the word in the wordBank
-            Word newWord = bank.getWordFromWordBank(wordToBeEdited); //get the new edited word
+            String oldString = bank.getWordFromWordBank(wordToBeEdited).toString(); //get the original word
+            Word newWord = bank.editWordMeaning(wordToBeEdited, newMeaning); //edit the word in the wordBank
             storage.writeWordBankExcelFile(bank.getWordBankObject());
-            storage.updateFile(oldWord.toString(), newWord.toString(), "wordup");
+            storage.updateFile(oldString, newWord.toString());
             return ui.showEdited(newWord);
-
         } catch (NoWordFoundException e) {
             return e.showError();
         }

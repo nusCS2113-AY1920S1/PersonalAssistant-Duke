@@ -36,10 +36,8 @@ public class SearchCommand extends Command {
                     + "\" in local dictionary.\nLooking up Oxford dictionary.\n\n");
             try {
                 String result = OxfordCall.onlineSearch(searchTerm);
-                storage.writeWordBankExcelFile(bank.getWordBankObject());
-                bank.addWord(new Word(searchTerm, result));
                 stringBuilder.append(ui.showSearch(this.searchTerm, result));
-            } catch (NoWordFoundException | WordAlreadyExistsException e2) {
+            } catch (NoWordFoundException e1) {
                 stringBuilder.append("Failed to find the word from Oxford dictionary.\n");
             }
 
