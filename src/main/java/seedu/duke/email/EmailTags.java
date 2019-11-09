@@ -11,33 +11,38 @@ public class EmailTags {
     //private static HashMap<String, SubTagMap> tagMap = new HashMap<>();
 
     /**
-     * Read emailList to construct a HashMap for tree-structured tagged emails.
+     * Construct a HashMap for tree-structured tagged emails.
      *
      * @param emailList Duke emailList.
      * @return HashMap of tags with their associated emails.
      */
     public static HashMap<String, SubTagMap> updateEmailTagList(EmailList emailList) {
-        for (Email email : emailList) {
+        for (int index = 0; index < emailList.size(); index ++) {
+            Email email = emailList.get(index);
             ArrayList<Email.Tag> tags = email.getTags();
             for (Email.Tag rootTag : tags) {
                 String rootTagName = rootTag.getKeywordPair().getKeyword();
                 for (Email.Tag subTag : tags) {
                     String subTagName = subTag.getKeywordPair().getKeyword();
 
-                    EmailList subEmailList = new EmailList();
-                    SubTagMap subTagMap = new SubTagMap(subTagName, subEmailList);
+                    ArrayList<Integer> indexList = new ArrayList<Integer>();
+                    SubTagMap subTagMap = new SubTagMap(subTagName, indexList);
+
+                    //EmailList subEmailList = new EmailList();
+                    //SubTagMap subTagMap = new SubTagMap(subTagName, subEmailList);
 
                     if (tagMap.containsKey(rootTagName)) {
                         subTagMap = tagMap.get(rootTagName);
 
                         if (subTagMap.containsKey(subTagName)) {
-                            subEmailList = subTagMap.get(subTagName);
+                            //subEmailList = subTagMap.get(subTagName);
+                            indexList = subTagMap.get(subTagName);
                         }
                     }
 
-                    if (!subEmailList.contains(email)) {
-                        subEmailList.add(email);
-                        subTagMap.put(subTagName, subEmailList);
+                    if (!indexList.contains(index)) {
+                        indexList.add(index);
+                        subTagMap.put(subTagName, indexList);
                         tagMap.put(rootTagName, subTagMap);
                     }
                 }
@@ -52,7 +57,7 @@ public class EmailTags {
      * @param tags tag(s) input by users.
      * @return String of tagged emails.
      */
-    public static String displayEmailTagList(ArrayList<String> tags) {
+    public static String displayEmailTagList(ArrayList<String> tags, EmailList emailList) {
         String responseMsg = "";
         if (tags.size() > 2) {
             responseMsg = "[Input format error] Maximum of 2 tag names are allowed for email tag-"
@@ -66,10 +71,11 @@ public class EmailTags {
                 responseMsg = "[Input content error] The tag #" + tagName + " does not exists.";
                 return responseMsg;
             }
-            responseMsg += "Here are the email(s) tagged with #" + tagName + ": " + System.lineSeparator()
-                    + System.lineSeparator();
-            EmailList emailList = tagMap.get(tagName).get(tagName);
-            responseMsg += emailList.toString();
+            //responseMsg += "Here are the email(s) tagged with #" + tagName + ": " + System.lineSeparator()
+            //        + System.lineSeparator();
+            //ArrayList<Integer> indexList = tagMap.get(tagName).get(tagName);
+            //responseMsg += emailList.toString(indexList);
+            responseMsg += displayRootEmailTag(tagName, emailList);
             return responseMsg;
         }
 
@@ -85,16 +91,16 @@ public class EmailTags {
                 responseMsg = "[Input content error] The tag #" + tagNameOne + " does not exists. ";
                 responseMsg += "Here are the email(s) tagged with #" + tagNameTwo + ": " + System.lineSeparator()
                         + System.lineSeparator();
-                EmailList emailList = tagMap.get(tagNameTwo).get(tagNameTwo);
-                responseMsg += emailList.toString();
+                ArrayList<Integer> indexList = tagMap.get(tagNameTwo).get(tagNameTwo);
+                responseMsg += emailList.toString(indexList);
                 return responseMsg;
             }
             if (!tagMap.containsKey(tagNameTwo)) {
                 responseMsg = "[Input content error] The tag #" + tagNameTwo + " does not exists. ";
                 responseMsg += "Here are the email(s) tagged with #" + tagNameOne + ": "
                         + System.lineSeparator() + System.lineSeparator();
-                EmailList emailList = tagMap.get(tagNameOne).get(tagNameOne);
-                responseMsg += emailList.toString();
+                ArrayList<Integer> indexList =  tagMap.get(tagNameOne).get(tagNameOne);
+                responseMsg += emailList.toString(indexList);
                 return responseMsg;
             }
             if (!tagMap.get(tagNameOne).containsKey(tagNameTwo)) {
@@ -102,18 +108,18 @@ public class EmailTags {
                         + System.lineSeparator();
                 responseMsg += System.lineSeparator() + "Here are the email(s) tagged with #" + tagNameOne
                         + ": " + System.lineSeparator() + System.lineSeparator();
-                EmailList emailListOne = tagMap.get(tagNameOne).get(tagNameOne);
-                responseMsg += emailListOne.toString();
+                ArrayList<Integer> indexListOne =  tagMap.get(tagNameOne).get(tagNameOne);
+                responseMsg += emailList.toString(indexListOne);
                 responseMsg += System.lineSeparator() + System.lineSeparator() + "Here are the email(s) "
                         + "tagged with #" + tagNameTwo + ": " + System.lineSeparator() + System.lineSeparator();
-                EmailList emailListTwo = tagMap.get(tagNameTwo).get(tagNameTwo);
-                responseMsg += emailListTwo.toString();
+                ArrayList<Integer> indexListTwo = tagMap.get(tagNameTwo).get(tagNameTwo);
+                responseMsg += emailList.toString(indexListTwo);
                 return responseMsg;
             }
             responseMsg = "Here are the email(s) tagged with both #" + tagNameOne + " and #" + tagNameTwo
                     + ": " + System.lineSeparator() + System.lineSeparator();
-            EmailList emailList = tagMap.get(tagNameOne).get(tagNameTwo);
-            responseMsg += emailList.toString();
+            ArrayList<Integer> indexList = tagMap.get(tagNameOne).get(tagNameTwo);
+            responseMsg += emailList.toString(indexList);
         }
         return responseMsg;
     }
@@ -124,29 +130,30 @@ public class EmailTags {
      * @param tagName tagName input by user.
      * @return String for displaying root tagged emails.
      */
-    public String displayRootEmailTag(String tagName) {
+    public static String displayRootEmailTag(String tagName, EmailList emailList) {
         String responseMsg = "Here are the email(s) tagged with #" + tagName + ": " + System.lineSeparator()
                 + System.lineSeparator();
         SubTagMap subTagMap = tagMap.get(tagName);
-        for (HashMap.Entry<String, EmailList> entry : subTagMap.entrySet()) {
+        for (HashMap.Entry<String, ArrayList<Integer>> entry : subTagMap.entrySet()) {
             String subTagName = entry.getKey();
-            EmailList emailList = entry.getValue();
+            ArrayList<Integer> indexList = entry.getValue();
+            //EmailList emailList = entry.getValue();
             if (subTagName.equals(tagName)) {
                 continue;
             }
-            responseMsg += subTagName + System.lineSeparator() + System.lineSeparator() + ": " + emailList.toString()
+            responseMsg += subTagName + System.lineSeparator() + System.lineSeparator() + emailList.toString(indexList)
                     + "" + System.lineSeparator() + System.lineSeparator();
         }
         return responseMsg;
     }
 
-    public static class SubTagMap extends HashMap<String, EmailList> {
+    public static class SubTagMap extends HashMap<String, ArrayList<Integer>> {
         private String subTagName;
-        private EmailList subEmailList;
+        private ArrayList<Integer> indexList;
 
-        public SubTagMap(String subTagName, EmailList subEmailList) {
+        public SubTagMap(String subTagName, ArrayList<Integer> indexList) {
             this.subTagName = subTagName;
-            this.subEmailList = subEmailList;
+            this.indexList = indexList;
         }
     }
 

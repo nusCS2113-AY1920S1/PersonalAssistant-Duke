@@ -45,7 +45,9 @@ public class EmailList extends ArrayList<Email> {
         try {
             String listOfEmails = "";
             for (int i = 0; i < indexes.size(); i++) {
-                listOfEmails += indexes.get(i) + this.get(indexes.get(i)).toGuiString();
+                Integer index = indexes.get(i);
+                listOfEmails += index + 1 + ". ";
+                listOfEmails += this.get(index).toGuiString() + System.lineSeparator();
             }
             return listOfEmails;
         } catch (IndexOutOfBoundsException e) {

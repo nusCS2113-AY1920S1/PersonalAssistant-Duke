@@ -16,7 +16,7 @@ public class EmailListTagCommand extends Command {
 
     @Override
     public boolean execute(Model model) {
-        responseMsg = EmailTags.displayEmailTagList(tags);
+        responseMsg = EmailTags.displayEmailTagList(tags, model.getEmailList());
         UI.getInstance().showResponse(responseMsg);
         return true;
     }
