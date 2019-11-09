@@ -10,6 +10,7 @@ import duke.list.GenericList;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
+import duke.storage.RecipeStorage;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
@@ -32,7 +33,7 @@ public class InitCommand extends Command {
      * @throws DukeException
      */
     @Override
-    public void execute(Fridge fridge, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+    public void execute(Fridge fridge, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os, RecipeStorage rs) throws DukeException {
         System.out.println("\t are you sure you want to clear list? [y/n]");
         String command = ui.readCommand();
         if(command.toLowerCase().equals("y")){

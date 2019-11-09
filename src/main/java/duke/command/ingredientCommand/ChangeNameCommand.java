@@ -7,6 +7,7 @@ import duke.fridge.Fridge;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
+import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
 /**
@@ -23,7 +24,7 @@ public class ChangeNameCommand extends Command {
     }
 
     @Override
-    public void execute(Fridge fridge, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException
+    public void execute(Fridge fridge, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os, RecipeStorage rs) throws DukeException
     {
         if (index <= fridge.numberOfIngredients() && index > 0) {
             fridge.getIngredient(index - 1).setName(name);

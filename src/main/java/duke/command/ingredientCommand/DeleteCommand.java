@@ -8,6 +8,7 @@ import duke.ingredient.Ingredient;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
+import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(Fridge fridge, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+    public void execute(Fridge fridge, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os, RecipeStorage rs) throws DukeException {
         if (taskNb <= fridge.numberOfIngredients() && taskNb > 0) {
             Ingredient removed = fridge.removeIngredient(taskNb - 1);
             try {

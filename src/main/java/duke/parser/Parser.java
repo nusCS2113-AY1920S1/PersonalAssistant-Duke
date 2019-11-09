@@ -19,7 +19,7 @@ import java.util.Date;
 public class Parser {
 
     //There is no constructor method for all others are static.
-
+    //@@author CEGLincoln
     /**
      * Returns a {@link Command} that can be understood by {@link Duke} and executed after.
      * We first split the fullCommand into 2, the keyword, followed by everything else.
@@ -42,6 +42,7 @@ public class Parser {
         }
     }
 
+    //@@author VirginiaYu
     private static Command order(String fullCommand) throws DukeException {
         String[] part = fullCommand.split(" ", 2);
         if (part.length > 4)
@@ -74,6 +75,7 @@ public class Parser {
         }
     }
 
+    //@@author 9hafidz6
     /**
      * commands for Dish
      * add: adds a dish to dishList
@@ -85,7 +87,6 @@ public class Parser {
      * @param fullCommand command from the user
      * @return a command to be executed
      * @throws DukeException
-     * @@@author Hafidz
      */
     private static Command dish(String fullCommand) throws DukeException {
         int index = 0, amount = 0;
@@ -122,7 +123,7 @@ public class Parser {
                 } catch (Exception e) {
                     throw new DukeException("enter a valid amount/index");
                 }
-                return new AddIngredient(new Ingredient(getIng[0], amount, new Date()), index);
+                return new AddIngredient(new Ingredient(getIng[0], amount, new Date()), amount, index);
             case "find":
                 try {
                     return new FindDishCommand(part[1]);
@@ -132,9 +133,9 @@ public class Parser {
             case "change":
                 try {
                     String[] partition = part[1].split(" ", 2);
-                    index = Integer.parseInt(partition[0]);
+                    index = checkInt(partition[0]);
                     return new ChangeDishCommand(partition[1], index);
-                } catch (NumberFormatException e) {
+                } catch (Exception e) {
                     throw new DukeException("enter a valid index/description");
                 }
             default:
@@ -142,6 +143,7 @@ public class Parser {
         }
     }
 
+    //@@author x3chillax
     private static Command ingredient(String fullCommand) throws DukeException {
         String[] part = fullCommand.split(" ");
         switch (part[0]) {
@@ -223,6 +225,7 @@ public class Parser {
         return parseInt(str, MAX);
     }
 
+    //@@author VirginiaYu
     public static Command addOrderParser(String[] splitter) throws DukeException {
         Order newOrder;
         Date orderDate;
@@ -256,6 +259,7 @@ public class Parser {
         return new AddOrderCommand(newOrder);
     }
 
+    //@@author VirginiaYu
     public static Command alterOrderDateParser(String[] splitter) throws DukeException {
         if (splitter.length == 1) {
             throw new DukeException("Must enter an order index.\n\t Note that ORDER_INDEX starts from 1");
@@ -277,6 +281,7 @@ public class Parser {
         return new AlterDateCommand(orderIndex-1, orderDate);
     }
 
+    //@@author VirginiaYu
     public static Command cancelOrDoneOrderParser(String[] splitter) throws DukeException {
         if (splitter.length == 1) {
             throw new DukeException("Must enter an order index.\n\t Note that ORDER_INDEX starts from 1");

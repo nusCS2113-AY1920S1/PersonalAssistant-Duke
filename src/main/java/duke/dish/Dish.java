@@ -51,11 +51,34 @@ public class Dish implements Printable {
     }
 
     /**
-     * adding an ingredient to the ingredientList
-     * @param ingredients to be added to list of ingredients
+     * adding an ingredient to the ingredientList. if there already exist the same ingredient, update the amount
+     * if ingredient and amount is the same then prints to user that it already exist in dish hence break
+     * @param ingredients new ingredient
+     * @param amount new amount of ingredient
+     * @return boolean flag to indicate if ingredient exist in the dish
      */
-    public void addIngredients(Ingredient ingredients) {
-        ingredientsList.addEntry(ingredients);
+    public boolean addIngredients(Ingredient ingredients, int amount) {
+        boolean flag = true;
+        for(Ingredient i : ingredientsList.getAllEntries()) {
+            //if they have the same ingredient name and amount
+            if(i.getName().equals(ingredients.getName()) && i.getAmount() == amount) {
+                System.out.println("\t ingredient already exist in dish");
+                flag = false;
+                break;
+            }
+            if(i.getName().equals(ingredients.getName())) {
+                System.out.println("\t ingredient already exist in dish \n\t changed ingredient amount of: " + i.getName());
+                System.out.println("\t from: " + i.getAmount());
+                System.out.println("\t to: " + amount);
+                i.changeAmount(amount);
+                flag = false;
+                break;
+            }
+        }
+        if(flag) {
+            ingredientsList.addEntry(ingredients);
+        }
+        return flag;
     }
 
     /**
@@ -65,7 +88,7 @@ public class Dish implements Printable {
     public String toString() {
         String str = "Recipe for " + dishname;
         for (Ingredient i : ingredientsList.getAllEntries()) {
-            str += "\n" + i.getName() + ", " + i.getAmount();
+            str += "\n\t " + i.getName() + ", " + i.getAmount();
         }
         return str; //Multi-line depending on the size of ingredient list
     }

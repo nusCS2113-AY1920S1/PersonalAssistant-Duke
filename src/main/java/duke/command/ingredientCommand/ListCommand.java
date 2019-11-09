@@ -8,6 +8,7 @@ import duke.ingredient.IngredientsList;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
+import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
 /**
@@ -16,7 +17,7 @@ import duke.ui.Ui;
 public class ListCommand extends Command {
 
     @Override
-    public void execute(Fridge fridge, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+    public void execute(Fridge fridge, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os, RecipeStorage rs) throws DukeException {
         if (fridge.numberOfIngredients() == 0) {
             throw new DukeException("No ingredients yet!");
         } else {

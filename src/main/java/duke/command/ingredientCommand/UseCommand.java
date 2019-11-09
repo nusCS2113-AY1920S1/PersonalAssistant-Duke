@@ -8,6 +8,7 @@ import duke.ingredient.Ingredient;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
+import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
 public class UseCommand extends Command {
@@ -18,7 +19,7 @@ public class UseCommand extends Command {
     }
 
     @Override
-    public void execute(Fridge fridge, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+    public void execute(Fridge fridge, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os, RecipeStorage rs) throws DukeException {
         if (fridge.removeIngredient(toUse)) {
             ui.show("Great you used "+ toUse.toStringWithoutDate());
             fs.update();

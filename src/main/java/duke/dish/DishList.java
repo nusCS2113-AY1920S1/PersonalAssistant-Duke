@@ -20,7 +20,7 @@ public class DishList extends GenericList<Dish> {
 
     public DishList(List<Dish> dishList){
         super(dishList);
-        recipe = dishList;
+        this.recipe = dishList;
     }
 
     public DishList() {
@@ -30,14 +30,6 @@ public class DishList extends GenericList<Dish> {
 
     public String toString(){
         String str = "Recipe Book";
-        for (Dish d : recipe) {
-            str += "\n" + d.toString();
-        }
-        return str;
-    }
-
-    public String printInFile() {
-        String str = "";
         for (Dish d : recipe) {
             str += "\n" + d.toString();
         }

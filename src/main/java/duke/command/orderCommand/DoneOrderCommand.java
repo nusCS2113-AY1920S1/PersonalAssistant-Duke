@@ -8,6 +8,7 @@ import duke.order.Order;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
+import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
 /**
@@ -26,7 +27,7 @@ public class DoneOrderCommand extends Command {
     }
 
     @Override
-    public void execute(Fridge fridge, DishList dl, OrderList orderList, Ui ui, FridgeStorage fs, OrderStorage orderStorage) throws DukeException {
+    public void execute(Fridge fridge, DishList dl, OrderList orderList, Ui ui, FridgeStorage fs, OrderStorage orderStorage, RecipeStorage rs) throws DukeException {
         if (orderList.size()==0) {
             throw new DukeException("No order in the list! No order can be done!");
         }
