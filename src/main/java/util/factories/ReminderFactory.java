@@ -37,7 +37,8 @@ public class ReminderFactory {
         if (newReminderDetails.get(2) != null) {
             newReminderDate = dateTimeHelper.formatDate(newReminderDetails.get(2));
         }
+        String newReminderCategory = newReminderDetails.get(3);
 
-        return new Reminder(newReminderName, newReminderRemarks, newReminderDate);
+        return new Reminder(newReminderName, newReminderRemarks, newReminderDate,newReminderCategory);
     }
 }

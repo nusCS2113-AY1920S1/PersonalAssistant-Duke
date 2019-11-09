@@ -3,6 +3,7 @@ package controllers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import repositories.ProjectRepository;
+import util.date.DateTimeHelper;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ProjectInputControllerManageTest {
     private ProjectInputController projectInputController;
     private ProjectRepository projectRepository;
+    private DateTimeHelper dateTimeHelper = new DateTimeHelper();
     private String simulatedUserInput;
     private String[] simulatedOutput;
     private String[] expectedOutput;
@@ -118,15 +120,19 @@ class ProjectInputControllerManageTest {
         simulatedOutput = projectInputController.manageProject(simulatedUserInput);
         simulatedUserInput = "view tasks";
         simulatedOutput = projectInputController.manageProject(simulatedUserInput);
-        expectedOutput = new String[] {"+----------------------------------------------------------------------+",
-                                       "|Tasks of Avengers Testing:                                            |",
-                                       "+----------------------------------------------------------------------+",
-                                       "|1. Kill Thanos                                                        |",
-                                       "|   - Priority: 1                                                      |",
-                                       "|   - Due: --                                                          |",
-                                       "|   - Credit: 100                                                      |",
-                                       "|   - State: OPEN                                                      |",
-                                       "+----------------------------------------------------------------------+",
+        expectedOutput = new String[] {
+            "+----------------------------------------------------------------------+",
+            "|Tasks of Avengers Testing:                                            |",
+            "+----------------------------------------------------------------------+",
+            "| +-------------------------------+                                    |",
+            "| |1. Kill Thanos                 |                                    |",
+            "| +-------------------------------+                                    |",
+            "| | - Priority: 1                 |                                    |",
+            "| | - Due: --                     |                                    |",
+            "| | - Credit: 100                 |                                    |",
+            "| | - State: OPEN                 |                                    |",
+            "| +-------------------------------+                                    |",
+            "+----------------------------------------------------------------------+",
         };
         assertArrayEquals(expectedOutput, simulatedOutput);
 
@@ -153,23 +159,22 @@ class ProjectInputControllerManageTest {
             "+----------------------------------------------------------------------+",
             "|Tasks of Avengers Testing:                                            |",
             "+----------------------------------------------------------------------+",
-            "|1. ATest                                                              |",
-            "|   - Priority: 1                                                      |",
-            "|   - Due: --                                                          |",
-            "|   - Credit: 100                                                      |",
-            "|   - State: OPEN                                                      |",
-            "|                                                                      |",
-            "|2. BTest                                                              |",
-            "|   - Priority: 1                                                      |",
-            "|   - Due: --                                                          |",
-            "|   - Credit: 100                                                      |",
-            "|   - State: OPEN                                                      |",
-            "|                                                                      |",
-            "|3. Kill Thanos                                                        |",
-            "|   - Priority: 1                                                      |",
-            "|   - Due: --                                                          |",
-            "|   - Credit: 100                                                      |",
-            "|   - State: OPEN                                                      |",
+            "| +-------------------------------+ +-------------------------------+  |",
+            "| |1. ATest                       | |2. BTest                       |  |",
+            "| +-------------------------------+ +-------------------------------+  |",
+            "| | - Priority: 1                 | | - Priority: 1                 |  |",
+            "| | - Due: --                     | | - Due: --                     |  |",
+            "| | - Credit: 100                 | | - Credit: 100                 |  |",
+            "| | - State: OPEN                 | | - State: OPEN                 |  |",
+            "| +-------------------------------+ +-------------------------------+  |",
+            "| +-------------------------------+                                    |",
+            "| |3. Kill Thanos                 |                                    |",
+            "| +-------------------------------+                                    |",
+            "| | - Priority: 1                 |                                    |",
+            "| | - Due: --                     |                                    |",
+            "| | - Credit: 100                 |                                    |",
+            "| | - State: OPEN                 |                                    |",
+            "| +-------------------------------+                                    |",
             "+----------------------------------------------------------------------+"
         };
         assertArrayEquals(expectedOutput, simulatedOutput);
@@ -181,7 +186,7 @@ class ProjectInputControllerManageTest {
         simulatedOutput = projectInputController.manageProject(simulatedUserInput);
         expectedOutput = new String[]{
             "+----------------------------------------------------------------------+",
-            "|    Today's date is 8 11 2019                                         |",
+            "|    Today's date is 9 11 2019                                         |",
             "+----------------------------------------------------------------------+",
             "|        U        M        T        W        R        F        S       |",
             "|                                                     1        2       |",
@@ -195,6 +200,10 @@ class ProjectInputControllerManageTest {
             "|       24       25       26       27       28       29       30       |",
             "+----------------------------------------------------------------------+"
         };
+        String resetDate = "|    Today's date is " + dateTimeHelper.getCurrentDate() + " "
+                + dateTimeHelper.getCurrentMonth() + " " + dateTimeHelper.getCurrentYear()
+                + "                                         |";
+        expectedOutput[1] = resetDate;
         assertArrayEquals(expectedOutput, simulatedOutput);
     }
 }

@@ -31,7 +31,7 @@ public class ProjectRepository implements IRepository<Project> {
         IProject newProject = projectFactory.create(input);
         ArchDukeLogger.logDebug(ProjectRepository.class.getName(), "New project created with name: '"
                 + newProject.getName() + "'");
-        if (newProject.getName() == null || newProject.getMembers() == null) {
+        if (newProject.getName() == null || newProject.getMemberList() == null) {
             return false;
         }
         Project newlyCreatedProject = (Project) newProject;
@@ -80,7 +80,7 @@ public class ProjectRepository implements IRepository<Project> {
                 toPrint.add(" --");
             } else {
                 for (int memberIndex = 1; memberIndex <= allProjects.get(projNum).getNumOfMembers(); memberIndex++) {
-                    toPrint.add(" " + allProjects.get(projNum).getMembers().getMember(memberIndex).getDetails());
+                    toPrint.add(" " + allProjects.get(projNum).getMemberList().getMember(memberIndex).getDetails());
                 }
                 toPrint.add("");
             }
@@ -88,7 +88,7 @@ public class ProjectRepository implements IRepository<Project> {
                 toPrint.add("Next Deadline: ");
                 toPrint.add(" --");
             } else {
-                String[] detailsClosestDeadlineTask = allProjects.get(projNum).getTasks().getClosestDeadlineTask();
+                String[] detailsClosestDeadlineTask = allProjects.get(projNum).getTaskList().getClosestDeadlineTask();
                 toPrint.add("Next Deadline: " + detailsClosestDeadlineTask[0]);
                 for (int i = 1; i < detailsClosestDeadlineTask.length; i++) {
                     toPrint.add(" - " + detailsClosestDeadlineTask[i]);
@@ -99,7 +99,7 @@ public class ProjectRepository implements IRepository<Project> {
             if (allProjects.get(projNum).getNumOfTasks() == 0) {
                 toPrint.add(" --");
             } else {
-                String[] detailsOverallProgress = allProjects.get(projNum).getTasks().getOverallProgress();
+                String[] detailsOverallProgress = allProjects.get(projNum).getTaskList().getOverallProgress();
                 for (String detail : detailsOverallProgress) {
                     toPrint.add(" - " + detail);
                 }
@@ -123,7 +123,7 @@ public class ProjectRepository implements IRepository<Project> {
             responseModel.add(" --");
         } else {
             for (int memberIndex = 1; memberIndex <= selectedProject.getNumOfMembers(); memberIndex++) {
-                responseModel.add(" " + selectedProject.getMembers().getMember(memberIndex).getDetails());
+                responseModel.add(" " + selectedProject.getMemberList().getMember(memberIndex).getDetails());
             }
             responseModel.add("");
         }
@@ -137,7 +137,7 @@ public class ProjectRepository implements IRepository<Project> {
                 responseModel.add(" " + taskIndex + ". " + selectedProject.getTask(taskIndex).getDetails());
             }
             responseModel.add("");
-            String[] detailsClosestDeadlineTask = selectedProject.getTasks().getClosestDeadlineTask();
+            String[] detailsClosestDeadlineTask = selectedProject.getTaskList().getClosestDeadlineTask();
             responseModel.add("Next Deadline: " + detailsClosestDeadlineTask[0]);
             for (int i = 1; i < detailsClosestDeadlineTask.length; i++) {
                 responseModel.add(" - " + detailsClosestDeadlineTask[i]);
@@ -148,7 +148,7 @@ public class ProjectRepository implements IRepository<Project> {
         if (selectedProject.getNumOfTasks() == 0) {
             responseModel.add(" --");
         } else {
-            String[] detailsOverallProgress = selectedProject.getTasks().getOverallProgress();
+            String[] detailsOverallProgress = selectedProject.getTaskList().getOverallProgress();
             for (String detail : detailsOverallProgress) {
                 responseModel.add(" - " + detail);
             }
@@ -157,6 +157,6 @@ public class ProjectRepository implements IRepository<Project> {
     }
 
     public HashMap<Integer, Integer> getAllTasksInCurrentMonth(Project project) {
-        return project.getTasks().getTasksWithinCurrentMonth();
+        return project.getTaskList().getTasksWithinCurrentMonth();
     }
 }
