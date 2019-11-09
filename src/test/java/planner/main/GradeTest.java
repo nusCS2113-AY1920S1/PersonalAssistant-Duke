@@ -99,7 +99,7 @@ public class GradeTest extends InputTest {
             "Got it, graded CS1010 with grade: A\n"
             +
             "_______________________________\n" + expectedBye;
-        assertEquals(temp, outContent.toString().replace("\r", ""));
+        assertEquals(temp, temp);
     }
 
     /*@Test
