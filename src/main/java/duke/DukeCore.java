@@ -1,6 +1,7 @@
 package duke;
 
 import duke.command.ObjCommand;
+import duke.command.Parser;
 import duke.data.DukeObject;
 import duke.data.GsonStorage;
 import duke.data.PatientData;
@@ -15,6 +16,8 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,7 +27,7 @@ import java.util.logging.Logger;
  */
 public class DukeCore extends Application {
     private static final String storagePath = "data" + File.separator + "patients.json";
-    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    public static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     public Ui ui;
     public UiContext uiContext;
@@ -38,13 +41,13 @@ public class DukeCore extends Application {
     public DukeCore() {
         ui = new UiManager(this);
         uiContext = new UiContext();
-
         try {
             storage = new GsonStorage(storagePath);
             patientData = new PatientData(storage);
-        } catch (DukeException e) {
+            setupLoggers();
+       } catch (DukeFatalException e) {
             ui.showErrorDialogAndShutdown("Error encountered!", e);
-        }
+       }
     }
 
     /**
@@ -107,5 +110,19 @@ public class DukeCore extends Application {
     public void stop() {
         Platform.exit();
         System.exit(0);
+    }
+
+
+    private void setupLoggers() throws DukeFatalException {
+        File logDir = new File("data/logs");
+        if (!logDir.exists() && !logDir.mkdir()) {
+            throw new DukeFatalException("Unable to create log folder, try checking your permissions?");
+        }
+        try {
+            logger.addHandler(new FileHandler("data/logs/duke%u.log"));
+            Parser.parserLogger.addHandler(new FileHandler("data/logs/parser%u.log"));
+        } catch (IOException | SecurityException excp) {
+            throw new DukeFatalException("Unable to create log files, try checking your permissions?");
+        }
     }
 }

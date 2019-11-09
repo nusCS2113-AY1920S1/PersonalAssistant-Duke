@@ -10,8 +10,6 @@ import duke.data.Treatment;
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
 
-import java.util.List;
-
 public class ImpressionStatusSpec extends ObjSpec {
     private static final ImpressionStatusSpec spec = new ImpressionStatusSpec();
 
@@ -40,7 +38,6 @@ public class ImpressionStatusSpec extends ObjSpec {
 
     @Override
     protected void executeWithObj(DukeCore core, DukeObject obj) throws DukeException {
-        List<String> statusList;
         Treatment treatment = (Treatment) obj;
         int status;
         String statusStr = cmd.getSwitchVal("set");

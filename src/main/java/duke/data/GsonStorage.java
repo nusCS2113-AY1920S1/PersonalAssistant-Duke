@@ -4,9 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
-import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
-import duke.exception.DukeResetException;
 
 import java.io.File;
 import java.io.FileReader;
@@ -43,9 +41,9 @@ public class GsonStorage {
      * Constructor for GsonStorage.
      * Checks if a Json file exists at the specified filepath and creates one if it does not exist.
      *
-     * @throws DukeFatalException If data file cannot be setup.
+     * @throws DukeFatalException If data files cannot be setup.
      */
-    public GsonStorage(String path) throws DukeFatalException, DukeResetException {
+    public GsonStorage(String path) throws DukeFatalException {
         /*typeAdapterFactory = RuntimeTypeAdapterFactory
                 .of(DukeObject.class, "type")
                 .registerSubtype(Patient.class, "type1")
@@ -66,12 +64,14 @@ public class GsonStorage {
 
         File dataDir = new File("data");
         File reportDir = new File("data/reports");
+        DukeFatalException folderExcp =
+                new DukeFatalException("Unable to setup data folders, try checking your permissions?");
 
-        if (!dataDir.exists()) {
-            dataDir.mkdir();
+        if (!dataDir.exists() && !dataDir.mkdir()) {
+            throw folderExcp;
         }
-        if (!reportDir.exists()) {
-            reportDir.mkdir();
+        if (!reportDir.exists() && !reportDir.mkdir()) {
+            throw folderExcp;
         }
         filePath = path;
         jsonFile = new File(filePath);
@@ -81,7 +81,7 @@ public class GsonStorage {
                     throw new IOException();
                 }
             } catch (IOException e) {
-                throw new DukeFatalException("Unable to setup data file, try checking your permissions?");
+                throw folderExcp;
             }
         }
     }
@@ -90,7 +90,7 @@ public class GsonStorage {
      * Loads all the patients in the JSON file to a hash map.
      *
      * @return the hash map containing the patients
-     * @throws DukeFatalException If data file cannot be setup.
+     * @throws DukeFatalException If data files cannot be setup.
      */
     public ArrayList<Patient> loadPatients() throws DukeFatalException {
         ArrayList<Patient> patients = new ArrayList<>();
@@ -102,7 +102,7 @@ public class GsonStorage {
             }
             patients.addAll(Arrays.asList(patientArr));
         } catch (IOException e) {
-            throw new DukeFatalException("Unable to load data file, try checking your permissions?");
+            throw new DukeFatalException("Unable to load data files, try checking your permissions?");
         }
         return patients;
     }
@@ -120,7 +120,7 @@ public class GsonStorage {
             fileWriter.write(gson.toJson(patientList));
             fileWriter.close();
         } catch (IOException e) {
-            throw new DukeFatalException("Unable to write data! Some data may have been lost,");
+            throw new DukeFatalException("Unable to write data! Some data may have been lost.");
         }
     }
 
@@ -150,7 +150,7 @@ public class GsonStorage {
      *
      * @param helpFile the path of the helpFile
      * @return the hash map containing the helpfile
-     * @throws DukeFatalException If data file cannot be setup.
+     * @throws DukeFatalException If data files cannot be setup.
      */
     public HashMap<String, HashMap<String, String>> loadHelpHashMap(String helpFile) throws DukeFatalException {
         final File jsonFile = new File(helpFile);
@@ -160,7 +160,7 @@ public class GsonStorage {
                     throw new IOException();
                 }
             } catch (IOException e) {
-                throw new DukeFatalException("Unable to setup data file, try checking your permissions?");
+                throw new DukeFatalException("Unable to setup data files, try checking your permissions?");
             }
         }
         HashMap<String, HashMap<String, String>> helpMap;
@@ -169,7 +169,7 @@ public class GsonStorage {
             helpMap = gson.fromJson(reader, new TypeToken<HashMap<String, HashMap<String, String>>>() {
             }.getType());
         } catch (IOException e) {
-            throw new DukeFatalException("Unable to load data file, try checking your permissions?");
+            throw new DukeFatalException("Unable to load data files, try checking your permissions?");
         }
         return helpMap;
     }
@@ -180,9 +180,9 @@ public class GsonStorage {
      *
      * @param file Relative file path.
      * @return A list of {@code Help} objects.
-     * @throws DukeException If the data file cannot be loaded.
+     * @throws DukeFatalException If the data files cannot be loaded.
      */
-    public List<Help> loadHelpList(String file) throws DukeException {
+    public List<Help> loadHelpList(String file) throws DukeFatalException {
         List<Help> helpList;
 
         try {
@@ -190,7 +190,7 @@ public class GsonStorage {
             Help[] helps = gson.fromJson(reader, Help[].class);
             helpList = Arrays.asList(helps);
         } catch (IOException e) {
-            throw new DukeException("The help data file cannot be loaded. The help window will be disabled.");
+            throw new DukeFatalException("The help data files cannot be loaded!");
         }
 
         return helpList;

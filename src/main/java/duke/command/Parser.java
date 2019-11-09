@@ -5,6 +5,8 @@ import duke.exception.DukeHelpException;
 import duke.exception.DukeUtilException;
 import duke.ui.context.UiContext;
 
+import java.util.logging.Logger;
+
 import static java.lang.Math.min;
 
 /**
@@ -14,9 +16,13 @@ import static java.lang.Math.min;
  */
 public class Parser {
 
+    public static final Logger parserLogger = Logger.getLogger("parser");
     private final Commands commands;
     private final UiContext uiContext;
     private final ArgParser argParser;
+
+    static {
+    }
 
     /**
      * Constructs a new Parser, generating a HashMap from an array of enum values to allow fast lookup of command types.
