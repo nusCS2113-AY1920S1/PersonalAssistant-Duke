@@ -79,35 +79,68 @@ Examples:
 === Adding a homework task: `homework`
 
 To add a homework task : `homework DESCRIPTION /by DATE`
+
 An option could be added to give a priority to the task : `homework DESCRIPTION /by DATE prio INDEX`
 
+An other option could be added to give recurrence to the task : `homework DESCRIPTION /by DATE recu DATETYPE NBRECU`
 Be careful:
 
 * The second INDEX can’t be less than 0 or greater than 9.
 * 0 is the less urgent, 9 is the most urgent
+* DATETYPE can be day, week, month
+* NBRECU indicate the number of recurrence +1 you want
+* If you want to add recurrence and priority, `prio` should be before `recu`
 
 Example:
 
 * `homework CS4239: lab3 /by 21/09/2019 23:59`
 * `homework CS4239: lab4 /by 25/09/2019 23:59 prio 7`
+* `homework test code /by 25/09/2019 23:59 recu day 3` : will create 4 homework, from 25/09/2019 to 28/09/2019
+* `homework write UG /by 23/09/2019 23:59 prio 7 recu month 1` : will create 2 homeworks of priority 7, with date 23/09/2019 and 30/10/2019
+```
+homework write UG /by 23/09/2019 23:59 prio 7 recu month 1
+	---------------------------------------------------------------------------------
+	 Here are the tasks in your list:
+	 25. [H][X] write UG by: 23/09/2019 23:59 [Priority: 7]
+	 26. [H][X] write UG by: 23/10/2019 23:59 [Priority: 7]
+	---------------------------------------------------------------------------------
+```
 
 === Adding a event task: `event`
 
 To add an event task : `event DESCRIPTION /at DATE - DATE`
 An option could be add to give a priority to the task : `event DESCRIPTION /at DATE - DATE prio INDEX`
-
+An other option could be added to give recurrence to the task : `vent DESCRIPTION /at DATE - DATE recu DATETYPE NBRECU`
 Be careful:
 
+* When creating an event, two dates can’t clash
 * The second INDEX can’t be less than 0 or greater than 9.
 * 0 is the less urgent, 9 is the most urgent
-
+* DATETYPE can be day, week, month
+* NBRECU indicate the number of recurrence +1 you want
+* If you want to add recurrence and priority, `prio` should be before `recu`
+* If, by creating a recurrence, the date of the next occurence of the event is in conflict with the previous one, it will
+* You can't create a recurrence of an event when the `second date minus first date > DATETYPE`: For example `07/12/2019 09:00 - 08/12/2019 11:00` have second date minus first date superior as the day `DATETYPE`
 
 Example:
 
 * `event CS4211: mid-term /at 07/10/2019 09:00 - 07/10/2019 11:00`
 * `event CS4211: final exam /at 07/12/2019 09:00 - 07/12/2019 11:00 prio 8`
+* `event CS4211: sport /at 07/10/2019 09:00 - 07/10/2019 11:00 recu day 3`: will create 4 event
+* `event CS4211: cooking session /at 07/12/2019 09:00 - 07/12/2019 11:00 prio 8 recu week 2`: will create 3 event, each with 1 week apart
+```
+event CS4211: cooking session /at 07/12/2019 09:00 - 07/12/2019 11:00 prio 8 recu week 2
+        ---------------------------------------------------------------------------------
+         Here are the tasks in your list:
+	 22. [E][X] CS4211: cooking session at: 07/12/2019 09:00 - 07/12/2019 11:00 [Priority: 8]
+	 23. [E][X] CS4211: cooking session at: 14/12/2019 09:00 - 14/12/2019 11:00 [Priority: 8]
+	 24. [E][X] CS4211: cooking session at: 21/12/2019 09:00 - 21/12/2019 11:00 [Priority: 8]
 
-Be careful : when creating an event, two dates can’t clash
+
+        ---------------------------------------------------------------------------------
+
+```
+
 
 
 === Search for a task by relevancy : `find`
@@ -435,7 +468,7 @@ Giving priority to task: `prioritize INDEX prio INDEX`
 
 The first INDEX is the task index
 
-The second INDEX is the priority (goes from 1 to 9)
+The second INDEX is the priority (goes from 0 to 9)
 
 Be careful:
 
