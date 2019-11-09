@@ -1,6 +1,5 @@
 package sgtravel.logic.commands;
 
-import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.ApiException;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.ParseException;
@@ -55,7 +54,7 @@ public class QuickEditCommand extends Command {
             model.save();
             return new CommandResultText(MESSAGE_EDIT_SUCCESS + event);
         } catch (IndexOutOfBoundsException e) {
-            throw new ParseException(Messages.ERROR_INPUT_INVALID_FORMAT);
+            throw new OutOfBoundsException();
         }
     }
 }
