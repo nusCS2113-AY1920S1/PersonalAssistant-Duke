@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static duke.testutil.Assert.assertThrows;
 
-public class AddCommandTest {
+public class AddProductCommandTest {
 
     @Test
     public void constructor_nullProduct_throwsNullPointerException() {

@@ -11,6 +11,7 @@ import duke.model.inventory.Ingredient;
 import duke.model.order.Customer;
 import duke.model.order.Order;
 import duke.model.product.Product;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.Calendar;
@@ -73,7 +74,7 @@ public class AddOrderCommand extends OrderCommand {
     public CommandResult execute(Model model) throws CommandException {
 
         Order toAdd = createOrder(addOrderDescriptor,
-            model.getFilteredProductList(),
+            model.getActiveProductList(),
             model.getFilteredInventoryList());
         model.addOrder(toAdd);
 

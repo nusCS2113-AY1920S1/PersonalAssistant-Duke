@@ -1,31 +1,46 @@
-package duke.logic.parser.order;
+package duke.model;
 
 import duke.commons.core.index.Index;
+import duke.commons.util.CollectionUtil;
 import duke.logic.command.order.SortOrderCommand;
+import duke.logic.command.product.SortProductCommand;
 import duke.model.Model;
 import duke.model.ReadOnlyBakingHome;
 import duke.model.commons.Item;
+import duke.model.exceptions.DuplicateEntityException;
 import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
 import duke.model.product.Product;
 import duke.model.sale.Sale;
 import duke.model.shortcut.Shortcut;
+import duke.testutil.ProductBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
-/**
- * A stub for {@code Model} to test {@code OrderCommand}.
- */
-public class OrderModelStub implements Model {
-    private List<Order> orders;
+import static duke.testutil.TypicalProducts.EGG_TART;
 
-    public OrderModelStub() {
+/**
+ * A stub for {@code Model} to test {@code Command}.
+ */
+public class ModelStub implements Model {
+    private List<Order> orders;
+    private  FilteredList products;
+
+    public ModelStub() {
         orders = new ArrayList<>();
+//        initProducts();
     }
+
+    //private void initProducts() {
+    //    products = new FilteredList<Product>(FXCollections.observableList(Arrays.asList(EGG_TART)));
+    //}
+
 
     @Override
     public boolean hasOrder(Order order) {
@@ -63,7 +78,6 @@ public class OrderModelStub implements Model {
 
     @Override
     public void updateFilteredOrderList(Predicate<Order> predicate) {
-
     }
 
     @Override
@@ -131,9 +145,30 @@ public class OrderModelStub implements Model {
         return false;
     }
 
+    /**
+     * Sorts products of given {@code scope} by the given {@code category}.
+     *
+     * @param category
+     * @param isReverse
+     */
+    @Override
+    public void sortProducts(SortProductCommand.Category category, boolean isReverse) {
+
+    }
+
     @Override
     public ObservableList<Product> getFilteredProductList() {
-        return FXCollections.observableList(new ArrayList<Product>());
+        return products;
+
+        //return FXCollections.observableList(new ArrayList<Product>());
+    }
+
+    /**
+     * Returns an unmodifiable view of active product list.
+     */
+    @Override
+    public List<Product> getActiveProductList() {
+        return new ArrayList<>();
     }
 
     @Override

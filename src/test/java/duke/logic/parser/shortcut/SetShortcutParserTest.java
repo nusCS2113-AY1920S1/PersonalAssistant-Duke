@@ -8,13 +8,13 @@ public class SetShortcutParserTest {
     private SetShortcutCommandParser parser = new SetShortcutCommandParser();
 
     @Test
-    public void createShortcut_emptyName_failure() {
+    public void createShortcut_emptyName_throwsParseException() {
         Assertions.assertThrows(ParseException.class, () -> parser.parse(" order add"));
     }
 
     @Test
     public void createShortcut_emptyUserInputs_success() {
-        Assertions.assertAll(() -> parser.parse("name"));
+        Assertions.assertAll(() -> parser.parse("name   "));
     }
 
     @Test
@@ -25,5 +25,16 @@ public class SetShortcutParserTest {
     @Test
     public void createShortcut_multipleUserInputs_success() {
         Assertions.assertAll(() -> parser.parse("name order add; order remove"));
+    }
+
+    @Test
+    public void createShortcut_blankCommands_throwsParseException() {
+        Assertions.assertThrows(ParseException.class, () -> parser.parse(";order add"));
+        Assertions.assertThrows(ParseException.class, () -> parser.parse(";;order add"));
+        Assertions.assertThrows(ParseException.class, () -> parser.parse(";; "));
+        Assertions.assertThrows(ParseException.class, () -> parser.parse("order add;"));
+        Assertions.assertThrows(ParseException.class, () -> parser.parse("order add;;"));
+        Assertions.assertThrows(ParseException.class, () -> parser.parse(";"));
+
     }
 }

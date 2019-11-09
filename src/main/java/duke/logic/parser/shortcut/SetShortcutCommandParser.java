@@ -40,8 +40,6 @@ public class SetShortcutCommandParser implements SubCommandParser<SetShortcutCom
 
         List<String> commandStrings = new ArrayList<String>(Arrays.asList(userInputsString.split(COMMAND_SPLITTER, -1)));
 
-        System.out.println(commandStrings.size());
-
         if (commandStrings.isEmpty()) {
             throw new ParseException(MESSAGE_EMPTY_COMMAND);
         }

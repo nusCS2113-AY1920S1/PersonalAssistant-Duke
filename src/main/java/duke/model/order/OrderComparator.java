@@ -44,8 +44,7 @@ public class OrderComparator implements Comparator<Order> {
             return compareStatus(o1, o2);
 
         } else if (SortOrderCommand.SortCriteria.TOTAL.equals(criteria)) {
-            return Double.compare(o1.getTotal(), o2.getTotal());
-
+            return compareTotal(o1, o2);
         }
 
         return 0;
@@ -72,5 +71,9 @@ public class OrderComparator implements Comparator<Order> {
     private int compareStatus(Order o1, Order o2) {
         return Integer.compare(statusSequence.indexOf(o1.getStatus()),
             statusSequence.indexOf(o2.getStatus()));
+    }
+
+    private int compareTotal(Order o1, Order o2) {
+        return Double.compare(o1.getTotal(), o2.getTotal());
     }
 }

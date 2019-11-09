@@ -119,7 +119,8 @@ public class AutoCompleter {
 
         List<String> suggestions = new ArrayList<>();
         Optional<Class<? extends Command>> matchedCommandClass = getMatchedCommandClass(userInput);
-        matchedCommandClass.ifPresent(matchedClass -> suggestions.addAll(generateParameterSuggestions(currentWord, matchedClass)));
+        matchedCommandClass.ifPresent(matchedClass ->
+            suggestions.addAll(generateParameterSuggestions(currentWord, matchedClass)));
 
         suggestions.addAll(generateCommandWordSuggestions(currentWord));
 
@@ -145,12 +146,13 @@ public class AutoCompleter {
      * @throws ParseException if duplicate classes are added.
      */
     public void addCommandClass(Class<? extends Command> commandClass) throws ParseException {
-        assert (commandClass != null);
+        requireNonNull(commandClass);
 
         if (commandClasses.contains(commandClass)) {
             logger.warning(String.format("Could not add duplicate %s to AutoCompleter", commandClass.toString()));
             throw new ParseException();
         }
+
 
         this.commandClasses.add(commandClass);
 
@@ -167,7 +169,7 @@ public class AutoCompleter {
      * Returns a list of suggested commands based on the incomplete {@code toComplete}.
      */
     private List<String> generateCommandWordSuggestions(String toComplete) {
-        assert (toComplete != null);
+        requireNonNull(toComplete);
 
         List<String> suggestions = new ArrayList<>();
         for (Class<? extends Command> commandClass : commandClasses) {

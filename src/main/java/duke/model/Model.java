@@ -2,6 +2,7 @@ package duke.model;
 
 import duke.commons.core.index.Index;
 import duke.logic.command.order.SortOrderCommand;
+import duke.logic.command.product.SortProductCommand;
 import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
@@ -71,9 +72,9 @@ public interface Model {
     void commit(String commitMessage);
 
     /**
-     * TODO: add details.
-     *
-     * @param isEnabled should be set to true to enable version control.
+     * Sets the status of version control.
+     * If {@code isEnabled} is false, version control is disabled. As a result,
+     * {@code commit()} will not save the current BakingHome state.
      */
     void setVersionControl(Boolean isEnabled);
 
@@ -162,12 +163,22 @@ public interface Model {
     boolean hasProduct(Product product);
 
     /**
+     * Sorts products of given {@code scope} by the given {@code category}.
+     */
+    void sortProducts(SortProductCommand.Category category, boolean isReverse);
+
+    /**
      * Returns an unmodifiable view of the filtered product list.
      */
     ObservableList<Product> getFilteredProductList();
 
     /**
-     * Updates the product list with the given predicate
+     * Returns an unmodifiable view of active product list.
+     */
+    List<Product> getActiveProductList();
+
+    /**
+     * Updates the product list with the given predicate.
      */
     void updateFilteredProductList(Predicate<Product> predicate);
 
@@ -227,7 +238,7 @@ public interface Model {
      */
     default Predicate<Sale> getSalesBetween(Date from, Date to) {
         Predicate<Sale> showSaleBetween =
-                sale -> sale.getSaleDate().before(to) && sale.getSaleDate().after(from);
+            sale -> sale.getSaleDate().before(to) && sale.getSaleDate().after(from);
         return showSaleBetween;
     }
 
@@ -244,7 +255,7 @@ public interface Model {
      */
     void addSaleFromShopping(Double totalCost, ArrayList<Item<Ingredient>> toBuyList);
 
-    //========Ingredient operations======
+    //========Inventory operations======
     /**
      * Returns an unmodifiable view of the filtered inventory list.
      */
@@ -286,7 +297,6 @@ public interface Model {
 
     /**
      * Clears the inventory list.
-     * @param emptyList
      */
     void clearInventory(List<Item<Ingredient>> emptyList);
 

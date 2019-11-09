@@ -13,6 +13,7 @@ public class TypicalProducts {
                     .withIngredientCost(3.0)
                     .withRetailPrice(5.9)
                     .addIngredientNameAndQuantity("Cream cheese", 3.0)
+                    .withStatus(Product.Status.valueOf("ACTIVE"))
                     .build();
 
     public static final Product EGG_TART =
@@ -22,6 +23,7 @@ public class TypicalProducts {
                     .withRetailPrice(1.5)
                     .addIngredientNameAndQuantity("Egg", 3.0)
                     .addIngredientNameAndQuantity("Flour", 1.0)
+                    .withStatus(Product.Status.valueOf("ACTIVE"))
                     .build();
 
     private TypicalProducts() {}

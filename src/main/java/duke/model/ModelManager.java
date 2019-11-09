@@ -1,8 +1,9 @@
 package duke.model;
 
+import duke.commons.core.LogsCenter;
 import duke.commons.core.index.Index;
-import duke.logic.command.exceptions.CommandException;
 import duke.logic.command.order.SortOrderCommand;
+import duke.logic.command.product.SortProductCommand;
 import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
@@ -17,6 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
@@ -25,6 +27,8 @@ import static java.util.Objects.requireNonNull;
  * Represents the in-memory model of baking home data.
  */
 public class ModelManager implements Model {
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+
     private final VersionedBakingHome bakingHome;
     private final FilteredList<Order> filteredOrders;
     private final FilteredList<Sale> filteredSales;
@@ -37,6 +41,7 @@ public class ModelManager implements Model {
      */
     public ModelManager(ReadOnlyBakingHome bakingHome) {
         super();
+        logger.fine("Initializing with address book: " + bakingHome);
         this.bakingHome = new VersionedBakingHome(bakingHome);
         this.filteredOrders = new FilteredList<>(this.bakingHome.getOrderList());
         this.filteredSales = new FilteredList<>(this.bakingHome.getSaleList());
@@ -221,10 +226,6 @@ public class ModelManager implements Model {
         updateFilteredProductList(PREDICATE_SHOW_ACTIVE_PRODUCTS);
     }
 
-    /**
-     * Replaces the given product {@code originalProduct} in the list with {@code editedProduct}. {@code
-     * originalProduct} must exist in product list
-     */
     @Override
     public void setProduct(Product originalProduct, Product editedProduct) {
         requireNonNull(originalProduct);
@@ -239,12 +240,22 @@ public class ModelManager implements Model {
         return bakingHome.getProductList().contains(product);
     }
 
-    /**
-     * Returns an unmodifiable view of the filtered product list.
-     */
+    @Override
+    public void sortProducts(SortProductCommand.Category category, boolean isReversed) {
+        requireNonNull(category);
+        bakingHome.sortProducts(category, isReversed);
+    }
+
     @Override
     public ObservableList<Product> getFilteredProductList() {
         return filteredProducts;
+    }
+
+    @Override
+    public List<Product> getActiveProductList() {
+        FilteredList<Product> activeProducts = new FilteredList<>(this.bakingHome.getProductList());
+        activeProducts.setPredicate(PREDICATE_SHOW_ACTIVE_PRODUCTS);
+        return activeProducts;
     }
 
     @Override
@@ -253,17 +264,14 @@ public class ModelManager implements Model {
         filteredProducts.setPredicate(predicate);
     }
 
-    /**
-     * Returns a predicate that filters product containing the given keyword.
-     *
-     * @param keyword
-     */
     @Override
     public void getProductWithKeyword(String keyword) {
         Predicate<Product> containsKeyword =
                 product -> product.getProductName().toLowerCase().contains(keyword);
         updateFilteredProductList(containsKeyword);
     }
+
+
 
     //========Inventory operations==========
 
@@ -416,6 +424,25 @@ public class ModelManager implements Model {
     @Override
     public List<Shortcut> getShortcutList() {
         return bakingHome.getShortcutList();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof ModelManager)) {
+            return false;
+        }
+
+        ModelManager other = (ModelManager) o;
+        return bakingHome.equals(other.getBakingHome())
+            && filteredInventory.equals(other.getFilteredInventoryList())
+            && filteredShoppingList.equals(other.getFilteredShoppingList())
+            && filteredProducts.equals(other.getFilteredProductList())
+            && filteredOrders.equals(other.getFilteredOrderList())
+            && filteredSales.equals(other.getFilteredSaleList());
     }
 
 }

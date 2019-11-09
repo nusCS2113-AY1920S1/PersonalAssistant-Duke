@@ -12,12 +12,8 @@ import duke.logic.parser.exceptions.ParseException;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INDEX;
 
 public class ShowProductCommandParser implements Parser<ShowProductCommand> {
-    /**
-     * Parses {@code userInput} into a command and returns it.
-     *
-     * @param args
-     * @throws ParseException if {@code userInput} does not conform the expected format
-     */
+
+
     @Override
     public ShowProductCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
