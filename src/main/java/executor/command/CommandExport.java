@@ -4,76 +4,81 @@ import com.opencsv.CSVWriter;
 import duke.exception.DukeException;
 import interpreter.Parser;
 import storage.StorageManager;
+import ui.Receipt;
 import java.io.File;
 import java.io.FileWriter;
-import java.util.Scanner;
+import java.io.IOException;
 
 public class CommandExport extends Command {
 
-    // filepath of either taskData or WalletData
-    private String filePath;
-
+    /**
+     * CommandExport helps to export the wallet data as csv with useful headers.
+     * @param userInput String is the user entered input
+     */
     public CommandExport(String userInput) {
         this.userInput = userInput;
         this.commandType = CommandType.EXPORT;
         this.description = "Exports txt into CSV\n"
-                            + "FORMAT : export <wallet or task>\n";
+                            + "FORMAT : export \n";
     }
 
     @Override
     public void execute(StorageManager storageManager) {
+        String userMessageForEnteringExtraFields = " ";
 
-        try{
-            String fileUserWants = getWhichFileUserWants(this.userInput);
-            convertTxtToCsv(fileUserWants);
+        if (this.isThereExtraInputByUser(this.userInput)) {
+            userMessageForEnteringExtraFields = "Incorrect Command but DUKE$$$ understands"
+                    + " you would want to export Wallet to csv !\n";
+        }
+
+        try {
+            File csv = new File("data.csv");
+            FileWriter outputFile = new FileWriter(csv);
+            CSVWriter writer = new CSVWriter(outputFile);
+            String[] header = {"ID", "Tag", "Amount", "Date"};
+            writer.writeNext(header);
+            storageManager.saveAllData();
+            int i = 0;
+            for (Receipt receipt :storageManager.getWallet().getReceipts()) {
+                String eachRowOfData = (i + 1) + ". "
+                        + receipt.getTags().toString().replaceAll(" ", "") + " "
+                        + receipt.getCashSpent() + " "
+                        + receipt.getDate();
+                convertReceiptsToCsv(eachRowOfData,writer);
+                i++;
+            }
+            writer.close();
             this.infoCapsule.setCodeCli();
-            this.infoCapsule.setOutputStr("data.csv has been created ! Please check the project folder \n");
-        } catch (DukeException e) {
+            this.infoCapsule.setOutputStr("data.csv has been created ! Please check the project folder \n"
+                    + userMessageForEnteringExtraFields);
+        } catch (DukeException | IOException e) {
             this.infoCapsule.setCodeError();
             this.infoCapsule.setOutputStr(e.getMessage());
         }
     }
 
-    private String getWhichFileUserWants (String userInput) throws DukeException {
-
-        String fileType = Parser.parseForPrimaryInput(this.commandType, userInput);
-        if(fileType.equals("task")|fileType.equals("wallet")){
-            return fileType;
-        } else {
-            throw new DukeException("Please enter a valid choice : either task or wallet\n");
-        }
-    }
-
-    private void convertTxtToCsv(String dataWanted) throws DukeException {
-        if(dataWanted.toLowerCase().equals("wallet")){
-            this.filePath = "savedWallet.txt";
-        } else {
-            this.filePath = "savedTask.txt";
-        }
-        try{
-            // access the file for which user wants the csv
-            File txtFile = new File(this.filePath);
-            Scanner scanner = new Scanner(txtFile);
-
-            //Now create the csv
-            // first create file object for file placed at location
-            // specified by filepath
-            File csv = new File("data.csv");
-            // create FileWriter object with file as parameter
-            FileWriter outputFile = new FileWriter(csv);
-            // create CSVWriter object filewriter object as parameter
-            CSVWriter writer = new CSVWriter(outputFile);
-            while (scanner.hasNextLine()) {
-                String loadedInput = scanner.nextLine();
-                if (loadedInput.equals("")) {
-                    break;
-                }
-                String[] eachRowOfData = {loadedInput.replace(" ", ",")};
-                writer.writeNext(eachRowOfData);
-            }
-            writer.close();
+    /**
+     * convertReceiptsToCSV is the method used to change receipts into CSV.
+     * @param dataTobeAdded String is the row of data which is to be changed to csv
+     * @param writer CSVWriter is the library used to write to CSV
+     * @throws DukeException Method throws Duke Exception if unable to write to csv
+     */
+    private void convertReceiptsToCsv(String dataTobeAdded, CSVWriter writer) throws DukeException {
+        try {
+            String[] entries = dataTobeAdded.split(" ");
+            writer.writeNext(entries);
         } catch (Exception e) {
             throw new DukeException("Unable to write to csv");
         }
+    }
+
+    /**
+     * isThereExtraInputByUser is the method used to check if the user has entered misleading entries.
+     * @param userInput String is the user input entered in the GUI
+     * @return false is returned if user enters the correct command for exporting into csv
+     */
+    private boolean isThereExtraInputByUser(String userInput) {
+        String additionalEntriesOfUser = Parser.parseForPrimaryInput(this.commandType, userInput);
+        return !additionalEntriesOfUser.isEmpty();
     }
 }
