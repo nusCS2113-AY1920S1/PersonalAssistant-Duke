@@ -32,6 +32,7 @@ public class CommandDictionary {
 
         // Edit Commands
         commandDict.add(new Pair<>("edit stock", "<StockCode> <Property> <NewValue>"));
+        commandDict.add(new Pair<>("edit stocktype", "<StockType> <NewName>"));
         commandDict.add(new Pair<>("edit person", "<Property> <NewValue>"));
 
         // List Commands

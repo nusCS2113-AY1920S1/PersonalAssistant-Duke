@@ -3,6 +3,7 @@ By: Team F09-03
 Dated: 8 November 2019  
 
 ## Table of contents  
+
 ### [1. Introduction ](#1-introduction)  
 ### [2. Quick Start ](#2-quick-start)  
 ### [3. Features and Command Usage ](#3-features-and-command-usage)  
@@ -12,11 +13,12 @@ Dated: 8 November 2019
 ##### [3.4 Managing your list of People ](#34-managing-your-list-of-people)  
 ##### [3.5 Managing your list of Loans ](#35-managing-your-list-of-loans)  
 ##### [3.6 Loaning using Templates](#36-loaning-using-templates)
-##### [3.7 Marking Stock as Lost ](#37-marking-stock-as-lost-coming-in-v20)  
-##### [3.8 Searching the Inventory ](#38-searching-the-inventory)  
-##### [3.9 Using Undo and Redo Commands ](#39-using-undo-and-redo-commands-coming-in-v20)  
-##### [3.10 Setting autosave options ](#310-setting-autosave-options-coming-in-v20)  
-##### [3.11 Exiting the program: bye ](#311-exiting-the-program-bye)  
+##### [3.7 Minimum Required Quantity](#37-minimum-required-quantity)
+##### [3.7 Marking Stock as Lost ](#38-marking-stock-as-lost-coming-in-v20)  
+##### [3.8 Searching the Inventory ](#39-searching-the-inventory)  
+##### [3.9 Using Undo and Redo Commands ](#310-using-undo-and-redo-commands-coming-in-v20)  
+##### [3.10 Setting autosave options ](#311-setting-autosave-options-coming-in-v20)  
+##### [3.11 Exiting the program: bye ](#312-exiting-the-program-bye)  
 ### [4. FAQ ](#4-faq)  
 ### [5. Command Summary ](#5-command-summary)  
 ### [6. Glossary ](#6-glossary)  
@@ -80,7 +82,7 @@ Format: `help <Command>`
 eg. `help edit`
   
 ---  
-  ### 3.2 Working with Stock Types  
+### 3.2 Working with Stock Types  
 Stock Types are the main categories of the inventory, and each Stock Type stores multiple Stocks. For example, your inventory may have Stock Types such as Resistors, Tools or Wires. You are required to add your Stock Types to the inventory before Stocks can be added. By default, Eggventory comes with an Uncategorised Stock Type, where Stocks not assigned to a specified Stock Typee added.  
   
 Note: Stock Type names are not allowed to have spaces in them.  
@@ -136,18 +138,16 @@ Format: `add stock <StockType> <StockCode> <Quantity> <Description>`
   
 eg. `add stock Resistor R500 1000 500ohm resistor`  
   
-**[coming in v2.0]**  
 In addition to the required parameters, stocks can also be added with the following optional parameters:  
 
 Format|Purpose|  
 |---|---|  
-`-mq <MinQuantity>` |Sets the minimum quantity of stock that should be maintained in the inventory  
-`-u`|Sets the stock to contain items that are unique  
+`-m <MinQuantity>` |Sets the [minimum required quantity](#37-minimum-required-quantity) of stock that should be maintained in the inventory  
+`-u`|**[coming in v2.0]**  Sets the stock to contain items that are unique  
   
-
 Format: `add stock <StockType> <Stock Code> <Quantity> <Description> {<optional parameter>}`  
   
-eg. `add stock Resistor R500 1000 500ohm resistor -mq 100`  
+eg. `add stock Resistor R500 1000 500ohm resistor -m 100`  
   
 #### 3.3.2 Deleting Stocks: `delete  stock`  
     
@@ -318,42 +318,94 @@ Format: `list template`
 This is an example of what the output will look like with 3 templates added.
  ![](images/templateList.png)
   
+---
+### 3.7 Minimum Required Quantity 
+
+The _minimum required quantity_ is the minimum amount of the stock that your lab intends to have on hand at all times. Loans can still be made until the stock fully runs out, but additional
+  warnings will be displayed to remind you that stock is running low. 
+  
+In context, your lab may typically start restocking batteries when there are less than 30 batteries left. Thus, your minimum
+   required quantity should be set to 30. 
+
+#### 3.7.1 Setting Minimum Required Quantity
+There are two ways to set a Stock's minimum required quantity. 
+
+The first is to specify it when adding the stock, using the optional parameter `-m <minimum quantity>`. An additional confirmation message will acknowledge your use of the optional parameter. 
+
+Format: `add stock <StockType> <Stock Code> <Quantity> <Description> -m <Minimum Quantity>`  
+  
+eg. `add stock Resistor R1k 1000 1Kohm resistor -m 500`
+
+   ![](images/add_mrq.png)
+
+If you did not assign a minimum required quantity to the Stock when it was added, you can edit it at any time using the `edit` command. 
+  
+Format: `edit stock <StockCode> <Property> <New Value>`  
+  
+eg. `edit stock R500 minimum 100`  
+  
+#### 3.7.2 Receiving warnings about Quantity
+
+Once you have set a _minimum required quantity_, checks are performed to compare the _available quantity_ (total quantity without loaned or lost stock) and _minimum required quantity_ at every instance where any values are updated. If your latest action, such as adding a Loan, causes the available quantity to fall below minimum, a warning will be printed as shown below. 
+
+   ![](images/add_loan_mrq.png)
+
+Realistically, you may not have sufficient quantity of a Stock at the moment you add it into the system. Thus, it is normal to receive minimum quantity warnings when adding a stock that currently has less than the minimum quantity, as shown below.
+
+   ![](images/add_below_mrq.png)
+  
+#### 3.7.3 Listing Stocks that are low in quantity: `list minimum`
+
+This shows you a complete list of Stocks below their minimum required quantities. This list allows you quickly determine which Stocks are running out, and understand how much of this is due to excessive loaning or loss [coming in v2.0] of items. 
+
+Format: `list minimum`
+
+   ![](images/list_min.png)
+
+#### 3.7.3 Generating Shopping List: `list shopping`
+
+This automatically generates a list of Stock and the quantity of each that you should consinder buying in order to attain the minimum required quantities. 
+
+Format: `list shopping`
+
+[ui screenshot coming soon]
+
 ---  
-### 3.7 Marking Stock as lost **[coming in v2.0]**
+### 3.8 Marking Stock as lost **[coming in v2.0]**
 Marks a certain quantity of a stock as lost. Differs from deleting stock in the fact that the quantity of stock will still be saved in the inventory (eg. for administrative purposes). Lost stock will not be included in tallies of available stock.  
   
-#### 3.7.1 Marking Stock as lost: `lost`  
+#### 3.8.1 Marking Stock as lost: `lost`  
     
-Format:` lost <Stock Code> <Quantity>`  
+Format: `lost <Stock Code> <Quantity>`  
   
 eg. `lost R500 10`  
   
-#### 3.7.2 Marking Loaned Stock as lost:   
+#### 3.8.2 Marking Loaned Stock as lost:   
 This directly marks a quantity of a Person’s Loan as lost. The items are removed from the Loan list and counted as lost within the main inventory.  
   
 Format: `lost <MatricNo> <StockCode>`
   
-### 3.8 Searching the inventory  
+### 3.9 Searching the inventory  
 It is possible to search the inventory for a Stock or StockType with the find command. It will display all Stocks or StockType that partially or fully matches the input query.  
   
-#### 3.8.1 Finding a Stock: `find stock`  
+#### 3.9.1 Finding a Stock: `find stock`  
     
 This finds all stocks that match the query.  
   Format: `find stock <Query>`    
-#### 3.8.2 Finding a StockType: `find stocktype`  
+#### 3.9.2 Finding a StockType: `find stocktype`  
     
 This finds all StockTypes that matches the query.  
 Format: `find stocktype <Query>`  
 
 ---  
-### 3.9 Using Undo and Redo commands: **[coming in v2.0]**
+### 3.10 Using Undo and Redo commands: **[coming in v2.0]**
   
-#### 3.9.1 Undoing a command: `undo`
+#### 3.10.1 Undoing a command: `undo`
   
 If you accidentally entered a command by accident, the effects of any command can be reversed with the undo command.  
   Format: `undo`  
   
-#### 3.9.2 Reversing an undo command: `redo`  
+#### 3.10.2 Reversing an undo command: `redo`  
     
 Undoing a command can be reversed using the redo command.  
   
@@ -362,13 +414,13 @@ Undoing a command can be reversed using the redo command.
 Format: `redo`  
   
 ---  
-### 3.10 Setting autosave options: [coming in v2.0]  
+### 3.11 Setting autosave options: [coming in v2.0]  
   Eggventory automatically saves the current inventory to the disk every time data is added, removed, or edited. You can disable this feature with this command. Eggventory will then save only when the program exits.  
   
 Format: `autosave on` OR `autosave off`  
   
 ---  
-### 3.11 Exiting the program: `bye`  
+### 3.12 Exiting the program: `bye`  
 Format: `bye`  
   
 ## 4. FAQ    
@@ -443,3 +495,8 @@ Matric No. | Matriculation number of student to be added
 Stock | A physical asset to be tracked by Eggventory  
 Stock Code | A unique string of characters to identify a stock  
 Stock Type | A category of stock
+
+
+[3.1-viewing-help-help]: #3.1-viewing-help:-help
+
+[3. Features and command usage  ]: #3.-features-and-command-usage

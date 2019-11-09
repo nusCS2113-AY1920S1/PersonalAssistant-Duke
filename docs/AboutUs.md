@@ -10,6 +10,8 @@ It is this change that we at Eggventory strive towards timelessly.
 
 # Project Team
 
+   ![](images/team.png)
+
 ## Raghav
 <p align = "left"> <img src="./images/raghav-b.png" alt="Raghav" height=20% width=20%> </p>
 
