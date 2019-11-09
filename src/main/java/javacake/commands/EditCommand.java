@@ -38,7 +38,7 @@ public class EditCommand extends Command {
             if (!buffer[2].equals("/by")) {
                 throw new CakeException("[!] Wrong format\nPlease input:\n'deadline TASK /by TASK_DATE'");
             }
-            if (taskIndex >= storageManager.storage.getData().size() || taskIndex <= 0) {
+            if (taskIndex >= storageManager.storage.getData().size() || taskIndex < 0) {
                 throw new CakeException("[!] Task number is out of bounds!\n"
                         + "Task number must be <= '"
                         + storageManager.storage.getData().size()
