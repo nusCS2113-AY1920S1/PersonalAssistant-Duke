@@ -263,8 +263,7 @@ public class TaskCommandParser extends Command {
                         + "9. notes\n"
                         + "To exit: bye\n");
             } else {
-                System.out.println("OOPS!!! I'm sorry,"
-                        + "but I don't know what that means :-(");
+                ui.showDontKnowErrorMessage();
             }
 
         }
