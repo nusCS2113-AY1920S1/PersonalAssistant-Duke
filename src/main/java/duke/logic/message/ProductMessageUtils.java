@@ -19,7 +19,7 @@ public class ProductMessageUtils {
     public static final String MESSAGE_INVALID_CATEGORY = "-by must be present and can only take "
         + "name/cost/price/profit";
     public static final String MESSAGE_SORT_PRODUCT_SUCCESS = "Product successfully sorted by %s";
-    public static final String MESSAGE_SUCCESS = "Products are listed";
+    public static final String MESSAGE_SUCCESS_SHOW_PRODUCT = "Products are listed";
     public static final String MESSAGE_SHOW_PRODUCT_SUCCESS = "Showing product %s";
     public static final String MESSAGE_NON_EMPTY_REVERSE_PARAMETER = "-re should not take any value";
     public static final String MESSAGE_INVALID_INGREDIENT_FORMAT = "Invalid input, please use "
