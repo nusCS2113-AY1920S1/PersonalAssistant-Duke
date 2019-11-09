@@ -1772,7 +1772,11 @@ Deletes a recurring expenditure from `JunBank Savings Account` with transaction 
 Have some recurring transactions which have not been reflected yet? You can update your profile!
 
 *Command Syntax*
+
 `/update`
+
+This updates any incoming income or interest that you are potentially scheduled to earn or any
+recurring expenditures that are supposed to be charged.
 
 == Future Enhancements `[coming in v2.0]`
 === Multi-Currency Support `/currency USD`

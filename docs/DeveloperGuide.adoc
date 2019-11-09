@@ -2124,7 +2124,7 @@ There is enough money in the `savings` account to add the expenditure.
 and Drinks` +
 Expected: New details of the Bubble Tea `expenditure` being displayed after being added.
 
-. Adding a new `ank `expenditure` to a `savings` account with insufficient money
+. Adding a new bank `expenditure` to a `savings` account with insufficient money
 
 .. Prerequisites: There is an existing `savings` account to add the `expenditure` to. +
 +

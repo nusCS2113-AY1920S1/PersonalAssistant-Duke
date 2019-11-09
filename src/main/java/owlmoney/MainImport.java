@@ -210,77 +210,87 @@ class MainImport {
     private ArrayList<String[]> prepareInvestmentBonds() {
         ArrayList<String[]> exportArrayList = new ArrayList<>();
         exportArrayList.add(new String[]{"bondName","amount","rate","boughtDate","year",
-            "nextDateToCreditInterest"});
+            "nextDateToCreditInterest","isMature"});
         exportArrayList.add(new String[]{
             "January SSB",
             "500.00",
             "2.01",
             "01/02/2019",
             "10",
-            "01/02/2020"});
+            "01/02/2020",
+            "false"});
         exportArrayList.add(new String[]{
             "February SSB",
             "1000.00",
             "1.98",
             "01/03/2019",
             "10",
-            "01/03/2020"});
+            "01/03/2020",
+            "false"});
         exportArrayList.add(new String[]{
             "March SSB",
             "3000.00",
             "1.95",
             "01/04/2019",
             "10",
-            "01/04/2020"});
+            "01/04/2020",
+            "false"});
         exportArrayList.add(new String[]{
             "April SSB",
             "1300.00",
             "1.96",
             "01/05/2019",
             "10",
-            "01/05/2020"});
+            "01/05/2020",
+            "false"});
         exportArrayList.add(new String[]{
             "May SSB",
             "2100.00",
             "1.95",
             "01/06/2019",
             "10",
-            "01/12/2019"});
+            "01/12/2019",
+            "false"});
         exportArrayList.add(new String[]{
             "June SSB",
             "2000.00",
             "1.88",
             "01/07/2019",
             "10",
-            "01/01/2020"});
+            "01/01/2020",
+            "false"});
         exportArrayList.add(new String[]{
             "July SSB",
             "1500.00",
             "1.93",
             "01/08/2019",
             "10",
-            "01/02/2020"});
+            "01/02/2020",
+            "false"});
         exportArrayList.add(new String[]{
             "August SSB",
             "1000.00",
             "1.68",
             "01/09/2019",
             "10",
-            "01/03/2020"});
+            "01/03/2020",
+            "false"});
         exportArrayList.add(new String[]{
             "September SSB",
             "1000.00",
             "1.65",
             "01/10/2019",
             "10",
-            "01/04/2020"});
+            "01/04/2020",
+            "false"});
         exportArrayList.add(new String[]{
             "October SSB",
             "1200.00",
             "1.62",
             "01/11/2019",
             "10",
-            "01/05/2020"});
+            "01/05/2020",
+            "false"});
         return exportArrayList;
     }
 
@@ -301,14 +311,6 @@ class MainImport {
             "",
             "2019-02"});
         exportArrayList.add(new String[]{
-            "January SSB",
-            "5.02",
-            "01/08/2019",
-            "bonds",
-            "false",
-            "",
-            "2019-08"});
-        exportArrayList.add(new String[]{
             "February SSB",
             "1000",
             "01/03/2019",
@@ -316,14 +318,6 @@ class MainImport {
             "true",
             "",
             "2019-03"});
-        exportArrayList.add(new String[]{
-            "February SSB",
-            "9.9",
-            "01/09/2019",
-            "bonds",
-            "false",
-            "",
-            "2019-09"});
         exportArrayList.add(new String[]{
             "March SSB",
             "3000",
@@ -333,14 +327,6 @@ class MainImport {
             "",
             "2019-04"});
         exportArrayList.add(new String[]{
-            "March SSB",
-            "29.25",
-            "01/10/2019",
-            "bonds",
-            "false",
-            "",
-            "2019-10"});
-        exportArrayList.add(new String[]{
             "April SSB",
             "1300",
             "01/05/2019",
@@ -348,14 +334,6 @@ class MainImport {
             "true",
             "",
             "2019-05"});
-        exportArrayList.add(new String[]{
-            "April SSB",
-            "12.74",
-            "01/11/2019",
-            "bonds",
-            "false",
-            "",
-            "2019-11"});
         exportArrayList.add(new String[]{
             "May SSB",
             "2100",
@@ -402,6 +380,38 @@ class MainImport {
             "01/11/2019",
             "bonds",
             "true",
+            "",
+            "2019-11"});
+        exportArrayList.add(new String[]{
+            "January SSB",
+            "5.02",
+            "01/08/2019",
+            "bonds",
+            "false",
+            "",
+            "2019-08"});
+        exportArrayList.add(new String[]{
+            "February SSB",
+            "9.9",
+            "01/09/2019",
+            "bonds",
+            "false",
+            "",
+            "2019-09"});
+        exportArrayList.add(new String[]{
+            "March SSB",
+            "29.25",
+            "01/10/2019",
+            "bonds",
+            "false",
+            "",
+            "2019-10"});
+        exportArrayList.add(new String[]{
+            "April SSB",
+            "12.74",
+            "01/11/2019",
+            "bonds",
+            "false",
             "",
             "2019-11"});
         return exportArrayList;
@@ -502,7 +512,7 @@ class MainImport {
         exportArrayList.add(new String[]{
             "goalName", "amount", "date", "savingsAccountName", "doneStatus", "achieveStatus"});
         exportArrayList.add(new String[]{
-            "BTO at Punggol Downpayment",
+            "BTO at Punggol",
             "25000.00",
             "10/10/2020",
             "",
@@ -518,7 +528,7 @@ class MainImport {
         exportArrayList.add(new String[]{
             "Car COE",
             "35000.00",
-            "19/11/2019",
+            "29/11/2019",
             "MayBank Savings Account",
             "false",
             "false"});
