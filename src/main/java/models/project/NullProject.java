@@ -181,7 +181,9 @@ public class NullProject implements IProject {
 
     @Override
     public void removeReminder(int index) {
-
+        /*
+         * Empty method
+         */
     }
 
     @Override

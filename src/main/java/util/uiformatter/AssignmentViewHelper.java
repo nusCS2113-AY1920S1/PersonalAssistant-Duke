@@ -18,14 +18,13 @@ import util.log.ArchDukeLogger;
 
 //@@author sinteary
 public class AssignmentViewHelper {
-    private static ViewHelper viewHelper;
-    private static ParserHelper parserHelper;
+    private static ViewHelper viewHelper = new ViewHelper();
+    private ParserHelper parserHelper;
     /**
      * Class that assists with retrieving and formatting information about task assignments in a project.
      */
 
     public AssignmentViewHelper() {
-        this.viewHelper = new ViewHelper();
         this.parserHelper = new ParserHelper();
     }
 
