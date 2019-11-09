@@ -117,15 +117,15 @@ public class Avatar implements Convertible {
      */
     public Avatar levelUp() {
         this.level.upLevel();
-        this.stats.upStats(this.level.getLevel());
+        this.stats = this.stats.upStats(this.level.getLevel());
         return this;
     }
 
     @Override
     public String toString() {
-        String equipment = (weapon.isEmpty() && armor.isEmpty()) ? "" : ("\t--- Equipped ---"
-            + (weapon.map(x -> "\n[ " + x.toString() + "]").orElse(""))
-                + (armor.map(x -> "\n[ " + x.toString() + "]").orElse("")));
+        String equipment = (weapon.isEmpty() && armor.isEmpty()) ? "" : ("\n\t------ Equipped ------"
+            + (weapon.map(x -> "\n\t[ " + x.toString() + "]").orElse(""))
+                + (armor.map(x -> "\n\t[ " + x.toString() + "]").orElse("")));
         return this.name + ", " + this.level.toString() + "\n"
             + this.stats.getStats(weapon, armor) + "\n" + equipment;
     }

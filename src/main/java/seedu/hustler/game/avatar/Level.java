@@ -42,6 +42,14 @@ public class Level implements Convertible {
     }
 
     /**
+     * Gets the current xp of the avatar
+     * @return the current level of the avatar.
+     */
+    public int getXp() {
+        return this.xp;
+    }
+
+    /**
      * Increment xp by 1.
      * @return the current Level.
      */
@@ -93,6 +101,12 @@ public class Level implements Convertible {
     @Override
     public String toTxt() {
         return this.level + " " + this.xp;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj == this || (obj instanceof Level
+                && this.toString().equals(obj.toString()));
     }
 
 }
