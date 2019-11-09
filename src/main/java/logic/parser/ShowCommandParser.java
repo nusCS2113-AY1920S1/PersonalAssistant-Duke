@@ -10,7 +10,9 @@ import model.Model;
 
 public class ShowCommandParser {
 
-    public static final String SHOW_USAGE = "usage: Show [task/member] [Index of task / name of member]";
+    public static final String SHOW_USAGE = "usage: Show task [Index of task] / show member [name of member]";
+    public static final String TASK = "task";
+    public static final String MEMBER = "member";
     public static final String INVALID_SHOW_TYPE_MESSAGE = "Please input task/member to show!";
     public static final String EMPTY_TASK_INDEX_MESSAGE = "Index of task cannot be empty!";
     public static final String EMPTY_MEMBER_NAME_MESSAGE = "Name of Member cannot be empty!";
@@ -30,27 +32,28 @@ public class ShowCommandParser {
         } else {
             String keyword = argument.trim();
             String[] arrOfStr = keyword.split(" ", 2);
-            if (arrOfStr[0].trim().equals("task")) {
+            String editType = arrOfStr[0].trim();
+
+            switch (editType) {
+            case TASK:
                 try {
                     int taskIndex = Integer.parseInt(arrOfStr[1].trim());
                     return new ShowTaskDetailsCommand(taskIndex);
-
                 } catch (NumberFormatException e) {
                     throw new DukeException(INVALID_TASK_INDEX_MESSAGE);
-                } catch (NullPointerException e) {
+                } catch (ArrayIndexOutOfBoundsException e) {
                     throw new DukeException(EMPTY_TASK_INDEX_MESSAGE);
                 }
 
-            } else if (arrOfStr[0].trim().equals("member")) {
-
-                String memberName = arrOfStr[1].trim();
-                if (memberName.equals("")) {
-                    throw new DukeException(EMPTY_MEMBER_NAME_MESSAGE);
-
-                } else {
+            case MEMBER:
+                try {
+                    String memberName = arrOfStr[1].trim();
                     return new ShowMemberDetailsCommand(memberName);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException(EMPTY_MEMBER_NAME_MESSAGE);
                 }
-            } else {
+
+            default:
                 throw new DukeException(INVALID_SHOW_TYPE_MESSAGE);
             }
 

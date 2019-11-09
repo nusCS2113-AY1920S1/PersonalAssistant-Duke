@@ -469,8 +469,38 @@ public class TasksManager implements Serializable {
     }
 
     //@@author JasonChanWQ
-    public Date getTaskDateTimeById(int index) {
-        return getTaskById(index).getTime();
+    public String getTaskNameByIdOnList(int index) {
+        return getTaskById(index-1).getName();
+    }
+
+    //@@author JasonChanWQ
+    public String getTaskIsDoneByIdOnList(int index) {
+        return getTaskById(index-1).getStatusIcon();
+    }
+
+    //@@author JasonChanWQ
+    public Date getTaskDateTimeByIdOnList(int index) {
+        return getTaskById(index-1).getTime();
+    }
+
+    //@@author JasonChanWQ
+    public ArrayList<String> getMemberListOfTaskByIdOnList(int index) {
+        return getTaskById(index-1).getMemberList();
+    }
+
+    //@@author JasonChanWQ
+    public ArrayList<String> getSkillListOfTaskByIdOnList(int index) {
+        return getTaskById(index-1).getReqSkills();
+    }
+
+    //@@author JasonChanWQ
+    public String getTaskDescriptionByIdOnList(int index) {
+        return getTaskById(index-1).getDescription();
+    }
+
+    //@@author JasonChanWQ
+    public Date getTaskReminderByIdOnList(int index) {
+        return getTaskById(index-1).getReminder();
     }
 
 }

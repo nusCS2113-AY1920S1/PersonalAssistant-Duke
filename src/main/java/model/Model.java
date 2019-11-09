@@ -29,7 +29,19 @@ public interface Model {
 
     String getTaskNameById(int index);
 
-    Date getTaskDateTimeById(int indexOfTask);
+    String getTaskNameByIdOnList(int indexOfTask);
+
+    String getTaskIsDoneByIdOnList(int indexOfTask);
+
+    String getTaskDescriptionByIdOnList(int indexOfTask);
+
+    Date getTaskDateTimeByIdOnList(int indexOfTask);
+
+    ArrayList<String> getMemberListOfTaskByIdOnList(int indexOfTask);
+
+    ArrayList<String> getSkillListOfTaskByIdOnList(int indexOfTask);
+
+    Date getTaskReminderByIdOnList(int indexOfTask);
 
     TasksManager getTasksManager();
 

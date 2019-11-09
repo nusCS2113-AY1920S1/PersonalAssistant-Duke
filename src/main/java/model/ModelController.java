@@ -65,8 +65,32 @@ public class ModelController implements Model {
         return tasksManager.getTaskNameById(index);
     }
 
-    public Date getTaskDateTimeById(int index) {
-        return tasksManager.getTaskDateTimeById(index);
+    public String getTaskNameByIdOnList(int index) {
+        return tasksManager.getTaskNameByIdOnList(index);
+    }
+
+    public String getTaskIsDoneByIdOnList(int index) {
+        return tasksManager.getTaskIsDoneByIdOnList(index);
+    }
+
+    public String getTaskDescriptionByIdOnList(int index) {
+        return tasksManager.getTaskDescriptionByIdOnList(index);
+    }
+
+    public Date getTaskDateTimeByIdOnList(int index) {
+        return tasksManager.getTaskDateTimeByIdOnList(index);
+    }
+
+    public ArrayList getMemberListOfTaskByIdOnList(int index) {
+        return tasksManager.getMemberListOfTaskByIdOnList(index);
+    }
+
+    public ArrayList getSkillListOfTaskByIdOnList(int index) {
+        return tasksManager.getSkillListOfTaskByIdOnList(index);
+    }
+
+    public Date getTaskReminderByIdOnList(int index) {
+        return tasksManager.getTaskReminderByIdOnList(index);
     }
 
     @Override
