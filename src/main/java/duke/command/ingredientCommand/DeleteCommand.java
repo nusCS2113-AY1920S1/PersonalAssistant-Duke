@@ -8,6 +8,7 @@ import duke.ingredient.Ingredient;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
+import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
 /**
@@ -32,7 +33,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(Fridge fridge, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+    public void execute(Fridge fridge, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os, RecipeStorage rs) throws DukeException {
         if (fridge.isEmpty())
             throw new DukeException("The fridge is empty, there is nothing to remove!");
         if (ingredientIndex <= fridge.numberOfIngredients() && ingredientIndex > 0) {
