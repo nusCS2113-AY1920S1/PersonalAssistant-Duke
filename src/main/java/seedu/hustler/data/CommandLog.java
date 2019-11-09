@@ -64,6 +64,7 @@ public class CommandLog {
      * Redoes the previously undone commands.
      */
     public static void redo() {
+        MainWindow.offPrinting();
         if (redoLog.size() > 0) {
             for (int i = 0; i < redoLog.size(); i++) {
                 commandLog.add(redoLog.get(i));
@@ -71,6 +72,7 @@ public class CommandLog {
             redoLog.clear();
             Hustler.reloadBackup();
             restoreData(0);
+            MainWindow.onPrinting();
             System.out.println("\tAll previously undone commands have been redone!");
         } else {
             System.out.println("\tRedo commands can only be used immediately after undo commands!");
