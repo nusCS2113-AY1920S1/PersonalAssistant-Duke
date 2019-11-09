@@ -659,12 +659,13 @@ public interface CommandParser {
      * @param restOfInput The input command
      * @throws ParserException if the command contains invalid keys
      */
-    default void isValidKey(ArrayList<String> key, String restOfInput) throws ParserException {
+    default void isValidKey(ArrayList<String> key, String restOfInput,String invalidParam)
+        throws ParserException {
         Scanner scanner = new Scanner(restOfInput);
         while (scanner.hasNext()) {
             String param = scanner.next();
             if (param.substring(0, 1).equals(TOKEN_SLASH) && !key.contains(param)) {
-                throw new ParserException(MESSAGE_INVALID_PARAM);
+                throw new ParserException(invalidParam);
             }
         }
     }

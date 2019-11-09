@@ -72,8 +72,5 @@ public class ViewReminderCommandParserTest {
         } catch (ParserException e) {
             e.printStackTrace();
         }
-
-        //assertParseSuccess(parser, "",
-        //new CommandResult(reminders, false), taskList);
     }
 }
