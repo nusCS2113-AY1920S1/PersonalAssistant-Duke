@@ -12,43 +12,42 @@ import java.util.List;
 import java.util.Map;
 
 public class Deadline extends Task {
-    private String by;
+    private String dateString;
     private Date dateNow;
 
     /**
      * Initialises the description of the task.
      * @param description String containing description
      *                    of the task inputted by user
-     * @param by The details of when task is to be done
+     * @param inputDate The details of when task is to be done
      */
-    public Deadline(String description, String by) throws CakeException {
+    public Deadline(String description, String inputDate) throws CakeException {
         super(description);
-        this.by = by;
         taskType = TaskType.DEADLINE;
 
-        String formatDate = getFormattedDateX(by);
+        String formatDate = getFormattedDateX(inputDate);
         boolean noTime = false;
         if (formatDate == null) {
-            formatDate = getFormattedDate(by);
+            formatDate = getFormattedDate(inputDate);
             noTime = true;
         }
         try {
             assert formatDate != null;
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formatDate);
             simpleDateFormat.setLenient(false);
-            dateNow = simpleDateFormat.parse(by);
+            dateNow = simpleDateFormat.parse(inputDate);
+            this.dateString = inputDate;
             if (noTime) {
-                by += " 0000";
-                formatDate = getFormattedDateX(by);
+                inputDate += " 0000";
+                formatDate = getFormattedDateX(inputDate);
                 simpleDateFormat = new SimpleDateFormat(formatDate);
                 simpleDateFormat.setLenient(false);
-                dateNow = simpleDateFormat.parse(by);
+                dateNow = simpleDateFormat.parse(inputDate);
             }
             System.out.println("Format:" + formatDate);
         } catch (ParseException | NullPointerException e) {
-            throw new CakeException("[!] Date cannot be parsed: " + by);
+            throw new CakeException("[!] Date cannot be parsed: " + inputDate);
         }
-
         //        Parser parser = new Parser();
         //        List<DateGroup> groups = parser.parse(by);
         //        dateNow = groups.get(0).getDates().get(0);
@@ -63,12 +62,12 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + description + " (by: " + by + ")";
+        return "[D]" + description + " (by: " + dateString + ")";
     }
 
     @Override
     public String getFullString() {
-        return "[D][" + getStatusIcon() + "] " + description + " (by: " + by + ")";
+        return "[" + getStatusIcon() + "] " + description + "\n(by: " + dateString + ")";
     }
 
     /**
@@ -88,46 +87,53 @@ public class Deadline extends Task {
      */
     @Override
     public String getExtra() {
-        return this.by;
+        return this.dateString;
     }
 
     @Override
     public void changeDate(String newDate) throws CakeException {
-        this.by = newDate;
-        String formatDate = getFormattedDateX(by);
+
+        String formatDate = getFormattedDateX(newDate);
         boolean noTime = false;
         if (formatDate == null) {
-            formatDate = getFormattedDate(by);
+            formatDate = getFormattedDate(newDate);
             noTime = true;
         }
         try {
             assert formatDate != null;
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formatDate);
             simpleDateFormat.setLenient(false);
-            dateNow = simpleDateFormat.parse(by);
+            dateNow = simpleDateFormat.parse(newDate);
+            this.dateString = newDate;
             if (noTime) {
-                by += " 0000";
-                formatDate = getFormattedDateX(by);
+                newDate += " 0000";
+                formatDate = getFormattedDateX(newDate);
                 simpleDateFormat = new SimpleDateFormat(formatDate);
                 simpleDateFormat.setLenient(false);
-                dateNow = simpleDateFormat.parse(by);
+                dateNow = simpleDateFormat.parse(newDate);
             }
             System.out.println("Format:" + formatDate);
         } catch (ParseException | NullPointerException e) {
-            throw new CakeException("[!] Date cannot be parsed: " + by);
+            throw new CakeException("[!] Date cannot be parsed: " + newDate);
         }
 
     }
 
     //no time mode
     private static final Map<String, String> DATE_FORMAT_REGEXPS = new HashMap<String, String>() {{
-            put("^\\d{1,2}-\\d{1,2}-\\d{4}$", "dd-MM-yyyy");
-            put("^\\d{4}-\\d{1,2}-\\d{1,2}$", "yyyy-MM-dd");
-            put("^\\d{1,2}/\\d{1,2}/\\d{4}$", "dd/MM/yyyy");
-            put("^\\d{4}/\\d{1,2}/\\d{1,2}$", "yyyy/MM/dd");
-            put("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}$", "dd MMM yyyy");
-            put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}$", "dd MMMM yyyy");
             put("^\\d{8}$", "ddMMyyyy");
+            put("^\\d{6}$", "ddMMyy");
+            //normal mode
+            put("^\\d{1,2}-\\d{1,2}-\\d{4}$", "dd-MM-yyyy");
+            put("^\\d{1,2}-\\d{1,2}-\\d{2}$", "dd-MM-yy");
+            put("^\\d{1,2}/\\d{1,2}/\\d{4}$", "dd/MM/yyyy");
+            put("^\\d{1,2}/\\d{1,2}/\\d{2}$", "dd/MM/yy");
+            put("^\\d{1,2}\\s\\d{1,2}\\s\\d{4}$", "dd MM yyyy");
+            put("^\\d{1,2}\\s\\d{1,2}\\s\\d{2}$", "dd MM yy");
+            put("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}$", "dd MMM yyyy");
+            put("^\\d{1,2}\\s[a-z]{3}\\s\\d{2}$", "dd MMM yy");
+            put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}$", "dd MMMM yyyy");
+            put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{2}$", "dd MMMM yy");
         }};
 
     private String getFormattedDate(String dateString) {
@@ -141,31 +147,33 @@ public class Deadline extends Task {
 
     //with time mode
     private static final Map<String, String> DATE_FORMAT_REGEXPS_X = new HashMap<String, String>() {{
-            put("^\\d{12}$", "ddMMyyyyHHmm");
-            put("^\\d{14}$", "ddMMyyyyHHmmss");
+            //no space in date
             put("^\\d{8}\\s\\d{4}$", "ddMMyyyy HHmm");
+            put("^\\d{6}\\s\\d{4}$", "ddMMyy HHmm");
             put("^\\d{8}\\s\\d{1,2}:\\d{2}$", "ddMMyyyy HH:mm");
-            put("^\\d{8}\\s\\d{6}$", "ddMMyyyy HHmmss");
-            put("^\\d{8}\\s\\d{1,2}:\\d{2}:\\d{2}$", "ddMMyyyy HH:mm:ss");
+            put("^\\d{6}\\s\\d{1,2}:\\d{2}$", "ddMMyy HH:mm");
+            //no colon
             put("^\\d{1,2}-\\d{1,2}-\\d{4}\\s\\d{1,2}\\d{2}$", "dd-MM-yyyy HHmm");
-            put("^\\d{4}-\\d{1,2}-\\d{1,2}\\s\\d{1,2}\\d{2}$", "yyyy-MM-dd HHmm");
+            put("^\\d{1,2}-\\d{1,2}-\\d{2}\\s\\d{1,2}\\d{2}$", "dd-MM-yy HHmm");
             put("^\\d{1,2}/\\d{1,2}/\\d{4}\\s\\d{1,2}\\d{2}$", "dd/MM/yyyy HHmm");
-            put("^\\d{4}/\\d{1,2}/\\d{1,2}\\s\\d{1,2}\\d{2}$", "yyyy/MM/dd HHmm");
+            put("^\\d{1,2}/\\d{1,2}/\\d{2}\\s\\d{1,2}\\d{2}$", "dd/MM/yy HHmm");
+            put("^\\d{1,2}\\s\\d{1,2}\\s\\d{4}\\s\\d{1,2}\\d{2}$", "dd MM yyyy HHmm");
+            put("^\\d{1,2}\\s\\d{1,2}\\s\\d{2}\\s\\d{1,2}\\d{2}$", "dd MM yy HHmm");
             put("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}\\s\\d{1,2}\\d{2}$", "dd MMM yyyy HHmm");
+            put("^\\d{1,2}\\s[a-z]{3}\\s\\d{2}\\s\\d{1,2}\\d{2}$", "dd MMM yy HHmm");
             put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}\\s\\d{1,2}\\d{2}$", "dd MMMM yyyy HHmm");
+            put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{2}\\s\\d{1,2}\\d{2}$", "dd MMMM yy HHmm");
+            //colon in time
             put("^\\d{1,2}-\\d{1,2}-\\d{4}\\s\\d{1,2}:\\d{2}$", "dd-MM-yyyy HH:mm");
-            put("^\\d{4}-\\d{1,2}-\\d{1,2}\\s\\d{1,2}:\\d{2}$", "yyyy-MM-dd HH:mm");
+            put("^\\d{1,2}-\\d{1,2}-\\d{2}\\s\\d{1,2}:\\d{2}$", "dd-MM-yy HH:mm");
             put("^\\d{1,2}/\\d{1,2}/\\d{4}\\s\\d{1,2}:\\d{2}$", "dd/MM/yyyy HH:mm");
-            put("^\\d{4}/\\d{1,2}/\\d{1,2}\\s\\d{1,2}:\\d{2}$", "yyyy/MM/dd HH:mm");
+            put("^\\d{1,2}/\\d{1,2}/\\d{2}\\s\\d{1,2}:\\d{2}$", "dd/MM/yy HH:mm");
+            put("^\\d{1,2}\\s\\d{1,2}\\s\\d{4}\\s\\d{1,2}:\\d{2}$", "dd MM yyyy HH:mm");
+            put("^\\d{1,2}\\s\\d{1,2}\\s\\d{2}\\s\\d{1,2}:\\d{2}$", "dd MM yy HH:mm");
             put("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}\\s\\d{1,2}:\\d{2}$", "dd MMM yyyy HH:mm");
+            put("^\\d{1,2}\\s[a-z]{3}\\s\\d{2}\\s\\d{1,2}:\\d{2}$", "dd MMM yy HH:mm");
             put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}\\s\\d{1,2}:\\d{2}$", "dd MMMM yyyy HH:mm");
-            //kill yourself with seconds mode
-            put("^\\d{1,2}-\\d{1,2}-\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", "dd-MM-yyyy HH:mm:ss");
-            put("^\\d{4}-\\d{1,2}-\\d{1,2}\\s\\d{1,2}:\\d{2}:\\d{2}$", "yyyy-MM-dd HH:mm:ss");
-            put("^\\d{1,2}/\\d{1,2}/\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", "dd/MM/yyyy HH:mm:ss");
-            put("^\\d{4}/\\d{1,2}/\\d{1,2}\\s\\d{1,2}:\\d{2}:\\d{2}$", "yyyy/MM/dd HH:mm:ss");
-            put("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", "dd MMM yyyy HH:mm:ss");
-            put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", "dd MMMM yyyy HH:mm:ss");
+            put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{2}\\s\\d{1,2}:\\d{2}$", "dd MMMM yy HH:mm");
         }};
 
     private String getFormattedDateX(String dateString) {

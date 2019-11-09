@@ -37,7 +37,7 @@ public class OverviewCommand extends Command {
      */
     public OverviewCommand(String inputCommand) throws CakeException {
         checksParam(inputCommand);
-        type = CmdType.TREE;
+        type = CmdType.OVERVIEW;
     }
 
     /**
@@ -75,28 +75,42 @@ public class OverviewCommand extends Command {
      */
     private String processJarFile(CodeSource src) throws CakeException {
         List<String> collectionOfNames = new ArrayList<>();
+        List<String> result;
         StringBuilder sb = new StringBuilder();
         try {
             URL jar = src.getLocation();
             ZipInputStream zip = new ZipInputStream(jar.openStream());
-            while (true) {
-                ZipEntry e = zip.getNextEntry();
-                if (e == null) {
-                    break;
-                }
+            processZipFile(collectionOfNames, zip);
+            Collections.sort(collectionOfNames);
+            result = processFileNames(collectionOfNames);
+            sb.append(String.join("\n", result)).append("\n");
+            sb.append(getEndingMessage());
+            return sb.toString();
+        } catch (IOException e) {
+            throw new CakeException(e.getMessage());
+        }
+    }
+
+    /**
+     * Loops through all the file entries within a zip.
+     * Finds all entries that start with current file path.
+     * Stores entries in collectionOfNames to be processed.
+     * @param collectionOfNames Name of files that are in currentFilePath.
+     * @param zip Zip file.
+     * @throws CakeException If zip file does not exist.
+     */
+    private void processZipFile(List<String> collectionOfNames, ZipInputStream zip) throws CakeException {
+        try {
+            ZipEntry e;
+            while ((e = zip.getNextEntry()) != null) {
                 String name = e.getName();
                 if (name.startsWith(currentFilePath)) {
                     collectionOfNames.add(name);
                 }
             }
-            Collections.sort(collectionOfNames);
-            List<String> result = processFileNames(collectionOfNames);
-            sb.append(String.join("\n", result)).append("\n");
-            sb.append(getEndingMessage());
         } catch (IOException e) {
             throw new CakeException(e.getMessage());
         }
-        return sb.toString();
     }
 
     /**

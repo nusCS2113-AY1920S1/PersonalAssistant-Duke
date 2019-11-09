@@ -1,6 +1,7 @@
 package javacake.notes;
 
 import javacake.exceptions.CakeException;
+import javacake.storage.Storage;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import org.apache.commons.io.FilenameUtils;
 
 public class NoteList {
 
@@ -25,7 +28,7 @@ public class NoteList {
      */
     public ArrayList<Note> compileNotes() throws CakeException {
         try {
-            Stream<Path> walk = Files.walk(Paths.get("data/notes/"));
+            Stream<Path> walk = Files.walk(Paths.get(Storage.returnNotesDefaultFilePath()));
             List<String> result = walk.filter(Files::isRegularFile)
                     .map(x -> x.toString()).collect(Collectors.toList());
 
@@ -48,7 +51,8 @@ public class NoteList {
     private String processFileNames(String resultName) throws CakeException {
         try {
             File file = new File(resultName);
-            return file.getName();
+            String fileName = file.getName();
+            return FilenameUtils.removeExtension(fileName);
         } catch (IndexOutOfBoundsException e) {
             throw new CakeException(e.getMessage());
         }

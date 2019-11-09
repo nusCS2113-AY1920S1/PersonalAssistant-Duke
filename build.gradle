@@ -12,8 +12,8 @@ checkstyle {
 }
 
 shadowJar {
-    archiveBaseName = "JavaCake"
-    archiveVersion = "midv1.4"
+    archiveBaseName = "[CS2113T-W13-2][JavaCake]"
+    archiveVersion = ""
     archiveClassifier = null
     archiveAppendix = null
 }
@@ -57,6 +57,7 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
+    testImplementation 'junit:junit:4.12'
     //    testCompile "org.testfx:testfx-core:4.0.16-alpha"
     //    testCompile "org.testfx:testfx-junit5:4.0.16-alpha"
     //    testCompile group: 'org.hamcrest', name: 'hamcrest', version: '2.1'

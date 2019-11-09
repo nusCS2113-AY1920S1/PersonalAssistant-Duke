@@ -19,7 +19,7 @@ public class ListNoteCommand extends Command {
      */
     public ListNoteCommand(String inputCommand) throws CakeException {
         checksParam(inputCommand);
-        type = CmdType.LISTNOTE;
+        type = CmdType.LIST_NOTE;
     }
 
     /**
@@ -43,4 +43,5 @@ public class ListNoteCommand extends Command {
         }
         return sb.toString();
     }
+
 }

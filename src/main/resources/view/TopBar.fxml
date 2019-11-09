@@ -27,12 +27,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
         </rowConstraints>
          <children>
-            <ImageView fx:id="cakeLeft" fitHeight="50.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowSpan="2147483647">
+            <ImageView fx:id="cakeLeft" fitHeight="50.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../images/cake.png" />
                </image>
                <GridPane.margin>
-                  <Insets />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </ImageView>
             <Label fx:id="title" text="JavaCake" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.vgrow="ALWAYS">
@@ -46,7 +46,7 @@
                   <Insets left="15.0" />
                </GridPane.margin>
             </Label>
-            <AnchorPane GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowSpan="2147483647">
+            <AnchorPane prefWidth="519.0" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowSpan="2147483647">
                <children>
                   <ProgressBar fx:id="progressA" layoutX="40.0" layoutY="37.0" prefHeight="20.0" prefWidth="60.0" progress="0.0" stylesheets="@../css/progressbarA.css" />
                   <ProgressBar fx:id="progressB" layoutX="120.0" layoutY="37.0" prefHeight="20.0" prefWidth="60.0" progress="0.0" stylesheets="@../css/progressbarB.css" />
@@ -62,12 +62,12 @@
                   <Label fx:id="quizD" layoutX="286.0" layoutY="20.0" text="Quiz ALL" textFill="WHITE" />
                </children>
             </AnchorPane>
-            <ImageView fx:id="cakeRight" fitHeight="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowSpan="2147483647">
+            <ImageView fx:id="cakeRight" fitHeight="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../images/cake.png" />
                </image>
                <GridPane.margin>
-                  <Insets />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </ImageView>
          </children>

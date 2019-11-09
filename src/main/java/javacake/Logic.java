@@ -46,14 +46,6 @@ public class Logic {
     }
 
     /**
-     * Returns the starting file path to application content.
-     * @return starting file path to application content.
-     */
-    public String getDefaultFilePath() {
-        return defaultFilePath;
-    }
-
-    /**
      * Stores all files in the currentFilePath into listOfFiles.
      */
     private void loadFiles() throws CakeException {
@@ -68,7 +60,7 @@ public class Logic {
                 processNonJarFile();
             }
         } catch (NullPointerException e) {
-            throw new CakeException("Content not found!" + "\nPls key 'back' or 'list' to view previous content!");
+            throw new CakeException("Content not found!\n" + "Pls key 'back' or 'list' to view previous content!");
         }
     }
 
@@ -192,11 +184,7 @@ public class Logic {
     private void processZipFile(ZipInputStream zip, int currFileSlashCounter) throws CakeException {
         ZipEntry e;
         try {
-            while (true) {
-                e = zip.getNextEntry();
-                if (zipEntryIsNull(e)) {
-                    break;
-                }
+            while ((e = zip.getNextEntry()) != null) {
                 String name = e.getName();
                 updateListOfFiles(name, currFileSlashCounter);
             }
@@ -268,14 +256,6 @@ public class Logic {
         return (listingFiles.length == currFileSlashCounter + 1);
     }
 
-    /**
-     * Checks if the zipentry is null.
-     * @param e ZipEntry when Jar file is running.
-     * @return Null if zip entry is null.
-     */
-    private boolean zipEntryIsNull(ZipEntry e) {
-        return (e == null);
-    }
 
     /**
      * Returns the total number of files.
@@ -315,7 +295,6 @@ public class Logic {
     /**
      * Update the currentFilePath by concatenating the updatedPath.
      * updatedPath is given by gotoFilePath method.
-     *
      * @param updatedPath particular path to be updated into currentFilePath.
      */
     public void updateFilePath(String updatedPath) {
@@ -328,12 +307,20 @@ public class Logic {
      * Returns twice if it is a file.
      * Used for BackCommand.
      */
-    public void backToPreviousPath() {
-        if (isNotAFileOrMainList()) {
+    public void backToPreviousPath() throws CakeException {
+        if (isNotAFileOrMainList()) { // if it is not a file or main list
             currentFilePath = gotoParentFilePath(currentFilePath);
-        } else {
+        } else if (isATextFile()) {  // if it is a text file
             currentFilePath = gotoParentFilePath(gotoParentFilePath(currentFilePath));
         }
+    }
+
+    /**
+     * Checks if current file path contains a text file.
+     * @return True if current file path contains a text file.
+     */
+    private boolean isATextFile() {
+        return (currentFilePath.contains(".txt"));
     }
 
     /**
@@ -341,7 +328,7 @@ public class Logic {
      * @return True if current file path is not main list and not a text file.
      */
     private boolean isNotAFileOrMainList() {
-        return (!currentFilePath.equals(defaultFilePath) && !currentFilePath.contains("txt"));
+        return (!currentFilePath.equals(defaultFilePath) && !currentFilePath.contains(".txt"));
     }
 
     /**
@@ -349,16 +336,21 @@ public class Logic {
      * removing child file or directory name from filePath.
      * @param filePath input file path to be reduced.
      * @return file path to parent directory relative to initial file path.
+     * @throws CakeException If file path does not have parameter.
      */
-    public String gotoParentFilePath(String filePath) {
-        String[] filesCapture = filePath.split("/");
-        StringBuilder reducedFilePath = new StringBuilder();
-        for (int i = 0; i < filesCapture.length - 1; i++) {
-            reducedFilePath.append(filesCapture[i]).append("/");
+    public String gotoParentFilePath(String filePath) throws CakeException {
+        try {
+            String[] filesCapture = filePath.split("/");
+            StringBuilder reducedFilePath = new StringBuilder();
+            for (int i = 0; i < filesCapture.length - 1; i++) {
+                reducedFilePath.append(filesCapture[i]).append("/");
+            }
+            String parentFilePath = reducedFilePath.toString();
+            parentFilePath = parentFilePath.substring(0, parentFilePath.length() - 1);
+            return parentFilePath;
+        } catch (Exception e) {
+            throw new CakeException(e.getMessage());
         }
-        String parentFilePath = reducedFilePath.toString();
-        parentFilePath = parentFilePath.substring(0, parentFilePath.length() - 1);
-        return parentFilePath;
     }
 
 

@@ -80,7 +80,7 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //this.setPrefWidth(282);
+        this.setPrefWidth(270);
         //dialog.setPrefWidth(280);
         setStyleLoop();
 
@@ -88,6 +88,9 @@ public class DialogBox extends HBox {
         charList = displayText.toCharArray();
         setScrollText();
         dialog.setText(displayText.substring(0, 1));
+
+
+
     }
 
     private void setScrollText() {

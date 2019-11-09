@@ -69,4 +69,13 @@ public class DeadlineNegativeTest {
         assertEquals(expOut, actualOut);
     }
 
+    @Test
+    public void test5() {
+        String actualOut = javaCake.getResponse("deadline a by 31/01/2019");
+        String expOut = "[!] Improper format\n"
+                + "Please input:\n"
+                + "'deadline TASK /by TASK_DATE'";
+        assertEquals(expOut, actualOut);
+    }
+
 }

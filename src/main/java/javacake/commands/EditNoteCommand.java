@@ -3,22 +3,23 @@ package javacake.commands;
 import javacake.JavaCake;
 import javacake.Logic;
 import javacake.exceptions.CakeException;
+import javacake.storage.Storage;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
+import javacake.utilities.IFileUtilities;
+import org.apache.commons.io.FilenameUtils;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 
-public class EditNoteCommand extends Command {
+public class EditNoteCommand extends Command implements IFileUtilities {
 
-    private String defaultDirectoryPath = "data/notes/";
+    private static String defaultDirectoryPath = "data/notes/";
 
     private static String nameOfEditFile;
     private static String currentFilePath;
@@ -26,7 +27,7 @@ public class EditNoteCommand extends Command {
     private static String headingMessage = "Write your notes below!\n"
             + "To save edited content, type '/save' and enter!\n";
 
-    private static String endingMessage = "Edited file is saved!\n";
+    private static String endingMessage = "has been saved!\n";
 
     /**
      * Constructor for EditNoteCommand.
@@ -39,8 +40,16 @@ public class EditNoteCommand extends Command {
      */
     public EditNoteCommand(String inputCommand) throws CakeException {
         JavaCake.logger.log(Level.INFO, "Processing EditNoteCommand: " + inputCommand);
-        type = CmdType.EDITNOTE;
+        type = CmdType.EDIT_NOTE;
+        updateDefaultDirectoryPath();
         verifyCommand(inputCommand);
+    }
+
+    /**
+     * Updates default directory path according the storage.
+     */
+    private void updateDefaultDirectoryPath() {
+        defaultDirectoryPath = Storage.returnNotesDefaultFilePath();
     }
 
     /**
@@ -71,7 +80,7 @@ public class EditNoteCommand extends Command {
      */
     private void checkIfFileExist(String fileName) throws CakeException {
         if (fileExist(fileName)) {
-            nameOfEditFile = fileName;
+            nameOfEditFile = IFileUtilities.returnOriginalFileName(defaultDirectoryPath, fileName);
             createCurrentFilePath();
         } else {
             JavaCake.logger.log(Level.INFO, fileName + " contains illegal file name.");
@@ -118,19 +127,7 @@ public class EditNoteCommand extends Command {
      * @throws CakeException if the file does not exist.
      */
     private String displayContentInFile() throws CakeException {
-        try {
-            File file = new File(currentFilePath);
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-            StringBuilder sb = new StringBuilder();
-            while ((line = br.readLine()) != null) {
-                sb.append(line).append("\n");
-            }
-            br.close();
-            return sb.toString();
-        } catch (IOException e) {
-            throw new CakeException(e.getMessage());
-        }
+        return IFileUtilities.readFile(currentFilePath);
     }
 
     /**
@@ -172,7 +169,7 @@ public class EditNoteCommand extends Command {
      * Executes the EditNoteCommand accordingly depends on CLI or GUI.
      * If CLI, use ui and readAndSaveNewContent method to generate message for user.
      * If GUI, return !@#_EDIT_NOTE to notify MainWindow class to call GUI methods.
-     * @param logic TaskList containing current tasks
+     * @param logic tracks current location in program
      * @param ui the Ui responsible for outputting messages
      * @param storageManager storage container
      * @return endingMessage if CLI is used, else return !@#_EDIT_NOTE to request MainWindow class to handle.
@@ -238,18 +235,7 @@ public class EditNoteCommand extends Command {
      * @throws CakeException File does not exist.
      */
     private static String readTextFileContent() throws CakeException {
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(new File(currentFilePath)));
-            String line;
-            StringBuilder sb = new StringBuilder();
-            while ((line = br.readLine()) != null) {
-                sb.append(line).append("\n");
-            }
-            br.close();
-            return sb.toString();
-        } catch (IOException e) {
-            throw new CakeException(e.getMessage());
-        }
+        return IFileUtilities.readFile(currentFilePath);
     }
 
     /**
@@ -280,6 +266,6 @@ public class EditNoteCommand extends Command {
      * @return String of message when file is saved.
      */
     public static String successSaveMessage() {
-        return nameOfEditFile + ".txt : " + endingMessage;
+        return "File: [" + nameOfEditFile + "] " + endingMessage;
     }
 }
