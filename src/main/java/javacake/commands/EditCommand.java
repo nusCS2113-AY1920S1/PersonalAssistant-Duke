@@ -51,7 +51,7 @@ public class EditCommand extends Command {
                     newDateString += " ";
                 }
             }
-            Date newDate;
+
             boolean isInsideData = false;
             try {
                 storageManager.storage.getData().get(taskIndex).changeDate(newDateString);

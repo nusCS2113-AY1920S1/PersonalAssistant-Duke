@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StorageTest {
-    File profileFile;
-    File storageFile;
+    private File profileFile;
+    private File storageFile;
 
     /**
      * Initialise test files.

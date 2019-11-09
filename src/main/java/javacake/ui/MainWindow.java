@@ -149,15 +149,15 @@ public class MainWindow extends GridPane {
                 JavaCake.logger.log(Level.INFO, "INPUT: " + input);
                 DialogBox.isScrollingText = true;
                 AvatarScreen.avatarMode = AvatarScreen.AvatarMode.HAPPY;
-                if (input.equals("exit")) {
+                if ("exit".equals(input)) {
                     handleExit();
                 } else if (isQuiz) {
                     handleOtherProcesses();
-                } else if (input.equals("listnote")) {
+                } else if ("listnote".equals(input)) {
                     handleListNote();
-                } else if (inputDivider[0].equals("deletenote")) {
+                } else if ("deletenote".equals(inputDivider[0])) {
                     handleDeleteNote();
-                } else if (inputDivider[0].equals("createnote")) {
+                } else if ("createnote".equals(inputDivider[0])) {
                     handleCreateNote();
                 } else if (isStarting && javaCake.isFirstTimeUser) { //set up new username
                     handleStartAndFirstTime();
@@ -259,9 +259,9 @@ public class MainWindow extends GridPane {
 
     private void handleIsResult() throws CakeException {
         response = quizSession.parseInput(0, input);
-        if (response.equals("!@#_REVIEW")) {
+        if ("!@#_REVIEW".equals(response)) {
             handleResultsScreenInput();
-        } else if (response.equals("!@#_BACK")) {
+        } else if ("!@#_BACK".equals(response)) {
             handleBackCommand();
         }
     }
@@ -270,7 +270,7 @@ public class MainWindow extends GridPane {
         response = reviewSession.parseInput(0, input);
         if (isNumeric(response)) {
             handleGetReviewQuestion();
-        } else if (response.equals("!@#_BACK")) {
+        } else if ("!@#_BACK".equals(response)) {
             handleBackCommand();
         }
     }
@@ -335,7 +335,7 @@ public class MainWindow extends GridPane {
     private void handleWriteNote() throws CakeException {
         JavaCake.logger.log(Level.INFO, "isWritingNote...");
         DialogBox.isScrollingText = false;
-        if (input.equals("/save")) {
+        if ("/save".equals(input)) {
             isWritingNote = false;
             response = EditNoteCommand.successSaveMessage();
         } else {
@@ -382,7 +382,7 @@ public class MainWindow extends GridPane {
     private void handleResetConfirmation() throws CakeException {
         JavaCake.logger.log(Level.INFO, "isTryingReset...");
         System.out.println("resetting time");
-        if (input.equals("yes")) {
+        if ("yes".equals(input)) {
             //resets
             javaCake.storageManager.profile.resetProfile();
             javaCake.storageManager.storage.resetStorage();
@@ -522,7 +522,7 @@ public class MainWindow extends GridPane {
 
 
     private boolean isColorRelated() throws CakeException {
-        if (input.equals("change")) {
+        if ("change".equals(input)) {
             isChanged = true;
             JavaCake.logger.log(Level.INFO, "is changing color!");
             javaCake.storageManager.profile.writeColorConfig(!isLightMode);
@@ -572,7 +572,7 @@ public class MainWindow extends GridPane {
                 JavaCake.logger.log(Level.WARNING, "Deadline is not properly parsed!");
             }
             return true;
-        } else if (input.equals("reminder")) {
+        } else if ("reminder".equals(input)) {
             showRemindersBox();
             JavaCake.logger.log(Level.INFO, "Reminder setting");
             return true;
