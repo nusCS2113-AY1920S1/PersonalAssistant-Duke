@@ -18,7 +18,7 @@ public class ParseEditExpenditure extends ParseExpenditure {
     private static final String TRANSFER_CATEGORY = "FUND TRANSFER";
     private static final String CARD_CATEGORY = "CREDIT CARD";
     private static final String[] RESERVED_CATEGORY = new String[] {
-            DEPOSIT_CATEGORY, BONDS_CATEGORY, TRANSFER_CATEGORY, CARD_CATEGORY};
+        DEPOSIT_CATEGORY, BONDS_CATEGORY, TRANSFER_CATEGORY, CARD_CATEGORY};
     private static final List<String> RESERVED_CATEGORY_LISTS = Arrays.asList(RESERVED_CATEGORY);
 
     /**

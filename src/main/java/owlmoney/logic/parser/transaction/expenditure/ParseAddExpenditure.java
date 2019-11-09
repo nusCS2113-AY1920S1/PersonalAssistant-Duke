@@ -20,7 +20,7 @@ public class ParseAddExpenditure extends ParseExpenditure {
     private static final String TRANSFER_CATEGORY = "FUND TRANSFER";
     private static final String CARD_CATEGORY = "CREDIT CARD";
     private static final String[] RESERVED_CATEGORY = new String[] {
-            DEPOSIT_CATEGORY, BONDS_CATEGORY, TRANSFER_CATEGORY, CARD_CATEGORY};
+        DEPOSIT_CATEGORY, BONDS_CATEGORY, TRANSFER_CATEGORY, CARD_CATEGORY};
     private static final List<String> RESERVED_CATEGORY_LISTS = Arrays.asList(RESERVED_CATEGORY);
     private Date date;
 
@@ -54,8 +54,8 @@ public class ParseAddExpenditure extends ParseExpenditure {
                     && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when adding a new expenditure");
             }
-            if (CATEGORY_PARAMETER.equals(key) && value != null &&
-                    RESERVED_CATEGORY_LISTS.contains(value.toUpperCase())) {
+            if (CATEGORY_PARAMETER.equals(key) && value != null
+                    && RESERVED_CATEGORY_LISTS.contains(value.toUpperCase())) {
                 throw new ParserException(key + " cannot be " + value + " when adding a new expenditure");
             } else if (CATEGORY_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 expendituresParameters.put(CATEGORY_PARAMETER, "Miscellaneous");

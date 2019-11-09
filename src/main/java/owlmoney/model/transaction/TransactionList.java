@@ -302,8 +302,7 @@ public class TransactionList {
             } else if (!CREDIT_CARD_BILL.equals(transactionLists.get(index - ONE_INDEX).getCategory())
                     && isCardBill) {
                 throw new TransactionException("The transaction is not a credit card bill");
-            }
-            else {
+            } else {
                 return transactionLists.get(index - ONE_INDEX).getAmount();
             }
         } else {
@@ -346,8 +345,7 @@ public class TransactionList {
             } else if (!isCardBill && CREDIT_CARD_BILL.equals(transactionLists.get(index - ONE_INDEX).getCategory())) {
                 throw new TransactionException("The transaction is a credit card bill. Please use the "
                         + "/delete /cardbill function to revert credit card payment");
-            }
-            else {
+            } else {
                 return transactionLists.get(index - ONE_INDEX).getAmount();
             }
         } else {

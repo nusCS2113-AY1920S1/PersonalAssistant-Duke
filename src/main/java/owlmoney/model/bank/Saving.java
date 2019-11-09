@@ -202,10 +202,10 @@ public class Saving extends Bank {
     void editExpenditureDetails(
             int expenditureIndex, String description, String amount, String date, String category, Ui ui)
             throws TransactionException, BankException {
-        if (!(amount == null || amount.isBlank()) && (this.getCurrentAmount() +
-                transactions.getExpenditureAmount(expenditureIndex, false) - Double.parseDouble(amount)
+        if (!(amount == null || amount.isBlank()) && (this.getCurrentAmount()
+                + transactions.getExpenditureAmount(expenditureIndex, false) - Double.parseDouble(amount)
                 > MAX_AMOUNT)) {
-                throw new BankException("The amount in the bank cannot exceed 9 digits.");
+            throw new BankException("The amount in the bank cannot exceed 9 digits.");
         }
         if (!(amount == null || amount.isBlank()) && this.getCurrentAmount()
                 + transactions.getExpenditureAmount(expenditureIndex, false) < Double.parseDouble(amount)) {
@@ -231,8 +231,8 @@ public class Saving extends Bank {
     @Override
     void editDepositDetails(int depositIndex, String description, String amount, String date, Ui ui)
             throws TransactionException, BankException {
-        if (!(amount == null || amount.isBlank()) && (this.getCurrentAmount() -
-                transactions.getDepositValue(depositIndex, false) + Double.parseDouble(amount)
+        if (!(amount == null || amount.isBlank()) && (this.getCurrentAmount()
+                - transactions.getDepositValue(depositIndex, false) + Double.parseDouble(amount)
                 > MAX_AMOUNT)) {
             throw new BankException("The amount in the bank cannot exceed 9 digits.");
         } else if (!(amount == null || amount.isBlank()) && this.getCurrentAmount()
