@@ -65,7 +65,7 @@ public class AddCommand extends Command {
 
             if(this.arguments.matches("Material Science Engineering|Biomedical Engineering|Chemical Engineering|Civil Engineering|"
                     + "Computer Engineering|Electrical Engineering|Environmental Engineering|"
-                    + "Industrial Systems Engineering|Mechanical Engineering|BME|"
+                    + "Industrial and Systems Engineering|Mechanical Engineering|BME|"
                     + "BioMed|Bio Eng|BM|ChE|Chem Eng|CivE|Civil E|Civil|CEG|Com E|EE|ElecE|ENVE|Mech Eng|ME|ISE|"
                     + "IE|MSE")) {
                 lists.add_custom(this.arguments, storage);
