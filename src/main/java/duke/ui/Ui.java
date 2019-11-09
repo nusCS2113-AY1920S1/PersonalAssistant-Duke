@@ -117,6 +117,15 @@ public class Ui {
     }
 
     /**
+     * This function prints the stats found.
+     */
+    public void readStats() {
+        printSpaces(" Here are the stats found:");
+        printDash();
+    }
+
+
+    /**
      * This function tells the user that Duke has snoozed/postponed/rescheduled the task.
      * @param taskA stores the task that is to be added to the list.
      * @param type stores whether that task is an event or a deadline

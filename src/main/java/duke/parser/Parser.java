@@ -22,6 +22,7 @@ public class Parser {
     private static final String EXIT_COMMAND = "bye";
     private static final String EXPORT_LOCKER_COMMAND = "export";
     private static final String HELP_COMMAND = "help";
+    private static final String STATS_COMMAND = "stats";
     /**
      * this function is used to parse the command entered by the user.
      *
@@ -61,6 +62,8 @@ public class Parser {
             return new HelpCommandParser().parse();
         case EXPORT_LOCKER_COMMAND:
             return new ExportLockerCommandParser().parse();
+        case STATS_COMMAND:
+            return new StatsCommandParser().parse();
         default:
             throw new DukeException("Invalid Command.");
         }
