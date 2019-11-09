@@ -46,13 +46,22 @@ Each of the four components
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::ui_class_diagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that contains 5 separate pages, namely.`SalePage`,
+`ProductPage`, `Shopping`, `InventoryPage` and `OrderPage`. All these, including the `MainWindow`,
+inherit
+from the abstract `UiPart` class.
+Some page consists of smaller components, for example, `SalePage` has a `SaleCard`, `ProductPage` has a
+`IngredientCard` and `OrderPage` has a `OrderCard` and a `OrderItemBox`.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml`
+files that are in the `src/main/resources/view` folder. For example, the layout of the link:{https://github
+.com/AY1920S1-CS2113T-T12-3/main.git}/src/main/java/duke/ui/MainWindow.java[`MainWindow`] is
+specified in
+link:{https://github.com/AY1920S1-CS2113T-T12-3/main.git}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -216,8 +225,52 @@ May require additional components other than JavaFx's built-in components.
 === Filter Product Feature
 
 ==== Implementation
+This feature shows only products with a certain status, i.e. shows only products with an ARCHIVE status.
+
+The filter mechanism in product is facilitated by `FilteredList` which wraps a `ObservableList` and filters
+using the provided Predicate.
+A `FilteredList<Product>`  `filteredProducts` is stored in the `ModelManager`. In `BakingHome`, there is an
+`ObservableList<Product>` `products` which contains all products, regardless of the status. `filteredProducts`
+in the ModelManager is initialized with this ObservableList.
+
+Since a FilteredList needs a Predicate, which matches the elements in the source list that should be visible,
+the filter mechanism implements the following operation to support filtering:
+* `Model#updateFilteredProductList(Predicate<Product> predicate)` -- Sets the value of the
+property Predicate in the `filteredProducts`. The `ListProductCommand` will use this method to change the
+visibility of products with different status by passing in the corresponding predicate.
+The predicates declared statically in the `Model` interface, namely `PREDICATE_SHOW_ACTIVE_PRODUCTS`,
+* `PREDICATE_SHOW_ARCHIVE_PRODUCTS`, and `PREDICATE_SHOW_ALL_PRODUCT`.
+
+An example usage scenario and how the filter mechanism behaves at each step is shown below.
+**Step1.** The user launched the application for the first time.
+UniqueProductList will be initialized with a list of default products in BakingHome. This list
+contains a few active products and a few archived products.
+
+**Step 2.** The user executes `product filter -scope archive` command to list all archived products.
+
+The Sequence Diagram below shows how the components interact with each other for filter product feature.
+
+.Sequence Diagram for Filter Product Mechanism
+image::FilterProductSD.png[]
 
 ==== Design considerations
+* Alternative 1 (current choice): Save all products in a `ObservableList` in `BakingHome`, and keeps a
+`FilteredList` in the `ModleManager`. `ProductCommandParser` parses the user input and gets the Predicate to
+update the `FilteredList`.
+ ** Advantages: Implementation is clearer and code is more human-readable.
+** Disadvantages: More difficult to write a Predicate.
+
+* Alternative 2: Keep two separate product lists, one for archived products one for active products.
+** Advantages: Fast access to products both status.
+** Disadvantages: Implementation will become complicated. It also makes it very expensive when adding
+features like sorting all products according to name, price or cost.
+
+* Alternative 2: Keep only one List of products. Loop through the list to get the products with the desired
+status.
+** Advantages: Simplicity in storing data.
+** Disadvantages: Time complexity is very high, resulting in a slow response of the application when the
+product list gets
+long.
 
 === Buy Shopping List Feature
 
@@ -342,9 +395,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |Archive a product |In case my business has evolved but I do not want to lose an older product
 
-|`* *` |user |Have a default ingredient cost calculated for me even if I don't enter the cost |Have something to refer to when deciding the cost
+|`* *` |user |Have a default ingredient cost calculated for me even if I don't enter the cost |Have
+something to refer to when deciding the retail price
 
-|`*` |user |Have my ingredient information in product automatically when the corresponding ingredient is changed |Cut back on have to do duplicate work by re-entering the new information
+|`* *` |user | Search for a product through keywords| find a product easily when the list gets long.
+
+|`* *`|user | Sort products through name, cost, price, profit| find a product easily when the list gets long.
 
 |`* * *` |user |Add new orders |Track the orders that have been placed
 
@@ -584,17 +640,35 @@ Use case resumes at step 2.
 
 _{More to be added}_
 
+=== Use case: Show a Product
+
+* **Precondition:** Bakery manager has at least 1 product in the product list
+
+* **MSS**
+
+1. Manager can be viewing any pages.
+2. Manager enters a ShowProductCommand indicating the index of the product to be shown, e.g. product show 1.
+3. BHS parses the command.
+4. BHS displays the details of the product
+* **Extensions**
+
+[none]
+** 3a. BHS detects a invalid command.
+** 3a1. BHS shows an error message
+** 3a2. Use case ends.
+
 [appendix]
 == Non Functional Requirements
 
 . Should be an open-source project.
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` installed.
 . Should be able to hold up to 100 orders without a noticeable sluggishness in performance for typical usage.
-. Should be able to hold up to 300 recipes without a noticeable sluggishness in performance for typical usage.
+. Should be able to hold up to 300 products without a noticeable sluggishness in performance for typical
+usage.
 . Should be able to hold up to 300 sales entries without a noticeable sluggishness in performance for typical usage.
 . Should have a low response time of not more than 2 seconds.
-.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. A user would be able to execute every operation with typing only, and without the assist of a mouse.
 
 _{More to be added}_
 
@@ -726,7 +800,27 @@ Expected: Similar to previous
    Expected: The first and second ingredients are bought and transferred to Inventory List.
 .. Test case: `shop buy Cheese` +
    Expected: No ingredients are bought. Error details shown in the pop-up bar.
-   
+
+=== Adding a Product
+.. Test case: `product add -name Bread` +
+   Expected: A new product named `Bread` is added. Ingredient cost and Retail price are both $0.0. Status
+is active.
+.. Test case: `product add -name Cheese cake -cost 3.0 -price 5.9` +
+   Expected: A new product named `Cheese cake` is added. Ingredient cost are $3 and Retail price is $5.9.
+Status is active.
+
+=== Searching a Product
+Searching for products whose name contains the given keyword
+.. Test case: `product search -include cake` +
+   Expected: All products whose name include `cake` are listed. List will be empty if no products' names
+contain `cake`.
+
+==+ Filtering Products
+.. Test case: `product filter -scope archive` +
+    Expected: All archive products are listed. List will be empty if no products have archive status.
+.. Test case: `product filter -scope all` +
+    Expected: All products, regardless their status, are listed.
+
 === Editing data in BakingHome
 .. Prerequisites: At least 1 object in the list in order to edit
 .. Test case: `shop edit 1 -qty 10 -cost 10` +
@@ -736,7 +830,12 @@ Expected: Similar to previous
    Expected: In orders, the first order's customer name is changed to Eugene, and the remarks is changed to Birthday` +
    All other data that is not inputted as parameters will be unchanged. +
    This is provided the order status is not completed. If the order status is completed, you cannot edit the order. +
-   
+.. Test case: `product edit 1 -name _name -cost 5 -ingt [Cream cheese, 1.0]` +
+    Expected: The name of the first product is changed to `_name`, and cost is changed to $5. It has a
+ingredient `Cream cheese` associated. You can check the ingredient using command `product show 1`.
+
+
+
 === Saving data
 
 . Dealing with missing/corrupted data files
