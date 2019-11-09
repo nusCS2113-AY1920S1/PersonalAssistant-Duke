@@ -30,7 +30,7 @@ public class UpdateModuleCommand extends ModuleCommand {
             Storage store,
             JsonWrapper jsonWrapper,
             User profile) throws ModException {
-        String year = arg("academicYear");
+        String year = arg("moduleDataUpdate");
         if (year.equals("module")) {
             NattyWrapper nattyWrapper = new NattyWrapper();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy");

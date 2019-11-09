@@ -202,9 +202,10 @@ public class Parser {
             .help("Grade you achieved for this module");
 
         getSubParser("update")
-                .help("Update modules database")
-                .addArgument("academicYear")
-                .help("Academic year of your choice, in format 2018-2019");
+                .help("Updates local module data file")
+                .addArgument("moduleDataUpdate")
+                .choices("module")
+                .help("\"module\" is the only valid keyword!");
 
         getSubParser("reminder")
                 .help("Setting reminders")
