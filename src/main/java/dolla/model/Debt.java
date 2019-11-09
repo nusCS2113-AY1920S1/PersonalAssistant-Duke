@@ -4,6 +4,8 @@ import dolla.Time;
 
 import java.time.LocalDate;
 
+import static dolla.parser.ParserStringList.DEBT_COMMAND_OWE;
+
 //@@author tatayu
 /**
  * Debt is a Class that stores an instance of the user's owe and borrow cases.
@@ -69,7 +71,7 @@ public class Debt extends Record {
      */
     @Override
     public String formatSave() {
-        saveType = type.equals("owe") ? "O" : "B";
+        saveType = DEBT_COMMAND_OWE.equals(type) ? "O" : "B";
         return saveType + " | "
                 + name + " | "
                 + amount + " | "
