@@ -47,6 +47,11 @@ Jump to <<Quick Start>> to get started! Enjoy!
 ... Download the latest release link:{repoURL}/releases[here].
 ... Open a `console` window.
 ... Navigate to the directory containing our jar file.
+... Press `kbd:[ALT] + kbd:[ENTER]` to enter full-screen mode.
++
+[NOTE]
+If the output is large, windows will wrap the output by default. This makes the output unreadable and hence you should enter full-screen mode to prevent that from happening.
++
 ... Run the command “java -jar *_[X]_*.jar”. The application should load within a few seconds.
 +
 [NOTE]
