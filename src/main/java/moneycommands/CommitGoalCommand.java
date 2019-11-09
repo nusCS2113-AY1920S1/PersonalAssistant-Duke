@@ -14,6 +14,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.text.DecimalFormat;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class CommitGoalCommand extends MoneyCommand {
@@ -96,8 +98,11 @@ public class CommitGoalCommand extends MoneyCommand {
                 throw new DukeException("The indexes must be a number");
             }
 
-
+            Set<Integer> noDuplicateSet = new HashSet<>(indexOfCommittedGoals);
+            indexOfCommittedGoals.clear();
+            indexOfCommittedGoals.addAll(noDuplicateSet);
             Collections.sort(indexOfCommittedGoals, Collections.reverseOrder());
+
 
             for (int j: indexOfCommittedGoals) {
                 if (j > account.getShortTermGoals().size() || (j < 1)) {

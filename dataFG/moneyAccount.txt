@@ -29,6 +29,7 @@ G @ 4000.0 @ Macbook Pro 15.6inch  @ GS @ 15/1/2020 @ HIGH
 G @ 5000.0 @ buy computer  @ GS @ 15/1/2050 @ HIGH
 G @ 10000.0 @ buy car  @ GS @ 6/11/2022 @ LOW
 G @ 3000.0 @ get some yoyo  @ GS @ 7/11/2019 @ LOW
+G @ 1000.2 @ mans got clout  @ GS @ 2/2/2020 @ LOW
 INS @ 100000.0 @ mortgage @ INS @ 12/12/2010 @ 200 @ 0.06
 INS @ 23580.0 @ car @ INS @ 12/12/2017 @ 150 @ 0.03
 INS @ 4000.0 @ television @ INS @ 12/9/2019 @ 10 @ 0.027999999
