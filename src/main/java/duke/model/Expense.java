@@ -1,7 +1,7 @@
 package duke.model;
 
 import duke.exception.DukeException;
-import duke.logic.Parser.Parser;
+import duke.logic.parser.Parser;
 import duke.model.payment.Payment;
 
 import java.math.BigDecimal;

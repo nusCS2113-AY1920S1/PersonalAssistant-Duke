@@ -2,7 +2,7 @@ package duke.model;
 
 import duke.commons.LogsCenter;
 import duke.exception.DukeException;
-import duke.logic.Parser.Parser;
+import duke.logic.parser.Parser;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

@@ -56,5 +56,6 @@ public abstract class Command {
      * @param commandParams the parameters given by the user, parsed into a {@code CommandParams} object.
      * @param model          The Duke object.
      */
-    public abstract CommandResult execute(CommandParams commandParams, Model model, Storage storage) throws DukeException;
+    public abstract CommandResult execute(CommandParams commandParams,
+                                          Model model, Storage storage) throws DukeException;
 }

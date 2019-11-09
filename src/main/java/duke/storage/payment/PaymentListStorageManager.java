@@ -6,11 +6,13 @@ import duke.commons.FileUtil;
 import duke.commons.JsonUtil;
 import duke.commons.LogsCenter;
 import duke.exception.DukeException;
+import duke.model.payment.Payment;
 import duke.model.payment.PaymentList;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -32,14 +34,14 @@ public class PaymentListStorageManager implements PaymentListStorage {
 
         logger.info("Entered the JsonStorageManager");
 
-        if(PAYMENTS_FILE.length() == 0) {
-            return Optional.of(new PaymentList());
+        if (PAYMENTS_FILE.length() == 0) {
+            return Optional.of(new PaymentList(new ArrayList<Payment>()));
         }
 
         Optional<JsonSerializablePaymentList> jsonPaymentList = JsonUtil.readJsonFile(
                 filePath, JsonSerializablePaymentList.class);
         logger.info("Json file is read");
-        if(!jsonPaymentList.isPresent()) {
+        if (!jsonPaymentList.isPresent()) {
             return Optional.empty();
         }
 

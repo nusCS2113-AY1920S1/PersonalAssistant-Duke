@@ -61,27 +61,27 @@ public class ChangePaymentCommand extends Command {
 
         Payment.Builder paymentBuilder = new Payment.Builder(model.getPayment(index));
 
-        if(commandParams.containsParams(SecondaryParam.AMOUNT.name)) {
+        if (commandParams.containsParams(SecondaryParam.AMOUNT.name)) {
             paymentBuilder.setAmount(commandParams.getParam(SecondaryParam.AMOUNT.name));
         }
 
-        if(commandParams.containsParams(SecondaryParam.DESCRIPTION.name)) {
+        if (commandParams.containsParams(SecondaryParam.DESCRIPTION.name)) {
             paymentBuilder.setDescription(commandParams.getParam(SecondaryParam.DESCRIPTION.name));
         }
 
-        if(commandParams.containsParams(SecondaryParam.DUE.name)) {
+        if (commandParams.containsParams(SecondaryParam.DUE.name)) {
             paymentBuilder.setDue(commandParams.getParam(SecondaryParam.DUE.name));
         }
 
-        if(commandParams.containsParams(SecondaryParam.PRIORITY.name)) {
+        if (commandParams.containsParams(SecondaryParam.PRIORITY.name)) {
             paymentBuilder.setPriority(commandParams.getParam(SecondaryParam.PRIORITY.name));
         }
 
-        if(commandParams.containsParams(SecondaryParam.RECEIVER.name)) {
+        if (commandParams.containsParams(SecondaryParam.RECEIVER.name)) {
             paymentBuilder.setReceiver(commandParams.getParam(SecondaryParam.RECEIVER.name));
         }
 
-        if(commandParams.containsParams(SecondaryParam.TAG.name)) {
+        if (commandParams.containsParams(SecondaryParam.TAG.name)) {
             paymentBuilder.setTag(commandParams.getParam(SecondaryParam.TAG.name));
         }
 

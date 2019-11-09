@@ -58,7 +58,7 @@ public class BudgetCommand extends Command {
             throw new DukeException(String.format(DukeException.MESSAGE_BUDGET_AMOUNT_INVALID,
                     commandParams.getMainParam()));
         }
-        if(model.getBudgetCategory().containsKey(commandParams.getParam(SecondaryParam.TAG.name))) {
+        if (model.getBudgetCategory().containsKey(commandParams.getParam(SecondaryParam.TAG.name))) {
             return new CommandResult(DUPLICATE_MESSAGE, CommandResult.DisplayedPane.BUDGET);
         } else {
             return new CommandResult(COMPLETE_MESSAGE, CommandResult.DisplayedPane.BUDGET);
