@@ -46,7 +46,7 @@ public class DeleteExerciseCommand extends Command {
     private void execute_stage_0(MealList meals, Storage storage) {
         HashMap<String, Integer> storedExercises = meals.getExerciseList().getStoredExercises();
         for (String itr : storedExercises.keySet()) {
-            if (itr.contains(keywordStr)) {
+            if (itr.toLowerCase().contains(keywordStr.toLowerCase())) {
                 if (keywordStr.equals(itr)) {
                     instantDelete = true;
                     deleteCandidateKeys.add(itr);

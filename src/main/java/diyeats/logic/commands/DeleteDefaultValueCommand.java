@@ -47,7 +47,7 @@ public class DeleteDefaultValueCommand extends Command {
     private void execute_stage_0(MealList meals, Storage storage) {
         HashMap<String, HashMap<String, Integer>> defaultValues = meals.getDefaultValues();
         for (String itr : defaultValues.keySet()) {
-            if (itr.contains(keywordStr)) {
+            if (itr.toLowerCase().contains(keywordStr.toLowerCase())) {
                 if (keywordStr.equals(itr)) {
                     instantDelete = true;
                     deleteCandidateKeys.add(itr);

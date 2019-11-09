@@ -58,6 +58,7 @@ public class ExerciseSuggestionHandler {
                 this.exerciseArrayList.add(exerciseDurationPair);
             }
         }
+
         Collections.sort(this.exerciseArrayList, (lhs, rhs) -> lhs.getKey().compareToIgnoreCase(rhs.getKey()));
         return this.exerciseArrayList;
     }

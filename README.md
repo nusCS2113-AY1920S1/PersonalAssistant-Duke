@@ -1,6 +1,6 @@
 # DIYeats
 ![travis](https://travis-ci.com/AY1920S1-CS2113T-W13-4/main.svg?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/AY1920S1-CS2113T-W13-4/main/badge.svg?branch=Coverall-mock-pull-request)](https://coveralls.io/github/AY1920S1-CS2113T-W13-4/main?branch=Coverall-mock-pull-request) 
+![Coverage Status](https://coveralls.io/repos/github/AY1920S1-CS2113T-W13-4/main/badge.svg?branch=master)
 
 ![Ui](https://github.com/AY1920S1-CS2113T-W13-4/main/blob/master/docs/images/Ui.png?raw=true)
 
