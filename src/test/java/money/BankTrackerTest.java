@@ -34,8 +34,8 @@ public class BankTrackerTest {
 
     @Test
     void getBankAccountInfo_validInput_success() {
-        Assertions.assertEquals("  Name: OCBC\n  Balance: 100.00\n  Latest Update Date: 10/10/2018\n" +
-                "  Interest Rate: 0.0", sample1.getBankAccountInfo());
+        Assertions.assertEquals("  Name: OCBC\n  Balance: 100.00\n  Latest Update Date: 10/10/2018\n"
+                + "  Interest Rate: 0.0", sample1.getBankAccountInfo());
     }
 
     @Test
@@ -74,7 +74,7 @@ public class BankTrackerTest {
     @Test
     void updateDate_dateIsTooEarly_exceptionThrown() throws ParseException {
         sampleDate2 = Parser.shortcutTime("1/1/2000");
-        Assertions.assertThrows(DukeException.class, ()->sample1.updateDate(sampleDate2));
+        Assertions.assertThrows(DukeException.class, () -> sample1.updateDate(sampleDate2));
     }
 
     @Test
@@ -86,7 +86,7 @@ public class BankTrackerTest {
     @Test
     void predictAmt_dateIsTooEarly_exceptionThrown() throws ParseException {
         sampleDate2 = Parser.shortcutTime("1/1/2000");
-        Assertions.assertThrows(DukeException.class, ()->sample1.predictAmt(sampleDate2));
+        Assertions.assertThrows(DukeException.class, () -> sample1.predictAmt(sampleDate2));
     }
 
 }

@@ -44,17 +44,19 @@ public class InternalTransferTest {
     @Test
     void execute_withdrawTooMuch_exceptionThrown() throws ParseException, DukeException {
         createNewTrackerWithSample1();
-        Assertions.assertThrows(DukeException.class, ()->executeInternalTransferCmd(SAMPLE_WITHDRAW1));
+        Assertions.assertThrows(DukeException.class, () -> executeInternalTransferCmd(SAMPLE_WITHDRAW1));
     }
 
     @Test
     void execute_validDepositAndWithdraw_success() throws ParseException, DukeException {
         createNewTrackerWithSample1();
         executeInternalTransferCmd(SAMPLE_DEPOSIT1);
-        Assertions.assertEquals("  Got it. Here is the current information about this account:\n" +
-                "  Name: OCBC\n  Balance: 230.00\n  Latest Update Date: 3/3/2018\n  Interest Rate: 0.0\n", ui.getOutputString());
+        Assertions.assertEquals("  Got it. Here is the current information about this account:\n"
+                + "  Name: OCBC\n  Balance: 230.00\n  Latest Update Date: 3/3/2018\n  Interest Rate: 0.0\n",
+                ui.getOutputString());
         executeInternalTransferCmd(SAMPLE_WITHDRAW1);
-        Assertions.assertEquals("  Got it. Here is the current information about this account:\n" +
-                "  Name: OCBC\n  Balance: 30.00\n  Latest Update Date: 3/3/2019\n  Interest Rate: 0.0\n", ui.getOutputString());
+        Assertions.assertEquals("  Got it. Here is the current information about this account:\n"
+                + "  Name: OCBC\n  Balance: 30.00\n  Latest Update Date: 3/3/2019\n  Interest Rate: 0.0\n",
+                ui.getOutputString());
     }
 }
