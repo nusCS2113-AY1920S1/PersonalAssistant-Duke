@@ -18,17 +18,17 @@ public class ParserTest {
     @Test
     void testHelper() {
         String[] commands = {"exit", "list", "back", "help", "score", "reset", "goto",
-                "overview", "deadline", "editnote", "createnote", "listnote", "deletenote",
-                "change", "reminder", "viewnote", "done", "delete", "snooze"};
+                             "overview", "deadline", "editnote", "createnote", "listnote", "deletenote",
+                             "change", "reminder", "viewnote", "done", "delete", "snooze"};
 
-        for (int i = 0; i < commands.length; i ++) {
+        for (int i = 0; i < commands.length; i++) {
             response = javaCake.getResponse(commands[i]);
             String errorMessage = "Sorry, but do you mean this : ";
             assertFalse(response.contains(errorMessage));
         }
 
         String[] typos = {"exir", "exitt", "exi"};
-        for (int i = 0; i < typos.length; i ++) {
+        for (int i = 0; i < typos.length; i++) {
             response = javaCake.getResponse(typos[i]);
             String errorMessage = "Sorry, but do you mean this :";
             assertTrue(response.contains(errorMessage));
