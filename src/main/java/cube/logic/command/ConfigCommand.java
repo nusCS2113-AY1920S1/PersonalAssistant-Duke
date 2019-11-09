@@ -7,6 +7,8 @@
 
 package cube.logic.command;
 
+import cube.logic.command.exception.CommandErrorMessage;
+import cube.logic.command.exception.CommandException;
 import cube.logic.command.util.CommandResult;
 import cube.model.ModelManager;
 import cube.storage.ConfigStorage;
@@ -103,7 +105,7 @@ public class ConfigCommand extends Command {
      * Constructs the command result output to be shown to the user.
      */
     @Override
-    public CommandResult execute(ModelManager model, StorageManager storage) {
+    public CommandResult execute(ModelManager model, StorageManager storage) throws CommandException {
 
         switch (configType) {
         case UI:
@@ -115,7 +117,8 @@ public class ConfigCommand extends Command {
         case VIEW:
             viewConfig(storage);
             return new CommandResult(MESSAGE_VIEW);
+        default:
+            throw new CommandException(CommandErrorMessage.INVALID_COMMAND_FORMAT);
         }
-        return null;
     }
 }

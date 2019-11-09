@@ -111,10 +111,11 @@ public class BatchCommand extends Command {
             case EMPTY:
                 batchEmpty();
                 return new CommandResult(String.format(MESSAGE_SUCCESS_TEMPLATE, fileName));
+            default:
+                throw new CommandException(CommandErrorMessage.INVALID_COMMAND_FORMAT);
             }
         } catch (CubeException e) {
             throw new CommandException(CommandErrorMessage.INVALID_COMMAND_FORMAT);
         }
-        return null;
     }
 }

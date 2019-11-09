@@ -1,3 +1,9 @@
+/**
+ * Testing for BatchCommand utilities
+ *
+ * @author kuromono
+ */
+
 package cube.logic.command;
 
 import cube.logic.command.exception.CommandException;
@@ -51,6 +57,7 @@ public class BatchCommandTest {
     public static void deleteTestFiles() {
         deleteFile("test_export_file.csv");
         deleteFile("test_create_empty_template.csv");
+        deleteFile("test_execute_invalid_command.csv");
     }
 
     /**
