@@ -32,6 +32,11 @@ public class CommandDeleteReceiptTest {
         String out = d3.getInfoCapsule().getOutputStr();
         assertEquals("Invalid index input. Please enter an integer", out);
 
+        CommandDeleteReceipt d4 = new CommandDeleteReceipt("deletereceipt 10");
+        d4.execute(storageManager);
+        String output2 = d4.getInfoCapsule().getOutputStr();
+        assertEquals("Invalid 'deletereceipt' statement."
+                + "Please indicate the index of the receipt you wish to delete.\n", output2);
 
     }
 }
