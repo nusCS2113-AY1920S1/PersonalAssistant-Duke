@@ -151,6 +151,11 @@ public class NullProject implements IProject {
     }
 
     @Override
+    public HashMap<String, ArrayList<Reminder>> getCategoryReminderList() {
+        return null;
+    }
+
+    @Override
     public ITask getTaskFromID(String taskID) {
         return null;
     }

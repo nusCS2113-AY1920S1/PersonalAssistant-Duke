@@ -75,4 +75,6 @@ public interface IProject {
 
     IMember getMemberFromID(String memberID);
 
+    HashMap<String,ArrayList<Reminder>> getCategoryReminderList();
+
 }
