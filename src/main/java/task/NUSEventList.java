@@ -110,9 +110,8 @@ public class NUSEventList {
      * @throws DukeException
      */
     public void addDegreeTasks (String degreeName, TaskList userTasklist) throws DukeException {
-        String officialDegreeName = aliasMap.get(degreeName.toLowerCase());
-        System.out.println(officialDegreeName);
-        int degreeID = degreeMap.get(officialDegreeName);
+        String abbreviatedDegreeName = aliasMap.get(degreeName.toLowerCase());
+        int degreeID = degreeMap.get(abbreviatedDegreeName);
         int n = fullDegreeTasklist.get(degreeID).size();
         if (n < 1){
             throw new DukeException("There are no tasks related to " + degreeName);
@@ -120,7 +119,7 @@ public class NUSEventList {
         for (int i = 0; i < n; i++) {
             Task toAppend = fullDegreeTasklist.get(degreeID).get(i);
             if (!isDuplicate(toAppend, userTasklist)){
-                toAppend.setNusDegreeName(officialDegreeName);
+                toAppend.setNusDegreeName(abbreviatedDegreeName);
                 userTasklist.add(toAppend);
             }
 
