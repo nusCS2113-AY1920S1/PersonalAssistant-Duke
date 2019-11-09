@@ -17,12 +17,14 @@ import command.SearchBeginCommand;
 import command.SearchCommand;
 import command.SearchFrequencyCommand;
 import command.SearchTagCommand;
+import command.SearchSynonymCommand;
 import command.SetReminderCommand;
 import dictionary.Word;
 
 import exception.CommandInvalidException;
 import exception.EmptyTagException;
 import exception.EmptyWordException;
+import exception.EmptySynonymException;
 import exception.InvalidCharacterException;
 import exception.InvalidHistoryIndexException;
 import exception.ReminderWrongDateFormatException;
@@ -41,6 +43,7 @@ import exception.WrongSearchBeginFormatException;
 import exception.WrongSearchFormatException;
 import exception.WrongSearchFrequencyFormatException;
 import exception.WrongSearchTagFormatException;
+import exception.WrongSearchSynonymFormatException;
 import exception.ZeroHistoryRequestException;
 
 import java.text.SimpleDateFormat;
@@ -105,7 +108,10 @@ public class Parser {
                 command = parseQuiz(taskInfo);
             } else if (userCommand.equals("search_tag")) {
                 command = parseSearchTag(taskInfo);
-            } else {
+            } else if (userCommand.equals("search_syn")) {
+                command = parseSearchSynonym(taskInfo);
+            }
+            else {
                 try {
                     throw new CommandInvalidException(input);
                 } catch (CommandInvalidException e) {
@@ -148,6 +154,22 @@ public class Parser {
                 throw new InvalidCharacterException();
             }
             return new SearchTagCommand(word, "word");
+        }
+    }
+
+    private static Command parseSearchSynonym(String[] taskInfo) throws WrongSearchSynonymFormatException,
+            EmptySynonymException, EmptyWordException, InvalidCharacterException {
+        if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
+            throw new WrongSearchSynonymFormatException();
+        } else {
+            String synonym = taskInfo[1].substring(2).trim();
+            if (synonym.length() == 0) {
+                throw new EmptyWordException();
+            }
+            if (!isValidInputWord(synonym)) {
+                throw new InvalidCharacterException();
+            }
+            return new SearchSynonymCommand(synonym, "synonym");
         }
     }
 
@@ -277,7 +299,7 @@ public class Parser {
                 }
                 tags.add(wordAndTags[i].trim());
             }
-            return new DeleteCommand(wordDescription, tags);
+            return new DeleteCommand(wordDescription, tags,1);
         }
     }
 
@@ -456,18 +478,18 @@ public class Parser {
      * @author Ng Jian Wei
      */
     protected static Command parseSynonym(String[] taskInfo) throws WrongAddSynonymFormatException {
-        if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) { //taskInfo[1] is w/drink s/beverage
+        if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
             throw new WrongAddSynonymFormatException();
         }
-        String[] wordAndSynonyms = taskInfo[1].split("s/"); // "w/drink" and "beverage syno2 syno3"
+        String[] wordAndSynonyms = taskInfo[1].split("s/");
         if (wordAndSynonyms.length == 1) {
             throw new WrongAddSynonymFormatException();
         }
-        String wordDescription = wordAndSynonyms[0].substring(2).trim(); //drink
+        String wordDescription = wordAndSynonyms[0].substring(2).trim();
         String[] synonymsString = wordAndSynonyms[1].trim().split(" ");
         ArrayList<String> synonyms = new ArrayList<>();
-        for (String s : synonymsString) {
-            synonyms.add(s.trim());
+        for (String synonym : synonymsString){
+            synonyms.add(synonym.trim());
         }
         return new AddSynonymCommand(wordDescription, synonyms);
     }

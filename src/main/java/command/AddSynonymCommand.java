@@ -20,7 +20,8 @@ public class AddSynonymCommand extends Command {
     @Override
     public String execute(Ui ui, Bank bank, Storage storage) {
         try {
-            HashSet<String> synonymHashSet = bank.addSynonym(wordDescription, synonyms);
+            HashSet<String> synonymHashSet = bank.addWordToSomeSynonyms(wordDescription, synonyms);
+            storage.writeSynonymBankExcelFile(bank.getSynonymBank());
             return ui.showAddSynonym(wordDescription, synonyms, synonymHashSet);
         } catch (NoWordFoundException e) {
             return e.showError();

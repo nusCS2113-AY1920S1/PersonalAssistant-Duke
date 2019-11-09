@@ -28,9 +28,15 @@ public class DeleteCommand extends Command {
         this.synonyms = new ArrayList<>();
     }
 
-    public DeleteCommand(String deletedWord, ArrayList<String> tags) {
-        this.deletedWord = deletedWord;
-        this.tags = tags;
+    public DeleteCommand(String deletedWord, ArrayList<String> parameter, int type) {
+        if(type == 1) {
+            this.deletedWord = deletedWord;
+            this.tags = parameter;
+        }
+        else if (type == 2 ){
+            this.deletedWord = deletedWord;
+            this.synonyms = parameter;
+        }
     }
 
     @Override
