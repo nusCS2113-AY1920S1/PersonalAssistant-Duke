@@ -4,13 +4,14 @@ import chronologer.command.Command;
 import chronologer.command.SearchCommand;
 import chronologer.exception.ChronologerException;
 
+//@@author hanskw4267
 /**
  * Extract the components required for the search command from the user input.
  *
- * @author Tan Yi Xiang
- * @version v1.0
+ * @author Hans kurnia
+ * @version v2.0
  */
-public class SearchParser extends IndexParser {
+public class SearchParser extends DescriptionParser {
 
     public SearchParser(String userInput, String command) {
         super(userInput, command);
@@ -20,7 +21,12 @@ public class SearchParser extends IndexParser {
     public Command parse() throws ChronologerException {
         super.extract();
         Long duration;
-        duration = (long) indexOfTask;
+        try {
+            duration = Long.parseLong(taskDescription);
+        } catch (NumberFormatException e) {
+            logger.writeLog(e.toString(), this.getClass().getName(), userInput);
+            throw new ChronologerException(ChronologerException.invalidDuration());
+        }
         return new SearchCommand(duration);
     }
 }

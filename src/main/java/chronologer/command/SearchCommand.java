@@ -11,6 +11,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 
+//@@author hanskw4267
 /**
  * Finds the next free time slot of a duration of user's choosing.
  *
@@ -68,8 +69,8 @@ public class SearchCommand extends Command {
                                 "Next free time slot of duration " + Long.toString(durationToFind) + "hrs is between \n"
                                         + dateList.get(i - 1).toString() + " and " + dateList.get(i).toString());
                     } else {
-                        UiTemporary.printOutput("You can schedule something from now till "
-                            + dateList.get(i).toString());
+                        UiTemporary
+                                .printOutput("You can schedule something from now till " + dateList.get(i).toString());
                     }
                     found = true;
                     break;
@@ -77,8 +78,8 @@ public class SearchCommand extends Command {
             }
 
             if (!found) {
-                UiTemporary.printOutput("You can schedule something after the "
-                    + dateList.get(dateList.size() - 1).toString());
+                UiTemporary.printOutput(
+                        "You can schedule something after the " + dateList.get(dateList.size() - 1).toString());
             }
         }
 

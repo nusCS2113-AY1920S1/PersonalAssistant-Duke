@@ -21,6 +21,9 @@ import java.util.ArrayList;
  * @version 1.3
  */
 public class TaskScheduleCommand extends Command {
+    private static final String NOT_TODO = "Task selected is not a Todo with a duration";
+    private static final String NOT_DEADLINE = "Task selected is not a Deadline";
+    private static final String OVERDUE_DEADLINE = "The selected deadline is overdue!";
 
     private final Long durationToSchedule;
     private final Integer indexOfTask;
@@ -76,79 +79,75 @@ public class TaskScheduleCommand extends Command {
     }
 
     /**
-     * Searches all free periods of time that the user can schedule a given task by a certain deadline.
+     * Retrieves the duration and deadline date based on the user's input and pass the values along
+     * to the TaskScheduler logic.
      * @param tasks   Holds the list of all the tasks the user has.
      * @param storage Allows the saving of the file to persistent storage.
      * @throws ChronologerException if the selected task is not a compatible type.
      */
     @Override
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
-        Todo todo;
-        Deadline deadline;
-        LocalDateTime deadlineDate;
         Long duration;
+        LocalDateTime deadlineDate;
+        String result;
 
         ArrayList<Task> list = tasks.getTasks();
-
-        if (this.indexOfTask != null) {
-            try {
-                todo = (Todo) list.get(indexOfTask);
-            } catch (IndexOutOfBoundsException e) {
-                UiTemporary.printOutput(ChronologerException.invalidIndex());
-                throw new ChronologerException(ChronologerException.invalidIndex());
-            } catch (ClassCastException e) {
-                UiTemporary.printOutput("Task selected is not a Todo with a duration");
-                throw new ChronologerException("Task selected is not a Todo with a duration");
-            }
-            duration = (long) todo.duration;
-        } else {
-            duration = this.durationToSchedule;
-        }
-
-        if (this.indexOfDeadline != null) {
-            try {
-                deadline = (Deadline) list.get(indexOfDeadline);
-            } catch (IndexOutOfBoundsException e) {
-                UiTemporary.printOutput(ChronologerException.invalidIndex());
-                throw new ChronologerException(ChronologerException.invalidIndex());
-            } catch (ClassCastException e) {
-                UiTemporary.printOutput("Task selected is not a Deadline");
-                throw new ChronologerException("Task selected is not a Deadline");
-            }
-            deadlineDate = deadline.getStartDate();
-        } else {
-            deadlineDate = this.deadlineDate;
-        }
+        duration = retrieveDuration(list);
+        deadlineDate = retrieveDeadlineDate(list);
 
         if (deadlineDate == null) {
-            TaskScheduler.scheduleTask(tasks, duration);
+            result = TaskScheduler.scheduleTask(tasks, duration);
+            UiTemporary.printOutput(result);
             return;
         }
 
         if (LocalDateTime.now().isAfter(deadlineDate)) {
-            UiTemporary.printOutput("The selected deadline is overdue!");
-            throw new ChronologerException("The selected deadline is overdue!");
+            UiTemporary.printOutput(OVERDUE_DEADLINE);
+            throw new ChronologerException(OVERDUE_DEADLINE);
         }
 
-        TaskScheduler.scheduleByDeadline(tasks, duration, deadlineDate);
+        result = TaskScheduler.scheduleByDeadline(tasks, duration, deadlineDate);
+        UiTemporary.printOutput(result);
     }
 
-    // TODO: Figure a way for GUI to accept subsequent inputs
-    private boolean confirmSchedule(Task t, LocalDateTime start, long duration, TaskList tasks, Storage storage)
-            throws ChronologerException {
-        while (true) {
-            String answer = UiTemporary.readInput().toLowerCase();
-            if (answer.equals("y")) {
-                String description = t.getDescription() + "(Recommended period)";
-                LocalDateTime end = start.plusHours(duration);
-                Command command = new AddCommand("todo", description, start, end);
-                command.execute(tasks, storage);
-                return true;
-            }
-            if (answer.equals("n")) {
-                return false;
-            }
-            UiTemporary.printOutput("Not a valid input. Please answer as y/n\n");
+    private long retrieveDuration(ArrayList<Task> list) throws ChronologerException {
+        if (this.indexOfTask == null) {
+            assert this.durationToSchedule != null;
+            return this.durationToSchedule;
         }
+        if (indexOfTask < 0 || indexOfTask >= list.size()) {
+            UiTemporary.printOutput(ChronologerException.invalidIndex());
+            throw new ChronologerException(ChronologerException.invalidIndex());
+        }
+
+        Todo todo;
+        try {
+            todo = (Todo) list.get(indexOfTask);
+        } catch (ClassCastException e) {
+            UiTemporary.printOutput(NOT_TODO);
+            logger.writeLog(e.toString(), this.getClass().getName());
+            throw new ChronologerException(NOT_TODO);
+        }
+        return todo.duration;
+    }
+
+    private LocalDateTime retrieveDeadlineDate(ArrayList<Task> list) throws ChronologerException {
+        if (this.indexOfDeadline == null) {
+            return this.deadlineDate;
+        }
+        if (indexOfDeadline < 0 || indexOfDeadline >= list.size()) {
+            UiTemporary.printOutput(ChronologerException.invalidIndex());
+            throw new ChronologerException(ChronologerException.invalidIndex());
+        }
+
+        Deadline deadline;
+        try {
+            deadline = (Deadline) list.get(indexOfDeadline);
+        } catch (ClassCastException e) {
+            UiTemporary.printOutput(NOT_DEADLINE);
+            logger.writeLog(e.toString(), this.getClass().getName());
+            throw new ChronologerException(NOT_DEADLINE);
+        }
+        return deadline.getStartDate();
     }
 }

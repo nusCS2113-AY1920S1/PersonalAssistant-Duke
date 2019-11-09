@@ -8,6 +8,7 @@ import chronologer.command.Command;
 import chronologer.exception.ChronologerException;
 import chronologer.ui.UiTemporary;
 
+//@@author hanskw4267
 /**
  * Processes input for recurring events.
  * 
@@ -33,7 +34,6 @@ public class RecurringEventParser extends EventParser {
         LocalDateTime toDate;
         String date = extractDate(taskFeatures);
         String dateTimeFromUser = formatDateTime(date, taskFeatures);
-        System.out.println("------------------------------------>" + date);
         fromDate = super.extractFromDate(dateTimeFromUser);
         toDate = super.extractToDate(dateTimeFromUser);
         assert toDate != null;
@@ -51,11 +51,7 @@ public class RecurringEventParser extends EventParser {
             String dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
             String dayFromUser = dateTimeFromUser.split(" ", 2)[0].trim().toUpperCase();
             return LastDay.getDate(dayFromUser);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            logger.writeLog(e.toString(), this.getClass().getName(), userInput);
-            UiTemporary.printOutput(ChronologerException.emptyDateOrTime());
-            throw new ChronologerException(ChronologerException.emptyDateOrTime());
-        } catch (PatternSyntaxException e) {
+        } catch (ArrayIndexOutOfBoundsException | PatternSyntaxException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             UiTemporary.printOutput(ChronologerException.emptyDateOrTime());
             throw new ChronologerException(ChronologerException.emptyDateOrTime());
@@ -68,11 +64,7 @@ public class RecurringEventParser extends EventParser {
             String startDate = date + timeFromUser.split("-")[0];
             String endDate = date + timeFromUser.split("-")[1];
             return startDate + "-" + endDate;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            logger.writeLog(e.toString(), this.getClass().getName(), userInput);
-            UiTemporary.printOutput(ChronologerException.emptyDateOrTime());
-            throw new ChronologerException(ChronologerException.emptyDateOrTime());
-        } catch (PatternSyntaxException e) {
+        } catch (ArrayIndexOutOfBoundsException | PatternSyntaxException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             UiTemporary.printOutput(ChronologerException.emptyDateOrTime());
             throw new ChronologerException(ChronologerException.emptyDateOrTime());

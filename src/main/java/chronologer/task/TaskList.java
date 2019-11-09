@@ -1,11 +1,13 @@
 package chronologer.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import chronologer.ui.UiTemporary;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -171,19 +173,39 @@ public class TaskList {
     /**
      * This function allows the user to obtain the tasks on a particular date.
      *
-     * @param dayToFind is of String type which contains the desired date of
-     *                  schedule.
+     * @param dayToFind is the desired date of schedule.
      * @return sortDateList the sorted schedule of all the tasks on a particular date.
      */
     public ArrayList<Task> schedule(String dayToFind) {
-        ArrayList<Task> sortedDateList = new ArrayList<Task>();
-        for (int i = 0; i < listOfTasks.size(); i++) {
-            if (listOfTasks.get(i).toString().contains(dayToFind)) {
-                sortedDateList.add(listOfTasks.get(i));
+        assert dayToFind != null;
+        LocalDate dateToFind = LocalDate.parse(dayToFind, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        ArrayList<Task> sortedDateList = new ArrayList<>();
+        for (Task task : listOfTasks) {
+            if (task.startDate == null && task.endDate == null) {
+                continue;
+            }
+            assert task.startDate != null;
+            if (isOnDate(dateToFind, task.startDate)) {
+                sortedDateList.add(task);
+                continue;
+            }
+            if (task.endDate == null) {
+                continue;
+            }
+            if (isWithinDates(dateToFind, task.startDate, task.endDate)) {
+                sortedDateList.add(task);
             }
         }
         sortedDateList.sort(DateComparator);
         return sortedDateList;
+    }
+
+    private boolean isOnDate(LocalDate dateToCheck, LocalDateTime startDate) {
+        return (dateToCheck.isEqual(startDate.toLocalDate()));
+    }
+
+    private boolean isWithinDates(LocalDate dateToCheck, LocalDateTime startDate, LocalDateTime endDate) {
+        return !(dateToCheck.isBefore(startDate.toLocalDate()) || dateToCheck.isAfter(endDate.toLocalDate()));
     }
 
     /**
@@ -225,7 +247,6 @@ public class TaskList {
     }
 
     //@@author fauzt-reused
-
     /**
      * Retrieves all Event tasks in the main task list in chronologically-ordered list.
      *
@@ -234,16 +255,18 @@ public class TaskList {
      */
     public ArrayList<Event> obtainEventList(LocalDateTime deadlineDate) {
         ArrayList<Event> eventList = new ArrayList<>();
-        for (Task item : listOfTasks) {
-            boolean isAnEventBeforeDeadline = item.getClass() == Event.class
-                && item.getStartDate().isBefore(deadlineDate);
-            if (isAnEventBeforeDeadline) {
-                eventList.add((Event) item);
+        for (Task task : listOfTasks) {
+            if (isAnEventBeforeDeadline(task, deadlineDate)) {
+                eventList.add((Event) task);
             }
         }
         Collections.sort(eventList);
 
         return eventList;
+    }
+
+    private boolean isAnEventBeforeDeadline(Task task, LocalDateTime deadlineDate) {
+        return task.getClass() == Event.class && task.startDate.isBefore(deadlineDate);
     }
 
     /**
@@ -261,6 +284,7 @@ public class TaskList {
         return reminders;
     }
 
+    //@@author E0310898
     /**
      * This function allows the user to obtain the tasks on a particular date, but
      * only with description.
@@ -272,15 +296,14 @@ public class TaskList {
     public ArrayList<String> scheduleForDay(String dayToFind) {
         ArrayList<Task> obtainDescriptions = schedule(dayToFind);
         ArrayList<String> scheduleDescriptionOnly = new ArrayList<>();
-        for (int i = 0; i < obtainDescriptions.size(); i++) {
-            if (obtainDescriptions.get(i).toString().contains(dayToFind)) {
-                scheduleDescriptionOnly.add(obtainDescriptions.get(i).getModCode().trim() + " "
-                    + obtainDescriptions.get(i).getDescription().trim());
-            }
+        for (Task task : obtainDescriptions) {
+            scheduleDescriptionOnly.add(task.getModCode().trim() + " "
+                    + task.getDescription().trim());
         }
         return scheduleDescriptionOnly;
     }
 
+    //@@ author
     /**
      * This function allows the user to edit the task description.
      *

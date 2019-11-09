@@ -1,5 +1,5 @@
 image::docs/images/organization logo.png[width="600", align="center"]
-image::docs/images/GUI_current_as_at_30_10_2019.png[width="600", align="center"]
+image::docs/images/Ui.png[width="600", align="center"]
 
 * This is a desktop activities manager application called chronologer. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is a Java application intended for students to keep track of various kinds tasks, events and other activities they might have.

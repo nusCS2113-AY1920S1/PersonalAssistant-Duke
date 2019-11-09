@@ -34,6 +34,7 @@ public class ViewCommand extends Command {
         ArrayList<Task> sortedRequiredSchedule = tasks.schedule(dateToFind);
         if (sortedRequiredSchedule.isEmpty()) {
             UiTemporary.printMessage(NO_TASK_SCHEDULED);
+            UiTemporary.printOutput(NO_TASK_SCHEDULED);
         } else {
             UiTemporary.printMessage(PRESENT_SCHEDULE);
             int i = 1;
