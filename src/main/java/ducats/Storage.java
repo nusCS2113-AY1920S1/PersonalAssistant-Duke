@@ -2,6 +2,7 @@ package ducats;
 
 import ducats.components.Bar;
 import ducats.components.Chord;
+import ducats.components.Group;
 import ducats.components.Note;
 import ducats.components.Pitch;
 import ducats.components.Song;
@@ -25,64 +26,53 @@ import java.util.Scanner;
 public class Storage {
 
     protected File file;
-    private String filepath;
+    protected File dataFolder;
+    private String dirpath;
+
+    private String fileDelimiter = System.getProperty("file.separator");
+    //private String currentDir = System.getProperty("user.dir");
+
 
     /**
-     * Constructor for the duke.Storage class.
+     * Constructor for the duke.Storage class, used to store songs into persistent storage in the form of a .txt file.
      *
-     * @param filepath the String object representing the path to the file being used to store the task list.
+     * @param dirpath the String object representing the path to the folder being used to store the task list.
      */
-    public Storage(String filepath) {
-        this.filepath = filepath;
-        file = new File(filepath);
+    public Storage(String dirpath) {
+        this.dirpath = dirpath;
+        dataFolder = new File(dirpath);
     }
 
+    /**
+     * Performs the initial creation of the directory to be used to contain the .txt files that contain the song data,
+     * and returns true if the directory was indeed created, and false if a current directory of the same name was
+     * found.
+     *
+     * @return a boolean corresponding to whether a new directory has been created or not
+     * @throws DucatsException in the case of Security exceptions
+     */
     boolean initialize() throws DucatsException {
         try {
-            return file.createNewFile();
-        } catch (IOException e) {
-            throw new DucatsException("","io");
+            return dataFolder.mkdir();
         } catch (SecurityException e) {
             throw new DucatsException("security");
         }
     }
 
-    // Ducats implementation starts here.
-
-
-    // Storage structure for Ducats is as follows:
-    //
-    // List of Songs, with each Song being represented in the following format:
-    // s/NAME s/BAR1 s/BAR2 ...
-    //
-    // BAR is formatted as a two-dimensional array of Notes, with each nested array representing a Chord.
-    //
-    // E.g.
-    // "Hello World! [[UAs;UBs],[UA;UB],[UAs;UB],[UA;UB],[UBs;R],[UB;R],[LFs;R],[LF;R]] [...] ..."
-    //
-    // TODO: implement convertFromString
-
-    private ArrayList<String> formatListToString(ArrayList<Song> list) {
-        ArrayList<String> result = new ArrayList<>();
-        for (Song song: list) {
-            result.add(song.toString());
-        }
-        return result;
-    }
-
     /**
-     * Takes in an ArrayList of Strings, each representing a song, and stores it in the .txt file.
+     * Takes in an ArrayList of Strings, each representing a line in a song, and stores it in the specified
+     * .txt file.
      *
-     * @param songs the ArrayList of songs as Strings
+     * @param song the ArrayList of the lines of the song
      * @throws DucatsException in the case of IO exceptions
      */
-    private void writeStringsToFile(ArrayList<String> songs) throws DucatsException {
+    private void writeStringsToFile(ArrayList<String> song, String filepath) throws DucatsException {
         FileWriter fileWriter;
         try {
             fileWriter = new FileWriter(filepath);
             StringBuilder sb = new StringBuilder();
-            for (String song: songs) {
-                sb.append(song);
+            for (String line: song) {
+                sb.append(line);
                 sb.append(System.lineSeparator());
             }
             fileWriter.write(sb.toString());
@@ -93,15 +83,17 @@ public class Storage {
     }
 
     /**
-     * Returns an ArrayList of Strings, with each String corresponding to a line in the file.
+     * Returns an ArrayList of Strings, with each String corresponding to a line in the .txt file specified through
+     * the filepath provided.
      *
+     * @param filepath the filepath of the .txt file to be read from
      * @return the lines as an ArrayList of Strings
      * @throws DucatsException in the case of IO exceptions
      */
-    private ArrayList<String> readStringsFromFile() throws DucatsException {
+    private ArrayList<String> readStringsFromFile(String filepath) throws DucatsException {
         // reads file and returns an ArrayList of lines
         ArrayList<String> result = new ArrayList<>();
-        try (Scanner scanner = new Scanner(file)) {
+        try (Scanner scanner = new Scanner(new File(filepath))) {
             while (scanner.hasNextLine()) {
                 String nextLine = scanner.nextLine();
                 if (nextLine.equals("")) {
@@ -118,39 +110,70 @@ public class Storage {
     }
 
     /**
-     * A function that gets from a text file and loads into the song list.
+     * A function that reads data from a .txt file and loads the song into the song list.
      *
-     * @param songList - This is the list of songs by the user.
+     * @param songList the SongList object containing the list of songs
+     * @throws DucatsException in the case of IO exceptions
      */
-
-    public void loadToList(SongList songList) throws DucatsException {
+    private void loadSongToList(SongList songList, String filepath) throws DucatsException {
         // loads data into list
-        ArrayList<String> data = readStringsFromFile();
-        for (String line: data) {
-            songList.add(convertSongFromString(line));
-        }
+        ArrayList<String> data = readStringsFromFile(filepath);
+        songList.add(convertSongFromString(data));
 
     }
 
-    // twinkle [[UAs;UAs],[UA;UA],[UAs;UAs],[UA;UA],[UAs;UAs],[UA;UA],[UAs;UAs],[UA;UA]]
     /**
-     * A function that converts a string into a Song object.
+     * Takes in the SongList object containing the list of songs and loads the directory containing the songs in the
+     * form of .txt files.
      *
-     * @param s this is the string to be converted to a song.
+     * @param songList the SongList object containing the list of songs
+     * @throws DucatsException in the case of IO exceptions
      */
-    public Song convertSongFromString(String s) throws DucatsException {
-        String[] sections = s.split(" ");
-        if (sections.length == 1) {
+    public void loadToList(SongList songList) throws DucatsException {
+        for (final File songFile: dataFolder.listFiles()) {
+            String filepath = dirpath + fileDelimiter + songFile.getName();
+            System.out.println(filepath);
+            loadSongToList(songList, filepath);
+        }
+    }
+
+    /**
+     * A function that converts an ArrayList of Strings into a Song object.
+     *
+     * @param s the ArrayList of Strings to be converted to a song.
+     * @throws DucatsException in the case of IO exceptions
+     */
+    private Song convertSongFromString(ArrayList<String> s) throws DucatsException {
+        if (s.size() == 0) {
             throw new DucatsException("io","");
         }
+        String[] sections = s.get(0).split(" ");
         String name = sections[0];
         String key = sections[1];
         int tempo = Integer.parseInt(sections[2]);
         Song song = new Song(name, key, tempo);
-        for (int i = 3; i < sections.length; i++) {
-            song.addBar(convertBarFromString(sections[i], i - 3));
+        int i = 1;
+        if (s.size() > 1) {
+            while (i < s.size() && !s.get(i).equals("groups:")) {
+                song.addBar(convertBarFromString(s.get(i), i));
+                i++;
+            }
+            for (int j = i + 1; j < s.size(); j++) {
+                song.addGroup(convertGroupFromString(s.get(j)));
+            }
         }
         return song;
+    }
+
+    private Group convertGroupFromString(String s) throws DucatsException {
+        String[] rawBars = s.split(" ");
+        String name = rawBars[0];
+        ArrayList<Bar> bars = new ArrayList<>();
+        for (int i = 1; i < rawBars.length; i++) {
+            bars.add(convertBarFromString(rawBars[i], -1));
+        }
+        Group group = new Group(name, bars);
+        return group;
     }
 
     private Bar convertBarFromString(String s, int barIndex) throws DucatsException {
@@ -238,13 +261,32 @@ public class Storage {
     }
 
     /**
-     * Updates the .txt file with the current data found within the SongList.
+     * Updates the folder containing the .txt files with the current data found within the SongList.
      *
      * @param songList the SongList object containing the list of Song objects
      * @throws DucatsException in the case of IO exceptions
      */
     public void updateFile(SongList songList) throws DucatsException {
-        // System.out.println(songList.getSongList().get(0).toString());
-        writeStringsToFile(formatListToString(songList.getSongList()));
+        for (Song song: songList.getSongList()) {
+            String filepath = dirpath + fileDelimiter + song.getName() + ".txt";
+            System.out.println(filepath);
+            createFile(filepath);
+            writeStringsToFile(song.toStringArrayList(), filepath);
+        }
+    }
+
+    /**
+     * If the file is not found, creates the file according to the filepath provided.
+     *
+     * @param filepath the filepath of the file to be created, as a String
+     * @throws DucatsException in the case of IO exceptions
+     */
+    private void createFile(String filepath) throws DucatsException {
+        File file = new File(filepath);
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            throw new DucatsException("","io");
+        }
     }
 }
