@@ -7,7 +7,6 @@ import Enums.SortType;
 import Enums.TimeUnit;
 import Model_Classes.Assignment;
 import Model_Classes.Leave;
-import Model_Classes.Leave;
 import Model_Classes.Meeting;
 import Model_Classes.Task;
 
@@ -80,10 +79,16 @@ public class TaskList {
             for(int i=0; i<tasks.size(); i++) {
                 if (new Date().after(tasks.get(i).getDate()) && !(tasks.get(i) instanceof Leave)){
                     tasks.get(i).setOverdue(true);
-                    if (!CheckAnomaly.checkDuplicateOverdue(tasks.get(i))) {
+                    if (CheckAnomaly.checkDuplicateOverdue(tasks.get(i))) {
                         // no duplicates in overdue list
                         overdueList.add(tasks.get(i));
                     }
+                    tasks.remove(tasks.get(i));
+                }
+            }
+
+            for(int i=0; i<tasks.size(); i++) {
+                if (tasks.get(i) instanceof Leave && ((Leave) tasks.get(i)).getEndDate().before(new Date())) {
                     tasks.remove(tasks.get(i));
                 }
             }
@@ -110,13 +115,6 @@ public class TaskList {
                         }
                     }
                     listCount += 1;
-                }
-            }
-            for(int i=0; i<tasks.size(); i++) {
-                if (tasks.get(i) instanceof Leave) {
-                   if (((Leave) tasks.get(i)).getEndDate().before(new Date())) {
-                        tasks.remove(tasks.get(i));
-                    }
                 }
             }
         } else {
@@ -170,6 +168,19 @@ public class TaskList {
             for (int i = index[0]; i <= index[1]; i++){
                 tasks.get(i).setDone(true);
             }
+        }
+    }
+
+    /**
+     * Overload function for done to complete subTasks
+     * @param index index of task
+     * @param subTaskIndex index of subtask completed
+     */
+    public void done(int index, int subTaskIndex) throws RoomShareException {
+        if( TaskList.get(index) instanceof Assignment ) {
+            ((Assignment) TaskList.get(index-1)).doneSubtask(subTaskIndex-1);
+        } else {
+            throw new RoomShareException(ExceptionType.subTaskError);
         }
     }
 
@@ -454,15 +465,26 @@ public class TaskList {
                 if (output.getDone()) {
                     doneCount += 1;
                 }
-                System.out.println("\t" + listCount + ". " + output.toString());
-                if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
-                    ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
-                    for (String subtask : subTasks) {
-                        System.out.println("\t" + "\t" + "- " + subtask);
+                if (!output.getDone()) {
+                    Priority priority = output.getPriority();
+                    String priorityLVL;
+                    if (priority.equals(Priority.low)) {
+                        priorityLVL = " *";
+                    } else if (priority.equals(Priority.medium)) {
+                        priorityLVL = " **";
+                    } else {
+                        priorityLVL = " ***";
+                    }
+                    System.out.println("\t" + listCount + ". " + output.toString() + priorityLVL);
+                    if (output instanceof Assignment && !(((Assignment) output).getSubTasks() == null)) {
+                        ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
+                        for (String subtask : subTasks) {
+                            System.out.println("\t" + "\t" + "- " + subtask);
+                        }
                     }
                 }
+                listCount += 1;
             }
-            listCount += 1;
         }
         if (belongCount == 0) {
             throw new RoomShareException(ExceptionType.emptyList);
@@ -470,5 +492,4 @@ public class TaskList {
         int[] done = {belongCount, doneCount};
         return done;
     }
-
 }

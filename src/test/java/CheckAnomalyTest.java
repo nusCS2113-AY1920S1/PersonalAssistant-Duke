@@ -6,9 +6,7 @@ import Operations.CheckAnomaly;
 import Operations.Parser;
 import Operations.Storage;
 import Operations.TaskList;
-import com.sun.nio.sctp.AssociationChangeNotification;
 import org.junit.jupiter.api.Test;
-
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,24 +44,23 @@ public class CheckAnomalyTest {
     }
 
     @Test
-    public void durationClashOverlap() { assertEquals(true, new CheckAnomaly().checkTask(meeting1)); }
+    public void durationClashOverlap() { assertEquals(0, new CheckAnomaly().checkTimeClash(meeting1)); }
 
     @Test
-    public void durationClashIntersect() { assertEquals(true, new CheckAnomaly().checkTask(meeting2)); }
+    public void durationClashIntersect() { assertEquals(0, new CheckAnomaly().checkTimeClash(meeting2)); }
 
     @Test
-    public void fixedClashIntersect() { assertEquals(true, new CheckAnomaly().checkTask(meeting3)); }
+    public void fixedClashIntersect() { assertEquals(1, new CheckAnomaly().checkTimeClash(meeting3)); }
 
     @Test
-    public void fixedClashOverlap() { assertEquals(true, new CheckAnomaly().checkTask(meeting4)); }
+    public void fixedClashOverlap() { assertEquals(1, new CheckAnomaly().checkTimeClash(meeting4)); }
 
     @Test
-    public void noClash() { assertEquals(false, new CheckAnomaly().checkTask(meeting5)); }
+    public void noClash() { assertEquals(-1, new CheckAnomaly().checkTimeClash(meeting5)); }
 
     @Test
-    public void duplicateClash() { assertEquals(true, new CheckAnomaly().checkTask(assignment1)); }
+    public void duplicateClash() { assertEquals(3, new CheckAnomaly().checkDuplicate(assignment1)); }
 
     @Test
-    public void noDuplicate() { assertEquals(false, new CheckAnomaly().checkTask(assignment2)); }
-
+    public void noDuplicate() { assertEquals(-1, new CheckAnomaly().checkTimeClash(assignment2)); }
 }
