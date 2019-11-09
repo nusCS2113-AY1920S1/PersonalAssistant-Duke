@@ -61,7 +61,7 @@ public class ShowCommandTest extends InputTest {
         final String test5 = "show ue\n";
 
         final String bye = "bye";
-        provideInput(test1 + bye);
+        provideInput("password\n" + test1 + bye);
         final String[] hold = {"a"};
         CliLauncher.main(hold);
         //String expected = outContent.toString().replaceAll("\r", "");

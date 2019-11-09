@@ -22,7 +22,7 @@ public class ShowTest extends InputTest {
         provideInput("password\n" + test + bye);
         final String[] hold = {"a"};
         CliLauncher.main(hold);
-        String expected = outContent.toString().replaceAll("\r", "");
-        assertEquals(expected, expected);
+        String actual = outContent.toString().replaceAll("\r", "");
+        assertEquals(actual, actual);
     }
 }

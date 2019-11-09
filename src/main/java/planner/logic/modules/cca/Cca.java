@@ -55,7 +55,7 @@ public class Cca extends TaskWithMultipleWeeklyPeriod {
 
     @Override
     public String toString() {
-        StringBuilder prefix = new StringBuilder("[C]" + super.toString() + " | ");
+        StringBuilder prefix = new StringBuilder("[C] " + getName() + " | ");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[HH:mm]");
         for (TimePeriodWeekly period: this.getPeriods()) {
             prefix.append(period.getBeginTime().format(formatter))
