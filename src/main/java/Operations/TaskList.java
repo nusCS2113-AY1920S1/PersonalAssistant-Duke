@@ -87,6 +87,12 @@ public class TaskList {
                 }
             }
 
+            for(int i=0; i<tasks.size(); i++) {
+                if (tasks.get(i) instanceof Leave && ((Leave) tasks.get(i)).getEndDate().before(new Date())) {
+                    tasks.remove(tasks.get(i));
+                }
+            }
+
             for (Task output : tasks) {
                 if (!output.getDone()) {
                     Priority priority = output.getPriority();
@@ -109,13 +115,6 @@ public class TaskList {
                         }
                     }
                     listCount += 1;
-                }
-            }
-            for(int i=0; i<tasks.size(); i++) {
-                if (tasks.get(i) instanceof Leave) {
-                   if (((Leave) tasks.get(i)).getEndDate().before(new Date())) {
-                        tasks.remove(tasks.get(i));
-                    }
                 }
             }
         } else {
@@ -466,15 +465,26 @@ public class TaskList {
                 if (output.getDone()) {
                     doneCount += 1;
                 }
-                System.out.println("\t" + listCount + ". " + output.toString());
-                if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
-                    ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
-                    for (String subtask : subTasks) {
-                        System.out.println("\t" + "\t" + "- " + subtask);
+                if (!output.getDone()) {
+                    Priority priority = output.getPriority();
+                    String priorityLVL;
+                    if (priority.equals(Priority.low)) {
+                        priorityLVL = " *";
+                    } else if (priority.equals(Priority.medium)) {
+                        priorityLVL = " **";
+                    } else {
+                        priorityLVL = " ***";
+                    }
+                    System.out.println("\t" + listCount + ". " + output.toString() + priorityLVL);
+                    if (output instanceof Assignment && !(((Assignment) output).getSubTasks() == null)) {
+                        ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
+                        for (String subtask : subTasks) {
+                            System.out.println("\t" + "\t" + "- " + subtask);
+                        }
                     }
                 }
+                listCount += 1;
             }
-            listCount += 1;
         }
         if (belongCount == 0) {
             throw new RoomShareException(ExceptionType.emptyList);
