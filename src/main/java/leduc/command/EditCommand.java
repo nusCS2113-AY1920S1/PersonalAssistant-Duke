@@ -1,7 +1,7 @@
 package leduc.command;
 
 import leduc.Date;
-import leduc.Ui;
+import leduc.ui.Ui;
 import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.task.EventsTask;
@@ -22,16 +22,16 @@ public class EditCommand extends Command {
     private static String editShortcut = "edit";
     /**
      * Constructor of EditCommand.
-     * @param user String which represent the input string of the user.
+     * @param userInput String which represent the input string of the user.
      */
-    public EditCommand(String user){
-        super(user);
+    public EditCommand(String userInput){
+        super(userInput);
     }
 
     /**
      * Allow to edit a task.
      * @param tasks leduc.task.TaskList which is the list of task.
-     * @param ui leduc.Ui which deals with the interactions with the user.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws NonExistentDateException Exception caught when the date given does not exist.
      * @throws FileException Exception caught when the file can't be open or read or modify.
@@ -46,16 +46,16 @@ public class EditCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage)
             throws NonExistentDateException, FileException, NonExistentTaskException, EmptyEventDateException, ConflictDateException, DateComparisonEventException, EditFormatException, UserAnswerException, EmptyTodoException {
         String userSubstring;
-        if(callByShortcut){
-            userSubstring = user.trim().substring(EditCommand.editShortcut.length());
+        if(isCalledByShortcut){
+            userSubstring = userInput.trim().substring(EditCommand.editShortcut.length());
         }
         else {
-            userSubstring = user.trim().substring(4);
+            userSubstring = userInput.trim().substring(4);
         }
         Task t = null;
         if(userSubstring.isBlank()) { // Multi-steps command
             ui.showEditChooseTask();
-            ListCommand listCommand = new ListCommand(user);
+            ListCommand listCommand = new ListCommand(userInput);
             listCommand.execute(tasks, ui, storage);
             // The user choose the task
             String userEditTaskNumber = ui.readCommand();

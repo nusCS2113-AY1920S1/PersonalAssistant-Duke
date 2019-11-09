@@ -191,6 +191,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Save the configuration (shortcut and language) to a file named config
+     * @throws FileException throw when the files can't be read or written
+     */
     public void saveConfig() throws FileException {
         FileWriter fileWriter = null;
         try {
@@ -244,6 +248,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Load the config file and setup the language and the shortcuts
+     * @throws FileException throw when the file can't be read or written
+     * @throws MeaninglessException throw when the command name is unknown
+     */
     public void loadConfig() throws FileException, MeaninglessException {
         Scanner sc = null;
         try {

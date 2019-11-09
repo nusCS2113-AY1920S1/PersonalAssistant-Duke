@@ -1,6 +1,6 @@
 package leduc.command;
 
-import leduc.Ui;
+import leduc.ui.Ui;
 import leduc.exception.EmptyArgumentException;
 import leduc.exception.FileException;
 import leduc.exception.MeaninglessException;
@@ -22,16 +22,16 @@ public class SortCommand extends Command {
     private static String sortShortcut = "sort";
     /**
      * Constructor of leduc.command.SortCommand
-     * @param user String which represent the input string of the user.
+     * @param userInput String which represent the input string of the user.
      */
-    public SortCommand(String user){
-        super(user);
+    public SortCommand(String userInput){
+        super(userInput);
     }
 
     /**
      * Execution of leduc.command.SortCommand: Allows to sort the task list ( by description or by date or ny priority).
      * @param tasks leduc.task.TaskList which is the list of task.
-     * @param ui leduc.Ui which deals with the interactions with the user.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws FileException Exception caught when the file can't be open or read or modify.
      * @throws MeaninglessException  Exception caught when the input string could not be interpreted.
@@ -39,11 +39,11 @@ public class SortCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws FileException, MeaninglessException, EmptyArgumentException {
         String userSubstring;
-        if(callByShortcut){
-            userSubstring = user.substring(SortCommand.sortShortcut.length());
+        if(isCalledByShortcut){
+            userSubstring = userInput.substring(SortCommand.sortShortcut.length());
         }
         else {
-            userSubstring = user.substring(4);
+            userSubstring = userInput.substring(4);
         }
         String sort = userSubstring.trim();
         if(sort.isBlank()) {
@@ -73,7 +73,7 @@ public class SortCommand extends Command {
         }
         storage.save(tasks.getList());
         ui.showSort();
-        ListCommand listCommand = new ListCommand(user);
+        ListCommand listCommand = new ListCommand(userInput);
         listCommand.execute(tasks,ui,storage);
     }
 

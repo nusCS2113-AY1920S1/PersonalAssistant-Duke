@@ -3,7 +3,7 @@ package leduc.command;
 import leduc.Date;
 import leduc.exception.*;
 import leduc.storage.Storage;
-import leduc.Ui;
+import leduc.ui.Ui;
 import leduc.task.EventsTask;
 import leduc.task.Task;
 import leduc.task.TaskList;
@@ -23,16 +23,17 @@ public class EventCommand extends Command {
     private static String eventShortcut = "event";
     /**
      * Constructor of EventCommand.
-     * @param user String which represent the input string of the user.
+     * @param userInput String which represent the input string of the user.
      */
-    public  EventCommand(String user){
-        super(user);
+    public  EventCommand(String userInput){
+        super(userInput);
     }
 
     /**
-     * Allow to add a event task to the task list and to the data file.
+     * Allow to add a event task to the task list and to the data file. The user can set a priority or a recurrence or both of them.
+     * Recurrence only add new homework with day/week/month interval.
      * @param tasks leduc.task.TaskList which is the list of task.
-     * @param ui leduc.Ui which deals with the interactions with the user.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws EmptyEventDateException Exception caught when the period of the event task is not given by the user.
      * @throws EmptyEventException Exception caught when the description of the event task is not given by the user.
@@ -47,10 +48,10 @@ public class EventCommand extends Command {
         String userSubstring;
         int nbRecurrence = 0;
         String typeOfRecurrence = "";
-        if (callByShortcut) {
-            userSubstring = user.substring(EventCommand.eventShortcut.length());
+        if (isCalledByShortcut) {
+            userSubstring = userInput.substring(EventCommand.eventShortcut.length());
         } else {
-            userSubstring = user.substring(5);
+            userSubstring = userInput.substring(5);
         }
         if (userSubstring.isBlank()) {
             throw new EmptyEventException();
@@ -86,6 +87,9 @@ public class EventCommand extends Command {
                         }
                     }
                 }
+                else if(prioritySplit[0].contains("recu")){
+                    throw new RecurrenceException();
+                }
             }
             else {
                 dateString = prioritySplit[0].split(" - ");
@@ -108,7 +112,7 @@ public class EventCommand extends Command {
                 int priority = -1;
                 String[] recurrenceSplit = prioritySplit[1].trim().split(("recu"));
                 String priorityString = recurrenceSplit[0].trim();
-                if(!(recurrenceSplit.length==1)){
+                if(!(recurrenceSplit.length == 1)){
                     String[] recurrenceSplit2 = recurrenceSplit[1].trim().split(" ");
                     if(recurrenceSplit2.length == 1){
                         throw new RecurrenceException();
@@ -124,6 +128,9 @@ public class EventCommand extends Command {
                             throw new RecurrenceException();
                         }
                     }
+                }
+                else if(prioritySplit[1].contains("recu")){
+                    throw new RecurrenceException();
                 }
                 try {
                     priority = Integer.parseInt(priorityString);
@@ -147,7 +154,18 @@ public class EventCommand extends Command {
         }
     }
 
-    public void contructRecurrenceTask(EventsTask task, int nbRecurrence, String typeOfRecurrence, TaskList tasks, Storage storage, Ui ui) throws FileException, RecurrenceDateException {
+    /**
+     * Helper method to construct recurrence task
+     * @param task the task that will be repeated
+     * @param nbRecurrence the number of recurrence
+     * @param typeOfRecurrence type of recurrence, can be day, week or month
+     * @param tasks leduc.task.TaskList which is the list of task.
+     * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
+     * @throws FileException Exception caught when the file can't be open or read or modify
+     * @throws RecurrenceDateException Exception caught when there is a conflict date between recurrence task
+     */
+    private void contructRecurrenceTask(EventsTask task, int nbRecurrence, String typeOfRecurrence, TaskList tasks, Storage storage, Ui ui) throws FileException, RecurrenceDateException {
         ArrayList<Task> newTaskList = new ArrayList<>();
         LocalDateTime initialDate1 = task.getDateFirst().getDate();
         LocalDateTime initialDate2 = task.getDateSecond().getDate();
