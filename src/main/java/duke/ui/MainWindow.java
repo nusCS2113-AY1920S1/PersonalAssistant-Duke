@@ -123,7 +123,6 @@ public class MainWindow extends AnchorPane {
 
         TaskList items = duke.getTaskList();
         dialogContainer.getChildren().add(
-                //DialogBox.getDukeDialog("Upcoming Reminders: \n" + items.getList(), dukeImage)
                 DialogBox.getDukeDialog(remind.getReminders(Numbers.THREE.value, items).getList(), dukeImage)
         );
     }
