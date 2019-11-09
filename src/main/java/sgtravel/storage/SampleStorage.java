@@ -10,6 +10,7 @@ import sgtravel.model.Event;
 import sgtravel.model.lists.EventList;
 import sgtravel.model.lists.RouteList;
 import sgtravel.model.planning.Itinerary;
+import sgtravel.model.profile.ProfileCard;
 import sgtravel.model.transports.Route;
 
 import java.util.ArrayList;
@@ -28,10 +29,12 @@ public class SampleStorage {
     private EventList events;
     private RouteList routes;
     private HashMap<String, Itinerary> itineraryTable;
+    private ProfileCard profileCard;
 
     private static final String EVENTS_FILE_PATH = "/sample/events.txt";
     private static final String ROUTES_FILE_PATH = "/sample/routes.txt";
     private static final String ITINERARIES_FILE_PATH = "/sample/itineraries.txt";
+    private static final String FAVOURITE_FILE_PATH = "/sample/favourite.txt";
 
     /**
      * Reads all storage file.
@@ -40,6 +43,8 @@ public class SampleStorage {
         events = new EventList();
         routes = new RouteList();
         itineraryTable = new HashMap<>();
+        profileCard = new ProfileCard();
+        readFavourite();
         readEvents();
         readRoutes();
         readItineraryTable();
@@ -48,10 +53,22 @@ public class SampleStorage {
     /**
      * Reads the itinerary hash map from filepath.
      */
+    private void readFavourite() {
+        try {
+            Scanner scanner = new Scanner(getClass().getResourceAsStream(FAVOURITE_FILE_PATH));
+            this.profileCard.setFavourite(Storage.makeItineraryTable(scanner, profileCard.getFavouriteList()));
+        } catch (ParseException e) {
+            logger.log(Level.INFO, "Sample data not found.");
+        }
+    }
+
+    /**
+     * Reads the itinerary hash map from filepath.
+     */
     private void readItineraryTable() {
         try {
             Scanner scanner = new Scanner(getClass().getResourceAsStream(ITINERARIES_FILE_PATH));
-            this.itineraryTable = Storage.makeItineraryTable(scanner);
+            this.itineraryTable = Storage.makeItineraryTable(scanner, this.itineraryTable);
         } catch (ParseException e) {
             logger.log(Level.INFO, "Sample data not found.");
         }
@@ -111,6 +128,9 @@ public class SampleStorage {
         return routes;
     }
 
+    public ProfileCard getProfileCard() {
+        return profileCard;
+    }
     /**
      * Returns the itinerary hash-map.
      */
