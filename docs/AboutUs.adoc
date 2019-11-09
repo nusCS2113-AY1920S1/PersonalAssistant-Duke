@@ -8,7 +8,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== Aik Peng
+=== Quek Aik Peng
 image::omupenguin.png[width="150", align="left"]
 {empty}[https://github.com/omupenguin[github]]
 
@@ -26,20 +26,20 @@ Responsibilities: Managing of shortcut, undo and redo feature and storage
 
 '''
 
-=== Xiao Xue
+=== Yu Xiaoxue
 image::tatayu.png[width="150", align="left"]
 {empty}[http://github.com/tatayu[github]]
 
 Role: Testing IC +
-Responsibilities: Managing of debt and searching feature
+Responsibilities: Managing of debt, searching and sorting feature
 
 '''
 
-=== Kexin
+=== Weng Kexin
 image::weng-kexin.png[width="150", align="left"]
 {empty}[http://github.com/weng-kexin[github]]
 
 Role: Documentation IC +
-Responsibilities: Managing of limit feature and deadlines
+Responsibilities: Managing of limit feature and submissions, deadlines
 
 '''
