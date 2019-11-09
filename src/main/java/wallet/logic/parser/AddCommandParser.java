@@ -37,7 +37,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     @Override
     public AddCommand parse(String input) throws ParseException {
         String[] arguments = input.split(" ", 2);
-        switch (arguments[0]) {
+        switch (arguments[0].toLowerCase()) {
         case "expense":
             Expense expense;
             try {

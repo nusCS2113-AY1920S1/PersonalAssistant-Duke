@@ -74,9 +74,9 @@ public class ContactList {
     public Contact deleteContact(int id) {
         int index = findIndexWithId(id);
         if (index >= 0) {
-            Contact expense = getContact(index);
+            Contact contact = getContact(index);
             contactList.remove(index);
-            return expense;
+            return contact;
         }
         return null;
     }

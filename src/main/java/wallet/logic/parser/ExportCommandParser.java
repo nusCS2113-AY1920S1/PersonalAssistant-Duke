@@ -32,6 +32,8 @@ public class ExportCommandParser implements Parser<ExportCommand> {
     @Override
     public ExportCommand parse(String input) {
         String[] arguments = input.split(" ", 2);
+
+        arguments[0] = arguments[0].toLowerCase();
         if ("loan".equals(arguments[0])) {
             List<String[]> data = parseLoan();
             return new ExportCommand(data, arguments[0]);

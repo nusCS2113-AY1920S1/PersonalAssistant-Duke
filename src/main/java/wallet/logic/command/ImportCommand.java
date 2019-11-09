@@ -22,18 +22,15 @@ public class ImportCommand extends Command {
     private static final String MESSAGE_NEW_BUDGET = " is your new budget for ";
     private static final String MESSAGE_EXCEED_BUDGET = "Your budget has exceeded!!";
     private static final String MESSAGE_REACH_BUDGET = "You have reached your budget!!";
-    private String type;
-    private LoanList loanList;
-    private ExpenseList expenseList;
+    private LoanList loanList = null;
+    private ExpenseList expenseList = null;
 
     /**
      * Constructs the ImportCommand object with LoanList object.
      *
      * @param newList list of new loan entries.
-     * @param type    command type.
      */
-    public ImportCommand(LoanList newList, String type) {
-        this.type = type;
+    public ImportCommand(LoanList newList) {
         this.loanList = newList;
     }
 
@@ -41,10 +38,8 @@ public class ImportCommand extends Command {
      * Constructs the ImportCommand object with LoanList object.
      *
      * @param newList list of new expense entries.
-     * @param type    command type.
      */
-    public ImportCommand(ExpenseList newList, String type) {
-        this.type = type;
+    public ImportCommand(ExpenseList newList) {
         this.expenseList = newList;
     }
 
@@ -59,13 +54,11 @@ public class ImportCommand extends Command {
 
         System.out.println("Importing records... \n");
 
-        if ("loan".equals(type)) {
+        if (loanList != null) {
 
             ArrayList<Loan> loanData = loanList.getLoanList();
 
             for (Loan loan : loanData) {
-
-
                 //@@author Xdecosee-reused
                 int largestId = wallet.getContactList().getLargestId(wallet.getContactList().getContactList()) + 1;
                 loan.getPerson().setId(largestId);
@@ -83,7 +76,9 @@ public class ImportCommand extends Command {
 
             }
 
-        } else if ("expense".equals(type)) {
+        }
+
+        if (expenseList != null) {
 
             //@@author Xdecosee-reused
             ArrayList<Expense> expenseData = expenseList.getExpenseList();
