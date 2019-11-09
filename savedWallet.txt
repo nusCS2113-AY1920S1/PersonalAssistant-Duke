@@ -1,3 +1,5 @@
-
-0.0
+2000.0
+in $300.0 /date 2019-11-08 /tags freeMoney
+out $30.0 /date 2019-11-08 /tags movie
+out $30.0 /date 2019-11-08 /tags shirt
 
