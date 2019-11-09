@@ -6,7 +6,6 @@ import storage.StorageManager;
 
 
 public class CommandMajorExpense extends Command {
-    protected String userInput;
     private String amount;
 
     /**
@@ -48,14 +47,9 @@ public class CommandMajorExpense extends Command {
         } else {
             try {
                 outputStr += storageManager.getMajorExpense(amount);
-
             } catch (DukeException e) {
                 this.infoCapsule.setCodeError();
                 this.infoCapsule.setOutputStr(e.getMessage());
-                return;
-            } catch (NumberFormatException e) {
-                this.infoCapsule.setCodeError();
-                this.infoCapsule.setOutputStr("Invalid cash input. Please enter integer");
                 return;
             }
             this.infoCapsule.setCodeCli();

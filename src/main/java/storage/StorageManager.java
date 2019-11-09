@@ -145,6 +145,8 @@ public class StorageManager {
     public String getMajorExpense(String amount) throws DukeException {
         try {
             return this.wallet.getReceipts().getMajorExpenses(amount).getPrintableReceipts();
+        } catch (NumberFormatException e) {
+            throw new DukeException("Invalid cash input. Please enter integer");
         } catch (Exception e) {
             throw new DukeException("Unable to get major expenses");
         }

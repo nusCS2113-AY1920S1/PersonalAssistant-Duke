@@ -45,5 +45,11 @@ public class CommandMajorExpenseTest {
         String result1 = m3.getInfoCapsule().getOutputStr();
         assertEquals("These are your receipts above/equal to $" + 100 + "\n"
                 + "1. [transport] 100.0 2019-05-02\n", result1);
+
+        CommandMajorExpense m4 = new CommandMajorExpense("majorexpense 34df5");
+        m4.execute(storageManager);
+        String result2 = m4.getInfoCapsule().getOutputStr();
+        assertEquals("Invalid cash input. Please enter integer", result2);
+
     }
 }
