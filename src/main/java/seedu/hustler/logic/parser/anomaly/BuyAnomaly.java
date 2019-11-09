@@ -3,7 +3,7 @@ package seedu.hustler.logic.parser.anomaly;
 import seedu.hustler.Hustler;
 import seedu.hustler.logic.CommandLineException;
 
-/**
+/**a
  * Detects anomalies in the buy command by the user.
  */
 public class BuyAnomaly extends DetectAnomaly {

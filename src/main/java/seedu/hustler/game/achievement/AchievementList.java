@@ -142,7 +142,8 @@ public class AchievementList {
      * @return current achievement list.
      */
     public ArrayList<Achievements> getAchievementList() {
-        return achievementList; }
+        return achievementList;
+    }
 
     /**
      * Gets the size of achievement list.
@@ -158,9 +159,9 @@ public class AchievementList {
      */
     public ArrayList<Achievements> createCopy() {
         ArrayList<Achievements> copy = new ArrayList<>();
-	for (int i = 0; i < achievementList.size(); i += 1) {
+        for (int i = 0; i < achievementList.size(); i += 1) {
             copy.add(achievementList.get(i));
-	}
-	return copy;
+        }
+        return copy;
     }
 }
