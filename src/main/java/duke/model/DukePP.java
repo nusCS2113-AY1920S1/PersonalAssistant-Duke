@@ -69,8 +69,6 @@ public class DukePP implements Model {
 
     public void addExpense(Expense expense) {
         expenseList.add(expense);
-        logger.info("Model's expense externalList length now is "
-                + externalExpenseList.size());
     }
 
     public void deleteExpense(int index) throws DukeException {
