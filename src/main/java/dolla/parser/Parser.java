@@ -8,7 +8,6 @@ import dolla.exception.DollaException;
 import dolla.ui.Ui;
 import dolla.ui.EntryUi;
 import dolla.ui.RemoveUi;
-import dolla.ui.LimitUi;
 import dolla.ui.DebtUi;
 import dolla.ui.SortUi;
 import dolla.ui.ModifyUi;
@@ -18,6 +17,9 @@ import dolla.command.ErrorCommand;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
+import static dolla.parser.LimitParser.verifyLimitType;
+import static dolla.parser.LimitParser.verifyLimitDuration;
 
 //@@author omupenguin
 /**
@@ -540,32 +542,11 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     }
 
     //@@author Weng-Kexin
-    private String verifyLimitType(String limitType) throws DollaException {
-        if (limitType.equals(LIMIT_TYPE_S) || limitType.equals(LIMIT_TYPE_B)) {
-            return limitType;
-        } else {
-            throw new DollaException(DollaException.invalidLimitType());
-        }
-    }
-
-    private String verifyLimitDuration(String limitDuration) throws DollaException {
-        if (limitDuration.equals(LIMIT_DURATION_D)
-                || limitDuration.equals(LIMIT_DURATION_W)
-                || limitDuration.equals(LIMIT_DURATION_M)) {
-            return limitDuration;
-        } else {
-            throw new DollaException(DollaException.invalidLimitDuration());
-        }
-    }
-
     protected Boolean verifySetCommand() {
         try {
             type = verifyLimitType(inputArray[1]);
             amount = stringToDouble(inputArray[2]);
             duration = verifyLimitDuration(inputArray[3]);
-        } catch (IndexOutOfBoundsException e) {
-            LimitUi.invalidSetCommandPrinter();
-            return false;
         } catch (Exception e) {
             return false;
         }

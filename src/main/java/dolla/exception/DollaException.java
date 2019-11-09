@@ -5,24 +5,18 @@ import dolla.ui.LimitUi;
 //@@author Weng-Kexin
 public class DollaException extends Exception {
 
-    private static final String INVALID_AMOUNT_MSG = "\tOOPS! The amount you have entered is invalid.\n"
-                                                     + "\tPlease key in a non-negative, "
-                                                     + "non-zero value that is lesser than 1,000,000.";
-
-    private static final String NO_BUDGET_MSG = "\tOOPS! There is no budget set for the duration you specified: ";
-
+    private static final String INVALID_AMOUNT_MSG = "\tOOPS! The amount you have entered is invalid.";
+    private static final String NO_LIMIT_MSG = "\tOOPS! There is no limit set for the duration you specified.";
     private static final String INVALID_LIMIT_TYPE_MSG = "\tOOPS! Please specify the limit type: budget/saving.";
-
-    private static final String INVALID_LIMIT_DURATION_MSG = "\tOOPS! Please specify the limit duration: "
-                                                           + "daily/weekly/monthly.";
+    private static final String INVALID_LIMIT_DURATION_MSG = "\tOOPS! Please specify the limit duration.";
 
     /**
-     * Prints a non existing budget error.
+     * Prints a non existing limit error.
      * @return Exception message
      */
-    public static String noExistingBudget(String duration) {
-        LimitUi.noExistingBudgetPrinter(NO_BUDGET_MSG, duration);
-        return NO_BUDGET_MSG + duration;
+    public static String noExistingLimit(String type) {
+        LimitUi.noExistingLimitPrinter(type);
+        return NO_LIMIT_MSG;
     }
 
     /**
@@ -30,7 +24,7 @@ public class DollaException extends Exception {
      * @return Exception message
      */
     public static String invalidAmount() {
-        LimitUi.invalidAmountPrinter(INVALID_AMOUNT_MSG);
+        LimitUi.invalidAmountPrinter();
         return INVALID_AMOUNT_MSG;
     }
 
@@ -39,7 +33,7 @@ public class DollaException extends Exception {
      * @return Exception message
      */
     public static String invalidLimitType() {
-        LimitUi.messagePrinter(INVALID_LIMIT_TYPE_MSG);
+        LimitUi.invalidLimitTypePrinter();
         return INVALID_LIMIT_TYPE_MSG;
     }
 
@@ -48,7 +42,7 @@ public class DollaException extends Exception {
      * @return Exception message
      */
     public static String invalidLimitDuration() {
-        LimitUi.messagePrinter(INVALID_LIMIT_DURATION_MSG);
+        LimitUi.invalidLimitDurationPrinter();
         return INVALID_LIMIT_DURATION_MSG;
     }
 

@@ -44,7 +44,7 @@ public abstract class Ui {
 
     protected static String line = "\t____________________________________________________________";
 
-    private static String version = "\tVersion 1.3\n";
+    private static String version = "\tVersion 1.4\n";
 
     private static String welcomeMsg =
         "\tHello from\n"
@@ -227,13 +227,17 @@ public abstract class Ui {
         System.out.println(line);
     }
 
+    private static final String INVALID_AMOUNT_MSG = "\tOOPS! The amount you have entered is invalid.";
+    private static final String VALID_AMOUNT_MSG = "\tPlease key in a non-zero positive "
+                                                   + "value that is less than 1,000,000.";
+
     /**
      * Prints a message reminding user to input a valid amount.
-     * @param msg Message to be printed to user.
      */
-    public static void invalidAmountPrinter(String msg) {
+    public static void invalidAmountPrinter() {
         System.out.println(line);
-        System.out.println(msg);
+        System.out.println(INVALID_AMOUNT_MSG);
+        System.out.println(VALID_AMOUNT_MSG);
         System.out.println(line);
     }
 }

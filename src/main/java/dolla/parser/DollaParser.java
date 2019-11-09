@@ -7,6 +7,7 @@ import dolla.command.AddEntryCommand;
 import dolla.command.AddLimitCommand;
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
+import dolla.ui.LimitUi;
 
 import java.time.LocalDate;
 
@@ -63,6 +64,7 @@ public class DollaParser extends Parser {
             if (verifySetCommand()) {
                 return new AddLimitCommand(type, amount, duration);
             } else {
+                LimitUi.invalidSetCommandPrinter();
                 return new ErrorCommand();
             }
         } else {
