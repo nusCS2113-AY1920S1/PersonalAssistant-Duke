@@ -49,7 +49,7 @@ public class PatientUtils {
                 throw new DukeUtilException("I don't know which list you want me to get from!");
             }
             try {
-                return core.ui.getIndexedList(type).get(index - 1);
+                return core.ui.getIndexedList(type).get(index);
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("I don't have a " + type + " of that index!");
             }
