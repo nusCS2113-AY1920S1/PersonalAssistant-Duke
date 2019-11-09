@@ -47,6 +47,10 @@ public class PlannerUi {
         scan.close();
     }
 
+    /**
+     * Read input.
+     * @return input if exists else null
+     */
     public String readInput() {
         if (scan.hasNextLine()) {
             return scan.nextLine().strip();
