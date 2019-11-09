@@ -24,7 +24,9 @@ public class MemoryManager {
     }
 
     public void reloadBackup(int numberOfCommandsToUndo) throws IOException {
-        Hustler.reloadBackup();
+        if (!CommandLog.isUndoUnderflow(numberOfCommandsToUndo)) {
+            Hustler.reloadBackup();
+        }
         CommandLog.restoreData(numberOfCommandsToUndo);
     }
 
