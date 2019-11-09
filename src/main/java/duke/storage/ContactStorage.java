@@ -1,5 +1,6 @@
 package duke.storage;
 
+import duke.enums.Numbers;
 import duke.task.ContactList;
 import duke.task.Contacts;
 import duke.ui.Ui;
@@ -10,18 +11,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 //@@author e0318465
 public class ContactStorage {
-    //protected String filePathForContacts = "./";
-    protected String filePathForContacts = "";
-    String storageClassPath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
-    private static final int ZERO = 0;
-    private static final int ONE = 1;
-    private static final int TWO = 2;
-    private static final int THREE = 3;
-    private static final int FOUR = 4;
+    protected static String filePathForContacts = System.getProperty("user.dir") + "/";
 
     /**
      * Creates a storage with a specified filePathForContacts.
@@ -29,20 +25,6 @@ public class ContactStorage {
      * @param filePathForContacts The location of the contacts text file.
      */
     public ContactStorage(String filePathForContacts) {
-        int numberOfSlash;
-        storageClassPath = storageClassPath.replaceAll("%20", " ");
-        String[] pathSplitter = storageClassPath.split("/");
-        numberOfSlash = pathSplitter.length - ONE;
-        for (String directory: pathSplitter) {
-            if (numberOfSlash == ZERO) {
-                break;
-            } else if (!directory.isEmpty() && !directory.equals("build") && !directory.equals("out")) {
-                this.filePathForContacts += directory + "/";
-            } else if (directory.equals("build") || directory.equals("out")) {
-                break;
-            }
-            numberOfSlash--;
-        }
         this.filePathForContacts += filePathForContacts;
     }
 
@@ -67,13 +49,13 @@ public class ContactStorage {
 
         while ((st = br.readLine()) != null) {  //name + "," + contact + "," + email + "," + office
             String[] contactDetails = st.split(",");
-            if (contactDetails.length != FOUR) {
-                ui.showErrorMsg("     Not all contact details entered, please leave a space for empty fields.");
+            if (contactDetails.length != Numbers.FOUR.value) {
+                ui.showErrorMsg("     Not all contact details entered, please key in nil for empty fields.");
             } else {
-                name = contactDetails[ZERO];
-                contact = contactDetails[ONE];
-                email = contactDetails[TWO];
-                office = contactDetails[THREE];
+                name = contactDetails[Numbers.ZERO.value];
+                contact = contactDetails[Numbers.ONE.value];
+                email = contactDetails[Numbers.TWO.value];
+                office = contactDetails[Numbers.THREE.value];
                 Contacts contactObj = new Contacts(name, contact, email, office);
                 contacts.add(contactObj);
             }
@@ -90,11 +72,37 @@ public class ContactStorage {
      */
     public void write(ContactList contacts) throws IOException {
         String fileContent = "";
-        for (int i = ZERO; i < contacts.size(); i++) {
+        for (int i = Numbers.ZERO.value; i < contacts.size(); i++) {
             fileContent += contacts.get(i).toFile() + "\n";
         }
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePathForContacts));
         writer.write(fileContent);
         writer.close();
     }
+
+    //@@author maxxyx96
+    /**
+     * Extracts the sample data from jar file and moves it to data folder in the computer.
+     *
+     * @param samplePath path of the sample data set for contacts.
+     * @throws IOException When there is an error writing to the text file.
+     */
+    public static void writeSample(String samplePath) throws IOException {
+        String fileContent = "";
+        InputStream in = ContactStorage.class.getResourceAsStream(samplePath);
+        if (in == null) {
+            in = ContactStorage.class.getClassLoader().getResourceAsStream(samplePath);
+        }
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+        String input = "";
+        while ((input = bufferedReader.readLine()) != null) {
+            fileContent += input + "\n";
+        }
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filePathForContacts));
+        writer.write(fileContent);
+        writer.close();
+        bufferedReader.close();
+        in.close();
+    } //@@author
+
 }

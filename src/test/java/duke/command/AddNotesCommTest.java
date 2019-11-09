@@ -8,13 +8,13 @@ import duke.ui.Ui;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-import java.text.ParseException;
+import duke.dukeexception.DukeException;
 
 //@@author talesrune
 class AddNotesCommTest {
 
     @Test
-    void addNotesTest() throws ParseException {
+    void addNotesTest() throws DukeException {
         TaskList items = new TaskList();
         Task task = new Todo("walk");
         items.add(task);

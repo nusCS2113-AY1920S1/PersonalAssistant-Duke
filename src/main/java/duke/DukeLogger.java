@@ -12,27 +12,27 @@ import java.util.logging.SimpleFormatter;
  * A logger which helps to log warning and severe errors.
  */
 public class DukeLogger {
-    private static final Logger logr = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     /**
      * Sets up a logger with a log file and log levels.
      */
     public void setupLogger() {
         LogManager.getLogManager().reset();
-        logr.setLevel(Level.ALL);
+        logger.setLevel(Level.ALL);
 
-        ConsoleHandler ch = new ConsoleHandler();
-        ch.setLevel(Level.SEVERE);
-        logr.addHandler(ch);
+        ConsoleHandler consoleHandler = new ConsoleHandler();
+        consoleHandler.setLevel(Level.SEVERE);
+        logger.addHandler(consoleHandler);
 
         try {
-            FileHandler fh = new FileHandler("dukeLogger.log", true);
-            fh.setLevel(Level.FINE);
-            logr.addHandler(fh);
+            FileHandler fileHandler = new FileHandler("dukeLogger.log", true);
+            fileHandler.setLevel(Level.FINE);
+            logger.addHandler(fileHandler);
             SimpleFormatter formatter = new SimpleFormatter();
-            fh.setFormatter(formatter);
+            fileHandler.setFormatter(formatter);
         } catch (java.io.IOException e) {
-            logr.log(Level.SEVERE, "Duke logger is not working.", e);
+            logger.log(Level.SEVERE, "Duke logger is not working.", e);
         }
     }
 }

@@ -1,11 +1,11 @@
 package duke.ui;
 
 import duke.Duke;
+import duke.enums.Numbers;
 import duke.task.Todo;
 import duke.task.Deadline;
 import duke.task.ContactList;
 import duke.task.FixedDuration;
-import duke.task.Repeat;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.PriorityList;
@@ -27,8 +27,7 @@ public class Ui {
     protected static final String LINE = "    ____________________________________________________________";
     protected final Scanner in;
     protected final PrintStream out;
-    private static final int ZERO = 0;
-    private static final int ONE = 1;
+
     private Duke duke;
     private ListView<Task> listT;
 
@@ -102,7 +101,7 @@ public class Ui {
         ArrayList<Pair> pair = PriorityList.sortPriority(items, priorities);
         out.println("     Here are the tasks in your list with priority shown:\n");
         out.printf("     Priority |\tTask\n");
-        for (int i = ZERO; i < items.size() || i < priorities.getSize(); i++) {
+        for (int i = Numbers.ZERO.value; i < items.size() || i < priorities.getSize(); i++) {
             out.printf("        [%d]\t  |\t%s\n", pair.get(i).getKey(), pair.get(i).getValue());
         }
     }
@@ -138,7 +137,7 @@ public class Ui {
      */
     public void showUpdate(TaskList items, int index) {
         out.println("     Nice! I've updated this task ^^:");
-        out.println("       " + (index + ONE) + "." + items.get(index).toString());
+        out.println("       " + (index + Numbers.ONE.value) + "." + items.get(index).toString());
     }
 
     /**
@@ -149,7 +148,7 @@ public class Ui {
      */
     public void showAddNotes(TaskList items, int index) {
         out.println("     Nice! Added/Updated notes of this task ^^:");
-        out.println("       " + (index + ONE) + "." + items.get(index).toString()
+        out.println("       " + (index + Numbers.ONE.value) + "." + items.get(index).toString()
                 + " | Added Notes: " + items.get(index).getNotes());
     }
 
@@ -162,7 +161,7 @@ public class Ui {
      */
     public String showAddNotesGui(TaskList items, int index) {
         String str = "     Nice! Added/Updated notes of this task ^^:\n"
-                + "       " + (index + ONE) + "." + items.get(index).toString()
+                + "       " + (index + Numbers.ONE.value) + "." + items.get(index).toString()
                 + "\n      | Added Notes: " + items.get(index).getNotes();
         return str;
     }
@@ -176,7 +175,7 @@ public class Ui {
      */
     public void showDeleteNotes(TaskList items, int index, String deletedNotes) {
         out.println("     Deleted notes of this task ^^:");
-        out.println("       " + (index + ONE) + "." + items.get(index).toString()
+        out.println("       " + (index + Numbers.ONE.value) + "." + items.get(index).toString()
                 + " | Deleted notes: " + deletedNotes);
     }
 
@@ -190,7 +189,7 @@ public class Ui {
      */
     public String showDeleteNotesGui(TaskList items, int index, String deletedNotes) {
         String str = "     Deleted notes of this task ^^:\n"
-                + "       " + (index + ONE) + "." + items.get(index).toString()
+                + "       " + (index + Numbers.ONE.value) + "." + items.get(index).toString()
                 + "\n      | Deleted notes: " + deletedNotes;
         return str;
     }
@@ -203,7 +202,7 @@ public class Ui {
      */
     public void showNotes(TaskList items, int index) {
         out.println("     Here is the task and its notes:");
-        out.println("       " + (index + ONE) + "." + items.get(index).toString()
+        out.println("       " + (index + Numbers.ONE.value) + "." + items.get(index).toString()
                 + " | Notes: " + items.get(index).getNotes());
     }
 
@@ -216,7 +215,7 @@ public class Ui {
      */
     public String showNotesGui(TaskList items, int index) {
         String str = "     Here is the task and its notes:\n"
-                + "       " + (index + ONE) + "." + items.get(index).toString()
+                + "       " + (index + Numbers.ONE.value) + "." + items.get(index).toString()
                 + "\n      | Notes: " + items.get(index).getNotes();
         return str;
     }
@@ -230,7 +229,7 @@ public class Ui {
      */
     public static String showUpdateGui(TaskList items, int index) {
         String str = "     Nice! I've updated this task ^^:\n"
-                + "       " + (index + ONE) + "." + items.get(index).toStringGui();
+                + "       " + (index + Numbers.ONE.value) + "." + items.get(index).toStringGui();
         return str;
     }
 
@@ -289,7 +288,7 @@ public class Ui {
      */
     public void showAdd(TaskList items) {
         out.println("     Got it. I've added this task:");
-        out.println("       " + items.get(items.size() - ONE).toString());
+        out.println("       " + items.get(items.size() - Numbers.ONE.value).toString());
         out.println("     Now you have " + items.size() + " tasks in the list.");
     }
 
@@ -301,7 +300,7 @@ public class Ui {
      */
     public static String showAddGui(TaskList items) {
         String str = "     Got it. I've added this task:\n       "
-                + items.get(items.size() - ONE).toStringGui() + "\n     Now you have "
+                + items.get(items.size() - Numbers.ONE.value).toStringGui() + "\n     Now you have "
                 + items.size() + " tasks in the list.\n";
         return str;
     }
@@ -352,14 +351,14 @@ public class Ui {
      */
     public void showFind(TaskList items, String keyword) {
         out.println("     Here are the matching tasks in your list:");
-        int numFound = ZERO;
-        for (int i = ZERO; i < items.size(); i++) {
+        int numFound = Numbers.ZERO.value;
+        for (int i = Numbers.ZERO.value; i < items.size(); i++) {
             if (items.get(i).getDescription().contains(keyword)) {
-                out.println("     " + (i + ONE) + "." + items.get(i).toString());
+                out.println("     " + (i + Numbers.ONE.value) + "." + items.get(i).toString());
                 numFound++;
             }
         }
-        if (numFound == ZERO) {
+        if (numFound == Numbers.ZERO.value) {
             out.println("     No matching tasks found.");
         }
     }
@@ -375,15 +374,36 @@ public class Ui {
      */
     public void showFindTasksByPriority(TaskList items, PriorityList priorities, int targetPriority) {
         out.println("     Here are the matching tasks in your list:");
-        int numFound = ZERO;
-        for (int i = ZERO; i < items.size(); i++) {
+        int numFound = Numbers.ZERO.value;
+        for (int i = Numbers.ZERO.value; i < items.size(); i++) {
             if (priorities.getPriority(i + 1) == targetPriority) {
-                out.println("     " + (i + ONE) + "." + items.get(i).toString());
+                out.println("     " + (i + Numbers.ONE.value) + "." + items.get(i).toString());
                 numFound++;
             }
         }
-        if (numFound == ZERO) {
+        if (numFound == Numbers.ZERO.value) {
             out.println("     No matching tasks found.");
+        }
+    }
+
+    //@@author Dou-Maokang
+    /**
+     * Outputs the tasks with the target date.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param targetDate The target date to search.
+     */
+    public void showFindTasksByDate(TaskList items, String targetDate) {
+        out.println("     Here are the tasks on " + targetDate + " :");
+        int numFound = Numbers.ZERO.value;
+        for (int i = Numbers.ZERO.value; i < items.size(); i++) {
+            if (items.get(i).toString().contains(targetDate)) {
+                out.println("     " + (i + Numbers.ONE.value) + "." + items.get(i).toString());
+                numFound++;
+            }
+        }
+        if (numFound == Numbers.ZERO.value) {
+            out.println("     There're no tasks on " + targetDate + ".");
         }
     }
 
@@ -397,14 +417,15 @@ public class Ui {
      */
     public static String showFindGui(TaskList items, String keyword) {
         String str = "     Here are the matching tasks in your list:\n";
-        int numFound = ZERO;
-        for (int i = ZERO; i < items.size(); i++) {
+        int numFound = Numbers.ZERO.value;
+
+        for (int i = Numbers.ZERO.value; i < items.size(); i++) {
             if (items.get(i).getDescription().contains(keyword)) {
-                str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
+                str += "     " + (i + Numbers.ONE.value) + "." + items.get(i).toStringGui() + "\n";
                 numFound++;
             }
         }
-        if (numFound == ZERO) {
+        if (numFound == Numbers.ZERO.value) {
             str += "     No matching tasks found.\n";
         }
         return str;
@@ -418,23 +439,20 @@ public class Ui {
      */
     public void showFilter(TaskList items, String taskType) {
         out.println("     Here are the filtered tasks in your list:");
-        int numFound = ZERO;
-        for (int i = ZERO; i < items.size(); i++) {
+        int numFound = Numbers.ZERO.value;
+        for (int i = Numbers.ZERO.value; i < items.size(); i++) {
             if (taskType.equals("todo") && items.get(i) instanceof Todo) {
-                out.println("     " + (i + ONE) + "." + items.get(i).toString());
+                out.println("     " + (i + Numbers.ONE.value) + "." + items.get(i).toString());
                 numFound++;
             } else if (taskType.equals("deadline") && items.get(i) instanceof Deadline) {
-                out.println("     " + (i + ONE) + "." + items.get(i).toString());
-                numFound++;
-            } else if (taskType.equals("repeat") && items.get(i) instanceof Repeat) {
-                out.println("     " + (i + ONE) + "." + items.get(i).toString());
+                out.println("     " + (i + Numbers.ONE.value) + "." + items.get(i).toString());
                 numFound++;
             } else if (taskType.equals("fixedduration") && items.get(i) instanceof FixedDuration) {
-                out.println("     " + (i + ONE) + "." + items.get(i).toString());
+                out.println("     " + (i + Numbers.ONE.value) + "." + items.get(i).toString());
                 numFound++;
             }
         }
-        if (numFound == ZERO) {
+        if (numFound == Numbers.ZERO.value) {
             out.println("     No matching tasks found.");
         }
     }
@@ -448,23 +466,20 @@ public class Ui {
      */
     public static String showFilterGui(TaskList items, String taskType) {
         String str = "     Here are the filtered tasks in your list:\n";
-        int numFound = ZERO;
-        for (int i = ZERO; i < items.size(); i++) {
+        int numFound = Numbers.ZERO.value;
+        for (int i = Numbers.ZERO.value; i < items.size(); i++) {
             if (taskType.equals("todo") && items.get(i) instanceof Todo) {
-                str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
+                str += "     " + (i + Numbers.ONE.value) + "." + items.get(i).toStringGui() + "\n";
                 numFound++;
             } else if (taskType.equals("deadline") && items.get(i) instanceof Deadline) {
-                str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
-                numFound++;
-            } else if (taskType.equals("repeat") && items.get(i) instanceof Repeat) {
-                str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
+                str += "     " + (i + Numbers.ONE.value) + "." + items.get(i).toStringGui() + "\n";
                 numFound++;
             } else if (taskType.equals("fixedduration") && items.get(i) instanceof FixedDuration) {
-                str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
+                str += "     " + (i + Numbers.ONE.value) + "." + items.get(i).toStringGui() + "\n";
                 numFound++;
             }
         }
-        if (numFound == ZERO) {
+        if (numFound == Numbers.ZERO.value) {
             str += "     No matching tasks found." + "\n";
         }
         return str;
@@ -474,7 +489,7 @@ public class Ui {
      * Outputs the error when loading the file to the user.
      */
     public void showLoadingError() {
-        out.println("File not found, creating an empty list");
+        out.println("File not found, creating a sample list");
     }
 
     /**
@@ -522,7 +537,7 @@ public class Ui {
      * @param priority The index of the priority.
      */
     public void showSetPriority(TaskList taskList, int taskNum, int priority) {
-        out.println("     Updated the priority of \n\t\t" + taskList.get(taskNum - ONE));
+        out.println("     Updated the priority of \n\t\t" + taskList.get(taskNum - Numbers.ONE.value));
         out.println("     Current priority: " + priority);
     }
 
@@ -534,7 +549,7 @@ public class Ui {
      */
     public void showContactList(ContactList contactList) {
         out.println("     Here are all your contacts:");
-        out.print(contactList.getContactList());
+        out.print(contactList.getFullContactList());
     }
 
     /**
@@ -546,7 +561,7 @@ public class Ui {
     public static String showContactListGui(ContactList contactList) {
         String str = "";
         str += "Here are all your contacts:\n";
-        str += contactList.getContactList();
+        str += contactList.getFullContactList();
         return str;
     }
 
@@ -558,16 +573,25 @@ public class Ui {
     }
 
     /**
+     * Outputs an alert when a duplicated inout is detected (GUI).
+     *
+     * @return String to be outputted to the user.
+     */
+    public String showDuplicateMsgGui() {
+        return "     The same task is already in the list!";
+    }
+
+    /**
      * Outputs the contact details that are most recently added.
      *
      * @param contactList The list of contacts.
      */
     public void showAddedContact(ContactList contactList) {
-        if (contactList.size() == ZERO) {
+        if (contactList.size() == Numbers.ZERO.value) {
             out.println("     You have no contacts!");
         } else {
             out.println("     Got it, now you have " + contactList.size() + " contacts. Contact added.");
-            out.println(contactList.get(contactList.size() - ONE));
+            out.println(contactList.get(contactList.size() - Numbers.ONE.value));
         }
     }
 
@@ -579,11 +603,11 @@ public class Ui {
      */
     public static String showAddedContactGui(ContactList contactList) {
         String str = "";
-        if (contactList.size() == ZERO) {
+        if (contactList.size() == Numbers.ZERO.value) {
             str += "     You have no contacts!";
         } else {
             str += "\n     Got it, now you have " + contactList.size() + " contacts. Contact added:\n";
-            str += contactList.get(contactList.size() - ONE);
+            str += contactList.get(contactList.size() - Numbers.ONE.value);
         }
         return str;
     }
@@ -621,8 +645,8 @@ public class Ui {
      */
     public void showFoundContacts(ContactList contactList, String keyword) {
         out.println("     Here are the matching contacts in your list:");
-        int numFound = ZERO;
-        for (int i = ZERO; i < contactList.size(); i++) {
+        int numFound = Numbers.ZERO.value;
+        for (int i = Numbers.ZERO.value; i < contactList.size(); i++) {
             String details = contactList.getOnlyDetails(i);
             details = details.replaceAll(",", " ");
             details = details.toLowerCase();
@@ -631,7 +655,7 @@ public class Ui {
                 numFound++;
             }
         }
-        if (numFound == ZERO) {
+        if (numFound == Numbers.ZERO.value) {
             out.println("     No matching tasks found.");
         }
     }
@@ -646,8 +670,8 @@ public class Ui {
     public static String showFoundContactsGui(ContactList contactList, String keyword) {
         String str = "";
         str += "     Here are the matching contacts in your list:\n";
-        int numFound = ZERO;
-        for (int i = ZERO; i < contactList.size(); i++) {
+        int numFound = Numbers.ZERO.value;
+        for (int i = Numbers.ZERO.value; i < contactList.size(); i++) {
             String details = contactList.getOnlyDetails(i);
             String replacedComma = details.replaceAll(",", " ");
             String stringToFind = replacedComma.toLowerCase();
@@ -656,7 +680,7 @@ public class Ui {
                 numFound++;
             }
         }
-        if (numFound == ZERO) {
+        if (numFound == Numbers.ZERO.value) {
             str += "     No matching tasks found.";
         }
         return str;
@@ -756,8 +780,30 @@ public class Ui {
      * @return String of the message to be shown.
      */
     public String showBudgetExceededLimitMessageGui() {
-        return "     The limits of budget has been exceeded (> 999,999 or < -999,999),"
+        return "     The limits of budget has been exceeded! \n"
+                + "     Budget limits: Between -$999,999 and $999,999."
                 + "\n     No action has been done. ";
+    }
+
+    /**
+     * Shows the user that the budget has been undone and update the user
+     * his current budget.
+     *
+     * @param undoneBudget the budget after undone
+     * @return String of the message to be shown
+     */
+    public String showUndoneBudgetGui(String undoneBudget) {
+        return "     The previous entry has been undone, \n"
+                + "     your new budget is $ " + undoneBudget;
+    }
+
+    /**
+     * Shows the user that undo can't be done anymore on budget.
+     *
+     * @return String of the message to be shown
+     */
+    public String showBudgetUndoErrorGui() {
+        return "     You have no existing budgets to undo!";
     }
     //@@author
 }

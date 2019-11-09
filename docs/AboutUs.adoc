@@ -10,7 +10,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Ting Wei
 image::talesrune.png[width="150", align="left"]
-{empty}[https://github.com/talesrune[github]] [https://github.com/talesrune[portfolio]]
+{empty}[https://github.com/talesrune[github]] [https://github.com/AY1920S1-CS2113-T13-4/main/blob/master/team/talesrune.adoc[portfolio]]
 
 Role: Project Coder
 

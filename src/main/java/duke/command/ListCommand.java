@@ -10,16 +10,6 @@ import duke.ui.Ui;
  */
 public class ListCommand extends Command {
 
-    /**
-     * Executes a command that gathers all tasks from task list and outputs the result.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user the list of tasks stored in task list.
-     */
-    @Override
-    public void execute(TaskList items, Ui ui) {
-        ui.showTaskList(items);
-    }
 
     /**
      * Executes a command that gathers all tasks from task list and outputs the result (GUI).

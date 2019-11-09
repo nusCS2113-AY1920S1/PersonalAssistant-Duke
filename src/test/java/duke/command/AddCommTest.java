@@ -8,28 +8,28 @@ import duke.ui.Ui;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
-import java.text.ParseException;
+import duke.dukeexception.DukeException;
 
 //@@author talesrune
 class AddCommTest {
 
     @Test
-    void addTest() throws ParseException {
+    void addTest() throws DukeException {
         Ui ui = new Ui();
         TaskList items = new TaskList();
         Task task = new Todo("sleep");
         Command cmd = new AddCommand(task);
-        cmd.execute(items, ui);
+        cmd.executeGui(items, ui);
         assertEquals(task, items.get(items.size() - 1));
 
         task = new Deadline("sleep", "05/05/2015 1805");
         cmd = new AddCommand(task);
-        cmd.execute(items, ui);
+        cmd.executeGui(items, ui);
         assertEquals(task, items.get(items.size() - 1));
 
         task = new Deadline("sleep", "05/05/2015 1800");
         cmd = new AddCommand(task);
-        cmd.execute(items, ui);
+        cmd.executeGui(items, ui);
         assertEquals(task, items.get(items.size() - 1));
     }
 }

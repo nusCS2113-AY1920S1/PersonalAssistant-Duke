@@ -57,6 +57,18 @@ public class DoAfter extends Task {
  * Code snippet that calls DoAfter from Parser
  */
 /*
+                        if (items.get(tasknum).toString().contains("[A]")) {
+                            String tempString = items.get(tasknum).toString();
+                            tempString = tempString.split(": ", Numbers.TWO.value)[Numbers.ONE.value];
+                            tempString = tempString.split("\\)")[Numbers.ZERO.value];
+
+                            if (!items.isTaskDone(tempString)) {
+                                throw new DukeException("     (>_<) OOPS!! Task requirements has yet to be completed!"
+                                        + " please complete task [" + tempString + "] before marking this as done!");
+                            }
+                        }
+*/
+/*
 else if (arr.length > ZERO && (arr[ZERO].equals("doafter") || arr[ZERO].equals("da"))){
     //doafter <task> /after <pre-requisite task>
     String afterTaskDesc="";

@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.dukeexception.DukeException;
 import duke.storage.Storage;
 import duke.task.BudgetList;
 import duke.task.TaskList;
@@ -28,20 +27,6 @@ public class AddBudgetCommand extends Command {
         this.budgetList = budgetList;
         this.amount = amount;
         this.remark = remark;
-    }
-
-
-    /**
-     * Executes the command to add a certain amount to the existing budget.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui    To tell the user that it is executed successfully.
-     */
-    @Override
-    public void execute(TaskList items, Ui ui) {
-        ui.showAddBudget(amount, budgetList.getBudget());
-        budgetList.addToBudget(Float.toString(amount), remark);
-        ui.showBudget(budgetList.getBudget());
     }
 
     /**

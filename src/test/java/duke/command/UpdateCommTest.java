@@ -5,17 +5,18 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
 import duke.ui.Ui;
+import org.junit.jupiter.api.Test;
+
+import duke.dukeexception.DukeException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-
-import org.junit.jupiter.api.Test;
-import java.text.ParseException;
 
 //@@author talesrune
 class UpdateCommTest {
 
     @Test
-    void updateTest() throws ParseException {
+    void updateTest() throws DukeException {
         TaskList items = new TaskList();
         Task task = new Todo("walk");
         items.add(task);
@@ -70,7 +71,7 @@ class UpdateCommTest {
     }
 
     @Test
-    public void updateTest_exceptionThrown() throws ParseException {
+    public void updateTest_exceptionThrown() throws DukeException {
         TaskList items = new TaskList();
         Task task = new Todo("walk");
         items.add(task);

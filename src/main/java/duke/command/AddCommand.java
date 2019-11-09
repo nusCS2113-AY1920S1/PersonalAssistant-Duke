@@ -22,18 +22,6 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Executes a command that adds the task into task list and outputs the result.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user that it is added successfully.
-     */
-    @Override
-    public void execute(TaskList items, Ui ui) {
-        items.add(task);
-        ui.showAdd(items);
-    }
-
-    /**
      * Executes a command that adds the task into task list and outputs the result (GUI).
      *
      * @param items The task list that contains a list of tasks.
