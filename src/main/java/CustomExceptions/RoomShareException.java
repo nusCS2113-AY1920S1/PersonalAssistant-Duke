@@ -33,6 +33,9 @@ public class RoomShareException extends Exception {
     public static final String EMPTY_INDEX = "\tPlease enter a valid index within the range of the list! Eg. restore 1\n";
     private static final String INVALID_LEAVE_DATE_MESSAGE = "\tPlease check your dates for your leave!\n";
     private static final String NO_SUCH_SUBTASK = "\tSubtask does not exist!\n";
+    public static final String ASSIGNEE_SET_TO_EVERYONE = "\tThere might have been an error when setting the assignee\n" +
+            "\tIt could be an error in your entry of the assignee field\n" +
+            "\tHowever, if you had intended to set the assignee to 'everyone', then ignore this message\n";
 
     private String message;
     /**
@@ -145,6 +148,10 @@ public class RoomShareException extends Exception {
 
         case noSubtask:
             message = NO_SUCH_SUBTASK;
+            break;
+
+        case assigneeSetToEveyone:
+            message = ASSIGNEE_SET_TO_EVERYONE;
             break;
 
         default:
