@@ -6,9 +6,9 @@ import java.util.ArrayList;
  * structure for Playlist object.
  */
 public class Playlist {
-    private String playlistName;
-    private String description;
-    private ArrayList<PlaylistMovieInfoObject> movies;
+    private final String playlistName;
+    private final String description;
+    private final ArrayList<PlaylistMovieInfoObject> movies;
 
     /**
      * constructor for Playlist.
@@ -34,53 +34,52 @@ public class Playlist {
         return playlistName;
     }
 
-    public void setPlaylistName(String playlistName) {
-        this.playlistName = playlistName;
+    public Playlist setPlaylistName(String playlistName) {
+        return new Playlist(playlistName, this.getDescription(), this.getMovies());
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public Playlist setDescription(String description) {
+        return new Playlist(this.getPlaylistName(), description, this.getMovies());
+    }
+
+    public Playlist setBoth(String name, String description) {
+        return new Playlist(name, description, this.getMovies());
     }
 
     public ArrayList<PlaylistMovieInfoObject> getMovies() {
         return movies;
     }
 
-    public void setMovies(ArrayList<PlaylistMovieInfoObject> movies) {
-        this.movies = movies;
+    public Playlist setMovies(ArrayList<PlaylistMovieInfoObject> movies) {
+        return new Playlist(this.getPlaylistName(), this.getDescription(), movies);
     }
 
     /**
      * to add movies to playlists.
      */
-    public void add(ArrayList<PlaylistMovieInfoObject> movies) {
-        this.movies.addAll(movies);
+    public Playlist add(ArrayList<PlaylistMovieInfoObject> movies) {
+        ArrayList<PlaylistMovieInfoObject> newMovies = this.getMovies();
+        newMovies.addAll(movies);
+        return new Playlist(this.getPlaylistName(), this.getDescription(), newMovies);
     }
 
     /**
      * to remove movies from playlist.
      */
-    public void remove(ArrayList<PlaylistMovieInfoObject> movies) {
-        for (PlaylistMovieInfoObject log : this.movies) {
-            System.out.println(log.getTitle() + "hehe");
-        }
-        for (PlaylistMovieInfoObject log : movies) {
-            System.out.println(log.getTitle() + "ew");
-        }
-        this.movies.removeAll(movies);
-        for (PlaylistMovieInfoObject log : this.movies) {
-            System.out.println(log.getTitle());
-        }
+    public Playlist remove(ArrayList<PlaylistMovieInfoObject> movies) {
+        ArrayList<PlaylistMovieInfoObject> newMovies = this.getMovies();
+        newMovies.removeAll(movies);
+        return new Playlist(this.getPlaylistName(), this.getDescription(), newMovies);
     }
 
     /**
      * to clear movies in playlist.
      */
-    public void clear() {
-        movies = new ArrayList<>();
+    public Playlist clear() {
+        return new Playlist(this.getPlaylistName(), this.getDescription(), new ArrayList<>());
     }
 }
