@@ -30,15 +30,14 @@ public class HomeOpenSpec extends HomeObjSpec {
             Impression primaryDiagnosis = patient.getPrimaryDiagnosis();
 
             if (primaryDiagnosis != null) {
-                core.uiContext.open(patient);
                 core.uiContext.open(primaryDiagnosis);
-                core.updateUi("Accessing primary diagnosis of " + patient.getName());
+                core.ui.showMessage("Accessing primary diagnosis of " + patient.getName());
             } else {
                 throw new DukeException(patient.getName() + " has no primary diagnosis at the moment!");
             }
         } else {
             core.uiContext.open(patient);
-            core.updateUi("Accessing details of " + patient.getName());
+            core.ui.showMessage("Accessing details of " + patient.getName());
         }
     }
 }

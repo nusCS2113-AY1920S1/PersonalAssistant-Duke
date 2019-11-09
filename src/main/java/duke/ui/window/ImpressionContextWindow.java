@@ -22,7 +22,7 @@ public class ImpressionContextWindow extends ContextWindow {
     private static final String FXML = "ImpressionContextWindow.fxml";
 
     @FXML
-    private Label nameLabel;
+    private Label impressionNameLabel;
     @FXML
     private Label patientNameLabel;
     @FXML
@@ -32,7 +32,7 @@ public class ImpressionContextWindow extends ContextWindow {
     @FXML
     private Label followUpLabel;
     @FXML
-    private Label descriptionLabel;
+    private Label impressionDescriptionLabel;
     @FXML
     private Label allergiesLabel;
     @FXML
@@ -87,10 +87,10 @@ public class ImpressionContextWindow extends ContextWindow {
      * {@inheritDoc}
      */
     public void updateUi() throws DukeFatalException {
-        nameLabel.setText(String.valueOf(impression.getName()));
+        impressionNameLabel.setText(String.valueOf(impression.getName()));
         patientNameLabel.setText(String.valueOf(patient.getName()));
         patientBedLabel.setText(String.valueOf(patient.getBedNo()));
-        descriptionLabel.setText(String.valueOf(impression.getDescription()));
+        impressionDescriptionLabel.setText(String.valueOf(impression.getDescription()));
 
         StringBuilder allergies = new StringBuilder();
         if (patient.getAllergies() != null) {

@@ -386,13 +386,21 @@ public class Patient extends DukeObject {
         this.history = history;
     }
 
+    /**
+     * Delete primary diagnosis of patient. If there exists only 1 impression for the patient, that impression
+     * shall become the primary diagnosis of the patient.
+     *
+     * @throws DukeException If the impressio
+     */
     public void deletePriDiagnose() throws DukeException {
-        this.impressionList.remove(primaryDiagnosis);
+        if (this.impressionList.remove(primaryDiagnosis)) {
+            throw new DukeException("Patient has no primary diagnosis at the moment.");
+        }
+
+        this.primaryDiagnosis = null;
 
         if (impressionList.size() == 1) {
             this.primaryDiagnosis = impressionList.get(0);
-        } else {
-            this.primaryDiagnosis = null;
         }
     }
 

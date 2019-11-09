@@ -8,6 +8,7 @@ import duke.data.DukeData;
 import duke.data.DukeObject;
 import duke.data.Evidence;
 import duke.data.Impression;
+import duke.data.Patient;
 import duke.data.SearchResults;
 import duke.data.Treatment;
 import duke.exception.DukeException;
@@ -35,7 +36,8 @@ public class ImpressionMoveSpec extends ObjSpec {
         // TODO: query user for correct impression if no impression is given
         Impression impression = ImpressionUtils.getImpression(core);
         String targetImpressionName = cmd.getSwitchVal("impression");
-        SearchResults results = impression.getParent().findImpressionsByName(targetImpressionName);
+        Patient patient = impression.getParent();
+        SearchResults results = patient.findImpressionsByName(targetImpressionName);
         processResults(core, results);
     }
 

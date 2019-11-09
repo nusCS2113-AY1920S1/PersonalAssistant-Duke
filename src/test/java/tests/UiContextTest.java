@@ -124,6 +124,8 @@ public class UiContextTest {
                 assertEquals(uiContext.getContext(), Context.IMPRESSION);
                 assertEquals(uiContext.getObject(), impression);
                 break;
+            default:
+                break;
             }
         });
 

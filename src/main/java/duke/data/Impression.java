@@ -28,15 +28,22 @@ public class Impression extends DukeObject {
      * - treatments: the list of treatments determined by a doctor to deal with the impression
      * - patient: the Patient it is tagged to
      *
-     * @param name        the name of the impression
-     * @param description the description of the impression
+     * @param name        the name of the impression.
+     * @param description the description of the impression.
+     * @param patient     the patient who has the impression.
      */
     public Impression(String name, String description, Patient patient) {
         super(name, patient);
-        parent = patient;
+
+        this.parent = patient;
         this.description = description;
         this.evidences = new ArrayList<>();
         this.treatments = new ArrayList<>();
+    }
+
+    @Override
+    public void setParent(DukeObject obj) {
+        this.parent = (Patient) obj;
     }
 
     @Override
@@ -289,7 +296,6 @@ public class Impression extends DukeObject {
 
     @Override
     public String toString() {
-        String title = "Impression details\n";
         StringBuilder infoStrBuilder = new StringBuilder();
         infoStrBuilder.append("Description: ").append(this.description).append("\n");
         for (Evidence evidence: this.evidences) {
@@ -298,6 +304,8 @@ public class Impression extends DukeObject {
         for (Treatment treatment : this.treatments) {
             infoStrBuilder.append(treatment.toString());
         }
+
+        String title = "Impression details\n";
         return title + super.toString() + infoStrBuilder.toString();
     }
 
