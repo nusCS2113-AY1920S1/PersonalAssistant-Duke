@@ -22,6 +22,7 @@ public class ModuleTask extends TaskWithMultipleWeeklyPeriod {
         this.moduleInfoDetailed = moduleInfoDetailed;
     }
 
+    //@@author e0313687
     /**
      * Constructor for ModuleTask when users wants to input the time.
      * @param code The Module Code
@@ -45,6 +46,7 @@ public class ModuleTask extends TaskWithMultipleWeeklyPeriod {
         }
     }
 
+    //@@author namiwa
     public String getModuleCode() {
         return moduleInfoDetailed.getModuleCode();
     }
@@ -73,6 +75,7 @@ public class ModuleTask extends TaskWithMultipleWeeklyPeriod {
         moduleInfoDetailed.setGrade(letterGrade);
     }
 
+    //@@author e0313687
     /**
      * Returns the grades as a number for sorting.
      * @return the number allocated for the grade.
