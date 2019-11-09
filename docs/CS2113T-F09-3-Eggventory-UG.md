@@ -107,7 +107,7 @@ This changes the name of the selected stock type.
   
 Format: `edit stocktype <StockType> <NewStockType>`
 
-#### 3.2.4 Listing Stock Types: `list stocktype`  
+#### 3.2.4 Listing All Stock Types: `list stocktype all`  
   
 This lists out all Stock Types that are present in the inventory.  
   
@@ -180,13 +180,13 @@ eg. `edit stock R500 quantity 1000` : Changes the quantity of the stock R500 to 
 This lists out all Stocks that are present in the inventory.  
 Format: `list stock`
   
-#### 3.3.5 Listing Stock of a particular StockType: `list <StockType>`  
+#### 3.3.5 Listing Stock of a particular StockType: `list stocktype <StockType>`  
     
 This lists out all Stock under a particular Stock Type  
   
-Format: `list <Stock Type>`  
+Format: `list stocktype <Stock Type>`  
   
-eg. `list Resistor`  
+eg. `list stocktype Resistor`  
   
 ---  
 ### 3.4 Managing your list of People  
@@ -385,17 +385,10 @@ This directly marks a quantity of a Person’s Loan as lost. The items are remov
   
 Format: `lost <MatricNo> <StockCode>`
   
-### 3.9 Searching the inventory  
-It is possible to search the inventory for a Stock or StockType with the find command. It will display all Stocks or StockType that partially or fully matches the input query.  
-  
-#### 3.9.1 Finding a Stock: `find stock`  
-    
-This finds all stocks that match the query.  
-  Format: `find stock <Query>`    
-#### 3.9.2 Finding a StockType: `find stocktype`  
-    
-This finds all StockTypes that matches the query.  
-Format: `find stocktype <Query>`  
+### 3.9 Searching the inventory: `find description` 
+It is possible to search the inventory for a Stock based its description with the find command. All Stocks with description containing the query will be displayed.  
+
+Format: `find description <Query>`  
 
 ---  
 ### 3.10 Using Undo and Redo commands: **[coming in v2.0]**
@@ -495,8 +488,4 @@ Matric No. | Matriculation number of student to be added
 Stock | A physical asset to be tracked by Eggventory  
 Stock Code | A unique string of characters to identify a stock  
 Stock Type | A category of stock
-
-
-[3.1-viewing-help-help]: #3.1-viewing-help:-help
-
-[3. Features and command usage  ]: #3.-features-and-command-usage
+Query | The word or phrase to search for
