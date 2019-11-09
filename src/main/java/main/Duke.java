@@ -18,6 +18,7 @@ import task.TaskList;
 import ui.UI;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.*;
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class Duke extends Application {
      * @param filePath The file path of the save file.
      */
     //Method to initialize all important classes and data on startup
-    public Duke(String filePath, String another_filePath) {
+    public Duke(String filePath, String another_filePath) throws IOException {
 
         ui = new UI(); //initialize ui class that handles input from user
         this.storage = new Storage(filePath, another_filePath);
@@ -214,7 +215,7 @@ public class Duke extends Application {
      *
      * @param args A duke program.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         new Duke("save.txt", "savedegree.txt").run();
         System.exit(0);

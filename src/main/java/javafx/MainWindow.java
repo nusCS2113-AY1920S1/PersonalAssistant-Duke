@@ -536,6 +536,18 @@ public class MainWindow extends AnchorPane {
                 + "Examples: find application | find Sleep";
         this.dataHelp.add(new HelpFX("find <String>", description));
 
+        //snooze Command.
+        description = "Changes the deadline of the task corresponding to the input ID.\n"
+                + "Format of deadline is DD-MM-YYYY HHmm. \n\n"
+                + "Examples: snooze 1 /to 01-01-1970 2030 | snooze 02 /to 11-11-2019 2030";
+        this.dataHelp.add(new HelpFX("snooze <ID> /to \n<DD-MM-YYYY HHmm>", description));
+
+        //schedule Command.
+        description = "Retrieves and displays all tasks happening on the given date.\n"
+                + "Format of date is DD-MM-YYYY. \n\n"
+                + "Examples: schedule 01-01-1970 | schedule 18-05-2019";
+        this.dataHelp.add(new HelpFX("schedule <DD-MM-YYYY>", description));
+
         helpView.sort();
     }
 }

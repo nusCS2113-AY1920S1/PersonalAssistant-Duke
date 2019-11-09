@@ -16,9 +16,7 @@ import java.util.Scanner;
 public class Parser {
     public static String deadline = "\\s*/by\\s*";
     public static String event = "\\s*/at\\s*";
-    public static String recurring = "\\s*/every\\s*";
     public static String after = "\\s*/after\\s*";
-    public static String within = "\\s*/between\\s*";
     public static String priority = "\\s*/priority\\s*";
     public static String taskSeparator = "\\s*\\|\\s*";
     public static String dateSeparator = "\\s*\\&\\s*";
