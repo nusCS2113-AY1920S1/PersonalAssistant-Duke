@@ -15,6 +15,7 @@ import cube.storage.StorageManager;
 import cube.logic.command.util.CommandResult;
 import cube.logic.command.util.CommandUtil;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -84,6 +85,7 @@ public class ProfitCommand extends Command {
     }
 
     /**
+     * The constructor for generating the total profits and revenue using food name or food type.
      *
      * @param date_i The start date of the period where generating profits and revenue is concerned.
      * @param date_f The end date of the period where generating profits and revenue is concerned.
@@ -108,12 +110,10 @@ public class ProfitCommand extends Command {
     @Override
     public CommandResult execute(ModelManager model, StorageManager storage) throws CommandException {
         FoodList list = ModelManager.getFoodList();
-        Food toGenerate1;
-
         SalesHistory saleSet = ModelManager.getSalesHistory();
-        Sale toGenerate;
         double toGenerateProfit = 0;
         double toGenerateRevenue = 0;
+        String tempFoodName;
         switch (param) {
             case ALL:
                 Iterator<Sale> it = saleSet.iterator();
@@ -130,23 +130,66 @@ public class ProfitCommand extends Command {
                 return new CommandResult(String.format(MESSAGE_SUCCESS_ALL, toGenerateProfit, toGenerateRevenue, list.size()));
             case INDEX:
                 CommandUtil.requireValidIndex(list, profitIndex);
-                toGenerate1 = list.get(profitIndex);
-                return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toGenerate1.getFoodRevenue(), list.size()));
+                Food foodToGenerate = list.get(profitIndex);
+                tempFoodName = foodToGenerate.getName(); //possible to do this because we disallow duplicate food names
+                Iterator<Sale> it = saleSet.iterator();
+                while (it.hasNext()) {
+                    Sale tempSale = it.next();
+                    Date tempDate = tempSale.getDate();
+                    String tempName = tempSale.getName();
+                    if (tempDate.compareTo(date_i) >= 0 && tempDate.compareTo(date_f) <= 0 && tempFoodName.equals(tempName)) {
+                        double tempRevenue = tempSale.getRevenue();
+                        double tempProfit = tempSale.getProfit();
+                        toGenerateRevenue += tempRevenue;
+                        toGenerateProfit += tempProfit;
+                    }
+                }
+                return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toGenerateProfit, toGenerateRevenue, list.size()));
             case NAME:
                 CommandUtil.requireValidName(list, profitDescription);
-                toGenerate1 = list.get(profitDescription);
-                return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toGenerate1.getFoodRevenue(), list.size()));
+                tempFoodName = profitDescription; //for consistency
+                Iterator<Sale> it = saleSet.iterator();
+                while (it.hasNext()) {
+                    Sale tempSale = it.next();
+                    Date tempDate = tempSale.getDate();
+                    String tempName = tempSale.getName();
+                    if (tempDate.compareTo(date_i) >= 0 && tempDate.compareTo(date_f) <= 0 && tempFoodName.equals(tempName)) {
+                        double tempRevenue = tempSale.getRevenue();
+                        double tempProfit = tempSale.getProfit();
+                        toGenerateRevenue += tempRevenue;
+                        toGenerateProfit += tempProfit;
+                    }
+                }
+                return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toGenerateProfit, toGenerateRevenue, list.size()));
             case TYPE:
                 CommandUtil.requireValidType(list, profitDescription);
-                double totalRevenue = 0;
+                ArrayList<String> tempFoodNameCollection = new ArrayList<String>();
                 int count = 0, listSize = list.size();
                 for (int i = 0; i < listSize; ++i) {
                     if ((list.get(i).getType() != null) && (list.get(i).getType().equals(profitDescription))) {
-                        totalRevenue = totalRevenue + list.get(i).getFoodRevenue();
+                        tempFoodNameCollection.add(list.get(i).getName());
                         ++count;
                     }
                 }
-                return new CommandResult(String.format(MESSAGE_SUCCESS_MULTIPLE, totalRevenue, count, listSize));
+
+                Iterator<Sale> it = saleSet.iterator();
+                while (it.hasNext()) {
+                    Sale tempSale = it.next();
+                    Date tempDate = tempSale.getDate();
+                    String tempName = tempSale.getName();
+                    if (tempDate.compareTo(date_i) >= 0 && tempDate.compareTo(date_f) <= 0) {
+                        for (int i = 0; i < count; ++i) {
+                            if (tempName.equals(tempFoodNameCollection.get(i))) {
+                                double tempRevenue = tempSale.getRevenue();
+                                double tempProfit = tempSale.getProfit();
+                                toGenerateRevenue += tempRevenue;
+                                toGenerateProfit += tempProfit;
+                                break;
+                            }
+                        }
+                    }
+                }
+                return new CommandResult(String.format(MESSAGE_SUCCESS_MULTIPLE, toGenerateProfit, toGenerateRevenue, count, listSize));
         }
         return null;
     }

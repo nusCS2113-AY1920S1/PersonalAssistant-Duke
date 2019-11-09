@@ -68,7 +68,6 @@ public class Cube {
             try {
                 String fullCommand = ui.readCommand();
                 logger.info("Command Entered : " + fullCommand);
-
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
                 isExit = c.isExit();
