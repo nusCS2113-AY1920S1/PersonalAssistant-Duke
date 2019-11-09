@@ -655,7 +655,7 @@ public class Command {
                     if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
                         String deletedGoal = events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getGoal();
                         events.getEvent(eventIndex).removeGoal(goalIndex - 1);
-                        ui.goalDeleted(deletedGoal);
+                        ui.printGoalDeleted(deletedGoal);
                     } else {
                         ui.printNoSuchGoal();
                     }
@@ -665,7 +665,7 @@ public class Command {
                     if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
                         Goal newGoal = new Goal(splitGoal[1]);
                         events.getEvent(eventIndex).editGoalList(newGoal, goalIndex - 1);
-                        ui.goalUpdated(events, eventIndex, goalIndex - 1);
+                        ui.printGoalUpdated(events, eventIndex, goalIndex - 1);
                     } else {
                         ui.printNoSuchGoal();
                     }
@@ -673,8 +673,12 @@ public class Command {
 
                 case "achieved":
                     if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
-                        events.getEvent(eventIndex).updateGoalAchieved(goalIndex - 1);
-                        ui.goalSetAsAchieved(events.getEvent(eventIndex).getGoalObject(goalIndex - 1));
+                        if(events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getBooleanStatus()) {
+                            ui.printGoalAlreadyAchieved();
+                        } else {
+                            events.getEvent(eventIndex).updateGoalAchieved(goalIndex - 1);
+                            ui.printGoalSetAsAchieved(events.getEvent(eventIndex).getGoalObject(goalIndex - 1));
+                        }
                     } else {
                         ui.printNoSuchGoal();
                     }
@@ -688,7 +692,7 @@ public class Command {
                 case "add":
                     Goal newGoal = new Goal(splitGoal[1]);
                     events.getEvent(eventIndex).addGoal(newGoal);
-                    ui.goalAdded(newGoal.getGoal());
+                    ui.printGoalAdded(newGoal.getGoal());
                     break;
 
                 case "view":
