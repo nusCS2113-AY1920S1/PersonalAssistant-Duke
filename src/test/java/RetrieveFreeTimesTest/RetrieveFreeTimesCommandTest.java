@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * This class tests RetrieveFreeTimesParse.
  */
 public class RetrieveFreeTimesCommandTest {
-    private final String invalidNoFreeTimeFound = "Please find free times by invoking the command shown below\n"
+    private final String INVALID_NO_FREE_TIME_FOUND = "Please find free times by invoking the command shown below\n"
             + "find/time 'x' hours, where 'x' is a digit between 1 - 16\n"
             + "Followed by the command\n"
             + "retrieve/time 'x', where 'x' is a digit between 1- 5";
@@ -49,7 +49,7 @@ public class RetrieveFreeTimesCommandTest {
 
     @Test
     public void retrieveFreeTimesCommandWithEmptyList() throws Exception {
-        String expected = invalidNoFreeTimeFound;
+        String expected = INVALID_NO_FREE_TIME_FOUND;
         String actual = null;
         Command command = null;
         try {

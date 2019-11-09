@@ -15,11 +15,11 @@ import java.util.logging.Logger;
 public class FindFreeTimesParse extends Parse {
     private final Logger LOGGER = DukeLogger.getLogger(FindFreeTimesParse.class);
     private String fullCommand;
-    private final String invalidInput = "Invalid input. Please enter the command as follows. \n"
+    private final String INVALID_INPUT = "Invalid input. Please enter the command as follows. \n"
             + "find/time 'x' hours , where 'x' is a digit between 1 - 16";
-    private final String invalidDuration = "Invalid duration. Please enter the command as follows. \n"
+    private final String INVALID_DURATION = "Invalid duration. Please enter the command as follows. \n"
             + "find/time 'x' hours , where 'x' is a digit between 1 - 16";
-    private final String invalidEmptyDuration = "Invalid input."
+    private final String INVALID_EMPTY_DURATION = "Invalid input."
             + "\nDuration cannot be blank.\nPlease enter the command as follows.\n"
             + "find/time 'x' hours , where 'x' is a digit between 1 - 16";
 
@@ -37,20 +37,20 @@ public class FindFreeTimesParse extends Parse {
         fullCommand = fullCommand.trim();
         if (fullCommand.equals(DukeConstants.FIND_TIME_KEYWORD_HOUR)
                 || fullCommand.equals(DukeConstants.FIND_TIME_KEYWORD_HOURS)) {
-            throw new DukeInvalidFormatException(invalidEmptyDuration);
+            throw new DukeInvalidFormatException(INVALID_EMPTY_DURATION);
         } else if (fullCommand.split(" ").length == 1) {
-            throw new DukeInvalidFormatException(invalidInput);
+            throw new DukeInvalidFormatException(INVALID_INPUT);
         }
         if (fullCommand.contains(DukeConstants.FIND_TIME_KEYWORD_HOURS)) {
             fullCommand = fullCommand.replaceFirst(DukeConstants.FIND_TIME_KEYWORD_HOURS, "");
         } else if (fullCommand.contains(DukeConstants.FIND_TIME_KEYWORD_HOUR)) {
             fullCommand = fullCommand.replaceFirst(DukeConstants.FIND_TIME_KEYWORD_HOUR, "");
         } else {
-            throw new DukeInvalidFormatException(invalidInput);
+            throw new DukeInvalidFormatException(INVALID_INPUT);
         }
         fullCommand = fullCommand.trim();
         if (fullCommand.isEmpty()) {
-            throw new DukeInvalidFormatException(invalidEmptyDuration);
+            throw new DukeInvalidFormatException(INVALID_EMPTY_DURATION);
         } else {
             try {
                 Integer duration = Integer.parseInt(fullCommand);
@@ -58,11 +58,11 @@ public class FindFreeTimesParse extends Parse {
                         && duration <= DukeConstants.FIND_TIME_UPPER_BOUNDARY) {
                     return new FindFreeTimesCommand(duration);
                 } else {
-                    throw new DukeInvalidFormatException(invalidDuration);
+                    throw new DukeInvalidFormatException(INVALID_DURATION);
                 }
             } catch (NumberFormatException e) {
                 LOGGER.info("Unable to parse string to integer" + e.getMessage());
-                throw new DukeInvalidFormatException(invalidDuration);
+                throw new DukeInvalidFormatException(INVALID_DURATION);
             }
         }
     }

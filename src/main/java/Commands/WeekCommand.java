@@ -18,9 +18,9 @@ import java.util.logging.Logger;
 
 public class WeekCommand extends Command {
     private static final String NO_FIELD = "void";
-    private static final String twelveHourTimeFormatSeparator = ":";
-    private static final String twelveHourTimeHourBoundary = "12";
-    private static final String twelveHourTimeAMPostFix = "AM";
+    private static final String TWELVE_HOUR_TIME_FORMAT_HOUR_AND_MINUTE_SEPARATOR = ":";
+    private static final String TWELVE_HOUR_TIME_FORMAT_MAXIMUM_HOUR = "12";
+    private static final String TWELVE_HOUR_TIME_AM_POST_FIX = "AM";
     private static final String textStart = "Start: ";
     private static final String newLine = "\n";
     private LookupTable lookupTable = LookupTable.getInstance();
@@ -156,32 +156,32 @@ public class WeekCommand extends Command {
         String[] rightSplit = right.split(newLine,2);
         String[] rightTimeSplit = rightSplit[0].split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
 
-        if (leftTimeSplit[1].equals(twelveHourTimeAMPostFix) && rightTimeSplit[1].equals(twelveHourTimeAMPostFix)) {
-            String[]leftTimeSplitHourMinute = leftTimeSplit[0].split(twelveHourTimeFormatSeparator);
-            String[]rightTimeSplitHourMinute = rightTimeSplit[0].split(twelveHourTimeFormatSeparator);
-            if (leftTimeSplitHourMinute[0].equals(twelveHourTimeHourBoundary)
-                    && rightTimeSplitHourMinute[0].equals(twelveHourTimeHourBoundary)) {
+        if (leftTimeSplit[1].equals(TWELVE_HOUR_TIME_AM_POST_FIX) && rightTimeSplit[1].equals(TWELVE_HOUR_TIME_AM_POST_FIX)) {
+            String[]leftTimeSplitHourMinute = leftTimeSplit[0].split(TWELVE_HOUR_TIME_FORMAT_HOUR_AND_MINUTE_SEPARATOR);
+            String[]rightTimeSplitHourMinute = rightTimeSplit[0].split(TWELVE_HOUR_TIME_FORMAT_HOUR_AND_MINUTE_SEPARATOR);
+            if (leftTimeSplitHourMinute[0].equals(TWELVE_HOUR_TIME_FORMAT_MAXIMUM_HOUR)
+                    && rightTimeSplitHourMinute[0].equals(TWELVE_HOUR_TIME_FORMAT_MAXIMUM_HOUR)) {
                 return leftTimeSplitHourMinute[1].compareTo(rightTimeSplitHourMinute[1]);
-            } else if (leftTimeSplitHourMinute[0].equals(twelveHourTimeHourBoundary)) {
+            } else if (leftTimeSplitHourMinute[0].equals(TWELVE_HOUR_TIME_FORMAT_MAXIMUM_HOUR)) {
                 return -1;
-            } else if (rightTimeSplitHourMinute[0].equals(twelveHourTimeHourBoundary)) {
+            } else if (rightTimeSplitHourMinute[0].equals(TWELVE_HOUR_TIME_FORMAT_MAXIMUM_HOUR)) {
                 return 1;
             } else {
                 return leftTimeSplit[0].compareTo(rightTimeSplit[0]);
             }
-        } else if (leftTimeSplit[1].equals(twelveHourTimeAMPostFix)) {
+        } else if (leftTimeSplit[1].equals(TWELVE_HOUR_TIME_AM_POST_FIX)) {
             return -1;
-        } else if (rightTimeSplit[1].equals(twelveHourTimeAMPostFix)) {
+        } else if (rightTimeSplit[1].equals(TWELVE_HOUR_TIME_AM_POST_FIX)) {
             return 1;
         } else {
-            String[]leftTimeSplitHourMinute = leftTimeSplit[0].split(twelveHourTimeFormatSeparator);
-            String[]rightTimeSplitHourMinute = rightTimeSplit[0].split(twelveHourTimeFormatSeparator);
-            if (leftTimeSplitHourMinute[0].equals(twelveHourTimeHourBoundary)
-                    && rightTimeSplitHourMinute[0].equals(twelveHourTimeHourBoundary)) {
+            String[]leftTimeSplitHourMinute = leftTimeSplit[0].split(TWELVE_HOUR_TIME_FORMAT_HOUR_AND_MINUTE_SEPARATOR);
+            String[]rightTimeSplitHourMinute = rightTimeSplit[0].split(TWELVE_HOUR_TIME_FORMAT_HOUR_AND_MINUTE_SEPARATOR);
+            if (leftTimeSplitHourMinute[0].equals(TWELVE_HOUR_TIME_FORMAT_MAXIMUM_HOUR)
+                    && rightTimeSplitHourMinute[0].equals(TWELVE_HOUR_TIME_FORMAT_MAXIMUM_HOUR)) {
                 return leftTimeSplitHourMinute[1].compareTo(rightTimeSplitHourMinute[1]);
-            } else if (leftTimeSplitHourMinute[0].equals(twelveHourTimeHourBoundary)) {
+            } else if (leftTimeSplitHourMinute[0].equals(TWELVE_HOUR_TIME_FORMAT_MAXIMUM_HOUR)) {
                 return -1;
-            } else if (rightTimeSplitHourMinute[0].equals(twelveHourTimeHourBoundary)) {
+            } else if (rightTimeSplitHourMinute[0].equals(TWELVE_HOUR_TIME_FORMAT_MAXIMUM_HOUR)) {
                 return 1;
             } else {
                 return leftTimeSplit[0].compareTo(rightTimeSplit[0]);

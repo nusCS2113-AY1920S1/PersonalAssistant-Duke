@@ -18,12 +18,12 @@ import java.util.logging.Logger;
 public class RetrieveFreeTimesParse extends Parse {
     private final Logger LOGGER = DukeLogger.getLogger(FindFreeTimesParse.class);
     private String fullCommand;
-    private final String invalidOption = "Invalid option. Please enter the command as follows. \n"
+    private final String INVALID_OPTION = "Invalid option. Please enter the command as follows. \n"
             + "retrieve/time 'x', where 'x' is a digit between 1 - 5";
-    private final String invalidEmptyOption = "Invalid input.\n"
+    private final String INVALID_EMPTY_OPTION = "Invalid input.\n"
             + "Option cannot be blank.\nPlease enter the command as follows.\n"
             + "retrieve/time 'x', where 'x' is a digit between 1 - 5";
-    private final String invalidNoFreeTimeFound = "Please find free times by invoking the command shown below\n"
+    private final String INVALID_NO_FREE_TIME_FOUND = "Please find free times by invoking the command shown below\n"
             + "find/time 'x' hours, where 'x' is a digit between 1 - 16\n"
             + "Followed by the command\n"
             + "retrieve/time 'x', where 'x' is a digit between 1- 5";
@@ -40,12 +40,12 @@ public class RetrieveFreeTimesParse extends Parse {
     public Command parse() throws DukeInvalidFormatException, DukeNoValidDataException {
         ArrayList<Pair<String, String>> retrievedFreeTimes = FindFreeTimesCommand.getCompiledFreeTimesList();
         if (checkIsEmpty(retrievedFreeTimes)) {
-            throw new DukeNoValidDataException(invalidNoFreeTimeFound);
+            throw new DukeNoValidDataException(INVALID_NO_FREE_TIME_FOUND);
         }
         fullCommand = fullCommand.replaceFirst(DukeConstants.RETRIEVE_TIME_HEADER, "");
         fullCommand = fullCommand.trim();
         if (fullCommand.isEmpty()) {
-            throw new DukeInvalidFormatException(invalidEmptyOption);
+            throw new DukeInvalidFormatException(INVALID_EMPTY_OPTION);
         } else {
             try {
                 Integer option = Integer.parseInt(fullCommand);
@@ -53,11 +53,11 @@ public class RetrieveFreeTimesParse extends Parse {
                         && option <= DukeConstants.RETRIEVE_TIME_UPPER_BOUNDARY) {
                     return new RetrieveFreeTimesCommand(option);
                 } else {
-                    throw new DukeInvalidFormatException(invalidOption);
+                    throw new DukeInvalidFormatException(INVALID_OPTION);
                 }
             } catch (NumberFormatException e) {
                 LOGGER.info("Unable to parse string to integer" + e.getMessage());
-                throw new DukeInvalidFormatException(invalidOption);
+                throw new DukeInvalidFormatException(INVALID_OPTION);
             }
         }
     }

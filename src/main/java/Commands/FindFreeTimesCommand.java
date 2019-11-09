@@ -22,10 +22,10 @@ public class FindFreeTimesCommand extends Command {
     private static final int HOUR_MARK = 60;
     private static final int HOURS_IN_A_DAY = 24;
     private static final int IDEAL_FREE_TIME_INTERVAL = 1;
-    private static final String twelveHourTimeFormatStartTime = "12:00 AM";
-    private static final String twelveHourTimeAMPostFix = "AM";
-    private static final String twelveHourTimeFormatMaximumHour = "12";
-    private static final String twelveHourTimeFormatHourAndMinuteSeparator = ":";
+    private static final String TWELVE_HOUR_TIME_FORMAT_START_TIME = "12:00 AM";
+    private static final String TWELVE_HOUR_TIME_AM_POST_FIX = "AM";
+    private static final String TWELVE_HOUR_TIME_FORMAT_MAXIMUM_HOUR = "12";
+    private static final String TWELVE_HOUR_TIME_FORMAT_HOUR_AND_MINUTE_SEPARATOR = ":";
     private final SimpleDateFormat timeFormat12 = new SimpleDateFormat("hh:mm aa");
     private final SimpleDateFormat timeFormat24 = new SimpleDateFormat("HHmm");
     private final SimpleDateFormat dateDayFormat = new SimpleDateFormat("E dd/MM/yyyy");
@@ -118,22 +118,22 @@ public class FindFreeTimesCommand extends Command {
         String[] leftTimeSplit = left.split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
         String[] rightTimeSplit = right.split(DukeConstants.STRING_SPACE_SPLIT_KEYWORD);
 
-        if (leftTimeSplit[1].equals(twelveHourTimeAMPostFix) && rightTimeSplit[1].equals(twelveHourTimeAMPostFix)) {
-            String[]leftTimeSplitHourMinute = leftTimeSplit[0].split(twelveHourTimeFormatHourAndMinuteSeparator);
-            String[]rightTimeSplitHourMinute = rightTimeSplit[0].split(twelveHourTimeFormatHourAndMinuteSeparator);
-            if (leftTimeSplitHourMinute[0].equals(twelveHourTimeFormatMaximumHour)
-                    && rightTimeSplitHourMinute[0].equals(twelveHourTimeFormatMaximumHour)) {
+        if (leftTimeSplit[1].equals(TWELVE_HOUR_TIME_AM_POST_FIX) && rightTimeSplit[1].equals(TWELVE_HOUR_TIME_AM_POST_FIX)) {
+            String[]leftTimeSplitHourMinute = leftTimeSplit[0].split(TWELVE_HOUR_TIME_FORMAT_HOUR_AND_MINUTE_SEPARATOR);
+            String[]rightTimeSplitHourMinute = rightTimeSplit[0].split(TWELVE_HOUR_TIME_FORMAT_HOUR_AND_MINUTE_SEPARATOR);
+            if (leftTimeSplitHourMinute[0].equals(TWELVE_HOUR_TIME_FORMAT_MAXIMUM_HOUR)
+                    && rightTimeSplitHourMinute[0].equals(TWELVE_HOUR_TIME_FORMAT_MAXIMUM_HOUR)) {
                 return leftTimeSplitHourMinute[1].compareTo(rightTimeSplitHourMinute[1]);
-            } else if (leftTimeSplitHourMinute[0].equals(twelveHourTimeFormatMaximumHour)) {
+            } else if (leftTimeSplitHourMinute[0].equals(TWELVE_HOUR_TIME_FORMAT_MAXIMUM_HOUR)) {
                 return -1;
-            } else if (rightTimeSplitHourMinute[0].equals(twelveHourTimeFormatMaximumHour)) {
+            } else if (rightTimeSplitHourMinute[0].equals(TWELVE_HOUR_TIME_FORMAT_MAXIMUM_HOUR)) {
                 return 1;
             } else {
                 return leftTimeSplit[0].compareTo(rightTimeSplit[0]);
             }
-        } else if (leftTimeSplit[1].equals(twelveHourTimeAMPostFix)) {
+        } else if (leftTimeSplit[1].equals(TWELVE_HOUR_TIME_AM_POST_FIX)) {
             return -1;
-        } else if (rightTimeSplit[1].equals(twelveHourTimeAMPostFix)) {
+        } else if (rightTimeSplit[1].equals(TWELVE_HOUR_TIME_AM_POST_FIX)) {
             return 1;
         } else {
             return left.compareTo(right);
@@ -301,7 +301,7 @@ public class FindFreeTimesCommand extends Command {
         if (size == 0) {
             Date currDate = new Date();
             String strCurrDateDay = dateDayFormat.format(currDate)
-                    + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + twelveHourTimeFormatStartTime;
+                    + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + TWELVE_HOUR_TIME_FORMAT_START_TIME;
             currDate = dateTimeFormat12.parse(strCurrDateDay);
             currDate = increaseZeroSevenZeroZero(currDate);
             currDate = increaseDateTime(currDate, HOURS_IN_A_DAY);
@@ -328,7 +328,7 @@ public class FindFreeTimesCommand extends Command {
             Date tempStart = last.getKey();
             Date tempEnd = last.getValue();
             String currDate = dateDayFormat.format(tempStart)
-                    + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + twelveHourTimeFormatStartTime;
+                    + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + TWELVE_HOUR_TIME_FORMAT_START_TIME;
             Date dateBoundary = dateTimeFormat12.parse(currDate);
             Date dateUpperBoundary = increaseToTwoThreeFiveNine(dateBoundary);
             Date dateLowerBoundary = increaseZeroSevenZeroZero(dateBoundary);
@@ -367,7 +367,7 @@ public class FindFreeTimesCommand extends Command {
     private Integer addIfWithinTimeBoundary(ArrayList<Pair<String, String>> startAndEndTimes,
                                             Integer index, String date) throws ParseException {
         Date dateBoundary = dateTimeFormat12.parse(date
-                + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + twelveHourTimeFormatStartTime);
+                + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + TWELVE_HOUR_TIME_FORMAT_START_TIME);
         Date dateUpperBoundary = increaseToTwoThreeFiveNine(dateBoundary);
         Date dateLowerBoundary = increaseZeroSevenZeroZero(dateBoundary);
 
@@ -423,7 +423,7 @@ public class FindFreeTimesCommand extends Command {
                 String nextKey = dataMap.higherKey(date);
                 if (nextKey == null) {
                     Date nextDay = dateTimeFormat12.parse(date
-                            + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + twelveHourTimeFormatStartTime);
+                            + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + TWELVE_HOUR_TIME_FORMAT_START_TIME);
                     nextDay = increaseDateTime(nextDay, HOURS_IN_A_DAY);
                     Date nextDayStartTime = increaseDateTime(nextDay, 7);
                     Date nextDayEndTime = increaseDateTime(nextDayStartTime, duration);

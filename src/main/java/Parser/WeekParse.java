@@ -7,11 +7,11 @@ import DukeExceptions.DukeInvalidFormatException;
 
 public class WeekParse extends Parse {
     private String fullCommand;
-    private final String invalidEmptyWeek = "Invalid Input.\n"
+    private final String INVALID_EMPTY_WEEK = "Invalid Input.\n"
             + "The week cannot be blank.\nPlease enter the command as follows.\n"
             + "show/week 'x' , where 'x' is a digit between 1 - 13 or \n"
             + "'x' is either 'recess', 'reading', or 'exam'";
-    private final String invalidWeek = "Invalid Week. Please enter the command as follows. \n"
+    private final String INVALID_WEEK = "Invalid Week. Please enter the command as follows. \n"
             + "show/week 'x' , where 'x' is a digit between 1 - 13 or \n"
             + "'x' is either 'recess', 'reading', or 'exam'";
 
@@ -27,9 +27,9 @@ public class WeekParse extends Parse {
         }
         fullCommand = fullCommand.replaceFirst(DukeConstants.SHOW_WEEK_HEADER, "");
         if (fullCommand.trim().isEmpty()) {
-            throw new DukeInvalidFormatException(invalidEmptyWeek);
+            throw new DukeInvalidFormatException(INVALID_EMPTY_WEEK);
         }
-        throw new DukeInvalidFormatException(invalidWeek);
+        throw new DukeInvalidFormatException(INVALID_WEEK);
     }
 
     /**

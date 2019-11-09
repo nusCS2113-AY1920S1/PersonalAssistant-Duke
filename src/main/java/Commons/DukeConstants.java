@@ -67,7 +67,6 @@ public class DukeConstants {
     public static final Integer RETRIEVE_TIME_LOWER_BOUNDARY = 1;
     public static final Integer RETRIEVE_TIME_UPPER_BOUNDARY = 5;
     public static final String RETRIEVE_PREVIOUS_HEADER ="retrieve/previous";
-    public static final String FIND_TIME_HEADER ="find/time";
 
     //REMIND
     public static final String REMIND_CHECK_HEADER = "remind/check";
@@ -86,14 +85,9 @@ public class DukeConstants {
     public static final String INVALID_MODCODE_ERROR =" OOPS!!! The ModCode is invalid";
     public static final String INVALID_INPUT_ERROR = "Invalid input. Please type help to see all commands";
     //MISC
-    public static final String HELP_HEADER = "help";
     public static final String STRING_SPACE_SPLIT_KEYWORD = " ";
     public static final String EMPTY_ERROR = "";
     public static final String NO_FIELD = "void";
-    public static final String RECUR_DATE_DESCRIPTION_SPLIT_KEYWORD = "/start";
-    public static final String RECUR_BIWEEKLY_KEYWORD = "/biweekly";
-    public static final String RECUR_RMBIWEEKLY_KEYWORD = "/rmbiweekly";
-    public static final String RECUR_RMWEEKLY_KEYWORD = "/rmweekly";
     public static final String WEEK_FORMAT_KEYWORD_RECESS = "recess";
     public static final String WEEK_FORMAT_KEYWORD_READING = "reading";
     public static final String WEEK_FORMAT_KEYWORD_EXAM = "exam";
