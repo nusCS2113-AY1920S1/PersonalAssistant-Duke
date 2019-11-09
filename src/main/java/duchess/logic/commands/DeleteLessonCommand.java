@@ -13,8 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DeleteLessonCommand extends Command {
-    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-
     private String type;
     private String moduleCode;
     private String lessonDelete;
@@ -33,8 +31,6 @@ public class DeleteLessonCommand extends Command {
 
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
-        logger.log(Level.INFO, "DeleteLessonCommand is executed.");
-
         boolean isDeleted = false;
         List<Integer> toDelete = new ArrayList<>();
         Task task;
@@ -48,8 +44,6 @@ public class DeleteLessonCommand extends Command {
                 isDeleted = true;
 
                 store.setDuchessCalendar(CalendarManager.deleteEntry(store.getDuchessCalendar(), task));
-
-                // Decrement i by 1 every time removal is performed.
                 i--;
             }
         }

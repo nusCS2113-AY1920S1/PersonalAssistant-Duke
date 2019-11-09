@@ -18,7 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Storage {
-    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    private final Logger logger;
 
     private String fileName;
     private Deque<String> undoStack;
@@ -49,6 +49,7 @@ public class Storage {
      * @param fileName filename for duchess.storage
      */
     public Storage(String fileName) {
+        this.logger = Logger.getLogger("Duchess");
         this.fileName = fileName;
         undoStack = new LinkedList<>();
         redoStack = new LinkedList<>();

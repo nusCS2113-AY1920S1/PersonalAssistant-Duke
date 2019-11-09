@@ -40,9 +40,7 @@ public class TaskTest {
     @Test
     public void compareTo_twoDeadlines_increasingOrder() throws DuchessException {
         Task other = new Deadline("return book", LocalDateTime.parse("2020-12-12T14:00"));
-        assertTrue(
-                deadline.compareTo(other) < 0
-        );
+        assertTrue(deadline.compareTo(other) < 0);
     }
 
     @Test
