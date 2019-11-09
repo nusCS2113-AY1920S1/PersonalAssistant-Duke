@@ -25,6 +25,8 @@ jacocoTestReport {
 
 coveralls {
     jacocoReportPath 'build/reports/jacoco/test/jacocoTestReport.xml'
+    saveAsFile = true
+    sendToCoveralls = false
 }
 
 test.finalizedBy jacocoTestReport
