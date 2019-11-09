@@ -27,9 +27,9 @@ public class EditTaskDateTimeCommand extends Command {
         Date currentDate = new Date();
 
         if (!model.isInTaskList(taskIndex)) {
-            return new CommandOutput(INDEX_NOT_IN_TASKlIST_MESSAGE);
+            throw new DukeException(INDEX_NOT_IN_TASKlIST_MESSAGE);
         } else if (newDate.compareTo(currentDate) < 0) {
-            return new CommandOutput(NEW_DATETIME_IS_BEHIND_CURRENT_TIME_MESSAGE);
+            throw new DukeException(NEW_DATETIME_IS_BEHIND_CURRENT_TIME_MESSAGE);
         } else {
             model.getTaskList().get(taskIndex - 1).setTime(newDate);
             model.getTaskList().get(taskIndex - 1).setReminder(null);
