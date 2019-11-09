@@ -16,9 +16,9 @@ public class Ingredient {
     private static final Double DEFAULT_PRICE = 0.00;
     private static final String DEFAULT_REMARKS = "";
 
-    public final String name;
-    public final Double unitPrice;
-    public final String remarks;
+    public String name;
+    public Double unitPrice;
+    public String remarks;
 
     /**
      * Creates an ingredient.
@@ -43,6 +43,10 @@ public class Ingredient {
 
     public Ingredient(String name, String remarks) {
         this(name, DEFAULT_PRICE, remarks);
+    }
+
+    public Ingredient(String name, Double unitPrice) {
+        this(name, unitPrice, DEFAULT_REMARKS);
     }
 
     public static boolean isValidRemark(String remark) {
@@ -83,11 +87,25 @@ public class Ingredient {
         return name;
     }
 
+    public void setName(String name) {
+        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS_NAME);
+        this.name = name;
+    }
+
     public Double getUnitPrice() {
         return unitPrice;
     }
 
+    public void setUnitPrice(Double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
     public String getRemarks() {
         return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        checkArgument(isValidRemark(remarks), MESSAGE_CONSTRAINTS_REMARKS);
+        this.remarks = remarks;
     }
 }

@@ -25,6 +25,10 @@ public class Quantity {
         return number;
     }
 
+    public void setNumber(Double number) {
+        this.number = number;
+    }
+
     public String toString() {
         return String.valueOf(number);
     }
