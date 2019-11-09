@@ -5,13 +5,18 @@ finals
 1
 need to release jar file this week
 cg2028
-2
+4
 project
 45
+pair work
+29
+cortex-m3 project
+68
 final quiz
-59
-1
-need to return cortex
+47
+2
+wear covered shoes for lab
+no webcasts for this lecture
 CG1112
 0
 0

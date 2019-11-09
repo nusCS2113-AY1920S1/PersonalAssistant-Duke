@@ -76,7 +76,7 @@ public class ModuleCommandParser extends Command {
         System.out.println("9. Delete a miscellaneous information: " + D_DELETE_MSC);
         System.out.println("10. View list of commands for module page: " + COMMANDS);
         System.out.println("11. View help page: " + HELP);
-        System.out.println("12. View individual help: help COMMAND_NAME");
+        System.out.println("12. View help for a page: help PAGE_NAME");
         System.out.println("13. Exit module notes: " + ESC);
         System.out.println("__________________________________________________________");
     }
@@ -130,33 +130,49 @@ public class ModuleCommandParser extends Command {
                     ui.showDontKnowErrorMessage();
                 }
             } catch (IndexOutOfBoundsException i) {
-                /*
                 switch (commands[0]) {
-                case EDIT_GOAL:
+                case EDIT_MODULE:
                     System.out.println("Please input the command " +
-                            "in the format \'edit /n NEW_GOAL\'.");
+                            "in the format \'edit mod /n NEW_NAME\'.");
                     break;
-                case ADD_MODULE:
+                case ADD_ASSMT:
                     System.out.println("Please input the command " +
-                            "in the format \'add /n MODULE_CODE\'.");
+                            "in the format \'add assmt /n NAME /a WEIGHTAGE'.");
                     break;
-                case DELETE_MODULE:
+                case EDIT_ASSMT:
                     System.out.println("Please input the command " +
-                            "in the format \'delete /n MODULE_CODE\'.");
+                            "in the format \'edit assmt /n INDEX /a NEW_NAME\'.");
+                    break;
+                case EDIT_WEIGHTAGE:
+                    System.out.println("Please input the command " +
+                            "in the format \'edit weight /n INDEX /a NEW_WEIGHTAGE\'.");
+                    break;
+                case DELETE_ASSMT:
+                    System.out.println("Please input the command " +
+                            "in the format \'delete assmt /n INDEX\'.");
+                    break;
+                case ADD_MSC:
+                    System.out.println("Please input the command " +
+                            "in the format \'add msc /n DESCRIPTION\'.");
+                    break;
+                case EDIT_MSC:
+                    System.out.println("Please input the command " +
+                            "in the format \'edit msc /n INDEX /a NEW_DESCRIPTION\'.");
+                    break;
+                case DELETE_MSC:
+                    System.out.println("Please input the command " +
+                            "in the format \'delete msc /n INDEX\'.");
                     break;
                 default:
                     ui.showDontKnowErrorMessage();
                     break;
                 }
-
-                 */
-                System.out.println("format error message.");
             } catch (DukeException d) {
                 ui.showErrorMessage(d);
             }
             ui.readCommand();
         }
-        System.out.println("Going back to notes page...\n");
+        System.out.println("Going back to note page...\n");
         GeneralNoteCommandParser.showListOfCommands();
     }
 
