@@ -243,4 +243,20 @@ public abstract class Ui {
         System.out.println(VALID_AMOUNT_MSG);
         System.out.println(line);
     }
+
+    public static void printSingleOverview(double todayOverview) {
+        System.out.println(line);
+    }
+
+    /**
+     * Prints a message to alert user that the list to be iterated through is empty.
+     * @param mode record name to be used
+     */
+    public static void printEmptyListError(String mode) {
+        System.out.println(line);
+        System.out.println("\tI'm sorry, but there doesn't seem to be anything in "
+                + mode + "for me to through. ");
+        System.out.println("Try adding a new " + mode + "and try again!");
+        System.out.println(line);
+    }
 }
