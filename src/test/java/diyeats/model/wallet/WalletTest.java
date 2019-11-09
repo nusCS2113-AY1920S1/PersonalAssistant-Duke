@@ -1,6 +1,5 @@
 package diyeats.model.wallet;
 
-import jdk.jfr.StackTrace;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
