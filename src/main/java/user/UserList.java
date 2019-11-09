@@ -34,7 +34,7 @@ public class UserList extends ArrayList<User> {
         boolean found = false;
 
         for (User i : userList) {
-            if (i.username.toUpperCase().trim().equals(username.toUpperCase())) {
+            if (i.username.equals(username)) {
                 found = true;
                 break;
             }
