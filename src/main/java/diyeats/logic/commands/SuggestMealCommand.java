@@ -23,8 +23,6 @@ public class SuggestMealCommand extends Command {
     private ArrayList<Meal> suggestedMealList;
     private LocalDate suggestionDate;
 
-    // TODO: Support for meal types (eg: lunch, dinner) from user so that only relevant meals suggested.
-
     /**
      * Constructor of suggestion command.
      * @param suggestionDate Date on which meal suggestion is required.
@@ -107,7 +105,6 @@ public class SuggestMealCommand extends Command {
         }
 
         Meal chosenMeal = suggestedMealList.get(mealSelectedIndex - 1);
-        // TODO: Fix cost of meal
         addCommand = new AddCommand(chosenMeal);
         addCommand.execute(meals, storage, user, wallet);
         isDone = true;
