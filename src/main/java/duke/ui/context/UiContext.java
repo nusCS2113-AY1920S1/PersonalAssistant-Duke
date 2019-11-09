@@ -37,18 +37,17 @@ public class UiContext {
     }
 
     /**
-     * Sets context for the application. An associated DukeObject should be provided as well.
-     * For example, from Home -> Patient, a Patient object should be passed in.
+     * Displays the context associated with a DukeObject.
      *
-     * @param newContext New context
-     * @param object     DukeObject associated with the new object.
+     * @param obj     DukeObject whose context we wish to view.
      */
-    public void setContext(Context newContext, DukeObject object) {
-        if (newContext != Context.HOME) {
+    public void open(DukeObject obj) {
+        if (obj == null) {
+            updateContext(Context.HOME, null);
+        } else {
             contexts.push(new Pair<>(this.context, this.object));
+            updateContext(obj.toContext(), obj);
         }
-
-        updateContext(newContext, object);
     }
 
     /**
@@ -57,12 +56,8 @@ public class UiContext {
     public void moveUpOneContext() throws DukeException {
         if (context == Context.HOME) {
             throw new DukeException("You are already in the Home context.");
-        } else if (context == Context.PATIENT) {
-            setContext(Context.HOME, null);
-        } else if (context == Context.IMPRESSION) {
-            setContext(Context.PATIENT, object.getParent());
         } else {
-            setContext(Context.IMPRESSION, object.getParent());
+            open(object.getParent());
         }
     }
 

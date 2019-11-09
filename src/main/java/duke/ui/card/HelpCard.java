@@ -1,6 +1,7 @@
 package duke.ui.card;
 
 import duke.data.Help;
+import duke.exception.DukeFatalException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -32,7 +33,7 @@ public class HelpCard extends UiCard {
      * @param help           Help object.
      * @param isDetailsShown If the details for the Help object should be shown.
      */
-    public HelpCard(Help help, boolean isDetailsShown) {
+    public HelpCard(Help help, boolean isDetailsShown) throws DukeFatalException {
         super(FXML);
 
         this.help = help;

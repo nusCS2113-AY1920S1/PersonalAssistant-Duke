@@ -3,22 +3,9 @@ package duke.ui.window;
 import com.jfoenix.controls.JFXListView;
 import duke.DukeCore;
 import duke.data.DukeObject;
-import duke.data.Impression;
-import duke.data.Investigation;
-import duke.data.Medicine;
-import duke.data.Observation;
-import duke.data.Patient;
-import duke.data.Plan;
-import duke.data.Result;
-import duke.data.SearchResult;
+import duke.data.SearchResults;
+import duke.exception.DukeFatalException;
 import duke.ui.UiStrings;
-import duke.ui.card.ImpressionCard;
-import duke.ui.card.InvestigationCard;
-import duke.ui.card.MedicineCard;
-import duke.ui.card.ObservationCard;
-import duke.ui.card.PatientCard;
-import duke.ui.card.PlanCard;
-import duke.ui.card.ResultCard;
 import duke.ui.card.UiCard;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -49,12 +36,12 @@ class SearchContextWindow extends ContextWindow {
     private ImageView parentTypeImage;
 
     private DukeObject parent;
-    private SearchResult searchResults;
+    private SearchResults searchResults;
 
     /**
      * Constructs the search UI window.
      */
-    SearchContextWindow(SearchResult searchResults) {
+    SearchContextWindow(SearchResults searchResults) throws DukeFatalException {
         super(FXML);
 
         if (searchResults != null) {
@@ -64,42 +51,12 @@ class SearchContextWindow extends ContextWindow {
         }
     }
 
-    private void setSearchWindow() {
+    private void setSearchWindow() throws DukeFatalException {
         setParent();
         searchTermLabel.setText(searchResults.getName());
-        searchDetailsLabel.setText(buildSearchDetails());
-        for (DukeObject object : searchResults.getSearchList()) {
-            searchListPanel.getItems().add(newCard(object));
-        }
-    }
-
-    /**
-     * This function returns the new card added dependent on the class instance.
-     * @param object the object
-     * @return relevant card
-     */
-    private UiCard newCard(DukeObject object) {
-        if (object instanceof Patient) {
-            return new PatientCard((Patient) object);
-        } else if (object instanceof Impression) {
-            return new ImpressionCard((Impression) object,false);
-        } else if (object instanceof Observation) {
-            // TODO: index
-            return new ObservationCard((Observation) object);
-        } else if (object instanceof Result) {
-            // TODO: index
-            return new ResultCard((Result) object);
-        } else if (object instanceof Investigation) {
-            // TODO: index
-            return new InvestigationCard((Investigation) object);
-        } else if (object instanceof Medicine) {
-            // TODO: index
-            return new MedicineCard((Medicine) object);
-        } else if (object instanceof Plan) {
-            // TODO: index
-            return new PlanCard((Plan) object);
-        } else {
-            return null;
+        searchDetailsLabel.setText(searchResults.toString());
+        for (DukeObject obj : searchResults.getSearchList()) {
+            searchListPanel.getItems().add(obj.toCard());
         }
     }
 
@@ -114,32 +71,13 @@ class SearchContextWindow extends ContextWindow {
         }
     }
 
-    private String buildSearchDetails() {
-        StringBuilder searchDetails = new StringBuilder();
-        searchDetails.append("There are ").append(searchResults.getSearchList().size()).append(" result(s).");
-        searchDetails.append(System.lineSeparator());
-        if (parent == null) {
-            searchDetails.append("There are ").append(searchResults.getPatientList().size()).append(" patient(s)");
-            searchDetails.append(System.lineSeparator());
-        }
-        if (parent instanceof Patient || parent == null) {
-            searchDetails.append("There are ")
-                    .append(searchResults.getImpressionList().size()).append(" impression(s)");
-            searchDetails.append(System.lineSeparator());
-        }
-        searchDetails.append("There are ").append(searchResults.getEvidenceList().size()).append(" evidence(s)");
-        searchDetails.append(System.lineSeparator());
-        searchDetails.append("There are ").append(searchResults.getTreatmentList().size()).append(" treatment(s)");
-        return searchDetails.toString();
-    }
-
     @Override
-    public void updateUi() {
-        // TODO
+    public void updateUi() throws DukeFatalException {
+        setSearchWindow();
     }
 
     @Override
     public List<DukeObject> getIndexedList(String type) {
-        return null;
+        return searchResults.getSearchList();
     }
 }

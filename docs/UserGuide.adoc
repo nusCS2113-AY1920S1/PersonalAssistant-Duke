@@ -68,21 +68,22 @@ Must immediately be followed by an argument, if the switch requries one.
 
 The documentation below uses the following notation to describe the structure of the commands recognised:
 
-* `[]` -> optional element of a command
 * `<>` -> input of the type specified
+* `[]` -> optional element of a command
 * `(a | b | c)` -> input that can be one of several possible options, in this case `a`, `b` or `c`
 * `"<>"` -> string, must be surrounded by quotes if it contains a space (or escape the space with a backslash)
 * `[]*` -> 0 or more copies of the contents of `[]`, separated by spaces
 
 The following italicised words refer to specific repeated patterns:
 
-* _patient_id_ -> `(<patient's index> | <part of name> | *-b[ed]* <bed number>)` [[patient_id]]
+* _patient_id_ -> `(<patient's index in list> | "<search string>" | *-b[ed]* <bed number>)` [[patient_id]]
 * _string_or_idx_ -> `(<index> | "<search string>")` [[string_or_idx]]
 ** `<index>` refers to the index assigned to the object in the display. `<search string>` will be searched for in the names of all relevant objects.
 * _type_ -> (`*-m[edicine]*` | `*-in[v(x | estigation)]*` | `*-p[lan]*` | `*-o[bservation]*` | `*-r[esult]*`) [[type]]
 
 Parsing rules:
 
+* If a `"<search string>"` is given, the user will be presented with a page of search results that have names matching the search string, if the object to which it is referring is ambiguous. Refer to <<home-open, the `open` command in the Home context>> for a concrete example.
 * Switches can be in any order
 * Switches with optional parts of their names can be recognised with any portion of the optional part. E.g. `-crit` matches `-c[ritical]`.
 * If it is ambiguous whether an argument is for the command itself, or one of the switches, it will be presumed to belong to the switch.
@@ -102,7 +103,7 @@ They are as follows.
 . Primary diagnosis
 . Number of critical issues
 
-==== `new` - Add a new Patient
+==== `new` - Add a new Patient [[home-new]]
 
 Format: `new "<name>" *-b[ed]* <bed number> *-a[llerg(y | ies)]* "<allergies>" *[<optional switch>]**` +
 Example: `new John Doe *-b* A103 *-a* paracetamol *-h* 175 *-w* 60 *-ag* 35 *-hi* Heart disease`
@@ -121,15 +122,19 @@ The patient's name, bed number and allergies must be specified.
 The other optional fields are set to undefined values by default.
 The `*-g[o]*` switch opens the <<Patient, Patient>>'s context for the newly added patient.
 
-==== `open` - Go to a more detailed view of a particular Patient
+==== `open` - Go to a more detailed view of a particular Patient [[home-open]]
 
 Format: `open <<patient_id, _patient_id_>> *[-im[pression]]*` +
-Example: `open 1 *-impress*`
+Example: `open 1 *-impress*` (open by index and go to primary impression)
+Example: `open *-b* C210` (open by bed number)
+Example: `open Duke` (open by search string)
+
+If opening by search string, patients will be searched through by name, and results presented and selected as per the <<home-find, `find`>> command. For example, if I have two patients named "John" and "Joe", `open jo` will open a search result context with the two patients.
 
 If the optional `*-im[pression]*` switch is provided, access the <<impression, primary diagnosis>> for that particular Patient.
 
 // TODO: Complete documentation
-==== `find`
+==== `find` [[home-find]]
 
 Format: `find ["<search string>"] [_type_]` +
 Example: `find aspirin *-p*`
@@ -157,7 +162,7 @@ The discharge report contains all of the information being tracked regarding the
 An optional discharge summary may be specified in the command to add additional information.
 In *v2.0*, they will be <<home-archive, archived>>.
 
-==== `undo` - Undo the previous command [*v1.4*] [[home-undo]]
+==== `undo` - Undo the previous command [*v2.0*] [[home-undo]]
 
 Format: `undo <number of commands>`
 
@@ -166,7 +171,7 @@ _Available in:_ <<Home>>, <<Patient>>, <<Impression>>, <<Treatment and Evidence>
 You may undo up to the last 10 commands.
 Only commands that affect the state of the system count against this limit (e.g. adding new Patients or editing data, not navigating across contexts).
 
-==== `redo` - Redo a command that has been undone [*v1.4*] [[home-redo]]
+==== `redo` - Redo a command that has been undone [*v2.0*] [[home-redo]]
 
 Format: `redo <number of commands>`
 
@@ -375,16 +380,16 @@ Format: `open ("<search string>" | *-e[vidence]* <<_string_or_idx_, string_or_id
 
 This will open a new context for the specific Treatment or Evidence identified.
 
-==== `edit` - Edit one of the details of the Impression
+==== `edit` - Edit one of the details of the Impression, or one of its Treatment or Evidence items
 
-Format: `edit *[-app[end]]* [<<type, _type_>> <<_string_or_idx_, string_or_idx>>] <switch> [<new value>] [<switch> [<new value>]]`
+Format: `edit *[-app[end]]* ("<search string>" | *-e[vidence]* <<_string_or_idx_, string_or_idx>> | *-t[reatment]* <<_string_or_idx_, string_or_idx>> | *-im[pression]* ) <switch> [<new value>] [<switch> [<new value>]]`
 
-If input without `<<type, _type_>> <<_string_or_idx_, string_or_idx>>`, the switches and corresponding new value formats are as follows:
+If input with the `-im[pression]` switch set, it edits the `Impression` itself. The switches and corresponding new value formats are as follows:
 
 * `*-n[ame]* "<name>"`
 * `*-desc[ription]* "<description>"`
 
-With an additional type switch, the command instead edits an associated Treatment or Evidence.
+Otherwise, it edits the treatment or evidence specified.
 The possible values for `<switch>` and `<new value>` can be found in the associated <<type-table,table>> for `new`.
 
 ==== `delete` - Delete a Treatment or Evidence item listed on this page

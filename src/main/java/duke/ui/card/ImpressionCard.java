@@ -1,6 +1,7 @@
 package duke.ui.card;
 
 import duke.data.Impression;
+import duke.exception.DukeFatalException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -30,11 +31,33 @@ public class ImpressionCard extends UiCard {
      * @param impression Impression object.
      * @param isPrimary  If the Impression object is a primary diagnosis.
      */
-    public ImpressionCard(Impression impression, boolean isPrimary) {
+    public ImpressionCard(Impression impression, boolean isPrimary) throws DukeFatalException {
         super(FXML);
 
         this.impression = impression;
         this.isPrimary = isPrimary;
+        fillImpressionCard();
+    }
+
+    /**
+     * Constructs an ImpressionCard object with the specified {@code Impression}'s details.
+     *
+     * @param impression Impression object.
+     */
+    public ImpressionCard(Impression impression) throws DukeFatalException {
+        super(FXML);
+
+        this.impression = impression;
+        this.isPrimary = false;
+        fillImpressionCard();
+    }
+
+    /**
+     * Updates the card primary impression status.
+     * @param primary if the card is the primary impression
+     */
+    public void setPrimary(boolean primary) {
+        isPrimary = primary;
         fillImpressionCard();
     }
 

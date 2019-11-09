@@ -3,11 +3,9 @@ package duke.command.patient;
 import duke.DukeCore;
 import duke.command.ArgLevel;
 import duke.command.ArgSpec;
-import duke.command.Switch;
 import duke.command.home.HomeReportSpec;
 import duke.data.Patient;
 import duke.exception.DukeException;
-import duke.ui.context.Context;
 
 public class PatientDischargeSpec extends ArgSpec {
     private static final PatientDischargeSpec spec = new PatientDischargeSpec();
@@ -21,21 +19,18 @@ public class PatientDischargeSpec extends ArgSpec {
     }
 
     private PatientDischargeSpec() {
-        cmdArgLevel = ArgLevel.NONE;
-        initSwitches(
-                new Switch("bed", String.class, true, ArgLevel.REQUIRED, "b"),
-                new Switch("index", Integer.class, true, ArgLevel.REQUIRED, "i"),
-                new Switch("summary", String.class, true, ArgLevel.OPTIONAL, "sum")
-        );
+        cmdArgLevel = ArgLevel.OPTIONAL;
+        initSwitches();
     }
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
+        super.execute(core);
+        String arg = (cmd.getArg() == null) ? "" : cmd.getArg();
         Patient patient = (Patient) core.uiContext.getObject();
-
-        HomeReportSpec.createReport(patient, header, explanation, cmd.getSwitchVal("summary"));
-        core.patientList.deletePatient(patient.getBedNo());
-        core.uiContext.setContext(Context.HOME, null);
+        HomeReportSpec.createReport(patient, header, explanation, arg);
+        core.patientData.deletePatient(patient.getBedNo());
+        core.uiContext.open(null);
         core.writeJsonFile();
         core.updateUi(result);
     }

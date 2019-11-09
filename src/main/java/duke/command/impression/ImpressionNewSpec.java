@@ -12,7 +12,6 @@ import duke.data.Plan;
 import duke.data.Result;
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
-import duke.ui.context.Context;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -49,6 +48,7 @@ public class ImpressionNewSpec extends DukeDataSpec {
     // TODO refactor into 5 different methods for each type
     @Override
     protected void execute(DukeCore core) throws DukeException {
+        super.execute(core);
         String addType = uniqueDataType(cmd);
         if (addType == null) {
             throw new DukeHelpException("No data type specified!", cmd);
@@ -63,29 +63,26 @@ public class ImpressionNewSpec extends DukeDataSpec {
         if (priority == -1) {
             priority = 0;
         }
-        ImpressionUtils.checkPriority(priority);
         cmd.nullToEmptyString(); //set optional string parameters to ""
         int status;
         switch (addType) { //isn't polymorphism fun?
         case "medicine":
-            //TODO check for allergies
-            status = ImpressionUtils.processStatus(cmd.getSwitchVal("status"), Medicine.getStatusArr());
             //TODO proper date parsing
             String startDate = cmd.getSwitchVal("date");
             if ("".equals(startDate)) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
                 startDate = LocalDate.now().format(formatter);
             }
-            Medicine medicine = new Medicine(cmd.getSwitchVal("name"), impression, priority, status,
-                    cmd.getSwitchVal("dose"), startDate, cmd.getSwitchVal("duration"));
+            Medicine medicine = new Medicine(cmd.getSwitchVal("name"), impression, priority,
+                    cmd.getSwitchVal("status"), cmd.getSwitchVal("dose"), startDate,
+                    cmd.getSwitchVal("duration"));
             impression.addNewTreatment(medicine);
             newData = medicine;
             newStr = "New medicine course added:\n" + medicine.toString();
             break;
 
         case "plan":
-            status = ImpressionUtils.processStatus(cmd.getSwitchVal("status"), Plan.getStatusArr());
-            Plan plan = new Plan(cmd.getSwitchVal("name"), impression, priority, status,
+            Plan plan = new Plan(cmd.getSwitchVal("name"), impression, priority, cmd.getSwitchVal("status"),
                     cmd.getSwitchVal("summary"));
             impression.addNewTreatment(plan);
             newData = plan;
@@ -93,9 +90,8 @@ public class ImpressionNewSpec extends DukeDataSpec {
             break;
 
         case "investigation":
-            status = ImpressionUtils.processStatus(cmd.getSwitchVal("status"), Investigation.getStatusArr());
-            Investigation invx = new Investigation(cmd.getSwitchVal("name"), impression, priority, status,
-                    cmd.getSwitchVal("summary"));
+            Investigation invx = new Investigation(cmd.getSwitchVal("name"), impression, priority,
+                    cmd.getSwitchVal("status"), cmd.getSwitchVal("summary"));
             impression.addNewTreatment(invx);
             newData = invx;
             newStr = "New investigation being tracked:\n" + invx.toString();
@@ -125,21 +121,7 @@ public class ImpressionNewSpec extends DukeDataSpec {
         core.updateUi(newStr);
 
         if (cmd.isSwitchSet("go")) {
-            switch (addType) {
-            case "plan": //fallthrough
-            case "medicine":
-                core.uiContext.setContext(Context.TREATMENT, newData);
-                break;
-            case "investigation":
-                core.uiContext.setContext(Context.INVESTIGATION, newData);
-                break;
-            case "result": //fallthrough
-            case "observation":
-                core.uiContext.setContext(Context.EVIDENCE, newData);
-                break;
-            default:
-                throw new DukeException("Invalid data type!");
-            }
+            core.uiContext.open(newData);
         }
         core.writeJsonFile();
     }

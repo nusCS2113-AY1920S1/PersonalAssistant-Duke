@@ -1,6 +1,9 @@
 package duke.data;
 
 import duke.exception.DukeException;
+import duke.exception.DukeFatalException;
+import duke.ui.card.ImpressionCard;
+import duke.ui.context.Context;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -10,6 +13,7 @@ public class Impression extends DukeObject {
     private String description;
     private ArrayList<Evidence> evidences;
     private ArrayList<Treatment> treatments;
+    private transient Patient parent;
 
     // TODO: integrate finding with autocorrect?
 
@@ -29,9 +33,15 @@ public class Impression extends DukeObject {
      */
     public Impression(String name, String description, Patient patient) {
         super(name, patient);
+        parent = patient;
         this.description = description;
         this.evidences = new ArrayList<>();
         this.treatments = new ArrayList<>();
+    }
+
+    @Override
+    public Patient getParent() {
+        return parent;
     }
 
     /**
@@ -40,15 +50,15 @@ public class Impression extends DukeObject {
      * @param searchTerm the term to be searched for
      * @return ArrayList of the Treatments
      */
-    public ArrayList<Treatment> findTreatments(String searchTerm) {
-        ArrayList<Treatment> searchResult = new ArrayList<>();
+    public SearchResults findTreatments(String searchTerm) {
+        ArrayList<Treatment> treatmentList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
         for (Treatment treatment : treatments) {
             if (treatment.toString().toLowerCase().contains(lowerSearchTerm)) {
-                searchResult.add(treatment);
+                treatmentList.add(treatment);
             }
         }
-        return searchResult;
+        return new SearchResults(searchTerm, treatmentList, this);
     }
 
     /**
@@ -57,28 +67,28 @@ public class Impression extends DukeObject {
      * @param searchTerm the term to be searched for
      * @return ArrayList of the Evidence
      */
-    public ArrayList<Evidence> findEvidences(String searchTerm) {
-        ArrayList<Evidence> searchResult = new ArrayList<>();
+    public SearchResults findEvidences(String searchTerm) {
+        ArrayList<Evidence> evidenceList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
         for (Evidence evidence : evidences) {
             if (evidence.toString().toLowerCase().contains(lowerSearchTerm)) {
-                searchResult.add(evidence);
+                evidenceList.add(evidence);
             }
         }
-        return searchResult;
+        return new SearchResults(searchTerm, evidenceList, this);
     }
 
     /**
-     * This find function returns a list of all DukeData related to the impression containing the search term.
+     * Searches through all DukeData associated with this impression containing the search term.
      *
      * @param searchTerm String to be used to filter the DukeData
      * @return the list of DukeData
      */
-    public ArrayList<DukeData> find(String searchTerm) {
-        ArrayList<DukeData> searchResult = new ArrayList<>();
-        searchResult.addAll(findEvidences(searchTerm));
-        searchResult.addAll(findTreatments(searchTerm));
-        return searchResult;
+    public SearchResults searchAll(String searchTerm) {
+        SearchResults results = new SearchResults(searchTerm, new ArrayList<DukeObject>(), this);
+        results.addAll(findEvidences(searchTerm));
+        results.addAll(findTreatments(searchTerm));
+        return results;
     }
 
     /**
@@ -87,15 +97,15 @@ public class Impression extends DukeObject {
      * @param searchTerm the term to be searched for
      * @return ArrayList of the Treatments
      */
-    public ArrayList<Treatment> findTreatmentsByName(String searchTerm) {
-        ArrayList<Treatment> searchResult = new ArrayList<>();
+    public SearchResults findTreatmentsByName(String searchTerm) {
+        ArrayList<Treatment> treatmentList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
         for (Treatment entry : treatments) {
             if (entry.getName().toLowerCase().contains(lowerSearchTerm)) {
-                searchResult.add(entry);
+                treatmentList.add(entry);
             }
         }
-        return searchResult;
+        return new SearchResults(searchTerm, treatmentList, this);
     }
 
     /**
@@ -104,15 +114,15 @@ public class Impression extends DukeObject {
      * @param searchTerm the term to be searched for
      * @return ArrayList of the Evidences
      */
-    public ArrayList<Evidence> findEvidencesByName(String searchTerm) {
-        ArrayList<Evidence> searchResult = new ArrayList<>();
+    public SearchResults findEvidencesByName(String searchTerm) {
+        ArrayList<Evidence> evidenceList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
         for (Evidence entry : evidences) {
             if (entry.getName().toLowerCase().contains(lowerSearchTerm)) {
-                searchResult.add(entry);
+                evidenceList.add(entry);
             }
         }
-        return searchResult;
+        return new SearchResults(searchTerm, evidenceList, this);
     }
 
     /**
@@ -121,20 +131,47 @@ public class Impression extends DukeObject {
      * @param searchTerm String to be used to filter the DukeData
      * @return the list of DukeData
      */
-    public ArrayList<DukeData> findByName(String searchTerm) {
-        ArrayList<DukeData> searchResult = new ArrayList<>();
-        searchResult.addAll(findEvidencesByName(searchTerm));
-        searchResult.addAll(findTreatmentsByName(searchTerm));
-        return searchResult;
+    public SearchResults findByName(String searchTerm) {
+        SearchResults results = new SearchResults(searchTerm, new ArrayList<DukeObject>(), this);
+        results.addAll(findEvidencesByName(searchTerm));
+        results.addAll(findTreatmentsByName(searchTerm));
+        return results;
     }
 
     private void sortEvidences() {
-        evidences.sort(Comparator.comparing(Evidence::getPriority));
+        evidences.sort(((Comparator<Evidence>) (a1, a2) -> {
+            int a1Priority = a1.getPriority();
+            int a2Priority = a2.getPriority();
+            if (a1Priority != 0 && a2Priority != 0) {
+                if (a1Priority == a2Priority) {
+                    return 0;
+                }
+                return (a1Priority < a2Priority) ? -1 : 1;
+            } else if (a1Priority == 0 && a2Priority == 0) {
+                return 0;
+            } else {
+                return (a1Priority == 0) ? 1 : -1;
+            }
+        }
+            ));
     }
 
     private void sortTreatments() {
-        treatments.sort(Comparator.comparing(Treatment::getPriority)
-                        .thenComparing(Treatment::getStatusIdx));
+        treatments.sort(((Comparator<Treatment>) (a1, a2) -> {
+                    int a1Priority = a1.getPriority();
+                    int a2Priority = a2.getPriority();
+                    if (a1Priority != 0 && a2Priority != 0) {
+                        if (a1Priority == a2Priority) {
+                            return 0;
+                        }
+                        return (a1Priority < a2Priority) ? -1 : 1;
+                    } else if (a1Priority == 0 && a2Priority == 0) {
+                        return 0;
+                    } else {
+                        return (a1Priority == 0) ? 1 : -1;
+                    }
+                }
+            ).thenComparing(Treatment::getStatusIdx));
     }
 
     /**
@@ -164,19 +201,19 @@ public class Impression extends DukeObject {
             evidences.remove(deletedEvidence);
             sortEvidences();
             return deletedEvidence;
+        } else {
+            throw new DukeException("I don't have an evidence named that!");
         }
-        throw new DukeException("I can't delete that evidence because I don't have it!");
     }
 
     /**
-     * This getEvidence function returns the evidence from the evidence list at the specified index.
+     * This getEvidence function returns the evidence with the specified name.
      *
      * @param keyIdentifier name of the evidence
      * @return the evidence specified by the index
      */
     public Evidence getEvidence(String keyIdentifier) {
         String lowerKey = keyIdentifier.toLowerCase();
-
         for (Evidence evidence : evidences) {
             String dataName = evidence.getName().toLowerCase();
             if (dataName.equals(lowerKey)) {
@@ -201,6 +238,22 @@ public class Impression extends DukeObject {
         throw new DukeException("I already have a treatment named that.");
     }
 
+    // TODO create parent reference in object
+
+    /**
+     * This function only allows medicine to be added if the patient is not allergic.
+     * @param newMedicine the medicine to be added
+     * @return the medicine added if successful
+     * @throws DukeException if the patient is allergic or if the medicine is a duplicate entry
+     */
+    public Medicine addNewMedicine(Medicine newMedicine) throws DukeException {
+        if (parent.isAllergic(newMedicine.getName())) {
+            throw new DukeException("The patient is allergic to this medicine!");
+        }
+        addNewTreatment(newMedicine);
+        return newMedicine;
+    }
+
     /**
      * This deleteTreatment function deletes a treatment at the specified index from the treatment list.
      *
@@ -214,7 +267,7 @@ public class Impression extends DukeObject {
             sortEvidences();
             return deletedTreatment;
         }
-        throw new DukeException("I can't delete that treatment because I don't have it!");
+        throw new DukeException("I don't have a treatment named that!");
     }
 
     /**
@@ -225,7 +278,7 @@ public class Impression extends DukeObject {
      */
     public Treatment getTreatment(String keyIdentifier) throws DukeException {
         String lowerKey = keyIdentifier.toLowerCase();
-        for (Treatment treatment: treatments) {
+        for (Treatment treatment : treatments) {
             String dataName = treatment.getName().toLowerCase();
             if (dataName.equals(lowerKey)) {
                 return treatment;
@@ -278,9 +331,9 @@ public class Impression extends DukeObject {
     }
 
     /**
-     * This function initialises the parent object of each evidence and treatment.
+     * This function initialises the parent of each evidence and treatment held to this Impression.
      */
-    public void initChild() {
+    public void initChildren() {
         for (Evidence evidence : evidences) {
             evidence.setParent(this);
         }
@@ -309,7 +362,6 @@ public class Impression extends DukeObject {
         }
         return count;
     }
-
 
     /**
      * Computes the number of follow up items: the number of Investigations not yet ordered, or whose results have not
@@ -355,5 +407,46 @@ public class Impression extends DukeObject {
     public boolean equals(Impression impression) {
         return getName().equals(impression.getName()) && description.equals(impression.description)
                 && getParent() == impression.getParent();
+    }
+
+    public ImpressionCard toCard() throws DukeFatalException {
+        return new ImpressionCard(this);
+    }
+
+    public boolean contains(String searchTerm) {
+        return description.toLowerCase().contains(searchTerm.toLowerCase());
+    }
+
+    @Override
+    public Context toContext() {
+        return Context.IMPRESSION;
+    }
+
+    /**
+     * This functions returns the evidence at a specified index.
+     * @param idx the zero based index
+     * @return the evidence at the index
+     * @throws DukeException if the index is out of bounds
+     */
+    public Evidence getEvidenceAtIdx(int idx) throws DukeException {
+        if (idx >= 0 && idx < evidences.size()) {
+            return evidences.get(idx);
+        } else {
+            throw new DukeException("I don't have an evidence at that index!");
+        }
+    }
+
+    /**
+     * This functions returns the treatment at a specified index.
+     * @param idx the zero based index
+     * @return the treatment at the index
+     * @throws DukeException if the index is out of bounds
+     */
+    public Treatment getTreatmentAtIdx(int idx) throws DukeException {
+        if (idx >= 0 && idx < treatments.size()) {
+            return treatments.get(idx);
+        } else {
+            throw new DukeException("I don't have an treatment at that index!");
+        }
     }
 }

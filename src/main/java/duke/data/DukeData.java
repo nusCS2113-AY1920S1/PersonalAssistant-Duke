@@ -2,11 +2,16 @@ package duke.data;
 
 import duke.exception.DukeException;
 
+import java.util.Map;
+
 public abstract class DukeData extends DukeObject {
+
+    // TODO change priority to primitive int
 
     public static final int PRIORITY_MAX = 4;
     private Integer priority;
     protected String summary;
+    private transient Impression parent;
 
     /**
      * Abstraction of the evidence or treatment data of a patient.
@@ -18,11 +23,16 @@ public abstract class DukeData extends DukeObject {
      * @param impression the impression object the data is tagged to
      * @param priority the priority level of the investigation
      */
-    public DukeData(String name, Impression impression, Integer priority) {
+    public DukeData(String name, Impression impression, Integer priority) throws DukeException {
         super(name, impression);
-        this.priority = priority;
+        parent = impression;
+        setPriority(priority);
     }
 
+    @Override
+    public Impression getParent() {
+        return parent;
+    }
 
     public void setName(String name) {
         super.setName(name);
@@ -38,6 +48,9 @@ public abstract class DukeData extends DukeObject {
      * @return the integer of the updated priority
      */
     public Integer setPriority(Integer priority) throws DukeException {
+        if (priority < 0 || priority > DukeData.PRIORITY_MAX) {
+            throw new DukeException("Priority must be between 0 and " + DukeData.PRIORITY_MAX + "!");
+        }
         this.priority = priority;
         return getPriority();
     }
@@ -70,5 +83,29 @@ public abstract class DukeData extends DukeObject {
                 && getParent() == other.getParent()
                 && ((getSummary() == null && other.getSummary() == null) || getSummary().equals(other.getSummary()));
         // null check required because medicine summary is null
+    }
+
+    /**
+     * This function updates DukeData attributes if there is changes.
+     * Utilises isAppending to determine whether to append or replace the attribute.
+     * @param newName the name entered by the user, null if not applicable
+     * @param newPriority the priority specified by user, -1 if not applicable
+     * @param newSummary the summary entered by the user, null if not applicable
+     * @param editVals unused in this method, used in overridden method
+     * @param isAppending true if not a replacement
+     * @throws DukeException if priority specified by user is invalid
+     */
+    public void edit(String newName, int newPriority, String newSummary, Map<String, String> editVals,
+                     boolean isAppending)
+            throws DukeException {
+        if (newName != null) {
+            setName((isAppending) ? getName() + newName : newName);
+        }
+        if (newPriority != -1) {
+            setPriority(newPriority);
+        }
+        if (newSummary != null) {
+            setSummary((isAppending) ? getSummary() + newSummary : newSummary);
+        }
     }
 }

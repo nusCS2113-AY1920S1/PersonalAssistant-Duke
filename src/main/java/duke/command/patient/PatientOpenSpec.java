@@ -2,19 +2,13 @@ package duke.command.patient;
 
 import duke.DukeCore;
 import duke.command.ArgLevel;
-import duke.command.ArgSpec;
-import duke.command.CommandUtils;
+import duke.command.ObjSpec;
 import duke.command.Switch;
 import duke.data.DukeObject;
-import duke.data.Impression;
 import duke.data.Patient;
-import duke.exception.DukeException;
-import duke.ui.context.Context;
+import duke.exception.DukeFatalException;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class PatientOpenSpec extends ArgSpec {
+public class PatientOpenSpec extends ObjSpec {
     private static final PatientOpenSpec spec = new PatientOpenSpec();
 
     public static PatientOpenSpec getSpec() {
@@ -31,33 +25,9 @@ public class PatientOpenSpec extends ArgSpec {
     }
 
     @Override
-    protected void execute(DukeCore core) throws DukeException {
-        Map<String, Boolean> conditions = new HashMap<>();
-        conditions.put("impression", cmd.isSwitchSet("impression"));
-        conditions.put("critical", cmd.isSwitchSet("critical"));
-        conditions.put("investigation", cmd.isSwitchSet("investigation"));
-
-        String type = null;
-        for (Map.Entry<String, Boolean> condition : conditions.entrySet()) {
-            if (condition.getValue()) {
-                if (type == null) {
-                    type = condition.getKey();
-                } else {
-                    throw new DukeException("Please provide at most 1 unique type (IMPRESSION, CRITICAL or "
-                            + "INVESTIGATION that you wish to open!");
-                }
-            }
-        }
-
+    protected void executeWithObj(DukeCore core, DukeObject obj) throws DukeFatalException {
         Patient patient = (Patient) core.uiContext.getObject();
-        DukeObject object = CommandUtils.findFromPatient(core, patient, type, cmd.getArg());
-
-        if (object instanceof Impression) {
-            core.uiContext.setContext(Context.IMPRESSION, object);
-        } else {
-            core.uiContext.setContext(Context.IMPRESSION, object.getParent());
-        }
-
-        core.updateUi("Accessing " + object.getClass().getName() + " of Bed " + patient.getBedNo());
+        core.uiContext.open(obj);
+        core.updateUi("Accessing " + obj.getClass().getSimpleName() + " of Bed " + patient.getBedNo());
     }
 }

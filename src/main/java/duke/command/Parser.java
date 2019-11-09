@@ -5,6 +5,8 @@ import duke.exception.DukeHelpException;
 import duke.exception.DukeUtilException;
 import duke.ui.context.UiContext;
 
+import java.util.logging.Logger;
+
 import static java.lang.Math.min;
 
 /**
@@ -14,9 +16,13 @@ import static java.lang.Math.min;
  */
 public class Parser {
 
+    public static final Logger parserLogger = Logger.getLogger("parser");
     private final Commands commands;
     private final UiContext uiContext;
     private final ArgParser argParser;
+
+    static {
+    }
 
     /**
      * Constructs a new Parser, generating a HashMap from an array of enum values to allow fast lookup of command types.
@@ -43,17 +49,17 @@ public class Parser {
      * @throws DukeException If there is no matching command or the arguments do not meet the command's requirements.
      */
     public Command parse(String inputStr) throws DukeException {
-        inputStr = inputStr.replace("\t", "    "); //sanitise input
-        int spaceIdx = inputStr.indexOf(" ");
-        int sepIdx = inputStr.indexOf(System.lineSeparator());
-        String cmdStr = inputStr;
+        String cleanInputStr = inputStr.strip().replace("\t", "    "); //sanitise input
+        int spaceIdx = cleanInputStr.indexOf(" ");
+        int sepIdx = cleanInputStr.indexOf(System.lineSeparator());
+        String cmdStr = cleanInputStr;
         if (!(spaceIdx == -1 && sepIdx == -1)) {
             if (spaceIdx == -1) {
-                cmdStr = inputStr.substring(0, sepIdx);
+                cmdStr = cleanInputStr.substring(0, sepIdx);
             } else if (sepIdx == -1) {
-                cmdStr = inputStr.substring(0, spaceIdx);
+                cmdStr = cleanInputStr.substring(0, spaceIdx);
             } else {
-                cmdStr = inputStr.substring(0, min(sepIdx, spaceIdx));
+                cmdStr = cleanInputStr.substring(0, min(sepIdx, spaceIdx));
             }
         }
         Command command = commands.getCommand(cmdStr, uiContext.getContext());
@@ -64,9 +70,9 @@ public class Parser {
         // trim command and first space after it from input if needed, and standardise newlines
         if (command instanceof ArgCommand) { // stripping not required otherwise
             //standardise line separators for internal manipulation
-            inputStr = inputStr.replaceAll("(\\r\\n|\\n|\\r)", "\n");
+            cleanInputStr = cleanInputStr.replaceAll("(\\r\\n|\\n|\\r)", "\n");
             try {
-                argParser.parseArgument((ArgCommand) command, inputStr.substring(cmdStr.length()));
+                argParser.parseArgument((ArgCommand) command, cleanInputStr.substring(cmdStr.length()));
             } catch (DukeUtilException excp) {
                 throw new DukeHelpException(excp.getMessage(), command);
             }

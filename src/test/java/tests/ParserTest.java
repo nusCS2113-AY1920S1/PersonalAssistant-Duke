@@ -131,4 +131,18 @@ public class ParserTest {
             uut.parse("doctor Hello -switch Goodbye -switch World");
         }).getMessage());
     }
+
+    @Test
+    public void parseCommand_missingSwitch_exceptionThrown() {
+        System.out.println(assertThrows(DukeHelpException.class, () -> {
+            uut.parse("doctor Hello");
+        }).getMessage());
+    }
+
+    @Test
+    public void parseCommand_wrongSwitch_exceptionThrown() {
+        System.out.println(assertThrows(DukeHelpException.class, () -> {
+            uut.parse("doctor Hello -switch Goodbye -maybe -1");
+        }).getMessage());
+    }
 }

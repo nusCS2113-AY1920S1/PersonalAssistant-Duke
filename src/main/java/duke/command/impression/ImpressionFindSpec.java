@@ -2,17 +2,16 @@ package duke.command.impression;
 
 import duke.DukeCore;
 import duke.command.ArgLevel;
-import duke.command.ArgSpec;
+import duke.command.ObjSpec;
 import duke.command.Switch;
 import duke.data.DukeObject;
 import duke.data.Impression;
-import duke.data.SearchResult;
+import duke.data.SearchResults;
 import duke.exception.DukeException;
-import duke.ui.context.Context;
 
 import java.util.ArrayList;
 
-public class ImpressionFindSpec extends ArgSpec {
+public class ImpressionFindSpec extends ObjSpec {
 
     private static final ImpressionFindSpec spec = new ImpressionFindSpec();
 
@@ -30,27 +29,27 @@ public class ImpressionFindSpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
+        super.execute(core);
         String searchTerm = cmd.getArg();
         ArrayList<DukeObject> searchResult = new ArrayList<>();
         Impression impression = (Impression) core.uiContext.getObject();
+        SearchResults results = new SearchResults(searchTerm, new ArrayList<DukeObject>(), impression);
         if (cmd.getSwitchVals().isEmpty()) {
-            searchResult.addAll(impression.find(searchTerm));
+            results = impression.searchAll(searchTerm);
         } else {
             if (cmd.getSwitchVals().containsKey("evidence")) {
-                searchResult.addAll(impression.findEvidences(searchTerm));
+                results.addAll(impression.findEvidences(searchTerm));
             }
             if (cmd.getSwitchVals().containsKey("treatment")) {
-                searchResult.addAll(impression.findTreatments(searchTerm));
+                results.addAll(impression.findTreatments(searchTerm));
             }
         }
 
-        if (!searchResult.isEmpty()) {
-            SearchResult search = new SearchResult(searchTerm, searchResult, impression);
-            core.uiContext.setContext(Context.SEARCH, search);
-            core.updateUi("Returning result of search of " + searchTerm);
-        } else {
-            throw new DukeException("There were no relevant treatments or evidences.");
-        }
+        processResults(core, results);
+    }
 
+    @Override
+    protected void executeWithObj(DukeCore core, DukeObject obj) {
+        core.uiContext.open(obj);
     }
 }

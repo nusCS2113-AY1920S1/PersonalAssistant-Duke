@@ -6,7 +6,6 @@ import duke.command.ArgSpec;
 import duke.command.Switch;
 import duke.data.Patient;
 import duke.exception.DukeException;
-import duke.ui.context.Context;
 
 public class HomeNewSpec extends ArgSpec {
     private static final HomeNewSpec spec = new HomeNewSpec();
@@ -34,6 +33,7 @@ public class HomeNewSpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
+        super.execute(core);
         //ideally, we would pass an array of objects
         cmd.nullToEmptyString(); //set optional string parameters to ""
         Integer height = cmd.switchToInt("height");
@@ -44,7 +44,7 @@ public class HomeNewSpec extends ArgSpec {
         String address = cmd.getSwitchVal("address");
         String history = cmd.getSwitchVal("history");
         // TODO: format checks for bed number?
-        for (Patient patient : core.patientList.getPatientList()) {
+        for (Patient patient : core.patientData.getPatientList()) {
             if (patient.getBedNo().equals(bed)) {
                 throw new DukeException("There is already a patient at that bed!");
             }
@@ -53,12 +53,12 @@ public class HomeNewSpec extends ArgSpec {
         Patient patient = new Patient(cmd.getSwitchVal("name"), bed,
                 cmd.getSwitchVal("allergies"), height, weight, age, number,
                 address, history);
-        core.patientList.addPatient(patient);
+        core.patientData.addPatient(patient);
         core.writeJsonFile();
         core.updateUi("Patient added.");
 
         if (cmd.isSwitchSet("go")) {
-            core.uiContext.setContext(Context.PATIENT, patient);
+            core.uiContext.open(patient);
         }
     }
 }

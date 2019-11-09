@@ -8,7 +8,6 @@ import duke.data.Impression;
 import duke.data.Medicine;
 import duke.data.Patient;
 import duke.exception.DukeException;
-import duke.ui.context.Context;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import templates.CommandTest;
@@ -36,11 +35,11 @@ public class ImpressionCommandTest extends CommandTest {
         impression = new Impression("name", "description", patient);
         try {
             patient.addNewImpression(impression);
-            core.patientList.addPatient(patient);
+            core.patientData.addPatient(patient);
         } catch (DukeException excp) {
             fail("Failed to setup patient and impression for testing!");
         }
-        core.uiContext.setContext(Context.IMPRESSION, impression);
+        core.uiContext.open(impression);
     }
 
     @Test
@@ -48,10 +47,10 @@ public class ImpressionCommandTest extends CommandTest {
         //TODO test other DukeData
         String[] switchNames = {"medicine", "name", "priority", "status", "dose", "date", "duration"};
         String[] switchVals = {null, "test", "2", "1", "test dose", "today", "next two weeks"};
-        Medicine testMed = new Medicine("test", impression, 2, 1, "test dose",
-                "today", "next two weeks");
 
         try {
+            Medicine testMed = new Medicine("test", impression, 2, "1", "test dose",
+                    "today", "next two weeks");
             ArgCommand newMedCmd = new ArgCommand(ImpressionNewSpec.getSpec(), null, switchNames, switchVals);
             newMedCmd.execute(core);
             assertTrue(testMed.equals(impression.getTreatment("test")));
@@ -65,9 +64,10 @@ public class ImpressionCommandTest extends CommandTest {
         //TODO test other DukeData
         String[] switchNames = {"medicine", "name", "dose", "duration"};
         String[] switchVals = {null, "test", "test dose", "next two weeks"};
-        Medicine testMed = new Medicine("test", impression, 0, 0, "test dose",
-                LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy")), "next two weeks");
+
         try {
+            Medicine testMed = new Medicine("test", impression, 0, "0", "test dose",
+                    LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy")), "next two weeks");
             ArgCommand newMedCmd = new ArgCommand(ImpressionNewSpec.getSpec(), null, switchNames, switchVals);
             newMedCmd.execute(core);
             assertTrue(testMed.equals(impression.getTreatment("test")));
@@ -99,4 +99,16 @@ public class ImpressionCommandTest extends CommandTest {
         }
         assertEquals(impression, patient.getPrimaryDiagnosis());
     }
+
+    // assume user manages to identify an object unambiguously for ObjCommands
+
+    /*
+    @Test
+    public void impressionEditCommand_fullCommand_dataEdited() {
+        ObjCommand editCmd = new ObjCommand(ImpressionEditSpec.getSpec());
+        Result origData = new Result()
+
+        editCmd.execute(core);
+        assertEquals(impression, patient.getPrimaryDiagnosis());
+    }*/
 }

@@ -2,15 +2,13 @@ package duke.command.home;
 
 import duke.DukeCore;
 import duke.command.ArgLevel;
-import duke.command.ArgSpec;
-import duke.command.CommandUtils;
 import duke.command.Switch;
+import duke.data.DukeObject;
 import duke.data.Impression;
 import duke.data.Patient;
 import duke.exception.DukeException;
-import duke.ui.context.Context;
 
-public class HomeOpenSpec extends ArgSpec {
+public class HomeOpenSpec extends HomeObjSpec {
     private static final HomeOpenSpec spec = new HomeOpenSpec();
 
     public static HomeOpenSpec getSpec() {
@@ -26,22 +24,20 @@ public class HomeOpenSpec extends ArgSpec {
     }
 
     @Override
-    protected void execute(DukeCore core) throws DukeException {
-        String bed = cmd.getSwitchVal("bed");
-        Patient patient = CommandUtils.findFromHome(core, bed, cmd.getArg());
-
+    protected void executeWithObj(DukeCore core, DukeObject obj) throws DukeException {
+        Patient patient = (Patient) obj;
         if (cmd.isSwitchSet("impression")) {
             Impression primaryDiagnosis = patient.getPrimaryDiagnosis();
 
             if (primaryDiagnosis != null) {
-                core.uiContext.setContext(Context.PATIENT, patient);
-                core.uiContext.setContext(Context.IMPRESSION, primaryDiagnosis);
+                core.uiContext.open(patient);
+                core.uiContext.open(primaryDiagnosis);
                 core.updateUi("Accessing primary diagnosis of " + patient.getName());
             } else {
                 throw new DukeException(patient.getName() + " has no primary diagnosis at the moment!");
             }
         } else {
-            core.uiContext.setContext(Context.PATIENT, patient);
+            core.uiContext.open(patient);
             core.updateUi("Accessing details of " + patient.getName());
         }
     }

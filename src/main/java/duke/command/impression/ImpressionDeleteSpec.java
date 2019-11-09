@@ -2,15 +2,14 @@ package duke.command.impression;
 
 import duke.DukeCore;
 import duke.command.ArgLevel;
-import duke.command.ArgSpec;
 import duke.command.Switch;
-import duke.data.DukeData;
+import duke.data.DukeObject;
 import duke.data.Evidence;
 import duke.data.Impression;
 import duke.data.Treatment;
 import duke.exception.DukeException;
 
-public class ImpressionDeleteSpec extends ArgSpec {
+public class ImpressionDeleteSpec extends ImpressionObjSpec {
     private static final ImpressionDeleteSpec spec = new ImpressionDeleteSpec();
 
     public static ImpressionDeleteSpec getSpec() {
@@ -26,15 +25,13 @@ public class ImpressionDeleteSpec extends ArgSpec {
     }
 
     @Override
-    protected void execute(DukeCore core) throws DukeException {
+    protected void executeWithObj(DukeCore core, DukeObject obj) throws DukeException {
         Impression impression = ImpressionUtils.getImpression(core);
-        DukeData delData = ImpressionUtils.getData(cmd.getArg(), cmd.getSwitchVal("evidence"),
-                cmd.getSwitchVal("treatment"), impression);
-        String delMsg = "'" + delData.getName() + "' deleted!";
-        if (delData instanceof Evidence) {
-            impression.deleteEvidence(delData.getName());
-        } else if (delData instanceof Treatment) {
-            impression.deleteTreatment(delData.getName());
+        String delMsg = "'" + obj.getName() + "' deleted!";
+        if (obj instanceof Evidence) {
+            impression.deleteEvidence(obj.getName());
+        } else if (obj instanceof Treatment) {
+            impression.deleteTreatment(obj.getName());
         }
         core.writeJsonFile();
         core.updateUi(delMsg);

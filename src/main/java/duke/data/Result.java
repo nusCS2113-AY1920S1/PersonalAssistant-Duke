@@ -1,5 +1,10 @@
 package duke.data;
 
+import duke.exception.DukeException;
+import duke.exception.DukeFatalException;
+import duke.ui.card.ResultCard;
+import duke.ui.context.Context;
+
 public class Result extends Evidence {
 
     /**
@@ -13,13 +18,12 @@ public class Result extends Evidence {
      * @param summary a summary of the result
      * @param priority the priority level of the evidence
     */
-    public Result(String name, Impression impression, int priority, String summary) {
+    public Result(String name, Impression impression, int priority, String summary) throws DukeException {
         super(name, impression, priority, summary);
     }
 
     @Override
     public String toString() {
-        // todo
         return super.toString();
     }
 
@@ -29,4 +33,12 @@ public class Result extends Evidence {
         return null;
     }
 
+    public ResultCard toCard() throws DukeFatalException {
+        return new ResultCard(this);
+    }
+
+    @Override
+    public Context toContext() {
+        return Context.EVIDENCE;
+    }
 }

@@ -1,5 +1,10 @@
 package duke.data;
 
+import duke.exception.DukeException;
+import duke.exception.DukeFatalException;
+import duke.ui.card.PlanCard;
+import duke.ui.context.Context;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +26,7 @@ public class Plan extends Treatment {
      * @param status the current status of the plan
      * @param summary the summary of what the plan entails
      */
-    public Plan(String name, Impression impression, int priority, int status, String summary) {
+    public Plan(String name, Impression impression, int priority, String status, String summary) throws DukeException {
         super(name, impression, priority, status);
         this.summary = summary;
     }
@@ -42,7 +47,18 @@ public class Plan extends Treatment {
         return statusArr.get(getStatusIdx());
     }
 
-    public static List<String> getStatusArr() {
+    @Override
+    public List<String> getStatusArr() {
         return Collections.unmodifiableList(statusArr);
+    }
+
+    @Override
+    public PlanCard toCard() throws DukeFatalException {
+        return new PlanCard(this);
+    }
+
+    @Override
+    public Context toContext() {
+        return Context.TREATMENT;
     }
 }

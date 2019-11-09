@@ -1,8 +1,14 @@
 package duke.data;
 
+import duke.exception.DukeException;
+import duke.exception.DukeFatalException;
+import duke.ui.card.MedicineCard;
+import duke.ui.context.Context;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class Medicine extends Treatment {
 
@@ -26,8 +32,8 @@ public class Medicine extends Treatment {
      * @param startDate the starting date when the patient should be on the medicine
      * @param duration the duration the patient needs to take the medicine
      */
-    public Medicine(String name, Impression impression, int priority, int status,
-                    String dose, String startDate, String duration) {
+    public Medicine(String name, Impression impression, int priority, String status,
+                    String dose, String startDate, String duration) throws DukeException {
         super(name, impression, priority, status);
         this.dose = dose;
         this.startDate = startDate;
@@ -77,7 +83,26 @@ public class Medicine extends Treatment {
         return statusArr.get(getStatusIdx());
     }
 
-    public static List<String> getStatusArr() {
+    @Override
+    public void edit(String newName, int newPriority, String newSummary, Map<String, String> editVals,
+                     boolean isAppending) throws DukeException {
+        super.edit(newName, newPriority, newSummary, editVals, isAppending);
+        String dose = editVals.get("dose");
+        String date = editVals.get("date");
+        String duration = editVals.get("duration");
+        if (dose != null) {
+            setDose((isAppending) ? getDose() + dose : dose);
+        }
+        if (date != null) {
+            setStartDate((isAppending) ? getStartDate() + date : date);
+        }
+        if (duration != null) {
+            setDuration((isAppending) ? getDuration() + duration : duration);
+        }
+    }
+
+    @Override
+    public List<String> getStatusArr() {
         return Collections.unmodifiableList(statusArr);
     }
 
@@ -106,4 +131,14 @@ public class Medicine extends Treatment {
             return false;
         }
     }
+
+    public MedicineCard toCard() throws DukeFatalException {
+        return new MedicineCard(this);
+    }
+
+    @Override
+    public Context toContext() {
+        return Context.TREATMENT;
+    }
+
 }

@@ -1,6 +1,12 @@
 package duke.data;
 
 import duke.exception.DukeException;
+import duke.exception.DukeUtilException;
+
+import java.util.List;
+import java.util.Map;
+import duke.exception.DukeFatalException;
+import duke.ui.card.TreatmentCard;
 
 public abstract class Treatment extends DukeData {
 
@@ -17,9 +23,9 @@ public abstract class Treatment extends DukeData {
      * - status: the current status of the treatment
      * - priority: the priority level of the treatment
      */
-    public Treatment(String name, Impression impression, int priority, int statusIdx) {
+    public Treatment(String name, Impression impression, int priority, String status) throws DukeException {
         super(name, impression, priority);
-        this.statusIdx = statusIdx;
+        setStatus(status);
     }
 
     @Override
@@ -48,9 +54,52 @@ public abstract class Treatment extends DukeData {
         return informationString;
     }
 
-    public void setStatusIdx(Integer statusIdx) {
-        this.statusIdx = statusIdx;
+    @Override
+    public void edit(String newName, int newPriority, String newSummary, Map<String, String> editVals,
+                     boolean isAppending) throws DukeException {
+        super.edit(newName, newPriority, newSummary, editVals, isAppending);
+        String status = editVals.get("status");
+        if (status != null) {
+            setStatus(status);
+        }
     }
+
+    /**
+     * Checks if a status is a string or an integer, and sets this Treatment's status accordingly, if it is valid.
+     * @param status The String supplied representing either a status index or name.
+     * @throws NumberFormatException If the string is not a valid representation of an integer.
+     */
+    public void setStatus(String status) throws DukeException {
+        if (status == null || "".equals(status)) {
+            statusIdx = 0;
+        } else {
+            try {
+                setStatus(Integer.parseInt(status));
+            } catch (NumberFormatException excp) { // not numeric
+                // TODO: parse with autocorrect?
+                for (int i = 0; i < getStatusArr().size(); ++i) {
+                    if (getStatusArr().get(i).equalsIgnoreCase(status)) {
+                        statusIdx = i;
+                    }
+                }
+                throw new DukeUtilException("'" + status + "' is not a valid status name!");
+            }
+        }
+    }
+
+    /**
+     * This function sets the status of the treatment.
+     * @param status the new status set
+     * @throws DukeException if the status index is not valid.
+     */
+    public void setStatus(int status) throws DukeException {
+        if (status < 0 || status >= getStatusArr().size()) {
+            throw new DukeException(status + "is not a valid numeric value for the status!");
+        }
+        statusIdx = status;
+    }
+
+    public abstract List<String> getStatusArr();
 
     public Integer getStatusIdx() {
         return statusIdx;
@@ -71,4 +120,7 @@ public abstract class Treatment extends DukeData {
             return false;
         }
     }
+
+    @Override
+    public abstract TreatmentCard toCard() throws DukeFatalException;
 }

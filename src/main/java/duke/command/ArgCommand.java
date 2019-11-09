@@ -58,7 +58,7 @@ public class ArgCommand extends Command {
      */
     @Override
     public void execute(DukeCore core) throws DukeException {
-        spec.execute(core, this);
+        spec.executeWithCmd(core, this);
     }
 
     /**
@@ -231,6 +231,6 @@ public class ArgCommand extends Command {
     }
 
     public boolean hasNoSwitches() {
-        return getSwitchMap().size() == 0;
+        return getSwitchVals().size() == 0;
     }
 }

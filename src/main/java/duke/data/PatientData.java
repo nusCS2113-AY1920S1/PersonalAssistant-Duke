@@ -6,24 +6,24 @@ import duke.exception.DukeResetException;
 
 import java.util.ArrayList;
 
-public class PatientList {
+public class PatientData {
 
     private ArrayList<Patient> patientList;
 
     /**
-     * Creates a new PatientList, loading data from the Storage object provided.
+     * Creates a new PatientData, loading data from the Storage object provided.
      *
      * @param storage The Storage object pointing to the TSV file containing the data to load.
      * @throws DukeResetException If file is corrupted or the data has been edited to be unreadable.
      * @throws DukeFatalException If unable to write data file.
      */
-    public PatientList(GsonStorage storage) throws DukeFatalException {
+    public PatientData(GsonStorage storage) throws DukeFatalException {
         patientList = storage.loadPatients();
 
         for (Patient patient : patientList) {
-            for (Impression imp: patient.getImpressions()) {
+            for (Impression imp: patient.getImpressionList()) {
                 imp.setParent(patient);
-                imp.initChild();
+                imp.initChildren();
             }
             if (patient.getPrimaryDiagnosis() != null) {
                 String primaryDiagnosisID = patient.getPrimaryDiagnosis().getName();
@@ -39,7 +39,7 @@ public class PatientList {
     /**
      * Creates a new, empty TaskList.
      */
-    public PatientList() {
+    public PatientData() {
         patientList = new ArrayList<>();
     }
 
@@ -50,7 +50,7 @@ public class PatientList {
      * @return the patient object added.
      */
     public Patient addPatient(Patient newPatient) throws DukeException {
-        if (getPatient(newPatient.getBedNo()) != null) {
+        if (getPatientByBed(newPatient.getBedNo()) != null) {
             throw new DukeException("This patient's bed is occupied");
         }
         patientList.add(newPatient);
@@ -65,12 +65,13 @@ public class PatientList {
      * @throws DukeException If bedNo cannot be resolved to a valid bedNo.
      */
     public Patient deletePatient(String keyIdentifier) throws DukeException {
-        Patient deletedPatient = getPatient(keyIdentifier);
+        Patient deletedPatient = getPatientByBed(keyIdentifier);
         if (deletedPatient != null) {
             patientList.remove(deletedPatient);
             return deletedPatient;
+        } else {
+            throw new DukeException("I don't have a patient called that!");
         }
-        throw new DukeException("The patient cannot be identified");
     }
 
     /**
@@ -79,12 +80,9 @@ public class PatientList {
      * @param keyIdentifier The argument given by the user to identify the patient.
      * @return the patient object
      */
-    public Patient getPatient(String keyIdentifier) {
-        String lowerKey = keyIdentifier.toLowerCase();
+    public Patient getPatientByBed(String keyIdentifier) throws DukeException {
         for (Patient patient : patientList) {
-            String lowerBed = patient.getBedNo().toLowerCase();
-            String lowerName = patient.getName().toLowerCase();
-            if (lowerKey.equals(lowerBed) || lowerKey.equals(lowerName)) {
+            if (patient.getBedNo().equals(keyIdentifier)) {
                 return patient;
             }
         }
@@ -92,58 +90,37 @@ public class PatientList {
     }
 
     /**
-     * PatientList of all patients whose names contain the searchTerm.
+     * PatientData of all patients whose names contain the searchTerm.
      *
      * @param searchTerm String to search through the patients for.
-     * @return PatientList of matching patients.
+     * @return PatientData of matching patients.
      */
-    public ArrayList<Patient> findPatient(String searchTerm) throws DukeException {
+    public SearchResults findPatients(String searchTerm) throws DukeException {
         String lowerSearchTerm = searchTerm.toLowerCase();
-        ArrayList<Patient> filteredList = new ArrayList<Patient>();
+        ArrayList<Patient> resultList = new ArrayList<Patient>();
         for (Patient patient : patientList) {
-            if (patient.toString().toLowerCase().contains(lowerSearchTerm)) {
-                filteredList.add(patient);
+            if (patient.contains(lowerSearchTerm)) {
+                resultList.add(patient);
             }
         }
-        if (filteredList.isEmpty()) {
-            throw new DukeException("No relevant Patients");
-        }
-        return filteredList;
+        return new SearchResults(searchTerm, resultList, null);
     }
 
     /**
-     * PatientList of all patients whose names contain the searchTerm.
+     * PatientData of all patients whose names contain the searchTerm.
      *
      * @param searchTerm String to search through the patients for.
-     * @return PatientList of matching patients.
+     * @return PatientData of matching patients.
      */
-    public ArrayList<Patient> findPatientsByName(String searchTerm) {
+    public SearchResults findPatientsByName(String searchTerm) {
         String lowerSearchTerm = searchTerm.toLowerCase();
-        ArrayList<Patient> resultList = new ArrayList<Patient>(patientList);
-        return resultList;
-    }
-
-    /**
-     * PatientList of all patients whose allergies contain the searchTerm.
-     *
-     * @param searchTerm String to search if any patients are allergic.
-     * @return PatientList of matching patients.
-     */
-    public PatientList findAllergies(String searchTerm) throws DukeException {
-        int i = 1;
-        PatientList filteredList = new PatientList();
+        ArrayList<Patient> resultList = new ArrayList<Patient>();
         for (Patient patient : patientList) {
-            if (patient.isAllergic(searchTerm)) {
-                filteredList.addPatient(patient);
-                ++i;
+            if (patient.getName().toLowerCase().contains(lowerSearchTerm)) {
+                resultList.add(patient);
             }
         }
-
-        if (i == 1) {
-            throw new DukeException("No Patients are allergic!");
-        } else {
-            return filteredList;
-        }
+        return new SearchResults(searchTerm, resultList, null);
     }
 
     /**
@@ -152,17 +129,13 @@ public class PatientList {
      * @return array list of objects relevant to the search
      * @throws DukeException if the database does not contain the information
      */
-    public ArrayList<DukeObject> find(String searchTerm) throws DukeException {
-        ArrayList<DukeObject> searchResult = new ArrayList<DukeObject>();
-        ArrayList<Patient> filteredList = findPatient(searchTerm);
-        for (Patient patient : filteredList) {
-            searchResult.add(patient);
-            searchResult.addAll(patient.find(searchTerm));
+    public SearchResults searchAll(String searchTerm) throws DukeException {
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        SearchResults results = findPatients(lowerSearchTerm);
+        for (Patient patient : patientList) {
+            results.addAll(patient.searchAll(lowerSearchTerm));
         }
-        if (searchResult.isEmpty()) {
-            throw new DukeException("No relevant search terms.");
-        }
-        return searchResult;
+        return results;
     }
 
     /**
@@ -173,11 +146,7 @@ public class PatientList {
     public String getPatientCountStr() {
         int patientCount = patientList.size();
         String patientCountStr = patientCount + ((patientCount == 1) ? " patient" : " patients");
-        return "Now you have " + patientCountStr + " in the list.";
-    }
-
-    public boolean patientExist(String keyIdentifier) {
-        return getPatient(keyIdentifier) != null;
+        return "Now I have " + patientCountStr + " in the list.";
     }
 
     public ArrayList<Patient> getPatientList() {

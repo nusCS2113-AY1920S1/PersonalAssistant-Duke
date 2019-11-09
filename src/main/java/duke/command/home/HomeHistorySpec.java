@@ -2,13 +2,12 @@ package duke.command.home;
 
 import duke.DukeCore;
 import duke.command.ArgLevel;
-import duke.command.ArgSpec;
-import duke.command.CommandUtils;
 import duke.command.Switch;
+import duke.data.DukeObject;
 import duke.data.Patient;
 import duke.exception.DukeException;
 
-public class HomeHistorySpec extends ArgSpec {
+public class HomeHistorySpec extends HomeObjSpec {
     private static final HomeHistorySpec spec = new HomeHistorySpec();
 
     public static HomeHistorySpec getSpec() {
@@ -25,9 +24,8 @@ public class HomeHistorySpec extends ArgSpec {
     }
 
     @Override
-    protected void execute(DukeCore core) throws DukeException {
-        String bed = cmd.getSwitchVal("bed");
-        Patient patient = CommandUtils.findFromHome(core, bed, cmd.getArg());
+    protected void executeWithObj(DukeCore core, DukeObject obj) throws DukeException {
+        Patient patient = (Patient) obj;
         String patientDetails = cmd.getArg() + ", " + patient.getName();
         String message = cmd.getSwitchVal("message");
         String rewrite = cmd.getSwitchVal("rewrite");

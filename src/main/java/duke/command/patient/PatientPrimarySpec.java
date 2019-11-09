@@ -2,14 +2,13 @@ package duke.command.patient;
 
 import duke.DukeCore;
 import duke.command.ArgLevel;
-import duke.command.ArgSpec;
-import duke.command.CommandUtils;
-import duke.command.Switch;
+import duke.command.ObjSpec;
+import duke.data.DukeObject;
 import duke.data.Impression;
-import duke.data.Patient;
+import duke.data.SearchResults;
 import duke.exception.DukeException;
 
-public class PatientPrimarySpec extends ArgSpec {
+public class PatientPrimarySpec extends ObjSpec {
     private static final PatientPrimarySpec spec = new PatientPrimarySpec();
 
     public static PatientPrimarySpec getSpec() {
@@ -17,18 +16,26 @@ public class PatientPrimarySpec extends ArgSpec {
     }
 
     private PatientPrimarySpec() {
-        cmdArgLevel = ArgLevel.NONE;
-        initSwitches(
-                new Switch("index", Integer.class, true, ArgLevel.REQUIRED, "i"),
-                new Switch("name", String.class, true, ArgLevel.REQUIRED, "n")
-        );
+        cmdArgLevel = ArgLevel.REQUIRED;
+        initSwitches();
     }
 
     @Override
     protected void execute(DukeCore core) throws DukeException {
-        Patient patient = (Patient) core.uiContext.getObject();
-        Impression impression = (Impression) CommandUtils.findFromPatient(core, patient, "impression", cmd.getArg());
-        patient.setPrimaryDiagnosis(impression.getName());
+        super.execute(core);
+        Impression impression = (Impression) PatientUtils.findFromPatient(core,"impression", cmd.getArg());
+        if (impression == null) {
+            SearchResults results = PatientUtils.getPatient(core).findImpressions(cmd.getArg());
+            processResults(core, results);
+        } else {
+            executeWithObj(core, impression);
+        }
+    }
+
+    @Override
+    protected void executeWithObj(DukeCore core, DukeObject obj) throws DukeException {
+        assert (obj.getClass() == Impression.class);
+        PatientUtils.getPatient(core).setPrimaryDiagnosis(obj.getName());
         core.writeJsonFile();
         core.updateUi("Primary diagnosis set!");
     }

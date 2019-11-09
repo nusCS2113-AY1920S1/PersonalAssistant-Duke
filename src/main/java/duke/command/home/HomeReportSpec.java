@@ -2,8 +2,8 @@ package duke.command.home;
 
 import duke.DukeCore;
 import duke.command.ArgLevel;
-import duke.command.ArgSpec;
 import duke.command.Switch;
+import duke.data.DukeObject;
 import duke.data.Patient;
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class HomeReportSpec extends ArgSpec {
+public class HomeReportSpec extends HomeObjSpec {
 
     private static final HomeReportSpec spec = new HomeReportSpec();
 
@@ -29,17 +29,15 @@ public class HomeReportSpec extends ArgSpec {
     }
 
     @Override
-    protected void execute(DukeCore core) throws DukeException {
+    protected void executeWithObj(DukeCore core, DukeObject obj) throws DukeException {
         String header = "PATIENT REPORT";
         String explanation = "This report shows all the data that was stored about a patient at the time the report was"
                 + " created.";
 
-        if (core.patientList.getPatient(cmd.getSwitchVal("bed")) != null) {
-            createReport(core.patientList.getPatient(cmd.getSwitchVal("bed")), header, explanation,
-                    cmd.getSwitchVal("summary"));
-            core.updateUi("Patient report created for "
-                    + core.patientList.getPatient(cmd.getSwitchVal("bed")).getName());
-        }
+        createReport(core.patientData.getPatientByBed(cmd.getSwitchVal("bed")), header, explanation,
+                cmd.getSwitchVal("summary"));
+        core.updateUi("Patient report created for "
+                + core.patientData.getPatientByBed(cmd.getSwitchVal("bed")).getName());
     }
 
     /**

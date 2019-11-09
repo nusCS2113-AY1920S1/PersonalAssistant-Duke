@@ -1,5 +1,10 @@
 package duke.data;
 
+import duke.exception.DukeException;
+import duke.exception.DukeFatalException;
+import duke.ui.card.InvestigationCard;
+import duke.ui.context.Context;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -22,20 +27,19 @@ public class Investigation extends Treatment {
      * @param summary description of the investigation
      */
     public Investigation(String name, Impression impression, int priority,
-                         int status, String summary) {
+                         String status, String summary) throws DukeException {
         super(name, impression, priority, status);
         this.summary = summary;
     }
 
     /**
      * This toResult function returns the result or conclusion from the investigation done.
-     * @param resultName name of result
-     * @param resultPriority importance of the result between 1 to 4
      * @param resultSummary description of the result
      * @return the result object
      */
-    public Result toResult(String resultName, int resultPriority, String resultSummary) {
-        return new Result(resultName, (Impression) getParent(), resultPriority, resultSummary);
+    public Result toResult(String resultSummary) throws DukeException {
+        return new Result(getName() + " Result", getParent(), getPriority(),
+                (resultSummary == null) ? "" : resultSummary);
     }
 
     @Override
@@ -55,7 +59,17 @@ public class Investigation extends Treatment {
         return statusArr.get(getStatusIdx());
     }
 
-    public static List<String> getStatusArr() {
+    @Override
+    public List<String> getStatusArr() {
         return Collections.unmodifiableList(statusArr);
+    }
+
+    public InvestigationCard toCard() throws DukeFatalException {
+        return new InvestigationCard(this);
+    }
+
+    @Override
+    public Context toContext() {
+        return Context.INVESTIGATION;
     }
 }

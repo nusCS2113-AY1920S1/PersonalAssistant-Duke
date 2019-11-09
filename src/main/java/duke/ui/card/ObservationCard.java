@@ -2,6 +2,7 @@ package duke.ui.card;
 
 import duke.data.Evidence;
 import duke.data.Observation;
+import duke.exception.DukeFatalException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -21,7 +22,7 @@ public class ObservationCard extends EvidenceCard {
      *
      * @param observation Observation object.
      */
-    public ObservationCard(Observation observation) {
+    public ObservationCard(Observation observation) throws DukeFatalException {
         super(FXML, observation);
 
         this.observation = observation;

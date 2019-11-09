@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXListView;
 import duke.data.GsonStorage;
 import duke.data.Help;
 import duke.exception.DukeException;
+import duke.exception.DukeFatalException;
 import duke.ui.UiElement;
 import duke.ui.card.HelpCard;
 import duke.ui.context.Context;
@@ -53,6 +54,7 @@ public class HelpWindow extends UiElement<Region> {
         });
     }
 
+    //todo deal with missing fxml resources
     /**
      * Initialises the {@link #helpList} and {@link #helpListView} for the Home context.
      *
@@ -76,7 +78,11 @@ public class HelpWindow extends UiElement<Region> {
         helpList.forEach(help -> {
             if (help.getContext() == context) {
                 contextedHelpList.add(help);
-                helpListView.getItems().add(new HelpCard(help, false));
+                try {
+                    helpListView.getItems().add(new HelpCard(help, false));
+                } catch (DukeFatalException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -103,7 +109,13 @@ public class HelpWindow extends UiElement<Region> {
             }
 
             boolean isDetailsShown = (filteredHelpList.size() == 1);
-            filteredHelpList.forEach(help -> helpListView.getItems().add(new HelpCard(help, isDetailsShown)));
+            filteredHelpList.forEach(help -> {
+                try {
+                    helpListView.getItems().add(new HelpCard(help, isDetailsShown));
+                } catch (DukeFatalException e) {
+                    e.printStackTrace();
+                }
+            });
         });
     }
 

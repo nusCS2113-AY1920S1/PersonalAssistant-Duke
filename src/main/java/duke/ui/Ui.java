@@ -1,6 +1,7 @@
 package duke.ui;
 
 import duke.data.DukeObject;
+import duke.exception.DukeFatalException;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public interface Ui {
      *
      * @param message Output message.
      */
-    void updateUi(String message);
+    void updateUi(String message) throws DukeFatalException;
 
     /**
      * Displays an info pop-up dialog on screen.

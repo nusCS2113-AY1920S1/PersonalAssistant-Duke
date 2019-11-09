@@ -1,22 +1,25 @@
 package duke;
 
+import duke.command.ObjCommand;
+import duke.command.Parser;
 import duke.data.DukeObject;
 import duke.data.GsonStorage;
-import duke.data.PatientList;
-import duke.data.SearchResult;
+import duke.data.PatientData;
+import duke.data.SearchResults;
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
-import duke.exception.DukeUtilException;
 import duke.ui.Ui;
 import duke.ui.UiManager;
-import duke.ui.context.Context;
 import duke.ui.context.UiContext;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.util.List;
+import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Main class of the application.
@@ -24,11 +27,13 @@ import java.util.List;
  */
 public class DukeCore extends Application {
     private static final String storagePath = "data" + File.separator + "patients.json";
+    public static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     public Ui ui;
     public UiContext uiContext;
     public GsonStorage storage;
-    public PatientList patientList;
+    public PatientData patientData;
+    public ObjCommand queuedCmd;
 
     /**
      * Constructs a DukeCore object with the specified stdtestout.
@@ -36,46 +41,57 @@ public class DukeCore extends Application {
     public DukeCore() {
         ui = new UiManager(this);
         uiContext = new UiContext();
-
         try {
             storage = new GsonStorage(storagePath);
-            patientList = new PatientList(storage);
-        } catch (DukeException e) {
+            patientData = new PatientData(storage);
+            setupLoggers();
+       } catch (DukeFatalException e) {
             ui.showErrorDialogAndShutdown("Error encountered!", e);
-        }
+       }
     }
 
-    // TODO finish up
     /**
-     * Displays results of a search.
-     * @param searchTerm The term that was used to perform the search.
-     * @param resultList The search results obtained.
-     * @param parent The parent object that the search was performed in.
-     * @throws DukeUtilException If the search result list is null.
+     * Displays a set of search results, while storing a ObjCommand object (the one that calls the search), so that
+     * it can resume execution after receiving the search results.
+     *
+     * @throws DukeFatalException If the file writer cannot be setup.
      */
-    public void showSearchResults(String searchTerm, List<? extends DukeObject> resultList,
-                                  DukeObject parent) throws DukeUtilException {
-        if (resultList == null) {
-            throw new DukeUtilException("Search result list is null!");
-        }
-        SearchResult search = new SearchResult(searchTerm, resultList, parent);
-        uiContext.setContext(Context.SEARCH, search);
-        ui.print("Opening search results for " + searchTerm);
+    public void search(SearchResults results, ObjCommand objCmd) throws DukeException {
+        queuedCmd = objCmd;
+        ui.print("Couldn't identify '" + results.getName() + "', displaying objects with matching names.");
+        uiContext.open(results);
     }
 
     /**
-     * Writes JSON file using patientList HashMap.
+     * Executes the queued ObjCommand with the object found from search.
+     *
+     * @throws DukeFatalException If the file writer cannot be setup.
+     */
+    public void executeQueuedCmd(DukeObject obj) throws DukeException {
+        uiContext.moveBackOneContext();
+        try {
+            queuedCmd.execute(this, obj);
+        } catch (ClassCastException excp) {
+            logger.log(Level.SEVERE, "Wrong type of object returned from search!"
+                    + System.lineSeparator() + excp.getMessage());
+            ui.print(queuedCmd.getClass().getSimpleName() + " failed! See log for details.");
+        }
+        queuedCmd = null;
+    }
+
+    /**
+     * Writes JSON file using patientData HashMap.
      *
      * @throws DukeFatalException If the file writer cannot be setup.
      */
     public void writeJsonFile() throws DukeFatalException {
-        storage.writeJsonFile(patientList.getPatientList());
+        storage.writeJsonFile(patientData.getPatientList());
     }
 
     /**
      * Update UI.
      */
-    public void updateUi(String message) {
+    public void updateUi(String message) throws DukeFatalException {
         ui.updateUi(message);
     }
 
@@ -94,5 +110,19 @@ public class DukeCore extends Application {
     public void stop() {
         Platform.exit();
         System.exit(0);
+    }
+
+
+    private void setupLoggers() throws DukeFatalException {
+        File logDir = new File("data/logs");
+        if (!logDir.exists() && !logDir.mkdir()) {
+            throw new DukeFatalException("Unable to create log folder, try checking your permissions?");
+        }
+        try {
+            logger.addHandler(new FileHandler("data/logs/duke%u.log"));
+            Parser.parserLogger.addHandler(new FileHandler("data/logs/parser%u.log"));
+        } catch (IOException | SecurityException excp) {
+            throw new DukeFatalException("Unable to create log files, try checking your permissions?");
+        }
     }
 }

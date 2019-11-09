@@ -5,7 +5,6 @@ import duke.command.patient.PatientNewSpec;
 import duke.data.Impression;
 import duke.data.Patient;
 import duke.exception.DukeException;
-import duke.ui.context.Context;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import templates.CommandTest;
@@ -26,11 +25,11 @@ public class PatientCommandTest extends CommandTest {
         patient = new Patient("name", "bedNo", "allergies", 0, 0,
                 0, 0, "", "");
         try {
-            core.patientList.addPatient(patient);
+            core.patientData.addPatient(patient);
         } catch (DukeException excp) {
             fail("Exception thrown while setting up patient! " + excp.getMessage());
         }
-        core.uiContext.setContext(Context.PATIENT, patient);
+        core.uiContext.open(patient);
     }
 
     @Test
