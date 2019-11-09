@@ -8,6 +8,15 @@ import java.util.Stack;
 import java.util.stream.Collectors;
 
 public class UndoStudyPlannerCommand {
+    /**
+     * This method undo previous comment input.
+     * @param oldStudyPlan Data structure that keeps a backup
+     * @param currentPlan Data structure that have been modified
+     * @param storage The object deals with access,modify and save external
+     *                txt files.
+     * @return Data structure that the system now holds
+     * @throws IOException
+     */
     public ArrayList<ArrayList<String>> undoStudyPlanner(Stack<ArrayList<ArrayList<String>>> oldStudyPlan, ArrayList<ArrayList<String>> currentPlan, Storage storage) throws IOException {
         if (!oldStudyPlan.empty()) {
             currentPlan = oldStudyPlan.peek();

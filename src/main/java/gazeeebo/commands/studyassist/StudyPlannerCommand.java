@@ -19,6 +19,13 @@ public class StudyPlannerCommand {
     public static Map<String,String> CoreModules;
     public static Map<String,ArrayList<String>> TEs;
 
+    /**
+     * this method creates data structure for study plan, as well as
+     * creating data structure for information of modules.
+     * @param storage this object deals with access,modify and save external
+     *                files.
+     * @throws IOException
+     */
     public StudyPlannerCommand(Storage storage) throws IOException {
         this.StudyPlan = storage.Read_StudyPlan();
         if(StudyPlan.isEmpty()) {
@@ -53,6 +60,12 @@ public class StudyPlannerCommand {
 
     }
 
+    /**
+     * this method displays the study plan in table form in console.
+     * @throws IOException
+     * @throws DukeException
+     * @throws ParseException
+     */
     public void showPlan() throws IOException, DukeException, ParseException {
 
         System.out.println(" +-----------------------------------------------------------------------+");
@@ -117,6 +130,12 @@ public class StudyPlannerCommand {
             System.out.println("* Note: You have reached minimum MCs for Technical Elective Modules! *");
         }
     }
+
+    /**
+     * This method calculate the total MCs for one column
+     * @param semester this parameter indicate which column it is calculating.
+     * @return number of MCs
+     */
     public int calculateSemMC(int semester){
         int count = 0;
         for (int i = 0; i < StudyPlan.get(semester).size(); i++) {
@@ -137,11 +156,17 @@ public class StudyPlannerCommand {
                     count += MCMap.get(key);
                 }
             } catch (DukeException e){
-                System.out.println(e);
+                System.out.println(e.getMessage());
             }
         }
         return count;
     }
+
+    /**
+     * this method check modules planned, verdict whether the plan
+     * fulfill graduation requirements
+     * @return boolean judgement
+     */
     public ArrayList<String> checkGraduation(){
         ArrayList<String> result = new ArrayList<String>(CoreModules.keySet());
         for(int i=0;i<StudyPlan.size();i++){
@@ -154,6 +179,12 @@ public class StudyPlannerCommand {
         }
         return result;
     }
+
+    /**
+     * This method  check TE modules planed and verdict whether the
+     * requirements are fulfilled.
+     * @return number of MCs planed for TE.
+     */
     public int checkTechnicalElective(){
         int count  = 0;
         for(int i=0;i<StudyPlan.size();i++){
