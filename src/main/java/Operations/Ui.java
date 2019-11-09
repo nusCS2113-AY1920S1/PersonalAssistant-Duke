@@ -295,8 +295,10 @@ public class Ui {
             System.out.println("Priority");
         } else if( TaskList.getSortType().equals(SortType.alphabetical) ) {
             System.out.println("Alphabetical");
-        } else {
+        } else if( TaskList.getSortType().equals(SortType.deadline) ){
             System.out.println("Deadline");
+        } else {
+            System.out.println("Type");
         }
     }
 

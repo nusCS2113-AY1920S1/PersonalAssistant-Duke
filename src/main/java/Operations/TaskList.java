@@ -7,6 +7,7 @@ import Enums.SortType;
 import Enums.TimeUnit;
 import Model_Classes.Assignment;
 import Model_Classes.Leave;
+import Model_Classes.Meeting;
 import Model_Classes.Task;
 
 import java.util.ArrayList;
@@ -78,7 +79,7 @@ public class TaskList {
             for(int i=0; i<tasks.size(); i++) {
                 if (new Date().after(tasks.get(i).getDate()) && !(tasks.get(i) instanceof Leave)){
                     tasks.get(i).setOverdue(true);
-                    if (!CheckAnomaly.checkDuplicateOverdue(tasks.get(i))) {
+                    if (CheckAnomaly.checkDuplicateOverdue(tasks.get(i))) {
                         // no duplicates in overdue list
                         overdueList.add(tasks.get(i));
                     }
@@ -168,6 +169,19 @@ public class TaskList {
             for (int i = index[0]; i <= index[1]; i++){
                 tasks.get(i).setDone(true);
             }
+        }
+    }
+
+    /**
+     * Overload function for done to complete subTasks
+     * @param index index of task
+     * @param subTaskIndex index of subtask completed
+     */
+    public void done(int index, int subTaskIndex) throws RoomShareException {
+        if( TaskList.get(index) instanceof Assignment ) {
+            ((Assignment) TaskList.get(index-1)).doneSubtask(subTaskIndex-1);
+        } else {
+            throw new RoomShareException(ExceptionType.subTaskError);
         }
     }
 
@@ -264,6 +278,9 @@ public class TaskList {
         case deadline:
             compareDeadline();
             break;
+        case type:
+            compareType();
+            break;
         default:
             throw new IllegalStateException("Unexpected value: " + sortType);
         }
@@ -314,6 +331,31 @@ public class TaskList {
                 Date date1 = task1.getDate();
                 Date date2 = task2.getDate();
                 return (int) (date1.getTime() - date2.getTime());
+            }
+        });
+    }
+
+    /**
+     * Compare tasks based on Type
+     */
+    public static void compareType() {
+        Collections.sort(tasks, (task1, task2) -> {
+            if( task1 instanceof Meeting && !(task2 instanceof Meeting) ) {
+                return -1;
+            } else if( task1 instanceof Assignment ) {
+                if( task2 instanceof Meeting ) {
+                    return 1;
+                } else if( task2 instanceof Leave ) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            } else {
+                if( task2 instanceof Meeting || task2 instanceof Assignment ) {
+                    return 1;
+                } else {
+                    return 0;
+                }
             }
         });
     }
@@ -440,5 +482,4 @@ public class TaskList {
         int[] done = {belongCount, doneCount};
         return done;
     }
-
 }
