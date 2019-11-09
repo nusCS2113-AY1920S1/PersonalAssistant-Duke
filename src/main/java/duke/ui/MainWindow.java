@@ -113,13 +113,12 @@ public class MainWindow extends AnchorPane {
         setVboxWidth(false);
         setButtonsVisibility(true);
         selectedTab =  tpTabs.getSelectionModel();
-        //toolTip.setText("");
         listT.setTooltip(toolTip);
         toolTip.setShowDelay(Duration.millis(TOOLTIP_SHOWDELAY));
         toolTip.setShowDuration(Duration.millis(TOOLTIP_SHOWDURATION));
 
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(Ui.showWelcomeGui(), dukeImage)
+                DialogBox.getDukeDialog(duke.checkSampleUsed() + Ui.showWelcomeGui(), dukeImage)
         );
 
         TaskList items = duke.getTaskList();

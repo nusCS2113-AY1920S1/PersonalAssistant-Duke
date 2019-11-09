@@ -3,12 +3,14 @@ package duke.storage;
 import duke.enums.Numbers;
 import duke.task.PriorityList;
 
-import java.io.IOException;
 import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.File;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 //@@author Dou-Maokang
@@ -16,7 +18,7 @@ import java.util.ArrayList;
  * Representing a class to store the list of priorities.
  */
 public class PriorityStorage {
-    protected String filePath = System.getProperty("user.dir") + "/";
+    protected static String filePath = System.getProperty("user.dir") + "/";
 
     /**
      * Creates a storage with a specified filePath.
@@ -64,5 +66,29 @@ public class PriorityStorage {
         writer.close();
     }
 
+    //@@author maxxyx96
+    /**
+     * Extracts the sample data from jar file and moves it to data folder in the computer.
+     *
+     * @param samplePath path of the sample data set for priority.
+     * @throws IOException When there is an error writing to the text file.
+     */
+    public static void writeSample(String samplePath) throws IOException {
+        String fileContent = "";
+        InputStream in = PriorityStorage.class.getResourceAsStream(samplePath);
+        if (in == null) {
+            in = PriorityStorage.class.getClassLoader().getResourceAsStream(samplePath);
+        }
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+        String input = "";
+        while ((input = bufferedReader.readLine()) != null) {
+            fileContent += input + "\n";
+        }
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+        writer.write(fileContent);
+        writer.close();
+        bufferedReader.close();
+        in.close();
+    } //@@author
 }
 //@@author
