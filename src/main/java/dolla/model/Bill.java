@@ -82,6 +82,10 @@ public class Bill extends Record {
         return nameList;
     }
 
+    public String getType() {
+        return type;
+    }
+
     public int getPeople() {
         return people;
     }
