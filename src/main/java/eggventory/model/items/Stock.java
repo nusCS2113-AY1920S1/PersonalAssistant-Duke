@@ -216,13 +216,13 @@ public class Stock {
     /**
      * Searches if the stock description contains the query.
      * @param query The word to search for in the description
-     * @return The formatted stock details if query is within the description, else an empty string.
+     * @return True if query is within the description, else false.
      */
-    public String containDescription(String query) {
+    public Boolean containDescription(String query) {
         if (this.getDescription().contains(query)) {
-            return this.toString() + "\n";
+            return true;
         } else {
-            return "";
+            return false;
         }
     }
 

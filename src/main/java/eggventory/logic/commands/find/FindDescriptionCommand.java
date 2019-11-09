@@ -1,5 +1,8 @@
 package eggventory.logic.commands.find;
 
+import java.util.List;
+import java.util.ArrayList;
+import eggventory.ui.TableStruct;
 import eggventory.ui.Ui;
 import eggventory.model.items.StockType;
 import eggventory.model.items.Stock;
@@ -22,24 +25,31 @@ public class FindDescriptionCommand extends Command {
 
     /**
      * Allows the user to search for stock descriptions that match a given string.
-     * Prints the list of stocks that match. Alternatively prints a message if none are found.
+     * Prints the list of stocks that matches. Alternatively prints a message if none are found.
      */
     @Override
     public String execute(StockList list, Ui ui, Storage storage) {
         String output;
         int stockTypeQuantity = list.getStockTypeQuantity();
         boolean found = false;
-        int counter = 1;
 
-        String listString = "";
+        //for UI
+        ArrayList<Stock> findList = new ArrayList<>();
+
+        //for GUI
+        TableStruct tableStruct = new TableStruct("Query for: " + search);
+        tableStruct.setTableColumns("Stock Type", "Stock Code", "Quantity", "Description");
+        ArrayList<ArrayList<String>> dataArray = new ArrayList<>();
+
         //for each stocktype
         for (int i = 0; i < stockTypeQuantity; i++) {
+            ArrayList<Stock> uiSubList = new ArrayList<>();
             StockType currStockType = list.get(i);
-            listString += currStockType.queryStocksDescription(search);
+            uiSubList = currStockType.queryAllStocksDescription(search);
+            findList.addAll(uiSubList);
         }
 
-        //condition is false if listString had no changes.
-        if (!listString.equals("")) {
+        if (!findList.isEmpty()) {
             found = true;
         }
 
@@ -48,8 +58,23 @@ public class FindDescriptionCommand extends Command {
                     + search + "\".\nPlease try a different search string.";
             ui.print(output);
         } else {
-            output = listString;
+            //Format and prints ui
+            StringBuilder ret = new StringBuilder();
+            int i = 1;
+            for (Stock stock : findList) {
+                ret.append(String.format("%d. ", i++)).append(stock.toString()).append("\n");
+            }
+            output = ret.toString();
             ui.print(output);
+
+            //Format and prints gui
+            for (Stock stock: findList) {
+                ArrayList<String> subDataArray = new ArrayList<>();;
+                subDataArray = stock.getDataAsArray();
+                dataArray.add(subDataArray);
+            }
+            tableStruct.setTableData(dataArray);
+            ui.drawTable(tableStruct);
         }
         return output;
     }
