@@ -4,6 +4,7 @@ import seedu.hustler.Hustler;
 import java.util.ArrayList;
 import seedu.hustler.task.Task;
 import seedu.hustler.ui.Ui;
+import seedu.hustler.logic.CommandLineException;
 
 /**
  * A class that holds all the
@@ -12,6 +13,8 @@ import seedu.hustler.ui.Ui;
  * an entry. Scheduler handles all these entries.
  */
 public class Scheduler {
+    public static Ui ui = new Ui();
+
     /**
      * An ArrayList that stores entries
      * that are tasks to complete with the amount
@@ -105,6 +108,7 @@ public class Scheduler {
      */
     public static void remove(Task task) {
         schedule.removeIf(n -> (n.getTask() == task));
+        recommended.removeIf(n -> (n.getTask() == task));
     }
     
     /**
@@ -129,7 +133,6 @@ public class Scheduler {
         if (size() == 0) {
             output = "Tasks completed. Please add more.";
         }
-        Ui ui = new Ui();
         ui.showMessage(output);
     }
     
@@ -154,5 +157,62 @@ public class Scheduler {
     public static void recommend(int seconds) {
         recommender = new Recommender(schedule);
         recommended = recommender.recommend(seconds);
+        displayRecommendedSchedule();
+    }
+    
+    public static void displayRecommendedSchedule() {
+        if (recommended.size() == 0) {
+            ui.showMessage("There are no tasks to complete. "
+                + "Please add more tasks."); 
+            return;
+        }
+
+        String output = "Hey, this is your recommended schedule for the next "
+            + "few hours. Please confirm if you will follow it. Please add or delete" 
+            + " entries before updating time:\n\t";
+        for (int i = 0; i < recommended.size(); i++) {
+            long hours = recommended.get(i).getTimeAlloc() / 3600;
+            long minutes = (recommended.get(i).getTimeAlloc() / 60) % 60;
+            long seconds = recommended.get(i).getTimeAlloc() % 60;
+            output += (i + 1) + ". " + recommended.get(i).getTask().toString() 
+                + " time alloted: " + hours + ":" + minutes + ":" + seconds + " " + recommended.get(i).getPriorityScore() + "\n\t";
+        }
+        ui.showMessage(output);
+    }
+    
+    public static void addToRecommended(Task task) throws CommandLineException {
+        if (task.isCompleted()) {
+            throw new CommandLineException("Task has already been completed");
+        }
+        if (recommended.stream().anyMatch(n -> (n.getTask() == task))) {
+            throw new CommandLineException("Task is already present");
+        }
+        schedule.stream().parallel()
+            .filter(n -> (n.getTask() == task))
+            .findAny()
+            .ifPresent(recommended::add);
+    }    
+
+    public static void confirm() {
+        for (ScheduleEntry entry : recommended) {
+            entry.updateTimeSpent(entry.getTimeAlloc());
+        }
+        recommended = new ArrayList<ScheduleEntry>();
+        displayEntries();
+    }
+
+    public static void removeFromRecommended(int index) {
+        recommended.remove(index); 
+    }
+
+    /**
+     * Updates the allocated time to a particular entry in the recommended
+     * list.
+     *
+     * @param index index of entry in recommended
+     * @param timeInSeconds time allocated in seconds
+     */
+    public static void updateAllocTime(int index, long timeInSeconds) {
+        recommended.get(index).setTimeAlloc(timeInSeconds);
     }
 }
