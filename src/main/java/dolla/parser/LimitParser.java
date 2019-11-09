@@ -8,14 +8,12 @@ import dolla.command.ShowListCommand;
 import dolla.command.ShowRemainingLimitCommand;
 import dolla.command.RemoveCommand;
 import dolla.command.SearchCommand;
-import dolla.command.SortCommand;
 import dolla.command.ActionCommand;
 import dolla.command.modify.PartialModifyLimitCommand;
 
 import dolla.exception.DollaException;
 
 import dolla.ui.LimitUi;
-import dolla.ui.SearchUi;
 
 //@@author Weng-Kexin
 public class LimitParser extends Parser {

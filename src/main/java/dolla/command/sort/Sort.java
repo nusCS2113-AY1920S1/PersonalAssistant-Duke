@@ -5,7 +5,7 @@ import dolla.model.Record;
 import java.util.ArrayList;
 
 class Sort {
-    ArrayList<Record> sortedList;
+    protected ArrayList<Record> sortedList;
 
     //@@author yetong1895
     /**

@@ -1,9 +1,5 @@
 package dolla.model;
 
-import dolla.command.sort.SortAmount;
-import dolla.model.Debt;
-import dolla.model.DebtList;
-import dolla.model.Record;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

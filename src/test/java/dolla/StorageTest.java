@@ -20,7 +20,6 @@ public class StorageTest {
     private ArrayList<Record> debtListTest = new ArrayList<>();
     private ArrayList<Record> limitListTest = new ArrayList<>();
     private ArrayList<Record> shortcutListTest = new ArrayList<>();
-    private String expected;
 
     /**
      * This method will setup the storage for testing.
@@ -48,7 +47,7 @@ public class StorageTest {
 
         ArrayList<Record> entryTest = Storage.getEntriesFromSave();
         Record entry = entryTest.get(0);
-        expected = "income 256.0 storage test1 /on 03/12/2001";
+        String expected = "income 256.0 storage test1 /on 03/12/2001";
         assertEquals(expected,entry.getUserInput());
 
         entry = entryTest.get(1);

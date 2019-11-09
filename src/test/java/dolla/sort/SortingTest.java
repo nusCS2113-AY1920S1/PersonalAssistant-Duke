@@ -22,8 +22,7 @@ public class SortingTest implements SortTestOutputString {
     private ArrayList<Record> debtListTest = new ArrayList<>();
     private ArrayList<Record> shortcutListTest = new ArrayList<>();
 
-    @Test
-    public void createRecordForTest() {
+    private void createRecordForTest() {
         Record testRecord1 = new Entry("expense", 100, "Expense Description",
                 LocalDate.parse("2001-12-03"));
         entryListTest.add(testRecord1);
