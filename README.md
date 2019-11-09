@@ -7,15 +7,14 @@ Dolla is a command line based expense tracker targeted at NUS students staying o
 
 ![Mock Ui Image](/docs/images/Ui/Ui2.png)
 
-#Introduction
+# Introduction
 A friendly mode-based bot that helps you handle your expenses and better track your finances!
 
-#Features
+# Features
 * Toggle between different 'modes' to view and edit different items!
-* Add and track your expenses any time
-* Modify or edit wrong entries
+* Add and track your expenses any time.
+* Modify or edit wrong entries. 
 * Sort your expenses by amount, date and more!
-
 
 # Site Map
 * [UserGuide](docs/UserGuide.adoc)
