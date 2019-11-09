@@ -41,6 +41,7 @@ Jump to <<Quick Start>> to get started! Enjoy!
 
 == Quick Start
 
+=== Setting up
 .  Ensure you have Java 11 or above installed on your computer.
 .. For `windows` users:
 ... Download the latest release link:{repoURL}/releases[here].
@@ -85,6 +86,7 @@ This command disables line wrapping which is essential for our output to be sens
 [NOTE]
 *_[X]_* refers to the name of our latest jar release.
 
+=== Sample commands
 [[OofWelcome]]
 .OOF welcome screen
 image::OofWelcome.png[OofWelcome]
