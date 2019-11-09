@@ -124,14 +124,14 @@ The `UI` component,
 Given below is the simplified activity diagram for the workflow of the `UI`. Upon the start of the `UI`, it would request for user input. Then, it would process the user input and execute the input. It would show the respective response after execution of the input. If the response requires calendar or map, it would show it to the user. Subsequently, it would loop back to request for user input again. Else, if the response is exit type, it would exit the app.
 
 .Activity Diagram of the UI Component
-image::UiActivityDiagram.png[width="300" align="left"]
+image::UiActivityDiagram.png[width="700" align="left"]
 
 [[Design-Logic]]
 === Logic component
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram.png[width="700" height="600" align="left"]
 
 *API* :
 link:{repoURL}/src/main/java/sgtravel/logic/Logic.java[`Logic.java`]
@@ -146,16 +146,16 @@ link:{repoURL}/src/main/java/sgtravel/logic/Logic.java[`Logic.java`]
 Given below is the diagram illustrating the workflow of the `Logic` component. The user input is passed to `Logic` component. Then, it would determine the input is of single line type or complex multiple line type. If it is a multiple line type, it would start a `Conversation` with the user to prompt for more input. Then, using the input, it would build it to become a single line input to be passed to create a `Command`. In create command, figure at the bottom, the input is parsed to determine which command is to be built. Subsequently, the `Command` would be executed to create `CommandResult` which contains the response and result of the execution of the `Command`.
 
 .Logic Activity diagram
-image::LogicActivityDiagram.png[width="250" align="left"]
+image::LogicActivityDiagram.png[width="500" align="left"]
 
 .CreateCommand Activity diagram
-image::CreateCommandActivityDiagram.png[width="250" align="left"]
+image::CreateCommandActivityDiagram.png[width="500" align="left"]
 
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="300" align="left"]
+image::ModelClassDiagram.png[width="500" align="left"]
 
 *API* : link:{repoURL}/src/main/java/sgtravel/model/Model.java[`Model.java`]
 
@@ -169,7 +169,7 @@ The `Model`,
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[width="300" align="left"]
+image::StorageClassDiagram.png[width="450" align="left"]
 
 The `Storage` component,
 
@@ -179,7 +179,7 @@ The `Storage` component,
 The figure below shows some parts of the activity of `Storage` when it is initialised during the start of launching the SGTravel application. It will first read from event file path and parses it into `EventList` for `Storage`. Then it will read bus and train transport information and parses them into `TransportationMap` for `Storage`.
 
 .Activity diagram for the Storage Component
-image::StorageActivityDiagram.png[width="300" align="left"]
+image::StorageActivityDiagram.png[width="450" align="left"]
 
 [[Design-Commons]]
 === Common classes
@@ -195,7 +195,7 @@ This section describes some noteworthy details on how certain features are imple
 ==== Implementation
 
 .Sequence diagram of how user input is handled
-image::HandleUserInputDiagram.png[]
+image::HandleUserInputDiagram.png[width="800" align="left"]
 
 Given below is an example usage scenario of how user input is handled:
 
@@ -210,7 +210,7 @@ Given below is an example usage scenario of how user input is handled:
 ==== Implementation
 
 .Sequence diagram of how user input is parsed into a command
-image::ParseCommandDiagram.png[]
+image::ParseCommandDiagram.png[width="800" align="left"]
 
 Given below is an example usage scenario of how user input is handled:
 
@@ -221,7 +221,7 @@ Given below is an example usage scenario of how user input is handled:
 .  The `LogicManager` will then execute the `Command` and return a `CommandResult` to the `Ui`.
 
 .Sequence diagram of how Command is created by ConversationManager
-image::ConversationDiagram.png[width="300" height="300"]
+image::ConversationDiagram.png[width="600" align="left"]
 
 ==== Design Considerations
 
@@ -259,7 +259,7 @@ e.g. `e 1 Bukit Batok 12/02/29 14/02/29`
 Alternatively, the editing mechanism can be facilitated by the `EditorManager` and `Selectors` in the `Logic` Component. +
 
 .Activity diagram for how Editing Mechanism works
-image::EditActivityDiagram.png[width="300" height="200"]
+image::EditActivityDiagram.png[width="600" align="left"]
 
 The `EditorManager` object oversees the edit operation with the help of `Selectors` class which selects the `Event` and the components to be updated. The `EditorManager` contains an instance of `LocationSelector` and an `EventFieldSelector` which selects the index of the `Event` and the components of the `Event` respectively. +
 
@@ -274,7 +274,7 @@ The `EditorManager` object implements the following operations:
 * `EditorManager-selectEvent()` - Uses the `LocationSelector` to select an `Event`
 
 .Sequence diagram for how Editing Mechanism works
-image::EditSequenceDiagram.png[width="400" height="300"]
+image::EditSequenceDiagram.png[width="600" align="left"]
 
 Given below is an example usage scenario and how the editing mechanism behaves at each step. +
 
@@ -290,19 +290,19 @@ Given below here is an example of how the `EditorManager` manages which `Event` 
 Step 1. The user launches edit mode, the `EditorManager` is in a clean state and will simply select index 0 of the `Event` in the `EventList`.
 
 .Diagram for edit state
-image::EditState0.png[height="100"]
+image::EditState0.png[height="200" width="600"]
 
 Step 2. User presses the kbd:[up] key. The `EditorManager` calls `feedKeyCode()` on the `LocationSelector` which will then find the nearest `Event` in the up direction and updates the index.
 
 .Diagram for edit state
-image::EditState1.png[height="100"]
+image::EditState1.png[height="200" width="600"]
 
 Step 3. User presses the kbd:[enter] key which locks in on the `Event`. The `EditorManager` will again call `LocationSelector+feedKeyCode()`, and the `LocationSelector` will now lock itself, meaning that the arrow keys will no longer change the index.
 
 Step 4. User presses the kbd:[down] key. The `EditorManager` will now call `EventFieldSelector+feedKeyCode()`, and the `EventFieldSelector` will return an index pointing to a field within the `Event`.
 
 .Diagram for edit state
-image::EditState2.png[width="200" align="left"]
+image::EditState2.png[width="400" align="left"]
 
 Step 5. The user now inputs: `09/11/20`. The `EditorManager` will now call `Editor+edit()` which edits the event2’s startDate from `30/10/19` to `09/11/20`.
 
