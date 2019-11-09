@@ -70,7 +70,7 @@ features of the application BetterDuke.
 ### Example:
  #### STEPS
 1. User: input command :add/e CS2101 assignment /at 12/08/2019 /from 1200 /to 1300
-  <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/ADD/ADD-INPUT.png"
+  <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/ADD/ADD-INPUT.png">
 2. System: Shows progress indicator
   <img src="https://github.com/AY1920S1-CS2113T-W12-4/main/blob/master/docs/images/UG%20images/ADD/ADD-PROGRESS.png">
 3. System: Shows response
