@@ -3,6 +3,11 @@ package duke.model.payment;
 import java.time.LocalDate;
 import java.util.function.Predicate;
 
+import static java.util.Objects.requireNonNull;
+
+/**
+ * Tests whether a {@code payment} is overdue.
+ */
 public class PaymentOverduePredicate implements Predicate<Payment> {
 
     public PaymentOverduePredicate() {
@@ -11,10 +16,11 @@ public class PaymentOverduePredicate implements Predicate<Payment> {
 
     @Override
     public boolean test(Payment payment) {
+        requireNonNull(payment);
 
         LocalDate due = payment.getDue();
-        LocalDate current = LocalDate.now();
+        LocalDate now = LocalDate.now();
 
-        return due.isBefore(current);
+        return due.isBefore(now);
     }
 }

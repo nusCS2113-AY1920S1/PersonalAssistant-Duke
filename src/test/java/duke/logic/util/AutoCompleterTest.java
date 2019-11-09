@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public class AutoCompleterTest {
 
-    private static final String NULL_OBJECT = null;
+    private static final String NULL_STRING = null;
     private static final String NOT_NULL_STRING_INPUT = "dummy";
 
     private static final String INPUT_WITH_ADD_PREFIX = "add";
@@ -36,7 +36,7 @@ public class AutoCompleterTest {
     @Test
     public void receiveTest_nullStringInput_throwsNullPointerException() {
         AutoCompleter autoCompleter = new AutoCompleter();
-        assertThrows(NullPointerException.class, () -> autoCompleter.receiveText(NULL_OBJECT));
+        assertThrows(NullPointerException.class, () -> autoCompleter.receiveText(NULL_STRING));
     }
 
     @Test
