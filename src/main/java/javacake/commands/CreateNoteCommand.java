@@ -27,7 +27,6 @@ public class CreateNoteCommand extends Command {
     public CreateNoteCommand(String inputCommand) throws CakeException {
         type = CmdType.CREATE_NOTE;
         updateDefaultDirectoryPath();
-        //Storage.generateFolder(new File("data/notes/"));
         checksValidityOfCommand(inputCommand);
     }
 
@@ -158,20 +157,19 @@ public class CreateNoteCommand extends Command {
     public String execute(Logic logic, Ui ui, StorageManager storageManager) throws CakeException {
         StringBuilder sb = new StringBuilder();
         sb.append(userGivenFileName).append(".txt");
-        String formattedFileName = sb.toString();
+        //String formattedFileName = sb.toString();
         sb.insert(0, defaultDirectoryPath);
         String newFilePath = sb.toString();
 
         if (noteFileAlreadyExist(newFilePath)) {
             String errorMessage = "File already exists, please type 'editnote "
-                    + formattedFileName + "' to edit the file instead";
+                    + userGivenFileName + "' to edit the file instead";
             throw new CakeException(errorMessage);
         } else {
             File file = new File(newFilePath);
-            createFile(file, formattedFileName);
-            return "File '" + formattedFileName + "' has been created successfully!\n";
+            createFile(file, userGivenFileName);
+            return "File [" + userGivenFileName + "] has been created successfully!\n";
         }
-
     }
 
     /**
