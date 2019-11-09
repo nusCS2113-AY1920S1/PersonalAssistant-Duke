@@ -29,7 +29,7 @@ public class CommandDelete extends Command {
                     + ")"
                     + storageManager.getTaskNameByIndex(index)
                     + " "
-                    + "has been deleted. \n");
+                    + "has been deleted.\n");
             storageManager.deleteTaskByIndex(index);
         } catch (DukeException e) {
             this.infoCapsule.setCodeError();
