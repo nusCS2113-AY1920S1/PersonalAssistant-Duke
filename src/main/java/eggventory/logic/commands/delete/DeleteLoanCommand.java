@@ -42,6 +42,7 @@ public class DeleteLoanCommand extends Command {
                     + "Person: %s | Stock: %s | Quantity: %d", matricNo, stockCode, quantity));
         }
 
+        ui.drawTable(LoanList.getAllLoansStruct());
         ui.print(output);
         return output;
     }

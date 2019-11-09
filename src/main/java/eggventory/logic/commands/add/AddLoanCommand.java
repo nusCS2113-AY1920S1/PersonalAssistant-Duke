@@ -92,6 +92,7 @@ public class AddLoanCommand extends Command {
             output += QuantityManager.checkMinimum(stock);
         }
 
+        ui.drawTable(LoanList.getAllLoansStruct());
         ui.print(output);
 
         return output;
