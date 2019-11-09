@@ -34,9 +34,10 @@ public class InstalmentTest {
     }
 
     @Test
-    public void testInstalment() throws ParseException, DukeException {
+    void testInstalment() throws ParseException, DukeException {
         account.getInstalments().clear();
-        Instalment instalment = new Instalment(5000, "car", "instalments", dateTestDate, 120, 3);
+        Instalment instalment = new Instalment(5000, "car", "instalments",
+                dateTestDate, 120, 3);
         account.getInstalments().add(instalment);
 
         DecimalFormat df = new DecimalFormat("#.##");

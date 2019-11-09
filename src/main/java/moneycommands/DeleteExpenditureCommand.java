@@ -73,7 +73,7 @@ public class DeleteExpenditureCommand extends MoneyCommand {
             ui.appendToOutput(account.getExpListTotal().get(serialNo - 1).toString() + "\n");
             ui.appendToOutput(" Now you have " + account.getExpListTotal().size() + " expenses listed\n");
         } else  {
-            throw new DukeException("u messed up at expenditure\n");
+            throw new DukeException("Last deleted entry is of invalid type!!\n");
         }
     }
 }

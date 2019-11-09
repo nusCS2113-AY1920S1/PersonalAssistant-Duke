@@ -75,7 +75,7 @@ public class DeleteLoanCommand extends MoneyCommand {
             ui.appendToOutput(account.getLoans().get(serialNo - 1).toString() + "\n");
             ui.appendToOutput(" Now you have " + account.getLoans().size() + " loans listed\n");
         } else {
-            throw new DukeException("u messed up (LOA)");
+            throw new DukeException("Last deleted entry is of invalid type!!\n");
         }
     }
 }

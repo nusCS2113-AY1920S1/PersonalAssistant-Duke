@@ -325,4 +325,60 @@ public class GoalsTest {
         exitCommand.execute(account, ui, moneyStorage);
     }
 
+    @Test
+    void testUndoAddGoal() throws ParseException, DukeException {
+        String testInput = "goal buy Motorbike /amt 10000 /by 9/10/2015 /priority HIGH";
+        Goal g = new Goal(10000, "buy Motorbike ", "GS", testDate, "HIGH");
+        MoneyCommand addGoalCommand =  new AddGoalCommand(testInput);
+        addGoalCommand.execute(account, ui, moneyStorage);
+        ui.clearOutputString();
+        addGoalCommand.undo(account, ui, moneyStorage);
+        assertEquals(" Last command undone: \n" + g.toString() + "\n Now you have "
+                + account.getShortTermGoals().size() + " goals listed\ncurrent Goal Savings: $1000.00\n" +
+                "Target Savings for the Month: $.00\n" +
+                "Got it, list will be printed in the other pane!\n", ui.getOutputString());
+        account.getShortTermGoals().clear();
+        MoneyCommand exitCommand = new ExitMoneyCommand();
+        exitCommand.execute(account, ui, moneyStorage);
+    }
+
+    @Test
+    void testUndoDeleteGoal() throws DukeException, ParseException {
+        account.getShortTermGoals().clear();
+        Goal g = new Goal(1000, "watch", "GS", testDate, "HIGH");
+        account.getShortTermGoals().add(g);
+        MoneyCommand deleteGoalCommand =  new DeleteGoalCommand("delete goal 1");
+        deleteGoalCommand.execute(account, ui, moneyStorage);
+        ui.clearOutputString();
+        deleteGoalCommand.undo(account, ui, moneyStorage);
+        assertEquals(" Last command undone: \n" + g.toString() + "\n Now you have "
+                + account.getShortTermGoals().size() + " goals listed\ncurrent Goal Savings: $1000.00\n" +
+                "Target Savings for the Month: $.00\n" +
+                "Got it, list will be printed in the other pane!\n", ui.getOutputString());
+        account.getShortTermGoals().clear();
+
+        MoneyCommand exitCommand =  new ExitMoneyCommand();
+        exitCommand.execute(account, ui, moneyStorage);
+    }
+
+    @Test
+    void testUndoDoneGoal() throws ParseException, DukeException {
+        account.getShortTermGoals().clear();
+        account.getIncomeListTotal().clear();
+        account.getExpListTotal().clear();
+        Income i = new Income(2000, "TA Pay", testDate);
+        account.getIncomeListTotal().add(i);
+        Goal g = new Goal(1000, "watch", "GS", testDate, "HIGH");
+        account.getShortTermGoals().add(g);
+        String testInput = "done goal 1";
+        MoneyCommand doneGoalCommand =  new DoneGoalCommand(testInput);
+        doneGoalCommand.execute(account, ui, moneyStorage);
+        ui.clearOutputString();
+        doneGoalCommand.undo(account, ui, moneyStorage);
+        assertEquals(" Last command undone: \n" + g.toString() + " added to goals\n Now you have "
+        + account.getShortTermGoals().size() + " goals listed\nand " + account.getExpListTotal().size()
+        + " expenses listed\n", ui.getOutputString());
+        MoneyCommand exitCommand = new ExitMoneyCommand();
+        exitCommand.execute(account, ui, moneyStorage);
+    }
 }

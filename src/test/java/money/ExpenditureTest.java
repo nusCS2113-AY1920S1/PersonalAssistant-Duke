@@ -1,10 +1,7 @@
 package money;
 
 import controlpanel.MoneyStorage;
-import moneycommands.MoneyCommand;
-import moneycommands.AddExpenditureCommand;
-import moneycommands.DeleteExpenditureCommand;
-import moneycommands.ListTotalExpenditureCommand;
+import moneycommands.*;
 import controlpanel.DukeException;
 import controlpanel.Ui;
 import org.junit.jupiter.api.Test;
@@ -115,5 +112,34 @@ public class ExpenditureTest {
             assertThat(e.getMessage(),
                     is("Please enter a numerical number as the index of the expenditure to be deleted\n"));
         }
+    }
+
+    @Test
+    void testUndoAddExpenditure() throws ParseException, DukeException {
+        String testAdd = "spent Flowers for the lady /amt 70 /cat present /on 9/10/1997";
+        Expenditure exp = new Expenditure(70, "Flowers for the lady ", "present", testDate);
+        AddExpenditureCommand testcmd = new AddExpenditureCommand(testAdd);
+        testcmd.execute(account, ui, storage);
+        ui.clearOutputString();
+        testcmd.undo(account, ui, storage);
+        assertEquals(" Last command undone: \n" + exp.toString() + "\n Now you have "
+                + account.getExpListTotal().size() + " expenses listed\n", ui.getOutputString());
+        MoneyCommand exitCommand = new ExitMoneyCommand();
+        exitCommand.execute(account, ui, storage);
+    }
+
+    @Test
+    void testUndoDeleteExpenditure() throws DukeException, ParseException {
+        account.getExpListTotal().clear();
+        Expenditure e2 = new Expenditure(50, "Doll for the girl", "toy", testDate);
+        account.getExpListTotal().add(e2);
+        DeleteExpenditureCommand cmd = new DeleteExpenditureCommand("delete expenditure 1");
+        cmd.execute(account, ui, storage);
+        ui.clearOutputString();
+        cmd.undo(account, ui, storage);
+        assertEquals(" Last command undone: \n" + e2.toString() + "\n Now you have "
+                + account.getExpListTotal().size() + " expenses listed\n", ui.getOutputString());
+        MoneyCommand exitCommand = new ExitMoneyCommand();
+        exitCommand.execute(account, ui, storage);
     }
 }

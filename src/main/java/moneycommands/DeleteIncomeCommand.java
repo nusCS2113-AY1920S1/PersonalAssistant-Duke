@@ -76,7 +76,7 @@ public class DeleteIncomeCommand extends MoneyCommand {
             ui.appendToOutput(" Now you have " + account.getIncomeListTotal().size()
                     + " income sources listed\n");
         } else {
-            throw new DukeException("Wah u messed up at income\n");
+            throw new DukeException("Last deleted entry is of invalid type!!\n");
         }
     }
 }
