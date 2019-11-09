@@ -81,8 +81,8 @@ public class RescheduleCommand extends Command {
             else if(dateString[0].isBlank() || dateString[1].isBlank()){
                 throw new EmptyEventDateException();
             }
-            Date date1 = new Date(dateString[0]);
-            Date date2 = new Date(dateString[1]);
+            Date date1 = new Date(dateString[0].trim());
+            Date date2 = new Date(dateString[1].trim());
             tasks.verifyConflictDateEdit(date1, date2,rescheduleEventTask);
             rescheduleEventTask.reschedule(date1,date2);
             storage.save(tasks.getList());

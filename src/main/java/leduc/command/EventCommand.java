@@ -95,8 +95,8 @@ public class EventCommand extends Command {
             } else if (dateString[0].isBlank() || dateString[1].isBlank()) {
                 throw new EmptyEventDateException();
             }
-            Date date1 = new Date(dateString[0]);
-            Date date2 = new Date(dateString[1]);
+            Date date1 = new Date(dateString[0].trim());
+            Date date2 = new Date(dateString[1].trim());
             tasks.verifyConflictDate(date1, date2);
             if (date1.getDate().isAfter(date2.getDate())) {
                 throw new EventDateException();

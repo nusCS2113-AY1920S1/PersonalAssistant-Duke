@@ -69,7 +69,7 @@ public class PostponeCommand extends Command {
                 throw new HomeworkTypeException();
             }
             HomeworkTask postponeHomeworkTask = (HomeworkTask) postponeTask;
-            Date d = new Date(postponeString[1]);
+            Date d = new Date(postponeString[1].trim());
             postponeHomeworkTask.postponeHomework(d);
             storage.save(tasks.getList());
             ui.showPostpone(postponeHomeworkTask);

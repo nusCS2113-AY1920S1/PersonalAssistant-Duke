@@ -61,7 +61,8 @@ public class HomeworkCommand extends Command {
             throw new EmptyHomeworkException();
         } else if (taskDescription.length == 1) { // no /by in input
             throw new EmptyHomeworkDateException();
-        } else {
+        }
+        else {
             String homeworkString = "";
             String description = taskDescription[0].trim();
             String[] prioritySplit = taskDescription[1].trim().split("prio");

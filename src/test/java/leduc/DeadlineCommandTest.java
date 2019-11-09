@@ -42,7 +42,7 @@ public class DeadlineCommandTest {
      */
     @Test
     public void deadlineCommandExecuteTest()  {
-        HomeworkCommand deadlineCommand1 = new HomeworkCommand("deadline ok");
+        HomeworkCommand deadlineCommand1 = new HomeworkCommand("homework ok");
         try{
             deadlineCommand1.execute(tasks,ui,storage);
         }
@@ -53,7 +53,7 @@ public class DeadlineCommandTest {
 
 
 
-        HomeworkCommand deadlineCommand2 = new HomeworkCommand("deadline /by 12/12/2000 22:22");
+        HomeworkCommand deadlineCommand2 = new HomeworkCommand("homework /by 12/12/2000 22:22");
         try{
             deadlineCommand2.execute(tasks,ui,storage);
         }
@@ -64,7 +64,7 @@ public class DeadlineCommandTest {
 
 
 
-        HomeworkCommand deadlineCommand3 = new HomeworkCommand("deadline d1 /by 12-12-2000 22:22");
+        HomeworkCommand deadlineCommand3 = new HomeworkCommand("homework d1 /by 12-12-2000 22:22");
         try{
             deadlineCommand3.execute(tasks,ui,storage);
         }
@@ -73,7 +73,7 @@ public class DeadlineCommandTest {
         }
         assertTrue(tasks.size()==0);
 
-        HomeworkCommand deadlineCommand4 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22");
+        HomeworkCommand deadlineCommand4 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22");
         try{
             deadlineCommand4.execute(tasks,ui,storage);
         }
@@ -82,7 +82,7 @@ public class DeadlineCommandTest {
         }
         assertTrue(tasks.size()==1);
 
-        HomeworkCommand deadlineCommand5 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 6");
+        HomeworkCommand deadlineCommand5 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 prio 6");
         try{
             deadlineCommand5.execute(tasks,ui,storage);
         }
@@ -94,7 +94,7 @@ public class DeadlineCommandTest {
         assertTrue(tasks.get(0).getPriority() == 5);
 
 
-        HomeworkCommand deadlineCommand6 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 12");
+        HomeworkCommand deadlineCommand6 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 prio 12");
         try{
             deadlineCommand6.execute(tasks,ui,storage);
         }
@@ -103,7 +103,7 @@ public class DeadlineCommandTest {
         }
         assertTrue(tasks.size()==2);
 
-        HomeworkCommand deadlineCommand7 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio Qzeaze");
+        HomeworkCommand deadlineCommand7 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 prio Qzeaze");
         try{
             deadlineCommand7.execute(tasks,ui,storage);
         }

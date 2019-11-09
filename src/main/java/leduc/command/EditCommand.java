@@ -145,8 +145,8 @@ public class EditCommand extends Command {
         } else if (dateString[0].isBlank() || dateString[1].isBlank()) {
             throw new EmptyEventDateException();
         }
-        Date date1 = new Date(dateString[0]);
-        Date date2 = new Date(dateString[1]);
+        Date date1 = new Date(dateString[0].trim());
+        Date date2 = new Date(dateString[1].trim());
         tasks.verifyConflictDateEdit(date1, date2,eventsTask);
         eventsTask.reschedule(date1, date2);
     }
@@ -158,7 +158,7 @@ public class EditCommand extends Command {
      * @throws NonExistentDateException  Exception caught when the date given does not exist.
      */
     private void editHomeworkDate(Task t, String dateString) throws NonExistentDateException {
-        Date date = new Date(dateString);
+        Date date = new Date(dateString.trim());
         HomeworkTask homeworkTask = (HomeworkTask) t;
         homeworkTask.setDeadlines(date);
     }
