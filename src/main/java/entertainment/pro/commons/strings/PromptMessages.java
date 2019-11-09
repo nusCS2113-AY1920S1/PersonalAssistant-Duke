@@ -1,4 +1,4 @@
-package entertainment.pro.commons;
+package entertainment.pro.commons.strings;
 
 /**
  * Contains and defines messages printed by the app.

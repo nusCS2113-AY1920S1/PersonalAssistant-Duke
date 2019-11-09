@@ -1,11 +1,14 @@
 package entertainment.pro.logic.parsers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
+import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.logic.parsers.commands.SearchCommand;
+import entertainment.pro.ui.MovieHandler;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -37,10 +40,25 @@ public class CommandSuperTest {
 
 
     @Test
+    public void subCommand_invalidInputs_throws_MissingInfoException(){
+        SearchCommand sc = new SearchCommand(new MovieHandler());
+
+        assertThrows(MissingInfoException.class, () -> {
+            sc.subCommand(new String[]{"search"});
+        });
+        assertThrows(MissingInfoException.class, () -> {
+            sc.subCommand(new String[]{});
+        });
+
+    }
+
+
+    @Test
     public void subCommand_invalidInputs_failure(){
-        SearchCommand sc = new SearchCommand(null);
+        SearchCommand sc = new SearchCommand(new MovieHandler());
 
         try{
+
             assertEquals(false , sc.subCommand(new String[]{}));
             assertEquals( COMMANDKEYS.NONE, sc.getSubRootCommand());
             assertEquals(false , sc.subCommand(new String[]{"Jupiter is a planet"}));
@@ -48,7 +66,7 @@ public class CommandSuperTest {
             assertEquals(false , sc.subCommand(new String[]{"search"}));
             assertEquals( COMMANDKEYS.NONE, sc.getSubRootCommand());
 
-        }catch (Exception e){
+        }catch (MissingInfoException e){
 
         }
 
@@ -61,7 +79,7 @@ public class CommandSuperTest {
         SearchCommand sc = new SearchCommand(null);
 
         String command = "search movies joker -A albert -a alex , ashley , alan -b benny -c";
-        sc.processFlags(command.split(" ") , command);
+        sc.processFlags(command);
         assertEquals(true , sc.getFlagMap().containsKey("-A"));
         assertEquals(true , sc.getFlagMap().containsKey("-a"));
         assertEquals(true , sc.getFlagMap().containsKey("-b"));
@@ -85,7 +103,7 @@ public class CommandSuperTest {
 
         SearchCommand sc2 = new SearchCommand(null);
         String command2 = "search movies joker";
-        sc2.processFlags(command2.split(" ") , command2);
+        sc2.processFlags(command2);
         assertEquals(0 , sc2.getFlagMap().keySet().size());
 
 
@@ -93,16 +111,18 @@ public class CommandSuperTest {
 
 
     @Test
-    public void processFlags_invalidInputs_failure() throws InvalidFormatCommandException {
+    public void processFlags_validInputs_failure() throws InvalidFormatCommandException {
+
+
 
         SearchCommand sc2 = new SearchCommand(null);
         String command2 = "search movies joker";
-        sc2.processFlags(command2.split(" ") , command2);
+        sc2.processFlags(command2);
         assertEquals(0 , sc2.getFlagMap().keySet().size());
 
 
         String command3 = "";
-        sc2.processFlags(command3.split(" ") , command3);
+        sc2.processFlags(command3);
         assertEquals(0 , sc2.getFlagMap().keySet().size());
 
 
@@ -139,7 +159,7 @@ public class CommandSuperTest {
 
 
     @Test
-    public void processPayload_invalidInputs_failure() {
+    public void processPayload_invalidInputs() {
 
         SearchCommand sc = new SearchCommand(null);
 

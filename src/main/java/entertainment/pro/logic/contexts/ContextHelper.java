@@ -96,7 +96,6 @@ public class ContextHelper {
      * @return String of incomplete words
      */
     public static String getLastIncompleteWords(String command, Controller controller) {
-        assert (CommandAssertions.assertIsLowerString(command));
         String[] splitCommand = command.split(" ");
 
         String incompleteCommand = "";

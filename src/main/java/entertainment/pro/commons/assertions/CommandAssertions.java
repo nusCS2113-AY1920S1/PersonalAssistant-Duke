@@ -14,6 +14,7 @@ public class CommandAssertions {
      * @return true is string is all lower
      */
     public static boolean assertIsLowerString(String str) {
+
         char[] charArray = str.toCharArray();
 
         for (int i = 0; i < charArray.length; i++) {
@@ -34,17 +35,18 @@ public class CommandAssertions {
      * @return true is string array is all lower
      */
     public static boolean assertIsLowerStringArr(String [] strArr) {
-        System.out.print("STRING ARRAY");
-        System.out.print(strArr.toString());
 
-        char[] charArray = strArr.toString().toCharArray();
+        for (String s : strArr) {
+            char[] charArray = s.toCharArray();
 
-        for (int i = 0; i < charArray.length; i++) {
-            //if any character is in upper case, return false
-            if (Character.isUpperCase(charArray[i])) {
-                return false;
+            for (int i = 0; i < charArray.length; i++) {
+                //if any character is in upper case, return false
+                if (Character.isUpperCase(charArray[i])) {
+                    return false;
+                }
             }
         }
+
 
         return true;
     }
@@ -56,14 +58,14 @@ public class CommandAssertions {
      * @return true is string array is all lower
      */
     public static boolean assertIsLowerStringList(ArrayList<String> strArrL) {
-        System.out.print("STRING ARRAYLIST");
-        System.out.print(strArrL.toString());
-        char[] charArray = strArrL.toString().toCharArray();
+        for (String s : strArrL) {
+            char[] charArray = s.toCharArray();
 
-        for (int i = 0; i < charArray.length; i++) {
-            //if any character is in upper case, return false
-            if (Character.isUpperCase(charArray[i])) {
-                return false;
+            for (int i = 0; i < charArray.length; i++) {
+                //if any character is in upper case, return false
+                if (Character.isUpperCase(charArray[i])) {
+                    return false;
+                }
             }
         }
 

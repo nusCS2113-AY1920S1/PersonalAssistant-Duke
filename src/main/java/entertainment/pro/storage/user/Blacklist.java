@@ -87,9 +87,10 @@ public class Blacklist {
      * @param movie command that was entered by the user in split array form
      */
     public static void addToBlacklistKeyWord(String movie) throws DuplicateEntryException {
-        if (movie.trim() == "") {
+        if (movie.trim().equals("")) {
             return;
         }
+
         if (blackListKeyWords.contains(movie.toLowerCase())) {
             throw new DuplicateEntryException("blacklist");
         }
@@ -102,7 +103,7 @@ public class Blacklist {
      * @param mo movie object
      */
     public static void addToBlacklistMoviesID(MovieInfoObject mo) throws DuplicateEntryException {
-        if (mo == null || mo.getTitle() == "") {
+        if (mo == null || mo.getTitle().equals("")) {
             return;
         }
         for (MovieModel mm: blackListMovies) {
@@ -118,7 +119,7 @@ public class Blacklist {
      * Adding Movies to blacklist.
      */
     public static void addToBlacklistMovie(String movie) throws DuplicateEntryException {
-        if (movie.trim() == "") {
+        if (movie.trim().equals("")) {
             return;
         }
         if (blackListMoviesTitle.contains(movie.toLowerCase().trim())) {
@@ -149,7 +150,7 @@ public class Blacklist {
      * @return true if keyword successfully removed
      */
     public static boolean removeFromBlacklistKeyWord(String keyword)  {
-        if (keyword.trim() == "") {
+        if (keyword.trim().equals("")) {
             return false;
         }
         ArrayList<String> newKeywords = (ArrayList<String>) blackListKeyWords.clone();
@@ -172,7 +173,7 @@ public class Blacklist {
      * @return true if keyword successfully removed
      */
     public static boolean removeFromBlacklistMovieTitle(String movie)  {
-        if (movie.trim() == "") {
+        if (movie.trim().equals("")) {
             return false;
         }
 

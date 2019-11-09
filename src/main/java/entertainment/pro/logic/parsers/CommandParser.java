@@ -1,11 +1,13 @@
 package entertainment.pro.logic.parsers;
 
-import entertainment.pro.commons.PromptMessages;
+
 import entertainment.pro.commons.assertions.CommandAssertions;
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.commons.exceptions.EmptyCommandException;
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.commons.exceptions.MissingInfoException;
+import entertainment.pro.commons.strings.CommandRootKeyStrings;
+import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.logic.execution.CommandStack;
 import entertainment.pro.logic.parsers.commands.*;
 import entertainment.pro.model.CommandPair;
@@ -179,97 +181,74 @@ public class CommandParser {
                                    Controller uicontroller) throws IOException, Exceptions , MissingInfoException {
 
         switch(commandArr[0].toLowerCase()) {
-        case "search":
+        case CommandRootKeyStrings.SEARCH:
             SearchCommand sc = new SearchCommand(uicontroller);
             if (sc.initCommand(commandArr , command)) {
                 CommandStack.pushCmd(sc);
             }
             break;
-        case "view":
+        case CommandRootKeyStrings.VIEW:
             ViewCommand vc = new ViewCommand(uicontroller);
             if (vc.initCommand(commandArr , command)) {
                 CommandStack.pushCmd(vc);
             }
             break;
-        case "help":
+        case CommandRootKeyStrings.HELP:
             HelpCommand hc = new HelpCommand(uicontroller);
             if (hc.initCommand(commandArr , command)) {
                 CommandStack.pushCmd(hc);
             }
             break;
-        case "more":
-            MoreCommand mc = new MoreCommand(uicontroller);
-            if (mc.initCommand(commandArr , command)) {
-                CommandStack.pushCmd(mc);
-            }
-            break;
-        case "yes":
+        case CommandRootKeyStrings.YES:
             YesCommand yc = new YesCommand(uicontroller);
             if (yc.initCommand(commandArr , command)) {
                 CommandStack.pushCmd(yc);
             }
             break;
-        case "add":
-            AddCommand wc = new AddCommand(uicontroller);
-            if (wc.initCommand(commandArr , command)) {
-                CommandStack.pushCmd(wc);
-            }
-            break;
-        case "set":
+        case CommandRootKeyStrings.SET:
             SetCommand stc = new SetCommand(uicontroller);
             if (stc.initCommand(commandArr , command)) {
                 CommandStack.pushCmd(stc);
             }
             break;
-        case "playlist":
+        case CommandRootKeyStrings.PLAYLIST:
             PlaylistCommand pc = new PlaylistCommand(uicontroller);
             if (pc.initCommand(commandArr , command)) {
                 CommandStack.pushCmd(pc);
             }
             break;
-        case "remove":
-            RemoveCommand removec = new RemoveCommand(uicontroller);
-            if (removec.initCommand(commandArr , command)) {
-                CommandStack.pushCmd(removec);
-            }
-            break;
-        case "preference":
+
+        case CommandRootKeyStrings.PREFERENCE:
             PreferenceCommand pfc = new PreferenceCommand(uicontroller);
             if (pfc.initCommand(commandArr , command)) {
                 CommandStack.pushCmd(pfc);
             }
             break;
-        case "restriction":
+        case CommandRootKeyStrings.RESTRICTION:
             RestrictionCommand rc = new RestrictionCommand(uicontroller);
             if (rc.initCommand(commandArr , command)) {
                 CommandStack.pushCmd(rc);
             }
             break;
-        case "get":
-            GetCommand gc = new GetCommand(uicontroller);
-            if (gc.initCommand(commandArr , command)) {
-                CommandStack.pushCmd(gc);
-            }
-            break;
-        case "blacklist":
+        case CommandRootKeyStrings.BLACKLIST:
             BlacklistCommand bbc = new BlacklistCommand(uicontroller);
             if (bbc.initCommand(commandArr , command)) {
                 CommandStack.pushCmd(bbc);
             }
             break;
-        case "watchlist":
+        case CommandRootKeyStrings.WATCHLIST:
             WatchlistCommand wlc = new WatchlistCommand(uicontroller);
             if (wlc.initCommand(commandArr , command)) {
                 CommandStack.pushCmd(wlc);
             }
             break;
-        case "find":
+        case CommandRootKeyStrings.FIND:
             FindCommand fc = new FindCommand(uicontroller);
             if (fc.initCommand(commandArr, command)) {
                 CommandStack.pushCmd(fc);
             }
             break;
-        case "exit":
+        case CommandRootKeyStrings.EXIT:
             ExitCommand ec = new ExitCommand(uicontroller);
             if (ec.initCommand(commandArr , command)) {
                 CommandStack.pushCmd(ec);
@@ -287,8 +266,8 @@ public class CommandParser {
         if (pair.getSubRootCommand() == COMMANDKEYS.NONE) {
             ((MovieHandler) uicontroller).setAutoCompleteText(PromptMessages.DID_YOU_MEAN + pair.getRootCommandStr());
         } else {
-            ((MovieHandler) uicontroller).setAutoCompleteText(PromptMessages.DID_YOU_MEAN + pair.getRootCommandStr() + " "
-                    + pair.getSubRootCommandStr() + " "
+            ((MovieHandler) uicontroller).setAutoCompleteText(PromptMessages.DID_YOU_MEAN + pair.getRootCommandStr()
+                    + " " + pair.getSubRootCommandStr() + " "
                     + String.join(" ", Arrays.copyOfRange(commandArr, 2, commandArr.length)));
         }
     }

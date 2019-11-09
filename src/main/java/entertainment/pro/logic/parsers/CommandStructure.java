@@ -98,5 +98,6 @@ public class CommandStructure {
         COMMANDKEYS.PREFERENCE,
         COMMANDKEYS.RESTRICTION,
         COMMANDKEYS.FIND,
-        COMMANDKEYS.EXIT};
+        COMMANDKEYS.EXIT
+    };
 }

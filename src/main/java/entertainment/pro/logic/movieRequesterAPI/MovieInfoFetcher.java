@@ -1,9 +1,7 @@
 package entertainment.pro.logic.movieRequesterAPI;
 
-import entertainment.pro.commons.PromptMessages;
+import entertainment.pro.commons.strings.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
-import entertainment.pro.logic.parsers.commands.SearchCommand;
-import entertainment.pro.ui.MovieHandler;
 
 import java.net.URL;
 import java.util.logging.Level;
