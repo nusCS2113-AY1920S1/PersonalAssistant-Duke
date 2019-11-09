@@ -6,6 +6,7 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -34,6 +35,8 @@ public class MainWindow extends AnchorPane {
     //// All the elements on the left side of the window.
     @FXML
     private VBox display;
+    @FXML
+    private Label tabName;
 
     //// All the elements on the right side of the window.
     @FXML
@@ -93,13 +96,19 @@ public class MainWindow extends AnchorPane {
             shutDown();
             break;
         case "show":
+            tabName.setText("Show");
             displayShows();
             break;
         case "seat":
+            tabName.setText("Seat");
             displaySeats(fullCommand);
             break;
         case "archive":
+            tabName.setText("Archive");
+            displayFinance();
+            break;
         case "finance":
+            tabName.setText("Finance");
             displayFinance();
             break;
         case "help":
@@ -119,7 +128,6 @@ public class MainWindow extends AnchorPane {
 
     private void displayShows() {
         clearDisplay();
-
         for (Map.Entry<LocalDate, Theatre> entry : optix.getShowsGui().entrySet()) {
             display.getChildren().add(ShowController.displayShow(entry.getValue(), entry.getKey()));
         }
@@ -127,7 +135,6 @@ public class MainWindow extends AnchorPane {
 
     private void displayFinance() {
         clearDisplay();
-
         for (Map.Entry<LocalDate, Theatre> entry : optix.getShowsGui().entrySet()) {
             display.getChildren().add(FinanceController.displayFinance(entry.getValue(), entry.getKey()));
         }
@@ -135,7 +142,7 @@ public class MainWindow extends AnchorPane {
 
     private void displaySeats(String fullCommand) {
         String[] splitStr = fullCommand.split("\\|");
-        if (splitStr.length == 2 && !optix.getShowsGui().isEmpty()) {
+        if (!optix.getShowsGui().isEmpty()) {
             clearDisplay();
 
             LocalDate localDate = new OptixDateFormatter().toLocalDate(splitStr[1].trim());
@@ -149,24 +156,28 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void displayHelp() {
         clearDisplay();
+        tabName.setText("Help");
         display.getChildren().add(HelpWindow.getHelpWindow());
     }
 
     @FXML
     private void clickShow() {
         optix.resetShows();
+        tabName.setText("Show");
         displayShows();
     }
 
     @FXML
     private void clickArchive() {
         optix.resetArchive();
+        tabName.setText("Archive");
         displayFinance();
     }
 
     @FXML
     private void clickFinance() {
         optix.resetShows();
+        tabName.setText("Finance");
         displayFinance();
     }
 

@@ -50,13 +50,18 @@
          <content>
             <AnchorPane prefHeight="555.0" prefWidth="694.0">
                <children>
-                  <VBox fx:id="display" layoutX="65.0" layoutY="31.0" prefHeight="480.0" prefWidth="580.0">
+                  <VBox fx:id="display" layoutX="64.0" layoutY="46.0" prefHeight="480.0" prefWidth="580.0">
                      <padding>
                         <Insets bottom="30.0" />
                      </padding>
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets></VBox>
+                  <Label fx:id="tabName" layoutX="28.0" layoutY="14.0" prefHeight="26.0" prefWidth="107.0" text="Show">
+                     <font>
+                        <Font name="Monospaced Regular" size="14.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
          </content>

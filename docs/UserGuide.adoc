@@ -320,15 +320,20 @@ add-alias t|add
 
 image::images/userguide/UG_add-alias_success.png[width ="600", align="center"]
 
-Assigning an alias that is already in use is not allowed. +
+Assigning an alias that is already in use is not allowed: +
 `add-alias t|delete` would not work if 't' is paired to another command already.
 
 image::images/userguide/UG_add-alias_failure.png[width ="600", align="center"]
 
-Assigning an command keyword as an alias is also not allowed: +
+Assigning a command keyword as an alias is also not allowed: +
 `add-alias add|delete` is not allowed.
 
 image::images/userguide/UG_add-alias_illegal.png[width ="600", align="center"]
+
+Assigning a command keyword with space is also not allowed: +
+`add-alias g g|add` is not allowed.
+
+image::images/userguide/UG_add-alias_illegal_space.png[width ="600", align="center"]
 
 ==== Remove alias: `remove-alias`
 

@@ -76,6 +76,139 @@ dialog first)
 
 === Configurations to do before writing code
 
+== Design
+
+This section documents the system architecture for Optix and noteworthy components that supports Optix.
+
+=== Architecture
+
+image::images/devguide/DG_SystemArch.png[width ="600", align="center"]
+
+The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick
+overview of each component.
+
+`Main` has two classes named `Main` and `MainApp`. It is responsible for,
+
+* At app launch: Initialize the components in the correct sequence, and connects them up with each other.
+* At shut down: Shuts down the components and invokes cleanup method where necessary.
+
+The rest of the App consists of 3 components.
+
+* `GUI`: The Graphical User Interface of the App.
+* `Optix`: The intermediary between `GUI` and `Command`.
+* `XYZCommand`: Various Commands that changes data in `Model`.
+
+==== How the architecture components interact with each other
+
+The Sequence Diagram below shows how the components interact with each other for the scenario where user issues the command
+`list Nov 2020`
+
+image::images/devguide/DG_Design_SequenceDiagram.png[width ="600", align="center"]
+
+The sections below give more details of each component.
+
+=== GUI Component
+
+image::images/devguide/DG_GUI_ClassDiagram.png[width ="600", align="center"]
+
+API: `Link for GUI.files`
+
+The `GUI` consists of a `MainWindow` that is made up of parts e.g `DialogBox`, `HelpWindow`, `SeatDisplayController`, etc.
+`MainWindow` is split into two segment, on the left the display window and on the right the chat box, as show
+in the GUI diagram.
+
+image::images/UI.png[width ="600", align="center"]
+
+The display window consists of 5 different viewing mode.
+
+* *Shows*: Scheduled shows for the event venue. Controlled by `ShowController`.
+* *Seats*: The seat availability for a specific show. Controlled by `SeatDisplayController`.
+* *Finance*: The projected revenue for scheduled shows. Controlled by `FinanceController`.
+* *Archive*: The total revenue for a show that has been performed. Controlled by `FinanceController`.
+* *Help*: All possible command to operate Optix. Controlled by `HelpWindow`.
+
+The `GUI` component uses JavaFx UI framework and JFoenix API. The layout of these UI parts are defined in
+matching .fxml files that are in the `src/main/resources/view` folder. For example, the layout of the
+`MainWindow` is specified in `MainWindow.fxml`.
+
+The `GUI` component,
+
+* Passes user command to `Optix` component to be executed.
+
+* Listens for changes in `Model` in `Optix` so that the GUI can be updated with the modified data.
+
+=== Optix Component
+
+API: `Link for Optix file`
+
+`Optix` is the backend software that acts as the intermediary between `GUI` and `Command` logic.
+`Optix`,
+
+* Instantiates `Command` through `Parser` based on user command in `GUI`.
+* Passes updated model to be displayed by `GUI`.
+* Holds all the file path for `Storage`.
+* Stores `Optix` response to user.
+
+The sections below give more details of each component in `Optix`.
+
+==== Model Component
+
+API: `Link for Model file`
+
+`Model` stores the data used for the App. It contains 3 `ShowMap`.
+
+1. *shows*: All the shows that are scheduled for the future.
+2. *showsHistory*: All the shows that are in the past.
+3. *showsGui*: All the shows that are to be displayed on the `GUI` component.
+
+image::images/devguide/DG_Model_ClassDiagram.png[width ="600", align="center"]
+
+The ShowMap Class Diagram shown is the structure for all ShowMap with the exception of *showsHistory*.
+For *showsHistory* the multiplicity of Seat is 0 as it is irrelevant.
+
+==== Storage Component
+
+API: `Link for Storage file`
+
+`Storage` reads and writes to its respective .txt files so that information can be loaded on the
+following app launch. The .txt files are saved in `{currDir}/src/main/data`. There is a total of 2
+.txt files that are written and read in `Storage` component.
+
+1. optix.txt
+
+2. archive.txt
+
+==== UI Component
+
+API: `Link for UI file`
+
+The `UI` component handles all of `Optix` response. `Optix` response is determined by `Command` component
+and subsequently displayed using `GUI` component.
+
+==== Parser Component
+
+API: `Link for Parser file`
+
+The `Parser`,
+
+* Determines the command word and constructs `Command` component.
+* Stores command aliases in a HashMap.
+* Updates command aliases in the HashMap.
+* Reads and writes to parserPreferences.txt.
+
+=== Command Component
+
+API: `Link for Command folder`
+
+All commands found in commands package extends `Command`. The `Command` for the different data structures
+are stored under different subpackages. Currently the commands package consists of 4 different subpackages.
+
+* *shows*: Commands that deal with the management fo shows for the theatre.
+* *seats*: Commands that deal with the management of seats within the theatre.
+* *finance*: Commands that manage finances within the theatre.
+* *parser*: Commands that deal with command aliases.
+
+
 == Implementation
 This section describes some noteworthy details on how certain features are implemented.
 
