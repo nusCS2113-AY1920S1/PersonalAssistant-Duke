@@ -31,20 +31,17 @@ public class ParseEdit {
             checkStockCode(editInput[2]);
             return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.STOCKCODE,
                     editInput[2].toLowerCase());
-
             */
         case "quantity":
+            Parser.isCheckIsInteger(editInput[2], "quantity");
             return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.QUANTITY,
-                    editInput[2].toLowerCase());
-        case "loaned":
-            return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.LOANED, editInput[2].toLowerCase());
-        case "lost":
-            return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.LOST, editInput[2].toLowerCase());
+                    editInput[2]);
         case "description":
             return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.DESCRIPTION,
-                    editInput[2].toLowerCase());
+                    editInput[2]);
         case "minimum":
-            return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.MINIMUM, editInput[2].toLowerCase());
+            Parser.isCheckIsInteger(editInput[2], "minimum quantity");
+            return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.MINIMUM, editInput[2]);
         default:
             throw new BadInputException("The property you are trying to edit does not exist.");
         }

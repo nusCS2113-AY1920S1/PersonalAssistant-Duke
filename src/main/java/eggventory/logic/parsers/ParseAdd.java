@@ -76,6 +76,8 @@ public class ParseAdd {
                     + " for an existing command.");
         }
 
+        Parser.isCheckIsInteger(addInput[2], "quantity");
+
         return new AddStockCommand(CommandType.ADD, addInput[0], addInput[1],
                 Integer.parseInt(addInput[2]), addInput[3], minimumQuantity);
     }
@@ -151,7 +153,7 @@ public class ParseAdd {
      * @param input string in the format matricNo, stockCode and quantity.
      * @return a command to add a loan.
      */
-    private Command processAddLoan(String input) throws InsufficientInfoException {
+    private Command processAddLoan(String input) throws InsufficientInfoException, BadInputException {
         String[] addInput = input.split(" +");
 
         System.out.println("Working");
@@ -161,6 +163,9 @@ public class ParseAdd {
         if (addInput.length < 3) {
             throw new InsufficientInfoException(CommandDictionary.getCommandUsage("add loan"));
         }
+
+        Parser.isCheckIsInteger(addInput[2], "loan quantity");
+
         return new AddLoanCommand(CommandType.ADD, addInput[0], addInput[1], Integer.parseInt(addInput[2]));
     }
 
