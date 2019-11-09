@@ -131,7 +131,7 @@ public class DollaData implements ModeStringList {
 
     public void addNewBillToRecordList(Record newRecord) {
         billList.add(newRecord);
-    }
+    } //TODO: IS this still using?
 
     /**
      * Remove from record list.
@@ -241,6 +241,26 @@ public class DollaData implements ModeStringList {
             break;
         default:
             break;
+        }
+    }
+
+    /**
+     * This method will return the size of each list.
+     * @param mode the mode that the user is in.
+     * @return the size of the list.
+     */
+    public int getListSize(String mode) {
+        switch(mode) {
+        case MODE_ENTRY:
+            return this.entryList.size();
+        case MODE_DEBT:
+            return this.debtList.size();
+        case MODE_LIMIT:
+            return this.limitList.size();
+        case MODE_SHORTCUT:
+            return this.shortcutList.size();
+        default:
+            return -1;
         }
     }
 }

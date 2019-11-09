@@ -13,7 +13,7 @@ public class SortUi extends Ui {
      * @param type the type of input of the list
      */
     public static void printSortedList(ArrayList<Record> list, String type) {
-        System.out.println(line);
+        System.out.println("\n" + line);
         switch (type) {
         case "date":
             typewriter("\tsorting date.........\n");

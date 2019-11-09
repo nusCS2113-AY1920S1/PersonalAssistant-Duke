@@ -115,7 +115,7 @@ public class StorageRead extends Storage {
 
         } catch (FileNotFoundException e) {
             StorageUi.printCreateFolderMessage();
-        } catch (IOException e) { // exception handling
+        } catch (IOException e) {
             StorageUi.printErrorReadingSaveMessage();
             MainParser.exit(); // TODO: Find out what is supposed to happen here
         }

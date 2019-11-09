@@ -4,6 +4,8 @@ public interface ActionTestStringList {
     String MODE_DEBT = "debt";
     String MODE_ENTRY = "entry";
     String MODE_LIMIT = "limit";
+    String COMMAND_UNDO = "undo";
+    String COMMAND_REDO = "redo";
 
     String OWE = "owe";
     String BORROW = "borrow";
@@ -22,7 +24,12 @@ public interface ActionTestStringList {
     String TEST_INPUT1 = "add expense 200 buy food /on 12/12/2019";
     String TEST_INPUT2 = "add income 300 tution /on 21/12/2019";
     String TEST_INPUT3 = "add expense 6 gongcha /on 11/11/2019";
-    String TEST_INPUT4 = "add income 40  sell pen /on 1/10/2019";
+    String TEST_INPUT4 = "add income 40 sell pen /on 01/10/2019";
+
+    String TEST_OUTPUT1 = "expense 200.0 buy food /on 12/12/2019 -";
+    String TEST_OUTPUT2 = "income 300.0 tution /on 21/12/2019 -";
+    String TEST_OUTPUT3 = "expense 6.0 gongcha /on 11/11/2019 -";
+    String TEST_OUTPUT4 = "income 40.0 sell pen /on 01/10/2019 -";
 
 
 }

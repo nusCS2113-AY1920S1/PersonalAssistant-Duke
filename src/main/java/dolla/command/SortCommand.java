@@ -4,12 +4,11 @@ import dolla.model.DollaData;
 import dolla.model.Record;
 import dolla.ui.ListUi;
 import dolla.ui.SortUi;
-import dolla.ui.Ui;
-import dolla.sort.SortAmount;
+import dolla.command.sort.SortAmount;
 import dolla.model.RecordList;
-import dolla.sort.SortDate;
-import dolla.sort.SortDescription;
-import dolla.sort.SortName;
+import dolla.command.sort.SortDate;
+import dolla.command.sort.SortDescription;
+import dolla.command.sort.SortName;
 
 import java.util.ArrayList;
 
