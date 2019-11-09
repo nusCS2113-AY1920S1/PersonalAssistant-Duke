@@ -136,7 +136,7 @@ public class ImpressionCommandTest extends CommandTest {
 
     @Test
     public void impressionEditCommand_editImpression_impressionEdited() {
-        ObjCommand editCmd = null;;
+        ObjCommand editCmd = null;
         Impression newImpression = null;
         String[] switchNames = {"impression", "name", "description"};
         String[] switchVals = {null, "new name", "new description"};
