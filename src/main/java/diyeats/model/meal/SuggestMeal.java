@@ -19,7 +19,6 @@ public class SuggestMeal extends Meal implements Comparable<SuggestMeal> {
     public SuggestMeal(String description, HashMap<String, Integer> nutritionValue,
                        LocalDate suggestionDate, String mealTypeStr) {
         super(description, nutritionValue);
-        // TODO: Use date objects
         this.date = suggestionDate;
         this.type = mealTypeStr;
     }
