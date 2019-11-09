@@ -19,7 +19,7 @@ public class Messages {
     public static final String ROUTE_NODE_EDIT_SUCCESS = "Edited the Route!\n";
     public static final String ROUTE_NODE_NEIGHBOURS_SUCCESS = "Here are some Nodes that are close to this:\n";
     public static final String ROUTE_DELETE_SUCCESS = "Got it. I've deleted this Route:\n";
-    public static final String STATIC_MAP_SUCCESS = "Showing map of :";
+    public static final String STATIC_MAP_SUCCESS = "Showing map of : ";
     public static final String STATIC_MAP_FAILURE = "I'm sorry, but nothing was found...\n";
 
     /**
