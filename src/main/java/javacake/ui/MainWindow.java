@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
 
 import static javacake.quiz.QuestionList.MAX_QUESTIONS;
@@ -113,14 +114,8 @@ public class MainWindow extends GridPane {
         playGuiModeLoop();
 
         //Resize contentDialog to fit the current scrollpane
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(25), ev -> {
-            dialogContainer.setPrefWidth(scrollPane.getWidth() - 15);
-            taskContainer.setPrefWidth(taskScreen.getWidth() - 15);
-            noteContainer.setPrefWidth(noteScreen.getWidth() - 15);
-            avatarDialog.setPrefWidth(noteScreen.getWidth() - 15);
-        }));
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
+        playResizeLoop();
+
     }
 
     public void setJavaCake(JavaCake d) {
@@ -492,6 +487,33 @@ public class MainWindow extends GridPane {
         timeline.play();
     }
 
+    private void playResizeLoop() {
+        AtomicReference<Double> prevDialogWidth = new AtomicReference<>(dialogContainer.getWidth());
+        AtomicReference<Double> prevTaskWidth = new AtomicReference<>(taskContainer.getWidth());
+        AtomicReference<Double> prevNoteWidth = new AtomicReference<>(noteContainer.getWidth());
+        AtomicReference<Double> prevAvatarWidth = new AtomicReference<>(noteContainer.getWidth());
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), ev -> {
+            if (Math.abs(scrollPane.getWidth() - prevDialogWidth.get()) > 5) {
+                dialogContainer.setPrefWidth(scrollPane.getWidth() - 15);
+                prevDialogWidth.set(dialogContainer.getWidth());
+            }
+            if (Math.abs(taskScreen.getWidth() - prevTaskWidth.get()) > 5) {
+                taskContainer.setPrefWidth(taskScreen.getWidth() - 20);
+                prevTaskWidth.set(taskContainer.getWidth());
+            }
+            if (Math.abs(noteScreen.getWidth() - prevNoteWidth.get()) > 5) {
+                noteContainer.setPrefWidth(noteScreen.getWidth() - 20);
+                prevNoteWidth.set(noteContainer.getWidth());
+            }
+            if (Math.abs(noteScreen.getWidth() - prevAvatarWidth.get()) > 5) {
+                avatarDialog.setPrefWidth(noteScreen.getWidth() - 15);
+                prevAvatarWidth.set(noteContainer.getWidth());
+            }
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+    }
+
 
     private boolean isColorRelated() throws CakeException {
         if (input.equals("change")) {
@@ -636,8 +658,8 @@ public class MainWindow extends GridPane {
     private void setList(ArrayList<String> list) {
         list.add("Hi, Welcome to JavaCake!\nWant sum cake?\nAll you have to do is get 100%!");
         list.add("Akshay-sensei is my favourite prof!!!");
-        list.add("Learning Java\nis a piece of cake with JavaCake!!\nuWu");
-        list.add("Learning Cake\nis a piece of java with CakeJava!!\nwUw");
+        list.add("Learning Java\nis a piece of cake with JavaCake!! uWu");
+        list.add("Learning Cake\nis a piece of java with CakeJava!! wUw");
         list.add("I rather get Akshay than an A!\n");
         list.add("I LOVE BIG CAKES AND I CANNOT LIE!");
         list.add("CAAAAAAAAAaaaaakkkke!");
