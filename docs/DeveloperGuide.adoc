@@ -1377,6 +1377,109 @@ Expected: Error displayed regarding an invalid index.
 . Other incorrect select commands to try: `module /select a`, `module /select -1` +
 Expected: Similar to previous.
 
+=== Managing Lessons
+
+==== Adding a `lesson`
+. Prerequisites: Module has been selected using the `module /select` command.
+
+. Test case: `lesson /add Tutorial /day FRIDAY /from 10:00 /to 12:00`
+Expected: Acknowledgement message displayed regarding the successful addition of `Tutorial` for selected `module`.
+
+. Test case: `lesson /add /day FRIDAY /from 10:00 /to 12:00`
+Expected: Error displayed about missing argument.
+
+. Test case: `lesson /add Tutorial /day FRIDAY /from a /to 12:00`
+Expected: Error displayed about invalid argument.
+
+. Other incorrect commands to try: `lesson /add Tutorial /day APPLE /from 10:00 /to 12:00`, `lesson /add Tutorial /day TUESDAY /from 10:00 /to 10:00`
+Expected: Similar to previous.
+
+
+==== Deleting a `lesson`
+. Prerequisites: Module has been selected using the `module /select` command. List all lessons using the `lesson` command. At least 1 lesson is on the list.
+
+. Test case: `lesson /delete 1` +
+Expected: The first lesson is deleted from the list. Details of the lesson being deleted will be echoed as an acknowledgement message.
+
+. Test case: `lesson /delete 0` +
+Expected: Error displayed regarding an invalid index.
+
+. Other incorrect delete commands to try: `lesson /delete a`, `lesson /delete -1` +
+Expected: Similar to previous.
+
+=== Managing Tasks
+
+==== Adding a `Todo` task
+. Test case: `todo create a todo list /on 15-11-2019` +
+Expected: An acknowledgement message displayed regarding the successful addition of a `Todo` task.
+
+. Test case: `todo /on 15-11-2019` +
+Expected: Error displayed regarding a missing argument.
+
+. Test case: `todo create a todo list /on` +
+Expected: Similar to previous.
+
+. Test case: `todo create a todo list /on a` +
+Expected: Error displayed regarding an invalid argument.
+
+==== Adding a `Deadline` task
+. Test case: `deadline volunteering sign up /by 15-11-2019 23:59` +
+Expected: An acknowledgement message displayed regarding the successful addition of a `Deadline` task.
+
+. Test case: `deadline /by 15-11-2019 23:59` +
+Expected: Error displayed regarding a missing argument.
+
+. Test case: `deadline volunteering sign up /by` +
+Expected: Similar to previous.
+
+. Test case: `deadline volunteering sign up /by a` +
+Expected: Error displayed regarding an invalid argument.
+
+==== Adding a `Assignment` task
+. Prerequisites: Module has been selected using the `module /select command`.
+
+. Test case: `assignment Lab /by 15-11-2019 23:59` +
+Expected: An acknowledgement message displayed regarding the successful addition of a `Assignment` task for selected `module`.
+
+. Test case: `assignment /by 15-11-2019 23:59` +
+Expected: Error displayed regarding a missing argument.
+
+. Test case: `assignment Lab /by` +
+Expected: Similar to previous
+
+. Test case: `assignment Lab /by a` +
+Expected: Error displayed regarding an invalid argument.
+
+
+==== Adding an `Event` task
+. Test case: `event date with girlfriend /from 15-11-2019 18:00 /to 15-11-2019 23:00` +
+Expected: An acknowledgement message displayed regarding the successful addition of an `Event` task.
+
+. Test case: `event /from 15-11-2019 18:00 /to 15-11-2019 23:00` +
+Expected: Error displayed regarding a missing argument.
+
+. Test case: `event date with girlfriend /from 15-11-2019 18:00 /to 15-11-2019 15:00` +
+Expected: Error displayed regarding starting date and time being after ending date and time.
+
+. Test case: `event date with girlfriend /from a /to 15-11-2019 15:00` +
+Expected: Error displayed regarding an invalid argument.
+
+
+==== Adding a `Assessment` task
+. Prerequisites: Module has been selected using the `module /select command`.
+
+. Test case: `assessment Finals /from 30-11-2019 10:00 /to 30-11-2019 12:00` +
+Expected: An acknowledgement message displayed regarding the successful addition of a `Assessment` task for selected `module`.
+
+. Test case: `assessment /from 30-11-2019 10:00 /to 30-11-2019 12:00` +
+Expected: Error displayed regarding a missing argument.
+
+. Test case: `assessment Finals /from /to 30-11-2019 12:00` +
+Expected: Similar to previous
+
+. Test case: `assessment Finals /from a /to 30-11-2019 12:00` +
+Expected: Error displayed regarding an invalid argument.
+
 === Starting Task Tracker
 
 ==== Understanding the parameters
@@ -1472,13 +1575,19 @@ You can enter the command `free DD-MM-YYYY` to view your free time slots on the 
 
 === Viewing your tasks in a calendar format 
 
+==== Understanding the parameters
+The `calendar` command syntax is as such: `calendar MM YYYY`.
+
+[NOTE]
+The parameters `MM` and `YYYY` are optional. If either `MM` or `YYYY` is invalid or not provided, the current month (according to system settings) will be displayed.
+
 === Viewing your tasks for a week in a tabular format
 
 ==== Understanding the parameters
 The `viewweek` command syntax is as such: `viewweek DD MM YYYY`.
 
 [NOTE]
-The `date` parameters `DD`, `MM` and `YYYY` are optional. If the `date` is not entered, the current week will be selected. Similarly, if there is an error in the `date` supplied, the feature will ignore the inputted `date` and print `tasks` for the current week.
+The date parameters `DD`, `MM` and `YYYY` are optional. If the date is not entered, the current week (according to system settings) will be displayed. Similarly, if there is an error in the date supplied, the command will ignore the provided argument and print `tasks` for the current week.
 
 ==== Testing the command
 You can enter the command `viewweek` to view `tasks` for the current week. +
