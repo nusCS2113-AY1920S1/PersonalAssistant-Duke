@@ -468,12 +468,12 @@ public class TaskCreator {
             }
         }
 
-        if (input.contains("*")) {
+        else if (input.contains("*")) {
             Priority priority = this.extractPriority(input);
             oldTask.setPriority(priority);
         }
 
-        if (input.contains("@")) {
+        else if (input.contains("@")) {
             String assignee = null;
             try {
                 assignee = this.extractAssignee(input);
@@ -483,7 +483,7 @@ public class TaskCreator {
             oldTask.setAssignee(assignee);
         }
 
-        if (input.contains("^") && oldTask instanceof Meeting) {
+        else if (input.contains("^") && oldTask instanceof Meeting) {
             Pair<Integer, TimeUnit> durationAndUnit = this.extractDuration(input);
             int duration = durationAndUnit.getKey();
             TimeUnit unit = durationAndUnit.getValue();
@@ -491,9 +491,18 @@ public class TaskCreator {
             oldMeeting.setDuration(duration,unit);
         }
 
-        if (input.contains("%")) {
+        else if (input.contains("%")) {
             RecurrenceScheduleType recurrence = this.extractRecurrence(input);
             oldTask.setRecurrenceSchedule(recurrence);
+        }
+
+        else if(input.contains("uncheck") && !(oldTask instanceof Leave)) {
+            boolean checked = oldTask.getDone();
+            oldTask.setDone(!checked);
+        }
+
+        else {
+            throw new RoomShareException(ExceptionType.invalidInputString);
         }
     }
 
