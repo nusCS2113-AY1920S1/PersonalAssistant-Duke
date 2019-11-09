@@ -234,7 +234,8 @@ public class MainWindow extends UiPart<Stage> {
                                   "list patients", "list tasks","delete patient :#", "delete task :#",
                                   "delete assigned task :#", "find patient :#","find patient :", "find task :#",
                                   "find task :", "find assigned tasks :#","find assigned task :","update patient :#",
-                                  "update task :#","show upcoming tasks","barchart", "help", "piechart","bye", "undo", "help"};
+                                  "update task :#","show upcoming tasks","barchart", "help", "piechart","bye", "undo",
+                                  "help"};
         TextFields.bindAutoCompletion(userInput, possibleWords);
         //@@lmtaek
         showHelpGuide();
