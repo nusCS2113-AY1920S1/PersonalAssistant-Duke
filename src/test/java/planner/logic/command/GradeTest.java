@@ -62,7 +62,7 @@ public class GradeTest extends InputTest {
      */
     @Test
     public void gradeTestUserInput() {
-        final String moduleTest1 = "password\n" + "grade CS1010 A\n" + "bye"; //This affects the user's list
+        final String moduleTest1 = "password\n" + "grade CS1010 A\n" + "bye\n"; //This affects the user's list
         final String[] hold = {""};
         provideInput(moduleTest1);
         CliLauncher.main(hold);

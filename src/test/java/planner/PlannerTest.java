@@ -21,7 +21,7 @@ public class PlannerTest extends InputTest {
     @DisplayName("Termination Test")
     @Test
     public void testPlan() {
-        final String test = "password\n bye";
+        final String test = "password\n bye\n";
         provideInput(test);
         final String[] hold = {""};
         CliLauncher.main(hold);
