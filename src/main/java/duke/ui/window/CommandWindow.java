@@ -142,14 +142,14 @@ public class CommandWindow extends InputHistoryWindow {
         /**
          * Creates a message box for the user's input.
          */
-        static MessageBox getUserMessage(String text) {
+        private static MessageBox getUserMessage(String text) {
             return new MessageBox(text, userAvatar);
         }
 
         /**
          * Creates a message box for Dr. Duke's response.
          */
-        static MessageBox getDukeMessage(String text) {
+        private static MessageBox getDukeMessage(String text) {
             return new MessageBox(text, dukeAvatar);
         }
     }

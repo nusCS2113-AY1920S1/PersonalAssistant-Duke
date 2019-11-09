@@ -12,7 +12,6 @@ import duke.ui.Ui;
 import duke.ui.UiManager;
 import duke.ui.context.UiContext;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import java.io.File;

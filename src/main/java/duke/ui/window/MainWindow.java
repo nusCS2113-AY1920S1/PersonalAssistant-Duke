@@ -13,7 +13,6 @@ import duke.exception.DukeFatalException;
 import duke.ui.commons.UiElement;
 import duke.ui.context.Context;
 import duke.ui.context.UiContext;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
