@@ -280,7 +280,7 @@ public class MainWindow extends BorderPane implements Initializable {
     }
 
     @FXML
-    private void handleUserInput() throws IOException, DukeInvalidFormatException, ParseException {
+    private void handleUserInput() throws IOException, ParseException {
         String input = userInput.getText();
         String response = duke.getResponse(input);
         if (input.startsWith(DukeConstants.SHOW_WEEK_HEADER)) {
@@ -307,7 +307,7 @@ public class MainWindow extends BorderPane implements Initializable {
 
         //add/d CS1000 mod /by 01/11/2019 1500
         setProgressContainer();
-        if (!response.isEmpty()) {
+        if (!response.isEmpty() || !response.equals(NO_FIELD)) {
             Text temp = new Text(response);
             temp.setWrappingWidth(dukeResponseColumn.getWidth() - 20);
             Integer index = betterDukeResponse.size() + 1;

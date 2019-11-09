@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.logging.Logger;
 
 public class WeekCommand extends Command {
+    private static final String NO_FIELD = "void";
     private static final String twelveHourTimeFormatSeparator = ":";
     private static final String twelveHourTimeHourBoundary = "12";
     private static final String twelveHourTimeAMPostFix = "AM";
@@ -119,7 +120,7 @@ public class WeekCommand extends Command {
     }
 
     /**
-     * This method creates a comparator for a 12 hour time to be sorted by timeline.
+     * This method creates a comparator for a 12 hour time in the format 07:00 AM to be sorted by timeline.
      * @param lhs First item compared
      * @param rhs Second item compared
      * @return The result of the comparison
@@ -172,6 +173,6 @@ public class WeekCommand extends Command {
         setListView(lookupTable, events);
         sortList();
         weekList = new WeekList(monList, tueList, wedList, thuList, friList, satList, sunList);
-        return "";
+        return NO_FIELD;
     }
 }
