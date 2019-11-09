@@ -3,6 +3,7 @@ package owlmoney.logic.parser;
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.ExitCommand;
 import owlmoney.logic.command.UpdateCommand;
+import owlmoney.logic.command.help.HelpCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 import java.util.Arrays;
@@ -67,7 +68,7 @@ public class ParseCommand extends Parser {
      * @throws ParserException if it is blank or full of spaces.
      */
     private void parseIsBlank(String input) throws ParserException {
-        if (input.isBlank() || input.isEmpty()) {
+        if (input == null || input.isBlank()) {
             throw new ParserException("Input cannot be blank or space-bar only");
         }
     }
@@ -104,6 +105,11 @@ public class ParseCommand extends Parser {
                 throw new ParserException("/update cannot have trailing arguments");
             }
             return new UpdateCommand(true);
+        case HELP_COMMAND:
+            if (!data.isBlank()) {
+                throw new ParserException("/help cannot have trailing arguments");
+            }
+            return new HelpCommand();
         default:
             throw new ParserException("You entered an invalid command");
         }

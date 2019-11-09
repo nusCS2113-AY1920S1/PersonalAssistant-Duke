@@ -210,7 +210,7 @@ public class Card {
      * @throws TransactionException If invalid transaction.
      */
     void deleteExpenditure(int exId, Ui ui) throws TransactionException {
-        unpaid.deleteExpenditureFromList(exId, ui);
+        unpaid.deleteExpenditureFromList(exId, ui, false);
     }
 
     /**
@@ -228,7 +228,7 @@ public class Card {
     void editExpenditureDetails(int expNum, String desc, String amount, String date, String category, Ui ui)
             throws TransactionException, CardException {
         double remainingLimit = 0;
-        if (date.isBlank() || date.isEmpty()) {
+        if (date == null || date.isBlank()) {
             int expMonth = unpaid.getTransactionMonthByIndex(expNum);
             int expYear = unpaid.getTransactionYearByIndex(expNum);
             remainingLimit = limit - unpaid.getMonthAmountSpent(expMonth, expYear);
@@ -240,9 +240,9 @@ public class Card {
             remainingLimit = limit - unpaid.getMonthAmountSpent(expMonth, expYear);
         }
 
-        double existingExpAmount = unpaid.getExpenditureAmount(expNum);
+        double existingExpAmount = unpaid.getExpenditureAmount(expNum, false);
         double limitLeftExcludeExistingExp = remainingLimit + existingExpAmount;
-        if (!(amount.isEmpty() || amount.isBlank())
+        if (!(amount == null || amount.isBlank())
                 && limitLeftExcludeExistingExp < Double.parseDouble(amount)) {
             throw new CardException("Edited expenditure cannot exceed $" + limitLeftExcludeExistingExp);
         }
@@ -487,7 +487,7 @@ public class Card {
      * @param newExpenditure an instance of the expenditure, contained in 1 line in the save file.
      */
     void importNewPaidExpenditure(Transaction newExpenditure) {
-        unpaid.importExpenditureToList(newExpenditure);
+        paid.importExpenditureToList(newExpenditure);
     }
 
     /**
@@ -496,6 +496,6 @@ public class Card {
      * @param newExpenditure an instance of the expenditure, contained in 1 line in the save file.
      */
     void importNewUnpaidExpenditure(Transaction newExpenditure) {
-        paid.importExpenditureToList(newExpenditure);
+        unpaid.importExpenditureToList(newExpenditure);
     }
 }

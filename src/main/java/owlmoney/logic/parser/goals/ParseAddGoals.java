@@ -24,7 +24,6 @@ public class ParseAddGoals extends ParseGoals {
     public ParseAddGoals(String data) throws ParserException {
         super(data);
         checkRedundantParameter(NEW_NAME_PARAMETER, ADD_COMMAND);
-        //check wrong parameter e.g. if user accidentally keys in /date instead of by
         checkFirstParameter();
     }
 
@@ -42,26 +41,26 @@ public class ParseAddGoals extends ParseGoals {
         while (goalsIterator.hasNext()) {
             String key = goalsIterator.next();
             String value = goalsParameters.get(key);
-            if (NAME_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (NAME_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when adding new goals");
             } else if (NAME_PARAMETER.equals(key)) {
-                checkName(NAME_PARAMETER, value);
+                checkGoalsName(NAME_PARAMETER, value);
             }
-            if (AMOUNT_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (AMOUNT_PARAMETER.equals(key) && (value == null || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when adding new goals");
             } else if (AMOUNT_PARAMETER.equals(key)) {
                 checkAmount(value);
             }
-            if (BY_PARAMETER.equals(key) && (!value.isBlank())) {
+            if (BY_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 by = checkDate(value);
             }
 
-            if (IN_PARAMETER.equals(key) && (!value.isBlank())) {
+            if (IN_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkDay(IN_PARAMETER, value);
                 by = convertDaysToDate(Integer.parseInt(value));
             }
 
-            if (FROM_PARAMETER.equals(key) && (!value.isBlank())) {
+            if (FROM_PARAMETER.equals(key) && !(value == null || value.isBlank())) {
                 checkName(FROM_PARAMETER, value);
             }
         }

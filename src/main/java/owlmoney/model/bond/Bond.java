@@ -17,6 +17,7 @@ public class Bond {
     private Date date;
     private int year;
     private Date nextDateToCreditBondCouponInterest;
+    private boolean isMature = false;
 
     /**
      * Creates a Bond with details of name, amount, rate.
@@ -201,5 +202,16 @@ public class Bond {
                 + "Rate: " + new DecimalFormat("0.00").format(getYearlyCouponRate()) + "\n"
                 + "Date Purchased: " + getDate() + "\n"
                 + "Number of years: " + getYear() + "\n";
+    }
+
+    /**
+     * Sets the bond to matured.
+     */
+    public void setMature() {
+        this.isMature = true;
+    }
+
+    public boolean getMature() {
+        return this.isMature;
     }
 }

@@ -197,10 +197,10 @@ public class RecurringExpenditureList {
             ui.printMessage("Recurring expenditure is empty.");
             return;
         }
-        if (!(description.isBlank() || description.isEmpty())) {
+        if (!(description == null || description.isBlank())) {
             findByDescription(description, ui);
         }
-        if (!(category.isBlank() || category.isEmpty())) {
+        if (!(category == null || category.isBlank())) {
             findByCategory(category, ui);
         }
     }
