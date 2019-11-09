@@ -5,27 +5,32 @@ import seedu.hustler.Hustler;
 import seedu.hustler.ui.Ui;
 import java.util.ArrayList;
 import seedu.hustler.logic.CommandLineException;
+import java.util.PriorityQueue;
 
 /**
  * Extends on the Scheduler in order to provide recommendations
  * for the task completion mode.
  */
-public class RecommendedSchedule extends Scheduler {
+public class Recommender {
     
-    /**
-     * Recommended list of entries to work.
-     */
-    public static ArrayList<ScheduleEntry> recommended = new ArrayList<ScheduleEntry>();
-    
-    /**
-     * Current amount of seconds available for work.
-     */
-    private static long seconds;
-
     /**
      * Ui instance that handles outputs to the user.
      */
-    private static Ui ui = new Ui();
+    private Ui ui = new Ui();
+
+    /**
+     * List of schedule entries to recommend from.
+     */
+    private ArrayList<ScheduleEntry> schedule;
+
+    /**
+     * List of recommended schedule entries.
+     */
+    private ArrayList<ScheduleEntry> recommended;
+
+    public Recommender(ArrayList<ScheduleEntry> schedule) {
+        this.schedule = schedule;
+    }
     
     /**
      * Initializes recommended based on the supplied time available and priority.
@@ -36,40 +41,37 @@ public class RecommendedSchedule extends Scheduler {
      *
      * @param timeInSeconds time available for a task.
      */
-    public static void recommend(long timeInSeconds) {
-        seconds = timeInSeconds;
-        Ui ui = new Ui();
-        if (size() == 0) {
-            ui.showMessage("There are no tasks to complete. "
-                + "Please add more tasks."); 
-            return;
+    public ArrayList<ScheduleEntry> recommend(int seconds) {
+        if (schedule.size() == 0) {
+            return new ArrayList<ScheduleEntry>();
         }
-        sort();
-        double hours = timeInSeconds / 3600.0;
 
-        if (hours <= 1) {
-            recommended.add(schedule.get(0));
-        } else if (hours > 1 && hours <= 2) {
-            recommended.add(schedule.get(0)); 
-            if (size() > 1) {
-                recommended.add(schedule.get(1));
+        PriorityQueue<ScheduleEntry> topk = new PriorityQueue<ScheduleEntry>(new SortByPriority());
+        int hours = (int) seconds / 3600;
+
+        topKAlgorithm(topk, hours);
+
+        recommended = new ArrayList<ScheduleEntry>(topk);
+    
+        reTime(seconds);
+        return recommended;
+    }
+
+    private void topKAlgorithm(PriorityQueue<ScheduleEntry> pq, int k) {
+        for (int i = 0; i < schedule.size(); i++) {
+            if (i < k) {
+                pq.add(schedule.get(i)); 
+            } else if (pq.peek().getPriorityScore() < schedule.get(i).getPriorityScore()) {
+                pq.poll();
+                pq.add(schedule.get(i));
             }
-        } else {
-            recommended.add(schedule.get(0)); 
-            if (size() == 2) {
-                recommended.add(schedule.get(1));
-            } else if (schedule.size() > 2) {
-                recommended.add(schedule.get(1));
-                recommended.add(schedule.get(2)); 
-            }
-        }
-        reTime();
+        } 
     }
     
     /**
      * Evenly distributes time to all recommended tasks.
      */
-    public static void reTime() {
+    public void reTime(long seconds) {
         for (ScheduleEntry entry : recommended) {
             entry.setTimeAlloc(seconds / recommended.size());
         }

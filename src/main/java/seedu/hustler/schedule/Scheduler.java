@@ -22,6 +22,19 @@ public class Scheduler {
         = new ArrayList<>();
 
     /**
+     * An object that uses top-k algorithm
+     * based on priority to initialize recommended list.
+     */
+    public static Recommender recommender;
+
+    /**
+     * An ArrayList of entries extracted based on priorty
+     * from schedule.
+     */
+    public static ArrayList<ScheduleEntry> recommended 
+        = new ArrayList<>();
+
+    /**
      * Add an entry to the schedule based on the task
      * supplied as input, only if the task is not done.
      *
@@ -86,33 +99,12 @@ public class Scheduler {
     }
     
     /**
-     * Removes entry at an index.
-     *
-     * @param index index at which entry should be removed
-     */
-    public static void remove(int index) {
-        schedule.remove(index);
-        
-    }
-    
-    /**
      * Removes an entry based on the task supplied.
      *
      * @param task task whose matching entry needs to be removed
      */
     public static void remove(Task task) {
-        int index = -1;
-        for (int i = 0; i < size(); i++) {
-            if (getEntry(i).getTask()
-                    == task) {
-                index = i;
-                break;
-            }
-        }
-        if (index == -1) {
-            return;
-        }
-        remove(index);
+        schedule.removeIf(n -> (n.getTask() == task));
     }
     
     /**
@@ -122,21 +114,6 @@ public class Scheduler {
      */
     public static int size() {
         return schedule.size();
-    }
-    
-    /**
-     * Checks with the schedule contains the task supplied.
-     *
-     * @param task check for the task supplied
-     * @return check for whether task supplied exists.
-     */
-    public static boolean contains(Task task) {
-        for (ScheduleEntry entry : schedule) {
-            if (entry.getTask() == task) {
-                return true;
-            }
-        }
-        return false;
     }
     
     /**
@@ -172,5 +149,10 @@ public class Scheduler {
             }
         }
         return -1;
+    }
+
+    public static void recommend(int seconds) {
+        recommender = new Recommender(schedule);
+        recommended = recommender.recommend(seconds);
     }
 }
