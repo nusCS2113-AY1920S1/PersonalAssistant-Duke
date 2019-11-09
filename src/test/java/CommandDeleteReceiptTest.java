@@ -1,6 +1,4 @@
-import executor.command.CommandDelete;
 import executor.command.CommandDeleteReceipt;
-import executor.command.CommandPercent;
 import org.junit.jupiter.api.Test;
 import storage.StorageManager;
 import ui.Receipt;
