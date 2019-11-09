@@ -249,6 +249,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
                         .append(". ")
                         .append(this.get(index).getTags())
                         .append(" ")
+                        .append("$")
                         .append(this.get(index).getCashSpent())
                         .append(" ")
                         .append(this.get(index).getDate())

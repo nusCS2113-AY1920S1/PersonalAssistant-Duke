@@ -191,7 +191,7 @@ public class StorageManager {
         try {
             this.wallet.getReceipts().deleteReceiptsByIndex(index);
         } catch (Exception e) {
-            throw new DukeException("Invalid 'receiptdelete' statement. "
+            throw new DukeException("Invalid 'deletereceipt' statement."
             + "Please indicate the index of the receipt you wish to delete.\n");
         }
     }

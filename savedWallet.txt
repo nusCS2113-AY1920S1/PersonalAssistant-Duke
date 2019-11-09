@@ -1,6 +1,11 @@
-0.0
-out $2.0 /date 2019-02-01 /tags food
-out $3.0 /date 2019-02-02 /tags transport
-out $130.0 /date 2019-03-02 /tags transport
-out $100.5 /date 2019-02-03 /tags food
-out $100.0 /date 2019-09-04 /tags transport
+2000.0
+in $300.0 /date 2019-11-08 /tags freeMoney
+out $30.0 /date 2019-11-08 /tags movie
+out $30.0 /date 2019-11-08 /tags shirt
+in $200.0 /date 2019-11-09 /tags aunty give one
+out $90.0 /date 2019-11-09 /tags lost
+out $0.0 /date 2019-11-08 /tags pay back,aunty
+in $20000.0 /date 2019-11-09 /tags won the cash price
+out $300.0 /date 2019-11-09 /tags lost a bet
+
+

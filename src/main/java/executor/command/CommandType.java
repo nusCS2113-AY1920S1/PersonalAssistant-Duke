@@ -19,6 +19,7 @@ public enum CommandType {
     OUT(CommandAddSpendingReceipt.class),
     SETBALANCE(CommandUpdateBalance.class),
     BUDGET(CommandBudget.class),
+    EXPORT(CommandExport.class),
     EXPENSES(CommandDisplayExpenditure.class),
     HELP(CommandHelp.class),
     DEADLINE(CommandNewTask.class),
