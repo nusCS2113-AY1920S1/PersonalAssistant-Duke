@@ -527,6 +527,61 @@ The given index(indices) is(are) invalid.
 +
 Use case resumes at step 2.
 
+[discrete]
+=== Use case: Completing an Order
+
+*MSS*
+
+1. User requests to list all orders
+2. BakingHome shows a list of orders
+3. User requests to complete a specific order or multiple orders in the list
+4. BakingHome checks inventory for the required ingredients by the order and deducts the necessary amount from inventory (if insufficient it deducts to zero)
+6. BakingHome marks the order(s) as complete.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a.
+The given index(indices) is(are) invalid.
++
+[none]
+** 3a1. BakingHome shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Delete a Sale
+
+*MSS*
+
+1. User requests to list all sales
+2. BakingHome shows a list of sales
+3. User requests to delete a specific sale or multiple sales in the list
+4. BakingHome deletes the sale(s).
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a.
+The given index(indices) is(are) invalid.
++
+[none]
+** 3a1. BakingHome shows an error message.
++
+Use case resumes at step 2.
+
 _{More to be added}_
 
 [appendix]
