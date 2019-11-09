@@ -1,1 +1,9 @@
-degree-Biomedical Engineering-0
+degree-Mechanical Engineering-0
+degree-Industrial Systems Engineering-1
+degree-Chemical Engineering-2
+degree-Computer Engineering-3
+degree-Electrical Engineering-4
+degree-Material Science Engineering-5
+degree-Biomedical Engineering-6
+degree-Civil Engineering-7
+degree-Environmental Engineering-8
