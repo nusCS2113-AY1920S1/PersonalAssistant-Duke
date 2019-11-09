@@ -30,6 +30,9 @@ public class DoneAnomaly extends DetectAnomaly {
         }
 
         int doneIndex;
+
+        //detects whether the index argument provided is a integer. For
+        //example, 'done lor' is a invalid input.
         try {
             doneIndex = Integer.parseInt(parsedInput[0]);
         } catch (NumberFormatException e) {
