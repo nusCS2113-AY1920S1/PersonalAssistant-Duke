@@ -201,13 +201,13 @@ it could lead to unexpected side-effects if implemented wrongly.
 ===== Aspect 2: Displaying multiple suggestions
 
 * Alternative 1: Use a drop-down list to display all possible suggestions.
-** Pros: Intuitive and allows users to see all possible commands in one place.
-* Cons: Hard to implement.
+** Advantages: Intuitive and allows users to see all possible commands in one place.
+* Disadvantages: Hard to implement.
 May require additional components other than JavaFx's built-in components.
 May require additional components other than JavaFx's built-in components.
 * Alternative 2 (Current choice): Navigate between possible suggestions by repeatedly pressing `Tab` key.
-** Pros: Easier to implement since no additional components are needed
-** Cons: Cannot display all possible commands in one place.
+** Advantages: Easier to implement since no additional components are needed
+** Disadvantages: Cannot display all possible commands in one place.
 
 === Filter Product Feature
 
@@ -217,29 +217,33 @@ May require additional components other than JavaFx's built-in components.
 
 === Buy Shopping List Feature
 
-BakingHome comes with a `shop buy` command in its shopping list feature. This command transfers ingredients and its respective quantity from the shopping list to the inventory list. It will then also generate a sales transaction automatically in the Sales page.
+BakingHome comes with a `shop buy` command in its shopping list feature.
+This command transfers ingredients and its respective quantity from the shopping list to the inventory list.
+It will then also generate a sales transaction automatically in the Sales page.
 
 ==== Implementation
 
-The `shop buy` feature is facilitated by the `UniqueEntityLists` initialized in BakingHome, which is an implementation of `Iterable` and contains an `ObservableList`. There are 3 `UniqueEntityLists`, `inventory`, `shoppingList` and `sales`, which are involved in this feature and each of them has an `add` and `set` operation.
+The `shop buy` feature is facilitated by the `UniqueEntityLists` initialized in BakingHome, which is an implementation of `Iterable` and contains an `ObservableList`.
+There are 3 `UniqueEntityLists`, `inventory`, `shoppingList` and `sales`, which are involved in this feature and each of them has an `add` and `set` operation.
 
 * `UniqueEntityList<class>#add(toAdd)` - Adds object `toAdd` into the `ObservableList` stored in the `UniqueEntityList`.
 
-* `UniqueEntityList<class>#set(toEdit, edited)` - Replaces object `toEdit` with the
-new object `edited` in the `ObservableList` stored in the `UniqueEntityList`. Object
+* `UniqueEntityList<class>#set(toEdit, edited)` - Replaces object `toEdit` with the new object `edited` in the `ObservableList` stored in the `UniqueEntityList`.
+Object
 `edited` will take the index position of object `toEdit` in the `ObservableList`.
 
-These operations are exposed in the `Model` interface as `Model#addInventory`, `Model#setInventory`, `Model#setShoppingList`, and `Model#addSaleFromShopping`. The `UniqueEntityLists` are also exposed in the `Model` as `FilteredLists`, which wraps an `ObservableList` and filters
-using the provided `Predicate`.
+These operations are exposed in the `Model` interface as `Model#addInventory`, `Model#setInventory`, `Model#setShoppingList`, and `Model#addSaleFromShopping`.
+The `UniqueEntityLists` are also exposed in the `Model` as `FilteredLists`, which wraps an `ObservableList` and filters using the provided `Predicate`.
 
 ==== Workflow
 
 Given below is an example usage scenario and how the `shop buy` mechanism works.
 
-*Step 1.* The user launches the application for the first time. The `UniqueEntityLists` `inventory`, `shoppingList`, and `sales` are initialized in BakingHome with the initial data stored in the `Storage`.
+*Step 1.* The user launches the application for the first time.
+The `UniqueEntityLists` `inventory`, `shoppingList`, and `sales` are initialized in BakingHome with the initial data stored in the `Storage`.
 
-*Step 2.* The user inputs `shop buy 1,2` command to buy the first and second ingredient in the shopping list. This command goes through the `Parser` to get the
-indices of the ingredients that is to be bought and executes the `BuyShoppingCommand`.
+*Step 2.* The user inputs `shop buy 1,2` command to buy the first and second ingredient in the shopping list.
+This command goes through the `Parser` to get the indices of the ingredients that is to be bought and executes the `BuyShoppingCommand`.
 
 *Step 3.* The `BuyShoppingCommand` calls the `FilteredLists` stored in the `Model`
 through `Model#getFilteredInventoryList()`, `Model#getFilteredShoppingList()` and stores them in `ArrayLists<Item<Ingredient>>` `inventoryList` and `shoppingList` respectively.
@@ -248,15 +252,14 @@ through `Model#getFilteredInventoryList()`, `Model#getFilteredShoppingList()` an
 Each ingredient is checked whether `inventoryList` already contains it using
 `inventoryList#contain(Item<Ingredient> toBuy)`.
 
-* If `inventoryList` contains it, a new `Item<Ingredient>` constructor is created with the
-added quantities of both lists. The new constructor then replaces the current one in `inventoryList` using the `inventoryList#set()` method.
+* If `inventoryList` contains it, a new `Item<Ingredient>` constructor is created with the added quantities of both lists.
+The new constructor then replaces the current one in `inventoryList` using the `inventoryList#set()` method.
 
 * Else, the `Item<Ingredient>` object in `shoppingList` is just added to `inventoryList` using the `inventoryList#add()` method.
 
-*Step 6.* For every ingredient that is bought in the shopping list, a new `Item<Ingredient>` constructor is
-created using the original ingredient’s data but with quantity = 0. This new constructor then replaces the current one in `shoppingList` using the `shoppingList#set()` method.
+*Step 6.* For every ingredient that is bought in the shopping list, a new `Item<Ingredient>` constructor is created using the original ingredient’s data but with quantity = 0. This new constructor then replaces the current one in `shoppingList` using the `shoppingList#set()` method.
 
-*Step 7.* `BuyShoppingCommand` will calculate the total cost of the ingredients bought and pass it as parameters to `AddSaleFromShopping` method in `Model`, along with an `ArrayList` of the bought ingredients. `AddSaleFromShopping` will then create a `Sale` constructor with these values and add it to `sales`. 
+*Step 7.* `BuyShoppingCommand` will calculate the total cost of the ingredients bought and pass it as parameters to `AddSaleFromShopping` method in `Model`, along with an `ArrayList` of the bought ingredients. `AddSaleFromShopping` will then create a `Sale` constructor with these values and add it to `sales`.
 
 *Step 8.* These will be updated in the `UI` automatically as these objects are stored in `ObservableLists`.
 
@@ -272,7 +275,8 @@ created using the original ingredient’s data but with quantity = 0. This new c
 
 ** Pros: There is a saved template of the shopping list with past costs and remarks of the ingredients, making it convenient for the user to just edit the quantity to the quantity he needs to buy.
 
-** Cons: The shopping list may become very cluttered with too many ingredients. Hence, a `shop list` command can be executed in the command line to filter out ingredients that have 0 quantity.
+** Cons: The shopping list may become very cluttered with too many ingredients.
+Hence, a `shop list` command can be executed in the command line to filter out ingredients that have 0 quantity.
 
 === Logging
 
@@ -384,7 +388,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is `BakingHome` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `BakingHome` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete an Order
@@ -401,7 +405,8 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a.
+The list is empty.
 +
 Use case ends.
 
@@ -426,7 +431,7 @@ Use case resumes at step 2.
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a.The list is empty.
 +
 Use case ends.
 
