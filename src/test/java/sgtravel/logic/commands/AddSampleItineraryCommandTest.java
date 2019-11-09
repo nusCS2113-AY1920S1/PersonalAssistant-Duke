@@ -26,7 +26,7 @@ class AddSampleItineraryCommandTest {
 
         addSampleItineraryCommand.execute(model);
 
-        assertTrue(model.getItineraryTable().containsValue(model.getRecentItinerary()));
+        assertTrue(model.getItineraryTable().containsKey("New List"));
 
     }
 

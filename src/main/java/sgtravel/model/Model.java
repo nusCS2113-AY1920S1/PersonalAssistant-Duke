@@ -1,6 +1,5 @@
 package sgtravel.model;
 
-
 import sgtravel.commons.exceptions.AddListFailException;
 import sgtravel.commons.exceptions.DuplicateRouteException;
 import sgtravel.commons.exceptions.FileNotSavedException;

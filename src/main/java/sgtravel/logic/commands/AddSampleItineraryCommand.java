@@ -31,9 +31,10 @@ public class AddSampleItineraryCommand extends Command {
     @Override
     public CommandResultText execute(Model model) throws FileNotSavedException, NoRecentItineraryException,
             AddListFailException {
-        Itinerary itinerary = model.getRecentItinerary();
         model.confirmRecentItinerary(newName);
         model.save();
+        Itinerary itinerary = model.getRecentItinerary();
+        model.setRecentItinerary(null);
         return new CommandResultText("Successfully added this itinerary: " + "\n"
                 + itinerary.printItinerary());
 

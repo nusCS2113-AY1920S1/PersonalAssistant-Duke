@@ -4,6 +4,8 @@ import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.AddListFailException;
 import sgtravel.commons.exceptions.ParseException;
 import sgtravel.model.locations.Venue;
+import sgtravel.model.planning.Agenda;
+import sgtravel.model.planning.Itinerary;
 import sgtravel.model.planning.Todo;
 
 import java.util.ArrayList;
@@ -69,4 +71,19 @@ public class PlanningStorageParser {
         return result;
     }
 
+    /**
+     * Converts the itinerary into a storage friendly string format.
+     *
+     * @return itineraryString The itinerary object converted to a storage string
+     */
+    public static String toItineraryStorageString(Itinerary value) {
+        StringBuilder itineraryString = new StringBuilder();
+        itineraryString.append(value.getName()).append("\n").append(value.getStartDate().toString()).append("\n")
+                .append(value.getEndDate().toString()).append("\n");
+        for (Agenda agenda : value.getList()) {
+            itineraryString.append(agenda.toString());
+        }
+        itineraryString.append("\n");
+        return itineraryString.toString();
+    }
 }

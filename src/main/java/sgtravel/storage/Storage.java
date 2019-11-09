@@ -201,7 +201,6 @@ public class Storage {
             profileCard = new ProfileCard();
             throw new FileLoadFailException(PROFILE_FILE_PATH);
         }
-
         readFavouriteList();
     }
 
@@ -217,7 +216,7 @@ public class Storage {
             HashMap<String, Itinerary> itinerary = makeItineraryTable(scanner);
             profileCard.setFavourite(itinerary);
         } catch (FileNotFoundException | ParseException e) {
-            writeNewItinerary(FAVOURITE_FILE_PATH, profileCard.getFavouriteList());
+            writeFavItinerary();
         }
     }
 
@@ -315,24 +314,8 @@ public class Storage {
         writeEvents();
         writeRoutes();
         writeProfile();
-        writeNewItinerary(ITINERARIES_FILE_PATH, itineraryTable);
-        writeNewItinerary(FAVOURITE_FILE_PATH, profileCard.getFavouriteList());
-
-    }
-
-    /**
-     * Writes the profile to local storage.
-     *
-     * @throws FileNotSavedException If the file cannot be saved.
-     */
-    private void writeProfile() throws FileNotSavedException {
-        try {
-            FileWriter writer = new FileWriter(PROFILE_FILE_PATH);
-            writer.write(ProfileStorageParser.toProfileStorageString(profileCard) + "\n");
-            writer.close();
-        } catch (IOException e) {
-            throw new FileNotSavedException(PROFILE_FILE_PATH);
-        }
+        writeFavItinerary();
+        writeNewItinerary();
     }
 
     /**
@@ -372,28 +355,59 @@ public class Storage {
     }
 
     /**
-     * Writes recommendations to indicated filepath.
+     * Writes the profile to local storage.
      *
-     * @param file The filepath to write to.
-     * @param itineraryTable The constructed ItineraryTable.
      * @throws FileNotSavedException If the file cannot be saved.
      */
-    private void writeNewItinerary(String file, HashMap<String, Itinerary> itineraryTable)
-            throws FileNotSavedException {
+    private void writeProfile() throws FileNotSavedException {
         try {
-            FileWriter writer = new FileWriter(file, false);
-            for (Map.Entry<String,Itinerary> entry : itineraryTable.entrySet()) {
-                writer.write(entry.getKey() + "\n" + entry.getValue().getStartDate().toString() + "\n"
-                        + entry.getValue().getEndDate().toString() + "\n");
-                for (Agenda agenda : entry.getValue().getList()) {
-                    writer.write(agenda.toString());
-                }
-                writer.write("\n");
-            }
+            FileWriter writer = new FileWriter(PROFILE_FILE_PATH);
+            writer.write(ProfileStorageParser.toProfileStorageString(profileCard) + "\n");
             writer.close();
         } catch (IOException e) {
-            throw new FileNotSavedException(file);
+            throw new FileNotSavedException(PROFILE_FILE_PATH);
         }
+    }
+
+    /**
+     * Writes favourite itineraries to indicated filepath.
+     *
+     * @throws FileNotSavedException If the file cannot be saved.
+     */
+    private void writeFavItinerary() throws FileNotSavedException {
+        try {
+            saveEntireItineraryList(FAVOURITE_FILE_PATH, profileCard.getFavouriteList());
+        } catch (IOException e) {
+            throw new FileNotSavedException(FAVOURITE_FILE_PATH);
+        }
+    }
+
+    /**
+     * Writes itineraries to indicated filepath.
+     *
+     * @throws FileNotSavedException If the file cannot be saved.
+     */
+    private void writeNewItinerary() throws FileNotSavedException {
+        try {
+            saveEntireItineraryList(ITINERARIES_FILE_PATH, itineraryTable);
+        } catch (IOException e) {
+            throw new FileNotSavedException(ITINERARIES_FILE_PATH);
+        }
+    }
+
+    /**
+     * Performs the writing of an itineraryTable or favoriteList to specified filepath.
+     *
+     * @throws FileNotSavedException If the file cannot be saved.
+     */
+    private void saveEntireItineraryList(String file, HashMap<String, Itinerary> itineraryTable) throws IOException {
+        FileWriter writer = new FileWriter(file, false);
+        StringBuilder itineraryString = new StringBuilder();
+        for (Map.Entry<String, Itinerary> entry : itineraryTable.entrySet()) {
+            itineraryString.append(PlanningStorageParser.toItineraryStorageString(entry.getValue()));
+        }
+        writer.write(itineraryString.toString());
+        writer.close();
     }
 
     public EventList getEvents() {

@@ -5,7 +5,6 @@ import sgtravel.commons.exceptions.DuplicateRouteException;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.NoRecentItineraryException;
 import sgtravel.commons.exceptions.NoSuchItineraryException;
-import sgtravel.commons.exceptions.DuplicateRouteException;
 import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.model.lists.EventList;
 import sgtravel.model.lists.RouteList;

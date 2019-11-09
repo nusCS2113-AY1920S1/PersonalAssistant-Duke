@@ -9,7 +9,6 @@ import sgtravel.logic.commands.EditorCommand;
 import sgtravel.logic.commands.ExitCommand;
 import sgtravel.logic.commands.HelpCommand;
 import sgtravel.logic.commands.ListCommand;
-import sgtravel.logic.commands.ListItineraryCommand;
 import sgtravel.logic.commands.ProfileAddFavCommand;
 import sgtravel.logic.commands.ProfileDeleteFavCommand;
 import sgtravel.logic.commands.ProfileListFavCommand;
@@ -28,7 +27,6 @@ import sgtravel.logic.parsers.commandparsers.GetBusStopParser;
 import sgtravel.logic.parsers.commandparsers.ListItineraryParser;
 import sgtravel.logic.parsers.commandparsers.LocationSearchParser;
 import sgtravel.logic.parsers.commandparsers.ProfileAddParser;
-
 import sgtravel.logic.parsers.commandparsers.ProfileSetParser;
 import sgtravel.logic.parsers.commandparsers.PromptParser;
 import sgtravel.logic.parsers.commandparsers.QuickEditParser;
