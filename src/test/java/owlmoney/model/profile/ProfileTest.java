@@ -179,21 +179,28 @@ class ProfileTest {
         outContent.reset();
     }
 
-    //Tests function for find feature.
+    //Tests function for find feature. Will require data to be in clean state.
     @Test
     void findBond_BondExist_success() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         Ui uiTest = new Ui();
         Profile profileTest = new Profile("Test User", uiTest);
-        Bank newInvestmentAccount = new Investment("Test Investment Account", 1000);
+        Bank newInvestmentAccount = new Investment("Test Investment Account 2", 1000);
         Bond testBondOne = new Bond("TEST BOND 1",1000,1.8,new Date("1/3/2019"),
                 3);
         Bond testBondTwo = new Bond("TEST BOND 2",1000,1.8,new Date("1/3/2019"),
                 3);
 
-
         Date newDate = new Date();
+        String expectedOutput = "Item No.             Bond Name                      "
+                + "Amount          Rate       Date of Purchase     Number of Years " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE
+                + "1                    TEST BOND 2                    $1000.00        "
+                + "1.80       03 January 2019      3          " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         try {
             newDate = temp.parse("10/2/2019");
         } catch (ParseException error) {
@@ -201,26 +208,21 @@ class ProfileTest {
         }
         try {
             profileTest.profileAddNewBank(newInvestmentAccount, uiTest);
-            profileTest.profileAddNewBond("Test Investment Account", testBondOne, uiTest);
-            profileTest.profileAddNewBond("Test Investment Account", testBondTwo, uiTest);
-            outContent.reset();
+            profileTest.profileAddNewBond("Test Investment Account 2", testBondOne, uiTest);
+            profileTest.profileAddNewBond("Test Investment Account 2", testBondTwo, uiTest);
 
-            profileTest.findBond("2", "Test Investment Account", uiTest);
-
-            String expectedOutput = "Item No.             Bond Name                      "
-                    + "Amount          Rate       Date of Purchase     Number of Years " + NEWLINE
-                    + "-------------------------------------------------------------------------------"
-                    + "--------------------------------------------------" + NEWLINE
-                    + "1                    TEST BOND 2                    $1000.00        "
-                    + "1.80       03 January 2019      3          " + NEWLINE
-                    + "-------------------------------------------------------------------------------"
-                    + "--------------------------------------------------" + NEWLINE;
-            assertEquals(expectedOutput,outContent.toString());
-
-        } catch (BankException | BondException error) {
+        } catch (BankException error) {
             System.out.println("Expected no throw, but error thrown");
         }
 
+        outContent.reset();
+
+        try {
+            profileTest.findBond("2", "Test Investment Account 2", uiTest);
+        } catch (BondException | BankException error) {
+            System.out.println("Expected no throw, but error thrown");
+        }
+        assertEquals(expectedOutput,outContent.toString());
     }
 
     //Tests function for find feature.

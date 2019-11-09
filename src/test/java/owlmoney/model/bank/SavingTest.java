@@ -220,12 +220,13 @@ class SavingTest {
             System.out.println("Expects success but error was thrown");
         }
         String outputMessage = "Transaction No.      Description                                             "
-                + "Amount          Next Expense Date    Category             " + NEWLINE + "-----------------"
-                + "------------------------------------------------------------------------------------------"
-                + "----------------------" + NEWLINE + "1                    testExpenditure                 "
-                + "                        [-] $10.00      28 September 2019    testExpenditure      "
-                + NEWLINE + "--------------------------------------------------------------------------------"
-                + "-------------------------------------------------" + NEWLINE;
+                + "Amount               Next Expense Date    Category             " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------"
+                + NEWLINE + "1                    testExpenditure                 "
+                + "                        [-] $10.00           28 September 2019    testExpenditure      "
+                + NEWLINE + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         assertEquals(outputMessage, outContent.toString());
     }
 
@@ -252,12 +253,13 @@ class SavingTest {
             System.out.println("Expects success but error was thrown");
         }
         String outputMessage = "Transaction No.      Description                                             "
-                + "Amount          Next Expense Date    Category             " + NEWLINE + "-----------------"
-                + "------------------------------------------------------------------------------------------"
-                + "----------------------" + NEWLINE + "1                    testExpenditure                 "
-                + "                        [-] $10.00      28 September 2019    testExpenditure      "
-                + NEWLINE + "--------------------------------------------------------------------------------"
-                + "-------------------------------------------------" + NEWLINE;
+                + "Amount               Next Expense Date    Category             " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------"
+                + NEWLINE + "1                    testExpenditure                 "
+                + "                        [-] $10.00           28 September 2019    testExpenditure      "
+                + NEWLINE + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         assertEquals(outputMessage, outContent.toString());
         try {
             savingTest.savingDeleteRecurringExpenditure(1, testUi);
@@ -303,12 +305,13 @@ class SavingTest {
             System.out.println("Expects success but error was thrown");
         }
         String outputMessage = "Transaction No.      Description                                             "
-                + "Amount          Next Expense Date    Category             " + NEWLINE + "-----------------"
-                + "------------------------------------------------------------------------------------------"
-                + "----------------------" + NEWLINE + "1                    editExpenditure                 "
-                + "                        [-] $25.25      28 September 2019    editExpenditure      "
-                + NEWLINE + "--------------------------------------------------------------------------------"
-                + "-------------------------------------------------" + NEWLINE;
+                + "Amount               Next Expense Date    Category             " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE
+                + "1                    editExpenditure                 "
+                + "                        [-] $25.25           28 September 2019    editExpenditure      "
+                + NEWLINE + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         assertEquals(outputMessage, outContent.toString());
     }
 

@@ -28,13 +28,14 @@ class TransactionListTest {
         Date newDate = new Date("10/26/2019");
         DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         String printedMessage = "Added expenditure with the following details:" + NEWLINE + "Item No.        "
-                + "     Description                                             Amount         "
-                + " Date                 Category             " + NEWLINE + "--------------------------------"
-                + "------------------------------------------------------------------------------------------"
-                + "-------" + NEWLINE + "1                    test                                           "
-                + "         [-] $1.00       " + temp.format(newDate) + "      test                 "
-                + NEWLINE + "--------------------------------------------------------------------------------"
-                + "-------------------------------------------------" + NEWLINE;
+                + "     Description                                             Amount              "
+                + " Date                 Category             " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE
+                + "1                    test                                           "
+                + "         [-] $1.00            " + temp.format(newDate) + "      test                 "
+                + NEWLINE + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         Transaction testExpenditure = new Expenditure("test", 1, newDate, "test");
         testList.addExpenditureToList(testExpenditure, testUi, "bank");
         assertEquals(printedMessage, outContent.toString());
@@ -66,13 +67,16 @@ class TransactionListTest {
         Date newDate = new Date("10/26/2019");
         DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         String printedMessage = "Added deposit with the following details:" + NEWLINE + "Item No.            "
-                + " Description                                             Amount          Date             "
-                + "    Category             " + NEWLINE + "--------------------------------------------------"
-                + "-------------------------------------------------------------------------------" + NEWLINE
-                + "1                    test                                                    [+] $1.00    "
-                + "   " + temp.format(newDate) + "      test                 " + NEWLINE + "-----------------"
-                + "------------------------------------------------------------------------------------------"
-                + "----------------------" + NEWLINE;
+                + " Description                                             Amount               Date     "
+                + "        "
+                + "    Category             " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE
+                + "1                    test                                                    [+] $1.00  "
+                + "       "
+                + "   " + temp.format(newDate) + "      test                 " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         Transaction testDeposit = new Deposit("test", 1, newDate, "test");
         testList.addDepositToList(testDeposit, testUi, "bank");
         assertEquals(printedMessage, outContent.toString());
@@ -145,13 +149,16 @@ class TransactionListTest {
         }
         DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         String deletedMessage = "Details of deleted Expenditure:" + NEWLINE + "Item No.             "
-                + "Description                                             Amount          Date              "
-                + "   Category             " + NEWLINE + "---------------------------------------------------"
-                + "------------------------------------------------------------------------------" + NEWLINE
-                + "1                    test                                                    [-] $1.00    "
-                + "   " + temp.format(newDate) + "      test                 " + NEWLINE + "-----------------"
-                + "------------------------------------------------------------------------------------------"
-                + "----------------------" + NEWLINE;
+                + "Description                                             Amount               Date    "
+                + "          "
+                + "   Category             " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE
+                + "1                    test                                                    [-] $1.00  "
+                + "       "
+                + "   " + temp.format(newDate) + "      test                 " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         assertEquals(deletedMessage, outContent.toString());
         TransactionException thrown = assertThrows(TransactionException.class, () ->
                         testList.deleteExpenditureFromList(1, testUi),
@@ -267,13 +274,15 @@ class TransactionListTest {
         testList.deleteDepositFromList(1, testUi);
         DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         String deletedMessage = "Details of deleted deposit:" + NEWLINE + "Item No.             Description  "
-                + "                                           Amount          Date                 Category  "
-                + "           " + NEWLINE + "----------------------------------------------------------------"
-                + "-----------------------------------------------------------------" + NEWLINE + "1         "
-                + "           test                                                    [+] $1.00       "
-                + temp.format(newDate) + "      test                 " + NEWLINE + "-------------------------"
-                + "------------------------------------------------------------------------------------------"
-                + "--------------" + NEWLINE;
+                + "                                           Amount               Date                 "
+                + "Category  "
+                + "           " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE + "1         "
+                + "           test                                                    [+] $1.00            "
+                + temp.format(newDate) + "      test                 " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         assertEquals(deletedMessage, outContent.toString());
         TransactionException thrown = assertThrows(TransactionException.class, () ->
                         testList.getDepositValue(1),
@@ -321,12 +330,15 @@ class TransactionListTest {
         }
         DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         String outputMessage = "Transaction No.      Description                                             "
-                + "Amount          Date                 Category             " + NEWLINE + "-----------------"
-                + "------------------------------------------------------------------------------------------"
-                + "----------------------" + NEWLINE + "2                    test                            "
-                + "                        [+] $2.00       " + temp.format(newDate) + "      test            "
-                + "     " + NEWLINE + "----------------------------------------------------------------------"
-                + "-----------------------------------------------------------" + NEWLINE;
+                + "Amount               Date                 Category             " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE
+                + "2                    test                            "
+                + "                        [+] $2.00            " + temp.format(newDate) + "      test "
+                + "           "
+                + "     " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         assertEquals(outputMessage, outContent.toString());
     }
 
@@ -370,12 +382,15 @@ class TransactionListTest {
         }
         DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         String outputMessage = "Transaction No.      Description                                             "
-                + "Amount          Date                 Category             " + NEWLINE + "-----------------"
-                + "------------------------------------------------------------------------------------------"
-                + "----------------------" + NEWLINE + "2                    test                            "
-                + "                        [-] $2.00       " + temp.format(newDate) + "      test            "
-                + "     " + NEWLINE + "----------------------------------------------------------------------"
-                + "-----------------------------------------------------------" + NEWLINE;
+                + "Amount               Date                 Category             " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE
+                + "2                    test                            "
+                + "                        [-] $2.00            " + temp.format(newDate)
+                + "      test            "
+                + "     " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         assertEquals(outputMessage, outContent.toString());
     }
 
@@ -403,12 +418,15 @@ class TransactionListTest {
         }
         DateFormat temp2 = new SimpleDateFormat("dd MMMM yyyy");
         String outputMessage = "Transaction No.      Description                                             "
-                + "Amount          Date                 Category             " + NEWLINE + "-----------------"
-                + "------------------------------------------------------------------------------------------"
-                + "----------------------" + NEWLINE + "1                    edit                            "
-                + "                        [-] $5.35       " + temp2.format(editedDate) + "      edit        "
-                + "         " + NEWLINE + "------------------------------------------------------------------"
-                + "---------------------------------------------------------------" + NEWLINE;
+                + "Amount               Date                 Category             " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE
+                + "1                    edit                            "
+                + "                        [-] $5.35            " + temp2.format(editedDate)
+                + "      edit        "
+                + "         " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         assertEquals(outputMessage, outContent.toString());
     }
 
@@ -436,12 +454,15 @@ class TransactionListTest {
         }
         DateFormat temp2 = new SimpleDateFormat("dd MMMM yyyy");
         String outputMessage = "Transaction No.      Description                                             "
-                + "Amount          Date                 Category             " + NEWLINE + "-----------------"
-                + "------------------------------------------------------------------------------------------"
-                + "----------------------" + NEWLINE + "1                    edit                            "
-                + "                        [+] $5.35       " + temp2.format(editedDate) + "      test        "
-                + "         " + NEWLINE + "------------------------------------------------------------------"
-                + "---------------------------------------------------------------" + NEWLINE;
+                + "Amount               Date                 Category             " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE
+                + "1                    edit                            "
+                + "                        [+] $5.35            " + temp2.format(editedDate)
+                + "      test        "
+                + "         " + NEWLINE
+                + "-----------------------------------------------------------------------------"
+                + "----------------------------------------------------------------" + NEWLINE;
         assertEquals(outputMessage, outContent.toString());
     }
 
@@ -496,15 +517,15 @@ class TransactionListTest {
                     "19/9/2019", "", "", uiTest);
             String expectedOutput = "Find by: date range" + NEWLINE
                     + "Transaction No.      Description                                             "
-                    + "Amount          Date                 Category             " + NEWLINE
+                    + "Amount               Date                 Category             " + NEWLINE
                     + "-----------------------------------------------------------------------------"
-                    + "----------------------------------------------------" + NEWLINE
+                    + "----------------------------------------------------------------" + NEWLINE
                     + "2                    Bubble Tea                                              "
-                    + "[-] $10.00      10 July 2019         Food                 " + NEWLINE
+                    + "[-] $10.00           10 July 2019         Food                 " + NEWLINE
                     + "3                    Fund Received                                           "
-                    + "[+] $100.00     11 September 2019    Deposit              " + NEWLINE
-                    + "----------------------------------------------------------------------------"
-                    + "-----------------------------------------------------" + NEWLINE;
+                    + "[+] $100.00          11 September 2019    Deposit              " + NEWLINE
+                    + "-----------------------------------------------------------------------------"
+                    + "----------------------------------------------------------------" + NEWLINE;
             assertEquals(expectedOutput,outContent.toString());
             outContent.reset();
         } catch (TransactionException error) {
@@ -576,13 +597,13 @@ class TransactionListTest {
                     "", "", "deposit", uiTest);
             String expectedOutput = "Find by: category" + NEWLINE
                     + "Transaction No.      Description                                             "
-                    + "Amount          Date                 Category             " + NEWLINE
-                    + "-------------------------------------------------------------------------------"
-                    + "--------------------------------------------------" + NEWLINE
+                    + "Amount               Date                 Category             " + NEWLINE
+                    + "-----------------------------------------------------------------------------"
+                    + "----------------------------------------------------------------" + NEWLINE
                     + "3                    Fund Received                                           "
-                    + "[+] $100.00     11 September 2019    Deposit              " + NEWLINE
-                    + "--------------------------------------------------------------------------"
-                    + "-------------------------------------------------------" + NEWLINE;
+                    + "[+] $100.00          11 September 2019    Deposit              " + NEWLINE
+                    + "-----------------------------------------------------------------------------"
+                    + "----------------------------------------------------------------" + NEWLINE;
             assertEquals(expectedOutput,outContent.toString());
             outContent.reset();
         } catch (TransactionException error) {
@@ -656,13 +677,13 @@ class TransactionListTest {
                     "", "rice", "", uiTest);
             String expectedOutput = "Find by: description" + NEWLINE
                     + "Transaction No.      Description                                             "
-                    + "Amount          Date                 Category             " + NEWLINE
-                    + "-------------------------------------------------------------------------------"
-                    + "--------------------------------------------------" + NEWLINE
+                    + "Amount               Date                 Category             " + NEWLINE
+                    + "-----------------------------------------------------------------------------"
+                    + "----------------------------------------------------------------" + NEWLINE
                     + "1                    Chicken Rice                                            "
-                    + "[-] $15.00      10 June 2019         Food                 " + NEWLINE
-                    + "--------------------------------------------------------------------------"
-                    + "-------------------------------------------------------" + NEWLINE;
+                    + "[-] $15.00           10 June 2019         Food                 " + NEWLINE
+                    + "-----------------------------------------------------------------------------"
+                    + "----------------------------------------------------------------" + NEWLINE;
             assertEquals(expectedOutput,outContent.toString());
             outContent.reset();
         } catch (TransactionException error) {
@@ -734,33 +755,33 @@ class TransactionListTest {
                     "19/9/2019", "rice", "deposit", uiTest);
             String expectedOutput = "Find by: description" + NEWLINE
                     + "Transaction No.      Description                                             "
-                    + "Amount          Date                 Category             " + NEWLINE
-                    + "-------------------------------------------------------------------------------"
-                    + "--------------------------------------------------" + NEWLINE
+                    + "Amount               Date                 Category             " + NEWLINE
+                    + "-----------------------------------------------------------------------------"
+                    + "----------------------------------------------------------------" + NEWLINE
                     + "1                    Chicken Rice                                            "
-                    + "[-] $15.00      10 June 2019         Food                 " + NEWLINE
-                    + "--------------------------------------------------------------------------"
-                    + "-------------------------------------------------------" + NEWLINE
+                    + "[-] $15.00           10 June 2019         Food                 " + NEWLINE
+                    + "-----------------------------------------------------------------------------"
+                    + "----------------------------------------------------------------" + NEWLINE
                     + "Find by: category" + NEWLINE
                     + "Transaction No.      Description                                             "
-                    + "Amount          Date                 Category             " + NEWLINE
-                    + "-------------------------------------------------------------------------------"
-                    + "--------------------------------------------------" + NEWLINE
+                    + "Amount               Date                 Category             " + NEWLINE
+                    + "-----------------------------------------------------------------------------"
+                    + "----------------------------------------------------------------" + NEWLINE
                     + "3                    Fund Received                                           "
-                    + "[+] $100.00     11 September 2019    Deposit              " + NEWLINE
-                    + "--------------------------------------------------------------------------"
-                    + "-------------------------------------------------------" + NEWLINE
+                    + "[+] $100.00          11 September 2019    Deposit              " + NEWLINE
+                    + "-----------------------------------------------------------------------------"
+                    + "----------------------------------------------------------------" + NEWLINE
                     + "Find by: date range" + NEWLINE
                     + "Transaction No.      Description                                             "
-                    + "Amount          Date                 Category             " + NEWLINE
+                    + "Amount               Date                 Category             " + NEWLINE
                     + "-----------------------------------------------------------------------------"
-                    + "----------------------------------------------------" + NEWLINE
+                    + "----------------------------------------------------------------" + NEWLINE
                     + "2                    Bubble Tea                                              "
-                    + "[-] $10.00      10 July 2019         Food                 " + NEWLINE
+                    + "[-] $10.00           10 July 2019         Food                 " + NEWLINE
                     + "3                    Fund Received                                           "
-                    + "[+] $100.00     11 September 2019    Deposit              " + NEWLINE
-                    + "----------------------------------------------------------------------------"
-                    + "-----------------------------------------------------" + NEWLINE;
+                    + "[+] $100.00          11 September 2019    Deposit              " + NEWLINE
+                    + "-----------------------------------------------------------------------------"
+                    + "----------------------------------------------------------------" + NEWLINE;
             assertEquals(expectedOutput,outContent.toString());
             outContent.reset();
         } catch (TransactionException error) {
@@ -816,7 +837,7 @@ class TransactionListTest {
         } catch (TransactionException error) {
             System.out.println("Expected no throw, but error thrown");
         }
-        String expectedOutput = "Transaction list is empty." + NEWLINE;
+        String expectedOutput = "Transaction list is empty" + NEWLINE;
         assertEquals(expectedOutput,outContent.toString());
 
     }

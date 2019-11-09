@@ -17,23 +17,23 @@ import owlmoney.model.transaction.Expenditure;
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
-class CardTest {
+public class CardTest {
     private static final String NEWLINE = System.lineSeparator();
     private static final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     private static final String DIVIDER =
-            "----------------------------------------------------------------------------------------"
-            + "-----------------------------------------" + NEWLINE;
+            "-----------------------------------------------------------------------------"
+                    + "----------------------------------------------------------------" + NEWLINE;
     private static final String HEADER_ADDED_EXPENDITURE = "Added expenditure with the following details:"
             + NEWLINE  + "Item No.             Description                                             "
-            + "Amount          Date                 Category             " + NEWLINE;
+            + "Amount               Date                 Category             " + NEWLINE;
     private static final String HEADER_LIST_PAID_EXPENDITURE = "Paid Expenditures:" + NEWLINE
             + "Transaction No.      "
             + "Description                                             "
-            + "Amount          Date                 Category             " + NEWLINE;
+            + "Amount               Date                 Category             " + NEWLINE;
     private static final String HEADER_LIST_UNPAID_EXPENDITURE = "Unpaid Expenditures:" + NEWLINE
             + "Transaction No.      "
             + "Description                                             "
-            + "Amount          Date                 Category             " + NEWLINE;
+            + "Amount               Date                 Category             " + NEWLINE;
     private static final String NO_PAID_EXPENDITURE = "There are no paid expenditures in this card.";
     private static final String EXPECTED_BUT_NO_PAID_EXPENDITURE = "Paid Expenditures:" + NEWLINE
             + "There are no paid expenditures in this card.";
@@ -41,10 +41,10 @@ class CardTest {
             + "There are no unpaid expenditures in this card.";
     private static final String HEADER_EDIT_EXPENDITURE = "Edited details of the specified expenditure:"
             + NEWLINE + "Item No.             Description                                             "
-            + "Amount          Date                 Category             " + NEWLINE;
+            + "Amount               Date                 Category             " + NEWLINE;
     private static final String HEADER_DELETE_EXPENDITURE = "Details of deleted Expenditure:" + NEWLINE
             + "Item No.             Description                                             "
-            + "Amount          Date                 Category             " + NEWLINE;
+            + "Amount               Date                 Category             " + NEWLINE;
     ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     @Test
@@ -58,11 +58,11 @@ class CardTest {
                 dateFormat.parse("06/06/2019"), "Food");
         String expectedExpenditure1Output = HEADER_ADDED_EXPENDITURE + DIVIDER
                 + "1                    Chicken Rice                                            "
-                + "[-] $100.00     05 June 2019         Food                 " + NEWLINE
+                + "[-] $100.00          05 June 2019         Food                 " + NEWLINE
                 + DIVIDER;
         String expectedExpenditure2Output = HEADER_ADDED_EXPENDITURE + DIVIDER
                 + "1                    Curry Rice                                              "
-                + "[-] $200.00     06 June 2019         Food                 " + NEWLINE
+                + "[-] $200.00          06 June 2019         Food                 " + NEWLINE
                 + DIVIDER;
         try {
             testCard.addInExpenditure(newExpenditure1, testUi, "card");
@@ -87,11 +87,11 @@ class CardTest {
                 dateFormat.parse("06/06/2019"), "Food");
         String expectedExpenditure1Output = HEADER_ADDED_EXPENDITURE + DIVIDER
                 + "1                    Chicken Rice                                            "
-                + "[-] $250.00     05 June 2019         Food                 " + NEWLINE
+                + "[-] $250.00          05 June 2019         Food                 " + NEWLINE
                 + DIVIDER;
         String expectedExpenditure2Output = HEADER_ADDED_EXPENDITURE + DIVIDER
                 + "1                    Curry Rice                                              "
-                + "[-] $250.00     06 June 2019         Food                 " + NEWLINE
+                + "[-] $250.00          06 June 2019         Food                 " + NEWLINE
                 + DIVIDER;
         try {
             testCard.addInExpenditure(newExpenditure1, testUi, "card");
@@ -116,7 +116,7 @@ class CardTest {
                 dateFormat.parse("06/06/2019"), "Food");
         String expectedExpenditure1Output = HEADER_ADDED_EXPENDITURE + DIVIDER
                 + "1                    Chicken Rice                                            "
-                + "[-] $300.00     05 June 2019         Food                 " + NEWLINE
+                + "[-] $300.00          05 June 2019         Food                 " + NEWLINE
                 + DIVIDER;
         try {
             testCard.addInExpenditure(newExpenditure1, testUi, "card");
@@ -153,9 +153,9 @@ class CardTest {
         String expectedOutput = "Paid Expenditures:" + NEWLINE + NO_PAID_EXPENDITURE + NEWLINE + NEWLINE
                 + HEADER_LIST_UNPAID_EXPENDITURE + DIVIDER
                 + "2                    Curry Rice                                              "
-                + "[-] $200.00     06 June 2019         Food                 " + NEWLINE
+                + "[-] $200.00          06 June 2019         Food                 " + NEWLINE
                 + "1                    Chicken Rice                                            "
-                + "[-] $100.00     05 June 2019         Food                 " + NEWLINE
+                + "[-] $100.00          05 June 2019         Food                 " + NEWLINE
                 + DIVIDER;
 
         assertEquals(expectedOutput, outContent.toString());
@@ -182,7 +182,7 @@ class CardTest {
         String expectedOutput = EXPECTED_BUT_NO_PAID_EXPENDITURE + NEWLINE + NEWLINE
                 + HEADER_LIST_UNPAID_EXPENDITURE + DIVIDER
                 + "2                    Curry Rice                                              "
-                + "[-] $200.00     06 June 2019         Food                 " + NEWLINE
+                + "[-] $200.00          06 June 2019         Food                 " + NEWLINE
                 + DIVIDER;
         assertEquals(expectedOutput, outContent.toString());
         outContent.reset();
@@ -222,7 +222,7 @@ class CardTest {
         }
         String expectedOutput = HEADER_EDIT_EXPENDITURE + DIVIDER
                 + "1                    Fried Rice                                              "
-                + "[-] $300.00     08 June 2019         Grab Food            " + NEWLINE
+                + "[-] $300.00          08 June 2019         Grab Food            " + NEWLINE
                 + DIVIDER;
         assertEquals(expectedOutput, outContent.toString());
         outContent.reset();
@@ -247,7 +247,7 @@ class CardTest {
         }
         String expectedOutput = HEADER_EDIT_EXPENDITURE + DIVIDER
                 + "1                    Chicken Rice                                            "
-                + "[-] $300.00     08 June 2019         Food                 " + NEWLINE
+                + "[-] $300.00          08 June 2019         Food                 " + NEWLINE
                 + DIVIDER;
         assertEquals(expectedOutput, outContent.toString());
         outContent.reset();
@@ -337,7 +337,7 @@ class CardTest {
         }
         String expectedOutput = HEADER_DELETE_EXPENDITURE + DIVIDER
                 + "1                    Chicken Rice                                            "
-                + "[-] $100.00     05 June 2019         Food                 " + NEWLINE
+                + "[-] $100.00          05 June 2019         Food                 " + NEWLINE
                 + DIVIDER;
         assertEquals(expectedOutput, outContent.toString());
         outContent.reset();
@@ -500,13 +500,13 @@ class CardTest {
                 dateFormat.parse("10/07/2019"), "Food");
         String expectedOutput = HEADER_LIST_PAID_EXPENDITURE + DIVIDER
                 + "2                    Curry Rice                                              "
-                + "[-] $200.00     06 June 2019         Food                 " + NEWLINE
+                + "[-] $200.00          06 June 2019         Food                 " + NEWLINE
                 + "1                    Chicken Rice                                            "
-                + "[-] $100.00     05 June 2019         Food                 " + NEWLINE
+                + "[-] $100.00          05 June 2019         Food                 " + NEWLINE
                 + DIVIDER + NEWLINE
                 + HEADER_LIST_UNPAID_EXPENDITURE + DIVIDER
                 + "1                    Fried Rice                                              "
-                + "[-] $300.00     10 July 2019         Food                 " + NEWLINE
+                + "[-] $300.00          10 July 2019         Food                 " + NEWLINE
                 + DIVIDER;
 
         try {

@@ -1071,7 +1071,10 @@ public class BankList {
         String matchingWord = accountName.toUpperCase();
 
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (bankLists.get(i).getAccountName().toUpperCase().contains(matchingWord)
+            Bank currentBank = bankLists.get(i);
+            String currentBankName = currentBank.getAccountName();
+            String capitalCurrentBankName = currentBankName.toUpperCase();
+            if (capitalCurrentBankName.contains(matchingWord)
                     && type.equals(bankLists.get(i).getType())) {
                 tempBankList.add(bankLists.get(i));
             }

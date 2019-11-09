@@ -246,8 +246,11 @@ public class BondList {
         String matchingWord = bondName.toUpperCase();
 
         for (int i = ISZERO; i < getSize(); i++) {
-            if (bondLists.get(i).getName().toUpperCase().contains(matchingWord)) {
-                tempBondList.add(bondLists.get(i));
+            Bond currentBond = bondLists.get(i);
+            String currentBondName = currentBond.getName();
+            String capitalcurrentBondName = currentBondName.toUpperCase();
+            if (capitalcurrentBondName.contains(matchingWord)) {
+                tempBondList.add(currentBond);
             }
         }
         if (tempBondList.isEmpty()) {
