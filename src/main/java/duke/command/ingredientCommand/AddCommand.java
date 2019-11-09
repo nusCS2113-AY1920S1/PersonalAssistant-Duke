@@ -8,6 +8,7 @@ import duke.ingredient.Ingredient;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
+import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 /**
  * Represents a specific {@link Command} for Ingredients to facilitate adding an ingredient
@@ -30,7 +31,7 @@ public class AddCommand extends Command {
 
     @Override
     public void execute(Fridge fridge, DishList dishList, OrderList orderList, Ui ui, FridgeStorage fridgeStorage,
-                        OrderStorage orderStorage) throws DukeException {
+                        OrderStorage orderStorage, RecipeStorage rs) throws DukeException {
         fridge.addIngredient(ingredient);
         ui.showAddedIngredient(fridge.getIngredient(ingredient));
         fridgeStorage.update();

@@ -8,6 +8,7 @@ import duke.ingredient.Ingredient;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
+import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
 /**
@@ -27,7 +28,7 @@ public class UseCommand extends Command {
     }
 
     @Override
-    public void execute(Fridge fridge, DishList dishList, OrderList orderList, Ui ui, FridgeStorage fridgeStorage, OrderStorage orderStorage) throws DukeException {
+        public void execute(Fridge fridge, DishList dishList, OrderList orderList, Ui ui, FridgeStorage fridgeStorage, OrderStorage orderStorage, RecipeStorage rs) throws DukeException {
         if (fridge.useIngredient(toUse)) {
             ui.show("Great you used " + toUse.toStringWithoutDate()); // if the fridge was able to provide the required amount of the ingredient
             fridgeStorage.update(); //updating the storage
