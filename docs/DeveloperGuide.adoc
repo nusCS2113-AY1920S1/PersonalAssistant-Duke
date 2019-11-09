@@ -282,26 +282,6 @@ Features elaborated:
 
 * The output of the `ViewWeekCommand` is ANSI colour enabled.This distinguishes the different days of the week in the output.
 
-[WARNING]
-As the output is ANSI colour enabled, there is a need to enable ANSI colour support on Windows machines.
-
-.Fixes for Windows command line
-[cols="30%, 70%"]
-|===
-|*Type of fix*|*Description*
-|Permanent fix|
-Enter the command `CMD / POWERSHELL: reg add HKCU\Console /v VirtualTerminalLevel /t REG_DWORD /d 1` in either `CMD` / `POWERSHELL`.
-
-Launch a new console window to activate the changes.
-
-_Disable line wrapping in terminal for optimal view._|
-Adhoc fix for `POWERSHELL`|
-run `OOF` with the command `java -jar .\v1.X.jar \| Out-Host`|
-|===
-
-[NOTE]
-Batch files have been included to automate the fixes. Clicking `settings.bat` satisfies the requirements stated above.
-
 * The output of `ViewWeekCommand` resizes automatically based on the length of the `description` of tasks.
 
 [[ViewWeekLarge]]
@@ -433,9 +413,6 @@ The `FreeCommand` class extends `Command` by providing methods to search for fre
 Features elaborated:
 
 * The output of `FreeCommand` is ANSI colour enabled to easily differentiate free time slots and busy time slots. 
-
-[WARNING]
-As the output is ANSI colour enabled, there is a need to enable ANSI colour support on Windows machines. Refer to table 1. 
 
 Given below is an example usage scenario and how the `FreeCommand` class behaves at each step.
 
