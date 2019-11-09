@@ -136,6 +136,37 @@ public class StorageManager {
     }
 
     /**
+     * Gets all receipts that have cash spent attribute more than or equal to user input.
+     * Used by CommandMajorExpense
+     * @param amount String that represents the user input
+     * @return ReceiptTracker containing all the major expense receipts
+     * @throws DukeException Error occurred when getting major expenses
+     */
+    public String getMajorExpense(String amount) throws DukeException {
+        try {
+            return this.wallet.getReceipts().getMajorExpenses(amount).getPrintableReceipts();
+        } catch (NumberFormatException e) {
+            throw new DukeException("Invalid cash input. Please enter integer");
+        } catch (Exception e) {
+            throw new DukeException("Unable to get major expenses");
+        }
+    }
+
+    /**
+     * Gets all receipts that have cash spent attribute more than or equal to $100.
+     * Used by CommandMajorExpense
+     * @return ReceiptTracker containing all the receipts above or equal to $100
+     * @throws DukeException Error occurred when getting major expenses
+     */
+    public String getMajorReceipt() throws DukeException {
+        try {
+            return this.wallet.getReceipts().getMajorReceipts().getPrintableReceipts();
+        } catch (Exception e) {
+            throw new DukeException("Unable to get major receipt");
+        }
+    }
+
+    /**
      * Deletes Task by Index in TaskList Object.
      * Used in CommandDelete.
      * @param index int of Task to be deleted
