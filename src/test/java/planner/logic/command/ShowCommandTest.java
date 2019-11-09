@@ -62,7 +62,7 @@ public class ShowCommandTest extends InputTest {
 
         final String bye = "bye";
         provideInput(test1 + bye);
-        final String[] hold = {"a"};
+        final String[] hold = {""};
         CliLauncher.main(hold);
         //String expected = outContent.toString().replaceAll("\r", "");
         String expected = "_______________________________\n"
@@ -77,7 +77,7 @@ public class ShowCommandTest extends InputTest {
                 +
                 "All modules in the list!\n"
                 +
-                "1. [Γ£ù] CG2028 | ModuleCode:CG2028, MC:2.0, SU:false, grade:"
+                "1. [✓] CS1010 | ModuleCode:CS1010, MC:4.0, SU:true, grade:A "
                 +
                 "_______________________________\n"
                 +
