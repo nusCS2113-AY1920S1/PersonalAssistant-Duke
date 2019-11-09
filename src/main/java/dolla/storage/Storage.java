@@ -3,6 +3,8 @@ package dolla.storage;
 import dolla.model.Record;
 import dolla.ui.Ui;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 //@@author yetong1895
@@ -70,4 +72,15 @@ public class Storage implements StorageStringList {
         return shortcuts;
     }
 
+    /**
+     * This method will clear the data in the save file.
+     */
+    public static void clearStorage() {
+        try {
+            FileWriter file = new FileWriter(PATH);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

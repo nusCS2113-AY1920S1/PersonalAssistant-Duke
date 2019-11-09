@@ -84,5 +84,7 @@ public class StorageTest {
         shortcut = shortcutList.get(1);
         expected = "expense 123.0 storage test7";
         assertEquals(expected,shortcut.getUserInput());
+
+        Storage.clearStorage();
     }
 }
