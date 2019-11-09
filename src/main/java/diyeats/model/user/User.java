@@ -4,16 +4,15 @@ import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.MealList;
 import diyeats.model.wallet.Account;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashMap;
 
+//@@author
 /**
  * This is a class that will store user information to be used for processing.
  */
 public class User {
     public transient Goal goal = null;
-    private transient Account account;
 
     private HashMap<LocalDate, Double> weight = new HashMap();
     private  LocalDate lastDate = null;
@@ -56,7 +55,7 @@ public class User {
         this.lastDate = lastDate;
     }
 
-    public boolean valid() {
+    public boolean isValid() {
         if (name != null && age != -1 && getAllWeight().size() != 0
                 && height != -1 && gender != null && activityLevel != 5) {
             isSetup = true;
@@ -91,17 +90,19 @@ public class User {
         }
     }
 
-    public boolean setGoal(Goal goal) throws ProgramException {
+    public void setGoal(Goal goal) throws ProgramException {
         if (goal.getActivityLevelTarget() < activityLevel && activityLevel != 5) {
-            throw new ProgramException("Goal setting failed, cannot set target activity level to "
-                    + "be lower than current activity level");
+            throw new ProgramException("Set goal failed, cannot set target activity level to\n"
+                    + "     be lower than current activity level.");
+        } else if (!checkGoalFeasibility(goal)) {
+            throw new ProgramException("Set goal failed. Average calorie loss in a day\n"
+                    + "     must not exceed 40% of your current calorie expenditure!");
         } else {
             this.goal = goal;
             if (isSetup) {
                 this.goal.setOriginalWeight(originalWeight);
                 calculateTargetCalories();
             }
-            return true;
         }
     }
 
@@ -121,12 +122,12 @@ public class User {
         this.activityLevel = activityLevel;
     }
 
-    public void updateStats(MealList meals) {
-        this.goal.updateStats(meals);
-    }
-
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public void updateStats(MealList meals) {
+        this.goal.updateStats(meals);
     }
 
     public String getName() {
@@ -135,15 +136,6 @@ public class User {
 
     public int getAge() {
         return this.age;
-    }
-
-    public LocalDate getLastDate() {
-        if (this.lastDate == null) {
-            lastDate = LocalDate.now();
-            return lastDate;
-        } else {
-            return this.lastDate;
-        }
     }
 
     public double getWeight() {
@@ -191,24 +183,6 @@ public class User {
         }
     }
 
-    public int getCalorieChangeToReachTarget() {
-        return (int) (7700 * (getWeightTarget() - getWeight()));
-    }
-
-    public int getAvgCalorieChangeToReachTarget() {
-        if (getDaysLeftToGoal() == 0) {
-            return 0;
-        } else {
-            return getCalorieChangeToReachTarget() / getDaysLeftToGoal();
-        }
-    }
-
-    public void calculateTargetCalories() {
-        int target = getDailyCalorie() * this.goal.durationOfGoal()
-                - getCalorieChangeToReachTarget();
-        this.goal.setCalorieTarget(target);
-    }
-
     public int getCalorieBalance() {
         return getDailyCalorie() + getAvgCalorieChangeToReachTarget();
     }
@@ -216,7 +190,7 @@ public class User {
     public double getActivityLevelDifference() {
         return this.factor[goal.getActivityLevelTarget()] - this.factor[this.activityLevel];
     }
-    
+
     public Goal getGoal() {
         return goal;
     }
@@ -230,6 +204,39 @@ public class User {
      */
     public boolean getIsSetup() {
         return this.isSetup;
+    }
+
+    private boolean checkGoalFeasibility(Goal goal) {
+        double calorieLossPerDayToReachWeight = 7700 * (getWeight() - goal.getWeightTarget()) / goal.durationOfGoal();
+        double maximumCalorieLossPerDay = 0.4 * getDailyCalorie();
+        return calorieLossPerDayToReachWeight < maximumCalorieLossPerDay;
+    }
+
+    private int getCalorieChangeToReachTarget() {
+        return (int) (7700 * (getWeight() - getWeightTarget()));
+    }
+
+    private int getAvgCalorieChangeToReachTarget() {
+        if (getDaysLeftToGoal() == 0) {
+            return 0;
+        } else {
+            return getCalorieChangeToReachTarget() / getDaysLeftToGoal();
+        }
+    }
+
+    private void calculateTargetCalories() {
+        int target = getDailyCalorie() * this.goal.durationOfGoal()
+                - getCalorieChangeToReachTarget();
+        this.goal.setCalorieTarget(target);
+    }
+
+    private LocalDate getLastDate() {
+        if (this.lastDate == null) {
+            lastDate = LocalDate.now();
+            return lastDate;
+        } else {
+            return this.lastDate;
+        }
     }
 
     @Override

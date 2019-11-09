@@ -89,20 +89,6 @@ public class LoadTest {
     }
 
     @Test
-    public void loadGoalTest() {
-        final String expectedEntry = "2019-11-20|2020-11-20|60.0|1404116|4";
-        User user = new User();
-
-        loader.test();
-        try {
-            loader.loadGoals(user);
-            assertEquals(user.getGoal().toString(), expectedEntry);
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
     public void loadTransactionsTest() {
         Wallet wallet = new Wallet();
 
@@ -123,6 +109,22 @@ public class LoadTest {
         try {
             user = loader.loadUser();
             assertEquals(user.toString(), expectedString);
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void loadGoalTest() {
+        final String expectedEntry = "2019-11-20|2020-11-20|60.0|1250116|4";
+        User user;
+
+        loader.test();
+        try {
+            user = loader.loadUser();
+            loader.loadGoals(user);
+            String userGoal = user.getGoal().toString();
+            assertEquals(userGoal, expectedEntry);
         } catch (Exception e) {
             fail();
         }

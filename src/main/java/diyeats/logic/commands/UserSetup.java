@@ -79,7 +79,7 @@ public class UserSetup {
         } else {
             ui.showLackGender();
         }
-        if (user.valid()) {
+        if (user.isValid()) {
             isDone = true;
             ui.showUserSetupDone(user);
             ui.showWelcome();

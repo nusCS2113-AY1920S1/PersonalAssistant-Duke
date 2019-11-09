@@ -50,16 +50,10 @@ public class AddGoalCommand extends Command {
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         ui.showLine();
         try {
-            //check whether goal set is reasonable
-            if (goal.getAverageCalorieBalance() > 0.6 * user.getDailyCalorie()) {
-                user.setGoal(goal);
-                ui.showMessage("The setGoal Command is successful!");
-                storage.updateGoal(user);
-                stage++;
-            } else {
-                ui.showMessage("The setGoal Command is unsuccessful. Average calorie loss in a day\n"
-                        + "     must not exceed 40% of your current calorie expenditure!");
-            }
+            user.setGoal(goal);
+            ui.showMessage("The setGoal Command is successful!");
+            storage.updateGoal(user);
+            stage++;
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }

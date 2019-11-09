@@ -49,7 +49,7 @@ public class Goal {
     }
 
     public int getAverageCalorieBalance() {
-        return getCaloriesConsumed() / (daysElapsedSinceStart() + 1);
+        return this.caloriesConsumed / (daysElapsedSinceStart() + 1);
     }
 
     /**
@@ -58,10 +58,6 @@ public class Goal {
      */
     public double getWeightTarget() {
         return this.weightTarget;
-    }
-
-    public int getCaloriesConsumed() {
-        return this.caloriesConsumed;
     }
 
     public int getActivityLevelTarget() {
@@ -98,7 +94,7 @@ public class Goal {
         return caloriesConsumed;
     }
 
-    public int daysElapsedSinceStart() {
+    private int daysElapsedSinceStart() {
         LocalDate currentDate = LocalDate.now();
         int daysElapsed = (int) DAYS.between(startDate,currentDate);
         return daysElapsed;
