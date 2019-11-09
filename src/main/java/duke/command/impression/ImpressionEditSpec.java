@@ -18,7 +18,7 @@ public class ImpressionEditSpec extends ImpressionObjSpec {
     }
 
     private ImpressionEditSpec() {
-        cmdArgLevel = ArgLevel.NONE;
+        cmdArgLevel = ArgLevel.OPTIONAL;
         initSwitches(
                 new Switch("append", null, true, ArgLevel.NONE, "a"),
                 new Switch("impression", String.class, true, ArgLevel.REQUIRED, "im"),
@@ -37,7 +37,6 @@ public class ImpressionEditSpec extends ImpressionObjSpec {
         );
     }
 
-    // TODO: split method to call one method per editType
     @Override
     protected void execute(DukeCore core) throws DukeException {
         boolean isAppending = false;
@@ -45,11 +44,16 @@ public class ImpressionEditSpec extends ImpressionObjSpec {
             isAppending = true;
         }
 
-        if (cmd.getSwitchVal("evidence") == null
+        if (cmd.getSwitchVal("impression") != null) {
+            if (cmd.getArg() == null && cmd.getSwitchVal("evidence") == null
                 && cmd.getSwitchVal("treatment") == null) { // edit impression
-            editImpression(ImpressionUtils.getImpression(core), isAppending);
-            core.writeJsonFile();
-            core.updateUi("Updated details of this Impression!");
+                editImpression(ImpressionUtils.getImpression(core), isAppending);
+                core.writeJsonFile();
+                core.updateUi("Updated details of this Impression!");
+            } else {
+                throw new DukeHelpException("Please specify whether you want to edit this impression, or a treatment "
+                        + "or evidence!", cmd);
+            }
         } else {
             if (cmd.isSwitchSet("description")) {
                 throw new DukeHelpException("Descriptions are only for impressions!", cmd);
