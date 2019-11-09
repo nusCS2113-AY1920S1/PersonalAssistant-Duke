@@ -58,7 +58,7 @@ public class DukeCore extends Application {
      */
     public void search(SearchResults results, ObjCommand objCmd) throws DukeException {
         queuedCmd = objCmd;
-        ui.print("Couldn't identify '" + results.getName() + "', displaying objects with matching names.");
+        ui.showMessage("Couldn't identify '" + results.getName() + "', displaying objects with matching names.");
         uiContext.open(results);
     }
 
@@ -74,7 +74,7 @@ public class DukeCore extends Application {
         } catch (ClassCastException excp) {
             logger.log(Level.SEVERE, "Wrong type of object returned from search!"
                     + System.lineSeparator() + excp.getMessage());
-            ui.print(queuedCmd.getClass().getSimpleName() + " failed! See log for details.");
+            ui.showMessage(queuedCmd.getClass().getSimpleName() + " failed! See log for details.");
         }
         queuedCmd = null;
     }
@@ -108,8 +108,7 @@ public class DukeCore extends Application {
      */
     @Override
     public void stop() {
-        Platform.exit();
-        System.exit(0);
+        ui.stop();
     }
 
 

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="582.0" prefWidth="673.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="typeLabel" alignment="CENTER" layoutX="23.0" layoutY="20.0" style="-fx-background-color: lightcyan; -fx-border-color: black; -fx-border-width: 1; -fx-border-style: solid;" text="RESULT" textAlignment="CENTER">
+            <font>
+                <Font name="System Bold" size="25.0" />
+            </font>
+            <padding>
+                <Insets left="10.0" right="10.0" />
+            </padding>
+        </Label>
+        <ImageView fitHeight="100.0" fitWidth="50.0" layoutX="35.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/result.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="484.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/impression_critical.png" />
+            </image>
+        </ImageView>
+        <Label fx:id="priorityLabel" layoutX="537.0" layoutY="24.0" maxHeight="30.0" maxWidth="130.0" prefHeight="30.0" text="Priority">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="109.0" layoutY="99.0" maxWidth="540.0" prefHeight="30.0" text="NAME">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+        <ScrollPane layoutX="29.0" layoutY="156.0" prefHeight="150.0" prefWidth="615.0" style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
+            <content>
+                <AnchorPane maxWidth="590.0" minHeight="0.0" minWidth="0.0" prefWidth="590.0">
+                    <children>
+                        <Label fx:id="nameLabel" alignment="TOP_LEFT" layoutX="6.0" layoutY="5.0" maxWidth="590.0" prefHeight="200.0" prefWidth="590.0" text="Ut pellentesque, urna nec dictum ullamcorper, dolor nisl convallis elit, ac iaculis tellus sem id felis. Fusce consectetur ex sit amet ligula bibendum maximus. Fusce tristique dolor vel pharetra ultrices. Mauris et neque imperdiet, cursus eros eu, vestibulum purus. Mauris suscipit, dolor sit amet scelerisque sagittis, augue neque pulvinar diam, sit amet efficitur dolor risus et justo. Maecenas accumsan a augue non semper. Nullam viverra consequat ipsum. Suspendisse auctor turpis nibh, eu hendrerit dui vehicula in. Suspendisse feugiat fringilla diam, quis suscipit massa mollis sed. Nam tempus tincidunt est, ac ultrices dui pharetra id." wrapText="true">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+        <ImageView fitHeight="100.0" fitWidth="50.0" layoutX="35.0" layoutY="327.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/summary.png" />
+            </image>
+        </ImageView>
+        <Label layoutX="109.0" layoutY="337.0" maxWidth="540.0" prefHeight="30.0" text="SUMMARY">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+        <ScrollPane layoutX="29.0" layoutY="395.0" prefHeight="150.0" prefWidth="615.0" style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
+            <content>
+                <AnchorPane maxWidth="590.0" minHeight="0.0" minWidth="0.0" prefWidth="590.0">
+                    <children>
+                        <Label fx:id="summaryLabel" alignment="TOP_LEFT" layoutX="6.0" layoutY="5.0" maxWidth="590.0" prefHeight="200.0" prefWidth="590.0" text="Ut pellentesque, urna nec dictum ullamcorper, dolor nisl convallis elit, ac iaculis tellus sem id felis. Fusce consectetur ex sit amet ligula bibendum maximus. Fusce tristique dolor vel pharetra ultrices. Mauris et neque imperdiet, cursus eros eu, vestibulum purus. Mauris suscipit, dolor sit amet scelerisque sagittis, augue neque pulvinar diam, sit amet efficitur dolor risus et justo. Maecenas accumsan a augue non semper. Nullam viverra consequat ipsum. Suspendisse auctor turpis nibh, eu hendrerit dui vehicula in. Suspendisse feugiat fringilla diam, quis suscipit massa mollis sed. Nam tempus tincidunt est, ac ultrices dui pharetra id." wrapText="true">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

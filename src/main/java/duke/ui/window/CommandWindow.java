@@ -1,14 +1,21 @@
 package duke.ui.window;
 
+import duke.DukeCore;
 import duke.command.Command;
 import duke.command.Executor;
 import duke.command.Parser;
 import duke.exception.DukeException;
-import duke.ui.MessageBox;
+import duke.ui.commons.UiElement;
+import duke.ui.commons.UiStrings;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 
 /**
  * UI element designed for the user to interact with the application.
@@ -19,8 +26,6 @@ import javafx.scene.layout.VBox;
  */
 public class CommandWindow extends InputHistoryWindow {
     private static final String FXML = "CommandWindow.fxml";
-    private static final String MESSAGE_WELCOME_GREET = "Hello! I'm Dr. Duke.";
-    private static final String MESSAGE_WELCOME_QUESTION = "What can I do for you today?";
 
     @FXML
     private ScrollPane scrollPane;
@@ -53,61 +58,55 @@ public class CommandWindow extends InputHistoryWindow {
      */
     @Override
     protected void handleAction() {
-        String input = inputTextField.getText().strip();
+        // TODO: Format block
+        String inputMessage = inputTextField.getText().strip();
 
-        if (!input.isEmpty()) {
-            storeInput(input);
-            try {
-                writeHistory();
-            } catch (DukeException e) {
-                printError(e);
-            }
-            messageContainer.getChildren().add(MessageBox.getUserMessage(input).getRoot());
-
-            try {
-                executor.execute(parseCommand(input));
-            } catch (DukeException e) {
-                printError(e);
-            }
+        if (inputMessage.isEmpty()) {
+            return;
         }
 
-        inputTextField.setText("");
+        storeInput(inputMessage);
+
+        try {
+            writeHistory();
+        } catch (DukeException e) {
+            printError(e);
+        }
+
+        MessageBox userMessageBox = MessageBox.getUserMessage(inputMessage);
+        messageContainer.getChildren().add(userMessageBox.getRoot());
+
+        try {
+            Command command = parser.parse(inputMessage);
+            executor.execute(command);
+            inputTextField.clear();
+        } catch (DukeException e) {
+            printError(e);
+        }
     }
 
     /**
-     * Uses the Parser to retrieve the requested command, which will be loaded with parameters
-     * extracted from the user's input arguments.
+     * Prints message in the {@code messageContainer}.
      *
-     * @param input Input string to be parsed.
-     * @return The command specified by the user, with arguments parsed.
-     * @throws DukeException If the parser fails to find a matching command or the arguments do not meet the command's
-     *                       requirements.
-     */
-    private Command parseCommand(String input) throws DukeException {
-        return parser.parse(input);
-    }
-
-    /**
-     * Prints message.
-     *
-     * @param message Message.
+     * @param message Output message.
      */
     public void print(String message) {
-        messageContainer.getChildren().add(MessageBox.getDukeMessage(message).getRoot());
+        MessageBox dukeMessageBox = MessageBox.getDukeMessage(message);
+        messageContainer.getChildren().add(dukeMessageBox.getRoot());
     }
 
     /**
      * Prints welcome message.
      */
     private void printWelcome() {
-        String welcome = MESSAGE_WELCOME_GREET + System.lineSeparator() + MESSAGE_WELCOME_QUESTION;
+        String welcome = UiStrings.MESSAGE_WELCOME_GREET + System.lineSeparator() + UiStrings.MESSAGE_WELCOME_QUESTION;
         print(welcome);
     }
 
     /**
-     * Prints error message from an exception.
+     * Prints error message.
      *
-     * @param e Exception.
+     * @param e Error.
      */
     private void printError(DukeException e) {
         print(e.getMessage());
@@ -115,5 +114,43 @@ public class CommandWindow extends InputHistoryWindow {
 
     public TextArea getInputTextField() {
         return inputTextField;
+    }
+
+    private static class MessageBox extends UiElement<Region> {
+        private static final String FXML = "MessageBox.fxml";
+        private static final Image userAvatar = new Image(DukeCore.class.getResourceAsStream("/images/user.png"));
+        private static final Image dukeAvatar = new Image(DukeCore.class.getResourceAsStream("/images/duke.png"));
+
+        @FXML
+        private Circle avatar;
+        @FXML
+        private VBox messageHolder;
+        @FXML
+        private Text message;
+
+        /**
+         * Constructs a new MessageBox object to be displayed in the command window.
+         */
+        private MessageBox(String text, Image image) {
+            super(FXML, null);
+
+            message.setText(text);
+            message.wrappingWidthProperty().bind(messageHolder.prefWidthProperty());
+            avatar.setFill(new ImagePattern(image));
+        }
+
+        /**
+         * Creates a message box for the user's input.
+         */
+        static MessageBox getUserMessage(String text) {
+            return new MessageBox(text, userAvatar);
+        }
+
+        /**
+         * Creates a message box for Dr. Duke's response.
+         */
+        static MessageBox getDukeMessage(String text) {
+            return new MessageBox(text, dukeAvatar);
+        }
     }
 }

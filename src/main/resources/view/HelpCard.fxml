@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+
 <fx:root xmlns:fx="http://javafx.com/fxml/1" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="350.0"
          type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/11.0.1">
 
@@ -43,36 +44,92 @@
                         </Label>
                         <VBox fx:id="detailsSection" prefWidth="320.0">
                             <children>
-                                <Label fx:id="formatHeader" text="FORMAT" textFill="#6a56ff">
-                                    <font>
-                                        <Font name="System Bold" size="15.0"/>
-                                    </font>
+                                <VBox fx:id="formatSection" prefWidth="320.0">
+                                    <children>
+                                        <Label fx:id="formatHeader" text="FORMAT" textFill="#6a56ff">
+                                            <font>
+                                                <Font name="System Bold" size="15.0"/>
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets/>
+                                            </VBox.margin>
+                                        </Label>
+                                        <Label fx:id="formatLabel" maxWidth="-Infinity" minWidth="-Infinity"
+                                               prefWidth="320.0"
+                                               text="Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam aliquam sed risus in facilisis. Suspendisse posuere ligula id pellentesque finibus. Donec varius sodales bibendum. In vitae sagittis magna, nec efficitur quam. Integer nec nunc eu tortor volutpat varius. Ut sollicitudin interdum urna, et facilisis ex mattis eget. Donec nec commodo lacus, quis egestas nisi. Vestibulum laoreet ex convallis ligula porttitor lacinia."
+                                               wrapText="true">
+                                            <font>
+                                                <Font size="13.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
                                     <VBox.margin>
                                         <Insets top="10.0"/>
                                     </VBox.margin>
-                                </Label>
-                                <Label fx:id="formatLabel" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="320.0"
-                                       text="Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam aliquam sed risus in facilisis. Suspendisse posuere ligula id pellentesque finibus. Donec varius sodales bibendum. In vitae sagittis magna, nec efficitur quam. Integer nec nunc eu tortor volutpat varius. Ut sollicitudin interdum urna, et facilisis ex mattis eget. Donec nec commodo lacus, quis egestas nisi. Vestibulum laoreet ex convallis ligula porttitor lacinia."
-                                       wrapText="true">
-                                    <font>
-                                        <Font size="13.0"/>
-                                    </font>
-                                </Label>
-                                <Label fx:id="switchHeader" text="SWITCH(ES)" textFill="#5608fc">
-                                    <font>
-                                        <Font name="System Bold" size="15.0"/>
-                                    </font>
+                                </VBox>
+                                <VBox fx:id="switchSection" prefWidth="320.0">
+                                    <children>
+                                        <Label fx:id="switchHeader" text="SWITCH(ES)" textFill="#5608fc">
+                                            <font>
+                                                <Font name="System Bold" size="15.0"/>
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets/>
+                                            </VBox.margin>
+                                        </Label>
+                                        <Label fx:id="switchLabel" maxWidth="-Infinity" minWidth="-Infinity"
+                                               prefWidth="320.0"
+                                               text="Fusce facilisis diam non interdum condimentum. Aenean dictum vehicula enim et vestibulum. Cras fermentum vitae mi vitae suscipit. Proin magna risus, consectetur vel nisi finibus, bibendum suscipit risus. Pellentesque nec varius turpis. Pellentesque ipsum purus, sollicitudin at luctus pharetra, mollis ac ante. Curabitur et sem ante. Proin quis lorem egestas, molestie odio eu, accumsan ligula."
+                                               wrapText="true">
+                                            <font>
+                                                <Font size="13.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
                                     <VBox.margin>
                                         <Insets top="10.0"/>
                                     </VBox.margin>
-                                </Label>
-                                <Label fx:id="switchLabel" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="320.0"
-                                       text="Fusce facilisis diam non interdum condimentum. Aenean dictum vehicula enim et vestibulum. Cras fermentum vitae mi vitae suscipit. Proin magna risus, consectetur vel nisi finibus, bibendum suscipit risus. Pellentesque nec varius turpis. Pellentesque ipsum purus, sollicitudin at luctus pharetra, mollis ac ante. Curabitur et sem ante. Proin quis lorem egestas, molestie odio eu, accumsan ligula."
-                                       wrapText="true">
-                                    <font>
-                                        <Font size="13.0"/>
-                                    </font>
-                                </Label>
+                                </VBox>
+                                <VBox fx:id="infoSection" prefWidth="320.0">
+                                    <children>
+                                        <Label fx:id="infoHeader" text="INFO" textFill="#2433ff">
+                                            <font>
+                                                <Font name="System Bold" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="infoLabel" maxWidth="-Infinity" minWidth="-Infinity"
+                                               prefWidth="320.0"
+                                               text="Fusce facilisis diam non interdum condimentum. Aenean dictum vehicula enim et vestibulum. Cras fermentum vitae mi vitae suscipit. Proin magna risus, consectetur vel nisi finibus, bibendum suscipit risus. Pellentesque nec varius turpis. Pellentesque ipsum purus, sollicitudin at luctus pharetra, mollis ac ante. Curabitur et sem ante. Proin quis lorem egestas, molestie odio eu, accumsan ligula."
+                                               wrapText="true">
+                                            <font>
+                                                <Font size="13.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="10.0"/>
+                                    </VBox.margin>
+                                </VBox>
+                                <VBox fx:id="exampleSection" prefWidth="320.0">
+                                    <children>
+                                        <Label fx:id="exampleHeader" text="EXAMPLE" textFill="#8853fa">
+                                            <font>
+                                                <Font name="System Bold" size="15.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="exampleLabel" maxWidth="-Infinity" minWidth="-Infinity"
+                                               prefWidth="320.0"
+                                               text="Fusce facilisis diam non interdum condimentum. Aenean dictum vehicula enim et vestibulum. Cras fermentum vitae mi vitae suscipit. Proin magna risus, consectetur vel nisi finibus, bibendum suscipit risus. Pellentesque nec varius turpis. Pellentesque ipsum purus, sollicitudin at luctus pharetra, mollis ac ante. Curabitur et sem ante. Proin quis lorem egestas, molestie odio eu, accumsan ligula."
+                                               wrapText="true">
+                                            <font>
+                                                <Font size="13.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="10.0"/>
+                                    </VBox.margin>
+                                </VBox>
                             </children>
                         </VBox>
                     </children>

@@ -6,9 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-/**
- * A UI card that displays all of the information of a {@code Help}.
- */
 public class HelpCard extends UiCard {
     private static final String FXML = "HelpCard.fxml";
 
@@ -17,14 +14,25 @@ public class HelpCard extends UiCard {
     @FXML
     private Label descriptionLabel;
     @FXML
+    private VBox formatSection;
+    @FXML
     private Label formatLabel;
     @FXML
+    private VBox switchSection;
+    @FXML
     private Label switchLabel;
+    @FXML
+    private VBox exampleSection;
+    @FXML
+    private Label exampleLabel;
+    @FXML
+    private VBox infoSection;
+    @FXML
+    private Label infoLabel;
     @FXML
     private VBox mainSection;
     @FXML
     private VBox detailsSection;
-
     private Help help;
 
     /**
@@ -33,22 +41,39 @@ public class HelpCard extends UiCard {
      * @param help           Help object.
      * @param isDetailsShown If the details for the Help object should be shown.
      */
-    public HelpCard(Help help, boolean isDetailsShown) throws DukeFatalException {
+    public HelpCard(final Help help, final boolean isDetailsShown) throws DukeFatalException {
         super(FXML);
 
         this.help = help;
-
-        commandLabel.setText(help.getCommand());
-        descriptionLabel.setText(help.getSummary());
-        formatLabel.setText(help.getFormat());
-        switchLabel.setText(help.getSwitches());
+        this.commandLabel.setText(help.getCommand());
+        this.descriptionLabel.setText(help.getSummary());
+        this.formatLabel.setText(help.getFormat());
 
         if (!isDetailsShown) {
-            mainSection.getChildren().remove(detailsSection);
+            this.mainSection.getChildren().remove(this.detailsSection);
+            return;
+        }
+
+        if (help.getSwitches() == null) {
+            this.detailsSection.getChildren().remove(this.switchSection);
+        } else {
+            this.switchLabel.setText(help.getSwitches());
+        }
+
+        if (help.getInfo() == null) {
+            this.detailsSection.getChildren().remove(this.infoSection);
+        } else {
+            this.infoLabel.setText(help.getInfo());
+        }
+
+        if (help.getExample() == null) {
+            this.detailsSection.getChildren().remove(this.exampleSection);
+        } else {
+            this.exampleLabel.setText(help.getExample());
         }
     }
 
     public Help getHelp() {
-        return help;
+        return this.help;
     }
 }

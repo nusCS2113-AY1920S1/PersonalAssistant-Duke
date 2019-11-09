@@ -7,7 +7,7 @@ import duke.data.Impression;
 import duke.data.Patient;
 import duke.data.Treatment;
 import duke.exception.DukeFatalException;
-import duke.ui.UiStrings;
+import duke.ui.commons.UiStrings;
 import duke.ui.card.EvidenceCard;
 import duke.ui.card.TreatmentCard;
 import javafx.fxml.FXML;

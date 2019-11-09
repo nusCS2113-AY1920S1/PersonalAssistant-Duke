@@ -7,6 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="582.0" prefWidth="673.0"
             xmlns="http://javafx.com/javafx/11.0.1">
     <children>
@@ -138,7 +139,8 @@
                                 <AnchorPane maxWidth="383.0" minHeight="0.0" minWidth="0.0" prefHeight="90.0"
                                             prefWidth="188.0">
                                     <children>
-                                        <Label fx:id="nameLabel" alignment="TOP_LEFT" layoutX="8.0" layoutY="2.0"
+                                        <Label fx:id="impressionNameLabel" alignment="TOP_LEFT" layoutX="8.0"
+                                               layoutY="2.0"
                                                prefHeight="610.0" prefWidth="176.0"
                                                text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut turpis sit amet justo dapibus blandit vel a augue. Suspendisse placerat dapibus porta. Donec finibus augue euismod vestibulum iaculis. Maecenas vitae suscipit nisi. Fusce quis ante quis leo pellentesque mattis at id ante. Ut aliquam, sem ac aliquam pharetra, mi leo eleifend magna, nec gravida nunc magna quis urna. Nunc vel massa porta, consequat mauris ac, lacinia mauris. Nulla eget laoreet erat, in pellentesque lectus. Nunc purus magna, bibendum ut semper in, sollicitudin ut lectus. Ut sed est sem. Nullam dictum sagittis varius. Vivamus sed justo vitae lectus finibus ultrices vitae id erat. Nunc ornare faucibus leo, rhoncus viverra nisl malesuada a. Nunc vitae nisl quam."
                                                wrapText="true">
@@ -193,7 +195,7 @@
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="646.0">
                     <children>
-                        <Label fx:id="descriptionLabel" alignment="TOP_LEFT" layoutX="6.0" layoutY="5.0"
+                        <Label fx:id="impressionDescriptionLabel" alignment="TOP_LEFT" layoutX="6.0" layoutY="5.0"
                                maxWidth="639.0" prefWidth="639.0"
                                text="Vestibulum maximus nulla mi, a cursus sem iaculis non. Vestibulum a nibh odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tellus sem, egestas vel risus ac, volutpat vestibulum tortor. Nam at diam non est euismod finibus eu nec mi. Mauris vitae libero efficitur, vestibulum nulla in, euismod ex. Ut ut rutrum libero. Morbi et nisl dictum, semper mi et, iaculis augue. Phasellus eleifend tortor eget ante venenatis euismod. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos."
                                wrapText="true">

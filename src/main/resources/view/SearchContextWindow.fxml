@@ -7,16 +7,17 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+
 <AnchorPane prefHeight="582.0" prefWidth="673.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <AnchorPane layoutX="10.0" layoutY="137.0" prefHeight="31.0" prefWidth="651.0">
             <children>
-                <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="8.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../images/searchResults.png" />
                     </image>
                 </ImageView>
-                <Label layoutX="58.0" layoutY="6.0" text="SEARCH RESULT">
+                <Label layoutX="52.0" layoutY="7.0" text="SEARCH RESULT(S)">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>
@@ -25,12 +26,12 @@
         </AnchorPane>
         <AnchorPane layoutX="4.0" layoutY="8.0" prefHeight="30.0" prefWidth="210.0">
             <children>
-                <ImageView fx:id="parentTypeImage" fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="parentTypeImage" fitHeight="30.0" fitWidth="30.0" layoutX="9.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../images/duke.png" />
                     </image>
                 </ImageView>
-                <Label fx:id="parentTypeLabel" layoutX="46.0" prefHeight="22.0" prefWidth="285.0" text="HOME CONTEXT SEARCH">
+                <Label fx:id="parentTypeLabel" layoutX="54.0" layoutY="-1.0" prefHeight="22.0" prefWidth="285.0" text="HOME CONTEXT SEARCH">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>
@@ -39,25 +40,25 @@
         </AnchorPane>
         <ScrollPane layoutX="9.0" layoutY="36.0" prefHeight="93.0" prefWidth="651.0" style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
             <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="173.0" prefWidth="631.0">
+                <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefWidth="630.0">
                     <children>
             
-                        <ImageView fx:id="parentTypeImage2" fitHeight="30.0" fitWidth="30.0" layoutX="7.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="parentTypeImage2" fitHeight="30.0" fitWidth="30.0" layoutX="8.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../images/home.png" />
                             </image>
                         </ImageView>
-                        <Label fx:id="parentNameLabel" layoutX="49.0" layoutY="8.0" prefHeight="22.0" prefWidth="165.0" text="Home Context">
+                        <Label fx:id="parentNameLabel" layoutX="49.0" layoutY="8.0" text="Home Context">
                             <font>
                                 <Font size="15.0" />
                             </font>
                         </Label>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="7.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="8.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../images/details.png" />
                             </image>
                         </ImageView>
-                        <Label fx:id="searchDetailsLabel" alignment="TOP_LEFT" layoutX="49.0" layoutY="53.0" prefHeight="118.0" prefWidth="574.0" text="Search Details">
+                        <Label fx:id="searchDetailsLabel" alignment="TOP_LEFT" layoutX="50.0" layoutY="53.0" text="Search Details">
                             <font>
                                 <Font size="15.0" />
                             </font>
@@ -67,7 +68,7 @@
                         <Image url="@../images/search.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="searchTermLabel" layoutX="360.0" layoutY="8.0" prefHeight="22.0" prefWidth="165.0" text="Search Specification">
+                  <Label fx:id="searchTermLabel" layoutX="360.0" layoutY="8.0" text="Search Specification">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -76,6 +77,6 @@
                 </AnchorPane>
             </content>
         </ScrollPane>
-      <JFXListView fx:id="searchListPanel" layoutX="10.0" layoutY="168.0" prefHeight="409.0" prefWidth="651.0" style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" />
+      <JFXListView fx:id="searchListPanel" layoutX="10.0" layoutY="179.0" prefHeight="370.0" prefWidth="650.0" style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" />
     </children>
 </AnchorPane>

@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXListView?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-      minWidth="-Infinity"
-      prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1">
+<StackPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+           minWidth="-Infinity"
+           prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1">
     <children>
         <JFXListView fx:id="helpListView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
                      minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0"/>
+        <AnchorPane fx:id="emptyPane" prefHeight="200.0" prefWidth="200.0" visible="false">
+            <children>
+                <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="100.0" layoutY="200.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../images/404.png"/>
+                    </image>
+                </ImageView>
+            </children>
+        </AnchorPane>
     </children>
-</VBox>
+</StackPane>
