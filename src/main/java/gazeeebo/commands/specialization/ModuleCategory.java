@@ -1,5 +1,10 @@
+//@@author e0323290
+
 package gazeeebo.commands.specialization;
 
+/**
+ * Parts of a technical elective.
+ */
 public class ModuleCategory {
     /**
      * Module code for a technical elective.

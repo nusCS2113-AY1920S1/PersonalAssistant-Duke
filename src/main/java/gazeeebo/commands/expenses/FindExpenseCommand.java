@@ -1,3 +1,5 @@
+//@@author e0323290
+
 package gazeeebo.commands.expenses;
 
 import gazeeebo.UI.Ui;
@@ -22,11 +24,11 @@ public class FindExpenseCommand {
     public FindExpenseCommand(final Ui ui,
                               final Map<LocalDate,
                                       ArrayList<String>> expenses) {
+        try {
         String date = ui.fullCommand.split(" ")[1];
-
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateOfPurchase;
-        try {
+
             dateOfPurchase = LocalDate.parse(date, fmt);
             boolean isExist = false;
             for (LocalDate key : expenses.keySet()) {
@@ -42,7 +44,10 @@ public class FindExpenseCommand {
             if (!isExist) {
                 System.out.println(date + " is not found in the list.");
             }
-        } catch (DateTimeParseException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.print("Please input in the correct format\n");
+        } catch (
+                DateTimeParseException e) {
             System.out.println("Wrong date format");
         }
     }

@@ -2,6 +2,7 @@
 
 package gazeeebo.storage;
 
+import gazeeebo.logger.LogCenter;
 import gazeeebo.notes.Assessment;
 import gazeeebo.notes.GeneralNotePage;
 import gazeeebo.notes.Module;
@@ -10,8 +11,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class NotePageStorage {
+
+    private static final Logger logger = Logger.getLogger(NotePageStorage.class.getName());
 
     private static final String FILE_GOAL = "goal.txt";
     private static final String FILE_MODULES = "modules.txt";
@@ -21,10 +26,15 @@ public class NotePageStorage {
      * @throws IOException if the file cannot be written to
      */
     public static void writeToGoalFile() throws IOException {
-        FileWriter file = new FileWriter(FILE_GOAL);
-        file.write(GeneralNotePage.goal);
-        file.flush();
-        file.close();
+        LogCenter.setUpLogger(logger);
+        try {
+            FileWriter file = new FileWriter(FILE_GOAL);
+            file.write(GeneralNotePage.goal);
+            file.flush();
+            file.close();
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Can't write to goal file", e);
+        }
     }
 
     /**

@@ -1,4 +1,6 @@
+//@@ author mononokehime14
 package TriviaTest;
+import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.TriviaManager.TriviaManager;
 import org.junit.jupiter.api.AfterEach;
@@ -38,7 +40,7 @@ public class TriviaManagerTest {
     }
 
     @Test
-    public void testShowPossibleInput() throws IOException{
+    public void testShowPossibleInput() throws IOException, DukeException {
         String testinput = "Love Qinhuai River";
         Storage storage = new Storage();
         TriviaManager triviaManager= new TriviaManager(storage);
