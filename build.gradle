@@ -8,7 +8,7 @@ plugins {
 }
 
 group 'seedu.duchess'
-version '1.1.0'
+version '1.4.0'
 
 checkstyle {
     toolVersion = '8.23'
@@ -16,7 +16,7 @@ checkstyle {
 
 shadowJar {
     archiveBaseName = "duchess"
-    archiveVersion = "1.1.0"
+    archiveVersion = "1.4.0"
     archiveClassifier = null
     archiveAppendix = null
 }
@@ -76,7 +76,7 @@ repositories {
 }
 
 application {
-    mainClassName = "Duke"
+    mainClassName = "Duchess"
 }
 
 

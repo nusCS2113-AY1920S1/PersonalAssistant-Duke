@@ -7,18 +7,35 @@ import duchess.storage.Storage;
 import duchess.storage.Store;
 import duchess.ui.Ui;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Command to delete given module.
+ */
 public class DeleteModuleCommand extends Command {
+    private static final String VALID_NUMBER_MSG = "Please supply a valid number.";
+
     private final int moduleNo;
 
+    /**
+     * Deletes the module given an index.
+     *
+     * @param moduleNo the index of the module to delete
+     */
     public DeleteModuleCommand(int moduleNo) {
         this.moduleNo = moduleNo - 1;
     }
 
+    /**
+     * Deletes a module if there are no associated tasks.
+     *
+     * @param store the application store
+     * @param ui the application ui
+     * @param storage the storage instance
+     * @throws DuchessException if the index is invalid
+     */
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
         try {
@@ -36,7 +53,7 @@ public class DeleteModuleCommand extends Command {
                 ui.showUnableToDeleteModuleMsg(associatedTasks);
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new DuchessException("Please supply a valid number.");
+            throw new DuchessException(VALID_NUMBER_MSG);
         }
     }
 }

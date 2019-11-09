@@ -6,7 +6,13 @@ import duchess.storage.Storage;
 import duchess.storage.Store;
 import duchess.ui.Ui;
 
-public class Duke {
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
+public class Duchess {
 
     private Storage storage;
     private Store store;
@@ -14,14 +20,25 @@ public class Duke {
     private Parser parser;
 
     /**
-     * Creates an instant of Duke to be executed.
+     * Creates an instant of Duchess to be executed.
      *
      * @param filePath name of file to store tasks
      */
-    private Duke(String filePath) {
+    private Duchess(String filePath) {
+        Logger logger = Logger.getLogger("Duchess");
+        logger.setUseParentHandlers(false);
+
+        try {
+            FileHandler logFileHandler = new FileHandler("duchess.log");
+            logFileHandler.setFormatter(new SimpleFormatter());
+            logger.addHandler(logFileHandler);
+        } catch (IOException e) {
+            System.out.println("Unable to start logger, continuing without logging.");
+        }
+
         ui = new Ui();
         storage = new Storage(filePath);
-        parser = new Parser();
+        parser = new Parser(logger);
 
         try {
             store = storage.load();
@@ -33,7 +50,7 @@ public class Duke {
     }
 
     /**
-     * Begins the execution of Duke.
+     * Begins the execution of Duchess.
      */
     private void run() {
         ui.showWelcome();
@@ -63,6 +80,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("data.json").run();
+        new Duchess("data.json").run();
     }
 }

@@ -65,7 +65,7 @@ public class Ui {
      */
     public void showWelcome() {
         beginBlock();
-        printIndented("Hello! I'm Duchess");
+        printIndented("Hello! I'm Duchess.");
         printIndented("What can I do for you?");
         endBlock();
     }

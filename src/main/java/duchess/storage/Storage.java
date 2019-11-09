@@ -54,13 +54,9 @@ public class Storage {
         redoStack = new LinkedList<>();
     }
 
-    // Unchecked type coercion is necessary here.
-    // And possible cast exceptions are handled
-
     /**
      * Returns the tasklist loaded from file.
      */
-    @SuppressWarnings("unchecked")
     public Store load() throws DuchessException {
         try {
             FileInputStream fileStream = new FileInputStream(this.fileName);
@@ -236,7 +232,7 @@ public class Storage {
         try {
             jsonVal = getObjectMapper().writeValueAsString(store);
         } catch (JsonProcessingException e) {
-            jsonVal = new String();
+            jsonVal = "";
             assert (jsonVal.equals(""));
         }
         return jsonVal;

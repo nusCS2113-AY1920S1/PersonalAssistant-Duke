@@ -73,7 +73,7 @@ public class Parser {
     public static final String TASK_INVALID_WEIGHTAGE =
             "Please enter a weightage between 0 to 100. (enter 'nil' to skip)";
 
-    private static final Logger logger = Logger.getLogger("Parser");
+    private final Logger logger;
 
     /**
      * Error messages.
@@ -84,10 +84,19 @@ public class Parser {
     private ParserState parserState;
 
     /**
-     * Initializes the duchess parser.
+     * Initializes the duchess parser with a logger.
+     */
+    public Parser(Logger logger) {
+        this.parserState = new DefaultState(this);
+        this.logger = logger;
+    }
+
+    /**
+     * Initializes the duchess parser with a default logger.
      */
     public Parser() {
         this.parserState = new DefaultState(this);
+        this.logger = Logger.getLogger("Duchess");
     }
 
     /**

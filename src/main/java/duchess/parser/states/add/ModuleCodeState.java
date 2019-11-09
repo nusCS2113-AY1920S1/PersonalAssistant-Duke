@@ -4,7 +4,6 @@ import duchess.logic.commands.AddModuleCommand;
 import duchess.logic.commands.Command;
 import duchess.logic.commands.DisplayCommand;
 import duchess.parser.Parser;
-import duchess.parser.Util;
 import duchess.parser.states.DefaultState;
 import duchess.parser.states.ParserState;
 
@@ -30,6 +29,13 @@ public class ModuleCodeState extends ParserState {
         this.moduleName = moduleName;
     }
 
+    /**
+     * Processes module code input by the user.
+     *
+     * @param code the module code
+     * @param parameters the rest of the input
+     * @return the command to execute in response
+     */
     @Override
     public Command process(String code, Map<String, String> parameters) {
         Optional<Command> createCommand = Optional.ofNullable(code)
