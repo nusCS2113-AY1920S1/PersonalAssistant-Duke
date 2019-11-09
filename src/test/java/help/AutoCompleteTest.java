@@ -10,8 +10,8 @@ import java.util.List;
 public class AutoCompleteTest {
     private final String[] list = {
             "init [existing savings] [Avg Monthly Expenditure]",
-            "add income [desc] /amt [amount in dollars] /on [d/mm/yyyy]",
-            "spent [desc] /amt [amount in dollars] /cat [category] /on [d/mm/yyyy]",
+            "add income [desc] /amt [amount in dollars] /on [date]",
+            "spent [desc] /amt [amount in dollars] /cat [category] /on [date]",
             "delete income [index]",
             "delete expenditure [index]",
             "list all income",
@@ -37,8 +37,6 @@ public class AutoCompleteTest {
             "list outgoing loans",
             "paid [amount] /to [other party]",
             "received [amount] /from [other party]",
-            "split [desc] /amt [amount in dollars] /on [d/m/yyyy] /parties [other party] and [other party] and ...",
-            "settle [index] [index/name of party]",
             "bank-account [desc] /amt [initial amount of money] /at [initial date] /rate [interest rate]",
             "delete bank-account [index of the tracker]",
             "check-balance [desc] /at [the future date]",
