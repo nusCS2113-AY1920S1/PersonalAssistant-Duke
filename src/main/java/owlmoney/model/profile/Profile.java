@@ -1,7 +1,5 @@
 package owlmoney.model.profile;
 
-import static owlmoney.commons.log.LogsCenter.getLogger;
-
 import owlmoney.model.bank.Bank;
 import owlmoney.model.bank.BankList;
 import owlmoney.model.bank.Investment;
@@ -33,6 +31,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
+
+import static owlmoney.commons.log.LogsCenter.getLogger;
 
 /**
  * Stores details of the user which includes bank accounts, cards, names.
@@ -1458,11 +1458,7 @@ public class Profile {
      * Prints reminder for goals that is due in 10 days.
      */
     public void profileReminderForGoals() {
-        Goals goals = goalsList.reminderForGoals();
-        if (goals != null) {
-            ui.printMessage("\nREMINDER ON YOUR GOALS: ");
-            ui.printMessage(goals.getGoalsName() + " is due in " + goals.convertDateToDays() + " days. \nYou still "
-                    + "have a remaining of $" + goals.getRemainingAmount() + " to reach your goal!");
-        }
+        goalsList.reminderForGoals(ui);
+        goalsList.overdueGoals(ui);
     }
 }
