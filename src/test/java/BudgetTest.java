@@ -8,9 +8,11 @@ import mistermusik.logic.EndBeforeStartException;
 import mistermusik.logic.EventList;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class BudgetTest {
     @Test
@@ -25,27 +27,17 @@ public class BudgetTest {
         readFromFile.add(fileContent);
 
         EventList eventListTest = new EventList(readFromFile);
-        boolean succeededInAddingConcert;
         try {
             eventListTest.addEvent(new Concert("good concert", "05-12-2019 1500",
                     "05-12-2019 1600",44));
-            succeededInAddingConcert = true;
         } catch (CostExceedsBudgetException | EndBeforeStartException | ClashException e) {
-            System.out.println("1");
-            succeededInAddingConcert = false;
+            fail();
         }
-        assertTrue(succeededInAddingConcert);
 
-        boolean CostExceededBudget = false;
-        try {
+        assertThrows(CostExceedsBudgetException.class, ()-> {
             eventListTest.addEvent(new Concert("good concert", "06-12-2019 1500",
                     "06-12-2019 1600",2));
-        } catch (CostExceedsBudgetException e) { //entry should exceed cost
-            CostExceededBudget = true;
-        } catch (ClashException | EndBeforeStartException e) {
-        }
-
-        assertTrue(CostExceededBudget);
+        });
     }
 
     @Test
@@ -53,12 +45,10 @@ public class BudgetTest {
         Budgeting testBudgeting = new Budgeting(new ArrayList<Event>(), 5);
         assertEquals(5, testBudgeting.getBudget());
 
-        try {
+        assertThrows(CostExceedsBudgetException.class, () -> {
             testBudgeting.updateMonthlyCost(new Concert("test1", "2-12-2019 1500",
                     "2-12-2019 1600", 6));
-            fail();
-        } catch (CostExceedsBudgetException e) {
-        }
+        });
 
         testBudgeting.setBudget(75);
         assertEquals(75, testBudgeting.getBudget());
@@ -84,11 +74,9 @@ public class BudgetTest {
             fail();
         }
 
-        try {
+        assertThrows(CostExceedsBudgetException.class, () -> {
             testBudgeting.updateMonthlyCost(new Concert("test4", "2-12-2019 1500",
                     "2-12-2019 1600", 61));
-            fail();
-        } catch (CostExceedsBudgetException e) {
-        }
+        });
     }
 }
