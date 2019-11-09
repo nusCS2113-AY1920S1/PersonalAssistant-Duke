@@ -1,5 +1,13 @@
 package controllers;
 
+import static util.constant.ConstantHelper.COMMAND_ADD_MEMBER;
+import static util.constant.ConstantHelper.COMMAND_DELETE_MEMBER;
+import static util.constant.ConstantHelper.COMMAND_DELETE_TASK;
+import static util.constant.ConstantHelper.COMMAND_EDIT_MEMBER;
+import static util.constant.ConstantHelper.COMMAND_EDIT_TASK;
+import static util.constant.ConstantHelper.COMMAND_EDIT_TASK_REQ;
+import static util.constant.ConstantHelper.COMMAND_VIEW_TASKS;
+import static util.constant.ConstantHelper.COMMAND_VIEW_TASK_REQ;
 import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
 
 import java.text.ParseException;
@@ -182,11 +190,11 @@ public class ProjectInputController implements IController {
     public String[] projectAddMember(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectToManage] User input: '"
                 + projectCommand + "'");
-        if (projectCommand.length() < 11) {
+        if (projectCommand.length() < COMMAND_ADD_MEMBER.length()) {
             return new String[] {"Add member command minimum usage must be \"add member -n NAME\"!",
                                  "Please refer to user guide for additional details."};
         }
-        String memberDetails = projectCommand.substring(11);
+        String memberDetails = projectCommand.substring(COMMAND_ADD_MEMBER.length());
         int numberOfCurrentMembers = projectToManage.getNumOfMembers();
         memberDetails = memberDetails + " -x " + numberOfCurrentMembers;
         IMember newMember = memberFactory.create(memberDetails);
@@ -216,7 +224,8 @@ public class ProjectInputController implements IController {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectEditMember] User input: '"
                 + projectCommand + "'");
         try {
-            int memberIndexNumber = Integer.parseInt(projectCommand.substring(12).split(" ")[0]);
+            int memberIndexNumber =
+                Integer.parseInt(projectCommand.substring(COMMAND_EDIT_MEMBER.length()).split(" ")[0]);
             if (projectToManage.getNumOfMembers() >= memberIndexNumber && memberIndexNumber > 0) {
                 String updatedMemberDetails = projectCommand.substring(projectCommand.indexOf("-"));
                 String output = projectToManage.editMember(memberIndexNumber,updatedMemberDetails);
@@ -240,7 +249,7 @@ public class ProjectInputController implements IController {
     public String[] projectDeleteMember(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectDeleteMember] User input: '"
                 + projectCommand + "'");
-        if (projectCommand.length() <= 14) {
+        if (projectCommand.length() <= COMMAND_DELETE_MEMBER.length()) {
             return new String[] {"Can't delete members: No member index numbers detected!",
                 "Please enter them as space-separated integers."};
         }
@@ -339,12 +348,13 @@ public class ProjectInputController implements IController {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectEditTask] User input: '"
                 + projectCommand + "'");
         try {
-            if (projectCommand.length() <= 10) {
+            if (projectCommand.length() <= COMMAND_EDIT_TASK.length()) {
                 return new String[]
                 {"No parameters detected. Please enter details in the following format:",
                  "TASK_INDEX [-t TASK_NAME] [-p TASK_PRIORITY] [-d TASK_DUEDATE] [-c TASK_CREDIT] [-s STATE]"};
             } 
-            int taskIndexNumber = Integer.parseInt(projectCommand.substring(10).trim().split(" ")[0]);
+            int taskIndexNumber =
+                Integer.parseInt(projectCommand.substring(COMMAND_EDIT_TASK.length()).trim().split(" ")[0]);
             if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
                 if (!projectCommand.contains("-")) {
                     return new String[] {"No flags are found! Available flags for use are '-t', '-p, '-d', '-c' and "
@@ -371,12 +381,13 @@ public class ProjectInputController implements IController {
     public String[] projectDeleteTask(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(), "[projectDeleteTask] User input: '"
                 + projectCommand + "'");
-        if (projectCommand.length() <= 12) {
+        if (projectCommand.length() <= COMMAND_DELETE_TASK.length()) {
             return new String[] {"No task number detected! Please enter the task index number."};
         }
         ParserHelper parserHelper = new ParserHelper();
-        ArrayList<Integer> validTaskIndexes = parserHelper.parseTasksIndexes(projectCommand.substring(12),
-            projectToManage.getNumOfTasks());
+        ArrayList<Integer> validTaskIndexes =
+            parserHelper.parseTasksIndexes(projectCommand.substring(COMMAND_DELETE_TASK.length()),
+                projectToManage.getNumOfTasks());
         ArrayList<String> outputMessages = new ArrayList<>(parserHelper.getErrorMessages());
         // Sort to ensure task indexes work in the correct way
         Collections.sort(validTaskIndexes);
@@ -399,11 +410,12 @@ public class ProjectInputController implements IController {
     public String[] projectEditTaskRequirements(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(),
                 "[projectEditTaskRequirements] User input: '" + projectCommand + "'");
-        if (projectCommand.length() <= 23) {
+        if (projectCommand.length() <= COMMAND_EDIT_TASK_REQ.length()) {
             return new String[] {"Task index is missing! Please input index of task to be edited!"};
         }
         try {
-            int taskIndexNumber = Integer.parseInt(projectCommand.substring(23).trim().split(" ")[0]);
+            int taskIndexNumber =
+                Integer.parseInt(projectCommand.substring(COMMAND_EDIT_TASK_REQ.length()).trim().split(" ")[0]);
             if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
                 if (!projectCommand.contains("-")) {
                     return new String[] {"No flags are found! Please use flags such as '-r' or '-rm' to indicate "
@@ -429,11 +441,11 @@ public class ProjectInputController implements IController {
     private String[] projectViewTaskRequirements(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(),
                 "[projectViewTaskRequirements] User input: '" + projectCommand + "'");
-        if (projectCommand.length() < 23) {
+        if (projectCommand.length() < COMMAND_VIEW_TASK_REQ.length()) {
             return new String[] {"Please indicate the index of the task to be viewed."};
         } else {
             try {
-                int taskIndex = Integer.parseInt(projectCommand.substring(23));
+                int taskIndex = Integer.parseInt(projectCommand.substring(COMMAND_VIEW_TASK_REQ.length()));
                 if (projectToManage.getNumOfTasks() >= taskIndex && taskIndex > 0) {
                     if (projectToManage.getTask(taskIndex).getNumOfTaskRequirements() == 0) {
                         return new String[] {"This task has no specific requirements."};
@@ -477,8 +489,8 @@ public class ProjectInputController implements IController {
                 }
                 return viewHelper.consolePrintMultipleTables(allTaskDetailsForTable, DEFAULT_HORI_BORDER_LENGTH, 2,
                         "Tasks of " + projectToManage.getName() + ":");
-            } else if (projectCommand.length() >= 11) {
-                String sortCriteria = projectCommand.substring(11);
+            } else if (projectCommand.length() >= COMMAND_VIEW_TASKS.length()) {
+                String sortCriteria = projectCommand.substring(COMMAND_VIEW_TASKS.length());
                 HashMap<String, ArrayList<String>> tasksAndAssignedMembers
                     = projectToManage.getTasksAndAssignedMembers();
                 ArrayList<ArrayList<String>> allTaskDetailsForTable =

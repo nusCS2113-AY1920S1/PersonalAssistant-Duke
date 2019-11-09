@@ -58,7 +58,7 @@ public class AssignmentController {
         }
 
         if (validAssignees.size() == 0 && validUnassignees.size() == 0) {
-            errorMessages.add("No valid member indexes detected. No tasks can be assigned.");
+            errorMessages.add("No valid member indexes detected. No tasks can be assigned/unassigned.");
             errorMessages.add("Please check that you are using valid member indexes.");
             errorMessages.add("Also ensure that the correct flags are used: "
                 + "'-to' for assignees, '-rm' for unassignees.");

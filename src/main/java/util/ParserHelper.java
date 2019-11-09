@@ -1,13 +1,12 @@
 package util;
 
-import models.member.Member;
 import models.project.Project;
 import models.task.Task;
 import util.validation.ValidityHelper;
 import static util.constant.ConstantHelper.ALL_MARKER;
 import static util.constant.ConstantHelper.ASSIGNEE_MARKER;
 import static util.constant.ConstantHelper.BLANK;
-import static util.constant.ConstantHelper.INDEX_NUMBER_MARKER;
+import static util.constant.ConstantHelper.ASSIGNMENT_INDEX_NUMBER_MARKER;
 import static util.constant.ConstantHelper.UNASSIGNEE_MARKER;
 
 import java.util.ArrayList;
@@ -352,7 +351,7 @@ public class ParserHelper {
                 continue;
             }
             switch (part[0]) {
-            case INDEX_NUMBER_MARKER:
+            case ASSIGNMENT_INDEX_NUMBER_MARKER:
                 if (commandPart.length() >= 3) {
                     allTaskIndexes = commandPart.substring(2).trim();
                 }
