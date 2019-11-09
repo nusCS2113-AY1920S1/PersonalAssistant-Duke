@@ -241,7 +241,7 @@ public class UI {
     /**
      * prints goodbye message
      */
-    public static void bye() {
+    public static void printGoodbyeMsg() {
         System.out.print(lineSeparation + "Bye. Hope to see you again soon!\n" + lineSeparation);
     }
 
@@ -258,7 +258,7 @@ public class UI {
      * @param eventAdded event in question
      * @param numEvents  total number of events
      */
-    public void eventAdded(Event eventAdded, int numEvents) {
+    public void printEventAdded(Event eventAdded, int numEvents) {
         try {
             System.out.println(lineSeparation + "Got it. I've added this event:");
             System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
@@ -321,7 +321,7 @@ public class UI {
     /**
      * prints message if command does not contain valid input for related event.
      */
-    public void noSuchEvent() {
+    public void printNoSuchEvent() {
         System.out.print(lineSeparation);
         System.out.println("There is no such event! Please try again.");
         System.out.print(lineSeparation);
@@ -338,7 +338,7 @@ public class UI {
     /**
      * prints message if no event description is found when adding a new event to the list
      */
-    public void eventDescriptionEmpty() {
+    public void printEventDescriptionEmpty() {
         System.out.print(lineSeparation);
         System.out.println("The description of your event cannot be empty!");
         System.out.print(lineSeparation);
@@ -351,7 +351,7 @@ public class UI {
         System.out.print(lineSeparation);
     }
 
-    public void budgetCommandWrongFormat() {
+    public void printBudgetCommandWrongFormat() {
         System.out.print(lineSeparation);
         System.out.println("The format of budget command is wrong.");
         System.out.println("Please enter \"budget MM-yyyy\" to view monthly cost of concerts.");
@@ -379,7 +379,7 @@ public class UI {
         System.out.print(lineSeparation);
     }
 
-    public void eventEndsBeforeStart() {
+    public void printEventEndsBeforeStart() {
         System.out.print(lineSeparation);
         System.out.println("The event you added ends before it starts! Please try again.");
         System.out.print(lineSeparation);
@@ -388,7 +388,7 @@ public class UI {
     /**
      * prints message when expected number from input is not an integer
      */
-    public void notAnInteger() {
+    public void printNotAnInteger() {
         System.out.print(lineSeparation);
         System.out.println("That is not a valid integer! Please check the value you entered!");
         System.out.print(lineSeparation);
@@ -397,7 +397,7 @@ public class UI {
     /**
      * prints message when input format is wrong for addition of new event type event.
      */
-    public void newEntryFormatWrong() {
+    public void printNewEntryFormatWrong() {
         System.out.print(lineSeparation);
         System.out.println("Please enter the date in the format 'dd-MM-yyyy HHmm HHmm' for Event" +
                 " or 'dd-MM-yyyy' for ToDo.\n" +
@@ -406,7 +406,7 @@ public class UI {
         System.out.print(lineSeparation);
     }
 
-    public void scheduleClash(Event event) {
+    public void printScheduleClash(Event event) {
         System.out.print(lineSeparation);
         System.out.println("That event clashes with another in the schedule! " +
                 "Please resolve the conflict and try again!");
@@ -451,7 +451,7 @@ public class UI {
         System.out.print(lineSeparation);
     }
 
-    public void errorWritingToFile() {
+    public void printErrorWritingToFile() {
         System.out.print(lineSeparation);
         System.out.println("Error writing to file! Details not saved!");
         System.out.print(lineSeparation);
@@ -484,7 +484,7 @@ public class UI {
         System.out.println("\nEnter a command:");
     }
 
-    public void costExceedsBudget(Concert concert, int budget) {
+    public void printCostExceedsBudgetMsg(Concert concert, int budget) {
         System.out.print(lineSeparation);
         System.out.println("The following concert you wanted to add causes you to exceed the stipulated budget for that month!");
         System.out.println(concert.toString());
@@ -618,7 +618,7 @@ public class UI {
     	System.out.println(lineSeparation);
     }
 
-    public static void budgetSet(int newBudget) {
+    public static void printBudgetSet(int newBudget) {
         System.out.print(lineSeparation);
         System.out.println("Success! Your new monthly budget is $" + newBudget);
         System.out.print(lineSeparation);

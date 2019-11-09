@@ -1,3 +1,4 @@
+//@@author
 
 package mistermusik;
 
@@ -29,7 +30,7 @@ public class Main {
         setup();
         ui.welcome();
         String userInput = parser.readUserInput().toLowerCase();
-        while (!userInput.equals("bye")) {
+        while (!userInput.equals("printGoodbyeMsg")) {
             if(userInput.equals("calendar on")) { allowCalendarFrequentPrint = true; }
             else if (userInput.equals("calendar off")) { allowCalendarFrequentPrint = false; }
             Command currCommand = parser.parseInput(userInput);
@@ -37,7 +38,7 @@ public class Main {
             userInput = parser.readUserInput();
         }
 
-        ui.bye();
+        ui.printGoodbyeMsg();
     }
 
     /**

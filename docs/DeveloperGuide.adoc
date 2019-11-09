@@ -173,7 +173,7 @@ If there is any overlap, the `timeClash` method will return *_true_* as a boolea
 The `clashEvent` method then throws an exception `ClashException`, indicating that there was indeed a schedule
 clash between the desired new entry and some pre-existing Event.
 
-The details of the clashing Event are passed back to `Command` object so that it can be used to inform the
+The details of the clashing Event are passed back to `Command` object via the exception so that it can be used to inform the
 user about the clashing event. The user is then required to fix the conflict before continuing,
 either by rescheduling or deleting the pre-existing event, or by choosing a different date/time for
 the new Event entry.
@@ -207,7 +207,44 @@ in the pre-existing list, the following output should be printed: +
 This is followed by the following line indicating the details of the detected clash: +
 #"Clashes with: [E][X] YST Final project review START: Tue, 03 Dec 2019, 15:00 END: Tue, 03 Dec 2019, 18:00#
 
+==== Design considerations
+While designing the clash handling system, i had to decide how best to: +
+1. Detect a clash. +
+2. Pass relevant information back to the caller class for further usage. +
+
+|=========================================================
+|Aspect |Alternative 1 |Alternative 2
+
+|How clashes were detected |
+Simple if-else statements instead of using exception handling. +
+
+Pros: Much easier to implement and simpler to work with. +
+
+Cons: Less scalability as it would be harder to integrate the functionality into new features.|
+Have a specific command/method so that the current list can be checked for a clash at will.
+
+Pros: Much more flexible, and even more scalable than the current implementation as it would be possible
+to do anything regarding changes to the list, and then later check for clashes.
+
+Cons: Much more room for error, since clashes are allowed to exist within the list normally, and are not
+automatically detected. This could lead to major bugs related to events that overlap eac other.
+
+|How relevant information is passed up the chain|
+Simply returning the relevant event that caused the clash as a part of the method call. +
+
+Pros: Extremely simple to understand. Easy to implement. No need to deal with exception handling, just
+code for specific case in the event of a clash. +
+
+Cons: Less scalable. If a developer wants to add more functionality to the clash handling(e.g return more data), he/she
+would need to return a new object containing the relevant data.|
+|=========================================================
+
 === Add recurring events
+==== Activity diagram
+The following is the activity diagram for adding recurring events.
+
+image::recurringEventActivityDiagram.png[with="800"]
+
 ==== How it is implemented
 The program is able to detect recurring events and their periods when creating new events.
 When the user enters the command to add a new `Lesson` or `Practice` event with a period (in days) followed,
@@ -230,14 +267,8 @@ current eventList and then added in a temporary event list one by one. If no cla
 be added to the current `eventList`.
 
 Given below is an example usage scenario compared to adding non-recurring event. +
-Recurring event: `Lesson` or `Practice` <event description> /dd-MM-yyyy HHmm HHmm `/period(in days)` +
+Recurring event: `lesson|practice` <event description> /dd-MM-yyyy HHmm HHmm `/<period(in days)>` +
 Non-recurring event: <event type> <event description> /dd-MM-yyyy HHmm HHmm
-
-==== Sequence diagram
-The following sequence diagram shows how the adding recurring event operation works.
-====
-image::recurringEventSequenceDiagram.png[width = 100%]
-====
 
 ==== Why it is implemented this way
 . Whether the input command has a period is considered at the first, so that the dependency between adding
@@ -250,6 +281,49 @@ current eventList. Hence, before added in the temporary event list, the new even
 happens.
 . To keep the format of creating new events, the format process of changing Java Date to String is done in the
 `EventDate` class instead of messing the `Event` class to accept both Date and String types as input date and time.
+
+==== Sequence diagram
+The following sequence diagram shows how the adding recurring event operation works.
+
+image::recurringEventSequenceDiagram.png[width="800"]
+
+==== Design considerations
+Aspect: How to avoid adding infinite events +
+
+- *Alternative 1 (current choice):* Set a upper limit to ensure the interval between the first and last events added to
+list is not too long.
+    - Pros: Easy to implement. Easy to add lesson and practice in one semester.
+    - Cons: Not agility. May add too many extra events if users want short interval between the first and last
+recurring events.
+- *Alternative 2:* Let users to set the interval between the first and last recurring events.
+    - Pros: Will be more agility and user friendly.
+    - Cons: Hard to unify the command format.
+
+=== Contacts list
+==== How is it implemented
+The contacts list stores a list of contacts contain <name>, <email address>, and <phone number> information added by
+users. The list is stored in each individual event. When the user first creates the event, the event is created with an
+empty contact list. +
+*Users can add, edit, delete a specified contact item, and view the contacts list of a specified event.*
+
+- Given below is an example to adding a contact: +
+`contact add <event number> /<name>, <email address>, <phone number>`
+- To view contact list of an event: +
+`contact view <event number>`
+- To edit a contact in the contact list: +
+`contact edit <event number> <contact number> <name|email|phone> /<new contact>`
+- To delete a contact in the contact list: +
+`contact delete <event number> <contact number>`
+
+==== Why is it implemented this way
+. For different events, users may have different people to contact with. So a empty contact list is created under each
+event. For some events, users may have more than one person to contact with. Hence, users are allowed add more contact
+items under one event.
+. We want to keep the information highly relative to contact, so users just need to add <name>, <email address>, and
+<phone number> for a contact item. Sometimes may not have the email or phone number of a person, so it also allows users
+to add one of <email address> and <phone number>.
+. The main propose of MisterMusik is schedule events, so the contact list is hidden on the basic list viewing. Users can
+use command `contact view <event number>` to see the contact list of the specified event.
 
 === Viewing specific dates
 ==== How is it implemented
@@ -575,6 +649,20 @@ Extensions 5.1: User inputs an invalid rating.
 . Key in `list` as input +
   Expected: A list of items is printed in stdout.
 
+=== Help list for input format
+. Find help for basic commands' format
+.. Test case: `help` +
+Expected: The whole help list with basic commands will be printed.
+.. Test case: `help list` +
+Expected: The whole help list including list command will be printed.
+.. Test case: `help reminder` +
+Expected: The whole help list including reminder command will be printed.
+
+. Find help for additional commands' format
+.. Test case: `help event` +
+Expected: The list of command formats of adding events will be printed.
+.. Test case: `help done` +
+Expected: The list of command formats of changing event's information including setting a todo as done will be printed.
 
 === Add an Event
 . Add Todo +
@@ -621,6 +709,26 @@ Extensions 5.1: User inputs an invalid rating.
    [x][L] Class  START: Mon, 09 Sep 2019, 09:00 END: Mon, 09 Sep 2019, 01:00 +
    Now you have <previous number of items + 1> tasks in the list.
 
+=== Add recurring events
+. Add lessons and practices within correct period range
+.. Test case: `lesson recurring lesson /01-01-2020 1800 2000 /7` +
+Expected: 17 events with 7 days period are added to the list. And details of the first recurring event will be printed
+out. The number of events in the list printed should be <previous number of items + 17>.
+.. Test case: `practice recurring practice /02-01-2020 0600 0800 /20` +
+Expected: 6 events with 20 days period are added to the list. And details of the first recurring event will be printed
+out. The number of events in the list printed should be <previous number of items + 6>.
+
+. Add recurring events with period larger than default range
+.. Test case: `lesson large period /03-01-2020 1000 1200 /365` +
+Expected: Only one event will be added to the list. And details of it will be printed out. The number of events in the
+list printed should be <previous number of items + 1>.
+
+. Add recurring events with non-positive period
+.. Test case: `practice negative period /04-01-2020 1200 1300 /-4` +
+Expected: A message inform users to ensure the period number is positive integer is printed.
+.. Test case: `lesson zero period /05-01-2020 1200 1300 /0` +
+Expected: A message inform users to ensure the period number is positive integer is printed.
+
 === Set a Task as done
 Key in `done 1` +
 Expected: Prints a message that the first task on the list has been marked as done.
@@ -643,11 +751,21 @@ Key in `<edit> <event index>/<new description>`.+
 Expected: Prints the success of editing event of index `<event index>`.
 
 === Reschedule an event
-Key in `reschedule <event index> <new date> <new start time> <new end time>`,
-where `<new date> <new start time> <new end time>` has the format dd-MM-yyyy HH:mm HH:mm. +
-Expected: Prints the success of rescheduling event of index `<event index>`. +
-e.g `reschedule 3 2-12-2019 1500 1600` will change the third (by list index) event's date and time to
-2nd Dec 2019, starts 1500 ends 1600.
+. Prerequisites: Event list is not empty, and at least has one type of event.
+
+. Reschedule an event in the list
+.. Test case: `reschedule 1 01-01-2020 0000 0100` +
+Expected: If clash with other event in the list, the details of clash will be printed. If the No.1 in the list is a
+Todo, the message of rescheduling only works on events will be printed. If no clash and not Todo, the No.1 event will
+be rescheduled to 01-01-2020 0000 0100, and the successfully rescheduled message will be printed.
+
+. Reschedule an event which is not in the list
+.. Test case: `reschedule 0 01-09-2019 1300 1400` +
+Expected: The message notice users the correct input format of rescheduling will be printed.
+.. Test case: `reschedule -3 01-09-2019 1300 1400` +
+Expected: The message notice users the correct input format of rescheduling will be printed.
+.. Test case: `reschedule abc 01-09-2019 1300 1400` +
+Expected: The message notice users the correct input format of rescheduling will be printed.
 
 === Check the next 3 free days
 Key in `check`. +
@@ -659,21 +777,29 @@ Expected: Prints the calendar table containing all events of the next 7 days,
 where the first column of the table is the current day.
 
 === Contact management
-. Add contact to an event in the list +
-Key in `contact add <event index> /<name>, <email>, <phone number>` +
-Expected: Prints the success of adding the contact.
+. Prerequisites: Event list is not empty, and at least has one type of event.
 
-. Delete contact +
-Key in `contact delete <event index> <contact index> /` +
+. Add contact to an event in the list
+.. Test case: `contact add 1 /name a,email a,phone a` +
+Expected: The contact is added to the contact list under No.1 event. Prints the success of adding the contact.
+.. Test case: `contact add 1 /name c,email c,` +
+Expected: The contact is added to the contact list under No.1 event. Prints the success of adding the contact.
+.. Test case: `contact add 1 /name d, ,` +
+Expected: The contact is added to the contact list under No.1 event. Prints the success of adding the contact.
+
+. View contact of an specified event
+.. Test case: `contact view 1` +
+Expected: Prints all of the contacts information in No.1 event.
+
+. Delete a contact in a specified event
+.. Test case: `contact delete 1 3` +
 Expected: Prints the success of deleting the contact.
 
-. View contact +
-Key in `contact view <event index> /` +
-Expected: Prints the contacts information in the event.
-
-. Edit contact +
-Key in `contact edit <event index> <contact index> <edit type> /<new contact information>` +
-Expected: Prints the success of editing the contact.
+. Edit a contact in a specified event
+.. Test case: `contact edit 1 2 name /new name` +
+Expected: Prints the success of editing the contact, and the contact details.
+.. Test case: `contact edit 1 2 email /new email` +
+Expected: Prints the success of editing the contact, and the contact details.
 
 === Budgeting
 . Each concert added to the list has a cost denoted at the end of the user input.
