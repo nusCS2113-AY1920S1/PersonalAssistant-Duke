@@ -50,7 +50,6 @@ public class CommandTest {
         writer.println("kiwi: green fruit");
         writer.close();
 
-
         storage = new Storage("\\testdata");
         ui = new Ui();
         bank = storage.loadExcelFile();
