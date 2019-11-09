@@ -91,7 +91,7 @@ public class ViewCommand extends Command {
                     }
                     //@@author matthewng1996
                     ArrayList<Expense> expenseList = new ArrayList<Expense>();
-                    for (Expense e : LogicManager.getWallet().getExpenseList().getExpenseList()) {
+                    for (Expense e : wallet.getExpenseList().getExpenseList()) {
                         if (e.getDate().getMonthValue() == month && e.getDate().getYear() == year) {
                             expenseList.add(e);
                         }

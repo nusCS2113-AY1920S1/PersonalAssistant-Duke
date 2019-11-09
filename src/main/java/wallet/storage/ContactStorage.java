@@ -49,7 +49,7 @@ public class ContactStorage extends Storage<Contact> {
             }
             raf.close();
         } catch (FileNotFoundException e) {
-            //System.out.println(MESSAGE_ERROR_MISSING_FILE);
+            System.out.println(MESSAGE_ERROR_MISSING_FILE);
         } catch (IOException e) {
             System.out.println(MESSAGE_ERROR_FILE_EOF);
         }

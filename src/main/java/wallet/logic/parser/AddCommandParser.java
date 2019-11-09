@@ -10,6 +10,7 @@ import wallet.model.record.Category;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
 import wallet.model.record.RecurrenceRate;
+import wallet.ui.Ui;
 
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -109,7 +110,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             arguments = arguments[1].split(" ", 2);
             cat = Category.getCategory(arguments[0].trim());
             if (cat == null) {
-                System.out.println(MESSAGE_ERROR_INVALID_CATEGORY);
+                Ui.printError(MESSAGE_ERROR_INVALID_CATEGORY);
                 return null;
             }
             if (isRecurring) {
@@ -118,7 +119,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 date = LocalDate.parse(arguments[0].trim(), formatter);
                 freq = RecurrenceRate.getRecurrence(arguments[1].trim());
                 if (freq == null) {
-                    System.out.println(MESSAGE_ERROR_INVALID_RECURRENCE_RATE);
+                    Ui.printError(MESSAGE_ERROR_INVALID_RECURRENCE_RATE);
                     return null;
                 }
             } else {
@@ -129,7 +130,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         } else {
             cat = Category.getCategory(arguments[1].trim());
             if (cat == null) {
-                System.out.println(MESSAGE_ERROR_INVALID_CATEGORY);
+                Ui.printError(MESSAGE_ERROR_INVALID_CATEGORY);
                 return null;
             }
             freq = RecurrenceRate.NO;

@@ -121,7 +121,7 @@ public class LogicManager {
         } catch (WrongDateTimeFormat | WrongParameterFormat | InsufficientParameters | ParseException err) {
             Ui.printError(err.toString());
         } catch (Exception e) {
-            e.printStackTrace();
+            Ui.printError("Error in command!");
         }
         return isExit;
         //@@author
@@ -146,18 +146,6 @@ public class LogicManager {
         //@@author
     }
 
-    /**
-     * Gets the Wallet object.
-     *
-     * @return The Wallet object.
-     */
-    public static Wallet getWallet() {
-        return wallet;
-    }
-
-    public static void setWallet(Wallet wallet1) {
-        wallet = wallet1;
-    }
 
     /**
      * Gets the Reminder object.
