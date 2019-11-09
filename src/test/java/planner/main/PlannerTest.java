@@ -42,6 +42,6 @@ public class PlannerTest extends InputTest {
                 + "\n"
                 + LINE
                 + "\n";
-        assertEquals(expected, outContent.toString().replaceAll("\r", ""));
+        assertEquals(expected, outContent.toString().replace("\r", ""));
     }
 }
