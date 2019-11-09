@@ -20,6 +20,7 @@ public class HelpList {
             + "\t9. help / export : To export a current snapshot of a module's tasks/grades/files or all deadlines "
             + "across modules\n"
             + "\t10. help / score : To score a graded component and mark it as complete\n"
+            + "\t11. help / populate : To load SpinBox with sample data for trying it out \n"
             + horizontalLine);
 
     public final String view = helpOutput.concat(horizontalLine + "\n" + "Command: view\n"
@@ -143,4 +144,9 @@ public class HelpList {
             + "\t2. Export the tasks under module CG1111, while viewing CG1111: export / tasks\n"
             + "\t3. Export all deadlines across all modules: export / deadlines\n"
             + horizontalLine);
+
+    public final String populate = helpOutput.concat(horizontalLine + "\n" + "Command: populate\n"
+        + "Function: To load SpinBox with sample data if no data is currently available.\n"
+        + "Example: populate\n"
+        + horizontalLine);
 }

@@ -8,6 +8,7 @@ import spinbox.Ui;
 import java.util.ArrayDeque;
 
 public abstract class Command {
+    protected static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String NOT_ON_MODULE_PAGE = "Please be on a module page or indicate "
             + "the specific module this action is for.";
     private boolean isExit;

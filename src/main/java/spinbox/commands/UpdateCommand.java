@@ -16,7 +16,6 @@ import java.util.ArrayDeque;
 import java.util.HashMap;
 
 public class UpdateCommand extends Command {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String NON_EXISTENT_MODULE = "This module does not exist.";
     private static final String FILE_MARKED = "Updated file: ";
     private static final String GRADE_MARKED = "Updated graded component: ";

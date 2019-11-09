@@ -19,7 +19,6 @@ import java.util.ArrayDeque;
 import java.util.HashMap;
 
 public class SetDateCommand extends Command {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String TASK_SET = "Task date and time details successfully changed.\n";
     private static final String INVALID_INDEX = "Please enter a valid index to be set.";
     private static final String NON_EXISTENT_MODULE = "This module does not exist.";

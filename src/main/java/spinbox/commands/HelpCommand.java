@@ -56,6 +56,9 @@ public class HelpCommand extends Command {
             case "export":
                 helpOutput = helpText.export;
                 break;
+            case "populate":
+                helpOutput = helpText.populate;
+                break;
             default:
                 throw new InputException(COMMAND_NOT_FOUND);
             }

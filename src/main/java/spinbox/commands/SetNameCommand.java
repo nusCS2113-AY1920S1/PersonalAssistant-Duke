@@ -23,7 +23,6 @@ import java.util.ArrayDeque;
 import java.util.HashMap;
 
 public class SetNameCommand extends Command {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String FILE_SET = "File name successfully changed.\n";
     private static final String NOTE_SET = "Note name successfully changed.\n";
     private static final String TASK_SET = "Task name successfully changed.\n";

@@ -13,6 +13,7 @@ import spinbox.commands.SetNameCommand;
 import spinbox.commands.UpdateCommand;
 import spinbox.commands.UpdateMultipleCommand;
 import spinbox.commands.ViewCommand;
+import spinbox.commands.PopulateCommand;
 import spinbox.commands.ExportCommand;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
@@ -96,6 +97,8 @@ public class Parser {
                 } else if (input.toLowerCase().trim().equals("help")) {
                     action = "help";
                     content = "";
+                } else if (input.toLowerCase().trim().equals("populate")) {
+                    action = "populate";
                 } else {
                     throw new InputException(INVALID_COMMAND);
                 }
@@ -117,6 +120,9 @@ public class Parser {
         switch (action.toLowerCase()) {
         case "bye":
             command = new ExitCommand();
+            break;
+        case "populate":
+            command = new PopulateCommand();
             break;
         case "view":
             command = new ViewCommand(pageDataComponents, content);

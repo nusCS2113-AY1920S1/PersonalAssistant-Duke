@@ -27,7 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AddCommand extends Command {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String MODULE_ADDED = "The following module has been added to SpinBox: ";
     private static final String MODULE_NOT_ADDED = "A module with this code already exists in SpinBox.";
     private static final String NON_EXISTENT_MODULE = "This module does not exist.";
@@ -172,7 +171,6 @@ public class AddCommand extends Command {
                         throw new InputException(EMPTY_TODO_DESCRIPTION);
                     }
                     taskAdded = tasks.add(new Todo(taskDescription));
-                    System.out.println(taskAdded.toString());
 
                     return HORIZONTAL_LINE + "\nAdded into " + module.toString() + " task: " + taskAdded.toString()
                             + "\nYou currently have " + tasks.getList().size()

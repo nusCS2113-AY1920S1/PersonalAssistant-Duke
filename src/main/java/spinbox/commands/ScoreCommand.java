@@ -12,7 +12,6 @@ import java.util.ArrayDeque;
 import java.util.HashMap;
 
 public class ScoreCommand extends Command {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String NON_EXISTENT_MODULE = "This module does not exist.";
     private static final String INVALID_FORMAT = "Please use the valid score format:\n"
             + "Absolute percentage: [score <moduleCode> / <index> marks:<attained>%]" + "\n"

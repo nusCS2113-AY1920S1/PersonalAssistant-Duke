@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class UpdateMultipleCommand extends Command {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String NON_EXISTENT_MODULE = "This module does not exist.";
     private static final String PROVIDE_INDEX = "Please provide the indexes to be updated.";
     private static final String INVALID_INDEX = "Please enter a valid index.";

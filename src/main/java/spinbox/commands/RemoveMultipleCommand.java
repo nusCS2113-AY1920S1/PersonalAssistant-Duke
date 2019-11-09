@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class RemoveMultipleCommand extends Command {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String NON_EXISTENT_MODULE = "This module does not exist.";
     private static final String NOTES_REMOVED = "The specified notes have been successfully removed from ";
     private static final String PROVIDE_INDEX = "Please provide the indexes to be removed.";

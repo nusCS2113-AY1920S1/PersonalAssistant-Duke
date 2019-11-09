@@ -17,7 +17,6 @@ import java.util.ArrayDeque;
 import java.util.HashMap;
 
 public class RemoveCommand extends Command {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String NON_EXISTENT_MODULE = "This module does not exist.";
     private static final String NOTE_REMOVED = "A note has been successfully removed from ";
     private static final String PROVIDE_INDEX = "Please provide an index to be removed.";
