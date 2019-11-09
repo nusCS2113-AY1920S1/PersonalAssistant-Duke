@@ -1,3 +1,5 @@
+package duketest.bookingcommandstest;
+
 import duke.model.task.bookingtasks.Booking;
 import org.junit.jupiter.api.Test;
 

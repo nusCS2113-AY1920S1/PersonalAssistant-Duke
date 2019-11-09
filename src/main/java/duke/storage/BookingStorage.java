@@ -3,16 +3,13 @@ package duke.storage;
 import duke.model.task.bookingtasks.Booking;
 import duke.model.list.bookinglist.BookingList;
 
-import java.io.FileReader;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.ArrayList;
+
+import static duke.common.Messages.filePathBookingTest;
 
 /**
  * Handles the ability to read and write to the booking storage location.
@@ -63,8 +60,13 @@ public class BookingStorage {
             }
         }
         try {
-            FileReader fileReader = new FileReader(filePath);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            InputStream inputStream;
+            if (filePath.equals(filePathBookingTest)) {
+                inputStream = getClass().getResourceAsStream("/data/bookingsTest.txt");
+            } else {
+                inputStream = getClass().getResourceAsStream("/data/bookings.txt");
+            }            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             String content = "";
             while ((content = bufferedReader.readLine()) != null) {
 
@@ -79,7 +81,9 @@ public class BookingStorage {
                     arrBookingList.add(booking);
                 }
             }
-            fileReader.close();
+            bufferedReader.close();
+            inputStreamReader.close();
+            inputStream.close();
         } catch (FileNotFoundException ex) {
             System.out.println("Unable to open file '" + filePath + "'");
         } catch (IOException ex) {

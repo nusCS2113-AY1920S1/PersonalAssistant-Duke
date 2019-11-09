@@ -8,6 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 
+import static duke.common.Messages.filePathInventoryTest;
+
 /**
  * Handles the ability to read and write to the inventory storage location.
  */
@@ -63,8 +65,13 @@ public class InventoryStorage {
             }
         }
         try {
-            FileReader fileReader = new FileReader(filePathInventory);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            InputStream inputStream;
+            if (filePathInventory.equals(filePathInventoryTest)) {
+                inputStream = getClass().getResourceAsStream("/data/inventoriesTest.txt");
+            } else {
+                inputStream = getClass().getResourceAsStream("/data/inventories.txt");
+            }            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             String content = "";
             while ((content = bufferedReader.readLine()) != null) {
                 String ingredientName, quantity, unit, additionalInfo, remaining, remaining2;
@@ -86,7 +93,9 @@ public class InventoryStorage {
                     }
                 }
             }
-            fileReader.close();
+            bufferedReader.close();
+            inputStreamReader.close();
+            inputStream.close();
         } catch (FileNotFoundException ex) {
             System.out.println("Unable to open file '" + filePathInventory + "'");
         } catch (IOException ex) {

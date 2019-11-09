@@ -1,0 +1,4 @@
+chicken rice | 10 | Good | No preparation steps provided yet. | rice , 1.0 , G , 50% brown rice / brown rice , 1.0 , G , No additional information. / jasmine rice , 11.0 , G , fried with garlic | the soya sauce was delicious
+duck rice | 10 | Unrated | No preparation steps provided yet. | jasmine rice , 10.0 , G , No additional information. / brown rice , 1.0 , G , No additional information. | No feedback yet.
+rice | 10 | Unrated | No preparation steps provided yet. | brown rice , 1.0 , G , No additional information. | No feedback yet.
+sphagetti | 10 | Unrated | No preparation steps provided yet. | No required ingredient. | No feedback yet.

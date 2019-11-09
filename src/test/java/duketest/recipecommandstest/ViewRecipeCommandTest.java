@@ -1,3 +1,5 @@
+package duketest.recipecommandstest;
+
 import duke.logic.command.recipecommands.ViewRecipeCommand;
 import duke.model.list.recipelist.RecipeList;
 import duke.storage.RecipeStorage;

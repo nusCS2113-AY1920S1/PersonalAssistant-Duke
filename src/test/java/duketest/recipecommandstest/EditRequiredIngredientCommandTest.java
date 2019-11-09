@@ -1,3 +1,5 @@
+package duketest.recipecommandstest;
+
 import duke.logic.command.recipecommands.AddRecipeCommand;
 import duke.logic.command.recipecommands.EditRequiredIngredientCommand;
 import duke.logic.command.recipecommands.DeleteRecipeCommand;

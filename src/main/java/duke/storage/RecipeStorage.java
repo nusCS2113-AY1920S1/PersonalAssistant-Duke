@@ -6,7 +6,10 @@ import duke.model.task.recipetasks.Recipe;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.TreeMap;
+
+import static duke.common.Messages.filePathRecipesTest;
 
 /**
  * Handles the ability to read and write to the recipe storage location.
@@ -63,8 +66,14 @@ public class RecipeStorage {
             }
         }
         try {
-            FileReader fileReader = new FileReader(filePathRecipes);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            InputStream inputStream;
+            if (filePathRecipes.equals(filePathRecipesTest)) {
+                inputStream = getClass().getResourceAsStream("/data/recipesTest.txt");
+            } else {
+                inputStream = getClass().getResourceAsStream("/data/recipes.txt");
+            }
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             String content = "";
             while ((content = bufferedReader.readLine()) != null) {
                 // can use a splitMethod() here for tidyness?
@@ -97,7 +106,9 @@ public class RecipeStorage {
                     }
                 }
             }
-            fileReader.close();
+            bufferedReader.close();
+            inputStreamReader.close();
+            inputStream.close();
         } catch (FileNotFoundException ex) {
             System.out.println("Unable to open file '" + filePathRecipes + "'");
         } catch (IOException ex) {

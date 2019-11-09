@@ -18,21 +18,21 @@ public class DataForTest {
         switch (userInput) {
             case "bookings":
                 try {
-                    output.addAll(getStringFromFile("/dataTest/bookingsTest.txt"));
+                    output.addAll(getStringFromFile("/data/bookingsTest.txt"));
                 } catch (IOException e) {
                     output.add("Error in reading bookingsTest.txt");
                 }
                 break;
             case "recipes":
                 try {
-                    output.addAll(getStringFromFile("/dataTest/recipesTest.txt"));
+                    output.addAll(getStringFromFile("/data/recipesTest.txt"));
                 } catch (IOException e) {
                     output.add("Error in reading recipesTest.txt");
                 }
                 break;
             case "inventories":
                 try {
-                    output.addAll(getStringFromFile("/dataTest/inventoriesTest.txt"));
+                    output.addAll(getStringFromFile("/data/inventoriesTest.txt"));
                 } catch (IOException e) {
                     output.add("Error in reading inventoriesTest.txt");
                 }

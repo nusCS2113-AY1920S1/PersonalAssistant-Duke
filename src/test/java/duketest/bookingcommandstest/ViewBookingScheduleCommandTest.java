@@ -1,3 +1,5 @@
+package duketest.bookingcommandstest;
+
 import duke.logic.command.bookingcommands.ViewBookingScheduleCommand;
 import duke.model.list.bookinglist.BookingList;
 import duke.storage.BookingStorage;
