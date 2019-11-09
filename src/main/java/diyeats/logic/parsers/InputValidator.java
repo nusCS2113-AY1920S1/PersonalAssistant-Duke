@@ -2,6 +2,7 @@ package diyeats.logic.parsers;
 
 import diyeats.commons.exceptions.ProgramException;
 
+//@@author GaryStu
 /**
  * InputValidator is a public class that deals with validating user input.
  */
