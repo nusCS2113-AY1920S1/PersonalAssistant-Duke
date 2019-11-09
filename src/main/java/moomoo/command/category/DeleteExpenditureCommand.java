@@ -39,11 +39,11 @@ public class DeleteExpenditureCommand extends Command {
         }
         try {
             Expenditure expenditure = cat.get(expenditureIndex);
-            String name = expenditure.getName();
+            String expenditureName = expenditure.getName();
             ExpenditureStorage.deleteFromFile(expenditure.toString());
             categoryList.get(categoryName).delete(expenditureIndex);
-            Ui.setOutput("Expenditure named " + name + " re-MOOO-ved\n"
-                + "From category: " + categoryName);
+            Ui.showExpenditureMessage("Expenditure named : " + expenditureName,
+                    "Deleted from category : " + categoryName);
         } catch (IndexOutOfBoundsException e) {
             throw new MooMooException("Sorry I don't see an expenditure with that name.");
         }

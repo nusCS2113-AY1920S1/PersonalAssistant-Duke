@@ -50,7 +50,8 @@ public class AddExpenditureCommand extends Command {
         NotificationCommand alert = new NotificationCommand(categoryName, cat.getTotal());
         alert.execute(calendar, budget, categoryList, storage);
         ExpenditureStorage.saveToFile(newExpenditure.toString());
-        Ui.showNewExpenditure(expenditureName, categoryName);
+        Ui.showExpenditureMessage("Expenditure named : " + expenditureName,
+                "Added to category : " + categoryName);
     }
 }
 

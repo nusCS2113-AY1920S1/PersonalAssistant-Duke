@@ -1,11 +1,10 @@
 package moomoo.feature;
 
-import moomoo.feature.category.Category;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -16,7 +15,6 @@ public class Ui {
     private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_RESET = "\u001B[0m";
     private static String output = null;
-    private static Scanner inputScanner;
 
     /**
      * Prints out a message.
@@ -49,13 +47,7 @@ public class Ui {
      * Prints the welcome message to the User.
      */
     public static void showWelcome() {
-        print("   \n"
-                + "   ^____^________\n"
-                + "   ( oo )\\ *  *  )\\/\\\n"
-                + "   (____)||----w |  o \n"
-                + "         ||     ||   00\n"
-                + "   wmwwmWMWMwmWMmwMWWMWMwm\n"
-                + " __      _____ _    ___ ___  __  __ ___   _____ ___ \n"
+        print(" __      _____ _    ___ ___  __  __ ___   _____ ___ \n"
                 + " \\ \\    / / __| |  / __/ _ \\|  \\/  | __| |_   _/ _ \\\n"
                 + "  \\ \\/\\/ /| _|| |_| (_| (_) | |\\/| | _|    | || (_) |\n"
                 + "   \\_/\\_/ |___|____\\___\\___/|_|  |_|___|   |_| \\___/ \n"
@@ -63,10 +55,7 @@ public class Ui {
                 + " __  __  ___   ___  __  __  ___   ___  __  __  ___  _  _ _____   __\n"
                 + "|  \\/  |/ _ \\ / _ \\|  \\/  |/ _ \\ / _ \\|  \\/  |/ _ \\| \\| | __\\ \\ / /\n"
                 + "| |\\/| | (_) | (_) | |\\/| | (_) | (_) | |\\/| | (_) | .` | _| \\ V /\n"
-                + "|_|  |_|\\___/ \\___/|_|  |_|\\___/ \\___/|_|  |_|\\___/|_|\\_|___| |_|\n"
-                + "\n"
-                + "Your one-stop budgeting and expenses tracker!\n"
-                + "What can MooMoo do for you today?");
+                + "|_|  |_|\\___/ \\___/|_|  |_|\\___/ \\___/|_|  |_|\\___/|_|\\_|___| |_|\n");
     }
     
 
@@ -75,17 +64,8 @@ public class Ui {
      * @return String representing the input given by the User
      */
     public static String readCommand() {
-        inputScanner = new Scanner(System.in);
+        Scanner inputScanner = new Scanner(System.in);
         return inputScanner.nextLine().trim();
-    }
-
-    /**
-     * Used to read input from the user.
-     * @return Integer representing the input given by the User
-     */
-    public static int readNumber() {
-        inputScanner = new Scanner(System.in);
-        return inputScanner.nextInt();
     }
 
     /**
@@ -145,87 +125,92 @@ public class Ui {
      * @param categoryName name of the new category
      */
     public static void showCategoryMessage(String categoryName) {
-        String blankSpace = " ";
-        int blanks = 50 - categoryName.length();
-        for (int i = 0; i < blanks; i++) {
-            blankSpace += " ";
-        }
-        output =
-                " ____________________________________________________\n"
-                + "/ Mooo.                                              \\\n"
-                + "\\ " + categoryName + blankSpace + "/\n"
-                + " ----------------------------------------------------\n"
-                + "        \\   ^__^\n"
-                + "         \\  (oo)\\_______\n"
-                + "            (__)\\       )\\/\\\n"
-                + "                ||----w |\n"
-                + "                ||     ||\n";
+        int boxLength = 51;
+        int blanks1 = boxLength - 6;
+        int blanks2 = 50 - categoryName.length();
+
+        String box = " ";
+        box = addChars(boxLength, box, "_");
+        box = box.concat("\n/ Mooo.");
+        box = addChars(blanks1, box, " ");
+        box = box.concat("\\\n\\ " + categoryName);
+        box = addChars(blanks2, box, " ");
+        box = box.concat("/\n ");
+        box = addChars(boxLength, box, "-");
+        box = box.concat("\n" + getCow());
+
+        setOutput(box);
     }
 
     /**
      * Prints out when a new expenditure is created.
-     * @param categoryName name of the new expenditure
+     * @param expenditureName name of the new expenditure
+     * @param categoryName category containing expenditure
      */
-    public static void showNewExpenditure(String expenditureName, String categoryName) {
-        String blankSpace = " ";
-        int blanks = 18 - expenditureName.length();
-        for (int i = 0; i < blanks; i++) {
-            blankSpace += " ";
+    public static void showExpenditureMessage(String expenditureName, String categoryName) {
+        int boxLength = 51;
+        int blanks1 = boxLength - 6;
+        int blanks2 = boxLength - expenditureName.length();
+        int blanks3 = boxLength - 1 - categoryName.length();
+
+        String box = "  ";
+        box = addChars(boxLength, box, "_");
+        box = box.concat("\n / Mooo.");
+        box = addChars(blanks1, box, " ");
+        box = box.concat("\\\n|  " + expenditureName);
+        box = addChars(blanks2, box, " ");
+        box = box.concat("|\n \\ " + categoryName);
+        box = addChars(blanks3, box, " ");
+        box = box.concat("/\n  ");
+        box = addChars(boxLength, box, "-");
+        box = box.concat("\n" + getCow());
+        setOutput(box);
+    }
+
+    /**
+     * Shows the user the overall list of categories
+     * @param namesOfCategories list of category names
+     * @param longestCategory number of characters in the longest category name
+     */
+    public static void showList(ArrayList<String> namesOfCategories, int longestCategory) {
+        int boxLength = 40;
+        if (longestCategory > boxLength - 5) {
+            boxLength = longestCategory + 5;
         }
-        String blank2 = " ";
-        blanks = 32 - categoryName.length();
-        for (int i = 0; i < blanks; i++) {
-            blank2 += " ";
+        int blankSpace = boxLength - 33;
+
+        String list =  ".";
+        list = addChars(boxLength, list, "_");
+        list = list.concat(".\n" + "|Here are your current categories.");
+        list = addChars(blankSpace, list, " ");
+        list = list.concat("|\n");
+
+        for (String categoryName : namesOfCategories) {
+            list = list.concat("|" + categoryName);
+            blankSpace = boxLength - categoryName.length();
+            list = addChars(blankSpace, list, " ");
+            list = list.concat("|\n");
         }
-        String output =
-                "  _________________________________________________\n"
-                + " / Mooo.                                           \\\n"
-                + "|  New expenditure named : " + expenditureName + " added" + blankSpace + "|\n"
-                + " \\ To category : " + categoryName + "." + blank2 + "/\n"
-                + "  -------------------------------------------------\n"
-                + "        \\   ^__^\n"
-                + "         \\  (oo)\\_______\n"
-                + "            (__)\\       )\\/\\\n"
-                + "                ||----w |\n"
-                + "                ||     ||\n";
-        print(output);
+
+        list = list.concat(".");
+        list = addChars(boxLength, list, "-");
+        list = list.concat(".\n" + getCow());
+
+        setOutput(list);
     }
 
     /**
-     * Promts the user to enter a category index.
+     * Concats the input char sequence a specified number of times to a string.
+     * @param length number of times to add
+     * @param output string to concat char sequence
+     * @param regex char sequence
+     * @return output with the char sequence added
      */
-    public static void showEnterCategoryMessage() {
-        print("Please enter the index of a category.");
-    }
-
-    /**
-     * Promts the user to enter the number corresponding to a month.
-     */
-    public static void showEnterMonthMessage() {
-        print("Please enter a month in the format MM.");
-    }
-
-    /**
-     * Shows the user his total spending for the month in a category.
-     * @param monthlyTotal total spending
-     * @param category category user wants to check
-     * @param month month that should be totaled
-     */
-    public static void showMonthlyTotal(double monthlyTotal, Category category, int month) {
-        String cow =
-                ".__________________________________.\n"
-                + "|Month : " + month + "blank" + "|\n"
-                + "|Category : " + category.name() + "|\n"
-                + "|                                  |\n"
-                + "|Total spending : $" + monthlyTotal + "|\n"
-                + ".----------------------------------.\n"
-                + "        \\   ^__^\n"
-                + "         \\  (oo)\\_______\n"
-                + "            (__)\\       )\\/\\\n"
-                + "                ||----w |\n"
-                + "                ||     ||\n";
-
-        print(cow);
+    private static String addChars(int length, String output, String regex) {
+        for (int i = 0; i < length; i++) {
+            output = output.concat(regex);
+        }
+        return output;
     }
 
     /**
@@ -237,5 +222,13 @@ public class Ui {
 
     public static void printMainDisplay(String newMainDisplay) {
         print(newMainDisplay);
+    }
+
+    private static String getCow() {
+        return "        \\   ^__^\n"
+                + "         \\  (oo)\\_______\n"
+                + "            (__)\\       )\\/\\\n"
+                + "                ||----w |\n"
+                + "                ||     ||\n";
     }
 }
