@@ -29,4 +29,10 @@ public class BillList extends RecordList {
         this.list = recordList;
         StorageWrite.setBill(get());
     }
+
+    @Override
+    public void addWithIndex(int modifyIndex, Record newRecord) {
+        super.addWithIndex(modifyIndex, newRecord);
+        StorageWrite.setBill(get());
+    }
 }

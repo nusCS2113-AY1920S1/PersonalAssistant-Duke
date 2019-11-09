@@ -1,5 +1,7 @@
 package dolla.model;
 
+import dolla.Reminder;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
