@@ -108,4 +108,44 @@ public class CommandUtil {
             throw new CommandException(CommandErrorMessage.INVALID_INDEX);
         }
     }
+
+    /**
+     * Checks that the promotion period is valid i.e. the dates are not before the current date and the end date is not before the start date.
+     * @param startDate The start date of the promotion period.
+     * @param endDate The end date of the promotion period.
+     * @throws CommandException if promotion period is invalid.
+     */
+    public static void requireValidPromotionDates(Date startDate, Date endDate) throws CommandException {
+        if (startDate == null || endDate == null) {
+            return;
+        }
+
+        if (endDate.before(startDate)) {
+            throw new CommandException(CommandErrorMessage.INVALID_PROMOTION_PERIOD);
+        }
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.DATE, -1);
+        Date modifiedDate = cal.getTime();
+
+        if (endDate.before(modifiedDate) || startDate.before(modifiedDate)) {
+            throw new CommandException(CommandErrorMessage.INVALID_PROMOTION_DATES);
+        }
+    }
+
+    /**
+     * Checks that a given food promotion is not in the promotion list.
+     *
+     * @param promotionList The promotion list.
+     * @param foodName The food name to check.
+     * @throws CommandException If the given food promotion is inside the promotion list.
+     */
+    public static void requirePromotionNotExists(PromotionList promotionList, String foodName) throws CommandException {
+        if (promotionList.existsName(foodName)) {
+            throw new CommandException(CommandErrorMessage.PROMOTION_ALREADY_EXISTS);
+        }
+    }
+
+
 }

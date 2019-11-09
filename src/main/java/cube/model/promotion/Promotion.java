@@ -106,4 +106,51 @@ public class Promotion {
     public Date getEndDate() {
         return endDate;
     }
+
+    /**
+     * Shows that the promotion already exists in the promotion list.
+     *
+     * @return true
+     */
+    /*
+
+    public boolean exists(String foodName) {
+        if (foodName == this.foodName) {
+            return true;
+        }
+        return false;
+    }*/
+
+    /**
+     * Casts the promotion to String type.
+     *
+     * @return the String printout of the promotion.
+     */
+    @Override
+    public String toString() {
+        return foodName + "\n  Discount: " + discount +
+                "\n  Promotional Price: $" + promotionalPrice +
+                "\n  Start Date: " + startDate +
+                "\n  End Date: " + endDate;
+    }
+
+    /*@Override
+    // for Junit test use
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (other instanceof Promotion) {
+            Promotion b = (Promotion) other;
+            return foodName.equals(b.foodName)
+                    //&& ((type == null && b.type == null) || (type != null && type.equals(b.type)))
+                    && promotionalPrice == b.promotionalPrice
+                    && discount == b.discount
+                    && startDate == b.startDate
+                    && endDate == b.endDate;
+        } else {
+            return false;
+        }
+    }*/
+
 }
