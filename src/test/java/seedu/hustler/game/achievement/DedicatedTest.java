@@ -24,7 +24,7 @@ public class DedicatedTest {
      * Checks if the condition for unlocking each achievement level is correct.
      */
     @Test
-    public void checDedicatedInformation() {
+    public void checkDedicatedInformation() {
         ConsecutiveLogin bronze = new ConsecutiveLogin("Bronze");
         ConsecutiveLogin silver = new ConsecutiveLogin("Silver");
         ConsecutiveLogin gold = new ConsecutiveLogin("Gold");
