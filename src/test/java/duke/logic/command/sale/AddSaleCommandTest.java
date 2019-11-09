@@ -1,6 +1,5 @@
 package duke.logic.command.sale;
 
-import org.junit.Test;
 import org.junit.jupiter.api.Test;
 
 import static duke.testutil.Assert.assertThrows;
