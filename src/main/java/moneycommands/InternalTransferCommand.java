@@ -21,6 +21,12 @@ public class InternalTransferCommand extends MoneyCommand {
     private LocalDate date;
 
     //@@author cctt1014
+
+    /**
+     * The constructor for this class.
+     * @param inputString The input command
+     * @throws ParseException The parse exception
+     */
     public InternalTransferCommand(String inputString) throws ParseException {
         String status = inputString.split(" ")[0];
         if (status.equals("deposit")) {

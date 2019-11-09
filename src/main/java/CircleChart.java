@@ -23,11 +23,21 @@ public class CircleChart extends HBox {
         chart.setTitle(title);
     }
 
-    public static CircleChart getCircleChart(String title, ArrayList<String> xData, ArrayList<Float> yData) throws IOException {
+    /**
+     * This function packs the input data and the title into a pie chart and 
+     * returns the pie chart in order to show on the user interface.
+     * @param title The title of the graph
+     * @param dataX The data of the x coordinate
+     * @param dataY The data of the y coordinate
+     * @return The pie chart with the input x,y data
+     * @throws IOException The IOE exception
+     */
+    public static CircleChart getCircleChart(String title, ArrayList<String> dataX, ArrayList<Float> dataY) 
+            throws IOException {
         CircleChart circleChart = new CircleChart(title);
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-        for (int i = 0; i < xData.size(); i++) {
-            pieChartData.add(new PieChart.Data(xData.get(i), yData.get(i)));
+        for (int i = 0; i < dataX.size(); i++) {
+            pieChartData.add(new PieChart.Data(dataX.get(i), dataY.get(i)));
         }
         circleChart.chart.setData(pieChartData);
         return circleChart;

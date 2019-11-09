@@ -14,7 +14,7 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
 /**
- * This class allow user to estimate their future balance in an account
+ * This class allow user to estimate their future balance in an account.
  */
 public class CheckFutureBalanceCommand extends MoneyCommand {
 
@@ -23,7 +23,7 @@ public class CheckFutureBalanceCommand extends MoneyCommand {
 
     //@@author cctt1014
     /**
-     * The constructor parses the input command and gets the description and the date
+     * The constructor parses the input command and gets the description and the date.
      * @param inputString The command typed in by the user
      * @throws ParseException The exception for parsing the date
      */
@@ -49,21 +49,21 @@ public class CheckFutureBalanceCommand extends MoneyCommand {
      * @param account The class record all the financial information of the user
      * @param ui The user interface
      * @param storage The class used to store the information to the local disk
-     * @throws DukeException The self-defined exceptions to handle the invalid future date and
-     * the non-existing account
+     * @throws DukeException The self-defined exceptions to handle the invalid future date and the non-existing account
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         BankTracker bankTracker = account.findTrackerByName(description);
         LocalDate currDate = bankTracker.getLatestDate();
         if (futureDate.isBefore(currDate)) {
-            throw new DukeException("The input date is invalid! It should be a date later then the latest update date.");
+            throw new DukeException("The input date is invalid! It should be a "
+                    + "date later then the latest update date.");
         }
         Period period = Period.between(currDate, futureDate);
-        int length = period.getMonths() + period.getYears()*12;
+        int length = period.getMonths() + period.getYears() * 12;
         float balance = bankTracker.getAmt();
         double rate = bankTracker.getRate();
-        balance *=  Math.pow((1+rate),length);
+        balance *=  Math.pow((1 + rate),length);
         DecimalFormat decimalFormat = new DecimalFormat("#.00");
         String stringBalance = decimalFormat.format(balance);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");

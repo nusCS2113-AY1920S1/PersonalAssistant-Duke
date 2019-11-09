@@ -70,7 +70,8 @@ public class CreateBankAccountCommand extends MoneyCommand {
             }
         }
         account.getBankTrackerList().add(newTracker);
-        Income newIncome = new Income(newTracker.getAmt(), "Initialize account: " + newTracker.getDescription(), newTracker.getLatestDate());
+        Income newIncome = new Income(newTracker.getAmt(), "Initialize account: "
+                + newTracker.getDescription(), newTracker.getLatestDate());
         account.getIncomeListTotal().add(newIncome);
 
         storage.writeToFile(account);
@@ -88,7 +89,7 @@ public class CreateBankAccountCommand extends MoneyCommand {
 
         ui.appendToOutput(" Last command undone: \n");
         ui.appendToOutput(b.toString() + "\n");
-        ui.appendToOutput(" Now you have " + account.getBankTrackerList().size() + " bank " +
-                "accounts listed\n");
-    };
+        ui.appendToOutput(" Now you have " + account.getBankTrackerList().size()
+                + " bank accounts listed\n");
+    }
 }
