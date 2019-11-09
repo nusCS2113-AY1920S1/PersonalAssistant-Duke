@@ -454,7 +454,10 @@ public class TransactionList {
         String matchingKeyword = keyword.toUpperCase();
         int printCounter = 0;
         for (int i = ISZERO; i < transactionLists.size(); i++) {
-            if (transactionLists.get(i).getDescription().toUpperCase().contains(matchingKeyword)) {
+            Transaction currentExpenditure = transactionLists.get(i);
+            String currentExpenditureDescription = currentExpenditure.getDescription();
+            String capitalcurrentDescription = currentExpenditureDescription.toUpperCase();
+            if (capitalcurrentDescription.contains(matchingKeyword)) {
                 printOneHeaderForFind(printCounter, FINDDESCRIPTION, ui);
                 printOneTransaction((i + ONE_INDEX), transactionLists.get(i), ISMULTIPLE, ui);
                 printCounter++;
@@ -477,7 +480,10 @@ public class TransactionList {
         String matchingKeyword = keyword.toUpperCase();
         int printCounter = 0;
         for (int i = ISZERO; i < transactionLists.size(); i++) {
-            if (transactionLists.get(i).getCategory().toUpperCase().contains(matchingKeyword)) {
+            Transaction currentExpenditure = transactionLists.get(i);
+            String currentExpenditureCategory = currentExpenditure.getCategory();
+            String capitalcurrentCategory = currentExpenditureCategory.toUpperCase();
+            if (capitalcurrentCategory.contains(matchingKeyword)) {
                 printOneHeaderForFind(printCounter, FINDCATEGORY, ui);
                 printOneTransaction((i + ONE_INDEX), transactionLists.get(i), ISMULTIPLE, ui);
                 printCounter++;
@@ -510,8 +516,10 @@ public class TransactionList {
             throw new TransactionException(error.toString());
         }
         for (int i = ISZERO; i < transactionLists.size(); i++) {
-            boolean isBeforeFromDate = transactionLists.get(i).getDateInDateFormat().before(from);
-            boolean isAfterToDate = transactionLists.get(i).getDateInDateFormat().after(to);
+            Date beforeFromDate = transactionLists.get(i).getDateInDateFormat();
+            boolean isBeforeFromDate = beforeFromDate.before(from);
+            Date afterToDate = transactionLists.get(i).getDateInDateFormat();
+            boolean isAfterToDate = afterToDate.after(to);
             if (!isBeforeFromDate && !isAfterToDate) {
                 printOneHeaderForFind(printCounter, FINDDATE, ui);
                 printOneTransaction((i + ONE_INDEX), transactionLists.get(i), ISMULTIPLE, ui);

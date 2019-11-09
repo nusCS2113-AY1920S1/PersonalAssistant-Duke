@@ -453,7 +453,10 @@ public class CardList {
         String matchingWord = cardName.toUpperCase();
 
         for (int i = ISZERO; i < getCardListSize(); i++) {
-            if (cardLists.get(i).getName().toUpperCase().contains(matchingWord)) {
+            Card currentCard = cardLists.get(i);
+            String currentCardName = currentCard.getName();
+            String capitalCurrentCardName = currentCardName.toUpperCase();
+            if (capitalCurrentCardName.contains(matchingWord)) {
                 tempCardList.add(cardLists.get(i));
             }
         }

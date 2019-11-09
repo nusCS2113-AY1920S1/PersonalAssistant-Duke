@@ -215,7 +215,10 @@ public class RecurringExpenditureList {
         String matchingKeyword = keyword.toUpperCase();
         int printCounter = ISZERO;
         for (int i = ISZERO; i < recurringExpenditures.size(); i++) {
-            if (recurringExpenditures.get(i).getDescription().toUpperCase().contains(matchingKeyword)) {
+            Transaction currentExpenditure = recurringExpenditures.get(i);
+            String currentExpenditureDescription = currentExpenditure.getDescription();
+            String capitalCurrentDescription = currentExpenditureDescription.toUpperCase();
+            if (capitalCurrentDescription.contains(matchingKeyword)) {
                 printOneHeaderForFind(printCounter, FINDDESCRIPTION, ui);
                 printOneTransaction((i + ONE_INDEX), recurringExpenditures.get(i), ISMULTIPLE, ui);
                 printCounter++;
