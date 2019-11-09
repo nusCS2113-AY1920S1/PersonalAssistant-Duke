@@ -138,8 +138,7 @@ public class CategoryList {
     
     /**
      * Get the length of the name of the Category with the longest name.
-     * @return Length of the name of the Category with the longest name, if it is longer than 14
-     * characters, return 14
+     * @return Length of the name of the Category with the longest name, if it is longer than 14 characters, return 14
      */
     public int getLongestCategory() {
         int longestName = 0;

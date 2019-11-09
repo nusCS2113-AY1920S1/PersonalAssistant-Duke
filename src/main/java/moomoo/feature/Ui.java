@@ -126,14 +126,15 @@ public class Ui {
      */
     public static void showCategoryMessage(String categoryName) {
         int boxLength = 51;
-        int blanks1 = boxLength - 6;
-        int blanks2 = 50 - categoryName.length();
-
         String box = " ";
         box = addChars(boxLength, box, "_");
         box = box.concat("\n/ Mooo.");
+
+        int blanks1 = boxLength - 6;
         box = addChars(blanks1, box, " ");
         box = box.concat("\\\n\\ " + categoryName);
+
+        int blanks2 = 50 - categoryName.length();
         box = addChars(blanks2, box, " ");
         box = box.concat("/\n ");
         box = addChars(boxLength, box, "-");
@@ -149,17 +150,20 @@ public class Ui {
      */
     public static void showExpenditureMessage(String expenditureName, String categoryName) {
         int boxLength = 51;
-        int blanks1 = boxLength - 6;
-        int blanks2 = boxLength - expenditureName.length();
-        int blanks3 = boxLength - 1 - categoryName.length();
 
         String box = "  ";
         box = addChars(boxLength, box, "_");
         box = box.concat("\n / Mooo.");
+
+        int blanks1 = boxLength - 6;
         box = addChars(blanks1, box, " ");
         box = box.concat("\\\n|  " + expenditureName);
+
+        int blanks2 = boxLength - expenditureName.length();
         box = addChars(blanks2, box, " ");
         box = box.concat("|\n \\ " + categoryName);
+
+        int blanks3 = boxLength - 1 - categoryName.length();
         box = addChars(blanks3, box, " ");
         box = box.concat("/\n  ");
         box = addChars(boxLength, box, "-");
@@ -168,7 +172,7 @@ public class Ui {
     }
 
     /**
-     * Shows the user the overall list of categories
+     * Shows the user the overall list of categories.
      * @param namesOfCategories list of category names
      * @param longestCategory number of characters in the longest category name
      */

@@ -21,10 +21,10 @@ class CategoryCommandTest {
         AddCategoryCommand command = new AddCategoryCommand("food");
         command.execute(calendar, budget, categoryList, storage);
 
-        assertEquals(" ____________________________________________________\n"
-                + "/ Mooo.                                              \\\n"
-                + "\\ New category named <food> added.                   /\n"
-                + " ----------------------------------------------------\n"
+        assertEquals(" ___________________________________________________\n"
+                + "/ Mooo.                                             \\\n"
+                + "\\ Added category named : food                       /\n"
+                + " ---------------------------------------------------\n"
                 + "        \\   ^__^\n"
                 + "         \\  (oo)\\_______\n"
                 + "            (__)\\       )\\/\\\n"
@@ -35,10 +35,10 @@ class CategoryCommandTest {
         command = new AddCategoryCommand("2271    CG");
         command.execute(calendar, budget, categoryList, storage);
 
-        assertEquals(" ____________________________________________________\n"
-                + "/ Mooo.                                              \\\n"
-                + "\\ New category named <2271    CG> added.             /\n"
-                + " ----------------------------------------------------\n"
+        assertEquals(" ___________________________________________________\n"
+                + "/ Mooo.                                             \\\n"
+                + "\\ Added category named : 2271    CG                 /\n"
+                + " ---------------------------------------------------\n"
                 + "        \\   ^__^\n"
                 + "         \\  (oo)\\_______\n"
                 + "            (__)\\       )\\/\\\n"
