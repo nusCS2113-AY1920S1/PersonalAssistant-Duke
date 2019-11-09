@@ -3,7 +3,6 @@ package executor.command;
 import com.opencsv.CSVWriter;
 import duke.exception.DukeException;
 import storage.StorageManager;
-import ui.Receipt;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -26,11 +25,13 @@ public class CommandExport extends Command {
             FileWriter outputFile = new FileWriter(csv);
             // create CSVWriter object filewriter object as parameter
             CSVWriter writer = new CSVWriter(outputFile);
-            String[] header = { "Tag", "Amount", "Date"};
+            String[] header = {"ID", "Tag", "Amount", "Date"};
             writer.writeNext(header);
             storageManager.saveAllData();
-            for (Receipt receipt : storageManager.getWallet().getReceipts()) {
-                convertReceiptsToCsv(receipt.toString(), writer);
+            String receipts = storageManager.getWallet().getReceipts().getPrintableReceipts();
+            String[] AllRowOfData  = receipts.split("\n");
+            for( String row : AllRowOfData) {
+                convertReceiptsToCsv(row, writer);
             }
             writer.close();
             this.infoCapsule.setCodeCli();
@@ -42,11 +43,9 @@ public class CommandExport extends Command {
     }
 
 
-    private void convertReceiptsToCsv(String dataTObeAdded , CSVWriter writer) throws DukeException {
+    private void convertReceiptsToCsv(String dataTobeAdded, CSVWriter writer) throws DukeException {
         try{
-//            List<String[]> data = new ArrayList<String[]>();
-            String[] entries = dataTObeAdded.split(" ");
-//            data.add(entries);
+            String[] entries = dataTobeAdded.split(" ");
             writer.writeNext(entries);
         } catch (Exception e) {
             throw new DukeException("Unable to write to csv");
