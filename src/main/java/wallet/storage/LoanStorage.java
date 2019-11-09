@@ -56,7 +56,7 @@ public class LoanStorage extends Storage<Loan> {
             }
             raf.close();
         } catch (FileNotFoundException e) {
-            System.out.println("No saved loans found.");
+            //System.out.println("No saved loans found.");
         } catch (IOException e) {
             System.out.println("End of file.");
         }
