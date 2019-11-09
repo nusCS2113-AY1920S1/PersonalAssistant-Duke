@@ -69,6 +69,8 @@ public class Messages {
     public static final String ERROR_RECOMMENDATION_FAIL = "I'm sorry, the days of the trip is too long.\n"
             + "I can only give a good recommendation within 8 days";
     public static final String ERROR_HELP_FAIL = "I'm sorry, unable to open user guide.";
+    public static final String ERROR_QUICK_EDIT_COMMAND_FAIL = "I'm sorry, edit could not "
+            +  "be made because your format was wrong. :(";
 
     /**
      * Messages sent via Prompt by Duke.

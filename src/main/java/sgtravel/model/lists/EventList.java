@@ -48,6 +48,15 @@ public class EventList implements Iterable<Event>, Listable<Event>, Serializable
     }
 
     /**
+     * Sets the Event at the specified index into the new Event.
+     * @param index The index.
+     * @param event The new Event.
+     */
+    public void set(int index, Event event) {
+        events.set(index, event);
+    }
+
+    /**
      * Removes a Event from the VenueList at a given index.
      *
      * @param index The index of the Event.
