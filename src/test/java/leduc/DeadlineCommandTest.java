@@ -178,7 +178,7 @@ public class DeadlineCommandTest {
             assertTrue(e instanceof RecurrenceException);
         }
 
-        HomeworkCommand deadlineCommand16 = new HomeworkCommand("deadline d1 /by 12/12/2000 prio 6 22:22 recu");
+        HomeworkCommand deadlineCommand16 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 6 recu");
         try{
             deadlineCommand16.execute(tasks,ui,storage);
         }

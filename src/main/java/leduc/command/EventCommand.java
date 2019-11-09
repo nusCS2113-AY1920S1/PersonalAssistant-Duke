@@ -87,6 +87,9 @@ public class EventCommand extends Command {
                         }
                     }
                 }
+                else if(prioritySplit[0].contains("recu")){
+                    throw new RecurrenceException();
+                }
             }
             else {
                 dateString = prioritySplit[0].split(" - ");
@@ -109,7 +112,7 @@ public class EventCommand extends Command {
                 int priority = -1;
                 String[] recurrenceSplit = prioritySplit[1].trim().split(("recu"));
                 String priorityString = recurrenceSplit[0].trim();
-                if(!(recurrenceSplit.length==1)){
+                if(!(recurrenceSplit.length == 1)){
                     String[] recurrenceSplit2 = recurrenceSplit[1].trim().split(" ");
                     if(recurrenceSplit2.length == 1){
                         throw new RecurrenceException();
@@ -125,6 +128,9 @@ public class EventCommand extends Command {
                             throw new RecurrenceException();
                         }
                     }
+                }
+                else if(prioritySplit[1].contains("recu")){
+                    throw new RecurrenceException();
                 }
                 try {
                     priority = Integer.parseInt(priorityString);

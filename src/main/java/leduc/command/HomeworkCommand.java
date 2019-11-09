@@ -70,7 +70,7 @@ public class HomeworkCommand extends Command {
             if(prioritySplit.length == 1){
                 String[] recurrenceSplit = prioritySplit[0].trim().split(("recu"));
                 homeworkString = recurrenceSplit[0].trim();
-                if(!(recurrenceSplit.length==1)){
+                if(!(recurrenceSplit.length == 1)){
                     String[] recurrenceSplit2 = recurrenceSplit[1].trim().split(" ");
                     if(recurrenceSplit2.length == 1){
                         throw new RecurrenceException();
@@ -86,6 +86,9 @@ public class HomeworkCommand extends Command {
                             throw new RecurrenceException();
                         }
                     }
+                }
+                else if(prioritySplit[0].contains("recu")){
+                    throw new RecurrenceException();
                 }
             }
             else {
@@ -121,6 +124,9 @@ public class HomeworkCommand extends Command {
                                 throw new RecurrenceException();
                             }
                         }
+                    }
+                    else if(prioritySplit[1].contains("recu")){
+                        throw new RecurrenceException();
                     }
                     try{
                         priority = Integer.parseInt(priorityString);
@@ -181,7 +187,7 @@ public class HomeworkCommand extends Command {
                 break;
             case "month":
                 for(int i = 1; i<= nbRecurrence; i++){
-                    HomeworkTask recurrentHomeworkTask = new HomeworkTask(description, new Date(initialDate.plusMinutes(i)), priority);
+                    HomeworkTask recurrentHomeworkTask = new HomeworkTask(description, new Date(initialDate.plusMonths(i)), priority);
                     newTaskList.add(recurrentHomeworkTask);
                     tasks.add(recurrentHomeworkTask);
                 }

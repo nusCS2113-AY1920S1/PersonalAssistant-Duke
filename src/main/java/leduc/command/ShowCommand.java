@@ -39,7 +39,7 @@ public class ShowCommand extends Command {
      * @return the integer that represent the day of week
      * @throws MeaninglessException thrown when the type of date is wrong
      */
-    private int getDayOfWeekInInt(String dayOfWeek) throws MeaninglessException {
+    public int getDayOfWeekInInt(String dayOfWeek) throws MeaninglessException {
         int dayOfWeekInt = 0;
         switch(dayOfWeek){
             case "monday":
