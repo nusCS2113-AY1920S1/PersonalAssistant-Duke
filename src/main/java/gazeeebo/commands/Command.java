@@ -15,7 +15,7 @@ import java.util.Stack;
  * A base abstract class of all the gazeeebo.commands.
  */
 public abstract class Command {
-    
+
     public abstract void execute(ArrayList<Task> list,
                                  Ui ui, Storage storage,
                                  Stack<ArrayList<Task>> commandStack,
