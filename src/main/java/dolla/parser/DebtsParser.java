@@ -99,5 +99,6 @@ public class DebtsParser extends Parser {
         } else {
             return invalidCommand();
         }
+        return invalidCommand();
     }
 }
