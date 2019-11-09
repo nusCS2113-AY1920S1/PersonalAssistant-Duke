@@ -555,5 +555,20 @@ Email Manager meets the following non-functional requirements:
 //[appendix]
 //== Product Survey
 //
-//[appendix]
-//== Instructions for Manual Testing
+[appendix]
+== Instructions for Manual Testing
+Given below are instructions to test the app manually.
+
+|===
+|ℹ️|These instructions only provide a starting point for testers to work on; testers are expected to do more
+exploratory testing.
+|===
+
+=== Launch and Shutdown
+. Initial launch
+... Download the jar file and copy into an empty folder
+... Double-click the jar file +
+Expected: Shows the GUI with a set of sample tasks and emails. The window size may not be optimum.
+. Exiting the program
+... Type exit into the user input box.
+... Expected: Application will shut down and close itself.
