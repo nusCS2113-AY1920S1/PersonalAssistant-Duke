@@ -39,12 +39,12 @@ public class TaskList<E extends TaskWithMultipleWeeklyPeriod> extends ArrayList<
         return results;
     }
 
-    public TaskList<TaskWithMultipleWeeklyPeriod> findExact(String keyword) {
-        return this.find(keyword, true);
-    }
-
     public TaskList<TaskWithMultipleWeeklyPeriod> find(String keyword) {
         return this.find(keyword, false);
+    }
+
+    public TaskList<TaskWithMultipleWeeklyPeriod> findExact(String keyword) {
+        return this.find(keyword, true);
     }
 
     /**
