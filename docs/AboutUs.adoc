@@ -22,7 +22,7 @@ image::yetong1895.png[width="150", align="left"]
 {empty}[http://github.com/yetong1895[github]]
 
 Role: Code Quality IC +
-Responsibilities: Managing of shortcut, undo and redo feature and storage
+Responsibilities: Managing of shortcut, undo and redo , sorting feature and storage
 
 '''
 
@@ -31,7 +31,7 @@ image::tatayu.png[width="150", align="left"]
 {empty}[http://github.com/tatayu[github]]
 
 Role: Testing IC +
-Responsibilities: Managing of debt, searching and sorting feature
+Responsibilities: Managing of debt, bill splitting and searching feature
 
 '''
 
@@ -40,6 +40,6 @@ image::weng-kexin.png[width="150", align="left"]
 {empty}[http://github.com/weng-kexin[github]]
 
 Role: Documentation IC +
-Responsibilities: Managing of limit feature and submissions, deadlines
+Responsibilities: Managing of limit, viewing goals feature, submissions and deadlines
 
 '''
