@@ -58,6 +58,11 @@ public class BudgetList {
         }
     }
 
+    /**
+     * Edit the budget in budgetlist.
+     * @param index The budget to be replaced
+     * @param budget The budget used to replace
+     */
     public void editBudget(int index, Budget budget) {
         budgetList.set(index, budget);
     }

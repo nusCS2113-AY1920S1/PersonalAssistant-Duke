@@ -21,6 +21,7 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_ERROR_DELETE_LOAN = "An error occurred when trying to delete loan.";
     public static final String MESSAGE_SUCCESS_DELETE_CONTACT = "Noted. I've removed this contact:";
     public static final String MESSAGE_ERROR_DELETE_CONTACT = "An error occurred when trying to delete contact.";
+    public static final String MESSAGE_ERROR_LOAN_USAGE = "There are loans using this contact. Unable to delete!";
     private String object;
     private int id;
 
@@ -28,7 +29,7 @@ public class DeleteCommand extends Command {
      * Constructs a DeleteCommand object.
      *
      * @param object A String object for deletion.
-     * @param id The id of the object in a specified list.
+     * @param id     The id of the object in a specified list.
      */
     public DeleteCommand(String object, int id) {
         this.object = object;
@@ -75,15 +76,22 @@ public class DeleteCommand extends Command {
                 System.out.println(MESSAGE_ERROR_DELETE_LOAN);
             }
             break;
-            //@@author
+        //@@author
 
         case "contact":
             //@@author Xdecosee
+            for (Loan l : wallet.getLoanList().getLoanList()) {
+                if (l.getPerson().getId() == id) {
+                    System.out.println(MESSAGE_ERROR_LOAN_USAGE);
+                    return false;
+                }
+            }
+
             Contact contact = wallet.getContactList().deleteContact(id);
             if (contact != null) {
                 wallet.getContactList().setModified(true);
                 System.out.println(MESSAGE_SUCCESS_DELETE_CONTACT);
-                System.out.println(contact.toString());
+                Ui.printContact(contact);
             } else {
                 System.out.println(MESSAGE_ERROR_DELETE_CONTACT);
             }

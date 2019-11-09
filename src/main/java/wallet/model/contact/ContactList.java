@@ -144,6 +144,7 @@ public class ContactList {
         return -1;
     }
 
+    //@@author Xdecosee
     /**
      * Sorts contact list by name(A to Z).
      *

@@ -29,6 +29,7 @@ public class ParserManager {
 
     /**
      * Parses the user input command and returns the corresponding Command object.
+     *
      * @param fullCommand The input of user.
      * @return The corresponding Command object.
      */
@@ -82,7 +83,7 @@ public class ParserManager {
             return new ImportCommandParser().parse(arguments[1].toLowerCase());
 
         case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+            return new HelpCommand(arguments[1]);
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

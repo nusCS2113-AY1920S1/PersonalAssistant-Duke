@@ -1,0 +1,5 @@
+"S/N","Description","Amount($)","Created Date","Name","Phone","Other Details","Lend/Borrow","Settled"
+"1","﻿lunch","5.0","01/10/2019","Lauren","","","lend","yes"
+"2","dinner","15.5","02/10/2019","Ben","","brother","borrow","no"
+"3","breakfast","1.5","15/10/2019","Jane","90181829","","borrow","yes"
+"4","supper","25.0","23/10/2019","Ryan Tang","(+65)81731829","","lend","no"

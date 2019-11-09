@@ -19,8 +19,11 @@ import wallet.model.record.ExpenseList;
 import wallet.model.record.Loan;
 import wallet.model.record.LoanList;
 import wallet.model.record.RecordList;
+import wallet.model.record.RecurrenceRate;
+
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class AddCommandParserTest {
     //@@author kyang96
@@ -35,7 +38,7 @@ public class AddCommandParserTest {
             () -> assertEquals(10.0, expense.getAmount()),
             () -> assertEquals(Category.FOOD, expense.getCategory()),
             () -> assertEquals(false, expense.isRecurring()),
-            () -> assertEquals(null, expense.getRecFrequency())
+            () -> assertEquals(RecurrenceRate.NO, expense.getRecFrequency())
         );
     }
 
@@ -50,7 +53,7 @@ public class AddCommandParserTest {
             () -> assertEquals(49.0, expense.getAmount()),
             () -> assertEquals(Category.BILLS, expense.getCategory()),
             () -> assertEquals(true, expense.isRecurring()),
-            () -> assertEquals("MONTHLY", expense.getRecFrequency())
+            () -> assertEquals(RecurrenceRate.MONTHLY, expense.getRecFrequency())
         );
     }
     //@@author
@@ -65,7 +68,8 @@ public class AddCommandParserTest {
                 new RecordList(),
                 new ExpenseList(),
                 new ContactList(),
-                new LoanList());
+                new LoanList(),
+                new ArrayList<>());
 
         //dummy Contact object
         Contact person = new Contact("Mary", "Friend", "1234 5678");

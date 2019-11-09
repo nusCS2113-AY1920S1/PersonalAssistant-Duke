@@ -18,11 +18,13 @@ public class ViewCommand extends Command {
     public static final String COMMAND_WORD = "view";
 
     public static final String MESSAGE_EMPTY_BUDGET = "There is no budget set for ";
-    public static final String MESSAGE_VIEW_BUDGET = "This is the budget left for ";
+    public static final String MESSAGE_VIEW_BUDGET = "This is the budget set for ";
+    public static final String MESSAGE_REMAINING_BUDGET = "This is the budget left for ";
     public static final String MESSAGE_VIEW_STATS = "This is the statistics for ";
     public static final String MESSAGE_STATS_CATEGORY = "These are the expenses for ";
     public static final String MESSAGE_NICE_TRY_MONTH = "Nice try, but month runs from 1 to 12 :)";
     public static final String MESSAGE_NICE_TRY_YEAR = "zero or negative years does not exist.";
+    public static final String MESSAGE_NO_EXPENSE_IN_MONTH = "There are no expenses in this month.";
     public static final String MESSAGE_USAGE = "Error in format for command."
             + "\nExample: " + COMMAND_WORD + " budget 01/2019"
             + "\nExample: " + COMMAND_WORD + " stats"
@@ -55,6 +57,12 @@ public class ViewCommand extends Command {
                             System.out.println(MESSAGE_VIEW_BUDGET
                                     + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
                             System.out.println("$" + b.getAmount());
+
+                            double remainingBudget = b.getAmount()
+                                    - wallet.getExpenseList().getMonthExpenses(b.getMonth(), b.getYear());
+                            System.out.println(MESSAGE_REMAINING_BUDGET
+                                    + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
+                            System.out.println("$" + remainingBudget);
                             return false;
                         }
                     }
@@ -64,6 +72,10 @@ public class ViewCommand extends Command {
                     //@@author kyang96
                     HashMap<Category, ArrayList<Expense>> categoryMap
                             = getCategoryMap(wallet.getExpenseList().getExpenseList(), month, year);
+                    if (categoryMap.isEmpty()) {
+                        System.out.println(MESSAGE_NO_EXPENSE_IN_MONTH);
+                        return false;
+                    }
                     System.out.println(MESSAGE_VIEW_STATS
                             + new DateFormatSymbols().getMonths()[month - 1]
                             + " " + year);
@@ -101,13 +113,13 @@ public class ViewCommand extends Command {
         return false;
     }
 
+    //@@author kyang96
     /**
      * Generate a HashMap containing all expenses of a certain month in each category.
      * @param expenseList The entire list of expenses.
      * @param month The month to filter.
      * @param year The year to filter.
      */
-    //@@author kyang96
     public HashMap<Category, ArrayList<Expense>> getCategoryMap(ArrayList<Expense> expenseList, int month, int year) {
         HashMap<Category, ArrayList<Expense>> categoryMap = new HashMap<>();
         for (Expense expense : expenseList) {

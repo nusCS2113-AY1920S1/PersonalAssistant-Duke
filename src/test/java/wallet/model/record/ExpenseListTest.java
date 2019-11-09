@@ -13,7 +13,7 @@ public class ExpenseListTest {
 
     @Test
     public void addExpense_nonRecurringExpense_success() {
-        Expense e = new Expense("Lunch", LocalDate.now(), 3, Category.FOOD, false, null);
+        Expense e = new Expense("Lunch", LocalDate.now(), 3, Category.FOOD, false, RecurrenceRate.NO);
         expenseList.addExpense(e);
         Expense expense = expenseList.getExpense(0);
         assertAll("Expense should contain correct input values",
@@ -22,13 +22,13 @@ public class ExpenseListTest {
             () -> assertEquals(3.0, expense.getAmount()),
             () -> assertEquals(Category.FOOD, expense.getCategory()),
             () -> assertEquals(false, expense.isRecurring()),
-            () -> assertEquals(null, expense.getRecFrequency())
+            () -> assertEquals(RecurrenceRate.NO, expense.getRecFrequency())
         );
     }
 
     @Test
     public void addExpense_recurringDailyExpense_success() {
-        Expense e = new Expense("Lunch", LocalDate.now(), 3, Category.FOOD, true, "DAILY");
+        Expense e = new Expense("Lunch", LocalDate.now(), 3, Category.FOOD, true, RecurrenceRate.DAILY);
         expenseList.addExpense(e);
         Expense expense = expenseList.getExpense(0);
         assertAll("Expense should contain correct input values",
@@ -37,13 +37,13 @@ public class ExpenseListTest {
             () -> assertEquals(3.0, expense.getAmount()),
             () -> assertEquals(Category.FOOD, expense.getCategory()),
             () -> assertEquals(true, expense.isRecurring()),
-            () -> assertEquals("DAILY", expense.getRecFrequency())
+            () -> assertEquals(RecurrenceRate.DAILY, expense.getRecFrequency())
         );
     }
 
     @Test
     public void editExpense_validExpense_success() {
-        Expense e = new Expense("Lunch", LocalDate.now(), 3, Category.FOOD, false, null);
+        Expense e = new Expense("Lunch", LocalDate.now(), 3, Category.FOOD, false, RecurrenceRate.NO);
         expenseList.addExpense(e);
         e.setDescription("Dinner");
         e.setAmount(5);
@@ -55,13 +55,13 @@ public class ExpenseListTest {
             () -> assertEquals(5.0, expense.getAmount()),
             () -> assertEquals(Category.FOOD, expense.getCategory()),
             () -> assertEquals(false, expense.isRecurring()),
-            () -> assertEquals(null, expense.getRecFrequency())
+            () -> assertEquals(RecurrenceRate.NO, expense.getRecFrequency())
         );
     }
 
     @Test
     public void findExpenseIndex_validExpense_success() {
-        Expense e = new Expense("Lunch", LocalDate.now(), 3, Category.FOOD, false, null);
+        Expense e = new Expense("Lunch", LocalDate.now(), 3, Category.FOOD, false, RecurrenceRate.NO);
         expenseList.addExpense(e);
         int index = expenseList.findExpenseIndex(e);
         assertEquals(0, index);
@@ -69,7 +69,7 @@ public class ExpenseListTest {
 
     @Test
     public void deleteExpense_validId_success() {
-        Expense e = new Expense("Phone Bills", LocalDate.now(), 40, Category.BILLS, true, "MONTHLY");
+        Expense e = new Expense("Phone Bills", LocalDate.now(), 40, Category.BILLS, true, RecurrenceRate.MONTHLY);
         expenseList.addExpense(e);
         Expense expense = expenseList.deleteExpense(1);
         assertAll("Deleted expense should contain correct values",
@@ -78,7 +78,7 @@ public class ExpenseListTest {
             () -> assertEquals(40.0, expense.getAmount()),
             () -> assertEquals(Category.BILLS, expense.getCategory()),
             () -> assertEquals(true, expense.isRecurring()),
-            () -> assertEquals("MONTHLY", expense.getRecFrequency())
+            () -> assertEquals(RecurrenceRate.MONTHLY, expense.getRecFrequency())
         );
     }
 
@@ -90,7 +90,7 @@ public class ExpenseListTest {
 
     @Test
     public void findIndexWithId_validId_success() {
-        Expense e = new Expense("Formal Shirt", LocalDate.now(), 40, Category.SHOPPING, false, null);
+        Expense e = new Expense("Formal Shirt", LocalDate.now(), 40, Category.SHOPPING, false, RecurrenceRate.NO);
         expenseList.addExpense(e);
         int index = expenseList.findIndexWithId(1);
         assertEquals(0, index);
@@ -98,7 +98,7 @@ public class ExpenseListTest {
 
     @Test
     public void findIndexWithId_invalidId_success() {
-        Expense e = new Expense("T-Shirt", LocalDate.now(), 10, Category.SHOPPING, false, null);
+        Expense e = new Expense("T-Shirt", LocalDate.now(), 10, Category.SHOPPING, false, RecurrenceRate.NO);
         expenseList.addExpense(e);
         int index = expenseList.findIndexWithId(5);
         assertEquals(-1, index);
@@ -106,7 +106,8 @@ public class ExpenseListTest {
 
     @Test
     public void findExpenseWithId_validId_success() {
-        Expense e = new Expense("Electricity bills", LocalDate.now(), 80.0, Category.BILLS, true, "MONTHLY");
+        Expense e = new Expense("Electricity bills", LocalDate.now(), 80.0,
+                Category.BILLS, true, RecurrenceRate.MONTHLY);
         expenseList.addExpense(e);
         Expense expense = expenseList.findExpenseWithId(1);
         assertAll("Expense should contain correct values",
@@ -115,7 +116,7 @@ public class ExpenseListTest {
             () -> assertEquals(80.0, expense.getAmount()),
             () -> assertEquals(Category.BILLS, expense.getCategory()),
             () -> assertEquals(true, expense.isRecurring()),
-            () -> assertEquals("MONTHLY", expense.getRecFrequency())
+            () -> assertEquals(RecurrenceRate.MONTHLY, expense.getRecFrequency())
         );
     }
 

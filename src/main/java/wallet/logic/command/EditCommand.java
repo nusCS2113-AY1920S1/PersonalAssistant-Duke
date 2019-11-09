@@ -24,6 +24,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_SUCCESS_EDIT_LOAN = "Successfully edited this loan:";
     public static final String MESSAGE_ERROR_FORMAT = "Your format for edit command is wrong.";
     public static final String MESSAGE_ERROR_COMMAND = "An error encountered while executing command.";
+    public static final String MESSAGE_ERROR_ID_DOES_NOT_EXIST = "The ID given does not exist.";
+
 
     private Expense expense;
     private Contact contact;
@@ -61,8 +63,14 @@ public class EditCommand extends Command {
         if (expense != null) {
             //@@author kyang96
             int index = wallet.getExpenseList().findIndexWithId(expense.getId());
-            Expense currentExpense = wallet.getExpenseList().getExpense(index);
-            if (expense.getRecFrequency() == null || !expense.getRecFrequency().equals("")) {
+            Expense currentExpense = new Expense();
+            try {
+                currentExpense = wallet.getExpenseList().getExpense(index);
+            } catch (IndexOutOfBoundsException ex) {
+                System.out.println(MESSAGE_ERROR_ID_DOES_NOT_EXIST);
+                return false;
+            }
+            if (expense.getRecFrequency() != null) {
                 currentExpense.setRecurring(expense.isRecurring());
                 currentExpense.setRecFrequency(expense.getRecFrequency());
             }
@@ -91,13 +99,13 @@ public class EditCommand extends Command {
                 if (contact.getName() != null) {
                     currentContact.setName(contact.getName());
                 }
-                //resetting detail
+
                 if ("".equals(contact.getDetail())) {
                     currentContact.setDetail(null);
                 } else if (contact.getDetail() != null) {
                     currentContact.setDetail(contact.getDetail());
                 }
-                //resetting phone number
+
                 if ("".equals(contact.getPhoneNum())) {
                     currentContact.setPhoneNum(null);
                 } else if (contact.getPhoneNum() != null) {
@@ -117,9 +125,8 @@ public class EditCommand extends Command {
                     }
                 }
 
-
                 System.out.println(MESSAGE_SUCCESS_EDIT_CONTACT);
-                System.out.println(currentContact.toString());
+                Ui.printContact(currentContact);
             } else {
                 System.out.println(MESSAGE_ERROR_COMMAND);
             }

@@ -1,8 +1,6 @@
 package wallet.logic.command;
 
 import wallet.model.Wallet;
-import wallet.ui.HelpPrompt;
-import wallet.storage.HelpStorage;
 
 import java.util.ArrayList;
 
@@ -11,6 +9,13 @@ import java.util.ArrayList;
  */
 public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
+    private String input;
+    private static String MESSAGE_ERROR_INDEX = "Error! Input not a valid help section index";
+
+    public HelpCommand(String input) {
+        this.input = input;
+    }
+
 
     /**
      * Shows a list of valid commands to the user and returns false.
@@ -20,14 +25,20 @@ public class HelpCommand extends Command {
      */
     @Override
     public boolean execute(Wallet wallet) {
-
         //@@author Xdecosee
-        HelpPrompt helpPrompt = new HelpPrompt();
-        HelpStorage helpData = new HelpStorage();
-        ArrayList<String[]> pathList = helpData.retrievePaths();
-        int selectedSection = helpPrompt.prompt(pathList);
-        if (selectedSection > 0) {
-            helpData.sectionData(selectedSection);
+        int chosenIndex;
+        try {
+            chosenIndex = Integer.parseInt(input);
+            if (chosenIndex <= 0 || chosenIndex > wallet.getHelpList().size()) {
+                System.out.println(MESSAGE_ERROR_INDEX);
+                return false;
+            }
+            ArrayList<String> sectionData = wallet.getHelpList().get(chosenIndex - 1).getSectionData();
+            for (String s : sectionData) {
+                System.out.println(s);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println(MESSAGE_ERROR_INDEX);
         }
         return false;
         //@@author

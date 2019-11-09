@@ -10,12 +10,14 @@ import wallet.model.Wallet;
 import wallet.model.WalletList;
 import wallet.model.contact.ContactList;
 import wallet.model.currency.CurrencyList;
+import wallet.model.help.Help;
 import wallet.model.record.BudgetList;
 import wallet.model.record.ExpenseList;
 import wallet.model.record.LoanList;
 import wallet.model.record.RecordList;
 import wallet.reminder.Reminder;
 import wallet.storage.CurrencyStorage;
+import wallet.storage.HelpStorage;
 import wallet.storage.StorageManager;
 import wallet.ui.Ui;
 
@@ -38,24 +40,30 @@ public class LogicManager {
     private static ArrayList<String> commandHistory;
     private static WalletList walletList;
     private int state = 0;
+    private ArrayList<Help> helpList;
 
     /**
      * Constructs a LogicManager object.
      */
     public LogicManager() {
         this.currencyStorage = new CurrencyStorage();
+        HelpStorage helpStorage = new HelpStorage();
+        ArrayList<Help> helpData =  helpStorage.helpData();
+        this.helpList = helpData;
         this.storageManager = new StorageManager();
         this.wallet = new Wallet(new CurrencyList(currencyStorage.loadFile()),
                 new BudgetList(storageManager.loadBudget()),
                 new RecordList(),
                 new ExpenseList(storageManager.loadExpense()),
                 new ContactList(storageManager.loadContact()),
-                new LoanList(storageManager.loadLoan()));
+                new LoanList(storageManager.loadLoan()),
+                helpList);
         this.parserManager = new ParserManager();
         this.commandHistory = new ArrayList<>();
         this.walletList = new WalletList();
         walletList.getWalletList().add(wallet);
         this.reminder = new Reminder();
+
     }
 
     /**
@@ -74,7 +82,9 @@ public class LogicManager {
                 new RecordList(),
                 new ExpenseList(newStorageManager.loadExpense()),
                 new ContactList(newStorageManager.loadContact()),
-                new LoanList(newStorageManager.loadLoan()));
+                new LoanList(newStorageManager.loadLoan()),
+                helpList);
+
         try {
             Command command = parserManager.parseCommand(fullCommand);
             if (command != null) {
@@ -179,5 +189,13 @@ public class LogicManager {
         return storageManager;
     }
 
+    /**
+     * Gets list of help sections.
+     *
+     * @return list of help sections.
+     */
+    public ArrayList<Help> getHelpList() {
+        return helpList;
+    }
 
 }

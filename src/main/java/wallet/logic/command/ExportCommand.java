@@ -16,8 +16,8 @@ import java.util.List;
 public class ExportCommand extends Command {
 
     public static final String COMMAND_WORD = "export";
-    public static final String MESSAGE_ERROR_WRITING_CSV = "Error in writing to csv!";
-    public static final String MESSAGE_SUCCESS_WRITING_CSV = "Export success! File saved to -> ";
+    private static final String MESSAGE_ERROR_WRITING_CSV = "Error in writing to csv!";
+    private static final String MESSAGE_SUCCESS_WRITING_CSV = "Export success! File saved to -> ";
     private List<String[]> data;
     private String type;
 
@@ -67,9 +67,7 @@ public class ExportCommand extends Command {
                 System.out.println(MESSAGE_ERROR_WRITING_CSV);
             }
 
-        } catch (URISyntaxException e) {
-            System.out.println(MESSAGE_ERROR_WRITING_CSV);
-        } catch (IOException e) {
+        } catch (URISyntaxException | IOException e) {
             System.out.println(MESSAGE_ERROR_WRITING_CSV);
         }
 

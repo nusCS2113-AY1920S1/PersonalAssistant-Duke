@@ -16,8 +16,12 @@ import wallet.model.record.ExpenseList;
 import wallet.model.record.Loan;
 import wallet.model.record.LoanList;
 import wallet.model.record.RecordList;
+import wallet.model.record.RecurrenceRate;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -36,7 +40,7 @@ public class EditCommandParserTest {
             () -> assertEquals(10.0, expense.getAmount()),
             () -> assertEquals(Category.OTHERS, expense.getCategory()),
             () -> assertEquals(false, expense.isRecurring()),
-            () -> assertEquals("", expense.getRecFrequency())
+            () -> assertEquals(null, expense.getRecFrequency())
         );
     }
 
@@ -52,7 +56,7 @@ public class EditCommandParserTest {
             () -> assertEquals(10.0, expense.getAmount()),
             () -> assertEquals(Category.OTHERS, expense.getCategory()),
             () -> assertEquals(true, expense.isRecurring()),
-            () -> assertEquals("DAILY", expense.getRecFrequency())
+            () -> assertEquals(RecurrenceRate.DAILY, expense.getRecFrequency())
         );
     }
     //@@author
@@ -112,7 +116,8 @@ public class EditCommandParserTest {
                 new RecordList(),
                 new ExpenseList(),
                 new ContactList(),
-                new LoanList());
+                new LoanList(),
+                new ArrayList<>());
 
         //dummy Contact object
         Contact person1 = new Contact("Mary", "Friend", "1234 5678");
@@ -154,7 +159,8 @@ public class EditCommandParserTest {
                 new RecordList(),
                 new ExpenseList(),
                 new ContactList(),
-                new LoanList());
+                new LoanList(),
+                new ArrayList<>());
 
         //dummy Contact object
         Contact person1 = new Contact("Mary", "Friend", "1234 5678");
@@ -196,7 +202,8 @@ public class EditCommandParserTest {
                 new RecordList(),
                 new ExpenseList(),
                 new ContactList(),
-                new LoanList());
+                new LoanList(),
+                new ArrayList<>());
 
         //dummy Contact object
         Contact person1 = new Contact("Mary", "Friend", "1234 5678");
@@ -238,7 +245,8 @@ public class EditCommandParserTest {
                 new RecordList(),
                 new ExpenseList(),
                 new ContactList(),
-                new LoanList());
+                new LoanList(),
+                new ArrayList<>());
 
         //dummy Contact object
         Contact person1 = new Contact("Mary", "Friend", "1234 5678");
@@ -280,7 +288,8 @@ public class EditCommandParserTest {
                 new RecordList(),
                 new ExpenseList(),
                 new ContactList(),
-                new LoanList());
+                new LoanList(),
+                new ArrayList<>());
 
         //dummy Contact object
         Contact person1 = new Contact("Mary", "Friend", "1234 5678");
