@@ -1,4 +1,4 @@
-package leduc;
+package leduc.ui;
 
 import leduc.exception.DukeException;
 import leduc.exception.FileException;
@@ -13,13 +13,13 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
- *  Represents leduc.Ui which deals with the interactions with the user.
+ *  Represents leduc.ui.Ui which deals with the interactions with the user.
  */
 public abstract class Ui {
     private Scanner sc;
 
     /**
-     * Constructor of the leduc.Ui
+     * Constructor of the leduc.ui.Ui
      */
     public Ui(){
         this.sc = new Scanner(System.in);

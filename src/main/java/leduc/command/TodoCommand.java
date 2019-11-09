@@ -4,7 +4,7 @@ import leduc.exception.EmptyTodoException;
 import leduc.exception.FileException;
 import leduc.exception.PrioritizeLimitException;
 import leduc.storage.Storage;
-import leduc.Ui;
+import leduc.ui.Ui;
 import leduc.task.TaskList;
 import leduc.task.TodoTask;
 
@@ -21,16 +21,16 @@ public class TodoCommand extends Command {
     private static String todoShortcut = "todo";
     /**
      * Constructor of TodoCommand.
-     * @param user String which represent the input string of the user.
+     * @param userInput String which represent the input string of the user.
      */
-    public  TodoCommand(String user){
-        super(user);
+    public  TodoCommand(String userInput){
+        super(userInput);
     }
 
     /**
      * Allow to add the task in the tasks list and the data file.
      * @param tasks leduc.task.TaskList which is the list of task.
-     * @param ui leduc.Ui which deals with the interactions with the user.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws EmptyTodoException Exception caught when the description of the todo list is not given by the user.
      * @throws FileException Exception caught when the file can't be open or read or modify
@@ -38,11 +38,11 @@ public class TodoCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyTodoException, FileException, PrioritizeLimitException {
         String userSubstring;
-        if(callByShortcut){
-            userSubstring = user.substring(TodoCommand.todoShortcut.length());
+        if(isCalledByShortcut){
+            userSubstring = userInput.substring(TodoCommand.todoShortcut.length());
         }
         else {
-            userSubstring = user.substring(4);
+            userSubstring = userInput.substring(4);
         }
         String[] prioritySplit = userSubstring.split("prio");
         TodoTask newTask = null;

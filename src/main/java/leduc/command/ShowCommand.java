@@ -1,6 +1,6 @@
 package leduc.command;
 
-import leduc.Ui;
+import leduc.ui.Ui;
 import leduc.exception.DukeException;
 import leduc.exception.MeaninglessException;
 import leduc.exception.NonExistentDateException;
@@ -16,19 +16,30 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
 
+/**
+ * Represent the language command.
+ * Show the tasks according to the type of date.
+ * The type of date can be today, day, dayofweek, week, month, year
+ */
 public class ShowCommand extends Command {
     private static String showShortcut = "show";
 
     /**
-     * Constructor of Command.
+     * Constructor of ShowCommand.
      *
-     * @param user String which represent the input string of the user.
+     * @param userInput String which represent the input string of the user.
      */
-    public ShowCommand(String user) {
-        super(user);
+    public ShowCommand(String userInput) {
+        super(userInput);
     }
 
-    public int getDayOfWeekInInt(String dayOfWeek) throws MeaninglessException {
+    /**
+     * Helper method to convert the type of day(string) to an integer
+     * @param dayOfWeek the day of the week, can be monday, tuesday, wednesday, thursday, friday, saturday, sunday
+     * @return the integer that represent the day of week
+     * @throws MeaninglessException thrown when the type of date is wrong
+     */
+    private int getDayOfWeekInInt(String dayOfWeek) throws MeaninglessException {
         int dayOfWeekInt = 0;
         switch(dayOfWeek){
             case "monday":
@@ -59,7 +70,13 @@ public class ShowCommand extends Command {
 
     }
 
-    public void getListTaskExactDay(LocalDate date, ArrayList<Task> allTaskHavingDate, ArrayList<Task> showTaskList){
+    /**
+     * Helper method to add all the tasks corresponding to the day date from allTaskHavingDate to showTaskList
+     * @param date the day
+     * @param allTaskHavingDate all the task that have a date
+     * @param showTaskList final result that will be shown
+     */
+    private void getListTaskExactDay(LocalDate date, ArrayList<Task> allTaskHavingDate, ArrayList<Task> showTaskList){
         for(Task t : allTaskHavingDate){
             if(t.isHomework()){
                 if(((HomeworkTask)t).getDeadlines().getDate().toLocalDate().isEqual(date)){
@@ -74,6 +91,13 @@ public class ShowCommand extends Command {
         }
     }
 
+    /**
+     * Helper method to add all the tasks corresponding to the month and the year date from allTaskHavingDate to showTaskList
+     * @param dateMonth the date corresponding to the month
+     * @param dateYear the date corresponding to the year
+     * @param allTaskHavingDate all the task that have a date
+     * @param showTaskList final result that will be shown
+     */
     public void getListTaskMonth(int dateMonth, int dateYear, ArrayList<Task> allTaskHavingDate, ArrayList<Task> showTaskList){
         for(Task t : allTaskHavingDate){
             if(t.isHomework()){
@@ -88,7 +112,12 @@ public class ShowCommand extends Command {
             }
         }
     }
-
+    /**
+     * Helper method to add all the tasks corresponding to the year date from allTaskHavingDate to showTaskList
+     * @param dateYear the date corresponding to the year
+     * @param allTaskHavingDate all the task that have a date
+     * @param showTaskList final result that will be shown
+     */
     public void getListTaskYear(int dateYear, ArrayList<Task> allTaskHavingDate, ArrayList<Task> showTaskList){
         for(Task t : allTaskHavingDate){
             if(t.isHomework()){
@@ -104,17 +133,28 @@ public class ShowCommand extends Command {
         }
     }
 
+    /**
+     * Show all the task corresponding to the user type of date
+     * Type of date can be today, day, dayofweek, week, month, year
+     * There are two behaviour :
+     * - one line command
+     * - multi line command
+     * @param tasks leduc.task.TaskList which is the list of task.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
+     * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
+     * @throws DukeException all the exception catchable
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         ArrayList<Task> allTaskHavingDate = tasks.filterTasks(tasks);
         ArrayList<Task> showTaskList = new ArrayList<>();
         String userSubstring;
         Boolean multiStep = false;
-        if(callByShortcut){
-            userSubstring = user.substring(ShowCommand.showShortcut.length()).trim();
+        if(isCalledByShortcut){
+            userSubstring = userInput.substring(ShowCommand.showShortcut.length()).trim();
         }
         else {
-            userSubstring = user.substring(4).trim();
+            userSubstring = userInput.substring(4).trim();
         }
         String[] userSubSubString = userSubstring.split(" ");
         if(userSubSubString.length == 1) {

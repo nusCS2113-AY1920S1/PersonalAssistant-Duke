@@ -1,6 +1,6 @@
 package leduc.command;
 
-import leduc.Ui;
+import leduc.ui.Ui;
 import leduc.exception.DukeException;
 import leduc.storage.Storage;
 import leduc.task.TaskList;
@@ -16,16 +16,16 @@ public class HelpCommand extends Command{
 
     /**
      * Constructor
-     * @param user user input
+     * @param userInput user input
      */
-    public HelpCommand(String user) {
-        super(user);
+    public HelpCommand(String userInput) {
+        super(userInput);
     }
 
     /**
      * display every command
      * @param tasks leduc.task.TaskList which is the list of task.
-     * @param ui leduc.Ui which deals with the interactions with the user.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      */
     @Override

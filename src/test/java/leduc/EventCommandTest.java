@@ -6,6 +6,8 @@ import leduc.storage.Storage;
 import leduc.task.EventsTask;
 import leduc.task.Task;
 import leduc.task.TaskList;
+import leduc.ui.Ui;
+import leduc.ui.UiEn;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

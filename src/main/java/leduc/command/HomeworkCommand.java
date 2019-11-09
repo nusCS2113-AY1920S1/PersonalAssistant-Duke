@@ -3,7 +3,7 @@ package leduc.command;
 import leduc.Date;
 import leduc.exception.*;
 import leduc.storage.Storage;
-import leduc.Ui;
+import leduc.ui.Ui;
 import leduc.task.HomeworkTask;
 import leduc.task.Task;
 import leduc.task.TaskList;
@@ -24,22 +24,24 @@ public class HomeworkCommand extends Command {
     private static String homeworkShortcut = "homework";
     /**
      * Constructor of HomeworkCommand.
-     * @param user String which represent the input string of the user.
+     * @param userInput String which represent the input string of the user.
      */
-    public HomeworkCommand(String user){
-        super(user);
+    public HomeworkCommand(String userInput){
+        super(userInput);
     }
 
     /**
-     * Allow to add a homework task to the task list and to the data file.
+     * Allow to add a homework task to the task list and to the data file. The user can set a priority or a recurrence or both of them.
+     * Recurrence only add new homework with day/week/month interval.
      * @param tasks leduc.task.TaskList which is the list of task.
-     * @param ui leduc.Ui which deals with the interactions with the user.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws EmptyHomeworkDateException Exception caught when the date of the homework task is not given.
      * @throws EmptyHomeworkException Exception caught when the description of the homework task is not given.
      * @throws NonExistentDateException Exception caught when the date given does not exist.
      * @throws FileException Exception caught when the file can't be open or read or modify.
      * @throws PrioritizeLimitException Exception caught when the new priority is greater than 9 or less than 0.
+     * @throws RecurrenceException Exception caught when the user doesn't respect the recurrence format
      */
     public void execute(TaskList tasks, Ui ui, Storage storage)
             throws EmptyHomeworkDateException, EmptyHomeworkException, NonExistentDateException,
@@ -47,11 +49,11 @@ public class HomeworkCommand extends Command {
         String userSubstring;
         int nbRecurrence = 0;
         String typeOfRecurrence = "";
-        if(callByShortcut){
-            userSubstring = user.substring(HomeworkCommand.homeworkShortcut.length());
+        if(isCalledByShortcut){
+            userSubstring = userInput.substring(HomeworkCommand.homeworkShortcut.length());
         }
         else {
-            userSubstring = user.substring(8);
+            userSubstring = userInput.substring(8);
         }
         if(userSubstring.isBlank()){
             throw new EmptyHomeworkException();
@@ -143,8 +145,17 @@ public class HomeworkCommand extends Command {
             }
         }
     }
-
-    public void contructRecurrenceTask(HomeworkTask task, int nbRecurrence, String typeOfRecurrence, TaskList tasks, Storage storage, Ui ui) throws FileException {
+    /**
+     * Helper method to construct recurrence task
+     * @param task the task that will be repeated
+     * @param nbRecurrence the number of recurrence
+     * @param typeOfRecurrence type of recurrence, can be day, week or month
+     * @param tasks leduc.task.TaskList which is the list of task.
+     * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
+     * @throws FileException Exception caught when the file can't be open or read or modify
+     */
+    private void contructRecurrenceTask(HomeworkTask task, int nbRecurrence, String typeOfRecurrence, TaskList tasks, Storage storage, Ui ui) throws FileException {
         ArrayList<Task> newTaskList = new ArrayList<>();
         LocalDateTime initialDate = task.getDeadlines().getDate();
         String description = task.getTask();

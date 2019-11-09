@@ -1,7 +1,7 @@
 package leduc.command;
 
 
-import leduc.Ui;
+import leduc.ui.Ui;
 import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.task.Task;
@@ -19,16 +19,16 @@ public class PrioritizeCommand extends Command {
 
     /**
      * Constructor of leduc.command.PrioritizeCommand
-     * @param user String which represent the input string of the user.
+     * @param userInput String which represent the input string of the user.
      */
-    public PrioritizeCommand(String user){
-        super(user);
+    public PrioritizeCommand(String userInput){
+        super(userInput);
     }
 
     /**
      * Execution of leduc.command.PrioritizeCommand: allows to set the priority of a task.
      * @param tasks leduc.task.TaskList which is the list of task.
-     * @param ui leduc.Ui which deals with the interactions with the user.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws FileException Exception caught when the file can't be open or read or modify.
      * @throws NonExistentTaskException Exception caught when the task to delete does not exist.
@@ -40,11 +40,11 @@ public class PrioritizeCommand extends Command {
             NonExistentTaskException, PrioritizeFormatException, PrioritizeLimitException, EmptyArgumentException {
         String[] commandString = null;
         String subString = null;
-        if(callByShortcut){
-            subString = user.substring(PrioritizeCommand.prioritizeShortcut.length()).trim();
+        if(isCalledByShortcut){
+            subString = userInput.substring(PrioritizeCommand.prioritizeShortcut.length()).trim();
         }
         else {
-            subString = user.substring(10).trim();
+            subString = userInput.substring(10).trim();
         }
         if (subString.isBlank()){
             throw new EmptyArgumentException();

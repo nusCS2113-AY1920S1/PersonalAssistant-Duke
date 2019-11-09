@@ -3,7 +3,7 @@ package leduc.command;
 
 import leduc.exception.EmptyArgumentException;
 import leduc.storage.Storage;
-import leduc.Ui;
+import leduc.ui.Ui;
 import leduc.task.Task;
 import leduc.task.TaskList;
 import java.lang.*;
@@ -19,10 +19,10 @@ public class FindCommand extends Command {
     private static String findShortcut = "find";
     /**
      * Constructor of FindCommand.
-     * @param user String which represent the input string of the user.
+     * @param userInput String which represent the input string of the user.
      */
-    public FindCommand(String user){
-        super(user);
+    public FindCommand(String userInput){
+        super(userInput);
     }
     /**
      * Finds the index of the maximum value in the arraylist
@@ -74,7 +74,7 @@ public class FindCommand extends Command {
                 }
             }
             relevanceScore = numMatches / longestStringLength;
-            int matchThreshold = 0.5;
+            double matchThreshold = 0.5;
             if(relevanceScore <= matchThreshold){
                 relevanceScore = 0.0;
             }
@@ -85,23 +85,23 @@ public class FindCommand extends Command {
     /**
      * Allow to find top relevant tasks from the task list by utilizing fuzzy matching algorithm.
      * @param tasks leduc.task.TaskList which is the list of task.
-     * @param ui leduc.Ui which deals with the interactions with the user.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws EmptyArgumentException Exception caught when there is no argument
      */
 
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyArgumentException {
         String userSubstring;
-        if(callByShortcut){
-            userSubstring = user.substring(FindCommand.findShortcut.length());
+        if(isCalledByShortcut){
+            userSubstring = userInput.substring(FindCommand.findShortcut.length());
         }
         else {
-            userSubstring = user.substring(4);
+            userSubstring = userInput.substring(4);
         }
         if(userSubstring.isBlank()){
             throw new EmptyArgumentException();
         }
-        String find = user.substring(FindCommand.findShortcut.length()+1);
+        String find = userInput.substring(FindCommand.findShortcut.length()+1);
         ArrayList<Double> scores;
         //populate list of relevance scores
         scores = generateRelevanceScores(find, tasks);

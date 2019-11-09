@@ -2,7 +2,7 @@ package leduc.command;
 
 import leduc.exception.DukeException;
 import leduc.storage.Storage;
-import leduc.Ui;
+import leduc.ui.Ui;
 import leduc.task.TaskList;
 
 /**
@@ -10,15 +10,15 @@ import leduc.task.TaskList;
  * The command asked by the user will be represented by one of the subclasses of leduc.command.Command.
  */
 public abstract class Command {
-    protected String user;
-    protected boolean callByShortcut = false;
+    protected String userInput;
+    protected boolean isCalledByShortcut = false;
 
     /**
      * Constructor of Command.
-     * @param user String which represent the input string of the user.
+     * @param userInput String which represent the input string of the user.
      */
-    public Command(String user ){
-        this.user=user;
+    public Command(String userInput){
+        this.userInput = userInput;
     }
 
     /**
@@ -32,13 +32,13 @@ public abstract class Command {
     /**
      * Abstract method: the operation of the specified command will be implemented.
      * @param tasks leduc.task.TaskList which is the list of task.
-     * @param ui leduc.Ui which deals with the interactions with the user.
+     * @param ui leduc.ui.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws DukeException one of the subclass of leduc.exception.DukeException could be caught in the execution of this method.
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 
     public void calledByShortcut(){
-        this.callByShortcut = true;
+        this.isCalledByShortcut = true;
     }
 }

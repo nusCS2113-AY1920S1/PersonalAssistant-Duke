@@ -4,6 +4,8 @@ import leduc.command.HomeworkCommand;
 import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.task.TaskList;
+import leduc.ui.Ui;
+import leduc.ui.UiEn;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
