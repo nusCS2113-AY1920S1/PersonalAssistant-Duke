@@ -131,6 +131,7 @@ public class SampleStorage {
     public ProfileCard getProfileCard() {
         return profileCard;
     }
+
     /**
      * Returns the itinerary hash-map.
      */
