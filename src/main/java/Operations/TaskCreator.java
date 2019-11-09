@@ -495,6 +495,11 @@ public class TaskCreator {
             RecurrenceScheduleType recurrence = this.extractRecurrence(input);
             oldTask.setRecurrenceSchedule(recurrence);
         }
+
+        if(input.contains("uncheck") && !(oldTask instanceof Leave)) {
+            boolean checked = oldTask.getDone();
+            oldTask.setDone(!checked);
+        }
     }
 
     /**
