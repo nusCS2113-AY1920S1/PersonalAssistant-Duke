@@ -52,6 +52,16 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void addToFavourite(String name, Itinerary itinerary) {
+        profileCard.addFavourite(name, itinerary);
+    }
+
+    @Override
+    public void deleteFavourite(String name) throws NoSuchItineraryException {
+        profileCard.deleteFavourite(name);
+    }
+
+    @Override
     public void doneItinerary(String name) throws NoSuchItineraryException {
         if (itineraryTable.get(name) == null) {
             throw new NoSuchItineraryException();

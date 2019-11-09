@@ -119,15 +119,22 @@ public class CommandResultText extends CommandResult {
      * @param profileCard The ProfileCard to create text for.
      */
     public CommandResultText(ProfileCard profileCard) {
-        message = "PROFILE:\n\n";
-        message += "Name: " + profileCard.getPersonName() + "\n";
+        message = "PROFILE:\n";
+        message += "\nName: " + profileCard.getPersonName() + "\n";
         message += "Age: " + profileCard.getAge() + "\n";
-        message += "Likes:\n";
+        message += "\nLikes:\n";
         String[] category = {"sports", "entertainment", "arts", "lifestyle"};
         int i = 0;
         for (Boolean setting : profileCard.getPreference()) {
-            message += (category[i] + " : " + setting + "\n");
+            if (setting) {
+                message += (category[i] + "\n");
+            }
             i += 1;
+        }
+        message += "\nFavorite Itinerary:\n";
+        i = 1;
+        for (String name : profileCard.getFavouriteList().keySet()) {
+            message += i++ + ". " + name + "\n";
         }
     }
 }
