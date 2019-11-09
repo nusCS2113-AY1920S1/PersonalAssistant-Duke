@@ -80,7 +80,7 @@ link:https://github.com/AY1920S1-CS2113T-T12-3/main/blob/master/src/main/java/du
 === Model component
 
 .Structure of the Model Component
-image::model.png[]
+image::ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -94,7 +94,7 @@ The `Model`,
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
-image:ModelClassDiagram.png[]
+image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
