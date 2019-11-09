@@ -4,7 +4,7 @@ package planner.credential.user;
 
 import planner.logic.command.Arguments;
 import planner.logic.command.ClearCommand;
-import planner.logic.exceptions.planner.ModTamperedUserDataException;
+import planner.logic.exceptions.planner.ModTamperedDataException;
 import planner.logic.modules.TaskList;
 import planner.logic.modules.cca.Cca;
 import planner.logic.modules.legacy.task.TaskWithMultipleWeeklyPeriod;
@@ -49,7 +49,7 @@ public class User {
     private static Profile readUserData() {
         try {
             return User.storage.readGsonSecure(User.defaultPath, Profile.class);
-        } catch (ModTamperedUserDataException ex) {
+        } catch (ModTamperedDataException ex) {
             System.out.println(ex.getMessage());
             return null;
         }
