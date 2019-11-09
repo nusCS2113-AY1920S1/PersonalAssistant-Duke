@@ -131,7 +131,7 @@ public class GoalsListTest {
                     + NEWLINE + "1         test                   $100.00              -NOT TIED-                     "
                     + "$100.00              10 October 2020      N                    "
                     + NEWLINE + "-----------------------------------------------------------------------------------"
-                    + "---------------------------------------------------------" + NEWLINE;;
+                    + "---------------------------------------------------------" + NEWLINE;
             assertEquals(expectedOutput, outContent.toString());
             System.out.println(expectedOutput);
             System.out.println(outContent.toString());
