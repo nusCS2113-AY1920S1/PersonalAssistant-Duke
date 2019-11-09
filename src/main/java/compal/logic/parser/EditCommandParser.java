@@ -8,18 +8,23 @@ import compal.model.tasks.Task;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
 //@@author jaedonkey
 public class EditCommandParser implements CommandParser {
+    private static final ArrayList<String> key = new ArrayList<>(Arrays.asList(TOKEN_END_TIME, TOKEN_START_TIME,
+            TOKEN_DATE, TOKEN_PRIORITY, TOKEN_TASK_ID, TOKEN_DESCRIPTION));
     private static final Logger logger = LogUtils.getLogger(EditCommandParser.class);
 
 
     @Override
     public Command parseCommand(String restOfInput) throws ParserException, ParseException {
         logger.info("Attempting to parse edit command");
+        isValidKey(key, restOfInput,MESSAGE_INVALID_PARAM);
         int taskId = getTaskID(restOfInput);
         String description = getTokenDescription(restOfInput);
         Date date = getDate(restOfInput);
