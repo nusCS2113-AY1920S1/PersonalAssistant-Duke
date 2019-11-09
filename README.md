@@ -8,7 +8,12 @@ Dolla is a command line based expense tracker targeted at NUS students staying o
 ![Mock Ui Image](/docs/images/Ui/Ui2.png)
 
 # Introduction
-A friendly mode-based bot that helps you handle your expenses and better track your finances!
+* A friendly mode-based bot that helps you handle your expenses and better track your finances!
+* This is a CLI (Command Line Interface) mode-based application written in OOP fashion. 
+It has a simple CLI as seen above.
+* It is a program written in Java. 
+* With this product, you no longer have to waste time clicking through pages on your phone app just to input your expenditure!
+* What are you waiting for, head over to our [releases](https://github.com/AY1920S1-CS2113T-F11-2/main/releases) and make your finance management hassle free today!
 
 # Features
 * Toggle between different 'modes' to view and edit different items!
