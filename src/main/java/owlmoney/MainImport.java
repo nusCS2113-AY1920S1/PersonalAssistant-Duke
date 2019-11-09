@@ -33,10 +33,13 @@ class MainImport {
     /**
      * Creates an instance of MainImport to mass import dummy data for testing purposes.
      */
-    public MainImport() {
+    MainImport() {
         storage = new Storage(FILE_PATH);
-        storage.createDirectoryIfNotExist(FILE_PATH);
+    }
+
+    void createAllFiles() {
         try {
+            storage.createDirectoryIfNotExist(FILE_PATH);
             createProfileFile();
             createBankListFile();
             createCardListFile();

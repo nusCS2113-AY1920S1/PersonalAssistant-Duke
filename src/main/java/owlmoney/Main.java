@@ -91,7 +91,8 @@ class Main {
             profile.profileReminderForGoals();
         } catch (IOException exceptionMessage) {
             ui.printError("Unable to import profile files, starting fresh");
-            MainImport MainImport = new MainImport();
+            MainImport mainImport = new MainImport();
+            mainImport.createAllFiles();
             ui.firstTimeRun();
             getUserName();
             ui.greet(profile.profileGetUsername());
