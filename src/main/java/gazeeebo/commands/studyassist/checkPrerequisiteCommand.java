@@ -16,7 +16,7 @@ public class checkPrerequisiteCommand {
      * @param storage The object that deals with modify,access and save external files.
      * @throws IOException
      */
-    public void execute(Ui ui, Storage storage) throws IOException {
+    public void execute(Ui ui, Storage storage) throws IOException,DukeException {
         HashMap<String, ArrayList<String>> PrerequisiteList = new HashMap<String,ArrayList<String>>(storage.readFromPrerequisiteFile());
         try {
             if(ui.fullCommand.split(" ").length!=2) throw new DukeException("Please follow the correct input format~");

@@ -15,7 +15,7 @@ public class shiftModuleCommand {
      * @param ui the object htat deals with interactions between users and the system.
      * @throws IOException
      */
-    public void execute(StudyPlannerCommand StudyPlan, Storage storage, Ui ui) throws IOException {
+    public void execute(StudyPlannerCommand StudyPlan, Storage storage, Ui ui) throws IOException,DukeException {
         try {
             if(ui.fullCommand.split(" ").length != 4){
                 throw new DukeException("Please follow the correct input format");
@@ -25,15 +25,25 @@ public class shiftModuleCommand {
             if(StudyPlan.MCMap.get(ModuleCode)==null) throw new DukeException("We currently do not support this module.");
             int Semester = Integer.parseInt(ui.fullCommand.split(" ")[3]) - 1;
             if(Semester >=8||Semester<0)throw new ArrayIndexOutOfBoundsException();
+            boolean flag = false;
+            int semester_number = -1;
+            for(int i=0;i<StudyPlan.StudyPlan.size()&& !flag;i++){
+                if(StudyPlan.StudyPlan.get(i).contains(ModuleCode)) {
+                    flag = true;
+                    semester_number = i;
+                }
+            }
+            if(!flag) throw new DukeException("This module is not inside the study plan");
+            if(semester_number == Semester) throw new DukeException("This module is already inside Sem "+(Semester+1)+".");
             try {
-                boolean flag = false;
+                boolean flag2 = false;
                 for (int i = 0; i < StudyPlan.StudyPlan.size(); i++) {
                     if (StudyPlan.StudyPlan.get(i).contains(ModuleCode)) {
-                        flag = true;
+                        flag2 = true;
                         StudyPlan.StudyPlan.get(i).remove(StudyPlan.StudyPlan.get(i).indexOf(ModuleCode));
                     }
                 }
-                if (!flag) throw new DukeException("This module is not inside the study plan");
+                if (!flag2) throw new DukeException("This module is not inside the study plan");
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }
