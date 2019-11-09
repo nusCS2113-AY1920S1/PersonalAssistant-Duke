@@ -7,8 +7,12 @@ public enum Context {
     HOME,
     PATIENT,
     IMPRESSION,
-    SEARCH,
+    INVESTIGATION,
+    OBSERVATION,
+    PLAN,
+    RESULT,
+    MEDICINE,
     TREATMENT,
     EVIDENCE,
-    INVESTIGATION
+    SEARCH
 }
