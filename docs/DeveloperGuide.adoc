@@ -102,7 +102,7 @@ The *_Class Diagram_* above shows the different interactions of the `Ui` compone
 
 The `Ui` component is responsible for: +
 
-* Taking in and executing user commands via the `Logic` component
+* Taking in and executing user commands via the `Logic` component.
 * Listening for changes to `Model` data so that the `UI` component can be updated with the latest data.
 * Displaying output to the user.
 
@@ -129,6 +129,20 @@ The `Model` stores: +
 When either `SemesterList` or `TaskList` is changed, the system will update the persistent storage via the `Storage component`, which will be explained in the next section.
 
 === Storage component
+
+The `Storage` component consists of the `Storage`, `StorageManager` and `StorageParser` classes and shows how they are associated with one another. 
+
+[[StorageClassDiagram]]
+.Class Diagram for Storage Component
+image::StorageClassDiagram.png[StorageClassDiagram]
+
+The  *_Class Diagram_* above illustrates the relationship between the individual classes in the `Storage` component. 
+
+The `Storage` component is responsible for: 
+
+* Parsing data from/to persistent storage via the `StorageParser` component. 
+* Listening for incoming data from `StorageParser` component to write to persistent storage. 
+* Loading and writing data from/to persistent storage which is managed by the `StorageManager` component. 
 
 === Common classes
 
