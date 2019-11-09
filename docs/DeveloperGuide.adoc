@@ -188,26 +188,30 @@ public class AddOrderCommand extends Command {
 ===== Aspect 1: Extending AutoComplete to more commands
 
  * Alternative 1: Hard-code command words and arguments in AutoCompleter class.
- ** Advantages: Easy to implement.
-** Disadvantages: Violates the Open-Closed Principle because developers need to modify AutoCompleter's internal structure to add new commands.
+ 
+ ** Pros: Easy to implement.
+ 
+ ** Cons: Violates the Open-Closed Principle because developers need to modify AutoCompleter's internal structure to add new commands.
 Also, it makes code more coupled since if we change parameters of a command, we need to change corresponding fields in AutoCompleter as well.
 
-* Alternative 2 (Current choice): Use Reflection API to obtain command words and arguments from CommandClass at runtime.
- ** Advantages: Avoids modification to the internal structure of AutoCompleter class
- ** Disadvantages: Since Reflection allows code to perform operations that would be illegal in non-reflective code,
+ * Alternative 2 (Current choice): Use Reflection API to obtain command words and arguments from CommandClass at runtime.
+ 
+ ** Pros: Avoids modification to the internal structure of AutoCompleter class
+ 
+ ** Cons: Since Reflection allows code to perform operations that would be illegal in non-reflective code,
 
 it could lead to unexpected side-effects if implemented wrongly.
 
 ===== Aspect 2: Displaying multiple suggestions
 
 * Alternative 1: Use a drop-down list to display all possible suggestions.
-** Advantages: Intuitive and allows users to see all possible commands in one place.
-* Disadvantages: Hard to implement.
+** Pros: Intuitive and allows users to see all possible commands in one place.
+* Cons: Hard to implement.
 May require additional components other than JavaFx's built-in components.
 May require additional components other than JavaFx's built-in components.
 * Alternative 2 (Current choice): Navigate between possible suggestions by repeatedly pressing `Tab` key.
-** Advantages: Easier to implement since no additional components are needed
-** Disadvantages: Cannot display all possible commands in one place.
+** Pros: Easier to implement since no additional components are needed
+** Cons: Cannot display all possible commands in one place.
 
 === Filter Product Feature
 
@@ -388,7 +392,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `BakingHome` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `BakingHome` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete an Order
@@ -432,6 +436,31 @@ Use case resumes at step 2.
 
 [none]
 * 2a.The list is empty.
++
+Use case ends.
+
+* 3a.
+The given index(indices) is(are) invalid.
++
+[none]
+** 3a1. BakingHome shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Buying an ingredient in the shopping list
+
+*MSS*
+
+1. User requests to list all ingredients in the shopping list.
+2. BakingHome shows a list of ingredients.
+3. User requests to buy a specific ingredient or multiple ingredients in the shopping list.
+4. BakingHome transfers these ingredients from the shopping list to the inventory list and adds a sales transaction with the total cost of the bought ingredients to the Sales page.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
 +
 Use case ends.
 
@@ -498,6 +527,7 @@ The error message is "Name should be no more than 20 characters"
 .. Test case: `order add -rmk abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd`
 Expected: A error message pops up.
 The error message is "Remarks should be no more than 50 characters"
+
 . Adding an order with items
 .. Prerequisites: `Cake` product should be in Product List; `Fish` product should **not** be in Product List.
 .. Test case: `order add -item Cake, 1` +
@@ -507,7 +537,7 @@ The error message is "Remarks should be no more than 50 characters"
 
 === Deleting Orders
 
-. Deleting a single order.
+. Deleting a single order
 
 .. Prerequisites: At least 1 order in Order List
 .. Test case: `order remove 1` +
@@ -529,6 +559,32 @@ Error details shown in the pop-up bar.
 .. Other incorrect commands to try: `order remove 1,x` (where x is larger than the list size), `order remove 2~1`
 Expected: Similar to previous
 
+=== Buying ingredients 
+
+. Buying a single ingredient
+.. Prerequisites: At least 1 ingredient in Shopping List
+.. Test case: `shop buy 1` +
+   Expected: The first ingredient is bought and transferred to Inventory List.
+.. Test case: `shop buy 0` +
+   Expected: No ingredients are bought. Error details shown in the pop-up bar.
+   
+. Buying multiple ingredients
+.. Prerequisites: At least 2 ingredients in Shopping List
+.. Test case: `shop buy 1, 2` +
+   Expected: The first and second ingredients are bought and transferred to Inventory List.
+.. Test case: `shop buy Cheese` +
+   Expected: No ingredients are bought. Error details shown in the pop-up bar.
+   
+=== Editing data in BakingHome
+.. Prerequisites: At least 1 object in the list in order to edit
+.. Test case: `shop edit 1 -qty 10 -cost 10` +
+   Expected: In the shopping list, the first ingredient's quantity is changed to 10, and its unit cost is changed to 10. +
+   All other data that is not inputted as parameters will be unchanged. 
+.. Test case: `order edit 1 -name Eugene -rmk Birthday` 
+   Expected: In orders, the first order's customer name is changed to Eugene, and the remarks is changed to Birthday` +
+   All other data that is not inputted as parameters will be unchanged. +
+   This is provided the order status is not completed. If the order status is completed, you cannot edit the order. +
+   
 === Saving data
 
 . Dealing with missing/corrupted data files
