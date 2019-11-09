@@ -118,7 +118,8 @@ starting from a specified day, including the events within this time period. +
 - `calendar` This prints the calendar table of this 7 days.
 - `calendar next` This prints the calendar table of the next 7 days.
 - `calendar last` This prints the calendar table of the last 7 days.
-
+- `calendar on` Allow the calendar to be printed after every command execution.
+- `calendar off` Not allowing the calendar to be printed after every command execution.
 
 === Viewing schedules : `view`
 
