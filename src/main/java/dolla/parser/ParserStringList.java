@@ -81,4 +81,7 @@ public interface ParserStringList {
     String SPACE = " ";
     String COMMAND_BYE = "bye";
     String EMPTY_STR = "";
+    String INVALID_AMOUNT_EXCEPTION = "Invalid amount exception";
+    String INVALID_DATE_EXCEPTION = "Invalid date exception";
+
 }

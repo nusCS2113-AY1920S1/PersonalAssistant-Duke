@@ -9,6 +9,7 @@ public class DollaException extends Exception {
     private static final String NO_LIMIT_MSG = "\tOOPS! There is no limit set for the duration you specified.";
     private static final String INVALID_LIMIT_TYPE_MSG = "\tOOPS! Please specify the limit type: budget/saving.";
     private static final String INVALID_LIMIT_DURATION_MSG = "\tOOPS! Please specify the limit duration.";
+    private static final String INVALID_TYPE_MSG = "OOPS! The type you have input is invalid.";
 
     /**
      * Prints a non existing limit error.
@@ -44,6 +45,14 @@ public class DollaException extends Exception {
     public static String invalidLimitDuration() {
         LimitUi.invalidLimitDurationPrinter();
         return INVALID_LIMIT_DURATION_MSG;
+    }
+
+    /**
+     * Returns an invalid type exception.
+     * @return
+     */
+    public static String invalidType() {
+        return INVALID_TYPE_MSG;
     }
 
     /**
