@@ -673,8 +673,12 @@ public class Command {
 
                 case "achieved":
                     if (!events.getEvent(eventIndex).getGoalList().isEmpty()) {
-                        events.getEvent(eventIndex).updateGoalAchieved(goalIndex - 1);
-                        ui.printGoalSetAsAchieved(events.getEvent(eventIndex).getGoalObject(goalIndex - 1));
+                        if(events.getEvent(eventIndex).getGoalObject(goalIndex - 1).getBooleanStatus()) {
+                            ui.printGoalAlreadyAchieved();
+                        } else {
+                            events.getEvent(eventIndex).updateGoalAchieved(goalIndex - 1);
+                            ui.printGoalSetAsAchieved(events.getEvent(eventIndex).getGoalObject(goalIndex - 1));
+                        }
                     } else {
                         ui.printNoSuchGoal();
                     }
