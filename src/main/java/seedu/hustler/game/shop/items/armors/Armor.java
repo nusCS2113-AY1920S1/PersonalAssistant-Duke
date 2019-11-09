@@ -6,7 +6,22 @@ import java.util.Optional;
 /**
  * The abstract class that all armor that the avatar yields inherits from.
  */
-public abstract class Armor extends ShopItem {
+public abstract class Armor implements ShopItem {
+
+    /**
+     * The cost of the shop item.
+     */
+    protected int cost;
+    /**
+     * Boolean if the shop item has been purchased.
+     */
+
+    protected Boolean isPurchased;
+
+    /**
+     * The type in string, of each item.
+     */
+    protected String type;
 
     /**
      * The defence increment of the armor.
@@ -27,7 +42,9 @@ public abstract class Armor extends ShopItem {
      * @param staIcr the stamina increment of the armor.
      */
     public Armor(int cost, boolean hasPurchased, int defIcr, int staIcr) {
-        super(cost, hasPurchased, "Armor");
+        this.cost = cost;
+        this.isPurchased = hasPurchased;
+        this.type = "Armor";
         this.DEF_INCR = defIcr;
         this.STA_INCR = staIcr;
     }
@@ -67,5 +84,35 @@ public abstract class Armor extends ShopItem {
     @Override
     public String toString() {
         return "+" + DEF_INCR + " DEF, +" + STA_INCR + " STA ";
+    }
+
+    @Override
+    public int getCost() {
+        return this.cost;
+    }
+
+    @Override
+    public Boolean isPurchased() {
+        return this.isPurchased;
+    }
+
+    @Override
+    public String getType() {
+        return this.type;
+    }
+
+    @Override
+    public void setPurchased(Boolean purchased) {
+        this.isPurchased = purchased;
+    }
+
+    @Override
+    public Boolean isSameType(ShopItem other) {
+        return this.type.equals(other.getType());
+    }
+
+    @Override
+    public boolean canPurchase(int points) {
+        return this.cost <= points;
     }
 }

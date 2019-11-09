@@ -1,12 +1,28 @@
 package seedu.hustler.game.shop.items.weapons;
 
 import seedu.hustler.game.shop.items.ShopItem;
+
 import java.util.Optional;
 
 /**
  * Abstract class of weapon that all weapons the avatar yields inherits from.
  */
-public abstract class Weapon extends ShopItem {
+public abstract class Weapon implements ShopItem {
+
+    /**
+     * The cost of the shop item.
+     */
+    protected int cost;
+    /**
+     * Boolean if the shop item has been purchased.
+     */
+
+    protected Boolean isPurchased;
+
+    /**
+     * The type in string, of each item.
+     */
+    protected String type;
 
     /**
      * The damage increment of the weapon.
@@ -20,7 +36,9 @@ public abstract class Weapon extends ShopItem {
      * @param dmgIncr the int of the damage increment.
      */
     public Weapon(int cost, boolean hasPurchased, int dmgIncr) {
-        super(cost, hasPurchased, "Weapon");
+        this.cost = cost;
+        this.isPurchased = hasPurchased;
+        this.type = "Weapon";
         this.DMG_INCR = dmgIncr;
     }
 
@@ -51,5 +69,35 @@ public abstract class Weapon extends ShopItem {
     @Override
     public String toString() {
         return "+" + this.DMG_INCR + " DMG ";
+    }
+
+    @Override
+    public int getCost() {
+        return this.cost;
+    }
+
+    @Override
+    public Boolean isPurchased() {
+        return this.isPurchased;
+    }
+
+    @Override
+    public String getType() {
+        return this.type;
+    }
+
+    @Override
+    public void setPurchased(Boolean purchased) {
+        this.isPurchased = purchased;
+    }
+
+    @Override
+    public Boolean isSameType(ShopItem other) {
+        return this.type.equals(other.getType());
+    }
+
+    @Override
+    public boolean canPurchase(int points) {
+        return this.cost <= points;
     }
 }
