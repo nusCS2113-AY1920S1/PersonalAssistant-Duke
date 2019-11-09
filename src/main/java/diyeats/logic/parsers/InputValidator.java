@@ -16,6 +16,16 @@ public class InputValidator {
         if (userInput.trim().length() == 0) {
             throw new ProgramException("OOPS!!! The description of the command cannot be empty.");
         }
-        //TODO: Throw exceptions for different commands
+    }
+
+    /**
+     * validate the amount the user input (nutritional value or food cost) is numeric.
+     * @param userInput String input by user.
+     * @throws ProgramException If the userInput is not numeric.
+     */
+    public static void validateAmount(String userInput) throws ProgramException {
+        if (!userInput.matches("-?\\d+(\\.\\d+)?")) {
+            throw new ProgramException("The nutritional value or food cost must be numeric.");
+        }
     }
 }
