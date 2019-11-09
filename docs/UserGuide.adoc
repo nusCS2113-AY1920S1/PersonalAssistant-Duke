@@ -100,7 +100,7 @@ Examples:
 Setup a profile in SGTravel +
 Format: `profile NAME BIRTHDAY`
 
-image::profile.png[width="400" height="200"]
+image::profile.png[width="400" height="175"]
 
 Examples:
 
@@ -115,7 +115,7 @@ Entering `profile` will initiate the multi-step version of this command
 SGTravel shows the current profile +
 Format: `profileShow`
 
-image::profileShow.png[width="400" height="200"]
+image::profileShow.png[width="400" height="250"]
 
 Examples:
 
@@ -126,7 +126,7 @@ Examples:
 SGTravel set the preferences of activity the users prefer to do in profile
 Format: `profileSet CATEGORY STATE`
 
-image::profileSet.png[width="400" height="200"]
+image::profileSet.png[width="400" height="150"]
 
 [NOTE]
 ====
@@ -307,7 +307,7 @@ Examples:
 
 * `map ntu`
 +
-image::map.png[width="600" height="400"]
+image::map.png[width="400" height="600"]
 
 === Recommend an Itinerary: `recommend`
 
@@ -484,6 +484,7 @@ image::deleteFav.png[width="400" height="200"]
 Examples:
 
 * `deleteFav SundayVacay`
+
 === List favourite itineraries: `listFav`
 
 Shows the list of itinerary in favourite list. +
