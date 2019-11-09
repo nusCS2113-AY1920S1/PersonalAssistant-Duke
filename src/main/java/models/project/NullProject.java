@@ -155,6 +155,18 @@ public class NullProject implements IProject {
     }
 
     @Override
+    public void removeReminder(int index) {
+        /*
+        Empty method
+         */
+    }
+
+    @Override
+    public int getReminderListSize() {
+        return -1;
+    }
+
+    @Override
     public IMember getMemberFromID(String memberID) {
         return null;
     }

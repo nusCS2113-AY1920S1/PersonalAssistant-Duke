@@ -60,6 +60,10 @@ public interface IProject {
 
     Reminder getReminder(int index);
 
+    void removeReminder(int index);
+
+    int getReminderListSize();
+
     IMember getMemberFromID(String memberID);
 
     ITask getTaskFromID(String taskID);

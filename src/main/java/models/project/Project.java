@@ -288,10 +288,12 @@ public class Project implements IProject {
         return reminderList.getReminderList().get(index - 1);
     }
 
+    @Override
     public void removeReminder(int index) {
         reminderList.getReminderList().remove(index - 1);
     }
 
+    @Override
     public int getReminderListSize() {
         return reminderList.getReminderList().size();
     }
