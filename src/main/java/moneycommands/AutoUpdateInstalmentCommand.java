@@ -57,9 +57,6 @@ public class AutoUpdateInstalmentCommand extends MoneyCommand {
                 ins.isPayTheMonth();
                 paymentsMade += 1;
                 ins.percentPay(paymentsMade);
-                ui.appendToOutput("You have paid " + ins.equalMonthlyInstalment() + " for "
-                        + ins.getDescription() + ". It is currently "
-                        + (ins.getFullyPaid() ? "fully paid." : ins.getPercentage() + "% paid."));
             }
             if (ins.getNumOfPayments() == ins.getPaymentsMade()) {
                 ins.setFullyPaid();

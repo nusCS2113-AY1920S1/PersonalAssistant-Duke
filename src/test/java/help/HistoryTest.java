@@ -9,7 +9,7 @@ public class HistoryTest {
     public void testHistory() {
         History history = new History();
         history.addingCommandsEntered("This is command 1");
-        assertEquals("This is command 1" ,history.getCommandsEntered().get(0));
+        assertEquals("This is command 1", history.getCommandsEntered().get(0));
         history.addingCommandsEntered("This is command 2");
         history.addingCommandsEntered("This is command 3");
 

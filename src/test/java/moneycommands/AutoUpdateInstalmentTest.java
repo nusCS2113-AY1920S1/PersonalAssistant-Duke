@@ -53,8 +53,6 @@ public class AutoUpdateInstalmentTest {
 
         autoUpdateInstalmentCommand.setCurrDate(testDate2);
         autoUpdateInstalmentCommand.execute(account, ui, moneyStorage);
-        assertEquals("You have paid " + instalment.equalMonthlyInstalment() + " for "
-                + instalment.getDescription() + ". It is currently " + instalment.getPercentage() + "% paid.", ui.getOutputString());
         assertEquals(1, account.getExpListTotal().size());
         assertEquals(true, instalment.getPayForTheMonth());
 
