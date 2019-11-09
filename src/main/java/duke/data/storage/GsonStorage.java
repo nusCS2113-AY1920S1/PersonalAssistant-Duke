@@ -1,9 +1,14 @@
-package duke.data;
+package duke.data.storage;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import duke.data.Evidence;
+import duke.data.Help;
+import duke.data.Patient;
+import duke.data.PatientData;
+import duke.data.Treatment;
 import duke.exception.DukeFatalException;
 
 import java.io.File;

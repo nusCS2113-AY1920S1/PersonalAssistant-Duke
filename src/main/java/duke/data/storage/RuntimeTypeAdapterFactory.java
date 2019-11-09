@@ -1,4 +1,4 @@
-package duke.data;
+package duke.data.storage;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;

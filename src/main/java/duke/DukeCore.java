@@ -3,7 +3,7 @@ package duke;
 import duke.command.ObjCommand;
 import duke.command.Parser;
 import duke.data.DukeObject;
-import duke.data.GsonStorage;
+import duke.data.storage.GsonStorage;
 import duke.data.PatientData;
 import duke.data.SearchResults;
 import duke.exception.DukeException;

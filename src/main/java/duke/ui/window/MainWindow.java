@@ -4,7 +4,7 @@ import duke.DukeCore;
 import duke.command.Executor;
 import duke.command.Parser;
 import duke.data.DukeObject;
-import duke.data.GsonStorage;
+import duke.data.storage.GsonStorage;
 import duke.data.Impression;
 import duke.data.Patient;
 import duke.data.SearchResults;

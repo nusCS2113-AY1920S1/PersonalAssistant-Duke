@@ -1,5 +1,6 @@
 package duke.data;
 
+import duke.data.storage.GsonStorage;
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
 import duke.exception.DukeResetException;
