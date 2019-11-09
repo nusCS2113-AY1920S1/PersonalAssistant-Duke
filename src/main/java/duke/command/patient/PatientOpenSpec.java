@@ -2,13 +2,12 @@ package duke.command.patient;
 
 import duke.DukeCore;
 import duke.command.ArgLevel;
-import duke.command.ObjSpec;
 import duke.command.Switch;
 import duke.data.DukeObject;
 import duke.data.Patient;
 import duke.exception.DukeFatalException;
 
-public class PatientOpenSpec extends ObjSpec {
+public class PatientOpenSpec extends PatientObjSpec {
     private static final PatientOpenSpec spec = new PatientOpenSpec();
 
     public static PatientOpenSpec getSpec() {

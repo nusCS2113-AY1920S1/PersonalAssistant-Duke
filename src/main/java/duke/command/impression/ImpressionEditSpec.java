@@ -21,7 +21,7 @@ public class ImpressionEditSpec extends ImpressionObjSpec {
         cmdArgLevel = ArgLevel.OPTIONAL;
         initSwitches(
                 new Switch("append", null, true, ArgLevel.NONE, "a"),
-                new Switch("impression", String.class, true, ArgLevel.REQUIRED, "im"),
+                new Switch("impression", String.class, true, ArgLevel.NONE, "im"),
                 new Switch("evidence", String.class, true, ArgLevel.REQUIRED, "e"),
                 new Switch("treatment", String.class, true, ArgLevel.REQUIRED, "t"),
                 new Switch("name", String.class, true, ArgLevel.REQUIRED, "n"),
@@ -44,7 +44,7 @@ public class ImpressionEditSpec extends ImpressionObjSpec {
             isAppending = true;
         }
 
-        if (cmd.getSwitchVal("impression") != null) {
+        if (cmd.isSwitchSet("impression")) {
             if (cmd.getArg() == null && cmd.getSwitchVal("evidence") == null
                 && cmd.getSwitchVal("treatment") == null) { // edit impression
                 editImpression(ImpressionUtils.getImpression(core), isAppending);
