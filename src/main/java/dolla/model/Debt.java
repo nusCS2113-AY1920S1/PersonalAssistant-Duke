@@ -12,7 +12,6 @@ import static dolla.parser.ParserStringList.DEBT_COMMAND_OWE;
  */
 public class Debt extends Record {
 
-    protected String type;
     protected String saveType;
 
     /**

@@ -130,4 +130,14 @@ public class DebtUi extends Ui {
         System.out.println("\tThis name is not found in the list.");
         System.out.println(line);
     }
+
+    //@@ author: omupenguin
+    /**
+     * Prints an error message informing the user that the type of debt entered is invalid.
+     */
+    public static void printInvalidDebtType() {
+        System.out.println(line);
+        System.out.println("\tThe type can only be 'owe' or 'borrow'.");
+        System.out.println(line);
+    }
 }
