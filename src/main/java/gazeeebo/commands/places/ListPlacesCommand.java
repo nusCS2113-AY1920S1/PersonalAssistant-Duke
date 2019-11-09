@@ -2,6 +2,8 @@
 
 package gazeeebo.commands.places;
 
+import gazeeebo.exception.DukeException;
+
 import java.util.Map;
 
 public class ListPlacesCommand {
@@ -11,7 +13,7 @@ public class ListPlacesCommand {
      * @param places Map each place to a location
      * @param lineBreak String separator
      */
-    public ListPlacesCommand(Map<String,String> places, String lineBreak) {
+    public ListPlacesCommand(Map<String,String> places, String lineBreak) throws ArrayIndexOutOfBoundsException {
         System.out.print("Room:                                             | Location:\n" + lineBreak);
         for (String key : places.keySet()) {
             System.out.print(key);

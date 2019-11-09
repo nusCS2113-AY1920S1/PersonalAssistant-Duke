@@ -17,8 +17,10 @@ import java.util.Map;
 import java.util.Stack;
 import java.util.TreeMap;
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 public class PlacesCommandParser extends Command {
+    private final static Logger LOGGER = Logger.getLogger(PlacesCommandParser.class.getName());
     /**
      * Parses the user input and return a command object.
      *
@@ -48,29 +50,29 @@ public class PlacesCommandParser extends Command {
                 + "__________________________________________________________\n\n";
         System.out.println("Welcome to your places in SOC! What would you like to do?");
         System.out.println(helpPlaces);
-        HashMap<String, String> map = storage.readPlaces();
-        Map<String, String> places = new TreeMap<String, String>(map);
-        Stack<Map<String, String>> oldplaces = new Stack<>();
-        String lineBreak = "------------------------------------------\n";
-        boolean isExitFromPlaces = false;
-        while (!isExitFromPlaces) {
-            try {
+        try {
+            HashMap<String, String> map = storage.readPlaces();
+            Map<String, String> places = new TreeMap<String, String>(map);
+            Stack<Map<String, String>> oldplaces = new Stack<>();
+            String lineBreak = "------------------------------------------\n";
+            boolean isExitFromPlaces = false;
+            while (!isExitFromPlaces) {
                 ui.readCommand();
-                if (ui.fullCommand.contains("add")) {
+                if (ui.fullCommand.contains("add-") || ui.fullCommand.equals("1")) {
                     copyMap(places,oldplaces);
-                    new AddPlacesCommand(ui, storage, places);
-                } else if (ui.fullCommand.split("-")[0].equals("find")) {
+                    new AddPlacesCommand(ui, places);
+                } else if (ui.fullCommand.equals("find-") || ui.fullCommand.equals("2")) {
                     new FindPlacesCommand(ui, places, lineBreak);
-                } else if (ui.fullCommand.equals("list")) {
+                } else if (ui.fullCommand.equals("list") || ui.fullCommand.equals("4")) {
                     new ListPlacesCommand(places, lineBreak);
-                } else if (ui.fullCommand.contains("delete")) {
+                } else if (ui.fullCommand.contains("delete-") || ui.fullCommand.equals("3")) {
                     copyMap(places,oldplaces);
-                    new DeletePlacesCommand(ui, storage, places);
-                } else if (ui.fullCommand.equals("commands")) {
+                    new DeletePlacesCommand(ui, places);
+                } else if (ui.fullCommand.equals("commands") || ui.fullCommand.equals("6")) {
                     System.out.println(helpPlaces);
-                } else if (ui.fullCommand.equals("help")) {
+                } else if (ui.fullCommand.equals("help") || ui.fullCommand.equals("7")) {
                     new HelpCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
-                } else if (ui.fullCommand.equals("esc")) {
+                } else if (ui.fullCommand.equals("esc") || ui.fullCommand.equals("8")) {
                     System.out.println("Going back to Main Menu...\n"
                             + "Content Page:\n"
                             + "------------------ \n"
@@ -85,15 +87,20 @@ public class PlacesCommandParser extends Command {
                             + "9. notes\n"
                             + "To exit: bye\n");
                     isExitFromPlaces = true;
-                } else if (ui.fullCommand.equals("undo")) {
-                    places = UndoPlacesCommand.undoPlaces(places,oldplaces,storage);
+                } else if (ui.fullCommand.equals("undo") || ui.fullCommand.equals("5")) {
+                    places = UndoPlacesCommand.undoPlaces(places,oldplaces);
                 } else {
                     System.out.println("There is no such command in Places.");
                     System.out.println("What do you want to do next ?");
                 }
-            } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
-                throw new DukeException("Check input format again");
+                String toStore = "";
+                for (String key : places.keySet()) {
+                    toStore = toStore.concat(key + "|" + places.get(key) + "\n");
+                }
+                storage.storagesPlaces(toStore);
             }
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
+            System.out.println("Check input format again");
         }
     }
 

@@ -346,16 +346,18 @@ public class Storage {
     }
 
     public HashMap<String, String> readPlaces() throws IOException {
-        HashMap<String, String> placesList = new HashMap<String, String>();
-
-
-        File f = new File(relativePathPlacesResource);
-        Scanner sc = new Scanner(f);
-        while (sc.hasNext()) {
-            String[] split = sc.nextLine().split("\\|");
-            placesList.put(split[0], split[1]);
-        }
-        return placesList;
+            HashMap<String, String> placesList = new HashMap<String, String>();
+            File f = new File(relativePathPlacesResource);
+            Scanner sc = new Scanner(f);
+            while (sc.hasNext()) {
+                try {
+                    String[] split = sc.nextLine().split("\\|");
+                    placesList.put(split[0], split[1]);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Places.txt cannot be read, check format of Places.txt");
+                }
+            }
+            return placesList;
     }
 
     public Map<String, ArrayList<String>> Read_Trivia() throws FileNotFoundException {

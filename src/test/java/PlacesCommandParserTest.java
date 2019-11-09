@@ -61,7 +61,7 @@ class PlacesCommandParserTest {
                 "__________________________________________________________\n" +
                 "\n" +
                 "\r\n" +
-                "Go back to Main Menu...\n" +
+                "Going back to Main Menu...\n" +
                 "Content Page:\n" +
                 "------------------ \n" +
                 "1. help\n" +
@@ -73,6 +73,7 @@ class PlacesCommandParserTest {
                 "7. spec\n" +
                 "8. moduleplanner\n" +
                 "9. notes\n" +
+                "To exit: bye\n" +
                 "\r\n",output.toString());
     }
 
