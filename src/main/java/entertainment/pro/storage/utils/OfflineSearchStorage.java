@@ -43,6 +43,7 @@ public class OfflineSearchStorage {
             return searchData;
         }
         dataFromJSON = getData(filename);
+        System.out.println(filename);
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = new JSONObject();
         try {

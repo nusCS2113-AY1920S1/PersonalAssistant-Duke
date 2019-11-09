@@ -13,6 +13,10 @@ import java.io.IOException;
  */
 public class ExitCommand extends CommandSuper {
 
+    /**
+     * Constructor for Command Super class.
+     * @param uicontroller Controller class.
+     */
     public ExitCommand(Controller uicontroller) {
         super(COMMANDKEYS.exit, CommandStructure.cmdStructure.get(COMMANDKEYS.exit), uicontroller);
     }

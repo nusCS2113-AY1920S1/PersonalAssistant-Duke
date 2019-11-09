@@ -848,14 +848,16 @@ public class RetrieveRequest implements InfoFetcher {
     public static boolean checkCondition(JSONObject entryInfo) {
         //System.out.println(searchProfile.getName());
         if (isOffline) {
+            System.out.println(entryInfo.get("name"));
+            boolean isVlaue = (boolean) entryInfo.get("adult");
             if ((!(searchProfile.isAdult())) && (entryInfo.get(TO_SPECIFY_ADULT).equals(TO_SPECIFY_TRUE))) {
                 return false;
             }
             if (getType.equals(MoviesRequestType.SEARCH_MOVIES)) {
                 String searchName = searchProfile.getName().toLowerCase();
                 String entryInfoName = ((String) entryInfo.get(MOVIE_TITLE)).toLowerCase();
-                //  if (searchName.indexOf(entryInfoName) == -1) {
-                if (!(searchName.contains(entryInfoName))) {
+                  if (searchName.indexOf(entryInfoName) == -1) {
+                //if (!(searchName.contains(entryInfoName))) {
                     return false;
                 }
                 //if (!(searchName.equals(entryInfoName))) {

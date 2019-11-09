@@ -2,9 +2,11 @@ package entertainment.pro.logic.parsers.commands;
 
 import entertainment.pro.commons.exceptions.Exceptions;
 import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
+import entertainment.pro.commons.exceptions.MissingInfoException;
 import entertainment.pro.logic.movieRequesterAPI.RequestListener;
 import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
 import entertainment.pro.logic.movieRequesterAPI.RetrieveRequestTest;
+import entertainment.pro.logic.parsers.CommandParser;
 import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.model.SearchProfile;
 import entertainment.pro.ui.MovieHandler;
@@ -21,7 +23,7 @@ import static entertainment.pro.ui.MovieHandler.mMovieRequest;
 import static entertainment.pro.ui.MovieHandler.mMovies;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ViewCommandTest {
+public class ViewCommandTest extends MovieHandler{
     ArrayList<Integer> genrePreference = new ArrayList<>();
     ArrayList<Integer> genreRestriction = new ArrayList<>();
     ArrayList<String> playlist = new ArrayList<>();
@@ -41,7 +43,7 @@ public class ViewCommandTest {
             playlist, sortByAlphaOrder, sortByRating, sortByReleaseDate, searchEntryName, isMovie);
 
     @Test
-    public void executeBackCommandsTest_returns_exceptions() throws Exceptions, IOException {
+    public void executeEntryCommandsTest_returns_exceptions() throws Exceptions, IOException {
         MovieHandler movieHandler = new MovieHandler();
         RetrieveRequest retrieveRequest = new RetrieveRequest(movieHandler);
         mMovieRequest = retrieveRequest;
@@ -71,6 +73,21 @@ public class ViewCommandTest {
             movieHandler.showMovie(num);
         });
 
+    }
+
+    @Test
+    public void executeBackCommandsTest_returns_exceptions() throws MissingInfoException, Exceptions, IOException {
+        String testCommand = "view back";
+        String[] commandParse = testCommand.split(" ");
+        assertThrows(Exceptions.class, () -> {
+            CommandParser.rootCommand(commandParse, testCommand, this);
+        });
+        String testCommand1 = "search movies /current";
+        String[] commandParse1 = testCommand1.split(" ");
+        CommandParser.rootCommand(commandParse1, testCommand1, this);
+        assertThrows(Exceptions.class, () -> {
+            CommandParser.rootCommand(commandParse, testCommand, this);
+        });
     }
 
 }

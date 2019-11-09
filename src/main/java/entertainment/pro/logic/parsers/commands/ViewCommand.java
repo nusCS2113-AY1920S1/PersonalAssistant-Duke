@@ -19,10 +19,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 
-public class ViewCommand extends CommandSuper {
+/**
+ * This class is responsible for calling the appropriate functions when the root command is 'view'.
+ */
+ public class ViewCommand extends CommandSuper {
     private Controller controller;
     private int constant = 5;
 
+    /**
+     * Constructor for Command Super class.
+     * @param uicontroller Ui controller class.
+     */
     public ViewCommand(Controller uicontroller) {
         super(COMMANDKEYS.view, CommandStructure.cmdStructure.get(COMMANDKEYS.view), uicontroller);
     }
@@ -45,7 +52,6 @@ public class ViewCommand extends CommandSuper {
                 break;
                 case back:
                     executeBackCommands();
-
             default:
                 break;
         }
