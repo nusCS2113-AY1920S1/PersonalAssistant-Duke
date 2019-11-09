@@ -1,6 +1,13 @@
 package duke.view;
 
 
+import duke.data.ToDo;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+
 /**
  * Class handles the Schedule specific print commands.
  */
@@ -52,9 +59,65 @@ public class CliViewSchedule extends CliView {
     public void printMonthMenu() {
         bufferLine();
         message("Please enter a valid month: 1 - 12");
-        message("Go back: 13");
+        message("Go back: back");
+        message("View commands: help");
         bufferLine();
     }
 
+    /**
+     * Method will generate a table header for the timetable.
+     */
+    public void tableHeader() {
+        System.out.println(
+            String.format(
+                "%10s %10s %10s %10s %10s %10s %10s",
+                "Lesson", "|",
+                "Start Time", "|",
+                "End Time", "|",
+                "Status"
+            )
+        );
+        System.out.println(
+            String.format(
+                "%s",
+                "--------------------------------------------------------------------------------------------"));
+    }
 
+    /**
+     * Method will print out all items in the day.
+     */
+    public void tableContents(ArrayList<ToDo> todo) {
+        if (!todo.isEmpty()) {
+            //Iterate through and print ever item that is listed in the day.
+            for (ToDo i : todo) {
+                System.out.println(
+                    String.format("%10s %10s %10s %10s %10s %10s %10s",
+                        i.getClassName(), "|",
+                        i.getStartTime(), "|",
+                        i.getEndTime(), "|",
+                        i.getStatus()
+                    )
+                );
+            }
+        } else {
+            System.out.println(
+                String.format("%50s", "No data")
+            );
+        }
+    }
+
+    /**
+     * Method will print out the day and month selected.
+     *
+     * @param day   The day selected
+     * @param month The month selected
+     */
+    public void tableDate(final int day, final int month) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.MONTH, month);
+        cal.set(Calendar.DAY_OF_MONTH, day);
+        DateFormat df = new SimpleDateFormat("dd MMM yyyy");
+        String date = df.format(cal.getTime());
+        message(date);
+    }
 }

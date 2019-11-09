@@ -1,6 +1,7 @@
 package duke.launcher;
 
 import duke.data.ScheduleStorage;
+import duke.data.ToDo;
 import duke.parser.ParserCommand;
 import duke.data.Storage;
 import duke.models.Schedule;
@@ -18,6 +19,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
+
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -71,7 +75,7 @@ public class Main {
      *
      * @param args expects array of string objects
      */
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws IOException {
         CliView cliView = new CliView();
         cliView.execute();
     }

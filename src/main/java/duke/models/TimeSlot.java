@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * Function contains all the details of a time slot that needs to be scheduled.
  */
-public final class TimeSlot {
+public class TimeSlot {
     /**
      * Start of the event.
      */

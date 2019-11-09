@@ -2,7 +2,10 @@ package duke.models;
 
 import duke.data.ScheduleStorage;
 import duke.data.Storage;
+import duke.data.ToDo;
 import duke.view.CliViewSchedule;
+import java.net.URL;
+
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -10,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 //@@author Sfloydzy
 
@@ -46,7 +50,36 @@ public class Schedule {
         cliViewSchedule.printMonthHeader(date, year);
         cliViewSchedule.printMonth(numDays, cal.get(Calendar.DAY_OF_MONTH));
 
+
     }
+
+    /**
+     * Method will get the table date a that needs to be shown.
+     *
+     * @param day   the day of that is being viewed
+     * @param month the month that is being viewed
+     * @return
+     */
+    public ArrayList<ToDo> getCells(int day, int month) {
+        ArrayList<ToDo> toDoArrayList = new ArrayList<>();
+        ScheduleStorage scheduleStorage = new ScheduleStorage();
+        String date = "2019" + month + day;
+        toDoArrayList.addAll(Objects.requireNonNull(scheduleStorage.load(date)));
+        return toDoArrayList;
+    }
+
+    /**
+     * Method will get a table for the schedule.
+     *
+     * @param day   the day of that is being viewed
+     * @param month the month that is being viewed
+     */
+    public void getTable(int day, int month) {
+        cliViewSchedule.tableDate(day, month);
+        cliViewSchedule.tableHeader();
+        cliViewSchedule.tableContents(getCells(day, month));
+    }
+
 
     /**
      * Method will show the current days in the present week.
@@ -110,7 +143,6 @@ public class Schedule {
                 message += df.format(now) + "\n";
             }
         }
-        message += "--------------------------";
         return message;
     }
 
