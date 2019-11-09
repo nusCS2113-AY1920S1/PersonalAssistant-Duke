@@ -8,6 +8,7 @@ import duke.model.Model;
 import duke.model.PlanBot;
 import duke.model.payment.Payment;
 import duke.storage.Storage;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 
@@ -90,13 +91,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<String> getSortIndicator() {
-        return model.getSortIndicator();
+    public StringProperty getPaymentSortingCriteria() {
+        return model.getPaymentSortingCriteria();
     }
 
     @Override
-    public ObservableList<Predicate<Payment>> getPredicateIndicator() {
-        return model.getPredicateIndicator();
+    public ObjectProperty<Predicate> getPaymentPredicate() {
+        return model.getPaymentPredicate();
     }
 
     @Override
