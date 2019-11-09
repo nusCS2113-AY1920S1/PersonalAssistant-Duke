@@ -78,6 +78,12 @@ public class DebtUi extends Ui {
         System.out.println(line);
     }
 
+    public static void printInvalidBillNumberError() {
+        System.out.println(line);
+        System.out.println("\tPlease input a valid bill number.");
+        System.out.println(line);
+    }
+
     /**
      * Print message to notify a bill that has been paid by everyone.
      */
@@ -105,11 +111,20 @@ public class DebtUi extends Ui {
     }
 
     /**
-     * Pritn invalid name message.
+     * Print invalid name message.
      */
     public static void printInvalidNameMessage() {
         System.out.println(line);
         System.out.println("\tPlease input a valid name.");
+        System.out.println(line);
+    }
+
+    /**
+     * print name not found message.
+     */
+    public static void printNameNotFound() {
+        System.out.println(line);
+        System.out.println("\tThis name is not found in the list.");
         System.out.println(line);
     }
 }

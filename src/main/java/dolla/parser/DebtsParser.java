@@ -52,29 +52,19 @@ public class DebtsParser extends Parser {
             }
 
         } else if (commandToRun.equals(BILL_COMMAND_PAID)) {
-            int billNum;
-            String name;
             RecordList recordList;
             DollaData dollaData = new DollaData();
             recordList = dollaData.getBillRecordList();
             if (recordList.size() == 0) {
                 DebtUi.printEmptyBillMessage();
-            }
-            try {
-                if (verifyPaidCommand(inputArray[1], recordList) && inputArray[2] != null) {
-                    billNum = Integer.parseInt(inputArray[1]);
-                    name = inputArray[2];
+            } else {
+                if (verifyPaidCommand(recordList)) {
+                    return new RemoveNameCommand(Integer.parseInt(inputArray[1]), inputArray[2]);
                 } else {
                     DebtUi.printInvalidPaidFormatError();
                     return new ErrorCommand();
                 }
-            } catch (IndexOutOfBoundsException e) {
-                DebtUi.printInvalidPaidFormatError();
-                return new ErrorCommand();
-            } catch (Exception e) {
-                return new ErrorCommand();
             }
-            return new RemoveNameCommand(billNum, name);
         } else if (commandToRun.equals(COMMAND_MODIFY)) {
             if (verifyFullModifyCommand()) {
                 return new InitialModifyCommand(inputArray[1]);
