@@ -363,6 +363,11 @@ public class ShortcutCommand extends Command {
                 LanguageCommand.setLanguageShortcut(shortcutName);
                 setShortcut.add(shortcutName);
                 break;
+            case "stats" :
+                setShortcut.remove(StatsCommand.getStatsShortcut());
+                StatsCommand.setStatsShortcut(shortcutName);
+                setShortcut.add(shortcutName);
+                break;
             default:
                 throw new MeaninglessException();
         }

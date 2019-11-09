@@ -88,6 +88,7 @@ public class UiFr extends Ui {
     public void showSort() {
         super.display("\t Voici la nouvelle liste de tâche dans l'ordre: ");
     }
+    /*@@author rshah918*/
     @Override
     public void showGeneralStats(double numTasks, double numTodos, double numEvents, double numHomework, double numIncomplete, double numComplete, double percentComplete) {
         super.display("Voici quelques statistiques à propos de votre liste de tâche: \n" +
@@ -138,13 +139,13 @@ public class UiFr extends Ui {
                 "Pourcentage d'événements incomplets: " + percentIncompleteEvent + "%";
         super.display(message);
     }
+    /*@@author */
     @Override
     public void showUnFinishedTasks(ArrayList<Task> unfinishedTasks) {
         //print the task so they have the same index
         String result = "";
         TaskList unfinishedTaskList = new TaskList(unfinishedTasks);
         for(int i = 0; i < unfinishedTaskList.size(); i++){
-            Task task = unfinishedTaskList.get(i);
             result += unfinishedTaskList.displayOneElementList(i);
         }
         if(result.equals("")){

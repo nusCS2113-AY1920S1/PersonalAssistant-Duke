@@ -1,5 +1,6 @@
 package leduc.task;
 
+import jdk.jfr.Event;
 import leduc.Date;
 import leduc.exception.ConflictDateException;
 
@@ -108,6 +109,36 @@ public class TaskList {
             throw new ConflictDateException(conflictTasks);
         }
     }
+
+    /**
+     * Verify if there are event(without the task to be edited) that are in conflict with the date
+     * @param date1 the start date
+     * @param date2 the end date
+     * @throws  ConflictDateException Exception thrown when the new event is in conflict with others event.
+     */
+    public void verifyConflictDateEdit(Date date1, Date date2, EventsTask editTask) throws ConflictDateException {
+        ArrayList<Task> conflictTasks = new ArrayList<>();
+        for (Task t : tasks){
+            if(t.isEvent()){
+                boolean isNotEditTask = t.getPriority()!=editTask.getPriority() || t.getMark()!= editTask.getMark() || ((EventsTask) t).getDateFirst()!= editTask.getDateFirst() || ((EventsTask)t ).getDateSecond() != editTask.getDateSecond() || t.getTag()!=editTask.getTag() || t.getTask()!=editTask.getTask();
+                if (isNotEditTask) {
+                    if (date1.getDate().isAfter(((EventsTask) t).getDateFirst().getDate()) && date1.getDate().isBefore(((EventsTask) t).getDateSecond().getDate())) {
+                        conflictTasks.add(t);
+                    } else if (date2.getDate().isAfter(((EventsTask) t).getDateFirst().getDate()) && date2.getDate().isBefore(((EventsTask) t).getDateSecond().getDate())) {
+                        conflictTasks.add(t);
+                    } else if (date1.getDate().isBefore(((EventsTask) t).getDateFirst().getDate()) && date2.getDate().isAfter(((EventsTask) t).getDateSecond().getDate())) {
+                        conflictTasks.add(t);
+                    } else if (date1.getDate().equals(((EventsTask) t).getDateFirst().getDate()) || date1.getDate().equals(((EventsTask) t).getDateSecond().getDate()) || date2.getDate().equals(((EventsTask) t).getDateSecond().getDate()) || date2.getDate().equals(((EventsTask) t).getDateFirst().getDate())) {
+                        conflictTasks.add(t);
+                    }
+                }
+            }
+        }
+        if(!conflictTasks.isEmpty()){
+            throw new ConflictDateException(conflictTasks);
+        }
+    }
+
     /**
      * Extracts all Todo's into a seperate arraylist. Tasks with/without dates must be separated prior to sorting
      * @param  tasks is the list of tasks

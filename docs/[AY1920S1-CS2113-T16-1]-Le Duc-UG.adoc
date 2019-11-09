@@ -110,12 +110,12 @@ Example:
 Be careful : when creating an event, two dates can’t clash
 
 
-=== Find the task by relevancy : `find`
+=== Search for a task by relevancy : `find`
 
 To find a task by character relevancy : `find QUERY`
 
 The find command allows the user to search for tasks via character matching (NOT keyword matching).
-The command will return tasks ordered by ascending relevancy.
+The command will return the top 5 tasks ordered by ascending relevancy.
 
 Typos in the user query will not affect performance.
 
@@ -124,12 +124,10 @@ Examples:
 *Partial word query*
 
 ```
-find sci
+find scie
         ---------------------------------------------------------------------------------
          Here are the most relevant tasks in your list:
          7. [H][V] science by: 05/05/2005 05:05 [Priority: 2]
-         8. [H][X] test by: 01/01/2001 01:01 [Priority: 5]
-         6. [H][V] homeworktest by: 04/04/2004 04:04 [Priority: 5]
 
         ---------------------------------------------------------------------------------
 
@@ -141,14 +139,11 @@ find homewqeuktest
         ---------------------------------------------------------------------------------
          Here are the most relevant tasks in your list:
          6. [H][V] homeworktest by: 04/04/2004 04:04 [Priority: 5]
-         5. [H][X] math by: 11/11/2011 01:01 [Priority: 5]
-         7. [H][V] science by: 05/05/2005 05:05 [Priority: 2]
-         8. [H][X] test by: 01/01/2001 01:01 [Priority: 5]
 
         ---------------------------------------------------------------------------------
 
 ```
-*If all tasks have no matching characters with query*
+*If all tasks have <50% matching characters with the query*
 ```find zx
         ---------------------------------------------------------------------------------
          There is no matching tasks in your list
@@ -278,12 +273,50 @@ To customize the welcome message: `setwelcome WELCOME`
 
 Example:
 
+* Original welcome message:
+```
+____        _
+|  _ \ _   _| | _____
+| | | | | | | |/ / _ \
+| |_| | |_| |   <  __/
+|____/ \__,_|_|\_\___|
+
+        ---------------------------------------------------------------------------------
+        Hello I'm Duke
+        What can I do for you ?
+
+        ---------------------------------------------------------------------------------
+```
+
+
 * setwelcome `hello World`
+```
+setwelcome Hello World
+        ---------------------------------------------------------------------------------
+         The welcome message is edited: Hello World
+        ---------------------------------------------------------------------------------
+
+```
+* New welcome message:
+```
+ ____        _
+|  _ \ _   _| | _____
+| | | | | | | |/ / _ \
+| |_| | |_| |   <  __/
+|____/ \__,_|_|\_\___|
+
+        ---------------------------------------------------------------------------------
+        Hello World
+
+        ---------------------------------------------------------------------------------
+
+
+```
 
 Be careful:
 
 *Reverting to the previous welcome message is not possible once a new message is set.
-*Ensure the directory data is in the correct location
+*Ensure the folder "data" is in the correct location. The welcome message is stored in this folder.
 
 === Exit the program : `bye`
 
@@ -293,11 +326,11 @@ Example :
 
 * `bye`
 
-=== Get some statistics: `stats`
+=== Display Statistics: `stats`
 
 Display statistics : `stats`
 
-Display statistics about your tasklist.
+Display useful statistics about your tasklist.
 
 Enter command `stats` to view general statistics,
 `stats -p` to view detailed priority statistics,
@@ -351,16 +384,24 @@ stats -p
         ---------------------------------------------------------------------------------
 Here are some priority statistics about your task list:
 ----PRIORITY COUNTS----
-Number of tasks with priority 5: 7
+Number of tasks with priority 9: 0
+Number of tasks with priority 8: 0
+Number of tasks with priority 7: 0
+Number of tasks with priority 6: 0
+Number of tasks with priority 5: 12
 Number of tasks with priority 4: 0
 Number of tasks with priority 3: 0
 Number of tasks with priority 2: 1
 Number of tasks with priority 1: 0
 ----PRIORITY PERCENTAGES----
-Percent of tasks with priority 5: 87.5%
+Percent of tasks with priority 9: 0.0%
+Percent of tasks with priority 8: 0.0%
+Percent of tasks with priority 7: 0.0%
+Percent of tasks with priority 6: 0.0%
+Percent of tasks with priority 5: 92.3076923076923%
 Percent of tasks with priority 4: 0.0%
 Percent of tasks with priority 3: 0.0%
-Percent of tasks with priority 2: 12.5%
+Percent of tasks with priority 2: 7.6923076923076925%
 Percent of tasks with priority 1: 0.0%
         ---------------------------------------------------------------------------------
 
@@ -394,7 +435,7 @@ Giving priority to task: `prioritize INDEX prio INDEX`
 
 The first INDEX is the task index
 
-The second INDEX is the priority (goes from 0 to 9)
+The second INDEX is the priority (goes from 1 to 9)
 
 Be careful:
 
@@ -526,13 +567,17 @@ Example:
 * `unfinished`
 * Output:
 
- Here are the unfinished tasks in your list:
-         1. [T][X] td1 [Priority: 5]
-         2. [H][X] h1 by: 14/09/2019 22:33 [Priority: 5]
-         3. [E][X] e1 at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
-         4. [T][X] td4 [Priority: 5]
-         5. [T][X] td5 [Priority: 5]
+```
+ unfinished
         ---------------------------------------------------------------------------------
+         Here are the unfinished tasks in your list:
+         1. [T][X] td1 [Priority: 5]
+         2. [E][X] e at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
+         3. [H][X] math by: 11/11/2011 01:01 [Priority: 5]
+         4. [H][X] test by: 01/01/2001 01:01 [Priority: 5]
+
+        ---------------------------------------------------------------------------------
+```
 
 
 === Change language : `language`
@@ -608,7 +653,7 @@ A) Yes, if we have enough imagination and time and energy.
 * *edit* : `edit` and follow the instructions or  `edit INDEX description DESCRIPTION` or `edit INDEX /by DATE` or  `edit INDEX /at DATE - DATE`
 * *setwelcome* : `setwelcome WELCOME`
 * *bye* : `bye`
-* *stats* : `stats`
+* *stats* : `stats` or `stats -c` or `stats -p`
 * *sort* : `sort SORTTYPE`
 * *prioritize* : `prioritize INDEX prio INDEX`
 * *display* : `display DATETYPE DATE`

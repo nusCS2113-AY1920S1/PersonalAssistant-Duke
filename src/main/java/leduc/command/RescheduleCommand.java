@@ -83,7 +83,7 @@ public class RescheduleCommand extends Command {
             }
             Date date1 = new Date(dateString[0]);
             Date date2 = new Date(dateString[1]);
-            tasks.verifyConflictDate(date1, date2);
+            tasks.verifyConflictDateEdit(date1, date2,rescheduleEventTask);
             rescheduleEventTask.reschedule(date1,date2);
             storage.save(tasks.getList());
             ui.showReschedule(rescheduleEventTask);
