@@ -30,9 +30,11 @@ public class AddCommand {
     public void addGoal(Goal goal, Storage goalStorage, String goalDate) throws ParseException {
         cliView.showGoalPromptAddGoal(goalDate);
         String myGoal = addScan.nextLine();
+        goal.showGoalLine();
         System.out.println(
             goal.addGoal(
                 goalDate, myGoal, goalStorage));
+        goal.showGoalLine();
     }
 
     //@@author nottherealedmund
@@ -42,9 +44,11 @@ public class AddCommand {
     public void addLesson(Lesson lesson, Storage lessonStorage, String lessonDate) throws ParseException {
         cliView.showLessonPromptAddLesson(lessonDate);
         String myLesson = addScan.nextLine();
+        lesson.showLessonLine();
         System.out.println(
             lesson.addLesson(
                 lessonDate, myLesson, lessonStorage));
+        lesson.showLessonLine();
     }
 
 }
