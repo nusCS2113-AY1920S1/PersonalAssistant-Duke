@@ -12,9 +12,8 @@ import list.DegreeListStorage;
 import parser.Parser;
 import statistics.CohortSize;
 import storage.Storage;
-import task.NUSEvents;
 import statistics.GraduateEmployment;
-import task.NUSEvents;
+import task.NUSEventList;
 import task.TaskList;
 import ui.UI;
 
@@ -45,12 +44,10 @@ public class Duke extends Application {
     private Map<String, List<String>> degrees = new HashMap<>();
     private Map<String, Degree> degreeInfo = new HashMap<>();
     private ArrayList<String> mydegrees = new ArrayList<>();
-
-    private NUSEvents universityTaskHandler = new NUSEvents();
     private GraduateEmployment graduateEmployment = new GraduateEmployment();
     private CohortSize cohortSize = new CohortSize();
 
-    private NUSEvents NUSEvents = new NUSEvents();
+    private NUSEventList NUSEventList = new NUSEventList();
 
     private DegreeListStorage DegreeListStorage = new DegreeListStorage();
     private CommandList commandList = new CommandList();
@@ -87,7 +84,7 @@ public class Duke extends Application {
             System.out.println("Degree Information Failed to Load, please contact Administrator");
         }
         try {
-            NUSEvents.loadDegreeTasks(storage.fetchListOutput("degreeTasks")); //loads information from degreeTasks.txt
+            NUSEventList.loadEventLists(storage.fetchListOutput("degreeTasks")); //loads information from degreeTasks.txt
         } catch (DukeException e) {
             System.out.println(e.getLocalizedMessage());
         }

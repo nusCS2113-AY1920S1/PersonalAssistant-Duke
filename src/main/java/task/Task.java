@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 public class Task implements Serializable {
     String description;
     boolean isDone;
-    Integer overallPriorityScore;
+    Integer sortingScore;
     String userDefinedPriority;
     String nusDegreeName;
     Integer taskUrgency;
@@ -41,7 +41,7 @@ public class Task implements Serializable {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.overallPriorityScore = 1;
+        this.sortingScore = 1;
 
     }
 
@@ -198,34 +198,49 @@ public class Task implements Serializable {
     }
 
 
-
-    public void setOverallPriorityScore(Integer overallPriorityScore) {
-        this.overallPriorityScore = overallPriorityScore;
-    }
-
-
-    public Integer getOverallPriorityScore() {
-        return overallPriorityScore;
-    }
-
-
+    /**
+     * this function considers the current date, the user's defined priority
+     * and the user's degree list to assign a Priority score to a task
+     */
     public void calculatePriorityScore(){
-        if (this.dueDate == null){
-            this.overallPriorityScore = 1;
-        }
-        Integer daysAway = (int)getDifferenceDays(this.dueDate);
-        if (daysAway < 0){
-            this.overallPriorityScore = -1;
-        }
-        else{
-            Integer urgency = 40 - (daysAway / 7);
+        this.sortingScore = 0;
 
+        if (userDefinedPriority.toLowerCase().matches("very high")){
+            this.sortingScore = 5;
+        }
+        else if (userDefinedPriority.toLowerCase().matches("high")){
+            this.sortingScore = 4;
+        }
+        else if (userDefinedPriority.toLowerCase().matches("normal")){
+            this.sortingScore = 3;
+        }
+        else if (userDefinedPriority.toLowerCase().matches("low")){
+            this.sortingScore = 2;
         }
     }
 
+    public void calculateDateScore(){
+        this.sortingScore = 0;
+        Integer daysAway = (int)getDifferenceDays(this.dueDate);
+        if (this.dueDate == null){
+            this.sortingScore += 1;
+        }
+        if (daysAway < 0){
+            this.sortingScore -= 1;
+        }
+        else {
+            this.sortingScore = 100*650 - daysAway;
+        }
+    }
+
+    /**
+     * This function calculates the number of days between now and the task date
+     * @param d1
+     * @return
+     */
     public static long getDifferenceDays(Date d1) {
         Date d2 = new Date();
-        long diff = d2.getTime() - d1.getTime();
+        long diff = d1.getTime() - d2.getTime();
         return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
     }
 
@@ -286,4 +301,16 @@ public class Task implements Serializable {
     public void setNusDegreeName(String nusDegreeName) {
         this.nusDegreeName = nusDegreeName;
     }
+
+
+    /**
+     * sets the UserDefinedPriority that is related to this task
+     * It is usually called to input an automatic string of "medium"
+     * when the user does not specify the desired priority
+     * @param userDefinedPriority
+     */
+    public void setUserDefinedPriority(String userDefinedPriority) {
+        this.userDefinedPriority = userDefinedPriority;
+    }
 }
+

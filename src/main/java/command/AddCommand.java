@@ -2,7 +2,7 @@ package command;
 
 import degree.DegreeManager;
 import storage.Storage;
-import task.NUSEvents;
+import task.NUSEventList;
 import ui.UI;
 import task.TaskList;
 import exception.DukeException;
@@ -69,8 +69,8 @@ public class AddCommand extends Command {
                     + "BME|BioMed|Bio Eng|BM|ChE|Chem Eng|CivE|Civil E|Civil|CEG|Com E|EE|ElecE|ENVE|Mech Eng|ME|ISE|"
                     + "IE|Industrial Systems|Materials Science Engineering|MSE")) {
                 lists.add_custom(this.arguments, storage);
-                NUSEvents NUSEvents = new NUSEvents();
-                NUSEvents.addDegreeTasks(this.arguments, tasks);
+                NUSEventList NUSEventList = new NUSEventList();
+                NUSEventList.addDegreeTasks(this.arguments, tasks);
             }
             else {
                 throw new DukeException("Wrong formatting convention is used to add degree");
