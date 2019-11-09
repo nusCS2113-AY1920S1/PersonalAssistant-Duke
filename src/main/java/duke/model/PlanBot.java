@@ -128,8 +128,8 @@ public class PlanBot {
                 planAttributes = reply.getAttributes();
                 if (!questionQueue.isEmpty()) {
                     currentQuestion = questionQueue.peek();
-                    dialogObservableList.add(new PlanDialog(currentQuestion.getQuestion(), Agent.BOT));
                     questionQueue.remove();
+                    dialogObservableList.add(new PlanDialog(currentQuestion.getQuestion(), Agent.BOT));
                 } else {
                     sendCompletedMessage();
                 }

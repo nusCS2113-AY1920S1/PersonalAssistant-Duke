@@ -21,4 +21,19 @@ public class PlanBotTest {
         knownAttributes.put("NUS_STUDENT", "TRUE");
         Assertions.assertEquals(planBot.getPlanAttributes(), knownAttributes);
     }
+
+    @Test
+    public void testInvalidInput() {
+        Map<String, String> knownAttributes = new HashMap<>();
+        PlanBot planBot = new PlanBot(knownAttributes);
+        Assertions.assertNull(planBot.getPlanBudgetRecommendation());
+        planBot.processInput("random string of inputs");
+        PlanBot.PlanDialog planDialog = new PlanBot.PlanDialog("Please enter a valid reply!", PlanBot.Agent.BOT);
+        int size = planBot.getDialogObservableList().size();
+        PlanBot.PlanDialog planDialog1 = planBot.getDialogObservableList().get(size - 1);
+        Assertions.assertEquals(planDialog.text, planDialog1.text);
+        Assertions.assertEquals(planDialog.agent, planDialog1.agent);
+    }
+
+
 }
