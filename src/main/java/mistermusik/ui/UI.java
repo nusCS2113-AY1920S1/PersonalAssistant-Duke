@@ -9,7 +9,7 @@ import mistermusik.logic.EventList;
 import java.util.ArrayList;
 import java.util.Queue;
 
-
+//@@author yenpeichih
 /**
  * User interface: contains all methods pertaining to user interaction.
  */
@@ -583,51 +583,6 @@ public class UI {
         System.out.println("There are no concerts for that month!");
         System.out.print(lineSeparation);
     }
-
-    public void printEventGoals(Event viewEventGoal) {
-        System.out.println(lineSeparation);
-        System.out.println("Here is the list of goals for the following event: " + viewEventGoal.toString());
-        if (!viewEventGoal.getGoalList().isEmpty()) {
-            int goalIndex = 1;
-            for (Goal goalObject : viewEventGoal.getGoalList()) {
-                System.out.println(goalIndex + ". " + goalObject.getGoal() + " - " + "Achieved: " + goalObject.getStatus());
-                goalIndex += 1;
-            }
-            System.out.println(lineSeparation);
-        } else {
-            System.out.println("You currently have no goals for this event.");
-            System.out.println(lineSeparation);
-        }
-    }
-
-    public void goalAdded(String goal) {
-        System.out.println("Ok, the following goal has been added to the event.");
-        System.out.println(goal);
-        System.out.println(lineSeparation);
-    }
-
-    public void goalDeleted(String deletedGoal) {
-        System.out.println("Ok, the following goal has been deleted from the event.");
-        System.out.println(deletedGoal);
-        System.out.println(lineSeparation);
-    }
-
-    public void goalUpdated(EventList events, int eventID, int goalID) {
-        System.out.println("Ok, the goal has been updated to: ");
-        System.out.println(events.getEvent(eventID).getGoalObject(goalID).getGoal());
-        System.out.println(lineSeparation);
-    }
-
-    public void goalSetAsAchieved(Goal goal) {
-        System.out.println("Ok, the goal has been set as achieved. Congratulations for achieving the goal!");
-        System.out.println(goal.getGoal() + " - " + goal.getStatus());
-        System.out.println(lineSeparation);
-    }
-
-    public void printNoSuchGoal() {
-        System.out.println("Sorry, the specified goal does not exist!");
-        System.out.println(lineSeparation);
-    }
   
     public void checklistDeleted(int eventIndex) {
         System.out.print(lineSeparation);
@@ -701,9 +656,81 @@ public class UI {
         System.out.print(lineSeparation);
     }
 
+    //@@author yenpeichih
+    public void printEventGoals(Event viewEventGoal) {
+        System.out.println(lineSeparation);
+        System.out.println("Here is the list of goals for the following event: " + viewEventGoal.toString());
+        if (!viewEventGoal.getGoalList().isEmpty()) {
+            int goalIndex = 1;
+            for (Goal goalObject : viewEventGoal.getGoalList()) {
+                System.out.println(goalIndex + ". " + goalObject.getGoal() + " - " + "Achieved: " + goalObject.getStatus());
+                goalIndex += 1;
+            }
+            System.out.println(lineSeparation);
+        } else {
+            System.out.println("You currently have no goals for this event.");
+            System.out.println(lineSeparation);
+        }
+    }
+
+    public void printGoalAdded(String goal) {
+        System.out.println(lineSeparation);
+        System.out.println("Ok, the following goal has been added to the event.");
+        System.out.println(goal);
+        System.out.println(lineSeparation);
+    }
+
+    public void printGoalDeleted(String deletedGoal) {
+        System.out.println(lineSeparation);
+        System.out.println("Ok, the following goal has been deleted from the event.");
+        System.out.println(deletedGoal);
+        System.out.println(lineSeparation);
+    }
+
+    public void printGoalUpdated(EventList events, int eventID, int goalID) {
+        System.out.println(lineSeparation);
+        System.out.println("Ok, the goal has been updated to: ");
+        System.out.println(events.getEvent(eventID).getGoalObject(goalID).getGoal());
+        System.out.println(lineSeparation);
+    }
+
+    public void printGoalSetAsAchieved(Goal goal) {
+        System.out.println(lineSeparation);
+        System.out.println("Ok, the goal has been set as achieved. Congratulations for achieving the goal!");
+        System.out.println(goal.getGoal() + " - " + goal.getStatus());
+        System.out.println(lineSeparation);
+    }
+
+    public void printGoalAlreadyAchieved() {
+        System.out.println(lineSeparation);
+        System.out.println("Your goal for that event has already been achieved!");
+        System.out.println(lineSeparation);
+    }
+
+    public void printNoSuchGoal() {
+        System.out.println(lineSeparation);
+        System.out.println("Sorry, the specified goal does not exist!");
+        System.out.println(lineSeparation);
+    }
+
     public void printEnteredEventOver() {
         System.out.println("Reminder: the event you have added has a start date that is already over and hence won't be displayed in the list. You may still view it by" +
                 " using the view schedules command.");
+    }
+
+    public void printEventsOnASpecificDate(ArrayList<String> foundEvents, boolean isFound) {
+        if (isFound) {
+            System.out.println(lineSeparation);
+            System.out.println("Here are the events you currently have on that date: ");
+            for (String viewEvent : foundEvents) {
+                System.out.println(viewEvent);
+            }
+            System.out.println(lineSeparation);
+        } else {
+            System.out.println(lineSeparation);
+            System.out.println("You currently have no events on that date.");
+            System.out.println(lineSeparation);
+        }
     }
 
 }

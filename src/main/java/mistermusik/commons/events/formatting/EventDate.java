@@ -72,14 +72,6 @@ public class EventDate {
         }
     }
 
-    /**
-     * Gets the current java Date object.
-     */
-    public Date getCurrentJavaDate() {
-        javaDate = new Date();
-        return javaDate;
-    }
-
     public String getUserInputDateString() {
         return userInputDateString;
     }
@@ -127,16 +119,16 @@ public class EventDate {
      * @param noOfDays numbers of days to add
      */
     public void addDaysAndSetMidnight(int noOfDays) {
-        Calendar c = Calendar.getInstance();
-        c.setTime(this.javaDate);
+        Calendar dateToSet = Calendar.getInstance();
+        dateToSet.setTime(this.javaDate);
 
         //sets calender class date to midnight.
-        c.add(Calendar.DATE, noOfDays);
-        c.set(Calendar.HOUR_OF_DAY, 23);
-        c.set(Calendar.MINUTE, 59);
-        c.set(Calendar.SECOND, 59);
+        dateToSet.add(Calendar.DATE, noOfDays);
+        dateToSet.set(Calendar.HOUR_OF_DAY, 23);
+        dateToSet.set(Calendar.MINUTE, 59);
+        dateToSet.set(Calendar.SECOND, 59);
 
-        this.javaDate = c.getTime();
+        this.javaDate = dateToSet.getTime();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         this.userInputDateString = formatter.format(javaDate);
         formatter = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.ENGLISH);
