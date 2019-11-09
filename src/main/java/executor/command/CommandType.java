@@ -9,6 +9,7 @@ public enum CommandType {
     DELETE(CommandDelete.class),
     DELETERECEIPT(CommandDeleteReceipt.class),
     DONE(CommandMarkDone.class),
+    MAJOREXPENSE(CommandMajorExpense.class),
     QUEUE(CommandQueue.class),
     VIEWSCHEDULE(CommandSchedule.class),
     REMINDER(CommandReminder.class),
@@ -40,7 +41,9 @@ public enum CommandType {
     ADD(CommandAdd.class),
     SUB(CommandSub.class),
     DIV(CommandDiv.class),
-    MUL(CommandMul.class);
+    MUL(CommandMul.class),
+    TRACK(CommandTrackTag.class),
+    UNTRACK(CommandUntrackTag.class);
 
     private final Class commandClass;
 
