@@ -11,7 +11,6 @@ import sgtravel.commons.exceptions.DukeException;
 import sgtravel.logic.LogicManager;
 import sgtravel.logic.commands.results.PanelResult;
 import sgtravel.model.Model;
-import sgtravel.model.ModelManager;
 import sgtravel.model.lists.RouteList;
 import sgtravel.model.planning.Itinerary;
 import sgtravel.ui.calendar.CalendarWindow;

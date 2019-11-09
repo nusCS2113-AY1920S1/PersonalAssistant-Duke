@@ -101,15 +101,15 @@ class ApiParserTest {
                 String.valueOf(node.getLatitude()), String.valueOf(node.getLongitude()), "",
                 ApiParser.generateLineParam(points, rgb), ApiParser.generatePointParam(route, node, nearbyNodes));
 
-        String expected = "layerchosen=default&lat=1.31491572870629&lng=103.76412225438476&zoom=16&height=512&"
-                + "width=512&polygons=&lines=[[1.29379302903228,103.78507910002646],[1.32653202760922,"
-                + "103.76429968220569],[1.31990193658073,103.95514880285305]]:255,122,0:2&points=[1.31497399268611,"
-                + "103.76502698264449,\"0,0,0\",\"1\"]|[1.3152,103.7652,\"0,0,0\",\"2\"]|[1.31528191560846,"
-                + "103.76536000516927,\"0,0,0\",\"3\"]|[1.31749570803723,103.7638854582427,\"0,0,0\",\"4\"]|["
-                + "1.31726409983754,103.76240145648879,\"0,0,0\",\"5\"]|[1.31491572870629,103.76412225438476,\"122,"
-                + "255,0\",\"C\"]|[1.29379302903228,103.78507910002646,\"255,122,0\",\"O\"]|[1.32653202760922,"
-                + "103.76429968220569,\"255,122,0\",\"O\"]|[1.31990193658073,103.95514880285305,\"122,255,0\",\"O\"]"
-                + "&color=&fillColor=";
+        String expected = "layerchosen=default&lat=1.31491572870629&lng=103.76412225438476&zoom=16&height=512&width=512"
+                + "&polygons=&lines=[[1.31491572870629,103.76412225438476],[1.29379302903228,103.78507910002646],"
+                + "[1.32653202760922,103.76429968220569],[1.31990193658073,103.95514880285305]]:255,122,0:2&points="
+                + "[1.31497399268611,103.76502698264449,\"0,0,0\",\"1\"]|[1.3152,103.7652,\"0,0,0\",\"2\"]|"
+                + "[1.31528191560846,103.76536000516927,\"0,0,0\",\"3\"]|[1.31749570803723,103.7638854582427,\""
+                + "0,0,0\",\"4\"]|[1.31726409983754,103.76240145648879,\"0,0,0\",\"5\"]|[1.31491572870629,"
+                + "103.76412225438476,\"122,255,0\",\"C\"]|[1.29379302903228,103.78507910002646,\"255,122,0\",\"O\"]|"
+                + "[1.32653202760922,103.76429968220569,\"255,122,0\",\"O\"]|[1.31990193658073,103.95514880285305,\""
+                + "122,255,0\",\"O\"]&color=&fillColor=";
         assertEquals(expected, actual);
     }
 
@@ -126,8 +126,8 @@ class ApiParserTest {
         String rgb = RED_VALUE_OTHER + "," + GREEN_VALUE_OTHER + "," + BLUE_VALUE_OTHER;
         String actual = ApiParser.generateStaticMapLines(points, rgb, LINE_WIDTH);
 
-        String expected = "[[1.29379302903228,103.78507910002646],[1.32653202760922,103.76429968220569],"
-                + "[1.31990193658073,103.95514880285305]]:255,122,0:2";
+        String expected = "[[1.31491572870629,103.76412225438476],[1.29379302903228,103.78507910002646],"
+                + "[1.32653202760922,103.76429968220569],[1.31990193658073,103.95514880285305]]:255,122,0:2";
         assertEquals(expected, actual);
 
         actual = ApiParser.generateLineParam(points, rgb);
@@ -144,7 +144,7 @@ class ApiParserTest {
         route.addNode(new BusStop("12209", model));
         route.addNode(new BusStop("94071", model));
 
-        assertEquals(3, ApiParser.generateOtherPoints(route, route.getNode(0), 0).size());
+        assertEquals(4, ApiParser.generateOtherPoints(route, route.getNode(0), 0).size());
     }
 
     @Test
@@ -155,7 +155,7 @@ class ApiParserTest {
         CustomNode customNode = new CustomNode("Somewhere in Com 2", "", 0.71, 1.34);
 
         assertEquals("17009", ApiParser.getLocationSearchName(busStop));
-        assertEquals("Ang Mo Kio MRT", ApiParser.getLocationSearchName(trainStation));
+        assertEquals("Ang Mo Kio Station", ApiParser.getLocationSearchName(trainStation));
         assertEquals("Somewhere in Com 2", ApiParser.getLocationSearchName(customNode));
     }
 

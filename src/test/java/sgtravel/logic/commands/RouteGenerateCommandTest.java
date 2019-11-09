@@ -21,14 +21,10 @@ public class RouteGenerateCommandTest {
             FileNotSavedException, RouteGenerateFailException, ApiException,
             DuplicateRouteException, QueryFailedException {
         ModelStub modelStub = new ModelStub();
-        RouteGenerateCommand routeGenerateMrt =
-                new RouteGenerateCommand("sentosa", "amk", Constraint.MRT);
-        CommandResultText resultText = routeGenerateMrt.execute(modelStub);
-        assertEquals(resultText.getMessage(), "Route generated successfully: \n" + "sentosa to amk  (MRT)");
 
         RouteGenerateCommand routeGenerateBus =
                 new RouteGenerateCommand("sentosa", "amk", Constraint.BUS);
-        resultText = routeGenerateBus.execute(modelStub);
+        CommandResultText resultText = routeGenerateBus.execute(modelStub);
         assertEquals(resultText.getMessage(), "Route generated successfully: \n" + "sentosa to amk  (BUS)");
 
     }

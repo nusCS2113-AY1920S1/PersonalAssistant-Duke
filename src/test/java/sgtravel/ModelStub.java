@@ -13,12 +13,10 @@ import sgtravel.model.locations.BusStop;
 import sgtravel.model.planning.Itinerary;
 import sgtravel.model.planning.Recommendation;
 import sgtravel.model.profile.ProfileCard;
-import sgtravel.model.transports.BusService;
 import sgtravel.model.transports.Route;
 import sgtravel.model.transports.TransportationMap;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Implements the methods defined in the Model Interface.

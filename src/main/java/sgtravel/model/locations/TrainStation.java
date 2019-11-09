@@ -1,8 +1,6 @@
 package sgtravel.model.locations;
 
-import org.apache.commons.lang3.ObjectUtils;
 import sgtravel.commons.enumerations.Constraint;
-import sgtravel.commons.exceptions.NullResultException;
 import sgtravel.commons.exceptions.QueryFailedException;
 import sgtravel.model.Model;
 import sgtravel.model.transports.TransportationMap;
