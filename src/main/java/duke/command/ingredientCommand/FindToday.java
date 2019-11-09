@@ -7,6 +7,7 @@ import duke.ingredient.Ingredient;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
+import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
 import java.text.SimpleDateFormat;
@@ -34,7 +35,7 @@ public class FindToday extends Command {
     }
 
     @Override
-    public void execute(Fridge fridge, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) {
+    public void execute(Fridge fridge, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os, RecipeStorage rs) {
         int i = 1;
         StringBuilder sb = new StringBuilder();
         for (Ingredient ingredient : fridge.getAllIngredients().getAllEntries())

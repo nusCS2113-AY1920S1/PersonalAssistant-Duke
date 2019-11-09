@@ -88,16 +88,16 @@ The Ui class consists of methods that outputs messages to the user as a response
 
 The Ui component contains all the messages or replies whenever the User enters a command for example if the user enters:
 
-`dishadd chicken rice /num 2`
+`add chicken rice`
 
-`dishdelete 1`
+`remove 1`
 
 The Ui will reply to the User with the following messages:
 
 ```
 	 ____________________________________________________________
 	 you have added the following dish: 
-	 chicken rice 	amount: 2
+	 chicken rice 
 	 ____________________________________________________________
 ```
 
@@ -171,7 +171,9 @@ The Command class is used as an abstract class for other classes, its method `ex
   - AddDishCommand
   - DeleteDishCommand
   - ListDishCommand
-  - InitCommand
+  - FindDishCommand
+  - ChangeDishCommand
+  - ResetCommand
   - AddIngredient
 - OrderCommand
   - AddOrderCommand
@@ -200,6 +202,8 @@ API: `Parser.java`
 makes sense of the data that is read by the user from the Duke Class. 
 
 this component gets the command from the user through the Duke Class. This component will then make sense of the command by splitting the command into different parts as well as determining the command type.
+
+
 
 depending on the content of the splitted value and command type, Parser class will execute different commands.
 #### 2.5 Storage Component
@@ -435,6 +439,7 @@ The Recipebook contains 2 classes, Ingredient and IngredientsList.
 #### 2.10 Fridge Component
 API: `Fridge.java`
 
+
 The Fridge class allows access and modification of the `Ingredient`s used by the chef. By keeping track of the Ingredients' expiry date, it allows the user to know which products have expired, and remove them. It allows for less ingredient waste, as it can return the most recently expiring ingredients, so that they can be used first. 
 
 ![Fridge](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/fridgeUML.png)
@@ -445,9 +450,15 @@ This abstract class allows for creation of different types of lists, and basic l
 
 ![GenericList](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/GenericListUML.png)
 
-##### <u>Ingredient Class</u>
+The Fridge class allows access and modification of the `Ingredient`s used by the chef. By keeping track of the Ingredients' expiry date, it allows the user to know which products have expired, and remove them. It allows for less ingredient waste, as it can return the most recently expiring ingredients, so that they can be used first. 
 
+![Fridge](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/fridgeUML.png)
 
+#### 2.11 GenericList
+
+This abstract class allows for creation of different types of lists, and basic list entry manipulations. It is extended by multiple classes, including `IngredientsList.java`, `TaksList.java`, `OrderList.java` and `DishList.java`. All of these classes inherit the basic methods from the Generic List and extend it with their specific methods, eg.  `allUndoneOrders()` from`OrderList.java`, or `changeAmount()` from `IngredientsList.java`. A UML Class Diagram is shown below.
+
+![GenericList](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/GenericListUML.png)
 
 ##### <u>Ingredient Class</u>
 
@@ -523,7 +534,7 @@ Target user profile: Restaurant Chef
 - needs to manage all the ingredients for his dishes  
 - needs to keep track of orders 
 - needs to manage ingredients in the fridge
-- 
+- needs to manage dishes in recipe book 
 - prefers a desktop application, CLI
 - prefers to keep everything neat in terms of viewing information
 ### Appendix B: User Stories
@@ -690,7 +701,7 @@ Target user profile: Restaurant Chef
 
 ### Appendix D: Non Functional Requirement
 
-1. should work on any windows OS as long it has `java 11` or newer installed 
+1. should work on any windows or Mac OS as long it has `java 11` or newer installed 
 2. The application needs to be secure. only specific users are able to access this application. for example, the restaurant manager as well as the chef
 3. should be reliable in displaying accurate and correct data 
 4. should be easy to use for users with basic knowledge of command line interface
@@ -730,7 +741,7 @@ in the main page, there are several actions for the user:
    1. Download Jar file and copy into empty folder
    2. open command prompt and navigate to that `FILEPATH` and run `java -jar v1.4`. 
    3. resize window if size is not optimum
-   4. enter `q` to close the program or close the window
+   4. enter `q` to close the program or close the window
 
 #### E1. Adding an ingredient
 
@@ -752,7 +763,7 @@ in the main page, there are several actions for the user:
 
 1. adding a dish to the dishList
 
-   1. prerequisite: list all dishes using `list` 
+   1. prerequisite: user must be in `dish` template. list all dishes using `list` 
 
    2. Test case 1: `add chicken rice`
 
@@ -770,11 +781,60 @@ in the main page, there are several actions for the user:
 
 1. removing a dish from the dishList
 
-   1. prerequisite: list all dishes  using `list`, eg the size 
+      1. prerequisite: user must be in `dish` template. list all dishes  using `list`, eg the size dishList is more than 0 less than 100 
 
-   2. Test case 1: `remove 1`
+      2. Test case 1: `remove 1`
 
-      Expected: deletes the first dish in the list, 
+         Expected: deletes the first dish in the list, outputs the details of the deleted dish to the user 
+
+      3. Test case 2: `remove`
+
+         Expected: no dish is deleted. outputs to the user to enter a valid index
+
+      4. Test case 3: `remove two`
+
+         Expected: no dish is deleted. output to the user to enter alternative command 
+
+      5. Test case 4: `remove 101`
+
+         Expected: no dish is deleted. outputs to the user that the dish does not exist 
+
+#### E12. Adding an ingredient to a dish
+
+1. associating an ingredient to a dish in the dishList	
+
+   1. prerequisite: user must be in `dish` template. list all dishes using `list`, eg size of dishList is more than 0 and less than 100
+
+   2. Test case 1: `ingredient rice 50 1`
+
+      Expected: adds an ingredient rice of 50g to dish of index 1 in dishList. outputs message to user, added ingredient rice to dish.
+
+   3. Test case 2: `ingredient`
+
+      Expected: no ingredient is added to a dish. outputs message to user that description cannot be empty
+
+   4. Test case 3: `ingredient rice`
+
+      Expected: no ingredient is added to a dish. outputs message to user that index/amount needs to be valid
+
+#### E13. Finding a dish
+
+1. finding a dish in list given a keyword
+
+   1. prerequisite: user must be in `dish` template. user must be in `dish` template. list all dishes using `list`
+
+   2. Test case 1: `find rice`
+
+      Expected: find all dishes that contains the keyword rice and output to user
+
+   3. Test case 2: `find`
+
+      Expected: 
+1. prerequisite: list all dishes  using `list`, eg the size 
+   
+2. Test case 1: `remove 1`
+   
+   Expected: deletes the first dish in the list, 
 
 #### E12. Adding an ingredient to a dish
 

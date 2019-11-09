@@ -7,10 +7,12 @@ import duke.fridge.Fridge;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
+import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
 public class ResetDishCommand extends Command {
 
+    //@@author Hafidz
     /**
      * this method clears the list, the program asks the user whether they want the list to be cleared
      * user can enter y or n, yes or no.
@@ -22,15 +24,14 @@ public class ResetDishCommand extends Command {
      * @param fs
      * @param os
      * @throws DukeException
-     *
-     * @author Hafidz
      */
     @Override
-    public void execute(Fridge fridge, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+    public void execute(Fridge fridge, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os, RecipeStorage rs) throws DukeException {
         System.out.println("\t are you sure you want to clear list? [y/n]");
         String command = ui.readCommand();
         if(command.toLowerCase().equals("y")){
             dishList.clearList();
+            rs.clearInfoForFile();
             System.out.println("\t LIST IS CLEARED");
         }
         else if(command.toLowerCase().equals("n")){

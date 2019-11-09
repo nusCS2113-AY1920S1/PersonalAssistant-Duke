@@ -8,6 +8,7 @@ import duke.ingredient.Ingredient;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
+import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
 import java.text.SimpleDateFormat;
@@ -28,7 +29,7 @@ public class FindIngredientCommand extends Command {
     }
 
     @Override
-    public void execute(Fridge ingList, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+    public void execute(Fridge ingList, DishList dl, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os, RecipeStorage rs) throws DukeException {
         int i = 1;
         StringBuilder sb = new StringBuilder();
 

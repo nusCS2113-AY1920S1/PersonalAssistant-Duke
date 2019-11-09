@@ -9,26 +9,27 @@ import duke.fridge.Fridge;
 import duke.order.OrderList;
 import duke.storage.FridgeStorage;
 import duke.storage.OrderStorage;
+import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
 public class ListDishCommand extends Command {
   //private TextTable tt;
   //private String[] ColNames = {"Dish", "ingredient"}; //initialize the column names of the table
 
+    //@@author  9hafidz6
+    //@@author  CEGLincoln
     /**
-     *
-     * @param fridge
-     * @param dishList
-     * @param ol
-     * @param ui
-     * @param fs
-     * @param os
+     * this method prints out all the dishes in the list as well as the ingredients of the dish
+     * @param fridge ingredients found in fridge
+     * @param dishList list of dishes
+     * @param ol list of orders
+     * @param ui prints output for user
+     * @param fs storage for fridge
+     * @param os storage for order
      * @throws DukeException
-     *
-     * @@author  Hafidz
      */
     @Override
-    public void execute(Fridge fridge, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os) throws DukeException {
+    public void execute(Fridge fridge, DishList dishList, OrderList ol, Ui ui, FridgeStorage fs, OrderStorage os, RecipeStorage rs) throws DukeException {
         //Object[][] data = new Object[dishList.size()][2]; //using text utils to display data in form of a table
         if (dishList.size() == 0) { //if list is empty
             throw new DukeException("No Dishes yet!");
