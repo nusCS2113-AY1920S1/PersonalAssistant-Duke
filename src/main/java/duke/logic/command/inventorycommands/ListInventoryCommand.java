@@ -27,34 +27,18 @@ public class ListInventoryCommand extends Command<InventoryList, Ui, InventorySt
     }
 
     /**
-     * Processes the list command to display all tasks in task list.
-     * @param inventoryList contains the task list
-     * @param inventoryStorage deals with loading tasks from the file and saving tasks in the file
+     * Processes the list recipe command to show a list of the existing ingredients in the inventory list.
+     *
+     * @param inventoryList contains the inventory list
+     * @param ui             deals with interactions with the user
+     * @param inventoryStorage deals with loading tasks from the file and saving ingredients in the file
+     * @return an array list consist of the results or prompts to be displayed to user
      */
-
-    /*
-    public ArrayList<String> execute(InventoryList inventoryList, Ui ui, InventoryStorage inventoryStorage) {
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add(MESSAGE_LIST_INGREDIENTS);
-        for (int i = 0; i < inventoryList.getSize(); i++) {
-            final int displayedIndex = i + DISPLAYED_INDEX_OFFSET;
-            arrayList.add("     " + displayedIndex + ". " + inventoryList.get(i));
-        }
-        return arrayList;
-    }
-
     @Override
-    public boolean isExit() {
-        return false;
-    }
-*/
-
-
     public ArrayList<String> execute(InventoryList inventoryList, Ui ui, InventoryStorage inventoryStorage) {
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_LIST_INVENTORY)) {
             arrayList.add(MESSAGE_HERE_ARE_THE_INGREDIENTS);
-            // using generics. can use KeySet also but use EntrySet can extend for further purpose later on.
             arrayList.addAll(listOfInventories(inventoryList.getInventoryList()));
         } else {
             arrayList.add(ERROR_MESSAGE_RANDOM);

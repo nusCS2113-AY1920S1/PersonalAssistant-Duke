@@ -54,6 +54,7 @@ public class BookingStorage {
      * @return the list of bookings in booking list
      */
     public ArrayList<Booking> load() {
+
         if (Files.notExists(Paths.get(filePath))) {
             try {
                 Files.createDirectory(Paths.get("data/"));

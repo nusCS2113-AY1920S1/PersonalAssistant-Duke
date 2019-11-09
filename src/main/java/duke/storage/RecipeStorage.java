@@ -14,7 +14,7 @@ import java.util.TreeMap;
 public class RecipeStorage {
 
     private final TreeMap<String, Recipe> LHMRecipeList = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
-    private String filePathRecipes;
+    private final String filePathRecipes;
 
     /**
      * Constructor for the class RecipeStorage.

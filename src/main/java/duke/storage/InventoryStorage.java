@@ -54,28 +54,29 @@ public class InventoryStorage {
      * @return the list of inventory in inventory list
      */
     public HashMap<String, Ingredient> load() {
+
         if (Files.notExists(Paths.get(filePathInventory))) {
-        try {
-            Files.createDirectory(Paths.get("data/"));
-        } catch (IOException e) {
-            System.out.println("Unknown IO error when creating 'data/' folder.");
+            try {
+                Files.createDirectory(Paths.get("data/"));
+            } catch (IOException e) {
+                System.out.println("Unknown IO error when creating 'data/' folder.");
+            }
         }
-    }
         try {
             FileReader fileReader = new FileReader(filePathInventory);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String content = "";
             while ((content = bufferedReader.readLine()) != null) {
                 String ingredientName, quantity, unit, additionalInfo, remaining, remaining2;
-                String[] split = content.split("\\|", 2);
+                String[] split = content.split(",", 2);
                 if (split.length == 2) {
                     ingredientName = split[0].trim();
                     remaining = split[1].trim();
-                    String[] split2 = remaining.split("\\|", 2);
+                    String[] split2 = remaining.split(",", 2);
                     if (split2.length == 2) {
                         quantity = split2[0].trim();
                         remaining2 = split2[1].trim();
-                        String[] split3 = remaining2.split("\\|", 2);
+                        String[] split3 = remaining2.split(",", 2);
                         if (split3.length == 2) {
                             unit = split3[0].trim();
                             additionalInfo = split3[1].trim();
