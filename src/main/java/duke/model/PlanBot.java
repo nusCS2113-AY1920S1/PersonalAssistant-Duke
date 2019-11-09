@@ -21,6 +21,8 @@ import java.util.logging.Logger;
  */
 public class PlanBot {
 
+    private static PlanBot planBot;
+
     private static final Logger logger = LogsCenter.getLogger(PlanQuestion.class);
 
     /**
@@ -70,7 +72,7 @@ public class PlanBot {
      * @param planAttributes the loaded attributes from Storage
      * @throws DukeException when there is an error loading questions based on the loaded planAttributes
      */
-    public PlanBot(Map<String, String> planAttributes) {
+    private PlanBot(Map<String, String> planAttributes) {
         this.dialogList = new ArrayList<>();
         dialogObservableList = FXCollections.observableList(dialogList);
         this.planAttributes = planAttributes;
@@ -82,7 +84,7 @@ public class PlanBot {
                     Agent.BOT));
         }
         try {
-            planQuestionBank = new PlanQuestionBank();
+            planQuestionBank = PlanQuestionBank.getInstance();
         } catch (DukeException e) {
             dialogObservableList.add(new PlanDialog(e.getMessage(), Agent.BOT));
         }
@@ -103,6 +105,13 @@ public class PlanBot {
             PlanDialog initial = new PlanDialog(firstQuestion.getQuestion(), Agent.BOT);
             dialogObservableList.add(initial);
         }
+    }
+
+    public static PlanBot getInstance(Map<String, String> planAttributes) {
+        if (planBot == null) {
+            planBot = new PlanBot(planAttributes);
+        }
+        return planBot;
     }
 
     public ObservableList<PlanDialog> getDialogObservableList() {

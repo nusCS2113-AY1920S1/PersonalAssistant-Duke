@@ -20,8 +20,8 @@ public class PlanQuestion {
     private Map<String, Set<Integer>> neighbouringQuestions;
     private String attribute;
 
-    private final static String SUCCESS_MESSAGE = "Ok noted!";
-    private final static String DOUBLE = "DOUBLE";
+    private static final String SUCCESS_MESSAGE = "Ok noted!";
+    private static final String DOUBLE = "DOUBLE";
 
     /**
      * Constructor for PlanQuestion.
@@ -81,7 +81,7 @@ public class PlanQuestion {
      * @param input      the input string for the question
      * @param attributes the currently known attributes about the user
      * @return Reply containing the updated attributes and success message
-     * @throws DukeException
+     * @throws DukeException when there the reply is not valid
      */
     Reply getReply(String input, Map<String, String> attributes) throws DukeException {
         try {
@@ -101,7 +101,7 @@ public class PlanQuestion {
                 return new Reply(SUCCESS_MESSAGE, attributes);
             }
         } catch (NoSuchElementException | NumberFormatException | NullPointerException e) {
-            throw new DukeException("Please enter a valid reply!");
+            throw new DukeException(DukeException.MESSAGE_PLANBOT_INVALID_REPLY);
         }
         return new Reply("Something strange happened", attributes);
     }
