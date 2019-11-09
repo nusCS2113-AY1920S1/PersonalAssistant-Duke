@@ -13,7 +13,7 @@ public class Leave extends Task {
     private String user;
 
     /**
-     * constructor for the leave class
+     * constructor for the leave class.
      * @param description description of the leave
      * @param user the person who is taking leave
      * @param from the start date and time of the leave
@@ -27,7 +27,7 @@ public class Leave extends Task {
     }
 
     /**
-     * gets the start date of the leave
+     * gets the start date of the leave.
      * @return the start date and time of the leave
      */
     public Date getStartDate() {
@@ -35,7 +35,7 @@ public class Leave extends Task {
     }
 
     /**
-     * sets the start date of the leave
+     * sets the start date of the leave.
      * @param date the start date and time of the leave
      */
     public void setStartDate(Date date) {
@@ -43,7 +43,7 @@ public class Leave extends Task {
     }
 
     /**
-     * gets the end date of the leave
+     * gets the end date of the leave.
      * @return end date and time of the leave
      */
     public Date getEndDate() {
@@ -51,7 +51,7 @@ public class Leave extends Task {
     }
 
     /**
-     * sets the end date of the leave
+     * sets the end date of the leave.
      * @param date the end date and time of the leave
      */
     public void setEndDate(Date date) {
@@ -59,7 +59,7 @@ public class Leave extends Task {
     }
 
     /**
-     * gets the user who is being assigned to the leave
+     * gets the user who is being assigned to the leave.
      * @return user who is assigned the leave
      */
     @Override
@@ -68,7 +68,7 @@ public class Leave extends Task {
     }
 
     /**
-     * returns the information of the leave being taken
+     * returns the information of the leave being taken.
      * @return String with the information of the leave.
      */
     @Override
@@ -77,7 +77,7 @@ public class Leave extends Task {
     }
 
     /**
-     * setter for user
+     * setter for user.
      * @param user name of user for the leave
      */
     public void setUser(String user) {

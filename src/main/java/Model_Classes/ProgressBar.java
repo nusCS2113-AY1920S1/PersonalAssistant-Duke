@@ -9,7 +9,7 @@ public class ProgressBar {
     private float done;
 
     /**
-     * Constructor for Progress Bar
+     * Constructor for Progress Bar.
      * @param total Total number of tasks that are in the task list
      * @param done Total number of completed tasks in the task list
      */
@@ -19,21 +19,22 @@ public class ProgressBar {
     }
 
     /**
-     * Displays the number of tasks completed to the total number of task in
+     * Displays the number of tasks completed to the total number of task in.
      * a progress bar format.
      */
     public String showBar() {
-        for (int i=0; i<50; i++) {
+        for (int i = 0; i < 50; i++) {
             bar[i] = " ";
         }
-        float percentage =0;
-        if(total >= 1) {
+        float percentage = 0;
+        if (total >= 1) {
             percentage = done / total;
-            for (int i = 0; i < (int)(percentage*50); i++) {
+            for (int i = 0; i < (int)(percentage * 50); i++) {
                 bar[i] = "=";
             }
         }
         DecimalFormat df = new DecimalFormat("#.#");
-        return Arrays.toString(bar).replace(",", "").trim() + " " + Float.valueOf(df.format(percentage*100)) + "%";
+        return Arrays.toString(bar).replace(",", "").trim()
+                + " " + Float.valueOf(df.format(percentage * 100)) + "%";
     }
 }

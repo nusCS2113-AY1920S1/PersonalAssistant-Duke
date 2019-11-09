@@ -9,7 +9,7 @@ public class ListRoutine {
     private Ui ui = new Ui();
 
     /**
-     * constructor for the ListRoutine
+     * constructor for the ListRoutine.
      * @param taskList the task list to be listed using the list routine
      */
     public ListRoutine(TaskList taskList, OverdueList overdueList) {
@@ -18,7 +18,7 @@ public class ListRoutine {
     }
 
     /**
-     * the listing method to be used by ListRoutine
+     * the listing method to be used by ListRoutine.
      * lists the tasks and the associated information, while showing the progress bar
      */
     public void list() {

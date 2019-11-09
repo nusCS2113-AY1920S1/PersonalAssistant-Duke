@@ -8,33 +8,31 @@ import Enums.Priority;
 import Enums.RecurrenceScheduleType;
 import Enums.TimeUnit;
 import Model_Classes.*;
-
 import javafx.util.Pair;
+
 import java.util.ArrayList;
-import java.util.Timer;
 import java.util.Date;
 
 public class TaskCreator {
-    public static final String UPDATED_DESCRIPTION_ERROR = "There is a formatting error in your updated description";
-    public static final String DURATION_FORMAT_ERROR = "There's a problem with the duration you've specified, default to no duration";
-    public static final String RECURRENCE_FORMAT_ERROR = "There seems to some mistake in your recurrence entry, will be setting recurrence as none";
-    public static final String DATE_FORMAT_ERROR = "Wrong date format, date is set default to current date";
-    public static final String STARTING_DATE_FORMAT_ERROR = "Wrong date format, starting date is set default to current date";
-    public static final String ENDING_DATE_FORMAT_ERROR = "Wrong date format, ending date is set default to current date";
-    public static final String UPDATED_DATE_ERROR = "Please check the updated date of your task";
+    private static final String UPDATED_DESCRIPTION_ERROR = "There is a formatting error in your updated description";
+    private static final String DURATION_FORMAT_ERROR = "There's a problem with the duration you've specified, default to no duration";
+    private static final String RECURRENCE_FORMAT_ERROR = "There seems to some mistake in your recurrence entry, "
+            +"will be setting recurrence as none";
+    private static final String STARTING_DATE_FORMAT_ERROR = "Wrong date format, starting date is set default to current date";
+    private static final String ENDING_DATE_FORMAT_ERROR = "Wrong date format, ending date is set default to current date";
+    public static final String PRIORITY_WILL_BE_SET_AS_LOW = "There seems to some mistake in your priority entry,"
+            + " will be setting priority as low";
     private Parser parser;
-    Timer timer;
 
     /**
-     * Constructor for a TaskCreator
+     * Constructor for a TaskCreator.
      */
     public TaskCreator() {
         parser = new Parser();
-        timer = new Timer();
     }
 
     /**
-     * Extract the task type from the user's input
+     * Extract the task type from the user's input.
      * @param input user's input
      * @return the task type
      * @throws RoomShareException when the task type is invalid
@@ -42,16 +40,16 @@ public class TaskCreator {
     public String extractType(String input) throws RoomShareException {
         String[] typeArray = input.split("#");
         String type;
-        if (typeArray.length != 1)
+        if (typeArray.length != 1) {
             type = typeArray[1].toLowerCase();
-        else
+        } else {
             throw new RoomShareException(ExceptionType.emptyTaskType);
-
+        }
         return type;
     }
 
     /**
-     * Extract the description of a task from user's input
+     * Extract the description of a task from user's input.
      * @param input user's input
      * @return the description of the task
      * @throws RoomShareException when there's no description detected
@@ -62,8 +60,9 @@ public class TaskCreator {
         if (descriptionArray.length != 1) {
             String[] descriptionArray2 = descriptionArray[1].trim().split("\\)");
             description = descriptionArray2[0].trim();
-        } else
+        } else {
             throw new RoomShareException(ExceptionType.emptyDescription);
+        }
         if (hasSpecialCharacters(description)) {
             throw new RoomShareException(ExceptionType.invalidInputString);
         }
@@ -71,11 +70,11 @@ public class TaskCreator {
     }
 
     /**
-     * Extract the priority of a task from user's input
+     * Extract the priority of a task from user's input.
      * @param input user's input
      * @return the priority of the task
      */
-    public Priority extractPriority(String input) throws RoomShareException{
+    public Priority extractPriority(String input) throws RoomShareException {
         // check for errors in the raw input for misleading characters
         int count = 0;
         char[] inputAsChar = input.toCharArray();
@@ -94,18 +93,17 @@ public class TaskCreator {
             try {
                 priority = Priority.valueOf(inputPriority);
             } catch (IllegalArgumentException e) {
-                System.out.println("There seems to some mistake in your priority entry, will be setting priority as low");
+                System.out.println(PRIORITY_WILL_BE_SET_AS_LOW);
                 priority = Priority.low;
             }
         } else {
             priority = Priority.low;
         }
-
         return priority;
     }
 
     /**
-     * Extract the date and time of a task from user's input
+     * Extract the date and time of a task from user's input.
      * @param input user's input
      * @return the date and time of the task
      * @throws RoomShareException when there is no date and time detected or the format of date and time is invalid
@@ -119,7 +117,6 @@ public class TaskCreator {
                 count++;
             }
         }
-
         String[] dateArray = input.trim().split("&");
         ArrayList<Date> dates = new ArrayList<>();
         Date currentDate = new Date();
@@ -166,18 +163,18 @@ public class TaskCreator {
                     throw new RoomShareException(ExceptionType.invalidDateRange);
                 }
             }
-        } else
+        } else {
             throw new RoomShareException(ExceptionType.emptyDate);
-
+        }
         return dates;
     }
 
     /**
-     * Extract the assignee of a task from user's input
+     * Extract the assignee of a task from user's input.
      * @param input user's input
      * @return the name of the assignee
      */
-    public String extractAssignee(String input) throws RoomShareException{
+    public String extractAssignee(String input) throws RoomShareException {
         // check for errors in the raw input for misleading characters
         int count = 0;
         char[] inputAsChar = input.toCharArray();
@@ -204,7 +201,7 @@ public class TaskCreator {
     }
 
     /**
-     * Extract the recurrence schedule of task from user's input
+     * Extract the recurrence schedule of task from user's input.
      * @param input user's input
      * @return the recurrence schedule of the task
      */
@@ -238,9 +235,9 @@ public class TaskCreator {
     }
 
     /**
-     * Extract the duration of a task from user's input
+     * Extract the duration of a task from user's input.
      * @param input user's input
-     * @return the amount of time and unit of the duration as a Pair<Integer,TimeUnit>
+     * @return the amount of time and unit of the duration as a Pair of Integer and TimeUnit
      */
     public Pair<Integer, TimeUnit> extractDuration(String input) throws RoomShareException {
         // check for errors in the raw input for misleading characters
@@ -272,12 +269,18 @@ public class TaskCreator {
             unit = TimeUnit.unDefined;
         }
 
-        if (duration < 0)
+        if (duration < 0) {
             throw new RoomShareException(ExceptionType.negativeTimeAmount);
+        }
         return new Pair<>(duration,unit);
     }
 
-    public boolean hasSpecialCharacters(String input) {
+    /**
+     * Checks if input string has special flags used in the input format.
+     * @param input input to be checked
+     * @return a boolean value denoting if the input contains such flags
+     */
+    private boolean hasSpecialCharacters(String input) {
         boolean isInvalid = false;
         if (input.contains("#")) {
             isInvalid = true;
@@ -300,24 +303,21 @@ public class TaskCreator {
     }
 
     /**
-     * Extract the reminder flag of a task from user's input
+     * Extract the reminder flag of a task from user's input.
      * @param input user's input
      * @return the reminder flag of the task
      */
     public boolean extractReminder(String input) {
         String[] reminderArray = input.split("!");
         if (reminderArray.length != 1) {
-            if(reminderArray[1].contains("R"))
-                return true;
-            else
-                return false;
+            return reminderArray[1].contains("R");
         } else {
             return false;
         }
     }
 
     /**
-     * Create a new task based on the description the user key in
+     * Create a new task based on the description the user key in.
      * @param input the description of the task
      * @return a new Task object created based on the description
      * @throws RoomShareException when there are some formatting errors
@@ -369,7 +369,7 @@ public class TaskCreator {
             assignment.setPriority(priority);
             assignment.setAssignee(assignee);
             assignment.setRecurrenceSchedule(recurrence);
-            if(remind) {
+            if (remind) {
                 TaskReminder taskReminder = new TaskReminder(description, duration);
                 taskReminder.start();
             }
@@ -384,8 +384,9 @@ public class TaskCreator {
             String[] leaveUserArray = input.split("@");
             if (leaveUserArray.length != 1) {
                 user = leaveUserArray[1].trim();
-            } else
+            } else {
                 throw new RoomShareException(ExceptionType.emptyUser);
+            }
             Leave leave = new Leave(description, user, from, to);
             leave.setPriority(priority);
             leave.setRecurrenceSchedule(recurrence);
@@ -478,7 +479,7 @@ public class TaskCreator {
     }
 
     /**
-     * Update a task from the task list according to the user's input
+     * Update a task from the task list according to the user's input.
      * @param input user's input
      * @param oldTask the task to be updated
      */
@@ -568,7 +569,7 @@ public class TaskCreator {
     }
 
     /**
-     * Updates the date of the overdue task
+     * Updates the date of the overdue task.
      *
      * @param input user's input of the date
      * @param overdueTask the task which date needs to be updated
