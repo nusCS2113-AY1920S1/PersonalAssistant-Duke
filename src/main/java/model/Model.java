@@ -80,7 +80,7 @@ public interface Model {
 
     String membersInorderTodoNum();
 
-    int getMemberIDByName(String name);
+    int getMemberIdByName(String name);
 
     //==================Task and Member Interface======================
     void link(int tasksIndexes, String memberNames);

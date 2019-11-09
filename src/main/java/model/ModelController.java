@@ -125,8 +125,13 @@ public class ModelController implements Model {
     }
 
     //@@author JasonChanWQ
+    /**
+     * Checks if task index exists in task list
+     * @param taskIndex Index of the task
+     * @return false if the task not in list, true if task in list
+     */
     public boolean isInTaskList(int taskIndex) {
-        if(taskIndex < 1 || taskIndex > tasksManager.getTaskList().size()){
+        if (taskIndex < 1 || taskIndex > tasksManager.getTaskList().size()) {
             return false;
         }
         return true;
@@ -194,7 +199,13 @@ public class ModelController implements Model {
         return oldPhone;
     }
 
-    public int getMemberIDByName(String name) {
+    //@@author JasonChanWQ
+    /**
+     * get the corresponding member index by the name
+     * @param name input name
+     * @return memberIndex
+     */
+    public int getMemberIdByName(String name) {
         int memberIndex = 0;
         for (int i = 0; i < memberManager.getMemberList().size(); i++) {
             if (name.equals(memberManager.getMemberNameById(i))) {

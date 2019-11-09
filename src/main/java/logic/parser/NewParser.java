@@ -54,8 +54,8 @@ public class NewParser {
         commandWord = commandWord.trim().toUpperCase();
 
         String[] dict = {
-            "ADD", "LIST", "DONE", "UNDONE", "DELETE", "HELP", "FIND", "BYE", "REMINDER", "SHOW",
-             "SCHEDULE", "CHECK", "LINK", "UNLINK", "RENAME", "EDIT",
+            "ADD", "LIST", "DONE", "UNDONE", "DELETE", "HELP", "FIND", "BYE", "REMINDER",
+            "SHOW", "SCHEDULE", "CHECK", "LINK", "UNLINK", "RENAME", "EDIT",
             "MATCH", "CHECK"
         };
 

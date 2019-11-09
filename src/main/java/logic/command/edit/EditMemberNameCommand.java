@@ -33,7 +33,7 @@ public class EditMemberNameCommand extends Command {
         } else if (model.getMemberList().contains(newMember)) {
             return new CommandOutput(newName + INPUT_NAME_ALREADY_IN_MEMBER_lIST_MESSAGE);
         } else {
-            int memberIndex=model.getMemberIDByName(oldName);
+            int memberIndex = model.getMemberIdByName(oldName);
             model.getMemberList().get(memberIndex).setName(newName);
 
             for (Task task : model.getTaskList()) {
