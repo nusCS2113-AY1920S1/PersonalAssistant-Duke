@@ -1,3 +1,4 @@
+/* @@author rshah918 */
 package leduc.command;
 import leduc.exception.InvalidFlagException;
 import leduc.storage.Storage;
@@ -8,7 +9,6 @@ import java.util.Arrays;
 /**
  * Represents the statistics feature
  */
-@SuppressWarnings("DuplicatedCode")
 public class StatsCommand extends Command {
     /**
      * general statistics that are generated from the tasklist.
@@ -184,6 +184,7 @@ public class StatsCommand extends Command {
                 throw new InvalidFlagException();
             }
     }
+    /* @@author */
     /**
      * getter because the shortcut is private
      * @return the shortcut name

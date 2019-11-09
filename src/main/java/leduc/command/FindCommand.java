@@ -1,3 +1,4 @@
+/* @@author rshah918 */
 package leduc.command;
 
 import leduc.exception.EmptyArgumentException;
@@ -127,6 +128,7 @@ public class FindCommand extends Command {
             ui.showFindMatching(result);
         }
     }
+/* @@author */
     /**
      * getter because the shortcut is private
      * @return the shortcut name

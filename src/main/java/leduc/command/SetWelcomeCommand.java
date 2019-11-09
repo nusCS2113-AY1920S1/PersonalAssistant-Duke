@@ -1,3 +1,4 @@
+/* @@author rshah918 */
 package leduc.command;
 
 import leduc.Ui;
@@ -51,7 +52,7 @@ public class SetWelcomeCommand extends Command{
         }
         ui.showNewWelcome(welcomeMessage);
     }
-
+/* @@author */
     /**
      * getter because the shortcut is private
      * @return the shortcut name

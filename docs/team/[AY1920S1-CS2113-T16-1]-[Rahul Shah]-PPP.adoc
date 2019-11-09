@@ -7,41 +7,42 @@
 
 ---
 == Overview
-Le Duc is a task management product aiming to assist high school students manage their academic and extracurricular tasks, with the goal of increasing their time management/productivity. User/software interaction occurs on the command line, from which they have access to a variety of commands/operations.
+Le Duc is a schedule management software aiming to assist high school students manage their academic and extracurricular tasks, with the goal of increasing their time management/productivity. User-Software interaction occurs on the command line, from which they have access to a variety of commands/operations.
 
 == Contributions Summary
 * *Major Enhancement*: *Added the ability to generate a reminder for upcoming tasks*
 ** What it does: Analyzes the user's tasklist, and will generate a reminder that highlights the top 3 upcoming tasks that are not yet complete.
 ** Justification: A user with a busy schedule could easily forget about a task that he/she must do. This feature will scan for upcoming tasks and remind the user of them, thus preventing the user from falling behind.
-** Contributions: Search by day/week/month was implemented by Jérôme Huang
-* *Major Enhancement*: *Created an Advanced Search Feature*
-** What it does: Uses an advanced string matching algorithm to search for tasks by descriptions, despite partial queries or query typos. Also allows the user to search for tasks by other metrics, such as completion, a date window, etc.
-** Justification : The user may accidentally make a typo in their query, or make broad queries (search for tasks with certain keywords). An advanced search feature allows for relevant results to be displayed despite imperfect queries.
 
+* *Major Enhancement*: *Created an Advanced Search Feature*
+** What it does: Uses an advanced character matching algorithm to search for tasks by descriptions, despite partial queries or query typos. The feature also includes many other commands that allow the user to search for tasks by other metrics, such as completion, a date window, etc.
+** Justification : The user may accidentally make a typo in their query, or make broad queries (search for tasks with only partial words). An advanced search feature allows for relevant results to be displayed despite imperfect queries.
+** Contributions: Search by day/week/month was implemented by Jérôme Huang
 * *Major Enhancement*: *Generate Statistics from the Tasklist*
-** What it does: Will analyze the tasklist and display interesting metrics to the user, such as % of tasks completed, the count of each type of task, etc. User can view up to 23 detailed metrics, grouped by flags
-** Justification: This feature will help the user to make future decisions. For example, in a case where a large percentage of tasks are not complete, he/she might refrain from taking on an additional workload. If the user has a large number of high priority tasks, the user could make the choice to finish those first, instead of completing tasks in chronological order.
+** What it does: Will analyze the tasklist and display interesting metrics to the user, such as % of tasks completed, the count of each type of task, etc. User can view up to 23 detailed metrics, grouped by flags. There is one group of general statistics, one group of priority statistics, and one group of completion statistics.
+** Justification: This feature will help the user to make future decisions. For example, in a case where a large percentage of tasks are not complete, he/she might refrain from taking on an additional workload. If the user has a large number of high priority tasks, the user could make the choice to finish those first, instead of completing tasks in chronological order. This is a rather unintuitive scheduling optimization that can be made if the user was presented with these priority statistics.
 ** Highlights: This enhancement will allow for interesting insights to be generated from the users schedule, most of which are not necessarily intuitive to see without aggregating all historical tasks over time.
 
 * *Major Enhancement*: *Set a Customized Welcome Message for Le Duc*
-** What it does: User can customize the message that gets displayed upon Le Duc startup.
+** What it does: User can customize the message that gets displayed upon Le Duc startup. An internal refactoring of the UI class now allows for certain UI elements to be saved in a data file instead of being hard-coded, to allow for increased flexibility.
 ** Justification: The user may want to customize his/her software to distinguish it from that of other Le Duc users.
 
 * *Major Enhancement*: *Major Refactoring for New Task Types*
-** What it does: Modified most of the software to allow compatibility with the Homework task type
+** What it does: Modified most of the software to allow compatibility with the Homework task type. Please note (for RepoSense purposes) that this required line by line changes in almost every file that cannot be tagged in blocks. All former mentions of the Duke "Deadline" task was converted for the new "Homework" task type.
 ** Justification: Le Duc is targeting High School students, thus a Homework task type is necessary for our users.
 
 
-* *Minor enhancement*: Code refactoring-offloaded some helper methods to a higher layer, to increase cohesion between the Command and Ui classes.
+* *Minor enhancement*: Code refactoring: offloaded helper methods to higher layers to increase cohesion between the Command and Ui classes.
 
-* *Code contributed*: [https://nuscs2113-ay1920s1.github.io/dashboard/#search=rshah918&sort=groupTitle&sortWithin=title&since=2019-09-21&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=rshah918&tabRepo=AY1920S1-CS2113-T16-1%2Fmain%5Bmaster%5D[Project Code Dashboard]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/RemindCommand.java[Remind Command]] [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/FindCommand.java[Advanced Search Feature]] [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/SetWelcomeCommand.java[Set Welcome Message] [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/StatsCommand.java[Generate Statistics]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/HomeworkCommand.java[Create Homework Object]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/UnfinishedCommand.java[Display Unfinished Tasks]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/task/TaskList.java[Filter and Sort Tasklist]]
+* *Code contributed*: [https://nuscs2113-ay1920s1.github.io/dashboard/#search=rshah918&sort=groupTitle&sortWithin=title&since=2019-09-21&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=rshah918&tabRepo=AY1920S1-CS2113-T16-1%2Fmain%5Bmaster%5D[Project Code Dashboard]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/RemindCommand.java[Remind Command]] [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/FindCommand.java[Find Command]] [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/UnfinishedCommand.java[UnfinishedCommand]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/SetWelcomeCommand.java[Set Welcome Message]] [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/StatsCommand.java[Generate Statistics]] [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/HomeworkCommand.java[Create Homework Object]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/task/TaskList.java[Filter and Sort Tasklist]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/UiEn.java[Ui-English Refactoring]][https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/UiFr.java[Ui-French Refactoring]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Assisted with releases `v1.1` `v1.2` `v1.3`
+*** Assisted with releases `v1.1` `v1.2` `v1.3` `v1.4`
 ** Code Refactoring:
-*** Project wide Code Refactoring (Pull request https://github.com/AY1920S1-CS2113-T16-1/main/pull/96[#96])
+*** Cohesion Improvement Refactoring (Portion of Pull Request https://github.com/AY1920S1-CS2113-T16-1/main/pull/145/[#145] )
+*** Project wide Code Refactoring (Pull Request https://github.com/AY1920S1-CS2113-T16-1/main/pull/96[#96])
 *** PR reviews: (Pull requests https://github.com/AY1920S1-CS2113-T16-1/main/pull/24[#24], https://github.com/AY1920S1-CS2113-T16-1/main/pull/25[#25], https://github.com/AY1920S1-CS2113-T16-1/main/pull/76[#76])
 
 ** Documentation:
@@ -51,12 +52,12 @@ Le Duc is a task management product aiming to assist high school students manage
 == Contributions to the User Guide
 Overview: I added user descriptions for my implemented features, and did general formatting/grammar adjustments document wide. Our User Guide is https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/docs/%5BAY1920S1-CS2113-T16-1%5D-Le%20Duc-UG.pdf[here]
 
-=== Find the task by relevancy : `find`
+=== Search for a task by relevancy : `find`
 
 To find a task by character relevancy : `find QUERY`
 
 The find command allows the user to search for tasks via character matching (NOT keyword matching).
-The command will return tasks ordered by ascending relevancy.
+The command will return the top 5 tasks ordered by ascending relevancy.
 
 Typos in the user query will not affect performance.
 
@@ -65,12 +66,10 @@ Examples:
 *Partial word query*
 
 ```
-find sci
+find scie
         ---------------------------------------------------------------------------------
          Here are the most relevant tasks in your list:
          7. [H][V] science by: 05/05/2005 05:05 [Priority: 2]
-         8. [H][X] test by: 01/01/2001 01:01 [Priority: 5]
-         6. [H][V] homeworktest by: 04/04/2004 04:04 [Priority: 5]
 
         ---------------------------------------------------------------------------------
 
@@ -82,39 +81,73 @@ find homewqeuktest
         ---------------------------------------------------------------------------------
          Here are the most relevant tasks in your list:
          6. [H][V] homeworktest by: 04/04/2004 04:04 [Priority: 5]
-         5. [H][X] math by: 11/11/2011 01:01 [Priority: 5]
-         7. [H][V] science by: 05/05/2005 05:05 [Priority: 2]
-         8. [H][X] test by: 01/01/2001 01:01 [Priority: 5]
 
         ---------------------------------------------------------------------------------
 
 ```
-*If all tasks have no matching characters with query*
+*If all tasks have <50% matching characters with the query*
 ```find zx
         ---------------------------------------------------------------------------------
          There is no matching tasks in your list
         ---------------------------------------------------------------------------------
 
 ```
-
 === Customize the welcome message : `setwelcome`
 
 To customize the welcome message: `setwelcome WELCOME`
 
 Example:
 
+* Original welcome message:
+```
+____        _
+|  _ \ _   _| | _____
+| | | | | | | |/ / _ \
+| |_| | |_| |   <  __/
+|____/ \__,_|_|\_\___|
+
+        ---------------------------------------------------------------------------------
+        Hello I'm Duke
+        What can I do for you ?
+
+        ---------------------------------------------------------------------------------
+```
+
+
 * setwelcome `hello World`
+```
+setwelcome Hello World
+        ---------------------------------------------------------------------------------
+         The welcome message is edited: Hello World
+        ---------------------------------------------------------------------------------
+
+```
+* New welcome message:
+```
+ ____        _
+|  _ \ _   _| | _____
+| | | | | | | |/ / _ \
+| |_| | |_| |   <  __/
+|____/ \__,_|_|\_\___|
+
+        ---------------------------------------------------------------------------------
+        Hello World
+
+        ---------------------------------------------------------------------------------
+
+
+```
 
 Be careful:
 
 *Reverting to the previous welcome message is not possible once a new message is set.
-*Ensure the directory data is in the correct location
+*Ensure the folder "data" is in the correct location. The welcome message is stored in this folder.
 
-=== Get some statistics: `stats`
+=== Display Statistics: `stats`
 
 Display statistics : `stats`
 
-Display statistics about your tasklist.
+Display useful statistics about your tasklist.
 
 Enter command `stats` to view general statistics,
 `stats -p` to view detailed priority statistics,
@@ -168,20 +201,51 @@ stats -p
         ---------------------------------------------------------------------------------
 Here are some priority statistics about your task list:
 ----PRIORITY COUNTS----
-Number of tasks with priority 5: 7
+Number of tasks with priority 9: 0
+Number of tasks with priority 8: 0
+Number of tasks with priority 7: 0
+Number of tasks with priority 6: 0
+Number of tasks with priority 5: 12
 Number of tasks with priority 4: 0
 Number of tasks with priority 3: 0
 Number of tasks with priority 2: 1
 Number of tasks with priority 1: 0
 ----PRIORITY PERCENTAGES----
-Percent of tasks with priority 5: 87.5%
+Percent of tasks with priority 9: 0.0%
+Percent of tasks with priority 8: 0.0%
+Percent of tasks with priority 7: 0.0%
+Percent of tasks with priority 6: 0.0%
+Percent of tasks with priority 5: 92.3076923076923%
 Percent of tasks with priority 4: 0.0%
 Percent of tasks with priority 3: 0.0%
-Percent of tasks with priority 2: 12.5%
+Percent of tasks with priority 2: 7.6923076923076925%
 Percent of tasks with priority 1: 0.0%
         ---------------------------------------------------------------------------------
 
+
 ```
+
+=== View Unfinished tasks : `unfinished`
+
+Find and display all unfinished tasks : `unfinished`
+
+Example:
+
+* `unfinished`
+* Output:
+
+```
+ unfinished
+        ---------------------------------------------------------------------------------
+         Here are the unfinished tasks in your list:
+         1. [T][X] td1 [Priority: 5]
+         2. [E][X] e at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
+         3. [H][X] math by: 11/11/2011 01:01 [Priority: 5]
+         4. [H][X] test by: 01/01/2001 01:01 [Priority: 5]
+
+        ---------------------------------------------------------------------------------
+```
+
 === Reminder for upcoming tasks : `remind`
 
 Reminds the user of the 3 most upcoming tasks : `remind`
@@ -232,7 +296,7 @@ There are 3 cases:
 
 ```---------------------------------------------------------------------------------
 remind
-1. [D][X] d1 by: 14/09/2019 22:33 [Priority: 5]
+1. [H][X] d1 by: 14/09/2019 22:33 [Priority: 5]
 2. [E][X] e1 at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
 3. [T][X] td1 [Priority: 5]
 ```

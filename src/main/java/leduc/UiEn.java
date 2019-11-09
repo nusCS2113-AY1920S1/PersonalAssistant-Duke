@@ -96,7 +96,7 @@ public class UiEn extends Ui {
     public void showSort() {
         super.display("\t This is the new task list order: ");
     }
-
+/* @@author rshah918 */
     @Override
     public void showGeneralStats(double numTasks, double numTodos, double numEvents, double numHomework, double numIncomplete, double numComplete, double percentComplete) {
         String message = "Here are some general statistics about your task list: \n" +
@@ -168,8 +168,9 @@ public class UiEn extends Ui {
             System.out.println(result);
             System.out.println("\t---------------------------------------------------------------------------------");
         }
-
     }
+
+/* @@author */
     @Override
     public void showHelp(){
         System.out.println("\t---------------------------------------------------------------------------------");
