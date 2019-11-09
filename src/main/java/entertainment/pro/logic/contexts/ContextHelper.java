@@ -3,7 +3,6 @@ package entertainment.pro.logic.contexts;
 import entertainment.pro.commons.assertions.CommandAssertions;
 import entertainment.pro.commons.enums.COMMANDKEYS;
 import entertainment.pro.logic.parsers.CommandStructure;
-import entertainment.pro.model.UserProfile;
 import entertainment.pro.storage.user.Blacklist;
 import entertainment.pro.storage.user.WatchlistHandler;
 import entertainment.pro.storage.utils.EditProfileJson;
@@ -17,7 +16,6 @@ import java.util.Map;
 
 /**
  * Contains helper functions for autocompletion.
- *
  */
 public class ContextHelper {
 
@@ -25,7 +23,6 @@ public class ContextHelper {
     private static final int ONE_WORD = 1;
     private static final int TWO_WORDS = 2;
     private static final int MORE_THAN_TWO_WORDS = 3;
-
 
 
     /**
@@ -79,6 +76,7 @@ public class ContextHelper {
         for (Map.Entry<COMMANDKEYS, COMMANDKEYS[]> e: CommandStructure.cmdStructure.entrySet()) {
             for (COMMANDKEYS a: e.getValue()) {
                 if (a.toString().toLowerCase().equals(subRoot)) {
+
                     return true;
                 }
             }
@@ -93,7 +91,7 @@ public class ContextHelper {
      * If the incomplete word is only the command, then a single word is returned.
      * If payload is incomplete, the entire payload is returned
      *
-     * @param command Incomplete user input
+     * @param command    Incomplete user input
      * @param controller Ui controller
      * @return String of incomplete words
      */
@@ -114,7 +112,7 @@ public class ContextHelper {
                     Arrays.copyOfRange(splitCommand, 2, splitCommand.length));
             String[] commandFlagSplit = processedCommand.split("-[a-z]");
             String[] lastinput = commandFlagSplit[commandFlagSplit.length - 1].split(",");
-            incompleteCommand = lastinput[lastinput.length - 1 ];
+            incompleteCommand = lastinput[lastinput.length - 1];
 
         }
         return incompleteCommand;
@@ -151,7 +149,7 @@ public class ContextHelper {
      * Function returns the difference in string between the
      * incomplete user input and common substring of all ossibilites.
      *
-     * @param allPossibilities Arraylist of all possible Strings the user could be trying to type
+     * @param allPossibilities  Arraylist of all possible Strings the user could be trying to type
      * @param incompleteCommand incomplete String by user
      * @return String to be added to incomplete command by autocomplete
      */
@@ -180,6 +178,7 @@ public class ContextHelper {
 
     }
 
+
     /**
      * Function to Filter hints based on incomplete command received.
      * @param hints all hints
@@ -189,6 +188,7 @@ public class ContextHelper {
     private static ArrayList<String> filterHints(ArrayList<String> hints , String incompleteCmd) {
         assert (CommandAssertions.assertIsLowerString(incompleteCmd));
         ArrayList<String> filteredHints =  new ArrayList<>();
+
         for (String s : hints) {
             if (s.toLowerCase().contains(incompleteCmd.toLowerCase())) {
                 filteredHints.add(s);
@@ -200,8 +200,9 @@ public class ContextHelper {
 
     /**
      * Gets all hints pertaining to the current user input and specific to the root command and subRoot command.
-     * @param root Root command entered
-     * @param subRoot SubRoot Command entered
+     *
+     * @param root              Root command entered
+     * @param subRoot           SubRoot Command entered
      * @param incompleteCommand Incomplete portion of the user input
      * @returns all possible strings
      */
@@ -210,34 +211,35 @@ public class ContextHelper {
         assert (CommandAssertions.assertIsLowerString(subRoot));
         assert (CommandAssertions.assertIsLowerString(incompleteCommand));
         switch (root) {
-        case("blacklist"):
-            ArrayList<String> hints = Blacklist.getBlackListHints(incompleteCommand);
-            if (!subRoot.equals("remove")) {
-                hints.addAll(SearchResultContext.getPossibilities(incompleteCommand));
-            }
-            return hints;
-        case ("watchlist"):
-            ArrayList<String> watchlisthints = WatchlistHandler.getWatchListHints(incompleteCommand);
-            if (!subRoot.equals("remove")) {
-                watchlisthints.addAll(SearchResultContext.getPossibilities(incompleteCommand));
-            }
-            return watchlisthints;
+            case ("blacklist"):
+                ArrayList<String> hints = Blacklist.getBlackListHints(incompleteCommand);
+                if (!subRoot.equals("remove")) {
+                    hints.addAll(SearchResultContext.getPossibilities(incompleteCommand));
+                }
+                return hints;
+            case ("watchlist"):
+                ArrayList<String> watchlisthints = WatchlistHandler.getWatchListHints(incompleteCommand);
+                if (!subRoot.equals("remove")) {
+                    watchlisthints.addAll(SearchResultContext.getPossibilities(incompleteCommand));
+                }
+                return watchlisthints;
 
-        case ("playlist"):
-            try {
-                ArrayList<String> playlistNames =  new EditProfileJson().load().getPlaylistNames();
-                return filterHints(playlistNames , incompleteCommand);
-            } catch (IOException e) {
-                return new ArrayList<String>();
-            }
-        default:
-            return SearchResultContext.getPossibilities(incompleteCommand);
+            case ("playlist"):
+                try {
+                    ArrayList<String> playlistNames = new EditProfileJson().load().getPlaylistNames();
+                    return filterHints(playlistNames, incompleteCommand);
+                } catch (IOException e) {
+                    return new ArrayList<String>();
+                }
+            default:
+                return SearchResultContext.getPossibilities(incompleteCommand);
         }
     }
 
 
     /**
      * Updates the command input field based on the hints.
+     *
      * @param controller
      * @param allPossibilities
      * @param incompleteCommand
@@ -253,11 +255,12 @@ public class ContextHelper {
 
     /**
      * Creates a sublist of size newSize.
+     *
      * @param hints
      * @param newSize
      * @return a subset of the hints. Used when the number of hints is far too long.
      */
-    private static ArrayList<String> getSubList(ArrayList<String> hints , int newSize) {
+    private static ArrayList<String> getSubList(ArrayList<String> hints, int newSize) {
         ArrayList<String> sublist = new ArrayList<>();
         for (String s : hints) {
             if (newSize-- < 0) {
@@ -273,7 +276,8 @@ public class ContextHelper {
 
     /**
      * Gets all hints pertaining to the current user input.
-     * @param command the current user input
+     *
+     * @param command    the current user input
      * @param controller for the UI.
      * @returns all possible strings
      */
@@ -285,21 +289,18 @@ public class ContextHelper {
         String [] splitCommand = command.split(" ");
         String incompleteCommand = getLastIncompleteWords(command, controller);
 
+
         ArrayList<String> allPossibilities = new ArrayList<>();
 
         if (splitCommand.length == NO_WORDS) {
-            System.out.println("NO WORDS");
             return CommandContext.getRoot();
         } else if (splitCommand.length == ONE_WORD && isRootCommandComplete(splitCommand[0])) {
-            System.out.println("ROOT COMPLETE");
             allPossibilities =  CommandContext.getPossibilitiesSubRootGivenRoot(splitCommand[0]);
             updateCommandInputFieldWithHints(controller, allPossibilities, "");
         } else if (splitCommand.length == ONE_WORD) {
-            System.out.println("ROOT INCOMPLETE");
             allPossibilities =  CommandContext.getPossibilitiesForRoot(incompleteCommand);
             updateCommandInputFieldWithHints(controller, allPossibilities, incompleteCommand);
         } else if (splitCommand.length == TWO_WORDS && isSubRootCommandComplete(splitCommand[1])) {
-            System.out.println("SUBROOT COMPLETE");
             allPossibilities = commandSpecificHints(
                     splitCommand[0],
                     splitCommand[1],
@@ -309,12 +310,11 @@ public class ContextHelper {
                 allPossibilities = getSubList(allPossibilities, 10);
             }
         } else if (splitCommand.length == TWO_WORDS) {
-            System.out.println("SUBROOT INCOMPLETE");
             allPossibilities = CommandContext
                     .getPossibilitiesSubRoot(splitCommand[0], incompleteCommand);
             updateCommandInputFieldWithHints(controller, allPossibilities, incompleteCommand);
         } else {
-            allPossibilities  = commandSpecificHints(
+            allPossibilities = commandSpecificHints(
                     splitCommand[0],
                     splitCommand[1],
                     incompleteCommand);

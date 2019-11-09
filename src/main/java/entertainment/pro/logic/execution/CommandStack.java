@@ -109,6 +109,7 @@ public class CommandStack {
 
     /**
      * Returns the size of the command stack.
+     *
      * @return MyStack Size
      */
     public static int getSize() {

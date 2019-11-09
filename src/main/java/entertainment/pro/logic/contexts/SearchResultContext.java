@@ -10,7 +10,7 @@ import java.util.HashMap;
  * Auto complete makes use of helper functions from this class to perform autocompletion for commands
  */
 public class SearchResultContext {
-    
+
     static ArrayList<String> keywords = new ArrayList<>();
 
     static ArrayList<MovieInfoObject> mMovies = new ArrayList<>();
@@ -21,13 +21,14 @@ public class SearchResultContext {
      * checkstyle made me put javadoc here >:( whoever made this function pls edit the the javadoc tqtq -wh.
      */
     public static void initialiseContext(String[] listOfKeys) {
-        for (String a:listOfKeys) {
+        for (String a : listOfKeys) {
             keywords.add(a);
         }
     }
 
     /**
      * Given the a certain Root command, the possible subRoot commands are returned.
+     *
      * @param key index of the movie to mark as done
      * @return Arraylist of possible string values
      */
@@ -44,8 +45,9 @@ public class SearchResultContext {
 
     /**
      * Gets the search result at a certain index.
+     *
      * @param i index of the movie to return
-     * @return  Return MovieInfoObject
+     * @return Return MovieInfoObject
      */
     public static MovieInfoObject getIndex(int i) {
         return mCurrentMovies.get(i - 1);
@@ -54,6 +56,7 @@ public class SearchResultContext {
 
     /**
      * Add results from the search query into search result context.
+     *
      * @param moviesInfo Arraylist of Search results
      */
     public static void addResults(ArrayList<MovieInfoObject> moviesInfo) {
@@ -69,10 +72,10 @@ public class SearchResultContext {
             return;
         }
         HashMap<Long, Integer> movieDup = new HashMap<Long, Integer>();
-        for (MovieInfoObject a: mMovies) {
-            movieDup.put(a.getId() , new Integer(1));
+        for (MovieInfoObject a : mMovies) {
+            movieDup.put(a.getId(), new Integer(1));
         }
-        for (MovieInfoObject e: moviesInfo) {
+        for (MovieInfoObject e : moviesInfo) {
             if (movieDup.get(e.getId()) == null) {
                 mMovies.add(e);
                 keywords.add(e.getTitle());
