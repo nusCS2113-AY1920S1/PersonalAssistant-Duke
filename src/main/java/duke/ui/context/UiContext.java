@@ -42,12 +42,9 @@ public class UiContext {
      * @param obj     DukeObject whose context we wish to view.
      */
     public void open(DukeObject obj) {
-        if (obj == null) {
-            updateContext(Context.HOME, null);
-        } else {
-            contexts.push(new Pair<>(this.context, this.object));
-            updateContext(obj.toContext(), obj);
-        }
+        Context context = (obj == null) ? Context.HOME : obj.toContext();
+        contexts.push(new Pair<>(this.context, this.object));
+        updateContext(context, obj);
     }
 
     /**
