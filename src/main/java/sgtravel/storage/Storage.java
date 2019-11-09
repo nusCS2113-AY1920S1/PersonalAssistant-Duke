@@ -60,6 +60,7 @@ public class Storage {
     private static final String ROUTES_FILE_PATH = "routes.txt";
     private static final String ITINERARIES_FILE_PATH = "itineraries.txt";
     private static final String PROFILE_FILE_PATH = "profile.txt";
+    private static final String FAVOURITE_FILE_PATH = "favourite.txt";
 
     /**
      * Constructs a Storage object that contains information from the model.
@@ -71,7 +72,7 @@ public class Storage {
         itineraryTable = sampleData.getItineraryTable();
         try {
             read();
-        } catch (FileLoadFailException | ParseException e) {
+        } catch (FileLoadFailException | ParseException | FileNotSavedException e) {
             logger.log(Level.WARNING, e.getMessage());
         }
     }
@@ -79,7 +80,7 @@ public class Storage {
     /**
      * Reads all storage file.
      */
-    private void read() throws FileLoadFailException, ParseException {
+    private void read() throws FileLoadFailException, ParseException, FileNotSavedException {
         readBus();
         readTrain();
         readEvents();
@@ -187,7 +188,7 @@ public class Storage {
      *
      * @throws FileLoadFailException If the profile file is not found.
      */
-    private void readProfile() throws FileLoadFailException {
+    private void readProfile() throws FileLoadFailException, FileNotSavedException {
         profileCard = new ProfileCard();
         try {
             File f = new File(PROFILE_FILE_PATH);
@@ -196,10 +197,27 @@ public class Storage {
                 String input = s.nextLine();
                 ProfileStorageParser.createProfileFromStorage(profileCard, input);
             }
-            s.close();
         } catch (FileNotFoundException | ParseException e) {
             profileCard = new ProfileCard();
             throw new FileLoadFailException(PROFILE_FILE_PATH);
+        }
+
+        readFavouriteList();
+    }
+
+    /**
+     * Reads favourite list from favourite.txt.
+     *
+     * @throws FileNotSavedException If file does not exist.
+     */
+    private void readFavouriteList() throws FileNotSavedException {
+        try {
+            File itinerariesFile = new File(FAVOURITE_FILE_PATH);
+            Scanner scanner = new Scanner(itinerariesFile);
+            HashMap<String, Itinerary> itinerary = makeItineraryTable(scanner);
+            profileCard.setFavourite(itinerary);
+        } catch (FileNotFoundException | ParseException e) {
+            writeNewItinerary(FAVOURITE_FILE_PATH, profileCard.getFavouriteList());
         }
     }
 
@@ -297,7 +315,9 @@ public class Storage {
         writeEvents();
         writeRoutes();
         writeProfile();
-        writeNewItinerary();
+        writeNewItinerary(ITINERARIES_FILE_PATH, itineraryTable);
+        writeNewItinerary(FAVOURITE_FILE_PATH, profileCard.getFavouriteList());
+
     }
 
     /**
@@ -340,11 +360,11 @@ public class Storage {
     private void writeRoutes() throws FileNotSavedException {
         try {
             FileWriter writer = new FileWriter(ROUTES_FILE_PATH);
-            String routesString = "";
+            StringBuilder routesString = new StringBuilder();
             for (Route route : routes) {
-                routesString += TransportStorageParser.toRouteStorageString(route);
+                routesString.append(TransportStorageParser.toRouteStorageString(route));
             }
-            writer.write(routesString);
+            writer.write(routesString.toString());
             writer.close();
         } catch (IOException e) {
             throw new FileNotSavedException(ROUTES_FILE_PATH);
@@ -353,11 +373,14 @@ public class Storage {
 
     /**
      * Writes recommendations to local storage.
+     * Writes recommendations to indicated filepath.
      *
+     * @param file The filepath to write to.
+     * @param itineraryTable The constructed ItineraryTable.
      * @throws FileNotSavedException If the file cannot be saved.
      */
-    private void writeNewItinerary() throws FileNotSavedException {
-        String file = ITINERARIES_FILE_PATH;
+    private void writeNewItinerary(String file, HashMap<String, Itinerary> itineraryTable)
+            throws FileNotSavedException {
         try {
             FileWriter writer = new FileWriter(file, false);
             for (Map.Entry<String,Itinerary> entry : itineraryTable.entrySet()) {

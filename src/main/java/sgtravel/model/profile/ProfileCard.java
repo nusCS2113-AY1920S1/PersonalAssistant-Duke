@@ -1,23 +1,24 @@
 package sgtravel.model.profile;
 
 import sgtravel.commons.exceptions.NoSuchCategoryException;
+import sgtravel.commons.exceptions.NoSuchItineraryException;
 import sgtravel.model.planning.Itinerary;
 
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+/**
+ * Contains information of user.
+ */
 public class ProfileCard {
     private Person person;
     private Preference preference = new Preference();
-    private ArrayList<Itinerary> favourite = new ArrayList<>();
+    private HashMap<String, Itinerary> favourite = new HashMap<>();
 
     public ProfileCard() {
-        setPerson("User", LocalDateTime.now());
-    }
-
-    public void setPreference(Preference preference) {
-        this.preference = preference;
+        setPerson("New User", LocalDateTime.now());
     }
 
     public void setPreference(String category, Boolean setting) throws NoSuchCategoryException {
@@ -40,15 +41,62 @@ public class ProfileCard {
         return preference.getAllPreference();
     }
 
-    public ArrayList<Itinerary> getFavourite() {
+    public HashMap<String, Itinerary> getFavouriteList() {
         return favourite;
     }
 
-    public void addFavourite(Itinerary fav) {
-        favourite.add(fav);
+    /**
+     * Returns the favourite itinerary of given name.
+     *
+     * @param name Name of favourite itinerary to return.
+     * @return Itinerary of given name.
+     * @throws NoSuchItineraryException If there is no itinerary of given name.
+     */
+    public Itinerary getFavourite(String name) throws NoSuchItineraryException {
+        Itinerary itinerary = favourite.get(name);
+        if (itinerary == null) {
+            throw new NoSuchItineraryException();
+        } else {
+            return itinerary;
+        }
     }
 
+    /**
+     * Adds the itinerary of given name to favourite.
+     *
+     * @param name Name of itinerary.
+     * @param fav Itinerary object.
+     */
+    public void addFavourite(String name, Itinerary fav) {
+        fav.setName(name);
+        favourite.put(name, fav);
+    }
+
+    /**
+     * Returns the age of user.
+     *
+     * @return Age of user.
+     */
     public int getAge() {
         return Period.between(person.getBirthday().toLocalDate(), LocalDateTime.now().toLocalDate()).getYears();
+    }
+
+    public void setFavourite(HashMap<String, Itinerary> itinerary) {
+        this.favourite = itinerary;
+    }
+
+    /**
+     * Deletes the itinerary of given name from favourite list.
+     *
+     * @param name Name of favourite itinerary to delete.
+     * @throws NoSuchItineraryException If there is no itinerary of given name.
+     */
+    public void deleteFavourite(String name) throws NoSuchItineraryException {
+        Itinerary itinerary = favourite.get(name);
+        if (itinerary == null) {
+            throw new NoSuchItineraryException();
+        } else {
+            favourite.remove(name);
+        }
     }
 }
