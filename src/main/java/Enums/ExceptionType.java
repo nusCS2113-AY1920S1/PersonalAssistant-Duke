@@ -10,7 +10,6 @@ public enum ExceptionType {
     wrongDateFormat,
     negativeTimeAmount,
 
-    timeClash,
     emptyList,
     emptyUser,
     outOfBounds,
@@ -31,5 +30,7 @@ public enum ExceptionType {
     invalidInputString,
     invalidDateRange,
     emptyIndex,
-    noSubtask, invalidDateError
+    noSubtask,
+    invalidDateError,
+    assigneeSetToEveyone
     }

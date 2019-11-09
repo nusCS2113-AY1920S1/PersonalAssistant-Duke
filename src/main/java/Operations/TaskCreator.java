@@ -75,7 +75,18 @@ public class TaskCreator {
      * @param input user's input
      * @return the priority of the task
      */
-    public Priority extractPriority(String input) {
+    public Priority extractPriority(String input) throws RoomShareException{
+        // check for errors in the raw input for misleading characters
+        int count = 0;
+        char[] inputAsChar = input.toCharArray();
+        for (char c: inputAsChar) {
+            if (c == '*') {
+                count++;
+            }
+        }
+        if (count == 1) {
+            throw new RoomShareException(ExceptionType.invalidInputString);
+        }
         String[] priorityArray = input.split("\\*");
         Priority priority;
         if (priorityArray.length != 1) {
@@ -114,9 +125,9 @@ public class TaskCreator {
         Date currentDate = new Date();
         if (count > 0) {
             if (count <= 2) {
-                String dateInput = dateArray[1].trim();
-                Date date;
                 try {
+                    String dateInput = dateArray[1].trim();
+                    Date date;
                     date = parser.formatDate(dateInput);
                     if (date.before(currentDate)) {
                         // the input date is before the current date
@@ -124,7 +135,7 @@ public class TaskCreator {
                     }
                     dates.add(date);
                 } catch (ArrayIndexOutOfBoundsException a) {
-                    throw new RoomShareException(ExceptionType.invalidDateError);
+                    throw new RoomShareException(ExceptionType.emptyDate);
                 }
             } else {
                 String fromInput = dateArray[1].trim();
@@ -167,6 +178,17 @@ public class TaskCreator {
      * @return the name of the assignee
      */
     public String extractAssignee(String input) throws RoomShareException{
+        // check for errors in the raw input for misleading characters
+        int count = 0;
+        char[] inputAsChar = input.toCharArray();
+        for (char c: inputAsChar) {
+            if (c == '@') {
+                count++;
+            }
+        }
+        if (count == 1) {
+            throw new RoomShareException(ExceptionType.invalidInputString);
+        }
         String[] assigneeArray = input.split("@");
         String assignee;
         if (assigneeArray.length != 1) {
@@ -186,7 +208,18 @@ public class TaskCreator {
      * @param input user's input
      * @return the recurrence schedule of the task
      */
-    public RecurrenceScheduleType extractRecurrence(String input) {
+    public RecurrenceScheduleType extractRecurrence(String input) throws RoomShareException {
+        // check for errors in the raw input for misleading characters
+        int count = 0;
+        char[] inputAsChar = input.toCharArray();
+        for (char c: inputAsChar) {
+            if (c == '%') {
+                count++;
+            }
+        }
+        if (count == 1) {
+            throw new RoomShareException(ExceptionType.invalidInputString);
+        }
         String[] recurrenceArray = input.split("%");
         RecurrenceScheduleType recurrence;
         if (recurrenceArray.length != 1) {
@@ -210,6 +243,17 @@ public class TaskCreator {
      * @return the amount of time and unit of the duration as a Pair<Integer,TimeUnit>
      */
     public Pair<Integer, TimeUnit> extractDuration(String input) throws RoomShareException {
+        // check for errors in the raw input for misleading characters
+        int count = 0;
+        char[] inputAsChar = input.toCharArray();
+        for (char c: inputAsChar) {
+            if (c == '^') {
+                count++;
+            }
+        }
+        if (count == 1) {
+            throw new RoomShareException(ExceptionType.invalidInputString);
+        }
         String[] durationArray = input.split("\\^");
         int duration;
         TimeUnit unit;
@@ -439,10 +483,13 @@ public class TaskCreator {
      * @param oldTask the task to be updated
      */
     public void updateTask(String input, Task oldTask) throws RoomShareException {
+        boolean isNotUpdated = true;
+        boolean isSetToEveryone = false;
         try {
             if (input.contains("(") && input.contains(")")) {
                 String description = this.extractDescription(input);
                 oldTask.setDescription(description);
+                isNotUpdated = false;
             }
         } catch (RoomShareException e) {
             System.out.println(UPDATED_DESCRIPTION_ERROR);
@@ -457,13 +504,16 @@ public class TaskCreator {
                 oldLeave.setDate(start);
                 oldLeave.setStartDate(start);
                 oldLeave.setEndDate(end);
+                isNotUpdated = false;
             } else {
                 Date date = dates.get(0);
                 if (oldTask instanceof Leave) {
                     Leave oldLeave = (Leave)oldTask;
                     oldLeave.setEndDate(date);
+                    isNotUpdated = false;
                 } else {
                     oldTask.setDate(date);
+                    isNotUpdated = false;
                 }
             }
         }
@@ -471,6 +521,7 @@ public class TaskCreator {
         if (input.contains("*")) {
             Priority priority = this.extractPriority(input);
             oldTask.setPriority(priority);
+            isNotUpdated = false;
         }
 
         if (input.contains("@")) {
@@ -480,11 +531,15 @@ public class TaskCreator {
             } catch (RoomShareException e) {
                 assignee = "everyone";
             }
+            if (assignee.equals("everyone")) {
+                isSetToEveryone = true;
+            }
             oldTask.setAssignee(assignee);
             if (oldTask instanceof Leave) {
                 Leave oldLeave = (Leave) oldTask;
                 oldLeave.setUser(assignee);
             }
+            isNotUpdated = false;
         }
 
         if (input.contains("^") && oldTask instanceof Meeting) {
@@ -493,20 +548,22 @@ public class TaskCreator {
             TimeUnit unit = durationAndUnit.getValue();
             Meeting oldMeeting = (Meeting) oldTask;
             oldMeeting.setDuration(duration,unit);
+            isNotUpdated = false;
         }
 
         if (input.contains("%")) {
             RecurrenceScheduleType recurrence = this.extractRecurrence(input);
             oldTask.setRecurrenceSchedule(recurrence);
+            isNotUpdated = false;
         }
 
-        if(input.contains("uncheck") && !(oldTask instanceof Leave)) {
-            boolean checked = oldTask.getDone();
-            oldTask.setDone(!checked);
-        }
-
-        else {
+        // check if any field was updated at all
+        if (isNotUpdated) {
             throw new RoomShareException(ExceptionType.invalidInputString);
+        }
+
+        if (isSetToEveryone) {
+            throw new RoomShareException(ExceptionType.assigneeSetToEveyone);
         }
     }
 

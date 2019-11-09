@@ -417,6 +417,8 @@ public class RoomShare {
                     } catch (RoomShareException e) {
                         ui.showError(e);
                     }
+                    storage.writeFile(TaskList.currentList(), "data.txt");
+                    storage.writeFile(OverdueList.getOverdueList(), "overdue.txt");
                     listRoutine.list();
                 } else {
                     ui.showTagged(input);
@@ -425,6 +427,8 @@ public class RoomShare {
                         ui.showTaggedPercentage(input);
                         ProgressBar progressBar = new ProgressBar(doneArray[0], doneArray[1]);
                         ui.showBar(progressBar.showBar());
+                        storage.writeFile(TaskList.currentList(), "data.txt");
+                        storage.writeFile(OverdueList.getOverdueList(), "overdue.txt");
                     } catch (RoomShareException e) {
                         ui.showError(e);
                     }
@@ -443,6 +447,8 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
+                storage.writeFile(TaskList.currentList(), "data.txt");
+                storage.writeFile(OverdueList.getOverdueList(), "overdue.txt");
                 listRoutine.list();
                 break;
 
