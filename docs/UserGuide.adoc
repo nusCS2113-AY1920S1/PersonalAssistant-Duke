@@ -111,9 +111,10 @@ In this section, the expected command format will be introduced, and you can exp
 * Words in `UPPER_CASE` are the parameters to be supplied by the user
 e.g. `deadline DESCRIPTION /by DD-MM-YYYY HH:MM`
 
-* The maximum length for a task's description is `20`
+* The maximum length for a task's `description` is `20` characters.
 
-* The maximum length for a module code and module name is `100`
+* The maximum lengths for a `module code` / `year` and `module name` / `semester` are `10` and `100` characters respectively.
+
 
 [NOTE]
 
