@@ -492,4 +492,19 @@ public class TaskList {
         int[] done = {belongCount, doneCount};
         return done;
     }
+
+    /**
+     * sets the tasks which are done to an undone state.
+     * @param index index of task
+     * @param date date the new deadline of the task
+     * @throws RoomShareException when the task selected is a Leave
+     */
+    public void reopen(int index, Date date) throws RoomShareException {
+        tasks.get(index).setDate(date);
+        CheckAnomaly.checkDuplicate(tasks.get(index));
+        if (tasks.get(index) instanceof Meeting) {
+            CheckAnomaly.checkTimeClash(tasks.get(index));
+        }
+        tasks.get(index).setDone(false);
+    }
 }

@@ -75,4 +75,12 @@ public class Leave extends Task {
     public String toString() {
         return "[L] " + super.getDescription() + " (" + user + ")" + " (From: " + from + " To: " + to + ")";
     }
+
+    /**
+     * setter for user
+     * @param user name of user for the leave
+     */
+    public void setUser(String user) {
+        this.user = user;
+    }
 }

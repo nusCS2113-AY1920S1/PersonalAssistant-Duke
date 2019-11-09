@@ -11,6 +11,7 @@ import Operations.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Main class of the RoomShare program.
@@ -428,6 +429,21 @@ public class RoomShare {
                         ui.showError(e);
                     }
                 }
+                break;
+
+            case reopen:
+                Ui.clearScreen();
+                String userInput = parser.getCommandLine();
+                ui.showDoneList();
+                taskList.showCompleted();
+                try {
+                    int index = parser.getIndex(userInput);
+                    ArrayList<Date> date = taskCreator.extractDate(userInput);
+                    taskList.reopen(index,date.get(0));
+                } catch (RoomShareException e) {
+                    ui.showError(e);
+                }
+                listRoutine.list();
                 break;
 
             default:
