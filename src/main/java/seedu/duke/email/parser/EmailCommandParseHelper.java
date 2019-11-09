@@ -9,6 +9,8 @@ import seedu.duke.common.command.InvalidCommand;
 import seedu.duke.common.model.Model;
 import seedu.duke.email.EmailKeywordPairList;
 import seedu.duke.email.command.EmailAddKeywordCommand;
+import seedu.duke.email.command.EmailClearCommand;
+import seedu.duke.email.command.EmailDeleteCommand;
 import seedu.duke.email.command.EmailFetchCommand;
 import seedu.duke.email.command.EmailListCommand;
 import seedu.duke.email.command.EmailListKeywordCommand;
@@ -16,6 +18,8 @@ import seedu.duke.email.command.EmailListTagCommand;
 import seedu.duke.email.command.EmailShowCommand;
 import seedu.duke.email.command.EmailTagCommand;
 import seedu.duke.email.entity.KeywordPair;
+import seedu.duke.task.command.TaskDeleteCommand;
+import seedu.duke.task.parser.TaskCommandParseHelper;
 import seedu.duke.ui.UI;
 
 import java.util.ArrayList;
@@ -59,10 +63,13 @@ public class EmailCommandParseHelper {
             return new EmailFetchCommand();
         case "listKeyword":
             return new EmailListKeywordCommand();
+        case "clear":
+            return new EmailClearCommand();
         default:
         }
-
         switch (emailCommand) {
+        case "delete":
+            return parseDeleteCommand(strippedPrefixInput);
         case "list":
             return parseEmailListCommand(optionList, strippedPrefixInput);
         case "show":
@@ -80,11 +87,32 @@ public class EmailCommandParseHelper {
         return input.split(" ")[0];
     }
 
+    /**
+     * Removes prefix "email" from the input command.
+     *
+     * @param rawInput input command form user input text field.
+     * @return stripped prefix command
+     */
     private static String stripPrefix(String rawInput) {
         if (!rawInput.contains("email ")) {
             return null;
         }
         return rawInput.split("email ", 2)[1].strip();
+    }
+
+    private static Command parseDeleteCommand(String input) throws EmailParseException {
+        Pattern deleteCommandPattern = Pattern.compile("^delete\\s+(?<index>\\d+)\\s*$");
+        Matcher deleteCommandMatcher = deleteCommandPattern.matcher(input);
+        if (!deleteCommandMatcher.matches()) {
+            return new InvalidCommand("Please enter a valid index (positive integer equal or less than the "
+                    + "number of emails) after \'delete\'");
+        }
+        try {
+            int index = parseEmailIndex(deleteCommandMatcher.group("index"));
+            return new EmailDeleteCommand(index);
+        } catch (EmailParseException e) {
+            throw new EmailParseException(e.getMessage());
+        }
     }
 
     private static Command parseEmailListCommand(ArrayList<Command.Option> optionList, String input) {
@@ -103,7 +131,7 @@ public class EmailCommandParseHelper {
         Matcher showCommandMatcher = showCommandPattern.matcher(input);
         if (!showCommandMatcher.matches()) {
             return new InvalidCommand("Please enter a valid index (positive integer equal or less than the "
-                    + "number of emails) of task after \'show\'");
+                    + "number of emails) after \'show\'");
         }
         try {
             int index = parseEmailIndex(showCommandMatcher.group("index"));

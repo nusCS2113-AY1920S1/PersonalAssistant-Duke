@@ -98,7 +98,7 @@ public class Model {
     }
 
     public void updateEmailTagList() {
-        EmailTags.updateEmailTagList(emailList);
+        EmailTags.updateTagMap(emailList);
         //UI.getInstance().updateEmailList(emailList.getEmailTagList());
     }
 

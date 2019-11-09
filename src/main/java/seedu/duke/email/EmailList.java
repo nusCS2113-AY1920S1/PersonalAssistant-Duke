@@ -77,8 +77,47 @@ public class EmailList extends ArrayList<Email> {
         return responseArray;
     }
 
+
     /**
-     * Adds tags to email specified in index.
+     * Delete email at the given index from eh email list.
+     *
+     * @param index of email to be deleted
+     * @return confirmation message to be displayed to user
+     */
+    public String delete(int index) {
+        Email email = this.get(index);
+        this.remove(email);
+        String responseMsg = constructDeleteMessage(email);
+        return responseMsg;
+    }
+
+    private String constructDeleteMessage(Email email) {
+        return "Deleted email: " + email.getSubject();
+    }
+
+    /**
+     * Clears the email list by deleting the email one by one.
+     *
+     * @return confirmation message to be displayed to user
+     */
+    public String clearList() {
+        if (this.size() == 0) {
+            return "The email list has already been cleared";
+        } else {
+            while (this.size() != 0) {
+                this.remove(0);
+            }
+        }
+        String responseMsg = constructClearListMessage();
+        return responseMsg;
+    }
+
+    private String constructClearListMessage() {
+        return "Email List has been cleared";
+    }
+
+    /**
+     * Tags email at the index with the tags input.
      *
      * @param index email to add tags to
      * @param tags  tags to be added to the email
@@ -86,19 +125,22 @@ public class EmailList extends ArrayList<Email> {
      */
     public String addTags(int index, ArrayList<String> tags) {
         Email email = this.get(index);
-        ArrayList<String> successList = new ArrayList<>();
+        ArrayList<String> successTagList = new ArrayList<>();
         for (String tag : tags) {
             boolean success = email.addTag(tag);
             if (success) {
-                successList.add(tag);
+                successTagList.add(tag);
             }
         }
         String responseMsg = "";
-        if (successList.size() > 0) {
-            responseMsg =
-                    "Tags added: " + tags.toString() + System.lineSeparator() + "to email: " + email.getSubject();
+        if (successTagList.size() > 0) {
+            responseMsg = constructAddTagsMessage(successTagList, email);
         }
         return responseMsg;
+    }
+
+    private String constructAddTagsMessage(ArrayList<String> successTagList, Email email) {
+        return "Tags added: " + successTagList.toString() + System.lineSeparator() + "to email: " + email.getSubject();
     }
 
     /**
