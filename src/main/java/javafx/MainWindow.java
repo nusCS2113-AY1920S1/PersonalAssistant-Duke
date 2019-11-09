@@ -265,7 +265,7 @@ public class MainWindow extends AnchorPane {
                 if (!temp.hasNext()) {
                     tabPane.getSelectionModel().select(tabDegrees);
                 }
-                else if (degreeFoundFlag) {
+                else if (degreeFoundFlag && command.matches("detail")) {
                     handleDetail(temp);
                 }
             } else if (command.matches("compare") && (!typoFlag)) {
@@ -283,8 +283,8 @@ public class MainWindow extends AnchorPane {
 
     private void handleDetail(Scanner temp) {
         this.dataDegrees = degreesView.getItems();
-        tabPane.getSelectionModel().select(tabDegrees);
         String countString;
+        tabPane.getSelectionModel().select(tabDegrees);
 
         String degreeName = this.degreeManager.findAnyDegree(temp.next());//this.degreeManager.findAnyDegree(temp.next());
 
@@ -458,20 +458,26 @@ public class MainWindow extends AnchorPane {
         //swap Command.
         description = "Swaps 2 degrees with the given IDs in your degree choices.\n"
                 + "Accepts only integers. \n\n"
-                + "Examples: swap 1 2";
+                + "Examples: swap 1 2 | swap 01 02";
         this.dataHelp.add(new HelpFX("swap <ID> <ID>", description));
 
         //delete Command.
         description = "Deletes a task from the task list corresponding to the ID of the task.\n"
                 + "Accepts only integers. \n\n"
-                + "Examples: delete 1";
+                + "Examples: delete 1 | delete 02";
         this.dataHelp.add(new HelpFX("delete <ID>", description));
 
         //remove Command.
         description = "Removes a degree corresponding to the ID from your choice of degrees.\n"
                 + "Accepts only integers. \n\n"
-                + "Examples: remove 1";
+                + "Examples: remove 1 | remove 02";
         this.dataHelp.add(new HelpFX("remove <ID>", description));
+
+        //done Command.
+        description = "Marks the task corresponding to the ID as done.\n"
+                + "Accepts only integers. \n\n"
+                + "Examples: done 1 | done 02";
+        this.dataHelp.add(new HelpFX("done <ID>", description));
     }
 }
 
