@@ -53,8 +53,8 @@ public class Sale implements Comparable<Sale>{
 	}
 
 	/**
-	 * Getter for quanity of food sold in sale record.
-	 * @return The food quanity.
+	 * Getter for quantity of food sold in sale record.
+	 * @return The food quantity.
 	 */
 	@JsonIgnore
 	public int getQuantity() {
