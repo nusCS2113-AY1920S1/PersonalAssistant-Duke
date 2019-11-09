@@ -182,7 +182,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <ScrollPane fx:id="scrollPANEE" fitToHeight="true" fitToWidth="true" layoutY="133.0" prefHeight="425.0" prefWidth="414.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="133.0">
+      <ScrollPane fx:id="scrollPanel" fitToHeight="true" fitToWidth="true" layoutY="133.0" prefHeight="425.0" prefWidth="414.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="133.0">
          <content>
             <FlowPane fx:id="flowPane" prefHeight="466.0" prefWidth="414.0" style="-fx-background-color: #ffffff;" />
          </content>

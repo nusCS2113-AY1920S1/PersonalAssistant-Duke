@@ -6,7 +6,8 @@ import java.util.ArrayList;
 
 import static seedu.hustler.game.achievement.AddTask.addAchievementLevel;
 import static seedu.hustler.game.achievement.AddTask.addPoints;
-import static seedu.hustler.game.achievement.ConsecutiveLogin.*;
+import static seedu.hustler.game.achievement.ConsecutiveLogin.loginPoints;
+import static seedu.hustler.game.achievement.ConsecutiveLogin.loginAchievementLevel;
 import static seedu.hustler.game.achievement.DoneTask.doneAchievementLevel;
 import static seedu.hustler.game.achievement.DoneTask.donePoints;
 
@@ -69,8 +70,10 @@ public class AchievementList {
      */
     public ArrayList<Achievements> updateBusyBee() {
         Ui ui = new Ui();
-        for(int i = 0; i < this.achievementList.size(); i += 1) {
-            if (this.achievementList.get(i).getDescription().equals("Busybee") && achievementList.get(i).getAchievementLevel().equals(addAchievementLevel) && achievementList.get(i).checkLock()) {
+        for (int i = 0; i < this.achievementList.size(); i += 1) {
+            if (this.achievementList.get(i).getDescription().equals("Busybee")
+                && achievementList.get(i).getAchievementLevel().equals(addAchievementLevel)
+                && achievementList.get(i).checkLock()) {
                 this.achievementList.get(i).setLock(false);
                 this.achievementList.get(i).setPoints(addPoints);
                 ui.showAchievementUnlocked(this.achievementList.get(i));
@@ -86,8 +89,10 @@ public class AchievementList {
      */
     public ArrayList<Achievements> updateCompletionist() {
         Ui ui = new Ui();
-        for(int i = 0; i < achievementList.size(); i += 1) {
-            if (achievementList.get(i).getDescription().equals("Completionist") && achievementList.get(i).getAchievementLevel().equals(doneAchievementLevel) && achievementList.get(i).checkLock()) {
+        for (int i = 0; i < achievementList.size(); i += 1) {
+            if (achievementList.get(i).getDescription().equals("Completionist")
+                && achievementList.get(i).getAchievementLevel().equals(doneAchievementLevel)
+                && achievementList.get(i).checkLock()) {
                 achievementList.get(i).setLock(false);
                 achievementList.get(i).setPoints(donePoints);
                 ui.showAchievementUnlocked(this.achievementList.get(i));
@@ -103,8 +108,10 @@ public class AchievementList {
      */
     public ArrayList<Achievements> updateDedicated() {
         Ui ui = new Ui();
-        for(int i = 0; i < achievementList.size(); i += 1) {
-            if(achievementList.get(i).getDescription().equals("Dedicated to the art") && achievementList.get(i).getAchievementLevel().equals(loginAchievementLevel) && achievementList.get(i).checkLock()) {
+        for (int i = 0; i < achievementList.size(); i += 1) {
+            if (achievementList.get(i).getDescription().equals("Dedicated to the art")
+                && achievementList.get(i).getAchievementLevel().equals(loginAchievementLevel)
+                && achievementList.get(i).checkLock()) {
                 achievementList.get(i).setLock(false);
                 achievementList.get(i).setPoints(loginPoints);
                 ui.showAchievementUnlocked(this.achievementList.get(i));
@@ -134,7 +141,9 @@ public class AchievementList {
      * Gets achievement list.
      * @return current achievement list.
      */
-    public ArrayList<Achievements> getAchievementList() { return achievementList; }
+    public ArrayList<Achievements> getAchievementList() {
+        return achievementList;
+    }
 
     /**
      * Gets the size of achievement list.
@@ -150,9 +159,9 @@ public class AchievementList {
      */
     public ArrayList<Achievements> createCopy() {
         ArrayList<Achievements> copy = new ArrayList<>();
-	for (int i = 0; i < achievementList.size(); i += 1) {
+        for (int i = 0; i < achievementList.size(); i += 1) {
             copy.add(achievementList.get(i));
-	}
-	return copy;
+        }
+        return copy;
     }
 }
