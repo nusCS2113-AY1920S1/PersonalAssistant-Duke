@@ -15,7 +15,7 @@ public class EditParser extends IndexParser {
 
     private static final String EMPTY_DESCRIPTION = "No description";
 
-    public EditParser(String userInput, String command) {
+    EditParser(String userInput, String command) {
         super(userInput, command);
     }
 
@@ -26,6 +26,13 @@ public class EditParser extends IndexParser {
         return new EditCommand(indexOfTask, newDescription);
     }
 
+    /**
+     * Extracts the description component from user input.
+     *
+     * @param taskFeatures The user input.
+     * @return The new task description.
+     * @throws ChronologerException If the description component is empty.
+     */
     private String extractNewDescription(String taskFeatures) throws ChronologerException {
         String[] editCommandParts = taskFeatures.split("\\s+", 2);
         String newDescription;

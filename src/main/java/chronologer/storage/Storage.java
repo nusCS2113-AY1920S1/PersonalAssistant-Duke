@@ -68,7 +68,7 @@ public class Storage {
     }
 
     /**
-     * Loads the tasklist stored in the Json file.
+     * Loads the task list stored in the Json file.
      *
      * @param file This parameter is passed as to be able to write to the file.
      * @throws ChronologerException This exception is thrown for any unexpected issues such

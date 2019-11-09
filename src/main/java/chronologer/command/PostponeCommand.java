@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  * Postpones a task to different times.
  *
  * @author Tan Yi Xiang
- * @version 1.8
+ * @version 1.9
  */
 public class PostponeCommand extends Command {
 
@@ -237,14 +237,29 @@ public class PostponeCommand extends Command {
 
     }
 
+    /**
+     * Check whether the task is of deadline type.
+     *
+     * @return True if the task is a deadline.
+     */
     private boolean isDeadline(Task task) {
         return (DEADLINE.equals(task.getType()));
     }
 
+    /**
+     * Check whether the task is of event type.
+     *
+     * @return True if the task is an event.
+     */
     private boolean isEvent(Task task) {
         return (EVENT.equals(task.getType()));
     }
 
+    /**
+     * Check whether the task is of todo period type.
+     *
+     * @return True if the task is a todo period.
+     */
     private boolean isTodoPeriod(Task task) {
         return (TODO_PERIOD.equals(task.getType()));
     }

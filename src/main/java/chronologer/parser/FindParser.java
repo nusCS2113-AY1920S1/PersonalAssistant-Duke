@@ -11,7 +11,7 @@ import chronologer.exception.ChronologerException;
  * @version v1.0
  */
 public class FindParser extends DescriptionParser {
-    public FindParser(String userInput, String command) {
+    FindParser(String userInput, String command) {
         super(userInput, command);
     }
 

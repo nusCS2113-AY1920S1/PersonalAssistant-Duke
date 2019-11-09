@@ -9,11 +9,11 @@ import chronologer.ui.UiTemporary;
  * Extract the components required for the priority command from the user input.
  *
  * @author Tan Yi Xiang
- * @version v1.0
+ * @version v1.1
  */
 public class PriorityParser extends IndexParser {
 
-    public PriorityParser(String userInput, String command) {
+    PriorityParser(String userInput, String command) {
         super(userInput, command);
     }
 
@@ -24,6 +24,14 @@ public class PriorityParser extends IndexParser {
         return new PriorityCommand(indexOfTask, priorityString);
     }
 
+
+    /**
+     * Extract the priority string component from user input.
+     *
+     * @param taskFeatures The user input
+     * @return The priority string
+     * @throws ChronologerException If the priority string is empty.
+     */
     private String extractPriority(String taskFeatures) throws ChronologerException {
         String priorityString;
         try {
