@@ -314,6 +314,24 @@ image::mypdf.png[]
 =====
 ====
 
+=== Archive questions : `archive`
+
+This command archives the specified question. Specifying the question number archived the question in the last attempted quiz. +
+This is for users who found a particular question interesting, or users who are
+not sure of the correct answer and wish to review the question in greater detail in the future. +
+Format: `archive NUMBER`
+====
+Example: +
+`archive 1` archives question 1 in the quiz. Note that to view the archived questions in pdf, please read the `print archive FILENAME` with FILENAME having the .pdf extension.
+=====
+*Expected Outcome*
+
+image::archive.png[width="650"]
+
+* NUMBER should be between 1 to 10 inclusive.
+=====
+====
+
 === Chapters: `chapters`
 This command allows you to see all the chapters that are currently available in the game. +
 Format: `chapters`
@@ -340,44 +358,12 @@ image::preclear.png[width="650]
 image::postclear.png[width="650"]
 
 ====
-=== Start the quiz : `quiz`
-This command allows you to start the quiz and only works after you have selected a particular chapter. +
-Format: `quiz`
 
-=== Entering your answer
-There is no command for this, you type your answers in the interactive box and submit them by pressing enter or clicking on the `send` button. +
-Should your answers be sequential, make sure you use the ", " format else your answer will not be recognised!
+=== Adjusting volume of the background music : `volume`
 
-Example: +
-`60, 40, 30`
-
-=== Return to the previous question : `back`
-
-This command allows users to return to the previous question if you have made a mistake. This would help prevent any accidental input,
-rendering the answer as wrong. This command only works during the quiz. +
-Format : `back`
-
-=== Skip to the next question : `next`
-
-This command allows you to skip to the next question if you would like to. This command only works during the quiz. +
-Format : `next`
-
-=== End the quiz : `end`
-
-This command allows you to exit the quiz if you would like, even if you are only in the midst of it. It will still give you
-your achieved score based on the questions that have been attempted. This command only works during the quiz. +
-Format : `end`
-
-=== List results of a chapter : `result`
-
-This command will generate a comprehensive summary of the previous quiz that you have attempted. You will be able to see
-where you went wrong in your previous quiz so as to be able to work on your weaker concepts. +
-Format : `result`
-
-=== Change the volume of the background music : `volume`
-
-This command adjust the volume. Specify a number between 0 to 10 adjust the sound level with 10 the maximum loudness. +
+This command adjust the volume. Specify a number between 0 to 100 to adjust the sound level. +
 Format: `volume NUMBER` +
+
 
 Example: +
 `volume 1` will set the volume to level 1.
@@ -385,16 +371,30 @@ Example: +
 - NUMBER should be between 0 to 100 inclusive.
 
 
-=== Archive questions : `archive`
+=== List results of a chapter : `result`
 
-This command archives the specified question. Specifying the question number archived the question in the last attempted quiz. This is for users who found a particular question interesting, or users who are
-not sure of the correct answer and wish to review the question in greater detail in the future. +
+This command will generate a comprehensive summary of the previous quiz that you have attempted. You will be able to see
+where you went wrong in your previous quiz so as to be able to work on your weaker concepts. +
+Format : `result`
 
-Format: `archive NUMBER` +
-Example: +
-`archive 1` archives question 1 in the quiz. Note that to view the archived questions in pdf, please read the `print archive FILENAME` with FILENAME having the .pdf extension.
+====
+*Expected Outcome*
 
-- NUMBER should be between 1 to 10 inclusive.
+image::result.png[width="650"]
+
+====
+
+=== Check statistics : `stats`
+
+This command allows you to check your current statistics for the different chapter in-game.
+Format : `stats`
+
+====
+*Expected Outcome*
+
+image::stats.png[width="650"]
+
+====
 
 === Manually save the game : `save` `[coming in v1.4]`
 
@@ -402,17 +402,6 @@ This command provides a way for you to save the game manually. Normally, the gam
 certain checkpoints. However, in the event that our auto-save function does not work, it is highly recommended to do a manual save
 from time to time. +
 Format : `save`
-
-=== Reset the whole game : `reset` `[coming in v1.4]`
-
-This command provides a way for you to restart the entire game by clearing all progress and results. This is for users who
-wish to repeat the game after clearing all the stages. +
-Format : `reset`
-
-=== Exits the game : `exit`
-
-This command provides a way for you to terminate the game. +
-Format : `exit`
 
 
 == FAQ
