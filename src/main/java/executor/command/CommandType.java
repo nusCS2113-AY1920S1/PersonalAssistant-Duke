@@ -32,6 +32,7 @@ public enum CommandType {
     EXPENDEDWEEK(CommandGetSpendingByWeek.class),
     EXPENDEDMONTH(CommandGetSpendingByMonth.class),
     EXPENDEDYEAR(CommandGetSpendingByYear.class),
+    EDIT(CommandEdit.class),
     CONVERT(CommandConvert.class),
     DATELIST(CommandDateList.class),
     ERROR(CommandError.class),
