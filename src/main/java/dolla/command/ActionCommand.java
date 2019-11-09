@@ -52,7 +52,7 @@ public class ActionCommand extends Command {
 
     @Override
     public String getCommandInfo() {
-        return command;
+        return command + " in " + mode;
     }
 
 }

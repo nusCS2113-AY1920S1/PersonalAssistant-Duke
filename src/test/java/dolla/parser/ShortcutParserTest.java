@@ -104,7 +104,7 @@ public class ShortcutParserTest {
         inputLine = "redo";
         ShortcutParser shortcutParser = new ShortcutParser(inputLine);
         Command c = shortcutParser.parseInput();
-        expectedCommand = "redo";
+        expectedCommand = "redo in shortcut";
         assertEquals(expectedCommand, c.getCommandInfo());
     }
 
@@ -113,7 +113,7 @@ public class ShortcutParserTest {
         inputLine = "undo";
         ShortcutParser shortcutParser = new ShortcutParser(inputLine);
         Command c = shortcutParser.parseInput();
-        expectedCommand = "undo";
+        expectedCommand = "undo in shortcut";
         assertEquals(expectedCommand, c.getCommandInfo());
     }
 
