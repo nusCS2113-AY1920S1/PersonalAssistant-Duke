@@ -49,6 +49,12 @@ public class DukeConstants {
     //SHOW
     public static final String SHOW_WORKLOAD_HEADER = "show/workload";
     public static final String SHOW_FILTER_HEADER ="show/filter";
+    public static final String HELP_HEADER = "help";
+    public static final String FIND_TIME_HEADER ="find/time";
+    public static final String FIND_TIME_KEYWORD_HOUR = "hour";
+    public static final String FIND_TIME_KEYWORD_HOURS = "hours";
+    public static final Integer FIND_TIME_LOWER_BOUNDARY = 1;
+    public static final Integer FIND_TIME_UPPER_BOUNDARY = 16;
     public static final String SHOW_PREVIOUS_HEADER = "show/previous";
     public static final String SHOW_WEEK_HEADER = "show/week";
     public static final String SHOW_WORKLOAD_FORMAT = "OOPS!!! Please enter show workload as follows:\n" +
@@ -58,6 +64,8 @@ public class DukeConstants {
 
     //RETRIEVE/FIND
     public static final String RETRIEVE_TIME_HEADER = "retrieve/time";
+    public static final Integer RETRIEVE_TIME_LOWER_BOUNDARY = 1;
+    public static final Integer RETRIEVE_TIME_UPPER_BOUNDARY = 5;
     public static final String RETRIEVE_PREVIOUS_HEADER ="retrieve/previous";
     public static final String FIND_TIME_HEADER ="find/time";
 
@@ -82,6 +90,14 @@ public class DukeConstants {
     public static final String STRING_SPACE_SPLIT_KEYWORD = " ";
     public static final String EMPTY_ERROR = "";
     public static final String NO_FIELD = "void";
+    public static final String RECUR_DATE_DESCRIPTION_SPLIT_KEYWORD = "/start";
+    public static final String RECUR_BIWEEKLY_KEYWORD = "/biweekly";
+    public static final String RECUR_RMBIWEEKLY_KEYWORD = "/rmbiweekly";
+    public static final String RECUR_RMWEEKLY_KEYWORD = "/rmweekly";
+    public static final String WEEK_FORMAT_KEYWORD_RECESS = "recess";
+    public static final String WEEK_FORMAT_KEYWORD_READING = "reading";
+    public static final String WEEK_FORMAT_KEYWORD_EXAM = "exam";
+    public static final String WEEK_FORMAT_KEYWORD = "Week";
     public static final String BYE_HEADER ="bye";
 
 

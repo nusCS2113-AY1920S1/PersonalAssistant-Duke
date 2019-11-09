@@ -2,11 +2,13 @@ package Parser;
 
 import Commands.Command;
 import Commands.WeekCommand;
+import Commons.DukeConstants;
 import DukeExceptions.DukeInvalidFormatException;
 
 public class WeekParse extends Parse {
     private String fullCommand;
-    private final String invalidInput = "Invalid Input the cannot be blank. Please enter the command as follows. \n" +
+    private final String invalidEmptyWeek = "Invalid Input.\n" +
+            "The week cannot be blank.\nPlease enter the command as follows.\n" +
             "show/week 'x' , where 'x' is a digit between 1 - 13 or \n" +
             "'x' is either 'recess', 'reading', or 'exam'";
     private final String invalidWeek = "Invalid Week. Please enter the command as follows. \n" +
@@ -23,15 +25,15 @@ public class WeekParse extends Parse {
             fullCommand = getWeek(fullCommand);
             return new WeekCommand(fullCommand);
         }
-        fullCommand = fullCommand.replaceFirst("show/week", "");
+        fullCommand = fullCommand.replaceFirst(DukeConstants.SHOW_WEEK_HEADER, "");
         if(fullCommand.trim().isEmpty()) {
-            throw new DukeInvalidFormatException(invalidInput);
+            throw new DukeInvalidFormatException(invalidEmptyWeek);
         }
         throw new DukeInvalidFormatException(invalidWeek);
     }
 
     public static boolean isValid(String fullCommand) {
-        String strWeek = fullCommand.replaceFirst("show/week", "");
+        String strWeek = fullCommand.replaceFirst(DukeConstants.SHOW_WEEK_HEADER, "");
         if(!strWeek.isEmpty()) {
             char checkSpace = strWeek.charAt(0);
             if (checkSpace != ' ') return false;
@@ -39,7 +41,8 @@ public class WeekParse extends Parse {
         strWeek = strWeek.trim();
         if(strWeek.isEmpty()) {
             return false;
-        } else if (strWeek.equals("recess") || strWeek.equals("reading") || strWeek.equals("exam")) {
+        } else if (strWeek.equals(DukeConstants.WEEK_FORMAT_KEYWORD_RECESS) || strWeek.equals(DukeConstants.WEEK_FORMAT_KEYWORD_READING)
+                || strWeek.equals(DukeConstants.WEEK_FORMAT_KEYWORD_EXAM)) {
             return true;
         }else {
             try{
@@ -53,28 +56,33 @@ public class WeekParse extends Parse {
     }
 
     public static String getWeek(String fullCommand) {
-        String week = fullCommand.replaceFirst("show/week", "");
+        String week = fullCommand.replaceFirst(DukeConstants.SHOW_WEEK_HEADER, "");
         week = week.trim();
-        if ((week.equals("recess") || week.equals("reading") || week.equals("exam"))) {
-            String firstLetter = week.substring(0,1);
-            firstLetter = firstLetter.toUpperCase();
-            week = firstLetter + week.substring(1);
-            week = week + " Week";
+        if ((week.equals(DukeConstants.WEEK_FORMAT_KEYWORD_RECESS) || week.equals(DukeConstants.WEEK_FORMAT_KEYWORD_READING) || week.equals(DukeConstants.WEEK_FORMAT_KEYWORD_EXAM))) {
+            week = capitalizeWord(week);
+            week = week + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + DukeConstants.WEEK_FORMAT_KEYWORD;
         } else {
-            week = "Week " + week;
+            week = DukeConstants.WEEK_FORMAT_KEYWORD + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + week;
         }
         return week;
     }
 
     public static String getWeekCommandFormat(String selectedWeek) {
         String week;
-        if((selectedWeek.startsWith("Recess") || selectedWeek.startsWith("Reading") || selectedWeek.startsWith("Exam")) && selectedWeek.contains("Week")) {
-            selectedWeek = selectedWeek.replace("Week", "");
+        if((selectedWeek.toLowerCase().startsWith(DukeConstants.WEEK_FORMAT_KEYWORD_RECESS) || selectedWeek.toLowerCase().startsWith(DukeConstants.WEEK_FORMAT_KEYWORD_READING) || selectedWeek.toLowerCase().startsWith(DukeConstants.WEEK_FORMAT_KEYWORD_EXAM)) && selectedWeek.contains("Week")) {
+            selectedWeek = selectedWeek.replace(DukeConstants.WEEK_FORMAT_KEYWORD, "");
             selectedWeek = selectedWeek.trim();
-            week = "show/week " + selectedWeek.toLowerCase();
+            week = DukeConstants.SHOW_WEEK_HEADER + DukeConstants.STRING_SPACE_SPLIT_KEYWORD + selectedWeek.toLowerCase();
         } else {
-            week = "show/"+selectedWeek.toLowerCase();//reading week got problem
+            week = DukeConstants.SHOW_WEEK_HEADER +selectedWeek.replaceFirst(DukeConstants.WEEK_FORMAT_KEYWORD, "");//reading week got problem
         }
         return week;
+    }
+
+    private static String capitalizeWord(String word) {
+        String firstLetter = word.substring(0,1);
+        firstLetter = firstLetter.toUpperCase();
+        word = firstLetter + word.substring(1);
+        return word;
     }
 }
