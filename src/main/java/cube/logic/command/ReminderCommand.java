@@ -31,7 +31,7 @@ public class ReminderCommand extends Command{
         this.stockIndex = stockIndex;
     }
 
-    private String MESSAGE_SUCCESS = "";
+    public static String MESSAGE_SUCCESS = "";
 
     /**
      * Creates the list of reminders based on items nearing its expiry date.
