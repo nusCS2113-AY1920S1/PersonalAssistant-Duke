@@ -9,11 +9,11 @@ import static java.util.Objects.requireNonNull;
 public class StorageManager implements Storage {
 
     private FileStorage fileStorage;
-    private OpenCsv writeToCsv;
+    private ExportCsv writeToCsv;
 
     public StorageManager(String fileName) {
         fileStorage = new FileStorage(fileName);
-        writeToCsv = new OpenCsv();
+        writeToCsv = new ExportCsv();
     }
 
     @Override

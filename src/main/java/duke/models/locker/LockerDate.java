@@ -81,6 +81,19 @@ public class LockerDate {
     }
 
     /**
+     * checks the ending date for locker subscription from current date.
+     * @param currentDate the current date
+     * @param endDate the rental ending date
+     * @return daysBetween for the total amount of days
+     */
+    public static long differenceBetweenDates(String currentDate, String endDate) {
+        LocalDate localCurrentDate = LocalDate.parse(currentDate, checkDateFormat);
+        LocalDate localEndDate = LocalDate.parse(endDate, checkDateFormat);
+        long daysBetween = localCurrentDate.until(localEndDate, ChronoUnit.DAYS);
+        return daysBetween;
+    }
+
+    /**
      * checks whether the ending date for locker subscription is before the current date.
      * @param endDate the rental ending date
      * @param currentDate the current date
