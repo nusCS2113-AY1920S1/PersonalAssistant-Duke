@@ -248,11 +248,12 @@ image::LogicCommandFindPackage.png[width="800"]
 
 The `logic.command.find` package consist of `Find` classes with the ability to find any:
 
-* Bank account
+* Bank accounts
 * Cards
 * Bonds
 * Card transactions
 * Bank transactions
+* Recurring Expenditures
 
 `Main` will call the specific `Find` command class that will construct the *required parameters* before calling the
 `Profile` class in `Model` to *execute*.
