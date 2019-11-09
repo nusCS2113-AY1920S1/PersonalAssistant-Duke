@@ -17,6 +17,7 @@ before_deploy:
   - ./gradlew build
   - git config --local user.name "nwjbrandon"
   - git config --local user.email "nwjbrandon@gmail.com"
+  - export NODE_OPTIONS=–max_old_space_size=8192
 
 deploy:
   provider: releases

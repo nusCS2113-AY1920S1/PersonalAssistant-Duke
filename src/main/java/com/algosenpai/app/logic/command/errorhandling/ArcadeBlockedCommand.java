@@ -16,6 +16,6 @@ public class ArcadeBlockedCommand extends Command {
 
     @Override
     public String execute() {
-        return "This command is invalid during the lecture >.<";
+        return "This command is invalid during the arcade >.<";
     }
 }

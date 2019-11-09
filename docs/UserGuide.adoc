@@ -37,14 +37,30 @@ time you start it.
 +
 image::Ui.png[width="650"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-   e.g. typing *`menu`* and pressing kbd:[Enter] will list out all the commands that are recognised in the
-   program.
-.  Some example commands you can try:
 
-* *`menu`* : lists all the commands supported in the program.
-* **`select`**`linkedlist` : selects Chapter 2 (Linked List) to be included in the game.
-* *`exit`* : exits the app
+.  To begin, just type in `hello name gender` to put in your username and gender and press kbd:[Enter] to start your adventure.
+
++
+image::Start.PNG[width="650"]
++
+.  To see a list of commands you can use, just type `menu` and press kbd:[Enter].
+
++
+image::menu.png[width="650]
++
+
+.  To explore the syntax of each command, simply type `menu command` and press kbd:[Enter].
+
++
+image::menuexample.png[width="650"]
++
+
+.  You are now ready to start your adventure. +
+    Some example commands you can try:
+
+* *`lecture`* *`sorting`* : starts a lecture on sorting.
+* *`quiz`* *`linkedlist`* : starts quiz on linked lists.
+* *`exit`* : exits the game.
 
 .  Refer to <<Features>> for details of each command.
 
@@ -54,8 +70,8 @@ image::Ui.png[width="650"]
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `select CHAPTER`, `CHAPTER` is a parameter
-which can be used as `select Sorting`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `quiz CHAPTER`, `CHAPTER` is a parameter
+which can be used as `quiz sorting`.
 ====
 
 === Setting up of user profile : `hello`
@@ -78,93 +94,115 @@ It can also be used should you forget the list of commands or the command for a 
 Format: `menu`
 
 ====
-*Expected outcome* +
-`Senpai will teach you! Try these commands:` +
-`help +
- quiz +
- select +
- result +
- history +
- undo +
- clear +
- save +
- reset +
- exit +
- print +
- archive +
- review +
- volume +
- menu COMMAND`
-where `menu COMMAND` returns the syntax to use each command +
+*Expected outcome*
 
-Example: `menu print`
+image::menu.png[width="650"]
+
+You can check each command out by typing *`menu`* *`COMMAND`*. +
+
+Example: `menu lecture`
 =====
 *Expected Outcome*
 
-`'print <archive | quiz | user> <filename>.pdf' to print the selected pdf file`
+image::menuexample.png[width="650"]
+
 =====
-
-- `COMMAND` must be one of the console commands
 ====
 
-=== Chapters: `chapters`
-This command allows you to see the chapters available to choose from. +
-Format: `chapters`
-====
-*Expected Outcome*
-
-- Chapter 1: sorting
-- Chapter 2: linkedlist
-- Chapter 3: bitmask
-====
-
-=== Select the chapter: `select`
-This command allows you to choose the chapter of the game that you'd like to attempt a quiz on. +
-Format: `select CHAPTER` +
-
-Example : +
-`select sorting` will select the chapter on Sorting for the quiz.
+=== Start a lecture : `lecture`
+This command allows you to pick a chapter that you are interested in revising.
+The lecture ends after all the slides are done or if you type `end`. +
+Format : `lecture CHAPTER`
 
 ====
-*Expected Outcome*
+Example: `lecture sorting`
+=====
+*Expected outcome*
 
-`You have selected Chapter 1. Type 'quiz' to begin.`,
-where the chapter number will depend on your chapter chosen (refer to 3.3).
+image::lecturesorting.png[width="650"]
+
+* You can start the lecture by typing `start`.
+* You can progress to the next slide by typing `next`.
+* You can return to the previous slide by typing `back`.
+* You can end the lecture by typing `end`.
+=====
 ====
 
-=== Start the quiz : `quiz`
-This command allows you to start the quiz and only works after you have selected a particular chapter. +
-Format: `quiz`
+=== Start a quiz : `quiz`
+This command allows you to pick a chapter that you are interested in practising. +
+The quiz ends after 10 questions or if you type `end`. +
+Format : `quiz CHAPTER`
 
-=== Entering your answer
-There is no command for this, you type your answers in the interactive box and submit them by pressing enter or clicking on the `send` button. +
-Should your answers be sequential, make sure you use the ", " format else your answer will not be recognised!
+====
+Example: `quiz sorting`
+=====
+*Expected outcome*
 
-Example: +
-`60, 40, 30`
+image::quizsorting.png[width="650"]
 
-=== Return to the previous question : `back`
+* You can start the quiz by typing `start`.
+* You can progress to the next slide by typing `next`.
+* You can return to the previous slide by typing `back`.
+* You can end the lecture by typing `end`.
 
-This command allows users to return to the previous question if you have made a mistake. This would help prevent any accidental input,
-rendering the answer as wrong. This command only works during the quiz. +
-Format : `back`
+=====
+====
 
-=== Skip to the next question : `next`
+=== Play an arcade round : `arcade`
+This command allows you to play the arcade version of the quiz. +
+The game ends only when you get a wrong answer. +
+Format : `arcade`
 
-This command allows you to skip to the next question if you would like to. This command only works during the quiz. +
-Format : `next`
+====
+*Expected outcome*
 
-=== End the quiz : `end`
+image::arcade.png[width="650"]
 
-This command allows you to exit the quiz if you would like, even if you are only in the midst of it. It will still give you
-your achieved score based on the questions that have been attempted. This command only works during the quiz. +
-Format : `end`
+====
 
-=== List results of a chapter : `result`
 
-This command will generate a comprehensive summary of the previous quiz that you have attempted. You will be able to see
-where you went wrong in your previous quiz so as to be able to work on your weaker concepts. +
-Format : `result`
+
+=== Reset your progress : `reset`
+This command allows you to reset all the progress you have made. +
+This is for users who wish to achieve higher stats after clearing all the chapters. +
+Format : `reset`
+
+====
+*Expected outcome*
+
+image::reset.png[width="650"]
+
+* Type `y` to reset the progress.
+* Type anything else to cancel.
+
+====
+
+=== Exit the game : `exit`
+This command allows you to exit the game, and can be done anytime in the game. +
+Format : `reset`
+
+====
+*Expected outcome*
+
+image::exit.png[width="650"]
+
+* Program will terminate after a second.
+
+====
+
+=== Review your quiz questions : `review`
+This command allows you to review the questions which has went wrong during your quiz.
+Format : `review NUMBER`
+
+====
+Example: `review 3`
+=====
+*Expected outcome*
+
+image::review3.png[width="650"]
+
+=====
+====
 
 === List previously entered commands : `history`
 
@@ -172,84 +210,168 @@ This command provides a list of past commands you have entered upon request. +
 In the event where one of your commands, be it intentional or accidental, changes your result,
 you may use this command to help retrieve and track the past commands which you've entered, hence
 better able to find out your mistake. +
+Format : `history NUMBER`
 
-Format : `history NUMBER` +
+====
 Example : +
 `history 5` will print the last 5 console commands given.
+=====
+*Expected outcome*
 
-Expected outcome:
-`Have you forgotten our conversation?` +
-`menu` +
-`select` +
-`menu select` +
-`select sorting` +
-`quiz`
+image::history.png[width="650"]
 
-- NUMBER should be a positive number that is greater than 0
-- NUMBER must be smaller than the number of past commands made
+=====
+* NUMBER should be a positive number that is greater than 0
+* NUMBER must be smaller than the number of past commands made
 
-=== Delete chat bubbles in the chatbox : `undo`
+====
 
-This command allows users to delete the previous chat bubbles in the chat.
+=== Delete chat bubbles in the chat-box : `undo`
+
+This command allows users to delete the previous chat bubbles in the chat. +
 If `NUMBER` is not specified, the number of messages removes from chat is default to 1. +
-Format : `undo NUMBER` +
+Format : `undo NUMBER`
+
+====
 Example: +
 `undo 2` will delete 2 chat bubbles.
+=====
+*Expected outcome*
 
+** Pre-undo
+
+image::preundo.png[width="650"]
+
+** Post-undo
+
+image::postundo.png[width=""650"]
+
+=====
+====
 - NUMBER should be a positive and greater than 1 (since `undo` gives a default of NUMBER as 1)
 - NUMBER should be smaller than the number of response chats.
+
+=== Provides questions for improvement : `help`
+
+This command provides a suggestion of problems (targeted at respective chapters) that you may wish to attempt to brush up on weaker concepts +
+Format : `help CHAPTER` +
+
+====
+Example : +
+`help sorting` will list a few problems from Kattis that the user can attempt to increase their
+understanding of the chapter selected.
+=====
+*Expected outcome*
+
+image::helpsorting.png[width="650"]
+
+=====
+====
+
+=== Print questions or user information : `print`
+
+This command provides a way for you to print the questions you have attempted in a text file. This is for users who
+want to keep a copy of the questions they found hard, or attempted wrongly. +
+Specify `user`, `archive`, or `quiz` to the
+second argument to print the data in the user, archive, or quiz respectively.
+Specify the filename with the extension `.pdf` as the third argument to print the data to PDF +
+Format : `print DATA_SOURCE FILENAME` +
+
+====
+Example: +
+`print user MyData.pdf` will print the UserData (His name, gender, level, exp, chapter information) into a pdf named MyData.
+=====
+*Expected outcome*
+
+image::printpdf.png[width="650"]
+
+image::mypdf.png[]
+
+* The pdf will be located in the same directory as the application.
+=====
+====
+
+=== Archive questions : `archive`
+
+This command archives the specified question. Specifying the question number archived the question in the last attempted quiz. +
+This is for users who found a particular question interesting, or users who are
+not sure of the correct answer and wish to review the question in greater detail in the future. +
+Format: `archive NUMBER`
+====
+Example: +
+`archive 1` archives question 1 in the quiz. Note that to view the archived questions in pdf, please read the `print archive FILENAME` with FILENAME having the .pdf extension.
+=====
+*Expected Outcome*
+
+image::archive.png[width="650"]
+
+* NUMBER should be between 1 to 10 inclusive.
+=====
+====
+
+=== Chapters: `chapters`
+This command allows you to see all the chapters that are currently available in the game. +
+Format: `chapters`
+====
+*Expected Outcome*
+
+image::chapters.png[width="650"]
+====
 
 === Clear the chatbox : `clear`
 
 This command removes all existing conversations in the chat if you deem the interface to be too cluttered with information +
 Format : `clear`
 
-=== Provides suggestions to users to improve : `help`
+====
+*Expected Outcome*
 
-This command provides a suggestion of problems (targeted at respective chapters) that you may wish to attempt to brush up on weaker concepts +
-Format : `help CHAPTER` +
+* Pre-clear
 
-Example : +
-`help sorting` will list a few problems from Kattis that the user can attempt to increase their
-understanding of the chapter selected.
+image::preclear.png[width="650]
+
+* Post-clear
+
+image::postclear.png[width="650"]
 
 ====
-*Expected Outcome* +
-`Try solving these problems on Kattis: +
-cups, lineup, mjehuric, sidewayssorting`
-====
 
-=== Change the volume of the background music : `volume`
+=== Adjusting volume of the background music : `volume`
 
-This command adjust the volume. Specify a number between 0 to 10 adjust the sound level with 10 the maximum loudness. +
+This command adjust the volume. Specify a number between 0 to 100 to adjust the sound level. +
 Format: `volume NUMBER` +
+
 
 Example: +
 `volume 1` will set the volume to level 1.
 
 - NUMBER should be between 0 to 100 inclusive.
 
-=== Print questions or user information : `print`
 
-This command provides a way for you to print the questions you have attempted in a text file. This is for users who
-want to keep a copy of the questions they found hard, or attempted wrongly. Specify `user`, `archive`, or `quiz` to the
-second argument to print the data in the user, archive, or quiz respectively.
-Specify the filename with the extension `.pdf` as the third argument to print the data to PDF +
-Format : `print DATA_SOURCE FILENAME` +
+=== List results of a chapter : `result`
 
-Example: +
-`print user MyData.pdf` will print the UserData (His name, gender, level, exp, chapter information) into a pdf named MyData.
+This command will generate a comprehensive summary of the previous quiz that you have attempted. You will be able to see
+where you went wrong in your previous quiz so as to be able to work on your weaker concepts. +
+Format : `result`
 
-=== Archive questions : `archive`
+====
+*Expected Outcome*
 
-This command archives the specified question. Specifying the question number archived the question in the last attempted quiz. This is for users who found a particular question interesting, or users who are
-not sure of the correct answer and wish to review the question in greater detail in the future. +
+image::result.png[width="650"]
 
-Format: `archive NUMBER` +
-Example: +
-`archive 1` archives question 1 in the quiz. Note that to view the archived questions in pdf, please read the `print archive FILENAME` with FILENAME having the .pdf extension.
+====
 
-- NUMBER should be between 1 to 10 inclusive.
+=== Check statistics : `stats`
+
+This command allows you to check your current statistics for the different chapter in-game.
+Format : `stats`
+
+====
+*Expected Outcome*
+
+image::stats.png[width="650"]
+
+====
 
 === Manually save the game : `save` `[coming in v1.4]`
 
@@ -257,17 +379,6 @@ This command provides a way for you to save the game manually. Normally, the gam
 certain checkpoints. However, in the event that our auto-save function does not work, it is highly recommended to do a manual save
 from time to time. +
 Format : `save`
-
-=== Reset the whole game : `reset` `[coming in v1.4]`
-
-This command provides a way for you to restart the entire game by clearing all progress and results. This is for users who
-wish to repeat the game after clearing all the stages. +
-Format : `reset`
-
-=== Exits the game : `exit`
-
-This command provides a way for you to terminate the game. +
-Format : `exit`
 
 
 == FAQ
@@ -279,7 +390,7 @@ Format : `exit`
 *A*: The report generated will give a good indication on the chapters that you are weak at, based on the time taken to solve the questions, as well as the number of question you gotten correct. As such, more effort can be placed into practicing the chapters which are deemed “weak” by the reports as it indicates a lack of conceptual understanding.
 
 *Q*: Is there a time limit to the questions given? +
-*A*: There is a time limit for each question, but it is gradual. Users are expected to improve with more practice and as such they should be able to answer questions within the stipulated time. Questions at the beginning are generally given more time than questions towards the ending of the chapter.
+*A*: There is no time limit for each question currently. Users are expected to improve with more practice and as such they should be able to answer questions within the stipulated time. Questions at the beginning are generally given more time than questions towards the ending of the chapter.
 
 *Q*: I made an accidental mistake in my answer for the previous question. Is there a way for me to undo it? +
 *A*: Yes. You can enter the command `back` to redo the last question.

@@ -1,0 +1,138 @@
+Introduction
+Senpai will teach you! Try these commands :
+Critical :
+*	lecture
+*	quiz
+*	arcade
+*	reset
+*	exit
+
+Utility :
+*	review
+*	history
+*	undo
+*	help
+*	print
+*	archive
+*	save
+
+Misc :
+*	chapters
+*	clear
+*	volume
+*	result
+*	stats
+Type `menu <command>` to see how to use certain commands.
+-
+lecture
+This command allows you to pick a chapter that you are interested in revising.
+The lecture ends after all the slides are done or if you type `end`.
+Format :
+`lecture` will list the current chapters available for the lecture.
+`lecture sorting` will pick the lecture on sorting.
+**Tips
+You can start the chapter after you selected a chapter using `start`.
+-
+quiz
+This command allows you to pick a chapter that you are interested in practising.
+The quiz ends after 10 questions or if you type `end`.
+Format :
+`quiz` will list the current chapters available for the lecture.
+`quiz linkedlist` will pick the quiz questions from the Linked List chapter.
+**Tips
+You can start the chapter after you selected a chapter using `start`.
+-
+arcade
+This command allows you to play the arcade version of the quiz.
+The game ends only when you get a wrong answer.
+Format :
+`arcade` will start the arcade immediately.
+**Tips
+You can use this mode during your final revision to consolidate your learning.
+-
+reset
+This command allows you to reset all the progress you have made.
+This is for users who wish to achieve higher stats after clearing all the chapters.
+Format :
+`reset` will reset the game.
+-
+exit
+This command allows you to exit the game, and can be done anytime in the game.
+Format :
+`exit` will exit the game.
+-
+review
+This command allows you to review the questions which has went wrong during your quiz.
+Format :
+`review 2` will show how the answer was derived for Question 2 of your last quiz.
+-
+history
+This command allows you to see the past commands you have made.
+Format :
+`history 5` will show the past 5 commands made by you.
+**Tips
+The history command can only display as many commands as you have made.
+-
+undo
+This command allows you to reverse a particular number of actions.
+Format :
+`undo 5` will reverse the past 5 commands made by you.
+**Tips
+The undo command will not reverse any actions that you make, but merely removes it from the screen.
+-
+help
+This command allows you to see additional questions that you can practice on Kattis.
+Format :
+`help` will list the chapters which have practice questions.
+`help bitmask` will list questions from the bitmask question available on Kattis.
+**Tips
+You can practise the questions available after looking through the lecture and quizzes, to optimise your learning.
+-
+print
+This command allows you to print different documents into a pdf format.
+Format :
+`print` will show you the exact format for the command.
+`print archive archive.pdf` will print your archived questions into a pdf named archive.pdf.
+`print quiz quiz.pdf` will print the current quiz into a pdf named quiz.pdf.
+`print user user.pdf` will print your stats into a pdf called user.pdf.
+-
+archive
+This command allows you to archive particular questions from the quiz.
+Format :
+`archive 1` will archive the first question of the quiz.
+**Tips
+Use this to save questions that you are unsure of, and want to review at a later date.
+-
+save
+This command allows you to save your current progress.
+Format :
+`save` will save the game.
+-
+chapters
+This command allows you to see all the chapters that are currently available in the game.
+Format :
+`chapters` will display all the chapters.
+-
+clear
+This command allows you to clear the screen should you feel that it is too cluttered.
+Format :
+`clear` will clear the screen.
+**Tips
+This is useful for when there are too many messages on your screen.
+-
+volume
+This command allows you to change the volume.
+Format :
+`volume` will show you the correct format.
+`volume 0` will set the volume to 0.
+`volume 100` will set it to the maximum volume.
+-
+result
+This command displays the previous result attained by you.
+Format :
+`result` will display the previous result attained by the latest quiz.
+-
+stats
+This command will show you the current statistics in game attained by you.
+Format :
+`stats` will display the current statistics from different chapters.

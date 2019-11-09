@@ -31,7 +31,7 @@ public class LectureGenerator {
      */
     private void updateSlides(String topic, InputStream is) {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
-        String line = null;
+        String line;
         StringBuilder currentSlide = new StringBuilder();
         lectureSlides.put(topic, new ArrayList<>());
         slidePointer.put(topic, 0);
@@ -60,7 +60,6 @@ public class LectureGenerator {
      * @return The arraylist containing the slides.
      */
     public ArrayList<String> generateLecture(int selectedChapters) {
-        ArrayList<String> arr = new ArrayList<>();
         switch (selectedChapters) {
         case 1:
             return lectureSlides.get("sorting");

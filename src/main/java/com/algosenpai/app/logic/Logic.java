@@ -15,7 +15,7 @@ import com.algosenpai.app.logic.command.errorhandling.InvalidCommand;
 import com.algosenpai.app.logic.command.errorhandling.LectureBlockedCommand;
 import com.algosenpai.app.logic.command.errorhandling.QuizBlockedCommand;
 import com.algosenpai.app.logic.command.QuizNextCommand;
-import com.algosenpai.app.logic.command.VolumeCommand;
+import com.algosenpai.app.logic.command.utility.VolumeCommand;
 import com.algosenpai.app.logic.command.utility.ArchiveCommand;
 import com.algosenpai.app.logic.command.utility.ClearCommand;
 import com.algosenpai.app.logic.command.utility.HistoryCommand;

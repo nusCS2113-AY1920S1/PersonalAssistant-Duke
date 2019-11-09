@@ -1,5 +1,6 @@
-package com.algosenpai.app.logic.command;
+package com.algosenpai.app.logic.command.utility;
 
+import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.logic.parser.Parser;
 import com.algosenpai.app.ui.controller.MusicController;
 
