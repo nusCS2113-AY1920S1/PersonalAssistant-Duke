@@ -60,6 +60,7 @@ public class MainWindow extends GridPane {
     public static boolean isLightMode = true;
     public static boolean isChanged = false;
     public static boolean doneDialog = false;
+    public static boolean isStupidUser = false;
 
     private JavaCake javaCake;
     private Stage primaryStage;
@@ -84,7 +85,7 @@ public class MainWindow extends GridPane {
      * Initialise the Main Window launched.
      */
     @FXML
-    public void initialize() throws CakeException {
+    public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         taskScreen.vvalueProperty().bind(taskContainer.heightProperty());
         noteScreen.vvalueProperty().bind(noteContainer.heightProperty());
@@ -632,8 +633,16 @@ public class MainWindow extends GridPane {
     private void setAvatarDialogLoop() {
         ArrayList<String> listToSay = new ArrayList<>();
         setList(listToSay);
-        avatarDialog.getChildren().add(
-                DialogBox.getTaskDialog(listToSay.get(0)));
+        if (!isStupidUser) {
+            avatarDialog.getChildren().add(
+                    DialogBox.getTaskDialog(listToSay.get(0)));
+        } else {
+            System.out.println("STUPID USER");
+            avatarDialog.getChildren().add(
+                    DialogBox.getTaskDialog("WHY ARE YOU TRYING TO CRASH MEE?!?!\n"
+                            + "baaAAKAAAAAAAAA"));
+            AvatarScreen.avatarMode = AvatarScreen.AvatarMode.POUT;
+        }
         AtomicLong counterTicks = new AtomicLong();
         AtomicBoolean isSet = new AtomicBoolean();
         Random rand = new Random();

@@ -55,13 +55,32 @@ public class Profile {
                 if (count == -1) {
                     username = line;
                 } else if (count < 4) {
-                    overalltopicsDone.add(Integer.parseInt(line));
+                    int tempOverallGrade;
+                    try {
+                        tempOverallGrade = Integer.parseInt(line);
+                    } catch (NumberFormatException e) {
+                        throw new CakeException("NOT A NUMBER: " + line);
+                    }
+                    checksumOverallGrade(tempOverallGrade);
+                    overalltopicsDone.add(tempOverallGrade);
                 } else {
+                    int tempIndieGrade;
+                    try {
+                        tempIndieGrade = Integer.parseInt(line);
+                    } catch (NumberFormatException e) {
+                        throw new CakeException("NOT A NUMBER: " + line);
+                    }
+                    checksumIndiGrade(tempIndieGrade);
                     individualTopicsDone.add(Integer.parseInt(line));
                 }
                 ++count;
             }
             reader.close();
+
+            System.out.println("Profile line count: " + count);
+
+            overallChecksum(count);
+
 
             if (!isResetFresh) {
                 try {
@@ -78,6 +97,41 @@ public class Profile {
         } catch (IOException e) {
             System.out.println("after reader");
             throw new CakeException("Failed to close reader");
+        }
+    }
+
+    private void overallChecksum(int count) throws CakeException {
+        //checks total number of lines, must be == 16
+        if (count != 16) {
+            System.out.println("fk");
+            throw new CakeException("PROFILE HAS BEEN MODIFIED");
+        }
+        //Check summation sum
+        checkSumTotalSum(0, 0, 3);
+        checkSumTotalSum(1, 3, 6);
+        checkSumTotalSum(2, 6, 9);
+        checkSumTotalSum(3, 9, 12);
+    }
+
+    private void checkSumTotalSum(int expectedIdx, int lowB, int upB) throws CakeException {
+        int totalMarks = 0;
+        for (int i = lowB; i < upB; ++i) {
+            totalMarks += individualTopicsDone.get(i);
+        }
+        if (totalMarks != overalltopicsDone.get(expectedIdx)) {
+            throw new CakeException("CHECKSUM " + expectedIdx + " FAILED!");
+        }
+    }
+
+    private void checksumOverallGrade(int grade) throws CakeException {
+        if (grade < 0 || grade > 15) {
+            throw new CakeException("Error in checksum: OVERALL");
+        }
+    }
+
+    private void checksumIndiGrade(int grade) throws CakeException {
+        if (grade < 0 || grade > 5) {
+            throw new CakeException("Error in checksum: INDI");
         }
     }
 

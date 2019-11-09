@@ -29,7 +29,11 @@ public class QuizSessionTest {
      */
     @BeforeAll
     static void setName() {
-        javacake = new JavaCake();
+        try {
+            javacake = new JavaCake();
+        } catch (CakeException e) {
+            System.out.println(e.getMessage());
+        }
         javacake.getResponse("list");
     }
 

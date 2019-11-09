@@ -1,6 +1,7 @@
 package junittesting;
 
 import javacake.JavaCake;
+import javacake.exceptions.CakeException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -10,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ParserTest {
 
 
-    private static JavaCake javaCake = new JavaCake();
+    private static JavaCake javaCake;
     private static String response;
 
 
@@ -20,6 +21,12 @@ public class ParserTest {
      */
     @Test
     public void testHelper() {
+        try {
+            javaCake = new JavaCake();
+        } catch (CakeException e) {
+            System.out.println(e.getMessage());
+        }
+
         String[] commands = {"exit", "list", "back", "help", "score", "reset", "goto",
                              "overview", "deadline", "editnote", "createnote", "listnote", "deletenote",
                              "change", "reminder", "viewnote", "done", "delete", "snooze"};

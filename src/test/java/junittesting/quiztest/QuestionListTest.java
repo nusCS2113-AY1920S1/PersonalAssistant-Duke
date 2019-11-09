@@ -1,13 +1,12 @@
 package junittesting.quiztest;
 
-import javacake.JavaCake;
 import javacake.exceptions.CakeException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class QuestionListTest {
-    private static JavaCake javacake;
+    //private static JavaCake javacake;
 
     //@BeforeEach
     //public void
