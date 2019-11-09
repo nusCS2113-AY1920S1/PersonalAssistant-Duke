@@ -9,6 +9,7 @@ import wallet.logic.command.DoneCommand;
 import wallet.logic.command.EditCommand;
 import wallet.logic.command.ExitCommand;
 import wallet.logic.command.ExportCommand;
+import wallet.logic.command.GenerateCommand;
 import wallet.logic.command.HelpCommand;
 import wallet.logic.command.HistoryCommand;
 import wallet.logic.command.ImportCommand;
@@ -93,6 +94,9 @@ public class ParserManager {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
+        case GenerateCommand.COMMAND_WORD:
+            return new GenerateCommand();
 
         case CurrencyCommand.COMMAND_WORD:
             try {

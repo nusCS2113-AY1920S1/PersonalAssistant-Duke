@@ -34,7 +34,7 @@ public class BudgetStorage extends Storage<Budget> {
             }
             raf.close();
         } catch (FileNotFoundException e) {
-            System.out.println("No saved expenses found.");
+            System.out.println("No saved budget found.");
         } catch (IOException e) {
             System.out.println("End of file.");
         }
