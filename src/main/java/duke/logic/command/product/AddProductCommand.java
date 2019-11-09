@@ -29,7 +29,7 @@ public class AddProductCommand extends ProductCommand {
     };
 
     /**
-     * Constructs a AddProductCommand with the given ProductDescriptor
+     * Constructs a AddProductCommand with the given ProductDescriptor.
      */
     public AddProductCommand(ProductDescriptor descriptor) throws ParseException {
         requireNonNull(descriptor);

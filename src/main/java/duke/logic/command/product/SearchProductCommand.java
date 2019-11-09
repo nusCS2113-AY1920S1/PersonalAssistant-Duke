@@ -18,6 +18,10 @@ public class SearchProductCommand extends ProductCommand {
             CliSyntax.PREFIX_PRODUCT_SEARCH
     };
 
+    /**
+     * Creates a SearchProductCommand with the given keyword.
+     * @param keyword the given keyword
+     */
     public SearchProductCommand(String keyword) {
         this.keyword = keyword;
     }

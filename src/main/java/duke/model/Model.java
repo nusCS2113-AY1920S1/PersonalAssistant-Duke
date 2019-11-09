@@ -178,7 +178,7 @@ public interface Model {
     List<Product> getActiveProductList();
 
     /**
-     * Updates the product list with the given predicate
+     * Updates the product list with the given predicate.
      */
     void updateFilteredProductList(Predicate<Product> predicate);
 
@@ -238,7 +238,7 @@ public interface Model {
      */
     default Predicate<Sale> getSalesBetween(Date from, Date to) {
         Predicate<Sale> showSaleBetween =
-                sale -> sale.getSaleDate().before(to) && sale.getSaleDate().after(from);
+            sale -> sale.getSaleDate().before(to) && sale.getSaleDate().after(from);
         return showSaleBetween;
     }
 
@@ -297,7 +297,6 @@ public interface Model {
 
     /**
      * Clears the inventory list.
-     * @param emptyList
      */
     void clearInventory(List<Item<Ingredient>> emptyList);
 
