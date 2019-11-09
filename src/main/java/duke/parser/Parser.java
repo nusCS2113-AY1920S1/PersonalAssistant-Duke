@@ -447,7 +447,7 @@ public class Parser {
             displayDT = suffixStr + " of " + displayDT;
 
             return new FindTasksByDateCommand(displayDT);
-            //@@author
+            //@@author gervaiseang
         } else if (!emptyString && arr[Numbers.ZERO.value].equals("remind")) {
             //remind <taskNumber> /in <howManyDays>
             String afterTaskDesc = "";
