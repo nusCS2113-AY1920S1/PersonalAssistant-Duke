@@ -20,6 +20,8 @@ public class Storage {
     private Deque<String> undoStack;
     private Deque<String> redoStack;
 
+    // storageSize must be 1 more than intended size value.
+    private static final int storageSize = 11;
     private static final String UNREADABLE_FILE_MESSAGE
             = "Unable to read file, continuing with empty list.";
     private static final String FILE_WRITE_ERROR_MESSAGE
@@ -140,6 +142,9 @@ public class Storage {
             assert (undoStack.size() == 0);
             undoStack.addLast(jsonVal);
         }
+
+        // Ensures undoStack size is within acceptable value.
+        deleteExcessUndoStack();
     }
 
     /**
@@ -153,8 +158,13 @@ public class Storage {
             throw new DuchessException(EMPTY_REDO_STACK_ERROR_MESSAGE);
         }
         String jsonVal = redoStack.pollFirst();
+
         // Add this string to undoStack
         undoStack.addLast(jsonVal);
+
+        deleteExcessUndoStack();
+
+        assert (undoStack.size() <= 10);
 
         try {
             Store store = getObjectMapper().readValue(jsonVal, Store.class);
@@ -220,9 +230,25 @@ public class Storage {
      * Adds deserialized string from undoStack to redoStack.
      */
     public void addToRedoStack() {
+
         if (undoStack.size() != 0) {
             String jsonVal = undoStack.peekLast();
             redoStack.addFirst(jsonVal);
+        }
+
+        deleteExcessRedoStack();
+    }
+
+
+    private void deleteExcessRedoStack() {
+        while (redoStack.size() > storageSize) {
+            redoStack.pollLast();
+        }
+    }
+
+    private void deleteExcessUndoStack() {
+        while (undoStack.size() > storageSize) {
+            undoStack.pollFirst();
         }
     }
 }
