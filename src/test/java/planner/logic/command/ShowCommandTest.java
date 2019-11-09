@@ -61,6 +61,7 @@ public class ShowCommandTest extends InputTest {
         final String test5 = "show ue\n";
 
         final String bye = "bye";
+      
         provideInput("password\n" + test1 + bye);
         final String[] hold = {"a"};
         CliLauncher.main(hold);
@@ -77,7 +78,7 @@ public class ShowCommandTest extends InputTest {
                 +
                 "All modules in the list!\n"
                 +
-                "1. [Γ£ù] CG2028 | ModuleCode:CG2028, MC:2.0, SU:false, grade:"
+                "1. [✓] CS1010 | ModuleCode:CS1010, MC:4.0, SU:true, grade:A "
                 +
                 "_______________________________\n"
                 +
