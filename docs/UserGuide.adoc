@@ -109,7 +109,7 @@ image::menuexample.png[width="650"]
 =====
 ====
 
-=== Lectures : `lecture`
+=== Start a lecture : `lecture`
 This command allows you to pick a chapter that you are interested in revising.
 The lecture ends after all the slides are done or if you type `end`. +
 `lecture` will list all the chapters that are available in the program. +
@@ -136,7 +136,7 @@ image::lecturesorting.png[width="650"]
 =====
 ====
 
-=== Quiz : `quiz`
+=== Start a quiz : `quiz`
 This command allows you to pick a chapter that you are interested in practising. +
 The quiz ends after 10 questions or if you type `end`. +
 `quiz` will list all the chapters that are available in the program. +
@@ -163,7 +163,7 @@ image::quizsorting.png[width="650"]
 =====
 ====
 
-=== Arcade : `arcade`
+=== Play an arcade round : `arcade`
 This command allows you to play the arcade version of the quiz. +
 The game ends only when you get a wrong answer. +
 Format : `arcade`
@@ -177,7 +177,7 @@ image::arcade.png[width="650"]
 
 
 
-=== Reset : `reset`
+=== Reset your progress : `reset`
 This command allows you to reset all the progress you have made. +
 This is for users who wish to achieve higher stats after clearing all the chapters. +
 Format : `reset`
@@ -192,7 +192,7 @@ image::reset.png[width="650"]
 
 ====
 
-=== Exit : `exit`
+=== Exit the game : `exit`
 This command allows you to exit the game, and can be done anytime in the game. +
 Format : `reset`
 
@@ -205,7 +205,7 @@ image::exit.png[width="650"]
 
 ====
 
-=== Review : `review`
+=== Review your quiz questions : `review`
 This command allows you to review the questions which has went wrong during your quiz.
 Format : `review`
 
@@ -224,6 +224,29 @@ image::review3.png[width="650"]
 
 
 =====
+====
+
+=== List previously entered commands : `history`
+
+This command provides a list of past commands you have entered upon request. +
+In the event where one of your commands, be it intentional or accidental, changes your result,
+you may use this command to help retrieve and track the past commands which you've entered, hence
+better able to find out your mistake. +
+Format : `history NUMBER`
+
+====
+Example : +
+`history 5` will print the last 5 console commands given.
+=====
+*Expected outcome*
+
+image::history.png[width="650"]
+
+
+=====
+* NUMBER should be a positive number that is greater than 0
+* NUMBER must be smaller than the number of past commands made
+
 ====
 
 === Delete chat bubbles in the chatbox : `undo`
@@ -251,21 +274,72 @@ image::postundo.png[width=""650"]
 - NUMBER should be a positive and greater than 1 (since `undo` gives a default of NUMBER as 1)
 - NUMBER should be smaller than the number of response chats.
 
+=== Provides questions for improvement : `help`
 
+This command provides a suggestion of problems (targeted at respective chapters) that you may wish to attempt to brush up on weaker concepts +
+Format : `help CHAPTER` +
 
+====
+Example : +
+`help sorting` will list a few problems from Kattis that the user can attempt to increase their
+understanding of the chapter selected.
+=====
+*Expected outcome*
+
+image::helpsorting.png[width="650"]
+
+=====
+====
+
+=== Print questions or user information : `print`
+
+This command provides a way for you to print the questions you have attempted in a text file. This is for users who
+want to keep a copy of the questions they found hard, or attempted wrongly. +
+Specify `user`, `archive`, or `quiz` to the
+second argument to print the data in the user, archive, or quiz respectively.
+Specify the filename with the extension `.pdf` as the third argument to print the data to PDF +
+Format : `print DATA_SOURCE FILENAME` +
+
+====
+Example: +
+`print user MyData.pdf` will print the UserData (His name, gender, level, exp, chapter information) into a pdf named MyData.
+=====
+*Expected outcome*
+
+image::printpdf.png[width="650"]
+
+image::mypdf.png[]
+
+* The pdf will be located in the same directory as the application.
+=====
+====
 
 === Chapters: `chapters`
-This command allows you to see the chapters available to choose from. +
+This command allows you to see all the chapters that are currently available in the game. +
 Format: `chapters`
 ====
 *Expected Outcome*
 
-- Chapter 1: sorting
-- Chapter 2: linkedlist
-- Chapter 3: bitmask
+image::chapters.png[width="650"]
 ====
 
+=== Clear the chatbox : `clear`
 
+This command removes all existing conversations in the chat if you deem the interface to be too cluttered with information +
+Format : `clear`
+
+====
+*Expected Outcome*
+
+* Pre-clear
+
+image::preclear.png[width="650]
+
+* Post-clear
+
+image::postclear.png[width="650"]
+
+====
 === Start the quiz : `quiz`
 This command allows you to start the quiz and only works after you have selected a particular chapter. +
 Format: `quiz`
@@ -300,50 +374,6 @@ This command will generate a comprehensive summary of the previous quiz that you
 where you went wrong in your previous quiz so as to be able to work on your weaker concepts. +
 Format : `result`
 
-=== List previously entered commands : `history`
-
-This command provides a list of past commands you have entered upon request. +
-In the event where one of your commands, be it intentional or accidental, changes your result,
-you may use this command to help retrieve and track the past commands which you've entered, hence
-better able to find out your mistake. +
-
-Format : `history NUMBER` +
-Example : +
-`history 5` will print the last 5 console commands given.
-
-Expected outcome:
-`Have you forgotten our conversation?` +
-`menu` +
-`select` +
-`menu select` +
-`select sorting` +
-`quiz`
-
-- NUMBER should be a positive number that is greater than 0
-- NUMBER must be smaller than the number of past commands made
-
-
-
-=== Clear the chatbox : `clear`
-
-This command removes all existing conversations in the chat if you deem the interface to be too cluttered with information +
-Format : `clear`
-
-=== Provides suggestions to users to improve : `help`
-
-This command provides a suggestion of problems (targeted at respective chapters) that you may wish to attempt to brush up on weaker concepts +
-Format : `help CHAPTER` +
-
-Example : +
-`help sorting` will list a few problems from Kattis that the user can attempt to increase their
-understanding of the chapter selected.
-
-====
-*Expected Outcome* +
-`Try solving these problems on Kattis: +
-cups, lineup, mjehuric, sidewayssorting`
-====
-
 === Change the volume of the background music : `volume`
 
 This command adjust the volume. Specify a number between 0 to 10 adjust the sound level with 10 the maximum loudness. +
@@ -354,16 +384,6 @@ Example: +
 
 - NUMBER should be between 0 to 100 inclusive.
 
-=== Print questions or user information : `print`
-
-This command provides a way for you to print the questions you have attempted in a text file. This is for users who
-want to keep a copy of the questions they found hard, or attempted wrongly. Specify `user`, `archive`, or `quiz` to the
-second argument to print the data in the user, archive, or quiz respectively.
-Specify the filename with the extension `.pdf` as the third argument to print the data to PDF +
-Format : `print DATA_SOURCE FILENAME` +
-
-Example: +
-`print user MyData.pdf` will print the UserData (His name, gender, level, exp, chapter information) into a pdf named MyData.
 
 === Archive questions : `archive`
 
