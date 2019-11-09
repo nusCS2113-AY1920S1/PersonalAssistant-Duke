@@ -1,12 +1,12 @@
 package duke.data;
 
 import duke.exception.DukeException;
+import duke.exception.DukeFatalException;
 import duke.exception.DukeUtilException;
+import duke.ui.card.TreatmentCard;
 
 import java.util.List;
 import java.util.Map;
-import duke.exception.DukeFatalException;
-import duke.ui.card.TreatmentCard;
 
 public abstract class Treatment extends DukeData {
 
@@ -55,9 +55,9 @@ public abstract class Treatment extends DukeData {
     }
 
     @Override
-    public void edit(String newName, int newPriority, String newSummary, Map<String, String> editVals,
+    public void edit(String newName, int newPriority, Map<String, String> editVals,
                      boolean isAppending) throws DukeException {
-        super.edit(newName, newPriority, newSummary, editVals, isAppending);
+        super.edit(newName, newPriority, editVals, isAppending);
         String status = editVals.get("status");
         if (status != null) {
             setStatus(status);

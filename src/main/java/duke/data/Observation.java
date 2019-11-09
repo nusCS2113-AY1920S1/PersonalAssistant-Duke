@@ -30,9 +30,9 @@ public class Observation extends Evidence {
     }
 
     @Override
-    public void edit(String newName, int newPriority, String newSummary, Map<String, String> editVals,
+    public void edit(String newName, int newPriority, Map<String, String> editVals,
                      boolean isAppending) throws DukeException {
-        super.edit(newName, newPriority, newSummary, editVals, isAppending);
+        super.edit(newName, newPriority, editVals, isAppending);
         boolean obj = editVals.containsKey("objective");
         boolean subj = editVals.containsKey("subjective");
         if (obj && subj) {

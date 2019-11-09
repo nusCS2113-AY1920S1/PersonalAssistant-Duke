@@ -77,8 +77,7 @@ public class ImpressionEditSpec extends ImpressionObjSpec {
         // process universal fields
         String newName = cmd.getSwitchVal("name");
         int newPriority = cmd.switchToInt("priority");
-        String newSummary = cmd.getSwitchVal("summary");
-        editData.edit(newName, newPriority, newSummary, cmd.getSwitchVals(), isAppending);
+        editData.edit(newName, newPriority, cmd.getSwitchVals(), isAppending);
         core.writeJsonFile();
         core.updateUi("Details of '" + editData + "' updated!");
     }

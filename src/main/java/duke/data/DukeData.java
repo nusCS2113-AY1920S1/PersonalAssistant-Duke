@@ -10,7 +10,6 @@ public abstract class DukeData extends DukeObject {
 
     public static final int PRIORITY_MAX = 4;
     private Integer priority;
-    protected String summary;
     private transient Impression parent;
 
     /**
@@ -63,13 +62,6 @@ public abstract class DukeData extends DukeObject {
         return super.toString() + informationString;
     }
 
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
 
     /**
      * Checks for equality with another DukeData object - all fields have the same value and all references point to
@@ -80,8 +72,7 @@ public abstract class DukeData extends DukeObject {
     public boolean equals(DukeData other) {
         return getName().equals(other.getName())
                 && priority.equals(other.priority)
-                && getParent() == other.getParent()
-                && ((getSummary() == null && other.getSummary() == null) || getSummary().equals(other.getSummary()));
+                && getParent() == other.getParent();
         // null check required because medicine summary is null
     }
 
@@ -95,7 +86,7 @@ public abstract class DukeData extends DukeObject {
      * @param isAppending true if not a replacement
      * @throws DukeException if priority specified by user is invalid
      */
-    public void edit(String newName, int newPriority, String newSummary, Map<String, String> editVals,
+    public void edit(String newName, int newPriority, Map<String, String> editVals,
                      boolean isAppending)
             throws DukeException {
         if (newName != null) {
@@ -103,9 +94,6 @@ public abstract class DukeData extends DukeObject {
         }
         if (newPriority != -1) {
             setPriority(newPriority);
-        }
-        if (newSummary != null) {
-            setSummary((isAppending) ? getSummary() + newSummary : newSummary);
         }
     }
 }

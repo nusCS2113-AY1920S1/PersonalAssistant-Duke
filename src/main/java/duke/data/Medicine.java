@@ -84,9 +84,9 @@ public class Medicine extends Treatment {
     }
 
     @Override
-    public void edit(String newName, int newPriority, String newSummary, Map<String, String> editVals,
+    public void edit(String newName, int newPriority, Map<String, String> editVals,
                      boolean isAppending) throws DukeException {
-        super.edit(newName, newPriority, newSummary, editVals, isAppending);
+        super.edit(newName, newPriority, editVals, isAppending);
         String dose = editVals.get("dose");
         String date = editVals.get("date");
         String duration = editVals.get("duration");
@@ -104,16 +104,6 @@ public class Medicine extends Treatment {
     @Override
     public List<String> getStatusArr() {
         return Collections.unmodifiableList(statusArr);
-    }
-
-    @Override
-    public String getSummary() {
-        return "";
-    }
-
-    @Override
-    public void setSummary(String summary) {
-        // medicine does not have a summary
     }
 
     /**

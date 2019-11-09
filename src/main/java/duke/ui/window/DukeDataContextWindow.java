@@ -43,7 +43,7 @@ public class DukeDataContextWindow extends ContextWindow {
     @Override
     public void updateUi() {
         nameLabel.setText(data.getName());
-        summaryLabel.setText(data.getSummary());
+        summaryLabel.setText(data.toString());
         priorityLabel.setText(String.valueOf(data.getPriority()));
     }
 

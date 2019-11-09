@@ -1,5 +1,6 @@
 package duke.data;
 
+import duke.data.storage.SummaryTreatment;
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
 import duke.ui.card.InvestigationCard;
@@ -9,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class Investigation extends Treatment {
+public class Investigation extends SummaryTreatment {
 
     private static final List<String> statusArr = Arrays.asList("Not ordered", "In progress");
 
@@ -28,8 +29,7 @@ public class Investigation extends Treatment {
      */
     public Investigation(String name, Impression impression, int priority,
                          String status, String summary) throws DukeException {
-        super(name, impression, priority, status);
-        this.summary = summary;
+        super(name, impression, priority, status, summary);
     }
 
     /**
@@ -55,6 +55,7 @@ public class Investigation extends Treatment {
         return null;
     }
 
+    @Override
     public String getStatusStr() {
         return statusArr.get(getStatusIdx());
     }
@@ -64,6 +65,7 @@ public class Investigation extends Treatment {
         return Collections.unmodifiableList(statusArr);
     }
 
+    @Override
     public InvestigationCard toCard() throws DukeFatalException {
         return new InvestigationCard(this);
     }

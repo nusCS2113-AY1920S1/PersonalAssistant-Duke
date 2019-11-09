@@ -4,6 +4,8 @@ import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
 import duke.ui.card.EvidenceCard;
 
+import java.util.Map;
+
 /**
  * Abstraction of evidence supporting a medical diagnosis.
  * An Evidence object corresponds to the notes of the doctor
@@ -18,8 +20,18 @@ import duke.ui.card.EvidenceCard;
  */
 public abstract class Evidence extends DukeData {
 
+    protected String summary;
+
     public Evidence(String name, Impression impression, Integer priority, String summary) throws DukeException {
         super(name, impression, priority);
+        this.summary = summary;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
         this.summary = summary;
     }
 
@@ -48,5 +60,15 @@ public abstract class Evidence extends DukeData {
         String informationString;
         informationString = "Summary: " + summary + "\n";
         return informationString;
+    }
+
+    public void edit(String newName, int newPriority, Map<String, String> editVals,
+                     boolean isAppending)
+            throws DukeException {
+        super.edit(newName, newPriority, editVals, isAppending);
+        String newSummary = editVals.get("summary");
+        if (newSummary != null) {
+            setSummary((isAppending) ? getSummary() + newSummary : newSummary);
+        }
     }
 }
