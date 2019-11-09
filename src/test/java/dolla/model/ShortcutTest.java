@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author yetong1895
 public class ShortcutTest {
     private Shortcut createShortcut() {
         return new Shortcut("income",223,"shortcut testing");

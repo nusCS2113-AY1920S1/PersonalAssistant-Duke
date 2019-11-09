@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author yetong1895
 public class ShortcutParserTest {
     private String inputLine;
     private String expectedCommand;

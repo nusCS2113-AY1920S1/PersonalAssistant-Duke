@@ -218,8 +218,8 @@ public abstract class Parser implements ParserStringList, ModeStringList {
 
     //@@author yetong1895
     /**
-     * This method will check if the input contain an type to sort.
-     * @return true is inputArray[1] contain something, false if inputArray[1] is invalid.
+     * This method will check if the input is a valid sort command.
+     * @return true if the command is a valid sort command or false otherwise.
      */
     protected boolean verifySort() {
         if (inputArray.length != 2) {
@@ -261,9 +261,10 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         }
     }
 
+    //@@author yetong1895
     /**
-     * The method will check if the user have entered a valid number to be removed.
-     * @return true if there is a valid number or false otherwise.
+     * The method will check if the user have entered a valid remove command.
+     * @return true if the command is valid or false otherwise.
      */
     protected boolean verifyRemove() {
         if (inputArray.length != 2) {
@@ -282,6 +283,12 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         return true;
     }
 
+    //@@author yetong1895
+
+    /**
+     * This method will check if t he user have entered a valid shorcut command.
+     * @return true if the command is valid or false otherwise.
+     */
     protected boolean verifyShortcut() {
         if (inputArray.length != 2) {
             ShortcutUi.printInvalidShortcutMessage();

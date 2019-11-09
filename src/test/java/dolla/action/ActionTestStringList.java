@@ -1,5 +1,6 @@
 package dolla.action;
 
+//@@author yetong1895
 public interface ActionTestStringList {
     String MODE_DEBT = "debt";
     String MODE_ENTRY = "entry";

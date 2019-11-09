@@ -19,6 +19,7 @@ public class Limit extends Record {
         this.type = type;
         this.amount = amount;
         this.duration = duration;
+        this.userInput = type + " " + amount + " " + duration;
         this.recordType = RECORD_LIMIT;
     }
 
@@ -51,5 +52,10 @@ public class Limit extends Record {
 
     public String getDuration() {
         return duration;
+    }
+
+    @Override
+    public String getUserInput() {
+        return userInput;
     }
 }

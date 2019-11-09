@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 //@@author yetong1895
+
+/**
+ * Execute a shortcut command.
+ */
 public class ExecuteShortcutCommand extends Command {
 
     private int index;

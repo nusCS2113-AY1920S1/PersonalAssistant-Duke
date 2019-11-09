@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author yetong1895
 public class ShortcutListTest {
     private ArrayList<Record> shortcutListTest = new ArrayList<>();
 

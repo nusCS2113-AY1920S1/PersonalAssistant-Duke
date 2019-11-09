@@ -10,7 +10,7 @@ import dolla.command.ExecuteShortcutCommand;
 import dolla.command.ActionCommand;
 import dolla.command.SortCommand;
 
-
+//@@author yetong1895
 public class ShortcutParser extends Parser {
 
     /**

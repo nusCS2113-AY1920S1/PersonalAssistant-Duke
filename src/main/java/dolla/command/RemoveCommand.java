@@ -23,19 +23,7 @@ public class RemoveCommand extends Command {
     }
 
     /**
-     * Removes a task from the specified TaskList.
-     * <p>
-     *     The method first converts taskNumStr into an int. It will then check if a task
-     *     corresponding to that number exists in the specified TaskList and subsequently
-     *     remove that task if so.
-     * </p>
-     * <p>
-     *     If taskNumStr is not an int, the method will return without doing anything.
-     * </p>
-     * <p>
-     *     If taskNumInt does not correspond to any task in the specified TaskList, an
-     *     alert is printed to the user, and the method will return.
-     * </p>
+     * THis method will remove the record with respect to the user input position and the mode.
      * @param dollaData dollaData
      */
     @Override
