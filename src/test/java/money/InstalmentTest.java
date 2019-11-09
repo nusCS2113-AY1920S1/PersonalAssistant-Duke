@@ -3,7 +3,8 @@ package money;
 import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
 import controlpanel.Ui;
-import moneycommands.*;
+import moneycommands.MoneyCommand;
+import moneycommands.ExitMoneyCommand;
 import org.junit.jupiter.api.Test;
 
 import java.math.RoundingMode;
@@ -53,7 +54,7 @@ public class InstalmentTest {
         assertEquals(120, instalment.getNumOfPayments());
         assertEquals("9/10/1997", instalment.getBoughtDate());
         assertEquals("9/10/2007", instalment.getDateEndDate());
-        assertEquals("[INS]" + "$" + instalment.getPrice() + " "
+        assertEquals("[INS]" + "$" + instalment.getPriceStr() + " "
                 + instalment.getDescription() + "(on: " + instalment.getBoughtDate() + ")", instalment.toString());
 
         MoneyCommand exitCommand =  new ExitMoneyCommand();

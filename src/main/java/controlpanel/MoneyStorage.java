@@ -1,14 +1,25 @@
 package controlpanel;
 
-import java.io.*;
+import money.Account;
+import money.BankTracker;
+import money.Income;
+import money.Item;
+import money.Expenditure;
+import money.Instalment;
+import money.Goal;
+import money.Loan;
+
+import java.io.File;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Stack;
-
-import money.*;
-import javafx.util.Pair;
 
 public class MoneyStorage {
 
@@ -18,7 +29,7 @@ public class MoneyStorage {
     private static Stack<BankTracker> deletedBanks;
 
     /**
-     * Constructor for the MoneyStorage Object
+     * Constructor for the MoneyStorage Object.
      * @param filePath FilePath of the data text file
      */
     public MoneyStorage(String filePath) {
@@ -27,25 +38,51 @@ public class MoneyStorage {
         deletedEntries = new Stack<>();
         deletedBanks = new Stack<>();
     }
+
     //@@author chengweixuan
+
+    /**
+     * Adds an Income object to the Income List Total according to the data
+     * in the text file on start up.
+     * @param info String array containing the information of the Income Object
+     * @param account Account object containing all financial info of user saved on the programme
+     */
     private void parseIncome(String[] info, Account account) {
         Income i = new Income(Float.parseFloat(info[1]), info[2],
                 LocalDate.parse(info[3], dateTimeFormatter));
         account.getIncomeListTotal().add(i);
     }
 
+    /**
+     * Adds an Expenditure object to the Expenditure List Total according to the data
+     * in the text file on start up.
+     * @param info String array containing the information of the Expenditure Object
+     * @param account Account object containing all financial info of user saved on the programme
+     */
     private void parseExpenditure(String[] info, Account account) {
         Expenditure exp = new Expenditure(Float.parseFloat(info[1]), info[2], info[3],
                 LocalDate.parse(info[4], dateTimeFormatter));
         account.getExpListTotal().add(exp);
     }
 
+    /**
+     * Adds a Goal object to the Goal list according to the data
+     * in the text file on start up.
+     * @param info String array containing the information of the Goal Object
+     * @param account Account object containing all financial info of user saved on the programme
+     */
     private void parseGoal(String[] info, Account account) throws DukeException {
         Goal g = new Goal(Float.parseFloat(info[1]), info[2], info[3],
                 LocalDate.parse(info[4], dateTimeFormatter), info[5]);
         account.getShortTermGoals().add(g);
     }
 
+    /**
+     * Adds an Instalment object to the Instalments List according to the data
+     * in the text file on start up.
+     * @param info String array containing the information of the Instalment Object
+     * @param account Account object containing all financial info of user saved on the programme
+     */
     private void parseInstalment(String[] info, Account account) {
         Instalment ins = new Instalment(Float.parseFloat(info[1]), info[2], info[3],
                 LocalDate.parse(info[4], dateTimeFormatter), Integer.parseInt(info[5]),
@@ -53,6 +90,12 @@ public class MoneyStorage {
         account.getInstalments().add(ins);
     }
 
+    /**
+     * Adds a Loan object to the Loan List according to the data
+     * in the text file on start up.
+     * @param info String array containing the information of the Loan Object
+     * @param account Account object containing all financial info of user saved on the programme
+     */
     private void parseLoan(String[] info, Account account) {
         Loan l = new Loan(Float.parseFloat(info[1]), info[2],
                 LocalDate.parse(info[3], dateTimeFormatter),
@@ -61,12 +104,23 @@ public class MoneyStorage {
         account.getLoans().add(l);
     }
 
+    /**
+     * Adds a BankTracker object to the Bank Tracker List according to the data
+     * in the text file on start up.
+     * @param info String array containing the information of the BankTracker Object
+     * @param account Account object containing all financial info of user saved on the programme
+     */
     private void parseBankAccount(String[] info, Account account) {
         BankTracker b = new BankTracker(info[2], Float.parseFloat(info[1]), LocalDate.parse(info[3]),
                 Double.parseDouble(info[4]));
         account.getBankTrackerList().add(b);
     }
 
+    /**
+     * This method loads the information from the data file into the system.
+     * @return the account of the user.
+     * @throws IOException if the program cannot read the data file.
+     */
     public Account load() throws IOException {
         Account account = new Account();
         try {
@@ -122,48 +176,102 @@ public class MoneyStorage {
 
     //@@author therealnickcheong
 
-    public void writeIncome(Income i , BufferedWriter bufferedWriter) throws IOException {
-        bufferedWriter.write("INC @ " + i.getPrice() + " @ " + i.getDescription() +
-                " @ " + i.getPaidTime() + "\n");
+    /**
+     * methods to write the different types of items into the data file.
+     * @param i item to be written.
+     * @param bufferedWriter used to write into the data file.
+     * @throws IOException if there is an error writing to data file.
+     */
+    public void writeIncome(Income i, BufferedWriter bufferedWriter) throws IOException {
+        bufferedWriter.write("INC @ " + i.getPrice() + " @ " + i.getDescription()
+                +  " @ " + i.getPaidTime() + "\n");
     }
+    /**
+     * to write the different types of items into the data file.
+     * @param exp item to be written.
+     * @param bufferedWriter used to write into the data file.
+     * @throws IOException if there is an error writing to data file.
+     */
 
     public void writeExp(Expenditure exp, BufferedWriter bufferedWriter) throws IOException {
-        bufferedWriter.write("EXP @ " + exp.getPrice() + " @ " + exp.getDescription() + " @ " +
-                exp.getCategory() + " @ " + exp.getBoughtDate() + "\n");
+        bufferedWriter.write("EXP @ " + exp.getPrice() + " @ " + exp.getDescription() + " @ "
+                + exp.getCategory() + " @ " + exp.getBoughtDate() + "\n");
     }
+    /**
+     * to write the different types of items into the data file.
+     * @param g item to be written.
+     * @param bufferedWriter used to write into the data file.
+     * @throws IOException if there is an error writing to data file.
+     */
 
     public void writeGoal(Goal g, BufferedWriter bufferedWriter) throws IOException {
-        bufferedWriter.write("G @ " + g.getPrice() + " @ " + g.getDescription() + " @ " +
-                g.getCategory() + " @ " + g.getGoalBy() + " @ " + g.getPriority() + "\n");
+        bufferedWriter.write("G @ " + g.getPrice() + " @ " + g.getDescription() + " @ "
+                + g.getCategory() + " @ " + g.getGoalBy() + " @ " + g.getPriority() + "\n");
     }
+
+    /**
+     * to write the different types of items into the data file.
+      * @param ins item to be written.
+     * @param bufferedWriter used to write into the data file.
+     * @throws IOException if there is an error writing to data file.
+     */
 
     public void writeInstalment(Instalment ins, BufferedWriter bufferedWriter) throws IOException {
-        bufferedWriter.write("INS @ " + ins.getPrice() + " @ " + ins.getDescription() + " @ " +
-                ins.getCategory() + " @ " + ins.getBoughtDate() + " @ " + ins.getNumOfPayments() + " @ " +
-                ins.getAnnualInterestRate() + "\n");
+        bufferedWriter.write("INS @ " + ins.getPrice() + " @ " + ins.getDescription() + " @ "
+                + ins.getCategory() + " @ " + ins.getBoughtDate() + " @ " + ins.getNumOfPayments() + " @ "
+                + ins.getAnnualInterestRate() + "\n");
     }
+    /**
+     * to write the different types of items into the data file.
+     * @param l item to be written.
+     * @param bufferedWriter used to write into the data file.
+     * @throws IOException if there is an error writing to data file.
+     */
 
     public void writeLoan(Loan l, BufferedWriter bufferedWriter) throws IOException {
-        bufferedWriter.write("LOA @ " + l.getPrice() + " @ " + l.getDescription() +
-                " @ " + l.getStartDate() + " @ " + l.getType().toString() + " @ " +
-                l.getEndDate() + " @ " + l.getStatusInt() + " @ " + l.getOutstandingLoan() + "\n");
+        bufferedWriter.write("LOA @ " + l.getPrice() + " @ " + l.getDescription()
+                + " @ " + l.getStartDate() + " @ " + l.getType().toString() + " @ "
+                + l.getEndDate() + " @ " + l.getStatusInt() + " @ " + l.getOutstandingLoan() + "\n");
     }
+    /**
+     * to write the different types of items into the data file.
+     * @param b item to be written.
+     * @param bufferedWriter used to write into the data file.
+     * @throws IOException if there is an error writing to data file.
+     */
 
     public void writeBank(BankTracker b, BufferedWriter bufferedWriter) throws IOException {
-        bufferedWriter.write("BAN @ " + b.getAmt() + " @ " + b.getDescription() +
-                " @ " + b.getLatestDate().toString() + " @ " + b.getRate() + "\n");
+        bufferedWriter.write("BAN @ " + b.getAmt() + " @ " + b.getDescription()
+                + " @ " + b.getLatestDate().toString() + " @ " + b.getRate() + "\n");
     }
+    /**
+     * to write the different types of items into the data file.
+     * @param account item to be written.
+     * @param bufferedWriter used to write into the data file.
+     * @throws IOException if there is an error writing to data file.
+     */
 
     public void writeInit(Account account, BufferedWriter bufferedWriter) throws IOException {
         bufferedWriter.write("INIT @ " + account.isToInitialize() + "\n");
     }
+    /**
+     * to write the different types of items into the data file.
+     * @param account item to be written.
+     * @param bufferedWriter used to write into the data file.
+     * @throws IOException if there is an error writing to data file.
+     */
 
     public void writeBaseSavings(Account account, BufferedWriter bufferedWriter) throws IOException {
         bufferedWriter.write("BS @ " + account.getBaseSavings() + "\n");
     }
 
+    /**
+     * method to write the items into the data file.
+     * @param account items from this account is written into the data file.
+     */
+
     public void writeToFile(Account account) {
-        try{
+        try {
             FileWriter fileWriter = new FileWriter(fileName);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write("");
@@ -214,7 +322,7 @@ public class MoneyStorage {
         return item;
     }
 
-    public void addDeletedBank (BankTracker bankTracker) {
+    public void addDeletedBank(BankTracker bankTracker) {
         deletedBanks.push(bankTracker);
         if (deletedBanks.size() > 5) {
             deletedBanks.removeElementAt(0);

@@ -14,6 +14,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.text.DecimalFormat;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class CommitGoalCommand extends MoneyCommand {
@@ -23,6 +25,8 @@ public class CommitGoalCommand extends MoneyCommand {
     private ArrayList<Goal> goalsAfterCommit;
     private float goalSavingsAfterCommit;
     private DecimalFormat decimalFormat = new DecimalFormat("#.00");
+    private static final int TICK_NO = 0x2713;
+
 
 
     //@@author therealnickcheong
@@ -94,8 +98,11 @@ public class CommitGoalCommand extends MoneyCommand {
                 throw new DukeException("The indexes must be a number");
             }
 
-
+            Set<Integer> noDuplicateSet = new HashSet<>(indexOfCommittedGoals);
+            indexOfCommittedGoals.clear();
+            indexOfCommittedGoals.addAll(noDuplicateSet);
             Collections.sort(indexOfCommittedGoals, Collections.reverseOrder());
+
 
             for (int j: indexOfCommittedGoals) {
                 if (j > account.getShortTermGoals().size() || (j < 1)) {
@@ -121,7 +128,7 @@ public class CommitGoalCommand extends MoneyCommand {
                 String goalProgress = "";
 
                 if (goalSavingsAfterCommit >= currGoalPrice) {
-                    goalProgress = "[\u2713]";
+                    goalProgress = "[" + Character.toString((char)TICK_NO) + "]";
                 } else {
                     goalProgress = percentageProgress(goalSavingsAfterCommit, currGoalPrice);
                     savingsReqPerMonth += savingsPerGoal(goalSavingsAfterCommit, currGoalPrice, monthsBetween);
@@ -130,7 +137,8 @@ public class CommitGoalCommand extends MoneyCommand {
                 ui.appendToOutput(" " + i + "." + goalProgress + goalsAfterCommit.get(i - 1).toString() + "\n");
             }
             ui.appendToOutput("Goal Savings after commit: $" + decimalFormat.format(goalSavingsAfterCommit) + "\n");
-            ui.appendToOutput("Target Savings for the Month after commit: $" + decimalFormat.format(savingsReqPerMonth) + "\n");
+            ui.appendToOutput("Target Savings for the Month after commit: $"
+                    + decimalFormat.format(savingsReqPerMonth) + "\n");
 
             MoneyCommand list = new ListGoalsCommand();
             list.execute(account,ui,storage);

@@ -47,21 +47,21 @@ public class CheckExpenditureTest {
         String checkInput1 = "check expenditure 10 1997";
         MoneyCommand checkExpenditure1 = new ViewPastExpenditureCommand(checkInput1);
         checkExpenditure1.execute(account, ui, storage);
-        assertEquals(" 1.[E]$120.00 A Jays 5(on: 9/10/1997)\n" +
-                "Total expenditure for October of 1997 : $120.00\n", ui.getGraphContainerString());
+        assertEquals(" 1.[E]$120.00 A Jays 5(on: 9/10/1997)\n"
+                + "Total expenditure for October of 1997 : $120.00\n", ui.getGraphContainerString());
         assertEquals("Got it, list will be printed in the other pane!\n", ui.getOutputString());
         ui.clearOutputString();
         ui.clearGraphContainerString();
         String checkInput2 = "check expenditure 9 2015";
         MoneyCommand checkExpenditure2 = new ViewPastExpenditureCommand(checkInput2);
         checkExpenditure2.execute(account, ui, storage);
-        assertEquals(" 1.[E]$94.00 HHN VIP Tickets(on: 4/9/2015)\n" +
-                "Total expenditure for September of 2015 : $94.00\n", ui.getGraphContainerString());
+        assertEquals(" 1.[E]$94.00 HHN VIP Tickets(on: 4/9/2015)\n"
+                + "Total expenditure for September of 2015 : $94.00\n", ui.getGraphContainerString());
         assertEquals("Got it, list will be printed in the other pane!\n", ui.getOutputString());
     }
 
-     @Test
-     void testCheckMonthExpenditure() throws DukeException, ParseException {
+    @Test
+    void testCheckMonthExpenditure() throws DukeException, ParseException {
         account.getExpListTotal().clear();
         int currMonth = LocalDate.now().getMonthValue();
         int currYear = LocalDate.now().getYear();
@@ -75,11 +75,12 @@ public class CheckExpenditureTest {
         String checkInput = "list month";
         MoneyCommand checkMonthExpenditure = new ViewPastExpenditureCommand(checkInput);
         checkMonthExpenditure.execute(account, ui, storage);
-        String currMontStr = new DateFormatSymbols().getMonths()[currMonth-1];
-         assertEquals(" 1.[E]$40.00 blue shirt(on: 4/" + currMonth + "/" + currYear + ")\n" +
-                 "Total expenditure for " + currMontStr + " of " + currYear + " : $40.00\n", ui.getGraphContainerString());
-         assertEquals("Got it, list will be printed in the other pane!\n", ui.getOutputString());
-     }
+        String currMontStr = new DateFormatSymbols().getMonths()[currMonth - 1];
+        assertEquals(" 1.[E]$40.00 blue shirt(on: 4/" + currMonth + "/" + currYear + ")\n"
+                 + "Total expenditure for " + currMontStr + " of " + currYear + " : $40.00\n",
+                ui.getGraphContainerString());
+        assertEquals("Got it, list will be printed in the other pane!\n", ui.getOutputString());
+    }
 
     @Test
     void testInvalidInput() {

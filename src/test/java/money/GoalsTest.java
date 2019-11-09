@@ -61,7 +61,7 @@ public class GoalsTest {
         account.getShortTermGoals().clear();
         Goal g = new Goal(1000, "watch", "GS", testDate, "HIGH");
         account.getShortTermGoals().add(g);
-        MoneyCommand deleteGoalCommand =  new DeleteGoalCommand(1);
+        MoneyCommand deleteGoalCommand =  new DeleteGoalCommand("delete goal 1");
         ui.clearOutputString();
         deleteGoalCommand.execute(account, ui, moneyStorage);
         assertEquals(" Noted. I've removed this Goal:\n"
@@ -274,7 +274,7 @@ public class GoalsTest {
         account.getShortTermGoals().clear();
         Goal g = new Goal(1000, "watch", "GS", testDate, "HIGH");
         account.getShortTermGoals().add(g);
-        MoneyCommand deleteGoalCommand =  new DeleteGoalCommand(2);
+        MoneyCommand deleteGoalCommand =  new DeleteGoalCommand("delete goal 2");
         ui.clearOutputString();
 
         try {

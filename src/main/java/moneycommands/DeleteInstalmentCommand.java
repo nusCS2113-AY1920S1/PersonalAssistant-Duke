@@ -22,7 +22,7 @@ public class DeleteInstalmentCommand extends MoneyCommand {
      * with the index of the item to be deleted within the user input
      * @param command delete command inputted from user
      */
-    public DeleteInstalmentCommand(String command) throws DukeException{
+    public DeleteInstalmentCommand(String command) throws DukeException {
         try {
             inputString = command;
             String temp = inputString.replaceAll("delete instalment ", "");
@@ -53,14 +53,15 @@ public class DeleteInstalmentCommand extends MoneyCommand {
             throw new DukeException("The serial number of the Instalments is Out Of Bounds!");
         }
         Instalment deletedEntryIns = account.getInstalments().get(serialNo - 1);
-        ui.appendToOutput(" Noted. I've removed this Instalment:\n");
-        ui.appendToOutput("  " + deletedEntryIns.toString() + "\n");
-        ui.appendToOutput(" Now you have " + (account.getInstalments().size() - 1)
-                + " instalments in the list.\n");
 
         account.getInstalments().remove(serialNo - 1);
         storage.addDeletedEntry(deletedEntryIns);
         storage.writeToFile(account);
+
+        ui.appendToOutput(" Noted. I've removed this Instalment:\n");
+        ui.appendToOutput("  " + deletedEntryIns.toString() + "\n");
+        ui.appendToOutput(" Now you have " + (account.getInstalments().size())
+                + " instalments in the list.\n");
 
         MoneyCommand update = new AutoUpdateInstalmentCommand();
         MoneyCommand list = new ListInstalmentCommand();

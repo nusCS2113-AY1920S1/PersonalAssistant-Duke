@@ -23,6 +23,7 @@ public class SettleLoanCommand extends MoneyCommand {
     private static int serialNo;
     private static Loan.Type type;
     private static final int SETTLE_ALL_FLAG = -2;
+    private static final int UNDEFINED_TYPE_FLAG = -1;
     private String description;
     private String loanToString;
     private boolean isSettled;
@@ -84,6 +85,25 @@ public class SettleLoanCommand extends MoneyCommand {
     }
 
     /**
+     * Returns the serial number of the loan belonging to the person who is specified in
+     * the user input according to the loan type.
+     * @param outgoingLoans ArrayList of outgoing loans to be checked
+     * @param incomingLoans ArrayList of incoming loans to be checked
+     * @param name String name of the person
+     * @return Integer index of the loan
+     * @throws DukeException When loan is not found
+     */
+    private int getTypeSerialNo(ArrayList<Loan> outgoingLoans, ArrayList<Loan> incomingLoans, String name)
+            throws DukeException {
+        if (type == Loan.Type.OUTGOING) {
+            return getSerialNo(outgoingLoans, name);
+        } else if (type == Loan.Type.INCOMING) {
+            return getSerialNo(incomingLoans, name);
+        }
+        return UNDEFINED_TYPE_FLAG;
+    }
+
+    /**
      * This method settles the debt of a loan.
      * Sets loan to settled if the entire debt is paid.
      * @param loanList ArrayList of loans containing the loan
@@ -132,19 +152,17 @@ public class SettleLoanCommand extends MoneyCommand {
         try {
             String regex = type == Loan.Type.INCOMING ? " /to " : " /from ";
             String[] splitStr = inputString.split(regex, 2);
+
             if (splitStr[0].equals("all")) {
                 amount = SETTLE_ALL_FLAG;
             } else {
                 amount = Float.parseFloat(splitStr[0]);
             }
+
             if (Parser.isNumeric(splitStr[1])) {
                 serialNo = Integer.parseInt(splitStr[1]) - 1;
             } else {
-                if (type == Loan.Type.OUTGOING) {
-                    serialNo = getSerialNo(account.getOutgoingLoans(), splitStr[1]);
-                } else if (type == Loan.Type.INCOMING) {
-                    serialNo = getSerialNo(account.getIncomingLoans(), splitStr[1]);
-                }
+                serialNo = getTypeSerialNo(account.getOutgoingLoans(), account.getIncomingLoans(), splitStr[1]);
             }
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             throw new DukeException("Please enter in the format: "
