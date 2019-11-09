@@ -4,6 +4,7 @@ import chronologer.command.Command;
 import chronologer.command.SearchCommand;
 import chronologer.exception.ChronologerException;
 
+//@@author hanskw4267
 /**
  * Extract the components required for the search command from the user input.
  *
@@ -22,7 +23,7 @@ public class SearchParser extends DescriptionParser {
         Long duration;
         try {
             duration = Long.parseLong(taskDescription);
-        }  catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             logger.writeLog(e.toString(), this.getClass().getName(), userInput);
             throw new ChronologerException(ChronologerException.invalidDuration());
         }

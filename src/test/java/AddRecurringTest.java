@@ -55,7 +55,7 @@ public class AddRecurringTest {
         Field[] lectureFields = getAddRecurringCommandFields(lecture);
         Command lectureTest = ParserFactory.parse("lecture /m cs2113 /at sundays 2130-2200");
         Field[] lectureTestFields = getAddRecurringCommandFields(lectureTest);
-        assertEqualsAddRecurringCommand(lectureTestFields, lectureFields, lectureTest, lecture);
+        assertEqualsAddRecurringCommand(lectureFields, lectureTestFields, lecture, lectureTest);
     }
 
     @Test
@@ -64,6 +64,6 @@ public class AddRecurringTest {
         Field[] tutorialFields = getAddRecurringCommandFields(tutorial);
         Command tutorialTest = ParserFactory.parse("tutorial /m cs2113 /at sundays 2130-2200");
         Field[] tutorialTestFields = getAddRecurringCommandFields(tutorialTest);
-        assertEqualsAddRecurringCommand(tutorialTestFields, tutorialFields, tutorialTest, tutorial);
+        assertEqualsAddRecurringCommand(tutorialFields, tutorialTestFields, tutorial, tutorialTest);
     }
 }

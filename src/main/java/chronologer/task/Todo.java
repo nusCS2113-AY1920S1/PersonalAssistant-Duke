@@ -30,7 +30,7 @@ public class Todo extends Task implements Serializable {
      * Creates a ToDo task with a specific duration.
      *
      * @param description description of task
-     * @param duration   duration of the task
+     * @param duration    duration of the task
      */
     public Todo(String description, int duration) {
         super(description);
@@ -66,19 +66,21 @@ public class Todo extends Task implements Serializable {
             message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description;
         } else if (this.duration == 0) {
             message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description
-                + " (from: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")" + " (to: "
-                + this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+                    + " (from: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")" + " (to: "
+                    + this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
 
         } else {
             message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description + " "
-                + "(for " + duration + " hours)";
+                    + "(for " + duration + " hours)";
         }
+        // @@author hanskw4267
         if (!location.isBlank()) {
             message = message + "\n" + location;
         }
         if (!comment.isBlank()) {
             message = message + "\nNote to self: " + comment;
         }
+        // @@author
         return message;
     }
 

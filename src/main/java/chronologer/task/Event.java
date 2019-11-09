@@ -31,6 +31,7 @@ public class Event extends Task implements Serializable, Comparable<Event> {
         this.type = EVENT;
     }
 
+    // @@author hanskw4267
     /**
      * Creates a new Event task.
      *
@@ -50,6 +51,7 @@ public class Event extends Task implements Serializable, Comparable<Event> {
         }
         setReminder(3);
     }
+    // @@author
 
     /**
      * Custom comparator for sorting.
@@ -68,15 +70,17 @@ public class Event extends Task implements Serializable, Comparable<Event> {
             message = super.getPriorityIcon() + "[E]" + "[" + super.getStatusIcon() + "] " + this.modCode + " "
                     + this.description;
         }
-        String dateString = "(at: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + "-"
+        message = message + "(at: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + "-"
                 + this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+        // @@author hanskw4267
         if (!location.isBlank()) {
-            dateString = dateString + "\n" + location;
+            message = message + "\n" + location;
         }
         if (!comment.isBlank()) {
-            dateString = dateString + "\nNote to self: " + comment;
+            message = message + "\nNote to self: " + comment;
         }
-        return message.concat(dateString);
+        // @@author
+        return message;
     }
 
     @Override

@@ -10,6 +10,7 @@ import chronologer.task.Task;
 import chronologer.task.TaskList;
 import chronologer.ui.UiTemporary;
 
+//@@author hanskw4267
 /**
  * Adds weekly recurring tasks to taskslist.
  * 
