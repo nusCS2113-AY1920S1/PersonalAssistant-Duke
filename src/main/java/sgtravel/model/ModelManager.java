@@ -67,14 +67,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void doneItinerary(String name) throws NoSuchItineraryException {
-        if (itineraryTable.get(name) == null) {
-            throw new NoSuchItineraryException();
-        }
-        this.itineraryTable.remove(name);
-    }
-
-    @Override
     public TransportationMap getMap() {
         return map;
     }
