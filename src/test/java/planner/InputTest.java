@@ -51,7 +51,7 @@ public class InputTest {
     }
 
     /**
-     * Credits to @author MaVRoSCy from this StackOverflow post:
+     * Credits to @@author MaVRoSCy from this StackOverflow post:
      * https://stackoverflow.com/questions/17103660/print-string-with-escape-non-printable-characters
      * Shows un-printable characters in the given string.
      * @param input Any string parameter, used for checking output from commandline.

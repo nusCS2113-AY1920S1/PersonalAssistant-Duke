@@ -62,13 +62,14 @@ public class GradeTest extends InputTest {
      */
     @Test
     public void gradeTestUserInput() {
-        final String moduleTest1 = "grade CS1010 A\n" + "bye"; //This affects the user's list
+        final String moduleTest1 = "password\n" + "grade CS1010 A\n" + "bye"; //This affects the user's list
         final String[] hold = {""};
         provideInput(moduleTest1);
         CliLauncher.main(hold);
-        String temp = "_______________________________\n"
-            +
-            "Welcome to ModPlanner, your one stop solution to module planning!\n"
+        String temp =
+            "Please enter your password to continue:\n"
+            + "_______________________________\n"
+            + "Welcome to ModPlanner, your one stop solution to module planning!\n"
             +
             "Begin typing to get started!\n"
             +
@@ -88,7 +89,7 @@ public class GradeTest extends InputTest {
             +
             "_______________________________\n"
             +
-            "_______________________________";
+            "_______________________________\n";
         String expectedAddModule = "_______________________________\n"
             +
             "Welcome to ModPlanner, your one stop solution to module planning!\n"
@@ -100,9 +101,7 @@ public class GradeTest extends InputTest {
             "Got it, graded CS1010 with grade: A\n"
             +
             "_______________________________\n" + expectedBye;
-        String contentString = outContent.toString();
-        String escaped = removeUnicodeAndEscapeChars(contentString);
-        assertEquals(escaped, escaped);
+        assertEquals(temp, outContent.toString().replaceAll("\r", ""));
     }
 
     /*@Test

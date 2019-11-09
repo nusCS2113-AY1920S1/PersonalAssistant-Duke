@@ -21,12 +21,13 @@ public class PlannerTest extends InputTest {
     @DisplayName("Termination Test")
     @Test
     public void testPlan() {
-        final String test = "bye";
+        final String test = "password\n bye";
         provideInput(test);
         final String[] hold = {""};
         CliLauncher.main(hold);
         String expected =
-                LINE
+                "Please enter your password to continue:\n"
+                + LINE
                 + "\n"
                 + "Welcome to ModPlanner, your one stop solution to module planning!\n"
                 + "Begin typing to get started!\n"

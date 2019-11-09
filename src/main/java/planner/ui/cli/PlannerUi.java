@@ -43,10 +43,6 @@ public class PlannerUi {
         System.out.println(LINE);
     }
 
-    private void closeScanner() {
-        scan.close();
-    }
-
     public String readInput() {
         return scan.nextLine().strip();
     }
@@ -230,7 +226,6 @@ public class PlannerUi {
                  + "Your data will be stored in file shortly!\n"
         );
         showLine();
-        closeScanner();
     }
 
     /**
