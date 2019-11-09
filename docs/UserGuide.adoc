@@ -1016,6 +1016,10 @@ previously paid months.
 
 Deletes credit card bill expenditure and rebate deposit from `JunBank Savings Account`. All credit card
 expenditures from `10/2019` will be marked as unpaid from `POBB Tomorrow Card`.
+
+.Successful deletion of card bill after using `/delete /cardbill`.
+image::DeleteCardBill.png[Caption="Figure : "]
+
 // tag::goals[]
 
 ==== Financial Goal Management
@@ -1612,6 +1616,9 @@ Lists the most recent 60 expenditures tied to JunBank Savings Account.
 * `/list /cardexpenditure /from POBB Tomorrow Card`
 
 Lists the most recent 30 expenditures tied to the POBB Tomorrow Card.
+
+.Successful listing of card expenditures after using `/list /cardexpenditure`.
+image::ListCardExpenditure.png[Caption="Figure : "]
 
 * `/list /deposit /from JunBank Savings Account /num 10`
 
