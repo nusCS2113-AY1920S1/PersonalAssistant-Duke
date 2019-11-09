@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+/**
+ * Test for "Dedicated to the art".
+ */
 public class DedicatedTest {
 
     /**

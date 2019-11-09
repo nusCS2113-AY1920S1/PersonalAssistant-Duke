@@ -3,38 +3,31 @@ package seedu.hustler.game.achievement;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+/**
+ * Test for "Fresh off the boat".
+ */
 public class FirstLoginTest {
 
     /**
-     * Checks if Busybee can be unlock.
+     * Checks if fresh off the boat can be unlock.
      */
     @Test
-    public void checkUnlockBusyBee() {
-        AddTask addTask = new AddTask("Bronze");
-        addTask.setLock(false);
-        assertEquals(false, addTask.checkLock());
+    public void checkUnlockFirstLogin() {
+        FirstLogin firstLogin = new FirstLogin();
+        firstLogin.setLock(false);
+        assertEquals(false, firstLogin.checkLock());
     }
 
     /**
      * Checks if the condition for unlocking each achievement level is correct.
      */
     @Test
-    public void checkBusyBeeInformation() {
-        AddTask bronze = new AddTask("Bronze");
-        AddTask silver = new AddTask("Silver");
-        AddTask gold = new AddTask("Gold");
+    public void checkFirstLoginInformation() {
+        FirstLogin gold = new FirstLogin();
 
         //checks if the condition for getting bronze achievement level is correct
-        assertEquals("(User adds 5 tasks)", bronze.getInformation());
-        //checks if the condition for getting silver achievement level is correct
-        assertEquals("(User adds 10 tasks)", silver.getInformation());
-        //checks if the condition for getting gold achievement level is correct
-        assertEquals("(User adds 15 tasks)", gold.getInformation());
-
-        //checks if the condition for getting bronze achievement level is different from silver
-        assertNotEquals(bronze.getInformation(),silver.getInformation());
+        assertEquals("(User use Hustler for the first time) Progress: [100%]", gold.getInformation());
     }
 
     /**
@@ -43,15 +36,10 @@ public class FirstLoginTest {
     @Test
     public void checkPrintingToTxt() {
 
-        FirstLogin lockedBronze = new FirstLogin();
-        FirstLogin unlockedBronze = new FirstLogin();
-
-        unlockedBronze.setLock(false);
-        unlockedBronze.setPoints(5);
+        FirstLogin unlockedGold = new FirstLogin();
 
         //String should represents the current status of Busybee.
-        assertEquals("true|0|Bronze|Busybee|(User adds 5 tasks)", lockedBronze.toTxt());
-        assertEquals("false|15|Bronze|Busybee|(User adds 5 tasks)", unlockedBronze.toTxt());
+        assertEquals("false|15|Gold|Fresh off the boat|(User use Hustler for the first time) Progress: [100%]", unlockedGold.toTxt());
 
     }
 
@@ -61,9 +49,9 @@ public class FirstLoginTest {
     @Test
     public void checkPrintingToString() {
 
-        AddTask lockedBronze = new AddTask("Bronze");
+        FirstLogin lockedGold = new FirstLogin();
 
         //String should represents the current status of Busybee.
-        assertEquals("Gained: 0 Busybee Bronze (User adds 5 tasks) Progress: [0%]", lockedBronze.toString());
+        assertEquals("Gained: 15 Fresh off the boat Gold(User use Hustler for the first time) Progress: [100%]", lockedGold.toString());
     }
 }
