@@ -2,6 +2,7 @@ package dolla.ui;
 
 import dolla.model.Record;
 
+import static dolla.ModeStringList.MODE_DEBT;
 import static dolla.ModeStringList.MODE_SHORTCUT;
 
 /**

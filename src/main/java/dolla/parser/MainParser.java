@@ -2,6 +2,8 @@ package dolla.parser;
 
 import dolla.ModeStringList;
 
+import dolla.model.Debt;
+import dolla.ui.DebtUi;
 import dolla.ui.Ui;
 
 import dolla.command.Command;
