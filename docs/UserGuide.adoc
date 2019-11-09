@@ -192,17 +192,18 @@ Examples:
 * You want to view your data from 1st of January, 2018 based on calorie:
 ** `list /date 1/1/2018 /sort calorie`
 * You want to view your data from 31th of December, 2019 based on their cost:
-** `list /sort cost /date 31/12/2019`
+** `list /sort costAscending /date 31/12/2019`
 
 [NOTE]
 ====
 * Current date is obtained from the system date in your computer.
 * Dates should be entered in the following format: day/month/year and must be valid date.
-* There are three sorting criteria, `cost`, `calorie`, and `default`:
-** `cost` will sort the list based on their cost (ascending)
-** `calorie` will sort the list based on their calorie (ascending)
-** `default` will sort the list based on their meal (breakfast, followed by lunch, and followed by dinner)
-* Not specifying sort will sort the data with `default` sorting criteria.
+* There are three sorting criteria, `costAscending`, `costDescending`, `calorieAscending`, and `calorieDescending`:
+** `costAscending` will sort the list based on their costs in ascending order.
+** `costDescending` will sort the list based on their costs in descending order.
+** `calorieAscending` will sort the list based on their calories in ascending order.
+** `calorieDescending` will sort the list based on their calories in ascending order.
+** Not specifying sort criteria will sort the list based on their meal (breakfast, followed by lunch, and followed by dinner)
 ====
 
 ==== Adding a breakfast item: `breakfast`

@@ -26,8 +26,4 @@ public class SortMealByCost implements Comparator<Meal> {
         return mealCost.compareTo(mealComparedCost);
     }
 
-    @Override
-    public Comparator<Meal> reversed() {
-        return null;
-    }
 }
