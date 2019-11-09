@@ -19,34 +19,34 @@ import java.util.ArrayList;
 public class PlaylistCommand extends CommandSuper {
 
     public PlaylistCommand(Controller uicontroller) {
-        super(COMMANDKEYS.playlist, CommandStructure.cmdStructure.get(COMMANDKEYS.playlist), uicontroller);
+        super(COMMANDKEYS.PLAYLIST, CommandStructure.cmdStructure.get(COMMANDKEYS.PLAYLIST), uicontroller);
     }
 
     @Override
     public void executeCommands() throws IOException {
         switch (this.getSubRootCommand()) {
-        case create:
+        case CREATE:
             executeCreatePlaylist();
             break;
-        case delete:
+        case DELETE:
             executeDeletePlaylist();
             break;
-        case add:
+        case ADD:
             executeAddToPlaylist();
             break;
-        case remove:
+        case REMOVE:
             executeRemoveFromPlaylist();
             break;
-        case set:
+        case SET:
             executeSetToPlaylist();
             break;
-        case clear:
+        case CLEAR:
             executeClearPlaylist();
             break;
-        case list:
+        case LIST:
             executePlaylistListing();
             break;
-        case back:
+        case BACK:
             executeBackToPlaylistInfo();
             break;
         default:

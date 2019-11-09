@@ -11,19 +11,19 @@ import java.io.IOException;
 
 public class RestrictionCommand extends CommandSuper {
     public RestrictionCommand(Controller uiController) {
-        super(COMMANDKEYS.restriction, CommandStructure.cmdStructure.get(COMMANDKEYS.restriction), uiController);
+        super(COMMANDKEYS.RESTRICTION, CommandStructure.cmdStructure.get(COMMANDKEYS.RESTRICTION), uiController);
     }
 
     @Override
     public void executeCommands() throws IOException {
         switch (this.getSubRootCommand()) {
-        case add:
+        case ADD:
             executeAddRestriction();
             break;
-        case remove:
+        case REMOVE:
             executeRemoveRestriction();
             break;
-        case clear:
+        case CLEAR:
             executeClearRestriction();
             break;
         default:

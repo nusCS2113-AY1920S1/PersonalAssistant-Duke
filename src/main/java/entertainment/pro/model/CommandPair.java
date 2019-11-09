@@ -37,6 +37,22 @@ public class CommandPair {
     }
 
     /**
+     * getter for the root command in String.
+     * @return Rootcommand
+     */
+    public String getRootCommandStr() {
+        return RootCommand.toString().toLowerCase();
+    }
+
+    /**
+     * getter for the subroot command in String.
+     * @return subRootcommand
+     */
+    public String getSubRootCommandStr() {
+        return SubRootCommand.toString().toLowerCase();
+    }
+
+    /**
      * Getter for subroot command.
      * @return Subroot command
      **/

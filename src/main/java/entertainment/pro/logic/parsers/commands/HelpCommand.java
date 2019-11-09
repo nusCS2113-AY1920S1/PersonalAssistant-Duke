@@ -13,7 +13,7 @@ import entertainment.pro.ui.MovieHandler;
  */
 public class HelpCommand extends CommandSuper {
     public HelpCommand(Controller uicontroller) {
-        super(COMMANDKEYS.help, CommandStructure.cmdStructure.get(COMMANDKEYS.help), uicontroller);
+        super(COMMANDKEYS.HELP, CommandStructure.cmdStructure.get(COMMANDKEYS.HELP), uicontroller);
     }
 
     /**

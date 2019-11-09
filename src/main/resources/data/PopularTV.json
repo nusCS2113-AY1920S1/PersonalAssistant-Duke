@@ -1,6 +1,7 @@
 {
   "results": [
     {
+      "adult": false,
       "first_air_date": "2012-10-10",
       "overview": "Spoiled billionaire playboy Oliver Queen is missing and presumed dead when his yacht is lost at sea. He returns five years later a changed man, determined to clean up the city as a hooded vigilante armed with a bow.",
       "cert": "Suitable for 15 years & above",
@@ -23,6 +24,7 @@
       "id": 1412
     },
     {
+      "adult": false,
       "first_air_date": "2015-08-23",
       "overview": "What did the world look like as it was transforming into the horrifying apocalypse depicted in \"The Walking Dead\"? This spin-off set in Los Angeles, following new characters as they face the beginning of the end of the world, will answer that question.",
       "cert": "Suitable for 18 years & above",
@@ -43,6 +45,7 @@
       "id": 62286
     },
     {
+      "adult": false,
       "first_air_date": "2014-10-07",
       "overview": "After a particle accelerator causes a freak storm, CSI Investigator Barry Allen is struck by lightning and falls into a coma. Months later he awakens with the power of super speed, granting him the ability to move through Central City like an unseen guardian angel. Though initially excited by his newfound powers, Barry is shocked to discover he is not the only \"meta-human\" who was created in the wake of the accelerator explosion -- and not everyone is using their new powers for good. Barry partners with S.T.A.R. Labs and dedicates his life to protect the innocent. For now, only a few close friends and associates know that Barry is literally the fastest man alive, but it won't be long before the world learns what Barry Allen has become...The Flash.",
       "cert": "Suitable for 12 years & above",
@@ -63,6 +66,7 @@
       "id": 60735
     },
     {
+      "adult": false,
       "first_air_date": "2005-09-13",
       "overview": "When they were boys, Sam and Dean Winchester lost their mother to a mysterious and demonic supernatural force. Subsequently, their father raised them to be soldiers. He taught them about the paranormal evil that lives in the dark corners and on the back roads of America ... and he taught them how to kill it. Now, the Winchester brothers crisscross the country in their '67 Chevy Impala, battling every kind of supernatural threat they encounter along the way. ",
       "cert": "Suitable for 15 years & above",
@@ -83,6 +87,7 @@
       "id": 1622
     },
     {
+      "adult": false,
       "first_air_date": "2017-01-26",
       "overview": "Set in the present, the series offers a bold, subversive take on Archie, Betty, Veronica and their friends, exploring the surreality of small-town life, the darkness and weirdness bubbling beneath Riverdale\u2019s wholesome facade.",
       "cert": "N\/A",
@@ -103,6 +108,7 @@
       "id": 69050
     },
     {
+      "adult": false,
       "first_air_date": "1989-12-17",
       "overview": "Set in Springfield, the average American town, the show focuses on the antics and everyday adventures of the Simpson family; Homer, Marge, Bart, Lisa and Maggie, as well as a virtual cast of thousands. Since the beginning, the series has been a pop culture icon, attracting hundreds of celebrities to guest star. The show has also made name for itself in its fearless satirical take on politics, media and American life in general.",
       "cert": "Suitable for 12 years & above",
@@ -123,6 +129,7 @@
       "id": 456
     },
     {
+      "adult": false,
       "first_air_date": "1999-01-31",
       "overview": "Sick, twisted, politically incorrect and Freakin' Sweet animated series featuring the adventures of the dysfunctional Griffin family. Bumbling Peter and long-suffering Lois have three kids. Stewie (a brilliant but sadistic baby bent on killing his mother and taking over the world), Meg (the oldest, and is the most unpopular girl in town) and Chris (the middle kid, he's not very bright but has a passion for movies). The final member of the family is Brian - a talking dog and much more than a pet, he keeps Stewie in check whilst sipping Martinis and sorting through his own life issues.",
       "cert": "Suitable for 15 years & above",
@@ -143,6 +150,7 @@
       "id": 1434
     },
     {
+      "adult": false,
       "first_air_date": "2019-10-06",
       "overview": "Armed with a great passion for social justice and with a great facility to always say what she thinks, Kate Kane is known in the streets of Gotham as Batwoman, a lesbian highly trained to fight crime that resurfaces in the city. However, before becoming a savior, she must fight the demons that prevent her from being the symbol of the hope of a corrupt city.",
       "cert": "N\/A",
@@ -163,6 +171,7 @@
       "id": 89247
     },
     {
+      "adult": false,
       "first_air_date": "2019-02-15",
       "overview": "The Doom Patrol\u2019s members each suffered horrible accidents that gave them superhuman abilities \u2014 but also left them scarred and disfigured. Traumatized and downtrodden, the team found purpose through The Chief, who brought them together to investigate the weirdest phenomena in existence \u2014 and to protect Earth from what they find.",
       "cert": "N\/A",
@@ -183,6 +192,7 @@
       "id": 79501
     },
     {
+      "adult": false,
       "first_air_date": "2011-10-02",
       "overview": "Twelve-year-old Gon Freecss one day discovers that the father he had always been told was dead was alive and well. His Father, Ging, is a Hunter\u2014a member of society's elite with a license to go anywhere or do almost anything. Gon, determined to follow in his father's footsteps, decides to take the Hunter Examination and eventually find his father to prove himself as a Hunter in his own right. But on the way, he learns that there is more to becoming a Hunter than previously thought, and the challenges that he must face are considered the toughest in the world.",
       "cert": "N\/A",
@@ -204,6 +214,7 @@
       "id": 46298
     },
     {
+      "adult": false,
       "first_air_date": "1999-09-20",
       "overview": "In the criminal justice system, sexually-based offenses are considered especially heinous. In New York City, the dedicated detectives who investigate these vicious felonies are members of an elite squad known as the Special Victims Unit. These are their stories.",
       "cert": "N\/A",
@@ -223,6 +234,7 @@
       "id": 2734
     },
     {
+      "adult": false,
       "first_air_date": "1997-08-13",
       "overview": "Follows the misadventures of four irreverent grade-schoolers in the quiet, dysfunctional town of South Park, Colorado.",
       "cert": "Suitable for 15 years & above",
@@ -242,6 +254,7 @@
       "id": 2190
     },
     {
+      "adult": false,
       "first_air_date": "2005-03-27",
       "overview": "Follows the personal and professional lives of a group of doctors at Seattle\u2019s Grey Sloan Memorial Hospital.",
       "cert": "N\/A",
@@ -261,6 +274,7 @@
       "id": 1416
     },
     {
+      "adult": false,
       "first_air_date": "2008-01-20",
       "overview": "When Walter White, a New Mexico chemistry teacher, is diagnosed with Stage III cancer and given a prognosis of only two years left to live. He becomes filled with a sense of fearlessness and an unrelenting desire to secure his family's financial future at any cost as he enters the dangerous world of drugs and crime.",
       "cert": "Suitable for 18 years & above",
@@ -280,6 +294,7 @@
       "id": 1396
     },
     {
+      "adult": false,
       "first_air_date": "2009-09-22",
       "overview": "The exploits of the Los Angeles\u2013based Office of Special Projects (OSP), an elite division of the Naval Criminal Investigative Service that specializes in undercover assignments.",
       "cert": "N\/A",
@@ -302,6 +317,7 @@
       "id": 17610
     },
     {
+      "adult": false,
       "first_air_date": "2013-09-23",
       "overview": "Raymond \"Red\" Reddington, one of the FBI's most wanted fugitives, surrenders in person at FBI Headquarters in Washington, D.C. He claims that he and the FBI have the same interests: bringing down dangerous criminals and terrorists. In the last two decades, he's made a list of criminals and terrorists that matter the most but the FBI cannot find because it does not know they exist. Reddington calls this \"The Blacklist\". Reddington will co-operate, but insists that he will speak only to Elizabeth Keen, a rookie FBI profiler.",
       "cert": "N\/A",
@@ -323,6 +339,7 @@
       "id": 46952
     },
     {
+      "adult": false,
       "first_air_date": "2017-10-08",
       "overview": "When Jibon Babu brings home a vivacious wife, Uma, inappropriate things start happening as she becomes the fantasy and obsession of the other young tenants in the house.",
       "cert": "N\/A",
@@ -336,6 +353,7 @@
       "id": 74564
     },
     {
+      "adult": false,
       "first_air_date": "2015-10-26",
       "overview": "Twenty-four-year-old Kara Zor-El, who was taken in by the Danvers family when she was 13 after being sent away from Krypton, must learn to embrace her powers after previously hiding them. The Danvers teach her to be careful with her powers, until she has to reveal them during an unexpected disaster, setting her on her journey of heroism.",
       "cert": "Suitable for 12 years & above",
@@ -358,6 +376,7 @@
       "id": 62688
     },
     {
+      "adult": false,
       "first_air_date": "2014-09-22",
       "overview": "Before there was Batman, there was GOTHAM. \n\nEveryone knows the name Commissioner Gordon. He is one of the crime world's greatest foes, a man whose reputation is synonymous with law and order. But what is known of Gordon's story and his rise from rookie detective to Police Commissioner? What did it take to navigate the multiple layers of corruption that secretly ruled Gotham City, the spawning ground of the world's most iconic villains? And what circumstances created them \u2013 the larger-than-life personas who would become Catwoman, The Penguin, The Riddler, Two-Face and The Joker? ",
       "cert": "Suitable for 15 years & above",
@@ -379,6 +398,7 @@
       "id": 60708
     },
     {
+      "adult": false,
       "first_air_date": "2013-12-02",
       "overview": "Rick is a mentally-unbalanced but scientifically-gifted old man who has recently reconnected with his family. He spends most of his time involving his young grandson Morty in dangerous, outlandish adventures throughout space and alternate universes. Compounded with Morty's already unstable family life, these events cause Morty much distress at home and school.",
       "cert": "N\/A",

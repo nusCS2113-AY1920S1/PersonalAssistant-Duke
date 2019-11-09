@@ -1,6 +1,7 @@
 {
   "results": [
     {
+      "adult": false,
       "first_air_date": "2019-10-20",
       "overview": "Set in an alternate history where \u201Csuperheroes\u201D are treated as outlaws, \u201CWatchmen\u201D embraces the nostalgia of the original groundbreaking graphic novel while attempting to break new ground of its own.",
       "cert": "N\/A",
@@ -24,6 +25,7 @@
       "id": 79788
     },
     {
+      "adult": false,
       "first_air_date": "2010-10-31",
       "overview": "Sheriff's deputy Rick Grimes awakens from a coma to find a post-apocalyptic world dominated by flesh-eating zombies. He sets out to find his family and encounters many other survivors along the way.",
       "cert": "Suitable for 18 years & above",
@@ -46,6 +48,7 @@
       "id": 1402
     },
     {
+      "adult": false,
       "first_air_date": "2014-04-06",
       "overview": "In the high-tech gold rush of modern Silicon Valley, the people most qualified to succeed are the least capable of handling success. Partially inspired by Mike Judge\u2019s own experiences as a Silicon Valley engineer in the late \u201880s, Silicon Valley is an American sitcom that centers around six programmers who are living together and trying to make it big in the Silicon Valley.",
       "cert": "N\/A",
@@ -66,6 +69,7 @@
       "id": 60573
     },
     {
+      "adult": false,
       "first_air_date": "2019-10-27",
       "overview": "A dual coming-of-age comedy exploring the impact of internet porn and social media, Mrs. Fletcher follows empty nest divorcée Eve Fletcher \u2014 as she reinvents her life to find the happiness and sexual fulfillment that\u2019s eluded her, and her college freshman son Brendan.",
       "cert": "N\/A",
@@ -88,6 +92,7 @@
       "id": 81879
     },
     {
+      "adult": false,
       "first_air_date": "2019-10-24",
       "overview": "Living his best life in post-apocalyptic LA, a slacker strives to find the girl of his dreams while outwitting mindless ghouls and cliquish gangs.",
       "cert": "N\/A",
@@ -109,6 +114,7 @@
       "id": 83478
     },
     {
+      "adult": false,
       "first_air_date": "2015-10-26",
       "overview": "Twenty-four-year-old Kara Zor-El, who was taken in by the Danvers family when she was 13 after being sent away from Krypton, must learn to embrace her powers after previously hiding them. The Danvers teach her to be careful with her powers, until she has to reveal them during an unexpected disaster, setting her on her journey of heroism.",
       "cert": "Suitable for 12 years & above",
@@ -132,6 +138,7 @@
       "id": 62688
     },
     {
+      "adult": false,
       "first_air_date": "2014-06-07",
       "overview": "A successful New York entrepreneur lives a double life as the head of a drug empire that serves only the rich and influential, all while wanting to escape the underworld and keep his family safe.",
       "cert": "N\/A",
@@ -153,6 +160,7 @@
       "id": 54650
     },
     {
+      "adult": false,
       "first_air_date": "2015-05-27",
       "overview": "A contemporary and culturally resonant drama about a young programmer, Elliot, who suffers from a debilitating anti-social disorder and decides that he can only connect to people by hacking them. He wields his skills as a weapon to protect the people that he cares about. Elliot will find himself in the intersection between a cybersecurity firm he works for and the underworld organizations that are recruiting him to bring down corporate America.",
       "cert": "Suitable for 15 years & above",
@@ -174,6 +182,7 @@
       "id": 62560
     },
     {
+      "adult": false,
       "first_air_date": "2019-10-06",
       "overview": "Armed with a great passion for social justice and with a great facility to always say what she thinks, Kate Kane is known in the streets of Gotham as Batwoman, a lesbian highly trained to fight crime that resurfaces in the city. However, before becoming a savior, she must fight the demons that prevent her from being the symbol of the hope of a corrupt city.",
       "cert": "N\/A",
@@ -195,27 +204,7 @@
       "id": 89247
     },
     {
-      "first_air_date": "2019-10-29",
-      "overview": "Set in contemporary Europe, the reimagining follows the pockets of humanity left on earth following an apocalyptic extra-terrestrial strike.",
-      "cert": "N\/A",
-      "genre_ids": [
-        18,
-        10765
-      ],
-      "cast": [
-        "Gabriel Byrne",
-        "Natasha Little",
-        "Daisy Edgar-Jones",
-        "Elizabeth McGovern",
-        "Stéphane Caillard"
-      ],
-      "media_type": "tv",
-      "original_name": "War of the Worlds",
-      "vote_average": 0.0,
-      "name": "War of the Worlds",
-      "id": 86374
-    },
-    {
+      "adult": false,
       "first_air_date": "2018-10-12",
       "overview": "A team of young superheroes led by Nightwing (formerly Batman's first Robin) form to combat evil and other perils.",
       "cert": "N\/A",
@@ -238,6 +227,7 @@
       "id": 75450
     },
     {
+      "adult": false,
       "first_air_date": "2014-10-07",
       "overview": "After a particle accelerator causes a freak storm, CSI Investigator Barry Allen is struck by lightning and falls into a coma. Months later he awakens with the power of super speed, granting him the ability to move through Central City like an unseen guardian angel. Though initially excited by his newfound powers, Barry is shocked to discover he is not the only \"meta-human\" who was created in the wake of the accelerator explosion -- and not everyone is using their new powers for good. Barry partners with S.T.A.R. Labs and dedicates his life to protect the innocent. For now, only a few close friends and associates know that Barry is literally the fastest man alive, but it won't be long before the world learns what Barry Allen has become...The Flash.",
       "cert": "Suitable for 12 years & above",
@@ -259,6 +249,7 @@
       "id": 60735
     },
     {
+      "adult": false,
       "first_air_date": "2012-10-10",
       "overview": "Spoiled billionaire playboy Oliver Queen is missing and presumed dead when his yacht is lost at sea. He returns five years later a changed man, determined to clean up the city as a hooded vigilante armed with a bow.",
       "cert": "Suitable for 15 years & above",
@@ -282,6 +273,7 @@
       "id": 1412
     },
     {
+      "adult": false,
       "first_air_date": "2005-09-13",
       "overview": "When they were boys, Sam and Dean Winchester lost their mother to a mysterious and demonic supernatural force. Subsequently, their father raised them to be soldiers. He taught them about the paranormal evil that lives in the dark corners and on the back roads of America ... and he taught them how to kill it. Now, the Winchester brothers crisscross the country in their '67 Chevy Impala, battling every kind of supernatural threat they encounter along the way. ",
       "cert": "Suitable for 15 years & above",
@@ -303,6 +295,7 @@
       "id": 1622
     },
     {
+      "adult": false,
       "first_air_date": "2019-09-29",
       "overview": "The true story of infamous crime boss Bumpy Johnson, who in the early 1960s returned from ten years in prison to find the neighborhood he once ruled in shambles. With the streets controlled by the Italian mob, Bumpy must take on the Genovese crime family to regain control.",
       "cert": "N\/A",
@@ -324,6 +317,7 @@
       "id": 79086
     },
     {
+      "adult": false,
       "first_air_date": "2011-04-17",
       "overview": "Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and icy horrors beyond.",
       "cert": "Suitable for 18 years & above",
@@ -346,6 +340,7 @@
       "id": 1399
     },
     {
+      "adult": false,
       "first_air_date": "2019-10-06",
       "overview": "In Edwardian England, George and his partner Amy attempt to defy society and start a life together as they face the escalating terror of an alien invasion, fighting for their lives against an enemy beyond their comprehension.",
       "cert": "N\/A",
@@ -366,6 +361,7 @@
       "id": 83981
     },
     {
+      "adult": false,
       "first_air_date": "2017-01-26",
       "overview": "Set in the present, the series offers a bold, subversive take on Archie, Betty, Veronica and their friends, exploring the surreality of small-town life, the darkness and weirdness bubbling beneath Riverdale\u2019s wholesome facade.",
       "cert": "N\/A",
@@ -387,6 +383,7 @@
       "id": 69050
     },
     {
+      "adult": false,
       "first_air_date": "2018-07-25",
       "overview": "Based on the stories of Stephen King, the series intertwines characters and themes from the fictional town of Castle Rock.",
       "cert": "N\/A",
@@ -409,6 +406,7 @@
       "id": 71116
     },
     {
+      "adult": false,
       "first_air_date": "2018-09-04",
       "overview": "Set in a dystopian America ruled by a totalitarian political party, the series follows several seemingly unrelated characters living in a small city. Tying them all together is a mysterious savior who\u2019s impeccably equipped for everything the night throws at them. As the clock winds down with their fates hanging in the balance, each character is forced to reckon with their pasts as they discover how far they will go to survive the night.",
       "cert": "N\/A",

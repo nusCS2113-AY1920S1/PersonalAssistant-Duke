@@ -21,7 +21,7 @@ public class PlaylistExceptions {
      * to check if create command is in correct format.
      * command: playlist create PLAYLIST_NAME
      * checks: whether user input payload
-     *         whether playlist name for new playlist is in use
+     * whether playlist name for new playlist is in use
      */
     public static void checkCreateCommand(String payload, UserProfile userProfile)
             throws InvalidFormatCommandException, InvalidParameterException {
@@ -33,7 +33,7 @@ public class PlaylistExceptions {
      * to check if delete command is in correct format.
      * command: playlist delete PLAYLIST_NAME
      * checks: whether user input payload
-     *         whether playlist to be deleted exists
+     * whether playlist to be deleted exists
      */
     public static void checkDeleteCommand(String payload, UserProfile userProfile)
             throws InvalidFormatCommandException, InvalidParameterException {
@@ -45,10 +45,10 @@ public class PlaylistExceptions {
      * to check if add command is in correct format.
      * command: playlist add PLAYLIST_NAME [-m INDEX...]
      * checks: whether user input payload
-     *         whether playlist to be edited exists
-     *         whether INDEX is a number
-     *         whether INDEX is within range
-     *         whether the movie is already in the playlist
+     * whether playlist to be edited exists
+     * whether INDEX is a number
+     * whether INDEX is within range
+     * whether the movie is already in the playlist
      */
     public static void checkAddCommand(String payload, Map<String, ArrayList<String>> flagMap,
                                        UserProfile userProfile, ArrayList<MovieInfoObject> movies)
@@ -71,9 +71,9 @@ public class PlaylistExceptions {
      * to check if remove command is in correct format.
      * command: playlist remove PLAYLIST_NAME [-m INDEX...]
      * checks: whether user input payload
-     *         whether playlist to be edited exists
-     *         whether INDEX is a number
-     *         whether INDEX is within range (if within range then movie is already in playlist and can be deleted)
+     * whether playlist to be edited exists
+     * whether INDEX is a number
+     * whether INDEX is within range (if within range then movie is already in playlist and can be deleted)
      */
     public static void checkRemoveCommand(String payload, Map<String, ArrayList<String>> flagMap,
                                           UserProfile userProfile, ArrayList<MovieInfoObject> movies)
@@ -95,8 +95,8 @@ public class PlaylistExceptions {
      * to check if set command is in correct format.
      * command: playlist set PLAYLIST_NAME [-n NEW_PLAYLIST_NAME] [-d NEW_DESCRIPTION]
      * checks: whether user input payload
-     *         whether playlist to be edited exists
-     *         whether NEW_PLAYLIST_NAME is in use
+     * whether playlist to be edited exists
+     * whether NEW_PLAYLIST_NAME is in use
      */
     public static void checkSetCommand(String payload, Map<String, ArrayList<String>> flagMap,
                                        UserProfile userProfile)
@@ -116,7 +116,7 @@ public class PlaylistExceptions {
      * to check if clear command is in correct format.
      * command: playlist clear PLAYLIST_NAME
      * checks: whether user input payload
-     *         whether playlist to be edited exists
+     * whether playlist to be edited exists
      */
     public static void checkClearCommand(String payload, UserProfile userProfile)
             throws InvalidFormatCommandException, InvalidParameterException {
@@ -127,6 +127,7 @@ public class PlaylistExceptions {
     /**
      * to check whether that command's payload is empty.
      * command: all playlist commands
+     *
      * @throws InvalidFormatCommandException when payload is empty
      */
     private static void checkPayload(String payload) throws InvalidFormatCommandException, InvalidParameterException {
@@ -140,6 +141,7 @@ public class PlaylistExceptions {
     /**
      * to check whether playlist with that name exists.
      * command: create / set -n
+     *
      * @throws InvalidParameterException when that name already belongs to an existing playlist
      */
     private static void checkNameExist(String name, UserProfile userProfile) throws InvalidParameterException {
@@ -154,6 +156,7 @@ public class PlaylistExceptions {
     /**
      * to check whether a particular movie can be added to playlist.
      * command: add -m
+     *
      * @throws InvalidParameterException when movie already belongs to playlist
      */
     private static void checkMovieForAdd(MovieInfoObject movie, Playlist playlist) throws InvalidParameterException {
@@ -173,6 +176,7 @@ public class PlaylistExceptions {
     /**
      * to check whether playlist name in playload exists.
      * command: set / add / remove / clear / delete
+     *
      * @throws InvalidParameterException when payload playlist does not exist
      */
     private static void checkPayloadPlaylist(String name, UserProfile userProfile) throws InvalidParameterException {
@@ -192,6 +196,7 @@ public class PlaylistExceptions {
     /**
      * to check whether the index indicated is out of range.
      * command: add -m / remove -m
+     *
      * @throws InvalidParameterException when index is out of bounds
      */
     private static void checkIndex(int i, int size) throws InvalidParameterException {
@@ -203,6 +208,7 @@ public class PlaylistExceptions {
 
     /**
      * check whether user input a number for movie index.
+     *
      * @throws InvalidParameterException when user input characters instead
      */
     private static void checkIndexInput(String input) throws InvalidParameterException {
@@ -221,6 +227,7 @@ public class PlaylistExceptions {
     /**
      * check whether flag used is valid for this command.
      * command: add / remove
+     *
      * @throws InvalidFormatCommandException when flag is not [-m]
      */
     private static void checkFlagMap(Map.Entry<String, ArrayList<String>> log) throws InvalidFormatCommandException {
@@ -233,12 +240,13 @@ public class PlaylistExceptions {
     /**
      * check whether flag used is valid for this command.
      * command: set
+     *
      * @throws InvalidFormatCommandException when flag is not [-n] or [-d]
      */
     private static void checkSetFlagMap(Map.Entry<String, ArrayList<String>> log)
             throws InvalidFormatCommandException {
         boolean flag = true;
-        if (log.getKey().equals("-n") ||  log.getKey().equals("-d")) {
+        if (log.getKey().equals("-n") || log.getKey().equals("-d")) {
             flag = false;
         }
         if (flag) {

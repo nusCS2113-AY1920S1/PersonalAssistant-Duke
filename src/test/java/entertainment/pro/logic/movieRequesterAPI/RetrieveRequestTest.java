@@ -2,29 +2,38 @@ package entertainment.pro.logic.movieRequesterAPI;
 
 import entertainment.pro.commons.PromptMessages;
 import entertainment.pro.commons.exceptions.Exceptions;
-import entertainment.pro.logic.parsers.commands.SearchCommand;
 import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.model.SearchProfile;
 import entertainment.pro.storage.utils.OfflineSearchStorage;
+import entertainment.pro.ui.MovieHandler;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static entertainment.pro.ui.MovieHandler.mMovieRequest;
 import static javafx.scene.input.KeyCode.A;
 import static javafx.scene.input.KeyCode.R;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RetrieveRequestTest {
-
+    ArrayList<Integer> genrePreference = new ArrayList<>();
+    ArrayList<Integer> genreRestriction = new ArrayList<>();
+    ArrayList<String> playlist = new ArrayList<>();
+    boolean isAdultEnabled = false;
+    boolean sortByAlphaOrder = false;
+    boolean sortByRating = false;
+    boolean sortByReleaseDate = false;
+    boolean isMovie = true;
+    String searchEntryName = "";
+    String name = "";
+    int age = 0;
     private static final String TO_SPECIFY_RESULTS = "results";
     private static final String VALID_MOVIE_CERT_FILENAME1 = "/data/ValidMovieCertFile1";
     private static final String VALID_MOVIE_CERT_FILENAME2 = "/data/ValidMovieCertFile2";
@@ -37,16 +46,19 @@ public class RetrieveRequestTest {
     ArrayList<Integer> genrePref1 = new ArrayList<>();
     ArrayList<Integer> genreRestrict1 = new ArrayList<>();
     MovieInfoObject movieInfoObject1 = new MovieInfoObject(1, "Ad Astra", true, getDate("01/01/2018"),
-            null, null, null, 8.0, null, false);
-    MovieInfoObject movieInfoObject2 = new MovieInfoObject(1, "Joker", true, getDate("01/01/2017"),
+            null, null, null, 8.0, null, true);
+    MovieInfoObject movieInfoObject2 = new MovieInfoObject(18, "Joker", true, getDate("01/01/2017"),
             null, null, null, 9.0, null, false);
-    MovieInfoObject movieInfoObject3 = new MovieInfoObject(1, "Spiderman", true, getDate("01/01/2019"),
+    MovieInfoObject movieInfoObject3 = new MovieInfoObject(10202, "Spiderman", true, getDate("01/01/2019"),
             null, null, null, 7.0, null, false);
-    MovieInfoObject movieInfoObject4 = new MovieInfoObject(1, "", true, getDate("2019/01/01"),
+    MovieInfoObject movieInfoObject4 = new MovieInfoObject(25506, "", false, getDate("2019/01/01"),
+            null, null, null, 0.0, null, true);
+    MovieInfoObject movieInfoObject5 = new MovieInfoObject(100, "", false, getDate("2019/01/01"),
             null, null, null, 0.0, null, false);
+
     List<MovieInfoObject> testObjectsList = Arrays.asList(movieInfoObject4, movieInfoObject1, movieInfoObject2, movieInfoObject3);
 
-    public String getString(String filename) throws Exceptions {
+    public static String getString(String filename) throws Exceptions {
         InputStream inputStream = OfflineSearchStorage.class.getResourceAsStream(filename);
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -158,9 +170,10 @@ public class RetrieveRequestTest {
         assertEquals(expected1, cert1);
     }
 
-    public JSONArray getOffline(int i) throws Exceptions {
-        String filename = MOVIES_DATABASE_FILEPATH;
-        filename += i + ".json";
+    public JSONArray getOffline() throws Exceptions {
+        //String filename = MOVIES_DATABASE_FILEPATH;
+        // filename += i + ".json";
+        String filename = "/data/movieData/1.json";
         String dataFromJSON = getString(filename);
         JSONParser jsonParser = new JSONParser();
         JSONArray jsonArray = new JSONArray();
@@ -210,7 +223,7 @@ public class RetrieveRequestTest {
     }
 
     @Test
-    public void sortByHighestRatingTest() {
+    public void sortByHighestRatingTest() throws Exceptions {
         ArrayList<MovieInfoObject> testArrayList = new ArrayList<>();
         testArrayList.addAll(testObjectsList);
         ArrayList<MovieInfoObject> expectedArrayList1 = new ArrayList<>();
@@ -224,23 +237,26 @@ public class RetrieveRequestTest {
     }
 
     @Test
-    public void checkConditionTest() throws Exceptions {
+    public void checkConditionTest_returns_true() throws Exceptions {
         String searchProfileData = getString(SEARCH_PROFILE_FILEPATH);
         JSONArray jsonArray = getValidData(searchProfileData);
+        int d = 0;
         for (int i = 0; i < jsonArray.size(); i += 1) {
-            SearchProfile searchProfile = null;
+            SearchProfile searchProfile = new SearchProfile(name, age, genrePreference, genreRestriction, isAdultEnabled,
+                    playlist, sortByAlphaOrder, sortByRating, sortByReleaseDate, searchEntryName, isMovie);
+            ;
             ArrayList<Integer> genrePref = new ArrayList<>();
             ArrayList<Integer> genreRestrict = new ArrayList<>();
             JSONObject jsonObject = (JSONObject) jsonArray.get(i);
             JSONArray jsonArray1 = (JSONArray) jsonObject.get("genreIdPreference");
             for (int j = 0; j < jsonArray1.size(); j += 1) {
-                long num = (long) jsonArray1.get(i);
+                long num = (long) jsonArray1.get(j);
                 int genreNo = Math.toIntExact(num);
                 genrePref.add(genreNo);
             }
             JSONArray jsonArray2 = (JSONArray) jsonObject.get("genreIdRestriction");
             for (int j = 0; j < jsonArray2.size(); j += 1) {
-                long num = (long) jsonArray2.get(i);
+                long num = (long) jsonArray2.get(j);
                 int genreNo = Math.toIntExact(num);
                 genreRestrict.add(genreNo);
             }
@@ -253,15 +269,63 @@ public class RetrieveRequestTest {
             searchProfile.setMovie((Boolean) jsonObject.get("isMovie"));
             searchProfile.setName((String) jsonObject.get("name"));
             RetrieveRequest.searchProfile = searchProfile;
-
-            for (int k = 1; k <= 2; k += 1) {
-                JSONArray jsonArray3 = getOffline(k);
-                for (int a = 1; a < jsonArray3.size(); a += 1) {
-                    JSONObject jsonObject1 = (JSONObject) jsonArray3.get(a);
-                    assertTrue(RetrieveRequest.checkCondition(jsonObject1), "Test has failed");
+            JSONArray jsonArray3 = getOffline();
+            ArrayList<String> getResults = getResultsData();
+            for (int a = 1; a < jsonArray3.size(); a += 1) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray3.get(a);
+                if (RetrieveRequest.checkCondition(jsonObject1)) {
+                    //    System.out.println("true");
+                    //} else {
+                    //  System.out.println("false");
+                    //}
+                    assertEquals("true", getResults.get(d));
+                    d += 1;
+                } else {
+                    assertEquals("false", getResults.get(d));
+                    d += 1;
                 }
+                //System.out.println(j);
+
             }
+
         }
     }
+
+    public ArrayList<String> getResultsData() throws Exceptions {
+        ArrayList<String> arrayList = new ArrayList<>();
+        InputStream inputStream = OfflineSearchStorage.class.getResourceAsStream("/data/movieData/results.txt");
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        String line = "";
+        String dataFromJSON = "";
+        try {
+            while ((line = bufferedReader.readLine()) != null) {
+                dataFromJSON += line;
+                arrayList.add(line);
+            }
+            bufferedReader.close();
+            inputStreamReader.close();
+            inputStream.close();
+        } catch (IOException e) {
+            throw new Exceptions(PromptMessages.IO_EXCEPTION_IN_OFFLINE);
+        }
+        return arrayList;
+    }
+
+    @Test
+    public void getCertStrings_return_unavailable() throws Exceptions {
+        assertEquals("Unavailable", RetrieveRequest.getCertStrings(movieInfoObject1));
+        assertEquals("Unavailable", RetrieveRequest.getCertStrings(movieInfoObject4));
+
+    }
+
+    @Test
+    public void getCastStrings_returns_empty() throws Exceptions {
+        ArrayList<String> castList1 = RetrieveRequest.getCastStrings(movieInfoObject1);
+        ArrayList<String> castList5 = RetrieveRequest.getCastStrings(movieInfoObject5);
+        ArrayList<String> expectedCastList1 = new ArrayList<>();
+        assertEquals(expectedCastList1, castList1);
+    }
 }
+
 
