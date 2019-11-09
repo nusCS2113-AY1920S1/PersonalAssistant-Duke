@@ -67,8 +67,8 @@ public class HelpCommand extends Command {
 
         //help Command.
         helpMap.put("help", "Displays help for all commands, or a certain command.\n"
-                + "Will also switch to the \"Help\" tab containing all the commands compatible with help.\n"
-                + "Can be used on its own to simply switch tabs and display help for all commands.\n\n"
+                + "Will switch to the \"Help\" tab when input on its own.\n"
+                + "Will NOT switch tabs when looking up a particular command.\n\n"
                 + "Format: help | help <command>\n"
                 + "Examples: help tasks | help add | help choices\n");
 
@@ -128,7 +128,7 @@ public class HelpCommand extends Command {
                 + "Optional priorities can be set when adding tasks from: low, normal, high, very high.\n"
                 + "This is done by adding /priority <priority> behind the task.\n\n"
                 + "Format: todo <Description> | todo <Description> /priority <priority>\n"
-                + "Examples: todo Sleep | todo Eat /priority high");
+                + "Examples: todo Sleep | todo Eat /priority high\n");
 
         //event Command.
         helpMap.put("event", "Adds an event task to your list of tasks.\n"
@@ -149,92 +149,38 @@ public class HelpCommand extends Command {
                 + "Examples: deadline Sleep /by 01-01-1970 2359 | deadline Eat /by 01-02-2019 1500 /priority very high\n");
 
         //cohort_size Command.
-        description = "Displays cohort size for a given degree.\n"
+        helpMap.put("cohort_size", "Displays cohort size for a given degree.\n"
                 + "This produces a bar graph in a separate window. \n\n"
-                + "Examples: cohort_size bme | cohort_size ise";
-        this.dataHelp.add(new HelpFX("cohort_size <Degree>", description));
+                + "Format: cohort_size <Degree>\n"
+                + "Examples: cohort_size bme | cohort_size ise\n");
 
         //find Command.
-        description = "Checks your task list and searches for a tasks matching the input string.\n"
+        helpMap.put("find", "Checks your task list and searches for a tasks matching the input string.\n"
                 + "This command is case sensitive. \n\n"
-                + "Examples: find application | find Sleep";
-        this.dataHelp.add(new HelpFX("find <String>", description));
+                + "Format: find <String>\n"
+                + "Examples: find application | find Sleep\n");
 
         //snooze Command.
-        description = "Changes the deadline of the task corresponding to the input ID.\n"
+        helpMap.put("snooze", "Changes the deadline of the task corresponding to the input ID.\n"
                 + "Format of deadline is DD-MM-YYYY HHmm. \n\n"
-                + "Examples: snooze 1 /to 01-01-1970 2030 | snooze 02 /to 11-11-2019 2030";
-        this.dataHelp.add(new HelpFX("snooze <ID> /to \n<DD-MM-YYYY HHmm>", description));
+                + "Format: snooze <ID> /to <DD-MM-YYYY HHmm>\n"
+                + "Examples: snooze 1 /to 01-01-1970 2030 | snooze 02 /to 11-11-2019 2030\n");
 
         //schedule Command.
-        description = "Retrieves and displays all tasks happening on the given date.\n"
+        helpMap.put("schedule", "Retrieves and displays all tasks happening on the given date.\n"
                 + "Format of date is DD-MM-YYYY. \n\n"
-                + "Examples: schedule 01-01-1970 | schedule 18-05-2019";
-        this.dataHelp.add(new HelpFX("schedule <DD-MM-YYYY>", description));
+                + "Format: schedule <DD-MM-YYYY>\n"
+                + "Examples: schedule 01-01-1970 | schedule 18-05-2019\n");
 
-                /*
+        //Display help for all commands
         if (this.arguments.matches("")) {
-            System.out.println("help: Displays a full list of possible commands.\n"
-                            + "detail DEGREE|MODULE: View detailed information about a degree or module\n"
-                            + "compare DEGREE DEGREE: Lists the module similarities and differences "
-                    + "between two degree programs given their keywords.\n"
-                            + "add DEGREE [t/TAG]...: To add a newly chosen degree programme into "
-                    + "your personalised degree list.\n"
-                            + "degreelist: Shows a list of all degrees in the list.\n"
-                            + "swap INDEX INDEX: Swaps the position of two degrees in the degree list.\n"
-                            + "replace INDEX NEWDEGREE: Replaces and existing degree in the list with a new one.\n"
-                            + "delete INDEX: Deletes the specified item in the list.\n"
-                            + "clear: Clears all degrees from the list.\n"
-                            + "undo: Undo the previous change to the task or degree list.\n"
-                            + "redo: Redo the command that was previously undone.\n"
-                            + "custom KEYWORD KEYPHRASE: Customize a word to be evaluated as a "
-                    + "phrase to be executed with additional parameters.\n"
-                            + "bye: Exits the program.");
-        } else {
-            if (this.arguments.matches("detail")) {
-                System.out.println("detail DEGREE: View detailed information about a degree "
-                        + "by using any of its aliases");
-            } else if (this.arguments.matches("compare")) {
-                System.out.println("compare DEGREE DEGREE: Lists the module similarities and differences "
-                        + "between two degree programs given their keywords.");
-            } else if (this.arguments.matches("add")) {
-                System.out.println("add DEGREE [t/TAG]...: To add a newly chosen degree programme into "
-                        + "your personalised degree list.");
-                System.out.println("Here are the possible degrees that you can add to your personalised degree list:\n" +
-                        "Biomedical Engineering\n" +
-                        "Chemical Engineering\n" +
-                        "Civil Engineering\n" +
-                        "Computer Engineering\n" +
-                        "Electrical Engineering\n" +
-                        "Environmental Engineering\n" +
-                        "Industrial Systems Engineering\n" +
-                        "Mechanical Engineering\n" +
-                        "Materials Science and Engineering");
-            } else if (this.arguments.matches("degreelist")) {
-                System.out.println("degreelist: Shows a list of all degrees in the list.");
-            } else if (this.arguments.matches("swap")) {
-                System.out.println("swap INDEX INDEX: Swaps the position of two degrees in the degree list.");
-            } else if (this.arguments.matches("replace")) {
-                System.out.println("replace INDEX NEWDEGREE: Replaces and existing degree in the list with a new one.");
-            } else if (this.arguments.matches("delete")) {
-                System.out.println("delete INDEX: Deletes the specified item in the list.");
-            } else if (this.arguments.matches("clear")) {
-                System.out.println("clear: Clears all degrees from the list.");
-            } else if (this.arguments.matches("custom")) {
-                System.out.println("custom KEYWORD KEYPHRASE: Customize a word to be evaluated as a "
-                        + "phrase to be executed with additional parameters.");
-            } else if (this.arguments.matches("bye")) {
-                System.out.println("bye: Exits the program");
-            } else if (this.arguments.matches("help")) {
-                System.out.println("help: Displays a full list of possible commands.");
-            } else if (this.arguments.matches("undo")) {
-                System.out.println("undo: Undo the previous change to the task or degree list.");
-            } else if (this.arguments.matches("redo")) {
-                System.out.println("redo: Redo the command that was previously undone.");
-            }
+            helpMap.forEach((key, value) -> {
+                System.out.println(key + ":\n\n" + value);
+                //ui.showLine();
+            });
+        } else { //Display help for the specified command.
+            System.out.println(helpMap.get(this.arguments));
         }
-
-                 */
     }
 }
 

@@ -443,8 +443,8 @@ public class MainWindow extends AnchorPane {
 
         //help Command.
         description = "Displays help for all commands, or a certain command.\n"
-                + "Will also switch to the \"Help\" tab containing all the commands compatible with help.\n"
-                + "Can be used on its own to simply switch tabs and display help for all commands.\n\n"
+                + "Will switch to the \"Help\" tab when input on its own.\n"
+                + "Will NOT switch tabs when looking up a particular command.\n\n"
                 + "Examples: help tasks | help add | help choices";
         this.dataHelp.add(new HelpFX("help\n\nhelp <command>", description));
 
