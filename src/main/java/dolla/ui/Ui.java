@@ -7,7 +7,7 @@ import static dolla.ModeStringList.MODE_SHORTCUT;
 /**
  * duke.Ui is a class that handles all interactions to the user.
  */
-public abstract class Ui {
+public abstract class Ui implements ModeUi {
 
     protected static final String MSG_MODIFY = "\tPlease use the format 'modify [LIST NUM]' if you wish to modify it.";
 

@@ -77,8 +77,9 @@ public class Storage implements StorageStringList {
      */
     public static void clearStorage() {
         try {
-            FileWriter file = new FileWriter(PATH);
-
+            FileWriter file = new FileWriter(PATH,false);
+            file.flush();
+            file.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
