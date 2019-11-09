@@ -146,6 +146,7 @@ public abstract class Event implements Comparable<Event> {
         this.isDone = true;
     }
 
+    //@@author YuanJiayi
     public void rescheduleStartDate(EventDate newStartDate) {
         this.startEventDate = newStartDate;
     }

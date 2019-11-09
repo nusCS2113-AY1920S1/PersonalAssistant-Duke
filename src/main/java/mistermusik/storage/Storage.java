@@ -35,8 +35,7 @@ public class Storage {
     //@@author Ryan-Wong-Ren-Wei
 
     /**
-     * Reads from the file whenever the program is run.
-     * Stores all read information into an array of strings to be returned.
+     * Reads all necessary information from the txt file when the program is loaded.
      *
      * @param ui user interface
      * @return Array of strings containing all information from the read file
@@ -91,7 +90,7 @@ public class Storage {
             writer.write(toWriteToFile);
             writer.close();
         } catch (IOException IOe) {
-            ui.errorWritingToFile();
+            ui.printErrorWritingToFile();
         }
     }
 }
