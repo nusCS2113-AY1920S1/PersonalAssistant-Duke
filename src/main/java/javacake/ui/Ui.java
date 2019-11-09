@@ -87,6 +87,7 @@ public class Ui {
         return "\nType 'list' to view main topics.\n"
                 + "Type 'overview' to view all content.\n"
                 + "Type 'help' to view all commands available.\n"
+                + "Type 'change' to change to a different color scheme.\n"
                 + "Type 'exit' to rage quit.\n";
     }
 
