@@ -464,7 +464,7 @@ The addToFav command will archive your favourite itineraries.
 Adds an itinerary to favourite list in profile. +
 Format: `addToFav ITIERARY_NAME`
 
-image::addToFav.PNG[width="400" height="200"]
+image::addToFav.png[width="400" height="200"]
 
 Examples:
 
@@ -479,7 +479,7 @@ Itinerary must exist in itinerary list before it can be added to favourite list
 Removes itinerary from favourite list in profile. +
 Format: `deleteFav ITIERARY_NAME`
 
-image::deleteFav.PNG[width="400" height="200"]
+image::deleteFav.png[width="400" height="200"]
 
 Examples:
 
@@ -489,7 +489,7 @@ Examples:
 Shows the list of itinerary in favourite list. +
 Format: `listFav`
 
-image::listFav.PNG[width="400" height="200"]
+image::listFav.png[width="400" height="200"]
 
 Examples:
 
@@ -504,7 +504,7 @@ List of favourite itinerary can also be found in profile by using `profileShow`
 Shows the details of itinerary in favourite list. +
 Format: `showFav ITINERARY_NAME`
 
-image::showFav.PNG[width="400" height="200"]
+image::showFav.png[width="400" height="200"]
 
 Examples:
 
