@@ -72,7 +72,8 @@ public class Parser {
      */
     private static void helper(String input) throws CakeException {
         String[] commands = {"exit", "list", "back", "help", "score", "reset", "goto",
-            "overview", "deadline", "editnote", "createnote", "listnote", "deletenote", "change"};
+            "overview", "deadline", "editnote", "createnote", "listnote", "deletenote",
+            "change", "reminder", "viewnote", "done", "delete", "snooze"};
 
         for (int i = 0; i < commands.length; i++) {
             boolean isTypo = false;
