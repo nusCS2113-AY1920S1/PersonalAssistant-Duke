@@ -78,7 +78,7 @@ public class StorageManager {
 	 * @param revenue Revenue amount to be stored in the RevenueStorage.
 	 */
 	public void storeRevenue(double revenue) {
-		revenueStorage.storeRevenue(revenue);
+		revenueStorage.setRevenue(revenue);
 	}
 
 	/**
