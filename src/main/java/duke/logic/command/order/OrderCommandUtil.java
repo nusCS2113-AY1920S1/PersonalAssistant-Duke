@@ -20,8 +20,7 @@ import java.util.Set;
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
 class OrderCommandUtil {
-    public static final String MESSAGE_ITEM_NOT_FOUND = "[%s] is not an active product or is not in Product list. "
-        + "Add it to Product List or change Product List's viewing scope first?";
+    public static final String MESSAGE_ITEM_NOT_FOUND = "[%s] is not an active product or is not in Product list. ";
 
     /**
      * Returns a set of product items based on product names.

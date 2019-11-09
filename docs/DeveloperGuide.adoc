@@ -80,7 +80,7 @@ link:https://github.com/AY1920S1-CS2113T-T12-3/main/blob/master/src/main/java/du
 === Model component
 
 .Structure of the Model Component
-image::model.png[]
+image::ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -192,7 +192,8 @@ public class AddOrderCommand extends Command {
  ** Pros: Easy to implement.
  
  ** Cons: Violates the Open-Closed Principle because developers need to modify AutoCompleter's internal structure to add new commands.
- Also, it makes code more coupled since if we change parameters of a command, we need to change corresponding fields in AutoCompleter as well.
+
+Also, it makes code more coupled since if we change parameters of a command, we need to change corresponding fields in AutoCompleter as well.
 
  * Alternative 2 (Current choice): Use Reflection API to obtain command words and arguments from CommandClass at runtime.
  

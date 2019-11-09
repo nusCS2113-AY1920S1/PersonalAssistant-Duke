@@ -15,6 +15,7 @@ public class Ingredient {
     private static final String MESSAGE_CONSTRAINTS_NAME = "Ingredient name can take any values, "
             + "and should not be blank";
     private static final String MESSAGE_CONSTRAINTS_PRICE = "Price must be a valid non-negative number";
+    public static final String MESSAGE_CONSTRAINTS_REMARKS = "Remarks should be no more than 50 characters";
 
     private static final Double DEFAULT_PRICE = 0.00;
     private static final String DEFAULT_REMARKS = "";
@@ -35,6 +36,7 @@ public class Ingredient {
         checkEmpty(name, MESSAGE_CONSTRAINTS_NAME);
         checkNegativeDouble(unitPrice, MESSAGE_CONSTRAINTS_PRICE);
         checkArgument(String.valueOf(unitPrice).matches(VALIDATION_FLOAT_NUMBER_REGEX), MESSAGE_CONSTRAINTS_PRICE);
+        checkArgument(isValidRemark(remarks), MESSAGE_CONSTRAINTS_REMARKS);
 
         this.name = name;
         this.unitPrice = Double.parseDouble(df2.format(unitPrice));
@@ -47,6 +49,10 @@ public class Ingredient {
 
     public Ingredient(String name, String remarks) {
         this(name, DEFAULT_PRICE, remarks);
+    }
+
+    public static boolean isValidRemark(String remark) {
+        return remark.length() <= 50;
     }
 
     @Override

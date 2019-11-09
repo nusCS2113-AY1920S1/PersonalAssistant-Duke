@@ -244,47 +244,6 @@
     } ]
   } ],
   "products" : [ {
-    "productName" : "Tart",
-    "ingredientItems" : [ {
-      "ingredient" : {
-        "name" : "Sugar",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 15.0
-    }, {
-      "ingredient" : {
-        "name" : "Egg",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 1.0
-    }, {
-      "ingredient" : {
-        "name" : "Sour cream",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 20.0
-    }, {
-      "ingredient" : {
-        "name" : "Plain flour",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 50.0
-    }, {
-      "ingredient" : {
-        "name" : "Butter",
-        "unitPrice" : 0.0,
-        "remarks" : "-"
-      },
-      "amount" : 15.0
-    } ],
-    "ingredientCost" : 3.2,
-    "retailPrice" : 5.0,
-    "status" : "ACTIVE"
-  }, {
     "productName" : "Sangria cake",
     "ingredientItems" : [ {
       "ingredient" : {
@@ -439,7 +398,7 @@
     "ingredient" : {
       "name" : "Butter",
       "unitPrice" : 0.0,
-      "remarks" : "gram"
+      "remarks" : "dvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
     },
     "amount" : 200.0
   }, {
@@ -499,6 +458,55 @@
       "remarks" : ""
     },
     "amount" : 10.0
+  }, {
+    "ingredient" : {
+      "name" : "Sugar",
+      "unitPrice" : 0.0,
+      "remarks" : ""
+    },
+    "amount" : 10.0
+  }, {
+    "ingredient" : {
+      "name" : "Tg;gt",
+      "unitPrice" : 0.0,
+      "remarks" : ""
+    },
+    "amount" : 0.0
+  }, {
+    "ingredient" : {
+      "name" : "Tg~sd",
+      "unitPrice" : 0.0,
+      "remarks" : ""
+    },
+    "amount" : 0.0
+  }, {
+    "ingredient" : {
+      "name" : "Sour cream",
+      "unitPrice" : 0.0,
+      "remarks" : "-"
+    },
+    "amount" : 0.0
+  }, {
+    "ingredient" : {
+      "name" : "Plain flour",
+      "unitPrice" : 0.0,
+      "remarks" : "-"
+    },
+    "amount" : 0.0
+  }, {
+    "ingredient" : {
+      "name" : "Strawberry",
+      "unitPrice" : 0.0,
+      "remarks" : "-"
+    },
+    "amount" : 0.0
+  }, {
+    "ingredient" : {
+      "name" : "Butter",
+      "unitPrice" : 0.0,
+      "remarks" : "-"
+    },
+    "amount" : 0.0
   } ],
   "sales" : [ {
     "id" : 1573223337165,
