@@ -906,6 +906,13 @@ Charged an expenditure to your credit card to earn cashback rebates? You can rec
 
 Adds an expenditure that charged to `POBB Tomorrow Card` dated `28/09/2019` that costs `$1.20` with the description of `bubble
 tea` and category of `Dining`.
+ifdef::env-github[]
+image::AddCardExpenditure.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::AddCardExpenditure.png[width="970"]
+endif::[]
 
 ===== Editing expenditures for credit cards `/edit /cardexpenditure`
 
@@ -931,10 +938,24 @@ To find out which transaction to edit, use the `/list` or `/find` function to fi
 * `/edit /cardexpenditure /from POBB Tomorrow Card /transno 2 /desc Uniwlo Shirt`
 
 Edits expenditure `2` that was charged to `POBB Tomorrow Card` to a new description of `Uniwlo Shirt`.
+ifdef::env-github[]
+image::EditCardExpenditure1.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::EditCardExpenditure1.png[width="970"]
+endif::[]
 
 * `/edit /cardexpenditure /from POBB Tomorrow Card /transno 5 /amount 3.50`
 
 Edits expenditure `5` that was charged to `POBB Tomorrow Card` to an amount of $`3.50`
+ifdef::env-github[]
+image::EditCardExpenditure2.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::EditCardExpenditure2.png[width="970"]
+endif::[]
 
 ===== Deleting expenditures for credit cards `/delete /cardexpenditure`
 
@@ -954,7 +975,13 @@ To find out which expenditure to delete, use the `/list` or `/find` function to 
 * `/delete /cardexpenditure /from POBB Tomorrow Card /transno 1`
 
 Deletes an expenditure from `POBB Tomorrow Card` with transaction number `1`.
+ifdef::env-github[]
+image::DeleteCardExpenditure.png[width="800"]
+endif::[]
 
+ifndef::env-github[]
+image::DeleteCardExpenditure.png[width="970"]
+endif::[]
 
 ===== Adding monthly credit card bill to savings account `/add /cardbill`
 
@@ -981,6 +1008,13 @@ Adds a credit card bill expenditure dated today to `JunBank Savings Account` wit
 Tomorrow Card` in the month and year of `10/2019`.
 
 Rebates for the month will also be deposited back to `JunBank Savings Account`.
+ifdef::env-github[]
+image::AddCardBill.png[width="800"]
+endif::[]
+
+ifndef::env-github[]
+image::AddCardBill.png[width="970"]
+endif::[]
 
 ===== Deleting credit card bill from savings account `/delete /cardbill`
 
@@ -1004,7 +1038,6 @@ previously paid months.
 
 Deletes credit card bill expenditure and rebate deposit from `JunBank Savings Account`. All credit card
 expenditures from `10/2019` will be marked as unpaid from `POBB Tomorrow Card`.
-
 // tag::goals[]
 
 ==== Financial Goal Management
