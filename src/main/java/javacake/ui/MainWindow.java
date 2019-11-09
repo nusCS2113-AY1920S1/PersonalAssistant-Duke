@@ -90,9 +90,6 @@ public class MainWindow extends GridPane {
     @FXML
     public void initialize() throws CakeException {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        //scrollPane.prefWidthProperty().bind(dialogContainer.widthProperty());
-        //scrollPane.minWidthProperty().bind(dialogContainer.widthProperty());
-        //scrollPane.maxWidthProperty().bind(dialogContainer.widthProperty());
         taskScreen.vvalueProperty().bind(taskContainer.heightProperty());
         noteScreen.vvalueProperty().bind(noteContainer.heightProperty());
         avatarScreen.getChildren().add(AvatarScreen.setAvatar(AvatarScreen.AvatarMode.HAPPY));
