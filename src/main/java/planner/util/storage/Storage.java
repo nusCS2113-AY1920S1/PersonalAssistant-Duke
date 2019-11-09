@@ -168,7 +168,7 @@ public class Storage {
         try {
             state = cipher.decode(state, credential.getEncryptionLayers());
         } catch (Throwable ex) {
-            ex.printStackTrace();
+            throw new ModTamperedDataException();
         }
         int hashLength = credential.getHashLength();
         if (!CryptographyUtils.isOriginal(state.getMessage(), hashLength)) {
