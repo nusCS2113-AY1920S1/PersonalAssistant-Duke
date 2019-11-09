@@ -86,6 +86,7 @@ public class AssignmentViewHelper {
         }
         return getTaskOutput(validTasks, projectToManage);
     }
+
     /**
      * Returns output to show viewer the task assignments of members.
      * @param membersToView List of valid member index numbers.
