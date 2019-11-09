@@ -23,6 +23,21 @@ public class CommandLog {
     }
 
     /**
+     * Only reloads backup-ed data state if the number of commands to undo is valid.
+     *
+     * @param numberOfCommandsToUndo number of commands to undo.
+     * @return boolean whether the user is trying to undo more commands than is possible.
+     */
+    public static boolean isUndoUnderflow (int numberOfCommandsToUndo) {
+        int restoreDataUntil = commandLog.size() - numberOfCommandsToUndo;
+        if (restoreDataUntil >= 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
      * Restores the data according to the number of commands to undo.
      */
     public static void restoreData(int numberOfCommandsToUndo) {
@@ -56,6 +71,7 @@ public class CommandLog {
                 commandLog.remove(restoreDataUntil);
             }
         } else {
+            MainWindow.onPrinting();
             System.out.println("\tError! You are attempting to undo more commands than is possible!");
         }
     }
