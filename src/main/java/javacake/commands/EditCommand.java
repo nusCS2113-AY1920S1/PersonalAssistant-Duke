@@ -6,11 +6,9 @@ import javacake.exceptions.CakeException;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
 
-import java.util.Date;
-
 /**
  * EDIT commands should be of the following format:
- * edit TASKINDEX  NEWDATE.
+ * snooze TASK_INDEX /by NEW_DATE.
  */
 
 public class EditCommand extends Command {
