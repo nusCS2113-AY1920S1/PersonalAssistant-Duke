@@ -25,10 +25,9 @@ public class JavaCake {
     /**
      * Constructor for main class to initialise the settings.
      */
-    public JavaCake() {
+    public JavaCake() throws CakeException {
         logger.log(Level.INFO, "Starting JavaCake Constructor!");
         ui = new Ui();
-
         try {
             logic = Logic.getInstance();
             storageManager = new StorageManager();
@@ -41,6 +40,7 @@ public class JavaCake {
         } catch (CakeException e) {
             ui.showLoadingError();
             logger.log(Level.WARNING, "Profile set-up failed.");
+            throw new CakeException(e.getMessage());
         }
     }
 
@@ -153,6 +153,10 @@ public class JavaCake {
      * Program Start.
      */
     public static void main(String[] args) {
-        new JavaCake().runAsCli();
+        try {
+            new JavaCake().runAsCli();
+        } catch (CakeException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

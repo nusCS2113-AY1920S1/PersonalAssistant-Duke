@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class DeadlineSnoozeTest {
-    JavaCake javaCake;
+    private JavaCake javaCake;
 
     /**
      * Initialise test files.

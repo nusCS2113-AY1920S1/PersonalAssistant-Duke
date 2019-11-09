@@ -10,9 +10,9 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DeadlinePositiveTest {
-    JavaCake javaCake;
-    String actualOut = "";
-    String expOut = "";
+    private JavaCake javaCake;
+    private String actualOut = "";
+    private String expOut = "";
 
     /**
      * Initialise test files.
