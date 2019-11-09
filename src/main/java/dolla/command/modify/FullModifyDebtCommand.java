@@ -28,12 +28,8 @@ public class FullModifyDebtCommand extends ModifyDebtCommand {
 
     @Override
     public void execute(DollaData dollaData) {
-<<<<<<< HEAD
         updateUndoState(dollaData);
-        Debt newDebt = new Debt(type, name, amount, description, date, tagName);
-=======
         Debt newDebt = new Debt(type, name, amount, description, date);
->>>>>>> 02347bc6ca157d87a54276f756ae2eecdcc1679b
         dollaData.modifyRecordList(newDebt);
         ModifyUi.echoModifyRecord(newDebt);
         dollaData.updateMode(mode);

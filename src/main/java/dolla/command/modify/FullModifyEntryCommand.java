@@ -25,13 +25,8 @@ public class FullModifyEntryCommand extends ModifyEntryCommand {
 
     @Override
     public void execute(DollaData dollaData) {
-<<<<<<< HEAD
-        Entry newEntry = new Entry(type, amount, description, date, tagName);
         updateUndoState(dollaData);
-=======
-        //System.out.println("Executing FullModifyEntryCommand....");
         Entry newEntry = new Entry(type, amount, description, date);
->>>>>>> 02347bc6ca157d87a54276f756ae2eecdcc1679b
         dollaData.modifyRecordList(newEntry);
         ModifyUi.echoModifyRecord(newEntry);
         dollaData.updateMode(mode);

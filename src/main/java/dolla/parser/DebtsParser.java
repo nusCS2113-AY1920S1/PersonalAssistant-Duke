@@ -1,12 +1,7 @@
 package dolla.parser;
 
-<<<<<<< HEAD
 import dolla.command.modify.PartialModifyDebtCommand;
 import dolla.model.DollaData;
-import dolla.Tag;
-import dolla.Time;
-=======
->>>>>>> 02347bc6ca157d87a54276f756ae2eecdcc1679b
 import dolla.command.Command;
 import dolla.command.modify.InitialModifyCommand;
 import dolla.command.ShowListCommand;
@@ -20,7 +15,6 @@ import dolla.command.RemoveCommand;
 import dolla.command.SearchCommand;
 import dolla.command.RemoveNameCommand;
 
-import dolla.model.DollaData;
 import dolla.model.RecordList;
 import dolla.ui.DebtUi;
 import dolla.ui.SearchUi;
