@@ -1,7 +1,6 @@
 package controllers;
 
 import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
-import static util.constant.ConstantHelper.VALID_VIEW_ASSIGNMENT_LENGTH;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -524,14 +523,6 @@ public class ProjectInputController implements IController {
     public String[] projectViewAssignments(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(),
                 "[projectViewAssignments] User input: '" + projectCommand + "'");
-        if (projectCommand.length() <= VALID_VIEW_ASSIGNMENT_LENGTH) {
-            return (new String[] {
-                "Please input the parameters to view assignments:",
-                "**\t-m for viewing by member, -t for viewing by task.",
-                "**\t\"all\" to view all assignments + or enter selected task/member index numbers.",
-                "You may refer to the user guide or enter \"help\" for the list of possible commands."
-                });
-        }
         AssignmentViewHelper assignmentViewHelper = new AssignmentViewHelper();
         return assignmentViewHelper.viewAssignments(projectCommand, projectToManage);
     }

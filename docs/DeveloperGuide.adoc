@@ -531,7 +531,11 @@ and member. Success messages are stored in `successMessages`.
 Step 8) The `errorMessages` and `successMessages` from `AssignmentController` are retrieved by `ProjectInputController`. The messages are validated, and then
 formatted with the help of `ViewHelper`, which organises the information into easy-to-read tables and displayed to the user.
 
+The following sequence diagram shows how the `assign task` command works.
+Certain objects, such as `Project` and `ViewHelper` are omitted for simplicity.
+
 image::images/AssignmentSequenceDiagram.png[]
+
 
 ==== Viewing Assignments
 The following steps show how task assignments can be viewed by the user in ArchDuke.
@@ -551,12 +555,12 @@ Step 4) `AssignmentViewHelper` is created, and calls `viewAssignments()` to to r
 assignment information. The input length is checked to ensure that there are sufficient parameters.
 Depending on the flag in the user input, `viewAssignments()` calls 1 of 2 the helper methods:
 
-* Task flag `-t`: projectViewTasksAssignments() is called.
+* Task flag `-t`: viewTasksAssignments() is called.
 ** `ParserHelper.parseTaskIndexes()` is called to parse and retrieve valid task indexes.
 ** `AssignmentViewHelper.getTaskOutput()` is called to access the HashMap `taskAndListOfMembersAssigned`
 to retrieve the assigned members for selected tasks.
 
-* Member flag `-m`: projectViewMembersAssignments() is called.
+* Member flag `-m`: viewMembersAssignments() is called.
 ** `ParserHelper.parseMemberIndexes()` is called to parse and retrieve valid member indexes.
 ** `AssignmentViewHelper.getMemberOutput()` is called to access the HashMap `memberAndIndividualListOfTasks`
 to retrieve the assignments for the selected members.
@@ -566,7 +570,9 @@ The necessary information is stored in an ArrayList of String `totalOutputToPrin
 Step 5) The helper class `ViewHelper` formats the output in an organised table, and the output is returned
 to `ProjectInputController`, and subsequently back to `CLIView` to be displayed to the user.
 
-image::images/.png[]
+The following sequence diagram shows how the `view assignments` command works.
+
+image::images/ViewAssignmentSequence.png[]
 
 ==== Design Considerations
 

@@ -18,10 +18,16 @@ import util.log.ArchDukeLogger;
 
 //@@author sinteary
 public class AssignmentViewHelper {
-    private static ViewHelper viewHelper = new ViewHelper();
+    private static ViewHelper viewHelper;
+    private static ParserHelper parserHelper;
     /**
      * Class that assists with retrieving and formatting information about task assignments in a project.
      */
+
+    public AssignmentViewHelper() {
+        this.viewHelper = new ViewHelper();
+        this.parserHelper = new ParserHelper();
+    }
 
     /**
      * Handles the user input and returns the necessary output.
@@ -30,11 +36,19 @@ public class AssignmentViewHelper {
      * @return An array of Strings containing requested information about task assignments.
      */
     public String[] viewAssignments(String projectCommand, Project projectToManage) {
+        if (projectCommand.length() <= VALID_VIEW_ASSIGNMENT_LENGTH) {
+            return (new String[] {
+                "Please input the parameters to view assignments:",
+                "**\t-m for viewing by member, -t for viewing by task.",
+                "**\t\"all\" to view all assignments + or enter selected task/member index numbers.",
+                "You may refer to the user guide or enter \"help\" for the list of possible commands."
+            });
+        }
         String input = projectCommand.substring(COMMAND_VIEW_ASSIGNMENTS.length());
         if (COMMAND_VIEW_ASSIGNMENTS_MEMBER_FLAG.equals(input.substring(0,2))) {
-            return projectViewMembersAssignments(projectToManage, projectCommand.substring(VALID_VIEW_ASSIGNMENT_LENGTH));
+            return viewMembersAssignments(projectToManage, projectCommand.substring(VALID_VIEW_ASSIGNMENT_LENGTH));
         } else if (COMMAND_VIEW_ASSIGNMENTS_TASK_FLAG.equals(input.substring(0,2))) {
-            return projectViewTasksAssignments(projectToManage, projectCommand.substring(VALID_VIEW_ASSIGNMENT_LENGTH));
+            return viewTasksAssignments(projectToManage, projectCommand.substring(VALID_VIEW_ASSIGNMENT_LENGTH));
         } else {
             return (new String[]
                 {"Could not understand your command! Please use:",
@@ -47,10 +61,9 @@ public class AssignmentViewHelper {
      * @param projectToManage the project being managed.
      * @param projectCommand The command by the user containing index numbers of the members to view.
      */
-    private String[] projectViewMembersAssignments(Project projectToManage, String projectCommand) {
+    private String[] viewMembersAssignments(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(),
             "[projectViewMembersAssignments] User input: '" + projectCommand + "'");
-        ParserHelper parserHelper = new ParserHelper();
         ArrayList<Integer> validMembers = parserHelper.parseMembersIndexes(projectCommand,
             projectToManage.getNumOfMembers());
         if (!parserHelper.getErrorMessages().isEmpty()) {
@@ -64,10 +77,9 @@ public class AssignmentViewHelper {
      * @param projectToManage The project to manage.
      * @param projectCommand The user input.
      */
-    private String[] projectViewTasksAssignments(Project projectToManage, String projectCommand) {
+    private String[] viewTasksAssignments(Project projectToManage, String projectCommand) {
         ArchDukeLogger.logDebug(ProjectInputController.class.getName(),
             "[projectViewTasksAssignments] User input: '" + projectCommand + "'");
-        ParserHelper parserHelper = new ParserHelper();
         ArrayList<Integer> validTasks = parserHelper.parseTasksIndexes(projectCommand,
             projectToManage.getNumOfTasks());
         if (!parserHelper.getErrorMessages().isEmpty()) {
