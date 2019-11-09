@@ -6,18 +6,20 @@ import dolla.model.RecordList;
 import dolla.exception.DollaException;
 
 import dolla.ui.Ui;
+import dolla.ui.DebtUi;
+import dolla.ui.SearchUi;
+import dolla.ui.ModifyUi;
 import dolla.ui.EntryUi;
+import dolla.ui.SortUi;
 import dolla.ui.RemoveUi;
 import dolla.ui.LimitUi;
-import dolla.ui.DebtUi;
-import dolla.ui.SortUi;
-import dolla.ui.ModifyUi;
 
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 //@@author omupenguin
 /**
@@ -502,23 +504,111 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         return s.equals(SEARCH_DESCRIPTION) || s.equals(SEARCH_DATE) || s.equals(SEARCH_NAME);
     }
 
-    //@@author tatayu
     /**
-     * Check if the number is valid.
-     * @param s the input.
-     * @param recordList the list that records all the bill.
-     * @return true if it is a valid number.
+     *check if the people and amount is valid.
+     * @return true if they are valid.
      */
-    protected Boolean verifyPaidCommand(String s, RecordList recordList) {
+    protected Boolean verifyPaidNumberAndName() {
         try {
-            Integer.parseInt(s);
-            if (Integer.parseInt(s) < recordList.size()) {
+            Integer.parseInt(inputArray[1]);
+            if (inputArray[2] == null) {
+                return false;
+            } else {
                 return true;
             }
         } catch (Exception e) {
             return false;
         }
-        return true;
+    }
+
+    //@@author tatayu
+    /**
+     * Check if the number is valid.
+     * @param recordList the list that records all the bill.
+     * @return true if it is a valid number.
+     */
+    protected Boolean verifyPaidCommand(RecordList recordList) {
+        if (verifyPaidNumberAndName()) {
+            if (Integer.parseInt(inputArray[1]) <= recordList.size() && Integer.parseInt(inputArray[1]) > 0) {
+                return true;
+            } else {
+                DebtUi.printInvalidBillNumberError();
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Check if the search command for debt is valid.
+     * @return true if the command is valid.
+     */
+    protected Boolean verifyDebtSearchCommand() {
+        try {
+            if (verifyDebtSearchComponent(inputArray[1]) && inputArray[2] != null) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            SearchUi.printInvalidSearchFormat();
+            return false;
+        }
+    }
+
+    /**
+     * Check if the search command for entry is valid.
+     * @return true if the command is valid.
+     */
+    protected Boolean verifyEntrySearchCommand() {
+        try {
+            if (verifyEntrySearchComponent(inputArray[1]) && inputArray[2] != null) {
+                return true;
+            } else {
+                SearchUi.printInvalidEntrySearchComponent();
+                return false;
+            }
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            SearchUi.printInvalidSearchFormat();
+            return false;
+        }
+    }
+
+    /**
+     * Check if the search command for limit is valid.
+     * @return true if the command is valid.
+     */
+    protected Boolean verifyLimitSearchCommand() {
+        try {
+            if (verifyLimitSearchComponent(inputArray[1]) && inputArray[2] != null) {
+                return true;
+            } else {
+                SearchUi.printInvalidLimitSearchComponent();
+                return false;
+            }
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            SearchUi.printInvalidSearchFormat();
+            return false;
+        }
+    }
+
+    /**
+     * Check if the search command for shortcut is valid.
+     * @return true if the command is valid.
+     */
+    protected Boolean verifyShortcutSearchCommand() {
+        try {
+            if (verifyShortcutSearchComponent(inputArray[1]) && inputArray[2] != null) {
+                return true;
+            } else {
+                SearchUi.printInvalidShortcutSearchComponent();
+                return false;
+            }
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            SearchUi.printInvalidSearchFormat();
+            return false;
+        }
     }
 
     /**
@@ -537,6 +627,55 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      */
     protected Boolean verifyLimitSearchComponent(String s) {
         return s.equals(SEARCH_DURATION);
+    }
+
+    /**
+     * check if the component is valid.
+     * @param s string at the component position.
+     * @return true if it is a valid component.
+     */
+    protected Boolean verifyShortcutSearchComponent(String s) {
+        return s.equals(SEARCH_DESCRIPTION);
+    }
+
+    /**
+     *check if the people and amount is valid.
+     * @return true if they are valid.
+     */
+    protected Boolean verifyBillPeopleAndAmount() {
+        try {
+            Integer.parseInt(inputArray[1]);
+            stringToDouble(inputArray[2]);
+        } catch (Exception e) {
+            DebtUi.printInvalidBillFormatError();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * check if the add bill command is valid.
+     * @param nameList the array list to store the names.
+     * @return true if the command is valid.
+     */
+    protected Boolean verifyAddBillCommand(ArrayList<String> nameList) {
+        try {
+            if (verifyBillPeopleAndAmount()) {
+                amount = stringToDouble(inputArray[2]);
+                for (int i = 3; i < 3 + Integer.parseInt(inputArray[1]); i++) {
+                    String name = inputArray[i];
+                    nameList.add(name);
+                }
+            } else {
+                return false;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            DebtUi.printWrongPeopleNumberMessage(Integer.parseInt(inputArray[1]));
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     //@@author Weng-Kexin

@@ -49,7 +49,7 @@ public class SearchUi extends Ui {
             }
         }
         if (listNum == 0) {
-            System.out.println("No results are found :(");
+            System.out.println("\tNo results are found :(");
         }
         System.out.println(line);
     }
@@ -73,7 +73,7 @@ public class SearchUi extends Ui {
             }
         }
         if (listNum == 0) {
-            System.out.println("No results are found :(");
+            System.out.println("\tNo results are found :(");
         }
         System.out.println(line);
     }
@@ -96,7 +96,7 @@ public class SearchUi extends Ui {
             }
         }
         if (listNum == 0) {
-            System.out.println("No results are found :(");
+            System.out.println("\tNo results are found :(");
         }
         System.out.println(line);
     }
@@ -135,6 +135,15 @@ public class SearchUi extends Ui {
     public static void printInvalidLimitSearchComponent() {
         System.out.println(line);
         System.out.println("\tPlease specify the component to search from: duration.");
+        System.out.println(line);
+    }
+
+    /**
+     * Prints error message when the user did not properly specify the component to search from.
+     */
+    public static void printInvalidShortcutSearchComponent() {
+        System.out.println(line);
+        System.out.println("\tPlease specify the component to search from: description.");
         System.out.println(line);
     }
 }

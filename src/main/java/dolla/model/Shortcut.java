@@ -39,4 +39,8 @@ public class Shortcut extends Record {
                 + amount + " | "
                 + description;
     }
+
+    public String getDescription() {
+        return description;
+    }
 }
