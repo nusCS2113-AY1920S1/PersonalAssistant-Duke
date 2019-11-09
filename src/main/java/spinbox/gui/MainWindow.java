@@ -42,6 +42,7 @@ import spinbox.entities.items.tasks.Task;
 import spinbox.entities.items.tasks.TaskType;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.CalendarSelectorException;
+
 import spinbox.gui.boxes.FileBox;
 import spinbox.gui.boxes.GradedComponentBox;
 import spinbox.gui.boxes.ModuleBox;
@@ -92,8 +93,15 @@ public class MainWindow extends GridPane {
      * FXML method that is used as a post-constructor function to initialize variables and tabbed views.
      */
     @FXML
-    public void initialize()  {
-        this.spinBox = new SpinBox();
+    public void initialize() {
+        try {
+            this.spinBox = new SpinBox();
+        } catch (SpinBoxException e) {
+            userInput.setPromptText(CORRUPTED_DATA);
+            userInput.setStyle("-fx-prompt-text-fill: #FF0000; -fx-font-weight: BOLD");
+            return;
+        }
+
         this.specificModuleCode = null;
         this.subTab = null;
 
@@ -204,6 +212,9 @@ public class MainWindow extends GridPane {
      * Initializes the contents of the Main tab, which is the default upon startup.
      */
     public void initializeGui() throws CalendarSelectorException {
+        if (spinBox == null) {
+            return;
+        }
         this.setPopup(popup);
         this.suggestPopulate();
         this.updateAll();
@@ -211,10 +222,7 @@ public class MainWindow extends GridPane {
     }
 
     private void suggestPopulate() {
-        if (spinBox.getModuleContainer() == null) {
-            userInput.setPromptText(CORRUPTED_DATA);
-            userInput.setStyle("-fx-prompt-text-fill: #FF0000; -fx-font-weight: BOLD");
-        } else if (spinBox.getModuleContainer().getModules().isEmpty()) {
+        if (spinBox.getModuleContainer().getModules().isEmpty()) {
             userInput.setPromptText(NO_DATA);
             userInput.setStyle("-fx-prompt-text-fill: #FF0000; -fx-font-weight: BOLD");
         } else {
@@ -225,11 +233,9 @@ public class MainWindow extends GridPane {
 
     private void updateAll()
             throws CalendarSelectorException {
-        if (spinBox.getModuleContainer() != null) {
-            updateMain();
-            updateModules();
-            updateCalendar();
-        }
+        updateMain();
+        updateModules();
+        updateCalendar();
     }
 
     private void updateMain() {
@@ -248,10 +254,6 @@ public class MainWindow extends GridPane {
     }
 
     private void updateOverallTasksView() {
-        if (spinBox.getModuleContainer() == null) {
-            return;
-        }
-
         allTasks = new ArrayList<>();
         overallTasksView.getChildren().clear();
         overallTasksView.getChildren().add(addHeader("URGENT TASK"));

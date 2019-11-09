@@ -1,13 +1,11 @@
 package spinbox;
 
 import spinbox.commands.Command;
-import spinbox.entities.Module;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.StorageException;
 import spinbox.containers.ModuleContainer;
 
 import java.util.ArrayDeque;
-import java.util.HashMap;
 
 public class SpinBox {
     private Ui userInterface;
@@ -18,16 +16,11 @@ public class SpinBox {
     /**
      * Full Constructor for CLI/GUI version of SpinBox.
      */
-    public SpinBox(boolean cliMode) {
+    public SpinBox(boolean cliMode) throws StorageException {
         userInterface = new Ui(cliMode);
         pageTrace = new ArrayDeque<>();
         pageTrace.add("main");
-
-        try {
-            modules = new ModuleContainer();
-        } catch (StorageException e) {
-            userInterface.showFormatted(e.getMessage());
-        }
+        modules = new ModuleContainer();
 
         if (cliMode) {
             this.startSpinBoxCli();
@@ -37,14 +30,14 @@ public class SpinBox {
     /**
      * Default Constructor, Entry point into this java program, for CLI version.
      */
-    public SpinBox() {
+    public SpinBox() throws StorageException {
         this(false);
     }
 
     /**
      * Entry point into this java program, for CLI version.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws StorageException {
         new SpinBox(true);
     }
 
