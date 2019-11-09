@@ -79,8 +79,9 @@ public interface ParserStringList {
 
     //Commons
     String SPACE = " ";
-    String COMMAND_BYE = "bye";
     String EMPTY_STR = "";
+    String COMMAND_HELP = "help";
+    String COMMAND_BYE = "bye";
     String INVALID_AMOUNT_EXCEPTION = "Invalid amount exception";
     String INVALID_DATE_EXCEPTION = "Invalid date exception";
 
