@@ -71,7 +71,6 @@ public class StorageTest {
         try {
             storage = new Storage(storageFile.getPath());
             assertEquals(new ArrayList<Task>(), storage.getData());
-            assertEquals(0, Storage.getInternalDataSize());
         } catch (CakeException e) {
             System.out.println(e.getMessage());
         }

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 public class Profile {
-    private static String filepath = "data";
+    private String filepath = "data";
     private String username;
     private ArrayList<Integer> overalltopicsDone = new ArrayList<>();
     private ArrayList<Integer> individualTopicsDone = new ArrayList<>();
@@ -70,7 +70,7 @@ public class Profile {
     /**
      * Method to hard reset profile.
      */
-    public static void resetProfile() {
+    public void resetProfile() {
         isResetFresh = true;
         File file = new File(filepath);
         if (file.exists()) {

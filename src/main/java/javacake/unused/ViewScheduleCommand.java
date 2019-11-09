@@ -1,15 +1,10 @@
 package javacake.unused;
 
-import com.joestelmach.natty.DateGroup;
-import com.joestelmach.natty.Parser;
 import javacake.commands.Command;
 import javacake.exceptions.CakeException;
 import javacake.Logic;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
-
-import java.util.Date;
-import java.util.List;
 
 public class ViewScheduleCommand extends Command {
     public ViewScheduleCommand(String str) {

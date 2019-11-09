@@ -138,7 +138,7 @@ public class TaskList {
         stringBuilder.append("Got it. I've added this task:").append("\n");
         stringBuilder.append(tempTask.getFullString()).append("\n");
         stringBuilder.append("Now you have ")
-                .append(Storage.getInternalDataSize()).append(" tasks in the list.");
+                .append(data.size()).append(" tasks in the list.");
         return stringBuilder.toString();
     }
 }

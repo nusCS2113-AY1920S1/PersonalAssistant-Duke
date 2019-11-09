@@ -386,8 +386,8 @@ public class MainWindow extends GridPane {
         System.out.println("resetting time");
         if (input.equals("yes")) {
             //resets
-            Profile.resetProfile();
-            Storage.resetStorage();
+            javaCake.storageManager.profile.resetProfile();
+            javaCake.storageManager.storage.resetStorage();
             this.javaCake = new JavaCake();
             javaCake.storageManager.profile.writeColorConfig(isLightMode);
             javaCake.userProgress = javaCake.storageManager.profile.getTotalProgress();
