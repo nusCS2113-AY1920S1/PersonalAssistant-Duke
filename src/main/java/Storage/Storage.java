@@ -17,12 +17,13 @@ import java.util.LinkedHashMap;
  * Storage.Storage that saves and loads the tasklist of the user.
  */
 public class Storage {
-    private static String projectsfilepath = "localdata/Projects.json";
-    private static String commandlistfilepath = "localdata/history.json";
-    private static String fundfilepath = "localdata/Fund.json";
-    private static String undoListFilePath = "localdata/undo.json";
-    private static String redoListFilePath = "localdata/redo.json";
-    private static String currentprojectfilepath = "localdata/CurrentProject.json";
+    private static String basefilepath = System.getProperty("user.dir");
+    private static String projectsfilepath = basefilepath + "/localdata/Projects.json";
+    private static String commandlistfilepath = basefilepath +  "/localdata/history.json";
+    private static String fundfilepath =  basefilepath + "/localdata/Fund.json";
+    private static String undoListFilePath = basefilepath +  "/localdata/undo.json";
+    private static String redoListFilePath = basefilepath +  "/localdata/redo.json";
+    private static String currentprojectfilepath = basefilepath + "/localdata/CurrentProject.json";
     private static String backuphistoryfilepath = "Backuphistory.json";
     private static String backupfundfilepath = "BackupFund.json";
     private static String backupprojectsfilepath = "BackupProjects.json";

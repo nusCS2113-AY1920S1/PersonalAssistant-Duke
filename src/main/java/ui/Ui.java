@@ -1,6 +1,5 @@
 package ui;
 
-import command.Parser;
 import common.CommandFormat;
 import common.TaskList;
 import payment.Payee;

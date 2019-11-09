@@ -3,12 +3,12 @@
      What can I do for you?
     ____________________________________________________________
     ____________________________________________________________
-     Got it. I've added this task:  
+     Got it. I've added this task:
        [T][✘] run
      Now you have 1 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
-     Got it. I've added this task:  
+     Got it. I've added this task:
        [D][✘] return book (by: 02/12/2019 1800)
      Now you have 2 tasks in the list.
     ____________________________________________________________

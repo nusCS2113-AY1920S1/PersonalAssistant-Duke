@@ -1,7 +1,6 @@
 package payment;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Payments Class to manage the payment details of an item.
