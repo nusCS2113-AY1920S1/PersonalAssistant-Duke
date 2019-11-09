@@ -119,6 +119,7 @@ public class MainWindow extends GridPane {
             dialogContainer.setPrefWidth(scrollPane.getWidth() - 15);
             taskContainer.setPrefWidth(taskScreen.getWidth() - 15);
             noteContainer.setPrefWidth(noteScreen.getWidth() - 15);
+            avatarDialog.setPrefWidth(noteScreen.getWidth() - 15);
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
@@ -186,7 +187,7 @@ public class MainWindow extends GridPane {
     private void handleGuiMode() {
         if (isLightMode) { //switches to Dark theme
             isLightMode = false;
-            mainGrid.setStyle("-fx-background-color: grey");
+            mainGrid.setStyle("-fx-background-color: grey;");
             topBar.setStyle("-fx-background-color: #BBB; -fx-border-color: grey;");
             userInput.setStyle("-fx-background-color: #555; -fx-background-radius: 10;");
             dialogContainer.setStyle("-fx-background-color: grey;");
@@ -199,7 +200,7 @@ public class MainWindow extends GridPane {
             noteScreen.setStyle("-fx-background: grey;");
         } else { //switches to Light theme
             isLightMode = true;
-            mainGrid.setStyle("-fx-background-color: pink");
+            mainGrid.setStyle("-fx-background-color: pink;");
             topBar.setStyle("-fx-background-color: #EE8EC7; -fx-border-color: white;");
             userInput.setStyle("-fx-background-color: #EE8EC7;"
                     + " -fx-background-radius: 10;");

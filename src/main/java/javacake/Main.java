@@ -33,7 +33,7 @@ public class Main extends Application {
             //stage.setResizable(false);
             //stage.initStyle(StageStyle.UNDECORATED);
             stage.setMinHeight(600);
-            stage.setMinWidth(860);
+            stage.setMinWidth(880);
             stage.showingProperty().addListener((observable, oldValue, showing) -> {
                 if (showing) {
                     stage.setMinHeight(stage.getMinHeight());

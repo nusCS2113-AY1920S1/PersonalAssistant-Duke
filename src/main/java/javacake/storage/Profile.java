@@ -10,7 +10,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.attribute.PosixFilePermission;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 
 public class Profile {
@@ -167,6 +171,7 @@ public class Profile {
             } else {
                 configFile.createNewFile();
             }
+
             PrintWriter out = new PrintWriter(configFile.getPath());
             System.out.println(configFile.getPath());
             if (isLight) {
