@@ -11,7 +11,6 @@ import Tasks.Deadline;
 import Tasks.Event;
 import java.text.ParseException;
 import java.util.Arrays;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -98,7 +97,7 @@ public class DoneParse extends Parse {
                 throw new DukeInvalidFormatException(DukeConstants.DEADLINE_FORMAT);
             }
         } else {
-            throw new DukeInvalidCommandException(DukeConstants.SAD_FACE + " OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeInvalidCommandException(DukeConstants.SAD_FACE + DukeConstants.UNKNOWN_MEANING);
         }
     }
 }

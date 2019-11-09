@@ -52,8 +52,7 @@ public class WorkloadParse extends Parse{
             return new ShowWorkloadCommand(nextWeekDate);
         } catch (ArrayIndexOutOfBoundsException e) {
             LOGGER.severe("Invalid show workload format");
-            throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + "OOPS!!! Please enter show workload as follows:\n" +
-                    "show/workload");
+            throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.SHOW_WORKLOAD_FORMAT);
         }
     }
 }

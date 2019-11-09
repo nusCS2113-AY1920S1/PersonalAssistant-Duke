@@ -21,7 +21,7 @@ public class FilterParse extends Parse{
 
     }
     /**
-     * @return Command which represents the parsed Filtercommand
+     * @return Command which represents the parsed FilterCommand
      * @throws Exception Returned if command does not adhere to format
      */
     @Override
@@ -29,21 +29,19 @@ public class FilterParse extends Parse{
         if(fullCommand.trim().startsWith(DukeConstants.SHOW_FILTER_HEADER)){
            try {
                String keyword = fullCommand.trim().replaceFirst(DukeConstants.SHOW_FILTER_HEADER, "");
-               if(keyword.trim().equals("")){
-                   throw new DukeInvalidFormatException(" OOPS!!! Please enter filter command as follows\n" +
-                           "show/filter keyword\n");
+               if(keyword.trim().equals(DukeConstants.EMPTY_ERROR)){
+                   throw new DukeInvalidFormatException(DukeConstants.SHOW_FILTER_FORMAT );
                }
                else {
                    return new FilterCommand(keyword);
                }
            }catch (ArrayIndexOutOfBoundsException e){
                LOGGER.severe("Invalid format for filter" + e.getMessage());
-               throw new DukeInvalidFormatException(" OOPS!!! Please enter filter command as follows\n" +
-                       "show/filter keyword\n");
+               throw new DukeInvalidFormatException(DukeConstants.SHOW_FILTER_FORMAT);
            }
         }
         else {
-            throw new DukeInvalidCommandException(DukeConstants.SAD_FACE + " OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeInvalidCommandException(DukeConstants.SAD_FACE + DukeConstants.UNKNOWN_MEANING);
 
         }
     }

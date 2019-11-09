@@ -68,7 +68,7 @@ public class MainParser {
                 return new ByeCommand();
 
             default:
-                throw new DukeInvalidCommandException(DukeConstants.SAD_FACE+"Invalid input. Please type help to see all commands");
+                throw new DukeInvalidCommandException(DukeConstants.SAD_FACE+DukeConstants.INVALID_INPUT_ERROR);
         }
     }
 }

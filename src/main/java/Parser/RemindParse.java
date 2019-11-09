@@ -58,11 +58,11 @@ public class RemindParse extends Parse {
                 description = modDescriptionCommand.substring(LENGTH_OF_RM).trim();
             }
             if (!isValidModCodeAndDescription(description)) {
-                throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + " OOPS!!! The ModCode and description of a deadline cannot be empty.");
+                throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.DEADLINE_EMPTY_MODCODE_DESCRIPTION_ERROR);
             }
             String checkModCodeString = modDescriptionCommandsplit[1];
             if (!isModCode(checkModCodeString)) {
-                throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + " OOPS!!! The ModCode is invalid.");
+                throw new DukeInvalidFormatException(DukeConstants.SAD_FACE +  DukeConstants.INVALID_MODCODE_ERROR);
             }
             String taskDescription;
             if (isRemind) {
@@ -71,7 +71,7 @@ public class RemindParse extends Parse {
                 taskDescription = dateDescriptionSplit[0].substring(LENGTH_OF_RM + checkModCodeString.length() + LENGTH_OF_SPACE).trim();
             }
             if (taskDescription.isEmpty()) {
-                throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + " OOPS!!! The description of a deadline cannot be empty.");
+                throw new DukeInvalidFormatException(DukeConstants.SAD_FACE + DukeConstants.DEADLINE_EMPTY_DESCRIPTION_ERROR);
             }
             String deadlineDateRemindDateString = dateDescriptionSplit[1].trim();
             String[] dateTime = DateTimeParser.remindDateParse(deadlineDateRemindDateString);
@@ -82,9 +82,7 @@ public class RemindParse extends Parse {
             return new RemindCommand(new Deadline(description, deadlineDateString, deadlineTimeString), remindDate, isRemind);
         } catch (ParseException | ArrayIndexOutOfBoundsException e) {
             LOGGER.severe("Invalid remind format");
-            throw new DukeInvalidFormatException("OOPS!!! Please enter remind as follows:\n" +
-                    "remind/(set/rm) mod_code description /by week n.o day time /on week n.o day time\n" +
-                    "For example: remind/set cs2100 hand in homework /by week 9 fri 1500 /on week 9 thu 1500");
+            throw new DukeInvalidFormatException(DukeConstants.REMIND_FORMAT);
         }
     }
 }
