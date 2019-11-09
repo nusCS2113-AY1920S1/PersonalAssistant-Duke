@@ -1,59 +1,64 @@
 package duke.ui;
 
+import duke.DukeCore;
 import duke.data.DukeObject;
 import duke.exception.DukeFatalException;
+import duke.ui.context.UiContext;
+import duke.ui.window.CommandWindow;
+import duke.ui.window.ContextWindow;
 import javafx.stage.Stage;
 
 import java.util.List;
 
 /**
- * API of the UI component of the application.
+ * API of the UI module of Dr. Duke.
+ * Abstracts and exposes the UI module to external modules of Dr. Duke.
  */
 public interface Ui {
     /**
-     * Starts the UI (and the JavaFX application).
+     * Starts the UI (and Dr. Duke).
+     * This helper function should not be called anywhere else except by {@link DukeCore}.
      *
-     * @param primaryStage Stage created by the JavaFX system when the application starts up.
+     * @param primaryStage Stage created by the JavaFX system when Dr. Duke starts up.
      */
     void start(Stage primaryStage);
 
     /**
-     * Prints message on the {@code CommandWindow}.
+     * Terminates the UI (and Dr. Duke).
+     * This helper function should not be called anywhere else except by {@link DukeCore}.
+     */
+    void stop();
+
+    /**
+     * Prints message on the {@link CommandWindow}.
      *
      * @param message Output message.
      */
-    void print(String message);
+    void showMessage(String message);
 
     /**
-     * Update UI of current context.
+     * Updates {@link ContextWindow} and prints message on the {@link CommandWindow}.
      *
      * @param message Output message.
      */
     void updateUi(String message) throws DukeFatalException;
 
     /**
-     * Displays an info pop-up dialog on screen.
+     * Shows an error dialog with {@code errorTitle} and {@code error}.
+     * Exits the application after the user has acknowledged the alert dialog.
      *
-     * @param title   Title of dialog.
-     * @param message Dialog message.
+     * @param errorTitle Title of error dialog.
+     * @param error      Thrown error.
      */
-    void showInfoDialog(String title, String message);
+    void showErrorDialogAndShutdown(String errorTitle, Throwable error);
 
-    /**
-     * Shows an error alert dialog with {@code title} and error message, {@code e}.
-     * Exits the application after the user has closed the alert dialog.
-     *
-     * @param title Title of error dialog.
-     * @param e     Thrown Error.
-     */
-    void showErrorDialogAndShutdown(String title, Throwable e);
-
+    /* TODO: TEMPORARY */
     /**
      * Retrieves indexed list of DukeObjects.
-     * List is dependent on the current {@code UiContext}.
+     * List is dependent on the current {@link UiContext}.
      *
      * @param type DukeObject type.
-     * @return Indexed list of DukeObjects.
+     * @return UI indexed list of DukeObjects.
      */
     List<DukeObject> getIndexedList(String type);
 }

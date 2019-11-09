@@ -33,22 +33,15 @@ public class HomeContextWindow extends ContextWindow {
      */
     public HomeContextWindow(ArrayList<Patient> patientList) throws DukeFatalException {
         super(FXML);
+
+        if (patientList == null) {
+            throw new DukeFatalException("Patient list has not been initialised.");
+        }
+
         this.patientList = patientList;
+
         JFXScrollPane.smoothScrolling(scrollPane);
         updateUi();
-    }
-
-    /**
-     * Fills {@code indexedPatientList} and {@code patientListPanel}.
-     */
-    private void fillPatientList() throws DukeFatalException {
-        indexedPatientList = new ArrayList<>(patientList);
-        patientListPanel.getChildren().clear();
-        for (Patient patient : indexedPatientList) {
-            PatientCard newCard = patient.toCard();
-            newCard.setIndex(patientList.indexOf(patient) + 1);
-            patientListPanel.getChildren().add(newCard);
-        }
     }
 
     /**
@@ -61,21 +54,23 @@ public class HomeContextWindow extends ContextWindow {
 
     /**
      * {@inheritDoc}
-     * @return
      */
     @Override
     public List<DukeObject> getIndexedList(String type) {
-        List<DukeObject> returnList = new ArrayList<>(indexedPatientList);
-        return returnList;
+        return new ArrayList<>(indexedPatientList);
     }
 
     /**
-     * Attaches a listener to the patient hashmap.
-     * This listener updates the {@code patientListPanel} whenever the patient hashmap is updated.
+     * Fills {@code indexedPatientList} and {@code patientListPanel}.
      */
-    //private void attachPatientListListener() {
-    //   patientObservableMap.addListener((MapChangeListener<String, Patient>) change -> {
-    //       fillPatientList();
-    //   });
-    //}
+    private void fillPatientList() throws DukeFatalException {
+        indexedPatientList = new ArrayList<>(patientList);
+
+        patientListPanel.getChildren().clear();
+        for (Patient patient : indexedPatientList) {
+            PatientCard patientCard = patient.toCard();
+            patientCard.setIndex(indexedPatientList.indexOf(patient) + 1);
+            patientListPanel.getChildren().add(patientCard);
+        }
+    }
 }

@@ -8,7 +8,7 @@ import duke.data.Investigation;
 import duke.data.Patient;
 import duke.data.Treatment;
 import duke.exception.DukeFatalException;
-import duke.ui.UiStrings;
+import duke.ui.commons.UiStrings;
 import duke.ui.card.ImpressionCard;
 import duke.ui.card.TreatmentCard;
 import duke.ui.card.UiCard;
@@ -95,6 +95,7 @@ public class PatientContextWindow extends ContextWindow {
         String historyStr = patient.getHistory();
         historyLabel.setText(("".equals(historyStr)) ? UiStrings.DISPLAY_HISTORY_NOT_SET : historyStr);
         StringBuilder allergies = new StringBuilder();
+
         if ("".equals(patient.getAllergies())) {
             allergiesLabel.setText(UiStrings.DISPLAY_ALLERGIES_NONE);
         } else {

@@ -25,7 +25,7 @@ public class DoctorSpec extends ArgSpec {
 
     @Override
     protected void execute(DukeCore core) {
-        core.ui.print("Argument: " + cmd.getArg() + System.lineSeparator() + "Switch: "
+        core.ui.showMessage("Argument: " + cmd.getArg() + System.lineSeparator() + "Switch: "
                 + cmd.getSwitchVal("switch"));
     }
 }

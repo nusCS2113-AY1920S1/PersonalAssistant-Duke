@@ -5,12 +5,14 @@ import duke.data.GsonStorage;
 import duke.data.Help;
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
-import duke.ui.UiElement;
 import duke.ui.card.HelpCard;
+import duke.ui.commons.UiElement;
 import duke.ui.context.Context;
 import duke.ui.context.UiContext;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 
 import java.io.File;
@@ -26,6 +28,8 @@ public class HelpWindow extends UiElement<Region> {
 
     @FXML
     private JFXListView<HelpCard> helpListView;
+    @FXML
+    private AnchorPane emptyPane;
 
     private List<Help> helpList;
     private List<Help> contextedHelpList;
@@ -44,6 +48,7 @@ public class HelpWindow extends UiElement<Region> {
         initialise(storage);
         attachListenerToInput(inputTextField);
         attachListenerToContext(uiContext);
+        attachListenerToListView();
 
         // TODO: tmp
         inputTextField.requestFocus();
@@ -55,6 +60,7 @@ public class HelpWindow extends UiElement<Region> {
     }
 
     //todo deal with missing fxml resources
+
     /**
      * Initialises the {@link #helpList} and {@link #helpListView} for the Home context.
      *
@@ -120,13 +126,24 @@ public class HelpWindow extends UiElement<Region> {
     }
 
     /**
-     * Attaches a listener to the {@code UiContext}.
+     * Attaches a listener to the {@link UiContext}.
      *
      * @param uiContext UiContext object.
      */
     private void attachListenerToContext(UiContext uiContext) {
-        uiContext.addListener(event -> {
-            update((Context) event.getNewValue());
+        uiContext.addListener(event -> update((Context) event.getNewValue()));
+    }
+
+    /**
+     * Attaches a listener to the {@code helpListView}.
+     */
+    private void attachListenerToListView() {
+        this.helpListView.getItems().addListener((ListChangeListener<HelpCard>) change -> {
+            if (this.helpListView.getItems().size() == 0) {
+                this.emptyPane.setVisible(true);
+            } else {
+                this.emptyPane.setVisible(false);
+            }
         });
     }
 }

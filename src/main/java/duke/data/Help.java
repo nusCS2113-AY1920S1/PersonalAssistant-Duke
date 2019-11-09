@@ -8,6 +8,7 @@ public class Help {
     private String format;
     private String switches;
     private String info;
+    private String example;
     private Context context;
 
     public String getCommand() {
@@ -28,6 +29,10 @@ public class Help {
 
     public String getInfo() {
         return info;
+    }
+
+    public String getExample() {
+        return example;
     }
 
     public Context getContext() {

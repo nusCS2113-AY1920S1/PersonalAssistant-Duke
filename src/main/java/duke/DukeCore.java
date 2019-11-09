@@ -12,7 +12,6 @@ import duke.ui.Ui;
 import duke.ui.UiManager;
 import duke.ui.context.UiContext;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -26,9 +25,8 @@ import java.util.logging.Logger;
  * The core of Dr. Duke, which holds the UI and storage components.
  */
 public class DukeCore extends Application {
-    private static final String storagePath = "data" + File.separator + "patients.json";
     public static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-
+    private static final String storagePath = "data" + File.separator + "patients.json";
     public Ui ui;
     public UiContext uiContext;
     public GsonStorage storage;
@@ -41,24 +39,25 @@ public class DukeCore extends Application {
     public DukeCore() {
         ui = new UiManager(this);
         uiContext = new UiContext();
+
         try {
             storage = new GsonStorage(storagePath);
             patientData = new PatientData(storage);
             setupLoggers();
-       } catch (DukeFatalException e) {
+        } catch (DukeFatalException e) {
             ui.showErrorDialogAndShutdown("Error encountered!", e);
-       }
+        }
     }
 
     /**
-     * Displays a set of search results, while storing a ObjCommand object (the one that calls the search), so that
-     * it can resume execution after receiving the search results.
+     * Displays a set of search results, while storing a {@link ObjCommand} object (the one that calls the search),
+     * so that it can resume execution after receiving the search results.
      *
      * @throws DukeFatalException If the file writer cannot be setup.
      */
     public void search(SearchResults results, ObjCommand objCmd) throws DukeException {
         queuedCmd = objCmd;
-        ui.print("Couldn't identify '" + results.getName() + "', displaying objects with matching names.");
+        ui.showMessage("Couldn't identify '" + results.getName() + "', displaying objects with matching names.");
         uiContext.open(results);
     }
 
@@ -74,7 +73,7 @@ public class DukeCore extends Application {
         } catch (ClassCastException excp) {
             logger.log(Level.SEVERE, "Wrong type of object returned from search!"
                     + System.lineSeparator() + excp.getMessage());
-            ui.print(queuedCmd.getClass().getSimpleName() + " failed! See log for details.");
+            ui.showMessage(queuedCmd.getClass().getSimpleName() + " failed! See log for details.");
         }
         queuedCmd = null;
     }
@@ -108,8 +107,7 @@ public class DukeCore extends Application {
      */
     @Override
     public void stop() {
-        Platform.exit();
-        System.exit(0);
+        ui.stop();
     }
 
 

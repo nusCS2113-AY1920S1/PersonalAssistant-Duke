@@ -1,7 +1,7 @@
 package duke.ui.window;
 
 import duke.exception.DukeException;
-import duke.ui.UiElement;
+import duke.ui.commons.UiElement;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyEvent;
@@ -35,6 +35,25 @@ public abstract class InputHistoryWindow extends UiElement<Region> {
         inputTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (historyPointer == inputHistory.size()) {
                 currentInput = newValue;
+            }
+        });
+
+        inputTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            switch (event.getCode()) {
+            case UP:
+                event.consume();
+                this.navigateToPreviousInput();
+                break;
+            case DOWN:
+                event.consume();
+                this.navigateToNextInput();
+                break;
+            case ENTER:
+                event.consume();
+                this.handleAction();
+                break;
+            default:
+                break;
             }
         });
 
@@ -78,37 +97,13 @@ public abstract class InputHistoryWindow extends UiElement<Region> {
     }
 
     /**
-     * Sets {@code inputTextField} with {@code text} and
-     * positions the caret to the end of the {@code text}.
+     * Sets {@code inputTextField} with {@code text} and positions the caret to the end of the {@code text}.
      *
      * @param text Text to be set in the input text field of the command window.
      */
     private void setText(String text) {
         inputTextField.setText(text);
         inputTextField.positionCaret(inputTextField.getText().length());
-    }
-
-    /**
-     * Handles key press event, {@code keyEvent}.
-     */
-    @FXML
-    private void handleKeyPress(KeyEvent keyEvent) {
-        switch (keyEvent.getCode()) {
-        case PAGE_UP:
-            keyEvent.consume();
-            navigateToPreviousInput();
-            break;
-        case PAGE_DOWN:
-            keyEvent.consume();
-            navigateToNextInput();
-            break;
-        case ENTER:
-            keyEvent.consume();
-            handleAction();
-            break;
-        default:
-            break;
-        }
     }
 
     /* @@author aquohn */
@@ -137,7 +132,7 @@ public abstract class InputHistoryWindow extends UiElement<Region> {
     }
 
     /**
-     * Handles the event where the user presses 'Enter" after he/she has finished
+     * Handles the event where the user presses "Enter" after he/she has finished
      * typing the command in {@code inputTextField}.
      */
     protected abstract void handleAction();

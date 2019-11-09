@@ -12,16 +12,18 @@ import duke.data.Treatment;
 import duke.exception.DukeException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class ImpressionTest {
 
+    private static final String duplicateBed = "bedNo";
     private Impression impression;
     private Patient patient;
-    private static final String duplicateBed = "bedNo";
 
     /**
      * Sets up the core of this object to have a patient and impression, opens the impression, and stores those
@@ -58,8 +60,8 @@ public class ImpressionTest {
         highestPri = 1;
         int highestStatus = 0;
         for (Treatment treatment : impression.getTreatments()) {
-            if (treatment.getPriority() != 0 &&
-                    (treatment.getPriority() < highestPri || treatment.getStatusIdx() < highestStatus)) {
+            if (treatment.getPriority() != 0
+                    && (treatment.getPriority() < highestPri || treatment.getStatusIdx() < highestStatus)) {
                 fail("treatment sorting failed");
             } else if (highestPri == 0 && treatment.getPriority() != 0) {
                 fail("treatment failed to sort 0 behind");
@@ -80,9 +82,10 @@ public class ImpressionTest {
 
     /**
      * Helper method to create treatments.
-     * @param invName investigation
+     *
+     * @param invName  investigation
      * @param planName plan
-     * @param medName medicine
+     * @param medName  medicine
      * @throws DukeException duplicate names found
      */
     public void setupTreatments(String invName, String planName, String medName) throws DukeException {
@@ -93,6 +96,7 @@ public class ImpressionTest {
 
     /**
      * Helper method to create evidences.
+     *
      * @param obsName observation
      * @param resName result
      * @throws DukeException duplicate names found

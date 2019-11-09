@@ -5,7 +5,7 @@ import duke.DukeCore;
 import duke.data.DukeObject;
 import duke.data.SearchResults;
 import duke.exception.DukeFatalException;
-import duke.ui.UiStrings;
+import duke.ui.commons.UiStrings;
 import duke.ui.card.UiCard;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
