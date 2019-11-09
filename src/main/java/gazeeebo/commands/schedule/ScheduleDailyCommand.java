@@ -1,4 +1,5 @@
 //@@author yueyuu
+
 package gazeeebo.commands.schedule;
 
 import gazeeebo.commands.note.ListNoteCommand;
@@ -30,7 +31,7 @@ public class ScheduleDailyCommand extends Command {
     protected static final String DEADLINE = "gazeeebo.tasks.Deadline";
     protected static final String TIMEBOUND = "gazeeebo.tasks.Timebound";
 
-    public final static String LIST_NOTE_MESSAGE = "\nNotes:";
+    public static final String LIST_NOTE_MESSAGE = "\nNotes:";
 
     //format for the command: scheduleDaily <yyyy-MM-dd>
 
@@ -45,7 +46,9 @@ public class ScheduleDailyCommand extends Command {
      * @throws NullPointerException if tDate doesn't get updated.
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack,
+                        ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException,
+            ParseException, IOException, NullPointerException {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String[] command = ui.fullCommand.split(" ");
         if (command.length > 2) {
@@ -64,24 +67,25 @@ public class ScheduleDailyCommand extends Command {
         }
         ArrayList<Task> schedule = new ArrayList<Task>();
         for (Task t: list) {
-            LocalDate tDate = null;
+            LocalDate taskDate = null;
             switch (t.getClass().getName()) {
             case EVENT:
-                tDate = ((Event) t).date;
+                taskDate = ((Event) t).date;
                 break;
             case DEADLINE:
-                tDate = ((Deadline) t).by.toLocalDate();
+                taskDate = ((Deadline) t).by.toLocalDate();
                 break;
             case TIMEBOUND:
                 LocalDate startDate = ((Timebound) t).dateStart;
                 LocalDate endDate = ((Timebound) t).dateEnd;
-                if (userDate.equals(startDate) || userDate.equals(endDate) ||
-                        (userDate.isAfter(startDate) && userDate.isBefore(endDate))) {
+                if (userDate.equals(startDate) || userDate.equals(endDate)
+                        || (userDate.isAfter(startDate) && userDate.isBefore(endDate))) {
                     schedule.add(t);
                 }
                 break;
+            default: continue;
             }
-            if (userDate.equals(tDate)) {
+            if (userDate.equals(taskDate)) {
                 schedule.add(t);
             }
         }
@@ -90,7 +94,7 @@ public class ScheduleDailyCommand extends Command {
         } else {
             System.out.println("Here is your schedule for " + userDate.format(fmt) + ":");
             for (int i = 0; i < schedule.size(); i++) {
-                System.out.println((i+1) + "." + schedule.get(i).listFormat());
+                System.out.println((i + 1) + "." + schedule.get(i).listFormat());
             }
         }
         System.out.println(LIST_NOTE_MESSAGE);
@@ -108,7 +112,7 @@ public class ScheduleDailyCommand extends Command {
     }
 
     /**
-     * Tells the main Duke class that the system should not exit and continue running
+     * Tells the main Duke class that the system should not exit and continue running.
      * @return false
      */
     @Override

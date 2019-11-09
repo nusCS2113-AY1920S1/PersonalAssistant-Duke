@@ -80,8 +80,9 @@ public class SpecializationCommandParser extends Command {
             } else {
                 System.out.println("Command not found, please re-enter!");
             }
-
             ui.readCommand();
+
+
         }
         System.out.println("Going back to Main Menu...\n"
                 + "Content Page:\n"

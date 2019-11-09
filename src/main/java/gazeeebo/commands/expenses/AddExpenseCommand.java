@@ -1,3 +1,5 @@
+//@@author e0323290
+
 package gazeeebo.commands.expenses;
 
 import gazeeebo.UI.Ui;
@@ -12,6 +14,7 @@ import java.util.Map;
 /**
  * This class adds the expense from the expense list and expenses.
  */
+
 public class AddExpenseCommand {
     /**
      * This method adds the expense from the expense list and expenses.
@@ -20,22 +23,29 @@ public class AddExpenseCommand {
      * @param expenses the map that maps each expenses to its date
      * @throws ArrayIndexOutOfBoundsException catches error if
      *                                        add command format is wrong
-     * @throws DateTimeParseException         catches error if date format is wrong
+     * @throws DateTimeParseException         catches error if
+     *                                        date format is wrong
      */
     public AddExpenseCommand(final Ui ui,
                              final Map<LocalDate, ArrayList<String>> expenses)
             throws ArrayIndexOutOfBoundsException, DateTimeParseException {
+        final int addCharacterCount = 3;
 
         try {
             String toAdd = ui.fullCommand;
-            String item = toAdd.substring(3).split(",")[0].trim();
-            String price = toAdd.substring(3).split(",")[1].trim();
-            String itemAndPrice = item + ", " + price;
-            String date = toAdd.substring(3).split(",")[2].trim();
+            String item = toAdd.substring(addCharacterCount)
+                    .split(",")[0].trim();
+            String price = toAdd.substring(addCharacterCount)
+                    .split(",")[1].trim();
+            String itemAndPrice = item + ", "
+                    + price;
+            String date = toAdd.substring(addCharacterCount)
+                    .split(",")[2].trim();
             System.out.println(price.substring(0, 1));
 
             if (!(price.charAt(0) == '$')) {
-                throw new DukeException("Please key in the correct format for money: $__");
+                throw new DukeException("Please key in the "
+                        + "correct format for money: $__");
             }
 
             DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");

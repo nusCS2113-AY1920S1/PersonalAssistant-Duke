@@ -1,3 +1,5 @@
+//@@author e0323290
+
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.expenses.AddExpenseCommand;
 
@@ -19,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class AddExpenseCommandTest {
     private static final String PRICE_FORMAT_ERROR_MESSAGE = "4\r\nPlease key in the correct format for money: $__\r\n";
     private static final String WRONG_DATE_FORMAT_ERROR_MESSAGE = "$\r\nWrong date format\r\n";
-private static final String INCORRECT_FORMAT_ERROR_MESSAGE = "Please input in the correct format\n";
+    private static final String INCORRECT_FORMAT_ERROR_MESSAGE = "Please input in the correct format\n";
     private Ui ui = new Ui();
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
     private PrintStream mine = new PrintStream(output);
@@ -75,9 +77,11 @@ private static final String INCORRECT_FORMAT_ERROR_MESSAGE = "Please input in th
     private void assertPriceFormatErrorMessageDisplayed() {
         assertEquals(PRICE_FORMAT_ERROR_MESSAGE, output.toString());
     }
+
     private void assertWrongDateFormatErrorMessageDisplayed() {
         assertEquals(WRONG_DATE_FORMAT_ERROR_MESSAGE, output.toString());
     }
+
     private void assertIncorrectFormatErrorMessageDisplayed() {
         assertEquals(INCORRECT_FORMAT_ERROR_MESSAGE, output.toString());
 

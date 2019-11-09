@@ -1,5 +1,7 @@
 //@@author yueyuu
+
 package gazeeebo.commands.schedule;
+
 import gazeeebo.notes.NoteList;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Deadline;
@@ -34,7 +36,8 @@ public class ScheduleWeeklyCommand extends ScheduleDailyCommand {
      * @throws NullPointerException if tDate doesn't get updated.
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack,
+                        ArrayList<Task> deletedTask, TriviaManager triviaManager) throws NullPointerException {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate mon;
         LocalDate sun;
@@ -82,26 +85,27 @@ public class ScheduleWeeklyCommand extends ScheduleDailyCommand {
 
         ArrayList<Task> schedule = new ArrayList<Task>();
         for (Task t: list) {
-            LocalDate tDate = null;
+            LocalDate taskDate = null;
             switch (t.getClass().getName()) {
             case EVENT:
-                tDate = ((Event) t).date;
+                taskDate = ((Event) t).date;
                 break;
             case DEADLINE:
-                tDate = ((Deadline) t).by.toLocalDate();
+                taskDate = ((Deadline) t).by.toLocalDate();
                 break;
             case TIMEBOUND:
                 LocalDate startDate = ((Timebound) t).dateStart;
                 LocalDate endDate = ((Timebound) t).dateEnd;
-                if (endDate.equals(mon) || (startDate.isBefore(mon) && endDate.isAfter(mon)) ||
-                        startDate.equals(mon) || (startDate.isAfter(mon) && startDate.isBefore(sun)) ||
-                        startDate.equals(sun)) {
+                if (endDate.equals(mon) || (startDate.isBefore(mon) && endDate.isAfter(mon))
+                        || startDate.equals(mon) || (startDate.isAfter(mon) && startDate.isBefore(sun))
+                        || startDate.equals(sun)) {
                     schedule.add(t);
                 }
                 break;
+            default: continue;
             }
-            if (tDate != null && (tDate.equals(mon) || (tDate.isAfter(mon) &&
-                    tDate.isBefore(sun)) || tDate.equals(sun))) {
+            if (taskDate != null && (taskDate.equals(mon) || (taskDate.isAfter(mon)
+                    && taskDate.isBefore(sun)) || taskDate.equals(sun))) {
                 schedule.add(t);
             }
         }
@@ -110,7 +114,7 @@ public class ScheduleWeeklyCommand extends ScheduleDailyCommand {
         } else {
             System.out.println("Here is your schedule for the week:");
             for (int i = 0; i < schedule.size(); i++) {
-                System.out.println((i+1) + "." + schedule.get(i).listFormat());
+                System.out.println((i + 1) + "." + schedule.get(i).listFormat());
             }
         }
         System.out.println(LIST_NOTE_MESSAGE);
@@ -118,7 +122,7 @@ public class ScheduleWeeklyCommand extends ScheduleDailyCommand {
     }
 
     /**
-     * Tells the main Duke class that the system should not exit and continue running
+     * Tells the main Duke class that the system should not exit and continue running.
      * @return false
      */
     @Override

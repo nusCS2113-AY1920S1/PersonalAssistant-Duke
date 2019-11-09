@@ -1,3 +1,5 @@
+//@@author e0323290
+
 package gazeeebo.commands.expenses;
 
 import gazeeebo.UI.Ui;
@@ -6,7 +8,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.Map;
 
 /**
@@ -41,8 +42,10 @@ public class DeleteExpenseCommand {
 
             if (ui.fullCommand.split(" ").length == 1) {
 
-                System.out.println("What is the index of the item you want to delete?\n");
-                for (int j = 0; j < expenseList.size(); j++) {
+                System.out.println("What is the index "
+                        + "of the item you want to delete?\n");
+                for (int j = 0;
+                     j < expenseList.size(); j++) {
                     System.out.println((j + 1) + ". " + expenseList.get(j));
                 }
                 ui.readCommand();
@@ -52,7 +55,8 @@ public class DeleteExpenseCommand {
                         + expenseList.get(index));
 
                 String getKeyFromList = expenseList.get(index).split("on ")[1];
-                DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter fmt
+                        = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 LocalDate getKey = LocalDate.parse(getKeyFromList, fmt);
 
                 String getValueFromList = expenseList.get(index)
@@ -83,13 +87,16 @@ public class DeleteExpenseCommand {
                         isInList = true;
                     }
                 }
-                if(isInList == true) {
+                if (isInList) {
                     for (int i = 0; i < expenseList.size(); i++) {
                         String item = expenseList.get(i).split(", ")[0];
                         if (item.equals(nameToDelete)) {
-                            String getKeyFromList = expenseList.get(i).split("on ")[1];
-                            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                            LocalDate getKey = LocalDate.parse(getKeyFromList, fmt);
+                            String getKeyFromList
+                                    = expenseList.get(i).split("on ")[1];
+                            DateTimeFormatter fmt
+                                    = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                            LocalDate getKey
+                                    = LocalDate.parse(getKeyFromList, fmt);
 
                             String getValueFromList = expenseList.get(i)
                                     .split(" | ")[0].trim();

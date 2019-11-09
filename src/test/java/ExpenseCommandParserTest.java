@@ -1,3 +1,5 @@
+//@@author e0323290
+
 import gazeeebo.parsers.ExpenseCommandParser;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;

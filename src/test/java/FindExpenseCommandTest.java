@@ -1,3 +1,5 @@
+//@@author e0323290
+
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.expenses.FindExpenseCommand;
 import org.junit.jupiter.api.AfterEach;
@@ -14,7 +16,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 
 public class FindExpenseCommandTest {
     private static final String WRONG_DATE_FORMAT_ERROR_MESSAGE = "Wrong date format\r\n";

@@ -1,3 +1,5 @@
+//@@author e0323290
+
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.expenses.DeleteExpenseCommand;
 import org.junit.jupiter.api.AfterEach;
@@ -46,7 +48,8 @@ public class DeleteExpenseCommandTest {
         expenses.put(bookDateOfPurchase, itemAndPriceList1);
         ui.fullCommand = "delete book";
         new DeleteExpenseCommand(ui, expenses);
-        assertEquals("Successfully deleted: book, $3 | bought on 2019-09-09\r\n", output.toString());
+        assertEquals("Successfully deleted: book, $3" +
+                " | bought on 2019-09-09\r\n", output.toString());
     }
 
     @Test

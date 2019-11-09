@@ -1,4 +1,5 @@
 //@@author yueyuu
+
 package gazeeebo.commands.note;
 
 import gazeeebo.storage.NoteStorage;
@@ -31,11 +32,11 @@ public class EditNoteCommand extends AddNoteCommand {
      * @throws DukeException if the note to edit does not exist
      */
     protected void editNoteInList(int noteNumber, ArrayList<Note> listToEdit, LocalDate dateToEdit,
-                                  String editedNote, String period, String fileName) throws DukeException{
+                                  String editedNote, String period, String fileName) throws DukeException {
         for (Note n: listToEdit) {
             if (n.noteDate.equals(dateToEdit)) {
                 try {
-                    n.notes.set(noteNumber-1, editedNote);
+                    n.notes.set(noteNumber - 1, editedNote);
                     NoteStorage.writeToFile(fileName, listToEdit);
                     return;
                 } catch (IndexOutOfBoundsException e) {
@@ -61,7 +62,8 @@ public class EditNoteCommand extends AddNoteCommand {
 
     /** The main method that executes all the sub methods. */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack,
+                        ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
         //editNote day/week/month yyyy-MM-dd <note_num = index+1>
         //<the note they want to edit to become>
         String[] command = ui.fullCommand.split(" ");

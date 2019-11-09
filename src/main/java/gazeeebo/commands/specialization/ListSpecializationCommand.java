@@ -1,3 +1,5 @@
+//@@author e0323290
+
 package gazeeebo.commands.specialization;
 
 import gazeeebo.UI.Ui;
@@ -8,36 +10,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * Calls out the list of specializations and technical electives.
+ */
 public class ListSpecializationCommand {
-    /**
-     * Index of Communication and Networking specialization.
-     */
-    static final int COMMS_NETWORKING_INDEX = 1;
-    /**
-     * Index of Embedded Computing specialization.
-     */
-    static final int EMBEDDED_COMPUTING_INDEX = 2;
-    /**
-     * Index of Intelligent Systems specialization.
-     */
-    static final int INTELLIGENT_SYSTEMS_INDEX = 3;
-    /**
-     * Index of Interactive Digital Media specialization.
-     */
-    static final int INTERACTIVE_DIGITAL_MEDIA_INDEX = 4;
-    /**
-     * Index of Large-Scale Computing specialization.
-     */
-    static final int LARGE_SCALE_COMPUTING_INDEX = 5;
-    /**
-     * Index of System-On-A-Chip Design specialization.
-     */
-    static final int SYS_DESIGN_INDEX = 6;
-    /**
-     * Number of MCs per technical elective.
-     */
-    static final int MC_OF_ELECTIVES = 4;
-
     /**
      * Allows the user to show list of technical electives completed
      * and number of MCs completed for each specialization.
@@ -63,6 +39,13 @@ public class ListSpecializationCommand {
                                      final Map<String, ArrayList<String>>
                                              completedEMap)
             throws DukeException, IOException {
+        final int commsAndNetworkingIndex = 1;
+        final int embeddedComputingIndex = 2;
+        final int intelligentSystemsIndex = 3;
+        final int interactiveDigitalMediaIndex = 4;
+        final int largeScaleComputingIndex = 5;
+        final int sysDesignIndex = 6;
+        final int modularCredits = 4;
         try {
             new ListOfSpecializationAndModules(specMap);
             ArrayList<String> specList = new ArrayList<String>();
@@ -91,7 +74,7 @@ public class ListSpecializationCommand {
                     + ".");
             System.out.println("\n");
 
-            if (specChosen == COMMS_NETWORKING_INDEX) {
+            if (specChosen == commsAndNetworkingIndex) {
                 System.out.println("Breadth:");
                 for (int i = 0; i < specMap.get("Communications & "
                         + "Networking").size(); i++) {
@@ -137,9 +120,9 @@ public class ListSpecializationCommand {
                 } else {
                     System.out.println(completedEMap.get(
                             specList.get(specChosen - 1)
-                    ).size() * MC_OF_ELECTIVES + "/20");
+                    ).size() * modularCredits + "/20");
                 }
-            } else if (specChosen == EMBEDDED_COMPUTING_INDEX) {
+            } else if (specChosen == embeddedComputingIndex) {
                 System.out.println("Breadth:");
                 for (int i = 0; i < specMap.get("Embedded"
                         + " Computing").size(); i++) {
@@ -185,9 +168,9 @@ public class ListSpecializationCommand {
                 } else {
                     System.out.println(completedEMap.get(
                             specList.get(specChosen - 1)
-                    ).size() * MC_OF_ELECTIVES + "/20");
+                    ).size() * modularCredits + "/20");
                 }
-            } else if (specChosen == INTELLIGENT_SYSTEMS_INDEX) {
+            } else if (specChosen == intelligentSystemsIndex) {
                 System.out.println("Breadth:");
                 for (int i = 0; i < specMap.get("Intelligent"
                         + " Systems").size(); i++) {
@@ -231,9 +214,9 @@ public class ListSpecializationCommand {
                 } else {
                     System.out.println(completedEMap.get(
                             specList.get(specChosen - 1)
-                    ).size() * MC_OF_ELECTIVES + "/20");
+                    ).size() * modularCredits + "/20");
                 }
-            } else if (specChosen == INTERACTIVE_DIGITAL_MEDIA_INDEX) {
+            } else if (specChosen == interactiveDigitalMediaIndex) {
                 System.out.println("Breadth:");
                 for (int i = 0; i < specMap.get("Interactive"
                         + " Digital Media").size(); i++) {
@@ -277,9 +260,9 @@ public class ListSpecializationCommand {
                 } else {
                     System.out.println(completedEMap.get(
                             specList.get(specChosen - 1)
-                    ).size() * MC_OF_ELECTIVES + "/20");
+                    ).size() * modularCredits + "/20");
                 }
-            } else if (specChosen == LARGE_SCALE_COMPUTING_INDEX) {
+            } else if (specChosen == largeScaleComputingIndex) {
                 System.out.println("Breadth:");
                 for (int i = 0; i < specMap.get("Large-Scale"
                         + " Computing").size(); i++) {
@@ -323,9 +306,9 @@ public class ListSpecializationCommand {
                 } else {
                     System.out.println(completedEMap.get(
                             specList.get(specChosen - 1)
-                    ).size() * MC_OF_ELECTIVES + "/20");
+                    ).size() * modularCredits + "/20");
                 }
-            } else if (specChosen == SYS_DESIGN_INDEX) {
+            } else if (specChosen == sysDesignIndex) {
                 System.out.println("Breadth:");
                 for (int i = 0; i < specMap.get("System-On-A-Chip"
                         + " Design").size(); i++) {
@@ -369,7 +352,7 @@ public class ListSpecializationCommand {
                 } else {
                     System.out.println(completedEMap.get(
                             specList.get(specChosen - 1)
-                    ).size() * MC_OF_ELECTIVES + "/20");
+                    ).size() * modularCredits + "/20");
                 }
             }
             String toStoreCommsB = "";

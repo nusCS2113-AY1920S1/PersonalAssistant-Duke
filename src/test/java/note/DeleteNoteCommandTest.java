@@ -1,4 +1,5 @@
 //@@author yueyuu
+
 package note;
 
 import gazeeebo.UI.Ui;
@@ -13,7 +14,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DeleteNoteCommandTest extends DeleteNoteCommand {
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -27,7 +28,7 @@ class DeleteNoteCommandTest extends DeleteNoteCommand {
     }
 
     @AfterEach
-    void restoreStream(){
+    void restoreStream() {
         System.out.flush();
         System.setOut(original);
     }
