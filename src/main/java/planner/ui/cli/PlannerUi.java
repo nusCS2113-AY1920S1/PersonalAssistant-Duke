@@ -458,13 +458,13 @@ public class PlannerUi {
         showLine();
         System.out.println("Would you like to set your reminder to every:\n"
                             +
-                            "1) for 30 seconds\n"
+                            "1) for 10 seconds\n"
                             +
-                            "2) for 1 minute\n"
+                            "2) for 30 seconds\n"
                             +
-                            "3) for 2 minutes\n"
+                            "3) for 1 minutes\n"
                             +
-                            "4) for 5 minutes\n"
+                            "4) for 2 minutes\n"
                             +
                             "*helpline* : for 1), enter 'reminder one'");
     }
