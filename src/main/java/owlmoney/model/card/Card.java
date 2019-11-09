@@ -203,21 +203,6 @@ public class Card {
     }
 
     /**
-     * Lists all the paid expenditures in the current credit card.
-     *
-     * @param ui         Ui of OwlMoney.
-     * @param displayNum Number of expenditure to list.
-     * @throws TransactionException If no expenditure is found or no expenditure is in the list.
-     */
-    void listAllPaidExpenditure(Ui ui, int displayNum) throws TransactionException {
-        try {
-            paid.listExpenditure(ui, displayNum);
-        } catch (TransactionException e) {
-            throw new TransactionException("There are no expenditures in this card.");
-        }
-    }
-
-    /**
      * Deletes an expenditure in the current credit card.
      *
      * @param exId Transaction number of the transaction.
@@ -281,7 +266,7 @@ public class Card {
      * @return True if unpaid expenditure list is empty.
      */
     public boolean isEmpty() {
-        return unpaid.expListIsEmpty();
+        return unpaid.expenditureListIsEmpty();
     }
 
     /**
