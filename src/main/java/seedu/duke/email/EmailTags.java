@@ -9,7 +9,14 @@ public class EmailTags {
     private static TagMap tagMap = new TagMap();
     private static ArrayList<String> emailTagList = new ArrayList<>();
 
+    /**
+     * Updates the tags exist in the emails.
+     *
+     * @param emailList email list from model
+     * @return list of tags exist in emails
+     */
     public static ArrayList<String> updateEmailTagList(EmailList emailList) {
+        emailTagList.clear();
         for (Email email : emailList) {
             ArrayList<Email.Tag> tags = email.getTags();
             for (Email.Tag tag : tags) {
@@ -22,6 +29,11 @@ public class EmailTags {
         return emailTagList;
     }
 
+    /**
+     * Gets the email tag list.
+     *
+     * @return list of tags exist in the emails.
+     */
     public static ArrayList<String> getEmailTagList() {
         return emailTagList;
     }

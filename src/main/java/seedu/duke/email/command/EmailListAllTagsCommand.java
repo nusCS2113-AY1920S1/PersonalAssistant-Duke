@@ -10,7 +10,8 @@ public class EmailListAllTagsCommand extends Command {
 
     @Override
     public boolean execute(Model model) {
-        responseMsg = EmailTags.getEmailTagList().toString();
+        responseMsg = "Tags exist in the emails: " + System.lineSeparator();
+        responseMsg += EmailTags.getEmailTagList().toString();
         UI.getInstance().showResponse(responseMsg);
         return true;
     }
