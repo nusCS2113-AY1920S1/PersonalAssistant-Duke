@@ -94,6 +94,16 @@ public interface Model {
 
     int getMemberIdByName(String name);
 
+    String getMemberBioByName(String name);
+
+    String getMemberEmailByName(String name);
+
+    String getMemberPhoneByName(String name);
+
+    ArrayList<String> getTaskListOfMemberByName(String name);
+
+    ArrayList<String> getSkillListOfMemberByName(String name);
+
     //==================Task and Member Interface======================
     void link(int tasksIndexes, String memberNames);
 

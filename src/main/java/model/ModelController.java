@@ -240,6 +240,65 @@ public class ModelController implements Model {
         return memberIndex;
     }
 
+    //@@author JasonChanWQ
+    /**
+     * get member biography by name
+     * @param name input name
+     * @return memberBio
+     */
+    public String getMemberBioByName(String name) {
+        String memberBio = "";
+        for (int i = 0; i < memberManager.getMemberList().size(); i++) {
+            if (name.equals(memberManager.getMemberNameById(i))) {
+                memberBio = memberManager.getMemberBio(i);
+                break;
+            }
+        }
+        return memberBio;
+    }
+
+    //@@author JasonChanWQ
+    /**
+     * get member email by name
+     * @param name input name
+     * @return memberEmail
+     */
+    public String getMemberEmailByName(String name) {
+        String memberEmail = "";
+        for (int i = 0; i < memberManager.getMemberList().size(); i++) {
+            if (name.equals(memberManager.getMemberNameById(i))) {
+                memberEmail = memberManager.getMemberEmail(i);
+                break;
+            }
+        }
+        return memberEmail;
+    }
+
+    //@@author JasonChanWQ
+    /**
+     * get member phone by name
+     * @param name input name
+     * @return memberPhone
+     */
+    public String getMemberPhoneByName(String name) {
+        String memberPhone = "";
+        for (int i = 0; i < memberManager.getMemberList().size(); i++) {
+            if (name.equals(memberManager.getMemberNameById(i))) {
+                memberPhone = memberManager.getMemberPhone(i);
+                break;
+            }
+        }
+        return memberPhone;
+    }
+
+    public ArrayList<String> getTaskListOfMemberByName(String name) {
+        return memberManager.getTaskListOfMember(name);
+    }
+
+    public ArrayList<String> getSkillListOfMemberByName(String name) {
+        return memberManager.getSkillListOfMember(name);
+    }
+
 
     //============================ Task and member interfaces =================================
 
