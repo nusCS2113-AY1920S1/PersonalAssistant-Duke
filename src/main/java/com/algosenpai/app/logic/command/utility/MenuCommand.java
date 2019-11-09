@@ -1,13 +1,18 @@
-//@@author carrieng0323852
-
 package com.algosenpai.app.logic.command.utility;
 
 import com.algosenpai.app.exceptions.MenuExceptions;
 import com.algosenpai.app.logic.command.Command;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MenuCommand extends Command {
+
+    private static HashMap<String, String> commandExplanation = null;
 
     /**
      * Initializes command to show available commands.
@@ -15,76 +20,40 @@ public class MenuCommand extends Command {
      */
     public MenuCommand(ArrayList<String> inputs) {
         super(inputs);
+        if (commandExplanation == null) {
+            commandExplanation = new HashMap<>();
+            try {
+                InputStream is = getClass().getResourceAsStream("/data/commandList.txt");
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
+                String line;
+                StringBuilder input = new StringBuilder();
+                while (true) {
+                    line = bufferedReader.readLine();
+                    if (line == null) {
+                        break;
+                    }
+                    input.append(line).append("\n");
+                }
+                String[] arr = input.toString().split("-\n");
+                for (String s : arr) {
+                    String[] temp = s.split("\n", 2);
+                    commandExplanation.put(temp[0], temp[1]);
+                }
+            } catch (IOException e) {
+                System.out.println("Cant find");
+            }
+        }
     }
 
     @Override
     public String execute() {
         if (inputs.size() == 1) {
-            String string = "Senpai will teach you! Try these commands :\n"
-                        + "Critical : \n"
-                        + "*\tlecture\n"
-                        + "*\tquiz\n"
-                        + "*\tarcade\n"
-                        + "*\treset\n"
-                        + "*\texit\n"
-                        +  "\n"
-                        + "Utility : \n"
-                        + "*\tmenu\n"
-                        + "*\treview\n"
-                        + "*\thistory\n"
-                        + "*\tundo\n"
-                        + "*\thelp\n"
-                        + "*\tprint\n"
-                        + "*\tarchive\n"
-                        + "*\tsave\n"
-                        + "\n"
-                        + "Misc : \n"
-                        + "*\tchapters\n"
-                        + "*\tclear\n"
-                        + "*\tvolume\n"
-                        + "*\tresult\n"
-                        + "*\tstats\n"
-                        + "Type `menu <command> to see how to use certain commands.\n";
-            System.out.println(string);
-            return string;
+            return commandExplanation.get("Introduction");
         } else {
             try {
                 MenuExceptions.checkInput(inputs);
-                switch (inputs.get(1)) {
-                case "lecture":
-                    return "`lecture` to pick a chapter. Type `start` to begin the lecture.";
-                case "chapters":
-                    return "`chapters` to view the list of chapters";
-                case "help":
-                    return "`help <chapter>` to view the list of problems on kattis "
-                            + "that you may wish to solve for the corresponding chapter";
-                case "quiz":
-                    return "`quiz` to pick a chapter. Type `start` to begin the quiz. ";
-                case "result":
-                    return "`result` to view your results of the past quizzes you've attempted before";
-                case "history":
-                    return "`history <number of commands you'd like to view>` to view your past commands";
-                case "undo":
-                    return "`undo` to reverse a single action or undo <number of steps you'd like to undo> "
-                            + "to reverse multiple actions";
-                case "clear":
-                    return "`clear` to clear all chats";
-                case "save":
-                    return "`save` to save all your current data";
-                case "exit":
-                    return "`exit` to exit the programme";
-                case "print":
-                    return "`print <archive | quiz | user> <filename>.pdf` to print the selected pdf file";
-                case "archive":
-                    return "`archive <question number>` to archive a question";
-                case "review":
-                    return "`review <question number>` used after a quiz to find out the "
-                            + "correct answer and method for the selected question in the quiz";
-                case "volume":
-                    return "`volume <sound level>` to adjust the volume level";
-                default:
-                    return "Error there is no such command, enter `menu` to get the list of available commands.";
-                }
+                return commandExplanation.getOrDefault(inputs.get(1), "Error there is no such command,"
+                        + " enter `menu` to get the list of available commands.");
             } catch (MenuExceptions e) {
                 return e.getMessage();
             }
