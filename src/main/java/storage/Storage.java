@@ -45,6 +45,7 @@ import java.util.Stack;
  */
 public class Storage {
 
+    private static final int MAX_ALLOWED_CELL_WIDTH = 10000;
     private static String REMINDER_FILE_PATH;
     private static String DATA_FILE_PATH;
     private static String EXCEL_PATH;
@@ -64,7 +65,6 @@ public class Storage {
         if (!filePath.exists()) {
             filePath.mkdir();
         }
-        File dataExcel = new File(filePath, "wordup.xlsx");
         if (!dataText.exists()) {
             try {
                 dataText.createNewFile();
@@ -443,7 +443,8 @@ public class Storage {
                 if (cell == null) {
                     cell = row.createCell(1);
                 }
-                cell.setCellValue(String.join(", ", allWordsOfTag));
+
+                resizeCellAndSetValue(String.join(", ", allWordsOfTag), workbook, sheet, 1, cell);
             }
 
             sheet.autoSizeColumn(0);
@@ -496,7 +497,7 @@ public class Storage {
                     cell = row.createCell(1);
                 }
 
-                cell.setCellValue(allWords[i - 1].getMeaning());
+                resizeCellAndSetValue(allWords[i - 1].getMeaning(), workbook, sheet, 1, cell);
             }
 
             sheet.autoSizeColumn(0);
@@ -511,6 +512,16 @@ public class Storage {
             createExcelFile();
         } catch (IOException | InvalidFormatException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void resizeCellAndSetValue(String string, Workbook workbook, Sheet sheet, int colIdx, Cell cell) {
+        if (string.length() >= 20) {
+            sheet.setColumnWidth(colIdx, MAX_ALLOWED_CELL_WIDTH);
+            CellStyle style = workbook.createCellStyle();
+            style.setWrapText(true);
+            cell.setCellStyle(style);
+            cell.setCellValue(string);
         }
     }
 }
