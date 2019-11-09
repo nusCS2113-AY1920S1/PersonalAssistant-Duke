@@ -13,7 +13,7 @@ image::omupenguin.png[width="150", align="left"]
 {empty}[https://github.com/omupenguin[github]]
 
 Role: Team Lead +
-Responsibilities: -
+Responsibilities: Managing of entry and modifying feature
 
 '''
 
@@ -22,7 +22,7 @@ image::yetong1895.png[width="150", align="left"]
 {empty}[http://github.com/yetong1895[github]]
 
 Role: Code Quality IC +
-Responsibilities: -
+Responsibilities: Managing of shortcut, undo and redo feature and storage
 
 '''
 
@@ -31,7 +31,7 @@ image::tatayu.png[width="150", align="left"]
 {empty}[http://github.com/tatayu[github]]
 
 Role: Testing IC +
-Responsibilities: -
+Responsibilities: Managing of debt and searching feature
 
 '''
 
@@ -40,6 +40,6 @@ image::weng-kexin.png[width="150", align="left"]
 {empty}[http://github.com/weng-kexin[github]]
 
 Role: Documentation IC +
-Responsibilities: -
+Responsibilities: Managing of limit feature and deadlines
 
 '''
