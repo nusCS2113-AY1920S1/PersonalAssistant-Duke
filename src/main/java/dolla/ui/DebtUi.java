@@ -78,6 +78,9 @@ public class DebtUi extends Ui {
         System.out.println(line);
     }
 
+    /**
+     * Print invalid bill number message.
+     */
     public static void printInvalidBillNumberError() {
         System.out.println(line);
         System.out.println("\tPlease input a valid bill number.");
@@ -103,11 +106,11 @@ public class DebtUi extends Ui {
     }
 
     /**
-     * print wrong number of people for bill message
+     * print wrong number of people for bill message.
      */
     public static void printWrongPeopleNumberMessage(int people) {
         System.out.println(line);
-        System.out.println("\tPlease enter " + people + " names." );
+        System.out.println("\tPlease enter " + people + " names.");
     }
 
     /**

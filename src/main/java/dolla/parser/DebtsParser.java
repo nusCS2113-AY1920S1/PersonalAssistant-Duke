@@ -45,7 +45,7 @@ public class DebtsParser extends Parser {
             }
         } else if (commandToRun.equals(BILL_COMMAND_BILL)) {
             ArrayList<String> nameList = new ArrayList<>();
-            if(verifyAddBillCommand(nameList)) {
+            if (verifyAddBillCommand(nameList)) {
                 return new AddBillCommand(BILL_COMMAND_BILL,Integer.parseInt(inputArray[1]), amount, nameList);
             } else {
                 return new ErrorCommand();

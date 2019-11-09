@@ -1,8 +1,12 @@
 package dolla.parser;
 
-
-import dolla.command.*;
-import dolla.ui.SearchUi;
+import dolla.command.Command;
+import dolla.command.ShowListCommand;
+import dolla.command.SearchCommand;
+import dolla.command.RemoveCommand;
+import dolla.command.ErrorCommand;
+import dolla.command.AddShortcutCommand;
+import dolla.command.ExecuteShortcutCommand;
 
 public class ShortcutParser extends Parser {
 

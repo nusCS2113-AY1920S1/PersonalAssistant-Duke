@@ -2,11 +2,17 @@ package dolla.parser;
 
 import dolla.ModeStringList;
 import dolla.Time;
-import dolla.model.Debt;
 import dolla.model.RecordList;
 import dolla.exception.DollaException;
 
-import dolla.ui.*;
+import dolla.ui.Ui;
+import dolla.ui.DebtUi;
+import dolla.ui.SearchUi;
+import dolla.ui.ModifyUi;
+import dolla.ui.EntryUi;
+import dolla.ui.SortUi;
+import dolla.ui.RemoveUi;
+import dolla.ui.LimitUi;
 
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
@@ -654,7 +660,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      */
     protected Boolean verifyAddBillCommand(ArrayList<String> nameList) {
         try {
-            if(verifyBillPeopleAndAmount()) {
+            if (verifyBillPeopleAndAmount()) {
                 amount = stringToDouble(inputArray[2]);
                 for (int i = 3; i < 3 + Integer.parseInt(inputArray[1]); i++) {
                     String name = inputArray[i];
