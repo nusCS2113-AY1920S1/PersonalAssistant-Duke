@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.TimeZone;
 
 public class FileUtilCSV<Type> extends FileUtil {
     private Type fileObject;
@@ -40,6 +41,7 @@ public class FileUtilCSV<Type> extends FileUtil {
         this.file = new File(fileFullPath);
         this.mapper = new CsvMapper();
         this.mapper.setDateFormat(ParserUtil.getDateFormat());
+        this.mapper.setTimeZone(ParserUtil.getTimeZone());
     }
 
     /**
