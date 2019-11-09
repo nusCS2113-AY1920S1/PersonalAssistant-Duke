@@ -59,10 +59,6 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         return inputLine;
     }
 
-    public static String[] getInputArray() {
-        return inputArray;
-    }
-
     /**
      * Splits the input from the user and assigns the relevant data into description and date variables.
      * If the incorrect format is given in the input, the corresponding alert will be printed.
