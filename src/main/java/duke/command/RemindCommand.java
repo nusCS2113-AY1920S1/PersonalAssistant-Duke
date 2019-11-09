@@ -1,8 +1,6 @@
 package duke.command;
 
 import duke.storage.Storage;
-//import duke.task.Reminders;
-import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
@@ -12,14 +10,6 @@ import duke.ui.Ui;
  *  Represents a command to set reminders to tasks.
  */
 public class RemindCommand extends Command {
-    protected int taskIndex;
-    protected int reminder;
-    //    protected Reminders reminders;
-
-    public RemindCommand(int task, int remind) {
-        this.taskIndex = task;
-        this.reminder = remind;
-    }
 
     /**
      * Executes a command that gathers all tasks from task list and outputs the result (GUI).
@@ -29,10 +19,7 @@ public class RemindCommand extends Command {
      * @return List of tasks.
      */
     @Override
-    public String executeGui(TaskList items, Ui ui) {
-        String str = ui.showReminderGui(items, taskIndex);
-        return str;
-    }
+    public String executeGui(TaskList items, Ui ui) { return ""; }
 
     /**
      * Executes a command that overwrites existing storage with the updated task list.
