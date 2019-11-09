@@ -128,16 +128,15 @@ public class Storage {
         boolean isCleanSlate = true;
         if (!tasksFile.getParentFile().getParentFile().exists()) {
             tasksFile.getParentFile().getParentFile().mkdir();
+            JavaCake.logger.log(Level.INFO, "StoreGrandpa");
+        }
+        if (!tasksFile.getParentFile().exists()) {
             tasksFile.getParentFile().mkdir();
+            JavaCake.logger.log(Level.INFO, "StorePapa");
+        }
+        if (!tasksFile.exists()) {
             tasksFile.createNewFile();
-            //System.out.println("A" + tasksFile.getParentFile().getParentFile().getPath());
-        } else if (!tasksFile.getParentFile().exists()) {
-            tasksFile.getParentFile().mkdir();
-            tasksFile.createNewFile();
-            //System.out.println("B" + tasksFile.getParentFile().getPath());
-        } else if (!tasksFile.exists()) {
-            tasksFile.createNewFile();
-            //System.out.println("C" + tasksFile.getPath());
+            JavaCake.logger.log(Level.INFO, "StoreP");
         } else {
             isCleanSlate = false;
             JavaCake.logger.log(Level.INFO, filepath + " is found!");

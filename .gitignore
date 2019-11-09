@@ -8,6 +8,8 @@
 /build/
 src/main/resources/docs/
 /data/
+/testPath/
+/testStorage/
 
 # MacOS custom attributes files created by Finder
 .DS_Store

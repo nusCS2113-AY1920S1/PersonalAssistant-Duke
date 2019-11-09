@@ -24,6 +24,7 @@ public class Profile {
     private ArrayList<Integer> individualTopicsDone = new ArrayList<>();
     int totalNumOfMainTopics = 4;
     int levelsOfDifficulty = 3;
+    private static boolean isResetFresh = false;
 
 
     public Profile() throws CakeException {
@@ -74,6 +75,7 @@ public class Profile {
      * Method to hard reset profile.
      */
     public static void resetProfile() {
+        isResetFresh = true;
         File file = new File(filepath);
         if (file.exists()) {
             file.delete();
@@ -193,23 +195,24 @@ public class Profile {
      * Method that creates data to be written into savefile.txt.
      */
     private void initialiseUser(File file, String filename) throws IOException {
+        boolean isCleanSlate = true;
         if (!file.getParentFile().getParentFile().exists()) {
             file.getParentFile().getParentFile().mkdir();
+            JavaCake.logger.log(Level.INFO, "ProfileGrandpa");
+        }
+        if (!file.getParentFile().exists()) {
             file.getParentFile().mkdir();
+            JavaCake.logger.log(Level.INFO, "ProfilePapa");
+        }
+        if (!file.exists()) {
             file.createNewFile();
-            System.out.println("A" + file.getParentFile().getParentFile().getPath());
-        } else if (!file.getParentFile().exists()) {
-            file.getParentFile().mkdir();
-            file.createNewFile();
-            System.out.println("B" + file.getParentFile().getPath());
-        } else if (!file.exists()) {
-            file.createNewFile();
-            System.out.println("C" + file.getPath());
+            JavaCake.logger.log(Level.INFO, "ProfileP");
         } else {
+            isCleanSlate = false;
             JavaCake.logger.log(Level.INFO, filepath + " is found!");
         }
 
-        if (filename.equals("data")) {
+        if (!isResetFresh && isCleanSlate && filename.equals("data")) {
             username = "BakaTester";
             PrintWriter out = new PrintWriter(filepath);
             out.println(username);
@@ -226,7 +229,7 @@ public class Profile {
                 out.println("0");
             }
             out.close();
-        } else {
+        } else if (isCleanSlate) {
             username = "NEW_USER_!@#";
             PrintWriter out = new PrintWriter(filepath);
             out.println(username);
@@ -235,7 +238,6 @@ public class Profile {
             }
             out.close();
         }
-
 
     }
 
