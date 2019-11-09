@@ -29,6 +29,7 @@ public class Deadline extends Task implements Serializable {
         this.type = DEADLINE;
     }
 
+    // @@author hanskw4267
     /**
      * Constructor for deadline task.
      *
@@ -42,6 +43,7 @@ public class Deadline extends Task implements Serializable {
         this.type = DEADLINE;
         setReminder(3);
     }
+    // @@author
 
     @Override
     public String toString() {
@@ -52,14 +54,16 @@ public class Deadline extends Task implements Serializable {
             message = super.getPriorityIcon() + "[D]" + "[" + super.getStatusIcon() + "] " + this.modCode + " "
                     + this.description;
         }
-        String dateString = " (by: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+        message = message + " (by: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+        // @@author hanskw4267
         if (!location.isBlank()) {
-            dateString = dateString + "\n" + location;
+            message = message + "\n" + location;
         }
         if (!comment.isBlank()) {
-            dateString = dateString + "\nNote to self: " + comment;
+            message = message + "\nNote to self: " + comment;
         }
-        return message.concat(dateString);
+        // @@author
+        return message;
     }
 
     @Override

@@ -10,6 +10,7 @@ import chronologer.task.Task;
 import chronologer.task.TaskList;
 import chronologer.ui.UiTemporary;
 
+//@@author hanskw4267
 /**
  * Adds weekly recurring tasks to taskslist.
  * 
@@ -42,7 +43,6 @@ public class AddRecurringCommand extends AddCommand {
         while (this.formattedStartDate.isAfter(timeNow)) {
             task = new Event(taskDescription, formattedStartDate, formattedEndDate, modCode);
             tasks.add(task);
-            System.out.println(formattedEndDate + " ------------------------------ " + formattedEndDate);
             this.formattedEndDate = this.formattedEndDate.minusWeeks(1);
             this.formattedStartDate = this.formattedStartDate.minusWeeks(1);
         }

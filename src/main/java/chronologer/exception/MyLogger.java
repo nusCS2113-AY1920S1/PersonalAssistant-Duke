@@ -6,6 +6,13 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+//@@author hanskw4267
+/**
+ * Handles the creation and writing of log messages for errors.
+ * 
+ * @author Hans kurnia
+ * @version 1.0
+ */
 public class MyLogger {
     Logger logger;
     FileHandler fh;
