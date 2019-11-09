@@ -201,7 +201,7 @@ class ViewHelperTest {
         String[] simulatedOutput = viewHelper.consolePrintCalender(simulatedInput);
         String[] expectedOutput = new String[]{
             "+----------------------------------------------------------------------+",
-            "|    Today's date is 8 11 2019                                         |",
+            "|    Today's date is 9 11 2019                                         |",
             "+----------------------------------------------------------------------+",
             "|        U        M        T        W        R        F        S       |",
             "|                                                     1        2       |",

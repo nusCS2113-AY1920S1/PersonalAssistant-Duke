@@ -59,30 +59,35 @@ public class TaskList {
      * @return An ArrayList with String descriptions of task details sorted by name by default to be presented in table
      *         format.
      */
-    public ArrayList<String> getAllTaskDetailsForTable(
+    public ArrayList<ArrayList<String>> getAllTaskDetailsForTable(
         HashMap<String, ArrayList<String>> tasksAndAssignedMembers,
                                                        String sortCriteria, Project project) {
-        ArrayList<String> allTaskDetailsForTable = new ArrayList<>();
+        ArrayList<ArrayList<String>> allTaskDetailsForTable = new ArrayList<>();
+        ArrayList<String> messageForEmptyTaskTable = new ArrayList<>();
         if (this.taskList.size() == 0) {
-            allTaskDetailsForTable.add(" - There are currently no tasks! -");
+            messageForEmptyTaskTable.add(" - There are currently no tasks! -");
+            allTaskDetailsForTable.add(messageForEmptyTaskTable);
         } else {
             ArrayList<String> allTaskDetails = this.parserHelper.parseSortTaskDetails(tasksAndAssignedMembers,
                     taskList, sortCriteria, project);
             if (sortCriteria.substring(0, 5).equals("/WHO-") && allTaskDetails.size() == 0) {
-                allTaskDetailsForTable.add(" - There are no tasks assigned to " + sortCriteria.substring(5) + "! -");
+                messageForEmptyTaskTable.add(" - There are no tasks assigned to " + sortCriteria.substring(5) + "! -");
+                allTaskDetailsForTable.add(messageForEmptyTaskTable);
             } else if ("/DATE".equals(sortCriteria) && allTaskDetails.size() == 0) {
-                allTaskDetailsForTable.add(" - There are no tasks with deadlines! -");
+                messageForEmptyTaskTable.add(" - There are no tasks with deadlines! -");
+                allTaskDetailsForTable.add(messageForEmptyTaskTable);
             } else {
                 for (String s : allTaskDetails) {
+                    ArrayList<String> individualTaskDetailsForTable = new ArrayList<>();
                     String[] indivTaskDetails = s.split(" [|] ");
-                    allTaskDetailsForTable.add(indivTaskDetails[0]);
+                    individualTaskDetailsForTable.add(indivTaskDetails[0]);
 
                     for (int i = 1; i < indivTaskDetails.length; i++) {
-                        allTaskDetailsForTable.add("   - " + indivTaskDetails[i]);
+                        individualTaskDetailsForTable.add(" - " + indivTaskDetails[i]);
                     }
-                    allTaskDetailsForTable.add("");
+                    allTaskDetailsForTable.add(individualTaskDetailsForTable);
                 }
-                allTaskDetailsForTable.remove(allTaskDetailsForTable.size() - 1);
+
             }
         }
         return allTaskDetailsForTable;
