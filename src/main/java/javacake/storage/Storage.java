@@ -21,12 +21,8 @@ public class Storage {
 
     private static String defaultFilePath = "data";
     private String filepath;
-    private TaskType dataType;
     private static boolean isResetFresh = false;
 
-    public enum TaskType {
-        DEADLINE
-    }
 
     /**
      * Constructor for storage.

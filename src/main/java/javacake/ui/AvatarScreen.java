@@ -41,7 +41,7 @@ public class AvatarScreen extends VBox {
             "/images/avatar/poutopen.png"));
     private Image avatarPout2 = new Image(this.getClass().getResourceAsStream(
             "/images/avatar/poutclose.png"));
-    List<Image> images = new ArrayList<>();
+    private List<Image> images = new ArrayList<>();
     private int timeFrame = 0;
     public static AvatarMode avatarMode;
 

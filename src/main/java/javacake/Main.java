@@ -16,13 +16,10 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-
-    private JavaCake javaCake;
-    private boolean hasCrashed = false;
-
-
     @Override
     public void start(Stage stage) {
+        JavaCake javaCake;
+        boolean hasCrashed = false;
         try {
             FXMLLoader fxmlLoaderInitial = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             GridPane ap = fxmlLoaderInitial.load();

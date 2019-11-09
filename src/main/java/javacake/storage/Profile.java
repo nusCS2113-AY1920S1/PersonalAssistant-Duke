@@ -64,14 +64,13 @@ public class Profile {
                     checksumOverallGrade(tempOverallGrade);
                     overalltopicsDone.add(tempOverallGrade);
                 } else {
-                    int tempOverallGrade;
+                    int tempIndieGrade;
                     try {
-                        tempOverallGrade = Integer.parseInt(line);
+                        tempIndieGrade = Integer.parseInt(line);
                     } catch (NumberFormatException e) {
                         throw new CakeException("NOT A NUMBER: " + line);
                     }
-                    int tempIndiGrade = Integer.parseInt(line);
-                    checksumIndiGrade(tempIndiGrade);
+                    checksumIndiGrade(tempIndieGrade);
                     individualTopicsDone.add(Integer.parseInt(line));
                 }
                 ++count;

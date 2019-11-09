@@ -26,7 +26,7 @@ public class CrashScreen extends GridPane {
             "/images/avatar/h_poutopen.png"));
     private Image avatarPout2 = new Image(this.getClass().getResourceAsStream(
             "/images/avatar/h_poutclose.png"));
-    List<Image> images = new ArrayList<>();
+    private List<Image> images = new ArrayList<>();
     private int timeFrame = 0;
 
     /**

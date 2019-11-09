@@ -9,8 +9,12 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class DeadlineDeleteTest {
     private JavaCake javaCake;
+    private String actualOut = "";
+    private String expOut = "";
 
     /**
      * Initialise test files.
@@ -38,7 +42,22 @@ public class DeadlineDeleteTest {
     }
 
     @Test
-    public void posTest1() {
+    public void posTest0() {
+        actualOut = javaCake.getResponse("deadline a /by 01/01/2019");
+        actualOut = javaCake.getResponse("delete 1");
+        actualOut = javaCake.getResponse("reminder");
+        expOut = "You have no deadlines as of now.\n";
+        assertEquals(expOut, actualOut);
+    }
 
+    @Test
+    public void posTest1() {
+        actualOut = javaCake.getResponse("deadline a /by 01/01/2019");
+        actualOut = javaCake.getResponse("deadline b /by 01/01/2019");
+        actualOut = javaCake.getResponse("delete 1");
+        actualOut = javaCake.getResponse("reminder");
+        expOut = "~~Upcoming Deadlines!~~\n"
+                + "1.[✗] b\n(by: 01/01/2019)\n";
+        assertEquals(expOut, actualOut);
     }
 }
