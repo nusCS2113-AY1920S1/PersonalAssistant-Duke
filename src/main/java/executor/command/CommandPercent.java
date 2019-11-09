@@ -29,6 +29,11 @@ public class CommandPercent extends Command {
             this.infoCapsule.setOutputStr("Tag input is missing. FORMAT : percent <tag>");
             return;
         }
+        if (storageManager.getWallet().getReceipts().getPrintableReceipts().isEmpty()) {
+            this.infoCapsule.setCodeError();
+            this.infoCapsule.setOutputStr("No receipts found in the list");
+            return;
+        }
         try {
             Double totalTag = storageManager.getReceiptsByTag(this.tag).getTotalCashSpent();
             Double totalSpent = storageManager.getWalletExpenses();
