@@ -662,10 +662,10 @@ Expected: The list of command formats of changing event's information including 
 
 === Add an Event
 . Add Todo +
-   Key in `todo tdtask /01-01-2011 0100` +
+   Key in `todo tdtask /01-01-2011` +
    Expected: Output should be +
    Got it. I've added this task: +
-   [x][T] tdtask  BY: Sat, 01 Jan 2011, 01:00 +
+   [x][T] tdtask  BY: Sat, 01 Jan 2011 +
    Now you have <previous number of items + 1> items in the list.
 
 . Add Exam +
@@ -799,12 +799,18 @@ Expected: Prints the success of editing the contact, and the contact details.
 
 === Budgeting
 . Each concert added to the list has a cost denoted at the end of the user input.
-For example, the user input command "concert MyConcert/2-12-2019 1500 1600/30" will
+For example, the user input command `concert MyConcert/2-12-2019 1500 1600/30` will
 have a cost of $30.
 
-. Attempting to add two concerts to the same month that exceeds the stipulated budget
+.. Attempting to add two concerts to the same month that exceeds the stipulated budget
 (set at $50) will result in a message telling the user so, and that the operation has been
 cancelled.
+.. Entering the command `concert MyConcert/2-12-2019 1500 1600/30` followed by the command
+`concert MyConcert/27-12-2019 1200 1400/21` will result in the system cancelling the second
+operation due to exceeding of budget for the month of december 2019.
 
-. The user command "budget MM-yyyy" will result in the program displaying the costs
+. The user command `budget MM-yyyy` will result in the program displaying the costs
 of all concerts in the month denoted by MM-yyyy.
+
+. The user command `budget set 35` will change the stipulated budget to the value stated ($35).
+Similarly, `budget set 70` will set the budget to a value of $70.

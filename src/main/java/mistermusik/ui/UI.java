@@ -444,8 +444,8 @@ public class UI {
      */
     public void printBudgetCommandInvalid() {
         System.out.print(lineSeparation);
-        System.out.println("The format of budget command is wrong.");
         System.out.println("Please enter \"budget MM-yyyy\" to view monthly cost of concerts.");
+        System.out.println("Please enter \"budget set <new budget>\" to change the stipulated monthly budget");
         System.out.print(lineSeparation);
     }
 
@@ -581,6 +581,7 @@ public class UI {
     public static void printNoCostsForThatMonth() {
         System.out.print(lineSeparation);
         System.out.println("There are no concerts for that month!");
+        System.out.println("Please ensure your date is in the format MM-yyyy");
         System.out.print(lineSeparation);
     }
 

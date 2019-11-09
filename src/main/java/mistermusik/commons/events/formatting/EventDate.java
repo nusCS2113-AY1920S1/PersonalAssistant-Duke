@@ -12,15 +12,15 @@ import java.util.Locale;
 
 public class EventDate {
 
-    protected String userInputDateString;
+    private String userInputDateString;
 
-    protected Date javaDate;
+    private Date javaDate;
 
-    protected String formattedDateString;
+    private String formattedDateString;
 
-    protected int STRING_TO_DATE = 1;
+    private static final int STRING_TO_DATE = 1;
 
-    protected int DATE_TO_STRING = 2;
+    private static final int DATE_TO_STRING = 2;
 
     /**
      * Creates a custom "date object" for string to date.

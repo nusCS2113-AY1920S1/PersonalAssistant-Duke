@@ -18,7 +18,7 @@ public class ToDo extends Event {
     }
 
     /**
-     * @return String containing information for user.
+     * Returns String containing information for user.
      */
     @Override
     public String toString() {
