@@ -21,16 +21,38 @@ public class LimitListTest {
         return new Limit(limitType, amount, limitDuration);
     }
 
-    private ArrayList<Record> createNewLimitList() {
+    private ArrayList<Record> createEmptyList() {
         ArrayList<Record> limitList = new ArrayList<Record>();
+        return limitList;
+    }
+
+    private ArrayList<Record> createPopulatedList() {
+        ArrayList<Record> limitList = new ArrayList<Record>();
+        limitList.add(newBudget);
+        limitList.add(newSaving);
         return limitList;
     }
 
     @Test
     public void addTest1() {
-        ArrayList<Record> newLimitList = createNewLimitList();
+        ArrayList<Record> newLimitList = createEmptyList();
         newLimitList.add(newBudget);
         newLimitList.add(newSaving);
         assertEquals(2, newLimitList.size());
+    }
+
+    @Test
+    public void addTest2() {
+        ArrayList<Record> newLimitList = createPopulatedList();
+        newLimitList.add(newBudget);
+        newLimitList.add(newSaving);
+        assertEquals(4, newLimitList.size());
+    }
+
+    @Test
+    public void removeFromListTest() {
+        ArrayList<Record> newLimitList = createPopulatedList();
+        newLimitList.remove(0);
+        assertEquals(1, newLimitList.size());
     }
 }

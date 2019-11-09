@@ -4,6 +4,8 @@ import dolla.Time;
 
 import java.time.LocalDate;
 
+import static dolla.parser.ParserStringList.ENTRY_TYPE_I;
+
 /**
  * Entry is a Class that stores an instance of the user's expense or income.
  */
@@ -19,7 +21,7 @@ public class Entry extends Record {
      * @param date Date of income/expense.
      */
     public Entry(String type, double amount, String description, LocalDate date) {
-        this.sign = ("income".equals(type) ? '+' : '-');
+        this.sign = (ENTRY_TYPE_I.equals(type) ? '+' : '-');
         this.type = type;
         this.amount = amount;
         this.description = description;
@@ -51,7 +53,7 @@ public class Entry extends Record {
      */
     @Override
     public String formatSave() {
-        saveType = type.equals("income") ? "I" : "E";
+        saveType = ENTRY_TYPE_I.equals(type) ? "I" : "E";
         return  saveType + " | "
                 + amount + " | "
                 + description + " | "
