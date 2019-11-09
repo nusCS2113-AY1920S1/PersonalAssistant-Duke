@@ -53,7 +53,7 @@ public class JsonAdaptedPayment {
         due = source.getDue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         remark = source.getTag();
         amount = source.getAmount().toString();
-        priority = source.getPriority();
+        priority = source.getPriority().toString();
 
     }
 

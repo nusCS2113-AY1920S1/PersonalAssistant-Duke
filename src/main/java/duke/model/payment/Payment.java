@@ -39,7 +39,7 @@ public class Payment {
     /**
      * Represents the Priority of the Payment.
      */
-    private enum Priority {
+    public enum Priority {
         HIGH("High", 3),
         MEDIUM("Medium", 2),
         LOW("Low", 1);
@@ -132,6 +132,7 @@ public class Payment {
          */
         public Builder setDue(String due) throws DukeException {
             requireNonNull(due);
+            assert !due.isEmpty();
 
             try {
                 this.due = LocalDate.parse(due, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
@@ -158,6 +159,7 @@ public class Payment {
          */
         public Builder setAmount(String amount) throws DukeException {
             requireNonNull(amount);
+            assert !amount.isEmpty();
 
             try {
                 this.amount = new BigDecimal(amount);
@@ -176,6 +178,7 @@ public class Payment {
          */
         public Builder setPriority(String priority) throws DukeException {
             requireNonNull(priority);
+            assert !priority.isEmpty();
 
             try {
                 this.priority = Priority.valueOf(priority.toUpperCase());
@@ -231,8 +234,8 @@ public class Payment {
         return this.amount;
     }
 
-    public String getPriority() {
-        return priority.toString();
+    public Priority getPriority() {
+        return priority;
     }
 
     public int getNumeratedPriority() {
@@ -250,7 +253,7 @@ public class Payment {
         requireNonNull(keyword);
         assert !keyword.isEmpty();
 
-        return description.toLowerCase().contains(keyword.toLowerCase()) //
+        return description.toLowerCase().contains(keyword.toLowerCase())
                 || receiver.toLowerCase().contains(keyword.toLowerCase())
                 || tag.toLowerCase().contains(keyword.toLowerCase());
     }

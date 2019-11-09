@@ -5,6 +5,7 @@ import duke.model.Expense;
 import duke.model.Income;
 import duke.model.PlanBot;
 import duke.model.payment.Payment;
+import duke.model.payment.PaymentList;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
@@ -41,9 +42,9 @@ public interface Logic {
 
     BigDecimal getBudgetTag(String category);
 
-    ObservableList<Payment> getFilteredPaymentList();
+    ObservableList<Payment> getUnmodifiableFilteredPaymentList();
 
-    StringProperty getPaymentSortingCriteria();
+    ObjectProperty<PaymentList.SortingCriteria> getPaymentSortingCriteria();
 
     ObjectProperty<Predicate> getPaymentPredicate();
 

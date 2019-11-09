@@ -26,7 +26,7 @@ public class PaymentPane extends UiPart<AnchorPane> {
 
     private static final String FXML_FILE_NAME = "PaymentPane.fxml";
 
-    private StringProperty sortingCriteria;
+    private ObjectProperty<PaymentList.SortingCriteria> sortingCriteria;
 
     private ObjectProperty<Predicate> predicate;
 
@@ -60,7 +60,7 @@ public class PaymentPane extends UiPart<AnchorPane> {
     private ListView<Payment> paymentListView;
 
     public PaymentPane(ObservableList<Payment> paymentList,
-                       StringProperty sortingCriteria,
+                       ObjectProperty<PaymentList.SortingCriteria> sortingCriteria,
                        ObjectProperty<Predicate> predicate) {
         super(FXML_FILE_NAME, null);
         paymentListView.setItems(paymentList);
@@ -99,19 +99,19 @@ public class PaymentPane extends UiPart<AnchorPane> {
 
     private void highlightSortLabel() {
         switch (sortingCriteria.getValue()) {
-        case "time":
+        case TIME:
             timeLabel.setOpacity(FULL_OPACITY);
             amountLabel.setOpacity(FADED_OPACITY);
             priorityLabel.setOpacity(FADED_OPACITY);
             break;
 
-        case "amount":
+        case AMOUNT:
             timeLabel.setOpacity(FADED_OPACITY);
             amountLabel.setOpacity(FULL_OPACITY);
             priorityLabel.setOpacity(FADED_OPACITY);
             break;
 
-        case "priority":
+        case PRIORITY:
             timeLabel.setOpacity(FADED_OPACITY);
             amountLabel.setOpacity(FADED_OPACITY);
             priorityLabel.setOpacity(FULL_OPACITY);

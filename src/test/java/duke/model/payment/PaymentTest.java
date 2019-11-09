@@ -95,7 +95,7 @@ public class PaymentTest {
 
         Payment payment = paymentBuilder.setPriority(PRIORITY_FOR_TEST).build();
 
-        assertEquals(PRIORITY_FOR_TEST, payment.getPriority());
+        assertEquals(PRIORITY_FOR_TEST, payment.getPriority().toString());
         // Tests the getNumerated() method by the way.
         assertEquals(NUMERATED_PRIORITY_FOR_TEST, payment.getNumeratedPriority());
     }

@@ -7,6 +7,7 @@ import duke.model.Income;
 import duke.model.Model;
 import duke.model.PlanBot;
 import duke.model.payment.Payment;
+import duke.model.payment.PaymentList;
 import duke.storage.Storage;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
@@ -86,12 +87,12 @@ public class LogicManager implements Logic {
         return model.getBudgetTag(category);
     }
 
-    public ObservableList<Payment> getFilteredPaymentList() {
-        return model.getFilteredPaymentList();
+    public ObservableList<Payment> getUnmodifiableFilteredPaymentList() {
+        return model.getUnmodifiableFilteredPaymentList();
     }
 
     @Override
-    public StringProperty getPaymentSortingCriteria() {
+    public ObjectProperty<PaymentList.SortingCriteria> getPaymentSortingCriteria() {
         return model.getPaymentSortingCriteria();
     }
 
