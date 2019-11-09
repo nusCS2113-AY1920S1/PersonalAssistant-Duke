@@ -18,7 +18,7 @@ public class ShowCommandOneTest extends InputTest {
     public void testShow() {
         final String test = "show module\n";
         final String bye = "bye";
-        provideInput(test + bye);
+        provideInput("password\n" + test + bye);
         final String[] hold = {"a"};
         CliLauncher.main(hold);
         String expected = outContent.toString().replaceAll("\r", "");

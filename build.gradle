@@ -66,27 +66,8 @@ dependencies {
 
 test {
     useJUnitPlatform()
-}
-
-task coverage(type: JacocoReport) {
-    sourceDirectories.from files(sourceSets.main.allSource.srcDirs)
-    classDirectories.from files(sourceSets.main.output)
-    executionData.from files(jacocoTestReport.executionData)
-    afterEvaluate {
-        classDirectories.from files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: ['**/*.jar'])
-        })
-    }
-    reports {
-        html.enabled = true
-        xml.enabled = true
-    }
-}
-
-test {
     testLogging {
         events TestLogEvent.FAILED, TestLogEvent.SKIPPED
-
         // Prints the currently running test's name in the CI's build log,
         // so that we can check if tests are being silently skipped or
         // stalling the build.
@@ -94,7 +75,6 @@ test {
             events << TestLogEvent.STARTED
         }
     }
-
     jacoco {
         destinationFile = new File("${buildDir}/jacoco/test.exec")
     }
@@ -104,13 +84,12 @@ test {
 jacocoTestReport {
     reports {
         xml.enabled = true
-        html.enabled = true
+        csv.enabled = true
     }
 }
 
 coveralls {
-    sourceDirs = sourceSets.main.allSource.srcDirs.absolutePath
-    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/jacocoRootReport.xml"
+    jacocoReportPath = 'build/reports/jacoco/test/jacocoTestReport.xml'
 }
 
 
