@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.dukeexception.DukeException;
 import duke.enums.ErrorMessages;
 import duke.enums.Numbers;
 import duke.task.ContactList;
@@ -9,6 +10,7 @@ import duke.ui.Ui;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 //@@author e0318465
 /**
@@ -22,6 +24,10 @@ public class ContactsCommTest {
         Ui ui = new Ui();
         ContactList contactList = new ContactList();
         Contacts contactObj1 = new Contacts("Prof Tan", "91234567", " ", "E1-08-11");
+
+        Command cmd = new ListContactsCommand(contactList);
+        assertEquals("Here are all your contacts:\n", cmd.executeGui(items, ui));
+
         Command cmd1 = new AddContactsCommand(contactObj1, contactList);
         assertEquals("\n     Got it, now you have 1 contacts. Contact added:\n"
                 + "     Name: Prof Tan\n"
@@ -59,44 +65,55 @@ public class ContactsCommTest {
 
     @Test
     void deleteContactsTest_exceptionThrown() {
+        TaskList items = new TaskList();
+        Ui ui = new Ui();
         ContactList contactList = new ContactList();
-        Contacts contactObj1 = new Contacts("Alexa", "", "", "");
-        new AddContactsCommand(contactObj1, contactList);
-        String[] contactDetails = {"Albert", "91234567"};
         try {
-            Contacts contactObj = new Contacts(contactDetails[Numbers.ZERO.value],
-                    contactDetails[Numbers.ONE.value],
-                    contactDetails[Numbers.TWO.value],
-                    contactDetails[Numbers.THREE.value]);
-            new AddContactsCommand(contactObj, contactList);
+            String nonIntegerInput = "abc";
+            Command cmd1 = new DeleteContactCommand(Integer.parseInt(nonIntegerInput), contactList);
+            assertEquals("No contacts to be deleted!\n", cmd1.executeGui(items, ui));
+            fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("Format is in: addcontact <name>, <contact>, <email>, <office>\n"
-                            + "Put 'Nil' if field is empty\n"
-                            + "Check that email has an '@'",
-                    ErrorMessages.CONTACT_FORMAT.message);
-        }
-        String nonIntegerInput = "abc";
-        try {
-            new DeleteContactCommand(Integer.parseInt(nonIntegerInput), contactList);
-        } catch (NumberFormatException e) {
             assertEquals("     Input is not an integer value!", ErrorMessages.NON_INTEGER_ALERT.message);
         }
 
-        String emptyKeyword = "";
         try {
-            new FindContactCommand(emptyKeyword, contactList);
+            String emptyKeyword = "";
+            Command cmd2 = new DeleteContactCommand(Integer.parseInt(emptyKeyword), contactList);
+            assertEquals("No contacts to be deleted!\n", cmd2.executeGui(items, ui));
+            fail(); // the test should not reach this line
         } catch (Exception e) {
             assertEquals("     (>_<) OOPS!!! The keyword cannot be empty.", ErrorMessages.KEYWORD_IS_EMPTY.message);
         }
+
     }
 
     @Test
     void addContactsTest_exceptionThrown() {
+        TaskList items = new TaskList();
+        Ui ui = new Ui();
         ContactList contactList = new ContactList();
-        Contacts contactObj1 = new Contacts("Alexa", "Nil", "isValid@gmail.com", "Nil");
+        String userInput = "Alexa, Nil, emailNotValid, Nil";
+
         try {
-            new AddContactsCommand(contactObj1, contactList);
-        } catch (NumberFormatException e) {
+            String[] contactDetails = userInput.split(",");
+            if (!contactDetails[Numbers.TWO.value].contains("@")
+                    && !contactDetails[Numbers.TWO.value].contains("Nil")) {
+                throw new DukeException(ErrorMessages.CONTACT_FORMAT.message);
+            }
+            Contacts contactObj = new Contacts(contactDetails[Numbers.ZERO.value],
+                    contactDetails[Numbers.ONE.value],
+                    contactDetails[Numbers.TWO.value], contactDetails[Numbers.THREE.value]);
+
+            Command cmd = new AddContactsCommand(contactObj, contactList);
+            assertEquals("\n"
+                    + "     Got it, now you have 1 contacts. Contact added:\n"
+                    + "     Name: Alexa\n"
+                    + "     Number: Nil\n"
+                    + "     Email: emailValid@\n"
+                    + "     Office: Nil", cmd.executeGui(items, ui));
+            fail();
+        } catch (Exception e) {
             assertEquals("Format is in: addcontact <name>, <contact>, <email>, <office>\n"
                     + "Put 'Nil' if field is empty\n"
                     + "Check that email has an '@'", ErrorMessages.CONTACT_FORMAT.message);
