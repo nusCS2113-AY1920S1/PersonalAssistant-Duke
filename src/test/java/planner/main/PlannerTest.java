@@ -2,12 +2,10 @@
 
 package planner.main;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import planner.main.CliLauncher;
-import planner.main.InputTest;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PlannerTest extends InputTest {
 
@@ -22,7 +20,7 @@ public class PlannerTest extends InputTest {
     @DisplayName("Termination Test")
     @Test
     public void testPlan() {
-        final String test = "password\n bye\n";
+        final String test = "password\n bye";
         provideInput(test);
         final String[] hold = {""};
         CliLauncher.main(hold);
