@@ -49,7 +49,7 @@ public class SearchCommand extends CommandSuper {
      * @param uicontroller The UI controller.
      */
     public SearchCommand(Controller uicontroller) {
-        super(COMMANDKEYS.search, CommandStructure.cmdStructure.get(COMMANDKEYS.search), uicontroller);
+        super(COMMANDKEYS.SEARCH, CommandStructure.cmdStructure.get(COMMANDKEYS.SEARCH), uicontroller);
     }
 
     /**
@@ -68,18 +68,18 @@ public class SearchCommand extends CommandSuper {
         searchProfile.iniitalizeBackSearchProfile(searchProfile);
         getPreferences(movieHandler, searchProfile, payload, isMovie);
         switch (this.getSubRootCommand()) {
-            case movies:
-                isMovie = true;
-                searchProfile.setMovie(true);
-                executeMovieSearch(payload, movieHandler, searchProfile);
-                break;
-            case tvshows:
-                executeTvSearch(payload, movieHandler, searchProfile);
-                break;
-            default:
-                movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
-                logger.log(Level.SEVERE, PromptMessages.INVALID_PARAM_IN_SEARCH);
-                throw new InvalidParameterException(PromptMessages.INVALID_PARAM_IN_SEARCH);
+        case MOVIES:
+            isMovie = true;
+            searchProfile.setMovie(true);
+            executeMovieSearch(payload, movieHandler, searchProfile);
+            break;
+        case TVSHOWS:
+            executeTvSearch(payload, movieHandler, searchProfile);
+            break;
+        default:
+            movieHandler.setGeneralFeedbackText(PromptMessages.INVALID_FORMAT);
+            logger.log(Level.SEVERE, PromptMessages.INVALID_PARAM_IN_SEARCH);
+            throw new InvalidParameterException(PromptMessages.INVALID_PARAM_IN_SEARCH);
         }
     }
 

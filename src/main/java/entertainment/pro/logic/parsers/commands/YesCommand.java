@@ -11,7 +11,7 @@ import entertainment.pro.ui.Controller;
  */
 public class YesCommand extends CommandSuper {
     public YesCommand(Controller uicontroller) {
-        super(COMMANDKEYS.yes, CommandStructure.cmdStructure.get(COMMANDKEYS.yes), uicontroller);
+        super(COMMANDKEYS.YES, CommandStructure.cmdStructure.get(COMMANDKEYS.YES), uicontroller);
     }
 
     @Override

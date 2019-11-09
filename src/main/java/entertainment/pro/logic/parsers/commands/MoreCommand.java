@@ -8,7 +8,7 @@ import entertainment.pro.logic.parsers.CommandSuper;
 //TODO REMOVE THIS CLASS
 public class MoreCommand extends CommandSuper {
     public MoreCommand(Controller uicontroller) {
-        super(COMMANDKEYS.more, CommandStructure.cmdStructure.get(COMMANDKEYS.more), uicontroller);
+        super(COMMANDKEYS.MORE, CommandStructure.cmdStructure.get(COMMANDKEYS.MORE), uicontroller);
     }
 
     @Override

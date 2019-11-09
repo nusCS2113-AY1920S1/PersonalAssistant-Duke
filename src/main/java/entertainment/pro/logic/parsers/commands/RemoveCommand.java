@@ -14,7 +14,7 @@ public class RemoveCommand extends CommandSuper {
      * Constructor for each Command Super class.
      */
     public RemoveCommand(Controller uicontroller) {
-        super(COMMANDKEYS.remove, CommandStructure.cmdStructure.get(COMMANDKEYS.remove), uicontroller);
+        super(COMMANDKEYS.REMOVE, CommandStructure.cmdStructure.get(COMMANDKEYS.REMOVE), uicontroller);
     }
 
     /**
@@ -23,7 +23,7 @@ public class RemoveCommand extends CommandSuper {
     @Override
     public void executeCommands() {
         switch (this.getSubRootCommand()) {
-        case watchlist:
+        case WATCHLIST:
             String mov = getPayload();
             System.out.println(mov);
             if (WatchlistHandler.removeFromWatchlist(mov, (MovieHandler)(this.getUiController()))) {
@@ -34,7 +34,7 @@ public class RemoveCommand extends CommandSuper {
                         .setGeneralFeedbackText("Such a movie does not exist in your WatchList. Check your spelling?");
             }
             break;
-        case blacklist:
+        case BLACKLIST:
             break;
         default:
             break;

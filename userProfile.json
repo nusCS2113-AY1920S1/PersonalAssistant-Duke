@@ -1,1 +1,1 @@
-{"userName":"hello","userAge":10,"genreIdPreference":[],"genreIdRestriction":[],"adult":false,"playlistNames":["new name"],"sortByAlphabetical":false,"sortByHighestRating":false,"sortByLatestRelease":false}
+{"userName":"","userAge":-1,"genreIdPreference":[],"genreIdRestriction":[],"adult":true,"playlistNames":[],"sortByAlphabetical":false,"sortByHighestRating":false,"sortByLatestRelease":false}
