@@ -35,6 +35,12 @@ public class EmailList extends ArrayList<Email> {
         return listOfEmails;
     }
 
+    /**
+     * Convert email list to String when given an index list of emails.
+     *
+     * @param indexes a list of index if emails
+     * @return string of email List
+     */
     public String toString(ArrayList<Integer> indexes) {
         if (this.size() == 0) {
             return "There is nothing in your email list.";
