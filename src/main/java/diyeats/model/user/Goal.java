@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static diyeats.commons.constants.DateConstants.LOCAL_DATE_FORMATTER;
+import static diyeats.commons.constants.GoalCommandSyntax.ACTIVITY_ARG_STR;
+import static diyeats.commons.constants.GoalCommandSyntax.END_DATE_ARG_STR;
+import static diyeats.commons.constants.GoalCommandSyntax.START_DATE_ARG_STR;
+import static diyeats.commons.constants.GoalCommandSyntax.WEIGHT_ARG_STR;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 //@@author Fractalisk
@@ -30,10 +34,10 @@ public class Goal {
     }
 
     public Goal(HashMap<String, String> argumentsMap) {
-        startDate = LocalDate.parse(argumentsMap.get("startdate"), LOCAL_DATE_FORMATTER);
-        endDate = LocalDate.parse(argumentsMap.get("enddate"), LOCAL_DATE_FORMATTER);
-        weightTarget = Double.parseDouble(argumentsMap.get("weight"));
-        activityLevelTarget = Integer.parseInt(argumentsMap.get("activity"));
+        startDate = LocalDate.parse(argumentsMap.get(START_DATE_ARG_STR), LOCAL_DATE_FORMATTER);
+        endDate = LocalDate.parse(argumentsMap.get(END_DATE_ARG_STR), LOCAL_DATE_FORMATTER);
+        weightTarget = Double.parseDouble(argumentsMap.get(WEIGHT_ARG_STR));
+        activityLevelTarget = Integer.parseInt(argumentsMap.get(ACTIVITY_ARG_STR));
     }
 
     public void setStartDate(String startDate) {

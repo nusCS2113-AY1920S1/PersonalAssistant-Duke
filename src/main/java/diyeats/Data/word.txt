@@ -1,6 +1,7 @@
 calorie
 calcium
 breakfast
+end
 lunch
 dinner
 exit
@@ -16,3 +17,8 @@ weight
 height
 activity
 gender
+find
+default
+addexercise
+deldefault
+delexercise

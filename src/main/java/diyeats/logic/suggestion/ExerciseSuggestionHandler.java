@@ -7,6 +7,7 @@ import diyeats.model.user.User;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 //@@author Fractalisk
@@ -42,7 +43,7 @@ public class ExerciseSuggestionHandler {
         meals.getExerciseList().addExerciseAtDate(date, exerciseName, exerciseReps);
     }
 
-    public ArrayList<Pair> compute(MealList meals, int calorieToExercise) {
+    public ArrayList<Pair> compute(MealList meals, int calorieToExercise, String keyword) {
         ExerciseList exerciseList = meals.getExerciseList();
         HashMap<String, Integer> exerciseHashMap = exerciseList.getStoredExercises();
         float staticCalorieExpenditure = calculateStaticCalorieExpenditure();
@@ -53,8 +54,11 @@ public class ExerciseSuggestionHandler {
             int met = exerciseHashMap.get(itr);
             met = minsToBurnCalories / met;
             Pair exerciseDurationPair = new Pair(itr, met);
-            this.exerciseArrayList.add(exerciseDurationPair);
+            if (keyword == null || itr.toLowerCase().contains(keyword.toLowerCase())) {
+                this.exerciseArrayList.add(exerciseDurationPair);
+            }
         }
+        Collections.sort(this.exerciseArrayList, (lhs, rhs) -> lhs.getKey().compareToIgnoreCase(rhs.getKey()));
         return this.exerciseArrayList;
     }
 }

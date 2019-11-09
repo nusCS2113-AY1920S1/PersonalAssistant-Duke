@@ -11,13 +11,12 @@ import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 //@@author Fractalisk
 
@@ -49,6 +48,7 @@ public class LoadTest {
     public void loadDefaultMealDataTest() {
         MealList meals = new MealList();
 
+        loader.test();
         try {
             loader.loadDefaultMealData(meals);
             HashMap<String, HashMap<String, Integer>> mealTracker = meals.getDefaultValues();
@@ -74,6 +74,7 @@ public class LoadTest {
     public void loadExercisesTest() {
         MealList meals = new MealList();
 
+        loader.test();
         try {
             loader.loadExercises(meals);
             ExerciseList exerciseList = meals.getExerciseList();
@@ -92,6 +93,7 @@ public class LoadTest {
         final String expectedEntry = "2019-11-20|2020-11-20|60.0|1404116|4";
         User user = new User();
 
+        loader.test();
         try {
             loader.loadGoals(user);
             assertEquals(user.getGoal().toString(), expectedEntry);
@@ -104,6 +106,7 @@ public class LoadTest {
     public void loadTransactionsTest() {
         Wallet wallet = new Wallet();
 
+        loader.test();
         try {
             loader.loadTransactions(wallet);
         } catch (Exception e) {
@@ -116,6 +119,7 @@ public class LoadTest {
         final String expectedString = "Hashir|175|22|MALE|true|2|70.0|2019-11-08";
         User user = new User();
 
+        loader.test();
         try {
             user = loader.loadUser();
             assertEquals(user.toString(), expectedString);
@@ -128,6 +132,7 @@ public class LoadTest {
     public void loadAutocorrectTest() {
         Autocorrect autocorrect = new Autocorrect();
 
+        loader.test();
         try {
             loader.loadAutoCorrect(autocorrect);
             autocorrect.setWord("calorei");
@@ -148,6 +153,7 @@ public class LoadTest {
     public void loadHelpTest() {
         ArrayList<String> lines = new ArrayList<>();
 
+        loader.test();
         try {
             loader.loadHelp(lines, "add");
         } catch (Exception e) {

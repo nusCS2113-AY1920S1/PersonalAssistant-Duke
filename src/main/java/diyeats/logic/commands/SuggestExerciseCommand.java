@@ -27,10 +27,12 @@ import static diyeats.commons.constants.DateConstants.LOCAL_DATE_FORMATTER;
  */
 public class SuggestExerciseCommand extends Command {
     private LocalDate date;
+    private String keyword = null;
     private ExerciseSuggestionHandler exerciseSuggestionHandler;
 
-    public SuggestExerciseCommand(LocalDate date) {
+    public SuggestExerciseCommand(LocalDate date, String keyword) {
         this.date = date;
+        this.keyword = keyword;
     }
 
     public SuggestExerciseCommand(boolean flag, String message) {
@@ -70,9 +72,11 @@ public class SuggestExerciseCommand extends Command {
                 calorieToElevateActivityLevel -= excessCalorie;
             }
             ui.showExerciseRequired(calorieToElevateActivityLevel, date);
-            ArrayList<Pair> exerciseArrayList =
-                    this.exerciseSuggestionHandler.compute(meals, calorieToElevateActivityLevel);
+            ArrayList<Pair> exerciseArrayList = this.exerciseSuggestionHandler.compute(meals,
+                    calorieToElevateActivityLevel, keyword);
+
             ui.showExerciseOptions(exerciseArrayList);
+            ui.showMessage("Input 0 to cancel selection");
         }
     }
 
@@ -86,7 +90,13 @@ public class SuggestExerciseCommand extends Command {
             return;
         }
 
-        if (exerciseIdx <= 0 || exerciseIdx > exerciseSuggestionHandler.getSize()) {
+        if (exerciseIdx == 0) {
+            ui.showMessage("The suggestexercise command has been canceled");
+            isDone = true;
+            return;
+        }
+
+        if (exerciseIdx < 0 || exerciseIdx > exerciseSuggestionHandler.getSize()) {
 
             ui.showMessage(responseStr + " is out of bounds. Please input a valid index.");
             return;
@@ -100,7 +110,6 @@ public class SuggestExerciseCommand extends Command {
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }
-
         isDone = true;
     }
 }

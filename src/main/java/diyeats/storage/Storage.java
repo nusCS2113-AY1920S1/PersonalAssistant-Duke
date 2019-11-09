@@ -1,13 +1,13 @@
 package diyeats.storage;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.commons.file.LocalDateAdapter;
 import diyeats.logic.autocorrect.Autocorrect;
 import diyeats.model.meal.MealList;
 import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

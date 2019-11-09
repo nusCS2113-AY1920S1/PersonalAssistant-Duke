@@ -1,5 +1,6 @@
 package diyeats.model.user;
 
+import diyeats.commons.exceptions.ProgramException;
 import diyeats.model.meal.MealList;
 import diyeats.model.wallet.Account;
 
@@ -90,9 +91,10 @@ public class User {
         }
     }
 
-    public boolean setGoal(Goal goal, boolean override) {
-        if (this.goal != null && !override) {
-            return false;
+    public boolean setGoal(Goal goal) throws ProgramException {
+        if (goal.getActivityLevelTarget() < activityLevel && activityLevel != 5) {
+            throw new ProgramException("Goal setting failed, cannot set target activity level to "
+                    + "be lower than current activity level");
         } else {
             this.goal = goal;
             if (isSetup) {

@@ -1,15 +1,13 @@
 package duke.commands;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import duke.exceptions.DukeException;
 import duke.gui.GUI;
-import duke.tasks.Meal;
+import duke.storage.Storage;
 import duke.tasks.MealList;
 import duke.ui.Ui;
-import duke.storage.Storage;
 import duke.user.User;
+
+import java.util.Scanner;
 
 //@@author koushireo-unused
 

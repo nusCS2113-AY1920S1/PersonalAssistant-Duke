@@ -7,7 +7,8 @@ public final class CommandDefinitions {
     public static final String PARSER_BREAKFAST_COMMAND = "breakfast";
     public static final String PARSER_LUNCH_COMMAND = "lunch";
     public static final String PARSER_DINNER_COMMAND = "dinner";
-    public static final String PARSER_ADD_COMMAND = "add";
+    public static final String PARSER_ADD_DEFAULT_COMMAND = "default";
+    public static final String PARSER_DELETE_DEFAULT_COMMAND = "deldefault";
     public static final String PARSER_FIND_COMMAND = "find";
     public static final String PARSER_HELP_COMMAND = "help";
     public static final String PARSER_LIST_COMMAND = "list";
@@ -25,4 +26,6 @@ public final class CommandDefinitions {
     public static final String PARSER_STATS_COMMAND = "stats";
     public static final String PARSER_CGRAPH_COMMAND = "cgraph";
     public static final String PARSER_SUGGEST_EXERCISE_COMMAND = "suggestexercise";
+    public static final String PARSER_ADD_EXERCISE_COMMAND = "addexercise";
+    public static final String PARSER_DELETE_EXERCISE_COMMAND = "delexercise";
 }

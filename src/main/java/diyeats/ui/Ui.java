@@ -1,5 +1,6 @@
 package diyeats.ui;
 
+import diyeats.commons.datatypes.Pair;
 import diyeats.model.meal.ExerciseList;
 import diyeats.model.meal.Meal;
 import diyeats.model.user.Goal;
@@ -7,7 +8,6 @@ import diyeats.model.user.User;
 import diyeats.model.wallet.Payment;
 import diyeats.model.wallet.Transaction;
 import diyeats.model.wallet.Wallet;
-import diyeats.commons.datatypes.Pair;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -227,12 +227,17 @@ public class Ui {
         System.out.println(UI_PADDING + "Original weight: " + user.getOriginalWeight());
         System.out.println(UI_PADDING + "Current Weight: " + user.getWeight());
         System.out.println(UI_PADDING + "Target Weight: " + user.getWeightTarget());
-        System.out.println(UI_PADDING + "Days left to end of diet plan: " + user.getDaysLeftToGoal());
-        System.out.println(UI_PADDING + "Avg current calorie balance: "
-                + user.getAverageCalorieBalance() + " calories");
-        System.out.println(UI_PADDING + "Avg calorie balance that must be maintained to reach goal: "
-                + user.getCalorieBalance() + " calories");
-        showOnTrack(user);
+        if (user.getDaysLeftToGoal() >= 0) {
+            System.out.println(UI_PADDING + "Days left to end of diet plan: " + user.getDaysLeftToGoal());
+            System.out.println(UI_PADDING + "Avg current calorie balance: "
+                    + user.getAverageCalorieBalance() + " calories");
+            System.out.println(UI_PADDING + "Avg calorie balance that must be maintained to reach goal: "
+                    + user.getCalorieBalance() + " calories");
+            showOnTrack(user);
+        } else {
+            System.out.println(UI_PADDING + "It appears the diet plan has expired or is expiring today.");
+            System.out.println(UI_PADDING + "Use the setgoal command to set a new diet plan!");
+        }
         System.out.println(UI_BOUNDARY);
     }
 
@@ -264,6 +269,18 @@ public class Ui {
             System.out.print(itr.getKey() + ": " + itr.getValue() + " mins \n");
             counter++;
         }
+        System.out.println(UI_BOUNDARY);
+    }
+
+    public void showDeleteCandidateKeys(ArrayList<String> deleteCandidateKeys) {
+        System.out.println(UI_PADDING + "Here are the items associated with the keyword provided:");
+        int counter = 1;
+        for (String itr : deleteCandidateKeys) {
+            System.out.print(UI_PADDING + counter + ": ");
+            System.out.println(itr);
+            counter++;
+        }
+        System.out.println(UI_PADDING + "Please enter the index of the item you wish to delete.");
         System.out.println(UI_BOUNDARY);
     }
 

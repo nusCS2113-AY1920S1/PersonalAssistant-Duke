@@ -16,3 +16,7 @@ weight
 height
 activity
 gender
+default
+addexercise
+deldefault
+delexercise

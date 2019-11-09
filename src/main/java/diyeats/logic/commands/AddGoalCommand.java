@@ -51,12 +51,9 @@ public class AddGoalCommand extends Command {
         ui.showLine();
         InputHandler in = new InputHandler(responseStr);
         try {
-            if (isDone) {
-                user.setGoal(goal, true);
-                ui.showMessage("The setGoal Command is successful!");
-            }
+            user.setGoal(goal);
+            ui.showMessage("The setGoal Command is successful!");
             storage.updateGoal(user);
-            ui.showLine();
             stage++;
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());

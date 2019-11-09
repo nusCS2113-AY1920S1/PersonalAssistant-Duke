@@ -1,5 +1,7 @@
 package diyeats.storage;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.commons.file.FilePathNames;
 import diyeats.commons.file.FilePaths;
@@ -11,8 +13,6 @@ import diyeats.model.meal.MealList;
 import diyeats.model.user.Goal;
 import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -103,7 +103,7 @@ public class Load {
             Goal goal = gson.fromJson(bufferedReader, goalType);
             bufferedReader.close();
             if (goal != null) {
-                user.setGoal(goal, true);
+                user.setGoal(goal);
             }
         } catch (Exception e) {
             throw new ProgramException("Error reading goal file" + e.getMessage());
