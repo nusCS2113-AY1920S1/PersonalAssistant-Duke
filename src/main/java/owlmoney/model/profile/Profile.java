@@ -892,12 +892,34 @@ public class Profile {
                     profileImportNewDeposit(bankName, newDeposit, BONDS);
                 }
             } else if (bankType.equals(SAVING)) {
-                if (hasSpent.equals(HAS_SPENT)) {
-                    Transaction newExpenditure = new Expenditure(description, doubleAmount, dateInFormat, category);
-                    profileImportNewExpenditure(bankName, newExpenditure, BANK);
-                } else if (hasSpent.equals(NOT_SPENT)) {
-                    Transaction newDeposit = new Deposit(description, doubleAmount, dateInFormat, category);
-                    profileImportNewDeposit(bankName, newDeposit, BANK);
+                String cardId = importDataRow[5];
+                String billDate = importDataRow[6];
+                UUID uuid = null;
+                if (!BLANK.equals(cardId)) {
+                    uuid = UUID.fromString(cardId);
+                }
+                YearMonth yearMonthBillDate = null;
+                if (!billDate.equals(BLANK)) {
+                    yearMonthBillDate = YearMonth.parse(billDate);
+                }
+                if (!cardId.equals(BLANK) && !billDate.equals(BLANK)) {
+                    if (hasSpent.equals(HAS_SPENT)) {
+                        Transaction newExpenditure = new Expenditure(description, doubleAmount, dateInFormat,
+                            uuid, yearMonthBillDate);
+                        profileImportNewExpenditure(bankName, newExpenditure, BANK);
+                    } else if (hasSpent.equals(NOT_SPENT)) {
+                        Transaction newDeposit = new Deposit(description, doubleAmount, dateInFormat,
+                            uuid, yearMonthBillDate);
+                        profileImportNewDeposit(bankName, newDeposit, BANK);
+                    }
+                } else {
+                    if (hasSpent.equals(HAS_SPENT)) {
+                        Transaction newExpenditure = new Expenditure(description, doubleAmount, dateInFormat, category);
+                        profileImportNewExpenditure(bankName, newExpenditure, BANK);
+                    } else if (hasSpent.equals(NOT_SPENT)) {
+                        Transaction newDeposit = new Deposit(description, doubleAmount, dateInFormat, category);
+                        profileImportNewDeposit(bankName, newDeposit, BANK);
+                    }
                 }
             }
         }
@@ -1385,10 +1407,11 @@ public class Profile {
                 String unPaidTransactionFileName = i + CARD_UNPAID_TRANSACTION_LIST_FILE_NAME;
                 String paidTransactionFileName = i + CARD_PAID_TRANSACTION_LIST_FILE_NAME;
                 if (storage.isFileExist(unPaidTransactionFileName)) {
-                    loadTransactionForCards(unPaidTransactionFileName, cardName);
+                    loadTransactionForCards(unPaidTransactionFileName, cardName,
+                        CARD_UNPAID_TRANSACTION_LIST_FILE_NAME);
                 }
                 if (storage.isFileExist(paidTransactionFileName)) {
-                    loadTransactionForCards(paidTransactionFileName, cardName);
+                    loadTransactionForCards(paidTransactionFileName, cardName, CARD_PAID_TRANSACTION_LIST_FILE_NAME);
                 }
             }
         }
@@ -1401,7 +1424,7 @@ public class Profile {
      * @param cardName the card name for identification.
      * @throws ParseException if there are errors parsing double or date.
      */
-    private void loadTransactionForCards(String fileName, String cardName)
+    private void loadTransactionForCards(String fileName, String cardName, String paidType)
             throws ParseException {
         List<String[]> importData = importListDataFromStorage(fileName,ui);
         for (String[] importDataRow : importData) {
@@ -1412,22 +1435,10 @@ public class Profile {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date dateInFormat = dateFormat.parse(date);
             String category = importDataRow[3];
-            String cardId = importDataRow[4];
-            String billDate = importDataRow[5];
-            UUID uuid = null;
-            if (!BLANK.equals(cardId)) {
-                uuid = UUID.fromString(cardId);
-            }
-            YearMonth yearMonthBillDate = null;
-            if (!billDate.equals(BLANK)) {
-                yearMonthBillDate = YearMonth.parse(billDate);
-            }
-            if (!cardId.equals(BLANK) && !billDate.equals(BLANK)) {
-                Transaction newExpenditure = new Expenditure(description, doubleAmount,dateInFormat,
-                        uuid,yearMonthBillDate);
+            if (CARD_UNPAID_TRANSACTION_LIST_FILE_NAME.equals(paidType)) {
+                Transaction newExpenditure = new Expenditure(description,doubleAmount,dateInFormat,category);
                 profileImportNewUnpaidCardTransaction(cardName, newExpenditure);
-
-            } else {
+            } else if (CARD_PAID_TRANSACTION_LIST_FILE_NAME.equals(paidType)) {
                 Transaction newExpenditure = new Expenditure(description,doubleAmount,dateInFormat,category);
                 profileImportNewPaidCardTransaction(cardName, newExpenditure);
             }
