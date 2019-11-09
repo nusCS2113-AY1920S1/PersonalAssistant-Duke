@@ -75,9 +75,8 @@ public class WordBank {
      */
     public String searchWordMeaning(String word) throws WordBankEmptyException, NoWordFoundException {
         word = word.toLowerCase();
-        if (wordBank.isEmpty()) {
-            throw new WordBankEmptyException();
-        } else if (!(wordBank.containsKey(word))) {
+        
+        if (!(wordBank.containsKey(word))) {
             throw new NoWordFoundException(word);
         }
         return wordBank.get(word).getMeaning();
