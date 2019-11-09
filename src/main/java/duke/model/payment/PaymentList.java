@@ -2,6 +2,10 @@ package duke.model.payment;
 
 import duke.commons.LogsCenter;
 import duke.exception.DukeException;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -13,11 +17,13 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import static java.util.Objects.requireNonNull;
+
 public class PaymentList {
 
     private static final Logger logger = LogsCenter.getLogger(PaymentList.class);
 
-    private static final SortCriteria DEFAULT_SORT_CRITERIA = SortCriteria.TIME;
+    private static final SortingCriteria DEFAULT_SORT_CRITERIA = SortingCriteria.TIME;
 
     private List<Payment> internalTimeSortedList;
 
@@ -27,23 +33,17 @@ public class PaymentList {
 
     private ObservableList<Payment> unfilteredList;
 
-    private SortCriteria sortCriteria;
+    private SortingCriteria sortingCriteria;
 
     private FilteredList<Payment> filteredList;
 
-    // private FilteredList<Payment> searchResult;
+    private StringProperty sortingCriteriaIndicator = new SimpleStringProperty();
 
-    // private DisplayMode displayMode;
+    private ObjectProperty<Predicate> predicateIndicator = new SimpleObjectProperty<Predicate>();
 
-    private ObservableList<String> sortIndicator = FXCollections.observableArrayList();
+    private Predicate<Payment> PREDICATE_SHOW_ALL_PAYMENTS = unused -> true;
 
-    private ObservableList<Predicate<Payment>> predicateIndicator = FXCollections.observableArrayList();
-
-    // private ObservableList<String> searchKeywordIndicator = FXCollections.observableArrayList();
-
-    Predicate<Payment> PREDICATE_SHOW_ALL_PAYMENTS = unused -> true;
-
-    private enum SortCriteria {
+    private enum SortingCriteria {
         TIME("time"),
         AMOUNT("amount"),
         PRIORITY("priority");
@@ -54,7 +54,7 @@ public class PaymentList {
             return literalMeaning;
         }
 
-        SortCriteria(String literalMeaning) {
+        SortingCriteria(String literalMeaning) {
             this.literalMeaning = literalMeaning;
         }
     }
@@ -68,13 +68,13 @@ public class PaymentList {
         updateInternalAmountSortedList();
         updateInternalPrioritySortedList();
 
-        sortCriteria = DEFAULT_SORT_CRITERIA; // TIME
+        sortingCriteria = DEFAULT_SORT_CRITERIA; // TIME
         fetchInternalListToUnfilteredList();
 
         filteredList = new FilteredList<>(unfilteredList);
         filteredList.setPredicate(PREDICATE_SHOW_ALL_PAYMENTS);
-        sortIndicator.add(sortCriteria.toString());
-        predicateIndicator.add(PREDICATE_SHOW_ALL_PAYMENTS);
+        sortingCriteriaIndicator.setValue(sortingCriteria.toString());
+        predicateIndicator.setValue(PREDICATE_SHOW_ALL_PAYMENTS);
     }
 
     public PaymentList(List<Payment> timeSortedList) {
@@ -82,12 +82,12 @@ public class PaymentList {
         unfilteredList = FXCollections.observableArrayList();
         updateInternalAmountSortedList();
         updateInternalPrioritySortedList();
-        sortCriteria = DEFAULT_SORT_CRITERIA; // TIME
+        sortingCriteria = DEFAULT_SORT_CRITERIA; // TIME
         fetchInternalListToUnfilteredList();
         filteredList = new FilteredList<>(unfilteredList);
         filteredList.setPredicate(PREDICATE_SHOW_ALL_PAYMENTS);
-        sortIndicator.add(sortCriteria.toString());
-        predicateIndicator.add(PREDICATE_SHOW_ALL_PAYMENTS);
+        sortingCriteriaIndicator.setValue(sortingCriteria.toString());
+        predicateIndicator.setValue(PREDICATE_SHOW_ALL_PAYMENTS);
     }
 
     public void add(Payment payment) {
@@ -125,25 +125,25 @@ public class PaymentList {
         add(editedPayment); // using add method can help sort after change of element.
     }
 
-    public void setSortCriteria(String sortCriteria) throws DukeException {
+    public void setSortingCriteria(String sortingCriteria) throws DukeException {
         try {
-            this.sortCriteria = SortCriteria.valueOf(sortCriteria.toUpperCase());
+            this.sortingCriteria = SortingCriteria.valueOf(sortingCriteria.toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new DukeException(String.format(DukeException.MESSAGE_SORT_CRITERIA_INVALID, sortCriteria));
+            throw new DukeException(String.format(DukeException.MESSAGE_SORT_CRITERIA_INVALID, sortingCriteria));
         }
         fetchInternalListToUnfilteredList();
-        sortIndicator.set(0, this.sortCriteria.toString());
+        sortingCriteriaIndicator.setValue(this.sortingCriteria.toString());
     }
 
-    public void setPredicate(Predicate<Payment> predicate) {
+    public void setTimePredicate(Predicate<Payment> predicate) {
         filteredList.setPredicate(predicate);
-        predicateIndicator.set(0, predicate);
+        predicateIndicator.setValue(predicate);
     }
 
     public void setSearchPredicate(String keyword) {
         SearchKeywordPredicate searchPredicate = new SearchKeywordPredicate(keyword);
         filteredList.setPredicate(searchPredicate);
-        predicateIndicator.set(0, searchPredicate);
+        predicateIndicator.set(searchPredicate);
     }
 
 
@@ -151,28 +151,14 @@ public class PaymentList {
         return filteredList;
     }
 
-    /*
-    public FilteredList<Payment> getSearchResult() {
-        return searchResult;
-    }
-     */
-
-    public ObservableList<String> getSortIndicator() {
-        return sortIndicator;
+    public StringProperty getSortingCriteriaIndicator() {
+        return sortingCriteriaIndicator;
     }
 
-    public ObservableList<Predicate<Payment>> getPredicateIndicator() {
+    public ObjectProperty<Predicate> getPredicateIndicator() {
         return predicateIndicator;
     }
-
-    /*
-    public ObservableList<String> getSearchKeywordIndicator() {
-        return searchKeywordIndicator;
-    }
-     */
-
-
-
+    
     /**
      * Returns all internal payments as an ArrayList.
      * This is for storage ONLY!
@@ -184,7 +170,7 @@ public class PaymentList {
     }
 
     private void fetchInternalListToUnfilteredList() {
-        switch (sortCriteria) {
+        switch (sortingCriteria) {
             case TIME:
                 unfilteredList.setAll(internalTimeSortedList);
                 break;

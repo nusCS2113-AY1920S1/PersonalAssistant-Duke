@@ -2,7 +2,12 @@ package duke.model;
 
 import duke.commons.LogsCenter;
 import duke.exception.DukeException;
-import duke.model.payment.*;
+import duke.model.payment.Payment;
+import duke.model.payment.PaymentList;
+import duke.model.payment.PaymentOverduePredicate;
+import duke.model.payment.PaymentInWeekPredicate;
+import duke.model.payment.PaymentInMonthPredicate;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,7 +29,7 @@ public class DukePP implements Model {
     private static final Logger logger = LogsCenter.getLogger(DukePP.class);
 
 
-    Predicate<Payment> PREDICATE_SHOW_ALL_PAYMENTS = unused -> true;
+    private Predicate<Payment> PREDICATE_SHOW_ALL_PAYMENTS = unused -> true;
 
     private final ExpenseList expenseList;
     private final PlanBot planBot;
@@ -270,27 +275,27 @@ public class DukePP implements Model {
         payments.remove(index);
     }
 
-    public void setPaymentSortCriteria(String sortCriteria) throws DukeException {
-        payments.setSortCriteria(sortCriteria);
+    public void setPaymentSortingCriteria(String sortCriteria) throws DukeException {
+        payments.setSortingCriteria(sortCriteria);
     }
 
     public void setAllPredicate() {
-        payments.setPredicate(PREDICATE_SHOW_ALL_PAYMENTS);
+        payments.setTimePredicate(PREDICATE_SHOW_ALL_PAYMENTS);
     }
 
     public void setMonthPredicate() {
         PaymentInMonthPredicate monthPredicate = new PaymentInMonthPredicate();
-        payments.setPredicate(monthPredicate);
+        payments.setTimePredicate(monthPredicate);
     }
 
     public void setWeekPredicate() {
         PaymentInWeekPredicate weekPredicate = new PaymentInWeekPredicate();
-        payments.setPredicate(weekPredicate);
+        payments.setTimePredicate(weekPredicate);
     }
 
     public void setOverduePredicate() {
         PaymentOverduePredicate overduePredicate = new PaymentOverduePredicate();
-        payments.setPredicate(overduePredicate);
+        payments.setTimePredicate(overduePredicate);
     }
 
     public void setSearchKeyword(String keyword) {
@@ -305,12 +310,6 @@ public class DukePP implements Model {
         return payments.getFilteredList();
     }
 
-    /*
-    public FilteredList<Payment> getSearchResult() {
-        return payments.getSearchResult();
-    }
-     */
-
     /**
      * Returns the paymentList itself for storage update ONLY.
      *
@@ -321,23 +320,13 @@ public class DukePP implements Model {
     }
 
     @Override
-    public ObservableList<String> getSortIndicator() {
-        return payments.getSortIndicator();
+    public StringProperty getPaymentSortingCriteria() {
+        return payments.getSortingCriteriaIndicator();
     }
 
     @Override
-    public ObservableList<Predicate<Payment>> getPredicateIndicator() {
+    public ObjectProperty<Predicate> getPaymentPredicate() {
         return payments.getPredicateIndicator();
     }
-
-    /*
-    @Override
-    public ObservableList<String> getSearchKeywordIndicator() {
-        return payments.getSearchKeywordIndicator();
-    }
-     */
-
-
-    //    todo: add other data operations
 
 }

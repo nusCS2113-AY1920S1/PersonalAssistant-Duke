@@ -3,6 +3,7 @@ package duke.model;
 import duke.exception.DukeException;
 import duke.model.payment.Payment;
 import duke.model.payment.PaymentList;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableStringValue;
 import javafx.collections.ObservableList;
@@ -90,7 +91,7 @@ public interface Model {
 
     public void removePayment(int index) throws DukeException;
 
-    public void setPaymentSortCriteria(String sortCriteria) throws DukeException;
+    public void setPaymentSortingCriteria(String sortingCriteria) throws DukeException;
 
     public void setAllPredicate();
 
@@ -108,9 +109,9 @@ public interface Model {
 
     public PaymentList getPaymentList();
 
-    public ObservableList<String> getSortIndicator();
+    public StringProperty getPaymentSortingCriteria();
 
-    public ObservableList<Predicate<Payment>> getPredicateIndicator();
+    public ObjectProperty<Predicate> getPaymentPredicate();
 
 
     //******************************** IncomeList operations

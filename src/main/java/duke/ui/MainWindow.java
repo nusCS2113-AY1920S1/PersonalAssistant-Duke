@@ -99,8 +99,8 @@ public class MainWindow extends UiPart<Stage> {
         logger.info("planPane is constructed." + logic.getDialogObservableList().size());
         budgetPane = new BudgetPane(logic.getExternalIncomeList(),logic,logic.getIncomeListTotalString());
         paymentPane = new PaymentPane(logic.getFilteredPaymentList(),
-                logic.getSortIndicator(),
-                logic.getPredicateIndicator());
+                logic.getPaymentSortingCriteria(),
+                logic.getPaymentPredicate());
         logger.info("Budget plane is constructed.");
 
 
@@ -140,8 +140,6 @@ public class MainWindow extends UiPart<Stage> {
             expensePane.getRoot().setVisible(true);
 
         }
-
-        // todo: add more data parts to be added.
     }
 
     @FXML

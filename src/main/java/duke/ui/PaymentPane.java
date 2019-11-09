@@ -2,6 +2,10 @@ package duke.ui;
 
 import duke.commons.LogsCenter;
 import duke.model.payment.*;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,11 +21,14 @@ public class PaymentPane extends UiPart<AnchorPane> {
 
     private static final Logger logger = LogsCenter.getLogger(PaymentPane.class);
 
+    private static final double FULL_OPACITY = 1;
+    private static final double FADED_OPACITY = 0.2;
+
     private static final String FXML_FILE_NAME = "PaymentPane.fxml";
 
-    private ObservableList<String> sortIndicator;
+    private StringProperty sortingCriteria;
 
-    private ObservableList<Predicate<Payment>> predicateIndicator;
+    private ObjectProperty<Predicate> predicate;
 
     // private ObservableList<String> searchKeywordIndicator;
 
@@ -53,24 +60,24 @@ public class PaymentPane extends UiPart<AnchorPane> {
     private ListView<Payment> paymentListView;
 
     public PaymentPane(ObservableList<Payment> paymentList,
-                       ObservableList<String> sortIndicator,
-                       ObservableList<Predicate<Payment>> predicateIndicator) {
+                       StringProperty sortingCriteria,
+                       ObjectProperty<Predicate> predicate) {
         super(FXML_FILE_NAME, null);
         paymentListView.setItems(paymentList);
         paymentListView.setCellFactory(listView -> new PaymentListViewCell());
-        this.sortIndicator = sortIndicator;
-        this.predicateIndicator = predicateIndicator;
-        // this.searchKeywordIndicator = searchKeywordIndicator;
 
-        highlightSortLabel(this.sortIndicator.get(0));
-        highlightPredicateLabel(this.predicateIndicator.get(0));
+        this.sortingCriteria = sortingCriteria;
+        this.sortingCriteria.addListener((observable, oldValue, newValue) -> {
+            highlightSortLabel();
+        });
 
-        this.sortIndicator.addListener((ListChangeListener<String>) change -> {
-            highlightSortLabel(this.sortIndicator.get(0));
+        this.predicate = predicate;
+        this.predicate.addListener((observable, oldValue, newValue) -> {
+            highlightPredicateLabel();
         });
-        this.predicateIndicator.addListener((ListChangeListener<Predicate<Payment>>) change -> {
-            highlightPredicateLabel(this.predicateIndicator.get(0));
-        });
+
+        highlightSortLabel();
+        highlightPredicateLabel();
     }
 
     /**
@@ -90,59 +97,63 @@ public class PaymentPane extends UiPart<AnchorPane> {
         }
     }
 
-    private void highlightSortLabel(String sortCriteria) {
-        switch (sortCriteria) {
+    private void highlightSortLabel() {
+        switch (sortingCriteria.getValue()) {
         case "time":
-            timeLabel.setOpacity(1);
-            amountLabel.setOpacity(0.2);
-            priorityLabel.setOpacity(0.2);
+            timeLabel.setOpacity(FULL_OPACITY);
+            amountLabel.setOpacity(FADED_OPACITY);
+            priorityLabel.setOpacity(FADED_OPACITY);
             break;
 
         case "amount":
-            timeLabel.setOpacity(0.2);
-            amountLabel.setOpacity(1);
-            priorityLabel.setOpacity(0.2);
+            timeLabel.setOpacity(FADED_OPACITY);
+            amountLabel.setOpacity(FULL_OPACITY);
+            priorityLabel.setOpacity(FADED_OPACITY);
             break;
 
         case "priority":
-            timeLabel.setOpacity(0.2);
-            amountLabel.setOpacity(0.2);
-            priorityLabel.setOpacity(1);
+            timeLabel.setOpacity(FADED_OPACITY);
+            amountLabel.setOpacity(FADED_OPACITY);
+            priorityLabel.setOpacity(FULL_OPACITY);
             break;
         }
     }
 
-    private void highlightPredicateLabel(Predicate<Payment> predicate) {
-        if (predicate instanceof PaymentOverduePredicate) {
-            overdueLabel.setOpacity(1);
-            weekLabel.setOpacity(0.2);
-            monthLabel.setOpacity(0.2);
-            allLabel.setOpacity(0.2);
-            searchLabel.setOpacity(0.2);
-        } else if (predicate instanceof PaymentInWeekPredicate) {
-            overdueLabel.setOpacity(0.2);
-            weekLabel.setOpacity(1);
-            monthLabel.setOpacity(0.2);
-            allLabel.setOpacity(0.2);
-            searchLabel.setOpacity(0.2);
-        } else if (predicate instanceof PaymentInMonthPredicate) {
-            overdueLabel.setOpacity(0.2);
-            weekLabel.setOpacity(0.2);
-            monthLabel.setOpacity(1);
-            allLabel.setOpacity(0.2);
-            searchLabel.setOpacity(0.2);
-        } else if (predicate instanceof SearchKeywordPredicate) {
-            overdueLabel.setOpacity(0.2);
-            weekLabel.setOpacity(0.2);
-            monthLabel.setOpacity(0.2);
-            allLabel.setOpacity(0.2);
-            searchLabel.setOpacity(1);
+    private void highlightPredicateLabel() {
+        if (predicate.getValue() instanceof PaymentOverduePredicate) {
+            overdueLabel.setOpacity(FULL_OPACITY);
+            weekLabel.setOpacity(FADED_OPACITY);
+            monthLabel.setOpacity(FADED_OPACITY);
+            allLabel.setOpacity(FADED_OPACITY);
+            searchLabel.setOpacity(FADED_OPACITY);
+
+        } else if (predicate.getValue() instanceof PaymentInWeekPredicate) {
+            overdueLabel.setOpacity(FADED_OPACITY);
+            weekLabel.setOpacity(FULL_OPACITY);
+            monthLabel.setOpacity(FADED_OPACITY);
+            allLabel.setOpacity(FADED_OPACITY);
+            searchLabel.setOpacity(FADED_OPACITY);
+
+        } else if (predicate.getValue() instanceof PaymentInMonthPredicate) {
+            overdueLabel.setOpacity(FADED_OPACITY);
+            weekLabel.setOpacity(FADED_OPACITY);
+            monthLabel.setOpacity(FULL_OPACITY);
+            allLabel.setOpacity(FADED_OPACITY);
+            searchLabel.setOpacity(FADED_OPACITY);
+
+        } else if (predicate.getValue() instanceof SearchKeywordPredicate) {
+            overdueLabel.setOpacity(FADED_OPACITY);
+            weekLabel.setOpacity(FADED_OPACITY);
+            monthLabel.setOpacity(FADED_OPACITY);
+            allLabel.setOpacity(FADED_OPACITY);
+            searchLabel.setOpacity(FULL_OPACITY);
+
         } else {
-            overdueLabel.setOpacity(0.2);
-            weekLabel.setOpacity(0.2);
-            monthLabel.setOpacity(0.2);
-            allLabel.setOpacity(1);
-            searchLabel.setOpacity(0.2);
+            overdueLabel.setOpacity(FADED_OPACITY);
+            weekLabel.setOpacity(FADED_OPACITY);
+            monthLabel.setOpacity(FADED_OPACITY);
+            allLabel.setOpacity(FULL_OPACITY);
+            searchLabel.setOpacity(FADED_OPACITY);
         }
     }
 
