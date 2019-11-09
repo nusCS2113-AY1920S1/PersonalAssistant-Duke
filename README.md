@@ -12,10 +12,10 @@ Duke will help you to sort, filter and clear you inbox.
 
 **Features**
 
-* Add dates of action items
-* Mark emails with different levels of priority
-* Colour code emails
-* Tag and filter emails
+* Fetch emails from email provider
+* Filter, highlight and tag emails
+* Add and manage tasks related to these emails
+* Easy to use interface
 
 **Getting started**
 

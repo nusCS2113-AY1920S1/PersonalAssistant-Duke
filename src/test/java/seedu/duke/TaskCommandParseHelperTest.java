@@ -5,14 +5,7 @@ import seedu.duke.common.command.Command;
 import seedu.duke.common.command.InvalidCommand;
 import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.task.TaskList;
-import seedu.duke.task.command.TaskAddCommand;
-import seedu.duke.task.command.TaskDeleteCommand;
-import seedu.duke.task.command.TaskDoAfterCommand;
-import seedu.duke.task.command.TaskDoneCommand;
-import seedu.duke.task.command.TaskFindCommand;
-import seedu.duke.task.command.TaskReminderCommand;
-import seedu.duke.task.command.TaskSnoozeCommand;
-import seedu.duke.task.command.TaskUpdateCommand;
+import seedu.duke.task.command.*;
 import seedu.duke.task.entity.Task;
 import seedu.duke.task.parser.TaskCommandParseHelper;
 
@@ -458,6 +451,48 @@ public class TaskCommandParseHelperTest {
             ArrayList<Command.Option> optionListEmpty = new ArrayList<>();
             //no description
             assertTrue(method.invoke(null, "update 1", optionListEmpty) instanceof InvalidCommand);
+        } catch (ClassNotFoundException e) {
+            fail("No such class");
+        } catch (NoSuchMethodException e) {
+            fail("No such method");
+        } catch (InvocationTargetException e) {
+            fail(e.getMessage());
+        } catch (IllegalAccessException e) {
+            fail("No Access");
+        }
+    }
+
+    @Test
+    public void parseLinkCommandTest() {
+        try {
+            Class<?> parser = Class.forName("seedu.duke.task.parser.TaskCommandParseHelper");
+            Method method = parser.getDeclaredMethod("parseLinkCommand", String.class, ArrayList.class);
+            method.setAccessible(true);
+
+            ArrayList<Command.Option> optionListCorrect = new ArrayList<>(Arrays.asList(new Command.Option(
+                    "email", "1")));
+
+            ArrayList<Command.Option> optionListExtra = new ArrayList<>(Arrays.asList(new Command.Option(
+                    "email ", " 1"), new Command.Option("email", "2"), new Command.Option("email", "3 ")));
+
+            ArrayList<Command.Option> optionListEmpty = new ArrayList<>();
+
+            //positive cases
+            assertTrue(method.invoke(null, "link 1", optionListCorrect) instanceof TaskLinkCommand);
+            assertTrue(method.invoke(null, "link 1 ", optionListExtra) instanceof TaskLinkCommand);
+            assertTrue(method.invoke(null, "link  1", optionListExtra) instanceof TaskLinkCommand);
+            //no description
+            assertTrue(method.invoke(null, "link 1", optionListEmpty) instanceof TaskLinkCommand);
+
+            //negative cases
+            //no index
+//            assertTrue(method.invoke(null, "link ", optionListCorrect) instanceof InvalidCommand);
+            //no index or space
+//            assertTrue(method.invoke(null, "link", optionListEmpty) instanceof InvalidCommand);
+            //non-integer index
+//            assertTrue(method.invoke(null, "link 123abc", optionListCorrect) instanceof InvalidCommand);
+            //more than 1 integer
+//            assertTrue(method.invoke(null, "link 1 23", optionListCorrect) instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {

@@ -1,5 +1,6 @@
-package seedu.duke.common.command;
+package seedu.duke.task.command;
 
+import seedu.duke.common.command.Command;
 import seedu.duke.common.model.Model;
 import seedu.duke.email.EmailList;
 import seedu.duke.email.entity.Email;
@@ -9,7 +10,7 @@ import seedu.duke.ui.UI;
 
 import java.util.ArrayList;
 
-public class LinkCommand extends Command {
+public class TaskLinkCommand extends Command {
     private ArrayList<Integer> taskIndexList;
     private ArrayList<Integer> emailIndexList;
 
@@ -19,7 +20,7 @@ public class LinkCommand extends Command {
      * @param taskIndexList  the index of tasks that is to be linked together.
      * @param emailIndexList the index of emails that is to be linked.
      */
-    public LinkCommand(ArrayList<Integer> taskIndexList, ArrayList<Integer> emailIndexList) {
+    public TaskLinkCommand(ArrayList<Integer> taskIndexList, ArrayList<Integer> emailIndexList) {
         this.taskIndexList = taskIndexList;
         this.emailIndexList = emailIndexList;
     }

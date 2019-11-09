@@ -3,7 +3,7 @@ package seedu.duke.task.parser;
 import javafx.util.Pair;
 import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.common.command.InvalidCommand;
-import seedu.duke.common.command.LinkCommand;
+import seedu.duke.task.command.TaskLinkCommand;
 import seedu.duke.common.command.HelpCommand;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.FlipCommand;
@@ -525,7 +525,7 @@ public class TaskCommandParseHelper {
             ArrayList<Integer> emailIndexList = extractEmails(optionList);
             ArrayList<Integer> taskIndexList = new ArrayList<>();
             taskIndexList.add(index);
-            return new LinkCommand(taskIndexList, emailIndexList);
+            return new TaskLinkCommand(taskIndexList, emailIndexList);
         } catch (TaskParseException e) {
             return new InvalidCommand("Please enter a valid task index");
         } catch (EmailParseException e) {
