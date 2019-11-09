@@ -99,7 +99,6 @@ public class ProfitCommand extends Command {
         this.param = ProfitCommand.ProfitBy.valueOf(param);
     }
 
-
     /**
      * The class generates the profits and revenue for food whose profits and revenue the user wishes to generate.
      *
@@ -114,11 +113,12 @@ public class ProfitCommand extends Command {
         double toGenerateProfit = 0;
         double toGenerateRevenue = 0;
         String tempFoodName;
+        Iterator<Sale> it = saleSet.iterator();
+
         switch (param) {
             case ALL:
                 //generating the profits and revenue for all food in the given period from date_i to date_f,
                 //simply iterating though the sales history will do.
-                Iterator<Sale> it = saleSet.iterator();
                 while (it.hasNext()) {
                     Sale tempSale = it.next();
                     Date tempDate = tempSale.getDate();
@@ -131,6 +131,7 @@ public class ProfitCommand extends Command {
                 }
                 return new CommandResult(String.format(MESSAGE_SUCCESS_ALL, toGenerateProfit,
                         toGenerateRevenue, list.size()));
+
             case INDEX:
                 //generating the profits and revenue for the food with given index in the list, in the given period
                 //from date_i to date_f, slightly more involved.
@@ -140,7 +141,6 @@ public class ProfitCommand extends Command {
                 Food foodToGenerate = list.get(profitIndex);
                 tempFoodName = foodToGenerate.getName(); //possible to do this because we disallow duplicate food names
 
-                Iterator<Sale> it = saleSet.iterator();
                 while (it.hasNext()) {
                     Sale tempSale = it.next();
                     Date tempDate = tempSale.getDate();
@@ -155,6 +155,7 @@ public class ProfitCommand extends Command {
                 }
                 return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toGenerateProfit,
                         toGenerateRevenue, list.size()));
+
             case NAME:
                 //generating the profits and revenue for the food with given food name, in the given period
                 //from date_i to date_f, rather straightforward.
@@ -162,7 +163,6 @@ public class ProfitCommand extends Command {
                 CommandUtil.requireValidName(list, profitDescription);
                 tempFoodName = profitDescription; //for consistency
 
-                Iterator<Sale> it = saleSet.iterator();
                 while (it.hasNext()) {
                     Sale tempSale = it.next();
                     Date tempDate = tempSale.getDate();
@@ -177,6 +177,7 @@ public class ProfitCommand extends Command {
                 }
                 return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toGenerateProfit,
                         toGenerateRevenue, list.size()));
+
             case TYPE:
                 //generating the profits and revenue for the food with given food type, in the given period
                 //from date_i to date_f, most involved in all cases here.
@@ -196,7 +197,6 @@ public class ProfitCommand extends Command {
 
                 //iterate through the sales history to look for matching food names, identification
                 //with only food names is possible since we disallow duplicate food names in this project.
-                Iterator<Sale> it = saleSet.iterator();
                 while (it.hasNext()) {
                     Sale tempSale = it.next();
                     Date tempDate = tempSale.getDate();
