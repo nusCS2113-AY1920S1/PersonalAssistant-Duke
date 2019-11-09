@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import cube.exception.CubeException;
+import cube.logic.parser.ParserUtil;
 import cube.util.exception.CubeUtilException;
 import cube.util.exception.UtilErrorMessage;
 
@@ -38,6 +39,7 @@ public class FileUtilCSV<Type> extends FileUtil {
         this.fileObject = fileObject;
         this.file = new File(fileFullPath);
         this.mapper = new CsvMapper();
+        this.mapper.setDateFormat(ParserUtil.getDateFormat());
     }
 
     /**
