@@ -20,7 +20,7 @@ public class UpdateHeightCommand extends Command {
         this.description = description;
     }
 
-    public UpdateHeightCommand(boolean flag, String messageStr) {
+    public UpdateHeightCommand(boolean isFail, String messageStr) {
         this.isFail = true;
         this.errorStr = messageStr;
     }

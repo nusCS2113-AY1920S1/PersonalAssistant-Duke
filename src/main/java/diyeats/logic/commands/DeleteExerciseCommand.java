@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 public class DeleteExerciseCommand extends Command {
     private String keywordStr;
-    private boolean instantDelete = false;
+    private boolean isInstantDelete = false;
     private ArrayList<String> deleteCandidateKeys = new ArrayList<>();
 
     /**
@@ -22,7 +22,7 @@ public class DeleteExerciseCommand extends Command {
         this.keywordStr = keywordStr;
     }
 
-    public DeleteExerciseCommand(boolean flag, String messageStr) {
+    public DeleteExerciseCommand(boolean isFail, String messageStr) {
         this.isFail = true;
         this.errorStr = messageStr;
     }
@@ -46,17 +46,17 @@ public class DeleteExerciseCommand extends Command {
     private void execute_stage_0(MealList meals, Storage storage) {
         HashMap<String, Integer> storedExercises = meals.getExerciseList().getStoredExercises();
         for (String itr : storedExercises.keySet()) {
+            if (keywordStr.equals(itr)) {
+                isInstantDelete = true;
+                deleteCandidateKeys.add(itr);
+                break;
+            }
             if (itr.toLowerCase().contains(keywordStr.toLowerCase())) {
-                if (keywordStr.equals(itr)) {
-                    instantDelete = true;
-                    deleteCandidateKeys.add(itr);
-                    break;
-                }
                 deleteCandidateKeys.add(itr);
             }
         }
 
-        if (instantDelete || deleteCandidateKeys.size() == 1) {
+        if (isInstantDelete || deleteCandidateKeys.size() == 1) {
             int lastIdx = deleteCandidateKeys.size() - 1;
             ui.showMessage("Success! " + deleteCandidateKeys.get(lastIdx)
                     + " has been deleted from the list of exercises.");

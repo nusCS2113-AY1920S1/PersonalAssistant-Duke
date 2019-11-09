@@ -35,7 +35,7 @@ public class SuggestExerciseCommand extends Command {
         this.keyword = keyword;
     }
 
-    public SuggestExerciseCommand(boolean flag, String message) {
+    public SuggestExerciseCommand(boolean isFail, String message) {
         this.isFail = true;
         this.errorStr = message;
     }
@@ -45,7 +45,7 @@ public class SuggestExerciseCommand extends Command {
         isDone = false;
         switch (stage) {
             case 0:
-                exerciseSuggestionHandler = new ExerciseSuggestionHandler(user);
+                exerciseSuggestionHandler = new ExerciseSuggestionHandler();
                 execute_stage_0(meals, user);
                 stage++;
                 break;
@@ -72,8 +72,8 @@ public class SuggestExerciseCommand extends Command {
                 calorieToElevateActivityLevel -= excessCalorie;
             }
             ui.showExerciseRequired(calorieToElevateActivityLevel, date);
-            ArrayList<Pair> exerciseArrayList = this.exerciseSuggestionHandler.compute(meals,
-                    calorieToElevateActivityLevel, keyword);
+            ArrayList<Pair> exerciseArrayList = this.exerciseSuggestionHandler.compute(meals.getExerciseList(),
+                    calorieToElevateActivityLevel, user.getDailyCalorie(), keyword);
 
             ui.showExerciseOptions(exerciseArrayList);
             ui.showMessage("Input 0 to cancel selection");
@@ -84,24 +84,24 @@ public class SuggestExerciseCommand extends Command {
         int exerciseIdx;
         try {
             exerciseIdx = Integer.parseInt(this.responseStr);
-
         } catch (NumberFormatException e) {
             ui.showMessage("Could not parse " + responseStr + " as a number. Please input an integer.");
             return;
         }
 
         if (exerciseIdx == 0) {
-            ui.showMessage("The suggestexercise command has been canceled");
+            ui.showMessage("The suggest exercise command has been canceled");
             isDone = true;
             return;
         }
 
         if (exerciseIdx < 0 || exerciseIdx > exerciseSuggestionHandler.getSize()) {
-
             ui.showMessage(responseStr + " is out of bounds. Please input a valid index.");
             return;
         }
-        exerciseSuggestionHandler.addChosenExercise(exerciseIdx - 1, meals, date);
+
+        Pair selectedExercise = exerciseSuggestionHandler.getExercise(exerciseIdx);
+        meals.getExerciseList().addExerciseAtDate(date, selectedExercise);
         ui.showMessage("Got it!, I have set the chosen exercise for the date "
                 + date.format(LOCAL_DATE_FORMATTER) + ".");
 

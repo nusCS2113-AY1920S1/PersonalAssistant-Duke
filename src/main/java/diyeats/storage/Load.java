@@ -31,7 +31,7 @@ public class Load {
     private String lineStr;
     private static FilePaths filePaths = new FilePaths();
     // Flag to set if jar resource should be called if user file does not exist in host system.
-    private static final boolean useResourceAsBackup = true;
+    private boolean isUseResourceAsBackup = true;
     private Gson gson;
 
     public Load(Gson gson) {
@@ -46,7 +46,7 @@ public class Load {
     public void loadMealListData(MealList meals) throws ProgramException {
         String userMealFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_USER_MEALS_FILE);
         Type mealListHashMap = new TypeToken<HashMap<LocalDate, ArrayList<Meal>>>(){}.getType();
-        bufferedReader = FileUtil.readFile(userMealFilePathStr, useResourceAsBackup);
+        bufferedReader = FileUtil.readFile(userMealFilePathStr, isUseResourceAsBackup);
         try {
             HashMap<LocalDate, ArrayList<Meal>> data = gson.fromJson(bufferedReader, mealListHashMap);
             if (data != null) {
@@ -67,7 +67,7 @@ public class Load {
     public void loadDefaultMealData(MealList meals) throws ProgramException {
         String defaultMealFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_DEFAULT_MEAL_FILE);
         Type defaultItemHashMap = new TypeToken<HashMap<String, HashMap<String, Integer>>>(){}.getType();
-        bufferedReader = FileUtil.readFile(defaultMealFilePathStr, useResourceAsBackup);
+        bufferedReader = FileUtil.readFile(defaultMealFilePathStr, isUseResourceAsBackup);
         try {
             HashMap<String, HashMap<String, Integer>> data = gson.fromJson(bufferedReader, defaultItemHashMap);
             if (data != null) {
@@ -83,7 +83,7 @@ public class Load {
     public void loadExercises(MealList meals) throws ProgramException {
         String exercisesFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_EXERCISES_FILE);
         Type exerciseListType = new TypeToken<ExerciseList>(){}.getType();
-        bufferedReader = FileUtil.readFile(exercisesFilePathStr, useResourceAsBackup);
+        bufferedReader = FileUtil.readFile(exercisesFilePathStr, isUseResourceAsBackup);
         try {
             ExerciseList data = gson.fromJson(bufferedReader, exerciseListType);
             if (data != null) {
@@ -98,7 +98,7 @@ public class Load {
     public void loadGoals(User user) throws ProgramException {
         String goalFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_GOAL_FILE);
         Type goalType = new TypeToken<Goal>(){}.getType();
-        bufferedReader = FileUtil.readFile(goalFilePathStr, useResourceAsBackup);
+        bufferedReader = FileUtil.readFile(goalFilePathStr, isUseResourceAsBackup);
         try {
             Goal goal = gson.fromJson(bufferedReader, goalType);
             bufferedReader.close();
@@ -114,7 +114,7 @@ public class Load {
     public void loadTransactions(Wallet wallet) throws ProgramException {
         String transactionsFilePathStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_TRANSACTION_FILE);
         Type walletType = new TypeToken<Wallet>(){}.getType();
-        bufferedReader = FileUtil.readFile(transactionsFilePathStr, useResourceAsBackup);
+        bufferedReader = FileUtil.readFile(transactionsFilePathStr, isUseResourceAsBackup);
         try {
             Wallet data = gson.fromJson(bufferedReader, walletType);
             bufferedReader.close();
@@ -130,7 +130,7 @@ public class Load {
         String userFileStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_USER_FILE);
         User data;
         Type userType = new TypeToken<User>(){}.getType();
-        bufferedReader = FileUtil.readFile(userFileStr, useResourceAsBackup);
+        bufferedReader = FileUtil.readFile(userFileStr, isUseResourceAsBackup);
         try {
             data = gson.fromJson(bufferedReader, userType);
             bufferedReader.close();
@@ -147,7 +147,7 @@ public class Load {
     public void loadAutoCorrect(Autocorrect autocorrect) throws ProgramException {
         try {
             String autocorrectFileStr = filePaths.getFilePathStr(FilePathNames.FILE_PATH_AUTOCORRECT_FILE);
-            bufferedReader = FileUtil.readFile(autocorrectFileStr, useResourceAsBackup);
+            bufferedReader = FileUtil.readFile(autocorrectFileStr, isUseResourceAsBackup);
             while ((lineStr = bufferedReader.readLine()) != null) {
                 autocorrect.load(lineStr.trim());
             }

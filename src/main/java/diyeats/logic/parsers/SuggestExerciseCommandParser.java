@@ -12,7 +12,6 @@ public class SuggestExerciseCommandParser implements ParserInterface {
     private static final String DATE_ARG_STR = "date";
     private static final String FIND_ARG_STR = "find";
 
-
     /**
      * Parse user input and return SuggestCommand.
      * @param userInputStr String input by user

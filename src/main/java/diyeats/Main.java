@@ -38,7 +38,7 @@ public class Main {
         autocorrect = new Autocorrect();
         wallet = new Wallet();
         storage = new Storage();
-        while (!storage.getMealIsDone()) {
+        while (!storage.getMealDone()) {
             try {
                 storage.loadMealInfo(meals);
             } catch (ProgramException e) {

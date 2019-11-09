@@ -46,7 +46,6 @@ public class AddDefaultValueCommandParser implements ParserInterface<AddDefaultV
                             + " as an integer. ");
                 }
             }
-
         }
         return new AddDefaultValueCommand(new Meal(mealNameAndInfo[0], dateArgStr, nutritionInfoMap, foodCostStr));
     }

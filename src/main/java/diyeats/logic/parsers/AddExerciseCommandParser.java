@@ -15,9 +15,11 @@ public class AddExerciseCommandParser implements ParserInterface<AddExerciseComm
             return new AddExerciseCommand(false, "Theres no /value tag provided. "
                     + "Please include the /value tag");
         }
+
         String[] exerciseNameAndValue = ArgumentSplitter.splitArguments(userInputStr, "/value");
         String exerciseNameStr = exerciseNameAndValue[0];
         String exerciseValueStr = exerciseNameAndValue[1];
+
         int exerciseValueInt;
         try {
             exerciseValueInt = Integer.parseInt(exerciseValueStr);
@@ -25,6 +27,7 @@ public class AddExerciseCommandParser implements ParserInterface<AddExerciseComm
             return new AddExerciseCommand(false, "Unable to parse " + exerciseValueStr + " as a number. "
                     + "Please enter a valid integer.");
         }
+
         return new AddExerciseCommand(exerciseNameStr, exerciseValueInt);
     }
 }

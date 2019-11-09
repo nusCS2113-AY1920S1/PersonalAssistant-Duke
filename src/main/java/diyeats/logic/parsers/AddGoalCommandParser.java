@@ -30,6 +30,7 @@ public class AddGoalCommandParser implements ParserInterface<AddGoalCommand> {
     @Override
     public AddGoalCommand parse(String userInputStr) {
         HashMap<String, String> argumentsMap = ArgumentSplitter.splitForwardSlashArguments(userInputStr);
+
         //validate startdate argument
         if (argumentsMap.containsKey(START_DATE_ARG_STR)) {
             String dateStr = argumentsMap.get(START_DATE_ARG_STR);
@@ -89,7 +90,6 @@ public class AddGoalCommandParser implements ParserInterface<AddGoalCommand> {
 
         List<String> validArguments = Arrays.asList(START_DATE_ARG_STR, END_DATE_ARG_STR,
                 WEIGHT_ARG_STR, ACTIVITY_ARG_STR);
-
         if (argumentsMap.keySet().containsAll(validArguments)) {
             return new AddGoalCommand(argumentsMap);
         } else if (argumentsMap.size() < validArguments.size()) {

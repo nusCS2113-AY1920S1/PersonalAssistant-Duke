@@ -25,7 +25,7 @@ public class AddDefaultValueCommand extends Command {
     }
 
     // This constructor is called if there are issues parsing user input.
-    public AddDefaultValueCommand(boolean flag, String messageStr) {
+    public AddDefaultValueCommand(boolean isFail, String messageStr) {
         this.isFail = true;
         this.errorStr = messageStr;
     }

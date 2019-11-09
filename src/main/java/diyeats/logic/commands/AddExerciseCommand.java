@@ -22,7 +22,7 @@ public class AddExerciseCommand extends Command {
     }
 
     // This constructor is called if there are issues parsing user input.
-    public AddExerciseCommand(boolean flag, String messageStr) {
+    public AddExerciseCommand(boolean isFail, String messageStr) {
         this.isFail = true;
         this.errorStr = messageStr;
     }

@@ -12,6 +12,7 @@ public class ExerciseList {
     private HashMap<LocalDate, Pair> exercisePlan = new HashMap<>();
 
     public ExerciseList() {
+        //These instances of stored exercises are added for testing purposes
         addStoredExercises("Running, 8 mph (7.5 min/mile)", 8);
         addStoredExercises("Running, 10 mph (6 min/mile)", 10);
         addStoredExercises("Cycling, 10 - 12mph (light effort)", 7);
@@ -38,12 +39,11 @@ public class ExerciseList {
         return exercisePlan.get(date);
     }
 
-    public void addExerciseAtDate(LocalDate date, String exercise, int factor) {
-        exercisePlan.put(date, new Pair(exercise, factor));
+    public void addExerciseAtDate(LocalDate date, Pair selectedExercise) {
+        exercisePlan.put(date, selectedExercise);
     }
 
     public boolean checkExerciseAtDate(LocalDate date) {
         return exercisePlan.containsKey(date);
     }
-
 }

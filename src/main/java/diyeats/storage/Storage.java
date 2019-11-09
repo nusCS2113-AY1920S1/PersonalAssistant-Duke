@@ -21,7 +21,7 @@ public class Storage {
     private Load loader;
     private Write writer;
     private int stage = 0;
-    private boolean mealIsDone = false;
+    private boolean isMealDone = false;
 
     public Storage() {
         Gson gson = new GsonBuilder().setPrettyPrinting()
@@ -38,7 +38,7 @@ public class Storage {
         switch (stage) {
             case 0:
                 stage++;
-                mealIsDone = false;
+                isMealDone = false;
                 loader.loadMealListData(meals);
                 break;
             case 1:
@@ -46,11 +46,11 @@ public class Storage {
                 loader.loadDefaultMealData(meals);
                 break;
             case 2:
-                mealIsDone = true;
+                isMealDone = true;
                 loader.loadExercises(meals);
                 break;
             default:
-                mealIsDone = true;
+                isMealDone = true;
                 throw new ProgramException("The storage function has entered an invalid state");
         }
     }
@@ -118,7 +118,7 @@ public class Storage {
         writer.writeTransaction(wallet);
     }
 
-    public boolean getMealIsDone() {
-        return this.mealIsDone;
+    public boolean getMealDone() {
+        return this.isMealDone;
     }
 }

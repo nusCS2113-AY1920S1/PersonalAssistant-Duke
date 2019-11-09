@@ -34,7 +34,7 @@ public class AddGoalCommand extends Command {
         goal = new Goal(argumentsMap);
     }
 
-    public AddGoalCommand(boolean flag, String messageStr) {
+    public AddGoalCommand(boolean isFail, String messageStr) {
         this.isFail = true;
         this.errorStr = messageStr;
     }

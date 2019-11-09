@@ -20,7 +20,7 @@ public class UpdateActivityCommand extends Command {
         this.description = description;
     }
 
-    public UpdateActivityCommand(boolean flag, String messageStr) {
+    public UpdateActivityCommand(boolean isFail, String messageStr) {
         this.isFail = true;
         this.errorStr = messageStr;
     }
@@ -47,6 +47,7 @@ public class UpdateActivityCommand extends Command {
             } else {
                 user.setActivityLevel(activityInt);
                 ui.showSuccess("Activity Level", description);
+
                 try {
                     storage.updateUser(user);
                 } catch (ProgramException e) {

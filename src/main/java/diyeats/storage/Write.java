@@ -30,23 +30,27 @@ public class Write {
     //TODO: maybe we can put the errors in the ui file
     public void writeFile(MealList meals) throws ProgramException {
         String toWriteStr = gson.toJson(meals.getMealTracker());
+        assert toWriteStr != null : "mealTracker in mealList cannot be converted to json";
         FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePathNames.FILE_PATH_USER_MEALS_FILE));
     }
 
 
     public void writeDefaults(MealList meals) throws ProgramException {
         String toWriteStr = gson.toJson(meals.getDefaultValues());
+        assert toWriteStr != null : "defaultValues in mealList cannot be converted to json";
         FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePathNames.FILE_PATH_DEFAULT_MEAL_FILE));
     }
 
     public void writeExercises(MealList meals) throws ProgramException {
         String toWriteStr = gson.toJson(meals.getExerciseList());
+        assert toWriteStr != null : "exerciseList in mealList cannot be converted to json";
         FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePathNames.FILE_PATH_EXERCISES_FILE));
     }
 
     public void writeGoal(User user) throws ProgramException {
         Goal goal = user.getGoal();
         String toWriteStr = gson.toJson(goal);
+        assert toWriteStr != null : "goal in User cannot be converted to json";
         FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePathNames.FILE_PATH_GOAL_FILE));
     }
 
@@ -56,6 +60,7 @@ public class Write {
      */
     public void writeUser(User user) throws ProgramException {
         String toWriteStr = gson.toJson(user);
+        assert toWriteStr != null : "User cannot be converted to json";
         FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePathNames.FILE_PATH_USER_FILE));
     }
 
@@ -66,6 +71,7 @@ public class Write {
      */
     public void writeTransaction(Wallet wallet) throws ProgramException {
         String toWriteStr = gson.toJson(wallet);
+        assert toWriteStr != null : "wallet cannot be converted to json";
         FileUtil.writeFile(toWriteStr, filePaths.getFilePathStr(FilePathNames.FILE_PATH_TRANSACTION_FILE));
     }
 

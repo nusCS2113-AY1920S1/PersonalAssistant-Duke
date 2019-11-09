@@ -1,7 +1,6 @@
 package diyeats.model.wallet;
 
 import java.math.BigDecimal;
-import java.util.Currency;
 //@@author GaryStu
 
 /**

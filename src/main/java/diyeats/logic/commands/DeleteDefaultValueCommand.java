@@ -11,9 +11,8 @@ import java.util.HashMap;
 
 public class DeleteDefaultValueCommand extends Command {
     private String keywordStr;
-    private boolean instantDelete = false;
+    private boolean isInstantDelete = false;
     private ArrayList<String> deleteCandidateKeys = new ArrayList<>();
-
 
     /**
      * Constructor for DeleteDefaultValueCommand.
@@ -23,7 +22,7 @@ public class DeleteDefaultValueCommand extends Command {
         this.keywordStr = keywordStr;
     }
 
-    public DeleteDefaultValueCommand(boolean flag, String messageStr) {
+    public DeleteDefaultValueCommand(boolean isFail, String messageStr) {
         this.isFail = true;
         this.errorStr = messageStr;
     }
@@ -31,6 +30,7 @@ public class DeleteDefaultValueCommand extends Command {
     @Override
     public void execute(MealList meals, Storage storage, User user, Wallet wallet) {
         isDone = false;
+
         switch (stage) {
             case 0:
                 execute_stage_0(meals, storage);
@@ -46,21 +46,25 @@ public class DeleteDefaultValueCommand extends Command {
 
     private void execute_stage_0(MealList meals, Storage storage) {
         HashMap<String, HashMap<String, Integer>> defaultValues = meals.getDefaultValues();
+
         for (String itr : defaultValues.keySet()) {
+            if (keywordStr.equals(itr)) {
+                isInstantDelete = true;
+                deleteCandidateKeys.add(itr);
+                break;
+            }
+
             if (itr.toLowerCase().contains(keywordStr.toLowerCase())) {
-                if (keywordStr.equals(itr)) {
-                    instantDelete = true;
-                    deleteCandidateKeys.add(itr);
-                    break;
-                }
                 deleteCandidateKeys.add(itr);
             }
         }
-        if (instantDelete || deleteCandidateKeys.size() == 1) {
+
+        if (isInstantDelete || deleteCandidateKeys.size() == 1) {
             int lastIdx = deleteCandidateKeys.size() - 1;
             ui.showMessage("Success! " + deleteCandidateKeys.get(lastIdx)
                     + " has been deleted from the list of default values.");
             meals.getDefaultValues().remove(deleteCandidateKeys.get(lastIdx));
+
             try {
                 storage.updateFile(meals);
             } catch (ProgramException e) {
@@ -100,11 +104,13 @@ public class DeleteDefaultValueCommand extends Command {
         ui.showMessage("Success! " + deleteCandidateKeys.get(deleteIdx - 1)
                 + " has been deleted from the list of default values.");
         meals.getDefaultValues().remove(deleteCandidateKeys.get(deleteIdx - 1));
+
         try {
             storage.updateFile(meals);
         } catch (ProgramException e) {
             ui.showMessage(e.getMessage());
         }
+
         isDone = true;
     }
 }

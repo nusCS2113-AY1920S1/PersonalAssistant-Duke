@@ -25,7 +25,7 @@ public class AddCommand extends Command {
         this.meal = meal;
     }
 
-    public AddCommand(boolean flag, String messageStr) {
+    public AddCommand(boolean isFail, String messageStr) {
         this.isFail = true;
         this.errorStr = messageStr;
     }
