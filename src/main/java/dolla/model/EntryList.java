@@ -65,4 +65,28 @@ public class EntryList extends RecordList {
         super.addWithIndex(modifyIndex, newRecord);
         StorageWrite.setEntries(get());
     }
+
+    /*
+    public double dateOverallExpense(LocalDate cmpDate) {
+        double sum = 0;
+        for (int i = 0; i < list.size(); i += 1) {
+            Record currEntry = list.get(i);
+            LocalDate currDate = currEntry.getDate();
+            if (isSameDate(currDate, cmpDate)) {
+                double change = currEntry.getAmount();
+                change = (currEntry.getType().equals("expense") ? change*-1 : change);
+                sum += change;
+            }
+        }
+        return sum;
+    }
+
+    private boolean isSameDate(LocalDate d1, LocalDate d2) {
+        if (d1.compareTo(d2) == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    */
 }

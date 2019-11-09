@@ -9,6 +9,10 @@ public interface ParserStringList {
     String MODE_MODIFY_DEBT = "modify debt";
     String MODE_MODIFY_SHORTCUT = "modify shortcut";
 
+    // Commands specific to Dolla mode
+    String DOLLA_VIEW_TODAY = "view today";
+    String DOLLA_VIEW = "view";
+
     // Commands specific to Entry mode
     String ENTRY_COMMAND_ADD = "add";
     String ENTRY_COMMAND_LIST = "entries";
@@ -73,7 +77,4 @@ public interface ParserStringList {
     String SPACE = " ";
     String COMMAND_BYE = "bye";
     String EMPTY_STR = "";
-
-    //Exceptions
-    String INVALID_AMOUNT_EXCEPTION = "invalid amount";
 }
