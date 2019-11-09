@@ -1,11 +1,14 @@
 //@@author Ryan-Wong-Ren-Wei
+
 package mistermusik.commons.budgeting;
 
 import mistermusik.commons.events.eventtypes.Event;
 import mistermusik.commons.events.eventtypes.eventsubclasses.Concert;
 import mistermusik.commons.events.formatting.EventDate;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 
 public class Budgeting {
 
@@ -94,8 +97,9 @@ public class Budgeting {
         String monthAndYear = "";
 
         for (Event currEvent : eventList) {
-            if (currEvent.getType() != 'C') //if not concert type event, skip iteration
+            if (currEvent.getType() != 'C') { //if not concert type event, skip iteration
                 continue;
+            }
 
             if (!isSameMonth(currEvent.getStartDate(), monthlyDate)) {
                 if (!listOfConcerts.isEmpty()) {
@@ -152,10 +156,10 @@ public class Budgeting {
      * Retrieves the month and year in a string "mm-YYYY" from an EvenDate object.
      */
     private String getMonthAndYear(EventDate date) {
-        String MonthAndYear = date.getUserInputDateString();
-        MonthAndYear = MonthAndYear.substring(3, 10); //get MM-yyyy from dd-MM-yyyy HHmm
+        String monthAndYear = date.getUserInputDateString();
+        monthAndYear = monthAndYear.substring(3, 10); //get MM-yyyy from dd-MM-yyyy HHmm
 
-        return MonthAndYear;
+        return monthAndYear;
     }
 
     /**
@@ -168,7 +172,7 @@ public class Budgeting {
     }
 
     /**
-     * Gets current monthly budget
+     * Gets current monthly budget.
      */
     public int getBudget() {
         return this.budget;

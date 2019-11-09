@@ -1,4 +1,5 @@
 //@@author Ryan-Wong-Ren-Wei
+
 package mistermusik.commons.budgeting;
 
 import mistermusik.commons.events.eventtypes.Event;
@@ -24,7 +25,7 @@ public class MonthlyBudget {
     }
 
     /**
-     * Constructs an empty MonthlyBudget object
+     * Constructs an empty MonthlyBudget object.
      *
      * @param date corresponding date
      */
@@ -78,7 +79,7 @@ public class MonthlyBudget {
     }
 
     /**
-     * @return list of concerts for this MonthlyBudget.
+     * Returns list of concerts for this MonthlyBudget.
      */
     public ArrayList<Concert> getListOfConcerts() {
         return this.listOfConcerts;
@@ -90,7 +91,8 @@ public class MonthlyBudget {
      */
     public void removeConcert(Concert concert) {
         for (Concert currConcert : listOfConcerts) {
-            if (currConcert.getStartDate().getUserInputDateString().equals(concert.getStartDate().getUserInputDateString())) {
+            if (currConcert.getStartDate().getUserInputDateString().equals(
+                    concert.getStartDate().getUserInputDateString())) {
                 listOfConcerts.remove(currConcert);
                 break;
             }
@@ -100,7 +102,7 @@ public class MonthlyBudget {
     }
 
     /**
-     * @return total cost of concerts in current MonthlyBudget object.
+     * Returns total cost of concerts in current MonthlyBudget object.
      */
     public int getTotalCost() {
         return this.totalCost;
