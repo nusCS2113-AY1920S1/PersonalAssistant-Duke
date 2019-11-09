@@ -152,10 +152,29 @@ public class Parser {
     }
 
     protected static Command parseReminder(String[] taskInfo) throws WrongReminderFormatException {
-        if (taskInfo.length != 1) {
+        if (taskInfo.length == 1) {
+            return new SetReminderCommand(1);           //first state for reminder; start setup
+        }
+        String[] wordDetail = taskInfo[1].split("w/");
+        if (wordDetail.length != 2) {
             throw new WrongReminderFormatException();
         }
-        return new SetReminderCommand(1); //first state for reminder; start setup
+        wordDetail = wordDetail[1].split("r/");
+        if (wordDetail.length != 2) {
+            throw new WrongReminderFormatException();
+        }
+        String[] wordList = wordDetail[0].split(",+");
+        ArrayList<String> wordArrayList = new ArrayList<>();
+        for (int i = 0; i < wordList.length; i++) {
+            if (!wordList[i].equals("") && !wordList[i].equals(" ")) {
+                wordArrayList.add(wordList[i].trim());
+            }
+        }
+        if (wordList.length < 1) {
+            throw new WrongReminderFormatException();           //zero words entered
+        }
+        String dateDetail = wordDetail[1].trim();
+        return new SetReminderCommand(4, wordArrayList, dateDetail);
     }
 
     /**
@@ -173,7 +192,7 @@ public class Parser {
     /**
      * Parses an add command.
      * @param taskInfo String array containing first stage parsed user input
-     * @return an AddCommand object
+     * @return an AddCommand objectadd w
      * @throws WrongAddFormatException when the format of the delete command does not match the required format
      * @throws EmptyWordException when there is no word entered with the command
      */
@@ -373,10 +392,15 @@ public class Parser {
     public static Date parseDate(String dateInput) throws ReminderWrongDateFormatException {
         String pattern = "dd-MM-yyyy HHmm";
         SimpleDateFormat formattedDate = new SimpleDateFormat(pattern);
-        Date date = new Date();
+        Date date;
 
         try {
-            date = formattedDate.parse(dateInput);
+            String[] dateDetail = dateInput.split(" +");            //in the case that there are multiple spaces
+            if (dateDetail.length != 2) {
+                throw new ReminderWrongDateFormatException();
+            }
+
+            date = formattedDate.parse(dateDetail[0].trim() + " " + dateDetail[1].trim());
         } catch (java.text.ParseException e) {
             throw new ReminderWrongDateFormatException();
         }

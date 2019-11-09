@@ -25,7 +25,7 @@ public class WordUp extends Application {
 
         storage = new Storage();
         bank = storage.loadExcelFile();             //loads value of word bank into bank
-
+        storage.loadReminders();
     }
 
     @Override

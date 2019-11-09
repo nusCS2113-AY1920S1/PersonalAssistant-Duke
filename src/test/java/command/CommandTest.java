@@ -45,7 +45,7 @@ public class CommandTest {
         writer.println("banana: yellow fruit");
         writer.println("kiwi: green fruit");
         writer.close();
-        storage = new Storage(filename, excelFileName);
+        storage = new Storage();
         bank = storage.loadExcelFile();
         ui = new Ui();
         wordBank = bank.getWordBankObject();

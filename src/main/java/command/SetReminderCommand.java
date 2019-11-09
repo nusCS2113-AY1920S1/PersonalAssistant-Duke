@@ -29,6 +29,18 @@ public class SetReminderCommand extends Command {
     protected static int reminderSetupState;
 
     /**
+     * Assigns the relevant values for a reminder setup for a single line schedule command.
+     * @param state the state at which to execute the reminder setup (in this case always 4)
+     * @param wordArrayList the list of words to remind the users of
+     * @param dateDetail the date and time of the reminder
+     */
+    public SetReminderCommand(int state, ArrayList<String> wordArrayList, String dateDetail) {
+        reminderWordList = wordArrayList;
+        reminderSetupState = state;
+        userResponse = dateDetail;
+    }
+
+    /**
      * Updates the state count of the setup stage.
      * @param state the number representing the stage the setup is at
      */
@@ -55,13 +67,21 @@ public class SetReminderCommand extends Command {
             case 1: //ask for a list of words
                 return ui.showReminderSetup(ASK_FOR_WORDS);
             case 2: //take in the words
-                reminderWordList.add(userResponse);
+                reminderWordList.add(userResponse.trim());
                 return ui.showReminderSetup(ASK_FOR_NEW_WORD);
             case 3: //ask for reminder date
                 return ui.showReminderSetup(ASK_FOR_REMINDER_DATE);
             case 4:
-                Date date = Parser.parseDate(userResponse);
-                new Reminder(date);
+                String dateString = userResponse.trim();
+                Date date = Parser.parseDate(dateString);
+
+                //write words into reminder file
+                String wordsForReminder =
+                        reminderWordList.toString().substring(1, reminderWordList.toString().length() - 1).trim();
+                String reminderInfo = dateString + " | " + wordsForReminder;
+                storage.writeFile(reminderInfo,
+                        true, "reminder");
+                new Reminder(date, reminderWordList, reminderInfo);
                 return ui.showReminderSummary(reminderWordList, date);
             default:
                 throw new ReminderSetupException();
@@ -70,4 +90,7 @@ public class SetReminderCommand extends Command {
             return e.showError();
         }
     }
+
+
+
 }
