@@ -1,7 +1,6 @@
 package duke.parser;
 
 import duke.exceptions.DukeException;
-import duke.logic.commands.Command;
 import duke.logic.commands.EditUsageCommand;
 import duke.logic.commands.EditUsageCommand.EditLockerDate;
 import duke.logic.commands.EditUsageCommand.EditStudent;
@@ -18,28 +17,28 @@ import static duke.parser.utilities.Syntax.TOKEN_STUDENT_NAME;
 import static java.util.Objects.requireNonNull;
 
 public class EditUsageParser {
+
     /**
      * This function is used to parse the user input for editing the status of a locker.
      * @param userInput stores the user input
      * @return reference to the class EditLockerCommand
      * @throws DukeException when the user input is invalid
      */
-
-    public Command parse(String userInput) throws DukeException {
+    public EditUsageCommand parse(String userInput) throws DukeException {
         requireNonNull(userInput);
         MapTokensToArguments mapTokensToArguments = ParserTokenizer
-                .tokenize(userInput,TOKEN_STUDENT_NAME,TOKEN_STUDENTID,TOKEN_EMAIL,
-                        TOKEN_STUDENT_COURSE,TOKEN_START_DATE,TOKEN_END_DATE);
+                .tokenize(userInput, TOKEN_STUDENT_NAME, TOKEN_STUDENTID, TOKEN_EMAIL,
+                        TOKEN_STUDENT_COURSE, TOKEN_START_DATE, TOKEN_END_DATE);
         EditStudent editStudent = new EditStudent();
         EditLockerDate editDate = new EditLockerDate();
         getParametersForStudent(editStudent, mapTokensToArguments);
-        getParametersForLockerDate(editDate,mapTokensToArguments);
+        getParametersForLockerDate(editDate, mapTokensToArguments);
         if (!(editDate.checkAnyFieldUpdated() || editStudent.checkAnyFieldUpdated())) {
-            throw new DukeException(" At least one field must be provided while updating usage");
+            throw new DukeException(EditUsageCommand.INVALID_FORMAT);
         }
         SerialNumber serialNumber = ParserCheck.parseSerialNumber(mapTokensToArguments
                 .getTextBeforeFirstToken());
-        return new EditUsageCommand(serialNumber,editStudent,editDate);
+        return new EditUsageCommand(serialNumber, editStudent, editDate);
     }
 
     private void getParametersForStudent(EditStudent editStudent,

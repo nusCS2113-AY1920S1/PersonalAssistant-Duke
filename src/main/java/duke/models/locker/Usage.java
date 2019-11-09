@@ -76,7 +76,7 @@ public class Usage {
 
     @Override
     public int hashCode() {
-        return Objects.hash(student,startDate,endDate);
+        return Objects.hash(student, startDate, endDate);
     }
 
 }

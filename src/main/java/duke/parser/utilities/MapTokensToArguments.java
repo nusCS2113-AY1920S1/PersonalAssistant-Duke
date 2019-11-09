@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public class MapTokensToArguments {
     private final Map<Token, List<String>> mapTokensToArguments = new HashMap<>();
+    private static final String EMPTY_STRING = "";
 
     /**
      * This function is used for mapping a given string to its corresponding token.
@@ -51,6 +52,6 @@ public class MapTokensToArguments {
     }
 
     public String getTextBeforeFirstToken() {
-        return getValue(new Token("")).orElse("");
+        return getValue(new Token(EMPTY_STRING)).orElse(EMPTY_STRING);
     }
 }

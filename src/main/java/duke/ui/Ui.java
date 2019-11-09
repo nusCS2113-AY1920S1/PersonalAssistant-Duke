@@ -52,16 +52,6 @@ public class Ui {
     }
 
     /**
-     * This function tells the user that Duke has marked the task as done.
-     * @param printStr stores the task that has been marked as done.
-     */
-    public void printMarkAsDone(String printStr) {
-        printSpaces(" Nice! I have marked this task as done:");
-        printSpaces(" " + printStr);
-        printDash();
-    }
-
-    /**
      * This function is used to indicate the user that the usage has been deleted.
      */
     public void showDeleteUsage() {
@@ -140,30 +130,6 @@ public class Ui {
         printSpaces(" Unfortunately I will have to terminate the subscription of the student");
     }
 
-    /**
-     * This function tells the user that Duke has snoozed/postponed/rescheduled the task.
-     * @param taskA stores the task that is to be added to the list.
-     * @param type stores whether that task is an event or a deadline
-     * @param command stores whether user command is snooze or postpone or reschedule
-     */
-    public void printSnoozeTask(String taskA, String type, String command) {
-        switch (type) {
-        case "E":
-            printSpaces(" I have successfully " + command + "d" + " the data and time of this event:");
-            printSpaces("  " + taskA);
-            printDash();
-            break;
-        case "D":
-            printSpaces(" I have successfully " + command + "d" + " the data and time of this deadline:");
-            printSpaces("  " + taskA);
-            printDash();
-            break;
-        default:
-            printSpaces(" Invalid command");
-        }
-
-    }
-
     private void showNumTasks(int size) {
         printSpaces(" Now you have " + size
                 + ((size == 1) ? " locker in the list." : " lockers in "
@@ -226,21 +192,6 @@ public class Ui {
         printSpaces("Noted. I have exported the details to a new CSV file");
         printDash();
     }
-
-    /**
-     * This function prints the tasks that match a given keyword.
-     * @param taskList stores the tasks that match a given keyword.
-     */
-    public void keywordPrint(List<Locker> taskList) {
-        printSpaces(" Here are the matching tasks in your list:");
-        showList(taskList);
-    }
-
-    public void getRemindersList(List<Locker> taskList) {
-        printSpaces(" Here are your deadlines:");
-        showList(taskList);
-    }
-
 
     /**
      * This function prints the message when there is an error in loading data from the file.

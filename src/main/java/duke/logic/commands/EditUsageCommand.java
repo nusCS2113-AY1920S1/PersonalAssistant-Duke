@@ -24,6 +24,13 @@ public class EditUsageCommand extends Command {
     private final EditStudent editStudent;
     private final EditLockerDate editDate;
 
+    public static final String COMMAND_WORD = "editusage";
+    public static final String INVALID_FORMAT = " Invalid format for updating usage. "
+            + "\n     1. The serial number of the locker whose usage is to be updated must be entered."
+            + "\n     2. At least one field must be provided while updating usage.";
+    private static final String EDIT_USAGE_CONSTRAINT = " You are allowed to edit usage of "
+            + "only type In-Use Locker";
+
     /**
      * This constructor instantiates the edit usage command.
      * @param serialNumber stores the serial number of the locker to edit
@@ -51,21 +58,22 @@ public class EditUsageCommand extends Command {
         Locker lockerToEdit = lockerList.getLockerToEdit(serialNumberToEdit);
         int storeIndex = lockerList.getIndexOfLocker(lockerToEdit);
         if (!lockerToEdit.isOfTypeInUse()) {
-            throw new DukeException(" You are allowed to edit usage of only type In-Use Locker");
+            throw new DukeException(EDIT_USAGE_CONSTRAINT);
         }
         Locker editedLocker = getEditedLocker(lockerToEdit);
-        lockerList.setLockerInPosition(editedLocker,storeIndex);
+        lockerList.setLockerInPosition(editedLocker, storeIndex);
         return editedLocker;
     }
 
     private Locker getEditedLocker(Locker lockerToEdit) throws DukeException {
         assert lockerToEdit.getUsage().isPresent();
         Usage usageToEdit = lockerToEdit.getUsage().get();
-        Student editedStudent = createEditedStudent(usageToEdit,editStudent);
-        LockerDate editedStartDate = createEditedStartDate(usageToEdit,editDate);
-        LockerDate editedEndDate = createEditedEndDate(usageToEdit,editDate);
-        Usage editedUsage = new Usage(editedStudent,editedStartDate,editedEndDate);
-        if (!LockerDate.isDifferenceBetweenDatesValid(editedStartDate.getDate(),editedEndDate.getDate())) {
+        Student editedStudent = createEditedStudent(usageToEdit, editStudent);
+        LockerDate editedStartDate = createEditedStartDate(usageToEdit, editDate);
+        LockerDate editedEndDate = createEditedEndDate(usageToEdit, editDate);
+        Usage editedUsage = new Usage(editedStudent,editedStartDate, editedEndDate);
+        if (!LockerDate.isDifferenceBetweenDatesValid(editedStartDate.getDate(),
+                editedEndDate.getDate())) {
             throw new DukeException(LockerDate.ERROR_IN_DATE_DIFFERENCE);
         }
         return new Locker(lockerToEdit.getSerialNumber(),
@@ -84,7 +92,7 @@ public class EditUsageCommand extends Command {
         MatricNumber editedMatricNumber = editStudent.getMatricNumber()
                 .orElse(usageToEdit.getStudent().getMatricNumber());
 
-        return new Student(editedName,editedMatricNumber,editedEmail,editedMajor);
+        return new Student(editedName, editedMatricNumber, editedEmail, editedMajor);
     }
 
     private LockerDate createEditedStartDate(Usage usageToEdit, EditLockerDate editDate) throws DukeException {

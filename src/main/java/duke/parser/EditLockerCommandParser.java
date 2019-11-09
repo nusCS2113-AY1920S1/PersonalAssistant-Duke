@@ -1,7 +1,6 @@
 package duke.parser;
 
 import duke.exceptions.DukeException;
-import duke.logic.commands.Command;
 import duke.logic.commands.EditLockerCommand;
 import duke.logic.commands.EditLockerCommand.EditLocker;
 import duke.models.locker.SerialNumber;
@@ -22,7 +21,7 @@ public class EditLockerCommandParser {
      * @return reference to the class EditLockerCommand
      * @throws DukeException when the user input is invalid
      */
-    public Command parse(String userInput) throws DukeException {
+    public EditLockerCommand parse(String userInput) throws DukeException {
         requireNonNull(userInput);
         MapTokensToArguments mapTokensToArguments = ParserTokenizer
                 .tokenize(userInput, TOKEN_SERIAL, TOKEN_ADDRESS, TOKEN_ZONE,
@@ -32,7 +31,7 @@ public class EditLockerCommandParser {
         EditLocker editLocker = new EditLocker();
         getParametersForLocker(editLocker, mapTokensToArguments);
         if (!editLocker.checkAnyFieldUpdated()) {
-            throw new DukeException(" At least one field must be provided for editing lockers");
+            throw new DukeException(EditLockerCommand.INVALID_FORMAT);
         }
         return new EditLockerCommand(serialNumber, editLocker);
     }

@@ -23,7 +23,10 @@ public class EditLockerCommand extends Command {
     private final SerialNumber serialNumberOfLockerToEdit;
     private final EditLocker editLocker;
     private static final int GET_FIRST_INDEX = 0;
-
+    public static final String COMMAND_WORD = "editlocker";
+    public static final String INVALID_FORMAT = " Invalid format for editing locker details. "
+            + "\n     1. The serial number of the locker to be edited must be entered."
+            + "\n     2. At least one field must be provided for editing the locker.";
     private static final String EDIT_LOCKER_ERROR = " The following constraints are to be satisfied"
             + " for editing locker states:"
             + "\n     1. If a locker is currently not in the InUse state then its state cannot"
@@ -49,29 +52,28 @@ public class EditLockerCommand extends Command {
 
     @Override
     public void execute(LockerList lockerList, Ui ui, Storage storage) throws DukeException {
-        Locker editedLocker = editLockerDetails(lockerList,ui);
+        Locker editedLocker = editLockerDetails(lockerList, ui);
         ui.showSuccessfullyEdited(editedLocker.toString());
         storage.saveData(lockerList);
     }
 
     private Locker editLockerDetails(LockerList lockerList, Ui ui) throws DukeException {
         Locker lockerToEdit = lockerList.getLockerToEdit(serialNumberOfLockerToEdit);
-        Locker editedLocker = createEditedLocker(lockerToEdit,editLocker);
+        Locker editedLocker = createEditedLocker(lockerToEdit, editLocker);
         if (!(editedLocker.hasSameSerialNumber(lockerToEdit))) {
             if (lockerList.isPresentLocker(editedLocker)) {
-                throw new DukeException(" Duplicate entries not allowed. The serial number "
-                        + "should be unique.");
+                throw new DukeException(LockerList.DUPLICATE_LOCKERS_FOUND);
             }
         }
 
-        if (!validationChecks(lockerToEdit,editedLocker)) {
+        if (!validationChecks(lockerToEdit, editedLocker)) {
             throw new DukeException(EDIT_LOCKER_ERROR);
         }
 
         if (lockerToEdit.isOfTypeInUse() && !editedLocker.isOfTypeInUse()) {
             assignNewLocker(lockerToEdit, lockerList, ui);
         }
-        lockerList.setLockerInPosition(editedLocker,lockerList.getIndexOfLocker(lockerToEdit));
+        lockerList.setLockerInPosition(editedLocker, lockerList.getIndexOfLocker(lockerToEdit));
         return editedLocker;
     }
 
@@ -92,7 +94,7 @@ public class EditLockerCommand extends Command {
         }
     }
 
-    private boolean validationChecks(Locker lockerToEdit,Locker editedLocker) throws DukeException {
+    private boolean validationChecks(Locker lockerToEdit, Locker editedLocker) throws DukeException {
         Tag testInUse = new Tag(Tag.IN_USE);
         Tag testBroken = new Tag(Tag.BROKEN);
 
@@ -111,7 +113,7 @@ public class EditLockerCommand extends Command {
         return true;
     }
 
-    private Locker createEditedLocker(Locker lockerToEdit,EditLocker editLocker) {
+    private Locker createEditedLocker(Locker lockerToEdit, EditLocker editLocker) {
         assert lockerToEdit != null;
         SerialNumber editedSerialNumber = editLocker.getSerialNumber()
                 .orElse(lockerToEdit.getSerialNumber());

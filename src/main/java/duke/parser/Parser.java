@@ -1,71 +1,78 @@
 package duke.parser;
 
 import duke.exceptions.DukeException;
+import duke.logic.commands.AddBatchCommand;
+import duke.logic.commands.AddLockerCommand;
+import duke.logic.commands.AssignLockerCommand;
+import duke.logic.commands.ByeCommand;
 import duke.logic.commands.Command;
+import duke.logic.commands.DeleteLockerCommand;
+import duke.logic.commands.DeleteUsageCommand;
+import duke.logic.commands.EditLockerCommand;
+import duke.logic.commands.EditUsageCommand;
+import duke.logic.commands.ExportLockerCommand;
+import duke.logic.commands.HelpCommand;
+import duke.logic.commands.ListCommand;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static java.util.Objects.requireNonNull;
 
 public class Parser {
 
     private static final Pattern GENERAL_COMMAND_FORMAT =
             Pattern.compile("(?<commandType>\\S+)(?<arguments>.*)");
 
-    private static final String ADD_LOCKER_COMMAND = "addlocker";
-    private static final String ADD_BATCH_COMMAND = "addbatch";
-    private static final String DELETE_LOCKER_COMMAND = "deletelocker";
-    private static final String DELETE_USAGE_COMMAND = "deleteusage";
-    private static final String EDIT_LOCKER_COMMAND = "editlocker";
-    private static final String EDIT_USAGE_COMMAND = "editusage";
-    private static final String ASSIGN_LOCKER_COMMAND = "assign";
-    private static final String LIST_COMMAND = "list";
-    private static final String EXIT_COMMAND = "bye";
-    private static final String EXPORT_LOCKER_COMMAND = "export";
-    private static final String HELP_COMMAND = "help";
+    private static final String COMMAND_TYPE = "commandType";
+    private static final String ARGUMENTS = "arguments";
+    private static final String INVALID_FORMAT = " The command entered has invalid format. "
+            + "Type help to check all the commands available in SpongeBob";
+
     private static final String STATS_COMMAND = "stats";
+
     /**
      * this function is used to parse the command entered by the user.
-     *
      * @param fullCommand stores the command entered by the user
      * @return objects of type Command depending on the command given by the user
      * @throws DukeException when the user inputs invalid command
      */
-
     public Command parse(String fullCommand) throws DukeException {
+        requireNonNull(fullCommand);
+
         Matcher commandMatch = GENERAL_COMMAND_FORMAT.matcher(fullCommand.trim());
         if (!commandMatch.matches()) {
-            throw new DukeException(" The command entered has invalid format. Type help to check"
-                    + "all the commands available in SpongeBob");
+            throw new DukeException(INVALID_FORMAT);
         }
-        String commandType = commandMatch.group("commandType");
-        String arguments = commandMatch.group("arguments");
+        String commandType = commandMatch.group(COMMAND_TYPE);
+        String arguments = commandMatch.group(ARGUMENTS);
         switch (commandType.toLowerCase()) {
-        case ADD_LOCKER_COMMAND:
+        case AddLockerCommand.COMMAND_WORD:
             return new AddLockerCommandParser().parse(arguments);
-        case ADD_BATCH_COMMAND:
+        case AddBatchCommand.COMMAND_WORD:
             return new AddBatchCommandParser().parse(arguments);
-        case ASSIGN_LOCKER_COMMAND:
+        case AssignLockerCommand.COMMAND_WORD:
             return new AssignLockerCommandParser().parse(arguments);
-        case DELETE_LOCKER_COMMAND:
+        case DeleteLockerCommand.COMMAND_WORD:
             return new DeleteLockerCommandParser().parse(arguments);
-        case DELETE_USAGE_COMMAND:
+        case DeleteUsageCommand.COMMAND_WORD:
             return new DeleteUsageCommandParser().parse(arguments);
-        case EDIT_LOCKER_COMMAND:
+        case EditLockerCommand.COMMAND_WORD:
             return new EditLockerCommandParser().parse(arguments);
-        case EDIT_USAGE_COMMAND:
+        case EditUsageCommand.COMMAND_WORD:
             return new EditUsageParser().parse(arguments);
-        case LIST_COMMAND:
-            return new ListCommandParser().parse();
-        case EXIT_COMMAND:
-            return new ByeCommandParser().parse();
-        case HELP_COMMAND:
-            return new HelpCommandParser().parse();
-        case EXPORT_LOCKER_COMMAND:
-            return new ExportLockerCommandParser().parse();
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
+        case ByeCommand.COMMAND_WORD:
+            return new ByeCommand();
+        case ExportLockerCommand.COMMAND_WORD:
+            return new ExportLockerCommand();
         case STATS_COMMAND:
             return new StatsCommandParser().parse();
         default:
-            throw new DukeException("Invalid Command.");
+            throw new DukeException(INVALID_FORMAT);
         }
     }
 }

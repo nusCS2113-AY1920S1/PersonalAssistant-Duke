@@ -22,9 +22,19 @@ import static java.util.Objects.requireNonNull;
 
 public class ParserCheck {
 
+    private static final String SIZE_ERROR = " The size of the batch of lockers should satisfy the "
+            + " following constraints:"
+            + "\n     1. It should be a positive integer."
+            + "\n     2. It should be within the range of 1 to 30 (inclusive).";
+    private static final String SPLIT_BY_SPACE = " ";
+
+    private static final String PREFERENCES_ERROR = " There must be at least one valid zone "
+            + "under preferences"
+            + "\n    " + Zone.ERROR_MESSAGE;
+    private static final String DATE_FORMAT = "dd-MM-uuuu";
+
     /**
      * This function is used to parse the serial number for the locker.
-     *
      * @param serialNumber stores the serial number that is to be parsed
      * @return reference to a valid serialNumber
      * @throws DukeException when the Serial Number has invalid format
@@ -39,7 +49,6 @@ public class ParserCheck {
 
     /**
      * This function is used to parse the address for the locker.
-     *
      * @param address stores the address that is to be parsed
      * @return reference to a valid Address
      * @throws DukeException when the address has invalid format
@@ -54,7 +63,6 @@ public class ParserCheck {
 
     /**
      * This function is used to parse the zone for the locker.
-     *
      * @param zone stores the zone that is to be parsed
      * @return a valid reference to zone
      * @throws DukeException when the zone has invalid format
@@ -79,11 +87,11 @@ public class ParserCheck {
         try {
             int numLockers = Integer.parseInt(size.trim());
             if (numLockers <= 0 || numLockers > 30) {
-                throw new DukeException(" Please enter a positive number within the range of 1 to 30");
+                throw new DukeException(SIZE_ERROR);
             }
             return numLockers;
         } catch (NumberFormatException e) {
-            throw new DukeException(" Please enter a positive integer for the number of lockers");
+            throw new DukeException(SIZE_ERROR);
         }
     }
 
@@ -104,7 +112,6 @@ public class ParserCheck {
 
     /**
      * This function is used to parse the matric number / student id of the student.
-     *
      * @param matricNumber stores the matriculation number of the student
      * @return a valid instance of MatricNumber
      * @throws DukeException when the matriculation number is in invalid format
@@ -119,7 +126,6 @@ public class ParserCheck {
 
     /**
      * This function parses the major/course pursued by a student.
-     *
      * @param major stores the major of the student
      * @return a valid instance of Major
      * @throws DukeException when the major is in invalid format
@@ -170,7 +176,7 @@ public class ParserCheck {
         requireNonNull(preferences);
         List<Zone> getPreferences = new ArrayList<>();
         List<String> getEachPreference = new ArrayList<String>();
-        getEachPreference = Arrays.asList(preferences.trim().split(" "));
+        getEachPreference = Arrays.asList(preferences.trim().split(SPLIT_BY_SPACE));
         //Only the preferences with a valid zone name will be added to the list of preferences
         for (String s : getEachPreference) {
             if (Zone.checkIsValidZone(s)) {
@@ -179,8 +185,7 @@ public class ParserCheck {
         }
 
         if (getPreferences.size() == 0) {
-            throw new DukeException(" There must be at least one valid zone listed under preferences"
-                    + " \n" + Zone.ERROR_MESSAGE);
+            throw new DukeException(PREFERENCES_ERROR);
         }
         return getPreferences;
     }
@@ -207,7 +212,9 @@ public class ParserCheck {
      */
     public static void parseDifferenceBetweenStartAndEndDate(LockerDate startDate,
                                                              LockerDate endDate) throws DukeException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu")
+        requireNonNull(startDate);
+        requireNonNull(endDate);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT)
                 .withResolverStyle(ResolverStyle.STRICT);
         LocalDate currentDate = LocalDate.now();
         if (!LockerDate.isDifferenceBetweenDatesValid(startDate.getDate(),

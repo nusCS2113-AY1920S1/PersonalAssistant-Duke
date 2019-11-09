@@ -12,6 +12,7 @@ public class Zone {
     public static final String ERROR_MESSAGE = " Zone should consist of only 1 letter "
            + "and cannot be empty";
 
+    private static final int SINGLE_LETTER = 1;
     public static final String CHECK_REGEX = "^[a-zA-Z]*$";
     public String zone;
 
@@ -20,18 +21,18 @@ public class Zone {
      * @param zone stores the zone assigned to a locker
      * @throws DukeException when zone is in invalid format
      */
-
     @JsonCreator
     public Zone(@JsonProperty("Zone") String zone) throws DukeException {
         requireNonNull(zone);
         if (!checkIsValidZone(zone)) {
             throw new DukeException(ERROR_MESSAGE);
         }
-        this.zone = zone;
+        this.zone = zone.toUpperCase();
     }
 
     public static boolean checkIsValidZone(String zone) {
-        return zone.matches(CHECK_REGEX) && zone.length() == 1;
+        return zone.matches(CHECK_REGEX)
+                && zone.length() == SINGLE_LETTER;
     }
 
     @JsonGetter("Zone")

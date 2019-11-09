@@ -1,9 +1,10 @@
 package duke.parser;
 
 import duke.exceptions.DukeException;
-import duke.logic.commands.Command;
 import duke.logic.commands.DeleteUsageCommand;
 import duke.models.locker.SerialNumber;
+
+import static java.util.Objects.requireNonNull;
 
 
 public class DeleteUsageCommandParser {
@@ -15,10 +16,10 @@ public class DeleteUsageCommandParser {
      * @throws DukeException when the command format is invalid
      */
 
-    public Command parse(String args) throws DukeException {
-
+    public DeleteUsageCommand parse(String args) throws DukeException {
+        requireNonNull(args);
         if (args.trim().length() == 0) {
-            throw new DukeException(" Invalid command format. You must key in the serial number");
+            throw new DukeException(DeleteUsageCommand.INVALID_FORMAT);
         }
         SerialNumber serialNumber = ParserCheck.parseSerialNumber(args.trim());
         return new DeleteUsageCommand(serialNumber);

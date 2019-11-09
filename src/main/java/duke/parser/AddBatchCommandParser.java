@@ -2,7 +2,6 @@ package duke.parser;
 
 import duke.exceptions.DukeException;
 import duke.logic.commands.AddBatchCommand;
-import duke.logic.commands.Command;
 import duke.models.locker.Address;
 import duke.models.locker.Locker;
 import duke.models.locker.SerialNumber;
@@ -32,15 +31,13 @@ public class AddBatchCommandParser {
      * @return reference to the the class AddBatchCommand
      * @throws DukeException when the command syntax is invalid
      */
-    public Command parse(String userInput) throws DukeException {
+    public AddBatchCommand parse(String userInput) throws DukeException {
         MapTokensToArguments mapTokensToArguments = ParserTokenizer
                 .tokenize(userInput, TOKEN_SIZE, TOKEN_SERIAL, TOKEN_ADDRESS, TOKEN_ZONE);
         if (!checkAllTokensPresent(mapTokensToArguments,
                 TOKEN_SIZE, TOKEN_SERIAL, TOKEN_ADDRESS, TOKEN_ZONE)
                 || !mapTokensToArguments.getTextBeforeFirstToken().isEmpty()) {
-            throw new DukeException(" Invalid command format."
-                    + "\n     1.All tokens should be present "
-                    + "\n     2.There should not include any text between the command word and the first token");
+            throw new DukeException(AddBatchCommand.INVALID_FORMAT);
         }
 
         SerialNumber serialNumber = ParserCheck.parseSerialNumber(
@@ -52,7 +49,7 @@ public class AddBatchCommandParser {
         int size = ParserCheck.parseSize(
                 mapTokensToArguments.getValue(TOKEN_SIZE).get());
         List<Locker> addBatchOfLockers = new ArrayList<>();
-        addBatchOfLockers = addLockersToList(addBatchOfLockers,serialNumber,address,zone,size);
+        addBatchOfLockers = addLockersToList(addBatchOfLockers, serialNumber, address, zone, size);
         return new AddBatchCommand(addBatchOfLockers);
     }
 
@@ -68,11 +65,10 @@ public class AddBatchCommandParser {
         requireNonNull(addBatchOfLockers);
         for (int i = 1; i <= size; i++) {
             addBatchOfLockers.add(
-                    new Locker(serialNumber,address,zone,new Tag(Tag.NOT_IN_USE),null));
+                    new Locker(serialNumber, address, zone, new Tag(Tag.NOT_IN_USE),null));
             int serial = Integer.parseInt(serialNumber.getSerialNumberForLocker()) + 1;
             serialNumber = ParserCheck.parseSerialNumber(Integer.toString(serial));
         }
         return addBatchOfLockers;
-
     }
 }

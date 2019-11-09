@@ -9,7 +9,7 @@ import static java.util.Objects.requireNonNull;
 
 public class Major {
 
-    public static final String ERROR_MESSAGE = " Major should contain only aphanumeric characters"
+    public static final String ERROR_MESSAGE = " Major should contain only alphanumeric characters"
             + " and spaces and it should not be empty";
 
     public static final String CHECK_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";

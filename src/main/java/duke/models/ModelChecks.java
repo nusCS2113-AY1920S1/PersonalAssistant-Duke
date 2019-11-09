@@ -13,6 +13,8 @@ import java.util.List;
 
 public class ModelChecks {
 
+    private static final String DATE_FORMAT = "dd-MM-uuuu";
+
     /**
      * checks whether all entries are valid in the lockerList.
      * @param lockerList stores the entire LockerList to be checked
@@ -31,7 +33,7 @@ public class ModelChecks {
                 return false;
             }
             lockerToCheck = getLockerToAdd(lockerToCheck);
-            lockerList.addLockerAtPosition(lockerToCheck,i);
+            lockerList.addLockerAtPosition(lockerToCheck, i);
         }
         return true;
     }
@@ -47,7 +49,7 @@ public class ModelChecks {
         if (locker.isOfTypeInUse()) {
             assert locker.getUsage().isPresent();
             Usage usage = locker.getUsage().get();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu")
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT)
                     .withResolverStyle(ResolverStyle.STRICT);
             LocalDate localDate = LocalDate.now();
             if (LockerDate.isEndDateBeforeCurrentDate(

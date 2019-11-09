@@ -18,14 +18,20 @@ public class AssignLockerCommand extends Command {
 
     private final Usage usage;
     private final List<Zone> preferences;
+
     public static final int FIRST_FREE_LOCKER = 0;
+    public static final String COMMAND_WORD = "assign";
+    public static final String INVALID_FORMAT =  " Invalid command format for assigning lockers."
+            + "\n     1. All tokens should be present (n/ i/ m/ e/ f/ t/ p/)"
+            + "\n     2.There should not include any text between the command word and the first token";
+    public static final String NO_AVAILABLE_LOCKERS = " There are no available lockers at the moment.";
 
     /**
      * This constructor instantiates all the fields necessary for assigning a locker to a student.
      * @param usage stores all the information required for locker subscription
      * @param preferences  stores the preferences as a list of zones for the student
      */
-    public AssignLockerCommand(Usage usage,List<Zone> preferences) {
+    public AssignLockerCommand(Usage usage, List<Zone> preferences) {
         requireNonNull(usage);
         requireNonNull(preferences);
         this.usage = usage;
@@ -34,27 +40,24 @@ public class AssignLockerCommand extends Command {
 
     @Override
     public void execute(LockerList lockerList, Ui ui, Storage storage) throws DukeException {
-        requireNonNull(lockerList);
-        requireNonNull(ui);
-        requireNonNull(storage);
-        int storeIndex = assignLockerToStudent(lockerList,ui);
+        int storeIndex = assignLockerToStudent(lockerList, ui);
         ui.printSuccessfulAllocation(lockerList.getLocker(storeIndex).toString());
         storage.saveData(lockerList);
     }
 
     private int assignLockerToStudent(LockerList lockerList, Ui ui) throws DukeException {
 
-        Locker freeLocker = getFreeLocker(lockerList,ui);
+        Locker freeLocker = getFreeLocker(lockerList, ui);
         int storeIndex = lockerList.getIndexOfLocker(freeLocker);
         Locker lockerAssignedToStudent = getLockerToAssign(freeLocker);
 
-        lockerList.setLockerInPosition(lockerAssignedToStudent,storeIndex);
+        lockerList.setLockerInPosition(lockerAssignedToStudent, storeIndex);
         return storeIndex;
     }
 
     private Locker getLockerToAssign(Locker freeLocker) throws DukeException {
-        return new Locker(freeLocker.getSerialNumber(),freeLocker.getAddress(),
-                freeLocker.getZone(),new Tag(Tag.IN_USE),usage);
+        return new Locker(freeLocker.getSerialNumber(), freeLocker.getAddress(),
+                freeLocker.getZone(), new Tag(Tag.IN_USE), usage);
     }
 
     private Predicate<Locker> findLockerBasedOnPreferences(Zone zone) throws DukeException {
@@ -71,15 +74,15 @@ public class AssignLockerCommand extends Command {
                 return freeLockersInZone.get(FIRST_FREE_LOCKER);
             }
         }
-        //If the control reaches here, that means SpongeBob was unable to allocate
-        //any Lockers in the given preferences and hence we will arbitrarily
-        //assign any locker that is free
+        /* If the control reaches here, that means SpongeBob was unable to allocate
+          any Lockers in the given preferences and hence we will arbitrarily
+          assign any locker that is free */
         List<Locker> freeLockersInAnyZone = lockerList.getAnyAvailableLocker(new Tag(Tag.NOT_IN_USE));
         if (freeLockersInAnyZone.size() == 0) {
-            throw new DukeException(" There are no available lockers at the moment.");
+            throw new DukeException(NO_AVAILABLE_LOCKERS);
         }
-        //We need to inform the user that a locker has been assigned not in the preferred
-        //location
+        /* We need to inform the user that a locker has been assigned not in the preferred
+          location */
         ui.showNoLockersFoundInPreferences();
         return freeLockersInAnyZone.get(FIRST_FREE_LOCKER);
     }

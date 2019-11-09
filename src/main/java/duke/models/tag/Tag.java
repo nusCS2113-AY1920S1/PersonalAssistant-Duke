@@ -31,7 +31,7 @@ public class Tag {
         if (!checkValidTagName(tagName)) {
             throw new DukeException(INVALID_TAG_NAME);
         }
-        this.tagName = tagName;
+        this.tagName = tagName.toLowerCase();
     }
 
     public static boolean checkValidTagName(String test) {

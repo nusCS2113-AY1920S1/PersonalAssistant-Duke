@@ -2,7 +2,6 @@ package duke.parser;
 
 import duke.exceptions.DukeException;
 import duke.logic.commands.AddLockerCommand;
-import duke.logic.commands.Command;
 
 import duke.models.locker.Address;
 import duke.models.locker.Locker;
@@ -29,15 +28,13 @@ public class AddLockerCommandParser {
      * @return reference to the class AddLockerCommand
      * @throws DukeException when the command format is invalid
      */
-    public Command parse(String userInput) throws DukeException {
+    public AddLockerCommand parse(String userInput) throws DukeException {
         MapTokensToArguments mapTokensToArguments =
                 ParserTokenizer.tokenize(userInput, TOKEN_SERIAL, TOKEN_ADDRESS, TOKEN_ZONE);
         if (!checkAllTokensPresent(mapTokensToArguments,
                 TOKEN_SERIAL, TOKEN_ADDRESS, TOKEN_ZONE)
                 || !mapTokensToArguments.getTextBeforeFirstToken().isEmpty()) {
-            throw new DukeException(" Invalid command format."
-                    + "\n     1.All tokens should be present "
-                    + "\n     2.There should not include any text between the command word and the first token");
+            throw new DukeException(AddLockerCommand.INVALID_FORMAT);
         }
 
         SerialNumber serialNumber = ParserCheck.parseSerialNumber(

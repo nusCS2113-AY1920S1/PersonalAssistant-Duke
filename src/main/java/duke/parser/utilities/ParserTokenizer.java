@@ -7,6 +7,9 @@ import java.util.stream.Collectors;
 
 public class ParserTokenizer {
 
+    private static final int START_POSITION = 0;
+    private static final int INVALID_INDEX = -1;
+
     /**
      * This function is responsible for mapping tokens with their valid arguments.
      * @param args stores the user input
@@ -18,7 +21,7 @@ public class ParserTokenizer {
           of arguments to a function.
          */
         List<PositionOfToken> tokenPositions = findAllTokenPositions(args, tokens);
-        return getMapping(args,tokenPositions);
+        return getMapping(args, tokenPositions);
     }
 
     private static List<PositionOfToken> findAllTokenPositions(String args, Token... tokens) {
@@ -27,15 +30,15 @@ public class ParserTokenizer {
           in cs2113/T website
          */
         return Arrays.stream(tokens)
-                .flatMap(token -> findTokenPositions(args,token).stream())
+                .flatMap(token -> findTokenPositions(args, token).stream())
                 .collect(Collectors.toList());
     }
 
     private static List<PositionOfToken> findTokenPositions(String args, Token token) {
         List<PositionOfToken> positions = new ArrayList<>();
 
-        int tokenPos = findTokenPosition(args, token.getToken(), 0);
-        while (tokenPos != -1) {
+        int tokenPos = findTokenPosition(args, token.getToken(), START_POSITION);
+        while (tokenPos != INVALID_INDEX) {
             PositionOfToken extendedToken = new PositionOfToken(token, tokenPos);
             positions.add(extendedToken);
             tokenPos = findTokenPosition(args, token.getToken(), tokenPos);
@@ -45,8 +48,8 @@ public class ParserTokenizer {
     }
 
     private static int findTokenPosition(String args, String token, int startFromIndex) {
-        int tokenIndex = args.indexOf(" " + token,startFromIndex);
-        return tokenIndex == -1 ? -1 : tokenIndex + 1; //tokenIndex + 1 offsets for the whitespace
+        int tokenIndex = args.indexOf(" " + token, startFromIndex);
+        return tokenIndex == INVALID_INDEX ? INVALID_INDEX : tokenIndex + 1; //tokenIndex + 1 offsets for the whitespace
     }
 
     private static MapTokensToArguments getMapping(String args, List<PositionOfToken> positionOfTokens) {
@@ -54,19 +57,19 @@ public class ParserTokenizer {
         //does not matter
         positionOfTokens.sort((token1,token2) -> token1.getStartPosition() - token2.getStartPosition());
         //Add a dummy start position so that it can mark the start of extracting and mapping arguments
-        PositionOfToken startPosition = new PositionOfToken(new Token(""),0);
-        positionOfTokens.add(0,startPosition);
+        PositionOfToken startPosition = new PositionOfToken(new Token(""), START_POSITION);
+        positionOfTokens.add(START_POSITION, startPosition);
         //Add a dummy end position so that it can extract the last token and map arguments to it
-        PositionOfToken endPosition = new PositionOfToken(new Token(""),args.length());
+        PositionOfToken endPosition = new PositionOfToken(new Token(""), args.length());
         positionOfTokens.add(endPosition);
 
         MapTokensToArguments mapTokensToArguments = new MapTokensToArguments();
         for (int i = 0; i < positionOfTokens.size() - 1; i++) {
             Token currentToken = positionOfTokens.get(i).getToken();
             //The mapping takes place by considering everything between the two tokens as argument
-            String argumentForCurrentToken = extractArgument(args,positionOfTokens.get(i),
+            String argumentForCurrentToken = extractArgument(args, positionOfTokens.get(i),
                     positionOfTokens.get(i + 1));
-            mapTokensToArguments.setMapping(currentToken,argumentForCurrentToken);
+            mapTokensToArguments.setMapping(currentToken, argumentForCurrentToken);
         }
         return mapTokensToArguments;
     }

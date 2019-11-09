@@ -25,8 +25,9 @@ public class LockerDate {
             + "\n     2. The rental period should be between 7 to 365 days (inclusive)."
             + "\n     3. The rental ending date cannot be before the current date.";
 
+    private static final String DATE_FORMAT = "dd-MM-uuuu";
     private static final DateTimeFormatter checkDateFormat =
-            DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(ResolverStyle.STRICT);
+            DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
 
     public String date;
 
@@ -51,7 +52,7 @@ public class LockerDate {
      */
     public static boolean checkIsValidDate(String date) {
         try {
-            LocalDate.parse(date,checkDateFormat);
+            LocalDate.parse(date, checkDateFormat);
         } catch (DateTimeParseException e) {
             return false;
         }

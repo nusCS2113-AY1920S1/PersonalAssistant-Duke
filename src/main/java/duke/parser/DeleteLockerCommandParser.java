@@ -1,9 +1,10 @@
 package duke.parser;
 
 import duke.exceptions.DukeException;
-import duke.logic.commands.Command;
 import duke.logic.commands.DeleteLockerCommand;
 import duke.models.locker.SerialNumber;
+
+import static java.util.Objects.requireNonNull;
 
 
 public class DeleteLockerCommandParser {
@@ -14,15 +15,13 @@ public class DeleteLockerCommandParser {
      * @return reference to the class DeleteLockerCommand
      * @throws DukeException when the command format is invalid
      */
-
-    public Command parse(String args) throws DukeException {
-
+    public DeleteLockerCommand parse(String args) throws DukeException {
+        requireNonNull(args);
         if (args.trim().length() == 0) {
-            throw new DukeException(" Invalid command format");
+            throw new DukeException(DeleteLockerCommand.INVALID_FORMAT);
         }
 
         SerialNumber serialNumber = ParserCheck.parseSerialNumber(args.trim());
         return new DeleteLockerCommand(serialNumber);
-
     }
 }

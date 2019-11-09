@@ -11,8 +11,10 @@ public class SerialNumber {
 
     public static final String ERROR_MESSAGE = " Serial number can only be a non-negative integer with no more"
             + "than six digits and it cannot be empty";
+    private static final int CHECK_SIX_DIGITS = 6;
 
     public static final String CHECK_REGEX = "[0-9]+";
+    private static final String REGEX_FOR_LEADING_ZEROES = "^0+(?!$)";
 
     public String serialNumberForLocker;
 
@@ -31,8 +33,8 @@ public class SerialNumber {
     }
 
     public static boolean checkIsValidSerialNumber(String serialNumberForLocker) {
-        return serialNumberForLocker.replaceFirst("^0+(?!$)", "")
-                .matches(CHECK_REGEX) && serialNumberForLocker.length() <= 6;
+        return serialNumberForLocker.replaceFirst(REGEX_FOR_LEADING_ZEROES, "")
+                .matches(CHECK_REGEX) && serialNumberForLocker.length() <= CHECK_SIX_DIGITS;
     }
 
     @JsonGetter("serialNumber")

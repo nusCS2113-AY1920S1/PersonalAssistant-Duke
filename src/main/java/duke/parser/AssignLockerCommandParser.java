@@ -2,7 +2,6 @@ package duke.parser;
 
 import duke.exceptions.DukeException;
 import duke.logic.commands.AssignLockerCommand;
-import duke.logic.commands.Command;
 import duke.models.locker.LockerDate;
 import duke.models.locker.Usage;
 import duke.models.locker.Zone;
@@ -35,18 +34,16 @@ public class AssignLockerCommandParser {
      * @return a reference to the AssignLockerCommand()
      * @throws DukeException when the command is in invalid format
      */
-    public Command parse(String userInput) throws DukeException {
+    public AssignLockerCommand parse(String userInput) throws DukeException {
         MapTokensToArguments mapTokensToArguments = ParserTokenizer
-                .tokenize(userInput,TOKEN_STUDENT_NAME,TOKEN_STUDENTID,TOKEN_EMAIL,
-                        TOKEN_STUDENT_COURSE,TOKEN_START_DATE,TOKEN_END_DATE,TOKEN_PREFERENCES);
+                .tokenize(userInput, TOKEN_STUDENT_NAME, TOKEN_STUDENTID, TOKEN_EMAIL,
+                        TOKEN_STUDENT_COURSE, TOKEN_START_DATE, TOKEN_END_DATE, TOKEN_PREFERENCES);
 
-        if (!checkAllTokensPresent(mapTokensToArguments,TOKEN_STUDENT_NAME,TOKEN_STUDENTID,
-                TOKEN_EMAIL, TOKEN_STUDENT_COURSE,TOKEN_START_DATE,
-                TOKEN_END_DATE,TOKEN_PREFERENCES)
+        if (!checkAllTokensPresent(mapTokensToArguments, TOKEN_STUDENT_NAME, TOKEN_STUDENTID,
+                TOKEN_EMAIL, TOKEN_STUDENT_COURSE, TOKEN_START_DATE,
+                TOKEN_END_DATE, TOKEN_PREFERENCES)
                 || !mapTokensToArguments.getTextBeforeFirstToken().isEmpty()) {
-            throw new DukeException(" Invalid command format."
-                    + "\n     1.All tokens should be present "
-                    + "\n     2.There should not include any text between the command word and the first token");
+            throw new DukeException(AssignLockerCommand.INVALID_FORMAT);
         }
 
         Name name = ParserCheck.parseName(mapTokensToArguments.getValue(TOKEN_STUDENT_NAME).get());
@@ -61,10 +58,10 @@ public class AssignLockerCommandParser {
                 TOKEN_END_DATE).get());
         List<Zone> getPreferences = ParserCheck.parsePreferences(mapTokensToArguments.getValue(
                 TOKEN_PREFERENCES).get());
-        ParserCheck.parseDifferenceBetweenStartAndEndDate(startDate,endDate);
-        Student student = new Student(name,matricNumber,email,major);
-        Usage usage = new Usage(student,startDate,endDate);
-        return new AssignLockerCommand(usage,getPreferences);
+        ParserCheck.parseDifferenceBetweenStartAndEndDate(startDate, endDate);
+        Student student = new Student(name, matricNumber, email, major);
+        Usage usage = new Usage(student, startDate, endDate);
+        return new AssignLockerCommand(usage, getPreferences);
     }
 
     private static boolean checkAllTokensPresent(

@@ -20,7 +20,6 @@ public class Locker {
 
     /**
      * Locker stores all the information regarding the status of the locker.
-     *
      * @param serialNumber stores the serial numbers associated with each locker
      * @param address      stores the location of the locker
      * @param zone         stores the zone to which the locker belongs
