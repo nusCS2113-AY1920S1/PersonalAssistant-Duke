@@ -2,7 +2,6 @@ package spinbox.entities;
 
 import javafx.util.Pair;
 import spinbox.DateTime;
-import spinbox.containers.lists.TaskList;
 import spinbox.entities.items.tasks.Schedulable;
 import spinbox.entities.items.tasks.Task;
 import spinbox.exceptions.CalendarSelectorException;

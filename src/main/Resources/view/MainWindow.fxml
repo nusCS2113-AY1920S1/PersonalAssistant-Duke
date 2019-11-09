@@ -13,6 +13,7 @@
 
 <?import javafx.scene.layout.StackPane?>
 
+<?import javafx.scene.control.Label?>
 <GridPane prefHeight="675.0" prefWidth="900.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
           minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="spinbox.gui.MainWindow" hgap="10.0" style="-fx-background-color: #464866">
@@ -34,18 +35,17 @@
 
         <!--Start of Main tab-->
         <Tab text="Main">
-            <SplitPane dividerPositions="0.6525" prefHeight="492.0" prefWidth="800.0">
+            <SplitPane dividerPositions="0.5" prefHeight="492.0" prefWidth="800.0">
                 <ScrollPane fitToWidth="true" fitToHeight="true">
                     <VBox fx:id="overallTasksView" minHeight="0.0" minWidth="0.0" prefHeight="528.0"
                           prefWidth="515.0" style="-fx-background-color: #25274D">
                         <children>
-
                         </children>
                     </VBox>
                 </ScrollPane>
-                <ScrollPane>
-                    <VBox fx:id="examsList" minHeight="0.0" minWidth="0.0" prefHeight="511.0"
-                          prefWidth="270.0">
+                <ScrollPane fitToWidth="true" fitToHeight="true">
+                    <VBox fx:id="examsList" minHeight="0.0" minWidth="0.0" prefHeight="528.0" prefWidth="400.0"
+                           style="-fx-background-color: #25274D">
                         <children>
 
                         </children>

@@ -1,7 +1,6 @@
 package spinbox.containers.lists;
 
 import spinbox.DateTime;
-import spinbox.exceptions.CorruptedDataException;
 import spinbox.storage.Storage;
 import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
