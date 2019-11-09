@@ -82,7 +82,7 @@ public class Semester {
 
     @Override
     public String toString() {
-        return "Academic Year " + academicYear + ", " + semesterName + " (" + startDate + "-" + endDate + ")";
+        return "Academic Year " + academicYear + ", " + semesterName + " (" + startDate + " to " + endDate + ")";
     }
 
     public boolean isIndexValid(int index) {
