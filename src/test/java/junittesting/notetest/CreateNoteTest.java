@@ -1,3 +1,5 @@
+package junittesting.noteTest;
+
 import javacake.JavaCake;
 import org.apache.commons.io.FileUtils;
 

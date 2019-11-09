@@ -1,3 +1,5 @@
+package junittesting.quizTest;
+
 import javacake.JavaCake;
 import javacake.exceptions.CakeException;
 import javacake.quiz.Question;
