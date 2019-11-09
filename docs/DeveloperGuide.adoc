@@ -94,6 +94,18 @@ Logging is implemented in our project to facilitate checking of bugs and error m
 
 === UI component
 
+[[UiClassDiagram]]
+.Class Diagram for Ui Component
+image::UiClassDiagram.png[UiClassDiagram]
+
+The *_Class Diagram_* above shows the different interactions of the `Ui` component when printing output.  
+
+The `Ui` component is resposible for: +
+
+* Taking in and executing user commands via the `Logic` component
+* Listening for changes to `Model` data so that the `UI` component can be updated with the latest data.
+* Displaying output to the user.
+
 === Logic component
 
 === Model component
