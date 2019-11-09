@@ -40,6 +40,7 @@ public class ParseFindBond extends ParseFind {
             String value = findParameters.get(key);
             if (!DESCRIPTION_PARAMETER.equals(key) && !CATEGORY_PARAMETER.equals(key)
                     && !TO_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+                logger.warning(key + " cannot be empty when doing a search");
                 throw new ParserException(key + " cannot be empty when doing a search");
             }
             if (FROM_PARAMETER.equals(key)) {
@@ -59,6 +60,7 @@ public class ParseFindBond extends ParseFind {
     public Command getCommand() {
         FindBondCommand newFindBondCommand = new FindBondCommand(findParameters.get(NAME_PARAMETER), findParameters.get(
                 FROM_PARAMETER));
+        logger.info("Successful creation of FindBondCommand object");
         return newFindBondCommand;
     }
 }

@@ -44,12 +44,15 @@ public class ParseFindRecurring extends ParseFind {
                 findCounter++;
             }
             if (NAME_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+                logger.warning(key + " cannot be empty when finding recurring expenditure");
                 throw new ParserException(key + " cannot be empty when finding recurring expenditure");
             } else if (NAME_PARAMETER.equals(key)) {
                 checkName(value);
             }
         }
         if (findCounter == 0) {
+            logger.warning("Finding of recurring expenditure should have at least 1 parameter "
+                    + "which is not empty for find.");
             throw new ParserException("Finding of recurring expenditure should have at least 1 parameter "
                     + "which is not empty for find.");
         }
@@ -66,6 +69,7 @@ public class ParseFindRecurring extends ParseFind {
                 findParameters.get(DESCRIPTION_PARAMETER),
                 findParameters.get(CATEGORY_PARAMETER),
                 this.type);
+        logger.info("Successful creation of FindRecurringExpenditureCommand object");
         return newFindRecurringExpenditureCommand;
 
     }

@@ -40,11 +40,11 @@ class CardListTest {
         }
         assertEquals(1, cardListTemp.getCardListSize());
         String expectedOutput = "Added a new card with the below details: " + NEWLINE
-                + "Item No.             Card Name                      Monthly Limit   Remaining Limit "
+                + "Item No.             Card Name                           Monthly Limit   Remaining Limit "
                 + "     Rebate          " + NEWLINE
                 + "----------------------------------------------------------------------------"
                 + "-----------------------------------------------------" + NEWLINE
-                + "1                    Test Card                      $1000.00        "
+                + "1                    Test Card                           $1000.00        "
                 + "$1000.00             1.50%           " + NEWLINE
                 + "--------------------------------------------------------------------------------------"
                 + "-------------------------------------------" + NEWLINE;
@@ -93,11 +93,11 @@ class CardListTest {
         assertEquals(1, cardListTemp.getCardListSize());
 
         String expectedOutput = "New details of the cards: " + NEWLINE
-                + "Item No.             Card Name                      Monthly Limit   Remaining Limit "
+                + "Item No.             Card Name                           Monthly Limit   Remaining Limit "
                 + "     Rebate          " + NEWLINE
                 + "----------------------------------------------------------------------------"
                 + "-----------------------------------------------------" + NEWLINE
-                + "1                    New Card Name                  $1200.00        "
+                + "1                    New Card Name                       $1200.00        "
                 + "$1200.00             1.00%           " + NEWLINE
                 + "--------------------------------------------------------------------------------------"
                 + "-------------------------------------------" + NEWLINE;
@@ -207,11 +207,11 @@ class CardListTest {
         assertEquals(1, cardListTemp.getCardListSize());
 
         String expectedOutput = "New details of the cards: " + NEWLINE
-                + "Item No.             Card Name                      Monthly Limit   "
+                + "Item No.             Card Name                           Monthly Limit   "
                 + "Remaining Limit      Rebate          "  + NEWLINE
                 + "----------------------------------------------------------------------------------"
                 + "-----------------------------------------------" + NEWLINE
-                + "1                    Test Card                      $1200.00        "
+                + "1                    Test Card                           $1200.00        "
                 + "$1200.00             1.50%           " + NEWLINE
                 + "-----------------------------------------------------------------------------"
                 + "----------------------------------------------------" + NEWLINE;
@@ -240,11 +240,11 @@ class CardListTest {
         assertEquals(1, cardListTemp.getCardListSize());
 
         String expectedOutput = "New details of the cards: " + NEWLINE
-                + "Item No.             Card Name                      Monthly Limit   "
+                + "Item No.             Card Name                           Monthly Limit   "
                 + "Remaining Limit      Rebate          "  + NEWLINE
                 + "----------------------------------------------------------------------------------"
                 + "-----------------------------------------------" + NEWLINE
-                + "1                    New Name                       $1000.00        "
+                + "1                    New Name                            $1000.00        "
                 + "$1000.00             1.50%           " + NEWLINE
                 + "-----------------------------------------------------------------------------"
                 + "----------------------------------------------------" + NEWLINE;
@@ -272,11 +272,11 @@ class CardListTest {
         assertEquals(1, cardListTemp.getCardListSize());
 
         String expectedOutput = "New details of the cards: " + NEWLINE
-                + "Item No.             Card Name                      Monthly Limit   "
+                + "Item No.             Card Name                           Monthly Limit   "
                 + "Remaining Limit      Rebate          "  + NEWLINE
                 + "----------------------------------------------------------------------------------"
                 + "-----------------------------------------------" + NEWLINE
-                + "1                    Test Card                      $1000.00        "
+                + "1                    Test Card                           $1000.00        "
                 + "$1000.00             0.10%           " + NEWLINE
                 + "-----------------------------------------------------------------------------"
                 + "----------------------------------------------------" + NEWLINE;
@@ -306,11 +306,11 @@ class CardListTest {
 
 
         String expectedOutput = "Card with the following details has been removed:" + NEWLINE
-                + "Item No.             Card Name                      Monthly Limit   "
+                + "Item No.             Card Name                           Monthly Limit   "
                 + "Remaining Limit      Rebate          "  + NEWLINE
                 + "----------------------------------------------------------------------------------"
                 + "-----------------------------------------------" + NEWLINE
-                + "1                    Test Card                      $1000.00        "
+                + "1                    Test Card                           $1000.00        "
                 + "$1000.00             1.50%           " + NEWLINE
                 + "-----------------------------------------------------------------------------"
                 + "----------------------------------------------------" + NEWLINE;
@@ -374,11 +374,11 @@ class CardListTest {
 
         assertEquals(1, cardListTemp.getCardListSize());
 
-        String expectedOutput = "Item No.             Card Name                      "
+        String expectedOutput = "Item No.             Card Name                           "
                 + "Monthly Limit   Remaining Limit " + "     Rebate          " + NEWLINE
                 + "----------------------------------------------------------------------------"
                 + "-----------------------------------------------------" + NEWLINE
-                + "1                    Test Card                      $1000.00        "
+                + "1                    Test Card                           $1000.00        "
                 + "$1000.00             1.50%           " + NEWLINE
                 + "--------------------------------------------------------------------------------------"
                 + "-------------------------------------------" + NEWLINE;

@@ -1,6 +1,11 @@
 package owlmoney.logic.command.find;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
+import java.util.logging.Logger;
+
 import owlmoney.logic.command.Command;
+import owlmoney.logic.command.card.AddCardCommand;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.card.exception.CardException;
 import owlmoney.model.profile.Profile;
@@ -13,6 +18,8 @@ public class FindBankOrCardCommand extends Command {
 
     private final String name;
     private final String type;
+    private static final Logger logger = getLogger(FindBankOrCardCommand.class);
+
 
     /**
      * Creates an instance of FindBankOrCardCommand.
@@ -36,6 +43,7 @@ public class FindBankOrCardCommand extends Command {
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, CardException {
         profile.findBankOrCard(this.name, this.type, ui);
+        logger.info("Successful execution of finding banks or cards");
         return this.isExit;
     }
 }

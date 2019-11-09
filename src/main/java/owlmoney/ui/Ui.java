@@ -52,21 +52,21 @@ public class Ui {
      */
     public void printTransactionHeader(String type) {
         if (ITEM_TYPE.equals(type)) {
-            System.out.printf("%-20s %-55s %-15s %-20s %-20s %n", ITEMNO, DESCRIPTION,
+            System.out.printf("%-20s %-55s %-20s %-20s %-20s %n", ITEMNO, DESCRIPTION,
                     AMOUNT, DATE, CATEGORY);
         } else if (TRANSACTION_TYPE.equals(type)) {
-            System.out.printf("%-20s %-55s %-15s %-20s %-20s %n", TRANSACTION_NUMBER,
+            System.out.printf("%-20s %-55s %-20s %-20s %-20s %n", TRANSACTION_NUMBER,
                     DESCRIPTION, AMOUNT, DATE, CATEGORY);
         } else if (RECURRING_ITEM_TYPE.equals(type)) {
-            System.out.printf("%-20s %-55s %-15s %-20s %-20s %n", ITEMNO, DESCRIPTION,
+            System.out.printf("%-20s %-55s %-20s %-20s %-20s %n", ITEMNO, DESCRIPTION,
                     AMOUNT, NEXT_EXPENSE_DATE, CATEGORY);
         } else if (RECURRING_TRANSACTION_TYPE.equals(type)) {
             System.out.printf(
-                    "%-20s %-55s %-15s %-20s %-20s %n", TRANSACTION_NUMBER, DESCRIPTION,
+                    "%-20s %-55s %-20s %-20s %-20s %n", TRANSACTION_NUMBER, DESCRIPTION,
                     AMOUNT, NEXT_EXPENSE_DATE, CATEGORY);
         }
         System.out.println("-----------------------------------------------------------------------------"
-                + "----------------------------------------------------");
+                + "----------------------------------------------------------------");
     }
 
     /**
@@ -80,7 +80,7 @@ public class Ui {
      */
     public void printTransaction(int num, String description, String amount, String date,
             String category) {
-        System.out.printf("%-20s %-55s %-15s %-20s %-20s %n", num, description, amount, date, category);
+        System.out.printf("%-20s %-55s %-20s %-20s %-20s %n", num, description, amount, date, category);
     }
 
     /**
@@ -91,7 +91,7 @@ public class Ui {
                 REMAINING_LIMIT, REBATE_RATE);
 
         System.out.println("-----------------------------------------------------------------------------"
-                + "----------------------------------------------------");
+                + "----------------------------------------------------------------");
     }
 
     /**
@@ -115,7 +115,7 @@ public class Ui {
                 CURRENT_AMOUNT, INCOME);
 
         System.out.println("-----------------------------------------------------------------------------"
-                + "----------------------------------------------------");
+                + "----------------------------------------------------------------");
     }
 
     /**
@@ -152,7 +152,7 @@ public class Ui {
                 GOAL_PROGRESS, GOAL_DATE, GOAL_ACHIEVED);
 
         System.out.println("-----------------------------------------------------------------------------"
-                + "--------------------------------------------------------------");
+                + "----------------------------------------------------------------");
     }
 
     /**
@@ -178,7 +178,7 @@ public class Ui {
                 BOND_YEAR);
 
         System.out.println("-----------------------------------------------------------------------------"
-                + "----------------------------------------------------");
+                + "----------------------------------------------------------------");
     }
 
     /**
@@ -200,7 +200,7 @@ public class Ui {
      */
     public void printDivider() {
         System.out.println("-----------------------------------------------------------------------------"
-                + "----------------------------------------------------");
+                + "----------------------------------------------------------------");
     }
 
     /**

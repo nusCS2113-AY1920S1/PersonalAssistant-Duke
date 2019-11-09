@@ -430,7 +430,7 @@ public class TransactionList {
     public void findMatchingTransaction(String fromDate, String toDate,
             String description, String category, Ui ui) throws TransactionException {
         if (expenditureListIsEmpty()) {
-            ui.printMessage("Transaction list is empty.");
+            ui.printMessage("Transaction list is empty");
             return;
         }
         if (!(description.isBlank() || description.isEmpty())) {

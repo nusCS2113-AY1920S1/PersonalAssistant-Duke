@@ -1,5 +1,7 @@
 package owlmoney.logic.parser.transfer;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,6 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.transfer.TransferCommand;
@@ -30,6 +33,8 @@ public class ParseTransfer {
     private static final String[] TRANSFER_KEYWORD = new String[] {AMOUNT_PARAMETER,
         FROM_PARAMETER, TO_PARAMETER, DATE_PARAMETER};
     private static final List<String> TRANSFER_KEYWORD_LISTS = Arrays.asList(TRANSFER_KEYWORD);
+    private static final Logger logger = getLogger(ParseTransfer.class);
+
 
     private Date date;
 
@@ -51,6 +56,7 @@ public class ParseTransfer {
     private void checkFirstParameter() throws ParserException {
         String[] rawDateSplit = rawData.split(" ", 2);
         if (!TRANSFER_KEYWORD_LISTS.contains(rawDateSplit[0])) {
+            logger.warning("Incorrect parameter " + rawDateSplit[0]);
             throw new ParserException("Incorrect parameter " + rawDateSplit[0]);
         }
     }
@@ -79,6 +85,8 @@ public class ParseTransfer {
      */
     private void checkAmount(String valueString) throws ParserException {
         if (!RegexUtil.regexCheckBankAmount(valueString)) {
+            logger.warning("/amount can only be numbers with at most 9 digits, 2 decimal places"
+                    + " and a value of at least 0");
             throw new ParserException("/amount can only be numbers with at most 9 digits, 2 decimal places"
                     + " and a value of at least 0");
         }
@@ -93,6 +101,7 @@ public class ParseTransfer {
      */
     private void checkName(String key, String nameString) throws ParserException {
         if (!RegexUtil.regexCheckName(nameString)) {
+            logger.warning(key + " can only be alphanumeric and at most 30 characters");
             throw new ParserException(key + " can only be alphanumeric and at most 30 characters");
         }
     }
@@ -112,15 +121,21 @@ public class ParseTransfer {
             try {
                 date = temp.parse(dateString);
                 if (date.compareTo(new Date()) > 0) {
+                    logger.warning("/date cannot be after today");
                     throw new ParserException("/date cannot be after today");
                 }
                 return date;
             } catch (ParseException e) {
+                logger.warning("Incorrect date format."
+                        + " Date format is dd/mm/yyyy in year range of 1900-2099");
                 throw new ParserException("Incorrect date format."
                         + " Date format is dd/mm/yyyy in year range of 1900-2099");
             }
         }
-        throw new ParserException("Incorrect date format." + " Date format is dd/mm/yyyy in year range of 1900-2099");
+        logger.warning("Incorrect date format."
+                + " Date format is dd/mm/yyyy in year range of 1900-2099");
+        throw new ParserException("Incorrect date format."
+                + " Date format is dd/mm/yyyy in year range of 1900-2099");
     }
 
     /**
@@ -134,6 +149,7 @@ public class ParseTransfer {
             String key = transferIterator.next();
             String value = transferParameters.get(key);
             if ((value.isBlank() || value.isEmpty())) {
+                logger.warning(key + " cannot be empty when transferring fund.");
                 throw new ParserException(key + " cannot be empty when transferring fund.");
             }
             if (FROM_PARAMETER.equals(key)) {
@@ -161,6 +177,7 @@ public class ParseTransfer {
                 transferParameters.get(TO_PARAMETER),
                 Double.parseDouble(transferParameters.get(AMOUNT_PARAMETER)),
                 date);
+        logger.info("Successful creation of TransferCommand object");
         return newTransferCommand;
     }
 }

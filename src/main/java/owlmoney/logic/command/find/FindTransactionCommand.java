@@ -1,5 +1,9 @@
 package owlmoney.logic.command.find;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
+import java.util.logging.Logger;
+
 import owlmoney.logic.command.Command;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.card.exception.CardException;
@@ -17,6 +21,8 @@ public class FindTransactionCommand extends Command {
     private final String description;
     private final String category;
     private final String type;
+    private static final Logger logger = getLogger(FindTransactionCommand.class);
+
 
     /**
      * Creates an instance of FindTransactionCommand.
@@ -50,6 +56,7 @@ public class FindTransactionCommand extends Command {
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException, CardException {
         profile.findTransaction(this.name, this.fromDate, this.toDate, this.description, this.category, this.type, ui);
+        logger.info("Successful execution of finding transactions");
         return this.isExit;
     }
 }

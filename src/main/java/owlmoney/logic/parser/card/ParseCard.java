@@ -1,8 +1,11 @@
 package owlmoney.logic.parser.card;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.parser.ParseRawData;
@@ -24,6 +27,7 @@ public abstract class ParseCard {
         NAME_PARAMETER, LIMIT_PARAMETER, REBATE_PARAMETER, NEW_NAME_PARAMETER
     };
     private static final List<String> EXPENDITURE_KEYWORD_LISTS = Arrays.asList(CARD_KEYWORD);
+    static final Logger logger = getLogger(ParseCard.class);
 
     /**
      * Creates an instance of Card object.
@@ -58,6 +62,7 @@ public abstract class ParseCard {
     void checkFirstParameter() throws ParserException {
         String[] rawDateSplit = rawData.split(" ", 2);
         if (!EXPENDITURE_KEYWORD_LISTS.contains(rawDateSplit[0])) {
+            logger.warning("Incorrect parameter " + rawDateSplit[0]);
             throw new ParserException("Incorrect parameter " + rawDateSplit[0]);
         }
     }
@@ -70,6 +75,8 @@ public abstract class ParseCard {
      */
     void checkLimit(String valueString) throws ParserException {
         if (!RegexUtil.regexCheckMoney(valueString)) {
+            logger.warning("Limit can only be positive numbers"
+                    + " with at most 9 digits and 2 decimal places");
             throw new ParserException("Limit can only be positive numbers"
                     + " with at most 9 digits and 2 decimal places");
         }
@@ -83,6 +90,8 @@ public abstract class ParseCard {
      */
     void checkCashBack(String valueString) throws ParserException {
         if (!RegexUtil.regexCheckCashbackRate(valueString)) {
+            logger.warning("Cash back can only be positive numbers"
+                    + " with at most 2 digits and 2 decimal places and at most 20");
             throw new ParserException("Cash back can only be positive numbers"
                     + " with at most 2 digits and 2 decimal places and at most 20");
         }
@@ -96,6 +105,7 @@ public abstract class ParseCard {
      */
     void checkName(String nameString) throws ParserException {
         if (!RegexUtil.regexCheckName(nameString)) {
+            logger.warning("Card name can only be alphanumeric and at most 30 characters");
             throw new ParserException("Card name can only be alphanumeric and at most 30 characters");
         }
     }
@@ -109,6 +119,7 @@ public abstract class ParseCard {
      */
     void checkRedundantParameter(String parameter, String command) throws ParserException {
         if (rawData.contains(parameter)) {
+            logger.warning(command + "/card should not contain " + parameter);
             throw new ParserException(command + "/card should not contain " + parameter);
         }
     }

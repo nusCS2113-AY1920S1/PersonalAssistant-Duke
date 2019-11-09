@@ -42,6 +42,7 @@ public class ParseFindBankOrCard extends ParseFind {
             if (!DESCRIPTION_PARAMETER.equals(key) && !CATEGORY_PARAMETER.equals(key)
                     && !FROM_PARAMETER.equals(key) && !TO_PARAMETER.equals(key)
                     && (value.isBlank() || value.isEmpty())) {
+                logger.warning(key + " cannot be empty when doing a search");
                 throw new ParserException(key + " cannot be empty when doing a search");
             }
             if (NAME_PARAMETER.equals(key)) {
@@ -58,6 +59,7 @@ public class ParseFindBankOrCard extends ParseFind {
     public Command getCommand() {
         FindBankOrCardCommand newFindBankOrCardCommand =
                 new FindBankOrCardCommand(findParameters.get(NAME_PARAMETER), this.type);
+        logger.info("Successful creation of FindBankOrCardCommand object");
         return newFindBankOrCardCommand;
     }
 }

@@ -1,11 +1,14 @@
 package owlmoney.model.card;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.io.IOException;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import owlmoney.model.card.exception.CardException;
 import owlmoney.model.transaction.Transaction;
@@ -25,6 +28,8 @@ public class CardList {
     private static final int MAX_CARD_LIMIT = 10;
     private Storage storage;
     private static final String PROFILE_CARD_LIST_FILE_NAME = "profile_cardlist.csv";
+    private static final Logger logger = getLogger(CardList.class);
+
 
     /**
      * Creates an arrayList of Cards.
@@ -45,9 +50,11 @@ public class CardList {
      */
     public void cardListAddCard(Card newCard, Ui ui) throws CardException {
         if (cardExists(newCard.getName())) {
+            logger.warning("There is already a credit card with the name " + newCard.getName());
             throw new CardException("There is already a credit card with the name " + newCard.getName());
         }
         if (cardLists.size() >= MAX_CARD_LIMIT) {
+            logger.warning("The maximum limit of 10 credit cards has been reached.");
             throw new CardException("The maximum limit of 10 credit cards has been reached.");
         }
         cardLists.add(newCard);
@@ -57,6 +64,8 @@ public class CardList {
             exportCardList();
         } catch (IOException e) {
             ui.printError("Error trying to save your addition of cards to disk. Your data is"
+                    + " at risk, but we will try again, feel free to continue using the program.");
+            logger.warning("Error trying to save your addition of cards to disk. Your data is"
                     + " at risk, but we will try again, feel free to continue using the program.");
         }
     }
@@ -87,11 +96,15 @@ public class CardList {
                     ui.printError("Error trying to save your deletion of cards to disk. "
                             + "Your data is at risk, but we will try again, "
                             + "feel free to continue using the program.");
+                    logger.warning("Error trying to save your deletion of cards to disk. "
+                            + "Your data is at risk, but we will try again, "
+                            + "feel free to continue using the program.");
                 }
                 break;
             }
         }
         if (!isDeleted) {
+            logger.warning("No such card exist for deletion.");
             throw new CardException("No such card exist for deletion.");
         }
     }
@@ -103,6 +116,7 @@ public class CardList {
      */
     private void cardListCheckListEmpty() throws CardException {
         if (cardLists.size() <= ISZERO) {
+            logger.warning("There are 0 cards in your profile.");
             throw new CardException("There are 0 cards in your profile.");
         }
     }
@@ -153,6 +167,7 @@ public class CardList {
             }
         }
         if (!isExist) {
+            logger.warning("Credit card " + cardName + " does not exist!");
             throw new CardException("Credit card " + cardName + " does not exist!");
         }
     }
@@ -171,6 +186,7 @@ public class CardList {
             String checkCardName = checkCard.getName();
             String capitalCheckCardName = checkCardName.toUpperCase();
             if (capitalCheckCardName.equals(capitalNewCardName) && !checkCard.equals(currentCard)) {
+                logger.warning("There is already a credit card with the name: " + newCardName);
                 throw new CardException("There is already a credit card with the name: " + newCardName);
             }
         }
@@ -184,6 +200,7 @@ public class CardList {
      */
     private void checkUnpaidCannotEditLimit(Card card) throws CardException {
         if (!card.isEmpty()) {
+            logger.warning("Card limit cannot be edited if there are unpaid expenditures");
             throw new CardException("Card limit cannot be edited if there are unpaid expenditures");
         }
     }
@@ -225,10 +242,14 @@ public class CardList {
                     ui.printError("Error trying to save your editions of cards to disk. "
                             + "Your data is at risk, but we will try again, "
                             + "feel free to continue using the program.");
+                    logger.warning("Error trying to save your editions of cards to disk. "
+                            + "Your data is at risk, but we will try again, "
+                            + "feel free to continue using the program.");
                 }
                 return;
             }
         }
+        logger.warning("Card could not be found for editing card details.");
         throw new CardException("Card could not be found for editing card details.");
     }
 
@@ -273,10 +294,14 @@ public class CardList {
                     ui.printError("Error trying to save your card expenditure"
                             + " to disk. Your data is at risk, but we will try again, "
                             + "feel free to continue using the program.");
+                    logger.warning("Error trying to save your card expenditure"
+                            + " to disk. Your data is at risk, but we will try again, "
+                            + "feel free to continue using the program.");
                 }
                 return;
             }
         }
+        logger.warning("Card cannot be found for adding expenditure:" + cardName);
         throw new CardException("Card cannot be found for adding expenditure:" + cardName);
     }
 
@@ -301,6 +326,7 @@ public class CardList {
                 return;
             }
         }
+        logger.warning("Card cannot be found to list expenditure: " + cardToList);
         throw new CardException("Card cannot be found to list expenditure: " + cardToList);
     }
 
@@ -329,10 +355,14 @@ public class CardList {
                     ui.printError("Error trying to save your card expenditure"
                             + " to disk. Your data is at risk, but we will try again, "
                             + "feel free to continue using the program.");
+                    logger.warning("Error trying to save your card expenditure"
+                            + " to disk. Your data is at risk, but we will try again, "
+                            + "feel free to continue using the program.");
                 }
                 return;
             }
         }
+        logger.warning("Card cannot be found for deleting expenditure: " + deleteFromAccountCard);
         throw new CardException("Card cannot be found for deleting expenditure: " + deleteFromAccountCard);
     }
 
@@ -366,10 +396,14 @@ public class CardList {
                     ui.printError("Error trying to save your card expenditure"
                             + " to disk. Your data is at risk, but we will try again, "
                             + "feel free to continue using the program.");
+                    logger.warning("Error trying to save your card expenditure"
+                            + " to disk. Your data is at risk, but we will try again, "
+                            + "feel free to continue using the program.");
                 }
                 return;
             }
         }
+        logger.warning("Card cannot be found for editing expenditure: " + editFromCard);
         throw new CardException("Card cannot be found for editing expenditure: " + editFromCard);
     }
 
@@ -424,6 +458,7 @@ public class CardList {
             }
         }
         if (tempCardList.isEmpty()) {
+            logger.warning("Card with the following keyword could not be found: " + cardName);
             throw new CardException("Card with the following keyword could not be found: " + cardName);
         }
 
@@ -458,6 +493,7 @@ public class CardList {
                 return;
             }
         }
+        logger.warning("Card with the following name does not exist: " + cardName);
         throw new CardException("Card with the following name does not exist: " + cardName);
     }
 
@@ -572,6 +608,9 @@ public class CardList {
                     cardLists.get(i).exportCardPaidTransactionList(Integer.toString(i));
                     cardLists.get(i).exportCardUnpaidTransactionList(Integer.toString(i));
                 } catch (IOException exceptionMessage) {
+                    logger.warning("Error trying to save your card expenditure"
+                            + " to disk. Your data is at risk, but we will try again, "
+                            + "feel free to continue using the program.");
                     throw new TransactionException("Error trying to save your card expenditure"
                             + " to disk. Your data is at risk, but we will try again, "
                             + "feel free to continue using the program.");
@@ -601,6 +640,9 @@ public class CardList {
                     cardLists.get(i).exportCardPaidTransactionList(Integer.toString(i));
                     cardLists.get(i).exportCardUnpaidTransactionList(Integer.toString(i));
                 } catch (IOException exceptionMessage) {
+                    logger.warning("Error trying to save your card expenditure"
+                            + " to disk. Your data is at risk, but we will try again, "
+                            + "feel free to continue using the program.");
                     throw new TransactionException("Error trying to save your card expenditure"
                             + " to disk. Your data is at risk, but we will try again, "
                             + "feel free to continue using the program.");
@@ -650,9 +692,11 @@ public class CardList {
      */
     public void cardListImportNewCard(Card newCard) throws CardException {
         if (cardExists(newCard.getName())) {
+            logger.warning("There is already a credit card with the name " + newCard.getName());
             throw new CardException("There is already a credit card with the name " + newCard.getName());
         }
         if (cardLists.size() >= MAX_CARD_LIMIT) {
+            logger.warning("The maximum limit of 10 credit cards has been reached.");
             throw new CardException("The maximum limit of 10 credit cards has been reached.");
         }
         cardLists.add(newCard);

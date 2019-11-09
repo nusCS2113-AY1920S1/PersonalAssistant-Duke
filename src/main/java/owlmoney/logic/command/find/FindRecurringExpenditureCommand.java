@@ -1,5 +1,9 @@
 package owlmoney.logic.command.find;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
+import java.util.logging.Logger;
+
 import owlmoney.logic.command.Command;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.profile.Profile;
@@ -13,6 +17,8 @@ public class FindRecurringExpenditureCommand extends Command {
     private final String description;
     private final String category;
     private final String type;
+    private static final Logger logger = getLogger(FindRecurringExpenditureCommand.class);
+
 
     /**
      * Creates an instance of FindRecurringExpenditureCommand.
@@ -40,6 +46,7 @@ public class FindRecurringExpenditureCommand extends Command {
      */
     public boolean execute(Profile profile, Ui ui) throws BankException {
         profile.findRecurringExpenditure(this.name, this.description, this.category, this.type, ui);
+        logger.info("Successful execution of finding recurring expenditures");
         return this.isExit;
     }
 }

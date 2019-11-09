@@ -1,5 +1,9 @@
 package owlmoney.logic.command.card;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
+import java.util.logging.Logger;
+
 import owlmoney.logic.command.Command;
 import owlmoney.model.card.exception.CardException;
 import owlmoney.model.profile.Profile;
@@ -10,6 +14,8 @@ import owlmoney.ui.Ui;
  */
 public class DeleteCardCommand extends Command {
     private final String name;
+    private static final Logger logger = getLogger(DeleteCardCommand.class);
+
 
     /**
      * Creates an instance the DeleteCardCommand.
@@ -31,6 +37,7 @@ public class DeleteCardCommand extends Command {
     @Override
     public boolean execute(Profile profile, Ui ui) throws CardException {
         profile.profileDeleteCard(this.name, ui);
+        logger.info("Successful execution of deleting a card");
         return this.isExit;
     }
 }

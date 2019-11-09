@@ -1,5 +1,9 @@
 package owlmoney.logic.command.card;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
+import java.util.logging.Logger;
+
 import owlmoney.logic.command.Command;
 import owlmoney.model.card.exception.CardException;
 import owlmoney.model.profile.Profile;
@@ -14,6 +18,8 @@ public class EditCardCommand extends Command {
     private final String limit;
     private final String rebate;
     private final String newName;
+    private static final Logger logger = getLogger(EditCardCommand.class);
+
 
     /**
      * Creates an instance of EditCardCommand.
@@ -41,6 +47,7 @@ public class EditCardCommand extends Command {
     @Override
     public boolean execute(Profile profile, Ui ui) throws CardException {
         profile.profileEditCardDetails(name, newName, limit, rebate, ui);
+        logger.info("Successful execution of editing a card");
         return this.isExit;
     }
 }

@@ -58,17 +58,21 @@ public class ParseFindTransaction extends ParseFind {
                 findCounter++;
             }
             if (NAME_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
+                logger.warning(key + " cannot be empty when finding transaction");
                 throw new ParserException(key + " cannot be empty when finding transaction");
             } else if (NAME_PARAMETER.equals(key)) {
                 checkName(value);
             }
         }
         if ((isFromExist && !isToExist) || (isToExist && !isFromExist)) {
+            logger.warning("/from and /to both must exist to be a valid command.");
             throw new ParserException("/from and /to both must exist to be a valid command.");
         } else if (isFromExist && isToExist) {
             checkDateRange(fromDate, toDate);
         }
         if (findCounter == 0) {
+            logger.warning("Finding of transaction should have at least 1 parameter "
+                    + "which is not empty for find.");
             throw new ParserException("Finding of transaction should have at least 1 parameter "
                     + "which is not empty for find.");
         }
@@ -81,6 +85,7 @@ public class ParseFindTransaction extends ParseFind {
      */
     private void checkDateRange(Date fromDate, Date toDate) throws ParserException {
         if (toDate.before(fromDate)) {
+            logger.warning("/to date cannot be before /from date.");
             throw new ParserException("/to date cannot be before /from date.");
         }
     }
@@ -97,6 +102,7 @@ public class ParseFindTransaction extends ParseFind {
             findParameters.get(DESCRIPTION_PARAMETER),
             findParameters.get(CATEGORY_PARAMETER),
             this.type);
+        logger.info("Successful creation of FindTransactionCommand object");
         return newFindTransactionCommand;
 
     }

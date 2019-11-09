@@ -37,6 +37,7 @@ public class ParseDeleteCard extends ParseCard {
             String key = cardIterator.next();
             String value = cardParameters.get(key);
             if ((NAME_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty()))) {
+                logger.warning(key + " cannot be empty when deleting a card");
                 throw new ParserException(key + " cannot be empty when deleting a card");
             }
             if (NAME_PARAMETER.equals(key)) {
@@ -52,6 +53,7 @@ public class ParseDeleteCard extends ParseCard {
      */
     public Command getCommand() {
         DeleteCardCommand newDeleteCardCommand = new DeleteCardCommand(cardParameters.get(NAME_PARAMETER));
+        logger.info("Successful creation of DeleteCardCommand object");
         return newDeleteCardCommand;
     }
 

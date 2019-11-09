@@ -1,8 +1,12 @@
 package owlmoney.logic.command.transfer;
 
+import static owlmoney.commons.log.LogsCenter.getLogger;
+
 import java.util.Date;
+import java.util.logging.Logger;
 
 import owlmoney.logic.command.Command;
+import owlmoney.logic.command.find.FindTransactionCommand;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
@@ -15,6 +19,8 @@ public class TransferCommand extends Command {
     private final String to;
     private final double amount;
     private final Date date;
+    private static final Logger logger = getLogger(TransferCommand.class);
+
 
     /**
      * Creates an instance of TransferCommand.
@@ -42,6 +48,7 @@ public class TransferCommand extends Command {
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException {
         profile.transferFund(this.from, this.to, this.amount, this.date, ui);
+        logger.info("Successful execution of transferring fund");
         return this.isExit;
     }
 }

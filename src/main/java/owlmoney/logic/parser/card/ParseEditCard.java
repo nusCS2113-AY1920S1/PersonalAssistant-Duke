@@ -34,6 +34,7 @@ public class ParseEditCard extends ParseCard {
             String key = cardIterator.next();
             String value = cardParameters.get(key);
             if (NAME_PARAMETER.equals(key) && (value.isEmpty() || value.isBlank())) {
+                logger.warning(key + " cannot be empty when editing card");
                 throw new ParserException(key + " cannot be empty when editing card");
             } else if (NAME_PARAMETER.equals(key)) {
                 checkName(value);
@@ -52,6 +53,7 @@ public class ParseEditCard extends ParseCard {
             }
         }
         if (changeCounter == 0) {
+            logger.warning("Edit should have at least 1 differing parameter to change.");
             throw new ParserException("Edit should have at least 1 differing parameter to change.");
         }
     }
@@ -65,6 +67,7 @@ public class ParseEditCard extends ParseCard {
         EditCardCommand newEditCardCommand = new EditCardCommand(cardParameters.get(NAME_PARAMETER),
                 cardParameters.get(LIMIT_PARAMETER), cardParameters.get(REBATE_PARAMETER), cardParameters.get(
                 NEW_NAME_PARAMETER));
+        logger.info("Successful creation of EditCardCommand object");
         return newEditCardCommand;
     }
 }
