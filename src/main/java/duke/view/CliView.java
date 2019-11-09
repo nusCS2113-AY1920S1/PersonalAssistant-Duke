@@ -1,6 +1,7 @@
 package duke.view;
 
 import duke.command.ExitCommand;
+import duke.exceptions.DukeException;
 import duke.parser.ParserCommand;
 
 import java.util.Scanner;
@@ -79,7 +80,7 @@ public class CliView {
      */
     public void printLine() {
         System.out.println("_________________________"
-                + "___________________________");
+            + "___________________________");
     }
 
     /**
@@ -184,7 +185,7 @@ public class CliView {
     public void createPlanHeading() {
         System.out.flush();
         System.out.println("Input an intensity level for the new plan:\n"
-                + "high, moderate, relaxed");
+            + "high, moderate, relaxed");
     }
 
     /**
@@ -193,7 +194,7 @@ public class CliView {
     public void editPlanHeading() {
         System.out.flush();
         System.out.println("Choose a plan from below to edit:\n"
-                + "TBC");
+            + "TBC");
     }
 
     /**
@@ -262,39 +263,58 @@ public class CliView {
      * Prints message when quitting goal of the day.
      */
     public void showQuitGoal() {
+        System.out.println("________________________________"
+            + "________________________________");
         System.out.println(
             "You have quit the goal of the day.");
+        System.out.println("________________________________"
+            + "________________________________");
     }
 
     /**
      * Prints message asking for full command.
      */
     public void showFullCommand() {
+        System.out.println("________________________________"
+            + "________________________________");
         System.out.println("Please enter the full command.");
+        System.out.println("________________________________"
+            + "________________________________");
     }
 
     /**
      * Prints message asking for correct format.
      */
     public void showCorrectFormat() {
+        System.out.println("________________________________"
+            + "________________________________");
         System.out.println(
             "Please enter the details in the correct format.");
+        System.out.println("________________________________"
+            + "________________________________");
     }
 
     /**
      * Prints message asking for correct format.
      */
     public void showCorrectCommand() {
+        System.out.println("________________________________"
+            + "________________________________");
         System.out.println(
-                "Please enter the correct command.");
+            "Please enter the correct command.");
+
     }
 
     /**
      * Prints message showing don't know what it means.
      */
     public void showDontKnow() {
+        System.out.println("________________________________"
+            + "________________________________");
         System.out.println("OOPS!!! I'm sorry,"
             + "but I don't know what that means :-(");
+        System.out.println("________________________________"
+            + "________________________________");
     }
 
     /**
@@ -344,8 +364,12 @@ public class CliView {
      * Prints message when quitting lesson of the day.
      */
     public void showQuitLesson() {
+        System.out.println("________________________________"
+            + "________________________________");
         System.out.println(
             "You have quit the lesson of the day.");
+        System.out.println("________________________________"
+            + "________________________________");
     }
 
     /**
@@ -405,6 +429,7 @@ public class CliView {
 
     /**
      * Prints message when plan is being created.
+     *
      * @param i The intensity of the plan to be created.
      */
     public void showPlanCreating(final String i) {
@@ -450,17 +475,18 @@ public class CliView {
      */
     public void showEditPlanPrompt() {
         System.out.println("Choose the activity and "
-                + "the position to switch to.");
+            + "the position to switch to.");
     }
 
     /**
      * Prompt user that switching is successful.
+     *
      * @param a initial activity position
      * @param b final activity position
      */
     public void showSuccessfulSwitch(final int a, final int b) {
         System.out.println("Successfully switched positions for activity "
-                + a + " to position " + b);
+            + a + " to position " + b);
     }
 
     /**
@@ -543,7 +569,7 @@ public class CliView {
      */
     public void showEmptyList() {
         System.out.println("Sorry, there are no days matching "
-                + "what you have entered.");
+            + "what you have entered.");
     }
 
     /**
@@ -551,5 +577,31 @@ public class CliView {
      */
     public void addStudentFormat() {
         System.out.println("Insert [Name],[Age],[Address] to add new student.\n");
+    }
+
+    /**
+     * Method prints out string in system.
+     *
+     * @param s message to be printed out
+     */
+    public void message(String s) {
+        System.out.println(s);
+    }
+
+    /**
+     * Method prints a buffer line between sections.
+     */
+    public void bufferLine() {
+        System.out.println("--------------------------");
+    }
+
+    /**
+     * Show generic error message for exceptions.
+     *
+     * @param msg The error discovered
+     */
+    public void errMessage(String msg) {
+        DukeException dukeException = new DukeException();
+        dukeException.errMessage(msg);
     }
 }

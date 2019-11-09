@@ -30,9 +30,11 @@ public class DeleteCommand {
     public void deleteGoal(Goal goal, Storage goalStorage, String goalDate) throws ParseException {
         cliView.showGoalPromptDeleteGoal(goalDate);
         String message = deleteScan.nextLine();
+        goal.showGoalLine();
         System.out.println(
             goal.removeGoal(
                 goalDate, message, goalStorage));
+        goal.showGoalLine();
     }
 
     //@@author nottherealedmund
@@ -42,9 +44,11 @@ public class DeleteCommand {
     public void deleteLesson(Lesson lesson, Storage lessonStorage, String lessonDate) throws ParseException {
         cliView.showLessonPromptDeleteLesson(lessonDate);
         String message = deleteScan.nextLine();
+        lesson.showLessonLine();
         System.out.println(
             lesson.removeLesson(
                 lessonDate, message, lessonStorage));
+        lesson.showLessonLine();
     }
 
     //@@author nottherealedmund
@@ -52,8 +56,10 @@ public class DeleteCommand {
      * The method to delete all Goals of the day.
      */
     public void deleteAllGoals(Goal goal, Storage goalStorage, String goalDate) throws ParseException {
+        goal.showGoalLine();
         System.out.println(goal.removeAllGoal(
             goalDate, goalStorage));
+        goal.showGoalLine();
     }
 
     //@@author nottherealedmund
@@ -61,7 +67,9 @@ public class DeleteCommand {
      * The method to delete all Lessons of the day.
      */
     public void deleteAllLessons(Lesson lesson, Storage lessonStorage, String lessonDate) throws ParseException {
+        lesson.showLessonLine();
         System.out.println(lesson.removeAllLesson(
             lessonDate, lessonStorage));
+        lesson.showLessonLine();
     }
 }

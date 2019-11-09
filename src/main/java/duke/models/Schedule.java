@@ -1,6 +1,11 @@
 package duke.models;
 
+import duke.data.ScheduleStorage;
 import duke.data.Storage;
+import duke.data.ToDo;
+import duke.view.CliViewSchedule;
+import java.net.URL;
+
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -8,6 +13,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
+
+//@@author Sfloydzy
 
 /**
  * Class manages the timetable for the user.
@@ -15,70 +23,63 @@ import java.util.Date;
 public class Schedule {
 
     /**
-     * Input scan.
+     * List that needs to be removed.
      */
-    private ArrayList<TimeSlot> list;
+    private ArrayList<TimeSlot> list = new ArrayList<>();
 
-    /**
-     * The constructor for Schedule objects.
-     *
-     * @param timeSlots The details of a time slot that needs to be scheduled.
-      */
-    //    public Schedule(final ArrayList<TimeSlot> timeSlots) {
-    //        this.list = timeSlots;
-    //    }
-
-
-    /**
-     * Will print out a formatted calender.
-     *
-     * @param numberOfDays days in the month
-     * @param startDay     beginning day in the month
-     */
-    private static void printMonth(final int numberOfDays,
-                                   final int startDay) {
-        final int numberOfDaysInAWeek = 7;
-        int weekdayIndex = 0;
-        System.out.println("Su  Mo  Tu  We  Th  Fr  Sa");
-
-        for (int day = 1; day < startDay; day++) {
-            System.out.print("    ");
-            weekdayIndex++;
-        }
-
-        for (int day = 1; day <= numberOfDays; day++) {
-            System.out.printf("%1$2d", day);
-            weekdayIndex++;
-            if (weekdayIndex == numberOfDaysInAWeek) {
-                weekdayIndex = 0;
-                System.out.println();
-            } else {
-                System.out.print("  ");
-            }
-        }
-        System.out.println();
-    }
+    private CliViewSchedule cliViewSchedule = new CliViewSchedule();
 
     /**
      * Function gets the month of the current year.
      *
-     * @return String of all the days in the month
+     * @param selectMonth The month you want to view
      */
-    public String getMonth() {
+    public void getMonth(final int selectMonth) {
         Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.MONTH, selectMonth);
 
         // Set the calendar to monday of the current week
         cal.set(Calendar.DAY_OF_MONTH, 1);
-
         // Print dates of the current week starting on Monday
         int numDays = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
         DateFormat df = new SimpleDateFormat("MMM");
-        System.out.println("--------------------------");
-        System.out.println(df.format(cal.getTime()) + " "
-            + cal.get(Calendar.YEAR));
-        printMonth(numDays, cal.get(Calendar.DAY_OF_MONTH));
-        return "--------------------------";
+        String date = df.format(cal.getTime());
+        int year = cal.get(Calendar.YEAR);
+
+        //display the month selected
+        cliViewSchedule.printMonthHeader(date, year);
+        cliViewSchedule.printMonth(numDays, cal.get(Calendar.DAY_OF_MONTH));
+
+
     }
+
+    /**
+     * Method will get the table date a that needs to be shown.
+     *
+     * @param day   the day of that is being viewed
+     * @param month the month that is being viewed
+     * @return
+     */
+    public ArrayList<ToDo> getCells(int day, int month) {
+        ArrayList<ToDo> toDoArrayList = new ArrayList<>();
+        ScheduleStorage scheduleStorage = new ScheduleStorage();
+        String date = "2019" + month + day;
+        toDoArrayList.addAll(Objects.requireNonNull(scheduleStorage.load(date)));
+        return toDoArrayList;
+    }
+
+    /**
+     * Method will get a table for the schedule.
+     *
+     * @param day   the day of that is being viewed
+     * @param month the month that is being viewed
+     */
+    public void getTable(int day, int month) {
+        cliViewSchedule.tableDate(day, month);
+        cliViewSchedule.tableHeader();
+        cliViewSchedule.tableContents(getCells(day, month));
+    }
+
 
     /**
      * Method will show the current days in the present week.
@@ -111,18 +112,20 @@ public class Schedule {
      * @return String of every hour from 8am inside the day.
      * @throws ParseException if dayOfClass is in wrong format
      */
-    public String getDay(final String dayOfClass) throws ParseException {
-        try {
-            final int numberOfHoursInADay = 24;
-            final int tempInt = 10;
-            String message = "";
-            for (int i = 0; i <= numberOfHoursInADay; i++) {
-                String time = (i < tempInt) ? "0" + i + "00" : i + "00";
-                SimpleDateFormat simpleDateFormat =
-                    new SimpleDateFormat("dd/MM/yyyy HHmm");
-                Date now = simpleDateFormat.parse(dayOfClass + " " + time);
-                DateFormat df = new SimpleDateFormat("HH:mm");
-                boolean isAssignedClass = false;
+    public String getDay(final int dayOfClass, final int monthOfClass) throws ParseException {
+
+        final int numberOfHoursInADay = 24;
+        final int tempInt = 10;
+        String selectedDate = dayOfClass + "/" + monthOfClass;
+        String message = "";
+        for (int i = 0; i <= numberOfHoursInADay; i++) {
+            String time = (i < tempInt) ? "0" + i + "00" : i + "00";
+            SimpleDateFormat simpleDateFormat =
+                new SimpleDateFormat("dd/MM HHmm");
+            Date now = simpleDateFormat.parse(selectedDate + " " + time);
+            DateFormat df = new SimpleDateFormat("HH:mm");
+            boolean isAssignedClass = false;
+            try {
                 for (TimeSlot t : this.list) {
                     if (now.equals(t.getStartTime())) {
                         isAssignedClass = true;
@@ -133,15 +136,14 @@ public class Schedule {
                             + t.getLocation() + "\n";
                     }
                 }
-                if (!isAssignedClass) {
-                    message += df.format(now) + "\n";
-                }
+            } catch (NullPointerException e) {
+                cliViewSchedule.errMessage("Error with the loaded schedule");
             }
-            message += "--------------------------";
-            return message;
-        } catch (NullPointerException e) {
-            return "empty";
+            if (!isAssignedClass) {
+                message += df.format(now) + "\n";
+            }
         }
+        return message;
     }
 
     /**
@@ -209,7 +211,7 @@ public class Schedule {
      */
     public String delClass(final String startTime,
                            final String name,
-                           final Storage scheduleStorage)
+                           final ScheduleStorage scheduleStorage)
         throws ParseException {
         SimpleDateFormat simpleDateFormat =
             new SimpleDateFormat("dd/MM/yyyy HHmm");
@@ -222,7 +224,7 @@ public class Schedule {
             if (i.getClassName().equals(name)
                 && i.getStartTime().equals(start)) {
                 this.list.remove(index);
-                scheduleStorage.updateSchedule(this.list);
+                //                scheduleStorage.updateSchedule(this.list);
                 return "Class removed";
             }
             ++index;

@@ -27,6 +27,14 @@ public class Goal {
     }
 
     /**
+     * Prints a line.
+     */
+    public void showGoalLine() {
+        System.out.println("________________________________"
+            + "________________________________");
+    }
+
+    /**
      * Shows all goals on a specific day.
      *
      * @param day The day to view all goals.

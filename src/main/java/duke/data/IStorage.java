@@ -1,6 +1,7 @@
 package duke.data;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Interface for loading classes.
@@ -8,11 +9,12 @@ import java.io.IOException;
 public interface IStorage {
     /**
      * Method will load saved files.
+     * @return
      */
-    public void load() throws IOException;
+    ArrayList<ToDo> load(String date) throws IOException;
 
     /**
      * Method will save file to location.
      */
-    public void save() throws IOException;
+    void save(ToDo toDo) throws IOException;
 }

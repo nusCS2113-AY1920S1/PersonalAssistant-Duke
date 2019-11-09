@@ -1,8 +1,10 @@
 package duke.exceptions;
 
 
+import java.text.ParseException;
+
 /**
- * Represents duke.exceptions specific to Duke.
+ * Represents duke.exceptions specific to Coach Manager.
  */
 public class DukeException extends Exception {
     /**
@@ -10,7 +12,10 @@ public class DukeException extends Exception {
      *
      * @param message Error message.
      */
-    public DukeException(final String message) {
-        super(message);
+    public void errMessage(final String message) {
+        System.err.println("Oops something went wrong!");
+        System.err.println(message);
     }
+
+
 }

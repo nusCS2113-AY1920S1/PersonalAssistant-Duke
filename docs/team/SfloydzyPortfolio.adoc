@@ -27,7 +27,7 @@ My role was to manage the overall project and manage the Git Repo. I also ensure
 * *Feature*: Schedule Manager
 *** What it does: Manages all the schedule classes and represents them in a daily/weekly/monthly view that is easy to see
 
-* *Feature*: GUI
+* *Feature*: GUI V2.0
 *** What it does: Provides a graphic user interface that is easy to see and navigate.
 *** Justification: Clearly represents the system for the user. Navigation and accessibility of functions are graphically represented. No mistakes from the user side will be made when keying in commands.
 *** Highlights: This feature works to be implemented in the future v2.0 update.
@@ -45,6 +45,7 @@ My role was to manage the overall project and manage the Git Repo. I also ensure
 *** Maintaining code quality with CheckStyle https://github.com/AY1920S1-CS2113T-W13-1/main/pull/208[#208]
 ** Tools:
 *** Installed Travis on Git Repo for Continuous Integration
+*** Implemented Logger in to Code
 
 == Contributions to Developer Guide
 

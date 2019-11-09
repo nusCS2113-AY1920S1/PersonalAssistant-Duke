@@ -21,7 +21,9 @@ public class ViewCommand {
      * The method to view all goals of the day.
      */
     public void viewGoal(Goal goal, String goalDate) throws ParseException {
+        goal.showGoalLine();
         System.out.print(goal.viewGoal(goalDate));
+        goal.showGoalLine();
     }
 
     //@@author nottherealedmund
@@ -29,6 +31,8 @@ public class ViewCommand {
      * The method to view all lessons of the day.
      */
     public void viewLesson(Lesson lesson, String lessonDate) throws ParseException {
+        lesson.showLessonLine();
         System.out.print(lesson.viewLesson(lessonDate));
+        lesson.showLessonLine();
     }
 }

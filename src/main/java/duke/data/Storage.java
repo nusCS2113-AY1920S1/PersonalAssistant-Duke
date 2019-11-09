@@ -31,8 +31,6 @@ import java.util.Scanner;
 public class Storage {
     /**
      * File path of designated file.
-     * Possible alternative:
-     * private String filePath = System.getProperty("user.dir");
      */
     private String filePath;
     /**
@@ -40,7 +38,7 @@ public class Storage {
      */
     private Scanner fileInput;
 
-
+    //@@author Sfloydzy
     /**
      * Constructor.
      *
@@ -89,25 +87,6 @@ public class Storage {
         }
     }
 
-    /**
-     * Converts date format.
-     *
-     * @param date The string of date.
-     * @return String of converted date object
-     */
-    public String dateRevert(final String date) {
-        try {
-            Date newDateFormat = new SimpleDateFormat(
-
-                "EEE MMM dd HH:mm:ss zzz yyyy").parse(date);
-            String oldDateFormat = new SimpleDateFormat(
-                "dd/MM/yyyy HHmm").format(newDateFormat);
-            return oldDateFormat;
-        } catch (ParseException pe) {
-            System.err.println("Error: Date in wrong format");
-            return date;
-        }
-    }
 
     /**
      * This function parses the info of the duke.txt into an ArrayList.
@@ -178,41 +157,7 @@ public class Storage {
         }
     }
 
-    /**
-     * Reads filePath, takes in Strings and turns them into a
-     * list of TimeSlot objects.
-     *
-     * @return lists of TimeSlot objects
-     * @throws ParseException when parsing fails
-     */
-    public ArrayList<TimeSlot> loadSchedule() throws ParseException {
-        try {
-            ArrayList<TimeSlot> temp = new ArrayList<>();
-            final int indexStartDate = 1;
-            final int indexEndDate = 2;
-            final int indexLocation = 3;
-            final int indexName = 4;
 
-            while (fileInput.hasNextLine()) {
-                String s1 = fileInput.nextLine();
-                String[] data = s1.split("-");
-                String startDate = data[indexStartDate];
-                String endDate = data[indexEndDate];
-                String location = data[indexLocation];
-                String name = data[indexName];
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
-                    "dd/MM/yyyy HHmm");
-                Date date1 = simpleDateFormat.parse(startDate);
-                Date date2 = simpleDateFormat.parse(endDate);
-                TimeSlot t = new TimeSlot(date1, date2, location, name);
-                temp.add(t);
-            }
-            fileInput.close();
-            return temp;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return null;
-        }
-    }
 
     /**
      * This function saves the newly created TimeSlot into timeslots.txt.
