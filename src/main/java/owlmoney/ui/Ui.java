@@ -87,7 +87,7 @@ public class Ui {
      * Prints the card header.
      */
     public void printCardHeader() {
-        System.out.printf("%-20s %-30s %-15s %-20s %-15s %n", ITEMNO, CARD_NAME, MONTHLY_LIMIT,
+        System.out.printf("%-20s %-35s %-15s %-20s %-15s %n", ITEMNO, CARD_NAME, MONTHLY_LIMIT,
                 REMAINING_LIMIT, REBATE_RATE);
 
         System.out.println("-----------------------------------------------------------------------------"
@@ -104,7 +104,7 @@ public class Ui {
      * @param rebate   Represents the card rebate in percentage.
      */
     public void printCard(int num, String name, String monLimit, String remLimit, String rebate) {
-        System.out.printf("%-20s %-30s %-15s %-20s %-15s %n", num, name, monLimit, remLimit, rebate);
+        System.out.printf("%-20s %-35s %-15s %-20s %-15s %n", num, name, monLimit, remLimit, rebate);
     }
 
     /**
