@@ -179,24 +179,29 @@ public static final Prefix[] AUTO_COMPLETE_PARAMETERS = { new Prefix("by"), new 
 ==== Design considerations
 
 ===== Aspect 1: Extending AutoComplete to more commands
+
  * Alternative 1: Hard-code command words and arguments in AutoCompleter class.
- ** Advantages: Easy to implement.
- ** Disadvantages: Violates the Open-Closed Principle. Makes AutoCompleter more error-prone.
+ 
+ ** Pros: Easy to implement.
+ 
+ ** Cons: Violates the Open-Closed Principle. Makes AutoCompleter more error-prone.
 
  * Alternative 2 (Current choice): Use Reflection API to obtain command words and arguments from CommandClass at runtime.
- ** Advantages: Avoids modification to the internal structure of AutoCompleter class
- ** Disadvantages: Since Reflection allows code to perform operations that would be illegal in non-reflective code,
+ 
+ ** Pros: Avoids modification to the internal structure of AutoCompleter class
+ 
+ ** Cons: Since Reflection allows code to perform operations that would be illegal in non-reflective code,
 it could lead to unexpected side-effects if implemented wrongly.
 
 ===== Aspect 2: Displaying multiple suggestions
 
 * Alternative 1: Use a drop-down list to display all possible suggestions.
-** Advantages: Intuitive and allows users to see all possible commands in one place.
-* Disadvantages: Hard to implement.
+** Pros: Intuitive and allows users to see all possible commands in one place.
+* Cons: Hard to implement.
 May require additional components other than JavaFx's built-in components.
 * Alternative 2 (Current choice): Navigate between possible suggestions by repeatedly pressing `Tab` key.
-** Advantages: Easier to implement since no additional components are needed
-** Disadvantages: Cannot display all possible commands in one place.
+** Pros: Easier to implement since no additional components are needed
+** Cons: Cannot display all possible commands in one place.
 
 === Filter Product Feature
 
@@ -373,19 +378,44 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `BakingHome` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete an Order
 
 *MSS*
 
-1. User requests to list all orders
-2. BakingHome shows a list of orders
-3. User requests to delete a specific order or multiple orders in the list
+1. User requests to list all orders.
+2. BakingHome shows a list of orders.
+3. User requests to delete a specific order or multiple orders in the list.
 4. BakingHome deletes the order(s).
 +
 Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a.
+The given index(indices) is(are) invalid.
++
+[none]
+** 3a1. BakingHome shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Buying an ingredient in the shopping list
+
+*MSS*
+
+1. User requests to list all ingredients in the shopping list.
+2. BakingHome shows a list of ingredients.
+3. User requests to buy a specific ingredient or multiple ingredients in the shopping list.
+4. BakingHome transfers these ingredients from the shopping list to the inventory list and adds a sales transaction with the total cost of the bought ingredients to the Sales page.
 
 *Extensions*
 
