@@ -341,7 +341,7 @@ public class CardList {
      *
      * @param transactionNumber The transaction number.
      * @param editFromCard      The name of the card.
-     * @param desc              The description of the expenditure.
+     * @param description              The description of the expenditure.
      * @param amount            The amount of the expenditure.
      * @param date              The date of the expenditure.
      * @param category          The category of the expenditure.
@@ -349,15 +349,16 @@ public class CardList {
      * @throws CardException        If card does not exist.
      * @throws TransactionException If incorrect date format.
      */
-    public void cardListEditExpenditure(int transactionNumber, String editFromCard, String desc, String amount,
-            String date, String category, Ui ui) throws CardException, TransactionException {
+    public void cardListEditExpenditure(int transactionNumber, String editFromCard, String description,
+            String amount, String date, String category, Ui ui) throws CardException, TransactionException {
         String capitalEditFromCard = editFromCard.toUpperCase();
         for (int i = ISZERO; i < getCardListSize(); i++) {
             Card currentCard = cardLists.get(i);
             String currentCardName = currentCard.getName();
             String capitalCurrentCardName = currentCardName.toUpperCase();
             if (capitalEditFromCard.equals(capitalCurrentCardName)) {
-                cardLists.get(i).editExpenditureDetails(transactionNumber, desc, amount, date, category, ui);
+                cardLists.get(i).editExpenditureDetails(transactionNumber, description, amount, date,
+                        category, ui);
                 try {
                     cardLists.get(i).exportCardPaidTransactionList(Integer.toString(i));
                     cardLists.get(i).exportCardUnpaidTransactionList(Integer.toString(i));

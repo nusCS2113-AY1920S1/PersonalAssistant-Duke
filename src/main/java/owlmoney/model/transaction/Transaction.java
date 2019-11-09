@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.UUID;
 
@@ -117,6 +118,17 @@ public abstract class Transaction {
     public LocalDate getLocalDate() {
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         return localDate;
+    }
+
+    /**
+     * Gets the date that this expenditure was made in YearMonth format.
+     *
+     * @return The date that the expenditure was made in YearMonth format.
+     */
+    public YearMonth getYearMonthDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+        YearMonth date = YearMonth.parse(this.getDate(), formatter);
+        return date;
     }
 
     /**

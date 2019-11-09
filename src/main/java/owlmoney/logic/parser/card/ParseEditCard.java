@@ -34,7 +34,7 @@ public class ParseEditCard extends ParseCard {
             String key = cardIterator.next();
             String value = cardParameters.get(key);
             if (NAME_PARAMETER.equals(key) && (value.isEmpty() || value.isBlank())) {
-                throw new ParserException("/name cannot be empty.");
+                throw new ParserException(key + " cannot be empty when editing card");
             } else if (NAME_PARAMETER.equals(key)) {
                 checkName(value);
             }
