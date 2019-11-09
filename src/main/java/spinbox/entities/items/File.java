@@ -47,7 +47,7 @@ public class File extends Item {
             String[] components = fromStorage.split(DELIMITER_FILTER);
             this.updateDone(Integer.parseInt(components[0]) == 1);
             this.setName(components[1]);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             throw new CorruptedDataException();
         }
     }

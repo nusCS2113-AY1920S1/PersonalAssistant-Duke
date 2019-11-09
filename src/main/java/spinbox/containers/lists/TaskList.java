@@ -1,6 +1,7 @@
 package spinbox.containers.lists;
 
 import spinbox.DateTime;
+import spinbox.exceptions.CorruptedDataException;
 import spinbox.storage.Storage;
 import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
@@ -63,7 +64,7 @@ public class TaskList extends SpinBoxList<Task> {
     }
 
     @Override
-    public void loadData() throws DataReadWriteException {
+    public void loadData() throws DataReadWriteException, CorruptedDataException {
         List<String> savedData = localStorage.loadData();
 
         for (String datum : savedData) {

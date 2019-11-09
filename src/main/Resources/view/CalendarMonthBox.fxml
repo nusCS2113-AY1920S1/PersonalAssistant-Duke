@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 
 <?import java.net.URL?>
-<fx:root type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
    <children>
       <Label fx:id="month" layoutX="285.0" layoutY="14.0" prefHeight="41.0" prefWidth="134.0" text="Month">
          <font>

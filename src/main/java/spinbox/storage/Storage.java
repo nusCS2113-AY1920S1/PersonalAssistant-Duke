@@ -28,6 +28,8 @@ public class Storage {
         } catch (IOException e) {
             throw new FileCreationException(e.getMessage());
         }
+        assert spinBoxFile.exists();
+        assert spinBoxFile.isFile();
     }
 
     /**
@@ -36,6 +38,7 @@ public class Storage {
      * @throws DataReadWriteException An exception is thrown for I/O errors.
      */
     public List<String> loadData() throws DataReadWriteException {
+        assert spinBoxFile.exists();
         ArrayList<String> lines = new ArrayList<>();
         try {
             String currentLine;
@@ -56,6 +59,7 @@ public class Storage {
      * @throws DataReadWriteException An exception is thrown for I/O errors.
      */
     public void saveData(List<String> lines) throws DataReadWriteException {
+        assert spinBoxFile.exists();
         try {
             BufferedWriter outputStream = new BufferedWriter(new FileWriter(spinBoxFile));
             for (String line : lines) {

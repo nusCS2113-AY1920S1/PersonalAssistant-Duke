@@ -82,7 +82,7 @@ public class GradedComponent extends Item {
             this.setScoreKnown(Integer.parseInt(components[2]) == 1);
             this.setWeight(Double.parseDouble(components[3]));
             this.setWeightedScore(Double.parseDouble(components[4]));
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             throw new CorruptedDataException();
         }
     }
@@ -118,6 +118,8 @@ public class GradedComponent extends Item {
             this.setComplete();
             double score = this.calculateWeightedScore(yourScore, maximumScore);
             this.setWeightedScore(score);
+            assert this.isScoreKnown();
+            assert this.getDone();
         }
     }
 
@@ -129,6 +131,8 @@ public class GradedComponent extends Item {
     public void updateWeightedScore(double weightedScore) {
         this.setComplete();
         this.setWeightedScore(weightedScore);
+        assert this.isScoreKnown();
+        assert this.getDone();
     }
 
     /**
@@ -169,6 +173,7 @@ public class GradedComponent extends Item {
     }
 
     private double calculateWeightedScore(double yourScore, double maximumScore) {
+        assert maximumScore != 0.0;
         return ((yourScore / maximumScore)) * this.weight;
     }
 }

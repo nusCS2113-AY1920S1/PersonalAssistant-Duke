@@ -34,6 +34,8 @@ public class Exporter {
         } catch (IOException e) {
             throw new FileCreationException(e.getMessage());
         }
+        assert spinBoxFile.exists();
+        assert spinBoxFile.isFile();
     }
 
     /**
@@ -42,6 +44,7 @@ public class Exporter {
      * @throws DataReadWriteException An exception is thrown for file creation errors.
      */
     public void writeData(List<? extends Item> exportables) throws DataReadWriteException {
+        assert spinBoxFile.exists();
         try {
             BufferedWriter outputStream = new BufferedWriter(new FileWriter(spinBoxFile));
             outputStream.write(titleLine);
@@ -61,5 +64,4 @@ public class Exporter {
             throw new DataReadWriteException();
         }
     }
-
 }

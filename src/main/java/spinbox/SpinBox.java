@@ -87,7 +87,6 @@ public class SpinBox {
         return shutdown;
     }
 
-
     public ModuleContainer getModuleContainer() {
         return modules;
     }

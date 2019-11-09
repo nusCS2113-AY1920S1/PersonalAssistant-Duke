@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="82.0" prefWidth="404.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="82.0" prefWidth="404.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <children>
         <Label fx:id="module" layoutX="16.0" layoutY="50.0" prefHeight="34.0" prefWidth="73.0" text="module" textAlignment="CENTER" wrapText="true" />
         <Label fx:id="dates" layoutX="113.0" layoutY="50.0" prefHeight="34.0" prefWidth="291.0" text="dates" textAlignment="RIGHT" wrapText="true" />

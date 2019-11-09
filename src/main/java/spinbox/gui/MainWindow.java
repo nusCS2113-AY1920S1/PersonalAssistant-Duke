@@ -40,11 +40,8 @@ import spinbox.entities.items.tasks.Exam;
 import spinbox.entities.items.tasks.Schedulable;
 import spinbox.entities.items.tasks.Task;
 import spinbox.entities.items.tasks.TaskType;
-import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.CalendarSelectorException;
-import spinbox.exceptions.InvalidIndexException;
-import spinbox.exceptions.FileCreationException;
 import spinbox.gui.boxes.FileBox;
 import spinbox.gui.boxes.GradedComponentBox;
 import spinbox.gui.boxes.ModuleBox;
@@ -66,6 +63,7 @@ public class MainWindow extends GridPane {
     private static final String HELP_PAGE_POPUP = "Example:";
     private static final String NO_DATA = "We notice you have no existing data."
             + " Type \"populate\" into this input box to load sample data.";
+    private static final String CORRUPTED_DATA = "Corrupted Data: please fix or remove affected file(s).";
 
     @FXML
     private TabPane tabPane;
@@ -104,11 +102,7 @@ public class MainWindow extends GridPane {
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 switch (newValue.intValue()) {
                 case 0:
-                    try {
-                        updateMain();
-                    } catch (SpinBoxException e) {
-                        e.printStackTrace();
-                    }
+                    updateMain();
                     break;
                 case 1:
                     try {
@@ -160,7 +154,7 @@ public class MainWindow extends GridPane {
      */
     @FXML
     private void handleUserInput()
-            throws InvalidIndexException, DataReadWriteException, FileCreationException, CalendarSelectorException {
+            throws CalendarSelectorException {
         commandHistory.add(0, userInput.getText());
         commandCount = 0;
         String input = userInput.getText();
@@ -208,19 +202,19 @@ public class MainWindow extends GridPane {
 
     /**
      * Initializes the contents of the Main tab, which is the default upon startup.
-     * @throws DataReadWriteException should be displayed.
-     * @throws FileCreationException should be displayed.
-     * @throws InvalidIndexException should be displayed.
      */
-    public void initializeGui() throws DataReadWriteException, FileCreationException, InvalidIndexException {
+    public void initializeGui() throws CalendarSelectorException {
         this.setPopup(popup);
         this.suggestPopulate();
-        this.updateMain();
+        this.updateAll();
         this.enableCommandHistory();
     }
 
     private void suggestPopulate() {
-        if (spinBox.getModuleContainer().getModules().isEmpty()) {
+        if (spinBox.getModuleContainer() == null) {
+            userInput.setPromptText(CORRUPTED_DATA);
+            userInput.setStyle("-fx-prompt-text-fill: #FF0000; -fx-font-weight: BOLD");
+        } else if (spinBox.getModuleContainer().getModules().isEmpty()) {
             userInput.setPromptText(NO_DATA);
             userInput.setStyle("-fx-prompt-text-fill: #FF0000; -fx-font-weight: BOLD");
         } else {
@@ -230,13 +224,15 @@ public class MainWindow extends GridPane {
     }
 
     private void updateAll()
-            throws DataReadWriteException, FileCreationException, InvalidIndexException, CalendarSelectorException {
-        updateMain();
-        updateModules();
-        updateCalendar();
+            throws CalendarSelectorException {
+        if (spinBox.getModuleContainer() != null) {
+            updateMain();
+            updateModules();
+            updateCalendar();
+        }
     }
 
-    private void updateMain() throws InvalidIndexException, DataReadWriteException, FileCreationException {
+    private void updateMain() {
         updateOverallTasksView();
         updateExams();
     }
@@ -251,7 +247,10 @@ public class MainWindow extends GridPane {
         }
     }
 
-    private void updateOverallTasksView() throws DataReadWriteException, InvalidIndexException, FileCreationException {
+    private void updateOverallTasksView() {
+        if (spinBox.getModuleContainer() == null) {
+            return;
+        }
 
         allTasks = new ArrayList<>();
         overallTasksView.getChildren().clear();

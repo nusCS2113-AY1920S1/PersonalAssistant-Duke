@@ -41,6 +41,7 @@ public class ModuleContainer implements StorageContainer {
      * @return HashMap of String : Module of modules.
      */
     public HashMap<String, Module> getModules() {
+        assert modules != null;
         return modules;
     }
 
