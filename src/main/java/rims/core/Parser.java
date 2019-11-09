@@ -99,9 +99,8 @@ public class Parser {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
             formatter.setLenient(false);
             Date dateValue = formatter.parse(date);
-        }
-        catch (ParseException e) {
-            throw new RimsException("Please specify the date using the following format: dd/MM/yyyy HHmm");
+        } catch (ParseException e) {
+            throw new RimsException("Please specify a valid date using the following format: dd/MM/yyyy HHmm");
         }
     }
 
@@ -196,6 +195,13 @@ public class Parser {
         return c;
     }
 
+    /**
+     * Parses user input into the parameters for a ListCommand.
+     * @param input the input obtained from the user by the Ui.
+     * @param words the input from the user, delimited by spaces into an array of individual words.
+     * @return a ListCommand, if the input can be parsed into the required parameters.
+     * @throws RimsException if the input cannot be parsed into the required parameters for a ListCommand.
+     */
     protected Command ListParser(String input, String[] words) throws RimsException {
         int paramTypeIndex = input.indexOf("/");
         int paramIndex = paramTypeIndex + 5;
@@ -210,6 +216,13 @@ public class Parser {
         return new ListCommand(paramType, param.trim());
     }
 
+    /**
+     * Parses user input into the parameters for an AddCommand.
+     * @param input the input obtained from the user by the Ui.
+     * @param words the input from the user, delimited by spaces into an array of individual words.
+     * @return an AddCommand, if the input can be parsed into the required parameters.
+     * @throws RimsException if the input cannot be parsed into the required parameters for an AddCommand.
+     */
     protected Command AddParser(String input, String[] words) throws RimsException {
         if (!(words.length > 1)) {
                 throw new RimsException("Please specify the resource to add to your inventory.");
@@ -242,6 +255,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses user input into the parameters for a DeleteCommand.
+     * @param input the input obtained from the user by the Ui.
+     * @param words the input from the user, delimited by spaces into an array of individual words.
+     * @return a DeleteCommand, if the input can be parsed into the required parameters.
+     * @throws RimsException if the input cannot be parsed into the required parameters for a DeleteCommand.
+     */
     protected Command DeleteParser(String input, String[] words) throws RimsException {
         if (!(words.length > 1)) {
                 throw new RimsException("Please specify the resource to delete from your inventory.");
@@ -265,6 +285,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses user input into the parameters for a LoanCommand.
+     * @param input the input obtained from the user by the Ui.
+     * @param words the input from the user, delimited by spaces into an array of individual words.
+     * @return a LoanCommand, if the input can be parsed into the required parameters.
+     * @throws RimsException if the input cannot be parsed into the required parameters for a LoanCommand.
+     */
     protected Command LoanParser(String input, String[] words) throws RimsException {
         if (!(words.length > 1)) {
                 throw new RimsException("Please specify the resource to be loaned out.");
@@ -365,6 +392,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses user input into the parameters for a ReserveCommand.
+     * @param input the input obtained from the user by the Ui.
+     * @param words the input from the user, delimited by spaces into an array of individual words.
+     * @return a ReserveCommand, if the input can be parsed into the required parameters.
+     * @throws RimsException if the input cannot be parsed into the required parameters for a ReserveCommand.
+     */
     protected Command ReserveParser(String input, String[] words) throws RimsException {
         if (!(words.length > 1)) {
                 throw new RimsException("Please specify the resource to be reserved.");
@@ -475,6 +509,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses user input into the parameters for a ReturnCommand.
+     * @param input the input obtained from the user by the Ui.
+     * @param words the input from the user, delimited by spaces into an array of individual words.
+     * @return a ReturnCommand, if the input can be parsed into the required parameters.
+     * @throws RimsException if the input cannot be parsed into the required parameters for a ReturnCommand.
+     */
     protected Command ReturnParser(String input, String[] words) throws RimsException {
         if (words[1].equals("/id")) {
             int idIndex = input.indexOf(" /id") + 5;
@@ -504,6 +545,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses user input into the parameters for a StatsCommand.
+     * @param input the input obtained from the user by the Ui.
+     * @param words the input from the user, delimited by spaces into an array of individual words.
+     * @return a StatsCommand, if the input can be parsed into the required parameters.
+     * @throws RimsException if the input cannot be parsed into the required parameters for a StatsCommand.
+     */
     protected Command StatsParser(String input, String[] words) throws RimsException, ParseException {
         int dateFromIndex = input.indexOf(" /from");
         int dateTillIndex = input.indexOf(" /till");
