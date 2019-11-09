@@ -230,10 +230,11 @@ public class MainWindow extends UiPart<Stage> {
         initializeTableViews();
 
         //@@author qjie7
-        String[] possibleWords = {"add task :", "add patient :", "assign period task :", "list patients",
-                                  "list tasks","delete patient :", "delete task :#", "delete assigned task :#",
-                                  "find patient :#", "find task :#", "find assigned tasks :#", "update patient :#",
-                                  "update task :#", "help", "piechart","bye", "undo", "help"};
+        String[] possibleWords = {"add task :", "add patient :", "assign period task :#","assign deadline task :#",
+                                  "list patients", "list tasks","delete patient :#", "delete task :#",
+                                  "delete assigned task :#", "find patient :#","find patient :", "find task :#",
+                                  "find task :", "find assigned tasks :#","find assigned task :","update patient :#",
+                                  "update task :#","show upcoming tasks","barchart", "help", "piechart","bye", "undo", "help"};
         TextFields.bindAutoCompletion(userInput, possibleWords);
         //@@lmtaek
         showHelpGuide();
