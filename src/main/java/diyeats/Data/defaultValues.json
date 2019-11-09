@@ -1,4 +1,10 @@
 {
+  "Mega Zinger Burger": {
+    "calorie": 100
+  },
+  "mega bega burger": {
+    "calorie": 2000
+  },
   "burger": {
     "sodium": 20,
     "fats": 20,
@@ -9,9 +15,15 @@
     "fats": 20,
     "calorie": 600
   },
+  "burger": {
+    "calorie": 800
+  },
   "Tomato Pasta": {
     "sodium": 10,
     "fats": 10,
     "calorie": 450
+  },
+  "potato chips": {
+    "calorie": 800
   }
 }

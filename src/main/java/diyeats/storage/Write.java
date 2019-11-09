@@ -1,5 +1,6 @@
 package diyeats.storage;
 
+import com.google.gson.Gson;
 import diyeats.commons.exceptions.ProgramException;
 import diyeats.commons.file.FilePathNames;
 import diyeats.commons.file.FilePaths;
@@ -8,7 +9,6 @@ import diyeats.model.meal.MealList;
 import diyeats.model.user.Goal;
 import diyeats.model.user.User;
 import diyeats.model.wallet.Wallet;
-import com.google.gson.Gson;
 
 //@@author Fractalisk
 

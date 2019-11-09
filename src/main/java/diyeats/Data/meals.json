@@ -32,6 +32,17 @@
         "calorie": 400
       },
       "costStr": "3.0"
+  "2019-11-09": [
+    {
+      "description": "burger",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-09",
+      "nutritionValue": {
+        "calorie": 800
+      },
+      "costStr": "0"
     }
   ],
   "2019-11-08": [

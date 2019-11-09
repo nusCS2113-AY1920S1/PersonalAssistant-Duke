@@ -8,15 +8,16 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import static diyeats.commons.constants.GoalCommandSyntax.ACTIVITY_ARG_STR;
+import static diyeats.commons.constants.GoalCommandSyntax.END_DATE_ARG_STR;
+import static diyeats.commons.constants.GoalCommandSyntax.START_DATE_ARG_STR;
+import static diyeats.commons.constants.GoalCommandSyntax.WEIGHT_ARG_STR;
+
 //@@author Fractalisk
 /**
  * Parser class to handle setting of goals.
  */
 public class AddGoalCommandParser implements ParserInterface<AddGoalCommand> {
-    private static final String START_DATE_ARG_STR = "startdate";
-    private static final String END_DATE_ARG_STR = "enddate";
-    private static final String WEIGHT_ARG_STR = "weight";
-    private static final String ACTIVITY_ARG_STR = "activity";
 
     private LocalDate startDate;
     private LocalDate endDate;

@@ -6,12 +6,15 @@ import diyeats.logic.commands.Command;
 import diyeats.logic.commands.ExitCommand;
 import diyeats.logic.commands.StatsCommand;
 
-import static diyeats.commons.constants.CommandDefinitions.PARSER_ADD_COMMAND;
+import static diyeats.commons.constants.CommandDefinitions.PARSER_ADD_DEFAULT_COMMAND;
+import static diyeats.commons.constants.CommandDefinitions.PARSER_ADD_EXERCISE_COMMAND;
 import static diyeats.commons.constants.CommandDefinitions.PARSER_ADD_GOAL_COMMAND;
 import static diyeats.commons.constants.CommandDefinitions.PARSER_BREAKFAST_COMMAND;
 import static diyeats.commons.constants.CommandDefinitions.PARSER_CGRAPH_COMMAND;
 import static diyeats.commons.constants.CommandDefinitions.PARSER_CLEAR_COMMAND;
 import static diyeats.commons.constants.CommandDefinitions.PARSER_DELETE_COMMAND;
+import static diyeats.commons.constants.CommandDefinitions.PARSER_DELETE_DEFAULT_COMMAND;
+import static diyeats.commons.constants.CommandDefinitions.PARSER_DELETE_EXERCISE_COMMAND;
 import static diyeats.commons.constants.CommandDefinitions.PARSER_DEPOSIT_COMMAND;
 import static diyeats.commons.constants.CommandDefinitions.PARSER_DINNER_COMMAND;
 import static diyeats.commons.constants.CommandDefinitions.PARSER_DONE_COMMAND;
@@ -76,8 +79,10 @@ public class Parser {
                 return new AddLunchCommandParser().parse(argumentStr);
             case PARSER_DINNER_COMMAND:
                 return new AddDinnerCommandParser().parse(argumentStr);
-            case PARSER_ADD_COMMAND:
+            case PARSER_ADD_DEFAULT_COMMAND:
                 return new AddDefaultValueCommandParser().parse(argumentStr);
+            case PARSER_DELETE_DEFAULT_COMMAND:
+                return new DeleteDefaultValueCommandParser().parse(argumentStr);
             case PARSER_LIST_COMMAND:
                 return new ListCommandParser().parse(argumentStr);
             case PARSER_DONE_COMMAND:
@@ -110,6 +115,10 @@ public class Parser {
                 return new CGraphCommandParser().parse(argumentStr);
             case PARSER_SUGGEST_EXERCISE_COMMAND:
                 return new SuggestExerciseCommandParser().parse(argumentStr);
+            case PARSER_ADD_EXERCISE_COMMAND:
+                return new AddExerciseCommandParser().parse(argumentStr);
+            case PARSER_DELETE_EXERCISE_COMMAND:
+                return new DeleteExerciseCommandParser().parse(argumentStr);
             default:
                 throw new ProgramException(UNKNOWN_COMMAND);
         }

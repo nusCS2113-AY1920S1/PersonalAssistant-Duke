@@ -10,6 +10,8 @@ import java.util.HashMap;
 
 public class SuggestExerciseCommandParser implements ParserInterface {
     private static final String DATE_ARG_STR = "date";
+    private static final String FIND_ARG_STR = "find";
+
 
     /**
      * Parse user input and return SuggestCommand.
@@ -20,6 +22,7 @@ public class SuggestExerciseCommandParser implements ParserInterface {
     public SuggestExerciseCommand parse(String userInputStr) {
         HashMap<String, String> argumentsMap = ArgumentSplitter.splitForwardSlashArguments(userInputStr);
         LocalDate suggestionDate = LocalDate.now();   //suggest exercise for current day by default
+        String keyword = null;
 
         if (argumentsMap.containsKey(DATE_ARG_STR)) {
             try {
@@ -30,6 +33,10 @@ public class SuggestExerciseCommandParser implements ParserInterface {
             }
         }
 
-        return new SuggestExerciseCommand(suggestionDate);
+        if (argumentsMap.containsKey(FIND_ARG_STR)) {
+            keyword = argumentsMap.get(FIND_ARG_STR);
+        }
+
+        return new SuggestExerciseCommand(suggestionDate, keyword);
     }
 }

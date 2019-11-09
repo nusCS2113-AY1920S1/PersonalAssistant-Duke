@@ -12,7 +12,14 @@ public class ExerciseList {
     private HashMap<LocalDate, Pair> exercisePlan = new HashMap<>();
 
     public ExerciseList() {
-        addStoredExercises("Running", 14);
+        addStoredExercises("Running, 8 mph (7.5 min/mile)", 8);
+        addStoredExercises("Running, 10 mph (6 min/mile)", 10);
+        addStoredExercises("Cycling, 10 - 12mph (light effort)", 7);
+        addStoredExercises("Cycling, 12 - 14mph (moderate effort)", 8);
+        addStoredExercises("Cycling, 14 - 16mph (heavy effort)", 10);
+        addStoredExercises("Soccer, casual, general", 7);
+        addStoredExercises("Tennis, casual, general", 7);
+        addStoredExercises("Martial arts, different types, moderate pace (taichi, taekwondo, etc)", 10);
     }
 
     public HashMap<String, Integer> getStoredExercises() {
@@ -20,7 +27,11 @@ public class ExerciseList {
     }
 
     public void addStoredExercises(String description, int value) {
-        storedExercises.put(description, value);
+        if (!storedExercises.containsKey(description)) {
+            storedExercises.put(description, value);
+        } else {
+            storedExercises.replace(description, value);
+        }
     }
 
     public Pair getExerciseAtDate(LocalDate date) {
