@@ -17,6 +17,9 @@ public class FindFreeTimesParseTest {
             "find/time 'x' hours , where 'x' is a digit between 1 - 16";
     private final String invalidDuration = "Invalid duration. Please enter the command as follows. \n" +
             "find/time 'x' hours , where 'x' is a digit between 1 - 16";
+    private final String invalidEmptyDuration = "Invalid input." +
+            "\nDuration cannot be blank.\nPlease enter the command as follows.\n"
+            + "find/time 'x' hours , where 'x' is a digit between 1 - 16";
 
     private static String validUserInputWithDuration;
     //TODO: ask if should take 0 and 17 instead of negative
@@ -94,7 +97,7 @@ public class FindFreeTimesParseTest {
 
     @Test
     public void findFreeTimesWithoutDuration() {
-        String expected = invalidInput;
+        String expected = invalidEmptyDuration;
         String actual = null;
         Command command = null;
         try {
