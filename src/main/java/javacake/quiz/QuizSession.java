@@ -200,7 +200,7 @@ public class QuizSession implements QuizManager {
 
             profile.setOverallMarks(overallTopicIdx, totalScore);
 
-            if (!JavaCake.isCliMode()) {
+            if (!profile.isCli) {
                 switch (overallTopicIdx) {
                 case 0:
                     JavaCake.logger.log(Level.INFO, totalScore + " YEET");

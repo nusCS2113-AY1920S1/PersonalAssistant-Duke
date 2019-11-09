@@ -1,4 +1,6 @@
-package javacake.tasks;
+package javacake.unused;
+
+import javacake.tasks.Task;
 
 import java.util.Date;
 
@@ -11,7 +13,6 @@ public class ToDo extends Task {
      */
     public ToDo(String description) {
         super(description);
-        taskType = TaskType.TODO;
     }
 
     /**
@@ -46,12 +47,9 @@ public class ToDo extends Task {
     public Date getDateTime() {
         return null;
     }
-    
-    /**
-     * Empty method as Event does not have date.
-     * @param newDate New scheduled date for task.
-     */
+
     @Override
-    public void changeDate(String newDate) { 
+    public void changeDate(String newDate) {
+        //do nothing here.
     }
 }

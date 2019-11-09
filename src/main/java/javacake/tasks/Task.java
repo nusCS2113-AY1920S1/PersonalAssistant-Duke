@@ -6,12 +6,12 @@ import javacake.exceptions.CakeException;
 import java.util.Date;
 
 public abstract class Task {
-    String description;
+    protected String description;
     private boolean isDone;
     protected TaskType taskType;
 
     public enum TaskType {
-        TODO, DEADLINE
+        DEADLINE
     }
 
     /**
