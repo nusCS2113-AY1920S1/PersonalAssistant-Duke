@@ -3,7 +3,6 @@ package chronologer.task;
 import java.time.LocalDateTime;
 
 import chronologer.ui.UiTemporary;
-import javafx.beans.value.ObservableIntegerValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -252,10 +251,10 @@ public class TaskList {
      *
      * @return Holds reminders for the current date.
      */
-    public ArrayList<String> fetchReminders(LocalDateTime currentDateTime) {
+    public ArrayList<String> fetchReminders() {
         ArrayList<String> reminders = new ArrayList<>();
         for (Task listOfTask : listOfTasks) {
-            if (listOfTask.isReminderTrigger() && listOfTask.reminder.reminderDate == currentDateTime) {
+            if (listOfTask.isReminderTrigger()) {
                 reminders.add(listOfTask.getDescription());
             }
         }

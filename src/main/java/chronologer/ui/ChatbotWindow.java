@@ -51,6 +51,8 @@ class ChatbotWindow extends UiComponent<Region> {
      *
      * @param command Holds the Command object responsible for executing user commands.
      * @param parser Holds the Parser object which is responsible for parsing user input.
+     * @param tasks Holds the Tasklist object which holds the core tasklist.
+     * @param storage Holds the Storage object which is used to store the core tasklist.
      */
     ChatbotWindow(Command command, Parser parser, TaskList tasks, Storage storage) {
         super(FXML, null);
@@ -64,6 +66,9 @@ class ChatbotWindow extends UiComponent<Region> {
         printWelcome();
     }
 
+    /**
+     * Processes the user input.
+     */
     @FXML
     private void handleUserInput() {
         String input = inputTextField.getText();
@@ -72,20 +77,28 @@ class ChatbotWindow extends UiComponent<Region> {
             Command command = ParserFactory.parse(input);
             command.execute(tasks, storage);
         } catch (ChronologerException e) {
-            System.out.println(e.getMessage());
+            printChronologerMessage(e.getMessage());
         }
-        DialogBox toChangeDimension = DialogBox.getUserDialog(" " + input);
-        dialogBoxContainer.getChildren().addAll(toChangeDimension.getRoot(),
-            DialogBox.getChronologerDialog(UiTemporary.userOutputForUI).getRoot());
+        printUserMessage(" " + input);
+        printChronologerMessage(UiTemporary.userOutputForUI);
         inputTextField.clear();
     }
 
     /**
-     * Prints message.
+     * Prints the user's input.
      *
-     * @param message Message.
+     * @param message holds the message to be printed to the user.
      */
-    private void print(String message) {
+    private void printUserMessage(String message) {
+        dialogBoxContainer.getChildren().add(DialogBox.getChronologerDialog(message).getRoot());
+    }
+
+    /**
+     * Prints the Chronologer's message.
+     *
+     * @param message holds the message to be printed to the user.
+     */
+    private void printChronologerMessage(String message) {
         dialogBoxContainer.getChildren().add(DialogBox.getChronologerDialog(message).getRoot());
     }
 
@@ -93,7 +106,7 @@ class ChatbotWindow extends UiComponent<Region> {
      * Prints chronologer's welcome message.
      */
     private void printWelcome() {
-        print(CHRONOLOGER_WELCOME_MESSAGE);
+        printChronologerMessage(CHRONOLOGER_WELCOME_MESSAGE);
     }
 
     private void setText(String text) {
@@ -102,7 +115,8 @@ class ChatbotWindow extends UiComponent<Region> {
     }
 
     /**
-     * Handles the key press event which simulates command line.
+     * Attaches listeners to the text field to automatically track, store and scroll through the user
+     * inputs like a typical commandline.
      */
     private void attachInputListeners() {
         inputTextField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -140,6 +154,9 @@ class ChatbotWindow extends UiComponent<Region> {
         });
     }
 
+    /**
+     * Stores the history of the user's input to allow the scrolling through of the inputs!
+     */
     private void storeUserInputHistory(String input) {
         if (userInputHistoryPointer != userInputHistory.size() - 1
             || (userInputHistoryPointer == userInputHistory.size() - 1

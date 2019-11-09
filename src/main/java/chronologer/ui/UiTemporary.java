@@ -33,9 +33,6 @@ public class UiTemporary {
 
     private static Scanner scanner = new Scanner(System.in);
 
-    private static List<String> multiLineList = new ArrayList<>();
-    private static StringBuilder multiLineOutput;
-
     /**
      * Prints a 'dashed' line.
      */
@@ -44,7 +41,7 @@ public class UiTemporary {
     }
 
     /**
-     * Prints greeting.
+     * TODO MOVE GREETING HERE
      */
     public static void printGreeting() {
         System.out.println(greeting);
