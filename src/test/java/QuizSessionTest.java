@@ -19,7 +19,7 @@ public class QuizSessionTest {
 
     private static JavaCake javacake;
     private String response;
-    private String topics[];
+    private String[] topics;
 
     /**
      * In case it is the user's first time, name will be just set as list.
@@ -40,12 +40,12 @@ public class QuizSessionTest {
     void levelsOfDifficulity() {
         for (int i = 1; i < topics.length; i++) {
             if (topics[i].contains("Test")) {
-                String quizResponse = javacake.getResponse("goto " + i );
-                String expectedResponse = "Here are the 3 subtopics available!\n" +
-                        "1. Easy Quiz\n" +
-                        "2. Medium Quiz\n" +
-                        "3. Hard Quiz\n" +
-                        "Key in the index to learn more about the topic or do the quiz!\n";
+                String quizResponse = javacake.getResponse("goto " + i);
+                String expectedResponse = "Here are the 3 subtopics available!\n"
+                        + "1. Easy Quiz\n"
+                        + "2. Medium Quiz\n"
+                        + "3. Hard Quiz\n"
+                        + "Key in the index to learn more about the topic or do the quiz!\n";
                 assertEquals(expectedResponse, quizResponse);
             }
         }
@@ -66,7 +66,7 @@ public class QuizSessionTest {
 
         QuizSession quizSession = new QuizSession(QuestionType.ALL, QuestionDifficulty.EASY, false);
         response = quizSession.getQuestion(0);
-        String illegal[] = {"/", "?", "<", ":", ",",  "*", "|", "%d"};
+        String[] illegal  = {"/", "?", "<", ":", ",",  "*", "|", "%d"};
         String expectedError = "OOPS!!! I'm sorry, but I don't know what that means.";
         for (int j = 0; j < illegal.length; j++) {
             response = javacake.getResponse(illegal[j]);
