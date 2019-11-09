@@ -31,6 +31,7 @@ public class PaymentCommandParser implements ParserInterface<AddTransactionComma
                     return new AddTransactionCommand(true, "Unable to parse " + amountAndDate[1] + " as a date. "
                             + "Please follow DD/MM/YYYY format.");
                 }
+                InputValidator.validateDate(localDate);
             }
 
             return new AddTransactionCommand(new Payment(amountAndDate[0], localDate));

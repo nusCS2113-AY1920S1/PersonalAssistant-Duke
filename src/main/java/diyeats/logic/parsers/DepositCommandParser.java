@@ -32,12 +32,12 @@ public class DepositCommandParser implements ParserInterface<AddTransactionComma
                     return new AddTransactionCommand(true, "Unable to parse " + amountAndDate[1] + " as a date. "
                             + "Please follow DD/MM/YYYY format.");
                 }
+                InputValidator.validateDate(localDate);
             }
 
             return new AddTransactionCommand(new Deposit(amountAndDate[0], localDate));
         } catch (ProgramException e) {
-            return new AddTransactionCommand(false,"Please enter the amount to deposit "
-                    + "for today's date or date and amount to be deposited");
+            return new AddTransactionCommand(true, e.getMessage());
         }
     }
 }
