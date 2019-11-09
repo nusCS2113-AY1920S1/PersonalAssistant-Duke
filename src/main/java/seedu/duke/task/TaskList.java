@@ -1,5 +1,6 @@
 package seedu.duke.task;
 
+import seedu.duke.common.command.Command;
 import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.task.command.TaskParseNaturalDateHelper;
 import seedu.duke.task.entity.Deadline;
@@ -143,11 +144,19 @@ public class TaskList extends ArrayList<Task> {
         Task task = this.get(index);
         return constructSnoozeMessage(task, duration, index);
     }
-
+    
     private String constructSnoozeMessage(Task task, int duration, int index) {
+        String msg = "";
         if (task.getTaskType() != Task.TaskType.TODO) {
+            String snoozeString = Integer.toString(duration);
+            if (CommandParseHelper.isNumberTooLarge(snoozeString)) {
+                return "Number of days snoozed should be integer of range 1 ~ 99999.";
+            } else if (duration == -1) {
+                msg = "Number of days snoozed not specified. Default is used. ";
+                duration = 3;
+            }
             task.snooze(duration);
-            return "Noted. I've snoozed task " + (index + 1) + " by " + duration + " days";
+            return msg + "Noted. I've snoozed task " + (index + 1) + " by " + duration + " days";
         } else {
             return "This task cannot be snoozed";
         }

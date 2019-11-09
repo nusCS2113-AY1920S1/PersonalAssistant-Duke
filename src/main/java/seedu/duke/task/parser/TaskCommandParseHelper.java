@@ -277,18 +277,13 @@ public class TaskCommandParseHelper {
         int index = -1;
         try {
             index = parseTaskIndex(snoozeCommandMatcher.group("index"));
-        } catch (TaskParseException e) {
-            return new InvalidCommand(e.getMessage());
-        }
-        try {
             int snoozeDuration = extractSnooze(optionList);
             return new TaskSnoozeCommand(index, snoozeDuration);
-        } catch (TaskParseException e) {
-            UI.getInstance().showMessage(e.getMessage());
-            return new TaskSnoozeCommand(index, 3);
         } catch (NumberFormatException e) {
             return new InvalidCommand("Please enter a valid number of days for snooze (positive integer "
                     + "from 1 to 99999)");
+        } catch (TaskParseException e) {
+            return new InvalidCommand(e.getMessage());
         }
     }
 
@@ -407,22 +402,18 @@ public class TaskCommandParseHelper {
         return false;
     }
 
-    private static int extractSnooze(ArrayList<Command.Option> optionList) throws TaskParseException {
+    private static int extractSnooze(ArrayList<Command.Option> optionList) {
         String snoozeString = "";
         for (Command.Option option : optionList) {
             if (option.getKey().equals("by") && snoozeString.equals("")) {
                 snoozeString = option.getValue();
             }
         }
-        if (snoozeString == "") {
-            throw new TaskParseException("Number of days snoozed not specified. Default is used.");
+        if ("".equals(snoozeString)) {
+            return -1;
+        } else {
+            return Integer.parseInt(snoozeString);
         }
-        if (isNumberTooLarge(snoozeString)) {
-            throw new TaskParseException("Number of days snoozed should be integer of range 1 ~ 99999. "
-                    + "Default is used.");
-        }
-        int snooze = Integer.parseInt(snoozeString);
-        return snooze;
     }
 
     /**
