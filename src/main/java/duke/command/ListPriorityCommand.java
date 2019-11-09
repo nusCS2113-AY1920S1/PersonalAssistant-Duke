@@ -11,28 +11,41 @@ import duke.task.TaskList;
  */
 public class ListPriorityCommand extends Command {
 
-    /**
-     * Executes a command that gathers all tasks from task list and outputs the result.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param priorities The list of priorities.
-     * @param ui To tell the user the list of tasks stored in task list.
-     */
-    public void execute(TaskList items, PriorityList priorities, Ui ui) {
-        ui.showTaskListWithPriority(items, priorities);
-    }
+    //    /**
+    //     * Executes a command that gathers all tasks from task list and outputs the result.
+    //     *
+    //     * @param items The task list that contains a list of tasks.
+    //     * @param priorities The list of priorities.
+    //     * @param ui To tell the user the list of tasks stored in task list.
+    //     *
+    //     */
+    //    public void execute(TaskList items, PriorityList priorities, Ui ui) {
+    //        ui.showTaskListWithPriority(items, priorities);
+    //    }
 
     /**
      * Executes a command that gathers all tasks from task list and outputs the result (GUI).
      *
      * @param items The task list that contains a list of tasks.
+     * @param priorities The list of priorities.
+     * @param ui To tell the user the list of tasks stored in task list.
+     * @return String to be outputted to the user.
+     */
+    public String executeGui(TaskList items, PriorityList priorities, Ui ui) {
+
+        String str = ui.showTaskListWithPriorityGui(items, priorities);
+        return str;
+    }
+
+    /**
+     * Executes a command that gathers all tasks from task list and outputs the result (GUI).
+     * (Not in use)
+     * @param items The task list that contains a list of tasks.
      * @param ui To tell the user the list of tasks stored in task list.
      * @return String to be outputted to the user.
      */
     public String executeGui(TaskList items, Ui ui) {
-        //String str = Ui.showTaskListGui(items);
-        String str = "Null";
-        return str;
+        return null;
     }
 
     /**

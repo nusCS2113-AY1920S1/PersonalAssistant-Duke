@@ -105,6 +105,24 @@ public class Ui {
             out.printf("        [%d]\t  |\t%s\n", pair.get(i).getKey(), pair.get(i).getValue());
         }
     }
+
+    /**
+     * Outputs all the tasks of the task list to the user (GUI).
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param priorities The list of priorities associated with each task.
+     * @return String to be outputted to the user.
+     */
+    public String showTaskListWithPriorityGui(TaskList items, PriorityList priorities) {
+        ArrayList<Pair> pair = PriorityList.sortPriority(items, priorities);
+        String str = "";
+        str += "     Here are the tasks in your list with priority shown:\n";
+        str += "     Priority |\tTask\n";
+        for (int i = Numbers.ZERO.value; i < items.size() || i < priorities.getSize(); i++) {
+            str  += "        [" + pair.get(i).getKey() + "]\t  |\t" + pair.get(i).getValue() + "\n";
+        }
+        return str;
+    }
     //@@author
 
     //@@author talesrune
@@ -264,46 +282,90 @@ public class Ui {
     }
 
     //@@author Dou-Maokang
+    //    /**
+    //     * Outputs the tasks with the target priority.
+    //     *
+    //     * @param items The task list that contains a list of tasks.
+    //     * @param priorities The list of priorities associated with the task list.
+    //     * @param targetPriority The target priority to search.
+    //     */
+    //    public void showFindTasksByPriority(TaskList items, PriorityList priorities, int targetPriority) {
+    //        out.println("     Here are the matching tasks in your list:");
+    //        int numFound = Numbers.ZERO.value;
+    //        for (int i = Numbers.ZERO.value; i < items.size(); i++) {
+    //            if (priorities.getPriority(i + 1) == targetPriority) {
+    //                out.println("     " + (i + Numbers.ONE.value) + "." + items.get(i).toString());
+    //                numFound++;
+    //            }
+    //        }
+    //        if (numFound == Numbers.ZERO.value) {
+    //            out.println("     No matching tasks found.");
+    //        }
+    //    }
+
     /**
-     * Outputs the tasks with the target priority.
+     * Outputs the tasks with the target priority (GUI).
      *
      * @param items The task list that contains a list of tasks.
      * @param priorities The list of priorities associated with the task list.
      * @param targetPriority The target priority to search.
+     * @return String of tasks.
      */
-    public void showFindTasksByPriority(TaskList items, PriorityList priorities, int targetPriority) {
-        out.println("     Here are the matching tasks in your list:");
+    public String showFindTasksByPriorityGui(TaskList items, PriorityList priorities, int targetPriority) {
+        String str = "     Here are the matching tasks in your list:\n";
         int numFound = Numbers.ZERO.value;
         for (int i = Numbers.ZERO.value; i < items.size(); i++) {
             if (priorities.getPriority(i + 1) == targetPriority) {
-                out.println("     " + (i + Numbers.ONE.value) + "." + items.get(i).toString());
+                str += "     " + (i + Numbers.ONE.value) + "." + items.get(i).toString() + "\n";
                 numFound++;
             }
         }
         if (numFound == Numbers.ZERO.value) {
-            out.println("     No matching tasks found.");
+            str += "     No matching tasks found.\n";
         }
+        return str;
     }
 
     //@@author Dou-Maokang
+    //    /**
+    //     * Outputs the tasks with the target date.
+    //     *
+    //     * @param items The task list that contains a list of tasks.
+    //     * @param targetDate The target date to search.
+    //     */
+    //    public void showFindTasksByDate(TaskList items, String targetDate) {
+    //        out.println("     Here are the tasks on " + targetDate + " :");
+    //        int numFound = Numbers.ZERO.value;
+    //        for (int i = Numbers.ZERO.value; i < items.size(); i++) {
+    //            if (items.get(i).toString().contains(targetDate)) {
+    //                out.println("     " + (i + Numbers.ONE.value) + "." + items.get(i).toString());
+    //                numFound++;
+    //            }
+    //        }
+    //        if (numFound == Numbers.ZERO.value) {
+    //            out.println("     There're no tasks on " + targetDate + ".");
+    //        }
+    //    }
     /**
-     * Outputs the tasks with the target date.
+     * Outputs the tasks with the target date (GUI).
      *
      * @param items The task list that contains a list of tasks.
      * @param targetDate The target date to search.
+     * @return String of the tasks.
      */
-    public void showFindTasksByDate(TaskList items, String targetDate) {
-        out.println("     Here are the tasks on " + targetDate + " :");
+    public String showFindTasksByDateGui(TaskList items, String targetDate) {
+        String str = "     Here are the tasks on " + targetDate + " :\n";
         int numFound = Numbers.ZERO.value;
         for (int i = Numbers.ZERO.value; i < items.size(); i++) {
             if (items.get(i).toString().contains(targetDate)) {
-                out.println("     " + (i + Numbers.ONE.value) + "." + items.get(i).toString());
+                str += ("     " + (i + Numbers.ONE.value) + "." + items.get(i).toString()) + "\n";
                 numFound++;
             }
         }
         if (numFound == Numbers.ZERO.value) {
-            out.println("     There're no tasks on " + targetDate + ".");
+            str += "     There're no tasks on " + targetDate + "." + "\n";
         }
+        return str;
     }
 
     //@@author talesrune
@@ -410,6 +472,20 @@ public class Ui {
     public void showSetPriority(TaskList taskList, int taskNum, int priority) {
         out.println("     Updated the priority of \n\t\t" + taskList.get(taskNum - Numbers.ONE.value));
         out.println("     Current priority: " + priority);
+    }
+
+    /**
+     * Outputs a message to the user to let it know that it has changed the priority of a task.
+     *
+     * @param taskList The task list that contains a list of tasks.
+     * @param taskNum The index of the task in the task list.
+     * @param priority The index of the priority.
+     * @return String of the text to show user.
+     */
+    public String showSetPriorityGui(TaskList taskList, int taskNum, int priority) {
+        String str = "\tUpdated the priority of \n\t" + taskList.get(taskNum - Numbers.ONE.value) + "\n";
+        str += "\tCurrent priority: " + priority;
+        return str;
     }
 
     //@@author e0318465
