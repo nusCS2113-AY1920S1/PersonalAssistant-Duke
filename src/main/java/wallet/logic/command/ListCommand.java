@@ -25,12 +25,12 @@ public class ListCommand extends Command {
     public static final String MESSAGE_LIST_RECURRING_EXPENSES = "Here are the recurring expenses in your list:";
     public static final String MESSAGE_LIST_LOANS = "Here are the loans in your list:";
     public static final String MESSAGE_USAGE = "Error in format for command."
-        + "\nExample: " + COMMAND_WORD + " all"
-        + "\nExample: " + COMMAND_WORD + " expense"
-        + "\nExample: " + COMMAND_WORD + " expense /sortby date"
-        + "\nExample: " + COMMAND_WORD + " loan"
-        + "\nExample: " + COMMAND_WORD + " task"
-        + "\nExample: " + COMMAND_WORD + " recurring";
+            + "\nExample: " + COMMAND_WORD + " all"
+            + "\nExample: " + COMMAND_WORD + " expense"
+            + "\nExample: " + COMMAND_WORD + " expense /sortby date"
+            + "\nExample: " + COMMAND_WORD + " loan"
+            + "\nExample: " + COMMAND_WORD + " task"
+            + "\nExample: " + COMMAND_WORD + " recurring";
     public static final String MESSAGE_LIST_ALL_SORT = "list all can only be sorted by date.";
     public static final String MESSAGE_LOANS_SORT = "loans can only be sorted by date, lend or borrow";
     public static final String MESSAGE_EXPENSE_SORT = "expenses can only be sorted by date and category.";
@@ -120,7 +120,7 @@ public class ListCommand extends Command {
                 Ui.printContactTable(contactList);
             } else {
                 String[] arguments = record.split(" ", 3);
-                if(arguments.length < 3){
+                if (arguments.length < 3) {
                     System.out.println(MESSAGE_CONTACT_SORT);
                     return false;
                 }
@@ -207,9 +207,9 @@ public class ListCommand extends Command {
                             Ui.printExpenseTable(expensesList);
                         } else {
                             System.out.println(MESSAGE_LIST_NO_EXPENSES
-                                + date.getDayOfMonth() + " "
-                                + new DateFormatSymbols().getMonths()[date.getMonthValue() - 1]
-                                + " " + date.getYear());
+                                    + date.getDayOfMonth() + " "
+                                    + new DateFormatSymbols().getMonths()[date.getMonthValue() - 1]
+                                    + " " + date.getYear());
                         }
                     }
 
@@ -224,9 +224,9 @@ public class ListCommand extends Command {
                             Ui.printLoanTable(loansList);
                         } else {
                             System.out.println(MESSAGE_LIST_NO_LOANS
-                                + date.getDayOfMonth() + " "
-                                + new DateFormatSymbols().getMonths()[date.getMonthValue() - 1]
-                                + " " + date.getYear());
+                                    + date.getDayOfMonth() + " "
+                                    + new DateFormatSymbols().getMonths()[date.getMonthValue() - 1]
+                                    + " " + date.getYear());
                         }
                     }
                 }

@@ -29,6 +29,7 @@ import java.text.ParseException;
 public class ParserManager {
 
     private String parametersError = " command currently has no parameters!";
+
     /**
      * Parses the user input command and returns the corresponding Command object.
      *
@@ -40,7 +41,7 @@ public class ParserManager {
 
         switch (arguments[0].toLowerCase()) {
         case AddCommand.COMMAND_WORD:
-            try{
+            try {
                 return new AddCommandParser().parse(arguments[1]);
             } catch (ArrayIndexOutOfBoundsException err) {
                 throw new InsufficientParameters(AddCommand.COMMAND_WORD + parametersError);
@@ -108,7 +109,7 @@ public class ParserManager {
         case ImportCommand.COMMAND_WORD:
             try {
                 return new ImportCommandParser().parse(arguments[1]);
-            }  catch (ArrayIndexOutOfBoundsException err) {
+            } catch (ArrayIndexOutOfBoundsException err) {
                 throw new InsufficientParameters(ImportCommand.COMMAND_WORD + parametersError);
             }
 
