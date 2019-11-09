@@ -18,11 +18,10 @@ public class PlanContextWindow extends DukeDataContextWindow {
     /**
      * Constructs a UI context window for a Plan object.
      *
-     * @param fxmlFileName Name of FXML file.
-     * @param plan         Plan object.
+     * @param plan Plan object.
      */
-    public PlanContextWindow(String fxmlFileName, Plan plan) {
-        super(fxmlFileName, plan);
+    public PlanContextWindow(Plan plan) {
+        super(FXML, plan);
 
         this.plan = plan;
 

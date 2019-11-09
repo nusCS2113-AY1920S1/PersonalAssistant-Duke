@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
  * UI window for the Investigation context.
  */
 public class MedicineContextWindow extends DukeDataContextWindow {
-    private static final String FXML = "InvestigationContextWindow.fxml";
+    private static final String FXML = "MedicineContextWindow.fxml";
 
     @FXML
     private Label statusLabel;
@@ -24,11 +24,10 @@ public class MedicineContextWindow extends DukeDataContextWindow {
     /**
      * Constructs a UI context window for a Plan object.
      *
-     * @param fxmlFileName Name of FXML file.
-     * @param medicine     Medicine object.
+     * @param medicine Medicine object.
      */
-    public MedicineContextWindow(String fxmlFileName, Medicine medicine) {
-        super(fxmlFileName, medicine);
+    public MedicineContextWindow(Medicine medicine) {
+        super(FXML, medicine);
 
         this.medicine = medicine;
 

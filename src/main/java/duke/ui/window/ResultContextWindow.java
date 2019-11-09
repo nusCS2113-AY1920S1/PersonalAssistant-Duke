@@ -8,7 +8,7 @@ import duke.data.Result;
 public class ResultContextWindow extends DukeDataContextWindow {
     private static final String FXML = "ResultContextWindow.fxml";
 
-    public ResultContextWindow(String fxmlFileName, Result result) {
-        super(fxmlFileName, result);
+    public ResultContextWindow(Result result) {
+        super(FXML, result);
     }
 }

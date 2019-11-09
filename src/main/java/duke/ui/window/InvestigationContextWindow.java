@@ -18,11 +18,10 @@ public class InvestigationContextWindow extends DukeDataContextWindow {
     /**
      * Constructs a UI context window for an Investigation object.
      *
-     * @param fxmlFileName  Name of FXML file.
      * @param investigation Investigation object.
      */
-    public InvestigationContextWindow(String fxmlFileName, Investigation investigation) {
-        super(fxmlFileName, investigation);
+    public InvestigationContextWindow(Investigation investigation) {
+        super(FXML, investigation);
 
         this.investigation = investigation;
 

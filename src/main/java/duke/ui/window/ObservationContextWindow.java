@@ -18,11 +18,10 @@ public class ObservationContextWindow extends DukeDataContextWindow {
     /**
      * Constructs a UI context window for an Observation object.
      *
-     * @param fxmlFileName Name of FXML file.
-     * @param observation  Observation object.
+     * @param observation Observation object.
      */
-    public ObservationContextWindow(String fxmlFileName, Observation observation) {
-        super(fxmlFileName, observation);
+    public ObservationContextWindow(Observation observation) {
+        super(FXML, observation);
 
         this.observation = observation;
 
