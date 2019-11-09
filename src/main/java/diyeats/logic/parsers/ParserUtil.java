@@ -5,6 +5,8 @@ import diyeats.logic.autocorrect.Autocorrect;
 import diyeats.logic.commands.HistoryCommand;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 //@@author Fractalisk
 /**
@@ -44,12 +46,6 @@ public class ParserUtil {
         command = autocorrect.runOnCommand(command);
         argument = autocorrect.runOnArgument(argument);
         history.addCommand(command);
-    }
-
-    public LocalDate parseDate(String dateStr) {
-        try {
-            localDate = LocalDate.parse(dateStr, dateFormat);
-        }
     }
 
     /**

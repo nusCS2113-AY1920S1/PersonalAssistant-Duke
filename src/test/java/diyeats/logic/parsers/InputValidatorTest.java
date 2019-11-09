@@ -3,6 +3,8 @@ package diyeats.logic.parsers;
 import diyeats.commons.exceptions.ProgramException;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -23,6 +25,7 @@ public class InputValidatorTest {
     private final String numericInput = "1.23";
     private final String numericInput2 = "12345678";
     private final String negativeInput = "-1.23";
+    private final LocalDate localDateInput = LocalDate.of(5000, 12, 31);
 
     /**
      * test whether exception is thrown if user input is empty.
@@ -88,6 +91,19 @@ public class InputValidatorTest {
             InputValidator.validateAmount(numericInput2);
         } catch (ProgramException e) {
             fail("Exception is thrown although user input is numeric");
+        }
+    }
+
+    /**
+     * test that exception is thrown if the date specified is in the future.
+     */
+    @Test
+    public void dateInputTest() {
+        try {
+            InputValidator.validateDate(localDateInput);
+            fail("No future date exception is thrown.");
+        } catch (ProgramException e) {
+            assertTrue(true);
         }
     }
 }
