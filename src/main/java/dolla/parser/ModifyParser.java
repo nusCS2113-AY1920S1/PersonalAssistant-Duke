@@ -57,7 +57,7 @@ public class ModifyParser extends Parser {
             }
             return new FullModifyDebtCommand(type, name, amount, description, date);
         case MODE_LIMIT:
-            if (verifySetLimitCommand()) {
+            if (verifySetCommand()) {
                 String typeStr = inputArray[1];
                 String durationStr = inputArray[3];
                 return new FullModifyLimitCommand(typeStr, this.amount, durationStr);

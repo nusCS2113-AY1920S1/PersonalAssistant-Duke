@@ -1,6 +1,6 @@
 package dolla.exception;
 
-import dolla.ui.Ui;
+import dolla.ui.LimitUi;
 
 //@@author Weng-Kexin
 public class DollaException extends Exception {
@@ -9,9 +9,47 @@ public class DollaException extends Exception {
                                                      + "\tPlease key in a non-negative, "
                                                      + "non-zero value that is lesser than 1,000,000.";
 
+    private static final String NO_BUDGET_MSG = "\tOOPS! There is no budget set for the duration you specified: ";
+
+    private static final String INVALID_LIMIT_TYPE_MSG = "\tOOPS! Please specify the limit type: budget/saving.";
+
+    private static final String INVALID_LIMIT_DURATION_MSG = "\tOOPS! Please specify the limit duration: "
+                                                           + "daily/weekly/monthly.";
+
+    /**
+     * Prints a non existing budget error.
+     * @return Exception message
+     */
+    public static String noExistingBudget(String duration) {
+        LimitUi.noExistingBudgetPrinter(NO_BUDGET_MSG, duration);
+        return NO_BUDGET_MSG + duration;
+    }
+
+    /**
+     * Prints an invalid amount error.
+     * @return Exception message
+     */
     public static String invalidAmount() {
-        Ui.invalidAmountPrinter(INVALID_AMOUNT_MSG);
+        LimitUi.invalidAmountPrinter(INVALID_AMOUNT_MSG);
         return INVALID_AMOUNT_MSG;
+    }
+
+    /**
+     * Prints an invalid limit type error.
+     * @return Exception message
+     */
+    public static String invalidLimitType() {
+        LimitUi.messagePrinter(INVALID_LIMIT_TYPE_MSG);
+        return INVALID_LIMIT_TYPE_MSG;
+    }
+
+    /**
+     * Prints an invalid limit duration error.
+     * @return Exception message
+     */
+    public static String invalidLimitDuration() {
+        LimitUi.messagePrinter(INVALID_LIMIT_DURATION_MSG);
+        return INVALID_LIMIT_DURATION_MSG;
     }
 
     /**

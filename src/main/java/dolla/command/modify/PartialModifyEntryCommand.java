@@ -14,12 +14,11 @@ public class PartialModifyEntryCommand extends Command {
     private double amount;
     private String description;
     private LocalDate date;
-    private String tagName;
 
     private static final String MODE_ENTRY = "entry";
 
     /**
-     *  Instantiates a new FullModifyDebtCommand.
+     * Instantiates a new PartialModifyEntryCommand.
      * @param recordNum number of entry in list to modify.
      * @param type type of entry.
      * @param amount of money.
@@ -40,7 +39,7 @@ public class PartialModifyEntryCommand extends Command {
         if (isIndexInList(dollaData.getRecordListObj(MODE_ENTRY), MODE_ENTRY)) {
             Record originalEntry = dollaData.getRecordFromList(MODE_ENTRY, index);
             overwriteComponents(originalEntry);
-            Entry newEntry = new Entry(type, amount, description, date, tagName);
+            Entry newEntry = new Entry(type, amount, description, date);
             dollaData.modifyRecordList(newEntry);
             ModifyUi.echoModifyRecord(newEntry);
             dollaData.updateMode(MODE_ENTRY);

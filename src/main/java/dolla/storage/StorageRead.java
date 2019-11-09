@@ -37,47 +37,28 @@ public class StorageRead extends Storage {
                 String type = inArray[0];
                 Record newRecord = null;
                 switch (type) {
-                case INCOME_TYPE: //check if there is a tag
-                    if (numOfElements == 4) {
-                        newRecord = new Entry(INCOME, stringToDouble(inArray[1]), inArray[2],
-                                Time.readDate(inArray[3]), ""); //income [AMOUNT] [DESCRIPTION] /on [DATE]
-                    } else if (numOfElements == 5) {
-                        newRecord = new Entry(INCOME, stringToDouble(inArray[1]), inArray[2],
-                                Time.readDate(inArray[3]), inArray[4]); //income [AMOUNT] [DESCRIPTION] /on [DATE] /tag
-                    }
+                case INCOME_TYPE:
+                    newRecord = new Entry(INCOME, stringToDouble(inArray[1]), inArray[2],
+                                Time.readDate(inArray[3])); //income [AMOUNT] [DESCRIPTION] /on [DATE]
+
                     break;
-                case EXPENSE_TYPE: //check if there is a tag
-                    if (numOfElements == 4) {
-                        newRecord = new Entry(EXPENSE, stringToDouble(inArray[1]), inArray[2],
-                                Time.readDate(inArray[3]), ""); //expense [AMOUNT] [DESCRIPTION] /on [DATE]
-                    } else if (numOfElements == 5) {
-                        newRecord = new Entry(EXPENSE, stringToDouble(inArray[1]), inArray[2],
-                                Time.readDate(inArray[3]), inArray[4]); //expense [AMOUNT] [DESCRIPTION] /on [DATE] /tag
-                    }
+                case EXPENSE_TYPE:
+                    newRecord = new Entry(EXPENSE, stringToDouble(inArray[1]), inArray[2],
+                                Time.readDate(inArray[3])); //expense [AMOUNT] [DESCRIPTION] /on [DATE]
                     break;
-                case BUDGET_TYPE: //must include 3 additional word, every,for and tag
+                case BUDGET_TYPE:
                     newRecord = new Limit(BUDGET,stringToDouble(inArray[1]), inArray[2]);
                     break;
                 case SAVING_TYPE:
                     newRecord = new Limit(SAVING, stringToDouble(inArray[1]), inArray[2]);
                     break;
                 case OWE_TYPE:
-                    if (numOfElements == 5) {
-                        newRecord = new Debt(OWE, inArray[1], stringToDouble(inArray[2]), inArray[3],
-                                Time.readDate(inArray[4]), "");
-                    } else {
-                        newRecord = new Debt(OWE, inArray[1], stringToDouble(inArray[2]), inArray[3],
-                                Time.readDate(inArray[4]), inArray[5]);
-                    }
+                    newRecord = new Debt(OWE, inArray[1], stringToDouble(inArray[2]), inArray[3],
+                                Time.readDate(inArray[4]));
                     break;
                 case BORROW_TYPE:
-                    if (numOfElements == 5) {
-                        newRecord = new Debt(BORROW, inArray[1], stringToDouble(inArray[2]), inArray[3],
-                                Time.readDate(inArray[4]), "");
-                    } else {
-                        newRecord = new Debt(BORROW, inArray[1], stringToDouble(inArray[2]), inArray[3],
-                                Time.readDate(inArray[4]), inArray[5]);
-                    }
+                    newRecord = new Debt(BORROW, inArray[1], stringToDouble(inArray[2]), inArray[3],
+                                Time.readDate(inArray[4]));
                     break;
                 case SHORTCUT:
                     newRecord = new Shortcut(inArray[1], stringToDouble(inArray[2]),inArray[3]);

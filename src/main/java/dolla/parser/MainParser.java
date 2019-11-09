@@ -1,10 +1,12 @@
 package dolla.parser;
 
 import dolla.ModeStringList;
+
 import dolla.ui.Ui;
 
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
+import dolla.command.ExitCommand;
 import dolla.command.SwitchModeCommand;
 
 /**
@@ -13,28 +15,32 @@ import dolla.command.SwitchModeCommand;
 public class MainParser implements ParserStringList, ModeStringList {
 
     /**
-     * Returns a command corresponding to the user input by directing
-     * the input to the relevant dolla.parser.
+     * Returns a command corresponding to the user input by directing the input to the relevant parser.
      * @param mode The mode Dolla is currently on.
      * @return a command corresponding to the user input.
      */
     public static Command handleInput(String mode, String inputLine) {
 
+        inputLine = inputLine.trim();
+        if (inputLine.isEmpty()) {
+            Ui.printInvalidCommandError();
+            return new ErrorCommand();
+        }
+
         String[] inputArray = inputLine.split(SPACE);
         String command = inputArray[0];
+
         boolean isExitCommand = isExitCommand(command);
         boolean isSwitchMode = isSwitchModeCommand(command);
         if (isExitCommand) {
-            exit(); // TODO: change
-            //return new ExitCommand();
+            return new ExitCommand();
         } else if (isSwitchMode) {
-            return new SwitchModeCommand(command); // TODO
+            return new SwitchModeCommand(command);
         }
 
         switch (mode) {
         case MODE_DOLLA:
             DollaParser dollaParser = new DollaParser(inputLine);
-            //System.out.println("Running DollaParser...");
             return dollaParser.parseInput();
         case MODE_ENTRY:
             EntryParser entryParser = new EntryParser(inputLine);
@@ -75,7 +81,6 @@ public class MainParser implements ParserStringList, ModeStringList {
      * This method will exit the entire program after printing a goodbye message.
      */
     public static void exit() {
-        //TODO: DO SMTH
         Ui.printExitMsg();
     }
 }

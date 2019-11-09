@@ -143,7 +143,7 @@ public abstract class Ui {
      */
     public static void printInvalidCommandError() {
         System.out.println(line);
-        System.out.println("\tOOPS! The command is invalid. Please enter a valid command");
+        System.out.println("\tOOPS! The command is invalid. Please enter a valid command!");
         System.out.println(line);
     }
 

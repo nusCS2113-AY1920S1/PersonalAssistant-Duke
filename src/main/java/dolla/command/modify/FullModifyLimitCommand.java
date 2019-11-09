@@ -1,7 +1,6 @@
 package dolla.command.modify;
 
 import dolla.model.DollaData;
-import dolla.command.Command;
 import dolla.model.Limit;
 import dolla.model.LimitList;
 import dolla.model.Record;
@@ -9,12 +8,7 @@ import dolla.ui.LimitUi;
 import dolla.ui.ModifyUi;
 
 //@@author omupenguin
-public class FullModifyLimitCommand extends Command {
-
-    private String type;
-    private double amount;
-    private String duration;
-    private static final String mode = MODE_LIMIT;
+public class FullModifyLimitCommand extends ModifyLimitCommand {
 
     /**
      * Instantiates a new FullModifyLimitCommand.
@@ -50,25 +44,6 @@ public class FullModifyLimitCommand extends Command {
         return null;
     }
 
-    /**
-     * Returns true if the new limit does not result in having more than one instance of
-     * 'daily', 'weekly' and 'monthly' duration-based limits.
-     * @param duplicateLimitIndex the index where the duplicate limit of the same duration is found
-     * @param indexToModify the index of the limit in dollaData to be modified
-     * @return true if either recordDoesNotExist() or isSameIndex is true
-     */
-    private boolean isNewLimitValid(int duplicateLimitIndex, int indexToModify) {
-        return (recordDoesNotExist(duplicateLimitIndex) || isSameIndex(duplicateLimitIndex, indexToModify));
-    }
 
-    /**
-     * Returns true if the specified duplicateLimitIndex and indexToEdit are the same.
-     * @param duplicateLimitIndex the index where the duplicate limit of the same duration is found
-     * @param indexToModify the index of the limit in dollaData to be modified
-     * @return true if the 2 specified ints are the same.
-     */
-    private boolean isSameIndex(int duplicateLimitIndex, int indexToModify) {
-        return (duplicateLimitIndex == indexToModify);
-    }
 
 }

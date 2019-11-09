@@ -14,7 +14,7 @@ public abstract class Command implements ModeStringList {
     protected int index;
 
     /**
-     * This method is called execute the titular command after every user input.
+     * This method is called to execute the titular command after every user input.
      * @throws DollaException handle exception
      */
     public abstract void execute(DollaData dollaData) throws DollaException;
@@ -27,17 +27,11 @@ public abstract class Command implements ModeStringList {
 
     /**
      * Returns an integer variable from the specified string.
-     * <p>
-     *     Returns 0 if the specified string is not of a number.
-     * </p>
-     * <p>
-     *     Mainly used for using the specified string for calculations in the command.
-     *     IE. Accessing arrays.
-     * </p>
+     * Returns 0 if the specified string is not of a number.
      * @param str String (of number) to be converted into integer type.
      * @return Integer type of the specified string.
      */
-    public int stringToInt(String str) {
+    protected int stringToInt(String str) {
         int newInt = 0;
         try {
             newInt = Integer.parseInt(str);
@@ -61,7 +55,6 @@ public abstract class Command implements ModeStringList {
             ListUi.printNoRecordAssocError(index, currMode);
             return false;
         } else {
-            //System.out.println(index + " " + recordList.size());
             return true;
         }
     }

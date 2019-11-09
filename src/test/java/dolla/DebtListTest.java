@@ -14,22 +14,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DebtListTest {
     private Debt newDebt1() {
         return new Debt("owe", "tatayu", 30,
-                "supper", LocalDate.parse("2019-11-01"), "{Tag: }");
+                "supper", LocalDate.parse("2019-11-01"));
     }
 
     private Debt newDebt2() {
         return new Debt("borrow", "xx", 10,
-                "ticket", LocalDate.parse("2019-10-27"),"{Tag: }");
+                "ticket", LocalDate.parse("2019-10-27"));
     }
 
     private Debt newDebt3() {
         return new Debt("borrow", "Eve", 3,
-                "tea", LocalDate.parse("2019-12-02"),"{Tag: }");
+                "tea", LocalDate.parse("2019-12-02"));
     }
 
     private Debt newDebt4() {
         return new Debt("owe", "tata", 50,
-                "lunch", LocalDate.parse("2019-11-29"), "{Tag: }");
+                "lunch", LocalDate.parse("2019-11-29"));
     }
 
     private DebtList newDebtList() {

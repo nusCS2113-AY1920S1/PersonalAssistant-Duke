@@ -1,6 +1,5 @@
 package dolla.parser;
 
-import dolla.Tag;
 import dolla.Time;
 import dolla.command.AddDebtsCommand;
 import dolla.command.AddEntryCommand;
@@ -9,13 +8,9 @@ import dolla.command.Command;
 import dolla.command.ErrorCommand;
 import dolla.command.view.ViewDateCommand;
 import dolla.command.view.ViewTodayCommand;
-import dolla.model.Debt;
-import dolla.model.Entry;
 import dolla.ui.DebtUi;
-import dolla.ui.LimitUi;
 import dolla.ui.Ui;
 import dolla.ui.ViewUi;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
@@ -42,11 +37,7 @@ public class DollaParser extends Parser {
             }
         } else if (commandToRun.equals(ENTRY_COMMAND_ADD)) {
             if (verifyAddCommand()) {
-                Tag tag = new Tag();
-                Entry entry = new Entry(inputArray[1], amount, description, date, EMPTY_STR);
-                tag.handleTag(entry);
-                return new AddEntryCommand(inputArray[1], amount,
-                        description, date, tag.getTagName());
+                return new AddEntryCommand(inputArray[1], amount, description, date);
             } else {
                 return new ErrorCommand();
             }
@@ -66,7 +57,6 @@ public class DollaParser extends Parser {
             String name = null;
             double amount = 0.0;
             LocalDate date = null;
-            Tag t = new Tag();
             try {
                 name = inputArray[1];
                 amount = stringToDouble(inputArray[2]);
@@ -74,29 +64,19 @@ public class DollaParser extends Parser {
                 String[] desc = inputLine.split(inputArray[2] + SPACE);
                 String[] dateString = desc[1].split(" /due ");
                 description = dateString[0];
-                if (inputLine.contains(COMPONENT_TAG)) {
-                    String[] dateAndTag = dateString[1].split(COMPONENT_TAG);
-                    date = Time.readDate(dateAndTag[0].trim());
-                } else {
-                    date = Time.readDate(dateString[1].trim());
-                }
+                date = Time.readDate(dateString[1].trim());
             } catch (IndexOutOfBoundsException e) {
                 DebtUi.printInvalidDebtFormatError();
                 return new ErrorCommand();
             } catch (Exception e) {
                 return new ErrorCommand();
             }
-            Debt debt = new Debt(type, name, amount, description, date, EMPTY_STR);
-            t.handleTag(debt);
-            return new AddDebtsCommand(type, name, amount, description, date, t.getTagName());
+            return new AddDebtsCommand(type, name, amount, description, date);
 
         } else if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_SET)) {
-            if (verifySetLimitCommand()) {
-                String typeStr = inputArray[1];
-                String durationStr = inputArray[3];
-                return new AddLimitCommand(typeStr, amount, durationStr);
+            if (verifySetCommand()) {
+                return new AddLimitCommand(type, amount, duration);
             } else {
-                LimitUi.invalidSetCommandPrinter();
                 return new ErrorCommand();
             }
         }
