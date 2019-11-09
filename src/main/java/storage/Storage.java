@@ -215,6 +215,20 @@ public class Storage {
                     bank.addTagToWord(allWords[i], tag);
                 }
             }
+
+            Sheet synonymBankSheet = workbook.getSheetAt(2);
+            Iterator<Row> rowIteratorSynonymBank = synonymBankSheet.iterator();
+            rowIteratorSynonymBank.next();
+            while (rowIteratorSynonymBank.hasNext()) {
+                Row row = rowIteratorSynonymBank.next();
+                Iterator<Cell> cellIterator = row.cellIterator();
+                String synonym = cellIterator.next().getStringCellValue();
+                String[] allWords = cellIterator.next().getStringCellValue().split(", ");
+
+                for (int i = 0; i < allWords.length; i++) {
+                    bank.addSynonymToWord(allWords[i], synonym);
+                }
+            }
             fileInputStream.close();
         } catch (FileNotFoundException e) {
             createExcelFile();

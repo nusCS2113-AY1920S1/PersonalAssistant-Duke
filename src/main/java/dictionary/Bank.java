@@ -100,7 +100,7 @@ public class Bank {
     public void deleteWordFromBank(Word word) throws NoWordFoundException {
         wordBank.deleteWord(word);
         tagBank.deleteWordAllTags(word);
-        synonymBank.deleteWordAllSynonyms(word);
+        //synonymBank.deleteWordAllSynonyms(word);
         wordCount.deleteWord(word);
     }
 
@@ -138,12 +138,12 @@ public class Bank {
         synonymBank.addWordToSomeSynonyms(wordDescription, synonyms);
         return synonymsOfWord;
     }
-
+/*
     public void deleteSynonyms(String deletedWord, ArrayList<String> synonyms,
                                ArrayList<String> deletedSynonyms, ArrayList<String> nullSynonyms) {
         wordBank.deleteSynonyms(deletedWord, synonyms, deletedSynonyms, nullSynonyms);
         synonymBank.deleteWordSomeSynonyms(deletedSynonyms, deletedWord);
-    }
+    }*/
 
     public void editWordMeaning(String editedWord, String newMeaning) throws NoWordFoundException {
         wordBank.editWordMeaning(editedWord, newMeaning);

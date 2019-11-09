@@ -161,8 +161,7 @@ public class Parser {
             EmptySynonymException, EmptyWordException, InvalidCharacterException {
         if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
             throw new WrongSearchSynonymFormatException();
-        }
-        if (taskInfo[1].startsWith("w/")) {
+        } else {
             String synonym = taskInfo[1].substring(2).trim();
             if (synonym.length() == 0) {
                 throw new EmptyWordException();
@@ -170,7 +169,7 @@ public class Parser {
             if (!isValidInputWord(synonym)) {
                 throw new InvalidCharacterException();
             }
-            return new SearchSynonymCommand(synonym,"synonym");
+            return new SearchSynonymCommand(synonym, "synonym");
         }
     }
 

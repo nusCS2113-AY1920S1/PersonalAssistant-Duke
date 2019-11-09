@@ -22,20 +22,19 @@ public class SearchSynonymCommand extends Command {
     @Override
     public String execute(Ui ui, Bank bank, Storage storage) {
         try {
-            if (type.equals("synonym")) {
-                if (bank.tagBankEmpty()) {
+                if (bank.synonymBankEmpty()) {
                     throw new SynonymBankEmptyException();
                 }
                 String[] words = bank.getWordsOfSynonym(searchWord);
                 return ui.showSearchTag(searchWord, words);
-            } else {
-                Word word = bank.getWordFromWordBank(searchWord);
-                HashSet<String> allTags = word.getTags();
-                return ui.showTagsOfWord(searchWord, allTags);
-            }
         } catch (NoSynonymFoundException e) {
-            return e.showError() + ui.showAllSynonyms(bank.getAllSynonyms());
-        } catch (SynonymBankEmptyException | NoWordFoundException e) {
+            try {
+                return e.showError() + ui.showAllSynonyms(bank.getWordsOfSynonym(searchWord));
+            }
+            catch(NoSynonymFoundException f){
+                return f.showError();
+            }
+        }catch (SynonymBankEmptyException e) {
             return e.showError();
         }
     }
