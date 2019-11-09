@@ -86,11 +86,11 @@ public class TrackerCommand extends Command {
 
         case DELETE_COMMAND:
             if (input.length != DELETE_COMMAND_LENGTH) {
-                throw new InvalidArgumentException("Invalid Commmand!");
+                throw new InvalidArgumentException("Please enter the correct number of arguments!");
             }
             int deleteIndex = Integer.parseInt(input[DELETE_INDEX]) - CORRECT_INDEX;
             if (deleteIndex >= taskList.getSize()) {
-                throw new InvalidArgumentException("Invalid Commmand!");
+                throw new InvalidArgumentException("Please select a valid index to delete!");
             }
             tracker = trackerList.get(deleteIndex);
             String description = tracker.getDescription();
@@ -103,7 +103,7 @@ public class TrackerCommand extends Command {
 
         default:
             if (input.length != TIMER_COMMAND_LENGTH) {
-                throw new InvalidArgumentException("Invalid Command!");
+                throw new InvalidArgumentException("Please enter the correct number of arguments!");
             }
             String moduleCode = input[MODULE_CODE_INDEX].toLowerCase();
             int taskIndex = Integer.parseInt(input[TASK_INDEX]);

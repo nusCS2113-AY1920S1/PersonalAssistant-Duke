@@ -103,7 +103,7 @@ public class RecurringCommand extends Command {
     private void runRecurringCommand(Ui ui, TaskList taskList, StorageManager storageManager)
             throws InvalidArgumentException {
         try {
-            setRecurringTask(ui, taskList, taskIndex, recurringCount, recurringFrequency);
+            setRecurringTask(taskList, taskIndex, recurringCount, recurringFrequency);
             ui.printRecurringMessage(taskList);
             storageManager.writeTaskList(taskList);
         } catch (InputMismatchException e) {
@@ -114,32 +114,30 @@ public class RecurringCommand extends Command {
     /**
      * Sets the recurring task based on the number of recurrences and frequency.
      *
-     * @param ui        Instance of Ui to display relevant messages for recurring tasks.
      * @param taskList  Instance of TaskList that stores Task objects.
      * @param index     Index of the task.
      * @param count     Number of recurrences for the recurring task.
      * @param frequency Frequency of recurrence for the recurring task.
      * @throws InvalidArgumentException if datetime cannot be parsed.
      */
-    private void setRecurringTask(Ui ui, TaskList taskList, int index, int count, int frequency) throws
+    private void setRecurringTask(TaskList taskList, int index, int count, int frequency) throws
             InvalidArgumentException {
         Task task = taskList.getTask(index);
         taskList.deleteTask(index);
         taskList.addTaskToIndex(index, task);
-        recurInstances(ui, taskList, task, count, frequency);
+        recurInstances(taskList, task, count, frequency);
     }
 
     /**
      * Increments the datetime of a task based on recurring frequency and adds the task to TaskList.
      *
-     * @param ui        Instance of Ui to display relevant messages for recurring tasks.
      * @param taskList  Instance of TaskList that stores Task objects.
      * @param task      Recurring task.
      * @param count     Number of recurrences for the recurring task.
      * @param frequency Frequency of recurrence for the recurring task.
      * @throws InvalidArgumentException if datetime cannot be parsed.
      */
-    private void recurInstances(Ui ui, TaskList taskList, Task task, int count, int frequency)
+    private void recurInstances(TaskList taskList, Task task, int count, int frequency)
             throws InvalidArgumentException {
         if (task instanceof Todo) {
             for (int i = 1; i <= count; i++) {

@@ -31,6 +31,7 @@ shadowJar {
 dependencies {
     testImplementation('org.junit.jupiter:junit-jupiter:5.5.0')
     testRuntime('org.junit.jupiter:junit-jupiter-engine:5.5.0')
+    compile group: 'org.fusesource.jansi', name: 'jansi', version: '1.18'
 }
 
 test {

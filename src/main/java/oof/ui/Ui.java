@@ -1,13 +1,6 @@
 package oof.ui;
 
-import java.io.FileNotFoundException;
-import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.YearMonth;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Scanner;
+import org.fusesource.jansi.AnsiConsole;
 
 import oof.model.task.Event;
 import oof.model.task.Task;
@@ -18,6 +11,15 @@ import oof.model.university.Module;
 import oof.model.university.Semester;
 import oof.model.university.SemesterList;
 import oof.storage.StorageManager;
+
+import java.io.FileNotFoundException;
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.YearMonth;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Scanner;
 
 /**
  * Represents a Ui class that is responsible for Input/Output operations.
@@ -326,7 +328,7 @@ public class Ui {
                 + ANSI_BG_BLACK + ANSI_BRIGHT_RED + "\tDeadline\n"
                 + ANSI_BG_BLACK + ANSI_BRIGHT_CYAN + "\tEvent\n"
                 + ANSI_RESET + "\tLesson\n";
-        System.out.println(legend);
+        AnsiConsole.out.println(legend);
         System.out.println("Note that assignments are considered as Deadline tasks.");
         System.out.println("Note that assessments are considered as Event tasks.");
     }
@@ -342,10 +344,10 @@ public class Ui {
             largestColSize++;
         }
         int numberOfHyphens = ((largestColSize + DATE_SPACES) * DAYS_IN_WEEK) + DAYS_IN_WEEK + DAY_FIRST;
-        System.out.print(ANSI_BRIGHT_WHITE + ANSI_BG_BLUE);
+        AnsiConsole.out.print(ANSI_BRIGHT_WHITE + ANSI_BG_BLUE);
         printHyphens(numberOfHyphens);
-        System.out.print(ANSI_BRIGHT_WHITE + ANSI_BG_BLUE + "|");
-        System.out.print(ANSI_RESET);
+        AnsiConsole.out.print(ANSI_BRIGHT_WHITE + ANSI_BG_BLUE + "|");
+        AnsiConsole.out.print(ANSI_RESET);
         for (int i = 0; i < DAYS_IN_WEEK; i++) {
             printHeaderSpaces(largestColSize);
             System.out.print(days[i]);
@@ -367,9 +369,9 @@ public class Ui {
      */
     private void printHyphens(int numberOfHyphens) {
         for (int i = 0; i < numberOfHyphens; i++) {
-            System.out.print(ANSI_BRIGHT_WHITE + ANSI_BG_BLUE + "-");
+            AnsiConsole.out.print(ANSI_BRIGHT_WHITE + ANSI_BG_BLUE + "-");
         }
-        System.out.println(ANSI_RESET);
+        AnsiConsole.out.println(ANSI_RESET);
     }
 
     /**
@@ -390,7 +392,7 @@ public class Ui {
      */
     private void printHeaderSpaces(int largestColSize) {
         for (int i = 0; i < largestColSize / SPLIT_EVEN; i++) {
-            System.out.print(ANSI_BRIGHT_WHITE + ANSI_BG_BLUE + " ");
+            AnsiConsole.out.print(ANSI_BRIGHT_WHITE + ANSI_BG_BLUE + " ");
         }
     }
 
@@ -441,13 +443,13 @@ public class Ui {
         for (int i = 0; i < largestColSize + DATE_SPACES - DATE; i++) {
             spaces += " ";
         }
-        System.out.print(ANSI_RESET);
+        AnsiConsole.out.print(ANSI_RESET);
         for (int i = 0; i < DAYS_IN_WEEK; i++) {
             if (i != DAYS_IN_WEEK - 1) {
-                System.out.print(" " + ANSI_BG_BLACK + calendarDates.get(i) + ANSI_RESET + spaces + "|");
+                AnsiConsole.out.print(" " + ANSI_BG_BLACK + calendarDates.get(i) + ANSI_RESET + spaces + "|");
             }
         }
-        System.out.print(" " + ANSI_BG_BLACK + calendarDates.get(DAYS_IN_WEEK - 1) + ANSI_RESET + spaces);
+        AnsiConsole.out.print(" " + ANSI_BG_BLACK + calendarDates.get(DAYS_IN_WEEK - 1) + ANSI_RESET + spaces);
         printViewWeekBorder();
         System.out.println();
     }
@@ -488,7 +490,7 @@ public class Ui {
                 String[] task = dailyTasks.get(taskNo);
                 String taskDetails = getTaskDetails(task);
                 taskDetails = padTaskDetails(task, taskDetails, largestColSize);
-                System.out.print(taskDetails);
+                AnsiConsole.out.print(taskDetails);
                 if (dayInWeek != DAYS_IN_WEEK - 1) {
                     System.out.print("|");
                 } else {
@@ -514,8 +516,8 @@ public class Ui {
      * Prints the side borders of the View Week output.
      */
     private void printViewWeekBorder() {
-        System.out.print(ANSI_BRIGHT_WHITE + ANSI_BG_BLUE + "|");
-        System.out.print(ANSI_RESET);
+        AnsiConsole.out.print(ANSI_BRIGHT_WHITE + ANSI_BG_BLUE + "|");
+        AnsiConsole.out.print(ANSI_RESET);
     }
 
     /**
@@ -1035,7 +1037,7 @@ public class Ui {
      */
     public void printBusySlots(String timeSlotStart, String timeSlotEnd) {
         System.out.print("| " + timeSlotStart + " - " + timeSlotEnd + " |");
-        System.out.println(ANSI_BRIGHT_RED + centraliseDetails("BUSY") + ANSI_RESET + "|");
+        AnsiConsole.out.println(ANSI_BRIGHT_RED + centraliseDetails("BUSY") + ANSI_RESET + "|");
         System.out.println("-----------------------------------------------------");
     }
 
