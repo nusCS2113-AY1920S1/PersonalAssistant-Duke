@@ -578,6 +578,7 @@ public class ProjectInputController implements IController {
             IReminder newReminder = reminderFactory.createReminder(projectCommand.substring(13));
             if (newReminder.getReminderName() != null) {
                 projectToManage.addReminderToList((Reminder) newReminder);
+                projectToManage.addReminderToCategory(newReminder.getCategory(),(Reminder) newReminder);
                 return new String[] {"Added new reminder to the Reminder List in the project."};
             }
             return new String[] {"Failed to create new task. Please ensure all "
@@ -606,6 +607,7 @@ public class ProjectInputController implements IController {
         } else {
             for (Reminder reminder: projectToManage.getReminderList()) {
                 allTaskDetailsForTable.add(index + ". " + reminder.getStatus() + " " + reminder.getReminderName());
+                allTaskDetailsForTable.add("   - Category: " + reminder.getCategory());
                 allTaskDetailsForTable.add("   - Remarks: " + reminder.getReminderRemarks());
                 allTaskDetailsForTable.add("   - " + dateTimeHelper.formatDateForDisplay(reminder.getReminderDate())
                         + dateTimeHelper.getDifferenceDays(reminder.getReminderDate()));
@@ -635,9 +637,11 @@ public class ProjectInputController implements IController {
             return new String[] {"No reminder index number found in the list! "
                     + "Please enter the correct reminder index number."};
         } else {
-            String removedReminder = projectToManage.getReminder(index).getReminderName();
+            Reminder removedReminder = projectToManage.getReminder(index);
+            projectToManage.removeReminderFromCategory(removedReminder.getCategory(),removedReminder);
             projectToManage.removeReminder(index);
-            return new String[] {removedReminder + " has been remove from the reminder list in the project."};
+            return new String[] {removedReminder.getReminderName()
+                + " has been remove from the reminder list in the project."};
         }
     }
 
@@ -661,6 +665,8 @@ public class ProjectInputController implements IController {
         } else {
 
             try {
+
+                String reminderCategory = projectToManage.getReminder(index).getCategory();
                 ArrayList<String> newReminderDetails = parserHelper.parseReminderDetails(projectCommand);
                 DateTimeHelper dateTimeHelper = new DateTimeHelper();
 
@@ -673,6 +679,12 @@ public class ProjectInputController implements IController {
                 if (newReminderDetails.get(2) != null) {
                     projectToManage.getReminder(index)
                             .setReminderDate(dateTimeHelper.formatDate(newReminderDetails.get(2)));
+                }
+                if (!(newReminderDetails.get(3).equals("DEFAULT"))) {
+                    projectToManage.removeReminderFromCategory(reminderCategory,projectToManage.getReminder(index));
+                    projectToManage.getReminder(index).setCategory(newReminderDetails.get(3));
+                    projectToManage.addReminderToCategory(projectToManage.getReminder(index).getCategory(),
+                            projectToManage.getReminder(index));
                 }
                 return new String[] {"Your reminder have been updated."};
             } catch (NumberFormatException | ParseException e) {

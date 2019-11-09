@@ -22,6 +22,7 @@ public class Project implements IProject {
     private ReminderList reminderList;
     private HashMap<String, ArrayList<String>> taskAndListOfMembersAssigned; //taskID_listOfMemberIDs
     private HashMap<String, ArrayList<String>> memberAndIndividualListOfTasks; //memberID_listOfTaskIDs
+    private HashMap<String, ArrayList<Reminder>> categoryReminderList;
 
     /**
      * Class representing a task in a project.
@@ -34,6 +35,7 @@ public class Project implements IProject {
         this.reminderList = new ReminderList();
         this.taskAndListOfMembersAssigned = new HashMap<>();
         this.memberAndIndividualListOfTasks = new HashMap<>();
+        this.categoryReminderList = new HashMap<>();
     }
 
     @Override
@@ -325,4 +327,37 @@ public class Project implements IProject {
         return reminderList.getReminderList().size();
     }
 
+    /**
+     * Add reminder to the hashmap base on the category.
+     * @param category of the reminder
+     * @param reminder the reminder name.
+     */
+    public void addReminderToCategory(String category, Reminder reminder) {
+        ArrayList<Reminder> reminders = new ArrayList<>();
+        if (categoryReminderList.get(category) == null) {
+            reminders.add(reminder);
+            categoryReminderList.put(category,reminders);
+        } else if (categoryReminderList.containsKey(category)) {
+            categoryReminderList.get(category).add(reminder);
+        }
+    }
+
+    /**
+     * Remove the reminder from the hashmap.
+     * @param category of the reminder
+     * @param reminder the reminder name.
+     */
+    public void removeReminderFromCategory(String category, Reminder reminder) {
+        if (categoryReminderList.get(category).contains(reminder)) {
+            if (categoryReminderList.get(category).size() == 1) {
+                categoryReminderList.remove(category);
+            } else {
+                categoryReminderList.get(category).remove(reminder);
+            }
+        }
+    }
+
+    public void getCategoryReminderList() {
+
+    }
 }
