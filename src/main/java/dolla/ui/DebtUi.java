@@ -13,7 +13,7 @@ public class DebtUi extends Ui {
     public static void printInvalidDebtFormatError() {
         System.out.println(line);
         System.out.println("\tplease follow the format "
-                + "'owe(/borrow) [NAME] [AMOUNT] [DESCRIPTION] /due [DURATION] {/tag [TAGNAME]}'");
+                + "'owe(/borrow) [NAME] [AMOUNT] [DESCRIPTION] /due [DURATION]'");
         System.out.println(line);
     }
 

@@ -8,7 +8,18 @@ import dolla.ui.ModifyUi;
 
 import java.time.LocalDate;
 
+<<<<<<< HEAD
 public class PartialModifyEntryCommand extends ModifyEntryCommand {
+=======
+public class PartialModifyEntryCommand extends Command {
+
+    private String type;
+    private double amount;
+    private String description;
+    private LocalDate date;
+
+    private static final String MODE_ENTRY = "entry";
+>>>>>>> 02347bc6ca157d87a54276f756ae2eecdcc1679b
 
     /**
      * Instantiates a new PartialModifyEntryCommand.
@@ -32,8 +43,12 @@ public class PartialModifyEntryCommand extends ModifyEntryCommand {
         if (isIndexInList(dollaData.getRecordListObj(MODE_ENTRY), MODE_ENTRY)) {
             Record originalEntry = dollaData.getRecordFromList(MODE_ENTRY, index);
             overwriteComponents(originalEntry);
+<<<<<<< HEAD
             updateUndoState(dollaData);
             Entry newEntry = new Entry(type, amount, description, date, tagName);
+=======
+            Entry newEntry = new Entry(type, amount, description, date);
+>>>>>>> 02347bc6ca157d87a54276f756ae2eecdcc1679b
             dollaData.modifyRecordList(newEntry);
             ModifyUi.echoModifyRecord(newEntry);
             dollaData.updateMode(MODE_ENTRY);

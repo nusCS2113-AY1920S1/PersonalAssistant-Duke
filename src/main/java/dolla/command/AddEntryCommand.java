@@ -21,7 +21,6 @@ public class AddEntryCommand extends Command {
     private double amount;
     private String description;
     private LocalDate date;
-    private String tagName;
     private static final String mode = MODE_ENTRY;
 
     /**
@@ -31,17 +30,16 @@ public class AddEntryCommand extends Command {
      * @param description Details pertaining to the entry.
      * @param date Date of income/expense.
      */
-    public AddEntryCommand(String type, double amount, String description, LocalDate date, String tagName) {
+    public AddEntryCommand(String type, double amount, String description, LocalDate date) {
         this.type = type;
         this.amount = amount;
         this.description = description;
         this.date = date;
-        this.tagName = tagName;
     }
 
     @Override
     public void execute(DollaData dollaData) {
-        Entry newEntry = new Entry(type, amount, description, date, tagName);
+        Entry newEntry = new Entry(type, amount, description, date);
         EntryList entryList = (EntryList) dollaData.getRecordListObj(mode);
         UndoStateList.addState(new EntryState(entryList.get()), mode);///////////////////////////////////////
         Redo.clearRedoState(mode);
@@ -56,7 +54,7 @@ public class AddEntryCommand extends Command {
     }
 
     @Override
-    public String getCommandInfo() { //todo: add tag part
+    public String getCommandInfo() {
         String command = "AddEntryCommand";
         //return (command + "{ type: " + type + ", amount: " + amount + ", description: "
         //        + description + ", date: " + Time.dateToString(date) + ", prevPosition: "

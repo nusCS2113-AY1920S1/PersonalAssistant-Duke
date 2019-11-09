@@ -9,6 +9,8 @@ import dolla.model.LimitList;
 import dolla.model.Record;
 import dolla.ui.LimitUi;
 
+import static dolla.parser.ParserStringList.SPACE;
+
 //@@author Weng-Kexin
 public class AddLimitCommand extends Command {
 
@@ -16,8 +18,6 @@ public class AddLimitCommand extends Command {
     private double amount;
     private String duration;
     private static final String mode = MODE_LIMIT;
-    private static final String commandInfo = "AddLimitCommand";
-
 
     /**
      * Instantiates a new AddLimitCommand.
@@ -50,6 +50,6 @@ public class AddLimitCommand extends Command {
 
     @Override
     public String getCommandInfo() {
-        return commandInfo;
+        return type + SPACE + amount + SPACE + duration;
     }
 }

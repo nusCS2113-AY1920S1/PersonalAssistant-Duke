@@ -17,8 +17,8 @@ public class EntryUi extends Ui {
      */
     public static void printInvalidEntryFormatError() {
         System.out.println(line);
-        System.out.println("\tplease follow the format "
-                + "'add income(/expense) [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}'");
+        System.out.println("\tPlease follow the format "
+                + "'add income(/expense) [AMOUNT] [DESCRIPTION] /on [DATE]'");
         System.out.println(line);
     }
 }

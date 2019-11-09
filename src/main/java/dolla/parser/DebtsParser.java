@@ -1,9 +1,12 @@
 package dolla.parser;
 
+<<<<<<< HEAD
 import dolla.command.modify.PartialModifyDebtCommand;
 import dolla.model.DollaData;
 import dolla.Tag;
 import dolla.Time;
+=======
+>>>>>>> 02347bc6ca157d87a54276f756ae2eecdcc1679b
 import dolla.command.Command;
 import dolla.command.modify.InitialModifyCommand;
 import dolla.command.ShowListCommand;
@@ -16,7 +19,8 @@ import dolla.command.ActionCommand;
 import dolla.command.RemoveCommand;
 import dolla.command.SearchCommand;
 import dolla.command.RemoveNameCommand;
-import dolla.model.Debt;
+
+import dolla.model.DollaData;
 import dolla.model.RecordList;
 import dolla.ui.DebtUi;
 import dolla.ui.SearchUi;
@@ -43,17 +47,14 @@ public class DebtsParser extends Parser {
             return new ShowBillListCommand(mode);
         } else if (commandToRun.equals(DEBT_COMMAND_OWE) || commandToRun.equals(DEBT_COMMAND_BORROW)) {
             String type = commandToRun;
-            Tag t = new Tag();
             if (verifyDebtCommand()) {
-                Debt debt = new Debt(type, inputArray[1], amount, description, date, t.getTagName());
-                t.handleTag(debt);
-                return new AddDebtsCommand(type, inputArray[1], amount, description, date, t.getTagName());
+                return new AddDebtsCommand(type, inputArray[1], amount, description, date);
             } else {
                 return new ErrorCommand();
             }
         } else if (commandToRun.equals(BILL_COMMAND_BILL)) {
-            int people = 0;
-            double amount = 0;
+            int people;
+            double amount;
             ArrayList<String> nameList = new ArrayList<String>();
             try {
                 people = Integer.parseInt(inputArray[1]);
@@ -70,8 +71,8 @@ public class DebtsParser extends Parser {
             }
             return new AddBillCommand(BILL_COMMAND_BILL, people, amount, nameList);
         } else if (commandToRun.equals(BILL_COMMAND_PAID)) {
-            int billNum = 0;
-            String name = null;
+            int billNum;
+            String name;
             RecordList recordList;
             DollaData dollaData = new DollaData();
             recordList = dollaData.getBillRecordList();

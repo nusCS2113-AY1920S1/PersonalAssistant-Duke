@@ -17,17 +17,15 @@ public class Entry extends Record {
      * @param amount Amount of money that is earned/spent.
      * @param description Details pertaining to the entry.
      * @param date Date of income/expense.
-     * @param tagName Details of the tag name.
      */
-    public Entry(String type, double amount, String description, LocalDate date, String tagName) {
+    public Entry(String type, double amount, String description, LocalDate date) {
         this.sign = ("income".equals(type) ? '+' : '-');
         this.type = type;
         this.amount = amount;
         this.description = description;
         this.date = date;
-        this.tagName = tagName;
         this.recordType = RECORD_ENTRY;
-        this.userInput = type + " " + amount + " " + description + " /on " + Time.dateToString(date) + " " + tagName;
+        this.userInput = type + " " + amount + " " + description + " /on " + Time.dateToString(date);
     }
 
     public String amountToMoney() {
@@ -44,8 +42,7 @@ public class Entry extends Record {
         return "[" + type + "] "
                 + "[" + amountToMoney() + "] "
                 + "[" + description + "] "
-                + "[/on " + Time.dateToString(date) + "]"
-                + " {Tag: " + tagName + '}';
+                + "[/on " + Time.dateToString(date) + "]";
     }
 
     /**
@@ -58,8 +55,7 @@ public class Entry extends Record {
         return  saveType + " | "
                 + amount + " | "
                 + description + " | "
-                + Time.dateToString(date) + " | "
-                + tagName;
+                + Time.dateToString(date);
     }
 
     @Override

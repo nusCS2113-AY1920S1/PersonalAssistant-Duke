@@ -26,7 +26,7 @@ public class ShowListCommand extends Command {
         RecordList recordList = dollaData.getRecordListObj(mode);
         boolean listIsEmpty = (recordList.size() == 0);
 
-        if (listIsEmpty) { // TODO: Place this in proper place
+        if (listIsEmpty) {
             ListUi.printEmptyListError(mode);
         } else if (mode.equals(MODE_ENTRY)) {
             ListUi.printList(mode, recordList);

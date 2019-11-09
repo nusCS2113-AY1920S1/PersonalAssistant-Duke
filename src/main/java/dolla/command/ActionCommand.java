@@ -4,7 +4,6 @@ import dolla.model.DollaData;
 import dolla.command.action.Redo;
 import dolla.command.action.Undo;
 import dolla.model.Record;
-import dolla.exception.DollaException;
 
 import java.util.ArrayList;
 
@@ -26,7 +25,7 @@ public class ActionCommand extends Command {
     }
 
     @Override
-    public void execute(DollaData dollaData) throws DollaException {
+    public void execute(DollaData dollaData) {
         switch (command) {
         case UNDO:
             ArrayList<Record> recordList = Undo.processUndoState(mode);
