@@ -16,6 +16,7 @@ import cube.logic.command.util.CommandResult;
 import cube.logic.command.util.CommandUtil;
 
 import java.util.Date;
+import java.util.Iterator;
 
 /**
  * This class supports commands related to generating profits and revenue.
@@ -109,12 +110,24 @@ public class ProfitCommand extends Command {
         FoodList list = ModelManager.getFoodList();
         Food toGenerate1;
 
-        SalesHistory set = ModelManager.getSalesHistory();
+        SalesHistory saleSet = ModelManager.getSalesHistory();
         Sale toGenerate;
+        double toGenerateProfit = 0;
+        double toGenerateRevenue = 0;
         switch (param) {
             case ALL:
-
-                return new CommandResult(String.format(MESSAGE_SUCCESS_ALL, Food.getRevenue(), list.size()));
+                Iterator<Sale> it = saleSet.iterator();
+                while (it.hasNext()) {
+                    Sale tempSale = it.next();
+                    Date tempDate = tempSale.getDate();
+                    if (tempDate.compareTo(date_i) >= 0 && tempDate.compareTo(date_f) <= 0) {
+                        double tempRevenue = tempSale.getRevenue();
+                        double tempProfit = tempSale.getProfit();
+                        toGenerateRevenue += tempRevenue;
+                        toGenerateProfit += tempProfit;
+                    }
+                }
+                return new CommandResult(String.format(MESSAGE_SUCCESS_ALL, toGenerateProfit, toGenerateRevenue, list.size()));
             case INDEX:
                 CommandUtil.requireValidIndex(list, profitIndex);
                 toGenerate1 = list.get(profitIndex);
