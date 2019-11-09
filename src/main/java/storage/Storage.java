@@ -64,7 +64,6 @@ public class Storage {
         if (!filePath.exists()) {
             filePath.mkdir();
         }
-        File dataExcel = new File(filePath, "wordup.xlsx");
         if (!dataText.exists()) {
             try {
                 dataText.createNewFile();
@@ -230,7 +229,7 @@ public class Storage {
             }
             oldContent = oldContent.substring(0, oldContent.length() - 1);
             String newContent = oldContent.replace(oldString, newString).trim();
-            this.writeFile(newContent,false);
+            this.writeFile(newContent,false,fileType);
         } catch (IOException | UnableToWriteFileException e) {
             e.printStackTrace();
         } finally {

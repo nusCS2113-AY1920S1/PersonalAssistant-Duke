@@ -10,6 +10,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import parser.Parser;
 import storage.Storage;
 import ui.Ui;
 
@@ -96,10 +97,10 @@ public class SearchTest {
     @Test
     public void searchCaseInsensitiveTest() {
         try {
-            SearchCommand searchCommand = new SearchCommand("BANANA");
+            Command searchCommand = Parser.parse("search w/BANANA");
             String search = searchCommand.execute(ui, bank, storage);
             Assertions.assertEquals(search, "Here is the meaning of banana: yellow fruit\n");
-            searchCommand = new SearchCommand("APPLE");
+            searchCommand = Parser.parse("search w/apple");
             search = searchCommand.execute(ui, bank, storage);
             Assertions.assertEquals(search, "Here is the meaning of apple: red fruit\n");
         } catch (Exception e) {
