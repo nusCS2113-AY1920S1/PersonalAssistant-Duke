@@ -45,13 +45,7 @@ Jump to <<Quick Start>> to get started! Enjoy!
 .  Ensure you have Java 11 or above installed on your computer.
 .. For `windows` users:
 ... Download the latest release link:{repoURL}/releases[here].
-... Please download `settings.bat` and `reset.bat`
-... Double-click `settings.bat` and enter `yes` for all the options provided.
-+
-[NOTE]
-This script enables horizontal scrolling and terminal colours which are essential for our application to run smoothly. If `settings.bat` is not run on your machine, you may encounter erratic output from our application. Please ensure you have followed these steps closely. If you would like to revert the settings changed, simply click on `reset.bat` and the console defaults would be set.
-+
-... Open a *new* console window and ensure that the scrolling bar in the console has appeared. If not, repeat `step 3`.
+... Open a `console` window.
 ... Navigate to the directory containing our jar file.
 ... Run the command “java -jar *_[X]_*.jar”. The application should load within a few seconds.
 +
