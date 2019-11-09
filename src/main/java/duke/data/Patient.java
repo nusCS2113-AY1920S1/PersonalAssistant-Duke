@@ -40,15 +40,16 @@ public class Patient extends DukeObject {
     public Patient(String name, String bedNo, String allergies, Integer height, Integer weight,
                    Integer age, Integer number, String address, String history) {
         super(name, null);
+
         this.bedNo = bedNo;
-        this.allergies = allergies;
+        setAllergies(allergies);
         this.impressionList = new ArrayList<>();
-        this.height = height;
-        this.weight = weight;
-        this.age = age;
-        this.number = number;
-        this.address = address;
-        this.history = history;
+        setHeight(height);
+        setWeight(weight);
+        setAge(age);
+        setNumber(number);
+        setAddress(address);
+        setHistory(history);
         this.primaryDiagnosis = null;
     }
 
@@ -63,7 +64,12 @@ public class Patient extends DukeObject {
         if (isDuplicate(newImpression)) {
             throw new DukeException("Impression already exists!");
         }
-        this.impressionList.add(newImpression);
+
+        if (impressionList.size() == 0) {
+            primaryDiagnosis = newImpression;
+        }
+
+        impressionList.add(newImpression);
         return newImpression;
     }
 
@@ -76,10 +82,21 @@ public class Patient extends DukeObject {
      */
     public Impression deleteImpression(String keyIdentifier) throws DukeException {
         Impression deletedImpression = getImpression(keyIdentifier);
+
         if (deletedImpression != null) {
             impressionList.remove(deletedImpression);
+
+            if (deletedImpression.equals(primaryDiagnosis)) {
+                primaryDiagnosis = null;
+            }
+
+            if (impressionList.size() == 1) {
+                primaryDiagnosis = impressionList.get(0);
+            }
+
             return deletedImpression;
         }
+
         throw new DukeException("I don't have an Impression called that!");
     }
 
@@ -244,8 +261,8 @@ public class Patient extends DukeObject {
         informationString.append("History: ").append(this.history).append("\n");
         informationString.append("Registration details\n");
         informationString.append("Bed Number: ").append(this.bedNo).append("\n");
-        informationString.append("Allergies: ").append(this.allergies).append("\n");
-        informationString.append((primaryDiagnosis != null) ? "Primary Diagnosis: "
+        informationString.append("Allergies: ").append(this.allergies);
+        informationString.append((primaryDiagnosis != null) ? "\n\nPrimary Diagnosis: \n"
                 + this.primaryDiagnosis.toString() + "\n" : "");
         for (Impression imp : this.impressionList) {
             informationString.append(imp.toString());
@@ -369,13 +386,27 @@ public class Patient extends DukeObject {
         this.history = history;
     }
 
+    /**
+     * Delete primary diagnosis of patient. If there exists only 1 impression for the patient, that impression
+     * shall become the primary diagnosis of the patient.
+     *
+     * @throws DukeException If the impressio
+     */
     public void deletePriDiagnose() throws DukeException {
-        this.impressionList.remove(primaryDiagnosis);
+        if (this.impressionList.remove(primaryDiagnosis)) {
+            throw new DukeException("Patient has no primary diagnosis at the moment.");
+        }
+
         this.primaryDiagnosis = null;
+
+        if (impressionList.size() == 1) {
+            this.primaryDiagnosis = impressionList.get(0);
+        }
     }
 
     /**
      * Computes the number of critical items for this patient: DukeData objects with priority 1, across all impressions.
+     *
      * @return The number of critical DukeData items for this patient.
      */
     public String getCriticalCountStr() {
@@ -397,6 +428,7 @@ public class Patient extends DukeObject {
      * This function determines if the patient contains the searchTerm in specific fields.
      * Does not include personal biometric data such as height, weight, number, bedNo, age.
      * Does not include Impressions of the patient.
+     *
      * @param searchTerm the substring to be checked
      * @return true if it is contained
      */
