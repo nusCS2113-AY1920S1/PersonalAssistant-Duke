@@ -63,12 +63,6 @@ public class LimitParser extends Parser {
             } else {
                 return new ErrorCommand();
             }
-        } else if (commandToRun.equals(ParserStringList.COMMAND_SORT)) {
-            if (verifySort()) {
-                return new SortCommand(mode, inputArray[1]);
-            } else {
-                return new ErrorCommand();
-            }
         } else if (commandToRun.equals(COMMAND_REDO)
                 || commandToRun.equals(COMMAND_UNDO)) {
             return new ActionCommand(mode, commandToRun);

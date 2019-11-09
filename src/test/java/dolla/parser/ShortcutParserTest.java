@@ -118,7 +118,7 @@ public class ShortcutParserTest {
     }
 
     @Test
-    public void parseValidSortTest() {
+    public void parseValidSortTest1() {
         inputLine = "sort amount";
         ShortcutParser shortcutParser = new ShortcutParser(inputLine);
         Command c = shortcutParser.parseInput();
@@ -127,8 +127,26 @@ public class ShortcutParserTest {
     }
 
     @Test
-    public void parseInvalidSortTest() {
+    public void parseValidSortTest2() {
+        inputLine = "sort description";
+        ShortcutParser shortcutParser = new ShortcutParser(inputLine);
+        Command c = shortcutParser.parseInput();
+        expectedCommand = "sort description in shortcut";
+        assertEquals(expectedCommand, c.getCommandInfo());
+    }
+
+    @Test
+    public void parseInvalidSortTest1() {
         inputLine = "sort date";
+        ShortcutParser shortcutParser = new ShortcutParser(inputLine);
+        Command c = shortcutParser.parseInput();
+        expectedCommand = "ErrorCommand";
+        assertEquals(expectedCommand, c.getCommandInfo());
+    }
+
+    @Test
+    public void parseInvalidSortTest2() {
+        inputLine = "sort name";
         ShortcutParser shortcutParser = new ShortcutParser(inputLine);
         Command c = shortcutParser.parseInput();
         expectedCommand = "ErrorCommand";

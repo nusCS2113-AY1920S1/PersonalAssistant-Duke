@@ -100,4 +100,20 @@ public class LimitParserTest {
         Command command = limitParser.parseInput();
         assertEquals(expectedInvalidResult, command.getCommandInfo());
     }
+
+    @Test
+    public void parseInvalidSortTest1() {
+        String inputLine = "sort date";
+        LimitParser limitParser = new LimitParser(inputLine);
+        Command command = limitParser.parseInput();
+        assertEquals(expectedInvalidResult, command.getCommandInfo());
+    }
+
+    @Test
+    public void parseInvalidSortTest2() {
+        String inputLine = "sort";
+        LimitParser limitParser = new LimitParser(inputLine);
+        Command command = limitParser.parseInput();
+        assertEquals(expectedInvalidResult, command.getCommandInfo());
+    }
 }

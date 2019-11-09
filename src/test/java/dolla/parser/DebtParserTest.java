@@ -109,4 +109,49 @@ public class DebtParserTest {
         expected = "ErrorCommand";
         assertEquals(expected, command.getCommandInfo());
     }
+
+    @Test
+    public void parseValidSortTest1() {
+        inputLine = "sort amount";
+        DebtsParser debtsParser = new DebtsParser(inputLine);
+        Command command = debtsParser.parseInput();
+        expected = "sort amount in debt";
+        assertEquals(expected, command.getCommandInfo());
+    }
+
+    @Test
+    public void parseValidSortTest2() {
+        inputLine = "sort date";
+        DebtsParser debtsParser = new DebtsParser(inputLine);
+        Command command = debtsParser.parseInput();
+        expected = "sort date in debt";
+        assertEquals(expected, command.getCommandInfo());
+    }
+
+    @Test
+    public void parseValidSortTest3() {
+        inputLine = "sort name";
+        DebtsParser debtsParser = new DebtsParser(inputLine);
+        Command command = debtsParser.parseInput();
+        expected = "sort name in debt";
+        assertEquals(expected, command.getCommandInfo());
+    }
+
+    @Test
+    public void parseValidSortTest4() {
+        inputLine = "sort description";
+        DebtsParser debtsParser = new DebtsParser(inputLine);
+        Command command = debtsParser.parseInput();
+        expected = "sort description in debt";
+        assertEquals(expected, command.getCommandInfo());
+    }
+
+    @Test
+    public void parseInvalidSortTest() {
+        inputLine = "sort random";
+        DebtsParser debtsParser = new DebtsParser(inputLine);
+        Command command = debtsParser.parseInput();
+        expected = "ErrorCommand";
+        assertEquals(expected, command.getCommandInfo());
+    }
 }
