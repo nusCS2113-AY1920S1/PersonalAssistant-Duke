@@ -1,8 +1,8 @@
 package seedu.hustler.data;
 
 import seedu.hustler.game.avatar.Avatar;
-import seedu.hustler.game.avatar.Level;
-import seedu.hustler.game.avatar.Stats;
+import seedu.hustler.game.avatar.AvatarLevel;
+import seedu.hustler.game.avatar.AvatarStats;
 import seedu.hustler.game.shop.items.armors.Armor;
 import seedu.hustler.game.shop.items.weapons.Weapon;
 
@@ -36,8 +36,8 @@ public class AvatarStorage {
         try {
             Scanner avatarTxt = new Scanner(new File(FILEPATH));
             String name = new String();
-            Level level = new Level();
-            Stats stats = new Stats();
+            AvatarLevel avatarLevel = new AvatarLevel();
+            AvatarStats avatarStats = new AvatarStats();
             Optional<Weapon> weapon = Optional.empty();
             Optional<Armor> armor = Optional.empty();
             while (avatarTxt.hasNextLine()) {
@@ -45,9 +45,9 @@ public class AvatarStorage {
                 if (txt[0].equals("Name")) {
                     name = txt[1];
                 } else if (txt[0].equals("Level")) {
-                    level = new Level(Integer.parseInt(txt[1]), Integer.parseInt(txt[2]));
+                    avatarLevel = new AvatarLevel(Integer.parseInt(txt[1]), Integer.parseInt(txt[2]));
                 } else if (txt[0].equals("Stats")) {
-                    stats = new Stats(Integer.parseInt(txt[1]), Integer.parseInt(txt[2]),
+                    avatarStats = new AvatarStats(Integer.parseInt(txt[1]), Integer.parseInt(txt[2]),
                             Integer.parseInt(txt[3]), Integer.parseInt(txt[4]));
                 } else if (txt[0].equals("Weapon")) {
                     weapon = Weapon.getWeapon(txt[1]);
@@ -56,7 +56,7 @@ public class AvatarStorage {
                 }
             }
             avatarTxt.close();
-            avatar = new Avatar(name, level, stats, weapon, armor);
+            avatar = new Avatar(name, avatarLevel, avatarStats, weapon, armor);
         } catch (FileNotFoundException e) {
             System.out.println("\t_____________________________________");
             System.out.println("\tNo Avatar saved in database, creating a new Avatar now.");
@@ -77,8 +77,8 @@ public class AvatarStorage {
         try {
             Scanner avatarBackupTxt = new Scanner(new File(FILEPATHBACKUP));
             String name = new String();
-            Level level = new Level();
-            Stats stats = new Stats();
+            AvatarLevel avatarLevel = new AvatarLevel();
+            AvatarStats avatarStats = new AvatarStats();
             Optional<Weapon> weapon = Optional.empty();
             Optional<Armor> armor = Optional.empty();
             while (avatarBackupTxt.hasNextLine()) {
@@ -86,9 +86,9 @@ public class AvatarStorage {
                 if (backupTxt[0].equals("Name")) {
                     name = backupTxt[1];
                 } else if (backupTxt[0].equals("Level")) {
-                    level = new Level(Integer.parseInt(backupTxt[1]), Integer.parseInt(backupTxt[2]));
+                    avatarLevel = new AvatarLevel(Integer.parseInt(backupTxt[1]), Integer.parseInt(backupTxt[2]));
                 } else if (backupTxt[0].equals("Stats")) {
-                    stats = new Stats(Integer.parseInt(backupTxt[1]), Integer.parseInt(backupTxt[2]),
+                    avatarStats = new AvatarStats(Integer.parseInt(backupTxt[1]), Integer.parseInt(backupTxt[2]),
                             Integer.parseInt(backupTxt[3]), Integer.parseInt(backupTxt[4]));
                 } else if (backupTxt[0].equals("Weapon")) {
                     weapon = Weapon.getWeapon(backupTxt[1]);
@@ -97,7 +97,7 @@ public class AvatarStorage {
                 }
             }
             avatarBackupTxt.close();
-            avatar = new Avatar(name, level, stats, weapon, armor);
+            avatar = new Avatar(name, avatarLevel, avatarStats, weapon, armor);
         } catch (FileNotFoundException e) {
 
         }
