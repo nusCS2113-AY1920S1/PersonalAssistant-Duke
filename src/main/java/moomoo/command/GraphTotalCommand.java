@@ -1,12 +1,12 @@
 package moomoo.command;
 
-import moomoo.task.category.Category;
-import moomoo.task.ScheduleList;
-import moomoo.task.Budget;
-import moomoo.task.MooMooException;
-import moomoo.task.category.CategoryList;
-import moomoo.task.Storage;
-import moomoo.task.Ui;
+import moomoo.feature.Ui;
+import moomoo.feature.category.Category;
+import moomoo.feature.ScheduleList;
+import moomoo.feature.Budget;
+import moomoo.feature.MooMooException;
+import moomoo.feature.category.CategoryList;
+import moomoo.feature.storage.Storage;
 
 import java.time.LocalDate;
 
@@ -38,19 +38,20 @@ public class GraphTotalCommand extends Command {
     }
     
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList catList,
-                        Category category, Ui ui, Storage storage)
+    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
+                        Storage storage)
             throws MooMooException {
 
-        if (catList.size() == 0) {
+        if (categoryList.size() == 0) {
             throw new MooMooException("OOPS!!! MooMoo cannot find any category data :(");
         }
         
-        double grandTotal = catList.getTotal();
+        double grandTotal = categoryList.getTotal();
         if (grandTotal == 0) {
             grandTotal = 1;
         }
-        int maxAxisUnit = (int) ((catList.getLargestExpenditure(LocalDate.now().getMonthValue()) / grandTotal) * 100);
+        int maxAxisUnit = (int) ((categoryList.getLargestExpenditure(LocalDate.now().getMonthValue()) / grandTotal)
+                * 100);
         for (int i = 0; i < maxAxisUnit; i += 1) {
             horizontalAxisTop += topBorder;
             horizontalAxisBottom += bottomBorder;
@@ -60,17 +61,17 @@ public class GraphTotalCommand extends Command {
         horizontalAxisBottom = ANSI_YELLOW + horizontalAxisBottom + ANSI_RESET;
         
         String topSpace = "";
-        for (int i = 0; i < catList.getLongestCategory(); i += 1) {
+        for (int i = 0; i < categoryList.getLongestCategory(); i += 1) {
             topSpace += " ";
         }
         output += topSpace + horizontalAxisTop + "\n";
         
-        for (int i = 0; i < catList.size(); i += 1) {
-            Category cat = catList.get(i);
+        for (int i = 0; i < categoryList.size(); i += 1) {
+            Category cat = categoryList.get(i);
             double percentage = 100 * (cat.getTotal() / grandTotal);
             percentage = roundToTwoDp(percentage);
             
-            String categoryName = catList.get(i).toString();
+            String categoryName = categoryList.get(i).name();
             if (categoryName.length() > 14) {
                 categoryName = categoryName.substring(0, 11) + "...";
             }
@@ -81,7 +82,7 @@ public class GraphTotalCommand extends Command {
                 output = output + categoryName;
             }
             
-            for (int j = 0; j < (catList.getLongestCategory() - categoryName.length() + 1); j += 1) {
+            for (int j = 0; j < (categoryList.getLongestCategory() - categoryName.length() + 1); j += 1) {
                 output += " ";
             }
     
@@ -100,6 +101,6 @@ public class GraphTotalCommand extends Command {
             }
         }
         output += topSpace + horizontalAxisBottom + "\n";
-        ui.setOutput(output);
+        Ui.setOutput(output);
     }
 }

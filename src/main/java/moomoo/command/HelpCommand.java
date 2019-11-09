@@ -1,11 +1,10 @@
 package moomoo.command;
 
-import moomoo.task.Budget;
-import moomoo.task.ScheduleList;
-import moomoo.task.Storage;
-import moomoo.task.Ui;
-import moomoo.task.category.Category;
-import moomoo.task.category.CategoryList;
+import moomoo.feature.Budget;
+import moomoo.feature.ScheduleList;
+import moomoo.feature.Ui;
+import moomoo.feature.storage.Storage;
+import moomoo.feature.category.CategoryList;
 
 public class HelpCommand extends Command {
 
@@ -17,8 +16,22 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category, Ui ui,
+    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
                         Storage storage) {
-        ui.showHelp();
+        String text = "Try one of these commands:\n"
+                + "bye\n"
+                + "list\n"
+                + "category add [CATEGORY NAME]\n"
+                + "category edit o/[OLD CATEGORY NAME] n/[NEW CATEGORY NAME]\n"
+                + "category delete [CATEGORY NAME or CATEGORY INDEX NUMBER]\n"
+                + "add n/[NAME] a/[AMOUNT SPENT] c/[CATEGORY] (optional: d/[YYYY-MM-DD])\n"
+                + "edit i/[INDEX] (at least one of: n/[NAME] a/[AMOUNT SPENT] c/[CATEGORY] d/[YYYY-MM-DD])\n"
+                + "delete i/[INDEX] c/[Category]\n"
+                + "sort [TYPE]\n"
+                + "budget\n"
+                + "schedule\n"
+                + "graph\n"
+                + "total";
+        Ui.setOutput(text);
     }
 }

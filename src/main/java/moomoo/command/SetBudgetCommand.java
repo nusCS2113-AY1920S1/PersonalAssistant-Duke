@@ -1,12 +1,11 @@
 package moomoo.command;
 
-import moomoo.task.Budget;
-import moomoo.task.category.Category;
-import moomoo.task.category.CategoryList;
-import moomoo.task.MooMooException;
-import moomoo.task.ScheduleList;
-import moomoo.task.Storage;
-import moomoo.task.Ui;
+import moomoo.feature.Budget;
+import moomoo.feature.Ui;
+import moomoo.feature.category.CategoryList;
+import moomoo.feature.MooMooException;
+import moomoo.feature.ScheduleList;
+import moomoo.feature.storage.Storage;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -33,15 +32,15 @@ public class SetBudgetCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category,
-                        Ui ui, Storage storage) throws MooMooException {
+    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
+                        Storage storage) throws MooMooException {
         String outputValue = "";
         boolean isUpdated = false;
 
         for (int i = 0; i < categories.size(); ++i) {
             String categoryName = categories.get(i).toLowerCase();
             double categoryBudget = budgets.get(i);
-            if (catList.get(categoryName) != null) {
+            if (categoryList.get(categoryName) != null) {
                 if (categoryBudget <= 0) {
                     outputValue += "Please set your budget for " + categoryName + " to a value more than 0\n";
                     continue;
@@ -83,7 +82,7 @@ public class SetBudgetCommand extends Command {
                 outputValue += categoryName + " category does not exist. Please add it first.\n";
             }
         }
-        ui.setOutput(outputValue);
+        Ui.setOutput(outputValue);
         if (isUpdated) {
             storage.saveBudgetToFile(budget);
         }

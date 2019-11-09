@@ -1,11 +1,9 @@
-package moomoo.task.category;
+package moomoo.feature.category;
 
-import moomoo.task.MooMooException;
-import moomoo.task.Ui;
+import moomoo.feature.MooMooException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class CategoryList {
     
@@ -27,9 +25,8 @@ public class CategoryList {
         categoryList.add(newCategory);
     }
 
-    public void delete(String categoryName) throws MooMooException {
-        int categoryNumber = find(categoryName);
-        categoryList.remove(categoryNumber);
+    public void delete(int categoryIndex) {
+        categoryList.remove(categoryIndex);
     }
 
     /**
@@ -38,26 +35,43 @@ public class CategoryList {
      * @return The category with name equal to value, or null if it is not found.
      */
     public Category get(String value) throws MooMooException {
-        for (Category iterCategory : categoryList) {
-            if (iterCategory.toString().equalsIgnoreCase(value)) {
-                return iterCategory;
+        for (Category category : categoryList) {
+            String name = category.name();
+            if (name.contentEquals(value)) {
+                return category;
             }
         }
         return null;
 
     }
 
-    public Category get(int i) throws IndexOutOfBoundsException {
-        return categoryList.get(i);
+    /**
+     * Returns the category at the specified index of a category list, throws exception if not found.
+     * @param i index of the category list
+     * @return category at the specified index
+     * @throws MooMooException if the index does not exist in the list
+     */
+    public Category get(int i) throws MooMooException {
+        try {
+            return categoryList.get(i);
+        } catch (IndexOutOfBoundsException e) {
+            throw new MooMooException("Sorry I couldn't find a category with that index.");
+        }
     }
 
     public ArrayList<Category> getCategoryList() {
         return categoryList;
     }
 
-    private int find(String categoryName) throws MooMooException {
+    /**
+     * Finds a category within the category list.
+     * @param categoryName category to find
+     * @return index of the category to be found
+     * @throws MooMooException thrown if category is not in the category list
+     */
+    public int find(String categoryName) throws MooMooException {
         for (int i = 0; i < size(); i++) {
-            if (get(i).toString().contentEquals(categoryName)) {
+            if (get(i).name().contentEquals(categoryName)) {
                 return i;
             }
         }
@@ -129,8 +143,8 @@ public class CategoryList {
     public int getLongestCategory() {
         int longestName = 0;
         for (Category category : categoryList) {
-            if (category.toString().length() > longestName) {
-                longestName = category.toString().length();
+            if (category.name().length() > longestName) {
+                longestName = category.name().length();
             }
             if (longestName >= 14) {
                 longestName = 14;
@@ -139,20 +153,6 @@ public class CategoryList {
         }
         
         return longestName;
-    }
-
-    /**
-     * Prints the current list of categories.
-     * @param ui MooMoo's ui
-     */
-    public void list(Ui ui) {
-        String categoryList = "";
-        for (int i = 0; i < this.categoryList.size(); i++) {
-            categoryList = categoryList.concat("\n" + i + ". "
-                    + this.categoryList.get(i).toString()
-                    + " [ $" + this.categoryList.get(i).getTotal() + " ]");
-        }
-        ui.showCategoryList(categoryList);
     }
 
     /**

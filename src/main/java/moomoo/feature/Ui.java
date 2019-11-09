@@ -1,6 +1,6 @@
-package moomoo.task;
+package moomoo.feature;
 
-import moomoo.task.category.Category;
+import moomoo.feature.category.Category;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,32 +8,53 @@ import java.time.format.FormatStyle;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+
 /**
  * Represents the User Interface to be shown to the user.
  */
 public class Ui {
-    private String output = null;
-    private Scanner inputScanner;
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static String output = null;
+    private static Scanner inputScanner;
+
+    /**
+     * Prints out a message.
+     * @param text message to be printed
+     */
+    private static void print(String text) {
+        System.out.println(text);
+    }
+
+    /**
+     * Clears the screen.
+     * @param shouldClearScreen if true, clear the screen, else don't.
+     */
+    public static void clearScreen(boolean shouldClearScreen) {
+        if (shouldClearScreen) {
+            System.out.print("\u001b[2J");
+            System.out.flush();
+        }
+    }
 
     /**
      * Returns the value to be printed to the GUI.
      * @return String to be printed on the GUI
      */
-    public String returnResponse() {
-        return this.output;
+    public static String returnResponse() {
+        return output;
     }
 
     /**
      * Prints the welcome message to the User.
      */
-    public void showWelcome() {
+    public static void showWelcome() {
         print("   \n"
                 + "   ^____^________\n"
                 + "   ( oo )\\ *  *  )\\/\\\n"
                 + "   (____)||----w |  o \n"
                 + "         ||     ||   00\n"
                 + "   wmwwmWMWMwmWMmwMWWMWMwm\n"
-                //+ "\n"
                 + " __      _____ _    ___ ___  __  __ ___   _____ ___ \n"
                 + " \\ \\    / / __| |  / __/ _ \\|  \\/  | __| |_   _/ _ \\\n"
                 + "  \\ \\/\\/ /| _|| |_| (_| (_) | |\\/| | _|    | || (_) |\n"
@@ -53,25 +74,25 @@ public class Ui {
      * Used to read input from the user.
      * @return String representing the input given by the User
      */
-    public String readCommand() {
-        this.inputScanner = new Scanner(System.in);
-        return this.inputScanner.nextLine();
+    public static String readCommand() {
+        inputScanner = new Scanner(System.in);
+        return inputScanner.nextLine().trim();
     }
 
     /**
      * Used to read input from the user.
      * @return Integer representing the input given by the User
      */
-    public int readNumber() {
-        this.inputScanner = new Scanner(System.in);
-        return this.inputScanner.nextInt();
+    public static int readNumber() {
+        inputScanner = new Scanner(System.in);
+        return inputScanner.nextInt();
     }
 
     /**
      * Sets good bye message to be shown to the User.
      */
-    public void showGoodbye() {
-        this.output = "Hope you had a great time using MooMooMoney!\n"
+    public static void showGoodbye() {
+        output = "Hope you had a great time using MooMooMoney!\n"
                 + "See you next time :)";
     }
 
@@ -80,28 +101,30 @@ public class Ui {
      * @param e MooMooException that occurs
      * @return Message of the MooMooException
      */
-    public String printException(MooMooException e) {
-        this.output = e.getMessage();
-        return this.output;
+    public static String printException(MooMooException e) {
+        if (!e.getMessage().isBlank()) {
+            output = ANSI_RED + e.getMessage() + ANSI_RESET;
+        }
+        return output;
     }
 
     /**
      * Prints out response from command.
      */
-    public void showResponse() {
+    public static void showResponse() {
         try {
             PrintStream out = new PrintStream(System.out, true, "UTF-8");
-            out.println(this.output);
+            out.println(output);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        this.output = "";
+        output = "";
     }
 
     /**
      * Show today's date.
      */
-    public String showDate() {
+    public static String showDate() {
         LocalDate today = LocalDate.now();
         String formattedDate = today.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
         String shortDate = today.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT));
@@ -109,112 +132,41 @@ public class Ui {
         return shortDate;
     }
 
-
     /**
-     * Prints the error message for the user.
-     * @param message error message
+     * Sets the myOutput to be printed.
+     * @param myOutput Input value to be printed.
      */
-    public void showErrorMessage(String message) {
-        print(message);
-    }
-
-
-    /**
-     * Prompts the user for confirmation.
-     * @return value given by user
-     */
-    public String confirmPrompt(String value) {
-        System.out.println(value);
-        inputScanner = new Scanner(System.in);
-
-        return inputScanner.nextLine();
-    }
-
-    /**
-     * Sets the output to be printed.
-     * @param output Input value to be printed.
-     */
-    public void setOutput(String output) {
-        this.output = output;
-    }
-
-    /**
-     * Prints out a message enclosed between two lines.
-     * @param text message to be printed
-     */
-    private void print(String text) {
-        System.out.println(text);
+    public static void setOutput(String myOutput) {
+        output = myOutput;
     }
 
     /**
      * Prints out when a new category is created.
      * @param categoryName name of the new category
      */
-    public void showNewCategoryMessage(String categoryName) {
+    public static void showCategoryMessage(String categoryName) {
         String blankSpace = " ";
-        int blanks = 18 - categoryName.length();
+        int blanks = 50 - categoryName.length();
         for (int i = 0; i < blanks; i++) {
             blankSpace += " ";
         }
-        String output =
-                " _________________________________________________\n"
-                + "/ Mooo.                                           \\\n"
-                + "\\ New category named : " + categoryName + " added. " + blankSpace + "/\n"
-                + " -------------------------------------------------\n"
+        output =
+                " ____________________________________________________\n"
+                + "/ Mooo.                                              \\\n"
+                + "\\ " + categoryName + blankSpace + "/\n"
+                + " ----------------------------------------------------\n"
                 + "        \\   ^__^\n"
                 + "         \\  (oo)\\_______\n"
                 + "            (__)\\       )\\/\\\n"
                 + "                ||----w |\n"
                 + "                ||     ||\n";
-        print(output);
-    }
-
-    /**
-     * Prompts the user to enter a category name.
-     */
-    public void showAddCategoryMessage() {
-        print("Please enter a name for your new category.");
-    }
-
-    /**
-     * Prints the list of categories.
-     * @param categories list of current categories
-     */
-    public void showCategoryList(String categories) {
-        print("These are your current categories:"
-                + "\n_______________________________________________"
-                + categories
-                + "\n_______________________________________________");
-    }
-
-    /**
-     * Promts the user to enter a category index.
-     */
-    public void showEnterCategoryMessage() {
-        print("Please enter the index of a category.");
-    }
-
-    /**
-     * Prints out when a category is deleted.
-     * @param categoryName name of the new category
-     */
-    public void showRemovedCategoryMessage(String categoryName) {
-        print("Ok, I've deleted the category named " + categoryName + ".");
-    }
-
-    /**
-     * Prints out when a expenditure is deleted.
-     * @param category name of the expenditure to be deleted
-     */
-    public void showRemovedExpenditureMessage(Category category) {
-        print("Ok, I've deleted the expenditure under " + category.toString() + ".");
     }
 
     /**
      * Prints out when a new expenditure is created.
      * @param categoryName name of the new expenditure
      */
-    public void showNewExpenditureMessage(String expenditureName, String categoryName) {
+    public static void showNewExpenditure(String expenditureName, String categoryName) {
         String blankSpace = " ";
         int blanks = 18 - expenditureName.length();
         for (int i = 0; i < blanks; i++) {
@@ -240,24 +192,17 @@ public class Ui {
     }
 
     /**
+     * Promts the user to enter a category index.
+     */
+    public static void showEnterCategoryMessage() {
+        print("Please enter the index of a category.");
+    }
+
+    /**
      * Promts the user to enter the number corresponding to a month.
      */
-    public void showEnterMonthMessage() {
+    public static void showEnterMonthMessage() {
         print("Please enter a month in the format MM.");
-    }
-
-    /**
-     * Prompts the user to enter a expenditure name.
-     */
-    public void showAddExpenditureMessage() {
-        print("Please enter a name for which category's expenditure and amount with a '-' in between");
-    }
-
-    /**
-     * Prompts the user to enter a expenditure name.
-     */
-    public void showDeleteExpenditureMessage() {
-        print("Please enter a category's index number and the amount to delete with a '-' in between");
     }
 
     /**
@@ -266,11 +211,11 @@ public class Ui {
      * @param category category user wants to check
      * @param month month that should be totaled
      */
-    public void showMonthlyTotal(double monthlyTotal, Category category, int month) {
+    public static void showMonthlyTotal(double monthlyTotal, Category category, int month) {
         String cow =
                 ".__________________________________.\n"
                 + "|Month : " + month + "blank" + "|\n"
-                + "|Category : " + category.toString() + "|\n"
+                + "|Category : " + category.name() + "|\n"
                 + "|                                  |\n"
                 + "|Total spending : $" + monthlyTotal + "|\n"
                 + ".----------------------------------.\n"
@@ -286,27 +231,11 @@ public class Ui {
     /**
      * Prompts the user to enter what to add.
      */
-    public void showInputPrompt(String text) {
+    public static void showPrompt(String text) {
         print(text);
     }
 
-    /**
-     * Shows the user what are the possible commands.
-     */
-    public void showHelp() {
-        String text = "Try one of these commands:\n"
-                + "add c/[Category name]\n"
-                + "delete c/[Category name]\n"
-                + "add n/[Expenditure name] a/[Amount spent] c/[Category] d/[YYYY-MM-DD]\n"
-                + "sort\n"
-                + "budget\n"
-                + "schedule\n"
-                + "graph\n"
-                + "total";
-        print(text);
-    }
-
-    public void printMainDisplay(String newMainDisplay) {
+    public static void printMainDisplay(String newMainDisplay) {
         print(newMainDisplay);
     }
 }

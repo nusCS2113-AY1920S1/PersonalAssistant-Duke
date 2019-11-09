@@ -1,4 +1,4 @@
-package moomoo.task;
+package moomoo.feature;
 
 /**
  * Represents Exceptions that are dedicated to Duke functions.

@@ -1,7 +1,8 @@
-package moomoo.task;
+package moomoo.feature;
 
 import moomoo.command.EditBudgetCommand;
 import moomoo.command.SetBudgetCommand;
+import moomoo.feature.storage.Storage;
 import moomoo.stubs.CategoryListStub;
 import moomoo.stubs.CategoryStub;
 import moomoo.stubs.ScheduleListStub;
@@ -48,14 +49,13 @@ public class StorageTest {
         CategoryStub newCategory = new CategoryStub();
         ScheduleListStub newCalendar = new ScheduleListStub();
         UiStub newUi = new UiStub();
-        Storage newStorage = new Storage(budgetFile.getPath(), scheduleFile.getPath(), categoryFile.getPath(),
-                expenditureFile.getPath());
+        Storage newStorage = new Storage(budgetFile.getPath(), scheduleFile.getPath());
         Budget newBudget = new Budget();
 
         SetBudgetCommand setBudget = new SetBudgetCommand(false, categories, budgets);
-        setBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+        setBudget.execute(newCalendar, newBudget, newCatList, newStorage);
 
-        HashMap<String, Double> newHashMap = newStorage.loadBudget(newCatList.getCategoryList(), newUi);
+        HashMap<String, Double> newHashMap = newStorage.loadBudget(newCatList.getCategoryList());
         assertEquals(60.0, newHashMap.get("window"));
         assertEquals(153.34, newHashMap.get("sweets"));
         assertEquals(13840.45, newHashMap.get("laptop"));
@@ -64,9 +64,9 @@ public class StorageTest {
         budgets.set(2, 123.45);
 
         EditBudgetCommand editBudget = new EditBudgetCommand(false, categories, budgets);
-        editBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+        editBudget.execute(newCalendar, newBudget, newCatList, newStorage);
 
-        newHashMap = newStorage.loadBudget(newCatList.getCategoryList(), newUi);
+        newHashMap = newStorage.loadBudget(newCatList.getCategoryList());
         assertEquals(500.23, newHashMap.get("window"));
         assertEquals(153.34, newHashMap.get("sweets"));
         assertEquals(123.45, newHashMap.get("laptop"));

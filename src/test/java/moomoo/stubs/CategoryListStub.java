@@ -1,7 +1,7 @@
 package moomoo.stubs;
 
-import moomoo.task.category.Category;
-import moomoo.task.category.CategoryList;
+import moomoo.feature.category.Category;
+import moomoo.feature.category.CategoryList;
 
 import java.util.ArrayList;
 
@@ -35,7 +35,7 @@ public class CategoryListStub extends CategoryList {
     @Override
     public Category get(String value) {
         for (Category iterCategory : newArrayList) {
-            if (iterCategory.toString().equalsIgnoreCase(value)) {
+            if (iterCategory.name().equalsIgnoreCase(value)) {
                 return iterCategory;
             }
         }

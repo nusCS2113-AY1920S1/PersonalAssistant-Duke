@@ -1,12 +1,12 @@
 package moomoo.command;
 
-import moomoo.task.Budget;
-import moomoo.task.ScheduleList;
-import moomoo.task.Storage;
-import moomoo.task.Ui;
-import moomoo.task.MooMooException;
-import moomoo.task.category.Category;
-import moomoo.task.category.CategoryList;
+import moomoo.feature.Budget;
+import moomoo.feature.ScheduleList;
+import moomoo.feature.Ui;
+import moomoo.feature.storage.Storage;
+import moomoo.feature.MooMooException;
+import moomoo.feature.category.Category;
+import moomoo.feature.category.CategoryList;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -39,20 +39,20 @@ public class SavingsBudgetCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category,
-                        Ui ui, Storage storage) throws MooMooException {
+    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
+                        Storage storage) throws MooMooException {
         String[] outputArray;
         String outputValue = "";
         double totalSavings = 0;
         if (categories.size() == 0) {
-            for (int i = 0; i < catList.getCategoryList().size(); ++i) {
-                categories.add(catList.getCategoryList().get(i).toString());
+            for (int i = 0; i < categoryList.getCategoryList().size(); ++i) {
+                categories.add(categoryList.getCategoryList().get(i).name());
             }
         }
 
         for (String iteratorCategory : categories) {
             iteratorCategory = iteratorCategory.toLowerCase();
-            Category currentCategory = catList.get(iteratorCategory);
+            Category currentCategory = categoryList.get(iteratorCategory);
 
             if (currentCategory == null) {
                 outputValue += iteratorCategory + " category does not exist."
@@ -83,7 +83,7 @@ public class SavingsBudgetCommand extends Command {
             outputValue += "You have overspent your total budget by: $" + df.format(Math.abs(totalSavings)) + "\n";
         }
 
-        ui.setOutput(outputValue);
+        Ui.setOutput(outputValue);
     }
 
     private String[] viewSingleMonthSavings(Budget budget, String iteratorCategory,
