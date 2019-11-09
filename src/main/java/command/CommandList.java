@@ -105,9 +105,16 @@ public class CommandList {
             throw new DukeException("There are no commands to undo!");
         }
         Command command = commandList.get(undoRedoPointer);
-        System.out.println("Undo this command: \"" + inputList.get(undoRedoPointer) + "\"");
+        System.out.println("Undid this command: \"" + inputList.get(undoRedoPointer) + "\"");
         command.unExecute(tasks, ui, storage, lists, degreesManager);
         undoRedoPointer--;
+
+        try {
+            storage.store(tasks);
+            storage.add_degrees(lists);
+        } catch (DukeException e) {
+            throw new DukeException("Save Error: " + e.getLocalizedMessage());
+        }
     }
 
     /**
@@ -123,7 +130,14 @@ public class CommandList {
         }
         undoRedoPointer++;
         Command command = commandList.get(undoRedoPointer);
-        System.out.println("Redo this command: \"" + inputList.get(undoRedoPointer) + "\"");
+        System.out.println("Redid this command: \"" + inputList.get(undoRedoPointer) + "\"");
         command.execute(tasks, ui, storage, lists, degreesManager);
+
+        try {
+            storage.store(tasks);
+            storage.add_degrees(lists);
+        } catch (DukeException e) {
+            throw new DukeException("Save Error: " + e.getLocalizedMessage());
+        }
     }
 }

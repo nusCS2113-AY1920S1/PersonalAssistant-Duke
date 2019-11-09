@@ -55,7 +55,7 @@ public class AddCommand extends Command {
             tasks.conflict_check();
         }
         else if (this.command.matches("add")) {
-            this.listType = 2; //1 for degree list
+            this.listType = 2; //2 for both degree list and task list
 
             degreesBuffer = lists.deepClone();
             tasksBuffer = tasks.deepClone();
@@ -65,7 +65,7 @@ public class AddCommand extends Command {
 
             if(this.arguments.matches("Materials Science and Engineering|Biomedical Engineering|Chemical Engineering|Civil Engineering|"
                     + "Computer Engineering|Electrical Engineering|Environmental Engineering|"
-                    + "Industrial and Systems Engineering|Mechanical Engineering|BME|"
+                    + "Industrial and Systems Engineering|Mechanical Engineering|"
                     + "BME|BioMed|Bio Eng|BM|ChE|Chem Eng|CivE|Civil E|Civil|CEG|Com E|EE|ElecE|ENVE|Mech Eng|ME|ISE|"
                     + "IE|Industrial Systems|Materials Science Engineering|MSE")) {
                 lists.add_custom(this.arguments, storage);
@@ -83,6 +83,13 @@ public class AddCommand extends Command {
             memento = new Memento(tasksBuffer);
 
             tasks.add(this.command, this.arguments);
+        }
+
+        try {
+            storage.store(tasks);
+            storage.add_degrees(lists);
+        } catch (DukeException e) {
+            throw new DukeException("Save Error: " + e.getLocalizedMessage());
         }
     }
 

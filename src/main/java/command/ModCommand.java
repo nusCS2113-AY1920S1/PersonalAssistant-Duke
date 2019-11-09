@@ -85,7 +85,14 @@ public class ModCommand extends Command {
             tasks.snoozeTask(this.input);
             break;
         default:
-            throw new DukeException("Invalid ModCommand");
+            throw new DukeException("Invalid Modification Command");
+        }
+
+        try {
+            storage.store(tasks);
+            storage.add_degrees(lists);
+        } catch (DukeException e) {
+            throw new DukeException("Save Error: " + e.getLocalizedMessage());
         }
     }
 

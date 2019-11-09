@@ -32,18 +32,27 @@ public class SortCommand extends Command {
 
         tasksBuffer = tasks.deepClone();
         memento = new Memento(tasksBuffer);
+        if (tasks.size() == 0) {
+            throw new DukeException("There is nothing to sort!");
+        }
         if (this.arguments.matches("by priority")){
             tasks.sortbyPriority();
         }
         else if (this.arguments.matches("by date")){
             tasks.sortbyDate();
-        }
-        else{
+        } else {
             throw new DukeException("That is not a valid way to sort your tasks!\n" +
                     "Try typing:\n" +
                     "   sort by priority\n" +
                     "   sort by date\n" +
                     "   sort by degree" );
+        }
+
+        try {
+            storage.store(tasks);
+            storage.add_degrees(lists);
+        } catch (DukeException e) {
+            throw new DukeException("Save Error: " + e.getLocalizedMessage());
         }
     }
 

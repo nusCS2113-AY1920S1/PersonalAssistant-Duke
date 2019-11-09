@@ -29,6 +29,7 @@ public class Parser {
     public static String acceptedExtensions = "txt|csv";
     public static String moduleFormat = "[A-Z]{2,3}[1-9]([0-9]{3}|X{3})[A-Z]{0,1}";
     public static final Map<String, String> userPriorityMap;
+
     static {
         Map<String, String> aMap = new HashMap<>();
         aMap.put("very high", "Very High");
@@ -49,7 +50,6 @@ public class Parser {
      */
     public static Command parse(String line) throws DukeException {
         Scanner temp = new Scanner(line);
-
 
         if (!temp.hasNext()) {
             throw new DukeException("Empty Command!");
@@ -75,7 +75,7 @@ public class Parser {
             } else { //if the user wants to display help for only one command
                 String input = temp.nextLine();
                 input = input.strip();
-                if (input.matches("help|detail|compare|add|degreelist|swap|replace|delete|clear|custom"
+                if (input.matches("help|detail|compare|add|swap|replace|delete|clear|custom"
                         + "|bye|undo|redo")) {
                     return new HelpCommand(command, input);
                 } else {

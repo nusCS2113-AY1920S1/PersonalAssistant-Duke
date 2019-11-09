@@ -428,7 +428,7 @@ public class TaskList implements Serializable, Cloneable {
     public void sortbyDate(){
         for (int i = 0 ; i < this.list.size(); i++){
             this.list.get(i).calculateDateScore();
-            System.out.println(this.list.get(i).sortingScore);
+            //System.out.println(this.list.get(i).sortingScore);
         }
         Collections.sort(this.list, new Comparator<Task>() {
             @Override

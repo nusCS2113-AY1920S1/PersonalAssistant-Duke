@@ -143,13 +143,23 @@ public class Duke extends Application {
             }
 
             if (command.matches("undo")) {
-                commandList.undo();
-                this.myList = commandList.getTaskList();
-                this.lists = commandList.getDegreeLists();
+                if (temp.hasNext()) { //Undo should be a single command, reject if there is another input after undo
+                    typoFlag = true;
+                    throw new DukeException("undo should be a single command!");
+                } else {
+                    commandList.undo();
+                    this.myList = commandList.getTaskList();
+                    this.lists = commandList.getDegreeLists();
+                }
             } else if (command.matches("redo")) {
-                commandList.redo();
-                this.myList = commandList.getTaskList();
-                this.lists = commandList.getDegreeLists();
+                if (temp.hasNext()) {
+                    typoFlag = true;
+                    throw new DukeException("redo should be a single command!");
+                } else {
+                    commandList.redo();
+                    this.myList = commandList.getTaskList();
+                    this.lists = commandList.getDegreeLists();
+                }
             } else {
                 Command c = Parser.parse(line);
 
@@ -164,6 +174,7 @@ public class Duke extends Application {
                 }
             }
         } catch (DukeException | NullPointerException e) {
+            typoFlag = true;
             ui.showError(e.getLocalizedMessage());
         } finally {
             ui.showLine();

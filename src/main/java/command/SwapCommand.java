@@ -43,7 +43,14 @@ public class SwapCommand extends Command{
             lists.swap(this.input, this.dd);
             break;
         default:
-            throw new DukeException("Invalid SwapCommand");
+            throw new DukeException("Invalid Swap Command");
+        }
+
+        try {
+            storage.store(tasks);
+            storage.add_degrees(lists);
+        } catch (DukeException e) {
+            throw new DukeException("Save Error: " + e.getLocalizedMessage());
         }
     }
 

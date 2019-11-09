@@ -66,6 +66,7 @@ public class DegreeManager {
 
 
     public void print(String item) throws DukeException {
+        foundFlag = true;
         for(Map.Entry<String, List<String>> aliases: disjointSetFake.entrySet())
         {
             String degree = aliases.getKey();
@@ -77,6 +78,7 @@ public class DegreeManager {
                 }
             }
         }
+        foundFlag = false;
         throw new DukeException(item + " was not found in our records!");
     }
 
@@ -113,31 +115,32 @@ public class DegreeManager {
     }
 
     public void compare(String input) throws DukeException {
+        foundFlag = true;
         String[] split = input.split("\\s+");
-        if(split.length > 2)
-        {
+        if(split.length > 2) {
+            foundFlag = false;
             throw new DukeException("Too many arguments!");
         }
-        if(split.length <= 1){
+        if(split.length <= 1) {
+            foundFlag = false;
             throw new DukeException("Too few arguments!");
         }
         assert(split.length == 2);
-        if(split[0].equalsIgnoreCase(split[1]))
-        {
+        if(split[0].equalsIgnoreCase(split[1])) {
+            foundFlag = false;
             throw new DukeException("Invalid Comparison (to Self)");
         }
         StringBuilder errorList = new StringBuilder();
-        if(!degreeInfo.containsKey(split[0]))
-        {
+        if(!degreeInfo.containsKey(split[0])) {
             errorList.append(split[0]);
             errorList.append(" ");
         }
-        if(!degreeInfo.containsKey(split[1]))
-        {
+        if(!degreeInfo.containsKey(split[1])) {
             errorList.append(split[1]);
         }
         if(errorList.length() > 0)
         {
+            foundFlag = false;
             throw new DukeException("Unable to find matching degrees for: "+ errorList.toString());
         }
         degreeInfo.get(split[0]).compare(degreeInfo.get(split[1]));
