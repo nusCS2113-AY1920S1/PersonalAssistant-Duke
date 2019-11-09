@@ -747,6 +747,9 @@ Format: `calendar MM YYYY`
 * `MONTH` is an integer from 1-12 (representing January to December).
 * `YEAR` is an integer greater than or equal to 0.
 
+[NOTE]
+Note that if `MONTH` and `YEAR` arguments are invalid (e.g. `calendar 13 2019`) or missing (e.g. `calendar`), the calendar for the current month and year (according to system settings) will be displayed
+
 Example: `calendar 11 2019`
 
 [[Calendar]]
