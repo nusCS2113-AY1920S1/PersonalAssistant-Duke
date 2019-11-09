@@ -3,6 +3,8 @@
 package gazeeebo.storage;
 
 import gazeeebo.notes.Note;
+
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,8 +44,8 @@ public class NoteStorage {
      * @throws IOException if the file specified cannot be created or is not a file
      */
     public static void readFromFile(String fileName, ArrayList<Note> listToReadTo) throws IOException {
-        InputStream inputStream = NoteStorage.class.getResourceAsStream("/" + fileName);
-        Scanner txtFile = new Scanner(inputStream);
+        File f = new File(fileName);
+        Scanner txtFile = new Scanner(f);
         while (txtFile.hasNextLine()) {
             String date = txtFile.nextLine();
             int sizeOfNotes = Integer.parseInt(txtFile.nextLine());
@@ -54,6 +56,5 @@ public class NoteStorage {
             }
             listToReadTo.add(newNote);
         }
-        inputStream.close();
     }
 }
