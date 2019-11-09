@@ -197,6 +197,167 @@ public class EventCommandTest {
         }
         assertTrue(tasks.size() == 2);
 
+        EventCommand eventCommand18 = new EventCommand("event e3 /at 12/12/1996 22:22 - 12/12/1996 22:23 recu day 3");
+        try {
+            eventCommand18.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof RecurrenceException);
+        }
+        assertTrue(tasks.size() == 6);
+
+        EventCommand eventCommand19 = new EventCommand("event e3 /at 12/12/2002 22:22 - 12/12/2002 22:23 recu");
+        try {
+            eventCommand19.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        EventCommand eventCommand20 = new EventCommand("event e3 /at 12/12/2002 22:22 - 12/12/2002 22:23 recu week");
+        try {
+            eventCommand20.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        EventCommand eventCommand21 = new EventCommand("event e3 /at 12/12/2002 22:22 - 12/12/2002 22:23 recu day");
+        try {
+            eventCommand21.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        EventCommand eventCommand22 = new EventCommand("event e3 /at 12/12/2002 22:22 - 12/12/2002 22:23 recu month");
+        try {
+            eventCommand22.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        EventCommand eventCommand23 = new EventCommand("event e3 /at 12/12/2002 22:22 - 12/12/2002 22:23 recu week a");
+        try {
+            eventCommand23.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        EventCommand eventCommand24 = new EventCommand("event e3 /at 12/12/2002 22:22 - 12/12/2002 22:23 recu day a");
+        try {
+            eventCommand24.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        EventCommand eventCommand25 = new EventCommand("event e3 /at 12/12/2002 22:22 - 12/12/2002 22:23 recu month a");
+        try {
+            eventCommand25.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        EventCommand eventCommand26 = new EventCommand("event e3 /at 12/12/2002 22:22 - 12/12/2002 22:23 recu dsqdqsd 3");
+        try {
+            eventCommand26.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        EventCommand eventCommand27 = new EventCommand("event e3 /at 13/12/2002 22:22 - 14/12/2002 22:23 recu day 3");
+        try {
+            eventCommand27.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof RecurrenceDateException);
+        }
+
+        EventCommand eventCommand28 = new EventCommand("event e3 /at 13/12/2002 22:22 - 21/12/2002 22:23 recu week 3");
+        try {
+            eventCommand28.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof RecurrenceDateException);
+        }
+
+        EventCommand eventCommand29 = new EventCommand("event e3 /at 13/01/2002 22:22 - 21/02/2002 22:23 recu month 3");
+        try {
+            eventCommand29.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof RecurrenceDateException);
+        }
+
+        EventCommand eventCommand30 = new EventCommand("event e3 /at 12/12/2002 22:22 - 12/12/2002 22:23 prio 6 recu");
+        try {
+            eventCommand30.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        EventCommand eventCommand31 = new EventCommand("event e3 /at 12/12/2002 22:22 - 12/12/2002 22:23 prio 6 recu week");
+        try {
+            eventCommand31.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        EventCommand eventCommand32 = new EventCommand("event e3 /at 12/12/2002 22:22 - 12/12/2002 22:23 prio 6 recu day");
+        try {
+            eventCommand32.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        EventCommand eventCommand33 = new EventCommand("event e3 /at 12/12/2002 22:22 - 12/12/2002 22:23 prio 6 recu month");
+        try {
+            eventCommand33.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        EventCommand eventCommand34 = new EventCommand("event e3 /at 12/12/2002 22:22 - 12/12/2002 22:23 prio 6 recu week a");
+        try {
+            eventCommand34.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        EventCommand eventCommand35 = new EventCommand("event e3 /at 12/12/2002 22:22 - 12/12/2002 22:23 prio 6 recu day a");
+        try {
+            eventCommand35.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        EventCommand eventCommand36 = new EventCommand("event e3 /at 12/12/2002 22:22 - 12/12/2002 22:23 prio 6 recu month a");
+        try {
+            eventCommand36.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        EventCommand eventCommand37 = new EventCommand("event e3 /at 12/12/2002 22:22 - 12/12/2002 22:23 prio 6 recu dsqdqsd 3");
+        try {
+            eventCommand37.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof RecurrenceException);
+        }
+
+        EventCommand eventCommand38 = new EventCommand("event e3 /at 13/12/2002 22:22 - 14/12/2002 22:23 prio 6 recu day 3");
+        try {
+            eventCommand38.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof RecurrenceDateException);
+        }
+
+        EventCommand eventCommand39 = new EventCommand("event e3 /at 13/12/2002 22:22 - 21/12/2002 22:23 prio 6 recu week 3");
+        try {
+            eventCommand39.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof RecurrenceDateException);
+        }
+
+        EventCommand eventCommand40 = new EventCommand("event e3 /at 13/01/2002 22:22 - 21/02/2002 22:23 prio 6 recu month 3");
+        try {
+            eventCommand40.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            assertTrue(e instanceof RecurrenceDateException);
+        }
     }
 
     /**
