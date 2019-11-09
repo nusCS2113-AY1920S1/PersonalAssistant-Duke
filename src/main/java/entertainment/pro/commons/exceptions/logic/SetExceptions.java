@@ -36,8 +36,8 @@ public class SetExceptions {
      * to check if age command is in correct format.
      * command: set age USER_AGE
      * checks: whether user input payload
-     *         whether payload is a number
-     *         whether payload is a positive number
+     * whether payload is a number
+     * whether payload is a positive number
      */
     public static void checkAgeCommand(String payload) throws InvalidParameterException, InvalidFormatCommandException {
         checkPayload(payload);
@@ -49,16 +49,16 @@ public class SetExceptions {
      * to check if preference command is in correct format.
      * command: set preference [-a YES / NO] [-g GENRE...]
      * checks: whether user use valid flags
-     *         for [-g]:
-     *         whether GENRE is valid
-     *         whether GENRE belongs to preference / restriction
-     *         for [-a]:
-     *         whether user's age is >= 21
-     *         whether flagging input is valid
+     * for [-g]:
+     * whether GENRE is valid
+     * whether GENRE belongs to preference / restriction
+     * for [-a]:
+     * whether user's age is >= 21
+     * whether flagging input is valid
      */
     public static void checkPreferenceCommand(Map<String, ArrayList<String>> flagMap, UserProfile userProfile)
             throws InvalidFormatCommandException, InvalidParameterException, IOException, NoPermissionException {
-        int count  = 0;
+        int count = 0;
         for (Map.Entry<String, ArrayList<String>> flag : flagMap.entrySet()) {
             System.out.println(count++);
             checkPreferenceFlag(flag);
@@ -78,8 +78,8 @@ public class SetExceptions {
      * to check if restriction command is in correct format.
      * command: set restriction [-g GENRE...]
      * checks: whether user use valid flags
-     *         whether GENRE is valid
-     *         whether GENRE belongs to preference / restriction
+     * whether GENRE is valid
+     * whether GENRE belongs to preference / restriction
      */
     public static void checkRestrictionCommand(Map<String, ArrayList<String>> flagMap, UserProfile userProfile)
             throws IOException, InvalidParameterException, InvalidFormatCommandException {
@@ -104,6 +104,7 @@ public class SetExceptions {
     /**
      * to check whether that command's payload is empty.
      * command: all set commands
+     *
      * @throws InvalidFormatCommandException when payload is empty
      */
     private static void checkPayload(String payload) throws InvalidFormatCommandException {
@@ -115,6 +116,7 @@ public class SetExceptions {
     /**
      * check whether user input a number for age.
      * command: age
+     *
      * @throws InvalidParameterException when user input characters instead
      */
     private static void checkAgeInput(String input) throws InvalidParameterException {
@@ -133,6 +135,7 @@ public class SetExceptions {
     /**
      * check whether user input a positive integer for age.
      * command: age
+     *
      * @throws InvalidParameterException when user input negative sign
      */
     private static void checkPositiveNumber(String age) throws InvalidParameterException {
@@ -144,12 +147,13 @@ public class SetExceptions {
     /**
      * check whether flag used is valid for this command.
      * command: preference
+     *
      * @throws InvalidFormatCommandException when flag is not [-g] or [-a]
      */
     private static void checkPreferenceFlag(Map.Entry<String, ArrayList<String>> log)
             throws InvalidFormatCommandException {
         boolean flag = true;
-        if (log.getKey().equals("-g") ||  log.getKey().equals("-a")) {
+        if (log.getKey().equals("-g") || log.getKey().equals("-a")) {
             flag = false;
         }
         if (flag) {
@@ -161,6 +165,7 @@ public class SetExceptions {
     /**
      * check whether user input adult options correctly.
      * command: preference -a
+     *
      * @throws InvalidFormatCommandException when user input options != yes or no
      */
     private static void checkForSetAdult(String option) throws InvalidFormatCommandException {
@@ -177,6 +182,7 @@ public class SetExceptions {
     /**
      * check whether flag used is valid for this command.
      * command: restriction
+     *
      * @throws InvalidFormatCommandException when flag is not [-g]
      */
     private static void checkRestrictionFlag(Map.Entry<String, ArrayList<String>> log)
@@ -190,14 +196,15 @@ public class SetExceptions {
     /**
      * to check whether the user input a valid genre name.
      * command: preference -g / restriction -g
+     *
      * @throws InvalidParameterException when genre does not exist
      */
     private static void checkValidGenre(String inputGenre) throws InvalidParameterException {
         String[] genres = {
-            "Action", "Adventure", "Animation", "Comedy", "Crime",
-            "Documentary", "Drama", "Family", "Fantasy", "History",
-            "Horror", "Music", "Mystery", "Romance", "Science Fiction",
-            "TV Movie", "Thriller", "War", "Western"
+                "Action", "Adventure", "Animation", "Comedy", "Crime",
+                "Documentary", "Drama", "Family", "Fantasy", "History",
+                "Horror", "Music", "Mystery", "Romance", "Science Fiction",
+                "TV Movie", "Thriller", "War", "Western"
         };
         boolean flag = true;
         for (String log : genres) {
@@ -237,6 +244,7 @@ public class SetExceptions {
     /**
      * to check whether a genre id can be set to user's preferences.
      * command: preference -g
+     *
      * @throws InvalidParameterException when id already belongs to restrictions
      */
     public static void checkForSetPreference(int id, ArrayList<Integer> restrictions) throws IOException, InvalidParameterException {
@@ -251,6 +259,7 @@ public class SetExceptions {
     /**
      * to check whether a genre id can be set to user's restriction.
      * command: restriction -g
+     *
      * @throws InvalidParameterException when id already belongs to preferences
      */
     public static void checkForSetRestriction(int id, ArrayList<Integer> preferences) throws InvalidParameterException, IOException {
@@ -265,6 +274,7 @@ public class SetExceptions {
     /**
      * check whether user can edit their adult restriction.
      * command: preference -a
+     *
      * @throws NoPermissionException when user's age is below 21
      */
     private static void checkAgeForSetAdult(UserProfile userProfile) throws NoPermissionException {
@@ -276,6 +286,7 @@ public class SetExceptions {
     /**
      * to check if user use correct options for sort.
      * command: sort
+     *
      * @throws InvalidParameterException when user input != 1 or 2 or 3
      */
     private static void checkSortPayload(String payload) throws InvalidParameterException {
