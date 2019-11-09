@@ -211,7 +211,7 @@ Provided below is an example scenario of use and how `HelpCommand` class behaves
 The user enters the `help Deadline`. The `parse` method in `CommandParser` class is called to parse the user input to obtain the String `Deadline` as the `keyword` that the user requires `Help` for.
 
 [WARNING]
-`OofException` will be thrown is the user enters an invalid command.
+`InvalidArgumentException` will be thrown is the user enters an invalid command.
 
 *Step 2:* +
 The `execute` method of `HelpCommand` class will read the list of `Command` and their instructions from persistent storage in `manual.txt` and store them into a `commands` ArrayList by calling the `readManual` method from `Storage` class.
@@ -222,7 +222,7 @@ The `readManual` method of `Storage` class will retrieve and read `manual.txt` f
 The `BufferedReader` abstraction will then be performed upon `FileReader` abstraction to allow `manual.txt` to be read line-by-line, adding each line as an element of the `commands` ArrayList. The `commands` ArrayList is then returned to the `execute` method of `HelpCommand` class.
 
 [WARNING]
-`OofException` will be thrown if `manual.txt` is unavailable, resulting in `IOException` getting caught.
+`OofManualNotFoundException` will be thrown if `manual.txt` is unavailable.
 
 *Step 3:* +
 If the `keyword` is empty, the `printHelpCommands` method of `Ui` class will be called. The elements of `commands` ArrayList will then be printed in ascending order through the use of a for loop. +
@@ -237,16 +237,16 @@ Once a check is completed to ensure that `command` is not empty, both `keyword` 
 If they match, that particular element of `commands` ArrayList will be stored into a String called `description` and the for loop will break before returning `description` to the `execute` method of `HelpCommand`.
 
 [WARNING]
-`OofException` will be thrown is no successful match between `keyword` and `command` String is found.
+`InvalidArgumentException` will be thrown is no successful match between `keyword` and `command` String is found.
 
 *Step 4:* +
 The `execute` method of `HelpCommand` calls `printHelpCommand` in `Ui` class with `description` String as the parameter. This is where the individual `Command` and its instruction will be printed.
 
 The following activity diagram summarises what will happen when a user executes a `Help` command:
 
-[[HelpCommandActivityDiagram]]
-.Activity diagram for Help Command
-image::HelpCommandActivityDiagram.png[HelpCommandActivityDiagram]
+[[HelpSequenceDiagram]]
+.Sequence diagram for Help Command
+image::HelpSequenceDiagram.png[HelpSequenceDiagram]
 
 ==== Design Considerations
 * Created `manual.txt` to store available commands and their instructions
@@ -513,21 +513,27 @@ This would allow the users to view the suggestions easily without having to scro
 Show suggestions directly in the 4 consecutive free time slots instead. This alternative would inhibit users in optimally viewing their free time since the free time slot will be replaced with the suggested deadline to complete. 
 Thus, showing suggestions in the current implementation gives the user the freedom to plan what to do with their free time. 
 
-=== Time Tracker feature
+=== Task Tracker feature
 ==== Implementation
-The `ViewTrackerCommand` class extends the `Command` class by providing functions to display a histogram
-visualising the amount of time spent on each `Module`.
+The `TrackerCommand` class extends the `Command` class by providing functions to start, stop and pause trackers as well as display a histogram
+visualising the amount of time spent on each `Module`. `TrackerCommand` class also provides functions for viewing and deleting tracker entries.
 
-Also, it contains the following feature:
+Also, it contains the following features:
 
-* User may `ViewTracker` by `Day` with a specific command.
-* User may `ViewTracker` by `Week` with a specific command.
+* User may `tracker /start` by  `taskListIndex` with a specific command.
+* User may `tracker /stop` by  `taskListIndex` with a specific command.
+* User may `tracker /pause` by  `taskListIndex` with a specific command.
+* User may `tracker /view` by `day` with a specific command.
+* User may `tracker /view` by `week` with a specific command.
+* User may `tracker /view` by `all` with a specific command.
+* User may `tracker /delete` by `taskListIndex` with a specific command.
+* User may `tracker /list` with a specific command.
 
-Provided below is an example scenario of use and how `ViewTrackerCommand` class behaves and interacts with other relevant classes.
+Provided below is an example scenario of use and how `TrackerCommand` class behaves and interacts with other relevant classes.
 
 *Step 1:* +
-The user enters the `viewTracker`.
-The `execute` method of `ViewTrackerCommand` class will read and save all `TrackerList` objects saved in persistent storage, `tracker.csv` through the `Storage.readTrackerList()` method in the `Storage` class.
+The user enters `tracker`.
+The `execute` method of `TrackerCommand` class will read and save all `TrackerList` objects saved in persistent storage, `tracker.csv` through the `Storage.readTrackerList()` method in the `Storage` class.
 
 * *Step 1a:* +
 The `readTrackerList` method in `Storage` class will retrieve and read `tracker.csv` from persisitent storage by using `FileReader` on `File`.
@@ -540,50 +546,123 @@ The `processLine` method of `Storage` class will split each line into its respec
 A new `Tracker` object will be created with the processed data and returned to the `readTrackerList` method.
 
 * *Step 1d:* +
-The `Tracker` object returned to `readTrackerList` will be added into the `TrackerList` object and upon completing the entire `tracker.txt` file, the final `TrackerList` object will be returned to the `execute` method of `ViewTrackerCommand`.
+The `Tracker` object returned to `readTrackerList` will be added into the ArrayList `Tracker` objects and upon completing the entire `tracker.txt` file, the ArrayList will be returned to the `execute` method of `TrackerCommand`.
+The `execute` method of `TrackerCommand` class will then detect what instructions the user has indicated.
 
 [WARNING]
-`OofException` will be thrown is `tracker.csv` cannot be processed.
+`StorageFileCorruptedException` will be thrown is `tracker.csv` cannot be processed and a new ArrayList of `Tracker` objects will be created.
 
 *Step 2:* +
-The `execute` method of `ViewTrackerCommand` class will then call upon the `timeSpentByModule` method of `ViewTrackerCommand`.
-This is where each `Tracker` object in the `TrackerList` object will be processed by their `ModuleCode` property.
-
-* *Step 2a:* +
-A `ModuleTrackerList` object is created.
-The `ModuleCode` of `Tracker` object is retrieved and the `ModuleTrackerList` object is searched for a `ModuleCode` property of `ModuleTracker` object that matches that of the `ModuleCode` in the `Tracker` object.
-
-* *Step 2b:* +
-If a match is found, the `TimeTaken` property of the `Tracker` object will be added to the `TimeTaken` property of the `ModuleTracker` object, updating the `ModuleTrackerList` object before the search is ended.
-This will continue until all `Tracker` objects of the `TrackerList` object are processed.
-
-* *Step 2c:* +
-The `ModuleTrackerList` object will then be returned to the `execute` method of `ViewTrackerCommand`.
+If the user given instruction is `/view`, the `execute` method of `TrackerCommand` will get the `period` indicated by the user.
+The `execute` method of `TrackerCommand` calls `processModuleTrackerList` method.
 
 [WARNING]
-`OofException` will be thrown if the `ModuleTrackerList` is empty.
+`InvalidArgumentException` will be thrown if the instruction given by the user is invalid.
+`InvalidArgumentException` will be thrown if the `tracker` command is incomplete.
+
+* *Step 2a:* +
+The `processModuleTrackerList` method creates a new ArrayList of `Tracker` objects and processes the user input to determine if it is to be filtered by `day`, `weeek` or `all` `Tracker` entries.
+
+* *Step 2b:* +
+If the user indicated to filter `/view` by `day`, a new `Date` instance is created and parsed into the format of `dd-MM-yyyy` before the `timeSpentByModule` method is called.
+If the user indicated to filter `/view` by `week`, a `Date` instance containing the exact date seven days ago is created and parsed into the format of `dd-MM-yyyy` before the `timeSpentByModule` method is called.
+If the user indicated to filter `/view` by `all`, the `timeSpentByModule` method is called upon immediately.
+
+[WARNING]
+`InvalidArgumentException` will be thrown if the `period` cannot be processed.
+`TrackerNotFoundException` will be thrown if the ArrayList of `Tracker` objects is empty.
+
+* *Step 2c:* +
+The `processModuleTrackerList` method calls `sortAscending` method. This is where the new ArrayList of `Tracker` objects are sorted by their `timeTaken` property with the use of a `Comparator`.
+
+* *Step 2d:* +
+The `execute` method of `TrackerCommand` calls `printTrackerDiagram` from the `Ui` class.
 
 *Step 3:* +
-The `execute` method of `ViewTrackerCommand` class will then call upon the `sortAscending` method of `ViewTrackerCommand` class.
-This is where the `ModuleTrackerList` will be sorted in ascending order according to their `TimeTaken` property.
+If the user given instruction is `/list`, the `execute` method of `TrackerCommand` calls `printTrackerList` method in the `Ui` class.
+Else, the next input field will be retrieved.
 
-* *Step 3a:* +
-An ArrayList of `ModuleTracker` objects is created and updated with the `ModuleTracker` objects of the `ModuleTrackerList`.
-
-* *Step 3b:* +
-The ArrayList is then processed and sorted by their `TimeTaken` property through the `Collections.sort` method.
-
-* *Step 3c:* +
-A new `ModuleTrackerList` object is created and updated with the `ModuleTracker` elements of the sorted ArrayList and returned to the `execute` method of `ViewTrackerCommand`.
+[WARNING]
+`InvalidArgumentException` will be thrown if the instruction given by the user is invalid.
 
 *Step 4:* +
-The `execute` method of `ViewTrackerCommand` calls `printTrackerDiagram` in the `Ui` class with the new `ModuleTrackerList` as the parameter.
-This is where the tracker diagram will be printed.
+If the user given instruction is `/delete`, the user input will be used as `taskIndex` to identify the tracker from the ArrayList of `Tracker` objects.
+It will then be removed from the ArrayList before the `execute` method of `TrackerCommand` calls `printTrackerDelete` method in the `Ui` class and updates `tracker.csv` by calling `writeTrackerList` method from `StorageManager` class.
 
-The following activity diagram summarises what will happen when a user executes a `ViewTracker` command:
+[WARNING]
+`InvalidArgumentException` will be thrown if the instruction given by the user is invalid.
+`InvalidArgumentException` will be thrown if the `taskIndex` is invalid.
 
-.Activity Diagram for ViewTrackerCommand
-image::ViewTrackerCommandActivityDiagram.png[]
+*Step 5:* +
+If the instruction is not `/view`, `/list` or `/delete`, the `execute` method of `TrackerCommand` will obtain the `taskindex` and `moduleCode` given by the user
+and check if the relevant `Task` has been completed.
+
+[WARNING]
+`InvalidArgumentException` will be thrown if the instruction given by the user is invalid.
+`TaskAlreadyCompletedException` will be thrown if the `Task` has already been completed.
+
+* *Step 5a:* +
+The `execute` method of `TrackerCommand` calls `isValidDescription` method to check if the `description` of the `Task` matches the `description` of the `Tracker` of the same `TaskList` index.
+
+*Step 6:* +
+If the user given instruction is `/start`, a new `Tracker` will be added into the ArrayList of `Tracker` objects if the `Task` has never been tracked in the past.
+If the `Task` has been previously tracked, the `updatedTrackerList` method is called.
+
+[WARNING]
+`InvalidArgumentException` will be thrown if the instruction given by the user is invalid.
+`InvalidArgumentException` will be thrown if the saved `Tracker` object `description` do not match the `Task` object `description` where they are of the same `TaskList` index.
+
+* *Step 6a:* +
+The `updatedTrackerList` searches for the matching `Tracker` object in the ArrayList of `Tracker` objects before updating the `lastUpdated` and `startDate` with current `Date`.
+
+* *Step 6b:* +
+The `execute` method of `TrackerCommand` calls `writeTrackerList` method of `StorageManager` class to update `tracker.csv`.
+
+* *Step 6c:* +
+The `execute` method of `TrackerCommand` calls `printStartAtCurrent` method of `Ui` class.
+
+*Step 7:* +
+If the user given instruction is `/stop`, the `execute` method of `TrackerCommand` class calls `updateTimeTaken` method.
+
+[WARNING]
+`InvalidArgumentException` will be thrown if the instruction given by the user is invalid.
+`TrackerNotFoundException` will be thrown if the `Tracker` has no `startDate` or cannot be found.
+`InvalidArgumentException` will be thrown if the saved `Tracker` object `description` do not match the `Task` object `description` where they are of the same `TaskList` index.
+
+* *Step 7a:* +
+This is where the `timeTaken` of the matching `Tracker` object will be updated, calculating the time difference between `startDate` and current `Date`.
+
+* *Step 7b:* +
+The `execute` method of `TrackerCommand` calls `setStatus` method in `Task` class to mark the `Task` as completed.
+
+* *Step 7c:* +
+The `execute` method of `TrackerCommand` calls `writeTrackerList` and `writeTaskList` methods in `Storagemanager` class to update the ArrayList of `Tracker` objects and `TaskList`.
+
+* *Step 7d:* +
+The `execute` method of `TrackerCommand` calls `printEndAtCurrent` method of `Ui` class.
+
+*Step 8:* +
+If the user given instruction is `/stop`, the `execute` method of `TrackerCommand` class calls `updateTimeTaken` method.
+
+[WARNING]
+`InvalidArgumentException` will be thrown if the instruction given by the user is invalid.
+`TrackerNotFoundException` will be thrown if the `Tracker` has no `startDate` or cannot be found.
+`InvalidArgumentException` will be thrown if the saved `Tracker` object `description` do not match the `Task` object `description` where they are of the same `TaskList` index.
+
+* *Step 8a:* +
+This is where the `timeTaken` of the matching `Tracker` object will be updated, calculating the time difference between `startDate` and current `Date`.
+
+* *Step 8b:* +
+The `execute` method of `TrackerCommand` calls `writeTrackerList` and `writeTaskList` methods in `Storagemanager` class to update the ArrayList of `Tracker` objects and `TaskList`.
+
+* *Step 8c:* +
+The `execute` method of `TrackerCommand` calls `printEndAtCurrent` method of `Ui` class.
+
+The following activity diagram summarises what will happen when a user executes a `Tracker` command:
+
+[[TrackerActivityDiagram]]
+.Activity Diagram for TrackerCommand
+image::TrackerActivityDiagram.png[]
 
 ==== Design Considerations
 * *Creating `tracker.csv` to store past entries and their associated information*
@@ -597,25 +676,14 @@ The use of a comma is also less likely in module codes, task descriptions, and d
 The use of `.txt` and delimited by `\t` has been considered.
 However, the use of a tab may interfere with the processing algorithm should the user input contains four consecutive whitespaces -- which is processed as an equivalent to `\t`.
 
-* *Implementation of both `Tracker` and `TrackerList` as well as ModuleTracker` and `ModuleTrackerList` classes*
+* *Splitting the `timeTaken` property in ArrayList of `Tracker` objects sorted by `moduleCode` into blocks of ten minutes in the histogram*
 ** Rationale: +
-With future expansions in mind, this will allow two different forms of categorisation throughout the `Tracker` feature.
-This will ultimately facilitate the expansion the `ViewTrackerComamnd` feature to showcase a histogram sharing total time spent sorted either by
-*** `ModuleCode` of `ModuleTracker` objects in `ModuleTrackerList`
-*** `description` of `Tracker` objects in `TrackerList`.
+As more tasks get completed over time, the `timeTaken` property in `Tracker` objects will increase exponentially.
+With the estimated ten work hours weekly on each module, this may result in hundreds of minutes spent on `Task` for each `moduleCode`.
+By splitting the `timeTaken` property in the ArrayList of `Tracker` object sorted by `moduleCode` into blocks of ten minutes, the number of `#` printed will reduce drastically and allow a more compact diagram to be printed without compromising its accuracy beyond tolerance.
 
 ** Alternatives Considered: +
-The implementation of `Tracker` and `TrackerList` alone would be enough to facilitate the time spent on each Assignment
-and allow the user to view a histogram of the amount of time spent on each Assignment.
-
-* *Splitting the `timeTaken` property in `ModuleTrackerList` into blocks of ten minutes in the histogram*
-** Rationale: +
-As more Assignments get completed over time, the `timeTaken` property in `ModuleTracker` objects will increase exponentially.
-With the estimated ten work hours weekly on each module, this may result in hundreds of minutes spent on `Assignment` for each `ModuleCode`.
-By splitting the `timeTaken` property in `ModuleTrackerList` into blocks of ten minutes, the number of `#` printed will reduce drastically and allow a more compact diagram to be printed without compromising its accuracy beyond tolerance.
-
-** Alternatives Considered: +
-Without the splitting of the `timeTaken` property of `ModuleTracker` objects in the `ModuleTrackerList`, an additional variable `segmentedTimeTaken` will not be required and the user will be able to see a more accurate histogram
+Without the splitting of the `timeTaken` property of `Tracker` objects in the ArrayList, an additional variable `segmentedTimeTaken` will not be required and the user will be able to see a more accurate histogram
 as it will be printing one `#` to represent one minute instead.
 
 == Documentation
@@ -1276,3 +1344,63 @@ The `date` parameters `DD`, `MM` and `YYYY` are optional. If the `date` is not e
 ==== Testing the command
 You can enter the command `viewweek` to view `tasks` for the current week. +
 You are free to enter a `date` of your choice and observe the output of this command.
+
+=== Starting Task Tracker
+
+==== Understanding the parameters
+The `tracker /start` command syntax is as such: `tracker /start TASK_INDEX MODULE_CODE`.
+
+==== Testing the command
+You can enter the command `tracker /start TASK_INDEX MODULE_CODE` to begin tracking your `Task` in `TaskList` given index with association to `moduleCode`. +
+Feel free to enter a `TASK_INDEX` of your choice.
+
+=== Stopping Task Tracker
+
+==== Understanding the parameters
+The `tracker /stop` command syntax is as such: `tracker /stop TASK_INDEX MODULE_CODE`.
+
+==== Testing the command
+You can enter the command `tracker /stop TASK_INDEX MODULE_CODE` to stop tracking your `Task` in `TaskList` given index with association to `moduleCode`. +
+Feel free to enter a `TASK_INDEX` of your choice.
+
+=== Pausing Task Tracker
+
+==== Understanding the parameters
+The `tracker /pause` command syntax is as such: `tracker /pause TASK_INDEX MODULE_CODE`.
+
+==== Testing the command
+You can enter the command `tracker /pause TASK_INDEX MODULE_CODE` to stop tracking your `Task` in `TaskList` given index with association to `moduleCode`. +
+Feel free to enter a `TASK_INDEX` of your choice.
+
+=== Viewing Task Tracker Diagram
+
+==== Understanding the parameters
+The `tracker /view` command syntax is as such: `tracker /view PERIOD`.
+
+==== Testing the command
+You can enter the command `tracker /view PERIOD` to view a diagram showing the amount of time spent studying by `moduleCode` within a given `PERIOD`.
+
+Feel free to enter one of the following options for `PERIOD`:
+
+* `day` for today's entries
+
+* `week` for entries over the last 7 days
+
+* `all` for all entries
+
+=== Viewing a list of Task Trackers
+
+==== Understanding the parameters
+The `tracker /list` command syntax is as such: `tracker /list`.
+
+==== Testing the command
+You can enter the command `tracker /list` to view a list of all `Tracker` objects you have created so far.
+
+=== Deleting a Task Tracker
+
+==== Understanding the parameters
+The `tracker /delete` command syntax is as such: `tracker /delete TASK_INDEX`.
+
+==== Testing the command
+You can enter the command `tracker /delete TASK_INDEX` to delete a `Tracker` you have created. +
+Feel free to enter a `TASK_INDEX` of your choice.

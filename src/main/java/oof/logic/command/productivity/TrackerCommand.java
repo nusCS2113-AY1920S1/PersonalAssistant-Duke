@@ -21,8 +21,6 @@ import oof.model.task.TaskList;
 import oof.model.tracker.Tracker;
 import oof.storage.StorageManager;
 
-import javax.sound.midi.Track;
-
 public class TrackerCommand extends Command {
 
     public static final String COMMAND_WORD = "tracker";
@@ -91,6 +89,9 @@ public class TrackerCommand extends Command {
                 throw new InvalidArgumentException("Invalid Commmand!");
             }
             int deleteIndex = Integer.parseInt(input[DELETE_INDEX]) - CORRECT_INDEX;
+            if (deleteIndex >= taskList.getSize()) {
+                throw new InvalidArgumentException("Invalid Commmand!");
+            }
             tracker = trackerList.get(deleteIndex);
             String description = tracker.getDescription();
             long timeTaken = tracker.getTimeTaken();

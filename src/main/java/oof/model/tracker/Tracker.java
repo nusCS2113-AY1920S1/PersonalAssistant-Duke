@@ -88,6 +88,7 @@ public class Tracker {
 
     /**
      * Updates startDate and timeTaken properties of Tracker object.
+     *
      * @param totalTime     total Time spent on Assignment.
      */
     public void updateTracker(long totalTime, Date lastUpdated) {
@@ -98,6 +99,7 @@ public class Tracker {
 
     /**
      * Check if tracker has started.
+     *
      * @return true if tracker start date equals null.
      */
     public boolean isNotStarted() {
