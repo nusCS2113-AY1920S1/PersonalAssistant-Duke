@@ -667,8 +667,6 @@ public class ProjectInputController implements IController {
         } else {
 
             try {
-
-                String reminderCategory = projectToManage.getReminder(index).getCategory();
                 ArrayList<String> newReminderDetails = parserHelper.parseReminderDetails(projectCommand);
                 DateTimeHelper dateTimeHelper = new DateTimeHelper();
 
@@ -680,11 +678,11 @@ public class ProjectInputController implements IController {
                 }
                 if (newReminderDetails.get(2) != null) {
                     projectToManage.getReminder(index)
-                            .setReminderDate(dateTimeHelper.formatDate(newReminderDetails.get(2)));
+                        .setReminderDate(dateTimeHelper.formatDate(newReminderDetails.get(2)));
                 }
                 if (!(newReminderDetails.get(3).equals("DEFAULT"))) {
                     projectToManage.getReminder(index).setCategory(newReminderDetails.get(3));
-                            projectToManage.getReminder(index);
+                    projectToManage.getReminder(index);
                 }
                 return new String[] {"Your reminder have been updated."};
             } catch (NumberFormatException | ParseException e) {
@@ -717,7 +715,11 @@ public class ProjectInputController implements IController {
         }
     }
 
-    public String[] projectViewReminderCategory (Project projectToManage) {
+    /**
+     * The method view the reminder in categories.
+     * @param projectToManage The project specified by the user.
+     */
+    public String[] projectViewReminderCategory(Project projectToManage) {
         ArrayList<ArrayList<String>> reminderCategory = new ArrayList<>();
         HashMap<String, ArrayList<Reminder>> reminderCategoryList = projectToManage.getCategoryReminderList();
         DateTimeHelper dateTimeHelper = new DateTimeHelper();
