@@ -144,9 +144,23 @@ public class StorageManager {
      */
     public String getMajorExpense(String amount) throws DukeException {
         try {
-            return this.wallet.getReceipts().getmajorExpense(amount).getPrintableReceipts();
+            return this.wallet.getReceipts().getMajorExpenses(amount).getPrintableReceipts();
         } catch (Exception e) {
             throw new DukeException("Unable to get major expenses");
+        }
+    }
+
+    /**
+     * Gets all receipts that have cash spent attribute more than or equal to $100.
+     * Used by CommandMajorExpense
+     * @return ReceiptTracker containing all the receipts above or equal to $100
+     * @throws DukeException Error occurred when getting major expenses
+     */
+    public String getMajorReceipt() throws DukeException {
+        try {
+            return this.wallet.getReceipts().getMajorReceipts().getPrintableReceipts();
+        } catch (Exception e) {
+            throw new DukeException("Unable to get major receipt");
         }
     }
 

@@ -96,7 +96,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      * @param amount Specific String to be filtered with.
      * @return ArrayList containing all the Receipts with all the major expenses
      */
-    public ReceiptTracker getmajorExpense(String amount) {
+    public ReceiptTracker getMajorExpenses(String amount) {
         int input = Integer.parseInt(amount);
         ReceiptTracker expenseReceipts = new ReceiptTracker();
         for (Receipt receipt : this) {
@@ -105,6 +105,21 @@ public class ReceiptTracker extends ArrayList<Receipt> {
             }
         }
         return expenseReceipts;
+    }
+
+    /**
+     * Find all the expenses more than or equal to $100.
+     *
+     * @return ArrayList containing all the receipts with expenses above/equal to $100
+     */
+    public ReceiptTracker getMajorReceipts() {
+        ReceiptTracker receipts = new ReceiptTracker();
+        for (Receipt receipt : this) {
+            if (receipt.getCashSpent() >= 100) {
+                receipts.addReceipt(receipt);
+            }
+        }
+        return receipts;
     }
 
     /**

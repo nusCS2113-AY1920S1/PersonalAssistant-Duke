@@ -22,15 +22,28 @@ public class CommandMajorExpenseTest {
         receiptTwo.setDate(LocalDate.parse("2019-02-02"));
         storageManager.getWallet().addReceipt(receiptTwo);
 
+        Receipt receiptThree = new Receipt(100.0);
+        receiptThree.addTag("transport");
+        receiptThree.setDate(LocalDate.parse("2019-05-02"));
+        storageManager.getWallet().addReceipt(receiptThree);
+
 
         CommandMajorExpense m1 = new CommandMajorExpense("majorexpense 40");
         m1.execute(storageManager);
         String output = m1.getInfoCapsule().getOutputStr();
-        assertEquals("These are your expenditures above/equal to" + " " + "$" + 40 + "\n"
-                + "1. [transport] 40.0 2019-02-01\n", output);
+        assertEquals("These are your receipts above/equal to" + " " + "$" + 40 + "\n"
+                + "1. [transport] 40.0 2019-02-01\n"
+                + "2. [transport] 100.0 2019-05-02\n", output);
+
         CommandMajorExpense m2 = new CommandMajorExpense("majorexpense -5.0");
         m2.execute(storageManager);
         String result = m2.getInfoCapsule().getOutputStr();
         assertEquals("Input integer must be positive", result);
+
+        CommandMajorExpense m3 = new CommandMajorExpense("majorexpense");
+        m3.execute(storageManager);
+        String result1 = m3.getInfoCapsule().getOutputStr();
+        assertEquals("These are your receipts above/equal to $" + 100 + "\n"
+                + "1. [transport] 100.0 2019-05-02\n", result1);
     }
 }
