@@ -123,7 +123,7 @@ class ParserTest {
                 + "         \\  (oo)\\_______\n"
                 + "            (__)\\       )\\/\\\n"
                 + "                ||----w |\n"
-                + "                ||     ||\n", Ui.returnResponse());
+                + "                ||     ||\n", Ui.getOutput());
 
         try {
             c = newParser.parse("budget set b/100 c/places to go b/150");
@@ -150,7 +150,7 @@ class ParserTest {
         c.execute(newCalendar, newBudget, newCatList, newStorage);
         assertEquals("The budget for food is the same.\n"
             + "You have changed the budget for laptop from $125.00 to $100.00\n"
-            + "You have changed the budget for places to go from $123.00 to $150.00\n", Ui.returnResponse());
+            + "You have changed the budget for places to go from $123.00 to $150.00\n", Ui.getOutput());
 
         try {
             c = newParser.parse("budget edit b/100 c/places to go b/150");

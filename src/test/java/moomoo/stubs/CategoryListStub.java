@@ -42,12 +42,4 @@ public class CategoryListStub extends CategoryList {
         return null;
     }
 
-    @Override
-    public double getTotal(int month, int year) {
-        double total = 0;
-        for (Category category : newArrayList) {
-            total += category.getTotal(month, year);
-        }
-        return total;
-    }
 }

@@ -33,7 +33,7 @@ public class AddCategoryCommand extends Command {
         } else {
             categoryList.add(newCategory);
             CategoryStorage.saveToFile(input);
-            Ui.showCategoryMessage("New category named <" + input + "> added. ");
+            Ui.showCategoryMessage("Added category named : " + input);
         }
     }
 }

@@ -9,6 +9,8 @@ import moomoo.feature.category.CategoryList;
 import moomoo.feature.Ui;
 import moomoo.feature.storage.Storage;
 
+import java.util.ArrayList;
+
 public class ListCategoryCommand extends Command {
     public ListCategoryCommand() {
         super(false, "");
@@ -17,24 +19,24 @@ public class ListCategoryCommand extends Command {
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList,
                         Storage storage) throws MooMooException {
-        String categoryString = "";
+
+        ArrayList<String> categoryArray = new ArrayList<>();
         for (int i = 0; i < categoryList.size(); i++) {
             Category category = categoryList.get(i);
-            categoryString = categoryString.concat("\n" + (i + 1) + ". "
+            categoryArray.add((i + 1) + ". "
                     + category.name() + " [ $"
                     + category.getTotal() + " ]");
         }
-        showCategoryList(categoryString);
+        Ui.showList(categoryArray, getLongestCategory(categoryArray));
     }
 
-    private void showCategoryList(String categories) {
-        if (categories.isBlank()) {
-            Ui.setOutput("There are no existing categories now, add some using the (category add) command.");
-        } else {
-            Ui.setOutput("These are your current categories:"
-                    + "\n_______________________________________________"
-                    + categories
-                    + "\n_______________________________________________");
+    private int getLongestCategory(ArrayList<String> categoryArray) {
+        int longestEntry = 0;
+        for (String entry : categoryArray) {
+            if (entry.length() > longestEntry) {
+                longestEntry = entry.length();
+            }
         }
+        return longestEntry;
     }
 }

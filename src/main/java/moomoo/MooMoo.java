@@ -5,7 +5,6 @@ import moomoo.feature.Budget;
 import moomoo.feature.MooMooException;
 import moomoo.feature.ScheduleList;
 import moomoo.feature.Ui;
-import moomoo.feature.category.Category;
 import moomoo.feature.category.CategoryList;
 import moomoo.feature.parser.Parser;
 import moomoo.feature.storage.CategoryStorage;
@@ -81,7 +80,7 @@ public class MooMoo {
                 Command c = Parser.parse(fullCommand);
                 c.execute(calendar, budget, categoryList, storage);
 
-                if (!Ui.returnResponse().equals("")) {
+                if (!Ui.getOutput().equals("")) {
                     Ui.showResponse();
                 }
               
@@ -108,9 +107,9 @@ public class MooMoo {
             isExit = c.isExit;
             if (isExit) {
                 Ui.showGoodbye();
-                return Ui.returnResponse();
+                return Ui.getOutput();
             }
-            return Ui.returnResponse();
+            return Ui.getOutput();
         } catch (MooMooException e) {
             return Ui.printException(e);
         }
