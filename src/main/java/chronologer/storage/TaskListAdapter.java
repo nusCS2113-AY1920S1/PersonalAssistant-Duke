@@ -1,6 +1,5 @@
 package chronologer.storage;
 
-import chronologer.exception.ChronologerException;
 import chronologer.task.Deadline;
 import chronologer.task.Event;
 import chronologer.task.Task;
@@ -19,7 +18,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
- * Adapter used to parse JsonObjects and translate them into tasklist objects.
+ * Adapter used to parse JsonObjects and translate them into task list objects.
  *
  * @author Tan Yi Xiang
  * @version V1.0

@@ -12,7 +12,7 @@ import chronologer.exception.ChronologerException;
  */
 public class DeleteParser extends IndexParser {
 
-    public DeleteParser(String userInput, String command) {
+    DeleteParser(String userInput, String command) {
         super(userInput, command);
     }
 

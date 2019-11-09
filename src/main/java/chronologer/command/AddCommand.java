@@ -86,7 +86,7 @@ public class AddCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage) throws ChronologerException {
         Task task;
-        switch (command) {
+        switch (command.toLowerCase()) {
         case "todo":
             if (formattedStartDate != null) {
                 task = new Todo(taskDescription, formattedStartDate, formattedEndDate);

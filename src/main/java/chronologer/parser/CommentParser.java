@@ -13,7 +13,7 @@ import chronologer.ui.UiTemporary;
  */
 public class CommentParser extends IndexParser {
 
-    public CommentParser(String userInput, String command) {
+    CommentParser(String userInput, String command) {
         super(userInput, command);
     }
 
