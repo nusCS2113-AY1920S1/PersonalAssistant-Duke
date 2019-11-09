@@ -94,10 +94,8 @@ public class Parser {
                 isOneLetterApart = true;
             }
 
-            if (!command.equals(input) && isOneLetterApart) {
-                if (command.contains(input) || input.contains(command)) {
-                    isTypo = true;
-                }
+            if (!command.equals(input) && isOneLetterApart && (command.contains(input) || input.contains(command))) {
+                isTypo = true;
             }
 
             if (isTypo) {

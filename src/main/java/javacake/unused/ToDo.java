@@ -47,12 +47,9 @@ public class ToDo extends Task {
     public Date getDateTime() {
         return null;
     }
-    
-    /**
-     * Empty method as Event does not have date.
-     * @param newDate New scheduled date for task.
-     */
+
     @Override
-    public void changeDate(String newDate) { 
+    public void changeDate(String newDate) {
+
     }
 }

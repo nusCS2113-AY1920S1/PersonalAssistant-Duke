@@ -1,6 +1,5 @@
 package javacake.commands;
 
-import javacake.JavaCake;
 import javacake.exceptions.CakeException;
 import javacake.quiz.QuestionDifficulty;
 import javacake.quiz.QuestionType;

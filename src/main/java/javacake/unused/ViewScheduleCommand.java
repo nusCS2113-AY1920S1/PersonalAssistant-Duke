@@ -7,13 +7,8 @@ import javacake.exceptions.CakeException;
 import javacake.Logic;
 import javacake.storage.StorageManager;
 import javacake.ui.Ui;
-import javacake.tasks.Task;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 public class ViewScheduleCommand extends Command {
@@ -28,11 +23,11 @@ public class ViewScheduleCommand extends Command {
             throw new CakeException("     ☹ OOPS!!! The description of a viewschedule cannot be empty.");
         }
         input = input.substring(13);
+        /*
         Date currDate = getDate(input);
-        Calendar calendar = GregorianCalendar.getInstance();
         ArrayList<Task> scheduleList = new ArrayList<>();
 
-        /*
+        Calendar calendar = GregorianCalendar.getInstance();
         int currDay = calendar.get(Calendar.DAY_OF_MONTH);
         int currMonth = calendar.get(Calendar.MONTH);
         int currYear = calendar.get(Calendar.YEAR);
@@ -47,7 +42,7 @@ public class ViewScheduleCommand extends Command {
                     scheduleList.add(task);
                 }
             }
-        }*/
+        }
         sortTasksByDate(scheduleList);
         String outputDate = new SimpleDateFormat("dd MMM yyyy").format(currDate);
         if (scheduleList.isEmpty()) {
@@ -60,34 +55,8 @@ public class ViewScheduleCommand extends Command {
                 ui.showMessage(output);
             }
         }
+        */
         return "";
     }
 
-    private static void sortTasksByDate(ArrayList<Task> scheduleList) {
-        scheduleList.sort((o1, o2) -> {
-            if (o1.getDateTime() == null) {
-                return 1;
-            } else if (o2.getDateTime() == null) {
-                return -1;
-            }
-            if (o1.getDateTime().before(o2.getDateTime())) {
-                return -1;
-            } else if (o1.getDateTime().after(o2.getDateTime())) {
-                return 1;
-            }
-            return 0;
-        });
-    }
-
-    private Date getDate(String input) throws CakeException {
-        Date date;
-        try {
-            Parser parser = new Parser();
-            List<DateGroup> groups = parser.parse(input);
-            date = groups.get(0).getDates().get(0);
-        } catch (Exception e) {
-            throw new CakeException("   Date cannot be parsed: " + input);
-        }
-        return date;
-    }
 }
