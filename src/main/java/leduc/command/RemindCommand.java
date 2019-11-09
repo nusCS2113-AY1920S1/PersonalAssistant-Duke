@@ -4,14 +4,11 @@ import leduc.Ui;
 import leduc.task.TaskList;
 import leduc.task.Task;
 import java.util.ArrayList;
-
 /**
  * Represents a Remind Command.
  * Allow to remind user of upcoming tasks in the list.
  */
-
 public class RemindCommand extends Command {
-
     /**
      * static variable used for shortcut
      */
@@ -30,29 +27,28 @@ public class RemindCommand extends Command {
     public boolean isExit(){
         return false;
     }
-
-
-
-
     /**
      * Allow to remind user of upcoming tasks.
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      */
-
     public void execute(TaskList tasks, Ui ui, Storage storage){
         ArrayList<Task> filteredTasklist = tasks.filterTasks(tasks);
         ArrayList<Task> extractedTodo = tasks.extractTodo(tasks);
-        TaskList sortedTasks = new TaskList(tasks.sort(filteredTasklist, extractedTodo));
-        String result = "";
+        ArrayList<Task> sortedList = tasks.sort(filteredTasklist, extractedTodo);
+        TaskList sortedTasks = new TaskList(sortedList);
 
-        if (sortedTasks.size() > 0) {
-            int j = 0;
-            for (int i = 0; i < sortedTasks.size(); i++) {//prints first 3 tasks in the sorted taskList
-                if ((j < 3) && (sortedTasks.get(i).getMark().equals("[X]"))) {
+        String result = "";
+        int length = sortedTasks.size();
+        if (length > 0) {
+            int numReturned= 0;
+            for (int i = 0; i < length; i++) {//prints first 3 tasks in the sorted taskList
+                Task task = sortedTasks.get(i);
+                String mark = task.getMark();
+                if ((numReturned < 3) && (mark.equals("[X]"))) {
                     result += sortedTasks.displayOneElementList(i);
-                    j++;
+                    numReturned++;
                 }
             }
             ui.display(result);
@@ -60,7 +56,6 @@ public class RemindCommand extends Command {
         else{
             ui.showNoTask();
         }
-
     }
     /**
      * getter because the shortcut is private

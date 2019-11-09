@@ -1,12 +1,10 @@
+/* @@author rshah918 */
 package leduc.command;
-
 import leduc.Ui;
 import leduc.storage.Storage;
 import leduc.task.Task;
 import leduc.task.TaskList;
-
 import java.util.ArrayList;
-
 /**
  * Will display all unfinished tasks in the tasklist
  */
@@ -30,8 +28,6 @@ public class UnfinishedCommand extends Command {
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage){
-
-        String result = "";
         ArrayList<Task> unfinishedTaskList = new ArrayList<Task>();
         //Iterate through the tasklist
         for(int i = 0; i < tasks.size(); i++){
@@ -45,6 +41,7 @@ public class UnfinishedCommand extends Command {
         //call ui to display output
         ui.showUnFinishedTasks(unfinishedTaskList);
     }
+/* @@author */
     /**
      * getter because the shortcut is private
      * @return the shortcut name
@@ -52,7 +49,6 @@ public class UnfinishedCommand extends Command {
     public static String getUnfinishedShortcut() {
         return unfinishedShortcut;
     }
-
     /**
      * used when the user want to change the shortcut
      * @param unfinishedShortcut the new shortcut
