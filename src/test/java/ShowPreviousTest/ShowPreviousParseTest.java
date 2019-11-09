@@ -52,7 +52,7 @@ public class ShowPreviousParseTest {
 
     @Test
     public void showPreviousParseWithInvalidNumber() {
-        String expected = "Invalid Input. Cannot enter negative number";
+        String expected = "Invalid Input. Cannot enter negative number. Please enter a valid integer greater than 0";
         String actual = "";
         Command command = null;
         try {
@@ -70,7 +70,6 @@ public class ShowPreviousParseTest {
         String actual = "";
         try {
             command = new ShowPreviousParse(validUserInputWithNumber).parse();
-//            actual = command.execute(events, deadlines, ui, storageStub);
         } catch (DukeInvalidFormatException e) {
             actual = e.getMessage();
         }

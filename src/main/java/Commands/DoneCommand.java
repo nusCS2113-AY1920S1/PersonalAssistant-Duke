@@ -44,11 +44,11 @@ public class DoneCommand extends Command {
         HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineMap = deadlines.getMap();
 
         if (list.equals("event")) {
-            isInsideMap(eventMap, task);
+            super.insideMapChecker(eventMap, task);
             events.updateTask(task);
             storage.updateEventList(events);
         } else if (list.equals("deadline")) {
-            isInsideMap(deadlineMap, task);
+            super.insideMapChecker(deadlineMap, task);
             deadlines.updateTask(task);
             storage.updateDeadlineList(deadlines);
         }

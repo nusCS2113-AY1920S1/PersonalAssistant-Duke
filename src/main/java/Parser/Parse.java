@@ -44,12 +44,33 @@ public abstract class Parse {
         else if((start.matches("[0-9]+") && start.length() > 2) || (end.matches("[0-9]") && end.length() > 2)) {
             Integer intStart = Integer.parseInt(start);
             Integer intEnd = Integer.parseInt(end);
-            if (intStart < 0 || intEnd < 0) return false;
-            else if (intStart > intEnd) return false;
-            else return true;
+            if(!isValidTwoFourHourFormat(intStart) || !isValidTwoFourHourFormat(intEnd)) {
+                return false;
+            } else if (intStart > intEnd) {
+                return false;
+            }
+            return true;
         }
-
         return false;
+    }
+
+    /**
+     * This method checks if the time given is in a 24-hour time format
+     * @param intTime The time given
+     * @return true if the time given is valid. Otherwise, false.
+     */
+    public boolean isValidTwoFourHourFormat(Integer intTime) {
+        if (intTime < 0 || intTime > 2359) {
+            return false;
+        } else {
+            Integer intHour = intTime / 100;
+            Integer intMinute = intTime % 100;
+            if (intHour > 23  || intMinute > 59) {
+                return false;
+            } else {
+                return true;
+            }
+        }
     }
 
     /**
@@ -60,11 +81,12 @@ public abstract class Parse {
     public boolean isValidTime(String input) {
         String[] spiltInput = input.split(" ");
         String time = spiltInput[spiltInput.length-1];
-        if(time.length() != 4) return false;
-        else if (time.matches("[0-9]+") && time.length() > 2) {
+        if(time.length() != 4) {
+            return false;
+        }
+        if (time.matches("[0-9]+") && time.length() > 2) {
             Integer intTime = Integer.parseInt(time);
-            if (intTime < 0 || intTime > 2359) return false;
-            else return true;
+            return isValidTwoFourHourFormat(intTime);
         }
         return false;
     }
@@ -75,10 +97,14 @@ public abstract class Parse {
      * @return true if description of task is valid
      */
     public boolean isValidDescription(String[] input) {
-        if(input.length == 1) return false;
+        if(input.length == 1) {
+            return false;
+        }
         String description = input[1].trim();
-        if(description.isEmpty()) return false;
-        else return true;
+        if(description.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -87,7 +113,10 @@ public abstract class Parse {
      * @return true if ModCode and description of the task is valid
      */
     public boolean isValidModCodeAndDescription(String input) {
-        if (input.isEmpty()) return false;
-        else return true;
+        if (input.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

@@ -20,7 +20,7 @@ public abstract class Assignment {
         this.isDone = false;
         this.isReminder = false;
         this.remindTime = "";
-        this.modCode ="";
+        this.modCode = "";
     }
 
     public abstract String getType();
@@ -30,7 +30,9 @@ public abstract class Assignment {
     public abstract String getDate();
 
     public abstract String getTime();
+
     public abstract String getStartTime();
+
     public abstract String getEndTime();
 
     /**
@@ -53,6 +55,9 @@ public abstract class Assignment {
         isDone = done;
     }
 
+    /**
+     * This method gets the description of the assignment.
+     */
     public String getDescription() {
         String[] split = description.split(" ");
         String taskDescription = "";
@@ -72,20 +77,18 @@ public abstract class Assignment {
         return "[" + getStatusIcon() + "]" + getReminderStatus()  + remindTimeToString() + getDescription();
     }
 
-    public String displayString(){
-        return "[" + getType() + "]" +"[" + getStatusIcon() + "]" + this.description + " by " + getDateTime();
+    public String displayString() {
+        return "[" + getType() + "]" + "[" + getStatusIcon() + "]" + this.description + " by " + getDateTime();
     }
+
+    /**
+     * This method gets the module code of the assignment.
+     */
     public String getModCode() {
         String[] split = description.trim().split(" ");
-        String modcode = split[0].toUpperCase();
-        return modcode;
+        String moduleCode = split[0].toUpperCase();
+        return moduleCode;
     }
-
-    public String getModCodeAndDescription() {
-        return this.description;
-    }
-
-
 
     /**
      * Sets the time of reminder.

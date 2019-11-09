@@ -1,28 +1,32 @@
- import Commands.Command;
+package RetrievePreviousTest;
+
+import Commands.Command;
 import Commands.RetrievePreviousCommand;
- import Commands.ShowPreviousCommand;
+import Commands.ShowPreviousCommand;
 import Commons.UserInteraction;
- import DukeExceptions.DukeInvalidFormatException;
- import Parser.FindFreeTimesParse;
- import Parser.ShowPreviousParse;
- import Parser.WeekParse;
- import StubClasses.StorageStub;
+import DukeExceptions.DukeInvalidFormatException;
+import Parser.FindFreeTimesParse;
+import Parser.ShowPreviousParse;
+import Parser.WeekParse;
+import StubClasses.StorageStub;
 import Tasks.TaskList;
- import org.junit.Before;
- import org.junit.jupiter.api.BeforeAll;
+import org.junit.Before;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
- import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
- public class RetrievePreviousCommandTest {
+public class RetrievePreviousCommandTest {
     private static ArrayList<String> previousInputList;
     private static String userInputWithInvalidNumber;
     private static String userInputToGetFromEmptyPreviousInputList;
     private static String userInputWithValidNumber;
     private static String userInputToGetFromNonEmptyPreviousInputList;
+    private static String userInputWithoutInteger;
+    private static String userInputWithString;
     private TaskList events = new TaskList();
     private TaskList deadlines = new TaskList();
     private StorageStub storageStub = new StorageStub();
@@ -34,6 +38,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         userInputToGetFromEmptyPreviousInputList = "retrieve/previous 1";
         userInputWithValidNumber = "retrieve/previous 2";
         userInputToGetFromNonEmptyPreviousInputList = "retrieve/previous 1";
+        userInputWithoutInteger = "retrieve/previous";
+        userInputWithString = "retrieve/previous abc";
     }
 
     @Before
@@ -55,7 +61,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
     @Before
     public void setRetrievedFreeTimesList() {
         String actual = "No error";
-        String validUserInputWithDuration = "find/ft 3 hours";
+        String validUserInputWithDuration = "find/time 3 hours";
         Command command = null;
         try {
             command = new FindFreeTimesParse(validUserInputWithDuration).parse();
@@ -70,7 +76,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
     @Before
     public void showPreviousCommandList() {
-        //To facilitate show previous
         setRetrievedFreeTimesList();
         runWeekCommand();
         setRetrievedFreeTimesList();
@@ -91,15 +96,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
     @Test
     public void retrievePreviousCommandTestWithInvalidNUmber() {
-        //To facilitate retrieve previous
         showPreviousCommandList();
         runWeekCommand();
 
         previousInputList = ShowPreviousCommand.getOutputList();
         int sizeOfList = previousInputList.size();
         Command command = new RetrievePreviousCommand(userInputWithInvalidNumber);
-        String expected = "There are only " + sizeOfList + " of previous commands." +
-                "Please enter a valid number less than or equal to " + sizeOfList + " .";
+        String expected = "There are only " + sizeOfList + " of previous commands."
+                + "Please enter a valid number less than or equal to " + sizeOfList + " .";
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);
@@ -112,8 +116,35 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
     @Test
     public void retrievePreviousCommandTestWithEmptyPreviousInputList() {
         Command command = new RetrievePreviousCommand(userInputToGetFromEmptyPreviousInputList);
-        String expected = "You did not enter Show Previous Command yet. \n" +
-                "Format: show previous <num> or show previous <type> <num>";
+        String expected = "You did not enter Show Previous Command yet. \n"
+                + "Format: show previous <num> or show previous <type> <num>";
+        String actual = "";
+        try {
+            actual = command.execute(events, deadlines, ui, storageStub);
+        } catch (Exception e) {
+            actual = e.getMessage();
+        }
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void retrievePreviousCommand_userInputWithoutInteger_throwsDukeInvalidCommandException() {
+        Command command = new RetrievePreviousCommand(userInputWithoutInteger);
+        String expected = "<x> cannot be empty. Please enter the valid command as retrieve/previous <x>, "
+                + "where x is an integer.";
+        String actual = "";
+        try {
+            actual = command.execute(events, deadlines, ui, storageStub);
+        } catch (Exception e) {
+            actual = e.getMessage();
+        }
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void retrievePreviousCommand_userInputWithString_throwsDukeInvalidCommandException() {
+        Command command = new RetrievePreviousCommand(userInputWithString);
+        String expected = "Unable to parse string. retrieve/previous <x>, where x must be an integer and not string.";
         String actual = "";
         try {
             actual = command.execute(events, deadlines, ui, storageStub);
@@ -125,7 +156,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
     @Test
     public void retrievePreviousCommandTestWithValidNumber() {
-        //To facilitate retrieve previous
         showPreviousCommandList();
         runWeekCommand();
 
@@ -145,11 +175,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
     @Test
     public void retrievePreviousCommandTestWithNonEmptyList() {
-        //To facilitate retrieve previous
         showPreviousCommandList();
         runWeekCommand();
 
-        //For actual testing
         Command command = new RetrievePreviousCommand(userInputToGetFromNonEmptyPreviousInputList);
         previousInputList = ShowPreviousCommand.getOutputList();
         int index = 0;

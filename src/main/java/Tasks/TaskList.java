@@ -17,7 +17,7 @@ public class TaskList {
     /**
      * Creates a TaskList object.
      */
-    public TaskList(){
+    public TaskList() {
         this.list = new ArrayList<>();
         this.map = new HashMap<>();
     }
@@ -26,11 +26,14 @@ public class TaskList {
         return list;
     }
 
-    public HashMap<String, HashMap<String, ArrayList<Assignment>>> getMap(){
+    public HashMap<String, HashMap<String, ArrayList<Assignment>>> getMap() {
         return this.map;
     }
 
-    public void addTask(Assignment task){
+    /**
+     * This method adds task into the arrayList list.
+     */
+    public void addTask(Assignment task) {
         this.list.add(task);
         if (this.map.containsKey(task.getModCode())) {
             if (!this.map.get(task.getModCode()).containsKey(task.getDate())) {
@@ -43,6 +46,9 @@ public class TaskList {
         this.map.get(task.getModCode()).get(task.getDate()).add(task);
     }
 
+    /**
+     * This method removes task from the map.
+     */
     public void removeTask(Assignment task) {
         for (Assignment taskInList : this.map.get(task.getModCode()).get(task.getDate())) {
             if (taskInList.getDateTime().equals(task.getDateTime())) {
@@ -58,9 +64,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * This method updates map with the task.
+     */
     public void updateTask(Assignment task) {
-        for(Assignment taskInList : this.map.get(task.getModCode()).get(task.getDate())) {
-            if(taskInList.getDateTime().equals(task.getDateTime())) {
+        for (Assignment taskInList : this.map.get(task.getModCode()).get(task.getDate())) {
+            if (taskInList.getDateTime().equals(task.getDateTime())) {
                 Integer index = this.map.get(task.getModCode()).get(task.getDate()).indexOf(taskInList);
                 Assignment temp = this.map.get(task.getModCode()).get(task.getDate()).get(index);
                 temp.setDone(true);
@@ -72,27 +81,34 @@ public class TaskList {
     }
 
     //Do not use this: User will input the task in the CLI
-    public Assignment getTask(int index){
+    public Assignment getTask(int index) {
         return this.list.get(index);
     }
 
     //Do not use this: Use toString method in Task
-    public String taskToString(int index){
+    public String taskToString(int index) {
         return list.get(index).toString();
     }
 
+    /**
+     * This method finds the size fo the taskList.
+     */
     public int taskListSize() {
         int size = 0;
         for (String modCode : map.keySet()) {
             for (String date : map.get(modCode).keySet()) {
-                for (Assignment task : map.get(modCode).get(date))
+                for (Assignment task : map.get(modCode).get(date)) {
                     size++;
+                }
             }
         }
         return size;
     }
 
-    public void setReminder(Assignment task, String time, boolean isReminder){
+    /**
+     * This method sets reminder for a task.
+     */
+    public void setReminder(Assignment task, String time, boolean isReminder) {
         for (Assignment taskInList : this.map.get(task.getModCode()).get(task.getDate())) {
             if (taskInList.getDescription().equals(task.getDescription())) {
                 if (isReminder) {
@@ -107,5 +123,4 @@ public class TaskList {
             }
         }
     }
-
 }

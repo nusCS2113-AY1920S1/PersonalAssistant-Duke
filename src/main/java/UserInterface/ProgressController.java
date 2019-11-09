@@ -31,7 +31,7 @@ public class ProgressController extends HBox {
      * @param deadlineList the list containing the deadline tasks
      * @return a pair containing the arraylist of tasks and hashmap of module code
      */
-    public Pair<HashMap<String, String>, ArrayList<Pair<String, Pair<String, String>>>> getProgressIndicatorMap (HashMap<String, HashMap<String, ArrayList<Assignment>>> eventsList, HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineList) {
+    public Pair<HashMap<String, String>, ArrayList<Pair<String, Pair<String, String>>>> getProgressIndicatorMap(HashMap<String, HashMap<String, ArrayList<Assignment>>> eventsList, HashMap<String, HashMap<String, ArrayList<Assignment>>> deadlineList) {
         Assignment eventTask;
         if (eventsList.size() != 0) {
             for (String moduleCode : eventsList.keySet()) {
@@ -90,7 +90,7 @@ public class ProgressController extends HBox {
      * @param totalValue the total number of event and deadline tasks
      * @param completedValue the number of tasks completed
      */
-    public void getData (String mc, int totalValue , int completedValue) {
+    public void getData(String mc, int totalValue , int completedValue) {
         int undoneValue = totalValue - completedValue;
         Double progressValue = (double) completedValue / totalValue;
         moduleCodeLabel.setText(mc);

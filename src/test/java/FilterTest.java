@@ -1,6 +1,7 @@
+package FilterTest;
+
 import Commands.Command;
 import Commands.FilterCommand;
-import Commons.LookupTable;
 import Commons.UserInteraction;
 import StubClasses.StorageStub;
 import Tasks.Assignment;
@@ -12,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FilterTest {
+public class FilterCommandTest {
     private static Assignment eventWithoutKeyword;
     private static Assignment deadlineWithoutKeyword;
     private static Assignment eventWithKeyword;
@@ -45,14 +46,15 @@ public class FilterTest {
         }
         assertEquals(w1, w2);
     }
+
     @Test
     public void keywordInListTest() {
         deadlines.addTask(deadlineWithKeyword);
         events.addTask(eventWithKeyword);
         Command command = new FilterCommand(keyword);
-        String w1 ="Here are the following events/deadline with the keyword key\n" +
-                "1. [E]EventWithKey CS2101 12/10/2019 1300 to 1301\n" +
-                "2. [D]DeadlineWithKey CS2101 13/10/2019 1200\n" ;
+        String w1 = "Here are the following events/deadline with the keyword key\n"
+                + "1. [E]EventWithKey CS2101 12/10/2019 1300 to 1301\n"
+                + "2. [D]DeadlineWithKey CS2101 13/10/2019 1200\n";
         String w2;
         try {
             w2 = command.execute(events, deadlines, ui, storage);
@@ -63,19 +65,19 @@ public class FilterTest {
     }
 
     @Test
-    public void keywordSubstringTest(){
+    public void keywordSubstringTest() {
      //keyword would be changed from key to keyword
-         keyword = "keyword";
-         deadlines.addTask(deadlineWithKeyword);
-         events.addTask(eventWithKeyword);
-         Command command = new FilterCommand(keyword);
-         String w1 = "There are no task(s) matching your keyword.";
-         String w2 ;
-         try {
-              w2 = command.execute(events, deadlines, ui, storage);
-         } catch (Exception e) {
-             w2 = e.getMessage();
-         }
-         assertEquals(w1, w2);
+        keyword = "keyword";
+        deadlines.addTask(deadlineWithKeyword);
+        events.addTask(eventWithKeyword);
+        Command command = new FilterCommand(keyword);
+        String w1 = "There are no task(s) matching your keyword.";
+        String w2;
+        try {
+            w2 = command.execute(events, deadlines, ui, storage);
+        } catch (Exception e) {
+            w2 = e.getMessage();
+        }
+        assertEquals(w1, w2);
     }
 }

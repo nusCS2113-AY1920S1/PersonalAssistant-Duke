@@ -3,7 +3,7 @@ package Tasks;
 /**
  * Represents a task called event.
  */
-public class Event extends Assignment{
+public class Event extends Assignment {
 
     private final String by;
     private final String start;
@@ -54,11 +54,12 @@ public class Event extends Assignment{
     }
 
     @Override
-    public String getStartTime(){
+    public String getStartTime() {
         return start;
     }
+
     @Override
-    public String getEndTime(){
+    public String getEndTime() {
         return end;
     }
 
