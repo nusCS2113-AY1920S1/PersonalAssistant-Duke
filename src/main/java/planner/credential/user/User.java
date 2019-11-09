@@ -146,6 +146,14 @@ public class User {
         return this.getCcas(this.getSemester());
     }
 
+    public TaskList<TaskWithMultipleWeeklyPeriod> getAllTasks(int semester) {
+        return this.modulesAndCcas.get(semester).getAllTasks();
+    }
+
+    public TaskList<TaskWithMultipleWeeklyPeriod> getAllTasks() {
+        return this.getAllTasks(this.getSemester());
+    }
+
     /**
      * Set modules/ccas for a semester.
      * @param semester selected semester
@@ -157,7 +165,7 @@ public class User {
                 this.modulesAndCcas = new HashMap<>();
             }
             TaskLists taskLists = this.modulesAndCcas.get(semester);
-            for (Field field: taskLists.getClass().getFields()) {
+            for (Field field: taskLists.getClass().getDeclaredFields()) {
                 if (field.getClass().isAssignableFrom(tasks.getClass())) {
                     try {
                         field.set(taskLists, tasks);

@@ -3,11 +3,9 @@ package planner.logic.modules;
 import planner.logic.modules.legacy.task.TaskWithMultipleWeeklyPeriod;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class TaskList<E extends TaskWithMultipleWeeklyPeriod> extends ArrayList<E> {
 
@@ -26,28 +24,27 @@ public class TaskList<E extends TaskWithMultipleWeeklyPeriod> extends ArrayList<
     /**
      * Returns list of tasks which have the search
      * keyword included in their name.
-     * @param keyword Parsed keyword of the cca to be searched.
-     * @return Returns the cca list where each cca contains the search keyword.
+     * @param keyword Parsed keyword of the cca to be searched
+     * @param exact If true, whole name must match
+     * @return Returns the cca list where each cca contains the search keyword
      */
-    public TaskList find(String keyword) {
+    public TaskList<TaskWithMultipleWeeklyPeriod> find(String keyword, boolean exact) {
         TaskList<TaskWithMultipleWeeklyPeriod> results = new TaskList<>();
-        String[] keywordSplit = keyword.trim().split(" +");
-        Set<String> ccaNameSplit;
-        boolean match;
         for (TaskWithMultipleWeeklyPeriod task : this) {
-            match = true;
-            ccaNameSplit = new HashSet<>(Arrays.asList(task.getTask().trim().split(" +")));
-            for (String keywordPart: keywordSplit) {
-                if (!ccaNameSplit.contains(keywordPart)) {
-                    match = false;
-                    break;
-                }
-            }
-            if (match) {
+            String taskName = task.getName();
+            if (!exact && taskName.contains(keyword) || taskName.equals(keyword)) {
                 results.add(task);
             }
         }
         return results;
+    }
+
+    public TaskList<TaskWithMultipleWeeklyPeriod> findExact(String keyword) {
+        return this.find(keyword, true);
+    }
+
+    public TaskList<TaskWithMultipleWeeklyPeriod> find(String keyword) {
+        return this.find(keyword, false);
     }
 
     /**
@@ -72,7 +69,7 @@ public class TaskList<E extends TaskWithMultipleWeeklyPeriod> extends ArrayList<
         return false;
     }
 
-    public HashSet<TaskWithMultipleWeeklyPeriod> getSetModuleTask() {
+    public HashSet<TaskWithMultipleWeeklyPeriod> getSetTasks() {
         return new HashSet<>(this);
     }
 

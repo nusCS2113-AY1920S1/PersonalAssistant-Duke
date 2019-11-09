@@ -7,7 +7,7 @@ import java.time.LocalTime;
 import java.util.HashMap;
 
 import planner.credential.user.User;
-import planner.logic.exceptions.legacy.ModCcaScheduleException;
+import planner.logic.exceptions.legacy.ModScheduleException;
 import planner.logic.exceptions.legacy.ModEmptyListException;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.legacy.ModOutOfBoundException;
@@ -46,7 +46,7 @@ public class AddCcaScheduleCommand extends ModuleCommand {
         TimePeriodWeekly timePeriodWeekly = new TimePeriodWeekly(begin, end, dayOfWeek);
         for (Cca cca: profile.getCcas()) {
             if (cca.isClashing(timePeriodWeekly)) {
-                throw new ModCcaScheduleException();
+                throw new ModScheduleException();
             }
         }
         Cca cca = profile.getCcas().get(index);
