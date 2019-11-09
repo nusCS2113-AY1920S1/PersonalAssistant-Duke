@@ -242,7 +242,7 @@ If they match, that particular element of `commands` ArrayList will be stored in
 *Step 4:* +
 The `execute` method of `HelpCommand` calls `printHelpCommand` in `Ui` class with `description` String as the parameter. This is where the individual `Command` and its instruction will be printed.
 
-The following activity diagram summarises what will happen when a user executes a `Help` command:
+The following sequence diagram summarises what will happen when a user executes a `Help` command:
 
 [[HelpSequenceDiagram]]
 .Sequence diagram for Help Command
