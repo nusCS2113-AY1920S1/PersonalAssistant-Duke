@@ -17,6 +17,9 @@ public interface ParserStringList {
     String ENTRY_COMMAND_ADD = "add";
     String ENTRY_COMMAND_LIST = "entries";
 
+    String ENTRY_TYPE_E = "expense";
+    String ENTRY_TYPE_I = "income";
+
     // Commands specific to Limit mode
     String LIMIT_COMMAND_LIST = "limits";
     String LIMIT_COMMAND_SET = "set";
@@ -55,6 +58,7 @@ public interface ParserStringList {
     String COMPONENT_DATE = "/on";
     String COMPONENT_TAG = "/tag";
     String COMPONENT_DURATION = "/duration";
+    String COMPONENT_NAME = "/name";
 
     //Components used in sort
     String SORT_TYPE_AMOUNT = "amount";

@@ -1,5 +1,7 @@
 package dolla.model;
 
+import static dolla.parser.ParserStringList.LIMIT_TYPE_S;
+
 /**
  * Limit is a class that stores all limit related methods (savings and budgets).
  */
@@ -36,7 +38,7 @@ public class Limit extends Record {
 
     @Override
     public String formatSave() {
-        saveType = type.equals("saving") ? "S" : "BU";
+        saveType = LIMIT_TYPE_S.equals(type) ? "S" : "BU";
         return  saveType + " | "
                 + amount + " | "
                 + duration;

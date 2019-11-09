@@ -11,6 +11,20 @@ public abstract class Ui {
 
     protected static final String MSG_MODIFY = "\tPlease use the format 'modify [LIST NUM]' if you wish to modify it.";
 
+    private static final String EXISTING_RECORD_MSG = "\tOOPS! You already have the following ";
+    private static final String INVALID_AMOUNT_MSG = "\tOOPS! The amount you have entered is invalid.";
+    private static final String VALID_AMOUNT_MSG = "\tPlease key in a non-zero positive "
+                                                    + "value that is less than 1,000,000.";
+
+    private static final String EXECUTE_SHORTCUT_MSG = "\tYou can execute 'shortcuts' to view your list of shortcuts!";
+    private static final String INVALID_DATE_MSG = "\tPlease use the format 'DD/MM/YYYY'!";
+    private static final String INVALID_NUMBER_MSG = " is not a number. Please use a number instead!";
+    private static final String INVALID_COMMAND_MSG = "\tOOPS! The command is invalid. Please enter a valid command!";
+
+    private static final String NO_REMINDERS_MSG = "\tThere are no reminders :)";
+    private static final String EXIT_MSG = "\tBye. Hope to see you again soon!";
+
+
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -35,16 +49,9 @@ public abstract class Ui {
           + "\t| $$$$$$$/|  $$$$$$/| $$| $$|  $$$$$$$\n"
           + "\t|_______/  \\______/ |__/|__/ \\_______/\n";
 
-    private static String logo =
-        "\t ____    _   _  _   _       \n"
-        + "\t|  _  \\/ _ \\| || | /  \\      \n"
-        + "\t| | | | | | | || |/ /\\ \\  \n"
-        + "\t| |_| | |_| | || |  __  | \n"
-        + "\t|____/ \\ _ /|_||_|_|  |_|       \n";
+    protected static final String line = "\t____________________________________________________________";
 
-    protected static String line = "\t____________________________________________________________";
-
-    private static String version = "\tVersion 1.3\n";
+    private static final String version = "\tVersion 1.4\n";
 
     private static String welcomeMsg =
         "\tHello from\n"
@@ -113,7 +120,7 @@ public abstract class Ui {
         System.out.println("\tGot it. I've added this " + currRecord.getRecordType() + ": ");
         System.out.println("\t" + currRecord.getRecordDetail());
         if (currRecord.getRecordType().equals(MODE_SHORTCUT)) {
-            System.out.println("\tYou can execute 'shortcuts' to view your list of shortcuts!");
+            System.out.println(EXECUTE_SHORTCUT_MSG);
         }
         System.out.println(line);
     }
@@ -123,7 +130,7 @@ public abstract class Ui {
      */
     public static void printDateFormatError() {
         System.out.println(line);
-        System.out.println("\tPlease use the format 'DD/MM/YYYY'!");
+        System.out.println(INVALID_DATE_MSG);
         System.out.println(line);
     }
 
@@ -134,7 +141,7 @@ public abstract class Ui {
      */
     public static void printInvalidNumberError(String str) {
         System.out.println(line);
-        System.out.println("\t" + str + " is not a number. Please use a number instead!");
+        System.out.println("\t" + str + INVALID_NUMBER_MSG);
         System.out.println(line);
     }
 
@@ -143,7 +150,7 @@ public abstract class Ui {
      */
     public static void printInvalidCommandError() {
         System.out.println(line);
-        System.out.println("\tOOPS! The command is invalid. Please enter a valid command!");
+        System.out.println(INVALID_COMMAND_MSG);
         System.out.println(line);
     }
 
@@ -152,7 +159,7 @@ public abstract class Ui {
      */
     public static void printNoReminderMsg() {
         System.out.println(line);
-        System.out.println("\tThere are no reminders :)");
+        System.out.println(NO_REMINDERS_MSG);
         System.out.println(line);
     }
 
@@ -162,7 +169,7 @@ public abstract class Ui {
      */
     public static void printExitMsg() {
         System.out.println(line);
-        System.out.println("\tBye. Hope to see you again soon!");
+        System.out.println(EXIT_MSG);
         System.out.println(line);
     }
 
@@ -221,7 +228,7 @@ public abstract class Ui {
      */
     public static void existingRecordPrinter(Record record, String mode) {
         System.out.println(line);
-        System.out.println("\tOOPS! You already have the following " + mode + ":");
+        System.out.println(EXISTING_RECORD_MSG + mode + ":");
         System.out.println("\t" + record.getRecordDetail());
         System.out.println(MSG_MODIFY);
         System.out.println(line);
@@ -229,11 +236,11 @@ public abstract class Ui {
 
     /**
      * Prints a message reminding user to input a valid amount.
-     * @param msg Message to be printed to user.
      */
-    public static void invalidAmountPrinter(String msg) {
+    public static void invalidAmountPrinter() {
         System.out.println(line);
-        System.out.println(msg);
+        System.out.println(INVALID_AMOUNT_MSG);
+        System.out.println(VALID_AMOUNT_MSG);
         System.out.println(line);
     }
 

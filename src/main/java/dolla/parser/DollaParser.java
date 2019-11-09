@@ -8,9 +8,12 @@ import dolla.command.Command;
 import dolla.command.ErrorCommand;
 import dolla.command.view.ViewDateCommand;
 import dolla.command.view.ViewTodayCommand;
+
 import dolla.ui.DebtUi;
 import dolla.ui.Ui;
+import dolla.ui.LimitUi;
 import dolla.ui.ViewUi;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
@@ -77,6 +80,7 @@ public class DollaParser extends Parser {
             if (verifySetCommand()) {
                 return new AddLimitCommand(type, amount, duration);
             } else {
+                LimitUi.invalidSetCommandPrinter();
                 return new ErrorCommand();
             }
         }

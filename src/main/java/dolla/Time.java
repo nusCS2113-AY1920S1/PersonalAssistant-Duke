@@ -12,7 +12,7 @@ public class Time {
      * Returns a LocalDateTime variable converted from the specified String timeStr that
      * was in the format 'dd/MM/yyyy'.
      * @param timeStr String to be converted into DateTimeFormatter type.
-     * @return A LocalDateTime variable that the computer can understand as time.
+     * @return        A LocalDateTime variable that the computer can understand as time.
      */
     public static LocalDate readDate(String timeStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT, Locale.ENGLISH);
@@ -22,7 +22,7 @@ public class Time {
     /**
      * Converts the date from LocalDate to string.
      * @param date in LocalDate format
-     * @return dateStr in "dd/MM/yyyy" format
+     * @return     dateStr in "dd/MM/yyyy" format
      */
     public static String dateToString(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT, Locale.ENGLISH);
