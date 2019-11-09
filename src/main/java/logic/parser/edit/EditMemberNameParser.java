@@ -2,30 +2,29 @@ package logic.parser.edit;
 
 import common.DukeException;
 import logic.command.Command;
-import logic.command.edit.EditMemberDescriptionCommand;
-import model.Model;
+import logic.command.edit.EditMemberNameCommand;
 
 //@@author JasonChanWQ
 
-public class EditMemberDescriptionParser {
+public class EditMemberNameParser {
 
-    public static final String EDIT_MEMBER_DESCRIPTION_USAGE =
-            "usage: edit member des [Old Name] /to [New Name]";
+    public static final String EDIT_MEMBER_NAME_USAGE =
+            "usage: edit member name [Old Name] /to [New Name]";
     public static final String EMPTY_OLD_NAME_MESSAGE = "[Old Name] cannot be empty!";
     public static final String EMPTY_NEW_NAME_MESSAGE = "[NEW Name] cannot be empty!";
     public static final String TO_NOT_FOUND_MESSAGE = "Please input a /to";
 
     //@@author JasonChanWQ
     /**
-     * Parses the user input and returns EditMemberDescriptionCommand
+     * Parses the user input and returns EditMemberNameCommand
      * @param argument [Old Name] /to [New Name]
-     * @return EditMemberDescriptionCommand
+     * @return EditMemberNameCommand
      * @throws DukeException exception
      */
 
-    public static Command parseEditMemberDescription(String argument) throws DukeException {
+    public static Command parseEditMemberName(String argument) throws DukeException {
         if (argument.equals("")) {
-            throw new DukeException(EDIT_MEMBER_DESCRIPTION_USAGE);
+            throw new DukeException(EDIT_MEMBER_NAME_USAGE);
         } else {
             String keyword = argument.trim();
             boolean isFound = keyword.indexOf("/to") != -1 ? true : false;
@@ -39,7 +38,7 @@ public class EditMemberDescriptionParser {
                 } else if (newName.equals("")) {
                     throw new DukeException(EMPTY_NEW_NAME_MESSAGE);
                 } else {
-                    return new EditMemberDescriptionCommand(oldName, newName);
+                    return new EditMemberNameCommand(oldName, newName);
                 }
             } else {
                 throw new DukeException(TO_NOT_FOUND_MESSAGE);

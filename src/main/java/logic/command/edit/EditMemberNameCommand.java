@@ -9,7 +9,7 @@ import model.Task;
 
 //@@author JasonChanWQ
 
-public class EditMemberDescriptionCommand extends Command {
+public class EditMemberNameCommand extends Command {
 
     private static final String SUCCESS_MESSAGE = " has been renamed to: ";
     public static final String INPUT_NAME_NOT_IN_MEMBER_lIST_MESSAGE = " is not within the member list!";
@@ -17,7 +17,7 @@ public class EditMemberDescriptionCommand extends Command {
     public String oldName;
     public String newName;
 
-    public EditMemberDescriptionCommand(String oldName, String newName) {
+    public EditMemberNameCommand(String oldName, String newName) {
         this.oldName = oldName;
         this.newName = newName;
     }

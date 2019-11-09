@@ -20,7 +20,6 @@ public class NewParser {
     private static final String DELETE_COMMAND_WORD = "DELETE";
     private static final String DONE_COMMAND_WORD = "DONE";
     private static final String UNDONE_COMMAND_WORD = "UNDONE";
-    private static final String SNOOZE_COMMAND_WORD = "SNOOZE";
     private static final String RENAME_COMMAND_WORD = "RENAME";
     private static final String LINK_COMMAND_WORD = "LINK";
     private static final String UNLINK_COMMAND_WORD = "UNLINK";
@@ -56,7 +55,7 @@ public class NewParser {
 
         String[] dict = {
             "ADD", "LIST", "DONE", "UNDONE", "DELETE", "HELP", "FIND", "BYE", "REMINDER", "SHOW",
-            "SNOOZE", "SCHEDULE", "CHECK", "LINK", "UNLINK", "RENAME", "EDIT",
+             "SCHEDULE", "CHECK", "LINK", "UNLINK", "RENAME", "EDIT",
             "MATCH", "CHECK"
         };
 
@@ -71,8 +70,6 @@ public class NewParser {
             return DoneCommandParser.parseDoneCommand(arguments);
         case UNDONE_COMMAND_WORD:
             return DoneCommandParser.parseUndoneCommand(arguments);
-        case SNOOZE_COMMAND_WORD:
-            return SnoozeCommandParser.parseSnoozeCommand(arguments);
         case RENAME_COMMAND_WORD:
             return RenameCommandParser.parseRenameCommand(arguments);
         case LINK_COMMAND_WORD:

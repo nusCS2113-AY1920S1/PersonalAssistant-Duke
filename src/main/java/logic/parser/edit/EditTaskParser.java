@@ -10,8 +10,9 @@ public class EditTaskParser {
 
     private static final Pattern BASIC_ADD_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    public static final String EDIT_USAGE = "Usage: edit [task] [time/des] [index] /to ...";
+    public static final String EDIT_USAGE = "Usage: edit [task] [time/name/des] [index] /to ...";
     public static final String TIME = "time";
+    public static final String NAME = "name";
     public static final String DES = "des";
 
 
@@ -36,8 +37,10 @@ public class EditTaskParser {
         switch (editType) {
         case TIME:
             return EditTaskDateTimeParser.parseEditTaskDateTime(arguments);
+        case NAME:
+            return EditTaskNameParser.parseEditTaskName(arguments);
         case DES:
-            return EditTaskDescriptionParser.parseEditMemberDescription(arguments);
+            return EditTaskDesParser.parseEditTaskDes(arguments);
         default:
             throw new DukeException(EDIT_USAGE);
         }

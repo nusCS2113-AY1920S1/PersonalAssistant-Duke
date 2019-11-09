@@ -9,7 +9,7 @@ import model.Task;
 
 //@@author JasonChanWQ
 
-public class EditTaskDescriptionCommand extends Command {
+public class EditTaskNameCommand extends Command {
 
     private static final String SUCCESS_MESSAGE = " has been renamed to: ";
     public static final String INPUT_INDEX_NOT_WITHIN_TASK_lIST_MESSAGE = " is not within the task list!";
@@ -17,7 +17,7 @@ public class EditTaskDescriptionCommand extends Command {
     public int taskIndex;
     public String newName;
 
-    public EditTaskDescriptionCommand(int taskIndex, String newName) {
+    public EditTaskNameCommand(int taskIndex, String newName) {
         this.taskIndex = taskIndex;
         this.newName = newName;
     }

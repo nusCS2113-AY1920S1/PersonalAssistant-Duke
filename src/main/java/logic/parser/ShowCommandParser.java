@@ -10,7 +10,7 @@ import model.Model;
 
 public class ShowCommandParser {
 
-    public static final String SHOW_USAGE = "usage: Show [task/member] /of [Index of task / name of member]";
+    public static final String SHOW_USAGE = "usage: Show [task/member] [Index of task / name of member]";
     public static final String INVALID_SHOW_TYPE_MESSAGE = "Please input task/member to show!";
     public static final String EMPTY_TASK_INDEX_MESSAGE = "Index of task cannot be empty!";
     public static final String EMPTY_MEMBER_NAME_MESSAGE = "Name of Member cannot be empty!";
