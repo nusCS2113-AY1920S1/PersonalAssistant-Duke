@@ -3,6 +3,7 @@ package controllers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import repositories.ProjectRepository;
+import util.date.DateTimeHelper;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ProjectInputControllerManageTest {
     private ProjectInputController projectInputController;
     private ProjectRepository projectRepository;
+    private DateTimeHelper dateTimeHelper = new DateTimeHelper();
     private String simulatedUserInput;
     private String[] simulatedOutput;
     private String[] expectedOutput;
@@ -195,6 +197,10 @@ class ProjectInputControllerManageTest {
             "|       24       25       26       27       28       29       30       |",
             "+----------------------------------------------------------------------+"
         };
+        String resetDate = "|    Today's date is " + dateTimeHelper.getCurrentDate() + " "
+                + dateTimeHelper.getCurrentMonth() + " " + dateTimeHelper.getCurrentYear()
+                + "                                         |";
+        expectedOutput[1] = resetDate;
         assertArrayEquals(expectedOutput, simulatedOutput);
     }
 }
