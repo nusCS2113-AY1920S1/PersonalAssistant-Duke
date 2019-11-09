@@ -248,15 +248,26 @@ public class Ui {
             return "Add a word to wordbank.\n"
                     + "Format: add w/WORD m/MEANING [t/TAG]\n"
                     + "The TAG field is optional";
+        } else if (instruction.equals("addsyn")) {
+            return "Add synonyms to a word.\n"
+                    + "Format: addsyn w/WORD s/synonyms\n"
+                    + "For more than one synonym, you may separate them by a space";
         } else if (instruction.equals("delete")) {
             return "Delete a word or tag from wordbank.\n"
                     + "Format: delete w/WORD_TO_BE_DELETED [t/TAG]";
+        } else if (instruction.equals("edit")) {
+            return "Edit the meaning of word.\n"
+                    + "Format: edit w/WORD m/MEANING";
         } else if (instruction.equals("exit")) {
             return "Exit WordUp.\n"
                     + "Format: exit";
-        } else if (instruction.equals("search")) {
-            return "Search the meaning of a specific word.\n"
-                    + "Format: search w/WORD_TO_BE_SEARCHED";
+        } else if (instruction.equals("freq")) {
+            return "Show search frequency of each word.\n"
+                    + "Format: freq [o/ORDER]\n"
+                    + "(ORDER can be \"asc\" for ascending and \"desc\" for descending)";
+        } else if (instruction.equals("history")) {
+            return "View recent search history.\n"
+                    + "Format: history {int value}";
         } else if (instruction.equals("list")) {
             return "Show the list of words in wordbank.\n"
                     + "Format: list [o/ORDER]\n"
@@ -264,30 +275,12 @@ public class Ui {
         } else if (instruction.equals("list_tags")) {
             return "Show the list of all tags in tagbank.\n"
                     + "Format: list_tags\n";
-        } else if (instruction.equals("history")) {
-            return "View recent search history.\n"
-                    + "Format: history {int value}";
-        } else if (instruction.equals("freq")) {
-            return "Show search frequency of each word.\n"
-                    + "Format: freq [o/ORDER]\n"
-                    + "(ORDER can be \"asc\" for ascending and \"desc\" for descending)";
-        } else if (instruction.equals("edit")) {
-            return "Edit the meaning of word.\n"
-                    + "Format: edit w/WORD m/MEANING";
-        } else if (instruction.equals("tag")) {
-            return "Add tags of a specific word.\n"
-                    + "Format: tag w/WORD t/TAG...\n"
-                    + "For more than one tag, please append \"t/\" before each tag";
-        } else if (instruction.equals("addsyn")) {
-            return "Add synonyms to a word.\n"
-                    + "Format: addsyn w/WORD s/synonyms\n"
-                    + "For more than one synonym, you may separate them by a space";
-        } else if (instruction.equals("quiz")) {
-            return "Take a quiz to test yourself.\n"
-                    + "Format: quiz";
         } else if (instruction.equals("schedule")) {
             return "Schedule words to study.\nReminder pop up will be shown at time set.\n"
                     + "Format: schedule";
+        } else if (instruction.equals("search")) {
+            return "Search the meaning of a specific word.\n"
+                    + "Format: search w/WORD_TO_BE_SEARCHED";
         } else if (instruction.equals("search_begin")) {
             return "Search for words with their prefix.\n"
                     + "Format: search_begin w/d";
@@ -296,10 +289,17 @@ public class Ui {
                     + "Format:\n"
                     + "Searching for words of a tag: search_tag t/TAG\n"
                     + "Searching for tags of a word: search_tag w/WORD";
+        } else if (instruction.equals("tag")) {
+            return "Add tags of a specific word.\n"
+                    + "Format: tag w/WORD t/TAG...\n"
+                    + "For more than one tag, please append \"t/\" before each tag";
+        } else if (instruction.equals("quiz")) {
+            return "Take a quiz to test yourself.\n"
+                    + "Format: quiz";
         } else {
             return "Here are the commands for WordUp.\n"
-                    + "add, delete, edit, exit, freq, help, history, list, list_tag"
-                    + " schedule, search, search_begin, search_tag, tag, addsyn, quiz\n"
+                    + "add, addsyn, delete, edit, exit, freq, help, history, list, list_tags,"
+                    + " schedule, search, search_begin, search_tag, tag, quiz\n"
                     + "Enter \"help [command]\" for more details.";
         }
     }
