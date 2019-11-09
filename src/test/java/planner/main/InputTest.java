@@ -1,6 +1,6 @@
 //@@author namiwa
 
-package planner;
+package planner.main;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

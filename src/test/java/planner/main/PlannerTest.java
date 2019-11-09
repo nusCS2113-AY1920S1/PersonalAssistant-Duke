@@ -1,12 +1,13 @@
 //@@author namiwa
 
-package planner;
+package planner.main;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import planner.main.CliLauncher;
+import planner.main.InputTest;
 
 public class PlannerTest extends InputTest {
 

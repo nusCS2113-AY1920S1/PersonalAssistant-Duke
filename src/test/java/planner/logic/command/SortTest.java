@@ -3,7 +3,7 @@
 package planner.logic.command;
 
 import org.junit.jupiter.api.Test;
-import planner.InputTest;
+import planner.main.InputTest;
 import planner.logic.exceptions.planner.ModFailedJsonException;
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTasksList;

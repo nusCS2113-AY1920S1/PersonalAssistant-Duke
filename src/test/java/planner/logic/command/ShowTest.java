@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import planner.InputTest;
+import planner.main.InputTest;
 import planner.main.CliLauncher;
 
 public class ShowTest extends InputTest {

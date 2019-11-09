@@ -1,6 +1,6 @@
 //@@andrewleow97
 
-package planner.logic.command;
+package planner.main;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -9,12 +9,10 @@ import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 
-import planner.InputTest;
+import planner.main.InputTest;
 import planner.logic.exceptions.planner.ModFailedJsonException;
 import planner.logic.parser.Parser;
 import planner.logic.modules.module.ModuleInfoDetailed;
-import planner.logic.modules.module.ModuleTasksList;
-import planner.logic.parser.Parser;
 import planner.main.CliLauncher;
 import planner.ui.cli.PlannerUi;
 import planner.util.crawler.JsonWrapper;
