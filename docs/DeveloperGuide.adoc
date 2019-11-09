@@ -800,7 +800,27 @@ Expected: Similar to previous
    Expected: The first and second ingredients are bought and transferred to Inventory List.
 .. Test case: `shop buy Cheese` +
    Expected: No ingredients are bought. Error details shown in the pop-up bar.
-   
+
+=== Adding a Product
+.. Test case: `product add -name Bread` +
+   Expected: A new product named `Bread` is added. Ingredient cost and Retail price are both $0.0. Status
+is active.
+.. Test case: `product add -name Cheese cake -cost 3.0 -price 5.9` +
+   Expected: A new product named `Cheese cake` is added. Ingredient cost are $3 and Retail price is $5.9.
+Status is active.
+
+=== Searching a Product
+Searching for products whose name contains the given keyword
+.. Test case: `product search -include cake` +
+   Expected: All products whose name include `cake` are listed. List will be empty if no products' names
+contain `cake`.
+
+==+ Filtering Products
+.. Test case: `product filter -scope archive` +
+    Expected: All archive products are listed. List will be empty if no products have archive status.
+.. Test case: `product filter -scope all` +
+    Expected: All products, regardless their status, are listed.
+
 === Editing data in BakingHome
 .. Prerequisites: At least 1 object in the list in order to edit
 .. Test case: `shop edit 1 -qty 10 -cost 10` +
@@ -810,7 +830,12 @@ Expected: Similar to previous
    Expected: In orders, the first order's customer name is changed to Eugene, and the remarks is changed to Birthday` +
    All other data that is not inputted as parameters will be unchanged. +
    This is provided the order status is not completed. If the order status is completed, you cannot edit the order. +
-   
+.. Test case: `product edit 1 -name _name -cost 5 -ingt [Cream cheese, 1.0]` +
+    Expected: The name of the first product is changed to `_name`, and cost is changed to $5. It has a
+ingredient `Cream cheese` associated. You can check the ingredient using command `product show 1`.
+
+
+
 === Saving data
 
 . Dealing with missing/corrupted data files
