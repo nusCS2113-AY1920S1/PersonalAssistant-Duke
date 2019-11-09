@@ -12,7 +12,7 @@ import java.text.ParseException;
 
 /**
  * This class is used to delete the bank tracker from the list
- * and withdraw the money from the total saving as a expenditure
+ * and withdraw the money from the total saving as a expenditure.
  */
 public class DeleteBankAccountCommand extends MoneyCommand {
 
@@ -21,7 +21,7 @@ public class DeleteBankAccountCommand extends MoneyCommand {
     //@@author cctt1014
     public DeleteBankAccountCommand(String inputString) {
         inputString = inputString.replaceFirst("delete bank-account ", "");
-        index = Integer.parseInt(inputString)-1;
+        index = Integer.parseInt(inputString) - 1;
     }
 
     @Override
@@ -48,10 +48,10 @@ public class DeleteBankAccountCommand extends MoneyCommand {
     @Override
     //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
-       BankTracker bt = storage.getDeletedBankTracker();
-       account.getExpListTotal().remove(account.getExpListTotal().size() - 1);
-       account.getBankTrackerList().add(index, bt);
-       storage.writeToFile(account);
+        BankTracker bt = storage.getDeletedBankTracker();
+        account.getExpListTotal().remove(account.getExpListTotal().size() - 1);
+        account.getBankTrackerList().add(index, bt);
+        storage.writeToFile(account);
 
         ui.appendToOutput(" Last command undone: \n");
         ui.appendToOutput(account.getBankTrackerList().get(index).getBankAccountInfo() + "\n");
