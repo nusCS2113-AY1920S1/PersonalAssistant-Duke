@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 public interface IProgress {
 
-    ArrayList<String> listProgress();
+    ArrayList<Student> listProgress();
 
-    void addProgress();
+    void addProgress(Student progress);
 
     void deleteProgress(int index);
+
+
 
 }

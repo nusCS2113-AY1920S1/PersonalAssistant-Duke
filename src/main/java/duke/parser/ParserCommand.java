@@ -31,6 +31,8 @@ public class ParserCommand implements IParser {
                 parserSchedule.parseCommand();
                 break;
             case "2":
+                ParserManageStudents parserManageStudents
+                        = new ParserManageStudents();
                 cliView.manageStudentsHeading();
                 String studentsInput = sc.nextLine();
                 ParserManageStudents parserManageStudents

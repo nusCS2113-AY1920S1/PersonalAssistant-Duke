@@ -13,7 +13,7 @@ import duke.view.CliView;
  * This is the parser for manage students.
  * @author danisheddie
  */
-public final class ParserManageStudents implements IParser {
+public final class ParserManageStudents {
     /**
      * Boolean status to check if the class can exit.
      */
@@ -45,88 +45,88 @@ public final class ParserManageStudents implements IParser {
     /**
      * To parse ManageStudents commands.
      *
-     * @param input command.
      */
-    @Override
-    public void parseCommand(final String input) {
-        String[] word = input.split(" ");
-        String cmd = word[0];
-        //boolean runManageStudent = true;
+    public void parseCommand() {
+        final int list = 1;
+        final int add = 2;
+        final int delete = 3;
+        final int find = 4;
+        final int view = 5;
+        final int back = 6;
+        int cmd;
+        boolean runManageStudent = true;
         try {
-            //while (runManageStudent) {
-            new CliView().manageStudentsHeading();
-            switch (cmd) {
-            case "list":
-                students.listAllStudents();
-                break;
-            case "add":
-                addCommand();
-                break;
-            case "delete":
-                students.deleteStudent(Integer.parseInt(word[1]));
-                break;
-            case "find":
-                final int limit = 4;
-                String name = cmd.substring(limit);
-                ArrayList<Student> search = new ArrayList<Student>();
-                for (Student i : students.getStudentList()) {
-                    if (i.getName().contains(name)) {
-                        search.add(i);
+            while (runManageStudent) {
+                new CliView().manageStudentsHeading();
+                cmd = sc.nextInt();
+                switch (cmd) {
+                case list:
+                    System.out.println("Here are your list of students: ");
+                    students.listAllStudents();
+                    break;
+                case add:
+                    System.out.println("Name: ");
+                    String name = sc.next();
+                    System.out.println("Age: ");
+                    String age = sc.next();
+                    System.out.println("Address: ");
+                    String address = sc.next();
+                    Student myNewStudent = new Student(
+                            name, age, address);
+                    students.addStudent(myNewStudent);
+                    break;
+                case delete:
+                    System.out.println("Which student do you want to remove?");
+                    students.listAllStudents();
+                    students.deleteStudent(sc.nextInt());
+                    //students.deleteStudent(Integer.parseInt(word[1]));
+                    break;
+                    /**
+                case find:
+                    final int limit = 4;
+                    String name = sc.nextLine();
+                   // String name = cmd.substring(limit);
+                    ArrayList<Student> search = new ArrayList<Student>();
+                    for (Student i : students.getStudentList()) {
+                        if (i.getName().contains(name)) {
+                            search.add(i);
+                        }
                     }
-                }
-                if (search.size() >= 1) {
-                    System.out.println(
-                            "Here are the matching "
-                                    + "names in your list:");
-                    int index = 1;
-                    for (int i = 0; i < search.size(); i++) {
-                        System.out.println(index++ + ". "
-                                + search.get(i));
+                    if (search.size() >= 1) {
+                        System.out.println(
+                                "Here are the matching "
+                                        + "names in your list:");
+                        int index = 1;
+                        for (int i = 0; i < search.size(); i++) {
+                            System.out.println(index++ + ". "
+                                    + search.get(i));
+                        }
+                    } else {
+                        System.out.println("Sorry, there are"
+                                + " no names matching your search");
                     }
-                } else {
-                    System.out.println("Sorry, there are"
-                            + " no names matching your search");
+                    break;
+
+                     */
+                case view:
+                    System.out.println("Which student details do you want to view?");
+                    students.listAllStudents();
+                    int index = sc.nextInt();
+                    System.out.print("Viewing "
+                            + students.getStudentName(
+                                    index)
+                            + " details:\n");
+                    students.getStudent(index);
+                    break;
+
+                case back:
+                    runManageStudent = false;
+                    break;
+
+                default:
+                    System.out.println("Please enter the correct command.");
                 }
-                break;
-            case "details":
-                System.out.println("Details for: ");
-                if (sc.equals("add details")) {
-                    System.out.println("Details for: ");
-
-                }
-                String studentName = sc.nextLine();
-                //students.findName(studentName);
-                //add student details
-                break;
-
-            case "edit":
-                System.out.print("What do you want to edit for ");
-                students.getStudent(Integer.parseInt(word[1]));
-                System.out.println("?");
-                // editStudentDetails(detail)
-                break;
-
-            case "view":
-                System.out.print("Viewing "
-                        + students.getStudentName(
-                                Integer.parseInt(word[1]))
-                        + " details:\n");
-                students.getStudent(Integer.parseInt(word[1]));
-                break;
-
-            case "progress":
-                studentProgressParser();
-                //Add student progress
-                break;
-
-            case "back":
-                //runManageStudent = false;
-                break;
-
-            default:
-                System.out.println("Please enter the correct command.");
             }
-            //}
         } catch (InputMismatchException e) {
             new CliView().showCorrectCommand();
         }
