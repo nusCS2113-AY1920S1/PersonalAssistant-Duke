@@ -1024,7 +1024,7 @@ Below is a list of command parameters that you can expect to use for the command
 
 `GOAL_NAME` is case-sensitive.
 
-Take note that there is a maximum of *30* character limit.
+Take note that there is a maximum of *20* character limit.
 
 | `TARGET_AMOUNT`
 | Indicates the amount of money.
@@ -1091,13 +1091,13 @@ YOU CAN ONLY ADD UP TO *20* GOALS
 
 *Example*
 
-* `/add /goals /name Delicious Dinner at WAA COW /amount 50 /in 15`
+* `/add /goals /name Dinner at WAA COW /amount 50 /in 15`
 
-Adds a goal named `Delicious Dinner at WAA COW` which aims to save $`50` in `15` days.
+Adds a goal named `Dinner at WAA COW` which aims to save $`50` in `15` days.
 
-* `/add /goals /name BTO at Punggol Downpayment /amount 20000 /by 10/10/2020`
+* `/add /goals /name BTO for Punggol HDB /amount 20000 /by 10/10/2020`
 
-Adds a goal named `BTO at Punggol Downpayment` which aims to save $`20000` by `10/10/2020`.
+Adds a goal named `BTO for Punggol HDB` which aims to save $`20000` by `10/10/2020`.
 
 * `/add /goals /name GRAD TRIP /amount 2000 /by 30/12/2020 /from JunBank Savings Account`
 
@@ -1127,27 +1127,27 @@ Untie your currently linked goals with the same ACCOUNT_NAME `/from ACCOUNT_NAME
 
 *Example*
 
-* `/edit /goals /name BTO at Punggol Downpayment /newname BTO at Tampines Downpayment`
+* `/edit /goals /name BTO for Punggol HDB /newname BTO for Tampines HDB`
 
-Edits the name of the goal from `BTO at Punggol Downpayment` to `BTO at Tampines Downpayment`.
+Edits the name of the goal from `BTO for Punggol HDB` to `BTO for Tampines HDB`.
 
-* `/edit /goals /name BTO at Punggol Downpayment /amount 27500`
+* `/edit /goals /name BTO for Tampines HDB /amount 27500`
 
-Edits the goal of `BTO at Punggol Downpayment` amount to $`27500`.
+Edits the goal of `BTO for Tampines HDB` amount to $`27500`.
 
-* `/edit /goal /name BTO at Punggol Downpayment /by 11/11/2021`
+* `/edit /goals /name BTO for Tampines HDB /by 11/11/2021`
 
-Edits the goal of `BTO at Punggol Downpayment` to a new date of `11/11/2021`.
+Edits the goal of `BTO for Tampines HDB` to a new date of `11/11/2021`.
 
-* `/edit /goals /name BTO at Punggol Downpayment /from POBB Savings Account`
+* `/edit /goals /name BTO for Tampines HDB /from JunBank Savings Account`
 
-Edits the savings account tied to `BTO at Punggol Downpayment` to `POBB Savings Account`.
+Edits the savings account tied to `BTO for Tampines HDB` to `JunBank Savings Account`.
 
-* `/edit /goals /name BTO at Punggol Downpayment /from POBB Savings Account`
+* `/edit /goals /name BTO for Tampines HDB /from JunBank Savings Account`
 
 Change your current goal to an un-tracked goals.
 
-* `/edit /goals /name SAVE $100 /mark 1`
+* `/edit /goals /name BTO for Tampines HDB /mark 1`
 Marks un-tracked goals as done.
 
 [TIP]
@@ -1167,9 +1167,9 @@ Or achieved your goal? You can safely delete them!
 
 *Example*
 
-* `/delete /goals /name BTO at Punggol Downpayment`
+* `/delete /goals /name BTO for Tampines HDB`
 
-Deletes a goal named `BTO at Punggol Downpayment`.
+Deletes a goal named `BTO for Tampines HDB`.
 
 // end::goals[]
 
@@ -1186,9 +1186,9 @@ Thought of a new idea for your profile name? Change it now!
 
 *Example*
 
-`/edit /profile /name Jun /newname JUNNY`
+`/edit /profile /name john /newname jun`
 
-Edits the profile name from `Jun` to `JUNNY`
+Edits the profile name from `john` to `jun`
 
 // end::edit_profile[]
 
