@@ -423,7 +423,7 @@ public class Impression extends DukeObject {
     }
 
     public boolean contains(String searchTerm) {
-        return description.toLowerCase().contains(searchTerm.toLowerCase());
+        return super.contains(searchTerm) || description.toLowerCase().contains(searchTerm.toLowerCase());
     }
 
     @Override

@@ -433,9 +433,8 @@ public class Patient extends DukeObject {
      */
     public boolean contains(String searchTerm) {
         String lowerSearchTerm = searchTerm.toLowerCase();
-        return allergies.toLowerCase().contains(lowerSearchTerm)
+        return super.contains(searchTerm) || allergies.toLowerCase().contains(lowerSearchTerm)
                 || history.toLowerCase().contains(lowerSearchTerm)
-                || getName().toLowerCase().contains(lowerSearchTerm)
                 || address.toLowerCase().contains(lowerSearchTerm);
     }
 
