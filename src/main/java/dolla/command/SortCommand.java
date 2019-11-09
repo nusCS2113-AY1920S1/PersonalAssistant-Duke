@@ -88,6 +88,7 @@ public class SortCommand extends Command {
 
     @Override
     public String getCommandInfo() {
-        return null;
+        String command = "sort ";
+        return command + type + " in " + mode;
     }
 }

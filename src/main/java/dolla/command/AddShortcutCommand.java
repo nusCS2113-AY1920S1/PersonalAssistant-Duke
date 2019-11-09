@@ -24,7 +24,7 @@ public class AddShortcutCommand extends Command {
 
     @Override
     public void execute(DollaData dollaData) {
-        ArrayList<Record> recordList = dollaData.getRecordList(MODE_ENTRY);
+        ArrayList<Record> entryList = dollaData.getRecordList(MODE_ENTRY);
         ArrayList<Record> shortcutList = dollaData.getRecordList(MODE_SHORTCUT);
         if (mode.equals(MODE_SHORTCUT)) {
             ShortcutList shortcutListObj = (ShortcutList) dollaData.getRecordListObj(MODE_SHORTCUT);
@@ -32,17 +32,22 @@ public class AddShortcutCommand extends Command {
             Redo.clearRedoState(mode);
         }
         try {
-            Record record = recordList.get(index);
+            Record record = entryList.get(index);
             Record shortcut = new Shortcut(record.getType(),record.getAmount(),record.getDescription());
             dollaData.addToRecordList(MODE_SHORTCUT, shortcut);
             Ui.echoAddRecord(shortcut);
         } catch (IndexOutOfBoundsException e) {
-            Ui.printNumberOfRecords(shortcutList.size());
+            if (mode.equals(MODE_SHORTCUT)) {
+                Ui.printNumberOfRecords(shortcutList.size());
+            } else {
+                Ui.printNumberOfRecords(entryList.size());
+            }
         }
     }
 
     @Override
     public String getCommandInfo() {
-        return null;
+        String command = "create shortcut ";
+        return command + index + " in mode " + mode;
     }
 }

@@ -44,7 +44,7 @@ public class ShortcutParser extends Parser {
             }
         case SHORTCUT_COMMAND_EXECUTE:
             if (verifyShortcut()) {
-                return new ExecuteShortcutCommand(inputArray[1]);
+                return new ExecuteShortcutCommand(inputArray[1], mode);
             } else {
                 return new ErrorCommand();
             }

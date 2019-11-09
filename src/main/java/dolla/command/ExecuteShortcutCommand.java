@@ -15,9 +15,11 @@ import java.util.Scanner;
 public class ExecuteShortcutCommand extends Command {
 
     private int index;
+    private String mode;
 
-    public ExecuteShortcutCommand(String index) {
+    public ExecuteShortcutCommand(String index, String mode) {
         this.index = Integer.parseInt(index);
+        this.mode = mode;
     }
 
     @Override
@@ -47,6 +49,7 @@ public class ExecuteShortcutCommand extends Command {
 
     @Override
     public String getCommandInfo() {
-        return null;
+        String command = "execute shortcut ";
+        return command + index + " in mode " + mode;
     }
 }

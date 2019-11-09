@@ -5,14 +5,7 @@ import dolla.Time;
 import dolla.model.RecordList;
 import dolla.exception.DollaException;
 
-import dolla.ui.Ui;
-import dolla.ui.DebtUi;
-import dolla.ui.SearchUi;
-import dolla.ui.ModifyUi;
-import dolla.ui.EntryUi;
-import dolla.ui.SortUi;
-import dolla.ui.RemoveUi;
-import dolla.ui.LimitUi;
+import dolla.ui.*;
 
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
@@ -278,7 +271,10 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             return false;
         }
         try {
-            Integer.parseInt(inputArray[1]);
+            if(Integer.parseInt(inputArray[1]) < 1) {
+                RemoveUi.printInvalidRemoveMessage();
+                return false;
+            }
         } catch (NumberFormatException e) {
             RemoveUi.printInvalidRemoveMessage();
             return false;
@@ -288,13 +284,16 @@ public abstract class Parser implements ParserStringList, ModeStringList {
 
     protected boolean verifyShortcut() {
         if (inputArray.length != 2) {
-            //print error message;
+            ShortcutUi.printInvalidShortcutMessage();
             return false;
         }
         try {
-            Integer.parseInt(inputArray[1]);
+            if(Integer.parseInt(inputArray[1]) < 1) {
+                ShortcutUi.printInvalidShortcutMessage();
+                return false;
+            }
         } catch (NumberFormatException e) {
-            RemoveUi.printInvalidRemoveMessage();
+            ShortcutUi.printInvalidShortcutMessage();
             return false;
         }
         return true;
