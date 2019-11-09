@@ -39,7 +39,8 @@ public class ListCommandParser implements ParserInterface<ListCommand> {
             }
             if (details.equals("sort")) {
                 sortArgStr = argumentInfoMap.get(details).trim();
-                if (!(sortArgStr.equals("cost") || sortArgStr.equals("calorie"))) {
+                if (!(sortArgStr.equals("costAscending") || sortArgStr.equals("calorieAscending")
+                    || sortArgStr.equals("costDescending") || sortArgStr.equals("calorieDescending"))) {
                     throw new ProgramException("The only valid sorting arguments are cost or calorie.");
                 }
             }

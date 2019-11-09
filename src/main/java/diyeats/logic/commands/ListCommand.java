@@ -84,11 +84,17 @@ public class ListCommand extends Command {
             ui.showMessage("There isn't any food on " + currentDate.format(dateFormat));
         }
         switch (sortBy) {
-            case "calorie":
+            case "calorieAscending":
                 currentMeals.sort(new SortMealByCalorie());
                 break;
-            case "cost":
+            case "calorieDescending":
+                currentMeals.sort(new SortMealByCalorie().reversed());
+                break;
+            case "costAscending":
                 currentMeals.sort(new SortMealByCost());
+                break;
+            case "costDescending":
+                currentMeals.sort(new SortMealByCost().reversed());
                 break;
             default:
                 currentMeals.sort(new SortMealByDefault());
