@@ -296,75 +296,101 @@ image::map.png[width="600" height="400"]
 
 === Recommend an Itinerary: `recommend`
 
-Get a recommended Itinerary List from SGTravel +
-Format: `recommend between START_DATE and END_DATE`
-
-Examples:
-
-* `recommend between 23/04/20 and 25/04/20`
+Get a recommended itinerary List from SGTravel +
+Format: `recommend itinerary between START_DATE and END_DATE`
 
 [NOTE]
 ====
-* 23/04/20 to 25/04/20 is regarded as a 3 day trip
-* Dates entered can only be in the future
+* 23/04/20 to 25/04/20 is regarded as a 3 day trip.
+* Dates entered can only be in the future and valid with respects to each other. 
 ====
+
+[WARNING]
+====
+* This command still works if u enter 23/04/20 and 31/04/20 (invalid date). This is just the
+ Java Library automatically changing 31/04/20 to 30/04/20. 
+* Hence, do not enter invaid dates (known bug).
+====
+
+image::RecommendationsCommand.png[width="380" height="447"]
+
+Examples:
+
+* `recommend itinerary between 23/04/20 and 25/04/20`
 
 === Save a Recommended Itinerary: `addThisList`
 
 After SGTravel shows a recommended list, you can save this list using this command +
 Format: `addThisList ITINERARY_NAME`
 
-Examples:
-
-* `recommend between 23/04/19 and 25/04/19` then afterwards `addThisList Sunday Vacation!`
-
 [NOTE]
 ====
 * You must rename your list before you add it to your storage.
-* Spaces in the renmaing are allowed
 ====
 
 [WARNING]
 ====
 * You must enter this command only after the app has recommended you a list. 
+* You CANNOT save the same list twice, this will result in an error. 
+====
+
+image::AddThisListCommand.png[width="365" height="497"]
+
+
+Examples:
+
+* `recommend between 23/04/19 and 25/04/19` then afterwards `addThisList Sunday Vacation!`
+
+[TIP]
+====
+* Spaces in the new name are allowed.
 ====
 
 === Create new Itinerary: `newItinerary`
 
 Creates a new itinerary from scratch +
-Format: `newItinerary START_DATE END_DATE ITINERARY_NAME DAY_NUMBER /venue VENUE_NAME /do TODO1 /and TODO2 /venue VENUE_NAME /do TODO1 /and TODO2 …. <day number> ….`
+Format: `newItinerary START_DATE END_DATE ITINERARY_NAME DAY_NUMBER /venue VENUE_NAME /do TODO1 /and TODO2 /venue VENUE_NAME /do TODO1 /and TODO2 …. DAY_NUMBER ….`
+
+[NOTE]
+====
+* Each itinerary day can have any number of venues and todos.  
+* Every day's attractions must come with at least 2 todos!
+* Dates must be valid with each other and in the future. 
+* If you enter dates with x days in between them. A list containing the acitivities for x days must be specified.  
+====
+
+[WARNING]
+====
+* You cannot re-enter the same list!  
+* You cannot have an itinerary name with spaces!
+* Adding 2 of the same day numbers results in an error. (Putting two day 1's for example) 
+* Adding identical venues twice in the same day will show only one instance but is still valid. 
+====
+
+image::NewItineraryCommand.png[width="377" height="485"] 
 
 Examples:
 
 An itinerary with multiple days.
 
-* `newItinerary 23/04/15 25/04/15 TwoDayHoliday 1 /venue Orchard /do dancing /and singing /and swinging 2 /venue Changi /do running /and jumping /and swinging`
+* `newItinerary 23/04/20 24/04/20 TwoDayHoliday 1 /venue Orchard /do dancing /and singing /and swinging 2 /venue Changi /do running /and jumping /and swinging`
 
 An itinerary with multiple venues in 1 day.
 
-* `newItinerary 23/04/15 24/04/15 SundayVacay 1 /venue Bedok /do swimming /and jumping /and swinging /venue Simei /do jogging /and running`
-
-[NOTE]
-====
-* Each itinerary day can have any number of venues and todos.  
-====
-
-[WARNING]
-====
-* You cannot re enter lists!  
-* Every day's attractions must come with atleast 2 todos!
-====
+* `newItinerary 23/04/20 23/04/20 SundayVacay 1 /venue Bedok /do swimming /and jumping /and swinging /venue Simei /do jogging /and running`
 
 === List Saved Itineraries: `listItinerary`
 
 Returns the saved itineraries and their names +
 Format: `listItinerary`
 
+[NOTE]
+====
+* Enter the command exactly with no whitespaces.  
+====
 Example Output:
 
-`Your Saved Itineraries are :`
-   `1. TwoDayHoliday`
-   `2. SundayVacay`
+image::ListItineraryCommand.png[width="365" height="232"]
 
 [TIP]
 ====
@@ -376,16 +402,36 @@ Use this command in order to refer to itinerary names before using the showItine
 Displays a specific saved Itinerary +
 Format: `showItinerary ITIERARY_NAME`
 
+[WARNING]
+====
+* You cannot enter an invalid name!
+====
+
+image::ShowItineraryCommand.png[width="370" height="522"]
+
 Examples:
 
-* `showItinerary TwoDayHoliday`
+* `showItinerary SundayVacay`
 
-Will show the `TwoDayHoliday` Itinerary.
+Will print the `SundayVacay` Itinerary.
+
+=== Delete an Itinerary: `doneItinerary`
+
+Removes a specified Itinerary from storage +
+Format: `doneItinerary ITIERARY_NAME`
 
 [WARNING]
 ====
 * You cannot enter an invalid name!
 ====
+
+image::DoneItineraryCommand.png[width="370" height="505"]
+
+Examples:
+
+* `doneItinerary SundayVacay`
+
+Will mark the `SundaVacay` Itinerary as done (effectively deletes it).
 
 === Creating a new Route: `routeAdd`
 
