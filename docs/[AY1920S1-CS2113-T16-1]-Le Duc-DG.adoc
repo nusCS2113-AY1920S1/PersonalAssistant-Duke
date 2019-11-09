@@ -358,19 +358,27 @@ The Remind feature is done by the RemindCommand. Along with all of the other imp
 
 * *Sequence Diagram of the Remind Feature:*
 
-image::RemindSequenceDiagram.png[width="790"]
-There are 3 cases:
+image::RemindSequenceDiagram.png[width="1200"]
+There are 4 cases:
 
-* TaskList contains a mix of all objects
+* TaskList contains only Homework and Event objects
 * TaskList contains only Todo objects
+* TaskList contains a mix of all objects
 * TaskList contains no objects
 
-All cases are handled separately, as the tasks must be ordered differently.
+The task of sorting the tasklist in chronological order becomes challenging as not all tasks have associated timestamps.
+This problem is divded into 4 subproblems, each of which are handled seperately.
 
-==== TaskList contains only homework/Event objects
 
-* The original TaskList is passed through a filter.
-* The filtered TaskList is equal to the original TaskList, as there are no Todo objects to filter out. The filtered TaskList will then be sorted by TakList.sort(). The method will call each tasks .getDate() and build a sorted ArrayList. All Todo's will be appended to the end of the sortedlist
+==== TaskList contains only Homework/Event tasks
+
+* The original TaskList is passed through a filter to isolate the Homework and event tasks.
+* The TaskList.extractTodo() method will attempt to isolate all todo tasks. It will return an empty array in this case
+* After filtering by TaskList.filterTasks(), the filtered TaskList will be equal to the original TaskList, as there are no Todo objects to filter out in this particular case.
+* The filtered TaskList will then be sorted by TaskList.sort().
+* The sort() method will call each tasks task.getDate() method in preparation for sorting. For "Event" tasks, the first timestamp will be used for the purposes of sorting.
+* After performing insertion sort, the array of Todo's will be appended to the end of the sortedlist. In this case, there are no
+"todo" tasks, so nothing will be appended.
 * The first 3 most upcoming tasks will be displayed to the user.
 * *Output:*
 
@@ -378,17 +386,41 @@ All cases are handled separately, as the tasks must be ordered differently.
 remind
 1. [H][X] d1 by: 14/09/2019 22:33 [Priority: 5]
 2. [E][X] e1 at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
-3. [T][X] td1 [Priority: 5]
+3. [H][X] d2 by: 22/09/2019 22:33 [Priority: 5]
 ```
-==== TaskList only contains Todo Objects
+==== TaskList only contains Todo tasks
 
-* The TaskList.sort() method will return the original list containing only Todo's. Todo tasks have no associated date, so the order in which they were created will be preserved. This is assuming that the order they were created by the user is the order of the intended completion.
+* The original TaskList is passed through a filter to isolate the Homework and Event tasks. Because there are only Todo tasks, it will return an empty array.
+* The TaskList.extractTodo() method will attempt to isolate all todo tasks. It will return the original tasklist in this case, becase every task is a "todo"
+* The filtered TaskList will then be sorted by TaskList.sort(). The method will return an empty array, because the input array containing Homework and Event tasks is empty.
+* The sort method will return an empty array, as the input array of Homework/Event tasks is empty in this case.
+* The array of Todo's is appended to the empty, returned array from TaskList.sort(), resulting in the original tasklist of only Todo tasks.
+* *The original tasklist is considered to be the sorted tasklist. The order in which the Todo's were created are treated as an  "implicit order".*
+* The first 3 most upcoming tasks will be displayed to the user.
 * *Output:*
 ```---------------------------------------------------------------------------------
 remind
 1. [T][X] todo1 [Priority: 5]
 2. [T][X] todo2 [Priority: 5]
 3. [T][X] todo3 [Priority: 5]
+```
+==== TaskList contains a mix of all task types
+
+* The original TaskList is passed through a filter to isolate the Homework and Event tasks.
+* The TaskList.extractTodo() method will attempt to isolate all todo tasks. It will return an array of all todo's in this case
+* After filtering by TaskList.filterTasks(), the filtered TaskList will contain only Homework and Event tasks.
+* The filtered TaskList will then be sorted by TaskList.sort().
+* The sort() method will call each tasks task.getDate() method in preparation for sorting. For "Event" tasks, the first timestamp will be used for the purposes of sorting.
+* After performing insertion sort, the array of Todo's will be appended to the end of the sortedlist. If a task is a "todo" it is assumed that it has a "soft deadline" unlike a Homework task.
+Therefore, it is pushed to the bottom of the sorted tasklist.
+* The first 3 most upcoming tasks will be displayed to the user.
+* *Output:*
+
+```---------------------------------------------------------------------------------
+remind
+1. [H][X] d1 by: 14/09/2019 22:33 [Priority: 5]
+2. [E][X] e1 at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
+3. [T][X] t1 [Priority: 5]
 ```
 ==== TaskList Contains No Objects
 
@@ -400,7 +432,7 @@ remind
 ```
 
 ==== Consideration
-* Sorting the TaskList in place was considered, but it reduced cohesion of the design.
+* Sorting the TaskList in place was considered, but it reduced cohesion of the design, as the same function is reused by other features.
 * It was considered to only remind the user of tasks that are coming up in the next week,
 but that would limit its potential utility
 
