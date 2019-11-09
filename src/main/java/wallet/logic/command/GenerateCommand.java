@@ -103,6 +103,9 @@ public class GenerateCommand extends Command {
         return false;
     }
 
+    /**
+     * Deletes all existing storage files.
+     */
     public void deleteAllFiles() {
         File file = new File("./data/contact.txt");
         if (file.delete()) {
