@@ -629,30 +629,30 @@ This section describes the various design considerations taken when implementing
 |======
 | *Approach* | *Pros* | *Cons*
 
-| *1.* Allowing the option of tying of savings account.
+| *1.* Allowing the option of tying of savings account
 
 a| * Provides flexibility to users
 * Able to track goals status and progress, know how much more to save
 a| * Difficult to implement, have to consider several possibilities: what happens to the goals when
 e.g. if savings account was deleted, if user are allowed to tie and untie savings account, un-tracked goals status would
-be always false.
+be always false
 * Increases coupling and dependency of savings account
 
-| *2.* Disallow tying of savings account.
+| *2.* Disallow tying of savings account
 
 a| * Easier to implement in terms of code
 * Lesser considerations during the implementation of `/edit /goals`
-a| * Less flexibility for the users.
+a| * Less flexibility for the users
 * The feature and importance of goals would be less evident
 
 |======
 
-*Approach 1* was taken after the evidence that the pros outweigh the cons.
+*Approach 1* was taken after serious consideration and weighing out the pros and cons.
 
 Firstly, the original intention of `goals` feature is to model real-life implementation of having goals,
 encourages users to save and enable an easy yet convenient way of tracking on status of goals.
 Although it may increase coupling and dependencies, the implementation of `goals` evidently shows that the pros
-outweighs the cons.
+outweighs the cons despite these trade-offs.
 
 == Documentation
 
