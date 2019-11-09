@@ -19,7 +19,9 @@ public class RemindCommand extends Command {
      * @return List of tasks.
      */
     @Override
-    public String executeGui(TaskList items, Ui ui) { return ""; }
+    public String executeGui(TaskList items, Ui ui) {
+        return "";
+    }
 
     /**
      * Executes a command that overwrites existing storage with the updated task list.
