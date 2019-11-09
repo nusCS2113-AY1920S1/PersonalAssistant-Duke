@@ -8,19 +8,17 @@ package cube.logic.command;
 
 import cube.logic.command.exception.CommandException;
 import cube.logic.command.util.CommandResult;
-import cube.logic.parser.ParserUtil;
 import cube.logic.parser.exception.ParserException;
 import cube.model.ModelManager;
-import cube.model.food.Food;
 import cube.model.food.FoodList;
 import cube.storage.StorageManager;
+import cube.testutil.SampleUtil;
+import cube.testutil.StorageUtil;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-
-import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -38,7 +36,7 @@ public class BatchCommandTest {
     public static void initVariables() throws ParserException {
         model = new ModelManager();
         storage = new StorageManager();
-        foodList = generateSampleData(5);
+        foodList = SampleUtil.generateSampleData(5);
     }
 
     /**
@@ -55,9 +53,9 @@ public class BatchCommandTest {
      */
     @AfterAll
     public static void deleteTestFiles() {
-        deleteFile("test_export_file.csv");
-        deleteFile("test_create_empty_template.csv");
-        deleteFile("test_execute_invalid_command.csv");
+        StorageUtil.deleteFile("test_export_file.csv");
+        StorageUtil.deleteFile("test_create_empty_template.csv");
+        StorageUtil.deleteFile("test_execute_invalid_command.csv");
     }
 
     /**
@@ -73,7 +71,7 @@ public class BatchCommandTest {
 
         CommandResult expectedResult = new CommandResult(String.format(BatchCommand.MESSAGE_SUCCESS, BatchCommand.MESSAGE_EXPORT, fileName));
         assertEquals(result, expectedResult);
-        assertTrue(checkFileAvailable(fileName));
+        assertTrue(StorageUtil.checkFileAvailable(fileName));
     }
 
     /**
@@ -119,54 +117,7 @@ public class BatchCommandTest {
         FoodList expectedList = new FoodList();
 
         assertEquals(result, expectedResult);
-        assertTrue(checkFileAvailable(fileName));
+        assertTrue(StorageUtil.checkFileAvailable(fileName));
         assertEquals(model.getFoodList(), expectedList);
-    }
-
-    /**
-     * Generates some sample Food Products for testing.
-     * @param NUM_OF_PRODUCTS Number of sample Food Products to store in Foodlist.
-     * @return Generated FoodList of size NUM_OF_PRODUCTS
-     */
-    private static FoodList generateSampleData(int NUM_OF_PRODUCTS) throws ParserException {
-        FoodList foodList = new FoodList();
-
-        for (int i = 0; i < NUM_OF_PRODUCTS; i += 1) {
-            int testFoodIndex = i + 1;
-            Food testFood = new Food("Food_" + testFoodIndex);
-            testFood.setType("food");
-            testFood.setPrice(testFoodIndex);
-            testFood.setCost(i);
-            testFood.setStock(5000);
-            testFood.setExpiryDate(ParserUtil.parseStringToDate("31/12/2020"));
-
-            foodList.add(testFood);
-        }
-
-        return foodList;
-    }
-
-    /**
-     * Boolean check to see if file exists or not.
-     *
-     * @return true if data file exists, false if not found.
-     */
-    private boolean checkFileAvailable(String fileName) {
-        String fileFullPath = "data" + File.separator + fileName;
-        File file = new File(fileFullPath);
-        if (file.exists()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Deletes the file with the specified filename.
-     */
-    private static void deleteFile(String fileName) {
-        String fileFullPath = "data" + File.separator + fileName;
-        File file = new File(fileFullPath);
-        file.delete();
     }
 }
