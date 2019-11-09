@@ -9,6 +9,7 @@ import moomoo.feature.Ui;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Scanner;
+import java.time.format.DateTimeFormatter;
 
 class ExpenditureParser extends Parser {
 
@@ -27,8 +28,9 @@ class ExpenditureParser extends Parser {
     }
 
     private static Command parseAdd(Scanner scanner) throws MooMooException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         String text = "What expenditure do you wish to add? Please enter:"
-                + "n/[NAME] c/[CATEGORY] a/[AMOUNT] (optional: d/[YYYY-MM-DD])";
+                + "n/[NAME] c/[CATEGORY] a/[AMOUNT] (optional: d/[DD/MM/YYYY])";
         String input = parseInput(scanner, text);
 
         String categoryName = "";
@@ -37,11 +39,11 @@ class ExpenditureParser extends Parser {
         String dateString = "";
         double amount = 0;
         LocalDate date;
-        input = input.replace("c/", "/c/");
-        input = input.replace("a/", "/a/");
-        input = input.replace("n/", "/n/");
-        input = input.replace("d/", "/d/");
-        String[] tokens = input.split("/");
+        input = input.replace("c/", "-c-");
+        input = input.replace("a/", "-a-");
+        input = input.replace("n/", "-n-");
+        input = input.replace("d/", "-d-");
+        String[] tokens = input.split("-");
         int tokenCount = tokens.length;
         for (int i = 0; i < tokenCount; i++) {
             if (tokens[i].equals("c")) {
@@ -63,12 +65,13 @@ class ExpenditureParser extends Parser {
         }
         try {
             amount = Double.parseDouble(amountString);
-            date = LocalDate.parse(dateString);
+            date = LocalDate.parse(dateString, formatter);
         } catch (NumberFormatException e) {
             throw new MooMooException("Oops, the amount you entered was not recognized,"
-                    + "please use an double value e.g. 9.90.");
+                    + " please use an double value e.g. 9.90.");
         } catch (DateTimeException e) {
-            date = LocalDate.now();
+            throw new MooMooException("Opps, the date you entered was not recognized,"
+                    + " please use a date in the format of dd/mm/yyyy");
         }
         if (amount > 0) {
             return new AddExpenditureCommand(expenditureName, amount, date, categoryName);

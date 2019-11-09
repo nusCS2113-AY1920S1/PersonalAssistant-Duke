@@ -40,6 +40,7 @@ class CategoryParser extends Parser {
     private static Command parseAdd(Scanner scanner) {
         String text = "What category would you like to add?";
         String categoryName = parseInput(scanner, text);
+
         return new AddCategoryCommand(categoryName);
     }
 
