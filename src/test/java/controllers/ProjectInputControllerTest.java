@@ -648,7 +648,7 @@ class ProjectInputControllerTest {
         String[] invalidArray = projectInputController.projectEditReminder(project,simulatedUserInput);
         String [] expectedArray = {"No reminder index number found in the list! "
                 + "Please enter the correct reminder index number."};
-        assertEquals(expectedOutput,actualOutput);
+        assertArrayEquals(expectedArray,invalidArray);
     }
 
     @Test
