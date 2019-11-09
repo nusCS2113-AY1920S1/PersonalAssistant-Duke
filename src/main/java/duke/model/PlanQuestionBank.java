@@ -319,7 +319,9 @@ public class PlanQuestionBank {
                 }
             }
         } catch (NullPointerException | NumberFormatException e) {
-            throw new DukeException("Missing attributes to make recommendation!" + e.getMessage());
+            throw new DukeException("Error in making recommendation! "
+                    + "Most likely there's something wrong in the the storage file"
+                    + e.getMessage());
         }
         if (recommendation.toString().isEmpty()) {
             return new PlanRecommendation("I can't make any recommendations for you"
