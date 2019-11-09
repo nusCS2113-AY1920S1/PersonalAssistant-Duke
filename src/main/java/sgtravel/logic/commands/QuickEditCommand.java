@@ -1,6 +1,5 @@
 package sgtravel.logic.commands;
 
-import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.ApiException;
 import sgtravel.commons.exceptions.FileNotSavedException;
 import sgtravel.commons.exceptions.ParseException;
