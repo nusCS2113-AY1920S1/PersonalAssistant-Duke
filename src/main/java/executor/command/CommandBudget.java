@@ -77,7 +77,7 @@ public class CommandBudget extends Command {
     private String percentageOfBudgetUsedUp(Double amountSpent) throws DukeException {
         try {
             if (amountSpent <= getBudgetAmount()) {
-                Double percent = ((getBudgetAmount() - amountSpent) / getBudgetAmount()) * 100;
+                Double percent = (amountSpent / getBudgetAmount()) * 100;
                 Double percentage = roundByDecimalPlace(percent, 2);
                 return "Percentage of Budget Used Up : " + percentage.toString() + "%";
             }
@@ -85,7 +85,7 @@ public class CommandBudget extends Command {
             return "You have already exceeded your budget !! \n";
 
         } catch (Exception e) {
-            throw new DukeException("Unable to calculate percentage overspent!\n");
+            throw new DukeException("Unable to calculate percentage of budget used up!\n");
         }
     }
 
