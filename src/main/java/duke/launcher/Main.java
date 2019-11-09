@@ -1,6 +1,7 @@
 package duke.launcher;
 
 import duke.data.ScheduleStorage;
+import duke.data.ToDo;
 import duke.parser.ParserCommand;
 import duke.data.Storage;
 import duke.models.Schedule;
@@ -18,8 +19,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
 
-public class Main extends Application {
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
+import duke.util.ApacheLogger;
+
+public class Main {
     /**
      * Declaring new parser type.
      */
@@ -48,14 +56,6 @@ public class Main extends Application {
      * Plan is the training circuit plan for the day.
      */
     private MyPlan plan;
-    /**
-     * Width of the UI.
-     */
-    private final int width = 1280;
-    /**
-     * Height of the UI.
-     */
-    private final int height = 720;
 
     /**
      * Constructor method.
@@ -65,8 +65,6 @@ public class Main extends Application {
      */
     public Main() throws IOException {
         cliView = new CliView();
-        storage = new Storage(".\\src\\main\\java\\duke\\data\\duke.txt");
-        tasks = new TaskList();
         students = new StudentList();
         plan = new MyPlan(new Storage(
             ".\\src\\main\\java\\duke\\data\\plan.txt").loadPlans());
@@ -77,28 +75,28 @@ public class Main extends Application {
      *
      * @param args expects array of string objects
      */
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws IOException {
         CliView cliView = new CliView();
         cliView.execute();
     }
 
-    /**
-     * Upon running launcher main, start() will run.
-     *
-     * @param stage The top level JavaFX container.
-     */
-    @Override
-    public void start(final Stage stage) {
-        try {
-            URL url = Main.class.getClassLoader().getResource("view/menu.fxml");
-            System.out.println(url);
-            Parent root = FXMLLoader.load(url);
-            stage.setScene(new Scene(root, width, height));
-            stage.setTitle("Sports Manager");
-            stage.show();
-        } catch (IOException e) {
-            System.err.println("Could not find menu.fxml");
-        }
-    }
+    //    /**
+    //     * Upon running launcher main, start() will run.
+    //     *
+    //     * @param stage The top level JavaFX container.
+    //     */
+    //    @Override
+    //    public void start(final Stage stage) {
+    //        try {
+    //            URL url = Main.class.getClassLoader().getResource("view/menu.fxml");
+    //            System.out.println(url);
+    //            Parent root = FXMLLoader.load(url);
+    //            stage.setScene(new Scene(root, width, height));
+    //            stage.setTitle("Sports Manager");
+    //            stage.show();
+    //        } catch (IOException e) {
+    //            System.err.println("Could not find menu.fxml");
+    //        }
+    //    }
 
 }

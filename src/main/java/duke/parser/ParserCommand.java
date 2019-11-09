@@ -13,11 +13,6 @@ import java.util.Scanner;
  * @author danisheddie
  */
 public class ParserCommand implements IParser {
-    /**
-     * Declaring type ManageStudentsParser.
-     */
-    private ParserManageStudents parserManageStudents
-            = new ParserManageStudents();
 
     /**
      * Parse the respective command.
@@ -38,6 +33,8 @@ public class ParserCommand implements IParser {
             case "2":
                 cliView.manageStudentsHeading();
                 String studentsInput = sc.nextLine();
+                ParserManageStudents parserManageStudents
+                    = new ParserManageStudents();
                 parserManageStudents.parseCommand(studentsInput);
                 break;
             case "3":

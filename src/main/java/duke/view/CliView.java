@@ -1,6 +1,7 @@
 package duke.view;
 
 import duke.command.ExitCommand;
+import duke.exceptions.DukeException;
 import duke.parser.ParserCommand;
 
 import java.util.Scanner;
@@ -79,7 +80,7 @@ public class CliView {
      */
     public void printLine() {
         System.out.println("_________________________"
-                + "___________________________");
+            + "___________________________");
     }
 
     /**
@@ -186,7 +187,7 @@ public class CliView {
     public void createPlanHeading() {
         System.out.flush();
         System.out.println("Input an intensity level for the new plan:\n"
-                + "high, moderate, relaxed");
+            + "high, moderate, relaxed");
     }
 
     /**
@@ -195,7 +196,7 @@ public class CliView {
     public void editPlanHeading() {
         System.out.flush();
         System.out.println("Choose a plan from below to edit:\n"
-                + "TBC");
+            + "TBC");
     }
 
     /**
@@ -302,9 +303,8 @@ public class CliView {
         System.out.println("________________________________"
             + "________________________________");
         System.out.println(
-                "Please enter the correct command.");
-        System.out.println("________________________________"
-            + "________________________________");
+            "Please enter the correct command.");
+
     }
 
     /**
@@ -431,6 +431,7 @@ public class CliView {
 
     /**
      * Prints message when plan is being created.
+     *
      * @param i The intensity of the plan to be created.
      */
     public void showPlanCreating(final String i) {
@@ -476,17 +477,18 @@ public class CliView {
      */
     public void showEditPlanPrompt() {
         System.out.println("Choose the activity and "
-                + "the position to switch to.");
+            + "the position to switch to.");
     }
 
     /**
      * Prompt user that switching is successful.
+     *
      * @param a initial activity position
      * @param b final activity position
      */
     public void showSuccessfulSwitch(final int a, final int b) {
         System.out.println("Successfully switched positions for activity "
-                + a + " to position " + b);
+            + a + " to position " + b);
     }
 
     /**
@@ -569,7 +571,7 @@ public class CliView {
      */
     public void showEmptyList() {
         System.out.println("Sorry, there are no days matching "
-                + "what you have entered.");
+            + "what you have entered.");
     }
 
     /**
@@ -588,7 +590,20 @@ public class CliView {
         System.out.println(s);
     }
 
+    /**
+     * Method prints a buffer line between sections.
+     */
     public void bufferLine() {
         System.out.println("--------------------------");
+    }
+
+    /**
+     * Show generic error message for exceptions.
+     *
+     * @param msg The error discovered
+     */
+    public void errMessage(String msg) {
+        DukeException dukeException = new DukeException();
+        dukeException.errMessage(msg);
     }
 }
