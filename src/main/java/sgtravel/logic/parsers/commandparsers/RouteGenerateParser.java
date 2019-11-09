@@ -15,6 +15,7 @@ public class RouteGenerateParser extends CommandParser {
     private static final int ONE = 1;
     private static final int TWO = 2;
     private static final int THREE = 3;
+    private static final String BUS_CONSTRAINT = "BUS";
 
     /**
      * Constructs the RouteGenerateParser.
@@ -36,8 +37,12 @@ public class RouteGenerateParser extends CommandParser {
         String[] details = input.split(" to | by ", THREE);
         if (details.length == THREE) {
             try {
-                return new RouteGenerateCommand(details[ZERO], details[ONE],
-                        Constraint.valueOf(details[TWO].toUpperCase()));
+                if (BUS_CONSTRAINT.equals(details[TWO].toUpperCase())) {
+                    return new RouteGenerateCommand(details[ZERO], details[ONE],
+                            Constraint.valueOf(details[TWO].toUpperCase()));
+                } else {
+                    throw new ParseException(Messages.ERROR_CONSTRAINT_UNKNOWN);
+                }
             } catch (IllegalArgumentException e) {
                 throw new ParseException(Messages.ERROR_CONSTRAINT_UNKNOWN);
             }

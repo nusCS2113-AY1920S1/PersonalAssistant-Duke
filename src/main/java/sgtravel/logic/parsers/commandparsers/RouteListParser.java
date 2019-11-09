@@ -24,6 +24,7 @@ public class RouteListParser extends CommandParser {
 
     /**
      * Parses the user input and constructs RouteListCommand object.
+     *
      * @return The RouteListCommand object.
      * @throws ParseException If RouteListCommand object cannot be created.
      */

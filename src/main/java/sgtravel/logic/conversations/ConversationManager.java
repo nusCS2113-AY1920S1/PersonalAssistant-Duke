@@ -118,7 +118,7 @@ public class ConversationManager {
     /**
      * Returns whether the current conversation is finished.
      *
-     * @return Whether the current conversation is finished.
+     * @return isFinished Whether the current conversation is finished.
      */
     public boolean isFinished() {
         return isFinished;

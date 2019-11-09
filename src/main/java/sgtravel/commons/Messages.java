@@ -18,6 +18,9 @@ public class Messages {
     public static final String ROUTE_NODE_DELETE_SUCCESS = "Got it. I've deleted this Route Node:\n";
     public static final String ROUTE_NODE_EDIT_SUCCESS = "Edited the Route!\n";
     public static final String ROUTE_NODE_NEIGHBOURS_SUCCESS = "Here are some Nodes that are close to this:\n";
+    public static final String ROUTE_DELETE_SUCCESS = "Got it. I've deleted this Route:\n";
+    public static final String STATIC_MAP_SUCCESS = "Showing map of :";
+    public static final String STATIC_MAP_FAILURE = "I'm sorry, but nothing was found...\n";
 
     /**
      * Error messages.
@@ -40,7 +43,7 @@ public class Messages {
     public static final String ERROR_ROUTE_NODE_DUPLICATE = "Node already exists! :-(";
     public static final String ERROR_ROUTE_GENERATE_FAIL = "The Route failed to generate, try other locations :-(";
     public static final String ERROR_CATEGORY_NOT_FOUND = "Category does not exists! :-(";
-    public static final String ERROR_API_FAIL = "I'm sorry, but nothing could be found. :-(";
+    public static final String ERROR_API_FAIL = "I'm sorry, but nothing could be found. :-(\n";
     public static final String ERROR_VENUE_EMPTY = "There are no Venues. VenueList is empty.";
     public static final String ERROR_EVENT_NOT_SELECTED = "There are no events selected.";
     public static final String ERROR_RESULT_NOT_FOUND = "I'm sorry, but nothing could be found for your input. :-(";

@@ -39,6 +39,11 @@ public class Event extends TaskWithDates implements Serializable {
         this.venue = venue;
     }
 
+    /**
+     * Converts the Event to a String.
+     *
+     * @return The Event as a String.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " between " + ParserTimeUtil.stringify(getStartDate())
@@ -57,6 +62,12 @@ public class Event extends TaskWithDates implements Serializable {
         this.venue = venue;
     }
 
+    /**
+     * Returns whether this Event is the same as another Event.
+     *
+     * @param otherTask The other Event.
+     * @return true If the Events are the same.
+     */
     @Override
     public boolean isSameTask(Task otherTask) {
         if (otherTask == this) {

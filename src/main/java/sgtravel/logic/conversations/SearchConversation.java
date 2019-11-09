@@ -6,7 +6,7 @@ import sgtravel.commons.Messages;
  * Handles the conversation occurring when a search command is entered.
  */
 public class SearchConversation extends Conversation {
-    private static final String command = "search";
+    private static final String COMMAND = "search";
     private String location;
 
     /**
@@ -36,7 +36,7 @@ public class SearchConversation extends Conversation {
     @Override
     protected void buildResult() {
         if (location != null) {
-            result = command + " " + location;
+            result = COMMAND + " " + location;
             setFinished(true);
         } else {
             attempts++;

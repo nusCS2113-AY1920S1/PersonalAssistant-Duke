@@ -47,6 +47,8 @@ public class ModelManager implements Model {
 
     /**
      * Returns name of the user.
+     *
+     * @return The name of the user.
      */
     @Override
     public String getName() {
@@ -54,7 +56,11 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Returns map object.
+     * Adds an Itinerary to the profile card.
+     *
+     * @param name The name of the Itinerary.
+     * @param itinerary The Itinerary.
+     * @throws NoSuchItineraryException If the Itinerary does not exist.
      */
     @Override
     public void addToFavourite(String name, Itinerary itinerary) throws NoSuchItineraryException {
@@ -64,18 +70,31 @@ public class ModelManager implements Model {
         profileCard.addFavourite(name, itinerary);
     }
 
+    /**
+     * Deletes the Itinerary from the profile card.
+     *
+     * @param name The name of the Itinerary.
+     * @throws NoSuchItineraryException If the Itinerary does not exist.
+     */
     @Override
     public void deleteFavourite(String name) throws NoSuchItineraryException {
         profileCard.deleteFavourite(name);
     }
 
+    /**
+     * Returns the TransportationMap.
+     *
+     * @return The TransportationMap.
+     */
     @Override
     public TransportationMap getMap() {
         return map;
     }
 
     /**
-     * Returns the list of events.
+     * Returns the list of Events.
+     *
+     * @return events The list of Events.
      */
     @Override
     public EventList getEvents() {
@@ -83,9 +102,9 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Replaces the events of this model with the new one.
+     * Replaces the Events of this model with the new one.
      *
-     * @param events The new events.
+     * @param events The new Events.
      */
     @Override
     public void setEvents(EventList events) {
@@ -94,6 +113,8 @@ public class ModelManager implements Model {
 
     /**
      * Returns the list of Routes.
+     *
+     * @return routes The list of Routes.
      */
     @Override
     public RouteList getRoutes() {
@@ -104,6 +125,7 @@ public class ModelManager implements Model {
      * Gets a specified Route.
      *
      * @param index The index of the Route.
+     * @return The Route at the index.
      */
     @Override
     public Route getRoute(int index) throws OutOfBoundsException {
@@ -116,6 +138,8 @@ public class ModelManager implements Model {
 
     /**
      * Returns the map of all bus stops.
+     *
+     * @return The HashMap of all bus stops.
      */
     @Override
     public HashMap<String, BusStop> getBusStops() {
@@ -146,6 +170,7 @@ public class ModelManager implements Model {
      * Deletes the requested itinerary from storage.
      *
      * @param name The name of the itinerary to be "done" (deleted).
+     * @throws NoSuchItineraryException If the Itinerary does not exist.
      */
     @Override
     public void doneItinerary(String name) throws NoSuchItineraryException {
@@ -169,6 +194,7 @@ public class ModelManager implements Model {
      * Returns the "recently recommended itinerary".
      *
      * @return recentItinerary The recent recommendation.
+     * @throws NoRecentItineraryException If there is no recently added Itinerary.
      */
     @Override
     public Itinerary getRecentItinerary() throws NoRecentItineraryException {
@@ -192,6 +218,7 @@ public class ModelManager implements Model {
      * Stores the "recently recommended itinerary" into storage.
      *
      * @param name The new name for the itinerary list.
+     * @throws AddListFailException If the Itinerary fails to be added.
      */
     @Override
     public void confirmRecentItinerary(String name) throws AddListFailException {

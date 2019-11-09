@@ -1,5 +1,6 @@
 package sgtravel.logic.commands;
 
+import sgtravel.commons.Messages;
 import sgtravel.commons.exceptions.ApiException;
 import sgtravel.logic.commands.results.CommandResultImage;
 import sgtravel.logic.api.ApiParser;
@@ -36,13 +37,17 @@ public class StaticMapCommand extends Command {
      */
     @Override
     public CommandResultImage execute(Model model) throws ApiException {
-        Venue query = ApiParser.getLocationSearch(param);
-        Image image = ApiParser.getStaticMap(ApiParser.generateStaticMapParams(DIMENSIONS, DIMENSIONS, ZOOM_LEVEL,
-                String.valueOf(query.getLatitude()), String.valueOf(query.getLongitude()), "", "",
-                ApiParser.generateStaticMapPoint(String.valueOf(query.getLatitude()),
-                        String.valueOf(query.getLongitude()), RED_VALUE, GREEN_VALUE, BLUE_VALUE, param)));
+        try {
+            Venue query = ApiParser.getLocationSearch(param);
+            Image image = ApiParser.getStaticMap(ApiParser.generateStaticMapParams(DIMENSIONS, DIMENSIONS, ZOOM_LEVEL,
+                    String.valueOf(query.getLatitude()), String.valueOf(query.getLongitude()), "", "",
+                    ApiParser.generateStaticMapPoint(String.valueOf(query.getLatitude()),
+                            String.valueOf(query.getLongitude()), RED_VALUE, GREEN_VALUE, BLUE_VALUE, param)));
 
-        return new CommandResultImage("Showing map of " + param, image);
+            return new CommandResultImage(Messages.STATIC_MAP_SUCCESS + param, image);
+        } catch (ApiException e) {
+            return new CommandResultImage(Messages.STATIC_MAP_FAILURE, null);
+        }
     }
 }
 

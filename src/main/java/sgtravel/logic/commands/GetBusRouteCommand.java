@@ -16,6 +16,11 @@ import java.util.HashMap;
 public class GetBusRouteCommand extends Command {
     private String bus;
 
+    /**
+     * Creates a new GetBusRouteCommand with the given bus service.
+     *
+     * @param bus The bus service number.
+     */
     public GetBusRouteCommand(String bus) {
         this.bus = bus;
     }
@@ -23,7 +28,7 @@ public class GetBusRouteCommand extends Command {
     /**
      * Executes this command and returns a text result.
      *
-     * @param model The model object containing transports.
+     * @param model The model object containing information about the user.
      * @throws NoSuchBusServiceException If there is no such bus service.
      */
     @Override

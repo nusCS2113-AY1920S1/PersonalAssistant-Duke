@@ -1,6 +1,8 @@
 package sgtravel.model.locations;
 
+import org.apache.commons.lang3.ObjectUtils;
 import sgtravel.commons.enumerations.Constraint;
+import sgtravel.commons.exceptions.NullResultException;
 import sgtravel.commons.exceptions.QueryFailedException;
 import sgtravel.model.Model;
 import sgtravel.model.transports.TransportationMap;
@@ -65,23 +67,28 @@ public class TrainStation extends RouteNode {
      * @param model The model.
      */
     public void fetchData(Model model) throws QueryFailedException {
-        String[] addressDetails = this.getAddress().split(" ");
-        StringBuilder addressSB = new StringBuilder();
-        for (String detail : addressDetails) {
-            addressSB.append(detail.toUpperCase(), 0, 1).append(detail.substring(1)).append(" ");
-        }
-        String address = addressSB.toString();
-        address = address.substring(0, address.length() - 1);
+        try {
+            String[] addressDetails = this.getAddress().split(" ");
+            StringBuilder addressSB = new StringBuilder();
+            for (String detail : addressDetails) {
+                addressSB.append(detail.toUpperCase(), 0, 1).append(detail.substring(1)).append(" ");
+            }
+            String address = addressSB.toString();
+            address = address.substring(0, address.length() - 1);
 
-        TransportationMap map = model.getMap();
-        HashMap<String, TrainStation> allTrainStations = map.getTrainMap();
-        if (allTrainStations.containsKey(address)) {
-            TrainStation node = allTrainStations.get(address);
-            this.setAddress(address + " MRT");
-            this.setLatitude(node.getLatitude());
-            this.setLongitude(node.getLongitude());
-        } else {
-            throw new QueryFailedException(address);
+            TransportationMap map = model.getMap();
+            HashMap<String, TrainStation> allTrainStations = map.getTrainMap();
+            if (allTrainStations.containsKey(address)) {
+                TrainStation node = allTrainStations.get(address);
+                this.setAddress(address + " Station");
+                this.setDescription("");
+                this.setLatitude(node.getLatitude());
+                this.setLongitude(node.getLongitude());
+            } else {
+                throw new QueryFailedException(address);
+            }
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            throw new QueryFailedException(this.getAddress());
         }
     }
 }

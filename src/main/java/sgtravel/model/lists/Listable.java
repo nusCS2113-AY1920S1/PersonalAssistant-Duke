@@ -6,6 +6,7 @@ import sgtravel.commons.exceptions.DukeException;
  * Interface which models a List of planning objects.
  */
 interface Listable<T> {
+
     /**
      * Adds an item to the List.
      *

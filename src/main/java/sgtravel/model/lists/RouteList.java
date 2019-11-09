@@ -1,6 +1,5 @@
 package sgtravel.model.lists;
 
-import sgtravel.commons.exceptions.NoSuchRouteException;
 import sgtravel.commons.exceptions.DuplicateRouteException;
 import sgtravel.model.transports.Route;
 
@@ -15,7 +14,7 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
     private List<Route> list;
 
     /**
-     * Constructs a RouteList object.
+     * Constructs an empty RouteList object.
      */
     public RouteList() {
         list = new ArrayList<>();

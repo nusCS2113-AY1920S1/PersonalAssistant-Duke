@@ -20,6 +20,7 @@ public class Itinerary {
 
     /**
      * Constructor to initialise new Itinerary.
+     *
      * @param startDate The first day of the trip.
      * @param endDate The last day of the trip .
      * @param name The name of the itinerary.
@@ -72,6 +73,7 @@ public class Itinerary {
 
     /**
      * Returns number of days of the trip based on entered start and end dates.
+     *
      * @return the number of days of a trip (end - start).
      */
     public int getNumberOfDays() {
@@ -82,6 +84,7 @@ public class Itinerary {
 
     /**
      * Returns the list of agendas associated with the itinerary.
+     *
      * @return list The agenda list.
      */
     public List<Agenda> getList() {
@@ -90,6 +93,7 @@ public class Itinerary {
 
     /**
      * Replaces the contents of the current list with the updated one.
+     *
      * @param agenda The agenda list to replace the current one.
      */
     public void setTasks(List<Agenda> agenda) {
@@ -98,6 +102,7 @@ public class Itinerary {
 
     /**
      * Returns the start date of the trip.
+     *
      * @return endDate The first date of the trip
      */
     public LocalDateTime getStartDate() {
@@ -106,6 +111,7 @@ public class Itinerary {
 
     /**
      * Returns the end date of the trip.
+     *
      * @return endDate The last date of the trip
      */
     public LocalDateTime getEndDate() {
@@ -114,6 +120,7 @@ public class Itinerary {
 
     /**
      * Returns the name of the itinerary.
+     *
      * @return name Users name of the itinerary
      */
     public String getName() {

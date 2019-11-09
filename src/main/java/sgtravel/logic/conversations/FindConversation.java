@@ -6,7 +6,7 @@ import sgtravel.commons.Messages;
  * Handles the conversation occurring when a find command is entered.
  */
 public class FindConversation extends Conversation {
-    private static final String command = "find";
+    private static final String COMMAND = "find";
     private String keyword;
 
     /**
@@ -35,6 +35,6 @@ public class FindConversation extends Conversation {
     @Override
     protected void buildResult() {
         assert  (keyword != null);
-        result = command + " " + keyword;
+        result = COMMAND + " " + keyword;
     }
 }

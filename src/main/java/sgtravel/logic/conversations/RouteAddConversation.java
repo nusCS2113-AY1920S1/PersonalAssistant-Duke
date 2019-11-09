@@ -6,7 +6,7 @@ import sgtravel.commons.Messages;
  * Handles the conversation occurring when a RouteAdd command is entered.
  */
 public class RouteAddConversation extends Conversation {
-    private static final String command = "routeAdd";
+    private static final String COMMAND = "routeAdd";
     private String name;
     private String description;
 
@@ -50,6 +50,6 @@ public class RouteAddConversation extends Conversation {
      */
     @Override
     protected void buildResult() {
-        result = command + " " + name + " desc " + description;
+        result = COMMAND + " " + name + " desc " + description;
     }
 }

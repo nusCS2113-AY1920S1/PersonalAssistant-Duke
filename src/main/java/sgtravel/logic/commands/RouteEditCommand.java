@@ -39,8 +39,8 @@ public class RouteEditCommand extends Command {
      * @throws OutOfBoundsException If the query is out of bounds.
      */
     @Override
-    public CommandResultText execute(Model model) throws FileNotSavedException,
-            UnknownFieldException, OutOfBoundsException {
+    public CommandResultText execute(Model model) throws FileNotSavedException, UnknownFieldException,
+            OutOfBoundsException {
         try {
             Route route = model.getRoutes().get(index);
             editField(route);

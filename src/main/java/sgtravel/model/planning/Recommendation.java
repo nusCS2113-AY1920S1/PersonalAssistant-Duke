@@ -17,7 +17,6 @@ public class Recommendation {
     private List<Agenda> agendaList;
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-
     /**
      * Constructor to initialise new Recommendation.
      *

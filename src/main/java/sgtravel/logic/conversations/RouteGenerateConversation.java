@@ -6,7 +6,7 @@ import sgtravel.commons.Messages;
  * Handles the conversation occurring when a RouteGenerate command is entered.
  */
 public class RouteGenerateConversation extends Conversation {
-    private static final String command = "routeGenerate";
+    private static final String COMMAND = "routeGenerate";
     private String startLocation;
     private String endLocation;
     private String constraint;
@@ -60,6 +60,6 @@ public class RouteGenerateConversation extends Conversation {
      */
     @Override
     protected void buildResult() {
-        result = command + " " + startLocation + " to " + endLocation + " by " + constraint;
+        result = COMMAND + " " + startLocation + " to " + endLocation + " by " + constraint;
     }
 }

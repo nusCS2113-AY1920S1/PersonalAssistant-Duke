@@ -6,7 +6,7 @@ import sgtravel.commons.Messages;
  * Handles the conversation occurring when a RouteNodeDelete command is entered.
  */
 public class RouteNodeDeleteConversation extends Conversation {
-    private static final String command = "routeNodeDelete";
+    private static final String COMMAND = "routeNodeDelete";
     private String routeIndex;
     private String nodeIndex;
 
@@ -55,6 +55,6 @@ public class RouteNodeDeleteConversation extends Conversation {
      */
     @Override
     protected void buildResult() {
-        result = command + " " + routeIndex + " " + nodeIndex;
+        result = COMMAND + " " + routeIndex + " " + nodeIndex;
     }
 }

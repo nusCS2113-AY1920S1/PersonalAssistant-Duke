@@ -6,7 +6,7 @@ import sgtravel.commons.Messages;
  * Handles the conversation occurring when a RouteList command is entered.
  */
 public class RouteListConversation extends Conversation {
-    private static final String command = "routeList";
+    private static final String COMMAND = "routeList";
     private String index;
 
     /**
@@ -38,7 +38,7 @@ public class RouteListConversation extends Conversation {
     @Override
     protected void buildResult() {
         if (index != null) {
-            result = command + " " + index;
+            result = COMMAND + " " + index;
             setFinished(true);
         } else {
             attempts++;

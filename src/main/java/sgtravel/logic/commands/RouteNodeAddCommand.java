@@ -26,6 +26,9 @@ public class RouteNodeAddCommand extends Command {
      * Creates a new RouteNodeAddCommand with the given node.
      *
      * @param node The node to add.
+     * @param indexRoute The index of the Route.
+     * @param indexNode The index of the RouteNode.
+     * @param isEmptyIndexNode If the index of the RouteNode exists or not.
      */
     public RouteNodeAddCommand(RouteNode node, int indexRoute, int indexNode, boolean isEmptyIndexNode) {
         this.node = node;

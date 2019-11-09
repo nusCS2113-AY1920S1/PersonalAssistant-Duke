@@ -4,7 +4,6 @@ import sgtravel.commons.exceptions.NullResultException;
 import sgtravel.commons.exceptions.OutOfBoundsException;
 import sgtravel.commons.exceptions.DuplicateRouteNodeException;
 import sgtravel.model.locations.RouteNode;
-import sgtravel.model.locations.Venue;
 
 import java.util.ArrayList;
 

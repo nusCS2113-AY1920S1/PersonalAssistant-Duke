@@ -6,7 +6,7 @@ import sgtravel.commons.Messages;
  * Handles the conversation occurring when a delete command is entered.
  */
 public class DeleteConversation extends Conversation {
-    private static final String command = "delete";
+    private static final String COMMAND = "delete";
     private String index;
 
     /**
@@ -39,6 +39,6 @@ public class DeleteConversation extends Conversation {
     @Override
     protected void buildResult() {
         assert (index != null);
-        result = command + " " + index;
+        result = COMMAND + " " + index;
     }
 }

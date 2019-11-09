@@ -1,0 +1,89 @@
+route | amk hub to sentosa  (BUS) | Bus Service 166/Bus Service NR1/
+node | BUS | 54009 | Ang Mo Kio Int | Ang Mo Kio Ave 8 | 1.36968769913339 | 103.84856716193268
+node | BUS | 54248 | Blk 324 | Ang Mo Kio Ave 3 | 1.36875490594243 | 103.84661006967286
+node | BUS | 54239 | Blk 209 | Ang Mo Kio Ave 3 | 1.369186093503 | 103.84332015576305
+node | BUS | 54229 | Ang Mo Kio Pr Sch | Ang Mo Kio Ave 3 | 1.36960577947339 | 103.83993274827546
+node | BUS | 54219 | OPP MAYFLOWER SEC SCH | Ang Mo Kio Ave 3 | 1.36880777071199 | 103.83679395921905
+node | BUS | 54069 | Opp Blk 244 | Ang Mo Kio Ave 1 | 1.36691997150676 | 103.83405562626137
+node | BUS | 56269 | BEF Ang mo kio avenue 2 | Ang Mo Kio Ave 1 | 1.36741835425889 | 103.83233403239235
+node | BUS | 53099 | Aft Ang Mo Kio Ave 1 | Upp Thomson Rd | 1.36660638165473 | 103.82842866172699
+node | BUS | 53089 | Faber Gdn | Upp Thomson Rd | 1.36413164157937 | 103.82823689416603
+node | BUS | 53079 | Flame Tree Pk | Upp Thomson Rd | 1.36082666696977 | 103.82864333297208
+node | BUS | 53069 | Aft Windsor Pk Rd | Upp Thomson Rd | 1.35777159286274 | 103.82894351047115
+node | BUS | 53059 | Opp Thomson Plaza | Upp Thomson Rd | 1.355471 | 103.8312231
+node | BUS | 53049 | Bef Jln Todak | Upp Thomson Rd | 1.35362664583092 | 103.83422172361446
+node | BUS | 53039 | Thomson CC | Upp Thomson Rd | 1.35144681735328 | 103.83591070615076
+node | BUS | 53029 | Shunfu Est | Upp Thomson Rd | 1.34939240848355 | 103.83729222566143
+node | BUS | 53019 | OPP ST. THERESA'S HME | Upp Thomson Rd | 1.34600349626668 | 103.83871779531225
+node | BUS | 51069 | Mt Alvernia Hosp | Thomson Rd | 1.34125785266365 | 103.83660435635784
+node | BUS | 51059 | AFT TOA PAYOH RISE | Thomson Rd | 1.3370325833883 | 103.83735019393414
+node | BUS | 51049 | SLF Cplx | Thomson Rd | 1.3338213150365 | 103.83795811295674
+node | BUS | 51039 | Opp S'pore Polo Club | Thomson Rd | 1.33165828742218 | 103.83888866147537
+node | BUS | 51029 | Opp Old Police Academy | Thomson Rd | 1.3302549684081 | 103.8397133983878
+node | BUS | 51019 | Thomson Flyover | Thomson Rd | 1.32894248973791 | 103.84066508496021
+node | BUS | 50059 | Opp Thomson Med Ctr | Thomson Rd | 1.32489453398384 | 103.84211744421322
+node | BUS | 50049 | Opp Novena Lodge | Thomson Rd | 1.32354108650178 | 103.84189326889334
+node | BUS | 50038 | Novena Stn | Thomson Rd | 1.31962671001555 | 103.84343862536716
+node | BUS | 50029 | Opp United Sq | Thomson Rd | 1.31647941614673 | 103.84484281963609
+node | BUS | 50019 | Parish Of Christ Ch | Keng Lee Rd | 1.31194891032358 | 103.84763856174139
+node | BUS | 40109 | Opp KK Women & Child Hosp | Kg Java Rd | 1.30949131269895 | 103.84770747833439
+node | BUS | 40019 | Little India Stn | Bt Timah Rd | 1.30664404460339 | 103.84920416709382
+node | BUS | 07539 | Opp Rochor Stn | Sungei Rd | 1.30461300741211 | 103.8520009720951
+node | BUS | 07518 | OPP NAFA CAMPUS 3 | Bencoolen St | 1.30095828368506 | 103.85211175034802
+node | BUS | 04019 | OPP BENCOOLEN STN EXIT B | Bencoolen St | 1.29807216909408 | 103.84975607305783
+node | BUS | 04167 | City Hall Stn Exit B | Nth Bridge Rd | 1.29250006522444 | 103.85145315468638
+node | BUS | 04249 | Opp The Treasury | Nth Bridge Rd | 1.29043039362749 | 103.85026216508201
+node | BUS | 05029 | Boat Quay | Sth Bridge Rd | 1.28712283362119 | 103.84819780822524
+node | BUS | 05199 | Opp Hong Lim Cplx | Sth Bridge Rd | 1.28451455846092 | 103.84666049314171
+node | BUS | 05189 | Opp Sri Mariamman Tp | Sth Bridge Rd | 1.2820913960391 | 103.84528061446953
+node | BUS | 05259 | Aft Kreta Ayer Rd | Neil Rd | 1.27979447837032 | 103.84262707605177
+node | BUS | 05239 | Bef The Pinnacle@Duxton | Neil Rd | 1.27854113014976 | 103.8415105424013
+node | BUS | 10021 | Blk 3 | Neil Rd | 1.27744837946643 | 103.83838894560753
+node | BUS | 10041 | BEF KAMPONG BAHRU TER | Kg Bahru Rd | 1.27605834770353 | 103.83519065305671
+node | BUS | 10399 | Melati Blk 2 | Kg Bahru Rd | 1.27588166292683 | 103.83019454205221
+node | BUS | 14221 | Opp St. Teresa's Ch | Kg Bahru Rd | 1.27359332247784 | 103.82893371728431
+node | BUS | 14231 | Keppel DP Blk 519 | Kg Bahru Rd | 1.27100999999332 | 103.82667222202473
+node | BUS | 14019 | Opp Mt Faber Lodge | Kg Bahru Rd | 1.2684889249437 | 103.82571717446542
+node | BUS | 14141 | HarbourFront Stn/Vivocity | Telok Blangah Rd | 1.26552421466644 | 103.82211326846237
+node | BUS | 14519 | Resorts World Sentosa | Sentosa Gateway | 1.25352193438281 | 103.82570322127442
+route | amk hub to sungei gedong  (MRT) | NS16 Line/
+node | MRT | [] | Ang Mo Kio Station |  | 1.37 | 103.8496
+node | MRT | [] | Yio Chu Kang Station |  | 1.3817 | 103.8449
+node | MRT | [] | Khatib Station |  | 1.4173 | 103.833
+node | MRT | [] | Yishun Station |  | 1.4295 | 103.835
+node | MRT | [] | Sembawang Station |  | 1.4491 | 103.82
+node | MRT | [] | Admiralty Station |  | 1.4406 | 103.801
+node | MRT | [] | Woodlands Station |  | 1.437094 | 103.786483
+node | MRT | [] | Marsiling Station |  | 1.4326 | 103.7742
+node | MRT | [] | Kranji Station |  | 1.4252 | 103.762
+node | MRT | [] | Yew Tee Station |  | 1.3973 | 103.7475
+route | amk hub to clementi mall  (MRT) | NS16 Line/EW24 Line/
+node | MRT | [] | Ang Mo Kio Station |  | 1.37 | 103.8496
+node | MRT | [] | Yio Chu Kang Station |  | 1.3817 | 103.8449
+node | MRT | [] | Khatib Station |  | 1.4173 | 103.833
+node | MRT | [] | Yishun Station |  | 1.4295 | 103.835
+node | MRT | [] | Sembawang Station |  | 1.4491 | 103.82
+node | MRT | [] | Admiralty Station |  | 1.4406 | 103.801
+node | MRT | [] | Woodlands Station |  | 1.437094 | 103.786483
+node | MRT | [] | Marsiling Station |  | 1.4326 | 103.7742
+node | MRT | [] | Kranji Station |  | 1.4252 | 103.762
+node | MRT | [] | Yew Tee Station |  | 1.3973 | 103.7475
+node | MRT | [] | Chua Chu Kang Station |  | 1.3854 | 103.7443
+node | MRT | [] | Bukit Gombak Station |  | 1.3589 | 103.7518
+node | MRT | [] | Bukit Batok Station |  | 1.3491 | 103.7496
+node | MRT | [] | Jurong East Station |  | 1.3331 | 103.7421
+node | MRT | [] | Clementi Station |  | 1.3152 | 103.7652
+route | amk hub to bishan  (BUS) | Bus Service 22/Bus Service 162M/
+node | BUS | 54009 | Ang Mo Kio Int | Ang Mo Kio Ave 8 | 1.36968769913339 | 103.84856716193268
+node | BUS | 54339 | Blk 422 | Ang Mo Kio Ave 8 | 1.3678447007404 | 103.85057966582927
+node | BUS | 54329 | Blk 420 | Ang Mo Kio Ave 8 | 1.36449772525141 | 103.85247983714417
+node | BUS | 54319 | Opp Christ The King Ch | Ang Mo Kio Ave 8 | 1.36205969144532 | 103.85305482306448
+node | BUS | 54531 | OPP BISHAN PK | Bishan Rd | 1.35839974282084 | 103.85132688003488
+node | BUS | 53241 | OPP BLK 217 | Bishan Rd | 1.35615639153054 | 103.84995659632311
+node | BUS | 53391 | Opp Blk 203 | Bishan St 22 | 1.35444291744538 | 103.84696320325273
+node | BUS | 53381 | Bishan Nth Shop Mall | Bishan St 22 | 1.35830432828214 | 103.84496212009292
+node | BUS | 53371 | Blk 257 | Bishan St 22 | 1.35994333341045 | 103.84379568310376
+node | BUS | 53321 | CityCab | Sin Ming Ave | 1.36135000000011 | 103.84029472198131
+node | BUS | 53331 | Bef Bright Hill Tp | Sin Ming Ave | 1.36285472197724 | 103.83701277802122
+node | BUS | 53341 | Blk 407 | Sin Ming Ave | 1.36355638900203 | 103.83394166697735
+node | BUS | 53351 | Ai Tong Sch | Sin Ming Ave | 1.36080972198475 | 103.83211750001261

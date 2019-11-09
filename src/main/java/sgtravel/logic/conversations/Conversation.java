@@ -12,9 +12,9 @@ public abstract class Conversation {
     protected String result;
     protected String prompt;
     protected int state;
-    private boolean isFinished;
     protected int attempts;
     private static final int ATTEMPTS_LIMIT = 3;
+    private boolean isFinished;
 
     /**
      * Initialises the Conversation object.
@@ -85,23 +85,6 @@ public abstract class Conversation {
         } else {
             attempts++;
             prompt = Messages.PROMPT_NOT_ROUTE_FIELD;
-            return false;
-        }
-    }
-
-    /**
-     * Checks if input is a field of a RouteNode.
-     *
-     * @param input The input.
-     * @return true If the input is a field of a RouteNode.
-     */
-    protected boolean isRouteNodeField(String input) {
-        if ("address".equals(input) || "description".equals(input) || "type".equals(input) || "latitude".equals(input)
-                || "longitude".equals(input)) {
-            return true;
-        } else {
-            attempts++;
-            prompt = Messages.PROMPT_NOT_ROUTENODE_FIELD;
             return false;
         }
     }

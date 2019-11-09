@@ -24,7 +24,9 @@ import java.util.HashMap;
  */
 public interface Model {
     /**
-     * Returns the list of events.
+     * Returns the list of Events.
+     *
+     * @return The list of Events.
      */
     EventList getEvents();
 
@@ -37,16 +39,22 @@ public interface Model {
 
     /**
      * Returns map object.
+     *
+     * @return The Map object.
      */
     TransportationMap getMap();
 
     /**
      * Returns the map of all bus stops.
+     *
+     * @return The HashMap of bus stops.
      */
     HashMap<String, BusStop> getBusStops();
 
     /**
      * Returns the list of Routes.
+     *
+     * @return The list of Routes.
      */
     RouteList getRoutes();
 
@@ -54,6 +62,7 @@ public interface Model {
      * Gets a specified Route.
      *
      * @param index The index of the Route.
+     * @return The Route at the index.
      */
     Route getRoute(int index) throws OutOfBoundsException;
 
@@ -73,6 +82,8 @@ public interface Model {
 
     /**
      * Returns a list of event venues.
+     *
+     * @return The list of Events.
      */
     VenueList getEventVenues();
 
@@ -87,14 +98,14 @@ public interface Model {
     /**
      * Returns the recommendation list object.
      *
-     * @return recommendations The requested recommendations list.
+     * @return The requested recommendations list.
      */
     Recommendation getRecommendations();
 
     /**
      * Returns the itinerary hash-map keyed by their names.
      * 
-     * @return itineraryTable The list of saved itineraries.
+     * @return The list of saved itineraries.
      */
     HashMap<String,Itinerary> getItineraryTable();
 
@@ -108,7 +119,7 @@ public interface Model {
     /**
      * Returns the recently recommended itinerary.
      *
-     * @return recentItinerary The recent recommendation.
+     * @return The recent recommendation.
      */
     Itinerary getRecentItinerary() throws NoRecentItineraryException;
 
@@ -135,15 +146,32 @@ public interface Model {
 
     /**
      * Returns profile of user.
+     *
+     * @return The profile of user.
      */
     ProfileCard getProfileCard();
 
     /**
      * Returns name of the user.
+     *
+     * @return The name of the user.
      */
     String getName();
 
+    /**
+     * Adds an Itinerary to the favourites.
+     *
+     * @param name The name of the Itinerary.
+     * @param itinerary The Itinerary.
+     * @throws NoSuchItineraryException If there Itinerary does not exist.
+     */
     void addToFavourite(String name, Itinerary itinerary) throws NoSuchItineraryException;
 
+    /**
+     * Deletes a favourite Itinerary.
+     *
+     * @param name The name of the Itinerary.
+     * @throws NoSuchItineraryException If the Itinerary cannot be found.
+     */
     void deleteFavourite(String name) throws NoSuchItineraryException;
 }

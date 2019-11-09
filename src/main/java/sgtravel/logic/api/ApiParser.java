@@ -278,9 +278,7 @@ public class ApiParser {
 
         for (int i = startIndex; i <= endIndex; i++) {
             RouteNode newNode = route.getNode(i);
-            if (!newNode.equals(query)) {
-                points.add(newNode.getLatitude() + "," + newNode.getLongitude());
-            }
+            points.add(newNode.getLatitude() + "," + newNode.getLongitude());
         }
 
         return points;
