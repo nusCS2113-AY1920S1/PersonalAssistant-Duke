@@ -53,23 +53,11 @@ public class EntryParser extends Parser {
                 return new ErrorCommand();
             }
         } else if (commandToRun.equals(COMMAND_SEARCH)) {
-            String component = null;
-            String content = null;
-            try {
-                if (verifyDebtSearchComponent(inputArray[1]) && inputArray[2] != null) {
-                    component = inputArray[1];
-                    content = inputArray[2];
-                } else {
-                    SearchUi.printInvalidDebtSearchComponent();
-                }
-            } catch (NullPointerException e) {
-                SearchUi.printInvalidSearchFormat();
-                return new ErrorCommand();
-            } catch (IndexOutOfBoundsException e) {
-                SearchUi.printInvalidSearchFormat();
+            if (verifyEntrySearchCommand()) {
+                return new SearchCommand(mode, inputArray[1], inputArray[2]);
+            } else {
                 return new ErrorCommand();
             }
-            return new SearchCommand(mode, component, content);
         } else if (commandToRun.equals(COMMAND_REMOVE)) {
             if (verifyRemove()) {
                 return new RemoveCommand(mode, inputArray[1]);

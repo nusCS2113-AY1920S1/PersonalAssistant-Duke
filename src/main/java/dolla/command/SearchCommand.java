@@ -45,19 +45,21 @@ public class SearchCommand extends Command {
         RecordList recordList = new RecordList(new ArrayList<>());
 
         switch (mode) {
-        case "entry":
+        case MODE_ENTRY:
             recordList = dollaData.getRecordListObj(mode);
             break;
-        case "debt":
+        case MODE_DEBT:
             recordList = dollaData.getRecordListObj(mode);
             break;
-        case "limit":
+        case MODE_LIMIT:
+            recordList = dollaData.getRecordListObj(mode);
+            break;
+        case MODE_SHORTCUT:
             recordList = dollaData.getRecordListObj(mode);
             break;
         default:
             break;
         }
-
 
         boolean listIsEmpty = (recordList.size() == 0);
 
@@ -81,6 +83,8 @@ public class SearchCommand extends Command {
                 }
             } else if (mode.equals(MODE_LIMIT) && component.equals(COMPONENT_DURATION)) {
                 SearchUi.printSearchDuration(mode, recordList, searchContent);
+            } else if (mode.equals(MODE_SHORTCUT) && component.equals(COMPONENT_DESCRIPTION)) {
+                SearchUi.printSearchDesc(mode, recordList, searchContent);
             }
         } catch (Exception e) {
             SearchUi.printInvalidSearchFormat();

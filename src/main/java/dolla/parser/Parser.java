@@ -5,13 +5,7 @@ import dolla.Time;
 import dolla.model.RecordList;
 import dolla.exception.DollaException;
 
-import dolla.ui.Ui;
-import dolla.ui.EntryUi;
-import dolla.ui.RemoveUi;
-import dolla.ui.LimitUi;
-import dolla.ui.DebtUi;
-import dolla.ui.SortUi;
-import dolla.ui.ModifyUi;
+import dolla.ui.*;
 
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
@@ -525,6 +519,78 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     }
 
     /**
+     * Check if the search command for debt is valid.
+     * @return true if the command is valid.
+     */
+    protected Boolean verifyDebtSearchCommand() {
+        try {
+            if (verifyDebtSearchComponent(inputArray[1]) && inputArray[2] != null) {
+                return true;
+            } else {
+                SearchUi.printInvalidDebtSearchComponent();
+                return false;
+            }
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            SearchUi.printInvalidSearchFormat();
+            return false;
+        }
+    }
+
+    /**
+     * Check if the search command for entry is valid.
+     * @return true if the command is valid.
+     */
+    protected Boolean verifyEntrySearchCommand() {
+        try {
+            if (verifyEntrySearchComponent(inputArray[1]) && inputArray[2] != null) {
+                return true;
+            } else {
+                SearchUi.printInvalidEntrySearchComponent();
+                return false;
+            }
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            SearchUi.printInvalidSearchFormat();
+            return false;
+        }
+    }
+
+    /**
+     * Check if the search command for limit is valid.
+     * @return true if the command is valid.
+     */
+    protected Boolean verifyLimitSearchCommand() {
+        try {
+            if (verifyLimitSearchComponent(inputArray[1]) && inputArray[2] != null) {
+                return true;
+            } else {
+                SearchUi.printInvalidLimitSearchComponent();
+                return false;
+            }
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            SearchUi.printInvalidSearchFormat();
+            return false;
+        }
+    }
+
+    /**
+     * Check if the search command for shortcut is valid.
+     * @return true if the command is valid.
+     */
+    protected Boolean verifyShortcutSearchCommand() {
+        try {
+            if (verifyShortcutSearchComponent(inputArray[1]) && inputArray[2] != null) {
+                return true;
+            } else {
+                SearchUi.printInvalidShortcutSearchComponent();
+                return false;
+            }
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            SearchUi.printInvalidSearchFormat();
+            return false;
+        }
+    }
+
+    /**
      * Check if the component is valid.
      * @param s string at the component position.
      * @return true if it is a valid component.
@@ -540,6 +606,15 @@ public abstract class Parser implements ParserStringList, ModeStringList {
      */
     protected Boolean verifyLimitSearchComponent(String s) {
         return s.equals(SEARCH_DURATION);
+    }
+
+    /**
+     * check if the component is valid
+     * @param s string at the component position
+     * @return true if it is a valid component.
+     */
+    protected Boolean verifyShortcutSearchComponent(String s) {
+        return s.equals(SEARCH_DESCRIPTION);
     }
 
     //@@author Weng-Kexin
