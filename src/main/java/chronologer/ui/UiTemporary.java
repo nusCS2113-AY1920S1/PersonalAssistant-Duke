@@ -5,7 +5,6 @@ import chronologer.task.TaskList;
 import javafx.beans.value.ObservableIntegerValue;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -70,9 +69,6 @@ public class UiTemporary {
             + "What can I do for you?\n" + "_______________________________\n";
 
     private static Scanner scanner = new Scanner(System.in);
-
-    private static List<String> multiLineList = new ArrayList<>();
-    private static StringBuilder multiLineOutput;
 
     /**
      * Prints a 'dashed' line.

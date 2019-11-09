@@ -91,9 +91,8 @@ public class TaskScheduleCommand extends Command {
         LocalDateTime deadlineDate;
         String result;
 
-        ArrayList<Task> list = tasks.getTasks();
-        duration = retrieveDuration(list);
-        deadlineDate = retrieveDeadlineDate(list);
+        duration = retrieveDuration(tasks);
+        deadlineDate = retrieveDeadlineDate(tasks);
 
         if (deadlineDate == null) {
             result = TaskScheduler.scheduleTask(tasks, duration);
@@ -110,19 +109,19 @@ public class TaskScheduleCommand extends Command {
         UiTemporary.printOutput(result);
     }
 
-    private long retrieveDuration(ArrayList<Task> list) throws ChronologerException {
+    private long retrieveDuration(TaskList tasks) throws ChronologerException {
         if (this.indexOfTask == null) {
             assert this.durationToSchedule != null;
             return this.durationToSchedule;
         }
-        if (indexOfTask < 0 || indexOfTask >= list.size()) {
+        if (indexOfTask < 0 || indexOfTask >= tasks.getTasks().size()) {
             UiTemporary.printOutput(ChronologerException.invalidIndex());
             throw new ChronologerException(ChronologerException.invalidIndex());
         }
 
         Todo todo;
         try {
-            todo = (Todo) list.get(indexOfTask);
+            todo = (Todo) tasks.getTasks().get(indexOfTask);
         } catch (ClassCastException e) {
             UiTemporary.printOutput(NOT_TODO);
             logger.writeLog(e.toString(), this.getClass().getName());
@@ -131,18 +130,18 @@ public class TaskScheduleCommand extends Command {
         return todo.duration;
     }
 
-    private LocalDateTime retrieveDeadlineDate(ArrayList<Task> list) throws ChronologerException {
+    private LocalDateTime retrieveDeadlineDate(TaskList tasks) throws ChronologerException {
         if (this.indexOfDeadline == null) {
             return this.deadlineDate;
         }
-        if (indexOfDeadline < 0 || indexOfDeadline >= list.size()) {
+        if (indexOfDeadline < 0 || indexOfDeadline >= tasks.getTasks().size()) {
             UiTemporary.printOutput(ChronologerException.invalidIndex());
             throw new ChronologerException(ChronologerException.invalidIndex());
         }
 
         Deadline deadline;
         try {
-            deadline = (Deadline) list.get(indexOfDeadline);
+            deadline = (Deadline) tasks.getTasks().get(indexOfDeadline);
         } catch (ClassCastException e) {
             UiTemporary.printOutput(NOT_DEADLINE);
             logger.writeLog(e.toString(), this.getClass().getName());
