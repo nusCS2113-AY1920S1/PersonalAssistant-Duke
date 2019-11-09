@@ -50,9 +50,11 @@ public class ListInstalmentTest {
         listInstalmentCommand.execute(account, ui, moneyStorage);
         assertEquals("Got it, list will be printed in the other pane!\n", ui.getOutputString());
         assertEquals(" 1.[" + df.format(instalment.getPercentage()) + "%] " + instalment.getDescription() + " ($"
-                        + df.format(instalment.equalMonthlyInstalment()) + " per month until " + instalment.getDateEndDate() + ")\n"
+                        + df.format(instalment.equalMonthlyInstalment()) + " per month until "
+                        + instalment.getDateEndDate() + ")\n"
                         + " 2.[" + df.format(instalment1.getPercentage()) + "%] " + instalment1.getDescription() + " ($"
-                        + df.format(instalment1.equalMonthlyInstalment()) + " per month until " + instalment1.getDateEndDate() + ")\n",
+                        + df.format(instalment1.equalMonthlyInstalment()) + " per month until "
+                        + instalment1.getDateEndDate() + ")\n",
                 ui.getGraphContainerString());
 
         MoneyCommand exitCommand =  new ExitMoneyCommand();

@@ -3,8 +3,15 @@ package money;
 import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
 import controlpanel.Ui;
+
 import moneycommands.*;
 import org.junit.jupiter.api.Assertions;
+import moneycommands.AddIncomeCommand;
+import moneycommands.MoneyCommand;
+import moneycommands.DeleteIncomeCommand;
+import moneycommands.ListTotalIncomeCommand;
+import moneycommands.ExitMoneyCommand;
+
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -43,9 +50,9 @@ public class IncomeTest {
         MoneyCommand addIncomeCommand = new AddIncomeCommand(testInput);
         ui.clearOutputString();
         addIncomeCommand.execute(account, ui, moneyStorage);
-        assertEquals(" Got it. I've added this income source: \n" +
-                        "     [I] TA (salary: $560.00) (Paid On: 10/12/2040)\n"
-                , ui.getOutputString().split(" Now")[0]);
+        assertEquals(" Got it. I've added this income source: \n"
+                        + "     [I] TA (salary: $560.00) (Paid On: 10/12/2040)\n",
+                ui.getOutputString().split(" Now")[0]);
         account.getIncomeListTotal().clear();
         MoneyCommand exitCommand = new ExitMoneyCommand();
         exitCommand.execute(account, ui, moneyStorage);
@@ -61,9 +68,9 @@ public class IncomeTest {
         MoneyCommand deleteIncomeCommand = new DeleteIncomeCommand(testInput);
         ui.clearOutputString();
         deleteIncomeCommand.execute(account, ui, moneyStorage);
-        assertEquals(" Noted. I've removed this income source:\n" +
-                        "  [I] TA Pay(salary: $2000.00) (Paid On: 9/10/2015)\n"
-                , ui.getOutputString().split(" Now")[0]);
+        assertEquals(" Noted. I've removed this income source:\n"
+                        + "  [I] TA Pay(salary: $2000.00) (Paid On: 9/10/2015)\n",
+                ui.getOutputString().split(" Now")[0]);
         account.getIncomeListTotal().clear();
         MoneyCommand exitCommand = new ExitMoneyCommand();
         exitCommand.execute(account, ui, moneyStorage);
@@ -80,10 +87,10 @@ public class IncomeTest {
         ui.clearOutputString();
         ui.clearGraphContainerString();
         listTotalIncomeCommand.execute(account, ui, moneyStorage);
-        assertEquals(" 1.[I] TA Pay(salary: $2000.00) (Paid On: 9/10/2015)\n" +
-                        " 2.[I] crypto money(salary: $1000.00) (Paid On: 9/10/2015)\n" +
-                        "Total income so far: $3000.00\n"
-                , ui.getGraphContainerString().split(" Now")[0]);
+        assertEquals(" 1.[I] TA Pay(salary: $2000.00) (Paid On: 9/10/2015)\n"
+                        + " 2.[I] crypto money(salary: $1000.00) (Paid On: 9/10/2015)\n"
+                        + "Total income so far: $3000.00\n",
+                ui.getGraphContainerString().split(" Now")[0]);
         assertEquals("Got it, list will be printed in the other pane!\n", ui.getOutputString());
         account.getIncomeListTotal().clear();
         MoneyCommand exitCommand = new ExitMoneyCommand();
@@ -99,8 +106,8 @@ public class IncomeTest {
             invalidAddCommand.execute(account, ui, moneyStorage);
             fail();
         } catch (DukeException | ParseException e) {
-            assertThat(e.getMessage(), is("Please enter in the format: " +
-                    "add income <description> /amt <amount> /on <date>\n"));
+            assertThat(e.getMessage(), is("Please enter in the format: "
+                    + "add income <description> /amt <amount> /on <date>\n"));
         }
     }
 

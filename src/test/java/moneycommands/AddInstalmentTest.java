@@ -57,19 +57,22 @@ public class AddInstalmentTest {
                         + " You are paying $" + df.format(account.getInstalments().get(last).equalMonthlyInstalment())
                         + " per month\n" + " For " + account.getInstalments().get(last).getNumOfPayments() + " months\n"
                         + " Until " + account.getInstalments().get(last).getDateEndDate() + "\n"
-                        + " The total amount you will pay is $" + account.getInstalments().get(last).totalAmount() + "\n"
-                        + "Got it, list will be printed in the other pane!\n"
-                , ui.getOutputString());
-
+                        + " The total amount you will pay is $" + account.getInstalments().get(last).totalAmount()
+                        + "\n"
+                        + "Got it, list will be printed in the other pane!\n",
+                ui.getOutputString());
         MoneyCommand exitCommand =  new ExitMoneyCommand();
         exitCommand.execute(account, ui, moneyStorage);
     }
 
     @Test
     public void testAddInvalidNumbers()throws ParseException, DukeException {
-        String testInvalidAmount = "add instalment mortgage /amt 100gse2 /within 200 months /from 12/12/2010 /percentage 6";
-        String testInvalidNoOfMonths = "add instalment mortgage /amt 100000 /within 2e0 months /from 12/12/2010 /percentage 6";
-        String testInvalidInterestRate = "add instalment mortgage /amt 100000 /within 200 months /from 12/12/2010 /percentage f";
+        String testInvalidAmount = "add instalment mortgage /amt 100gse2 /within 200 months "
+                + "/from 12/12/2010 /percentage 6";
+        String testInvalidNoOfMonths = "add instalment mortgage /amt 100000 /within 2e0 months"
+                + "/from 12/12/2010 /percentage 6";
+        String testInvalidInterestRate = "add instalment mortgage /amt 100000 /within 200 months "
+                + "/from 12/12/2010 /percentage f";
         MoneyCommand addInstalmentCommand1 =  new AddInstalmentCommand(testInvalidAmount);
         MoneyCommand addInstalmentCommand2 =  new AddInstalmentCommand(testInvalidNoOfMonths);
         MoneyCommand addInstalmentCommand3 =  new AddInstalmentCommand(testInvalidInterestRate);

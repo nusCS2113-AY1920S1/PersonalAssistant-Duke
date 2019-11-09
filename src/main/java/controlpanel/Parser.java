@@ -2,6 +2,7 @@ package controlpanel;
 
 import moneycommands.AddIncomeCommand;
 import moneycommands.AddExpenditureCommand;
+import moneycommands.SettleLoanCommand;
 import moneycommands.AddGoalCommand;
 import moneycommands.CreateBankAccountCommand;
 import moneycommands.DeleteExpenditureCommand;
@@ -31,7 +32,6 @@ import moneycommands.ListLoansCommand;
 import moneycommands.DeleteLoanCommand;
 import moneycommands.CheckFutureBalanceCommand;
 import moneycommands.InternalTransferCommand;
-import moneycommands.SettleLoanCommand;
 
 import java.text.ParseException;
 import java.time.LocalDate;

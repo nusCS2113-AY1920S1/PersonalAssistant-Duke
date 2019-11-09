@@ -3,7 +3,8 @@ package money;
 import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
 import controlpanel.Ui;
-import moneycommands.*;
+import moneycommands.MoneyCommand;
+import moneycommands.ExitMoneyCommand;
 import org.junit.jupiter.api.Test;
 
 import java.math.RoundingMode;

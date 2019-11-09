@@ -50,8 +50,8 @@ public class DeleteInstalmentTest {
         assertEquals(" Noted. I've removed this Instalment:\n"
                         + "  " + instalment1.toString() + "\n"
                         + " Now you have " + (account.getInstalments().size()) + " instalments in the list.\n"
-                        + "Got it, list will be printed in the other pane!\n"
-                , ui.getOutputString());
+                        + "Got it, list will be printed in the other pane!\n",
+                ui.getOutputString());
 
         String deleteSecondInput = "delete instalment 1";
         MoneyCommand deleteSecondInstalmentCommand = new DeleteInstalmentCommand(deleteSecondInput);
@@ -60,8 +60,8 @@ public class DeleteInstalmentTest {
         assertEquals(" Noted. I've removed this Instalment:\n"
                         + "  " + instalment.toString() + "\n"
                         + " Now you have " + (account.getInstalments().size()) + " instalments in the list.\n"
-                        + "Got it, list will be printed in the other pane!\n"
-                , ui.getOutputString());
+                        + "Got it, list will be printed in the other pane!\n",
+                ui.getOutputString());
 
         MoneyCommand exitCommand =  new ExitMoneyCommand();
         exitCommand.execute(account, ui, moneyStorage);

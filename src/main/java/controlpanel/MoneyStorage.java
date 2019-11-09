@@ -40,24 +40,49 @@ public class MoneyStorage {
     }
 
     //@@author chengweixuan
+
+    /**
+     * Adds an Income object to the Income List Total according to the data
+     * in the text file on start up.
+     * @param info String array containing the information of the Income Object
+     * @param account Account object containing all financial info of user saved on the programme
+     */
     private void parseIncome(String[] info, Account account) {
         Income i = new Income(Float.parseFloat(info[1]), info[2],
                 LocalDate.parse(info[3], dateTimeFormatter));
         account.getIncomeListTotal().add(i);
     }
 
+    /**
+     * Adds an Expenditure object to the Expenditure List Total according to the data
+     * in the text file on start up.
+     * @param info String array containing the information of the Expenditure Object
+     * @param account Account object containing all financial info of user saved on the programme
+     */
     private void parseExpenditure(String[] info, Account account) {
         Expenditure exp = new Expenditure(Float.parseFloat(info[1]), info[2], info[3],
                 LocalDate.parse(info[4], dateTimeFormatter));
         account.getExpListTotal().add(exp);
     }
 
+    /**
+     * Adds a Goal object to the Goal list according to the data
+     * in the text file on start up.
+     * @param info String array containing the information of the Goal Object
+     * @param account Account object containing all financial info of user saved on the programme
+     */
     private void parseGoal(String[] info, Account account) throws DukeException {
         Goal g = new Goal(Float.parseFloat(info[1]), info[2], info[3],
                 LocalDate.parse(info[4], dateTimeFormatter), info[5]);
         account.getShortTermGoals().add(g);
     }
 
+    /**
+     * Adds an Instalment object to the Instalments List according to the data
+     * in the text file on start up.
+     * @param info String array containing the information of the Instalment Object
+     * @param account Account object containing all financial info of user saved on the programme
+     */
     private void parseInstalment(String[] info, Account account) {
         Instalment ins = new Instalment(Float.parseFloat(info[1]), info[2], info[3],
                 LocalDate.parse(info[4], dateTimeFormatter), Integer.parseInt(info[5]),
@@ -65,6 +90,12 @@ public class MoneyStorage {
         account.getInstalments().add(ins);
     }
 
+    /**
+     * Adds a Loan object to the Loan List according to the data
+     * in the text file on start up.
+     * @param info String array containing the information of the Loan Object
+     * @param account Account object containing all financial info of user saved on the programme
+     */
     private void parseLoan(String[] info, Account account) {
         Loan l = new Loan(Float.parseFloat(info[1]), info[2],
                 LocalDate.parse(info[3], dateTimeFormatter),
@@ -73,6 +104,12 @@ public class MoneyStorage {
         account.getLoans().add(l);
     }
 
+    /**
+     * Adds a BankTracker object to the Bank Tracker List according to the data
+     * in the text file on start up.
+     * @param info String array containing the information of the BankTracker Object
+     * @param account Account object containing all financial info of user saved on the programme
+     */
     private void parseBankAccount(String[] info, Account account) {
         BankTracker b = new BankTracker(info[2], Float.parseFloat(info[1]), LocalDate.parse(info[3]),
                 Double.parseDouble(info[4]));
