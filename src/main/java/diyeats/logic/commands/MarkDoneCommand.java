@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+//@@author GaryStu
 /**
  * MarkDoneCommand is a public class that inherits form abstract class Command.
  * A MarkDoneCommand object encapsulates the index of meal to be marked as done.

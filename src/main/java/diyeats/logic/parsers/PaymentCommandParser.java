@@ -23,6 +23,7 @@ public class PaymentCommandParser implements ParserInterface<AddTransactionComma
         try {
             InputValidator.validate(userInputStr);
             String[] amountAndDate = ArgumentSplitter.splitArguments(userInputStr, "/date");
+            InputValidator.validateAmount(amountAndDate[0]);
             if (!amountAndDate[1].isBlank()) {
                 try {
                     localDate = LocalDate.parse(amountAndDate[1], dateFormat);

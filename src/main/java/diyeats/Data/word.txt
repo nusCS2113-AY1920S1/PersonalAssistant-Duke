@@ -16,3 +16,7 @@ weight
 height
 activity
 gender
+pay
+deposit
+done
+list
