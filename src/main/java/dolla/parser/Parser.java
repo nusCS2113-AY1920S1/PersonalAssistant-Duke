@@ -364,6 +364,7 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                         break;
                     case MODE_DEBT:
                         verifyDebtComponents(currStr, nextStr, i);
+                        break;
                     default:
                         break;
                     }
@@ -425,25 +426,25 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     private void verifyDebtComponents(String currStr, String nextStr, int index) throws Exception {
         try {
             switch (currStr) {
-                case COMPONENT_TYPE:
-                    type = verifyDebtType(nextStr);
-                    break;
-                case COMPONENT_NAME:
-                    name = parseDesc(index + 1);
-                    break;
-                case COMPONENT_AMOUNT:
-                    amount = stringToDouble(nextStr);
-                    break;
-                case COMPONENT_DESC:
-                    description = parseDesc(index + 1);
-                    break;
-                case COMPONENT_DATE:
-                    date = Time.readDate(nextStr);
-                    break;
-                case COMPONENT_TAG:
-                    // TODO
-                default:
-                    break;
+            case COMPONENT_TYPE:
+                type = verifyDebtType(nextStr);
+                break;
+            case COMPONENT_NAME:
+                name = parseDesc(index + 1);
+                break;
+            case COMPONENT_AMOUNT:
+                amount = stringToDouble(nextStr);
+                break;
+            case COMPONENT_DESC:
+                description = parseDesc(index + 1);
+                break;
+            case COMPONENT_DATE:
+                date = Time.readDate(nextStr);
+                break;
+            case COMPONENT_TAG:
+                // TODO
+            default:
+                break;
             }
         } catch (Exception e) {
             throw e;

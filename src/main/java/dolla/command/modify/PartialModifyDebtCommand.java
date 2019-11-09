@@ -9,6 +9,15 @@ import java.time.LocalDate;
 
 public class PartialModifyDebtCommand extends ModifyDebtCommand {
 
+    /**
+     * Instantiates a new PartialModifyEntryCommand.
+     * @param recordNum number of entry in list to modify.
+     * @param type type of entry.
+     * @param name name of person debt is attributed to
+     * @param amount of money.
+     * @param description description.
+     * @param date date.
+     */
     public PartialModifyDebtCommand(int recordNum, String type, String name,
                                     double amount, String description, LocalDate date) {
         this.index = recordNum - 1;
