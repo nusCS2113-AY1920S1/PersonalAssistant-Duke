@@ -1,6 +1,5 @@
 package duke.data;
 
-import duke.data.storage.SummaryTreatment;
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
 import duke.ui.card.PlanCard;
@@ -29,7 +28,6 @@ public class Plan extends SummaryTreatment {
      */
     public Plan(String name, Impression impression, int priority, String status, String summary) throws DukeException {
         super(name, impression, priority, status, summary);
-        this.summary = summary;
     }
 
     @Override

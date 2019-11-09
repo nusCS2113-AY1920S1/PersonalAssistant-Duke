@@ -1,7 +1,5 @@
-package duke.data.storage;
+package duke.data;
 
-import duke.data.Impression;
-import duke.data.Treatment;
 import duke.exception.DukeException;
 
 import java.util.Map;
@@ -58,5 +56,10 @@ public abstract class SummaryTreatment extends Treatment {
         if (newSummary != null) {
             setSummary((isAppending) ? getSummary() + newSummary : newSummary);
         }
+    }
+
+    @Override
+    public boolean contains(String searchTerm) {
+        return super.contains(searchTerm) || summary.toLowerCase().contains(searchTerm.toLowerCase());
     }
 }

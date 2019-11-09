@@ -62,6 +62,7 @@ public abstract class Evidence extends DukeData {
         return informationString;
     }
 
+    @Override
     public void edit(String newName, int newPriority, Map<String, String> editVals,
                      boolean isAppending)
             throws DukeException {
@@ -70,5 +71,10 @@ public abstract class Evidence extends DukeData {
         if (newSummary != null) {
             setSummary((isAppending) ? getSummary() + newSummary : newSummary);
         }
+    }
+
+    @Override
+    public boolean contains(String searchTerm) {
+        return super.contains(searchTerm) || summary.toLowerCase().contains(searchTerm.toLowerCase());
     }
 }

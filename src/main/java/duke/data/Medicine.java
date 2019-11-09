@@ -131,4 +131,11 @@ public class Medicine extends Treatment {
         return Context.TREATMENT;
     }
 
+    @Override
+    public boolean contains(String searchTerm) {
+        String lowerSearchTerm = searchTerm.toLowerCase();
+        return super.contains(searchTerm) || duration.toLowerCase().contains(lowerSearchTerm)
+                || startDate.toLowerCase().contains(lowerSearchTerm)
+                || dose.toLowerCase().contains(lowerSearchTerm);
+    }
 }

@@ -61,7 +61,7 @@ public class Impression extends DukeObject {
         ArrayList<Treatment> treatmentList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
         for (Treatment treatment : treatments) {
-            if (treatment.toString().toLowerCase().contains(lowerSearchTerm)) {
+            if (treatment.contains(lowerSearchTerm)) {
                 treatmentList.add(treatment);
             }
         }
@@ -78,7 +78,7 @@ public class Impression extends DukeObject {
         ArrayList<Evidence> evidenceList = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
         for (Evidence evidence : evidences) {
-            if (evidence.toString().toLowerCase().contains(lowerSearchTerm)) {
+            if (evidence.contains(lowerSearchTerm)) {
                 evidenceList.add(evidence);
             }
         }
