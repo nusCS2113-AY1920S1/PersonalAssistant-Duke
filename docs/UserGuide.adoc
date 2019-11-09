@@ -244,6 +244,14 @@ Examples:
 * Where `INDEX` is the index of the original event, `LOCATION` is the new location of the event, the `START_DATE` is the start date of the event, the `END_DATE` of the end date of the event.
 ====
 
+[WARNING]
+====
+Single step command does not allow for locations with spaces in between them. +
+This *is* intended and is not a bug. +
+It is to encourage user to use the faster and more powerful edit command. +
+It will be treated as invalid format if user attempts to introduce spaces.
+====
+
 === Listing all places to visit : `list`
 
 SGTravel shows a list of all the places to visit in SGTravel. +
