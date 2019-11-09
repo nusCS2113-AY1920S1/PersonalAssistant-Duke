@@ -1,6 +1,7 @@
 package helpertests;
 
 import org.junit.jupiter.api.Test;
+import util.date.DateTimeHelper;
 import util.uiformatter.ViewHelper;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH_70_FOR_TES
 
 class ViewHelperTest {
     private ViewHelper viewHelper;
+    private DateTimeHelper dateTimeHelper = new DateTimeHelper();
 
     //@@author seanlimhx
     ViewHelperTest() {
@@ -201,7 +203,7 @@ class ViewHelperTest {
         String[] simulatedOutput = viewHelper.consolePrintCalender(simulatedInput);
         String[] expectedOutput = new String[]{
             "+----------------------------------------------------------------------+",
-            "|    Today's date is 8 11 2019                                         |",
+            "|    Today's date is 9 11 2019                                         |",
             "+----------------------------------------------------------------------+",
             "|        U        M        T        W        R        F        S       |",
             "|                                                     1        2       |",
@@ -215,6 +217,10 @@ class ViewHelperTest {
             "|       24       25       26       27       28       29       30       |",
             "+----------------------------------------------------------------------+"
         };
+        String resetDate = "|    Today's date is " + dateTimeHelper.getCurrentDate() + " "
+                + dateTimeHelper.getCurrentMonth() + " " + dateTimeHelper.getCurrentYear()
+                + "                                         |";
+        expectedOutput[1] = resetDate;
         assertArrayEquals(expectedOutput, simulatedOutput);
     }
 }

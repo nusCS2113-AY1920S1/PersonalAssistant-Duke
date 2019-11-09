@@ -11,22 +11,31 @@
   * Jerry
 
 ## Introduction
-* ArchDuke is a desktop Project Manager application. It has a GUI for better visualisation of the Kanban board and tasks
-, but most of the user interactions will happen using a Command Line Interface (CLI).
-* The Kanban board will also be printed onto command line for users that favour the usage of a CLI interface compared
+* ArchDuke is a desktop Project Manager application. All user interactions will happen using a Command Line Interface
+ (CLI). User may need to resize his or her terminal in order to view some functions properly.
+* The Kanban board will be printed onto command line for users that favour the usage of a CLI interface compared
  to a GUI.
+ * Command Prompt, Windows Powershell, Mac Terminal, Linux Terminal are all supported terminals.
 
 # Table of Contents
-* [Setting Up](#setting-up)
 * [Usage](#usage)
+* [Setting Up](#setting-up)
 * [Acknowledgements](#acknowledgements)
 * [License](#license)
+
+## Usage
+You can refer to our user guide at this link:
+*   [User Guide](./docs/[AY1920S1-CS2113-T13-1]-ArchDuke-UG.pdf)
+
+For more advanced users and developers, do refer to our Developer Guide:
+*   [Developer Guide](./docs/DeveloperGuide.adoc)
 
 ## Setting up
 
 **Prerequisites**
 
 * JDK 11
+    * You can check by typing `java -version` .
 * Recommended: IntelliJ IDE
 * Fork this repo to your GitHub account and clone the fork to your computer
 
@@ -50,29 +59,11 @@
 
 8.  Click `Finish`.
 
-## Tutorials 
-
-|Duke Increment   |Tutorial                                                                                                                                                                                       |
-|---------------  |---------------                                                                                                                                                                                |
-|`Level-10`       |JavaFX tutorials:<br>→ [Part 1: Introduction to JavaFX][fx1]<br>→ [Part 2: Creating a GUI for Duke][fx2]<br>→ [Part 3: Interacting with the user][fx3]<br>→ [Part 4: Introduction to FXML][fx4]|
-
-[fx1]: <tutorials/javaFxTutorialPart1.md>
-[fx2]: <tutorials/javaFxTutorialPart2.md>
-[fx3]: <tutorials/javaFxTutorialPart3.md>
-[fx4]: <tutorials/javaFxTutorialPart4.md>
-
-## Usage
-You can refer to our user guide at this link:
-*   [User Guide](./docs/[AY1920S1-CS2113-T13-1]-ArchDuke-DG.pdf)
-
-For more advanced users and developers, do refer to our Developer Guide:
-*   [Developer Guide](./docs/[AY1920S1-CS2113-T13-1]-ArchDuke-UG.pdf)
-
 ## Acknowledgements 
   * This application was written as submission for our Team project under the module CS2113 Software Engineering and
  Object-Oriented Programming
 
-  * Libraries used in this project: Natty?, GSON?, some Text to Speech?, JavaFX?, JUnit5
+  * Libraries used in this project: GSON, JUnit5, Log4J, JaCoCo, CheckStyle, ShadowJar
 
 ## License
-MIT Licensesd
+MIT Licensed
