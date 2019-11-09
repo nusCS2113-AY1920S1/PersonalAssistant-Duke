@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import static java.util.Objects.requireNonNull;
+
 public class PaymentList {
 
     private static final Logger logger = LogsCenter.getLogger(PaymentList.class);
@@ -31,17 +33,11 @@ public class PaymentList {
 
     private FilteredList<Payment> filteredList;
 
-    // private FilteredList<Payment> searchResult;
-
-    // private DisplayMode displayMode;
-
     private ObservableList<String> sortIndicator = FXCollections.observableArrayList();
 
     private ObservableList<Predicate<Payment>> predicateIndicator = FXCollections.observableArrayList();
 
-    // private ObservableList<String> searchKeywordIndicator = FXCollections.observableArrayList();
-
-    Predicate<Payment> PREDICATE_SHOW_ALL_PAYMENTS = unused -> true;
+    private Predicate<Payment> PREDICATE_SHOW_ALL_PAYMENTS = unused -> true;
 
     private enum SortCriteria {
         TIME("time"),
@@ -151,12 +147,6 @@ public class PaymentList {
         return filteredList;
     }
 
-    /*
-    public FilteredList<Payment> getSearchResult() {
-        return searchResult;
-    }
-     */
-
     public ObservableList<String> getSortIndicator() {
         return sortIndicator;
     }
@@ -164,15 +154,7 @@ public class PaymentList {
     public ObservableList<Predicate<Payment>> getPredicateIndicator() {
         return predicateIndicator;
     }
-
-    /*
-    public ObservableList<String> getSearchKeywordIndicator() {
-        return searchKeywordIndicator;
-    }
-     */
-
-
-
+    
     /**
      * Returns all internal payments as an ArrayList.
      * This is for storage ONLY!
