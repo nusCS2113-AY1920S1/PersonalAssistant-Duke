@@ -6,7 +6,7 @@ import entertainment.pro.commons.exceptions.logic.PlaylistExceptions;
 import entertainment.pro.model.UserProfile;
 import entertainment.pro.storage.user.PlaylistCommands;
 import entertainment.pro.storage.utils.EditProfileJson;
-import entertainment.pro.storage.utils.ProfileCommands;
+import entertainment.pro.storage.user.ProfileCommands;
 import entertainment.pro.ui.Controller;
 import entertainment.pro.ui.MovieHandler;
 import entertainment.pro.commons.enums.COMMANDKEYS;

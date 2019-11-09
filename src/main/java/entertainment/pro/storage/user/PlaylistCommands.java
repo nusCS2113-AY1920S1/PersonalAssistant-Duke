@@ -4,7 +4,6 @@ import entertainment.pro.model.MovieInfoObject;
 import entertainment.pro.model.Playlist;
 import entertainment.pro.model.PlaylistMovieInfoObject;
 import entertainment.pro.storage.utils.EditPlaylistJson;
-import entertainment.pro.storage.utils.EditProfileJson;
 
 import java.io.IOException;
 import java.text.DateFormat;

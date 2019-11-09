@@ -1,7 +1,8 @@
-package entertainment.pro.storage.utils;
+package entertainment.pro.storage.user;
 
 import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.model.UserProfile;
+import entertainment.pro.storage.utils.EditProfileJson;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;

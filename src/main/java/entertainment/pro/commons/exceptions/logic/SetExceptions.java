@@ -1,12 +1,11 @@
 package entertainment.pro.commons.exceptions.logic;
 
-import com.fasterxml.jackson.core.util.RequestPayload;
 import entertainment.pro.commons.PromptMessages;
 import entertainment.pro.commons.exceptions.InvalidFormatCommandException;
 import entertainment.pro.commons.exceptions.InvalidParameterException;
 import entertainment.pro.commons.exceptions.NoPermissionException;
 import entertainment.pro.model.UserProfile;
-import entertainment.pro.storage.utils.ProfileCommands;
+import entertainment.pro.storage.user.ProfileCommands;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

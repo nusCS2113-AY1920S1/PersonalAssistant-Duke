@@ -85,13 +85,13 @@ public class PromptMessages {
 
     //API Messages
     public static final String RECACHING_DATA_API_ERROR = "Sorry, but something went wrong when recaching data";
-    public static final String API_FAIL_GENERAL = "☹ I'sorry, but something went wrong when fetching data";
+    public static final String API_FAIL_GENERAL = "☹ I'm sorry, but something went wrong when fetching data";
     public static final String API_NULL_DATA = "Null data in API";
-    public static final String API_TIME_OUT = "☹ I'sorry, but your request took so long";
+    public static final String API_TIME_OUT = "☹ I'm sorry, but your request took so long";
     public static final String API_MALFORMED_URL = "Malformed URL in fetching data";
     public static final String SOCKET_TIMEOUT_URL = "Socket Timeout in fetching data";
     public static final String IO_ERROR_URL = "I/O Exception in fetching data";
-    public static final String API_INVALID_REQUEST = "☹ I'sorry, but your request is either unclear or invalid";
+    public static final String API_INVALID_REQUEST = "☹ I'm sorry, but your request is either unclear or invalid";
 
     //PlaylistExceptions / SetExceptions messages
     public static final String PLAYLIST_PAYLOAD_EMPTY =
@@ -146,4 +146,6 @@ public class PromptMessages {
             "> is an invalid sort option. Please try again with 1 / 2 / 3";
     public static final String AGE_IS_NEGATIVE =
             "☹ I'm sorry, but age needs to be a positive integer. Please try again";
+    public static final String INVALID_PAYLOAD  =
+            "☹ I'm sorry, but payload can't start with '-'. Please try again";
 }

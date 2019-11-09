@@ -129,9 +129,11 @@ public class PlaylistExceptions {
      * command: all playlist commands
      * @throws InvalidFormatCommandException when payload is empty
      */
-    private static void checkPayload(String payload) throws InvalidFormatCommandException {
+    private static void checkPayload(String payload) throws InvalidFormatCommandException, InvalidParameterException {
         if (payload.isEmpty()) {
             throw new InvalidFormatCommandException(PromptMessages.PLAYLIST_PAYLOAD_EMPTY);
+        } else if (payload.charAt(0) == '-') {
+            throw new InvalidParameterException(PromptMessages.INVALID_PAYLOAD);
         }
     }
 

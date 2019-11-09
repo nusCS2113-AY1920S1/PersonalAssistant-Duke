@@ -29,11 +29,11 @@ public class CommandStructure {
                 COMMANDKEYS.add, COMMANDKEYS.remove
             });
 
-            put(COMMANDKEYS.help , new COMMANDKEYS[]{
-                    COMMANDKEYS.search , COMMANDKEYS.view , COMMANDKEYS.help , COMMANDKEYS.more ,
-                    COMMANDKEYS.set ,  COMMANDKEYS.playlist , COMMANDKEYS.me , COMMANDKEYS.blacklist,
+            put(COMMANDKEYS.help, new COMMANDKEYS[]{
+                    COMMANDKEYS.search, COMMANDKEYS.view, COMMANDKEYS.help, COMMANDKEYS.more,
+                    COMMANDKEYS.set,  COMMANDKEYS.playlist, COMMANDKEYS.me, COMMANDKEYS.blacklist,
                     COMMANDKEYS.watchlist, COMMANDKEYS.get, COMMANDKEYS.preference, COMMANDKEYS.restriction,
-                    COMMANDKEYS.find , COMMANDKEYS.exit
+                    COMMANDKEYS.find, COMMANDKEYS.exit
             });
 
             put(COMMANDKEYS.yes, new COMMANDKEYS[] {
