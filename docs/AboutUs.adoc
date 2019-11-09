@@ -24,7 +24,7 @@ image::therealnickcheong.png[width="150", align="left"]
 {empty}[http://github.com/therealnickcheong[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: Deliverables and deadlines + Scheduling and Tracking
+Responsibilities: Deliverables and Deadlines + Scheduling and Tracking
 
 '''
 
@@ -33,7 +33,7 @@ image::chenchao19.png[width="150", align="left"]
 {empty}[http://github.com/ChenChao19[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Code Quality + Model
+Responsibilities: Integration + Code Quality
 
 '''
 
@@ -42,7 +42,7 @@ image::cctt1014.png[width="150", align="left"]
 {empty}[http://github.com/cctt1014[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Integration + UI
+Responsibilities: Logic + UI
 
 '''
 

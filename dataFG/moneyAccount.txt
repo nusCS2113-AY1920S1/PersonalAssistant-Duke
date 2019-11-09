@@ -20,7 +20,6 @@ EXP @ 70.0 @ Flowers for the lady  @ present  @ 9/10/1997
 EXP @ 50.0 @ Lego for the boy  @ toy  @ 9/10/1997
 EXP @ 50.0 @ Doll for the girl  @ t @ 9/10/1997
 EXP @ 20.0 @ boat noodles  @ food  @ 15/8/2019
-EXP @ 100.0 @ buy ultraboost  @ GS @ 8/11/2019
 G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
 G @ 100000.0 @ buy Boat  @ GS @ 11/12/2050 @ LOW
 G @ 100000.0 @ buy HDB  @ GS @ 15/1/2050 @ HIGH
@@ -30,6 +29,7 @@ G @ 4000.0 @ Macbook Pro 15.6inch  @ GS @ 15/1/2020 @ HIGH
 G @ 5000.0 @ buy computer  @ GS @ 15/1/2050 @ HIGH
 G @ 10000.0 @ buy car  @ GS @ 6/11/2022 @ LOW
 G @ 3000.0 @ get some yoyo  @ GS @ 7/11/2019 @ LOW
+G @ 1000.2 @ mans got clout  @ GS @ 2/2/2020 @ LOW
 INS @ 100000.0 @ mortgage @ INS @ 12/12/2010 @ 200 @ 0.06
 INS @ 23580.0 @ car @ INS @ 12/12/2017 @ 150 @ 0.03
 INS @ 4000.0 @ television @ INS @ 12/9/2019 @ 10 @ 0.027999999
@@ -41,16 +41,12 @@ INS @ 29000.0 @ car @ INS @ 30/10/2019 @ 200 @ 0.025
 INS @ 67777.0 @ motorbike @ INS @ 30/10/2019 @ 200 @ 0.026700001
 INS @ 20000.0 @ motorbike @ INS @ 30/10/2019 @ 200 @ 0.038
 INS @ 200000.0 @ morgage @ INS @ 6/11/2018 @ 200 @ 0.027999999
-LOA @ 4000.0 @ rekt @ 20/10/2019 @ INCOMING @  @ 0 @ 100.0
-LOA @ 700.0 @ mah parents @ 19/10/2019 @ INCOMING @  @ 0 @ 700.0
-LOA @ 700.0 @ mah parents @ 26/10/2019 @ OUTGOING @  @ 0 @ 400.0
-LOA @ 4000.0 @ rekt @ 25/10/2019 @ INCOMING @  @ 1 @ 0.0
 LOA @ 5000.0 @ UOB @ 4/3/2028 @ INCOMING @  @ 0 @ 5000.0
 LOA @ 4000.0 @ NUS Student Loan @ 6/7/2019 @ INCOMING @  @ 0 @ 4000.0
 LOA @ 300.0 @ my parents @ 17/12/2017 @ INCOMING @  @ 0 @ 300.0
 LOA @ 250.0 @ Sammi @ 5/4/2019 @ OUTGOING @  @ 0 @ 250.0
 LOA @ 100.0 @ Caleb-san @ 15/8/2019 @ OUTGOING @  @ 0 @ 100.0
-LOA @ 700.0 @ my brother @ 1/12/2017 @ OUTGOING @  @ 0 @ 700.0
+LOA @ 700.0 @ my brother @ 1/12/2017 @ OUTGOING @  @ 1 @ 0.0
 LOA @ 5000.0 @ DBS @ 6/10/2019 @ INCOMING @  @ 0 @ 1000.0
 BAN @ 30.0 @ OCBC @ 2017-07-27 @ 0.005
 BAN @ 30.0 @ UOB @ 2017-07-27 @ 0.005
