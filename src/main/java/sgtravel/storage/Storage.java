@@ -67,6 +67,7 @@ public class Storage {
      */
     public Storage() {
         SampleStorage sampleData = new SampleStorage();
+        profileCard = new ProfileCard();
         events = sampleData.getEvents();
         routes = sampleData.getRoutes();
         itineraryTable = sampleData.getItineraryTable();
@@ -189,7 +190,6 @@ public class Storage {
      * @throws FileLoadFailException If the profile file is not found.
      */
     private void readProfile() throws FileLoadFailException, FileNotSavedException {
-        profileCard = new ProfileCard();
         try {
             File f = new File(PROFILE_FILE_PATH);
             Scanner s = new Scanner(f);
@@ -198,7 +198,6 @@ public class Storage {
                 ProfileStorageParser.createProfileFromStorage(profileCard, input);
             }
         } catch (FileNotFoundException | ParseException e) {
-            profileCard = new ProfileCard();
             throw new FileLoadFailException(PROFILE_FILE_PATH);
         }
         readFavouriteList();
