@@ -278,11 +278,11 @@ public class Ui {
     public void showSize(int size) {
         System.out.print("\t Now you have " + size);
         if (size == 1) {
-            System.out.print(" task");
+            System.out.print(" ingredient");
         } else {
-            System.out.print(" tasks");
+            System.out.print(" ingredients");
         }
-        System.out.println(" in the list.");
+        System.out.println(" in the Fridge.");
     }
 
     /**
