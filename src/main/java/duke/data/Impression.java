@@ -289,7 +289,8 @@ public class Impression extends DukeObject {
 
     @Override
     public String toString() {
-        StringBuilder infoStrBuilder = new StringBuilder("Impression details\n");
+        String title = "Impression details\n";
+        StringBuilder infoStrBuilder = new StringBuilder();
         infoStrBuilder.append("Description: ").append(this.description).append("\n");
         for (Evidence evidence: this.evidences) {
             infoStrBuilder.append(evidence.toString());
@@ -297,7 +298,7 @@ public class Impression extends DukeObject {
         for (Treatment treatment : this.treatments) {
             infoStrBuilder.append(treatment.toString());
         }
-        return super.toString() + infoStrBuilder.toString() + "\n";
+        return title + super.toString() + infoStrBuilder.toString();
     }
 
     @Override
