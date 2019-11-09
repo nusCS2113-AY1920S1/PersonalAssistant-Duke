@@ -109,7 +109,7 @@ image::menuexample.png[width="650"]
 =====
 ====
 
-=== Lectures: `lecture`
+=== Lectures : `lecture`
 This command allows you to pick a chapter that you are interested in revising.
 The lecture ends after all the slides are done or if you type `end`. +
 `lecture` will list all the chapters that are available in the program. +
@@ -136,7 +136,7 @@ image::lecturesorting.png[width="650"]
 =====
 ====
 
-=== Quiz: `quiz`
+=== Quiz : `quiz`
 This command allows you to pick a chapter that you are interested in practising. +
 The quiz ends after 10 questions or if you type `end`. +
 `quiz` will list all the chapters that are available in the program. +
@@ -163,7 +163,7 @@ image::quizsorting.png[width="650"]
 =====
 ====
 
-=== Arcade: `arcade`
+=== Arcade : `arcade`
 This command allows you to play the arcade version of the quiz. +
 The game ends only when you get a wrong answer. +
 Format : `arcade`
@@ -177,7 +177,7 @@ image::arcade.png[width="650"]
 
 
 
-=== Reset: `reset`
+=== Reset : `reset`
 This command allows you to reset all the progress you have made. +
 This is for users who wish to achieve higher stats after clearing all the chapters. +
 Format : `reset`
@@ -192,7 +192,7 @@ image::reset.png[width="650"]
 
 ====
 
-=== Exit: `exit`
+=== Exit : `exit`
 This command allows you to exit the game, and can be done anytime in the game. +
 Format : `reset`
 
@@ -205,7 +205,7 @@ image::exit.png[width="650"]
 
 ====
 
-=== Review: `review`
+=== Review : `review`
 This command allows you to review the questions which has went wrong during your quiz.
 Format : `review`
 
@@ -224,8 +224,33 @@ image::review3.png[width="650"]
 
 
 =====
+====
+
+=== Delete chat bubbles in the chatbox : `undo`
+
+This command allows users to delete the previous chat bubbles in the chat. +
+If `NUMBER` is not specified, the number of messages removes from chat is default to 1. +
+Format : `undo NUMBER`
 
 ====
+Example: +
+`undo 2` will delete 2 chat bubbles.
+=====
+*Expected outcome*
+
+** Pre-undo
+
+image::preundo.png[width="650"]
+
+** Post-undo
+
+image::postundo.png[width=""650"]
+
+=====
+====
+- NUMBER should be a positive and greater than 1 (since `undo` gives a default of NUMBER as 1)
+- NUMBER should be smaller than the number of response chats.
+
 
 
 
@@ -297,16 +322,7 @@ Expected outcome:
 - NUMBER should be a positive number that is greater than 0
 - NUMBER must be smaller than the number of past commands made
 
-=== Delete chat bubbles in the chatbox : `undo`
 
-This command allows users to delete the previous chat bubbles in the chat.
-If `NUMBER` is not specified, the number of messages removes from chat is default to 1. +
-Format : `undo NUMBER` +
-Example: +
-`undo 2` will delete 2 chat bubbles.
-
-- NUMBER should be a positive and greater than 1 (since `undo` gives a default of NUMBER as 1)
-- NUMBER should be smaller than the number of response chats.
 
 === Clear the chatbox : `clear`
 
