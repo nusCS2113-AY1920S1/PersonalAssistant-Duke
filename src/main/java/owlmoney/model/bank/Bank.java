@@ -430,7 +430,7 @@ public abstract class Bank {
             String stringAmount = decimalFormat.format(amount);
             String stringSpent = String.valueOf(spent);
             UUID cardId = transactions.get(i).getTransactionCardID();
-            YearMonth billDate = transactions.get(i).getYearMonthDate();
+            YearMonth billDate = transactions.get(i).getBillDate();
             String stringUuid = "";
             if (cardId != null) {
                 stringUuid = cardId.toString();
