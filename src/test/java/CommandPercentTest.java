@@ -33,6 +33,11 @@ public class CommandPercentTest {
         String result = percentTwo.getInfoCapsule().getOutputStr();
         assertEquals("Tag input is missing. FORMAT : percent <tag>", result);
 
+        CommandPercent percentThree = new CommandPercent("percent books");
+        percentThree.execute(storageManager);
+        String result2 = percentThree.getInfoCapsule().getOutputStr();
+        assertEquals("0.0% of your wallet expenses is spent on books\n", result2);
+
     }
 
 }

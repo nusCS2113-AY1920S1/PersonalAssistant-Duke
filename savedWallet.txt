@@ -1,5 +1,3 @@
-
 0.0
-out $2.0 /date 2019-02-01 /tags food
-out $3.0 /date 2019-02-02 /tags transport
-
+out $34.0 /date 2019-02-03 /tags food
+out $0.0 /date 2019-02-03 /tags transport
