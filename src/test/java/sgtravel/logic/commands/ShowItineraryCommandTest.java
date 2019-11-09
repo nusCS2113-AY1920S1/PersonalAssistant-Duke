@@ -28,13 +28,13 @@ class ShowItineraryCommandTest {
 
         addSampleItineraryCommand.execute(model);
 
-        ShowItineraryCommand showItineraryCommand = new ShowItineraryCommand(model.getRecentItinerary().getName());
+        ShowItineraryCommand showItineraryCommand = new ShowItineraryCommand("New List");
 
         CommandResultText commandResultText = showItineraryCommand.execute(model);
 
         String result = commandResultText.getMessage();
 
-        assertEquals(result, model.getItinerary(model.getRecentItinerary().getName()).printItinerary());
+        assertEquals(result, model.getItinerary("New List").printItinerary());
 
     }
 

@@ -34,6 +34,7 @@ public class AddSampleItineraryCommand extends Command {
         Itinerary itinerary = model.getRecentItinerary();
         model.confirmRecentItinerary(newName);
         model.save();
+        model.setRecentItinerary(null);
         return new CommandResultText("Successfully added this itinerary: " + "\n"
                 + itinerary.printItinerary());
 
