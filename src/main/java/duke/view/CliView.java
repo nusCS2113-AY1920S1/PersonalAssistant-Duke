@@ -122,14 +122,12 @@ public class CliView {
         System.out.flush();
         printLine();
         System.out.println("MANAGE STUDENTS:\n"
-            + "1. Student List - (Cmd: list)\n"
-            + "2. Add student - (Cmd: add) \n"
-            + "3. Delete Student - "
-            + "(Cmd: delete [student index])\n"
-            + "4. Find Student - "
-            + "(Cmd: find [name])\n"
-            + "5. View student details - (Cmd: view [student index])\n"
-            + "6. Student progress - (Cmd: progress)");
+            + "1. Student List \n"
+            + "2. Add student \n"
+            + "3. Delete Student \n"
+            + "4. Find Student \n"
+            + "5. View student details \n"
+            + "6. Exit ");
         printLine();
     }
 
