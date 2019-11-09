@@ -1,7 +1,15 @@
 package dolla.parser;
 
+import dolla.command.Command;
+import dolla.command.ShowListCommand;
+import dolla.command.SearchCommand;
+import dolla.command.RemoveCommand;
+import dolla.command.ErrorCommand;
+import dolla.command.AddShortcutCommand;
+import dolla.command.ExecuteShortcutCommand;
+import dolla.command.ActionCommand;
+import dolla.command.SortCommand;
 
-import dolla.command.*;
 
 public class ShortcutParser extends Parser {
 
@@ -46,6 +54,10 @@ public class ShortcutParser extends Parser {
         case COMMAND_SORT:
             if (verifySort()) {
                 return new SortCommand(mode, inputArray[1]);
+            }
+        case COMMAND_SEARCH:
+            if (verifyShortcutSearchCommand()) {
+                return new SearchCommand(mode, inputArray[1], inputArray[2]);
             } else {
                 return new ErrorCommand();
             }

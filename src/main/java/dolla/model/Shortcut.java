@@ -40,9 +40,12 @@ public class Shortcut extends Record {
                 + amount + " | "
                 + description;
     }
-
     @Override
     public String getUserInput() {
         return userInput;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }
