@@ -84,7 +84,7 @@ public class Parser {
                 process.deletePayment(input, ui, storage);
                 process.commandHistory(input, ui, storage);
                 //storage.save(tasklist.returnArrayList());
-            } else if (instr.isFind(input)) {
+           // } else if (instr.isFind(input)) {
                 // process.find(input, tasklist, ui);
                 //process.commandHistory(input, ui, storage);
             } else if (instr.isListPayments(input)) {
@@ -144,6 +144,9 @@ public class Parser {
                 process.commandHistory(input, ui, storage);
             } else if (instr.isAssignFund(input)) {
                 process.assignFund(input, ui, fund);
+                process.commandHistory(input, ui, storage);
+            } else if (instr.isReduceBudget(input)) {
+                process.reduceBudget(input, ui, fund);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isShowFund(input)) {
                 process.showFund(input, ui, fund);

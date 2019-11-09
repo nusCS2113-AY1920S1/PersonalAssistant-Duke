@@ -47,6 +47,15 @@ public class Fund {
     }
 
     /**
+     * add a value to the total fund.
+     * @param amount a double number input by the user.
+     */
+    public void retrieveFund(double amount) {
+        this.fundTaken = this.fundTaken - amount;
+        this.fundRemaining = this.fundRemaining + amount;
+    }
+
+    /**
      * get the private attribute fund.
      * @return the attribute fund.
      */

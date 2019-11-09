@@ -38,6 +38,15 @@ public class Project {
     }
 
     /**
+     * Add the budget assigned to the project.
+     * @param amount a double value indicates the assigned amount of budget
+     */
+    public void retrieveBudget(Double amount) {
+        this.remaining += amount;
+        this.spending -= amount;
+    }
+
+    /**
      * This function deccribes how the program works when a payment is made to a project
      * @param amount the amount of money for this payment
      */

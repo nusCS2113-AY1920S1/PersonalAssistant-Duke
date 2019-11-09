@@ -26,12 +26,24 @@ public class CommandFormat {
         return "add payment p/PAYEE i/ITEM c/COST v/INVOICE";
     }
 
+    public String deletePaymentFormat() { return "delete payment p/PAYEE i/ITEM"; }
+
     public String editPaymentFormat() {
         return "edit p/PAYEE v/INVOICE f/FIELD r/REPLACEMENT";
     }
 
+    public String listPaymentFormat() {
+        return "list payments";
+    }
+
+    public String getPayeeFormat() { return "getpayee PAYEE"; }
+
     public String deletePayeeFormat() {
         return "delete payee p/PAYEE";
+    }
+
+    public String totalCostFormat() {
+        return "total cost p/PAYEE_NAME";
     }
 
     public String setFundFormat() {
@@ -44,6 +56,10 @@ public class CommandFormat {
 
     public String assignFundFormat() {
         return "assign fund pr/PROJECT_NAME am/AMOUNT";
+    }
+
+    public String reducebudgetFormat() {
+        return "reduce budget pr/PROJECT_NAME am/AMOUNT";
     }
 
     public String resetFundFormat() {

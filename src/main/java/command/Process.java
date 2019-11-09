@@ -38,7 +38,6 @@ public class Process {
      * @param arr The array of Strings to clean.
      * @return cleanArr The array of Strings after cleaning.
      */
-
     private String[] cleanStrStr(String[] arr) {
         String[] cleanArr = arr.clone();
         for (int i = 0; i < arr.length; i++) {
@@ -121,13 +120,14 @@ public class Process {
                     ui.printAddProject(newProject, projectsize);
                     BeforeAfterCommand.afterCommand(storage, projectmanager);
                 } else {
-                    ui.exceptionMessage("\t" + "Not enough funds");
+                    ui.exceptionMessage("\t" + "Not enough funds!");
                 }
             }
         } catch (NumberFormatException | AlphaNUSException e) {
             ui.exceptionMessage("\t" + "Amount of funds should be a number!");
         } catch (IndexOutOfBoundsException e) {
-            ui.exceptionMessage(e.getMessage());
+            ui.exceptionMessage("\t" + "☹ OOPS!!! Wrong input format!"
+                    + "\n\tCorrect input format is: add project pr/PROJECT_NAME am/AMOUNT_OF_FUND");
         }
     }
 
@@ -137,32 +137,37 @@ public class Process {
      * @param ui    Ui that interacts with the user.
      */
     public void deleteProject(String input, Ui ui, Storage storage, Fund fund) throws AlphaNUSException {
-        BeforeAfterCommand.beforedoCommand(storage, projectmanager);
-        String[] split = input.split("pr/", 2);
-        split = cleanStrStr(split);
-        if (split.length != 2) {
-            System.out.println("\t" + "Incorrect input");
-            System.out.println("\t" + "Correct Format: " + commandformat.deleteProjectFormat());
-            return;
-        } //TODO refactor
+        try {
+            BeforeAfterCommand.beforedoCommand(storage, projectmanager);
+            String[] split = input.split("pr/", 2);
+            split = cleanStrStr(split);
+            if (split.length != 2) {
+                System.out.println("\t" + "Incorrect input");
+                System.out.println("\t" + "Correct Format: " + commandformat.deleteProjectFormat());
+                return;
+            } //TODO refactor
 
-        String projectname = split[1];
-        if (projectname.isEmpty()) {
-            System.out.println("\t" + "Project name cannot be empty!");
-            System.out.println("\t" + "Correct Format: " + commandformat.deleteProjectFormat());
-            return;
-        } //TODO refactor
+            String projectname = split[1];
+            if (projectname.isEmpty()) {
+                System.out.println("\t" + "Project name cannot be empty!");
+                System.out.println("\t" + "Correct Format: " + commandformat.deleteProjectFormat());
+                return;
+            } //TODO refactor
 
-        if (!projectmanager.projectmap.containsKey(projectname)) {
-            System.out.println("\t" + "Project does not exist!");
-            return;
-        } //TODO refactor
-        double budget = projectmanager.projectmap.get(projectname).budget;
-        fund.addFund(budget);
-        Project deletedProject = projectmanager.deleteProject(projectname);
-        int projectsize = projectmanager.projectmap.size();
-        ui.printDeleteProject(deletedProject, projectsize);
-        BeforeAfterCommand.afterCommand(storage, projectmanager);
+            if (!projectmanager.projectmap.containsKey(projectname)) {
+                System.out.println("\t" + "Project does not exist!");
+                return;
+            } //TODO refactor
+            double budget = projectmanager.projectmap.get(projectname).budget;
+            fund.retrieveFund(budget);
+            Project deletedProject = projectmanager.deleteProject(projectname);
+            int projectsize = projectmanager.projectmap.size();
+            ui.printDeleteProject(deletedProject, projectsize);
+            BeforeAfterCommand.afterCommand(storage, projectmanager);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("\t" + "☹ OOPS!!! Wrong input format!"
+                    + "\n\tCorrect input format is: delete project pr/PROJECT_NAME");
+        }
     }
 
     /**
@@ -184,19 +189,10 @@ public class Process {
             } //TODO refactor
 
             int projectindex = Integer.parseInt(split[1]) - 1;
-            //if (projectindex.isEmpty()) {
-                //System.out.println("\t" + "Project index cannot be empty!");
-                //System.out.println("\t" + "Correct Format: goto project pr/PROJECT_NAME");
-                //return;
-            //}
             if (projectmanager.projectmap.isEmpty()) { //TODO refactor
                 ui.printNoProjectMessage();
                 return;
-            } //else if (!projectmanager.projectmap.containsKey(projectname)) { //TODO refactor
-            //System.out.println("\t" + "Project does not exist!");
-            //return;
-            //} //TODO refactor
-
+            } //TODO refactor
             String currentprojectname = projectmanager.gotoProject(projectindex);
             ui.printGoToProject(currentprojectname);
         } catch (NumberFormatException e) {
@@ -276,7 +272,7 @@ public class Process {
      * @param ui    Ui that interacts with the user.
      * @param fund  the total fund the that the organisation owns
      */
-    public void assignFund(String input, Ui ui, Fund fund) {//TODO REDUCE BUDGET
+    public void assignFund(String input, Ui ui, Fund fund) {
         try {
             String[] split = input.split("pr/| am/");
             String projectname = split[1];
@@ -315,9 +311,9 @@ public class Process {
      * @param fund  the total fund the that the organisation owns
      */
     public void showFund(String input, Ui ui, Fund fund) {
-        System.out.println(Ui.line);
+        System.out.print(Ui.line);
         System.out.print(fund.giveFund());
-        System.out.println(Ui.line);
+        System.out.print(Ui.line);
     }
 
     /**
@@ -350,6 +346,43 @@ public class Process {
         }
     }
 
+    /**
+     * Process the reduce budget command to reduce fund assigned to a specific project.
+     * Command Format: reduce budget pr/PROJECT_NAME am/AMOUNT_OF_FUND.
+     * @param input Input from the user.
+     * @param ui    Ui that interacts with the user.
+     * @param fund  the total fund the that the organisation owns
+     */
+    public void reduceBudget(String input, Ui ui, Fund fund) {
+        try {
+            String[] split = input.split("pr/| am/");
+            String projectname = split[1];
+            Double amount = Double.parseDouble(split[2]);
+            if (!projectmanager.projectmap.containsKey(projectname)) {
+                System.out.println("\t" + "☹ OOPS!!! Project does not exist!");
+                return;
+            } else if (amount < 0||amount > 500000) {
+                ui.exceptionMessage("     ☹ OOPS!!! Please enter a positive value of no more than 500,000.  ");
+            } else {
+                double newbudget = projectmanager.projectmap.get(projectname).budget - amount;
+                if (newbudget < projectmanager.projectmap.get(projectname).spending) {
+                    ui.exceptionMessage("     ☹ OOPS!!! The remaining budget is not sufficient.  ");
+                    showBudget("show budget pr/" + projectname, ui);
+                    return;
+                }
+                projectmanager.projectmap.get(projectname).budget = newbudget;
+                projectmanager.projectmap.get(projectname).remaining -= amount;
+                fund.retrieveFund(amount);
+                ui.printReduceBudgetMessage(fund, amount, projectmanager.projectmap.get(projectname), projectname);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+        } catch (NullPointerException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! There is no project with that name yet, please add the project first!");
+        } catch (NumberFormatException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! The amount of fund must be a positive number and mustser not be empty!");
+        }
+    }
 
     //===========================* Deadline *================================
 
@@ -656,27 +689,35 @@ public class Process {
      * @param ui    Ui that interacts with the user.
      */
     public void deletePayment(String input, Ui ui, Storage storage) throws AlphaNUSException {
-        BeforeAfterCommand.beforedoCommand(storage, projectmanager);
-        HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
-        String currentProjectName = projectmanager.currentprojectname;
-        String currentprojectname = projectmanager.currentprojectname;
-        String[] arr = input.split("payment ", 2);
-        String[] split = arr[1].split("p/|i/");
-        split = cleanStrStr(split);
+        try {
+            BeforeAfterCommand.beforedoCommand(storage, projectmanager);
+            HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
+            String currentprojectname = projectmanager.currentprojectname;
+            String[] arr = input.split("payment ", 2);
+            String[] split = arr[1].split("p/|i/");
+            split = cleanStrStr(split);
 
-        String payeename = split[1];
-        String itemname = split[2];
-        Payee payee = managermap.get(payeename);
-        for (Payments p: payee.payments){
-            if (p.getItem() == itemname) {
-               projectmanager.projectmap.get(currentprojectname).addBudget( p.getCost() );
-               break;
+            String payeename = split[1];
+            String itemname = split[2];
+            if (PaymentManager.findPayee(payeename, managermap).size() == 0) {
+                ui.exceptionMessage("     ☹ OOPS!!! The payee is not found, please check again!)");
+            } else {
+                for (int i = 0; i < PaymentManager.findPayee(payeename, managermap).size(); i++) {
+                    if (PaymentManager.findPayee(payeename, managermap).get(i).item.equals(itemname)) {
+                        double cost = PaymentManager.findPayee(payeename, managermap).get(i).cost;
+                        projectmanager.projectmap.get(currentprojectname).retrieveBudget(cost);
+                        Payments deleted = PaymentManager.deletePayments(split[1], split[2], managermap, currentprojectname);
+                        ui.printDeletePaymentMessage(deleted, managermap.get(split[1]).payments.size(), currentprojectname);
+                        BeforeAfterCommand.afterCommand(storage, projectmanager);
+                        break;
+                    }
+                    ui.exceptionMessage("     ☹ OOPS!!! The item is not found, please check again!)");
+                }
             }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! The input format is wrong!"
+                    + "The correct input format is:[delete payment p/PAYEE i/ITEM]");
         }
-
-        Payments deleted = PaymentManager.deletePayments(split[1], split[2], managermap, currentprojectname);
-        ui.printDeletePaymentMessage(deleted, managermap.get(split[1]).payments.size(), currentprojectname);
-        BeforeAfterCommand.afterCommand(storage, projectmanager);
     }
 
     /**
@@ -768,18 +809,22 @@ public class Process {
             String[] splitpayments = splitspace[1].split("p/");
             splitpayments = cleanStrStr(splitpayments);
             String payeename = splitpayments[1];
-            Payee payee = PaymentManager.deletePayee(payeename, managermap);
-            int payeesize = managermap.size();
-            ui.printdeletePayeeMessage(splitpayments[1], payee, payeesize, currentprojectname);
-            BeforeAfterCommand.afterCommand(storage, projectmanager);
-
-            double totalspending = 0;
-            for(Payments p:payee.payments) {
-                totalspending += p.getCost();
+            if (PaymentManager.findPayee(payeename,managermap).size() != 0) {
+                Payee payee = PaymentManager.deletePayee(payeename, managermap);
+                int payeesize = managermap.size();
+                ui.printdeletePayeeMessage(splitpayments[1], payee, payeesize, currentprojectname);
+                BeforeAfterCommand.afterCommand(storage, projectmanager);
+                double totalspending = 0;
+                for (Payments p : payee.payments) {
+                    totalspending += p.getCost();
+                }
+                projectmanager.projectmap.get(currentprojectname).retrieveBudget(totalspending);//the total spending paid by a payee is released as budget
+                return;
             }
-            projectmanager.projectmap.get(currentprojectname).addBudget(totalspending);//the total spending paid by a payee is released as budget
+            ui.exceptionMessage("     ☹ OOPS!!! The payee is not found!");
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format!"
+                    + "The correct format is [delete payee p/PAYEE_NAME]");
         } catch (NullPointerException | AlphaNUSException e) {
             ui.exceptionMessage("     ☹ OOPS!!! There is no payee with that name yet, please add the payee first!");
         }
@@ -795,6 +840,10 @@ public class Process {
             HashMap<String, Payee> managermap = projectmanager.getCurrentProjectManagerMap();
             String[] splitspace = input.split(" ", 2);
             ArrayList<Payments> paymentsArrayList = PaymentManager.findPayee(splitspace[1], managermap);
+            if (paymentsArrayList.size() == 0) {
+                ui.exceptionMessage("     ☹ OOPS!!! The payee does not exist in this project.");
+                return;
+            }
             ui.printPaymentList(paymentsArrayList);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! The content to find cannot be empty.");
@@ -879,14 +928,19 @@ public class Process {
             }
             HashMap<String, Payee> managerMap = projectmanager.getCurrentProjectManagerMap();
             ArrayList<ArrayList<Payments>> listOfPayments = PaymentManager.listPayments(managerMap);
+            if (listOfPayments.get(0).size() == 0 && listOfPayments.get(1).size() == 0 && listOfPayments.get(2).size() == 0) {
+                ui.exceptionMessage("     ☹ OOPS!!! There are no payments to list!");
+                return;
+            }
             for (ArrayList<Payments> lists : listOfPayments) {
-                if (lists.isEmpty()) {
+                if (lists.size() == 0) {
                     continue;
                 }
                 ui.printPaymentList(lists, lists.get(0).status);
             }
-        } catch (NullPointerException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! There are no payments to list!");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format!"
+                    + "     The correct format is [list payments] or [list payments pr/PROJECT_NAME] or [list payments p/PAYEE]");
         }
     }
 
@@ -950,38 +1004,43 @@ public class Process {
      * @param storage Storage that stores the input commands entered by the user.
      */
     public void viewhistory(String input, Ui ui, Storage storage) throws ParseException, AlphaNUSException {
-        ArrayList<String> commandList = new ArrayList<String>();
-        String[] splitspace = input.split(" ", 3);
-        String[] splitslash = splitspace[2].split("/", 2);
-        String[] splitdates = splitslash[1].split(" ", 3);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        String date1 = splitdates[0];
-        Date dateFirst = sdf.parse(date1);
-        String date2 = splitdates[2];
-        Date dateSecond = sdf.parse(date2);
-        commandList = storage.readFromCommandsFile();
-        ArrayList<String> viewhistory = new ArrayList<String>();
-        for (int i = 0; i < commandList.size(); i = i + 1) {
-            String token = null;
-            String token1 = null;
-            String[] splitDateCommand = commandList.get(i).split("~", 2);
-            for (int j = 0; j < splitDateCommand.length; j = j + 1) {
-                token = splitDateCommand[j];
-            }
-            String[] splitDateTime = token.split(" ", 3);
-            for (int k = 0; k < splitDateTime.length; k = k + 1) {
-                if (k == 1) {
-                    token1 = splitDateTime[k];
+        try {
+            ArrayList<String> commandList = new ArrayList<String>();
+            String[] splitspace = input.split(" ", 3);
+            String[] splitslash = splitspace[2].split("/", 2);
+            String[] splitdates = splitslash[1].split(" ", 3);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            String date1 = splitdates[0];
+            Date dateFirst = sdf.parse(date1);
+            String date2 = splitdates[2];
+            Date dateSecond = sdf.parse(date2);
+            commandList = storage.readFromCommandsFile();
+            ArrayList<String> viewhistory = new ArrayList<String>();
+            for (int i = 0; i < commandList.size(); i = i + 1) {
+                String token = null;
+                String token1 = null;
+                String[] splitDateCommand = commandList.get(i).split("~", 2);
+                for (int j = 0; j < splitDateCommand.length; j = j + 1) {
+                    token = splitDateCommand[j];
+                }
+                String[] splitDateTime = token.split(" ", 3);
+                for (int k = 0; k < splitDateTime.length; k = k + 1) {
+                    if (k == 1) {
+                        token1 = splitDateTime[k];
+                    }
+                }
+                Date dateCommand = sdf.parse(token1);
+                if ((dateCommand.compareTo(dateFirst)) >= 0) {
+                    if ((dateCommand.compareTo(dateSecond)) <= 0) {
+                        viewhistory.add(commandList.get(i));
+                    }
                 }
             }
-            Date dateCommand = sdf.parse(token1);
-            if ((dateCommand.compareTo(dateFirst)) >= 0) {
-                if ((dateCommand.compareTo(dateSecond)) <= 0) {
-                    viewhistory.add(commandList.get(i));
-                }
-            }
+            ui.printviewHistoryList(viewhistory, date1, date2);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("\t" + "☹ OOPS!!! Wrong input format!"
+                    + "\n\tCorrect input format is: view history h/DATE_1 to DATE_2");
         }
-        ui.printviewHistoryList(viewhistory, date1, date2);
     }
 
     /**

@@ -26,9 +26,9 @@ public class Instruction {
         return input.startsWith("delete payment");
     }
 
-    public boolean isFind(String input) {
-        return input.startsWith("find");
-    }
+//    public boolean isFind(String input) {
+//        return input.startsWith("find");
+//    }
 
     public boolean isWithinPeriodTask(String input) {
         return input.startsWith("within");
@@ -120,6 +120,10 @@ public class Instruction {
 
     public boolean isAssignFund(String input) { 
         return input.startsWith("assign fund"); 
+    }
+
+    public boolean isReduceBudget(String input) {
+        return input.startsWith("reduce budget");
     }
 
     public boolean isShowFund(String input) { 
