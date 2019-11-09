@@ -15,18 +15,18 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * Represents a JUnit test class for the DeadlineCommand.
+ * Represents a JUnit test class for the HomeworkCommand.
  */
-public class DeadlineCommandTest {
+public class HomeworkCommandTest {
     private static Ui ui;
     private static Storage storage;
     private static TaskList tasks;
 
     /**
-     * Represents the before of deadlineCommandExecuteTest.
+     * Represents the before of homeworkCommandTest.
      */
     @BeforeAll
-    public static void beforeDeadlineCommandExecuteTest(){
+    public static void beforeHomeworkCommandExecuteTest(){
         ui = new UiEn();
         try {
             storage = new Storage(System.getProperty("user.dir")+ "/src/test/java/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/java/testFile/configTest.txt",System.getProperty("user.dir")+ "/src/test/java/testFile/welcome.txt");
@@ -39,12 +39,12 @@ public class DeadlineCommandTest {
         assertTrue(tasks.size()==0);
     }
     /**
-     * Represents a JUnit test method for the DeadlineCommand.
+     * Represents a JUnit test method for the HomeworkCommand.
      * Test the command depending on the input String (user).
      */
     @Test
-    public void deadlineCommandExecuteTest()  {
-        HomeworkCommand deadlineCommand1 = new HomeworkCommand("deadline ok");
+    public void homeworkCommandExecuteTest()  {
+        HomeworkCommand deadlineCommand1 = new HomeworkCommand("homework ok");
         try{
             deadlineCommand1.execute(tasks,ui,storage);
         }
@@ -55,7 +55,7 @@ public class DeadlineCommandTest {
 
 
 
-        HomeworkCommand deadlineCommand2 = new HomeworkCommand("deadline /by 12/12/2000 22:22");
+        HomeworkCommand deadlineCommand2 = new HomeworkCommand("homework /by 12/12/2000 22:22");
         try{
             deadlineCommand2.execute(tasks,ui,storage);
         }
@@ -66,7 +66,7 @@ public class DeadlineCommandTest {
 
 
 
-        HomeworkCommand deadlineCommand3 = new HomeworkCommand("deadline d1 /by 12-12-2000 22:22");
+        HomeworkCommand deadlineCommand3 = new HomeworkCommand("homework d1 /by 12-12-2000 22:22");
         try{
             deadlineCommand3.execute(tasks,ui,storage);
         }
@@ -75,7 +75,7 @@ public class DeadlineCommandTest {
         }
         assertTrue(tasks.size()==0);
 
-        HomeworkCommand deadlineCommand4 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22");
+        HomeworkCommand deadlineCommand4 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22");
         try{
             deadlineCommand4.execute(tasks,ui,storage);
         }
@@ -84,7 +84,7 @@ public class DeadlineCommandTest {
         }
         assertTrue(tasks.size()==1);
 
-        HomeworkCommand deadlineCommand5 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 6");
+        HomeworkCommand deadlineCommand5 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 prio 6");
         try{
             deadlineCommand5.execute(tasks,ui,storage);
         }
@@ -96,7 +96,7 @@ public class DeadlineCommandTest {
         assertTrue(tasks.get(0).getPriority() == 5);
 
 
-        HomeworkCommand deadlineCommand6 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 12");
+        HomeworkCommand deadlineCommand6 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 prio 12");
         try{
             deadlineCommand6.execute(tasks,ui,storage);
         }
@@ -105,7 +105,7 @@ public class DeadlineCommandTest {
         }
         assertTrue(tasks.size()==2);
 
-        HomeworkCommand deadlineCommand7 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio Qzeaze");
+        HomeworkCommand deadlineCommand7 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 prio Qzeaze");
         try{
             deadlineCommand7.execute(tasks,ui,storage);
         }
@@ -114,7 +114,7 @@ public class DeadlineCommandTest {
         }
         assertTrue(tasks.size()==2);
 
-        HomeworkCommand deadlineCommand8 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 recu");
+        HomeworkCommand deadlineCommand8 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 recu");
         try{
             deadlineCommand8.execute(tasks,ui,storage);
         }
@@ -122,7 +122,7 @@ public class DeadlineCommandTest {
             assertTrue(e instanceof RecurrenceException);
         }
 
-        HomeworkCommand deadlineCommand9 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 recu day");
+        HomeworkCommand deadlineCommand9 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 recu day");
         try{
             deadlineCommand9.execute(tasks,ui,storage);
         }
@@ -130,7 +130,7 @@ public class DeadlineCommandTest {
             assertTrue(e instanceof RecurrenceException);
         }
 
-        HomeworkCommand deadlineCommand10 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 recu week");
+        HomeworkCommand deadlineCommand10 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 recu week");
         try{
             deadlineCommand10.execute(tasks,ui,storage);
         }
@@ -138,7 +138,7 @@ public class DeadlineCommandTest {
             assertTrue(e instanceof RecurrenceException);
         }
 
-        HomeworkCommand deadlineCommand11 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 recu month");
+        HomeworkCommand deadlineCommand11 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 recu month");
         try{
             deadlineCommand11.execute(tasks,ui,storage);
         }
@@ -146,7 +146,7 @@ public class DeadlineCommandTest {
             assertTrue(e instanceof RecurrenceException);
         }
 
-        HomeworkCommand deadlineCommand12 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 recu day a");
+        HomeworkCommand deadlineCommand12 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 recu day a");
         try{
             deadlineCommand12.execute(tasks,ui,storage);
         }
@@ -154,7 +154,7 @@ public class DeadlineCommandTest {
             assertTrue(e instanceof RecurrenceException);
         }
 
-        HomeworkCommand deadlineCommand13 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 recu week a");
+        HomeworkCommand deadlineCommand13 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 recu week a");
         try{
             deadlineCommand13.execute(tasks,ui,storage);
         }
@@ -162,7 +162,7 @@ public class DeadlineCommandTest {
             assertTrue(e instanceof RecurrenceException);
         }
 
-        HomeworkCommand deadlineCommand14 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 recu month a");
+        HomeworkCommand deadlineCommand14 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 recu month a");
         try{
             deadlineCommand14.execute(tasks,ui,storage);
         }
@@ -170,7 +170,7 @@ public class DeadlineCommandTest {
             assertTrue(e instanceof RecurrenceException);
         }
 
-        HomeworkCommand deadlineCommand15 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 recu eazea 1");
+        HomeworkCommand deadlineCommand15 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 recu eazea 1");
         try{
             deadlineCommand15.execute(tasks,ui,storage);
         }
@@ -178,7 +178,7 @@ public class DeadlineCommandTest {
             assertTrue(e instanceof RecurrenceException);
         }
 
-        HomeworkCommand deadlineCommand16 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 6 recu");
+        HomeworkCommand deadlineCommand16 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 prio 6 recu");
         try{
             deadlineCommand16.execute(tasks,ui,storage);
         }
@@ -186,7 +186,7 @@ public class DeadlineCommandTest {
             assertTrue(e instanceof RecurrenceException);
         }
 
-        HomeworkCommand deadlineCommand17 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 6 recu day");
+        HomeworkCommand deadlineCommand17 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 prio 6 recu day");
         try{
             deadlineCommand17.execute(tasks,ui,storage);
         }
@@ -194,7 +194,7 @@ public class DeadlineCommandTest {
             assertTrue(e instanceof RecurrenceException);
         }
 
-        HomeworkCommand deadlineCommand18 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 6 recu week");
+        HomeworkCommand deadlineCommand18 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 prio 6 recu week");
         try{
             deadlineCommand18.execute(tasks,ui,storage);
         }
@@ -202,7 +202,7 @@ public class DeadlineCommandTest {
             assertTrue(e instanceof RecurrenceException);
         }
 
-        HomeworkCommand deadlineCommand19 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 6 recu month");
+        HomeworkCommand deadlineCommand19 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 prio 6 recu month");
         try{
             deadlineCommand19.execute(tasks,ui,storage);
         }
@@ -210,7 +210,7 @@ public class DeadlineCommandTest {
             assertTrue(e instanceof RecurrenceException);
         }
 
-        HomeworkCommand deadlineCommand20 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 6 recu day a");
+        HomeworkCommand deadlineCommand20 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 prio 6 recu day a");
         try{
             deadlineCommand20.execute(tasks,ui,storage);
         }
@@ -218,7 +218,7 @@ public class DeadlineCommandTest {
             assertTrue(e instanceof RecurrenceException);
         }
 
-        HomeworkCommand deadlineCommand21 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 6 recu week a");
+        HomeworkCommand deadlineCommand21 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 prio 6 recu week a");
         try{
             deadlineCommand21.execute(tasks,ui,storage);
         }
@@ -226,7 +226,7 @@ public class DeadlineCommandTest {
             assertTrue(e instanceof RecurrenceException);
         }
 
-        HomeworkCommand deadlineCommand22 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 6 recu month a");
+        HomeworkCommand deadlineCommand22 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 prio 6 recu month a");
         try{
             deadlineCommand22.execute(tasks,ui,storage);
         }
@@ -234,7 +234,7 @@ public class DeadlineCommandTest {
             assertTrue(e instanceof RecurrenceException);
         }
 
-        HomeworkCommand deadlineCommand23 = new HomeworkCommand("deadline d1 /by 12/12/2000 22:22 prio 6 recu eazea 1");
+        HomeworkCommand deadlineCommand23 = new HomeworkCommand("homework d1 /by 12/12/2000 22:22 prio 6 recu eazea 1");
         try{
             deadlineCommand23.execute(tasks,ui,storage);
         }
@@ -247,7 +247,7 @@ public class DeadlineCommandTest {
      * Represents the after of deadlineCommandExecuteTest.
      */
     @AfterAll
-    public static void afterDeadlineCommandExecuteTest(){
+    public static void afterHomeworkCommandExecuteTest(){
         tasks.getList().removeAll(tasks.getList());
         try {
             storage.save(tasks.getList());

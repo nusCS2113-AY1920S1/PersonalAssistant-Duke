@@ -58,20 +58,21 @@ public class HomeworkCommand extends Command {
         if(userSubstring.isBlank()){
             throw new EmptyHomeworkException();
         }
-        String[] taskDescription = userSubstring.split("/by");
+        String[] taskDescription = userSubstring.split("/by",2);
         if (taskDescription[0].isBlank()) {
             throw new EmptyHomeworkException();
         } else if (taskDescription.length == 1) { // no /by in input
             throw new EmptyHomeworkDateException();
-        } else {
+        }
+        else {
             String homeworkString = "";
             String description = taskDescription[0].trim();
-            String[] prioritySplit = taskDescription[1].trim().split("prio");
+            String[] prioritySplit = taskDescription[1].trim().split("prio",2);
             if(prioritySplit.length == 1){
-                String[] recurrenceSplit = prioritySplit[0].trim().split(("recu"));
+                String[] recurrenceSplit = prioritySplit[0].trim().split("recu",2);
                 homeworkString = recurrenceSplit[0].trim();
                 if(!(recurrenceSplit.length == 1)){
-                    String[] recurrenceSplit2 = recurrenceSplit[1].trim().split(" ");
+                    String[] recurrenceSplit2 = recurrenceSplit[1].trim().split(" ",2);
                     if(recurrenceSplit2.length == 1){
                         throw new RecurrenceException();
                     }
@@ -86,9 +87,6 @@ public class HomeworkCommand extends Command {
                             throw new RecurrenceException();
                         }
                     }
-                }
-                else if(prioritySplit[0].contains("recu")){
-                    throw new RecurrenceException();
                 }
             }
             else {
@@ -106,10 +104,10 @@ public class HomeworkCommand extends Command {
                 }
                 else {
                     int priority = -1 ;
-                    String[] recurrenceSplit = prioritySplit[1].trim().split(("recu"));
+                    String[] recurrenceSplit = prioritySplit[1].trim().split("recu",2);
                     String priorityString = recurrenceSplit[0].trim();
                     if(!(recurrenceSplit.length==1)){
-                        String[] recurrenceSplit2 = recurrenceSplit[1].trim().split(" ");
+                        String[] recurrenceSplit2 = recurrenceSplit[1].trim().split(" ",2);
                         if(recurrenceSplit2.length == 1){
                             throw new RecurrenceException();
                         }
@@ -124,9 +122,6 @@ public class HomeworkCommand extends Command {
                                 throw new RecurrenceException();
                             }
                         }
-                    }
-                    else if(prioritySplit[1].contains("recu")){
-                        throw new RecurrenceException();
                     }
                     try{
                         priority = Integer.parseInt(priorityString);

@@ -49,7 +49,7 @@ public class PostponeCommand extends Command {
         else {
             userSubstring = userInput.substring(9);
         }
-        String[] postponeString = userSubstring.split("/by");
+        String[] postponeString = userSubstring.split("/by",2);
         if (postponeString.length == 1) { // no /by in input
             throw new EmptyHomeworkDateException();
         }
@@ -69,7 +69,7 @@ public class PostponeCommand extends Command {
                 throw new HomeworkTypeException();
             }
             HomeworkTask postponeHomeworkTask = (HomeworkTask) postponeTask;
-            Date d = new Date(postponeString[1]);
+            Date d = new Date(postponeString[1].trim());
             postponeHomeworkTask.postponeHomework(d);
             storage.save(tasks.getList());
             ui.showPostpone(postponeHomeworkTask);

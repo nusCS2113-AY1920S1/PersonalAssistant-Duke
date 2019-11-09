@@ -97,9 +97,9 @@ public class EditCommand extends Command {
             }
         }
         else { // one shot command
-            String[] descriptionString = userSubstring.split("description");
-            String[] homeworkDateString = userSubstring.split("/by");
-            String[] eventPeriodString = userSubstring.split("/at");
+            String[] descriptionString = userSubstring.split("description",2);
+            String[] homeworkDateString = userSubstring.split("/by",2);
+            String[] eventPeriodString = userSubstring.split("/at",2);
             if (descriptionString.length == 2 ){
                 t = getEditTask(descriptionString[0].trim(),tasks,false);
                 t.setTask(descriptionString[1].trim());
@@ -139,14 +139,14 @@ public class EditCommand extends Command {
     private void editEventDate(Task t, TaskList tasks, String period) throws EmptyEventDateException,
             NonExistentDateException, ConflictDateException, DateComparisonEventException {
         EventsTask eventsTask = (EventsTask) t;
-        String[] dateString = period.split(" - ");
+        String[] dateString = period.split(" - ",2);
         if (dateString.length == 1) {
             throw new EmptyEventDateException();
         } else if (dateString[0].isBlank() || dateString[1].isBlank()) {
             throw new EmptyEventDateException();
         }
-        Date date1 = new Date(dateString[0]);
-        Date date2 = new Date(dateString[1]);
+        Date date1 = new Date(dateString[0].trim());
+        Date date2 = new Date(dateString[1].trim());
         tasks.verifyConflictDateEdit(date1, date2,eventsTask);
         eventsTask.reschedule(date1, date2);
     }
@@ -158,7 +158,7 @@ public class EditCommand extends Command {
      * @throws NonExistentDateException  Exception caught when the date given does not exist.
      */
     private void editHomeworkDate(Task t, String dateString) throws NonExistentDateException {
-        Date date = new Date(dateString);
+        Date date = new Date(dateString.trim());
         HomeworkTask homeworkTask = (HomeworkTask) t;
         homeworkTask.setDeadlines(date);
     }

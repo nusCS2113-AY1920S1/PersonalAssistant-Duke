@@ -56,7 +56,7 @@ public class EventCommand extends Command {
         if (userSubstring.isBlank()) {
             throw new EmptyEventException();
         }
-        String[] taskDescription = userSubstring.split("/at");
+        String[] taskDescription = userSubstring.split("/at",2);
         if (taskDescription[0].isBlank()) {
             throw new EmptyEventException();
         } else if (taskDescription.length == 1) { // no /at in input
@@ -65,13 +65,13 @@ public class EventCommand extends Command {
             String description = taskDescription[0].trim();
             String periodString = taskDescription[1].trim();
             //date format used: dd/MM/yyyy HH:mm - dd/MM/yyyy HH:mm
-            String[] prioritySplit = periodString.split("prio");
+            String[] prioritySplit = periodString.split("prio",2);
             String[] dateString = null;
             if(prioritySplit.length == 1){
-                String[] recurrenceSplit = prioritySplit[0].trim().split(("recu"));
-                dateString = recurrenceSplit[0].trim().split(" - ");
+                String[] recurrenceSplit = prioritySplit[0].trim().split("recu",2);
+                dateString = recurrenceSplit[0].trim().split(" - ",2);
                 if(!(recurrenceSplit.length==1)){
-                    String[] recurrenceSplit2 = recurrenceSplit[1].trim().split(" ");
+                    String[] recurrenceSplit2 = recurrenceSplit[1].trim().split(" ",2);
                     if(recurrenceSplit2.length == 1){
                         throw new RecurrenceException();
                     }
@@ -87,20 +87,17 @@ public class EventCommand extends Command {
                         }
                     }
                 }
-                else if(prioritySplit[0].contains("recu")){
-                    throw new RecurrenceException();
-                }
             }
             else {
-                dateString = prioritySplit[0].split(" - ");
+                dateString = prioritySplit[0].split(" - ",2);
             }
             if (dateString.length == 1) {
                 throw new EmptyEventDateException();
             } else if (dateString[0].isBlank() || dateString[1].isBlank()) {
                 throw new EmptyEventDateException();
             }
-            Date date1 = new Date(dateString[0]);
-            Date date2 = new Date(dateString[1]);
+            Date date1 = new Date(dateString[0].trim());
+            Date date2 = new Date(dateString[1].trim());
             tasks.verifyConflictDate(date1, date2);
             if (date1.getDate().isAfter(date2.getDate())) {
                 throw new EventDateException();
@@ -110,10 +107,10 @@ public class EventCommand extends Command {
                 newTask = new EventsTask(description, date1, date2);
             } else {
                 int priority = -1;
-                String[] recurrenceSplit = prioritySplit[1].trim().split(("recu"));
+                String[] recurrenceSplit = prioritySplit[1].trim().split(("recu"),2);
                 String priorityString = recurrenceSplit[0].trim();
                 if(!(recurrenceSplit.length == 1)){
-                    String[] recurrenceSplit2 = recurrenceSplit[1].trim().split(" ");
+                    String[] recurrenceSplit2 = recurrenceSplit[1].trim().split(" ",2);
                     if(recurrenceSplit2.length == 1){
                         throw new RecurrenceException();
                     }
@@ -128,9 +125,6 @@ public class EventCommand extends Command {
                             throw new RecurrenceException();
                         }
                     }
-                }
-                else if(prioritySplit[1].contains("recu")){
-                    throw new RecurrenceException();
                 }
                 try {
                     priority = Integer.parseInt(priorityString);

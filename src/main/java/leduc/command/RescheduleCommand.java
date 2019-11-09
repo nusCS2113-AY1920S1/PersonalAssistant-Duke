@@ -52,7 +52,7 @@ public class RescheduleCommand extends Command {
         if(userSubstring.isBlank()){
             throw new EmptyArgumentException();
         }
-        String[] rescheduleString = userSubstring.split("/at");
+        String[] rescheduleString = userSubstring.split("/at",2);
         if (rescheduleString.length == 1) { // no /by in input
             throw new EmptyEventDateException();
         }
@@ -72,15 +72,15 @@ public class RescheduleCommand extends Command {
                 throw new EventTypeException();
             }
             EventsTask rescheduleEventTask = (EventsTask) rescheduleTask;
-            String[] dateString = rescheduleString[1].split(" - ");
+            String[] dateString = rescheduleString[1].split(" - ",2);
             if(dateString.length == 1){
                 throw new EmptyEventDateException();
             }
             else if(dateString[0].isBlank() || dateString[1].isBlank()){
                 throw new EmptyEventDateException();
             }
-            Date date1 = new Date(dateString[0]);
-            Date date2 = new Date(dateString[1]);
+            Date date1 = new Date(dateString[0].trim());
+            Date date2 = new Date(dateString[1].trim());
             tasks.verifyConflictDateEdit(date1, date2,rescheduleEventTask);
             rescheduleEventTask.reschedule(date1,date2);
             storage.save(tasks.getList());

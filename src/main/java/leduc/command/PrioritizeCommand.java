@@ -49,7 +49,7 @@ public class PrioritizeCommand extends Command {
         if (subString.isBlank()){
             throw new EmptyArgumentException();
         }
-        commandString = subString.split("prio");
+        commandString = subString.split("prio",2);
         if (commandString.length==1){ // "prio" is not in the user input
             throw new PrioritizeFormatException();
         }
