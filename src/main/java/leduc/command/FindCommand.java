@@ -26,7 +26,7 @@ public class FindCommand extends Command {
     }
     /**
      * Finds the index of the maximum value in the arraylist
-     * @param scores ArrayList<Double> containing relevance scores for all tasks in the list
+     * @param scores ArrayList containing relevance scores for all tasks in the list
      * @return returns index of the index of the maximum score in the list.
      */
     public int findMaxIndex(ArrayList<Double> scores){
@@ -74,7 +74,7 @@ public class FindCommand extends Command {
                 }
             }
             relevanceScore = numMatches / longestStringLength;
-            int matchThreshold = 0.5;
+            double matchThreshold = 0.5;
             if(relevanceScore <= matchThreshold){
                 relevanceScore = 0.0;
             }

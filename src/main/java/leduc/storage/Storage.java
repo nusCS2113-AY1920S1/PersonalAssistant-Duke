@@ -120,7 +120,7 @@ public class Storage {
                     }
                     else {
                         priority =  Integer.parseInt(tokens[3].trim());
-                        if (priority < 0 || priority > 9) { // the priority is set by default to 5
+                        if (priority < 1 || priority > 9) { // the priority is set by default to 5
                             tasks.add(new TodoTask(tokens[2], tokens[1].trim()));
                         }
                         else {
@@ -134,7 +134,7 @@ public class Storage {
                     }
                     else {
                         priority =  Integer.parseInt(tokens[4].trim());
-                        if (priority < 0 || priority > 9) { // the priority is set by default to 5
+                        if (priority < 1 || priority > 9) { // the priority is set by default to 5
                             tasks.add(new HomeworkTask(tokens[2],tokens[1].trim(), new Date(LocalDateTime.parse(tokens[3], formatter))));
                         }
                         else {
@@ -148,7 +148,7 @@ public class Storage {
                     }
                     else {
                         priority =  Integer.parseInt(tokens[5].trim());
-                        if (priority < 0 || priority > 9) { // the priority is set by default to 5
+                        if (priority < 1 || priority > 9) { // the priority is set by default to 5
                             tasks.add(new EventsTask(tokens[2], tokens[1].trim(), new Date(LocalDateTime.parse(tokens[3], formatter)), new Date(LocalDateTime.parse(tokens[4], formatter))));
                         }
                         else {
