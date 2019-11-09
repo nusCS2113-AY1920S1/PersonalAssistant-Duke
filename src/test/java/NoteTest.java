@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 
-public class CreateNoteTest {
+public class NoteTest {
 
     private static JavaCake javaCake;
 
@@ -99,6 +99,13 @@ public class CreateNoteTest {
         actualOutput = javaCake.getResponse("createnote Notes");
         expectedOutput = "File already exists, please type 'editnote Notes' to edit the file instead";
         assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
+    void viewExistingNoteTest() {
+        String actualOutput;
+        String expectedOutput;
+        javaCake.getResponse("createnote dummytext");
     }
 
 }
