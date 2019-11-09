@@ -20,7 +20,7 @@ public class ParserTest {
      * in case of typos.
      */
     @Test
-    private void testHelper() {
+    public void testHelper() {
         String[] commands = {"exit", "list", "back", "help", "score", "reset", "goto",
                              "overview", "deadline", "editnote", "createnote", "listnote", "deletenote",
                              "change", "reminder", "viewnote", "done", "delete", "snooze"};
