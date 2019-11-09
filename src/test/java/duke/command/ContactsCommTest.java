@@ -24,6 +24,10 @@ public class ContactsCommTest {
         Ui ui = new Ui();
         ContactList contactList = new ContactList();
         Contacts contactObj1 = new Contacts("Prof Tan", "91234567", " ", "E1-08-11");
+
+        Command cmd = new ListContactsCommand(contactList);
+        assertEquals("Here are all your contacts:\n", cmd.executeGui(items, ui));
+
         Command cmd1 = new AddContactsCommand(contactObj1, contactList);
         assertEquals("\n     Got it, now you have 1 contacts. Contact added:\n"
                 + "     Name: Prof Tan\n"
