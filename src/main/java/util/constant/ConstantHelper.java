@@ -46,5 +46,13 @@ public class ConstantHelper {
 
     public static final String NAME_FLAG = "-n";
 
-    public static final String ASSIGN_TASK_COMMAND = "assign task ";
+    public static final String COMMAND_ASSIGN_TASK = "assign task ";
+
+    public static final String COMMAND_VIEW_ASSIGNMENTS = "view assignments ";
+
+    public static final String COMMAND_VIEW_ASSIGNMENTS_MEMBER_FLAG = "-m";
+
+    public static final String COMMAND_VIEW_ASSIGNMENTS_TASK_FLAG = "-t";
+
+    public static final int VALID_VIEW_ASSIGNMENT_LENGTH = 20;
 }

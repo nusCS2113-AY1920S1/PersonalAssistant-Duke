@@ -1,6 +1,10 @@
 package controllers;
 
+import static util.constant.ConstantHelper.COMMAND_VIEW_ASSIGNMENTS;
+import static util.constant.ConstantHelper.COMMAND_VIEW_ASSIGNMENTS_MEMBER_FLAG;
+import static util.constant.ConstantHelper.COMMAND_VIEW_ASSIGNMENTS_TASK_FLAG;
 import static util.constant.ConstantHelper.DEFAULT_HORI_BORDER_LENGTH;
+import static util.constant.ConstantHelper.VALID_VIEW_ASSIGNMENT_LENGTH;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -15,16 +19,16 @@ import models.reminder.Reminder;
 import models.task.ITask;
 import models.task.Task;
 import repositories.ProjectRepository;
-import util.uiformatter.AssignmentViewHelper;
-import util.uiformatter.CommandHelper;
 import util.ParserHelper;
-import util.uiformatter.ViewHelper;
 import util.date.DateTimeHelper;
 import util.factories.MemberFactory;
 import util.factories.ReminderFactory;
 import util.factories.TaskFactory;
 import util.json.JsonConverter;
 import util.log.ArchDukeLogger;
+import util.uiformatter.AssignmentViewHelper;
+import util.uiformatter.CommandHelper;
+import util.uiformatter.ViewHelper;
 
 public class ProjectInputController implements IController {
     private ProjectRepository projectRepository;
@@ -516,7 +520,7 @@ public class ProjectInputController implements IController {
     }
 
     /**
-     * Displays list of assignments according to specifications of user.
+     * Returns a list of assignments according to specifications of user.
      * @param projectToManage The project to manage.
      * @param projectCommand The full command by the user.
      */
@@ -530,17 +534,15 @@ public class ProjectInputController implements IController {
         String errorMessageGuide = "You may refer to the user guide or enter \"help\""
             + "for the list of possible commands.";
 
-        if (projectCommand.length() <= 20) {
+        if (projectCommand.length() <= VALID_VIEW_ASSIGNMENT_LENGTH) {
             return (new String[] {errorMessageInsufficientParams, errorMessageNoSymbol, errorMessageNoSuffix,
                 errorMessageGuide});
         } else {
-            String input = projectCommand.substring(17);
-            if (input.charAt(0) == '-' && input.charAt(1) == 'm') {
-                return projectViewMembersAssignments(projectToManage,
-                        projectCommand.substring(20));
-            } else if (input.charAt(0) == '-' && input.charAt(1) == 't') {
-                return projectViewTasksAssignments(projectToManage,
-                        projectCommand.substring(20));
+            String input = projectCommand.substring(COMMAND_VIEW_ASSIGNMENTS.length());
+            if (COMMAND_VIEW_ASSIGNMENTS_MEMBER_FLAG.equals(input.substring(0,2))) {
+                return projectViewMembersAssignments(projectToManage, projectCommand.substring(VALID_VIEW_ASSIGNMENT_LENGTH));
+            } else if (COMMAND_VIEW_ASSIGNMENTS_TASK_FLAG.equals(input.substring(0,2))) {
+                return projectViewTasksAssignments(projectToManage, projectCommand.substring(VALID_VIEW_ASSIGNMENT_LENGTH));
             } else {
                 return (new String[]
                 {"Could not understand your command! Please use:", errorMessageNoSymbol});
@@ -549,7 +551,7 @@ public class ProjectInputController implements IController {
     }
 
     /**
-     * Prints a list of members' individual list of tasks.
+     * Returns a list of members' individual list of tasks.
      * @param projectToManage the project being managed.
      * @param projectCommand The command by the user containing index numbers of the members to view.
      */
@@ -567,7 +569,7 @@ public class ProjectInputController implements IController {
     }
 
     /**
-     * Prints a list of tasks and the members assigned to them.
+     * Returns a list of tasks and the members assigned to them.
      * @param projectToManage The project to manage.
      * @param projectCommand The user input.
      */
