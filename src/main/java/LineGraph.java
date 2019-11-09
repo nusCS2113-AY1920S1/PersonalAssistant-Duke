@@ -1,6 +1,9 @@
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.chart.*;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.layout.HBox;
 
 import java.io.IOException;
@@ -8,9 +11,9 @@ import java.util.ArrayList;
 
 public class LineGraph extends HBox {
     @FXML
-    private CategoryAxis xAxis;
+    private CategoryAxis axisX;
     @FXML
-    private NumberAxis yAxis;
+    private NumberAxis axisY;
     @FXML
     private LineChart<String, Number> lineChart;
 
@@ -22,15 +25,25 @@ public class LineGraph extends HBox {
         fxmlLoader.load();
 
         lineChart.setTitle(title);
-        xAxis.setLabel("Category");
-        yAxis.setLabel("Amount");
+        axisX.setLabel("Category");
+        axisY.setLabel("Amount");
     }
 
-    public static LineGraph getLineGraph(String title, ArrayList<String> xData, ArrayList<Float> yData) throws IOException {
+    /**
+     * This function produces a one-series line graph with the given parameter of data as the input.
+     * It packs the data and the title into lineGraph variables then return it.
+     * @param title The title of the graph
+     * @param dataX The data of the x coordinate
+     * @param dataY The data of the y coordinate
+     * @return The one-series line graph with the input x,y data
+     * @throws IOException The IOE exception
+     */
+    public static LineGraph getLineGraph(String title, ArrayList<String> dataX, ArrayList<Float> dataY)
+            throws IOException {
         LineGraph lineGraph = new LineGraph(title);
         XYChart.Series<String,Number> series = new XYChart.Series<>();
-        for (int index = 0; index < yData.size(); index++) {
-            series.getData().add(new XYChart.Data<>(xData.get(index), yData.get(index)));
+        for (int index = 0; index < dataY.size(); index++) {
+            series.getData().add(new XYChart.Data<>(dataX.get(index), dataY.get(index)));
         }
         lineGraph.lineChart.getData().add(series);
         return lineGraph;
