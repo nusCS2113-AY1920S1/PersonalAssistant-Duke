@@ -1156,8 +1156,8 @@ public class BankList {
         String nextIncomeDate = "";
         exportArrayList.add(new String[]{"accountName","type","amount","income","nextIncomeDate"});
         for (int i = 0; i < getBankListSize(); i++) {
-            String accountName = bankLists.get(i).getAccountName();
             String accountType = bankLists.get(i).getType();
+            nextIncomeDate = "";
             if (SAVING.equals(accountType)) {
                 nextIncomeDate = exportDateFormat.format(bankLists.get(i).getNextIncomeDate());
             }
@@ -1169,6 +1169,7 @@ public class BankList {
             } catch (BankException e) {
                 income = 0;
             }
+            String accountName = bankLists.get(i).getAccountName();
             String stringIncome = decimalFormat.format(income);
             exportArrayList.add(new String[]{accountName,accountType,stringAmount,stringIncome,
                 nextIncomeDate});

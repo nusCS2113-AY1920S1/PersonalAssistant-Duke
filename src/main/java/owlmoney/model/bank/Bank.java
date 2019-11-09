@@ -420,8 +420,7 @@ public abstract class Bank {
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
         decimalFormat.setRoundingMode(RoundingMode.DOWN);
         SimpleDateFormat exportDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        exportArrayList.add(new String[]{"description","amount","date","category","spent"});
-
+        exportArrayList.add(new String[]{"description","amount","date","category","spent","cardId","billDate"});
         for (int i = 0; i < transactions.getSize(); i++) {
             String description = transactions.get(i).getDescription();
             double amount = transactions.get(i).getAmount();
@@ -430,7 +429,18 @@ public abstract class Bank {
             boolean spent = transactions.get(i).getSpent();
             String stringAmount = decimalFormat.format(amount);
             String stringSpent = String.valueOf(spent);
-            exportArrayList.add(new String[] {description,stringAmount,date,category,stringSpent});
+            UUID cardId = transactions.get(i).getTransactionCardID();
+            YearMonth billDate = transactions.get(i).getYearMonthDate();
+            String stringUuid = "";
+            if (cardId != null) {
+                stringUuid = cardId.toString();
+            }
+            String stringBillDate = "";
+            if (billDate != null) {
+                stringBillDate = billDate.toString();
+            }
+            exportArrayList.add(new String[] {description,stringAmount,date,category,stringSpent,
+                stringUuid,stringBillDate});
         }
         return exportArrayList;
     }

@@ -5,7 +5,7 @@ package owlmoney.logic.regex;
  */
 public final class RegexUtil {
 
-    private static final String INTERSET_RATE_REGEX = "^\\s*(?=.*[1-9])\\d{1,2}(\\.\\d{1,2})?$";
+    private static final String INTEREST_RATE_REGEX = "^\\s*(?=.*[1-9])\\d{1,2}(\\.\\d{1,2})?$";
 
     /**
      * Checks whether amount input by user is within the 9 digit constraints with a max of 2 decimal places.
@@ -38,7 +38,7 @@ public final class RegexUtil {
      * @return the result of the check on whether it fulfills the criteria.
      */
     public static boolean regexCheckInterestRate(String input) {
-        if (input.matches(INTERSET_RATE_REGEX)) {
+        if (input.matches(INTEREST_RATE_REGEX)) {
             double parsedInput = Double.parseDouble(input);
             return (parsedInput < 100.00);
         } else {
@@ -55,7 +55,7 @@ public final class RegexUtil {
      * @return the result of the check on whether it fulfills the criteria.
      */
     public static boolean regexCheckCashbackRate(String input) {
-        if (input.matches(INTERSET_RATE_REGEX)) {
+        if (input.matches(INTEREST_RATE_REGEX)) {
             double parsedInput = Double.parseDouble(input);
             return (parsedInput <= 20.00);
         } else {
