@@ -1,7 +1,9 @@
 package owlmoney.logic.parser.transaction.expenditure;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.transaction.AddExpenditureCommand;
@@ -13,7 +15,13 @@ import owlmoney.logic.parser.exception.ParserException;
 public class ParseAddExpenditure extends ParseExpenditure {
 
     private static final String ADD_COMMAND = "/add";
-    private static final String RESERVED_CATEGORY = "deposit";
+    private static final String DEPOSIT_CATEGORY = "DEPOSIT";
+    private static final String BONDS_CATEGORY = "BONDS";
+    private static final String TRANSFER_CATEGORY = "FUND TRANSFER";
+    private static final String CARD_CATEGORY = "CREDIT CARD";
+    private static final String[] RESERVED_CATEGORY = new String[] {
+            DEPOSIT_CATEGORY, BONDS_CATEGORY, TRANSFER_CATEGORY, CARD_CATEGORY};
+    private static final List<String> RESERVED_CATEGORY_LISTS = Arrays.asList(RESERVED_CATEGORY);
     private Date date;
 
     /**
@@ -46,8 +54,8 @@ public class ParseAddExpenditure extends ParseExpenditure {
                     && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding a new expenditure");
             }
-            if (CATEGORY_PARAMETER.equals(key) && RESERVED_CATEGORY.equals(value)) {
-                throw new ParserException(key + " cannot be deposit when adding a new expenditure");
+            if (CATEGORY_PARAMETER.equals(key) && RESERVED_CATEGORY_LISTS.contains(value.toUpperCase())) {
+                throw new ParserException(key + " cannot be " + value + " when adding a new expenditure");
             } else if (CATEGORY_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
                 expendituresParameters.put(CATEGORY_PARAMETER, "Miscellaneous");
             } else if (CATEGORY_PARAMETER.equals(key)) {

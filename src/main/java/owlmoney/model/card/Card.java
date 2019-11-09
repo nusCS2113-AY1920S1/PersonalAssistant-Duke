@@ -225,7 +225,7 @@ public class Card {
      * @throws TransactionException If invalid transaction.
      */
     void deleteExpenditure(int exId, Ui ui) throws TransactionException {
-        unpaid.deleteExpenditureFromList(exId, ui);
+        unpaid.deleteExpenditureFromList(exId, ui, false);
     }
 
     /**

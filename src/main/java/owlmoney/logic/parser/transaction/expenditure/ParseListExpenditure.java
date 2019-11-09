@@ -39,7 +39,7 @@ public class ParseListExpenditure extends ParseExpenditure {
             String key = savingsIterator.next();
             String value = expendituresParameters.get(key);
             if (FROM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
-                throw new ParserException(key + " cannot be empty when adding a new expenditure");
+                throw new ParserException(key + " cannot be empty when listing expenditures");
             } else if (FROM_PARAMETER.equals(key)) {
                 checkName(value);
             }

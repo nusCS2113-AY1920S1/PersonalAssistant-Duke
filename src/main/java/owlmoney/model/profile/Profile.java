@@ -236,15 +236,16 @@ public class Profile {
      * @param expenditureIndex    The index of the expenditure in the expenditureList tied to a specific bank account.
      * @param accountName The name of the card or bank account.
      * @param ui          required for printing.
+     * @param isCreditCardBill Is affecting a credit card bill.
      * @throws BankException        If bank account does not exist.
      * @throws TransactionException If invalid transaction.
      * @throws CardException        If card does not exist.
      */
     public void profileDeleteExpenditure(int expenditureIndex, String accountName, Ui ui,
-            String type) throws BankException, TransactionException, CardException {
-        if ("bank".equals(type)) {
-            bankList.bankListDeleteExpenditure(expenditureIndex, accountName, ui);
-        } else if ("card".equals(type)) {
+            String type, boolean isCreditCardBill) throws BankException, TransactionException, CardException {
+        if (BANK.equals(type)) {
+            bankList.bankListDeleteExpenditure(expenditureIndex, accountName, ui, isCreditCardBill);
+        } else if (CARD.equals(type)) {
             cardList.cardListDeleteExpenditure(expenditureIndex, accountName, ui);
         }
     }
@@ -276,9 +277,9 @@ public class Profile {
      */
     public void profileListExpenditure(String listedBankOrCard, Ui ui, int expendituresToDisplay, String type)
             throws BankException, TransactionException, CardException {
-        if ("card".equals(type)) {
+        if (CARD.equals(type)) {
             cardList.cardListListCardExpenditure(listedBankOrCard, ui, expendituresToDisplay);
-        } else if ("bank".equals(type)) {
+        } else if (BANK.equals(type)) {
             bankList.bankListListBankExpenditure(listedBankOrCard, ui, expendituresToDisplay);
         }
     }
@@ -299,10 +300,10 @@ public class Profile {
     public void profileEditExpenditure(int expenditureIndex, String editFromBank, String description,
             String amount, String date, String category, Ui ui, String type)
             throws BankException, TransactionException, CardException {
-        if ("card".equals(type)) {
+        if (CARD.equals(type)) {
             cardList.cardListEditExpenditure(expenditureIndex, editFromBank, description, amount, date,
                     category, ui);
-        } else if ("bank".equals(type)) {
+        } else if (BANK.equals(type)) {
             bankList.bankListEditExpenditure(expenditureIndex, editFromBank, description, amount, date,
                     category, ui);
         }
@@ -343,12 +344,13 @@ public class Profile {
      * @param depositIndex Transaction number of the deposit.
      * @param bankName Bank name of the deposit.
      * @param ui       required for printing.
+     * @param isCardBill Is affecting credit card bill deposit.
      * @throws BankException        If bank account does not exist.
      * @throws TransactionException If transaction is not a deposit.
      */
-    public void profileDeleteDeposit(int depositIndex, String bankName, Ui ui)
+    public void profileDeleteDeposit(int depositIndex, String bankName, Ui ui, boolean isCardBill)
             throws BankException, TransactionException {
-        bankList.bankListDeleteDeposit(bankName, depositIndex, ui);
+        bankList.bankListDeleteDeposit(bankName, depositIndex, ui, isCardBill);
     }
 
     /**
@@ -580,10 +582,7 @@ public class Profile {
     public void profileAddRecurringExpenditure(
             String accountName, Transaction newRecurringExpenditure, Ui ui, String type)
             throws BankException, TransactionException {
-        if ("card".equals(type)) {
-            //card recurring transaction
-            System.out.println("Do card recurring transaction here");
-        } else if ("bank".equals(type)) {
+        if (BANK.equals(type)) {
             bankList.bankListAddRecurringExpenditure(accountName, newRecurringExpenditure, ui);
         }
     }
@@ -600,10 +599,7 @@ public class Profile {
      */
     public void profileDeleteRecurringExpenditure(String accountName, int index, Ui ui, String type)
             throws BankException, TransactionException {
-        if ("card".equals(type)) {
-            //card recurring transaction
-            System.out.println("Do card recurring transaction here");
-        } else if ("bank".equals(type)) {
+        if (BANK.equals(type)) {
             bankList.bankListDeleteRecurringExpenditure(accountName, index, ui);
         }
     }
@@ -619,10 +615,7 @@ public class Profile {
      */
     public void profileListRecurringExpenditure(String accountName, Ui ui, String type)
             throws BankException, TransactionException {
-        if ("card".equals(type)) {
-            //card recurring transaction
-            System.out.println("Do card recurring transaction here");
-        } else if ("bank".equals(type)) {
+        if (BANK.equals(type)) {
             bankList.bankListListRecurringExpenditure(accountName, ui);
         }
     }
@@ -643,10 +636,7 @@ public class Profile {
     public void profileEditRecurringExpenditure(
             String accountName, int index, String description, String amount, String category, Ui ui, String type)
             throws BankException, TransactionException {
-        if ("card".equals(type)) {
-            //card recurring transaction
-            System.out.println("Do card recurring transaction here");
-        } else if ("bank".equals(type)) {
+        if (BANK.equals(type)) {
             bankList.bankListEditRecurringExpenditure(accountName, index, description, amount, category, ui);
         }
     }
@@ -661,7 +651,6 @@ public class Profile {
         bankList.bankListUpdateRecurringTransactions(ui);
         goalsList.updateGoals();
         profileAddAchievement();
-        //card update recurring
         if (manualCall) {
             ui.printMessage("Profile has been updated");
         }
@@ -1243,9 +1232,9 @@ public class Profile {
         checkExpenditureAndDepositExistsInSavings(bank, getCardId(card), cardDate);
         checkBillAmountNotZero(getCardPaidBillAmount(card, cardDate), card, cardDate);
         int expenditureNumber = profileGetCardBillExpenditureId(bank,getCardId(card), cardDate) + ARRAY_INDEX;
-        profileDeleteExpenditure(expenditureNumber, bank, ui, type);
+        profileDeleteExpenditure(expenditureNumber, bank, ui, type, true);
         int depositNumber = profileGetCardBillDepositId(bank,getCardId(card), cardDate) + ARRAY_INDEX;
-        profileDeleteDeposit(depositNumber, bank, ui);
+        profileDeleteDeposit(depositNumber, bank, ui, true);
         cardList.transferExpPaidToUnpaid(card, cardDate, type);
         ui.printMessage("Credit Card bill for " + card + " for the month of " + cardDate
                 + " have been successfully reverted!");
@@ -1323,8 +1312,8 @@ public class Profile {
         }
         if (isThrowException) {
             throw new CardException("Unable to delete credit card bill because " + accountType
-                    + " does not exist in savings account anymore! Could be due to savings account "
-                    + "deleted the transactions because exceeded limit of 2000 transactions.");
+                    + " does not exist in savings account anymore!\n Either the card bill was not paid "
+                    + "with " + bankName + " or the bill was deleted due to too many transactions after it");
         }
     }
 
@@ -1460,8 +1449,9 @@ public class Profile {
         Goals goals = goalsList.reminderForGoals();
         if (goals != null) {
             ui.printMessage("\nREMINDER ON YOUR GOALS: ");
-            ui.printMessage(goals.getGoalsName() + " is due in " + goals.convertDateToDays() + " days. \nYou still "
-                    + "have a remaining of $" + goals.getRemainingAmount() + " to reach your goal!");
+            ui.printMessage(goals.getGoalsName() + " is due in " + goals.convertDateToDays()
+                    + " days. \nYou still " + "have a remaining of $" + goals.getRemainingAmount()
+                    + " to reach your goal!");
         }
     }
 }

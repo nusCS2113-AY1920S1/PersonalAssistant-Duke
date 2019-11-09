@@ -1,6 +1,8 @@
 package owlmoney.logic.parser.transaction.expenditure;
 
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.transaction.EditRecurringExpenditureCommand;
@@ -10,7 +12,13 @@ import owlmoney.logic.parser.exception.ParserException;
  * Parses the inputs for editing a recurring expenditure.
  */
 public class ParseEditRecurringExpenditure extends ParseRecurringExpenditure {
-    private static final String RESERVED_CATEGORY = "deposit";
+    private static final String DEPOSIT_CATEGORY = "DEPOSIT";
+    private static final String BONDS_CATEGORY = "BONDS";
+    private static final String TRANSFER_CATEGORY = "FUND TRANSFER";
+    private static final String CARD_CATEGORY = "CREDIT CARD";
+    private static final String[] RESERVED_CATEGORY = new String[] {
+            DEPOSIT_CATEGORY, BONDS_CATEGORY, TRANSFER_CATEGORY, CARD_CATEGORY};
+    private static final List<String> RESERVED_CATEGORY_LISTS = Arrays.asList(RESERVED_CATEGORY);
 
     /**
      * Creates an instance of ParseEditRecurringExpenditure.
@@ -35,17 +43,17 @@ public class ParseEditRecurringExpenditure extends ParseRecurringExpenditure {
             String key = savingsIterator.next();
             String value = expendituresParameters.get(key);
             if (TRANSACTION_NUMBER_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
-                throw new ParserException(key + " cannot be empty when editing an expenditure");
+                throw new ParserException(key + " cannot be empty when editing a recurring expenditure");
             } else if (TRANSACTION_NUMBER_PARAMETER.equals(key)) {
                 checkInt(TRANSACTION_NUMBER_PARAMETER, value);
             }
             if (FROM_PARAMETER.equals(key) && (value.isBlank() || value.isEmpty())) {
-                throw new ParserException(key + " cannot be empty when editing an expenditure");
+                throw new ParserException(key + " cannot be empty when editing a recurring expenditure");
             } else if (FROM_PARAMETER.equals(key)) {
                 checkName(value);
             }
-            if (CATEGORY_PARAMETER.equals(key) && RESERVED_CATEGORY.equals(value)) {
-                throw new ParserException(key + " cannot be deposit when editing a recurring expenditure");
+            if (CATEGORY_PARAMETER.equals(key) && RESERVED_CATEGORY_LISTS.contains(value.toUpperCase())) {
+                throw new ParserException(key + " cannot be " + value + " when editing a recurring expenditure");
             } else if (CATEGORY_PARAMETER.equals(key) && !(value.isBlank() || value.isEmpty())) {
                 checkCategory(value);
                 changeCounter++;

@@ -65,7 +65,7 @@ class SavingTest {
         }
         assertEquals(1000.00, testSaving.getCurrentAmount());
         try {
-            testSaving.deleteExpenditure(1, uiTest);
+            testSaving.deleteExpenditure(1, uiTest, false);
         } catch (TransactionException | BankException errorMessage) {
             System.out.println("Expected no error, but error was thrown");
         }
@@ -144,7 +144,7 @@ class SavingTest {
             System.out.println("Expects success but error was thrown");
         }
         BankException thrown = assertThrows(BankException.class, () ->
-                testSaving.deleteDepositTransaction(1, uiTest));
+                testSaving.deleteDepositTransaction(1, uiTest, false));
         assertEquals("Bank account cannot have a negative amount", thrown.toString());
     }
 
@@ -156,7 +156,7 @@ class SavingTest {
         try {
             testSaving.addDepositTransaction(testDeposit, uiTest, "bank");
             assertEquals(1220.00, testSaving.getCurrentAmount());
-            testSaving.deleteDepositTransaction(1, uiTest);
+            testSaving.deleteDepositTransaction(1, uiTest, false);
         } catch (BankException | TransactionException errorMessage) {
             System.out.println("Expects success but error was thrown");
         }

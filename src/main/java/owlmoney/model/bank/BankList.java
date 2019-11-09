@@ -483,10 +483,12 @@ public class BankList {
      * @param transactionNumber         The transaction number.
      * @param deleteFromBank The name of the bank account.
      * @param ui             required for printing.
+     * @param isCreditCardBill Is affecting a credit card bill.
      * @throws TransactionException If invalid transaction.
      * @throws BankException        If bank account does not exist.
      */
-    public void bankListDeleteExpenditure(int transactionNumber, String deleteFromBank, Ui ui)
+    public void bankListDeleteExpenditure(
+            int transactionNumber, String deleteFromBank, Ui ui, boolean isCreditCardBill)
             throws TransactionException, BankException {
         String capitalDeleteFromBank = deleteFromBank.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
@@ -494,7 +496,7 @@ public class BankList {
             String currentBankName = currentBank.getAccountName();
             String capitalCurrentBankName = currentBankName.toUpperCase();
             if (capitalCurrentBankName.equals(capitalDeleteFromBank)) {
-                currentBank.deleteExpenditure(transactionNumber, ui);
+                currentBank.deleteExpenditure(transactionNumber, ui, isCreditCardBill);
                 try {
                     exportBankList();
                     currentBank.exportBankTransactionList(Integer.toString(i));
@@ -581,10 +583,11 @@ public class BankList {
      * @param accountName The name of the bank account.
      * @param index   The transaction number.
      * @param ui      required for printing.
+     * @param isCardBill Is affecting credit card bill deposit.
      * @throws BankException        If bank account does not exist.
      * @throws TransactionException If transaction is not a deposit.
      */
-    public void bankListDeleteDeposit(String accountName, int index, Ui ui)
+    public void bankListDeleteDeposit(String accountName, int index, Ui ui, boolean isCardBill)
             throws BankException, TransactionException {
         String capitalAccountName = accountName.toUpperCase();
         for (int i = ISZERO; i < getBankListSize(); i++) {
@@ -592,7 +595,7 @@ public class BankList {
             String currentBankName = currentBank.getAccountName();
             String capitalCurrentBankName = currentBankName.toUpperCase();
             if (capitalAccountName.equals(capitalCurrentBankName)) {
-                currentBank.deleteDepositTransaction(index, ui);
+                currentBank.deleteDepositTransaction(index, ui, isCardBill);
                 try {
                     exportBankList();
                     currentBank.exportBankTransactionList(Integer.toString(i));

@@ -115,10 +115,12 @@ public abstract class Bank {
      *
      * @param expenditureIndex Transaction number.
      * @param ui    Ui of OwlMoney.
+     * @param isCreditCardBill Is the command affecting a credit card bill.
      * @throws TransactionException If invalid transaction.
      * @throws BankException        If used on investment account.
      */
-    public void deleteExpenditure(int expenditureIndex, Ui ui) throws TransactionException, BankException {
+    public void deleteExpenditure(int expenditureIndex, Ui ui, boolean isCreditCardBill)
+            throws TransactionException, BankException {
         throw new BankException("This account does not support this feature");
     }
 
@@ -204,10 +206,11 @@ public abstract class Bank {
      *
      * @param index Transaction number.
      * @param ui    Ui of OwlMoney.
+     * @param isCardBill Is affecting credit card bill deposit.
      * @throws TransactionException If transaction is not a deposit.
      * @throws BankException        If amount becomes negative after deleting deposit.
      */
-    void deleteDepositTransaction(int index, Ui ui) throws TransactionException, BankException {
+    void deleteDepositTransaction(int index, Ui ui, boolean isCardBill) throws TransactionException, BankException {
         throw new BankException("This account does not support this feature");
     }
 

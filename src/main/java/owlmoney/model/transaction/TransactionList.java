@@ -29,7 +29,7 @@ public class TransactionList {
     private static final String FINDCATEGORY = "category";
     private static final String FINDDATE = "date range";
     private static final int OBJ_DOES_NOT_EXIST = -1;
-
+    private static final String CREDIT_CARD_BILL = "Credit Card";
 
     /**
      * Creates an instance of Transaction list that contains an ArrayList of expenditures and deposits.
@@ -155,18 +155,26 @@ public class TransactionList {
     /**
      * Deletes an expenditure to the TransactionList and print UI.
      *
-     * @param index index of the expenditure in the TransactionList.
-     * @param ui    required for printing.
+     * @param index Index of the expenditure in the TransactionList.
+     * @param ui    Required for printing.
+     * @param isCardBill Is the command affecting a credit card bill.
      * @throws TransactionException If invalid transaction.
      */
-    public double deleteExpenditureFromList(int index, Ui ui) throws TransactionException {
+    public double deleteExpenditureFromList(int index, Ui ui, boolean isCardBill) throws TransactionException {
         if (transactionLists.size() <= ISZERO) {
             throw new TransactionException("There are no transactions in this bank account");
         }
         if ((index - ONE_INDEX) >= ISZERO && (index - ONE_INDEX) < transactionLists.size()) {
             if (!transactionLists.get(index - 1).getSpent()) {
                 throw new TransactionException("The transaction is a deposit");
-            } else {
+            } else if (isCardBill && !CREDIT_CARD_BILL.equals(transactionLists.get(index - 1).getCategory())) {
+                throw new TransactionException("The transaction is not a credit card bill expenditure. Please use"
+                        + "the /delete /bankexpenditure function");
+            } else if (!isCardBill && CREDIT_CARD_BILL.equals(transactionLists.get(index - 1).getCategory())) {
+                throw new TransactionException("The transaction is a credit card bill. Please use the "
+                        + "/delete /cardbill function to revert credit card payment");
+            }
+            else {
                 Transaction temp = transactionLists.get(index - ONE_INDEX);
                 transactionLists.remove(index - ONE_INDEX);
                 ui.printMessage("Details of deleted Expenditure:");
@@ -316,17 +324,24 @@ public class TransactionList {
      * Gets the amount of the deposit specified.
      *
      * @param index Transaction number of the deposit.
+     * @param isCardBill Is affecting credit card deposit.
      * @return Amount of the deposit
      * @throws TransactionException If transaction is not a deposit.
      */
-    public double getDepositValue(int index) throws TransactionException {
+    public double getDepositValue(int index, boolean isCardBill) throws TransactionException {
         if (transactionLists.size() <= ISZERO) {
             throw new TransactionException("There are no transactions in this bank account");
         }
         if ((index - ONE_INDEX) >= ISZERO && (index - ONE_INDEX) < transactionLists.size()) {
             if (transactionLists.get(index - ONE_INDEX).getSpent()) {
                 throw new TransactionException("The transaction is not a deposit");
-            } else {
+            } else if (isCardBill && !CREDIT_CARD_BILL.equals(transactionLists.get(index - ONE_INDEX).getCategory())) {
+                throw new TransactionException("The transaction is not a credit card bill expenditure.");
+            } else if (!isCardBill && CREDIT_CARD_BILL.equals(transactionLists.get(index - ONE_INDEX).getCategory())) {
+                throw new TransactionException("The transaction is a credit card bill. Please use the "
+                        + "/delete /cardbill function to revert credit card payment");
+            }
+            else {
                 return transactionLists.get(index - ONE_INDEX).getAmount();
             }
         } else {

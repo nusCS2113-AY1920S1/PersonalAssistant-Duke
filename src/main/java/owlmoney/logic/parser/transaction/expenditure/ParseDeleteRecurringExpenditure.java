@@ -39,7 +39,7 @@ public class ParseDeleteRecurringExpenditure extends ParseRecurringExpenditure {
             String value = expendituresParameters.get(key);
             if ((TRANSACTION_NUMBER_PARAMETER.equals(key) || FROM_PARAMETER.equals(key))
                     && (value.isBlank() || value.isEmpty())) {
-                throw new ParserException(key + " cannot be empty when adding a new expenditure");
+                throw new ParserException(key + " cannot be empty when deleting a recurring expenditure");
             }
             if (TRANSACTION_NUMBER_PARAMETER.equals(key)) {
                 checkInt(TRANSACTION_NUMBER_PARAMETER, value);
