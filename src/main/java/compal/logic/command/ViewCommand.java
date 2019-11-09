@@ -126,12 +126,24 @@ public class ViewCommand extends Command {
         StringBuilder monthlyTask = new StringBuilder("Your monthly schedule for "
             + months[givenMonth] + " " + givenYear + " :\n");
 
+        String tempDate;
+        String tempMonth;
+        String tempYear;
         for (int i = 1; i <= days; i++) {
             if (i <= 9) {
-                monthlyTask.append(displayDayView("0" + i + "/" + givenMonth + "/" + givenYear, currList));
+                tempDate = "0" + i;
             } else {
-                monthlyTask.append(displayDayView(i + "/" + givenMonth + "/" + givenYear, currList));
+                tempDate = Integer.toString(i);
             }
+
+            if (givenMonth <= 9) {
+                tempMonth = "0" + givenMonth;
+            } else {
+                tempMonth = Integer.toString(givenMonth);
+            }
+
+            tempYear = Integer.toString(givenYear);
+            monthlyTask.append(displayDayView(tempDate + "/" + tempMonth + "/" + tempYear, currList));
         }
         return monthlyTask.toString();
     }

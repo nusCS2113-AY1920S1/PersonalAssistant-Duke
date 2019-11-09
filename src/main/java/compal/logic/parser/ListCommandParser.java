@@ -22,7 +22,6 @@ public class ListCommandParser implements CommandParser {
             return new ListCommand("");
         } else {
             String[] args = restOfInput.split(" ");
-            System.out.println(args.length);
 
             if (args.length > 2) {
                 throw new ParserException(MESSAGE_INVALID_PARAM);

@@ -36,8 +36,7 @@ public class LogicManager {
         this.taskStorageManager = new TaskStorageManager();
         this.taskList = new TaskList();
 
-        ArrayList<Task> taskArrList = new ArrayList<>(taskStorageManager.loadData());
-        this.taskList.setArrList(taskArrList);
+
     }
 
     /**
@@ -45,6 +44,8 @@ public class LogicManager {
      * command object to carry out the user's aim.
      */
     public CommandResult logicExecute(String fullCommand) throws CommandException, ParserException, ParseException {
+        ArrayList<Task> taskArrList = new ArrayList<>(taskStorageManager.loadData());
+        this.taskList.setArrList(taskArrList);
         logger.info("User input received:" + fullCommand + ". Sending it to be parsed");
 
         Command command = parserManager.processCmd(fullCommand);
