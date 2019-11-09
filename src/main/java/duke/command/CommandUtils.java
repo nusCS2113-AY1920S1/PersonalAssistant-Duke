@@ -86,7 +86,7 @@ public class CommandUtils {
             String alias = entry.getKey();
             if (Math.abs(alias.length() - wordLen) > MAX_LEN_DIFF) {
                 int dist = stringDistance(alias, word, minDist);
-                Parser.parserLogger.log(Level.INFO, word + " has distance " + dist + " from " + alias);
+                Parser.parserLogger.log(Level.INFO, "Input " + word + " has distance " + dist + " from " + alias);
                 if (dist < minDist) {
                     suggestions.clear();
                     suggestions.put(entry.getValue(), entry.getKey());
@@ -208,6 +208,14 @@ public class CommandUtils {
             }
             d1[charMap.get(str1.charAt(i - 2))] = i;
         }
+        StringBuilder logBuilder = new StringBuilder();
+        for (int[] row : d) {
+            for (int val : row) {
+                logBuilder.append(val).append(", ");
+            }
+            logBuilder.delete(logBuilder.length() - 2, logBuilder.length()).append(System.lineSeparator());
+        }
+        Parser.parserLogger.log(Level.FINE,  str1 + " vs " + str2 + ":" +logBuilder.toString());
         return d[len1 + 1][len2 + 1];
     }
 
