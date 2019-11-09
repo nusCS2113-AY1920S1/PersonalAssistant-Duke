@@ -17,7 +17,8 @@ public enum ErrorMessages {
     MISSING_TASKFILE("     Task file is not found, creating sample data...\n"),
     MISSING_PRIORITYFILE("     Priority task file is not found, creating sample data...\n"),
     MISSING_CONTACTSFILE("     Contacts file is not found, creating sample data...\n"),
-    MISSING_BUDGETFILE("     Budget file is not found, creating sample data...\n");
+    MISSING_BUDGETFILE("     Budget file is not found, creating sample data...\n"),
+    DATE_FORMAT("     (>_<) OOPS!!! Format of date is wrong!"),;
 
     public final String message;
     ErrorMessages(String message) {
