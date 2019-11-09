@@ -25,12 +25,6 @@ implementing a command-line based personal assistant.
 We decided to name it [.underline]*OwlMoney* as it equipped with the mission to help Undergraduates / Fresh Graduates
 *_manage and track their finances efficiently, effectively, and more conveniently._*
 
-At first start, OwlMoney provides users with a fresh look and thereafter, a
-direct way of entering and accessing the features in OwlMoney:
-[[CLI]]
-.OwlMoney's Command Line Interface
-image::UiReadMe.png[width="800"]
-
 My main responsibility when developing this application was to implement and
 design the code for `goals` feature. The following sections will go in-depth on `goals` feature and
 showcase my team contribution as one of *OwlMoney's* Developer for the past 8-weeks.
