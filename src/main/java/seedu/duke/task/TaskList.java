@@ -2,7 +2,6 @@ package seedu.duke.task;
 
 import seedu.duke.common.parser.CommandParseHelper;
 import seedu.duke.task.command.TaskParseNaturalDateHelper;
-import seedu.duke.task.command.TaskSortCommand;
 import seedu.duke.task.entity.Deadline;
 import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
@@ -16,7 +15,7 @@ import java.util.Comparator;
  */
 public class TaskList extends ArrayList<Task> {
 
-    private SortBy sortType = SortBy.PRIORITY;
+    private SortBy sortType = SortBy.TIME;
 
     /**
      * Converts the task list to a string of the pre-determined format that is ready to be displayed by the
@@ -308,6 +307,9 @@ public class TaskList extends ArrayList<Task> {
             break;
         case STATUS:
             sort(Comparator.comparing(Task::getDone));
+            break;
+        case TIME:
+            sort(Comparator.comparing(Task::getTime, Comparator.nullsLast(Comparator.naturalOrder())));
             break;
         default:
             return;
