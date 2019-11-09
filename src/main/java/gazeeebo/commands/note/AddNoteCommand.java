@@ -1,4 +1,5 @@
 //@@author yueyuu
+
 package gazeeebo.commands.note;
 
 import gazeeebo.storage.NoteStorage;
@@ -40,7 +41,7 @@ public class AddNoteCommand extends Command {
      * @return the date specified by the user as a LocalDate object
      * @throws DukeException when the users input format is wrong
      */
-    protected LocalDate processCommand(String[] command, String commandName) throws DukeException{
+    protected LocalDate processCommand(String[] command, String commandName) throws DukeException {
         //addNote day/week/month yyyy-MM-dd
         //<the note they want to add>
         try {
@@ -49,7 +50,7 @@ public class AddNoteCommand extends Command {
                     throw new DukeException("The second word in the command has to be \'day\', \'week\' or \'month\'.");
                 }
             } catch (ArrayIndexOutOfBoundsException b) {
-                throw new DukeException("OOPS!!! The description of a(n) " + commandName +" cannot be empty.");
+                throw new DukeException("OOPS!!! The description of a(n) " + commandName + " cannot be empty.");
             }
             if (command[1].equals(MONTH)) {
                 command[2] = command[2] + "-01";
@@ -118,7 +119,8 @@ public class AddNoteCommand extends Command {
 
     /** The main method that executes all the sub methods. */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<ArrayList<Task>> commandStack,
+                        ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
         String[] command = ui.fullCommand.split(" ");
         LocalDate userDate;
         try {

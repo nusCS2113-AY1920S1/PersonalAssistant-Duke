@@ -1,9 +1,9 @@
 //@@author yueyuu
+
 package gazeeebo.notes;
 
-import gazeeebo.UI.Ui;
+import gazeeebo.exception.DukeException;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -12,6 +12,8 @@ import java.util.ArrayList;
 public class GeneralNotePage {
     public static String goal = "";
     public static ArrayList<Module> modules = new ArrayList<>();
+    private static final String EMPTY_DESCRIPTION = "The description of the command cannot be empty.";
+
 
     /**
      * Prints out the goal and the list of existing module names.
@@ -21,20 +23,21 @@ public class GeneralNotePage {
         System.out.print("\n");
         System.out.println("Modules:");
         for (int i = 0; i < modules.size(); i++) {
-            System.out.println((i+1) + ". " + modules.get(i).name);
+            System.out.println((i + 1) + ". " + modules.get(i).name);
         }
     }
 
     /**
      * Edits the goal to what the user specifies.
      *
-     * @param ui to read the user's input
-     * @throws IOException if the command input by the user cannot be read
+     * @param userGoal the new goal the user want to use
+     * @throws DukeException if the command's description is empty
      */
-    public void editGoal(Ui ui) throws IOException {
-        System.out.println("What is your new goal?");
-        ui.readCommand();
-        goal = ui.fullCommand;
+    public void editGoal(String userGoal) throws DukeException {
+        if (userGoal.isEmpty()) {
+            throw new DukeException(EMPTY_DESCRIPTION);
+        }
+        goal = userGoal.trim();
         System.out.println("Okay we have successfully updated your goal to:");
         System.out.println(goal);
     }
@@ -42,40 +45,44 @@ public class GeneralNotePage {
     /**
      * Adds a module to the general note page. Prevents duplicate modules from being added.
      *
-     * @param ui to read the user's input
-     * @throws IOException if the command input by the user cannot be read
+     * @param moduleName the module that the user wants to add
+     * @throws DukeException if the command's description is empty
      */
-    public void addModule(Ui ui) throws IOException {
-        System.out.println("What module do you want to add?");
-        ui.readCommand();
-        for (Module m: modules) {
-            if (m.name.equals(ui.fullCommand)) {
-                System.out.println("You already have a module with the same name. Please add a module with a different name.");
+    public void addModule(String moduleName) throws DukeException {
+        if (moduleName.isEmpty()) {
+            throw new DukeException(EMPTY_DESCRIPTION);
+        }
+        for (Module m : modules) {
+            if (m.name.equals(moduleName)) {
+                System.out.println("You already have a module with the same name. "
+                        + "Please add a module with a different name.");
                 return;
             }
         }
-        modules.add(new Module(ui.fullCommand));
+        modules.add(new Module(moduleName));
         System.out.println("Okay we have successfully added this module:");
-        System.out.println(ui.fullCommand);
+        System.out.println(moduleName);
     }
 
     /**
      * Deletes a module and all its content, if it exists, from the general note page.
      *
-     * @param ui to read the user's input
-     * @throws IOException if the command input by the user cannot be read
+     * @param moduleName the module that the user wants to delete
+     * @throws DukeException if the command inputted by the user is in the wrong format
      */
-    public void deleteModule(Ui ui) throws IOException {
-        System.out.println("Which module do you want to delete?");
-        ui.readCommand(); //input module name here
-        for (Module m: modules) {
-            if (m.name.equals(ui.fullCommand)) {
+    public void deleteModule(String moduleName) throws DukeException {
+        if (moduleName.isEmpty()) {
+            throw new DukeException(EMPTY_DESCRIPTION);
+        }
+        for (Module m : modules) {
+            if (m.name.equals(moduleName)) {
                 modules.remove(m);
                 System.out.println("Okay we have successfully deleted this module:");
-                System.out.println(ui.fullCommand);
+                System.out.println(moduleName);
                 return;
             }
         }
         System.out.println("Sorry there is no such module.");
     }
+
 }

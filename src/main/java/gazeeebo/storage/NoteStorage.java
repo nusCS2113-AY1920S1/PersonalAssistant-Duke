@@ -1,4 +1,5 @@
 //@@author yueyuu
+
 package gazeeebo.storage;
 
 import gazeeebo.notes.Note;
@@ -20,7 +21,7 @@ public class NoteStorage {
      * @param listToWrite the list of Notes to be written to the text file
      * @throws IOException if the file specified cannot be written to or is not a file
      */
-    public static void writeToFile(String fileName, ArrayList<Note>listToWrite) throws IOException {
+    public static void writeToFile(String fileName, ArrayList<Note> listToWrite) throws IOException {
         FileWriter file = new FileWriter(fileName);
         for (Note n : listToWrite) {
             file.write(Note.noteFormatter.format(n.noteDate) + "\n"); //date
@@ -34,10 +35,10 @@ public class NoteStorage {
     }
 
     /**
-     * Reads the list of Notes from a text file and stores it into the given ArrayList<>Notes</>.
+     * Reads the list of Notes from a text file and stores it into the given container.
      *
      * @param fileName the text file the data is to be read from
-     * @param listToReadTo the ArrayList<>Notes</> that the data is to be stored in
+     * @param listToReadTo the container that the data is to be stored in
      * @throws IOException if the file specified cannot be created or is not a file
      */
     public static void readFromFile(String fileName, ArrayList<Note> listToReadTo) throws IOException {
@@ -48,7 +49,7 @@ public class NoteStorage {
             int sizeOfNotes = Integer.parseInt(txtFile.nextLine());
             String firstNote = txtFile.nextLine();
             Note newNote = new Note(date, firstNote);
-            for (int i = 0; i < sizeOfNotes-1; i++) { //sizeOfNotes-1 as the first note has already been added
+            for (int i = 0; i < sizeOfNotes - 1; i++) { //sizeOfNotes-1 as the first note has already been added
                 newNote.notes.add(txtFile.nextLine());
             }
             listToReadTo.add(newNote);
