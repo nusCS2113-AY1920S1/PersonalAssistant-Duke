@@ -906,13 +906,7 @@ Charged an expenditure to your credit card to earn cashback rebates? You can rec
 
 Adds an expenditure that charged to `POBB Tomorrow Card` dated `28/09/2019` that costs `$1.20` with the description of `bubble
 tea` and category of `Dining`.
-ifdef::env-github[]
 image::AddCardExpenditure.png[width="800"]
-endif::[]
-
-ifndef::env-github[]
-image::AddCardExpenditure.png[width="970"]
-endif::[]
 
 ===== Editing expenditures for credit cards `/edit /cardexpenditure`
 
