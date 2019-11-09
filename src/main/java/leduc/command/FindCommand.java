@@ -74,7 +74,8 @@ public class FindCommand extends Command {
                 }
             }
             relevanceScore = numMatches / longestStringLength;
-            if(relevanceScore <= 0.5){
+            int matchThreshold = 0.5;
+            if(relevanceScore <= matchThreshold){
                 relevanceScore = 0.0;
             }
             scores.add(relevanceScore);
