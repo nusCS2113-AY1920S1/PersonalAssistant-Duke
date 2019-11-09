@@ -1,5 +1,7 @@
 package dolla.parser;
 
+import dolla.command.modify.PartialModifyDebtCommand;
+import dolla.model.DollaData;
 import dolla.command.Command;
 import dolla.command.modify.InitialModifyCommand;
 import dolla.command.ShowListCommand;
@@ -13,7 +15,6 @@ import dolla.command.RemoveCommand;
 import dolla.command.SearchCommand;
 import dolla.command.RemoveNameCommand;
 
-import dolla.model.DollaData;
 import dolla.model.RecordList;
 import dolla.ui.DebtUi;
 
@@ -69,7 +70,7 @@ public class DebtsParser extends Parser {
             if (verifyFullModifyCommand()) {
                 return new InitialModifyCommand(inputArray[1]);
             } else if (verifyPartialModifyCommand()) {
-                // TODO
+                return new PartialModifyDebtCommand(modifyRecordNum, type, name, amount, description, date);
             } else {
                 return new ErrorCommand();
             }
@@ -98,6 +99,6 @@ public class DebtsParser extends Parser {
         } else {
             return invalidCommand();
         }
-        return new ErrorCommand();
+        return invalidCommand();
     }
 }

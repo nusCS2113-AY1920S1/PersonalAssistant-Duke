@@ -18,6 +18,6 @@ public class SwitchModeCommand extends Command {
 
     @Override
     public String getCommandInfo() {
-        return null;
+        return newMode;
     }
 }

@@ -62,4 +62,8 @@ public class RecordList {
     public void setRecordList(ArrayList<Record> recordList) {
         this.list = recordList;
     }
+
+    public boolean isEmpty() {
+        return list.isEmpty();
+    }
 }

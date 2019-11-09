@@ -5,7 +5,7 @@ import dolla.command.Command;
 import dolla.command.ErrorCommand;
 import dolla.command.modify.InitialModifyCommand;
 import dolla.command.ShowListCommand;
-import dolla.command.ShowRemainingBudgetCommand;
+import dolla.command.ShowRemainingLimitCommand;
 import dolla.command.RemoveCommand;
 import dolla.command.SearchCommand;
 import dolla.command.SortCommand;
@@ -30,17 +30,17 @@ public class LimitParser extends Parser {
         if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_LIST)) {
             return new ShowListCommand(mode);
         } else if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_REMAINING)) {
-            if (verifyShowRemainingBudgetCommand()) {
-                String duration = inputArray[1];
-                return new ShowRemainingBudgetCommand(duration);
+            if (verifyShowRemainingLimitCommand()) {
+                return new ShowRemainingLimitCommand(duration, type);
             } else {
-                LimitUi.invalidShowFormat();
+                LimitUi.invalidShowRemainingLimitPrinter();
                 return new ErrorCommand();
             }
         } else if (commandToRun.equals(ParserStringList.LIMIT_COMMAND_SET)) {
             if (verifySetCommand()) {
                 return new AddLimitCommand(type, amount, duration);
             } else {
+                LimitUi.invalidSetCommandPrinter();
                 return new ErrorCommand();
             }
         } else if (commandToRun.equals(ParserStringList.COMMAND_REMOVE)) {
@@ -78,30 +78,29 @@ public class LimitParser extends Parser {
         }
     }
 
-    private Boolean verifyShowRemainingBudgetCommand() {
-        boolean isValid = true;
+    private Boolean verifyShowRemainingLimitCommand() {
         try {
-            type = verifyIsBudget(inputArray[2]);
-            duration = verifyDuration(inputArray[1]);
+            duration = verifyLimitDuration(inputArray[1]);
+            type = verifyLimitType(inputArray[2]);
         } catch (IndexOutOfBoundsException | DollaException e) {
-            isValid = false;
+            return false;
         }
-        return isValid;
+        return true;
     }
 
-    private static String verifyIsBudget(String s) throws DollaException {
-        if (s.equals(LIMIT_TYPE_B)) {
-            return s;
+    protected static String verifyLimitType(String limitType) throws DollaException {
+        if (limitType.equals(LIMIT_TYPE_S) || limitType.equals(LIMIT_TYPE_B)) {
+            return limitType;
         } else {
-            throw new DollaException(MODE_LIMIT);
+            throw new DollaException(DollaException.invalidLimitType());
         }
     }
 
-    private static String verifyDuration(String duration) throws DollaException {
-        if (duration.equals(LIMIT_DURATION_D)
-            || duration.equals(LIMIT_DURATION_W)
-            || duration.equals(LIMIT_DURATION_M)) {
-            return duration;
+    protected static String verifyLimitDuration(String limitDuration) throws DollaException {
+        if (limitDuration.equals(LIMIT_DURATION_D)
+            || limitDuration.equals(LIMIT_DURATION_W)
+            || limitDuration.equals(LIMIT_DURATION_M)) {
+            return limitDuration;
         } else {
             throw new DollaException(DollaException.invalidLimitDuration());
         }

@@ -9,9 +9,16 @@ public interface ParserStringList {
     String MODE_MODIFY_DEBT = "modify debt";
     String MODE_MODIFY_SHORTCUT = "modify shortcut";
 
+    // Commands specific to Dolla mode
+    String DOLLA_VIEW_TODAY = "view today";
+    String DOLLA_VIEW = "view";
+
     // Commands specific to Entry mode
     String ENTRY_COMMAND_ADD = "add";
     String ENTRY_COMMAND_LIST = "entries";
+
+    String ENTRY_TYPE_E = "expense";
+    String ENTRY_TYPE_I = "income";
 
     // Commands specific to Limit mode
     String LIMIT_COMMAND_LIST = "limits";
@@ -51,6 +58,7 @@ public interface ParserStringList {
     String COMPONENT_DATE = "/on";
     String COMPONENT_TAG = "/tag";
     String COMPONENT_DURATION = "/duration";
+    String COMPONENT_NAME = "/name";
 
     //Components used in sort
     String SORT_TYPE_AMOUNT = "amount";
@@ -73,7 +81,4 @@ public interface ParserStringList {
     String SPACE = " ";
     String COMMAND_BYE = "bye";
     String EMPTY_STR = "";
-
-    //Exceptions
-    String INVALID_AMOUNT_EXCEPTION = "invalid amount";
 }

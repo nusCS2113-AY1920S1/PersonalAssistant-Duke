@@ -36,6 +36,7 @@ public class PartialModifyLimitCommand extends ModifyLimitCommand {
             int indexToModify = dollaData.getModifyIndex();
 
             if (isNewLimitValid(duplicateLimitIndex, indexToModify)) {
+                updateUndoState(dollaData);
                 dollaData.modifyRecordList(newLimit);
                 ModifyUi.echoModifyRecord(newLimit);
                 dollaData.updateMode(MODE_LIMIT);

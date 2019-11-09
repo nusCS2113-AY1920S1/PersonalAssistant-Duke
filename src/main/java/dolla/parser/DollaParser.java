@@ -1,17 +1,26 @@
 package dolla.parser;
 
 import dolla.Time;
-import dolla.ui.DebtUi;
 import dolla.command.AddDebtsCommand;
 import dolla.command.AddEntryCommand;
 import dolla.command.AddLimitCommand;
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
+import dolla.command.view.ViewDateCommand;
+import dolla.command.view.ViewTodayCommand;
 
+import dolla.ui.DebtUi;
+import dolla.ui.Ui;
+import dolla.ui.LimitUi;
+import dolla.ui.ViewUi;
+
+import java.time.DateTimeException;
 import java.time.LocalDate;
 
 //@@author omupenguin
 public class DollaParser extends Parser {
+
+    protected static final String TODAY = "today";
 
     public DollaParser(String inputLine) {
         super(inputLine);
@@ -21,7 +30,15 @@ public class DollaParser extends Parser {
     @Override
     public Command parseInput() {
 
-        if (commandToRun.equals(ENTRY_COMMAND_ADD)) {
+        if (commandToRun.equals(DOLLA_VIEW)) {
+            if (verifyViewTodayCommand()) {
+                return new ViewTodayCommand();
+            } else if (verifyViewDateCommand()) {
+                return new ViewDateCommand(date);
+            } else {
+                return new ErrorCommand();
+            }
+        } else if (commandToRun.equals(ENTRY_COMMAND_ADD)) {
             if (verifyAddCommand()) {
                 return new AddEntryCommand(inputArray[1], amount, description, date);
             } else {
@@ -48,10 +65,33 @@ public class DollaParser extends Parser {
             if (verifySetCommand()) {
                 return new AddLimitCommand(type, amount, duration);
             } else {
+                LimitUi.invalidSetCommandPrinter();
                 return new ErrorCommand();
             }
-        } else {
-            return invalidCommand();
         }
+        return invalidCommand();
+    }
+
+    private boolean verifyViewTodayCommand() {
+        try {
+            return inputArray[1].equals(TODAY);
+        } catch (IndexOutOfBoundsException e) {
+            ViewUi.printInvalidViewFormatError();
+            return false;
+        }
+    }
+
+    private boolean verifyViewDateCommand() {
+        try {
+            date = Time.readDate(inputArray[1]);
+        } catch (IndexOutOfBoundsException e) {
+            //ViewUi.printInvalidViewFormatError();
+            return false;
+        } catch (DateTimeException e) {
+            Ui.printDateFormatError();
+            ViewUi.printInvalidViewFormatError();
+            return false;
+        }
+        return true;
     }
 }

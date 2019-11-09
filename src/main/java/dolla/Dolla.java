@@ -19,7 +19,6 @@ import java.util.Scanner;
 public class Dolla implements ModeStringList, ParserStringList {
 
     private DollaData dollaData = new DollaData();
-
     private boolean isExit = false;
 
     private Dolla() {

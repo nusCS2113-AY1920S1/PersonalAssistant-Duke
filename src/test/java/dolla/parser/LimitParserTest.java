@@ -8,15 +8,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 //@@author Weng-Kexin
 public class LimitParserTest {
 
-    private static final String expectedCommandInfo = "limit";
     private static final String expectedInvalidResult = "ErrorCommand";
 
     @Test
     public void parseValidListInputTest() {
         String inputLine = "limits";
+        String expected = "limit";
         LimitParser limitParser = new LimitParser(inputLine);
         Command command = limitParser.parseInput();
-        assertEquals(expectedCommandInfo, command.getCommandInfo());
+        assertEquals(expected, command.getCommandInfo());
     }
 
     @Test
@@ -47,9 +47,10 @@ public class LimitParserTest {
     @Test
     public void parseValidRemoveTest() {
         String inputLine = "remove 1";
+        String expected = "limit";
         LimitParser limitParser = new LimitParser(inputLine);
         Command command = limitParser.parseInput();
-        assertEquals(expectedCommandInfo, command.getCommandInfo());
+        assertEquals(expected, command.getCommandInfo());
     }
 
     @Test
@@ -71,7 +72,25 @@ public class LimitParserTest {
     @Test
     public void parseValidShowTest() {
         String inputLine = "remaining daily budget";
-        String expected = "remaining daily";
+        String expected = "daily budget";
+        LimitParser limitParser = new LimitParser(inputLine);
+        Command command = limitParser.parseInput();
+        assertEquals(expected, command.getCommandInfo());
+    }
+
+    @Test
+    public void parseValidShowTest2() {
+        String inputLine = "remaining monthly budget";
+        String expected = "monthly budget";
+        LimitParser limitParser = new LimitParser(inputLine);
+        Command command = limitParser.parseInput();
+        assertEquals(expected, command.getCommandInfo());
+    }
+
+    @Test
+    public void parseValidShowTest3() {
+        String inputLine = "remaining weekly saving";
+        String expected = "weekly saving";
         LimitParser limitParser = new LimitParser(inputLine);
         Command command = limitParser.parseInput();
         assertEquals(expected, command.getCommandInfo());

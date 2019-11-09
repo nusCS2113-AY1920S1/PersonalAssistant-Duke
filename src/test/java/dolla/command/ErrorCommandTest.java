@@ -7,9 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ErrorCommandTest {
 
     @Test
-    public void errorCommandTest1() {
-        Command commandTest = new ErrorCommand();
+    public void errorCommandTest() {
         String expected = "ErrorCommand";
+        Command commandTest = new ErrorCommand();
         assertEquals(expected, commandTest.getCommandInfo());
     }
 }

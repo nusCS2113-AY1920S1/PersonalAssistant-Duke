@@ -12,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class LimitTest {
 
     private Limit newBudget = createNewLimit(LIMIT_TYPE_B, 5, LIMIT_DURATION_D);
-
     private Limit newSaving = createNewLimit(LIMIT_TYPE_S, 50, LIMIT_DURATION_W);
 
     private Limit createNewLimit(String limitType, double amount, String limitDuration) {
@@ -21,12 +20,14 @@ public class LimitTest {
 
     @Test
     public void getBudgetDetailTest() {
-        assertEquals("[" + LIMIT_TYPE_B + "] [$5.0] [" + LIMIT_DURATION_D + "]", newBudget.getRecordDetail());
+        String expected = "[budget] [$5.0] [daily]";
+        assertEquals(expected, newBudget.getRecordDetail());
     }
 
     @Test
     public void budgetFormatSaveTest() {
-        assertEquals("BU | 5.0 | " + LIMIT_DURATION_D, newBudget.formatSave());
+        String expected = "BU | 5.0 | daily";
+        assertEquals(expected, newBudget.formatSave());
     }
 
     @Test
@@ -46,12 +47,14 @@ public class LimitTest {
 
     @Test
     public void getSavingDetailTest() {
-        assertEquals("[" + LIMIT_TYPE_S + "] [$50.0] [" + LIMIT_DURATION_W + "]", newSaving.getRecordDetail());
+        String expected = "[saving] [$50.0] [weekly]";
+        assertEquals(expected, newSaving.getRecordDetail());
     }
 
     @Test
     public void savingFormatSaveTest() {
-        assertEquals("S | 50.0 | " + LIMIT_DURATION_W, newSaving.formatSave());
+        String expected = "S | 50.0 | weekly";
+        assertEquals(expected, newSaving.formatSave());
     }
 
     @Test

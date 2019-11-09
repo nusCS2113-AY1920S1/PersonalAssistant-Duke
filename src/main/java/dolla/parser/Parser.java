@@ -12,7 +12,6 @@ import dolla.ui.ModifyUi;
 import dolla.ui.EntryUi;
 import dolla.ui.SortUi;
 import dolla.ui.RemoveUi;
-import dolla.ui.LimitUi;
 
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
@@ -20,6 +19,9 @@ import dolla.command.ErrorCommand;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
+import static dolla.parser.LimitParser.verifyLimitType;
+import static dolla.parser.LimitParser.verifyLimitDuration;
 
 //@@author omupenguin
 /**
@@ -37,11 +39,16 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     protected double amount;
     protected static String[] inputArray;
     protected String duration;
+    protected String name;
+    protected String tagName;
 
     protected String commandToRun;
     protected int modifyRecordNum;
 
     protected static int maxAmount = 1000000;
+
+    protected static final String TYPE_OWE = "owe";
+    protected static final String TYPE_BORROW = "borrow";
 
     /**
      * Creates an instance of a parser.
@@ -57,10 +64,6 @@ public abstract class Parser implements ParserStringList, ModeStringList {
 
     public static String getInputLine() {
         return inputLine;
-    }
-
-    public static String[] getInputArray() {
-        return inputArray;
     }
 
     /**
@@ -313,6 +316,8 @@ public abstract class Parser implements ParserStringList, ModeStringList {
         description = null;
         date = null;
         duration = null;
+        name = null;
+        tagName = null;
 
         try {
             modifyRecordNum = Integer.parseInt(inputArray[1]);
@@ -354,6 +359,9 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                         break;
                     case MODE_LIMIT:
                         verifyLimitComponents(currStr, nextStr);
+                        break;
+                    case MODE_DEBT:
+                        verifyDebtComponents(currStr, nextStr, i);
                         break;
                     default:
                         break;
@@ -397,6 +405,50 @@ public abstract class Parser implements ParserStringList, ModeStringList {
             break;
         }
     }
+
+    /**
+     * Checks if the first word after 'add' is either 'income' or 'expense'.
+     * @param s String to be analysed.
+     * @return Either 'expense' or 'income' if either are passed in.
+     * @throws Exception ???
+     */
+    public static String verifyDebtType(String s) throws Exception {
+        if (s.equals(TYPE_OWE) || s.equals(TYPE_BORROW)) {
+            return s;
+        } else {
+            DebtUi.printInvalidDebtType();
+            throw new Exception("invalid type");
+        }
+    }
+
+    private void verifyDebtComponents(String currStr, String nextStr, int index) throws Exception {
+        try {
+            switch (currStr) {
+            case COMPONENT_TYPE:
+                type = verifyDebtType(nextStr);
+                break;
+            case COMPONENT_NAME:
+                name = parseDesc(index + 1);
+                break;
+            case COMPONENT_AMOUNT:
+                amount = stringToDouble(nextStr);
+                break;
+            case COMPONENT_DESC:
+                description = parseDesc(index + 1);
+                break;
+            case COMPONENT_DATE:
+                date = Time.readDate(nextStr);
+                break;
+            case COMPONENT_TAG:
+                // TODO
+            default:
+                break;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
 
     /**
      * Checks if the string from input (currStr) represents a component of entry. If so, verify and assign
@@ -459,12 +511,20 @@ public abstract class Parser implements ParserStringList, ModeStringList {
                 break;
             }
             break;
-        /*
         case MODE_DEBT:
             switch (s) {
-                // TODO
+            case COMPONENT_TYPE:
+            case COMPONENT_NAME:
+            case COMPONENT_AMOUNT:
+            case COMPONENT_DESC:
+            case COMPONENT_DATE:
+            case COMPONENT_TAG:
+                return true;
+            default:
+                break;
             }
             break;
+        /*
         case MODE_SHORTCUT:
             switch (s) {
                 // TODO
@@ -679,32 +739,11 @@ public abstract class Parser implements ParserStringList, ModeStringList {
     }
 
     //@@author Weng-Kexin
-    private String verifyLimitType(String limitType) throws DollaException {
-        if (limitType.equals(LIMIT_TYPE_S) || limitType.equals(LIMIT_TYPE_B)) {
-            return limitType;
-        } else {
-            throw new DollaException(DollaException.invalidLimitType());
-        }
-    }
-
-    private String verifyLimitDuration(String limitDuration) throws DollaException {
-        if (limitDuration.equals(LIMIT_DURATION_D)
-                || limitDuration.equals(LIMIT_DURATION_W)
-                || limitDuration.equals(LIMIT_DURATION_M)) {
-            return limitDuration;
-        } else {
-            throw new DollaException(DollaException.invalidLimitDuration());
-        }
-    }
-
     protected Boolean verifySetCommand() {
         try {
             type = verifyLimitType(inputArray[1]);
             amount = stringToDouble(inputArray[2]);
             duration = verifyLimitDuration(inputArray[3]);
-        } catch (IndexOutOfBoundsException e) {
-            LimitUi.invalidSetCommandPrinter();
-            return false;
         } catch (Exception e) {
             return false;
         }
