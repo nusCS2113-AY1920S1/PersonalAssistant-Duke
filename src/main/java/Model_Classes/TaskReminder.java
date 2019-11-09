@@ -10,7 +10,7 @@ public class TaskReminder {
     private String description;
 
     /**
-     * constructor for the TaskReminder class
+     * constructor for the TaskReminder class.
      * @param description description of the reminder
      * @param duration duration of the reminder
      */
@@ -20,7 +20,7 @@ public class TaskReminder {
     }
 
     /**
-     * schedules a timer to play a sound when the time is up
+     * schedules a timer to play a sound when the time is up.
      */
     public void start() {
         timer.schedule(new TimerTask() {
@@ -28,6 +28,7 @@ public class TaskReminder {
                 playSound();
                 timer.cancel();
             }
+
             private void playSound() {
                 System.out.println(description + " is completed!!");
                 Toolkit.getDefaultToolkit().beep();

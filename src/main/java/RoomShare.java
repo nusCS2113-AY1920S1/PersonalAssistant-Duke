@@ -113,8 +113,8 @@ public class RoomShare {
                 ui.startUp();
                 try {
                     String input = parser.getCommandLine();
-                    if(input.length() != 1 && input.split(" ")[0].equals("subtask")) {
-                       String info[] = input.split(" ");
+                    if (input.length() != 1 && input.split(" ")[0].equals("subtask")) {
+                        String[] info = input.split(" ");
                         taskList.done(Integer.parseInt(info[1]), Integer.parseInt(info[2]));
                     } else {
                         int[] index = parser.getIndexRange(input);
@@ -241,8 +241,9 @@ public class RoomShare {
                     int index = parser.getIndex(input);
                     int amount = parser.getAmount(input);
                     TimeUnit timeUnit = parser.getTimeUnit(input);
-                    if (amount < 0)
+                    if (amount < 0) {
                         throw new RoomShareException(ExceptionType.negativeTimeAmount);
+                    }
                     taskList.snooze(index, amount, timeUnit);
                     ui.showSnoozeComplete(index + 1, amount, timeUnit);
                     storage.writeFile(TaskList.currentList(), "data.txt");

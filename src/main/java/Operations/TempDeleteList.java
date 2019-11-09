@@ -11,7 +11,7 @@ public class TempDeleteList {
     private ArrayList<Task> tempDelete;
 
     /**
-     * Constructor for the TempDeleteList Class
+     * Constructor for the TempDeleteList Class.
      * Takes in an ArrayList of Task objects as a parameter
      * @param tempDelete ArrayList of Task objects to be operated on
      */
@@ -20,7 +20,7 @@ public class TempDeleteList {
     }
 
     /**
-     * Adds a Task to the temporary deleted list
+     * Adds a Task to the temporary deleted list.
      * @param task Task that was deleted from the main list and
      *             has to be added into the temp delete list
      */
@@ -29,7 +29,7 @@ public class TempDeleteList {
     }
 
     /**
-     * Restores a Task from the temp delete list into the main list
+     * Restores a Task from the temp delete list into the main list.
      * ALso removes the Task from the temp delete list
      * if index is not valid, will show the temp delete list to help the
      * user see the deleted items
@@ -49,7 +49,7 @@ public class TempDeleteList {
     }
 
     /**
-     * lists the tasks in the temp delete list
+     * lists the tasks in the temp delete list.
      * @throws RoomShareException when the list is empty
      */
     public void list() throws RoomShareException {
@@ -59,9 +59,9 @@ public class TempDeleteList {
             int listCount = 1;
             for (Task output : tempDelete) {
                 System.out.println("\t" + listCount + ". " + output.toString());
-                if( output instanceof Assignment && !(((Assignment) output).getSubTasks() == null) ) {
+                if (output instanceof Assignment && (((Assignment) output).getSubTasks() != null)) {
                     ArrayList<String> subTasks = ((Assignment) output).getSubTasks();
-                    for(String subtask : subTasks) {
+                    for (String subtask : subTasks) {
                         System.out.println("\t" + "\t" + "-" + subtask);
                     }
                 }
