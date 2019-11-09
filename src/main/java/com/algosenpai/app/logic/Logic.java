@@ -4,10 +4,7 @@ import com.algosenpai.app.logic.chapters.LectureGenerator;
 import com.algosenpai.app.logic.chapters.QuizGenerator;
 import com.algosenpai.app.logic.command.ChaptersCommand;
 import com.algosenpai.app.logic.command.Command;
-import com.algosenpai.app.logic.command.critical.ByeCommand;
-import com.algosenpai.app.logic.command.critical.LectureCommand;
-import com.algosenpai.app.logic.command.critical.QuizTestCommand;
-import com.algosenpai.app.logic.command.critical.ResetCommand;
+import com.algosenpai.app.logic.command.critical.*;
 import com.algosenpai.app.logic.command.HelpCommand;
 import com.algosenpai.app.logic.command.errorhandling.InvalidCommand;
 import com.algosenpai.app.logic.command.errorhandling.LectureBlockedCommand;
@@ -44,6 +41,8 @@ public class Logic {
     private AtomicBoolean isResetMode = new AtomicBoolean(false);
     //Checks if in lecture mode
     private AtomicBoolean isLectureMode = new AtomicBoolean(false);
+    //Checks if in arcade mode
+    private AtomicBoolean isArcadeMode = new AtomicBoolean(false);
 
     private HashSet<String> quizBlockedCommands = new HashSet<>(CommandsEnum.getBlockedNames());
     private HashSet<String> lectureBlockedCommands = new HashSet<>(CommandsEnum.getBlockedNames());
@@ -90,13 +89,19 @@ public class Logic {
             return executeBye();
         } else if (isResetMode.get() || userCommand.equals("reset")) {
             return executeReset();
-        } else if (isQuizMode.get()) {
+        } else if (isQuizMode.get() || userCommand.equals("quiz")) {
             return executeQuiz();
         } else if (isLectureMode.get() || userCommand.equals("lecture")) {
             return executeLecture();
+        } else if (isArcadeMode.get() || userCommand.equals("arcade")) {
+            return executeArcade();
         } else {
             return executeOthers();
         }
+    }
+
+    private Command executeArcade() {
+        return new ArcadeCommand(parsedUserInputs, isArcadeMode);
     }
 
     /**
@@ -105,8 +110,6 @@ public class Logic {
      */
     private Command executeOthers() {
         switch (userCommand) {
-        case "quiz":
-            return new SelectQuizChapterCommand(parsedUserInputs, quizChapterNumber, userStats, isQuizMode);
         case "chapters":
             return new ChaptersCommand(parsedUserInputs);
         case "help":
