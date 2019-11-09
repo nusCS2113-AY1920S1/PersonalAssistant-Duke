@@ -487,6 +487,7 @@ The error message is "Name should be no more than 20 characters"
 .. Test case: `order add -rmk abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd`
 Expected: A error message pops up.
 The error message is "Remarks should be no more than 50 characters"
+
 . Adding an order with items
 .. Prerequisites: `Cake` product should be in Product List; `Fish` product should **not** be in Product List.
 .. Test case: `order add -item Cake, 1` +
@@ -496,7 +497,7 @@ The error message is "Remarks should be no more than 50 characters"
 
 === Deleting Orders
 
-. Deleting a single order.
+. Deleting a single order
 
 .. Prerequisites: At least 1 order in Order List
 .. Test case: `order remove 1` +
@@ -518,6 +519,32 @@ Error details shown in the pop-up bar.
 .. Other incorrect commands to try: `order remove 1,x` (where x is larger than the list size), `order remove 2~1`
 Expected: Similar to previous
 
+=== Buying ingredients 
+
+. Buying a single ingredient
+.. Prerequisites: At least 1 ingredient in Shopping List
+.. Test case: `shop buy 1` +
+   Expected: The first ingredient is bought and transferred to Inventory List.
+.. Test case: `shop buy 0` +
+   Expected: No ingredients are bought. Error details shown in the pop-up bar.
+   
+. Buying multiple ingredients
+.. Prerequisites: At least 2 ingredients in Shopping List
+.. Test case: `shop buy 1, 2` +
+   Expected: The first and second ingredients are bought and transferred to Inventory List.
+.. Test case: `shop buy Cheese` +
+   Expected: No ingredients are bought. Error details shown in the pop-up bar.
+   
+=== Editing data in BakingHome
+.. Prerequisites: At least 1 object in the list in order to edit
+.. Test case: `shop edit 1 -qty 10 -cost 10` +
+   Expected: In the shopping list, the first ingredient's quantity is changed to 10, and its unit cost is changed to 10. +
+   All other data that is not inputted as parameters will be unchanged. 
+.. Test case: `order edit 1 -name Eugene -rmk Birthday` 
+   Expected: In orders, the first order's customer name is changed to Eugene, and the remarks is changed to Birthday` +
+   All other data that is not inputted as parameters will be unchanged. +
+   This is provided the order status is not completed. If the order status is completed, you cannot edit the order. +
+   
 === Saving data
 
 . Dealing with missing/corrupted data files
