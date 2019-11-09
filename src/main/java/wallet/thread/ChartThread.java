@@ -56,8 +56,7 @@ public class ChartThread implements Runnable {
         percentage[3] = 0f;
         percentage[4] = 0f;
 
-        float smallestPercentage = 100f;
-        int smallestPercentageSymbol = 0;
+        int lastSymbolToBeDrawn = -1;
 
         float totalExpensesAmount = 0;
         double[] categoryAmount = new double[5];
@@ -71,45 +70,40 @@ public class ChartThread implements Runnable {
             switch (category) {
             case FOOD:
                 percentage[0] += e.getAmount() / totalExpensesAmount;
-                if (percentage[0] < smallestPercentage) {
-                    smallestPercentage = percentage[0];
-                    smallestPercentageSymbol = 0;
+                if (percentage[0] != 0) {
+                    lastSymbolToBeDrawn = 0;
                 }
                 categoryAmount[0] += e.getAmount();
                 break;
 
             case BILLS:
                 percentage[1] += e.getAmount() / totalExpensesAmount;
-                if (percentage[1] < smallestPercentage) {
-                    smallestPercentage = percentage[1];
-                    smallestPercentageSymbol = 1;
+                if (percentage[1] != 0) {
+                    lastSymbolToBeDrawn = 1;
                 }
                 categoryAmount[1] += e.getAmount();
                 break;
 
             case SHOPPING:
                 percentage[2] += e.getAmount() / totalExpensesAmount;
-                if (percentage[2] < smallestPercentage) {
-                    smallestPercentage = percentage[2];
-                    smallestPercentageSymbol = 2;
+                if (percentage[2] != 0) {
+                    lastSymbolToBeDrawn = 2;
                 }
                 categoryAmount[2] += e.getAmount();
                 break;
 
             case TRANSPORT:
                 percentage[3] += e.getAmount() / totalExpensesAmount;
-                if (percentage[3] < smallestPercentage) {
-                    smallestPercentage = percentage[3];
-                    smallestPercentageSymbol = 3;
+                if (percentage[3] == 0) {
+                    lastSymbolToBeDrawn = 3;
                 }
                 categoryAmount[3] += e.getAmount();
                 break;
 
             case OTHERS:
                 percentage[4] += e.getAmount() / totalExpensesAmount;
-                if (percentage[4] < smallestPercentage) {
-                    smallestPercentage = percentage[4];
-                    smallestPercentageSymbol = 4;
+                if (percentage[4] != 0) {
+                    lastSymbolToBeDrawn = 4;
                 }
                 categoryAmount[4] += e.getAmount();
                 break;
@@ -119,14 +113,13 @@ public class ChartThread implements Runnable {
         }
         if (!hasEmptyExpense(percentage)) {
             drawTable(categoryAmount, percentage);
-
             for (float y = -radius; y < radius; y++) {
                 char character = '-';
                 for (float x = -radius; x < radius; x++) {
                     if (x * x + y * y < radius * radius) {
                         double angle = Math.atan2(y, x) / Math.PI / 2 + .5f;
                         if (angle == 1) {
-                            System.out.print(fill[smallestPercentageSymbol]);
+                            System.out.print(fill[lastSymbolToBeDrawn]);
                         } else {
                             character = set(fill, percentage, angle);
                             System.out.print(character); //Prints circle content
