@@ -251,7 +251,7 @@ public class DollaData implements ModeStringList {
      * @return the size of the list.
      */
     public int getListSize(String mode) {
-        switch(mode) {
+        switch (mode) {
         case MODE_ENTRY:
             return this.entryList.size();
         case MODE_DEBT:
@@ -264,6 +264,7 @@ public class DollaData implements ModeStringList {
             return -1;
         }
     }
+
     public double dateOverallExpense(LocalDate cmpDate) {
         //return entryList.dateOverallExpense(cmpDate);
         return 0;

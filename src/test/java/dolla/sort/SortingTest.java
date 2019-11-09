@@ -26,24 +26,23 @@ public class SortingTest implements SortTestOutputString {
     public void createRecordForTest() {
         Record testRecord1 = new Entry("expense", 100, "Expense Description",
                 LocalDate.parse("2001-12-03"));
+        entryListTest.add(testRecord1);
         Record testRecord2 = new Entry("income",20,"tution",
                 LocalDate.parse("2002-11-03"));
-
+        entryListTest.add(testRecord2);
         Record testRecord3 = new Debt("owe", "yuyu", 20, "food",
                 LocalDate.parse("2019-01-01"));
+        debtListTest.add(testRecord3);
         Record testRecord4 = new Debt("borrow", "tata", 35, "drink",
                 LocalDate.parse("2018-02-02"));
-
-        Record testRecord5 = new Shortcut("income",258,"Income Description");
-        Record testRecord6 = new Shortcut("expense", 333,"Expense Description");
-        entryListTest.add(testRecord1);
-        entryListTest.add(testRecord2);
-        debtListTest.add(testRecord3);
         debtListTest.add(testRecord4);
+        Record testRecord5 = new Shortcut("income",258,"Income Description");
         shortcutListTest.add(testRecord5);
+        Record testRecord6 = new Shortcut("expense", 333,"Expense Description");
         shortcutListTest.add(testRecord6);
 
     }
+
     @Test
     public void testSortAmount() {
         createRecordForTest();

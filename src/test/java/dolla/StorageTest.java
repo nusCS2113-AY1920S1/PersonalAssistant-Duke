@@ -22,7 +22,9 @@ public class StorageTest {
     private ArrayList<Record> shortcutListTest = new ArrayList<>();
     private String expected;
 
-
+    /**
+     * This method will setup the storage for testing.
+     */
     public void setupStorage() {
         entryListTest.add(new Entry("income",256,"storage test1", LocalDate.parse("2001-12-03")));
         entryListTest.add(new Entry("expense",123,"storage test2", LocalDate.parse("2011-12-03")));
@@ -43,11 +45,8 @@ public class StorageTest {
     @Test
     public void storageGetListTest() {
         setupStorage();
-        ArrayList<Record> entryTest = Storage.getEntriesFromSave();
-        ArrayList<Record> debtList = Storage.getDebtsFromSave();
-        ArrayList<Record> limitList = Storage.getLimitsFromSave();
-        ArrayList<Record> shortcutList = Storage.getShortcutsFromSave();
 
+        ArrayList<Record> entryTest = Storage.getEntriesFromSave();
         Record entry = entryTest.get(0);
         expected = "income 256.0 storage test1 /on 03/12/2001";
         assertEquals(expected,entry.getUserInput());
@@ -56,6 +55,7 @@ public class StorageTest {
         expected = "expense 123.0 storage test2 /on 03/12/2011";
         assertEquals(expected,entry.getUserInput());
 
+        ArrayList<Record> debtList = Storage.getDebtsFromSave();
         Record debt = debtList.get(0);
         expected = "owe tata 256.0 storage test4 /due 03/12/2002";
         assertEquals(expected,debt.getUserInput());
@@ -64,6 +64,7 @@ public class StorageTest {
         expected = "borrow tata 123.0 storage test5 /due 03/12/2012";
         assertEquals(expected,debt.getUserInput());
 
+        ArrayList<Record> limitList = Storage.getLimitsFromSave();
         Record limit = limitList.get(0);
         expected = "budget 256.0 weekly";
         assertEquals(expected,limit.getUserInput());
@@ -76,6 +77,7 @@ public class StorageTest {
         expected = "budget 521.0 daily";
         assertEquals(expected,limit.getUserInput());
 
+        ArrayList<Record> shortcutList = Storage.getShortcutsFromSave();
         Record shortcut = shortcutList.get(0);
         expected = "income 256.0 storage test6";
         assertEquals(expected,shortcut.getUserInput());

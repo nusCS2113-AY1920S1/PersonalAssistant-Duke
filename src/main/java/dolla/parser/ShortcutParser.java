@@ -55,6 +55,7 @@ public class ShortcutParser extends Parser {
             if (verifySort()) {
                 return new SortCommand(mode, inputArray[1]);
             }
+            return invalidCommand();
         case COMMAND_SEARCH:
             if (verifyShortcutSearchCommand()) {
                 return new SearchCommand(mode, inputArray[1], inputArray[2]);

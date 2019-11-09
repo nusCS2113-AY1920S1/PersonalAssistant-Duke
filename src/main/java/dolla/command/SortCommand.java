@@ -71,13 +71,13 @@ public class SortCommand extends Command {
                     break;
                 }
                 break;
-                case MODE_SHORTCUT:
-                    if (type.equals(TYPE_AMOUNT)) {
-                        new SortAmount(list);
-                    } else if (type.equals(TYPE_DESC)) {
-                        new SortDescription(list);
-                    }
-                    break;
+            case MODE_SHORTCUT:
+                if (type.equals(TYPE_AMOUNT)) {
+                    new SortAmount(list);
+                } else if (type.equals(TYPE_DESC)) {
+                    new SortDescription(list);
+                }
+                break;
             default:
                 break;
             }

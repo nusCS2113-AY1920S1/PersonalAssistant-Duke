@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //@@author yetong1895
 public class ActionCommandTest {
-    private final String REDO = "redo";
-    private final String UNDO = "undo";
+    private static final String REDO = "redo";
+    private static final String UNDO = "undo";
     private String expected;
 
     @Test
