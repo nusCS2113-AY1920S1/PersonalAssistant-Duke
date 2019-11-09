@@ -1,4 +1,6 @@
-package duke.data;
+package duke.models;
+
+import duke.data.ITodo;
 
 import java.util.Date;
 

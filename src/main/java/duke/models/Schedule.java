@@ -2,9 +2,7 @@ package duke.models;
 
 import duke.data.ScheduleStorage;
 import duke.data.Storage;
-import duke.data.ToDo;
 import duke.view.CliViewSchedule;
-import java.net.URL;
 
 
 import java.text.DateFormat;
@@ -49,7 +47,6 @@ public class Schedule {
         //display the month selected
         cliViewSchedule.printMonthHeader(date, year);
         cliViewSchedule.printMonth(numDays, cal.get(Calendar.DAY_OF_MONTH));
-
 
     }
 

@@ -35,6 +35,8 @@ My role was to manage the overall project and manage the Git Repo. I also ensure
 * *Code contributed*:
 ** [https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/src/main/java/duke/parser/ParserSchedule.java[ParserSchedule]] [https://www.youtube.com/watch?v=dQw4w9WgXcQ[Test Code]]
 ** [https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/src/main/java/duke/models/Schedule.java[Schedule]] [https://www.youtube.com/watch?v=dQw4w9WgXcQ[Test Code]]
+** [https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/src/main/java/duke/data/ScheduleStorage.java[Schedule Storage][]
+**
 ** [https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/src/main/java/duke/launcher/gui/Controller.java[Gui Controller]] [https://www.youtube.com/watch?v=dQw4w9WgXcQ[Test Code]]
 ** [https://github.com/AY1920S1-CS2113T-W13-1/main/tree/master/src/main/resources/view[FXML View Files for GUI]]
 

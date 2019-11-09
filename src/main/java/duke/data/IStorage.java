@@ -1,5 +1,7 @@
 package duke.data;
 
+import duke.models.ToDo;
+
 import java.io.IOException;
 import java.util.ArrayList;
 

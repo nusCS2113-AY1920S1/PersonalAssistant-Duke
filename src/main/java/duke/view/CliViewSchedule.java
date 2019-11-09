@@ -1,7 +1,7 @@
 package duke.view;
 
 
-import duke.data.ToDo;
+import duke.models.ToDo;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

@@ -1,7 +1,5 @@
 package duke.launcher;
 
-import duke.data.ScheduleStorage;
-import duke.data.ToDo;
 import duke.parser.ParserCommand;
 import duke.data.Storage;
 import duke.models.Schedule;

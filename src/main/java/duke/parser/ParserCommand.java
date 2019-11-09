@@ -31,11 +31,10 @@ public class ParserCommand implements IParser {
                 parserSchedule.parseCommand();
                 break;
             case "2":
-                cliView.manageStudentsHeading();
-                String studentsInput = sc.nextLine();
                 ParserManageStudents parserManageStudents
-                    = new ParserManageStudents();
-                parserManageStudents.parseCommand(studentsInput);
+                        = new ParserManageStudents();
+                cliView.manageStudentsHeading();
+                parserManageStudents.parseCommand();
                 break;
             case "3":
                 ParserTrainingPlan parserTrainingPlan

@@ -2,6 +2,7 @@ package duke.data;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import duke.models.ToDo;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -40,7 +41,10 @@ public class ScheduleStorage implements IStorage {
             String data = scanInputStream(inputStream);
             obj = parser.parse(data);
             JSONObject jsonObject = (JSONObject) obj;
+
+            //get the array with the listed date
             JSONArray todoList = (JSONArray) jsonObject.get("20191110");
+
             //create an object to be added to the list array
             for (Object o : todoList) {
                 if (o instanceof JSONObject) {
@@ -72,7 +76,6 @@ public class ScheduleStorage implements IStorage {
         saveObj.put("End Time", todo.getEndTime());
         saveObj.put("Location", todo.getLocation());
         saveObj.put("Status", todo.getStatus());
-        //add the task to the array object
         return saveObj;
     }
 
