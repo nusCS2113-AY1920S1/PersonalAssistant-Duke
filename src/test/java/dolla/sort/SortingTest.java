@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author yetong1895
 public class SortingTest implements SortTestOutputString {
     private ArrayList<Record> entryListTest = new ArrayList<>();
     private ArrayList<Record> debtListTest = new ArrayList<>();

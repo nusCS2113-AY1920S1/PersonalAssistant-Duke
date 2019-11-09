@@ -1,5 +1,6 @@
 package dolla.sort;
 
+//@@author yetong1895
 public interface SortTestOutputString {
     String ENTRY_SORT_AMOUNT =
             "\t____________________________________________________________\n" +

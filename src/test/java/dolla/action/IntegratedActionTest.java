@@ -9,10 +9,9 @@ import dolla.model.Record;
 import dolla.parser.MainParser;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@@author yetong1895
 public class IntegratedActionTest implements ActionTestStringList {
 
     @Test
