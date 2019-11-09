@@ -386,6 +386,7 @@ public class MainWindow extends GridPane {
             Profile.resetProfile();
             Storage.resetStorage();
             this.javaCake = new JavaCake();
+            javaCake.storageManager.profile.writeColorConfig(isLightMode);
             JavaCake.userProgress = JavaCake.storageManager.profile.getTotalProgress();
             JavaCake.userName = JavaCake.storageManager.profile.getUsername();
             JavaCake.isFirstTimeUser = true;

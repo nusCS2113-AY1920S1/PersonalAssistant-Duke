@@ -42,24 +42,7 @@ public class Profile {
         JavaCake.logger.log(Level.INFO,"Filepath: " + filepath);
         try {
             try {
-                if (!file.getParentFile().getParentFile().exists()) {
-                    file.getParentFile().getParentFile().mkdir();
-                    file.getParentFile().mkdir();
-                    file.createNewFile();
-                    initialiseUser();
-                    System.out.println("A" + file.getParentFile().getParentFile().getPath());
-                } else if (!file.getParentFile().exists()) {
-                    file.getParentFile().mkdir();
-                    file.createNewFile();
-                    initialiseUser();
-                    System.out.println("B" + file.getParentFile().getPath());
-                } else if (!file.exists()) {
-                    file.createNewFile();
-                    initialiseUser();
-                    System.out.println("C" + file.getPath());
-                } else {
-                    JavaCake.logger.log(Level.INFO, filepath + " is found!");
-                }
+                initialiseUser(file, filename);
 
             } catch (IOException e) {
                 System.out.println("before reader");
@@ -158,7 +141,7 @@ public class Profile {
      * @param isLight whether isLight mode is on
      * @throws CakeException when unable to create file
      */
-    public void writeColorConfig(boolean isLight) throws CakeException {
+    public static void writeColorConfig(boolean isLight) throws CakeException {
         File configFile = new File("data/colorconfig/color.txt");
         try {
             if (!configFile.getParentFile().getParentFile().exists()) {
@@ -209,18 +192,51 @@ public class Profile {
     /**
      * Method that creates data to be written into savefile.txt.
      */
-    private void initialiseUser() throws CakeException {
-        username = "NEW_USER_!@#";
-        try {
+    private void initialiseUser(File file, String filename) throws IOException {
+        if (!file.getParentFile().getParentFile().exists()) {
+            file.getParentFile().getParentFile().mkdir();
+            file.getParentFile().mkdir();
+            file.createNewFile();
+            System.out.println("A" + file.getParentFile().getParentFile().getPath());
+        } else if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdir();
+            file.createNewFile();
+            System.out.println("B" + file.getParentFile().getPath());
+        } else if (!file.exists()) {
+            file.createNewFile();
+            System.out.println("C" + file.getPath());
+        } else {
+            JavaCake.logger.log(Level.INFO, filepath + " is found!");
+        }
+
+        if (filename.equals("data")) {
+            username = "BakaTester";
+            PrintWriter out = new PrintWriter(filepath);
+            out.println(username);
+
+            //for stupid fking testers
+            for (int i = 0; i < 3; ++i) {
+                out.println("3");
+            }
+            out.println("0");
+            for (int i = 0; i < 9; ++i) {
+                out.println("1");
+            }
+            for (int i = 0; i < 3; ++i) {
+                out.println("0");
+            }
+            out.close();
+        } else {
+            username = "NEW_USER_!@#";
             PrintWriter out = new PrintWriter(filepath);
             out.println(username);
             for (int i = 0; i < totalNumOfMainTopics * (levelsOfDifficulty + 1); ++i) {
                 out.println("0");
             }
             out.close();
-        } catch (FileNotFoundException e) {
-            throw new CakeException("Cannot initialise file");
         }
+
+
     }
 
     private void writeProgress() throws CakeException {
