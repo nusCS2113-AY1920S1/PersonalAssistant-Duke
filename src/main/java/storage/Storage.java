@@ -45,12 +45,10 @@ import java.util.Stack;
  */
 public class Storage {
 
-    private static final int MAX_ALLOWED_CELL_WIDTH = 10000;
     private static String REMINDER_FILE_PATH;
     private static String DATA_FILE_PATH;
     private static String EXCEL_PATH;
     private File excelFile;
-
 
 
     /**
@@ -167,8 +165,8 @@ public class Storage {
 
     /**
      * Writes data to an extracted file.
-     * @param s new word to be added
-     * @param append return true if the file can be appended
+     * @param s        new word to be added
+     * @param append   return true if the file can be appended
      * @param fileType indicates the file to be edited, reminders.txt or wordup.txt
      */
     public void writeFile(String s, boolean append, String fileType) {
@@ -204,7 +202,7 @@ public class Storage {
      * Updates a word in extracted file.
      * @param oldString value of old word
      * @param newString value of word after updated
-     * @param fileType indicates the file to be edited, reminders.txt or wordup.txt
+     * @param fileType  indicates the file to be edited, reminders.txt or wordup.txt
      */
     public void updateFile(String oldString, String newString, String fileType) {
         File file;
@@ -230,7 +228,7 @@ public class Storage {
             }
             oldContent = oldContent.substring(0, oldContent.length() - 1);
             String newContent = oldContent.replace(oldString, newString).trim();
-            this.writeFile(newContent,false,fileType);
+            this.writeFile(newContent, false, fileType);
         } catch (IOException | UnableToWriteFileException e) {
             e.printStackTrace();
         } finally {
@@ -358,7 +356,7 @@ public class Storage {
 
     /**
      * Deletes multiple of redundant rows in WordBank sheet in excel file after DeleteCommand.
-     * @param lastRow last row in excel file after deletion
+     * @param lastRow          last row in excel file after deletion
      * @param lastRedundantRow last row in excel file before deletion
      */
     public void deleteRowsWordBankSheet(int lastRow, int lastRedundantRow) {
@@ -384,7 +382,8 @@ public class Storage {
 
     /**
      * Deletes multiple of redundant rows in TagBank sheet in excel file after DeleteCommand.
-     * @param lastRow last row in excel file after deletion
+     *
+     * @param lastRow          last row in excel file after deletion
      * @param lastRedundantRow last row in excel file before deletion
      */
     public void deleteRowsTagBankSheet(int lastRow, int lastRedundantRow) {
@@ -443,8 +442,7 @@ public class Storage {
                 if (cell == null) {
                     cell = row.createCell(1);
                 }
-
-                resizeCellAndSetValue(String.join(", ", allWordsOfTag), workbook, sheet, 1, cell);
+                cell.setCellValue(String.join(", ", allWordsOfTag));
             }
 
             sheet.autoSizeColumn(0);
@@ -497,7 +495,7 @@ public class Storage {
                     cell = row.createCell(1);
                 }
 
-                resizeCellAndSetValue(allWords[i - 1].getMeaning(), workbook, sheet, 1, cell);
+                cell.setCellValue(allWords[i - 1].getMeaning());
             }
 
             sheet.autoSizeColumn(0);
@@ -512,16 +510,6 @@ public class Storage {
             createExcelFile();
         } catch (IOException | InvalidFormatException e) {
             e.printStackTrace();
-        }
-    }
-
-    private void resizeCellAndSetValue(String string, Workbook workbook, Sheet sheet, int colIdx, Cell cell) {
-        if (string.length() >= 20) {
-            sheet.setColumnWidth(colIdx, MAX_ALLOWED_CELL_WIDTH);
-            CellStyle style = workbook.createCellStyle();
-            style.setWrapText(true);
-            cell.setCellStyle(style);
-            cell.setCellValue(string);
         }
     }
 }
