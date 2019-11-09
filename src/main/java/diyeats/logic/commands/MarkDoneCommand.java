@@ -66,8 +66,7 @@ public class MarkDoneCommand extends Command {
         ui.showLine();
         if (index <= 0 || index > meals.getMealsList(currentDate).size()) {
             ui.showMessage("Index provided out of bounds for list of meals on " + currentDate);
-        }
-        else {
+        } else {
             Meal currentMeal = meals.getMeal(currentDate, index);
             String foodCostStr = currentMeal.getCostStr();
             Payment payment = new Payment(foodCostStr, currentMeal.getDate());

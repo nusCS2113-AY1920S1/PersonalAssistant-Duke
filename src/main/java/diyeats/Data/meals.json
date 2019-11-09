@@ -1,4 +1,39 @@
 {
+  "2019-11-10": [
+    {
+      "description": "roti",
+      "type": "B",
+      "mealType": "BREAKFAST",
+      "isDone": false,
+      "date": "2019-11-10",
+      "nutritionValue": {
+        "calorie": 200
+      },
+      "costStr": "0"
+    },
+    {
+      "description": "prata",
+      "type": "D",
+      "mealType": "DINNER",
+      "isDone": false,
+      "date": "2019-11-10",
+      "nutritionValue": {
+        "calorie": 100
+      },
+      "costStr": "2.5"
+    },
+    {
+      "description": "beef noodle",
+      "type": "L",
+      "mealType": "LUNCH",
+      "isDone": false,
+      "date": "2019-11-10",
+      "nutritionValue": {
+        "calorie": 400
+      },
+      "costStr": "3.0"
+    }
+  ],
   "2019-11-08": [
     {
       "description": "prata",
