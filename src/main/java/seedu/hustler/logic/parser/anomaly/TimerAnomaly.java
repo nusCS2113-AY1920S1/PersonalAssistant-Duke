@@ -2,6 +2,7 @@ package seedu.hustler.logic.parser.anomaly;
 
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.ui.Ui;
+import seedu.hustler.Hustler;
 
 /**
  * Detects timer anomalies in user input.
@@ -18,6 +19,10 @@ public class TimerAnomaly extends DetectAnomaly {
 
         Ui ui = new Ui();
 
+        if (Hustler.timermanager.isRunning()) {
+            throw new CommandLineException("Timer already running. Please use /stoptimer to stop the current timer.");
+        }
+
         //detects if the /timer command is followed with any arguments.
         if (userInput.length == 1) {
             throw new CommandLineException("Timer format should be: 'timer <integer> <integer> <integer>'!");
@@ -29,6 +34,14 @@ public class TimerAnomaly extends DetectAnomaly {
         //seconds). For example, 'timer 1' and 'timer 1 2 3 4' are invalid inputs.
         if (timeParts.length != 3) {
             throw new CommandLineException("Timer format should be: 'timer <integer> <integer> <integer>'!");
+        }
+
+        int hours = Integer.parseInt(timeParts[0]);
+        int minutes = Integer.parseInt(timeParts[1]);
+        int seconds = Integer.parseInt(timeParts[1]);
+
+        if (hours < 0 || minutes < 0 || seconds < 0) {
+            throw new CommandLineException("Hours, minutes and seconds should be positive integers.");
         }
 
         //detects whether the relevant arguments are non-integers. For example, 'timer winter cheese sofa' is a invalid input.

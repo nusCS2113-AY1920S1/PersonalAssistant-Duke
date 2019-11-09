@@ -4,6 +4,7 @@ import seedu.hustler.Hustler;
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.logic.command.Command;
 import seedu.hustler.logic.parser.anomaly.DeleteAnomaly;
+import seedu.hustler.schedule.Scheduler;
 import seedu.hustler.ui.Ui;
 
 /**
@@ -38,9 +39,11 @@ public class DeleteCommand extends Command {
             anomaly.detect(userInput);
             if (userInput[1].equals("all")) {
                 Hustler.list.clearList();
+                Scheduler.schedule.clear();
                 return;
             } else if (userInput[1].equals("done")) {
                 Hustler.list.clearDone();
+                Scheduler.schedule.clear();
                 return;
             }
             int taskIndex = Integer.parseInt(userInput[1]) - 1;
