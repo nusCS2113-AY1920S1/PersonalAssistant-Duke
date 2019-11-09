@@ -97,9 +97,9 @@ public class EditCommand extends Command {
             }
         }
         else { // one shot command
-            String[] descriptionString = userSubstring.split("description");
-            String[] homeworkDateString = userSubstring.split("/by");
-            String[] eventPeriodString = userSubstring.split("/at");
+            String[] descriptionString = userSubstring.split("description",2);
+            String[] homeworkDateString = userSubstring.split("/by",2);
+            String[] eventPeriodString = userSubstring.split("/at",2);
             if (descriptionString.length == 2 ){
                 t = getEditTask(descriptionString[0].trim(),tasks,false);
                 t.setTask(descriptionString[1].trim());
@@ -139,7 +139,7 @@ public class EditCommand extends Command {
     private void editEventDate(Task t, TaskList tasks, String period) throws EmptyEventDateException,
             NonExistentDateException, ConflictDateException, DateComparisonEventException {
         EventsTask eventsTask = (EventsTask) t;
-        String[] dateString = period.split(" - ");
+        String[] dateString = period.split(" - ",2);
         if (dateString.length == 1) {
             throw new EmptyEventDateException();
         } else if (dateString[0].isBlank() || dateString[1].isBlank()) {

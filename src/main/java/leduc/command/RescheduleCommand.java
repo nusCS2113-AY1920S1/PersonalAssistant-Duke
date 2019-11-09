@@ -52,7 +52,7 @@ public class RescheduleCommand extends Command {
         if(userSubstring.isBlank()){
             throw new EmptyArgumentException();
         }
-        String[] rescheduleString = userSubstring.split("/at");
+        String[] rescheduleString = userSubstring.split("/at",2);
         if (rescheduleString.length == 1) { // no /by in input
             throw new EmptyEventDateException();
         }
@@ -72,7 +72,7 @@ public class RescheduleCommand extends Command {
                 throw new EventTypeException();
             }
             EventsTask rescheduleEventTask = (EventsTask) rescheduleTask;
-            String[] dateString = rescheduleString[1].split(" - ");
+            String[] dateString = rescheduleString[1].split(" - ",2);
             if(dateString.length == 1){
                 throw new EmptyEventDateException();
             }
