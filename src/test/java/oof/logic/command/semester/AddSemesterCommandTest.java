@@ -146,7 +146,7 @@ public class AddSemesterCommandTest {
         new Oof().executeCommand("semester /add 19/20 /name Semester 2 /from 05-01-2020 /to 05-05-2020");
         SemesterList semesterList = new Oof().getSemesterList();
         Semester semester = semesterList.getSemester(semesterList.getSize() - 1);
-        assertEquals("Academic Year 19/20, Semester 2 (05-01-2020-05-05-2020)", semester.toString());
+        assertEquals("Academic Year 19/20, Semester 2 (05-01-2020 to 05-05-2020)", semester.toString());
         new Oof().executeCommand("semester /delete " + (semesterList.getSize()));
     }
 }
